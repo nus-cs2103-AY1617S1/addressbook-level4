@@ -1,0 +1,23 @@
+diff a/src/main/java/tars/commons/util/DateTimeUtil.java b/src/main/java/tars/commons/util/DateTimeUtil.java	(rejected hunks)
+@@ -174,21 +174,20 @@
+          int counter = 1;
+  
+          for (DateTime dt : listOfFreeTimeSlotsInDate) {
+ -            sb.append("\n").append(counter).append(". ").append(dt.getStartDate().format(stringFormatterWithoutDate))
+ -                    .append("hrs to ").append(dt.getEndDate().format(stringFormatterWithoutDate)).append("hrs (")
+ -                    .append(getDurationInMinutesBetweenTwoLocalDateTime(dt.getStartDate(), dt.getEndDate()))
+ -                    .append(")");
+ -
+ +            sb.append(StringUtil.STRING_NEWLINE).append(counter).append(StringUtil.STRING_FULLSTOP)
+ +            .append(dt.getStartDate()
+ +                    .format(stringFormatterWithoutDate))
+ +            .append("hrs to ")
+ +            .append(dt.getEndDate().format(stringFormatterWithoutDate))
+ +            .append("hrs (")
+ +            .append(getDurationInMinutesBetweenTwoLocalDateTime(
+ +                    dt.getStartDate(), dt.getEndDate()))
+ +            .append(")");
+- 
+              counter++;
+          }
+  

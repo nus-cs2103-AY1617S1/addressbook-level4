@@ -11,7 +11,7 @@ public class Name {
     public static final String MESSAGE_NAME_CONSTRAINTS = "Task names should be spaces "
             + "or alphanumeric characters "
             + "or these special characters: !@#$%^&*)(";
-    public static final String NAME_VALIDATION_REGEX = "^[a-zA-Z0-9 !@#$%^&*)(]*$";
+    public static final String NAME_VALIDATION_REGEX = "^[a-zA-Z0-9 !@#$%^&*)(']*$";
 
     public String taskName;
 

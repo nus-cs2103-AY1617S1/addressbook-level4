@@ -2,6 +2,9 @@ package tars.logic.commands;
 
 import java.util.Set;
 
+import tars.commons.core.EventsCenter;
+import tars.commons.events.ui.ScrollToTopEvent;
+
 import static tars.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 /**
@@ -38,6 +41,7 @@ public class ListCommand extends Command {
 
 	@Override
 	public CommandResult execute() {
+	    EventsCenter.getInstance().post(new ScrollToTopEvent());
 		if (keywords != null && !keywords.isEmpty()) {
 			if (keywords.contains(LIST_ARG_DATETIME) || keywords.contains(LIST_ARG_PRIORITY)
 					|| keywords.contains(LIST_KEYWORD_DESCENDING)) {

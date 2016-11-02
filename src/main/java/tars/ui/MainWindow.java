@@ -205,7 +205,7 @@ public class MainWindow extends UiPart {
                 resultDisplay, logic);
         helpPanel = HelpPanel.load(primaryStage, getHelpPanelPlaceholder());
         thisWeekPanel = ThisWeekPanel.load(primaryStage,
-                getThisWeekPanelPlaceholder(), logic.getFilteredTaskList());
+                getThisWeekPanelPlaceholder(), logic.getTaskList());
     }
 
     /**

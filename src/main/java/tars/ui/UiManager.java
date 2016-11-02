@@ -11,6 +11,7 @@ import tars.commons.core.ComponentManager;
 import tars.commons.core.Config;
 import tars.commons.core.LogsCenter;
 import tars.commons.events.storage.DataSavingExceptionEvent;
+import tars.commons.events.ui.ScrollToTopEvent;
 import tars.commons.events.ui.ShowHelpRequestEvent;
 import tars.commons.events.ui.TaskAddedEvent;
 import tars.commons.util.StringUtil;
@@ -25,6 +26,7 @@ import java.util.logging.Logger;
 public class UiManager extends ComponentManager implements Ui {
     private static final Logger logger = LogsCenter.getLogger(UiManager.class);
     private static final String ICON_APPLICATION = "/images/tars_icon_32.png";
+    private static final int TOP_OF_LIST = 0;
 
     private Logic logic;
     private Config config;
@@ -129,6 +131,13 @@ public class UiManager extends ComponentManager implements Ui {
         logger.info(LogsCenter.getEventHandlingLogMessage(event,
                 "Scrolling to newly added task"));
         mainWindow.getTaskListPanel().scrollTo(event.targetIndex);
+    }
+    
+    @Subscribe
+    private void handleScrollToTopEvent(ScrollToTopEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event,
+                "Scrolling to top"));
+        mainWindow.getTaskListPanel().scrollTo(TOP_OF_LIST);
     }
 
 }

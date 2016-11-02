@@ -1,5 +1,8 @@
 package tars.ui;
 
+import java.util.ArrayList;
+
+import edu.emory.mathcs.backport.java.util.Collections;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.fxml.FXML;
@@ -8,6 +11,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
+import tars.model.task.DateTime;
 import tars.model.task.rsv.RsvTask;
 
 /**
@@ -74,7 +78,9 @@ public class RsvTaskCard extends UiPart {
     }
 
     private void setDateTimeList() {
-        String toSet = Formatter.formatDateTimeList(rsvTask);
+        ArrayList<DateTime> dateTimeList = rsvTask.getDateTimeList();
+        Collections.sort(dateTimeList);
+        String toSet = Formatter.formatDateTimeList(dateTimeList);
         dateTimeListdisplayed.setValue(toSet);
     }
 

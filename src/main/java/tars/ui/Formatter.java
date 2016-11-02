@@ -3,7 +3,6 @@ package tars.ui;
 import java.util.ArrayList;
 import java.util.List;
 
-import javafx.collections.ObservableList;
 import tars.commons.util.StringUtil;
 import tars.model.tag.ReadOnlyTag;
 import tars.model.task.DateTime;
@@ -85,19 +84,15 @@ public class Formatter {
     }
 
     /**
-     * Formats a given RsvTask to display reserved dateTimes as a list
+     * Formats a given RsvTask dateTime list to display
      * 
      * @@author A0121533W
      */
-    public static String formatDateTimeList(RsvTask rsvTask) {
-        String formatted = StringUtil.EMPTY_STRING;
-        ArrayList<DateTime> dateTimeArrayList = rsvTask.getDateTimeList();
+    public static String formatDateTimeList(ArrayList<DateTime> dateTimeList) {
+        String formatted = "";
         int count = 1;
-        for (DateTime dt : dateTimeArrayList) {
-            formatted += StringUtil.STRING_SQUARE_BRACKET_OPEN + count
-                    + StringUtil.STRING_SQUARE_BRACKET_CLOSE
-                    + StringUtil.STRING_WHITESPACE + dt.toString()
-                    + StringUtil.STRING_NEWLINE + StringUtil.STRING_NEWLINE;
+        for (DateTime dt : dateTimeList) {
+            formatted += "[" + count + "] " + dt.toString() + "\n\n";
             count++;
         }
         return formatted;
@@ -109,16 +104,15 @@ public class Formatter {
      * @@author A0121533W
      */
     public static String formatThisWeekPanelTasksList(
-            ObservableList<ReadOnlyTask> tasksList) {
-        String formatted = StringUtil.EMPTY_STRING;
-        for (ReadOnlyTask t : tasksList) {
+            List<ReadOnlyTask> overduedTasks) {
+        String formatted = "";
+        int count = 1;
+        for (ReadOnlyTask t : overduedTasks) {
             String taskName = t.getName().toString();
             if (!formatted.contains(taskName)) {
-                formatted += StringUtil.STRING_SQUARE_BRACKET_OPEN
-                        + t.getName().toString()
-                        + StringUtil.STRING_SQUARE_BRACKET_CLOSE
-                        + StringUtil.STRING_WHITESPACE;
+                formatted += "[" + count + "] " + t.getName().toString() + "\n";
             }
+            count++;
         }
         return formatted.trim();
     }

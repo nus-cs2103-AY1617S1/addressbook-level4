@@ -2,6 +2,8 @@ package tars.logic.commands;
 
 import java.util.ArrayList;
 
+import tars.commons.core.EventsCenter;
+import tars.commons.events.ui.ScrollToTopEvent;
 import tars.commons.util.StringUtil;
 import tars.model.task.TaskQuery;
 
@@ -48,6 +50,7 @@ public class FindCommand extends Command {
                     StringUtil.STRING_NEWLINE + "Quick Search Keywords: "
                             + quickSearchKeywords.toString();
         }
+        EventsCenter.getInstance().post(new ScrollToTopEvent());
         return new CommandResult(getMessageForTaskListShownSummary(
                 model.getFilteredTaskList().size()) + searchKeywords);
     }
