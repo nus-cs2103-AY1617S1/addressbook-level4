@@ -22,6 +22,7 @@ import javafx.util.Pair;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.StringUtil;
+import seedu.address.logic.commands.AddAliasCommand;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
@@ -37,13 +38,27 @@ import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SetStorageCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.parser.ArgumentTokenizer.Prefix;
+import seedu.address.model.AliasManager;
+import seedu.address.model.Model;
+import seedu.address.model.ModelManager;
+import seedu.address.model.alias.Alias;
 
 public class Parser {
-	// @@author A0141019U	
+	// @@author A0141019U
+	private Model model;
+	
 	private static final Logger logger = LogsCenter.getLogger(Parser.class);
 	
 	private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
+	
+	private static final Pattern ADD_ALIAS_COMMAND_FORMAT = Pattern
+			.compile("\\s*'(?<alias>(\\s*\\S+)+)\\s*'\\s*=\\s*'(?<originalPhrase>(\\s*\\S+)+)\\s*'\\s*");
 
+	//@@author A0143756Y
+	private static final Pattern SET_STORAGE_ARGS_FORMAT = Pattern.compile
+			("(?<folderFilePath>(\\s*[^\\s+])+)\\s+save-as\\s+(?<fileName>(\\s*[^\\s+])+)");
+	
+	//@@author A0141019U
 	private static final Prefix namePrefix = new Prefix("'");
 	private static final Prefix startDateTimePrefix = new Prefix("from ");
 	private static final Prefix endDateTimePrefix = new Prefix("to ");
@@ -51,15 +66,15 @@ public class Parser {
 	private static final Prefix datePrefix = new Prefix("on ");
 	private static final Prefix tagsPrefix = new Prefix("#");
 	
-	//@@author A0143756Y
-	private static final Pattern SET_STORAGE_ARGS_FORMAT = Pattern.compile
-			("(?<folderFilePath>(\\s*[^\\s+])+)\\s+save-as\\s+(?<fileName>(\\s*[^\\s+])+)");
+	public Parser(Model model) {
+		this.model = model;
+	}
 	
-	//@@author A0141019U
+	//@@author A0141019U-reused
 	public Command parseCommand(String userInput) {
-		// String replacedInput = replaceAliases(userInput);
+		 String replacedInput = replaceAliases(userInput);
 		
-		final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
+		final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(replacedInput.trim());
 		if (!matcher.matches()) {
 			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
 		}
@@ -85,6 +100,9 @@ public class Parser {
 
 		case EditCommand.COMMAND_WORD:
 			return prepareEdit(arguments);
+		
+		case AddAliasCommand.COMMAND_WORD:
+			return prepareAddAlias(arguments);
 			
 		case SetStorageCommand.COMMAND_WORD:
 			return prepareSetStorage(arguments);	
@@ -109,35 +127,36 @@ public class Parser {
 
 		case RedoCommand.COMMAND_WORD:
 			return new RedoCommand();
-
+			
 		default:
 			return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
 		}
 	}
-	
-	
-	// @@author A0141019U
+
+	// @@author A0141019U	
 	private String replaceAliases(String userInput) {
-		List<String> keyStub = new ArrayList<>();
-		keyStub.add("labdi");
-		keyStub.add("k");
-		List<String> valueStub = new ArrayList<>();
-		valueStub.add("list");
-		valueStub.add("pending");
+		List<Alias> aliasList = this.model.getAliasList();
+		List<String> aliases = new ArrayList<>(); 
+		List<String> originals = new ArrayList<>(); 
 		
-		for (int i=0; i<keyStub.size(); i++) {
-			String alias = keyStub.get(i);
-			
-			// Does not replace arguments to find
-			if (userInput.contains(alias) && !userInput.contains("find")) {
+		for (Alias aliasObj : aliasList) {
+			aliases.add(aliasObj.getAlias());
+			originals.add(aliasObj.getOriginalPhrase());
+		}
+		
+		for (int i=0; i<aliases.size(); i++) {
+			String alias = aliases.get(i);
+			System.out.println("alias: " + alias);
+			// Does not replace arguments in find command or within quotes			
+			if (userInput.contains(alias) && !userInput.matches(".*'.*(" + alias + ").*'.*") && !userInput.contains("find")) {
 				System.out.println("match");
-				userInput = userInput.replace(alias, valueStub.get(i));
+				userInput = userInput.replace(alias, originals.get(i));
 			}
 		}
 		
 		System.out.println("userInput: " + userInput);
 		
-		return null;
+		return userInput;
 	}
 	
 	
@@ -495,6 +514,26 @@ public class Parser {
 
 		return new ChangeStatusCommand(doneIndices, newStatus);
 	}
+	
+	//@@author A0143756Y
+	/**
+     * Parses arguments in the context of the set alias task command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     */
+    private Command prepareAddAlias(String arguments) {
+        final Matcher matcher = ADD_ALIAS_COMMAND_FORMAT.matcher(arguments.trim());
+    	
+    	if(!matcher.matches()){	
+        	return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddAliasCommand.MESSAGE_USAGE));
+        }
+    	
+    	final String alias = matcher.group("alias").trim();
+    	final String originalPhrase = matcher.group("originalPhrase").trim();
+        
+        return new AddAliasCommand(alias, originalPhrase);
+    }
 
 	//@@author A0141019U
 	/**
@@ -526,7 +565,7 @@ public class Parser {
     }
 
 	public static void main(String[] args) {
-		Parser p = new Parser();
+		Parser p = new Parser(new ModelManager());
 //		p.parseCommand("add 'dd' by 5pm today");
 		p.replaceAliases("find k");
 	}

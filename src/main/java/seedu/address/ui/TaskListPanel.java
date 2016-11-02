@@ -10,6 +10,7 @@ import javafx.scene.control.SplitPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import seedu.address.model.alias.ReadOnlyAlias;
 import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.TaskType;
 import seedu.address.commons.core.LogsCenter;
@@ -27,6 +28,8 @@ public class TaskListPanel extends UiPart {
 
     @FXML
     private ListView<ReadOnlyTask> taskListView;
+    @FXML
+    private ListView<ReadOnlyAlias> aliasListView;
 
     public TaskListPanel() {
         super();
@@ -51,24 +54,53 @@ public class TaskListPanel extends UiPart {
         this.placeHolderPane = pane;
     }
 
-    public static TaskListPanel load(Stage primaryStage, AnchorPane taskListPlaceholder,
+    public static TaskListPanel loadTaskList(Stage primaryStage, AnchorPane taskListPlaceholder,
                                        ObservableList<ReadOnlyTask> taskList) {
         TaskListPanel taskListPanel =
                 UiPartLoader.loadUiPart(primaryStage, taskListPlaceholder, new TaskListPanel());
-        taskListPanel.configure(taskList);
+        taskListPanel.configureTask(taskList);
+        taskListPanel.hideAliasListViewSize();
         return taskListPanel;
     }
-
-    private void configure(ObservableList<ReadOnlyTask> taskList) {
-        setConnections(taskList);
+    
+    private void configureTask(ObservableList<ReadOnlyTask> taskList) {
+        setTaskConnections(taskList);
         addToPlaceholder();
     }
-
-    private void setConnections(ObservableList<ReadOnlyTask> taskList) {
+    
+    private void setTaskConnections(ObservableList<ReadOnlyTask> taskList) {
         taskListView.setItems(taskList);
         taskListView.setCellFactory(listView -> new TaskListViewCell());
     }
+    
+    //@@author A0142184L
+    private void hideAliasListViewSize() {
+    	aliasListView.setMaxHeight(0.0);
+	}
 
+	public static TaskListPanel loadAliasList(Stage primaryStage, AnchorPane taskListPlaceholder,
+                                       ObservableList<ReadOnlyAlias> aliasList) {
+    	TaskListPanel taskListPanel = UiPartLoader.loadUiPart(primaryStage, taskListPlaceholder, new TaskListPanel());
+        taskListPanel.configureAlias(aliasList);
+        taskListPanel.hideTaskListViewSize();
+        return taskListPanel;
+    }
+	
+    private void hideTaskListViewSize() {
+    	taskListView.setMaxHeight(0.0);
+	}
+    
+    private void configureAlias(ObservableList<ReadOnlyAlias> aliasList) {
+        setAliasConnections(aliasList);
+        addToPlaceholder();
+    }
+    
+    private void setAliasConnections(ObservableList<ReadOnlyAlias> aliasList) {
+        aliasListView.setItems(aliasList);
+        aliasListView.setCellFactory(listView -> new AliasListViewCell());
+    }
+    
+    //@@author
     private void addToPlaceholder() {
         SplitPane.setResizableWithParent(placeHolderPane, false);
         placeHolderPane.getChildren().add(panel);
@@ -104,5 +136,23 @@ public class TaskListPanel extends UiPart {
             }
         }
     }
+    
+    //@@author A0142184L
+    class AliasListViewCell extends ListCell<ReadOnlyAlias> {
 
+        public AliasListViewCell() {
+        }
+
+        @Override
+        protected void updateItem(ReadOnlyAlias alias, boolean empty) {
+            super.updateItem(alias, empty);
+
+            if (empty || alias == null) {
+                setGraphic(null);
+                setText(null);
+            } else {
+                setGraphic(AliasCard.load(alias, getIndex() + 1).getLayout());
+            }
+        }
+     }
 }

@@ -3,6 +3,8 @@ package seedu.address.logic.commands;
 import java.util.Optional;
 import java.util.function.Predicate;
 
+import seedu.address.commons.core.EventsCenter;
+import seedu.address.commons.events.ui.DisplayTaskListEvent;
 import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.ReadOnlyTaskFilter;
 
@@ -33,6 +35,8 @@ public class ListCommand extends Command {
 
     @Override
     public CommandResult execute() {
+    	EventsCenter.getInstance().post(new DisplayTaskListEvent(model.getFilteredTaskList()));
+    	
     	Predicate <ReadOnlyTask> taskTypePredicate = null;
     	Predicate <ReadOnlyTask> donePredicate = null;
     	

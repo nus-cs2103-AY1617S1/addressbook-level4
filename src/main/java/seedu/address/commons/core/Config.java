@@ -16,6 +16,7 @@ public class Config {
     private Level logLevel = Level.INFO;
     private String userPrefsFilePath = "preferences.json";
     private String taskManagerFilePath = "data/taskmanager.xml";
+    private String aliasManagerFilePath = "data/aliasmanager.xml";
     private String taskManagerName = "MyTaskManager";
 
 
@@ -66,6 +67,16 @@ public class Config {
     public void setTaskManagerFilePath(String taskManagerFilePath) {
         this.taskManagerFilePath = taskManagerFilePath;
     }
+    
+    //@@author A0143756Y
+    public String getAliasManagerFilePath() {
+    	return aliasManagerFilePath;
+    }
+    
+    public void setAliasManagerFilePath(String aliasManagerFilePath) {
+    	this.aliasManagerFilePath = aliasManagerFilePath;
+    }
+    //@@author
 
     public String getTaskManagerName() {
         return taskManagerName;

@@ -1,17 +1,25 @@
 package seedu.address.model;
 
+import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.util.Pair;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.commons.util.ConfigUtil;
 import seedu.address.commons.util.StringUtil;
+<<<<<<< HEAD
 import seedu.address.logic.commands.SetStorageCommand;
+=======
+import seedu.address.commons.events.model.AliasManagerChangedEvent;
+>>>>>>> master
 import seedu.address.commons.events.model.TaskManagerChangedEvent;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.Config;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.TaskFilter;
+import seedu.address.model.alias.Alias;
+import seedu.address.model.alias.ReadOnlyAlias;
+import seedu.address.model.alias.UniqueAliasList;
 import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.ReadOnlyTaskFilter;
 import seedu.address.model.task.Status;
@@ -25,6 +33,7 @@ import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.EmptyStackException;
+import java.util.List;
 import java.util.Set;
 import java.util.Stack;
 import java.util.function.Predicate;
@@ -39,7 +48,9 @@ public class ModelManager extends ComponentManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private final TaskManager taskManager;
+    private final AliasManager aliasManager;
     private final FilteredList<Task> filteredTasks;
+    private final FilteredList<Alias> filteredAliases;
     private final Config config;
     private Stack<TaskManager> stateHistory;
     private Stack<TaskManager> undoHistory;
@@ -48,23 +59,34 @@ public class ModelManager extends ComponentManager implements Model {
      * Initializes a ModelManager with the given TaskManager
      * TaskManager and its variables should not be null
      */
-    public ModelManager(TaskManager src, Config config, UserPrefs userPrefs) {
+
+    public ModelManager(TaskManager taskManager, Config config, UserPrefs userPrefs, AliasManager aliasManager) {
         super();
-        assert src != null;
+        assert taskManager != null;
         assert userPrefs != null;
+        assert aliasManager != null;
 
-        logger.fine("Initializing with task manager: " + src + " and user prefs " + userPrefs);
+        logger.fine("Initializing with task manager: " + taskManager + ", user prefs " + userPrefs 
+        		+ "and alias manager: " + aliasManager);
 
-        taskManager = new TaskManager(src);
+        this.taskManager = new TaskManager(taskManager);
+        this.aliasManager = new AliasManager(aliasManager);
         filteredTasks = new FilteredList<>(taskManager.getFilteredTasks());
+        filteredAliases = new FilteredList<>(aliasManager.getInternalList());
         stateHistory = new Stack<>();
         undoHistory = new Stack<>();
         this.config = config;
     }
 
-    public ModelManager(ReadOnlyTaskManager initialData, Config config, UserPrefs userPrefs) {
-        taskManager = new TaskManager(initialData);
+    public ModelManager() {
+        this(new TaskManager(), new Config(), new UserPrefs(), new AliasManager());
+    }
+
+    public ModelManager(ReadOnlyTaskManager initialTaskManagerData, Config config, UserPrefs userPrefs, ReadOnlyAliasManager initialAliasManagerData) {
+        taskManager = new TaskManager(initialTaskManagerData);
+        aliasManager = new AliasManager(initialAliasManagerData);
         filteredTasks = new FilteredList<>(taskManager.getFilteredTasks());
+        filteredAliases = new FilteredList<>(aliasManager.getInternalList());
         stateHistory = new Stack<>();
         undoHistory = new Stack<>();
         this.config = config;
@@ -122,10 +144,15 @@ public class ModelManager extends ComponentManager implements Model {
     	return config.getTaskManagerFilePath();
     }
     //@@author
-    
-    /** Raises an event to indicate the model has changed */
+
+    /** Raises an event to indicate that the taskManager in model has changed */
     private void indicateTaskManagerChanged() {
         raise(new TaskManagerChangedEvent(taskManager));
+    }
+    
+    /** Raise an event to indicate that the aliasManager in model has changed */
+    private void indicateAliasManagerChanged() {
+    	raise(new AliasManagerChangedEvent(aliasManager));
     }
 
     @Override
@@ -151,6 +178,30 @@ public class ModelManager extends ComponentManager implements Model {
         indicateTaskManagerChanged();
     }
     
+    //@@author A0143756Y
+    @Override
+    public synchronized void addAlias(Alias aliasToAdd) throws UniqueAliasList.DuplicateAliasException {
+    	assert aliasToAdd != null;
+    	
+    	aliasManager.addAlias(aliasToAdd);
+    	indicateAliasManagerChanged();
+    }
+    
+    @Override
+    public synchronized boolean validateAliasforAddAliasCommand(String alias) {
+    	assert alias != null;
+    	assert !alias.isEmpty();
+    	
+    	ObservableList<Alias> aliasList = aliasManager.getInternalList();
+    	for(Alias currentAlias: aliasList){
+    		if(currentAlias.getAlias().contains(alias) || alias.contains(currentAlias.getAlias())){
+    			return false;
+    		}
+    	}
+    	
+    	return true;
+    }
+    
     //@@author A0141019U
     @Override
     public synchronized void checkForOverdueTasks() {
@@ -162,12 +213,12 @@ public class ModelManager extends ComponentManager implements Model {
     			System.out.println("now: " + now);
     			System.out.println("endDateee: " + task.getEndDate());
     			task.setStatus(new Status("overdue"));
-    		} else if(task.getStatus().isOverdue() && task.getEndDate().orElse(LocalDateTime.MIN).isAfter(now)) {
+    		} 
+    		else if (task.getStatus().isOverdue() && task.getEndDate().orElse(LocalDateTime.MIN).isAfter(now)) {
     			task.setStatus(new Status("pending"));
     		}
     	}
     }
-    //@@author
 
     //@@author A0143756Y
     @Override
@@ -216,12 +267,23 @@ public class ModelManager extends ComponentManager implements Model {
     //@@author 
     
     //=========== Filtered Task List Accessors ===============================================================
-
+    
+    public List<Alias> getAliasList() {
+    	return aliasManager.getInternalList();
+    }
+    //@@author
+    
     @Override
     public UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList() {
         return new UnmodifiableObservableList<>(filteredTasks);
     }
     
+    //@@author A0142184L
+    @Override
+    public UnmodifiableObservableList<ReadOnlyAlias> getFilteredAliasList() {
+        return new UnmodifiableObservableList<>(filteredAliases);
+    }
+    //@@author
     @Override
     public UnmodifiableObservableList<ReadOnlyTask> getUnfilteredTaskList() {
         return new UnmodifiableObservableList<>(taskManager.getFilteredTasks());
