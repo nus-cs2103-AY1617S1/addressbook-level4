@@ -3,6 +3,7 @@ package tars.ui;
 import java.util.ArrayList;
 import java.util.List;
 
+import tars.commons.util.StringUtil;
 import tars.model.tag.ReadOnlyTag;
 import tars.model.task.DateTime;
 import tars.model.task.ReadOnlyTask;
@@ -67,7 +68,7 @@ public class Formatter {
         int displayIndex = DISPLAYED_INDEX_OFFSET;
         for (String listItem : listItems) {
             formatted.append(getIndexedListItem(displayIndex++, listItem))
-                    .append("\n");
+                    .append(StringUtil.STRING_NEWLINE);
         }
         return formatted.toString();
     }

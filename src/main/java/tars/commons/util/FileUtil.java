@@ -82,8 +82,8 @@ public class FileUtil {
      */
     public static String getPath(String pathWithForwardSlash) {
         assert pathWithForwardSlash != null;
-        assert pathWithForwardSlash.contains("/");
-        return pathWithForwardSlash.replace("/", File.separator);
+        assert pathWithForwardSlash.contains(StringUtil.STRING_FORWARD_SLASH);
+        return pathWithForwardSlash.replace(StringUtil.STRING_FORWARD_SLASH, File.separator);
     }
 
     public static <T> void serializeObjectToJsonFile(File jsonFile,

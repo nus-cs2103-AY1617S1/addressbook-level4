@@ -60,7 +60,7 @@ public class FreeLogicCommandTest extends LogicCommandTest {
 
         StringBuilder sb = new StringBuilder();
 
-        sb.append("Saturday, 29/10/2016").append(":\n")
+        sb.append("Saturday, 29/10/2016").append(": \n")
                 .append("1. 0100hrs to 1400hrs (13 hr 0 min)\n")
                 .append("2. 1800hrs to 2359hrs (5 hr 59 min)");
 

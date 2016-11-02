@@ -177,7 +177,7 @@ public class DateTimeUtil {
         StringBuilder sb = new StringBuilder();
 
         sb.append(dateTime.getEndDate().getDayOfWeek()
-                .getDisplayName(TextStyle.FULL, Locale.ENGLISH)).append(", ")
+                .getDisplayName(TextStyle.FULL, Locale.ENGLISH)).append(StringUtil.STRING_COMMA)
         .append(dateTime.getEndDate()
                 .format(stringFormatterWithoutTime));
 
@@ -188,12 +188,12 @@ public class DateTimeUtil {
             ArrayList<DateTime> listOfFreeTimeSlotsInDate) {
         StringBuilder sb = new StringBuilder();
 
-        sb.append(getDayAndDateString(dateToCheck)).append(":");
+        sb.append(getDayAndDateString(dateToCheck)).append(StringUtil.STRING_COLON);
 
         int counter = 1;
 
         for (DateTime dt : listOfFreeTimeSlotsInDate) {
-            sb.append("\n").append(counter).append(". ")
+            sb.append(StringUtil.STRING_NEWLINE).append(counter).append(StringUtil.STRING_FULLSTOP)
             .append(dt.getStartDate()
                     .format(stringFormatterWithoutDate))
             .append("hrs to ")

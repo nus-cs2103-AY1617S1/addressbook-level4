@@ -110,7 +110,7 @@ public class ThisWeekPanel extends UiPart {
         }
         numUpcoming.setText(String.valueOf(count));
         if (count == 0) {
-            upcomingTasksList.setText("");
+            upcomingTasksList.setText(StringUtil.EMPTY_STRING);
         } else {
             setThisWeekPanelTaskList(count, upcomingTasks, upcomingTasksList);
         }
@@ -127,7 +127,7 @@ public class ThisWeekPanel extends UiPart {
         }
         numOverdue.setText(String.valueOf(count));
         if (count == 0) {
-            overduedTasksList.setText("");
+            overduedTasksList.setText(StringUtil.EMPTY_STRING);
         } else {
             setThisWeekPanelTaskList(count, overduedTasks, overduedTasksList);
         }

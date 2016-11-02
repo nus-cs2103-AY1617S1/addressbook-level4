@@ -18,8 +18,10 @@ public class StringUtil {
             "Unexpected error in geting index from String.";
 
     public static final String STRING_NEWLINE = "\n";
-    public static final String STRING_COLON = ":";
-    public static final String STRING_COMMA = ",";
+    public static final String STRING_COLON = ": ";
+    public static final String STRING_COMMA = ", ";
+    public static final String STRING_FULLSTOP = ". ";
+    public static final String STRING_FORWARD_SLASH = "/";
     public static final String STRING_SQUARE_BRACKET_OPEN = "[";
     public static final String STRING_SQUARE_BRACKET_CLOSE = "]";
     public static final String EMPTY_STRING = "";

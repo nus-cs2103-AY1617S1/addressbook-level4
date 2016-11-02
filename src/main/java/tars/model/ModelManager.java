@@ -462,7 +462,7 @@ public class ModelManager extends ComponentManager implements Model {
             if (taskQuery.getTagKeywordsAsList()
                     .get(StringUtil.START_INDEX) != StringUtil.EMPTY_STRING) {
                 String stringOfTags = task.tagsString()
-                        .replace(StringUtil.STRING_COMMA,
+                        .replace(StringUtil.STRING_COMMA.trim(),
                                 StringUtil.EMPTY_STRING)
                         .replace(StringUtil.STRING_SQUARE_BRACKET_OPEN,
                                 StringUtil.EMPTY_STRING)
@@ -503,7 +503,7 @@ public class ModelManager extends ComponentManager implements Model {
 
         @Override
         public String toString() {
-            return "name=" + String.join(", ", nameKeyWords);
+            return "name=" + String.join(StringUtil.STRING_COMMA, nameKeyWords);
         }
     }
 

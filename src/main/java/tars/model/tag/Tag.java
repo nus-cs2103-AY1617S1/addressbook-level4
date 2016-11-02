@@ -1,18 +1,20 @@
 package tars.model.tag;
 
 import tars.commons.exceptions.IllegalValueException;
+import tars.commons.util.StringUtil;
 
 /**
- * Represents a Tag in tars.
- * Guarantees: immutable; name is valid as declared in {@link #isValidTagName(String)}
+ * Represents a Tag in tars. Guarantees: immutable; name is valid as declared in
+ * {@link #isValidTagName(String)}
  */
 public class Tag implements ReadOnlyTag {
 
-    public static final String MESSAGE_TAG_CONSTRAINTS = "Tags names should be alphanumeric";
+    public static final String MESSAGE_TAG_CONSTRAINTS =
+            "Tags names should be alphanumeric";
     public static final String TAG_VALIDATION_REGEX = "\\p{Alnum}+";
 
     public String tagName;
-    
+
     public Tag() {}
 
     /**
@@ -28,7 +30,7 @@ public class Tag implements ReadOnlyTag {
         }
         this.tagName = name;
     }
-    
+
     /**
      * Copy constructor.
      * 
@@ -49,7 +51,7 @@ public class Tag implements ReadOnlyTag {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof Tag // instanceof handles nulls
-                && this.tagName.equals(((Tag) other).tagName)); // state check
+                        && this.tagName.equals(((Tag) other).tagName)); // state check
     }
 
     @Override
@@ -61,9 +63,10 @@ public class Tag implements ReadOnlyTag {
      * Format state as text for viewing.
      */
     public String toString() {
-        return '[' + tagName + ']';
+        return String.format(StringUtil.STRING_SQUARE_BRACKET_OPEN + "%s"
+                + StringUtil.STRING_SQUARE_BRACKET_CLOSE, tagName);
     }
-    
+
     @Override
     public String getAsText() {
         return tagName;

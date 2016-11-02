@@ -44,7 +44,7 @@ public class ConfigUtil {
                     Config.class);
         } catch (IOException e) {
             logger.warning(
-                    "Error reading from config file " + configFile + ": " + e);
+                    "Error reading from config file " + configFile + StringUtil.STRING_COLON + e);
             throw new DataConversionException(e);
         }
 

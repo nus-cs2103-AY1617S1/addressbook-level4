@@ -66,7 +66,9 @@ public class UiManager extends ComponentManager implements Ui {
 
     private void showFileOperationAlertAndWait(String description,
             String details, Throwable cause) {
-        final String content = details + ":\n" + cause.toString();
+        // final String content = details + ":\n" + cause.toString();
+        final String content = details + StringUtil.STRING_COLON
+                + StringUtil.STRING_NEWLINE + cause.toString();
         showAlertDialogAndWait(AlertType.ERROR, "File Op Error", description,
                 content);
     }

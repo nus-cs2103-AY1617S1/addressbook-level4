@@ -4,6 +4,8 @@ import java.awt.*;
 import java.io.Serializable;
 import java.util.Objects;
 
+import tars.commons.util.StringUtil;
+
 /**
  * A Serializable class that contains the GUI settings.
  */
@@ -22,7 +24,8 @@ public class GuiSettings implements Serializable {
         this.windowCoordinates = null; // null represent no coordinates
     }
 
-    public GuiSettings(Double windowWidth, Double windowHeight, int xPosition, int yPosition) {
+    public GuiSettings(Double windowWidth, Double windowHeight, int xPosition,
+            int yPosition) {
         this.windowWidth = windowWidth;
         this.windowHeight = windowHeight;
         this.windowCoordinates = new Point(xPosition, yPosition);
@@ -42,14 +45,14 @@ public class GuiSettings implements Serializable {
 
     @Override
     public boolean equals(Object other) {
-        if (other == this){
+        if (other == this) {
             return true;
         }
-        if (!(other instanceof GuiSettings)){ //this handles null as well.
+        if (!(other instanceof GuiSettings)) { // this handles null as well.
             return false;
         }
 
-        GuiSettings o = (GuiSettings)other;
+        GuiSettings o = (GuiSettings) other;
 
         return Objects.equals(windowWidth, o.windowWidth)
                 && Objects.equals(windowHeight, o.windowHeight)
@@ -63,10 +66,10 @@ public class GuiSettings implements Serializable {
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("Width : " + windowWidth + "\n");
-        sb.append("Height : " + windowHeight + "\n");
+        sb.append("Width : " + windowWidth + StringUtil.STRING_NEWLINE);
+        sb.append("Height : " + windowHeight + StringUtil.STRING_NEWLINE);
         sb.append("Position : " + windowCoordinates);
         return sb.toString();
     }

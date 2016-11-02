@@ -108,7 +108,7 @@ public class RsvLogicCommandTest extends LogicCommandTest {
                 String.format(RsvCommand.MESSAGE_SUCCESS, taskToRsv.toString())
                         + "\n" + MESSAGE_CONFLICTING_TASKS_WARNING
                         + "\nConflicts for "
-                        + taskToRsv.getDateTimeList().get(0).toString() + ":"
+                        + taskToRsv.getDateTimeList().get(0).toString() + ": "
                         + "\nRsvTask 1: " + rsvTaskA.toString();
 
         expectedTars.addRsvTask(rsvTaskA);
