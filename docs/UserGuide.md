@@ -269,7 +269,7 @@ Examples :
 
 - Updates the listed third task&#39;s PRIORITY to **high**.
 
-**        update 5 st/10:00**
+- **update 5 st/10:00**
 
 - Updates the listed fifth task&#39;s STARTTIME to **10:00**.
 
