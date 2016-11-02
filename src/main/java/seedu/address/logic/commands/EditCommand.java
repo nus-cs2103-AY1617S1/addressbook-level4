@@ -64,6 +64,7 @@ public class EditCommand extends Command{
             }
 
             ReadOnlyTask eventToEdit = lastShownEventList.get(targetIndex - 1);
+            
             try {
                 model.addToUndoStack();
                 model.getCommandHistory().add("edit");
@@ -81,6 +82,7 @@ public class EditCommand extends Command{
             model.changeTaskCategory();
             return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, category, targetIndex, editArgs));
         }
+        
         else if(category == 'D'){
             if (lastShownDeadlineList.size() < targetIndex) {
                 indicateAttemptToExecuteIncorrectCommand();
@@ -106,6 +108,7 @@ public class EditCommand extends Command{
             model.changeTaskCategory();
             return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, category, targetIndex, editArgs));
         }
+        
         else if(category == 'T'){
             if (lastShownTodoList.size() < targetIndex) {
                 indicateAttemptToExecuteIncorrectCommand();
