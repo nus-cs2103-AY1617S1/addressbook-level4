@@ -73,8 +73,7 @@ public class SetStorageCommandTest extends TaskManagerGuiTest {
     
 		String folderFilePath = testFolder.getRoot().getPath();
 		String fileName = "taskmanagerdata";
-		Path filePath = Paths.get(folderFilePath).resolve(fileName + ".xml");
-		Path folderPath;
+
 		runSetStorageCommand(folderFilePath, fileName);
     	assertSetStorageCommandSuccess(folderFilePath, fileName); //Throws IOException, DataConversionException
     	
@@ -82,6 +81,9 @@ public class SetStorageCommandTest extends TaskManagerGuiTest {
     
     	//folderFilePath = testFolder.getRoot().getPath();
     	//fileName = "taskmanagerdata";
+  
+		Path filePath = Paths.get(folderFilePath).resolve(fileName + ".xml");
+		
     	runSetStorageCommand(folderFilePath, fileName);
     	assertResultMessage(String.format(SetStorageCommand.MESSAGE_STORAGE_PREVIOUSLY_SET, filePath));
     	
@@ -89,22 +91,23 @@ public class SetStorageCommandTest extends TaskManagerGuiTest {
     	
     	folderFilePath = "<>:\"/\\|?*";
     	fileName = "taskmanagerdatainfo";
+    	
     	runSetStorageCommand(folderFilePath, fileName);
     	assertResultMessage(SetStorageCommand.MESSAGE_INVALID_PATH_EXCEPTION);
     	
     	//Folder specified by user does not exist
     	
     	folderFilePath = testFolder.getRoot().getPath().concat("\\nonExistentFolder");
-    	folderPath = Paths.get(folderFilePath);
     	//fileName = "taskmanagerdatainfo";
+    	Path folderPath = Paths.get(testFolder.getRoot().getPath()).resolve("nonExistentFolder");
     	runSetStorageCommand(folderFilePath, fileName);
     	assertResultMessage(String.format(SetStorageCommand.MESSAGE_FOLDER_DOES_NOT_EXIST, folderPath));
     	
     	//Folder file path given does not navigate to a folder/ directory
     	
     	folderFilePath = testFolder.getRoot().getPath().concat("\\taskmanager.xml");
-    	folderPath = Paths.get(folderFilePath);
     	//fileName = "taskmanagerdatainfo";
+    	folderPath = Paths.get(testFolder.getRoot().getPath()).resolve("taskmanager.xml");
     	runSetStorageCommand(folderFilePath, fileName);
     	assertResultMessage(String.format(SetStorageCommand.MESSAGE_FOLDER_NOT_DIRECTORY, folderPath));
     	
@@ -127,6 +130,8 @@ public class SetStorageCommandTest extends TaskManagerGuiTest {
     	try {
     		System.out.println("testConfig: " + testConfig.getTaskManagerFilePath());
     		Path newTaskManagerDataStorageFilePath = Paths.get(folderFilePath).resolve(fileName + ".xml");
+    		
+    		System.out.println("newTaskManagerDataStorageFilePath: " + newTaskManagerDataStorageFilePath);
     		
     		//Checks that new file with user-specified file name exists in user-specified data storage folder
             assertTrue(Files.exists(newTaskManagerDataStorageFilePath));
