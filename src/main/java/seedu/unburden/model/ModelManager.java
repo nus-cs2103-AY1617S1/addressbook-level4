@@ -55,15 +55,18 @@ public class ModelManager extends ComponentManager implements Model {
 
         listOfTask = new ListOfTask(src);
         filteredTasks = new FilteredList<>(listOfTask.getTasks());
+        updateFilteredTaskList(getAllUndone());
     }
 
     public ModelManager() {
         this(new ListOfTask(), new UserPrefs());
+        updateFilteredTaskList(getAllUndone());
     }
 
     public ModelManager(ReadOnlyListOfTask initialData, UserPrefs userPrefs) {
         listOfTask = new ListOfTask(initialData);
         filteredTasks = new FilteredList<>(listOfTask.getTasks());
+        updateFilteredTaskList(getAllUndone());
     }
     
     

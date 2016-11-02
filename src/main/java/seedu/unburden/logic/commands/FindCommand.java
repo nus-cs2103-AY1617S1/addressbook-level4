@@ -2,9 +2,12 @@ package seedu.unburden.logic.commands;
 
 import java.text.ParseException;
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 import seedu.unburden.commons.exceptions.IllegalValueException;
+import seedu.unburden.model.tag.UniqueTagList.DuplicateTagException;
+import seedu.unburden.model.task.ReadOnlyTask;
 import seedu.unburden.model.task.Task;
 
 /**
@@ -56,7 +59,7 @@ public class FindCommand extends Command {
 	}
 
 	@Override
-	public CommandResult execute() {
+	public CommandResult execute() throws DuplicateTagException, IllegalValueException {
 		switch (modeOfSearch) {
 		case "date":
 			model.updateFilteredTaskList(getDates(date));
@@ -64,6 +67,20 @@ public class FindCommand extends Command {
 		case "name":
 			model.updateFilteredTaskList(getTasksWithSameNameOrTags(keywords));
 		}
+		overdueOrNot();
 		return new CommandResult(getMessageForTaskListShownSummary(model.getFilteredTaskList().size()));
+	}
+	
+    //This method checks the entire list to check for overdue tasks
+	private void overdueOrNot() throws IllegalValueException, DuplicateTagException {
+		List<ReadOnlyTask> currentTaskList= model.getListOfTask().getTaskList();
+		for(ReadOnlyTask task : currentTaskList){
+			if(((Task) task).checkOverDue()){
+				((Task) task).setOverdue();
+			}
+			else{
+				((Task) task).setNotOverdue();
+			}
+		}
 	}
 }

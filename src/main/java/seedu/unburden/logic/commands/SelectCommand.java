@@ -1,10 +1,15 @@
 package seedu.unburden.logic.commands;
 
+import java.util.List;
+
 import seedu.unburden.commons.core.EventsCenter;
 import seedu.unburden.commons.core.Messages;
 import seedu.unburden.commons.core.UnmodifiableObservableList;
 import seedu.unburden.commons.events.ui.JumpToListRequestEvent;
+import seedu.unburden.commons.exceptions.IllegalValueException;
+import seedu.unburden.model.tag.UniqueTagList.DuplicateTagException;
 import seedu.unburden.model.task.ReadOnlyTask;
+import seedu.unburden.model.task.Task;
 
 /**
  * Selects a person identified using it's last displayed index from the address book.
@@ -27,7 +32,7 @@ public class SelectCommand extends Command {
     }
 
     @Override
-    public CommandResult execute() {
+    public CommandResult execute() throws DuplicateTagException, IllegalValueException {
 
         UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
 
@@ -37,8 +42,21 @@ public class SelectCommand extends Command {
         }
 
         EventsCenter.getInstance().post(new JumpToListRequestEvent(targetIndex - 1));
+        overdueOrNot();
         return new CommandResult(String.format(MESSAGE_SELECT_PERSON_SUCCESS, targetIndex));
 
     }
-
+    
+    //This method checks the entire list to check for overdue tasks
+   	private void overdueOrNot() throws IllegalValueException, DuplicateTagException {
+   		List<ReadOnlyTask> currentTaskList= model.getListOfTask().getTaskList();
+   		for(ReadOnlyTask task : currentTaskList){
+   			if(((Task) task).checkOverDue()){
+   				((Task) task).setOverdue();
+   			}
+   			else{
+   				((Task) task).setNotOverdue();
+   			}
+   		}
+   	}
 }

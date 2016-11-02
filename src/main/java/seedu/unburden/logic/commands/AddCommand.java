@@ -2,11 +2,14 @@ package seedu.unburden.logic.commands;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
+import javafx.collections.ObservableList;
 import seedu.unburden.commons.exceptions.IllegalValueException;
 import seedu.unburden.model.tag.Tag;
 import seedu.unburden.model.tag.UniqueTagList;
+import seedu.unburden.model.tag.UniqueTagList.DuplicateTagException;
 import seedu.unburden.model.task.*;
 
 /**
@@ -92,16 +95,34 @@ public class AddCommand extends Command {
 	}
 
 	@Override
-	public CommandResult execute() {
+	public CommandResult execute() throws IllegalValueException {
 		assert model != null;
 		try {
 			model.saveToPrevLists();
 			model.addTask(toAdd);
+			overdueOrNot();
 			return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
 		} catch (UniqueTaskList.DuplicateTaskException e) {
 			return new CommandResult(MESSAGE_DUPLICATE_TASK);
 		}
 
+	}
+
+	/**
+	 * @throws IllegalValueException
+	 * @throws DuplicateTagException
+	 */
+    //This method checks the entire list to check for overdue tasks
+	private void overdueOrNot() throws IllegalValueException, DuplicateTagException {
+		List<ReadOnlyTask> currentTaskList= model.getListOfTask().getTaskList();
+		for(ReadOnlyTask task : currentTaskList){
+			if(((Task) task).checkOverDue()){
+				((Task) task).setOverdue();
+			}
+			else{
+				((Task) task).setNotOverdue();
+			}
+		}
 	}
 
 }

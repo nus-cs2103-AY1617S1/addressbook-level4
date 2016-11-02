@@ -180,10 +180,10 @@ public class Date implements Comparable<Date> {
 		if (this.equals(date)) { // check if same date object or both dummy values
 			return 0;
 		}
-		else if (this.getFullDate() == "       ") { // check if this Date Object contains the dummy variable 
+		else if (this.getFullDate() == "") { // check if this Date Object contains the dummy variable 
 			return 1;
 		}
-		else if (date.getFullDate() == "       ") { // check if the Date Object compared to contains the dummy variable
+		else if (date.getFullDate() == "") { // check if the Date Object compared to contains the dummy variable
 			return -1;
 		}
 		

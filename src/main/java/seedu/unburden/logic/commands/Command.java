@@ -3,6 +3,7 @@ package seedu.unburden.logic.commands;
 import seedu.unburden.commons.core.EventsCenter;
 import seedu.unburden.commons.core.Messages;
 import seedu.unburden.commons.events.ui.IncorrectCommandAttemptedEvent;
+import seedu.unburden.commons.exceptions.IllegalValueException;
 import seedu.unburden.commons.events.storage.StoragePathChangedEvent;
 import seedu.unburden.model.Model;
 
@@ -26,8 +27,9 @@ public abstract class Command {
      * Executes the command and returns the result message.
      *
      * @return feedback message of the operation result for display
+     * @throws IllegalValueException 
      */
-    public abstract CommandResult execute();
+    public abstract CommandResult execute() throws IllegalValueException;
 
     /**
      * Provides any needed dependencies to the command.

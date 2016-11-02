@@ -1,8 +1,13 @@
 package seedu.unburden.logic.commands;
 
+import java.util.List;
+
 import seedu.unburden.commons.core.Messages;
 import seedu.unburden.commons.core.UnmodifiableObservableList;
+import seedu.unburden.commons.exceptions.IllegalValueException;
+import seedu.unburden.model.tag.UniqueTagList.DuplicateTagException;
 import seedu.unburden.model.task.ReadOnlyTask;
+import seedu.unburden.model.task.Task;
 import seedu.unburden.model.task.UniqueTaskList.TaskNotFoundException;
 
 /**
@@ -27,7 +32,7 @@ public class DeleteCommand extends Command {
 
 
     @Override
-    public CommandResult execute() {
+    public CommandResult execute() throws DuplicateTagException, IllegalValueException {
 
         UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
 
@@ -44,8 +49,21 @@ public class DeleteCommand extends Command {
         } catch (TaskNotFoundException pnfe) {
             assert false : "The target task cannot be missing";
         }
-
+        overdueOrNot();
         return new CommandResult(String.format(MESSAGE_DELETE_TASK_SUCCESS, taskToDelete));
     }
+    
+    //This method checks the entire list to check for overdue tasks
+    private void overdueOrNot() throws IllegalValueException, DuplicateTagException {
+		List<ReadOnlyTask> currentTaskList= model.getListOfTask().getTaskList();
+		for(ReadOnlyTask task : currentTaskList){
+			if(((Task) task).checkOverDue()){
+				((Task) task).setOverdue();
+			}
+			else{
+				((Task) task).setNotOverdue();
+			}
+		}
+	}
 
 }
