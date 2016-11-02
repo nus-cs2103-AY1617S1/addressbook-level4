@@ -32,7 +32,8 @@ import seedu.jimi.model.task.ReadOnlyTask;
 public class AgendaPanel extends UiPart{
     private final Logger logger = LogsCenter.getLogger(AgendaPanel.class);
     private static final String FXML = "AgendaPanel.fxml";
-    private static final String EMPTY_TABLE_MESSAGE = "There seems to be nothing here! Well done!";
+    private static final String EMPTY_TASK_TABLE_MESSAGE = "There seems to be no tasks here.";
+    private static final String EMPTY_EVENT_TABLE_MESSAGE = "There seems to be no events here.";
     private VBox panel;
     private AnchorPane placeHolderPane;
     
@@ -103,8 +104,8 @@ public class AgendaPanel extends UiPart{
         tasksTableView.setItems(this.tasksList);
         eventsTableView.setItems(this.eventsList);
         
-        tasksTableView.setPlaceholder(new Label(EMPTY_TABLE_MESSAGE));
-        eventsTableView.setPlaceholder(new Label(EMPTY_TABLE_MESSAGE));
+        tasksTableView.setPlaceholder(new Label(EMPTY_TASK_TABLE_MESSAGE));
+        eventsTableView.setPlaceholder(new Label(EMPTY_EVENT_TABLE_MESSAGE));
         
         
         tasksTableView.getColumns().setAll(tasksTableColumnId, 
