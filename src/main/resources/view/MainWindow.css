@@ -1,8 +1,18 @@
-/** @@author A0138862W */ 
+/** @@author A0138862W */
+* {
+    -fx-primary: #66D9EF; /* lightblue */
+    -fx-secondary: #FD971F; /* orange */
+    -fx-tertiary: #A6E22E; /* green */
+    -fx-quaternary: #F92672; /* pink */
+    -fx-quinary: #272822; /* black */
+    -fx-quinary-alt: #1f201b;
+}
+ 
 .table-view {
     -fx-base: #1d1d1d;
-    -fx-control-inner-background: #1d1d1d;
-    -fx-background-color: #1d1d1d;
+    -fx-control-inner-background: -fx-quinary;
+    -fx-control-inner-background-alt: -fx-quinary-alt;
+    -fx-background-color: -fx-quinary;
     -fx-table-cell-border-color: transparent;
     -fx-table-header-border-color: transparent;
     -fx-padding: 5;
@@ -18,9 +28,9 @@
 }
 
 .table-view .column-header .label {
-    -fx-font-size: 10pt;
+    -fx-font-size: 18px;
     -fx-font-family: "Verdana";
-    -fx-text-fill: lightGray;
+    -fx-text-fill: -fx-primary;
     -fx-alignment: center;
     -fx-opacity: 1;
 }
@@ -33,7 +43,7 @@
    -fx-background-color: black;
    -fx-table-cell-border-color: black;
    -fx-border-width: 2px 2px 2px 2px;
-   -fx-border-color: deepSkyBlue;
+   -fx-border-color: -fx-primary;
    -fx-border-style: dashed;
 }
 
@@ -41,18 +51,18 @@
     -fx-background-color: #3f3f3f;
     -fx-font-size: 12pt;
     -fx-font-family: "Lucida Console";
-    -fx-text-fill: deepSkyBlue;
+    -fx-text-fill: -fx-primary;
     -fx-border-radius: 0 0 0 0;
     -fx-background-radius: 0 0 0 0;
 }
 
 .tab-pane .tab-header-area .headers-region,
 .tab-pane .tab-header-area .tab-header-background{
-    -fx-background-color: #1d1d1d;
+    -fx-background-color: -fx-quinary;
 }
 
 .tab-pane .tab-header-area .tab{
-    -fx-background-color: #1d1d1d;
+    -fx-background-color: -fx-quinary;
 }
 
 .tab-pane .tab-header-area .tab-label{
@@ -62,12 +72,8 @@
 }
 
 .tab-pane .tab-header-area .tab:selected .tab-label{
-    -fx-text-fill: deepSkyBlue;
+    -fx-text-fill: -fx-primary;
     -fx-font-weight: bold;
-}
-
-.split-pane:horizontal > .split-pane-divider {
-    -fx-background-color: deepSkyBlue;
 }
 
 .text-area,
@@ -75,7 +81,7 @@
     -fx-background-color: #1d1d1d;
     -fx-font-size: 12pt;
     -fx-font-family: "Lucida Console";
-    -fx-text-fill: deepSkyBlue;
+    -fx-text-fill: -fx-primary;
 }
 
 .list-view{
@@ -94,7 +100,7 @@
 .list-cell{
     -fx-cell-size: 50;
     -fx-padding: 10 5 10 15;
-    -fx-background-color: #1d1d1d;
+    -fx-background-color: -x-quinary;
     -fx-text-fill: white;
 }
 
@@ -105,17 +111,17 @@
 .scroll-bar,
 .scroll-bar .decrement-button,
 .scroll-bar .increment-button{
-    -fx-background-color: #1d1d1d;
+    -fx-background-color: -fx-quinary;
 }
 
 .scroll-bar .thumb,
 .scroll-bar .decrement-button > .decrement-arrow,
 .scroll-bar .increment-button > .increment-arrow{
-    -fx-background-color: deepSkyBlue;
+    -fx-background-color: -fx-primary;
 }
 
 .action-history-item .title{
-    -fx-text-fill: deepSkyBlue;
+    -fx-text-fill: -fx-primary;
     -fx-font-weight: bold;
     -fx-font-size: 14px;
     -fx-font-style: normal;
@@ -123,7 +129,7 @@
 }
 
 .action-history-item .date{
-    -fx-text-fill: deepSkyBlue;
+    -fx-text-fill: -fx-primary;
     -fx-font-weight: normal;
     -fx-font-size: 10px;
     -fx-font-style: normal;
@@ -159,16 +165,16 @@
 }
 
 .tag{
-    -fx-background-color: green;
+    -fx-background-color: -fx-primary;
     -fx-background-radius: 30;
     -fx-background-insets: 0;
-    -fx-text-fill: white;
+    -fx-text-fill: -fx-quinary;
     -fx-font-size: 10px;
     -fx-font-weight: bold;
 }
 
 .tag-overdue{
-    -fx-background-color: red;
+    -fx-background-color: -fx-quaternary;
     -fx-background-radius: 30;
     -fx-background-insets: 0;
     -fx-text-fill: white;
@@ -177,7 +183,7 @@
 }
 
 .tag-happening{
-    -fx-background-color: orange;
+    -fx-background-color: -fx-secondary;
     -fx-background-radius: 30;
     -fx-background-insets: 0;
     -fx-text-fill: black;
@@ -196,15 +202,15 @@
 }
 
 .normal{
-    -fx-fill: deepSkyBlue;
+    -fx-fill: -fx-tertiary;
 }
 
 .overdue{
-    -fx-fill: red;
+    -fx-fill: -fx-quaternary;
 }
 
 .happening{
-    -fx-fill: orange;
+    -fx-fill: -fx-secondary;
 }
 
 .titled-pane,
@@ -221,7 +227,7 @@
 }
 
 .titled-pane > .title .text{
-    -fx-fill: deepSkyBlue;
+    -fx-fill: -fx-primary;
     -fx-font-family: "Lucida Console";
     -fx-font-style: oblique;
     -fx-font-weight: bold;
@@ -229,5 +235,5 @@
 }
 
 .titled-pane .title .arrow-button .arrow{
-    -fx-background-color: deepSkyBlue;
+    -fx-background-color: -fx-primary;
 }
