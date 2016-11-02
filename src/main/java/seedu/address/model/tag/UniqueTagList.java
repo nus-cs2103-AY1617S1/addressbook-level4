@@ -71,7 +71,7 @@ public class UniqueTagList implements Iterable<Tag> {
         internalList.addAll(source.internalList); // insulate internal list from changes in argument
     }
 
-    /**
+	/**
      * All tags in this list as a Set. This set is mutable and change-insulated against the internal list.
      */
     public Set<Tag> toSet() {

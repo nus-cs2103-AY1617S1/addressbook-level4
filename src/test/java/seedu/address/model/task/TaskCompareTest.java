@@ -20,8 +20,8 @@ public class TaskCompareTest {
 	
 	public TaskCompareTest() throws IllegalArgumentException, IllegalValueException {
 		TypicalTestTasks td = new TypicalTestTasks();
-		unsorted = Arrays.asList(td.getTypicalTasks());
-		sorted = Arrays.asList(td.getSortedTypicalTasks());
+		unsorted = Arrays.asList(td.getUnsortedTypicalTasks());
+		sorted = Arrays.asList(td.getTypicalTasks());
 	}
 	
 	

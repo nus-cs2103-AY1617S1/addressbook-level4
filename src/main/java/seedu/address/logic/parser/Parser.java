@@ -7,12 +7,18 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_TASK_DISPLAYED
 import java.text.ParseException;
 import java.time.LocalDateTime;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import javafx.util.Pair;
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.commands.AddAliasCommand;
@@ -34,20 +40,21 @@ import seedu.address.logic.parser.ArgumentTokenizer.Prefix;
 
 public class Parser {
 	// @@author A0141019U	
-	private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
+	private static final Logger logger = LogsCenter.getLogger(Parser.class);
 	
-	private static final Pattern ADD_COMMAND_FORMAT = Pattern
-			.compile("'(?<taskName>.*\\S*.*)'(?<addTaskArgs>.*)");
+	private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
 	
 	private static final Pattern ADD_ALIAS_COMMAND_FORMAT = Pattern
 			.compile("'(?<alias>(\\s*[^\\s+])+)\\s*'\\s*=\\s*'(?<originalPhrase>(\\s*[^\\s+])+)\\s*'");
-	
+
+	private static final Prefix namePrefix = new Prefix("'");
 	private static final Prefix startDateTimePrefix = new Prefix("from ");
 	private static final Prefix endDateTimePrefix = new Prefix("to ");
 	private static final Prefix dlEndDateTimePrefix = new Prefix("by ");
 	private static final Prefix datePrefix = new Prefix("on ");
+	private static final Prefix tagsPrefix = new Prefix("#");
 
-	
+ 	
 	//@@author A0141019U-reused
 	public Command parseCommand(String userInput) {
 		final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
@@ -109,25 +116,38 @@ public class Parser {
 	
 	// @@author A0141019U
 	private Command prepareAdd(String arguments) {
-		final Matcher matcher = ADD_COMMAND_FORMAT.matcher(arguments.trim());
-		if (!matcher.matches()) {
+		if (StringUtil.countOccurrences('\'', arguments) != 2) {
+			// TODO better error msg?
 			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 		}
-
-		final String name = matcher.group("taskName");
-		final String args = matcher.group("addTaskArgs");
 		
-		if (args.toLowerCase().contains("on")) {
-			return prepareAddEventSameDay(name, args);
+		Pair<String, String> nameAndArgs = separateNameAndArgs(arguments);
+		String taskName = nameAndArgs.getKey();
+		String args = nameAndArgs.getValue();
+
+		System.out.println("name: " + taskName);
+		System.out.println("args: " + args);
+		
+		String argsLowerCase = args.toLowerCase();	
+		
+		if (argsLowerCase.contains(" on ")
+				&& argsLowerCase.contains(" from ") 
+				&& argsLowerCase.contains(" to ")) {
+			logger.log(Level.FINEST, "Calling prepareAddEventSameDay");
+			return prepareAddEventSameDay(taskName, "event", args);
 		}
-		else if (args.toLowerCase().contains("to")) {
-			return prepareAddEventDifferentDays(name, args);
+		else if (argsLowerCase.contains(" from ")
+				&& argsLowerCase.contains(" to ")) {
+			logger.log(Level.FINEST, "Calling prepareAddEventDifferentDays");
+			return prepareAddEventDifferentDays(taskName, "event", args);
 		}
-		else if (args.toLowerCase().contains("by")) {
-			return prepareAddDeadline(name, args);
+		else if (argsLowerCase.contains(" by ")) {
+			logger.log(Level.FINEST, "Calling prepareAddDeadline");
+			return prepareAddDeadline(taskName, "deadline", args);
 		}
-		else if (args.trim().equals("")){
-			return prepareAddSomeday(name, args);
+		else if (args.matches("\\s*(#.+)*\\s*")) {
+			logger.log(Level.FINEST, "Calling prepareAddSomeday");
+			return prepareAddSomeday(taskName, "someday", args);
 		}
 		else {
 			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
@@ -135,45 +155,67 @@ public class Parser {
 	}
 	
 	
-	private Command prepareAddEventDifferentDays(String taskName, String arguments) {
-		ArgumentTokenizer argsTokenizer = new ArgumentTokenizer(startDateTimePrefix, endDateTimePrefix);
+	private Pair<String, String> separateNameAndArgs(String arguments) {
+		ArgumentTokenizer argsTokenizer = new ArgumentTokenizer(namePrefix);
 		argsTokenizer.tokenize(arguments);
-
-		String startDateTimeString = argsTokenizer.getValue(startDateTimePrefix).get();
-		String endDateTimeString = argsTokenizer.getValue(endDateTimePrefix).get();
-
-		return getAddCommand(taskName, startDateTimeString, endDateTimeString);
+		
+		String preamble = argsTokenizer.getPreamble().orElse("");
+		
+		List<String> stringsAfterQuotes = argsTokenizer.getAllValues(namePrefix).get();
+		String taskName = stringsAfterQuotes.get(0);
+		String argsAfterName = stringsAfterQuotes.get(1);
+		
+		return new Pair<>(taskName, " " + preamble + " " + argsAfterName + " ");	
 	}
 	
 	
-	private Command prepareAddEventSameDay(String taskName, String arguments) {
-		ArgumentTokenizer argsTokenizer = new ArgumentTokenizer(startDateTimePrefix, endDateTimePrefix, datePrefix);
+	private Command prepareAddEventDifferentDays(String taskName, String taskType, String arguments) {
+		ArgumentTokenizer argsTokenizer = new ArgumentTokenizer(startDateTimePrefix, endDateTimePrefix, tagsPrefix);
 		argsTokenizer.tokenize(arguments);
+		
+		String startDateTimeString = argsTokenizer.getValue(startDateTimePrefix).get();
+		String endDateTimeString = argsTokenizer.getValue(endDateTimePrefix).get();
+		Set<String> tagSet = toSet(argsTokenizer.getAllValues(tagsPrefix));
 
+		return getAddCommand(taskName, taskType, startDateTimeString, endDateTimeString, tagSet);
+	}
+	
+	
+	private Command prepareAddEventSameDay(String taskName, String taskType, String arguments) {
+		ArgumentTokenizer argsTokenizer = new ArgumentTokenizer(startDateTimePrefix, endDateTimePrefix, datePrefix, tagsPrefix);
+		argsTokenizer.tokenize(arguments);
+		
 		String dateString = argsTokenizer.getValue(datePrefix).get();
 		String startDateTimeString = argsTokenizer.getValue(startDateTimePrefix).get() + " " + dateString;
 		String endDateTimeString = argsTokenizer.getValue(endDateTimePrefix).get() + " " + dateString;
+		Set<String> tagSet = toSet(argsTokenizer.getAllValues(tagsPrefix));
 
-		return getAddCommand(taskName, startDateTimeString, endDateTimeString);
+		return getAddCommand(taskName, taskType, startDateTimeString, endDateTimeString, tagSet);
 	}
 
 	
-	private Command prepareAddDeadline(String taskName, String arguments) {
-		ArgumentTokenizer argsTokenizer = new ArgumentTokenizer(dlEndDateTimePrefix);
+	private Command prepareAddDeadline(String taskName, String taskType, String arguments) {
+		ArgumentTokenizer argsTokenizer = new ArgumentTokenizer(dlEndDateTimePrefix, tagsPrefix);
 		argsTokenizer.tokenize(arguments);
-
+		
 		String endDateTimeString = argsTokenizer.getValue(dlEndDateTimePrefix).get();
-
-		return getAddCommand(taskName, null, endDateTimeString);
+		Set<String> tagSet = toSet(argsTokenizer.getAllValues(tagsPrefix));
+		
+		return getAddCommand(taskName, taskType, null, endDateTimeString, tagSet);
 	}
 	
-	private Command prepareAddSomeday(String taskName, String arguments) {
+	private Command prepareAddSomeday(String taskName, String taskType, String arguments) {
+		ArgumentTokenizer argsTokenizer = new ArgumentTokenizer(dlEndDateTimePrefix, tagsPrefix);
+		argsTokenizer.tokenize(arguments);
+		
+		Set<String> tagSet = toSet(argsTokenizer.getAllValues(tagsPrefix));
+		
 		// TODO better approach than using nulls as flag values
-		return getAddCommand(taskName, null, null);
+		return getAddCommand(taskName, taskType, null, null, tagSet);
 	}
 	
 	
-	private Command getAddCommand(String taskName, String startDateTimeString, String endDateTimeString) {
+	private Command getAddCommand(String taskName, String taskType, String startDateTimeString, String endDateTimeString, Set<String> tagSet) {
 		Optional<LocalDateTime> startDateTimeOpt, endDateTimeOpt;
 
 		try {
@@ -191,7 +233,7 @@ public class Parser {
 				endDateTimeOpt = Optional.of(DateParser.parse(endDateTimeString));
 			}
 			
-			return new AddCommand(taskName, startDateTimeOpt, endDateTimeOpt);
+			return new AddCommand(taskName, taskType, startDateTimeOpt, endDateTimeOpt, tagSet);
 		} catch (ParseException e) {
 			return new IncorrectCommand(e.getMessage());
 		} catch (IllegalValueException e) {
@@ -373,7 +415,16 @@ public class Parser {
 			}
 		}
 		
-
+		if(startDateTime!=null && endDateTime!=null && !endDateTime.isAfter(startDateTime)){
+			if(startDateTime.isAfter(endDateTime)){
+				return new IncorrectCommand(EditCommand.MESSAGE_START_DATE_TIME_AFTER_END_DATE_TIME);
+			}
+			
+			else{
+				return new IncorrectCommand(EditCommand.MESSAGE_START_DATE_TIME_EQUALS_END_DATE_TIME);
+			}
+		}
+		
 		try {
 			return new EditCommand(Integer.parseInt(index), newName, startDateTime, endDateTime);
 		} catch (NumberFormatException e) {
@@ -445,10 +496,15 @@ public class Parser {
 
 		return indices;
 	}
+	
+	private Set<String> toSet(Optional<List<String>> tagsOptional) {
+        List<String> tags = tagsOptional.orElse(Collections.emptyList());
+        return new HashSet<>(tags);
+    }
 
 	public static void main(String[] args) {
 		Parser p = new Parser();
-		p.parseCommand("add 'dd' by 5pm today");
+		p.parseCommand("add from 5pm 'dd' to 6pm");
 	}
 	
 }

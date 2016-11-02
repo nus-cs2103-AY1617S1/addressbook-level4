@@ -2,10 +2,13 @@ package seedu.address.logic.commands;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.task.*;
+import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 
 import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.Optional;
+import java.util.Set;
 
 
 /**
@@ -28,36 +31,30 @@ public class AddCommand extends Command {
     
     public static final String MESSAGE_SUCCESS = "New task added: %1$s";
     public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the task manager";
-
+    //@@author A0143756Y
+    public static final String MESSAGE_START_DATE_TIME_AFTER_END_DATE_TIME = 
+    		"Start of event is scheduled after end of event. Please re-enter correct start and end dates/times.\n";
+    public static final String MESSAGE_START_DATE_TIME_EQUALS_END_DATE_TIME =
+    		"Start of event equals end of event. Please re-enter correct start and end dates/times.\n";
+    //@@author
     private final Task toAdd;
     
-    //@@author A0141019U
-    private TaskType inferTaskType(Optional<LocalDateTime> startDate, Optional<LocalDateTime> endDate) throws IllegalValueException {
-    	if (startDate.isPresent() && endDate.isPresent()) {
-    		return new TaskType("event");
-    	}
-    	else if (!startDate.isPresent() && endDate.isPresent()) {
-    		return new TaskType("deadline");
-    	}
-    	else if (!startDate.isPresent() && !endDate.isPresent()) {
-    		return new TaskType("someday");
-    	}
-    	else {
-    		throw new IllegalValueException("If start date is present, end date must be present too.");
-    	}
-    }
-    
-    public AddCommand(String name, Optional<LocalDateTime> startDate, Optional<LocalDateTime> endDate) throws IllegalValueException {
-       	this.toAdd = new Task(
+    //@@author A0141019U    
+    public AddCommand(String name, String taskType, Optional<LocalDateTime> startDate, Optional<LocalDateTime> endDate, Set<String> tags) throws IllegalValueException {
+    	final Set<Tag> tagSet = new HashSet<>();
+        for (String tagName : tags) {
+            tagSet.add(new Tag(tagName));
+        }
+    	
+    	this.toAdd = new Task(
         		new Name(name),
-        		inferTaskType(startDate, endDate),
+        		new TaskType(taskType),
         		new Status("pending"), 
         		startDate, 
         		endDate,
-        		new UniqueTagList()
-                );
+        		new UniqueTagList(tagSet)
+         );
     }
-    //@@author
     
     /**
      * Convenience constructor for event task using raw values
@@ -127,8 +124,7 @@ public class AddCommand extends Command {
             return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
         } catch (UniqueTaskList.DuplicateTaskException e) {
         	// If adding was unsuccessful, then the state should not be saved - no change was made.
-        	// TODO avoid undo pushing state into redo stack
-        	model.loadPreviousState();
+        	model.undoSaveState();
             return new CommandResult(MESSAGE_DUPLICATE_TASK);
         }
 

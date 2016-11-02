@@ -35,7 +35,7 @@ public class TaskBuilder {
     }
 
     public TaskBuilder withTaskType(String taskType) throws IllegalValueException {
-        this.task.setTaskType(taskType);
+        this.task.setTaskType(new TaskType(taskType));
         return this;
     }
     

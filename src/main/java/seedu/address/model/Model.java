@@ -25,6 +25,9 @@ public interface Model {
     /** Saves the state of the model in case the user wishes to undo an action. */
     void saveState();
     
+    /** Removes the last state of the model. */
+    void undoSaveState();
+    
     /** Reverts back to previous task and tag list before the last command was executed. */
     void loadPreviousState();
     
