@@ -35,7 +35,8 @@ public class MainWindow extends UiPart {
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
-    private PersonListPanel personListPanel;
+    private ActivityListPanel activityListPanel;
+    private OverdueListPanel overdueListPanel;
     private ResultDisplay resultDisplay;
     private StatusBarFooter statusBarFooter;
     private CommandBox commandBox;
@@ -58,14 +59,19 @@ public class MainWindow extends UiPart {
     private MenuItem helpMenuItem;
 
     @FXML
-    private AnchorPane personListPanelPlaceholder;
+    private AnchorPane activityListPanelPlaceholder;
 
     @FXML
     private AnchorPane resultDisplayPlaceholder;
 
     @FXML
     private AnchorPane statusbarPlaceholder;
-
+    
+//    @FXML
+//    private AnchorPane upcomingListPanelPlaceholder;
+    
+//    @FXML
+//    private AnchorPane overdueListPanelPlaceholder;
 
     public MainWindow() {
         super();
@@ -113,7 +119,12 @@ public class MainWindow extends UiPart {
     }
 
     void fillInnerParts() {
-        personListPanel = PersonListPanel.load(primaryStage, getPersonListPlaceholder(), logic.getFilteredPersonList());
+    	//fill main activities display panel
+        activityListPanel = ActivityListPanel.load(primaryStage, getPersonListPlaceholder(), logic.getFilteredPersonList());
+        //fill dash board
+//        overdueListPanel = OverdueListPanel.load(primaryStage, getOverdueListPlaceholder(), logic.getFilteredPersonList());
+        
+        		
         resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
         statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getAddressBookFilePath());
         commandBox = CommandBox.load(primaryStage, getCommandBoxPlaceholder(), resultDisplay, logic);
@@ -132,9 +143,17 @@ public class MainWindow extends UiPart {
     }
 
     public AnchorPane getPersonListPlaceholder() {
-        return personListPanelPlaceholder;
+        return activityListPanelPlaceholder;
     }
-
+/*    
+    public AnchorPane getOverdueListPlaceholder() {
+    	return overdueListPanelPlaceholder;
+    }
+    
+    public AnchorPane getUpcomingListPlaceholder() {
+    	return upcomingListPanelPlaceholder;
+    }
+*/
     public void hide() {
         primaryStage.hide();
     }
@@ -207,8 +226,8 @@ public class MainWindow extends UiPart {
         }
     }
 
-    public PersonListPanel getPersonListPanel() {
-        return this.personListPanel;
+    public ActivityListPanel getActivityListPanel() {
+        return this.activityListPanel;
     }
 
 }
