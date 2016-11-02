@@ -120,7 +120,7 @@ public class DeleteCommand extends Command implements TaskBookEditor {
 
     /** Deletes everything in {@code toDelete} from {@code model}. */
     private void deleteListOfTasks(List<ReadOnlyTask> toDelete) {
-        toDelete.stream().forEach(t -> {
+        toDelete.forEach(t -> {
             try {
                 model.deleteTask(t);
             } catch (TaskNotFoundException e) {
