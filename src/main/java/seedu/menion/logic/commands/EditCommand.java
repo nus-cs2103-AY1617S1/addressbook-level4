@@ -19,7 +19,7 @@ public class EditCommand extends Command {
     public static final String COMMAND_WORD = "edit";
 
     public static final String MESSAGE_EDITTED_ACTIVITY_SUCCESS = "Menion editted your Activity to: %1$s";
-    public static final String NAME_PARAM = "name";
+    public static final String NAME_PARAM = "name:";
     public static final String NOTE_PARAM = "n:";
     public static final String TASK_DEADLINE_PARAM = "by:";
     public static final String EVENT_FROM_PARAM = "from:";
