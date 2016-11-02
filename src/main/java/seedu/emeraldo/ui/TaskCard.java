@@ -10,7 +10,7 @@ public class TaskCard extends UiPart{
 
     private static final String FXML = "TaskListCard.fxml";
 
-    //When changing the FXML labels, PersonCardHandle.java has to be updated also
+    //When changing the FXML labels, TaskCardHandle.java has to be updated also
     
     @FXML
     private HBox cardPane;
