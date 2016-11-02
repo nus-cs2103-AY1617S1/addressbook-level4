@@ -37,6 +37,7 @@ Responsibilities: Team Lead, Logic
 * Components in charge of: [Add command]
 * Features implemented:
    * <kbd>[Add](UserGuide.md#adding-a-task-add)</kbd> Command
+   * <kbd>[Edit](UserGuide.md#adding-a-task-edit)</kbd> Command
    * Natural input using natty
 * Code written: <kbd>[Functional code](../collated/main/A0152958R.md)</kbd> <kbd>[Test code]</kbd> <kbd>[Docs]</kbd>
 

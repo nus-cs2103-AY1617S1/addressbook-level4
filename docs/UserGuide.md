@@ -41,23 +41,25 @@ Format: `add TASKNAME, [from START_TIME] [to END_TIME] [by DEADLINE] [#TAG...]`
 
 > All additional information after `TASK_NAME` are optional
 > Each task can have unlimited number of tags
+> The time can be exact time or relative time
 
 Examples: 
 * `add project team meeting, from 01.00pm to 03.00pm #CS2103`
-* `add cs2103 assignment by 11.59pm #CS2103`
+* `add cs2103 assignment, by 11.59pm #CS2103`
+* `add do homework, at today 3pm`
 
 #### Editing a task: `Edit`
 Edit task information in the TaskManager<br>
-Format: `INDEX TASKNAME at START_TIME to END_TIME [by DEADLINE] [#TAG...]`
+Format: `INDEX TASK_PROPERTY, NEW_VALUE`
 
-> Edit the task at the specific `INDEX` or `TASK_NAME`
+> Edit the task at the specific `INDEX` and `TASK_PROPERTY`
      The index refers to the index number shown in the most recent listing.<br>
      The index **must be a positive integer** 1, 2, 3, …
-     `TASK_NAME` should be the same as the task name stored in the TaskManager regardless of the word case
+     `TASK_PROPERTY` can be "name", "start time", "end time", "deadline" and "tag"
 
 Examples: 
-* `edit 2 morning class at 08.00am to 10.00am` 
-* `edit 4 dinner at 08.00pm to 10.00pm by 12.00am`
+* `edit 2 start time, 08.00am` 
+* `edit 4 tag, school`
 
 #### Deleting a task : `delete`
 Deletes the specified task from the TaskManager.<br>
