@@ -87,7 +87,7 @@ Fig.2 : the Logic component defines it's API in the Logic.java interface and exp
 
 
 <img src="images\sequence diagram.png" width="800">
-Fig. 3: This Sequence Diagram  shows how the components interact for the scenario where the user issues the command delete 1.
+Fig.3 : This Sequence Diagram  shows how the components interact for the scenario where the user issues the command delete 1.
 
 >Note how the `Model` simply raises a `AddressBookChangedEvent` when the Task Manager data are changed,
  instead of asking the `Storage` to save the updates to the hard disk.
