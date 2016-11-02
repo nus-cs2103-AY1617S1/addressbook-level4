@@ -387,7 +387,16 @@ public class Parser {
 			}
 		}
 		
-
+		if(startDateTime!=null && endDateTime!=null && !endDateTime.isAfter(startDateTime)){
+			if(startDateTime.isAfter(endDateTime)){
+				return new IncorrectCommand(EditCommand.MESSAGE_START_DATE_TIME_AFTER_END_DATE_TIME);
+			}
+			
+			else{
+				return new IncorrectCommand(EditCommand.MESSAGE_START_DATE_TIME_EQUALS_END_DATE_TIME);
+			}
+		}
+		
 		try {
 			return new EditCommand(Integer.parseInt(index), newName, startDateTime, endDateTime);
 		} catch (NumberFormatException e) {
