@@ -48,8 +48,8 @@ public class DeadlineCard extends UiPart {
         
         name.setText(deadline.getName().taskDetails);
         id.setText("D" + displayedIndex + ". ");
-        date.setText("Date:" + "    " + deadline.getDate().value);
-        end.setText("End time:" + "    " + endTime);
+        date.setText("Date:" + "            " + deadline.getDate().value);
+        end.setText("End time:" + "     " + endTime);
         tags.setText(deadline.tagsString());
         
         registerAsAnEventHandler(this);

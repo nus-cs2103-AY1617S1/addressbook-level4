@@ -51,9 +51,9 @@ public class EventCard extends UiPart {
 
         name.setText(event.getName().taskDetails);
         id.setText("E" + displayedIndex + ". ");
-        date.setText("Date:" + "    " + event.getDate().value);
+        date.setText("Date:" + "            " + event.getDate().value);
         start.setText("Start time:" + "    " + startTime);
-        end.setText("End time:" + "    " + endTime);
+        end.setText("End time:" + "     " + endTime);
         tags.setText(event.tagsString());
 
         registerAsAnEventHandler(this);
