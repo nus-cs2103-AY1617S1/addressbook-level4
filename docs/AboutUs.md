@@ -10,7 +10,7 @@ We are a team of four 2nd Year Computer Engineering students based in the [Schoo
 
 * Project Lead
 * Components in charge of : Parsing and Storage <br>
-* Aspects/Tools un charge of: Github, Eclipse
+* Aspects/Tools in charge of: Github, Eclipse
 * Features Implemented:
    * [Add Command](https://github.com/CS2103AUG2016-T11-C2/main/blob/master/docs/UserGuide.md#adding-a-task-add)
    * [Adding a floating task](https://github.com/CS2103AUG2016-T11-C2/main/blob/master/docs/UserGuide.md#adding-a-floating-task)
@@ -57,8 +57,14 @@ We are a team of four 2nd Year Computer Engineering students based in the [Schoo
 
 #### [Qiang Yu](https://github.com/Hastyrush) <br>
 <img src="images/Qiang Yu.png" width="150"><br>
-**Role**: Developer <br>  
-**Responsibilities**: UI
+
+* Components in charge of: [UI](https://github.com/CS2103AUG2016-T11-C2/main/tree/master/src/main/java/seedu/forgetmenot/ui)
+* Aspects/tools in charge of: JavaFX, FXML
+* Features implemented:
+   * [UI Design](https://github.com/CS2103AUG2016-T11-C2/main/blob/master/docs/images/ForgetMeNotUI.png)
+* Code written: [[functional code]()][[test code]()][[docs]()]
+* Other major contributions:
+  * Major contributor to changes of UI
 
 -----
 
