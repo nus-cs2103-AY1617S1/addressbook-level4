@@ -48,15 +48,15 @@ Features implemented:
    * [show today](https://github.com/CS2103AUG2016-T11-C2/main/blob/master/docs/UserGuide.md#showing-list-for-today-show-today)
    * [show tomorrow](https://github.com/CS2103AUG2016-T11-C2/main/blob/master/docs/UserGuide.md#showing-list-for-tomorrow-show-tomorrow)
    * [show date](https://github.com/CS2103AUG2016-T11-C2/main/blob/master/docs/UserGuide.md#showing-list-for-specific-date-show-date)
-   * [show <parameter>](https://github.com/CS2103AUG2016-T11-C2/main/blob/master/docs/UserGuide.md#showing-list-for-special-parameters-show-parameter)
+   * [show parameter](https://github.com/CS2103AUG2016-T11-C2/main/blob/master/docs/UserGuide.md#showing-list-for-special-parameters-show-parameter)
    * [show overdue](https://github.com/CS2103AUG2016-T11-C2/main/blob/master/docs/UserGuide.md#showing-a-list-for-overdue-tasks-show-overdue) 
    * [done](https://github.com/CS2103AUG2016-T11-C2/main/blob/master/docs/UserGuide.md#mark-as-done-done)
    * [undone](https://github.com/CS2103AUG2016-T11-C2/main/blob/master/docs/UserGuide.md#mark-as-undone-undone)
    * [clear done](https://github.com/CS2103AUG2016-T11-C2/main/blob/master/docs/UserGuide.md#clearing-only-the-done-tasks-clear-done)
-* Code written: [[functional code](A123456.md)][[test code](A123456.md)][[docs](A123456.md)]
+* Code written: [[functional code]()][[test code](d)][[docs]()]
 * Other major contributions:
-  * Did the initial refactoring from AddressBook to ToDoList [[#133](https://github.com/se-edu/addressbook-level4/pull/152) ]
-  * Set up Travis and Coveralls 
+  * Did the initial refactoring from AddressBook to ForgetMeNot
+  
 
 -----
 
