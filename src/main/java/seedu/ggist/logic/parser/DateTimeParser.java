@@ -32,7 +32,7 @@ public class DateTimeParser {
     }
     
     /**
-     * Extracts time from Date object and convert to String
+     * Extracts time from Date object and convert to formatted String
      * @param Date
      * @throws IllegalValueException
      */
@@ -45,7 +45,7 @@ public class DateTimeParser {
         }
     }
     /**
-     * Extracts date from Date object and convert to String
+     * Extracts date from Date object and convert to formatted String
      * @param Date
      * @throws IllegalValueException
      */
@@ -54,16 +54,17 @@ public class DateTimeParser {
         date = sdf.format(dateTime).toString();
     }
     
+    /* Return date in String format of the Date object*/
     public String getDate() {
         parseDate(dateTime);
         return date;
     }
-    
+    /* Return time in String format of the Date object*/
     public String getTime() throws IllegalValueException {
         parseTime(dateTime);
         return time;
     }
-    
+    /* Return Date object*/
     public Date getDateTime() {
         return dateTime;
     }

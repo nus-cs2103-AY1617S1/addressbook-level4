@@ -11,7 +11,7 @@ import seedu.ggist.commons.exceptions.IllegalValueException;
 import seedu.ggist.commons.util.StringUtil;
 import seedu.ggist.logic.commands.*;
 import seedu.ggist.model.task.Priority;
-
+// @@author A0138411N
 /**
  * Parses user input.
  */
@@ -29,7 +29,7 @@ public class Parser {
     private static final Pattern KEYWORDS_ARGS_FORMAT = Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)",
             Pattern.CASE_INSENSITIVE); // one or more keywords separated by
                                        // whitespace
-    // @@author A0138411N
+
     private static final Pattern LIST_ARGS_FORMAT = Pattern.compile("(?<listing>.*)", Pattern.CASE_INSENSITIVE);
 
     // regex for floating
@@ -54,11 +54,11 @@ public class Parser {
             + "((\\s*,\\s*)|(\\s+?(by|on)\\s+))(?<day>.+" + ")((\\s*,\\s*)|(\\s+?(from)\\s+))(?<startTime>.+)"
             + "((\\s*(,)\\s*)|(\\s+?to\\s+?))(?<endTime>.+)", Pattern.CASE_INSENSITIVE);
 
-    // regex for edit
+    // regex for edit argument
     private static final Pattern EDIT_DATA_ARGS_FORMAT = Pattern.compile(
             "(?<field>(task|start date|start time|end date|end time|priority))" + "\\s+?(?<value>.+)",
             Pattern.CASE_INSENSITIVE);
-    // regex for edit
+    // regex for edit format
     private static final Pattern VALID_EDIT_FORMAT = Pattern.compile("(?<index>\\d+?)(?<fields>.*)",
             Pattern.CASE_INSENSITIVE);
 
@@ -174,22 +174,21 @@ public class Parser {
         assert args != null;
         Matcher matcher = EVENT_TASK_DIFF_DAYS_DATA_ARGS_FORMAT.matcher(args.trim());
         Matcher matcherSameDay = EVENT_TASK_SAME_DAY_DATA_ARGS_FORMAT.matcher(args.trim());
-        String priority;
         if (matcherSameDay.matches()) {
-            priority = parsePriority(matcherSameDay.group("endTime"));
             return new AddCommand(matcherSameDay.group("taskName"),
                     new DateTimeParser(matcherSameDay.group("day")).getDate(),
                     new DateTimeParser(matcherSameDay.group("startTime")).getTime(),
                     new DateTimeParser(matcherSameDay.group("day")).getDate(),
-                    new DateTimeParser(matcherSameDay.group("endTime")).getTime(), priority);
+                    new DateTimeParser(matcherSameDay.group("endTime")).getTime(),
+                    parsePriority(matcherSameDay.group("endTime")));
 
         } else if (matcher.matches()) {
-            priority = parsePriority(matcher.group("endDateTime"));
             return new AddCommand(matcher.group("taskName"),
                     new DateTimeParser(matcher.group("startDateTime")).getDate(),
                     new DateTimeParser(matcher.group("startDateTime")).getTime(),
                     new DateTimeParser(matcher.group("endDateTime")).getDate(),
-                    new DateTimeParser(matcher.group("endDateTime")).getTime(), priority);
+                    new DateTimeParser(matcher.group("endDateTime")).getTime(),
+                    parsePriority(matcher.group("endDateTime")));
         }
         return null;
     }
@@ -205,12 +204,12 @@ public class Parser {
     private AddCommand addDeadlineTask(String args) throws IllegalValueException {
         assert args != null;
         Matcher matcher = EVENT_TASK_DIFF_DAYS_DATA_ARGS_FORMAT.matcher(args.trim());
-        String priority;
         matcher = DEADLINE_TASK_DATA_ARGS_FORMAT.matcher(args.trim());
         if (matcher.matches()) {
-            priority = parsePriority(matcher.group("dateTime"));
-            return new AddCommand(matcher.group("taskName"), new DateTimeParser(matcher.group("dateTime")).getDate(),
-                    new DateTimeParser(matcher.group("dateTime")).getTime(), priority);
+            return new AddCommand(matcher.group("taskName"), 
+                   new DateTimeParser(matcher.group("dateTime")).getDate(),
+                   new DateTimeParser(matcher.group("dateTime")).getTime(), 
+                   parsePriority(matcher.group("dateTime")));
         }
         return null;
     }
@@ -245,12 +244,12 @@ public class Parser {
     private String matchTaskType(String args) {
         Matcher matcher;
         if ((matcher = EVENT_TASK_DIFF_DAYS_DATA_ARGS_FORMAT.matcher(args)).matches()
-                || ((matcher = EVENT_TASK_SAME_DAY_DATA_ARGS_FORMAT.matcher(args)).matches())) {
+             || ((matcher = EVENT_TASK_SAME_DAY_DATA_ARGS_FORMAT.matcher(args)).matches())) {
             return new String("eventTask");
         } else if ((matcher = DEADLINE_TASK_DATA_ARGS_FORMAT.matcher(args)).matches()) {
             return new String("deadlineTask");
         } else if ((matcher = FLOATING_TASK_DATA_ARGS_FORMAT.matcher(args)).matches()
-                || ((matcher = FLOATING_WITH_PRIORITY.matcher(args)).matches())) {
+                    || ((matcher = FLOATING_WITH_PRIORITY.matcher(args)).matches())) {
             return new String("floatingTask");
         }
         return new String("taskTypeNotFound");
@@ -406,7 +405,7 @@ public class Parser {
         return Optional.of(Integer.parseInt(index));
 
     }
-
+    // @@author A0138411N
     /**
      * Parses arguments in the context of the find person command.
      *
@@ -426,7 +425,7 @@ public class Parser {
         return new SearchCommand(keywordSet);
     }
 
-    // @@author A0138411N
+
     /**
      * Parses arguments in the context of the list command.
      *

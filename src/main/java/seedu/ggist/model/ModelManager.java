@@ -77,6 +77,7 @@ public class ModelManager extends ComponentManager implements Model {
     /**
      * Constructor for Model Manager
      * Sets current date
+     * Raise an event for listing changed to current date
      * @param initialData
      * @param userPrefs
      */
@@ -113,7 +114,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     // @@author A0138411N
-    /** Create a Date object with today's date */
+    /** Creates a Date object with today's date */
     private void setTodayDate() {
         today = LocalDate.now().format(DateTimeFormatter.ofPattern("EEE, dd MMM YY"));
         lastListing = today;
@@ -174,6 +175,8 @@ public class ModelManager extends ComponentManager implements Model {
             updateFilteredListToShowAllUndone();
         } else if (lastListing.equals("done")) {
             updateFilteredListToShowAllDone();
+        } else if (lastListing.equals("high") || lastListing.equals("med") || lastListing.equals("low")) {
+            updateFilteredListToPriority(lastListing);
         } else if (lastListing.equals("all")) {
             updateFilteredListToShowAll();
         }  else if (TaskDate.isValidDateFormat(lastListing)) {
@@ -186,12 +189,11 @@ public class ModelManager extends ComponentManager implements Model {
         return getSortedTaskList();
     }
 
-    @Override
     /**
      * Sorts filtered list based on start date and time
      */
+    @Override
     public UnmodifiableObservableList<ReadOnlyTask> getSortedTaskList() {
-
         sortedTasks = new SortedList<>(filteredTasks, Task.getTaskComparator());
         return new UnmodifiableObservableList<>(sortedTasks);
     }
@@ -234,7 +236,15 @@ public class ModelManager extends ComponentManager implements Model {
         filteredTasks.setPredicate(expression::satisfies);
     }
 
-    // @@author A0144727B
+    @Override
+    public void updateFilteredListToPriority(String keyword) {
+        updateFilteredTaskList(new PredicateExpression(new PriorityQualifier(keyword)));
+    }
+
+    private void updateFilteredListToPriority(Expression expression) {
+        filteredTasks.setPredicate(expression::satisfies);
+    }
+
     @Override
     public void updateFilteredTaskList(Set<String> keywords) {
         updateFilteredTaskList(new PredicateExpression(new NameQualifier(keywords)));
@@ -393,7 +403,12 @@ public class ModelManager extends ComponentManager implements Model {
         DateQualifier(String taskDateKeyWords) {
             this.taskDateKeyWords = taskDateKeyWords;
         }
-
+        
+        /**
+         * Returns true for tasks matching date and is not done
+         * Returns true for floating tasks
+         * Returns true for overdue tasks
+         */
         @Override
         public boolean run(ReadOnlyTask task) {
             if (taskDateKeyWords == null) {
@@ -403,17 +418,37 @@ public class ModelManager extends ComponentManager implements Model {
                     || taskDateKeyWords.equalsIgnoreCase(task.getEndDate().toString()))
                     && !task.isDone())
                     || ((task.getStartDate().value.equals(Messages.MESSAGE_NO_START_DATE_SPECIFIED)
-                            && (task.getStartTime().value.equals(Messages.MESSAGE_NO_START_TIME_SET)
-                                    && (task.getEndDate().value.equals(Messages.MESSAGE_NO_END_DATE_SPECIFIED)
-                                            && (task.getEndTime().value.equals(Messages.MESSAGE_NO_END_TIME_SET))
-                                            && !task.isDone()))
-                            || (task.isOverdue() && !task.isDone())));
+                    && (task.getStartTime().value.equals(Messages.MESSAGE_NO_START_TIME_SET)
+                    && (task.getEndDate().value.equals(Messages.MESSAGE_NO_END_DATE_SPECIFIED)
+                    && (task.getEndTime().value.equals(Messages.MESSAGE_NO_END_TIME_SET))
+                    && !task.isDone()))
+                    || (task.isOverdue() && !task.isDone())));
         }
-
-        // @@author
+        
         @Override
         public String toString() {
             return "name=" + String.join(", ", taskDateKeyWords);
         }
+    }
+
+    private class PriorityQualifier implements Qualifier {
+        private String priority;
+
+        PriorityQualifier(String priority) {
+                this.priority = priority;
+        }
+        
+        /**
+         * Returns true for tasks matching priority and is not done
+         */
+        @Override
+        public boolean run(ReadOnlyTask task) {
+            if (priority == null) {
+                    return true;
+            }
+            return (priority.equals(task.getPriority().value) && !task.isDone());
+        }
+
+        // @@author
     }
 }

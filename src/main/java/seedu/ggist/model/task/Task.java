@@ -9,7 +9,7 @@ import seedu.ggist.commons.core.Messages;
 import seedu.ggist.commons.exceptions.IllegalValueException;
 import seedu.ggist.logic.parser.DateTimeParser;
 
-
+//@@author A0138411N    
 /**
  * Represents a Task in the task manager.
  * Guarantees: details are present and not null, field values are validated.
@@ -22,8 +22,8 @@ public class Task implements ReadOnlyTask{
     protected TaskDate endDate;
     protected TaskTime endTime;
     protected Priority priority;
-    protected boolean done;
-    protected boolean overdue;
+    protected boolean isDone;
+    protected boolean isOverdue;
     protected Date start;
     protected Date end;
     
@@ -40,13 +40,12 @@ public class Task implements ReadOnlyTask{
             return this.taskType;
         }
     }
-    
+
     /**
      * Every field must be present and not null.
      * @throws IllegalValueException 
      * 
-    */     
-  //@@author A0138411N   
+    */      
     public Task(TaskName taskName, TaskDate startDate, TaskTime startTime, TaskDate endDate, TaskTime endTime, Priority priority) throws IllegalValueException {
         
         this.taskName = taskName;
@@ -75,44 +74,39 @@ public class Task implements ReadOnlyTask{
           
     /**
      * Creates a Date object from the start date and start time
-     * Sets unspecified to a large value
      * @throws IllegalValueException
      */
     public void constructStartDateTime(TaskDate date, TaskTime time) throws IllegalValueException {
-        Date startDate;
-        if ((date.value.equals(Messages.MESSAGE_NO_START_DATE_SPECIFIED) || date.value.equals(Messages.MESSAGE_NO_END_DATE_SPECIFIED)) && 
-            (time.value.equals(Messages.MESSAGE_NO_START_TIME_SET) || time.value.equals(Messages.MESSAGE_NO_END_TIME_SET))) {
-            startDate = new DateTimeParser("1st January 2050 11:59pm").getDateTime();
-        } else if ((date.value.equals(Messages.MESSAGE_NO_START_DATE_SPECIFIED) || date.value.equals(Messages.MESSAGE_NO_END_DATE_SPECIFIED))){
-            startDate = new DateTimeParser("1st January 2050 " + time.value).getDateTime();
-        } else if ((time.value.equals(Messages.MESSAGE_NO_START_TIME_SET) || time.value.equals(Messages.MESSAGE_NO_END_TIME_SET))) {
-            startDate = new DateTimeParser("11:59 pm " + date.value).getDateTime();
-        } else {
-           startDate = new DateTimeParser(time.value + " " + date.value).getDateTime();
-        }
-        start = startDate;
+        start = formatMissingDateTime(date, time);
     }
     
     /**
      * Creates a Date object from the end date and end time
-     * Sets unspecified to a large value
      * @throws IllegalValueException
      */
     public void constructEndDateTime(TaskDate date, TaskTime time) throws IllegalValueException {
-        Date endDate;
-        if ((date.value.equals(Messages.MESSAGE_NO_START_DATE_SPECIFIED) || date.value.equals(Messages.MESSAGE_NO_END_DATE_SPECIFIED)) && 
-            (time.value.equals(Messages.MESSAGE_NO_START_TIME_SET) || time.value.equals(Messages.MESSAGE_NO_END_TIME_SET))) {
-            endDate = new DateTimeParser("1st January 2050 11:59pm").getDateTime();
-        } else if ((date.value.equals(Messages.MESSAGE_NO_START_DATE_SPECIFIED) || date.value.equals(Messages.MESSAGE_NO_END_DATE_SPECIFIED))){
-            endDate = new DateTimeParser("1st January 2050 " + time.value).getDateTime();
-        } else if ((time.value.equals(Messages.MESSAGE_NO_START_TIME_SET) || time.value.equals(Messages.MESSAGE_NO_END_TIME_SET))) {
-            endDate = new DateTimeParser("11:59 pm " + date.value).getDateTime();
-        } else {
-            endDate = new DateTimeParser(time.value + " " + date.value).getDateTime();
-        }
-        end = endDate;
+        end = formatMissingDateTime(date, time);
     }
     
+    /**
+     * Sets missing date and time to a large value
+     * @param TaskDate
+     * @param TaskTime
+     * @return Date
+     * @throws IllegalValueException 
+     */
+    private Date formatMissingDateTime(TaskDate date, TaskTime time) throws IllegalValueException {
+        if ((date.value.equals(Messages.MESSAGE_NO_START_DATE_SPECIFIED) || date.value.equals(Messages.MESSAGE_NO_END_DATE_SPECIFIED)) 
+             &&(time.value.equals(Messages.MESSAGE_NO_START_TIME_SET) || time.value.equals(Messages.MESSAGE_NO_END_TIME_SET))) {
+            return new DateTimeParser("1st January 2050 11:59pm").getDateTime();
+        } else if ((date.value.equals(Messages.MESSAGE_NO_START_DATE_SPECIFIED) || date.value.equals(Messages.MESSAGE_NO_END_DATE_SPECIFIED))){
+            return new DateTimeParser("1st January 2050 " + time.value).getDateTime();
+        } else if ((time.value.equals(Messages.MESSAGE_NO_START_TIME_SET) || time.value.equals(Messages.MESSAGE_NO_END_TIME_SET))) {
+            return new DateTimeParser("11:59 pm " + date.value).getDateTime();
+        } else {
+            return new DateTimeParser(time.value + " " + date.value).getDateTime();
+        }        
+    }  
     /**
      * check if end time is before the current time. set task overdue if true
      * checks if the end is before the start
@@ -120,8 +114,8 @@ public class Task implements ReadOnlyTask{
      */
     public void checkTimeClash() throws IllegalValueException {
         Date currentDate  = new Date();
-        if (end.before(currentDate) && done == false) {
-            overdue = true;
+        if (end.before(currentDate) && isDone == false) {
+            isOverdue = true;
         } else if (!end.before(currentDate)) {
             setNotOverdue();
         }
@@ -165,14 +159,14 @@ public class Task implements ReadOnlyTask{
      * Mark task as not overdue
      */
     public void setDone() {
-        done = true;
+        isDone = true;
         setNotOverdue();
     }
     
     public void setUndone() {
-        done = false;
+        isDone = false;
         if (end.before(new Date())) {
-            overdue = true;
+            isOverdue = true;
         }
     }
     
@@ -180,13 +174,13 @@ public class Task implements ReadOnlyTask{
      * Mark task as not overdue
      */
     public void setNotOverdue() {
-        overdue = false;
+        isOverdue = false;
     }
 
     
     @Override
     public boolean isDone() {
-        return done;
+        return isDone;
     }
     //@@author
     @Override
@@ -250,7 +244,7 @@ public class Task implements ReadOnlyTask{
 
     @Override
     public boolean isOverdue() {
-        return overdue;
+        return isOverdue;
     }
 
 

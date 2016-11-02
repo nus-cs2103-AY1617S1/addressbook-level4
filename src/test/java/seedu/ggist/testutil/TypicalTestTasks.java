@@ -36,7 +36,7 @@ public class TypicalTestTasks {
             		.withStartDate(Messages.MESSAGE_NO_START_DATE_SPECIFIED)
             		.withStartTime(Messages.MESSAGE_NO_START_TIME_SET)
             		.withEndDate(Messages.MESSAGE_NO_END_DATE_SPECIFIED).withEndTime(Messages.MESSAGE_NO_END_TIME_SET)
-            		.withPriority("high").build();
+            		.withPriority("low").build();
             event = new TaskBuilder().withName("go watch movie")
             		.withStartDate(Messages.MESSAGE_NO_START_DATE_SPECIFIED).withStartTime(Messages.MESSAGE_NO_START_TIME_SET)
             		.withEndDate(Messages.MESSAGE_NO_END_DATE_SPECIFIED).withEndTime(Messages.MESSAGE_NO_END_TIME_SET)

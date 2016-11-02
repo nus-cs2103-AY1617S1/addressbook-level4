@@ -5,7 +5,7 @@ import java.util.regex.Matcher;
 
 import seedu.ggist.commons.core.Messages;
 import seedu.ggist.commons.exceptions.IllegalValueException;
-
+//@@author A0138411N    
 /**
  * Represents a Task's time in GGist 
  * Guarantees: immutable; is valid as declared in {@TaskTime #isValidTime(String)}
@@ -18,7 +18,7 @@ public class TaskTime {
             + "Example: 2359 or 11.59pm\n";
     public static final String TIME_VALIDATION_REGEX = ".+";
     public String value;
-  //@@author A0138411N
+
     /**
      * Validates given time.
      *

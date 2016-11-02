@@ -2,6 +2,9 @@ package seedu.ggist.commons.events.storage;
 
 import seedu.ggist.commons.events.BaseEvent;
 //@@author A0138411N
+/**
+ * An event indicating the save file location or the file name has been changed
+ */
 public class ChangeSaveFileEvent extends BaseEvent{
 
     public static String path;
@@ -12,7 +15,7 @@ public class ChangeSaveFileEvent extends BaseEvent{
     
     @Override
     public String toString() {
-        return "new file path: " + path;
+        return "new save file path: " + path;
     }
 
 }

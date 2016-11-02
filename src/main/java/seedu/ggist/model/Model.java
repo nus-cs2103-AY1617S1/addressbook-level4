@@ -66,6 +66,9 @@ public interface Model {
     /**Returns the most recent type of listing of the filtered task list */
    String getLastListing();
    
+   /**Updates the attribute in ModelManager to reflect priority listing */
+   void updateFilteredListToPriority(String keywords);
+   
  //@@author A0138420N
    /**Returns the list of commands that have been done */
    Stack<String> getListOfCommands();

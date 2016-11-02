@@ -1,8 +1,18 @@
+<!-- @@author A0138411N --> 
+
 # User Guide
 
 * [About GGist](#about-ggist)
 * [Quick Start](#quick-start)
 * [Features](#features)
+   * [Adding a task](#adding-a-task-add)
+   * [List tasks](#listing-tasks--list)
+   * [Search for a task](#searching-tasks-by-keywords-search)
+   * [Delete a task](#deleting-a-task--delete)
+   * [Undo & Redo](#undo--undo)
+   * [Edit a task](#editing-a-task--edit)
+   * [Mark a task complete](#marking-a-task-as-complete--done)
+   * [Save GGist data](#saving-the-data-to-a-specified-location--save)
 * [Command Cheatsheet](#command-cheatsheet)
 
 <!-- @@author A0138420N --> 
@@ -24,7 +34,7 @@ Are you ready to embrace a new way of living and have your life better organized
    
 1. Download the latest `GGist.jar` from the [releases](../../../releases) tab.
 2. Copy the file to the folder you want to use as the home folder for your GGist application.
-3. Double-click on the .jar file. Press both "control" and "G" at the same time to start the app. The GUI should appear in a few seconds. 
+3. Double-click on the .jar file. The GUI should appear in a few seconds. 
    > <img src="images/ggistInterfaceUI.png" width="800">
 
 4. Type the command in the command box and press <kbd>Enter</kbd> to execute it. <br>
@@ -91,7 +101,7 @@ Examples:
 Format: `add TASK, DATE, START TIME, END TIME [PRIORITY]`
 
 Examples: 
-* `add tennis, 21 nov, 1pm-3pm -high`
+* `add tennis, 21 nov, 1pm to 3pm -high`
 * `add lunch with parents on friday from 12pm to 1pm`
 <!--- @@author A0138411N --->
 > * The comma after `[TASK]` can be replaced with `on`.<br>
@@ -111,14 +121,15 @@ Examples:
 > * The comma after `[START DATE TIME]` can be replaced with a `to`.
 
 
-#### Listing all tasks : `list`
-Shows a list of all tasks in a particular day.<br>
+#### Listing tasks : `list`
+Shows a list of task of your preferred choice.<br>
 Format: `list [PARAMETERS]`
 
 >**Available Listing**
 > * `list` shows all incomplete tasks
 > * `list all` shows all tasks
 > * `list done` shows all completed tasks
+> * `list [PRIORITY]` shows tasks of your specified priority level
 > * `list [DATE]` shows remaining tasks starting or ending on a particular date
 <!--- @@author --->
 
@@ -163,33 +174,25 @@ Example:<br>
 
 <!-- @@author A0138420N -->    
 #### Undo : `undo`
-Reverts the most recent action.<br>
+Reverts the most recent action. This action can be done multiple times.<br>
 Format: `undo`
 <!-- @@author -->  
 
 <!--- @@author A0138411N --->
 #### Redo : `redo`
-Reverts the most recent undo action.<br>
+Reverts the most recent undo action. You can redo multiple times one after the other.<br>
 Format: `redo`
 
 #### Editing a task : `edit`
 Edits task on the display list.<br>
-Format: `edit INDEX PARAMETER NEW_INFORMATION`
+Format: `edit [INDEX] [FIELD TO EDIT] [NEW INFORMATION], [FIELD TO EDIT] [NEW INFORMATION] `
 
-> More than 1 parameter can be edited at the same input, simply separate them with a comma.
-<!--- @@author --->
-
+> More than 1 parameter can be edited at the same input, simply separate the different fields with a comma.
 
 Examples: 
-* `edit 1 date oct 11, time 1800-2000`
+* `edit 1 date oct 11, start time 1800`
 * `list dec 30`<br>
-  `edit 5 task buy coconut, time 1500`
-  
-To make one of the parameters (except the task name) empty, follow the format below:<br>
-Format: `edit INDEX PARAMETER clear`
-
-Example: 
-* `edit 3 time clear`
+  `edit 5 task buy coconut, end date today, priority low`
 
 <!-- @@author A0138420N -->
 #### Marking a task as complete : `done`
@@ -209,29 +212,30 @@ Example:<br>
 
 > To view all completed tasks, simply type  `list done`.
 
-
-#### Exiting the program : `exit`
-Exits the program.<br>
-Format: `exit`  
-<!-- @@author -->
-
 <!--- @@author A0138411N -->
+
 #### Saving the data to a specified location : `save` 
 All GGist data is saved in the hard disk automatically after any command that changes the data.<br>
-There is no need to save manually. The save file is `./data` by default.<br>
-You can switch the save file location easily if you wish.<br>
+There is no need to save manually. The save data file is located in  the`./data` folder together with the `.jar` folder by default.<br>
+You can change the location and port the data file over easily.<br>
 Format: `save FILE_LOCATION`
 
 Example:<br>
-* `save /Users/Documents/OneDrive/data`
+`save /Users/Documents/OneDrive/data`
 
-> By default, filename will be  ggist.xml
+> * The new folder has to be a valid, existing folder <br>
+> * To switch back to the default save folder, type `save data` <br>
+> * By default, filename will be  ggist.xml
 
 You can change the file name to your preference too.<br>
 Format: `save FILE_NAME.xml`
 
 > The file format has to be .xml
-<!--- @@author --->
+
+
+#### Exiting the program : `exit`
+Exits the program.<br>
+Format: `exit`  
 
 <!-- @@author A0138420N --> 
 ## Command Cheatsheet

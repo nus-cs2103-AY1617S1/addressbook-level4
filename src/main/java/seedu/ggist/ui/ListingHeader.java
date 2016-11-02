@@ -67,6 +67,8 @@ public class ListingHeader extends UiPart {
             this.listing.setText("ALL TASKS");
         } else if (listing.equals("done")) {
             this.listing.setText("ALL COMPLETED TASKS");
+        } else if (listing.equals("high") || listing.equals("med") || listing.equals("low")) {
+            this.listing.setText(listing.toUpperCase() + " PRIORITY TASKS");
         } else if (listing.equals("")) {
             this.listing.setText("TASKS NOT COMPLETED");
         } else {

@@ -5,12 +5,12 @@ import java.util.Objects;
 import seedu.ggist.commons.core.Messages;
 import seedu.ggist.commons.exceptions.IllegalValueException;
 
+//@@author A0138411N
 /**
- * Represents a DeadlineTask in the address book.
+ * Represents a DeadlineTask in the task manager.
  * Guarantees: details are present and not null, field values are validated.
  */
 public class DeadlineTask extends Task implements ReadOnlyTask {
-  //@@author A0138411N
     /**
      * Every field must be present and not null.
      * @throws IllegalValueException 
