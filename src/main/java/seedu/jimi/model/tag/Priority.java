@@ -13,7 +13,7 @@ import seedu.jimi.commons.exceptions.IllegalValueException;
 
 public class Priority extends Tag {
     
-    public static final String MESSAGE_PRIORITY_CONSTRAINTS = "Priority names should only be: LOW, MED or HIGH. ";
+    public static final String MESSAGE_PRIORITY_CONSTRAINTS = "Priority names should only be: None, LOW, MED or HIGH. ";
     
     public final static String PRIO_LOW = "LOW";
     public final static String PRIO_MED = "MED";
