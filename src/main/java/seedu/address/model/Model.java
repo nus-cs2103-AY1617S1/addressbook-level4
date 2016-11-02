@@ -28,7 +28,12 @@ public interface Model {
     /** Adds the given undo */
     void addUndo(String command, ReadOnlyTask data);
     
-    /** Adds the given undo */
+    /**
+     * Adds the given undo
+     * @param command COMMAND_KEYWORD e.g. "add", "edit"
+     * @param postData Task after command
+     * @param preData Task before command (if any)
+     */
     void addUndo(String command, ReadOnlyTask postData, ReadOnlyTask preData);
 
     /** Adds the given undo */

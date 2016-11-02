@@ -61,8 +61,8 @@ public class UndoCommand extends Command {
             
             //Determine if duplicate exist
             if (duplicateTaskResult){
-                return new CommandResult(String.format(MESSAGE_SUCCESS, toUndo.getCommand() 
-                        + "\n" + AddCommand.MESSAGE_DUPLICATE_TASK));
+                return new CommandResult(String.format(MESSAGE_SUCCESS, toUndo.getCommand())
+                        + "\n" + AddCommand.MESSAGE_DUPLICATE_TASK);
             }
             else {
                 return new CommandResult(String.format(MESSAGE_SUCCESS, toUndo.getCommand()));

@@ -725,7 +725,7 @@ public class LogicManagerTest {
         TestDataHelper helper = new TestDataHelper();
         expectedTB = helper.generateTaskBook(i);
         helper.addToModel(model, i);
-        tasks[0] = helper.generateUndatedTaskWithName("Buy milk");
+        tasks[0] = helper.generateUndatedTaskWithName("Walk my dog");
         tasks[1] = new Task(expectedTB.getDatedTaskList().get(1));
         return tasks;
     }
@@ -806,12 +806,35 @@ public class LogicManagerTest {
     public void execute_undoEdit_successful() throws Exception {
         Task[] toUndo = generateStartStateForUndo(2);
         
-        Task edited = new Task(toUndo[1]);
-        edited.setName(new Name("Homework due"));
+      //Edit undated task
+        model.addTask(toUndo[0]);
+        expectedTB.addTask(toUndo[0]);
+        Task editUndated = new Task(toUndo[0]);
+        editUndated.setName(new Name("Walk Jim dog"));
+        model.deleteTask(toUndo[0]);
+        expectedTB.removeTask(toUndo[0]);
+        model.addTask(editUndated);
+        expectedTB.addTask(editUndated);
+        model.addUndo("edit", editUndated, toUndo[0]);
+        
+        //Edit dated task
+        Task editDated = new Task(toUndo[1]);
+        editDated.setName(new Name("Homework due"));
         model.deleteTask(toUndo[1]);
-        model.addTask(edited);
-        model.addUndo("edit", edited, toUndo[1]);
+        expectedTB.removeTask(toUndo[1]);
+        model.addTask(editDated);
+        expectedTB.addTask(editDated);
+        model.addUndo("edit", editDated, toUndo[1]);
 
+        //Undo edit dated task
+        expectedTB.removeTask(editDated);
+        expectedTB.addTask(toUndo[1]);
+        assertCommandBehavior("undo", String.format(UndoCommand.MESSAGE_SUCCESS, "edit"), expectedTB, 
+                expectedTB.getDatedTaskList(), expectedTB.getUndatedTaskList());
+        
+        //Undo edit undated task
+        expectedTB.removeTask(editUndated);
+        expectedTB.addTask(toUndo[0]);
         assertCommandBehavior("undo", String.format(UndoCommand.MESSAGE_SUCCESS, "edit"), expectedTB, 
                 expectedTB.getDatedTaskList(), expectedTB.getUndatedTaskList());
         
@@ -825,15 +848,34 @@ public class LogicManagerTest {
     @Test
     public void execute_undoMultiple_successful() throws Exception {
         Task[] toUndo = generateStartStateForUndo(2);  
-
-        expectedTB.removeTask(toUndo[1]);
+        model.addTask(toUndo[0]);
+        expectedTB.addTask(toUndo[0]);
+        
+      //Delete and add undated task
+        model.deleteTask(toUndo[0]);
+        model.addUndo("delete", toUndo[0]);
+        model.addTask(toUndo[0]);
+        model.addUndo("add", toUndo[0]);
+        
+        //Delete and add dated task
         model.deleteTask(toUndo[1]);
         model.addUndo("delete", toUndo[1]);
         model.addTask(toUndo[1]);
         model.addUndo("add", toUndo[1]);
+
+        //Undo add and delete dated task
+        expectedTB.removeTask(toUndo[1]);
         assertCommandBehavior("undo", String.format(UndoCommand.MESSAGE_SUCCESS, "add"), expectedTB, 
                 expectedTB.getDatedTaskList(), expectedTB.getUndatedTaskList());
         expectedTB.addTask(toUndo[1]);
+        assertCommandBehavior("undo", String.format(UndoCommand.MESSAGE_SUCCESS, "delete"), expectedTB, 
+                expectedTB.getDatedTaskList(), expectedTB.getUndatedTaskList());
+        
+      //Undo add and delete undated task
+        expectedTB.removeTask(toUndo[0]);
+        assertCommandBehavior("undo", String.format(UndoCommand.MESSAGE_SUCCESS, "add"), expectedTB, 
+                expectedTB.getDatedTaskList(), expectedTB.getUndatedTaskList());
+        expectedTB.addTask(toUndo[0]);
         assertCommandBehavior("undo", String.format(UndoCommand.MESSAGE_SUCCESS, "delete"), expectedTB, 
                 expectedTB.getDatedTaskList(), expectedTB.getUndatedTaskList());
         
