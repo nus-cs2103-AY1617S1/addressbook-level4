@@ -17,6 +17,7 @@ import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Logic;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.activity.Activity;
+import seedu.address.model.activity.ReadOnlyActivity;
 import seedu.address.model.activity.UpcomingReminders;
 import seedu.address.model.activity.event.Event;
 import seedu.address.model.activity.task.Task;
@@ -120,20 +121,21 @@ public class UiManager extends ComponentManager implements Ui {
     
     //==================== Reminder Dialog Box =================================================================
     
-    private void showReminderDialog(ArrayList<Activity> activities) {
-        ImageIcon reminderIcon = new ImageIcon("/images/ringing.png",
-                "Reminder Bell");
+    private void showReminderDialog(ArrayList<ReadOnlyActivity> activities) {
+        /*ImageIcon reminderIcon = new ImageIcon("/images/ringing.png",
+                "Reminder Bell");*/
         
-        for (Activity activity : activities) {
+        System.out.println("I'm here");
+        
+        for (ReadOnlyActivity activity : activities) {
             JOptionPane.showMessageDialog(new JFrame(),
                     textForReminderDialog(activity, activity.getClass().getSimpleName()),
                     "Reminder: " + activity.getReminder().toString(),
-                    JOptionPane.WARNING_MESSAGE,
-                    reminderIcon);
+                    JOptionPane.WARNING_MESSAGE);
         }
     }
     
-    private String textForReminderDialog(Activity activity, String type) {
+    private String textForReminderDialog(ReadOnlyActivity activity, String type) {
         final StringBuilder sb = new StringBuilder();
         
         sb.append("Reminder for the " + type.toLowerCase() + ": " +  activity.getName());

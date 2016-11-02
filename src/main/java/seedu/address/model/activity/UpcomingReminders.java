@@ -17,11 +17,11 @@ public class UpcomingReminders {
     
     private static final int DEFAULT_SIZE = 50;
     
-    private static PriorityQueue<Activity> reminderQueue;
+    private static PriorityQueue<ReadOnlyActivity> reminderQueue;
     
     {
-        reminderQueue = new PriorityQueue<>(DEFAULT_SIZE, new Comparator<Activity>() {
-            public int compare(Activity first, Activity second) {
+        reminderQueue = new PriorityQueue<>(DEFAULT_SIZE, new Comparator<ReadOnlyActivity>() {
+            public int compare(ReadOnlyActivity first, ReadOnlyActivity second) {
                 return first.getReminder().compareTo(second.getReminder());
             }
         });
@@ -29,16 +29,16 @@ public class UpcomingReminders {
     
     public UpcomingReminders() {}
     
-    public UpcomingReminders(Collection<Activity> activities) {
-        for (Activity activity : activities) {
+    public UpcomingReminders(Collection<ReadOnlyActivity> activities) {
+        for (ReadOnlyActivity activity : activities) {
             if (activity.getReminder().getCalendarValue() != null && !activity.hasReminderPassed()) {
                 reminderQueue.add(activity);
             }
         }
     }
     
-    public static void initialize(Collection<Activity> activities) {
-        for (Activity activity : activities) {
+    public void initialize(Collection<Activity> activities) {
+        for (ReadOnlyActivity activity : activities) {
             if (activity.getReminder().getCalendarValue() != null && !activity.hasReminderPassed()) {
                 reminderQueue.add(activity);
             }
@@ -49,8 +49,11 @@ public class UpcomingReminders {
      * Adds an activity to the reminder queue. Activities without reminder or a passed reminder will not be added.
      * @return true if the activity is added to the queue.
      */
-    public static boolean addReminder(Activity newActivity) {
+    public boolean addReminder(ReadOnlyActivity newActivity) {
         if (newActivity.getReminder().getCalendarValue() != null && !newActivity.hasReminderPassed()) {
+            for (Object a : reminderQueue.toArray()) {
+                System.out.println("Reminder queue: " + ((ReadOnlyActivity) a).toString());
+            }
             return reminderQueue.add(newActivity);
         } else {
             return false;
@@ -61,7 +64,7 @@ public class UpcomingReminders {
      * Removes the activity from the reminder queue, if it exists.
      * @return true if the reminder is successfully removed.
      */
-    public static boolean removeReminder(Activity activity) {
+    public boolean removeReminder(ReadOnlyActivity activity) {
         return reminderQueue.remove(activity);
     }
     
@@ -69,10 +72,13 @@ public class UpcomingReminders {
      * Returns a list of events that is upcoming.
      * @return a list of the events with start time closest to current time.
      */
-    public static ArrayList<Activity> popNextReminders() {
-        ArrayList<Activity> nextRemindedActivities = new ArrayList<>();
+    public static ArrayList<ReadOnlyActivity> popNextReminders() {
+        for (Object a : reminderQueue.toArray()) {
+            System.out.println("Reminder queue: " + ((ReadOnlyActivity) a).toString());
+        }
+        ArrayList<ReadOnlyActivity> nextRemindedActivities = new ArrayList<>();
         
-        while (reminderQueue.peek().hasReminderPassed()) {
+        while (!reminderQueue.isEmpty() && reminderQueue.peek().hasReminderPassed()) {
             nextRemindedActivities.add(reminderQueue.poll());
         }
         
