@@ -10,6 +10,7 @@ public class ListCommand extends Command {
     public static final String COMMAND_WORD = "list";
 
     public static final String MESSAGE_SUCCESS = "Listed all tasks";
+    public static final String MESSAGE_DONE_SUCCESS = "Listed all completed tasks";
     
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": List Task in Simply\n"
             +"To show completed Task :        Example: " + COMMAND_WORD + " done\n"
@@ -25,14 +26,16 @@ public class ListCommand extends Command {
     public CommandResult execute() {
             model.updateFilteredListToShowAllUncompleted();
             if (keyword.equals("all") || keyword.equalsIgnoreCase("")) {
+                return new CommandResult(MESSAGE_SUCCESS);
         }
         else if (keyword.equals("done")) {
             model.updateFilteredListToShowAllCompleted();
+            return new CommandResult(MESSAGE_DONE_SUCCESS);
         } else {
             return new CommandResult(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     MESSAGE_USAGE));
         }
             
-        return new CommandResult(MESSAGE_SUCCESS);
+      
     }
 }
