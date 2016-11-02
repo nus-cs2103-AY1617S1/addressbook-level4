@@ -151,6 +151,12 @@ public class StringUtilTest {
         testSplitStringHelper("an apple a, day, keeps , , doctor ,,, away",
                 new String[] {"an", "apple", "a", "day", "keeps", "doctor", "away"});
     }
+    
+    @Test
+    public void splitString_delimiterAtEnd() {
+        testSplitStringHelper(", pikachu", new String[]{"pikachu"});
+        testSplitStringHelper("pikachu  , ", new String[]{"pikachu"});
+    }
 
     /**
      * Helper method to test splitString(...).
