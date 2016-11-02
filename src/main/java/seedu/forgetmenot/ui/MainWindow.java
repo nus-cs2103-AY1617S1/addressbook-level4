@@ -223,9 +223,9 @@ public class MainWindow extends UiPart {
     	return this.floatingPanel;
     }
     
+    //@@author A0147619W
     /**
      * Render Status Bar Footer again, used when storage location in config changes
-     * @@author A0147619W
      */
     public void rerenderStatusBarFooter() {
     	statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getTaskManagerFilePath());

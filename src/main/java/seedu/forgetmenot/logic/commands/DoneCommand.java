@@ -2,9 +2,7 @@ package seedu.forgetmenot.logic.commands;
 
 import seedu.forgetmenot.commons.core.Messages;
 import seedu.forgetmenot.commons.core.UnmodifiableObservableList;
-import seedu.forgetmenot.commons.exceptions.IllegalValueException;
 import seedu.forgetmenot.model.task.ReadOnlyTask;
-import seedu.forgetmenot.model.task.UniqueTaskList.DuplicateTaskException;
 import seedu.forgetmenot.model.task.UniqueTaskList.TaskNotFoundException;
 
 /**

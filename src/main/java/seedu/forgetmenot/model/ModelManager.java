@@ -21,8 +21,6 @@ import seedu.forgetmenot.model.task.ReadOnlyTask;
 import seedu.forgetmenot.model.task.Recurrence;
 import seedu.forgetmenot.model.task.Task;
 import seedu.forgetmenot.model.task.Time;
-import seedu.forgetmenot.model.task.UniqueTaskList;
-import seedu.forgetmenot.model.task.UniqueTaskList.DuplicateTaskException;
 import seedu.forgetmenot.model.task.UniqueTaskList.TaskNotFoundException;
 
 /**
@@ -225,6 +223,7 @@ public class ModelManager extends ComponentManager implements Model {
         EventsCenter.getInstance().post(new JumpToListRequestEvent(filteredTasks.indexOf(task)));
     }
     
+    //@@author A0147619W
     @Override
     public synchronized boolean isClashing(Task toAdd) {
     	Time start = toAdd.getStartTime();
@@ -250,13 +249,11 @@ public class ModelManager extends ComponentManager implements Model {
     	if(!start.isMissing()) {
     		for(Task task: taskManager.getTasks().filtered(isNotDone())) {
     			if(!task.getStartTime().isMissing() && task.getStartTime().time.compareTo(start.time) == 0) {
-    				System.out.println("a");
     				return true;
     			}
     			if(!task.getStartTime().isMissing() && !task.getEndTime().isMissing() && 
     					task.getStartTime().time.compareTo(start.time) <= 0 && 
     					task.getEndTime().time.compareTo(start.time) > 0) {
-    				System.out.println("b");
     				return true;
     			}
     		}
@@ -265,13 +262,11 @@ public class ModelManager extends ComponentManager implements Model {
     	if(!end.isMissing()) {
     		for(Task task: taskManager.getTasks().filtered(isNotDone())) {
     			if(!task.getEndTime().isMissing() && task.getEndTime().time.compareTo(end.time) == 0) {
-    				System.out.println("c");
     				return true;
     			}
     			if(!task.getStartTime().isMissing() && !task.getEndTime().isMissing() && 
     					task.getStartTime().time.compareTo(end.time) <= 0 && 
     					task.getEndTime().time.compareTo(end.time) > 0) {
-    				System.out.println("d");
     				return true;
     			}
     		}

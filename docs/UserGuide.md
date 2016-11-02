@@ -19,7 +19,7 @@
    e.g. typing **`help`** and pressing <kbd>Enter</kbd> will open the help window. 
 5. Refer to the [Features](#features) section below for details of each command.<br>
 
-
+//@@author A0147619W
 ## Features
 
 > **Command Format**
@@ -183,7 +183,7 @@ Format: `select <index>`
 Example:
 * `select 2`
 
-
+//@@author A0147619W
 #### Set storage: `setstorage`
 Allows the user to change the storage location to a different folder
 Format: `setstorage <folder name>`

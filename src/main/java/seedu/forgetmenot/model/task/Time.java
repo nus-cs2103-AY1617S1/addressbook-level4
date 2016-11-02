@@ -15,10 +15,10 @@ import com.joestelmach.natty.Parser;
 import seedu.forgetmenot.commons.exceptions.IllegalValueException;
 import seedu.forgetmenot.logic.parser.DatePreParse;
 
+//@@author A0147619W
 /**
  * Represents a Task's time in the task manager.
  * Guarantees: immutable; is valid as declared in {@link #isValidStart(String)}
- * @author A0147619W
  */
 public class Time {
     
@@ -162,11 +162,11 @@ public class Time {
     }
 
     
+    //@@author A0147619W
     /**
      * 
      * @param token
      * @return true if the given date is a valid date
-     * @@author A0147619W
      */
 	public static boolean isValidDate(String token) {
 		

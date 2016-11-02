@@ -5,10 +5,10 @@ import java.util.Objects;
 
 import seedu.forgetmenot.commons.util.CollectionUtil;
 
+//@@author A0147619W
 /**
  * Represents a Task in ForgetMeNot.
  * Guarantees: details are present and not null, field values are validated.
- * @@author A0147619W
  */
 public class Task implements ReadOnlyTask {
 
@@ -49,6 +49,7 @@ public class Task implements ReadOnlyTask {
     }
     //@@author
     
+    //@@author A0147619W
     @Override
     public Time getStartTime() {
         return start;

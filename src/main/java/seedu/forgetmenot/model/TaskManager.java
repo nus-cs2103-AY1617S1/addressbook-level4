@@ -10,11 +10,9 @@ import javafx.collections.ObservableList;
 import seedu.forgetmenot.commons.exceptions.IllegalValueException;
 import seedu.forgetmenot.model.task.Name;
 import seedu.forgetmenot.model.task.ReadOnlyTask;
-import seedu.forgetmenot.model.task.Recurrence;
 import seedu.forgetmenot.model.task.Task;
 import seedu.forgetmenot.model.task.Time;
 import seedu.forgetmenot.model.task.UniqueTaskList;
-import seedu.forgetmenot.model.task.UniqueTaskList.TaskNotFoundException;
 
 /**
  * Wraps all data at the task-manager level Duplicates are not allowed (by
@@ -76,12 +74,12 @@ public class TaskManager implements ReadOnlyTaskManager {
 
     //// task-level operations
 
+    //@@author A0147619W
     /**
      * Adds a task to the task manager.
      *
      * @throws UniqueTaskList.DuplicateTaskException
      *             if an equivalent task already exists.
-     * @@author A0147619W
      */
     public void addTask(Task p) {
         tasks.add(p);
@@ -148,6 +146,7 @@ public class TaskManager implements ReadOnlyTaskManager {
 
     //// util methods
 
+    //@@author
     @Override
     public String toString() {
         return tasks.getInternalList().size() + " tasks, ";
