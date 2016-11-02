@@ -280,7 +280,7 @@ is better than these alternatives.<br>
 a. Include those libraries in the repo (this bloats the repo size)<br>
 b. Require developers to download those libraries manually (this creates extra work for developers)<br>
 
-//@@author A0139655U
+<!-- @@author A0139655U -->
 ## Appendix A : User Stories
 
 Priorities: High - `* * *` Medium - `* *`  Low - `*`
@@ -309,6 +309,7 @@ Priority | As a ... | I want to ... | So that I can...
 
 (For all use cases below, the **System** is the `Task Manager` and the **Actor** is the `user`, unless specified otherwise)
 
+<!-- @@author A0139655U -->
 #### Use case: UC01 - Add a task
 
 **MSS**
@@ -336,6 +337,8 @@ Use case resumes at step 2
   Use case ends
 
 
+<!-- @@author -->
+
 
 #### Use case: UC02 - List all undone tasks
 
@@ -357,7 +360,7 @@ Use case ends
 
 > Use case ends
 
-
+<!-- @@author A0139552B -->
 #### Use case: UC03 - Edit an undone task
 
 **MSS**
@@ -367,7 +370,7 @@ Use case ends
 3. User enters the `edit` command, specifying the `INDEX` of the task in the list to be edited, the fields to be edited and their new values
 4. TaskManager parses the `edit` command and looks for the task in the list
 5. TaskManager edits the requested fields on the specified task according to the command entered
-6. TaskManager updates the GUI to display the new list of undone tasks<br>
+6. TaskManager updates the GUI to display the new list of undone tasks and highlight the newly edited task <br>
 Use case ends
 
 **Extensions**
@@ -391,6 +394,7 @@ Use case ends
 >4b1. TaskManager displays an error message on the GUI, informing the user of the correct format for the `edit` command and an example `edit` command <br>
  Use case resumes at step 3
 
+<!-- @@author -->
 
 #### Use case: UC04 - Delete an undone task
 
@@ -462,4 +466,5 @@ Todo.txt | <ol> <li> Works on many platforms, can be accessed on devices that su
 Google Calendar | <ol> <li> Can be synced to mobile devices </li> <li> Alerts via notifications on phones </li> <li> Switches between views easily </li> <li> Minimalistic interface </li>  </ol>  | <ol> <li> Requires an Internet connection to be used </li> <li> Cannot be brought up with a keyboard shortcut </li> </ol> 
 Remember the milk | <ol> <li> Able to support email, text, IM, Twitter, and mobile notifications </li> <li> Able to share lists and tasks with others</li> <li> Synchronises across on all devices </li> <li> Organize with priorities, due dates, repeats, lists, tags </li> <li> Search tasks and notes, and save favorite searches </li> <li> Integrates with Gmail, Google Calendar, Twitter, Evernote, and more </li>  </ol> | <ol> <li> Free version lacks features: E.g. splitting into subtasks </li> <li> Lack keyboard shortcuts</li> </ol>
 
+<!-- @@author A0139552B -->
 <strong>Summary:</strong> We observed that these products have very good features, but we realise that none of these products have the specific combination of features that caters to our target audience. Therefore, we are incorporating some of the good features such as minimalistic interface and ability to sync with multiple computers while designing DearJim carefully to avoid the pitfalls found in these products, to make a targeted product for our intended audience.
