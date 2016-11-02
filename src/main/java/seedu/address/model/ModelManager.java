@@ -190,15 +190,20 @@ public class ModelManager extends ComponentManager implements Model {
     			System.out.println("now: " + now);
     			System.out.println("endDateee: " + task.getEndDate());
     			task.setStatus(new Status("overdue"));
-    		} else if(task.getStatus().isOverdue() && task.getEndDate().orElse(LocalDateTime.MIN).isAfter(now)) {
+    		} 
+    		else if (task.getStatus().isOverdue() && task.getEndDate().orElse(LocalDateTime.MIN).isAfter(now)) {
     			task.setStatus(new Status("pending"));
     		}
     	}
     }
-    //@@author
 
     //=========== Filtered Task List Accessors ===============================================================
-
+    
+    public List<Alias> getAliasList() {
+    	return aliasManager.getInternalList();
+    }
+    //@@author
+    
     @Override
     public UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList() {
         return new UnmodifiableObservableList<>(filteredTasks);

@@ -6,6 +6,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.parser.Parser;
+import seedu.address.model.AliasManager;
 import seedu.address.model.Model;
 import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.storage.Storage;
@@ -23,7 +24,7 @@ public class LogicManager extends ComponentManager implements Logic {
 
     public LogicManager(Model model, Storage storage) {
         this.model = model;
-        this.parser = new Parser();
+        this.parser = new Parser(model);
     }
 
     @Override
