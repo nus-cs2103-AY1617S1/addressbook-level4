@@ -101,21 +101,7 @@ public class Task implements ReadOnlyTask {
     //@@author A0139671X
     @Override
     public String toString() {
-        final StringBuilder builder = new StringBuilder();
-        
-        builder.append(getName());
-        builder.append(System.lineSeparator());
-        
-        if (!getStartTime().isMissing())
-            builder.append("Start: " + getStartTime().easyReadDateFormatForUI());
-        
-        if (!getEndTime().isMissing())
-            builder.append(" End: " + getEndTime().easyReadDateFormatForUI());
-        
-        if (getRecurrence().getValue())
-            builder.append(" Recurrence: " + getRecurrence());
-        
-        return builder.toString();
+        return getAsText();
     }
     
     /**

@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<!-- //@@author A0139211R -->
+
 <?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
@@ -38,7 +40,7 @@
                             </children>
                         </HBox>
                         <Label fx:id="start" style="-fx-font-size: 120%;" styleClass="cell_small_label" text="\$start" />
-                        <Label fx:id="address" style="-fx-font-size: 120%;" styleClass="cell_small_label" text="\$address" />
+                        <Label fx:id="end" style="-fx-font-size: 120%;" styleClass="cell_small_label" text="\$end" />
                   <Label fx:id="recur" style="-fx-font-size: 120%;" styleClass="cell_small_label" />
                     </children>
                 </VBox>

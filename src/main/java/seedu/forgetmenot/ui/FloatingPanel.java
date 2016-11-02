@@ -17,16 +17,16 @@ import seedu.forgetmenot.commons.core.LogsCenter;
 import seedu.forgetmenot.commons.events.ui.TaskPanelSelectionChangedEvent;
 import seedu.forgetmenot.model.task.ReadOnlyTask;
 
+//@@author A0139211R
 /**
  * Panel containing the list of floating tasks.
- * @@author A0139211R
+ * 
  */
 public class FloatingPanel extends UiPart {
     private final Logger logger = LogsCenter.getLogger(FloatingPanel.class);
     private static final String FXML = "FloatingPanel.fxml";
     private VBox panel;
     private AnchorPane placeHolderPane;
-    private static ObservableList<ReadOnlyTask> filteredList;
 
     @FXML
     private ListView<ReadOnlyTask> floatingListView;

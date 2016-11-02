@@ -20,9 +20,10 @@ import seedu.forgetmenot.commons.events.model.TaskManagerChangedEvent;
 import seedu.forgetmenot.model.TaskManager;
 import seedu.forgetmenot.model.task.ReadOnlyTask;
 
+//@@author A0139211R
 /**
  * Panel containing the list of tasks.
- * @@author A0139211R
+ * 
  */
 public class ContentBox extends UiPart {
     private final Logger logger = LogsCenter.getLogger(ContentBox.class);
@@ -117,6 +118,7 @@ public class ContentBox extends UiPart {
         return contentbox;
     }
     
+    // Updates the respective task numbers in event of change
     @Subscribe
     private void modelChangedEvent(TaskManagerChangedEvent change) {
     	dummy1.setText(Integer.toString(TaskManager.overdueCounter));
@@ -132,7 +134,7 @@ public class ContentBox extends UiPart {
         addToPlaceholder();
         panel.prefHeightProperty().bind(placeHolderPane.heightProperty());       
     }
-    
+    // Initialize various task values to correspond to those when application is closed
     @FXML
     public void initialize() {
        	dummy1.setText(Integer.toString(TaskManager.overdueCounter));

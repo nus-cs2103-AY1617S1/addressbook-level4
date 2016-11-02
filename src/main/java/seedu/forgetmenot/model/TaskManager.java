@@ -220,5 +220,25 @@ public class TaskManager implements ReadOnlyTaskManager {
         upcomingCounter = upcoming;
         overdueCounter = overdue;
     }
+    
+    public int getFloatingCounter() {
+    	return floatingCounter;
+    }
+    
+    public int getOverdueCounter() {
+    	return overdueCounter;
+    }
+    
+    public int getUpcomingCounter() {
+    	return upcomingCounter;
+    }
+    
+    public int getTodayCounter() {
+    	return todayCounter;
+    }
+    
+    public int getTomorrowCounter() {
+    	return tomorrowCounter;
+    }
 
 }
