@@ -34,7 +34,7 @@ import seedu.address.logic.parser.ArgumentTokenizer.Prefix;
 
 
 public class Parser {
-	// @@author A0141019U	
+	//@@author A0141019U
 	private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
 	
 	private static final Pattern ADD_COMMAND_FORMAT = Pattern
@@ -382,7 +382,16 @@ public class Parser {
 			}
 		}
 		
-
+		if(startDateTime!=null && endDateTime!=null && !endDateTime.isAfter(startDateTime)){
+			if(startDateTime.isAfter(endDateTime)){
+				return new IncorrectCommand(EditCommand.MESSAGE_START_DATE_TIME_AFTER_END_DATE_TIME);
+			}
+			
+			else{
+				return new IncorrectCommand(EditCommand.MESSAGE_START_DATE_TIME_EQUALS_END_DATE_TIME);
+			}
+		}
+		
 		try {
 			return new EditCommand(Integer.parseInt(index), newName, startDateTime, endDateTime);
 		} catch (NumberFormatException e) {
