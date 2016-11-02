@@ -2,6 +2,7 @@
 package seedu.whatnow.logic.commands;
 
 import java.io.IOException;
+import java.util.Optional;
 import java.util.logging.Logger;
 
 import seedu.whatnow.commons.core.Config;
@@ -28,6 +29,14 @@ public class ChangeCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "The data storage location has been successfully changed to: %1$s";
 
+    public static final String MESSAGE_UNDO_FAIL = "Unable to undo due to no previous location information";
+
+    public static final String MESSAGE_UNDO_SUCCESS = "Successfully able to undo due to %1$s";
+
+    public static final String MESSAGE_REDO_SUCCESS = "Successfully able to redo due to %1$s";
+
+    public static final String MESSAGE_REDO_FAIL = "Unable to redo due to no previous undo command";
+    
     public static final String WHATNOW_XMLFILE = "whatnow.xml";
 
     public static final String DOUBLE_BACKSLASH = "\\";
@@ -40,7 +49,7 @@ public class ChangeCommand extends Command {
 
     public Path destination;
 
-    public Config config = new Config();
+    public Config config;
 
     private static final Logger logger = LogsCenter.getLogger(ChangeCommand.class);
 
@@ -52,7 +61,7 @@ public class ChangeCommand extends Command {
      * Execute the ChangeCommand to change to the updated data filepath
      */
     @Override
-    public CommandResult execute() {
+    public CommandResult execute() { 
         Path path = FileSystems.getDefault().getPath(newPath);
 
         if (Files.exists(path)) {
@@ -65,21 +74,21 @@ public class ChangeCommand extends Command {
             }
 
             path = FileSystems.getDefault().getPath(newPath);
-
-            config.setWhatNowFilePath(newPath);
-
             String configFilePathUsed = Config.DEFAULT_CONFIG_FILE;
-
+            
             try {
+                Optional<Config> configOptional = ConfigUtil.readConfig(configFilePathUsed);
+                config = configOptional.orElse(new Config());
+                model.getStackOfChangeFileLocationOld().push(config.getWhatNowFilePath());
+                config.setWhatNowFilePath(newPath);
                 model.changeLocation(path, config);
+                model.getUndoStack().push(COMMAND_WORD); 
             } catch (DataConversionException e1) {
-                e1.printStackTrace();
-            } catch (IOException e1) {
-                e1.printStackTrace();
-            } catch (TaskNotFoundException e1) {
-                e1.printStackTrace();
+                logger.warning("Config file at " + configFilePathUsed + " is not in the correct format. " +
+                        "Using default config properties");
+                config = new Config();
             }
-
+            
             try {
                 ConfigUtil.saveConfig(config, configFilePathUsed);
             } catch (IOException e) {

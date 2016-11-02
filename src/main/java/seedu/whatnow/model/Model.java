@@ -23,7 +23,7 @@ import seedu.whatnow.model.task.UniqueTaskList.TaskNotFoundException;
  */
 public interface Model {
 
-    // @@author A0139128A
+    //@@author A0139128A
     /**
      * Clears existing backing model and replaces with the provided new data.
      */
@@ -50,7 +50,7 @@ public interface Model {
     /** Adds the given task at specific index */
     void addTaskSpecific(Task task, int idx) throws DuplicateTaskException;
 
-    // @@author A0139772U
+    //@@author A0139772U
     /**
      * Returns the filtered task list as an
      * {@code UnmodifiableObservableList<ReadOnlyTask>}
@@ -105,7 +105,7 @@ public interface Model {
 
     FreePeriod getFreeTime(String date);
 
-    // @@author A0139128A
+    //@@author A0139128A
     /** Gets the UndoStack if possible */
     Stack<String> getUndoStack();
 
@@ -161,10 +161,18 @@ public interface Model {
      * undone
      */
     Stack<String> getStackOfListTypesRedo();
+    
+    //@@author A0141021H
+    /**Gets a stack of String that corresponds to the list of previous file path */
+    Stack<String> getStackOfChangeFileLocationOld();
+    
+    /**Gets a stack of String that corresponds to the list of new file path */
+    Stack<String> getStackOfChangeFileLocationNew();
 
+    //@@author A0139772U
     // =========== Methods for Schedule List
     // ===============================================================
-    // @@author A0139772U
+    
     /**
      * Returns the filtered task list as an
      * {@code UnmodifiableObservableList<ReadOnlyTask>}
@@ -213,7 +221,6 @@ public interface Model {
      */
     UnmodifiableObservableList<ReadOnlyTask> getAllTaskTypeList();
 
-    // @@author A0141021H
-    void changeLocation(Path destination, Config config)
-            throws DataConversionException, IOException, TaskNotFoundException;
+    //@@author A0141021H
+    void changeLocation(Path destination, Config config) throws DataConversionException;
 }

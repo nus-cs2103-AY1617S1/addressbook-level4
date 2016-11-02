@@ -72,9 +72,11 @@ public class ModelManager extends ComponentManager implements Model {
     private final Stack<ReadOnlyTask> stackOfMarkUndoneRedo;
     private final Stack<String> stackOfListTypes;
     private final Stack<String> stackOfListTypesRedo;
+    private final Stack<String> stackOfChangeFileLocationOld;
+    private final Stack<String> stackOfChangeFileLocationNew;
     private final HashMap<String, FreePeriod> freeTimes;
 
-    // @@author A0139128A
+    //@@author A0139128A
     /**
      * Initializes a ModelManager with the given WhatNow WhatNow and its
      * variables should not be null
@@ -107,16 +109,18 @@ public class ModelManager extends ComponentManager implements Model {
         stackOfMarkUndoneRedo = new Stack<>();
         stackOfListTypes = new Stack<>();
         stackOfListTypesRedo = new Stack<>();
+        stackOfChangeFileLocationOld = new Stack<>();
+        stackOfChangeFileLocationNew = new Stack<>();
         freeTimes = new HashMap<String, FreePeriod>();
         initialiseFreeTime();
     }
 
-    // @@author A0141021H-reused
+    //@@author A0141021H-reused
     public ModelManager() {
         this(new WhatNow(), new UserPrefs());
     }
 
-    // @@author A0139128A
+    //@@author A0139128A
     public ModelManager(ReadOnlyWhatNow initialData, UserPrefs userPrefs) {
         whatNow = new WhatNow(initialData);
         new Config();
@@ -139,18 +143,20 @@ public class ModelManager extends ComponentManager implements Model {
         stackOfMarkUndoneRedo = new Stack<>();
         stackOfListTypes = new Stack<>();
         stackOfListTypesRedo = new Stack<>();
+        stackOfChangeFileLocationOld = new Stack<>();
+        stackOfChangeFileLocationNew = new Stack<>();
         freeTimes = new HashMap<String, FreePeriod>();
         initialiseFreeTime();
     }
 
-    // @@author A0139772U
+    //@@author A0139772U
     private void initialiseFreeTime() {
         for (int i = 0; i < filteredSchedules.size(); i++) {
             blockFreeTime(filteredSchedules.get(i));
         }
     }
 
-    // @@author A0139128A
+    //@@author A0139128A
     @Override
     public void resetData(ReadOnlyWhatNow newData) {
         stackOfWhatNow.push(new WhatNow(whatNow));
@@ -165,45 +171,45 @@ public class ModelManager extends ComponentManager implements Model {
         indicateWhatNowChanged();
     }
 
-    // @@author A0139128A-reused
+    //@@author A0139128A-reused
     @Override
     public ReadOnlyWhatNow getWhatNow() {
         return whatNow;
     }
 
-    // @@author A0139772U-reused
+    //@@author A0139772U-reused
     /** Raises an event to indicate the model has changed */
     private void indicateWhatNowChanged() {
         raise(new WhatNowChangedEvent(whatNow));
     }
 
-    // @@author A0141021H
+    //@@author A0141021H
     /** Raises an event to indicate the config has changed */
     private void indicateConfigChanged(Path destination, Config config) {
         raise(new ConfigChangedEvent(destination, config));
     }
 
-    // @@author A0141021H-reused
+    //@@author A0141021H-reused
     /** Raises an event to indicate that a task was added */
     private void indicateAddTask(Task task, boolean isUndo) {
         raise(new AddTaskEvent(task, isUndo));
     }
 
-    // @@author A0141021H-reused
+    //@@author A0141021H-reused
     /** Raises an event to indicate that a task was updated */
     private void indicateUpdateTask(Task task) {
         raise(new UpdateTaskEvent(task));
     }
 
-    // @@author A0141021H
+    //@@author A0141021H
     @Override
-    public synchronized void changeLocation(Path destination, Config config)
-            throws DataConversionException, IOException, TaskNotFoundException {
+    public synchronized void changeLocation(Path destination, Config config) throws DataConversionException {
+        indicateWhatNowChanged();
         indicateConfigChanged(destination, config);
         indicateWhatNowChanged();
     }
 
-    // @@author A0139128A-reused
+    //@@author A0139128A-reused
     @Override
     public synchronized int deleteTask(ReadOnlyTask target) throws TaskNotFoundException {
         int indexRemoved = whatNow.removeTask(target);
@@ -212,7 +218,7 @@ public class ModelManager extends ComponentManager implements Model {
         return indexRemoved;
     }
 
-    // @@author A0126240W-reused
+    //@@author A0126240W-reused
     @Override
     public synchronized void addTask(Task task) throws UniqueTaskList.DuplicateTaskException {
         whatNow.addTask(task);
@@ -222,7 +228,7 @@ public class ModelManager extends ComponentManager implements Model {
         indicateWhatNowChanged();
     }
 
-    // @@author A0139128A
+    //@@author A0139128A
     public synchronized void addTaskSpecific(Task task, int idx) throws UniqueTaskList.DuplicateTaskException {
         whatNow.addTaskSpecific(task, idx);
         updateFilteredListToShowAllIncomplete();
@@ -230,7 +236,7 @@ public class ModelManager extends ComponentManager implements Model {
         indicateWhatNowChanged();
     }
 
-    // @@author A0126240W
+    //@@author A0126240W
     @Override
     public synchronized void updateTask(ReadOnlyTask old, Task toUpdate)
             throws TaskNotFoundException, DuplicateTaskException {
@@ -240,121 +246,133 @@ public class ModelManager extends ComponentManager implements Model {
         indicateWhatNowChanged();
     }
 
-    // @@author A0139772U
+    //@@author A0139772U
     @Override
     public synchronized void markTask(ReadOnlyTask target) throws TaskNotFoundException {
         whatNow.markTask(target);
         indicateWhatNowChanged();
     }
 
-    // @@author A0141021H
+    //@@author A0141021H
     @Override
     public synchronized void unMarkTask(ReadOnlyTask target) throws TaskNotFoundException {
         whatNow.unMarkTask(target);
         indicateWhatNowChanged();
     }
 
-    // @@author A0139128A
+    //@@author A0139128A
     @Override
     public Stack<String> getUndoStack() {
         return stackOfUndo;
     }
 
-    // @@author A0139128A
+    //@@author A0139128A
     @Override
     public Stack<String> getRedoStack() {
         return stackOfRedo;
     }
 
-    // @@author A0139128A
+    //@@author A0139128A
     @Override
     public Stack<ReadOnlyTask> getOldTask() {
         return stackOfOldTask;
     }
 
-    // @@author A0139128A
+    //@@author A0139128A
     @Override
     public Stack<ReadOnlyTask> getNewTask() {
         return stackOfNewTask;
     }
 
-    // @@author A0139772U
+    //@@author A0139772U
     @Override
     public UnmodifiableObservableList<ReadOnlyTask> getAllTaskTypeList() {
         filteredTasks.setPredicate(null);
         return new UnmodifiableObservableList<>(filteredTasks);
     }
 
-    // @@author A0139128A
+    //@@author A0139128A
     @Override
     public Stack<ReadOnlyTask> getDeletedStackOfTasks() {
         return stackOfDeletedTasks;
     }
 
-    // @@author A0139128A
+    //@@author A0139128A
     public Stack<Integer> getDeletedStackOfTasksIndex() {
         return stackOfDeletedTaskIndex;
     }
 
-    // @@author A0139128A
+    //@@author A0139128A
     public Stack<Integer> getDeletedStackOfTasksIndexRedo() {
         return stackOfDeletedTaskIndexRedo;
     }
 
-    // @@author A0139128A
+    //@@author A0139128A
     @Override
     public Stack<ReadOnlyTask> getDeletedStackOfTasksRedo() {
         return stackOfDeletedTasksRedo;
     }
 
-    // @@author A0139128A
+    //@@author A0139128A
     @Override
     public Stack<ReadOnlyTask> getDeletedStackOfTasksAdd() {
         return stackOfDeletedTasksAdd;
     }
 
-    // @@author A0139128A
+    //@@author A0139128A
     @Override
     public Stack<ReadOnlyTask> getDeletedStackOfTasksAddRedo() {
         return stackOfDeletedTasksAddRedo;
     }
 
-    // @@author A0139128A
+    //@@author A0139128A
     @Override
     public Stack<ReadOnlyTask> getStackOfMarkDoneTask() {
         return stackOfMarkDone;
     }
 
-    // @@author A0139128A
+    //@@author A0139128A
     @Override
     public Stack<ReadOnlyTask> getStackOfMarkDoneTaskRedo() {
         return stackOfMarkDoneRedo;
     }
 
-    // @@author A0141021H
+    //@@author A0141021H
     @Override
     public Stack<ReadOnlyTask> getStackOfMarkUndoneTask() {
         return stackOfMarkUndone;
     }
 
-    // @@author A0139128A
+    //@@author A0139128A
     public Stack<ReadOnlyTask> getStackOfMarkUndoneTaskRedo() {
         return stackOfMarkUndoneRedo;
     }
 
-    // @@author A0139128A
+    //@@author A0139128A
     @Override
     public Stack<String> getStackOfListTypes() {
         return stackOfListTypes;
     }
 
-    // @@author A0139128A
+    //@@author A0139128A
     @Override
     public Stack<String> getStackOfListTypesRedo() {
         return stackOfListTypesRedo;
     }
+    
+    //@@author A0141021H
+    @Override 
+    public Stack<String> getStackOfChangeFileLocationOld() {
+        return stackOfChangeFileLocationOld;
+    }
+    
+    //@@author A0141021H
+    @Override 
+    public Stack<String> getStackOfChangeFileLocationNew() {
+        return stackOfChangeFileLocationNew;
+    }
 
-    // @@author A0139772U
+    //@@author A0139772U
     @Override
     public FreePeriod getFreeTime(String date) {
         if (freeTimes.get(date) == null) {
@@ -364,7 +382,7 @@ public class ModelManager extends ComponentManager implements Model {
         return freeTimes.get(date);
     }
 
-    // @@author A0139772U
+    //@@author A0139772U
     /**
      * Remove from the freetime block the period that coincides with the task
      * duration
@@ -453,9 +471,10 @@ public class ModelManager extends ComponentManager implements Model {
         initialiseFreeTime();
     }
 
+    //@@author A0139772U
     // =========== Filtered Task List Accessors
     // ===============================================================
-    // @@author A0139772U
+    
     @Override
     public UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList() {
         updateFilteredListToShowAllIncomplete();
@@ -526,9 +545,10 @@ public class ModelManager extends ComponentManager implements Model {
         filteredTasks.setPredicate(expression::satisfies);
     }
 
+    //@@author A0139772U
     // =========== Filtered Schedule List Accessors
     // ===============================================================
-    // @@author A0139772U
+    
     @Override
     public UnmodifiableObservableList<ReadOnlyTask> getFilteredScheduleList(boolean isUndo) {
         if (!isUndo) {
@@ -602,9 +622,10 @@ public class ModelManager extends ComponentManager implements Model {
         filteredSchedules.setPredicate(expression::satisfies);
     }
 
+    //@@author A0141021H
     // ========== Inner classes/interfaces used for filtering
     // ==================================================
-    // @@author A0141021H
+    
     interface Expression {
         boolean satisfies(ReadOnlyTask task);
 
@@ -636,7 +657,7 @@ public class ModelManager extends ComponentManager implements Model {
         String toString();
     }
 
-    // @@author A0139772U
+    //@@author A0139772U
     private class NameQualifier implements Qualifier {
         private Set<String> nameKeyWords;
 
@@ -657,7 +678,7 @@ public class ModelManager extends ComponentManager implements Model {
         }
     }
 
-    // @@author A0139772U
+    //@@author A0139772U
     private class TaskStatusQualifier implements Qualifier {
         private Set<String> status;
 
@@ -677,7 +698,7 @@ public class ModelManager extends ComponentManager implements Model {
         }
     }
 
-    // @@author A0139772U
+    //@@author A0139772U
     private class TaskTypeQualifier implements Qualifier {
         private Set<String> taskType;
 
