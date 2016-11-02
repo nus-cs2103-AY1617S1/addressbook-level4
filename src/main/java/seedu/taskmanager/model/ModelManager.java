@@ -294,10 +294,11 @@ public class ModelManager extends ComponentManager implements Model {
 
         @Override
         public boolean run(ReadOnlyItem item) {
+            
             return itemType.stream()
                     .filter(keyword -> StringUtil.containsIgnoreCase(item.getItemType().value, keyword))
                     .findAny()
-                    .isPresent();
+                    .isPresent(); 
         }
 
         @Override
@@ -305,7 +306,7 @@ public class ModelManager extends ComponentManager implements Model {
             return "name=" + String.join(", ", itemType);
         }
     }
-
+  //@@author A0135792X
     private class NameQualifier implements Qualifier {
         private Set<String> nameKeyWords;
 
@@ -315,10 +316,13 @@ public class ModelManager extends ComponentManager implements Model {
 
         @Override
         public boolean run(ReadOnlyItem item) {
-            return nameKeyWords.stream()
-                    .filter(keyword -> StringUtil.containsIgnoreCase(item.getName().value, keyword))
-                    .findAny()
-                    .isPresent();
+            
+            for (String keyword : nameKeyWords ) {
+                if (!item.getName().value.toLowerCase().contains(keyword.toLowerCase())) {
+                    return false;
+                }
+            }
+            return true;
         }
 
         @Override
