@@ -16,7 +16,7 @@
 
 #### Prerequisites
 
-1. **JDK `1.8.0_60`**  or later - [Official Download](http://www.oracle.com/technetwork/java/javase/downloads/index.html) <br>
+1. **JDK `1.8.0_111`**  or later - [Official Download](http://www.oracle.com/technetwork/java/javase/downloads/index.html) <br>
 
     > Having any Java 8 version is not enough. <br>
     This app will not work with earlier versions of Java 8.
@@ -283,7 +283,7 @@ Priority | As a ... | I want to ... | So that I can...
 
 (For all use cases below, the **System** is the `TaskManager` and the **Actor** is the `user`, unless specified otherwise)
 
-#### Use case: Show help page
+### Use case: Show help page
 
 **MSS**
 
@@ -292,7 +292,7 @@ Priority | As a ... | I want to ... | So that I can...
 Use case ends
 
 
-#### Use case: Add task
+### Use case: Add task
 
 **MSS**
 
@@ -313,7 +313,7 @@ Use case ends
   Use case ends
 
 
-#### Use case: Edit task
+### Use case: Edit task
 
 **MSS**
 
@@ -334,7 +334,7 @@ Use case ends
   Use case ends
   
   
-#### Use case: Delete task
+### Use case: Delete task
 
 **MSS**
 
@@ -354,7 +354,7 @@ Use case ends
   Use case ends
 
 
-#### Use case: Find Task(s)
+### Use case: Find Task(s)
 
 **MSS**
 
@@ -362,7 +362,7 @@ Use case ends
 2. Task Manager shows tasks containing the KEYWORD <br>
 Use case ends
 
-#### Use case: List tasks
+### Use case: List tasks
 
 **MSS**
 
@@ -371,7 +371,7 @@ Use case ends
 Use case ends
 
 
-#### Use case: Sort tasks
+### Use case: Sort tasks
 
 **MSS**
 
@@ -380,7 +380,7 @@ Use case ends
 Use case ends
 
 
-#### Use case: Undo last command
+### Use case: Undo last command
 
 **MSS**
 
@@ -396,7 +396,7 @@ Use case ends
   Use case ends
 
 
-#### Use case: Mark task as done
+### Use case: Mark task as done
 
 **MSS**
 
@@ -417,7 +417,7 @@ Use case ends
   Use case ends
 
 
-#### Use case: Mark task as not done
+### Use case: Mark task as not done
 
 **MSS**
 
@@ -438,7 +438,7 @@ Use case ends
   Use case ends
 
 
-#### Use case: Backup Data
+### Use case: Backup Data
 
 **MSS**
 
@@ -460,7 +460,7 @@ Use case ends
   Use case ends
 
 
-#### Use case: Access Another Data File
+### Use case: Access Another Data File
 
 **MSS**
 
@@ -482,7 +482,7 @@ Use case ends
   Use case ends
 
 
-#### Use case: Clear tasks
+### Use case: Clear tasks
 
 **MSS**
 
@@ -491,7 +491,7 @@ Use case ends
 Use case ends
 
 
-#### Use case: Exit TaskManager
+### Use case: Exit TaskManager
 
 **MSS**
 
@@ -525,5 +525,5 @@ Use case ends
 -------- | :-------- | :--------- | :-----------
 `Platforms` | All platforms | iOS, Android, Google Chrome | iPhone, iPad, Android, Windows, Kindle, Web
 `Price` | Free / Premium ($28.99/year) | Free / Premium ($45/year or $5 per month) | Free / Pro ($59.88/year)
-`Pros` | Good user interface<br>Fastest task manager app Works offline<br>Can set priorities by choosing from 1 to 4. <br>Can drag and drop tasks <br>Can create a “Project” with emojis in its name  Supports text formatting| Minimalistic design Can “Star” a task to mark it as high priority Runs at high speed Has in-built speech recognition <br>Can drag and drop tasks <br>
-Can swipe a task to the right to mark it as complete<br> Can swipe a completed task to the left to add it again to the list. <br>Can attach files from your Dropbox and Google Drive  | Simple-to-use <br>Can “Star” a task to set a priority to a task Hashtags feature<br> Can add comments and attachments Supports email reminder Powerful search function Can restore deleted lists. <br>Can manually create backups and import data from your backups.<br> Can attach files from your Dropbox.`Cons` | The key features are all part of premium plan <br>Not compatible with Windows Phone Search function is limited in free plan <br>Doesn’t have a backup option for free users | Not intuitive to use Doesn’t hide a task when it’s marked as complete.<br> Doesn’t support email reminders Doesn’t have a Windows app.<br>  Doesn’t have a backup option. Doesn’t support emojis in your list names. Doesn’t support markdown.| Slow to load <br>Doesn’t show last synced time <br>Doesn’t support text formatting
+`Pros` | Good user interface<br>Fastest task manager app Works offline<br>Can set priorities by choosing from 1 to 4. <br>Can drag and drop tasks <br>Can create a Â“ProjectÂ” with emojis in its name  Supports text formatting| Minimalistic design Can Â“StarÂ” a task to mark it as high priority Runs at high speed Has in-built speech recognition <br>Can drag and drop tasks <br>
+Can swipe a task to the right to mark it as complete<br> Can swipe a completed task to the left to add it again to the list. <br>Can attach files from your Dropbox and Google Drive  | Simple-to-use <br>Can Â“StarÂ” a task to set a priority to a task Hashtags feature<br> Can add comments and attachments Supports email reminder Powerful search function Can restore deleted lists. <br>Can manually create backups and import data from your backups.<br> Can attach files from your Dropbox.`Cons` | The key features are all part of premium plan <br>Not compatible with Windows Phone Search function is limited in free plan <br>DoesnÂ’t have a backup option for free users | Not intuitive to use DoesnÂ’t hide a task when itÂ’s marked as complete.<br> DoesnÂ’t support email reminders DoesnÂ’t have a Windows app.<br>  DoesnÂ’t have a backup option. DoesnÂ’t support emojis in your list names. DoesnÂ’t support markdown.| Slow to load <br>DoesnÂ’t show last synced time <br>DoesnÂ’t support text formatting
