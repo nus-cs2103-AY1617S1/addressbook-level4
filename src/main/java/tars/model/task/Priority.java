@@ -31,8 +31,7 @@ public class Priority implements Comparable<Priority> {
     /**
      * Validates given task priority level.
      *
-     * @throws IllegalValueException
-     *             if given priority level string is invalid.
+     * @throws IllegalValueException if given priority level string is invalid.
      */
     public Priority(String priorityLevel) throws IllegalValueException {
         assert priorityLevel != null;
