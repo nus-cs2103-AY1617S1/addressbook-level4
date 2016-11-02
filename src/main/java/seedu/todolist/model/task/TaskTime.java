@@ -24,7 +24,7 @@ public class TaskTime {
     public static final String TIME_VALIDATION_REGEX_1 = "(\\p{Digit}){1,2}(:(\\p{Digit}){2})?\\s?[AaPp][Mm]";
     public static final String TIME_VALIDATION_REGEX_FORMAT = TIME_VALIDATION_REGEX_1 + "|" + TIME_VALIDATION_REGEX_2;
 
-    public static final String TIME_DISPLAY_FORMAT = "hh:mma";
+    public static final String TIME_DISPLAY_FORMAT = "h:mma";
 
     public final LocalTime time;
     

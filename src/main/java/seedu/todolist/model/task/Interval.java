@@ -153,16 +153,29 @@ public class Interval implements Comparable<Interval> {
     public String toString() {
         if (!this.isFloat()) {
             if (this.isDeadlineWithTime()) {
-                return endDate + " " + endTime;
+                return formatEndDateTime();
             }
             else if (this.isDeadlineWithoutTime()) {
-                return endDate + "";
+                return formatEndDate();
             }
             else {
-                return startDate + " " + startTime + " to " + endDate + " " + endTime;
+                return formatStartDateTime() + " to " + formatEndDateTime();
             }
         }
         return null;
+    }
+    
+    //Ian: quite retarded right? You try to .toString a field that can be null.
+    public String formatStartDateTime() {
+        return startDate + ", " + startTime;//.toString().replace("AM", "am").replace("PM","pm");
+    }
+    
+    public String formatEndDateTime() {
+        return endDate + ", " + endTime;//.toString().replace("AM", "am").replace("PM","pm");
+    }
+    
+    public String formatEndDate() {
+        return endDate + "";
     }
     
     @Override
