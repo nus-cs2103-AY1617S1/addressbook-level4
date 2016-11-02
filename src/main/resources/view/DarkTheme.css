@@ -3,10 +3,9 @@
 }
 
 .label {
-    -fx-font-size: 13pt;
+    -fx-font-size: 11pt;
     -fx-font-family: "Segoe UI Semibold";
-    -fx-text-fill: white;
-    -fx-font-weight: bold;
+    -fx-text-fill: #555555;
     -fx-opacity: 0.9;
 }
 
@@ -300,7 +299,10 @@
     -fx-effect: innershadow(gaussian, black, 10, 0, 0, 0);
 }
 
-#panelTitle {
-	-fx-background-color: grey;
-	-fx-margin: 5;
+#floatingTaskTitle, #deadlineTitle, #eventTitle {
+    -fx-font-size: 13pt;
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-opacity: 0.9;
 }
