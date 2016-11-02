@@ -31,6 +31,8 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+import javax.xml.ws.handler.MessageContext;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.task.commons.core.Messages.*;
@@ -154,6 +156,11 @@ public class LogicManagerTest {
     }
 
     //@@author A0144939R
+    
+    /**
+     * Tests for add command
+     * @throws Exception
+     */
     @Test
     public void execute_add_invalidArgsFormat() throws Exception {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE);
@@ -186,7 +193,7 @@ public class LogicManagerTest {
         expectedAB.addTask(toBeAdded);
 
         // execute command and verify result
-        assertCommandBehavior(helper.generateAddCommand(toBeAdded),
+        assertCommandBehavior(helper.generateAddCommand("add", toBeAdded),
                 String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded),
                 expectedAB,
                 expectedAB.getTaskList());
@@ -206,7 +213,7 @@ public class LogicManagerTest {
 
         // execute command and verify result
         assertCommandBehavior(
-                helper.generateAddCommand(toBeAdded),
+                helper.generateAddCommand("add", toBeAdded),
                 AddCommand.MESSAGE_DUPLICATE_TASK,
                 expectedAB,
                 expectedAB.getTaskList());
@@ -228,7 +235,57 @@ public class LogicManagerTest {
                 expectedAB,
                 expectedList);
     }
+    
+    /**
+     * Tests for alias command
+     * @throws Exception
+     */
+    @Test
+    public void execute_alias_invalidFormat() throws Exception {
+        assertCommandBehavior("alias", String.format(MESSAGE_INVALID_COMMAND_FORMAT, AliasCommand.MESSAGE_USAGE));
+        assertCommandBehavior("alias add", String.format(MESSAGE_INVALID_COMMAND_FORMAT, AliasCommand.MESSAGE_USAGE));
+        assertCommandBehavior("alias add + -", String.format(MESSAGE_INVALID_COMMAND_FORMAT, AliasCommand.MESSAGE_USAGE));
+    }
+    
+    @Test
+    public void execute_noCommand() throws Exception {
+        assertCommandBehavior("alias - +", AliasCommand.MESSAGE_FAILURE);
+    }
+    
+    @Test
+    public void execute_alias_alreadyTaken() throws Exception {
+        assertCommandBehavior("alias add +", String.format(AliasCommand.MESSAGE_SUCCESS));
+        assertCommandBehavior("alias edit +", String.format(AliasCommand.MESSAGE_FAILURE));
+        assertCommandBehavior("alias add -", String.format(AliasCommand.MESSAGE_SUCCESS));
+    }
+    
+    @Test
+    public void execute_alias_successful() throws Exception {
+        assertCommandBehavior("alias add +", String.format(AliasCommand.MESSAGE_SUCCESS));
+        
+        TestDataHelper helper = new TestDataHelper();
+        Task toBeAdded = helper.adam();
+        TaskManager expectedTM = new TaskManager();
+        expectedTM.addTask(toBeAdded);
 
+        // execute command and verify result
+        assertCommandBehavior(helper.generateAddCommand("+", toBeAdded),
+                String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded),
+                expectedTM,
+                expectedTM.getTaskList());
+        
+        assertCommandBehavior("alias delete -",
+                String.format(AliasCommand.MESSAGE_SUCCESS),
+                expectedTM,
+                expectedTM.getTaskList());
+        expectedTM.removeTask(toBeAdded);
+        
+        assertCommandBehavior("- 1",
+                String.format(DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS, toBeAdded),
+                expectedTM,
+                expectedTM.getTaskList());
+    }
+    
 
     /**
      * Confirms the 'invalid argument index number behaviour' for the given command
@@ -421,12 +478,12 @@ public class LogicManagerTest {
                     new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1)))
             );
         }
-
+        //@@author A0144939R
         /** Generates the correct add command based on the Task given */
-        String generateAddCommand(Task p) {
+        String generateAddCommand(String alias, Task p) {
             StringBuffer cmd = new StringBuffer();
 
-            cmd.append("add ");
+            cmd.append(alias+" ");
 
             cmd.append(p.getName().toString());
 
@@ -438,6 +495,7 @@ public class LogicManagerTest {
 
             return cmd.toString();
         }
+        //@@author
 
         /**
          * Generates an TaskManager with auto-generated Tasks.

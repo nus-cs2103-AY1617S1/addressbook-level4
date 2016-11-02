@@ -63,8 +63,7 @@ public interface Model {
     
     //@@author A0144939R
     /**
-     * Gets mapping for a given alias.
-     * @param alias: a user defined string
+     * Gets the alias map
      * @return The command represented by the alias, or null if no mapping exists
      */
     public HashMap<String, Commands> getAliasMap();
