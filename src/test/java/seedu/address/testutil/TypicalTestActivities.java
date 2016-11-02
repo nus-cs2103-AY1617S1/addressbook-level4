@@ -20,7 +20,7 @@ public class TypicalTestActivities {
         try {
         	//to test loading saved activity, tasks and events
             findAlice =  new ActivityBuilder().withName("find Alice").withReminder("Sat, Dec 30, 2017 12:00 PM").withTags("bringgift").build();
-            findBenson = new TaskBuilder().withName("find Benson").withDueDate("Sat, Dec 30, 2017 12:00 PM").withTags("bringgift").build();
+            findBenson = new TaskBuilder().withName("find Benson").withDueDate("Sat, Dec 30, 2017 12:00 PM").withPriority("1").withTags("bringgift").build();
             findCarl = new TaskBuilder().withName("find Carl").withDueDate("Sat, Dec 30, 2017 12:00 PM").build();
             findDaniel = new TaskBuilder().withName("find Daniel").withDueDate("Sat, Dec 30, 2017 12:00 PM").withReminder("Sat, Dec 30, 2017 11:59 AM").withTags("bringgifts").build();
             findElle = new EventBuilder().withName("find Elle").withStartTime("Sat, Dec 30, 2017 12:00 PM").withEndTime("Sun, Dec 31, 2017 12:00 PM").withReminder("Sat, Dec 30, 2017 11:59 PM").build();
