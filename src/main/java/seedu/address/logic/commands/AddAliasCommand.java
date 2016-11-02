@@ -1,7 +1,7 @@
 package seedu.address.logic.commands;
 
-import seedu.address.model.ModelManager;
 import seedu.address.model.alias.Alias;
+import seedu.address.model.alias.UniqueAliasList.DuplicateAliasException;
 
 //@@author A0143756Y
 /**
@@ -19,6 +19,8 @@ public class AddAliasCommand extends Command {
     
     public static final String MESSAGE_SUCCESS = "Command alias '%s' set for command phrase '%s'.\n";
     
+    public static final String MESSAGE_DUPLICATE_ALIAS = "Alias already exists in the alias manager.\n";
+    
     private final String commandAlias; 
     
     private final String commandPhrase;
@@ -30,18 +32,21 @@ public class AddAliasCommand extends Command {
 
 	@Override
     public CommandResult execute() {
+		
         assert model != null;
-        
         model.saveState();
         
         try{
+   
         	Alias aliasToAdd = new Alias(commandAlias, commandPhrase);
-        	
-        	model.addAlias(aliasToAdd);
-        	
+        	model.addAlias(aliasToAdd); //Throws DuplicateAliasException
         	return new CommandResult(String.format(MESSAGE_SUCCESS, commandAlias, commandPhrase));
-        } catch {
         	
+        } catch (DuplicateAliasException ex){
+        	
+        	model.loadPreviousState();
+            return new CommandResult(String.format(MESSAGE_DUPLICATE_ALIAS));
+            
         }
         	
 

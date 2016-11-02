@@ -15,6 +15,7 @@ import java.util.regex.Pattern;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.StringUtil;
+import seedu.address.logic.commands.AddAliasCommand;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
@@ -37,6 +38,9 @@ public class Parser {
 	
 	private static final Pattern ADD_COMMAND_FORMAT = Pattern
 			.compile("'(?<taskName>.*\\S*.*)'(?<addTaskArgs>.*)");
+	
+	private static final Pattern ADD_ALIAS_COMMAND_FORMAT = Pattern
+			.compile("'(?<commandAlias>(\\s*[^\\s+])+)\\s*'\\s*=\\s*'(?<commandPhrase>(\\s*[^\\s+])+)\\s*'");
 	
 	private static final Prefix startDateTimePrefix = new Prefix("from ");
 	private static final Prefix endDateTimePrefix = new Prefix("to ");
@@ -72,6 +76,9 @@ public class Parser {
 
 		case EditCommand.COMMAND_WORD:
 			return prepareEdit(arguments);
+		
+		case AddAliasCommand.COMMAND_WORD:
+			return prepareAddAlias(arguments);
 			
 		case ChangeStatusCommand.COMMAND_WORD_DONE:
 			return prepareChangeStatus(arguments, "done");
@@ -93,7 +100,7 @@ public class Parser {
 
 		case RedoCommand.COMMAND_WORD:
 			return new RedoCommand();
-
+			
 		default:
 			return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
 		}
@@ -394,6 +401,26 @@ public class Parser {
 
 		return new ChangeStatusCommand(doneIndices, newStatus);
 	}
+	
+	//@@author A0143756Y
+	/**
+     * Parses arguments in the context of the set alias task command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     */
+    private Command prepareAddAlias(String arguments) {
+        final Matcher matcher = ADD_ALIAS_COMMAND_FORMAT.matcher(arguments.trim());
+    	
+    	if(!matcher.matches()){	
+        	return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddAliasCommand.MESSAGE_USAGE));
+        }
+    	
+    	final String commandAlias = matcher.group("commandAlias").trim();
+    	final String commandPhrase = matcher.group("commandPhrase").trim();
+        
+        return new AddAliasCommand(commandAlias, commandPhrase);
+    }
 
 	//@@author A0141019U
 	/**
