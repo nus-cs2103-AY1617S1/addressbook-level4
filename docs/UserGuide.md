@@ -7,7 +7,7 @@
 
 ## Getting Started
 
-0. Ensure you have Java version `1.8.0_60` or later installed in your Computer.<br>
+0. Ensure you have Java version `1.8.0_111` or later installed in your Computer.<br>
    > Having any Java 8 version is not enough. <br>
    This app will not work with earlier versions of Java 8.
    
@@ -20,7 +20,6 @@
 6. Some example commands you can try:
    * **`add do homework, from noon to 1pm by 3pm #homework`** : adds a task `do homework` for today from 12pm to 1pm with deadline set at 3pm tagged `homework`
    * **`edit 2 morning class at 08.00am to 10.00am`** :  updates information stored
-   * **`list`** : lists all tasks in order of index
    * **`delete`** : deletes the 1st indexed task
    * **`exit`** : exits the app
 
@@ -48,13 +47,13 @@ Examples:
 * `add cs2103 assignment, by 11.59pm #CS2103`
 * `add do homework, at today 3pm`
 
-#### Editing a task: `Edit`
+#### Editing a task: `edit`
 Edit task information in the TaskManager<br>
 Format: `INDEX TASK_PROPERTY, NEW_VALUE`
 
 > Edit the task at the specific `INDEX` and `TASK_PROPERTY`
      The index refers to the index number shown in the most recent listing.<br>
-     The index **must be a positive integer** 1, 2, 3, …
+     The index **must be a positive integer** 1, 2, 3, â€¦
      `TASK_PROPERTY` can be "name", "start time", "end time", "deadline" and "tag"
 
 Examples: 
@@ -95,18 +94,15 @@ Format: `list`
 
 #### Sorting tasks : `sort`
 Sorts tasks in the TaskManager in order of name, start time, end time, deadline, completion status.<br>
-Format: `sort [DATA_TYPE]`
+Format: `sort [PARAMETER]`
 
->`sort` Sorts tasks in the TaskManager by default order: completion status, followed by deadline, followed by start time
->`sort name` or `sort n` Sorts tasks in the TaskManager in order of their names
->`sort starttime` or `sort s` Sorts tasks in the TaskManager in order of their start times
->`sort endtime` or `sort e` Sorts tasks in the TaskManager in order of their end times
->`sort deadline` or `sort d` Sorts tasks in the TaskManager in order of their deadlines
->`sort completion status` or `sort c` Sorts tasks in the TaskManager in order of their completion statuses
-
-Examples: 
-* `sort`
-* `sort deadline`
+Examples:
+* `sort` Sorts tasks in the TaskManager by default order: completion status, followed by deadline, followed by start time
+* `sort name` or `sort n` Sorts tasks in the TaskManager in order of their names
+* `sort starttime` or `sort s` Sorts tasks in the TaskManager in order of their start times
+* `sort endtime` or `sort e` Sorts tasks in the TaskManager in order of their end times
+* `sort deadline` or `sort d` Sorts tasks in the TaskManager in order of their deadlines
+* `sort completion status` or `sort c` Sorts tasks in the TaskManager in order of their completion statuses
 
 #### Undo the modification : `undo`
 Undo the modification in the last step. Only includes add, delete, edit, clear, done and undone commands.<br>
@@ -168,7 +164,7 @@ Edit | `edit INDEX TASKNAME at START_TIME to END_TIME [by DEADLINE] [#TAG...]`
 Delete | `delete INDEX`
 Find | `find KEYWORD`
 List | `list`
-Sort | `sort [parameter]`
+Sort | `sort [PARAMETER]`
 Undo | `undo`
 Done | `done` `undone`
 Backup | `backup PATH `
