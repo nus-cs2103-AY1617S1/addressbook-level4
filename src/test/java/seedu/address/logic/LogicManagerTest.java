@@ -184,7 +184,7 @@ public class LogicManagerTest {
     //@@author A0148083A
     @Test
     public void execute_add_event_noDueDate() throws Exception {
-        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_EVENT_USAGE);
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, String.format(AddCommand.MESSAGE_TASK_USAGE, "due date"));
         assertCommandBehavior("add event d/without due date sd/12-12-2016", expectedMessage);
     }
     
@@ -329,26 +329,6 @@ public class LogicManagerTest {
 				expectedManager.getTaskList());
 	}
 	
-	@Test
-	public void execute_undo_find_successful() throws Exception {
-		// setup expectations
-		TestDataHelper helper = new TestDataHelper();
-		TaskManager expectedManager = new TaskManager();
-		
-		//Add task to manager
-		Task task = helper.homework();
-		String commadForAdd = helper.generateAddCommand(task);
-		logic.execute(commadForAdd);
-		expectedManager.addTask(task);
-		
-		//Change task
-		String commadForFind = "find Homework";
-        logic.execute(commadForFind);
-        
-		// execute undo command and verify result
-		assertCommandBehavior(helper.generateUndoCommand(), FindCommand.MESSAGE_SUCCESS_UNDO, expectedManager,
-				expectedManager.getTaskList());
-	}
     //@@author
 	
     /**

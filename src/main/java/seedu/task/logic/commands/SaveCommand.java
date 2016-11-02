@@ -65,13 +65,13 @@ public static final String MESSAGE_USAGE = COMMAND_WORD + ": Change location of 
 	 */
 	@Override
 	public CommandResult executeUndo() {
-		return this.execute();
+		return null;
 	}
 
 
 	@Override
 	public boolean isReversible() {
-		return true;
+		return false;
 	}
 
 }

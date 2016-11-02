@@ -60,14 +60,14 @@ public class Parser {
     public static final SimpleDateFormat DATE_FORMAT_WITHOUT_TIME = new SimpleDateFormat("dd-MM-yyyy");
     //@@author A0153411W
     //@@author A0153751H
-    public static final Prefix descriptionPrefix = new Prefix(" d/");
-    public static final Prefix startDatePrefix = new Prefix(" sd/", true);
-    public static final Prefix dueDatePrefix = new Prefix(" dd/", true);
-    public static final Prefix intervalPrefix = new Prefix(" i/", true);
-    public static final Prefix timeIntervalPrefix = new Prefix(" ti/", true);
-    public static final Prefix tagArgumentsPrefix = new Prefix(" t/");
-    public static final Prefix taskColorPrefix = new Prefix(" c/", true);
-	public static final Prefix formatCustomCommandPrefix = new Prefix(" f/");
+    public static final Prefix descriptionPrefix = new Prefix(" d/", "description");
+    public static final Prefix startDatePrefix = new Prefix(" sd/","startDate", true);
+    public static final Prefix dueDatePrefix = new Prefix(" dd/","due date", true);
+    public static final Prefix intervalPrefix = new Prefix(" i/","interval", true);
+    public static final Prefix timeIntervalPrefix = new Prefix(" ti/", "time interval",true);
+    public static final Prefix tagArgumentsPrefix = new Prefix(" t/", "tag arguments");
+    public static final Prefix taskColorPrefix = new Prefix(" c/","task color", true);
+	public static final Prefix formatCustomCommandPrefix = new Prefix(" f/", "format custom command");
 	// @@author
 
 	// @@author A0153751H
