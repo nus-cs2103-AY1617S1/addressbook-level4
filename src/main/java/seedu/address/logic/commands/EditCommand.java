@@ -10,6 +10,7 @@ import seedu.address.commons.events.ui.JumpToListRequestEvent;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.task.ReadOnlyTask;
+import seedu.address.model.task.Task;
 import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
 
 /** 
@@ -68,8 +69,9 @@ public class EditCommand extends Command{
             try {
                 model.addToUndoStack();
                 model.getCommandHistory().add("edit");
-                model.editTask(eventToEdit, editArgs, category);
-                EventsCenter.getInstance().post(new JumpToListRequestEvent(targetIndex-1, category));
+                Task edited = model.editTask(eventToEdit, editArgs, category);
+                lastShownEventList = model.getFilteredEventList();
+               EventsCenter.getInstance().post(new JumpToListRequestEvent(lastShownEventList.indexOf(edited), category));
             } catch (TaskNotFoundException ive){
                 indicateAttemptToExecuteIncorrectCommand();
                 return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
@@ -94,8 +96,9 @@ public class EditCommand extends Command{
             try {
                 model.addToUndoStack();
                 model.getCommandHistory().add("edit");
-                model.editTask(deadlineToEdit, editArgs, category);
-                EventsCenter.getInstance().post(new JumpToListRequestEvent(targetIndex-1, category));
+                Task edited = model.editTask(deadlineToEdit, editArgs, category);
+                lastShownDeadlineList = model.getFilteredDeadlineList();
+                EventsCenter.getInstance().post(new JumpToListRequestEvent(lastShownDeadlineList.indexOf(edited), category));
             } catch (TaskNotFoundException ive){
                 indicateAttemptToExecuteIncorrectCommand();
                 return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
@@ -120,8 +123,9 @@ public class EditCommand extends Command{
             try {
                 model.addToUndoStack();
                 model.getCommandHistory().add("edit");
-                model.editTask(todoToEdit, editArgs, category);
-                EventsCenter.getInstance().post(new JumpToListRequestEvent(targetIndex-1, category));
+                Task edited = model.editTask(todoToEdit, editArgs, category);
+                lastShownTodoList = model.getFilteredTodoList();
+                EventsCenter.getInstance().post(new JumpToListRequestEvent(lastShownTodoList.indexOf(edited), category));
             } catch (TaskNotFoundException ive){
                 indicateAttemptToExecuteIncorrectCommand();
                 return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
