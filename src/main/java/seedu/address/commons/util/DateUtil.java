@@ -208,12 +208,11 @@ public class DateUtil {
     }
     
     public static Date DueDateConvert(String date) throws IllegalValueException {
+        if(date.split(" ").length ==1){
+            date=date.concat(" 2359");}
         if (date.contains("today")||date.contains("tomorrow")||date.contains("mon")||date.contains("tue")||date.contains("wed")||date.contains("thu")||date.contains("fri")||date.contains("sat")||date.contains("sun")) { // allow user to key in "today" instead of today's date
-            if(date.split(" ").length ==1){
-                date=date.concat(" 2359");}
             date = FixedTime(date);
         }
-
         Date taskDate = parseDateTime(date);
         return taskDate;
     }

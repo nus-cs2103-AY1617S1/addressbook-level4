@@ -97,7 +97,7 @@ public class XmlAdaptedActivity {
             line1 = ((ReadOnlyTask) source).getDueDate().toSave();
             line2 = ((ReadOnlyTask) source).getPriority().value;
             break;
-
+            //@@author A0131813R
         case "event":
             type = "event";
             line1 = ((ReadOnlyEvent) source).getStartTime().toSave();
@@ -143,7 +143,7 @@ public class XmlAdaptedActivity {
             completion = false;
         }
     }
-
+    //@@author 
     /**
      * Converts a given Task into this class for JAXB use.
      *
@@ -197,6 +197,7 @@ public class XmlAdaptedActivity {
      *             if there were any data constraints violated in the adapted
      *             person
      */
+    //@@author A0131813R
     public Activity toModelType() throws IllegalValueException {
         final List<Tag> activityTags = new ArrayList<>();
         for (XmlAdaptedTag tag : tagged) {
