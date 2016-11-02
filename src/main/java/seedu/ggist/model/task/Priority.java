@@ -22,6 +22,20 @@ public class Priority {
     public static final String PRIORITY_VALIDATION_REGEX = "low|med|high|"+ Messages.MESSAGE_NO_PRIORITY_VALUE;
 
     public String value;
+    
+    public static enum PriorityType {
+        LOW("low"), MEDIUM("med"), HIGH("high"); 
+        
+        public final String priorityType;
+        PriorityType(String priorityType) {
+            this.priorityType = priorityType;
+        }
+        
+        @Override
+        public String toString() {
+            return this.priorityType;
+        }
+    }
 
     /**
      * Validates given priority.

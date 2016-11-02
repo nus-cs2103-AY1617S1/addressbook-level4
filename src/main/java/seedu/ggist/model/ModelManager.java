@@ -174,6 +174,8 @@ public class ModelManager extends ComponentManager implements Model {
             updateFilteredListToShowAllUndone();
         } else if (lastListing.equals("done")) {
             updateFilteredListToShowAllDone();
+        } else if (lastListing.equals("high") || lastListing.equals("med") || lastListing.equals("low")) {
+            updateFilteredListToPriority(lastListing);
         } else if (lastListing.equals("all")) {
             updateFilteredListToShowAll();
         }  else if (TaskDate.isValidDateFormat(lastListing)) {
@@ -234,7 +236,15 @@ public class ModelManager extends ComponentManager implements Model {
         filteredTasks.setPredicate(expression::satisfies);
     }
 
-    // @@author A0144727B
+    @Override
+    public void updateFilteredListToPriority(String keyword) {
+        updateFilteredTaskList(new PredicateExpression(new PriorityQualifier(keyword)));
+    }
+
+    private void updateFilteredListToPriority(Expression expression) {
+        filteredTasks.setPredicate(expression::satisfies);
+    }
+
     @Override
     public void updateFilteredTaskList(Set<String> keywords) {
         updateFilteredTaskList(new PredicateExpression(new NameQualifier(keywords)));
@@ -403,17 +413,34 @@ public class ModelManager extends ComponentManager implements Model {
                     || taskDateKeyWords.equalsIgnoreCase(task.getEndDate().toString()))
                     && !task.isDone())
                     || ((task.getStartDate().value.equals(Messages.MESSAGE_NO_START_DATE_SPECIFIED)
-                            && (task.getStartTime().value.equals(Messages.MESSAGE_NO_START_TIME_SET)
-                                    && (task.getEndDate().value.equals(Messages.MESSAGE_NO_END_DATE_SPECIFIED)
-                                            && (task.getEndTime().value.equals(Messages.MESSAGE_NO_END_TIME_SET))
-                                            && !task.isDone()))
-                            || (task.isOverdue() && !task.isDone())));
+                    && (task.getStartTime().value.equals(Messages.MESSAGE_NO_START_TIME_SET)
+                    && (task.getEndDate().value.equals(Messages.MESSAGE_NO_END_DATE_SPECIFIED)
+                    && (task.getEndTime().value.equals(Messages.MESSAGE_NO_END_TIME_SET))
+                    && !task.isDone()))
+                    || (task.isOverdue() && !task.isDone())));
         }
-
-        // @@author
+        
         @Override
         public String toString() {
             return "name=" + String.join(", ", taskDateKeyWords);
         }
+    }
+
+    private class PriorityQualifier implements Qualifier {
+        private String priority;
+
+        PriorityQualifier(String priority) {
+                this.priority = priority;
+        }
+
+        @Override
+        public boolean run(ReadOnlyTask task) {
+            if (priority == null) {
+                    return true;
+            }
+            return (priority.equals(task.getPriority().value) && !task.isDone());
+        }
+
+        // @@author
     }
 }
