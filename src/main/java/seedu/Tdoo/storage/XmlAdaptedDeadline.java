@@ -34,7 +34,7 @@ public class XmlAdaptedDeadline implements XmlAdaptedTask {
      */
     public XmlAdaptedDeadline(Deadline source) {
     	name = source.getName().name;
-    	startDate = source.getDate().saveDate;
+    	startDate = source.getStartDate().saveDate;
         endTime = source.getEndTime().saveEndTime;
         isDone = source.getDone();
     }

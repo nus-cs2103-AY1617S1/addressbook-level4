@@ -12,10 +12,11 @@ public class FindCommand extends Command {
     public static final String COMMAND_WORD = "find";
     public static final String INVALID_DATA_TYPE_MESSAGE = "Invalid Data type";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all tasks whose names contain any of "
-            + "the specified keywords (case-sensitive) and displays them as a list with index numbers.\n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all tasks whose names or start date contain any of "
+            + "the specified keywords and displays them as a list with index numbers.\n"
             + "Parameters: TASK_TYPE KEYWORD [MORE_KEYWORDS]...\n"
-            + "Example: " + COMMAND_WORD + " all homework urgent";
+            + "Example: " + COMMAND_WORD + " all homework urgent\n"
+            + "               " + COMMAND_WORD + " date/25th December 2016";
 
     private final Set<String> keywords;
     private final String dataType;

@@ -100,6 +100,7 @@ The order of the keywords does not matter, only the name is searched, and tasks 
 > Example(Todo): `find todo Study is good` <br>
 > Example(Event): `find event Party all night long` <br>
 > Example(Deadline): `find deadline Assignment to hand up today`
+> Example by Start Date: `find TASK_TYPE date/[By day,month,year or whole date(25th December 2016)]`
 
 #### Clearing all tasks : `clear`
 Clears all data in the given task type list.<br>

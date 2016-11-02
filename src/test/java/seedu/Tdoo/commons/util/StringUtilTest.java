@@ -45,7 +45,7 @@ public class StringUtilTest {
 
     @Test
     public void getDetails_nullGiven_assertionError(){
-        thrown.expect(NullPointerException.class);
+        thrown.expect(AssertionError.class);
         StringUtil.getDetails(null);
     }
 

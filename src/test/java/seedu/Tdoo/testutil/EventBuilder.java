@@ -22,7 +22,7 @@ public class EventBuilder {
     }
     
     public EventBuilder withStartDate(String date) throws IllegalValueException {
-        this.event.setStartDate(date);
+        this.event.setStartDate(new StartDate(date));
         return this;
     }
 

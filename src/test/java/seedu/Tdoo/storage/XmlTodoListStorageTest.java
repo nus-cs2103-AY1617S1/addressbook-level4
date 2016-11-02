@@ -38,7 +38,7 @@ public class XmlTodoListStorageTest implements TaskListStorage {
 
     @Test
     public void readTodoList_nullFilePath_assertionFailure() throws Exception {
-        thrown.expect(NullPointerException.class); // AssertionError
+        thrown.expect(AssertionError.class); // AssertionError
         readTodoList(null);
     }
 
@@ -153,7 +153,7 @@ public class XmlTodoListStorageTest implements TaskListStorage {
 
     @Test
     public void saveTodoList_nullTodoList_assertionFailure() throws IOException {
-        thrown.expect(NullPointerException.class);
+        thrown.expect(AssertionError.class);
         saveTaskList(null, ".xml");
     }
 
@@ -164,7 +164,7 @@ public class XmlTodoListStorageTest implements TaskListStorage {
 
     @Test
     public void saveTodoList_nullFilePath_assertionFailure() throws IOException {
-        thrown.expect(NullPointerException.class);
+        thrown.expect(AssertionError.class);
         saveTaskList(new TaskList(), null);
     }
 
