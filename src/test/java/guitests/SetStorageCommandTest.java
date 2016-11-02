@@ -1,4 +1,4 @@
-//package guitests;
+package guitests;
 //
 //import seedu.address.commons.core.Config;
 //import seedu.address.commons.exceptions.DataConversionException;
@@ -65,10 +65,10 @@ public class SetStorageCommandTest extends TaskManagerGuiTest {
 //			System.out.println("IOException thrown in the midst of testFile creation in setUp() in SetStorageCommandTest.");
 //		}
 //	}
-	
-	@Test
-    public void setStorage() throws IOException, DataConversionException {
-    	
+//	
+//	@Test
+//    public void setStorage() throws IOException, DataConversionException {
+//    	
 //    	//Valid folder file path and valid file name
 //    
 //		String folderFilePath = testFolder.getRoot().getPath();
