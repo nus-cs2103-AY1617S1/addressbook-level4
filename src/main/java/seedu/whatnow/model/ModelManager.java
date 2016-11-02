@@ -60,6 +60,7 @@ public class ModelManager extends ComponentManager implements Model {
     private final WhatNow whatNow;
     private final FilteredList<Task> filteredTasks;
     private FilteredList<Task> filteredSchedules;
+    private final FilteredList<Task> filteredOverdue;
     private final Stack<String> stackOfUndo;
     private final Stack<String> stackOfRedo;
     private final Stack<ReadOnlyTask> stackOfOldTask;
@@ -97,6 +98,7 @@ public class ModelManager extends ComponentManager implements Model {
         new Config();
         filteredTasks = new FilteredList<>(whatNow.getTasks());
         filteredSchedules = new FilteredList<>(whatNow.getTasks());
+        filteredOverdue = new FilteredList<>(whatNow.getTasks());
         stackOfUndo = new Stack<>();
         stackOfRedo = new Stack<>();
         stackOfOldTask = new Stack<>();
@@ -131,6 +133,7 @@ public class ModelManager extends ComponentManager implements Model {
         new Config();
         filteredTasks = new FilteredList<>(whatNow.getTasks());
         filteredSchedules = new FilteredList<>(whatNow.getTasks());
+        filteredOverdue = new FilteredList<>(whatNow.getTasks());
         stackOfUndo = new Stack<>();
         stackOfRedo = new Stack<>();
         stackOfOldTask = new Stack<>();
@@ -575,7 +578,7 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public UnmodifiableObservableList<ReadOnlyTask> getOverdueScheduleList() {
         updateFilteredScheduleListToShowAllOverdue();
-        return new UnmodifiableObservableList<>(filteredSchedules);
+        return new UnmodifiableObservableList<>(filteredOverdue);
     }
 
     @Override
@@ -634,8 +637,8 @@ public class ModelManager extends ComponentManager implements Model {
         Calendar cal = Calendar.getInstance();
 
 
-        FXCollections.sort(filteredSchedules.getSource());
-        filteredSchedules.setPredicate(p -> {
+        FXCollections.sort(filteredOverdue.getSource());
+        filteredOverdue.setPredicate(p -> {
             try {
                 Date today = df.parse(df.format(cal.getTime()));
                 Date currentTime = tf.parse(tf.format(cal.getTime()));
