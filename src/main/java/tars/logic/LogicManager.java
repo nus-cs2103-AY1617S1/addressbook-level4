@@ -5,6 +5,7 @@ import java.util.logging.Logger;
 import javafx.collections.ObservableList;
 import tars.commons.core.ComponentManager;
 import tars.commons.core.LogsCenter;
+import tars.commons.util.StringUtil;
 import tars.logic.commands.Command;
 import tars.logic.commands.CommandResult;
 import tars.logic.commands.RedoCommand;
@@ -19,7 +20,7 @@ import tars.storage.Storage;
  * The main LogicManager of the app.
  */
 public class LogicManager extends ComponentManager implements Logic {
-    
+
     private final Logger logger = LogsCenter.getLogger(LogicManager.class);
 
     private final Model model;
@@ -32,34 +33,37 @@ public class LogicManager extends ComponentManager implements Logic {
 
     @Override
     public CommandResult execute(String commandText) {
-        logger.info("----------------[USER COMMAND][" + commandText + "]");
+        logger.info("----------------[USER COMMAND]"
+                + StringUtil.STRING_SQUARE_BRACKET_OPEN + commandText
+                + StringUtil.STRING_SQUARE_BRACKET_CLOSE);
         Command command = parser.parseCommand(commandText);
         command.setData(model);
-        
-        if(!isReUndoAbleCommand(command)) {
+
+        if (!isReUndoAbleCommand(command)) {
             model.getRedoableCmdHist().clear();
         }
-        
+
         return command.execute();
     }
-    
+
     /**
      * Checks if the command is an instance of redo or undo command
      * 
      * @param command
      */
     private boolean isReUndoAbleCommand(Command command) {
-        return (command instanceof UndoCommand || command instanceof RedoCommand);
+        return (command instanceof UndoCommand
+                || command instanceof RedoCommand);
     }
 
     @Override
     public ObservableList<ReadOnlyTask> getFilteredTaskList() {
         return model.getFilteredTaskList();
     }
-    
+
     @Override
     public ObservableList<RsvTask> getFilteredRsvTaskList() {
         return model.getFilteredRsvTaskList();
     }
-    
+
 }

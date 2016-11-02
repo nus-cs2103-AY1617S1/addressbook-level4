@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import tars.commons.core.Messages;
 import tars.commons.core.UnmodifiableObservableList;
 import tars.commons.exceptions.InvalidTaskDisplayedException;
+import tars.commons.util.StringUtil;
 import tars.model.Model;
 import tars.model.task.ReadOnlyTask;
 import tars.model.task.Status;
@@ -119,10 +120,10 @@ public class MarkTaskUtil {
      * Gets String of indexes separated by comma
      */
     private String getIndexesString(ArrayList<Integer> list) {
-        String toReturn = "";
+        String toReturn = StringUtil.EMPTY_STRING;
         if (list.size() != 0) {
             for (int i = 0; i < list.size() - 1; i++) {
-                toReturn += Integer.toString(list.get(i)) + ", ";
+                toReturn += Integer.toString(list.get(i)) + StringUtil.STRING_COMMA;
             }
             // Add last index
             toReturn += Integer.toString(list.get(list.size() - 1));

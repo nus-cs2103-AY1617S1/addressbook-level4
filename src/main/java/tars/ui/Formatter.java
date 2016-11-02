@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javafx.collections.ObservableList;
+import tars.commons.util.StringUtil;
 import tars.model.tag.ReadOnlyTag;
 import tars.model.task.DateTime;
 import tars.model.task.ReadOnlyTask;
@@ -68,7 +69,7 @@ public class Formatter {
         int displayIndex = DISPLAYED_INDEX_OFFSET;
         for (String listItem : listItems) {
             formatted.append(getIndexedListItem(displayIndex++, listItem))
-                    .append("\n");
+                    .append(StringUtil.STRING_NEWLINE);
         }
         return formatted.toString();
     }
@@ -89,11 +90,14 @@ public class Formatter {
      * @@author A0121533W
      */
     public static String formatDateTimeList(RsvTask rsvTask) {
-        String formatted = "";
+        String formatted = StringUtil.EMPTY_STRING;
         ArrayList<DateTime> dateTimeArrayList = rsvTask.getDateTimeList();
         int count = 1;
         for (DateTime dt : dateTimeArrayList) {
-            formatted += "[" + count + "] " + dt.toString() + "\n\n";
+            formatted += StringUtil.STRING_SQUARE_BRACKET_OPEN + count
+                    + StringUtil.STRING_SQUARE_BRACKET_CLOSE
+                    + StringUtil.STRING_WHITESPACE + dt.toString()
+                    + StringUtil.STRING_NEWLINE + StringUtil.STRING_NEWLINE;
             count++;
         }
         return formatted;
@@ -106,11 +110,14 @@ public class Formatter {
      */
     public static String formatThisWeekPanelTasksList(
             ObservableList<ReadOnlyTask> tasksList) {
-        String formatted = "";
+        String formatted = StringUtil.EMPTY_STRING;
         for (ReadOnlyTask t : tasksList) {
             String taskName = t.getName().toString();
             if (!formatted.contains(taskName)) {
-                formatted += "[" + t.getName().toString() + "] ";
+                formatted += StringUtil.STRING_SQUARE_BRACKET_OPEN
+                        + t.getName().toString()
+                        + StringUtil.STRING_SQUARE_BRACKET_CLOSE
+                        + StringUtil.STRING_WHITESPACE;
             }
         }
         return formatted.trim();

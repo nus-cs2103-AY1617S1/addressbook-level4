@@ -19,6 +19,7 @@ import javafx.stage.Stage;
 import tars.commons.core.LogsCenter;
 import tars.commons.events.model.TarsChangedEvent;
 import tars.commons.util.DateTimeUtil;
+import tars.commons.util.StringUtil;
 import tars.model.task.ReadOnlyTask;
 
 /**
@@ -109,7 +110,7 @@ public class ThisWeekPanel extends UiPart {
         }
         numUpcoming.setText(String.valueOf(count));
         if (count == 0) {
-            upcomingTasksList.setText("");
+            upcomingTasksList.setText(StringUtil.EMPTY_STRING);
         } else {
             String list = Formatter.formatThisWeekPanelTasksList(upcomingTasks);
             upcomingTasksList.setText(list);
@@ -127,7 +128,7 @@ public class ThisWeekPanel extends UiPart {
         }
         numOverdue.setText(String.valueOf(count));
         if (count == 0) {
-            overduedTasksList.setText("");
+            overduedTasksList.setText(StringUtil.EMPTY_STRING);
         } else {
             String list = Formatter.formatThisWeekPanelTasksList(overduedTasks);
             overduedTasksList.setText(list);

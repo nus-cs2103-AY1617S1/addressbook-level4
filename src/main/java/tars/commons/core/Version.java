@@ -3,6 +3,8 @@ package tars.commons.core;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
+import tars.commons.util.StringUtil;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -66,7 +68,7 @@ public class Version implements Comparable<Version> {
 
     @JsonValue
     public String toString() {
-        return String.format("V%d.%d.%d%s", major, minor, patch, isEarlyAccess ? "ea" : "");
+        return String.format("V%d.%d.%d%s", major, minor, patch, isEarlyAccess ? "ea" : StringUtil.EMPTY_STRING);
     }
 
     @Override

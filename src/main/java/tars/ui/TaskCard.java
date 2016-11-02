@@ -8,6 +8,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.shape.Circle;
 import tars.commons.events.model.TarsChangedEvent;
+import tars.commons.util.StringUtil;
 import tars.model.task.ReadOnlyTask;
 
 /**
@@ -113,7 +114,7 @@ public class TaskCard extends UiPart {
      */
     private void setTextFillByStatus() {
         String taskStatus = task.getStatus().toString();
-        String color = "";
+        String color = StringUtil.EMPTY_STRING;
         if (taskStatus.equals(STATUS_UNDONE)) {
             color = UiColor.STATUS_UNDONE_TEXT_FILL;
         } else if (taskStatus.equals(STATUS_DONE)) {
