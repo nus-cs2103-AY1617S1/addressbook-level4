@@ -86,10 +86,6 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
 		return uniqueID;
 	}
 
-	public void setUniqueId(int newuniqueId){
-		uniqueID = newuniqueId;
-	}
-
 	/*@Override
 	public UniqueTagList getTags() {
 		return new UniqueTagList(tags);
