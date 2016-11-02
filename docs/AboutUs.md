@@ -13,7 +13,7 @@ We are a team based in the [School of Computing, National University of Singapor
 * Features implemented:  
  * [Undo command](UserGuide.md#undo)
  * [Clear list](UserGuide.md#clear)
-* Code written: [[main code](collated/docs/main/A0144061U.md)][[test code](collated/test/A0144061U.md)][[docs](collated/test/A0144061U.md)]
+* Code written: [[main code](main/A0144061U.md)][[test code](test/A0144061U.md)][[docs](test/A0144061U.md)]
 * Other major contributions:
  * Came out with the application design
  * Did the initial refactoring from AddressBook to Tdoo
@@ -29,7 +29,7 @@ We are a team based in the [School of Computing, National University of Singapor
 * Features implemented:  
  * [Countdown timer for task cards]()
  * [stub entry]()
-* Code written: Code written: [[main code](collated/docs/main/A0132157.md)][[test code](collated/test/A0132157M.md)][[docs](collated/test/A0132157M.md)]
+* Code written: Code written: [[main code](main/A0132157.md)][[test code](test/A0132157M.md)][[docs](test/A0132157M.md)]
 * Other major contributions:
  * Did majority of the test cases
 
@@ -47,7 +47,7 @@ We are a team based in the [School of Computing, National University of Singapor
  * [Undone](UserGuide.md#undone)
  * [Edit](UserGuide.md#edit)
  * [Find](UserGuide.md#find)
-* Code written: Code written: [[main code](collated/docs/main/A0139923X.md)][[test code](collated/test/A0139923X.md)][[docs](collated/test/A0139923X.md)]
+* Code written: Code written: [[main code](main/A0139923X.md)][[test code](test/A0139923X.md)][[docs](test/A0139923X.md)]
 * Other major contributions:
  * Parser and string manipulation for Back-end
 
@@ -64,7 +64,7 @@ We are a team based in the [School of Computing, National University of Singapor
  * [Done](UserGuide.md#done)
  * [Undo](UserGuide.md#undo)
  * [Edit](UserGuide.md#edit)
-* Code written: Code written: [[main code](collated/docs/main/A0139920A.md)][[test code](collated/test/A0139920A.md)][[docs](collated/test/A0139920A.md)]
+* Code written: Code written: [[main code](main/A0139920A.md)][[test code](test/A0139920A.md)][[docs](test/A0139920A.md)]
 * Other major contributions:
  * Set up Travis and Coveralls
 
