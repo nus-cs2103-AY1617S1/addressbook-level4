@@ -103,6 +103,7 @@ Example:
 
 #### Undo a Task: `undo`
 Undo the most recent task entered in the command line<br>
+Undo only supports for task modifying comands such as add, delete, clear, redo but not find, show, setstorage<br>
 Format: `undo`
 
 
