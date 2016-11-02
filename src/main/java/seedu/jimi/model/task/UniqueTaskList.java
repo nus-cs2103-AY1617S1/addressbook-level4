@@ -99,9 +99,13 @@ public class UniqueTaskList implements Iterable<ReadOnlyTask> {
     
     /**
      * Replaces the floating task at the specified index with {@code toEdit}
+     * @throws DuplicateTaskException 
      */
-    public void replace(ReadOnlyTask oldTask, ReadOnlyTask newTask) {
+    public void replace(ReadOnlyTask oldTask, ReadOnlyTask newTask) throws DuplicateTaskException {
         assert newTask != null;
+        if (internalList.contains(newTask)) {
+            throw new DuplicateTaskException();
+        }
         int oldIdx = internalList.indexOf(oldTask);
         internalList.set(oldIdx, newTask);
     }
