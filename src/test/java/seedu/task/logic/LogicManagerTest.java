@@ -25,13 +25,11 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import javax.xml.ws.handler.MessageContext;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -479,7 +477,7 @@ public class LogicManagerTest {
         }
         //@@author A0144939R
         /** Generates the correct add command based on the Task given */
-        String generateAddCommand(String alias, Task p) {
+        public String generateAddCommand(String alias, Task p) {
             StringBuffer cmd = new StringBuffer();
 
             cmd.append(alias+" ");

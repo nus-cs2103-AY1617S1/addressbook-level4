@@ -31,9 +31,8 @@ public class AliasParser extends BaseParser {
         if(segments.length == FLAG_ALIAS_COMMAND_LENGTH) {
             addToArgumentsTable(FLAG_ALIAS_COMMAND, segments[0]);
             addToArgumentsTable(FLAG_ALIAS_VALUE, segments[1]);
-        } else {
-            //do nothing. The parse method will detect if there's an error.
         }
+        //do nothing if false. The parse method will detect if there's an error.
     }
     
 }

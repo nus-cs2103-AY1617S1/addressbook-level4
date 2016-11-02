@@ -50,13 +50,10 @@ public class AliasCommand extends Command {
         //check that alias is not null and that alias is not a command
         //checks that command is valid command
         if(alias != null && command != null) {
-            if(CommandKeys.commandKeyMap.containsKey(commandString) && CommandKeys.commandKeyMap.get(commandString) != null) {
-                return true;
-            } else {
-                return false;
-            }
+            return CommandKeys.commandKeyMap.containsKey(commandString) && CommandKeys.commandKeyMap.get(commandString) != null;
+        } else {
+            return false;
         }
-        return false;
    }
 
 }
