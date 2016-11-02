@@ -48,7 +48,8 @@ public class EditCommand extends Command {
 				new Description(description),
 				newDeadline,
 				new UniqueTagList());
-		}
+	}
+	
 	 public EditCommand(int index, String description, Object ... objects) throws IllegalValueException{
 	    	if(objects.length > 3){//f**k in this case - this should never happen b/c we control parser.
 	    		throw new IllegalArgumentException();
@@ -67,7 +68,7 @@ public class EditCommand extends Command {
 //	      }
 	   
 	    	this.toUpdate = new Task(new Description(description), objects);
-	    }
+	 }
 
 	@Override
 	public CommandResult execute() {
