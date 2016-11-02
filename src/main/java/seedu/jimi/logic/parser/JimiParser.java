@@ -31,6 +31,7 @@ import seedu.jimi.logic.commands.Command;
 import seedu.jimi.logic.commands.CompleteCommand;
 import seedu.jimi.logic.commands.DeleteCommand;
 import seedu.jimi.logic.commands.EditCommand;
+import seedu.jimi.logic.commands.EditCommand.EditType;
 import seedu.jimi.logic.commands.FindCommand;
 import seedu.jimi.logic.commands.HelpCommand;
 import seedu.jimi.logic.commands.IncorrectCommand;
@@ -274,7 +275,12 @@ public class JimiParser {
         
         // User wishes to remove dates
         if (editArgsMatcher.group("editDetails").trim().equals(EditCommand.COMMAND_REMOVE_DATES)) {
-            return new EditCommand(editArgsMatcher.group("targetIndex"));
+            return new EditCommand(editArgsMatcher.group("targetIndex"), EditType.REMOVE_DATES);
+        }
+        
+        // User wishes to remove tags
+        if (editArgsMatcher.group("editDetails").trim().equals(EditCommand.COMMAND_REMOVE_TAGS)) {
+            return new EditCommand(editArgsMatcher.group("targetIndex"), EditType.REMOVE_TAGS);
         }
         
         // Validate details format
