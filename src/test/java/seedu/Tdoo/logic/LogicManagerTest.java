@@ -159,6 +159,7 @@ public class LogicManagerTest {
     }
 
     @Test
+    //@@author A0132157M
     public void execute_clear() throws Exception {
         //TestDataHelper helper = new TestDataHelper();
         model.addTask(new Todo(new Name("todo 1"), new StartDate("11-11-2016"), new EndDate("12-11-2016"), new Priority("1"), ("false")));
@@ -170,8 +171,8 @@ public class LogicManagerTest {
         assertCommandBehavior("clear deadline", ClearCommand.DEADLINE_MESSAGE_SUCCESS, new TaskList(), Collections.emptyList());
     }
 
-
     @Test
+    //@@author A0132157M reused
     public void execute_add_invalidArgsFormat() throws Exception {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE);
         assertCommandBehavior(
@@ -185,6 +186,7 @@ public class LogicManagerTest {
     }
 
     @Test
+    //@@author A0132157M reused
     public void execute_add_invalidtaskData() throws Exception {
         assertCommandBehavior(
                 "add todo[]\\[;] /11-12-2016 e/valid@e.mail a/valid, Todo", "Invalid command format! \n" + AddCommand.MESSAGE_USAGE);
@@ -196,6 +198,7 @@ public class LogicManagerTest {
     }
 
     @Test
+    //@@author A0132157M reused
     public void execute_addTodo_successful() throws Exception {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
@@ -310,7 +313,7 @@ public class LogicManagerTest {
                 helper.generateAddDeadlineCommand(toBeAdded),
                 AddCommand.MESSAGE_DUPLICATE_TASK,
                 expectedAB,
-                expectedAB.getTaskList());
+                expectedAB.getTaskList());  
     }
 
 
@@ -416,6 +419,7 @@ public class LogicManagerTest {
      * targeting a single task in the shown list, using visible index.
      * @param commandWord to test assuming it targets a single task in the last shown list based on visible index.
      */
+    //@@author A0132157M reused
     private void assertIndexNotFoundBehaviorForCommand(String commandWord) throws Exception {
         String expectedMessage = MESSAGE_INVALID_TASK_DISPLAYED_INDEX;
         TestDataHelper helper = new TestDataHelper();
@@ -468,11 +472,13 @@ public class LogicManagerTest {
     }
 
     @Test
+  //@@author A0132157M reused
     public void execute_deleteIndexNotFound_errorMessageShown() throws Exception {
         assertIndexNotFoundBehaviorForCommand("delete todo 1");
     }
 
     @Test
+    //@@author A0132157M reused
     public void execute_delete_removesCorrectTodo() throws Exception {
         String expectedMessage = MESSAGE_INVALID_TASK_DISPLAYED_INDEX;
         TestDataHelper helper = new TestDataHelper();
@@ -515,7 +521,7 @@ public class LogicManagerTest {
                 expectedAB.getTaskList());
     }
     @Test
-  //@@author A0132157M
+    //@@author A0132157M
     public void execute_delete_removesCorrectDeadline() throws Exception {
         String expectedMessage = MESSAGE_INVALID_TASK_DISPLAYED_INDEX;
         TestDataHelper helper = new TestDataHelper();
@@ -536,14 +542,14 @@ public class LogicManagerTest {
                 expectedAB.getTaskList());
     }
 
-
     @Test
+    //author A0132157M
     public void execute_find_invalidArgsFormat() throws Exception {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE);
         assertCommandBehavior("find ", expectedMessage);
     }
-
     @Test
+    //author A0132157M
     public void execute_find_onlyMatchesFullWordsInNames() throws Exception {
         TestDataHelper helper = new TestDataHelper();
         Task pTarget1 = helper.generatetask("bla bla todo bla");
@@ -581,8 +587,9 @@ public class LogicManagerTest {
                 expectedAB,
                 expectedList);
     }
-
+    
     @Test
+    //@@author A0132157M
     public void execute_find_isNotCaseSensitive() throws Exception {
         TestDataHelper helper = new TestDataHelper();
         Task p1 = helper.generatetask("KEY");
@@ -602,6 +609,7 @@ public class LogicManagerTest {
     }
 
     @Test
+    //@@author A0132157M
     public void execute_find_matchesIfAnyKeywordPresent() throws Exception {
         TestDataHelper helper = new TestDataHelper();
         Task pTarget1 = helper.generatetask("todo blablakeybla 1");
