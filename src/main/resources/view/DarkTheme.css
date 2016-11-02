@@ -28,10 +28,6 @@
     -fx-font-family: "Segoe UI Semibold";
 }
 
-.tab-pane {
-    -fx-padding: 0 0 0 1;
-}
-
 .tab-pane .tab-header-area {
     -fx-padding: 0 0 0 0;
     -fx-min-height: 0;
@@ -40,7 +36,6 @@
 
 .tab-pane *.tab-header-background {
     -fx-background-color: transparent;
-    -fx-effect: innershadow(two-pass-box , rgba(0,0,0,0.6) , 4, 0.0 , 0 , 0);
 }
 
 .table-view {
@@ -81,14 +76,14 @@
 }
 
 .split-pane .split-pane-divider {
-    -fx-background-color: transparent, derive(#1d1d1d, 10%);
+    -fx-background-color: transparent, derive(#1d1d1d, 5%);
     -fx-padding: 0 0.1em 0 0.1em;
 }
 
 .split-pane {
     -fx-border-radius: 1;
     -fx-border-width: 1;
-    -fx-background-color: derive(#1d1d1d, 20%);
+    -fx-background-color: derive(#1d1d1d, 10%);
 }
 
 .list-cell {
@@ -112,11 +107,7 @@
 }
 
 .anchor-pane {
-     -fx-background-color: derive(#1d1d1d, 20%);
-}
-
-.anchor-pane-with-border {
-     -fx-background-color: derive(#1d1d1d, 20%);
+     -fx-background-color: derive(#1d1d1d, 10%);
 }
 
 .status-bar {
@@ -140,7 +131,7 @@
 }
 
 .status-bar-with-border {
-    -fx-background-color: derive(#1d1d1d, 30%);
+    -fx-background-color: derive(#1d1d1d, 20%);
     -fx-border-color: derive(#1d1d1d, 20%);
     -fx-border-width: 1px;
 }
@@ -169,8 +160,10 @@
 
 .menu-bar {
     -fx-background-color: derive(#1d1d1d, 20%);
-    -fx-border-color: derive(#1d1d1d, 10%);
+    -fx-border-color: derive(#1d1d1d, 30%);
     -fx-border-top-width: 1px;
+    -fx-border-bottom-width: 1px;
+
 }
 
 .menu-bar .label {
@@ -286,27 +279,10 @@
     -fx-border-width: 1 1 1 1;
 }
 
-#commandTypeLabel {
-    -fx-font-size: 11px;
-    -fx-text-fill: #F70D1A;
-}
-
-#filterField, #taskListPanel, #completeTaskListPanel {
-    -fx-effect: innershadow(gaussian, black, 10, 0, 0, 0);
-}
-
 .titled-pane {
     -fx-font-family: "Segoe UI Semibold";
     -fx-text-fill: #ffffff;
     -fx-font-size: 11pt;
-}
-
-#notificationPane .title{
-	-fx-background-color: transparent;
-	-fx-padding: 25 20 10 60;
-	-fx-background-image: url('../images/notification_title.png');
-	-fx-background-repeat: no-repeat;
-	-fx-background-size: 170;
 }
 
 .tab {
@@ -332,6 +308,14 @@
     -fx-text-fill: #ffffff;
 }
 
+#notificationPane .title{
+	-fx-background-color: transparent;
+	-fx-padding: 25 20 10 60;
+	-fx-background-image: url('../images/notification_title.png');
+	-fx-background-repeat: no-repeat;
+	-fx-background-size: 170;
+}
+
 #incompleteTab {
 	-fx-background-image: url('../images/incomplete_tab_title.png');
 	-fx-background-size: cover;
@@ -350,12 +334,30 @@
 	-fx-background-size: cover;
 }
 
-#taskListPanelPlaceholder{
+#taskListPanelPlaceholder {
     -fx-background-color: #ffc425;
     -fx-background-radius: 0 3 3 3;
 }
 
-#completeTaskListPanelPlaceholder{
+#completeTaskListPanelPlaceholder {
     -fx-background-color: #00b159;
+    -fx-background-radius: 0 3 3 3;
+}
+
+#overdueTaskListPanelPlaceholder {
+    -fx-background-color: #d11141;
+    -fx-background-radius: 0 3 3 3;
+}
+
+#commandPaneTitleLabel {
+	-fx-background-image: url('../images/command_pane_title.png');
+	-fx-background-repeat: no-repeat;
+	-fx-background-size: 170;
+	-fx-text-fill: #ffffff;
+	-fx-padding: 25 30 10 70;
+}
+
+#resultDisplayPlaceholder, #commandBoxPlaceholder {
+    -fx-background-color: #f37735;
     -fx-background-radius: 0 3 3 3;
 }
