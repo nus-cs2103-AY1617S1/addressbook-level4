@@ -14,7 +14,7 @@
          <items>
             <VBox fx:id="taskList" maxHeight="1.7976931348623157E308" maxWidth="-Infinity" minWidth="273.0" prefWidth="273.0" SplitPane.resizableWithParent="false">
                <children>
-                  <HBox prefHeight="100.0" prefWidth="200.0">
+                  <HBox>
                      <children>
                         <Label fx:id="currentDateLabel" styleClass="label-bigdate" text="\$DATE_NOW">
                            <padding>
@@ -36,14 +36,13 @@
             </VBox>
             <VBox maxWidth="-Infinity" minWidth="300.0" prefHeight="200.0" prefWidth="1000.0">
                <children>
-                  <AnchorPane prefHeight="200.0" prefWidth="200.0" />
                   <AnchorPane fx:id="statusbarPlaceholder" />
                   <AnchorPane fx:id="agendaPlaceholder" stylesheets="@DarkTheme.css">
                      <padding>
                         <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
                      </padding>
                   </AnchorPane>
-                  <AnchorPane maxHeight="300.0" minHeight="100.0" prefHeight="200.0" prefWidth="200.0">
+                  <AnchorPane maxHeight="300.0" minHeight="120.0" prefHeight="200.0" prefWidth="200.0">
                      <children>
                          <AnchorPane fx:id="resultDisplayPlaceholder" maxHeight="300.0" minHeight="100" styleClass="anchor-pane-with-border" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                              <padding>
@@ -61,6 +60,7 @@
                         </AnchorPane>
                      </children>
                   </AnchorPane>
+                  <AnchorPane fx:id="statusbarPlaceholder1" layoutX="10.0" layoutY="10.0" />
                </children>
             </VBox>
          </items>

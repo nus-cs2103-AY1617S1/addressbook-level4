@@ -10,10 +10,10 @@ import seedu.jimi.logic.History;
 public class RedoCommand extends Command {
 
     public static final String COMMAND_WORD = "redo";
-    public static final String SHORT_COMMAND_WORD = "r";
     public static final String MESSAGE_USAGE = 
-            COMMAND_WORD + ": Redoes the previous task.\n" + "To redo a task, type redo\n"
-            + "> Tip: Typing 'r' instead of 'redo' works too.\n";
+            COMMAND_WORD + ": Redoes the previous task.\n" 
+            + "To redo a task, type redo.\n"
+            + "> Tip: Typing 'r', 're', 'red' instead of 'redo' works too.\n";
 
     public RedoCommand() {}
 
@@ -26,9 +26,12 @@ public class RedoCommand extends Command {
 
     @Override
     public boolean isValidCommandWord(String commandWord) {
-        String lowerStr = commandWord.toLowerCase();
-        return lowerStr.equals(COMMAND_WORD.toLowerCase()) 
-                || lowerStr.equals(SHORT_COMMAND_WORD.toLowerCase());
+        for (int i = 1; i <= COMMAND_WORD.length(); i++) {
+            if (commandWord.toLowerCase().equals(COMMAND_WORD.substring(0, i))) {
+                return true;
+            }
+        }
+        return false;
     }
     
     @Override

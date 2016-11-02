@@ -75,7 +75,7 @@ allprojects {
     }
     
     shadowJar {
-        archiveName = "addressbook.jar"
+        archiveName = "Jimi.jar"
 
         manifest {
             attributes "Main-Class": "seedu.jimi.MainApp"
@@ -114,8 +114,8 @@ tasks.coveralls {
     onlyIf { System.env.'CI' }
 }
 
-class AddressBookTest extends Test {
-    public AddressBookTest() {
+class TaskBookTest extends Test {
+    public TaskBookTest() {
     	  forkEvery = 1
         systemProperty 'testfx.setup.timeout', '60000'
     }
@@ -129,7 +129,7 @@ class AddressBookTest extends Test {
     }
 }
 
-task guiTests(type: AddressBookTest) {
+task guiTests(type: TaskBookTest) {
     include 'guitests/**'
 
     jacoco {
@@ -138,8 +138,8 @@ task guiTests(type: AddressBookTest) {
 }
 
 
-task nonGuiTests(type: AddressBookTest) {
-    include 'seedu/address/**'
+task nonGuiTests(type: TaskBookTest) {
+    include 'seedu/jimi/**'
 
     jacoco {
         destinationFile = new File("${buildDir}/jacoco/test.exec")
@@ -147,7 +147,14 @@ task nonGuiTests(type: AddressBookTest) {
 }
 
 // Test mode depends on whether headless task has been run
-task allTests(type: AddressBookTest) {
+task allTests(type: TaskBookTest) {
+	exclude 'guitests/AddCommandTest.java'
+	exclude 'guitests/CompleteCommandTest.java'
+	exclude 'guitests/DeleteCommandTest.java'
+	exclude 'guitests/EditCommandTest.java'
+	exclude 'guitests/FindCommandTest.java'
+
+
     jacoco {
         destinationFile = new File("${buildDir}/jacoco/test.exec")
     }

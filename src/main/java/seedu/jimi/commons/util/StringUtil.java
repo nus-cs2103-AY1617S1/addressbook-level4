@@ -10,9 +10,9 @@ import java.util.List;
  */
 public class StringUtil {
     public static boolean containsIgnoreCase(String source, String query) {
-        String[] split = source.toLowerCase().split("\\s+");
-        List<String> strings = Arrays.asList(split);
-        return strings.stream().filter(s -> s.equals(query.toLowerCase())).count() > 0;
+        String sourceNoSpaces = source.toLowerCase().replaceAll("\\s+", "");
+        String queryNoSpaces = query.toLowerCase().replaceAll("\\s+", "");
+        return sourceNoSpaces.contains(queryNoSpaces) || queryNoSpaces.contains(sourceNoSpaces);
     }
 
     /**
@@ -32,5 +32,19 @@ public class StringUtil {
      */
     public static boolean isUnsignedInteger(String s){
         return s != null && s.matches("^0*[1-9]\\d*$");
+    }
+
+    /** 
+     * Returns the first word separated by spaces in {@code text}. 
+     * Adapted from StackOverflow because I'm too lazy to create my own 
+     * method to extract the first word of a string.
+     */
+    public static String getFirstWord(String text) {
+        String trimmed = new String(text.trim());
+        if (trimmed.indexOf(' ') > -1) { // Check if there is more than one word.
+            return trimmed.substring(0, trimmed.indexOf(' ')); // Extract first word.
+        } else {
+            return trimmed; // Text is the first word itself.
+        }
     }
 }

@@ -24,22 +24,18 @@ import seedu.jimi.commons.core.Config;
 import seedu.jimi.commons.core.LogsCenter;
 import seedu.jimi.commons.exceptions.DateNotParsableException;
 import seedu.jimi.commons.exceptions.IllegalValueException;
+import seedu.jimi.commons.util.CommandUtil;
 import seedu.jimi.commons.util.StringUtil;
 import seedu.jimi.logic.commands.AddCommand;
-import seedu.jimi.logic.commands.ClearCommand;
 import seedu.jimi.logic.commands.Command;
 import seedu.jimi.logic.commands.CompleteCommand;
 import seedu.jimi.logic.commands.DeleteCommand;
 import seedu.jimi.logic.commands.EditCommand;
-import seedu.jimi.logic.commands.ExitCommand;
 import seedu.jimi.logic.commands.FindCommand;
 import seedu.jimi.logic.commands.HelpCommand;
 import seedu.jimi.logic.commands.IncorrectCommand;
-import seedu.jimi.logic.commands.ListCommand;
-import seedu.jimi.logic.commands.RedoCommand;
 import seedu.jimi.logic.commands.SaveAsCommand;
 import seedu.jimi.logic.commands.ShowCommand;
-import seedu.jimi.logic.commands.UndoCommand;
 import seedu.jimi.model.tag.Priority;
 
 /**
@@ -58,7 +54,7 @@ public class JimiParser {
     private static final Pattern TASK_INDEX_ARGS_FORMAT = Pattern.compile("[te](?<targetIndex>.+)");
 
     private static final Pattern KEYWORDS_WITH_DATES_ARGS_FORMAT =
-            Pattern.compile("((\"(?<keywords>\\S+(?:\\s+\\S+)*)\"?)?(((on|from) (?<specificDateTime>.+))?)|(from (?<startDateTime>((?!to ).)*))?(to (?<endDateTime>.+))?)");
+            Pattern.compile("((\"(?<keywords>\\S+(?:\\s+\\S+)*)\")?(((on|from) (?<specificDateTime>.+))?)|(from (?<startDateTime>((?!to ).)*))?(to (?<endDateTime>.+))?)");
     
     private static final Pattern ADD_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<ArgsDetails>[^/]+)(?<tagArguments>(?: t/[^/]+)?)(?<priorityArguments>(?: p/[^/]+)?)"); // zero or one tag only, zero or one priority    
@@ -83,25 +79,10 @@ public class JimiParser {
     
     private static final Pattern SAVE_RESET_DIRECTORY_ARGS_FORMAT = Pattern.compile(SaveAsCommand.COMMAND_WORD_RESET);
     
-    private static final List<Command> COMMAND_STUB_LIST =
-            Arrays.asList(
-                    new AddCommand(), 
-                    new EditCommand(), 
-                    new CompleteCommand(), 
-                    new ShowCommand(), 
-                    new DeleteCommand(),
-                    new ClearCommand(), 
-                    new FindCommand(), 
-                    new ListCommand(),
-                    new UndoCommand(),
-                    new RedoCommand(),
-                    new ExitCommand(), 
-                    new HelpCommand(), 
-                    new SaveAsCommand()
-            );
-
     private static final String XML_FILE_EXTENSION = ".xml";
     
+    private static final List<Command> COMMAND_STUB_LIST = CommandUtil.getInstance().getCommandStubList();
+
     public JimiParser() {}
 
     /**
@@ -130,33 +111,34 @@ public class JimiParser {
      * @return correct Command corresponding to the command word if valid, else returns incorrect command.
      */
     private Command prepareCommand(String commandWord, String arguments) {
-        for (Command command : getCommandStubList()) {
-            // if validation checks implemented by the respective commands are passed
-            if (command.isValidCommandWord(commandWord)) {
-                // identify which command this is
-                if (command instanceof AddCommand) {
-                    return prepareAdd(arguments);
-                } else if (command instanceof HelpCommand) {
-                    return prepareHelp(arguments);
-                } else if (command instanceof EditCommand) {
-                    return prepareEdit(arguments);
-                } else if (command instanceof CompleteCommand) {
-                    return prepareComplete(arguments);
-                } else if (command instanceof ShowCommand) {
-                    return prepareShow(arguments);
-                } else if (command instanceof DeleteCommand) {
-                    return prepareDelete(arguments);
-                } else if (command instanceof FindCommand) {
-                    return prepareFind(arguments);
-                } else if (command instanceof SaveAsCommand) {
-                    return prepareSaveAs(arguments);
-                } else { // commands that do not require arguments e.g. exit
-                    return command;
-                }
+        Optional<Command> prepared = 
+                COMMAND_STUB_LIST.stream().filter(c -> c.isValidCommandWord(commandWord)).map(c -> {
+            if (c instanceof AddCommand) {
+                return prepareAdd(arguments);
+            } else if (c instanceof HelpCommand) {
+                return prepareHelp(arguments);
+            } else if (c instanceof EditCommand) {
+                return prepareEdit(arguments);
+            } else if (c instanceof CompleteCommand) {
+                return prepareComplete(arguments);
+            } else if (c instanceof ShowCommand) {
+                return prepareShow(arguments);
+            } else if (c instanceof DeleteCommand) {
+                return prepareDelete(arguments);
+            } else if (c instanceof FindCommand) {
+                return prepareFind(arguments);
+            } else if (c instanceof SaveAsCommand) {
+                return prepareSaveAs(arguments);
+            } else { // commands that do not require arguments e.g. exit
+                return c;
             }
+        }).findFirst();
+        
+        if (!prepared.isPresent()) {
+            return new IncorrectCommand(String.format(MESSAGE_UNKNOWN_COMMAND, commandWord));
         }
         
-        return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
+        return prepared.get();
     }
     
     private Command prepareHelp(String args) {
@@ -167,7 +149,7 @@ public class JimiParser {
         try {
             return new HelpCommand(args.trim());
         } catch (IllegalValueException ive) {
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ive.getMessage()));
+            return new IncorrectCommand(ive.getMessage());
         }
     }
 
@@ -436,11 +418,13 @@ public class JimiParser {
         
     }
     
+    //@author A0138915X
     /**
      * Parses arguments in the context of the find task command.
      *
      * @param args full command args string
      * @return the prepared command
+     *
      */
     private Command prepareFind(String args) {
         final Matcher matcher = KEYWORDS_WITH_DATES_ARGS_FORMAT.matcher(args.trim());
@@ -478,6 +462,7 @@ public class JimiParser {
         
         return new FindCommand(keywordSet, startDates, optEndDate.orElse(null));
     }
+    //@@author
     
     // @@author A0140133B
     /**
@@ -503,11 +488,6 @@ public class JimiParser {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ive.getMessage()));
         }
     }
-    
 
-    public static List<Command> getCommandStubList() {
-        return COMMAND_STUB_LIST;
-    }
     // @@author
-
 }

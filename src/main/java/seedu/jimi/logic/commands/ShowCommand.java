@@ -11,7 +11,7 @@ import seedu.jimi.model.ModelManager;
 import seedu.jimi.model.datetime.DateTime;
 
 /**
- * Shows certain sections of the task panel to the user.
+ * Shows certain sections of the task panel or all tasks and events to the user.
  * @@author A0138915X
  *
  */
@@ -20,6 +20,7 @@ public class ShowCommand extends Command {
     public static final String COMMAND_WORD = "show";
     
     public static final List<String> VALID_KEYWORDS = Arrays.asList(
+            "overdue",
             "floating", 
             "incomplete", 
             "completed",
@@ -31,14 +32,15 @@ public class ShowCommand extends Command {
             "thursday", 
             "friday", 
             "saturday", 
-            "sunday" 
+            "sunday",
+            "all"
     );
     
     public static final String MESSAGE_USAGE = 
-            COMMAND_WORD + ": Shows certain sections of the task panel in the agenda panel. \n"
+            COMMAND_WORD + ": Shows certain sections of the task panel or all tasks and events in the agenda panel. \n"
             + "Parameters: NAME_OF_SECTION_TO_DISPLAY\n" 
             + "Example: " + COMMAND_WORD + " floating tasks\n"
-            + "> Valid case-insensitive keywords: Floating, Complete, Incomplete, Today, Tomorrow, {day of week displayed}";
+            + "> Valid case-insensitive keywords: All, Overdue, Floating, Complete, Incomplete, Today, Tomorrow, {day of week displayed}";
 
     public static final String MESSAGE_SUCCESS = "Displayed tasks and events.";
     
@@ -61,7 +63,15 @@ public class ShowCommand extends Command {
         
         ListId sectionToShow = null;
         
+        if(userSelection.equals("all")) {
+            model.updateAllFilteredListsToNormalListing();
+            return new CommandResult(MESSAGE_SUCCESS);
+        }
+        
         switch (userSelection) {
+        case "overdue" :
+            sectionToShow = ListId.OVERDUE;
+            break;
         case "floating" :
             sectionToShow = ListId.FLOATING_TASKS;
             break;
