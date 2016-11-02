@@ -17,7 +17,7 @@ public class AliasParser extends BaseParser {
     public Command parse(String command, String arguments) {
         this.extractArguments(arguments);
         String aliasCommand = getSingleKeywordArgValue(FLAG_ALIAS_COMMAND);
-        String aliasValue = getSingleKeywordArgValue(FLAG_ALIAS_COMMAND);
+        String aliasValue = getSingleKeywordArgValue(FLAG_ALIAS_VALUE);
         if( aliasCommand != null && aliasValue != null) {
             return new AliasCommand(aliasCommand, aliasValue);
         } else {
