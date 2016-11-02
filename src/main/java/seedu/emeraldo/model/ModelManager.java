@@ -156,7 +156,6 @@ public class ModelManager extends ComponentManager implements Model {
     	} catch (IllegalValueException e) {
     		e.printStackTrace();
     	}
-    	updateFilteredListToShowAll();
     	indicateEmeraldoChanged();
     }
 
