@@ -6,6 +6,7 @@ import seedu.address.testutil.TestActivity;
 import seedu.address.testutil.TypicalTestActivities;
 import static org.junit.Assert.assertTrue;
 
+//@@author A0125097A
 public class UndoCommandTest extends AddressBookGuiTest {
 
     @Test
