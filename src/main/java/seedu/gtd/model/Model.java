@@ -45,8 +45,9 @@ public interface Model {
 	/** Updates the filter of the filtered task list to filter by the right parameter*/
 	void updateFilteredTaskList(String keywords, String cmd);
 	
-	/** Un-does a change to the AddressBook */
-	void undoAddressBookChange();
+	/** Un-does a change to the AddressBook 
+	 * @return true if undo command was effective or false if undo is not possible, i.e the stack of previous task list states is empty */
+	boolean undoAddressBookChange();
 	
 	/** Clears all tasks */
 	void clearTaskList();

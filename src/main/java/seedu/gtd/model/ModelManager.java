@@ -15,6 +15,7 @@ import seedu.gtd.model.task.UniqueTaskList.TaskNotFoundException;
 
 import java.util.Arrays;
 import java.util.Set;
+import java.util.Stack;
 import java.util.logging.Logger;
 
 /**
@@ -28,7 +29,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     private AddressBook addressBook;
     private final FilteredList<Task> filteredTasks;
-    private AddressBook previousAddressBook;
+    private Stack<AddressBook> previousAddressBook;
 
     /**
      * Initializes a ModelManager with the given AddressBook
@@ -43,7 +44,8 @@ public class ModelManager extends ComponentManager implements Model {
 
         addressBook = new AddressBook(src);
         filteredTasks = new FilteredList<>(addressBook.getTasks());
-        previousAddressBook = new AddressBook(addressBook);
+        previousAddressBook = new Stack<AddressBook>();
+        previousAddressBook.push(new AddressBook(addressBook));
     }
 
     public ModelManager() {
@@ -53,7 +55,8 @@ public class ModelManager extends ComponentManager implements Model {
     public ModelManager(ReadOnlyAddressBook initialData, UserPrefs userPrefs) {
         addressBook = new AddressBook(initialData);
         filteredTasks = new FilteredList<>(addressBook.getTasks());
-        previousAddressBook = new AddressBook(addressBook);
+        previousAddressBook = new Stack<AddressBook>();
+        previousAddressBook.push(new AddressBook(addressBook));
     }
 
     private void resetData(ReadOnlyAddressBook newData) {
@@ -72,12 +75,18 @@ public class ModelManager extends ComponentManager implements Model {
     }
     
     private void savePreviousAddressBook() {
-    	previousAddressBook = new AddressBook(addressBook);
+    	previousAddressBook.push(new AddressBook(addressBook));
     }
     
     @Override
-    public void undoAddressBookChange() {
-    	resetData(previousAddressBook);
+    public boolean undoAddressBookChange() {
+    	if(previousAddressBook.isEmpty()) {
+    		return false;
+    	}
+    	else{
+    		resetData(previousAddressBook.pop());
+    		return true;
+    	}
     }
 
     @Override

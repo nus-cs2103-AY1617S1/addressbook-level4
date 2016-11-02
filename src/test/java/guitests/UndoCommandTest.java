@@ -5,10 +5,12 @@ package guitests;
 import org.junit.Test;
 
 import seedu.gtd.testutil.TestTask;
-import seedu.gtd.testutil.TestUtil;
 
 import static org.junit.Assert.assertTrue;
-import static seedu.gtd.logic.commands.UndoCommand.MESSAGE_SUCCESS;;
+import static seedu.gtd.logic.commands.UndoCommand.MESSAGE_SUCCESS;
+import static seedu.gtd.logic.commands.UndoCommand.MESSAGE_UNDO_LIMIT_REACHED;
+
+import java.util.Stack;;
 
 public class UndoCommandTest extends AddressBookGuiTest {
 
@@ -17,32 +19,48 @@ public class UndoCommandTest extends AddressBookGuiTest {
 
         //undo the addition of the first task
         TestTask[] currentList = td.getTypicalTasks();
-        TestTask[] previousList = currentList;
+        Stack<TestTask[]> previousList = new Stack<TestTask[]>();
+        previousList.push(currentList);
         commandBox.runCommand(td.george.getAddCommand());
-        assertUndoSuccess(previousList);
+        assertUndoSuccess(previousList.pop());
 
         //undo editing the dueDate of the last task in the list
         int targetIndex = currentList.length;
         String change = "d/2";
-        previousList = currentList;
+        previousList.push(currentList);
         commandBox.runCommand("edit " + targetIndex + " " + change);
-        assertUndoSuccess(previousList);
+        assertUndoSuccess(previousList.pop());
         
         //undo deleting a task from the middle of the list
         targetIndex = currentList.length/2;
-        previousList = currentList;
+        previousList.push(currentList);
         commandBox.runCommand("delete " + targetIndex);
-        assertUndoSuccess(previousList);
+        assertUndoSuccess(previousList.pop());
         
         //undo clearing list
-        previousList = currentList;
+        previousList.push(currentList);
         commandBox.runCommand("clear");
-        assertUndoSuccess(previousList);
+        assertUndoSuccess(previousList.pop());
         
         //undo marking the middle task as done
-        previousList = currentList;
+        previousList.push(currentList);
         commandBox.runCommand("done " + targetIndex);
-        assertUndoSuccess(previousList);
+        assertUndoSuccess(previousList.pop());
+        
+        /*
+        //undo multiple times
+        previousList.push(currentList);
+        commandBox.runCommand("edit " + targetIndex + " " + change);
+        previousList.push(currentList);
+        commandBox.runCommand(td.george.getAddCommand());
+        previousList.push(currentList);
+        commandBox.runCommand("delete " + targetIndex);
+        previousList.push(currentList);
+        commandBox.runCommand("done " + targetIndex);
+        previousList.push(currentList);
+        commandBox.runCommand("clear");
+        assertMultipleUndoSuccess(previousList);
+        */
     }
 
     /**
@@ -56,6 +74,20 @@ public class UndoCommandTest extends AddressBookGuiTest {
 
         //confirm the result message is correct
         assertResultMessage(String.format(MESSAGE_SUCCESS));
+    }
+    
+    private void assertMultipleUndoSuccess(final Stack<TestTask[]> previousList) {
+    	
+        //run undo multiple times and verify list each time
+        for(int i=1; i < previousList.size(); i++) {
+        	commandBox.runCommand("undo");
+        	assertTrue(taskListPanel.isListMatching(previousList.pop()));
+        	assertResultMessage(String.format(MESSAGE_SUCCESS));
+        }
+        
+        //verify that the undo limit message is shown when undo limit is reached
+        commandBox.runCommand("undo");
+        assertResultMessage(String.format(MESSAGE_UNDO_LIMIT_REACHED));
     }
 
 }
