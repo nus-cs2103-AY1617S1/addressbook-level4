@@ -293,7 +293,7 @@ b. Require developers to download those libraries manually (this creates extra w
 Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (unlikely to have) - `*`
 
 
-Priority | As a ... | I want to ... | So that I can...
+Priority | As a(n) ... | I want to ... | So that I can...
 -------- | :-------- | :--------- | :-----------
 `* * *` | new user | see usage instructions | refer to instructions when I forget how to use the App
 `* * *` | new user |  view more information about a particular command | learn how to use various commands
@@ -309,6 +309,7 @@ Priority | As a ... | I want to ... | So that I can...
 `*` | user | sort tasks by priority level | see the most important tasks and prioritize accordingly
 `*` | user | undo most recent command | undo the most recent operation
 `*` | user | redo most recent undo command | redo the operation done by the most recent undo action
+`*` | user | change storage location | easily sync them with the cloud
 `*` | advanced user | alias keywords with shorter versions | type a command faster
 `*` | advanced user | remove alias of keywords with shorter versions | get rid of shorter version of certain keywords
 {More to be added}
@@ -410,6 +411,29 @@ Use case ends.
 
 > 2b1. Savvy Tasker shows an error message and display the expected format <br>
   Use case resumes at step 3
+
+
+#### Use case: Change storage location
+
+**MSS**
+
+1. Savvy Tasker waits for user command
+2. User requests to change the storage location of Savvy Tasker
+3. Savvy Tasker changes the storage location, saving all existing data in the new location <br>
+Use case ends.
+
+**Extensions**
+
+2a. The given path is invalid
+
+> 2a1. Savvy Tasker shows an error message <br>
+  Use case ends
+
+2b. The given path is is not accessible (read/write) by Savvy Tasker
+
+> 2b1. Savvy Tasker shows an error message <br>
+  Use case ends
+  
 
 #### Use case: Mark task as done
 
