@@ -733,7 +733,7 @@ public class LogicManagerTest {
     
     //@@author A0139145E
     @Test
-    public void execute_undo_emptyStack() throws Exception {
+    public void execute_undo_empty() throws Exception {
         assertCommandBehavior("undo", UndoCommand.MESSAGE_UNDO_NOT_POSSIBLE, new TaskBook(), 
                 Collections.emptyList(), Collections.emptyList());
     }
@@ -741,15 +741,14 @@ public class LogicManagerTest {
     
     //@@author A0139145E
     @Test
-    public void execute_undoAdd_successful() throws Exception {
+    public void execute_undoRedoAdd_successful() throws Exception {
         Task[] toUndo = generateStartStateForUndo(2);
         //Add undated task
         expectedTB.addTask(toUndo[0]);
         model.addTask(toUndo[0]);
         model.addUndo("add", toUndo[0]);
-        //Add dated task
-        expectedTB.addTask(toUndo[1]);
-        model.addTask(toUndo[1]);
+        
+        //Add undo for dated task (already exist in the model)
         model.addUndo("add", toUndo[1]);
         
         //Undo add dated task
@@ -760,50 +759,86 @@ public class LogicManagerTest {
         //Undo add undated task
         expectedTB.removeTask(toUndo[0]);
         assertCommandBehavior("undo", String.format(UndoCommand.MESSAGE_SUCCESS, "add"), expectedTB, 
+                expectedTB.getDatedTaskList(), Collections.emptyList());
+        
+        //Redo add undated task
+        expectedTB.addTask(toUndo[0]);
+        assertCommandBehavior("redo", String.format(RedoCommand.MESSAGE_SUCCESS, "add"), expectedTB, 
                 expectedTB.getDatedTaskList(), expectedTB.getUndatedTaskList());
         
-        //No further undo actions
-        assertCommandBehavior("undo", UndoCommand.MESSAGE_UNDO_NOT_POSSIBLE, expectedTB, 
+        //Redo add dated task
+        expectedTB.addTask(toUndo[1]);
+        assertCommandBehavior("redo", String.format(RedoCommand.MESSAGE_SUCCESS, "add"), expectedTB, 
                 expectedTB.getDatedTaskList(), expectedTB.getUndatedTaskList());
+        
+        
     }
     //@@author
     
     //@@author A0139145E
     @Test
-    public void execute_undoDelete_successful() throws Exception {
+    public void execute_undoRedoDelete_successful() throws Exception {
         Task[] toUndo = generateStartStateForUndo(2);    
-
+        model.addTask(toUndo[0]);
+        
+        
+        //Undo delete undated task
+        expectedTB.addTask(toUndo[0]);
+        expectedTB.removeTask(toUndo[0]);
+        model.deleteTask(toUndo[0]);
+        model.addUndo("delete", toUndo[0]);
+        
+        //Undo delete dated task
         expectedTB.removeTask(toUndo[1]);
         model.deleteTask(toUndo[1]);
-        expectedTB.addTask(toUndo[1]);
         model.addUndo("delete", toUndo[1]);
+        
+        expectedTB.addTask(toUndo[1]);
+        assertCommandBehavior("undo", String.format(UndoCommand.MESSAGE_SUCCESS, "delete"), expectedTB, 
+                expectedTB.getDatedTaskList(), Collections.emptyList());
+        
+        expectedTB.addTask(toUndo[0]);
         assertCommandBehavior("undo", String.format(UndoCommand.MESSAGE_SUCCESS, "delete"), expectedTB, 
                 expectedTB.getDatedTaskList(), expectedTB.getUndatedTaskList());
-        //No further undo actions
-        assertCommandBehavior("undo", UndoCommand.MESSAGE_UNDO_NOT_POSSIBLE, expectedTB, 
-                expectedTB.getDatedTaskList(), expectedTB.getUndatedTaskList());
+        
+        //Redo delete undated task
+        expectedTB.removeTask(toUndo[0]);
+        assertCommandBehavior("redo", String.format(RedoCommand.MESSAGE_SUCCESS, "delete"), expectedTB, 
+                expectedTB.getDatedTaskList(), Collections.emptyList());
+        
+        //Redo delete dated task
+        expectedTB.removeTask(toUndo[1]);
+        assertCommandBehavior("redo", String.format(RedoCommand.MESSAGE_SUCCESS, "delete"), expectedTB, 
+                expectedTB.getDatedTaskList(), Collections.emptyList());
+        
     }
     //@@author
 
     //@@author A0139145E
     @Test
-    public void execute_undoDone_successful() throws Exception {
+    public void execute_undoRedoDone_successful() throws Exception {
         Task[] toUndo = generateStartStateForUndo(2);
         
-        model.completeTask(toUndo[1]);
-        model.addUndo("done", toUndo[1]);
+        //TODO add test for dated task
+        
+        //Undo complete undated task
+        expectedTB.addTask(toUndo[0]);
+        model.addTask(toUndo[0]);
+        model.completeTask(toUndo[0]);
+        model.addUndo("done", toUndo[0]);
         assertCommandBehavior("undo", String.format(UndoCommand.MESSAGE_SUCCESS, "done"), expectedTB, 
                 expectedTB.getDatedTaskList(), expectedTB.getUndatedTaskList());
         
-        //No further undo actions
-        assertCommandBehavior("undo", UndoCommand.MESSAGE_UNDO_NOT_POSSIBLE, expectedTB, 
-                expectedTB.getDatedTaskList(), expectedTB.getUndatedTaskList());
+        //Redo complete undated task. List should be empty as completed tasks are not displayed
+        expectedTB.completeTask(toUndo[0]);
+        assertCommandBehavior("redo", String.format(RedoCommand.MESSAGE_SUCCESS, "done"), expectedTB, 
+                expectedTB.getDatedTaskList(), Collections.emptyList());
     }
     //@@author
 
     //@@author A0139145E
     @Test
-    public void execute_undoEdit_successful() throws Exception {
+    public void execute_undoRedoEdit_successful() throws Exception {
         Task[] toUndo = generateStartStateForUndo(2);
         
       //Edit undated task
@@ -838,15 +873,63 @@ public class LogicManagerTest {
         assertCommandBehavior("undo", String.format(UndoCommand.MESSAGE_SUCCESS, "edit"), expectedTB, 
                 expectedTB.getDatedTaskList(), expectedTB.getUndatedTaskList());
         
-        //No further undo actions
-        assertCommandBehavior("undo", UndoCommand.MESSAGE_UNDO_NOT_POSSIBLE, expectedTB, 
+        //Redo edit undated task
+        expectedTB.removeTask(toUndo[0]);
+        expectedTB.addTask(editUndated);
+        assertCommandBehavior("redo", String.format(RedoCommand.MESSAGE_SUCCESS, "edit"), expectedTB, 
+                expectedTB.getDatedTaskList(), expectedTB.getUndatedTaskList());
+        
+        //Redo edit dated task
+        expectedTB.removeTask(toUndo[1]);
+        expectedTB.addTask(editDated);
+        assertCommandBehavior("redo", String.format(RedoCommand.MESSAGE_SUCCESS, "edit"), expectedTB, 
                 expectedTB.getDatedTaskList(), expectedTB.getUndatedTaskList());
     }
     //@@author
 
+  //@@author A0139145E
+    @Test
+    public void execute_undoRedoDuplicate_successful() throws Exception {
+        Task[] toUndo = generateStartStateForUndo(2);  
+        model.addTask(toUndo[0]);
+        expectedTB.addTask(toUndo[0]);
+        
+        //Add duplicate undated task
+        model.addTask(toUndo[0]);
+        model.addUndo("add", toUndo[0]);
+        expectedTB.addTask(toUndo[0]);
+        
+        //Add duplicate dated task
+        model.addTask(toUndo[1]);
+        model.addUndo("add", toUndo[1]);
+        
+        //Undo add duplicate dated task
+        assertCommandBehavior("undo", String.format(UndoCommand.MESSAGE_SUCCESS, "add"), expectedTB, 
+                expectedTB.getDatedTaskList(), expectedTB.getUndatedTaskList());
+        
+        //Undo add duplicate undated task
+        expectedTB.removeTask(toUndo[0]);
+        assertCommandBehavior("undo", String.format(UndoCommand.MESSAGE_SUCCESS, "add"), expectedTB, 
+                expectedTB.getDatedTaskList(), expectedTB.getUndatedTaskList());
+        
+        //Redo add duplicate undated task
+        expectedTB.addTask(toUndo[0]);
+        assertCommandBehavior("redo", (String.format(RedoCommand.MESSAGE_SUCCESS, "add"
+                + "\n" + AddCommand.MESSAGE_DUPLICATE_TASK)), expectedTB, 
+                expectedTB.getDatedTaskList(), expectedTB.getUndatedTaskList());
+        
+        //Redo add duplicate dated task
+        expectedTB.addTask(toUndo[1]);
+        assertCommandBehavior("redo", (String.format(RedoCommand.MESSAGE_SUCCESS, "add"
+                + "\n" + AddCommand.MESSAGE_DUPLICATE_TASK)), expectedTB, 
+                expectedTB.getDatedTaskList(), expectedTB.getUndatedTaskList());
+        
+    }
+    //@@author
+    
     //@@author A0139145E
     @Test
-    public void execute_undoMultiple_successful() throws Exception {
+    public void execute_undoRedoMultiple_successful() throws Exception {
         Task[] toUndo = generateStartStateForUndo(2);  
         model.addTask(toUndo[0]);
         expectedTB.addTask(toUndo[0]);
@@ -871,7 +954,7 @@ public class LogicManagerTest {
         assertCommandBehavior("undo", String.format(UndoCommand.MESSAGE_SUCCESS, "delete"), expectedTB, 
                 expectedTB.getDatedTaskList(), expectedTB.getUndatedTaskList());
         
-      //Undo add and delete undated task
+        //Undo add and delete undated task
         expectedTB.removeTask(toUndo[0]);
         assertCommandBehavior("undo", String.format(UndoCommand.MESSAGE_SUCCESS, "add"), expectedTB, 
                 expectedTB.getDatedTaskList(), expectedTB.getUndatedTaskList());
@@ -879,17 +962,48 @@ public class LogicManagerTest {
         assertCommandBehavior("undo", String.format(UndoCommand.MESSAGE_SUCCESS, "delete"), expectedTB, 
                 expectedTB.getDatedTaskList(), expectedTB.getUndatedTaskList());
         
-        //No further undo actions
-        assertCommandBehavior("undo", UndoCommand.MESSAGE_UNDO_NOT_POSSIBLE, expectedTB, 
+        //Redo add and delete undated task
+        expectedTB.removeTask(toUndo[0]);
+        assertCommandBehavior("redo", String.format(RedoCommand.MESSAGE_SUCCESS, "delete"), expectedTB, 
                 expectedTB.getDatedTaskList(), expectedTB.getUndatedTaskList());
+        expectedTB.addTask(toUndo[0]);
+        assertCommandBehavior("redo", String.format(RedoCommand.MESSAGE_SUCCESS, "add"), expectedTB, 
+                expectedTB.getDatedTaskList(), expectedTB.getUndatedTaskList());
+        
     }
     //@@author
 
     //@@author A0139145E
     @Test
-    public void execute_redo_emptyStack() throws Exception {
+    public void execute_redo_isEmpty() throws Exception {
         assertCommandBehavior("redo", RedoCommand.MESSAGE_REDO_NOT_POSSIBLE, new TaskBook(), 
                 Collections.emptyList(), Collections.emptyList());
+    }
+    //@@author
+    
+    //@@author A0139145E
+    @Test
+    public void execute_redoAfterUndoableCmd_isEmpty() throws Exception {
+        Task[] toUndo = generateStartStateForUndo(2);
+        //Add undated task
+        expectedTB.addTask(toUndo[0]);
+        model.addTask(toUndo[0]);
+        model.addUndo("add", toUndo[0]);
+        
+        //Undo add undated task
+        expectedTB.removeTask(toUndo[0]);
+        assertCommandBehavior("undo", String.format(UndoCommand.MESSAGE_SUCCESS, "add"), expectedTB, 
+                expectedTB.getDatedTaskList(), expectedTB.getUndatedTaskList());
+        
+        //Add dated task
+        expectedTB.addTask(toUndo[1]);
+        model.addTask(toUndo[1]);
+        model.addUndo("add", toUndo[1]);
+        model.clearRedo();
+        
+        //No more redo actions after undoable command is done
+        assertCommandBehavior("redo", RedoCommand.MESSAGE_REDO_NOT_POSSIBLE, expectedTB, 
+                expectedTB.getDatedTaskList(), expectedTB.getUndatedTaskList());
     }
     //@@author
     
