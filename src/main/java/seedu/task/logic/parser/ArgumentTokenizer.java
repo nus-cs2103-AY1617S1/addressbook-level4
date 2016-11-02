@@ -36,14 +36,21 @@ public class ArgumentTokenizer {
 		//Flag whether prefix is optional or not
 		private boolean isOptional;
 		final String prefix;
+		final String description;
 
-		public Prefix(String prefix) {
+		public Prefix(String prefix, String description) {
 			this.prefix = prefix;
+			this.description = description;
 		}
 
-		Prefix(String prefix, boolean isOptional) {
+		Prefix(String prefix, String description, boolean isOptional) {
 			this.prefix = prefix;
+			this.description = description;
 			this.isOptional = isOptional;
+		}
+		
+		public String getDescription(){
+			return this.description;
 		}
 
 		public void SetIsOptional(boolean isOptional) {
@@ -136,7 +143,7 @@ public class ArgumentTokenizer {
 			return null;
 		} else if (!prefix.isOptional && !valuesForPrexix.isPresent()) {
 			throw new NoValueForRequiredTagException(
-					String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_EVENT_USAGE));
+					String.format(MESSAGE_INVALID_COMMAND_FORMAT, String.format(AddCommand.MESSAGE_TASK_USAGE, prefix.getDescription())));
 		} else {
 			return valuesForPrexix.get().trim();
 		}
@@ -161,7 +168,7 @@ public class ArgumentTokenizer {
 	 * @throws NoValueForRequiredTagException
 	 */
 	public String getPreamble() throws NoValueForRequiredTagException {
-		String preambleValue = getValue(new Prefix(""));
+		String preambleValue = getValue(new Prefix("", ""));
 		if (preambleValue.isEmpty())
 			throw new NoSuchElementException();
 		return preambleValue.trim();
@@ -213,11 +220,11 @@ public class ArgumentTokenizer {
 		prefixPositions.sort((prefix1, prefix2) -> prefix1.getStartPosition() - prefix2.getStartPosition());
 
 		// Insert a PrefixPosition to represent the preamble
-		PrefixPosition preambleMarker = new PrefixPosition(new Prefix(""), 0);
+		PrefixPosition preambleMarker = new PrefixPosition(new Prefix("", ""), 0);
 		prefixPositions.add(0, preambleMarker);
 
 		// Add a dummy PrefixPosition to represent the end of the string
-		PrefixPosition endPositionMarker = new PrefixPosition(new Prefix(""), argsString.length());
+		PrefixPosition endPositionMarker = new PrefixPosition(new Prefix("", ""), argsString.length());
 		prefixPositions.add(endPositionMarker);
 
 		// Extract the prefixed arguments and preamble (if any)

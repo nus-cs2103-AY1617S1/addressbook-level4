@@ -34,7 +34,7 @@ public class AddCommand extends Command {
 	public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task to the task manager. "
 			+ "Parameters: TITLE [d/DESCRIPTION] [sd/START_DATE] [dd/DUE_DATE] [i/INTERVAL] [ti/TIMEINTERVAL] [t/TAG]...\n"
 			+ "Example: " + COMMAND_WORD + " HOMEWORK d/Math homework. dd/01-01-2012 23:59 i/2 ti/7";
-	public static final String MESSAGE_EVENT_USAGE = "To add an event, DUE_DATE is required\n" + "Example: "
+	public static final String MESSAGE_TASK_USAGE = "To add a task, %1$s is required\n" + "Example: "
 			+ COMMAND_WORD + " HOMEWORK d/Math homework. sd/01-01-2011 00:00 dd/01-01-2012 23:59 i/2 ti/7";
 
 	public static final String MESSAGE_INVALID_DATE = "The DUE DATE is before the START DATE\n" + "Example: "

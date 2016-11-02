@@ -17,7 +17,7 @@ public class ArgumentTokenizerTest {
 
     //---------------- Tests for isUnsignedPositiveInteger --------------------------------------
 
-    public static final Prefix descriptionPrefix = new Prefix(" d/");
+    public static final Prefix descriptionPrefix = new Prefix(" d/", "description");
     
 	ArgumentTokenizer argsTokenizer = new ArgumentTokenizer(descriptionPrefix);
 	
