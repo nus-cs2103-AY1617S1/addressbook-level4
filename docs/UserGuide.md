@@ -70,7 +70,7 @@ General command format :
 
 - Adds a generic task with only the DESCRIPTION.
 
-- Example :   **add organise room**
+Example :   **add organise room**
 
 - Adds a task **organise room**  into the task manager.
 PRIORITY is set to **normal** , all other parameters are empty.
@@ -81,7 +81,7 @@ PRIORITY is set to **normal** , all other parameters are empty.
 
 - Adds a task with its PRIORITY indicated.
 
-- Example :   **add get groceries pr/high**
+Example :   **add get groceries pr/high**
 
 - Adds a task **get groceries**  with  **high**  PRIORITY to the task manager.
 
@@ -91,7 +91,7 @@ PRIORITY is set to **normal** , all other parameters are empty.
 
 - Adds a task with its ENDTIME indicated (the task&#39;s ENDTIME is its deadline).
 
-Example :
+Examples :
 
 - **add project ed/27.10.2016**
 
@@ -111,7 +111,7 @@ Adds a task **project**  with deadline **Wednesday 16:00**.
 
 - Adds a task with STARTTIME and ENDTIME.
 
-Example :
+Examples :
 
 - **add Overseas vacation st/25.11.2016 ed/27.11.2016**
 
@@ -127,7 +127,7 @@ Example :
 
 - Adds a task with a tag for additional information.
 
-- Example :   **add Dinner t/formal wear**
+Example :   **add Dinner t/formal wear**
 
 -  Adds a task **Dinner** with tag **formal wear**.
 
