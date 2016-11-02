@@ -29,7 +29,6 @@ public class MainWindow extends UiPart {
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
-//    private BrowserPanel browserPanel;
     private TaskListPanel taskListPanel;
     private TaskListPanel sortedTaskListPanel;
     private ResultDisplay resultDisplay;
@@ -110,7 +109,6 @@ public class MainWindow extends UiPart {
     }
 
     void fillInnerParts() {
-//        browserPanel = BrowserPanel.load(browserPlaceholder);
         taskListPanel = TaskListPanel.load(primaryStage, getTaskListPlaceholder(), logic.getSortedFilteredTaskList());
         resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
         statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(),
@@ -196,11 +194,4 @@ public class MainWindow extends UiPart {
     public TaskListPanel getSortedTaskListPanel() {
         return this.sortedTaskListPanel;
     }
-//    public void loadTaskPage(ReadOnlyTask task) {
-//        browserPanel.loadTaskPage(task);
-//    }
-//
-//    public void releaseResources() {
-//        browserPanel.freeResources();
-//    }
 }
