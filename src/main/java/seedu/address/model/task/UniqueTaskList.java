@@ -153,7 +153,7 @@ public class UniqueTaskList implements Iterable<Task> {
     }
 
   //@@author A0139430L JingRui
-	public boolean edit(ReadOnlyTask key, String args) throws IllegalValueException {
+	public Task edit(ReadOnlyTask key, String args) throws IllegalValueException {
         // TODO Auto-generated method stub
         String keyword = args.substring(0, args.indexOf(' '));
         args = args.substring(args.indexOf(' ') + 1);
@@ -164,7 +164,7 @@ public class UniqueTaskList implements Iterable<Task> {
         if (keyword.equals(EditCommand.DESCRIPTION_WORD)) {
             toEdit.setName(new Name(args));
             internalList.set(editIndex, toEdit);
-            return true;
+            return toEdit;
         } else if (keyword.equals(EditCommand.DATE_WORD)) {
             if(args.compareTo("no date") == 0 & toEdit.getTaskCategory()!=3){ // change to Todo
                 toEdit.setDate(new Date("no date"));
@@ -181,7 +181,7 @@ public class UniqueTaskList implements Iterable<Task> {
                 toEdit.setDate(new Date(args));          
             internalList.set(editIndex, toEdit);
             FXCollections.sort(internalList);
-            return true;
+            return toEdit;
         } else if (keyword.equals(EditCommand.START_WORD)) {
             if(args.compareTo("no start") == 0 & toEdit.getTaskCategory()==1){ //event to deadline
                 toEdit.setStart(new Start(args));
@@ -201,7 +201,7 @@ public class UniqueTaskList implements Iterable<Task> {
                 toEdit.setStart(new Start(args));
             internalList.set(editIndex, toEdit);
             FXCollections.sort(internalList);
-            return true;
+            return toEdit;
         } else if (keyword.equals(EditCommand.END_WORD)) {
             if(args.compareTo("no end") == 0 & toEdit.getTaskCategory()!=3){ //not todo default end time 2359
                 toEdit.setEnd(new End("2359"));
@@ -216,7 +216,7 @@ public class UniqueTaskList implements Iterable<Task> {
                 toEdit.setEnd(new End(args));
             internalList.set(editIndex, toEdit);
             FXCollections.sort(internalList);
-            return true;
+            return toEdit;
 
         } else if (keyword.equals(EditCommand.TAG_WORD)) {
             //internalList.get(editIndex).setTags(new UniqueTagList(new Tag(args)));
@@ -231,7 +231,7 @@ public class UniqueTaskList implements Iterable<Task> {
             }
 
             internalList.set(editIndex, toEdit);
-            return true;
+            return toEdit;
 
         } else if (keyword.equals(EditCommand.ADD_WORD)) {            
             String[] newTag = args.replaceAll(" ", "").replaceFirst("#", "").split("#");          
@@ -242,11 +242,11 @@ public class UniqueTaskList implements Iterable<Task> {
             UniqueTagList addTagList = new UniqueTagList(tagSet);            
             toEdit.addTags(addTagList);          
             internalList.set(editIndex, toEdit);
-            return true;
+            return toEdit;
         }
 
         else {
-            return false;
+            return null;
         }
     }
     
