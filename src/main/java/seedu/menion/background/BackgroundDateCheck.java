@@ -66,8 +66,7 @@ public class BackgroundDateCheck extends ComponentManager{
 			if (!taskToCheck.isTimePassed() && taskToCheck.getActivityStatus().toString().equals(Completed.UNCOMPLETED_ACTIVITY)){
 				if (isActivityOver(currentTime, taskToCheck)){		
 					taskToCheck.setTimePassed(true);
-					raise(new ActivityManagerChangedEvent(activityManager));
-					
+
 	                SendEmail sender = new SendEmail();
 	                try {
 	                    sender.send(taskToCheck);
@@ -153,7 +152,7 @@ public class BackgroundDateCheck extends ComponentManager{
 	 * @param activityToCheck
 	 * @return true: the current time is later than the activity time. 
 	 */
-	private static boolean isActivityOver(Calendar currentTime, ReadOnlyActivity activityToCheck){
+	public static boolean isActivityOver(Calendar currentTime, ReadOnlyActivity activityToCheck){
 			assert(activityToCheck != null && (activityToCheck.getActivityType().equals(Activity.EVENT_TYPE) ||
 				activityToCheck.getActivityType().equals(Activity.TASK_TYPE)));
 		

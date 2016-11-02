@@ -2,6 +2,7 @@ package seedu.menion.model;
 
 import javafx.collections.ObservableList;
 import seedu.menion.model.activity.ReadOnlyActivity;
+import seedu.menion.background.BackgroundDateCheck;
 import seedu.menion.commons.exceptions.IllegalValueException;
 import seedu.menion.logic.commands.EditCommand;
 import seedu.menion.model.activity.Activity;
@@ -243,6 +244,18 @@ public class ActivityManager implements ReadOnlyActivityManager {
     public void editTaskDateTime(ReadOnlyActivity taskToEdit, String newDate, String newTime) throws IllegalValueException, ActivityNotFoundException {
         Activity dub = (Activity)taskToEdit;
         dub.setActivityStartDateTime(newDate, newTime);
+        // Check if the task is overdue/not overdue after an edit.
+        Calendar currentTime = Calendar.getInstance();
+        
+        // Only goes into this conditional statement if it is overdue.
+        if (BackgroundDateCheck.isActivityOver(currentTime, taskToEdit)) {
+            dub.setTimePassed(true);
+        } else {
+            // Not overdue.
+            dub.setTimePassed(false);
+            dub.setEmailSent(false);
+        }
+        
         tasks.getInternalList().set(tasks.getIndexOf(taskToEdit), dub); 
         Collections.sort(tasks.getInternalList(), new TaskComparator());
     }

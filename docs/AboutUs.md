@@ -18,7 +18,7 @@ Responsibilities: Logic/Model
 
 -----
 
-#### [Low Jun Cheng Marx](https://github.com/marxlow)
+#### [Low Jun Chen Marx](https://github.com/marxlow)
 <img src="images/Marx.png" width="150"><br>
 Role: Developer <br>  
 Responsibilities: Testing/Activity Model

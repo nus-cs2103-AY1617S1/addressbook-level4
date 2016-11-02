@@ -29,7 +29,7 @@ public class MotivationalQuotes {
         quotes.add("There is no substitute for hard work. – Thomas Edison");
         quotes.add("The difference between ordinary and extraordinary is that little 'extra'");
         quotes.add("If people only knew how hard I’ve worked to gain my mastery, it wouldn’t seem so wonderful at all. – Michelangelo");
-        quotes.add("If it’s important to you, you’ll find a way. If not, you’ll find an excuse.");
+        quotes.add("If it is important to you, you will find a way. If not, you will find an excuse.");
         quotes.add("Don’t say you don’t have enough time. You have exactly the same number of hours per day that were given to Helen Keller, Pasteur, Michelangelo, Mother Teresea, Leonardo da Vinci, Thomas Jefferson, and Albert Einstein. – H. Jackson Brown Jr.");
         quotes.add("If you’re going through hell, keep going. – Winston Churchill");
         quotes.add("There are no traffic jams on the extra mile. – Zig Ziglar");
