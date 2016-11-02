@@ -63,10 +63,14 @@ public class UniqueFloatingTaskList implements Iterable<FloatingTask> {
         assert toCheck!=null;
         if (!internalList.contains(toCheck)) {
             return false;
-        }
-        else {
+        } else {
             int index = internalList.indexOf(toCheck);
-            return internalList.get(index).getTags().getInternalList().containsAll(toCheck.getTags().getInternalList());
+            if (toCheck.getTags().getInternalList().isEmpty()) {
+                return internalList.get(index).getTags().getInternalList().isEmpty();
+            } else {
+                return internalList.get(index).getTags().getInternalList()
+                        .containsAll(toCheck.getTags().getInternalList());
+            }
         }
     }
 
