@@ -51,7 +51,7 @@ public class ModelManager extends ComponentManager implements Model {
         filteredEvents = new FilteredList<>(eventList.getTasks());
         filteredDeadlines = new FilteredList<>(deadlineList.getTasks());
         
-        undoer = new Undoer(this);
+        undoer = Undoer.getInstance(this);
     }
 
     public ModelManager() {
@@ -67,7 +67,7 @@ public class ModelManager extends ComponentManager implements Model {
         filteredEvents = new FilteredList<>(eventList.getTasks());
         filteredDeadlines = new FilteredList<>(deadlineList.getTasks());
 
-        undoer = new Undoer(this);
+        undoer = Undoer.getInstance(this);
     }
 
     @Override
@@ -107,7 +107,26 @@ public class ModelManager extends ComponentManager implements Model {
         deadlineList.resetData();
         indicateDeadlineListChanged();
     }
-    
+    /*
+    @Override
+    public void removeDoneTodoData() {
+        undoer.prepareUndoClear("todo");
+        todoList.resetData();
+        indicateTodoListChanged();
+    } 
+    @Override
+    public void removeDoneEventData() {
+    	undoer.prepareUndoClear("event");
+        eventList.resetData();
+        indicateEventListChanged();
+    } 
+    @Override
+    public void removeDoneDeadlineData() {
+    	undoer.prepareUndoClear("deadline");
+        deadlineList.resetData();
+        indicateDeadlineListChanged();
+    }
+    */
     @Override
     public void restoreTodoListData() {
         todoList.restoreData();
@@ -150,6 +169,10 @@ public class ModelManager extends ComponentManager implements Model {
         raise(new DeadlineListChangedEvent(deadlineList));
     }
     
+    /**
+     * Edit a task, event or deadline
+     * All changes to any model should be synchronized.
+     */
     @Override
     //@@author A0139923X
     public synchronized void editTask(ReadOnlyTask target, String dataType, Task task) throws IllegalValueException, TaskNotFoundException {
@@ -175,8 +198,7 @@ public class ModelManager extends ComponentManager implements Model {
             }
     		updateFilteredTodoListToShowAll();
     		indicateTodoListChanged();
-    	}
-    	else if(task instanceof Event) {
+    	}else if(task instanceof Event) {
     	    if(dataType.equals("todo")){
                 eventList.addTask(task);
                 todoList.removeTask(target);
@@ -189,8 +211,7 @@ public class ModelManager extends ComponentManager implements Model {
             }
     		updateFilteredEventListToShowAll();
     		indicateEventListChanged();
-    	}
-    	else if(task instanceof Deadline) {
+    	}else if(task instanceof Deadline) {
     	    if(dataType.equals("todo")){
     	        deadlineList.addTask(task);
     	        todoList.removeTask(target);
@@ -287,7 +308,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
     
     @Override
-    public synchronized void undoLatestCommand() throws EmptyStackException {
+    public synchronized void undoLatestCommand() {
     	undoer.executeUndo();
     }
 

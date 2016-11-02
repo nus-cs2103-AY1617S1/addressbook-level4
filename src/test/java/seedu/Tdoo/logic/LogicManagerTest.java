@@ -3,7 +3,6 @@ package seedu.Tdoo.logic;
 import com.google.common.eventbus.Subscribe;
 
 import seedu.Tdoo.commons.core.EventsCenter;
-import seedu.Tdoo.commons.core.LogsCenter;
 import seedu.Tdoo.commons.core.Messages;
 import seedu.Tdoo.commons.events.model.DeadlineListChangedEvent;
 import seedu.Tdoo.commons.events.model.EventListChangedEvent;

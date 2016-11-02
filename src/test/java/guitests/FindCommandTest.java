@@ -12,12 +12,8 @@ import seedu.Tdoo.testutil.TestDeadline;
 import seedu.Tdoo.testutil.TestEvent;
 import seedu.Tdoo.testutil.TestTask;
 import seedu.Tdoo.testutil.TestUtil;
-import seedu.Tdoo.testutil.TypicalTestTask;
 import seedu.Tdoo.commons.core.Messages;
 import seedu.Tdoo.commons.exceptions.IllegalValueException;
-import seedu.Tdoo.testutil.TestTask;
-
-
 import static org.junit.Assert.assertTrue;
 
 public class FindCommandTest extends ListGuiTest {

@@ -1,8 +1,6 @@
 package seedu.Tdoo.testutil;
 
 import seedu.Tdoo.model.TaskList;
-import seedu.Tdoo.model.task.*;
-import seedu.Tdoo.model.task.attributes.*;
 import seedu.Tdoo.commons.exceptions.IllegalValueException;
 
 /**
