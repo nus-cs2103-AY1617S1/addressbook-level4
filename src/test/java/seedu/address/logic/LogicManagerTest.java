@@ -174,7 +174,8 @@ public class LogicManagerTest {
                 expectedAB.getTaskList());
 
     }
-
+    
+    //@@author A0139749L
     @Test
     public void execute_addDuplicate_notAllowed() throws Exception {
         // setup expectations
@@ -194,6 +195,7 @@ public class LogicManagerTest {
                 expectedAB.getTaskList());
 
     }
+    //@@author
 
 
     @Test
@@ -206,8 +208,24 @@ public class LogicManagerTest {
         // prepare Emeraldo state
         helper.addToModel(model, 2);
 
-        assertCommandBehavior("list",
+        assertCommandBehavior("list all",
                 ListCommand.MESSAGE_LIST_ALL,
+                expectedAB,
+                expectedList);
+    }
+    
+    @Test
+    public void execute_list_showsUncompletedTasks() throws Exception {
+        // prepare expectations
+        TestDataHelper helper = new TestDataHelper();
+        Emeraldo expectedAB = helper.generateEmeraldo(2);
+        List<? extends ReadOnlyTask> expectedList = expectedAB.getTaskList();
+
+        // prepare Emeraldo state
+        helper.addToModel(model, 2);
+
+        assertCommandBehavior("list",
+                ListCommand.MESSAGE_LIST_UNCOMPLETED,
                 expectedAB,
                 expectedList);
     }
