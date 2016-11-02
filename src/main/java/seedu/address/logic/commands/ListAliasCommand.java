@@ -2,7 +2,6 @@ package seedu.address.logic.commands;
 
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.events.ui.DisplayAliasListEvent;
-import seedu.address.model.TaskManager;
 
 /**
  * Lists all aliases in the alias manager to the user.
