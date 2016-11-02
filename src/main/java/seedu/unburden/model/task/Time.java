@@ -33,14 +33,14 @@ public class Time implements Comparable<Time> {
 	 */
 	public Time(String time) throws IllegalValueException {
 		assert time != null;
-		if (!time.equals("       ")) {
+		if (!time.equals("")) {
 			time = time.trim();
 			if (!isValidTime(time)) {
 				throw new IllegalValueException(MESSAGE_TIME_CONSTRAINTS);
 			}
 		}
-		if (time.equals("       ")) {
-			this.fullTime = "       ";
+		if (time.equals("")) {
+			this.fullTime = "";
 			this.hours = 23;
 			this.minutes = 59;
 			
