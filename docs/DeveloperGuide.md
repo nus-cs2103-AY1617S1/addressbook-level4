@@ -317,6 +317,7 @@ Priority | As a ... | I want to ... | So that I can...
 1. User enters an `add` command, specifying details of the task to be added
 2. TaskManager parses the `add` command, and adds the task to the current task list
 3. TaskManager saves the current task list to storage and updates the GUI to display the updated list with the newly added task<br>
+
 Use case ends
 
 **Extensions**
@@ -348,6 +349,7 @@ Use case resumes at step 2
 1. User enters the `list` command
 2. TaskManager parses the `list` command
 3. TaskManager removes any filters for the task list and updates the GUI to display the entire list of undone tasks<br>
+
 Use case ends
 
 **Extensions**
@@ -373,7 +375,7 @@ Use case ends
 5. TaskManager edits the requested fields on the specified task according to the command entered
 6. TaskManager updates the GUI to display the new list of undone tasks and highlight the newly edited task <br>
 
-> Use case ends
+Use case ends
 
 **Extensions**
 
