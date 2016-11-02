@@ -83,6 +83,11 @@ public class StartDate {
         Date dateobj = new Date();
         String [] dateArr = date.split("-");
         String [] curDate = df.format(dateobj).split("-");
+        //Check if the date has day,month and year input
+        if(dateArr.length < 3){
+            return false;           
+        }
+        
         Calendar calendar = new GregorianCalendar(Integer.parseInt(dateArr[0]), Integer.parseInt(dateArr[1]), Integer.parseInt(dateArr[1]));
         int daysOfcurrMonth = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
 

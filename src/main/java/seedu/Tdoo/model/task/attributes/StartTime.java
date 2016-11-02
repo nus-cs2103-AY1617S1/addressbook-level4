@@ -61,7 +61,8 @@ public class StartTime {
         String[] stimeArr = starttime.split(":");       
         boolean checkTime = true;
         
-        if(Integer.parseInt(stimeArr[0]) > 23 || Integer.parseInt(stimeArr[1]) > 59){
+        //Check if time has hour and min, hour not more than 24hrs and min not more than 59mins
+        if(stimeArr.length < 2 || Integer.parseInt(stimeArr[0]) > 23 || Integer.parseInt(stimeArr[1]) > 59){
            checkTime = false;
         }
             
