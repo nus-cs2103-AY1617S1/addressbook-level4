@@ -105,8 +105,14 @@ The sections below give more details of each component.
 ### UI component
 
 <img src="images/UI Component.png" width="800"><br>
+Fig. 5: UI Component
 
 **API** : [`Ui.java`](../src/main/java/seedu/address/ui/Ui.java)
+
+The `UI` component,
+* Executes user commands using the `Logic` component.
+* Binds itself to some data in the `Model` so that the UI can auto-update when data in the `Model` change.
+* Responds to events raised from various parts of the App and updates the UI accordingly.
 
 The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `TaskListPanel`,
 `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class
@@ -117,10 +123,7 @@ The `UI` component uses JavaFx UI framework. The layout of these UI parts are de
  For example, the layout of the [`MainWindow`](../src/main/java/seedu/address/ui/MainWindow.java) is specified in
  [`MainWindow.fxml`](../src/main/resources/view/MainWindow.fxml)
 
-The `UI` component,
-* Executes user commands using the `Logic` component.
-* Binds itself to some data in the `Model` so that the UI can auto-update when data in the `Model` change.
-* Responds to events raised from various parts of the App and updates the UI accordingly.
+
 
 ### Logic component
 
