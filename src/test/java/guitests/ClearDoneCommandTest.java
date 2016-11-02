@@ -2,6 +2,7 @@ package guitests;
 
 import org.junit.Test;
 
+//@@author A0139198N
 public class ClearDoneCommandTest extends TaskManagerGuiTest {
 
     @Test
