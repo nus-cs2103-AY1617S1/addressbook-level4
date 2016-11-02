@@ -159,6 +159,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     //@@author A0139772U
     private void initialiseFreeTime() {
+        freeTimes.clear();
         for (int i = 0; i < filteredSchedules.size(); i++) {
             blockFreeTime(filteredSchedules.get(i));
         }
