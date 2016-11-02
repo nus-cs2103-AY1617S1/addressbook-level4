@@ -59,12 +59,14 @@ public class Parser {
     
     public static final SimpleDateFormat DATE_FORMAT_WITHOUT_TIME = new SimpleDateFormat("dd-MM-yyyy");
     //@@author A0153411W
+    //@@author A0153751H
     public static final Prefix descriptionPrefix = new Prefix(" d/");
     public static final Prefix startDatePrefix = new Prefix(" sd/", true);
     public static final Prefix dueDatePrefix = new Prefix(" dd/", true);
     public static final Prefix intervalPrefix = new Prefix(" i/", true);
     public static final Prefix timeIntervalPrefix = new Prefix(" ti/", true);
     public static final Prefix tagArgumentsPrefix = new Prefix(" t/");
+    public static final Prefix taskColorPrefix = new Prefix(" c/", true);
 	public static final Prefix formatCustomCommandPrefix = new Prefix(" f/");
     //@@author 
     
@@ -169,10 +171,11 @@ public class Parser {
 
     private Command prepareAdd(String args) throws ParseException{
         //@@author A0153411W
+    	//@@author A0153751H
     	//Reset dueDatePrefix for every add command as optional
     	dueDatePrefix.SetIsOptional(true);
 		ArgumentTokenizer argsTokenizer = new ArgumentTokenizer(descriptionPrefix, startDatePrefix, dueDatePrefix,
-				intervalPrefix, timeIntervalPrefix, tagArgumentsPrefix);
+				intervalPrefix, timeIntervalPrefix, taskColorPrefix, tagArgumentsPrefix);
 		argsTokenizer.tokenize(args);
 	    //@@author
 		try {
@@ -212,6 +215,7 @@ public class Parser {
 			}
 			//@@author
 			
+			//@@author A0153751H
 		    //@@author A0153411W
 			return new AddCommand(argsTokenizer.getPreamble(), 
 					isInputPresent(argsTokenizer.getValue(descriptionPrefix)),
@@ -219,6 +223,7 @@ public class Parser {
 					isInputPresent(argsTokenizer.getValue(dueDatePrefix)),
 					isInputPresent(argsTokenizer.getValue(intervalPrefix)), 
 					isInputPresent(argsTokenizer.getValue(timeIntervalPrefix)),
+					argsTokenizer.getValue(taskColorPrefix),
 					toSet(argsTokenizer.getAllValues(tagArgumentsPrefix)));
 		    //@@author
 		} catch (NoSuchElementException nsee) {

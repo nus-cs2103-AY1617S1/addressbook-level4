@@ -10,6 +10,9 @@ public class TaskColor {
     public static final String MESSAGE_COLOR_CONSTRAINTS = "Color input is incorrect.";
     
     public TaskColor(String color) throws IllegalValueException {
+    	//defaults
+    	this.color = Color.WHITE;
+    	identification = "none";
         if (isValidColor(color)) {
             assignColor(color);
         }
@@ -20,10 +23,8 @@ public class TaskColor {
     
     public static boolean isValidColor(String color) {
         if (color == null) {
-            return false;
-        }
-        
-        if (color.isEmpty() && !color.equalsIgnoreCase("blue")
+            return true;
+        } else if (!color.isEmpty() && !color.equalsIgnoreCase("blue")
                 && !color.equalsIgnoreCase("green") 
                 && !color.equalsIgnoreCase("red") 
               //&& !color.equalsIgnoreCase("cyan")
@@ -34,7 +35,10 @@ public class TaskColor {
     }
     
     public void assignColor(String color) {
-        if(color.equalsIgnoreCase("blue")) {
+    	if (color == null) {
+    		this.color = Color.WHITE;
+            identification = "none";
+    	} else if(color.equalsIgnoreCase("blue")) {
             this.color = Color.BLUE;
             identification = color.toLowerCase();
         }
@@ -81,6 +85,6 @@ public class TaskColor {
 //        else if (identification.equalsIgnoreCase("cyan")) {
 //            return "-fx-background-color: #00FFFF;";
 //        }
-        return "-fx-background-color: rgba(255, 255, 255, 0.7);";
+        return "-fx-background-color: rgba(255, 255, 255, 0.5);";
     }
 }

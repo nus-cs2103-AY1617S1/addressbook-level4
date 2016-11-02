@@ -56,8 +56,9 @@ public class AddCommand extends Command {
 	 *             if any of the raw values are invalid
 	 * @throws ParseException
 	 */
+	//@@author A0153751H
 	public AddCommand(String title, String description, String startDate, String dueDate, String interval,
-			String timeInterval, Set<String> tags) throws IllegalValueException, ParseException {
+			String timeInterval, String taskColor, Set<String> tags) throws IllegalValueException, ParseException {
 		final Set<Tag> tagSet = new HashSet<>();
 		for (String tagName : tags) {
 			tagSet.add(new Tag(tagName));
@@ -65,11 +66,12 @@ public class AddCommand extends Command {
 		
 		Task mainTask = new Task(new Title(title), new Description(description), new StartDate(startDate),
 				new DueDate(dueDate), new Interval(interval), new TimeInterval(timeInterval),
-				new Status("ONGOING"), new TaskColor("none"), new UniqueTagList(tagSet));
+				new Status("ONGOING"), new TaskColor(taskColor), new UniqueTagList(tagSet));
 		addTasksToList(mainTask);
 	}
 
 	//@@author A0153411W
+	//@@author A0153751H
 	/**
 	 * Add tasks to list based on main task, time and time interval.
 	 * @param mainTask
