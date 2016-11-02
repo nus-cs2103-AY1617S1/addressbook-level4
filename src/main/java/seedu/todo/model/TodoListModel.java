@@ -33,15 +33,42 @@ public interface TodoListModel extends ImmutableTodoList {
     ImmutableTask add(String title, Consumer<MutableTask> update) throws ValidationException;
 
     /**
-     * Deletes the given task from the todo list. This change is also propagated to the 
+     * Deletes the list of given task from the todo list. The changes are also propagated to the 
      * underlying persistence layer.  
      *
-     * @param index  the 1-indexed position of the task that needs to be deleted
-     * @return the task that was just deleted
+     * @param index  the 1-indexed position of the tasks that need to be deleted
+     * @return the list of tasks that was just deleted
+     * @throws ValidationException if the task does not exist
+     */
+    List<ImmutableTask> delete(List<Integer> indexes) throws ValidationException;
+    
+    /**
+     * Deletes the given task from the todo list. The change is also propagated to the 
+     * underlying persistence layer.  
+     *
+     * @param index  the 1-indexed position of the tasks that need to be deleted
+     * @return the list of tasks that was just deleted
      * @throws ValidationException if the task does not exist
      */
     ImmutableTask delete(int index) throws ValidationException;
 
+    /**
+     * Replaces certain fields in the tasks specified. Mutation of the {@link Task} objects should 
+     * only be done in the <code>update</code> lambda. The lambda takes in one parameter, 
+     * a {@link MutableTask}, and does not expect any return value. For example: 
+     *
+     * <pre><code>todo.update(task, t -> {
+     *     t.setEndTime(t.getEndTime.get().plusHours(2)); // Push deadline back by 2h
+     *     t.setPin(true); // Pin this task
+     * });</code></pre>
+     *
+     * @return the list of tasks that were just updated
+     *
+     * @throws ValidationException    if the task does not exist or if the fields in the 
+     *                                task to be updated are not valid
+     */
+    List<ImmutableTask> update(List<Integer> indexes, Consumer<MutableTask> update) throws ValidationException;
+    
     /**
      * Replaces certain fields in the task. Mutation of the {@link Task} object should 
      * only be done in the <code>update</code> lambda. The lambda takes in one parameter, 
@@ -57,23 +84,8 @@ public interface TodoListModel extends ImmutableTodoList {
      * @throws ValidationException    if the task does not exist or if the fields in the 
      *                                task to be updated are not valid
      */
-    ImmutableTask update(int index, Consumer<MutableTask> update) throws ValidationException;
     
-    //@@author A0092382A
-    /**
-     * Carries out the specified update in the fields of all visible tasks. Mutation of all {@link Task}
-     * objects should only be done in the <code>update</code> lambda. The lambda takes in a single parameter,
-     * a {@link MutableTask}, and does not expect any return value, as per the {@link update} command. Note that
-     * the 'All' in this case refers to all the indices specified by the accompanying list of indices. 
-     * 
-     * <pre><code>todo.updateAll (List<Integer> tasks, t -> {
-     *     t.setEndTime(t.getEndTime.get().plusHours(2)); // Push deadline of all specified tasks back by 2h
-     *     t.setPin(true); // Pin all tasks specified
-     * });</code></pre>
-     * 
-     * @throws ValidationException if any updates on any of the task objects are considered invalid
-     */
-    void updateAll(List<Integer> indexes, Consumer <MutableTask> update) throws ValidationException;
+    ImmutableTask update(int index, Consumer<MutableTask> update) throws ValidationException;
 
     //@@author A0135805H
     /**

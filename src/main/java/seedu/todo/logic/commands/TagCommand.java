@@ -1,9 +1,10 @@
 package seedu.todo.logic.commands;
 
 import com.google.common.collect.ImmutableList;
+
+import seedu.todo.commons.events.ui.HighlightTaskEvent;
 import seedu.todo.commons.core.EventsCenter;
 import seedu.todo.commons.events.ui.ExpandCollapseTaskEvent;
-import seedu.todo.commons.events.ui.HighlightTaskEvent;
 import seedu.todo.commons.events.ui.ShowTagsEvent;
 import seedu.todo.commons.exceptions.IllegalValueException;
 import seedu.todo.commons.exceptions.ValidationException;
@@ -12,6 +13,7 @@ import seedu.todo.logic.arguments.Argument;
 import seedu.todo.logic.arguments.IntArgument;
 import seedu.todo.logic.arguments.Parameter;
 import seedu.todo.logic.arguments.StringArgument;
+import seedu.todo.model.task.ImmutableTask;
 
 import java.util.Arrays;
 import java.util.List;
@@ -50,6 +52,7 @@ public class TagCommand extends BaseCommand {
     private static final String DESCRIPTION_DELETE_TAGS = "Remove tags from all tasks";
     private static final String DESCRIPTION_RENAME_TAGS = "Rename a tag";
 
+    private static final int INDEX_OFFSET = 1;
     private static final String ARGUMENTS_SHOW_TAGS = "";
     private static final String ARGUMENTS_ADD_TAGS = "index tag1 [, tag2, ...]";
     private static final String ARGUMENTS_DELETE_TAGS_TASK = "index /d tag1 [, tag2, ...]";
@@ -212,6 +215,8 @@ public class TagCommand extends BaseCommand {
 
         if (isAddTagsToTask()) {
             model.addTagsToTask(displayedIndex, tagsToAdd);
+            ImmutableTask task = model.getObservableList().get(displayedIndex - INDEX_OFFSET);
+            eventBus.post(new HighlightTaskEvent(task));
             return new CommandResult(StringUtil.convertListToString(tagsToAdd) + SUCCESS_ADD_TAGS);
         }
         return null;

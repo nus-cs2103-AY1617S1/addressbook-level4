@@ -3,6 +3,7 @@ package seedu.todo.model;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Timer;
@@ -10,6 +11,9 @@ import java.util.TimerTask;
 import java.util.function.Consumer;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
+
+
+import com.google.common.collect.Lists;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -94,7 +98,6 @@ public class TodoList implements TodoListModel {
     public ImmutableTask add(String title) {
         Task task = new Task(title);
         tasks.add(task);
-        
         saveTodoList();
         return task;
     }
@@ -105,49 +108,58 @@ public class TodoList implements TodoListModel {
         update.accept(validationTask);
         Task task = validationTask.convertToTask();
         tasks.add(task);
-
         saveTodoList();
         return task;
     }
 
     @Override
+    public List<ImmutableTask> delete(List<Integer> indexes) throws ValidationException {
+        List<ImmutableTask> tasksRemoved = new ArrayList<>();  
+        for (Integer index : indexes) {
+            ImmutableTask task = tasks.get(index);
+            tasksRemoved.add(task);
+        }
+        tasks.removeAll(tasksRemoved);
+        saveTodoList();
+        return tasksRemoved;
+    }
+    
     public ImmutableTask delete(int index) throws ValidationException {
-        Task task = tasks.remove(index);
-        saveTodoList();
-        return task;
-    }
-
-    @Override
-    public ImmutableTask update(int index, Consumer<MutableTask> update) throws ValidationException {
-        Task task = tasks.get(index);
-        ValidationTask validationTask = new ValidationTask(task);
-        update.accept(validationTask);
-        validationTask.validate();
-
-        // changes are validated and accepted
-        update.accept(task);
-        saveTodoList();
-        return task;
+        List<Integer> indexes = Lists.newArrayList(index);
+        //get(0) because there should be only one element returned in the list of deleted tasks
+        return delete(indexes).get(0);
     }
 
     //@@author A0092382A
     @Override
-    public void updateAll(List<Integer> indexes, Consumer<MutableTask> update) throws ValidationException {
-        for (Integer x: indexes) {
-            MutableTask task = tasks.get(x);
+    public List<ImmutableTask> update(List<Integer> indexes, Consumer<MutableTask> update) throws ValidationException {
+        
+        for (Integer index : indexes) {
+            MutableTask task = tasks.get(index);
             ValidationTask validationTask = new ValidationTask(task);
             update.accept(validationTask);
             validationTask.validate();
         }
         
-        for (Integer i : indexes) {
-            MutableTask task = tasks.get(i);
+        //All updates are validated so second for loop carries out actual updates
+        List<ImmutableTask> tasksUpdated = new ArrayList<>();
+        for (Integer index : indexes) {
+            MutableTask task = tasks.get(index);
+            tasksUpdated.add(task);
             update.accept(task);
         }
-        
         saveTodoList();
-        
+        return tasksUpdated;
     }
+    
+    @Override
+    public ImmutableTask update(int index, Consumer<MutableTask> update) throws ValidationException {
+        List<Integer> indexes = Lists.newArrayList(index);
+        //get(0) since list of updated tasks only contain one element
+        return update(indexes, update).get(0);
+    }
+    //@@author
+        
 
     //@@author A0135805H
     @Override
