@@ -41,7 +41,7 @@ public class XmlAliasManagerStorage implements AliasManagerStorage {
         File aliasFile = new File(filePath);
 
         if (!aliasFile.exists()) {
-            logger.info("TaskManager file "  + aliasFile + " not found");
+            logger.info("AliasManager file "  + aliasFile + " not found");
             return Optional.empty();
         }
 

@@ -4,7 +4,6 @@ import javafx.collections.ObservableList;
 import seedu.address.model.alias.Alias;
 import seedu.address.model.alias.ReadOnlyAlias;
 import seedu.address.model.alias.UniqueAliasList;
-import seedu.address.model.task.UniqueTaskList;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -50,7 +49,7 @@ public class AliasManager implements ReadOnlyAliasManager{
     
     //list overwrite operations
 
-    public ObservableList<Alias> getFilteredAliases() {
+    public ObservableList<Alias> getInternalList() {
         return aliases.getInternalList();
     }
 

@@ -40,7 +40,7 @@ public class Parser {
 			.compile("'(?<taskName>.*\\S*.*)'(?<addTaskArgs>.*)");
 	
 	private static final Pattern ADD_ALIAS_COMMAND_FORMAT = Pattern
-			.compile("'(?<commandAlias>(\\s*[^\\s+])+)\\s*'\\s*=\\s*'(?<commandPhrase>(\\s*[^\\s+])+)\\s*'");
+			.compile("'(?<alias>(\\s*[^\\s+])+)\\s*'\\s*=\\s*'(?<originalPhrase>(\\s*[^\\s+])+)\\s*'");
 	
 	private static final Prefix startDateTimePrefix = new Prefix("from ");
 	private static final Prefix endDateTimePrefix = new Prefix("to ");
@@ -416,10 +416,10 @@ public class Parser {
         	return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddAliasCommand.MESSAGE_USAGE));
         }
     	
-    	final String commandAlias = matcher.group("commandAlias").trim();
-    	final String commandPhrase = matcher.group("commandPhrase").trim();
+    	final String alias = matcher.group("alias").trim();
+    	final String originalPhrase = matcher.group("originalPhrase").trim();
         
-        return new AddAliasCommand(commandAlias, commandPhrase);
+        return new AddAliasCommand(alias, originalPhrase);
     }
 
 	//@@author A0141019U

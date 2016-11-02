@@ -13,21 +13,21 @@ public class AddAliasCommand extends Command {
     public static final String COMMAND_WORD = "add-alias";
     
     public static final String MESSAGE_USAGE = COMMAND_WORD 
-    		+ ": Sets alias for an existing command.\n"
-    		+ "Parameters: 'COMMAND_ALIAS' = 'COMMAND_PHRASE'\n"
+    		+ ": Sets alias for a phrase.\n"
+    		+ "Parameters: 'ALIAS' = 'ORIGINAL_PHRASE'\n"
     		+ "Example: " + COMMAND_WORD + " 'add-dl' = 'add deadline'\n";
     
-    public static final String MESSAGE_SUCCESS = "Command alias '%s' set for command phrase '%s'.\n";
+    public static final String MESSAGE_SUCCESS = "Alias '%s' set for phrase '%s'.\n";
     
     public static final String MESSAGE_DUPLICATE_ALIAS = "Alias already exists in the alias manager.\n";
     
-    private final String commandAlias; 
+    private final String alias; 
     
-    private final String commandPhrase;
+    private final String originalPhrase;
     
-    public AddAliasCommand(String commandAlias, String commandPhrase) {
-    	this.commandAlias = commandAlias;
-    	this.commandPhrase = commandPhrase;
+    public AddAliasCommand(String alias, String originalPhrase) {
+    	this.alias = alias;
+    	this.originalPhrase = originalPhrase;
     }
 
 	@Override
@@ -38,9 +38,9 @@ public class AddAliasCommand extends Command {
         
         try{
    
-        	Alias aliasToAdd = new Alias(commandAlias, commandPhrase);
+        	Alias aliasToAdd = new Alias(alias, originalPhrase);
         	model.addAlias(aliasToAdd); //Throws DuplicateAliasException
-        	return new CommandResult(String.format(MESSAGE_SUCCESS, commandAlias, commandPhrase));
+        	return new CommandResult(String.format(MESSAGE_SUCCESS, alias, originalPhrase));
         	
         } catch (DuplicateAliasException ex){
         	
@@ -48,7 +48,5 @@ public class AddAliasCommand extends Command {
             return new CommandResult(String.format(MESSAGE_DUPLICATE_ALIAS));
             
         }
-        	
-
     }
 }

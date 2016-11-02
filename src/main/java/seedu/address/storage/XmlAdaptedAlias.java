@@ -12,9 +12,9 @@ import javax.xml.bind.annotation.XmlElement;
 public class XmlAdaptedAlias {
 
     @XmlElement(required = true)
-    private String commandAlias;
+    private String alias;
     @XmlElement(required = true)
-    private String commandPhrase;
+    private String originalPhrase;
 
     /**
      * No-arg constructor for JAXB use.
@@ -28,8 +28,8 @@ public class XmlAdaptedAlias {
      * @param source future changes to this will not affect the created XmlAdaptedTask
      */
     public XmlAdaptedAlias(ReadOnlyAlias source) {
-        commandAlias = source.getCommandAlias();
-        commandPhrase = source.getCommandPhrase();
+        alias = source.getAlias();
+        originalPhrase = source.getOriginalPhrase();
     }
 
     /**
@@ -38,9 +38,9 @@ public class XmlAdaptedAlias {
      * @throws IllegalValueException if there were any data constraints violated in the adapted alias
      */
     public Alias toModelType() throws IllegalValueException {
-        final String commandAlias = new String(this.commandAlias);
-        final String commandPhrase = new String(this.commandPhrase);
+        final String alias = new String(this.alias);
+        final String originalPhrase = new String(this.originalPhrase);
         
-        return new Alias(commandAlias, commandPhrase);
+        return new Alias(alias, originalPhrase);
     }
 }
