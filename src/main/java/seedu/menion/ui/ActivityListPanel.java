@@ -82,7 +82,7 @@ public class ActivityListPanel extends UiPart {
         eventListView.setItems(eventList);
         eventListView.setCellFactory(listView -> new EventListViewCell());
         
-        setEventHandlerForSelectionChangeEvent();
+        //setEventHandlerForSelectionChangeEvent();
     }
 
     private void addToPlaceholder() {
