@@ -1,7 +1,10 @@
 package seedu.unburden.model.task;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Objects;
 
+import seedu.unburden.commons.core.Messages;
 import seedu.unburden.commons.exceptions.IllegalValueException;
 import seedu.unburden.commons.util.CollectionUtil;
 import seedu.unburden.model.tag.UniqueTagList;
@@ -21,6 +24,7 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
     private UniqueTagList tags;
     private boolean done;
     private String getDoneString;
+	private static final SimpleDateFormat DATEFORMATTER = new SimpleDateFormat("dd-MM-yyyy");
 
     /**
      * Every field must be present and not null.
@@ -43,8 +47,11 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
     }
     //@@Nathanael Chan A0139678J
     // adds event
-    public Task(Name name, TaskDescription taskD, Date date, Time startTime, Time endTime, UniqueTagList tags) {
+    public Task(Name name, TaskDescription taskD, Date date, Time startTime, Time endTime, UniqueTagList tags) throws IllegalValueException {
         assert !CollectionUtil.isAnyNull(name, taskD, date, startTime, endTime, tags);
+        if(startTime.compareTo(endTime) < 0){
+        	throw new IllegalValueException(Messages.MESSAGE_STARTTIME_AFTER_ENDTIME);
+        }
         this.name = name;
         this.taskD = taskD;
         this.date = date;
@@ -57,6 +64,9 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
     // adds event without description 
     public Task(Name name,Date date, Time startTime, Time endTime, UniqueTagList tags) throws IllegalValueException {
         assert !CollectionUtil.isAnyNull(name, date, startTime, endTime, tags);
+        if(startTime.compareTo(endTime) < 0){
+        	throw new IllegalValueException(Messages.MESSAGE_STARTTIME_AFTER_ENDTIME);
+        }
         this.name = name;
         this.taskD = new TaskDescription("");
         this.date = date;
@@ -237,6 +247,15 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
     
     public void setDone(boolean done) {
         this.done = done;
+    }
+    
+    public boolean overDue() throws IllegalValueException{
+    	Calendar calendar = Calendar.getInstance();
+    	calendar.setTime(calendar.getTime());
+    	if(this.getDate().compareTo(new Date(DATEFORMATTER.format(calendar.getTime()))) < 0){
+    		return true;
+    	}
+    	return false;
     }
     
     
