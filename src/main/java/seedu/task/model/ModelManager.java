@@ -122,6 +122,7 @@ public class ModelManager extends ComponentManager implements Model {
         } else { //name
             taskManager.sortByName();
         }
+        indicateTaskManagerChanged();
     }
     //@@author
     
