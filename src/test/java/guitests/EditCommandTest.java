@@ -28,19 +28,19 @@ public class EditCommandTest extends TaskManagerGuiTest{
 //        TestTask[] currentList = td.getTypicalTasks();
 //        
 //        int targetIndex = 0; 
-//        TestTask preEdit = new TestTask(currentList[targetIndex]);
+//        TestTask preEdit = currentList[targetIndex];
 //        TestTask postEdit = preEdit.convertoToPostEditTestTask(preEdit.getTaskType(), preEdit.getName(), preEdit.getStartDate(), preEdit.getEndDate());
 //        assertEditSuccess(targetIndex, postEdit, "typical", currentList);
 //        
 //        //Edits the last task in the list
 //        targetIndex = currentList.length - 1;
-//        preEdit = new TestTask(currentList[targetIndex]);
+//        preEdit = currentList[targetIndex];
 //        postEdit = preEdit.convertoToPostEditTestTask(preEdit.getTaskType(), preEdit.getName(), preEdit.getStartDate(), preEdit.getEndDate()); 
 //        assertEditSuccess(targetIndex, postEdit, "typical", currentList);
 //
 //        //Edits from the middle of the list
 //        targetIndex = currentList.length/2 - 1; 
-//        preEdit = new TestTask(currentList[targetIndex]);
+//        preEdit = currentList[targetIndex];
 //        postEdit = preEdit.convertoToPostEditTestTask(preEdit.getTaskType(), preEdit.getName(), preEdit.getStartDate(), preEdit.getEndDate()); 
 //        assertEditSuccess(targetIndex, postEdit, "typical", currentList);
 //        
@@ -48,24 +48,24 @@ public class EditCommandTest extends TaskManagerGuiTest{
 //        TestTask[] somedayList = td.getSomedayTasks();
 //        
 //        targetIndex = Arrays.asList(currentList).indexOf(TypicalTestTasks.someday2);
-//        preEdit = new TestTask(currentList[targetIndex]);
+//        preEdit = currentList[targetIndex];
 //        postEdit = preEdit.convertoToPostEditTestTask(preEdit.getTaskType(), preEdit.getName(), preEdit.getStartDate(), preEdit.getEndDate());
 //        assertEditSuccess(targetIndex, postEdit, "typical", currentList);
 //        
 //        targetIndex = Arrays.asList(somedayList).indexOf(TypicalTestTasks.someday2);        
-//        preEdit = new TestTask(somedayList[targetIndex]);
+//        preEdit = somedayList[targetIndex];
 //        postEdit = preEdit.convertoToPostEditTestTask(preEdit.getTaskType(), preEdit.getName(), preEdit.getStartDate(), preEdit.getEndDate());
 //        assertEditSuccess(targetIndex, postEdit, "someday", somedayList);
 //        
 //        //Edits a deadline task from the list
 //        targetIndex = Arrays.asList(currentList).indexOf(TypicalTestTasks.deadline1);        
-//        preEdit = new TestTask(currentList[targetIndex]);
+//        preEdit = currentList[targetIndex];
 //        postEdit = preEdit.convertoToPostEditTestTask(preEdit.getTaskType(), preEdit.getName(), preEdit.getStartDate(), preEdit.getEndDate());
 //        assertEditSuccess(targetIndex, postEdit, "typical", currentList);
 //        
 //        //Edits an event task from the list
 //        targetIndex = Arrays.asList(currentList).indexOf(TypicalTestTasks.event2);        
-//        preEdit = new TestTask(currentList[targetIndex]);
+//        preEdit = currentList[targetIndex];
 //        postEdit = preEdit.convertoToPostEditTestTask(preEdit.getTaskType(), preEdit.getName(), preEdit.getStartDate(), preEdit.getEndDate());
 //        assertEditSuccess(targetIndex, postEdit, "typical", currentList);
 //        
@@ -73,12 +73,12 @@ public class EditCommandTest extends TaskManagerGuiTest{
 //        TestTask[] todayList = td.getTodayTasks();
 //        
 //        targetIndex = Arrays.asList(currentList).indexOf(TypicalTestTasks.eventToday);
-//        preEdit = new TestTask(currentList[targetIndex]);
+//        preEdit = currentList[targetIndex];
 //        postEdit = preEdit.convertoToPostEditTestTask(preEdit.getTaskType(), preEdit.getName(), preEdit.getStartDate(), preEdit.getEndDate());
 //        assertEditSuccess(targetIndex, postEdit, "typical", currentList);
 //        
 //        targetIndex = Arrays.asList(todayList).indexOf(TypicalTestTasks.eventToday);        
-//        preEdit = new TestTask(todayList[targetIndex]);
+//        preEdit = todayList[targetIndex];
 //        postEdit = preEdit.convertoToPostEditTestTask(preEdit.getTaskType(), preEdit.getName(), preEdit.getStartDate(), preEdit.getEndDate());
 //        assertEditSuccess(targetIndex, postEdit, "today", todayList);
 //        
@@ -86,12 +86,12 @@ public class EditCommandTest extends TaskManagerGuiTest{
 //        TestTask[] tomorrowList = td.getTomorrowTasks();
 //        
 //        targetIndex = Arrays.asList(currentList).indexOf(TypicalTestTasks.deadlineTomorrow);
-//        preEdit = new TestTask(currentList[targetIndex]);
+//        preEdit = currentList[targetIndex];
 //        postEdit = preEdit.convertoToPostEditTestTask(preEdit.getTaskType(), preEdit.getName(), preEdit.getStartDate(), preEdit.getEndDate());
 //        assertEditSuccess(targetIndex, postEdit, "typical", currentList);
 //        
 //        targetIndex = Arrays.asList(tomorrowList).indexOf(TypicalTestTasks.deadlineTomorrow);        
-//        preEdit = new TestTask(tomorrowList[targetIndex]);
+//        preEdit = tomorrowList[targetIndex];
 //        postEdit = preEdit.convertoToPostEditTestTask(preEdit.getTaskType(), preEdit.getName(), preEdit.getStartDate(), preEdit.getEndDate());
 //        assertEditSuccess(targetIndex, postEdit, "tomorrow", tomorrowList);
 //        
@@ -99,12 +99,12 @@ public class EditCommandTest extends TaskManagerGuiTest{
 //        TestTask[] in7DaysList = td.getIn7DaysTasks();
 //        
 //        targetIndex = Arrays.asList(currentList).indexOf(TypicalTestTasks.deadlineIn7Days);
-//        preEdit = new TestTask(currentList[targetIndex]);
+//        preEdit = currentList[targetIndex];
 //        postEdit = preEdit.convertoToPostEditTestTask(preEdit.getTaskType(), preEdit.getName(), preEdit.getStartDate(), preEdit.getEndDate());
 //        assertEditSuccess(targetIndex, postEdit, "typical", currentList);
 //        
 //        targetIndex = Arrays.asList(in7DaysList).indexOf(TypicalTestTasks.deadlineIn7Days);        
-//        preEdit = new TestTask(in7DaysList[targetIndex]);
+//        preEdit = in7DaysList[targetIndex];
 //        postEdit = preEdit.convertoToPostEditTestTask(preEdit.getTaskType(), preEdit.getName(), preEdit.getStartDate(), preEdit.getEndDate());
 //        assertEditSuccess(targetIndex, postEdit, "in 7 days", in7DaysList);
 //        
@@ -112,12 +112,12 @@ public class EditCommandTest extends TaskManagerGuiTest{
 //        TestTask[] in30DaysList = td.getIn30DaysTasks();
 //        
 //        targetIndex = Arrays.asList(currentList).indexOf(TypicalTestTasks.deadlineIn30Days);
-//        preEdit = new TestTask(currentList[targetIndex]);
+//        preEdit = currentList[targetIndex];
 //        postEdit = preEdit.convertoToPostEditTestTask(preEdit.getTaskType(), preEdit.getName(), preEdit.getStartDate(), preEdit.getEndDate());
 //        assertEditSuccess(targetIndex, postEdit, "typical", currentList);
 //        
 //        targetIndex = Arrays.asList(in30DaysList).indexOf(TypicalTestTasks.deadlineIn30Days);        
-//        preEdit = new TestTask(in30DaysList[targetIndex]);
+//        preEdit = in30DaysList[targetIndex];
 //        postEdit = preEdit.convertoToPostEditTestTask(preEdit.getTaskType(), preEdit.getName(), preEdit.getStartDate(), preEdit.getEndDate());
 //        assertEditSuccess(targetIndex, postEdit, "in 30 days", in30DaysList);
 //        
@@ -133,31 +133,31 @@ public class EditCommandTest extends TaskManagerGuiTest{
 //       
 //        //Edits task, new startDateTime given, new startDateTime after existing endDateTime
 //        targetIndex = Arrays.asList(currentList).indexOf(TypicalTestTasks.deadlineToday); //Task has to be either deadline/ event task to have existing endDateTime
-//        preEdit = new TestTask(currentList[targetIndex]);
+//        preEdit = currentList[targetIndex];
 //        postEdit = preEdit.convertoToPostEditTestTask(preEdit.getTaskType(), preEdit.getName(), Optional.of(preEdit.getEndDate().get().plusDays(2)), preEdit.getEndDate());
 //        assertResultMessage(EditCommand.MESSAGE_START_DATE_TIME_AFTER_END_DATE_TIME);
 //        
 //        //Edits task, new startDateTime given, new startDateTime equals existing endDateTime
 //        targetIndex = Arrays.asList(currentList).indexOf(TypicalTestTasks.deadlineToday); //Task has to be either deadline/ event task to have existing endDateTime
-//        preEdit = new TestTask(currentList[targetIndex]);
+//        preEdit = currentList[targetIndex];
 //        postEdit = preEdit.convertoToPostEditTestTask(preEdit.getTaskType(), preEdit.getName(), preEdit.getEndDate(), preEdit.getEndDate());
 //        assertResultMessage(EditCommand.MESSAGE_START_DATE_TIME_EQUALS_END_DATE_TIME);
 //        
 //        //Edits task, new endDateTime given, new endDateTime before existing startDateTime 
 //        targetIndex = Arrays.asList(currentList).indexOf(TypicalTestTasks.deadlineToday); //Task has to be event task to have existing startDateTime
-//        preEdit = new TestTask(currentList[targetIndex]);
+//        preEdit = currentList[targetIndex];
 //        postEdit = preEdit.convertoToPostEditTestTask(preEdit.getTaskType(), preEdit.getName(), preEdit.getStartDate(), Optional.of(preEdit.getStartDate().get().minusDays(2)));
 //        assertResultMessage(EditCommand.MESSAGE_START_DATE_TIME_AFTER_END_DATE_TIME);
 //        
 //        //Edits task, new endDateTime given, new endDateTime equals existing startDateTime
 //        targetIndex = Arrays.asList(currentList).indexOf(TypicalTestTasks.deadlineToday); //Task has to be event task to have existing startDateTime
-//        preEdit = new TestTask(currentList[targetIndex]);
+//        preEdit = currentList[targetIndex];
 //        postEdit = preEdit.convertoToPostEditTestTask(preEdit.getTaskType(), preEdit.getName(), preEdit.getStartDate(), preEdit.getStartDate());
 //        assertResultMessage(EditCommand.MESSAGE_START_DATE_TIME_EQUALS_END_DATE_TIME);
 //        
 //        //Edits task, new startDateTime given, new startDateTime but no endDateTime
 //        targetIndex = Arrays.asList(currentList).indexOf(TypicalTestTasks.someday3); //Task has to be someday task to have no existing endDateTime
-//        preEdit = new TestTask(currentList[targetIndex]);
+//        preEdit = currentList[targetIndex];
 //        postEdit = preEdit.convertoToPostEditTestTask(preEdit.getTaskType(), preEdit.getName(), Optional.of(LocalDateTime.of(2016, 12, 1, 12, 40)), preEdit.getEndDate());
 //        assertResultMessage(EditCommand.MESSAGE_START_DATE_TIME_EQUALS_END_DATE_TIME); 
 //        

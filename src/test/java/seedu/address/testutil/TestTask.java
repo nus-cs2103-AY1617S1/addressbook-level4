@@ -25,15 +25,6 @@ public class TestTask implements ReadOnlyTask {
     	endDate = Optional.empty();
     }
     
-    public TestTask(TestTask task){
-    	name = task.getName();
-    	status = task.getStatus();
-    	startDate = task.getStartDate();
-    	endDate = task.getEndDate();
-    	taskType = task.getTaskType();
-    	tags = task.getTags();
-    }
-
     public void setName(Name name) {
         this.name = name;
     }
@@ -139,7 +130,7 @@ public class TestTask implements ReadOnlyTask {
     }
 
     public TestTask convertoToPostEditTestTask(TaskType newTaskType, Name newName, Optional<LocalDateTime> newStartDate, Optional<LocalDateTime> newEndDate){
-    	TestTask postEdit = new TestTask(this);
+    	TestTask postEdit = new TestTask();
     	postEdit.setTaskType(newTaskType);
     	postEdit.setName(newName);
     	
