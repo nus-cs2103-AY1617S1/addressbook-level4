@@ -499,24 +499,20 @@ public class Parser {
      */
     private List<String> getParsedTagsToAddFromArgumentTokenizerWithoutOptional(ArgumentTokenizer argsTokenizer,
                                                                                 Prefix tagPrefix) {
-        try {
-            Optional<List<String>> tags = argsTokenizer.getAllValues(tagPrefix);
-            
-            if (!tags.isPresent()) {
-                return null;
-            }
-            
-            List<String> tagsToAdd = new ArrayList<String>();
-            for (String tag : tags.get()) {
-                if (tag.length() > 0 && !isATagToBeRemoved(tag)) {                            
-                    tagsToAdd.add(tag);
-                }
-            }
-            
-            return tagsToAdd;
-        } catch (NoSuchElementException nsee) {
+        Optional<List<String>> tags = argsTokenizer.getAllValues(tagPrefix);
+        
+        if (!tags.isPresent()) {
             return null;
         }
+        
+        List<String> tagsToAdd = new ArrayList<String>();
+        for (String tag : tags.get()) {
+            if (tag.length() > 0 && !isATagToBeRemoved(tag)) {                            
+                tagsToAdd.add(tag);
+            }
+        }
+        
+        return tagsToAdd;
     }
     
     /**
