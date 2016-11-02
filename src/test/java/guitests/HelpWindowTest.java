@@ -10,8 +10,6 @@ public class HelpWindowTest extends TaskListGuiTest {
     @Test
     public void openHelpWindow() {
 
-        taskListPanel.clickOnListView();
-
         assertHelpWindowOpen(commandBox.runHelpCommand());
 
     }
