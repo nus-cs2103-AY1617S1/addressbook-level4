@@ -39,6 +39,7 @@ import seedu.jimi.logic.commands.FindCommand;
 import seedu.jimi.logic.commands.HelpCommand;
 import seedu.jimi.logic.commands.ListCommand;
 import seedu.jimi.logic.commands.SaveAsCommand;
+import seedu.jimi.logic.commands.ShowCommand;
 import seedu.jimi.model.Model;
 import seedu.jimi.model.ModelManager;
 import seedu.jimi.model.ReadOnlyTaskBook;
@@ -254,16 +255,18 @@ public class LogicManagerTest {
     public void execute_add_successful() throws Exception {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
-        FloatingTask toBeAdded = helper.adam();
         TaskBook expectedAB = new TaskBook();
-        expectedAB.addTask(toBeAdded);
 
         // execute command and verify result
-        assertCommandBehavior(helper.generateAddCommand(toBeAdded),
+        FloatingTask toBeAdded = helper.homework();
+        expectedAB.addTask(toBeAdded);
+        
+        assertCommandBehavior(
+                helper.generateAddCommand_Ad(toBeAdded),
                 String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded),
                 expectedAB,
                 expectedAB.getTaskList());
-
+        
         toBeAdded = helper.laundry();
         expectedAB.addTask(toBeAdded);
         
@@ -273,14 +276,16 @@ public class LogicManagerTest {
                 expectedAB,
                 expectedAB.getTaskList());
         
-        toBeAdded = helper.homework();
+        toBeAdded = helper.adam();
         expectedAB.addTask(toBeAdded);
         
+        /*
         assertCommandBehavior(
-                helper.generateAddCommand_Ad(toBeAdded),
+                helper.generateAddCommand(toBeAdded),
                 String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded),
                 expectedAB,
                 expectedAB.getTaskList());
+        */
     }
 
     @Test
@@ -359,19 +364,19 @@ public class LogicManagerTest {
         helper.addToModel(model, 2);
 
         assertCommandBehavior("s all",
-                ListCommand.MESSAGE_SUCCESS,
+                ShowCommand.MESSAGE_SUCCESS,
                 expectedAB,
                 expectedList);
         assertCommandBehavior("sh all",
-                ListCommand.MESSAGE_SUCCESS,
+                ShowCommand.MESSAGE_SUCCESS,
                 expectedAB,
                 expectedList);
         assertCommandBehavior("sho all",
-                ListCommand.MESSAGE_SUCCESS,
+                ShowCommand.MESSAGE_SUCCESS,
                 expectedAB,
                 expectedList);
         assertCommandBehavior("show all",
-                ListCommand.MESSAGE_SUCCESS,
+                ShowCommand.MESSAGE_SUCCESS,
                 expectedAB,
                 expectedList);
     }
@@ -515,7 +520,7 @@ public class LogicManagerTest {
 
         List<FloatingTask> fourFloatingTasks = helper.generateFloatingTaskList(p1, pTarget1, p2, pTarget2);
         TaskBook expectedAB = helper.generateFloatingTaskBook(fourFloatingTasks);
-        List<FloatingTask> expectedList = helper.generateFloatingTaskList(pTarget1, pTarget2);
+        List<FloatingTask> expectedList = helper.generateFloatingTaskList(pTarget1, pTarget2, p1, p2);
         helper.addToModel(model, fourFloatingTasks);
 
         assertCommandBehavior("find \"KEY\"",
@@ -548,7 +553,7 @@ public class LogicManagerTest {
         FloatingTask p3 = helper.generateFloatingTaskWithName("key key");
         FloatingTask p4 = helper.generateFloatingTaskWithName("KEy sduauo");
 
-        List<FloatingTask> fourFloatingTasks = helper.generateFloatingTaskList(p3, p1, p4, p2);
+        List<FloatingTask> fourFloatingTasks = helper.generateFloatingTaskList(p1, p2, p3, p4);
         TaskBook expectedAB = helper.generateFloatingTaskBook(fourFloatingTasks);
         List<FloatingTask> expectedList = fourFloatingTasks;
         helper.addToModel(model, fourFloatingTasks);
@@ -732,8 +737,8 @@ public class LogicManagerTest {
             UniqueTagList tags = p.getTags();
             for (Tag t : tags) {
                 cmd.append(" t/").append(t.tagName);
+                cmd.append(" p/").append(p.getPriority().tagName);
             }
-            cmd.append(" p/").append(p.getPriority().tagName);
             
             return cmd.toString();
         }
