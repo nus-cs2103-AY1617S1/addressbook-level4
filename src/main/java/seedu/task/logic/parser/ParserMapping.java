@@ -5,8 +5,12 @@ import java.util.HashMap;
 import java.util.Optional;
 import java.util.logging.Logger;
 
+import com.google.api.client.json.webtoken.JsonWebSignature.Parser;
+
 import seedu.task.commons.core.LogsCenter;
+import seedu.task.commons.logic.CommandKeys;
 import seedu.task.commons.logic.CommandKeys.Commands;
+import seedu.task.logic.commands.Command;
 
 /**
  * Provides command word and alias mappings
@@ -16,8 +20,12 @@ import seedu.task.commons.logic.CommandKeys.Commands;
 public class ParserMapping {
     HashMap<Commands, Class<? extends BaseParser>> mappingTable = new HashMap<>();
     private final Logger logger = LogsCenter.getLogger(ParserMapping.class);
+    private final HashMap<String, Commands> aliasMappings;
     
-    
+    public ParserMapping(HashMap<String, Commands> aliasMappings) {
+        this.aliasMappings = aliasMappings;
+    }
+       
     /**
      * Populates the command word to command parsers mapping table
      */
@@ -46,10 +54,17 @@ public class ParserMapping {
      * @param commandWord
      * @return
      */
-    public Optional<Class<? extends BaseParser>> getParserForCommand(String commandWord) {
-        //go through alias hashmap
-        if (mappingTable.containsKey() && mappingTable.get() != null) {
-            return Optional.of(mappingTable.get(commandWord));
+    public Optional<Class<? extends BaseParser>> getParserForCommand(String commandWord) {        
+        
+        //check if it's an alias
+        if(aliasMappings.containsKey(commandWord) && aliasMappings.get(commandWord) != null) {
+            Commands command = aliasMappings.get(commandWord);
+            return Optional.of(mappingTable.get(command));
+        }
+        
+        if (CommandKeys.commandKeyMap.containsKey(commandWord) && CommandKeys.commandKeyMap.get(commandWord) != null) {
+            Commands command = CommandKeys.commandKeyMap.get(commandWord);
+            return Optional.of(mappingTable.get(command));
         } else {
             logger.info("[USER COMMAND][" + commandWord + "] not found!");
             return Optional.empty();

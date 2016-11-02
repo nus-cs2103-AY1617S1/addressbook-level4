@@ -5,11 +5,13 @@ import seedu.task.commons.core.ComponentManager;
 import seedu.task.commons.core.LogsCenter;
 import seedu.task.commons.core.UnmodifiableObservableList;
 import seedu.task.commons.events.model.TaskManagerChangedEvent;
+import seedu.task.commons.logic.CommandKeys.Commands;
 import seedu.task.commons.util.StringUtil;
 import seedu.task.model.task.ReadOnlyTask;
 import seedu.task.model.task.Task;
 import seedu.task.model.task.UniqueTaskList;
 
+import java.util.HashMap;
 import java.util.Set;
 import java.util.logging.Logger;
 
@@ -198,11 +200,11 @@ public class ModelManager extends ComponentManager implements Model {
     
     //@@author A0144939R
 
-    public String getAliasMapping(String alias) {
-        return userPrefs.getAliasMapping(alias);
+    public HashMap<String, Commands> getAliasMap() {
+        return userPrefs.getAliasMap();
     }
     
-    public void setMapping(String command, String alias) {
+    public void setMapping(Commands command, String alias) {
         userPrefs.setMapping(command, alias);
     }
     

@@ -4,8 +4,10 @@ package seedu.task.logic.parser;
 import static seedu.task.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.task.commons.core.Messages.MESSAGE_INTERNAL_ERROR;
 
+import java.util.HashMap;
 import java.util.Optional;
 
+import seedu.task.commons.logic.CommandKeys.Commands;
 import seedu.task.logic.commands.Command;
 import seedu.task.logic.commands.IncorrectCommand;
 
@@ -17,10 +19,14 @@ import seedu.task.logic.commands.IncorrectCommand;
  *
  */
 public class ParseSwitcher {
-    
-    private final ParserMapping parserMappings = new ParserMapping();
-    
-    public ParseSwitcher() { }
+    private final ParserMapping parserMappings;
+    private final HashMap<String, Commands> aliasMappings;
+        
+    public ParseSwitcher(HashMap<String, Commands> aliasMappings) { 
+         parserMappings = new ParserMapping(aliasMappings);
+         this.aliasMappings = aliasMappings;
+
+    }
 
     /**
      * Parses the user's input and determines the appropriate command

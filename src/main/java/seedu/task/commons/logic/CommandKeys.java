@@ -2,6 +2,7 @@
 package seedu.task.commons.logic;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -38,8 +39,7 @@ public class CommandKeys {
         }
        
     }
-    
-    Set<String> commandWords = Arrays.stream(Commands.values()).map(Command -> Command.value).collect(Collectors.toSet());
-    
+    //create hashmap from command names to ENUM values
+    public static final HashMap<String, Commands> commandKeyMap = (HashMap<String, Commands>) Arrays.stream(Commands.values()).collect(Collectors.toMap(command -> command.value, command -> command));
     
 }

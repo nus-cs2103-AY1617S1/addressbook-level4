@@ -4,13 +4,14 @@ import java.util.Objects;
 
 import java.util.HashMap;
 import seedu.task.commons.core.GuiSettings;
+import seedu.task.commons.logic.CommandKeys.Commands;
 
 /**
  * Represents User's preferences.
  */
 public class UserPrefs {
     //@@author A0144939R
-    private HashMap<String, String> aliases = new HashMap<String, String>();
+    private HashMap<String, Commands> aliases = new HashMap<String, Commands>();
     //@@author
     public GuiSettings guiSettings;
 
@@ -60,12 +61,8 @@ public class UserPrefs {
      * @param alias: a user defined string
      * @return The command represented by the alias, or null if no mapping exists
      */
-    public String getAliasMapping(String alias) {
-        if(aliases.containsKey(alias)) {
-            return aliases.get(alias);
-        } else {
-            return null;
-        }
+    public HashMap<String, Commands> getAliasMap() {
+        return aliases;
     }
     
     /**
@@ -73,7 +70,7 @@ public class UserPrefs {
      * @param command
      * @param alias
      */
-    public void setMapping(String command, String alias) {
+    public void setMapping(Commands command, String alias) {
         aliases.put(alias, command);
     }
 }
