@@ -224,7 +224,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public void updateFilteredEventListToShowAll() {
-        filteredEvents.setPredicate(p ->p.getStart().compareTo(new Date())>0);
+        filteredEvents.setPredicate(p ->p.getEnd().compareTo(new Date())>0);
     }
 
     @Override
