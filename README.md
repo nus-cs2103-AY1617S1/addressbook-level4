@@ -1,7 +1,7 @@
 
 # MESS (My Effecient Scheduling System)
 
-<img src="docs/images/mockup pic.jpg" width="600"><br>
+<img src="docs/images/MESS_003.png" width="600"><br>
 
 * This is a desktop to do list application. It has a GUI but most of the user interactions happen using
   a CLI (Command Line Interface).
