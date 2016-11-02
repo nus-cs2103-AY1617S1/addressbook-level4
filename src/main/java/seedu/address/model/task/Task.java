@@ -244,14 +244,19 @@ public class Task implements ReadOnlyTask, ModifyTask, Comparable<Task> {
             return 1;
         else if(this.isCompleted==false & other.isCompleted == true)
             return -1;
-        else if(this.date.compareTo(other.date)==0){
-            if (this.start.compareTo(other.start)==0)
-                return this.end.compareTo(other.end);
-            else
-                return this.start.compareTo(other.start);
+        
+        if(this.date.compareTo(other.date)==0){
+            return compareTime(other);
         }
 
         return this.date.compareTo(other.date);
+    }
+
+    private int compareTime(Task other) {
+        if (this.start.compareTo(other.start)==0)
+            return this.end.compareTo(other.end);
+        else
+            return this.start.compareTo(other.start);
     }
 
 
