@@ -152,7 +152,7 @@ public class CommandParser {
         
         else if(matcherNatural.matches()){
             try{
-                return createCommandStart(matcherNatural.group("name"),
+                return new AddCommand(matcherNatural.group("name"),
                                           "now",
                                           "no endtime",
                                           "no deadline",
@@ -240,8 +240,19 @@ public class CommandParser {
     
     //@@ author A0152958R
     private Command createCommandStart(String name, String startTime, String endTime, String deadline, Set<String> tags){
-        try{
-            return new AddCommand(name, startTime, endTime, deadline, tags);
+    	TimeParser parserTime = new TimeParser();
+        TimeParserResult time = parserTime.parseTime(startTime);
+        StringBuilder startString = new StringBuilder();
+        if(time.getRawDateTimeStatus() == DateTimeStatus.START_DATE_START_TIME){
+        	startString.append(time.getFirstDate().toString());
+        	startString.append(" ");
+        	startString.append(time.getFirstTime().toString().substring(0, 5));
+        }
+        if(startString.length() == 0){
+            return new IncorrectCommand("Incorrect time format");
+        }
+    	try{
+            return new AddCommand(name, startString.toString(), endTime, deadline, tags);
         }catch(IllegalValueException i){
             return new IncorrectCommand(i.getMessage());
         }
