@@ -6,17 +6,17 @@ import javafx.stage.Stage;
 import seedu.address.model.task.ReadOnlyTask;
 
 /**
- * Provides a handle to a person card in the person list panel.
+ * @@author A0138993L
+ * Provides a handle to a deadline card in the deadline list panel.
  */
-public class PersonCardHandle extends GuiHandle {
+public class DeadlineCardHandle extends GuiHandle {
     private static final String NAME_FIELD_ID = "#name";
     private static final String END_FIELD_ID = "#end";
     private static final String DATE_FIELD_ID = "#date";
-    private static final String START_FIELD_ID = "#start";
 
     private Node node;
 
-    public PersonCardHandle(GuiRobot guiRobot, Stage primaryStage, Node node){
+    public DeadlineCardHandle(GuiRobot guiRobot, Stage primaryStage, Node node){
         super(guiRobot, primaryStage, null);
         this.node = node;
     }
@@ -37,23 +37,19 @@ public class PersonCardHandle extends GuiHandle {
         return getTextFromLabel(DATE_FIELD_ID);
     }
 
-    public String getEmail() {
-        return getTextFromLabel(START_FIELD_ID);
-    }
 
     public boolean isSamePerson(ReadOnlyTask person){
-        return getFullName().equals(person.getName());// && getPhone().equals(person.getDate())
-             //   && getEmail().equals(person.getStart()) && getAddress().equals(person.getEnd());
+        return getFullName().equals(person.getName()) && getPhone().equals(person.getDate())
+                && getAddress().equals(person.getEnd());
     }
 
     @Override
     public boolean equals(Object obj) {
-        if(obj instanceof PersonCardHandle) {
-            PersonCardHandle handle = (PersonCardHandle) obj;
+        if(obj instanceof DeadlineCardHandle) {
+            DeadlineCardHandle handle = (DeadlineCardHandle) obj;
             return getFullName().equals(handle.getFullName())
                     && getAddress().equals(handle.getAddress())
-                    && getPhone().equals(handle.getPhone())
-                    && getEmail().equals(handle.getEmail()); 
+                    && getPhone().equals(handle.getPhone()); 
         }
         return super.equals(obj);
     }
