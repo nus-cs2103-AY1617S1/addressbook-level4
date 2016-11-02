@@ -16,7 +16,7 @@ public class DateTime {
     
     private Date date;
     
-    private static DateFormat outputFormatter = new SimpleDateFormat("MM-dd-yyyy HH:mm");
+    private static DateFormat outputFormatter = new SimpleDateFormat("dd-MMM-yyyy, HH:mm");
   
     /**
      * Converts the string that contains date information into Date
