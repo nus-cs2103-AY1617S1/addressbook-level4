@@ -74,9 +74,9 @@ public class LogicManagerTest {
         EventsCenter.getInstance().registerHandler(this);
 
         latestSavedWhatNow = new WhatNow(model.getWhatNow()); // last saved
-                                                              // assumed to be
-                                                              // up to date
-                                                              // before.
+        // assumed to be
+        // up to date
+        // before.
         helpShown = false;
         targetedJumpIndex = -1; // non yet
     }
@@ -226,7 +226,7 @@ public class LogicManagerTest {
     private void assertIncorrectIndexFormatBehaviorForUpdateCommand(String commandWord, String taskType,
             String expectedMessage) throws Exception {
         assertCommandBehavior(commandWord + " " + taskType + " description Check if index is missing", expectedMessage); // index
-                                                                                                                         // missing
+        // missing
         assertCommandBehavior(commandWord + " " + taskType + " +1" + " description Check if index is unsigned",
                 expectedMessage); // index should be unsigned
         assertCommandBehavior(commandWord + " " + taskType + " -1" + " description Check if index is unsigned",
@@ -322,34 +322,34 @@ public class LogicManagerTest {
             String expectedMessage) throws Exception {
         if (!taskType.equals("")) {
             assertCommandBehavior(commandWord + " " + taskType, expectedMessage); // index
-                                                                                  // missing
+            // missing
             assertCommandBehavior(commandWord + " " + taskType + " +1", expectedMessage); // index
-                                                                                          // should
-                                                                                          // be
-                                                                                          // unsigned
+            // should
+            // be
+            // unsigned
             assertCommandBehavior(commandWord + " " + taskType + " -1", expectedMessage); // index
-                                                                                          // should
-                                                                                          // be
-                                                                                          // unsigned
+            // should
+            // be
+            // unsigned
             assertCommandBehavior(commandWord + " " + taskType + " 0", expectedMessage); // index
-                                                                                         // cannot
-                                                                                         // be
-                                                                                         // 0
+            // cannot
+            // be
+            // 0
             assertCommandBehavior(commandWord + " " + taskType + " not_a_number", expectedMessage);
         } else {
             assertCommandBehavior(commandWord, expectedMessage); // index
-                                                                 // missing
+            // missing
             assertCommandBehavior(commandWord + " +1", expectedMessage); // index
-                                                                         // should
-                                                                         // be
-                                                                         // unsigned
+            // should
+            // be
+            // unsigned
             assertCommandBehavior(commandWord + " -1", expectedMessage); // index
-                                                                         // should
-                                                                         // be
-                                                                         // unsigned
+            // should
+            // be
+            // unsigned
             assertCommandBehavior(commandWord + " 0", expectedMessage); // index
-                                                                        // cannot
-                                                                        // be 0
+            // cannot
+            // be 0
             assertCommandBehavior(commandWord + " not_a_number", expectedMessage);
         }
 
@@ -430,22 +430,31 @@ public class LogicManagerTest {
                 String.format(DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS, threeTasks.get(1)), expectedAB,
                 expectedAB.getTaskList());
     }
+    //@@author A0139128A
+    @Test
+    public void execute_markDoneInvalidArgsFormat_errorMessageShown() throws
+    Exception {
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                MarkDoneCommand.MESSAGE_USAGE);
+        assertIncorrectIndexFormatBehaviorForCommand("done", "todo 2",
+                expectedMessage);
+    }
+    //@@author A0139128A
+    @Test
+    public void execute_markDoneInvalidArgsFormat_Negative_errorMessageShown() throws
+    Exception {
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                MarkDoneCommand.MESSAGE_USAGE);
+        assertIncorrectIndexFormatBehaviorForCommand("done", "todo -1",
+                expectedMessage);
+    }
+    
+   // @Test
+   // public void execute_markDoneIndexNotFound_errorMessageShown() throws
+   // Exception {
+   //     assertIndexNotFoundBehaviorForCommand("done", "todo");
+   // }
 
-    // @Test
-    // public void execute_markDoneInvalidArgsFormat_errorMessageShown() throws
-    // Exception {
-    // String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-    // MarkDoneCommand.MESSAGE_USAGE);
-    // assertIncorrectIndexFormatBehaviorForCommand("done", "todo",
-    // expectedMessage);
-    // }
-    //
-    // @Test
-    // public void execute_markDoneIndexNotFound_errorMessageShown() throws
-    // Exception {
-    // assertIndexNotFoundBehaviorForCommand("done", "todo");
-    // }
-    //
     // @Test
     // public void execute_markDone_marksCorrectTask() throws Exception {
     // TestDataHelper helper = new TestDataHelper();
