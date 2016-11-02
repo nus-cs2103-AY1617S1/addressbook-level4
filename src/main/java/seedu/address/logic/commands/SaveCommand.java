@@ -9,9 +9,11 @@ public class SaveCommand extends Command {
 	public static final String COMMAND_WORD = "save";
 	
 	public static final String MESSAGE_SUCCESS = "File is saved successfully.";
+	
+	public static final String MESSAGE_INCORRECT_FILE_PATH = "The file path entered is not correct!";
 
     private String taskManagerFilePath;
-    
+        
     public SaveCommand(String taskManagerFilePath) {
         this.taskManagerFilePath = taskManagerFilePath;
     }

@@ -15,7 +15,7 @@ public class Config {
     private Level logLevel = Level.INFO;
     private String userPrefsFilePath = "preferences.json";
     private String addressBookFilePath = "data/TPTM.xml";
-    private String addressBookName = "MyAddressBook";
+    private String addressBookName = "myTPTM";
 
 
     public Config() {
