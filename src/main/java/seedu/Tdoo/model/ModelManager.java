@@ -109,6 +109,25 @@ public class ModelManager extends ComponentManager implements Model {
     }
     
     @Override
+    public void removeDoneTodoData() {
+        undoer.prepareUndoClear("todo");
+        todoList.resetData();
+        indicateTodoListChanged();
+    } 
+    @Override
+    public void removeDoneEventData() {
+    	undoer.prepareUndoClear("event");
+        eventList.resetData();
+        indicateEventListChanged();
+    } 
+    @Override
+    public void removeDoneDeadlineData() {
+    	undoer.prepareUndoClear("deadline");
+        deadlineList.resetData();
+        indicateDeadlineListChanged();
+    }
+    
+    @Override
     public void restoreTodoListData() {
         todoList.restoreData();
         indicateTodoListChanged();
