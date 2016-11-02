@@ -223,16 +223,16 @@ public class MainWindow extends UiPart {
     	return this.floatingPanel;
     }
     
+    //@@author A0147619W
     /**
      * Render Status Bar Footer again, used when storage location in config changes
-     * @@author A0147619W
      */
     public void rerenderStatusBarFooter() {
     	statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getTaskManagerFilePath());
     }
+    //@@author A0139198N
     /**
      * 
-     * @@author A0139198N
      */
     public Predicate<ReadOnlyTask> isFloating() {
     	return t -> t.getStartTime().isMissing() && t.getEndTime().isMissing() && t.getDone().getDoneValue() == false;

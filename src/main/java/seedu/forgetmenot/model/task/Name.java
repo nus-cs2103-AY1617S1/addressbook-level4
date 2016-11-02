@@ -2,10 +2,10 @@ package seedu.forgetmenot.model.task;
 
 import seedu.forgetmenot.commons.exceptions.IllegalValueException;
 
+//@@author A0147619W
 /**
  * Represents a Task's name in ForgetMeNot.
  * Guarantees: immutable; is valid as declared in {@link #isValidName(String)}
- * @@author A0147619W
  */
 public class Name {
 

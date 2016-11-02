@@ -636,6 +636,7 @@ Day:
 6. Requires an account to start using.<br>
 7. Not keyboard friendly. Requires substantial mouse usage.<br>
 
+//@@author A0147619W
 ### Reminders
 ##### Strengths
 

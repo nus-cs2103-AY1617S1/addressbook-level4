@@ -9,6 +9,7 @@ import seedu.forgetmenot.TestApp;
 import seedu.forgetmenot.logic.commands.SetStorageCommand;
 import seedu.forgetmenot.testutil.TestUtil;
 
+//@@author A0147619W
 public class SetStorageCommandTest extends TaskManagerGuiTest{
 	
 	@Test

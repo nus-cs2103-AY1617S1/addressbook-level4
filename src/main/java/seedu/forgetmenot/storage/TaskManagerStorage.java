@@ -41,10 +41,10 @@ public interface TaskManagerStorage {
      */
     void saveTaskManager(ReadOnlyTaskManager taskManager, String filePath) throws IOException;
     
+    //@@author A0147619W
     /**
      * Set the file path for storage of task manager
      * @param filePath
-     * @@author A0147619W
      */
     public void setFilePath(String filePath);
 }

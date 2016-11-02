@@ -21,8 +21,6 @@ import seedu.forgetmenot.model.task.ReadOnlyTask;
 import seedu.forgetmenot.model.task.Recurrence;
 import seedu.forgetmenot.model.task.Task;
 import seedu.forgetmenot.model.task.Time;
-import seedu.forgetmenot.model.task.UniqueTaskList;
-import seedu.forgetmenot.model.task.UniqueTaskList.DuplicateTaskException;
 import seedu.forgetmenot.model.task.UniqueTaskList.TaskNotFoundException;
 
 /**
@@ -73,7 +71,8 @@ public class ModelManager extends ComponentManager implements Model {
         taskManager.clearDone();
         indicateTaskManagerChanged();
     }
-
+    //@@author
+    
     //@@author A0139671X
     public void clearHistory() {
         taskManagerHistory.clear();
@@ -146,7 +145,8 @@ public class ModelManager extends ComponentManager implements Model {
         indicateTaskManagerChanged();
 
     }
-
+    //@@author
+    
     //@@author A0139671X
     @Override
     public synchronized void addTask(Task task) {
@@ -225,6 +225,7 @@ public class ModelManager extends ComponentManager implements Model {
         EventsCenter.getInstance().post(new JumpToListRequestEvent(filteredTasks.indexOf(task)));
     }
     
+    //@@author A0147619W
     @Override
     public synchronized boolean isClashing(Task toAdd) {
     	Time start = toAdd.getStartTime();
@@ -250,13 +251,11 @@ public class ModelManager extends ComponentManager implements Model {
     	if(!start.isMissing()) {
     		for(Task task: taskManager.getTasks().filtered(isNotDone())) {
     			if(!task.getStartTime().isMissing() && task.getStartTime().time.compareTo(start.time) == 0) {
-    				System.out.println("a");
     				return true;
     			}
     			if(!task.getStartTime().isMissing() && !task.getEndTime().isMissing() && 
     					task.getStartTime().time.compareTo(start.time) <= 0 && 
     					task.getEndTime().time.compareTo(start.time) > 0) {
-    				System.out.println("b");
     				return true;
     			}
     		}
@@ -265,13 +264,11 @@ public class ModelManager extends ComponentManager implements Model {
     	if(!end.isMissing()) {
     		for(Task task: taskManager.getTasks().filtered(isNotDone())) {
     			if(!task.getEndTime().isMissing() && task.getEndTime().time.compareTo(end.time) == 0) {
-    				System.out.println("c");
     				return true;
     			}
     			if(!task.getStartTime().isMissing() && !task.getEndTime().isMissing() && 
     					task.getStartTime().time.compareTo(end.time) <= 0 && 
     					task.getEndTime().time.compareTo(end.time) > 0) {
-    				System.out.println("d");
     				return true;
     			}
     		}
@@ -337,7 +334,16 @@ public class ModelManager extends ComponentManager implements Model {
         filteredTasks.setPredicate(isOverdue());
         taskManager.counter();
     }
-
+    
+  //@@author A0139198N
+    @Override
+    public void updateFilteredTaskListToShowFloating() {
+        sortTasks();
+        filteredTasks.setPredicate(isFloating());
+        taskManager.counter();
+    }
+    //@@author
+    
     // ========== Inner classes/interfaces used for filtering
     // ==================================================
 
@@ -394,22 +400,28 @@ public class ModelManager extends ComponentManager implements Model {
 
     //@@author A0139198N
     public static Predicate<Task> isDone() {
-        return t -> t.getDone().value == true;
+        return t -> t.getDone().getDoneValue() == true;
     }
 
     //@@author A0139198N
     public static Predicate<Task> filterByDate(String date) {
         return t -> (t.getStartTime().appearOnUIFormatForDate().equals(date)
-                || t.getEndTime().appearOnUIFormatForDate().equals(date));
+                || t.getEndTime().appearOnUIFormatForDate().equals(date)) && 
+        		t.getDone().getDoneValue() == false;
     }
 
     //@@author A0139198N
     public static Predicate<Task> isNotDone() {
-        return t -> t.getDone().value == false;
+        return t -> t.getDone().getDoneValue() == false;
     }
 
     //@@author A0139198N
     public static Predicate<Task> isOverdue() {
-        return t -> t.checkOverdue() == true && t.getDone().value == false;
+        return t -> t.checkOverdue() == true && t.getDone().getDoneValue() == false;
+    }
+    
+  //@@author A0139198N
+    public static Predicate<Task> isFloating() {
+        return t -> t.isFloatingTask() && t.getDone().getDoneValue() == false;
     }
 }

@@ -130,7 +130,6 @@ public class ContentBox extends UiPart {
  
 
     private void configure(ObservableList<ReadOnlyTask> taskList) {
-//        setConnections(taskList);
         addToPlaceholder();
         panel.prefHeightProperty().bind(placeHolderPane.heightProperty());       
     }
@@ -144,11 +143,10 @@ public class ContentBox extends UiPart {
     	dummy5.setText(Integer.toString(TaskManager.floatingCounter));
     }
 
-
     private void addToPlaceholder() {
         SplitPane.setResizableWithParent(placeHolderPane, false);
         placeHolderPane.getChildren().add(panel);
     }
-
 }
+
 

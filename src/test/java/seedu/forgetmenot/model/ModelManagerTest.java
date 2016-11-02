@@ -14,6 +14,7 @@ import seedu.forgetmenot.model.task.UniqueTaskList.TaskNotFoundException;
 import seedu.forgetmenot.testutil.TaskBuilder;
 import seedu.forgetmenot.testutil.TestTask;
 
+//@@author A0139671X
 public class ModelManagerTest {
     
     @Test
@@ -125,6 +126,29 @@ public class ModelManagerTest {
             assertEquals(testModel.getTaskManager().getUniqueTaskList().getInternalList().get(i), toCheck);
 
         }
+    }
+    
+    //@@author A0139198N
+    @Test
+    public void doneCommand_doneASpecificTask_DoneValueChangesToDone() throws IllegalValueException, TaskNotFoundException {
+        Task taskToDone = new Task(new Name("done task"), new Done(false), new Time("tmr 10pm"), new Time("tmr 11am"), new Recurrence(""));
+        Task taskToCheck = new Task(new Name("done task"), new Done(true), new Time("tmr 10pm"), new Time("tmr 11am"), new Recurrence(""));
+        ModelManager testModel = new ModelManager();
+        testModel.addTask(taskToDone);
+        testModel.doneTask(taskToDone);
+        
+        assertEquals(taskToCheck, testModel.getTaskManager().getUniqueTaskList().getInternalList().get(0));
+    }
+    
+    @Test
+    public void undoneCommand_undoneASpecificTask_DoneValueChangesToUndone() throws IllegalValueException, TaskNotFoundException {
+        Task taskToDone = new Task(new Name("done task"), new Done(true), new Time("tmr 10pm"), new Time("tmr 11am"), new Recurrence(""));
+        Task taskToCheck = new Task(new Name("done task"), new Done(false), new Time("tmr 10pm"), new Time("tmr 11am"), new Recurrence(""));
+        ModelManager testModel = new ModelManager();
+        testModel.addTask(taskToDone);
+        testModel.undoneTask(taskToDone);
+        
+        assertEquals(taskToCheck, testModel.getTaskManager().getUniqueTaskList().getInternalList().get(0));
     }
     
 }
