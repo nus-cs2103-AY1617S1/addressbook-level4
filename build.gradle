@@ -138,7 +138,7 @@ task guiTests(type: TaskBookTest) {
 }
 
 
-task nonGuiTests(type: AddressBookTest) {
+task nonGuiTests(type: TaskBookTest) {
     include 'seedu/jimi/**'
 
     jacoco {
