@@ -60,10 +60,12 @@ public class FilteredListManager {
         for (ListId id : ListId.values()) {
             listMap.put(id, new FilteredList<ReadOnlyTask>(taskBook.getTasks()));
             
-            if(id.equals(ListId.TASKS_AGENDA)) {
-                listMap.get(id).setPredicate(new PredicateExpression(new TaskQualifier(true), new CompletedQualifier(false))::satisfies);
-            } else if(id.equals(ListId.EVENTS_AGENDA)) {
-                listMap.get(id).setPredicate(new PredicateExpression(new EventQualifier(true), new CompletedQualifier(false))::satisfies);
+            if (id.equals(ListId.TASKS_AGENDA)) {
+                listMap.get(id).setPredicate(
+                        new PredicateExpression(new TaskQualifier(true), new CompletedQualifier(false))::satisfies);
+            } else if (id.equals(ListId.EVENTS_AGENDA)) {
+                listMap.get(id).setPredicate(
+                        new PredicateExpression(new EventQualifier(true), new CompletedQualifier(false))::satisfies);
             } else {
                 listMap.get(id).setPredicate(defaultExpressions.get(id)::satisfies);
             }
