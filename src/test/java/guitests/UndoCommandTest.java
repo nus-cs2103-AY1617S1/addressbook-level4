@@ -43,7 +43,6 @@ public class UndoCommandTest extends ListGuiTest {
         assertUndoClearEventSuccess(currentEventList);
         assertUndoEditEventSuccess(1, currentEventList);
         
-      //delete deadlines in deadline list
         TestDeadline[] currentDeadlineList = new TestDeadline[] {
                 new DeadlineBuilder().withName("d 1").withStartDate("15-11-2017").withEndTime("10:00").withDone("false").build(),
                 new DeadlineBuilder().withName("dd 1").withStartDate("16-11-2017").withEndTime("12:00").withDone("false").build(),

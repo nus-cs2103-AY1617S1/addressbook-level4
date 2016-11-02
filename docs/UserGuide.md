@@ -5,8 +5,11 @@
 * [Features](#features)
 * [Command Summary](#command-summary)
 
+<!-- @@author A0144061U -->
 ##Description
-Tdoo Schedule Manager is a Command Line Interface Task Management Application that helps you manage your workflow. There are two main parts in the app: Todo List in which you can plan what tasks are to be done for the day, and Calendar that you indicate deadlines of the tasks or events to attend weekly/monthly. Data in Todo List and Calendar are synchronized. For instance, if a task is done before a deadline, it will be indicated as `done` in Calendar as well. At each starting time of tasks in Todo List, the app will give a notification that you should start working.
+Tdoo Schedule Manager is a Command Line Interface Task Management Application that helps you manage your workflow.<br>
+There are three main types of a task: Todo, Event and Deadline. Todo is a floating task that does not have a specific starting or ending time. When adding a Todo, you can set the priority of the task, so that you can strategise your work priority. Event is a task with specific start and end date/time. Deadline is a task with only end date and time. All three types of tasks can be marked as 'done' by the user, which is indicated by green in the interface. Events and Deadlines will be marked as 'Overdue', which is indicated by red, once the current time passes the end date/time, if they are not marked as 'done'. <br>
+Once you type in a command to the command box, it will be reflected in the three task lists with three different task types. For most of the commands, it is required to specifiy which type of task is to be manipulated. Refer to the [Features](#features) section for more detail.
 
 ## Starting the program
 
@@ -29,7 +32,7 @@ Format: `help`
 
 > Help is also shown if you enter an incorrect command e.g. `abcd`
 
-	<!-- @@author A0139923X -->
+<!-- @@author A0139923X -->
 #### Adding a task: `add`
 Adds a task to the task-list.<br>
 Different Types of tasks (Todo/Event/Deadline) have different command format.<br>
@@ -47,7 +50,7 @@ Todos will be rearranged in the Todo-List based on their priority.<br>
 > Format: `add TASK_NAME on/DATE at/END_TIME`<br>
 > Example: `add CS2103 v0.2 on/25-12-2016 at/16:00`
 
-	<!-- @@author A0139923X -->
+<!-- @@author A0139923X -->
 #### Editing a task: `edit`
 Edits information of the task in the task-list.<br>
 Different Types of tasks (Todo/Event/Deadline) have different command format.<br>
@@ -80,7 +83,7 @@ Mark a Todo-task with given index number as done.<br>
 > Example(Deadline): `done deadline 1`
 
 
-	<!-- @@author A0139923X -->
+<!-- @@author A0139923X -->
 #### Un-Marking a completed task : `undone`
 Mark a Todo-task with given index number as undone.<br>
 > Format: `undone TASK_TYPE INDEX_NUMBER`<br>
@@ -96,7 +99,7 @@ Shows a list of all tasks in the task-list.<br>
 > Example(Deadline): `list deadline` <br>
 > Example(All): `list all`
 
-	<!-- @@author A0139923X -->
+<!-- @@author A0139923X -->
 #### Finding all tasks containing any keyword in their name: `find`
 Finds tasks whose names contain any of the given keywords.<br>
 The order of the keywords does not matter, only the name is searched, and tasks matching at least one keyword will be returned (i.e. `OR` search).<br>
@@ -107,6 +110,7 @@ The order of the keywords does not matter, only the name is searched, and tasks 
 > Example(Deadline): `find deadline Assignment to hand up today`
 > Example by Start Date: `find TASK_TYPE date/[By day,month,year or whole date(25th December 2016)]`
 
+<!-- @@author A0144061U -->
 #### Clearing all tasks : `clear`
 Clears all data in the given task type list.<br>
 > Format: `clear TASK_TYPE` <br>
@@ -150,13 +154,6 @@ Add	Deadline| `add TASK_NAME on/DATE at/END_TIME`
 Edit	Todo	| `edit TASK_TYPE INDEX_NUMBER name/TASK_NAME p/PRIORITY`
 Edit	Event	| `edit TASK_TYPE INDEX_NUMBER name/TASK_NAME from/DATE to/ENDDATE at/START_TIME to/END_TIME`
 Edit	Deadline| `edit TASK_TYPE INDEX_NUMBER name/TASK_NAME on/DATE at/END_TIME`
---------------- | :--------
-Add	Todo	| `add TASK_NAME p/PRIORITY`
-Add	Event	| `add TASK_NAME d/DATE s/START_TIME e/END_TIME`
-Add	Deadline| `add TASK_NAME d/DATE e/END_TIME`
-Edit	Todo	| `edit TASK_TYPE INDEX_NUMBER n/TASK_NAME p/PRIORITY`
-Edit	Event	| `edit TASK_TYPE INDEX_NUMBER n/TASK_NAME d/DATE s/START_TIME e/END_TIME`
-Edit	Deadline| `edit TASK_TYPE INDEX_NUMBER n/TASK_NAME d/DATE e/END_TIME`
 Delete		| `delete TASK_TYPE INDEX_NUMBER`
 Done		| `done TASK_TYPE INDEX_NUMBER`
 Undone		| `undone TASK_TYPE INDEX_NUMBER`
