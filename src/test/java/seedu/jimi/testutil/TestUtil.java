@@ -314,10 +314,10 @@ public class TestUtil {
      * @param tasksToAdd The tasks that are to be appended behind the original array.
      * @return The modified array of tasks.
      */
-    public static TestFloatingTask[] addTasksToList(final TestFloatingTask[] tasks, TestFloatingTask... tasksToAdd) {
-        List<TestFloatingTask> listOfTasks = asList(tasks);
+    public static ReadOnlyTask[] addTasksToList(final ReadOnlyTask[] tasks, ReadOnlyTask... tasksToAdd) {
+        List<ReadOnlyTask> listOfTasks = asList(tasks);
         listOfTasks.addAll(asList(tasksToAdd));
-        return listOfTasks.toArray(new TestFloatingTask[listOfTasks.size()]);
+        return listOfTasks.toArray(new ReadOnlyTask[listOfTasks.size()]);
     }
     
     /**
