@@ -50,10 +50,9 @@ public class MarkDoneCommand extends Command {
         } else {
             return new CommandResult(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MarkDoneCommand.MESSAGE_USAGE));
         }
-
         if (lastShownList.size() < targetIndex) {
             indicateAttemptToExecuteIncorrectCommand();
-            return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
+            return new CommandResult(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MarkDoneCommand.MESSAGE_USAGE));
         }
 
         ReadOnlyTask taskToMark = lastShownList.get(targetIndex - 1);
