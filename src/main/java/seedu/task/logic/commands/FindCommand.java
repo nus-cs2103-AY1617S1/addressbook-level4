@@ -30,20 +30,15 @@ public class FindCommand extends Command {
     }
 
     //@@author A0153411W
-	/**
-	 * Execute undo method for find command 
-	 * Update filtered list to show all tasks.
-	 */
 	@Override
 	public CommandResult executeUndo() {
-        model.updateFilteredListToShowAll();
-		return new CommandResult(MESSAGE_SUCCESS_UNDO);
+        return null;
 	}
 
 
 	@Override
 	public boolean isReversible() {
-		return true;
+		return false;
 	}
 
 }

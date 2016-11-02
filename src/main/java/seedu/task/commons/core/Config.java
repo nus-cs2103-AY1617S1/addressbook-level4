@@ -84,7 +84,7 @@ public class Config {
 	public void setCustomCommandFormat(String commandWord, String userCommand)
 			throws DublicatedValueCustomCommandsException {
 		for (String key : customCommands.keySet()) {
-			if (customCommands.get(key).equals(userCommand) && !key.equals(commandWord))
+			if (customCommands.get(key)!= null && customCommands.get(key).equals(userCommand) && !key.equals(commandWord))
 				throw new DublicatedValueCustomCommandsException("This custom command already exists for:" + key);
 		}
 		customCommands.put(commandWord, userCommand);
@@ -96,6 +96,10 @@ public class Config {
 				return key;
 		}
 		return "";
+	}
+	
+	public String getCustomValuebyCommand(String command) {
+		return customCommands.get(command);
 	}
 	// @@author
 

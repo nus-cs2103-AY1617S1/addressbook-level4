@@ -26,19 +26,15 @@ public class HelpCommand extends Command {
     }
 
     //@@author A0153411W
-	/**
-	 * Execute undo method for help command.
-	 * Call execute method for help command.
-	 */
 	@Override
 	public CommandResult executeUndo() {
-		return this.execute();
+		return null;
 	}
 
 
 	@Override
 	public boolean isReversible() {
-		return true;
+		return false;
 	}
 
 }

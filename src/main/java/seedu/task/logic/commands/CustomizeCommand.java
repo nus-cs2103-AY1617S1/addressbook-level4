@@ -18,6 +18,7 @@ public class CustomizeCommand extends Command {
 
 	private String commandWord;
 	private String userCommand;
+	private String userCommandForUndo; 
 
 	public CustomizeCommand(String commandWord, String userCommand) {
 		this.commandWord = commandWord.toLowerCase();
@@ -31,6 +32,7 @@ public class CustomizeCommand extends Command {
 		if (!isCommandWordPresent(commandWord))
 			return new CommandResult("Command:" + commandWord + " is not found.");
 		try {
+			//prepareCommandForUndo(config);
 			config.setCustomCommandFormat(commandWord, userCommand);
 			ConfigUtil.saveConfig(config, configFilePathUsed);
 			new StorageManager(config.getTaskManagerFilePath(), config.getUserPrefsFilePath());
@@ -41,11 +43,16 @@ public class CustomizeCommand extends Command {
 			return new CommandResult(
 					"Failed to add customized format: " + userCommand + " for command: " + commandWord);
 		} catch (DublicatedValueCustomCommandsException e) {
-			return new CommandResult(e.getMessage());
+			model.getCommandForUndo();
+			return new CommandResult(
+					"Failed to add customized format: " + userCommand + " for command: " + commandWord);
 		}
-
 	}
 
+	private void prepareCommandForUndo(Config config){
+		userCommandForUndo = config.getCustomValuebyCommand(commandWord);
+	}
+	
 	private boolean isCommandWordPresent(String commandWord) {
 		List<String> commands = Command.getAllCommands();
 		return commands.contains(commandWord);
@@ -56,12 +63,15 @@ public class CustomizeCommand extends Command {
 	 */
 	@Override
 	public CommandResult executeUndo() {
+		if(userCommandForUndo == null)
+			return new CommandResult("Method cannot be undone because command: "+commandWord+" didn't have set previous custom command format");
+		this.userCommand = userCommandForUndo;
 		return this.execute();
 	}
 
 	@Override
 	public boolean isReversible() {
-		return true;
+		return false;
 	}
 
 }
