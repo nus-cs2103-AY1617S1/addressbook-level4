@@ -158,8 +158,6 @@ public class TodoList implements TodoListModel {
         //get(0) since list of updated tasks only contain one element
         return update(indexes, update).get(0);
     }
-    //@@author
-        
 
     //@@author A0135805H
     @Override
