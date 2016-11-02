@@ -45,12 +45,14 @@ public class CompleteCommandTest extends CommandTest {
     @Test
     public void testMarkIncomplete() throws Exception {
         ImmutableTask toMarkIncomplete = getTaskAt(1);
+        EventsCollector eventsCollector = new EventsCollector();
         setParameter("1");
         execute(true);
         ImmutableTask markedIncomplete = getTaskAt(1);
         assertThat(result.getFeedback(), containsString(VERB_INCOMPLETE));
         assertEquals(markedIncomplete, toMarkIncomplete);
         assertFalse(toMarkIncomplete.isCompleted());
+        assertThat(eventsCollector.get(0), instanceOf(HighlightTaskEvent.class));
     }
 
     @Test
