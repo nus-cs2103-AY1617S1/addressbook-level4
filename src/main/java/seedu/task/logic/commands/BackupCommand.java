@@ -133,8 +133,9 @@ public class BackupCommand extends Command {
          * Given path can not exist i.e. invalid drive letter, invalid characters
          */
         assert _destination != null;
-        if (!FileUtil.isFileExists(new File(_destination)))
+        if (!FileUtil.isFileExists(new File(_destination))) {
             return new CommandResult(String.format(MESSAGE_BACKUP_FAILURE, _destination));
+        }
         
         /**
          * Check if new backup file data matches the current data.
@@ -143,8 +144,9 @@ public class BackupCommand extends Command {
         try {
             String destinationFileData = FileUtil.readFromFile(new File(_destination));
             String sourceFileData = FileUtil.readFromFile(new File(_source));
-            if (!destinationFileData.equals(sourceFileData))
+            if (!destinationFileData.equals(sourceFileData)) {
                 return new CommandResult(String.format(MESSAGE_BACKUP_ERROR, _destination));
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }

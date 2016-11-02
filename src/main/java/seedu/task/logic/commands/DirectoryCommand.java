@@ -129,8 +129,9 @@ public class DirectoryCommand extends Command {
     @Override
     public CommandResult execute(boolean isUndo) {
         //Check if file supplied by user exists
-        if (!new File(_destination).exists())
+        if (!new File(_destination).exists()) {
             return new CommandResult(String.format(MESSAGE_FILE_NOT_FOUND_ERROR, _destination));
+        }
         
         assert model != null;
         restartTaskManagerOnWindows();
