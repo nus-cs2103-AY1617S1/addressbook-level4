@@ -29,12 +29,6 @@ public class UniqueTaskList implements Iterable<Task> {
             super("Operation would result in duplicate tasks");
         }
     }
-    
-//    public static class StartTimeAfterEndTime extends IllegalValueException{
-//    	protected  StartTimeAfterEndTime() {
-//			super("Start time cannot be after End time");
-//		}
-//    }
 
     /**
      * Signals that an operation targeting a specified task in the list would fail because
@@ -57,9 +51,9 @@ public class UniqueTaskList implements Iterable<Task> {
         return internalList.contains(toCheck);
     }
     
+    //@@author A0147619W
     /**
      * Sorts a list according to timing
-     * @@author A0147619W
      */
     public void sortList() {
         if (internalList.size() <= 1)
@@ -136,14 +130,9 @@ public class UniqueTaskList implements Iterable<Task> {
     
     /**
      * Adds a task to the list.
-     *
-     * @throws DuplicateTaskException if the task to add is a duplicate of an existing task in the list.
      */
     public void add(Task toAdd) {
         assert toAdd != null;
-//        if (contains(toAdd)) {
-//            throw new DuplicateTaskException();
-//        }
         System.out.println(toAdd.getStartTime().easyReadDateFormatForUI());
         System.out.println(toAdd.getEndTime().easyReadDateFormatForUI());
         internalList.add(toAdd);
@@ -192,11 +181,11 @@ public class UniqueTaskList implements Iterable<Task> {
         taskFound.setRecurrence(newRec);
         internalList.set(taskIndex, taskFound);        
     }
-    
+    //@@author A0139198N
     /**
-     * @@author A0139198N
+     * 
      * Mark a task as done from the list.
-     * @return 
+     *
      */
     public void done(ReadOnlyTask toDone) throws TaskNotFoundException {
     	assert toDone != null;
@@ -211,10 +200,11 @@ public class UniqueTaskList implements Iterable<Task> {
         internalList.set(internalList.indexOf(toDone), taskFound);
     }
     
+    //@@author A0139198N
     /**
-     * @@author A0139198N
+     * 
      * Mark a task as undone from the list.
-     * @return 
+     * 
      */
     
     public void undone(ReadOnlyTask toUndone) throws TaskNotFoundException {
@@ -229,7 +219,7 @@ public class UniqueTaskList implements Iterable<Task> {
         }
         internalList.set(internalList.indexOf(toUndone), taskFound);
     }
-    
+    //@@author
     
     /**
      * Removes the equivalent task from the list.

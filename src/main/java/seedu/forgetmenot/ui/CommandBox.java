@@ -22,6 +22,7 @@ import seedu.forgetmenot.logic.commands.CommandResult;
 
 import java.util.Stack;
 
+//@@author A0147619W
 public class CommandBox extends UiPart {
     private final Logger logger = LogsCenter.getLogger(CommandBox.class);
     private static final String FXML = "CommandBox.fxml";
@@ -124,6 +125,7 @@ public class CommandBox extends UiPart {
 		}
 	}
 
+    //@@author
     private void addToPlaceholder() {
         SplitPane.setResizableWithParent(placeHolderPane, false);
         placeHolderPane.getChildren().add(commandTextField);
@@ -147,6 +149,7 @@ public class CommandBox extends UiPart {
     }
 
 
+    //@@author A0147619W
     @FXML
     private void handleCommandInputChanged() throws IllegalValueException {
     	if(!downKeyStack.isEmpty()){
@@ -173,7 +176,7 @@ public class CommandBox extends UiPart {
 		logger.info("Result: " + mostRecentResult.feedbackToUser);
 	}
 
-
+    //@@author
     /**
      * Sets the command box style to indicate a correct command.
      */

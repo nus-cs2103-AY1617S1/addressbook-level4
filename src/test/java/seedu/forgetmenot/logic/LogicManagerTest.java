@@ -169,8 +169,6 @@ public class LogicManagerTest {
     @Test
     public void execute_add_invalidArgsFormat() throws Exception {
         String expectedMessage = Messages.MESSAGE_UNKNOWN_COMMAND;
-//        assertCommandBehavior(
-//                "add wrong args wrong args", expectedMessage);
         assertCommandBehavior(
                 "adds Valid Name 12345 s/5:00pm e/5:00am", expectedMessage);
         assertCommandBehavior(

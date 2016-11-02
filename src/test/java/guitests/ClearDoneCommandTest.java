@@ -1,9 +1,8 @@
 package guitests;
 
-import static org.junit.Assert.assertTrue;
-
 import org.junit.Test;
 
+//@@author A0139198N
 public class ClearDoneCommandTest extends TaskManagerGuiTest {
 
     @Test

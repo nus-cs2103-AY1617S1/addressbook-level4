@@ -22,11 +22,12 @@ public interface Model {
     /** Deletes the given task. */
     void deleteTask(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException;
 
+    //@@author A0147619W
     /** Adds the given task 
-     * @@author A0147619W
      * */
     void addTask(Task task);
  
+    //@@author
     /** Adds the given recurring task again with the correct date and time
      * @throws IllegalValueException */
     void addRecurringTask(ReadOnlyTask taskToMark) throws IllegalValueException;
@@ -56,12 +57,14 @@ public interface Model {
      * @throws TaskNotFoundException */
     void clearDone() throws TaskNotFoundException;
 
+    //@@author A0147619W
     /**  Sorts all the tasks in the list according to date with floating tasks below */
     void sortTasks();
     
+    //@@author
     /** Returns the filtered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
     UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList();
-
+    
     /** Updates the filter of the filtered task list to show all tasks */
     void updateFilteredListToShowAll();
     
@@ -83,6 +86,7 @@ public interface Model {
 	/** Updates the filter of the filtered task list to show floating tasks */
 	void updateFilteredTaskListToShowFloating();
 	
+	//@@author A0147619W
 	/** Checks if the current task clashes with other tasks in ForgetMeNot or not */
 	boolean isClashing(Task toAdd);
 

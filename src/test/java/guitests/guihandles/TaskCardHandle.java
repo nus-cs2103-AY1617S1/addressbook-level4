@@ -10,7 +10,7 @@ import seedu.forgetmenot.model.task.ReadOnlyTask;
  */
 public class TaskCardHandle extends GuiHandle {
     private static final String NAME_FIELD_ID = "#name";
-    private static final String ADDRESS_FIELD_ID = "#address";
+    private static final String END_FIELD_ID = "#end";
     private static final String DATE_FIELD_ID = "#date";
     private static final String START_FIELD_ID = "#start";
 
@@ -30,7 +30,7 @@ public class TaskCardHandle extends GuiHandle {
     }
 
     public String getEndTime() {
-        return getTextFromLabel(ADDRESS_FIELD_ID);
+        return getTextFromLabel(END_FIELD_ID);
     }
 
     public String getDate() {
