@@ -85,8 +85,7 @@ public class LogicCommandTest {
                 new StorageManager(tempTarsFile, tempPreferencesFile));
         EventsCenter.getInstance().registerHandler(this);
 
-        latestSavedTars = new Tars(model.getTars()); // last saved assumed to be
-                                                     // up to date before.
+        latestSavedTars = new Tars(model.getTars()); // last saved assumed to be up to date before.
         helpShown = false;
     }
 
