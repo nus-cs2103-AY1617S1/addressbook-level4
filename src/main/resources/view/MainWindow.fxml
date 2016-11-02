@@ -2,6 +2,7 @@
 
 <?import java.net.URL?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
@@ -32,42 +33,57 @@
 		</MenuBar>
 		<AnchorPane fx:id="commandBoxPlaceholder" styleClass="anchor-pane-with-border" VBox.vgrow="NEVER">
 			<padding>
-				<Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
+				<Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
 			</padding>
 		</AnchorPane>
 		<AnchorPane fx:id="resultDisplayPlaceholder" maxHeight="100" minHeight="100.0" prefHeight="100.0" styleClass="anchor-pane-with-border" VBox.vgrow="NEVER">
 			<padding>
-				<Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
+				<Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
 			</padding>
 		</AnchorPane>
 		<SplitPane id="splitPane" fx:id="splitPane" dividerPositions="0.5, 0.5" VBox.vgrow="ALWAYS">
 			<items>
-				<VBox fx:id="taskList" minWidth="340" prefWidth="340.0">
-					<padding>
-						<Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-					</padding>
-					<children>
-						<AnchorPane fx:id="taskListPanelPlaceholder" VBox.vgrow="ALWAYS" />
-					</children>
-				</VBox>
-
-				<VBox fx:id="taskList1" minWidth="340" prefWidth="340.0">
-					<padding>
-						<Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-					</padding>
-					<children>
-						<AnchorPane fx:id="deadlineListPanelPlaceholder" VBox.vgrow="ALWAYS" />
-					</children>
-				</VBox>
-				
-				<VBox fx:id="taskList2" minWidth="340" prefWidth="340.0">
-					<padding>
-						<Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-					</padding>
-					<children>
-						<AnchorPane fx:id="eventListPanelPlaceholder" VBox.vgrow="ALWAYS" />
-					</children>
-				</VBox>
+            <SplitPane dividerPositions="0.115" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0">
+      					<padding>
+      						<Insets bottom="10.0" left="5.0" right="5.0" top="5.0" />
+      					</padding>
+              <items>
+                  <Label alignment="CENTER" maxHeight="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="35.0" prefWidth="340.0" text="To-Do List" textAlignment="CENTER" />
+      				<VBox fx:id="floatingTaskList" minWidth="340" prefWidth="340.0">
+      					<children>
+      						<AnchorPane fx:id="taskListPanelPlaceholder" VBox.vgrow="ALWAYS" />
+      					</children>
+      				</VBox>
+              </items>
+            </SplitPane>
+            <SplitPane dividerPositions="0.115" layoutX="10.0" layoutY="10.0" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0">
+      					<padding>
+      						<Insets bottom="10.0" left="5.0" right="5.0" top="5.0" />
+      					</padding>               
+               <items>
+                  <Label alignment="CENTER" maxHeight="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="35.0" prefWidth="340.0" text="Deadlines" textAlignment="CENTER" />
+      
+      				<VBox fx:id="deadlineList" minWidth="340" prefWidth="340.0">
+      					<children>
+      						<AnchorPane fx:id="deadlineListPanelPlaceholder" VBox.vgrow="ALWAYS" />
+      					</children>
+      				</VBox>
+               </items>
+            </SplitPane>
+            <SplitPane dividerPositions="0.5" layoutX="10.0" layoutY="10.0" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0">
+      					<padding>
+      						<Insets bottom="10.0" left="5.0" right="5.0" top="5.0" />
+      					</padding>            
+               <items>
+                  <Label alignment="CENTER" maxHeight="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="35.0" prefWidth="340.0" text="Schedule" textAlignment="CENTER" />
+      				
+      				<VBox fx:id="eventList" minWidth="340" prefWidth="340.0">
+      					<children>
+      						<AnchorPane fx:id="eventListPanelPlaceholder" VBox.vgrow="ALWAYS" />
+      					</children>
+      				</VBox>
+               </items>
+            </SplitPane>
 				
 			</items>
 		</SplitPane>
