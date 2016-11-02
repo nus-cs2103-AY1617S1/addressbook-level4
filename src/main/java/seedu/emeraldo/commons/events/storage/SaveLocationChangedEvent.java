@@ -2,6 +2,7 @@ package seedu.emeraldo.commons.events.storage;
 
 import seedu.emeraldo.commons.events.BaseEvent;
 
+//@author A0139342H
 /** Indicates the save location of emeraldo.xml has changed*/
 public class SaveLocationChangedEvent extends BaseEvent {
     
