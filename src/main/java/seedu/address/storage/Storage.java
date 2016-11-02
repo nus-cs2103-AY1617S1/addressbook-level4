@@ -1,5 +1,6 @@
 package seedu.address.storage;
 
+import seedu.address.commons.events.model.AliasManagerChangedEvent;
 import seedu.address.commons.events.model.TaskManagerChangedEvent;
 import seedu.address.commons.events.storage.DataSavingExceptionEvent;
 import seedu.address.commons.exceptions.DataConversionException;

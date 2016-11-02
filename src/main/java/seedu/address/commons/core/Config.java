@@ -62,6 +62,7 @@ public class Config {
     public void setAliasManagerFilePath(String aliasManagerFilePath) {
     	this.aliasManagerFilePath = aliasManagerFilePath;
     }
+    //@@author
 
     public String getTaskManagerName() {
         return taskManagerName;

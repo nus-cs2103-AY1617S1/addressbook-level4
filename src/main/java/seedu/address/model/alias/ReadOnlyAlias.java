@@ -27,8 +27,8 @@ public interface ReadOnlyAlias extends Comparable<ReadOnlyAlias> {
     default String getAsText() {
     	final StringBuilder builder = new StringBuilder();
     	
-    	builder.append("Command alias: " + getCommandAlias() + " ");
-    	builder.append("Command phrase: " + getCommandPhrase());
+    	builder.append("Command alias: " + getCommandAlias() + ", ");
+    	builder.append("command phrase: " + getCommandPhrase() + ".\n");
 
         return builder.toString();
     }

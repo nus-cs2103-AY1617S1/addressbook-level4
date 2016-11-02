@@ -4,11 +4,13 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.commons.util.StringUtil;
+import seedu.address.commons.events.model.AliasManagerChangedEvent;
 import seedu.address.commons.events.model.TaskManagerChangedEvent;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.TaskFilter;
 import seedu.address.model.alias.Alias;
+import seedu.address.model.alias.UniqueAliasList;
 import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.ReadOnlyTaskFilter;
 import seedu.address.model.task.Status;
@@ -31,6 +33,7 @@ public class ModelManager extends ComponentManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private final TaskManager taskManager;
+    private final AliasManager aliasManager;
     private final FilteredList<Task> filteredTasks;
     private Stack<TaskManager> stateHistory;
     private Stack<TaskManager> undoHistory;
@@ -39,25 +42,29 @@ public class ModelManager extends ComponentManager implements Model {
      * Initializes a ModelManager with the given TaskManager
      * TaskManager and its variables should not be null
      */
-    public ModelManager(TaskManager src, UserPrefs userPrefs) {
+    public ModelManager(TaskManager taskManager, UserPrefs userPrefs, AliasManager aliasManager) {
         super();
-        assert src != null;
+        assert taskManager != null;
         assert userPrefs != null;
+        assert aliasManager != null;
 
-        logger.fine("Initializing with address book: " + src + " and user prefs " + userPrefs);
+        logger.fine("Initializing with task manager: " + taskManager + ", user prefs " + userPrefs 
+        		+ "and alias manager: " + aliasManager);
 
-        taskManager = new TaskManager(src);
+        this.taskManager = new TaskManager(taskManager);
+        this.aliasManager = new AliasManager(aliasManager);
         filteredTasks = new FilteredList<>(taskManager.getFilteredTasks());
         stateHistory = new Stack<>();
         undoHistory = new Stack<>();
     }
 
     public ModelManager() {
-        this(new TaskManager(), new UserPrefs());
+        this(new TaskManager(), new UserPrefs(), new AliasManager());
     }
 
-    public ModelManager(ReadOnlyTaskManager initialData, UserPrefs userPrefs) {
-        taskManager = new TaskManager(initialData);
+    public ModelManager(ReadOnlyTaskManager initialTaskManagerData, UserPrefs userPrefs, ReadOnlyAliasManager initialAliasManagerData) {
+        taskManager = new TaskManager(initialTaskManagerData);
+        aliasManager = new AliasManager(initialAliasManagerData);
         filteredTasks = new FilteredList<>(taskManager.getFilteredTasks());
         stateHistory = new Stack<>();
         undoHistory = new Stack<>();
@@ -104,9 +111,14 @@ public class ModelManager extends ComponentManager implements Model {
         return taskManager;
     }
 
-    /** Raises an event to indicate the model has changed */
+    /** Raises an event to indicate that the taskManager in model has changed */
     private void indicateTaskManagerChanged() {
         raise(new TaskManagerChangedEvent(taskManager));
+    }
+    
+    /** Raise an event to indicate that the aliasManager in model has changed */
+    private void indicateAliasManagerChanged() {
+    	raise(new AliasManagerChangedEvent(aliasManager));
     }
 
     @Override
@@ -132,11 +144,11 @@ public class ModelManager extends ComponentManager implements Model {
     
     //@@author A0143756Y
     @Override
-    public synchronized void addAlias(Alias aliasToAdd) {
+    public synchronized void addAlias(Alias aliasToAdd) throws UniqueAliasList.DuplicateAliasException {
     	assert aliasToAdd != null;
     	
     	aliasManager.addAlias(aliasToAdd);
-    	
+    	indicateAliasManagerChanged();
     }
     
     //@@author A0141019U

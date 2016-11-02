@@ -6,6 +6,8 @@ import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.AliasManager;
 import seedu.address.model.ReadOnlyAliasManager;
 import seedu.address.model.ReadOnlyTaskManager;
+import seedu.address.model.alias.ReadOnlyAlias;
+import seedu.address.model.alias.UniqueAliasList;
 import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.UniqueTaskList;
 
@@ -19,16 +21,17 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * An Immutable TaskManager that is serializable to XML format
+ * An immutable AliasManager that is serializable to XML format
  */
-@XmlRootElement(name = "alias")
+
+@XmlRootElement(name = "aliasmanager")
 public class XmlSerializableAliasManager implements ReadOnlyAliasManager {
 
     @XmlElement
-    private HashMap<String, String> aliasMap;
-    
+    private List<XmlAdaptedAlias> aliases;
+
     {
-        aliasMap = new HashMap<String, String>();
+        aliases = new ArrayList<>();
     }
 
     /**
@@ -39,21 +42,69 @@ public class XmlSerializableAliasManager implements ReadOnlyAliasManager {
     /**
      * Conversion
      */
-    public XmlSerializableAliasManager(ReadOnlyAliasManager alias) {
-        aliasMap.putAll(alias.getAlias());
+    public XmlSerializableAliasManager(ReadOnlyAliasManager src) {
+        aliases.addAll(src.getAliasList().stream().map(XmlAdaptedAlias::new).collect(Collectors.toList()));
     }
 
-	@Override
-	public HashMap<String, String> getAlias() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public UniqueAliasList getUniqueAliasList() {
+        UniqueAliasList lists = new UniqueAliasList();
+        for (XmlAdaptedAlias p : aliases) {
+            try {
+                lists.add(p.toModelType());
+            } catch (IllegalValueException e) {
+                //TODO: better error handling
+            }
+        }
+        return lists;
+    }
 
-	@Override
-	public String getValueOf(String key) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public List<ReadOnlyAlias> getAliasList() {
+        return aliases.stream().map(p -> {
+            try {
+                return p.toModelType();
+            } catch (IllegalValueException e) {
+                e.printStackTrace();
+                //TODO: better error handling
+                return null;
+            }
+        }).collect(Collectors.toCollection(ArrayList::new));
+    }
+
+//@XmlRootElement(name = "alias")
+//public class XmlSerializableAliasManager implements ReadOnlyAliasManager {
+//
+//    @XmlElement
+//    private HashMap<String, String> aliasMap;
+//    
+//    {
+//        aliasMap = new HashMap<String, String>();
+//    }
+//
+//    /**
+//     * Empty constructor required for marshalling
+//     */
+//    public XmlSerializableAliasManager() {}
+//
+//    /**
+//     * Conversion
+//     */
+//    public XmlSerializableAliasManager(ReadOnlyAliasManager alias) {
+//        aliasMap.putAll(alias.getAlias());
+//    }
+//
+//	@Override
+//	public HashMap<String, String> getAlias() {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
+//
+//	@Override
+//	public String getValueOf(String key) {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
 
 //    @Override
 //    public UniqueTaskList getUniqueTaskList() {
@@ -80,10 +131,4 @@ public class XmlSerializableAliasManager implements ReadOnlyAliasManager {
 //            }
 //        }).collect(Collectors.toCollection(ArrayList::new));
 //    }
-
-//    @Override
-//    public List<Tag> getTagList() {
-//        return Collections.unmodifiableList(tags);
-//    }
-    
 }

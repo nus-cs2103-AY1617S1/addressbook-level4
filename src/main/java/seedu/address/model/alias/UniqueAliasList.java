@@ -27,7 +27,7 @@ public class UniqueAliasList implements Iterable<Alias> {
     }
 
     /**
-     * Signals that an operation targeting a specified task in the list would fail because
+     * Signals that an operation targeting a specified alias in the list would fail because
      * there is no such matching task in the list.
      */
     public static class AliasNotFoundException extends Exception {}

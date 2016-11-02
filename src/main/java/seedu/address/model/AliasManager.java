@@ -1,132 +1,175 @@
 package seedu.address.model;
 
+import javafx.collections.ObservableList;
+import seedu.address.model.alias.Alias;
+import seedu.address.model.alias.ReadOnlyAlias;
+import seedu.address.model.alias.UniqueAliasList;
+import seedu.address.model.task.UniqueTaskList;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
+
 /**
- * Wraps all data at the address-book level
+ * Wraps all data at the alias manager level
  * Duplicates are not allowed (by .equals comparison)
  */
 public class AliasManager implements ReadOnlyAliasManager{
 
-    private final HashMap<String, String> alias;
-
+    private final UniqueAliasList aliases;
+    
     {
-        alias = new HashMap<String, String>();
+    	aliases = new UniqueAliasList();
     }
+    
+//	private final HashMap<String, String> aliases;
+//
+//    {
+//        aliases = new HashMap<String, String>();
+//    }
 
     public AliasManager() {}
 
-//    /**
-//     * Tasks and Tags are copied into this task manager
-//     */
-//    public Alias (ReadOnlyTaskManager toBeCopied) {
-//        this(toBeCopied.getUniqueTaskList(), toBeCopied.getUniqueTagList());
-//    }
-//
-//    /**
-//     * Tasks and Tags are copied into this task manager
-//     */
-//    public TaskManager(UniqueTaskList tasks, UniqueTagList tags) {
-//        resetData(tasks.getInternalList(), tags.getInternalList());
-//    }
-//
-//    public static Alias getEmptyAlias() {
-//        return new Alias();
-//    }
+    /**
+     * Aliases are copied into this alias manager.
+     */
+    public AliasManager(ReadOnlyAliasManager toBeCopied) {
+        this(toBeCopied.getUniqueAliasList());
+    }
 
-//// list overwrite operations
+    /**
+     * Tasks and Tags are copied into this task manager
+     */
+    public AliasManager(UniqueAliasList aliases) {
+        resetData(aliases.getInternalList());
+    }
 
-//    public ObservableList<Task> getFilteredTasks() {
-//        return alias.getInternalList();
-//    }
+    public static ReadOnlyAliasManager getEmptyAliasManager() {
+        return new AliasManager();
+    }
+    
+    //list overwrite operations
 
-//    public void setAlias(List<Task> tasks) {
-//        this.tasks.getInternalList().setAll(tasks);
-//    }
+    public ObservableList<Alias> getFilteredAliases() {
+        return aliases.getInternalList();
+    }
 
+    public void setAliases(List<Alias> aliases) {
+        this.aliases.getInternalList().setAll(aliases);
+    }
 
-//    public void resetData(Collection<? extends ReadOnlyTask> newTasks, Collection<Tag> newTags) {
-//        setTasks(newTasks.stream().map(Task::new).collect(Collectors.toList()));
-//        setTags(newTags);
-//    }
-//
-//    public void resetData(ReadOnlyTaskManager newData) {
-//        resetData(newData.getTaskList(), newData.getTagList());
-//    }
+    public void resetData(Collection<? extends ReadOnlyAlias> newAliases) {
+        setAliases(newAliases.stream().map(Alias::new).collect(Collectors.toList()));
+    }
+
+    public void resetData(ReadOnlyAliasManager newData) {
+        resetData(newData.getAliasList());
+    }
 
 //// task-level operations
 
     /**
-     * Adds a task to the address book.
-     * Also checks the new task's tags and updates {@link #tags} with any new tags found,
-     * and updates the Tag objects in the task to point to those in {@link #tags}.
+     * Adds an alias to the alias manager.
      *
-     * @throws UniqueAliasList.DuplicateTaskException if an equivalent task already exists.
+     * @throws UniqueAliasList.DuplicateTaskException if an equivalent alias already exists.
      */
-    public void addAlias(String key, String value) {
-        alias.put(key, value);
-    }
-
-
-    public String removeAlias(String key) {
-        return alias.remove(key);
+    public void addAlias(Alias aliasToAdd) throws UniqueAliasList.DuplicateAliasException {
+    	aliases.add(aliasToAdd);
+    	sortAliases();
     }
     
-    public String editAlias(String key, String value) {
-        //syncTagsWithMasterList(p);
-    	return alias.replace(key, value);
+    public boolean removeAlias(ReadOnlyAlias aliasToRemove) throws UniqueAliasList.AliasNotFoundException {
+    	if(aliases.remove(aliasToRemove)) {
+    		return true;
+    	} 
+    	
+    	else {
+    		throw new UniqueAliasList.AliasNotFoundException();
+    	}		
     }
+    
+    public boolean ediAlias(int key, Alias aliasToEdit) throws UniqueAliasList.AliasNotFoundException {
+    	if(aliases.set(key, aliasToEdit)){
+    		sortAliases();
+    		return true;
+    	}
+    	
+    	else{
+    		throw new UniqueAliasList.AliasNotFoundException();
+    	}
+    }
+    
+    private void sortAliases() {
+    	Collections.sort(aliases.getInternalList());
+    }
+    
+//    public void addAlias(String key, String value) {
+//        aliases.put(key, value);
+//    }
+//
+//    public String removeAlias(String key) {
+//        return aliases.remove(key);
+//    }
+//    
+//    public String editAlias(String key, String value) {
+//        //syncTagsWithMasterList(p);
+//    	return aliases.replace(key, value);
+//    }
 
 //// util methods
 
     @Override
     public String toString() {
-    	String string = "";
-    	Set<String> keySet = alias.keySet();
-    	String[] keyArray = keySet.toArray(new String[0]);
-    	for(int i = 0; i < keyArray.length; i++) {
-    		string += ("key: " + keyArray[i] + " value: " + alias.get(keyArray[i]) + "\n");
+    	StringBuilder stringBuilder = new StringBuilder();
+    	stringBuilder.append(aliases.getInternalList().size() + " aliases.\n");
+    	
+    	ObservableList<Alias> internalList = aliases.getInternalList();
+    	for(Alias currentAlias: internalList){
+    		stringBuilder.append(currentAlias.toString());
     	}
-    	return string;
-    }
-
-//    @Override
-//    public List<ReadOnlyTask> getTaskList() {
-//        return Collections.unmodifiableList(tasks.getInternalList());
-//    }
-//
-//    @Override
-//    public List<Tag> getTagList() {
-//        return Collections.unmodifiableList(tags.getInternalList());
-//    }
-
-    public HashMap<String,String> getAlias() {
-    	return alias;
+    	
+    	return stringBuilder.toString();
     }
     
-    public String getValueOf(String key) {
-        return alias.get(key);
-    }
-
 //    @Override
-//    public UniqueTagList getUniqueTagList() {
-//        return this.tags;
+//    public String toString() {
+//    	String string = "";
+//    	Set<String> keySet = aliases.keySet();
+//    	String[] keyArray = keySet.toArray(new String[0]);
+//    	for(int i = 0; i < keyArray.length; i++) {
+//    		string += ("key: " + keyArray[i] + " value: " + aliases.get(keyArray[i]) + "\n");
+//    	}
+//    	return string;
 //    }
 
+    @Override
+    public List<ReadOnlyAlias> getAliasList() {
+        return Collections.unmodifiableList(aliases.getInternalList());
+    }
+    
+    @Override
+    public UniqueAliasList getUniqueAliasList() {
+        return this.aliases;
+    }
+
+//    public HashMap<String,String> getAlias() {
+//    	return aliases;
+//    }
+//    
+//    public String getValueOf(String key) {
+//        return aliases.get(key);
+//    }
 
     @Override
     public boolean equals(Object other) {
-        return other == this // short circuit if same object
+        return other == this // Short circuit if same object
                 || (other instanceof AliasManager // instanceof handles nulls
-                && this.alias.equals(((AliasManager) other).alias));
-                //&& this.tags.equals(((TaskManager) other).tags));
+                && this.aliases.equals(((AliasManager) other).aliases));
     }
 
     @Override
     public int hashCode() {
-        // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(alias);
+        // Use this method for custom fields hashing instead of implementing your own
+        return Objects.hash(aliases);
     }
 }
