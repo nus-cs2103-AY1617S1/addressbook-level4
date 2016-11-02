@@ -1,6 +1,7 @@
 package guitests;
 
 import static org.junit.Assert.assertTrue;
+import static seedu.todolist.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import org.junit.Test;
 
@@ -41,9 +42,13 @@ public class RedoCommandTest extends ToDoListGuiTest {
         commandBox.runCommand("redo");
         assertResultMessage(RedoCommand.MESSAGE_WITHOUT_PREVIOUS_OPERATION);
         
-        //invalid command
+        //invalid command word
         commandBox.runCommand("redo2");
         assertResultMessage(Messages.MESSAGE_UNKNOWN_COMMAND);
+        
+        //invalid command argument
+        commandBox.runCommand("redo 2");
+        assertResultMessage(String.format(MESSAGE_INVALID_COMMAND_FORMAT, RedoCommand.MESSAGE_USAGE));
     }
     
     private void assertRedoCommandSuccess(TestTaskList expectedList) {

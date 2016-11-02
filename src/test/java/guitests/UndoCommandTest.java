@@ -1,12 +1,12 @@
 package guitests;
 
 import static org.junit.Assert.assertTrue;
+import static seedu.todolist.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import org.junit.Test;
 
 import seedu.task.testutil.TestTask;
 import seedu.task.testutil.TestTaskList;
-import seedu.task.testutil.TestUtil;
 import seedu.todolist.commons.core.Messages;
 import seedu.todolist.logic.commands.UndoCommand;
 
@@ -54,9 +54,13 @@ public class UndoCommandTest extends ToDoListGuiTest {
         currentList = new TestTaskList(td.getTypicalTasks());
         assertUndoCommandSuccess(currentList);
 
-        //invalid command
+        //invalid command word
         commandBox.runCommand("undo2");
         assertResultMessage(Messages.MESSAGE_UNKNOWN_COMMAND);
+        
+        //invalid command argument
+        commandBox.runCommand("undo 2");
+        assertResultMessage(String.format(MESSAGE_INVALID_COMMAND_FORMAT, UndoCommand.MESSAGE_USAGE));
     }
     
     private void assertUndoCommandSuccess(TestTaskList expectedList) {
