@@ -19,7 +19,7 @@ public class UndoCommandTest extends TaskManagerGuiTest {
 
         // undo previous add command
         TestTask[] currentList = td.getTypicalTasks();
-        commandBox.runCommand("add play soccer");
+        commandBox.runCommand("add play soccer from yesterday 10am to yesterday 11am");
         command = "add";
         assertUndoSuccess(command);
 

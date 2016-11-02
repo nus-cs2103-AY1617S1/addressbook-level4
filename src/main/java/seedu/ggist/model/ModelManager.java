@@ -77,6 +77,7 @@ public class ModelManager extends ComponentManager implements Model {
     /**
      * Constructor for Model Manager
      * Sets current date
+     * Raise an event for listing changed to current date
      * @param initialData
      * @param userPrefs
      */
@@ -113,7 +114,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     // @@author A0138411N
-    /** Create a Date object with today's date */
+    /** Creates a Date object with today's date */
     private void setTodayDate() {
         today = LocalDate.now().format(DateTimeFormatter.ofPattern("EEE, dd MMM YY"));
         lastListing = today;
@@ -188,12 +189,11 @@ public class ModelManager extends ComponentManager implements Model {
         return getSortedTaskList();
     }
 
-    @Override
     /**
      * Sorts filtered list based on start date and time
      */
+    @Override
     public UnmodifiableObservableList<ReadOnlyTask> getSortedTaskList() {
-
         sortedTasks = new SortedList<>(filteredTasks, Task.getTaskComparator());
         return new UnmodifiableObservableList<>(sortedTasks);
     }
@@ -403,7 +403,12 @@ public class ModelManager extends ComponentManager implements Model {
         DateQualifier(String taskDateKeyWords) {
             this.taskDateKeyWords = taskDateKeyWords;
         }
-
+        
+        /**
+         * Returns true for tasks matching date and is not done
+         * Returns true for floating tasks
+         * Returns true for overdue tasks
+         */
         @Override
         public boolean run(ReadOnlyTask task) {
             if (taskDateKeyWords == null) {
@@ -432,7 +437,10 @@ public class ModelManager extends ComponentManager implements Model {
         PriorityQualifier(String priority) {
                 this.priority = priority;
         }
-
+        
+        /**
+         * Returns true for tasks matching priority and is not done
+         */
         @Override
         public boolean run(ReadOnlyTask task) {
             if (priority == null) {

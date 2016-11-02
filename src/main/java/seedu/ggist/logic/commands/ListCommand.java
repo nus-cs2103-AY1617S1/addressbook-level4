@@ -27,11 +27,19 @@ public class ListCommand extends Command {
         listing = argument;
     }
     
+    /**
+     * Validates the listing argument
+     * @param String argument
+     * @return true if is valid list argument
+     */
     public static boolean isValidListArgs(String test) {
         return test.matches(LIST_ARGS_VALIDATION);
     }
     
-    
+    /**
+     * Updates filtered task list in Model Manager according to the listing
+     * Post an event to indicate listing changed
+     */
     @Override
     public CommandResult execute() {
         if (listing.equals("all")) {

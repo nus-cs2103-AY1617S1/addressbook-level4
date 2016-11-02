@@ -17,10 +17,7 @@ public interface Logic {
 
     /** Returns the filtered list of tasks */
     ObservableList<ReadOnlyTask> getFilteredTaskList();
-    
-    /** Returns the sorted list of tasks */
-    ObservableList<ReadOnlyTask> getSortedTaskList();
-    
+
     /** Return the last listing of the filtered tasks */
     String getListing();
 

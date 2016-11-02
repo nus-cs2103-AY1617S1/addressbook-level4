@@ -5,12 +5,13 @@ import java.util.Objects;
 import seedu.ggist.commons.core.Messages;
 import seedu.ggist.commons.exceptions.IllegalValueException;
 import seedu.ggist.commons.util.CollectionUtil;
+//@@author A0138411N
 /**
- * Represents a FloatingTask in the address book.
+ * Represents a FloatingTask in the task manager.
  * Guarantees: details are present and not null, field values are validated.
  */
 public class FloatingTask extends Task implements ReadOnlyTask {
-  //@@author A0138411N
+
     /**
      * Every field must be present and not null.
      * @throws IllegalValueException 

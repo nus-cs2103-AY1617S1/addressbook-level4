@@ -1,9 +1,9 @@
 package seedu.ggist.model.task;
 
 import seedu.ggist.commons.exceptions.IllegalValueException;
-
+//@@author A0138411N
 /**
- * Represents a Task's name in the address book.
+ * Represents a Task's name in the task manager.
  * Guarantees: immutable; is valid as declared in {@link #isValidName(String)}
  */
 public class TaskName {
@@ -20,7 +20,7 @@ public class TaskName {
         taskName = taskName.trim();
         this.taskName = taskName;
     }
-    
+ //@@author   
     public void editTaskName(String newTaskName) throws IllegalValueException {
         assert newTaskName != null;
         newTaskName = newTaskName.trim();

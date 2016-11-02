@@ -55,7 +55,13 @@ public class SaveCommand extends Command{
         }
    
     }
-
+    
+    /**
+     * Creates a new file or overwrites existing file with same name
+     * Updates the user config file to the new save file name or location
+     * Post an event to indicate save file has been changed
+     * 
+     */
     @Override
     public CommandResult execute() {
         assert model != null;

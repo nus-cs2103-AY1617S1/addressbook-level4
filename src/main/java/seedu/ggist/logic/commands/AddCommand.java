@@ -25,7 +25,7 @@ public class AddCommand extends Command {
     private Task.TaskType taskType;
 
     /**
-     * Constructor for task with start and end times using raw values.
+     * Adds an event task
      *
      * @throws IllegalValueException if any of the raw values are invalid
      */
@@ -34,8 +34,7 @@ public class AddCommand extends Command {
         if (startTime.equals("")) {
             startTime = Messages.MESSAGE_NO_START_TIME_SET;
         }
-        
-        
+               
         if (endTime.equals("")) {
             endTime = Messages.MESSAGE_NO_END_TIME_SET;
         }
@@ -51,7 +50,7 @@ public class AddCommand extends Command {
     }
     
     /**
-     * Convenience constructor for task with deadline using raw values.
+     * Adds a deadline task
      *
      * @throws IllegalValueException if any of the raw values are invalid
      */
@@ -71,7 +70,7 @@ public class AddCommand extends Command {
     }
     
     /**
-     * Convenience constructor for floating task using raw values.
+     * Adds a floating task
      *
      * @throws IllegalValueException if any of the raw values are invalid
      */
