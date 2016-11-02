@@ -53,8 +53,7 @@ public class UnmarkCommand extends ModelRequiringCommand {
             for(Task taskToUnmark : tasksToUnmark) {
                 if (taskToUnmark.isArchived()){
                     taskToUnmark.setArchived(false);
-                    model.deleteTask(taskToUnmark);
-                    model.addTask(taskToUnmark);
+                    model.modifyTask(taskToUnmark, taskToUnmark);
                     model.updateFilteredListToShowArchived();
                     resultSb.append(String.format(MESSAGE_UNMARK_TASK_SUCCESS, taskToUnmark));
                 } else {

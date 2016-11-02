@@ -53,8 +53,7 @@ public class MarkCommand extends ModelRequiringCommand {
             for(Task taskToMark : tasksToMark) {
                 if (!taskToMark.isArchived()){
                     taskToMark.setArchived(true);
-                    model.deleteTask(taskToMark);
-                    model.addTask(taskToMark);
+                    model.modifyTask(taskToMark, taskToMark);
                     resultSb.append(String.format(MESSAGE_MARK_TASK_SUCCESS, taskToMark));
                 } else {
                     resultSb.append(String.format(MESSAGE_MARK_TASK_FAIL, taskToMark));
