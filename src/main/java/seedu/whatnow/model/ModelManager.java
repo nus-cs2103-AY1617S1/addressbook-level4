@@ -51,7 +51,12 @@ public class ModelManager extends ComponentManager implements Model {
     private static final String TASK_STATUS_INCOMPLETE = "incomplete";
     private static final String DEFAULT_START_TIME = "12:00am";
     private static final String DEFAULT_END_TIME = "11:59pm";
-
+    private static final String TWELVE_HOUR_WITH_MINUTES_COLON_FORMAT = "h:mma";
+    private static final String DATE_NUM_SLASH_WITH_YEAR_FORMAT = "dd/MM/yyyy";
+    private static final String DEFAULT_DATE = "01/01/2001";
+    private static final String DEFAULT_TIME = "12:00am";
+    
+    
     private final WhatNow whatNow;
     private final FilteredList<Task> filteredTasks;
     private FilteredList<Task> filteredSchedules;
@@ -442,7 +447,7 @@ public class ModelManager extends ComponentManager implements Model {
      */
     private void blockDatesInBetween(String start, String end) {
         Calendar cal = Calendar.getInstance();
-        DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+        DateFormat df = new SimpleDateFormat(DATE_NUM_SLASH_WITH_YEAR_FORMAT);
 
         try {
             Date startDate = df.parse(start);
@@ -472,9 +477,8 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     //@@author A0139772U
-    // =========== Filtered Task List Accessors
-    // ===============================================================
-    
+    //=========== Filtered Task List Accessors ===============
+
     @Override
     public UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList() {
         updateFilteredListToShowAllIncomplete();
@@ -546,9 +550,8 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     //@@author A0139772U
-    // =========== Filtered Schedule List Accessors
-    // ===============================================================
-    
+    //=========== Filtered Schedule List Accessors =====================
+
     @Override
     public UnmodifiableObservableList<ReadOnlyTask> getFilteredScheduleList(boolean isUndo) {
         if (!isUndo) {
@@ -566,6 +569,12 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public UnmodifiableObservableList<ReadOnlyTask> getFilteredScheduleList(Set<String> keyword) {
         updateFilteredScheduleList(keyword);
+        return new UnmodifiableObservableList<>(filteredSchedules);
+    }
+    
+    @Override
+    public UnmodifiableObservableList<ReadOnlyTask> getOverdueScheduleList() {
+        updateFilteredScheduleListToShowAllOverdue();
         return new UnmodifiableObservableList<>(filteredSchedules);
     }
 
@@ -616,6 +625,60 @@ public class ModelManager extends ComponentManager implements Model {
                 return false;
             }
         });
+    }
+    
+    @Override
+    public void updateFilteredScheduleListToShowAllOverdue() {
+        DateFormat df = new SimpleDateFormat(DATE_NUM_SLASH_WITH_YEAR_FORMAT);
+        DateFormat tf = new SimpleDateFormat(TWELVE_HOUR_WITH_MINUTES_COLON_FORMAT);
+        Calendar cal = Calendar.getInstance();
+
+
+        FXCollections.sort(filteredSchedules.getSource());
+        filteredSchedules.setPredicate(p -> {
+            try {
+                Date today = df.parse(df.format(cal.getTime()));
+                Date currentTime = tf.parse(tf.format(cal.getTime()));
+                String dateString = getDate(p);
+                String timeString = getTime(p);
+                Date date = df.parse(dateString);
+                Date time = df.parse(timeString);
+                if ((p.getTaskType().equals((TASK_TYPE_NOT_FLOATING)) && (p.getStatus().equals(TASK_STATUS_INCOMPLETE)
+                        && date.before(today)
+                        && time.before(currentTime)))) {
+                    return true;
+                } else {
+                    return false;
+                }
+            } catch (ParseException e) {
+                logger.warning("ParseException at ModelManager's updateFilteredScheduleListToShowAllOver method: \n" 
+                        + e.getMessage());
+                return false;
+            }
+        });
+
+    }
+    
+    private String getDate(Task task) {
+        String newDate = task.getTaskDate();
+        if (newDate == null) {
+            newDate = task.getEndDate();
+        }
+        if (newDate == null) {
+            newDate = DEFAULT_DATE;
+        }
+        return newDate;
+    }
+    
+    private String getTime(Task task) {
+        String newTime = task.getTaskTime();
+        if (newTime == null) {
+            newTime = task.getEndTime();
+        }
+        if (newTime == null) {
+            newTime = DEFAULT_TIME;
+        }
+        return newTime;
     }
 
     private void updateFilteredScheduleList(Expression expression) {

@@ -217,9 +217,19 @@ public interface Model {
     void updateFilteredScheduleListToShowAllByStatus(Set<String> keyword);
 
     /**
-     * Updates the filter of the filtered task list to display all task types
+     * Returns the full filtered task list (all complete, incomplete and overdue tasks)
      */
     UnmodifiableObservableList<ReadOnlyTask> getAllTaskTypeList();
+    
+    /**
+     * Updates the filter of the filtered task list to display all overdue tasks
+     */
+    void updateFilteredScheduleListToShowAllOverdue();
+    
+    /**
+     * Returns the overdue task list
+     */
+    UnmodifiableObservableList<ReadOnlyTask> getOverdueScheduleList();
 
     //@@author A0141021H
     void changeLocation(Path destination, Config config) throws DataConversionException;

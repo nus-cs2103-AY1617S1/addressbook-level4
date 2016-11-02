@@ -48,4 +48,9 @@ public class LogicManager extends ComponentManager implements Logic {
     public ObservableList<ReadOnlyTask> getFilteredScheduleList(boolean isUndo) {
         return model.getFilteredScheduleList(isUndo);
     }
+    
+    @Override
+    public ObservableList<ReadOnlyTask> getOverdueScheduleList() {
+        return model.getOverdueScheduleList();
+    }
 }
