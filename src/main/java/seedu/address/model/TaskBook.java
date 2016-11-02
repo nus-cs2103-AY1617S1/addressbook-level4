@@ -33,7 +33,6 @@ public class TaskBook implements ReadOnlyTaskBook {
     private final UniqueTaskList events;
     private UniqueTaskList deadlines;
     private UniqueTaskList todo;
-    //private UniqueTaskList completed;
     private final UniqueTagList tags;
 
     {
@@ -63,7 +62,7 @@ public class TaskBook implements ReadOnlyTaskBook {
         return new TaskBook();
     }
 
-//// list overwrite operations
+    //// list overwrite operations
 
     public ObservableList<Task> getEvents() {
         return events.getInternalList();
@@ -76,11 +75,11 @@ public class TaskBook implements ReadOnlyTaskBook {
     public ObservableList<Task> getTodo() {
         return todo.getInternalList();
     }
-    
+
     //public ObservableList<Task> getCompleted() {
     //    return completed.getInternalList();
     //}
-    
+
     public void setEvents(List<Task> events) {
         this.events.getInternalList().setAll(events);
     }
@@ -92,7 +91,7 @@ public class TaskBook implements ReadOnlyTaskBook {
     public void setTodo(List<Task> todo) {
         this.todo.getInternalList().setAll(todo);
     }
-    
+
     //public void setCompleted(List<Task> completed) {
     //    this.completed.getInternalList().setAll(completed);
     //}
@@ -107,13 +106,13 @@ public class TaskBook implements ReadOnlyTaskBook {
         setDeadlines(newDeadlines.stream().map(Task::new).collect(Collectors.toList()));
         setTodo(newTodo.stream().map(Task::new).collect(Collectors.toList()));
         setTags(newTags);
-}
+    }
 
     public void resetData(ReadOnlyTaskBook newData) {
         resetData(newData.getEventList(), newData.getDeadlineList(), newData.getTodoList(), newData.getTagList());
     }
 
-//// task-level operations
+    //// task-level operations
 
     /**
      * Adds a task to the address book.
@@ -125,11 +124,11 @@ public class TaskBook implements ReadOnlyTaskBook {
     public void addTask(Task t) throws UniqueTaskList.DuplicateTaskException {
         syncTagsWithMasterList(t);
         if (t.getTaskCategory() == 1)
-        	events.add(t);
+            events.add(t);
         else if (t.getTaskCategory() == 2)
-        	deadlines.add(t);
+            deadlines.add(t);
         else
-        	todo.add(t);
+            todo.add(t);
     }
 
     /**
@@ -154,7 +153,7 @@ public class TaskBook implements ReadOnlyTaskBook {
         }
         task.setTags(new UniqueTagList(commonTagReferences));
     }
-  //@@author A0139430L JingRui
+    //@@author A0139430L JingRui
     public boolean removeTask(ReadOnlyTask key) throws UniqueTaskList.TaskNotFoundException {
         int taskCategory = key.getTaskCategory();
         if(taskCategory == 1){
@@ -179,7 +178,7 @@ public class TaskBook implements ReadOnlyTaskBook {
             }
         }
     }
-    
+
     //@@author A0135722L Zhiyuan
     public boolean completeTask(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException {
         int category = target.getTaskCategory();
@@ -207,38 +206,19 @@ public class TaskBook implements ReadOnlyTaskBook {
     }
 
     public void overdueTask() {
-    	for (Task task: events) {
-    		events.markOverdue(task);
-        	//System.out.println("events:" + task.getOverdue());
-    	}
-    	for (Task task: deadlines) {
-        	deadlines.markOverdue(task);
-        	//System.out.println("deadlines:" + task.getOverdue());	
-    	}
+        for (Task task: events) {
+            events.markOverdue(task);
+            //System.out.println("events:" + task.getOverdue());
+        }
+        for (Task task: deadlines) {
+            deadlines.markOverdue(task);
+            //System.out.println("deadlines:" + task.getOverdue());	
+        }
     }
 
-/*    public boolean removeDeadline(ReadOnlyTask key) throws UniqueTaskList.TaskNotFoundException {
-=======
-    public boolean removeDeadline(ReadOnlyTask key) throws UniqueTaskList.TaskNotFoundException {
->>>>>>> code_cleanup
-        if (deadlines.remove(key)) {
-            return true;
-        } else {
-            throw new UniqueTaskList.TaskNotFoundException();
-        }
-    }
-    
-    public boolean removeTodo(ReadOnlyTask key) throws UniqueTaskList.TaskNotFoundException {
-        if (todo.remove(key)) {
-            return true;
-        } else {
-            throw new UniqueTaskList.TaskNotFoundException();
-        }
-    }*/
-  //@@author A0139430L JingRui
+    //@@author A0139430L JingRui
     public boolean changeTask(ReadOnlyTask target, String args, char category) throws TaskNotFoundException, IllegalValueException {
         // TODO Auto-generated method stub
-        //System.out.println("dummy");
         if(category == 'E'){
             if (events.edit(target, args)) {
                 return true;
@@ -262,27 +242,25 @@ public class TaskBook implements ReadOnlyTaskBook {
         }
         return false;
     }
-  //@@author A0139430L JingRui
+    //@@author A0139430L JingRui
     public boolean changeDeadline(ReadOnlyTask target, String args) throws TaskNotFoundException, IllegalValueException {
         // TODO Auto-generated method stub
-        //System.out.println("dummy");
         if (deadlines.edit(target, args)) {
             return true;
         } else {
             throw new UniqueTaskList.TaskNotFoundException();
         }        
     }
-    
+
     public boolean changeTodo(ReadOnlyTask target, String args) throws TaskNotFoundException, IllegalValueException {
         // TODO Auto-generated method stub
-        //System.out.println("dummy");
         if (todo.edit(target, args)) {
             return true;
         } else {
             throw new UniqueTaskList.TaskNotFoundException();
         }        
     }
-  //@@author A0139430L JingRui
+    //@@author A0139430L JingRui
     public void changeTaskCategory() throws TaskNotFoundException, DuplicateTaskException {
         for (Task task: events) {
             if(task.getTaskCategory()!=1){
@@ -324,14 +302,14 @@ public class TaskBook implements ReadOnlyTaskBook {
             }    
         }
     }
-    
-//// tag-level operations
-  //@@author A0139430L JingRui
+
+    //// tag-level operations
+    //@@author A0139430L JingRui
     public void addTag(Tag t) throws UniqueTagList.DuplicateTagException {
         tags.add(t);
     }
 
-//// util methods
+    //// util methods
 
     @Override
     public String toString() {
@@ -390,8 +368,8 @@ public class TaskBook implements ReadOnlyTaskBook {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof TaskBook // instanceof handles nulls
-                && this.events.equals(((TaskBook) other).events)
-                && this.tags.equals(((TaskBook) other).tags));
+                        && this.events.equals(((TaskBook) other).events)
+                        && this.tags.equals(((TaskBook) other).tags));
     }
 
     @Override

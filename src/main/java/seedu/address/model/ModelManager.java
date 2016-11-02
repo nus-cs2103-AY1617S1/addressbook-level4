@@ -84,41 +84,41 @@ public class ModelManager extends ComponentManager implements Model {
         commandHistory = new ArrayList<String>();
         this.config = config;
     }
-    
+
     //@@author A0147890U
     @Override
     public ArrayList<String> getCommandHistory() {
         return commandHistory;
     }
-    
+
     //@@author A0147890U
     @Override
     public void addToUndoStack() {
         TaskBook taskBookToBeAdded = new TaskBook(taskBook);
         //Config configToBeAdded = new Config(config);
         SaveState saveToBeAdded = new SaveState(taskBookToBeAdded, config);
-        
+
         undoStack.push(saveToBeAdded);
     }
-    
+
     //@@author A0147890U
     @Override
     public Config getConfig() {
         return config;
     }
-    
+
     //@@author A0147890U
     @Override
     public void setConfig(Config config) {
         this.config = config;
     }
-    
+
     //@@author A0147890U
     @Override 
     public Stack<SaveState> getUndoStack() {
         return this.undoStack;
     }
-    
+
     //@@author A0147890U
     @Override
     public Stack<SaveState> getRedoStack() {
@@ -141,24 +141,23 @@ public class ModelManager extends ComponentManager implements Model {
     private void indicateAddressBookChanged() {
         raise(new TaskBookChangedEvent(taskBook));
     }
-    
+
     //@@author A0147890U
     /** Raises an event to indicate task overdue status might have changed */
     private void indicateTaskOverdueChanged() {
         raise(new OverdueChangedEvent());
     }
-    
+
     //@@author A0139430L JingRui
     @Override
     public synchronized void deleteTask(ReadOnlyTask target) throws TaskNotFoundException {
         taskBook.removeTask(target);
         indicateAddressBookChanged();
     }
-    
+
     @Override 
     public synchronized void editTask(ReadOnlyTask target, String args, char category) throws TaskNotFoundException, IllegalValueException {
         taskBook.changeTask(target, args, category);
-        //updateFilteredListToShowAll(); // why was this line commented out?
         updateFilteredListToShowAllUncompleted();
         indicateAddressBookChanged();
     }
@@ -169,27 +168,27 @@ public class ModelManager extends ComponentManager implements Model {
         updateFilteredListToShowAllUncompleted();
         indicateAddressBookChanged();
     }
-    
+
     //@@author A0135722L Zhiyuan
     public synchronized void markDone(ReadOnlyTask target) throws TaskNotFoundException {
         taskBook.completeTask(target);
         updateFilteredListToShowAllUncompleted();
         indicateAddressBookChanged();
     }
-    
+
     //@@author A0138993L
     @Override
     public synchronized void overdueTask() {
-    	final Runnable overdue = new Runnable() {
-    		public void run() {
-    			taskBook.overdueTask();
-    			indicateTaskOverdueChanged();
-    	        indicateAddressBookChanged();
-    		};
-    	};
-    	scheduler.scheduleAtFixedRate(overdue, 0, 1, TimeUnit.SECONDS); 
+        final Runnable overdue = new Runnable() {
+            public void run() {
+                taskBook.overdueTask();
+                indicateTaskOverdueChanged();
+                indicateAddressBookChanged();
+            };
+        };
+        scheduler.scheduleAtFixedRate(overdue, 0, 1, TimeUnit.SECONDS); 
     }
-    
+
     //@@author A0139430L JingRui
     @Override
     public synchronized void changeTaskCategory() {
@@ -201,7 +200,7 @@ public class ModelManager extends ComponentManager implements Model {
         }
         indicateAddressBookChanged();
     }
-    
+
     //=========== Filtered Task List Accessors ===============================================================
 
     @Override
@@ -219,14 +218,14 @@ public class ModelManager extends ComponentManager implements Model {
         System.out.println("yes2");
         return new UnmodifiableObservableList<>(filteredTodos);
     }
-    
+
     @Override
     public void updateFilteredListToShowAll() {
         filteredEvents.setPredicate(null);
         filteredDeadlines.setPredicate(null);
         filteredTodos.setPredicate(null);
     }
-    
+
     //@@author A0147890U
     @Override
     public void updateFilteredListToShowAllCompleted() {
@@ -249,7 +248,7 @@ public class ModelManager extends ComponentManager implements Model {
             return false;
         });
     }
-    
+
     //@@author A0147890U
     @Override 
     public void updateFilteredListToShowAllUncompleted() {
@@ -271,14 +270,14 @@ public class ModelManager extends ComponentManager implements Model {
             }
             return false;
         });
-        
+
     }
 
     @Override
     public void updateFilteredEventList(Set<String> keywords){
         updateFilteredEventList(new PredicateExpression(new NameQualifier(keywords)));
     }
-    
+
     @Override
     public void updateFilteredDeadlineList(Set<String> keywords){
         updateFilteredDeadlineList(new PredicateExpression(new NameQualifier(keywords)));
@@ -288,7 +287,7 @@ public class ModelManager extends ComponentManager implements Model {
     public void updateFilteredTodoList(Set<String> keywords){
         updateFilteredTodoList(new PredicateExpression(new NameQualifier(keywords)));
     }
-    
+
     private void updateFilteredEventList(Expression expression) {
         filteredEvents.setPredicate(expression::satisfies);
     }
@@ -296,11 +295,11 @@ public class ModelManager extends ComponentManager implements Model {
     private void updateFilteredDeadlineList(Expression expression) {
         filteredDeadlines.setPredicate(expression::satisfies);
     }
-    
+
     private void updateFilteredTodoList(Expression expression) {
         filteredTodos.setPredicate(expression::satisfies);
     }
-    
+
     //========== Inner classes/interfaces used for filtering ==================================================
 
     interface Expression {
@@ -333,29 +332,30 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     private class NameQualifier implements Qualifier {
-        private Set<String> nameKeyWords;
+        private Set<String> anyKeyWords;
 
-        NameQualifier(Set<String> nameKeyWords) {
-            this.nameKeyWords = nameKeyWords;
+        NameQualifier(Set<String> anyKeyWords) {
+            this.anyKeyWords = anyKeyWords;
         }
         //@@author A0139430L JingRui
         @Override
         public boolean run(ReadOnlyTask Task) {
-            return nameKeyWords.stream()
+
+            return anyKeyWords.stream()
                     .filter(keyword -> StringUtil.containsIgnoreCase(Task.getName().taskDetails.toLowerCase(), keyword)
-                    || StringUtil.containsIgnoreCase(Task.getDate().value, keyword)
-                    || StringUtil.containsIgnoreCase(Task.getStart().value, keyword)
-                    || StringUtil.containsIgnoreCase(Task.getEnd().value, keyword)
-                    || StringUtil.containsIgnoreCase(Task.getTags().toString(), keyword))
+                            || StringUtil.containsIgnoreCase(Task.getDate().value, keyword)
+                            || StringUtil.containsIgnoreCase(Task.getStart().value, keyword)
+                            || StringUtil.containsIgnoreCase(Task.getEnd().value, keyword)
+                            || StringUtil.containsIgnoreCase(Task.getTags().toString(), keyword))
                     .findAny()
                     .isPresent();
         }
 
         @Override
         public String toString() {
-            return "name=" + String.join(", ", nameKeyWords);
+            return "name=" + String.join(", ", anyKeyWords);
         }
     }
-    
+
 
 }

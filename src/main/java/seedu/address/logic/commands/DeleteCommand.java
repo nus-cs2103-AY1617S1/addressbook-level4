@@ -22,9 +22,9 @@ public class DeleteCommand extends Command {
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " T1"
             + "      "
-    		+ "Example: " + COMMAND_WORD + " T1, E2, D3"
-    		+ "      "
-    		+ "Example: " + COMMAND_WORD + " T1-T10";
+            + "Example: " + COMMAND_WORD + " T1, E2, D3"
+            + "      "
+            + "Example: " + COMMAND_WORD + " T1-T10";
 
     public static final String MESSAGE_DELETE_TASK_SUCCESS = "Deleted task: %1$s";
 
@@ -66,7 +66,7 @@ public class DeleteCommand extends Command {
         UnmodifiableObservableList<ReadOnlyTask> lastShownEventList = model.getFilteredEventList();
         UnmodifiableObservableList<ReadOnlyTask> lastShownDeadlineList = model.getFilteredDeadlineList();
         UnmodifiableObservableList<ReadOnlyTask> lastShownTodoList = model.getFilteredTodoList();
-        
+
         if(targetIndexesE.size()>0){
             Collections.sort(targetIndexesE);
             Collections.reverse(targetIndexesE);
@@ -80,7 +80,6 @@ public class DeleteCommand extends Command {
                 }
                 ReadOnlyTask taskToDelete = lastShownEventList.get(idx-1);             
                 try {
-                    //model.addToUndoStack();
                     model.deleteTask(taskToDelete);
                 } catch (TaskNotFoundException e) {
                     model.getUndoStack().pop();
@@ -103,7 +102,6 @@ public class DeleteCommand extends Command {
                 }
                 ReadOnlyTask taskToDelete = lastShownDeadlineList.get(idx-1);             
                 try {
-                    //model.addToUndoStack();
                     model.deleteTask(taskToDelete);
                 } catch (TaskNotFoundException e) {
                     model.getUndoStack().pop();
@@ -112,7 +110,7 @@ public class DeleteCommand extends Command {
                 }
             }
         }
-        
+
         if(targetIndexesT.size()>0){
             Collections.sort(targetIndexesT);
             Collections.reverse(targetIndexesT);
@@ -126,7 +124,6 @@ public class DeleteCommand extends Command {
                 }
                 ReadOnlyTask taskToDelete = lastShownTodoList.get(idx-1);       
                 try {
-                    //model.addToUndoStack();
                     model.deleteTask(taskToDelete);
                 } catch (TaskNotFoundException e) {
                     model.getUndoStack().pop();
@@ -136,7 +133,6 @@ public class DeleteCommand extends Command {
             }
         }
         return new CommandResult(String.format(MESSAGE_DELETE_TASK_SUCCESS, pass));
-
     }
 
 }
