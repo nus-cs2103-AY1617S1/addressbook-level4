@@ -88,11 +88,14 @@ public class StorageManager extends ComponentManager implements Storage {
         }
     }
     
+    //@@author A0139528W
+    @Override
     @Subscribe
     public void handleStorageDataChangedEvent(StorageDataPathChangedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event, "Saving task.xml in a new location."));
         
         this.addressBookStorage = new XmlTaskBookStorage(event.newDataPath);
     }
+    //@@author
 
 }

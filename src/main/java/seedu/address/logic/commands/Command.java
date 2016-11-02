@@ -45,10 +45,12 @@ public abstract class Command {
         EventsCenter.getInstance().post(new IncorrectCommandAttemptedEvent(this));
     }
     
+    //@@author A0139528W
     /**
      * Raises an event to indicate an attempt to execute an incorrect command
      */
     protected void indicateStorageDataPathChangeCommand(String newDataPath) {
         EventsCenter.getInstance().post(new StorageDataPathChangedEvent(newDataPath));
     }
+    //@@author
 }

@@ -1,7 +1,9 @@
 package seedu.address.storage;
 
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.TaskBookChangedEvent;
 import seedu.address.commons.events.storage.DataSavingExceptionEvent;
+import seedu.address.commons.events.storage.StorageDataPathChangedEvent;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.ReadOnlyTaskBook;
 import seedu.address.model.UserPrefs;
@@ -35,4 +37,11 @@ public interface Storage extends TaskBookStorage, UserPrefsStorage {
      * Raises {@link DataSavingExceptionEvent} if there was an error during saving.
      */
     void handleAddressBookChangedEvent(TaskBookChangedEvent abce);
+    
+    //@@author A0139528W
+    /**
+     * Saves the new path of TaskBook to the hard disk
+     */
+    void handleStorageDataChangedEvent(StorageDataPathChangedEvent sdce);
+    //@@author
 }
