@@ -44,8 +44,8 @@ public class UpdateCommand extends UndoableCommand {
         for (String tagName : tagsToAdd) {
             tagSet.add(new Tag(tagName));
         }
-        this.newOpenTime = new DateTime(openTime);
-        this.newCloseTime = new DateTime(closeTime);
+        this.newOpenTime = DateTime.fromUserInput(openTime);
+        this.newCloseTime = DateTime.fromUserInput(closeTime);
         
         this.newTaskTags = new UniqueTagList(tagSet);
         this.removedTags = tagsToRemove;
@@ -90,8 +90,7 @@ public class UpdateCommand extends UndoableCommand {
                     updatedCloseTime,
                     taskToUpdate.getImportance(),
                     taskToUpdate.getComplete(),
-                    newTaskTags,
-                    taskToUpdate.getRecurrentWeek()
+                    newTaskTags
             );
         } catch (IllegalValueException e1) {
             return new CommandResult(false, e1.getMessage()); 

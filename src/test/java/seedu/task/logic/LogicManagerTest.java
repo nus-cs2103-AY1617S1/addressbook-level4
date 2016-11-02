@@ -401,8 +401,7 @@ public class LogicManagerTest {
 
             boolean isImportant = false;
             boolean isComplete = false;
-            int recurrenceWeek=0;
-            return new Task(name, new DateTime(null), new DateTime(null), isImportant, isComplete, tags, recurrenceWeek);
+            return new Task(name, new DateTime(null), new DateTime(null), isImportant, isComplete, tags);
         }
 
         /**
@@ -415,12 +414,11 @@ public class LogicManagerTest {
         Task generateTask(int seed) throws Exception {
             return new Task(
                     new Name("Task " + seed),
-                    new DateTime("" + Math.abs(seed)+" days from now"),
-                    new DateTime(""),
+                    DateTime.fromUserInput("" + Math.abs(seed)+" days from now"),
+                    DateTime.fromUserInput(""),
                     false,
                     false,
-                    new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1))),
-                    0
+                    new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1)))
             );
         }
 
@@ -514,12 +512,11 @@ public class LogicManagerTest {
         Task generateTaskWithName(String name) throws Exception {
             return new Task(
                     new Name(name),
-                    new DateTime("tomorrow"),
-                    new DateTime("day after tomorrow"),
+                    DateTime.fromUserInput("tomorrow"),
+                    DateTime.fromUserInput("day after tomorrow"),
                     false,
                     false,
-                    new UniqueTagList(new Tag("tag")),
-                    0
+                    new UniqueTagList(new Tag("tag"))
             );
         }
     }

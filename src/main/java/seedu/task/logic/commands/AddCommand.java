@@ -1,6 +1,7 @@
 //@@author A0144939R
 package seedu.task.logic.commands;
 
+import java.time.temporal.ChronoUnit;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -30,7 +31,9 @@ public class AddCommand extends UndoableCommand {
     public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the task list";
     public static final String MESSAGE_WRONG_NUMBER_OF_RECURRENCE = "Maximum number of recurrence is 20!";
     public static final String MESSAGE_NEGATIVE_NUMBER_OF_RECURRENCE = "The number recurrence should be positive!";
+    
     private final Task toAdd;
+    private final int amountRecurring;
     
 
     /**
@@ -45,67 +48,62 @@ public class AddCommand extends UndoableCommand {
             tagSet.add(new Tag(tagName));
         }
         
+        this.amountRecurring = recurrence;
+        
         this.toAdd = new Task(
                 new Name(name),
-                new DateTime(openTime),
-                new DateTime(closeTime),
+                DateTime.fromUserInput(openTime),
+                DateTime.fromUserInput(closeTime),
                 false,
                 false,
-                new UniqueTagList(tagSet),
-                recurrence           
-             );
+                new UniqueTagList(tagSet)
+                );
     }
 
-  //@@author A0153467Y
+    //@@author A0153467Y
     @Override
     public CommandResult execute() {
         assert model != null;
+        
+        if (this.amountRecurring > MAX_NUMBER_OF_RECURRENCE_WEEK) {
+            return new CommandResult(false, MESSAGE_WRONG_NUMBER_OF_RECURRENCE);
+        } else if (this.amountRecurring < 0) {
+            return new CommandResult(false, MESSAGE_NEGATIVE_NUMBER_OF_RECURRENCE);
+        }
+        
         try {
-
-            if (toAdd.getRecurrentWeek() > MAX_NUMBER_OF_RECURRENCE_WEEK) {
-                return new CommandResult(false, MESSAGE_WRONG_NUMBER_OF_RECURRENCE);
-            }
-            
-            if(toAdd.getRecurrentWeek() < 0) {
-                return new CommandResult(false, MESSAGE_NEGATIVE_NUMBER_OF_RECURRENCE);
-            }
-
-            if (toAdd.getRecurrentWeek() == 0) {
-                model.addTask(toAdd);
-                return new CommandResult(true, String.format(MESSAGE_SUCCESS, toAdd));
-            } else {
-                model.addTask(toAdd);
-                createRecurringTask(toAdd.getRecurrentWeek());
-            }
+            createRecurringTask(this.amountRecurring + 1);
         } catch (UniqueTaskList.DuplicateTaskException e) {
             return new CommandResult(false, MESSAGE_DUPLICATE_TASK);
+        } catch (IllegalValueException e) {
+            assert false : "Not possible!";
         }
         return new CommandResult(true, String.format(MESSAGE_SUCCESS, toAdd));
     }
     
-    //@@author A0153467Y
-    private void createRecurringTask(int recurringTime) {
-        try{
-            for(int i=1;i<=recurringTime;i++) {
-            Task recurrTask=new Task(
-                toAdd.getName(),
-                new DateTime(toAdd.getOpenTime().getDateTimeValue().get().plusSeconds(604800*i).toString()),
-                new DateTime(toAdd.getCloseTime().getDateTimeValue().get().plusSeconds(604800*i).toString()),
-                false,
-                false,
-                toAdd.getTags(),
-                0
-             );
-                model.addTask(recurrTask);
-            }
-        } catch (IllegalValueException e) {
-            assert false : "Impossible";
+    //@@author A0141052Y
+    /**
+     * Creates a set number of Tasks, with distance between two adjacent tasks being 1 week, and adds it to the
+     * TaskList.
+     * @param timesToRecur number of weeks to recur the Task for
+     * @throws IllegalValueException if there's a duplicate task or if 
+     */
+    private void createRecurringTask(int timesToRecur) throws IllegalValueException {
+        for (int i = 0; i < timesToRecur; i++) {
+            DateTime newOpenTime = DateTime.fromDateTimeOffset(toAdd.getOpenTime(), i * 7, ChronoUnit.DAYS);
+            DateTime newCloseTime = DateTime.fromDateTimeOffset(toAdd.getCloseTime(), i * 7, ChronoUnit.DAYS);
+            Task newTask = new Task(
+                        toAdd.getName(),
+                        newOpenTime,
+                        newCloseTime,
+                        false,
+                        false,
+                        toAdd.getTags());
+            model.addTask(newTask);
         }
     }
-    
-    
-    
-//@author    
+    //@author   
+
     @Override
     public CommandResult rollback() {
         assert model != null;
