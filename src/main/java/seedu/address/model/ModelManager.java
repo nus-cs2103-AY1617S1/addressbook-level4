@@ -35,6 +35,7 @@ public class ModelManager extends ComponentManager implements Model {
     private final FilteredList<Task> filteredDatedTasks;
     private final FilteredList<Task> filteredUndatedTasks;
     private UndoList undoableTasks;
+    private UndoList redoableTasks;
 
     /**
      * Initializes a ModelManager with the given TaskBook
@@ -51,6 +52,7 @@ public class ModelManager extends ComponentManager implements Model {
         filteredDatedTasks = new FilteredList<>(taskBook.getDatedTasks());
         filteredUndatedTasks = new FilteredList<>(taskBook.getUndatedTasks());
         undoableTasks = new UndoList();
+        redoableTasks = new UndoList();
     }
 
     public ModelManager() {
@@ -62,6 +64,7 @@ public class ModelManager extends ComponentManager implements Model {
         filteredDatedTasks = new FilteredList<>(taskBook.getDatedTasks());
         filteredUndatedTasks = new FilteredList<>(taskBook.getUndatedTasks());
         undoableTasks = new UndoList();
+        redoableTasks = new UndoList();
     }
 
     //@@author A0139024M 
@@ -72,7 +75,7 @@ public class ModelManager extends ComponentManager implements Model {
         checkDatedTaskStatus(taskBook.getUniqueDatedTaskList(), getCurrentTime(), DateTimeFormatter.ofPattern("dd-MMM-yyyy HH:mm"));
         checkUndatedTaskStatus(taskBook.getUniqueUndatedTaskList());
     }
-    
+
     /**
      * Get the current time of the local machine
      * @return
@@ -80,7 +83,7 @@ public class ModelManager extends ComponentManager implements Model {
     private LocalDateTime getCurrentTime() {
         return LocalDateTime.now();
     }
-    
+
     /**
      * Update the status of all Undated/Floating Tasks in application
      * @param floating
@@ -94,7 +97,7 @@ public class ModelManager extends ComponentManager implements Model {
             }
         }
     }
-    
+
     /**
      * Update the status of all Dated Tasks in application
      * @param tasks
@@ -114,7 +117,7 @@ public class ModelManager extends ComponentManager implements Model {
             }
         }
     }
-    
+
     /**
      * Updated the status of all Event Tasks in application
      * @param currentTime
@@ -139,7 +142,7 @@ public class ModelManager extends ComponentManager implements Model {
             }
         }
     }
-    
+
     /**
      * Get the End Time of Event in String Format
      * @param target
@@ -148,7 +151,7 @@ public class ModelManager extends ComponentManager implements Model {
     private String getEventEndTimeInStringFormat(Task target) {
         return target.getDatetime().toString().substring(21);
     }
-    
+
     /**
      * Updated the status of all Deadline tasks in application
      * @param currentTime
@@ -173,7 +176,7 @@ public class ModelManager extends ComponentManager implements Model {
         }
     }
     //@@author
-    
+
     @Override
     public void resetData(ReadOnlyTaskBook newData) {
         taskBook.resetData(newData);
@@ -232,7 +235,7 @@ public class ModelManager extends ComponentManager implements Model {
         return result;
     }
     //@@author
-    
+
     //@@author A0139145E
     @Override
     public synchronized void completeTask(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException {
@@ -240,7 +243,7 @@ public class ModelManager extends ComponentManager implements Model {
         updateFilteredListToShowAll();
         indicateTaskBookChanged();
     }
-    
+
     @Override
     public synchronized void uncompleteTask(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException {
         taskBook.uncompleteTask(target);
@@ -250,7 +253,17 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public synchronized UndoTask undoTask() {
-        return undoableTasks.removeFromFront();
+        return undoableTasks.retrieve();
+    }
+
+    @Override
+    public synchronized UndoTask redoTask() {
+        return redoableTasks.retrieve();
+    }
+    
+    @Override
+    public synchronized void clearRedo(){
+        redoableTasks = new UndoList();
     }
 
     @Override
@@ -262,15 +275,30 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public void addUndo(String command, ReadOnlyTask postData) {
-        undoableTasks.addToFront(command, postData, null);
+        undoableTasks.add(command, postData, null);
     }
 
     @Override
     public void addUndo(String command, ReadOnlyTask postData, ReadOnlyTask preData) {
-        undoableTasks.addToFront(command, postData, preData);
+        undoableTasks.add(command, postData, preData);
     }
-    //@@author 
     
+    @Override
+    public void addUndo(UndoTask target) {
+        addUndo(target.getCommand(), target.getPostData(), target.getPreData());
+    }
+
+    @Override
+    public void addRedo(UndoTask target) {
+        addRedo(target.getCommand(), target.getPostData(), target.getPreData());
+    }
+
+    private void addRedo(String command, ReadOnlyTask postData, ReadOnlyTask preData) {
+        redoableTasks.add(command, postData, preData);
+    }
+
+    //@@author 
+
     //=========== Filtered Task List Accessors =============================================================== 
 
     @Override
@@ -293,10 +321,10 @@ public class ModelManager extends ComponentManager implements Model {
     // called by ViewCommand
     @Override 
     public void updateFilteredTaskListByDate(Date date){
-    	filteredDatedTasks.setPredicate((new PredicateExpression(new DateQualifier(date)))::satisfies);
-    	raise(new UpdateListCountEvent(this));
+        filteredDatedTasks.setPredicate((new PredicateExpression(new DateQualifier(date)))::satisfies);
+        raise(new UpdateListCountEvent(this));
     }
-    
+
     // called by FindCommand
     @Override
     public void updateFilteredTaskListByKeywords(Set<String> keywords){
@@ -357,7 +385,7 @@ public class ModelManager extends ComponentManager implements Model {
         TaskQualifier(Set<String> taskKeyWords) {
             this.taskKeyWords = taskKeyWords;
         }
-       
+
         @Override
         public boolean run(ReadOnlyTask task) {
             return (taskKeyWords.stream()
@@ -384,7 +412,7 @@ public class ModelManager extends ComponentManager implements Model {
         }
     }
     //@@author 
-    
+
     //@@author A0139145E
     private class StatusQualifier implements Qualifier {
         private ArrayList<Status> statusList;
@@ -412,7 +440,7 @@ public class ModelManager extends ComponentManager implements Model {
         }
     }
     //@@author
-    
+
     //@@author A0143884W
     private class DateQualifier implements Qualifier {
         private Date inputDate;
@@ -423,36 +451,36 @@ public class ModelManager extends ComponentManager implements Model {
 
         @Override
         public boolean run(ReadOnlyTask task) {
-        	
-        	Datetime taskDate = task.getDatetime();
-        	Date startDate = taskDate.getStart();
-        	Date endDate = taskDate.getEnd();
-        	
-        	// check deadline and event start date
-        	if (sameDate(startDate)){
-        		return true;
-        	}
-        	// check event end date but make sure deadlines are excluded
-        	else if (endDate != null && sameDate(endDate)){
-        		return true;
-        	}
-        	// check event dates between start date and end date but make sure deadlines are excluded
-        	else if (endDate != null && inputDate.after(startDate) && inputDate.before(endDate)){
-        		return true;
-        	}
-        	else {
-        		return false;
-        	}
+
+            Datetime taskDate = task.getDatetime();
+            Date startDate = taskDate.getStart();
+            Date endDate = taskDate.getEnd();
+
+            // check deadline and event start date
+            if (sameDate(startDate)){
+                return true;
+            }
+            // check event end date but make sure deadlines are excluded
+            else if (endDate != null && sameDate(endDate)){
+                return true;
+            }
+            // check event dates between start date and end date but make sure deadlines are excluded
+            else if (endDate != null && inputDate.after(startDate) && inputDate.before(endDate)){
+                return true;
+            }
+            else {
+                return false;
+            }
         }
 
         @Override
         public String toString() {
             return "date=" + inputDate.toString();
         }
-        
+
         private boolean sameDate(Date other){
-        	return inputDate.getDate() == other.getDate() && inputDate.getMonth() == other.getMonth() 
-        			&& inputDate.getYear() == other.getYear();
+            return inputDate.getDate() == other.getDate() && inputDate.getMonth() == other.getMonth() 
+                    && inputDate.getYear() == other.getYear();
         }
     }
     //@@author

@@ -18,17 +18,21 @@ public class UndoCommand extends Command {
 
     public static final String MESSAGE_UNDO_NOT_POSSIBLE = "There are no actions available for undo";
 
+    private UndoTask toUndo;
+    
     public UndoCommand() {}
 
     @Override
     public CommandResult execute() {
         assert model != null;
-        UndoTask toUndo = model.undoTask();
+        toUndo = model.undoTask();
 
         //No undoable action found.
         if (toUndo == null) { 
             return new CommandResult(MESSAGE_UNDO_NOT_POSSIBLE);
         }
+
+        boolean duplicateTaskResult = false;
 
         try {
             switch (toUndo.getCommand()){
@@ -38,12 +42,12 @@ public class UndoCommand extends Command {
                 break;
 
             case DeleteCommand.COMMAND_WORD:
-                model.addTask(toUndo.getPostData());
+                duplicateTaskResult = model.addTask(toUndo.getPostData());
                 break;
 
             case EditCommand.COMMAND_WORD:
-                model.addTask(toUndo.getPreData());
                 model.deleteTask(toUndo.getPostData());               
+                duplicateTaskResult = model.addTask(toUndo.getPreData());
                 break;
 
             case DoneCommand.COMMAND_WORD:
@@ -51,13 +55,24 @@ public class UndoCommand extends Command {
                 break;
 
             }
-            return new CommandResult(String.format(MESSAGE_SUCCESS, toUndo.getCommand()));
+
+            //Add into redo stack
+            model.addRedo(toUndo);
+            
+            //Determine if duplicate exist
+            if (duplicateTaskResult){
+                return new CommandResult(String.format(MESSAGE_SUCCESS, toUndo.getCommand() 
+                        + "\n" + AddCommand.MESSAGE_DUPLICATE_TASK));
+            }
+            else {
+                return new CommandResult(String.format(MESSAGE_SUCCESS, toUndo.getCommand()));
+            }
         }
         catch (UniqueTaskList.TaskNotFoundException tnfe){
             assert false : "Task not found not possible";
-            return new CommandResult(MESSAGE_UNDO_NOT_POSSIBLE);
+        return new CommandResult(MESSAGE_UNDO_NOT_POSSIBLE);
         }
-        
+
     }
 }
 //@@author

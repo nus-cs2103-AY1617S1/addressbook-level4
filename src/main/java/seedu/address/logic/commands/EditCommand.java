@@ -139,6 +139,7 @@ public class EditCommand extends Command implements Undoable{
         assert toAdd != null;
         assert toEdit != null;
         model.addUndo(COMMAND_WORD, toAdd, toEdit);
+        model.clearRedo();
     } 
 
 }
