@@ -12,6 +12,8 @@ public interface ReadOnlyActivity {
 
     Name getName();
     Reminder getReminder();
+    
+    boolean hasReminderPassed();
 
     String toStringCompletionStatus();
     

@@ -9,6 +9,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
 <!-- @@author A0125097A -->
 
@@ -36,18 +37,24 @@
                                     <Label fx:id="id" styleClass="cell_big_label" />
                                     <Label fx:id="name" styleClass="cell_big_label" text="\$first" />
                                 </HBox>
-                                <Label fx:id="tags" styleClass="cell_small_label" text="\$tags" />
                             </children>
                         </HBox>
-                        <Label fx:id="line1" styleClass="cell_small_label" text="\$line1" />
-                        <Label fx:id="line2" styleClass="cell_small_label" text="\$line2" />
+                          <Label fx:id="tags" style="-fx-font-size: 13;" styleClass="cell_small_label" text="\$tags" />
+                        <Label fx:id="line1" style="-fx-font-size: 13;" styleClass="cell_small_label" text="\$line1" />
                         <Label fx:id="reminder" styleClass="cell_small_label" text="\$reminder" />
-                        <Label fx:id="completion" styleClass="cell_small_label" text="\$completion" />
                     </children>
                 </VBox>
-            <ImageView fx:id="priorityIcon" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1">
+                  <Label fx:id="completion" text="\\$completion" textAlignment="CENTER" wrapText="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="TOP">
+               <font>
+                  <Font name="Segoe UI Black" size="13.0" />
+               </font>
                <GridPane.margin>
-                  <Insets left="34.0" top="15.0" />
+                  <Insets top="15.0" />
+               </GridPane.margin>
+            </Label>
+            <ImageView fx:id="priorityIcon" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER">
+               <GridPane.margin>
+                  <Insets top="40.0" />
                </GridPane.margin>
             </ImageView>
             </children>

@@ -59,7 +59,7 @@ public class XmlSerializableAddressBook implements ReadOnlyLifeKeeper {
         UniqueActivityList lists = new UniqueActivityList();
         for (XmlAdaptedActivity p : activities) {
             try {
-                lists.add(p.toModelType());
+                lists.addToEnd(p.toModelType());
             } catch (IllegalValueException e) {
                 //TODO: better error handling
             }

@@ -77,6 +77,11 @@ public class TestEvent extends TestActivity implements ReadOnlyEvent {
             return ""; 
 	}
 	
+	@Override
+    public String displayTiming() {
+        return "From " + startTime.toString() + " to " + endTime.toString();
+    }
+	
     //methods specific to TestEvent
     
     public String getAddCommand() {

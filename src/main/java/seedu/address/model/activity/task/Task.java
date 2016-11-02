@@ -15,7 +15,6 @@ public class Task extends Activity implements ReadOnlyTask {
 
     private DueDate duedate;
     private Priority priority;
-    private boolean isCompleted;
     
     private static int DAYS_WARNING = -3;
     
@@ -36,6 +35,7 @@ public class Task extends Activity implements ReadOnlyTask {
      */
     public Task(ReadOnlyTask source) {
         this(source.getName(), source.getDueDate(), source.getPriority(), source.getReminder(), source.getTags());
+        this.isCompleted =  source.getCompletionStatus();
     }
     
     @Override
@@ -56,8 +56,6 @@ public class Task extends Activity implements ReadOnlyTask {
         this.priority = priority;
     }
 
-
-
     @Override
     public boolean getCompletionStatus() {
         return isCompleted;
@@ -74,7 +72,7 @@ public class Task extends Activity implements ReadOnlyTask {
         } else if (!isCompleted && this.isDueDateApproaching()) {
             return "Task Deadline Approaching";
         } else if(!isCompleted && this.hasPassedDueDate()){
-            return "Task Overdue!";
+            return "Task\nOverdue!";
         }
         
         return "";  
@@ -108,8 +106,7 @@ public class Task extends Activity implements ReadOnlyTask {
         if(duedate.getCalendarValue() == null) {
         	return false;        	
         } else {
-            Date now = Calendar.getInstance().getTime();
-            return duedate.getCalendarValue().getTime().before(now);       
+            return duedate.isBeforeNow();     
         }
     }
 

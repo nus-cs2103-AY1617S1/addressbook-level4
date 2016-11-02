@@ -17,6 +17,8 @@ public interface ReadOnlyEvent extends ReadOnlyActivity {
 
     String toStringCompletionStatus();
     
+    String displayTiming();
+    
     /**
      * Returns true if both have the same state. (interfaces cannot override .equals)
      */

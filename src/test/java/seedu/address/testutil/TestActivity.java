@@ -75,6 +75,11 @@ public class TestActivity implements ReadOnlyActivity {
         return tags;
     }
     
+    @Override
+    public boolean hasReminderPassed() {
+        return reminder.isBeforeNow();
+    }
+    
     public void addTags(Tag tag) throws DuplicateTagException {
         if(tags != null){
         	tags.add(tag);

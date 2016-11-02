@@ -151,6 +151,8 @@ public class Parser {
     
     /**
      * Extracts the new task's element (e.g. DueDate, Priority) from the add command's argument string.
+     *
+     * @return task element without trailing or ending whitespaces
      */
     private static String getElement(String argument, String prefix) {
         // no priority
@@ -159,7 +161,8 @@ public class Parser {
         }
         // replace first delimiter prefix, then return
         String priorityValue = argument.replaceFirst(prefix, "");
-        return priorityValue;
+        // remove white spaces contained in elements entered
+        return priorityValue.trim();
     }   
     
     /**
