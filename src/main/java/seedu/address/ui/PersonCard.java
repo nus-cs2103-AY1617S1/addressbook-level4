@@ -43,7 +43,7 @@ public class PersonCard extends UiPart{
 
     }
 
-    
+
     //@@author A0139024M
     @FXML
     public void initialize() {
@@ -60,9 +60,8 @@ public class PersonCard extends UiPart{
         time.setWrapText(true);
         tags.setText(task.tagsString());
         tags.setWrapText(true);
-        setStyleToIndicateOverdueTask(task);
+        setStyleBaseOnStatus(task);
     }
-    //@@author
 
     public HBox getLayout() {
         return cardPane;
@@ -78,50 +77,34 @@ public class PersonCard extends UiPart{
         return FXML;
     }
 
-    //@@author
     /**
      * Sets the command box style to indicate an overdue,completed or no status tasks.
      * @param task
      */
-    private void setStyleToIndicateOverdueTask(ReadOnlyTask task) {
-        String status = task.getStatus().toString();
-        if(status.equals("OVERDUE")){
-            cardPane.setStyle("-fx-border-color: #202020 #202020 red red");
-            name.setStyle("-fx-text-fill: #888888");
-            id.setStyle("-fx-text-fill: #888888");
-            description.setStyle("-fx-text-fill: #888888");
-            date.setStyle("-fx-text-fill: #888888");
-            time.setStyle("-fx-text-fill: #888888");
-            tags.setStyle("-fx-text-fill: ##00CC0");
-        }
-        else if(status.equals("DONE")){
-            cardPane.setStyle("-fx-border-color: #202020 #202020 blue blue");
-            name.setStyle("-fx-text-fill: #888888");
-            id.setStyle("-fx-text-fill: #888888");
-            description.setStyle("-fx-text-fill: #888888");
-            date.setStyle("-fx-text-fill: #888888");
-            time.setStyle("-fx-text-fill: #888888");
-            tags.setStyle("-fx-text-fill: ##00CC0");
-        }
-        else if(status.equals("NONE")){
-            cardPane.setStyle("-fx-border-color: #202020 #202020 #F0F0F0 #F0F0F0");
-            name.setStyle("-fx-text-fill: #888888");
-            id.setStyle("-fx-text-fill: #888888");
-            description.setStyle("-fx-text-fill: #888888");
-            date.setStyle("-fx-text-fill: #888888");
-            time.setStyle("-fx-text-fill: #888888");
-            tags.setStyle("-fx-text-fill: ##00CC0");
-        }
-        else if(status.equals("EXPIRE")){
-            cardPane.setStyle("-fx-border-color: #202020 #202020 magenta magenta");
-            name.setStyle("-fx-text-fill: #888888");
-            id.setStyle("-fx-text-fill: #888888");
-            description.setStyle("-fx-text-fill: #888888");
-            date.setStyle("-fx-text-fill: #888888");
-            time.setStyle("-fx-text-fill: #888888");
-            tags.setStyle("-fx-text-fill: ##00CC0");
-        }
-
+    private void setStyleBaseOnStatus(ReadOnlyTask task) {
+        setDefaultStyle();
+        setBorderColourBaseOnStatus(task.getStatus().toString());
     }
-    //@@author
+
+    private void setBorderColourBaseOnStatus(String status) {
+        switch (status) {
+            case "OVERDUE":  cardPane.setStyle("-fx-border-color: #202020 #202020 red red");
+            break;
+            case "DONE":  cardPane.setStyle("-fx-border-color: #202020 #202020 blue blue");
+            break;
+            case "EXPIRE" : cardPane.setStyle("-fx-border-color: #202020 #202020 magenta magenta");
+            break;
+            default: cardPane.setStyle("-fx-border-color: #202020 #202020 #F0F0F0 #F0F0F0");
+            break;
+        }
+    }
+
+    private void setDefaultStyle() {
+        name.setStyle("-fx-text-fill: #888888");
+        id.setStyle("-fx-text-fill: #888888");
+        description.setStyle("-fx-text-fill: #888888");
+        date.setStyle("-fx-text-fill: #888888");
+        time.setStyle("-fx-text-fill: #888888");
+        tags.setStyle("-fx-text-fill: #00CC0");
+    }
 }
