@@ -89,7 +89,7 @@ public class SetStorageCommandTest extends TaskManagerGuiTest {
     	
     	//Invalid folder file path
     	
-    	folderFilePath = "<>:\"/\\|?\\u0000*";
+    	folderFilePath = testFolder.getRoot().getPath().concat("<>#%:\"/\\|?\\u0000\\0\\000*");
     	fileName = "taskmanagerdatainfo";
     	
     	runSetStorageCommand(folderFilePath, fileName);
