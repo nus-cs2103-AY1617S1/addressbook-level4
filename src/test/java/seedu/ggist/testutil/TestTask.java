@@ -196,19 +196,6 @@ public class TestTask implements ReadOnlyTask {
     }
 
     @Override
-    public void checkTimeClash() throws IllegalValueException {
-        Date currentDate  = new Date();
-        if (end.before(currentDate) && done == false) {
-            overdue = true;
-        } else if (!end.before(currentDate)) {
-            overdue = false;
-        }
-        if(end.before(start)) {
-            throw new IllegalValueException("End cannot be earlier than start!");
-        }      
-    }
-
-    @Override
     public void constructStartDateTime(TaskDate date, TaskTime time) throws IllegalValueException {
         // TODO Auto-generated method stub
         
@@ -218,6 +205,24 @@ public class TestTask implements ReadOnlyTask {
     public void constructEndDateTime(TaskDate date, TaskTime time) throws IllegalValueException {
         // TODO Auto-generated method stub
         
+    }
+
+    @Override
+    public void checkTimeOverdue() throws IllegalValueException {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public boolean hasNoEndDate() {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    @Override
+    public boolean hasNoStartDate() {
+        // TODO Auto-generated method stub
+        return false;
     }
 
 

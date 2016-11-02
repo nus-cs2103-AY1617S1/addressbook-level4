@@ -35,19 +35,25 @@ public class DoneCommand extends Command {
     public CommandResult execute() {
         Collections.sort(targetIndexes);
         for(int i = 0; i < targetIndexes.size(); i++){
-        UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
-        if (lastShownList.size() + i < targetIndexes.get(i)) {
-            indicateAttemptToExecuteIncorrectCommand();
-            return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
-        }
-        ReadOnlyTask taskToMarkDone = lastShownList.get(targetIndexes.get(i) - 1 - i);
-        try {
-            model.doneTask(taskToMarkDone);
-            model.getListOfCommands().push(COMMAND_WORD);
-            model.getListOfTasks().push(taskToMarkDone);
-        } catch (TaskNotFoundException pnfe) {
-            assert false : "The target task cannot be missing";
-        }
+            UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
+            if (lastShownList.size() + i < targetIndexes.get(i)) {
+                indicateAttemptToExecuteIncorrectCommand();
+                return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
+            }
+            int targetIndex = targetIndexes.get(i);
+            if(!model.getLastListing().equals("all")) {
+                targetIndex = targetIndex-1-i;
+            } else {
+                targetIndex--;
+            }
+            ReadOnlyTask taskToMarkDone = lastShownList.get(targetIndex);
+            try {
+                model.doneTask(taskToMarkDone);
+                model.getListOfCommands().push(COMMAND_WORD);
+                model.getListOfTasks().push(taskToMarkDone);
+            } catch (TaskNotFoundException pnfe) {
+                assert false : "The target task cannot be missing";
+            }
         }
         
         StringBuilder sb = new StringBuilder();
