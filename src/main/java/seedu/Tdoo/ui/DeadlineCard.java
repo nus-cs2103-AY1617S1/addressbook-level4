@@ -151,6 +151,7 @@ public class DeadlineCard extends UiPart{
         }       
     }
     
+    //@@author A0144061U-reused
     @FXML
     public void initialize() {
         name.setText(task.getName().name);

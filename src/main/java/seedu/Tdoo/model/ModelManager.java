@@ -70,6 +70,7 @@ public class ModelManager extends ComponentManager implements Model {
         undoer = Undoer.getInstance(this);
     }
 
+    //@@author A0144061U
     @Override
     public void resetTodoListData(ReadOnlyTaskList newData) {
         todoList.resetData(newData);
@@ -172,6 +173,7 @@ public class ModelManager extends ComponentManager implements Model {
         deadlineList.restoreData();
         indicateDeadlineListChanged();
     }
+    //@@author
 
     @Override
     public ReadOnlyTaskList getTodoList() {
@@ -294,6 +296,7 @@ public class ModelManager extends ComponentManager implements Model {
         }
     }
     
+    //@@author A0144061U
     @Override
     public synchronized void deleteTask(ReadOnlyTask target, String dataType) throws TaskNotFoundException {
     	switch(dataType) {
@@ -341,6 +344,7 @@ public class ModelManager extends ComponentManager implements Model {
     public synchronized void undoLatestCommand() {
     	undoer.executeUndo();
     }
+    //@@author
 
 
     //=========== Filtered TodoList Accessors ===============================================================
@@ -438,6 +442,7 @@ public class ModelManager extends ComponentManager implements Model {
         String toString();
     }
 
+    //@@author A0139923X
     private class NameQualifier implements Qualifier {
         private Set<String> nameKeyWords;
 
@@ -457,7 +462,8 @@ public class ModelManager extends ComponentManager implements Model {
                         .isPresent();  
             }
         }
-
+     //@@author
+        
         @Override
         public String toString() {
             return "name=" + String.join(", ", nameKeyWords);

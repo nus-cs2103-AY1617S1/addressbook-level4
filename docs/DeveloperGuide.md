@@ -1,4 +1,5 @@
-# Developer Guide 
+<!--@@author A0132157M-->
+# Developer Guide
 
 * [Setting Up](#setting-up)
 * [Design](#design)
@@ -20,7 +21,7 @@
 
     > Having any Java 8 version is not enough. <br>
     This app will not work with earlier versions of Java 8.
-    
+
 2. **Eclipse** IDE
 3. **e(fx)clipse** plugin for Eclipse (Do the steps 2 onwards given in
    [this page](http://www.eclipse.org/efxclipse/install.html#for-the-ambitious))
@@ -30,7 +31,7 @@
 #### Importing the project into Eclipse
 
 0. Fork this repo, and clone the fork to your computer
-1. Open Eclipse (Note: Ensure you have installed the **e(fx)clipse** and **buildship** plugins as given 
+1. Open Eclipse (Note: Ensure you have installed the **e(fx)clipse** and **buildship** plugins as given
    in the prerequisites above)
 2. Click `File` > `Import`
 3. Click `Gradle` > `Gradle Project` > `Next` > `Next`
@@ -50,7 +51,7 @@
 The **_Architecture Diagram_** given above explains the high-level design of the App.
 Given below is a quick overview of each component.
 
-`Main` has only one class called [`MainApp`](../src/main/java/seedu/address/MainApp.java). It is responsible for,
+`Main` has only one class called [`MainApp`](../src/main/java/seedu/Tdoo/MainApp.java). It is responsible for,
 * At app launch: Initializes the components in the correct sequence, and connect them up with each other.
 * At shut down: Shuts down the components and invoke cleanup method where necessary.
 
@@ -72,31 +73,30 @@ Each of the four components
 
 For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java`
 interface and exposes its functionality using the `LogicManager.java` class.<br>
-<img src="images/LogicClassDiagram.png" width="800"><br>
+<img src="images/LogicClassDiagram.jpg" width="800"><br>
 
 The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the
-command `delete 3`.
+command `done todo`.
 
-<img src="images\SDforDeletePerson.png" width="800">
+<img src="images\SequenceClassDiagram.jpg" width="800">
 
->Note how the `Model` simply raises a `AddressBookChangedEvent` when the Address Book data are changed,
- instead of asking the `Storage` to save the updates to the hard disk.
+>Note how the `Model` simply raises a `TdooChangedEvent` when tasks data is changed.
 
-The diagram below shows how the `EventsCenter` reacts to that event, which eventually results in the updates
+<!-- The diagram below shows how the `EventsCenter` reacts to that event, which eventually results in the updates
 being saved to the hard disk and the status bar of the UI being updated to reflect the 'Last Updated' time. <br>
 <img src="images\SDforDeletePersonEventHandling.png" width="800">
 
 > Note how the event is propagated through the `EventsCenter` to the `Storage` and `UI` without `Model` having
-  to be coupled to either of them. This is an example of how this Event Driven approach helps us reduce direct 
-  coupling between components.
+  to be coupled to either of them. This is an example of how this Event Driven approach helps us reduce direct
+  coupling between components. -->
 
 The sections below give more details of each component.
 
 ### UI component
 
-<img src="images/UiClassDiagram.png" width="800"><br>
+<img src="images/UiClassDiagram.jpg" width="800"><br>
 
-**API** : [`Ui.java`](../src/main/java/seedu/address/ui/Ui.java)
+**API** : [`Ui.java`](../src/main/java/seedu/Tdoo/ui/Ui.java)
 
 The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`,
 `StatusBarFooter`, `BrowserPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class
@@ -114,41 +114,41 @@ The `UI` component,
 
 ### Logic component
 
-<img src="images/LogicClassDiagram.png" width="800"><br>
+<img src="images/LogicClassDiagram.jpg" width="800"><br>
 
-**API** : [`Logic.java`](../src/main/java/seedu/address/logic/Logic.java)
+**API** : [`Logic.java`](../src/main/java/seedu/Tdoo/logic/Logic.java)
 
 1. `Logic` uses the `Parser` class to parse the user command.
 2. This results in a `Command` object which is executed by the `LogicManager`.
 3. The command execution can affect the `Model` (e.g. adding a person) and/or raise events.
 4. The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 
-Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")`
+<!-- Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")`
  API call.<br>
-<img src="images/DeletePersonSdForLogic.png" width="800"><br>
+<img src="images/DeletePersonSdForLogic.png" width="800"><br> -->
 
 ### Model component
 
-<img src="images/ModelClassDiagram.png" width="800"><br>
+<img src="images/ModelClassDiagram.jpg" width="800"><br>
 
-**API** : [`Model.java`](../src/main/java/seedu/address/model/Model.java)
+**API** : [`Model.java`](../src/main/java/seedu/Tdoo/model/Model.java)
 
 The `Model`,
 * stores a `UserPref` object that represents the user's preferences.
-* stores the Address Book data.
-* exposes a `UnmodifiableObservableList<ReadOnlyPerson>` that can be 'observed' e.g. the UI can be bound to this list
+* stores the Tasks data.
+* exposes a `UnmodifiableObservableList<ReadOnlyTask>` that can be 'observed' e.g. the UI can be bound to this list
   so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
 ### Storage component
 
-<img src="images/StorageClassDiagram.png" width="800"><br>
+<img src="images/StorageClassDiagram.jpg" width="800"><br>
 
-**API** : [`Storage.java`](../src/main/java/seedu/address/storage/Storage.java)
+**API** : [`Storage.java`](../src/main/java/Tdoo/address/storage/Storage.java)
 
 The `Storage` component,
 * can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in xml format and read it back.
+* can save the Tasks data in xml format and read it back.
 
 ### Common classes
 
@@ -177,7 +177,7 @@ and logging destinations.
 
 ### Configuration
 
-Certain properties of the application can be controlled (e.g App name, logging level) through the configuration file 
+Certain properties of the application can be controlled (e.g App name, logging level) through the configuration file
 (default: `config.json`):
 
 
@@ -199,26 +199,26 @@ Tests can be found in the `./src/test/java` folder.
 
 We have two types of tests:
 
-1. **GUI Tests** - These are _System Tests_ that test the entire App by simulating user actions on the GUI. 
+1. **GUI Tests** - These are _System Tests_ that test the entire App by simulating user actions on the GUI.
    These are in the `guitests` package.
-  
+
 2. **Non-GUI Tests** - These are tests not involving the GUI. They include,
    1. _Unit tests_ targeting the lowest level methods/classes. <br>
-      e.g. `seedu.address.commons.UrlUtilTest`
-   2. _Integration tests_ that are checking the integration of multiple code units 
+      e.g. `seedu.Tdoo.commons.UrlUtilTest`
+   2. _Integration tests_ that are checking the integration of multiple code units
      (those code units are assumed to be working).<br>
-      e.g. `seedu.address.storage.StorageManagerTest`
-   3. Hybrids of unit and integration tests. These test are checking multiple code units as well as 
+      e.g. `seedu.Tdoo.storage.StorageManagerTest`
+   3. Hybrids of unit and integration tests. These test are checking multiple code units as well as
       how the are connected together.<br>
-      e.g. `seedu.address.logic.LogicManagerTest`
-  
+      e.g. `seedu.Tdoo.logic.LogicManagerTest`
+
 **Headless GUI Testing** :
 Thanks to the [TestFX](https://github.com/TestFX/TestFX) library we use,
- our GUI tests can be run in the _headless_ mode. 
+ our GUI tests can be run in the _headless_ mode.
  In the headless mode, GUI tests do not show up on the screen.
  That means the developer can do other things on the Computer while the tests are running.<br>
  See [UsingGradle.md](UsingGradle.md#running-tests) to learn how to run tests in headless mode.
-  
+
 ## Dev Ops
 
 ### Build Automation
@@ -233,12 +233,12 @@ See [UsingTravis.md](UsingTravis.md) for more details.
 ### Making a Release
 
 Here are the steps to create a new release.
- 
+
  1. Generate a JAR file [using Gradle](UsingGradle.md#creating-the-jar-file).
  2. Tag the repo with the version number. e.g. `v0.1`
- 2. [Crete a new release using GitHub](https://help.github.com/articles/creating-releases/) 
+ 2. [Crete a new release using GitHub](https://help.github.com/articles/creating-releases/)
     and upload the JAR file your created.
-   
+
 ### Managing Dependencies
 
 A project often depends on third-party libraries. For example, Address Book depends on the
@@ -255,58 +255,162 @@ Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (un
 
 Priority | As a ... | I want to ... | So that I can...
 -------- | :-------- | :--------- | :-----------
- `* * *` | user	| add a task into the task-list |
- `* * *` | user	| edit a task info when change is needed |
- `* * *` | user	| mark a task ‘done’ when it is completed |
- `* * *` | user	| delete a task from a todo-list / calendar when it cannot be completed |
+ `* * *` | user	| add a Todo task into the task-list | Track my schedule
+  `* * *` | user	| add a Event task into the task-list | Track my schedule
+   `* * *` | user	| add a Deadline task into the task-list | Track my schedule
+ `* * *` | user	| edit a task info when change is needed | Change my tasks
+ `* * *` | user	| mark a task ‘done’ when it is completed | Ignore it
+ `* * *` | user	| delete a task from a Tasks list when it cannot be completed | Only have the latest tasks
  `* * *` | user	| undo the latest command | revert my mistake
  `* * *` | user	| find a task with given name | locate that task in the list easily
  `* * *` | user	| get help window | know what to give as input
- `* * *` | user	| clear todo-list | delete all the tasks in the list easily
- `* * *` | user	| list all the tasks in the todo-list | see what are the tasks in the list
-  `* *`  | user	| get a notification / alarm of approaching deadline | have a reminder
+ `* * *` | user	| clear tasks list | delete all the tasks in the list easily
+ `* * *` | user	| list all the tasks in the tasks-list | see what are the tasks in the list
   `* *`  | user	| set priority / difficulty of a task | strategy which task to do first
-  `* *`  | user	| put a task in a free area in calendar | complete the task whenever possible
-  `* *`  | user	| launch the app with keyboard shortcut | save time/clicks opening the app
    `*`   | user	| make connections between tasks | relationship between tasks can be seen
    `*`   | user	| know what task has to be done right now | have a focus of what to do now
 {More to be added}
 
 ## Appendix B : Use Cases
 
-(For all use cases below, the **System** is the `AddressBook` and the **Actor** is the `user`, unless specified otherwise)
+(For all use cases below, the **System** is the `Tdoo` and the **Actor** is the `user`, unless specified otherwise)
 
-#### Use case: Delete person
+#### Use case: Adds a Event task
 
 **MSS**
 
-1. User requests to list persons
-2. AddressBook shows a list of persons
-3. User requests to delete a specific person in the list
-4. AddressBook deletes the person <br>
-Use case ends.
+1. User requests to ask a Todo task.
+2. User enters the task description name (compulsory), start/end date, start/end time.
+3. Tdoo saves the Event task details.
+4. Tdoo displays tasks on Event panel. <br>
+
 
 **Extensions**
 
-2a. The list is empty
+2a. The task is completed
 
-> Use case ends
+> Task in the respective panel will show green
 
-3a. The given index is invalid
+2b. The task is incomplete
 
-> 3a1. AddressBook shows an error message <br>
-  Use case resumes at step 2
+> Task in the respective panel will show incomplete
 
-{More to be added}
+2c. The task is past the due date
+
+> Task in the respective panel will show red
+
+2d. The given start/end date is invalid
+
+> Input validation for dates performed that checks whether the entered date is an upcoming date, start date is before the end date and there are no more than 2 dates in the user input. Tdoo provides feedback to the user if the entered date is found to be an invalid date.
+
+2e. The given start/end time is invalid
+
+> Input validation for dates performed that checks whether the entered time is an upcoming time, start time is before the end time. Tdoo provides feedback to the user if the entered date is found to be an invalid date.<br>
+
+
+#### Use case: Delete a Event task
+
+**MSS**
+
+1. User requests to delete a Event task(s).
+2. User enters the indexes of the task that are shown in the Event list panel
+3. Todo performs delete operations on the selected index.
+4. Tdoo removes the Event task from the Event list panel. <br>
+
+
+**Extensions**
+
+2a. User entered incorrect index.
+
+> Tdoo feedback that the index is invalid.<br>
+
+#### Use case: Edit a Event task
+
+**MSS**
+
+1. User requests to Edit a Event task(s).
+2. User enters the index of the Event task to be edited and the parameters(name, date, time).
+3. Todo performs edit operations on the selected index.
+4. Tdoo display edited task. <br>
+
+
+**Extensions**
+
+2a. User entered incorrect index.
+
+> Tdoo feedback that the index is invalid.
+
+2b. User entered invalid date or time.
+
+> Input validation for dates performed that checks whether the entered date is an upcoming date, start date is before the end date and there are no more than 2 dates in the user input. Tdoo provides feedback to the user if the entered date is found to be an invalid date.
+
+2c. User did not key in name.
+
+> Tdoo feedback that event name is compulsory.
+
+2a. User entered duplicate name.
+
+> Tdoo feedback that event name is already in the Event list.<br>
+
+#### Use case: Find Event tasks
+
+**MSS**
+
+1. User requests to Find a Event task(s).
+2. User enters keyword or start date.
+3. Todo performs find operations on the keywords.
+4. Tdoo displays all event tasks. <br>
+
+
+**Extensions**
+
+2a. User entered Find all.
+
+> Tdoo displays all Event tasks as well as Todo tasks and deadline tasks.<br>
+
+#### Use case: Undo previous operation
+
+**MSS**
+
+1. User requests to undo previous operation.
+2. Tdoo reverts back to previous state.<br>
+
+**Extensions**
+
+2a. User entered incorrect command.
+
+> Tdoo feedback that the command is invalid.
+
+2b. No previous state
+
+> Tdoo does nothing.<br>
+
+#### Use case: Mark Event task as done
+
+**MSS**
+
+1. User requests to mark Event task as done.
+2. User enters the Event index.
+3. Tdoo displays the selected Event index in green.
+
+**Extensions**
+
+2a. User entered incorrect command.
+
+> Tdoo feedback that the command is invalid.<br>
+
 
 ## Appendix C : Non Functional Requirements
 
 1. Should work on any [mainstream OS](#mainstream-os) as long as it has Java `1.8.0_60` or higher installed.
-2. Should be able to hold up to 1000 persons.
+2. Should be able to hold up to 1000 tasks.
 3. Should come with automated unit tests and open source code.
 4. Should favor DOS style commands over Unix-style commands.
+5. Should be easy for new users to.
+6. Keyboard is the primary input source
+7. Not color blind to see different color status.
+8. Should be able to work without Internet connection.
 
-{More to be added}
 
 ## Appendix D : Glossary
 
@@ -314,11 +418,28 @@ Use case ends.
 
 > Windows, Linux, Unix, OS-X
 
-##### Private contact detail
+<!-- ##### Private contact detail
 
-> A contact detail that is not meant to be shared with others
+> A contact detail that is not meant to be shared with others -->
 
 ## Appendix E : Product Survey
 
-{TODO: Add a summary of competing products}
+The team surveyed 4 Todo apps in the market.
 
+Wunderlist
+
+a. Tasks can be marked as done which would be automatically moved to completed to-do list. There’s no priority setting however one could mark a to-do as starred.<br><br>
+b. Wunderlist is a to do list and does not incorporate function to block off slots/timing.
+
+Task Coach
+
+a. It’s task creation process is quite complicated with different tabs and sections, and requires several clicks.<br><br>
+b. Task Coach does not have a function that automates process between tasks or time blocks.
+
+Tick Tick
+
+a. Entering an event in the calendar takes several clicks, that is because it is very customisable.
+
+Evernote
+
+a. Evernote cannot block or reserve a slot/schedule.
