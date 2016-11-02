@@ -35,8 +35,13 @@
                                 </HBox>
                             </children>
                         </HBox>
-                        <Label fx:id="dateTime" styleClass="cell_small_label" text="\$dateTime" />
-                        <!-- @@author A0142290N -->
+                  <!-- @@author A0142290N -->
+                  <HBox prefHeight="20.0" prefWidth="130.0">
+                     <children>                             
+                        <Label fx:id="completedDateTime" style="-fx-text-fill: #BBBBBB;" styleClass="cell_small_label" />
+                        <Label fx:id="dateTime" styleClass="cell_small_label" />
+                     </children>
+                  </HBox>
                   		<Label fx:id="overdueContext" style="-fx-text-fill: #ff0000; -fx-font-size: 9pt;" text="\$overdueContext" />
                   		<!-- @@author-->
                         <Label fx:id="tags" styleClass="cell_small_label" text="\$tags" />
