@@ -1,3 +1,4 @@
+sudo: required
 language: java
 matrix:
   include:
@@ -11,3 +12,4 @@ addons:
   apt:
     packages:
       - oracle-java8-installer
+

@@ -139,7 +139,6 @@ public class TaskList implements ReadOnlyTaskList {
     @Override
     public String toString() {
         return tasks.getInternalList().size() + " tasks";
-        // TODO: refine later
     }
 
     @Override
