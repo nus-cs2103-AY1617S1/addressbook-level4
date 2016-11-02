@@ -13,9 +13,6 @@ import seedu.todolist.logic.commands.UndoCommand;
 //@@author A0153736B
 public class UndoCommandTest extends ToDoListGuiTest {
 
-    /**
-     * 
-     */
     @Test
     public void undo() {
         //without any last operation

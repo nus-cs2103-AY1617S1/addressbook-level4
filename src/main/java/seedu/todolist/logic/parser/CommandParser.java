@@ -92,6 +92,9 @@ public class CommandParser {
 
 		case UndoCommand.COMMAND_WORD:
 			return new UndoCommand();
+			
+		case RedoCommand.COMMAND_WORD:
+			return new RedoCommand();
 
 		case ClearCommand.COMMAND_WORD:
 			return new ClearCommand();
@@ -364,10 +367,17 @@ public class CommandParser {
 		return new FindCommand(keywordSet, findType);
 	}
 
+	/**
+	 * Parses arguments in the context of the list command.
+	 *
+	 * @param args full command args string
+	 * @return the prepared command
+	 */
 	private Command prepareList(String args) {
 		final String dateFilter = args.trim();
 		return new ListCommand(dateFilter);
 	}
+	//@@author
 
 	//@@author A0158963M 
 	/**
