@@ -92,9 +92,9 @@ Fig.3 : This Sequence Diagram  shows how the components interact for the scenari
 >Note how the `Model` simply raises a `AddressBookChangedEvent` when the Task Manager data are changed,
  instead of asking the `Storage` to save the updates to the hard disk.
 
-The diagram below shows how the `EventsCenter` reacts to that event, which eventually results in the updates
-being saved to the hard disk and the status bar of the UI being updated to reflect the 'Last Updated' time. <br>
-<img src="images\Events Center.png" width="800">
+
+<img src="images\Events Center.png" width="800"><br>
+Fig. 4: This diagram shows how the EventsCenter reacts to the event, which eventually results in the updates being saved to the hard disk and the status bar of the UI being updated to reflect the 'Last Updated' time.
 
 > Note how the event is propagated through the `EventsCenter` to the `Storage` and `UI` without `Model` having
   to be coupled to either of them. This is an example of how this Event Driven approach helps us reduce direct
