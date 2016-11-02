@@ -98,7 +98,9 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
 
     @Override
     public boolean equals(Object other) {
-        return other == this;
+        return other == this ||
+                (other instanceof ReadOnlyTask &&
+                this.isSameStateAs((ReadOnlyTask) other));
     }
 
     @Override

@@ -92,7 +92,7 @@ public class Tag {
      * Format state as text for viewing.
      */
     public String toString() {
-        if (this == EMPTY_TAG) {
+        if (this.equals(EMPTY_TAG)) {
             return "#uncategorised";
         }
         return '#' + tagName;
