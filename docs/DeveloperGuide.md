@@ -86,7 +86,7 @@ Each of the four components
 Fig.2 : the Logic component defines it's API in the Logic.java interface and exposes its functionality using the LogicManager.java class.
 
 
-<img src="images\sequence diagram.png" width="800">
+<img src="images\sequence diagram.png" width="800"><br>
 Fig.3 : This Sequence Diagram  shows how the components interact for the scenario where the user issues the command delete 1.
 
 >Note how the `Model` simply raises a `AddressBookChangedEvent` when the Task Manager data are changed,
