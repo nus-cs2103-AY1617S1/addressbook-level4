@@ -33,17 +33,17 @@ public class DoneCommand extends Command {
     //@@author A0139920A
     @Override
     public CommandResult execute() {
-    	
-    	UnmodifiableObservableList<ReadOnlyTask> lastShownList = null;
-    	switch (dataType) {
+        UnmodifiableObservableList<ReadOnlyTask> lastShownList = null;
+        switch (dataType) {
     		case "todo":
-    			lastShownList = model.getFilteredTodoList();
-    			break;
+    		    lastShownList = model.getFilteredTodoList();
+    		    break;
     		case "event":
-    			lastShownList = model.getFilteredEventList();
-    			break;
+    		    lastShownList = model.getFilteredEventList();
+    		    break;
     		case "deadline":
-    			lastShownList = model.getFilteredDeadlineList();
+    		    lastShownList = model.getFilteredDeadlineList();
+    		    break;
     	}
         if (lastShownList.size() < targetIndex) {
             indicateAttemptToExecuteIncorrectCommand();
