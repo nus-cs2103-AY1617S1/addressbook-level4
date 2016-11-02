@@ -46,7 +46,7 @@ public class Parser {
     //@@author
     
     private static final Pattern TASK_TAG_ARGS_FORMAT = 
-            Pattern.compile("?<action>((add)|(delete)|(clear))[^#]+)?"
+            Pattern.compile("((?<action>((add)|(delete)|(clear))[^#]+)?)"
             + "(?<targetIndex>\\d+)" //index must be digits
             + "\\s+"                               //any number of whitespace
             + "(?<tagArguments>(?: #[^#]+)*)");    //quote marks are reserved for start and end of description field
