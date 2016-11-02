@@ -78,10 +78,10 @@ public class StartTime extends DateTime {
         if (this.value == null) {
             return "Start:\t\t-";
         } else {
-            if(!recurring)
-            return "Start:\t\t".concat(this.toString());
-            else
+            if(recurring)
                 return "Start:\t\t".concat("Every "+ this.toString());
+            else
+                return "Start:\t\t".concat(this.toString());
         }
     }
 }

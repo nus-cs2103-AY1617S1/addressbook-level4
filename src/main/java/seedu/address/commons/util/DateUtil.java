@@ -11,10 +11,17 @@ import java.util.concurrent.TimeUnit;
 import seedu.address.commons.exceptions.IllegalValueException;
 
 public class DateUtil {
-    private static List<SimpleDateFormat> DATE_FORMATS; //validate date format if both time and date are present
-    private static List<SimpleDateFormat> DATE_FORMATS1; //validate date format if only date is present
-    private static List<SimpleDateFormat> DATE_FORMATS2;  //convert DATE_FORMATS1 date to date and time 
-    private static List<SimpleDateFormat> TIME_FORMATS;  //convert DATE_FORMATS1 date to date and time 
+    private static List<SimpleDateFormat> DATE_FORMATS; // validate date format
+                                                        // if both time and date
+                                                        // are present
+    private static List<SimpleDateFormat> DATE_FORMATS1; // validate date format
+                                                         // if only date is
+                                                         // present
+    private static List<SimpleDateFormat> DATE_FORMATS2; // convert
+                                                         // DATE_FORMATS1 date
+                                                         // to date and time
+    private static List<SimpleDateFormat> TIME_FORMATS; // convert DATE_FORMATS1
+                                                        // date to date and time
     public static final String INVALID_FORMAT = "Invalid Format";
     public static final String INVALID_TIME = "Time Input is missing";
 
@@ -46,6 +53,20 @@ public class DateUtil {
         DATE_FORMATS.add(new SimpleDateFormat("EEE, MMM d, yyyy h:mm a"));
         DATE_FORMATS1.add(new SimpleDateFormat("d-MM-yyyy"));
         DATE_FORMATS1.add(new SimpleDateFormat("d.MM.yyyy"));
+        DATE_FORMATS1.add(new SimpleDateFormat("d-MM-yyyy"));
+        DATE_FORMATS1.add(new SimpleDateFormat("d.MM.yyyy"));
+        DATE_FORMATS1.add(new SimpleDateFormat("d-MM-yyyy"));
+        DATE_FORMATS1.add(new SimpleDateFormat("d.MM.yyyy"));
+        DATE_FORMATS1.add(new SimpleDateFormat("d-MM-yyyy"));
+        DATE_FORMATS1.add(new SimpleDateFormat("d.MM.yyyy"));
+        DATE_FORMATS1.add(new SimpleDateFormat("d-MM-yyyy"));
+        DATE_FORMATS1.add(new SimpleDateFormat("d.MM.yyyy"));
+        DATE_FORMATS1.add(new SimpleDateFormat("d-MM-yyyy"));
+        DATE_FORMATS1.add(new SimpleDateFormat("d.MM.yyyy"));
+        DATE_FORMATS1.add(new SimpleDateFormat("d-MM-yyyy"));
+        DATE_FORMATS1.add(new SimpleDateFormat("d.MM.yyyy"));
+        DATE_FORMATS1.add(new SimpleDateFormat("d-MM-yyyy"));
+        DATE_FORMATS1.add(new SimpleDateFormat("d.MM.yyyy"));
         DATE_FORMATS1.add(new SimpleDateFormat("EEE, MMM d, yyyy"));
         DATE_FORMATS2.add(new SimpleDateFormat("d-MM-yyyy HH:mm"));
         DATE_FORMATS2.add(new SimpleDateFormat("d.MM.yyyy HH:mm"));
@@ -53,7 +74,7 @@ public class DateUtil {
         DATE_FORMATS2.add(new SimpleDateFormat("d.MM.yyyy H:mm"));
     }
 
-    //@@author A0125680H
+    // @@author A0125680H
     /**
      * Validate date format with regular expression
      * 
@@ -94,9 +115,9 @@ public class DateUtil {
      * 
      * @param date
      * @return the date in valid date format
-     * @throws IllegalValueException 
+     * @throws IllegalValueException
      */
-    //@@author A0131813R
+    // @@author A0131813R
 
     public static Date parseDateTime(String date) throws IllegalValueException {
         Date validDate;
@@ -130,7 +151,6 @@ public class DateUtil {
             return false;
     }
 
-
     /**
      * Convert today's date into date format Must contain time of the day in
      * hour and mins
@@ -145,68 +165,77 @@ public class DateUtil {
         Date today = new Date();
         String strDate;
         int dayIndex;
-        if(date.contains("today"))
-            strDate = new SimpleDateFormat("dd-MM-yyyy").format(new Date());
-        else if(date.contains("tomorrow")){
-        new Date(today.getTime() + TimeUnit.DAYS.toMillis(1));
-            strDate = new SimpleDateFormat("dd-MM-yyyy").format(today.getTime() + TimeUnit.DAYS.toMillis(1));
-        }
-        else if (date.contains("mon")||date.contains("tue")||date.contains("wed")||date.contains("thu")||date.contains("fri")||date.contains("sat")||date.contains("sun")){
-                dayIndex = DayOfTheWeek(date);
-        strDate = new SimpleDateFormat("dd-MM-yyyy").format(today.getTime() + TimeUnit.DAYS.toMillis(dayIndex));
-        }
-        else    throw new IllegalValueException(INVALID_FORMAT);
-        return ConcatDateTime(strDate,date);
-        
+        if (date.contains("today"))
+            strDate = new SimpleDateFormat("d-MM-yyyy").format(new Date());
+        else if (date.contains("tomorrow")) {
+            new Date(today.getTime() + TimeUnit.DAYS.toMillis(1));
+            strDate = new SimpleDateFormat("d-MM-yyyy").format(today.getTime() + TimeUnit.DAYS.toMillis(1));
+        } else if (date.contains("mon") || date.contains("tue") || date.contains("wed") || date.contains("thu")
+                || date.contains("fri") || date.contains("sat") || date.contains("sun")) {
+            dayIndex = DayOfTheWeek(date);
+            strDate = new SimpleDateFormat("d-MM-yyyy").format(today.getTime() + TimeUnit.DAYS.toMillis(dayIndex));
+        } else
+            throw new IllegalValueException(INVALID_FORMAT);
+        return ConcatDateTime(strDate, date);
+
     }
-    
+
     private static String ConcatDateTime(String strDate, String date) throws IllegalValueException {
         String[] timeparts = date.split(" ");
         String part1 = strDate;
         String part2 = strDate;
         if (timeparts.length != 1) {
             part2 = timeparts[1];
-            if(timeparts.length== 3){
-                String part3 = timeparts [2];
-                part2 = part2.concat(" " + part3);}
-            part2 = strDate.concat(" " + part2);}
-            else    throw new IllegalValueException(INVALID_TIME);
+            if (timeparts.length == 3) {
+                String part3 = timeparts[2];
+                part2 = part2.concat(" " + part3);
+            }
+            part2 = strDate.concat(" " + part2);
+        } else
+            throw new IllegalValueException(INVALID_TIME);
         return part2;
     }
 
-    public static int DayOfTheWeek(String date){
+    public static int DayOfTheWeek(String date) {
         int dayindex = 0;
         int diff = 0;
         int today = Calendar.getInstance().get(Calendar.DAY_OF_WEEK);
-        if(date.contains("mon"))
+        if (date.contains("mon"))
             dayindex = Calendar.MONDAY;
-        else if(date.contains("tue"))
+        else if (date.contains("tue"))
             dayindex = Calendar.TUESDAY;
-        else if(date.contains("wed"))
+        else if (date.contains("wed"))
             dayindex = Calendar.WEDNESDAY;
-        else if(date.contains("thu"))
+        else if (date.contains("thu"))
             dayindex = Calendar.THURSDAY;
-        else if(date.contains("fri"))
+        else if (date.contains("fri"))
             dayindex = Calendar.FRIDAY;
-        else if(date.contains("sat"))
+        else if (date.contains("sat"))
             dayindex = Calendar.SATURDAY;
-        else if(date.contains("sun"))
+        else if (date.contains("sun"))
             dayindex = Calendar.SUNDAY;
         return diff = (today > dayindex) ? (7 - (today - dayindex)) : (dayindex - today);
     }
-    
+
     public static Date DueDateConvert(String date) throws IllegalValueException {
-        if(date.split(" ").length ==1){
-            date=date.concat(" 2359");}
-        if (date.contains("today")||date.contains("tomorrow")||date.contains("mon")||date.contains("tue")||date.contains("wed")||date.contains("thu")||date.contains("fri")||date.contains("sat")||date.contains("sun")) { // allow user to key in "today" instead of today's date
+        if (date.split(" ").length == 1) {
+            date = date.concat(" 2359");
+        }
+        if (date.contains("today") || date.contains("tomorrow") || date.contains("mon") || date.contains("tue")
+                || date.contains("wed") || date.contains("thu") || date.contains("fri") || date.contains("sat")
+                || date.contains("sun")) { // allow user to key in "today"
+                                           // instead of today's date
             date = FixedTime(date);
         }
         Date taskDate = parseDateTime(date);
         return taskDate;
     }
-    
+
     public static Date FixedDateConvert(String date) throws IllegalValueException {
-        if (date.contains("today")||date.contains("tomorrow")||date.contains("mon")||date.contains("tue")||date.contains("wed")||date.contains("thu")||date.contains("fri")||date.contains("sat")||date.contains("sun")) { // allow user to key in "today" instead of today's date
+        if (date.contains("today") || date.contains("tomorrow") || date.contains("mon") || date.contains("tue")
+                || date.contains("wed") || date.contains("thu") || date.contains("fri") || date.contains("sat")
+                || date.contains("sun")) { // allow user to key in "today"
+                                           // instead of today's date
             date = FixedTime(date);
         }
         Date taskDate = parseDateTime(date);
@@ -216,13 +245,13 @@ public class DateUtil {
     public static Calendar EndDateTime(Date date) throws IllegalValueException {
         Calendar cal = Calendar.getInstance();
         cal.setTime(date);
-        cal.add(Calendar.HOUR_OF_DAY, 1); 
+        cal.add(Calendar.HOUR_OF_DAY, 1);
         return cal;
 
     }
-    
-    //these following methods used only for testing purposes only.
-       
+
+    // these following methods used only for testing purposes only.
+
     /**
      * Convert a given calendar object into a string format
      * 
@@ -230,58 +259,46 @@ public class DateUtil {
      *            ""
      * @return tomorrow in valid date format
      */
-    
-    public String outputDateTimeAsString (Calendar dateTime, String format) {
-    	assert (isValidFormat(format));
-    	
-    	SimpleDateFormat formatter = new SimpleDateFormat(format);
-    	return formatter.format(dateTime.getTime());
+
+    public String outputDateTimeAsString(Calendar dateTime, String format) {
+        assert (isValidFormat(format));
+
+        SimpleDateFormat formatter = new SimpleDateFormat(format);
+        return formatter.format(dateTime.getTime());
     }
-    
-    //@@author A0125680H
+
+    // @@author A0125680H
     /**
      * Checks whether the format entered will be accepted by LifeKeeper
+     * 
      * @param format
      * @return boolean indicating whether format is accepted.
      */
-    public boolean isValidFormat (String format) {
-    	SimpleDateFormat formatter = new SimpleDateFormat(format);
-    	for (SimpleDateFormat a : DATE_FORMATS) {
-    		if (a.equals(formatter)) {
-    			return true;
-    		} 
-    	} return false;
+    public boolean isValidFormat(String format) {
+        SimpleDateFormat formatter = new SimpleDateFormat(format);
+        for (SimpleDateFormat a : DATE_FORMATS) {
+            if (a.equals(formatter)) {
+                return true;
+            }
+        }
+        return false;
     }
- /*
-    public static String everyMonth(String date) throws IllegalValueException {
-        String[] recurday = date.split(" ", 2);
-        String day = recurday[0];
-        String months = "";
-        Calendar cal = Calendar.getInstance();
-        if (recurday.length != 1) {
-            int month = cal.get(Calendar.MONTH);
-            if (month < 10)
-                months = "0" + month;
-            else
-                months = "" + month;
-            int year = cal.get(Calendar.YEAR);
-            day = day.concat("-" + months + "-" + year + " " + recurday[1]);
-        } else
-            throw new IllegalValueException(INVALID_TIME);
-        return day;
-    }
-
-    public static String everyYear(String date) throws IllegalValueException {
-        String[] recurday = date.split(" ", 2);
-        if (recurday.length == 1)
-            throw new IllegalValueException(INVALID_TIME);
-        String day = recurday[0];
-        Calendar cal = Calendar.getInstance();
-        int year = cal.get(Calendar.YEAR);
-        day = day.concat("-" + year + " " + recurday[1]);
-        return day;
-    }
- */
+    /*
+     * public static String everyMonth(String date) throws IllegalValueException
+     * { String[] recurday = date.split(" ", 2); String day = recurday[0];
+     * String months = ""; Calendar cal = Calendar.getInstance(); if
+     * (recurday.length != 1) { int month = cal.get(Calendar.MONTH); if (month <
+     * 10) months = "0" + month; else months = "" + month; int year =
+     * cal.get(Calendar.YEAR); day = day.concat("-" + months + "-" + year + " "
+     * + recurday[1]); } else throw new IllegalValueException(INVALID_TIME);
+     * return day; }
+     * 
+     * public static String everyYear(String date) throws IllegalValueException
+     * { String[] recurday = date.split(" ", 2); if (recurday.length == 1) throw
+     * new IllegalValueException(INVALID_TIME); String day = recurday[0];
+     * Calendar cal = Calendar.getInstance(); int year = cal.get(Calendar.YEAR);
+     * day = day.concat("-" + year + " " + recurday[1]); return day; }
+     */
 
     public static boolean recurValidDate(String date) {
         Date validDate;
@@ -299,5 +316,3 @@ public class DateUtil {
         return false;
     }
 }
-
-
