@@ -2,6 +2,7 @@ package seedu.unburden.logic.commands;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import seedu.unburden.commons.exceptions.IllegalValueException;
@@ -97,6 +98,8 @@ public class AddCommand extends Command {
 		try {
 			model.saveToPrevLists();
 			model.addTask(toAdd);
+			//List<ReadOnlyTask> currentTaskList= model.getListOfTask().getTaskList();
+			//for(ReadOnlyTask )
 			return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
 		} catch (UniqueTaskList.DuplicateTaskException e) {
 			return new CommandResult(MESSAGE_DUPLICATE_TASK);
