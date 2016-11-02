@@ -16,7 +16,7 @@ import tars.model.task.Task;
 public class UdLogicCommandTest extends LogicCommandTest {
     @Test
     public void execute_mark_allTaskAsUndone() throws Exception {
-        Status done = new Status(true);
+        Status done = new Status(Status.DONE);
 
         TypicalTestDataHelper helper = new TypicalTestDataHelper();
         Task task1 = helper.generateTaskWithName("task1");
@@ -63,7 +63,7 @@ public class UdLogicCommandTest extends LogicCommandTest {
 
     @Test
     public void execute_mark_rangeUndone() throws Exception {
-        Status done = new Status(true);
+        Status done = new Status(Status.DONE);
 
         TypicalTestDataHelper helper = new TypicalTestDataHelper();
         Task task1 = helper.generateTaskWithName("task1");

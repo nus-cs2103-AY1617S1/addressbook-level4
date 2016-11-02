@@ -14,7 +14,7 @@ import tars.model.task.Task;
 public class DoLogicCommandTest extends LogicCommandTest {
     @Test
     public void execute_mark_allTaskAsDone() throws Exception {
-        Status done = new Status(true);
+        Status done = new Status(Status.DONE);
         TypicalTestDataHelper helper = new TypicalTestDataHelper();
         Task task1 = helper.generateTaskWithName("task1");
         Task task2 = helper.generateTaskWithName("task2");
@@ -39,7 +39,7 @@ public class DoLogicCommandTest extends LogicCommandTest {
 
     @Test
     public void execute_mark_alreadyDone() throws Exception {
-        Status done = new Status(true);
+        Status done = new Status(Status.DONE);
         TypicalTestDataHelper helper = new TypicalTestDataHelper();
         Task task1 = helper.generateTaskWithName("task1");
         Task task2 = helper.generateTaskWithName("task2");
@@ -65,7 +65,7 @@ public class DoLogicCommandTest extends LogicCommandTest {
 
     @Test
     public void execute_mark_rangeDone() throws Exception {
-        Status done = new Status(true);
+        Status done = new Status(Status.DONE);
         TypicalTestDataHelper helper = new TypicalTestDataHelper();
         Task task1 = helper.generateTaskWithName("task1");
         Task task2 = helper.generateTaskWithName("task2");
