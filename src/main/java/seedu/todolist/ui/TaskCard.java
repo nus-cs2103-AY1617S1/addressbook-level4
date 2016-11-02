@@ -1,7 +1,5 @@
 package seedu.todolist.ui;
 
-import java.io.File;
-
 import com.google.common.base.Strings;
 
 import javafx.fxml.FXML;

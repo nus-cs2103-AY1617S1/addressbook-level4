@@ -4,7 +4,6 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.MenuItem;
-import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.AnchorPane;
@@ -55,18 +54,12 @@ public class MainWindow extends UiPart {
 
     @FXML
     private MenuItem helpMenuItem;
-    
-    @FXML
-    private AnchorPane notificationPlaceholder;
 
     @FXML
     private AnchorPane taskListPanelPlaceholder;
     
     @FXML
     private AnchorPane completeTaskListPanelPlaceholder;
-    
-    @FXML
-    private AnchorPane overdueTaskListPanelPlaceholder;
 
     @FXML
     private AnchorPane resultDisplayPlaceholder;

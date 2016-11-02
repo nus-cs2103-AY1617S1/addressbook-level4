@@ -5,7 +5,6 @@ import javafx.beans.property.StringProperty;
 import javafx.scene.Node;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Region;
 import javafx.stage.Stage;
 import seedu.todolist.commons.util.FxViewUtil;
 
