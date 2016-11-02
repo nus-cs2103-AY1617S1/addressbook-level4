@@ -53,9 +53,9 @@ public class DueDate extends DateTime {
     
     public String forDisplay() {
         if (this.value == null) {
-            return "Due:\t\t\t-";
+            return "";
         } else {
-            return "Due:\t\t\t".concat(this.toString());
+            return "Due on ".concat(this.toString());
         }
     }
 }

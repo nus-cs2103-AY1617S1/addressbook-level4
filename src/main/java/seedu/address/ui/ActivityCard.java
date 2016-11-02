@@ -83,6 +83,9 @@ public class ActivityCard extends UiPart {
 		case "event":
 			line1.setText(((ReadOnlyEvent) activity).displayTiming());
 			if (((Event) activity).isOngoing()) {
+			    completion.setStyle("-fx-text-fill: #000080;"
+	                    + " -fx-font-size: 13;"
+	                    + " -fx-font-family: Georgia;");
 				cardPane.setStyle("-fx-background-color: lightskyblue;");
 			}
 			break;
