@@ -68,15 +68,7 @@ public class TaskList implements ReadOnlyTaskList{
 	}*/
 
 	public void resetData(Collection<? extends ReadOnlyTask> newtasks) {
-		setTasks(newtasks.stream().map(t -> {
-            try {
-                return new Task(t);
-            } catch (IllegalValueException e) {                
-                e.printStackTrace();
-            }
-            return null;
-        }).collect(Collectors.toList()));
-		//setTags(newTags);
+	    setTasks(newtasks.stream().map(Task::new).collect(Collectors.toList()));
 	}
 
 	public void resetData(ReadOnlyTaskList newData) {

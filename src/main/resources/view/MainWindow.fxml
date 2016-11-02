@@ -29,7 +29,7 @@
       </SplitPane>
       <VBox style="-fx-alignment: center;" VBox.vgrow="NEVER">
          <children>
-             <AnchorPane fx:id="resultDisplayPlaceholder" maxHeight="155.0" minHeight="24.0" prefHeight="67.0" prefWidth="1504.0" style="-fx-background-color: white; -fx-border-color: white;" styleClass="anchor-pane-with-border">
+             <AnchorPane fx:id="resultDisplayPlaceholder" maxHeight="200.0" minHeight="24.0" prefHeight="150.0" prefWidth="1504.0" style="-fx-background-color: white; -fx-border-color: white;" styleClass="anchor-pane-with-border">
                  <padding>
                      <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
                  </padding>

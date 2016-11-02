@@ -32,13 +32,13 @@
                                     <Image url="@../images/calendar-icon.png" />
                                  </image>
                               </ImageView>
-                              <Label id="dateTimeLabel" fx:id="dateTimeLabel" maxWidth="1.7976931348623157E308" minWidth="450.0" text="Test" HBox.hgrow="ALWAYS">
+                              <Label id="dateTimeLabel" fx:id="dateTimeLabel" maxWidth="1.7976931348623157E308" minWidth="470.0" text="Test" HBox.hgrow="ALWAYS">
                                  <padding>
                                     <Insets left="8.0" />
                                  </padding>
                               </Label>
-                              <Label id="task_det" minWidth="78.0" prefWidth="78.0" text="Priority" />
-                              <Label id="task_det" minWidth="79.0" prefWidth="79.0" text="Start" />
+                              <Label id="task_det" minWidth="83.0" prefWidth="83.0" text="Priority" />
+                              <Label id="task_det" minWidth="84.0" prefWidth="84.0" text="Start" />
                               <Label id="task_det" minWidth="59.0" prefWidth="59.0" text="End" />
                            </children>
                         </HBox>
