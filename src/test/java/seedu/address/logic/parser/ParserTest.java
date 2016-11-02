@@ -16,6 +16,9 @@ import seedu.address.logic.commands.IncorrectCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.UndoCommand;
+import seedu.address.model.AliasManager;
+import seedu.address.model.Model;
+import seedu.address.model.ModelManager;
 
 //@@author A0141019U
 public class ParserTest {
@@ -31,7 +34,7 @@ public class ParserTest {
 	private final RedoCommand redoCommand;
 	
 	public ParserTest() throws IllegalValueException {
-		parser = new Parser();
+		parser = new Parser(new ModelManager());
 		incorrectCommand = new IncorrectCommand("test");
 		addCommand = new AddCommand("test adding someday");
 		listCommand = new ListCommand();
@@ -136,19 +139,19 @@ public class ParserTest {
 	}
 	
 	@Test
-	public void parseCommand_addEventValidOrder5_incorrectCommandReturned() {
+	public void parseCommand_addEventValidOrder5_addCommandReturned() {
 		String userInput = "add from 8:00 'party' to 10:00 on 12-12-12";
 		Command command = parser.parseCommand(userInput);
 
-		assertEquals(incorrectCommand.getClass(), command.getClass());
+		assertEquals(addCommand.getClass(), command.getClass());
 	}
 	
 	@Test
-	public void parseCommand_addEventValidOrder6_incorrectCommandReturned() {
+	public void parseCommand_addEventValidOrder6_addCommandReturned() {
 		String userInput = "add from 8:00 to 10:00 'party' on 12-10-12";
 		Command command = parser.parseCommand(userInput);
 		
-		assertEquals(incorrectCommand.getClass(), command.getClass());
+		assertEquals(addCommand.getClass(), command.getClass());
 	}
 	
 	

@@ -9,16 +9,31 @@ import java.util.logging.Level;
 public class Config {
 
     public static final String DEFAULT_CONFIG_FILE = "config.json";
+    private String configFilePath = "config.json";
 
     // Config values customizable through config file
     private String appTitle = "Amethyst";
     private Level logLevel = Level.INFO;
     private String userPrefsFilePath = "preferences.json";
     private String taskManagerFilePath = "data/taskmanager.xml";
+    private String aliasManagerFilePath = "data/aliasmanager.xml";
     private String taskManagerName = "MyTaskManager";
 
 
     public Config() {
+    }
+    
+    public Config(String taskManagerFilePath, String userPrefsFilePath){
+    	this.taskManagerFilePath = taskManagerFilePath;
+    	this.userPrefsFilePath = userPrefsFilePath;
+    }
+    
+    public String getConfigFilePath(){
+    	return configFilePath;
+    }
+    
+    public void setConfigFilePath(String configFilePath){
+    	this.configFilePath = configFilePath;
     }
 
     public String getAppTitle() {
@@ -52,6 +67,16 @@ public class Config {
     public void setTaskManagerFilePath(String taskManagerFilePath) {
         this.taskManagerFilePath = taskManagerFilePath;
     }
+    
+    //@@author A0143756Y
+    public String getAliasManagerFilePath() {
+    	return aliasManagerFilePath;
+    }
+    
+    public void setAliasManagerFilePath(String aliasManagerFilePath) {
+    	this.aliasManagerFilePath = aliasManagerFilePath;
+    }
+    //@@author
 
     public String getTaskManagerName() {
         return taskManagerName;

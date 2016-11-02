@@ -7,6 +7,7 @@ import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.commons.events.ui.JumpToListRequestEvent;
+import seedu.address.commons.events.ui.DisplayTaskListEvent;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.task.Name;
 import seedu.address.model.task.ReadOnlyTask;
@@ -59,6 +60,9 @@ public class EditCommand extends Command {
     
     @Override
     public CommandResult execute() {
+    	
+    	EventsCenter.getInstance().post(new DisplayTaskListEvent(model.getFilteredTaskList()));
+
         model.saveState();
         
         UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();

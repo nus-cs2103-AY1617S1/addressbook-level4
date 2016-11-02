@@ -6,17 +6,23 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_TASK_DISPLAYED
 
 import java.text.ParseException;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import javafx.util.Pair;
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.StringUtil;
+import seedu.address.logic.commands.AddAliasCommand;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
@@ -29,27 +35,46 @@ import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.IncorrectCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.RedoCommand;
+import seedu.address.logic.commands.SetStorageCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.parser.ArgumentTokenizer.Prefix;
-
+import seedu.address.model.AliasManager;
+import seedu.address.model.Model;
+import seedu.address.model.ModelManager;
+import seedu.address.model.alias.Alias;
 
 public class Parser {
-	//@@author A0141019U
+	// @@author A0141019U
+	private Model model;
+	
+	private static final Logger logger = LogsCenter.getLogger(Parser.class);
+	
 	private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
 	
-	private static final Pattern ADD_COMMAND_FORMAT = Pattern
-			.compile("'(?<taskName>.*\\S*.*)'(?<addTaskArgs>.*)");
+	private static final Pattern ADD_ALIAS_COMMAND_FORMAT = Pattern
+			.compile("\\s*'(?<alias>(\\s*\\S+)+)\\s*'\\s*=\\s*'(?<originalPhrase>(\\s*\\S+)+)\\s*'\\s*");
+
+	//@@author A0143756Y
+	private static final Pattern SET_STORAGE_ARGS_FORMAT = Pattern.compile
+			("(?<folderFilePath>(\\s*[^\\s+])+)\\s+save-as\\s+(?<fileName>(\\s*[^\\s+])+)");
 	
+	//@@author A0141019U
+	private static final Prefix namePrefix = new Prefix("'");
 	private static final Prefix startDateTimePrefix = new Prefix("from ");
 	private static final Prefix endDateTimePrefix = new Prefix("to ");
 	private static final Prefix dlEndDateTimePrefix = new Prefix("by ");
 	private static final Prefix datePrefix = new Prefix("on ");
 	private static final Prefix tagsPrefix = new Prefix("#");
 	
+	public Parser(Model model) {
+		this.model = model;
+	}
 	
 	//@@author A0141019U-reused
 	public Command parseCommand(String userInput) {
-		final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
+		 String replacedInput = replaceAliases(userInput);
+		
+		final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(replacedInput.trim());
 		if (!matcher.matches()) {
 			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
 		}
@@ -75,6 +100,12 @@ public class Parser {
 
 		case EditCommand.COMMAND_WORD:
 			return prepareEdit(arguments);
+		
+		case AddAliasCommand.COMMAND_WORD:
+			return prepareAddAlias(arguments);
+			
+		case SetStorageCommand.COMMAND_WORD:
+			return prepareSetStorage(arguments);	
 			
 		case ChangeStatusCommand.COMMAND_WORD_DONE:
 			return prepareChangeStatus(arguments, "done");
@@ -96,50 +127,97 @@ public class Parser {
 
 		case RedoCommand.COMMAND_WORD:
 			return new RedoCommand();
-
+			
 		default:
 			return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
 		}
 	}
+
+	// @@author A0141019U	
+	private String replaceAliases(String userInput) {
+		List<Alias> aliasList = this.model.getAliasList();
+		List<String> aliases = new ArrayList<>(); 
+		List<String> originals = new ArrayList<>(); 
+		
+		for (Alias aliasObj : aliasList) {
+			aliases.add(aliasObj.getAlias());
+			originals.add(aliasObj.getOriginalPhrase());
+		}
+		
+		for (int i=0; i<aliases.size(); i++) {
+			String alias = aliases.get(i);
+			System.out.println("alias: " + alias);
+			// Does not replace arguments in find command or within quotes			
+			if (userInput.contains(alias) && !userInput.matches(".*'.*(" + alias + ").*'.*") && !userInput.contains("find")) {
+				System.out.println("match");
+				userInput = userInput.replace(alias, originals.get(i));
+			}
+		}
+		
+		System.out.println("userInput: " + userInput);
+		
+		return userInput;
+	}
 	
 	
-	// @@author A0141019U
 	private Command prepareAdd(String arguments) {
-		final Matcher matcher = ADD_COMMAND_FORMAT.matcher(arguments.trim());
-		if (!matcher.matches()) {
+		if (StringUtil.countOccurrences('\'', arguments) != 2) {
+			// TODO better error msg?
 			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 		}
-
-		final String name = matcher.group("taskName");
-		final String args = matcher.group("addTaskArgs");
 		
-		if (args.toLowerCase().contains(" on ")) {
-			System.out.println("ev same d path");
-			return prepareAddEventSameDay(name, "event", args);
+		Pair<String, String> nameAndArgs = separateNameAndArgs(arguments);
+		String taskName = nameAndArgs.getKey();
+		String args = nameAndArgs.getValue();
+
+		System.out.println("name: " + taskName);
+		System.out.println("args: " + args);
+		
+		String argsLowerCase = args.toLowerCase();	
+		
+		if (argsLowerCase.contains(" on ")
+				&& argsLowerCase.contains(" from ") 
+				&& argsLowerCase.contains(" to ")) {
+			logger.log(Level.FINEST, "Calling prepareAddEventSameDay");
+			return prepareAddEventSameDay(taskName, "event", args);
 		}
-		else if (args.toLowerCase().contains(" to ")) {
-			System.out.println("ev diff d path");
-			return prepareAddEventDifferentDays(name, "event", args);
+		else if (argsLowerCase.contains(" from ")
+				&& argsLowerCase.contains(" to ")) {
+			logger.log(Level.FINEST, "Calling prepareAddEventDifferentDays");
+			return prepareAddEventDifferentDays(taskName, "event", args);
 		}
-		else if (args.toLowerCase().contains(" by ")) {
-			System.out.println("dl path");
-			return prepareAddDeadline(name, "deadline", args);
+		else if (argsLowerCase.contains(" by ")) {
+			logger.log(Level.FINEST, "Calling prepareAddDeadline");
+			return prepareAddDeadline(taskName, "deadline", args);
 		}
-		else if (args.trim().matches("\\s*(#.+)*\\s*")){
-			System.out.println("someday path");
-			return prepareAddSomeday(name, "someday", args);
+		else if (args.matches("\\s*(#.+)*\\s*")) {
+			logger.log(Level.FINEST, "Calling prepareAddSomeday");
+			return prepareAddSomeday(taskName, "someday", args);
 		}
 		else {
-			System.out.println("inc cmd");
 			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 		}
+	}
+	
+	
+	private Pair<String, String> separateNameAndArgs(String arguments) {
+		ArgumentTokenizer argsTokenizer = new ArgumentTokenizer(namePrefix);
+		argsTokenizer.tokenize(arguments);
+		
+		String preamble = argsTokenizer.getPreamble().orElse("");
+		
+		List<String> stringsAfterQuotes = argsTokenizer.getAllValues(namePrefix).get();
+		String taskName = stringsAfterQuotes.get(0);
+		String argsAfterName = stringsAfterQuotes.get(1);
+		
+		return new Pair<>(taskName, " " + preamble + " " + argsAfterName + " ");	
 	}
 	
 	
 	private Command prepareAddEventDifferentDays(String taskName, String taskType, String arguments) {
 		ArgumentTokenizer argsTokenizer = new ArgumentTokenizer(startDateTimePrefix, endDateTimePrefix, tagsPrefix);
 		argsTokenizer.tokenize(arguments);
-
+		
 		String startDateTimeString = argsTokenizer.getValue(startDateTimePrefix).get();
 		String endDateTimeString = argsTokenizer.getValue(endDateTimePrefix).get();
 		Set<String> tagSet = toSet(argsTokenizer.getAllValues(tagsPrefix));
@@ -151,7 +229,7 @@ public class Parser {
 	private Command prepareAddEventSameDay(String taskName, String taskType, String arguments) {
 		ArgumentTokenizer argsTokenizer = new ArgumentTokenizer(startDateTimePrefix, endDateTimePrefix, datePrefix, tagsPrefix);
 		argsTokenizer.tokenize(arguments);
-
+		
 		String dateString = argsTokenizer.getValue(datePrefix).get();
 		String startDateTimeString = argsTokenizer.getValue(startDateTimePrefix).get() + " " + dateString;
 		String endDateTimeString = argsTokenizer.getValue(endDateTimePrefix).get() + " " + dateString;
@@ -164,7 +242,7 @@ public class Parser {
 	private Command prepareAddDeadline(String taskName, String taskType, String arguments) {
 		ArgumentTokenizer argsTokenizer = new ArgumentTokenizer(dlEndDateTimePrefix, tagsPrefix);
 		argsTokenizer.tokenize(arguments);
-
+		
 		String endDateTimeString = argsTokenizer.getValue(dlEndDateTimePrefix).get();
 		Set<String> tagSet = toSet(argsTokenizer.getAllValues(tagsPrefix));
 		
@@ -400,6 +478,23 @@ public class Parser {
 			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
 		}
 	}
+	
+	//@@author A0143756Y
+	private Command prepareSetStorage(String arguments){
+		final Matcher matcher = SET_STORAGE_ARGS_FORMAT.matcher(arguments.trim());
+		
+		if(!matcher.matches()){
+			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SetStorageCommand.MESSAGE_USAGE));
+		}
+		
+		final String folderFilePath = matcher.group("folderFilePath").trim();
+		final String fileName = matcher.group("fileName").trim();
+		
+		System.out.println("Folder File Path: " + folderFilePath);
+		System.out.println("File Name: " + fileName);
+		
+		return new SetStorageCommand(folderFilePath, fileName);
+	}
 
 	//@@author A0139339W
 	/**
@@ -419,6 +514,26 @@ public class Parser {
 
 		return new ChangeStatusCommand(doneIndices, newStatus);
 	}
+	
+	//@@author A0143756Y
+	/**
+     * Parses arguments in the context of the set alias task command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     */
+    private Command prepareAddAlias(String arguments) {
+        final Matcher matcher = ADD_ALIAS_COMMAND_FORMAT.matcher(arguments.trim());
+    	
+    	if(!matcher.matches()){	
+        	return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddAliasCommand.MESSAGE_USAGE));
+        }
+    	
+    	final String alias = matcher.group("alias").trim();
+    	final String originalPhrase = matcher.group("originalPhrase").trim();
+        
+        return new AddAliasCommand(alias, originalPhrase);
+    }
 
 	//@@author A0141019U
 	/**
@@ -450,8 +565,8 @@ public class Parser {
     }
 
 	public static void main(String[] args) {
-		Parser p = new Parser();
-		p.parseCommand("add 'dd' by 5pm today");
+		Parser p = new Parser(new ModelManager());
+//		p.parseCommand("add 'dd' by 5pm today");
+		p.replaceAliases("find k");
 	}
-	
 }
