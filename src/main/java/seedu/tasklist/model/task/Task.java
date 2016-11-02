@@ -90,18 +90,7 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
 		uniqueID = newuniqueId;
 	}
 
-	/*@Override
-	public UniqueTagList getTags() {
-		return new UniqueTagList(tags);
-	}
-
-	*//**
-	 * Replaces this person's tags with the tags in the argument tag list.
-	 *//*
-	public void setTags(UniqueTagList replacement) {
-		tags.setTags(replacement);
-	}*/
-    
+	
 	public boolean isRecurring() {
 	    return this.isRecurring;
 	}

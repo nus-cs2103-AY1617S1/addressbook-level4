@@ -36,7 +36,7 @@ public class StartTime extends Time{
     
     @Override
     protected String getIVEMessage(){
-    	return MESSAGE_TIME_CONSTRAINTS;
+    	return MESSAGE_START_TIME_CONSTRAINTS;
     }
     
     @Override

@@ -40,7 +40,7 @@ public class EndTime extends Time{
     
     @Override
     protected String getIVEMessage(){
-    	return MESSAGE_TIME_CONSTRAINTS;
+    	return MESSAGE_END_TIME_CONSTRAINTS;
     }
     
     public void setCalendar(Calendar cal){
