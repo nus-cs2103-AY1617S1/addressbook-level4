@@ -1,376 +1,112 @@
-<!DOCTYPE html>
-<!-- saved from url=(0084)https://github.com/CS2103AUG2016-W10-C3/main/blob/master/docs/UserGuide.md#5-summary -->
-<html lang="en" class=" is-copy-enabled is-u2f-enabled"><head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# object: http://ogp.me/ns/object# article: http://ogp.me/ns/article# profile: http://ogp.me/ns/profile#"><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    
-<h2><a id="user-content-table-of-contents" class="anchor" href="https://github.com/CS2103AUG2016-W10-C3/main/blob/master/docs/UserGuide.md#table-of-contents" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Table of Contents</h2>
 
-<ol>
-<li><a href="#user-content-1-introduction">Introduction</a></li>
-<li><a href="#user-content-2-quick-start">Quick Start</a></li>
-<li><a href="#user-content-3-getting-started">Getting Started</a>
-
-<ol>
-<li><a href="#user-content-31-requesting-help-from-smartydo">Requesting Help from SmartyDo</a></li>
-<li><a href="#user-content-32-adding-task-into-smartydo">Adding Task into SmartyDo</a></li>
-<li><a href="#user-content-33-editing-task-details">Editing Task Details</a></li>
-<li><a href="#user-content-34-deleting-tasks">Deleting Tasks</a></li>
-<li><a href="#user-content-35-marking-completed-tasks">Marking Completed Tasks</a></li>
-<li><a href="#user-content-36-undoing-and-redoing">Undoing and Redoing</a></li>
-<li><a href="#user-content-37-viewing-details-of-specific-task">Viewing Details of Specific Task</a></li>
-<li><a href="#user-content-38-finding-specific-tasks">Finding Specific Tasks</a></li>
-<li><a href="#user-content-39-filtering-task-list">Filtering Task List</a></li>
-<li><a href="#user-content-310-exiting-smartydo">Exiting SmartyDo</a></li>
-</ol></li>
-<li><a href="#user-content-4-smart-features">Smart Features</a>
-
-<ol>
-<li><a href="#user-content-41-flexicommand">FlexiCommand</a></li>
-<li><a href="#user-content-42-saving-the-data">Saving The Data</a></li>
-</ol></li>
-<li><a href="#user-content-5-summary">Summary</a>
-
-<ol>
-<li><a href="#user-content-51-command-summary">Command Summary</a></li>
-<li><a href="#user-content-52-keyboard-shortcuts">Keyboard Shortcuts</a></li>
-</ol></li>
-</ol>
-
-
-
-<h2><a id="user-content-1-introduction" class="anchor" href="https://github.com/CS2103AUG2016-W10-C3/main/blob/master/docs/UserGuide.md#1-introduction" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>1. Introduction</h2>
-
-<p>SmartyDo is a <strong>to-do-list</strong> application. With SmartyDo, forgetting upcoming deadlines and sleepless nights over incomplete tasks are a thing of the past. SmartyDo <strong>increases your efficiency</strong> by showing the lists of tasks that can be completed simultaneously. Treat SmartyDo like your personal assistant and just focus on <strong>completing your tasks</strong>!</p>
-
-<h2><a id="user-content-2-quick-start" class="anchor" href="https://github.com/CS2103AUG2016-W10-C3/main/blob/master/docs/UserGuide.md#2-quick-start" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>2. Quick Start</h2>
-
-<p><strong>Launch SmartyDo</strong>: Simply double-click on the <code>SmartyDo.jar</code> file to start SmartyDo. You will be greeted with a simple interface that has three components: a <strong>Visual Panel</strong>, a <strong>Message Box</strong> and a <strong>Command Bar</strong>.</p>
-
-<p><a href="https://github.com/CS2103AUG2016-W10-C3/main/blob/master/docs/images/mainScreen.png" target="_blank"><img src="./helpPage_files/mainScreen.png" width="250" style="max-width:100%;"></a><br>Figure 1. Welcome Screen<br></p>
-
-<p><strong>Command Bar</strong> is where you enter short commands to tell SmartyDo what to do.<br>
-<strong>Visual Panel</strong> is where you can see a comprehensive list of your tasks.<br>
-<strong>Message Box</strong> shows the result of your command.<br></p>
-
-<h2><a id="user-content-3-getting-started" class="anchor" href="https://github.com/CS2103AUG2016-W10-C3/main/blob/master/docs/UserGuide.md#3-getting-started" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>3. Getting Started</h2>
-
-<p>In this section, you will be introduced to the various commands that you will need when using SmartyDo. These commands will be described to you in the format described below.
-<strong>Command Format</strong><br>
-Words in <code>lower case</code> are the command.<br>
-Words in <code>upper case</code> are the parameters.<br>
-Items in <code>square brackets</code> are optional.<br>
-The order of parameters is flexible. <br></p>
-
-<h3><a id="user-content-31-requesting-help-from-smartydo" class="anchor" href="https://github.com/CS2103AUG2016-W10-C3/main/blob/master/docs/UserGuide.md#31-requesting-help-from-smartydo" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>3.1. <strong>Requesting Help From SmartyDo</strong></h3>
-
-<p>You can use the help command to gain access to this user guide should you need any help with the commands and their format. Should you enter an invalid command (e.g. <code>abcd</code>), information will be shown, when possible, to help correct your mistakes. You may also access this function through a keyboard shortcut.<br></p>
-
-<p>Format: <code>help</code>
-Keyboard Shortcut: 'F1`</p>
-
-<p><strong>Example:</strong><br>
-If you wish to get help on using SmartyDo, you may enter <code>help</code> into the Command Bar.</p>
-
-<p><a href="https://github.com/CS2103AUG2016-W10-C3/main/blob/master/docs/images/help.png" target="_blank"><img src="./helpPage_files/help.png" width="500" align="middle" style="max-width:100%;"></a><br>Figure 2. SmartyDo's help Command<br></p>
-
-<p>After entering the command, a new window will appear showing you the user guide.</p>
-
-<h3><a id="user-content-32-adding-task-into-smartydo" class="anchor" href="https://github.com/CS2103AUG2016-W10-C3/main/blob/master/docs/UserGuide.md#32-adding-task-into-smartydo" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>3.2. <strong>Adding Task Into SmartyDo</strong></h3>
-
-<p>You can add a task into SmartyDo by using the add command. There are number of parameters that you can use to add more details to the task. Below is a summary of the various parameters and their usage:<br></p>
-
-<p>Here is the summary of the parameters and their usage:</p>
-
-<table><thead>
-<tr>
-<th>Parameter</th>
-<th align="center">Flag</th>
-<th align="right">Format Requirements</th>
-<th align="center">Optional</th>
-</tr>
-</thead><tbody>
-<tr>
-<td><code>TASK_NAME</code></td>
-<td align="center"></td>
-<td align="right"><em><strong>/n</strong></em> required if <code>TASK_NAME</code> is not the first parameter</td>
-<td align="center">No</td>
+<h2 style="font-family:'segoe ui semibold';"><a href="https://github.com/CS2103AUG2016-W10-C3/main/blob/master/docs/UserGuide.md#5-summary"></a>Help</h2>
+<h3 style="font-family:'segoe ui semibold';"><a href="https://github.com/CS2103AUG2016-W10-C3/main/blob/master/docs/UserGuide.md#51-command-summary"></a>1. <strong>Command Summary</strong></h3>
+<table style="font-family:'segoe ui semibold';" border="1" cellpadding="5">
+<thead>
+<tr><th><strong>Command</strong></th><th><strong>Parameters</strong></th><th><strong>Format</strong></th></tr>
+</thead>
+<tbody>
+<tr style="background-color: #f8f8f8;">
+<td>Help</td>
+<td></td>
+<td></td>
 </tr>
 <tr>
-<td><code>DATE_TIME</code></td>
-<td align="center"><strong>t;</strong></td>
-<td align="right">[Date] [Start_Time] [End_Time] , delimited by spaces</td>
-<td align="center">Yes</td>
+<td>Load</td>
+<td align="center" style="font-family:'segoe ui light';">FILEPATH</td>
+<td><code>load FILEPATH</code></td>
+</tr>
+<tr style="background-color: #f8f8f8;">
+<td>Save</td>
+<td align="center" style="font-family:'segoe ui light';">FILEPATH</td>
+<td><code>save FILEPATH</code></td>
 </tr>
 <tr>
-<td><code>TAG</code></td>
-<td align="center"><em><strong>t/</strong></em></td>
-<td align="right">alphanumeric</td>
-<td align="center">Yes</td>
-</tr>
-<tr>
-<td><code>LOCATION</code></td>
-<td align="center"><em><strong>a;</strong></em></td>
-<td align="right">alphanumeric</td>
-<td align="center">Yes</td>
-</tr>
-<tr>
-<td><code>DESCRIPTION</code></td>
-<td align="center"><em><strong>d;</strong></em></td>
-<td align="right">alphanumeric</td>
-<td align="center">Yes</td>
-</tr>
-</tbody></table>
-
-<p>Table 3.2. Add Command Parameters</p>
-
-<ul>
-<li><code>TASK_NAME</code> is the name of the task and this parameter is compulsary.</li>
-<li><code>Date</code> is the date of the task supports date format of
-dd/mmm/yyyy eg:20-Jan-2017 and dd/mm/yyyy with <code>/</code> interchangleable with <code>.</code> and <code>-</code> eg: 20-01-2017.</li>
-<li><code>START_TIME</code> and <code>END_TIME</code> is the starting time and ending time of the task respectively. You may consider to use these parameters when starting time and/or deadline is known. You may omit the details of 'DATE_TIME' which will result in a task that has no time frame.</li>
-<li><code>TAG</code> is the characteristic you can add to the task. Such tags can be "Urgent", "HighPriority" and etc.</li>
-<li><code>LOCATION</code> is the place of task being done. You can use this parameter to remind you where to go to complete the task.</li>
-<li>'DESCRIPTION' is where you can include some extra information about your task.</li>
-</ul>
-
-<p>Format : <code>add TASK_NAME [t; DATE START_TIME] [a;LOCATION] [t/TAG] [d;</code></p>
-
-<blockquote>
-<p>You don't have to enter the optional parameters when you don't need them. The order of the parameters are not fixed. You can enter the parameters in any order. For example, <code>add t/[TAG] t; DATE START_TIME</code> is also correct format.</p>
-</blockquote>
-
-<p><strong>Example:</strong><br>
-Let's say you want to add task named "Presentation" which is scheduled for 18 July 2016, 9:00AM. All you need to do is enter the following as shown below.</p>
-
-<p><a href="https://github.com/CS2103AUG2016-W10-C3/main/blob/master/docs/images/addCommand.png" target="_blank"><img src="./helpPage_files/addCommand.png" width="250" align="middle" style="max-width:100%;"></a><br>Figure 3. Example of add command<br></p>
-
-<p>After entering the command, MessageBox will show you task is successfully added into SmartyDo and you will see the updated list of task in the VisualBox.</p>
-
-<h3><a id="user-content-33-editing-task-details" class="anchor" href="https://github.com/CS2103AUG2016-W10-C3/main/blob/master/docs/UserGuide.md#33-editing-task-details" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>3.3. <strong>Editing Task Details</strong></h3>
-
-<p>You might want to edit details of a task for several reasons. For example, when deadline was extended you will need to update the SmartyDo for this change. Using <code>edit</code> command will solve this problem.</p>
-
-<p>Format: <code>edit INDEX PARAMETER_TYPE NEW_VALUE</code></p>
-
-<p>PARAMETER_TYPE the type of the parameter we want to change and NEW_VALUE is the new value for that parameter. <br>
-<code>edit</code> command edits the task at the specified INDEX. You can easily identify the INDEX of the task by looking at the Visual Panel. <br>
-If the task you want to edit is not shown in the Visual Panel, you can use <code>view</code> or <code>find</code> command to find the required task. <br></p>
-
-<p><strong>Example:</strong><br>
-Let's say you want to add deadline time for task named "Presentation". Then, you must first check the INDEX of that task. In this case, the INDEX of the task is 1. So to add deadline for this task, enter <code>edit 1 t; DEADLINE</code>. This will update the deadline of the task. A demonstration of this functionality shown below.</p>
-
-<p><a href="https://github.com/CS2103AUG2016-W10-C3/main/blob/master/docs/images/addeditCommand.png" target="_blank"><img src="./helpPage_files/addeditCommand.png" width="500" align="middle" style="max-width:100%;"></a><br>Figure 4. Before(left) and after(right) of an edit command<br></p>
-
-<h3><a id="user-content-34-deleting-tasks" class="anchor" href="https://github.com/CS2103AUG2016-W10-C3/main/blob/master/docs/UserGuide.md#34-deleting-tasks" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>3.4. <strong>Deleting Tasks</strong></h3>
-
-<p>Sometimes, you may also want to delete tasks due to unexpected circumstances. To help you to handle such problem, <code>delete</code> command can be used. <code>delete</code> command is simply deleting task from SmartyDo.</p>
-
-<p>Format: <code>delete INDEX</code></p>
-
-<p>Similar to <code>edit</code> command, <code>delete</code> command also uses INDEX. INDEX can be found in Visual Panel by using <code>view</code> command and <code>find</code> command.</p>
-
-<p><strong>Example:</strong><br>
-If you want to delete specfic task, find the INDEX of that task. Let's say the INDEX is 1. Then, enter <code>delete 1</code> in the command bar.</p>
-
-<p><a href="https://github.com/CS2103AUG2016-W10-C3/main/blob/master/docs/images/adddeleteCommand.png" target="_blank"><img src="./helpPage_files/adddeleteCommand.png" width="500" align="middle" style="max-width:100%;"></a><br>Figure 5. Example of delete command<br></p>
-
-<p>After entering <code>delete</code> command, SmartyDo will delete the task specified by the INDEX and will show the updated list in the Visual Panel. In the screenshot above, you can see that the "Presentation" task has been deleted from SmartyDo.</p>
-
-<h3><a id="user-content-35-marking-completed-tasks" class="anchor" href="https://github.com/CS2103AUG2016-W10-C3/main/blob/master/docs/UserGuide.md#35-marking-completed-tasks" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>3.5. <strong>Marking Completed Tasks</strong></h3>
-
-<p>Instead of deleting the task, you may want to mark the task as complete and store the details of the task in the SmartyDo. In this case, you can use <code>done</code> command. By using <code>done</code> command, you can easily identify the completed tasks from the list.</p>
-
-<p>Format: <code>done INDEX</code></p>
-
-<p>Similar to <code>delete</code> command and <code>edit</code> command, INDEX is used in <code>done</code> command.</p>
-
-<p><strong>Example:</strong><br>
-You have now completed the task named "Presentation" and now you want to mark this task as complete. To do this, you will need to check the INDEX of this task. In this case, INDEX of this task is 1. So, entering <code>done 1</code> will mark "User Guide" task as complete.</p>
-
-<p><a href="https://github.com/CS2103AUG2016-W10-C3/main/blob/master/docs/images/doneCommand.png" target="_blank"><img src="./helpPage_files/doneCommand.png" width="250" align="middle" style="max-width:100%;"></a><br>Figure 6. Example of done command<br></p>
-
-<p>After entering the <code>done</code> command, you are now able to identify the completed task easily from the list.</p>
-
-<h3><a id="user-content-36-undoing-and-redoing" class="anchor" href="https://github.com/CS2103AUG2016-W10-C3/main/blob/master/docs/UserGuide.md#36-undoing-and-redoing" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>3.6. <strong>Undoing and Redoing</strong></h3>
-
-<p>With <code>undo</code>, you are allowed to reverse your previous changes sequentially while <code>redo</code> allows you to reverse the change done by <code>undo</code>.<br></p>
-
-<ul>
-<li><code>undo</code> command requires the application to have executed atleast one undoable command after launching.</li>
-<li><code>redo</code> command requires the application to have executed atleast one succussful <code>undo</code> command after launching.</li>
-</ul>
-
-<p>Undoable Commands:<code>add</code>, <code>delete</code>, <code>edit</code>, <code>done</code></p>
-
-<blockquote>
-<p>SmartyDo <strong>does not store</strong> history of actions in your computer.
-Your history of actions resets when SmartyDo is launched.
-Also, if you enter any undoable command after entering <code>redo</code> or <code>undo</code>, your history of actions would be <em><strong>removed</strong></em>. <br></p>
-</blockquote>
-
-<p>Format: <code>undo</code>, <code>redo</code></p>
-
-<p><strong>Example:</strong><br>
-Let's say you have added a task and your friend told you that your tutor has changed the date. You would like to undo it. You can undo it as long as you just added it, as shown below.</p>
-
-<p><a href="https://github.com/CS2103AUG2016-W10-C3/main/blob/master/docs/images/doundoCommand.png" target="_blank"><img src="./helpPage_files/doundoCommand.png" width="500" align="middle" style="max-width:100%;"></a><br>Figure 7.1. Before(left) and after(right) of an undo command<br></p>
-
-<p>By entering <code>undo</code> command, SmartyDo updates your list of tasks to how it was before you executed an undoable action. From the screenshot above, you can see that the date of the task named "Presentation" had changed.</p>
-
-<p>However, you realized that your friend was wrong and you want to change the date back again. In this case, you do not need to use edit command again. Instead you can simply use <code>redo</code> command, as shown below.</p>
-
-<p><a href="https://github.com/CS2103AUG2016-W10-C3/main/blob/master/docs/images/undoredoCommand.png" target="_blank"><img src="./helpPage_files/undoredoCommand.png" width="500" align="middle" style="max-width:100%;"></a><br>Figure 7.2. Before(left) and after(right) of an undo command<br></p>
-
-<p>By using <code>redo</code> command, SmartyDo updates your list of tasks to how it was before you executed <code>undo</code> command. From the screenshot above, you can see that the "Presentation" task has been restored to its previous state.</p>
-
-<h3><a id="user-content-37-viewing-details-of-a-specific-task" class="anchor" href="https://github.com/CS2103AUG2016-W10-C3/main/blob/master/docs/UserGuide.md#37-viewing-details-of-a-specific-task" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>3.7. <strong>Viewing Details of a Specific Task</strong></h3>
-
-<p>View the task identified by the parameter. A full detailed description will appear in a pop up window.</p>
-
-<p>Format: <code>view PARAM</code></p>
-
-<p><strong>Example:</strong><br>
-Let's say you want to know detailed information about the third task in the Visual Panel. All you need to do is enter <code>view 3</code> into command bar, just as shown below.</p>
-
-<p><a href="https://github.com/CS2103AUG2016-W10-C3/main/blob/master/docs/images/view3Command.png" target="_blank"><img src="./helpPage_files/view3Command.png" width="500" align="middle" style="max-width:100%;"></a><br>Figure 8. Example of view command<br></p>
-
-<p>After entering the command, Browser Panel will show a detailed description about task 3.</p>
-
-<h3><a id="user-content-38-finding-specific-tasks" class="anchor" href="https://github.com/CS2103AUG2016-W10-C3/main/blob/master/docs/UserGuide.md#38-finding-specific-tasks" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>3.8. <strong>Finding Specific Tasks</strong></h3>
-
-<p>If you want to find tasks that contain specific keyword in their name, you can use <code>find</code> command. <code>find</code> command is a command that will list all the tasks matching atleast one keyword. You can enter more than one keyword for <code>find</code> command.</p>
-
-<p>Format: <code>find KEYWORD [MORE_KEYWORDS]</code></p>
-
-<p><a href="https://github.com/CS2103AUG2016-W10-C3/main/blob/master/docs/images/findCommand.png" target="_blank"><img src="./helpPage_files/findCommand.png" width="250" align="middle" style="max-width:100%;"></a><br>Figure 9. Example of find command<br></p>
-
-<blockquote>
-<p>Beware that keywords are case sensitive and only the task's name is searched. However, the order of the keywords does not matter. e.g. <code>find cs2103 project</code> is same as <code>find project cs2103</code></p>
-</blockquote>
-
-<h3><a id="user-content-39-filtering-task-list" class="anchor" href="https://github.com/CS2103AUG2016-W10-C3/main/blob/master/docs/UserGuide.md#39-filtering-task-list" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>3.9. <strong>Filtering Task List</strong></h3>
-
-<p>You can filter the list of tasks that you are viewing on the Visual Panel.</p>
-
-<p>Format: <code>list KEYWORD</code> where KEYWORD in this case are any of the following: ALL/OVERDUE/UPCOMING/COMPLETED/INCOMPLETE</p>
-
-<p>For example, after finding specific tasks, to return the Visual Panel back to where it lists all the tasks, simply input <code>list ALL</code> just as shown below.</p>
-
-<p><a href="https://github.com/CS2103AUG2016-W10-C3/main/blob/master/docs/images/listAllCommand.png" target="_blank"><img src="./helpPage_files/listAllCommand.png" width="250" align="middle" style="max-width:100%;"></a><br>Figure 10. Example of list command<br></p>
-
-<h3><a id="user-content-310-exiting-smartydo" class="anchor" href="https://github.com/CS2103AUG2016-W10-C3/main/blob/master/docs/UserGuide.md#310-exiting-smartydo" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>3.10. <strong>Exiting SmartyDo</strong></h3>
-
-<p>After using SmartyDo, you can exit the program by using <code>exit</code> command.</p>
-
-<p>Format: <code>exit</code></p>
-
-<p>By entering <code>exit</code> command in the command box, SmartyDo will quit and save the data.</p>
-
-<h2><a id="user-content-4-smart-features" class="anchor" href="https://github.com/CS2103AUG2016-W10-C3/main/blob/master/docs/UserGuide.md#4-smart-features" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>4. Smart Features</h2>
-
-<h3><a id="user-content-41-flexicommand" class="anchor" href="https://github.com/CS2103AUG2016-W10-C3/main/blob/master/docs/UserGuide.md#41-flexicommand" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>4.1. <strong>FlexiCommand</strong></h3>
-
-<p>It is okay if you cannot remember the syntax entirely! As long as you remember the keyword some reshuffling of the parameters entered is fine. Our program will ask you for confirmation if we are unsure what you want.</p>
-
-<h3><a id="user-content-42-saving-the-data" class="anchor" href="https://github.com/CS2103AUG2016-W10-C3/main/blob/master/docs/UserGuide.md#42-saving-the-data" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>4.2. <strong>Saving the Data</strong></h3>
-
-<p>SmartyDo will automatically save your data in the hard disk after any command that changes the data. There is no need to save manually.</p>
-
-<h2><a id="user-content-5-summary" class="anchor" href="https://github.com/CS2103AUG2016-W10-C3/main/blob/master/docs/UserGuide.md#5-summary" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>5. Summary</h2>
-
-<h3><a id="user-content-51-command-summary" class="anchor" href="https://github.com/CS2103AUG2016-W10-C3/main/blob/master/docs/UserGuide.md#51-command-summary" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>5.1. <strong>Command Summary</strong></h3>
-
-<table><thead>
-<tr>
-<th align="center"><strong>Command</strong></th>
-<th align="center"><strong>Parameters</strong></th>
-<th><strong>Format</strong></th>
-</tr>
-</thead><tbody>
-<tr>
-<td align="center">Help</td>
-<td align="center"></td>
-<td><code>help</code></td>
-</tr>
-<tr>
-<td align="center">Add</td>
-<td align="center">TASK_NAME, DATE_TIME,[LOCATION], [TAG]</td>
+<td>Add</td>
+<td align="center" style="font-family:'segoe ui light';">TASK_NAME, DATE_TIME,[LOCATION], [TAG]</td>
 <td><code>add /n TASK_NAME d; DATE START_TIME END_TIME t/ TAG a; LOCATION</code></td>
 </tr>
-<tr>
-<td align="center">View</td>
-<td align="center">PARAM</td>
-<td><code>view PARAM</code></td>
-</tr>
-<tr>
-<td align="center">Find</td>
-<td align="center">KEYWORD, [MORE_KEYWORD]</td>
-<td><code>find KEYWORD [MORE_KEYWORD]</code></td>
-</tr>
-<tr>
-<td align="center">Edit</td>
-<td align="center">INDEX</td>
+<tr style="background-color: #f8f8f8;">
+<td>Edit</td>
+<td align="center" style="font-family:'segoe ui light';">INDEX</td>
 <td><code>edit INDEX</code></td>
 </tr>
 <tr>
-<td align="center">Undo</td>
-<td align="center"></td>
-<td><code>undo</code></td>
+<td>Delete</td>
+<td align="center" style="font-family:'segoe ui light';">INDEX</td>
+<td><code>delete INDEX</code></td>
 </tr>
-<tr>
-<td align="center">Redo</td>
-<td align="center"></td>
-<td><code>redo</code></td>
-</tr>
-<tr>
-<td align="center">Done</td>
-<td align="center">INDEX</td>
+<tr style="background-color: #f8f8f8;">
+<td>Done</td>
+<td align="center" style="font-family:'segoe ui light';">INDEX</td>
 <td><code>done INDEX</code></td>
 </tr>
 <tr>
-<td align="center">Exit</td>
-<td align="center"></td>
-<td><code>exit</code></td>
+<td>Undo</td>
+<td></td>
+<td></td>
 </tr>
-</tbody></table>
-
-<p>Table 5. Command Summary</p>
-
-<h3><a id="user-content-52-keyboard-shortcuts" class="anchor" href="https://github.com/CS2103AUG2016-W10-C3/main/blob/master/docs/UserGuide.md#52-keyboard-shortcuts" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>5.2. <strong>Keyboard Shortcuts</strong></h3>
-
-<table><thead>
-<tr>
-<th align="center"><strong>Command</strong></th>
-<th align="center"><strong>Shortcut</strong></th>
-</tr>
-</thead><tbody>
-<tr>
-<td align="center">help</td>
-<td align="center"><code>F1</code></td>
+<tr style="background-color: #f8f8f8;">
+<td>Redo</td>
+<td></td>
+<td></td>
 </tr>
 <tr>
-<td align="center">list all</td>
+<td>View</td>
+<td align="center" style="font-family:'segoe ui light';">PARAM</td>
+<td><code>view PARAM</code></td>
+</tr>
+<tr style="background-color: #f8f8f8;">
+<td>Find</td>
+<td align="center" style="font-family:'segoe ui light';">KEYWORD, [MORE_KEYWORD]</td>
+<td><code>find KEYWORD [MORE_KEYWORD]</code></td>
+</tr>
+<tr>
+<td>Select</td>
+<td align="center" style="font-family:'segoe ui light';">INDEX</td>
+<td><code>select INDEX</code></td>
+</tr>
+<tr style="background-color: #f8f8f8;">
+<td>Locate</td>
+<td align="center" style="font-family:'segoe ui light';">INDEX</td>
+<td><code>locate INDEX</code></td>
+</tr>
+<tr>
+<td>Exit</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 style="font-family:'segoe ui semibold';"><a href="https://github.com/CS2103AUG2016-W10-C3/main/blob/master/docs/UserGuide.md#52-keyboard-shortcuts"></a>2. <strong>Keyboard Shortcuts</strong></h3>
+<table style="font-family:'segoe ui semibold';" border="1" cellpadding="5">
+<thead>
+<tr><th><strong>Command</strong></th><th><strong>Shortcut</strong></th></tr>
+</thead>
+<tbody>
+<tr style="background-color: #f8f8f8;">
+<td>help</td>
+<td align="center"><code>Ctrl+F1</code></td>
+</tr>
+<tr>
+<td>view all</td>
 <td align="center"><code>Ctrl+1</code></td>
 </tr>
-<tr>
-<td align="center">list overdue</td>
+<tr style="background-color: #f8f8f8;">
+<td>view overdue</td>
 <td align="center"><code>Ctrl+2</code></td>
 </tr>
 <tr>
-<td align="center">list upcoming</td>
+<td>view upcoming</td>
 <td align="center"><code>Ctrl+3</code></td>
 </tr>
-<tr>
-<td align="center">list completed</td>
+<tr style="background-color: #f8f8f8;">
+<td>view completed</td>
 <td align="center"><code>Ctrl+4</code></td>
 </tr>
 <tr>
-<td align="center">list incomplete</td>
+<td>view incomplete</td>
 <td align="center"><code>Ctrl+5</code></td>
 </tr>
-</tbody></table>
-</article>
-  </div>
-
-</div>
-
-</body></html>
+</tbody>
+</table>
