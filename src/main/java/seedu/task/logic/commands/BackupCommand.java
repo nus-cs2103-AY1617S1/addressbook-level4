@@ -35,16 +35,16 @@ public class BackupCommand extends Command {
     public static final String MESSAGE_BACKUP_ERROR = "Backup unsuccessful: %1$s , data mismatch";
 
     
-    //This constant string variable is file extension of the storage file.
+    /* This constant string variable is file extension of the storage file */
     private final String FILE_EXTENSION = ".xml";
     
-    //This is the path of the current data file.
+    /* This is the path of the current data file */
     private String _source;
     
-    //This is the path of the backup data file.
+    /* This is the path of the backup data file */
     private String _destination;
     
-    //This is information if the command had overwritten an existing data file or created a new data file.
+    /* This is information if the command had overwritten an existing data file or created a new data file */
     private String _overwrite;
     
     public BackupCommand(String destination) {

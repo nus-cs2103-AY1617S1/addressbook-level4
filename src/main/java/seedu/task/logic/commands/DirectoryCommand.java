@@ -34,10 +34,10 @@ public class DirectoryCommand extends Command {
     
     public static final String MESSAGE_FILE_NOT_FOUND_ERROR = "File does not exist: %1$s";
     
-    //This constant string variable is file extension of the storage file.
+    /* This constant string variable is file extension of the storage file. */
     private final String FILE_EXTENSION = ".xml";
     
-    //This is the path of the selected storage file.
+    /* This is the path of the selected storage file. */
     private String _destination;
     
     public DirectoryCommand(String newFilePath) {
