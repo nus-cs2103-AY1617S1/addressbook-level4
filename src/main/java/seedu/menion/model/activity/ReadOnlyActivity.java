@@ -39,6 +39,10 @@ public interface ReadOnlyActivity {
     
     void setActivityDetails();
     
+    Boolean isEmailSent();
+    Boolean isTimePassed();
+    Boolean isEventOngoing();
+    
     //@@author A0139164A
     /**
      * Methods to set the Activity's Param 
@@ -50,6 +54,9 @@ public interface ReadOnlyActivity {
     void setActivityNote(String newNote) throws IllegalValueException;
     void setActivityStartDateTime(String newDate, String newTime) throws IllegalValueException;
     void setActivityEndDateTime(String newDate, String newTime) throws IllegalValueException;
+    void setEmailSent(Boolean sentStatus);
+    void setTimePassed(Boolean timePassed);
+    void setEventOngoing(Boolean eventOngoing);
     
     /**
      * For Floating Task

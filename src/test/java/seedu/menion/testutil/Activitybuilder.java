@@ -27,14 +27,14 @@ public class Activitybuilder {
     
     public Activitybuilder withTask(String type, ActivityName name, Note note, ActivityDate startDate, ActivityTime startTime, Completed status) throws IllegalValueException {
        
-        this.activity = new TestActivity(type, name, note, startDate, startTime, status);
+        this.activity = new TestActivity(type, name, note, startDate, startTime, status, null, null);
         return this;
     }
 
     public Activitybuilder withEvent(String type, ActivityName name, Note note, ActivityDate startDate, 
             ActivityTime startTime, ActivityDate endDate, ActivityTime endTime, Completed status) throws IllegalValueException {
         
-        this.activity = new TestActivity(type, name, note, startDate, startTime, endDate, endTime, status);
+        this.activity = new TestActivity(type, name, note, startDate, startTime, endDate, endTime, status, null, null);
         return this;
     }
 

@@ -6,7 +6,7 @@ import seedu.menion.commons.exceptions.IllegalValueException;
 import seedu.menion.logic.commands.EditCommand;
 import seedu.menion.model.activity.Activity;
 import seedu.menion.model.activity.UniqueActivityList;
-
+import seedu.menion.model.activity.UniqueActivityList.ActivityNotFoundException;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -141,165 +141,123 @@ public class ActivityManager implements ReadOnlyActivityManager {
         events.add(t);
         Collections.sort(events.getInternalList(), new EventComparator());
     }
-    //@@author A0146752B
+    
     
     //@@author A0139164A
     /**
      * Methods, Completes an activity in the activity manager.
      * Passes in the index of the list to complete
      * 
-     * @param index
+     * @param activityToComplete
      */
-    public void completeTask(int index) {
-        Activity dub;
-        dub = tasks.getInternalList().get(index);
+    public void completeTask(ReadOnlyActivity activityToComplete) throws ActivityNotFoundException {
+        Activity dub = (Activity)activityToComplete;
         dub.setCompleted();
-        tasks.getInternalList().set(index, dub);  
+        tasks.getInternalList().set(tasks.getIndexOf(activityToComplete), dub);  
         Collections.sort(tasks.getInternalList(), new TaskComparator());
     }
 
-    public void completeFloatingTask(int index) {
-        Activity dub;
-        dub = floatingTasks.getInternalList().get(index);
+    public void completeFloatingTask(ReadOnlyActivity activityToComplete) throws ActivityNotFoundException {
+        Activity dub = (Activity)activityToComplete;
         dub.setCompleted();
-        floatingTasks.getInternalList().set(index, dub);  
+        floatingTasks.getInternalList().set(floatingTasks.getIndexOf(activityToComplete), dub);
         Collections.sort(floatingTasks.getInternalList(), new FloatingTaskComparator());
     }
     
     /**
      * Methods, UnCompletes an activity in the activity manager.
      * Passes in the index of the list to complete
-     * @param index
+     * @param activityToUncomplete
      */
-    public void unCompleteFloatingTask(int index) {
-        Activity dub;
-        dub = floatingTasks.getInternalList().get(index);
+    public void unCompleteFloatingTask(ReadOnlyActivity activityToUncomplete) throws ActivityNotFoundException {
+        Activity dub = (Activity)activityToUncomplete;
         dub.setUncompleted();
-        floatingTasks.getInternalList().set(index, dub);
+        floatingTasks.getInternalList().set(floatingTasks.getIndexOf(activityToUncomplete), dub);
         Collections.sort(floatingTasks.getInternalList(), new FloatingTaskComparator());
     }
     
-    public void unCompleteTask(int index) {
-        Activity dub;
-        dub = tasks.getInternalList().get(index);
+    public void unCompleteTask(ReadOnlyActivity activityToUncomplete) throws ActivityNotFoundException {
+        Activity dub = (Activity)activityToUncomplete;
         dub.setUncompleted();
-        tasks.getInternalList().set(index, dub); 
+        tasks.getInternalList().set(tasks.getIndexOf(activityToUncomplete), dub);
         Collections.sort(tasks.getInternalList(), new TaskComparator());
     }
     
     /**
      * Methods, edits an activity's NAME in the activity manager.
      * Passes in the index of the list to complete, and changes to make
-     * @param index
+     * @param floatingTaskToEdit
      * @throws IllegalValueException 
      */
-    public void editFloatingTaskName(int index, String changes) throws IllegalValueException {
-        Activity dub;
-        dub = floatingTasks.getInternalList().get(index);
+    public void editFloatingTaskName(ReadOnlyActivity floatingTaskToEdit, String changes) throws IllegalValueException, ActivityNotFoundException {
+        Activity dub = (Activity)floatingTaskToEdit;
         dub.setActivityName(changes);
-        floatingTasks.getInternalList().set(index, dub);
+        floatingTasks.getInternalList().set(floatingTasks.getIndexOf(floatingTaskToEdit), dub);
         Collections.sort(floatingTasks.getInternalList(), new FloatingTaskComparator());
     }
     
-    public void editTaskName(int index, String changes) throws IllegalValueException {
-        Activity dub;
-        dub = tasks.getInternalList().get(index);
+    public void editTaskName(ReadOnlyActivity taskToEdit, String changes) throws IllegalValueException, ActivityNotFoundException {
+        Activity dub = (Activity)taskToEdit;
         dub.setActivityName(changes);
-        tasks.getInternalList().set(index, dub); 
+        tasks.getInternalList().set(tasks.getIndexOf(taskToEdit), dub); 
         Collections.sort(tasks.getInternalList(), new TaskComparator());
     }
     
-    public void editEventName(int index, String changes) throws IllegalValueException {
-        Activity dub;
-        dub = events.getInternalList().get(index);
+    public void editEventName(ReadOnlyActivity eventToEdit, String changes) throws IllegalValueException, ActivityNotFoundException {
+        Activity dub = (Activity)eventToEdit;
         dub.setActivityName(changes);
-        events.getInternalList().set(index, dub);   
+        events.getInternalList().set(events.getIndexOf(eventToEdit), dub);   
         Collections.sort(events.getInternalList(), new EventComparator());
     }
     
     /**
      * Methods, edits an activity's NOTE in the activity manager.
      * Passes in the index of the list to complete, and changes to make
-     * @param index
+     * @param floatingTaskToEdit
      * @throws IllegalValueException 
      */
-    public void editFloatingTaskNote(int index, String changes) throws IllegalValueException {
-        Activity dub;
-        dub = floatingTasks.getInternalList().get(index);
+    public void editFloatingTaskNote(ReadOnlyActivity floatingTaskToEdit, String changes) throws IllegalValueException, ActivityNotFoundException {
+        Activity dub = (Activity)floatingTaskToEdit;
         dub.setActivityNote(changes);
-        floatingTasks.getInternalList().set(index, dub);   
+        floatingTasks.getInternalList().set(floatingTasks.getIndexOf(floatingTaskToEdit), dub);
     }
     
-    public void editTaskNote(int index, String changes) throws IllegalValueException {
-        Activity dub;
-        dub = tasks.getInternalList().get(index);
+    public void editTaskNote(ReadOnlyActivity taskToEdit, String changes) throws IllegalValueException, ActivityNotFoundException {
+        Activity dub = (Activity)taskToEdit;
         dub.setActivityNote(changes);
-        tasks.getInternalList().set(index, dub);   
+        tasks.getInternalList().set(tasks.getIndexOf(taskToEdit), dub); 
     }
     
-    public void editEventNote(int index, String changes) throws IllegalValueException {
-        Activity dub;
-        dub = events.getInternalList().get(index);
+    public void editEventNote(ReadOnlyActivity eventToEdit, String changes) throws IllegalValueException, ActivityNotFoundException {
+        Activity dub = (Activity)eventToEdit;
         dub.setActivityNote(changes);
-        events.getInternalList().set(index, dub);   
+        events.getInternalList().set(events.getIndexOf(eventToEdit), dub);
     }
     
     /**
      * Methods, edits a Task/Event's starting Date & Time in the activity manager.
      * Passes in the index of the list to complete, and changes to make
-     * @param index
+     * @param taskToEdit
      * @throws IllegalValueException 
      */
-    public void editTaskDateTime(int index, String newDate, String newTime) throws IllegalValueException {
-        Activity dub;
-        dub = tasks.getInternalList().get(index);
-        String currentTime = dub.getActivityStartTime().toString();
-        String currentDate = dub.getActivityStartDate().toString();
-        
-        if (newDate.equals(EditCommand.NOT_TO_EDIT)) {
-            newDate = currentDate;
-        }
-        if (newTime.equals(EditCommand.NOT_TO_EDIT)) {
-            newTime = currentTime;
-        }
-        
+    public void editTaskDateTime(ReadOnlyActivity taskToEdit, String newDate, String newTime) throws IllegalValueException, ActivityNotFoundException {
+        Activity dub = (Activity)taskToEdit;
         dub.setActivityStartDateTime(newDate, newTime);
-        tasks.getInternalList().set(index, dub);
+        tasks.getInternalList().set(tasks.getIndexOf(taskToEdit), dub); 
         Collections.sort(tasks.getInternalList(), new TaskComparator());
     }
 
-    public void editEventStartDateTime(int index, String newDate, String newTime) throws IllegalValueException {
-        Activity dub;
-        dub = events.getInternalList().get(index);
-        String currentTime = dub.getActivityStartTime().toString();
-        String currentDate = dub.getActivityStartDate().toString();
-
-        if (newDate.equals(EditCommand.NOT_TO_EDIT)) {
-            newDate = currentDate;
-        }
-        if (newTime.equals(EditCommand.NOT_TO_EDIT)) {
-            newTime = currentTime;
-        }
-        
+    public void editEventStartDateTime(ReadOnlyActivity eventToEdit, String newDate, String newTime) throws IllegalValueException, ActivityNotFoundException {
+        Activity dub = (Activity)eventToEdit;
         dub.setActivityStartDateTime(newDate, newTime);
-        events.getInternalList().set(index, dub);
+        events.getInternalList().set(events.getIndexOf(eventToEdit), dub);
         Collections.sort(events.getInternalList(), new EventComparator());
     }
     
-    public void editEventEndDateTime(int index, String newDate, String newTime) throws IllegalValueException {    
-        Activity dub;
-        dub = events.getInternalList().get(index);
-        String currentEndTime = dub.getActivityEndTime().toString();
-        String currentEndDate = dub.getActivityEndDate().toString();
-        
-        if (newDate.equals(EditCommand.NOT_TO_EDIT)) {
-            newDate = currentEndDate;
-        }
-        if (newTime.equals(EditCommand.NOT_TO_EDIT)) {
-            newTime = currentEndTime;
-        }
+    public void editEventEndDateTime(ReadOnlyActivity eventToEdit, String newDate, String newTime) throws IllegalValueException, ActivityNotFoundException {    
+        Activity dub = (Activity)eventToEdit;
         dub.setActivityEndDateTime(newDate, newTime);
-        events.getInternalList().set(index, dub);
+        events.getInternalList().set(events.getIndexOf(eventToEdit), dub);
     }
     
     //@@author A0146752B

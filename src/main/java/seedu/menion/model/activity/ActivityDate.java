@@ -1,7 +1,6 @@
 //@@author A0139164A
 package seedu.menion.model.activity;
 
-import java.util.Calendar;
 import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -24,6 +23,7 @@ public class ActivityDate {
     public static final String ACTIVITYDATE_VALIDATION_REGEX = "(0?[0-3][0-9]-[0-1][0-9]-[0-2][0-9][0-9][0-9])";
 
     public final String value;
+    public final String formattedValue;
     private String month;
 
     /**
@@ -35,9 +35,9 @@ public class ActivityDate {
         assert date != null;
         date = date.trim();
 
-        isValidDate(date);
          
         extractMonth(date);
+        this.formattedValue = formatNiceDate(date);
         this.value = date;
     }
 
@@ -49,22 +49,9 @@ public class ActivityDate {
     	this.month = month;
     }
 
-    
-    //@@author A0139164A
-    /**
-     * Returns true if a given string is a valid activity date.
-     * @throws IllegalValueException 
-     */
-    public static void isValidDate(String test) throws IllegalValueException {
-        DateChecker dateCheck = new DateChecker();
-        
-        if (!test.matches(ACTIVITYDATE_VALIDATION_REGEX)) {
-            throw new IllegalValueException(MESSAGE_ACTIVITYDATE_INVALID);
-        }
-        dateCheck.validDate(test);
-        return;
-    }
    
+   
+    
     //@@author A0139277U
     private static String formatNiceDate(String dateToFormat){
     	String [] parts = dateToFormat.split("-");
@@ -73,7 +60,7 @@ public class ActivityDate {
     	String year = parts[2];
 
     	Integer monthInt = Integer.parseInt(month);
-    	month = new DateFormatSymbols().getMonths()[monthInt - 1];
+    	month = new DateFormatSymbols().getShortMonths()[monthInt - 1];
     	
     	dateToFormat = day + " " + month + " " + year;
     	
@@ -83,6 +70,10 @@ public class ActivityDate {
     
     public String getMonth(){
     	return this.month;
+    }
+    
+    public String toFormattedDateString(){
+    	return this.formattedValue;
     }
     
     @Override

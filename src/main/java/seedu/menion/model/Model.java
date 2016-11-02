@@ -5,6 +5,7 @@ import seedu.menion.commons.exceptions.IllegalValueException;
 import seedu.menion.model.activity.ReadOnlyActivity;
 import seedu.menion.model.activity.Activity;
 import seedu.menion.model.activity.UniqueActivityList;
+import seedu.menion.model.activity.UniqueActivityList.ActivityNotFoundException;
 
 import java.util.Set;
 import java.util.Stack;
@@ -24,36 +25,37 @@ public interface Model {
     
     //@@author A0139164A
     /** Completes the given Activity, given it's index. */
-    void completeFloatingTask(int index);
-    void completeTask(int index);
+    void completeFloatingTask(ReadOnlyActivity activityToComplete) throws ActivityNotFoundException;
+    void completeTask(ReadOnlyActivity activityToComplete) throws ActivityNotFoundException;
     
     /** Uncompletes the given Activity, given it's index. */
-    void UncompleteFloatingTask(int index);
-    void UncompleteTask(int index);
+    void UncompleteFloatingTask(ReadOnlyActivity activityToUncomplete) throws ActivityNotFoundException;
+    void UncompleteTask(ReadOnlyActivity activityToUncomplete) throws ActivityNotFoundException;
  
     /** 
      * Edits the name of the given Activity, given it's index. 
      * @throws IllegalValueException 
      */
-    void editFloatingTaskName(int index, String changes) throws IllegalValueException;
-    void editTaskName(int index, String changes) throws IllegalValueException;
-    void editEventName(int index, String changes) throws IllegalValueException;
+    void editFloatingTaskName(ReadOnlyActivity floatingTaskToEdit, String changes) throws IllegalValueException, ActivityNotFoundException;
+    void editTaskName(ReadOnlyActivity taskToEdit, String changes) throws IllegalValueException, ActivityNotFoundException;
+    void editEventName(ReadOnlyActivity eventToEdit, String changes) throws IllegalValueException, ActivityNotFoundException;
     
     /**
      * Edits the note of the given Activity, given it's index. 
      * @throws IllegalValueException 
      */
-    void editFloatingTaskNote(int index, String changes) throws IllegalValueException;
-    void editTaskNote(int index, String changes) throws IllegalValueException;
-    void editEventNote(int index, String changes) throws IllegalValueException;
+    void editFloatingTaskNote(ReadOnlyActivity floatingTaskToEdit, String changes) throws IllegalValueException, ActivityNotFoundException;
+    void editTaskNote(ReadOnlyActivity taskToEdit, String changes) throws IllegalValueException, ActivityNotFoundException;
+    void editEventNote(ReadOnlyActivity eventToEdit, String changes) throws IllegalValueException, ActivityNotFoundException;
     
     /**
      * Edits the Start Date & Time of the given Task/Event, given it's index. 
      * @throws IllegalValueException 
      */
-    void editTaskDateTime(int index, String newDate, String newTime) throws IllegalValueException;
-    void editEventEndDateTime(int index, String newDate, String newTime) throws IllegalValueException;
-    void editEventStartDateTime(int index, String newDate, String newTime) throws IllegalValueException;
+    void editTaskDateTime(ReadOnlyActivity taskToEdit, String newDate, String newTime) throws IllegalValueException, ActivityNotFoundException;
+    void editEventEndDateTime(ReadOnlyActivity eventToEdit, String newDate, String newTime) throws IllegalValueException, ActivityNotFoundException;
+    void editEventStartDateTime(ReadOnlyActivity eventToEdit, String newDate, String newTime) throws IllegalValueException, ActivityNotFoundException;
+    
     
     //@@author A0139515A
     /**
@@ -84,7 +86,14 @@ public interface Model {
   
     /** check if there is any previous activity manager in redo stack */
     boolean checkStatesInRedoStack();
-
+    
+    /**
+     * Methods for recently changed activity
+     */
+    
+    ReadOnlyActivity getMostRecentUpdatedActivity();
+    void updateRecentChangedActivity(ReadOnlyActivity activity);
+    
     //@@author A0146752B
     /** Adds the given task */
     void addTask(Activity task) throws UniqueActivityList.DuplicateTaskException;

@@ -46,9 +46,6 @@ public class FloatingTaskCard extends UiPart{
         if (floatingTask.getActivityStatus().toString().equals("Completed")) {
         	completionStatus.setImage(new Image("/images/complete.png"));
         }
-        else {
-        	completionStatus.setImage(new Image("/images/uncomplete.png"));
-        }
         id.setText(displayedIndex + ". ");    
     }
     //@@author

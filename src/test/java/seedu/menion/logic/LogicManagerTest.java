@@ -8,9 +8,11 @@ import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 
 import seedu.menion.commons.core.EventsCenter;
+import seedu.menion.commons.core.Messages;
 import seedu.menion.commons.events.model.ActivityManagerChangedEvent;
 import seedu.menion.commons.events.ui.JumpToListRequestEvent;
 import seedu.menion.commons.events.ui.ShowHelpRequestEvent;
+import seedu.menion.commons.util.DateChecker;
 import seedu.menion.logic.Logic;
 import seedu.menion.logic.LogicManager;
 import seedu.menion.logic.commands.*;
@@ -148,20 +150,12 @@ public class LogicManagerTest {
 
 
     @Test
-    public void execute_add_invalidArgsFormat() throws Exception {
-        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE);
-        assertCommandBehavior(
-                "add wrong args wrong args", expectedMessage);
-
-    }
-
-    @Test
     public void execute_add_invalidActivityData() throws Exception {
        
+    	String expected = String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT,DateChecker.END_DATE_BEFORE_START_DATE_ERROR);
+    	
         assertCommandBehavior(
-                "add Valid Name by: 40-13-2016 1900 n: hello", ActivityDate.MESSAGE_ACTIVITYDATE_INVALID);
-        assertCommandBehavior(
-        		"add Valid Name by: 12-12-2016 2600 n: hello", ActivityTime.ACTIVITY_TIME_CONSTRAINTS);
+                "add Valid Name from: 09-10-2016 2100 to: 09-09-2016 2200 n: hi", expected);
        
     }
 
@@ -189,7 +183,7 @@ public class LogicManagerTest {
         List<? extends ReadOnlyActivity> expectedList = expectedAB.getTaskList();
         // prepare address book state
         helper.addToModel(model, 2);
-        assertCommandBehavior("list",
+        assertCommandBehavior("list all",
                 ListCommand.MESSAGE_SUCCESS_ALL,
                 expectedAB,
                 expectedList);
@@ -256,66 +250,7 @@ public class LogicManagerTest {
                 expectedAB.getTaskList());
     }
 
-    @Test
-    public void execute_find_invalidArgsFormat() throws Exception {
-        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE);
-        assertCommandBehavior("find ", expectedMessage);
-    }
-
-    
-    @Test
-    public void execute_find_onlyMatchesFullWordsInNames() throws Exception {
-        TestDataHelper helper = new TestDataHelper();
-        Activity pTarget1 = helper.generateTaskWithName("bla bla KEY bla");
-        Activity pTarget2 = helper.generateTaskWithName("bla KEY bla bceofeia");
-        Activity p1 = helper.generateTaskWithName("KE Y");
-        Activity p2 = helper.generateTaskWithName("KEYKEYKEY sduauo");
-        List<Activity> fourPersons = helper.generateTaskList(p1, pTarget1, p2, pTarget2);
-        ActivityManager expectedAB = helper.generateTaskManager(fourPersons);
-        List<Activity> expectedList = helper.generateTaskList(pTarget1, pTarget2);
-        helper.addToModel(model, fourPersons);
-        assertCommandBehavior("find KEY",
-                Command.getMessageForActivityListShownSummary(expectedList.size()),
-                expectedAB,
-                expectedList);
-    }
 	
-    
-    @Test
-    public void execute_find_isNotCaseSensitive() throws Exception {
-        TestDataHelper helper = new TestDataHelper();
-        Activity p1 = helper.generateTaskWithName("bla bla KEY bla");
-        Activity p2 = helper.generateTaskWithName("bla KEY bla bceofeia");
-        Activity p3 = helper.generateTaskWithName("key key");
-        Activity p4 = helper.generateTaskWithName("KEy sduauo");
-        List<Activity> fourPersons = helper.generateTaskList(p3, p1, p4, p2);
-        ActivityManager expectedAB = helper.generateTaskManager(fourPersons);
-        List<Activity> expectedList = fourPersons;
-        helper.addToModel(model, fourPersons);
-        assertCommandBehavior("find KEY",
-                Command.getMessageForActivityListShownSummary(expectedList.size()),
-                expectedAB,
-                expectedList);
-    }
-    
-
-    @Test
-    public void execute_find_matchesIfAnyKeywordPresent() throws Exception {
-        TestDataHelper helper = new TestDataHelper();
-        Activity pTarget1 = helper.generateTaskWithName("bla bla KEY bla");
-        Activity pTarget2 = helper.generateTaskWithName("bla rAnDoM bla bceofeia");
-        Activity pTarget3 = helper.generateTaskWithName("key key");
-        Activity p1 = helper.generateTaskWithName("sduauo");
-        List<Activity> fourPersons = helper.generateTaskList(pTarget1, p1, pTarget2, pTarget3);
-        ActivityManager expectedAB = helper.generateTaskManager(fourPersons);
-        List<Activity> expectedList = helper.generateTaskList(pTarget1, pTarget2, pTarget3);
-        helper.addToModel(model, fourPersons);
-        assertCommandBehavior("find key rAnDoM",
-                Command.getMessageForActivityListShownSummary(expectedList.size()),
-                expectedAB,
-                expectedList);
-    }
-
 
     /**
      * A utility class to generate test data.
@@ -330,7 +265,7 @@ public class LogicManagerTest {
             ActivityTime startTime = new ActivityTime("1900");
             Completed status = new Completed(Completed.UNCOMPLETED_ACTIVITY);
             
-            return new Activity(activityType, name, note, startDate, startTime, status);
+            return new Activity(activityType, name, note, startDate, startTime, status, null, null);
         }
 
         /**
@@ -347,7 +282,7 @@ public class LogicManagerTest {
                     new Note("" + Math.abs(seed)),
                     new ActivityDate("18-08-1994"),
                     new ActivityTime("1900"),
-                    new Completed(Completed.UNCOMPLETED_ACTIVITY)
+                    new Completed(Completed.UNCOMPLETED_ACTIVITY), null, null
             );
         }
 
@@ -355,9 +290,14 @@ public class LogicManagerTest {
         String generateAddCommand(Activity p) {
             StringBuffer cmd = new StringBuffer();
 
+            // Swapping the position of day and month to fit natty
+            String activityDate = p.getActivityStartDate().toString();
+            String[] parts = activityDate.split("-");
+            activityDate = parts[1] + "-" + parts[0] + "-" + parts[2];
+            
             cmd.append("add ");
             cmd.append(p.getActivityName().toString());
-            cmd.append(" by: ").append(p.getActivityStartDate().toString());
+            cmd.append(" by: ").append(activityDate);
             cmd.append(" ").append(p.getActivityStartTime().toString());
             cmd.append(" n:").append(p.getNote().toString());
 
@@ -439,9 +379,9 @@ public class LogicManagerTest {
             		"task",
                     new ActivityName(taskName),
                     new Note("test note"),
-                    new ActivityDate("18-06-2016"),
+                    new ActivityDate("06-18-2016"),
                     new ActivityTime("1900"),
-                    new Completed(Completed.UNCOMPLETED_ACTIVITY));
+                    new Completed(Completed.UNCOMPLETED_ACTIVITY), null, null);
         }
     }
 }

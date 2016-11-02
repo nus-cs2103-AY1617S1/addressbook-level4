@@ -29,6 +29,10 @@ public class XmlAdaptedEvent {
     private String endTime;
     @XmlElement(required = true)
     private String status;
+    @XmlElement(required = true)
+    private String activityTimePassed;
+    @XmlElement(required = true)
+    private String eventOngoing;
     
 
     /**
@@ -52,6 +56,8 @@ public class XmlAdaptedEvent {
             endDate = source.getActivityEndDate().toString();
             endTime = source.getActivityEndTime().toString();
             status = source.getActivityStatus().toString();
+            activityTimePassed = source.isTimePassed().toString();
+            eventOngoing = source.isEventOngoing().toString();
         
     }
 
@@ -70,7 +76,10 @@ public class XmlAdaptedEvent {
             final ActivityDate endDate = new ActivityDate(this.endDate);
             final ActivityTime endTime = new ActivityTime(this.endTime);
             final Completed status = new Completed(this.status);
-            return new Activity(type, name, note, startDate, startTime, endDate, endTime, status);
+            final Boolean activityTimePassed = Boolean.parseBoolean(this.activityTimePassed);
+            final Boolean eventOngoing = Boolean.parseBoolean(this.eventOngoing);
+            
+            return new Activity(type, name, note, startDate, startTime, endDate, endTime, status, activityTimePassed, eventOngoing);
         
         
     }

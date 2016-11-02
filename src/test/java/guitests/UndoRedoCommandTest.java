@@ -1,6 +1,7 @@
 package guitests;
 
 import guitests.guihandles.TaskCardHandle;
+import seedu.menion.logic.commands.UndoCommand;
 import seedu.menion.testutil.TestActivity;
 import seedu.menion.testutil.TestUtil;
 
@@ -12,7 +13,7 @@ import static org.junit.Assert.assertTrue;
 public class UndoRedoCommandTest extends ActivityManagerGuiTest {
 
     @Test
-    public void add() {
+    public void undoRedo() {
         //add one activity
         TestActivity[] originalList = td.getTypicalTask();
         TestActivity activityToAdd = td.task2;
@@ -66,14 +67,14 @@ public class UndoRedoCommandTest extends ActivityManagerGuiTest {
         commandBox.runCommand("undo");
         commandBox.runCommand("undo");
         commandBox.runCommand("undo");
-        assertResultMessage("Menion is unable to undo to your previous changes");
+        assertResultMessage(UndoCommand.MESSAGE_FAILURE);
         
         //there is 3 states to redo, redo 4 times to check message
         commandBox.runCommand("redo");
         commandBox.runCommand("redo");
         commandBox.runCommand("redo");
         commandBox.runCommand("redo");
-        assertResultMessage("Menion is unable to redo to your previous changes");
+        assertResultMessage(UndoCommand.MESSAGE_FAILURE);
     }
 
     private void assertAddSuccess(TestActivity activityToAdd, TestActivity... currentList) {

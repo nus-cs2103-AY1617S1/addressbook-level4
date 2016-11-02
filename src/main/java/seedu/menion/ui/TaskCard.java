@@ -48,14 +48,20 @@ public class TaskCard extends UiPart{
     public void initialize() {
         name.setText(task.getActivityName().fullName);
         note.setText(task.getNote().toString());
-        startDate.setText(task.getActivityStartDate().toString());
+        startDate.setText(task.getActivityStartDate().toFormattedDateString());
         startTime.setText(task.getActivityStartTime().toString());
         if (task.getActivityStatus().toString().equals("Completed")) {
         	completionStatus.setImage(new Image("/images/complete.png"));
         }
+        else if (task.isTimePassed()) {
+            System.out.println("This task's istimePAssed : " + task.isTimePassed());
+           // WEIJIE -> DISPLAY Overdue.png here!
+        }
+        /**
         else {
         	completionStatus.setImage(new Image("/images/uncomplete.png"));
         }
+        */
         id.setText(displayedIndex + ". ");    
     }
 

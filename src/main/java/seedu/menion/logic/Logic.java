@@ -1,5 +1,7 @@
 package seedu.menion.logic;
 
+import java.util.Calendar;
+
 import javafx.collections.ObservableList;
 import seedu.menion.logic.commands.CommandResult;
 import seedu.menion.model.activity.ReadOnlyActivity;
@@ -25,4 +27,14 @@ public interface Logic {
     /** Returns the filtered list of events */
     ObservableList<ReadOnlyActivity> getFilteredEventList();
     //@@author
+    
+    //@@author A0139515A
+    /** Returns the most recently updated activity
+     * 	includes any changes that is made by commands which make changes to the activity
+     * 	e.g. add, edit, complete etc...
+     */
+    ReadOnlyActivity getMostRecentUpdatedActivity();
+    
+    /** Returns the current date and time */
+    String getCurrentDateTime();
 }

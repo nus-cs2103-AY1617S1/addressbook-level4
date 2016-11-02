@@ -11,7 +11,7 @@ public class UndoCommand extends Command {
 
     public static final String COMMAND_WORD = "undo";
     public static final String MESSAGE_SUCCESS = "Menion successfully undo your previous changes";
-    public static final String MESSAGE_FAILURE = "Menion is unable to undo to your previous changes";
+    public static final String MESSAGE_FAILURE = "There are no changes for Menion to undo";
 
     public UndoCommand() {}
 
@@ -19,6 +19,9 @@ public class UndoCommand extends Command {
     @Override
     public CommandResult execute() {
         assert model != null;
+        
+        model.updateRecentChangedActivity(null);
+        
         boolean ableToUndo = undo();
         if (ableToUndo) {
         	return new CommandResult(MESSAGE_SUCCESS);

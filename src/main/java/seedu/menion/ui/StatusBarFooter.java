@@ -10,6 +10,7 @@ import org.controlsfx.control.StatusBar;
 
 import seedu.menion.commons.core.LogsCenter;
 import seedu.menion.commons.events.model.ActivityManagerChangedEvent;
+import seedu.menion.commons.events.ui.ModifyStorageEvent;
 import seedu.menion.commons.util.FxViewUtil;
 
 import java.util.Date;
@@ -46,7 +47,7 @@ public class StatusBarFooter extends UiPart {
         addSyncStatus();
         setSyncStatus("Not updated yet in this session");
         addSaveLocation();
-        setSaveLocation("./" + saveLocation);
+        setSaveLocation(saveLocation);
         registerAsAnEventHandler(this);
     }
 
@@ -95,5 +96,12 @@ public class StatusBarFooter extends UiPart {
         String lastUpdated = (new Date()).toString();
         logger.info(LogsCenter.getEventHandlingLogMessage(abce, "Setting last updated status to " + lastUpdated));
         setSyncStatus("Last Updated: " + lastUpdated);
+    }
+    
+    //@@author A0139515A
+    @Subscribe
+    public void handleModifyStorageEvent(ModifyStorageEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        setSaveLocation(event.getNewFilePath());
     }
 }

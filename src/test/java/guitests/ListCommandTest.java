@@ -90,16 +90,20 @@ public class ListCommandTest extends ActivityManagerGuiTest {
 		
 		// Test wrong command
 		commandBox.runCommand("list oktober");
-		assertResultMessage(ListCommand.WRONG_ARGUMENT);
-		assertTrue(activityListPanel.isTaskListMatching(expectedTaskListMonth1));
-		assertTrue(activityListPanel.isEventListMatching(expectedEventListMonth1));
+		assertResultMessage(ListCommand.MESSAGE_SUCCESS_LIST_KEYWORDS + "oktober");
+		assertTrue(activityListPanel.isTaskListMatching());
+		assertTrue(activityListPanel.isEventListMatching());
 		assertTrue(activityListPanel.isFloatingTaskListMatching());
 		
+		TestActivity[] expectedKeywordTaskList1 = new TestActivity[1];
+		expectedKeywordTaskList1[0] = testTask1;
+		TestActivity[] expectedKeywordFloatingList1 = new TestActivity[1];
+		expectedKeywordFloatingList1[0] = testFloating1;
 		commandBox.runCommand("list cs2103t");
-		assertResultMessage(ListCommand.WRONG_ARGUMENT);
-		assertTrue(activityListPanel.isTaskListMatching(expectedTaskListMonth1));
-		assertTrue(activityListPanel.isEventListMatching(expectedEventListMonth1));
-		assertTrue(activityListPanel.isFloatingTaskListMatching());
+		assertResultMessage(ListCommand.MESSAGE_SUCCESS_LIST_KEYWORDS + "cs2103t");
+		assertTrue(activityListPanel.isTaskListMatching(expectedKeywordTaskList1));
+		assertTrue(activityListPanel.isEventListMatching());
+		assertTrue(activityListPanel.isFloatingTaskListMatching(testFloating1));
 	}
 
 	private void generateActivitiesForList(ActivityManager testActivityManager) {
@@ -107,21 +111,21 @@ public class ListCommandTest extends ActivityManagerGuiTest {
 		try {
 			testTask1 = new TestActivity(Activity.TASK_TYPE, new ActivityName("cs2103t"), new Note("This is difficult"),
 					new ActivityDate("18-08-2016"), new ActivityTime("1900"),
-					new Completed(Completed.UNCOMPLETED_ACTIVITY));
+					new Completed(Completed.UNCOMPLETED_ACTIVITY), null, null);
 			
 			testTask2 = new TestActivity(Activity.TASK_TYPE, new ActivityName("cs2106"), new Note("This is even more difficult"),
 					new ActivityDate("20-10-2016"), new ActivityTime("1900"),
-					new Completed(Completed.UNCOMPLETED_ACTIVITY));
+					new Completed(Completed.UNCOMPLETED_ACTIVITY), null, null);
 			
 			testEvent1 = new TestActivity(Activity.EVENT_TYPE, new ActivityName("eat dinner"), new Note("bring money"),
 					new ActivityDate("18-08-2016"), new ActivityTime("1900"), new ActivityDate("18-08-2016"),
-					new ActivityTime("2015"), new Completed(Completed.UNCOMPLETED_ACTIVITY));
+					new ActivityTime("2015"), new Completed(Completed.UNCOMPLETED_ACTIVITY), null, null);
 			
 			testEvent2 = new TestActivity(Activity.EVENT_TYPE, new ActivityName("meet prof"), new Note("be prepared"),
 					new ActivityDate("20-10-2016"), new ActivityTime("1900"), new ActivityDate("24-10-2016"),
-					new ActivityTime("2015"), new Completed(Completed.UNCOMPLETED_ACTIVITY));
+					new ActivityTime("2015"), new Completed(Completed.UNCOMPLETED_ACTIVITY), null, null);
 			
-			testFloating1 = new TestActivity(Activity.FLOATING_TASK_TYPE, new ActivityName("Must do 2103t"),
+			testFloating1 = new TestActivity(Activity.FLOATING_TASK_TYPE, new ActivityName("Must do cs2103t"),
 					new Note("Very important"), new Completed(Completed.UNCOMPLETED_ACTIVITY));
 			
 			testFloating2 = new TestActivity(Activity.FLOATING_TASK_TYPE, new ActivityName("Print card"),

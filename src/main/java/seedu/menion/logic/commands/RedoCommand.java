@@ -11,7 +11,7 @@ public class RedoCommand extends Command {
 
     public static final String COMMAND_WORD = "redo";
     public static final String MESSAGE_SUCCESS = "Menion successfully redo your previous changes";
-    public static final String MESSAGE_FAILURE = "Menion is unable to redo to your previous changes";
+    public static final String MESSAGE_FAILURE = "There are no changes for Menion to undo";
 
     public RedoCommand() {}
 
@@ -32,6 +32,8 @@ public class RedoCommand extends Command {
      */
 	public boolean redo() {
 		assert model != null;
+		
+		model.updateRecentChangedActivity(null);
 		
 		if (model.checkStatesInRedoStack()) {
 			return false;

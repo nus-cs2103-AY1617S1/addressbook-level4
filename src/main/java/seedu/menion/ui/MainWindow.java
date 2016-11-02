@@ -13,7 +13,6 @@ import seedu.menion.commons.core.GuiSettings;
 import seedu.menion.commons.events.ui.ExitAppRequestEvent;
 import seedu.menion.logic.Logic;
 import seedu.menion.model.UserPrefs;
-import seedu.menion.model.activity.ReadOnlyActivity;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -29,12 +28,13 @@ public class MainWindow extends UiPart {
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
-    private ActivityListPanel taskListPanel;
+    private ActivityListPanel activityListPanel;
     private ResultDisplay resultDisplay;
     private StatusBarFooter statusBarFooter;
     private CommandBox commandBox;
     private Config config;
     private UserPrefs userPrefs;
+    private DatetimeDisplay datetimeDisplay;
 
     // Handles to elements of this Ui container
     private VBox rootLayout;
@@ -52,7 +52,7 @@ public class MainWindow extends UiPart {
     private MenuItem helpMenuItem;
 
     @FXML
-    private AnchorPane taskListPanelPlaceholder;
+    private AnchorPane activityListPanelPlaceholder;
     
     @FXML
     private AnchorPane eventListPanelPlaceholder;
@@ -62,6 +62,9 @@ public class MainWindow extends UiPart {
 
     @FXML
     private AnchorPane statusbarPlaceholder;
+    
+    @FXML
+    private AnchorPane datetimeDisplayPlaceholder;
 
 
     public MainWindow() {
@@ -110,12 +113,14 @@ public class MainWindow extends UiPart {
     }
 
     void fillInnerParts() {
-        taskListPanel = ActivityListPanel.load(primaryStage, getTaskListPlaceholder(), logic.getFilteredFloatingTaskList(), logic.getFilteredTaskList(), logic.getFilteredEventList());
+        activityListPanel = ActivityListPanel.load(primaryStage, getActivityListPlaceholder(), 
+        		logic.getFilteredFloatingTaskList(), logic.getFilteredTaskList(), logic.getFilteredEventList());
         resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
         statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getActivityManagerFilePath());
-        commandBox = CommandBox.load(primaryStage, getCommandBoxPlaceholder(), resultDisplay, logic);
+        commandBox = CommandBox.load(primaryStage, getCommandBoxPlaceholder(), resultDisplay, logic, activityListPanel);
+        datetimeDisplay = DatetimeDisplay.load(primaryStage, getDatetimeDisplayPlaceholder(), logic.getCurrentDateTime());
     }
-
+    
     private AnchorPane getCommandBoxPlaceholder() {
         return commandBoxPlaceholder;
     }
@@ -128,8 +133,12 @@ public class MainWindow extends UiPart {
         return resultDisplayPlaceholder;
     }
 
-    public AnchorPane getTaskListPlaceholder() {
-        return taskListPanelPlaceholder;
+    public AnchorPane getActivityListPlaceholder() {
+        return activityListPanelPlaceholder;
+    }
+    
+    public AnchorPane getDatetimeDisplayPlaceholder() {
+        return datetimeDisplayPlaceholder;
     }
 
     public void hide() {
@@ -183,7 +192,7 @@ public class MainWindow extends UiPart {
         raise(new ExitAppRequestEvent());
     }
 
-    public ActivityListPanel getTaskListPanel() {
-        return this.taskListPanel;
+    public ActivityListPanel getActivityListPanel() {
+        return this.activityListPanel;
     }
 }

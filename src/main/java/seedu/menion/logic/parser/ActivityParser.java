@@ -50,19 +50,13 @@ public class ActivityParser {
         case AddCommand.COMMAND_WORD:
             return prepareAdd(arguments);
 
-
-
         case DeleteCommand.COMMAND_WORD:
             return prepareDelete(arguments);
 
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();
 
-        case FindCommand.COMMAND_WORD:
-            return prepareFind(arguments);
-
         case ListCommand.COMMAND_WORD:
-            
         	return prepareList(arguments);
             
         case UndoCommand.COMMAND_WORD:
@@ -79,6 +73,12 @@ public class ActivityParser {
         
         case EditCommand.COMMAND_WORD:
             return prepareEdit(arguments);
+            
+        case RemindCommand.COMMAND_WORD:
+            return prepareRemind(arguments);
+        
+        case UnremindCommand.COMMAND_WORD:
+            return prepareUnremind(arguments);
             
         case ModifyStoragePathCommand.COMMAND_WORD:
         	return new ModifyStoragePathCommand(arguments);
@@ -98,19 +98,40 @@ public class ActivityParser {
     private Command prepareList(String args){
     	
     	args = args.trim();
-    	
     	return new ListCommand(args);
     
     }
     
     //@@author A0139164A
+    private Command prepareUnremind(String args) {
+        String[] splited = args.split("\\s+");
+        
+        // Should only contain a space. No other arguments.
+        if (splited.length != 1) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, UnremindCommand.MESSAGE_USAGE));
+        }
+        
+        return new UnremindCommand();
+    }
+    private Command prepareRemind(String args) {
+        String[] splited = args.split("\\s+");
+        
+        // Should only contain a space, and Email of the user.
+        if (splited.length != 2) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, RemindCommand.MESSAGE_USAGE));
+        }
+        // Checks that it is a valid email. Include regex here.
+        
+        return new RemindCommand(splited[1]);    
+    }
+    
     private Command prepareComplete(String args) {
 
         String[] splited = args.split("\\s+");
         
         // Should only contain a space, Activity Type and Index
         if (splited.length != 3) {
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, CompleteCommand.INDEX_MISSING_MESSAGE));
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, CompleteCommand.MESSAGE_USAGE));
         }
         
         // Checks that the activity type is of valid type
@@ -140,7 +161,7 @@ public class ActivityParser {
         
         // Should only contain a space, Activity Type and Index
         if (splited.length != 3) {
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, UnCompleteCommand.INDEX_MISSING_MESSAGE));
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, UnCompleteCommand.MESSAGE_USAGE));
         }
         
         boolean isValidType = false; // Checks that the activity type is of valid type
@@ -183,7 +204,6 @@ public class ActivityParser {
         }
         
         // Only get here if invalid command!
-        System.out.println("Invalid command leh");
         return new IncorrectCommand(
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
     }
@@ -197,16 +217,19 @@ public class ActivityParser {
      */
     private Command prepareAdd(String args){
     	
-        ArrayList<String> details = AddParser.parseCommand(args);
-        if (details.isEmpty()){
-        	return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
-        }
-        
-        try {
-            return new AddCommand(details);
-        } catch (IllegalValueException ive) {
-            return new IncorrectCommand(ive.getMessage());
-        }
+		try {
+			ArrayList<String> details = AddParser.parseCommand(args);
+			if (details.isEmpty()) {
+				return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+			}
+
+			return new AddCommand(details);
+
+		} catch (IllegalValueException e) {
+			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, e.getMessage()));
+		}
+    	  
+   
     }
     //@@author
 
@@ -252,23 +275,5 @@ public class ActivityParser {
 
     }
 
-    /**
-     * Parses arguments in the context of the find activity command.
-     *
-     * @param args full command args string
-     * @return the prepared command
-     */
-    private Command prepareFind(String args) {
-        final Matcher matcher = KEYWORDS_ARGS_FORMAT.matcher(args.trim());
-        if (!matcher.matches()) {
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    FindCommand.MESSAGE_USAGE));
-        }
-
-        // keywords delimited by whitespace
-        final String[] keywords = matcher.group("keywords").split("\\s+");
-        final Set<String> keywordSet = new HashSet<>(Arrays.asList(keywords));
-        return new FindCommand(keywordSet);
-    }
 
 }

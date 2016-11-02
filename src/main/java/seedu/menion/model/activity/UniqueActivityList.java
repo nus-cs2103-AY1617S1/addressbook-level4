@@ -73,7 +73,23 @@ public class UniqueActivityList implements Iterable<Activity> {
         }
         return taskFoundAndDeleted;
     }
-
+    
+    //@@author A0146752B
+    /**
+     * Returns the activity index from the list.
+     *
+     * @throws ActivityNotFoundException if no such task could be found in the list.
+     */
+    public int getIndexOf(ReadOnlyActivity toFindIndex) throws ActivityNotFoundException {
+        assert toFindIndex != null;
+        final int activityIndex = internalList.indexOf(toFindIndex);
+        if (activityIndex == -1) {
+            throw new ActivityNotFoundException();
+        }
+        return activityIndex;
+    }
+    //@@author
+    
     public ObservableList<Activity> getInternalList() {
         return internalList;
     }

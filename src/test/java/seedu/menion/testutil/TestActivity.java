@@ -23,6 +23,9 @@ public class TestActivity implements ReadOnlyActivity {
     private Note note;
     private String activityType;
     private Completed status;
+    private Boolean emailSent;
+    private Boolean activityTimePassed;
+    private Boolean eventOngoing;
     
     // Every Activity Object will have an array list of it's details for ease of
     // accessibility
@@ -44,22 +47,38 @@ public class TestActivity implements ReadOnlyActivity {
     /**
      * For Task
      * Every field must be present and not null.
+     * @param activityTimePassed TODO
+     * @param emailSent TODO
      */
-    public TestActivity(String type, ActivityName name, Note note, ActivityDate startDate, ActivityTime startTime, Completed status) {
+    public TestActivity(String type, ActivityName name, Note note, ActivityDate startDate, ActivityTime startTime, Completed status, Boolean activityTimePassed, Boolean emailSent) {
         this.activityType = type;
         this.name = name;
         this.note = note;
         this.startDate = startDate;
         this.startTime = startTime;
         this.status = status;
+        if (emailSent == null){
+        	this.emailSent = false;
+        }
+        else {
+        	this.emailSent = emailSent;
+        }
+        if (activityTimePassed == null){
+        	this.activityTimePassed = false;
+        }
+        else {
+        	this.activityTimePassed = activityTimePassed;
+        }
         setActivityDetails();
     }
     
     /**
      * For Event
      * Every field must be present and not null.
+     * @param activityTimePassed TODO
+     * @param eventOngoing TODO
      */
-    public TestActivity(String type, ActivityName name, Note note, ActivityDate startDate, ActivityTime startTime, ActivityDate endDate, ActivityTime endTime, Completed status) {
+    public TestActivity(String type, ActivityName name, Note note, ActivityDate startDate, ActivityTime startTime, ActivityDate endDate, ActivityTime endTime, Completed status, Boolean activityTimePassed, Boolean eventOngoing) {
         this.activityType = type;
         this.name = name;
         this.note = note;
@@ -68,6 +87,18 @@ public class TestActivity implements ReadOnlyActivity {
         this.endDate = endDate;
         this.endTime = endTime;
         this.status = status;
+        if (activityTimePassed == null){
+        	this.activityTimePassed = false;
+        }
+        else {
+        	this.activityTimePassed = activityTimePassed;
+        }
+        if (eventOngoing == null){
+        	this.eventOngoing = false;
+        }
+        else {
+        	this.eventOngoing = eventOngoing;
+        }
         setActivityDetails();
     }
     
@@ -90,6 +121,8 @@ public class TestActivity implements ReadOnlyActivity {
             startDate = source.getActivityStartDate();
             startTime = source.getActivityStartTime();
             status = source.getActivityStatus();
+            emailSent = source.isEmailSent();
+            activityTimePassed = source.isTimePassed();
         } else if (source.getActivityType().equals(Activity.EVENT_TYPE)) {
             activityType = source.getActivityType();;
             name = source.getActivityName();
@@ -99,6 +132,8 @@ public class TestActivity implements ReadOnlyActivity {
             endDate = source.getActivityEndDate();
             endTime = source.getActivityEndTime();
             status = source.getActivityStatus();
+            activityTimePassed = source.isTimePassed();
+            eventOngoing = source.isEventOngoing();
         }
         this.activityDetails = source.getActivityDetails();
 
@@ -203,7 +238,7 @@ public class TestActivity implements ReadOnlyActivity {
             build.append("add ");
             build.append(this.name.toString());
             build.append(" by: ");
-            build.append(this.getActivityStartDate().value);
+            build.append(changeDateFormat(this.getActivityStartDate().value));
             build.append(" ");
             build.append(this.getActivityStartTime().value);
             build.append(" n:");
@@ -212,11 +247,11 @@ public class TestActivity implements ReadOnlyActivity {
             build.append("add ");
             build.append(this.name.toString());
             build.append(" from: ");
-            build.append(this.getActivityStartDate().value);
+            build.append(changeDateFormat(this.getActivityStartDate().value));
             build.append(" ");
             build.append(this.getActivityStartTime().value);
             build.append(" to: ");
-            build.append(this.getActivityEndDate().value);
+            build.append(changeDateFormat(this.getActivityEndDate().value));
             build.append(" ");
             build.append(this.getActivityEndTime().value);
             build.append(" n:");
@@ -225,7 +260,20 @@ public class TestActivity implements ReadOnlyActivity {
         
         return build.toString();
     }
+    //@@author A0139277U
+    /**
+     * This method changes the format of date from dd-mm-yyyy to mm-dd-yyyy
+     * @param dateToChange
+     * @return a date String in the format of mm-dd-yyyy
+     */
+    private static String changeDateFormat(String dateToChange){
     
+    	String[] parts = dateToChange.split("-");
+    	return parts[1] + "-" + parts[0] + "-" + parts[2]; 
+    	
+    }
+    
+    //@@author
     /**
      * @param index of the Activity to complete
      * @return complete command for the given Activity.
@@ -487,5 +535,31 @@ public class TestActivity implements ReadOnlyActivity {
         }
         return null;
     }
+
+    public Boolean isEmailSent(){
+    	return this.emailSent;
+    }
+    
+    public Boolean isTimePassed(){
+    	return this.activityTimePassed;
+    }
+    
+    public void setEmailSent(Boolean sentStatus){
+    	this.emailSent = sentStatus;
+    }
+    
+    public void setTimePassed(Boolean timePassed){
+    	this.activityTimePassed = timePassed;
+    }
+
+	@Override
+	public Boolean isEventOngoing() {
+    	return this.eventOngoing;
+	}
+
+	@Override
+	public void setEventOngoing(Boolean eventOngoing) {
+    	this.eventOngoing = eventOngoing;		
+	}
 
 }

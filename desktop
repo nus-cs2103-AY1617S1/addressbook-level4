@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<activitymanager>
+    <tasks>
+        <activityType>task</activityType>
+        <name>hi there</name>
+        <note>helloworld </note>
+        <startDate>02-11-2016</startDate>
+        <startTime>2110</startTime>
+        <status>Uncompleted</status>
+        <activityTimePassed>true</activityTimePassed>
+        <emailSent>true</emailSent>
+    </tasks>
+    <floatingTasks>
+        <activityType>floating</activityType>
+        <name>buy lunch</name>
+        <note>hawker food</note>
+        <status>Uncompleted</status>
+    </floatingTasks>
+</activitymanager>

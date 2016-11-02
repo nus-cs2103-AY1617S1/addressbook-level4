@@ -1,9 +1,11 @@
 package seedu.menion;
 
 import com.google.common.eventbus.Subscribe;
+
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.stage.Stage;
+import seedu.menion.background.BackgroundDateCheck;
 import seedu.menion.commons.core.Config;
 import seedu.menion.commons.core.EventsCenter;
 import seedu.menion.commons.core.LogsCenter;
@@ -24,6 +26,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.logging.Logger;
 
 /**
@@ -31,9 +35,11 @@ import java.util.logging.Logger;
  */
 public class MainApp extends Application {
     private static final Logger logger = LogsCenter.getLogger(MainApp.class);
-
+  
+    private static final int BACKGROUND_REFRESH_RATE = 20000;
+    
     public static final Version VERSION = new Version(1, 0, 0, true);
-
+    
     protected Ui ui;
     protected Logic logic;
     protected Storage storage;
@@ -62,6 +68,18 @@ public class MainApp extends Application {
         ui = new UiManager(logic, config, userPrefs);
 
         initEventsCenter();
+    
+        // Does background check
+        new Timer().schedule(
+        	    new TimerTask() {
+        	    		
+        	        @Override
+        	        public void run() {
+        	        	BackgroundDateCheck backgroundChecker = new BackgroundDateCheck();
+        	        	backgroundChecker.checkActivities(model);
+        	        }
+        	        
+        	    }, 0, BACKGROUND_REFRESH_RATE);
     }
 
     private String getApplicationParameter(String parameterName){

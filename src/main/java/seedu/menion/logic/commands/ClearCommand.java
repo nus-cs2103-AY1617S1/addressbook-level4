@@ -19,6 +19,7 @@ public class ClearCommand extends Command {
         assert model != null;
         
     	storePreviousState();
+        model.updateRecentChangedActivity(null);
         
         model.resetData(ActivityManager.getEmptyActivityManager());
         return new CommandResult(MESSAGE_SUCCESS);
