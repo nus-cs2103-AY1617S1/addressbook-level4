@@ -13,6 +13,7 @@ import seedu.task.model.tag.UniqueTagList;
  */
 //@@author A0153411W
 //@@author A0148083A
+//@@author A0153751H
 public class Task implements ReadOnlyTask {
 
 
@@ -23,10 +24,11 @@ public class Task implements ReadOnlyTask {
 	private Interval interval;
 	private TimeInterval timeInterval;
 	private Status status;
+	private TaskColor color;
 	private UniqueTagList tags;
 	
 	public Task(Title title, Description description, StartDate startDate, DueDate dueDate, Interval interval,
-			TimeInterval timeInterval, Status status, UniqueTagList tags) {
+			TimeInterval timeInterval, Status status, TaskColor color, UniqueTagList tags) {
 		assert !CollectionUtil.isAnyNull(title, description, startDate, dueDate, interval, timeInterval, tags);
 		this.title = title;
 		this.description = description;
@@ -35,6 +37,7 @@ public class Task implements ReadOnlyTask {
 		this.interval = interval;
 		this.timeInterval = timeInterval;
 		this.status = status;
+		this.color = color;
 		this.tags = new UniqueTagList(tags); // protect internal tags from
 												// changes in the arg list
 	}
@@ -44,7 +47,7 @@ public class Task implements ReadOnlyTask {
 	 */
 	public Task(ReadOnlyTask source) {
 		this(source.getTitle(), source.getDescription(), source.getStartDate(), source.getDueDate(),
-				source.getInterval(), source.getTimeInterval(), source.getStatus(), source.getTags());
+				source.getInterval(), source.getTimeInterval(), source.getStatus(), source.getTaskColor(), source.getTags());
 	}
 
 	@Override
@@ -80,6 +83,11 @@ public class Task implements ReadOnlyTask {
 	@Override
 	public Status getStatus() {
 		return status;
+	}
+	
+	@Override
+	public TaskColor getTaskColor() {
+		return color;
 	}
 	
 	@Override

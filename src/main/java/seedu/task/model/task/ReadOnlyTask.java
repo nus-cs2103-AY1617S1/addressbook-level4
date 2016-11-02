@@ -16,6 +16,9 @@ public interface ReadOnlyTask {
     Interval getInterval();
     TimeInterval getTimeInterval();
     Status getStatus();
+    //@@author A0153751H
+    TaskColor getTaskColor();
+    //@@author
     void setStatus(Status status);
     //@@author
     /**
@@ -72,5 +75,6 @@ public interface ReadOnlyTask {
             return buffer.substring(0, buffer.length() - separator.length());
         }
     }
+	
 
 }

@@ -63,8 +63,11 @@ public class Parser {
     public static final Prefix dueDatePrefix = new Prefix(" dd/", true);
     public static final Prefix intervalPrefix = new Prefix(" i/", true);
     public static final Prefix timeIntervalPrefix = new Prefix(" ti/", true);
-    public static final Prefix tagArgumentsPrefix = new Prefix(" t/");   
+    public static final Prefix tagArgumentsPrefix = new Prefix(" t/"); 
+    //@@author 
+
     
+   //@@author A0153751H
     private static final Pattern TASK_DATA_ARGS_FORMAT_EDIT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<index>[^/]+)"
             		+ "(( t/(?<newTitle>[^/]+))|"
@@ -73,6 +76,7 @@ public class Parser {
                     + "( dd/(?<dueDate>[^/]+))|"
                     + "( i/(?<interval>[^/]+))|"
                     + "( ti/(?<timeInterval>[^/]+))|"
+                    + "( c/(?<taskColor>[^/]+))|"
                     + "(?<tagArguments>(?: ts/[^/]+)*))+?");
     //@@author 
     
@@ -264,13 +268,15 @@ public class Parser {
      * @param args full command args string
      * @return the prepared command
      */
+    //@@author A0153751H
     private Command prepareEdit(String args) {
         final Matcher matcher = TASK_DATA_ARGS_FORMAT_EDIT.matcher(args.trim());
         // Validate arg string format
         if (!matcher.matches()) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
         } else if (matcher.group("newTitle")==null && matcher.group("description")==null && matcher.group("startDate")==null && matcher.group("dueDate")==null
-        		&& matcher.group("interval")==null && matcher.group("timeInterval")==null && matcher.group("tagArguments")==null) {
+        		&& matcher.group("interval")==null && matcher.group("timeInterval")==null && matcher.group("tagArguments")==null && matcher.group("taskColor")==null
+        		&& matcher.group("taskColor").equalsIgnoreCase("cyan")) {
         	return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
         }
         try {
@@ -282,6 +288,7 @@ public class Parser {
                     matcher.group("dueDate"),
                     matcher.group("interval"),
                     matcher.group("timeInterval"),
+                    matcher.group("taskColor"),
                     getTagsFromArgs(matcher.group("tagArguments"))
 			);
 		} catch (NumberFormatException e) {
@@ -295,12 +302,14 @@ public class Parser {
                     matcher.group("dueDate"),
                     matcher.group("interval"),
                     matcher.group("timeInterval"),
+                    matcher.group("taskColor"),
                     null);
 		} catch (IllegalValueException e) {
 			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
 		}
     }
-    
+    //@@author
+    //@@author A0153751H_reused
     private static Set<String> getTagsFromArgs(String tagArguments) throws IllegalValueException {
         // no tags
         if (tagArguments.isEmpty()) {
@@ -310,6 +319,8 @@ public class Parser {
         final Collection<String> tagStrings = Arrays.asList(tagArguments.replaceFirst(" ts/", "").split(" ts/"));
         return new HashSet<>(tagStrings);
     }
+    //@@author
+
 
     private Set<String> toSet(Optional<List<String>> tagsOptional) {
     	List<String> tags = tagsOptional.orElse(Collections.emptyList());
