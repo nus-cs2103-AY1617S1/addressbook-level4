@@ -7,7 +7,9 @@ import java.util.Objects;
 import seedu.unburden.commons.core.Messages;
 import seedu.unburden.commons.exceptions.IllegalValueException;
 import seedu.unburden.commons.util.CollectionUtil;
+import seedu.unburden.model.tag.Tag;
 import seedu.unburden.model.tag.UniqueTagList;
+import seedu.unburden.model.tag.UniqueTagList.DuplicateTagException;
 
 /**
  * Represents a Task in the address book.
@@ -260,6 +262,10 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
     		return true;
     	}
     	return false;
+    }
+    
+    public void setOverdue() throws DuplicateTagException, IllegalValueException{
+    	this.tags.add(new Tag("Overdue"));
     }
     
     
