@@ -135,8 +135,8 @@ public class CommandParser {
             return new AddCommand(extractedValues);
         } catch (IllegalValueException ive) {
             logger.finer("IllegalValueException caught in CommandParser, prepareAdd()");
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, 
-                    AddCommand.MESSAGE_USAGE + "\n" + ive.getMessage()));
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ive.getMessage() + "\n" + 
+                    AddCommand.MESSAGE_USAGE));
         }
     }
 

@@ -16,6 +16,8 @@ import seedu.address.model.item.TimePeriod;
 //@@author A0093960X
 public class TaskCard extends UiPart{
 
+    private static final int ONE = 1;
+    private static final int ZERO = 0;
     private static final String FXML = "TaskListCard.fxml";
     private static SimpleDateFormat dateFormatter = new SimpleDateFormat("EEE, d MMM yyyy, h:mm a");
 
@@ -180,14 +182,15 @@ public class TaskCard extends UiPart{
     }
 
     private String prepareRecurrenceRateWithoutInt(TimePeriod timePeriod) {
-        return "every " + timePeriod.toString().toLowerCase();
+        return "Every " + timePeriod.toString().substring(ZERO, ONE).toUpperCase() 
+                + timePeriod.toString().substring(ONE).toLowerCase();
     }
 
     private String prepareRecurrenceRateWithInt(Integer recurrenceRateInteger, TimePeriod timePeriod) {
-        return "every " 
-                + (recurrenceRateInteger == 1 ? "" : recurrenceRateInteger.toString() + " ")
-                + timePeriod.toString().toLowerCase() 
-                + (recurrenceRateInteger.intValue() > 1 ? "s" : "");
+        return "Every " 
+                + (recurrenceRateInteger == ONE ? "" : recurrenceRateInteger.toString() + " ")
+                + timePeriod.toString().substring(ZERO, ONE).toUpperCase() + timePeriod.toString().substring(ONE).toLowerCase()
+                + (recurrenceRateInteger.intValue() > ONE ? "s" : "");
     }
 
     private boolean checkIfHasRecurrenceRateInt(Integer recurrenceRateInteger) {

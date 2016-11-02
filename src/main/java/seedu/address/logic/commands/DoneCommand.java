@@ -9,6 +9,7 @@ import java.util.logging.Logger;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.UnmodifiableObservableList;
+import seedu.address.commons.exceptions.TaskNotRecurringException;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.model.item.ReadOnlyTask;
 import seedu.address.model.item.Task;
@@ -61,7 +62,12 @@ public class DoneCommand extends UndoableCommand {
             return new CommandResult(String.format(Messages.MESSAGE_DONE_LIST_RESTRICTION));
         }
         
-        archiveTasksFromGivenTargetIndexes();
+        //TODO: Lin Han to do.
+        try {
+            archiveTasksFromGivenTargetIndexes();
+        } catch (TaskNotRecurringException e) {
+            return new CommandResult(String.format(Messages.MESSAGE_DONE_LIST_RESTRICTION));
+        }
         updateHistory();
         
         if (doneTasks.isEmpty()) {
@@ -79,7 +85,7 @@ public class DoneCommand extends UndoableCommand {
      * Archives the tasks denoted by the list of target indexes.
      * Invalid target indexes in the list will be ignored.
      */
-    private void archiveTasksFromGivenTargetIndexes() {
+    private void archiveTasksFromGivenTargetIndexes() throws TaskNotRecurringException {
         for (int targetIndex: targetIndexes) {
             UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredUndoneTaskList();
             
@@ -115,7 +121,7 @@ public class DoneCommand extends UndoableCommand {
      * Adds the recurring task back into the undone task list
      * with their start and end dates updated, if present.
      */
-    private void updateRecurrenceAndReAddTask(Task taskToArchive) {
+    private void updateRecurrenceAndReAddTask(Task taskToArchive) throws TaskNotRecurringException {
         logger.fine("In updateRecurrenceAndReAddTask(). Task is recurring. Updating task details.");
         Task recurringTaskToReAdd = new Task(taskToArchive);
         recurringTaskToReAdd.updateRecurringTask();

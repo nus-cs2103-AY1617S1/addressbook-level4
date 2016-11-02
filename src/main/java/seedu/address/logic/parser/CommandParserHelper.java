@@ -76,7 +76,6 @@ public class CommandParserHelper {
     private static final String REGEX_RECURRENCE_PRIORITY_CLOSE_BRACE = REGEX_RECURRENCE_AND_PRIORITY
             + REGEX_CLOSE_BRACE;
     
-    //TODO: Change CommandParserHelper to static?
     private Pattern pattern;
     private Matcher matcher;
 
@@ -89,7 +88,7 @@ public class CommandParserHelper {
      * @throws IllegalValueException  if args does not match the matcher.
      */
     public HashMap<String, Optional<String>> prepareAdd(String args) throws IllegalValueException {
-        // how should i assert sia: assert args != null;
+        assert args != null;
         OptionalStringTask task = new OptionalStringTask();
         
         if (args.contains(REGEX_INVERTED_COMMA)) {

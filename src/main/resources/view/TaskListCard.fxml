@@ -10,9 +10,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Rectangle?>
 
-<HBox id="cardPane" fx:id="cardPane" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="65.0" prefWidth="342.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1">
+<HBox id="cardPane" fx:id="cardPane" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="73.0" prefWidth="369.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1">
     <children>
-      <Rectangle fx:id="priority" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="63.0" stroke="BLACK" strokeType="INSIDE" width="7.0">
+      <Rectangle fx:id="priority" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="71.0" stroke="BLACK" strokeType="INSIDE" width="7.0">
          <HBox.margin>
             <Insets top="1.0" />
          </HBox.margin>
@@ -28,7 +28,7 @@
                         <URL value="@Extensions.css" />
                     </stylesheets>
                     <padding>
-                        <Insets bottom="5" left="15" right="5" top="5" />
+                        <Insets bottom="3.0" left="15.0" right="5.0" top="3.0" />
                     </padding>
       
                           <children>
@@ -44,11 +44,13 @@
                   <HBox>
                      <children>
                         <Label fx:id="startDate" prefHeight="23.0" prefWidth="342.0" styleClass="cell_small_label" text="\$startDate" />
-                        <Label fx:id="endDate" alignment="CENTER_RIGHT" prefHeight="23.0" prefWidth="342.0" styleClass="cell_small_label" text="\$endDate" />
+                        <Label fx:id="recurrenceRate" alignment="CENTER_RIGHT" prefHeight="15.0" prefWidth="223.0" styleClass="cell_small_label" text="\$recurrenceRate" />
                      </children>
                   </HBox>
-                  <HBox prefHeight="100.0" prefWidth="342.0" />
-                  <Label fx:id="recurrenceRate" styleClass="cell_small_label" text="\$recurrenceRate" />
+                  <HBox prefHeight="100.0" prefWidth="342.0">
+                     <children>
+                        <Label fx:id="endDate" prefHeight="18.0" prefWidth="342.0" styleClass="cell_small_label" text="\$endDate" />
+                     </children></HBox>
                     </children>
                 </VBox>
             </children>
