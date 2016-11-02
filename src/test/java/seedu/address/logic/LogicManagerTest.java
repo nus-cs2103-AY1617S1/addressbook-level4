@@ -716,7 +716,22 @@ public class LogicManagerTest {
                 expectedAB, expectedDatedTaskList, expectedUndatedTaskList);
     }
     
-  //@@author A0139145E
+    //@@author A0139145E
+    /*
+     * Generates initialData for undo and redo command testing
+     */
+    private Task[] generateStartStateForUndo(int i) throws Exception{
+        Task[] tasks = new Task[2];
+        TestDataHelper helper = new TestDataHelper();
+        expectedTB = helper.generateTaskBook(i);
+        helper.addToModel(model, i);
+        tasks[0] = helper.generateUndatedTaskWithName("Buy milk");
+        tasks[1] = new Task(expectedTB.getDatedTaskList().get(1));
+        return tasks;
+    }
+    //@@author
+    
+    //@@author A0139145E
     @Test
     public void execute_undo_emptyStack() throws Exception {
         assertCommandBehavior("undo", UndoCommand.MESSAGE_UNDO_NOT_POSSIBLE, new TaskBook(), 
@@ -727,100 +742,104 @@ public class LogicManagerTest {
     //@@author A0139145E
     @Test
     public void execute_undoAdd_successful() throws Exception {
-        TestDataHelper helper = new TestDataHelper();
-        TaskBook expectedAB = helper.generateTaskBook(2);
-        helper.addToModel(model, 2);
-        Task toUndo = helper.generateUndatedTaskWithName("Buy milk");
-
-        expectedAB.addTask(toUndo);
-        model.addTask(toUndo);
-        expectedAB.removeTask(toUndo);
-        model.addUndo("add", toUndo);
-        assertCommandBehavior("undo", String.format(UndoCommand.MESSAGE_SUCCESS, "add"), expectedAB, 
-                expectedAB.getDatedTaskList(), expectedAB.getUndatedTaskList());
-        assertCommandBehavior("undo", UndoCommand.MESSAGE_UNDO_NOT_POSSIBLE, expectedAB, 
-                expectedAB.getDatedTaskList(), expectedAB.getUndatedTaskList());
+        Task[] toUndo = generateStartStateForUndo(2);
+        //Add undated task
+        expectedTB.addTask(toUndo[0]);
+        model.addTask(toUndo[0]);
+        model.addUndo("add", toUndo[0]);
+        //Add dated task
+        expectedTB.addTask(toUndo[1]);
+        model.addTask(toUndo[1]);
+        model.addUndo("add", toUndo[1]);
+        
+        //Undo add dated task
+        expectedTB.removeTask(toUndo[1]);
+        assertCommandBehavior("undo", String.format(UndoCommand.MESSAGE_SUCCESS, "add"), expectedTB, 
+                expectedTB.getDatedTaskList(), expectedTB.getUndatedTaskList());
+        
+        //Undo add undated task
+        expectedTB.removeTask(toUndo[0]);
+        assertCommandBehavior("undo", String.format(UndoCommand.MESSAGE_SUCCESS, "add"), expectedTB, 
+                expectedTB.getDatedTaskList(), expectedTB.getUndatedTaskList());
+        
+        //No further undo actions
+        assertCommandBehavior("undo", UndoCommand.MESSAGE_UNDO_NOT_POSSIBLE, expectedTB, 
+                expectedTB.getDatedTaskList(), expectedTB.getUndatedTaskList());
     }
     //@@author
-
+    
     //@@author A0139145E
     @Test
     public void execute_undoDelete_successful() throws Exception {
-        TestDataHelper helper = new TestDataHelper();
-        TaskBook expectedAB = helper.generateTaskBook(2);
-        Task toUndo = new Task(expectedAB.getDatedTaskList().get(1));
-        helper.addToModel(model, 2);    
+        Task[] toUndo = generateStartStateForUndo(2);    
 
-        expectedAB.removeTask(toUndo);
-        model.deleteTask(toUndo);
-        expectedAB.addTask(toUndo);
-        model.addUndo("delete", toUndo);
-        assertCommandBehavior("undo", String.format(UndoCommand.MESSAGE_SUCCESS, "delete"), expectedAB, 
-                expectedAB.getDatedTaskList(), expectedAB.getUndatedTaskList());
-        assertCommandBehavior("undo", UndoCommand.MESSAGE_UNDO_NOT_POSSIBLE, expectedAB, 
-                expectedAB.getDatedTaskList(), expectedAB.getUndatedTaskList());
+        expectedTB.removeTask(toUndo[1]);
+        model.deleteTask(toUndo[1]);
+        expectedTB.addTask(toUndo[1]);
+        model.addUndo("delete", toUndo[1]);
+        assertCommandBehavior("undo", String.format(UndoCommand.MESSAGE_SUCCESS, "delete"), expectedTB, 
+                expectedTB.getDatedTaskList(), expectedTB.getUndatedTaskList());
+        //No further undo actions
+        assertCommandBehavior("undo", UndoCommand.MESSAGE_UNDO_NOT_POSSIBLE, expectedTB, 
+                expectedTB.getDatedTaskList(), expectedTB.getUndatedTaskList());
     }
     //@@author
 
     //@@author A0139145E
     @Test
     public void execute_undoDone_successful() throws Exception {
-        TestDataHelper helper = new TestDataHelper();
-        TaskBook expectedAB = helper.generateTaskBook(2);
-        Task toUndo = new Task(expectedAB.getDatedTaskList().get(1));
-        helper.addToModel(model, 2);    
-
-        model.completeTask(toUndo);
-        model.addUndo("done", toUndo);
-        assertCommandBehavior("undo", String.format(UndoCommand.MESSAGE_SUCCESS, "done"), expectedAB, 
-                expectedAB.getDatedTaskList(), expectedAB.getUndatedTaskList());
-        assertCommandBehavior("undo", UndoCommand.MESSAGE_UNDO_NOT_POSSIBLE, expectedAB, 
-                expectedAB.getDatedTaskList(), expectedAB.getUndatedTaskList());
+        Task[] toUndo = generateStartStateForUndo(2);
+        
+        model.completeTask(toUndo[1]);
+        model.addUndo("done", toUndo[1]);
+        assertCommandBehavior("undo", String.format(UndoCommand.MESSAGE_SUCCESS, "done"), expectedTB, 
+                expectedTB.getDatedTaskList(), expectedTB.getUndatedTaskList());
+        
+        //No further undo actions
+        assertCommandBehavior("undo", UndoCommand.MESSAGE_UNDO_NOT_POSSIBLE, expectedTB, 
+                expectedTB.getDatedTaskList(), expectedTB.getUndatedTaskList());
     }
     //@@author
 
     //@@author A0139145E
     @Test
     public void execute_undoEdit_successful() throws Exception {
-        TestDataHelper helper = new TestDataHelper();
-        TaskBook expectedAB = helper.generateTaskBook(2);
-        helper.addToModel(model, 2);  
-
-        Task orig = new Task(helper.generateDatedTaskWithName("Homework due"));
-        expectedAB.addTask(orig);
-        model.addTask(orig);
-        Task edited = new Task(helper.generateDatedTaskWithName("Homework not due"));
+        Task[] toUndo = generateStartStateForUndo(2);
+        
+        Task edited = new Task(toUndo[1]);
+        edited.setName(new Name("Homework due"));
+        model.deleteTask(toUndo[1]);
         model.addTask(edited);
-        model.deleteTask(orig);
-        model.addUndo("edit", edited, orig);
+        model.addUndo("edit", edited, toUndo[1]);
 
-        assertCommandBehavior("undo", String.format(UndoCommand.MESSAGE_SUCCESS, "edit"), expectedAB, 
-                expectedAB.getDatedTaskList(), expectedAB.getUndatedTaskList());
-        assertCommandBehavior("undo", UndoCommand.MESSAGE_UNDO_NOT_POSSIBLE, expectedAB, 
-                expectedAB.getDatedTaskList(), expectedAB.getUndatedTaskList());
+        assertCommandBehavior("undo", String.format(UndoCommand.MESSAGE_SUCCESS, "edit"), expectedTB, 
+                expectedTB.getDatedTaskList(), expectedTB.getUndatedTaskList());
+        
+        //No further undo actions
+        assertCommandBehavior("undo", UndoCommand.MESSAGE_UNDO_NOT_POSSIBLE, expectedTB, 
+                expectedTB.getDatedTaskList(), expectedTB.getUndatedTaskList());
     }
     //@@author
 
     //@@author A0139145E
     @Test
     public void execute_undoMultiple_successful() throws Exception {
-        TestDataHelper helper = new TestDataHelper();
-        TaskBook expectedAB = helper.generateTaskBook(2);
-        Task toUndo = new Task(expectedAB.getDatedTaskList().get(0));
-        helper.addToModel(model, 2);  
+        Task[] toUndo = generateStartStateForUndo(2);  
 
-        expectedAB.removeTask(toUndo);
-        model.deleteTask(toUndo);
-        model.addUndo("delete", toUndo);
-        model.addTask(toUndo);
-        model.addUndo("add", toUndo);
-        assertCommandBehavior("undo", String.format(UndoCommand.MESSAGE_SUCCESS, "add"), expectedAB, 
-                expectedAB.getDatedTaskList(), expectedAB.getUndatedTaskList());
-        expectedAB.addTask(toUndo);
-        assertCommandBehavior("undo", String.format(UndoCommand.MESSAGE_SUCCESS, "delete"), expectedAB, 
-                expectedAB.getDatedTaskList(), expectedAB.getUndatedTaskList());
-        assertCommandBehavior("undo", UndoCommand.MESSAGE_UNDO_NOT_POSSIBLE, expectedAB, 
-                expectedAB.getDatedTaskList(), expectedAB.getUndatedTaskList());
+        expectedTB.removeTask(toUndo[1]);
+        model.deleteTask(toUndo[1]);
+        model.addUndo("delete", toUndo[1]);
+        model.addTask(toUndo[1]);
+        model.addUndo("add", toUndo[1]);
+        assertCommandBehavior("undo", String.format(UndoCommand.MESSAGE_SUCCESS, "add"), expectedTB, 
+                expectedTB.getDatedTaskList(), expectedTB.getUndatedTaskList());
+        expectedTB.addTask(toUndo[1]);
+        assertCommandBehavior("undo", String.format(UndoCommand.MESSAGE_SUCCESS, "delete"), expectedTB, 
+                expectedTB.getDatedTaskList(), expectedTB.getUndatedTaskList());
+        
+        //No further undo actions
+        assertCommandBehavior("undo", UndoCommand.MESSAGE_UNDO_NOT_POSSIBLE, expectedTB, 
+                expectedTB.getDatedTaskList(), expectedTB.getUndatedTaskList());
     }
     //@@author
 
@@ -829,46 +848,6 @@ public class LogicManagerTest {
     public void execute_redo_emptyStack() throws Exception {
         assertCommandBehavior("redo", RedoCommand.MESSAGE_REDO_NOT_POSSIBLE, new TaskBook(), 
                 Collections.emptyList(), Collections.emptyList());
-    }
-    //@@author
-    
-    //@@author A0139145E
-    @Test
-    public void execute_redoUndoAdd_successful() throws Exception {
-        TestDataHelper helper = new TestDataHelper();
-        TaskBook expectedAB = helper.generateTaskBook(2);
-        Task toUndo = helper.generateUndatedTaskWithName("Buy milk");
-        helper.addToModel(model, 2);
-
-        expectedAB.addTask(toUndo);
-        model.addTask(toUndo);
-        expectedAB.removeTask(toUndo);
-        model.addUndo("add", toUndo);
-        assertCommandBehavior("undo", String.format(UndoCommand.MESSAGE_SUCCESS, "add"), expectedAB, 
-                expectedAB.getDatedTaskList(), expectedAB.getUndatedTaskList());
-        
-        expectedAB.addTask(toUndo);
-        assertCommandBehavior("redo", String.format(RedoCommand.MESSAGE_SUCCESS, "add"), expectedAB, 
-                expectedAB.getDatedTaskList(), expectedAB.getUndatedTaskList());
-    }
-    //@@author
-    
-    //@@author A0139145E
-    @Test
-    public void execute_redoUndoDelete_successful() throws Exception {
-        TestDataHelper helper = new TestDataHelper();
-        TaskBook expectedAB = helper.generateTaskBook(2);
-        Task toUndo = new Task(expectedAB.getDatedTaskList().get(1));
-        helper.addToModel(model, 2);    
-
-        expectedAB.removeTask(toUndo);
-        model.deleteTask(toUndo);
-        expectedAB.addTask(toUndo);
-        model.addUndo("delete", toUndo);
-        assertCommandBehavior("undo", String.format(UndoCommand.MESSAGE_SUCCESS, "delete"), expectedAB, 
-                expectedAB.getDatedTaskList(), expectedAB.getUndatedTaskList());
-        assertCommandBehavior("undo", UndoCommand.MESSAGE_UNDO_NOT_POSSIBLE, expectedAB, 
-                expectedAB.getDatedTaskList(), expectedAB.getUndatedTaskList());
     }
     //@@author
     
