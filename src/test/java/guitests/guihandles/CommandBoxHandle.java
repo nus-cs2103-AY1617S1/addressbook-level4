@@ -26,7 +26,7 @@ public class CommandBoxHandle extends GuiHandle{
      * Enters the given command in the Command Box and presses enter.
      */
     public void runCommand(String command) {
-        enterCommand(command);
+    	enterCommand(command);
         pressEnter();
         guiRobot.sleep(200); //Give time for the command to take effect
     }

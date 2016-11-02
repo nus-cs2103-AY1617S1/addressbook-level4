@@ -34,9 +34,9 @@ import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.IncorrectCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.RedoCommand;
+import seedu.address.logic.commands.SetStorageCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.parser.ArgumentTokenizer.Prefix;
-
 
 public class Parser {
 	// @@author A0141019U	
@@ -50,9 +50,12 @@ public class Parser {
 	private static final Prefix dlEndDateTimePrefix = new Prefix("by ");
 	private static final Prefix datePrefix = new Prefix("on ");
 	private static final Prefix tagsPrefix = new Prefix("#");
-
- 	
-	//@@author A0141019U-reused
+	
+	//@@author A0143756Y
+	private static final Pattern SET_STORAGE_ARGS_FORMAT = Pattern.compile
+			("(?<folderFilePath>(\\s*[^\\s+])+)\\s+save-as\\s+(?<fileName>(\\s*[^\\s+])+)");
+	
+	//@@author A0141019U
 	public Command parseCommand(String userInput) {
 		// String replacedInput = replaceAliases(userInput);
 		
@@ -82,6 +85,9 @@ public class Parser {
 
 		case EditCommand.COMMAND_WORD:
 			return prepareEdit(arguments);
+			
+		case SetStorageCommand.COMMAND_WORD:
+			return prepareSetStorage(arguments);	
 			
 		case ChangeStatusCommand.COMMAND_WORD_DONE:
 			return prepareChangeStatus(arguments, "done");
@@ -453,6 +459,23 @@ public class Parser {
 			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
 		}
 	}
+	
+	//@@author A0143756Y
+	private Command prepareSetStorage(String arguments){
+		final Matcher matcher = SET_STORAGE_ARGS_FORMAT.matcher(arguments.trim());
+		
+		if(!matcher.matches()){
+			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SetStorageCommand.MESSAGE_USAGE));
+		}
+		
+		final String folderFilePath = matcher.group("folderFilePath").trim();
+		final String fileName = matcher.group("fileName").trim();
+		
+		System.out.println("Folder File Path: " + folderFilePath);
+		System.out.println("File Name: " + fileName);
+		
+		return new SetStorageCommand(folderFilePath, fileName);
+	}
 
 	//@@author A0139339W
 	/**
@@ -507,5 +530,4 @@ public class Parser {
 //		p.parseCommand("add 'dd' by 5pm today");
 		p.replaceAliases("find k");
 	}
-	
 }
