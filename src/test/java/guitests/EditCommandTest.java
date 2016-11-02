@@ -34,7 +34,7 @@ public class EditCommandTest extends TaskManagerGuiTest {
 		if(type.equals("e/") || type.equals("d/") || type.equals("s/"))
 			editedCard = taskListPanel.navigateToTask(name).getDate();
 		else if(type.equals("n/"))
-			editedCard = taskListPanel.navigateToTask(name).getName();
+			editedCard = taskListPanel.navigateToTask(details).getName();
 		else
 			assertResultMessage(String.format(MESSAGE_INVALID_COMMAND_FORMAT));
 //        assertMatching(details, editedCard);

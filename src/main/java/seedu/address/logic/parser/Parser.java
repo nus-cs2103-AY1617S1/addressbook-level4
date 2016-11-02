@@ -156,7 +156,6 @@ public class Parser {
         ArgumentTokenizer argsTokenizer = new ArgumentTokenizer(deadlinePrefix, namePrefix, tagPrefix, startDatePrefix,
                 endDatePrefix, recurringPrefix, priorityPrefix);
         argsTokenizer.tokenize(args);
-        System.out.println(args);
         try {
             if (argsTokenizer.getTokenizedArguments().containsKey(namePrefix)) {
                 if (!argsTokenizer.getTokenizedArguments().containsKey(startDatePrefix)

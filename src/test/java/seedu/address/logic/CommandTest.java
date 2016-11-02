@@ -307,39 +307,39 @@ public class CommandTest {
             Name name = new Name("Visit grandma");
             Tag tag1 = new Tag("tag1");
             UniqueTagList tags = new UniqueTagList(tag1);
-            return new Task(name,tags);
+            return new Task(name,tags, new Priority(0));
         }
         
         Task getDeadlineTask() throws Exception{
             Name name=new Name("project due");
             Date deadline=new Deadline("01.01.2016");
-            return new Task(name,deadline,new UniqueTagList());
+            return new Task(name,deadline,new UniqueTagList(), new Priority(0));
         }
         
         Task getDuplicateDeadlineTask() throws Exception{
             Name name=new Name("Visit grandma");
             Date deadline=new Deadline("01.01.2016-14");
-            return new Task(name,deadline,new UniqueTagList());
+            return new Task(name,deadline,new UniqueTagList(), new Priority(0));
         }
         
         Task getEvent() throws Exception{
             Name name=new Name("do homework");
             Date date=new EventDate("01.01.2016","02.01.2016");
-            return new Task(name,date,new UniqueTagList());
+            return new Task(name,date,new UniqueTagList(), new Priority(0));
         }
         
         Task getRecurringDeadlineTask() throws Exception{
             Name name=new Name("post on GitHub");
             Date deadline=new Deadline("02.03.2016");
             Recurring recurring=new Recurring("weekly");
-            return new Task(name,deadline,new UniqueTagList(),recurring);
+            return new Task(name,deadline,new UniqueTagList(),recurring, new Priority(0));
         }
         
         Task getRecurringEvent() throws Exception{
             Name name=new Name("eat lunch");
             Date date=new EventDate("01.01.2016-14","02.01.2016-16");
             Recurring recurring=new Recurring("monthly");
-            return new Task(name,date,new UniqueTagList(),recurring);
+            return new Task(name,date,new UniqueTagList(),recurring, new Priority(0));
         }
         
         
@@ -352,11 +352,9 @@ public class CommandTest {
          * @param seed used to generate the task data field values
          */
         Task generateTask(int seed) throws Exception {
-            return new Task(
-                    new Name("Task " + seed),
-                    new Deadline("16.10.2016-14"),
-                    new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1)))
-            );
+            return new Task(new Name("Task " + seed), new Deadline("16.10.2016-14"),
+                    new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1))),
+                    new Priority(0));
         }
 
         /** Generates the correct add command based on the task given */
@@ -475,46 +473,32 @@ public class CommandTest {
          * Generates an undone Task object with given name. Other fields will have some dummy values.
          */
         Task generateUndoneTaskWithName(String name) throws Exception {
-            return new Task(
-                    new Name(name),
-                    new Deadline("11.11.2016"),
-                    new UniqueTagList(new Tag("tag"))
-            );
+            return new Task(new Name(name), new Deadline("11.11.2016"), new UniqueTagList(new Tag("tag")),
+                    new Priority(0));
         }
-        
+
         /**
          * Generates a done Task object with given name. Other fields will have some dummy values.
          */
         Task generateDoneTaskWithName(String name) throws Exception {
-            return new Task(
-                    new Name(name),
-                    new Deadline("11.11.2016"),
-                    new UniqueTagList(new Tag("tag")),
-                    true,false
-            );
+            return new Task(new Name(name), new Deadline("11.11.2016"), new UniqueTagList(new Tag("tag")), true, false,
+                    new Priority(0));
         }
         
         /**
          * Generates an undone Event object with given name. Other fields will have some dummy values.
          */
         Task generateUndoneEventWithName(String name) throws Exception {
-            return new Task(
-                    new Name(name),
-                    new EventDate("11.11.2016","12.11.2016"),
-                    new UniqueTagList(new Tag("tag"))             
-            );
+            return new Task(new Name(name), new EventDate("11.11.2016", "12.11.2016"),
+                    new UniqueTagList(new Tag("tag")), new Priority(0));
         }
         
         /**
          * Generates a done Event object with given name. Other fields will have some dummy values.
          */
         Task generateDoneEventWithName(String name) throws Exception {
-            return new Task(
-                    new Name(name),
-                    new EventDate("11.11.2016","12.11.2016"),
-                    new UniqueTagList(new Tag("tag")) ,
-                    true,false
-            );
+            return new Task(new Name(name), new EventDate("11.11.2016", "12.11.2016"),
+                    new UniqueTagList(new Tag("tag")), true, false, new Priority(0));
         }
 
     }

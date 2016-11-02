@@ -65,15 +65,15 @@ public class TestUtil {
     private static Task[] getSampleTaskData() {
         try {
             return new Task[]{
-                    new Task(new Name("Ali Muster"), new Deadline("10.10.2016"), new UniqueTagList()),
-                    new Task(new Name("Boris Mueller"), new Deadline("11.10.2016"),  new UniqueTagList()),
-                    new Task(new Name("Carl Kurz"), new Deadline("12.10.2016"),  new UniqueTagList()),
-                    new Task(new Name("Daniel Meier"), new Deadline("13.10.2016-20"),  new UniqueTagList()),
-                    new Task(new Name("Elle Meyer"), new Deadline("14.10.2016-12"), new UniqueTagList()),
-                    new Task(new Name("Fiona Kunz"), new Deadline("14.10.2016-14"),  new UniqueTagList()),
-                    new Task(new Name("George Best"), new Deadline("15.10.2016"), new UniqueTagList()),
-                    new Task(new Name("Hoon Meier"), new Deadline("16.10.2016"), new UniqueTagList()),
-                    new Task(new Name("Ida Mueller"), new Deadline("17.10.2016"), new UniqueTagList())
+                    new Task(new Name("Ali Muster"), new Deadline("10.10.2016"), new UniqueTagList(), new Priority(0)),
+                    new Task(new Name("Boris Mueller"), new Deadline("11.10.2016"),  new UniqueTagList(), new Priority(0)),
+                    new Task(new Name("Carl Kurz"), new Deadline("12.10.2016"),  new UniqueTagList(), new Priority(0)),
+                    new Task(new Name("Daniel Meier"), new Deadline("13.10.2016-20"),  new UniqueTagList(), new Priority(0)),
+                    new Task(new Name("Elle Meyer"), new Deadline("14.10.2016-12"), new UniqueTagList(), new Priority(0)),
+                    new Task(new Name("Fiona Kunz"), new Deadline("14.10.2016-14"),  new UniqueTagList(), new Priority(0)),
+                    new Task(new Name("George Best"), new Deadline("15.10.2016"), new UniqueTagList(), new Priority(0)),
+                    new Task(new Name("Hoon Meier"), new Deadline("16.10.2016"), new UniqueTagList(), new Priority(0)),
+                    new Task(new Name("Ida Mueller"), new Deadline("17.10.2016"), new UniqueTagList(), new Priority(0))
             };
         } catch (IllegalValueException e) {
             assert false;

@@ -290,7 +290,9 @@ public class Task implements ReadOnlyTask {
 
     public void setDate(Date newDate) {
         date = newDate;
-        dateString.set(date.getValue());
+        dateString.setValue(date.getValue());
+        // It does nothing but can magically fix a bug. It seems like the UI need some time to reflect.
+        dateString.get(); 
     }
 
     public void setRecurring(Recurring newRecurring) {
@@ -298,7 +300,6 @@ public class Task implements ReadOnlyTask {
         isRecurring = true;
         recurringString.set(recurring.recurringFrequency);
     }
-
 
     /**
      * Returns Observable wrappers of the task
@@ -333,8 +334,8 @@ public class Task implements ReadOnlyTask {
     	case "name": setName(new Name(details)); break;
     	case "priority": setPriorityLevel(new Priority(Integer.parseInt(details))); break;
     	case "recurring": setRecurring(new Recurring(details)); break;
-    	case "startDate": setDate(new EventDate(details,((EventDate) date).getEndDate().substring(0, 10))); break;
-    	case "endDate": setDate(new EventDate(((EventDate) date).getEndDate().substring(0, 10), details)); break;
+    	case "startDate": setDate(new EventDate(details,((EventDate) date).getEndDate())); break;
+    	case "endDate": setDate(new EventDate(((EventDate) date).getStartDate(), details)); break;
     	case "deadline": setDate(new Deadline(details)); break;
     	default: return false;
 		}

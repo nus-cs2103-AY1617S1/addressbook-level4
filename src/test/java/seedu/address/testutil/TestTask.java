@@ -8,10 +8,13 @@ import seedu.address.model.task.*;
  * A mutable task object. For testing only.
  */
 public class TestTask implements ReadOnlyTask {
+    
+    private static int DEFAULT_PRIORITY_LEVEL = 0;
 
     private Name name;
     private Date date;
     private Recurring recurring;
+    private Priority priorityLevel;
     private boolean isEvent;
     private boolean isDone;
     private boolean isRecurring;
@@ -21,6 +24,11 @@ public class TestTask implements ReadOnlyTask {
     public TestTask() {
         tags = new UniqueTagList();
         isDone=false;
+        try {
+            priorityLevel = new Priority(DEFAULT_PRIORITY_LEVEL);
+        } catch (IllegalValueException e) {
+            // 0 is a valid priority level, so the exception will never happen
+        }
     }
 
     public void setName(Name name) {
@@ -40,6 +48,10 @@ public class TestTask implements ReadOnlyTask {
     public void setRecurringFrequency(String freq) throws IllegalValueException{
         this.isRecurring=true;
         this.recurring=new Recurring(freq);
+    }
+    
+    public void setPriorityLevel(Priority priorityLevel) {
+        this.priorityLevel = priorityLevel;
     }
     
     @Override
@@ -66,6 +78,11 @@ public class TestTask implements ReadOnlyTask {
     @Override
     public boolean isDone() {
     	return isDone;
+    }
+    
+    @Override
+    public Priority getPriorityLevel() {
+        return priorityLevel;
     }
     
     @Override
