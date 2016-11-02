@@ -77,7 +77,7 @@ public class TodoTest {
         ));
         todo = new TodoList(storage);
         
-        Thread.sleep(5);
+        Thread.sleep(50);
         assertTrue(todo.getTasks().get(0).isCompleted());
     }
 
