@@ -73,15 +73,16 @@ public interface ReadOnlyTask {
      * @param taskToDone
      * @return
      */
-    public Task markDone(ReadOnlyTask taskToDone);
+    public Task markDone();
     
     /**
      * Copies data over to new Task and marks it as not done
      * @param taskToDone
      * @return
      */
-    public Task markUndone(ReadOnlyTask taskToDone);
     
+    public Task markUndone();
+
     //@@author A0138848M
     /**
      * Returns a new Task which duplicates the existing task and updates its tag
@@ -90,4 +91,5 @@ public interface ReadOnlyTask {
      * @return
      */
     public Task updateTag(Tag newTag);
+    
 }

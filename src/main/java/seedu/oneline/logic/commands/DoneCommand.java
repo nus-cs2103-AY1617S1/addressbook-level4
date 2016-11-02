@@ -62,7 +62,7 @@ public class DoneCommand extends Command {
 
         ReadOnlyTask taskToDone = lastShownList.get(targetIndex - 1);
         Task doneTask = null;
-        doneTask = taskToDone.markDone(taskToDone);
+        doneTask = taskToDone.markDone();
         EventsCenter.getInstance().post(new ShowAllViewEvent());
         
         if(taskToDone.isCompleted()) {

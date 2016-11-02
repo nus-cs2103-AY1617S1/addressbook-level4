@@ -63,6 +63,7 @@ public class ListCommand extends Command {
     
     @Override
     public CommandResult execute() {
+        model.updateFilteredListToShowAllNotDone();
         switch (listBy) {
         case " ":
             EventsCenter.getInstance().post(new ShowAllViewEvent());

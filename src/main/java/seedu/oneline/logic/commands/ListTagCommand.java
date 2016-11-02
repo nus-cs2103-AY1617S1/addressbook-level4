@@ -37,7 +37,7 @@ public class ListTagCommand extends ListCommand {
             return new CommandResult(String.format(Tag.MESSAGE_INVALID_TAG, name));
         } else {
             model.updateFilteredTaskListToShowTag(name);
-            return new CommandResult(MESSAGE_SUCCESS + " : " + name);
+            return new CommandResult(String.format(MESSAGE_SUCCESS, name));
         }
     }
 }

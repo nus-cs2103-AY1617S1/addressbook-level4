@@ -1,6 +1,7 @@
 package seedu.oneline.model;
 
 import javafx.collections.ObservableList;
+import seedu.oneline.commons.exceptions.IllegalValueException;
 import seedu.oneline.model.tag.Tag;
 import seedu.oneline.model.tag.TagColor;
 import seedu.oneline.model.tag.TagColorMap;
@@ -76,7 +77,15 @@ public class TaskBook implements ReadOnlyTaskBook {
     }
 
     public void resetData(Collection<? extends ReadOnlyTask> newTasks, Collection<Tag> newTags, Map<Tag, TagColor> newTagColors) {
-        setTasks(newTasks.stream().map(Task::new).collect(Collectors.toList()));
+        setTasks(newTasks.stream().map(t -> {
+            try {
+                return new Task(t);
+            } catch (IllegalValueException e) {
+                e.printStackTrace();
+                assert false;
+            }
+            return null;
+        }).collect(Collectors.toList()));
         setTags(newTags);
         setTagColors(newTagColors);
         updateTags();
@@ -120,6 +129,9 @@ public class TaskBook implements ReadOnlyTaskBook {
     public void updateTags() {
         Set<Tag> allTags = new HashSet<Tag>();
         for (Task t : tasks.getInternalList()) {
+            if (t.getTag().equals(Tag.EMPTY_TAG)) {
+                continue;
+            }
             allTags.add(t.getTag());
         }
         setTags(allTags);
@@ -136,9 +148,6 @@ public class TaskBook implements ReadOnlyTaskBook {
     
 //// tag-level operations
 
-//    public void addTag(Tag t) throws UniqueTagList.DuplicateTagException {
-//        tags.add(t);
-//    }
     
     public TagColor getTagColor(Tag t) {
        return tagColorMap.getTagColor(t);

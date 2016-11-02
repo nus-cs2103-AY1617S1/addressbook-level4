@@ -110,7 +110,7 @@ public class EditTagCommand extends EditCommand {
         }
         
         StringBuilder sb = new StringBuilder();
-        sb.append(String.format(MESSAGE_SUCCESS, name));
+        sb.append(String.format(MESSAGE_SUCCESS, this.name));
         sb.append(" ");
         for (int i = 0; i < results.size(); i++) {
             sb.append(results.get(i));
