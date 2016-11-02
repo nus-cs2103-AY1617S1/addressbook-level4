@@ -45,6 +45,14 @@
 
 ## Design
 
+[comment]: # (@@author A0140060A)
+
+### Object Oriented Domain Model
+Description: The _User_ manages his _Activities_ using a _TaskManager_. the _TaskManager_ can contain any number of _Item_ objects. Each _Activity_ is managed in the _TaskManager_ using an _Item_. A _User_ can add, modify, delete and view his _Items_ in the _TaskMAnager_.
+<img src="images/OODomainDiagram.png" width="600"><br>
+
+[comment]: # (@@author )
+
 ### Architecture
 
 <img src="images/Architecture.png" width="600"><br>
