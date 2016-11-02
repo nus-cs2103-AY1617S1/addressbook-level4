@@ -1,6 +1,7 @@
 package seedu.emeraldo.model;
 
 import seedu.emeraldo.commons.core.UnmodifiableObservableList;
+import seedu.emeraldo.logic.commands.ListCommand.TimePeriod;
 import seedu.emeraldo.model.task.DateTime;
 import seedu.emeraldo.model.task.Description;
 import seedu.emeraldo.model.task.ReadOnlyTask;
@@ -58,6 +59,9 @@ public interface Model {
     /** Updates the filter of the filtered task list to filter by a single given keyword*/
     //@@author A0139749L
     void updateFilteredTaskList(String keyword);
+    
+    /** Updates the filter of the filtered task list to filter by the given keywords*/
+    void updateFilteredTaskList(TimePeriod keywords);
 
     /** Updates the filter of the filtered task list to filter out tasks with completed tag*/
     void updateFilteredListToShowUncompleted(); 

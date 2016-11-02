@@ -15,6 +15,8 @@ public class ListCommand extends Command {
     
     public static final String MESSAGE_LIST_KEYWORD = "Tasks with tag '%s' successfully listed!\n";
     
+    public static final String MESSAGE_LIST_TIMEPERIOD = "Tasks happening %s successfully listed!\n";
+    
     public static final String MESSAGE_USAGE = "(1) " + COMMAND_WORD + " :  Lists all uncompleted tasks\n"
     		+ "(2) " + COMMAND_WORD + " [PRE-DEFINED KEYWORDS] :  Lists all tasks in the period specified\n"
             + "(3) " + COMMAND_WORD + " [KEYWORD] :  Lists all tasks with tags containing the specified keyword\n"
@@ -37,9 +39,11 @@ public class ListCommand extends Command {
         	model.updateFilteredListToShowAll();
         	this.successMessage = MESSAGE_LIST_ALL;
         }else if(keyword.equalsIgnoreCase("today")){
-        	
+        	model.updateFilteredTaskList(TimePeriod.today);
+        	this.successMessage = String.format(MESSAGE_LIST_TIMEPERIOD, keyword.toLowerCase());
         }else if(keyword.equalsIgnoreCase("tomorrow")){
-        	
+        	model.updateFilteredTaskList(TimePeriod.tomorrow);
+        	this.successMessage = String.format(MESSAGE_LIST_TIMEPERIOD, keyword.toLowerCase());
     	}else{
             model.updateFilteredTaskList(keyword);
             this.successMessage = String.format(MESSAGE_LIST_KEYWORD, keyword.toLowerCase())
@@ -47,4 +51,6 @@ public class ListCommand extends Command {
         }
         return new CommandResult(successMessage);
     }
+    
+    public enum TimePeriod {today, tomorrow};
 }

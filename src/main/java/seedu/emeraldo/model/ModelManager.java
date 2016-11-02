@@ -1,5 +1,6 @@
 package seedu.emeraldo.model;
 
+import java.time.LocalDate;
 import java.util.EmptyStackException;
 import java.util.Iterator;
 import java.util.Set;
@@ -13,6 +14,7 @@ import seedu.emeraldo.commons.core.UnmodifiableObservableList;
 import seedu.emeraldo.commons.events.model.EmeraldoChangedEvent;
 import seedu.emeraldo.commons.exceptions.IllegalValueException;
 import seedu.emeraldo.commons.util.StringUtil;
+import seedu.emeraldo.logic.commands.ListCommand.TimePeriod;
 import seedu.emeraldo.model.tag.Tag;
 import seedu.emeraldo.model.task.DateTime;
 import seedu.emeraldo.model.task.Description;
@@ -186,6 +188,12 @@ public class ModelManager extends ComponentManager implements Model {
     public void updateFilteredTaskList(String keyword){
         updateFilteredTaskList(new PredicateExpression(new TagQualifier(keyword)));
     }
+    
+    @Override
+    public void updateFilteredTaskList(TimePeriod keyword){
+        updateFilteredTaskList(new PredicateExpression(new DateTimeQualifier(keyword)));
+    }
+
     //@@author
     
     private void updateFilteredTaskList(Expression expression) {
@@ -247,10 +255,10 @@ public class ModelManager extends ComponentManager implements Model {
         }
     }
     
+    //@@author A0139749L
     /*
      *  Compare tasks tags with keywords
      */
-    //@@author A0139749L
     private class TagQualifier implements Qualifier {
         private String tagKeyWord;
 
@@ -276,10 +284,43 @@ public class ModelManager extends ComponentManager implements Model {
 
         @Override
         public String toString() {
-            return "tag=" + String.join(", ", tagKeyWord);
+            return "tag= " + tagKeyWord;
         }
     }
     
+    /*
+     *  Compare tasks dateTime with the period specified by the keyword
+     */
+    private class DateTimeQualifier implements Qualifier {
+        private TimePeriod DateTimeKeyWord;
+
+        DateTimeQualifier(TimePeriod keyWord) {
+            this.DateTimeKeyWord = keyWord;
+        }
+
+        @Override
+        public boolean run(ReadOnlyTask task) {
+        	DateTime dateTime = task.getDateTime();
+        	if(dateTime.valueDate == null)	//For tasks without date specified
+        		return false;
+        	else if(DateTimeKeyWord == TimePeriod.today)
+        		return dateTime.valueDate.equals(LocalDate.now());
+        	else if(DateTimeKeyWord == TimePeriod.tomorrow)
+        		return dateTime.valueDate.equals(LocalDate.now().plusDays(1));
+        	else
+        		return false;
+        }
+
+        @Override
+        public String toString() {
+            return "DateTime= " + DateTimeKeyWord;
+        }
+    }
+    
+    //@@author A0142290N
+    /*
+     *  Compare tasks tags with the keyword "completed"
+     */
     private class ListQualifier implements Qualifier {
     	private String completedTag = "Completed";
     	
