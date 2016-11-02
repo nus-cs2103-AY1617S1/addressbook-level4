@@ -121,14 +121,30 @@ public class Parser {
     }
 
     private Command prepareTag(String args) {
-        // TODO Auto-generated method stub
+
         final Matcher matcher = TASK_TAG_ARGS_FORMAT.matcher(args.trim());
+        
+        Optional<Integer> index = parseIndex(matcher.group("targetIndex"));
+        if(!index.isPresent()){
+            return new IncorrectCommand(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, TagCommand.MESSAGE_USAGE));
+        }
         
         // Validate arg string format
         if (!matcher.matches()) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, TagCommand.MESSAGE_USAGE));
         }
-        return null;
+
+        try {
+            return new TagCommand(
+                    matcher.group("action"),
+                    matcher.group("targetIndex"),
+                    getTagsFromArgs(matcher.group("tagArguments"))
+            );
+        } catch (IllegalValueException ive) {
+            return new IncorrectCommand(ive.getMessage());
+        }
+        
     }
 
     private Command prepareSaveTo(String args) {
