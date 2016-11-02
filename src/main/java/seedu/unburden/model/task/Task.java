@@ -255,7 +255,7 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
         this.done = done;
     }
     
-    public boolean overDue() throws IllegalValueException{
+    public boolean checkOverDue() throws IllegalValueException{
     	Calendar calendar = Calendar.getInstance();
     	calendar.setTime(calendar.getTime());
     	if(this.getDate().compareTo(new Date(DATEFORMATTER.format(calendar.getTime()))) < 0){
