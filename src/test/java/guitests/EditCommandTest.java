@@ -45,9 +45,9 @@ public class EditCommandTest extends AddressBookGuiTest {
     }
 
     /**
-     * Runs the delete command to delete the task at specified index and confirms the result is correct.
-     * @param targetIndexOneIndexed e.g. to delete the first task in the list, 1 should be given as the target index.
-     * @param currentList A copy of the current list of tasks (before deletion).
+     * Runs the edit command to edit the task at specified index and confirms the result is correct.
+     * @param targetIndexOneIndexed e.g. to edit the first task in the list, 1 should be given as the target index.
+     * @param currentList A copy of the current list of tasks (before editing).
      */
     private void assertEditSuccess(int targetIndexOneIndexed, String change, final TestTask[] currentList) {
         TestTask taskToEdit = currentList[targetIndexOneIndexed-1]; //-1 because array uses zero indexing
