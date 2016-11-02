@@ -106,8 +106,12 @@ public class StringUtil {
                 map.put(c, map.get(c) - 1); // Subtracting acts as a way to track frequency.
             }
         }
-        // Returns false if frequency is not exactly the same i.e. all frequencies are correctly subtracted to 0.
-        return !map.keySet().stream().filter(k -> map.get(k) != 0).findAny().isPresent();
+        // Returns false if frequencies are not exactly the same, 
+        // same meaning all frequencies are correctly subtracted to 0.
+        return !map.keySet().stream()
+                .filter(k -> map.get(k) != 0)
+                .findAny()
+                .isPresent();
     }
     
     /** Generates a frequency map of character frequencies in string {@code s}.*/
