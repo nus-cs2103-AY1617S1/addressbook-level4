@@ -371,7 +371,7 @@ public class ModelManager extends ComponentManager implements Model {
     
     //@@author A0142290N
     /*
-     *  Compare tasks tags with the keyword "completed"
+     *  Compare tasks that are marked as completed, allows only uncompleted tasks to be shown.
      */
     private class ListQualifier implements Qualifier {
         private Completed CompletedKeyword;
