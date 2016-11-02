@@ -127,10 +127,21 @@ Format: `done <task index>`
 Example:
 * `done 1`
 
+### Mark as undone: `undone`
+Marks a task as done. <br>
+Format: `undone <task index>`
 
-#### Showing full list: `show`
+Example:
+* `undone 1`
+
+
+#### Showing list for undone task: `show`
 Displays all the task for the user to view.<br>
 Format: `show`
+
+#### Showing all task: `show all`
+Displays all the task for the user to view.<br>
+Format: `show all`
 
 ##### Showing list for today: `show today`
 Displays all the task for today for the user to view.<br>
@@ -148,12 +159,27 @@ Format: `show upcoming`
 Displays all the task for today the user to view.<br>
 Format: `show <date>`
 
+Example:
+* `show 10/10/16`
+
+##### Showing list for special parameters: `show <parameter>`
+Displays all the task for today the user to view.<br>
+Format: `show <parameter>`
+
+Example:
+* `show 3 days later`
+* `show next week`
+* `show next month`
+* `show next Tuesday`
+* `show xmas`
+
 ##### Showing a list for overdue tasks: `show overdue`
 Displays all the overdue tasks. <br>
 Format `show overdue`
 
-Example:
-* `show 10/10/16`
+##### Showing a list for floating tasks: `show floating`
+Displays all the overdue tasks. <br>
+Format `show floating`
 
 ##### Show all the done tasks: `show done`
 Displays all the done tasks. <br>
@@ -224,12 +250,14 @@ Following is the list of all commands:
 | `edit`      | `edit` `<index>` `<New Parameters>`                | Edits a task with the new parameters           |
 | `done`      | `done` `<index>`                                   | Marks a task as done                           |
 | `delete`    | `delete` `<index>`                                 | Removes a task from the task manager           |
-| `show`      | `show`                                             | Shows all tasks                                |
-|             | `show` done                                        | Shows the done tasks                           |
+| `show`      | `show`                                             | Shows all undone tasks                         |
+|             | `show` all                                         | Shows all tasks                                | 
+|             | `show` done                                        | Shows all done tasks                           |
 |             | `show` today                                       | Shows all tasks for today                      |
 |             | `show` tmr                                         | Shows all tasks for tomorrow                   |
-|             | `show` `<date>`                                    | Shows all tasks for that particular date       |
+|             | `show` <date>                                      | Shows all tasks for that particular date       |
 |             | `show` overdue                                     | Shows all the overdue tasks                    |
+|             | `show` <parameter>                                 | Shows all task for the input parameter         |
 | `undo`      | `undo`                                             | Undoes the most recent command                 |
 | `redo`      | `redo`                                             | Redoes the latest undo                         |
 | `find`      | `find` `<name>`                                    | Finds a task with task name as <name>          |
