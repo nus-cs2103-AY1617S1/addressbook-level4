@@ -13,7 +13,6 @@ public class ListAliasCommand extends Command {
 
     public ListAliasCommand() {}
 
-
     @Override
     public CommandResult execute() {
         assert model != null;

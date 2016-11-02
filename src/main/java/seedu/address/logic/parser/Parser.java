@@ -31,6 +31,7 @@ import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.IncorrectCommand;
+import seedu.address.logic.commands.ListAliasCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.UndoCommand;
@@ -100,6 +101,9 @@ public class Parser {
 
 		case RedoCommand.COMMAND_WORD:
 			return new RedoCommand();
+			
+		case ListAliasCommand.COMMAND_WORD:
+			return new ListAliasCommand();
 
 		default:
 			return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
