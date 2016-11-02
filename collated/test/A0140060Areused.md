@@ -24,3 +24,102 @@
         }
     }
 ```
+###### /java/seedu/taskmanager/testutil/TestUtil.java
+``` java
+    /**
+     * Removes a subset from the list of items.
+     * @param items The list of items
+     * @param itemsToRemove The subset of items.
+     * @return The modified items after removal of the subset from items.
+     */
+    public static TestItem[] removeItemsFromList(final TestItem[] items, TestItem... itemsToRemove) {
+        List<TestItem> listOfItems = asList(items);
+        listOfItems.removeAll(asList(itemsToRemove));
+        return listOfItems.toArray(new TestItem[listOfItems.size()]);
+    }
+
+
+    /**
+     * Returns a copy of the list with the item at specified index removed.
+     * @param list original list to copy from
+     * @param targetIndexInOneIndexedFormat e.g. if the first element to be removed, 1 should be given as index.
+     */
+    public static TestItem[] removeItemFromList(final TestItem[] list, int targetIndexInOneIndexedFormat) {
+        return removeItemsFromList(list, list[targetIndexInOneIndexedFormat-1]);
+    }
+    
+    /**
+     * Returns a copy of the list with items at the specified multiple indexes removed.
+     * @param list original list to copy from
+     * @param targetIndexes the integer array of indexes of the items to be removed
+     */
+    public static TestItem[] removeItemsFromList(final TestItem[] list, int[] targetIndexes) {
+        TestItem[] itemsToRemove = new TestItem[targetIndexes.length];
+        int numToRemove = 0;
+        for (int targetIndex : targetIndexes) {
+            itemsToRemove[numToRemove] = list[targetIndex-1];
+            numToRemove += 1;
+        }
+
+        return removeItemsFromList(list, itemsToRemove);
+    }
+
+    /**
+     * Replaces items[i] with an item.
+     * @param items The array of items.
+     * @param item The replacement item
+     * @param index The index of the item to be replaced.
+     * @return
+     */
+    public static TestItem[] replaceItemFromList(TestItem[] items, TestItem item, int index) {
+        items[index] = item;
+        return items;
+    }
+
+    /**
+     * Appends items to the array of items.
+     * @param items A array of items.
+     * @param itemsToAdd The items that are to be appended behind the original array.
+     * @return The modified array of items.
+     */
+    public static TestItem[] addItemsToList(final TestItem[] items, TestItem... itemsToAdd) {
+        List<TestItem> listOfItems = asList(items);
+        listOfItems.addAll(asList(itemsToAdd));
+        return listOfItems.toArray(new TestItem[listOfItems.size()]);
+    }
+
+    private static <T> List<T> asList(T[] objs) {
+        List<T> list = new ArrayList<>();
+        for(T obj : objs) {
+            list.add(obj);
+        }
+        return list;
+    }
+
+    public static boolean compareCardAndItem(TaskCardHandle card, ReadOnlyItem item) {
+        return card.isSameItem(item);
+    }
+
+    public static Tag[] getTagList(String tags) {
+
+        if (tags.equals("")) {
+            return new Tag[]{};
+        }
+
+        final String[] split = tags.split(", ");
+
+        final List<Tag> collect = Arrays.asList(split).stream().map(e -> {
+            try {
+                return new Tag(e.replaceFirst("Tag: ", ""));
+            } catch (IllegalValueException e1) {
+                //not possible
+                assert false;
+                return null;
+            }
+        }).collect(Collectors.toList());
+
+        return collect.toArray(new Tag[split.length]);
+    }
+
+}
+```

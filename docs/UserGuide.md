@@ -196,6 +196,8 @@ For events, you can edit all optional parameters.
 
 [comment]: # (@@author )
 
+[comment]: # (@@author A0135792X)
+
 ### When you need to view your deadlines, tasks and events
 
 #### View all deadlines, tasks and events
@@ -215,6 +217,8 @@ For events, you can edit all optional parameters.
 	> Example Command: `listnotdone`
 
 [comment]: # (@@author )
+
+[comment]: # (@@author A0135792X)
 
 #### View all tasks
 
@@ -320,6 +324,7 @@ For events, you can edit all optional parameters.
 2. What if I would like to edit a huge number of tasks, deadlines, events at once?
  > IvoryTasks uses a human editable xml file to store its data. You may edit it directly or write a script to do so.
 
+[comment]: # (@@author A0135792X)
 
 # Command Summary
 
