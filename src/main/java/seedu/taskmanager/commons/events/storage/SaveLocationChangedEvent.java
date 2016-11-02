@@ -2,7 +2,8 @@ package seedu.taskmanager.commons.events.storage;
 
 import seedu.taskmanager.commons.events.BaseEvent;
 
-/** Indicates the AddressBook in the model has changed*/
+//@@author A0143641M
+/** Indicates the save location of TaskManager in the model has changed*/
 public class SaveLocationChangedEvent extends BaseEvent {
 
     public final String location;
