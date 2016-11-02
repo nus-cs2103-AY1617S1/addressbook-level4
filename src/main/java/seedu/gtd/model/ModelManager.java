@@ -15,6 +15,7 @@ import seedu.gtd.model.task.UniqueTaskList.TaskNotFoundException;
 
 import java.util.Arrays;
 import java.util.Set;
+import java.util.Stack;
 import java.util.logging.Logger;
 
 /**
@@ -26,8 +27,9 @@ public class ModelManager extends ComponentManager implements Model {
 	
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final AddressBook addressBook;
+    private AddressBook addressBook;
     private final FilteredList<Task> filteredTasks;
+    private Stack<AddressBook> previousAddressBook;
 
     /**
      * Initializes a ModelManager with the given AddressBook
@@ -42,6 +44,8 @@ public class ModelManager extends ComponentManager implements Model {
 
         addressBook = new AddressBook(src);
         filteredTasks = new FilteredList<>(addressBook.getTasks());
+        previousAddressBook = new Stack<AddressBook>();
+        previousAddressBook.push(new AddressBook(addressBook));
     }
 
     public ModelManager() {
@@ -51,14 +55,15 @@ public class ModelManager extends ComponentManager implements Model {
     public ModelManager(ReadOnlyAddressBook initialData, UserPrefs userPrefs) {
         addressBook = new AddressBook(initialData);
         filteredTasks = new FilteredList<>(addressBook.getTasks());
+        previousAddressBook = new Stack<AddressBook>();
+        previousAddressBook.push(new AddressBook(addressBook));
     }
 
-    @Override
-    public void resetData(ReadOnlyAddressBook newData) {
+    private void resetData(ReadOnlyAddressBook newData) {
         addressBook.resetData(newData);
         indicateAddressBookChanged();
     }
-
+    
     @Override
     public ReadOnlyAddressBook getAddressBook() {
         return addressBook;
@@ -68,24 +73,41 @@ public class ModelManager extends ComponentManager implements Model {
     private void indicateAddressBookChanged() {
         raise(new AddressBookChangedEvent(addressBook));
     }
+    
+    private void savePreviousAddressBook() {
+    	previousAddressBook.push(new AddressBook(addressBook));
+    }
+    
+    @Override
+    public boolean undoAddressBookChange() {
+    	if(previousAddressBook.isEmpty()) {
+    		return false;
+    	}
+    	else{
+    		resetData(previousAddressBook.pop());
+    		return true;
+    	}
+    }
 
     @Override
     public synchronized void deleteTask(ReadOnlyTask target) throws TaskNotFoundException {
+    	savePreviousAddressBook();
         addressBook.removeTask(target);
         indicateAddressBookChanged();
     }
     
     @Override
     public synchronized void doneTask(int targetIndex, Task task) throws TaskNotFoundException {
+    	savePreviousAddressBook();
     	System.out.println("in model manager");
         addressBook.doneTask(targetIndex, task);
         updateFilteredListToShowAll();
         indicateAddressBookChanged();
     }
     
-
     @Override
     public synchronized void addTask(Task task) throws UniqueTaskList.DuplicateTaskException {
+    	savePreviousAddressBook();
         addressBook.addTask(task);
         updateFilteredListToShowAll();
         indicateAddressBookChanged();
@@ -94,10 +116,17 @@ public class ModelManager extends ComponentManager implements Model {
     //@@author A0146130W
     @Override
     public synchronized void editTask(int targetIndex, Task task) throws TaskNotFoundException {
+    	savePreviousAddressBook();
     	System.out.println("editing task..");
         addressBook.editTask(targetIndex, task);
         updateFilteredListToShowAll();
         indicateAddressBookChanged();
+    }
+    
+    @Override
+    public void clearTaskList() {
+    	savePreviousAddressBook();
+    	resetData(AddressBook.getEmptyAddressBook());
     }
     
     //@@author addressbook-level4

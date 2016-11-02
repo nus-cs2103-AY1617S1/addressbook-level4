@@ -100,6 +100,9 @@ public class Parser {
 
         case HelpCommand.COMMAND_WORD:
         	return prepareHelp(arguments);
+        	
+        case UndoCommand.COMMAND_WORD:
+        	return new UndoCommand();
 
         default:
             return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);

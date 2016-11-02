@@ -3,10 +3,11 @@
 ``` java
     public static final String COMMAND_WORD = "find";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all tasks whose names contain any of "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all tasks whose name, date, address, tags and priority contain any of "
             + "the specified keywords (case-sensitive) and displays them as a list with index numbers.\n"
-            + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
-            + "Example: " + COMMAND_WORD + " alice bob charlie";
+    		+ "To search by one particular field type, use t/ for tags, a/ for address, d/ for duedate and p/ for priority.\n"
+            + "Parameters: [FIELDTYPE] KEYWORD [MORE_KEYWORDS]...\n"
+            + "Example: " + COMMAND_WORD + " cs2103, " + COMMAND_WORD + " d/today";
     
 ```
 ###### /src/main/java/seedu/gtd/logic/parser/Parser.java
@@ -30,19 +31,19 @@
 //                    + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
     
     private static final Pattern NAME_TASK_DATA_ARGS_FORMAT =
-            Pattern.compile("(?<name>[^/]+) (t|p|a|d|e)/.*");
+            Pattern.compile("(?<name>[^/]+) (t|p|a|d|z)/.*");
     
     private static final Pattern PRIORITY_TASK_DATA_ARGS_FORMAT =
-            Pattern.compile(".* p/(?<priority>[^/]+) (t|a|d|e)/.*");
+            Pattern.compile(".* p/(?<priority>[^/]+) (t|a|d|z)/.*");
     
     private static final Pattern ADDRESS_TASK_DATA_ARGS_FORMAT =
-            Pattern.compile(".* a/(?<address>[^/]+) (t|p|d|e)/.*");
+            Pattern.compile(".* a/(?<address>[^/]+) (t|p|d|z)/.*");
     
     private static final Pattern DUEDATE_TASK_DATA_ARGS_FORMAT =
-            Pattern.compile(".* d/(?<dueDate>[^/]+) (t|a|p|e)/.*");
+            Pattern.compile(".* d/(?<dueDate>[^/]+) (t|a|p|z)/.*");
     
     private static final Pattern TAGS_TASK_DATA_ARGS_FORMAT =
-            Pattern.compile(".* t/(?<tagArguments>[^/]+) (d|a|p|e)/.*");
+            Pattern.compile(".* t/(?<tagArguments>[^/]+) (d|a|p|z)/.*");
     
     private static final Pattern EDIT_DATA_ARGS_FORMAT =
     		Pattern.compile("(?<targetIndex>\\S+)" 
@@ -77,6 +78,9 @@
 
         case DeleteCommand.COMMAND_WORD:
             return prepareDelete(arguments);
+            
+        case DoneCommand.COMMAND_WORD:
+            return prepareDone(arguments);
 
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();
@@ -85,13 +89,16 @@
             return prepareFind(arguments);
 
         case ListCommand.COMMAND_WORD:
-            return new ListCommand();
+            return prepareList(arguments);
 
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
 
         case HelpCommand.COMMAND_WORD:
         	return prepareHelp(arguments);
+        	
+        case UndoCommand.COMMAND_WORD:
+        	return new UndoCommand();
 
         default:
             return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
@@ -149,7 +156,7 @@
     }
     
     private String appendEnd(String args) {
-    	return args + " e/";
+    	return args + " z/";
     }
     
     private String checkEmptyAndAddDefault(Matcher matcher, String groupName, String defaultValue) {
@@ -196,6 +203,18 @@
 
         return new DeleteCommand(index.get());
     }
+    
+    private Command prepareDone(String args) {
+
+        Optional<Integer> index = parseIndex(args);
+        System.out.println("index at preparedone:" + index.get());
+        if(!index.isPresent()){
+            return new IncorrectCommand(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, DoneCommand.MESSAGE_USAGE));
+        }
+
+        return new DoneCommand(index.get());
+    }
 
     /**
      * Parses arguments in the context of the select task command.
@@ -238,6 +257,37 @@
      * @return the prepared command
      */
     private Command prepareFind(String args) {
+    	
+    	// check if parameters are specified and pass specified field to FindCommand
+    	
+    	String preprocessedArgs = " " + appendEnd(args.trim());
+    	final Matcher addressMatcher = ADDRESS_TASK_DATA_ARGS_FORMAT.matcher(preprocessedArgs);
+    	final Matcher priorityMatcher = PRIORITY_TASK_DATA_ARGS_FORMAT.matcher(preprocessedArgs);
+    	final Matcher dueDateMatcher = DUEDATE_TASK_DATA_ARGS_FORMAT.matcher(preprocessedArgs);
+    	final Matcher tagsMatcher = TAGS_TASK_DATA_ARGS_FORMAT.matcher(preprocessedArgs);
+    	
+    	Set<String> defaultSet = new HashSet<String>();
+    	
+    	if (addressMatcher.matches()) {
+    		String addressToBeFound = addressMatcher.group("address");
+    		return new FindCommand(addressToBeFound, defaultSet,"address");
+    	}
+    	if (priorityMatcher.matches()) {
+    		String priorityToBeFound = priorityMatcher.group("priority");
+    		return new FindCommand(priorityToBeFound, defaultSet, "priority");
+    	}
+    	if (dueDateMatcher.matches()) {
+    		String dueDateToBeFound = dueDateMatcher.group("dueDate");
+    		String parsedDueDateToBeFound = removeTimeOnDate(parseDueDate(dueDateToBeFound));
+    		return new FindCommand(parsedDueDateToBeFound, defaultSet, "dueDate");
+    	}
+    	if (tagsMatcher.matches()) {
+    		String tagsToBeFound = tagsMatcher.group("tagArguments");
+    		return new FindCommand(tagsToBeFound, defaultSet,"tagArguments");
+    	}
+    	
+    	// free-form search by keywords
+    	
         final Matcher matcher = KEYWORDS_ARGS_FORMAT.matcher(args.trim());
         if (!matcher.matches()) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
@@ -249,8 +299,16 @@
         final Set<String> keywordSet = new HashSet<>(Arrays.asList(splitKeywords));
         
         final String keywords = matcher.group("keywords");
-        return new FindCommand(keywords, keywordSet);
+        return new FindCommand(keywords, keywordSet, "nil");
     }
+    
+private Command prepareList(String args) {
+    	
+    	// check if parameters are specified and pass specified field to FindCommand
+    	
+    	//String preprocessedArgs = " " + appendEnd(args.trim());
+    	return new ListCommand(args);
+}
 
     /**
      * Parses arguments in the context of the help command.
@@ -451,6 +509,7 @@ public class MainApp extends Application {
      */
     public AddressBook(ReadOnlyAddressBook toBeCopied) {
         this(toBeCopied.getUniqueTaskList(), toBeCopied.getUniqueTagList());
+        System.out.println("start with first method");
     }
 
     /**
@@ -458,6 +517,7 @@ public class MainApp extends Application {
      */
     public AddressBook(UniqueTaskList tasks, UniqueTagList tags) {
         resetData(tasks.getInternalList(), tags.getInternalList());
+        System.out.println("start with second method");
     }
 
     public static ReadOnlyAddressBook getEmptyAddressBook() {
@@ -534,6 +594,11 @@ public class MainApp extends Application {
             throw new UniqueTaskList.TaskNotFoundException();
         }
     }
+    
+    public void doneTask(int index, Task target) throws TaskNotFoundException {
+		System.out.println("in addressbook");
+		tasks.done(index, target);
+	}
 
 //// tag-level operations
 
@@ -553,7 +618,7 @@ public class MainApp extends Application {
     public List<ReadOnlyTask> getTaskList() {
         return Collections.unmodifiableList(tasks.getInternalList());
     }
-
+ 
     @Override
     public List<Tag> getTagList() {
         return Collections.unmodifiableList(tags.getInternalList());
@@ -590,8 +655,9 @@ public class MainApp extends Application {
 	
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final AddressBook addressBook;
+    private AddressBook addressBook;
     private final FilteredList<Task> filteredTasks;
+    private AddressBook previousAddressBook;
 
     /**
      * Initializes a ModelManager with the given AddressBook
@@ -606,6 +672,7 @@ public class MainApp extends Application {
 
         addressBook = new AddressBook(src);
         filteredTasks = new FilteredList<>(addressBook.getTasks());
+        previousAddressBook = new AddressBook(addressBook);
     }
 
     public ModelManager() {
@@ -615,14 +682,14 @@ public class MainApp extends Application {
     public ModelManager(ReadOnlyAddressBook initialData, UserPrefs userPrefs) {
         addressBook = new AddressBook(initialData);
         filteredTasks = new FilteredList<>(addressBook.getTasks());
+        previousAddressBook = new AddressBook(addressBook);
     }
 
-    @Override
-    public void resetData(ReadOnlyAddressBook newData) {
+    private void resetData(ReadOnlyAddressBook newData) {
         addressBook.resetData(newData);
         indicateAddressBookChanged();
     }
-
+    
     @Override
     public ReadOnlyAddressBook getAddressBook() {
         return addressBook;
@@ -632,15 +699,35 @@ public class MainApp extends Application {
     private void indicateAddressBookChanged() {
         raise(new AddressBookChangedEvent(addressBook));
     }
-
+    
+    private void savePreviousAddressBook() {
+    	previousAddressBook = new AddressBook(addressBook);
+    }
+    
     @Override
-    public synchronized void deleteTask(ReadOnlyTask target) throws TaskNotFoundException {
-        addressBook.removeTask(target);
-        indicateAddressBookChanged();
+    public void undoAddressBookChange() {
+    	resetData(previousAddressBook);
     }
 
     @Override
+    public synchronized void deleteTask(ReadOnlyTask target) throws TaskNotFoundException {
+    	savePreviousAddressBook();
+        addressBook.removeTask(target);
+        indicateAddressBookChanged();
+    }
+    
+    @Override
+    public synchronized void doneTask(int targetIndex, Task task) throws TaskNotFoundException {
+    	savePreviousAddressBook();
+    	System.out.println("in model manager");
+        addressBook.doneTask(targetIndex, task);
+        updateFilteredListToShowAll();
+        indicateAddressBookChanged();
+    }
+    
+    @Override
     public synchronized void addTask(Task task) throws UniqueTaskList.DuplicateTaskException {
+    	savePreviousAddressBook();
         addressBook.addTask(task);
         updateFilteredListToShowAll();
         indicateAddressBookChanged();
@@ -658,7 +745,27 @@ public class MainApp extends Application {
 
     @Override
     public void updateFilteredListToShowAll() {
-        filteredTasks.setPredicate(null);
+    	updateFilteredListToShowAll(new PredicateExpression(new RemoveDoneQualifier()));
+    	System.out.println("show all");
+    }
+    
+    private void updateFilteredListToShowAll(Expression expression) {
+        filteredTasks.setPredicate(expression::satisfies);
+    }
+    
+    @Override
+    public void updateFilteredListToShowRemoved() {
+    	updateFilteredListToShowRemoved(new PredicateExpression(new DoneQualifier()));
+    	System.out.println("show done list");
+    }
+    
+    private void updateFilteredListToShowRemoved(Expression expression) {
+        filteredTasks.setPredicate(expression::satisfies);
+    }
+    
+    @Override
+    public void updateFilteredTaskList(Set<String> keywordSet) {
+    	updateFilteredTaskList(new PredicateExpression(new NameQualifier(keywordSet)));
     }
 
     @Override
@@ -667,8 +774,8 @@ public class MainApp extends Application {
     }
     
     @Override
-    public void updateFilteredTaskList(Set<String> keywordSet) {
-    	updateFilteredTaskList(new PredicateExpression(new NameQualifier(keywordSet)));
+    public void updateFilteredTaskList(String keywords, String cmd) {
+    	updateFilteredTaskList(new PredicateExpression(new otherFieldsQualifier(keywords, cmd)));
     }
 
     private void updateFilteredTaskList(Expression expression) {
@@ -715,15 +822,73 @@ public class MainApp extends Application {
 
         @Override
         public boolean run(ReadOnlyTask task) {
-            return keywordSet.stream()
-                    .filter(keyword -> StringUtil.containsIgnoreCase(task.getName().fullName, keyword))
-                    .findAny()
-                    .isPresent();
+        	return keywordSet.stream()
+            .filter(keyword -> StringUtil.containsIgnoreCase(task.getName().fullName, keyword))
+            .findAny()
+            .isPresent();
         }
 
         @Override
         public String toString() {
             return "name=" + String.join(", ", keywordSet);
+        }
+    }
+    
+    private class otherFieldsQualifier implements Qualifier {
+        protected String nameKeyWords;
+        protected String cmd;
+
+        otherFieldsQualifier(String keywords, String cmd) {
+            this.nameKeyWords = keywords;
+            this.cmd = cmd;
+        }
+
+        @Override
+        public boolean run(ReadOnlyTask task) {
+        	if (cmd == "address") {
+        		System.out.println("finding address..");
+        		String address = task.getAddress().toString().toLowerCase();
+        		boolean addressMatch = address.contains(nameKeyWords.toLowerCase());
+        		return addressMatch;
+        	} else if (cmd == "priority") {
+        		System.out.println("finding priority..");
+        		String priority = task.getPriority().toString();
+        		boolean priorityMatch = priority.contains(nameKeyWords);
+        		return priorityMatch;
+        	} else if (cmd == "dueDate") {
+        		System.out.println("finding dueDate..");
+        		String dueDate = task.getDueDate().toString();
+        		boolean dueDateMatch = dueDate.contains(nameKeyWords);
+        		return dueDateMatch;
+        	} else if (cmd == "tagArguments") {
+        		System.out.println("finding tags.. ");
+        		UniqueTagList tagsList = task.getTags();
+        		boolean tagsMatch = tagsList.containSearch(nameKeyWords.toLowerCase());
+        		return tagsMatch;
+        	}
+        	
+        	// cmd == "nil"
+        	
+        	String taskFullNameLowerCase = task.getName().fullName.toLowerCase();
+        	String priority = task.getPriority().toString();
+        	String address = task.getAddress().toString().toLowerCase();
+        	String dueDate = task.getDueDate().toString();
+        	UniqueTagList tagsList = task.getTags();
+        	
+        	boolean nameMatch = taskFullNameLowerCase.contains(nameKeyWords.toLowerCase());
+        	boolean addressMatch = address.contains(nameKeyWords.toLowerCase());
+        	boolean priorityMatch = priority.contains(nameKeyWords);
+        	boolean dueDateMatch = dueDate.contains(nameKeyWords);
+        	boolean tagsMatch = tagsList.containSearch(nameKeyWords.toLowerCase());
+        	boolean eachWordMatch = false;
+        	
+        	String[] eachWord = nameKeyWords.split(" ");
+        	for (String word : eachWord) {
+        		System.out.println("each: " + word);
+        		eachWordMatch = eachWordMatch || taskFullNameLowerCase.contains(word.toLowerCase());
+        	}
+        	
+            return eachWordMatch || nameMatch || addressMatch || priorityMatch || dueDateMatch || tagsMatch;
         }
     }
     
@@ -738,14 +903,36 @@ public class MainApp extends Application {
         @Override
         public boolean run(ReadOnlyTask task) {
         	String taskFullNameLowerCase = task.getName().fullName.toLowerCase();
-        	boolean orderMatch = taskFullNameLowerCase.contains(nameKeyWords.toLowerCase());
+        	boolean nameMatch = taskFullNameLowerCase.contains(nameKeyWords.toLowerCase());
         	
         	boolean eachWordMatch = keywordSet.stream()
             .filter(keyword -> StringUtil.containsIgnoreCase(task.getName().fullName, keyword))
             .findAny()
             .isPresent();
-        	
-            return eachWordMatch && orderMatch;
+        	return eachWordMatch && nameMatch;
+        }
+    }
+    
+    // to check and return a list of tasks that are already done
+    private class DoneQualifier implements Qualifier {
+
+        DoneQualifier() {}
+        
+        @Override
+        public boolean run(ReadOnlyTask task) {
+        	return task.getisDone(); 	
+        }
+    }
+    
+    // default display tasks that are not yet done
+    private class RemoveDoneQualifier implements Qualifier {
+
+        RemoveDoneQualifier() {}
+        
+        @Override
+        public boolean run(ReadOnlyTask task) {
+        	System.out.println(task.getName());
+        	return !task.getisDone(); 	
         }
     }
 }
@@ -1088,7 +1275,7 @@ public class MainApp extends Application {
         List<Task> taskList = helper.generateTaskList(2);
 
         // set AB state to 2 tasks
-        model.resetData(new AddressBook());
+        model.clearTaskList();
         for (Task p : taskList) {
             model.addTask(p);
         }
