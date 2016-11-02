@@ -25,8 +25,7 @@ public class EditCommand extends UndoableCommand {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edit an item in the To-Do List. "
             + "Parameters: edit [NAME] [from/at/start DATE_TIME] [to/by/end DATE_TIME] [repeat every RECURRING_INTERVAL] [-PRIORITY] [-reset PARAMETER]\n"
-            + "Example: " + COMMAND_WORD
-            + "edit 1 play with cat by 3pm repeat every day -medium";
+            + "Example: " + COMMAND_WORD + " 1 play with cat by 3pm repeat every day -medium";
               
     public static final String TOOL_TIP = "edit INDEX [NAME] [start DATE_TIME] [end DATE_TIME] [repeat every RECURRING_INTERVAL] [-PRIORITY] [-reset PARAMETER]";
 
