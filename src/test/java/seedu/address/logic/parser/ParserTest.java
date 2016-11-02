@@ -3,6 +3,7 @@ package seedu.address.logic.parser;
 import static org.junit.Assert.*;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 import org.junit.Test;
 
@@ -37,7 +38,8 @@ public class ParserTest {
 		listCommand = new ListCommand();
 		deleteCommand = new DeleteCommand(new int[]{1});
 		changeStatusCommand = new ChangeStatusCommand(new int[]{1}, "done");
-		editCommand = new EditCommand(1, "editing", LocalDateTime.now(), LocalDateTime.now());
+		editCommand = new EditCommand(1, Optional.of("editing"), 
+				Optional.of(LocalDateTime.now()), Optional.of(LocalDateTime.now()));
 		undoCommand = new UndoCommand();
 		redoCommand = new RedoCommand();
 	}
