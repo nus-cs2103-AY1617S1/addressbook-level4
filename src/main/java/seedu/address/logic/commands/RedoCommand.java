@@ -1,14 +1,17 @@
 package seedu.address.logic.commands;
 
 import java.io.IOException;
+import java.util.logging.Logger;
 
 import seedu.address.commons.core.Config;
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.util.ConfigUtil;
 import seedu.address.model.SaveState;
 import seedu.address.model.TaskBook;
 
 //@@author A0147890U
 public class RedoCommand extends Command {
+    private static final Logger logger = LogsCenter.getLogger(RedoCommand.class);
     public static final String COMMAND_WORD = "redo";
     
     public static final String MESSAGE_REDO_TASK_SUCCESS = "Redo successful.";
@@ -48,7 +51,7 @@ public class RedoCommand extends Command {
             try {
                 ConfigUtil.saveConfig(config, Config.DEFAULT_CONFIG_FILE);
             } catch (IOException e) {
-                
+                logger.warning("config file could not be saved to");
             }
            
             SaveState saveToBeAdded = new SaveState(currentTaskBook, currentConfig);

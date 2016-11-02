@@ -1,20 +1,17 @@
 package seedu.address.logic.commands;
 
-import java.io.File;
 import java.io.IOException;
 
-import com.fasterxml.jackson.core.JsonEncoding;
-import com.fasterxml.jackson.core.JsonFactory;
-import com.fasterxml.jackson.core.JsonGenerationException;
-import com.fasterxml.jackson.core.JsonGenerator;
-import com.fasterxml.jackson.databind.JsonMappingException;
+import java.util.logging.Logger;
 
 import seedu.address.commons.core.Config;
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.util.ConfigUtil;
 
 //@@author A0147890U
 public class SpecifyStorageCommand extends Command {
-
+    private static final Logger logger = LogsCenter.getLogger(SpecifyStorageCommand .class);
+    
     public static final String COMMAND_WORD = "storage";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
@@ -42,7 +39,7 @@ public class SpecifyStorageCommand extends Command {
             config.setAddressBookFilePath(folderPath);
             ConfigUtil.saveConfig(config, Config.DEFAULT_CONFIG_FILE);
         } catch (IOException e) {
-            System.out.println("oops");
+            logger.warning("config file could not be saved to");
         }
         
         return new CommandResult(String.format(SPECIFY_STORAGE_SUCCESS, this.folderPath));

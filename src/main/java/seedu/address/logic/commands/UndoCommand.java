@@ -32,10 +32,12 @@ public class UndoCommand extends Command {
     @Override
     public CommandResult execute() {
         assert model != null;
+        
         if (numTimes > model.getUndoStack().size()) {
             Command command = new IncorrectCommand("There are not so many tasks available to be undone.");
             return command.execute();
         }
+        
         for (int i = 0; i < numTimes; i++) {
             TaskBook currentTaskBook = new TaskBook(model.getAddressBook());
             
@@ -52,6 +54,7 @@ public class UndoCommand extends Command {
             } catch (IOException e) {
                 logger.warning("config file could not be saved to");
             }
+            
             SaveState saveToBeAdded = new SaveState(currentTaskBook, currentConfig);
             model.getCommandHistory().add("undo");
             model.getRedoStack().push(saveToBeAdded);
