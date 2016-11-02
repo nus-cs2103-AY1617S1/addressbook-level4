@@ -7,11 +7,8 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.commons.util.ConfigUtil;
 import seedu.address.commons.util.StringUtil;
-<<<<<<< HEAD
 import seedu.address.logic.commands.SetStorageCommand;
-=======
 import seedu.address.commons.events.model.AliasManagerChangedEvent;
->>>>>>> master
 import seedu.address.commons.events.model.TaskManagerChangedEvent;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.Config;

@@ -68,7 +68,7 @@ public class MainApp extends Application {
         return applicationParameters.get(parameterName);
     }
 
-    private Model initModelManager(Storage storage, UserPrefs userPrefs) {
+    private Model initModelManager(Storage storage, Config config, UserPrefs userPrefs) {
         Optional<ReadOnlyTaskManager> taskManagerOptional;
         Optional<ReadOnlyAliasManager> aliasManagerOptional;
         ReadOnlyTaskManager initialTaskManagerData;
@@ -102,11 +102,7 @@ public class MainApp extends Application {
             initialAliasManagerData = new AliasManager();
         }
 
-<<<<<<< HEAD
-        return new ModelManager(initialData, config, userPrefs);
-=======
-        return new ModelManager(initialTaskManagerData, userPrefs, initialAliasManagerData);
->>>>>>> master
+        return new ModelManager(initialTaskManagerData, config, userPrefs, initialAliasManagerData);
     }
 
     private void initLogging(Config config) {
