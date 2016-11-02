@@ -4,8 +4,6 @@ package seedu.tasklist.commons.util;
 import java.util.Calendar;
 import java.util.Date;
 
-import org.apache.commons.lang.time.DateUtils;
-
 public class RecurringUtil {
     
     /**
@@ -28,24 +26,17 @@ public class RecurringUtil {
      */
     public static boolean recurringMatchesRequestedDate(Calendar task, String frequency, Calendar requested) {
         if (!task.getTime().equals(new Date(0)) && !requested.getTime().equals(new Date (0))) {
-            
-            for (int i = 0; i < 100; i++) {
-                Calendar first = (Calendar) task.clone();
-                if (frequency.equals("daily")) {
-                    first.add(Calendar.DAY_OF_YEAR, i);
-                }
-                else if (frequency.equals("weekly")) {
-                    first.add(Calendar.WEEK_OF_YEAR, i);
-                }
-                else if (frequency.equals("monthly")) {
-                    first.add(Calendar.MONTH, i);
-                }
-                else if (frequency.equals("yearly")) {
-                    first.add(Calendar.YEAR, i);
-                }
-                if (DateUtils.isSameDay(first, requested)) {
-                    return true;
-                }
+            if (frequency.equals("daily")) {
+                return true;
+            }
+            else if (frequency.equals("weekly") && task.get(Calendar.DAY_OF_WEEK) == requested.get(Calendar.DAY_OF_WEEK)) {
+                return true;
+            }
+            else if (frequency.equals("monthly") && task.get(Calendar.DAY_OF_MONTH) == requested.get(Calendar.DAY_OF_MONTH)) {
+                return true;
+            }
+            else if (frequency.equals("yearly") && task.get(Calendar.DAY_OF_YEAR) == requested.get(Calendar.DAY_OF_YEAR)) {
+                return true;
             }
         }
         return false;

@@ -437,6 +437,13 @@ public class ModelManager extends ComponentManager implements Model {
 
 		@Override
 		public boolean run(ReadOnlyTask person) {
+		    
+		    if (person.isRecurring()) {
+		        return (RecurringUtil.recurringMatchesRequestedDate(person.getStartTime().time, person.getRecurringFrequency(), requestedTime)
+		                || (person.getStartTime().isMissing()
+		                        && RecurringUtil.recurringMatchesRequestedDate(person.getEndTime().time, person.getRecurringFrequency(), requestedTime)));
+		    }
+		    
 			return DateUtils.isSameDay(person.getStartTime().time, requestedTime)
 					|| (person.getStartTime().toCardString().equals("-")
 							&& DateUtils.isSameDay(person.getEndTime().time, requestedTime));
