@@ -65,21 +65,6 @@ public class TodoTest {
         assertTrue(todo.getTasks().contains(task1));
         assertTrue(todo.getTasks().contains(task2));
     }
-    
-    @Test
-    public void testCompletedEvent() throws Exception {
-        LocalDateTime start = LocalDateTime.now().minusHours(4);
-        
-        when(storageData.getTasks()).thenReturn(ImmutableList.of(
-            TaskBuilder.name("Test task")
-                .event(start, start.plusHours(1))
-                .build()
-        ));
-        todo = new TodoList(storage);
-        
-        Thread.sleep(50);
-        assertTrue(todo.getTasks().get(0).isCompleted());
-    }
 
     @Test
     public void testAdd() throws Exception {

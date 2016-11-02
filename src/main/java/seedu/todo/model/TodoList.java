@@ -60,28 +60,6 @@ public class TodoList implements TodoListModel {
             String message = String.format(FILE_LOAD_ERROR_FORMAT, storage.getLocation());
             raiseStorageEvent(message, e);
         }
-        
-        // Update event status 
-        new Timer().scheduleAtFixedRate(new UpdateEventTask(), 0, 60 * 1000);
-    }
-    
-    private void updateEventStatus() {
-        Platform.runLater(() -> {
-            LocalDateTime now = LocalDateTime.now();
-            boolean todoListModified = false;
-
-            for (Task task : tasks) {
-                boolean isIncompleteEvent = !task.isCompleted() && task.isEvent();
-                if (isIncompleteEvent && now.isAfter(task.getEndTime().get())) {
-                    task.setCompleted(true);
-                    todoListModified = true;
-                }
-            }
-
-            if (todoListModified) {
-                saveTodoList();
-            }
-        });
     }
 
     private void raiseStorageEvent(String message, Exception e) {
@@ -227,12 +205,4 @@ public class TodoList implements TodoListModel {
     public List<ImmutableTask> getTasks() {
         return Collections.unmodifiableList(tasks);
     }
-    
-    private class UpdateEventTask extends TimerTask {
-        @Override
-        public void run() {
-            updateEventStatus();
-        }
-    }
-
 }
