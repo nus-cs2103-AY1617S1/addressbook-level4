@@ -29,9 +29,9 @@
 7. Refer to the [Features](#features) section below for details of each command. 
 8. NOTE
 	- All text in `< >` are required fields whereas those in `[ ]` are optional.
-	- <INDEX> refers to the index number of a task shown in the task list.
+	- `<INDEX>` refers to the index number of a task shown in the task list.
 	- The index **must be a positive integer** 1, 2, 3, ... 
-	- Priority options are: `h` for High, `m` for Medium, `l` for Low
+	- Priority options are: `h` for High, `m` for Medium, `l` for Low.
 
 
 ## Features
@@ -40,20 +40,22 @@
 Adds a task to TARS  
 Format: `<TASK_NAME> [/dt DATETIME] [/p PRIORITY] [/t TAG_NAME ...] [/r NUM_TIMES FREQUENCY]\n` 
  
-> Support for events (i.e., has a start time and end time), deadlines (tasks that have to be done before a specific deadline), and floating tasks (tasks without specific times).
+> Support for events (i.e., has a start time and end time),  deadlines (tasks that have to be done before a specific deadline),  and floating tasks (tasks without specific times).
+> 
 > Parameters can be in any order.
 
 Examples: 
-* `add Meet John Doe /dt 26/09/2016 0900 to 26/09/2016 1030 /t CATCH UP`
+* `add Meet John Doe /dt 26/09/2016 0900 to 26/09/2016 1030 /t catchup`
 * `add Complete CS2103 Quiz /dt 23/09/2016 /p h /t Quiz /t CS2103, /r 13 EVERY WEEK`
 * `add Floating Task`
 
 [comment]: # (@@author A0124333U)
 #### Changing data storage location : `cd`
 Changes the directory of the TARS storage file.
-Format: `cd <FILE_PATH.xml>`
+Format: `cd <FILE_PATH>`
 
 > Returns an error if the directory chosen is invalid. 
+> 
 > `<FILE_PATH>` must end with the file type extension, `.xml`
 
 Examples:
@@ -69,7 +71,9 @@ Confirms a dateTime for a reserved task and adds it to the task list.
 Format: `confirm <RSV_TASK_INDEX> <DATETIME_INDEX> [/p PRIORITY] [/t TAG_NAME ...]`
 
 > Confirm the task of a specific `<RSV_TASK_INDEX>` at a dateTime of a specific `<DATETIME_INDEX>`. 
-> The `<RSV_TASK_INDEX>` refers to the index number shown in the reserved task list.  
+> 
+> The `<RSV_TASK_INDEX>` refers to the index number shown in the reserved task list. 
+> 
 > The `<DATETIME_INDEX>` refers to the index number of the dateTime.
 
 Examples:
@@ -83,6 +87,7 @@ Formats:
 * `del <START_INDEX>..<END_INDEX>`
 
 > Deletes the task at the specific `<INDEX>`.
+> 
 > Start index of range must be before end index.
 
 Examples:
@@ -96,6 +101,7 @@ Format: `do <INDEX> [INDEX ...]`
 Format: `do <START_INDEX>..<END_INDEX>`
 
 > Marks the task at the specific `<INDEX>` as `done`.
+> 
 > Start index of range must be before end index.
 
 Examples:
@@ -108,8 +114,11 @@ Edits any component of a particular task.
 Format: `edit <INDEX> [/n TASK_NAME] [/dt DATETIME] [/p PRIORITY] [/ta TAG_TO_ADD ...] [/tr TAG_TO_REMOVE ...]`
 
 > Edits the task at the specific `<INDEX>`. 
+> 
 > `/ta` adds a tag to the task.
+> 
 > `/tr` removes a tag from the task.
+> 
 > Parameters can be in any order.
 
 Examples:
@@ -129,14 +138,23 @@ Format:
 * [Filter Search]: `find [/n NAME_KEYWORD ...] [/dt DATETIME] [/p PRIORITY] [/do] [/ud] [/t TAG_KEYWORD ...]`
 
 > **Quick Search Mode**: Find tasks quickly by entering keywords that match what is displayed in the task list.
+> 
 > **Filter Search Mode**: Find tasks using task filters (i.e. /n, /p, /dt, /do, /ud, /t).
+> 
 > Use /n to filter tasks by task name.
+> 
 > Use /p to filter tasks by priority level.
+> 
 > Use /dt to filter tasks by date (in a date range).
+> 
 > Use /do to filter all done tasks (Cannot be used together with /ud).
+> 
 > Use /ud to filter all undone tasks (Cannot be used together with /do).
+> 
 > Use /t to filter tasks by tags.
+> 
 > `<KEYWORD>` are **case-insensitive**. 
+> 
 > Parameters can be in any order.
 
 Examples: 
@@ -154,7 +172,7 @@ Examples:
 * `free next tuesdsay`
 * `free 26/10/2016`
 
-[comment]: # (@@author A0139924W)
+[comment]:
 #### Displaying a list of available commands : `help`
 Shows program usage instructions in help panel.
 Format: `help`
@@ -170,8 +188,11 @@ Format:
 * `ls /p [dsc]`
 
 > All tasks listed by default.
+> 
 > Use /dt to list all tasks by earliest end dateTime.
+> 
 > Use /p to list all task by priority from low to high.
+> 
 > Use dsc with previous two prefixes to reverse the order.
 
 Examples:
@@ -205,6 +226,7 @@ Format: `rsv /del <INDEX>`
 Format: `rsv /del <START_INDEX>..<END_INDEX>`
 
 > Deletes the task at the specific `<INDEX>`. 
+> 
 > Start index of range must be before end index.
 
 Examples:
@@ -243,6 +265,7 @@ Format: `ud <INDEX> [INDEX ...]`
 Format: `ud <START_INDEX>..<END_INDEX>`
 
 > Marks the task at the specific `<INDEX>` as `undone`.
+> 
 > Start index of range must be before end index.
 
 Examples:
@@ -367,5 +390,4 @@ Command | Format
 [Tag [List]](#listing-all-tags--tag-ls) | `tag /ls`
 [Undone](#marking-tasks-as-undone--ud) | `ud <INDEX> [INDEX ...]` <br> `ud <START_INDEX>..<END_INDEX>`
 [Undo](#undoing-a-command--undo) | `undo`
-
 

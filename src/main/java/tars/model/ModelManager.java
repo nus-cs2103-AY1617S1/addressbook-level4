@@ -1,5 +1,12 @@
 package tars.model;
 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Set;
+import java.util.Stack;
+import java.util.logging.Logger;
+
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import tars.commons.core.ComponentManager;
@@ -12,33 +19,24 @@ import tars.commons.exceptions.IllegalValueException;
 import tars.commons.util.DateTimeUtil;
 import tars.commons.util.StringUtil;
 import tars.logic.commands.Command;
-import tars.logic.parser.ArgumentTokenizer;
-import tars.model.task.Task;
-import tars.model.task.TaskQuery;
 import tars.model.tag.ReadOnlyTag;
 import tars.model.tag.Tag;
 import tars.model.tag.UniqueTagList.DuplicateTagException;
 import tars.model.tag.UniqueTagList.TagNotFoundException;
 import tars.model.task.DateTime;
-import tars.model.task.DateTime.IllegalDateException;
 import tars.model.task.ReadOnlyTask;
 import tars.model.task.Status;
+import tars.model.task.Task;
+import tars.model.task.TaskQuery;
 import tars.model.task.UniqueTaskList.TaskNotFoundException;
 import tars.model.task.rsv.RsvTask;
 import tars.model.task.rsv.UniqueRsvTaskList.RsvTaskNotFoundException;
-
-import java.time.DateTimeException;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Set;
-import java.util.Stack;
-import java.util.logging.Logger;
 
 /**
  * Represents the in-memory model of tars data. All changes to any model should be synchronized.
  */
 public class ModelManager extends ComponentManager implements Model {
+
   private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
   private final Tars tars;
@@ -111,15 +109,6 @@ public class ModelManager extends ComponentManager implements Model {
     raise(new TarsChangedEvent(tars));
   }
 
-  // @@author A0121533W
-  @Override
-  public synchronized Task editTask(ReadOnlyTask toEdit, ArgumentTokenizer argsTokenizer)
-      throws TaskNotFoundException, DateTimeException, IllegalDateException, DuplicateTagException,
-      TagNotFoundException, IllegalValueException {
-    Task editedTask = tars.editTask(toEdit, argsTokenizer);
-    indicateTarsChanged();
-    return editedTask;
-  }
 
   // @@author A0139924W
   @Override
@@ -151,14 +140,6 @@ public class ModelManager extends ComponentManager implements Model {
     tars.addTagToAllTasks(toBeAdded, allTasks);
     tars.getUniqueTagList().add(new Tag(toBeAdded));
 
-    indicateTarsChanged();
-  }
-
-  // @@author A0139924W
-
-  @Override
-  public synchronized void unEditTask(Task toUndo, Task replacement) throws DuplicateTaskException {
-    tars.replaceTask(toUndo, replacement);
     indicateTarsChanged();
   }
 
@@ -263,6 +244,15 @@ public class ModelManager extends ComponentManager implements Model {
     return listOfDateTime;
   }
 
+
+  // @@author A0139924W
+  @Override
+  public synchronized void replaceTask(ReadOnlyTask toUndo, Task replacement)
+      throws DuplicateTaskException {
+    tars.replaceTask(toUndo, replacement);
+    indicateTarsChanged();
+  }
+
   // =========== Filtered Task List Accessors ===========
 
   @Override
@@ -333,6 +323,8 @@ public class ModelManager extends ComponentManager implements Model {
 
   private class PredicateExpression implements Expression {
 
+
+    // @@author
     private final Qualifier qualifier;
 
     PredicateExpression(Qualifier qualifier) {
@@ -347,8 +339,10 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public String toString() {
       return qualifier.toString();
+
     }
   }
+
 
   interface Qualifier {
     boolean run(ReadOnlyTask task);
@@ -472,6 +466,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
   }
 
+
   // @@author A0140022H
   private class DateQualifier implements Qualifier {
     private final LocalDateTime startDateTime;
@@ -496,7 +491,5 @@ public class ModelManager extends ComponentManager implements Model {
     public boolean run(ReadOnlyTask task) {
       return DateTimeUtil.isDateTimeWithinRange(task.getDateTime(), dateTimeQuery);
     }
-
   }
-
 }

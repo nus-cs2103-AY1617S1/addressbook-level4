@@ -25,10 +25,10 @@ import tars.ui.Formatter;
 public class RsvCommand extends UndoableCommand {
 
     public static final String COMMAND_WORD = "rsv";
-    public static final String COMMAND_WORD_DEL = "rsv /d";
+    public static final String COMMAND_WORD_DEL = "rsv /del";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Reserves one or more timeslot for a task.\n"
-            + "Parameters: TASK [/dt DATETIME] [ADDITIONAL DATETIME]\n" + "Example: " + COMMAND_WORD
+            + "Parameters: <TASK_NAME> </dt DATETIME> [/dt DATETIME ...]\n" + "Example: " + COMMAND_WORD
             + " Meet John Doe /dt 26/09/2016 0900 to 1030, 28/09/2016 1000 to 1130";
 
     public static final String MESSAGE_USAGE_DEL = COMMAND_WORD_DEL

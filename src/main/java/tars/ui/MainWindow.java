@@ -191,7 +191,7 @@ public class MainWindow extends UiPart {
         }
     }
 
-    void fillInnerParts() {
+    protected void fillInnerParts() {
         header = Header.load(primaryStage, headerPlaceholder);
         taskListPanel = TaskListPanel.load(primaryStage,
                 getTaskListPlaceholder(), logic.getFilteredTaskList());
@@ -209,7 +209,9 @@ public class MainWindow extends UiPart {
     }
 
     /**
-     * @@author A0124333U A method to reload the status bar footer
+     * A method to reload the status bar footer
+     * 
+     * @@author A0124333U
      */
     public void reloadStatusBarFooter(String newTarsFilePath) {
         statusBarFooter = StatusBarFooter.load(primaryStage,
@@ -311,8 +313,7 @@ public class MainWindow extends UiPart {
         return this.rsvTaskListPanel;
     }
 
-    // ==================== Event Handling Code
-    // =================================================================
+    // ==================== Event Handling Code ====================
 
     @Subscribe
     private void KeyCombinationPressedEventHandler(
@@ -339,6 +340,4 @@ public class MainWindow extends UiPart {
                     .select(RSV_TASK_LIST_PANEL_TAB_PANE_INDEX);
         }
     }
-
-
 }

@@ -18,8 +18,8 @@ public class UdCommand extends Command {
     public static final String COMMAND_WORD = "ud";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": mark a task as undone.\n"
-            + "Parameters: <INDEX>[  <INDEX> <INDEX> ...]\n" + "Example: "
+            + ": Marks the task based on its index in the task list as undone.\n"
+            + "Parameters: <INDEX> [INDEX ...]\n" + "Example: "
             + COMMAND_WORD + " 3 5 7" + "OR " + COMMAND_WORD + " 1..3\n";
 
     private String toUndo;

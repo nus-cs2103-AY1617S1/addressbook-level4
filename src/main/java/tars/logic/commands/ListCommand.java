@@ -23,7 +23,7 @@ public class ListCommand extends Command {
 	public static final String MESSAGE_SUCCESS_PRIORITY_DESCENDING = "Listed all tasks by priority from high to low";
 
 	public static final String MESSAGE_USAGE = COMMAND_WORD
-			+ ": Lists all task with the specified keywords and displays them as a list with index numbers.\n"
+			+ ": Lists all tasks.\n"
 			+ "Parameters: [KEYWORD] " + "Example: " + COMMAND_WORD + " /dt";
 
 	private static final String LIST_ARG_DATETIME = "/dt";

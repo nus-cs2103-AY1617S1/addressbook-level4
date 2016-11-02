@@ -106,8 +106,7 @@ public class UiManager extends ComponentManager implements Ui {
         System.exit(1);
     }
 
-    // ==================== Event Handling Code
-    // =================================================================
+    // ==================== Event Handling Code ====================
 
     @Subscribe
     private void handleDataSavingExceptionEvent(
@@ -117,9 +116,7 @@ public class UiManager extends ComponentManager implements Ui {
                 "Could not save data to file", event.exception);
     }
 
-    /**
-     * @@author A0140022H
-     */
+    //@@author A0140022H
     @Subscribe
     private void handleShowHelpEvent(ShowHelpRequestEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));

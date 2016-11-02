@@ -30,9 +30,9 @@ public class ConfirmCommand extends UndoableCommand {
 
     public static final String MESSAGE_USAGE =
             COMMAND_WORD + ": Confirms a datetime for a reserved task"
-                    + " and adds the task into the task list.\n"
-                    + "Parameters: <RESERVED_TASK_INDEX> <DATETIME_INDEX> /p <PRIORITY> /t <TAG>\n"
-                    + "Example: " + COMMAND_WORD + " 1 3 /p h /t tag1";
+                    + " and adds it to the task list.\n"
+                    + "Parameters: <RSV_TASK_INDEX> <DATETIME_INDEX> [/p PRIORITY] [/t TAG_NAME ...]\n"
+                    + "Example: " + COMMAND_WORD + " 1 3 /p h /t tag";
 
     public static final String MESSAGE_CONFIRM_SUCCESS =
             "Task Confirmation Success! New task added: %1$s";
