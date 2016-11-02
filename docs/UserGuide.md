@@ -89,7 +89,7 @@ Examples:
 * `list`<br>
   Returns `Homework` but not `homework`
 
-
+<!-- @@author A0153751H -->
 ### Deleting a task : `delete`
 Deletes the specified task from the task management tool. Irreversible.<br>
 Format: `delete TASKID`
@@ -114,41 +114,25 @@ Format: `undo`
 Example:
 * `undo`.
 
-
-#### Add Category: `Assign`
-Assign Task to a category
-Format: `Assign TASKID c/CATEGORY`
-
-Example:
-* `Assign 1 c/Work`
-
-<a id="done_task" class="anchor" aria-hidden="true">
 #### Complete a task: `done`
 Set Task as completed
 Format: `done TASKID`
 
-Example: `done 0`
+Example: `done 1`
  
 #### Edit a task: `edit`
-Edit details to an existing task
-Format: `edit TASKID t/TASK_NAME d/DESCRIPTION sd/START_DATE dd/DUE_DATE ts/TAGS`
+Edit details to an existing task <br>
+One other parameter must be use other than the TASKID <br>
+Format: `edit TASKID [t/TASK_NAME] [d/DESCRIPTION] [sd/START_DATE] [dd/DUE_DATE] [c/COLOR] [ts/TAGS]`
 
 Examples: 
-* `edit 1 t/Homework d/Physics sd/11-11-2011 dd/12-12-2012 ts/school`
+* `edit 1 t/Homework d/Physics sd/11-11-2011 dd/12-12-2012 c/red ts/school`
 
-#### Setting task priority: `setpriority`
-Set priority to a task
-Format: `setpriority TASKID p/PRIORITY_VALUE` 
-
+#### Coloring a task
+Color can be added or edited with the add or edit commands and the c/ parameter. <br>
+The available colors are "red", "blue", "green", and "none". None represents no color/white.
 Examples: 
-* `setpriority 0 p/10` 
-
-#### Coloring task: `color`
-Set color for a code of task
-Format: `color TASKID c/COLOR_VALUE` 
-
-Examples: 
-* `color 0 c/RED` 
+* `edit 1 c/red`
 
 
 
@@ -162,8 +146,8 @@ Examples:
 
 Command | Format  
 -------- | :-------- 
-Add | `add TASK d/DESCRIPTION dd/DUE_DATE i/INTERVAL ti/TIME_INTERVAL...`
-Edit | `edit TASKID t/TASK_NAME d/DESCRIPTION sd/START_DATE dd/DUE_DATE ts/TAGS`
+Add | `add TASK d/DESCRIPTION dd/DUE_DATE i/INTERVAL ti/TIME_INTERVAL c/COLOR...`
+Edit | `edit TASKID t/TASK_NAME d/DESCRIPTION sd/START_DATE dd/DUE_DATE c/COLOR ts/TAGS`
 Clear | `clear`
 Delete | `delete TASKID`
 Find | `find KEYWORD [MORE_KEYWORDS]`
@@ -171,14 +155,16 @@ List | `list`
 Undo | `undo` 
 Save | `save`
 Help | `help`
-Color | `color`
+Done | `done TASKID`
+<!-- //@@author -->
 <!-- @@author A0153411W -->
 ## Parameters 
-Parameter     | Flag  |  Format           		| Required                          | Meaning
-TITLE         |       |  Text             		|   Yes                             | Title of a task 
-DESCRIPTION   |  /d   |  Text             		|   Yes                             | Description of a task
-START_DATE    |  /sd  |  Date(DD-MM-YYYY hh:mm) |   NO                              | Start date of a task
-DUE_DATE      |  /dd  |  Date(DD-MM-YYYY hh:mm) |   YES(if START_DATE is specified) | Due Date of a task
-INTERVAL      |  /i   |  Integer Number   		|   NO                              | Interval of a task specifies how many times should be duplicated
-TIME_INTERVAL |  /ti  |  Integer Number   		|   NO                              | Time interval of a task specifies how many days are between duplicated tasks
+Parameter     | Flag               |  Format           		| Required                          | Meaning
+TITLE         |  /t (editing only) |  Text             		|   Yes                             | Title of a task 
+DESCRIPTION   |  /d                |  Text             		|   Yes                             | Description of a task
+START_DATE    |  /sd               |  Date(DD-MM-YYYY hh:mm) |   NO                              | Start date of a task
+DUE_DATE      |  /dd               |  Date(DD-MM-YYYY hh:mm) |   YES(if START_DATE is specified) | Due Date of a task
+INTERVAL      |  /i                |  Integer Number   		|   NO                              | Interval of a task specifies how many times should be duplicated
+TIME_INTERVAL |  /ti               |  Integer Number   		|   NO                              | Time interval of a task specifies how many days are between duplicated tasks
+TASK_COLOR    |  /c                |  Text                  |   NO                              | Color code of a task
 <!-- //@@author -->
