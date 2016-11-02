@@ -58,15 +58,25 @@ public class TaskListPanel extends UiPart {
         TaskListPanel taskListPanel =
                 UiPartLoader.loadUiPart(primaryStage, taskListPlaceholder, new TaskListPanel());
         taskListPanel.configureTask(taskList);
+        taskListPanel.hideAliasListViewSize();
         return taskListPanel;
     }
 
-    public static TaskListPanel loadAliasList(Stage primaryStage, AnchorPane taskListPlaceholder,
+    private void hideAliasListViewSize() {
+    	taskListView.setPrefHeight(0.0);
+	}
+
+	public static TaskListPanel loadAliasList(Stage primaryStage, AnchorPane taskListPlaceholder,
                                        ObservableList<ReadOnlyAlias> aliasList) {
     	TaskListPanel taskListPanel = UiPartLoader.loadUiPart(primaryStage, taskListPlaceholder, new TaskListPanel());
         taskListPanel.configureAlias(aliasList);
+        taskListPanel.hideTaskListViewSize();
         return taskListPanel;
     }
+	
+    private void hideTaskListViewSize() {
+    	taskListView.setPrefHeight(0.0);
+	}
     
     private void configureTask(ObservableList<ReadOnlyTask> taskList) {
         setTaskConnections(taskList);
@@ -83,7 +93,7 @@ public class TaskListPanel extends UiPart {
         taskListView.setCellFactory(listView -> new TaskListViewCell());
     }
     
-    private void setAliasConnections(ObservableList<ReadOnlyTask> aliasList) {
+    private void setAliasConnections(ObservableList<ReadOnlyAlias> aliasList) {
         aliasListView.setItems(aliasList);
         aliasListView.setCellFactory(listView -> new AliasListViewCell());
     }

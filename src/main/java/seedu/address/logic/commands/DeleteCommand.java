@@ -2,8 +2,10 @@ package seedu.address.logic.commands;
 
 import java.util.ArrayList;
 
+import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.UnmodifiableObservableList;
+import seedu.address.commons.events.ui.DisplayTaskListEvent;
 import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
@@ -33,6 +35,8 @@ public class DeleteCommand extends Command {
 
     @Override
     public CommandResult execute() {
+    	EventsCenter.getInstance().post(new DisplayTaskListEvent(model.getFilteredTaskList()));
+
     	model.checkForOverdueTasks();
     	model.saveState();
     	

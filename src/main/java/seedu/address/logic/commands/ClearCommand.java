@@ -1,5 +1,7 @@
 package seedu.address.logic.commands;
 
+import seedu.address.commons.core.EventsCenter;
+import seedu.address.commons.events.ui.DisplayTaskListEvent;
 import seedu.address.model.TaskManager;
 
 /**
@@ -16,7 +18,8 @@ public class ClearCommand extends Command {
     @Override
     public CommandResult execute() {
         assert model != null;
-        
+    	EventsCenter.getInstance().post(new DisplayTaskListEvent(model.getFilteredTaskList()));
+
         model.checkForOverdueTasks();
         model.saveState();
         
