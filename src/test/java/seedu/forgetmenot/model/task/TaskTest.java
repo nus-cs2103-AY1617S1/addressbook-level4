@@ -10,7 +10,7 @@ import org.junit.Test;
 import seedu.forgetmenot.commons.exceptions.IllegalValueException;
 import seedu.forgetmenot.testutil.TaskBuilder;
 import seedu.forgetmenot.testutil.TestTask;
-
+//@@author A0139671X
 public class TaskTest {
 
     @Test
@@ -80,7 +80,8 @@ public class TaskTest {
         for (int i = 0; i < eventTasks.size(); i++)
             assertFalse(eventTasks.get(i).isDeadlineTask());
     }
-
+    
+    @Test
     public void isFloatingTask_checkIfGivenTaskHasNoStartAndNoEnd_trueIfTaskHasNoStartTimeAndNoEndTime()
             throws IllegalValueException {
         TestDataHelper helper = new TestDataHelper();
