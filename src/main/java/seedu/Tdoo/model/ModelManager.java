@@ -287,7 +287,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
     
     @Override
-    public synchronized void undoLatestCommand() throws EmptyStackException {
+    public synchronized void undoLatestCommand() {
     	undoer.executeUndo();
     }
 

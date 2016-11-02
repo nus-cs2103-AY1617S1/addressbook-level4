@@ -1,5 +1,6 @@
 package seedu.Tdoo.model;
 
+import java.util.EmptyStackException;
 import java.util.Stack;
 
 import seedu.Tdoo.logic.commands.*;
@@ -11,6 +12,8 @@ public class Undoer {
 	private final Stack<Command> undoStack;
 	private final Model model;
 	private static Undoer instance;
+	
+	private final String EMPTY_UNDOSTACK_MESSAGE = "There was no undoable commnad before.";
 	
 	public static Undoer getInstance(Model model) {
 		if(instance == null) {
@@ -58,9 +61,9 @@ public class Undoer {
 	}
 	
 	public void executeUndo() {
-		assert(!undoStack.isEmpty());
+		assert !undoStack.isEmpty();
 		Command undoCommand = undoStack.pop();
-    	undoCommand.setData(model, null);
-    	undoCommand.execute();
+	   	undoCommand.setData(model, null);
+	   	undoCommand.execute();
 	}
 }
