@@ -36,6 +36,8 @@ public class DateTime {
             + "Keyword 'by' : by DD/MM/YYYY, HH:MM\n"
             + "Keyword 'from' and 'to' : from DD/MM/YYYY, HH:MM to DD/MM/YYYY, HH:MM";
 
+	private static final String MESSAGE_PERIOD_INVALID = "Start date/time is later or same as end date/time!";
+
     public final String value;
     public String context;
     public String overdueContext;
@@ -104,7 +106,7 @@ public class DateTime {
                 this.valueDateEnd = null;
                 this.valueTimeEnd = null;
                 
-            }else{
+            }else if(preKeyword.equals("from")){
                 if(!isValidFormatFor_GivenKeyword(dateTime, preKeyword))
                     throw new IllegalValueException(MESSAGE_KEYWORD_FROM_CONSTRAINTS);
                 
@@ -116,6 +118,10 @@ public class DateTime {
 
                 this.valueDateEnd = DateTimeParser.valueDateFormatter(matcher, aftKeyword);
                 this.valueTimeEnd = DateTimeParser.valueTimeFormatter(matcher, aftKeyword);
+                
+                if(!isStartDateTime_Before_EndDateTime(valueDate,valueTime,valueDateEnd,valueTimeEnd))
+                    throw new IllegalValueException(MESSAGE_PERIOD_INVALID);
+                
                 this.overdueContext = setOverdueContext(valueDateEnd, valueTimeEnd); 
                 this.eventContext = setEventContext(valueDate, valueTime, valueDateEnd, valueTimeEnd);
                 
@@ -137,6 +143,19 @@ public class DateTime {
             default:
                 return false;
         }
+    }
+    
+    private boolean isStartDateTime_Before_EndDateTime(LocalDate startDate, LocalTime startTime,
+    		LocalDate endDate, LocalTime endTime){
+    	
+    	//Condition returns true if startDate > endDate
+    	if(startDate.compareTo(endDate) > 0)	
+    		return false;
+    	//Condition returns true if startDate == endDate and startTime >= endTime
+    	else if(startDate.compareTo(endDate) == 0 && startTime.compareTo(endTime) >= 0) 
+    		return false;
+    	else
+    		return true;
     }
     
     //@@author A0142290N    
