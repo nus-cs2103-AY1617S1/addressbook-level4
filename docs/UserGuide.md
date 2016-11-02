@@ -17,7 +17,7 @@
 3. Copy the file to the folder you want to use as the home folder for your Simply.
 4. Double-click the file to start the app. The GUI should appear in a few seconds. 
   
- <img src="images/Startup3.PNG" width="600"><br>
+ <img src="images/startup_new.PNG" width="600"><br>
 
 5. Type the command in the command box and press <kbd>Enter</kbd> to execute it. <br>
    e.g. typing **`help`** and pressing <kbd>Enter</kbd> will open the help window. 
@@ -77,12 +77,6 @@ You can also add tag to an existing task.
 
 Example: Add E1 #win #victor #finally  
 
-####1.5 Add priority
-
-You can add priority by adding a ! at the end of the command for event, deadline or to-do in a similar format as that of adding tags.
-       
-Example: Add go swimming !
-
 
 ###2 Edit a task
 
@@ -90,11 +84,11 @@ The multiple edit task functions allow you to update specific task details.
 
 ####2.1 Edit all task details in one go
 
->Format: **Edit** &lt;index&gt; [&lt;event description&gt;; &lt;date&gt;; &lt;start time&gt;; &lt;end time&gt;; &lt;tags&gt;; !] 
+>Format: **Edit** &lt;index&gt; [&lt;event description&gt;; &lt;date&gt;; &lt;start time&gt;; &lt;end time&gt;; &lt;tags&gt;;] 
 
->Format: **Edit** &lt;index&gt; &lt;deadline description&gt;; &lt;date&gt;; &lt;end time&gt;; &lt;tags&gt;; !
+>Format: **Edit** &lt;index&gt; &lt;deadline description&gt;; &lt;date&gt;; &lt;end time&gt;; &lt;tags&gt;; 
  
->Format: **Edit** &lt;index&gt; &lt;to-do description&gt;; !
+>Format: **Edit** &lt;index&gt; &lt;to-do description&gt;; 
 
 To add certain task details like start time, simply add their corresponding sections in the command format.
 
@@ -150,17 +144,6 @@ Example: Edit E1 end 1900
 
 Example: Edit D1 #doOrdie > #died
 
-####2.7 Edit task priority 
-
->Format: **Edit** &lt;index&gt; **pri** &lt;priority&gt;
-
-Example: Edit T1 pri 
-
-Example: Edit T1 pri !
-
->Note: If you want to remove priority, just leave an empty space after pri
-
->Note: High priority tasks are color coded blue.
  
 ###3 Find Task by Keyword
 
@@ -180,7 +163,8 @@ Find 2359
 Find #CS2103
 
 
-Only the tasks with the keyword are displayed.
+Only the tasks with the keyword are displayed. Keywords are NOT case sensitive.
+
 
 ###4 Mark done tasks 
 
@@ -202,7 +186,8 @@ Done T1-T3
 Done T1, T3
 
 
->Note: if you want to select more than one task to complete, you can separated the task by a - to complete all tasks that are within the range. In addition, you also need to separate the task by a ; to individually delete them.
+>Note: if you want to select more than one task to complete, you can separated the task by a hyphen (-) to complete all tasks that are within the range. In addition, you also need to separate the task by a comma (,) to individually delete them.
+
 
 ###5 Display tasks
 
@@ -217,6 +202,7 @@ The display command will display the completed tasks in their respective categor
 This is mainly used to return to the default screen showing all tasks.
 
 > Format: list
+
 
 ###6 Undo the Most Recent Commands
 
@@ -275,13 +261,14 @@ Delete T1-T3
 Delete T1, T3
 
 
->Note: The delete command is flexible and allows you to delete more than 1 task at a time. If the indexes entered are separated by a -, Simply will delete all tasks between the numbers including the numbers enter. If the indexes are separated by a , Simply will delete the tasks entered individually. 
+>Note: The delete command is flexible and allows you to delete more than 1 task at a time. If the indexes entered are separated by a hyphen (-), Simply will delete all tasks between the numbers including the numbers enter. If the indexes are separated by a comma (,) Simply will delete the tasks entered individually. 
 
 ####8.2 Deleting a tag / multiple tags
 
 >Format: **Delete** &lt;index&gt; #tag1 #tag2
 
 Example: Delete E1 #win #victor #finally  
+
 
 ###9 Exiting the program
 
@@ -291,12 +278,14 @@ This command enables you to close the program.
 
 Example: Exit
 
+
 ###10 Help
 
 > Format: **Help**
 
 
 Example : Help
+
 
 ###11 Setting Storage Folder
 
@@ -313,6 +302,7 @@ The task manager shifts your file from the current storage folder to the newly s
 **A**: Install the app in the other computer and overwrite the empty data file it creates with 
        the file that contains the data of your previous Address Book folder.
 
+
 ###Command Summary
 
  No. | Command | Format 
@@ -320,10 +310,10 @@ The task manager shifts your file from the current storage folder to the newly s
 1| Add event| add [event_description; date; start_time; end_time] 
 2| Add deadline | add deadline_description; date; end_time  
 3| Add to-do | add to-do_description 
-4| Add with tags and priorities | add [event_description, date, start_time, end_time] #tag !
+4| Add with tags | add [event_description, date, start_time, end_time] #tag 
 5| Edit | edit &lt;index&gt; &lt;new_event_description&gt; 
 6| Search | search &lt;keywords&gt; 
-7| Done | done &lt;index&gt;, &lt;index&gt;... 
+7| Done | done &lt;index&gt;, &lt;index&gt;
 8| Undo | undo &lt;number of times to undo, up to 5&gt;
 9| Redo | redo &lt;number of times to redo, up to 5&gt;
 10| Delete | delete &lt;index&gt;, &lt;index&gt; 
@@ -331,4 +321,4 @@ The task manager shifts your file from the current storage folder to the newly s
 12| help | help 
 13| list | list
 14| list done| list done
-14| storage| storage &lt;valid file path&gt; 
+15| storage| storage &lt;valid file path&gt; 
