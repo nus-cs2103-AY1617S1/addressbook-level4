@@ -40,21 +40,22 @@ public class SaveCommand extends Command {
         String defaultConfigFilePath = Config.DEFAULT_CONFIG_FILE;
         
         try {
-            Config currentConfig = ConfigUtil.readConfig(defaultConfigFilePath).orElse(new Config());
+            Config configFile = ConfigUtil.readConfig(defaultConfigFilePath).orElse(new Config());
 
-            String previousFilePath = currentConfig.getTaskManagerFilePath();
+            String previousTaskManagerFilePath = configFile.getTaskManagerFilePath();
             
-            currentConfig.setTaskManagerFilePath(newTaskManagerFilePath);
-            ConfigUtil.saveConfig(currentConfig, defaultConfigFilePath);
+            configFile.setTaskManagerFilePath(newTaskManagerFilePath);
+            ConfigUtil.saveConfig(configFile, defaultConfigFilePath);
             
-            StorageManager previousStorage = new StorageManager(previousFilePath, currentConfig.getUserPrefsFilePath());
-            StorageManager newStorage = new StorageManager(newTaskManagerFilePath, currentConfig.getUserPrefsFilePath());
+            StorageManager previousStorage = new StorageManager(previousTaskManagerFilePath, configFile.getUserPrefsFilePath());
+            StorageManager newStorage = new StorageManager(newTaskManagerFilePath, configFile.getUserPrefsFilePath());
             
+            // copy data from old task manager over to new one
             ReadOnlyTaskManager previousTaskManager = previousStorage.readTaskManager().orElse(new TaskManager());
             newStorage.saveTaskManager(previousTaskManager);
             
-            logger.fine("Saved to specified file path: " + newTaskManagerFilePath);
-            
+            logger.fine("New data file created. Saved to specified file path: " + newTaskManagerFilePath);
+
             return new CommandResult(String.format(MESSAGE_SUCCESS, newStorage.getTaskManagerFilePath()));
             
         } catch (DataConversionException e) {

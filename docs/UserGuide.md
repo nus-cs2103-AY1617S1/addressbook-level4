@@ -302,9 +302,10 @@ For events, you can edit all optional parameters.
 
 [comment]: # (@@author A0143641M)
 
-### When you want to specify a custom save location for your data
+### When you want to specify a custom save location and file name for your data
 
 > * File to save in is limited to .xml format.
+> * Current data is ported over to the new file. Any changes made after running save command will save to new file.
 
 1. Type `save VALID_FILE_PATH`.
 2. Press `Enter`.
