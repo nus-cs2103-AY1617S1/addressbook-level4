@@ -148,14 +148,6 @@ public class DateUtil {
         }
         return fullMonthName;
     }
-    
-    public static LocalDate createCurrentDate() {
-		DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
-    	Date dateobj = new Date();
-    	String date = df.format(dateobj);
-    	return LocalDate.parse(date, TaskDate.DATE_FORMATTER);
-	}
-}
 ```
 ###### /java/seedu/taskitty/commons/util/TimeUtil.java
 ``` java
@@ -206,12 +198,4 @@ public class TimeUtil {
         return LocalTime.of(hour, minute);
     }
     
-    /**
-     * creates a current Time object for comparison with current time.
-     * @return
-     */
-    public static LocalDateTime createCurrentTime() {
-		return LocalDateTime.now();
-	}
-}
 ```
