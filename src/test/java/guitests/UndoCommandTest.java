@@ -27,8 +27,9 @@ public class UndoCommandTest extends AddressBookGuiTest {
         commandBox.runCommand(activity.getAddCommand());
         commandBox.runCommand("undo");
         assertResultMessage(String.format("Undo: Adding of new task: %1$s",activity.getAsText()));
-        assertTrue(personListPanel.isListMatching(currentList));
+        assertTrue(activityListPanel.isListMatching(currentList));
         
     }
+    
     
 }
