@@ -18,7 +18,6 @@ import seedu.todolist.model.ToDoList;
 import seedu.todolist.model.Model;
 import seedu.todolist.model.ModelManager;
 import seedu.todolist.model.ReadOnlyToDoList;
-import seedu.todolist.model.tag.Tag;
 import seedu.todolist.model.task.*;
 import seedu.todolist.storage.StorageManager;
 

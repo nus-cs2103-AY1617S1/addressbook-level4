@@ -15,7 +15,6 @@ import seedu.todolist.ui.MainWindow;
 
 import java.time.DateTimeException;
 import java.time.LocalDate;
-import java.util.Collections;
 import java.util.EmptyStackException;
 import java.util.Set;
 import java.util.Stack;
