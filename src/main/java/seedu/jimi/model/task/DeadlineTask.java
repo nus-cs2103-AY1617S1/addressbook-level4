@@ -33,6 +33,10 @@ public class DeadlineTask extends FloatingTask implements ReadOnlyTask {
         this.deadline = ((DeadlineTask) source).getDeadline();
     }
     
+    public DeadlineTask(ReadOnlyTask source) {
+        super(source.getName(), source.getTags(), source.isCompleted(), source.getPriority());
+        this.deadline = ((DeadlineTask) source).getDeadline();
+    }
     
     public DateTime getDeadline() {
         return deadline;
