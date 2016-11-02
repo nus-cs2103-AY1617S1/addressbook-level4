@@ -13,6 +13,7 @@ import seedu.jimi.model.FilteredListManager.ListId;
 import seedu.jimi.model.datetime.DateTime;
 import seedu.jimi.model.task.ReadOnlyTask;
 import seedu.jimi.model.task.UniqueTaskList;
+import seedu.jimi.model.task.UniqueTaskList.DuplicateTaskException;
 import seedu.jimi.model.task.UniqueTaskList.TaskNotFoundException;
 
 /**
@@ -73,12 +74,12 @@ public class ModelManager extends ComponentManager implements Model {
         raise(new TaskBookChangedEvent(taskBook));
     }
     
-    //@author A0138915X
+    //@@author A0138915X
     /** Raises an event to indicate request to highlight chosen item. */
     public void highlightLatestUpdatedItem(ReadOnlyTask target) {
         raise(new JumpToListRequestEvent(target));
     }
-    
+    //@@author
     /** Raises and event to indicate user request to show task panel sections. */
     public void showTaskPanelSection(String sectionToShow) {
         raise(new ShowTaskPanelSectionEvent(sectionToShow));
@@ -89,7 +90,7 @@ public class ModelManager extends ComponentManager implements Model {
         taskBook.removeTask(target);
         indicateTaskBookChanged();
     }
-    //@@author
+    
     
     
     @Override
@@ -105,9 +106,10 @@ public class ModelManager extends ComponentManager implements Model {
      * 
      * @param newTask Task to be replaced with.
      * @param targetIndex Index of oldTask to be replaced by.
+     * @throws DuplicateTaskException 
      */
     @Override
-    public void replaceTask(ReadOnlyTask oldTask, ReadOnlyTask newTask) {
+    public void replaceTask(ReadOnlyTask oldTask, ReadOnlyTask newTask) throws DuplicateTaskException {
         taskBook.replaceTask(oldTask, newTask);
         indicateTaskBookChanged();
         highlightLatestUpdatedItem(newTask);
@@ -124,6 +126,7 @@ public class ModelManager extends ComponentManager implements Model {
     public synchronized void completeTask(ReadOnlyTask taskToComplete, boolean isComplete)
             throws TaskNotFoundException {
         taskBook.completeTask(taskToComplete, isComplete);
+        updateAllFilteredListsToNormalListing(); //refresh all filtered lists
         updateFilteredAgendaTaskList(ListId.COMPLETED); //show the completed tasks by default after execution
         updateFilteredAgendaEventList(ListId.COMPLETED);
         indicateTaskBookChanged();

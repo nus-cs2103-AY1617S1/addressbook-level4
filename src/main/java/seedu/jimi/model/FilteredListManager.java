@@ -21,6 +21,7 @@ import seedu.jimi.model.task.DeadlineTask;
 import seedu.jimi.model.task.FloatingTask;
 import seedu.jimi.model.task.ReadOnlyTask;
 
+//@@author A0140133B
 /**
  * Represents a manager for filtered lists used in the UI component.
  * Respective UI components should already be listeners to each of the lists in {@code listMap}.
@@ -28,7 +29,6 @@ import seedu.jimi.model.task.ReadOnlyTask;
 public class FilteredListManager {
     private static final Logger logger = LogsCenter.getLogger(FilteredListManager.class);
     
-    // @@author A0140133B
     public enum ListId {
         DAY_AHEAD_0, 
         DAY_AHEAD_1, 
@@ -69,10 +69,12 @@ public class FilteredListManager {
         for (ListId id : ListId.values()) {
             listMap.put(id, new FilteredList<ReadOnlyTask>(taskBook.getTasks()));
             
-            if(id.equals(ListId.TASKS_AGENDA)) {
-                listMap.get(id).setPredicate(new PredicateExpression(new TaskQualifier(true), new CompletedQualifier(false))::satisfies);
-            } else if(id.equals(ListId.EVENTS_AGENDA)) {
-                listMap.get(id).setPredicate(new PredicateExpression(new EventQualifier(true), new CompletedQualifier(false))::satisfies);
+            if (id.equals(ListId.TASKS_AGENDA)) {
+                listMap.get(id).setPredicate(
+                        new PredicateExpression(new TaskQualifier(true), new CompletedQualifier(false))::satisfies);
+            } else if (id.equals(ListId.EVENTS_AGENDA)) {
+                listMap.get(id).setPredicate(
+                        new PredicateExpression(new EventQualifier(true), new CompletedQualifier(false))::satisfies);
             } else {
                 listMap.get(id).setPredicate(defaultExpressions.get(id)::satisfies);
             }
@@ -292,7 +294,7 @@ public class FilteredListManager {
         @Override
         public boolean run(ReadOnlyTask task) {
             return nameKeyWords.stream()
-                    .filter(keyword -> StringUtil.containsIgnoreCase(task.getName().fullName, keyword))
+                    .filter(keyword -> StringUtil.isNearMatch(task.getName().fullName, keyword))
                     .findAny()
                     .isPresent();
         }

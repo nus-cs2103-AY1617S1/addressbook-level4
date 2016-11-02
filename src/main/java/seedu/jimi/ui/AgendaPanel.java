@@ -109,13 +109,13 @@ public class AgendaPanel extends UiPart{
         
         
         tasksTableView.getColumns().setAll(tasksTableColumnId, 
-                tasksTableColumnTags,
                 tasksTableColumnDetails,
+                tasksTableColumnTags,
                 tasksTableColumnEndDate);
         
         eventsTableView.getColumns().setAll(eventsTableColumnId,
-                eventsTableColumnTags,
                 eventsTableColumnDetails,
+                eventsTableColumnTags,
                 eventsTableColumnStartDate,
                 eventsTableColumnEndDate);
     }
