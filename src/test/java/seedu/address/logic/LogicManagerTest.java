@@ -832,13 +832,26 @@ public class LogicManagerTest {
 
     //@@author A0139528W
     //@Test
-    public void execute_save_successful() throws Exception {
+    public void execute_save_multipleScenarios() throws Exception {
+    	// test successful saves
         assertCommandBehavior(
                 "save data\\here", SaveCommand.MESSAGE_SUCCESS);
         assertCommandBehavior(
                 "save data/cow\\", SaveCommand.MESSAGE_SUCCESS);
         assertCommandBehavior(
                 "save data/sdds/", SaveCommand.MESSAGE_SUCCESS);
+        // test for data file overwrite
+        assertCommandBehavior(
+                "save data/new1", SaveCommand.MESSAGE_SUCCESS);
+        assertCommandBehavior(
+                "save data/new3", SaveCommand.MESSAGE_SUCCESS);
+        assertCommandBehavior(
+                "save data/new1", SaveCommand.MESSAGE_DATA_FILE_OVERWRITE);
+        // test duplicate name
+        assertCommandBehavior(
+                "save data/new2", SaveCommand.MESSAGE_SUCCESS);
+        assertCommandBehavior(
+                "save data/new2", SaveCommand.MESSAGE_LOCATION_SPECIFIED_SAME);
     }
     //@@author
 
@@ -862,24 +875,6 @@ public class LogicManagerTest {
                 "save /data", SaveCommand.MESSAGE_PATH_IS_NOT_A_DIRECTORY);
         assertCommandBehavior(
                 "save \\data", SaveCommand.MESSAGE_PATH_IS_NOT_A_DIRECTORY);
-    }
-    //@@author
-    
-  //@@author A0139528W 
-    @Test
-    public void execute_save_overwrite() throws Exception {
-        assertCommandBehavior(
-                "save data", SaveCommand.MESSAGE_DATA_FILE_OVERWRITE);
-    }
-    //@@author
-    
-  //@@author A0139528W 
-    @Test
-    public void execute_save_duplicate() throws Exception {
-        assertCommandBehavior(
-                "save data/newplace", SaveCommand.MESSAGE_SUCCESS);
-        assertCommandBehavior(
-                "save data/newplace", SaveCommand.MESSAGE_LOCATION_SPECIFIED_SAME);
     }
     //@@author
 
