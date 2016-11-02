@@ -174,7 +174,7 @@ Example : **delete 2**
 - Deletes the 2nd task in the task manager.
 
 
-**Finding tasks**
+###**Finding tasks**
 
 **Finding tasks with a keyword**
 
@@ -189,11 +189,11 @@ Examples :
 
 **find Tutorial**
 
-**Tutorial 8** is shown, but not **tutorial**.
+- **Tutorial 8** is shown, but not **tutorial**.
 
 **find lunch meeting**
 
-Any tasks with DESCRIPTION that contains **lunch** and **meeting** will be returned.
+- Any tasks with DESCRIPTION that contains **lunch** and **meeting** will be returned.
 
 **Finding tasks with specified PRIORITY**
 
