@@ -39,6 +39,7 @@ public class AddCommand extends Command {
     public static final String TODO_SUCCESS = "New todo added: %1$s";
     public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in Simply";
     public static final String END_TIME_BEFORE_START_TIME_MESSAGE = "The end time cannot be earlier or equal to the start time!";
+    public static final String START_TIME_BEFORE_END_TIME_MESSAGE = "The start time cannot be later or equal to the end time!";
     
     private final Task toAdd;
     private static int overdue=0;
