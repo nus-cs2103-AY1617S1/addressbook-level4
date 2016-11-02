@@ -66,7 +66,7 @@ public class LogicManagerTest {
     //These are for checking the correctness of the events raised
     private ReadOnlyTaskBook latestSavedTaskBook;
     private boolean helpShown;
-    private int targetedJumpIndex;
+    private ReadOnlyTask targetedTask;
     
     private List<Command> cmdStubList = CommandUtil.getInstance().getCommandStubList();
     
@@ -82,7 +82,7 @@ public class LogicManagerTest {
 
     @Subscribe
     private void handleJumpToListRequestEvent(JumpToListRequestEvent je) {
-        targetedJumpIndex = je.targetIndex;
+        targetedTask = je.targetTask;
     }
 
     @Before
@@ -95,7 +95,6 @@ public class LogicManagerTest {
 
         latestSavedTaskBook = new TaskBook(model.getTaskBook()); // last saved assumed to be up to date before.
         helpShown = false;
-        targetedJumpIndex = -1; // non yet
     }
 
     @After
@@ -316,36 +315,6 @@ public class LogicManagerTest {
 
     }
 
-    
-    @Test
-    public void execute_list_showsAllPersons() throws Exception {
-        // prepare expectations
-        TestDataHelper helper = new TestDataHelper();
-        TaskBook expectedAB = helper.generateTaskBook(2);
-        List<? extends ReadOnlyTask> expectedList = expectedAB.getTaskList();
-
-        // prepare address book state
-        helper.addToModel(model, 2);
-
-        assertCommandBehavior("list",
-                ListCommand.MESSAGE_SUCCESS,
-                expectedAB,
-                expectedList);
-        assertCommandBehavior("l",
-                ListCommand.MESSAGE_SUCCESS,
-                expectedAB,
-                expectedList);
-        assertCommandBehavior("li",
-                ListCommand.MESSAGE_SUCCESS,
-                expectedAB,
-                expectedList);
-        assertCommandBehavior("lis",
-                ListCommand.MESSAGE_SUCCESS,
-                expectedAB,
-                expectedList);
-    }
-
-
     /**
      * Confirms the 'invalid argument index number behaviour' for the given command
      * targeting a single person in the shown list, using visible index.
@@ -377,6 +346,41 @@ public class LogicManagerTest {
 
         assertCommandBehavior(commandWord + " t3", expectedMessage, model.getTaskBook(), floatingTaskList);
     }
+    
+    //@@author A0138915X
+    @Test
+    public void execute_show_showsAllTasksAndEvents() throws Exception {
+        // prepare expectations
+        TestDataHelper helper = new TestDataHelper();
+        TaskBook expectedAB = helper.generateTaskBook(2);
+        List<? extends ReadOnlyTask> expectedList = expectedAB.getTaskList();
+
+        // prepare address book state
+        helper.addToModel(model, 2);
+
+        assertCommandBehavior("s all",
+                ListCommand.MESSAGE_SUCCESS,
+                expectedAB,
+                expectedList);
+        assertCommandBehavior("sh all",
+                ListCommand.MESSAGE_SUCCESS,
+                expectedAB,
+                expectedList);
+        assertCommandBehavior("sho all",
+                ListCommand.MESSAGE_SUCCESS,
+                expectedAB,
+                expectedList);
+        assertCommandBehavior("show all",
+                ListCommand.MESSAGE_SUCCESS,
+                expectedAB,
+                expectedList);
+    }
+    
+    public void execute_show_showsFloatingTasks() throws Exception {
+        
+    }
+    
+    //@@author
     
     /*
     @Test
