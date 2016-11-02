@@ -80,14 +80,14 @@ interface and exposes its functionality using the `LogicManager.java` class.<br>
 The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the
 command `delete 3`.
 
-<img src="images\SDforDeletePerson.png" width="800">
+<img src="images\build.png" width="800">
 
 >Note how the `Model` simply raises a `TaskManagerChangedEvent` when the TaskManager data are changed,
  instead of asking the `Storage` to save the updates to the hard disk.
 
 The diagram below shows how the `EventsCenter` reacts to that event, which eventually results in the updates
 being saved to the hard disk and the status bar of the UI being updated to reflect the 'Last Updated' time. <br>
-<img src="images\SDforDeletePersonEventHandling.png" width="800">
+<img src="images\storage.png" width="800">
 
 > Note how the event is propagated through the `EventsCenter` to the `Storage` and `UI` without `Model` having
   to be coupled to either of them. This is an example of how this Event Driven approach helps us reduce direct 
@@ -507,5 +507,5 @@ Use case ends
 -------- | :-------- | :--------- | :-----------
 `Platforms` | All platforms | iOS, Android, Google Chrome | iPhone, iPad, Android, Windows, Kindle, Web
 `Price` | Free / Premium ($28.99/year) | Free / Premium ($45/year or $5 per month) | Free / Pro ($59.88/year)
-`Pros` | Good user interface<br>Fastest task manager app Works offline<br>Can set priorities by choosing from 1 to 4. <br>Can drag and drop tasks <br>Can create a “Project” with emojis in its name  Supports text formatting| Minimalistic design Can “Star” a task to mark it as high priority Runs at high speed Has in-built speech recognition <br>Can drag and drop tasks <br>
-Can swipe a task to the right to mark it as complete<br> Can swipe a completed task to the left to add it again to the list. <br>Can attach files from your Dropbox and Google Drive  | Simple-to-use <br>Can “Star” a task to set a priority to a task Hashtags feature<br> Can add comments and attachments Supports email reminder Powerful search function Can restore deleted lists. <br>Can manually create backups and import data from your backups.<br> Can attach files from your Dropbox.`Cons` | The key features are all part of premium plan <br>Not compatible with Windows Phone Search function is limited in free plan <br>Doesn’t have a backup option for free users | Not intuitive to use Doesn’t hide a task when it’s marked as complete.<br> Doesn’t support email reminders Doesn’t have a Windows app.<br>  Doesn’t have a backup option. Doesn’t support emojis in your list names. Doesn’t support markdown.| Slow to load <br>Doesn’t show last synced time <br>Doesn’t support text formatting
+`Pros` | Good user interface<br>Fastest task manager app Works offline<br>Can set priorities by choosing from 1 to 4. <br>Can drag and drop tasks <br>Can create a Â“ProjectÂ” with emojis in its name  Supports text formatting| Minimalistic design Can Â“StarÂ” a task to mark it as high priority Runs at high speed Has in-built speech recognition <br>Can drag and drop tasks <br>
+Can swipe a task to the right to mark it as complete<br> Can swipe a completed task to the left to add it again to the list. <br>Can attach files from your Dropbox and Google Drive  | Simple-to-use <br>Can Â“StarÂ” a task to set a priority to a task Hashtags feature<br> Can add comments and attachments Supports email reminder Powerful search function Can restore deleted lists. <br>Can manually create backups and import data from your backups.<br> Can attach files from your Dropbox.`Cons` | The key features are all part of premium plan <br>Not compatible with Windows Phone Search function is limited in free plan <br>DoesnÂ’t have a backup option for free users | Not intuitive to use DoesnÂ’t hide a task when itÂ’s marked as complete.<br> DoesnÂ’t support email reminders DoesnÂ’t have a Windows app.<br>  DoesnÂ’t have a backup option. DoesnÂ’t support emojis in your list names. DoesnÂ’t support markdown.| Slow to load <br>DoesnÂ’t show last synced time <br>DoesnÂ’t support text formatting
