@@ -86,6 +86,8 @@ Examples:
 
 #### Editing a Task: `edit`
 Allows the user to edit a particular task<br>
+Once a task is given a time, it can only be modified and not removed <br>
+If you wish to remove a time from a task, kindly delete the task and re-add it without the time <br>
 Format: `edit <task index> <detail to edit> <new value>`
 
 Example:
