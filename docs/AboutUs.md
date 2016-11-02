@@ -23,7 +23,7 @@ We are a team based in the [School of Computing, National University of Singapor
    * [Upcoming](https://github.com/CS2103AUG2016-W11-C3/main/blob/master/docs/UserGuide.md#show-upcoming-tasks--upcoming)
    * allow adding of recurring task in [Add](https://github.com/CS2103AUG2016-W11-C3/main/blob/master/docs/UserGuide.md#adds-a-recurring-deadline)
    
-* Code written: [[functional code](A0124797R.md)][[test code](A0124797R.md)][[docs](A0124797R.md)]
+* Code written: [[functional code](https://github.com/CS2103AUG2016-W11-C3/main/blob/master/collated/main/A0124797R.md)][[test code](https://github.com/CS2103AUG2016-W11-C3/main/blob/master/collated/test/A0124797R.md)][[docs](https://github.com/CS2103AUG2016-W11-C3/main/blob/master/collated/docs/A0124797R.md)]
 * Other major contributions:
   * Did the initial refactoring from AddressBook to ToDoList
   * Set up Travis and Coveralls 
@@ -39,7 +39,7 @@ We are a team based in the [School of Computing, National University of Singapor
    * [Undo](https://github.com/CS2103AUG2016-W11-C3/main/blob/master/docs/UserGuide.md#undo-a-command--undo)
    * [Redo](https://github.com/CS2103AUG2016-W11-C3/main/blob/master/docs/UserGuide.md#redo-a-command--redo)
    * [Add](https://github.com/CS2103AUG2016-W11-C3/main/blob/master/docs/UserGuide.md#adding-a-task-add-do)
-* Code written: [[functional code](A0138862W.md)][[test code](A0138862W.md)][[docs](A0138862W.md)]
+* Code written: [[functional code](https://github.com/CS2103AUG2016-W11-C3/main/blob/master/collated/main/A0138862W.md)][[test code](https://github.com/CS2103AUG2016-W11-C3/main/blob/master/collated/test/A0138862W.md)][[docs](https://github.com/CS2103AUG2016-W11-C3/main/blob/master/collated/docs/A0138862W.md)]
 * Other major contributions:
   * Set up Travis and Coveralls
   * Git expert
@@ -55,7 +55,7 @@ We are a team based in the [School of Computing, National University of Singapor
 * Features implemented:
    * [Edit](https://github.com/CS2103AUG2016-W11-C3/main/blob/master/docs/UserGuide.md#editing-a-task--edit)
    * [Find](https://github.com/CS2103AUG2016-W11-C3/main/blob/master/docs/UserGuide.md#finding-all-tasks-containing-any-keyword-in-their-description-find)
-* Code written: [[functional code](A0143378Y.md)][[test code](A0143378Y.md)][[docs](A0143378Y.md)]
+* Code written: [[functional code](https://github.com/CS2103AUG2016-W11-C3/main/blob/master/collated/main/A0143378Y.md)][[test code](https://github.com/CS2103AUG2016-W11-C3/main/blob/master/collated/test/A0143378Y.md)][[docs](https://github.com/CS2103AUG2016-W11-C3/main/blob/master/collated/docs/A0143378Y.md)]
 * Other major contributions:
   * Documentation
   * Smart learning text field
@@ -72,7 +72,7 @@ We are a team based in the [School of Computing, National University of Singapor
    * [Relocate Command](https://github.com/CS2103AUG2016-W11-C3/main/blob/master/docs/UserGuide.md#changing-save-location--relocate)
    * [Help Command](https://github.com/CS2103AUG2016-W11-C3/main/blob/master/docs/UserGuide.md#viewing-help--help)
    * [Clear Command](https://github.com/CS2103AUG2016-W11-C3/main/blob/master/docs/UserGuide.md#clearing-all-entries-clear)
-* Code written: [[functional code](A0139194X.md)][[test code](A0139194X.md)][[docs](A0139194X.md)]
+* Code written: [[functional code](https://github.com/CS2103AUG2016-W11-C3/main/blob/master/collated/main/A0139194X.md)][[test code](https://github.com/CS2103AUG2016-W11-C3/main/blob/master/collated/test/A0139194X.md)][[docs](https://github.com/CS2103AUG2016-W11-C3/main/blob/master/collated/docs/A0139194X.md)]
 * Other major contributions:
   * Documentation
   * Proof reading
