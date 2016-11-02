@@ -389,7 +389,7 @@ public class LogicManagerTest {
 
         Task adam() throws Exception {
             Name name = new Name("Adam Brown");
-            Date date = new Date("23-06-1997");
+            Date date = new Date("23-06-2016");
             Time startTime = new Time("1900");
             Time endTime = new Time("2200");
             Tag tag1 = new Tag("tag1");
