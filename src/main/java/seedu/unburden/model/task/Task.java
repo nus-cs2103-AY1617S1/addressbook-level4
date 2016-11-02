@@ -28,6 +28,7 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
     private boolean done;
     private String getDoneString;
 	private static final SimpleDateFormat DATEFORMATTER = new SimpleDateFormat("dd-MM-yyyy");
+	private static final SimpleDateFormat TIMEFORMATTER = new SimpleDateFormat("HHmm");
 
     /**
      * Every field must be present and not null.
@@ -262,6 +263,10 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
     	calendar.setTime(calendar.getTime());
     	if(this.getDate().compareTo(new Date(DATEFORMATTER.format(calendar.getTime()))) < 0){
     		return true;
+    	}else if(this.getDate().compareTo(new Date(DATEFORMATTER.format(calendar.getTime()))) == 0){
+    		if(this.getEndTime().compareTo(new Time(TIMEFORMATTER.format(calendar.getTime()))) < 0){
+    			return true;
+    		}
     	}
     	return false;
     }
