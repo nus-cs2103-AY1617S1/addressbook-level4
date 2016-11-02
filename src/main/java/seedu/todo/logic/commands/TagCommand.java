@@ -211,7 +211,7 @@ public class TagCommand extends BaseCommand {
      */
     private CommandResult performAddTagToTaskWhenApplicable() throws ValidationException {
         Integer displayedIndex = index.getValue();
-        String[] tagsToAdd = StringUtil.splitString(addTags.getValue());
+        String[] tagsToAdd = StringUtil.split(addTags.getValue());
 
         if (isAddTagsToTask()) {
             model.addTagsToTask(displayedIndex, tagsToAdd);
@@ -237,7 +237,7 @@ public class TagCommand extends BaseCommand {
      */
     private CommandResult performDeleteTagsFromTaskWhenApplicable() throws ValidationException {
         Integer displayedIndex = index.getValue();
-        String[] tagsToDelete = StringUtil.splitString(deleteTags.getValue());
+        String[] tagsToDelete = StringUtil.split(deleteTags.getValue());
 
         if (isDeleteTagsFromTask()) {
             model.deleteTagsFromTask(displayedIndex, tagsToDelete);
@@ -260,7 +260,7 @@ public class TagCommand extends BaseCommand {
      *      Deletes tags from all tasks.
      */
     private CommandResult performDeleteTagsGloballyWhenApplicable() throws ValidationException {
-        String[] tagsToDelete = StringUtil.splitString(deleteTags.getValue());
+        String[] tagsToDelete = StringUtil.split(deleteTags.getValue());
 
         if (isDeleteTagsFromAllTasks()) {
             model.deleteTags(tagsToDelete);
@@ -283,7 +283,7 @@ public class TagCommand extends BaseCommand {
      */
     private void validateRenameParams() {
         if (isRenamingTag()) {
-            String[] params = StringUtil.splitString(renameTag.getValue());
+            String[] params = StringUtil.split(renameTag.getValue());
             if (params != null && params.length != 2) {
                 errors.put(renameTag.getName(), ERROR_TWO_PARAMS);
             }
@@ -295,7 +295,7 @@ public class TagCommand extends BaseCommand {
      *      Rename a specific tag.
      */
     private CommandResult performRenameTagWhenApplicable() throws ValidationException {
-        String[] renameTagsParam = StringUtil.splitString(renameTag.getValue());
+        String[] renameTagsParam = StringUtil.split(renameTag.getValue());
 
         if (isRenamingTag()) {
             String oldName = renameTagsParam[0];

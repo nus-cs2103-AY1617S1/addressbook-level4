@@ -159,12 +159,12 @@ public class StringUtilTest {
     }
 
     /**
-     * Helper method to test splitString(...).
+     * Helper method to test split(...).
      * @param input String to be split.
      * @param expected Expected output as String array.
      */
     private void testSplitStringHelper(String input, String[] expected) {
-        String[] outcome = StringUtil.splitString(input);
+        String[] outcome = StringUtil.split(input);
         assertArrayEquals(expected, outcome);
     }
 
@@ -189,7 +189,7 @@ public class StringUtilTest {
     }
 
     /**
-     * Helper method to test splitString(...).
+     * Helper method to test split(...).
      * @param input String to be split.
      * @param expected Expected output as String array.
      */
@@ -221,7 +221,7 @@ public class StringUtilTest {
     }
 
     /**
-     * Helper method to test splitString(...).
+     * Helper method to test split(...).
      * @param input String to be split.
      * @param expected Expected output as String array.
      */

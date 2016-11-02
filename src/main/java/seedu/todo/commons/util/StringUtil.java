@@ -71,7 +71,7 @@ public class StringUtil {
      * Splits string at only space and comma.
      * @return Returns a String array with all the split components of the string.
      */
-    public static String[] splitString(String string) {
+    public static String[] split(String string) {
         if (isEmpty(string)) {
             return new String[0];
         } else {

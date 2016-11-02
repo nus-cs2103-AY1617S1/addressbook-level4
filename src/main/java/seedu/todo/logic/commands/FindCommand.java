@@ -1,29 +1,23 @@
 package seedu.todo.logic.commands;
 
-import com.google.common.base.Splitter;
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Lists;
-import org.atteo.evo.inflector.English;
 import seedu.todo.commons.exceptions.ValidationException;
 import seedu.todo.commons.util.StringUtil;
 import seedu.todo.logic.arguments.Argument;
-import seedu.todo.logic.arguments.FlagArgument;
 import seedu.todo.logic.arguments.Parameter;
 import seedu.todo.logic.arguments.StringArgument;
 import seedu.todo.model.tag.Tag;
 import seedu.todo.model.task.ImmutableTask;
 
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 import java.util.function.Predicate;
 
 public class FindCommand extends BaseCommand {
-    private static final String TASK_FOUND_FORMAT = "%d %s found!";
+    private static final String FEEDBACK = "Type 'find' again to close find";
     
     private Argument<String> keywords = new StringArgument("keywords");
 
-    private Argument<Boolean> tags = new FlagArgument("tags")
+    private Argument<String> tags = new StringArgument("tags")
             .flag("t");
     
     @Override
@@ -45,30 +39,41 @@ public class FindCommand extends BaseCommand {
     @Override
     public CommandResult execute() throws ValidationException {
         // Dismissing search results if there are no keywords
-        if (!keywords.hasBoundValue() || StringUtil.isEmpty(keywords.getValue())) {
+        if (isEmpty(keywords) && isEmpty(tags)) {
             model.find(t -> true);
             return new CommandResult();
         }
-
-        List<String> keywordList = Lists.newArrayList(Splitter.on(" ")
-            .trimResults()
-            .omitEmptyStrings()
-            .split(keywords.getValue().toLowerCase()));
-
-        Predicate<ImmutableTask> filter = task -> {
-            if (tags.getValue()) {
-                Collection<String> taskTagNames = Tag.getTagNames(task.getTags());
-                return !Collections.disjoint(taskTagNames, keywordList);
-            } else {
+        
+        // Construct the predicate and list of search terms 
+        Predicate<ImmutableTask> filter = t -> false;
+        List<String> terms = new ArrayList<>();
+        
+        if (!isEmpty(keywords)) {
+            List<String> keywordList = getSearchTerms(keywords);
+            terms.addAll(keywordList);
+            filter = filter.or(task -> {
                 String title = task.getTitle().toLowerCase();
                 return keywordList.stream().anyMatch(title::contains);
-            }
-        };
+            });
+        }
+        
+        if (!isEmpty(tags)) {
+            List<String> tagList = getSearchTerms(tags);
+            terms.addAll(tagList);
+            filter = filter.or(task -> {
+                Set<String> taskTagNames = Tag.getLowerCaseNames(task.getTags());
+                return !Collections.disjoint(taskTagNames, tagList);
+            });
+        }
 
-        model.find(filter, keywordList);
+        model.find(filter, terms);
+        return new CommandResult(FEEDBACK);
+    }
 
-        int resultSize = model.getObservableList().size();
-        String feedback = String.format(TASK_FOUND_FORMAT, resultSize, English.plural("result", resultSize)) + "\n" + "Press [Enter] to dismiss";
-        return new CommandResult(feedback);
+    /**
+     * Splits the argument's value into lowercase space or comma delimited terms 
+     */
+    private List<String> getSearchTerms(Argument<String> argument) {
+        return Arrays.asList(StringUtil.split(argument.getValue().toLowerCase()));
     }
 }

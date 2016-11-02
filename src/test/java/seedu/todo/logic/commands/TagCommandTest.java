@@ -1,6 +1,7 @@
 package seedu.todo.logic.commands;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import seedu.todo.commons.exceptions.ValidationException;
 import seedu.todo.model.tag.Tag;
@@ -14,6 +15,7 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import static seedu.todo.testutil.TaskFactory.convertToTags;
 
 //@@author A0135805H
@@ -100,7 +102,19 @@ public class TagCommandTest extends CommandTest {
         ImmutableTask task = getTaskAt(1);
         assertEquals(expectedTags, task.getTags());
     }
+    
+    //@@author A0135817B
+    @Test
+    @Ignore
+    public void testAddTag_renameOnDuplicate() throws Exception {
+        // Tagging a task with the same tag but in different case should cause the tag to be renamed
+        setParameter("2 " + TAG_NAMES[0].toUpperCase());
+        execute(true);
+        assertEquals(1, getTaskAt(2).getTags().size());
+        assertTrue(getTaskAt(2).getTags().contains(new Tag(TAG_NAMES[0].toUpperCase())));
+    }
 
+    //@@author A0135805H
     @Test (expected = ValidationException.class)
     public void testAddTag_addNoTags() throws Exception {
         //Provides no tag names.
@@ -173,7 +187,18 @@ public class TagCommandTest extends CommandTest {
         ImmutableTask task = getTaskAt(5);
         assertEquals(expectedTags, task.getTags());
     }
+    
+    //@@author A0135817B
+    @Test
+    public void testDeleteTag_caseInsensitivity() throws Exception {
+        // Tagging a task with the same tag but in different case should cause the tag to be renamed
+        setParameter("2");
+        setParameter("d", TAG_NAMES[0].toUpperCase());
+        execute(true);
+        assertEquals(0, getTaskAt(2).getTags().size());
+    }
 
+    //@@author A0135805H
     @Test
     public void testDeleteTagFromTask_deleteMissing() {
         //Deletes a tag that is not found. This should result in no-op.
@@ -283,6 +308,8 @@ public class TagCommandTest extends CommandTest {
         assertEquals(expectsTask4Tag, getTaskAt(4).getTags());
         assertEquals(expectsTask5Tag, getTaskAt(5).getTags());
     }
+    
+    
 
     @Test (expected = ValidationException.class)
     public void renameTag_newNameExists() throws Exception {
