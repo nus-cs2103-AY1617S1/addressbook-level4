@@ -11,7 +11,7 @@ public class TestTask implements ReadOnlyTask {
 
     private   Name name;
     private   String priority;
-    private   String startDate;
+    private   StartDate startDate;
     private   String endDate;
     private   String done;
 
@@ -28,7 +28,7 @@ public class TestTask implements ReadOnlyTask {
         this.priority = priority;
     }
     
-    public void setStartDate(String sdate) {
+    public void setStartDate(StartDate sdate) {
         this.startDate = sdate;
     }
     public void setEndDate(String edate) {
@@ -49,7 +49,7 @@ public class TestTask implements ReadOnlyTask {
         return name;
     }
 
-    public String getStartDate() {
+    public StartDate getStartDate() {
         return startDate;
     }
     public String getEndDate() {

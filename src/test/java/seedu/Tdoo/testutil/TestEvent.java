@@ -11,7 +11,7 @@ public class TestEvent implements ReadOnlyTask {
 
     //private Event event;
     private  Name name;
-    private  String startDate;
+    private  StartDate startDate;
     private  String endDate;
     private  String startTime;
     private  String endTime;
@@ -29,7 +29,7 @@ public class TestEvent implements ReadOnlyTask {
         this.name = name;
     }
 
-    public void setStartDate(String date) {
+    public void setStartDate(StartDate date) {
         this.startDate = date;
     }
     public void setEndDate(String date) {
@@ -57,7 +57,7 @@ public class TestEvent implements ReadOnlyTask {
         return name;
     }
 
-    public String getStartDate() {
+    public StartDate getStartDate() {
         return startDate;
     }
     public String getEndDate() {

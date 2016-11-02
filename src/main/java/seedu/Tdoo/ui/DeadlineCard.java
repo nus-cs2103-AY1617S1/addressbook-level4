@@ -45,7 +45,7 @@ public class DeadlineCard extends UiPart{
     //@@author A0139923X
     public boolean checkEndDateTime(){
         //CHECK END DATE -------------------------------
-        String endTaskDate = task.getDate().date;
+        String endTaskDate = task.getStartDate().date;
         int month;
         String day;
         
@@ -156,17 +156,17 @@ public class DeadlineCard extends UiPart{
         name.setText(task.getName().name);
         id.setText(displayedIndex + ". ");
         if(checkEndDateTime() && this.task.getDone().equals("true")) {
-            date.setText("Date: " + task.getDate().date);
+            date.setText("Date: " + task.getStartDate().date);
             endTime.setText("End Time: " + task.getEndTime().endTime);
             done.setText("Completed");
             cardPane.setStyle("-fx-background-color: #01DF01");
         }else if(!checkEndDateTime() && this.task.getDone().equals("false")) {
-            date.setText("Date: " + task.getDate().date);
+            date.setText("Date: " + task.getStartDate().date);
             endTime.setText("End Time: " + task.getEndTime().endTime);
             done.setText("Overdue");
             cardPane.setStyle("-fx-background-color: #ff2002");
         }else {
-            date.setText("Date: " + task.getDate().date);
+            date.setText("Date: " + task.getStartDate().date);
             endTime.setText("End Time: " + task.getEndTime().endTime);
             done.setText("Not Completed");
             cardPane.setStyle("-fx-background-color: #FFFFFF");

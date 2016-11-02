@@ -17,8 +17,10 @@ public class StringUtil {
     
     //@@author A0139923X
     public static boolean equalsIgnoreCase(String source, String query) {
+        String parsedQuery = query.replace("name/", "").trim();
+        String finalParsedQuery = parsedQuery.replace("date/", "").trim();
         List<String> strings = Arrays.asList(source.toLowerCase());
-        return strings.stream().filter(s -> s.contains(query.toLowerCase())).count() > 0;
+        return strings.stream().filter(s -> s.contains(finalParsedQuery.toLowerCase())).count() > 0;
     }
 
     /**
