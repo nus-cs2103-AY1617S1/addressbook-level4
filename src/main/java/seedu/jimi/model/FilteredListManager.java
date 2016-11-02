@@ -93,19 +93,21 @@ public class FilteredListManager {
                     if(arg0 instanceof Event) {
                         if(arg1 instanceof Event) {
                             return ((Event) arg0).getStart().compareTo(((Event) arg1).getStart());
-                        } else { //return -2, lowest natural ordering
-                            return -2;
+                        } else { //return 1, lowest natural ordering
+                            return 1;
                         }
                     } else if(arg0 instanceof DeadlineTask) {
                         if(arg1 instanceof DeadlineTask) {
                             return ((DeadlineTask) arg0).getDeadline().compareTo(((DeadlineTask) arg1).getDeadline());
                         } else { //return -1, 2nd lowest natural ordering
-                            return -1;
+                            return 1;
                         }
-                    } else {
+                    } else if(!(arg1 instanceof DeadlineTask) && !(arg1 instanceof Event)){
                         //compare names of floating tasks
                         return arg0.getName().fullName.compareToIgnoreCase(arg1.getName().fullName);
-                    }
+                    } 
+                    
+                    return 0;
                 }
             });
             sortedListMap.put(id, sortedList);
