@@ -13,51 +13,47 @@ import seedu.task.commons.core.LogsCenter;
 import seedu.task.commons.events.ui.ExitAppRequestEvent;
 import seedu.task.commons.exceptions.DataConversionException;
 
+// @@author A0147944U
 /**
- * @@author A0147944U
  * Changes working task manager data to data at specified directory.
  */
 public class DirectoryCommand extends Command {
-    
+
     private static final Logger logger = LogsCenter.getLogger(ConfigUtil.class);
 
     public static final String COMMAND_WORD = "directory";
-    
+
     public static final String COMMAND_WORD_ALT = "dir";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Load TaskManager with data in given directory. \n"
             + "Parameters: directory/filename OR filename\n"
-            + "Example: " + COMMAND_WORD
-            + " c:/Users/user/Desktop/TaskManagerBackup1 OR TaskManagerBackup2";
+            + "Example: " + COMMAND_WORD + " c:/Users/user/Desktop/TaskManagerBackup1 OR TaskManagerBackup2";
 
     public static final String MESSAGE_NEW_DIRECTORY_SUCCESS = "New data: %1$s";
-    
+
     public static final String MESSAGE_FILE_NOT_FOUND_ERROR = "File does not exist: %1$s";
-    
+
     /* This constant string variable is file extension of the storage file. */
     private final String FILE_EXTENSION = ".xml";
-    
+
     /* This is the path of the selected storage file. */
     private String _destination;
-    
+
     public DirectoryCommand(String newFilePath) {
         appendExtension(newFilePath);
-        //Check if file supplied by user actually exists
+        // Check if file supplied by user actually exists
         if (new File(_destination).exists()) {
             Config config = getConfig();
             updateConfigWithNewFilePath(config);
             saveConfig(config);
-            /*try {
-                ReadOnlyTaskManager newData = XmlFileStorage.loadDataFromSaveFile(new File(_destination));
-                model.resetData(newData);
-            } catch (DataConversionException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            } catch (FileNotFoundException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-            */
+            /*
+             * try { ReadOnlyTaskManager newData =
+             * XmlFileStorage.loadDataFromSaveFile(new File(_destination));
+             * model.resetData(newData); } catch (DataConversionException e) {
+             * // TODO Auto-generated catch block e.printStackTrace(); } catch
+             * (FileNotFoundException e) { // TODO Auto-generated catch block
+             * e.printStackTrace(); }
+             */
         }
     }
 
@@ -98,17 +94,17 @@ public class DirectoryCommand extends Command {
         }
         return config;
     }
-    
+
     /**
-     * Appends FILE_EXTENSION to given destination
-     * This ensures user will not accidentally override non-.xml files
+     * Appends FILE_EXTENSION to given destination.
+     * This ensures user will not accidentally override non.xml files.
      */
     private void appendExtension(String destination) {
         if (destination != null) {
             _destination = destination + FILE_EXTENSION;
         }
     }
-    
+
     /**
      * Locates TaskManager.jar file and silently run it via Windows Command Line
      */
@@ -118,8 +114,8 @@ public class DirectoryCommand extends Command {
         String filePath = Paths.get(".").toAbsolutePath().normalize().toString() + "\\";
         command = "/c cd /d \"" + filePath + "\" & TaskManager.jar & exit";
         logger.info("DOS command generated:" + command);
-         try {
-            new ProcessBuilder("cmd",command).start();
+        try {
+            new ProcessBuilder("cmd", command).start();
         } catch (IOException e) {
             logger.warning("Error starting process. " + e);
         }
@@ -128,14 +124,14 @@ public class DirectoryCommand extends Command {
 
     @Override
     public CommandResult execute(boolean isUndo) {
-        //Check if file supplied by user exists
+        // Check if file supplied by user exists
         if (!new File(_destination).exists()) {
             return new CommandResult(String.format(MESSAGE_FILE_NOT_FOUND_ERROR, _destination));
         }
-        
+
         assert model != null;
         restartTaskManagerOnWindows();
-        //Shut down current TaskManager
+        // Shut down current TaskManager
         EventsCenter.getInstance().post(new ExitAppRequestEvent());
         return new CommandResult(String.format(MESSAGE_NEW_DIRECTORY_SUCCESS, _destination));
     }
@@ -144,6 +140,5 @@ public class DirectoryCommand extends Command {
     public CommandResult execute(int index) {
         return null;
     }
-    
 
 }

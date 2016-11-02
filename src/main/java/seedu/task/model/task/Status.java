@@ -1,8 +1,8 @@
 package seedu.task.model.task;
 
+// @@author A0147335E
 /**
  * Represents a Task status in the task manager.
- * @@author A0147335E
  */
 public class Status {
 
@@ -47,21 +47,21 @@ public class Status {
     public boolean getNewlyAddedStatus() {
         return newlyAdded;
     }
-    
+
+    // @@author A0147944U
     /**
      * Compares the two Statuses.
-     * @@author A0147944U
      */
     public int compareDoneStatusTo(Status anotherStatus) {
         Boolean isThisDone = new Boolean(this.getDoneStatus());
-        Boolean isAnotherDone = new Boolean (anotherStatus.getDoneStatus());
+        Boolean isAnotherDone = new Boolean(anotherStatus.getDoneStatus());
         return isThisDone.compareTo(isAnotherDone);
     }
-    
+
     public int compareOverdueStatusTo(Status anotherStatus) {
         Boolean isThisOverdue = new Boolean(this.getOverdueStatus());
-        Boolean isAnotherOverdue = new Boolean (anotherStatus.getOverdueStatus());
+        Boolean isAnotherOverdue = new Boolean(anotherStatus.getOverdueStatus());
         return isThisOverdue.compareTo(isAnotherOverdue);
     }
-    //@@author
+    // @@author
 }

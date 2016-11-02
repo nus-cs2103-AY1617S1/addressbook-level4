@@ -24,7 +24,8 @@ public class TaskManager implements ReadOnlyTaskManager {
         tags = new UniqueTagList();
     }
 
-    public TaskManager() {}
+    public TaskManager() {
+    }
 
     /**
      * Tasks and Tags are copied into this TaskManager
@@ -44,7 +45,7 @@ public class TaskManager implements ReadOnlyTaskManager {
         return new TaskManager();
     }
 
-//// list overwrite operations
+    //// list overwrite operations
 
     public ObservableList<Task> getTasks() {
         return tasks.getInternalList();
@@ -67,30 +68,31 @@ public class TaskManager implements ReadOnlyTaskManager {
         resetData(newData.getTaskList(), newData.getTagList());
     }
 
-//// task-level operations
+    //// task-level operations
 
     /**
-     * Adds a task to the task manager.
-     * Also checks the new task tags and updates {@link #tags} with any new tags found,
-     * and updates the Tag objects in the task to point to those in {@link #tags}.
+     * Adds a task to the task manager. Also checks the new task tags and
+     * updates {@link #tags} with any new tags found, and updates the Tag
+     * objects in the task to point to those in {@link #tags}.
      *
-     * @throws UniqueTaskList.DuplicateTaskException if an equivalent task already exists.
+     * @throws UniqueTaskList.DuplicateTaskException
+     *             if an equivalent task already exists.
      */
     public void addTask(Task p) throws UniqueTaskList.DuplicateTaskException {
         syncTagsWithMasterList(p);
         tasks.add(p);
     }
 
-    //@@author A0147335E-reused
+    // @@author A0147335E-reused
     public void addTask(int index, Task p) throws UniqueTaskList.DuplicateTaskException {
         syncTagsWithMasterList(p);
         tasks.add(index, p);
     }
-    //@@author
+
+    // @@author
     /**
-     * Ensures that every tag in this task:
-     *  - exists in the master list {@link #tags}
-     *  - points to a Tag object in the master list
+     * Ensures that every tag in this task: - exists in the master list
+     * {@link #tags} - points to a Tag object in the master list
      */
     private void syncTagsWithMasterList(Task task) {
         final UniqueTagList taskTags = task.getTags();
@@ -118,17 +120,17 @@ public class TaskManager implements ReadOnlyTaskManager {
         }
     }
 
-//// tag-level operations
+    //// tag-level operations
 
     public void addTag(Tag t) throws UniqueTagList.DuplicateTagException {
         tags.add(t);
     }
 
-//// util methods
+    //// util methods
 
     @Override
     public String toString() {
-        return tasks.getInternalList().size() + " tasks, " + tags.getInternalList().size() +  " tags";
+        return tasks.getInternalList().size() + " tasks, " + tags.getInternalList().size() + " tags";
         // TODO: refine later
     }
 
@@ -152,24 +154,24 @@ public class TaskManager implements ReadOnlyTaskManager {
         return this.tags;
     }
 
-
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof TaskManager // instanceof handles nulls
-                && this.tasks.equals(((TaskManager) other).tasks)
-                && this.tags.equals(((TaskManager) other).tags));
+                        && this.tasks.equals(((TaskManager) other).tasks)
+                        && this.tags.equals(((TaskManager) other).tags));
     }
 
     @Override
     public int hashCode() {
-        // use this method for custom fields hashing instead of implementing your own
+        // use this method for custom fields hashing instead of implementing
+        // your own
         return Objects.hash(tasks, tags);
     }
-    
-    //@@author A0147944U
-////sort methods
-    
+
+    // @@author A0147944U
+    //// sort methods
+
     /**
      * Tasks are sorted according to Deadline in ascending order
      */
@@ -181,7 +183,7 @@ public class TaskManager implements ReadOnlyTaskManager {
             }
         });
     }
-    
+
     /**
      * Tasks are sorted according to StartTime in ascending order
      */
@@ -193,7 +195,7 @@ public class TaskManager implements ReadOnlyTaskManager {
             }
         });
     }
-    
+
     /**
      * Tasks are sorted according to EndTime in ascending order
      */
@@ -205,7 +207,7 @@ public class TaskManager implements ReadOnlyTaskManager {
             }
         });
     }
-    
+
     /**
      * Tasks are sorted according to DoneStatus, starting with completed tasks
      */
@@ -217,7 +219,7 @@ public class TaskManager implements ReadOnlyTaskManager {
             }
         });
     }
-    
+
     /**
      * Tasks are sorted according to Name in ascending order
      */
@@ -229,9 +231,10 @@ public class TaskManager implements ReadOnlyTaskManager {
             }
         });
     }
-    
+
     /**
-     * Tasks are sorted according to DoneStatus, followed by Deadline, followed by StartTime, followed by Name
+     * Tasks are sorted according to DoneStatus, followed by Deadline, followed
+     * by StartTime, followed by Name
      */
     public void sortByDefaultRules() {
         this.tasks.getInternalList().sort(new Comparator<Task>() {
@@ -246,7 +249,7 @@ public class TaskManager implements ReadOnlyTaskManager {
                         if (startTimeResult == 0) {
                             return nameResult;
                         } else {
-                        return startTimeResult;
+                            return startTimeResult;
                         }
                     } else {
                         return deadlineResult;
@@ -257,6 +260,6 @@ public class TaskManager implements ReadOnlyTaskManager {
             }
         });
     }
-    //@@author
-    
+    // @@author
+
 }
