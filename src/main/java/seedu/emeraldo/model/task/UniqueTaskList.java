@@ -95,9 +95,7 @@ public class UniqueTaskList implements Iterable<Task> {
     
     //@@author A0142290N
     public void complete(Task toCompleteObj) throws IllegalValueException {
-    	Tag completedTag = new Tag("Completed");
-    	UniqueTagList completedTagList = new UniqueTagList(completedTag);
-    	toCompleteObj.setTags(completedTagList);
+    	toCompleteObj.getDateTime().setCompletedDateTime();
     	int mainListIndex = internalList.indexOf(toCompleteObj);
     	internalList.set(mainListIndex, toCompleteObj);
     }

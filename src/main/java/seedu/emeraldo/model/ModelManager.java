@@ -15,6 +15,7 @@ import seedu.emeraldo.commons.events.model.EmeraldoChangedEvent;
 import seedu.emeraldo.commons.exceptions.IllegalValueException;
 import seedu.emeraldo.commons.util.StringUtil;
 import seedu.emeraldo.logic.commands.ListCommand.TimePeriod;
+import seedu.emeraldo.logic.commands.ListCommand.Completed;
 import seedu.emeraldo.model.tag.Tag;
 import seedu.emeraldo.model.task.DateTime;
 import seedu.emeraldo.model.task.Description;
@@ -189,6 +190,10 @@ public class ModelManager extends ComponentManager implements Model {
         updateFilteredTaskList(new PredicateExpression(new TagQualifier(keyword)));
     }
     
+    public void updateFilteredTaskList(Completed keyword){
+    	updateFilteredTaskList(new PredicateExpression(new CompletedQualifier(keyword)));
+    }
+    
     @Override
     public void updateFilteredTaskList(TimePeriod keyword){
         updateFilteredTaskList(new PredicateExpression(new DateTimeQualifier(keyword)));
@@ -345,6 +350,32 @@ public class ModelManager extends ComponentManager implements Model {
         @Override
         public String toString() {
             return "tag=" + String.join(", ", completedTag);
+        }
+    }
+
+    /**
+     * Qualifies the tasks that are completed
+     *
+     */
+    private class CompletedQualifier implements Qualifier {
+        private Completed CompletedKeyword;
+
+        CompletedQualifier(Completed keyword) {
+            this.CompletedKeyword = keyword;
+        }
+
+        @Override
+        public boolean run(ReadOnlyTask task) {
+        	DateTime dateTime = task.getDateTime();
+        	if(dateTime.valueFormatted.startsWith("Completed")) 
+        		return true;
+        	else
+        		return false;
+        }
+
+        @Override
+        public String toString() {
+            return "Completed= " + CompletedKeyword;
         }
     }
 }
