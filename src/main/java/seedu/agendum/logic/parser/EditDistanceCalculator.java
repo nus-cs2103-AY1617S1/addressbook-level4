@@ -12,15 +12,21 @@ import java.util.function.Consumer;
 import java.util.logging.Logger;
 
 //@@author A0003878Y
+
+/**
+ * A static class for calculating levenshtein distance between two strings
+ */
 public class EditDistanceCalculator {
 
     private static final Logger logger = LogsCenter.getLogger(EditDistanceCalculator.class);
     private static final int EDIT_DISTANCE_THRESHOLD = 3;
 
+    /**
+     * Attempts to find the 'closest' command for an input String
+     * @param input user inputted command
+     * @return Optional string that's the closest command to input. Null if not found.
+     */
     public static Optional<String> closestCommandMatch(String input) {
-        Reflections reflections = new Reflections("seedu.agendum");
-        Set<Class<? extends Command>> classes = reflections.getSubTypesOf(Command.class);
-
         final String[] bestCommand = {""};
         final int[] bestCommandDistance = {Integer.MAX_VALUE};
 
@@ -32,7 +38,6 @@ public class EditDistanceCalculator {
                 bestCommandDistance[0] = commandWordDistance;
             }
         };
-
         executeOnAllCommands(consumer);
 
         if (bestCommandDistance[0] < EDIT_DISTANCE_THRESHOLD) {
@@ -42,7 +47,13 @@ public class EditDistanceCalculator {
         }
     }
 
-    public static Optional<String> commandCompletion(String input) {
+    /**
+     * Attempts to 'complete' the input String into an actual command
+     * @param input user inputted command
+     * @return Optional string that's command that best completes the input. If input matches more than
+     * one command, null ire returned. Null is also returned if a command is not found.
+     */
+    public static Optional<String> findCommandCompletion(String input) {
         ArrayList<String> matchedCommands = new ArrayList<>();
 
         Consumer<String> consumer = (commandWord) -> {
@@ -50,7 +61,6 @@ public class EditDistanceCalculator {
                 matchedCommands.add(commandWord);
             }
         };
-
         executeOnAllCommands(consumer);
 
         if (matchedCommands.size() == 1) {
@@ -60,14 +70,19 @@ public class EditDistanceCalculator {
         }
     }
 
-    private static void executeOnAllCommands(Consumer f) {
+    /**
+     * A higher order method that takes in an operation to perform on all Commands using
+     * Java reflection and functional programming paradigm.
+     * @param f A closure that takes a String as input that executes on all Commands.
+     */
+    private static void executeOnAllCommands(Consumer<String> f) {
         new Reflections("seedu.agendum").getSubTypesOf(Command.class)
                 .stream()
                 .map(s -> {
                     try {
                         return s.getMethod("getName").invoke(null).toString();
                     } catch (NullPointerException e) {
-                        return "";
+                        return ""; // Suppress this exception are we expect some Commands to not conform to getName()
                     } catch (Exception e) {
                         logger.severe("Java reflection for Command class failed");
                         throw new RuntimeException();
@@ -78,7 +93,13 @@ public class EditDistanceCalculator {
     }
 
 
-    // Code from https://rosettacode.org/wiki/Levenshtein_distance#Java
+    /**
+     * Calculates levenshtein distnace between two strings.
+     * Code from https://rosettacode.org/wiki/Levenshtein_distance#Java
+     * @param a
+     * @param b
+     * @return
+     */
     private static int distance(String a, String b) {
         a = a.toLowerCase();
         b = b.toLowerCase();

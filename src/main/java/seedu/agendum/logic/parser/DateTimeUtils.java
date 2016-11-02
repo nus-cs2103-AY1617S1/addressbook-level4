@@ -10,8 +10,16 @@ import java.util.Optional;
 
 //@@author A0003878Y
 
+/**
+ * Utilities for DateTime parsing
+ */
 public class DateTimeUtils {
 
+    /**
+     * Parses input string into LocalDateTime objects using Natural Language Parsing
+     * @param input natural language date time string
+     * @return Optional is null if input coult not be parsed
+     */
     public static Optional<LocalDateTime> parseNaturalLanguageDateTimeString(String input) {
         if(input == null || input.isEmpty()) {
             return Optional.empty();
@@ -36,6 +44,13 @@ public class DateTimeUtils {
         return Optional.ofNullable(localDateTime);
     }
 
+    /**
+     * Takes two LocalDateTime and balances by ensuring that the latter DateTime is gaurenteed to be later
+     * than the former DateTime
+     * @param startDateTime
+     * @param endDateTime
+     * @return endDateTime that is now balanced
+     */
     public static LocalDateTime balanceStartAndEndDateTime(LocalDateTime startDateTime, LocalDateTime endDateTime) {
         LocalDateTime newEndDateTime = endDateTime;
         while (startDateTime.compareTo(newEndDateTime) >= 1) {

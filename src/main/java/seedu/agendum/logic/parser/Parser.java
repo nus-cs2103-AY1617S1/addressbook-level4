@@ -6,6 +6,7 @@ import seedu.agendum.commons.exceptions.IllegalValueException;
 
 import java.time.LocalDateTime;
 import java.util.*;
+import java.util.function.BiConsumer;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -150,30 +151,28 @@ public class Parser {
         try {
             matcher.reset();
             matcher.find();
-            String taskTitle = matcher.group(0);
+            StringBuilder titleBuilder = new StringBuilder(matcher.group(0));
             HashMap<String, Optional<LocalDateTime>> dateTimeMap = new HashMap<>();
 
-            while (matcher.find()) {
-                for (String token : TIME_TOKENS) {
-                    String s = matcher.group(0).toLowerCase();
-                    if (s.startsWith(token)) {
-                        String time = s.substring(token.length(), s.length());
-                        if (DateTimeUtils.containsTime(time)) {
-                            dateTimeMap.put(token, DateTimeUtils.parseNaturalLanguageDateTimeString(time));
-                        } else {
-                            taskTitle = taskTitle + s;
-                        }
-                    }
+            BiConsumer<String, String> consumer = (matchedGroup, token) -> {
+                String time = matchedGroup.substring(token.length(), matchedGroup.length());
+                if (DateTimeUtils.containsTime(time)) {
+                    dateTimeMap.put(token, DateTimeUtils.parseNaturalLanguageDateTimeString(time));
+                } else {
+                    titleBuilder.append(matchedGroup);
                 }
-            }
+            };
+            scheduleMatcherOnConsumer(matcher, consumer);
+
+            String title = titleBuilder.toString();
 
             if (dateTimeMap.containsKey(ARGS_BY)) {
-                return new AddCommand(taskTitle, dateTimeMap.get(ARGS_BY));
+                return new AddCommand(title, dateTimeMap.get(ARGS_BY));
             } else if (dateTimeMap.containsKey(ARGS_FROM) && dateTimeMap.containsKey(ARGS_TO)) {
-                return new AddCommand(taskTitle, dateTimeMap.get(ARGS_FROM), dateTimeMap.get(ARGS_TO));
+                return new AddCommand(title, dateTimeMap.get(ARGS_FROM), dateTimeMap.get(ARGS_TO));
             } else if (!dateTimeMap.containsKey(ARGS_FROM) && !dateTimeMap.containsKey(ARGS_TO)
                     && !dateTimeMap.containsKey(ARGS_BY)) {
-                return new AddCommand(taskTitle);
+                return new AddCommand(title);
             } else {
                 return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                         AddCommand.MESSAGE_USAGE));
@@ -199,6 +198,7 @@ public class Parser {
 
         matcher.reset();
         matcher.find();
+        HashMap<String, Optional<LocalDateTime>> dateTimeMap = new HashMap<>();
         Optional<Integer> taskIndex = parseIndex(matcher.group(0));
         int index = 0;
         if (taskIndex.isPresent()) {
@@ -207,20 +207,14 @@ public class Parser {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     ScheduleCommand.MESSAGE_USAGE));
         }
-        
-        HashMap<String, Optional<LocalDateTime>> dateTimeMap = new HashMap<>();
 
-        while (matcher.find()) {
-            for (String token : TIME_TOKENS) {
-                String s = matcher.group(0).toLowerCase();
-                if (s.startsWith(token)) {
-                    String time = s.substring(token.length(), s.length());
-                    if (DateTimeUtils.containsTime(time)) {
-                        dateTimeMap.put(token, DateTimeUtils.parseNaturalLanguageDateTimeString(time));
-                    }
-                }
+        BiConsumer<String, String> consumer = (matchedGroup, token) -> {
+            String time = matchedGroup.substring(token.length(), matchedGroup.length());
+            if (DateTimeUtils.containsTime(time)) {
+                dateTimeMap.put(token, DateTimeUtils.parseNaturalLanguageDateTimeString(time));
             }
-        }
+        };
+        scheduleMatcherOnConsumer(matcher, consumer);
 
         if (dateTimeMap.containsKey(ARGS_BY)) {
             return new ScheduleCommand(index, Optional.empty(), dateTimeMap.get(ARGS_BY));
@@ -232,6 +226,23 @@ public class Parser {
         } else {
             return new IncorrectCommand(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, ScheduleCommand.MESSAGE_USAGE));
+        }
+    }
+
+    /**
+     * Parses arguments in the context of the schedule task command.
+     *
+     * @param matcher matcher for current command context
+     * @param consumer <String, String> closure to execute on
+     */
+    private void scheduleMatcherOnConsumer(Matcher matcher, BiConsumer<String, String> consumer) {
+        while (matcher.find()) {
+            for (String token : TIME_TOKENS) {
+                String matchedGroup = matcher.group(0).toLowerCase();
+                if (matchedGroup.startsWith(token)) {
+                    consumer.accept(matchedGroup, token);
+                }
+            }
         }
     }
 	

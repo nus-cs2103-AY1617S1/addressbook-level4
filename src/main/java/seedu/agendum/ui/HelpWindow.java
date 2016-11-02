@@ -108,8 +108,12 @@ public class HelpWindow extends UiPart {
     }
 
     //@@author A0003878Y
+
+    /**
+     * Uses Java reflection followed by Java stream.map() to retrieve all commands for listing on the Help
+     * window dynamically
+     */
     private void loadHelpList() {
-        
         new Reflections("seedu.agendum").getSubTypesOf(Command.class)
                 .stream()
                 .map(s -> {
@@ -120,7 +124,7 @@ public class HelpWindow extends UiPart {
                         map.put(CommandColumns.DESCRIPTION, s.getMethod("getDescription").invoke(null).toString());
                         return map;
                     } catch (NullPointerException e) {
-                        return null;
+                        return null; // Suppress this exception are we expect some Commands to not conform to these methods
                     } catch (Exception e) {
                         logger.severe("Java reflection for Command class failed");
                         throw new RuntimeException();
