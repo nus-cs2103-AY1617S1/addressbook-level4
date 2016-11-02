@@ -1,5 +1,5 @@
 .background {
-    -fx-background-color: derive(#004A7F, 20%);
+    -fx-background-color: #004A7F;
 }
 
 .label {
@@ -77,13 +77,13 @@
 
 .split-pane:horizontal .split-pane-divider {
     -fx-border-color: transparent #004A7F transparent #004A7F;
-    -fx-background-color: transparent, derive(#004A7F, 10%);
+    -fx-background-color: transparent, #004A7F;
 }
 
 .split-pane {
     -fx-border-radius: 1;
     -fx-border-width: 1;
-    -fx-background-color: derive(#004A7F, 20%);
+    -fx-background-color: #004A7F;
 }
 
 
@@ -113,17 +113,17 @@
 }
 
 .anchor-pane {
-     -fx-background-color: derive(#004A7F, 20%);
+     -fx-background-color: #004A7F;
 }
 
 .anchor-pane-with-border {
-     -fx-background-color: derive(#004A7F, 20%);
-     -fx-border-color: derive(#004A7F, 10%);
+     -fx-background-color: #004A7F;
+     -fx-border-color: #004A7F;
      -fx-border-top-width: 1px;
 }
 
 .status-bar {
-    -fx-background-color: derive(#004A7F, 20%);
+    -fx-background-color: #004A7F;
     -fx-text-fill: black;
 }
 
@@ -140,8 +140,8 @@
 }
 
 .status-bar-with-border {
-    -fx-background-color: derive(#004A7F, 30%);
-    -fx-border-color: derive(#004A7F, 25%);
+    -fx-background-color: #004A7F;
+    -fx-border-color: #004A7F;
     -fx-border-width: 1px;
 }
 
@@ -150,17 +150,17 @@
 }
 
 .grid-pane {
-    -fx-background-color: derive(#004A7F, 30%);
-    -fx-border-color: derive(#004A7F, 30%);
+    -fx-background-color: #004A7F;
+    -fx-border-color: #004A7F;
     -fx-border-width: 1px;
 }
 
 .grid-pane .anchor-pane {
-    -fx-background-color: derive(#004A7F, 30%);
+    -fx-background-color: #004A7F;
 }
 
 .context-menu {
-    -fx-background-color: derive(#004A7F, 50%);
+    -fx-background-color: #004A7F;
 }
 
 .context-menu .label {
@@ -168,7 +168,7 @@
 }
 
 .menu-bar {
-    -fx-background-color: derive(#004A7F, 20%);
+    -fx-background-color: #004A7F;
 }
 
 .menu-bar .label {
@@ -246,7 +246,7 @@
 }
 
 .dialog-pane:header *.header-panel {
-    -fx-background-color: derive(#004A7F, 25%);
+    -fx-background-color: #004A7F;
 }
 
 .dialog-pane:header *.header-panel *.label {
@@ -257,7 +257,7 @@
 }
 
 .scroll-bar .thumb {
-    -fx-background-color: derive(#004A7F, 50%);
+    -fx-background-color: #004A7F;
     -fx-background-insets: 3;
 }
 

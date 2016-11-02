@@ -6,76 +6,99 @@
 <?import java.net.URL?>
 <?import javafx.scene.text.Text?>
 <?import javafx.scene.layout.VBox?>
-<VBox maxHeight="Infinity" maxWidth="Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.whatnow.ui.MainWindow">
-   <stylesheets>
-      <URL value="@DarkTheme.css" />
-      <URL value="@Extensions.css" />
-   </stylesheets>
-   <children>
-      <MenuBar VBox.vgrow="NEVER">
-         <menus>
-            <Menu mnemonicParsing="false" text="File">
-               <items>
-                  <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit" />
-               </items>
-            </Menu>
-            <Menu mnemonicParsing="false" text="Help">
-               <items>
-                  <MenuItem fx:id="helpMenuItem" mnemonicParsing="false" onAction="#handleHelp" text="Help" />
-               </items>
-            </Menu>
-         </menus>
-      </MenuBar>
-      <SplitPane id="mainSplitPane" fx:id="mainSplitPane" dividerPositions="0.1" VBox.vgrow="ALWAYS">
-      <padding>
-            <Insets left="10.0"/>
-         </padding>
-               <items>
-            <VBox fx:id="statusDisplay" alignment = "CENTER">
-                <children>
-                    <AnchorPane fx:id="statusPanelPlaceholder" maxWidth="350" VBox.vgrow="ALWAYS">
-                    </AnchorPane>
-                    
-                </children>
-            </VBox>
-         </items>
-         <items>
-      <SplitPane id="splitPane" fx:id="splitPane" orientation = "VERTICAL" VBox.vgrow="ALWAYS">
-      <AnchorPane VBox.vgrow="NEVER" fx:id="commandBoxPlaceholder" styleClass="anchor-pane-with-border">
-         <padding>
-            <Insets right="10.0"/>
-         </padding>
-      </AnchorPane>
-       <AnchorPane VBox.vgrow="NEVER" fx:id="resultDisplayPlaceholder" styleClass="anchor-pane-with-border" minHeight="100" prefHeight="100" maxHeight="100">
-           <padding>
-               <Insets right="10.0"/>
-           </padding>
-       </AnchorPane>
+<VBox maxHeight="Infinity" maxWidth="Infinity" minHeight="-Infinity"
+	minWidth="-Infinity" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+	fx:controller="seedu.whatnow.ui.MainWindow">
+	<stylesheets>
+		<URL value="@DarkTheme.css" />
+		<URL value="@Extensions.css" />
+	</stylesheets>
+	<children>
+		<MenuBar VBox.vgrow="NEVER">
+			<menus>
+				<Menu mnemonicParsing="false" text="File">
+					<items>
+						<MenuItem mnemonicParsing="false" onAction="#handleExit"
+							text="Exit" />
+					</items>
+				</Menu>
+				<Menu mnemonicParsing="false" text="Help">
+					<items>
+						<MenuItem fx:id="helpMenuItem" mnemonicParsing="false"
+							onAction="#handleHelp" text="Help" />
+					</items>
+				</Menu>
+			</menus>
+		</MenuBar>
+		<SplitPane id="mainSplitPane" fx:id="mainSplitPane"
+			dividerPositions="0.1" VBox.vgrow="ALWAYS">
+			<padding>
+				<Insets left="10.0" />
+			</padding>
+			<items>
+				<GridPane fx:id="gridPane" maxWidth="350">
+					<VBox fx:id="statusDisplay" maxWidth="350" alignment="CENTER">
+						<children>
+							<AnchorPane fx:id="statusPanelPlaceholder" maxWidth="350"
+								VBox.vgrow="ALWAYS">
+							</AnchorPane>
+						</children>
+					</VBox>
+					<VBox fx:id="pinnedItemList" minWidth="340" alignment="CENTER"
+						GridPane.columnIndex="0" GridPane.rowIndex="4">
+						<children>
+							<AnchorPane fx:id="pinnedItemPlaceholder" VBox.vgrow="ALWAYS"
+								prefWidth="1700" />
+						</children>
+					</VBox>
+				</GridPane>
+			</items>
+			<items>
+				<SplitPane id="splitPane" fx:id="splitPane" orientation="VERTICAL"
+					VBox.vgrow="ALWAYS">
+					<AnchorPane VBox.vgrow="NEVER" fx:id="commandBoxPlaceholder"
+						styleClass="anchor-pane-with-border">
+						<padding>
+							<Insets right="10.0" />
+						</padding>
+					</AnchorPane>
+					<AnchorPane VBox.vgrow="NEVER" fx:id="resultDisplayPlaceholder"
+						styleClass="anchor-pane-with-border" minHeight="100" prefHeight="100"
+						maxHeight="100">
+						<padding>
+							<Insets right="10.0" />
+						</padding>
+					</AnchorPane>
 
-       <SplitPane id="splitPane" fx:id="splitPane" dividerPositions="0.9" VBox.vgrow="ALWAYS">
-         <items>
-         	<VBox fx:id="scheduleList" minWidth="340" alignment = "CENTER">
-                <Label fx:id = "schedule" contentDisplay="CENTER" prefWidth="100.0" text="Schedule" styleClass = "label-bright"/>
-                <children>
-                     <AnchorPane fx:id="scheduleListPlaceholder" VBox.vgrow = "ALWAYS" prefWidth="1700" />
-				</children>
-         	</VBox>
-         </items>
-                  <items>
-            <VBox fx:id="taskList" minWidth="340" alignment = "CENTER">
-                       <padding>
-               <Insets right="10.0"/>
-           </padding>
-                <Label fx:id = "todo" contentDisplay="CENTER" prefWidth="100.0" text="Todo" styleClass = "label-bright"/>
-                <children>
-                    <AnchorPane fx:id="taskListPanelPlaceholder" VBox.vgrow="ALWAYS" />
-                </children>
-            </VBox>
-         </items>
-      </SplitPane>
-      </SplitPane>
-      </items>
-      </SplitPane>
-      <AnchorPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" />
-   </children>
+					<SplitPane id="splitPane" fx:id="splitPane"
+						dividerPositions="0.9" VBox.vgrow="ALWAYS">
+						<items>
+							<VBox fx:id="scheduleList" minWidth="340" alignment="CENTER">
+								<Label fx:id="schedule" contentDisplay="CENTER" prefWidth="100.0"
+									text="Schedule" styleClass="label-bright" />
+								<children>
+									<AnchorPane fx:id="scheduleListPlaceholder"
+										VBox.vgrow="ALWAYS" prefWidth="1700" />
+								</children>
+							</VBox>
+						</items>
+						<items>
+							<VBox fx:id="taskList" minWidth="340" alignment="CENTER">
+								<padding>
+									<Insets right="10.0" />
+								</padding>
+								<Label fx:id="todo" contentDisplay="CENTER" prefWidth="100.0"
+									text="Todo" styleClass="label-bright" />
+								<children>
+									<AnchorPane fx:id="taskListPanelPlaceholder"
+										VBox.vgrow="ALWAYS" />
+								</children>
+							</VBox>
+						</items>
+					</SplitPane>
+				</SplitPane>
+			</items>
+		</SplitPane>
+		<AnchorPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" />
+	</children>
 </VBox>

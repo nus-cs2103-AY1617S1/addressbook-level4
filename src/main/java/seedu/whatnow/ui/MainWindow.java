@@ -9,8 +9,11 @@ import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -33,7 +36,7 @@ import seedu.whatnow.model.task.ReadOnlyTask;
  */
 public class MainWindow extends UiPart {
 
-    private static final String ICON = "/images/WhatNowWhiteOnBlack.png";
+    private static final String ICON = "/images/WhatNowWhiteOnBlue.png";
     private static final String FXML = "MainWindow.fxml";
     public static final int MIN_HEIGHT = 600;
     public static final int MIN_WIDTH = 450;
@@ -49,6 +52,7 @@ public class MainWindow extends UiPart {
     private Config config;
     private UserPrefs userPrefs;
     private StatusPanel statusPanel;
+    private PinnedItemPanel pinnedItemPanel;
 
     // Handles to elements of this Ui container
     private VBox rootLayout;
@@ -76,6 +80,12 @@ public class MainWindow extends UiPart {
     
     @FXML
     private AnchorPane statusPanelPlaceholder;
+    
+    @FXML
+    private AnchorPane pinnedItemPlaceholder;
+    
+    @FXML
+    private GridPane gridPane;
 
     public MainWindow() {
         super();
@@ -105,13 +115,13 @@ public class MainWindow extends UiPart {
         this.whatNowName = whatNowName;
         this.config = config;
         this.userPrefs = prefs;
-
         // Configure the UI
         setTitle(appTitle);
         setIcon(ICON);
         setWindowMinSize();
         setWindowDefaultSize(prefs);
-
+        
+        
         scene = new Scene(rootLayout);
         primaryStage.setScene(scene);
         setAccelerators();
@@ -123,7 +133,10 @@ public class MainWindow extends UiPart {
     }
 
     void fillInnerParts() {
-        statusPanel = StatusPanel.load(primaryStage, getStatusPanelPlaceholder());
+        pinnedItemPanel = PinnedItemPanel.load(primaryStage, 
+                getPinnedListPlaceholder(), 
+                logic.getPinnedItems(config.getPinnedItemType(), config.getPinnedItemKeyword()));
+        statusPanel = StatusPanel.load(primaryStage, getStatusPanelPlaceholder(), getGridPane());
         statusPanel.postMessage("Number of ongoing tasks in schedule: " + String.valueOf(logic.getFilteredScheduleList(false).size()
                 + "\n"
                 + "Number of overdue tasks in schedule: " + String.valueOf(logic.getOverdueScheduleList().size())));
@@ -157,6 +170,14 @@ public class MainWindow extends UiPart {
     
     private AnchorPane getStatusPanelPlaceholder() {
         return statusPanelPlaceholder;
+    }
+    
+    private AnchorPane getPinnedListPlaceholder() {
+        return pinnedItemPlaceholder;
+    }
+    
+    private GridPane getGridPane() {
+        return gridPane;
     }
 
     public void hide() {

@@ -33,4 +33,6 @@ public interface Logic {
     
     ObservableList<ReadOnlyTask> getOverdueScheduleList();
 
+    ObservableList<ReadOnlyTask> getPinnedItems(String type, String keyword);
+
 }

@@ -13,10 +13,12 @@ import seedu.whatnow.commons.events.model.ConfigChangedEvent;
 import seedu.whatnow.commons.events.model.UpdateTaskEvent;
 import seedu.whatnow.commons.events.model.WhatNowChangedEvent;
 import seedu.whatnow.commons.exceptions.DataConversionException;
+import seedu.whatnow.commons.exceptions.IllegalValueException;
 import seedu.whatnow.commons.util.StringUtil;
 import seedu.whatnow.logic.commands.Command;
 import seedu.whatnow.model.freetime.FreePeriod;
 import seedu.whatnow.model.freetime.Period;
+import seedu.whatnow.model.tag.Tag;
 import seedu.whatnow.model.task.ReadOnlyTask;
 import seedu.whatnow.model.task.Task;
 import seedu.whatnow.model.task.UniqueTaskList;
@@ -61,6 +63,7 @@ public class ModelManager extends ComponentManager implements Model {
     private final FilteredList<Task> filteredTasks;
     private FilteredList<Task> filteredSchedules;
     private final FilteredList<Task> filteredOverdue;
+    private final FilteredList<Task> pinnedItems;
     private final Stack<String> stackOfUndo;
     private final Stack<String> stackOfRedo;
     private final Stack<ReadOnlyTask> stackOfOldTask;
@@ -99,6 +102,7 @@ public class ModelManager extends ComponentManager implements Model {
         filteredTasks = new FilteredList<>(whatNow.getTasks());
         filteredSchedules = new FilteredList<>(whatNow.getTasks());
         filteredOverdue = new FilteredList<>(whatNow.getTasks());
+        pinnedItems = new FilteredList<>(whatNow.getTasks());
         stackOfUndo = new Stack<>();
         stackOfRedo = new Stack<>();
         stackOfOldTask = new Stack<>();
@@ -134,6 +138,7 @@ public class ModelManager extends ComponentManager implements Model {
         filteredTasks = new FilteredList<>(whatNow.getTasks());
         filteredSchedules = new FilteredList<>(whatNow.getTasks());
         filteredOverdue = new FilteredList<>(whatNow.getTasks());
+        pinnedItems = new FilteredList<>(whatNow.getTasks());
         stackOfUndo = new Stack<>();
         stackOfRedo = new Stack<>();
         stackOfOldTask = new Stack<>();
@@ -655,7 +660,7 @@ public class ModelManager extends ComponentManager implements Model {
                     return false;
                 }
             } catch (ParseException e) {
-                logger.warning("ParseException at ModelManager's updateFilteredScheduleListToShowAllOver method: \n" 
+                logger.warning("ParseException at ModelManager's updateFilteredScheduleListToShowAllOverdue method: \n" 
                         + e.getMessage());
                 return false;
             }
@@ -688,10 +693,44 @@ public class ModelManager extends ComponentManager implements Model {
     private void updateFilteredScheduleList(Expression expression) {
         filteredSchedules.setPredicate(expression::satisfies);
     }
+    
+    //=========== Pinned Items Accessors =====================
+    @Override
+    public UnmodifiableObservableList<ReadOnlyTask> getPinnedItems(String type, String keyword) {
+        updatePinnedItemsToShowMatchKeywords(type, keyword);
+        return new UnmodifiableObservableList<>(pinnedItems);
+    }
+    
+    @Override
+    public void updatePinnedItemsToShowMatchKeywords(String type, String keyword) {
+        Calendar cal = Calendar.getInstance();
+        DateFormat df = new SimpleDateFormat(DATE_NUM_SLASH_WITH_YEAR_FORMAT);
+        
+
+        pinnedItems.setPredicate(p -> {
+            try {
+                String newKeyword = keyword;
+                if (newKeyword.equals("today")) {
+                    newKeyword = df.format(cal.getTime());
+                }
+                if ((type.equals("tag") && p.getTags().contains(new Tag(newKeyword))) 
+                        || (type.equals("date") && (newKeyword.equals(p.getTaskDate()) 
+                                || (newKeyword.equals(p.getStartDate()))))) {
+                    return true;
+                } else {
+                    return false;
+                }
+            } catch (IllegalValueException e) {
+                logger.warning("IllegalValueException at updatePinnedItemsToShowMatchKeywords method of ModelManager\n"
+                        + e.getMessage());
+                return false;
+            }
+        });
+    }
+    
 
     //@@author A0141021H
-    // ========== Inner classes/interfaces used for filtering
-    // ==================================================
+    // ========== Inner classes/interfaces used for filtering =============
     
     interface Expression {
         boolean satisfies(ReadOnlyTask task);

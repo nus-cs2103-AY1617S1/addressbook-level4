@@ -17,6 +17,8 @@ public class Config {
     private String userPrefsFilePath = "preferences.json";
     private String whatNowFilePath = "data/whatnow.xml";
     private String whatNowName = "MyWhatNow";
+    private String pinnedItemType ="tag";
+    private String pinnedItemKeyword = "highPriority";
 
     public Config() {
     }
@@ -60,6 +62,22 @@ public class Config {
     public void setWhatNowName(String whatNowName) {
         this.whatNowName = whatNowName;
     }
+    
+    public String getPinnedItemType() {
+        return pinnedItemType;
+    }
+    
+    public void setPinnedItemType(String pinnedItemType) {
+        this.pinnedItemType = pinnedItemType;
+    }
+    
+    public String getPinnedItemKeyword() {
+        return pinnedItemKeyword;
+    }
+    
+    public void setPinnedItemKeyword(String pinnedItemKeyword) {
+        this.pinnedItemKeyword = pinnedItemKeyword;
+    }
 
     @Override
     public boolean equals(Object other) {
@@ -90,6 +108,8 @@ public class Config {
         sb.append("\nPreference file Location : " + userPrefsFilePath);
         sb.append("\nLocal data file location : " + whatNowFilePath);
         sb.append("\nWhatNow name : " + whatNowName);
+        sb.append("\nPinnedItemType: " + pinnedItemType);
+        sb.append("\nPinnedItemKeyword: " + pinnedItemKeyword);
         return sb.toString();
     }
 
