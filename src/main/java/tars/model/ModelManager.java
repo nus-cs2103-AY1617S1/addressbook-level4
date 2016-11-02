@@ -244,7 +244,7 @@ public class ModelManager extends ComponentManager implements Model {
     ArrayList<DateTime> listOfDateTime = new ArrayList<DateTime>();
 
     for (ReadOnlyTask t : tars.getTaskList()) {
-      if (t.getDateTime().getStartDate() != null
+      if (t.getStatus().status == Status.UNDONE && t.getDateTime().getStartDate() != null
           && DateTimeUtil.isDateTimeWithinRange(t.getDateTime(), dateToCheck)) {
         listOfDateTime.add(t.getDateTime());
       }
