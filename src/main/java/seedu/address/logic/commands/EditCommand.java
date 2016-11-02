@@ -111,6 +111,5 @@ public class EditCommand extends Command {
 		UnmodifiableObservableList<ReadOnlyTask> listAfterEdit = model.getFilteredTaskList();
 		int indexToScrollTo = listAfterEdit.indexOf(postEdit);
 		EventsCenter.getInstance().post(new JumpToListRequestEvent(indexToScrollTo));
-	}
-        
+	}    
 }
