@@ -13,7 +13,6 @@ import seedu.task.testutil.TestTask;
 
 public class CompleteCommandTest extends TaskManagerGuiTest {
     private TestTask[] currentList;
-    private int targetIndex;
 
     @Before
     public void runOnceBeforeClass() {
@@ -22,7 +21,7 @@ public class CompleteCommandTest extends TaskManagerGuiTest {
 
     @Test
     public void complete() {
-        targetIndex = 1;
+        int targetIndex = 1;
 
         // mark the first task as complete
         commandBox.runCommand("complete " + targetIndex);

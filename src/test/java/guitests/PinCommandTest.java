@@ -15,7 +15,6 @@ import seedu.task.testutil.TestTask;
 public class PinCommandTest extends TaskManagerGuiTest {
 
     private TestTask[] currentList;
-    private int targetIndex;
 
     @Before
     public void runOnceBeforeClass() {
@@ -24,7 +23,7 @@ public class PinCommandTest extends TaskManagerGuiTest {
 
     @Test
     public void pinTask() {
-        targetIndex = 1;
+        int targetIndex = 1;
 
         // pin the first task
         commandBox.runCommand("pin " + targetIndex);

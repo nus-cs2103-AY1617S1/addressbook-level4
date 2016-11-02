@@ -14,7 +14,6 @@ import seedu.task.testutil.TestTask;
 public class UnpinCommandTest extends TaskManagerGuiTest {
 
     private TestTask[] currentList;
-    private int targetIndex;
 
     @Before
     public void runOnceBeforeClass() {
@@ -23,7 +22,7 @@ public class UnpinCommandTest extends TaskManagerGuiTest {
 
     @Test
     public void unpin() {
-        targetIndex = 1;
+        int targetIndex = 1;
 
         // unpin the first task
         commandBox.runCommand("pin " + targetIndex);
@@ -44,7 +43,7 @@ public class UnpinCommandTest extends TaskManagerGuiTest {
     @Test
     public void invalidUnpin() {
         // unpin a task which is not pinned
-        targetIndex = 3;
+        int targetIndex = 3;
         commandBox.runCommand("unpin " + targetIndex);
         ReadOnlyTask newTask = taskListPanel.getTask(targetIndex - 1);
 

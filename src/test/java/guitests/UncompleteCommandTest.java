@@ -14,7 +14,6 @@ import seedu.task.testutil.TestTask;
 public class UncompleteCommandTest extends TaskManagerGuiTest {
 
     private TestTask[] currentList;
-    private int targetIndex;
 
     @Before
     public void runOnceBeforeClass() {
@@ -23,7 +22,7 @@ public class UncompleteCommandTest extends TaskManagerGuiTest {
 
     @Test
     public void uncomplete() {
-        targetIndex = 1;
+        int targetIndex = 1;
 
         // mark an originally completed task as not complete
         commandBox.runCommand("complete " + targetIndex);
