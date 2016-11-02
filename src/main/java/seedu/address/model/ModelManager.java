@@ -197,6 +197,7 @@ public class ModelManager extends ComponentManager implements Model {
     public synchronized void deleteTask(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException {
         taskBook.removeTask(target);
         indicateTaskBookChanged();
+        raise(new UpdateListCountEvent(this));
     }
 
     //@@author A0143884W
