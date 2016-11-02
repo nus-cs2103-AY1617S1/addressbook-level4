@@ -407,7 +407,6 @@ public class Parser {
 	 * @@author A0139714B
 	 */
 	private Command prepareEdit(String args) {
-		String newName, newTaskDescription, newDate, newStartTime, newEndTime;
 
 		final Matcher matcher = EDIT_FORMAT.matcher(args.trim());
 		if (!matcher.matches())
@@ -427,21 +426,7 @@ public class Parser {
 				return new IncorrectCommand(
 						String.format(MESSAGE_INVALID_TASK_DISPLAYED_INDEX, EditCommand.MESSAGE_USAGE));
 			}
-
-			/*
-			 * newName = (matcher.group("name") == null) ? null :
-			 * matcher.group("name"); newTaskDescription =
-			 * (matcher.group("taskDescriptions") == null) ? null :
-			 * matcher.group("taskDescriptions"); newDate =
-			 * (matcher.group("date") == null) ? null : matcher.group("date");
-			 * newStartTime = (matcher.group("startTimeArguments") == null) ?
-			 * null : matcher.group("startTimeArguments"); newEndTime =
-			 * (matcher.group("endTimeArguments") == null) ? null :
-			 * matcher.group("endTimeArguments");
-			 * 
-			 * return new EditCommand(index.get(), newName, newTaskDescription,
-			 * newDate, newStartTime, newEndTime);
-			 */
+			
 			return new EditCommand(index.get(), matcher.group("name"), matcher.group("taskDescriptions"),
 					matcher.group("date"), matcher.group("startTimeArguments"), matcher.group("endTimeArguments"));
 
