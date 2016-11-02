@@ -53,6 +53,9 @@ public class UnmarkCommand extends Command {
             
             model.updateTask(taskToMark, toMark);
             model.updateFilteredListToShowAllNotCompleted();
+            model.updateTodayListToShowAll();
+            model.updateWeekListToShowAll();
+            
         } catch (TaskNotFoundException pnfe) {
             assert false : "The target task cannot be found";
         } 

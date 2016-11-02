@@ -53,6 +53,8 @@ public class MarkCommand extends Command {
 
             model.updateTask(taskToMark, toMark);
             model.updateFilteredListToShowAllCompleted();
+            model.updateTodayListToShowAll();
+            model.updateWeekListToShowAll();
             
         } catch (TaskNotFoundException pnfe) {
             return new CommandResult(Messages.MESSAGE_TASK_NOT_FOUND);
