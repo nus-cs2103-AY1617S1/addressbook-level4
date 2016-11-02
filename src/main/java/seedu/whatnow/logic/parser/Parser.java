@@ -468,7 +468,6 @@ public class Parser {
                     String[] splitTag = argComponents[i].trim().split(DELIMITER_FORWARD_SLASH);
                     tags.add(splitTag[ADD_COMMAND_TAG_INDEX]);
                 } else if (getDate(argComponents[i]) != null) {
-                    System.out.println("GET DATE");
                     tempDate = getDate(argComponents[i]);
                     numOfDate++;
                     if (numOfDate == ONE) {
