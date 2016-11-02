@@ -40,11 +40,7 @@ public class TestTask implements ReadOnlyTask {
     public void setTaskType(TaskType taskType) {
         this.taskType = taskType;
     }
-    
-    public void setTaskType(TaskType taskType){
-    	this.taskType = taskType;
-    }
-    
+       
 	public void setStartDate(String startDate) {
 		this.startDate = Optional.of(LocalDateTime.parse(startDate));
 	}
