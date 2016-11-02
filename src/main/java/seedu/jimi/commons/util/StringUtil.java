@@ -14,9 +14,9 @@ public class StringUtil {
     
     // @@ author A0140133B
     /**
-     * Returns true if {@code query} is a near match of {@code source}: <br>
+     * Returns true if {@code query} is a near match of {@code source}, where: <br>
      * <ul>
-     * <li> a substring of {@code source} or {@code source} is a substring of {@code query}.
+     * <li> {@code query} is a substring of {@code source} or {@code source} is a substring of {@code query}.
      * <li> {@code query} is the same as {@code source} but missing a character.
      * <li> {@code query} is the same as {@code source} but differing by a character.
      * <li> {@code query} has identical character frequencies as {@code source}.
@@ -142,7 +142,7 @@ public class StringUtil {
     /** Generates a dictionary of strings that are missing a letter from {@code src}. */
     private static Set<String> generateMissingCharDictionary(String src) {
         return IntStream.range(0, src.length()) 
-                .mapToObj(i -> src.substring(0, i) + src.substring(i + 1, src.length())) // Removing character at idx i.
+                .mapToObj(i -> src.substring(0, i) + src.substring(i + 1)) // Removing character at idx i.
                 .collect(Collectors.toSet());
     }
     // @@ author
