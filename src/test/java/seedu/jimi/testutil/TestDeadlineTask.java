@@ -14,7 +14,7 @@ import seedu.jimi.model.task.ReadOnlyTask;
  * A mutable deadline task object inherited from FloatingTask object. For testing only.
  *
  */
-public class TestDeadlineTask extends FloatingTask implements ReadOnlyTask{
+public class TestDeadlineTask extends TestFloatingTask implements ReadOnlyTask{
 
     private Name name;
     private UniqueTagList tags;
@@ -22,16 +22,8 @@ public class TestDeadlineTask extends FloatingTask implements ReadOnlyTask{
     private Priority priority;
     private DateTime deadline;
     
-    public TestDeadlineTask(Name name, DateTime deadline, UniqueTagList tags, boolean isCompleted, Priority priority) {
-        super(name, tags, isCompleted, priority);
-        assert deadline != null;
-        this.deadline = deadline;
-    }
-    
-    public TestDeadlineTask(Name name, DateTime deadline, UniqueTagList tags, Priority priority) {
-        super(name, tags, priority);
-        assert deadline != null;
-        this.deadline = deadline;
+    public TestDeadlineTask() {
+        tags = new UniqueTagList();
     }
     
     public void setName(Name name) {
@@ -87,7 +79,7 @@ public class TestDeadlineTask extends FloatingTask implements ReadOnlyTask{
     public String getAddCommand() {
         StringBuilder sb = new StringBuilder();
         sb.append("add " + "\"" + this.getName().fullName + "\"" + " ");
-        sb.append("due " + this.deadline);
+        sb.append("due " + this.getDeadline().getDate() + " " + this.getDeadline().getTime() + " ");
         this.getTags().getInternalList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));
         sb.append("p/" + this.getPriority().tagName + " ");
         return sb.toString();
@@ -98,8 +90,11 @@ public class TestDeadlineTask extends FloatingTask implements ReadOnlyTask{
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
                .append(" ")
-               .append(getDeadline())
-               .append(" Tags: ");
+               .append(getDeadline().getDate())
+               .append(" ")
+               .append(getDeadline().getTime())
+               .append(" ")
+               .append("Tags: ");
         getTags().forEach(builder::append);
         builder.append(" Priority: ")
         .append(getPriority());
