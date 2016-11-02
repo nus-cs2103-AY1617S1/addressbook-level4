@@ -44,35 +44,35 @@ public class EditCommand extends Command {
         this.targetIndex = index;
         
         if (newName == null) {
-        	this.newName = "a"; //dummy value
+        	this.newName = ""; //dummy value
         }
         else {
         	this.newName = newName;
         }
         
         if (newTaskDescription == null) {
-        	this.newTaskDescription = "a"; //dummy value
+        	this.newTaskDescription = ""; //dummy value
         }
         else {
         	this.newTaskDescription = newTaskDescription;
         }
         
         if (newDate == null) {
-        	this.newDate = "       "; //dummy value
+        	this.newDate = ""; //dummy value
         }
         else {
         	this.newDate = newDate;
         }
         
         if (newStartTime == null) {
-        	this.newStartTime = "       "; //dummy value
+        	this.newStartTime = ""; //dummy value
         }
         else {
         	this.newStartTime = newStartTime;
         }
         
         if (newEndTime == null) {
-        	this.newEndTime = "       "; //dummy value
+        	this.newEndTime = ""; //dummy value
         }
         else {
         	this.newEndTime = newEndTime;

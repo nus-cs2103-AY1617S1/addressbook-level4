@@ -20,7 +20,7 @@ import seedu.unburden.commons.exceptions.IllegalValueException;
 public class Date implements Comparable<Date> {
 
 	public static final String MESSAGE_DATE_CONSTRAINTS = "Task date is incorrect. Ensure that it is a valid date in the format DD-MM-YYYY";
-	public static final String DATE_VALIDATION_REGEX = "([0][1-9]|[1-2][0-9]|[3][0-1])[-]([0][1-9]|[1][0-2])[-]([2][0][1][6-9]|[2][1-9][0-9][0-9])$";
+	public static final String DATE_VALIDATION_REGEX = "([0][1-9]|[1-2][0-9]|[3][0-1])[-]([0][1-9]|[1][0-2])[-]([2][0][1][6-9]|[2][0-9][2-9][0-9])$";
 
 	
 	private static final int[] numDays = {0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31}; //numDays[0] is a dummy value
@@ -37,8 +37,8 @@ public class Date implements Comparable<Date> {
 	 */
 	public Date(String date) throws IllegalValueException {
 		assert date != null;
-		if (!date.equals("       ")) {
-			date = date.trim();
+		date = date.trim();
+		if (!date.equals("")) {
 			if (!checkRegex(date)) {
 				throw new IllegalValueException(MESSAGE_DATE_CONSTRAINTS);
 			}
@@ -51,8 +51,8 @@ public class Date implements Comparable<Date> {
 			}
 		}
 		
-		if (date.equals("       ")) {
-			this.fullDate = "       ";
+		if (date.equals("")) {
+			this.fullDate = "";
 			this.day = 32;
 			this.month = 13;
 			this.year = 2015;
