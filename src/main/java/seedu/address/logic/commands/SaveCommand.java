@@ -23,7 +23,7 @@ public class SaveCommand extends Command {
         assert config != null;
   
         
-       
+        config.setAddressBookFilePath(this.taskManagerFilePath);
         
         try {
         	 ConfigUtil.saveConfig(config, config.DEFAULT_CONFIG_FILE);
@@ -31,7 +31,7 @@ public class SaveCommand extends Command {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-        config.setAddressBookFilePath(this.taskManagerFilePath);
+       
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }
