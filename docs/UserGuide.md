@@ -110,6 +110,14 @@ Clears all data in the given task type list.<br>
 > Example(Event): `clear event` <br>
 > Example(Deadline): `clear deadline`
 
+#### Clearing all done tasks : `clear_done`
+Clears all done tasks in the given task type list.<br>
+> Format: `clear_done TASK_TYPE` <br>
+> Example(all): `clear_done all` <br>
+> Example(Todo): `clear_done todo` <br>
+> Example(Event): `clear_done event` <br>
+> Example(Deadline): `clear_done deadline`
+
 #### Undo the previous command: `undo`
 Undo the latest command. If there is no previous command, nothing will happen.<br>
 > Format: `undo`
@@ -151,6 +159,7 @@ List		| `list TASK_TYPE`
 Find		| `find TASK_TYPE KEYWORD(S)`
 Help		| `help`
 Clear		| `clear TASK_TYPE`
+Clear Done	| `clear_done TASK_TYPE`
 Undo		| `undo`
 Storage		| `storage DIRECTORY`
 Exit		| `exit`

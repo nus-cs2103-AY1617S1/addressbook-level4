@@ -7,12 +7,12 @@ public class ClearDoneCommand extends Command {
 
     public static final String COMMAND_WORD = "clear_done";
     public static final String INVALID_TYPE = "Invalid data type";
-    public static final String ALL_MESSAGE_SUCCESS = "All lists have been cleared!";
-    public static final String TODO_MESSAGE_SUCCESS = "TodoList has been cleared!";
-    public static final String EVENT_MESSAGE_SUCCESS = "EventList has been cleared!";
-    public static final String DEADLINE_MESSAGE_SUCCESS = "DeadlineList has been cleared!";
+    public static final String ALL_MESSAGE_SUCCESS = "All done tasks have been cleared!";
+    public static final String TODO_MESSAGE_SUCCESS = "All done todos has been cleared!";
+    public static final String EVENT_MESSAGE_SUCCESS = "All done events has been cleared!";
+    public static final String DEADLINE_MESSAGE_SUCCESS = "All done deadline has been cleared!";
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Clear a task list with given data type.\n"
+            + ": Clear all done tasks with given data type.\n"
             + "Parameters: TASK_TYPE\n"
             + "Example: " + COMMAND_WORD + " all\n"
             + "Example: " + COMMAND_WORD + " todo\n"
@@ -31,18 +31,16 @@ public class ClearDoneCommand extends Command {
         assert model != null;
         switch(dataType) {
 	        case "all":
-	    		model.resetTodoListData();
-	    		model.resetEventListData();
-	    		model.resetDeadlineListData();
+	    		model.removeDoneData();
 	            return new CommandResult(ALL_MESSAGE_SUCCESS);
         	case "todo":
-        		model.resetTodoListData();
+        		model.removeDoneTodoData();
                 return new CommandResult(TODO_MESSAGE_SUCCESS);
         	case "event":
-        		model.resetEventListData();
+        		model.removeDoneEventData();
                 return new CommandResult(EVENT_MESSAGE_SUCCESS);
         	case "deadline":
-        		model.resetDeadlineListData();
+        		model.removeDoneDeadlineData();
                 return new CommandResult(DEADLINE_MESSAGE_SUCCESS);
         }
         return new CommandResult(INVALID_TYPE);

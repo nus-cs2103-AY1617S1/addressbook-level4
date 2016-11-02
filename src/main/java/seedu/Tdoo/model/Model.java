@@ -21,12 +21,25 @@ public interface Model {
     void resetDeadlineListData(ReadOnlyTaskList newData);
     
     /** Clears existing backing model. */
+    void resetAllData();
+    /** Clears existing backing model. */
     void resetTodoListData();
     /** Clears existing backing model. */
     void resetEventListData();
     /** Clears existing backing model. */
     void resetDeadlineListData();
     
+    /** Clears all done tasks in the list. */
+    public void removeDoneData();
+    /** Clears done todos in the list. */
+    public void removeDoneTodoData();
+    /** Clears done events in the list. */
+    public void removeDoneEventData();
+    /** Clears done deadlines in the list. */
+    public void removeDoneDeadlineData();
+    
+    /** Restores all backup Data. */
+    void restoreAllData();
     /** Restores backup toodListData. */
     void restoreTodoListData();
     /** Restores backup eventListData. */

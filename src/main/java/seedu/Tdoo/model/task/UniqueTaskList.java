@@ -96,10 +96,22 @@ public class UniqueTaskList implements Iterable<Task> {
     
     //@@author A0144061U
     /**
-     * Removes all task from the list.
+     * Removes all tasks from the list.
      */
     public void removeAll() {
        internalList.remove(0, internalList.size());
+    }
+    
+  //@@author A0144061U
+    /**
+     * Removes all done tasks from the list.
+     */
+    public void removeDone() {
+    	for(int i = 0; i < internalList.size(); i++) {
+    		if(internalList.get(i).getDone().equals("true")) {
+    			internalList.remove(i);
+    		}
+    	}
     }
     
     /**
