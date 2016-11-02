@@ -53,8 +53,13 @@ public class Name {
         return fullName.hashCode();
     }
 
+    /**
+     * Compares the two Names lexicographically.
+     * @@author A0147944U
+     */
     public int compareTo(Name anotherName) {
         return this.toString().compareTo(anotherName.toString());
     }
+    //@@author
 
 }

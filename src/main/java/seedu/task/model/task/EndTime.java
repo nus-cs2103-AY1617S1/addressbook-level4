@@ -59,8 +59,13 @@ public class EndTime {
         return value.hashCode();
     }
 
+    /**
+     * Compares the two EndTimes lexicographically.
+     * @@author A0147944U
+     */
     public int compareTo(EndTime anotherEndTime) {
         return this.toString().compareTo(anotherEndTime.toString());
     }
+    //@@author
 
 }
