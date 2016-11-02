@@ -33,7 +33,7 @@ public class HelpPopup extends UiPart {
         popup.centerOnScreen();
     }
 
-    //@@author A0139194X
+    //@@author
     @Override
     public void setNode(Node node) {
     }
