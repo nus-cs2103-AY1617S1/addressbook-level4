@@ -404,9 +404,7 @@ public class CommandParser {
                 if(time.getRawDateTimeStatus() == DateTimeStatus.START_DATE_START_TIME){
                 	start.append(time.getFirstDate().toString());
                     start.append(" ");
-                    start.append(time.getFirstTime().getHour());
-                    start.append(":");
-                    start.append(time.getFirstTime().getMinute());
+                    start.append(time.getFirstTime().toString().substring(0, 5));
                 }
                 if(start.length() == 0){
                     return new IncorrectCommand("Incorrect time format");
