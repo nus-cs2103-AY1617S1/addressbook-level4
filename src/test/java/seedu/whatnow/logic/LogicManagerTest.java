@@ -279,8 +279,8 @@ public class LogicManagerTest {
         TestDataHelper helper = new TestDataHelper();
         Task toBeAdded = helper.todo("Buy milk", "23/2/2017", "lowPriority", "inProgress");
         WhatNow expectedAB = new WhatNow();
-        expectedAB.addTask(helper.grapes());
         expectedAB.addTask(toBeAdded);
+        expectedAB.addTask(helper.grapes());    
         List<Task> taskList = helper.generateTaskList(toBeAdded, helper.grapes());
         helper.addToModel(model, taskList);
 
@@ -664,7 +664,7 @@ public class LogicManagerTest {
         String generateUpdateCommand(String type, String value) {
             StringBuffer cmd = new StringBuffer();
 
-            cmd.append("update schedule 2 ");
+            cmd.append("update schedule 1 ");
 
             if (type.equals("description")) {
                 cmd.append(type + " ");
