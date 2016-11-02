@@ -59,8 +59,9 @@ public class EndTime {
     public static boolean isValidEndTime(String endtime) {
         String[] etimeArr = endtime.split(":");
         boolean checkTime = true;
-        
-        if(Integer.parseInt(etimeArr[0]) > 23 || Integer.parseInt(etimeArr[1]) > 59){
+
+        //Check if time has hour and min, hour not more than 24hrs and min not more than 59mins
+        if(etimeArr.length < 2 || Integer.parseInt(etimeArr[0]) > 23 || Integer.parseInt(etimeArr[1]) > 59){
             checkTime = false;
         }
         
