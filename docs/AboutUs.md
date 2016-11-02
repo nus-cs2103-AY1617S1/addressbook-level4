@@ -35,13 +35,17 @@ We are a team of four 2nd Year Computer Engineering students based in the [Schoo
 
 #### [Teh Chee Yeo](https://github.com/cheo1994) <br>
 <img src="images/Chee Yeo.png" width="150"><br>
-**Components in charge of:** Logic <br> 
-Features implemented:
-[Undo](https://github.com/CS2103AUG2016-T11-C2/main/blob/master/docs/UserGuide.md#undo-a-task-undo)
-[Redo](https://github.com/CS2103AUG2016-T11-C2/main/blob/master/docs/UserGuide.md#redo-a-task-redo)
-[Add recurring tasks](https://github.com/CS2103AUG2016-T11-C2/main/blob/master/docs/UserGuide.md#adding-a-recurring-task)
-[Edit a task](https://github.com/CS2103AUG2016-T11-C2/main/blob/master/docs/UserGuide.md#editing-a-task-edit)
 
+* Components in charge of: Testing, Logic <br> 
+* Features implemented:
+  * [Edit command](https://github.com/CS2103AUG2016-T11-C2/main/blob/master/docs/UserGuide.md#editing-a-task-edit)
+  * [Undo](https://github.com/CS2103AUG2016-T11-C2/main/blob/master/docs/UserGuide.md#undo-a-task-undo)
+  * [Redo](https://github.com/CS2103AUG2016-T11-C2/main/blob/master/docs/UserGuide.md#redo-a-task-redo)
+  * [Recurring tasks](https://github.com/CS2103AUG2016-T11-C2/main/blob/master/docs/UserGuide.md#adding-a-recurring-task)
+* Code written: [[functional code](A0139671X.md)][[test code](A0139671X.md)][[docs](A0139671X.md)]
+* Other major contributions:
+  * Implemented checking of overdue tasks
+  * Did the initial refactoring from AddressBook to ForgetMeNot
 
 
 -----
