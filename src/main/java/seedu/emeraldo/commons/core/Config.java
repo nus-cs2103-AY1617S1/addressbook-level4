@@ -14,7 +14,7 @@ public class Config {
     private String appTitle = "Emeraldo";
     private Level logLevel = Level.INFO;
     private String userPrefsFilePath = "preferences.json";
-    private String emeraldoFilePath = "data/emeraldo.xml";
+    private String emeraldoFilePath = "./data/emeraldo.xml";
     private String emeraldoName = "MyTaskManager";
 
 
