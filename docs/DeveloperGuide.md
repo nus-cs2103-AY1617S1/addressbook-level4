@@ -73,8 +73,8 @@ Two of those classes play important roles at the architecture level.
 * `LogsCenter` : Used by many classes to write log messages to the App's log file.
 
 The rest of the App consists four components.
-* [**`UI`**](#ui-component) : The UI of tha App.
-* [**`Logic`**](#logic-component) : The command executor.
+* [**`UI`**](#ui-component) : Displays the UI of the App.
+* [**`Logic`**](#logic-component) : Executes the command.
 * [**`Model`**](#model-component) : Holds the data of the App in-memory.
 * [**`Storage`**](#storage-component) : Reads data from, and writes data to, the hard disk.
 
