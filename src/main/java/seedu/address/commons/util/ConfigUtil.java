@@ -37,6 +37,7 @@ public class ConfigUtil {
 
         try {
             config = FileUtil.deserializeObjectFromJsonFile(configFile, Config.class);
+            config.setConfigFilePath(configFilePath);
         } catch (IOException e) {
             logger.warning("Error reading from config file " + configFile + ": " + e);
             throw new DataConversionException(e);

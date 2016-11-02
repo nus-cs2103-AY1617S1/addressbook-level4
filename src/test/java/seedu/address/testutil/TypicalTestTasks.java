@@ -12,17 +12,22 @@ import seedu.address.model.task.*;
 //@@author A0142184L
 public class TypicalTestTasks {
 
-    public static TestTask someday1, someday2, deadline1, deadline2, deadlineToday, deadlineTomorrow, deadlineIn7Days, deadlineIn30Days, 
-                           event1, event2, eventToday, eventTomorrow, eventIn7Days, eventIn30Days, deadlineTodayAdd, deadlineTomorrowAdd,
-                           deadlineIn7DaysAdd, deadlineIn30DaysAdd, eventTodayAdd, eventTomorrowAdd, eventIn7DaysAdd, eventIn30DaysAdd, somedayAdd, sdAdd;
+    public static TestTask someday1, someday2, someday3,
+    					   deadline1, deadline2, deadlineToday, deadlineTomorrow, deadlineIn7Days, deadlineIn30Days, 
+                           event1, event2, eventToday, eventTomorrow, eventIn7Days, eventIn30Days, 
+                           somedayAdd,
+                           deadlineTodayAdd, deadlineTomorrowAdd, deadlineIn7DaysAdd, deadlineIn30DaysAdd, 
+                           eventTodayAdd, eventTomorrowAdd, eventIn7DaysAdd, eventIn30DaysAdd, eventStartDateTimeAfterEndDateTime, eventStartDateTimeEqualsEndDateTime ;
 
     public TypicalTestTasks() {
         try {
-            someday1 =  new TaskBuilder().withName("hw 1").withStatus("done").withTaskType("someday").build();
-            someday2 =  new TaskBuilder().withName("lab 1").withStatus("pending").withTaskType("someday").build();
-            deadline1 =  new TaskBuilder().withName("hw 2").withStatus("done").withTaskType("deadline").withEndDate(LocalDateTime.of(2012, 1, 2, 3, 4)).build();
-            deadline2 =  new TaskBuilder().withName("hw 3").withStatus("overdue").withTaskType("deadline").withEndDate(LocalDateTime.of(2014, 1, 2, 3, 4)).build();
-            deadlineToday =  new TaskBuilder().withName("lab 2").withStatus("done").withTaskType("deadline").withEndDate(LocalDateTime.now()).build();
+            //currentList
+            someday1 = new TaskBuilder().withName("hw 1").withStatus("done").withTaskType("someday").build();
+            someday2 = new TaskBuilder().withName("lab 1").withStatus("pending").withTaskType("someday").build();
+            someday3 = new TaskBuilder().withName("hw 0").withStatus("done").withTaskType("someday").build();
+            deadline1 = new TaskBuilder().withName("hw 2").withStatus("done").withTaskType("deadline").withEndDate(LocalDateTime.of(2012, 1, 2, 3, 4)).build();
+            deadline2 = new TaskBuilder().withName("hw 3").withStatus("overdue").withTaskType("deadline").withEndDate(LocalDateTime.of(2014, 1, 2, 3, 4)).build();
+            deadlineToday = new TaskBuilder().withName("lab 2").withStatus("done").withTaskType("deadline").withEndDate(LocalDateTime.now()).build();
             deadlineTomorrow = new TaskBuilder().withName("lab 3").withStatus("pending").withTaskType("deadline").withEndDate(LocalDateTime.now().plusDays(1)).build();
             deadlineIn7Days = new TaskBuilder().withName("lab 4").withStatus("pending").withTaskType("deadline").withEndDate(LocalDateTime.now().plusDays(5)).build();
             deadlineIn30Days = new TaskBuilder().withName("lab 5").withStatus("pending").withTaskType("deadline").withEndDate(LocalDateTime.now().plusDays(17)).build();
@@ -33,18 +38,19 @@ public class TypicalTestTasks {
             eventTomorrow =  new TaskBuilder().withName("lab 7").withStatus("pending").withTaskType("event").withEndDate(LocalDateTime.now().plusDays(2)).withStartDate(LocalDateTime.now().plusDays(1)).build();
             eventIn30Days =  new TaskBuilder().withName("hw 7").withStatus("pending").withTaskType("event").withEndDate(LocalDateTime.now().plusDays(22)).withStartDate(LocalDateTime.now().plusDays(20)).build();
 
-            //Manually added
-            deadlineTodayAdd =  new TaskBuilder().withName("report 1").withStatus("pending").withTaskType("deadline").withEndDate(LocalDateTime.now()).build();
+            //Sample tasks
+            somedayAdd = new TaskBuilder().withName("report 5").withStatus("pending").withTaskType("someday").build();
+            deadlineTodayAdd = new TaskBuilder().withName("report 1").withStatus("pending").withTaskType("deadline").withEndDate(LocalDateTime.now()).build();
             deadlineTomorrowAdd = new TaskBuilder().withName("report 2").withStatus("pending").withTaskType("deadline").withEndDate(LocalDateTime.now().plusDays(1)).build();
-            eventTodayAdd =  new TaskBuilder().withName("report 7").withStatus("pending").withTaskType("event").withEndDate(LocalDateTime.now().plusDays(2)).withStartDate(LocalDateTime.now()).build();
-            eventTomorrowAdd =  new TaskBuilder().withName("report 8").withStatus("pending").withTaskType("event").withEndDate(LocalDateTime.now().plusDays(2)).withStartDate(LocalDateTime.now().plusDays(1)).build();
-            eventIn7DaysAdd =  new TaskBuilder().withName("report 3").withStatus("pending").withTaskType("event").withEndDate(LocalDateTime.now().plusDays(6)).withStartDate(LocalDateTime.now().plusDays(5)).build();
-            eventIn30DaysAdd =  new TaskBuilder().withName("report 3").withStatus("pending").withTaskType("event").withEndDate(LocalDateTime.now().plusDays(14)).withStartDate(LocalDateTime.now().plusDays(13)).build();
-            somedayAdd =  new TaskBuilder().withName("report 5").withStatus("pending").withTaskType("someday").build();
-            sdAdd =  new TaskBuilder().withName("report 6").withStatus("pending").withTaskType("someday").build();
             deadlineIn7DaysAdd = new TaskBuilder().withName("report 9").withStatus("pending").withTaskType("deadline").withEndDate(LocalDateTime.now().plusDays(3)).build();
             deadlineIn30DaysAdd = new TaskBuilder().withName("report 10").withStatus("pending").withTaskType("deadline").withEndDate(LocalDateTime.now().plusDays(24)).build();
-
+            eventTodayAdd = new TaskBuilder().withName("report 7").withStatus("pending").withTaskType("event").withEndDate(LocalDateTime.now().plusDays(2)).withStartDate(LocalDateTime.now()).build();
+            eventTomorrowAdd = new TaskBuilder().withName("report 8").withStatus("pending").withTaskType("event").withEndDate(LocalDateTime.now().plusDays(2)).withStartDate(LocalDateTime.now().plusDays(1)).build();
+            eventIn7DaysAdd = new TaskBuilder().withName("report 3").withStatus("pending").withTaskType("event").withEndDate(LocalDateTime.now().plusDays(6)).withStartDate(LocalDateTime.now().plusDays(5)).build();
+            eventIn30DaysAdd = new TaskBuilder().withName("report 4").withStatus("pending").withTaskType("event").withEndDate(LocalDateTime.now().plusDays(14)).withStartDate(LocalDateTime.now().plusDays(13)).build();
+            eventStartDateTimeAfterEndDateTime = new TaskBuilder().withName("exam 1").withStatus("not done").withTaskType("event").withEndDate(LocalDateTime.now().plusDays(1)).withStartDate(LocalDateTime.now().plusDays(8)).build();
+            eventStartDateTimeEqualsEndDateTime = new TaskBuilder().withName("exam 2").withStatus("not done").withTaskType("event").withEndDate(LocalDateTime.now().plusDays(1)).withStartDate(LocalDateTime.now().plusDays(1)).build();          
+        
         } catch (IllegalValueException e) {
             e.printStackTrace();
             assert false : "not possible";
@@ -55,34 +61,40 @@ public class TypicalTestTasks {
 
         try {
             ab.addTask(new Task(someday1));
+            ab.addTask(new Task(someday2));
+            ab.addTask(new Task(someday3));
+            ab.addTask(new Task(deadline1));
+            ab.addTask(new Task(deadline2));
             ab.addTask(new Task(deadlineToday));
             ab.addTask(new Task(deadlineTomorrow));
             ab.addTask(new Task(deadlineIn7Days));
             ab.addTask(new Task(deadlineIn30Days));
-            ab.addTask(new Task(someday2));
-            ab.addTask(new Task(deadline1));
-            ab.addTask(new Task(deadline2));
+            ab.addTask(new Task(event1));            
+            ab.addTask(new Task(event2));
             ab.addTask(new Task(eventToday));
             ab.addTask(new Task(eventTomorrow));
             ab.addTask(new Task(eventIn7Days));
             ab.addTask(new Task(eventIn30Days));
-            ab.addTask(new Task(event1));            
-            ab.addTask(new Task(event2));
         } catch (UniqueTaskList.DuplicateTaskException e) {
             assert false : "not possible";
         }
     }
 
-    public TestTask[] getTypicalTasks() {
-        return new TestTask[]{someday1, deadlineToday, deadlineTomorrow, deadlineIn7Days, deadlineIn30Days, someday2, deadline1, deadline2, eventToday, eventTomorrow, eventIn7Days, eventIn30Days, event1, event2};
-    }
-    
     //@@author A0141019U
-    public TestTask[] getSortedTypicalTasks() {
-    	return new TestTask[]{deadline2, event2, eventToday, deadlineTomorrow, eventTomorrow, deadlineIn7Days, eventIn7Days, deadlineIn30Days, eventIn30Days, someday2, deadline1, event1, deadlineToday, someday1};
+    public TestTask[] getTypicalTasks() {
+    	return new TestTask[]{deadline2, event2, eventToday, deadlineTomorrow, 
+    			eventTomorrow, deadlineIn7Days, eventIn7Days, deadlineIn30Days, 
+    			eventIn30Days, someday2, deadline1, event1, 
+    			deadlineToday, someday3, someday1};
     }
     
     //@@author
+    
+    public TestTask[] getUnsortedTypicalTasks() {
+    	return new TestTask[]{someday1, someday2, someday3,
+				   deadline1, deadline2, deadlineToday, deadlineTomorrow, deadlineIn7Days, deadlineIn30Days, 
+                   event1, event2, eventToday, eventTomorrow, eventIn7Days, eventIn30Days};
+    }
     public TestTask[] getTodayTasks() {
         return new TestTask[] {eventToday, deadlineToday};
     }
@@ -92,7 +104,7 @@ public class TypicalTestTasks {
     }
     
     public TestTask[] getIn7DaysTasks() {
-        return new TestTask[] {eventIn7Days, deadlineIn7Days};
+        return new TestTask[] {deadlineIn7Days, eventIn7Days};
     }
     
     public TestTask[] getIn30DaysTasks() {
@@ -100,7 +112,7 @@ public class TypicalTestTasks {
     }
     
     public TestTask[] getSomedayTasks() {
-        return new TestTask[] {someday2, someday1};
+        return new TestTask[] {someday2, someday3, someday1};
     }
     
     public TestTask[] getDeadlineTasks() {
@@ -112,7 +124,7 @@ public class TypicalTestTasks {
     }
     
     public TestTask[] getDoneTasks() {
-        return new TestTask[] {deadline1, event1, deadlineToday, someday1};
+        return new TestTask[] {deadline1, event1, deadlineToday, someday3, someday1};
     }
     
     public TestTask[] getNotDoneTasks() {
