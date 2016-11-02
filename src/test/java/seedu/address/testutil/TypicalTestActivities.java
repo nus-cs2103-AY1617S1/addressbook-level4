@@ -54,8 +54,8 @@ public class TypicalTestActivities {
         
     }
 
-    public TestActivity[] getTypicalPersons() {
-        return new TestActivity[]{findAlice, findBenson, findCarl, findDaniel, findElle, findFiona, findGeorge};
+    public TestActivity[] getTypicalActivities() {
+        return new TestActivity[]{ findAlice, findBenson, findCarl, findDaniel, findElle, findFiona, findGeorge };
     }
 
     public AddressBook getTypicalAddressBook(){
