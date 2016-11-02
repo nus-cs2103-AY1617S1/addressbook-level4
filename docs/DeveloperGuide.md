@@ -293,7 +293,7 @@ Priority | As a ... | I want to ...           | So that I can...
 `* * *`  | user     | undo the last command   | undo an unintentional operation
 `* * *`  | user     | specify the data storage location | use cloud syncing services and access my todo list on different devices
 `* *`  | user     | view all undone tasks/deadlines/events | view items I need to work on
-`*`  | user     | set a deadline for task | know when to finish the task by
+`* *`  | user     | set a deadline for task | know when to finish the task by
 `*`    | user     | sort uncompleted deadlines by deadline | know which deadline I should finish first
 [comment]: # (@@author )
 

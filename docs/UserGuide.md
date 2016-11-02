@@ -112,13 +112,13 @@
 * Editing tags: `#` prefix to add a tag, `#-` to delete an existing tag. (Note: You cannot add a duplicate tag or delete a non-existent tag.)
 
 #### Edit a task’s name
-For tasks, you can only edit the name and its tags.
+For tasks, you can only edit the name, its tags and the end date and time. Note: editing the end date and time automatically converts the task into a deadline.
 
 ##### If you know a keyword in the task's name
 
 1. Type `f[ind] KEYWORD`. Press `Enter`.
 
-2. Type `e[dit] INDEX n/NEW_NAME [#TAG_TO_ADD] [#-TAG_TO_DELETE]`. Press `Enter`.
+2. Type `e[dit] INDEX [n/NEW_NAME] [edt/NEW_END_DATE_TIME] [ed/NEW_END_DATE et/NEW_END_TIME] [#TAG_TO_ADD] [#-TAG_TO_DELETE]`. Press `Enter`.
 
 3. App will display edited item's details in the results panel (below the command box).
 
@@ -130,14 +130,14 @@ For tasks, you can only edit the name and its tags.
 
 ##### If you know the index of the task in the displayed list
 
-1. Type `e[dit] INDEX n/NEW_NAME [#TAG_TO_ADD] [#-TAG_TO_DELETE]`. Press `Enter`.
+1. Type `e[dit] INDEX [n/NEW_NAME] [edt/NEW_END_DATE_TIME] [ed/NEW_END_DATE et/NEW_END_TIME] [#TAG_TO_ADD] [#-TAG_TO_DELETE]`. Press `Enter`.
 
 2. App will display edited item's details in the results panel.
 
 	> Example Command: `edit 1 n/CS2103 #work #-play`
 
 #### Edit a deadline's name, end date and end time
-For deadlines, you can only edit the name, end date and time.
+For deadlines, you can only edit the name, end date and time and its tags.
 
 ##### If you know the keyword of the deadline
 
@@ -161,7 +161,7 @@ For deadlines, you can only edit the name, end date and time.
 
 #### Edit an event’s name, start date, start time, end date and end time
 
-For events, you can edit the name and both start and end dates and times.
+For events, you can edit all optional parameters.
 (Note: editing the end datetime to be before the start datetime is an illegal operation and is not allowed)
 
 ##### If you know the keyword of the event
@@ -319,7 +319,7 @@ For events, you can edit the name and both start and end dates and times.
 2. What if I would like to edit a huge number of tasks, deadlines, events at once?
  > IvoryTasks uses a human editable xml file to store its data. You may edit it directly or write a script to do so.
 
- 
+
 # Command Summary
 
 Command | Format  | Example
@@ -330,7 +330,7 @@ Add Event | `a[dd] e[vent] [n/]NAME sd/START_DATE st/START_TIME  ed/END_DATE et/
 Clear | `cl[ear]` | `clear`
 Delete | `del[ete] INDEX ...` | `delete 1`
 Done | `d[one] INDEX` | `done 1`
-Edit Task | `e[dit] INDEX n/NEW_NAME [#TAG_TO_ADD] [#-TAG_TO_DELETE]` | `edit 6 n/CS2103`
+Edit Task | `e[dit] INDEX [n/NEW_NAME] [edt/NEW_END_DATE_TIME] [ed/NEW_END_DATE et/NEW_END_TIME] [#TAG_TO_ADD] [#-TAG_TO_DELETE]` | `edit 6 n/CS2103`
 Edit Deadline | `e[dit] INDEX [n/NEW_NAME] [edt/NEW_END_DATE_TIME] [ed/NEW_END_DATE] [et/NEW_END_TIME] [#TAG_TO_ADD] [#-TAG_TO_DELETE]` | `edit 6 edt/tomorrow 6pm`
 Edit Event | `e[dit] INDEX [n/NEW_NAME] [sdt/NEW_START_DATE_TIME] [sd/NEW_START_DATE] [st/NEW_START_TIME] [edt/NEW_END_DATE_TIME] [ed/NEW_END_DATE] [et/NEW_END_TIME] [#TAG_TO_ADD] [#-TAG_TO_DELETE]` | `edit 6 sdt/yesterday`
 Find | `f[ind] KEYWORD [MORE_KEYWORDS]` | `find random module`
