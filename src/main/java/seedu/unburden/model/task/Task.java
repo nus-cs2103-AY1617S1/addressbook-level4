@@ -28,11 +28,15 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
 
     /**
      * Every field must be present and not null.
+     * @throws IllegalValueException 
      */
     
     
-    public Task(Name name, TaskDescription taskD, Date date, Time startTime, Time endTime, Boolean done,UniqueTagList tags) {
+    public Task(Name name, TaskDescription taskD, Date date, Time startTime, Time endTime, Boolean done,UniqueTagList tags) throws IllegalValueException {
         assert !CollectionUtil.isAnyNull(name, taskD, date, startTime, endTime, tags);
+        if(startTime.compareTo(endTime) < 0){
+        	throw new IllegalValueException(Messages.MESSAGE_STARTTIME_AFTER_ENDTIME);
+        }
         this.name = name;
         this.taskD = taskD;
         this.date = date;
@@ -42,7 +46,7 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
         this.tags = tags; // protect internal tags from changes in the arg list
     }
    
-    public Task(ReadOnlyTask source) {
+    public Task(ReadOnlyTask source) throws IllegalValueException {
         this(source.getName(), source.getTaskDescription(), source.getDate(), source.getStartTime(), source.getEndTime(), source.getDone(),source.getTags());
     }
     //@@Nathanael Chan A0139678J
