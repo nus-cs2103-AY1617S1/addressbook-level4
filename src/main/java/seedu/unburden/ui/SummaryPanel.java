@@ -36,8 +36,9 @@ import seedu.unburden.model.ModelManager;
  */
 public class SummaryPanel extends UiPart{
 
-    private static final String FXML = "summaryPanel.fxml";
+    private static final String FXML = "SummaryPanel.fxml";
 
+    @FXML
     private AnchorPane summary;
     @FXML
     private GridPane mainContainer;
@@ -68,6 +69,7 @@ public class SummaryPanel extends UiPart{
     		ObservableList<ReadOnlyTask> taskList) {
         SummaryPanel summaryPanel = UiPartLoader.loadUiPart(primaryStage, summaryPanelPlaceholder, new SummaryPanel());
         summaryPanel.configure(taskList);
+        
         return summaryPanel;
     }
 
