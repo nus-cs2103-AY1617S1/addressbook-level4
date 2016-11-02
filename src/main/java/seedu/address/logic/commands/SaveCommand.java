@@ -21,17 +21,13 @@ public class SaveCommand extends Command {
 	@Override
 	public CommandResult execute() {
         assert config != null;
-  
-        
-        config.setAddressBookFilePath(this.taskManagerFilePath);
-        
+          
         try {
-        	 ConfigUtil.saveConfig(config, config.DEFAULT_CONFIG_FILE);
+			storage.saveAddressBook(model.getAddressBook(), this.taskManagerFilePath);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-      
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }

@@ -125,6 +125,9 @@ public class Parser {
         	
         case SaveCommand.COMMAND_WORD:
             return prepareSave(arguments);
+        
+        case LoadCommand.COMMAND_WORD:
+            return prepareLoad(arguments);
 
         default:
             return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
@@ -360,5 +363,12 @@ public class Parser {
         
             return new SaveCommand(args.trim());
     }
+    
+    private Command prepareLoad(String args) throws ParseException{
+        
+        
+        return new LoadCommand(args.trim());
+}
+
 
 }

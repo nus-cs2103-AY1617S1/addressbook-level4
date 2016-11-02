@@ -23,18 +23,20 @@ public class LogicManager extends ComponentManager implements Logic {
     private final Model model;
     private final Parser parser;
     private final Config config;
+    private final Storage storage;
 
     public LogicManager(Model model, Storage storage, Config config) {
         this.model = model;
         this.parser = new Parser();
         this.config = config;
+        this.storage = storage;
     }
 
     @Override
     public CommandResult execute(String commandText) throws ParseException {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
         Command command = parser.parseCommand(commandText);
-        command.setData(model, config);
+        command.setData(model, config, storage);
         return command.execute();
     }
 
