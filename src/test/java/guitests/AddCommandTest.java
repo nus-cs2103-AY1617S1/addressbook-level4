@@ -17,7 +17,7 @@ public class AddCommandTest extends AddressBookGuiTest {
     	//section 1: test for adding basic activities, tasks and events.
     	
     	//add an activity
-        TestActivity[] currentList = td.getTypicalPersons();
+        TestActivity[] currentList = td.getTypicalActivities();
         TestActivity activityToAdd = td.findHoon;
 
          assertAddSuccess(activityToAdd, currentList);

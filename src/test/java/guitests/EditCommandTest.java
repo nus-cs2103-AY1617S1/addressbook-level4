@@ -13,7 +13,7 @@ public class EditCommandTest extends AddressBookGuiTest {
 
     @Test
     public void edit_activityParameters(){
-        TestActivity[] currentList = td.getTypicalPersons();
+        TestActivity[] currentList = td.getTypicalActivities();
         int index = 1;
         assertEditNameResult(index,currentList);
         assertEditReminderResult(index,currentList);
@@ -23,7 +23,7 @@ public class EditCommandTest extends AddressBookGuiTest {
     
     @Test
     public void edit_taskParameters(){
-        TestActivity[] currentList = td.getTypicalPersons();
+        TestActivity[] currentList = td.getTypicalActivities();
         int index = 3;
         assertEditNameResult(index,currentList);
         assertEditReminderResult(index,currentList);

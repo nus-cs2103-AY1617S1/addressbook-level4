@@ -63,4 +63,16 @@ public class TypicalTestActivities {
         loadAddressBookWithSampleData(ab);
         return ab;
     }
+    public TestActivity[] getActivitiesOnly() {
+        return new TestActivity[]{ findAlice };
+    }
+    
+    public TestActivity[] getTasksOnly() {
+        return new TestActivity[]{ findBenson, findCarl, findDaniel };
+    }
+    
+    public TestActivity[] getEventsOnly() {
+        return new TestActivity[]{ findElle, findFiona, findGeorge };
+    }
+    
 }

@@ -10,7 +10,7 @@ public class UndoCommandTest extends AddressBookGuiTest {
 
     @Test
     public void undo_addCommand() {
-        TestActivity[] currentList = td.getTypicalPersons();
+        TestActivity[] currentList = td.getTypicalActivities();
         TestActivity activityToAdd = td.findHoon;
         assertUndoAddResult(activityToAdd,currentList);
         
@@ -18,21 +18,21 @@ public class UndoCommandTest extends AddressBookGuiTest {
     
     @Test
     public void undo_deleteCommand() {
-        TestActivity[] currentList = td.getTypicalPersons();
+        TestActivity[] currentList = td.getTypicalActivities();
         int index = 2;
         assertUndoDeleteResult(index,currentList);
     }
     
     @Test
     public void undo_doneCommand() {
-        TestActivity[] currentList = td.getTypicalPersons();
+        TestActivity[] currentList = td.getTypicalActivities();
         int index = 4;
         assertUndoDoneResult(index,currentList);
     }
 
     @Test
     public void undo_editCommand() {
-        TestActivity[] currentList = td.getTypicalPersons();
+        TestActivity[] currentList = td.getTypicalActivities();
         int index = 1;
         String newName = "new name";
         String newReminder = "29-12-2021 2200";
