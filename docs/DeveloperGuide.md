@@ -385,7 +385,8 @@ Priority | As a ... | I want to ... | So that I can...
 | [UC11](#uc11-unmark-a-task) | Unmark a Task  | Unmark a task as done by index. The Archived task will add back to the respective tabs.|
 | [UC12](#uc12-clear-everything) | Clears everything | System performs bulk delete on the data (Deadlines, events, tasks). |
 | [UC13](#uc13-relocate-storage-location) | Relocate storage location  | Change the current storage to other directory specified by the user. |
-| [UC14](#uc14-exit-application) | Exit application  | Quit the application |
+| [UC14](#uc14-importing-files-to-mastermind) | Import File  | Adds tasks identified in file |
+| [UC15](#uc15-exit-application) | Exit application  | Quit the application |
 
 ---
 
@@ -676,7 +677,7 @@ Shows all floating tasks and tasks/events that are due in a weeks time.
 
 ### UC10: Mark Task as done
 
-Mark a task entry by index.
+Mark a task entry by index or keyword 'due'.
 
 ##### Main Success Scenario
 
@@ -696,6 +697,12 @@ Mark a task entry by index.
 
 * 1a2. Use case ends.
 
+1b. User request to mark tasks that are due.
+
+* 1b1. System register as valid command
+
+* 1b2. Use case continue to 2c.
+
 2a. Invalid index.
 
 * 2a1. System cannot find the task associated with the index.
@@ -711,6 +718,14 @@ Mark a task entry by index.
 * 2b2. System display unsuccessful message.
 
 * 2b3. Use case ends.
+
+2c. User wants to mark all due tasks.
+
+* 2c1. System checks for all tasks that are due
+
+* 2c2. System removes tasks that are due
+
+* 2c3. Use case continues to 3.
 
 ---
 
@@ -815,7 +830,45 @@ Change the current storage to other directory specified by the user.
 
 ---
 
-### UC14: Exit application
+### UC14: Importing files to Mastermind
+
+Import ics/csv file and add the relevant tasks into Mastermind.
+
+##### Main Success Scenario
+
+1. User requests to import file.
+
+2. System locate the file and attempt to read.
+
+3. System adds tasks identified from file into Mastermind.
+
+5. System displays successful message.
+
+6. Use case ends.
+
+##### Extensions
+
+1a. User entered an invalid command.
+
+* 1a1. System display unsuccessful message.
+
+* 1a2. Use case ends.
+
+2a. Invalid file location.
+
+* 2a1. System display unsuccessful message.
+
+* 2a2. Use case ends.
+
+2b. Invalid file type.
+
+* 2a1. System display unsuccessful message.
+
+* 2a2. Use case ends.
+
+---
+
+### UC15: Exit application
 
 Quit the application.
 

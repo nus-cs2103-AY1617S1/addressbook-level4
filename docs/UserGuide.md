@@ -312,8 +312,13 @@ _Format:_
 ```java
 mark <index>
 ```
+```java
+mark due
+```
 
 > ```mark``` only affects task that are not complete yet. It has no effect on completed task.
+
+> Using `mark due` it will mark all tasks that are due.
 
 _Examples:_
 ```java
@@ -330,6 +335,11 @@ _Examples:_
 
 // select the "find" result and mark the task at index 1 as completed
 > mark 1
+```
+
+```java
+// All due tasks has been archived.
+> mark due
 ```
 ### Unmarking a task : `unmark`
 
@@ -397,6 +407,23 @@ _Example:_
 > relocate ~/document/mastermind
 ```
 
+### Importing file : `import from`
+
+_Mastermind_ allows you to import file from other to do list into _Mastermind_.  
+Currently _Mastermind_ is only able to read csv and ics file.
+
+_Format:_
+```
+import from <file location>
+```
+
+_Example:_
+```java
+// import success
+> import from ~/document/mastermind/data.ics
+```
+
+
 ### Exiting the program : `exit`
 
 _Mastermind_ says, "Goodbye!"
@@ -440,9 +467,10 @@ Delete | `delete <index>`
 Undo | `undo`
 Redo | `redo`
 Upcoming | `upcoming`
-Mark | `mark <index>`
+Mark | `mark <index>` or `mark due`
 Unmark | `unmark <index>`
 Previous | <kbd>↑</kdb>
 Clear | `clear`
 Relocate | `relocate <new_destination_folder>`
+Import | `import from <file_location>`
 Exit | `exit`
