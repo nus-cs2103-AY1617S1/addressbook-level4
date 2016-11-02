@@ -171,7 +171,7 @@ public class TaskManager implements ReadOnlyTaskManager {
         this.tasks.getInternalList().sort(new Comparator<Task>() {
             @Override
             public int compare(Task one, Task other) {
-                return one.getName().compareTo(other.getName());
+                return one.getDeadline().compareTo(other.getDeadline());
             }
         });
     }
@@ -180,7 +180,7 @@ public class TaskManager implements ReadOnlyTaskManager {
         this.tasks.getInternalList().sort(new Comparator<Task>() {
             @Override
             public int compare(Task one, Task other) {
-                return one.getName().compareTo(other.getName());
+                return one.getStartTime().compareTo(other.getStartTime());
             }
         });
     }
@@ -189,7 +189,7 @@ public class TaskManager implements ReadOnlyTaskManager {
         this.tasks.getInternalList().sort(new Comparator<Task>() {
             @Override
             public int compare(Task one, Task other) {
-                return one.getName().compareTo(other.getName());
+                return one.getEndTime().compareTo(other.getEndTime());
             }
         });
     }

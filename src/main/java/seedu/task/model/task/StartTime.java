@@ -57,8 +57,8 @@ public class StartTime {
         return value.hashCode();
     }
 
-    public static int compareTo(StartTime anotherStartTime) {
-        return StartTime.compareTo(anotherStartTime);
+    public int compareTo(StartTime anotherStartTime) {
+        return this.toString().compareTo(anotherStartTime.toString());
     }
 
 }

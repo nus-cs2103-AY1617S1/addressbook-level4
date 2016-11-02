@@ -59,4 +59,8 @@ public class EndTime {
         return value.hashCode();
     }
 
+    public int compareTo(EndTime anotherEndTime) {
+        return this.toString().compareTo(anotherEndTime.toString());
+    }
+
 }
