@@ -6,6 +6,7 @@ import com.google.common.collect.Ordering;
 import seedu.todo.commons.util.TimeUtil;
 import seedu.todo.model.task.ImmutableTask;
 
+import java.time.LocalDateTime;
 import java.util.Comparator;
 import java.util.function.Predicate;
 
@@ -17,6 +18,8 @@ public class TaskViewFilter {
         .result();
     private static final Comparator<ImmutableTask> CHRONOLOGICAL_EVENT = (a, b) -> ComparisonChain.start()
             .compareFalseFirst(a.isCompleted(), b.isCompleted())
+            .compareFalseFirst(timeUtil.isOverdue(a.getEndTime().orElse(LocalDateTime.now())), 
+                               timeUtil.isOverdue(b.getEndTime().orElse(LocalDateTime.now())))
             .compare(a.getEndTime().orElse(null), b.getEndTime().orElse(null), Ordering.natural().nullsLast())
             .result();
     
