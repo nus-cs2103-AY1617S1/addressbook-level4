@@ -82,6 +82,16 @@ User has to specify INTERVAL or TIME_INTERVAL.
 
 <!-- @@author -->
 
+<!-- @@author A0153411W -->
+<a id="customized-command" class="anchor" href="#customized-command" aria-hidden="true">
+#### Customize commands
+Customize command with specific format. 
+User has to specify NEW_FORMAT.
+* `customize add f/a`
+* `customize list f/ls'
+
+<!-- @@author -->
+
 ### List tasks : `list`
 Shows a list of upcoming task in the task management tool.<br>
 Format: `list`
@@ -155,6 +165,7 @@ List | `list`
 Undo | `undo` 
 Save | `save`
 Help | `help`
+Customize | `help COMMAND f/NEW_FORMAT` 
 Done | `done TASKID`
 <!-- //@@author -->
 <!-- @@author A0153411W -->
@@ -167,4 +178,5 @@ DUE_DATE      |  /dd               |  Date(DD-MM-YYYY hh:mm) |   YES(if START_DA
 INTERVAL      |  /i                |  Integer Number   		|   NO                              | Interval of a task specifies how many times should be duplicated
 TIME_INTERVAL |  /ti               |  Integer Number   		|   NO                              | Time interval of a task specifies how many days are between duplicated tasks
 TASK_COLOR    |  /c                |  Text                  |   NO                              | Color code of a task
+NEW_FORMAT    |  /f                |  Text                  |   YES                              | New format of customized command
 <!-- //@@author -->

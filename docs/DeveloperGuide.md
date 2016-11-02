@@ -282,6 +282,8 @@ Priority | As a ... | I want to ... | So that I can...
 `* *`| user | add duplicated tasks for specific period of time | see a duplicate appears on regular intervals, e.g. once per week. 
 `* *`| user | undo the last executed commands | restore the task manager to the state before command was executed 
 `* *`| user | specify which folder path to save my file | organize my task manager easily
+`* *`| user | custom my commands' formats | use customized commands
+
 `* * *`| user | keep track my task | check which task have completed or on going
 `* *`| advanced user |  use shorter versions of a command | that can type a command faster.
 `* *`|user | set reminder for my task | can complete the task on time. 
@@ -420,7 +422,7 @@ Use Case end.
        Use case resume at step 1.
 
 
-<!-- @@author A0153411W -->
+
 <!-- @@author A0153411W -->
 <!-- @@author A0153751H -->
 
@@ -521,7 +523,61 @@ Use Case end.
 	>1a1. System shows an error message
 	Use case ends.
 
+
+#### Use case: UC09 Undo last executed command
+   Actor: User
+
+**MSS**
+
+1. User requests to undo last executed command 
+2. System will restore task manager before command was executed 
+Use Case end.
+
+**Extension**
+
+    1a. There is nothing to undo
+    >1a1. System shows an error message
+    Use case finishes.
 <!-- @@author -->
+
+<!-- @@author A0139932X -->
+#### Use case: UC10 Change save file path command
+   Actor:User
+   
+**MSS**
+
+1. User request to change file directory
+2. System will update the file directory on the config
+
+**Extension**
+
+	1a. Invalid file path
+	>1a1. System shows an error message
+	Use case ends.
+	
+<!-- @@author -->
+
+<!-- @@author A0153411W -->
+#### Use case: UC11 Customize commands' format
+   Actor:User
+   
+**MSS**
+
+1. User request to customize command
+2. System will update the command format on the config
+
+**Extension**
+
+	1a. Command does not exist
+	>1a1. System shows an error message
+	Use case ends.
+	
+	1b. Inputed value for command already exists
+	>1a1. System shows an error message
+	Use case ends.
+	
+<!-- @@author -->
+
 
 {More to be added}
 
