@@ -158,7 +158,6 @@ public class ModelManager extends ComponentManager implements Model {
     @Override 
     public synchronized void editTask(ReadOnlyTask target, String args, char category) throws TaskNotFoundException, IllegalValueException {
         taskBook.changeTask(target, args, category);
-        //updateFilteredListToShowAll(); // why was this line commented out?
         updateFilteredListToShowAllUncompleted();
         indicateAddressBookChanged();
     }
@@ -333,15 +332,16 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     private class NameQualifier implements Qualifier {
-        private Set<String> nameKeyWords;
+        private Set<String> anyKeyWords;
 
-        NameQualifier(Set<String> nameKeyWords) {
-            this.nameKeyWords = nameKeyWords;
+        NameQualifier(Set<String> anyKeyWords) {
+            this.anyKeyWords = anyKeyWords;
         }
         //@@author A0139430L JingRui
         @Override
         public boolean run(ReadOnlyTask Task) {
-            return nameKeyWords.stream()
+            
+            return anyKeyWords.stream()
                     .filter(keyword -> StringUtil.containsIgnoreCase(Task.getName().taskDetails.toLowerCase(), keyword)
                     || StringUtil.containsIgnoreCase(Task.getDate().value, keyword)
                     || StringUtil.containsIgnoreCase(Task.getStart().value, keyword)
@@ -353,7 +353,7 @@ public class ModelManager extends ComponentManager implements Model {
 
         @Override
         public String toString() {
-            return "name=" + String.join(", ", nameKeyWords);
+            return "name=" + String.join(", ", anyKeyWords);
         }
     }
     
