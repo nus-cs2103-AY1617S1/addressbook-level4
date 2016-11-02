@@ -14,7 +14,7 @@
 1. Download the latest `MESS.jar` from the [releases](../../../releases) tab.
 2. Copy the file to the folder you want to use as the home folder for your to-do list.
 3. Double-click the file to start the app. The GUI should appear in a few seconds.
-   <img src="images/mockup1.JPG" width="600"><br>
+   <img src="images/MESS_003.png" width="600"><br>
 
 4. Type the command in the command box and press <kbd>Enter</kbd> to execute it. <br>
    e.g. typing **`help`** and pressing <kbd>Enter</kbd> will open the help window.
@@ -113,7 +113,7 @@ There is no need to save manually.
 
 **A**: Yes, you can still add your task. You can create a floating task by only type in command `add TASK_NAME` if you don't know the deadline of your task.
 
-> <img src="images/mockup3.JPG" width="600"><br>
+> <img src="images/MESS_004.png" width="600"><br>
 In this example, you can see shopping is a floating task without a start time and deadline. 
   	
 ## Command Summary
