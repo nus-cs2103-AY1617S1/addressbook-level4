@@ -312,7 +312,6 @@ Priority | As a(n) ... | I want to ... | So that I can...
 `*` | user | change storage location | choose where my tasks are saved at
 `*` | advanced user | alias keywords with shorter versions | type a command faster
 `*` | advanced user | remove alias of keywords with shorter versions | get rid of shorter version of certain keywords
-{More to be added}
 
 ## Appendix B : Use Cases
 
@@ -579,7 +578,6 @@ Use case ends.
 8. Should store data in text file.
 9. Should work without requiring an installer.
 
-{More to be added}
 
 ## Appendix D : Glossary
 
