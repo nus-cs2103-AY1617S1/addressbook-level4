@@ -137,14 +137,13 @@ Fig. 6: Logic Component
 3. The command execution can affect the `Model` (e.g. adding a task) and/or raise events.
 4. The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 
-Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")`
- API call.<br>
 <img src="images/Sequence Diagram2.png" width="800"><br>
 Fig. 7 : Sequence Diagram for interactions within the Logic component for the execute("delete 1") API call.
 
 ### Model component
 
 <img src="images/Model Component.png" width="800"><br>
+Fig. 8: Model Component
 
 **API** : [`Model.java`](../src/main/java/seedu/address/model/Model.java)
 
@@ -158,10 +157,10 @@ The `Model`,
 ### Storage component
 
 <img src="images/Storage Component.png" width="800"><br>
+Fig. 9: Storage Component
 
 **API** : [`Storage.java`](../src/main/java/seedu/address/storage/Storage.java)
 
-The `Storage` component,
 * can save `UserPref` objects in json format and read it back.
 * can save the Task Manager data in xml format and read it back.
 
