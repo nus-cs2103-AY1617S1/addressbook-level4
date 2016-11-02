@@ -49,7 +49,7 @@ public class AliasCommand extends Command {
     public boolean isValidAliasCommandPair(String alias, String command) {
         //check that alias is not null and that alias is not a command
         //checks that command is valid command
-        if(alias != null && command != null) {
+        if (alias != null && command != null) {
             return CommandKeys.commandKeyMap.containsKey(commandString) && CommandKeys.commandKeyMap.get(commandString) != null;
         } else {
             return false;
