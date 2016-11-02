@@ -41,8 +41,8 @@ public class EditCommand extends Command {
     //@@author A0139920A
     public EditCommand(String name, String date, String endDate, String priority, int targetIndex, String dataType)
             throws IllegalValueException {
-    	this.targetIndex = targetIndex;
-    	this.dataType = dataType;
+        this.targetIndex = targetIndex;
+        this.dataType = dataType;
         this.toEdit = new Todo(
                 new Name(name),
                 new StartDate(date),
@@ -60,8 +60,8 @@ public class EditCommand extends Command {
   //@@author A0139920A
     public EditCommand(String name, String date, String endDate, String startTime, String endTime, int targetIndex, String dataType)
             throws IllegalValueException {
-    	this.targetIndex = targetIndex;
-    	this.dataType = dataType;
+        this.targetIndex = targetIndex;
+        this.dataType = dataType;
         this.toEdit = new Event(
                 new Name(name),
                 new StartDate(date),
@@ -79,8 +79,8 @@ public class EditCommand extends Command {
      */
     public EditCommand(String name, String date, String endTime, int targetIndex, String dataType)
             throws IllegalValueException {
-    	this.targetIndex = targetIndex;
-    	this.dataType = dataType;
+        this.targetIndex = targetIndex;
+        this.dataType = dataType;
         this.toEdit = new Deadline(
                 new Name(name),
                 new StartDate(date),
@@ -89,46 +89,45 @@ public class EditCommand extends Command {
         );
     }
     
-    /**
-     * Constructor for undo
-     */
-  //@@author A0139920A
+
+    //@@author A0139920A
     public EditCommand(ReadOnlyTask original, String dataType, ReadOnlyTask toEdit) {
-    	this.taskToEdit = original;
-    	this.toEdit = (Task) toEdit;
-    	this.targetIndex = -1;
-    	this.dataType = dataType;
+        this.taskToEdit = original;
+        this.toEdit = (Task) toEdit;
+        this.targetIndex = -1;
+        this.dataType = dataType;
     }
 
     //@@author A0139920A
     @Override
     public CommandResult execute() {
-    	if(this.taskToEdit == null && this.targetIndex != -1) {
-	    	UnmodifiableObservableList<ReadOnlyTask> lastShownList = null;
-	    	switch (dataType) {
-	    		case "todo":
-	    			lastShownList = model.getFilteredTodoList();
-	    			break;
-	    		case "event":
-	    			lastShownList = model.getFilteredEventList();
-	    			break;
-	    		case "deadline":
-	    			lastShownList = model.getFilteredDeadlineList();
-	    	}
+        if(this.taskToEdit == null && this.targetIndex != -1) {
+    	    UnmodifiableObservableList<ReadOnlyTask> lastShownList = null;
+    	    switch (dataType) {
+    	        case "todo":
+    	            lastShownList = model.getFilteredTodoList();
+    	            break;
+    	        case "event":
+    	            lastShownList = model.getFilteredEventList();
+    	            break;
+    	        case "deadline":
+    	            lastShownList = model.getFilteredDeadlineList();
+    	            break;
+    	    }
 	        if (lastShownList.size() < targetIndex) {
 	            indicateAttemptToExecuteIncorrectCommand();
 	            return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
 	        }
 	        
 	        taskToEdit = lastShownList.get(targetIndex - 1);
-    	}
+	    }
         
         assert model != null;
         try {
             model.editTask(taskToEdit, dataType, toEdit);
             return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, toEdit));
         } catch (IllegalValueException ive) {
-        	return new CommandResult(INVALID_VALUE);
+            return new CommandResult(INVALID_VALUE);
         }catch (TaskNotFoundException pnfe) {
             return new CommandResult(MISSING_TASK);
         }
