@@ -45,8 +45,8 @@ Format: `add TASKNAME, [from START_TIME] [to END_TIME] [by DEADLINE] [#TAG...]`
 
 Examples: 
 * `add project team meeting, from 01.00pm to 03.00pm #CS2103`
-* `add cs2103 assignment by 11.59pm #CS2103`
-* `add do homework at today 3pm`
+* `add cs2103 assignment, by 11.59pm #CS2103`
+* `add do homework, at today 3pm`
 
 #### Editing a task: `Edit`
 Edit task information in the TaskManager<br>
