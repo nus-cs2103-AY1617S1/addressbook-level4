@@ -39,7 +39,7 @@ public class FindCommand extends Command {
 		this.modeOfSearch = modeOfSearch;
 	}
 
-	public java.util.function.Predicate<? super Task> getTasksWithSameNameOrTags(Set<String> args) {
+	private java.util.function.Predicate<? super Task> getTasksWithSameNameOrTags(Set<String> args) {
 		return t -> {
 			try {
 				return t.getName().contains(args) || t.getTags().contains(args);
@@ -49,7 +49,7 @@ public class FindCommand extends Command {
 		};
 	}
 
-	public java.util.function.Predicate<? super Task> getDates(String date) {
+	private java.util.function.Predicate<? super Task> getDates(String date) {
 		return t -> {
 			return t.getDate().getFullDate().equals(date);
 		};

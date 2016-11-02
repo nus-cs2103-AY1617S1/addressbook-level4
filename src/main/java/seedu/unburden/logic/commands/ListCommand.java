@@ -45,7 +45,7 @@ public class ListCommand extends Command {
 		this.mode = "date";
 	}
 
-	public java.util.function.Predicate<? super Task> getAllDatesBefore(Date date) {
+	private java.util.function.Predicate<? super Task> getAllDatesBefore(Date date) {
 		return t -> {
 			try {
 				return t.getDate().toDate().before(date) || t.getDate().toDate().equals(date);
@@ -55,13 +55,13 @@ public class ListCommand extends Command {
 		};
 	}
 
-	public java.util.function.Predicate<? super Task> getAllDone() {
+	private java.util.function.Predicate<? super Task> getAllDone() {
 		return t -> {
 			return t.getDone();
 		};
 	}
 
-	public java.util.function.Predicate<? super Task> getAllUndone() {
+	private java.util.function.Predicate<? super Task> getAllUndone() {
 		return t -> {
 			return !t.getDone();
 		};

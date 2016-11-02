@@ -174,7 +174,17 @@ public class Parser {
 			return prepareUnDone(arguments);
 
 		default:
-			return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
+			if (AddCommand.COMMAND_WORD.substring(0, 1).contains(commandWord.toLowerCase())) {
+				return prepareAdd(arguments);
+			} else if (DeleteCommand.COMMAND_WORD.substring(0, 1).contains(commandWord.toLowerCase())) {
+				return prepareDelete(arguments);
+			} else if (EditCommand.COMMAND_WORD.substring(0, 1).contains(commandWord.toLowerCase())) {
+				return prepareEdit(arguments);
+			} else if (SelectCommand.COMMAND_WORD.substring(0, 1).contains(commandWord.toLowerCase())) {
+				return prepareSelect(arguments);
+			} else {
+				return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
+			}
 		}
 	}
 
