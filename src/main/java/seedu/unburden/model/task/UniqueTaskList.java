@@ -82,6 +82,8 @@ public class UniqueTaskList implements Iterable<Task> {
     public boolean edit(ReadOnlyTask key, Task toEdit) 
     		throws TaskNotFoundException, IllegalValueException {
     	
+    	assert toEdit != null;
+    	assert key != null;
     	int taskIndex = internalList.indexOf(key);
     	Task updatedTask = toEdit;
     	Task oldTask = internalList.get(taskIndex);
