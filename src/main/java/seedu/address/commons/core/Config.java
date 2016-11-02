@@ -9,6 +9,7 @@ import java.util.logging.Level;
 public class Config {
 
     public static final String DEFAULT_CONFIG_FILE = "config.json";
+    private static final String DEFAULT_SAVE_FILE = "data/lifekeeper.xml";
 
     // Config values customizable through config file
     private String appTitle = "Lifekeeper App";
@@ -59,6 +60,10 @@ public class Config {
 
     public void setLifekeeperName(String lifekeeperName) {
         this.lifekeeperName = lifekeeperName;
+    }
+    
+    public static String getDefaultSaveFile() {
+        return DEFAULT_SAVE_FILE;
     }
 
 

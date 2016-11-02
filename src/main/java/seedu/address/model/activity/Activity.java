@@ -38,6 +38,7 @@ public class Activity implements ReadOnlyActivity {
      */
     public Activity(ReadOnlyActivity source) {
         this(source.getName(), source.getReminder(), source.getTags());
+        this.isCompleted =  source.getCompletionStatus();
     }
 
     @Override
@@ -66,6 +67,10 @@ public class Activity implements ReadOnlyActivity {
     @Override
     public UniqueTagList getTags() {
         return new UniqueTagList(tags);
+    }
+    
+    public boolean hasReminderPassed() {
+        return reminder.isBeforeNow();
     }
 
     /**
@@ -100,7 +105,7 @@ public class Activity implements ReadOnlyActivity {
     }
 
     public void setCompletionStatus(boolean isComplete) {
-        isCompleted = isComplete;
+        this.isCompleted = isComplete;
         
     }
 
@@ -113,7 +118,7 @@ public class Activity implements ReadOnlyActivity {
     }
 
 	@Override
-	public boolean passedDueDate() {
+	public boolean hasPassedDueDate() {
 		return false;
 	}
     
@@ -132,6 +137,10 @@ public class Activity implements ReadOnlyActivity {
     }
 				return null;
     	
+    }
+
+    public boolean getisOver() {
+        return false;
     }
 
 }

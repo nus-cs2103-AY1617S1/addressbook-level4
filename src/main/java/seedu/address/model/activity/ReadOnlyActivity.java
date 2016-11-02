@@ -12,6 +12,8 @@ public interface ReadOnlyActivity {
 
     Name getName();
     Reminder getReminder();
+    
+    boolean hasReminderPassed();
 
     String toStringCompletionStatus();
     
@@ -69,7 +71,7 @@ public interface ReadOnlyActivity {
         }
     }
     
-    boolean passedDueDate();
+    boolean hasPassedDueDate();
     
  
     

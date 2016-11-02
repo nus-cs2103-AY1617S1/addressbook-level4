@@ -3,12 +3,16 @@
 <?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
 <!-- @@author A0125097A -->
+
 <HBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1">
     <children>
         <GridPane HBox.hgrow="ALWAYS">
@@ -33,15 +37,26 @@
                                     <Label fx:id="id" styleClass="cell_big_label" />
                                     <Label fx:id="name" styleClass="cell_big_label" text="\$first" />
                                 </HBox>
-                                <Label fx:id="tags" styleClass="cell_small_label" text="\$tags" />
                             </children>
                         </HBox>
-                        <Label fx:id="line1" styleClass="cell_small_label" text="\$line1" />
-                        <Label fx:id="line2" styleClass="cell_small_label" text="\$line2" />
+                          <Label fx:id="tags" style="-fx-font-size: 13;" styleClass="cell_small_label" text="\$tags" />
+                        <Label fx:id="line1" style="-fx-font-size: 13;" styleClass="cell_small_label" text="\$line1" />
                         <Label fx:id="reminder" styleClass="cell_small_label" text="\$reminder" />
-                        <Label fx:id="completion" styleClass="cell_small_label" text="\$completion" />
                     </children>
                 </VBox>
+                  <Label fx:id="completion" style="-fx-font-size: 13; -fx-font-family: Georgia;" text="\\$completion" textAlignment="CENTER" wrapText="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="TOP">
+               <font>
+                  <Font name="Georgia" size="13.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets top="15.0" />
+               </GridPane.margin>
+            </Label>
+            <ImageView fx:id="priorityIcon" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER">
+               <GridPane.margin>
+                  <Insets top="40.0" />
+               </GridPane.margin>
+            </ImageView>
             </children>
          <rowConstraints>
             <RowConstraints />

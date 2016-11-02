@@ -27,7 +27,7 @@ public class AddCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "New task added: %1$s";
     public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the Lifekeeper";
-    
+    public static final String MESSAGE_RECURRING_ERROR= "This recurring event has invalid format";
     private final Activity toAdd;
 
     /**
@@ -54,10 +54,8 @@ public class AddCommand extends Command {
                     new Reminder(reminder),
                     new UniqueTagList(tagSet));
         } else if (type == "event") {
-
-            this.toAdd = new Event(new Name(name), new StartTime(start), new EndTime(start, end),
+            this.toAdd = new Event(new Name(name), new StartTime(start), new EndTime(new StartTime(start), end),
                     new Reminder(reminder), new UniqueTagList(tagSet));
-
         } else if (type == "float") {
 
             this.toAdd = new Activity(new Name(name), new Reminder(reminder), new UniqueTagList(tagSet));

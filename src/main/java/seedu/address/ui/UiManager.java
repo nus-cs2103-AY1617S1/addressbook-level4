@@ -16,9 +16,23 @@ import seedu.address.commons.events.ui.ShowHelpRequestEvent;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Logic;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.activity.Activity;
+import seedu.address.model.activity.ReadOnlyActivity;
+import seedu.address.model.activity.UpcomingReminders;
+import seedu.address.model.activity.event.Event;
+import seedu.address.model.activity.task.Task;
 import seedu.lifekeeper.MainApp;
 
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.logging.Logger;
+
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 /**
  * The manager of the UI component.
@@ -31,6 +45,13 @@ public class UiManager extends ComponentManager implements Ui {
     private Config config;
     private UserPrefs prefs;
     private MainWindow mainWindow;
+    
+    private static final long DELAY = 60 * 1000; // one minute
+    
+    private RefreshTask refreshTask = new RefreshTask();
+    private ReminderTask reminderTask = new ReminderTask();
+    private Timer refreshTimer = new Timer("Refresh");
+    private Timer reminderTimer = new Timer("Reminder");
 
     public UiManager(Logic logic, Config config, UserPrefs prefs) {
         super();
@@ -51,6 +72,7 @@ public class UiManager extends ComponentManager implements Ui {
             mainWindow = MainWindow.load(primaryStage, config, prefs, logic);
             mainWindow.show(); //This should be called before creating other UI parts
             mainWindow.fillInnerParts();
+            initRefresh();
 
         } catch (Throwable e) {
             logger.severe(StringUtil.getDetails(e));
@@ -62,7 +84,6 @@ public class UiManager extends ComponentManager implements Ui {
     public void stop() {
         prefs.updateLastUsedGuiSetting(mainWindow.getCurrentGuiSetting());
         mainWindow.hide();
-        mainWindow.releaseResources();
     }
 
     private void showFileOperationAlertAndWait(String description, String details, Throwable cause) {
@@ -96,6 +117,44 @@ public class UiManager extends ComponentManager implements Ui {
         Platform.exit();
         System.exit(1);
     }
+    
+    //==================== Reminder Dialog Box =================================================================
+    
+    private void showReminderDialog(ArrayList<ReadOnlyActivity> activities) {
+        ImageIcon reminderIcon = new ImageIcon(getClass().getResource("/images/ringing.png"),
+                "Reminder Bell");
+        
+        //System.out.println("I'm here");
+        
+        for (ReadOnlyActivity activity : activities) {
+            JOptionPane.showMessageDialog(new JFrame(),
+                    textForReminderDialog(activity, activity.getClass().getSimpleName()),
+                    "Reminder: " + activity.getName().toString(),
+                    JOptionPane.INFORMATION_MESSAGE,
+                    reminderIcon);
+        }
+    }
+    
+    private String textForReminderDialog(ReadOnlyActivity activity, String type) {
+        final StringBuilder sb = new StringBuilder();
+        
+        sb.append("Reminder for the " + type.toLowerCase() + ": " +  activity.getName());
+        
+        switch (type) {
+        case "Task":
+            if (((Task) activity).getDueDate().getCalendarValue() != null) {
+                sb.append("\nDue:       " + ((Task) activity).getDueDate().toString());
+            }
+            sb.append("\nPriority: " + ((Task) activity).getPriority().forReminderDialog());
+            break;
+        case "Event":
+            sb.append("\nTime: " + ((Event) activity).getStartTime().toString()
+                    + "\nto        " + ((Event) activity).getEndTime().toString());
+            break;
+        }
+        
+        return sb.toString();
+    }
 
     //==================== Event Handling Code =================================================================
 
@@ -114,13 +173,39 @@ public class UiManager extends ComponentManager implements Ui {
     @Subscribe
     private void handleJumpToListRequestEvent(JumpToListRequestEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        mainWindow.getPersonListPanel().scrollTo(event.targetIndex);
+        mainWindow.getActivityListPanel().scrollTo(event.targetIndex);
     }
 
     @Subscribe
     private void handlePersonPanelSelectionChangedEvent(PersonPanelSelectionChangedEvent event){
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        mainWindow.loadPersonPage(event.getNewSelection());
+    }
+    
+    //==================== Refresh Handling Code =================================================================
+    
+    private void initRefresh() {
+        refreshTimer.cancel();
+        reminderTimer.cancel();
+        refreshTimer = new Timer("Refresh");
+        reminderTimer = new Timer("Reminder");
+        Calendar cal = Calendar.getInstance();
+        cal.set(Calendar.SECOND, 0);
+        cal.set(Calendar.MILLISECOND, 0);
+        Date executionDate = cal.getTime();
+        cal.add(Calendar.SECOND, 1);
+        refreshTimer.scheduleAtFixedRate(refreshTask, executionDate, DELAY);
+        reminderTimer.scheduleAtFixedRate(reminderTask, cal.getTime(), DELAY);
+    }
+    
+    private class RefreshTask extends TimerTask {
+        public void run() {
+            mainWindow.refresh();
+        }
     }
 
+    private class ReminderTask extends TimerTask {
+        public void run() {
+            showReminderDialog(UpcomingReminders.popNextReminders());
+        }
+    }
 }

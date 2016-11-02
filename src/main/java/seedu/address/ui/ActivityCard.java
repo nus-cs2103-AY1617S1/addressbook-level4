@@ -3,9 +3,14 @@ package seedu.address.ui;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.paint.Color;
 import seedu.address.model.activity.ReadOnlyActivity;
 import seedu.address.model.activity.task.ReadOnlyTask;
+import seedu.address.model.activity.task.Task;
+import seedu.address.model.activity.event.Event;
 import seedu.address.model.activity.event.ReadOnlyEvent;
 
 // @@author A0125097A
@@ -22,13 +27,13 @@ public class ActivityCard extends UiPart {
     @FXML
     private Label line1;
     @FXML
-    private Label line2;
-    @FXML
     private Label reminder;
     @FXML
     private Label tags;
     @FXML
     private Label completion;
+    @FXML
+    private ImageView priorityIcon;
 
     private ReadOnlyActivity activity;
     private int displayedIndex;
@@ -45,52 +50,64 @@ public class ActivityCard extends UiPart {
     }
 
     @FXML
-    public void initialize() {
-        
-        
-        name.setText(activity.getName().fullName);
-        id.setText(displayedIndex + ". ");
-        
-        if(activity.getClass().getSimpleName().equalsIgnoreCase("task")) {
-            line1.setText(((ReadOnlyTask) activity).getDueDate().forDisplay());
-            line2.setText(((ReadOnlyTask) activity).getPriority().forDisplay());  
-        
-        } else if(activity.getClass().getSimpleName().equalsIgnoreCase("event")) {
-            line1.setText(((ReadOnlyEvent) activity).getStartTime().forDisplay());
-            line2.setText(((ReadOnlyEvent) activity).getEndTime().forDisplay());   
-        } else {
-            line1.setText("");
-            line2.setText("");
-        }
+	public void initialize() {
 
-        reminder.setText(activity.getReminder().forDisplay());
-        
-        tags.setText(activity.tagsString());
-        completion.setText(activity.toStringCompletionStatus());
-        if(activity.getCompletionStatus() == true) {
-        	cardPane.setStyle("-fx-background-color: springgreen;");
-        } else if(activity.passedDueDate()){
-            cardPane.setStyle("-fx-background-color: red;");
-        } 
-        //too many colours, idea for priority colours put on hold
-        /*else if (activity.getClass().getSimpleName().equalsIgnoreCase("task")) {
+		name.setText(activity.getName().fullName);
+		id.setText(displayedIndex + ". ");
+		String type = activity.getClass().getSimpleName().toLowerCase();
 
-            switch (((ReadOnlyTask) activity).getPriority().value) {
+		switch (type) {
 
-            case "1":
-                cardPane.setStyle("-fx-background-color: lightyellow;");
-                break;
-            case "2":
-                cardPane.setStyle("-fx-background-color: moccasin;");
-                break;
-            case "3":
-                cardPane.setStyle("-fx-background-color: salmon;");
-                break;
-            }
-        }*/
-        
-        
-    }
+		case "activity":
+			line1.setText("");
+
+			break;
+
+		case "task":
+			line1.setText(((ReadOnlyTask) activity).getDueDate().forDisplay());
+			priorityIcon.setImage(((ReadOnlyTask) activity).getPriority().getPriorityIcon());
+
+			if (((Task) activity).isDueDateApproaching()) {
+			    completion.setStyle("-fx-text-fill: #505000;"
+                        + " -fx-font-size: 13;"
+                        + " -fx-font-family: Georgia;");
+				cardPane.setStyle("-fx-background-color: yellow;");
+			} else if (((Task) activity).hasPassedDueDate()) {
+			    completion.setStyle("-fx-text-fill: #500000;"
+                + " -fx-font-size: 13;"
+                + " -fx-font-family: Georgia;");
+				cardPane.setStyle("-fx-background-color: salmon;");
+			}
+			break;
+
+		case "event":
+			line1.setText(((ReadOnlyEvent) activity).displayTiming());
+			if (((Event) activity).isOngoing()) {
+			    completion.setStyle("-fx-text-fill: #000080;"
+	                    + " -fx-font-size: 13;"
+	                    + " -fx-font-family: Georgia;");
+				cardPane.setStyle("-fx-background-color: lightskyblue;");
+			} else if (((Event) activity).isOver()) {
+			    completion.setStyle("-fx-text-fill: #005000;"
+	                    + " -fx-font-size: 13;"
+	                    + " -fx-font-family: Georgia;");
+	            cardPane.setStyle("-fx-background-color: springgreen;");
+			}
+			break;
+		}
+
+		reminder.setText(activity.getReminder().forDisplay());
+		tags.setText(activity.tagsString());
+		completion.setText(activity.toStringCompletionStatus());
+		
+		if (activity.getCompletionStatus()) {
+		    completion.setStyle("-fx-text-fill: #005000;"
+	                + " -fx-font-size: 13;"
+	                + " -fx-font-family: Georgia;");
+			cardPane.setStyle("-fx-background-color: springgreen;");
+		}
+	}
+    
 
     public HBox getLayout() {
         return cardPane;

@@ -75,7 +75,7 @@ public class EditCommand extends Command {
             this.newParams = new Event(
                     new Name(name),
                     new StartTime(start),
-                    new EndTime(start, end),
+                    new EndTime(new StartTime(start), end),
                     new Reminder(reminder),
                     new UniqueTagList(tagSet)
             );

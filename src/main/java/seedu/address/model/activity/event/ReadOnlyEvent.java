@@ -11,9 +11,13 @@ import seedu.address.model.tag.UniqueTagList;
 public interface ReadOnlyEvent extends ReadOnlyActivity {
     StartTime getStartTime();
     EndTime getEndTime();
-    boolean getCompletionStatus();
+    
+    boolean isOngoing();
+    boolean isOver();
 
     String toStringCompletionStatus();
+    
+    String displayTiming();
     
     /**
      * Returns true if both have the same state. (interfaces cannot override .equals)

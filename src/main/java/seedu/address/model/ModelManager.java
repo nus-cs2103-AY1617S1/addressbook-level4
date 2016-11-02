@@ -131,7 +131,8 @@ public class ModelManager extends ComponentManager implements Model {
   //@@author A0131813R
     @Override
     public void updateFilteredListToShowAll() {
-        filteredPersons.setPredicate(null);
+        filteredPersons.setPredicate(p->
+        p.getCompletionStatus() == false && p.getisOver() == false);
     }
     
     @Override
@@ -144,6 +145,12 @@ public class ModelManager extends ComponentManager implements Model {
     public void updateFilteredTaskListToShowAll() {
         filteredPersons.setPredicate(p->
         p.getClass().getSimpleName().equalsIgnoreCase("Task"));
+    }
+    
+    @Override
+    public void updateFilteredDoneListToShowAll() {
+        filteredPersons.setPredicate(p->
+        p.getCompletionStatus() == true || p.getisOver() == true);
     }
     
     @Override

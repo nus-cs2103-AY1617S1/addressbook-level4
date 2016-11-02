@@ -33,6 +33,7 @@ public class Parser {
                     + "(?<priority>(?: p/[^/]+)?)"
                     + "(?<start>(?: s/[^/]+)?)"
                     + "(?<end>(?: e/[^/]+)?)"
+                    + "(?<recurring>(?: every/[^/]+)?)"
                     + "(?<reminder>(?: r/[^/]+)?)"
                     + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
     
@@ -45,6 +46,7 @@ public class Parser {
                     + "(?<priority>(?: p/[^/]+)?)"
                     + "(?<start>(?: s/[^/]+)?)"
                     + "(?<end>(?: e/[^/]+)?)"
+                    + "(?<recurring>(?: every/[^/]+)?)"
                     + "(?<reminder>(?: r/[^/]+)?)"
                     + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
 
@@ -91,7 +93,7 @@ public class Parser {
             return prepareFind(arguments);
 
         case ListCommand.COMMAND_WORD:
-            return new ListCommand(arguments);
+            return prepareList(arguments);
             
         case FindTagCommand.COMMAND_WORD:
             return new FindTagCommand(arguments);
@@ -109,12 +111,7 @@ public class Parser {
 
 
 
-	/**
-     * Parses arguments in the context of the add task command.
-     *
-     * @param args full command args string
-     * @return the prepared command
-     */
+
     private Command prepareAdd(String args){
         final Matcher matcher = TASK_DATA_ARGS_FORMAT.matcher(args.trim());
         // Validate arg string format
@@ -154,6 +151,8 @@ public class Parser {
     
     /**
      * Extracts the new task's element (e.g. DueDate, Priority) from the add command's argument string.
+     *
+     * @return task element without trailing or ending whitespaces
      */
     private static String getElement(String argument, String prefix) {
         // no priority
@@ -162,7 +161,8 @@ public class Parser {
         }
         // replace first delimiter prefix, then return
         String priorityValue = argument.replaceFirst(prefix, "");
-        return priorityValue;
+        // remove white spaces contained in elements entered
+        return priorityValue.trim();
     }   
     
     /**
@@ -292,4 +292,40 @@ public class Parser {
         return new FindCommand(keywordSet);
     }
 
+    
+
+	/**
+     * Parses arguments in the context of the list command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     */    
+	private Command prepareList(String args) {
+
+		if (args.contains("task")) {
+			return new ListCommand("task");
+		}
+
+		if (args.contains("activit")) {
+			return new ListCommand("activity");
+		}
+
+		if (args.contains("event")) {
+			return new ListCommand("event");
+		}
+
+	      if (args.contains("done")) {
+	            return new ListCommand("done");
+	        }
+
+		
+		if (args.equals("")) {
+			return new ListCommand("");
+		} else {
+			return new IncorrectCommand(ListCommand.MESSAGE_INVALID_LIST_TYPE);
+		}
+
+	}
+
+    
 }

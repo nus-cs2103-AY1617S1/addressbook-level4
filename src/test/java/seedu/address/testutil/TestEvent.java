@@ -1,5 +1,7 @@
 package seedu.address.testutil;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Objects;
 
 import seedu.address.commons.exceptions.IllegalValueException;
@@ -50,9 +52,22 @@ public class TestEvent extends TestActivity implements ReadOnlyEvent {
     }
     
 	@Override
-	public boolean passedDueDate() {
+	public boolean hasPassedDueDate() {
 		return false;
 	}
+	
+	@Override
+    public boolean isOngoing() {
+        Date now = Calendar.getInstance().getTime();
+        return now.after(startTime.getCalendarValue().getTime())
+                && now.before(endTime.getCalendarValue().getTime());
+    }
+
+    @Override
+    public boolean isOver() {
+        Date now = Calendar.getInstance().getTime();
+        return now.after(endTime.getCalendarValue().getTime());
+    }
 
 	@Override
 	public String toStringCompletionStatus() {
@@ -61,6 +76,11 @@ public class TestEvent extends TestActivity implements ReadOnlyEvent {
         } 
             return ""; 
 	}
+	
+	@Override
+    public String displayTiming() {
+        return "From " + startTime.toString() + " to " + endTime.toString();
+    }
 	
     //methods specific to TestEvent
     

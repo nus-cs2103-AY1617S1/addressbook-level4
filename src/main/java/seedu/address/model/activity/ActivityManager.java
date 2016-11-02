@@ -178,8 +178,12 @@ public class ActivityManager {
 
         if (newParams.getReminder().toString().equals(NULL_ENTRY)&& type.equals("edit")) {
             newReminder = new Reminder(oldTask.getReminder().getCalendarValue());
+            newReminder.recurring=oldTask.getReminder().recurring;
+            newReminder.RecurringMessage = oldTask.getReminder().RecurringMessage;            
         } else {
             newReminder = new Reminder(newParams.getReminder().getCalendarValue());
+            newReminder.recurring=newParams.getReminder().recurring;
+            newReminder.RecurringMessage = newParams.getReminder().RecurringMessage;
         }
 
         return newReminder;
@@ -199,9 +203,14 @@ public class ActivityManager {
                 newStartTime = new StartTime("");
             } else {
                 newStartTime = new StartTime(((Event) oldTask).getStartTime().getCalendarValue());
+                newStartTime.recurring = ((Event) oldTask).getStartTime().recurring;
+                newStartTime.RecurringMessage = ((Event) oldTask).getStartTime().RecurringMessage;
+
             }
         } else {
             newStartTime = new StartTime(((Event) newParams).getStartTime().getCalendarValue());
+            newStartTime.recurring = ((Event) newParams).getStartTime().recurring;
+            newStartTime.RecurringMessage = ((Event) newParams).getStartTime().RecurringMessage;
         }
 
         return newStartTime;
@@ -217,12 +226,16 @@ public class ActivityManager {
 
         if (((Event) newParams).getEndTime().toString().equals(NULL_ENTRY)&& type.equals("edit")) {
             if (oldTask.getClass().getSimpleName().equalsIgnoreCase("activity")) {
-                newEndTime = new EndTime("20-10-2016 1200", ""); //what to put as starttime?
+                newEndTime = new EndTime(((Event) oldTask).getStartTime(), ""); //what to put as starttime?
             } else {
                 newEndTime = new EndTime(((Event) oldTask).getEndTime().getCalendarValue());
+                newEndTime.recurring = ((Event) oldTask).getEndTime().recurring;
+                newEndTime.RecurringMessage = ((Event) oldTask).getEndTime().RecurringMessage;
             }
         } else {
             newEndTime = new EndTime(((Event) newParams).getEndTime().getCalendarValue());
+            newEndTime.recurring = ((Event) newParams).getEndTime().recurring;
+            newEndTime.RecurringMessage = ((Event) newParams).getEndTime().RecurringMessage;
         }
 
         return newEndTime;

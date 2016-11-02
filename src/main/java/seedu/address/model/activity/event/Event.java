@@ -1,23 +1,20 @@
 package seedu.address.model.activity.event;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Objects;
 
-import seedu.address.commons.util.CollectionUtil;
 import seedu.address.model.activity.Activity;
 import seedu.address.model.activity.Name;
 import seedu.address.model.activity.ReadOnlyActivity;
 import seedu.address.model.activity.Reminder;
-import seedu.address.model.activity.task.DueDate;
-import seedu.address.model.activity.task.Priority;
-import seedu.address.model.activity.task.ReadOnlyTask;
-import seedu.address.model.activity.task.Task;
 import seedu.address.model.tag.UniqueTagList;
 //@@author A0131813R
 public class Event extends Activity implements ReadOnlyEvent{
 
     private StartTime startTime;
     private EndTime endTime;
-    private boolean isCompleted;
     
     public Event(Name name, StartTime start, EndTime end, Reminder reminder, UniqueTagList tags) {
         super(name, reminder, tags);
@@ -25,7 +22,6 @@ public class Event extends Activity implements ReadOnlyEvent{
 //        assert !CollectionUtil.isAnyNull(start, end);
         this.startTime = start;
         this.endTime = end;
-        isCompleted = false;
     }
     
     /**
@@ -33,6 +29,7 @@ public class Event extends Activity implements ReadOnlyEvent{
      */
     public Event(ReadOnlyEvent source) {
         this(source.getName(), source.getStartTime(), source.getEndTime(), source.getReminder(), source.getTags());
+        this.isCompleted =  source.getCompletionStatus();
     }
     
     @Override
@@ -52,25 +49,58 @@ public class Event extends Activity implements ReadOnlyEvent{
     public void setEndTime(EndTime endtime) {
         this.endTime= endtime;
     }
-
-
-
+    
+    /**
+     * Checks if this event is currently ongoing.
+     * @return true if the current time is between the start and end time.
+     */
     @Override
-    public boolean getCompletionStatus() {
-        return isCompleted;
+    public boolean isOngoing() {
+        return startTime.isBeforeNow() && endTime.isAfterNow();
+    }
+
+    /**
+     * Checks if this event is over.
+     * @return true if the current time is after the end time.
+     */
+    @Override
+    public boolean isOver() {
+        return endTime.isBeforeNow();
     }
     
-    public void setCompletionStatus(boolean isComplete) {
-        this.isCompleted = isCompleted;
+    @Override
+    public boolean getisOver() {
+        return isOver();
     }
-    
+
     @Override
     public String toStringCompletionStatus() {
-        if(isCompleted) {
-            return "Over";
-        } 
-        
-            return "";  
+        if(this.isOver()) {
+            return "Event\nOver";
+        } else if (this.isOngoing()) {
+            return "Event\nOngoing";
+        } else {
+            return "";
+        }
+    }
+    
+    @Override
+    public String displayTiming() {
+        String message = "From ";
+        if(this.getStartTime().recurring)
+            message = message.concat(" Every ");
+        if (isStartAndEndOnSameDate()) {
+            SimpleDateFormat timeOnly = new SimpleDateFormat("h:mm aa");
+            message = message.concat(startTime.toString() + " to " + timeOnly.format(endTime.getCalendarValue().getTime()));
+        } else {
+            message =  message.concat(startTime.toString() + " to " + endTime.toString());
+        }
+        return message;
+    }
+    
+    private boolean isStartAndEndOnSameDate() {
+        return startTime.getCalendarValue().get(Calendar.YEAR) == endTime.getCalendarValue().get(Calendar.YEAR)
+                && startTime.getCalendarValue().get(Calendar.DAY_OF_YEAR) == endTime.getCalendarValue().get(Calendar.DAY_OF_YEAR);
     }
     
     @Override

@@ -7,6 +7,8 @@ public interface ReadOnlyTask extends ReadOnlyActivity {
     DueDate getDueDate();
     Priority getPriority();
     boolean getCompletionStatus();
+    boolean isDueDateApproaching();
+    boolean hasPassedDueDate();
     
     /**
      * Returns true if both have the same state. (interfaces cannot override .equals)

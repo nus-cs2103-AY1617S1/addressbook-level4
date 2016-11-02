@@ -17,6 +17,7 @@ import seedu.address.model.*;
 import seedu.address.commons.util.ConfigUtil;
 import seedu.address.storage.Storage;
 import seedu.address.storage.StorageManager;
+import seedu.address.storage.XmlAddressBookStorage;
 import seedu.address.ui.Ui;
 import seedu.address.ui.UiManager;
 
@@ -50,8 +51,9 @@ public class MainApp extends Application {
 
         config = initConfig(getApplicationParameter("config"));
         storage = new StorageManager(config.getAddressBookFilePath(), config.getUserPrefsFilePath());
-
+        
         userPrefs = initPrefs(config);
+        storage.setAddressBookFilePath(userPrefs.getDataFilePath());
 
         initLogging(config);
 
@@ -141,6 +143,11 @@ public class MainApp extends Application {
         } catch (IOException e) {
             logger.warning("Problem while reading from the file. . Will be starting with an empty AddressBook");
             initializedPrefs = new UserPrefs();
+        }
+        
+        //If the lifekeeper storage file as specified in the UserPrefs does not exist, use the default file.
+        if (!XmlAddressBookStorage.checkIfDataFileExists(initializedPrefs.getDataFilePath())) {
+            initializedPrefs.setDataFilePath(Config.getDefaultSaveFile());
         }
 
         //Update prefs file in case it was missing to begin with or there are new/unused fields

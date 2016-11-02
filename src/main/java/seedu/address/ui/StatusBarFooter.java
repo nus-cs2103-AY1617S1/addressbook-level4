@@ -45,7 +45,7 @@ public class StatusBarFooter extends UiPart {
         addSyncStatus();
         setSyncStatus("Not updated yet in this session");
         addSaveLocation();
-        setSaveLocation("./" + saveLocation);
+        setSaveLocation(saveLocation);
         registerAsAnEventHandler(this);
     }
 
@@ -54,7 +54,7 @@ public class StatusBarFooter extends UiPart {
         placeHolder.getChildren().add(mainPane);
     }
 
-    private void setSaveLocation(String location) {
+    public void setSaveLocation(String location) {
         this.saveLocationStatus.setText(location);
     }
 

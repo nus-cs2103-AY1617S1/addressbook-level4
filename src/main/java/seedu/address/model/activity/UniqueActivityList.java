@@ -60,6 +60,14 @@ public class UniqueActivityList implements Iterable<Activity> {
         }
         internalList.add(toAdd);
     }
+    
+    public void addTo(Activity toAdd) throws DuplicateTaskException {
+        assert toAdd != null;
+        if (contains(toAdd)) {
+            throw new DuplicateTaskException();
+        }
+        internalList.add(0, toAdd);
+    }
 
 	public void addAt(int index, Activity toAdd) throws DuplicateTaskException{
         assert toAdd != null;
@@ -67,6 +75,14 @@ public class UniqueActivityList implements Iterable<Activity> {
             throw new DuplicateTaskException();
         }
         internalList.add(index - 1, toAdd);
+	}
+	
+	public void addToEnd(Activity toAdd) throws DuplicateTaskException{
+        assert toAdd != null;
+        if (contains(toAdd)) {
+            throw new DuplicateTaskException();
+        }
+        internalList.add(toAdd);
 	}
     
     /**

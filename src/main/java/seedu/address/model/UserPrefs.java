@@ -1,5 +1,6 @@
 package seedu.address.model;
 
+import seedu.address.commons.core.Config;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.storage.XmlAddressBookStorage;
 
@@ -11,7 +12,7 @@ import java.util.Objects;
 public class UserPrefs {
 
     public GuiSettings guiSettings;
-    public static String savePath;
+    public String savePath;
 
     public GuiSettings getGuiSettings() {
         return guiSettings == null ? new GuiSettings() : guiSettings;
@@ -24,15 +25,20 @@ public class UserPrefs {
     public UserPrefs(){
         XmlAddressBookStorage xml = new XmlAddressBookStorage();
         this.setGuiSettings(500, 500, 0, 0);
-        this.setDataFilePath(xml.getAddressBookFilePath());
+        this.setDataFilePath(Config.getDefaultSaveFile());
     }
 
     public void setGuiSettings(double width, double height, int x, int y) {
         guiSettings = new GuiSettings(width, height, x, y);
     }
     
-    public static void setDataFilePath(String filePath) {
-        savePath = filePath;
+    public String getDataFilePath() {
+        assert this.savePath != null;
+        return this.savePath;
+    }
+    
+    public void setDataFilePath(String filePath) {
+        this.savePath = filePath;
     }
 
     @Override
@@ -46,12 +52,12 @@ public class UserPrefs {
 
         UserPrefs o = (UserPrefs)other;
 
-        return Objects.equals(guiSettings, o.guiSettings);
+        return Objects.equals(guiSettings, o.guiSettings) && Objects.equals(savePath, o.savePath);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(guiSettings);
+        return Objects.hash(guiSettings, savePath);
     }
 
     @Override

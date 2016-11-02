@@ -63,6 +63,8 @@ public interface Model {
 
     void updateFilteredByTagListToShowAll(String tag);
 
+    void updateFilteredDoneListToShowAll();
+
 
 
     
