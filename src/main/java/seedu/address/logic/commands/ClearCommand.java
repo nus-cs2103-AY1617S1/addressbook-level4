@@ -5,6 +5,7 @@ import java.util.Optional;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
+import javafx.stage.StageStyle;
 import seedu.address.model.TaskManager;
 
 /**
@@ -25,7 +26,7 @@ public class ClearCommand extends Command {
         alert.setTitle("Confirmation Dialog");
         alert.setHeaderText("Confirm clear");
         alert.setContentText("Are you sure you want to clear the Task Manager?");
-
+        alert.initStyle(StageStyle.UTILITY);
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.OK){
             // ... user chose OK
