@@ -78,11 +78,11 @@ Examples:
 
 #### Listing all tasks: `list`
 Shows a list of all tasks in Savvy Tasker <br>
-Format: `list [t/LIST_TYPE]`
+Format: `list [LIST_TYPE]`
 
 > Parameters | Description  
 > -------- | :-------- 
-> LIST_TYPE | `Optional` Specifies the name of the task.<br>`Accepts` values `DueDate`, `PriorityLevel`, `Archived`<br>`Defaults` to `DueDate`
+> LIST_TYPE | `Optional` Specifies the name of the task.<br>`Accepts` values `DueDate`, `PriorityLevel`, `Archived`, `Alias`<br>`Defaults` to `DueDate`
 
 `LIST_TYPE` Explanation:
 * `DueDate` <br> 
@@ -91,7 +91,9 @@ Format: `list [t/LIST_TYPE]`
 * `PriorityLevel` <br> 
    Tasks are sorted according to priority level beginning with the highest.<br>
 * `Archived` <br> 
-   Tasks that have been [marked](#mark-a-task-as-done--mark) are listed. They are sorted according to the time of creation of the task.<br>
+   Tasks that have been [marked](#mark-a-task-as-done--mark) are listed. They are sorted according to the time of creation of the task.
+* `Alias` <br> 
+   [Aliases](#alias-a-keyword--alias) that have been registered are listed.<br>
 
 #### Finding all task containing any keyword in its name: `find`
 Finds tasks whose names contain any of the given keywords.<br>
@@ -157,7 +159,7 @@ Format: `storage PATH`
 
 > Parameters | Description  
 > -------- | :-------- 
-> PATH | `Mandatory` Specifies the path of where Savvy Tasker's task list is saved at.
+> PATH | `Mandatory` Specifies the path where Savvy Tasker's task list is saved at.
 > <br>
 > If the new storage location specified by `PATH` is not accessible by Savvy Tasker, no change will be made to the existing path.
 
@@ -266,11 +268,11 @@ Command | Format
 [Delete](#deleting-a-task--delete) | `delete INDEX [MORE_INDEX]`<br>Example: `delete 1 2 3`
 [Exit](#exiting-the-program--exit) | `exit`
 [Find](#finding-all-task-containing-any-keyword-in-its-name-find) | `find [t/FIND_TYPE] KEYWORD [MORE_KEYWORDS]`<br>Example: `find t/exact CS2103 Meeting`
-[List](#listing-all-tasks-list) | `list [t/LIST_TYPE]`<br>Example: `list t/archived`
+[List](#listing-all-tasks-list) | `list [LIST_TYPE]`<br>Example: `list archived`
 [Help](#viewing-help--help) | `help`
 [Modify](#modifies-a-task--modify) | `modify INDEX [t/TASK_NAME] [s/START_DATE] [e/END_DATE] [l/LOCATION] [p/PRIORITY_LEVEL] [r/RECURRING_TYPE] [n/NUMBER_OF_RECURRENCE] [c/CATEGORY] [d/DESCRIPTION]`<br>Example: `modify 2 t/Wednesday Weekly Milestone s/wed d/Project Meeting and Finalization`
 [Mark](#mark-a-task-as-done--mark) | `mark INDEX [MORE_INDEX]`<br>Example: `mark 1 2 3`
-[Storage]() | `storage PATH`<br>Example: `storage data/savvytasker.xml`
+[Storage](#change-storage-location--storage) | `storage PATH`<br>Example: `storage data/savvytasker.xml`
 [Unmark](#unmark-a-task-as-done--unmark) | `unmark INDEX [MORE_INDEX]`<br>Example: `unmark 1 2 3`
 [Undo](#undo-the-most-recent-operation--undo) | `undo`
 [Redo](#redo-the-most-recent-undo-operation--redo) | `redo`
