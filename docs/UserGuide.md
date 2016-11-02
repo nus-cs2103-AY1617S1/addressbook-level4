@@ -30,6 +30,7 @@ Format: `help`
 > Help is also shown if you enter an incorrect command e.g. `abcd`
 
 	<!-- @@author A0139923X -->
+<a name="add"></a>
 #### Adding a task: `add`
 Adds a task to the task-list.<br>
 Different Types of tasks (Todo/Event/Deadline) have different command format.<br>
@@ -48,6 +49,7 @@ Todos will be rearranged in the Todo-List based on their priority.<br>
 > Example: `add CS2103 v0.2 on/25-12-2016 at/16:00`
 
 	<!-- @@author A0139923X -->
+  <a name="edit"></a>
 #### Editing a task: `edit`
 Edits information of the task in the task-list.<br>
 Different Types of tasks (Todo/Event/Deadline) have different command format.<br>
@@ -65,6 +67,7 @@ Todos will be rearranged in the Todo-List based on their priority.<br>
 > Format: `edit TASK_TYPE INDEX_NUMBER name/TASK_NAME on/DATE at/END_TIME`<br>
 > Example: `edit deadline 1 name/CS2103 v0.2 on/25-12-2016 at/14:00`
 
+<a name="delete"></a>
 #### Deleting a task : `delete`
 Delete a task with given type and index number.<br>
 > Format: `delete TASK_TYPE INDEX_NUMBER`<br>
@@ -72,6 +75,7 @@ Delete a task with given type and index number.<br>
 > Example(Event): `delete event 1` <br>
 > Example(Deadline): `delete deadline 1`
 
+<a name="done"></a>
 #### Marking a completed task : `done`
 Mark a Todo-task with given index number as done.<br>
 > Format: `done TASK_TYPE INDEX_NUMBER`<br>
@@ -79,8 +83,8 @@ Mark a Todo-task with given index number as done.<br>
 > Example(Event): `done event 1` <br>
 > Example(Deadline): `done deadline 1`
 
-
 	<!-- @@author A0139923X -->
+  <a name="undone"></a>
 #### Un-Marking a completed task : `undone`
 Mark a Todo-task with given index number as undone.<br>
 > Format: `undone TASK_TYPE INDEX_NUMBER`<br>
@@ -88,6 +92,7 @@ Mark a Todo-task with given index number as undone.<br>
 > Example(Event): `undone event 1` <br>
 > Example(Deadline): `undone deadline 1`
 
+<a name="list"></a>
 #### Listing all tasks : `list`
 Shows a list of all tasks in the task-list.<br>
 > Format: `list TASK_TYPE` <br>
@@ -97,6 +102,7 @@ Shows a list of all tasks in the task-list.<br>
 > Example(All): `list all`
 
 	<!-- @@author A0139923X -->
+  <a name="find"></a>
 #### Finding all tasks containing any keyword in their name: `find`
 Finds tasks whose names contain any of the given keywords.<br>
 The order of the keywords does not matter, only the name is searched, and tasks matching at least one keyword will be returned (i.e. `OR` search).<br>
@@ -107,6 +113,7 @@ The order of the keywords does not matter, only the name is searched, and tasks 
 > Example(Deadline): `find deadline Assignment to hand up today`
 > Example by Start Date: `find TASK_TYPE date/[By day,month,year or whole date(25th December 2016)]`
 
+<a name="clear"></a>
 #### Clearing all tasks : `clear`
 Clears all data in the given task type list.<br>
 > Format: `clear TASK_TYPE` <br>
@@ -115,6 +122,7 @@ Clears all data in the given task type list.<br>
 > Example(Event): `clear event` <br>
 > Example(Deadline): `clear deadline`
 
+<a name="clear_done"></a>
 #### Clearing all done tasks : `clear_done`
 Clears all done tasks in the given task type list.<br>
 > Format: `clear_done TASK_TYPE` <br>
@@ -123,10 +131,12 @@ Clears all done tasks in the given task type list.<br>
 > Example(Event): `clear_done event` <br>
 > Example(Deadline): `clear_done deadline`
 
+<a name="undo"></a>
 #### Undo the previous command: `undo`
 Undo the latest command. If there is no previous command, nothing will happen.<br>
 > Format: `undo`
 
+<a name="storage"></a>
 #### Change the Storage directory : `storage`
 Change the storage directory of the app. If the given directory does not exist, the app will create a new directory with given name.<br>
 > Format: `storage DIRECTORY` <br>
