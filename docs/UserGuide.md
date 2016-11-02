@@ -227,7 +227,7 @@ Examples:
 
 Command format : find ed/ENDTIME
 
-Examples
+Examples:
 
 - **find ed/tues**
 
