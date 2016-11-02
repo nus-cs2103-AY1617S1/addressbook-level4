@@ -573,7 +573,7 @@ public class CommandParser {
      */
     private Command prepareSort(String args) {
         if (args.equals("")) {
-            return new SortCommand("name_by_default");
+            return new SortCommand("_default");
         } else {
             final Matcher matcher = KEYWORDS_ARGS_FORMAT.matcher(args.trim());
             if (!matcher.matches()) {

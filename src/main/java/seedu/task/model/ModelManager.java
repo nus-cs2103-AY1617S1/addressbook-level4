@@ -119,8 +119,12 @@ public class ModelManager extends ComponentManager implements Model {
             taskManager.sortByStartTime();
         } else if (keyword.equals("End Time")) {
             taskManager.sortByEndTime();
-        } else { //name
+        } else if (keyword.equals("Completed")) {
+            taskManager.sortByDoneStatus();
+        } else if (keyword.equals("Name")) {
             taskManager.sortByName();
+        } else {
+            taskManager.sortByDefaultRules();
         }
         indicateTaskManagerChanged();
     }

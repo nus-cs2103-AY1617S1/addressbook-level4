@@ -6,6 +6,7 @@ import seedu.task.commons.core.LogsCenter;
 import seedu.task.commons.util.ConfigUtil;
 
 /**
+ * @@author A0147944U
  * Lists all tasks in the task manager to the user.
  */
 public class SortCommand extends Command {
@@ -24,14 +25,19 @@ public class SortCommand extends Command {
     private final String keyword;
     
     public SortCommand(String keyword) {
+        logger.warning("Listing by: " + keyword);
         if (keyword.startsWith("d")) { //deadline
             this.keyword = "Deadline";
         } else if (keyword.startsWith("s")) { //start time
             this.keyword = "Start Time";
         } else if (keyword.startsWith("e")) { //end time
             this.keyword = "End Time";
-        } else { //name
+        } else if (keyword.startsWith("c")) { //done status
+            this.keyword = "Completed";
+        } else if (keyword.startsWith("n")) { //name
             this.keyword = "Name";
+        } else { //default sorting
+            this.keyword = "Default";
         }
     }
 
