@@ -126,6 +126,7 @@ public class ModelManager extends ComponentManager implements Model {
     public synchronized void completeTask(ReadOnlyTask taskToComplete, boolean isComplete)
             throws TaskNotFoundException {
         taskBook.completeTask(taskToComplete, isComplete);
+        updateAllFilteredListsToNormalListing(); //refresh all filtered lists
         updateFilteredAgendaTaskList(ListId.COMPLETED); //show the completed tasks by default after execution
         updateFilteredAgendaEventList(ListId.COMPLETED);
         indicateTaskBookChanged();
