@@ -8,6 +8,7 @@ import org.junit.Test;
 
 import seedu.malitio.commons.exceptions.DataConversionException;
 import seedu.malitio.commons.util.ConfigUtil;
+import seedu.malitio.logic.commands.SaveCommand;
 import seedu.malitio.model.Malitio;
 import seedu.malitio.storage.StorageManager;
 import static org.junit.Assert.assertEquals;
@@ -52,6 +53,10 @@ public class SaveCommandTest extends MalitioGuiTest {
     assertSaveSuccessful(DEFAULT_FILE_PATH);
     assertFileDeletionSuccessful(TEST_FILE_PATH);
     
+    //invalid file path
+    commandBox.runCommand("save abc");
+    assertResultMessage(SaveCommand.MESSAGE_INVALID_DIRECTORY + SaveCommand.MESSAGE_DIRECTORY_EXAMPLE);
+    
     //orginal save file location should be preserved after the tests
     ConfigUtil.changeMalitioSaveDirectory(originalFilePath);
     }
@@ -65,6 +70,7 @@ public class SaveCommandTest extends MalitioGuiTest {
         File f = new File(newFileLocation + DEFAULT_FILE_NAME);
         if(f.exists()) {
             assertEquals(original, new Malitio(storageManager.readMalitio(newFileLocation + DEFAULT_FILE_NAME).get()));
+            assertResultMessage(String.format(SaveCommand.MESSAGE_SAVE_SUCCESSFUL, newFileLocation + DEFAULT_FILE_NAME));
         } else {
             assertTrue(false);
         }

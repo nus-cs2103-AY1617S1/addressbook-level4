@@ -16,32 +16,32 @@ import static seedu.malitio.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 public class FindCommandTest extends MalitioGuiTest {
 
     //In the tests below, we assume event,floating task and deadline lists are identical, hence to save resources only work on them equally
-    @Test
+       @Test
     public void find_nonEmptyList() throws IllegalArgumentException, IllegalValueException {
 
-        assertFindEventResult("find e with", td.event1, td.event2); //multiple results
+        assertFindResult("find with", td.event1, td.event2); //multiple results
         assertResultMessage("2 tasks found!");
         
-        assertFindFloatingTaskResult("find peN HOMEWORK", td.floatingTask2);
-        assertFindDeadlineResult("find peN HOMEWORK", td.deadline3, td.deadline5);
+        assertFindResult("find peN HOMEWORK", td.floatingTask2, td.deadline3, td.deadline5);
+      //  assertFindResult("find peN HOMEWORK");
         assertResultMessage("3 tasks found!");
         
-        assertFindDeadlineResult("find 12-25", td.deadline4); //find dates
-        assertFindEventResult("find 12-25", td.event5);
+        assertFindResult("find 12-25", td.deadline4, td.event5); //find dates
+       // assertFindResult("find 12-25");
         assertResultMessage("2 tasks found!");
         
-        assertFindEventResult("find wedding"); //no result
+        assertFindResult("find wedding"); //no result
         
         //find after deleting one result
         commandBox.runCommand("list");
         commandBox.runCommand("delete f1");
-        assertFindFloatingTaskResult("find bring",td.floatingTask2);
+        assertFindResult("find bring",td.floatingTask2);
     }
-
+       
     @Test
     public void find_emptyList() throws IllegalArgumentException, IllegalValueException {
         commandBox.runCommand("clear");
-        assertFindEventResult("find eat"); //no result
+        assertFindResult("find eat"); //no result
     }
 
     @Test
@@ -52,13 +52,13 @@ public class FindCommandTest extends MalitioGuiTest {
  
     @Test
     public void find_specificTasks() throws IllegalArgumentException, IllegalValueException {  
-        assertFindEventResult("find e with", td.event1, td.event2); //multiple results
+        assertFindResult("find e with", td.event1, td.event2); //multiple results
         assertResultMessage("2 tasks found!");
         
-        assertFindDeadlineResult("find d H", td.deadline1, td.deadline4, td.deadline5);
+        assertFindResult("find d H", td.deadline1, td.deadline4, td.deadline5);
         assertResultMessage("3 tasks found!");
         
-        assertFindFloatingTaskResult("find f tell", td.floatingTask3);
+        assertFindResult("find f tell", td.floatingTask3);
         assertResultMessage("1 tasks found!");
         
      commandBox.runCommand("find e");
@@ -68,23 +68,26 @@ public class FindCommandTest extends MalitioGuiTest {
     
     /**
      * Overload functions to assert result in each floating task, deadline and event list is correct
+     * @throws IllegalValueException 
+     * @throws IllegalArgumentException 
      */
-    private void assertFindFloatingTaskResult(String command, TestFloatingTask... expectedHits ) {
+    
+    private void assertFindResult(String command, Object... expectedHits ) throws IllegalArgumentException, IllegalValueException {
         commandBox.runCommand(command);
+        
+        switch (expectedHits.getClass().getSimpleName()) {
+        case "TestFloatingTask":
         assertFloatingTaskListSize(expectedHits.length);
-        
-        assertTrue(floatingTaskListPanel.isListMatching(expectedHits));
-    }
-    private void assertFindDeadlineResult(String command, TestDeadline... expectedHits ) {
-        commandBox.runCommand(command);
-        assertDeadlineListSize(expectedHits.length);
-        
-        assertTrue(deadlineListPanel.isListMatching(expectedHits));
-    }
-    private void assertFindEventResult(String command, TestEvent... expectedHits ) throws IllegalArgumentException, IllegalValueException {
-        commandBox.runCommand(command);
-        assertEventListSize(expectedHits.length);
-        
-        assertTrue(eventListPanel.isListMatching(expectedHits));
+        assertTrue(floatingTaskListPanel.isListMatching((TestFloatingTask[]) expectedHits));
+        break;
+        case "TestDeadline":
+            assertDeadlineListSize(expectedHits.length);
+            assertTrue(deadlineListPanel.isListMatching((TestDeadline[]) expectedHits));
+            break;
+        case "TestEvent":
+            assertEventListSize(expectedHits.length);
+            assertTrue(eventListPanel.isListMatching((TestEvent[])expectedHits));
+            break;
+        }
     }
 }
