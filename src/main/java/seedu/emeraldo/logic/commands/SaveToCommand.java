@@ -6,14 +6,13 @@ import seedu.emeraldo.commons.core.Config;
 import seedu.emeraldo.commons.core.EventsCenter;
 import seedu.emeraldo.commons.events.storage.SaveLocationChangedEvent;
 import seedu.emeraldo.commons.util.ConfigUtil;
-import seedu.emeraldo.storage.StorageManager;
 
 public class SaveToCommand extends Command{
     
     public static final String COMMAND_WORD = "saveto";
     
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Changes the location of the xml data file"
-            + "Parameters: filepath"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Changes the location of the xml data file.\n"
+            + "Parameters: FILEPATH\n"
             + "Example: " + COMMAND_WORD
             + " C:/emeraldo_task/";
     
@@ -33,18 +32,14 @@ public class SaveToCommand extends Command{
     }
     
     public CommandResult execute() {
-        /*
-        TO-DO:
-            change filepath in XmlEmeraldoStorage
-            change filepath in Config.java
-            indicateEmeraldoSaveLocationChanged()
-        */
 
         try {
             filepath = filepath + FILE_NAME;
+            
             Config config = new Config();
             config.setEmeraldoFilePath(filepath);
             ConfigUtil.saveConfig(config, Config.DEFAULT_CONFIG_FILE);
+            
             EventsCenter.getInstance().post(new SaveLocationChangedEvent(filepath));
             return new CommandResult(String.format(MESSAGE_SUCCESS, filepath));
         } catch (IOException e) {
