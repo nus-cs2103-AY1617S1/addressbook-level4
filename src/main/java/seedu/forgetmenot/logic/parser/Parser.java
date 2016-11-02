@@ -99,19 +99,8 @@ public class Parser {
             return prepareFind(arguments);
 
         case ShowCommand.COMMAND_WORD:
-        	try {
-				return prepareShow(arguments);
-			} catch (IllegalValueException e1) {
-				return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ShowCommand.MESSAGE_USAGE));
-			}
-
-//        case ShowDateCommand.COMMAND_WORD:
-//        	try {
-//				return new ShowDateCommand(arguments.trim());
-//			} catch (IllegalValueException e) {
-//				return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SetStorageCommand.MESSAGE_USAGE));
-//			}
-        	
+			return prepareShow(arguments);
+			
         case UndoCommand.COMMAND_WORD:
             return new UndoCommand();
         
@@ -155,7 +144,7 @@ public class Parser {
     }
     
     //@@author A0139198N
-    private Command prepareShow(String args) throws IllegalValueException{
+    private Command prepareShow(String args) {
 //    	final Matcher matcher = DATE_ARGS_FORMAT.matcher(args.trim());
     	
     	args = args.trim();
@@ -175,14 +164,23 @@ public class Parser {
             return new ShowCommand("overdue");
         }
     	
+        else if (args.equals("floating")) {
+        	return new ShowCommand("floating");
+        }
+    	
     	else {
-    		Time time = new Time(args);
-    		if (Time.isValidDate(time.appearOnUIFormatForDate())) {
-            return new ShowCommand(time.appearOnUIFormatForDate());
-        	} 
-    		else {
-    		return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ShowCommand.MESSAGE_USAGE));
-    		}
+            Time time;
+            try {
+                time = new Time(args);
+                if (Time.isValidDate(time.appearOnUIFormatForDate())) {
+                return new ShowCommand(time.appearOnUIFormatForDate());
+            } 
+                
+            } catch (IllegalValueException e) {
+                return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ShowCommand.MESSAGE_USAGE));
+            }
+            
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ShowCommand.MESSAGE_USAGE));
     	}
     }
     
