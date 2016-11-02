@@ -1,5 +1,5 @@
 # A0144061Ureused
-###### /java/seedu/todoList/MainApp.java
+###### /java/seedu/Tdoo/MainApp.java
 ``` java
     private Model initModelManager(Storage storage, UserPrefs userPrefs) {
         Optional<ReadOnlyTaskList> TodoListOptional;
@@ -43,7 +43,7 @@
         return new ModelManager(initialTodoListData, initialEventListData, initialDeadlineListData, userPrefs);
     }
 ```
-###### /java/seedu/todoList/storage/XmlAdaptedDeadline.java
+###### /java/seedu/Tdoo/storage/XmlAdaptedDeadline.java
 ``` java
 /**
  * JAXB-friendly version of the task.
@@ -72,7 +72,7 @@ public class XmlAdaptedDeadline implements XmlAdaptedTask {
      */
     public XmlAdaptedDeadline(Deadline source) {
     	name = source.getName().name;
-    	startDate = source.getDate().saveDate;
+    	startDate = source.getStartDate().saveDate;
         endTime = source.getEndTime().saveEndTime;
         isDone = source.getDone();
     }
@@ -91,7 +91,7 @@ public class XmlAdaptedDeadline implements XmlAdaptedTask {
 }
 
 ```
-###### /java/seedu/todoList/storage/XmlAdaptedEvent.java
+###### /java/seedu/Tdoo/storage/XmlAdaptedEvent.java
 ``` java
 /**
  * JAXB-friendly version of the task.
@@ -147,7 +147,7 @@ public class XmlAdaptedEvent implements XmlAdaptedTask {
 }
 
 ```
-###### /java/seedu/todoList/storage/XmlAdaptedTask.java
+###### /java/seedu/Tdoo/storage/XmlAdaptedTask.java
 ``` java
 /**
  * JAXB-friendly version of the task.
@@ -162,7 +162,7 @@ public interface XmlAdaptedTask {
     public Task toModelType() throws IllegalValueException;
 }
 ```
-###### /java/seedu/todoList/storage/XmlAdaptedTodo.java
+###### /java/seedu/Tdoo/storage/XmlAdaptedTodo.java
 ``` java
 /**
  * JAXB-friendly version of the task.
@@ -214,7 +214,7 @@ public class XmlAdaptedTodo implements XmlAdaptedTask {
 }
 
 ```
-###### /java/seedu/todoList/storage/XmlDeadlineListStorage.java
+###### /java/seedu/Tdoo/storage/XmlDeadlineListStorage.java
 ``` java
 /**
  * A class to access TodoList data stored as an xml file on the hard disk.
@@ -281,7 +281,7 @@ public class XmlDeadlineListStorage implements TaskListStorage {
     }
 }
 ```
-###### /java/seedu/todoList/storage/XmlEventListStorage.java
+###### /java/seedu/Tdoo/storage/XmlEventListStorage.java
 ``` java
 /**
  * A class to access TodoList data stored as an xml file on the hard disk.
@@ -348,7 +348,7 @@ public class XmlEventListStorage implements TaskListStorage {
     }
 }
 ```
-###### /java/seedu/todoList/storage/XmlFileStorage.java
+###### /java/seedu/Tdoo/storage/XmlFileStorage.java
 ``` java
 /**
  * Stores TaskList data in an XML file
@@ -382,16 +382,18 @@ public class XmlFileStorage {
         		return XmlUtil.getDataFromFile(file, XmlSerializableDeadlineList.class);
         	}
         	else {
+
         		return XmlUtil.getDataFromFile(file, XmlSerializableTaskList.class);
         	}
         } catch (JAXBException e) {
+            System.out.println(e.getMessage());
             throw new DataConversionException(e);
         }
     }
 
 }
 ```
-###### /java/seedu/todoList/storage/XmlSerializableDeadlineList.java
+###### /java/seedu/Tdoo/storage/XmlSerializableDeadlineList.java
 ``` java
 /**
  * An Immutable TaskList that is serializable to XML format
@@ -445,7 +447,7 @@ public class XmlSerializableDeadlineList implements XmlSerializableTaskList {
     }
 }
 ```
-###### /java/seedu/todoList/storage/XmlSerializableEventList.java
+###### /java/seedu/Tdoo/storage/XmlSerializableEventList.java
 ``` java
 /**
  * An Immutable TaskList that is serializable to XML format
@@ -499,7 +501,7 @@ public class XmlSerializableEventList implements XmlSerializableTaskList {
     }
 }
 ```
-###### /java/seedu/todoList/storage/XmlSerializableTodoList.java
+###### /java/seedu/Tdoo/storage/XmlSerializableTodoList.java
 ``` java
 /**
  * An Immutable TaskList that is serializable to XML format
@@ -553,7 +555,7 @@ public class XmlSerializableTodoList implements XmlSerializableTaskList {
     }
 }
 ```
-###### /java/seedu/todoList/storage/XmlTodoListStorage.java
+###### /java/seedu/Tdoo/storage/XmlTodoListStorage.java
 ``` java
 /**
  * A class to access TodoList data stored as an xml file on the hard disk.
@@ -620,7 +622,7 @@ public class XmlTodoListStorage implements TaskListStorage {
     }
 }
 ```
-###### /java/seedu/todoList/ui/DeadlineCard.java
+###### /java/seedu/Tdoo/ui/DeadlineCard.java
 ``` java
 public class DeadlineCard extends UiPart{
 
@@ -653,31 +655,8 @@ public class DeadlineCard extends UiPart{
         return UiPartLoader.loadUiPart(card);
     }
 
-    @FXML
-    public void initialize() {
-        name.setText(task.getName().name);
-        id.setText(displayedIndex + ". ");
-        date.setText("Date: " + task.getDate().date);
-        endTime.setText("End Time: " + task.getEndTime().endTime);
-        done.setText("Completed: " + task.getDone().toString());
-    }
-
-    public HBox getLayout() {
-        return cardPane;
-    }
-
-    @Override
-    public void setNode(Node node) {
-        cardPane = (HBox)node;
-    }
-
-    @Override
-    public String getFxmlPath() {
-        return FXML;
-    }
-}
 ```
-###### /java/seedu/todoList/ui/DeadlineListPanel.java
+###### /java/seedu/Tdoo/ui/DeadlineListPanel.java
 ``` java
 /**
  * Panel containing the list of tasks.
@@ -770,7 +749,7 @@ public class DeadlineListPanel extends UiPart {
 
 }
 ```
-###### /java/seedu/todoList/ui/EventCard.java
+###### /java/seedu/Tdoo/ui/EventCard.java
 ``` java
 public class EventCard extends UiPart{
 
@@ -806,34 +785,9 @@ public class EventCard extends UiPart{
         card.displayedIndex = displayedIndex;
         return UiPartLoader.loadUiPart(card);
     }
-
-    @FXML
-    public void initialize() {
-        name.setText(task.getName().name);
-        id.setText(displayedIndex + ". ");
-        date.setText("Start Date: "+ task.getStartDate().date);
-        endDate.setText("End Date: " + task.getEndDate().endDate);
-        startTime.setText("Start Time: " + task.getStartTime().startTime);
-        endTime.setText("End Time: " + task.getEndTime().endTime);
-        done.setText("Completed: " + task.getDone().toString());
-    }
-
-    public HBox getLayout() {
-        return cardPane;
-    }
-
-    @Override
-    public void setNode(Node node) {
-        cardPane = (HBox)node;
-    }
-
-    @Override
-    public String getFxmlPath() {
-        return FXML;
-    }
-}
+    
 ```
-###### /java/seedu/todoList/ui/EventListPanel.java
+###### /java/seedu/Tdoo/ui/EventListPanel.java
 ``` java
 /**
  * Panel containing the list of tasks.
@@ -926,7 +880,7 @@ public class EventListPanel extends UiPart {
 
 }
 ```
-###### /java/seedu/todoList/ui/TodoCard.java
+###### /java/seedu/Tdoo/ui/TodoCard.java
 ``` java
 public class TodoCard extends UiPart{
 
@@ -965,10 +919,16 @@ public class TodoCard extends UiPart{
     public void initialize() {
         name.setText(task.getName().name);
         id.setText(displayedIndex + ". ");
-        date.setText("Start Date: " + task.getStartDate().date);
-        endDate.setText("End Date: " + task.getEndDate().endDate);
+        //date.setText("Start Date: " + task.getStartDate().date);
+        //endDate.setText("End Date: " + task.getEndDate().endDate);
         priority.setText("Priority: " + task.getPriority().toString());
-        done.setText("Completed: " + task.getDone().toString());
+        if(this.task.getDone().equals("true")) {
+        	done.setText("Completed");
+    		cardPane.setStyle("-fx-background-color: #01DF01");
+    	} else {
+    		done.setText("Not Completed");
+    		cardPane.setStyle("-fx-background-color: #FFFFFF");
+    	}
     }
 
     public HBox getLayout() {
@@ -986,7 +946,7 @@ public class TodoCard extends UiPart{
     }
 }
 ```
-###### /java/seedu/todoList/ui/TodoListPanel.java
+###### /java/seedu/Tdoo/ui/TodoListPanel.java
 ``` java
 /**
  * Panel containing the list of tasks.
