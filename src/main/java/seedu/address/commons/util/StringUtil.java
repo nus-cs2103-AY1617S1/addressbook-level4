@@ -35,4 +35,21 @@ public class StringUtil {
     public static boolean isUnsignedInteger(String s){
         return s != null && s.matches("^0*[1-9]\\d*$");
     }
+    
+    //@@author A0141019U
+    /**
+     * Returns number of occurrences of the character in a string
+     */
+    public static int countOccurrences(char character, String string) {
+    	int numOccurrences = 0;
+    	char[] charArray = string.toCharArray();
+    	
+    	for (int i=0; i<charArray.length; i++) {
+    		if (charArray[i] == character) {
+    			numOccurrences += 1;
+    		}
+    	}
+    	
+    	return numOccurrences;
+    }
 }
