@@ -48,7 +48,6 @@ We are a group of Computer Engineering students taking CS2103T Software Engineer
 #### [Xu Tianyu](https://github.com/yeetee179)
 <img src="images/XuTianyu.jpg" width="150"><br>
 * Components in charge of: UI
-* Aspects/tools in charge of: 
 * Features implemented:
    Change of User Interface
 * Other major contributions: User Guide and Developer Guide
