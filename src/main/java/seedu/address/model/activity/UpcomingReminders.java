@@ -75,9 +75,8 @@ public class UpcomingReminders {
         Calendar cal = Calendar.getInstance();
         cal.add(Calendar.SECOND, -10);
         Date offset10Secs = cal.getTime();
-        Date reminderTime = reminderQueue.peek().getReminder().getCalendarValue().getTime();
         
-        while (!reminderQueue.isEmpty() && reminderTime.after(offset10Secs)) {
+        while (!reminderQueue.isEmpty() && reminderQueue.peek().getReminder().getCalendarValue().getTime().after(offset10Secs)) {
             nextRemindedActivities.add(reminderQueue.poll());
         }
         

@@ -143,13 +143,13 @@ public class UiManager extends ComponentManager implements Ui {
         switch (type) {
         case "Task":
             if (((Task) activity).getDueDate().getCalendarValue() != null) {
-                sb.append("\nDue:\t" + ((Task) activity).getDueDate().toString());
+                sb.append("\nDue:       " + ((Task) activity).getDueDate().toString());
             }
             sb.append("\nPriority: " + ((Task) activity).getPriority().forReminderDialog());
             break;
         case "Event":
-            sb.append("\nTime:\t" + ((Event) activity).getStartTime().toString()
-                    + "\nto\t" + ((Event) activity).getEndTime().toString());
+            sb.append("\nTime: " + ((Event) activity).getStartTime().toString()
+                    + "\nto   " + ((Event) activity).getEndTime().toString());
             break;
         }
         
@@ -193,13 +193,13 @@ public class UiManager extends ComponentManager implements Ui {
         cal.set(Calendar.SECOND, 0);
         cal.set(Calendar.MILLISECOND, 0);
         Date executionDate = cal.getTime();
+        cal.add(Calendar.SECOND, 1);
         refreshTimer.scheduleAtFixedRate(refreshTask, executionDate, DELAY);
-        reminderTimer.scheduleAtFixedRate(reminderTask, executionDate, DELAY);
+        reminderTimer.scheduleAtFixedRate(reminderTask, cal.getTime(), DELAY);
     }
     
     private class RefreshTask extends TimerTask {
         public void run() {
-            System.out.println("I'm here!");
             mainWindow.refresh();
         }
     }
