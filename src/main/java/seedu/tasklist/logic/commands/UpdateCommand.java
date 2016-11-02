@@ -70,7 +70,7 @@ public class UpdateCommand extends Command {
 			}
 			try {
 			    Task stubTask = new Task(new TaskDetails(taskToUpdate.getTaskDetails().taskDetails), new StartTime(taskToUpdate.getStartTime().toString()), new EndTime(taskToUpdate.getEndTime().toString()), new Priority(taskToUpdate.getPriority().priorityLevel), taskToUpdate.getRecurringFrequency());
-			    model.updateTask(stubTask, taskDetails, startTime, endTime, priority, recurringFrequency);
+			    model.updateTaskUndo(stubTask, taskDetails, new StartTime(startTime), new EndTime(endTime), priority, recurringFrequency);
 			    if (model.isDuplicate(stubTask)){
 	                return new CommandResult(MESSAGE_DUPLICATE_TASK);
 	            }
