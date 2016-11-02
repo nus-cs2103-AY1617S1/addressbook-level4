@@ -16,7 +16,7 @@
 
 #### Prerequisites
 
-1. **JDK `1.8.0_60`**  or later - [Official Download](http://www.oracle.com/technetwork/java/javase/downloads/index.html) <br>
+1. **JDK `1.8.0_111`**  or later - [Official Download](http://www.oracle.com/technetwork/java/javase/downloads/index.html) <br>
 
     > Having any Java 8 version is not enough. <br>
     This app will not work with earlier versions of Java 8.
@@ -283,7 +283,16 @@ Priority | As a ... | I want to ... | So that I can...
 
 (For all use cases below, the **System** is the `TaskManager` and the **Actor** is the `user`, unless specified otherwise)
 
-#### Use case: Add task
+### Use case: Show help page
+
+**MSS**
+
+1. User requests to view help page (via help command, <kbd>F1</kbd> key, or menu option) 
+2. Task Manager opens help page <br>
+Use case ends
+
+
+### Use case: Add task
 
 **MSS**
 
@@ -304,15 +313,28 @@ Use case ends
   Use case ends
 
 
-#### Use case: Clear tasks
+### Use case: Edit task
 
 **MSS**
 
-1. User requests to clear tasks
-2. Task Manager successfully clear tasks, showing success message in the message panel and the updated task list in the task list panel <br>
+1. User requests to edit task with given parameters
+2. Task Manager successfully updates task, showing affected task in the message panel and updates accordingly in task list panel <br>
 Use case ends
 
-#### Use case: Delete task
+**Extensions**
+
+1a. The given index is invalid
+
+> 1a1. Task Manager shows an error message stating provided index is invalid <br>
+  Use case ends
+
+1b. Parameters given are invalid
+
+> 1b1. Task Manager shows an error message <br>
+  Use case ends
+  
+  
+### Use case: Delete task
 
 **MSS**
 
@@ -332,7 +354,7 @@ Use case ends
   Use case ends
 
 
-#### Use case: Find Task(s)
+### Use case: Find Task(s)
 
 **MSS**
 
@@ -340,8 +362,83 @@ Use case ends
 2. Task Manager shows tasks containing the KEYWORD <br>
 Use case ends
 
+### Use case: List tasks
 
-#### Use case: Backup Data
+**MSS**
+
+1. User requests to list tasks
+2. Task Manager successfully list tasks, sorted based on how it was last sorted <br>
+Use case ends
+
+
+### Use case: Sort tasks
+
+**MSS**
+
+1. User requests to sort tasks by default or given parameter
+2. Task Manager successfully sorts based on user's input <br>
+Use case ends
+
+
+### Use case: Undo last command
+
+**MSS**
+
+1. User requests to undo last command
+2. Task Manager successfully reverts to previous state, showing command undone in message panel <br>
+Use case ends
+
+**Extensions**
+
+1a. No more commands to undo
+
+> 1a1. Task Manager shows an error message stating that there are no more commands to undo <br>
+  Use case ends
+
+
+### Use case: Mark task as done
+
+**MSS**
+
+1. User requests to mark a task as done
+2. Task Manager successfully updates task, showing affected task in the message panel and highlighting affected task in green in task list panel <br>
+Use case ends
+
+**Extensions**
+
+1a. Task is already marked as done
+
+> 1a1. Task Manager shows an error message stating that the task is already marked as done <br>
+  Use case ends
+
+1b. The given index is invalid
+
+> 1b1. Task Manager shows an error message stating provided index is invalid <br>
+  Use case ends
+
+
+### Use case: Mark task as not done
+
+**MSS**
+
+1. User requests to mark a task as not done
+2. Task Manager successfully updates task, showing affected task in the message panel and highlighting affected task in green in task list panel <br>
+Use case ends
+
+**Extensions**
+
+1a. Task is already marked as not done
+
+> 1a1. Task Manager shows an error message stating that the task is already marked as not done <br>
+  Use case ends
+
+1b. The given index is invalid
+
+> 1b1. Task Manager shows an error message stating provided index is invalid <br>
+  Use case ends
+
+
+### Use case: Backup Data
 
 **MSS**
 
@@ -363,7 +460,7 @@ Use case ends
   Use case ends
 
 
-#### Use case: Access Another Data File
+### Use case: Access Another Data File
 
 **MSS**
 
@@ -385,101 +482,22 @@ Use case ends
   Use case ends
 
 
-#### Use case: Mark task as done
+### Use case: Clear tasks
 
 **MSS**
 
-1. User requests to mark a task as done
-2. Task Manager successfully updates task, showing affected task in the message panel and highlighting affected task in green in task list panel <br>
+1. User requests to clear tasks
+2. Task Manager successfully clear tasks, showing success message in the message panel and the updated task list in the task list panel <br>
 Use case ends
 
-**Extensions**
 
-1a. Task is already marked as done
-
-> 1a1. Task Manager shows an error message stating that the task is already marked as done <br>
-  Use case ends
-
-1b. The given index is invalid
-
-> 1b1. Task Manager shows an error message stating provided index is invalid <br>
-  Use case ends
-
-
-#### Use case: Mark task as not done
-
-**MSS**
-
-1. User requests to mark a task as not done
-2. Task Manager successfully updates task, showing affected task in the message panel and highlighting affected task in green in task list panel <br>
-Use case ends
-
-**Extensions**
-
-1a. Task is already marked as not done
-
-> 1a1. Task Manager shows an error message stating that the task is already marked as not done <br>
-  Use case ends
-
-1b. The given index is invalid
-
-> 1b1. Task Manager shows an error message stating provided index is invalid <br>
-  Use case ends
-
-
-#### Use case: Edit task
-
-**MSS**
-
-1. User requests to edit task with given parameters
-2. Task Manager successfully updates task, showing affected task in the message panel and updates accordingly in task list panel <br>
-Use case ends
-
-**Extensions**
-
-1a. The given index is invalid
-
-> 1a1. Task Manager shows an error message stating provided index is invalid <br>
-  Use case ends
-
-1b. Parameters given are invalid
-
-> 1b1. Task Manager shows an error message <br>
-  Use case ends
-
-
-#### Use case: Exit TaskManager
+### Use case: Exit TaskManager
 
 **MSS**
 
 1. User requests to exit TaskManager
 2. Task Manager shuts down <br>
 Use case ends
-
-
-#### Use case: Show help page
-
-**MSS**
-
-1. User requests to view help page (via help command, <kbd>F1</kbd> key, or menu option) 
-2. Task Manager opens help page <br>
-Use case ends
-
-
-#### Use case: Undo last command
-
-**MSS**
-
-1. User requests undo last command
-2. Task Manager successfully reverts to previous state, showing command undone in message panel <br>
-Use case ends
-
-**Extensions**
-
-1a. No more commands to undo
-
-> 1a1. Task Manager shows an error message stating that there are no more commands to undo <br>
-  Use case ends
 
 
 ## Appendix C : Non Functional Requirements

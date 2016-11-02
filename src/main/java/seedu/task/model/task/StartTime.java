@@ -5,7 +5,6 @@ import seedu.task.commons.exceptions.IllegalValueException;
 /**
  * Represents a Task start time in the task manager.
  * Guarantees: immutable; is valid as declared in {@link #isValidStartTime(String)}
- * @@author 
  */
 public class StartTime {
 
@@ -56,5 +55,14 @@ public class StartTime {
     public int hashCode() {
         return value.hashCode();
     }
+
+    /**
+     * Compares the two StartTimes lexicographically.
+     * @@author A0147944U
+     */
+    public int compareTo(StartTime anotherStartTime) {
+        return this.toString().compareTo(anotherStartTime.toString());
+    }
+    //@@author
 
 }

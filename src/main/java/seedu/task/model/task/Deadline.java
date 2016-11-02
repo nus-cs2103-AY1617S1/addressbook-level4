@@ -56,5 +56,14 @@ public class Deadline {
     public int hashCode() {
         return value.hashCode();
     }
+    
+    /**
+     * Compares the two Deadlines lexicographically.
+     * @@author A0147944U
+     */
+    public int compareTo(Deadline anotherDeadline) {
+        return this.toString().compareTo(anotherDeadline.toString());
+    }
+    //@@author
 
 }

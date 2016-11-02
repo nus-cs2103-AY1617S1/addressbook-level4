@@ -110,7 +110,26 @@ public class ModelManager extends ComponentManager implements Model {
     private void updateFilteredTaskList(Expression expression) {
         filteredTasks.setPredicate(expression::satisfies);
     }
-
+    
+    //@@author A0147944U
+    public void sortFilteredTaskList(String keyword) {
+        if (keyword.equals("Deadline")) {
+            taskManager.sortByDeadline();
+        } else if (keyword.equals("Start Time")) {
+            taskManager.sortByStartTime();
+        } else if (keyword.equals("End Time")) {
+            taskManager.sortByEndTime();
+        } else if (keyword.equals("Completed")) {
+            taskManager.sortByDoneStatus();
+        } else if (keyword.equals("Name")) {
+            taskManager.sortByName();
+        } else {
+            taskManager.sortByDefaultRules();
+        }
+        indicateTaskManagerChanged();
+    }
+    //@@author
+    
     //========== Inner classes/interfaces used for filtering ==================================================
 
     interface Expression {

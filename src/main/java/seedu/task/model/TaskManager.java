@@ -166,4 +166,74 @@ public class TaskManager implements ReadOnlyTaskManager {
         // use this method for custom fields hashing instead of implementing your own
         return Objects.hash(tasks, tags);
     }
+    
+    //@@author A0147944U
+////sort methods
+    
+    public void sortByDeadline() {
+        this.tasks.getInternalList().sort(new Comparator<Task>() {
+            @Override
+            public int compare(Task one, Task other) {
+                return one.getDeadline().compareTo(other.getDeadline());
+            }
+        });
+    }
+    
+    public void sortByStartTime() {
+        this.tasks.getInternalList().sort(new Comparator<Task>() {
+            @Override
+            public int compare(Task one, Task other) {
+                return one.getStartTime().compareTo(other.getStartTime());
+            }
+        });
+    }
+    
+    public void sortByEndTime() {
+        this.tasks.getInternalList().sort(new Comparator<Task>() {
+            @Override
+            public int compare(Task one, Task other) {
+                return one.getEndTime().compareTo(other.getEndTime());
+            }
+        });
+    }
+    
+    public void sortByDoneStatus() {
+        this.tasks.getInternalList().sort(new Comparator<Task>() {
+            @Override
+            public int compare(Task one, Task other) {
+                return one.getStatus().compareDoneStatusTo(other.getStatus());
+            }
+        });
+    }
+    
+    public void sortByName() {
+        this.tasks.getInternalList().sort(new Comparator<Task>() {
+            @Override
+            public int compare(Task one, Task other) {
+                return one.getName().compareTo(other.getName());
+            }
+        });
+    }
+    
+    public void sortByDefaultRules() {
+        this.tasks.getInternalList().sort(new Comparator<Task>() {
+            @Override
+            public int compare(Task one, Task other) {
+                int statusResult = one.getStatus().compareDoneStatusTo(other.getStatus());
+                int deadlineResult = one.getDeadline().compareTo(other.getDeadline());
+                int startTimeResult = one.getStartTime().compareTo(other.getStartTime());
+                if (statusResult == 0) {
+                    if (deadlineResult == 0) {
+                        return startTimeResult;
+                    } else {
+                        return deadlineResult;
+                    }
+                } else {
+                    return statusResult;
+                }
+            }
+        });
+    }
+    //@@author
+    
 }

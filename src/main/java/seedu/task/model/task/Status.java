@@ -47,4 +47,21 @@ public class Status {
     public boolean getNewlyAddedStatus() {
         return newlyAdded;
     }
+    
+    /**
+     * Compares the two Statuses.
+     * @@author A0147944U
+     */
+    public int compareDoneStatusTo(Status anotherStatus) {
+        Boolean thisDoneStatus = new Boolean(this.getDoneStatus());
+        Boolean anotherDoneStatus = new Boolean (anotherStatus.getDoneStatus());
+        return thisDoneStatus.compareTo(anotherDoneStatus);
+    }
+    
+    public int compareOverdueStatusTo(Status anotherStatus) {
+        Boolean thisOverdueStatus = new Boolean(this.getOverdueStatus());
+        Boolean anotherOverdueStatus = new Boolean (anotherStatus.getOverdueStatus());
+        return thisOverdueStatus.compareTo(anotherOverdueStatus);
+    }
+    //@@author
 }
