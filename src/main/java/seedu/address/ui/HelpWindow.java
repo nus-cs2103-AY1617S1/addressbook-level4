@@ -58,7 +58,8 @@ public class HelpWindow extends UiPart {
     }
 
     public void show() {
-        dialogStage.showAndWait();
+        //dialogStage.showAndWait();
+        dialogStage.show();
     }
     
     @FXML

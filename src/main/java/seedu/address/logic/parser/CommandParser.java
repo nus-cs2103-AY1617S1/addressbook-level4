@@ -414,7 +414,7 @@ public class CommandParser {
     private String getTooltipForUndoneList(final String arguments, final String commandWord, boolean inputHasNoArgs) {
         // tooltip depends on whether the input command has arguments
         if (inputHasNoArgs) {
-            return getTooltipForCmdWithNoArgsUndoneList(commandWord);
+            return getTooltipForCmdWithNoArgsUndoneList(arguments, commandWord);
         } else {
             return getTooltipForCmdWithArgsUndoneList(arguments, commandWord);
         }
@@ -519,7 +519,7 @@ public class CommandParser {
      * @param commandWord the command part of the user input
      * @return the tooltip
      */
-    private String getTooltipForCmdWithNoArgsUndoneList(final String commandWord) {
+    private String getTooltipForCmdWithNoArgsUndoneList(final String arguments, final String commandWord) {
         List<String> tooltips = new ArrayList<String>();
         
         if (StringUtil.isSubstringFromStart(AddCommand.COMMAND_WORD, commandWord)) {
@@ -561,10 +561,9 @@ public class CommandParser {
         if (StringUtil.isSubstringFromStart(UndoCommand.COMMAND_WORD, commandWord)) {
             tooltips.add(UndoCommand.TOOL_TIP);
         }
-        
-        boolean hasNoTooltipMatches = tooltips.isEmpty();       
-        if (hasNoTooltipMatches) {
-            tooltips.add(AddCommand.TOOL_TIP);           
+          
+        if (tooltips.isEmpty()) {
+            return prepareAddDetailedTooltip(commandWord + arguments);      
         } 
         
         String combinedTooltip = StringUtil.combineStrings(tooltips);
@@ -702,7 +701,7 @@ public class CommandParser {
                 String recurRate = rate.get();
                 sb.append("\n\tRecurrence Rate:\t" + "every " + recurRate + " " + timePeriod.get());
             } else {
-                sb.append("\n\tRecurrence Rate:\t" + "every 1 " + timePeriod.get());
+                sb.append("\n\tRecurrence Rate:\t" + "every " + timePeriod.get());
             }
         } else {
             sb.append("\n\tRecurrence Rate:\tNo Change");
@@ -817,7 +816,7 @@ public class CommandParser {
             String recurRate = rate.get();
             sb.append("\n\tRecurrence Rate:\t" + "every " + recurRate + " " + timePeriodStr);
         } else {
-            sb.append("\n\tRecurrence Rate:\t" + "every 1 " + timePeriodStr);
+            sb.append("\n\tRecurrence Rate:\t" + "every " + timePeriodStr);
         }
     }
 
