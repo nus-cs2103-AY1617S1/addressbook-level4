@@ -342,7 +342,6 @@ public class Parser {
     //@@author A0139923X
     private Command prepareFind(String args) {
         String[] keywordArr = args.trim().split(" ",2);
-
         if(keywordArr[0].equals("todo") || keywordArr[0].equals("event") || keywordArr[0].equals("deadline") 
                 || keywordArr[0].equals("all")){  
            return new FindCommand(keywordArr[1], keywordArr[0]);  

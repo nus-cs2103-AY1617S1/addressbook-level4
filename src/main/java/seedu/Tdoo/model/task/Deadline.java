@@ -30,14 +30,14 @@ public class Deadline extends Task implements ReadOnlyTask {
      * Copy constructor.
      */
     public Deadline(Deadline source) {
-        this(source.getName(), source.getDate(), source.getEndTime(), source.getDone());
+        this(source.getName(), source.getStartDate(), source.getEndTime(), source.getDone());
     }
     
     public Deadline(ReadOnlyTask source) {
     	this((Deadline) source);
     };
 
-    public StartDate getDate() {
+    public StartDate getStartDate() {
         return date;
     }
 
@@ -49,7 +49,7 @@ public class Deadline extends Task implements ReadOnlyTask {
         return other == this // short circuit if same object
                 || (other instanceof Deadline // instanceof handles nulls
                 && super.name.equals(((Deadline) other).getName())
-                && this.date.equals(((Deadline) other).getDate())
+                && this.date.equals(((Deadline) other).getStartDate())
 				&& this.endTime.equals(((Deadline) other).getEndTime()));
 
     }
@@ -59,7 +59,7 @@ public class Deadline extends Task implements ReadOnlyTask {
     	final StringBuilder builder = new StringBuilder();
         builder.append(getName())
                 .append("\nDate: ")
-                .append(getDate())
+                .append(getStartDate())
                 .append("\nEndTime: ")
                 .append(getEndTime());
         return builder.toString();
