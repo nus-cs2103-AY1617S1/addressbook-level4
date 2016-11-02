@@ -12,6 +12,8 @@ import seedu.address.commons.events.ui.JumpToListRequestEvent;
 import seedu.address.commons.events.ui.ShowHelpRequestEvent;
 import seedu.address.commons.events.model.TaskManagerChangedEvent;
 import seedu.address.model.TaskManager;
+import seedu.address.model.UserPrefs;
+import seedu.address.model.AliasManager;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyTaskManager;
@@ -19,6 +21,7 @@ import seedu.address.model.task.*;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 import seedu.address.storage.StorageManager;
+import seedu.address.commons.core.Config;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -63,11 +66,12 @@ public class LogicManagerTest {
 
     @Before
     public void setup() {
-        model = new ModelManager();
         String tempTaskManagerFile = saveFolder.getRoot().getPath() + "TempTaskManager.xml";
         String tempPreferencesFile = saveFolder.getRoot().getPath() + "TempPreferences.json";
         String tempAliasManagerFile = saveFolder.getRoot().getPath() + "TempAliasManager.xml";
+        model = new ModelManager(new TaskManager(), new Config(tempTaskManagerFile, tempPreferencesFile), new UserPrefs(), new AliasManager());
         logic = new LogicManager(model, new StorageManager(tempTaskManagerFile, tempPreferencesFile, tempAliasManagerFile));
+
         EventsCenter.getInstance().registerHandler(this);
 
         latestSavedTaskManager = new TaskManager(model.getTaskManager()); // last saved assumed to be up to date before.
