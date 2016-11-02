@@ -48,7 +48,7 @@ public class BackgroundDateCheck extends ComponentManager{
 			ReadOnlyActivity taskToCheck = taskList.get(i);
 			
 			// Yet to send email due to no internet connection. But task deadline has passed
-			if (!taskToCheck.isEmailSent() && taskToCheck.isTimePassed()){
+			if (!taskToCheck.isEmailSent() && taskToCheck.isTimePassed() && taskToCheck.getActivityStatus().equals(Completed.UNCOMPLETED_ACTIVITY)){
 			    SendEmail sender = new SendEmail();
 				try {
                     sender.send(taskToCheck);
