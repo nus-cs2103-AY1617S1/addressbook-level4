@@ -17,7 +17,7 @@ public class UndoCommand extends Command {
 
     public static final String COMMAND_WORD = "undo";
 
-    public static final String MESSAGE_UNDO_TASK_SUCCESS = "Undid Task.";
+    public static final String MESSAGE_UNDO_TASK_SUCCESS = "Undo successful.";
     public static final String MESSAGE_UNDO_TASK_FAILURE = "Failed to undo task.";
 
     private int numTimes;

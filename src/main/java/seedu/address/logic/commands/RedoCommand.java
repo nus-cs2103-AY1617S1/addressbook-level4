@@ -11,7 +11,7 @@ import seedu.address.model.TaskBook;
 public class RedoCommand extends Command {
     public static final String COMMAND_WORD = "redo";
     
-    public static final String MESSAGE_REDO_TASK_SUCCESS = "Redid Task.";
+    public static final String MESSAGE_REDO_TASK_SUCCESS = "Redo successful.";
     public static final String MESSAGE_REDO_TASK_FAILURE = "Failed to redo task.";
     
     private int numTimes;
