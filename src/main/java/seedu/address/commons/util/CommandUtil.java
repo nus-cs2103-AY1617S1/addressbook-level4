@@ -78,7 +78,16 @@ public class CommandUtil {
      * Returns the task type in the given target index
      */
     public static TaskType getTaskType(String target){
-        return (target.trim().charAt(0) == 'A' ? TaskType.UNDATED : TaskType.DATED);
+        switch (target.trim().charAt(0)){
+        case 'A':
+            return TaskType.UNDATED;
+        
+        case 'B':
+            return TaskType.DATED;
+            
+        default:
+            return null;
+        }
     }
     
 }
