@@ -67,16 +67,16 @@ public class SetStorageCommand extends Command {
         	return new CommandResult(String.format(MESSAGE_SUCCESS, model.getTaskManagerStorageFilePath()));
         	
         } catch (InvalidPathException ex){
-        	model.loadPreviousState();
+        	model.undoSaveState();
         	return new CommandResult(String.format(MESSAGE_INVALID_PATH_EXCEPTION));  	
         } catch (IOException ex){
-        	model.loadPreviousState();
+        	model.undoSaveState();
         	return new CommandResult(MESSAGE_IO_EXCEPTION);    
         } catch (SecurityException ex){
-        	model.loadPreviousState();
+        	model.undoSaveState();
         	return new CommandResult(MESSAGE_SECURITY_EXCEPTION);
         } catch (IllegalArgumentException ex){
-        	model.loadPreviousState();
+        	model.undoSaveState();
         	return new CommandResult(ex.getMessage());
         }
     }
