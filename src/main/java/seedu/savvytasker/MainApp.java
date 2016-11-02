@@ -14,6 +14,7 @@ import seedu.savvytasker.commons.core.Config;
 import seedu.savvytasker.commons.core.EventsCenter;
 import seedu.savvytasker.commons.core.LogsCenter;
 import seedu.savvytasker.commons.core.Version;
+import seedu.savvytasker.commons.events.storage.DataSavingLocationChangedEvent;
 import seedu.savvytasker.commons.events.ui.ExitAppRequestEvent;
 import seedu.savvytasker.commons.exceptions.DataConversionException;
 import seedu.savvytasker.commons.util.ConfigUtil;
@@ -55,7 +56,7 @@ public class MainApp extends Application {
         instance = this;
         
         config = initConfig(getApplicationParameter("config"));
-        storage = new StorageManager(config.getAddressBookFilePath(), config.getUserPrefsFilePath());
+        storage = new StorageManager(config.getSavvyTaskerFilePath(), config.getUserPrefsFilePath());
 
         userPrefs = initPrefs(config);
 
@@ -188,6 +189,20 @@ public class MainApp extends Application {
         }
         Platform.exit();
         System.exit(0);
+    }
+    
+    @Subscribe
+    public void handleSavvyTaskerSaveLocationChangedEvent(DataSavingLocationChangedEvent dslce) {
+        try {
+            String configPath = getApplicationParameter("config");
+            if(configPath == null) {
+                configPath = Config.DEFAULT_CONFIG_FILE;
+            }
+            config.setSavvyTaskerFilePath(dslce.newPath);
+            ConfigUtil.saveConfig(config, configPath);
+        } catch (IOException e) {
+            logger.warning("Failed to save config file : " + StringUtil.getDetails(e));
+        }
     }
 
     @Subscribe

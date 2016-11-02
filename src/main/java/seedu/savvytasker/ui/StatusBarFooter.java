@@ -14,6 +14,7 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import seedu.savvytasker.commons.core.LogsCenter;
 import seedu.savvytasker.commons.events.model.SavvyTaskerChangedEvent;
+import seedu.savvytasker.commons.events.storage.DataSavingLocationChangedEvent;
 import seedu.savvytasker.commons.util.FxViewUtil;
 
 /**
@@ -47,7 +48,7 @@ public class StatusBarFooter extends UiPart {
         addSyncStatus();
         setSyncStatus("Not updated yet in this session");
         addSaveLocation();
-        setSaveLocation("./" + saveLocation);
+        setSaveLocation(saveLocation);
         registerAsAnEventHandler(this);
     }
 
@@ -90,9 +91,14 @@ public class StatusBarFooter extends UiPart {
     public String getFxmlPath() {
         return FXML;
     }
+    
+    @Subscribe
+    public void handleSavvyTaskerSaveLocationChangedEvent(DataSavingLocationChangedEvent dslce) {
+        setSaveLocation(dslce.newPath);
+    }
 
     @Subscribe
-    public void handleAddressBookChangedEvent(SavvyTaskerChangedEvent stce) {
+    public void handleSavvyTaskerChangedEvent(SavvyTaskerChangedEvent stce) {
         String lastUpdated = (new Date()).toString();
         logger.info(LogsCenter.getEventHandlingLogMessage(stce, "Setting last updated status to " + lastUpdated));
         setSyncStatus("Last Updated: " + lastUpdated);

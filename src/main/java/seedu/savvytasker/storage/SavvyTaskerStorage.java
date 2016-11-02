@@ -17,6 +17,11 @@ public interface SavvyTaskerStorage {
     String getSavvyTaskerFilePath();
 
     /**
+     * Sets the file path of the data file. Returns true if successful, false otherwise
+     */
+    boolean setSavvyTaskerFilePath(String path);
+
+    /**
      * Returns SavvyTasker data as a {@link ReadOnlySavvyTasker}.
      *   Returns {@code Optional.empty()} if storage file is not found.
      * @throws DataConversionException if the data in storage is not in the expected format.

@@ -20,7 +20,7 @@ public class ConfigTest {
                 "Current log level : INFO\n" +
                 "Preference file Location : preferences.json\n" +
                 "Local data file location : data/savvytasker.xml\n" +
-                "AddressBook name : MyTaskList";
+                "Savvy Tasker List name : MyTaskList";
 
         assertEquals(defaultConfigAsString, new Config().toString());
     }

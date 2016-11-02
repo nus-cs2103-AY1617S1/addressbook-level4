@@ -26,6 +26,7 @@ import seedu.savvytasker.logic.parser.MarkCommandParser;
 import seedu.savvytasker.logic.parser.MasterParser;
 import seedu.savvytasker.logic.parser.ModifyCommandParser;
 import seedu.savvytasker.logic.parser.RedoCommandParser;
+import seedu.savvytasker.logic.parser.StorageCommandParser;
 import seedu.savvytasker.logic.parser.UnaliasCommandParser;
 import seedu.savvytasker.logic.parser.UndoCommandParser;
 import seedu.savvytasker.logic.parser.UnmarkCommandParser;
@@ -42,12 +43,14 @@ public class LogicManager extends ComponentManager implements Logic {
     private final Logger logger = LogsCenter.getLogger(LogicManager.class);
 
     private final Model model;
+    private final Storage storage;
     private final MasterParser parser;
     private final Stack<Command> undoStack;
     private final Stack<Command> redoStack;
 
     public LogicManager(Model model, Storage storage) {
         this.model = model;
+        this.storage = storage;
         this.parser = new MasterParser();
         this.undoStack = new Stack<Command>();
         this.redoStack = new Stack<Command>();
@@ -62,6 +65,7 @@ public class LogicManager extends ComponentManager implements Logic {
         Command command = parser.parse(commandText);
         command.setModel(model);
         command.setLogic(this);
+        command.setStorage(storage);
         
         CommandResult result = command.execute();
         
@@ -121,6 +125,7 @@ public class LogicManager extends ComponentManager implements Logic {
         parser.registerCommandParser(new RedoCommandParser());
         parser.registerCommandParser(new AliasCommandParser());
         parser.registerCommandParser(new UnaliasCommandParser());
+        parser.registerCommandParser(new StorageCommandParser());
     }
     
     private void loadAllAliasSymbols() {

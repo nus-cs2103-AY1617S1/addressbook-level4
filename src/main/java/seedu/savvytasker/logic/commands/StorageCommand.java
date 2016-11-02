@@ -1,15 +1,13 @@
 package seedu.savvytasker.logic.commands;
 
 import seedu.savvytasker.commons.core.EventsCenter;
-import seedu.savvytasker.commons.core.Messages;
-import seedu.savvytasker.commons.core.UnmodifiableObservableList;
-import seedu.savvytasker.commons.events.ui.JumpToListRequestEvent;
-import seedu.savvytasker.model.task.ReadOnlyTask;
+import seedu.savvytasker.commons.events.storage.DataSavingLocationChangedEvent;
+import seedu.savvytasker.model.ReadOnlySavvyTasker;
 
 /**
- * Selects a person identified using it's last displayed index from the address book.
+ * Changes the storage location of Savvy Tasker
  */
-public class StorageCommand extends ModelRequiringCommand {
+public class StorageCommand extends StorageAndModelRequiringCommand {
 
     public final String path;
 
@@ -17,10 +15,11 @@ public class StorageCommand extends ModelRequiringCommand {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Sets the storage path to the path specified.\n"
-            + "Parameters: PATH location of the storage.\n"
+            + "Parameters: PATH\n"
             + "Example: " + COMMAND_WORD + " data/savvytasker.xml";
 
-    public static final String MESSAGE_SELECT_PERSON_SUCCESS = "Changed storage location to: %1$s";
+    public static final String MESSAGE_CHANGE_LOCATION_SUCCESS = "Changed storage location to: %1$s";
+    public static final String MESSAGE_CHANGE_LOCATION_FAILED = "Failed to change storage location to: %1$s";
 
     public StorageCommand(String path) {
         this.path = path;
@@ -28,19 +27,13 @@ public class StorageCommand extends ModelRequiringCommand {
 
     @Override
     public CommandResult execute() {
-        //TODO: set the storage path
-        /*
-        UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
-
-        if (lastShownList.size() < targetIndex) {
-            indicateAttemptToExecuteIncorrectCommand();
-            return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
+        if (storage.setSavvyTaskerFilePath(path)) {
+            ReadOnlySavvyTasker savvyTasker = model.getSavvyTasker();
+            EventsCenter.getInstance().post(new DataSavingLocationChangedEvent(savvyTasker, path));
+            return new CommandResult(String.format(MESSAGE_CHANGE_LOCATION_SUCCESS, path));
+        } else {
+            return new CommandResult(String.format(MESSAGE_CHANGE_LOCATION_FAILED, path));
         }
-
-        EventsCenter.getInstance().post(new JumpToListRequestEvent(targetIndex - 1));
-        return new CommandResult(String.format(MESSAGE_SELECT_PERSON_SUCCESS, targetIndex));
-        */
-        return null;
     }
     
     //@@author A0097627N

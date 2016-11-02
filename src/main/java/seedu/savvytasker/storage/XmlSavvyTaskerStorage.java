@@ -28,6 +28,22 @@ public class XmlSavvyTaskerStorage implements SavvyTaskerStorage {
     public String getSavvyTaskerFilePath() {
         return filePath;
     }
+    
+    @Override
+    public boolean setSavvyTaskerFilePath(String newPath) {
+        try {
+            File file = new File(newPath);
+            if (FileUtil.createIfMissing(file)) {
+                this.filePath = newPath;
+                return true;
+            } else {
+                return false;
+            }
+        } catch (IOException e) {
+            // do nothing, can't set the path to new path
+        }
+        return false;
+    }
 
     /**
      * Similar to {@link #readSavvyTasker()}

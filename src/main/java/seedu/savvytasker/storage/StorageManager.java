@@ -10,6 +10,7 @@ import seedu.savvytasker.commons.core.ComponentManager;
 import seedu.savvytasker.commons.core.LogsCenter;
 import seedu.savvytasker.commons.events.model.SavvyTaskerChangedEvent;
 import seedu.savvytasker.commons.events.storage.DataSavingExceptionEvent;
+import seedu.savvytasker.commons.events.storage.DataSavingLocationChangedEvent;
 import seedu.savvytasker.commons.exceptions.DataConversionException;
 import seedu.savvytasker.model.ReadOnlySavvyTasker;
 import seedu.savvytasker.model.UserPrefs;
@@ -47,11 +48,16 @@ public class StorageManager extends ComponentManager implements Storage {
     }
 
 
-    // ================ AddressBook methods ==============================
+    // ================ SavvyTasker methods ==============================
 
     @Override
     public String getSavvyTaskerFilePath() {
         return savvyTaskerStorage.getSavvyTaskerFilePath();
+    }
+    
+    @Override
+    public boolean setSavvyTaskerFilePath(String path) {
+        return savvyTaskerStorage.setSavvyTaskerFilePath(path);
     }
 
     @Override
@@ -76,6 +82,16 @@ public class StorageManager extends ComponentManager implements Storage {
         savvyTaskerStorage.saveSavvyTasker(savvyTasker, filePath);
     }
 
+    @Override
+    @Subscribe
+    public void handleSavvyTaskerSaveLocationChangedEvent(DataSavingLocationChangedEvent dslce) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(dslce, "Local storage location changed."));
+        try {
+            saveSavvyTasker(dslce.data);
+        } catch (IOException e) {
+            raise(new DataSavingExceptionEvent(e));
+        }
+    }
 
     @Override
     @Subscribe
