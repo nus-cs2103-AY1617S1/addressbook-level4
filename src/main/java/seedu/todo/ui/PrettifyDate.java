@@ -28,7 +28,7 @@ public class PrettifyDate {
         if (date.isBefore(today) && today.minusDays(THRESHOLD).isBefore(date)) {
             int diff = Math.abs((int) ChronoUnit.DAYS.between(today, date));
             return diff + " days ago";
-        } else if (date.isBefore(today) && today.minusDays(THRESHOLD).isBefore(date)) {
+        } else if (date.isAfter(today) && today.plusDays(THRESHOLD).isAfter(date)) {
             int diff = Math.abs((int) ChronoUnit.DAYS.between(today, date));
             return diff + " days later";
         }

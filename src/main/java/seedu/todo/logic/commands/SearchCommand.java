@@ -103,7 +103,6 @@ public class SearchCommand extends Command {
         try {
             LocalDateTime datetime = DateTimeUtil.parseDateTimeString(data, TaskDate.TASK_DATE_ON);
             model.updateFilteredTaskListOnDate(datetime, this.option);
-            
             int size = model.getFilteredTaskList().size();
             return new CommandResult(getMessageForTaskListShownSummary(size));
             

@@ -1,3 +1,4 @@
+//@@author A0093896H
 package seedu.todo.testutil;
 
 import seedu.todo.commons.exceptions.IllegalValueException;
@@ -6,7 +7,7 @@ import seedu.todo.model.task.*;
 import seedu.todo.model.task.Recurrence.Frequency;
 
 /**
- *
+ * Factory class for building TestTask
  */
 public class TaskBuilder {
 

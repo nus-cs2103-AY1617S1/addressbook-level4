@@ -18,6 +18,7 @@ public class OnDateQualifier implements Qualifier {
     
     public OnDateQualifier(LocalDateTime datetime, SearchCompletedOption option) {
         this.datetime = datetime;
+        this.option = option;
     }
 
     @Override

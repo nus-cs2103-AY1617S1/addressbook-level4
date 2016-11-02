@@ -45,7 +45,11 @@ public class SearchLogicTest extends CommandLogicTest {
 
     @Test
     public void execute_search_onlyMatchesFullWordsInNames() throws IllegalValueException {
-        List<Task> expectedList = helper.generateReverseTaskList(t1, t2);
+        t2.setCompletion(new Completion(true));
+        List<Task> expectedList = helper.generateReverseTaskList(t1);
+        List<Task> expectedListDone = helper.generateReverseTaskList(t2);
+        List<Task> expectedListAll = helper.generateTaskList(t1, t2);
+        
         helper.addToModel(model, fourTasks);
         expectedTDL = helper.generateToDoList(fourTasks);
         
@@ -53,6 +57,11 @@ public class SearchLogicTest extends CommandLogicTest {
                 Command.getMessageForTaskListShownSummary(expectedList.size()),
                 expectedTDL,
                 expectedList);
+        
+        assertCommandBehavior("search KEY done",
+                Command.getMessageForTaskListShownSummary(expectedListDone.size()),
+                expectedTDL,
+                expectedListDone);
     }
 
     @Test
@@ -70,9 +79,13 @@ public class SearchLogicTest extends CommandLogicTest {
     @Test
     public void execute_search_matchesIfTagPresent() throws IllegalValueException {        
         t1.addTag(new Tag("school"));
-
+        t2.addTag(new Tag("school"));
+        t2.setCompletion(new Completion(true));
+        
         DoDoBird expectedTDL = helper.generateToDoList(twoTasks);
         List<Task> expectedList = helper.generateTaskList(t1);
+        List<Task> expectedListDone = helper.generateTaskList(t2);
+        List<Task> expectedListAll = helper.generateTaskList(t1, t2);
         
         helper.addToModel(model, twoTasks);
         expectedTDL = helper.generateToDoList(twoTasks);
@@ -81,6 +94,12 @@ public class SearchLogicTest extends CommandLogicTest {
                 Command.getMessageForTaskListShownSummary(expectedList.size()),
                 expectedTDL,
                 expectedList);
+        
+        assertCommandBehavior("search tag school done",
+                Command.getMessageForTaskListShownSummary(expectedListDone.size()),
+                expectedTDL,
+                expectedListDone);
+        
     }
   
     
@@ -126,18 +145,33 @@ public class SearchLogicTest extends CommandLogicTest {
     
     @Test
     public void execute_search_matchesIfOn() throws IllegalValueException {
-        Task t1 = helper.generateTaskWithName("bla bla KEY bla");
+        Task t1 = helper.generateTaskWithDates("today", "2 days later");
         Task t2 = helper.generateTaskWithDates("today", "tomorrow");
-
+        t2.setCompletion(new Completion(true));
+        
         List<Task> twoTasks = helper.generateTaskList(t1, t2);
         DoDoBird expectedTDL = helper.generateToDoList(twoTasks);
-        List<Task> expectedList = helper.generateReverseTaskList(t2);
+        
+        List<Task> expectedList = helper.generateReverseTaskList(t1);
+        List<Task> expectedListDone = helper.generateReverseTaskList(t2);
+        List<Task> expectedListAll = helper.generateReverseTaskList(t1, t2);
+        
         helper.addToModel(model, twoTasks);
 
         assertCommandBehavior("search on today",
                 Command.getMessageForTaskListShownSummary(expectedList.size()),
                 expectedTDL,
                 expectedList);
+        
+        assertCommandBehavior("search on today done",
+                Command.getMessageForTaskListShownSummary(expectedListDone.size()),
+                expectedTDL,
+                expectedListDone);
+        
+        assertCommandBehavior("search on today all",
+                Command.getMessageForTaskListShownSummary(expectedListAll.size()),
+                expectedTDL,
+                expectedListAll);
     }
     
     

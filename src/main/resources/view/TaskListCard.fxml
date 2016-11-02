@@ -12,7 +12,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<HBox fx:id="cardPane" minHeight="40.0" prefHeight="80.0" prefWidth="630.0" style="-fx-background-color: #FFFFFF;" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1">
+<HBox fx:id="cardPane" minHeight="40.0" prefHeight="72.0" prefWidth="630.0" style="-fx-background-color: #FFFFFF;" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1">
 
     <children>
         <GridPane minHeight="50.0" prefHeight="50.0" translateY="5.0" HBox.hgrow="ALWAYS">
@@ -35,8 +35,8 @@
                <children>
                   <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                      <children>
-                              <Label fx:id="details" prefHeight="16.0" prefWidth="587.0" styleClass="cell_small_label" text="\$details" translateX="11.0" />
-                                <Label fx:id="tags" styleClass="cell_small_label" text="\$tags" translateX="-3.0">
+                              <Label fx:id="details" prefHeight="16.0" prefWidth="587.0" styleClass="cell_small_label" text="\$details" translateX="11.0" translateY="4.0" />
+                                <Label fx:id="tags" styleClass="cell_small_label" text="\$tags" translateX="-3.0" translateY="4.0">
                            <graphic>
                               <Ellipse fill="DODGERBLUE" radiusX="5.0" radiusY="5.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" visible="false" />
                            </graphic>

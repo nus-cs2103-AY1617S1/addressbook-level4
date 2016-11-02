@@ -47,7 +47,6 @@ public class AddCommand extends Command {
         if (!DateTimeUtil.beforeOther(onDate, byDate)) {
             throw new IllegalValueException(MESSAGE_INVALID_DATE_RANGE);
         }
-        
         this.toAdd = new Task(
                 new Name(name),
                 new Detail(detail),
@@ -57,7 +56,7 @@ public class AddCommand extends Command {
                 new Recurrence(freq)
         );
     }
-    
+    //
     /**
      * Executes the add command. The new task is added to the top of the list.
      * 

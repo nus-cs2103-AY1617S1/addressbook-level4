@@ -1,3 +1,4 @@
+//@@author A0093896H
 package seedu.todo.testutil;
 
 import java.util.ArrayList;
@@ -76,7 +77,7 @@ public class TestDataHelper {
         );
     }
     
-    //@@author A0121643R
+    //@@author A0093896H
     
     /** Generates the correct add command based on the task given */
     public String generateAddCommand(Task p) {
