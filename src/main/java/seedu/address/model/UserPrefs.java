@@ -2,10 +2,9 @@ package seedu.address.model;
 
 import seedu.address.commons.core.GuiSettings;
 
+import java.awt.GraphicsEnvironment;
+import java.awt.Rectangle;
 import java.util.Objects;
-
-import javafx.geometry.Rectangle2D;
-import javafx.stage.Screen;
 
 //@@author A0135767U
 /**
@@ -13,7 +12,7 @@ import javafx.stage.Screen;
  */
 public class UserPrefs {
 	
-    private static final Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
+    private static final Rectangle primaryScreenBounds = GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds();
     private static final double WINDOW_WIDTH = primaryScreenBounds.getWidth() / 5;
     private static final double WINDOW_HEIGHT = primaryScreenBounds.getHeight();
 
