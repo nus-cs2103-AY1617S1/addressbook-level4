@@ -95,9 +95,9 @@ public class MarkCommand extends Command implements Undoable, Redoable {
             }
             model.pushToRedoHistory(this);
 
-            return new CommandResult(COMMAND_WORD, String.format(MESSAGE_UNDO_SUCCESS, tasksToMark));
+            return new CommandResult(COMMAND_WORD, String.format(MESSAGE_UNDO_SUCCESS, tasksToMark.get(0)));
         } catch (DuplicateTaskException dte) {
-            return new CommandResult(COMMAND_WORD, String.format(UnmarkCommand.MESSAGE_DUPLICATE_UNMARK_TASK, tasksToMark));
+            return new CommandResult(COMMAND_WORD, String.format(UnmarkCommand.MESSAGE_DUPLICATE_UNMARK_TASK, tasksToMark.get(0)));
         } catch (ArchiveTaskList.TaskNotFoundException tnfe) {
             return new CommandResult(COMMAND_WORD, Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
@@ -116,7 +116,7 @@ public class MarkCommand extends Command implements Undoable, Redoable {
 
             model.pushToUndoHistory(this);
 
-            return new CommandResult(COMMAND_WORD, String.format(MESSAGE_REDO_SUCCESS, tasksToMark));
+            return new CommandResult(COMMAND_WORD, String.format(MESSAGE_REDO_SUCCESS, tasksToMark.get(0)));
 
         } catch (TaskNotFoundException pnfe) {
             return new CommandResult(COMMAND_WORD,Messages.MESSAGE_TASK_NOT_IN_MASTERMIND);
