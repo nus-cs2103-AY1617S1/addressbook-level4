@@ -432,7 +432,7 @@ Use case ends
     1. Users can add notes, lists, photos and audio as a task
     2. The search function is convenient.
    * Weakness
-    1. The UI is not poor.
+    1. The UI is poor.
     
 **Trello**
    * Strength
