@@ -86,12 +86,16 @@ public class Event extends Activity implements ReadOnlyEvent{
     
     @Override
     public String displayTiming() {
+        String message = "From ";
+        if(this.getStartTime().recurring)
+            message = message.concat(" Every ");
         if (isStartAndEndOnSameDate()) {
             SimpleDateFormat timeOnly = new SimpleDateFormat("h:mm aa");
-            return "From " + startTime.toString() + " to " + timeOnly.format(endTime.getCalendarValue().getTime());
+            message = message.concat(startTime.toString() + " to " + timeOnly.format(endTime.getCalendarValue().getTime()));
         } else {
-            return "From " + startTime.toString() + " to " + endTime.toString();
+            message =  message.concat(startTime.toString() + " to " + endTime.toString());
         }
+        return message;
     }
     
     private boolean isStartAndEndOnSameDate() {
