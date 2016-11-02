@@ -85,7 +85,11 @@ public class PersonCard extends UiPart{
         setDefaultStyle();
         setBorderColourBaseOnStatus(task.getStatus().toString());
     }
-
+    
+    /**
+     * Set the border of the Task card to indicate status of Task in UI
+     * @param status
+     */
     private void setBorderColourBaseOnStatus(String status) {
         switch (status) {
             case "OVERDUE":  cardPane.setStyle("-fx-border-color: #202020 #202020 red red");
@@ -105,6 +109,6 @@ public class PersonCard extends UiPart{
         description.setStyle("-fx-text-fill: #888888");
         date.setStyle("-fx-text-fill: #888888");
         time.setStyle("-fx-text-fill: #888888");
-        tags.setStyle("-fx-text-fill: #00CC0");
+        tags.setStyle("-fx-text-fill: #00CC00");
     }
 }

@@ -67,21 +67,18 @@ public class EditCommand extends Command implements Undoable{
         
         populateEditedTaskFields();
         
-        boolean duplicate = false;
+        int duplicateTaskResult = 0;
         try {
         	model.deleteTask(toEdit);  
-            duplicate = model.addTask(toAdd);                
+        	duplicateTaskResult = model.addTask(toAdd);                
             populateUndo();
         }  catch (TaskNotFoundException tnfe) {
             assert false : "The target task cannot be missing";
         }
+        
+        CommandResult temporary = new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, toAdd));
+        return CommandUtil.generateCommandResult(temporary,duplicateTaskResult);
 
-        if (duplicate){
-        	return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, toAdd) + "\n" + AddCommand.MESSAGE_DUPLICATE_TASK);
-        }
-        else {
-        	return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, toAdd));
-        }
     }
     
     /**

@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 import java.util.logging.Logger;
 
@@ -18,6 +19,7 @@ import seedu.address.commons.events.storage.StorageDataPathChangedEvent;
 import seedu.address.commons.events.ui.JumpToListRequestEvent;
 import seedu.address.commons.events.ui.UpdateListCountEvent;
 import seedu.address.commons.util.StringUtil;
+import seedu.address.logic.commands.AddCommand;
 import seedu.address.model.task.Datetime;
 import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.Status;
@@ -206,14 +208,24 @@ public class ModelManager extends ComponentManager implements Model {
         raise(new UpdateListCountEvent(this));
     }
 
+    private void checkClashingEvents(Task target) {
+        filteredDatedTasks.setPredicate((new PredicateExpression(new ClashingQualifier(target)))::satisfies);
+    }
+
     //@@author A0143884W
     @Override
-    public synchronized boolean addTask(Task target) {
-        boolean duplicate = taskBook.addTask(target);
-        updateFilteredListToShowAll();
+    public synchronized int addTask(Task target) {
+        int checkForDuplicateOrClash = taskBook.addTask(target);
         indicateTaskBookChanged();
+        checkClashingEvents(target);
+        if (filteredDatedTasks.size() == 1) {
+            updateFilteredListToShowAll();
+        }
+        else if (filteredDatedTasks.size() > 1){
+            checkForDuplicateOrClash = AddCommand.CLASH;
+        }
         scrollToAddedTask(target);
-        return duplicate;
+        return checkForDuplicateOrClash;
     }
 
     // after task is added, scroll to it in the UndatedListPanel || DatedListPanel
@@ -263,7 +275,7 @@ public class ModelManager extends ComponentManager implements Model {
     public synchronized UndoTask redoTask() {
         return redoableTasks.retrieve();
     }
-    
+
     @Override
     public synchronized void clearRedo(){
         redoableTasks = new UndoList();
@@ -285,7 +297,7 @@ public class ModelManager extends ComponentManager implements Model {
     public void addUndo(String command, ReadOnlyTask postData, ReadOnlyTask preData) {
         undoableTasks.add(command, postData, preData);
     }
-    
+
     @Override
     public void addUndo(UndoTask target) {
         addUndo(target.getCommand(), target.getPostData(), target.getPreData());
@@ -392,18 +404,18 @@ public class ModelManager extends ComponentManager implements Model {
         @Override
         public boolean run(ReadOnlyTask task) {
             boolean matchTaskNames = taskKeyWords.stream()
-            		.filter(keyword -> StringUtil.containsIgnoreCase(task.getName().fullName, keyword))
+                    .filter(keyword -> StringUtil.containsIgnoreCase(task.getName().fullName, keyword))
                     .findAny().isPresent();
-			boolean matchDateTime = taskKeyWords.stream()
-					.filter(keyword -> StringUtil.containsIgnoreCase(task.getDatetime().toString(), keyword))
-					.findAny().isPresent();
-			boolean matchTaskDescription = taskKeyWords.stream()
-					.filter(keyword -> StringUtil.containsIgnoreCase(task.getDescription().value, keyword))
-					.findAny().isPresent();
-			boolean matchListTags = taskKeyWords.stream()
-					.filter(keyword -> StringUtil.containsIgnoreCase(task.getTags().toString(), keyword))
-					.findAny().isPresent();
-			return (matchTaskNames || matchDateTime || matchTaskDescription || matchListTags);
+            boolean matchDateTime = taskKeyWords.stream()
+                    .filter(keyword -> StringUtil.containsIgnoreCase(task.getDatetime().toString(), keyword))
+                    .findAny().isPresent();
+            boolean matchTaskDescription = taskKeyWords.stream()
+                    .filter(keyword -> StringUtil.containsIgnoreCase(task.getDescription().value, keyword))
+                    .findAny().isPresent();
+            boolean matchListTags = taskKeyWords.stream()
+                    .filter(keyword -> StringUtil.containsIgnoreCase(task.getTags().toString(), keyword))
+                    .findAny().isPresent();
+            return (matchTaskNames || matchDateTime || matchTaskDescription || matchListTags);
         }
 
         @Override
@@ -483,8 +495,33 @@ public class ModelManager extends ComponentManager implements Model {
                     && inputDate.getYear() == other.getYear();
         }
     }
+
+    private class ClashingQualifier implements Qualifier {
+        private ReadOnlyTask newDatedTask;
+
+        ClashingQualifier(ReadOnlyTask target){
+            this.newDatedTask = target;
+
+        }
+
+        @Override
+        public boolean run(ReadOnlyTask task) {
+
+            if (task.getDatetime().getEnd() == null || newDatedTask.getDatetime().getEnd() == null) {
+                return false;
+            }
+            else if (task.getDatetime().getStart().before(newDatedTask.getDatetime().getEnd()) 
+                    && task.getDatetime().getEnd().after(newDatedTask.getDatetime().getStart())) {
+                return true;
+            }
+            else {
+                return false;
+            }
+        }
+
+    }
     //@@author
-    
+
     //@@author A0139528W
     @Subscribe
     public void handleStorageDataChangedEvent(StorageDataPathChangedEvent event) {

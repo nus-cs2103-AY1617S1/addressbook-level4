@@ -27,6 +27,10 @@ public class AddCommand extends Command implements Undoable {
 
     public static final String MESSAGE_SUCCESS = "New task added: %1$s";
     public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the task book!";
+    public static final String MESSAGE_CLASHING_EVENTS = "This event clashes with other events in the task book!";
+    public static final int NO_DUPLICATE_OR_CLASH = 0;
+    public static final int DUPLICATE = 1;
+    public static final int CLASH = 2;
 
     private final Task toAdd;
 
@@ -53,15 +57,22 @@ public class AddCommand extends Command implements Undoable {
     public CommandResult execute() {
         assert model != null;
         
-        boolean duplicate = model.addTask(toAdd);
+        int checkForDuplicateOrClash = model.addTask(toAdd);
         populateUndo();
-        if (duplicate){
+        return generateCommandResult(checkForDuplicateOrClash);
+
+    }
+
+    private CommandResult generateCommandResult(int checkForDuplicateOrClash) {
+        if (checkForDuplicateOrClash == DUPLICATE){
         	return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd) + "\n" + MESSAGE_DUPLICATE_TASK);
         }
-        else {
-        	return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+        else if (checkForDuplicateOrClash == CLASH){
+        	return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd) + "\n" + MESSAGE_CLASHING_EVENTS);
         }
-
+        else {
+            return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+        }
     }
     
     @Override

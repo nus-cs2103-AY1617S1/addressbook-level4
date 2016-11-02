@@ -1,6 +1,8 @@
 package seedu.address.commons.util;
 
 import seedu.address.commons.core.UnmodifiableObservableList;
+import seedu.address.logic.commands.AddCommand;
+import seedu.address.logic.commands.CommandResult;
 import seedu.address.model.TaskBook.TaskType;
 import seedu.address.model.task.ReadOnlyTask;
 
@@ -88,6 +90,18 @@ public class CommandUtil {
         default:
             return null;
         }
+    }
+
+    public static CommandResult generateCommandResult(CommandResult temporary, int duplicateOrClashTaskResult) {
+       if (duplicateOrClashTaskResult == AddCommand.CLASH){
+           return new CommandResult(temporary.toString() + "\n" + AddCommand.MESSAGE_DUPLICATE_TASK);
+       }
+       else if (duplicateOrClashTaskResult == AddCommand.DUPLICATE){
+           return new CommandResult(temporary.toString() + "\n" + AddCommand.MESSAGE_CLASHING_EVENTS);
+       }
+       else {
+           return temporary;
+       }
     }
     
 }
