@@ -123,13 +123,13 @@ Example :
 
 #### **Adding a tagged task**
 
-Command format :  **add DESCRIPTION t/TAG…**
+- Command format :  **add DESCRIPTION t/TAG…**
 
-Adds a task with a tag for additional information.
+- Adds a task with a tag for additional information.
 
-Example :   **add Dinner t/formal wear**
+- Example :   **add Dinner t/formal wear**
 
-#### Adds a task **Dinner** with tag **formal wear**.
+-  Adds a task **Dinner** with tag **formal wear**.
 
 ### **Listing the tasks**
 
