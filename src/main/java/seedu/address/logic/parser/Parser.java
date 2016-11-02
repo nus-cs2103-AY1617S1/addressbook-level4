@@ -7,6 +7,7 @@ import seedu.address.logic.commands.*;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
+import java.io.File;
 import java.text.ParseException;
 import java.util.*;
 import java.util.regex.Matcher;
@@ -121,6 +122,9 @@ public class Parser {
         	 
         case ScrollCommand.COMMAND_WORD:
         	return new ScrollCommand(arguments);
+        	
+        case SaveCommand.COMMAND_WORD:
+            return prepareSave(arguments);
 
         default:
             return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
@@ -349,6 +353,12 @@ public class Parser {
     		 return new IncorrectCommand(ive.getMessage());
     	 }
 
+    }
+    
+    private Command prepareSave(String args) throws ParseException{
+       
+        
+            return new SaveCommand(args.trim());
     }
 
 }

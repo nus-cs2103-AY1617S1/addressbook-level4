@@ -11,10 +11,10 @@ public class Config {
     public static final String DEFAULT_CONFIG_FILE = "config.json";
 
     // Config values customizable through config file
-    private String appTitle = "Address App";
+    private String appTitle = "TPTM";
     private Level logLevel = Level.INFO;
     private String userPrefsFilePath = "preferences.json";
-    private String addressBookFilePath = "data/addressbook.xml";
+    private String addressBookFilePath = "data/TPTM.xml";
     private String addressBookName = "MyAddressBook";
 
 
