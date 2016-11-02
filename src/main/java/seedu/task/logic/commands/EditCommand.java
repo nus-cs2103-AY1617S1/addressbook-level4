@@ -16,7 +16,6 @@ import seedu.task.model.task.DueDate;
 import seedu.task.model.task.ReadOnlyTask;
 import seedu.task.model.task.StartDate;
 import seedu.task.model.task.Task;
-import seedu.task.model.task.TaskColor;
 import seedu.task.model.task.Title;
 import seedu.task.model.task.UniqueTaskList.DuplicateTaskException;
 import seedu.task.model.task.UniqueTaskList.TaskNotFoundException;
@@ -24,14 +23,13 @@ import seedu.task.model.task.UniqueTaskList.TaskNotFoundException;
 /**
  * Edits a task in the task manager.
  */
-//@@author A0153751H
 
 public class EditCommand extends Command {
 	public static final String COMMAND_WORD = "edit";
 	public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits a task in the task manager. "
-            + "Parameters: Index t/newTaskName d/description sd/startDate dd/dueDate c/color ts/tagSet"
+            + "Parameters: Index t/newTaskName d/description sd/startDate dd/dueDate ts/tagSet"
             + "\nExample: " + COMMAND_WORD
-            + " 1 t/newTaskName d/newDescription sd/11-11-2011 11:11 dd/11-11-2016 01:01 c/red ts/tag ts/tag2"
+            + " 1 t/newTaskName d/newDescription sd/11-11-2011 dd/11-11-2016 ts/tag ts/tag2"
             + "\nNote: You must have at least one parameter other than the index of the task. Use multiple 'ts/' to list multiple tags.";
 	
 	public final String MESSAGE_SUCCESS = "The data has been successfully edited.";
@@ -42,7 +40,7 @@ public class EditCommand extends Command {
 	
 	private ReadOnlyTask selectedTask;
 	private Task copy, editedTask;
-	private String newTitle, description, startDate, dueDate, interval, timeInterval, taskColor;
+	private String newTitle, description, startDate, dueDate, interval, timeInterval;
 	private Set<String> tags;
 	private UnmodifiableObservableList<ReadOnlyTask> taskList;
 	private int taskIndex, realIndex;
@@ -60,7 +58,7 @@ public class EditCommand extends Command {
 	 * @param timeInterval new time interval
 	 * @param tags new set of tags
 	 */
-	public EditCommand(int index, String title, String description, String startDate, String dueDate, String interval, String timeInterval, String taskColor, Set<String> tags) {
+	public EditCommand(int index, String title, String description, String startDate, String dueDate, String interval, String timeInterval, Set<String> tags) {
 		taskIndex = index;
 		newTitle = title;
 		this.description = description;
@@ -69,7 +67,6 @@ public class EditCommand extends Command {
 		this.interval = interval;
 		this.timeInterval = timeInterval;
 		this.tags = tags;
-		this.taskColor = taskColor;
 	}
 	
 	
@@ -143,7 +140,7 @@ public class EditCommand extends Command {
 	 */
 	public void edit(ReadOnlyTask task) throws IllegalValueException, ParseException{
 		copy = (Task) selectedTask;
-		iterateParams(newTitle, description, startDate, dueDate, interval, timeInterval, taskColor, tags);
+		iterateParams(newTitle, description, startDate, dueDate, interval, timeInterval, tags);
 		editedTask = copy;
 	}
 	
@@ -159,7 +156,7 @@ public class EditCommand extends Command {
 	 * @throws IllegalValueException if any values are illegal
 	 * @throws ParseException if any values are illegal
 	 */
-	public void iterateParams(String name, String description, String startDate, String dueDate, String interval, String timeInterval, String taskColor, Set<String> tags) throws IllegalValueException, ParseException{
+	public void iterateParams(String name, String description, String startDate, String dueDate, String interval, String timeInterval, Set<String> tags) throws IllegalValueException, ParseException{
 		if (name != null) {
 		    changeTitle(name);
 		}
@@ -171,9 +168,6 @@ public class EditCommand extends Command {
 		}
 		if (dueDate != null) {
 			changeDueDate(dueDate);
-		}
-		if (taskColor != null && !taskColor.isEmpty()) {
-			changeTaskColor(taskColor);
 		}
 		if (tags != null && !tags.isEmpty()) {
 			changeTags(tags);
@@ -187,7 +181,7 @@ public class EditCommand extends Command {
 	 */
 	public void changeTitle(String title) throws IllegalValueException {
 		Title newTitle = new Title(title);
-		copy = new Task(newTitle, copy.getDescription(), copy.getStartDate(), copy.getDueDate(), copy.getInterval(), copy.getTimeInterval(), copy.getStatus(), copy.getTaskColor(), copy.getTags());
+		copy = new Task(newTitle, copy.getDescription(), copy.getStartDate(), copy.getDueDate(), copy.getInterval(), copy.getTimeInterval(), copy.getStatus(), copy.getTags());
 	}
 	
 	/**
@@ -197,7 +191,7 @@ public class EditCommand extends Command {
 	 */
 	public void changeDescription(String description) throws IllegalValueException {
 		Description newDescription = new Description(description);
-		copy = new Task(copy.getTitle(), newDescription, copy.getStartDate(), copy.getDueDate(), copy.getInterval(), copy.getTimeInterval(), copy.getStatus(), copy.getTaskColor(), copy.getTags());
+		copy = new Task(copy.getTitle(), newDescription, copy.getStartDate(), copy.getDueDate(), copy.getInterval(), copy.getTimeInterval(), copy.getStatus(), copy.getTags());
 	}
 	
 	/**
@@ -208,7 +202,7 @@ public class EditCommand extends Command {
 	 */
 	public void changeStartDate(String startDate) throws IllegalValueException, ParseException {
 		StartDate newStartDate = new StartDate(startDate);
-		copy = new Task(copy.getTitle(), copy.getDescription(), newStartDate, copy.getDueDate(), copy.getInterval(), copy.getTimeInterval(), copy.getStatus(), copy.getTaskColor(), copy.getTags());
+		copy = new Task(copy.getTitle(), copy.getDescription(), newStartDate, copy.getDueDate(), copy.getInterval(), copy.getTimeInterval(), copy.getStatus(), copy.getTags());
 	}
 
 	/**
@@ -219,12 +213,7 @@ public class EditCommand extends Command {
 	 */
 	public void changeDueDate(String dueDate) throws IllegalValueException, ParseException {
 		DueDate newDueDate = new DueDate(dueDate);
-		copy = new Task(copy.getTitle(), copy.getDescription(), copy.getStartDate(), newDueDate, copy.getInterval(), copy.getTimeInterval(), copy.getStatus(), copy.getTaskColor(), copy.getTags());
-	}
-	
-	public void changeTaskColor(String taskColor) throws IllegalValueException {
-		TaskColor color = new TaskColor(taskColor);
-		copy = new Task(copy.getTitle(), copy.getDescription(), copy.getStartDate(), copy.getDueDate(), copy.getInterval(), copy.getTimeInterval(), copy.getStatus(), color, copy.getTags());
+		copy = new Task(copy.getTitle(), copy.getDescription(), copy.getStartDate(), newDueDate, copy.getInterval(), copy.getTimeInterval(), copy.getStatus(), copy.getTags());
 	}
 	
 	/**
@@ -237,18 +226,15 @@ public class EditCommand extends Command {
 		for (String tagName : tags) {
             newTags.add(new Tag(tagName));
         }
-		copy = new Task(copy.getTitle(), copy.getDescription(), copy.getStartDate(), copy.getDueDate(), copy.getInterval(), copy.getTimeInterval(), copy.getStatus(), copy.getTaskColor(), new UniqueTagList(newTags));
+		copy = new Task(copy.getTitle(), copy.getDescription(), copy.getStartDate(), copy.getDueDate(), copy.getInterval(), copy.getTimeInterval(), copy.getStatus(), new UniqueTagList(newTags));
 	}
-	//@@author
 
     //@@author A0153411W
 	/**
 	 * Save task which is edited to restore it for undo command
 	 */
 	private void saveTaskForUndo(ReadOnlyTask task){
-		//@@author A0153751H
-		this.savedTaskForUndo = new Task(task.getTitle(), task.getDescription(), task.getStartDate(), task.getDueDate(), task.getInterval(), task.getTimeInterval(), task.getStatus(), task.getTaskColor(), task.getTags());
-		//@@author
+		this.savedTaskForUndo = new Task(task.getTitle(), task.getDescription(), task.getStartDate(), task.getDueDate(), task.getInterval(), task.getTimeInterval(), task.getStatus(), task.getTags()); 
 	}
 	
 	/**

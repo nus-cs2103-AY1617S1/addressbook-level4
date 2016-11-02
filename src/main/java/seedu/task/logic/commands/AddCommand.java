@@ -17,7 +17,6 @@ import seedu.task.model.task.Interval;
 import seedu.task.model.task.StartDate;
 import seedu.task.model.task.Status;
 import seedu.task.model.task.Task;
-import seedu.task.model.task.TaskColor;
 import seedu.task.model.task.TimeInterval;
 import seedu.task.model.task.Title;
 import seedu.task.model.task.UniqueTaskList;
@@ -65,7 +64,7 @@ public class AddCommand extends Command {
 		
 		Task mainTask = new Task(new Title(title), new Description(description), new StartDate(startDate),
 				new DueDate(dueDate), new Interval(interval), new TimeInterval(timeInterval),
-				new Status("ONGOING"), new TaskColor("none"), new UniqueTagList(tagSet));
+				new Status("ONGOING"), new UniqueTagList(tagSet));
 		addTasksToList(mainTask);
 	}
 
@@ -82,7 +81,7 @@ public class AddCommand extends Command {
 			tasksToAdd.add(new Task(mainTask.getTitle(), mainTask.getDescription(),
 					mainTask.getStartDateWithInterval(timeInterval * i),
 					mainTask.getDueDateWithInterval(timeInterval * i), mainTask.getInterval(),
-					mainTask.getTimeInterval(), new Status("ONGOING"), mainTask.getTaskColor(), mainTask.getTags()));
+					mainTask.getTimeInterval(), new Status("ONGOING"), mainTask.getTags()));
 		}
 	} 
 	

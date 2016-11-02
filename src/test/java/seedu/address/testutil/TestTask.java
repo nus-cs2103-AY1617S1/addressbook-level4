@@ -15,7 +15,6 @@ public class TestTask implements ReadOnlyTask {
     private Interval interval;
     private TimeInterval timeInterval;
     private Status status;
-    private TaskColor taskColor;
     private UniqueTagList tags;
 
     public TestTask() {
@@ -49,11 +48,6 @@ public class TestTask implements ReadOnlyTask {
     public void setStatus(Status status) {
         this.status = status;
     }
-    //@@author A0153751H
-    public void setTaskColor(TaskColor taskColor) {
-        this.taskColor = taskColor;
-    }
-    //@@author
     
     @Override
     public String toString() {
@@ -102,11 +96,6 @@ public class TestTask implements ReadOnlyTask {
 		return this.timeInterval;
 	}
 	
-	@Override
-	public TaskColor getTaskColor() {
-		return this.taskColor;
-	}
-	
     @Override
     public UniqueTagList getTags() {
         return this.tags;
@@ -116,5 +105,4 @@ public class TestTask implements ReadOnlyTask {
     public Status getStatus() {
         return this.status;
     }
-
 }
