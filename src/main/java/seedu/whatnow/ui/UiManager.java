@@ -13,6 +13,7 @@ import seedu.whatnow.commons.core.Config;
 import seedu.whatnow.commons.core.LogsCenter;
 import seedu.whatnow.commons.events.model.AddTaskEvent;
 import seedu.whatnow.commons.events.model.UpdateTaskEvent;
+import seedu.whatnow.commons.events.model.WhatNowChangedEvent;
 import seedu.whatnow.commons.events.storage.DataSavingExceptionEvent;
 import seedu.whatnow.commons.events.ui.JumpToListRequestEvent;
 import seedu.whatnow.commons.events.ui.ShowHelpRequestEvent;
@@ -22,6 +23,7 @@ import seedu.whatnow.logic.Logic;
 import seedu.whatnow.model.UserPrefs;
 import seedu.whatnow.model.task.Task;
 
+import java.util.Date;
 import java.util.logging.Logger;
 
 /**
@@ -150,5 +152,13 @@ public class UiManager extends ComponentManager implements Ui {
             mainWindow.getScheduleListPanel().scrollTo(logic.getFilteredScheduleList(false).indexOf(task));
             mainWindow.getTaskListPanel().clear();
         }
+    }
+    
+    @Subscribe
+    public void handleWhatNowChangedEvent(WhatNowChangedEvent abce) {
+        mainWindow.getStatusPanel().postMessage("Number of ongoing tasks in schedule: " 
+                + String.valueOf(logic.getFilteredScheduleList(false).size() 
+                + "\n"
+                + "Number of overdue tasks in schedule: " + String.valueOf(logic.getOverdueScheduleList().size())));
     }
 }
