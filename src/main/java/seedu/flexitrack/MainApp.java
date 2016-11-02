@@ -15,6 +15,7 @@ import seedu.flexitrack.commons.core.EventsCenter;
 import seedu.flexitrack.commons.core.LogsCenter;
 import seedu.flexitrack.commons.core.Version;
 import seedu.flexitrack.commons.events.ui.ExitAppRequestEvent;
+import seedu.flexitrack.commons.events.ui.StoragePathChangeEvent;
 import seedu.flexitrack.commons.exceptions.DataConversionException;
 import seedu.flexitrack.commons.util.ConfigUtil;
 import seedu.flexitrack.commons.util.StringUtil;
@@ -191,5 +192,20 @@ public class MainApp extends Application {
 
     public static void main(String[] args) {
         launch(args);
+    }
+    
+    //@@author A0138455Y
+    @Subscribe
+    public void changeStoragePathRequestEvent(StoragePathChangeEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        config.setFlexiTrackFilePath(event.toString());
+        try {
+            ConfigUtil.saveConfig(config, Config.DEFAULT_CONFIG_FILE);
+        } catch (IOException e) {
+            logger.warning("Failed to save config file : " + StringUtil.getDetails(e));
+        }
+        
+        storage.setStoragePath(event.toString());
+        model.indicateFlexiTrackerChanged();
     }
 }

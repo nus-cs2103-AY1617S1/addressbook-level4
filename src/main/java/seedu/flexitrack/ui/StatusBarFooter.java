@@ -14,6 +14,7 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import seedu.flexitrack.commons.core.LogsCenter;
 import seedu.flexitrack.commons.events.model.FlexiTrackChangedEvent;
+import seedu.flexitrack.commons.events.ui.StoragePathChangeEvent;
 import seedu.flexitrack.commons.util.FxViewUtil;
 
 /**
@@ -96,5 +97,12 @@ public class StatusBarFooter extends UiPart {
         String lastUpdated = (new Date()).toString();
         logger.info(LogsCenter.getEventHandlingLogMessage(abce, "Setting last updated status to " + lastUpdated));
         setSyncStatus("Last Updated: " + lastUpdated);
+    }
+    
+  //@@author A0138455Y
+    @Subscribe
+    public void changeStoragePathRequestEvent(StoragePathChangeEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event, "Setting new data location at: " + event.toString()));
+        setSaveLocation("./"+event.toString());
     }
 }
