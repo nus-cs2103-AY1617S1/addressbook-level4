@@ -411,7 +411,6 @@ public class ModelManager extends ComponentManager implements Model {
         if (freeTimes.get(endDate) == null) {
             FreePeriod newFreePeriod = new FreePeriod();
             newFreePeriod.block(DEFAULT_START_TIME, endTime);
-            System.out.println(newFreePeriod.toString());
             freeTimes.put(endDate, newFreePeriod);
         } else {
             freeTimes.get(endDate).block(DEFAULT_START_TIME, endTime);
@@ -532,11 +531,10 @@ public class ModelManager extends ComponentManager implements Model {
     // @@author A0139772U
     @Override
     public UnmodifiableObservableList<ReadOnlyTask> getFilteredScheduleList(boolean isUndo) {
-        System.out.println("BEFORE SORT: " + filteredSchedules.toString());
         if (!isUndo) {
             updateFilteredScheduleListToShowAllIncomplete();
         }
-        System.out.println("AFTER SORT: " + filteredSchedules.toString());
+        
         return new UnmodifiableObservableList<>(filteredSchedules);
     }
 
