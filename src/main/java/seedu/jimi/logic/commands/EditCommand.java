@@ -26,7 +26,8 @@ import seedu.jimi.model.task.ReadOnlyTask;
 public class EditCommand extends Command implements TaskBookEditor {
     
     public static final String COMMAND_WORD = "edit";
-    public static final String COMMAND_REMOVE_DATES = "float";
+    public static final String COMMAND_REMOVE_DATES = "dateless";
+    public static final String COMMAND_REMOVE_TAGS = "tagless";
     
     public static final String INDEX_TASK_PREFIX = "t";
     public static final String INDEX_EVENT_PREFIX = "e";
@@ -40,12 +41,8 @@ public class EditCommand extends Command implements TaskBookEditor {
             + "For instance, if t2. already has a deadline but you only wish to edit its name: \n"
             + "Example: " + COMMAND_WORD + " t2 \"clear trash\"\n"
             + "\n"
-            + "You can also convert between task types too. \n"
-            + "Here's an example of converting an event to a task: \n"
-            + "Example: " + COMMAND_WORD + " e2 due sunday\n"
-            + "\n"
-            + "If you wish to remove all dates from an existing task i.e. make it floating: \n"
-            + "Example: " + COMMAND_WORD + " e1 float \n"
+            + "If you wish to remove all dates/tags from an existing task: \n"
+            + "Example: " + COMMAND_WORD + " e1 dateless or " + COMMAND_WORD + " e1 tagless\n"
             + "\n"
             + "> Tip: Typing 'e', 'ed', 'edi' instead of 'edit' works too.";
     
@@ -60,25 +57,29 @@ public class EditCommand extends Command implements TaskBookEditor {
     private DateTime eventStart;
     private DateTime eventEnd;
     
-    private enum EditType {
+    public enum EditType {
         REMOVE_DATES,
+        REMOVE_TAGS,
         TO_SAME_TYPE,
         TO_EVENT,
-        TO_DEADLINE,
-        ONLY_PRIORITY
+        TO_DEADLINE
     }
     
     private EditType editType;
     
     /** Empty constructor for stub usage */
     public EditCommand() {
-        this(null);
+        this.taskIndex = null;
     }
     
-    /** Constructor nullifying everything except {@code taskIndex}. */
-    public EditCommand(String taskIndex) {
+    /** Constructor for removal of tags/dates at {@code taskIndex}. */
+    public EditCommand(String taskIndex, EditType removeType) {
+        assert removeType == EditType.REMOVE_DATES || removeType == EditType.REMOVE_TAGS;
         this.taskIndex = taskIndex;
-        editType = EditType.REMOVE_DATES;
+        if (removeType == EditType.REMOVE_TAGS) {
+            newTagList = new UniqueTagList();
+        }
+        editType = removeType;
     }
     
     public EditCommand(String name, Set<String> tags, List<Date> deadline, List<Date> eventStart, List<Date> eventEnd,
@@ -176,6 +177,8 @@ public class EditCommand extends Command implements TaskBookEditor {
             this.editType = EditType.TO_DEADLINE;
         } else if (deadline == null && (eventStart != null || eventEnd != null)) {
             this.editType = EditType.TO_EVENT;
+        } else {
+            this.editType = EditType.REMOVE_DATES;
         }
     }
     
@@ -185,12 +188,14 @@ public class EditCommand extends Command implements TaskBookEditor {
         switch (editType) {
         case REMOVE_DATES :
             return Optional.of(toFloatingTypeWithChanges(oldTask));
+        case REMOVE_TAGS :
         case TO_SAME_TYPE :
             return Optional.of(toSameTaskTypeWithChanges(oldTask));
         case TO_EVENT :
             return Optional.of(toEventTypeWithChanges(oldTask));
         case TO_DEADLINE :
             return Optional.of(toDeadlineTaskTypeWithChanges(oldTask));
+        
         default :
             return Optional.empty();
         }
