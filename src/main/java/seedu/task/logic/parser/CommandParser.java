@@ -9,50 +9,52 @@ import java.util.regex.Pattern;
 import static seedu.task.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.task.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import seedu.task.logic.parser.TimeParserResult.DateTimeStatus;
+
 /**
  * Parses user input.
  */
 public class CommandParser {
     
+    //@@author A0147944U
     /**
      * Used for initial separation of command word and args.
-     * @@author A0147944U
      */
     
+    private static final Pattern BASIC_COMMAND_FORMAT =
+            Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
     
-    private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
+    private static final Pattern TASK_INDEX_ARGS_FORMAT =
+            Pattern.compile("(?<targetIndex>.+)");
     
-    private static final Pattern TASK_INDEX_ARGS_FORMAT = Pattern.compile("(?<targetIndex>.+)");
-    
+    //One or more keywords separated by whitespace
     private static final Pattern KEYWORDS_ARGS_FORMAT =
-    Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more keywords separated by whitespace
+            Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)");
     
     private static final Pattern NATURAL_ARGS_FORMAT =
-    Pattern.compile("(?<name>[^,#]+)" + "(?<tagArguments>(?: #[^/]+)*)");
+            Pattern.compile("(?<name>[^,#]+)" + "(?<tagArguments>(?: #[^/]+)*)");
     
     private static final Pattern NATURAL_ARGS_FORMAT_WITH_START_TIME =
-    Pattern.compile("(?<name>[^,#]+)" + ", (at|on) (?<startTime>[^@#]+)" + "(?<tagArguments>(?: #[^/]+)*)");
+            Pattern.compile("(?<name>[^,#]+)" + ", (at|on) (?<startTime>[^@#]+)" + "(?<tagArguments>(?: #[^/]+)*)");
     
     private static final Pattern NATURAL_ARGS_FORMAT_WITH_DEADLINE =
-    Pattern.compile("(?<name>[^,#]+)" + ", by (?<deadline>[^@#]+)" + "(?<tagArguments>(?: #[^/]+)*)");
+            Pattern.compile("(?<name>[^,#]+)" + ", by (?<deadline>[^@#]+)" + "(?<tagArguments>(?: #[^/]+)*)");
     
     private static final Pattern NATURAL_ARGS_FORMAT_WITH_START_AND_END_TIME =
-    Pattern.compile("(?<name>[^,#]+)" + ", from (?<startTime>[^@#]+)" + " to (?<endTime>[^@#]+)" + "(?<tagArguments>(?: #[^/]+)*)");
+            Pattern.compile("(?<name>[^,#]+)" + ", from (?<startTime>[^@#]+)" + " to (?<endTime>[^@#]+)" + "(?<tagArguments>(?: #[^/]+)*)");
     
     private static final Pattern NATURAL_ARGS_FORMAT_WITH_START_AND_DEADLINE =
-    Pattern.compile("(?<name>[^,#]+)" + ", (at|on) (?<startTime>[^@#]+)" + " (by|to) (?<deadline>[^@#]+)" + "(?<tagArguments>(?: #[^/]+)*)");
+            Pattern.compile("(?<name>[^,#]+)" + ", (at|on) (?<startTime>[^@#]+)" + " (by|to) (?<deadline>[^@#]+)" + "(?<tagArguments>(?: #[^/]+)*)");
     
     private static final Pattern NATURAL_ARGS_FORMAT_WITH_START_AND_END_TIME_AND_DEADLINE =
-    Pattern.compile("(?<name>[^,#]+)" + ", from (?<startTime>[^@#]+)" + "to (?<endTime>[^@#]+)" + "by (?<deadline>[^@#]+)" + "(?<tagArguments>(?: #[^/]+)*)");
+            Pattern.compile("(?<name>[^,#]+)" + ", from (?<startTime>[^@#]+)" + "to (?<endTime>[^@#]+)" + "by (?<deadline>[^@#]+)" + "(?<tagArguments>(?: #[^/]+)*)");
     
     public static final Pattern EDIT_TASK_DATA_ARGS_FORMAT_NATURAL =
-    Pattern.compile("(?<targetIndex>[0-9]+)"
-                    +" (?<item>[^,]+)"
-                    +", (?<content>.+)");
+            Pattern.compile("(?<targetIndex>[0-9]+)" + " (?<item>[^,]+)" + ", (?<content>.+)");
     
     public static final Pattern DIRECTORY_ARGS_FORMAT =
-    Pattern.compile("(?<directory>[^<>|]+)");
+            Pattern.compile("(?<directory>[^<>|]+)");
     //@@author
+    
     public static final String EDIT_NAME = "name";
     public static final String EDIT_START_TIME = "start time";
     public static final String EDIT_END_TIME = "end time";
@@ -106,7 +108,7 @@ public class CommandParser {
             case UndoCommand.COMMAND_WORD:
                 return prepareUndo(arguments);
                 
-                //@@author A0147944U
+                //@@author A0147944U-reused
             case DirectoryCommand.COMMAND_WORD:
                 return prepareDirectory(arguments);
                 

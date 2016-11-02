@@ -170,6 +170,9 @@ public class TaskManager implements ReadOnlyTaskManager {
     //@@author A0147944U
 ////sort methods
     
+    /**
+     * Tasks are sorted according to Deadline in ascending order
+     */
     public void sortByDeadline() {
         this.tasks.getInternalList().sort(new Comparator<Task>() {
             @Override
@@ -179,6 +182,9 @@ public class TaskManager implements ReadOnlyTaskManager {
         });
     }
     
+    /**
+     * Tasks are sorted according to StartTime in ascending order
+     */
     public void sortByStartTime() {
         this.tasks.getInternalList().sort(new Comparator<Task>() {
             @Override
@@ -188,6 +194,9 @@ public class TaskManager implements ReadOnlyTaskManager {
         });
     }
     
+    /**
+     * Tasks are sorted according to EndTime in ascending order
+     */
     public void sortByEndTime() {
         this.tasks.getInternalList().sort(new Comparator<Task>() {
             @Override
@@ -197,6 +206,9 @@ public class TaskManager implements ReadOnlyTaskManager {
         });
     }
     
+    /**
+     * Tasks are sorted according to DoneStatus, starting with completed tasks
+     */
     public void sortByDoneStatus() {
         this.tasks.getInternalList().sort(new Comparator<Task>() {
             @Override
@@ -206,6 +218,9 @@ public class TaskManager implements ReadOnlyTaskManager {
         });
     }
     
+    /**
+     * Tasks are sorted according to Name in ascending order
+     */
     public void sortByName() {
         this.tasks.getInternalList().sort(new Comparator<Task>() {
             @Override
@@ -215,6 +230,9 @@ public class TaskManager implements ReadOnlyTaskManager {
         });
     }
     
+    /**
+     * Tasks are sorted according to DoneStatus, followed by Deadline, followed by StartTime, followed by Name
+     */
     public void sortByDefaultRules() {
         this.tasks.getInternalList().sort(new Comparator<Task>() {
             @Override
@@ -222,9 +240,14 @@ public class TaskManager implements ReadOnlyTaskManager {
                 int statusResult = one.getStatus().compareDoneStatusTo(other.getStatus());
                 int deadlineResult = one.getDeadline().compareTo(other.getDeadline());
                 int startTimeResult = one.getStartTime().compareTo(other.getStartTime());
+                int nameResult = one.getName().compareTo(other.getName());
                 if (statusResult == 0) {
                     if (deadlineResult == 0) {
+                        if (startTimeResult == 0) {
+                            return nameResult;
+                        } else {
                         return startTimeResult;
+                        }
                     } else {
                         return deadlineResult;
                     }
