@@ -28,17 +28,11 @@ public class TaskDescription {
 	 */
 	public TaskDescription(String details) throws IllegalValueException {
 		assert details != null;
-		if (!details.equals("       ")) {
-			details = details.trim();
-			if (!isValidDetails(details)) {
-				throw new IllegalValueException(MESSAGE_TASK_CONSTRAINTS);
-			}
+		details = details.trim();
+		if (!details.equals("") && !isValidDetails(details)) {
+			throw new IllegalValueException(MESSAGE_TASK_CONSTRAINTS);
 		}
-		if (details.equals("       ")) {
-			this.fullTaskDescriptions = "       ";
-		} else {
-			this.fullTaskDescriptions = details;
-		}
+		this.fullTaskDescriptions = details;
 	}
 
 	private boolean isValidDetails(String test) {
@@ -46,7 +40,7 @@ public class TaskDescription {
 		final Matcher matcher = pattern.matcher(test.trim());
 		return matcher.matches();
 	}
-	
+
 	public String getFullTaskDescription() {
 		return this.fullTaskDescriptions;
 	}

@@ -28,7 +28,7 @@ public class Name {
     public Name(String name) throws IllegalValueException {
         assert name != null;
         name = name.trim();
-       if (!isValidName(name)) {
+       if (!name.equals("") && !isValidName(name)) {
     	   System.out.println("error in the constructor");
             throw new IllegalValueException(MESSAGE_NAME_CONSTRAINTS);
         }
