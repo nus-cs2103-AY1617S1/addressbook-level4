@@ -37,7 +37,7 @@ public class DeleteCommandTest extends ListGuiTest {
                 new TaskBuilder().withName("TODO 101112").withStartDate("03-12-2016").withEndDate("04-12-2016").withPriority("1").withDone("false").build()
         };
         addAllDummyTodoTasks(currentList);
-        int targetIndex = 1;
+        int targetIndex = 1;  
         assertDeleteSuccess(targetIndex, currentList);
 
         //delete the last in the list
@@ -141,10 +141,10 @@ public class DeleteCommandTest extends ListGuiTest {
 
         //confirm the result message is correct
         assertResultMessage(String.format(MESSAGE_DELETE_TASK_SUCCESS, taskToDelete.getName().name.toString() + "\n" +
-                "Start Date: No Start Date" + "\n" + 
-                "End Date: No End Date" + "\n" + 
+                //"Start Date: No Start Date" + "\n" + 
+                //"End Date: No End Date" + "\n" + 
                 "Priority: " + new Priority(taskToDelete.getPriority())));
-    }
+    }  
     
   //author A0132157M reused
     private void assertDeleteEventSuccess(int targetIndexOneIndexed, final TestEvent[] currentList) throws IllegalValueException {
@@ -158,7 +158,7 @@ public class DeleteCommandTest extends ListGuiTest {
 
         //confirm the result message is correct
         assertResultMessage(String.format(MESSAGE_DELETE_TASK_SUCCESS, taskToDelete.getName().name.toString() + "\n" +
-                "Start Date: " + new StartDate(taskToDelete.getStartDate().date.toString()) + "\n" + 
+                "Start Date: " + taskToDelete.getStartDate().date + "\n" + 
                 "End Date: " + new EndDate(taskToDelete.getEndDate()) + "\n" + 
                 "StartTime: " + new StartTime(taskToDelete.getStartTime()) + "\n" +
                 "EndTime: " + new EndTime(taskToDelete.getEndTime())));

@@ -111,7 +111,7 @@ public class StartDate {
     
     @Override
     public String toString() {
-        return date;
+        return date; 
     }
     
     @Override

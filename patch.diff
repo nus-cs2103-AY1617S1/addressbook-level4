@@ -1,0 +1,41 @@
+From 227b8a73197d5330853467f09e63b306ef0fcb97 Mon Sep 17 00:00:00 2001
+From: Junsheng <jasoncool93@hotmail.com>
+Date: Wed, 2 Nov 2016 14:47:50 +0800
+Subject: [PATCH] Updated user guide and amended message of find command
+
+---
+ docs/UserGuide.md                                        | 2 +-
+ src/main/java/seedu/Tdoo/logic/commands/FindCommand.java | 4 ++--
+ 2 files changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/docs/UserGuide.md b/docs/UserGuide.md
+index 73f1895..69991bd 100644
+--- a/docs/UserGuide.md
++++ b/docs/UserGuide.md
+@@ -100,7 +100,7 @@ The order of the keywords does not matter, only the name is searched, and tasks
+ > Example(Todo): `find todo Study is good` <br>
+ > Example(Event): `find event Party all night long` <br>
+ > Example(Deadline): `find deadline Assignment to hand up today`
+-> Example by Date: `find TASK_TYPE date/[By day,month,year or whole date(25th December 2016)]`
++> Example by Start Date: `find TASK_TYPE date/[By day,month,year or whole date(25th December 2016)]`
+ 
+ #### Clearing all tasks : `clear`
+ Clears all data in the given task type list.<br>
+diff --git a/src/main/java/seedu/Tdoo/logic/commands/FindCommand.java b/src/main/java/seedu/Tdoo/logic/commands/FindCommand.java
+index 04308b8..1b6f4ef 100644
+--- a/src/main/java/seedu/Tdoo/logic/commands/FindCommand.java
++++ b/src/main/java/seedu/Tdoo/logic/commands/FindCommand.java
+@@ -12,8 +12,8 @@ public class FindCommand extends Command {
+     public static final String COMMAND_WORD = "find";
+     public static final String INVALID_DATA_TYPE_MESSAGE = "Invalid Data type";
+ 
+-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all tasks whose names contain any of "
+-            + "the specified keywords (case-sensitive) and displays them as a list with index numbers.\n"
++    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all tasks whose names or start date contain any of "
++            + "the specified keywords and displays them as a list with index numbers.\n"
+             + "Parameters: TASK_TYPE KEYWORD [MORE_KEYWORDS]...\n"
+             + "Example: " + COMMAND_WORD + " all homework urgent\n"
+             + "               " + COMMAND_WORD + " date/25th December 2016";
+-- 
+2.8.1
+
