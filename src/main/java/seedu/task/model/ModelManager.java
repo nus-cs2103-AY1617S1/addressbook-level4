@@ -205,4 +205,5 @@ public class ModelManager extends ComponentManager implements Model {
     public void setMapping(String command, String alias) {
         userPrefs.setMapping(command, alias);
     }
+    
 }

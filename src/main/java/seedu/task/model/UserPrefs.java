@@ -74,6 +74,6 @@ public class UserPrefs {
      * @param alias
      */
     public void setMapping(String command, String alias) {
-        aliases.put(command, alias);
+        aliases.put(alias, command);
     }
 }

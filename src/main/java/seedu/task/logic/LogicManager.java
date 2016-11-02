@@ -6,6 +6,7 @@ import seedu.task.commons.core.LogsCenter;
 import seedu.task.logic.commands.Command;
 import seedu.task.logic.commands.CommandResult;
 import seedu.task.logic.commands.UndoableCommand;
+import seedu.task.logic.parser.BaseParser;
 import seedu.task.logic.parser.ParseSwitcher;
 import seedu.task.model.Model;
 import seedu.task.model.task.ReadOnlyTask;
@@ -13,6 +14,7 @@ import seedu.task.storage.Storage;
 
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.logging.Logger;
 
 /**

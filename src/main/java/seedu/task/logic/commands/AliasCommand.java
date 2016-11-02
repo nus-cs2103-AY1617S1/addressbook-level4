@@ -1,13 +1,10 @@
 //@@author A0144939R
 package seedu.task.logic.commands;
 
-import seedu.task.commons.core.EventsCenter;
-import seedu.task.commons.events.storage.FilePathChangedEvent;
-
 /**
  * Alias command
  */
-public class AliasCommand extends UndoableCommand {
+public class AliasCommand extends Command {
     
     public static final String COMMAND_WORD = "alias";
     
@@ -28,22 +25,22 @@ public class AliasCommand extends UndoableCommand {
         this.alias = alias.trim();
     }
     
-    
 
     @Override
     public CommandResult execute() {
-      try {  
+      if(isValidAliasCommandPair(alias, command)) {
           model.setMapping(command, alias);
           return new CommandResult(true, MESSAGE_SUCCESS);
-      } catch(Exception e) {
+      } else {
           return new CommandResult(false, MESSAGE_FAILURE);
       }
     }
-
-    @Override
-    public CommandResult rollback() {
-        
-        
+    
+    public boolean isValidAliasCommandPair(String alias, String command) {
+        //check that alias is not null and that alias is not a command
+        //checks that command is valid command
+        return true;
     }
+
 }
 
