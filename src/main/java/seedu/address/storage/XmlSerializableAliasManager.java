@@ -39,8 +39,8 @@ public class XmlSerializableAliasManager implements ReadOnlyAliasManager {
     /**
      * Conversion
      */
-    public XmlSerializableAliasManager(AliasManager src) {
-        aliasMap.putAll(src.getAlias());
+    public XmlSerializableAliasManager(ReadOnlyAliasManager alias) {
+        aliasMap.putAll(alias.getAlias());
     }
 
 	@Override
