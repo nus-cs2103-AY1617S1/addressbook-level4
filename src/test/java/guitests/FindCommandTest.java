@@ -26,8 +26,8 @@ public class FindCommandTest extends TaskListGuiTest {
         assertFindResult("find b*y*", TypicalTestTasks.task1, TypicalTestTasks.task9);
         
         //find after deleting one result
-        //commandBox.runCommand("delete 1");
-        //assertFindResult("find buy", TypicalTestTasks.task9);
+        commandBox.runCommand("delete 1");
+        assertFindResult("find buy", TypicalTestTasks.task9);
     }
 
     @Test
@@ -48,6 +48,5 @@ public class FindCommandTest extends TaskListGuiTest {
         if (expectedHits.length==0)
             assertResultMessage("No such task was found.");
         else assertResultMessage(expectedHits.length + " task(s) listed!");
-        //assertTrue(taskListPanel.isListMatching(expectedHits));
     }
 }
