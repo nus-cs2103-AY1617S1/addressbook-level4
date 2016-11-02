@@ -8,21 +8,21 @@ import seedu.address.commons.exceptions.DuplicateDataException;
 import java.util.*;
 
 /**
- * A list of tasks that enforces uniqueness between its elements and does not allow nulls.
+ * A list of aliases that enforces uniqueness between its elements and does not allow nulls.
  *
  * Supports a minimal set of list operations.
  *
- * @see Task#equals(Object)
+ * @see Alias#equals(Object)
  * @see CollectionUtil#elementsAreUnique(Collection)
  */
-public class UniqueAliasList implements Iterable<Task> {
+public class UniqueAliasList implements Iterable<Alias> {
 
     /**
      * Signals that an operation would have violated the 'no duplicates' property of the list.
      */
-    public static class DuplicateTaskException extends DuplicateDataException {
-        protected DuplicateTaskException() {
-            super("Operation would result in duplicate tasks");
+    public static class DuplicateAliasException extends DuplicateDataException {
+        protected DuplicateAliasException() {
+            super("Operation would result in duplicate aliases.");
         }
     }
 
@@ -30,20 +30,20 @@ public class UniqueAliasList implements Iterable<Task> {
      * Signals that an operation targeting a specified task in the list would fail because
      * there is no such matching task in the list.
      */
-    public static class TaskNotFoundException extends Exception {}
+    public static class AliasNotFoundException extends Exception {}
 
-    private final ObservableList<Task> internalList = FXCollections.observableArrayList();
+    private final ObservableList<Alias> internalList = FXCollections.observableArrayList();
 
 
     /**
-     * Constructs empty TaskList.
+     * Constructs empty AliasList.
      */
     public UniqueAliasList() {}
 
     /**
-     * Returns true if the list contains an equivalent task as the given argument.
+     * Returns true if the list contains an equivalent alias as the given argument.
      */
-    public boolean contains(ReadOnlyTask toCheck) {
+    public boolean contains(ReadOnlyAlias toCheck) {
         assert toCheck != null;
         return internalList.contains(toCheck);
     }
@@ -51,12 +51,12 @@ public class UniqueAliasList implements Iterable<Task> {
     /**
      * Adds a task to the list.
      *
-     * @throws DuplicateTaskException if the task to add is a duplicate of an existing task in the list.
+     * @throws DuplicateAliasException if the alias to add is a duplicate of an existing task in the list.
      */
-    public void add(Task toAdd) throws DuplicateTaskException {
+    public void add(Alias toAdd) throws DuplicateAliasException {
         assert toAdd != null;
         if (contains(toAdd)) {
-            throw new DuplicateTaskException();
+            throw new DuplicateAliasException();
         }
         internalList.add(toAdd);
     }
@@ -66,24 +66,24 @@ public class UniqueAliasList implements Iterable<Task> {
      *
      * @throws TaskNotFoundException if no such task could be found in the list.
      */
-    public boolean remove(ReadOnlyTask toRemove) throws TaskNotFoundException {
+    public boolean remove(ReadOnlyAlias toRemove) throws AliasNotFoundException {
         assert toRemove != null;
-        final boolean taskFoundAndDeleted = internalList.remove(toRemove);
-        if (!taskFoundAndDeleted) {
-            throw new TaskNotFoundException();
+        final boolean aliasFoundAndDeleted = internalList.remove(toRemove);
+        if (!aliasFoundAndDeleted) {
+            throw new AliasNotFoundException();
         }
-        return taskFoundAndDeleted;
+        return aliasFoundAndDeleted;
     }
     
     /**
      * set the equivalent task to the specified index of the list
      * @throws TaskNotFoundException if no such task could be found in the list.
      */ 			
-    public boolean set(int key, Task toSet) throws TaskNotFoundException {
+    public boolean set(int key, Alias toSet) throws AliasNotFoundException {
         assert toSet != null;
         boolean isFound = false;
         if (internalList.size() < key) {
-            throw new TaskNotFoundException();
+            throw new AliasNotFoundException();
         } else {
         	internalList.set(key, toSet);
         	isFound = true;
@@ -91,12 +91,12 @@ public class UniqueAliasList implements Iterable<Task> {
         return isFound;
     }
 
-    public ObservableList<Task> getInternalList() {
+    public ObservableList<Alias> getInternalList() {
         return internalList;
     }
 
     @Override
-    public Iterator<Task> iterator() {
+    public Iterator<Alias> iterator() {
         return internalList.iterator();
     }
 
