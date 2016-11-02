@@ -319,7 +319,7 @@ public class TestUtil {
     }
 
     public static boolean compareCardAndEvent(EventCardHandle card, ReadOnlyActivity event) {
-        return card.isSameActivity(event);
+    	return card.isSameActivity(event);
     }
 
 }

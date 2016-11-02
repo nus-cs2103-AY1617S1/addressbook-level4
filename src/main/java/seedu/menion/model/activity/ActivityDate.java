@@ -60,7 +60,7 @@ public class ActivityDate {
     	String year = parts[2];
 
     	Integer monthInt = Integer.parseInt(month);
-    	month = new DateFormatSymbols().getMonths()[monthInt - 1];
+    	month = new DateFormatSymbols().getShortMonths()[monthInt - 1];
     	
     	dateToFormat = day + " " + month + " " + year;
     	

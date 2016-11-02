@@ -231,7 +231,7 @@ public class ActivityManager implements ReadOnlyActivityManager {
     public void editEventNote(ReadOnlyActivity eventToEdit, String changes) throws IllegalValueException, ActivityNotFoundException {
         Activity dub = (Activity)eventToEdit;
         dub.setActivityNote(changes);
-        events.getInternalList().set(events.getIndexOf(eventToEdit), dub);   
+        events.getInternalList().set(events.getIndexOf(eventToEdit), dub);
     }
     
     /**
@@ -242,16 +242,6 @@ public class ActivityManager implements ReadOnlyActivityManager {
      */
     public void editTaskDateTime(ReadOnlyActivity taskToEdit, String newDate, String newTime) throws IllegalValueException, ActivityNotFoundException {
         Activity dub = (Activity)taskToEdit;
-        String currentTime = dub.getActivityStartTime().toString();
-        String currentDate = dub.getActivityStartDate().toString();
-        
-        if (newDate.equals(EditCommand.NOT_TO_EDIT)) {
-            newDate = currentDate;
-        }
-        if (newTime.equals(EditCommand.NOT_TO_EDIT)) {
-            newTime = currentTime;
-        }
-        
         dub.setActivityStartDateTime(newDate, newTime);
         tasks.getInternalList().set(tasks.getIndexOf(taskToEdit), dub); 
         Collections.sort(tasks.getInternalList(), new TaskComparator());
@@ -259,16 +249,6 @@ public class ActivityManager implements ReadOnlyActivityManager {
 
     public void editEventStartDateTime(ReadOnlyActivity eventToEdit, String newDate, String newTime) throws IllegalValueException, ActivityNotFoundException {
         Activity dub = (Activity)eventToEdit;
-        String currentTime = dub.getActivityStartTime().toString();
-        String currentDate = dub.getActivityStartDate().toString();
-
-        if (newDate.equals(EditCommand.NOT_TO_EDIT)) {
-            newDate = currentDate;
-        }
-        if (newTime.equals(EditCommand.NOT_TO_EDIT)) {
-            newTime = currentTime;
-        }
-        
         dub.setActivityStartDateTime(newDate, newTime);
         events.getInternalList().set(events.getIndexOf(eventToEdit), dub);
         Collections.sort(events.getInternalList(), new EventComparator());
@@ -276,15 +256,6 @@ public class ActivityManager implements ReadOnlyActivityManager {
     
     public void editEventEndDateTime(ReadOnlyActivity eventToEdit, String newDate, String newTime) throws IllegalValueException, ActivityNotFoundException {    
         Activity dub = (Activity)eventToEdit;
-        String currentEndTime = dub.getActivityEndTime().toString();
-        String currentEndDate = dub.getActivityEndDate().toString();
-        
-        if (newDate.equals(EditCommand.NOT_TO_EDIT)) {
-            newDate = currentEndDate;
-        }
-        if (newTime.equals(EditCommand.NOT_TO_EDIT)) {
-            newTime = currentEndTime;
-        }
         dub.setActivityEndDateTime(newDate, newTime);
         events.getInternalList().set(events.getIndexOf(eventToEdit), dub);
     }

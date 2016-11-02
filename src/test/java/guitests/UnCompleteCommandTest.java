@@ -90,6 +90,6 @@ public class UnCompleteCommandTest extends ActivityManagerGuiTest {
     
     private void assertMissingIndex() {
         commandBox.runCommand("uncomplete task");
-        assertResultMessage(String.format(MESSAGE_INVALID_COMMAND_FORMAT, UnCompleteCommand.INDEX_MISSING_MESSAGE));
+        assertResultMessage(String.format(MESSAGE_INVALID_COMMAND_FORMAT, UnCompleteCommand.MESSAGE_USAGE));
     }
 }
