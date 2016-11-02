@@ -11,7 +11,7 @@ import seedu.unburden.model.tag.UniqueTagList;
  * Guarantees: details are present and not null, field values are validated.
  * @@author A0143095H
  */
-public class Task implements ReadOnlyTask {
+public class Task implements ReadOnlyTask, Comparable<Task> {
 
     private Name name;
     private TaskDescription taskD;
@@ -25,7 +25,22 @@ public class Task implements ReadOnlyTask {
     /**
      * Every field must be present and not null.
      */
+    
+    
+    public Task(Name name, TaskDescription taskD, Date date, Time startTime, Time endTime, Boolean done,UniqueTagList tags) {
+        assert !CollectionUtil.isAnyNull(name, taskD, date, startTime, endTime, tags);
+        this.name = name;
+        this.taskD = taskD;
+        this.date = date;
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.done = done;
+        this.tags = tags; // protect internal tags from changes in the arg list
+    }
    
+    public Task(ReadOnlyTask source) {
+        this(source.getName(), source.getTaskDescription(), source.getDate(), source.getStartTime(), source.getEndTime(), source.getDone(),source.getTags());
+    }
     //@@Nathanael Chan A0139678J
     // adds event
     public Task(Name name, TaskDescription taskD, Date date, Time startTime, Time endTime, UniqueTagList tags) {
@@ -143,9 +158,9 @@ public class Task implements ReadOnlyTask {
      */
 	
 	//@@Gauri Joshi A0143095H
-    public Task(ReadOnlyTask source) {
-        this(source.getName(), source.getTaskDescription(), source.getDate(), source.getStartTime(), source.getEndTime(), source.getTags());
-    }
+//    public Task(ReadOnlyTask source) {
+//        this(source.getName(), source.getTaskDescription(), source.getDate(), source.getStartTime(), source.getEndTime(), source.getTags());
+//    }
 
 	@Override
     public Name getName() {
@@ -224,9 +239,6 @@ public class Task implements ReadOnlyTask {
         this.done = done;
     }
     
-    public boolean done(){
-    	return false;
-    }
     
     @Override
     public boolean equals(Object other) {
@@ -234,9 +246,24 @@ public class Task implements ReadOnlyTask {
                 || (other instanceof ReadOnlyTask // instanceof handles nulls
                 && this.isSameStateAs((ReadOnlyTask) other));
     }
+    
+    @Override
+    public int compareTo(Task task) {
+    	if (this.getDate().compareTo(task.getDate()) == 0) { // two objects have the same date, compare end times
+    		if (this.getEndTime().compareTo(task.getEndTime()) == 0) {
+    			return this.getStartTime().compareTo(task.getStartTime());
+       		}
+    		else {
+    			return this.getEndTime().compareTo(task.getEndTime());
+    		}
+    	}
+    	else {
+    		return this.getDate().compareTo(task.getDate());
+    	}
+    }
 
     
-        @Override
+    @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
         return Objects.hash(name,taskD,date,startTime,endTime, tags);
