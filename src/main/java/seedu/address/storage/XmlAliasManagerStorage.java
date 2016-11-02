@@ -3,6 +3,7 @@ package seedu.address.storage;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.util.FileUtil;
+import seedu.address.model.AliasManager;
 import seedu.address.model.ReadOnlyTaskManager;
 
 import java.io.File;
@@ -14,13 +15,13 @@ import java.util.logging.Logger;
 /**
  * A class to access TaskManager data stored as an xml file on the hard disk.
  */
-public class XmlTaskManagerStorage implements TaskManagerStorage {
+public class XmlAliasManagerStorage implements AliasManagerStorage {
 
     private static final Logger logger = LogsCenter.getLogger(XmlTaskManagerStorage.class);
 
     private String filePath;
 
-    public XmlTaskManagerStorage(String filePath){
+    public XmlAliasManagerStorage(String filePath){
         this.filePath = filePath;
     }
 
@@ -33,19 +34,19 @@ public class XmlTaskManagerStorage implements TaskManagerStorage {
      * @param filePath location of the data. Cannot be null
      * @throws DataConversionException if the file is not in the correct format.
      */
-    public Optional<ReadOnlyTaskManager> readTaskManager(String filePath) throws DataConversionException, FileNotFoundException {
+    public Optional<AliasManager> readAlias(String filePath) throws DataConversionException, FileNotFoundException {
         assert filePath != null;
 
-        File addressBookFile = new File(filePath);
+        File aliasFile = new File(filePath);
 
-        if (!addressBookFile.exists()) {
-            logger.info("TaskManager file "  + addressBookFile + " not found");
+        if (!aliasFile.exists()) {
+            logger.info("TaskManager file "  + aliasFile + " not found");
             return Optional.empty();
         }
 
-        ReadOnlyTaskManager addressBookOptional = XmlFileStorage.loadDataFromSaveTaskManagerFile(new File(filePath));
+        AliasManager aliasOptional = XmlFileStorage.loadDataFromSaveAliasFile(new File(filePath));
 
-        return Optional.of(addressBookOptional);
+        return Optional.of(aliasOptional);
     }
 
     /**
