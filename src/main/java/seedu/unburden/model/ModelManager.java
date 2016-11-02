@@ -36,8 +36,10 @@ public class ModelManager extends ComponentManager implements Model {
     private ArrayDeque<ListOfTask> prevLists = new ArrayDeque<ListOfTask>();
     private ArrayDeque<ListOfTask> undoHistory = new ArrayDeque<ListOfTask>();
     private Calendar calendar = Calendar.getInstance();
+//    private Calendar calendar_tmr = Calendar.getInstance();
+//    private Calendar calendar_nw = Calendar.getInstance();
     private static final SimpleDateFormat DATEFORMATTER = new SimpleDateFormat("dd-MM-yyyy");
-    private static int size1,size2,size3;
+    private static int size1,size2,size3,TOMORROW_COUNT,NEXTWEEK_COUNT;
     
     private java.util.function.Predicate<? super Task> getAllUndone() {
 		return t -> {
@@ -171,7 +173,12 @@ public class ModelManager extends ComponentManager implements Model {
     	
     	size1=0;
     	size2=0;
-        size3=0;    
+        size3=0;   
+        TOMORROW_COUNT=0;
+        NEXTWEEK_COUNT=0;
+        
+//      calendar_tmr.setTime(calendar_tmr.getTime());
+//		calendar_tmr.add(Calendar.DAY_OF_YEAR, 1);
         
     	for(int i=0; i<listOfTask.getUniqueTaskList().getInternalList().size(); i++){
     		
@@ -190,6 +197,23 @@ public class ModelManager extends ComponentManager implements Model {
     			
     		}
     	
+    	
+////    	//@@author A0143095H
+//    	for(int i=0; i<listOfTask.getUniqueTaskList().getInternalList().size(); i++){
+//    		if(listOfTask.getUniqueTaskList().getInternalList().get(i).getDate().getFullDate().equals(DATEFORMATTER.format(calendar_tmr.getTime()))){
+//    			TOMORROW_COUNT++;
+//    		}
+//    	}
+//    	
+//    	
+//    	for(int i=0; i<listOfTask.getUniqueTaskList().getInternalList().size(); i++){
+//    		calendar.setTime(calendar.getTime());
+//			calendar.add(Calendar.WEEK_OF_YEAR, 1);
+//    		if(listOfTask.getUniqueTaskList().getInternalList().get(i).getDate().getFullDate().equals(DATEFORMATTER.format(calendar.getTime()))){
+//    			NEXTWEEK_COUNT++;
+//    		}
+//    	}
+    	
     }
     	
        
@@ -203,6 +227,14 @@ public class ModelManager extends ComponentManager implements Model {
     
     public static String getSize3(){
     	return String.valueOf(size3);
+    }
+    
+    public static String getTomorrowCount(){
+    	return String.valueOf(TOMORROW_COUNT);
+    }
+    
+    public static String getNextWeekCount(){
+    	return String.valueOf(NEXTWEEK_COUNT);
     }
    
     
