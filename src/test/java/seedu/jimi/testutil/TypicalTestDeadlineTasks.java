@@ -34,12 +34,12 @@ public class TypicalTestDeadlineTasks {
     
     public static void loadTaskBookWithSampleData(TaskBook ab) {
 
-//        try {
-//            ab.addTask(new DeadlineTask(groceries));
-//            ab.addTask(new DeadlineTask(ideas));
-//        } catch (UniqueTaskList.DuplicateTaskException e) {
-//            assert false : "not possible";
-//        }
+        try {
+            ab.addTask(new DeadlineTask(groceries));
+            ab.addTask(new DeadlineTask(ideas));
+        } catch (UniqueTaskList.DuplicateTaskException e) {
+            assert false : "not possible";
+        }
     }
     
     public ReadOnlyTask[] getTypicalTasks() {
