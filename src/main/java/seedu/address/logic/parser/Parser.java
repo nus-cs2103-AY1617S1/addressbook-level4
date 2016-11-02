@@ -543,8 +543,7 @@ public class Parser {
 
 	public static void main(String[] args) {
 		Parser p = new Parser(new ModelManager());
-
 //		p.parseCommand("add 'dd' by 5pm today");
 		p.replaceAliases("find k");
-	}	
+	}
 }
