@@ -184,7 +184,7 @@ public class ModelManager extends ComponentManager implements Model {
     	}
     	
     	for(int i=0; i<listOfTask.getUniqueTaskList().getInternalList().size(); i++){
-    		if(listOfTask.getUniqueTaskList().getInternalList().get(i).getDate().fullDate == DATEFORMATTER.format(calendar.getTime()))
+    		if(listOfTask.getUniqueTaskList().getInternalList().get(i).getDate().getFullDate() == DATEFORMATTER.format(calendar.getTime()))
     		 
     			size1 ++;
     			
