@@ -1,20 +1,14 @@
 package seedu.task.logic.commands;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.logging.Logger;
-import javax.xml.bind.JAXBException;
 
 import seedu.task.commons.core.Config;
 import seedu.task.commons.core.EventsCenter;
 import seedu.task.commons.util.ConfigUtil;
 import seedu.task.commons.util.FileUtil;
-import seedu.task.commons.util.XmlUtil;
-import seedu.task.model.ReadOnlyTaskManager;
-import seedu.task.model.TaskManager;
-import seedu.task.storage.XmlFileStorage;
 import seedu.task.commons.core.LogsCenter;
 import seedu.task.commons.events.ui.ExitAppRequestEvent;
 import seedu.task.commons.exceptions.DataConversionException;
@@ -47,34 +41,12 @@ public class DirectoryCommand extends Command {
     private String _destination;
     
     public DirectoryCommand(String newFilePath) {
-        
         appendExtension(newFilePath);
-        //Check if file supplied by user exists
+        //Check if file supplied by user actually exists
         if (new File(_destination).exists()) {
-            //Retrieve Config file
-            Config config = new Config();
-            File configFile = new File("config.json");
-            try {
-                config = FileUtil.deserializeObjectFromJsonFile(configFile, Config.class);
-            } catch (IOException e) {
-                logger.warning("Error reading from config file " + "config.json" + ": " + e);
-                try {
-                    throw new DataConversionException(e);
-                } catch (DataConversionException e1) {
-                    e1.printStackTrace();
-                }
-            }
-            
-            //Change TaskManager file path
-            config.setTaskManagerFilePath(_destination);
-            //Save new Config
-            try {
-                ConfigUtil.saveConfig(config, "config.json");
-            } catch (IOException e) {
-                logger.warning("Error saving to config file : " + e);
-                e.printStackTrace();
-            }
-            
+            Config config = getConfig();
+            updateConfigWithNewFilePath(config);
+            saveConfig(config);
             /*try {
                 ReadOnlyTaskManager newData = XmlFileStorage.loadDataFromSaveFile(new File(_destination));
                 model.resetData(newData);
@@ -87,6 +59,44 @@ public class DirectoryCommand extends Command {
             }
             */
         }
+    }
+
+    /**
+     * Change TaskManager file path in Config
+     */
+    private void updateConfigWithNewFilePath(Config config) {
+        config.setTaskManagerFilePath(_destination);
+    }
+
+    /**
+     * Saves changes made to Config
+     */
+    private void saveConfig(Config config) {
+        try {
+            ConfigUtil.saveConfig(config, "config.json");
+        } catch (IOException e) {
+            logger.warning("Error saving to config file : " + e);
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Retrieves Config file
+     */
+    private Config getConfig() {
+        Config config = new Config();
+        File configFile = new File("config.json");
+        try {
+            config = FileUtil.deserializeObjectFromJsonFile(configFile, Config.class);
+        } catch (IOException e) {
+            logger.warning("Error reading from config file " + "config.json" + ": " + e);
+            try {
+                throw new DataConversionException(e);
+            } catch (DataConversionException e1) {
+                e1.printStackTrace();
+            }
+        }
+        return config;
     }
     
     /**
@@ -115,8 +125,6 @@ public class DirectoryCommand extends Command {
         }
 
     }
-    
-    
 
     @Override
     public CommandResult execute(boolean isUndo) {
