@@ -185,7 +185,14 @@ public class ModelManager extends ComponentManager implements Model {
     public void updateFilteredListToShowAll() {
     	filteredTasks.setPredicate(null);
     }
+    
+    //@@author A0142290N
+    public void updateFilteredTaskList(Completed keyword){
+    	updateFilteredTaskList(new PredicateExpression(new CompletedQualifier(keyword)));
+    }
 
+    //@@author A0139749L
+    //=========== Filtered Task List Accessors (Without completed tag) ========================================
     @Override
     public void updateFilteredListToShowUncompleted() {
         updateFilteredTaskList(new PredicateExpression(new ListQualifier()));
@@ -197,16 +204,10 @@ public class ModelManager extends ComponentManager implements Model {
         updateFilteredTaskList(new PredicateExpression(new DescriptionQualifier(keywords), new ListQualifier()));
     }
     
-    //@@author A0139749L
     @Override
     public void updateFilteredTaskList(String keyword){
     	this.keywords = keyword;
         updateFilteredTaskList(new PredicateExpression(new TagQualifier(keyword), new ListQualifier()));
-    }
-    
-
-    public void updateFilteredTaskList(Completed keyword){
-    	updateFilteredTaskList(new PredicateExpression(new CompletedQualifier(keyword)));
     }
     
     /*
@@ -219,6 +220,7 @@ public class ModelManager extends ComponentManager implements Model {
         updateFilteredTaskList(new PredicateExpression(new DateTimeQualifier(keyword), new ListQualifier()));
     }
     
+    //=========== Filtered Task List Accessors (With completed tag) ========================================
     @Override
     public void updateFilteredTaskListWithCompleted(Set<String> keywords){
         updateFilteredTaskList(new PredicateExpression(new DescriptionQualifier(keywords)));
