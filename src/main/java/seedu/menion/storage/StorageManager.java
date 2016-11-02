@@ -7,6 +7,7 @@ import seedu.menion.commons.core.LogsCenter;
 import seedu.menion.commons.events.model.ActivityManagerChangedEvent;
 import seedu.menion.commons.events.model.ActivityManagerChangedEventNoUI;
 import seedu.menion.commons.events.storage.DataSavingExceptionEvent;
+import seedu.menion.commons.events.storage.StoragePathChangedEvent;
 import seedu.menion.commons.exceptions.DataConversionException;
 import seedu.menion.model.ReadOnlyActivityManager;
 import seedu.menion.model.UserPrefs;
@@ -64,7 +65,19 @@ public class StorageManager extends ComponentManager implements Storage {
         activityManagerStorage.saveActivityManager(activityManager, activityManagerStorage.getActivityManagerFilePath());
     }
 
-
+    //@@author A0139515A
+    @Subscribe
+    public void handleStoragePathChangedEventEvent(StoragePathChangedEvent event) {
+		this.activityManagerStorage = event.getUpdatedXmlActivityManagerStorage();
+		System.out.println(activityManagerStorage.getActivityManagerFilePath());
+		try {
+			this.saveActivityManager(event.getUpdatedReadOnlyActivityManager());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+    }
+    //@@author
+    
     @Override
     @Subscribe
     public void handleActivityManagerChangedEvent(ActivityManagerChangedEvent event) {

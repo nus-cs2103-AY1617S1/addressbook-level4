@@ -13,7 +13,6 @@ import seedu.menion.commons.core.GuiSettings;
 import seedu.menion.commons.events.ui.ExitAppRequestEvent;
 import seedu.menion.logic.Logic;
 import seedu.menion.model.UserPrefs;
-import seedu.menion.model.activity.ReadOnlyActivity;
 
 /**
  * The Main Window. Provides the basic application layout containing
