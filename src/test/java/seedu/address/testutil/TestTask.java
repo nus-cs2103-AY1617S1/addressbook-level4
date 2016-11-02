@@ -45,6 +45,16 @@ public class TestTask extends TestActivity implements ReadOnlyTask{
     public void setDueDate(DueDate duedate) {
         this.duedate = duedate;
     }
+    
+    public void setDuedate(String duedate) {
+        try {
+            this.duedate = new DueDate(duedate);
+        } catch (IllegalValueException e) {
+            assert false;
+            e.printStackTrace();
+        }
+        
+    }
 
 	@Override
 	public Priority getPriority() {
@@ -54,6 +64,16 @@ public class TestTask extends TestActivity implements ReadOnlyTask{
     public void setPriority(Priority priority) {
         this.priority = priority;
     }
+    
+    public void setPriority(String priority) {
+        try {
+            this.priority = new Priority(priority);
+        } catch (IllegalValueException e) {
+            assert false;
+            e.printStackTrace();
+        } 
+    }
+
 
     /**
      * Checks if the due date is approaching and returns true if so.
@@ -136,4 +156,7 @@ public class TestTask extends TestActivity implements ReadOnlyTask{
         getTags().forEach(builder::append);
         return builder.toString();
     }
+
+
+
 }

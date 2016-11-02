@@ -8,7 +8,6 @@ import seedu.address.model.activity.ActivityManager;
 import seedu.address.model.activity.UniqueActivityList;
 import seedu.address.model.activity.UniqueActivityList.DuplicateTaskException;
 import seedu.address.model.activity.UniqueActivityList.TaskNotFoundException;
-import seedu.address.model.activity.UpcomingReminders;
 import seedu.address.model.activity.task.Task;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
@@ -25,12 +24,10 @@ public class AddressBook implements ReadOnlyLifeKeeper {
 
     private final UniqueActivityList activities;
     private final UniqueTagList tags;
-    private final UpcomingReminders nextReminders;
 
     {
         activities = new UniqueActivityList();
         tags = new UniqueTagList();
-        nextReminders = new UpcomingReminders();
     }
 
     public AddressBook() {}
@@ -47,7 +44,6 @@ public class AddressBook implements ReadOnlyLifeKeeper {
      */
     public AddressBook(UniqueActivityList persons, UniqueTagList tags) {
         resetData(persons.getInternalList(), tags.getInternalList());
-        nextReminders.initialize(persons.getInternalList());
     }
 
     public static ReadOnlyLifeKeeper getEmptyAddressBook() {
@@ -92,15 +88,13 @@ public class AddressBook implements ReadOnlyLifeKeeper {
      */
     public void addPerson(Activity p) throws UniqueActivityList.DuplicateTaskException {
         syncTagsWithMasterList(p);
-        activities.add(p);
-        nextReminders.addReminder(p);
+        activities.addTo(p);
     }
     
 
 	public void addPerson(int index, Activity activity) throws UniqueActivityList.DuplicateTaskException {
         syncTagsWithMasterList(activity);
         activities.addAt(index, activity);
-        nextReminders.addReminder(activity);
 	}
 
     /**
@@ -128,7 +122,6 @@ public class AddressBook implements ReadOnlyLifeKeeper {
 
     public boolean removePerson(ReadOnlyActivity key) throws UniqueActivityList.TaskNotFoundException {
         if (activities.remove(key)) {
-            nextReminders.removeReminder(key);
             return true;
         } else {
             throw new UniqueActivityList.TaskNotFoundException();
@@ -140,9 +133,6 @@ public class AddressBook implements ReadOnlyLifeKeeper {
             if (activities.contains(task)) {
                 Activity newTask = ActivityManager.editUnaffectedParams(task, newParams, type);
                 activities.edit(task, newTask);
-                
-                nextReminders.addReminder(newTask);
-                nextReminders.removeReminder(task);
                 
                 return newTask;
             } else {

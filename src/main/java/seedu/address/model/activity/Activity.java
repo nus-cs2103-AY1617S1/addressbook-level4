@@ -105,7 +105,7 @@ public class Activity implements ReadOnlyActivity {
     }
 
     public void setCompletionStatus(boolean isComplete) {
-        isCompleted = isComplete;
+        this.isCompleted = isComplete;
         
     }
 
