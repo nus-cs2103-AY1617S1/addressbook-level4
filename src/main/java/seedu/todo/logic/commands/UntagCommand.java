@@ -64,6 +64,8 @@ public class UntagCommand extends Command{
         try {
             model.deleteTaskTags(taskToUntag, tags);
             model.updateFilteredListToShowAll();
+            model.updateTodayListToShowAll();
+            model.updateWeekListToShowAll();
         } catch (TaskNotFoundException pnfe) {
             assert false : "The target task cannot be found";
         }

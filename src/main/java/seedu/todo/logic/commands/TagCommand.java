@@ -64,6 +64,8 @@ public class TagCommand extends Command{
         try {
             model.addTaskTags(taskToTag, tags);
             model.updateFilteredListToShowAllNotCompleted();
+            model.updateTodayListToShowAll();
+            model.updateWeekListToShowAll();
         } catch (TaskNotFoundException e) {
             return new CommandResult(Messages.MESSAGE_TASK_NOT_FOUND);
         }
