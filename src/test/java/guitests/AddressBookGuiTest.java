@@ -14,6 +14,7 @@ import seedu.jimi.commons.core.EventsCenter;
 import seedu.jimi.model.TaskBook;
 import seedu.jimi.model.task.ReadOnlyTask;
 import seedu.jimi.testutil.TestUtil;
+import seedu.jimi.testutil.TypicalTestDeadlineTasks;
 import seedu.jimi.testutil.TypicalTestFloatingTasks;
 
 import java.util.concurrent.TimeoutException;
@@ -33,7 +34,7 @@ public abstract class AddressBookGuiTest {
     TestApp testApp;
 
     protected TypicalTestFloatingTasks td = new TypicalTestFloatingTasks();
-
+    protected TypicalTestDeadlineTasks dt = new TypicalTestDeadlineTasks();
     /*
      *   Handles to GUI elements present at the start up are created in advance
      *   for easy access from child classes.

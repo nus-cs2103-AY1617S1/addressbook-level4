@@ -28,7 +28,7 @@ public class AddCommandTest extends AddressBookGuiTest {
         TestFloatingTask taskToAdd = TypicalTestFloatingTasks.dream;
         assertAddSuccess(taskToAdd, currentList);
         currentList = TestUtil.addTasksToList(currentList, taskToAdd);
-/*
+
         //add another task
         taskToAdd = TypicalTestFloatingTasks.night;
         assertAddSuccess(taskToAdd, currentList);
@@ -39,7 +39,7 @@ public class AddCommandTest extends AddressBookGuiTest {
         commandBox.runCommand(TypicalTestFloatingTasks.dream.getAddCommand());
         assertResultMessage(AddCommand.MESSAGE_DUPLICATE_TASK);
         assertTrue(taskListPanel.isListMatching(currentList));
-*/        
+        
         //add deadline task
         TestDeadlineTask deadlineTaskToAdd = TypicalTestDeadlineTasks.homework;
         assertAddSuccess(deadlineTaskToAdd);
@@ -52,7 +52,7 @@ public class AddCommandTest extends AddressBookGuiTest {
 
         //invalid command
         commandBox.runCommand("adds Johnny");
-        assertResultMessage(Messages.MESSAGE_UNKNOWN_COMMAND);
+        assertResultMessage(String.format(Messages.MESSAGE_UNKNOWN_COMMAND, "adds"));
     }
 
     private void assertAddSuccess(TestFloatingTask taskToAdd, ReadOnlyTask... currentList) {
