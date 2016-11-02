@@ -275,37 +275,142 @@ Priority | As a ... | I want to ... | So that I can...
 
 (For all use cases below, the **System** is the `Tdoo` and the **Actor** is the `user`, unless specified otherwise)
 
-#### Use case: Delete task
+#### Use case: Adds a Event task
 
 **MSS**
 
-1. User requests to list tasks
-2. Tdoo shows a list of Todo tasks, event tasks and deadline tasks.
-3. User requests to delete a specific task in the todo list
-4. Tdoo deletes the task <br>
-Use case ends.
+1. User requests to ask a Todo task.
+2. User enters the task description name (compulsory), start/end date, start/end time.
+3. Tdoo saves the Event task details.
+4. Tdoo displays tasks on Event panel. <br>
+
 
 **Extensions**
 
-2a. The list is empty
+2a. The task is completed
 
-> Use case ends
+> Task in the respective panel will show green
 
-3a. The given index is invalid
+2b. The task is incomplete
 
-> 3a1. Tdoo App shows an error message <br>
-  Use case resumes at step 2
+> Task in the respective panel will show incomplete
 
-{More to be added}
+2c. The task is past the due date
+
+> Task in the respective panel will show red
+
+2d. The given start/end date is invalid
+
+> Input validation for dates performed that checks whether the entered date is an upcoming date, start date is before the end date and there are no more than 2 dates in the user input. Tdoo provides feedback to the user if the entered date is found to be an invalid date.
+
+2e. The given start/end time is invalid
+
+> Input validation for dates performed that checks whether the entered time is an upcoming time, start time is before the end time. Tdoo provides feedback to the user if the entered date is found to be an invalid date.<br>
+
+
+#### Use case: Delete a Event task
+
+**MSS**
+
+1. User requests to delete a Event task(s).
+2. User enters the indexes of the task that are shown in the Event list panel
+3. Todo performs delete operations on the selected index.
+4. Tdoo removes the Event task from the Event list panel. <br>
+
+
+**Extensions**
+
+2a. User entered incorrect index.
+
+> Tdoo feedback that the index is invalid.<br>
+
+#### Use case: Edit a Event task
+
+**MSS**
+
+1. User requests to Edit a Event task(s).
+2. User enters the index of the Event task to be edited and the parameters(name, date, time).
+3. Todo performs edit operations on the selected index.
+4. Tdoo display edited task. <br>
+
+
+**Extensions**
+
+2a. User entered incorrect index.
+
+> Tdoo feedback that the index is invalid.
+
+2b. User entered invalid date or time.
+
+> Input validation for dates performed that checks whether the entered date is an upcoming date, start date is before the end date and there are no more than 2 dates in the user input. Tdoo provides feedback to the user if the entered date is found to be an invalid date.
+
+2c. User did not key in name.
+
+> Tdoo feedback that event name is compulsory.
+
+2a. User entered duplicate name.
+
+> Tdoo feedback that event name is already in the Event list.<br>
+
+#### Use case: Find Event tasks
+
+**MSS**
+
+1. User requests to Find a Event task(s).
+2. User enters keyword or start date.
+3. Todo performs find operations on the keywords.
+4. Tdoo displays all event tasks. <br>
+
+
+**Extensions**
+
+2a. User entered Find all.
+
+> Tdoo displays all Event tasks as well as Todo tasks and deadline tasks.<br>
+
+#### Use case: Undo previous operation
+
+**MSS**
+
+1. User requests to undo previous operation.
+2. Tdoo reverts back to previous state.<br>
+
+**Extensions**
+
+2a. User entered incorrect command.
+
+> Tdoo feedback that the command is invalid.
+
+2b. No previous state
+
+> Tdoo does nothing.<br>
+
+#### Use case: Mark Event task as done
+
+**MSS**
+
+1. User requests to mark Event task as done.
+2. User enters the Event index.
+3. Tdoo displays the selected Event index in green.
+
+**Extensions**
+
+2a. User entered incorrect command.
+
+> Tdoo feedback that the command is invalid.<br>
+
 
 ## Appendix C : Non Functional Requirements
 
 1. Should work on any [mainstream OS](#mainstream-os) as long as it has Java `1.8.0_60` or higher installed.
-2. Should be able to hold up to 1000 persons.
+2. Should be able to hold up to 1000 tasks.
 3. Should come with automated unit tests and open source code.
 4. Should favor DOS style commands over Unix-style commands.
+5. Should be easy for new users to.
+6. Keyboard is the primary input source
+7. Not color blind to see different color status.
+8. Should be able to work without Internet connection.
 
-{More to be added}
 
 ## Appendix D : Glossary
 
