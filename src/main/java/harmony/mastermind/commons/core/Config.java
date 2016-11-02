@@ -25,10 +25,13 @@ public class Config {
         return appTitle;
     }
 
+    //@@author A0139194X
     public void setAppTitle(String appTitle) {
+        assert appTitle != null;
         this.appTitle = appTitle;
     }
 
+    //@@author
     public Level getLogLevel() {
         return logLevel;
     }
@@ -41,15 +44,20 @@ public class Config {
         return userPrefsFilePath;
     }
 
+    //@@author A0139194X
     public void setUserPrefsFilePath(String userPrefsFilePath) {
+        assert userPrefsFilePath != null;
         this.userPrefsFilePath = userPrefsFilePath;
     }
 
+    //@@author
     public String getTaskManagerFilePath() {
         return taskManagerFilePath;
     }
 
+    //@@author A0139194X
     public void setTaskManagerFilePath(String taskManagerFilePath) {
+        assert taskManagerFilePath != null;
         this.taskManagerFilePath = taskManagerFilePath;
     }
 
@@ -57,11 +65,14 @@ public class Config {
         return taskManagerName;
     }
 
+    //@@author A0139194X
     public void setTaskManagerName(String taskManagerName) {
+        assert taskManagerName != null;
         this.taskManagerName = taskManagerName;
     }
 
 
+    //@@author
     @Override
     public boolean equals(Object other) {
         if (other == this){

@@ -11,7 +11,6 @@ import javafx.collections.ObservableList;
 import harmony.mastermind.commons.core.UnmodifiableObservableList;
 import harmony.mastermind.commons.exceptions.FolderDoesNotExistException;
 import harmony.mastermind.commons.exceptions.NotRecurringTaskException;
-import harmony.mastermind.commons.exceptions.CommandCancelledException;
 import harmony.mastermind.logic.commands.CommandResult;
 import harmony.mastermind.logic.commands.Redoable;
 import harmony.mastermind.logic.commands.Undoable;

@@ -3,14 +3,19 @@ package harmony.mastermind.storage;
 import static org.junit.Assert.*;
 
 import java.io.IOException;
+import java.nio.file.AccessDeniedException;
 
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 import org.junit.rules.TemporaryFolder;
 
+import harmony.mastermind.commons.core.Config;
 import harmony.mastermind.commons.events.model.TaskManagerChangedEvent;
 import harmony.mastermind.commons.events.storage.DataSavingExceptionEvent;
+import harmony.mastermind.commons.events.storage.RelocateFilePathEvent;
+
 import harmony.mastermind.model.ReadOnlyTaskManager;
 import harmony.mastermind.model.TaskManager;
 import harmony.mastermind.model.UserPrefs;
@@ -21,10 +26,18 @@ import harmony.mastermind.testutil.TypicalTestTasks;
 public class StorageManagerTest {
 
     private StorageManager storageManager;
-
+    //@@author A0139194X
+    private final String FILEPATH_ENDING_WITH_SLASH = "TestFile/";
+    private final String FILEPATH_NOT_ENDING_WITH_SLASH = "TestFile";
+    
+    //@@author
     @Rule
     public TemporaryFolder testFolder = new TemporaryFolder();
-
+    
+    //@@author A0139194X
+    @Rule
+    public ExpectedException thrown = ExpectedException.none();
+  
     @Before
     public void setup() {
         storageManager = new StorageManager(getTempFilePath("ab"), getTempFilePath("prefs"));
@@ -76,6 +89,67 @@ public class StorageManagerTest {
         storage.handleTaskManagerChangedEvent(new TaskManagerChangedEvent(new TaskManager()));
         assertTrue(eventCollector.get(0) instanceof DataSavingExceptionEvent);
     }
+    
+    //@@author A0139194X
+    @Test
+    public void correctFilePathFormat_nullFilePath_assertionFailure() {
+        thrown.expect(AssertionError.class);
+        storageManager.correctFilePathFormat(null);
+    }
+    
+    //@@author A0139194X
+    @Test
+    public void correctFilePathFormat_filePathEndingWithSlash_success() {
+        String result = storageManager.correctFilePathFormat(FILEPATH_ENDING_WITH_SLASH);
+        assertEquals(result, FILEPATH_ENDING_WITH_SLASH + "mastermind.xml");
+    }
+    
+    //@@author A0139194X
+    @Test
+    public void correctFilePathFormat_filePathNotEndingWithSlash_success() {
+        String result = storageManager.correctFilePathFormat(FILEPATH_NOT_ENDING_WITH_SLASH);
+        assertEquals(result, FILEPATH_NOT_ENDING_WITH_SLASH + "/mastermind.xml");
+    }
+    
+    //@@author A0139194X
+    @Test
+    public void handleRelocateEvent_nullEvent_assertionFailure() {
+        thrown.expect(AssertionError.class);
+        storageManager.handleRelocateEvent(null);
+    }
+    
+    //@@author A0139194X
+    @Test
+    public void handleRelocateEvent_nullEventFilePath_assertionFailure() {
+        thrown.expect(AssertionError.class);
+        RelocateFilePathEvent event = new RelocateFilePathEvent(null);
+        storageManager.handleRelocateEvent(event);
+    }
+    
+    //@@author A0139194X
+    @Test
+    public void handleRelocateEvent_unwrittableFilePath_IOExceptionThrown() {
+        String filePath = storageManager.getTaskManagerFilePath() + "/mastermind.xml";
+        RelocateFilePathEvent event = new RelocateFilePathEvent("");
+        storageManager.handleRelocateEvent(event);
+        assertEquals(filePath, storageManager.getTaskManagerFilePath() + "/mastermind.xml");
+    }
+    
+    //@@author A0139194X
+    @Test
+    public void updateConfig_nullInput_assertionFailure() {
+        thrown.expect(AssertionError.class);
+        storageManager.updateConfig(null);
+    }
+    
+    //@@author
+//    //@@author A0139194X
+//    @Test
+//    public void updateConfig_success() {
+//        ConfigStub config = new ConfigStub(FILEPATH_NOT_ENDING_WITH_SLASH);
+//        storageManager.updateConfig(FILEPATH_NOT_ENDING_WITH_SLASH);
+//        assertEquals(config.getTaskManagerFilePath(), FILEPATH_NOT_ENDING_WITH_SLASH);
+//    }
 
     /**
      * A Stub class to throw an exception when the save method is called
@@ -91,5 +165,18 @@ public class StorageManagerTest {
             throw new IOException("dummy exception");
         }
     }
-
+    
+    /**@@author A0139194X
+     * A Stub class to store config.json
+     */
+    class ConfigStub extends Config {
+        
+        Config config;
+        
+        public ConfigStub(String filePath) {
+            config = new Config();
+            config.setTaskManagerFilePath(filePath);
+        }
+    }
+    
 }

@@ -17,7 +17,6 @@ import harmony.mastermind.commons.core.UnmodifiableObservableList;
 import harmony.mastermind.commons.events.model.ExpectingConfirmationEvent;
 import harmony.mastermind.commons.events.model.TaskManagerChangedEvent;
 import harmony.mastermind.commons.events.storage.RelocateFilePathEvent;
-import harmony.mastermind.commons.exceptions.CommandCancelledException;
 import harmony.mastermind.commons.exceptions.FolderDoesNotExistException;
 import harmony.mastermind.commons.exceptions.NotRecurringTaskException;
 import harmony.mastermind.commons.util.StringUtil;
@@ -228,13 +227,13 @@ public class ModelManager extends ComponentManager implements Model {
         indicateTaskManagerChanged();
     }
 
-
     // @@author A0124797R
     @Override
     public synchronized void unmarkTask(Task target) throws ArchiveTaskList.TaskNotFoundException, UniqueTaskList.DuplicateTaskException {
         taskManager.unmarkTask(target);
         indicateTaskManagerChanged();
     }
+
     
     //=========== Filtered List Accessors ===============================================================
 
@@ -275,6 +274,7 @@ public class ModelManager extends ComponentManager implements Model {
         raise(new RelocateFilePathEvent(newFilePath));
         indicateTaskManagerChanged();
     }
+    
 
     // =========== Methods for Recurring Tasks=============================
 
@@ -286,8 +286,7 @@ public class ModelManager extends ComponentManager implements Model {
         indicateTaskManagerChanged();
     }
 
-    // =========== Filtered Task List Accessors
-    // ===============================================================
+    // =========== Filtered Task List Accessors ===============================================================
 
     @Override
     public UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList() {
@@ -408,8 +407,7 @@ public class ModelManager extends ComponentManager implements Model {
         taskManager.searchTask(keyword, memory);
     }
 
-    // ========== Inner classes/interfaces used for filtering
-    // ==================================================
+    // ========== Inner classes/interfaces used for filtering ==================================================
 
     interface Expression {
         boolean satisfies(ReadOnlyTask task);

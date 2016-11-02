@@ -8,21 +8,15 @@ import harmony.mastermind.commons.events.model.TaskManagerChangedEvent;
 import harmony.mastermind.commons.events.storage.RelocateFilePathEvent;
 import harmony.mastermind.commons.events.storage.DataSavingExceptionEvent;
 import harmony.mastermind.commons.exceptions.DataConversionException;
-import harmony.mastermind.commons.exceptions.FolderDoesNotExistException;
-import harmony.mastermind.commons.exceptions.UnwrittableFolderException;
 import harmony.mastermind.commons.util.ConfigUtil;
 import harmony.mastermind.commons.util.StringUtil;
 import harmony.mastermind.model.ReadOnlyTaskManager;
 import harmony.mastermind.model.UserPrefs;
 import harmony.mastermind.commons.core.Config;
 
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.AccessDeniedException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Optional;
 import java.util.logging.Logger;
 
@@ -91,39 +85,26 @@ public class StorageManager extends ComponentManager implements Storage {
         }
     }
     
-    //@@author A0139194X
-    public void checkSaveLocation(String newFilePath) throws FolderDoesNotExistException {
-        Path filePath = Paths.get(newFilePath);
-        
-        if (!Files.exists(filePath)) {
-            throw new FolderDoesNotExistException(newFilePath + " does not exist");
-        }
-    }
-    
-    //Checks if directory is writable
-    //@@author A0139194X
-    public void checkWrittableDirectory(String newFilePath) throws UnwrittableFolderException {
-        File newFile = new File(newFilePath);
-        if (!(newFile.isDirectory() && newFile.canWrite())) {
-            throw new UnwrittableFolderException(newFilePath + " is not writtable.");
-        }
-    }
     
     //@@author A0139194X
+    /**
+     * Handles RelocateFilePathEvent by first changing taskManger's file path, then moving
+     * the file over and deleting the old one
+     */
     @Subscribe
     public void handleRelocateEvent(RelocateFilePathEvent event) {
-        assert event.newFilePath != null;
+        assert event != null;
+        assert event.getFilePath() != null;
         String oldPath = taskManagerStorage.getTaskManagerFilePath();
-        String newPath = correctFilePathFormat(event.newFilePath);
+        String newPath = correctFilePathFormat(event.getFilePath());
         taskManagerStorage.setTaskManagerFilePath(newPath);
         try {
+            logger.info("Trying to move into new file path.");
             taskManagerStorage.migrateIntoNewFolder(oldPath, newPath);
-        } catch (AccessDeniedException ade) {
-            logger.warning("Permission to access " + newPath + " denied." );
+        } catch (IOException e) {
+            logger.warning("Error occured while handling relocate event.");
             logger.warning("Reverting save location back to " + oldPath);
             taskManagerStorage.setTaskManagerFilePath(oldPath);
-        } catch (IOException e) {
-            e.printStackTrace();
         }
         updateConfig(newPath);
     }
@@ -131,6 +112,7 @@ public class StorageManager extends ComponentManager implements Storage {
     //@@author A0139194X
     //Appends the '/' if it is not that for a valid file path
     public String correctFilePathFormat(String newPath) {
+        assert newPath != null;
         if (newPath.endsWith("/")) {
             newPath = newPath + "mastermind.xml";
         } else {
@@ -153,8 +135,8 @@ public class StorageManager extends ComponentManager implements Storage {
                     "Using default config properties");
             config = new Config();
         }
-
         config.setTaskManagerFilePath(newPath);
+        logger.fine("Updated config's data save location.");
         
         //Update config file in case it was missing to begin with or there are new/unused fields
         try {

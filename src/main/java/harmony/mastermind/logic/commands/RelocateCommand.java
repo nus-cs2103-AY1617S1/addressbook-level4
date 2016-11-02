@@ -13,17 +13,17 @@ import harmony.mastermind.commons.core.Messages;
 import harmony.mastermind.commons.exceptions.FolderDoesNotExistException;
 import harmony.mastermind.commons.exceptions.IllegalValueException;
 import harmony.mastermind.commons.exceptions.UnwrittableFolderException;
+import harmony.mastermind.commons.util.FileUtil;
 import harmony.mastermind.model.tag.Tag;
 import harmony.mastermind.model.tag.UniqueTagList;
 import harmony.mastermind.model.task.*;
 import harmony.mastermind.storage.StorageManager;
-import harmony.mastermind.storage.*;
 
 /**
  * @@author A0139194X
  * Relocates save location
  */
-public class RelocateCommand extends Command{
+public class RelocateCommand extends Command {
 
     public static final String COMMAND_WORD = "relocate";
 
@@ -50,11 +50,10 @@ public class RelocateCommand extends Command{
     @Override
     public CommandResult execute() {
         assert model != null;
-        assert storage != null;
         assert newFilePath != null;
         try {
-            storage.checkSaveLocation(newFilePath);
-            storage.checkWrittableDirectory(newFilePath);
+            FileUtil.checkSaveLocation(newFilePath);
+            FileUtil.checkWrittableDirectory(newFilePath);
             model.relocateSaveLocation(newFilePath);
             return new CommandResult(COMMAND_WORD, String.format(MESSAGE_SUCCESS, newFilePath));
         } catch (FolderDoesNotExistException fdnee) {

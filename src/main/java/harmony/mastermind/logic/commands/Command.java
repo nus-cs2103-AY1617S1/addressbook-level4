@@ -23,7 +23,6 @@ public abstract class Command {
     protected static final PrettyTimeParser prettyTimeParser = new PrettyTimeParser();
     
     protected Model model;
-    protected Storage storage;
 
     /**
      * Constructs a feedback message to summarise an operation that displayed a listing of tasks.
@@ -49,7 +48,6 @@ public abstract class Command {
      */
     public void setData(Model model, Storage storage) {
         this.model = model;
-        this.storage = storage;
     }
 
     /**
