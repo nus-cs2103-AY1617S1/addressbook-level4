@@ -67,7 +67,7 @@ public class DateTime {
             this.valueDateEnd = null;
             this.valueTimeEnd = null;
             this.value = "";
-            this.valueFormatted = "Not specified";
+            this.valueFormatted = "Anytime";
             this.context = "";
             this.overdueContext = "";
             this.eventContext = "";
@@ -207,8 +207,12 @@ public class DateTime {
         	else if (monthsDue > 0 && yearsDue == 0)
         		periodDue = stringMonthsDue + " months and " + stringDaysDue + " days ";
             
-        	else if (monthsDue == 0 && yearsDue == 0)
-        		periodDue = valueDate.until(LocalDate.now()).getDays() + " days";
+        	else if (monthsDue == 0 && yearsDue == 0){
+        		if (daysDue == 1)
+        			periodDue = valueDate.until(LocalDate.now()).getDays() + " day";
+        		else
+        			periodDue = valueDate.until(LocalDate.now()).getDays() + " days";
+        	}
         	
         	else 
         		periodDue = "";
