@@ -21,6 +21,7 @@ import seedu.flexitrack.commons.exceptions.IllegalValueException;
 import seedu.flexitrack.commons.util.StringUtil;
 import seedu.flexitrack.logic.commands.AddCommand;
 import seedu.flexitrack.logic.commands.BlockCommand;
+import seedu.flexitrack.logic.commands.ChangeStoragePathCommand;
 import seedu.flexitrack.logic.commands.ClearCommand;
 import seedu.flexitrack.logic.commands.Command;
 import seedu.flexitrack.logic.commands.DeleteCommand;
@@ -92,7 +93,11 @@ public class Parser {
     private static final Pattern EDIT_ARGS_DUEDATE = Pattern.compile("by/\\s*(?<dueDate>[^/]+)");
     private static final Pattern EDIT_ARGS_STARTTIME = Pattern.compile("from/\\s*(?<startTime>[^/]+)");
     private static final Pattern EDIT_ARGS_ENDTIME = Pattern.compile("to/\\s*(?<endTime>[^/]+)");
-
+    
+    //@@author A0138455Y
+    private static final Pattern STORAGE_PATH_FORMAT = Pattern.compile("(?<path>[\\p{Alnum}|/]+)");
+    //@@author
+    
     private Model model;
 
     public final static String EMPTY_TIME_INFO = "Feb 29 2000 00:00:00";
@@ -165,6 +170,9 @@ public class Parser {
 
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
+            
+        case ChangeStoragePathCommand.COMMAND_WORD:
+            return prepareChangePathCommand(arguments);
 
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand(arguments.trim());
@@ -421,7 +429,7 @@ public class Parser {
 
     //@@author A0138455Y
     /**
-     * Parses arguments in the context of the add task command.
+     * Parses arguments in the context of the Unmarkcommand.
      *
      * @param args
      *            full command args string
@@ -437,10 +445,9 @@ public class Parser {
     }
 
     /**
-     * Parses arguments in the context of the add task command.
+     * Parses arguments in the context of the Markcommand.
      *
-     * @param args
-     *            full command args string
+     * @param args full command args string
      * @return the prepared command
      */
     private Command prepareMark(String args) {
@@ -452,6 +459,24 @@ public class Parser {
 
         return new MarkCommand(index.get());
     }
+    
+    /**
+     * Parses arguments in the context of the ChangeStoragecommand.
+     * @param arguments
+     * @return
+     */
+    private Command prepareChangePathCommand(String args) {
+        args = args.trim();
+        Matcher matcher = STORAGE_PATH_FORMAT.matcher(args);
+        //Validate args string format
+        if(!matcher.matches()) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ChangeStoragePathCommand.MESSAGE_USAGE));
+        } else {
+            String newPath = matcher.group("path").trim() + ".xml";
+            return new ChangeStoragePathCommand(newPath);
+        }
+    }
+    //@@author
 
     //@@author A0127686R
     /**

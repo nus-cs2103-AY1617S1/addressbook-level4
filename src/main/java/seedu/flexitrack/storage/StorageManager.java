@@ -33,6 +33,12 @@ public class StorageManager extends ComponentManager implements Storage {
         this(new XmlFlexiTrackStorage(flexiTrackFilePath), new JsonUserPrefsStorage(userPrefsFilePath));
     }
 
+    //@@author A0138455Y
+    @Override
+    public void setStoragePath(String newPath) {
+        this.flexiTrackStorage = new XmlFlexiTrackStorage(newPath);
+    }
+    //@@author
     // ================ UserPrefs methods ==============================
 
     @Override

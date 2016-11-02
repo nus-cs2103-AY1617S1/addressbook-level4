@@ -9,6 +9,7 @@ import seedu.flexitrack.commons.core.ComponentManager;
 import seedu.flexitrack.commons.core.LogsCenter;
 import seedu.flexitrack.commons.core.UnmodifiableObservableList;
 import seedu.flexitrack.commons.events.model.FlexiTrackChangedEvent;
+import seedu.flexitrack.commons.events.ui.StoragePathChangeEvent;
 import seedu.flexitrack.commons.exceptions.IllegalValueException;
 import seedu.flexitrack.commons.util.StringUtil;
 import seedu.flexitrack.logic.commands.ListCommand;
@@ -99,6 +100,17 @@ public class ModelManager extends ComponentManager implements Model {
         indicateFlexiTrackerChanged();
         return unMarkedTask;
     }
+    
+    @Override
+    /*
+     * raise the storage path change event
+     * 
+     */
+    public void changeStorage(String storagePath) {
+        raise(new StoragePathChangeEvent(storagePath));
+    }
+    
+    //@@author
     
   //@@author A0127855W
     @Override

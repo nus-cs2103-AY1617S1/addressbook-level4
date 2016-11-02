@@ -35,4 +35,8 @@ public interface Storage extends FlexiTrackStorage, UserPrefsStorage {
      * there was an error during saving.
      */
     void handleFlexiTrackChangedEvent(FlexiTrackChangedEvent abce);
+    
+    //@@author A0138455Y
+    void setStoragePath(String newPath);
+    //@@author
 }
