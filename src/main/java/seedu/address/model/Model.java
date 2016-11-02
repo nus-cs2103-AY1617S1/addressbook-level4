@@ -9,6 +9,7 @@ import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.UniqueTaskList;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 import java.util.function.Predicate;
 
@@ -94,5 +95,8 @@ public interface Model {
 
     /** Updates the filter of the filtered task list to filter by the given keywords*/
     void updateFilteredTaskList(Set<String> keywords);
-
+    
+    //@@author A0141019U
+    /** Returns the internal list of aliases stored in the alias manager */
+	List<Alias> getAliasList();
 }
