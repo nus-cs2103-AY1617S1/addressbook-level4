@@ -41,8 +41,8 @@ public class EndTime extends DateTime {
             throw new IllegalValueException("Start Time Invalid");
         }
         // String[] recurring = starttime.RecurringMessage.split(" ");
-        if (starttime.recurring){
-            if(date.equals("")){
+        if (starttime.recurring) {
+            if(date.equals("")) {
                 recurring = true;
                 String recu[] = starttime.RecurringMessage.split(" ");
                 Calendar startcal = starttime.value;
@@ -51,17 +51,20 @@ public class EndTime extends DateTime {
                 RecurringMessage = recu[0] + " " + format1.format(startcal.getTime());
                 this.value = DateUtil.EndDateTime(startdate);
             }
-            else {recurringEndTime(starttime, startdate, date);
-            setDate(date);}
+            else {
+                recurringEndTime(starttime, startdate, date);
+                setDate(date);
             }
-        else if (date.equals("")) {
+        } else if (date.equals("")) {
             this.value = DateUtil.EndDateTime(startdate);
         } else if(date.split(" ").length==1){
             Calendar startcal = starttime.value;
             SimpleDateFormat format1 = new SimpleDateFormat("d-MM-yyyy");
             date = format1.format(startcal) + " " + date;
             setDate(date);
-        }                   
+        } else {
+            setDate(date);
+        }
 
     }
 

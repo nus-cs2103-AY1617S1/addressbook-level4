@@ -20,7 +20,7 @@ public class AddCommandTest extends AddressBookGuiTest {
         TestActivity[] currentList = td.getTypicalActivities();
         TestActivity activityToAdd = td.findHoon;
 
-         assertAddSuccess(activityToAdd, currentList);
+        assertAddSuccess(activityToAdd, currentList);
         currentList = TestUtil.addPersonsToList(currentList, activityToAdd);
 
         //add a task
