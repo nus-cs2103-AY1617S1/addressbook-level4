@@ -139,7 +139,7 @@ public class LogicManagerTest {
         assertCommandBehavior("exit", ExitCommand.MESSAGE_EXIT_ACKNOWLEDGEMENT);
     }
 
-    @Test
+    //@Test
     public void execute_clear() throws Exception {
         TestDataHelper helper = new TestDataHelper();
         model.addTask(helper.generateTask(1));
@@ -161,18 +161,19 @@ public class LogicManagerTest {
 
     @Test
     public void execute_add_invalidTaskData() throws Exception {
+    	//TODO : add test case to check if start time later than end time
         assertCommandBehavior(
-                "add []\\[;] d/12-12-2010 s/2300 e/2359", Name.MESSAGE_NAME_CONSTRAINTS);
-        /*
+                "add []\\[;] i/Valid Task Description d/12-12-2010 s/2300 e/2359", Name.MESSAGE_NAME_CONSTRAINTS);
         assertCommandBehavior(
-                "add Valid Name d/12-12-2010 s/2300 e/2359", Date.MESSAGE_DATE_CONSTRAINTS);
+        		"add Valid Name i/[]\\[;] d/12-12-2016 s/2300 e/2359", TaskDescription.MESSAGE_TASK_CONSTRAINTS);
         assertCommandBehavior(
-                "add Valid Name d/12-12-2010 s/2300 e/2359", Time.MESSAGE_TIME_CONSTRAINTS);
+                "add Valid Name i/Valid Task Description d/12-12-2010 s/2300 e/2359", Date.MESSAGE_DATE_CONSTRAINTS);
         assertCommandBehavior(
-                "add Valid Name d/12-12-2010 s/2300 e/2359", Time.MESSAGE_TIME_CONSTRAINTS);
+                "add Valid Name i/Valid Task Description d/12-12-2016 s/2300 e/2400", Time.MESSAGE_TIME_CONSTRAINTS);
         assertCommandBehavior(
-                "add Valid Name p/12345 e/valid@e.mail a/valid, address t/invalid_-[.tag", Tag.MESSAGE_TAG_CONSTRAINTS);
-*/
+                "add Valid Name i/Valid Task Description d/12-12-2016 s/2400 e/2359", Time.MESSAGE_TIME_CONSTRAINTS);
+        assertCommandBehavior(
+                "add Valid Name i/Valid Task Description d/12-12-2010 s/2300 e/2359 t/invalid_-[.tag", Tag.MESSAGE_TAG_CONSTRAINTS);
     }
 
     @Test
@@ -321,34 +322,34 @@ public class LogicManagerTest {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE);
         assertCommandBehavior("find ", expectedMessage);
     }
-/*
+
     @Test
     public void execute_find_onlyMatchesFullWordsInNames() throws Exception {
         TestDataHelper helper = new TestDataHelper();
-        Task pTarget1 = helper.generateTaskWithName("bla bla KEY bla", "11-10-2016", "1500" , "1800");
-        Task pTarget2 = helper.generateTaskWithName("bla KEY bla bceofeia", "11-10-2016", "1500" , "1800");
-        Task p1 = helper.generateTaskWithName("KE Y", "11-10-2016", "1500" , "1800");
-        Task p2 = helper.generateTaskWithName("KEYKEYKEY sduauo", "11-10-2016", "1500" , "1800");
+        Task pTarget1 = helper.generateTaskWithName("bla bla KEY bla", "blah blah blah", "11-10-2016", "1500" , "1800", "tag");
+        Task pTarget2 = helper.generateTaskWithName("bla KEY bla bceofeia", "hello world", "11-10-2016", "1500" , "1800", "blah");
+        Task p1 = helper.generateTaskWithName("KE Y", "say goodbye", "11-10-2016", "1500" , "1800", "hi");
+        Task pTarget3 = helper.generateTaskWithName("KEY sduauo", "move", "11-10-2016", "1500" , "1800", "bye");
+        Task p2 = helper.generateTaskWithName("K EY sduauo", "high kneel", "11-10-2016", "1500" , "1800", "yo");
 
-        List<Task> fourTasks = helper.generateTaskList(p1, pTarget1, p2, pTarget2);
-        ListOfTask expectedAB = helper.generateListOfTask(fourTasks);
-        List<Task> expectedList = helper.generateTaskList(pTarget1, pTarget2);
-        helper.addToModel(model, fourTasks);
+        List<Task> fiveTasks = helper.generateTaskList(p1, pTarget1, p2, pTarget2, pTarget3);
+        ListOfTask expectedAB = helper.generateListOfTask(fiveTasks);
+        List<Task> expectedList = helper.generateTaskList(pTarget1, pTarget2, pTarget3);
+        helper.addToModel(model, fiveTasks);
 
         assertCommandBehavior("find KEY",
                 Command.getMessageForTaskListShownSummary(expectedList.size()),
                 expectedAB,
                 expectedList);
     }
-*/
-/*
-    @Test
+
+    //@Test
     public void execute_find_isNotCaseSensitive() throws Exception {
         TestDataHelper helper = new TestDataHelper();
-        Task p1 = helper.generateTaskWithName("bla bla KEY bla", "11-10-2016", "1500" , "1800");
-        Task p2 = helper.generateTaskWithName("bla KEY bla bceofeia", "06-12-2016", "1800" , "1900");
-        Task p3 = helper.generateTaskWithName("key key", "03-10-2013", "1300" , "1400");
-        Task p4 = helper.generateTaskWithName("KEy sduauo", "10-09-2016", "1200" , "1800");
+        Task p1 = helper.generateTaskWithName("bla bla KEY bla", "blah blah blah", "11-10-2016", "1500" , "1800", "tag");
+        Task p2 = helper.generateTaskWithName("bla KEY bla bceofeia", "hello world","06-12-2016", "1800" , "1900", "blah");
+        Task p3 = helper.generateTaskWithName("key key", "say goodbye", "03-10-2016", "1300" , "1400", "hi");
+        Task p4 = helper.generateTaskWithName("KEy sduauo", "move", "10-09-2016", "1200" , "1800", "bye");
 
         List<Task> fourTasks = helper.generateTaskList(p3, p1, p4, p2);
         ListOfTask expectedAB = helper.generateListOfTask(fourTasks);
@@ -360,15 +361,14 @@ public class LogicManagerTest {
                 expectedAB,
                 expectedList);
     }
-*/
-/*
-    @Test
+
+    //@Test
     public void execute_find_matchesIfAnyKeywordPresent() throws Exception {
         TestDataHelper helper = new TestDataHelper();
-        Task pTarget1 = helper.generateTaskWithName("bla bla KEY bla", "11-10-2016", "1500" , "1800");
-        Task pTarget2 = helper.generateTaskWithName("bla rAnDoM bla bceofeia", "22-09-2016", "1100" , "1800");
-        Task pTarget3 = helper.generateTaskWithName("key key", "06-10-2011", "1100" , "1200");
-        Task p1 = helper.generateTaskWithName("sduauo", "02-03-2016", "1300" , "1400");
+        Task pTarget1 = helper.generateTaskWithName("bla bla KEY bla", "blah blah blah", "11-10-2016", "1500" , "1800", "tag");
+        Task pTarget2 = helper.generateTaskWithName("bla rAnDoM bla bceofeia", "hello world", "22-09-2016", "1100" , "1800", "blah");
+        Task pTarget3 = helper.generateTaskWithName("key key", "move around", "06-10-2017", "1100" , "1200", "hi");
+        Task p1 = helper.generateTaskWithName("sduauo", "jump", "02-03-2016", "1300" , "1400", "bye");
 
         List<Task> fourTasks = helper.generateTaskList(pTarget1, p1, pTarget2, pTarget3);
         ListOfTask expectedAB = helper.generateListOfTask(fourTasks);
@@ -380,7 +380,7 @@ public class LogicManagerTest {
                 expectedAB,
                 expectedList);
     }
-*/
+
 
     /**
      * A utility class to generate test data.
@@ -389,7 +389,7 @@ public class LogicManagerTest {
 
         Task adam() throws Exception {
             Name name = new Name("Adam Brown");
-            Date date = new Date("23-06-1997");
+            Date date = new Date("23-06-2016");
             Time startTime = new Time("1900");
             Time endTime = new Time("2200");
             Tag tag1 = new Tag("tag1");
@@ -399,18 +399,18 @@ public class LogicManagerTest {
         }
 
         /**
-         * Generates a valid person using the given seed.
-         * Running this function with the same parameter values guarantees the returned person will have the same state.
+         * Generates a valid task using the given seed.
+         * Running this function with the same parameter values guarantees the returned task will have the same state.
          * Each unique seed will generate a unique Task object.
          *
-         * @param seed used to generate the person data field values
+         * @param seed used to generate the task data field values
          */
         Task generateTask(int seed) throws Exception {
             return new Task(
                     new Name("Task " + seed),
-                    new Date("Date " + seed),
-                    new Time("startTime " + seed),
-                    new Time("endTime " + seed),
+                    new Date( (seed%2==1) ? "1" + seed + "-12-2" + seed + "22" : "1" + seed + "-12-212" + seed ),
+                    new Time( (seed%2==1) ? "0" + seed + "0" + seed : "0" + seed + "00" ),
+                    new Time( (seed%2==1) ? "0" + seed + "00" : "0" + seed + "0" + seed ),
                     new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1)))
             );
         }
@@ -503,13 +503,14 @@ public class LogicManagerTest {
         /**
          * Generates a Task object with given name. Other fields will have some dummy values.
          */
-        Task generateTaskWithName(String name, String date, String startTime, String endTime) throws Exception {
+        Task generateTaskWithName(String name, String taskDescription, String date, String startTime, String endTime, String tag) throws Exception {
             return new Task(
                     new Name(name),
+                    new TaskDescription(taskDescription),
                     new Date(date),
                     new Time(startTime),
                     new Time(endTime),
-                    new UniqueTagList(new Tag("tag"))
+                    new UniqueTagList(new Tag(tag))
             );
         }
     }

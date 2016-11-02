@@ -37,6 +37,6 @@ public class FindCommandTest extends ListOfTaskGuiTest {
         commandBox.runCommand(command);
         assertListSize(expectedHits.length);
         assertResultMessage(expectedHits.length + " persons listed!");
-        assertTrue(personListPanel.isListMatching(expectedHits));
+        assertTrue(taskListPanel.isListMatching(expectedHits));
     }
 }

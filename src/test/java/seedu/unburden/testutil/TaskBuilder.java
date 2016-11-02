@@ -7,20 +7,20 @@ import seedu.unburden.model.task.*;
 /**
  *
  */
-public class PersonBuilder {
+public class TaskBuilder {
 
     private TestTask person;
 
-    public PersonBuilder() {
+    public TaskBuilder() {
         this.person = new TestTask();
     }
 
-    public PersonBuilder withName(String name) throws IllegalValueException {
+    public TaskBuilder withName(String name) throws IllegalValueException {
         this.person.setName(new Name(name));
         return this;
     }
 
-    public PersonBuilder withTags(String ... tags) throws IllegalValueException {
+    public TaskBuilder withTags(String ... tags) throws IllegalValueException {
         for (String tag: tags) {
             person.getTags().add(new Tag(tag));
         }
