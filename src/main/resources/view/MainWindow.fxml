@@ -48,7 +48,7 @@
       						<Insets bottom="10.0" left="5.0" right="5.0" top="5.0" />
       					</padding>
               <items>
-                  <Label alignment="CENTER" maxHeight="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="35.0" prefWidth="340.0" text="To-Do List" textAlignment="CENTER" />
+                  <Label fx:id="floatingTaskTitle" alignment="CENTER" maxHeight="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="35.0" prefWidth="340.0" text="To-Do List" textAlignment="CENTER" />
       				<VBox fx:id="floatingTaskList" minWidth="340" prefWidth="340.0">
       					<children>
       						<AnchorPane fx:id="taskListPanelPlaceholder" VBox.vgrow="ALWAYS" />
@@ -61,7 +61,7 @@
       						<Insets bottom="10.0" left="5.0" right="5.0" top="5.0" />
       					</padding>               
                <items>
-                  <Label alignment="CENTER" maxHeight="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="35.0" prefWidth="340.0" text="Deadlines" textAlignment="CENTER" />
+                  <Label fx:id="deadlineTitle" alignment="CENTER" maxHeight="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="35.0" prefWidth="340.0" text="Deadlines" textAlignment="CENTER" />
       
       				<VBox fx:id="deadlineList" minWidth="340" prefWidth="340.0">
       					<children>
@@ -75,7 +75,7 @@
       						<Insets bottom="10.0" left="5.0" right="5.0" top="5.0" />
       					</padding>            
                <items>
-                  <Label alignment="CENTER" maxHeight="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="35.0" prefWidth="340.0" text="Schedule" textAlignment="CENTER" />
+                  <Label fx:id="eventTitle" alignment="CENTER" maxHeight="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="35.0" prefWidth="340.0" text="Schedule" textAlignment="CENTER" />
       				
       				<VBox fx:id="eventList" minWidth="340" prefWidth="340.0">
       					<children>
