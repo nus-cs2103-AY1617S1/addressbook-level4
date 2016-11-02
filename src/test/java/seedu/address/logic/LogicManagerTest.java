@@ -350,7 +350,7 @@ public class LogicManagerTest {
         model.markDone(done);
 
         assertCommandBehavior("list done",
-                ListCommand.MESSAGE_SUCCESS,
+                ListCommand.MESSAGE_DONE_SUCCESS,
                 expectedAB,
                 eventList,
                 Collections.emptyList(),
@@ -373,7 +373,7 @@ public class LogicManagerTest {
         model.markDone(done);
 
         assertCommandBehavior("list done",
-                ListCommand.MESSAGE_SUCCESS,
+                ListCommand.MESSAGE_DONE_SUCCESS,
                 expectedAB,
                 Collections.emptyList(),
                 deadlineList,
@@ -396,7 +396,7 @@ public class LogicManagerTest {
         model.markDone(done);
 
         assertCommandBehavior("list done",
-                ListCommand.MESSAGE_SUCCESS,
+                ListCommand.MESSAGE_DONE_SUCCESS,
                 expectedAB,
                 Collections.emptyList(),
                 Collections.emptyList(),
