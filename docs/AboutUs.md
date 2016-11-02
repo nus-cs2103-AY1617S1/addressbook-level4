@@ -37,19 +37,26 @@ Features implemented:
 
 #### [Tan Jun Hao](https://github.com/e0003083)  <br>
 <img src="images/Jun Hao.jpg" width="150"><br>
-**Components in charge of:** Storage <br>
-Features implemented: <br>
-[Clear done](https://github.com/CS2103AUG2016-T11-C2/main/blob/master/docs/UserGuide.md#clearing-only-the-done-tasks-clear-done)
-[Show done](https://github.com/CS2103AUG2016-T11-C2/main/blob/master/docs/UserGuide.md#show-all-the-done-tasks-show-done)
-[Show](https://github.com/CS2103AUG2016-T11-C2/main/blob/master/docs/UserGuide.md#showing-full-list-show)
-[Show today](https://github.com/CS2103AUG2016-T11-C2/main/blob/master/docs/UserGuide.md#showing-list-for-today-show-today)
-[Show tomorrow](https://github.com/CS2103AUG2016-T11-C2/main/blob/master/docs/UserGuide.md#showing-list-for-tomorrow-show-tomorrow)
-[Show upcoming](https://github.com/CS2103AUG2016-T11-C2/main/blob/master/docs/UserGuide.md#showing-list-for-upcoming-show-upcoming)
-[Show date](https://github.com/CS2103AUG2016-T11-C2/main/blob/master/docs/UserGuide.md#showing-list-for-specific-date-show-date)
-[Show overdue](https://github.com/CS2103AUG2016-T11-C2/main/blob/master/docs/UserGuide.md#showing-a-list-for-overdue-tasks-show-overdue) 
-[Done](https://github.com/CS2103AUG2016-T11-C2/main/blob/master/docs/UserGuide.md#mark-as-done-done)
- 
+**Components in charge of:** Model <br>
 
+* Components in charge of: [Model](https://github.com/CS2103AUG2016-T11-C2/main/tree/master/src/main/java/seedu/forgetmenot/model)
+* Aspects/tools in charge of: Testing, Sourcetree, Eclipse
+* Features implemented:
+   * [show](https://github.com/CS2103AUG2016-T11-C2/main/blob/master/docs/UserGuide.md#showing-full-list-show)
+   * [show all](https://github.com/CS2103AUG2016-T11-C2/main/blob/master/docs/UserGuide.md#showing-all-task-show-all)
+   * [show done](https://github.com/CS2103AUG2016-T11-C2/main/blob/master/docs/UserGuide.md#show-all-the-done-tasks-show-done)
+   * [show today](https://github.com/CS2103AUG2016-T11-C2/main/blob/master/docs/UserGuide.md#showing-list-for-today-show-today)
+   * [show tomorrow](https://github.com/CS2103AUG2016-T11-C2/main/blob/master/docs/UserGuide.md#showing-list-for-tomorrow-show-tomorrow)
+   * [show date](https://github.com/CS2103AUG2016-T11-C2/main/blob/master/docs/UserGuide.md#showing-list-for-specific-date-show-date)
+   * [show <parameter>](https://github.com/CS2103AUG2016-T11-C2/main/blob/master/docs/UserGuide.md#showing-list-for-special-parameters-show-parameter)
+   * [show overdue](https://github.com/CS2103AUG2016-T11-C2/main/blob/master/docs/UserGuide.md#showing-a-list-for-overdue-tasks-show-overdue) 
+   * [done](https://github.com/CS2103AUG2016-T11-C2/main/blob/master/docs/UserGuide.md#mark-as-done-done)
+   * [undone](https://github.com/CS2103AUG2016-T11-C2/main/blob/master/docs/UserGuide.md#mark-as-undone-undone)
+   * [clear done](https://github.com/CS2103AUG2016-T11-C2/main/blob/master/docs/UserGuide.md#clearing-only-the-done-tasks-clear-done)
+* Code written: [[functional code](A123456.md)][[test code](A123456.md)][[docs](A123456.md)]
+* Other major contributions:
+  * Did the initial refactoring from AddressBook to ToDoList [[#133](https://github.com/se-edu/addressbook-level4/pull/152) ]
+  * Set up Travis and Coveralls 
 
 -----
 
