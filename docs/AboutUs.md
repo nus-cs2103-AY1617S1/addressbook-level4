@@ -8,12 +8,12 @@ We are a team based in the [School of Computing, National University of Singapor
 <img src="images/han.jpg" width="150"><br>
 * Role: Developer <br>
 * Responsibilities: Documentation & Front-end (UI and Integration to JavaFX) wizard
-* Components in charge of: [UI]() / [Storage]()
+* Components in charge of: [UI](DeveloperGuide.md#ui-component) / [Storage](DeveloperGuide.md#storage-component)
 * Aspect/tools in charge of: GitHub
 * Features implemented:  
- * [Undo command]()
- * [Clear list]()
-* Code written: [[stub entry]()]
+ * [Undo command](UserGuide.md#undo)
+ * [Clear list](UserGuide.md#clear)
+* Code written: [[main code](main/A0144061U.md)][[test code](test/A0144061U.md)][[docs](docs/A0144061U.md)]
 * Other major contributions:
  * Came out with the application design
  * Did the initial refactoring from AddressBook to Tdoo
@@ -24,14 +24,13 @@ We are a team based in the [School of Computing, National University of Singapor
 <img src="images/jerich.jpg" width="150"><br>
 * Role: Developer <br>
 * Responsibilities: Testing (jUnit) wizard
-* Components in charge of: [Testing]()
+* Components in charge of: [Testing](DeveloperGuide.md#testing)
 * Aspect/tools in charge of: Testing, jUnit
 * Features implemented:  
- * [stub entry]()
- * [stub entry]()
-* Code written: [[stub entry]()]
+ * [Countdown timer for task cards]
+* Code written: Code written: [main code][[test code](test/A0132157M.md)][[docs](docs/A0132157M.md)]
 * Other major contributions:
- * stub entry
+ * Did majority of the test cases
 
 
 -----
@@ -40,14 +39,14 @@ We are a team based in the [School of Computing, National University of Singapor
 <img src="images/junsheng.jpg" width="150"><br>
 * Role: Developer <br>
 * Responsibilities: Back-end wizard
-* Components in charge of: [Back-end]()
+* Components in charge of: [Logic](DeveloperGuide.md#logic-component),[ Model](DeveloperGuide.md#model-component)
 * Aspect/tools in charge of:
 * Features implemented:  
  * [Add]() - To Different Lists
- * [Undone]()
- * [Edit]()
- * [Find]()
-* Code written: [[stub entry]()]
+ * [Undone](UserGuide.md#undone)
+ * [Edit](UserGuide.md#edit)
+ * [Find](UserGuide.md#find)
+* Code written: Code written: [[main code](main/A0139923X.md)][[test code](test/A0139923X.md)][[docs](docs/A0139923X.md)]
 * Other major contributions:
  * Parser and string manipulation for Back-end
 
@@ -58,15 +57,15 @@ We are a team based in the [School of Computing, National University of Singapor
 <img src="images/hazmei.jpg" width="150"><br>
 * Role: Developer <br>
 * Responsibilities: Back-end wizard
-* Components in charge of: [Back-end]()
+* Components in charge of: [Logic](DeveloperGuide.md#logic-component),[ Model](DeveloperGuide.md#model-component)
 * Aspect/tools in charge of:
 * Features implemented:  
- * [Done]()
- * [Undo]()
- * [Edit]()
-* Code written: [[stub entry]()]
+ * [Done](UserGuide.md#done)
+ * [Undo](UserGuide.md#undo)
+ * [Edit](UserGuide.md#edit)
+* Code written: Code written: [[main code](main/A0139920A.md)][test code][[docs](docs/A0139920A.md)]
 * Other major contributions:
- * stub entry
+ * Set up Travis and Coveralls
 
 
 -----

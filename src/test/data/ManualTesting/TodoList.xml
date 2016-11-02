@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<TodoList>
+    <tasks>
+        <name>Operationalize RPi images</name>
+        <startDate>No Start Date</startDate>
+        <endDate>No End Date</endDate>
+        <priority>1</priority>
+        <isDone>true</isDone>
+    </tasks>
+    <tasks>
+        <name>Prepare CS2103 v0.4 demo</name>
+        <startDate>No Start Date</startDate>
+        <endDate>No End Date</endDate>
+        <priority>1</priority>
+        <isDone>true</isDone>
+    </tasks>
+    <tasks>
+        <name>Implement edit and share</name>
+        <startDate>No Start Date</startDate>
+        <endDate>No End Date</endDate>
+        <priority>1</priority>
+        <isDone>false</isDone>
+    </tasks>
+    <tasks>
+        <name>Captive portal mapping</name>
+        <startDate>No Start Date</startDate>
+        <endDate>No End Date</endDate>
+        <priority>1</priority>
+        <isDone>false</isDone>
+    </tasks>
+    <tasks>
+        <name>Prepare CS2103 v0.5rc demo</name>
+        <startDate>No Start Date</startDate>
+        <endDate>No End Date</endDate>
+        <priority>1</priority>
+        <isDone>false</isDone>
+    </tasks>
+    <tasks>
+        <name>buy Natural Heritage of Singapore book</name>
+        <startDate>No Start Date</startDate>
+        <endDate>No End Date</endDate>
+        <priority>1</priority>
+        <isDone>false</isDone>
+    </tasks>
+    <tasks>
+        <name>Document Mikrotik Setup</name>
+        <startDate>No Start Date</startDate>
+        <endDate>No End Date</endDate>
+        <priority>2</priority>
+        <isDone>false</isDone>
+    </tasks>
+    <tasks>
+        <name>fluentd mysql testing</name>
+        <startDate>No Start Date</startDate>
+        <endDate>No End Date</endDate>
+        <priority>2</priority>
+        <isDone>false</isDone>
+    </tasks>
+    <tasks>
+        <name>buy groceries</name>
+        <startDate>No Start Date</startDate>
+        <endDate>No End Date</endDate>
+        <priority>2</priority>
+        <isDone>false</isDone>
+    </tasks>
+    <tasks>
+        <name>buy hard disk for desktop</name>
+        <startDate>No Start Date</startDate>
+        <endDate>No End Date</endDate>
+        <priority>3</priority>
+        <isDone>false</isDone>
+    </tasks>
+</TodoList>
