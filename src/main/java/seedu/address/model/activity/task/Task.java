@@ -15,7 +15,6 @@ public class Task extends Activity implements ReadOnlyTask {
 
     private DueDate duedate;
     private Priority priority;
-    private boolean isCompleted;
     
     private static int DAYS_WARNING = -3;
     
@@ -36,6 +35,7 @@ public class Task extends Activity implements ReadOnlyTask {
      */
     public Task(ReadOnlyTask source) {
         this(source.getName(), source.getDueDate(), source.getPriority(), source.getReminder(), source.getTags());
+        this.isCompleted =  source.getCompletionStatus();
     }
     
     @Override
@@ -55,8 +55,6 @@ public class Task extends Activity implements ReadOnlyTask {
     public void setPriority(Priority priority) {
         this.priority = priority;
     }
-
-
 
     @Override
     public boolean getCompletionStatus() {
@@ -91,6 +89,7 @@ public class Task extends Activity implements ReadOnlyTask {
         } else {
             Calendar cal = Calendar.getInstance();
             Date now = cal.getTime();
+            cal.setTime(duedate.getCalendarValue().getTime());
             cal.add(Calendar.DAY_OF_MONTH, DAYS_WARNING);
             Date warningDate = cal.getTime();
             return warningDate.before(now)

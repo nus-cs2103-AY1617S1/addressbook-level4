@@ -17,7 +17,7 @@ public class AddCommandTest extends AddressBookGuiTest {
     	//section 1: test for adding basic activities, tasks and events.
     	
     	//add an activity
-        TestActivity[] currentList = td.getTypicalPersons();
+        TestActivity[] currentList = td.getTypicalActivities();
         TestActivity activityToAdd = td.findHoon;
 
          assertAddSuccess(activityToAdd, currentList);
@@ -27,7 +27,7 @@ public class AddCommandTest extends AddressBookGuiTest {
         activityToAdd = td.findIda;
         assertAddSuccess(activityToAdd, currentList);
         currentList = TestUtil.addPersonsToList(currentList, activityToAdd);
-        assertTrue(personListPanel.isListMatching(currentList));
+        assertTrue(activityListPanel.isListMatching(currentList));
  
         //add an event
         activityToAdd = td.findJodie;
@@ -39,7 +39,7 @@ public class AddCommandTest extends AddressBookGuiTest {
         //add duplicate activity
         commandBox.runCommand(td.findHoon.getAddCommand());
         assertResultMessage(AddCommand.MESSAGE_DUPLICATE_TASK);
-        assertTrue(personListPanel.isListMatching(currentList));
+        assertTrue(activityListPanel.isListMatching(currentList));
 
         //add duplicate task
         commandBox.runCommand(td.findIda.getAddCommand());
@@ -48,7 +48,7 @@ public class AddCommandTest extends AddressBookGuiTest {
         //add duplicate event
         commandBox.runCommand(td.findJodie.getAddCommand());
         assertResultMessage(AddCommand.MESSAGE_DUPLICATE_TASK);
-        assertTrue(personListPanel.isListMatching(currentList));
+        assertTrue(activityListPanel.isListMatching(currentList));
 
         //section 3:
  
@@ -70,12 +70,12 @@ public class AddCommandTest extends AddressBookGuiTest {
 
     	commandBox.runCommand(activityToAdd.getAddCommand());
         //confirm the new card contains the right data
-        ActivityCardHandle addedCard = personListPanel.navigateToActivity(activityToAdd.getName().fullName);
+        ActivityCardHandle addedCard = activityListPanel.navigateToActivity(activityToAdd.getName().fullName);
         assertMatching(activityToAdd, addedCard);
 
         //confirm the list now contains all previous persons plus the new person
         TestActivity[] expectedList = TestUtil.addPersonsToList(currentList, activityToAdd);
-        assertTrue(personListPanel.isListMatching(expectedList));
+        assertTrue(activityListPanel.isListMatching(expectedList));
     }
 
 }

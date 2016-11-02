@@ -1,5 +1,6 @@
 package seedu.address.storage;
 
+import seedu.address.commons.core.Config;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.exceptions.IllegalValueException;
@@ -35,7 +36,6 @@ public class XmlAddressBookStorage implements AddressBookStorage {
      */
     public static void setAddressBookFilePath(String filePath){
         XmlAddressBookStorage.filePath = filePath;
-        UserPrefs.setDataFilePath(filePath);
     }
 
     public String getAddressBookFilePath(){
@@ -83,5 +83,10 @@ public class XmlAddressBookStorage implements AddressBookStorage {
     @Override
     public void saveAddressBook(ReadOnlyLifeKeeper addressBook) throws IOException {
         saveAddressBook(addressBook, filePath);
+    }
+    
+    public static boolean checkIfDataFileExists(String filePath) {
+        File file = new File(filePath);
+        return file.exists();
     }
 }

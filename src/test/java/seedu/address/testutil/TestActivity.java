@@ -47,6 +47,17 @@ public class TestActivity implements ReadOnlyActivity {
     	this.tags = new UniqueTagList();
     }
     
+    public TestActivity(TestActivity testActivity) {
+        try {
+            this.name = new Name(testActivity.getName().toString());
+            this.reminder = new Reminder(testActivity.getReminder().toString());
+            this.tags = new UniqueTagList(testActivity.getTags());
+        } catch (IllegalValueException e) {
+            assert false;
+            e.printStackTrace();
+        }
+           }
+
     @Override
     public Name getName() {
         return name;
@@ -56,6 +67,16 @@ public class TestActivity implements ReadOnlyActivity {
         this.name = name;
     }
 
+    public void setName(String name) {
+        
+        try {
+            this.name = new Name(name);
+        } catch (IllegalValueException e) {
+            assert false;
+            e.printStackTrace();
+        }
+    }
+    
     @Override
     public Reminder getReminder() {
         return reminder;
@@ -64,6 +85,16 @@ public class TestActivity implements ReadOnlyActivity {
     public void setReminder(Reminder address) {
         this.reminder = address;
     }
+    
+    public void setReminder(String reminder) {
+        try {
+            this.reminder = new Reminder(reminder);
+        } catch (IllegalValueException e) {
+            assert false;
+            e.printStackTrace();
+        }
+    }
+    
     
 	@Override
 	public boolean getCompletionStatus() {
@@ -127,5 +158,7 @@ public class TestActivity implements ReadOnlyActivity {
         getTags().forEach(builder::append);
         return builder.toString();
     }
+
+
 
 }

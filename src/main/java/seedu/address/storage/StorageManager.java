@@ -53,6 +53,11 @@ public class StorageManager extends ComponentManager implements Storage {
     public String getAddressBookFilePath() {
         return addressBookStorage.getAddressBookFilePath();
     }
+    
+    @Override
+    public void setAddressBookFilePath(String addressBookFilePath) {
+        this.addressBookStorage = new XmlAddressBookStorage(addressBookFilePath);
+    }
 
     @Override
     public Optional<ReadOnlyLifeKeeper> readAddressBook() throws DataConversionException, IOException {

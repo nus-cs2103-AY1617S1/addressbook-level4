@@ -76,6 +76,14 @@ public class UniqueActivityList implements Iterable<Activity> {
         }
         internalList.add(index - 1, toAdd);
 	}
+	
+	public void addToEnd(Activity toAdd) throws DuplicateTaskException{
+        assert toAdd != null;
+        if (contains(toAdd)) {
+            throw new DuplicateTaskException();
+        }
+        internalList.add(toAdd);
+	}
     
     /**
      * Removes the equivalent Task from the list.
