@@ -89,7 +89,7 @@ public class StringUtil {
         }
     }
     
-    // @@ author A0140133B
+    // @@author A0140133B
     /*
      * ============================================================ 
      *                      Helper Methods
@@ -145,5 +145,5 @@ public class StringUtil {
                 .mapToObj(i -> src.substring(0, i) + src.substring(i + 1)) // Removing character at idx i.
                 .collect(Collectors.toSet());
     }
-    // @@ author
+    // @@author
 }
