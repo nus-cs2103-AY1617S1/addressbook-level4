@@ -17,7 +17,7 @@
 3. Copy the file to the folder you want to use as the home folder for your Simply.
 4. Double-click the file to start the app. The GUI should appear in a few seconds. 
   
- <img src="images/startup_new2.PNG" width="600"><br>
+ <img src="images/startup_new2.png" width="600"><br>
 
 5. Type the command in the command box and press <kbd>Enter</kbd> to execute it. <br>
    e.g. typing **`help`** and pressing <kbd>Enter</kbd> will open the help window. 
@@ -312,7 +312,7 @@ The task manager shifts your file from the current storage folder to the newly s
 3| Add to-do | add to-do_description 
 4| Add with tags | add [event_description, date, start_time, end_time] #tag 
 5| Edit | edit &lt;index&gt; &lt;new_event_description&gt; 
-6| Search | search &lt;keywords&gt; 
+6| Find | find &lt;keywords&gt; 
 7| Done | done &lt;index&gt;, &lt;index&gt;
 8| Undo | undo &lt;number of times to undo, up to 5&gt;
 9| Redo | redo &lt;number of times to redo, up to 5&gt;
