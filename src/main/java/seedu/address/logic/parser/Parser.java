@@ -52,7 +52,7 @@ public class Parser {
 	private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
 	
 	private static final Pattern ADD_ALIAS_COMMAND_FORMAT = Pattern
-			.compile("'(?<alias>(\\s*[^\\s+])+)\\s*'\\s*=\\s*'(?<originalPhrase>(\\s*[^\\s+])+)\\s*'");
+			.compile("\\s*'(?<alias>(\\s*\\S+)+)\\s*'\\s*=\\s*'(?<originalPhrase>(\\s*\\S+)+)\\s*'\\s*");
 
 	private static final Prefix namePrefix = new Prefix("'");
 	private static final Prefix startDateTimePrefix = new Prefix("from ");
