@@ -12,7 +12,11 @@ public class Messages {
             "Unknown command - \"%1$s\" \n"
             + MESSAGE_ALL_AVAIL_CMD;
     public static final String MESSAGE_INVALID_COMMAND_FORMAT = "Invalid command format! \n%1$s";
-    public static final String MESSAGE_INVALID_TASK_DISPLAYED_INDEX = "The task index provided is invalid";
+    public static final String MESSAGE_INVALID_TASK_DISPLAYED_INDEX =
+            "The index provided is invalid! Check the following:\n"
+            + "> Have you checked if your index exists? \n"
+            + "> If you're specifying a range of indices, does the start index precede the end index?\n"
+            + "> If you're specifying a range of indices, do both indices refer to the same list?";
     public static final String MESSAGE_TASKS_LISTED_OVERVIEW = "%1$d task(s) listed!";
     public static final String MESSAGE_INVALID_DATE = 
             "Date and time are invalid!\n" 
@@ -22,9 +26,8 @@ public class Messages {
     public static final String MESSAGE_WELCOME_JIMI = 
             "Welcome to Jimi, the task manager for people like Jim. \n"
             + "\n"
-            + "Let's get started! Try these commands out: \n"
+            + "Let's get started! Give these commands a try: \n"
             + MESSAGE_ALL_AVAIL_CMD + "\n"
-            + "\n"
             + "To get help for a specific command, type 'help COMMAND_WORD' e.g. 'help add' \n"
             + "To get detailed help for all commands, type 'help' to visit our user guide.";
 }
