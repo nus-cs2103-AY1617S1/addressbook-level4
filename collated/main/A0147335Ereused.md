@@ -233,7 +233,7 @@ public class LogicManager extends ComponentManager implements Logic {
 ``` java
         logger.info("SUCCESS");
 
-        if (!commandText.equals("undo")) {
+        if (!commandText.toLowerCase().startsWith("undo")) {
             historyManager.getPreviousCommandList().add(commandText);
             return command.execute(false);
         }
@@ -286,8 +286,7 @@ public interface Model {
 
     /** Updates the filter of the filtered task list to filter by the given keywords*/
     void updateFilteredTaskList(Set<String> keywords);
-
-}
+    
 ```
 ###### \java\seedu\task\model\ModelManager.java
 ``` java
@@ -399,7 +398,7 @@ public class TaskCard extends UiPart{
     public void initialize() {
         name.setText(task.getName().fullName);
         id.setText(displayedIndex + ". ");
-        if(!task.getDeadline().value.equals("now") && !task.getDeadline().value.equals(" from now")){
+        if(!task.getStartTime().value.equals("now") && !task.getStartTime().value.equals(" from now")){
             startTimeLabel.setText(" from " + task.getStartTime().value);
         }else{
             startTimeLabel.setText("");
