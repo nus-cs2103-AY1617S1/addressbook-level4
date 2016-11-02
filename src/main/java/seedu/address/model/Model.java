@@ -8,10 +8,15 @@ import seedu.address.model.alias.UniqueAliasList;
 import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.UniqueTaskList;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.function.Predicate;
+
+import javafx.util.Pair;
 
 /**
  * The API of the Model component.
@@ -23,6 +28,10 @@ public interface Model {
     /** Returns the TaskManager */
     ReadOnlyTaskManager getTaskManager();
     
+    //@@author A0143756Y
+    /** Returns TaskManagerStorageFilePath */
+    String getTaskManagerStorageFilePath();
+
     //@@author A0141019U
     /** Saves the state of the model in case the user wishes to undo an action. */
     void saveState();
@@ -47,6 +56,14 @@ public interface Model {
     void editTask(int index, Task task) throws UniqueTaskList.TaskNotFoundException;
     
     //@@author A0143756Y
+    /** Validates arguments passed to SetStorageCommand() method.
+     * 	Returns newStorageFileFilePath (Path) and oldStorageFileFilePath (Path) if arguments are valid.
+     */
+    Pair<Path, Path> validateSetStorage(String userSpecifiedStorageFolder, String userSpecifiedStorageFileName);
+    
+    /** Sets task manager data storage location */    
+    void setStorage(File newStorageFileFilePath, File oldStorageFileFilePath) throws IOException;
+
     /** Saves alias to XML file, "aliasbook.xml" in ./data folder. */
     void addAlias(Alias aliasToAdd) throws UniqueAliasList.DuplicateAliasException;
     

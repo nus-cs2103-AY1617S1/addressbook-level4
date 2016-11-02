@@ -9,6 +9,7 @@ import java.util.logging.Level;
 public class Config {
 
     public static final String DEFAULT_CONFIG_FILE = "config.json";
+    private String configFilePath = "config.json";
 
     // Config values customizable through config file
     private String appTitle = "Amethyst";
@@ -20,6 +21,19 @@ public class Config {
 
 
     public Config() {
+    }
+    
+    public Config(String taskManagerFilePath, String userPrefsFilePath){
+    	this.taskManagerFilePath = taskManagerFilePath;
+    	this.userPrefsFilePath = userPrefsFilePath;
+    }
+    
+    public String getConfigFilePath(){
+    	return configFilePath;
+    }
+    
+    public void setConfigFilePath(String configFilePath){
+    	this.configFilePath = configFilePath;
     }
 
     public String getAppTitle() {

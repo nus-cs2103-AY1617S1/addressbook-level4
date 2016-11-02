@@ -35,13 +35,13 @@ import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.IncorrectCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.RedoCommand;
+import seedu.address.logic.commands.SetStorageCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.parser.ArgumentTokenizer.Prefix;
 import seedu.address.model.AliasManager;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.alias.Alias;
-
 
 public class Parser {
 	// @@author A0141019U
@@ -54,18 +54,21 @@ public class Parser {
 	private static final Pattern ADD_ALIAS_COMMAND_FORMAT = Pattern
 			.compile("\\s*'(?<alias>(\\s*\\S+)+)\\s*'\\s*=\\s*'(?<originalPhrase>(\\s*\\S+)+)\\s*'\\s*");
 
+	//@@author A0143756Y
+	private static final Pattern SET_STORAGE_ARGS_FORMAT = Pattern.compile
+			("(?<folderFilePath>(\\s*[^\\s+])+)\\s+save-as\\s+(?<fileName>(\\s*[^\\s+])+)");
+	
+	//@@author A0141019U
 	private static final Prefix namePrefix = new Prefix("'");
 	private static final Prefix startDateTimePrefix = new Prefix("from ");
 	private static final Prefix endDateTimePrefix = new Prefix("to ");
 	private static final Prefix dlEndDateTimePrefix = new Prefix("by ");
 	private static final Prefix datePrefix = new Prefix("on ");
 	private static final Prefix tagsPrefix = new Prefix("#");
-
 	
 	public Parser(Model model) {
 		this.model = model;
 	}
-	
 	
 	//@@author A0141019U-reused
 	public Command parseCommand(String userInput) {
@@ -100,6 +103,9 @@ public class Parser {
 		
 		case AddAliasCommand.COMMAND_WORD:
 			return prepareAddAlias(arguments);
+			
+		case SetStorageCommand.COMMAND_WORD:
+			return prepareSetStorage(arguments);	
 			
 		case ChangeStatusCommand.COMMAND_WORD_DONE:
 			return prepareChangeStatus(arguments, "done");
@@ -471,6 +477,23 @@ public class Parser {
 		} catch (IllegalValueException e) {
 			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
 		}
+	}
+	
+	//@@author A0143756Y
+	private Command prepareSetStorage(String arguments){
+		final Matcher matcher = SET_STORAGE_ARGS_FORMAT.matcher(arguments.trim());
+		
+		if(!matcher.matches()){
+			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SetStorageCommand.MESSAGE_USAGE));
+		}
+		
+		final String folderFilePath = matcher.group("folderFilePath").trim();
+		final String fileName = matcher.group("fileName").trim();
+		
+		System.out.println("Folder File Path: " + folderFilePath);
+		System.out.println("File Name: " + fileName);
+		
+		return new SetStorageCommand(folderFilePath, fileName);
 	}
 
 	//@@author A0139339W

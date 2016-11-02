@@ -54,7 +54,7 @@ public class MainApp extends Application {
 
         initLogging(config);
 
-        model = initModelManager(storage, userPrefs);
+        model = initModelManager(storage, config, userPrefs);
 
         logic = new LogicManager(model, storage);
 
@@ -68,11 +68,12 @@ public class MainApp extends Application {
         return applicationParameters.get(parameterName);
     }
 
-    private Model initModelManager(Storage storage, UserPrefs userPrefs) {
+    private Model initModelManager(Storage storage, Config config, UserPrefs userPrefs) {
         Optional<ReadOnlyTaskManager> taskManagerOptional;
         Optional<ReadOnlyAliasManager> aliasManagerOptional;
         ReadOnlyTaskManager initialTaskManagerData;
         ReadOnlyAliasManager initialAliasManagerData;
+
         try {
             taskManagerOptional = storage.readTaskManager();
             if(!taskManagerOptional.isPresent()){
@@ -101,7 +102,7 @@ public class MainApp extends Application {
             initialAliasManagerData = new AliasManager();
         }
 
-        return new ModelManager(initialTaskManagerData, userPrefs, initialAliasManagerData);
+        return new ModelManager(initialTaskManagerData, config, userPrefs, initialAliasManagerData);
     }
 
     private void initLogging(Config config) {
