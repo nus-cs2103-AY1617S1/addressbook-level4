@@ -13,7 +13,7 @@ We are a team based in the [School of Computing, National University of Singapor
    * Parse in flexible inputs
    * Overdue tasks
    * [Add tasks](https://github.com/CS2103AUG2016-W13-C2/main/blob/master/docs/UserGuide.md#adding-a-task-add)
-   * [List tasks based on Preferance](https://github.com/CS2103AUG2016-W13-C2/main/blob/master/docs/UserGuide.md#listing-all-tasks--list)
+   * [List task](https://github.com/CS2103AUG2016-W13-C2/main/blob/master/docs/UserGuide.md#listing-all-tasks--list)
    * [Save GGist data](https://github.com/CS2103AUG2016-W13-C2/main/blob/master/docs/UserGuide.md#saving-the-data-to-a-specified-location--save)
    * [Search keywords](https://github.com/CS2103AUG2016-W13-C2/main/blob/master/docs/UserGuide.md#searching-tasks-by-keywords-search)
    * [Priority feature](https://github.com/CS2103AUG2016-W13-C2/main/blob/master/docs/UserGuide.md#quick-start)
@@ -21,7 +21,7 @@ We are a team based in the [School of Computing, National University of Singapor
 * Other major contributions:
   * Did the initial refactoring from AddressBook to GGist[[#1](https://github.com/CS2103AUG2016-W13-C2/main/pull/1)][[#3](https://github.com/CS2103AUG2016-W13-C2/main/pull/3)][[#6](https://github.com/CS2103AUG2016-W13-C2/main/pull/6)]
   * Contributed to UI developements [[#122](https://github.com/CS2103AUG2016-W13-C2/main/pull/122)] [[#126](https://github.com/CS2103AUG2016-W13-C2/main/pull/126)][[#145](https://github.com/CS2103AUG2016-W13-C2/main/pull/145)]
-  * Contributed to Testing developments [[#89](https://github.com/CS2103AUG2016-W13-C2/main/pull/89)][[#90](https://github.com/CS2103AUG2016-W13-C2/main/pull/90)][[#121](https://github.com/CS2103AUG2016-W13-C2/main/pull/121)][[#141](https://github.com/CS2103AUG2016-W13-C2/main/pull/141)]
+  * Contributed to Testing developments [[#89](https://github.com/CS2103AUG2016-W13-C2/main/pull/89)][[#90](https://github.com/CS2103AUG2016-W13-C2/main/pull/90)][[#121](https://github.com/CS2103AUG2016-W13-C2/main/pull/121)][[#141](https://github.com/CS2103AUG2016-W13-C2/main/pull/141)][[#158](https://github.com/CS2103AUG2016-W13-C2/main/pull/158)][[#169](https://github.com/CS2103AUG2016-W13-C2/main/pull/169)][[#171](https://github.com/CS2103AUG2016-W13-C2/main/pull/171)]
   * Set up Travis and Coveralls [[#88](https://github.com/CS2103AUG2016-W13-C2/main/pull/88)]
   
   
