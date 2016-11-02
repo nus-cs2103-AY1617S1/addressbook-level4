@@ -18,7 +18,7 @@ public class Name {
     public static final String MESSAGE_NAME_CONSTRAINTS = "Task names should be spaces or alphanumeric characters";
     public static final String NAME_VALIDATION_REGEX = "[A-Za-z0-9 ,.?!\'\"]+";
 
-    public final String fullName;
+    private final String fullName;
 
     /**
      * Validates given name.
@@ -51,6 +51,10 @@ public class Name {
     		}
     	}
     	return false;
+    }
+    
+    public String getFullName() {
+    	return this.fullName;
     }
 
     @Override

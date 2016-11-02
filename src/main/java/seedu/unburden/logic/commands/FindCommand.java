@@ -51,7 +51,7 @@ public class FindCommand extends Command {
 
 	public java.util.function.Predicate<? super Task> getDates(String date) {
 		return t -> {
-			return t.getDate().fullDate.equals(date);
+			return t.getDate().getFullDate().equals(date);
 		};
 	}
 

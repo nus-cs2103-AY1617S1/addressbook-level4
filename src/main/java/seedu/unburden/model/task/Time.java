@@ -20,7 +20,7 @@ public class Time implements Comparable<Time> {
 
 	// \\[0-9]{2}[0-9]{2}
 
-	public final String fullTime;
+	private final String fullTime;
 	private int hours;
 	private int minutes;
 	
@@ -63,7 +63,7 @@ public class Time implements Comparable<Time> {
 	public String getFullTime() {
 		return this.fullTime;
 	}
-	
+
 	public int getHours() {
 		return this.hours;
 	}
@@ -72,6 +72,7 @@ public class Time implements Comparable<Time> {
 		return this.minutes;
 	}
 	
+
 
 	@Override
 	public String toString() {

@@ -23,8 +23,8 @@ public class Date implements Comparable<Date> {
 	public static final String DATE_VALIDATION_REGEX = "([0][1-9]|[1-2][0-9]|[3][0-1])[-]([0][1-9]|[1][0-2])[-]([2][0][1][6-9]|[2][1-9][0-9][0-9])$";
 
 	
-	private static final int[] numDays = {0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31}; //numDays[0] contains a dummy value
-	public final String fullDate;
+	private static final int[] numDays = {0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31}; //numDays[0] is a dummy value
+	private final String fullDate;
 	private int day;
 	private int month;	
 	private int year;

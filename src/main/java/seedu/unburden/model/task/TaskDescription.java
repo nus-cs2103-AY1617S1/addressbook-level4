@@ -17,7 +17,7 @@ public class TaskDescription {
 	private static final String MESSAGE_TASK_CONSTRAINTS = "Task descriptions should be spaces or alphanumeric characters.";
 	public static final String TASK_VALIDATION_REGEX = "[A-Za-z0-9 ,.?!\'\"]+";
 
-	public final String fullTaskDescriptions;
+	private final String fullTaskDescriptions;
 
 	/**
 	 * 
@@ -45,6 +45,10 @@ public class TaskDescription {
 		final Pattern pattern = Pattern.compile(TASK_VALIDATION_REGEX);
 		final Matcher matcher = pattern.matcher(test.trim());
 		return matcher.matches();
+	}
+	
+	public String getFullTaskDescription() {
+		return this.fullTaskDescriptions;
 	}
 
 	@Override
