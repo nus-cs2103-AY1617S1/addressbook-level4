@@ -29,7 +29,7 @@ public class CustomizeCommand extends Command {
 		Config config = Config.getInstance();
 		String configFilePathUsed = Config.DEFAULT_CONFIG_FILE;
 		if (!isCommandWordPresent(commandWord))
-			return new CommandResult("Command:"+commandWord+" is not found.");
+			return new CommandResult("Command:" + commandWord + " is not found.");
 		try {
 			config.setCustomCommandFormat(commandWord, userCommand);
 			ConfigUtil.saveConfig(config, configFilePathUsed);
