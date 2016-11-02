@@ -1,5 +1,8 @@
 package seedu.address.logic.commands;
 
+import seedu.address.commons.core.EventsCenter;
+import seedu.address.commons.events.ui.DisplayTaskListEvent;
+import seedu.address.commons.events.ui.ShowHelpRequestEvent;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.task.*;
 import seedu.address.model.tag.Tag;
@@ -118,6 +121,7 @@ public class AddCommand extends Command {
     public CommandResult execute() {
     	assert model != null;
         try {
+        	EventsCenter.getInstance().post(new DisplayTaskListEvent(model.getFilteredTaskList()));
         	model.saveState();
             model.addTask(toAdd);
             model.checkForOverdueTasks();
