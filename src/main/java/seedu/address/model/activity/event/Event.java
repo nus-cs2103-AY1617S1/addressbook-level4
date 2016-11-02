@@ -68,6 +68,11 @@ public class Event extends Activity implements ReadOnlyEvent{
     }
     
     @Override
+    public boolean getisOver() {
+        return isOver();
+    }
+
+    @Override
     public String toStringCompletionStatus() {
         if(this.isOver()) {
             return "Event\nOver";

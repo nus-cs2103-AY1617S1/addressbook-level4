@@ -93,7 +93,8 @@ public class Reminder extends DateTime {
             if(!recurring)
             return "Reminder:\t".concat(this.toString());
             else 
-                return "Reminder:\t\t".concat("Every " + this.toRecur());
+                return "Reminder:\t\t".concat("Every " + this.toString());
         }
     }
+
 }

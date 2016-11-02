@@ -139,4 +139,8 @@ public class Activity implements ReadOnlyActivity {
     	
     }
 
+    public boolean getisOver() {
+        return false;
+    }
+
 }

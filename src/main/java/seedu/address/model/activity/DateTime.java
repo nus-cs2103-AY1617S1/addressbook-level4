@@ -9,10 +9,11 @@ import seedu.address.commons.util.DateUtil;
 
 //@@author A0125680H
 public abstract class DateTime implements Comparable<DateTime>{
-    public final Calendar value;
+    public Calendar value;
     protected static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("EEE, MMM d, yyyy h:mm a");
     protected static final SimpleDateFormat SAVE_DATE_FORMAT = new SimpleDateFormat("d-MM-yyyy h:mm aa");
     protected static final DateUtil DATE_PARSER = new DateUtil();
+    public boolean recurring;
 
     public DateTime(Calendar date) {
         if (date == null) {
