@@ -14,7 +14,7 @@ import jfxtras.scene.control.agenda.Agenda.AppointmentImplLocal;
 
 //@@author A0144702N
 public class CalendarHelper extends AppointmentImplBase implements Appointment {
-	private static final String EVENT_GROUP = "group0";
+	private static final String EVENT_GROUP = "group11";
 	private static final long DEFAULT_DURATION = 1;
 	private static final String TASK_GROUP = "group10";
 	private static Map<String, AppointmentGroup> groupMap;
@@ -72,5 +72,14 @@ public class CalendarHelper extends AppointmentImplBase implements Appointment {
 				&& eventInCalendar.getStartLocalDateTime().equals(targetEvent.getDuration().getStartTime())
 				&& eventInCalendar.getEndLocalDateTime().equals(targetEvent.getDuration().getEndTime());
 	}
+	
+	public boolean isTask(Appointment appointment) {
+		AppointmentGroup group =  appointment.getAppointmentGroup();
+		return group.getStyleClass().equals(TASK_GROUP);
+		
+	}
 
+	public boolean isEvent(Appointment appointment) {
+		return !isTask(appointment);
+	}
 }

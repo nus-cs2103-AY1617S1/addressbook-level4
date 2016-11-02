@@ -11,14 +11,13 @@ public class TypicalTestTasks {
 
     public TypicalTestTasks() {
         try {
-            cs1010 =  new TaskBuilder().withName("CS1010 CodeCrunch Practices").withDescription("20 Practices up to Lecture 7 syllabus").withDeadline("01-01-17").build();
-            cs1020 = new TaskBuilder().withName("CS1020 CodeCrunch Practices").withDescription("20 Practices up to Lecture 7 syllabus").withDeadline("01-01-17").build();
-            computing = new TaskBuilder().withName("Computing Project 1").withDescription("Complete my part before meeting").withDeadline("01-01-17").build();
-            science = new TaskBuilder().withName("Science Project 1").withDescription("Complete my part before meeting").withDeadline("01-01-17").build();
-            biz = new TaskBuilder().withName("Biz Project 1").withDescription("Complete my part before meeting").withDeadline("01-01-17").build();
-            engine = new TaskBuilder().withName("Engineering Project 1").withDescription("Complete my part before meeting").withDeadline("01-01-17").build();
-            music = new TaskBuilder().withName("Music Project 1").withDescription("Complete my part before meeting").withDeadline("01-01-17").build();
-
+            cs1010 =  new TaskBuilder().withName("CS1010 CodeCrunch Practices").withDescription("20 Practices up to Lecture 7 syllabus").withDeadline("02-01-17").build();
+            cs1020 = new TaskBuilder().withName("CS1020 CodeCrunch Practices").withDescription("20 Practices up to Lecture 7 syllabus").withDeadline("03-01-17").build();
+            computing = new TaskBuilder().withName("Computing Project 1").withDescription("Complete my part before meeting").withDeadline("04-01-17").build();
+            science = new TaskBuilder().withName("Science Project 1").withDescription("Complete my part before meeting").withDeadline("05-01-17").build();
+            biz = new TaskBuilder().withName("Biz Project 1").withDescription("Complete my part before meeting").withDeadline("06-01-17").build();
+            music = new TaskBuilder().withName("Music Project 1").withDescription("Complete my part before meeting").withDeadline("08-01-17").build();
+            engine = new TaskBuilder().withName("Engineering Project 1").withDescription("Complete my part before meeting").withDeadline("07-01-17").build();
             //completed tasks
             slack = new TaskBuilder().withName("slack for one hour").withDescription("do not do any work").withStatus(true).build();
           
@@ -35,10 +34,10 @@ public class TypicalTestTasks {
     public static void loadTestBookWithSampleData(TaskBook tb) {
 
         try {
-            tb.addTask(new Task(music));
-            tb.addTask(new Task(engine));
-            tb.addTask(new Task(cs1010));
-            tb.addTask(new Task(cs1020));
+        	tb.addTask(new Task(cs1010));
+        	tb.addTask(new Task(cs1020));
+        	tb.addTask(new Task(engine));
+        	tb.addTask(new Task(music));
             tb.addTask(new Task(slack));
         } catch (UniqueTaskList.DuplicateTaskException e) {
             assert false : "not possible";

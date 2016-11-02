@@ -36,7 +36,7 @@ public class CalendarPanel extends UiPart {
 	private static final int WEEK_SKIN = 0;
 	private static final String CALENDAR_UNSYC_MESSAGE = "Calendar is unsync";
 	private static final String CALENDAR_VIEW_ID = "calendar";
-	private static final int DEFAULT_BEFORE = -2;
+	private static final int DEFAULT_BEFORE = -1;
 	private static final int DEFAULT_AFTER = 5;
 	private Agenda agenda;
 	private final Logger logger = LogsCenter.getLogger(CalendarPanel.class);
