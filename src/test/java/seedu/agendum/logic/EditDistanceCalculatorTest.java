@@ -24,16 +24,16 @@ public class EditDistanceCalculatorTest {
 
     @Test
     public void commandCompletion() throws Exception {
-        assertEquals(EditDistanceCalculator.commandCompletion("ad").get(), "add");
-        assertEquals(EditDistanceCalculator.commandCompletion("ma").get(), "mark");
-        assertEquals(EditDistanceCalculator.commandCompletion("un"), Optional.empty()); // ambiguous returns nothing. Can be undo or unmark
-        assertEquals(EditDistanceCalculator.commandCompletion("unm").get(), "unmark");
-        assertEquals(EditDistanceCalculator.commandCompletion("und").get(), "undo");
-        assertEquals(EditDistanceCalculator.commandCompletion("st").get(), "store");
-        assertEquals(EditDistanceCalculator.commandCompletion("de").get(), "delete");
-        assertEquals(EditDistanceCalculator.commandCompletion("he").get(), "help");
-        assertEquals(EditDistanceCalculator.commandCompletion("sc").get(), "schedule");
-        assertEquals(EditDistanceCalculator.commandCompletion("r").get(), "rename");
+        assertEquals(EditDistanceCalculator.findCommandCompletion("ad").get(), "add");
+        assertEquals(EditDistanceCalculator.findCommandCompletion("ma").get(), "mark");
+        assertEquals(EditDistanceCalculator.findCommandCompletion("un"), Optional.empty()); // ambiguous returns nothing. Can be undo or unmark
+        assertEquals(EditDistanceCalculator.findCommandCompletion("unm").get(), "unmark");
+        assertEquals(EditDistanceCalculator.findCommandCompletion("und").get(), "undo");
+        assertEquals(EditDistanceCalculator.findCommandCompletion("st").get(), "store");
+        assertEquals(EditDistanceCalculator.findCommandCompletion("de").get(), "delete");
+        assertEquals(EditDistanceCalculator.findCommandCompletion("he").get(), "help");
+        assertEquals(EditDistanceCalculator.findCommandCompletion("sc").get(), "schedule");
+        assertEquals(EditDistanceCalculator.findCommandCompletion("r").get(), "rename");
     }
 
 }
