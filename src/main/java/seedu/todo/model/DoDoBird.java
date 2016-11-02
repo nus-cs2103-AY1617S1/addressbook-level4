@@ -110,7 +110,7 @@ public class DoDoBird implements ReadOnlyToDoList {
             this.getTasks().setAll(tasks);
         }
     }
-    //@@author
+    
 
     public void setTags(Collection<Tag> tags) {
         if (this.tagsHistory.isEmpty()) {
@@ -120,13 +120,13 @@ public class DoDoBird implements ReadOnlyToDoList {
             this.updateTagHistoryStack();
             this.getTags().setAll(tags);
         }
+        updateTagTopList();
     }
 
     /*************************
      * TASK-LEVEL OPERATIONS *
      *************************/
     
-    //@@author A0093896H
     public int getTaskIndex(ReadOnlyTask target) {
         return this.getTasks().indexOf(target);
     }
@@ -154,7 +154,6 @@ public class DoDoBird implements ReadOnlyToDoList {
             throw e;
         }
         
-        updateTagTopList();
     }
     
     public void deleteTask(ReadOnlyTask key) throws TaskNotFoundException {
@@ -167,7 +166,6 @@ public class DoDoBird implements ReadOnlyToDoList {
             undo();
             throw e;
         }
-        
         updateTagTopList();
 
     }
@@ -225,7 +223,9 @@ public class DoDoBird implements ReadOnlyToDoList {
         for (Tag tag : tagList.getInternalList()) {
             try {
                 toUntag.removeTag(tag);
-            } catch (UniqueTagList.TagNotFoundException e) {}
+            } catch (UniqueTagList.TagNotFoundException e) {
+              //if not found just skip over - do nothing
+            }
         }
         updateTagTopList();
     }
@@ -247,6 +247,7 @@ public class DoDoBird implements ReadOnlyToDoList {
             topTagList.getInternalList().setAll(oldTagList.getInternalList());
             this.tagsHistory.push(topTagList);
             
+            updateTagTopList();
             return true;
         }
         return false;
@@ -268,19 +269,25 @@ public class DoDoBird implements ReadOnlyToDoList {
         UniqueTagList topList = this.getUniqueTagList();
         topList.getInternalList().clear();
         
-        
         for (Task task : this.getTasks()) {
             for (Tag tag : task.getTags().getInternalList()) {
                 try {
-                    if (!topList.contains(tag)) {
-                        tag.setCount(1);
-                        topList.add(tag);
-                    } else {
+                    topList.add(tag);
+                    tag.setCount(0);
+                } catch (DuplicateTagException e) {
+                    //if duplicate is encountered, do not add
+                }
+            }
+        }
+        
+        for (Task task : this.getTasks()) {
+            for (Tag tag : task.getTags().getInternalList()) {
+                if (topList.contains(tag)) {
+                    Tag inList = topList.getInternalList().get(topList.getInternalList().indexOf(tag));
+                    inList.increaseCount();
+                    if (inList != tag) {
                         tag.increaseCount();
                     }
-                } catch (DuplicateTagException e) {
-                    tag.increaseCount();
-                    //if duplicate is encountered, do not add
                 }
             }
         }

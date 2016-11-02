@@ -276,14 +276,14 @@ public class ToDoListParser {
     private Command prepareTag(String args) {
         try {
             String tempArgs = args.trim();
-            String indexString = tempArgs.substring(0, 1);
+            String indexString = tempArgs.split(" ")[0];
 
             Optional<Integer> index = parseIndex(indexString);
             if (!index.isPresent()) {
                 return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, TagCommand.MESSAGE_USAGE));
             }
 
-            String tagNames = tempArgs.substring(1);
+            String tagNames = tempArgs.substring(indexString.length());
 
             return new TagCommand(index.get(), tagNames);
         } catch (Exception e) {

@@ -49,37 +49,6 @@ public class XmlToDoListStorageTest {
         assertFalse(readToDoList("NonExistentFile.xml").isPresent());
     }
    
-    //@@author A0093896H
-    @Test
-    public void readAndSaveToDoList_allInOrder_success() throws Exception {
-        String filePath = testFolder.getRoot().getPath() + "TempToDoList.xml";
-        TypicalTestTasks td = new TypicalTestTasks();
-        DoDoBird original = td.getTypicalToDoList();
-        XmlToDoListStorage xmlToDoListStorage = new XmlToDoListStorage(filePath);
-
-        //Save in new file and read back
-        xmlToDoListStorage.saveToDoList(original, filePath);
-        ReadOnlyToDoList readBack = xmlToDoListStorage.readToDoList(filePath).get();
-        DoDoBird readbackDdb = addTaskToDoDoBird(readBack);
-        assertEquals(original, readbackDdb);
-
-        //Modify data, overwrite exiting file, and read back
-        original.addTask(new Task(TypicalTestTasks.buyNoodles));
-        original.deleteTask(new Task(TypicalTestTasks.buyNoodles));
-        xmlToDoListStorage.saveToDoList(original, filePath);
-        readBack = xmlToDoListStorage.readToDoList(filePath).get();
-        readbackDdb = addTaskToDoDoBird(readBack);
-        assertEquals(original, readbackDdb);
-
-        //Save and read without specifying file path
-        original.addTask(new Task(TypicalTestTasks.buyCheese));
-        xmlToDoListStorage.saveToDoList(original); //file path not specified
-        readBack = xmlToDoListStorage.readToDoList().get(); //file path not specified
-        readbackDdb = addTaskToDoDoBird(readBack);
-        assertEquals(original, readbackDdb);
-
-    }
-    //@@author
 
     @Test
     public void saveToDoList_nullToDoList_assertionFailure() throws IOException {
