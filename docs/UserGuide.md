@@ -131,7 +131,7 @@ Example :   **add Dinner t/formal wear**
 
 #### Adds a task **Dinner** with tag **formal wear**.
 
-#### **Listing the tasks**
+# **Listing the tasks**
 
 #### **Listing all tasks**
 
