@@ -9,23 +9,38 @@ import seedu.address.model.task.Task;
  */
 public class TypicalTestTasks {
 
-    public static TestTask one, two, three, four, five;
+    public static TestTask datedOne, datedTwo, datedThree, datedFour, datedFive;
+    public static TestTask undatedOne, undatedTwo, undatedThree, undatedFour, undatedFive;
 
     public TypicalTestTasks() {
         try {
-            one = new DatedTaskBuilder().withName("buy milk").withDescription("lots of it")
-                    .withDatetime("11-NOV-2017 11:11").withStatus("NONE").build();
-            two = new DatedTaskBuilder().withName("buy some milk").withDescription("not so much")
-                    .withDatetime("12-NOV-2017 12:00").withStatus("NONE").build();
-            three = new DatedTaskBuilder().withName("buy some milk").withDescription("just a little")
-                    .withDatetime("13-DEC-2017 21:33").withStatus("NONE").build();
+            //Auto-generated dated tasks
+            datedOne = new TestTaskBuilder().withName("Module B Project").withDescription("Submit report to IVLE")
+                    .withDatetime("10-SEP-2017 22:00").withStatus("NONE").build();
+            datedTwo = new TestTaskBuilder().withName("Module A Exam").withDescription("MPSH 1A")
+                    .withDatetime("11-SEP-2017 10:00 to 12:00").withStatus("NONE").build();
+            datedThree = new TestTaskBuilder().withName("Pay insurance premium").withDescription("AIA")
+                    .withDatetime("23-OCT-2017 18:00").withStatus("NONE").build();
             
             //Manually added
-            four = new DatedTaskBuilder().withName("Buy some cheese").withDescription("blue ones")
-                    .withDatetime("15-DEC-2017 17:33").withStatus("NONE").build();
-            five = new DatedTaskBuilder().withName("Buy more cheese").withDescription("smelly ones")
-                    .withDatetime("24-DEC-2017 18:33").withStatus("NONE").build();
+            datedFour = new TestTaskBuilder().withName("File income tax").withDescription("online tax portal")
+                    .withDatetime("29-OCT-2017 23:59").withStatus("NONE").build();
+            datedFive = new TestTaskBuilder().withName("Xmas dinner").withDescription("at vivocity")
+                    .withDatetime("24-DEC-2017 19:00").withStatus("NONE").build();
             
+            //Auto-generated undated tasks
+            undatedOne = new TestTaskBuilder().withName("Catch up on korean drama").withDescription("Doctors")
+                    .withDatetime("").withStatus("NONE").build();
+            undatedTwo = new TestTaskBuilder().withName("Consider Netflix subscription").withDescription("cost")
+                    .withDatetime("").withStatus("NONE").build();
+            undatedThree = new TestTaskBuilder().withName("December travel plans").withDescription("5D4N")
+                    .withDatetime("").withStatus("NONE").build();
+            
+            //Manually added
+            undatedFour = new TestTaskBuilder().withName("Restock toiletries").withDescription("toilet roll")
+                    .withDatetime("").withStatus("NONE").build();
+            undatedFive = new TestTaskBuilder().withName("Walk Muffin").withDescription("5km route")
+                    .withDatetime("").withStatus("NONE").build();
             
             
         } catch (IllegalValueException e) {
@@ -36,16 +51,24 @@ public class TypicalTestTasks {
 
     public static void loadTaskBookWithSampleData(TaskBook ab) {
 
-    	ab.addTask(new Task(one));
-        ab.addTask(new Task(two));
-        ab.addTask(new Task(three));
+    	ab.addTask(new Task(datedOne));
+        ab.addTask(new Task(datedTwo));
+        ab.addTask(new Task(datedThree));
+        
+        ab.addTask(new Task(undatedOne));
+        ab.addTask(new Task(undatedTwo));
+        ab.addTask(new Task(undatedThree));
     
     }
 
-    public TestTask[] getTypicalTasks() {
-        return new TestTask[]{one, two, three};
+    public TestTask[] getTypicalDatedTasks() {
+        return new TestTask[]{datedOne, datedTwo, datedThree};
     }
 
+    public TestTask[] getTypicalUndatedTasks() {
+        return new TestTask[]{undatedOne, undatedTwo, undatedThree};
+    }
+    
     public TaskBook getTypicalAddressBook(){
         TaskBook ab = new TaskBook();
         loadTaskBookWithSampleData(ab);

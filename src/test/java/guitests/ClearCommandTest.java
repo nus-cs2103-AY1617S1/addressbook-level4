@@ -7,20 +7,25 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-public class ClearCommandTest extends AddressBookGuiTest {
+public class ClearCommandTest extends TaskBookGuiTest {
 
     @Test
     public void clear() {
 
         //verify a non-empty list can be cleared
-        assertTrue(datedListPanel.isListMatching(td.getTypicalTasks()));
+        assertTrue(datedListPanel.isListMatching(td.getTypicalDatedTasks()));
+        assertTrue(undatedListPanel.isListMatching(td.getTypicalUndatedTasks()));
         assertClearCommandSuccess();
 
         //verify other commands can work after a clear command
-        commandBox.runCommand(TypicalTestTasks.one.getAddCommand());
-        assertTrue(datedListPanel.isListMatching(TypicalTestTasks.one));
+        commandBox.runCommand(TypicalTestTasks.datedOne.getAddCommand());
+        assertTrue(datedListPanel.isListMatching(TypicalTestTasks.datedOne));
+        commandBox.runCommand(TypicalTestTasks.undatedOne.getAddCommand());
+        assertTrue(undatedListPanel.isListMatching(TypicalTestTasks.undatedOne));
         commandBox.runCommand("delete B1");
-        assertListSize(0);
+        assertDatedListSize(0);
+        commandBox.runCommand("delete A1");
+        assertUndatedListSize(0);
 
         //verify clear command works when the list is empty
         assertClearCommandSuccess();
@@ -28,7 +33,7 @@ public class ClearCommandTest extends AddressBookGuiTest {
 
     private void assertClearCommandSuccess() {
         commandBox.runCommand("clear");
-        assertListSize(0);
+        assertDatedListSize(0);
         assertResultMessage(ClearCommand.MESSAGE_SUCCESS);
     }
 }

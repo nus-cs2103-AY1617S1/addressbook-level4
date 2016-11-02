@@ -23,7 +23,7 @@ import static org.junit.Assert.assertTrue;
 /**
  * A GUI Test class for TaskBook.
  */
-public abstract class AddressBookGuiTest {
+public abstract class TaskBookGuiTest {
 
     /* The TestName Rule makes the current test name available inside test methods */
     @Rule
@@ -60,7 +60,8 @@ public abstract class AddressBookGuiTest {
         FxToolkit.setupStage((stage) -> {
             mainGui = new MainGuiHandle(new GuiRobot(), stage);
             mainMenu = mainGui.getMainMenu();
-            datedListPanel = mainGui.getPersonListPanel();
+            datedListPanel = mainGui.getDatedListPanel();
+            undatedListPanel = mainGui.getUndatedListPanel();
             resultDisplay = mainGui.getResultDisplay();
             commandBox = mainGui.getCommandBox();
             this.stage = stage;
@@ -95,20 +96,28 @@ public abstract class AddressBookGuiTest {
     }
 
     /**
-     * Asserts the person shown in the card is same as the given person
+     * Asserts the task shown in the card is same as the given task
      */
     public void assertMatching(ReadOnlyTask person, TaskCardHandle card) {
         assertTrue(TestUtil.compareCardAndPerson(card, person));
     }
 
     /**
-     * Asserts the size of the person list is equal to the given number.
+     * Asserts the size of the dated person list is equal to the given number.
      */
-    protected void assertListSize(int size) {
-        int numberOfPeople = datedListPanel.getNumberOfTask();
-        assertEquals(size, numberOfPeople);
+    protected void assertDatedListSize(int size) {
+        int numberOfTasks = datedListPanel.getNumberOfTask();
+        assertEquals(size, numberOfTasks);
     }
 
+    /**
+     * Asserts the size of the dated person list is equal to the given number.
+     */
+    protected void assertUndatedListSize(int size) {
+        int numberOfTasks = undatedListPanel.getNumberOfTask();
+        assertEquals(size, numberOfTasks);
+    }
+    
     /**
      * Asserts the message shown in the Result Display area is same as the given string.
      */

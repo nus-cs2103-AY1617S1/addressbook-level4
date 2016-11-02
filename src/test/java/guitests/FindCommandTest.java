@@ -7,7 +7,7 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-public class FindCommandTest extends AddressBookGuiTest {
+public class FindCommandTest extends TaskBookGuiTest {
 
     /*
     @Test
@@ -15,7 +15,7 @@ public class FindCommandTest extends AddressBookGuiTest {
         assertFindResult("find Mark"); //no results
         assertFindResult("find Meier", td.benson, td.daniel); //multiple results
 
-        //find after deleting one result
+        //find after deleting datedOne result
         commandBox.runCommand("delete 1");
         assertFindResult("find Meier",td.daniel);
     }
@@ -35,7 +35,7 @@ public class FindCommandTest extends AddressBookGuiTest {
 
     private void assertFindResult(String command, TestTask... expectedHits ) {
         commandBox.runCommand(command);
-        assertListSize(expectedHits.length);
+        assertDatedListSize(expectedHits.length);
         assertResultMessage(expectedHits.length + " tasks listed!");
         assertTrue(datedListPanel.isListMatching(expectedHits));
     }

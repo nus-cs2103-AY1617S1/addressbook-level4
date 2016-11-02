@@ -53,7 +53,7 @@ public class Parser {
                     + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
 
     private static final Pattern EDIT_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
-            Pattern.compile("(?<index>[AB][\\d]+)"
+            Pattern.compile("(?<index>[a-z|A-Z][\\d]+)"
                     + "( (?<name>[^/]+)){0,1}"
                     + "( d/(?<description>[^/]+)){0,1}"
                     + "( date/(?<date>[^/]*)){0,1}" // group <date> can be blank to edit DatedTask -> UndatedTask

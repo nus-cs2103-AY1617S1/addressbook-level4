@@ -6,7 +6,7 @@ import org.junit.Test;
 
 import seedu.address.model.task.ReadOnlyTask;
 
-public class SelectCommandTest extends AddressBookGuiTest {
+public class SelectCommandTest extends TaskBookGuiTest {
 
 
     @Test
@@ -16,7 +16,7 @@ public class SelectCommandTest extends AddressBookGuiTest {
         assertNoTaskSelected();
 
         assertSelectionSuccess("B1"); //first task in the list
-        int datedTaskCount = td.getTypicalTasks().length;
+        int datedTaskCount = td.getTypicalDatedTasks().length;
         assertSelectionSuccess("B"+datedTaskCount); //last task in the list
         int middleIndex = datedTaskCount / 2;
         assertSelectionSuccess("B"+middleIndex); // a task in the middle of the list
@@ -30,7 +30,7 @@ public class SelectCommandTest extends AddressBookGuiTest {
     @Test
     public void selectDatedTask_emptyList(){
         commandBox.runCommand("clear");
-        assertListSize(0);
+        assertDatedListSize(0);
         assertSelectionInvalid("B"+1); //invalid index
     }
 
