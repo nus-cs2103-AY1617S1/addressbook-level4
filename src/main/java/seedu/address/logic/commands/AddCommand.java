@@ -54,12 +54,8 @@ public class AddCommand extends Command {
                     new Reminder(reminder),
                     new UniqueTagList(tagSet));
         } else if (type == "event") {
-            if((start.contains("every")&&end.contains("every"))||(!start.contains("every")&&!end.contains("every"))||(start.contains("every")&&end.equals(""))||(!start.contains("every")&&end.equals(""))){
-            this.toAdd = new Event(new Name(name), new StartTime(start), new EndTime(new StartTime(start).toString(), end),
+            this.toAdd = new Event(new Name(name), new StartTime(start), new EndTime(new StartTime(start), end),
                     new Reminder(reminder), new UniqueTagList(tagSet));
-            }
-            else             throw new IllegalValueException(MESSAGE_RECURRING_ERROR);
-                
         } else if (type == "float") {
 
             this.toAdd = new Activity(new Name(name), new Reminder(reminder), new UniqueTagList(tagSet));

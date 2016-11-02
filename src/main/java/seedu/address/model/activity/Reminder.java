@@ -54,12 +54,6 @@ public class Reminder extends DateTime {
         if (recurfreq.contains("day")){
             date = "today " + recur[1];
         }
-        if (recurfreq.contains("month") ) {
-            date = DateUtil.everyMonth(recur[1]);       
-        }
-        if(recurfreq.contains("year")){
-            date = DateUtil.everyYear(recur[1]);   
-        }
         if (!isValidDate(date)) {
             throw new IllegalValueException(MESSAGE_REMINDER_CONSTRAINTS);
         }

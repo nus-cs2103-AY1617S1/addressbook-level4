@@ -93,10 +93,12 @@ public class Event extends Activity implements ReadOnlyEvent {
     }
     
     public String forMessage(String input){
+        if(input!=null){
         String[] recurfre = input.split(" ");
         String cap = recurfre[0].substring(0, 1).toUpperCase() + recurfre[0].substring(1);
         String capfreq = recurfre[1].substring(0, 1).toUpperCase() + recurfre[1].substring(1);
-        return cap + " " + capfreq;
+        return cap + " " + capfreq;}
+        return "";
     }
 
     @Override

@@ -14,6 +14,7 @@ public class DateUtil {
     private static List<SimpleDateFormat> DATE_FORMATS; //validate date format if both time and date are present
     private static List<SimpleDateFormat> DATE_FORMATS1; //validate date format if only date is present
     private static List<SimpleDateFormat> DATE_FORMATS2;  //convert DATE_FORMATS1 date to date and time 
+    private static List<SimpleDateFormat> TIME_FORMATS;  //convert DATE_FORMATS1 date to date and time 
     public static final String INVALID_FORMAT = "Invalid Format";
     public static final String INVALID_TIME = "Time Input is missing";
 
@@ -21,6 +22,11 @@ public class DateUtil {
         DATE_FORMATS = new ArrayList<>();
         DATE_FORMATS1 = new ArrayList<>();
         DATE_FORMATS2 = new ArrayList<>();
+        TIME_FORMATS = new ArrayList<>();
+        TIME_FORMATS.add(new SimpleDateFormat("h:mm a"));
+        TIME_FORMATS.add(new SimpleDateFormat("HHmm"));
+        TIME_FORMATS.add(new SimpleDateFormat("HH:mm"));
+        TIME_FORMATS.add(new SimpleDateFormat("H:mm"));
         DATE_FORMATS.add(new SimpleDateFormat("d-MM-yyyy h:mm a"));
         DATE_FORMATS.add(new SimpleDateFormat("d.MM.yyyy h:mm a"));
         DATE_FORMATS.add(new SimpleDateFormat("dd-MM-yyyy h:mm a"));
@@ -259,7 +265,7 @@ public class DateUtil {
     		} 
     	} return false;
     }
- 
+ /*
     public static String everyMonth(String date) throws IllegalValueException {
         String[] recurday = date.split(" ", 2);
         String day = recurday[0];
@@ -288,7 +294,23 @@ public class DateUtil {
         day = day.concat("-" + year + " " + recurday[1]);
         return day;
     }
- 
+ */
+
+    public static boolean recurValidDate(String date) {
+        Date validDate;
+
+        for (SimpleDateFormat sdf : TIME_FORMATS) {
+            try {
+                validDate = sdf.parse(date);
+                if (date.equals(sdf.format(validDate))) {
+                    return true;
+                }
+            } catch (ParseException e) {
+                continue;
+            }
+        }
+        return false;
+    }
 }
 
 

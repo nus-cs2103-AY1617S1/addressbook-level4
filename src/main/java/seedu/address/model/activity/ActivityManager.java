@@ -226,7 +226,7 @@ public class ActivityManager {
 
         if (((Event) newParams).getEndTime().toString().equals(NULL_ENTRY)&& type.equals("edit")) {
             if (oldTask.getClass().getSimpleName().equalsIgnoreCase("activity")) {
-                newEndTime = new EndTime("20-10-2016 1200", ""); //what to put as starttime?
+                newEndTime = new EndTime(((Event) oldTask).getStartTime(), ""); //what to put as starttime?
             } else {
                 newEndTime = new EndTime(((Event) oldTask).getEndTime().getCalendarValue());
                 newEndTime.recurring = ((Event) oldTask).getEndTime().recurring;
