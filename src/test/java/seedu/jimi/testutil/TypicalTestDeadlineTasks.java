@@ -3,7 +3,6 @@ package seedu.jimi.testutil;
 import seedu.jimi.commons.exceptions.IllegalValueException;
 import seedu.jimi.model.TaskBook;
 import seedu.jimi.model.task.DeadlineTask;
-import seedu.jimi.model.task.FloatingTask;
 import seedu.jimi.model.task.ReadOnlyTask;
 import seedu.jimi.model.task.UniqueTaskList;
 
@@ -20,9 +19,8 @@ public class TypicalTestDeadlineTasks {
     
     public TypicalTestDeadlineTasks() {
         try {
-            groceries =  new DeadlineTaskBuilder().withName("buy groceries").withTags("NTUC").withPriority("LOW").withDeadline("2016-10-31 19:00").build();
+            groceries =  new DeadlineTaskBuilder().withName("buy groceries").withTags("NTUC").withPriority("LOW").withDeadline("2016-11-02 21:00").build();
             ideas = new DeadlineTaskBuilder().withName("brainstorm ideas").withTags("project").withPriority("LOW").withDeadline("2016-10-31 19:00").build();
-            
             
             //Manually added
             homework = new DeadlineTaskBuilder().withName("finish homework").withPriority("HIGH").withDeadline("2016-10-31 19:00").build();

@@ -4,7 +4,6 @@ import seedu.jimi.model.datetime.DateTime;
 import seedu.jimi.model.tag.Priority;
 import seedu.jimi.model.tag.UniqueTagList;
 import seedu.jimi.model.task.DeadlineTask;
-import seedu.jimi.model.task.FloatingTask;
 import seedu.jimi.model.task.Name;
 import seedu.jimi.model.task.ReadOnlyTask;
 
