@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.commons.util.CommandUtil;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.task.Datetime;
@@ -59,20 +60,8 @@ public class AddCommand extends Command implements Undoable {
         
         int checkForDuplicateOrClash = model.addTask(toAdd);
         populateUndo();
-        return generateCommandResult(checkForDuplicateOrClash);
+        return CommandUtil.generateCommandResult(new CommandResult(String.format(MESSAGE_SUCCESS, toAdd)), checkForDuplicateOrClash);
 
-    }
-
-    private CommandResult generateCommandResult(int checkForDuplicateOrClash) {
-        if (checkForDuplicateOrClash == DUPLICATE){
-        	return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd) + "\n" + MESSAGE_DUPLICATE_TASK);
-        }
-        else if (checkForDuplicateOrClash == CLASH){
-        	return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd) + "\n" + MESSAGE_CLASHING_EVENTS);
-        }
-        else {
-            return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
-        }
     }
     
     @Override

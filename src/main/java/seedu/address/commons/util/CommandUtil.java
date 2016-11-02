@@ -93,10 +93,10 @@ public class CommandUtil {
     }
 
     public static CommandResult generateCommandResult(CommandResult temporary, int duplicateOrClashTaskResult) {
-       if (duplicateOrClashTaskResult == AddCommand.CLASH){
+       if (duplicateOrClashTaskResult == AddCommand.DUPLICATE){
            return new CommandResult(temporary.toString() + "\n" + AddCommand.MESSAGE_DUPLICATE_TASK);
        }
-       else if (duplicateOrClashTaskResult == AddCommand.DUPLICATE){
+       else if (duplicateOrClashTaskResult == AddCommand.CLASH){
            return new CommandResult(temporary.toString() + "\n" + AddCommand.MESSAGE_CLASHING_EVENTS);
        }
        else {

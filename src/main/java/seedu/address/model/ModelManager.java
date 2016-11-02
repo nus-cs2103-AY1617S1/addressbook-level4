@@ -218,7 +218,7 @@ public class ModelManager extends ComponentManager implements Model {
         int checkForDuplicateOrClash = taskBook.addTask(target);
         indicateTaskBookChanged();
         checkClashingEvents(target);
-        if (filteredDatedTasks.size() == 1) {
+        if (filteredDatedTasks.size() <= 1) {
             updateFilteredListToShowAll();
         }
         else if (filteredDatedTasks.size() > 1){
