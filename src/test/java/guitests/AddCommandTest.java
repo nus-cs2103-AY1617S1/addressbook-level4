@@ -39,7 +39,8 @@ public class AddCommandTest extends SavvyTaskerGuiTest {
 
         //invalid command
         commandBox.runCommand("adds Bad Command Task");
-        assertResultMessage(String.format(MESSAGE_UNKNOWN_COMMAND, HelpCommand.MESSAGE_USAGE));
+        assertResultMessage("Input: adds Bad Command Task\n" + 
+        String.format(MESSAGE_UNKNOWN_COMMAND, HelpCommand.MESSAGE_USAGE));
         
         //invalid start end date
         Date start = getDate("31/12/2015");
