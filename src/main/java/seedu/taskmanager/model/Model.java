@@ -19,7 +19,7 @@ public interface Model {
     ReadOnlyTaskManager getTaskManager();
     
     //@@author A0143641M
-    /** Raises relevant event when save to specified location */
+    /** Raises relevant event when run command to save to specified location */
     void saveAction(String location);
     
     /** Deletes the specified multiple items. **/
