@@ -1,5 +1,12 @@
 package tars.model;
 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Set;
+import java.util.Stack;
+import java.util.logging.Logger;
+
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import tars.commons.core.ComponentManager;
@@ -12,35 +19,24 @@ import tars.commons.exceptions.IllegalValueException;
 import tars.commons.util.DateTimeUtil;
 import tars.commons.util.StringUtil;
 import tars.logic.commands.Command;
-import tars.logic.parser.ArgumentTokenizer;
-import tars.model.task.Task;
-import tars.model.task.TaskQuery;
 import tars.model.tag.ReadOnlyTag;
 import tars.model.tag.Tag;
 import tars.model.tag.UniqueTagList.DuplicateTagException;
 import tars.model.tag.UniqueTagList.TagNotFoundException;
 import tars.model.task.DateTime;
-import tars.model.task.DateTime.IllegalDateException;
 import tars.model.task.ReadOnlyTask;
 import tars.model.task.Status;
+import tars.model.task.Task;
+import tars.model.task.TaskQuery;
 import tars.model.task.UniqueTaskList.TaskNotFoundException;
 import tars.model.task.rsv.RsvTask;
 import tars.model.task.rsv.UniqueRsvTaskList.RsvTaskNotFoundException;
-
-import java.time.DateTimeException;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Set;
-import java.util.Stack;
-import java.util.logging.Logger;
 
 /**
  * Represents the in-memory model of tars data. All changes to any model should be synchronized.
  */
 public class ModelManager extends ComponentManager implements Model {
-    private static final Logger logger =
-            LogsCenter.getLogger(ModelManager.class);
+    private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private final Tars tars;
     private final FilteredList<Task> filteredTasks;
@@ -60,8 +56,7 @@ public class ModelManager extends ComponentManager implements Model {
         assert src != null;
         assert userPrefs != null;
 
-        logger.fine("Initializing with tars: " + src + " and user prefs "
-                + userPrefs);
+        logger.fine("Initializing with tars: " + src + " and user prefs " + userPrefs);
 
         tars = new Tars(src);
         filteredTasks = new FilteredList<>(tars.getTasks());
@@ -113,17 +108,6 @@ public class ModelManager extends ComponentManager implements Model {
         raise(new TarsChangedEvent(tars));
     }
 
-    // @@author A0121533W
-    @Override
-    public synchronized Task editTask(ReadOnlyTask toEdit,
-            ArgumentTokenizer argsTokenizer) throws TaskNotFoundException,
-            DateTimeException, IllegalDateException, DuplicateTagException,
-            TagNotFoundException, IllegalValueException {
-        Task editedTask = tars.editTask(toEdit, argsTokenizer);
-        indicateTarsChanged();
-        return editedTask;
-    }
-
     // @@author A0139924W
     @Override
     public synchronized void renameTasksWithNewTag(ReadOnlyTag toBeRenamed,
@@ -162,13 +146,14 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     // @@author A0139924W
-
     @Override
-    public synchronized void unEditTask(Task toUndo, Task replacement)
+    public synchronized void replaceTask(ReadOnlyTask toUndo, Task replacement)
             throws DuplicateTaskException {
         tars.replaceTask(toUndo, replacement);
         indicateTarsChanged();
     }
+    
+    // @@author
 
     @Override
     public synchronized void deleteTask(ReadOnlyTask target)
@@ -205,11 +190,10 @@ public class ModelManager extends ComponentManager implements Model {
             Status status) throws DuplicateTaskException {
         tars.mark(toMarkList, status);
         indicateTarsChanged();
-
     }
 
     /**
-     * Returns a string of tasks and rsv tasks whose datetime conflicts with a specified datetime
+     * Returns a string of tasks and rsv tasks whose date time conflicts with a specified date time
      * 
      * @@author A0124333U
      */
@@ -536,7 +520,5 @@ public class ModelManager extends ComponentManager implements Model {
             return DateTimeUtil.isDateTimeWithinRange(task.getDateTime(),
                     dateTimeQuery);
         }
-
     }
-
 }
