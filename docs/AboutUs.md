@@ -68,6 +68,7 @@ Responsibilities: Testing, GUI
 * Features implemented:
    * <kbd>[Backup](UserGuide.md#backup--backup)</kbd> Command
    * <kbd>[Directory](UserGuide.md#change-working-directory--directory)</kbd> Command
+   * <kbd>[Sort](UserGuide.md#change-working-directory--directory)</kbd> Command
 * Code written: <kbd>[Functional code](../collated/main/A0147944U.md)</kbd> <kbd>[Test code](../collated/test/A0147944U.md)</kbd> <kbd>[Docs](../collated/docs/A0147944U.md)</kbd>
 * Other major contributions:
   * Organize and manage [GitHub repository](https://github.com/CS2103AUG2016-T17-C3/main)
