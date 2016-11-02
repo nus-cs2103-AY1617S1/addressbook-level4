@@ -91,13 +91,13 @@ public class CommandParser {
 			return prepareDelete(arguments);
 
 		case UndoCommand.COMMAND_WORD:
-			return new UndoCommand();
+			return prepareUndo(arguments);
 			
 		case RedoCommand.COMMAND_WORD:
-			return new RedoCommand();
+			return prepareRedo(arguments);
 
 		case ClearCommand.COMMAND_WORD:
-			return new ClearCommand();
+			return prepareClear(arguments);
 
 		case FindCommand.COMMAND_WORD:
 			return prepareFind(arguments);
@@ -109,10 +109,10 @@ public class CommandParser {
 			return prepareSetstorage(arguments);
 
 		case ExitCommand.COMMAND_WORD:
-			return new ExitCommand();
+			return prepareExit(arguments);
 
 		case HelpCommand.COMMAND_WORD:
-			return new HelpCommand();
+			return prepareHelp(arguments);
 
 		default:
 			return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
@@ -344,6 +344,45 @@ public class CommandParser {
 
 	//@@author A0153736B
 	/**
+	 * Parses arguments in the context of the undo command.
+	 *
+	 * @param args full command args string
+	 * @return the prepared command
+	 */
+	private Command prepareUndo(String args) {
+		if (!args.trim().isEmpty())
+			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+					UndoCommand.MESSAGE_USAGE));
+		return new UndoCommand();
+	}
+	
+	/**
+	 * Parses arguments in the context of the redo command.
+	 *
+	 * @param args full command args string
+	 * @return the prepared command
+	 */
+	private Command prepareRedo(String args) {
+		if (!args.trim().isEmpty())
+			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+					RedoCommand.MESSAGE_USAGE));
+		return new RedoCommand();
+	}
+	
+	/**
+	 * Parses arguments in the context of the clear command.
+	 *
+	 * @param args full command args string
+	 * @return the prepared command
+	 */
+	private Command prepareClear(String args) {
+		if (!args.trim().isEmpty())
+			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+					ClearCommand.MESSAGE_USAGE));
+		return new ClearCommand();
+	}
+	
+	/**
 	 * Parses arguments in the context of the find task command.
 	 *
 	 * @param args full command args string
@@ -394,5 +433,32 @@ public class CommandParser {
 
 		return new SetstorageCommand(args.trim());
 	}
+	//@@author
+	
+	//@@author A0153736B	
+	/**
+	 * Parses arguments in the context of the exit command.
+	 *
+	 * @param args full command args string
+	 * @return the prepared command
+	 */
+	private Command prepareExit(String args) {
+		if (!args.trim().isEmpty())
+			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+					ExitCommand.MESSAGE_USAGE));
+		return new ExitCommand();
+	}
 
+	/**
+	 * Parses arguments in the context of the help command.
+	 *
+	 * @param args full command args string
+	 * @return the prepared command
+	 */
+	private Command prepareHelp(String args) {
+		if (!args.trim().isEmpty())
+			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+					HelpCommand.MESSAGE_USAGE));
+		return new HelpCommand();
+	}
 }
