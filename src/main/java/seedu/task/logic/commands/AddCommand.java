@@ -104,16 +104,7 @@ public class AddCommand extends Command {
 			//@@author
 			
 			if (tasksToAdd.size() == 1) {
-			    title = tasksToAdd.get(0).getTitle();
-			    description = tasksToAdd.get(0).getDescription();
-			    startDate = tasksToAdd.get(0).getStartDate();
-			    dueDate = tasksToAdd.get(0).getDueDate();
-			    status = tasksToAdd.get(0).getStatus();
-			    feedback = title + " Description: " + description
-			            + " Start Date: " + startDate
-			            + " Due Date: " + dueDate
-			            + " Status: " + status;
-				return new CommandResult(String.format(MESSAGE_SUCCESS, feedback));
+				return new CommandResult(String.format(MESSAGE_SUCCESS, tasksToAdd.get(0)));
 			}
 			else
 				return new CommandResult(String.format(MESSAGE_SUCCESS_MANY_TASKS, tasksToAdd.get(0).getInterval(),

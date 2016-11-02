@@ -187,32 +187,22 @@ public class LogicManagerTest {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_EVENT_USAGE);
         assertCommandBehavior("add event d/without due date sd/12-12-2016", expectedMessage);
     }
-    //@@author
     
-    @Test
-    public void execute_add_invalidTaskData() throws Exception {
-        //TODO
-    }
-
-    //@@author A0153411W
 	@Test
 	public void execute_add_successful() throws Exception {
 		// setup expectations
 		TestDataHelper helper = new TestDataHelper();
 		Task toBeAdded = helper.homework();
 		TaskManager expectedAB = new TaskManager();
-		String expectedMessage = String.format(AddCommand.MESSAGE_SUCCESS,
-				toBeAdded.getTitle() + " Description: " + toBeAdded.getDescription() + " Start Date: "
-						+ toBeAdded.getStartDate() + " Due Date: " + toBeAdded.getDueDate() + " Status: "
-						+ toBeAdded.getStatus());
+		String expectedMessage = String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded.getAsText());
 		expectedAB.addTask(toBeAdded);
 
 		// execute command and verify result
-		assertCommandBehavior(helper.generateAddCommand(toBeAdded), expectedMessage, expectedAB,
-				expectedAB.getTaskList());
+		assertCommandBehavior(helper.generateAddCommand(toBeAdded), expectedMessage, expectedAB, expectedAB.getTaskList());
 	}
+	//@@author
 
-
+	//@@author A0153411W
 	@Test
 	public void execute_undo_add_successful() throws Exception {
 		// setup expectations
@@ -545,20 +535,31 @@ public class LogicManagerTest {
     }
     
     @Test
+    public void execute_doneOnCompletedTask() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        List<Task> oneTasks = helper.generateTaskList(1);
+        helper.addToModel(model, oneTasks);
+        String expectedMessage = DoneCommand.MESSAGE_ALREADY_COMPLETED;
+        CommandResult result = logic.execute("done 1");
+        
+        TaskManager expectedAB = helper.generateTaskManager(oneTasks);
+
+        assertCommandBehavior("done 1",
+                expectedMessage,
+                expectedAB,
+                expectedAB.getTaskList());
+        
+    }
+    
+    @Test
     public void execute_done_success() throws Exception {
         TestDataHelper helper = new TestDataHelper();
         List<Task> oneTasks = helper.generateTaskList(1);
         helper.addToModel(model, oneTasks);
-        String expectedTask = "Task 1 "
-                + "Description: Description 1 "
-                + "Start Date: 01-01-2016 00:00 "
-                + "Due Date: 01-01-2016 23:59 "
-                + "Status: COMPLETED "
-                + "Tags: [tag1][tag2]";
+        String expectedTask = oneTasks.get(0).getAsText().replaceAll("ONGOING", "COMPLETED");
         String expectedMessage = String.format(DoneCommand.MESSAGE_COMPLETED_TASK_SUCCESS, expectedTask);
-        //assertCommandBehavior("done 1", expectedMessage);
-        CommandResult result = logic.execute("done 1");
-        assertEquals(expectedMessage, result.feedbackToUser);
+        TaskManager expectedAB = helper.generateTaskManager(oneTasks);
+        assertCommandBehavior("done 1", expectedMessage, expectedAB, expectedAB.getTaskList());
     }
     //@@author
 
