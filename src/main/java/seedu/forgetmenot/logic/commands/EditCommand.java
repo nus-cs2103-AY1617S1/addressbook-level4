@@ -7,9 +7,9 @@ import seedu.forgetmenot.model.task.ReadOnlyTask;
 import seedu.forgetmenot.model.task.Time;
 import seedu.forgetmenot.model.task.UniqueTaskList.TaskNotFoundException;
 
+//@@author A0139671X
 /**
  * Edits a task identified using it's last displayed index from the task manager.
- * @@author A0139671X
  */
 public class EditCommand extends Command {
     
