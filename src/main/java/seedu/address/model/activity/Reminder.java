@@ -95,10 +95,13 @@ public class Reminder extends DateTime {
         if (this.value == null) {
             return "Reminder:\t-";
         } else {
-            if (!recurring)
+            if (!recurring) {
                 return "Reminder:\t".concat(this.toString());
-            else
-                return "Reminder:\t\t".concat("Every " + this.toString());
+            }
+            else {
+                SimpleDateFormat sdfRecurr = new SimpleDateFormat("EEEE, h:mm aa");
+                return "Reminder:\t".concat("Every " + sdfRecurr.format(this.value.getTime()));
+            }
         }
     }
 

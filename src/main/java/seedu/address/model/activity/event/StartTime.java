@@ -1,5 +1,6 @@
 package seedu.address.model.activity.event;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -78,10 +79,13 @@ public class StartTime extends DateTime {
         if (this.value == null) {
             return "Start:\t\t-";
         } else {
-            if(!recurring)
-            return "Start:\t\t".concat(this.toString());
-            else
-                return "Start:\t\t".concat("Every "+ this.toString());
+            if(!recurring) {
+                return "Start:\t\t".concat(this.toString());
+            }
+            else {
+                SimpleDateFormat sdfRecurr = new SimpleDateFormat("EEEE, h:mm aa");
+                return "Every ".concat(sdfRecurr.format(this.value.getTime()));
+            }
         }
     }
 }
