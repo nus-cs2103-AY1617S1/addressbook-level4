@@ -49,7 +49,7 @@ public class Parser {
                     + " at/(?<endTime>[^/]+)");
 
     /*
-     * Edit Command, task,event,deadline pattern
+     * Edit Command,task,event,deadline pattern
      */
     //@@author A0139923X
     private static final Pattern task_EDIT_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
@@ -77,13 +77,6 @@ public class Parser {
                     + " name/(?<name>.+)" 
                     + " on/(?<date>[^/]+)"
                     + " at/(?<endTime>[^/]+)");
-    
-    private static final Pattern name_ARGS_FORMAT = Pattern.compile("n/(?<name>.+)");
-    private static final Pattern priority_ARGS_FORMAT = Pattern.compile("p/(?<priority>.+)");
-    private static final Pattern date_ARGS_FORMAT = Pattern.compile("d/(?<date>.+)");
-    private static final Pattern endDate_ARGS_FORMAT = Pattern.compile("nd/(?<endDate>.+)");
-    private static final Pattern startTime_ARGS_FORMAT = Pattern.compile("s/(?<startTime>.+)");
-    private static final Pattern endTime_ARGS_FORMAT = Pattern.compile("e/(?<endTime>.+)");
 
     public Parser() {
     }
@@ -156,50 +149,50 @@ public class Parser {
      */
     //@@author A0139923X
     private Command prepareAdd(String args) {
-        final Matcher matcher_task = task_DATA_ARGS_FORMAT.matcher(args.trim());
-        final Matcher matcher_event = event_DATA_ARGS_FORMAT.matcher(args.trim());
-        final Matcher matcher_deadline = deadline_DATA_ARGS_FORMAT.matcher(args.trim());
+        final Matcher matcher_Task = task_DATA_ARGS_FORMAT.matcher(args.trim());
+        final Matcher matcher_Event = event_DATA_ARGS_FORMAT.matcher(args.trim());
+        final Matcher matcher_Deadline = deadline_DATA_ARGS_FORMAT.matcher(args.trim());
         // Validate arg string format
         /*
          * Check if input matches task, event or deadline
          */
-        
-        if (matcher_task.matches()) {
-            try {
-                return new AddCommand(
-                        matcher_task.group("name").trim(), 
-                        isInputPresent(matcher_task.group("date"), 1).trim(),
-                        isInputPresent(matcher_task.group("endDate"), 2).trim(),
-                        matcher_task.group("priority").trim()
-                        );
-            } catch (IllegalValueException ive) {
-                return new IncorrectCommand(ive.getMessage());
+        try {
+            if (matcher_Task.matches()) {
+                return addTodo(matcher_Task);
+            } else if (matcher_Event.matches()) {
+                return addEvent(matcher_Event);
+            } else if (matcher_Deadline.matches()) {
+                return addDeadline(matcher_Deadline);                       
+            }else {
+                return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
             }
-        } else if (matcher_event.matches()) {
-            try {
-                return new AddCommand(
-                        matcher_event.group("name").trim(), 
-                        matcher_event.group("date").trim(),
-                        isInputPresent(matcher_event.group("endDate"), 2).trim(),
-                        matcher_event.group("startTime").trim(), 
-                        matcher_event.group("endTime").trim()
-                        );
-            } catch (IllegalValueException ive) {
-                return new IncorrectCommand(ive.getMessage());
-            }
-        } else if (matcher_deadline.matches()) {
-            try {
-                return new AddCommand(
-                        matcher_deadline.group("name").trim(), 
-                        matcher_deadline.group("date").trim(),
-                        matcher_deadline.group("endTime").trim()
-                        );
-            } catch (IllegalValueException ive) {
-                return new IncorrectCommand(ive.getMessage());
-            }
-        } else {
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+        }catch (IllegalValueException ive) {
+            return new IncorrectCommand(ive.getMessage());
         }
+    }
+    
+    //@@author A0139923X
+    private AddCommand addTodo(Matcher matcher_Task) throws IllegalValueException {
+        return new AddCommand(matcher_Task.group("name").trim(), 
+                isInputPresent(matcher_Task.group("date"), 1).trim(),
+                isInputPresent(matcher_Task.group("endDate"), 2).trim(),
+                matcher_Task.group("priority").trim());
+    }
+    
+    //@@author A0139923X
+    private AddCommand addEvent(Matcher matcher_Event) throws IllegalValueException {
+        return new AddCommand(matcher_Event.group("name").trim(),
+                matcher_Event.group("date").trim(), 
+                isInputPresent(matcher_Event.group("endDate"), 2).trim(),
+                matcher_Event.group("startTime").trim(), 
+                matcher_Event.group("endTime").trim() );
+    }
+    
+    //@@author A0139923X
+    private AddCommand addDeadline(Matcher matcher_Deadline) throws IllegalValueException {
+        return new AddCommand(matcher_Deadline.group("name").trim(), 
+                matcher_Deadline.group("date").trim(),
+                matcher_Deadline.group("endTime").trim());
     }
 
     /**
@@ -351,121 +344,93 @@ public class Parser {
     
     //@@author A0139923X
     private Command prepareEdit(String args) {
-        final Matcher matcher_task = task_EDIT_ARGS_FORMAT.matcher(args.trim());
-        final Matcher matcher_event = event_EDIT_ARGS_FORMAT.matcher(args.trim());
-        final Matcher matcher_deadline = deadline_EDIT_ARGS_FORMAT.matcher(args.trim());        
+        final Matcher matcher_Task = task_EDIT_ARGS_FORMAT.matcher(args.trim());
+        final Matcher matcher_Event = event_EDIT_ARGS_FORMAT.matcher(args.trim());
+        final Matcher matcher_Deadline = deadline_EDIT_ARGS_FORMAT.matcher(args.trim());        
         Optional<String> dataType = parseDataType(args);
         
         if (!dataType.isPresent()) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
         }
         
+        try {  
         // check user input to edit todolist
-        if (dataType.get().equals("todo")) {
-            try {  
-                if (matcher_task.matches()) {                
-                    return new EditCommand(
-                            matcher_task.group("name").trim(), 
-                            isInputPresent(matcher_task.group("date"), 1).trim(),
-                            isInputPresent(matcher_task.group("endDate"), 2).trim(),
-                            matcher_task.group("priority").trim(),
-                            Integer.parseInt(matcher_task.group("targetIndex")), 
-                            dataType.get().trim());
-                } else if (matcher_event.matches()) {
-                    return new EditCommand(
-                            matcher_event.group("name").trim(), 
-                            matcher_event.group("date").trim(),
-                            isInputPresent(matcher_event.group("endDate"), 2).trim(),
-                            matcher_event.group("startTime").trim(), 
-                            matcher_event.group("endTime").trim(),
-                            Integer.parseInt(matcher_event.group("targetIndex")), 
-                            dataType.get().trim());
-                } else if (matcher_deadline.matches()) {
-                    return new EditCommand(
-                            matcher_deadline.group("name").trim(), 
-                            matcher_deadline.group("date").trim(),
-                            matcher_deadline.group("endTime").trim(), 
-                            Integer.parseInt(matcher_deadline.group("targetIndex")),
-                            dataType.get().trim());
+            if (dataType.get().equals("todo")) {
+                if (matcher_Task.matches()) {
+                    return editTodo(matcher_Task, dataType);
+                } else if (matcher_Event.matches()) {
+                    return editEvent(matcher_Event, dataType);
+                } else if (matcher_Deadline.matches()) {
+                    return editDeadline(matcher_Deadline, dataType);
                 } else {
                     return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
-                }
-            } catch (IllegalValueException ive) {
-                return new IncorrectCommand(ive.getMessage());
+                }              
+            // check user input to edit eventlist
+            } else if (dataType.get().equals("event")) {
+                    if (matcher_Task.matches()) {
+                        return editTodo(matcher_Task, dataType);
+                    } else if (matcher_Event.matches()) {
+                        return editEvent(matcher_Event, dataType);
+                    } else if (matcher_Deadline.matches()) {
+                        return editDeadline(matcher_Deadline, dataType);
+                    } else {
+                        return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+                    }
+            
+            // check user input to edit deadlinelist
+            } else if (dataType.get().equals("deadline")) {
+                    if (matcher_Task.matches()) {
+                        return editTodo(matcher_Task, dataType);
+                    } else if (matcher_Event.matches()) {
+                        return editEvent(matcher_Event, dataType);
+                    } else if (matcher_Deadline.matches()) {
+                        return editDeadline(matcher_Deadline, dataType);
+                    } else {
+                        return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+                    }
+            } else {
+                return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
             }
-        
-        // check user input to edit eventlist
-        } else if (dataType.get().equals("event")) {
-            try {
-                if (matcher_task.matches()) {
-                    return new EditCommand(
-                            matcher_task.group("name").trim(), 
-                            isInputPresent(matcher_task.group("date") , 1).trim(),
-                            isInputPresent(matcher_task.group("endDate"), 2).trim(),
-                            matcher_task.group("priority").trim(),
-                            Integer.parseInt(matcher_task.group("targetIndex")), 
-                            dataType.get().trim());
-                } else if (matcher_event.matches()) {
-                    return new EditCommand(
-                            matcher_event.group("name").trim(), 
-                            matcher_event.group("date").trim(),
-                            isInputPresent(matcher_event.group("endDate"), 2).trim(),
-                            matcher_event.group("startTime").trim(), 
-                            matcher_event.group("endTime").trim(),
-                            Integer.parseInt(matcher_event.group("targetIndex")), 
-                            dataType.get().trim());
-                } else if (matcher_deadline.matches()) {
-                    return new EditCommand(
-                            matcher_deadline.group("name").trim(), 
-                            matcher_deadline.group("date").trim(),
-                            matcher_deadline.group("endTime").trim(), 
-                            Integer.parseInt(matcher_deadline.group("targetIndex")),
-                            dataType.get().trim());
-                } else {
-                    return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
-                }
-            } catch (IllegalValueException ive) {
-                return new IncorrectCommand(ive.getMessage());
-            }
-        
-        // check user input to edit deadlinelist
-        } else if (dataType.get().equals("deadline")) {
-            try {
-                if (matcher_task.matches()) {
-                    return new EditCommand(
-                            matcher_task.group("name").trim(), 
-                            isInputPresent(matcher_task.group("date") , 1).trim(),
-                            isInputPresent(matcher_task.group("endDate"), 2).trim(),
-                            matcher_task.group("priority").trim(),
-                            Integer.parseInt(matcher_task.group("targetIndex")), 
-                            dataType.get().trim());
-                } else if (matcher_event.matches()) {
-                    return new EditCommand(
-                            matcher_event.group("name").trim(), 
-                            matcher_event.group("date").trim(),
-                            isInputPresent(matcher_event.group("endDate"), 2).trim(),
-                            matcher_event.group("startTime").trim(), 
-                            matcher_event.group("endTime").trim(),
-                            Integer.parseInt(matcher_event.group("targetIndex")), 
-                            dataType.get().trim());
-                } else if (matcher_deadline.matches()) {
-                    return new EditCommand(
-                            matcher_deadline.group("name").trim(), 
-                            matcher_deadline.group("date").trim(),
-                            matcher_deadline.group("endTime").trim(), 
-                            Integer.parseInt(matcher_deadline.group("targetIndex")),
-                            dataType.get().trim());
-                } else {
-                    return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
-                }
-            } catch (IllegalValueException ive) {
-                return new IncorrectCommand(ive.getMessage());
-            }
-        } else {
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+        } catch (IllegalValueException ive) {
+            return new IncorrectCommand(ive.getMessage());
         }
     }
-
+    
+  //@@author A0139923X
+    private EditCommand editTodo(Matcher matcher_Task, Optional<String> dataType) throws IllegalValueException {               
+        return new EditCommand(
+                matcher_Task.group("name").trim(), 
+                isInputPresent(matcher_Task.group("date"), 1).trim(),
+                isInputPresent(matcher_Task.group("endDate"), 2).trim(),
+                matcher_Task.group("priority").trim(),
+                Integer.parseInt(matcher_Task.group("targetIndex")), 
+                dataType.get().trim());
+        
+    }
+    
+  //@@author A0139923X
+    private EditCommand editEvent(Matcher matcher_Event, Optional<String> dataType) throws IllegalValueException {               
+        return new EditCommand(
+                matcher_Event.group("name").trim(), 
+                matcher_Event.group("date").trim(),
+                isInputPresent(matcher_Event.group("endDate"), 2).trim(),
+                matcher_Event.group("startTime").trim(), 
+                matcher_Event.group("endTime").trim(),
+                Integer.parseInt(matcher_Event.group("targetIndex")), 
+                dataType.get().trim());        
+    }
+    
+  //@@author A0139923X
+    private EditCommand editDeadline(Matcher matcher_Deadline, Optional<String> dataType) throws IllegalValueException {               
+        return new EditCommand(
+                matcher_Deadline.group("name").trim(), 
+                matcher_Deadline.group("date").trim(),
+                matcher_Deadline.group("endTime").trim(), 
+                Integer.parseInt(matcher_Deadline.group("targetIndex")),
+                dataType.get().trim());
+      
+    }
+    
     /*
      *  Check whether the attribute is set
      */
