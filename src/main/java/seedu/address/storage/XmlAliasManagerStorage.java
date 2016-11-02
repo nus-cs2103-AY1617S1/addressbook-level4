@@ -13,8 +13,9 @@ import java.io.IOException;
 import java.util.Optional;
 import java.util.logging.Logger;
 
+//@@author A0143756Y-reused
 /**
- * A class to access TaskManager data stored as an xml file on the hard disk.
+ * A class to access AliasManager data stored as an xml file on the hard disk.
  */
 public class XmlAliasManagerStorage implements AliasManagerStorage {
 
@@ -31,7 +32,7 @@ public class XmlAliasManagerStorage implements AliasManagerStorage {
     }
 
     /**
-     * Similar to {@link #readTaskManager()}
+     * Similar to {@link #readAliasManager()}
      * @param filePath location of the data. Cannot be null
      * @throws DataConversionException if the file is not in the correct format.
      */
@@ -51,7 +52,7 @@ public class XmlAliasManagerStorage implements AliasManagerStorage {
     }
 
     /**
-     * Similar to {@link #saveTaskManager(ReadOnlyTaskManager)}
+     * Similar to {@link #saveAliasManager(ReadOnlyTaskManager)}
      * @param filePath location of the data. Cannot be null
      */
     public void saveAliasManager(ReadOnlyAliasManager alias, String filePath) throws IOException {
