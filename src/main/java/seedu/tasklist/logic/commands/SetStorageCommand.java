@@ -15,7 +15,7 @@ public class SetStorageCommand extends Command {
 			+ "Example: " + COMMAND_WORD + " src/main/java/seedu/tasklist/logic/commands/tasklist.xml";
 
 	public static final String MESSAGE_SUCCESS = "Changed file path to: ";
-	public static final String SET_STORAGE_FAILURE = "File path not found. Please enter a valid file path.";
+	public static final String MESSAGE_STORAGE_FAILURE = "File path not found. Please enter a valid file path.";
     
 	protected Storage storage;
 	private static String filePath;

@@ -49,16 +49,14 @@ public class Config {
     public void setUserPrefsFilePath(String userPrefsFilePath) {
         this.userPrefsFilePath = userPrefsFilePath;
     }
-
+    
+    /* @@author A0135769N */
     public String getTaskListFilePath() {
         return taskListFilePath;
     }
-
+    
+    // Method replaces the existing file path with the new file path specified by user.  
     public void setTaskListFilePath(String taskListFilePath) throws JSONException, IOException, ParseException {
-    	    	//JSONObject obj = (JSONObject) new JSONParser().parse(read);
-    	    	//String result = (String) obj.get("taskListFilePath");
-    	    	//JSONObject tasklist = (JSONObject) obj.get("taskListFilePath");
-    	    	//System.out.println("Result: "+ result);
     	    	JSONObject obj = new JSONObject();
     			obj.put("taskListFilePath", taskListFilePath);
     			obj.put("userPrefsFilePath", "preferences.json");
