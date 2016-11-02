@@ -73,6 +73,10 @@ public class Task implements ReadOnlyTask, Comparable<ReadOnlyTask> {
     
     public void setStatus(Status status) {
         this.status = status;
+        if(this.status.equals(new Status("pending")) && 
+        		getEndDate().orElse(LocalDateTime.MAX).isBefore(LocalDateTime.now())) {
+        	this.status = new Status("overdue");
+        }
     }
     
     public Optional<LocalDateTime> getEndDate() {
