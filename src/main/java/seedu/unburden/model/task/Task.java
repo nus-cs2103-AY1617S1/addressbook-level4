@@ -265,7 +265,10 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
     }
     
     public void setOverdue() throws DuplicateTagException, IllegalValueException{
-    	this.tags.add(new Tag("Overdue"));
+    	Tag overdue = new Tag("Overdue");
+    	if(!this.tags.contains(overdue)){
+    		this.tags.add(overdue);
+    	}
     }
     
     
