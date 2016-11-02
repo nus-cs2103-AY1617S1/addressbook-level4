@@ -74,12 +74,12 @@ public class ModelManager extends ComponentManager implements Model {
         raise(new TaskBookChangedEvent(taskBook));
     }
     
-    //@author A0138915X
+    //@@author A0138915X
     /** Raises an event to indicate request to highlight chosen item. */
     public void highlightLatestUpdatedItem(ReadOnlyTask target) {
         raise(new JumpToListRequestEvent(target));
     }
-    
+    //@@author
     /** Raises and event to indicate user request to show task panel sections. */
     public void showTaskPanelSection(String sectionToShow) {
         raise(new ShowTaskPanelSectionEvent(sectionToShow));
@@ -90,7 +90,7 @@ public class ModelManager extends ComponentManager implements Model {
         taskBook.removeTask(target);
         indicateTaskBookChanged();
     }
-    //@@author
+    
     
     
     @Override
