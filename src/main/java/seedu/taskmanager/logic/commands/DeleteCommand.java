@@ -120,13 +120,13 @@ public class DeleteCommand extends Command {
                 assert false : "The target item cannot be missing";
             }
             
-            StringBuilder printResult = new StringBuilder(MESSAGE_DELETE_ITEM_SUCCESS);
+            StringBuilder printResult = new StringBuilder(MESSAGE_DELETE_ITEMS_SUCCESS);
             
             for(ReadOnlyItem item : itemsToDelete) {
                 printResult.append(item.toString());
             }
             
-            return new CommandResult(String.format(MESSAGE_DELETE_ITEM_SUCCESS, itemsToDelete));
+            return new CommandResult(String.format(MESSAGE_DELETE_ITEMS_SUCCESS, itemsToDelete));
         }
     }
 }
