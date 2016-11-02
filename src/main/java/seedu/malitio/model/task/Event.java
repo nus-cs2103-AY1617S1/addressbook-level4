@@ -108,7 +108,7 @@ public class Event implements ReadOnlyEvent {
     }
     
     private static boolean isValidEvent(DateTime start, DateTime end) {
-        if (end.compareTo(start) > 0) {
+        if (end.isAfter(start)) {
             return true;
         }
         return false;

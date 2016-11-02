@@ -250,12 +250,12 @@ public class ModelManager extends ComponentManager implements Model {
     
     @Override
     public void updateFilteredDeadlineListToShowAll() {
-        filteredDeadlines.setPredicate(p->!p.getCompleted() || p.getDue().compareTo(new Date())>0);
+        filteredDeadlines.setPredicate(p->!p.getCompleted() || p.getDue().isAfter(new Date()));
     }
     
     @Override
     public void updateFilteredEventListToShowAll() {
-        filteredEvents.setPredicate(p ->p.getStart().compareTo(new Date())>0);
+        filteredEvents.setPredicate(p ->p.getStart().isAfter(new Date()));
     }
 
     @Override
@@ -402,7 +402,7 @@ public class ModelManager extends ComponentManager implements Model {
         
         @Override
         public boolean run(ReadOnlyDeadline deadline) {
-            if (timeKeyWord.compareTo(deadline.getDue()) <= 0) {
+            if (!timeKeyWord.isAfter(deadline.getDue())) {
                 return true;
             } else {
                 return false;
@@ -411,7 +411,7 @@ public class ModelManager extends ComponentManager implements Model {
         
         @Override
         public boolean run(ReadOnlyEvent event) {
-            if (timeKeyWord.compareTo(event.getStart()) <= 0) {
+            if (!timeKeyWord.isAfter(event.getStart())) {
                 return true;
             } else {
                 return false;
