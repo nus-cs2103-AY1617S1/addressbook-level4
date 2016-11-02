@@ -19,7 +19,7 @@ public class ConfigTest {
         String defaultConfigAsString = "App title : Emeraldo\n" +
                 "Current log level : INFO\n" +
                 "Preference file Location : preferences.json\n" +
-                "Local data file location : data/emeraldo.xml\n" +
+                "Local data file location : ./data/emeraldo.xml\n" +
                 "Emeraldo name : MyTaskManager";
 
         assertEquals(defaultConfigAsString, new Config().toString());
