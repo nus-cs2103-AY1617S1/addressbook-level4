@@ -118,7 +118,7 @@ public class ModelManager extends ComponentManager implements Model {
         deadlineList.resetData();
         indicateDeadlineListChanged();
     }
-    
+    /*
     @Override
     public void removeDoneData() {
         undoer.prepareUndoClear("all");
@@ -147,7 +147,7 @@ public class ModelManager extends ComponentManager implements Model {
         deadlineList.removeDone();
         indicateDeadlineListChanged();
     }
-    
+    */
     @Override
     public void restoreAllData() {
         todoList.restoreData();
@@ -199,6 +199,10 @@ public class ModelManager extends ComponentManager implements Model {
         raise(new DeadlineListChangedEvent(deadlineList));
     }
     
+    /**
+     * Edit a task, event or deadline
+     * All changes to any model should be synchronized.
+     */
     @Override
     //@@author A0139923X
     public synchronized void editTask(ReadOnlyTask target, String dataType, Task task) throws IllegalValueException, TaskNotFoundException {
@@ -224,8 +228,7 @@ public class ModelManager extends ComponentManager implements Model {
             }
     		updateFilteredTodoListToShowAll();
     		indicateTodoListChanged();
-    	}
-    	else if(task instanceof Event) {
+    	}else if(task instanceof Event) {
     	    if(dataType.equals("todo")){
                 eventList.addTask(task);
                 todoList.removeTask(target);
@@ -238,8 +241,7 @@ public class ModelManager extends ComponentManager implements Model {
             }
     		updateFilteredEventListToShowAll();
     		indicateEventListChanged();
-    	}
-    	else if(task instanceof Deadline) {
+    	}else if(task instanceof Deadline) {
     	    if(dataType.equals("todo")){
     	        deadlineList.addTask(task);
     	        todoList.removeTask(target);

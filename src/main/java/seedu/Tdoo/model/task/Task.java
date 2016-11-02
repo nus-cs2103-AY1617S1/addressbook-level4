@@ -1,6 +1,5 @@
 package seedu.Tdoo.model.task;
 
-import seedu.Tdoo.model.task.attributes.Done;
 import seedu.Tdoo.model.task.attributes.Name;
 
 /**

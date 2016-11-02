@@ -7,7 +7,6 @@ import guitests.guihandles.DeadlineCardHandle;
 import guitests.guihandles.EventCardHandle;
 import guitests.guihandles.TaskCardHandle;
 import seedu.Tdoo.commons.exceptions.IllegalValueException;
-import seedu.Tdoo.model.task.attributes.*;
 import seedu.Tdoo.testutil.DeadlineBuilder;
 import seedu.Tdoo.testutil.EventBuilder;
 import seedu.Tdoo.testutil.TaskBuilder;
