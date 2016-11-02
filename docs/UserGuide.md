@@ -76,6 +76,7 @@ Examples:
 
 ##### Adding a recurring task
 Adds a task with a recurring period in days <br>
+<number> has to be numeric. For example, 8 and not eight. <br>
 Format : `add <task name> at/from <start time> by/to <end time> every <number> days`
 
 Examples:
