@@ -11,6 +11,8 @@ import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.Config;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.storage.DataSavingExceptionEvent;
+import seedu.address.commons.events.ui.DisplayAliasListEvent;
+import seedu.address.commons.events.ui.DisplayTaskListEvent;
 import seedu.address.commons.events.ui.JumpToListRequestEvent;
 import seedu.address.commons.events.ui.ShowHelpRequestEvent;
 import seedu.address.commons.util.StringUtil;
@@ -113,5 +115,20 @@ public class UiManager extends ComponentManager implements Ui {
     private void handleJumpToListRequestEvent(JumpToListRequestEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         newMainWindow.getTaskListPanel().scrollTo(event.targetIndex);
+    }
+    
+    //@@author A0142184L
+    @Subscribe
+    private void handleDisplayTaskListEvent(DisplayTaskListEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+		TaskListPanel listPanel = newMainWindow.getTaskListPanel();
+		listPanel = TaskListPanel.loadTaskList(newMainWindow.primaryStage, newMainWindow.getTaskListLeftPlaceholder(), event.list);
+    }
+    
+    @Subscribe
+    private void handleDisplayAliasListEvent(DisplayAliasListEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        TaskListPanel listPanel = newMainWindow.getTaskListPanel();
+		listPanel = TaskListPanel.loadAliasList(newMainWindow.primaryStage, newMainWindow.getTaskListLeftPlaceholder(), event.list);
     }
 }

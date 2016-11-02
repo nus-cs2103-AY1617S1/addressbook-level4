@@ -2,10 +2,14 @@ package seedu.address.model;
 
 import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.model.task.Task;
+import seedu.address.model.alias.Alias;
+import seedu.address.model.alias.ReadOnlyAlias;
+import seedu.address.model.alias.UniqueAliasList;
 import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.UniqueTaskList;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 import java.util.function.Predicate;
 
@@ -42,6 +46,14 @@ public interface Model {
     /** Updates the given task */
     void editTask(int index, Task task) throws UniqueTaskList.TaskNotFoundException;
     
+    //@@author A0143756Y
+    /** Saves alias to XML file, "aliasbook.xml" in ./data folder. */
+    void addAlias(Alias aliasToAdd) throws UniqueAliasList.DuplicateAliasException;
+    
+    /** Checks if alias argument for AddAliasCommand is valid. Alias cannot be a sub-string or super-string or any previously set alias. */
+    boolean validateAliasforAddAliasCommand(String alias);    
+    //@@author
+    
     /** Updates the task status overdue if not marked as done and end time is before now */
     void checkForOverdueTasks();
     
@@ -49,6 +61,9 @@ public interface Model {
     UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList();
     
     //@@author A0142184L
+    /** Returns the filtered list of aliases as an {@code UnmodifiableObservableList<ReadOnlyTask>}*/
+	UnmodifiableObservableList<ReadOnlyAlias> getFilteredAliasList();
+	
     /** Returns the list showing only non-done tasks (not-done and overdue tasks) as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
     UnmodifiableObservableList<ReadOnlyTask> getNonDoneTaskList();
 
@@ -80,6 +95,8 @@ public interface Model {
 
     /** Updates the filter of the filtered task list to filter by the given keywords*/
     void updateFilteredTaskList(Set<String> keywords);
-
-
+    
+    //@@author A0141019U
+    /** Returns the internal list of aliases stored in the alias manager */
+	List<Alias> getAliasList();
 }

@@ -22,6 +22,7 @@ import javafx.util.Pair;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.StringUtil;
+import seedu.address.logic.commands.AddAliasCommand;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
@@ -37,13 +38,22 @@ import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.model.task.Name;
 import seedu.address.logic.parser.ArgumentTokenizer.Prefix;
+import seedu.address.model.AliasManager;
+import seedu.address.model.Model;
+import seedu.address.model.ModelManager;
+import seedu.address.model.alias.Alias;
 
 
 public class Parser {
-	// @@author A0141019U	
+	// @@author A0141019U
+	private Model model;
+	
 	private static final Logger logger = LogsCenter.getLogger(Parser.class);
 	
 	private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
+	
+	private static final Pattern ADD_ALIAS_COMMAND_FORMAT = Pattern
+			.compile("\\s*'(?<alias>(\\s*\\S+)+)\\s*'\\s*=\\s*'(?<originalPhrase>(\\s*\\S+)+)\\s*'\\s*");
 
 	private static final Prefix namePrefix = new Prefix("'");
 	private static final Prefix startDateTimePrefix = new Prefix("from ");
@@ -58,9 +68,17 @@ public class Parser {
 //			Pattern.compile("(?<index>\\d+)(\\s+(?<dateTime1>(from|by|to\\b)\\s+([^'](?!(from | by | to\\b)))+))?(\\s+'(?<taskName>.+)')?(\\s+(?<dateTime2>(from|by|to\\b)\\s+[^']+))?"),
 //			Pattern.compile("(?<index>\\d+)(\\s+(?<dateTime1>(from|by|to\\b)\\s+[^']+?))?(\\s+(?<dateTime2>(from|by|to\\b)\\s+[^']+?))?(\\s+'(?<taskName>.+)')?");
  	
+	
+	public Parser(Model model) {
+		this.model = model;
+	}
+	
+	
 	//@@author A0141019U-reused
 	public Command parseCommand(String userInput) {
-		final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
+		 String replacedInput = replaceAliases(userInput);
+		
+		final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(replacedInput.trim());
 		if (!matcher.matches()) {
 			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
 		}
@@ -86,6 +104,9 @@ public class Parser {
 
 		case EditCommand.COMMAND_WORD:
 			return prepareEdit(arguments);
+		
+		case AddAliasCommand.COMMAND_WORD:
+			return prepareAddAlias(arguments);
 			
 		case ChangeStatusCommand.COMMAND_WORD_DONE:
 			return prepareChangeStatus(arguments, "done");
@@ -107,14 +128,39 @@ public class Parser {
 
 		case RedoCommand.COMMAND_WORD:
 			return new RedoCommand();
-
+			
 		default:
 			return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
 		}
 	}
+
+	// @@author A0141019U	
+	private String replaceAliases(String userInput) {
+		List<Alias> aliasList = this.model.getAliasList();
+		List<String> aliases = new ArrayList<>(); 
+		List<String> originals = new ArrayList<>(); 
+		
+		for (Alias aliasObj : aliasList) {
+			aliases.add(aliasObj.getAlias());
+			originals.add(aliasObj.getOriginalPhrase());
+		}
+		
+		for (int i=0; i<aliases.size(); i++) {
+			String alias = aliases.get(i);
+			System.out.println("alias: " + alias);
+			// Does not replace arguments in find command or within quotes			
+			if (userInput.contains(alias) && !userInput.matches(".*'.*(" + alias + ").*'.*") && !userInput.contains("find")) {
+				System.out.println("match");
+				userInput = userInput.replace(alias, originals.get(i));
+			}
+		}
+		
+		System.out.println("userInput: " + userInput);
+		
+		return userInput;
+	}
 	
 	
-	// @@author A0141019U
 	private Command prepareAdd(String arguments) {
 		if (StringUtil.countOccurrences('\'', arguments) != 2) {
 			// TODO better error msg?
@@ -416,6 +462,26 @@ public class Parser {
 
 		return new ChangeStatusCommand(doneIndices, newStatus);
 	}
+	
+	//@@author A0143756Y
+	/**
+     * Parses arguments in the context of the set alias task command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     */
+    private Command prepareAddAlias(String arguments) {
+        final Matcher matcher = ADD_ALIAS_COMMAND_FORMAT.matcher(arguments.trim());
+    	
+    	if(!matcher.matches()){	
+        	return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddAliasCommand.MESSAGE_USAGE));
+        }
+    	
+    	final String alias = matcher.group("alias").trim();
+    	final String originalPhrase = matcher.group("originalPhrase").trim();
+        
+        return new AddAliasCommand(alias, originalPhrase);
+    }
 
 	//@@author A0141019U
 	/**
@@ -447,8 +513,8 @@ public class Parser {
     }
 
 	public static void main(String[] args) {
-		Parser p = new Parser();
-		p.parseCommand("add from 5pm 'dd' to 6pm");
+		Parser p = new Parser(new ModelManager());
+//		p.parseCommand("add 'dd' by 5pm today");
+		p.replaceAliases("find k");
 	}
-	
 }
