@@ -45,6 +45,8 @@ public class DateTime {
     public LocalTime valueTime;
     public LocalDate valueDateEnd;
     public LocalTime valueTimeEnd;
+    public LocalDate completedValueDate = null;
+    public LocalTime completedValueTime = null;
 
     /**
      * Validates given date and time.
@@ -65,7 +67,7 @@ public class DateTime {
             this.valueDateEnd = null;
             this.valueTimeEnd = null;
             this.value = "";
-            this.valueFormatted = "Not specified";
+            this.valueFormatted = "Anytime";
             this.context = "";
             this.overdueContext = "";
             this.eventContext = "";
@@ -137,17 +139,14 @@ public class DateTime {
         }
     }
     
+    //@@author A0142290N    
     public void setCompletedDateTime() throws IllegalValueException{
-    	this.valueDate = LocalDate.now();
-    	this.valueTime = LocalTime.now();
-    	this.valueFormatted = "Completed on " + DateTimeParser.valueDateCompletedFormatter(valueDate) 
-    		+ " at " + DateTimeParser.valueTimeCompletedFormatter(valueTime);
-    	this.context = "";
-    	this.eventContext = "";
-    	this.overdueContext = "";
-    }
-    
-    //@@author A0142290
+    	this.completedValueDate = LocalDate.now();
+    	this.completedValueTime = LocalTime.now();
+    	this.valueFormatted = "Completed on " + DateTimeParser.valueDateCompletedFormatter(completedValueDate) 
+    		+ " at " + DateTimeParser.valueTimeCompletedFormatter(completedValueTime);
+    }  
+
     public String setContext(LocalDate valueDate, LocalTime valueTime) {
     	String context = ""; 
     	Boolean timeIsNow = valueTime != null && valueTime.getHour() == LocalTime.now().getHour() && valueTime.getMinute() == LocalTime.now().getMinute();
@@ -208,8 +207,12 @@ public class DateTime {
         	else if (monthsDue > 0 && yearsDue == 0)
         		periodDue = stringMonthsDue + " months and " + stringDaysDue + " days ";
             
-        	else if (monthsDue == 0 && yearsDue == 0)
-        		periodDue = valueDate.until(LocalDate.now()).getDays() + " days";
+        	else if (monthsDue == 0 && yearsDue == 0){
+        		if (daysDue == 1)
+        			periodDue = valueDate.until(LocalDate.now()).getDays() + " day";
+        		else
+        			periodDue = valueDate.until(LocalDate.now()).getDays() + " days";
+        	}
         	
         	else 
         		periodDue = "";
