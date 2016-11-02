@@ -86,23 +86,23 @@ public class UniqueTaskList implements Iterable<Task> {
     	Task updatedTask = toEdit;
     	Task oldTask = internalList.get(taskIndex);
     	
-    	if (updatedTask.getName().getFullName() == "a") {
+    	if (updatedTask.getName().getFullName() == "") {
     		updatedTask.setName(oldTask.getName());
     	}
     	
-    	if (updatedTask.getTaskDescription().getFullTaskDescription() == "a") {
+    	if (updatedTask.getTaskDescription().getFullTaskDescription() == "") {
     		updatedTask.setTaskDescription(oldTask.getTaskDescription());
     	}
     	
-    	if (updatedTask.getDate().getFullDate() == "       ") {
+    	if (updatedTask.getDate().getFullDate() == "") {
     		updatedTask.setDate(oldTask.getDate());
     	}
     	
-    	if (updatedTask.getStartTime().getFullTime() == "       ") {
+    	if (updatedTask.getStartTime().getFullTime() == "") {
     		updatedTask.setStartTime(oldTask.getStartTime());
     	}
     	
-    	if (updatedTask.getEndTime().getFullTime() == "       ") {
+    	if (updatedTask.getEndTime().getFullTime() == "") {
     		updatedTask.setEndTime(oldTask.getEndTime());
     	}
     	
