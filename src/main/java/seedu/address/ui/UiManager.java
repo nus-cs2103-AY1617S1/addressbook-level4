@@ -11,6 +11,7 @@ import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.Config;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.storage.DataSavingExceptionEvent;
+import seedu.address.commons.events.ui.DisplayAliasListEvent;
 import seedu.address.commons.events.ui.DisplayTaskListEvent;
 import seedu.address.commons.events.ui.JumpToListRequestEvent;
 import seedu.address.commons.events.ui.ShowHelpRequestEvent;
@@ -119,6 +120,12 @@ public class UiManager extends ComponentManager implements Ui {
     @Subscribe
     private void handleDisplayTaskListEvent(DisplayTaskListEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        newMainWindow.getTaskListPanel().load(newMainWindow.primaryStage, newMainWindow.getTaskListLeftPlaceholder(),event.list);
+		TaskListPanel.load(newMainWindow.primaryStage, newMainWindow.getTaskListLeftPlaceholder(),event.list);
+    }
+    
+    @Subscribe
+    private void handleDisplayAliasListEvent(DisplayAliasListEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+		TaskListPanel.load(newMainWindow.primaryStage, newMainWindow.getTaskListLeftPlaceholder(),event.list);
     }
 }
