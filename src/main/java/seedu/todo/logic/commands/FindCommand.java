@@ -68,8 +68,7 @@ public class FindCommand extends BaseCommand {
         model.find(filter, keywordList);
 
         int resultSize = model.getObservableList().size();
-        String feedback = String.format(TASK_FOUND_FORMAT, resultSize, English.plural("result", resultSize));
-
+        String feedback = String.format(TASK_FOUND_FORMAT, resultSize, English.plural("result", resultSize)) + "\n" + "Press [Enter] to dismiss";
         return new CommandResult(feedback);
     }
 }
