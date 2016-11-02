@@ -23,8 +23,15 @@ public class UndoCommandTest extends AddressBookGuiTest {
         assertUndoDeleteResult(index,currentList);
     }
     
-    
+    @Test
+    public void undo_doneCommand() {
+        TestActivity[] currentList = td.getTypicalPersons();
+        int index = 4;
+        assertUndoDoneResult(index,currentList);
+    }
 
+    
+    
     
     private void assertUndoAddResult(TestActivity activity,TestActivity... currentList){
         commandBox.runCommand(activity.getAddCommand());
@@ -39,6 +46,14 @@ public class UndoCommandTest extends AddressBookGuiTest {
         commandBox.runCommand("undo");
         TestActivity activityToDelete = currentList[index-1];
         assertResultMessage(String.format("Undo: Deleting task: %1$s",activityToDelete.getAsText()));
+        assertTrue(activityListPanel.isListMatching(currentList));
+    }
+    
+    private void assertUndoDoneResult(int index,TestActivity... currentList){
+        commandBox.runCommand("done " + index);
+        commandBox.runCommand("undo");
+        TestActivity activityToDone = currentList[index-1];
+        assertResultMessage(String.format("Undo: Marked task as Completed: %1$s",activityToDone.getAsText()));
         assertTrue(activityListPanel.isListMatching(currentList));
         
     }
