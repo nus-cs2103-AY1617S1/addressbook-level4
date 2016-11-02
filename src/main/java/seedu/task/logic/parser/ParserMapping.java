@@ -23,6 +23,7 @@ public class ParserMapping {
     private final HashMap<String, Commands> aliasMappings;
     
     public ParserMapping(HashMap<String, Commands> aliasMappings) {
+        populateMappings();
         this.aliasMappings = aliasMappings;
     }
        
@@ -60,7 +61,7 @@ public class ParserMapping {
         if(aliasMappings.containsKey(commandWord) && aliasMappings.get(commandWord) != null) {
             Commands command = aliasMappings.get(commandWord);
             return Optional.of(mappingTable.get(command));
-        }
+        } 
         
         if (CommandKeys.commandKeyMap.containsKey(commandWord) && CommandKeys.commandKeyMap.get(commandWord) != null) {
             Commands command = CommandKeys.commandKeyMap.get(commandWord);
