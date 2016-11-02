@@ -237,7 +237,7 @@ public class Parser {
 
         try {
             return new EditCommand(
-                    (matcher.group("index")),
+                    (matcher.group("index").toUpperCase()),
                     matcher.group("name"),
                     matcher.group("description"),
                     matcher.group("date"),
