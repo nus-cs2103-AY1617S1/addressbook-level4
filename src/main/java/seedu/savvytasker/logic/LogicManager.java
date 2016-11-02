@@ -9,8 +9,11 @@ import com.google.common.eventbus.Subscribe;
 import javafx.collections.ObservableList;
 import seedu.savvytasker.MainApp;
 import seedu.savvytasker.commons.core.ComponentManager;
+import seedu.savvytasker.commons.core.EventsCenter;
 import seedu.savvytasker.commons.core.LogsCenter;
 import seedu.savvytasker.commons.events.model.AliasSymbolChangedEvent;
+import seedu.savvytasker.commons.events.ui.ChangeListRequestEvent;
+import seedu.savvytasker.commons.events.ui.ChangeListRequestEvent.DisplayedList;
 import seedu.savvytasker.logic.commands.Command;
 import seedu.savvytasker.logic.commands.CommandResult;
 import seedu.savvytasker.logic.commands.ListCommand;
@@ -67,10 +70,7 @@ public class LogicManager extends ComponentManager implements Logic {
         
         if (!(command instanceof ListCommand)) {
             // forcefully show the task list instead
-            Ui uiManager = MainApp.getUiManager();
-            if (uiManager != null) {
-                uiManager.showTaskList(true);
-            }
+            EventsCenter.getInstance().post(new ChangeListRequestEvent(DisplayedList.Task));
         }
         
         //@@author A0097627N

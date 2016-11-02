@@ -77,4 +77,7 @@ public interface Model {
     
     /** Removes an the given AliasSymbol. */
     void removeAliasSymbol(AliasSymbol symbol) throws SymbolKeywordNotFoundException;
+    
+    /** Gets the number of aliases */
+    int getAliasSymbolCount();
 }

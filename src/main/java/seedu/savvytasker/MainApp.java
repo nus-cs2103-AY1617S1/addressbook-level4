@@ -69,14 +69,6 @@ public class MainApp extends Application {
 
         initEventsCenter();
     }
-    
-    public static Ui getUiManager() {
-        if (instance != null) {
-            return instance.ui;
-        } else {
-            return null;
-        }
-    }
 
     private String getApplicationParameter(String parameterName){
         Map<String, String> applicationParameters = getParameters().getNamed();

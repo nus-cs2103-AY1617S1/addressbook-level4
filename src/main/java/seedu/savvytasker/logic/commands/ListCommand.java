@@ -1,6 +1,8 @@
 package seedu.savvytasker.logic.commands;
 
-import seedu.savvytasker.MainApp;
+import seedu.savvytasker.commons.core.EventsCenter;
+import seedu.savvytasker.commons.events.ui.ChangeListRequestEvent;
+import seedu.savvytasker.commons.events.ui.ChangeListRequestEvent.DisplayedList;
 import seedu.savvytasker.model.ListType;
 
 /**
@@ -39,7 +41,6 @@ public class ListCommand extends ModelRequiringCommand {
         
         // shows the task list by default, unless user
         // specifies to show the alias
-        MainApp.getUiManager().showTaskList(true);
         switch (_listType)
         {
         case DueDate:
@@ -52,13 +53,18 @@ public class ListCommand extends ModelRequiringCommand {
             model.updateFilteredListToShowArchived();
             break;
         case Alias:
-            MainApp.getUiManager().showTaskList(false);
+            EventsCenter.getInstance().post(new ChangeListRequestEvent(DisplayedList.Alias));
             break;
         default:
             // nothing to do
             break;
         }
-        return new CommandResult(getMessageForTaskListShownSummary(model.getFilteredTaskList().size()));
+        if (_listType != ListType.Alias) {
+            EventsCenter.getInstance().post(new ChangeListRequestEvent(DisplayedList.Task));
+            return new CommandResult(getMessageForTaskListShownSummary(model.getFilteredTaskList().size()));
+        } else {
+            return new CommandResult(getMessageForAliasListShownSummary(model.getAliasSymbolCount()));
+        }
     }
     //@@author
     

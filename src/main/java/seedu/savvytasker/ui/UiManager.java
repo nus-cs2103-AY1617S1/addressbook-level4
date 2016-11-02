@@ -14,6 +14,8 @@ import seedu.savvytasker.commons.core.ComponentManager;
 import seedu.savvytasker.commons.core.Config;
 import seedu.savvytasker.commons.core.LogsCenter;
 import seedu.savvytasker.commons.events.storage.DataSavingExceptionEvent;
+import seedu.savvytasker.commons.events.ui.ChangeListRequestEvent;
+import seedu.savvytasker.commons.events.ui.ChangeListRequestEvent.DisplayedList;
 import seedu.savvytasker.commons.events.ui.JumpToListRequestEvent;
 import seedu.savvytasker.commons.events.ui.ShowHelpRequestEvent;
 import seedu.savvytasker.commons.events.ui.TaskPanelSelectionChangedEvent;
@@ -65,11 +67,6 @@ public class UiManager extends ComponentManager implements Ui {
         mainWindow.hide();
         mainWindow.releaseResources();
     }
-    
-    @Override
-    public void showTaskList(boolean isShown) {
-        mainWindow.showTaskList(isShown);
-    }
 
     private void showFileOperationAlertAndWait(String description, String details, Throwable cause) {
         final String content = details + ":\n" + cause.toString();
@@ -115,6 +112,16 @@ public class UiManager extends ComponentManager implements Ui {
     private void handleShowHelpEvent(ShowHelpRequestEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         mainWindow.handleHelp();
+    }
+
+    @Subscribe
+    private void handleChangeListRequestEvent(ChangeListRequestEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        if (event.displayedList == DisplayedList.Task) {
+            mainWindow.showTaskList(true);
+        } else {
+            mainWindow.showTaskList(false);
+        }
     }
 
     @Subscribe
