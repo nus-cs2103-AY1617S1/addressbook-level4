@@ -84,7 +84,7 @@ public class Parser {
             return prepareUnmark(arguments);
             
         case ClearCommand.COMMAND_WORD:
-            return new ClearCommand();
+            return prepareClear(arguments);
             
         case ListAllCommand.COMMAND_WORD:
             return new ListAllCommand();
@@ -115,13 +115,28 @@ public class Parser {
         }
     }
 
+    //@@author a0126633j
+    /**
+     * Parses arguments in the context of the clear command. Also checks validity of arguments
+     */
+    private Command prepareClear(String arguments) {
+        if (!Arrays.asList(ClearCommand.VALID_ARGUMENTS).contains(arguments.trim().toLowerCase())) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ClearCommand.MESSAGE_USAGE));
+        }
+        return new ClearCommand(arguments.trim().toLowerCase());
+    }
+    
+    /**
+     * Parses arguments in the context of the save command. Also ensure the argument is not empty
+     */
     private Command prepareSave(String arguments) {
         if (arguments.trim().isEmpty()) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SaveCommand.MESSAGE_USAGE));
         }
-        return new SaveCommand(arguments);
+        return new SaveCommand(arguments.trim());
     }
-
+    //@@author
+    
     /**
      * Parses arguments in the context of the add task command.
      *

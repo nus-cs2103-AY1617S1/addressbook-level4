@@ -13,7 +13,9 @@ import seedu.malitio.model.task.UniqueEventList.*;
 import seedu.malitio.model.task.UniqueFloatingTaskList.*;
 import seedu.malitio.model.history.*;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 import java.util.Stack;
 import java.util.logging.Logger;
@@ -186,9 +188,78 @@ public class ModelManager extends ComponentManager implements Model {
         logger.info("Data storage file path changed, updating..");
         indicateMalitioChanged();
     }
+    
+    @Override
+    public void clearExpiredTasks() {
+        
+        history.add(new InputClearHistory(malitio.getUniqueFloatingTaskList(), 
+                malitio.getUniqueDeadlineList(), 
+                malitio.getUniqueEventList(), 
+                malitio.getUniqueTagList()));
+        
+        clearExpiredFloatingTasks(malitio.getFloatingTaskList());
+        clearExpiredDeadlines(malitio.getDeadlineList());
+        clearExpiredEvents(malitio.getEventList());
 
+        indicateMalitioChanged();        
+    }   
+    
+    private void clearExpiredFloatingTasks(List<ReadOnlyFloatingTask> list) {
+        List<ReadOnlyFloatingTask> toBeRemoved = new ArrayList<ReadOnlyFloatingTask>();
+    
+        for (ReadOnlyFloatingTask task : list) {
+            if (task.getCompleted()) {
+             toBeRemoved.add(task);
+            }
+        }
+        for (ReadOnlyFloatingTask task : toBeRemoved) {
+            try {
+                malitio.removeTask(task);
+            } catch (FloatingTaskNotFoundException | DeadlineNotFoundException | EventNotFoundException e) {
+                assert(false); //impossible
+            }
+        } 
+    }
+    private void clearExpiredDeadlines(List<ReadOnlyDeadline> list) {
+        List<ReadOnlyDeadline> toBeRemoved = new ArrayList<ReadOnlyDeadline>();
+        
+        for (ReadOnlyDeadline task : list) {
+            if (task.getCompleted()) {
+             toBeRemoved.add(task);
+            }
+        }
+        for (ReadOnlyDeadline task : toBeRemoved) {
+            try {
+                malitio.removeTask(task);
+            } catch (FloatingTaskNotFoundException | DeadlineNotFoundException | EventNotFoundException e) {
+                assert(false); //impossible
+            }
+        }  
+    }
+
+    private void clearExpiredEvents(List<ReadOnlyEvent> list) {
+        Date current = new Date();
+        List<ReadOnlyEvent> toBeRemoved = new ArrayList<ReadOnlyEvent>();
+
+        for (ReadOnlyEvent task : list) {
+            if (current.after(task.getEnd().getDate())) {
+                toBeRemoved.add(task);
+            }
+        }  
+        
+        for (ReadOnlyEvent task : toBeRemoved) {
+            try {
+                malitio.removeTask(task);
+            } catch (FloatingTaskNotFoundException | DeadlineNotFoundException | EventNotFoundException e) {
+                assert(false); //impossible
+            }
+        }    
+    }
+    
     //@@author
     //=========== Filtered Task List Accessors ===============================================================
+
+
 
     @Override
     public UnmodifiableObservableList<ReadOnlyFloatingTask> getFilteredFloatingTaskList() {
@@ -392,4 +463,5 @@ public class ModelManager extends ComponentManager implements Model {
             return timeKeyWord.toString();
         }
     }
+
 }
