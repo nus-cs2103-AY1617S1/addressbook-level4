@@ -10,7 +10,6 @@ import javafx.stage.Stage;
 import seedu.Tdoo.TestApp;
 import seedu.Tdoo.commons.core.LogsCenter;
 import seedu.Tdoo.model.task.ReadOnlyTask;
-import seedu.Tdoo.model.task.Task;
 import seedu.Tdoo.model.task.Todo;
 import seedu.Tdoo.testutil.TestUtil;
 

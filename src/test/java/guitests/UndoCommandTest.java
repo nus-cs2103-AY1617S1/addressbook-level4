@@ -9,8 +9,6 @@ import seedu.Tdoo.testutil.TaskBuilder;
 import seedu.Tdoo.testutil.TestDeadline;
 import seedu.Tdoo.testutil.TestEvent;
 import seedu.Tdoo.testutil.TestTask;
-import seedu.Tdoo.testutil.TestUtil;
-
 import static org.junit.Assert.assertTrue;
 
 //@@author A0144061U
