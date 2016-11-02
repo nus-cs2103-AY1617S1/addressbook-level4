@@ -14,7 +14,7 @@ public class TypicalTestTasks {
                                    manualFloatingTask1, manualFloatingTask2, editedFloatingTask1, editedFloatingTask2, editedFloatingTask3;
     public static TestDeadline deadline1, deadline2, deadline3, deadline4, deadline5, manualDeadline1, 
                                    manualDeadline2, editedDeadline1, editedDeadline2, editedDeadline3, editedDeadline4;
-    public static TestEvent event1, event2, event3, event4, event5, event6, manualEvent1, manualEvent2,
+    public static TestEvent event1, event2, event3, event4, event5, event6, manualEvent1, manualEvent2, manualEvent3,
                                     editedEvent1, editedEvent2, editedEvent3, editedEvent4, editedEvent5;
     
     public TypicalTestTasks() {
@@ -43,7 +43,8 @@ public class TypicalTestTasks {
             manualDeadline2 = new DeadlineBuilder().withName("Get watch fixed").dueOn("10-21 2359").build();
             manualEvent1 = new EventBuilder().withName("Boring Lecture").start("11-17 1100").end("11-17 1200").build();
             manualEvent2 = new EventBuilder().withName("Scary Interview").start("12-18 1300").end("12-18 1400").build();
-            
+            manualEvent3 = new EventBuilder().withName("Bungee Jumping").start("yesterday 1000").end("yesterday 1200").build();
+                    
             //Editted Versions of Tasks
             editedFloatingTask1 = new FloatingTaskBuilder().withName("how are you").withTags("careful").build();
             editedFloatingTask2 = new FloatingTaskBuilder().withName("Bring along notes").withTags("omg").build();

@@ -32,9 +32,9 @@ public class SaveCommand extends Command {
 
     public static final String MESSAGE_SAVE_SUCCESSFUL = "Malitio data will be saved in %s from now onwards.";
     
-    public static final String MESSAGE_INVALID_DIRECTORY = "The directory is invalid!\nExample: ";
+    public static final String MESSAGE_INVALID_DIRECTORY = "The directory is invalid! Valid file paths must end with '/' and cannot contain '\'\nExample: ";
     
-    public static final char FILE_PATH_IDENTIFIER = '/';
+    public static final String FILE_PATH_IDENTIFIER = "/";
     
     private final String dataFilePath;
     
@@ -43,8 +43,8 @@ public class SaveCommand extends Command {
      * 
      */
     public SaveCommand(String dataFilePath) {
-        if(dataFilePath.charAt(dataFilePath.length() - 1) == FILE_PATH_IDENTIFIER) {
-            this.dataFilePath = StringUtil.removeSlashesAtBeginningOfString(dataFilePath.trim()) + Config.DEFAULT_FILE_NAME;
+        if(dataFilePath.endsWith(FILE_PATH_IDENTIFIER)) {
+            this.dataFilePath = StringUtil.removeSlashesAtBeginningOfString(dataFilePath) + Config.DEFAULT_FILE_NAME;
         } else {
             this.dataFilePath = null;
         }
@@ -64,7 +64,7 @@ public class SaveCommand extends Command {
     }
     
     /**
-     * Checks if the input by user is a valid file path
+     * Checks if the input by user is a valid file path. Valid file paths must end with '/' and cannot contain '\'
      */
     private boolean isValidFilePath() {
         if(dataFilePath == null || dataFilePath.contains("\\")) {
