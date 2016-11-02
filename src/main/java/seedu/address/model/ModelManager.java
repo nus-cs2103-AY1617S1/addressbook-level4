@@ -135,7 +135,7 @@ public class ModelManager extends ComponentManager implements Model {
     public synchronized void addAlias(Alias aliasToAdd) {
     	assert aliasToAdd != null;
     	
-    	aliasBook.addAlias(aliasToAdd);
+    	aliasManager.addAlias(aliasToAdd);
     	
     }
     
