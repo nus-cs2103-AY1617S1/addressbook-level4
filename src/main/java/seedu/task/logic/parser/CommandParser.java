@@ -98,7 +98,7 @@ public class CommandParser {
         case UndoCommand.COMMAND_WORD:
             return prepareUndo(arguments);
             
-        //@@author A0147944U-reused
+        //@@author A0147944U
         case DirectoryCommand.COMMAND_WORD:
             return prepareDirectory(arguments);
             
@@ -110,6 +110,9 @@ public class CommandParser {
             
         case BackupCommand.COMMAND_WORD_ALT:
             return prepareBackup(arguments);
+            
+        case SortCommand.COMMAND_WORD:
+            return prepareSort(arguments);
         //@@author
             
         case DoneCommand.COMMAND_WORD:
@@ -692,6 +695,26 @@ public class CommandParser {
         final String[] keywords = matcher.group("keywords").split("\\s+");
         final Set<String> keywordSet = new HashSet<>(Arrays.asList(keywords));
         return new FindCommand(keywordSet);
+    }
+    
+    /**
+     * Parses arguments in the context of the sort tasks command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     */
+    private Command prepareSort(String args) {
+        if (args.equals("")) {
+            return new SortCommand("name_by_default");
+        } else {
+            final Matcher matcher = KEYWORDS_ARGS_FORMAT.matcher(args.trim());
+            if (!matcher.matches()) {
+                return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                        SortCommand.MESSAGE_USAGE));
+            }
+            final String keyword = matcher.group("keywords");
+            return new SortCommand(keyword);
+        }
     }
     
     /**
