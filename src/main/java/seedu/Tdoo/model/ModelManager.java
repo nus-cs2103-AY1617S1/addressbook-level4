@@ -51,7 +51,7 @@ public class ModelManager extends ComponentManager implements Model {
         filteredEvents = new FilteredList<>(eventList.getTasks());
         filteredDeadlines = new FilteredList<>(deadlineList.getTasks());
         
-        undoer = new Undoer(this);
+        undoer = Undoer.getInstance(this);
     }
 
     public ModelManager() {
@@ -67,7 +67,7 @@ public class ModelManager extends ComponentManager implements Model {
         filteredEvents = new FilteredList<>(eventList.getTasks());
         filteredDeadlines = new FilteredList<>(deadlineList.getTasks());
 
-        undoer = new Undoer(this);
+        undoer = Undoer.getInstance(this);
     }
 
     @Override
@@ -103,6 +103,25 @@ public class ModelManager extends ComponentManager implements Model {
     } 
     @Override
     public void resetDeadlineListData() {
+    	undoer.prepareUndoClear("deadline");
+        deadlineList.resetData();
+        indicateDeadlineListChanged();
+    }
+    
+    @Override
+    public void removeDoneTodoData() {
+        undoer.prepareUndoClear("todo");
+        todoList.resetData();
+        indicateTodoListChanged();
+    } 
+    @Override
+    public void removeDoneEventData() {
+    	undoer.prepareUndoClear("event");
+        eventList.resetData();
+        indicateEventListChanged();
+    } 
+    @Override
+    public void removeDoneDeadlineData() {
     	undoer.prepareUndoClear("deadline");
         deadlineList.resetData();
         indicateDeadlineListChanged();
@@ -287,7 +306,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
     
     @Override
-    public synchronized void undoLatestCommand() throws EmptyStackException {
+    public synchronized void undoLatestCommand() {
     	undoer.executeUndo();
     }
 
