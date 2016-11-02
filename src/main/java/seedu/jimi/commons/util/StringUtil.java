@@ -118,7 +118,7 @@ public class StringUtil {
             if (map.containsKey(c)) {
                 map.put(c, map.get(c) + 1); // Increasing frequency count.
             } else {
-                map.put(c, 1); // First occurrence of  character.
+                map.put(c, 1); // First occurrence of character.
             }
         }
         return map;
