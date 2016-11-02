@@ -23,8 +23,7 @@ public class ShowCommandTest extends AddressBookGuiTest {
     @Test
     public void show_invalidDay() {
         commandBox.runCommand("show floatingtasks");
-        assertResultMessage(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                ShowCommand.MESSAGE_INVALID_SECTION));
+        assertResultMessage(String.format(ShowCommand.MESSAGE_INVALID_SECTION));
     }
 
     private void assertShowResult(String command) {
