@@ -15,7 +15,7 @@ import seedu.address.model.task.Status;
 //@@author A0139339W
 public class ChangeStatusCommandTest extends TaskManagerGuiTest {
 	
-	TestTask[] currentList = td.getSortedTypicalTasks();
+	TestTask[] currentList = td.getTypicalTasks();
 	
 	@Test
 	public void done() {

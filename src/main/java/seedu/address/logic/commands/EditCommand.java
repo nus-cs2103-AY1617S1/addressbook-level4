@@ -25,8 +25,14 @@ public class EditCommand extends Command {
             + "Example: " + COMMAND_WORD + " 1 'chill for the day'";
  
     public static final String MESSAGE_EDIT_TASK_SUCCESS = "Edited Task: %1$s";
-    public static final String MESSAGE_DUPLICATE_TASK = "Edit will result in duplicate tasks in task manager";
-
+    public static final String MESSAGE_DUPLICATE_TASK = "Edit will result in duplicate tasks in task manager";   
+    
+    //@@author A0143756Y
+    public static final String MESSAGE_START_DATE_TIME_AFTER_END_DATE_TIME = 
+    		"Start of event is scheduled after end of event. Please re-enter correct start and end dates/times.\n";
+    public static final String MESSAGE_START_DATE_TIME_EQUALS_END_DATE_TIME =
+    		"Start of event equals end of event. Please re-enter correct start and end dates/times.\n";
+    //@@author A0139339W
 
     public final int targetIndex;
     private final Optional<Name> newName;
@@ -71,7 +77,31 @@ public class EditCommand extends Command {
             if(newName.isPresent()) {
         	    postEdit.setName(newName.get());
             }
-        	
+            
+            if(newStartDateTime.isPresent() && !newEndDateTime.isPresent()){
+            	LocalDateTime startDateTime = newStartDateTime.get();
+            	
+            	if(taskToEdit.getEndDate().isPresent()){
+            		LocalDateTime endDateTime = taskToEdit.getEndDate().get();
+            		
+                	if(startDateTime.isAfter(endDateTime)){
+                    	return new CommandResult(MESSAGE_START_DATE_TIME_AFTER_END_DATE_TIME);
+                	}  
+            	}
+            }
+            
+            if(!newStartDateTime.isPresent() && newEndDateTime.isPresent()){
+            	LocalDateTime endDateTime = newEndDateTime.get();
+            	
+            	if(taskToEdit.getStartDate().isPresent()){
+            		LocalDateTime startDateTime = taskToEdit.getStartDate().get();
+            		
+                	if(!endDateTime.isAfter(startDateTime)){
+                		return new CommandResult(MESSAGE_START_DATE_TIME_AFTER_END_DATE_TIME);
+                	}      
+            	}
+            }     
+            
             if(newStartDateTime.isPresent()) {
                 postEdit.setStartDate(newStartDateTime.get());
             }
