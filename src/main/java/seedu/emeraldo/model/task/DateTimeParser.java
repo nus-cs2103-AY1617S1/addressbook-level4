@@ -75,6 +75,20 @@ public class DateTimeParser {
             + "(?<minuteEnd>([0-5][0-9])?)"
             + "(?<timeEndPostFix>(([a]|[p])[m])?)"
             );
+    
+    public static final Pattern COMPLETED_DATE_TIME_REGEX = Pattern.compile(
+    		"Completed on "
+    	    + "(?<day>(0?[1-9]|[12][0-9]|3[01]))"
+            + "( )"
+            + "(?<monthInWords>([\\p{Alpha}]{3}))"
+            + "( )"
+            + "(?<year>([0-9][0-9][0-9][0-9]))"
+    		+ "( at )"
+            + "(?<hour>([1][0-2]|0?[0-9]))"
+            + "(?:(:|\\.))"
+            + "(?<minute>([0-5][0-9]))"
+            + "(?<timePostFix>(([a]|[p])[m]))"
+    		);
 
 	private static final String MESSAGE_INVALID_MONTH_IN_WORDS = "Invalid month! Check your spelling";
 
@@ -233,6 +247,25 @@ public class DateTimeParser {
         }
     }
     
+    public static LocalDate valueDateCompletedFormatter(Matcher matcher) throws IllegalValueException{
+        String day = matcher.group("day");
+        String month = matcher.group("monthInWords");
+        String year = matcher.group("year");
+        month = convertMonthFromWordsToNumbers(month);
+
+    	return LocalDate.of(Integer.parseInt(year), Integer.parseInt(month), Integer.parseInt(day));
+    }
+    
+    public static LocalTime valueTimeCompletedFormatter(Matcher matcher) throws IllegalValueException{
+        String hour = matcher.group("hour");
+        String minute = matcher.group("minute");
+        String timePostFix = matcher.group("timePostFix");
+        
+        int hourParsed = convert12HoursFormatTo24HoursFormat(Integer.parseInt(hour),timePostFix);
+        
+        return LocalTime.of(hourParsed, Integer.parseInt(minute));
+    }
+    
     //@@author A0142290N
     public static String valueDateCompletedFormatter(LocalDate date) throws IllegalValueException{
     	String day = Integer.toString(date.getDayOfMonth());
@@ -240,7 +273,6 @@ public class DateTimeParser {
     	String year = Integer.toString(date.getYear());
     	
     	return day + " " + month + " " + year;
-    	
     }
     
     

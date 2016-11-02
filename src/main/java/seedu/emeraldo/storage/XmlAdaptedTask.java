@@ -18,7 +18,10 @@ public class XmlAdaptedTask {
     private String description;
     @XmlElement(required = true)
     private String dateTime;
-
+    
+    //@@author A0139749L
+    @XmlElement
+    private String completedDateTime = "";
     @XmlElement
     private List<XmlAdaptedTag> tagged = new ArrayList<>();
 
@@ -36,6 +39,7 @@ public class XmlAdaptedTask {
     public XmlAdaptedTask(ReadOnlyTask source) {
         description = source.getDescription().fullDescription;
         dateTime = source.getDateTime().value.toString();
+        //completedDateTime = source.getDateTime().completedDateTime_ToString();
         tagged = new ArrayList<>();
         for (Tag tag : source.getTags()) {
             tagged.add(new XmlAdaptedTag(tag));
@@ -54,6 +58,7 @@ public class XmlAdaptedTask {
         }
         final Description description = new Description(this.description);
         final DateTime dateTime = new DateTime(this.dateTime);
+        //dateTime.setCompletedDateTime(this.completedDateTime);
         final UniqueTagList tags = new UniqueTagList(taskTags);
         return new Task(description, dateTime, tags);
     }

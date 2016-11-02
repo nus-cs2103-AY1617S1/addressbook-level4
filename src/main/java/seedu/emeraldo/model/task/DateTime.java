@@ -158,6 +158,34 @@ public class DateTime {
     		return true;
     }
     
+    /*
+     * Converts completedDateTime from a String into LocalDate and LocalTime
+     */
+    public void setCompletedDateTime(String completedDateTime) throws IllegalValueException{
+    	if(completedDateTime.isEmpty()){
+        	this.completedValueDate = null;
+        	this.completedValueTime = null;
+    	}else{
+    		final Matcher matcher = DateTimeParser.COMPLETED_DATE_TIME_REGEX.matcher(completedDateTime);
+    		if(!matcher.matches())
+    			throw new IllegalValueException("Error in format of completedDateTime stored in Xml");
+    		this.completedValueDate = DateTimeParser.valueDateCompletedFormatter(matcher);
+    		this.completedValueTime = DateTimeParser.valueTimeCompletedFormatter(matcher);
+    		this.valueFormatted = completedDateTime;
+System.out.println(valueFormatted);	//TODO
+    	}
+    }
+    
+    /*
+     * Used by XmlAdaptedTask to set its String completedDateTime 
+     */
+    public String completedDateTime_ToString(){
+    	if(completedValueDate == null)
+    		return "";
+    	else
+    		return this.toString();
+    }
+    
     //@@author A0142290N    
     public void setCompletedDateTime() throws IllegalValueException{
     	this.completedValueDate = LocalDate.now();
