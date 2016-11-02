@@ -53,11 +53,12 @@ public class DateTimeUtil {
         if (endDateTime == null) {
             return false;
         } else {
-            LocalDateTime today = LocalDateTime.now();
+            LocalDateTime today =
+                    LocalDateTime.now().withHour(0).withMinute(0).withSecond(0);
             LocalDateTime startThisWeek =
                     today.with(TemporalAdjusters.previous(DayOfWeek.SUNDAY));
             LocalDateTime endThisWeek =
-                    today.with(TemporalAdjusters.next(DayOfWeek.SUNDAY));
+                    today.with(TemporalAdjusters.next(DayOfWeek.MONDAY));
             return endDateTime.isAfter(startThisWeek)
                     && endDateTime.isBefore(endThisWeek);
         }
