@@ -167,35 +167,25 @@ public class Parser {
 			
 			//@@author A0139932X
 			//to validate start date is before due date
+			
 			Date dueDate, startDate;
 			if (!isInputPresent(argsTokenizer.getValue(startDatePrefix)).equals("Not Set")
 			        && (!isInputPresent(argsTokenizer.getValue(dueDatePrefix)).equals("Not Set"))){
 			    
-			    if (!DueDate.isValidDateTime(argsTokenizer.getValue(dueDatePrefix)) 
-			            && !DueDate.isValidDate(argsTokenizer.getValue(dueDatePrefix))) {
-			        throw new IllegalValueException(DueDate.MESSAGE_DATE_CONSTRAINTS);
-			    }
-			    else {
-		            if (!DueDate.isValidDateTime(argsTokenizer.getValue(dueDatePrefix))) {
-		                dueDate = DATE_FORMAT.parse(argsTokenizer.getValue(dueDatePrefix) + " 23:59");
-		            }
-		            else {
-		                dueDate = DATE_FORMAT.parse(argsTokenizer.getValue(dueDatePrefix));
-		            }
-		        }
-			    
-			    if (!StartDate.isValidDateTime(argsTokenizer.getValue(startDatePrefix)) 
-                        && !StartDate.isValidDate(argsTokenizer.getValue(startDatePrefix))) {
+			    //validate start date format
+			    if (!checkDateFormate(argsTokenizer.getValue(startDatePrefix))) {
                     throw new IllegalValueException(StartDate.MESSAGE_DATE_CONSTRAINTS);
                 }
                 else {
-                    if (!StartDate.isValidDateTime(argsTokenizer.getValue(startDatePrefix))) {
-                        startDate = DATE_FORMAT.parse(argsTokenizer.getValue(startDatePrefix) + " 08:00");
-                    }
-                    else {
-                        startDate = DATE_FORMAT.parse(argsTokenizer.getValue(startDatePrefix));
-                    }
+                    startDate = parseStartDate(argsTokenizer.getValue(startDatePrefix));
                 }
+			    //validate due date format
+			    if (!checkDateFormate(argsTokenizer.getValue(dueDatePrefix))) {
+			        throw new IllegalValueException(DueDate.MESSAGE_DATE_CONSTRAINTS);
+			    }
+			    else {
+			        dueDate = parseDueDate(argsTokenizer.getValue(dueDatePrefix));
+		        }
 			    
 			    if (startDate.compareTo(dueDate) > 0) {
 			        return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_INVALID_DATE));
@@ -221,6 +211,42 @@ public class Parser {
 			return new IncorrectCommand(nvfrt.getMessage());
 		}
     }
+    //@@author A0139932X
+    public boolean checkDateFormate(String dateToValidate) {
+        if (!DueDate.isValidDateTime(dateToValidate) && !DueDate.isValidDate(dateToValidate)) {
+            return false;
+        }
+        return true;
+    }
+    
+    public Date parseDueDate(String dateToValidate) throws ParseException {
+        Date date;
+        
+        if (DueDate.isValidDate(dateToValidate)) {
+            date = DATE_FORMAT.parse(dateToValidate + " 23:59");
+        }
+        else {
+            date = DATE_FORMAT.parse(dateToValidate);
+        }
+          
+        return date;
+    }
+    
+    public Date parseStartDate(String dateToValidate) throws ParseException {
+        Date date;
+        
+        if (StartDate.isValidDate(dateToValidate)) {
+            date = DATE_FORMAT.parse(dateToValidate + " 08:00");
+        }
+        else {
+            date = DATE_FORMAT.parse(dateToValidate);
+        }
+          
+        return date;
+    }
+    //@@author
+    
+        
     /**
      * Check if the input is present, hence having the attribute of task optional
      * @param input of task's attribute
