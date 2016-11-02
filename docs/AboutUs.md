@@ -25,7 +25,7 @@ Components in charge of: UI
 	* Undo and Redo<br>
 	* List
 
-Code written: [[functional code](collated/main/A0147890U.md)][[docs](collated/docs/A0147890U.md)]
+Code written: [[functional code](A0147890U.md)][[docs](A0147890U.md)]
 
 * Other major contributions:<br>
 	* Implemented the initial edit task command
@@ -41,7 +41,7 @@ Components in charge of: Logic
 * Features Implemented:<br>
 	* Add task commands
 
-Code written: [[functional code](collated/main/A0138993L.md)][[test](collated/test/A0138993L.md)][[docs](A0138993L.md)]
+Code written: [[functional code](A0138993L.md)][[test](A0138993L.md)][[docs](A0138993L.md)]
 
 * Other major contributions:<br>
 	* Implemented DateTime support
@@ -60,7 +60,7 @@ Components in charge of: Model
 	* Delete task
 	* Edit task
 	
-Code written: [[functional code](collated/main/A0139430L JingRui.md)][[test](collated/test/A0139430L JingRui.md)][[docs](collated/A0139430L JingRui.md)]
+Code written: [[functional code](A0139430L JingRui.md)][[test](A0139430L JingRui.md)][[docs](A0139430L JingRui.md)]
 
 * Other major contributions:<br>
 	* Wrote test cases
@@ -75,7 +75,7 @@ Components in charge of: Storage
 * Features Implemented:<br>
 	* Done command
 	
-Code written [[functional code](collated/main/A0135722L Zhiyuan.md)]
+Code written [[functional code](A0135722L Zhiyuan.md)]
 	
 	
 -----
