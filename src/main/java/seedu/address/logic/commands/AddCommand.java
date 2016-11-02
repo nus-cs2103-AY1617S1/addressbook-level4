@@ -127,8 +127,7 @@ public class AddCommand extends Command {
             return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
         } catch (UniqueTaskList.DuplicateTaskException e) {
         	// If adding was unsuccessful, then the state should not be saved - no change was made.
-        	// TODO avoid undo pushing state into redo stack
-        	model.loadPreviousState();
+        	model.undoSaveState();
             return new CommandResult(MESSAGE_DUPLICATE_TASK);
         }
 
