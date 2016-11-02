@@ -149,10 +149,10 @@ public class DateTime {
     		LocalDate endDate, LocalTime endTime){
     	
     	//Condition returns true if startDate > endDate
-    	if(startDate.compareTo(endDate) > 0)	
+    	if(startDate.isAfter(endDate))	
     		return false;
     	//Condition returns true if startDate == endDate and startTime >= endTime
-    	else if(startDate.compareTo(endDate) == 0 && startTime.compareTo(endTime) >= 0) 
+    	else if(startDate.isEqual(endDate) && (startTime.equals(endTime) || startTime.isAfter(endTime))) 
     		return false;
     	else
     		return true;
