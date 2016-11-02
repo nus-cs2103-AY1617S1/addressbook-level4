@@ -8,6 +8,7 @@ import seedu.unburden.model.task.ReadOnlyTask;
 import seedu.unburden.model.task.Task;
 import seedu.unburden.model.task.UniqueTaskList;
 
+import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -20,6 +21,18 @@ public class ListOfTask implements ReadOnlyListOfTask {
 
     private final UniqueTaskList tasks;
     private final UniqueTagList tags;
+    
+    public static int todayCounter;
+    public static int tomorrowCounter;
+    public static int nextWeekCounter;
+    public static int doneCounter;
+    public static int undoneCounter;
+    
+    private Calendar calendar = Calendar.getInstance();
+    private Calendar calendar_tmr = Calendar.getInstance();
+    private Calendar calendar_nextWeek = Calendar.getInstance();
+    
+    private static final SimpleDateFormat DATEFORMATTER = new SimpleDateFormat("dd-MM-yyyy");
 
     {
         tasks = new UniqueTaskList();
