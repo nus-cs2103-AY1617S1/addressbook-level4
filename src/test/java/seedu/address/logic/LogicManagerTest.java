@@ -329,26 +329,6 @@ public class LogicManagerTest {
 				expectedManager.getTaskList());
 	}
 	
-	@Test
-	public void execute_undo_find_successful() throws Exception {
-		// setup expectations
-		TestDataHelper helper = new TestDataHelper();
-		TaskManager expectedManager = new TaskManager();
-		
-		//Add task to manager
-		Task task = helper.homework();
-		String commadForAdd = helper.generateAddCommand(task);
-		logic.execute(commadForAdd);
-		expectedManager.addTask(task);
-		
-		//Change task
-		String commadForFind = "find Homework";
-        logic.execute(commadForFind);
-        
-		// execute undo command and verify result
-		assertCommandBehavior(helper.generateUndoCommand(), FindCommand.MESSAGE_SUCCESS_UNDO, expectedManager,
-				expectedManager.getTaskList());
-	}
     //@@author
 	
     /**
