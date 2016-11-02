@@ -362,25 +362,6 @@ public class LogicManagerTest {
     }
 
     @Test
-    public void execute_find_onlyMatchesFullWordsInNames() throws Exception {
-        TestDataHelper helper = new TestDataHelper();
-        Item pTarget1 = helper.generateItemWithName("bla bla KEY bla");
-        Item pTarget2 = helper.generateItemWithName("bla KEY bla bceofeia");
-        Item p1 = helper.generateItemWithName("KE Y");
-        Item p2 = helper.generateItemWithName("KEYKEYKEY sduauo");
-
-        List<Item> fourItems = helper.generateItemList(p1, pTarget1, p2, pTarget2);
-        TaskManager expectedAB = helper.generateTaskManager(fourItems);
-        List<Item> expectedList = helper.generateItemList(pTarget1, pTarget2);
-        helper.addToModel(model, fourItems);
-
-        assertCommandBehavior("find KEY",
-                Command.getMessageForItemListShownSummary(expectedList.size()),
-                expectedAB,
-                expectedList);
-    }
-
-    @Test
     public void execute_find_isNotCaseSensitive() throws Exception {
         TestDataHelper helper = new TestDataHelper();
         Item p1 = helper.generateItemWithName("bla bla KEY bla");
@@ -394,25 +375,6 @@ public class LogicManagerTest {
         helper.addToModel(model, fourItems);
 
         assertCommandBehavior("find KEY",
-                Command.getMessageForItemListShownSummary(expectedList.size()),
-                expectedAB,
-                expectedList);
-    }
-
-    @Test
-    public void execute_find_matchesIfAnyKeywordPresent() throws Exception {
-        TestDataHelper helper = new TestDataHelper();
-        Item pTarget1 = helper.generateItemWithName("bla bla KEY bla");
-        Item pTarget2 = helper.generateItemWithName("bla rAnDoM bla bceofeia");
-        Item pTarget3 = helper.generateItemWithName("key key");
-        Item p1 = helper.generateItemWithName("sduauo");
-
-        List<Item> fourItems = helper.generateItemList(pTarget1, p1, pTarget2, pTarget3);
-        TaskManager expectedAB = helper.generateTaskManager(fourItems);
-        List<Item> expectedList = helper.generateItemList(pTarget1, pTarget2, pTarget3);
-        helper.addToModel(model, fourItems);
-
-        assertCommandBehavior("find key rAnDoM",
                 Command.getMessageForItemListShownSummary(expectedList.size()),
                 expectedAB,
                 expectedList);
