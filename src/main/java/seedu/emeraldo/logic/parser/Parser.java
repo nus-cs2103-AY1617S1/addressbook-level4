@@ -110,7 +110,14 @@ public class Parser {
             return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
         }
     }
-
+    
+    //@@author A0139342H
+    /**
+     * Parses arguments in the context of the saveto command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     */
     private Command prepareSaveTo(String args) {
     	//TO-DO: Implement exception handling
         final Matcher matcher = SAVE_LOCATION.matcher(args.trim());
@@ -129,6 +136,7 @@ public class Parser {
         return new SaveToCommand(args);
         
     }
+    //@@author
 
     /**
      * Parses arguments in the context of the add task command.
