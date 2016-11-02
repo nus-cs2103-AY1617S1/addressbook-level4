@@ -185,7 +185,7 @@ Command format : **find KEYWORD [MORE\_KEYWORDS]**
 - Only your task&#39;s DESCRIPTION is searched.
 - Only full words will be matched e.g.  **Return**  will not match  **Returns**.
 
-- Examples :
+Examples :
 
 - **find Tutorial**
 
@@ -201,7 +201,7 @@ Command format  : **find pr/PRIORITY**
 
 - Returns any tasks with the given PRIORITY.
 
-- Example : **find pr/high**
+Example : **find pr/high**
 
 - Returns any tasks with high PRIORITY.
 
@@ -209,7 +209,7 @@ Command format  : **find pr/PRIORITY**
 
 Command format : find st/STARTTIME
 
-- Examples:
+Examples:
 
 - **find st/tues**
 
@@ -227,6 +227,8 @@ Command format : find st/STARTTIME
 
 Command format : find ed/ENDTIME
 
+Examples
+
 - **find ed/tues**
 
 - Returns any task that ends before the current time of the specified day of the week, this Week.
@@ -243,7 +245,7 @@ Command format : find ed/ENDTIME
 
 Command format **: t/tag [MORE\_TAGS]**
 
-- Examples:
+Examples:
 
 - **find t/blue**
 
@@ -281,7 +283,7 @@ Examples :
 
 Format : **complete INDEX**
 
-- Examples: **complete 2**
+Example: **complete 2**
 
 - Marks the second task listed as &#39; **Completed**&#39;.
 
