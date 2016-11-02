@@ -39,6 +39,10 @@ public class SummaryPanel extends UiPart{
     private GridPane mainContainer;
     @FXML
     private Label today;
+    @FXML
+    private Label tomorrow;
+    @FXML
+    private Label nextWeek;
     /*@FXML
     private TitledPane importance;
     @FXML
@@ -86,8 +90,11 @@ public class SummaryPanel extends UiPart{
     public void initialize() {
     	
    	    today.setText(ModelManager.getSize1());
+   	    tomorrow.setText(ModelManager.getTomorrowCount());
+   	    nextWeek.setText(ModelManager.getNextWeekCount());
         done.setText(ModelManager.getSize2());
         undone.setText(ModelManager.getSize3());
+        
        
     }
              
