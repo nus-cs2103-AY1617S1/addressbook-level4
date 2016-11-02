@@ -3,6 +3,7 @@ package seedu.unburden.logic;
 import javafx.collections.ObservableList;
 import seedu.unburden.commons.core.ComponentManager;
 import seedu.unburden.commons.core.LogsCenter;
+import seedu.unburden.commons.exceptions.IllegalValueException;
 import seedu.unburden.logic.commands.Command;
 import seedu.unburden.logic.commands.CommandResult;
 import seedu.unburden.logic.parser.Parser;
@@ -28,7 +29,7 @@ public class LogicManager extends ComponentManager implements Logic {
     }
 
     @Override
-    public CommandResult execute(String commandText) throws ParseException {
+    public CommandResult execute(String commandText) throws ParseException, IllegalValueException {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
         Command command = parser.parseCommand(commandText);
         command.setData(model);
