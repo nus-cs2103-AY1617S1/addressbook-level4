@@ -11,6 +11,7 @@ import seedu.address.commons.core.ComponentManager;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.TaskFilter;
 import seedu.address.model.alias.Alias;
+import seedu.address.model.alias.ReadOnlyAlias;
 import seedu.address.model.alias.UniqueAliasList;
 import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.ReadOnlyTaskFilter;
@@ -37,6 +38,7 @@ public class ModelManager extends ComponentManager implements Model {
     private final TaskManager taskManager;
     private final AliasManager aliasManager;
     private final FilteredList<Task> filteredTasks;
+    private final FilteredList<Alias> filteredAliases;
     private Stack<TaskManager> stateHistory;
     private Stack<TaskManager> undoHistory;
 
@@ -56,6 +58,7 @@ public class ModelManager extends ComponentManager implements Model {
         this.taskManager = new TaskManager(taskManager);
         this.aliasManager = new AliasManager(aliasManager);
         filteredTasks = new FilteredList<>(taskManager.getFilteredTasks());
+        filteredAliases = new FilteredList<>(aliasManager.getInternalList());
         stateHistory = new Stack<>();
         undoHistory = new Stack<>();
     }
@@ -68,6 +71,7 @@ public class ModelManager extends ComponentManager implements Model {
         taskManager = new TaskManager(initialTaskManagerData);
         aliasManager = new AliasManager(initialAliasManagerData);
         filteredTasks = new FilteredList<>(taskManager.getFilteredTasks());
+        filteredAliases = new FilteredList<>(aliasManager.getInternalList());
         stateHistory = new Stack<>();
         undoHistory = new Stack<>();
         this.updateFilteredTaskList(ReadOnlyTaskFilter.isDone().negate());
@@ -198,6 +202,11 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList() {
         return new UnmodifiableObservableList<>(filteredTasks);
+    }
+    
+    @Override
+    public UnmodifiableObservableList<ReadOnlyAlias> getFilteredAliasList() {
+        return new UnmodifiableObservableList<>(filteredAliases);
     }
     
     @Override

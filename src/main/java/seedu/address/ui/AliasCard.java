@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
+import seedu.address.model.alias.ReadOnlyAlias;
 
 public class AliasCard extends UiPart{
 	
@@ -36,8 +37,8 @@ public class AliasCard extends UiPart{
     @FXML
     public void initialize() {
         id.setText(displayedIndex + ". ");
-        commandPhrase.setText(alias.getOriginalPhrase);
-        commandAlias.setText(alias.getAlias);
+        commandPhrase.setText(alias.getOriginalPhrase());
+        commandAlias.setText(alias.getAlias());
     }
     
 

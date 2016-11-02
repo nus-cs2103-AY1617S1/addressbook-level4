@@ -2,6 +2,7 @@ package seedu.address.commons.events.ui;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.events.BaseEvent;
+import seedu.address.model.alias.ReadOnlyAlias;
 
 public class DisplayAliasListEvent extends BaseEvent {
 

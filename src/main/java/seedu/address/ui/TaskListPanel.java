@@ -10,6 +10,7 @@ import javafx.scene.control.SplitPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import seedu.address.model.alias.ReadOnlyAlias;
 import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.TaskType;
 import seedu.address.commons.core.LogsCenter;
@@ -63,7 +64,7 @@ public class TaskListPanel extends UiPart {
     }
 
     private void hideAliasListViewSize() {
-    	taskListView.setPrefHeight(0.0);
+    	aliasListView.setMaxHeight(0.0);
 	}
 
 	public static TaskListPanel loadAliasList(Stage primaryStage, AnchorPane taskListPlaceholder,
@@ -75,7 +76,7 @@ public class TaskListPanel extends UiPart {
     }
 	
     private void hideTaskListViewSize() {
-    	taskListView.setPrefHeight(0.0);
+    	taskListView.setMaxHeight(0.0);
 	}
     
     private void configureTask(ObservableList<ReadOnlyTask> taskList) {

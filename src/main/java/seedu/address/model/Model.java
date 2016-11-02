@@ -3,6 +3,7 @@ package seedu.address.model;
 import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.model.task.Task;
 import seedu.address.model.alias.Alias;
+import seedu.address.model.alias.ReadOnlyAlias;
 import seedu.address.model.alias.UniqueAliasList;
 import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.UniqueTaskList;
@@ -90,5 +91,7 @@ public interface Model {
 
     /** Updates the filter of the filtered task list to filter by the given keywords*/
     void updateFilteredTaskList(Set<String> keywords);
+
+	UnmodifiableObservableList<ReadOnlyAlias> getFilteredAliasList();
 
 }

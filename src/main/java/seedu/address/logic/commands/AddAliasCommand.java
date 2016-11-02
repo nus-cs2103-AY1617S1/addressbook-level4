@@ -1,5 +1,8 @@
 package seedu.address.logic.commands;
 
+import seedu.address.commons.core.EventsCenter;
+import seedu.address.commons.events.ui.DisplayAliasListEvent;
+import seedu.address.commons.events.ui.DisplayTaskListEvent;
 import seedu.address.model.alias.Alias;
 import seedu.address.model.alias.UniqueAliasList.DuplicateAliasException;
 
@@ -35,7 +38,8 @@ public class AddAliasCommand extends Command {
 
 	@Override
     public CommandResult execute() {
-		
+    	EventsCenter.getInstance().post(new DisplayAliasListEvent(model.getFilteredAliasList()));
+
         assert model != null;
         model.saveState();
         
