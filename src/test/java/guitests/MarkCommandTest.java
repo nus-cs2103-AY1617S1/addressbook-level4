@@ -54,7 +54,7 @@ public class MarkCommandTest extends TaskManagerGuiTest {
         commandBox.runCommand("list archives");
         commandBox.runCommand("mark 1");
 
-        assertResultMessage(String.format(MESSAGE_MARK_FAILURE, taskToMark));
+        assertResultMessage(MESSAGE_MARK_FAILURE);
         
     }
 

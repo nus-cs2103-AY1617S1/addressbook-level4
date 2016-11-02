@@ -73,7 +73,7 @@ public class MainWindow extends UiPart {
     private static final String ICON = "/images/address_book_32.png";
     private static final String FXML = "MainWindow.fxml";
 
-    private static final double WIDTH_MULTIPLIER_INDEX = 0.03;
+    private static final double WIDTH_MULTIPLIER_INDEX = 0.042;
     private static final double WIDTH_MULTIPLIER_NAME = 0.285;
     private static final double WIDTH_MULTIPLIER_STARTDATE = 0.18;
     private static final double WIDTH_MULTIPLIER_ENDDATE = 0.18;

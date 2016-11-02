@@ -403,12 +403,18 @@ public class Parser {
      * @return the prepared mark command
      */
     private Command prepareMark(String args, String currentTab) {
+        if (currentTab.equals(TAB_ARCHIVES)) {
+            return new IncorrectCommand(MarkCommand.MESSAGE_MARK_FAILURE);
+        }
 
         Optional<Integer> index = parseIndex(args);
         if (!index.isPresent()) {
+            if (args.trim().equals("due")) {
+                return new MarkCommand(args.trim());
+            }
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MarkCommand.MESSAGE_USAGE));
         }
-        return new MarkCommand(index.get(), currentTab);
+        return new MarkCommand(index.get());
     }
 
     //@@author A0124797R

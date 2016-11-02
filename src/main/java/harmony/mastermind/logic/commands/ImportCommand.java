@@ -37,7 +37,7 @@ public class ImportCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD
                                                + ": Reads file and add all task from file into Mastermind\n"
                                                + "Parameters: File location\n"
-                                               + "Example: "
+                                               + "Example:\n"
                                                + "for Mac:\n"
                                                + COMMAND_WORD + "from"
                                                + " Users/Jim/Desktop/jim@gmail.com.ics\n"
@@ -164,6 +164,11 @@ public class ImportCommand extends Command {
         String s;
         for (int i=0;i<row.length();i++) {
             if (row.charAt(i) == REGEX_COMMA.charAt(0)) {
+                if (argIndex==3 && i-startIndex != 0) {
+                    s = row.substring(startIndex, row.length());
+                    taskArgs[argIndex] = s;
+                    break;
+                }
                 if (i-startIndex != 0 || startIndex == 0) {
                     s = row.substring(startIndex, i);
                     taskArgs[argIndex] = s;
@@ -178,7 +183,7 @@ public class ImportCommand extends Command {
     private Optional<Task> parseCsvArgs(String[] args) {
         Optional<String> name = Optional.ofNullable(args[0]);
         Optional<String> startDate;
-        Optional<String> endDate = Optional.ofNullable(args[3] + " " + args[4]);
+        Optional<String> endDate;
         Task task;
         
         if (args[1] == null) {
