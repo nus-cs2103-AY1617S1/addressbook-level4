@@ -521,6 +521,9 @@ public class ModelManager extends ComponentManager implements Model {
 	}
 	/* @@author A0135769N */
 	@Override
+	/* Method checks for the file path and the previously entered file path is saved in the 
+	 * undo command stack. 
+	 */
 	public void changeFileStorage(String filePath) throws IOException, ParseException, JSONException {
 		String currentFilePath = setStoragePath(filePath);
 		addToUndoStack(UndoCommand.STR_CMD_ID, currentFilePath);
@@ -537,6 +540,10 @@ public class ModelManager extends ComponentManager implements Model {
 		return filePath;
 	}
 
+	/* Method validates whether file path given is for a file or a directory. Current file path is read from 
+	 * config.json file. Once the file is moved to the target location, the target location file path
+	 * is automatically stored in config.json file. 
+	 */
 	private String setStoragePath(String filePath)
 			throws FileNotFoundException, IOException, ParseException, JSONException {
 		if (filePath.equals("default")) {
