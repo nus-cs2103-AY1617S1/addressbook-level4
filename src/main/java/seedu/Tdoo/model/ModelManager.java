@@ -442,6 +442,7 @@ public class ModelManager extends ComponentManager implements Model {
         String toString();
     }
 
+    //@@author A0139923X
     private class NameQualifier implements Qualifier {
         private Set<String> nameKeyWords;
 
@@ -461,7 +462,8 @@ public class ModelManager extends ComponentManager implements Model {
                         .isPresent();  
             }
         }
-
+     //@@author
+        
         @Override
         public String toString() {
             return "name=" + String.join(", ", nameKeyWords);
