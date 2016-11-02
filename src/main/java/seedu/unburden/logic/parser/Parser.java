@@ -36,7 +36,7 @@ public class Parser {
 
 	// @@author A0143095H
 	private static final Pattern KEYWORDS_DATE_FORMAT = Pattern.compile(
-			"(?<dates>([0][1-9]|[1-2][0-9]|[3][0-1])[-]([0][1-9]|[1][0-2])[-]([2][0][1][6-9]|[2][1-9][0-9][0-9]))");
+			"(?<dates>([0-9]{2})[-]([0-9]{2})[-]([0-9]{4}))");
 
 	// Event
 	private static final Pattern ADD_FORMAT_0 = Pattern.compile(

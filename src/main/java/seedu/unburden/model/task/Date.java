@@ -37,7 +37,7 @@ public class Date implements Comparable<Date> {
 	 */
 	public Date(String date) throws IllegalValueException {
 		assert date != null;
-		if (!date.equals("       ")) {
+		if (!date.equals("")) {
 			date = date.trim();
 			if (!checkRegex(date)) {
 				throw new IllegalValueException(MESSAGE_DATE_CONSTRAINTS);
@@ -51,8 +51,8 @@ public class Date implements Comparable<Date> {
 			}
 		}
 		
-		if (date.equals("       ")) {
-			this.fullDate = "       ";
+		if (date.equals("")) {
+			this.fullDate = "";
 			this.day = 32;
 			this.month = 13;
 			this.year = 2015;
