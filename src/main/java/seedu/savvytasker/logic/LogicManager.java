@@ -117,8 +117,8 @@ public class LogicManager extends ComponentManager implements Logic {
     }
     
     @Override
-    public ObservableList<ReadOnlyTask> getFilteredDailyTasks(Date date) {
-        return model.getFilteredDailyTasks(date);
+    public ObservableList<ReadOnlyTask> getFilteredDailyTasks(int i, Date date) {
+        return model.getFilteredDailyTasks(i, date);
     }
     
     @Override

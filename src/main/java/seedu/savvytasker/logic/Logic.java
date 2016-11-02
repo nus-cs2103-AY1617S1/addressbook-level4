@@ -34,7 +34,7 @@ public interface Logic {
 	ObservableList<ReadOnlyTask> getFilteredFloatingTasks();
 
 	/** Returns the list of tasks on a specific day */
-	ObservableList<ReadOnlyTask> getFilteredDailyTasks(Date date);
+	ObservableList<ReadOnlyTask> getFilteredDailyTasks(int i, Date date);
 
 	/** Returns the list of tasks that occur after the selected week */
 	ObservableList<ReadOnlyTask> getFilteredUpcomingTasks(Date date);
