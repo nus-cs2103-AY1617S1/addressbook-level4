@@ -141,8 +141,8 @@ public class Parser {
 		for (int i=0; i<aliases.size(); i++) {
 			String alias = aliases.get(i);
 			System.out.println("alias: " + alias);
-			// Does not replace arguments in find command
-			if (userInput.contains(alias) && !userInput.contains("find")) {
+			// Does not replace arguments in find command or within quotes			
+			if (userInput.contains(alias) && !userInput.matches(".*'.*(" + alias + ").*'.*") && !userInput.contains("find")) {
 				System.out.println("match");
 				userInput = userInput.replace(alias, originals.get(i));
 			}
