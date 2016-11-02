@@ -71,7 +71,8 @@ public class ModelManager extends ComponentManager implements Model {
         taskManager.clearDone();
         indicateTaskManagerChanged();
     }
-
+    //@@author
+    
     //@@author A0139671X
     public void clearHistory() {
         taskManagerHistory.clear();
@@ -144,7 +145,8 @@ public class ModelManager extends ComponentManager implements Model {
         indicateTaskManagerChanged();
 
     }
-
+    //@@author
+    
     //@@author A0139671X
     @Override
     public synchronized void addTask(Task task) {
@@ -332,7 +334,16 @@ public class ModelManager extends ComponentManager implements Model {
         filteredTasks.setPredicate(isOverdue());
         taskManager.counter();
     }
-
+    
+  //@@author A0139198N
+    @Override
+    public void updateFilteredTaskListToShowFloating() {
+        sortTasks();
+        filteredTasks.setPredicate(isFloating());
+        taskManager.counter();
+    }
+    //@@author
+    
     // ========== Inner classes/interfaces used for filtering
     // ==================================================
 
@@ -389,22 +400,28 @@ public class ModelManager extends ComponentManager implements Model {
 
     //@@author A0139198N
     public static Predicate<Task> isDone() {
-        return t -> t.getDone().value == true;
+        return t -> t.getDone().getDoneValue() == true;
     }
 
     //@@author A0139198N
     public static Predicate<Task> filterByDate(String date) {
         return t -> (t.getStartTime().appearOnUIFormatForDate().equals(date)
-                || t.getEndTime().appearOnUIFormatForDate().equals(date));
+                || t.getEndTime().appearOnUIFormatForDate().equals(date)) && 
+        		t.getDone().getDoneValue() == false;
     }
 
     //@@author A0139198N
     public static Predicate<Task> isNotDone() {
-        return t -> t.getDone().value == false;
+        return t -> t.getDone().getDoneValue() == false;
     }
 
     //@@author A0139198N
     public static Predicate<Task> isOverdue() {
-        return t -> t.checkOverdue() == true && t.getDone().value == false;
+        return t -> t.checkOverdue() == true && t.getDone().getDoneValue() == false;
+    }
+    
+  //@@author A0139198N
+    public static Predicate<Task> isFloating() {
+        return t -> t.isFloatingTask() && t.getDone().getDoneValue() == false;
     }
 }

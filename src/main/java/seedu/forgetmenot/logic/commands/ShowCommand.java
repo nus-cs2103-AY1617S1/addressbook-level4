@@ -1,8 +1,12 @@
 package seedu.forgetmenot.logic.commands;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+//@@author A0139198N
 /**
  * Shows all tasks in the task manager to the user.
- * @@author A0139198N
+ * 
  */
 public class ShowCommand extends Command {
 
@@ -13,6 +17,7 @@ public class ShowCommand extends Command {
     public static final String MESSAGE_SUCCESS_DATE = "Shown all tasks by date";
     public static final String MESSAGE_SUCCESS_ALL = "Shown all tasks";
     public static final String MESSAGE_SUCCESS_DONE = "Shown all done tasks";
+    public static final String MESSAGE_SUCCESS_FLOATING = "Shown all floating tasks";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
     		+ ": Shows the list identified by keywords";
@@ -46,6 +51,12 @@ public class ShowCommand extends Command {
             model.updateFilteredListToShowAll();
             model.updateFilteredTaskListToShowOverdue();
             return new CommandResult(MESSAGE_SUCCESS_OVERDUE);
+    	}
+    	
+    	if (command.equals("floating")) {
+            model.updateFilteredListToShowAll();
+            model.updateFilteredTaskListToShowFloating();
+            return new CommandResult(MESSAGE_SUCCESS_FLOATING);
     	}
     	
     	else {

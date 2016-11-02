@@ -181,11 +181,11 @@ public class UniqueTaskList implements Iterable<Task> {
         taskFound.setRecurrence(newRec);
         internalList.set(taskIndex, taskFound);        
     }
-    
+    //@@author A0139198N
     /**
-     * @@author A0139198N
+     * 
      * Mark a task as done from the list.
-     * @return 
+     *
      */
     public void done(ReadOnlyTask toDone) throws TaskNotFoundException {
     	assert toDone != null;
@@ -200,10 +200,11 @@ public class UniqueTaskList implements Iterable<Task> {
         internalList.set(internalList.indexOf(toDone), taskFound);
     }
     
+    //@@author A0139198N
     /**
-     * @@author A0139198N
+     * 
      * Mark a task as undone from the list.
-     * @return 
+     * 
      */
     
     public void undone(ReadOnlyTask toUndone) throws TaskNotFoundException {
@@ -218,7 +219,7 @@ public class UniqueTaskList implements Iterable<Task> {
         }
         internalList.set(internalList.indexOf(toUndone), taskFound);
     }
-    
+    //@@author
     
     /**
      * Removes the equivalent task from the list.

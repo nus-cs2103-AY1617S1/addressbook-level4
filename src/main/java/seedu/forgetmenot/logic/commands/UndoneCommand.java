@@ -5,9 +5,10 @@ import seedu.forgetmenot.commons.core.UnmodifiableObservableList;
 import seedu.forgetmenot.model.task.ReadOnlyTask;
 import seedu.forgetmenot.model.task.UniqueTaskList.TaskNotFoundException;
 
+//@@author A0139198N
 /**
  * Mark a task as done identified using it's last displayed index from the task manager.
- * @@author A0139198N
+ * 
  */
 public class UndoneCommand extends Command {
 
