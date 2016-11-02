@@ -31,7 +31,7 @@ public class UpcomingReminders {
     
     public UpcomingReminders(Collection<Activity> activities) {
         for (Activity activity : activities) {
-            if (activity.getReminder() != null && !activity.hasReminderPassed()) {
+            if (activity.getReminder().getCalendarValue() != null && !activity.hasReminderPassed()) {
                 reminderQueue.add(activity);
             }
         }
@@ -39,7 +39,7 @@ public class UpcomingReminders {
     
     public static void initialize(Collection<Activity> activities) {
         for (Activity activity : activities) {
-            if (activity.getReminder() != null && !activity.hasReminderPassed()) {
+            if (activity.getReminder().getCalendarValue() != null && !activity.hasReminderPassed()) {
                 reminderQueue.add(activity);
             }
         }
@@ -50,7 +50,7 @@ public class UpcomingReminders {
      * @return true if the activity is added to the queue.
      */
     public static boolean addReminder(Activity newActivity) {
-        if (newActivity.getReminder() != null && !newActivity.hasReminderPassed()) {
+        if (newActivity.getReminder().getCalendarValue() != null && !newActivity.hasReminderPassed()) {
             return reminderQueue.add(newActivity);
         } else {
             return false;

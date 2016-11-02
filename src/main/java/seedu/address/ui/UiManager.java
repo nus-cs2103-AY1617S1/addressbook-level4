@@ -47,8 +47,10 @@ public class UiManager extends ComponentManager implements Ui {
     
     private static final long DELAY = 60 * 1000; // one minute
     
-    private LoopTask loopTask = new LoopTask();
-    private Timer timer = new Timer("Refresh");
+    private RefreshTask refreshTask = new RefreshTask();
+    private ReminderTask reminderTask = new ReminderTask();
+    private Timer refreshTimer = new Timer("Refresh");
+    private Timer reminderTimer = new Timer("Reminder");
 
     public UiManager(Logic logic, Config config, UserPrefs prefs) {
         super();
@@ -181,21 +183,27 @@ public class UiManager extends ComponentManager implements Ui {
     //==================== Refresh Handling Code =================================================================
     
     private void initRefresh() {
-        timer.cancel();
-        timer = new Timer("TaskName");
+        refreshTimer.cancel();
+        reminderTimer.cancel();
+        refreshTimer = new Timer("Refresh");
+        reminderTimer = new Timer("Reminder");
         Calendar cal = Calendar.getInstance();
         cal.set(Calendar.SECOND, 0);
         cal.set(Calendar.MILLISECOND, 0);
         Date executionDate = cal.getTime();
-        timer.scheduleAtFixedRate(loopTask, executionDate, DELAY);
+        refreshTimer.scheduleAtFixedRate(refreshTask, executionDate, DELAY);
+        reminderTimer.scheduleAtFixedRate(reminderTask, executionDate, DELAY);
     }
     
-    private class LoopTask extends TimerTask {
+    private class RefreshTask extends TimerTask {
         public void run() {
             mainWindow.refresh();
-            showReminderDialog(UpcomingReminders.popNextReminders());
         }
     }
 
-
+    private class ReminderTask extends TimerTask {
+        public void run() {
+            showReminderDialog(UpcomingReminders.popNextReminders());
+        }
+    }
 }
