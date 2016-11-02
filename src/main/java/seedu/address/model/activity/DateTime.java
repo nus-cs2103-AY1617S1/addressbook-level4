@@ -41,7 +41,6 @@ public abstract class DateTime implements Comparable<DateTime>{
      */
     public boolean isBeforeNow() {
         Date now = Calendar.getInstance().getTime();
-        System.out.println(this.value.getTime().before(now));
         return this.value.getTime().before(now);
     }
     
