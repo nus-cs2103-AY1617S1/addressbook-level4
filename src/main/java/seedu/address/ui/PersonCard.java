@@ -62,9 +62,21 @@ public class PersonCard extends UiPart{
         	name.setStyle("-fx-text-fill: red;");
         }
         id.setText(displayedIndex + ". ");
-        startline.setText("Start: " + task.getStartline());
-        deadlines.setText("End: " + task.getDeadline().value);
-        priority.setText("Priority: " + task.getPriority().value);
+        if(task.getStartline().calendar != null){
+        	startline.setText("Start: " + task.getStartline());
+        } else {
+        	startline.setText("");
+        }
+        if(task.getDeadline().calendar != null) {
+        	deadlines.setText("End: " + task.getDeadline().value);
+        } else {
+        	deadlines.setText("");
+        }
+        if(Integer.parseInt(task.getPriority().value) != 0) {
+        	priority.setText("Priority: " + task.getPriority().value);
+        } else {
+        	priority.setText("");
+        }
         tags.setText(task.tagsString());
     }
 

@@ -1,9 +1,15 @@
 package seedu.address;
 
 import com.google.common.eventbus.Subscribe;
+
+import javafx.animation.KeyFrame;
+import javafx.event.EventHandler;
+import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.application.Platform;
+import javafx.event.ActionEvent;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import seedu.address.commons.core.Config;
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.LogsCenter;
@@ -22,6 +28,7 @@ import seedu.address.ui.UiManager;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.text.ParseException;
 import java.util.Map;
 import java.util.Optional;
 import java.util.logging.Logger;
@@ -62,6 +69,21 @@ public class MainApp extends Application {
         ui = new UiManager(logic, config, userPrefs);
 
         initEventsCenter();
+        
+        Timeline sixtySecondsUpdate = new Timeline(new KeyFrame(Duration.seconds(60), new EventHandler<ActionEvent>() {
+
+            @Override
+            public void handle(ActionEvent event) {
+                try {
+					logic.execute("update");
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+            }
+        }));
+        sixtySecondsUpdate.setCycleCount(Timeline.INDEFINITE);
+        sixtySecondsUpdate.play();
     }
 
     private String getApplicationParameter(String parameterName){
