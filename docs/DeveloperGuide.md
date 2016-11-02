@@ -139,6 +139,7 @@ The `UI` component,
 * Binds itself to some data in the `Model` so that the UI can auto-update when data in the `Model` change.
 * Responds to events raised from various parts of the App and updates the UI accordingly.
 
+<!-- @@author A0139655U -->
 ### Logic component
 
 <img src="images/LogicClassDiagram.png" width="800"><br>
@@ -156,6 +157,7 @@ Given below is the Sequence Diagram for interactions within the `Logic` componen
  
 <img src="images/DeleteTaskSdForLogic.png" width="800"><br>
 > _The sequence diagram for the interactions within the `Logic` component for `execute("delete 1")`_
+<!-- @@author -->
 
 ### Model component
 
