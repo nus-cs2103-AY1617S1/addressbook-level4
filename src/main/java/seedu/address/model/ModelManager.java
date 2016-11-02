@@ -122,7 +122,7 @@ public class ModelManager extends ComponentManager implements Model {
      * @param target
      */
     private void updateEventStatus(LocalDateTime currentTime, DateTimeFormatter formatter, Task target) {
-        String endDateTime = target.getDatetime().toString().substring(21);
+        String endDateTime = getEventEndTimeInStringFormat(target);
         LocalDateTime dateTime = LocalDateTime.parse(endDateTime,formatter);
         if (dateTime.isBefore(currentTime) && target.getStatus().status != Status.State.DONE) {
             try {
@@ -138,6 +138,15 @@ public class ModelManager extends ComponentManager implements Model {
                 throw new AssertionError("Impossible!");
             }
         }
+    }
+    
+    /**
+     * Get the End Time of Event in String Format
+     * @param target
+     * @return
+     */
+    private String getEventEndTimeInStringFormat(Task target) {
+        return target.getDatetime().toString().substring(21);
     }
     
     /**
