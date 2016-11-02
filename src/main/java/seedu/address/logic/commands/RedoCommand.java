@@ -2,9 +2,6 @@ package seedu.address.logic.commands;
 
 import java.util.EmptyStackException;
 
-import seedu.address.commons.core.EventsCenter;
-import seedu.address.commons.events.ui.MinimizeRequestEvent;
-
 //@@author A0121261Y
 /**
  * Reverse a undo command

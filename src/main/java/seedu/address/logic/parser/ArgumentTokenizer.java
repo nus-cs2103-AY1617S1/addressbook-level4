@@ -7,8 +7,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-import seedu.address.logic.parser.ArgumentTokenizer.Prefix;
-
 // Retrieved from https://github.com/nus-cs2103-AY1617S1/addressbook-level4/ on 25/10/2016
 
 /**

@@ -3,8 +3,6 @@ package seedu.address.ui;
 import java.text.SimpleDateFormat;
 import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
-import java.util.Collections;
-import java.util.List;
 import java.util.logging.Logger;
 
 import javafx.fxml.FXML;
@@ -16,7 +14,6 @@ import javafx.scene.text.Text;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.TaskCardMarkChangedEvent;
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.tag.Tag;
 import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.ReadOnlyTask.TaskType;
 import seedu.address.model.task.Time;

@@ -4,7 +4,6 @@ import java.time.format.DateTimeFormatter;
 
 import guitests.GuiRobot;
 import javafx.scene.Node;
-import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.Time;

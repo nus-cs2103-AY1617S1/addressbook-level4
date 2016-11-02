@@ -4,8 +4,6 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-import seedu.address.model.task.ReadOnlyTask;
-
 public class LocateCommandTest extends AddressBookGuiTest{
 	  @Test
 	    public void viewPerson_nonEmptyList() {

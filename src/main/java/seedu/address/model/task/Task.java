@@ -7,8 +7,6 @@ import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.Map.Entry;
 
-import org.hamcrest.core.IsInstanceOf;
-
 import java.util.Objects;
 import java.util.Optional;
 

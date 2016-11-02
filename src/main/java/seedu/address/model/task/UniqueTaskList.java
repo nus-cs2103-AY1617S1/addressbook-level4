@@ -1,6 +1,5 @@
 package seedu.address.model.task;
 
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.commons.core.SortedObservableArrayList;

@@ -2,7 +2,6 @@ package seedu.address.model;
 
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.commons.core.SortedObservableArrayList;
 import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.model.task.Task;
@@ -21,7 +20,6 @@ import seedu.address.commons.core.ComponentManager;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Optional;
 import java.util.HashMap;

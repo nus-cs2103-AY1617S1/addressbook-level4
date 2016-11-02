@@ -6,7 +6,6 @@ import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.ReadOnlyToDo;
 import seedu.address.model.UserPrefs;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Optional;
 

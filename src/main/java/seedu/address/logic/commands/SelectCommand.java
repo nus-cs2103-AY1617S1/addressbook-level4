@@ -4,7 +4,6 @@ import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.commons.events.ui.JumpToListRequestEvent;
-import seedu.address.commons.events.ui.MinimizeRequestEvent;
 import seedu.address.model.task.ReadOnlyTask;
 
 //@@author A0135767U
