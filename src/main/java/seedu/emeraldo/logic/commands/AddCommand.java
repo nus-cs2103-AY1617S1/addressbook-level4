@@ -26,7 +26,8 @@ public class AddCommand extends Command {
             + "Parameters: \"TASK_DESCRIPTION\" [on DATE] [by DATE_TIME] [from START_DATE_TIME]"
             + "[to END_DATE_TIME] [#TAGS]...\n"
             + "Example: " + COMMAND_WORD
-            + " \"CS2103T Lecture\" on 7 Oct 2016 from 2pm to 4pm #Important";
+            + " \"CS2103T Lecture\" on 7 Oct 2016 #Important\n"
+            + "                add \"Sports Camp\" from 12 Dec, 10am to 14 Dec, 8pm";
     //@@author
     
     public static final String MESSAGE_SUCCESS = "New task added: %1$s";
