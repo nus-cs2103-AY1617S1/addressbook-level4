@@ -107,19 +107,19 @@ Adds a task **project**  with deadline **Wednesday 16:00**.
 
 #### **Adding a task with STARTIME and ENDTIME**
 
-Command format : **add DESCRIPTION st/STARTTIME ed/ENDTIME**
+- Command format : **add DESCRIPTION st/STARTTIME ed/ENDTIME**
 
-Adds a task with STARTTIME and ENDTIME.
+- Adds a task with STARTTIME and ENDTIME.
 
 Example :
 
-**add Overseas vacation st/25.11.2016 ed/27.11.2016**
+- **add Overseas vacation st/25.11.2016 ed/27.11.2016**
 
-#### Adds a task **Overseas vacation**  with STARTTIME **25.11.2016  ** and ENDTIME **27.11.2016**.
+ Adds a task **Overseas vacation**  with STARTTIME **25.11.2016  ** and ENDTIME **27.11.2016**.
 
-**add Overseas vacation st/25.11.2016 08:00 ed/27.11.2016 18:00**
+- **add Overseas vacation st/25.11.2016 08:00 ed/27.11.2016 18:00**
 
-#### Adds a task **Overseas vacation**  with STARTTIME **25.11.2016  08:00** and ENDTIME **27.11.2016 18:00.**
+ Adds a task **Overseas vacation**  with STARTTIME **25.11.2016  08:00** and ENDTIME **27.11.2016 18:00.**
 
 #### **Adding a tagged task**
 
