@@ -1,11 +1,22 @@
 //@@author A0139128A
 package seedu.whatnow.logic.commands;
 
+import java.io.IOException;
+import java.nio.file.FileSystems;
+import java.util.Optional;
+import java.util.logging.Logger;
+
+import seedu.whatnow.commons.core.Config;
+import seedu.whatnow.commons.core.LogsCenter;
+import seedu.whatnow.commons.exceptions.DataConversionException;
+import seedu.whatnow.commons.util.ConfigUtil;
+import seedu.whatnow.commons.util.StringUtil;
 import seedu.whatnow.model.task.ReadOnlyTask;
 import seedu.whatnow.model.task.Task;
 import seedu.whatnow.model.task.UniqueTaskList;
 import seedu.whatnow.model.task.UniqueTaskList.DuplicateTaskException;
 import seedu.whatnow.model.task.UniqueTaskList.TaskNotFoundException;
+import seedu.whatnow.storage.StorageManager;
 
 public class UndoCommand extends Command {
 
@@ -21,6 +32,8 @@ public class UndoCommand extends Command {
 
     public static final String MESSAGE_LIST_NOT_ENTERED = " No previous list command was entered";
 
+    private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
+    
     public final String ADD_COMMAND = "add";
     public final String DELETE_COMMAND = "delete";
     public final String LIST_COMMAND = "list";
@@ -28,6 +41,7 @@ public class UndoCommand extends Command {
     public final String MARKUNDONE_COMMAND = "undone";
     public final String UPDATE_COMMAND = "update";
     public final String CLEAR_COMMAND = "clear";
+    public final String CHANGE_COMMAND = "change";
 
     @Override
     public CommandResult execute() throws DuplicateTaskException, TaskNotFoundException {
@@ -56,8 +70,11 @@ public class UndoCommand extends Command {
             return performUndoUpdate();
         } else if (reqCommand.equals(CLEAR_COMMAND)) {
             return performUndoClear();
-        } else
+        } else if(reqCommand.equals(CHANGE_COMMAND)) {
+            return performUndoChange();
+        } else {
             return new CommandResult(UNKNOWN_COMMAND_FOUND);
+        }
     }
 
     private CommandResult performUndoAdd() {
@@ -76,6 +93,39 @@ public class UndoCommand extends Command {
         }
     }
 
+    //@@author A0141021H
+    private CommandResult performUndoChange() {
+        if(model.getStackOfChangeFileLocationOld().isEmpty()) {
+            return new CommandResult(String.format(UndoCommand.MESSAGE_FAIL));
+        }
+        
+        Config config;
+        String configFilePathUsed = Config.DEFAULT_CONFIG_FILE;
+        String curr="";
+        String old="";
+        try {
+            Optional<Config> configOptional = ConfigUtil.readConfig(configFilePathUsed);
+            config = configOptional.orElse(new Config());
+            curr = config.getWhatNowFilePath();
+            old = model.getStackOfChangeFileLocationOld().pop();
+            model.getStackOfChangeFileLocationNew().push(curr);
+            config.setWhatNowFilePath(old);
+            model.changeLocation(FileSystems.getDefault().getPath(old), config);     
+        } catch (DataConversionException e) {
+            logger.warning("Config file at " + configFilePathUsed + " is not in the correct format. " +
+                    "Using default config properties");
+            config = new Config();
+        }
+        
+        try {
+            ConfigUtil.saveConfig(config, configFilePathUsed);
+        } catch (IOException e) {
+            logger.warning("Failed to save config file : " + StringUtil.getDetails(e));
+        }
+        
+        return new CommandResult(String.format(ChangeCommand.MESSAGE_UNDO_SUCCESS, old));
+    }
+    
     private CommandResult performUndoDelete() {
         if (model.getDeletedStackOfTasks().isEmpty() || model.getDeletedStackOfTasksIndex().isEmpty()) {
             return new CommandResult(String.format(UndoCommand.MESSAGE_FAIL));
