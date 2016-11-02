@@ -495,7 +495,7 @@ public class LogicManagerTest {
         
         List<FloatingTask> threeFloatingTasks = helper.generateFloatingTaskList(index0, index1, index2);
         TaskBook expectedAB = helper.generateFloatingTaskBook(threeFloatingTasks);
-        
+        List<FloatingTask> twoFloatingTasks = helper.generateFloatingTaskList(index0, index2);
         helper.addToModel(model, threeFloatingTasks);
         
         // execute command and verify result
@@ -504,7 +504,7 @@ public class LogicManagerTest {
         assertCommandBehavior("delete t2",
                 String.format(DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS, threeFloatingTasks.get(1)),
                 expectedAB,
-                expectedAB.getTaskList());
+                twoFloatingTasks);
     }
 
 
