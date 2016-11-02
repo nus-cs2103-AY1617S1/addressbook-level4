@@ -119,7 +119,7 @@ Format: `find <task name>`
 Example:
 *`find project`
 
-
+//@@author A0139198N
 ### Mark as done: `done`
 Marks a task as done. <br>
 Format: `done <task index>`
@@ -185,6 +185,7 @@ Format `show floating`
 Displays all the done tasks. <br>
 Format: `show done`
 
+//@@author
 
 #### Clearing the display: `clear`
 Clears all the tasks in the task manager <br>
