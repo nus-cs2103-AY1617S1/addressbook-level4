@@ -25,8 +25,8 @@ Responsibilities: Logic
    [test code](https://github.com/CS2103AUG2016-T15-C1/main/tree/master/collated/test/A0153411W.md)
    [docs](https://github.com/CS2103AUG2016-T15-C1/main/tree/master/collated/docs/A0153411W.md)
   * Other major contributions:
-  * Did the initial refactoring from AddressBook to ToDoList (https://github.com/CS2103AUG2016-T15-C1/main/commit/b304c004e97db51e95d14c6ca26801886a6c3be5) 
   * Set up Travis and Coveralls 
+  * [Did the initial refactoring from AddressBook to ToDoList](https://github.com/CS2103AUG2016-T15-C1/main/commit/b304c004e97db51e95d14c6ca26801886a6c3be5) 
 -----
 
 #### [Choi Ying Ying](https://github.com/ychoi1997) <br>
