@@ -342,7 +342,7 @@ public class Parser {
 		}
 		mapArgs.put("isRecurring", arg);
 	    }
-	    if (splitArgs[i].substring(0, 2).equals("t/")) {
+	    if (splitArgs[i].substring(0, 2).equals("c/")) {
 			int j = i + 1;
 			String arg = splitArgs[i].substring(2);
 			while (j < splitArgs.length) {
