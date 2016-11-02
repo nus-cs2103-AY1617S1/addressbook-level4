@@ -388,7 +388,7 @@ public class JimiParser {
         final String sectionToShow = matcher.group("sectionToShow");
         
         try {
-            return new ShowCommand(sectionToShow.toLowerCase().trim());
+            return new ShowCommand(sectionToShow);
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
         }

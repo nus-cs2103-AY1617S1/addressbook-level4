@@ -56,7 +56,7 @@ public class ShowCommand extends Command {
     }
     
     public ShowCommand(String args) throws IllegalValueException {
-        if (!isValidSectionToShow(args)) {
+        if (!isValidSectionToShow(args.trim())) {
             throw new IllegalValueException(MESSAGE_INVALID_SECTION);
         }
         this.userSelection = args.toLowerCase().trim();
