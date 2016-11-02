@@ -14,6 +14,7 @@ public class TestPerson implements ReadOnlyTask {
     private Date phone;
     private boolean isCompleted;
     private UniqueTagList tags;
+    private String isComplete;
 
     public TestPerson() {
         tags = new UniqueTagList();
@@ -83,6 +84,11 @@ public class TestPerson implements ReadOnlyTask {
 
     @Override
     public String getCompletion() {
-	return (isCompleted) ? "COMPLETE" : "NOT COMPLETE";
+	return isComplete;
+    }
+
+    @Override
+    public void setCompletion(String completion) {
+        this.isComplete = completion;
     }
 }

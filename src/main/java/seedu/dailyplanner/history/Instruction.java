@@ -17,21 +17,11 @@ public class Instruction {
 	private String taskStart;
 	private String taskEnd;
 	private UniqueTagList tag;
-	
-	/*public Instruction(String reverse, int taskIndex, String taskName, String taskDate, String taskStart,
-			String taskEnd, UniqueTagList tag) {
-		super();
-		this.reverse = reverse;
-		this.taskIndex = taskIndex;
-		this.taskName = taskName;
-		this.taskDate = taskDate;
-		this.taskStart = taskStart;
-		this.taskEnd = taskEnd;
-		this.tag = tag;
-	}*/
+    private String isComplete;
+
 	
 	public Instruction(String reverse, String taskName, String taskDate, String taskStart,
-			String taskEnd, UniqueTagList pushTag) {
+			String taskEnd, UniqueTagList pushTag, String isComplete) {
 		
 		this.reverse = reverse;
 		//this.taskIndex = taskIndex;
@@ -40,6 +30,7 @@ public class Instruction {
 		this.taskStart = taskStart;
 		this.taskEnd = taskEnd;
 		this.tag = pushTag;
+		this.isComplete = isComplete;
 	}
 	
 	public String getReverse() {
@@ -90,6 +81,10 @@ public class Instruction {
 	public void setTag(UniqueTagList tag) {
 		this.tag = tag;
 	}
+
+    public String getCompletion() {
+        return isComplete;
+    }
 	
 	
 }

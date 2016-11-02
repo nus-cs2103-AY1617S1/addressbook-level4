@@ -24,7 +24,7 @@ public class XmlAdaptedPerson {
     @XmlElement(required = true)
     private String address;
     @XmlElement(required = true)
-    private String isCompleted;
+    private String isComplete;
 
     @XmlElement
     private List<XmlAdaptedTag> tagged = new ArrayList<>();
@@ -47,7 +47,7 @@ public class XmlAdaptedPerson {
 	phone = source.getPhone().value;
 	email = source.getEmail().value;
 	address = source.getAddress().value;
-	isCompleted = source.getCompletion();
+	isComplete = source.getCompletion();
 	tagged = new ArrayList<>();
 	for (Tag tag : source.getTags()) {
 	    tagged.add(new XmlAdaptedTag(tag));
@@ -72,11 +72,7 @@ public class XmlAdaptedPerson {
 	final StartTime email = new StartTime(this.email);
 	final EndTime address = new EndTime(this.address);
 	final UniqueTagList tags = new UniqueTagList(personTags);
-	Task newTask = new Task(name, phone, email, address, tags);
-	if (isCompleted.equals("COMPLETE"))
-	    newTask.setCompletion(true);
-	else
-	    newTask.setCompletion(false);
+	Task newTask = new Task(name, phone, email, address, tags, isComplete);
 	return newTask;
     }
 }

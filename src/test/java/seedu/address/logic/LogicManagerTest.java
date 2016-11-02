@@ -398,7 +398,7 @@ public class LogicManagerTest {
             //Tag tag2 = new Tag("tag2");
             final Set<Tag> tagSet = new HashSet<>();
             UniqueTagList tags = new UniqueTagList(tagSet);
-            return new Task(name, privatePhone, email, privateAddress, tags);
+            return new Task(name, privatePhone, email, privateAddress, tags,"NOT COMPLETE");
         }
         //@@author
 
@@ -415,7 +415,7 @@ public class LogicManagerTest {
                     new Date("" + Math.abs(seed)),
                     new StartTime(seed + "@email"),
                     new EndTime("House of " + seed),
-                    new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1)))
+                    new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1))),"NOT COMPLETE"
             );
         }
 
@@ -514,7 +514,7 @@ public class LogicManagerTest {
                     new Date("1"),
                     new StartTime("1@email"),
                     new EndTime("House of 1"),
-                    new UniqueTagList(new Tag("tag"))
+                    new UniqueTagList(new Tag("tag")),"NOT COMPLETE"
             );
         }
     }

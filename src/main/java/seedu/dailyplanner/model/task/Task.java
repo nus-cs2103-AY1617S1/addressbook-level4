@@ -15,14 +15,14 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
 	private Date phone;
 	private StartTime email;
 	private EndTime address;
-	private boolean isComplete;
+	private String isComplete;
 
 	private UniqueTagList tags;
 
 	/**
 	 * Every field must be present and not null.
 	 */
-	public Task(Name name, Date phone, StartTime email, EndTime address, UniqueTagList tags) {
+	public Task(Name name, Date phone, StartTime email, EndTime address, UniqueTagList tags, String isComplete) {
 		assert !CollectionUtil.isAnyNull(name, phone, email, address, tags);
 		this.name = name;
 		this.phone = phone;
@@ -30,14 +30,14 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
 		this.address = address;
 		this.tags = new UniqueTagList(tags); // protect internal tags from
 												// changes in the arg list
-		this.isComplete = false;
+		this.isComplete = isComplete;
 	}
 
 	/**
 	 * Copy constructor.
 	 */
 	public Task(ReadOnlyTask source) {
-		this(source.getName(), source.getPhone(), source.getEmail(), source.getAddress(), source.getTags());
+		this(source.getName(), source.getPhone(), source.getEmail(), source.getAddress(), source.getTags(), source.getCompletion());
 	}
 
 	@Override
@@ -59,12 +59,18 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
 	public void setEndTime(EndTime time) {
 		this.address = time;
 	}
-
-	public void setCompletion(boolean completion) {
+	
+	@Override
+	public String getCompletion() {
+        return isComplete;
+    }
+	@Override
+	public void setCompletion(String completion) {
 		this.isComplete = completion;
 	}
+	@Override
 	public void markAsComplete() {
-		this.isComplete = true;
+		this.isComplete = "COMPLETE";
 	}
 
 	@Override
@@ -118,9 +124,6 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
 		return getAsText();
 	}
 
-	public String getCompletion() {
-		return (isComplete) ? "COMPLETE" : "NOT COMPLETE";
-	}
 
 	@Override
 	public int compareTo(Task o) {
@@ -130,5 +133,6 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
 			return this.getEmail().compareTo(o.getEmail());
 		return this.getAddress().compareTo(o.getAddress());
 	}
+
 
 }

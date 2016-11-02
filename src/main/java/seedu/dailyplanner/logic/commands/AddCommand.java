@@ -42,7 +42,8 @@ public class AddCommand extends Command {
                 new Date(date),
                 new StartTime(startTime),
                 new EndTime(endTime),
-                new UniqueTagList(tagSet)
+                new UniqueTagList(tagSet),
+                "NOT COMPLETE"
         );
     }
     

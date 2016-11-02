@@ -120,7 +120,6 @@ public class Parser {
  	//@@author A0139102U
 
     private Command prepareEdit(String arguments) {
-	// TODO Auto-generated method stub
 
 	int index = 0;
 	String taskName = "", date = "", startTime = "", endTime = "", isRecurring = "";

@@ -49,7 +49,8 @@ import seedu.dailyplanner.model.task.UniqueTaskList.PersonNotFoundException;
 	                new Date(date),
 	                new StartTime(startTime),
 	                new EndTime(endTime),
-	                new UniqueTagList(tagSet)
+	                new UniqueTagList(tagSet),
+	                "NOT COMPLETE"
 	                );
 	    }
 

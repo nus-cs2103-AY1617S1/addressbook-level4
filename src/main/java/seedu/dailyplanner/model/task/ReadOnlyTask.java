@@ -69,6 +69,7 @@ public interface ReadOnlyTask {
     void setDate(Date date);
     void setStartTime(StartTime time);
     void setEndTime(EndTime time);
+    void setCompletion(String completion);
     void markAsComplete();
 
 }

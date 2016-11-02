@@ -29,7 +29,7 @@ public class UndoCommand extends Command {
 		try {
 	        
 			 taskToUndo = new Task(new Name(undoInstruction.getTaskName()), new Date(undoInstruction.getTaskDate()), new StartTime(undoInstruction.getTaskStart()), new EndTime(undoInstruction.getTaskEnd()),
-					undoInstruction.getTag());
+					undoInstruction.getTag(), undoInstruction.getCompletion());
 			
 		} catch (IllegalValueException e) {
 			e.printStackTrace();
@@ -73,7 +73,7 @@ public class UndoCommand extends Command {
                 
                 taskToUndo = new Task(new Name(undoInstruction.getTaskName()), new Date(undoInstruction.getTaskDate()),
                         new StartTime(undoInstruction.getTaskStart()), new EndTime(undoInstruction.getTaskEnd()),
-                        undoInstruction.getTag());
+                        undoInstruction.getTag(), undoInstruction.getCompletion());
 
             } catch (IllegalValueException e) {
                 e.printStackTrace();
