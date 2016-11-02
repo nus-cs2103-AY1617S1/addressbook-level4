@@ -1,31 +1,26 @@
 package seedu.task.logic.commands;
 
-import java.util.logging.Logger;
-
-import seedu.task.commons.core.LogsCenter;
-import seedu.task.commons.util.ConfigUtil;
-
 /**
  * @@author A0147944U
  * Lists all tasks in the task manager to the user.
  */
 public class SortCommand extends Command {
-    
-    private static final Logger logger = LogsCenter.getLogger(ConfigUtil.class);
 
     public static final String COMMAND_WORD = "sort";
     
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": asdasd"
-            + "the specified keywords (case-sensitive) and displays them as a list with index numbers.\n"
-            + "Parameters: KEYWORD\n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Sorts tasks according to specified parameters."
+            + "If parameter is not given, tasks will be sorted by a default preset.\n"
+            + "Parameters: PARAMETER\n"
             + "Example: " + COMMAND_WORD + " deadline";
 
-    public static final String MESSAGE_SUCCESS = "Listed all tasks";
+    public static final String MESSAGE_SUCCESS = "Listed all tasks with order: %1$s";
     
     private final String keyword;
     
+    /**
+     * Parse the keyword given by user based on first character of the input
+     */
     public SortCommand(String keyword) {
-        logger.warning("Listing by: " + keyword);
         if (keyword.startsWith("d")) { //deadline
             this.keyword = "Deadline";
         } else if (keyword.startsWith("s")) { //start time
@@ -41,11 +36,13 @@ public class SortCommand extends Command {
         }
     }
 
+    /**
+     * Executes 'sortFilteredTaskList' and returns success message
+     */
     @Override
     public CommandResult execute(boolean isUndo) {
             model.sortFilteredTaskList(keyword);
-            logger.warning("Listing by: " + keyword);
-        return new CommandResult(MESSAGE_SUCCESS);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, keyword));
     }
 
     @Override
