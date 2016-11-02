@@ -32,7 +32,6 @@ public class MainWindow extends UiPart {
 
     // Independent Ui parts residing in this Ui container
     private ContentBox contentBox;
-//    private BrowserPanel browserPanel;
     private TaskListPanel taskListPanel;
     private ResultDisplay resultDisplay;
     private StatusBarFooter statusBarFooter;
@@ -49,9 +48,6 @@ public class MainWindow extends UiPart {
     
     @FXML
     private AnchorPane contentBoxPlaceholder;
-    
-//    @FXML
-//    private AnchorPane browserPlaceholder;
 
     @FXML
     private AnchorPane commandBoxPlaceholder;
@@ -120,27 +116,24 @@ public class MainWindow extends UiPart {
     void fillInnerParts() {
     	// @@author A0139211R
     	floatingPanel = FloatingPanel.load(primaryStage, getFloatingPanelPlaceholder(), logic.getFilteredTaskList().filtered(isFloating()));
-    	// @@author A0139211R
     	contentBox = ContentBox.load(primaryStage, getContentBoxPlaceholder(), logic.getFilteredTaskList());
+    	// @@author
         taskListPanel = TaskListPanel.load(primaryStage, getTaskListPlaceholder(), logic.getFilteredTaskList());
         resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
         statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getTaskManagerFilePath());
         commandBox = CommandBox.load(primaryStage, getCommandBoxPlaceholder(), resultDisplay, logic);
     }
     
-    /**
-     * 
-     * @@author A0139211R
-     */
+    // @@author A0139211R
     private AnchorPane getFloatingPanelPlaceholder() {
     	return floatingPanelPlaceholder;
     }
-    // @@author A0139211R
+ 
     private AnchorPane getContentBoxPlaceholder() {
     	return contentBoxPlaceholder;
     }
-    
-    
+    // @@author
+        
     private AnchorPane getCommandBoxPlaceholder() {
         return commandBoxPlaceholder;
     }
@@ -211,10 +204,8 @@ public class MainWindow extends UiPart {
     public TaskListPanel getTaskListPanel() {
         return this.taskListPanel;
     }
-    /**
-     * 
-     * @@author A0319211R
-     */
+    
+    //@@author A0139211R
     public ContentBox getContentBox() {
     	return this.contentBox;
     }
@@ -222,6 +213,7 @@ public class MainWindow extends UiPart {
     public FloatingPanel getFloatingPanel() {
     	return this.floatingPanel;
     }
+    //@@author
     
     //@@author A0147619W
     /**

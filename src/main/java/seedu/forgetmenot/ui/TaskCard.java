@@ -11,6 +11,7 @@ import seedu.forgetmenot.model.task.ReadOnlyTask;
 public class TaskCard extends UiPart{
 
     private static final String FXML = "TaskListCard.fxml";
+    //@@author A0139211R
     ImageView tickmark = new ImageView("/images/tick.png");
     ImageView floatingIcon = new ImageView("/images/floatingicon.png");
     ImageView overdueicon = new ImageView("/images/overdue.png");
@@ -19,6 +20,7 @@ public class TaskCard extends UiPart{
     private ImageView stateicon;
     @FXML
     private ImageView tasklabel;
+    //@@author
     @FXML
     private GridPane gridpane;
     @FXML
@@ -48,10 +50,7 @@ public class TaskCard extends UiPart{
         return UiPartLoader.loadUiPart(card);
     }
     
-    /**
-     * @@author A0139211R
-     */
-    
+    //@@author A0139211R
     @FXML
     public void initialize() {
         name.setText(task.getName().fullName);

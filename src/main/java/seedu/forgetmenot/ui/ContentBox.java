@@ -20,9 +20,10 @@ import seedu.forgetmenot.commons.events.model.TaskManagerChangedEvent;
 import seedu.forgetmenot.model.TaskManager;
 import seedu.forgetmenot.model.task.ReadOnlyTask;
 
+//@@author A0139211R
 /**
  * Panel containing the list of tasks.
- * @@author A0139211R
+ * 
  */
 public class ContentBox extends UiPart {
     private final Logger logger = LogsCenter.getLogger(ContentBox.class);
