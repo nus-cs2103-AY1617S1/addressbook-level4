@@ -2,13 +2,13 @@ package tars.ui;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.logging.Logger;
 
 import com.google.common.eventbus.Subscribe;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
@@ -19,6 +19,7 @@ import javafx.stage.Stage;
 import tars.commons.core.LogsCenter;
 import tars.commons.events.model.TarsChangedEvent;
 import tars.commons.util.DateTimeUtil;
+import tars.commons.util.StringUtil;
 import tars.model.task.ReadOnlyTask;
 
 /**
@@ -27,6 +28,7 @@ import tars.model.task.ReadOnlyTask;
  * @@author A0121533W
  */
 public class ThisWeekPanel extends UiPart {
+    private static final String TasksListEllipsis = "\n...\n";
     private static final Logger logger =
             LogsCenter.getLogger(ThisWeekPanel.class);
     private static final String FXML = "ThisWeekPanel.fxml";
@@ -34,11 +36,11 @@ public class ThisWeekPanel extends UiPart {
     private static final String STATUS_UNDONE = "Undone";
     private static final DateFormat df = new SimpleDateFormat("E d, MMM");
 
-    private static ObservableList<ReadOnlyTask> list;
-    private static ObservableList<ReadOnlyTask> upcomingTasks =
-            FXCollections.observableArrayList();
-    private static ObservableList<ReadOnlyTask> overduedTasks =
-            FXCollections.observableArrayList();
+    private static List<ReadOnlyTask> list;
+    private static List<ReadOnlyTask> upcomingTasks =
+            new ArrayList<ReadOnlyTask>();
+    private static List<ReadOnlyTask> overduedTasks =
+            new ArrayList<ReadOnlyTask>();
 
     private VBox panel;
     private AnchorPane placeHolderPane;
@@ -55,8 +57,7 @@ public class ThisWeekPanel extends UiPart {
     private Label upcomingTasksList;
 
     public static ThisWeekPanel load(Stage primaryStage,
-            AnchorPane thisWeekPanelPlaceHolder,
-            ObservableList<ReadOnlyTask> taskList) {
+            AnchorPane thisWeekPanelPlaceHolder, List<ReadOnlyTask> taskList) {
         ThisWeekPanel thisWeekPanel = UiPartLoader.loadUiPart(primaryStage,
                 thisWeekPanelPlaceHolder, new ThisWeekPanel());
         list = taskList;
@@ -87,8 +88,8 @@ public class ThisWeekPanel extends UiPart {
     private void configure() {
         panel.getStyleClass().add(THISWEEK_PANEL_STYLE_SHEET);
         setDate();
-        setUpcoming();
-        setOverdue();
+        handleUpcomingTasks();
+        handleOverdueTasks();
         addToPlaceholder();
         registerAsAnEventHandler(this);
     }
@@ -97,8 +98,8 @@ public class ThisWeekPanel extends UiPart {
         Date today = new Date();
         date.setText(df.format(today));
     }
-
-    private void setUpcoming() {
+    
+    private void handleUpcomingTasks() {
         int count = 0;
         for (ReadOnlyTask t : list) {
             if (DateTimeUtil.isWithinWeek(t.getDateTime().getEndDate())
@@ -111,12 +112,11 @@ public class ThisWeekPanel extends UiPart {
         if (count == 0) {
             upcomingTasksList.setText("");
         } else {
-            String list = Formatter.formatThisWeekPanelTasksList(upcomingTasks);
-            upcomingTasksList.setText(list);
+            setThisWeekPanelTaskList(count, upcomingTasks, upcomingTasksList);
         }
     }
 
-    private void setOverdue() {
+    private void handleOverdueTasks() {
         int count = 0;
         for (ReadOnlyTask t : list) {
             if (DateTimeUtil.isOverDue(t.getDateTime().getEndDate())
@@ -129,9 +129,23 @@ public class ThisWeekPanel extends UiPart {
         if (count == 0) {
             overduedTasksList.setText("");
         } else {
-            String list = Formatter.formatThisWeekPanelTasksList(overduedTasks);
-            overduedTasksList.setText(list);
+            setThisWeekPanelTaskList(count, overduedTasks, overduedTasksList);
         }
+    }
+    
+    /**
+     * Set text for tasksLists to display top three tasks
+     * 
+     */
+    private void setThisWeekPanelTaskList(int count, List<ReadOnlyTask> tasksList, Label taskListLabel) {
+            List<ReadOnlyTask> topFiveTasks = tasksList.subList(
+                    StringUtil.START_INDEX, Math.min(tasksList.size(), 3));
+            String list = Formatter
+                    .formatThisWeekPanelTasksList(topFiveTasks);
+            if (tasksList.size() > 3) {
+                list = list + TasksListEllipsis;
+            }
+            taskListLabel.setText(list);
     }
 
     @Subscribe
@@ -139,8 +153,8 @@ public class ThisWeekPanel extends UiPart {
         logger.info(LogsCenter.getEventHandlingLogMessage(event,
                 "Update this week panel"));
         upcomingTasks.clear();
-        setUpcoming();
+        handleUpcomingTasks();
         overduedTasks.clear();
-        setOverdue();
+        handleOverdueTasks();
     }
 }

@@ -3,7 +3,6 @@ package tars.ui;
 import java.util.ArrayList;
 import java.util.List;
 
-import javafx.collections.ObservableList;
 import tars.model.tag.ReadOnlyTag;
 import tars.model.task.DateTime;
 import tars.model.task.ReadOnlyTask;
@@ -84,15 +83,14 @@ public class Formatter {
     }
 
     /**
-     * Formats a given RsvTask to display reserved dateTimes as a list
+     * Formats a given RsvTask dateTime list to display
      * 
      * @@author A0121533W
      */
-    public static String formatDateTimeList(RsvTask rsvTask) {
+    public static String formatDateTimeList(ArrayList<DateTime> dateTimeList) {
         String formatted = "";
-        ArrayList<DateTime> dateTimeArrayList = rsvTask.getDateTimeList();
         int count = 1;
-        for (DateTime dt : dateTimeArrayList) {
+        for (DateTime dt : dateTimeList) {
             formatted += "[" + count + "] " + dt.toString() + "\n\n";
             count++;
         }
@@ -105,13 +103,15 @@ public class Formatter {
      * @@author A0121533W
      */
     public static String formatThisWeekPanelTasksList(
-            ObservableList<ReadOnlyTask> tasksList) {
+            List<ReadOnlyTask> overduedTasks) {
         String formatted = "";
-        for (ReadOnlyTask t : tasksList) {
+        int count = 1;
+        for (ReadOnlyTask t : overduedTasks) {
             String taskName = t.getName().toString();
             if (!formatted.contains(taskName)) {
-                formatted += "[" + t.getName().toString() + "] ";
+                formatted += "[" + count + "] " + t.getName().toString() + "\n";
             }
+            count++;
         }
         return formatted.trim();
     }
