@@ -45,6 +45,12 @@ public class Parser {
             );
     //@@author
     
+    private static final Pattern TASK_TAG_ARGS_FORMAT = 
+            Pattern.compile("?<action>((add)|(delete)|(clear))[^#]+)?"
+            + "(?<targetIndex>\\d+)" //index must be digits
+            + "\\s+"                               //any number of whitespace
+            + "(?<tagArguments>(?: #[^#]+)*)");    //quote marks are reserved for start and end of description field
+    
     private static final Pattern SAVE_LOCATION = Pattern.compile("(?<targetLocation>(([^\\/\\s]*\\/)+|default))");
     
     public Parser() {}
@@ -78,6 +84,9 @@ public class Parser {
             
         case EditCommand.COMMAND_WORD:
             return prepareEdit(arguments);
+            
+        case TagCommand.COMMAND_WORD:
+            return prepareTag(arguments);
        
         case CompleteCommand.COMMAND_WORD:
         	return prepareComplete(arguments);
@@ -109,6 +118,17 @@ public class Parser {
         default:
             return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
         }
+    }
+
+    private Command prepareTag(String args) {
+        // TODO Auto-generated method stub
+        final Matcher matcher = TASK_TAG_ARGS_FORMAT.matcher(args.trim());
+        
+        // Validate arg string format
+        if (!matcher.matches()) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, TagCommand.MESSAGE_USAGE));
+        }
+        return null;
     }
 
     private Command prepareSaveTo(String args) {
@@ -186,13 +206,13 @@ public class Parser {
         return new DeleteCommand(index.get());
     }
     
+    //@@author A0139196U
     /**
      * Parses arguments in the context of the edit person command.
      * 
      * @param args full command args string
      * @return the prepared command
      */
-    //@@author A0139196U
     private Command prepareEdit(String args) {
         
         final Matcher matcher = TASK_EDIT_ARGS_FORMAT.matcher(args.trim());
@@ -290,13 +310,13 @@ public class Parser {
         return new FindCommand(keywordSet);
     }
 
+    //@@author A0139749L
     /**
      * Parses arguments in the context of the list task command.
      *
      * @param args full command args string
      * @return the prepared command
-     */
-    //@@author A0139749L
+     */    
     private Command prepareList(String args) {
         final Matcher matcher = LIST_KEYWORD_ARGS_FORMAT.matcher(args.trim());
         if (!matcher.matches()) {
