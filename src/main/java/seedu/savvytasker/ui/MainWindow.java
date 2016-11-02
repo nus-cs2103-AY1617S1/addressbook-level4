@@ -1,5 +1,7 @@
 package seedu.savvytasker.ui;
 
+import java.util.Date;
+
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -18,18 +20,21 @@ import seedu.savvytasker.model.task.ReadOnlyTask;
 /**
  * The Main Window. Provides the basic application layout containing
  * a menu bar and space where other JavaFX elements can be placed.
+ * 
+ * @author A0138431L
+ * 
  */
 public class MainWindow extends UiPart {
 
     private static final String ICON = "/images/address_book_32.png";
     private static final String FXML = "MainWindow.fxml";
     public static final int MIN_HEIGHT = 600;
-    public static final int MIN_WIDTH = 450;
+    public static final int MIN_WIDTH = 850;
 
     private Logic logic;
-
+    Date date = new Date();
     // Independent Ui parts residing in this Ui container
-    private BrowserPanel browserPanel;
+    //private BrowserPanel browserPanel;
     private TaskListPanel taskListPanel;
     private AliasSymbolListPanel aliasSymbolListPanel;
     private ResultDisplay resultDisplay;
@@ -37,7 +42,13 @@ public class MainWindow extends UiPart {
     private CommandBox commandBox;
     private Config config;
     private UserPrefs userPrefs;
-
+	@FXML
+	private FloatingPanel floatingPanel;
+    @FXML
+	private OverduePanel overduePanel;
+	@FXML
+	private UpcomingPanel upcomingPanel;
+    
     // Handles to elements of this Ui container
     private VBox rootLayout;
     private Scene scene;
@@ -59,16 +70,26 @@ public class MainWindow extends UiPart {
     @FXML
     private AnchorPane aliasSymbolListPanelPlaceholder;
 
+    private AnchorPane personListPanelPlaceholder;
+
     @FXML
     private AnchorPane resultDisplayPlaceholder;
 
     @FXML
     private AnchorPane statusbarPlaceholder;
-    
+
     @FXML
     private VBox listPanel;
 
-
+    @FXML 
+    private AnchorPane floatingPanelPlaceholder;
+    /*
+    @FXML 
+    private AnchorPane overduePanelPlaceholder;
+    
+    @FXML 
+    private AnchorPane upcomingPanelPlaceholder;
+*/
     public MainWindow() {
         super();
     }
@@ -115,16 +136,19 @@ public class MainWindow extends UiPart {
     }
 
     void fillInnerParts() {
-        browserPanel = BrowserPanel.load(browserPlaceholder);
+        //browserPanel = BrowserPanel.load(browserPlaceholder);
         taskListPanel = TaskListPanel.load(primaryStage, getTaskListPlaceholder(), logic.getFilteredTaskList());
         aliasSymbolListPanel = AliasSymbolListPanel.load(primaryStage, getAliasSymbolPlaceholder(), logic.getAliasSymbolList());
         setDefaultView();
         resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
         statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getAddressBookFilePath());
         commandBox = CommandBox.load(primaryStage, getCommandBoxPlaceholder(), resultDisplay, logic);
+        floatingPanel = FloatingPanel.load(primaryStage, getFloatingPanelPlaceholder(), logic.getFilteredFloatingTasks());
+        overduePanel = OverduePanel.load(primaryStage, getOverduePanelPlaceholder(), logic.getFilteredOverdueTasks());
+        upcomingPanel = UpcomingPanel.load(primaryStage, getUpcomingPanelPlaceholder(), logic.getFilteredUpcomingTasks(date));
     }
     
-    /**
+        /**
      * Removes all the children in the taskPanel VBox
      * Shows the default list, which is the list of tasks
      */
@@ -151,7 +175,7 @@ public class MainWindow extends UiPart {
     private VBox getListPanel() {
         return listPanel;
     }
-
+    
     private AnchorPane getCommandBoxPlaceholder() {
         return commandBoxPlaceholder;
     }
@@ -171,7 +195,19 @@ public class MainWindow extends UiPart {
     public AnchorPane getAliasSymbolPlaceholder() {
         return aliasSymbolListPanelPlaceholder;
     }
-
+    
+    //private AnchorPane getOverduePanelPlaceholder() {
+      //  return overduePanelPlaceholder;
+    //}
+    
+    private AnchorPane getFloatingPanelPlaceholder() {
+        return floatingPanelPlaceholder;
+    }
+    
+    //private AnchorPane getUpcomingPanelPlaceholder() {
+      //  return upcomingPanelPlaceholder;
+    //}
+    
     public void hide() {
         primaryStage.hide();
     }
@@ -222,7 +258,7 @@ public class MainWindow extends UiPart {
     private void handleExit() {
         raise(new ExitAppRequestEvent());
     }
-    
+        
     public AliasSymbolListPanel getAliasSymbolListPanel() {
         return this.aliasSymbolListPanel;
     }
@@ -232,10 +268,10 @@ public class MainWindow extends UiPart {
     }
 
     public void loadPersonPage(ReadOnlyTask task) {
-        browserPanel.loadPersonPage(task);
+        //browserPanel.loadPersonPage(task);
     }
 
     public void releaseResources() {
-        browserPanel.freeResources();
+        //browserPanel.freeResources();
     }
 }

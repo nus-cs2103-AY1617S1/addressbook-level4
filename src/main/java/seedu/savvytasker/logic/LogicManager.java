@@ -1,5 +1,6 @@
 package seedu.savvytasker.logic;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Stack;
 import java.util.logging.Logger;
@@ -92,18 +93,38 @@ public class LogicManager extends ComponentManager implements Logic {
         
         return result;
     }
-
+    
     //@@author A0139915W
     @Override
     public ObservableList<ReadOnlyTask> getFilteredTaskList() {
         return model.getFilteredTaskList();
     }
-
     @Override
     public ObservableList<AliasSymbol> getAliasSymbolList() {
         return parser.getAliasSymbolList();
-    }
+    }    
     //@@author
+
+    //@@author A0138431L
+    @Override
+    public ObservableList<ReadOnlyTask> getFilteredOverdueTasks() {
+        return model.getFilteredOverdueTasks();
+    }
+
+    @Override
+    public ObservableList<ReadOnlyTask> getFilteredFloatingTasks() {
+        return model.getFilteredFloatingTasks();
+    }
+    
+    @Override
+    public ObservableList<ReadOnlyTask> getFilteredDailyTasks(Date date) {
+        return model.getFilteredDailyTasks(date);
+    }
+    
+    @Override
+    public ObservableList<ReadOnlyTask> getFilteredUpcomingTasks(Date date) {
+        return model.getFilteredUpcomingTasks(date);
+    }
     
     //@@author A0139916U
     private void registerAllDefaultCommandParsers() {

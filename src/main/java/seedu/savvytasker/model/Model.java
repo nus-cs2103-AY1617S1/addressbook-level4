@@ -1,6 +1,7 @@
 package seedu.savvytasker.model;
 
 import java.util.LinkedList;
+import java.util.Date;
 
 import seedu.savvytasker.commons.core.UnmodifiableObservableList;
 import seedu.savvytasker.model.alias.AliasSymbol;
@@ -77,4 +78,33 @@ public interface Model {
     
     /** Removes an the given AliasSymbol. */
     void removeAliasSymbol(AliasSymbol symbol) throws SymbolKeywordNotFoundException;
+    
+    //@@author A0138431L
+    /** Returns the filtered task list of overdue task as an {@code UnmodifiableObservableList<ReadOnlyTask>} 
+     * as of current date */
+	UnmodifiableObservableList<ReadOnlyTask> getFilteredOverdueTasks();
+
+    /** Returns the filtered task list of floating task as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
+	UnmodifiableObservableList<ReadOnlyTask> getFilteredFloatingTasks();
+
+    /** Returns the filtered task list of daily task as an {@code UnmodifiableObservableList<ReadOnlyTask>} 
+     * as of expected date */
+	UnmodifiableObservableList<ReadOnlyTask> getFilteredDailyTasks(Date date);
+
+    /** Returns the filtered task list of upcoming task as an {@code UnmodifiableObservableList<ReadOnlyTask>} 
+     * as of expected date */
+	UnmodifiableObservableList<ReadOnlyTask> getFilteredUpcomingTasks(Date date);
+	
+	/** Updates the filter of the filtered task list to show all overdue tasks */
+    void updateFilteredListToShowOverdue();
+
+    /** Updates the filter of the filtered task list to show all floating tasks */
+    void updateFilteredListToShowFloating();
+    
+    /** Updates the filter of the filtered task list to show all tasks of the selected week*/
+    void updateFilteredListToShowDaily();
+
+    /** Updates the filter of the filtered task list to show all upcoming tasks after the selected week*/
+    void updateFilteredListToShowUpcoming();
+    //@@author
 }
