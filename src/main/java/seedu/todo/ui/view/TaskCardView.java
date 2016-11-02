@@ -135,25 +135,23 @@ public class TaskCardView extends UiPart {
         return tagLabel;
     }
     
+    //@@author A0135817B
     /**
      * Sets style according to the status (e.g. completed, overdue, etc) of the task.
      */
     private void setStyle() {
-        boolean isCompleted = task.isCompleted();
-        boolean isOverdue = task.getEndTime().isPresent()
-                && timeUtil.isOverdue(task.getEndTime().get()) && !task.isEvent();
-        boolean isOngoing = task.isEvent()
-                && timeUtil.isOngoing(task.getStartTime().get(), task.getEndTime().get());
-        
-        if (isCompleted) {
+        ViewStyleUtil.addClassStyles(taskCard, task.isEvent() ? "event" : "task");
+
+        if (task.isCompleted()) {
             ViewStyleUtil.addClassStyles(taskCard, ViewStyleUtil.STYLE_COMPLETED);
-        } else if (isOverdue) {
+        } else if (task.getEndTime().isPresent() && timeUtil.isOverdue(task.getEndTime().get())) {
             ViewStyleUtil.addClassStyles(taskCard, ViewStyleUtil.STYLE_OVERDUE);
-        } else if (isOngoing){
+        } else if (task.isEvent() && timeUtil.isOngoing(task.getStartTime().get(), task.getEndTime().get())) {
             ViewStyleUtil.addClassStyles(taskCard, ViewStyleUtil.STYLE_ONGOING);
         }
     }
 
+    //@@author A0135805H
     /**
      * Initialise the view to show collapsed state if it can be collapsed,
      * else hide the {@link #moreInfoLabel} otherwise.

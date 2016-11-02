@@ -1,20 +1,6 @@
 package seedu.todo.model;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
-import java.util.function.Consumer;
-import java.util.logging.Logger;
-import java.util.stream.Collectors;
-
-
 import com.google.common.collect.Lists;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.todo.commons.core.EventsCenter;
@@ -28,6 +14,15 @@ import seedu.todo.model.task.MutableTask;
 import seedu.todo.model.task.Task;
 import seedu.todo.model.task.ValidationTask;
 import seedu.todo.storage.MovableStorage;
+
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.function.Consumer;
+import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 //@@author A0135817B
 /**
@@ -58,25 +53,6 @@ public class TodoList implements TodoListModel {
         } catch (DataConversionException e) {
             String message = String.format(FILE_LOAD_ERROR_FORMAT, storage.getLocation());
             raiseStorageEvent(message, e);
-        }
-        
-        // Update event status 
-        new Timer().scheduleAtFixedRate(new UpdateEventTask(), 0, 60 * 1000);
-    }
-    
-    private void updateEventStatus() {
-        LocalDateTime now = LocalDateTime.now();
-        boolean todoListModified = false;
-        
-        for (Task task : tasks) {
-            boolean isIncompleteEvent = !task.isCompleted() && task.isEvent();
-            if (isIncompleteEvent && now.isAfter(task.getEndTime().get())) {
-                task.setCompleted(true);
-                todoListModified = true;
-            }
-        }
-        if (todoListModified) {
-            saveTodoList();
         }
     }
 
@@ -223,12 +199,4 @@ public class TodoList implements TodoListModel {
     public List<ImmutableTask> getTasks() {
         return Collections.unmodifiableList(tasks);
     }
-    
-    private class UpdateEventTask extends TimerTask {
-        @Override
-        public void run() {
-            updateEventStatus();
-        }
-    }
-
 }

@@ -4,6 +4,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import seedu.todo.commons.events.ui.ExpandCollapseTaskEvent;
+import seedu.todo.commons.events.ui.HighlightTaskEvent;
 import seedu.todo.commons.exceptions.ValidationException;
 import seedu.todo.testutil.EventsCollector;
 
@@ -33,6 +34,7 @@ public class ShowCommandTest extends CommandTest {
         execute(true);
         assertThat(eventCollector.get(0), instanceOf(ExpandCollapseTaskEvent.class));
         assertEquals("Task 2", ((ExpandCollapseTaskEvent) eventCollector.get(0)).task.getTitle());
+        assertThat(eventCollector.get(1), instanceOf(HighlightTaskEvent.class));
     }
     
 }

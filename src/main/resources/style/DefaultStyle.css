@@ -245,55 +245,62 @@
 }
 
 /*Completed*/
-.completed {
+.completed, 
+.event.overdue {
     -fx-opacity: 0.4;
 }
 
-.completed.selected {
+.completed.selected, 
+.event.overdue.selected {
     -fx-opacity: 0.85;
 }
 
-.completed .label {
+.completed .label, 
+.event.overdue .label {
     -fx-text-fill: font-color;
+}
+
+.completed .roundLabel,
+.event.overdue .roundLabel {
+    -fx-background-color: font-color;
+    -fx-text-fill: #fff;
+}
+
+.completed .pinImage,
+.event.overdue .pinImage {
+    -fx-image: url("../images/star_grey.png");
+}
+
+.completed .dateImage,
+.event.overdue .dateImage {
+    -fx-image: url("../images/clock_grey.png");
+}
+
+.completed .locationImage,
+.event.overdue .locationImage {
+    -fx-image: url("../images/location_grey.png");
 }
 
 .completed .titleLabel .text {
     -fx-strikethrough: true;
 }
 
-.completed .roundLabel {
-    -fx-background-color: font-color;
-    -fx-text-fill: #fff;
-}
-
-.completed .pinImage {
-    -fx-image: url("../images/star_grey.png");
-}
-
-.completed .dateImage {
-    -fx-image: url("../images/clock_grey.png");
-}
-
-.completed .locationImage {
-    -fx-image: url("../images/location_grey.png");
-}
-
 /* Overdue and ongoing inverts their highlights their dateBox, so 
    we add some padding to allow the */
-.overdue #dateBox, 
+.overdue.task #dateBox, 
 .ongoing #dateBox {
     -fx-padding: 3 8;
     -fx-background-radius: 4;
 }
 
-.overdue .dateImage, 
+.overdue.task .dateImage, 
 .ongoing .dateImage, 
-.selected .dateImage {
+.taskCard.selected .dateImage {
     -fx-image: url("../images/clock_white.png");
 }
 
 /*Overdue*/
-.overdue {
+.overdue.task {
     primary-color: #e53935;
     selected-color: #b71c1c;
     font-color: rgba(255, 255, 255, .92);
@@ -309,25 +316,25 @@
 
 /* @@author A0135805H */
 /*Selected*/
-.selected {
+.taskCard.selected {
     font-color: rgba(255, 255, 255, .9);
     -fx-background-color: selected-color;
 }
 
-.selected .label {
+.taskCard.selected .label {
     -fx-text-fill: font-color;
 }
 
-.selected .roundLabel {
+.taskCard.selected .roundLabel {
     -fx-background-color: #fff;
     -fx-text-fill: selected-color;
 }
 
-.selected .pinImage {
+.taskCard.selected .pinImage {
     -fx-image: url("../images/star_white.png");
 }
 
-.selected .locationImage {
+.taskCard.selected .locationImage {
     -fx-image: url("../images/location_white.png");
 }
 
