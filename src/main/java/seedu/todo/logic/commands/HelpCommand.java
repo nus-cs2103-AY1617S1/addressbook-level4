@@ -6,7 +6,6 @@ import seedu.todo.commons.events.ui.ShowHelpEvent;
 import seedu.todo.commons.exceptions.ValidationException;
 import seedu.todo.logic.arguments.Parameter;
 
-import java.util.ArrayList;
 import java.util.List;
 
 //@@author A0135817B
