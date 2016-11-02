@@ -5,6 +5,14 @@
 * [About GGist](#about-ggist)
 * [Quick Start](#quick-start)
 * [Features](#features)
+..* [Adding a task](#adding-a-task)
+..* [List tasks](#listing-tasks--lis)
+..* [Search for a task](#searching-tasks-by-keywords-search)
+..* [Delete a task](#deleting-a-task--delete)
+..* [Undo & Redo](#undo--undo)
+..* [Edit a task](#editing-a-task--edit)
+..* [Mark a task complete](#marking-a-task-as-complete--done)
+..* [Save GGist data](#saving-the-data-to-a-specified-location--save)
 * [Command Cheatsheet](#command-cheatsheet)
 
 <!-- @@author A0138420N --> 
@@ -213,7 +221,7 @@ You can change the location and port the data file over easily.<br>
 Format: `save FILE_LOCATION`
 
 Example:<br>
-* `save /Users/Documents/OneDrive/data`
+`save /Users/Documents/OneDrive/data`
 
 > * The new folder has to be a valid, existing folder <br>
 > * To switch back to the default save folder, type `save data` <br>
