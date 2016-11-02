@@ -15,6 +15,7 @@ import java.util.stream.Collectors;
 
 import com.google.common.collect.Lists;
 
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.todo.commons.core.EventsCenter;
@@ -65,19 +66,22 @@ public class TodoList implements TodoListModel {
     }
     
     private void updateEventStatus() {
-        LocalDateTime now = LocalDateTime.now();
-        boolean todoListModified = false;
-        
-        for (Task task : tasks) {
-            boolean isIncompleteEvent = !task.isCompleted() && task.isEvent();
-            if (isIncompleteEvent && now.isAfter(task.getEndTime().get())) {
-                task.setCompleted(true);
-                todoListModified = true;
+        Platform.runLater(() -> {
+            LocalDateTime now = LocalDateTime.now();
+            boolean todoListModified = false;
+
+            for (Task task : tasks) {
+                boolean isIncompleteEvent = !task.isCompleted() && task.isEvent();
+                if (isIncompleteEvent && now.isAfter(task.getEndTime().get())) {
+                    task.setCompleted(true);
+                    todoListModified = true;
+                }
             }
-        }
-        if (todoListModified) {
-            saveTodoList();
-        }
+
+            if (todoListModified) {
+                saveTodoList();
+            }
+        });
     }
 
     private void raiseStorageEvent(String message, Exception e) {
