@@ -3,6 +3,7 @@ package seedu.address.logic.parser;
 import static org.junit.Assert.*;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 import org.junit.Test;
 
@@ -16,6 +17,9 @@ import seedu.address.logic.commands.IncorrectCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.UndoCommand;
+import seedu.address.model.AliasManager;
+import seedu.address.model.Model;
+import seedu.address.model.ModelManager;
 
 //@@author A0141019U
 public class ParserTest {
@@ -31,13 +35,15 @@ public class ParserTest {
 	private final RedoCommand redoCommand;
 	
 	public ParserTest() throws IllegalValueException {
-		parser = new Parser();
+		parser = new Parser(new ModelManager());
 		incorrectCommand = new IncorrectCommand("test");
 		addCommand = new AddCommand("test adding someday");
 		listCommand = new ListCommand();
 		deleteCommand = new DeleteCommand(new int[]{1});
 		changeStatusCommand = new ChangeStatusCommand(new int[]{1}, "done");
-		editCommand = new EditCommand(1, "editing", LocalDateTime.now(), LocalDateTime.now());
+		editCommand = new EditCommand(1, Optional.of("editing"), 
+				Optional.of(LocalDateTime.now()), Optional.of(LocalDateTime.now()),
+				false, false);
 		undoCommand = new UndoCommand();
 		redoCommand = new RedoCommand();
 	}

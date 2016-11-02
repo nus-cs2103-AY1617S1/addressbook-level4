@@ -2,6 +2,9 @@ package seedu.address.logic.commands;
 
 import java.util.Set;
 
+import seedu.address.commons.core.EventsCenter;
+import seedu.address.commons.events.ui.DisplayTaskListEvent;
+
 /**
  * Finds and lists all tasks in address book whose name contains any of the argument keyphrases.
  * Keyword matching is case sensitive.
@@ -23,6 +26,7 @@ public class FindCommand extends Command {
 
     @Override
     public CommandResult execute() {
+    	EventsCenter.getInstance().post(new DisplayTaskListEvent(model.getFilteredTaskList()));
     	model.checkForOverdueTasks();
     	model.updateFilteredTaskList(keyphrases);
         return new CommandResult(getMessageForTaskListShownSummary(model.getFilteredTaskList().size()));

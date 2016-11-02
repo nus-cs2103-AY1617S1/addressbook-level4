@@ -101,10 +101,16 @@ public class CommandBox extends UiPart {
          * in the event handling code {@link #handleIncorrectCommandAttempted}
          */
         setStyleToIndicateCorrectCommand();
+        restoreCommandBoxBackground();
         mostRecentResult = logic.execute(previousCommandText);
         resultDisplay.postMessage(mostRecentResult.feedbackToUser);
         logger.info("Result: " + mostRecentResult.feedbackToUser);
     }
+    
+    //@@author A0142184L
+	private void restoreCommandBoxBackground() {
+		commandTextField.setStyle("-fx-background-color: white");
+	}
     
     //@@author A0141019U
     /**

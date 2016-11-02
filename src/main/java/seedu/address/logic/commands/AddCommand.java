@@ -1,5 +1,9 @@
 package seedu.address.logic.commands;
 
+import seedu.address.commons.core.EventsCenter;
+import seedu.address.commons.core.UnmodifiableObservableList;
+import seedu.address.commons.events.ui.JumpToListRequestEvent;
+import seedu.address.commons.events.ui.DisplayTaskListEvent;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.task.*;
 import seedu.address.model.tag.Tag;
@@ -118,8 +122,10 @@ public class AddCommand extends Command {
     public CommandResult execute() {
     	assert model != null;
         try {
+        	EventsCenter.getInstance().post(new DisplayTaskListEvent(model.getFilteredTaskList()));
         	model.saveState();
             model.addTask(toAdd);
+            raiseJumpToTaskEvent(toAdd);
             model.checkForOverdueTasks();
             return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
         } catch (UniqueTaskList.DuplicateTaskException e) {
@@ -129,5 +135,12 @@ public class AddCommand extends Command {
         }
 
     }
+    
+    //@@author A0142184L
+	private void raiseJumpToTaskEvent(Task taskAdded) {
+		UnmodifiableObservableList<ReadOnlyTask> listAfterAdd = model.getFilteredTaskList();
+		int indexToScrollTo = listAfterAdd.indexOf(taskAdded);
+		EventsCenter.getInstance().post(new JumpToListRequestEvent(indexToScrollTo));
+	}
 
 }
