@@ -48,24 +48,11 @@ public class EditCommandTest extends AddressBookGuiTest {
         aliceTask.setPriority(Priority.MEDIUM);       
         assertTrue(personListPanel.isListMatching(aliceTask));
         
-        //test to check reset function
-        commandBox.runCommand("edit 1 -reset start end repeat");
-        aliceTask.setStartDate(null);
-        aliceTask.setEndDate(null);       
-        aliceTask.setRecurrence(null);        
-        assertTrue(personListPanel.isListMatching(aliceTask));
-
         //edit of priority parameter only
         commandBox.runCommand("edit 1 -low");
         aliceTask.setPriority(Priority.LOW);             
         assertTrue(personListPanel.isListMatching(aliceTask));
         
-        //ensure that reset command will overwrite any previous edit
-        commandBox.runCommand("edit 1 from 10am -reset start");
-        aliceTask.setStartDate(DateTime.convertStringToDate("10am"));
-        aliceTask.setStartDate(null);
-        assertTrue(personListPanel.isListMatching(aliceTask));
-
         //test to edit only the name
         commandBox.runCommand("edit 1 Trying out new things from the list");
         aliceTask.setName(new Name("Trying out new things from the list"));
@@ -82,6 +69,29 @@ public class EditCommandTest extends AddressBookGuiTest {
     }
     
     @Test
+    public void editCheckReset() throws IllegalValueException{
+        
+        TestTask[] currentList = td.getTypicalTasks();
+        assertClearCommandSuccess();
+
+        TestTask aliceTask = new TestTask(td.alice);
+        assertAddSuccess(aliceTask);
+        
+        //test to check reset function
+        commandBox.runCommand("edit 1 -reset start end repeat");
+        aliceTask.setStartDate(null);
+        aliceTask.setEndDate(null);       
+        aliceTask.setRecurrence(null);        
+        assertTrue(personListPanel.isListMatching(aliceTask));
+        
+        //ensure that reset command will overwrite any previous edit
+        commandBox.runCommand("edit 1 from 10am -reset start");
+        aliceTask.setStartDate(DateTime.convertStringToDate("10am"));
+        aliceTask.setStartDate(null);
+        assertTrue(personListPanel.isListMatching(aliceTask));
+    }
+    
+    @Test
     public void editCheckInvalid(){
         TestTask[] currentList = td.getTypicalTasks();
 
@@ -94,30 +104,6 @@ public class EditCommandTest extends AddressBookGuiTest {
         assertResultMessage(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
         
     }
-/*
-    @Test
-    public void editCheckSort() throws IllegalValueException {
-        TestTask[] currentList = td.getTypicalTasks();
-        TestTask personToAdd = td.hoon;
-        assertAddSuccess(personToAdd, currentList);
-        currentList = TestUtil.addFloatingTasksToList(currentList, personToAdd);
-        
-        commandBox.runCommand("edit 2 Call Alice from 2pm to 3pm repeat every day -high");
-        personToAdd.setName(new Name("Call Alice"));
-        personToAdd.setStartDate(DateTime.convertStringToDate("2pm"));
-        personToAdd.setEndDate(DateTime.convertStringToDate("3pm"));
-        try {
-        	personToAdd.setRecurrence(new RecurrenceRate("1", "day"));
-        } catch (IllegalValueException e) {
-            assert false : "The test data provided cannot be invalid";
-        }
-        personToAdd.setPriority(Priority.HIGH);    
-        //TODO
-        //update currentList after the edit
-        assertTrue(personListPanel.isListMatching(currentList));
-        
-    }
-*/    
     
     /**
      * Runs the add command to add the specified task and confirms the result is correct.
