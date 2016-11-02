@@ -24,42 +24,43 @@ public class TestTask implements ReadOnlyTask {
     	startDate = Optional.empty();
     	endDate = Optional.empty();
     }
-
+    
     public void setName(Name name) {
         this.name = name;
     }
     
     public void setStatus(Status status) {
         this.status = status;
+        if(this.status.equals(new Status("pending")) && 
+        		getEndDate().orElse(LocalDateTime.MAX).isBefore(LocalDateTime.now())) {
+        	this.status = new Status("overdue");
+        }
     }
     
-    public void setTaskType(String taskType) {
-        this.taskType = new TaskType(taskType);
+    public void setTaskType(TaskType taskType) {
+        this.taskType = taskType;
     }
-    
+       
 	public void setStartDate(String startDate) {
 		this.startDate = Optional.of(LocalDateTime.parse(startDate));
 	}
     
     public void setStartDate(LocalDateTime date) throws UnsupportedOperationException {
-        if (taskType.value.equals(TaskType.Type.DEADLINE)) {
-            throw new UnsupportedOperationException("Start date cannot be set on a deadline task");
-        }
-        else if (taskType.value.equals(TaskType.Type.SOMEDAY)) {
-            throw new UnsupportedOperationException("Start date cannot be set on a someday task");
+        if (!endDate.isPresent()) {
+            throw new UnsupportedOperationException("End date missing, start date cannot be set");
         }
         else {
+            this.setTaskType(new TaskType("event"));
             startDate = Optional.of(date);
         }
     }
+
     
-    public void setEndDate(LocalDateTime date) throws UnsupportedOperationException {
-        if (taskType.value.equals(TaskType.Type.SOMEDAY)) {
-            throw new UnsupportedOperationException("End date cannot be set on a someday task");
-        }
-        else {
-            endDate = Optional.of(date);
-        }
+    public void setEndDate(LocalDateTime date) {
+    	if (taskType.value.equals(TaskType.Type.SOMEDAY)) {
+    		this.setTaskType(new TaskType("deadline"));
+    	}
+    	endDate = Optional.of(date);
     }
 
     @Override
@@ -113,7 +114,7 @@ public class TestTask implements ReadOnlyTask {
     
     public String getEditCommand(int index) {
     	StringBuilder sb = new StringBuilder();
-        sb.append("edit " + this.getTaskType().value + " " + index + " '");
+        sb.append("edit " + index + " '");
         sb.append(this.getName().value + "'");
         if (this.getTaskType().value.equals(TaskType.Type.DEADLINE)) {
         	sb.append(" by " + this.getEndDate().toString());
@@ -125,6 +126,21 @@ public class TestTask implements ReadOnlyTask {
         return sb.toString();
     }
 
+    public TestTask convertoToPostEditTestTask(TaskType newTaskType, Name newName, Optional<LocalDateTime> newStartDate, Optional<LocalDateTime> newEndDate){
+    	TestTask postEdit = new TestTask();
+    	postEdit.setTaskType(newTaskType);
+    	postEdit.setName(newName);
+    	
+    	if(newStartDate.isPresent()){
+        	postEdit.setStartDate(newStartDate.get());
+    	}
+    	
+    	if(newEndDate.isPresent()){
+        	postEdit.setEndDate(newEndDate.get());	
+    	}
+    	
+    	return postEdit;
+    }
 	@Override
 	public int compareTo(ReadOnlyTask other) {
 		int statusCompare = this.getStatus().compareTo(other.getStatus());
