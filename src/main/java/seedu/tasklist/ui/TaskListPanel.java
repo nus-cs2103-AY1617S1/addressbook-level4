@@ -2,6 +2,7 @@ package seedu.tasklist.ui;
 
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
@@ -10,6 +11,8 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.SplitPane;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -32,6 +35,9 @@ import com.google.common.eventbus.Subscribe;
  * Panel containing the list of persons.
  */
 public class TaskListPanel extends UiPart {
+	private static final int DIRECTION_SCROLL_DOWN = 1;
+	private static final int DIRECTION_SCROLL_UP = -1;
+	
 	private final Logger logger = LogsCenter.getLogger(TaskListPanel.class);
 	private static final String FXML = "TaskListPanel.fxml";
 	private VBox panel;
@@ -60,6 +66,20 @@ public class TaskListPanel extends UiPart {
 		personListView.scrollTo(tme.task);
 		personListView.getSelectionModel().select(tme.task);
 	}
+	
+	private void configureKeyEvents(){
+		personListView.setOnKeyPressed(new EventHandler<KeyEvent>() {
+			public void handle(final KeyEvent keyEvent) {
+				if (keyEvent.getCode() == KeyCode.UP && keyEvent.isControlDown()) {
+					scrollTraverse(DIRECTION_SCROLL_UP);
+				}
+				else if (keyEvent.getCode() == KeyCode.DOWN && keyEvent.isControlDown()) {
+					scrollTraverse(DIRECTION_SCROLL_DOWN);
+				}
+			}
+		});
+	}
+	
 	//@@author
 	@Override
 	public void setNode(Node node) {
@@ -81,16 +101,17 @@ public class TaskListPanel extends UiPart {
 		TaskListPanel taskListPanel =
 				UiPartLoader.loadUiPart(primaryStage, personListPlaceholder, new TaskListPanel());
 		taskListPanel.configure(personList);
-		taskListPanel.setLabelText();
-		//@@author A0146107M
-		taskListPanel.scrollPane.setFitToHeight(true);
-		taskListPanel.scrollPane.setFitToWidth(true);
-		EventsCenter.getInstance().registerHandler(taskListPanel);
-		//@@author
 		return taskListPanel;
 	}
 
 	private void configure(ObservableList<ReadOnlyTask> personList) {
+		//@@author A0146107M
+		setLabelText();
+		configureKeyEvents();
+		scrollPane.setFitToHeight(true);
+		scrollPane.setFitToWidth(true);
+		EventsCenter.getInstance().registerHandler(this);
+		//@@author
 		setConnections(personList);
 		addToPlaceholder();
 	}
@@ -113,6 +134,14 @@ public class TaskListPanel extends UiPart {
 				raise(new TaskPanelSelectionChangedEvent(newValue));
 			}
 		});
+	}
+	
+	//@@author A0146107M
+	public void scrollTraverse(int direction){
+		int newIndex = personListView.getSelectionModel().getSelectedIndex() + direction * 10;
+		newIndex = (newIndex<0)?0:newIndex;
+		newIndex = (newIndex>=personListView.getItems().size())?(personListView.getItems().size()-1):newIndex;
+		scrollTo(newIndex);
 	}
 
 	public void scrollTo(int index) {
