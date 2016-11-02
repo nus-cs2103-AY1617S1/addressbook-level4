@@ -8,6 +8,7 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
+import javafx.scene.control.Label;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
@@ -31,6 +32,7 @@ import seedu.jimi.model.task.ReadOnlyTask;
 public class AgendaPanel extends UiPart{
     private final Logger logger = LogsCenter.getLogger(AgendaPanel.class);
     private static final String FXML = "AgendaPanel.fxml";
+    private static final String EMPTY_TABLE_MESSAGE = "There seems to be nothing here! Well done!";
     private VBox panel;
     private AnchorPane placeHolderPane;
     
@@ -81,7 +83,6 @@ public class AgendaPanel extends UiPart{
         placeHolderPane.getChildren().add(panel);
     }
     
-    
     public static AgendaPanel load(Stage primaryStage, AnchorPane agendaPlaceholder, ObservableList<ReadOnlyTask> taskList, ObservableList<ReadOnlyTask> eventList) {
         AgendaPanel agendaPanel = 
                 UiPartLoader.loadUiPart(primaryStage, agendaPlaceholder, new AgendaPanel());
@@ -101,6 +102,10 @@ public class AgendaPanel extends UiPart{
     private void setConnections() {
         tasksTableView.setItems(this.tasksList);
         eventsTableView.setItems(this.eventsList);
+        
+        tasksTableView.setPlaceholder(new Label(EMPTY_TABLE_MESSAGE));
+        eventsTableView.setPlaceholder(new Label(EMPTY_TABLE_MESSAGE));
+        
         
         tasksTableView.getColumns().setAll(tasksTableColumnId, 
                 tasksTableColumnTags,
