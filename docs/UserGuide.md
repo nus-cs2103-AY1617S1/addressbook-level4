@@ -12,7 +12,7 @@
 2. Download the latest `mastermind.jar` from our repository's [releases](https://github.com/CS2103AUG2016-W11-C3/main/releases) tab.
 3. Copy the file to the folder you want to use as the home folder for your Mastermind.
 4. Double-click the file to start the app. The app should appear in a few seconds.
-   > <img src="docs/images/Mastermind.PNG" width="600">
+   > <img src="docs/images/latest_ui.PNG" width="600">
 
 5. Type the command in the command box and press <kbd>Enter</kbd> to execute it.
    e.g. typing `help` and pressing <kbd>Enter</kbd> will open the help window.
