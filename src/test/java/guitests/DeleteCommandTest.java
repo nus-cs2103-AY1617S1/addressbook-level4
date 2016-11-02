@@ -158,7 +158,7 @@ public class DeleteCommandTest extends ListGuiTest {
 
         //confirm the result message is correct
         assertResultMessage(String.format(MESSAGE_DELETE_TASK_SUCCESS, taskToDelete.getName().name.toString() + "\n" +
-                "Start Date: " + new StartDate(taskToDelete.getStartDate()) + "\n" + 
+                "Start Date: " + new StartDate(taskToDelete.getStartDate().date.toString()) + "\n" + 
                 "End Date: " + new EndDate(taskToDelete.getEndDate()) + "\n" + 
                 "StartTime: " + new StartTime(taskToDelete.getStartTime()) + "\n" +
                 "EndTime: " + new EndTime(taskToDelete.getEndTime())));
@@ -176,7 +176,7 @@ public class DeleteCommandTest extends ListGuiTest {
 
         //confirm the result message is correct
         assertResultMessage(String.format(MESSAGE_DELETE_TASK_SUCCESS, taskToDelete.getName().name.toString() + "\n" +
-                "Date: " + new StartDate(taskToDelete.getStartDate()) + "\n" + 
+                "Date: " + new StartDate(taskToDelete.getStartDate().date.toString()) + "\n" + 
                 "EndTime: " + new EndTime(taskToDelete.getEndTime())));
     }
     

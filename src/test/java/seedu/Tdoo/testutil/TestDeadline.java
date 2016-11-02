@@ -10,7 +10,7 @@ import seedu.Tdoo.model.task.attributes.*;
 public class TestDeadline implements ReadOnlyTask {
 
     private  Name name;
-    private  String startdate;
+    private  StartDate startdate;
     private  String endTime;
     private  String done;
 
@@ -28,7 +28,7 @@ public class TestDeadline implements ReadOnlyTask {
         this.endTime = et;
     }
     
-    public void setDate(String date) {
+    public void setDate(StartDate date) {
         this.startdate = date;
     }
     public void setDone(String dd) {
@@ -46,7 +46,7 @@ public class TestDeadline implements ReadOnlyTask {
         return name;
     }
 
-    public String getStartDate() {
+    public StartDate getStartDate() {
         return startdate;
     }
     public String getDone() {
