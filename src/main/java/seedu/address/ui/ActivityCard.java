@@ -87,6 +87,11 @@ public class ActivityCard extends UiPart {
 	                    + " -fx-font-size: 13;"
 	                    + " -fx-font-family: Georgia;");
 				cardPane.setStyle("-fx-background-color: lightskyblue;");
+			} else if (((Event) activity).isOver()) {
+			    completion.setStyle("-fx-text-fill: #005000;"
+	                    + " -fx-font-size: 13;"
+	                    + " -fx-font-family: Georgia;");
+	            cardPane.setStyle("-fx-background-color: springgreen;");
 			}
 			break;
 		}
