@@ -34,7 +34,7 @@ public class AddCommandTest extends ListGuiTest {
         currentList = TestUtil.addTasksToList(currentList, taskToAdd);
         
         //add one event
-        TestEvent[] currentEventList = ed.getTypicalEvent();
+        TestEvent[] currentEventList = ed.getTypicalEvent();  
         TestEvent eventToAdd = new EventBuilder().withName("EVENT 123").withStartDate("01-01-2017").withEndDate("02-01-2017").withStartTime("01:30").withEndTime("02:00").withDone("false").build();
         assertAddEventSuccess(eventToAdd, currentEventList);
         currentEventList = TestUtil.addEventsToList(currentEventList, eventToAdd);

@@ -18,7 +18,7 @@ public class FindCommand extends Command {
             + "Example: " + COMMAND_WORD + " all homework urgent\n"
             + "               " + COMMAND_WORD + " date/25th December 2016";
 
-    private final Set<String> keywords;
+    private final Set<String> keywords; 
     private final String dataType;
 
     public FindCommand(Set<String> keywords, String dataType) {

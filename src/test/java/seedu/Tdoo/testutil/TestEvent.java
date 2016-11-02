@@ -56,10 +56,11 @@ public class TestEvent implements ReadOnlyTask {
     public Name getName() {
         return name;
     }
-
+    
+    @Override
     public StartDate getStartDate() {
         return startDate;
-    }
+    } 
     public String getEndDate() {
         return endDate;
     }
@@ -75,7 +76,7 @@ public class TestEvent implements ReadOnlyTask {
     public String getAddCommand() {
         StringBuilder sb = new StringBuilder();
         sb.append("add " + this.getName().name + " ");
-        sb.append("from/" + this.getStartDate().toString() + " ");
+        sb.append("from/01-01-2017 ");// + this.getStartDate().toString() + " ");
         sb.append("to/" + this.getEndDate().toString() + " ");
         sb.append("at/"+ this.getStartTime().toString() + " ");
         sb.append("to/" + this.getEndTime().toString());

@@ -14,6 +14,8 @@ import seedu.Tdoo.testutil.TestTask;
 import seedu.Tdoo.testutil.TestUtil;
 import seedu.Tdoo.commons.core.Messages;
 import seedu.Tdoo.commons.exceptions.IllegalValueException;
+import seedu.Tdoo.logic.commands.FindCommand;
+
 import static org.junit.Assert.assertTrue;
 
 public class FindCommandTest extends ListGuiTest {
@@ -86,9 +88,10 @@ public class FindCommandTest extends ListGuiTest {
         assertListSize(expectedHits.length);
         if (expectedHits.length == 0) {
             assertResultMessage("Invalid command format! \n" + 
-                    "find: Finds all tasks whose names contain any of the specified keywords (case-sensitive) and displays them as a list with index numbers.\n" +
+                    "find: Finds all tasks whose names or start date contain any of the specified keywords and displays them as a list with index numbers.\n" +
                     "Parameters: TASK_TYPE KEYWORD [MORE_KEYWORDS]...\n" +
-                    "Example: find all homework urgent");
+                    "Example: find all homework urgent\n" +
+                     "               " + "find date/25th December 2016");
         }
         else {
             assertResultMessage(expectedHits.length + " tasks listed!");

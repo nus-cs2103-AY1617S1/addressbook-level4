@@ -105,7 +105,7 @@ public class EventListPanelHandle extends GuiHandle {
     }
 
     //@@author A0132157M
-    public EventCardHandle navigateToevent(String name) {
+    public EventCardHandle navigateToevent(String name) { 
         LogsCenter.getLogger(TaskListPanelHandle.class).info("task.length add command: " + name.toString());
 
         guiRobot.sleep(500); //Allow a bit of time for the list to be updated

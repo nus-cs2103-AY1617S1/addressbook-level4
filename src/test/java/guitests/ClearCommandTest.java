@@ -48,7 +48,7 @@ public class ClearCommandTest extends ListGuiTest {
         //verify a non-empty list can be cleared
         TestEvent[] currentList2 = new TestEvent[]{};
         TestEvent taskToAdd1 = new EventBuilder().withName("EVENT 123").withStartDate("01-01-2017").withEndDate("01-01-2017").withStartTime("01:30").withEndTime("02:00").withDone("false").build();
-        assertAddEventSuccess(taskToAdd1, currentList2);
+        assertAddEventSuccess(taskToAdd1, currentList2); 
         currentList2 = TestUtil.addEventsToList(currentList2, taskToAdd1);
         assertClearEventCommandSuccess();
           

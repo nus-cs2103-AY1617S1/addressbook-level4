@@ -19,7 +19,7 @@ import seedu.Tdoo.model.TaskList;
 import seedu.Tdoo.model.task.*;
 import seedu.Tdoo.model.task.attributes.*;
 import seedu.Tdoo.storage.StorageManager;
-
+import seedu.Tdoo.ui.CommandBox;
 
 import org.junit.After;
 import org.junit.Before;
@@ -159,6 +159,7 @@ public class LogicManagerTest {
     }
 
     @Test
+    //@@author A0132157M
     public void execute_clear() throws Exception {
         //TestDataHelper helper = new TestDataHelper();
         model.addTask(new Todo(new Name("todo 1"), new StartDate("11-11-2016"), new EndDate("12-11-2016"), new Priority("1"), ("false")));
@@ -170,8 +171,8 @@ public class LogicManagerTest {
         assertCommandBehavior("clear deadline", ClearCommand.DEADLINE_MESSAGE_SUCCESS, new TaskList(), Collections.emptyList());
     }
 
-
     @Test
+    //@@author A0132157M reused
     public void execute_add_invalidArgsFormat() throws Exception {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE);
         assertCommandBehavior(
@@ -185,6 +186,7 @@ public class LogicManagerTest {
     }
 
     @Test
+    //@@author A0132157M reused
     public void execute_add_invalidtaskData() throws Exception {
         assertCommandBehavior(
                 "add todo[]\\[;] /11-12-2016 e/valid@e.mail a/valid, Todo", "Invalid command format! \n" + AddCommand.MESSAGE_USAGE);
@@ -196,6 +198,7 @@ public class LogicManagerTest {
     }
 
     @Test
+    //@@author A0132157M reused
     public void execute_addTodo_successful() throws Exception {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
@@ -214,7 +217,7 @@ public class LogicManagerTest {
     
     @Test
     //@@author A0132157M
-    public void execute_addEvent_successful() throws Exception {
+    public void execute_addEvent_unsuccessful() throws Exception {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
 
@@ -225,7 +228,7 @@ public class LogicManagerTest {
 
         // execute command and verify result
         assertCommandBehavior(helper.generateAddEventCommand(toBeAdded),
-                String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded.getName().toString()),
+                String.format(StartDate.MESSAGE_DATE_CONSTRAINTS),
                 expectedAB,
                 expectedAB.getTaskList());
     }
@@ -270,27 +273,26 @@ public class LogicManagerTest {
 //                expectedAB.getTaskList());
 //    }
     
-    @Test
-    //@@author A0132157M
-    public void execute_addEventDuplicate_notAllowed() throws Exception {
-        // setup expectations
-        TestDataHelper helper = new TestDataHelper();
-
-        Event toBeAdded = helper.eventHelper();
-        TaskList expectedAB = new TaskList();
-
-        expectedAB.addTask(toBeAdded);
-
-        // setup starting state
-        model.addTask(toBeAdded); // task already in internal TodoList
-
-        // execute command and verify result
-        assertCommandBehavior(
-                helper.generateAddEventCommand(toBeAdded),
-                AddCommand.MESSAGE_DUPLICATE_TASK,
-                expectedAB,
-                expectedAB.getTaskList());
-    }
+//    @Test
+//    //@@author A0132157M
+//    public void execute_addEventDuplicate_notAllowed() throws Exception {
+//        // setup expectations
+//        TestDataHelper helper = new TestDataHelper();
+//
+//        Event toBeAdded = helper.eventHelper();
+//        TaskList expectedAB = new TaskList();  
+//        expectedAB.addTask(toBeAdded); 
+//
+//        // setup starting state
+//        model.addTask(toBeAdded); // task already in internal TodoList
+//
+//        // execute command and verify result
+//        assertCommandBehavior(
+//                helper.generateAddEventCommand(toBeAdded),
+//                AddCommand.MESSAGE_DUPLICATE_TASK,
+//                expectedAB,
+//                expectedAB.getTaskList());
+//    }
     
     @Test
     //@@author A0132157M
@@ -311,7 +313,7 @@ public class LogicManagerTest {
                 helper.generateAddDeadlineCommand(toBeAdded),
                 AddCommand.MESSAGE_DUPLICATE_TASK,
                 expectedAB,
-                expectedAB.getTaskList());
+                expectedAB.getTaskList());  
     }
 
 
@@ -377,7 +379,27 @@ public class LogicManagerTest {
                 expectedAB,
                 expectedList);
     }
+    
+    @Test
+    //@@author A0139923X
+    public void execute_list_showsAllTasks() throws Exception {
+        // prepare expectations
+        TestDataHelper helper = new TestDataHelper();
+        Task pTarget1 = helper.generatetask("task 1");
+        Task pTarget2 = helper.generateEvents("event 2");
+        Task pTarget3 = helper.generateDeadline("deadline 3");       
+        List<Task> threetasks = helper.generatetaskList(pTarget1, pTarget2, pTarget3);
+        TaskList expectedAB = helper.generateTodoList(threetasks);      
+        List<? extends ReadOnlyTask> expectedList = expectedAB.getTaskList();
 
+        // prepare TodoList state
+        helper.addToModel(model, threetasks);
+
+        assertCommandBehavior("list all",
+                ListCommand.ALL_MESSAGE_SUCCESS,
+                expectedAB,
+                expectedList);
+    }
 
     /**
      * Confirms the 'invalid argument index number behaviour' for the given command
@@ -397,6 +419,7 @@ public class LogicManagerTest {
      * targeting a single task in the shown list, using visible index.
      * @param commandWord to test assuming it targets a single task in the last shown list based on visible index.
      */
+    //@@author A0132157M reused
     private void assertIndexNotFoundBehaviorForCommand(String commandWord) throws Exception {
         String expectedMessage = MESSAGE_INVALID_TASK_DISPLAYED_INDEX;
         TestDataHelper helper = new TestDataHelper();
@@ -449,11 +472,13 @@ public class LogicManagerTest {
     }
 
     @Test
+  //@@author A0132157M reused
     public void execute_deleteIndexNotFound_errorMessageShown() throws Exception {
         assertIndexNotFoundBehaviorForCommand("delete todo 1");
     }
 
     @Test
+    //@@author A0132157M reused
     public void execute_delete_removesCorrectTodo() throws Exception {
         String expectedMessage = MESSAGE_INVALID_TASK_DISPLAYED_INDEX;
         TestDataHelper helper = new TestDataHelper();
@@ -496,7 +521,7 @@ public class LogicManagerTest {
                 expectedAB.getTaskList());
     }
     @Test
-  //@@author A0132157M
+    //@@author A0132157M
     public void execute_delete_removesCorrectDeadline() throws Exception {
         String expectedMessage = MESSAGE_INVALID_TASK_DISPLAYED_INDEX;
         TestDataHelper helper = new TestDataHelper();
@@ -517,14 +542,14 @@ public class LogicManagerTest {
                 expectedAB.getTaskList());
     }
 
-
     @Test
+    //author A0132157M
     public void execute_find_invalidArgsFormat() throws Exception {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE);
         assertCommandBehavior("find ", expectedMessage);
     }
-
     @Test
+    //author A0132157M
     public void execute_find_onlyMatchesFullWordsInNames() throws Exception {
         TestDataHelper helper = new TestDataHelper();
         Task pTarget1 = helper.generatetask("bla bla todo bla");
@@ -542,8 +567,29 @@ public class LogicManagerTest {
                 expectedAB,
                 expectedList);
     }
-
+    
     @Test
+    //@@author A0139923X
+    public void execute_find_onlyMatchesDatesInDayMonthYear() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        Task pTarget1 = helper.generateEvents("15th May 2017");
+        Task pTarget2 = helper.generateDeadline("11th November 2017");
+        Task pTarget3 = helper.generateEvents("20th June 2016");
+        Task pTarget4 = helper.generateEvents("31st December 2018");
+
+        List<Task> fourtasks = helper.generatetaskList(pTarget1, pTarget2, pTarget3, pTarget4);
+        TaskList expectedAB = helper.generateTodoList(fourtasks);
+        List<Task> expectedList = helper.generatetaskList(pTarget1, pTarget2, pTarget3, pTarget4);
+        helper.addToModel(model, fourtasks);
+
+        assertCommandBehavior("find all date/2017",
+                Command.getMessageFortaskListShownSummary(expectedList.size()),
+                expectedAB,
+                expectedList);
+    }
+    
+    @Test
+    //@@author A0132157M
     public void execute_find_isNotCaseSensitive() throws Exception {
         TestDataHelper helper = new TestDataHelper();
         Task p1 = helper.generatetask("KEY");
@@ -563,6 +609,7 @@ public class LogicManagerTest {
     }
 
     @Test
+    //@@author A0132157M
     public void execute_find_matchesIfAnyKeywordPresent() throws Exception {
         TestDataHelper helper = new TestDataHelper();
         Task pTarget1 = helper.generatetask("todo blablakeybla 1");
@@ -616,7 +663,7 @@ public class LogicManagerTest {
                 expectedList);
         
         assertCommandBehavior("done todo 43",
-                Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX, 
+                Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX,
                 expectedAB,
                 expectedList);
         
@@ -720,58 +767,7 @@ public class LogicManagerTest {
 //    public void execute_ChangeStorageLocation() throws Throwable {
 //        assertCommandBehavior("storage /Documents/ShardFolder/TdooData",
 //                String.format(StorageCommand.MESSAGE_SUCCESS, " /Documents/ShardFolder/TdooData"));
-//    }
-    
-    @Test
-    //@@author A0132157M
-    public void execute_deadline_edit() throws Exception {
-        TestDataHelper helper = new TestDataHelper();
-        Task pTarget1 = helper.generateDeadline("homework 1");
-        Task pTarget2 = helper.generateDeadline("assignment 2");
-        Task pTarget3 = helper.generateDeadline("partytime 3");
-        Task p1 = helper.generateDeadline("happyhour 4");
-
-        List<Task> fourtasks = helper.generatetaskList(pTarget1, pTarget2, pTarget3);
-        TaskList expectedAB = helper.generateTodoList(fourtasks);
-        List<Task> expectedList = helper.generatetaskList(pTarget1, pTarget2, pTarget3);
-        helper.addToModel(model, fourtasks);
-
-        assertCommandBehavior("edit deadline 1 name/happyhour 4 on/11-11-2017 at/12:30",
-                String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, p1),
-                expectedAB,
-                expectedList);
-        
-        assertCommandBehavior("edit deadline 3 name/happyhour 4 on/11-11-2017 at/12:30",
-                String.format(EditCommand.INVALID_VALUE, p1),
-                expectedAB,
-                expectedList);
-    }
-    
-    @Test
-    //@@author A0132157M
-    public void execute_event_edit() throws Exception {
-        TestDataHelper helper = new TestDataHelper();
-        Task pTarget1 = helper.generateEvents("homework 1");
-        Task pTarget2 = helper.generateEvents("assignment 2");
-        Task pTarget3 = helper.generateEvents("partytime 3");
-        Task p1 = helper.generateEvents("happyhour 4");
-
-        List<Task> fourtasks = helper.generatetaskList(pTarget1, pTarget2, pTarget3);
-        TaskList expectedAB = helper.generateTodoList(fourtasks);
-        List<Task> expectedList = helper.generatetaskList(pTarget1, pTarget2, pTarget3);
-        helper.addToModel(model, fourtasks);
-
-        assertCommandBehavior("edit event 1 name/happyhour 4 from/15-05-2017 to/16-07-2017 at/12:00 to/12:30",
-                String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, p1),
-                expectedAB,
-                expectedList);
-        
-        assertCommandBehavior("edit event 3 name/happyhour 4 from/15-05-2017 to/16-07-2017 at/12:00 to/12:30",
-                String.format(EditCommand.INVALID_VALUE, p1),
-                expectedAB,
-                expectedList);
-    }
-    
+//    }    
 
 
 //===========================================================================================
@@ -781,7 +777,7 @@ public class LogicManagerTest {
     //@@author A0132157M reused
     class TestDataHelper{
 
-        Todo todoHelper() throws Exception {   
+        Todo todoHelper() throws Exception {
             Name name = new Name("TODO 111");
             StartDate date = new StartDate("01-01-2017");
             EndDate endDate = new EndDate("02-01-2017");
@@ -792,8 +788,8 @@ public class LogicManagerTest {
         //@@author A0132157M
         Event eventHelper() throws Exception {
             Name name = new Name("EVENT 111");
-            StartDate startDate = new StartDate("15-05-2017");
-            EndDate endDate = new EndDate("16-07-2017");
+            StartDate startDate = new StartDate("01-12-2016");
+            EndDate endDate = new EndDate("02-12-2016");
             StartTime startTime = new StartTime("01:00");
             EndTime endTime = new EndTime("02:00");
             String isDone = "false";
@@ -844,8 +840,8 @@ public class LogicManagerTest {
 
             cmd.append("add ");
             cmd.append(p.getName().name);
-            cmd.append(" from/15-05-2017");//.append(p.getStartDate().date);
-            cmd.append(" to/16-07-2017");//.append(p.getEndDate().endDate);
+            cmd.append(" from/01-11-2016");//.append(p.getStartDate().date);
+            cmd.append(" to/02-11-2016");//.append(p.getEndDate().endDate);
             cmd.append(" at/01:00");//.append(p.getStartTime().startTime);
             cmd.append(" to/02:00");//.append(p.getEndTime().endTime);
             //cmd.append("false");
@@ -948,8 +944,8 @@ public class LogicManagerTest {
         Task generateEvents(String name) throws Exception {
             return new Event(
                     new Name(name),
-                    new StartDate("15-05-2017"),
-                    new EndDate("16-07-2017"),
+                    new StartDate("11-11-2017"),
+                    new EndDate("12-11-2017"),
                     new StartTime("12:00"),
                     new EndTime("12:30"),
                     "false"

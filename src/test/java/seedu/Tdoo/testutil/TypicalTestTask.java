@@ -6,11 +6,11 @@ import seedu.Tdoo.commons.exceptions.IllegalValueException;
 /**
  *
  */
-//@@author A0132157M reused
+//@@author A0132157M
 public class TypicalTestTask {
 
    
-    public static  TestTask  a1;
+    public static TestTask  a1;
     public static TestTask a2;
     public static TestTask a3;
     public static TestTask a4;
@@ -27,7 +27,7 @@ public class TypicalTestTask {
             a3 = new TaskBuilder().withName("teambuilding 3").withStartDate("27-10-2017").withEndDate("28-10-2017").withPriority("3").withDone("false").build();
             a4 = new TaskBuilder().withName("assignment 4").withStartDate("27-10-2017").withEndDate("28-10-2017").withPriority("2").withDone("false").build();
             a5 = new TaskBuilder().withName("project 5").withStartDate("28-10-2017").withEndDate("29-10-2017").withPriority("3").withDone("false").build();
-            //Manually added
+            
             a6 = new TaskBuilder().withName("assignment 6").withStartDate("28-10-2017").withEndDate("29-10-2017").withPriority("2").withDone("false").build();
             a7 = new TaskBuilder().withName("homework 7").withStartDate("29-10-2017").withEndDate("30-10-2017").withPriority("1").withDone("false").build();
 

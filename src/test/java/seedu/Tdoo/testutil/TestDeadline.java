@@ -58,7 +58,7 @@ public class TestDeadline implements ReadOnlyTask {
         StringBuilder sb = new StringBuilder();
         sb.append("add " + this.getName().name + " ");
         //sb.append(this.getName().name + " ");
-        sb.append("on/" + this.getStartDate() + " ");
+        sb.append("on/30-11-2017 ");// + this.getStartDate() + " ");
         sb.append("at/" + this.getEndTime());
         //this.getTags().getInternalList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));
         return sb.toString();
