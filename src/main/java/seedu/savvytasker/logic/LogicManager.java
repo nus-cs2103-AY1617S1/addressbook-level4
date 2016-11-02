@@ -33,6 +33,7 @@ import seedu.savvytasker.model.Model;
 import seedu.savvytasker.model.alias.AliasSymbol;
 import seedu.savvytasker.model.task.ReadOnlyTask;
 import seedu.savvytasker.storage.Storage;
+import seedu.savvytasker.ui.Ui;
 
 /**
  * The main LogicManager of the app.
@@ -66,9 +67,10 @@ public class LogicManager extends ComponentManager implements Logic {
         
         if (!(command instanceof ListCommand)) {
             // forcefully show the task list instead
-            MainApp.getUiManager().showTaskList(true);
-        } else {
-            ListCommand listCommand = (ListCommand)command;
+            Ui uiManager = MainApp.getUiManager();
+            if (uiManager != null) {
+                uiManager.showTaskList(true);
+            }
         }
         
         //@@author A0097627N

@@ -71,11 +71,11 @@ public class MainApp extends Application {
     }
     
     public static Ui getUiManager() {
-        return instance.ui;
-    }
-    
-    public static Logic getLogicManager() {
-        return instance.logic;
+        if (instance != null) {
+            return instance.ui;
+        } else {
+            return null;
+        }
     }
 
     private String getApplicationParameter(String parameterName){
