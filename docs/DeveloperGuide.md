@@ -334,7 +334,8 @@ Use case resumes at step 2
   
 3a. User identifies a mistake in the details of the task added
 > 3a1. User edits the task details (UC03)<br>
-  Use case ends
+
+> Use case ends
 
 
 <!-- @@author -->
@@ -371,7 +372,8 @@ Use case ends
 4. TaskManager parses the `edit` command and looks for the task in the list
 5. TaskManager edits the requested fields on the specified task according to the command entered
 6. TaskManager updates the GUI to display the new list of undone tasks and highlight the newly edited task <br>
-Use case ends
+
+> Use case ends
 
 **Extensions**
 
