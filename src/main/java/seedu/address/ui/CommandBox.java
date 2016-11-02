@@ -111,7 +111,6 @@ public class CommandBox extends UiPart {
      * Show previous command string input in history entered commands
      */
     private void handleUpKey() {
-    	// TODO attach to up key
     	String prevCommand = commandHistoryManager.getPreviousCommand();
     	commandTextField.setText(prevCommand);
     }
@@ -120,7 +119,6 @@ public class CommandBox extends UiPart {
      * Show next command string input in history of entered commands
      */
     private void handleDownKey() {
-    	// TODO attach to down key
     	String nextCommand = commandHistoryManager.getNextCommand();
     	commandTextField.setText(nextCommand);
     }
@@ -139,9 +137,14 @@ public class CommandBox extends UiPart {
         logger.info(LogsCenter.getEventHandlingLogMessage(event,"Invalid command: " + previousCommandText));
         setStyleToIndicateIncorrectCommand();
         restoreCommandText();
+        putCaretToEndOfText();
     }
-
-    /**
+    //@@author A0142184L
+	private void putCaretToEndOfText() {
+		commandTextField.end();
+	}
+	//@@author
+	/**
      * Restores the command box text to the previously entered command
      */
     private void restoreCommandText() {
@@ -153,6 +156,7 @@ public class CommandBox extends UiPart {
      */
     private void setStyleToIndicateIncorrectCommand() {
         commandTextField.getStyleClass().add("error");
+        commandTextField.setStyle("-fx-background-color: #ee6666");
     }
 
 }

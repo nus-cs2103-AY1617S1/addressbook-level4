@@ -15,7 +15,7 @@
       <GridPane prefHeight="42.0" prefWidth="600.0">
          <columnConstraints>
             <ColumnConstraints hgrow="ALWAYS" />
-            <ColumnConstraints hgrow="NEVER" />
+            <ColumnConstraints hgrow="NEVER" maxWidth="90.0" />
             <ColumnConstraints hgrow="NEVER" maxWidth="80.0" minWidth="80.0" />
          </columnConstraints>
          <children>
@@ -55,17 +55,16 @@
                   <URL value="@Extensions.css" />
                </stylesheets>
             </HBox>
-            <Label fx:id="taskStatus" styleClass="cell_big_label" GridPane.columnIndex="1">
-               <stylesheets>
-                  <URL value="@DarkTheme.css" />
-                  <URL value="@Extensions.css" />
-               </stylesheets>
+            <Label fx:id="taskStatus" alignment="CENTER" style="-fx-font-size: 14;" GridPane.columnIndex="1">
                <padding>
                   <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
                </padding>
                <GridPane.margin>
                   <Insets right="6.0" />
                </GridPane.margin>
+               <font>
+                  <Font size="14.0" />
+               </font>
             </Label>
          </children>
          <rowConstraints>
@@ -96,7 +95,7 @@
             </HBox>
             <HBox alignment="CENTER_LEFT" translateY="-9.0">
                <children>
-                  <Label fx:id="dueDateAndTime" style="-fx-text-fill: #3c3838; -fx-font-size: #3c3838;" text="\$dueDateAndTime" textFill="#615b5b" />
+                  <Label fx:id="dueDateAndTime" style="-fx-text-fill: #3c3838; -fx-font-size: 13;" text="\$dueDateAndTime" textFill="#615b5b" />
                </children>
                <GridPane.margin>
                   <Insets left="20.0" />

@@ -99,7 +99,7 @@ public class TestTask implements ReadOnlyTask {
 
     public String getAddCommand() {
         StringBuilder sb = new StringBuilder();
-        sb.append("add " + this.getTaskType().value + " '");
+        sb.append("add '");
         sb.append(this.getName().value + "'");
         if (this.getTaskType().value.equals(TaskType.Type.DEADLINE)) {
         	sb.append(" by " + this.getEndDate().toString());

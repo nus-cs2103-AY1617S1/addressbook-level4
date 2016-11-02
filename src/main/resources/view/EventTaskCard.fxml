@@ -15,11 +15,11 @@
       <GridPane prefHeight="42.0" prefWidth="600.0">
          <columnConstraints>
             <ColumnConstraints hgrow="ALWAYS" />
-            <ColumnConstraints hgrow="NEVER" />
+            <ColumnConstraints hgrow="NEVER" maxWidth="90.0" />
             <ColumnConstraints hgrow="NEVER" maxWidth="80.0" minWidth="80.0" />
          </columnConstraints>
          <children>
-            <Label fx:id="taskType" style="-fx-background-color: #38d0ff; -fx-font-weight: bold; -fx-font-size: 15;" text="\$taskType" textAlignment="RIGHT" textOverrun="CLIP" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+            <Label fx:id="taskType" style="-fx-background-color: #38d0ff; -fx-font-weight: bold; -fx-font-size: 15;" text="\$taskType" textAlignment="RIGHT" textOverrun="CLIP" translateY="-4.0" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                <font>
                   <Font name="System Bold" size="16.0" />
                </font>
@@ -55,17 +55,16 @@
                   <URL value="@Extensions.css" />
                </stylesheets>
             </HBox>
-            <Label fx:id="taskStatus" styleClass="cell_big_label" GridPane.columnIndex="1">
-               <stylesheets>
-                  <URL value="@DarkTheme.css" />
-                  <URL value="@Extensions.css" />
-               </stylesheets>
+            <Label fx:id="taskStatus" style="-fx-font-size: 14;" translateY="-4.0" GridPane.columnIndex="1">
                <padding>
                   <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
                </padding>
                <GridPane.margin>
                   <Insets right="6.0" />
                </GridPane.margin>
+               <font>
+                  <Font size="14.0" />
+               </font>
             </Label>
          </children>
          <rowConstraints>
