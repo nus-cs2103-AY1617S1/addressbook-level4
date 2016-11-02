@@ -24,6 +24,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 //@@author A0135805H
 /**
@@ -116,12 +117,13 @@ public class TaskCardView extends UiPart {
      * Displays the tags in lexicographical order, ignoring case.
      */
     private void displayTags(){
-        List<String> tagList = new ArrayList<>(Tag.getTagNames(task.getTags()));
-        if (!tagList.isEmpty()) {
-            tagList.sort(Comparator.reverseOrder());
-            tagList.forEach(tagName -> titleFlowPane.getChildren()
-                    .add(INSERT_TAG_INDEX, constructTagLabel(tagName)));
-        }
+        task.getTags()
+            .stream()
+            .map(Tag::getTagName)
+            .sorted(Comparator.reverseOrder())
+            .forEach(tagName -> {
+                titleFlowPane.getChildren().add(INSERT_TAG_INDEX, constructTagLabel(tagName));
+            });
     }
 
     /**
