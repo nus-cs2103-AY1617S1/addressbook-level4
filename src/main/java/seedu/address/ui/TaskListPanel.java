@@ -27,6 +27,8 @@ public class TaskListPanel extends UiPart {
 
     @FXML
     private ListView<ReadOnlyTask> taskListView;
+    @FXML
+    private ListView<ReadOnlyAlias> aliasListView;
 
     public TaskListPanel() {
         super();
@@ -51,22 +53,39 @@ public class TaskListPanel extends UiPart {
         this.placeHolderPane = pane;
     }
 
-    public static TaskListPanel load(Stage primaryStage, AnchorPane taskListPlaceholder,
+    public static TaskListPanel loadTaskList(Stage primaryStage, AnchorPane taskListPlaceholder,
                                        ObservableList<ReadOnlyTask> taskList) {
         TaskListPanel taskListPanel =
                 UiPartLoader.loadUiPart(primaryStage, taskListPlaceholder, new TaskListPanel());
-        taskListPanel.configure(taskList);
+        taskListPanel.configureTask(taskList);
         return taskListPanel;
     }
 
-    private void configure(ObservableList<ReadOnlyTask> taskList) {
-        setConnections(taskList);
+    public static TaskListPanel loadAliasList(Stage primaryStage, AnchorPane taskListPlaceholder,
+                                       ObservableList<ReadOnlyAlias> aliasList) {
+    	TaskListPanel taskListPanel = UiPartLoader.loadUiPart(primaryStage, taskListPlaceholder, new TaskListPanel());
+        taskListPanel.configureAlias(aliasList);
+        return taskListPanel;
+    }
+    
+    private void configureTask(ObservableList<ReadOnlyTask> taskList) {
+        setTaskConnections(taskList);
         addToPlaceholder();
     }
-
-    private void setConnections(ObservableList<ReadOnlyTask> taskList) {
+    
+    private void configureAlias(ObservableList<ReadOnlyAlias> aliasList) {
+        setAliasConnections(aliasList);
+        addToPlaceholder();
+    }
+    
+    private void setTaskConnections(ObservableList<ReadOnlyTask> taskList) {
         taskListView.setItems(taskList);
         taskListView.setCellFactory(listView -> new TaskListViewCell());
+    }
+    
+    private void setAliasConnections(ObservableList<ReadOnlyTask> aliasList) {
+        aliasListView.setItems(aliasList);
+        aliasListView.setCellFactory(listView -> new AliasListViewCell());
     }
 
     private void addToPlaceholder() {
@@ -101,6 +120,24 @@ public class TaskListPanel extends UiPart {
             	} else {
             		setGraphic(EventTaskCard.load(task, getIndex() + 1).getLayout());
             	}
+            }
+        }
+    }
+    
+    class AliasListViewCell extends ListCell<ReadOnlyAlias> {
+
+        public AliasListViewCell() {
+        }
+
+        @Override
+        protected void updateItem(ReadOnlyAlias alias, boolean empty) {
+            super.updateItem(alias, empty);
+
+            if (empty || alias == null) {
+                setGraphic(null);
+                setText(null);
+            } else {
+                setGraphic(AliasCard.load(alias, getIndex() + 1).getLayout());
             }
         }
     }
