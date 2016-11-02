@@ -21,7 +21,7 @@ public class StorageManager extends ComponentManager implements Storage {
     private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
     private TaskManagerStorage addressBookStorage;
     private UserPrefsStorage userPrefsStorage;
-
+    private AliasManagerStorage aliasMa
 
     public StorageManager(TaskManagerStorage addressBookStorage, UserPrefsStorage userPrefsStorage) {
         super();
