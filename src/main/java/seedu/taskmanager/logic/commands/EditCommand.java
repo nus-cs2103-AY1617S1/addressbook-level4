@@ -46,7 +46,6 @@ public class EditCommand extends Command {
                                                + "\n" + "                     " + "edt/[END_DATE_TIME]"
                                                + " ed/[END_DATE]"
                                                + " et/[END_TIME]"
-                                               + "\n" + "Editable parameters are restricted to those the item was created with."
                                                + "\n" + "At least one parameter must be specifed (sdt/edt favoured over sd/st/ed/et)"
                                                + "\n" + "Example: " + COMMAND_WORD + " 1" + " n/buy milk";
     
