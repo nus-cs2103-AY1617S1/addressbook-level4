@@ -11,7 +11,6 @@ public class ListTagCommand extends ListCommand {
     public static final String COMMAND_WORD = "edit";
     
     public static final String MESSAGE_SUCCESS = "Listed all tasks of category: %1$s";
-    public static final String MESSAGE_INVALID_TAG = "The category %1$s is invalid";
     
     public ListTagCommand(String tagName) throws IllegalValueException {
         name = tagName;
@@ -35,7 +34,7 @@ public class ListTagCommand extends ListCommand {
     public CommandResult execute(){
         FilteredList<Tag> tagList = model.getTagList().filtered(tag -> tag.getTagName().equals(name));
         if (tagList.isEmpty()){
-            return new CommandResult(String.format(MESSAGE_INVALID_TAG, name));
+            return new CommandResult(String.format(Tag.MESSAGE_INVALID_TAG, name));
         } else {
             model.updateFilteredTaskListToShowTag(name);
             return new CommandResult(String.format(MESSAGE_SUCCESS, name));

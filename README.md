@@ -24,6 +24,7 @@
 * Some parts of this sample application were inspired by the excellent 
   [Java FX tutorial](http://code.makery.ch/library/javafx-8-tutorial/) by *Marco Jakob*. 
 * Derivative of the sample project created by SE-EDU initiative at https://github.com/se-edu/
+* Natural language date parser courtesy of [Natty](http://natty.joestelmach.com/)
 
 
 #### Licence : [MIT](LICENSE)
