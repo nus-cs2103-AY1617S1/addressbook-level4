@@ -97,13 +97,13 @@ Example :
 
 Adds a task **project** with deadline **27.10.2016**.
 
-**add project ed/27.10.2016  16:00**
+- **add project ed/27.10.2016  16:00**
 
-#### Adds a task **project**  with deadline **27.10.2016 16:00**.
+Adds a task **project**  with deadline **27.10.2016 16:00**.
 
-**add project ed/Wednesday****  16:00**
+- **add project ed/Wednesday 16:00**
 
-#### Adds a task **project**  with deadline **Wednesday 16:00**.
+Adds a task **project**  with deadline **Wednesday 16:00**.
 
 #### **Adding a task with STARTIME and ENDTIME**
 
