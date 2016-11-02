@@ -50,8 +50,24 @@ We are a team of four 2nd Year Computer Engineering students based in the [Schoo
 
 #### [Tan Jun Hao](https://github.com/e0003083)  <br>
 <img src="images/Jun Hao.jpg" width="150"><br>
-**Role**: Developer <br>  
-**Responsibilities**: Storage
+
+* Components in charge of: [Model](https://github.com/CS2103AUG2016-T11-C2/main/tree/master/src/main/java/seedu/forgetmenot/model)
+* Aspects/tools in charge of: Testing, Sourcetree, Eclipse
+* Features implemented:
+   * [show](https://github.com/CS2103AUG2016-T11-C2/main/blob/master/docs/UserGuide.md#showing-full-list-show)
+   * [show all](https://github.com/CS2103AUG2016-T11-C2/main/blob/master/docs/UserGuide.md#showing-all-task-show-all)
+   * [show done](https://github.com/CS2103AUG2016-T11-C2/main/blob/master/docs/UserGuide.md#show-all-the-done-tasks-show-done)
+   * [show today](https://github.com/CS2103AUG2016-T11-C2/main/blob/master/docs/UserGuide.md#showing-list-for-today-show-today)
+   * [show tomorrow](https://github.com/CS2103AUG2016-T11-C2/main/blob/master/docs/UserGuide.md#showing-list-for-tomorrow-show-tomorrow)
+   * [show date](https://github.com/CS2103AUG2016-T11-C2/main/blob/master/docs/UserGuide.md#showing-list-for-specific-date-show-date)
+   * [show parameter](https://github.com/CS2103AUG2016-T11-C2/main/blob/master/docs/UserGuide.md#showing-list-for-special-parameters-show-parameter)
+   * [show overdue](https://github.com/CS2103AUG2016-T11-C2/main/blob/master/docs/UserGuide.md#showing-a-list-for-overdue-tasks-show-overdue) 
+   * [done](https://github.com/CS2103AUG2016-T11-C2/main/blob/master/docs/UserGuide.md#mark-as-done-done)
+   * [undone](https://github.com/CS2103AUG2016-T11-C2/main/blob/master/docs/UserGuide.md#mark-as-undone-undone)
+   * [clear done](https://github.com/CS2103AUG2016-T11-C2/main/blob/master/docs/UserGuide.md#clearing-only-the-done-tasks-clear-done)
+* Code written: [[functional code](A123456.md)][[test code](A123456.md)][[docs](A123456.md)]
+* Other major contributions:
+  * Did the initial refactoring from AddressBook to ToDoList [[#133](https://github.com/se-edu/addressbook-level4/pull/152) ] 
 
 -----
 
