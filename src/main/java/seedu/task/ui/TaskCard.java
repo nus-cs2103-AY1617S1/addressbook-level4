@@ -49,7 +49,7 @@ public class TaskCard extends UiPart{
     public void initialize() {
         name.setText(task.getName().fullName);
         id.setText(displayedIndex + ". ");
-        if(!task.getDeadline().value.equals("now") && !task.getDeadline().value.equals(" from now")){
+        if(!task.getStartTime().value.equals("now") && !task.getStartTime().value.equals(" from now")){
             startTimeLabel.setText(" from " + task.getStartTime().value);
         }else{
             startTimeLabel.setText("");

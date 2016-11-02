@@ -336,6 +336,7 @@ public class TimeParserResult {
     }
 
     public void setFirstTime(Date date) {
+    	
         firstTime = date.toInstant().atZone(ZoneId.systemDefault()).toLocalTime();
     }
 
