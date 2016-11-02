@@ -32,7 +32,7 @@ public class XmlSavvyTaskerStorage implements SavvyTaskerStorage {
     //@@author A0139915W
     @Override
     /**
-     * Changes the path of the storage location if the newPath can be successfully created.
+     * Changes the path of the storage location if the file at newPath can be successfully created.
      */
     public boolean setSavvyTaskerFilePath(String newPath) {
         try {
