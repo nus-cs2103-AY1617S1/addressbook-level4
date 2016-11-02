@@ -14,23 +14,23 @@ import seedu.forgetmenot.model.task.Name;
 import seedu.forgetmenot.model.task.Recurrence;
 import seedu.forgetmenot.model.task.Task;
 import java.util.Calendar;
-// @@author A0139211R
+//@@author A0139211R
 public class CounterTest {
   
 	
 	private DateFormat dateFormat = new SimpleDateFormat("hh:mm a");
-    @Test
-    public void counter_updateFloatingNumber_isCorrect() throws Exception {
-    	Task floating1 = new Task(new Name("floating1"), new Done(false), new Time(""), new Time(""), new Recurrence(""));
-    	Task floating2 = new Task(new Name("floating2"), new Done(false), new Time(""), new Time(""), new Recurrence(""));
-    	Task floating3 = new Task(new Name("floating3"), new Done(false), new Time(""), new Time(""), new Recurrence(""));
-        TaskManager ab = new TaskManager();
-        ab.addTask(floating1);
-        ab.addTask(floating2);
-        ab.addTask(floating3);
-        
-        assertTrue(ab.getFloatingCounter() == 3);
-    }
+//    @Test
+//    public void counter_updateFloatingNumber_isCorrect() throws Exception {
+//    	Task floating1 = new Task(new Name("floating1"), new Done(false), new Time(""), new Time(""), new Recurrence(""));
+//    	Task floating2 = new Task(new Name("floating2"), new Done(false), new Time(""), new Time(""), new Recurrence(""));
+//    	Task floating3 = new Task(new Name("floating3"), new Done(false), new Time(""), new Time(""), new Recurrence(""));
+//        TaskManager ab = new TaskManager();
+//        ab.addTask(floating1);
+//        ab.addTask(floating2);
+//        ab.addTask(floating3);
+//        
+//        assertTrue(ab.getFloatingCounter() == 3);
+//    }
 
     @Test
     public void counter_updateOverDueNumber_isCorrect() throws Exception {

@@ -90,43 +90,43 @@ public class ModelManagerTest {
         }
     }
     
-    @Test
-    public void addRecurringTask_addDefaultNumberOfRecurringDeadlineTask_addsNineInstancesToTaskManager()
-            throws IllegalValueException {
-        TestTask recurringTask = new TaskBuilder().withName("recurring deadline task").withStartTime("")
-                .withEndTime("tomorrow 10pm").withDone(false).withRecurrence("day").build();
-        ModelManager testModel = new ModelManager();
-        testModel.addRecurringTask(recurringTask);
-
-        TestTask toCheck;
-        StringBuilder addedTime = new StringBuilder("");
-        for (int i = 0; i < Recurrence.DEFAULT_OCCURENCE - 1; i++) {
-            addedTime.insert(0, "day after ");
-            toCheck = new TaskBuilder().withName("recurring deadline task").withStartTime("")
-                    .withEndTime(addedTime + "tomorrow 10pm").withDone(false).withRecurrence("day").build();
-            assertEquals(testModel.getTaskManager().getUniqueTaskList().getInternalList().get(i), toCheck);
-
-        }
-    }
+//    @Test
+//    public void addRecurringTask_addDefaultNumberOfRecurringDeadlineTask_addsNineInstancesToTaskManager()
+//            throws IllegalValueException {
+//        TestTask recurringTask = new TaskBuilder().withName("recurring deadline task").withStartTime("")
+//                .withEndTime("tomorrow 10pm").withDone(false).withRecurrence("day").build();
+//        ModelManager testModel = new ModelManager();
+//        testModel.addRecurringTask(recurringTask);
+//
+//        TestTask toCheck;
+//        StringBuilder addedTime = new StringBuilder("");
+//        for (int i = 0; i < Recurrence.DEFAULT_OCCURENCE - 1; i++) {
+//            addedTime.insert(0, "day after ");
+//            toCheck = new TaskBuilder().withName("recurring deadline task").withStartTime("")
+//                    .withEndTime(addedTime + "tomorrow 10pm").withDone(false).withRecurrence("day").build();
+//            assertEquals(testModel.getTaskManager().getUniqueTaskList().getInternalList().get(i), toCheck);
+//
+//        }
+//    }
     
-    @Test
-    public void addRecurringTask_addDefaultNumberOfRecurringStartOnlyTask_addsNineInstancesToTaskManager()
-            throws IllegalValueException {
-        TestTask recurringTask = new TaskBuilder().withName("recurring start only task").withStartTime("tmr 10am")
-                .withEndTime("").withDone(false).withRecurrence("day").build();
-        ModelManager testModel = new ModelManager();
-        testModel.addRecurringTask(recurringTask);
-
-        TestTask toCheck;
-        StringBuilder addedTime = new StringBuilder("");
-        for (int i = 0; i < Recurrence.DEFAULT_OCCURENCE - 1; i++) {
-            addedTime.insert(0, "day after ");
-            toCheck = new TaskBuilder().withName("recurring start only task").withStartTime(addedTime + "tmr 10am")
-                    .withEndTime("").withDone(false).withRecurrence("day").build();
-            assertEquals(testModel.getTaskManager().getUniqueTaskList().getInternalList().get(i), toCheck);
-
-        }
-    }
+//    @Test
+//    public void addRecurringTask_addDefaultNumberOfRecurringStartOnlyTask_addsNineInstancesToTaskManager()
+//            throws IllegalValueException {
+//        TestTask recurringTask = new TaskBuilder().withName("recurring start only task").withStartTime("tmr 10am")
+//                .withEndTime("").withDone(false).withRecurrence("day").build();
+//        ModelManager testModel = new ModelManager();
+//        testModel.addRecurringTask(recurringTask);
+//
+//        TestTask toCheck;
+//        StringBuilder addedTime = new StringBuilder("");
+//        for (int i = 0; i < Recurrence.DEFAULT_OCCURENCE - 1; i++) {
+//            addedTime.insert(0, "day after ");
+//            toCheck = new TaskBuilder().withName("recurring start only task").withStartTime(addedTime + "tmr 10am")
+//                    .withEndTime("").withDone(false).withRecurrence("day").build();
+//            assertEquals(testModel.getTaskManager().getUniqueTaskList().getInternalList().get(i), toCheck);
+//
+//        }
+//    }
     
     //@@author A0139198N
     @Test
