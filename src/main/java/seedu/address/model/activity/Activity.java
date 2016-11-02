@@ -14,10 +14,10 @@ import java.util.Calendar;
 import java.util.Objects;
 
 /**
- * Represents an Activity in the Lifekeeper.
- * Guarantees: details are present and not null, field values are validated.
+ * Represents an Activity in the Lifekeeper. Guarantees: details are present and
+ * not null, field values are validated.
  */
-//@@author A0131813R
+// @@author A0131813R
 public class Activity implements ReadOnlyActivity {
 
     protected Name name;
@@ -35,9 +35,10 @@ public class Activity implements ReadOnlyActivity {
         this.reminder = reminder;
         this.reminder.recurring = reminder.recurring;
         this.reminder.RecurringMessage = reminder.RecurringMessage;
-        this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list  
+        this.tags = new UniqueTagList(tags); // protect internal tags from
+                                             // changes in the arg list
     }
-    
+
     /**
      * Every field must be present and not null. isCompleted must be present
      */
@@ -48,7 +49,8 @@ public class Activity implements ReadOnlyActivity {
         this.reminder.recurring = reminder.recurring;
         this.reminder.RecurringMessage = reminder.RecurringMessage;
         this.isCompleted = isCompleted;
-        this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list  
+        this.tags = new UniqueTagList(tags); // protect internal tags from
+                                             // changes in the arg list
     }
 
     /**
@@ -62,7 +64,7 @@ public class Activity implements ReadOnlyActivity {
     public Name getName() {
         return name;
     }
-    
+
     public void setName(Name name) {
         this.name = name;
     }
@@ -71,16 +73,16 @@ public class Activity implements ReadOnlyActivity {
     public Reminder getReminder() {
         return reminder;
     }
-    
+
     public void setReminder(Reminder reminder) {
         this.reminder = reminder;
     }
-    
+
     @Override
     public boolean getCompletionStatus() {
         return isCompleted;
     }
-    
+
     @Override
     public UniqueTagList getTags() {
         return new UniqueTagList(tags);
@@ -101,14 +103,16 @@ public class Activity implements ReadOnlyActivity {
             return false;
         } else {
             return other == this // short circuit if same object
-                    || (other instanceof ReadOnlyActivity // instanceof handles nulls
-                    && this.isSameStateAs((ReadOnlyActivity) other));
+                    || (other instanceof ReadOnlyActivity // instanceof handles
+                                                          // nulls
+                            && this.isSameStateAs((ReadOnlyActivity) other));
         }
     }
 
     @Override
     public int hashCode() {
-        // use this method for custom fields hashing instead of implementing your own
+        // use this method for custom fields hashing instead of implementing
+        // your own
         return Objects.hash(name, reminder, tags);
     }
 
@@ -119,67 +123,72 @@ public class Activity implements ReadOnlyActivity {
 
     public void setCompletionStatus(boolean isComplete) {
         isCompleted = isComplete;
-        
+
     }
 
     @Override
     public String toStringCompletionStatus() {
         String message = "";
-        if(reminder.recurring){
-            String[] recurfre = reminder.RecurringMessage.split(" ");
-            message = "Recurring - " + recurfre[0] + " " + recurfre[1];
+        if (reminder.recurring) {
+            message = "Recurring\t " + forMessage(this.reminder.RecurringMessage);
         }
-        if(isCompleted && reminder.recurring) {
-            String[] recurfre = reminder.RecurringMessage.split(" ");
-            message =  "Completed - Recurring - " + recurfre[0] + " " + recurfre[1];;
-         recurringActivity();
-            }
-            return message; 
+        if (isCompleted && reminder.recurring) {
+            message = "Completed - Recurring\t " + forMessage(this.reminder.RecurringMessage);
+            if (reminder.value.before(Calendar.getInstance()))
+                recurringActivity();
+        }
+        return message;
     }
 
-	@Override
-	public boolean hasPassedDueDate() {
-		return false;
-	}
-    
-    public static Activity create (ReadOnlyActivity act) {
-		
-    	String actType = act.getClass().getSimpleName().toLowerCase();
-    	
-    			switch (actType) {
-                
-    			case "activity":
-                    return new Activity(act);
-                case "task":
-                	 return new Task((ReadOnlyTask) act);
-                case "event":
-                	return new Event((ReadOnlyEvent) act);
+    public String forMessage(String input) {
+        String[] recurfre = input.split(" ");
+        String cap = recurfre[0].substring(0, 1).toUpperCase() + recurfre[0].substring(1);
+        String capfreq = recurfre[1].substring(0, 1).toUpperCase() + recurfre[1].substring(1);
+        return cap + " " + capfreq;
     }
-				return null;
-    	
+
+    @Override
+    public boolean hasPassedDueDate() {
+        return false;
     }
-    
+
+    public static Activity create(ReadOnlyActivity act) {
+
+        String actType = act.getClass().getSimpleName().toLowerCase();
+
+        switch (actType) {
+
+        case "activity":
+            return new Activity(act);
+        case "task":
+            return new Task((ReadOnlyTask) act);
+        case "event":
+            return new Event((ReadOnlyEvent) act);
+        }
+        return null;
+
+    }
+
     public void setisOver(boolean isOver) {
         this.isOver = isOver;
     }
 
-    
     public boolean getisOver() {
         return isOver;
     }
 
-    
-    public void recurringActivity(){ 
-        if(this.reminder.recurring && Calendar.getInstance().after(this.reminder.value)){
-            setCompletionStatus(false);  
+    public void recurringActivity() {
+        if (this.reminder.recurring && Calendar.getInstance().after(this.reminder.value)) {
+            setCompletionStatus(false);
             String[] recur;
-                recur = this.reminder.RecurringMessage.split(" ", 2);
-                String date = recur [1];
-                try {
-                    this.reminder.setDate(date);
-                } catch (IllegalValueException e) {
-                    e.printStackTrace();
-                }}    
+            recur = this.reminder.RecurringMessage.split(" ", 2);
+            String date = recur[1];
+            try {
+                this.reminder.setDate(date);
+            } catch (IllegalValueException e) {
+                e.printStackTrace();
+            }
+        }
     };
 
 }

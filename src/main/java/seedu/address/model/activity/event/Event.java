@@ -80,19 +80,23 @@ public class Event extends Activity implements ReadOnlyEvent {
             message = "Event Over";
         } else if (this.isOngoing()) {
             message = "Event Ongoing";
-        } else if (this.isOver() && this.startTime.recurring) {
-            String[] recurfre = startTime.RecurringMessage.split(" ");
+        } else if (this.isOver() && this.startTime.recurring) {            
             recurringEvent();
-            String cap = recurfre[0].substring(0, 1).toUpperCase() + recurfre[0].substring(1);
-            message = cap + " " + recurfre[1] + "\t";
+            message = forMessage (this.startTime.RecurringMessage);
         } else if (!this.isOver() && this.startTime.recurring) {
-            String[] recurfre = startTime.RecurringMessage.split(" ");
-            String cap = recurfre[0].substring(0, 1).toUpperCase() + recurfre[0].substring(1);
-            message = cap + " " + recurfre[1] + "\t";
+            message = forMessage (this.startTime.RecurringMessage);
         }
-        if (this.reminder.recurring)
-            message = message.concat("\t Remind " + this.reminder.RecurringMessage);
+        if (this.reminder.recurring){
+            message = message.concat("\t Remind " + forMessage (this.reminder.RecurringMessage));
+        }
         return message;
+    }
+    
+    public String forMessage(String input){
+        String[] recurfre = input.split(" ");
+        String cap = recurfre[0].substring(0, 1).toUpperCase() + recurfre[0].substring(1);
+        String capfreq = recurfre[1].substring(0, 1).toUpperCase() + recurfre[1].substring(1);
+        return cap + " " + capfreq;
     }
 
     @Override
