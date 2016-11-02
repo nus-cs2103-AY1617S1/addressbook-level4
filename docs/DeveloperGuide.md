@@ -128,6 +128,7 @@ The `UI` component uses JavaFx UI framework. The layout of these UI parts are de
 ### Logic component
 
 <img src="images/logic.png" width="800"><br>
+Fig. 6: Logic Component
 
 **API** : [`Logic.java`](../src/main/java/seedu/address/logic/Logic.java)
 
@@ -139,6 +140,7 @@ The `UI` component uses JavaFx UI framework. The layout of these UI parts are de
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")`
  API call.<br>
 <img src="images/Sequence Diagram2.png" width="800"><br>
+Fig. 7 : Sequence Diagram for interactions within the Logic component for the execute("delete 1") API call.
 
 ### Model component
 
