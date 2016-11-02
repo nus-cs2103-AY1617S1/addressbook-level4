@@ -56,5 +56,9 @@ public class Deadline {
     public int hashCode() {
         return value.hashCode();
     }
+    
+    public static int compareTo(Deadline anotherDeadline) {
+        return Deadline.compareTo(anotherDeadline);
+    }
 
 }

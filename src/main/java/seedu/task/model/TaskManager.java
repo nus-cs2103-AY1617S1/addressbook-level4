@@ -166,4 +166,41 @@ public class TaskManager implements ReadOnlyTaskManager {
         // use this method for custom fields hashing instead of implementing your own
         return Objects.hash(tasks, tags);
     }
+    
+    public void sortByDeadline() {
+        this.tasks.getInternalList().sort(new Comparator<Task>() {
+            @Override
+            public int compare(Task one, Task other) {
+                return one.getName().compareTo(other.getName());
+            }
+        });
+    }
+    
+    public void sortByStartTime() {
+        this.tasks.getInternalList().sort(new Comparator<Task>() {
+            @Override
+            public int compare(Task one, Task other) {
+                return one.getName().compareTo(other.getName());
+            }
+        });
+    }
+    
+    public void sortByEndTime() {
+        this.tasks.getInternalList().sort(new Comparator<Task>() {
+            @Override
+            public int compare(Task one, Task other) {
+                return one.getName().compareTo(other.getName());
+            }
+        });
+    }
+    
+    public void sortByName() {
+        this.tasks.getInternalList().sort(new Comparator<Task>() {
+            @Override
+            public int compare(Task one, Task other) {
+                return one.getName().compareTo(other.getName());
+            }
+        });
+    }
+    
 }
