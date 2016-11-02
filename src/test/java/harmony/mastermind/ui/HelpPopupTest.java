@@ -8,7 +8,8 @@ public class HelpPopupTest {
     
     @Test
     public void getContent_success() {
-        HelpPopupStub popup = new HelpPopupStub();
+        HelpPopup popup = new HelpPopup();
+        popup.setContent("testing");
         assertEquals(popup.getContent(), "testing");
     }
     
