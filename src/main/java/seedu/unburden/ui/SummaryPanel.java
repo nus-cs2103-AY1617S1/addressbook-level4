@@ -5,10 +5,12 @@ import java.text.ParseException;
 import com.google.common.eventbus.Subscribe;
 
 import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Accordion;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TitledPane;
@@ -17,12 +19,14 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import seedu.unburden.commons.core.LogsCenter;
+import seedu.unburden.commons.events.model.ListOfTaskChangedEvent;
 import seedu.unburden.commons.events.ui.IncorrectCommandAttemptedEvent;
 import seedu.unburden.commons.util.FxViewUtil;
 import seedu.unburden.logic.Logic;
 import seedu.unburden.logic.commands.CommandResult;
 import seedu.unburden.model.task.ReadOnlyTask;
 import seedu.unburden.ui.TaskListPanel;
+import seedu.unburden.model.ListOfTask;
 import seedu.unburden.model.ModelManager;
 
 /**
@@ -39,24 +43,14 @@ public class SummaryPanel extends UiPart{
     private GridPane mainContainer;
     @FXML
     private Label today;
-    /*@FXML
-    private TitledPane importance;
     @FXML
-    private TitledPane completeness;
+    private Label tomorrow;
     @FXML
-    private Label urgent;
-    @FXML
-    private Label normal;
-    @FXML
-    private Label nonurgent;
-    */
-    
+    private Label nextWeek;    
     @FXML
     private Label done;
     @FXML
     private Label undone;
-
-    private Logic logic;
 
     private AnchorPane placeHolderPane;    
 
@@ -71,27 +65,39 @@ public class SummaryPanel extends UiPart{
     }
 
     public static SummaryPanel load(Stage primaryStage, AnchorPane summaryPanelPlaceholder,
-            Logic logic) {
+    		ObservableList<ReadOnlyTask> taskList) {
         SummaryPanel summaryPanel = UiPartLoader.loadUiPart(primaryStage, summaryPanelPlaceholder, new SummaryPanel());
-        summaryPanel.configure( logic);
-        summaryPanel.addToPlaceholder();
+        summaryPanel.configure(taskList);
         return summaryPanel;
     }
 
-    public  void configure(Logic logic) {
-        this.logic = logic;
+    public  void configure(ObservableList<ReadOnlyTask> taskList) {
+    	addToPlaceholder();
     }
 
+    //@@author A0143095H
     @FXML
     public void initialize() {
     	
-   	    today.setText(ModelManager.getSize1());
-        done.setText(ModelManager.getSize2());
-        undone.setText(ModelManager.getSize3());
+   	    today.setText(Integer.toString(ListOfTask.todayCounter));
+   	    tomorrow.setText(Integer.toString(ListOfTask.tomorrowCounter));
+   	    nextWeek.setText(Integer.toString(ListOfTask.nextWeekCounter));
+        done.setText(Integer.toString(ListOfTask.doneCounter));
+        undone.setText(Integer.toString(ListOfTask.undoneCounter));
        
     }
              
-    
+  //@@author A0143095H
+    @Subscribe
+    private void modelChangedEvent(ListOfTaskChangedEvent change) {
+    	
+   	    today.setText(Integer.toString(ListOfTask.todayCounter));
+   	    tomorrow.setText(Integer.toString(ListOfTask.tomorrowCounter));
+   	    nextWeek.setText(Integer.toString(ListOfTask.nextWeekCounter));
+        done.setText(Integer.toString(ListOfTask.doneCounter));
+        undone.setText(Integer.toString(ListOfTask.undoneCounter));
+       
+    }    
     
     private  void addToPlaceholder() {
         
@@ -117,9 +123,3 @@ public class SummaryPanel extends UiPart{
     }
     
 }
-
-
- 
-
-  
-

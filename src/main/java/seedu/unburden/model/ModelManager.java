@@ -35,9 +35,6 @@ public class ModelManager extends ComponentManager implements Model {
     private final FilteredList<Task> filteredTasks;
     private ArrayDeque<ListOfTask> prevLists = new ArrayDeque<ListOfTask>();
     private ArrayDeque<ListOfTask> undoHistory = new ArrayDeque<ListOfTask>();
-    private Calendar calendar = Calendar.getInstance();
-    private static final SimpleDateFormat DATEFORMATTER = new SimpleDateFormat("dd-MM-yyyy");
-    private static int size1,size2,size3;
     
     private java.util.function.Predicate<? super Task> getAllUndone() {
 		return t -> {
@@ -76,7 +73,7 @@ public class ModelManager extends ComponentManager implements Model {
     public void resetData(ReadOnlyListOfTask newData) {
     	prevLists.push(new ListOfTask(listOfTask));
         listOfTask.resetData(newData);
-        countSize();
+        listOfTask.Counter(); 
         indicateTaskListChanged();
     }
 
@@ -93,7 +90,6 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public synchronized void deleteTask(ReadOnlyTask target) throws TaskNotFoundException {
         listOfTask.removeTask(target);
-        countSize();
         indicateTaskListChanged();
     }
 
@@ -102,7 +98,6 @@ public class ModelManager extends ComponentManager implements Model {
         listOfTask.addTask(task);
         //updateFilteredListToShowAll();
         updateFilteredTaskList(getAllUndone());
-        countSize(); 
         indicateTaskListChanged();    		
     }
     
@@ -113,7 +108,6 @@ public class ModelManager extends ComponentManager implements Model {
         listOfTask.editTask(target, toEdit);
         //updateFilteredListToShowAll();
         updateFilteredTaskList(getAllUndone());
-        countSize(); 
         indicateTaskListChanged();
     }
     
@@ -125,7 +119,6 @@ public class ModelManager extends ComponentManager implements Model {
     	listOfTask.doneTask(taskToDone,isDone);
     	//updateFilteredListToShowAll();
         updateFilteredTaskList(getAllUndone());
-        countSize(); 
     	indicateTaskListChanged();
     }
     
@@ -135,7 +128,6 @@ public class ModelManager extends ComponentManager implements Model {
     	listOfTask.doneTask(taskToDone,isunDone);
     	//updateFilteredListToShowAll();
         updateFilteredTaskList(getAllUndone());
-        countSize(); 
     	indicateTaskListChanged();
     }
     
@@ -143,6 +135,7 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public synchronized void saveToPrevLists() {
     	prevLists.push(new ListOfTask(listOfTask));
+    	listOfTask.Counter(); 
     	undoHistory.clear();
     }
     
@@ -152,7 +145,7 @@ public class ModelManager extends ComponentManager implements Model {
     	ListOfTask oldCopy = prevLists.pop();
     	undoHistory.push(new ListOfTask(listOfTask));
     	listOfTask.setTasks(oldCopy.getTasks());
-    	countSize(); 
+    	listOfTask.Counter(); 
     	indicateTaskListChanged();
     }
     
@@ -162,64 +155,28 @@ public class ModelManager extends ComponentManager implements Model {
     	ListOfTask oldCopy = undoHistory.pop();
     	prevLists.push(new ListOfTask(listOfTask));
     	listOfTask.setTasks(oldCopy.getTasks());
-    	countSize(); 
+    	listOfTask.Counter(); 
     	indicateTaskListChanged();
     }
         
-    //@@author A0147986H
-    public void countSize(){  
-    	
-    	size1=0;
-    	size2=0;
-        size3=0;    
-        
-    	for(int i=0; i<listOfTask.getUniqueTaskList().getInternalList().size(); i++){
-    		
-    		if(listOfTask.getUniqueTaskList().getInternalList().get(i).getDone()==true)
-    	     
-    			size2 ++;
-    		else if(listOfTask.getUniqueTaskList().getInternalList().get(i).getDone()==false)
-    		 
-    			size3++;   		    	
-    	}
-    	
-    	for(int i=0; i<listOfTask.getUniqueTaskList().getInternalList().size(); i++){
-    		if(listOfTask.getUniqueTaskList().getInternalList().get(i).getDate().getFullDate().equals(DATEFORMATTER.format(calendar.getTime())))
-    		 
-    			size1 ++;
-    			
-    		}
-    	
-    }
-    	
-       
-    public static String getSize1(){
-    	return String.valueOf(size1);
-    }
-    
-    public static String getSize2(){
-    	return String.valueOf(size2);
-    }
-    
-    public static String getSize3(){
-    	return String.valueOf(size3);
-    }
-   
     
     //=========== Filtered Task List Accessors ===============================================================
 
     @Override
     public UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList() {
-        return new UnmodifiableObservableList<>(filteredTasks);
+    	listOfTask.Counter(); 
+        return new UnmodifiableObservableList<>(filteredTasks); 
     }
 
     @Override
     public void updateFilteredListToShowAll() {
-        filteredTasks.setPredicate(null);
+        filteredTasks.setPredicate(null);       
+        listOfTask.Counter(); 
     }
 
     @Override
     public void updateFilteredTaskList(java.util.function.Predicate<? super Task> predicate){
-        filteredTasks.setPredicate(predicate);
+    	filteredTasks.setPredicate(predicate);
+    	listOfTask.Counter(); 
     }
 }
