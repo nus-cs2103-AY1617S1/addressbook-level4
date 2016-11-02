@@ -151,10 +151,6 @@ Format: `show today`
 Displays all the task for tomorrow for the user to view.<br>
 Format: `show tomorrow`
 
-##### Showing list for upcoming: `show upcoming`
-Displays all the task for upcoming task for the user to view.<br>
-Format: `show upcoming`
-
 ##### Showing list for specific date: `show <date>`
 Displays all the task for today the user to view.<br>
 Format: `show <date>`
