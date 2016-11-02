@@ -31,7 +31,7 @@ public class DailyPanel extends UiPart {
 	private static String TODAY_TITLE = "Today";
 	private static String TOMORROW_TITLE = "Tomorrow";
 	private static String DAY_PATTERN = "EEEE";
-	private static String DATE_PATTERN = "dd MMMM yy";
+	private static String DATE_PATTERN = "dd MMM yy";
 	private static String DAY_DATE_FORMAT = "%1$s, %2$s";
 
 	private final Logger logger = LogsCenter.getLogger(TaskListPanel.class);

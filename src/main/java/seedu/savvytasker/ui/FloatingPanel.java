@@ -15,7 +15,6 @@ import javafx.stage.Stage;
 import seedu.savvytasker.commons.core.LogsCenter;
 import seedu.savvytasker.commons.events.ui.TaskPanelSelectionChangedEvent;
 import seedu.savvytasker.model.task.ReadOnlyTask;
-import javafx.scene.control.Label;
 
 //@@author A0138431L
 
