@@ -8,6 +8,7 @@ import seedu.address.commons.events.model.TaskManagerChangedEvent;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.TaskFilter;
+import seedu.address.model.alias.Alias;
 import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.ReadOnlyTaskFilter;
 import seedu.address.model.task.Status;
@@ -131,16 +132,10 @@ public class ModelManager extends ComponentManager implements Model {
     
     //@@author A0143756Y
     @Override
-    public synchronized void addAlias(String commandAlias, String commandPhrase) {
-    	assert commandAlias != null;
-    	assert !commandAlias.isEmpty();
-    	assert commandPhrase != null;
-    	assert !commandPhrase.isEmpty();
+    public synchronized void addAlias(Alias aliasToAdd) {
+    	assert aliasToAdd != null;
     	
-    	//Alias aliasToAdd = new Alias(commandAlias, commandPhrase);
-    	
-    	
-    	
+    	aliasBook.addAlias(aliasToAdd);
     	
     }
     

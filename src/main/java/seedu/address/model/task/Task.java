@@ -153,5 +153,4 @@ public class Task implements ReadOnlyTask, Comparable<ReadOnlyTask> {
 			}
 		}
 	}
-  
 }

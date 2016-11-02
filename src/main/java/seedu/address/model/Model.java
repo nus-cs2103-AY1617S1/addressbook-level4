@@ -2,6 +2,7 @@ package seedu.address.model;
 
 import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.model.task.Task;
+import seedu.address.model.alias.Alias;
 import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.UniqueTaskList;
 
@@ -39,8 +40,10 @@ public interface Model {
     /** Updates the given task */
     void editTask(int index, Task task) throws UniqueTaskList.TaskNotFoundException;
     
-    /** Saves command alias and corresponding command phrase to XML file, "aliasbook.xml" in ./data folder. */
-    void addAlias(String commandAlias, String commandPhrase);
+    //@@author A0143756Y
+    /** Saves alias to XML file, "aliasbook.xml" in ./data folder. */
+    void addAlias(Alias aliasToAdd);
+    //@@author
     
     /** Updates the task status overdue if not marked as done and end time is before now */
     void checkForOverdueTasks();
