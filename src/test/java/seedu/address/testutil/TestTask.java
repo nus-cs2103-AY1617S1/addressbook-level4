@@ -102,13 +102,17 @@ public class TestTask implements ReadOnlyTask {
         StringBuilder sb = new StringBuilder();
         sb.append("add '");
         sb.append(this.getName().value + "'");
+        
         if (this.getTaskType().value.equals(TaskType.Type.DEADLINE)) {
         	sb.append(" by " + this.getEndDate().toString());
-        } else if (this.getTaskType().value.equals(TaskType.Type.EVENT)) {
+        } 
+        else if (this.getTaskType().value.equals(TaskType.Type.EVENT)) {
         	sb.append(" from " + this.getStartDate().toString());
         	sb.append(" to " + this.getEndDate().toString());
         }
-        //this.getTags().getInternalList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));
+
+        System.out.println("cmd string: " + sb.toString());        
+        
         return sb.toString();
     }
     

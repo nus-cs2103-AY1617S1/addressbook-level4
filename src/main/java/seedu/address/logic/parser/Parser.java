@@ -13,9 +13,13 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import javafx.util.Pair;
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.commands.AddCommand;
@@ -35,19 +39,19 @@ import seedu.address.logic.parser.ArgumentTokenizer.Prefix;
 
 
 public class Parser {
-	//@@author A0141019U
+	// @@author A0141019U	
+	private static final Logger logger = LogsCenter.getLogger(Parser.class);
+	
 	private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
-	
-	private static final Pattern ADD_COMMAND_FORMAT = Pattern
-			.compile("'(?<taskName>.*\\S*.*)'(?<addTaskArgs>.*)");
-	
+
+	private static final Prefix namePrefix = new Prefix("'");
 	private static final Prefix startDateTimePrefix = new Prefix("from ");
 	private static final Prefix endDateTimePrefix = new Prefix("to ");
 	private static final Prefix dlEndDateTimePrefix = new Prefix("by ");
 	private static final Prefix datePrefix = new Prefix("on ");
 	private static final Prefix tagsPrefix = new Prefix("#");
-	
-	
+
+ 	
 	//@@author A0141019U-reused
 	public Command parseCommand(String userInput) {
 		// String replacedInput = replaceAliases(userInput);
@@ -132,41 +136,63 @@ public class Parser {
 	
 	
 	private Command prepareAdd(String arguments) {
-		final Matcher matcher = ADD_COMMAND_FORMAT.matcher(arguments.trim());
-		if (!matcher.matches()) {
+		if (StringUtil.countOccurrences('\'', arguments) != 2) {
+			// TODO better error msg?
 			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 		}
-
-		final String name = matcher.group("taskName");
-		final String args = matcher.group("addTaskArgs");
 		
-		if (args.toLowerCase().contains(" on ")) {
-			System.out.println("ev same d path");
-			return prepareAddEventSameDay(name, "event", args);
+		Pair<String, String> nameAndArgs = separateNameAndArgs(arguments);
+		String taskName = nameAndArgs.getKey();
+		String args = nameAndArgs.getValue();
+
+		System.out.println("name: " + taskName);
+		System.out.println("args: " + args);
+		
+		String argsLowerCase = args.toLowerCase();	
+		
+		if (argsLowerCase.contains(" on ")
+				&& argsLowerCase.contains(" from ") 
+				&& argsLowerCase.contains(" to ")) {
+			logger.log(Level.FINEST, "Calling prepareAddEventSameDay");
+			return prepareAddEventSameDay(taskName, "event", args);
 		}
-		else if (args.toLowerCase().contains(" to ")) {
-			System.out.println("ev diff d path");
-			return prepareAddEventDifferentDays(name, "event", args);
+		else if (argsLowerCase.contains(" from ")
+				&& argsLowerCase.contains(" to ")) {
+			logger.log(Level.FINEST, "Calling prepareAddEventDifferentDays");
+			return prepareAddEventDifferentDays(taskName, "event", args);
 		}
-		else if (args.toLowerCase().contains(" by ")) {
-			System.out.println("dl path");
-			return prepareAddDeadline(name, "deadline", args);
+		else if (argsLowerCase.contains(" by ")) {
+			logger.log(Level.FINEST, "Calling prepareAddDeadline");
+			return prepareAddDeadline(taskName, "deadline", args);
 		}
-		else if (args.trim().matches("\\s*(#.+)*\\s*")){
-			System.out.println("someday path");
-			return prepareAddSomeday(name, "someday", args);
+		else if (args.matches("\\s*(#.+)*\\s*")) {
+			logger.log(Level.FINEST, "Calling prepareAddSomeday");
+			return prepareAddSomeday(taskName, "someday", args);
 		}
 		else {
-			System.out.println("inc cmd");
 			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 		}
+	}
+	
+	
+	private Pair<String, String> separateNameAndArgs(String arguments) {
+		ArgumentTokenizer argsTokenizer = new ArgumentTokenizer(namePrefix);
+		argsTokenizer.tokenize(arguments);
+		
+		String preamble = argsTokenizer.getPreamble().orElse("");
+		
+		List<String> stringsAfterQuotes = argsTokenizer.getAllValues(namePrefix).get();
+		String taskName = stringsAfterQuotes.get(0);
+		String argsAfterName = stringsAfterQuotes.get(1);
+		
+		return new Pair<>(taskName, " " + preamble + " " + argsAfterName + " ");	
 	}
 	
 	
 	private Command prepareAddEventDifferentDays(String taskName, String taskType, String arguments) {
 		ArgumentTokenizer argsTokenizer = new ArgumentTokenizer(startDateTimePrefix, endDateTimePrefix, tagsPrefix);
 		argsTokenizer.tokenize(arguments);
-
+		
 		String startDateTimeString = argsTokenizer.getValue(startDateTimePrefix).get();
 		String endDateTimeString = argsTokenizer.getValue(endDateTimePrefix).get();
 		Set<String> tagSet = toSet(argsTokenizer.getAllValues(tagsPrefix));
@@ -178,7 +204,7 @@ public class Parser {
 	private Command prepareAddEventSameDay(String taskName, String taskType, String arguments) {
 		ArgumentTokenizer argsTokenizer = new ArgumentTokenizer(startDateTimePrefix, endDateTimePrefix, datePrefix, tagsPrefix);
 		argsTokenizer.tokenize(arguments);
-
+		
 		String dateString = argsTokenizer.getValue(datePrefix).get();
 		String startDateTimeString = argsTokenizer.getValue(startDateTimePrefix).get() + " " + dateString;
 		String endDateTimeString = argsTokenizer.getValue(endDateTimePrefix).get() + " " + dateString;
@@ -191,7 +217,7 @@ public class Parser {
 	private Command prepareAddDeadline(String taskName, String taskType, String arguments) {
 		ArgumentTokenizer argsTokenizer = new ArgumentTokenizer(dlEndDateTimePrefix, tagsPrefix);
 		argsTokenizer.tokenize(arguments);
-
+		
 		String endDateTimeString = argsTokenizer.getValue(dlEndDateTimePrefix).get();
 		Set<String> tagSet = toSet(argsTokenizer.getAllValues(tagsPrefix));
 		

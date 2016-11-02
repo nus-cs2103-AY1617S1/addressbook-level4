@@ -54,8 +54,6 @@ public class AddCommand extends Command {
         		endDate,
         		new UniqueTagList(tagSet)
          );
-    	
-    	System.out.println(tagSet);
     }
     
     /**
