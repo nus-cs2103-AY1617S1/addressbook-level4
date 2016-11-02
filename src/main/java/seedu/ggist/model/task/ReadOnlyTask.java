@@ -64,5 +64,9 @@ public interface ReadOnlyTask {
     void setUndone();
     void setNotOverdue();
     void checkTimeOverdue() throws IllegalValueException;
+    void setHasNoStartDate(boolean hasNoStartDate);
+    void setHasNoEndDate(boolean hasNoEndDate);
+    boolean hasNoEndDate();
+    boolean hasNoStartDate();
 
 }

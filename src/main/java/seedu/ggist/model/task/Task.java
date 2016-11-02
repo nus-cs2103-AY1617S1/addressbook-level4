@@ -26,6 +26,8 @@ public class Task implements ReadOnlyTask{
     protected boolean isOverdue;
     protected Date start;
     protected Date end;
+    protected boolean hasNoStartDate;
+    protected boolean hasNoEndDate;
     
     public static enum TaskType {
         FLOATING("task"), DEADLINE("deadline"), EVENT("event"); 
@@ -184,7 +186,14 @@ public class Task implements ReadOnlyTask{
     public void setNotOverdue() {
         isOverdue = false;
     }
-
+    
+    public void setHasNoStartDate(boolean hasNoStartDate) {
+        this.hasNoStartDate  = hasNoStartDate;
+    }
+    
+    public void setHasNoEndDate(boolean hasNoEndDate) {
+        this.hasNoEndDate = hasNoEndDate;
+    }
     
     @Override
     public boolean isDone() {
@@ -236,6 +245,16 @@ public class Task implements ReadOnlyTask{
     @Override
     public Date getEndDateTime() {
         return end;
+    }
+    
+    @Override
+    public boolean hasNoStartDate() {
+        return hasNoStartDate;
+    }
+    
+    @Override
+    public boolean hasNoEndDate() {
+        return hasNoEndDate;
     }
     
     @Override
