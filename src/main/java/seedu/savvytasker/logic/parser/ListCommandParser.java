@@ -6,7 +6,7 @@ import java.util.regex.Pattern;
 
 import seedu.savvytasker.commons.core.Messages;
 import seedu.savvytasker.logic.commands.ListCommand;
-import seedu.savvytasker.model.task.ListType;
+import seedu.savvytasker.model.ListType;
 
 public class ListCommandParser implements CommandParser<ListCommand> {
     private static final String HEADER = "list";

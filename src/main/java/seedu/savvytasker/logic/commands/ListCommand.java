@@ -1,6 +1,7 @@
 package seedu.savvytasker.logic.commands;
 
-import seedu.savvytasker.model.task.ListType;
+import seedu.savvytasker.MainApp;
+import seedu.savvytasker.model.ListType;
 
 /**
  * Lists all tasks in the savvy tasker to the user.
@@ -35,6 +36,10 @@ public class ListCommand extends ModelRequiringCommand {
             // use default, sort by due date
             _listType = ListType.DueDate;
         }
+        
+        // shows the task list by default, unless user
+        // specifies to show the alias
+        MainApp.getUiManager().showTaskList(true);
         switch (_listType)
         {
         case DueDate:
@@ -45,6 +50,12 @@ public class ListCommand extends ModelRequiringCommand {
             break;
         case Archived:
             model.updateFilteredListToShowArchived();
+            break;
+        case Alias:
+            MainApp.getUiManager().showTaskList(false);
+            break;
+        default:
+            // nothing to do
             break;
         }
         return new CommandResult(getMessageForTaskListShownSummary(model.getFilteredTaskList().size()));

@@ -16,8 +16,8 @@ public class AliasSymbolChangedEvent extends BaseEvent {
         Removed;
     }
     
-    public final AliasSymbol symbol;
-    public final Action action;
+    private final AliasSymbol symbol;
+    private final Action action;
     
     public AliasSymbolChangedEvent(AliasSymbol symbol, Action action) {
         assert symbol != null;
@@ -30,6 +30,14 @@ public class AliasSymbolChangedEvent extends BaseEvent {
     @Override
     public String toString() {
         return "Alias symbol " + action.toString() + ": " + symbol.toString();
+    }
+    
+    public AliasSymbol getSymbol() {
+        return this.symbol;
+    }
+    
+    public Action getAction() {
+        return this.action;
     }
 
 }

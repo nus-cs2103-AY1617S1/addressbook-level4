@@ -4,40 +4,40 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
-import seedu.savvytasker.model.task.ReadOnlyTask;
+import seedu.savvytasker.model.alias.AliasSymbol;
 
-public class TaskCard extends UiPart{
+public class AliasSymbolCard extends UiPart{
 
-    private static final String FXML = "TaskListCard.fxml";
+    private static final String FXML = "AliasSymbolListCard.fxml";
 
     @FXML
     private HBox cardPane;
     @FXML
-    private Label taskName;
+    private Label aliasName;
     @FXML
     private Label id;
     @FXML
     private Label details;
 
-    private ReadOnlyTask task;
+    private AliasSymbol symbol;
     private int displayedIndex;
 
-    public TaskCard(){
+    public AliasSymbolCard(){
 
     }
 
-    public static TaskCard load(ReadOnlyTask task, int displayedIndex){
-        TaskCard card = new TaskCard();
-        card.task = task;
+    public static AliasSymbolCard load(AliasSymbol symbol, int displayedIndex){
+        AliasSymbolCard card = new AliasSymbolCard();
+        card.symbol = symbol;
         card.displayedIndex = displayedIndex;
         return UiPartLoader.loadUiPart(card);
     }
 
     @FXML
     public void initialize() {
-        taskName.setText(task.getTaskName());
+        aliasName.setText(symbol.getKeyword());
         id.setText(displayedIndex + ". ");
-        details.setText(task.getTextForUi());
+        details.setText(symbol.getRepresentation());
     }
 
     public HBox getLayout() {

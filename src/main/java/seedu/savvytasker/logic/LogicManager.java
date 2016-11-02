@@ -7,11 +7,13 @@ import java.util.logging.Logger;
 import com.google.common.eventbus.Subscribe;
 
 import javafx.collections.ObservableList;
+import seedu.savvytasker.MainApp;
 import seedu.savvytasker.commons.core.ComponentManager;
 import seedu.savvytasker.commons.core.LogsCenter;
 import seedu.savvytasker.commons.events.model.AliasSymbolChangedEvent;
 import seedu.savvytasker.logic.commands.Command;
 import seedu.savvytasker.logic.commands.CommandResult;
+import seedu.savvytasker.logic.commands.ListCommand;
 import seedu.savvytasker.logic.parser.AddCommandParser;
 import seedu.savvytasker.logic.parser.AliasCommandParser;
 import seedu.savvytasker.logic.parser.ClearCommandParser;
@@ -31,6 +33,7 @@ import seedu.savvytasker.model.Model;
 import seedu.savvytasker.model.alias.AliasSymbol;
 import seedu.savvytasker.model.task.ReadOnlyTask;
 import seedu.savvytasker.storage.Storage;
+import seedu.savvytasker.ui.Ui;
 
 /**
  * The main LogicManager of the app.
@@ -62,6 +65,14 @@ public class LogicManager extends ComponentManager implements Logic {
         
         CommandResult result = command.execute();
         
+        if (!(command instanceof ListCommand)) {
+            // forcefully show the task list instead
+            Ui uiManager = MainApp.getUiManager();
+            if (uiManager != null) {
+                uiManager.showTaskList(true);
+            }
+        }
+        
         //@@author A0097627N
         if (command.isUndo()){
             if (!undo()) {
@@ -82,10 +93,17 @@ public class LogicManager extends ComponentManager implements Logic {
         return result;
     }
 
+    //@@author A0139915W
     @Override
     public ObservableList<ReadOnlyTask> getFilteredTaskList() {
         return model.getFilteredTaskList();
     }
+
+    @Override
+    public ObservableList<AliasSymbol> getAliasSymbolList() {
+        return parser.getAliasSymbolList();
+    }
+    //@@author
     
     //@@author A0139916U
     private void registerAllDefaultCommandParsers() {
@@ -138,24 +156,42 @@ public class LogicManager extends ComponentManager implements Logic {
         return redone;
     }
     
+    /**
+     * Log the result of adding/removing a symbol in the parser.
+     * 
+     * @param success if the operation succeeded
+     * @param changedSymbol the symbol that was involved in the operation
+     * @param successMsgFormat the message to print if the operation succeeded. It should contain a single
+     * %s string format specifier, which will be replaced by the symbol's string representation.
+     * @param failureMsgFormat the message to print if the operation failed. It should contain a single
+     * %s string format specifier, which will be replaced by the symbol's string representation.
+     */
+    private void logParserSymbolChange(boolean success, AliasSymbol changedSymbol,
+            String successMsgFormat, String failureMsgFormat) {
+        if (success) {
+            logger.info(String.format(successMsgFormat, changedSymbol));
+        } else {
+            logger.warning(String.format(failureMsgFormat, changedSymbol));
+        }
+    }
+    
     @Subscribe
     public void handleAliasSymbolChangedEvent(AliasSymbolChangedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(
-                event, "Alias symbol " + event.action.toString().toLowerCase()));
-        if (event.action.equals(AliasSymbolChangedEvent.Action.Added)) {
-            boolean success = parser.addAliasSymbol(event.symbol);
-            if (success) {
-                logger.info("Added alias symbol '"+event.symbol.getKeyword()+"' to parser");
-            } else {
-                logger.warning("Failed to add alias symbol '"+event.symbol.getKeyword()+" to parser");
-            }
-        } else {
-            boolean success = parser.removeAliasSymbol(event.symbol.getKeyword());
-            if (success) {
-                logger.info("Removed alias symbol '"+event.symbol.getKeyword()+"' from parser");
-            } else {
-                logger.warning("Failed to remove alias symbol '"+event.symbol.getKeyword()+" from parser");
-            }
+                event, "Alias symbol " + event.getAction().toString().toLowerCase()));
+        
+        if (event.getAction().equals(AliasSymbolChangedEvent.Action.Added)) {
+            logParserSymbolChange(
+                    parser.addAliasSymbol(event.getSymbol()),
+                    event.getSymbol(),
+                    "Added alias symbol '%s' to parser",
+                    "Failed to add alias symbol '%s' to parser");
+        } else if (event.getAction().equals(AliasSymbolChangedEvent.Action.Removed)) {
+            logParserSymbolChange(
+                    parser.removeAliasSymbol(event.getSymbol().getKeyword()),
+                    event.getSymbol(),
+                    "Removed alias symbol '%s' from parser",
+                    "Failed to remove alias symbol '%s' from parser");
         }
     }
     

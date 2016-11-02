@@ -9,17 +9,29 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import seedu.savvytasker.logic.commands.Command;
 import seedu.savvytasker.logic.commands.HelpCommand;
 import seedu.savvytasker.logic.commands.IncorrectCommand;
 import seedu.savvytasker.model.alias.AliasSymbol;
 
+/**
+ * Represents the master parser that is used by Logic. This is a parser containing
+ * all subparsers that will do the actual parsing to produce Command objects. This 
+ * parser replaces keywords of the input with aliased representations before selecting
+ * a subparser to do the parsing. The selection of the subparser is based on the first 
+ * word of the input, called the header, and matching it to the subparser that declares
+ * that it parses it.
+ */
 public class MasterParser {
     private static final Pattern KEYWORD_PATTERN = 
             Pattern.compile("([^\\s/]+)([\\s/]+|$)");
     
     private final Map<String, CommandParser<? extends Command>> commandParsers;
     private final Map<String, AliasSymbol> aliasingSymbols;
+    private final ObservableList<AliasSymbol> aliasList = FXCollections.observableArrayList();
+    
     
     public MasterParser() {
         this.commandParsers = new HashMap<String, CommandParser<? extends Command>>();
@@ -38,24 +50,43 @@ public class MasterParser {
      */
     public Command parse(String userInput) {
         String[] pieces = preprocessInitial(userInput.trim());
-        if (pieces == null) 
-            return new IncorrectCommand(userInput, String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
+        if (pieces == null) {
+            return new IncorrectCommand(userInput,
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
+        }
         
         String header = pieces[0];
         String body = pieces[1];
-        String trueHeader = extractHeader(header);
-        CommandParser<? extends Command> parser = commandParsers.get(trueHeader);
-        if (parser == null)
-            return new IncorrectCommand(header + body, String.format(MESSAGE_UNKNOWN_COMMAND, HelpCommand.MESSAGE_USAGE));
-        if (parser.shouldPreprocess())
-            body = preprocessBody(body);
-        
-        String combined = header + body;
-        try {
-            return parser.parse(combined);
-        } catch (ParseException pe) {
-            return new IncorrectCommand(combined, String.format(pe.getFailureDetails()));
+        CommandParser<? extends Command> parser = selectParser(extractTrueHeader(header));
+        if (parser == null) {
+            return new IncorrectCommand(header + body,
+                    String.format(MESSAGE_UNKNOWN_COMMAND, HelpCommand.MESSAGE_USAGE));
         }
+        
+        if (parser.shouldPreprocess()) {
+            return makeParserParse(parser, header + preprocessBody(body));
+        } else {
+            return makeParserParse(parser, header + body);
+        }
+    }
+    
+    /**
+     * Makes the parser parse the preprocessed text.
+     * 
+     * @param parser the parser to use to parse
+     * @param preprocessedText the text to parse
+     * @return the output Command from the parsing, or IncorrectCommand object if the parse failed
+     */
+    private Command makeParserParse(CommandParser<? extends Command> parser, String preprocessedText) {
+        try {
+            return parser.parse(preprocessedText);
+        } catch (ParseException pe) {
+            return new IncorrectCommand(preprocessedText, String.format(pe.getFailureDetails()));
+        }
+    }
+    
+    private CommandParser<? extends Command> selectParser(String header) {
+        return commandParsers.get(header);
     }
     
     /**
@@ -88,13 +119,13 @@ public class MasterParser {
     }
     
     /**
-     * Gets the header from the preprocessed header as a preprocessed header may contain
+     * Gets the true header from the preprocessed header as a preprocessed header may contain
      * several tokens.
      * 
      * @param preprocessedHeader the preprocessed header
      * @return the true header
      */
-    private String extractHeader(String preprocessedHeader) {
+    private String extractTrueHeader(String preprocessedHeader) {
         Matcher matcher = KEYWORD_PATTERN.matcher(preprocessedHeader);
         
         if (matcher.find()) {
@@ -192,7 +223,8 @@ public class MasterParser {
             return false;
         if (isCommandParserRegistered(symbol.getKeyword()))
             return false;
-        
+
+        aliasList.add(symbol);
         aliasingSymbols.put(symbol.getKeyword(), symbol);
         return true;
     }
@@ -207,7 +239,12 @@ public class MasterParser {
     public boolean removeAliasSymbol(String symbolKeyword) {
         assert symbolKeyword != null;
         
-        return aliasingSymbols.remove(symbolKeyword) != null;
+        AliasSymbol symbol = aliasingSymbols.remove(symbolKeyword);
+        if (symbol != null) {
+            return aliasList.remove(symbol);
+        } else {
+            return false;
+        }
     }
     
     /**
@@ -226,6 +263,11 @@ public class MasterParser {
      * @see #removeAliasSymbol
      */
     public void clearAllAliasSymbols() {
+        aliasList.clear();
         aliasingSymbols.clear();
+    }
+    
+    public ObservableList<AliasSymbol> getAliasSymbolList() {
+        return aliasList;
     }
 }

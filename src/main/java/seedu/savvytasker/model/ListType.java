@@ -1,8 +1,8 @@
 //@@author A0139916U
-package seedu.savvytasker.model.task;
+package seedu.savvytasker.model;
 
 /**
- * This enum represents the different ways to list tasks.
+ * This enum represents what and how to list tasks/symbols.
  */
 public enum ListType {
     /**
@@ -18,7 +18,12 @@ public enum ListType {
     /**
      * List archived tasks.
      */
-    Archived;
+    Archived,
+    
+    /**
+     * List aliases.
+     */
+    Alias;
     
     /**
      * Gets a ListType enum object from its enum name, ignoring cases.

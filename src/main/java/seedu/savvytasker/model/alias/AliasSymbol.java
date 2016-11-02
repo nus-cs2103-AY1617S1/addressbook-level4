@@ -24,7 +24,7 @@ public class AliasSymbol {
         assert keyword != null && !keyword.matches(".*\\s+.*");
         assert representation != null && !representation.isEmpty();
         
-        this.keyword = keyword;
+        this.keyword = keyword.toLowerCase();
         this.representation = representation;
     }
     

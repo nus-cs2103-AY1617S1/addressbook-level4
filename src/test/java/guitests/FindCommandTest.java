@@ -51,7 +51,7 @@ public class FindCommandTest extends SavvyTaskerGuiTest {
     @Test
     public void find_invalidCommand_fail() {
         commandBox.runCommand("findmyring");
-        assertResultMessage(String.format(MESSAGE_UNKNOWN_COMMAND, HelpCommand.MESSAGE_USAGE));
+        assertResultMessage("Input: findmyring\n" + String.format(MESSAGE_UNKNOWN_COMMAND, HelpCommand.MESSAGE_USAGE));
     }
 
     private void assertFindResult(String command, TestTask... expectedHits) {
