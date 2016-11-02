@@ -67,7 +67,7 @@ public class DateTime {
             this.valueDateEnd = null;
             this.valueTimeEnd = null;
             this.value = "";
-            this.valueFormatted = "Anytime";
+            this.valueFormatted = "anytime";
             this.context = "";
             this.overdueContext = "";
             this.eventContext = "";
