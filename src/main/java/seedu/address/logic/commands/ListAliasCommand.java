@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import seedu.address.commons.core.EventsCenter;
+import seedu.address.commons.events.ui.DisplayAliasListEvent;
 import seedu.address.model.TaskManager;
 
 /**
@@ -19,7 +20,7 @@ public class ListAliasCommand extends Command {
         
         model.saveState();
         
-        EventsCenter.getInstance().post(new DisplayAliasListEvent(model.getFilteredAliasList();));
+        EventsCenter.getInstance().post(new DisplayAliasListEvent(model.getFilteredAliasList()));
 
         return new CommandResult(MESSAGE_SUCCESS);
     }
