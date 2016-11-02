@@ -26,7 +26,6 @@ import seedu.address.model.task.UniqueTaskList;
 import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
 import seedu.address.model.undo.UndoList;
 import seedu.address.model.undo.UndoTask;
-import seedu.address.storage.XmlTaskBookStorage;
 
 /**
  * Represents the in-memory model of the task book data.
@@ -364,22 +363,19 @@ public class ModelManager extends ComponentManager implements Model {
        
         @Override
         public boolean run(ReadOnlyTask task) {
-            return (taskKeyWords.stream()
-                    .filter(keyword -> StringUtil.containsIgnoreCase(task.getName().fullName, keyword))
-                    .findAny()
-                    .isPresent()
-                    || taskKeyWords.stream()
-                    .filter(keyword -> StringUtil.containsIgnoreCase(task.getDatetime().toString(), keyword))
-                    .findAny()
-                    .isPresent()
-                    || taskKeyWords.stream()
-                    .filter(keyword -> StringUtil.containsIgnoreCase(task.getDescription().value, keyword))
-                    .findAny()
-                    .isPresent()
-                    || taskKeyWords.stream()
-                    .filter(keyword -> StringUtil.containsIgnoreCase(task.getTags().toString(), keyword))
-                    .findAny()
-                    .isPresent());
+            boolean matchTaskNames = taskKeyWords.stream()
+            		.filter(keyword -> StringUtil.containsIgnoreCase(task.getName().fullName, keyword))
+                    .findAny().isPresent();
+			boolean matchDateTime = taskKeyWords.stream()
+					.filter(keyword -> StringUtil.containsIgnoreCase(task.getDatetime().toString(), keyword))
+					.findAny().isPresent();
+			boolean matchTaskDescription = taskKeyWords.stream()
+					.filter(keyword -> StringUtil.containsIgnoreCase(task.getDescription().value, keyword))
+					.findAny().isPresent();
+			boolean matchListTags = taskKeyWords.stream()
+					.filter(keyword -> StringUtil.containsIgnoreCase(task.getTags().toString(), keyword))
+					.findAny().isPresent();
+			return (matchTaskNames || matchDateTime || matchTaskDescription || matchListTags);
         }
 
         @Override
