@@ -185,13 +185,13 @@ Command format : **find KEYWORD [MORE\_KEYWORDS]**
 - Only your task&#39;s DESCRIPTION is searched.
 - Only full words will be matched e.g.  **Return**  will not match  **Returns**.
 
-Examples :
+- Examples :
 
-**find Tutorial**
+- **find Tutorial**
 
 - **Tutorial 8** is shown, but not **tutorial**.
 
-**find lunch meeting**
+- **find lunch meeting**
 
 - Any tasks with DESCRIPTION that contains **lunch** and **meeting** will be returned.
 
@@ -199,23 +199,23 @@ Examples :
 
 Command format  : **find pr/PRIORITY**
 
-Returns any tasks with the given PRIORITY.
+- Returns any tasks with the given PRIORITY.
 
-Example : **find pr/high**
+- Example : **find pr/high**
 
-Returns any tasks with high PRIORITY.
+- Returns any tasks with high PRIORITY.
 
 **Finding tasks with a given start time**
 
 Command format : find st/STARTTIME
 
-Examples:
+- Examples:
 
-**        find st/tues**
+**find st/tues**
 
 Returns any task that starts after the current time of the specified day of the week, this Week.
 
-**        find st/27.10.2016**
+**find st/27.10.2016**
 
                 Returns any task that starts after  **27.10.2016, 00:00**.
 
