@@ -18,6 +18,7 @@ import seedu.jimi.model.task.DeadlineTask;
 import seedu.jimi.model.task.FloatingTask;
 import seedu.jimi.model.task.ReadOnlyTask;
 import seedu.jimi.model.task.UniqueTaskList;
+import seedu.jimi.model.task.UniqueTaskList.DuplicateTaskException;
 import seedu.jimi.model.task.UniqueTaskList.TaskNotFoundException;
 
 /**
@@ -135,7 +136,7 @@ public class TaskBook implements ReadOnlyTaskBook {
         }
     }
     
-    public void replaceTask(ReadOnlyTask oldTask, ReadOnlyTask newTask) {
+    public void replaceTask(ReadOnlyTask oldTask, ReadOnlyTask newTask) throws DuplicateTaskException {
         tasks.replace(oldTask, newTask);
     }
 

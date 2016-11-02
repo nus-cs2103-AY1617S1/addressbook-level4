@@ -18,6 +18,7 @@ import seedu.jimi.model.task.DeadlineTask;
 import seedu.jimi.model.task.FloatingTask;
 import seedu.jimi.model.task.Name;
 import seedu.jimi.model.task.ReadOnlyTask;
+import seedu.jimi.model.task.UniqueTaskList.DuplicateTaskException;
 
 // @@author A0140133B
 /**
@@ -50,6 +51,8 @@ public class EditCommand extends Command implements TaskBookEditor {
             + "> Tip: Typing 'e', 'ed', 'edi' instead of 'edit' works too.";
     
     public static final String MESSAGE_EDIT_SUCCESS = "Updated details: %1$s";
+    private static final String MESSAGE_DUPLICATE_TASK = 
+            "Your new edits seem to overlap with an already existing task. Please check and try again!";
     
     private final String taskIndex; //index of task/event to be edited
     private UniqueTagList newTagList;
@@ -136,9 +139,13 @@ public class EditCommand extends Command implements TaskBookEditor {
             new CommandResult(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_USAGE));
         }
         
-        model.replaceTask(oldTask, newTask.get());
-        
-        return new CommandResult(String.format(MESSAGE_EDIT_SUCCESS, newTask.get()));
+        try {
+            model.replaceTask(oldTask, newTask.get());
+            return new CommandResult(String.format(MESSAGE_EDIT_SUCCESS, newTask.get()));
+        } catch (DuplicateTaskException dte) {
+            indicateAttemptToExecuteIncorrectCommand();
+            return new CommandResult(MESSAGE_DUPLICATE_TASK);
+        }
     }
     
     @Override
