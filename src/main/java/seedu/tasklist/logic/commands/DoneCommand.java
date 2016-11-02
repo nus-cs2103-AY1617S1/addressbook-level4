@@ -9,7 +9,9 @@ import seedu.tasklist.commons.core.UnmodifiableObservableList;
 import seedu.tasklist.model.task.ReadOnlyTask;
 import seedu.tasklist.model.task.UniqueTaskList.TaskNotFoundException;
 
-
+/**
+ * Marks the task at a specified index or containing specified keywords as done or complete
+ */
 public class DoneCommand extends Command {
 
     public static final String COMMAND_WORD = "done";
@@ -50,6 +52,7 @@ public class DoneCommand extends Command {
         }   
     }
     
+    //marks the task at the specified index as complete
     private CommandResult doneUsingIndex(){
         UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
         if(targetIndex >= lastShownList.size()){
@@ -70,6 +73,11 @@ public class DoneCommand extends Command {
         }
     }
 
+    /**
+     * looks for tasks with specific keywords
+     * if only one matching task is found, it is marked as done
+     * else all the matching tasks are displayed from which, user can mark a task as complete using index
+     */
     private CommandResult doneUsingString(){
     	Set<String> taskNameSet = new HashSet<String>();
     	taskNameSet.add(taskName);

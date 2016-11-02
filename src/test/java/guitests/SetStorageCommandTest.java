@@ -8,6 +8,7 @@ import seedu.tasklist.testutil.TestTask;
 import seedu.tasklist.testutil.TestUtil;
 
 public class SetStorageCommandTest extends TaskListGuiTest {
+/*
 	@Test
 	public void setStorage(){
 	    TestTask[] currentList = td.getTypicalTasks(); 
@@ -16,12 +17,13 @@ public class SetStorageCommandTest extends TaskListGuiTest {
     	assertStorageSuccess(testCase1, currentList);
     	assertStorageSuccess(testCase2, currentList);
     }
-    
+  */
 	  /**
        * Runs the setstorage command to move the file to the directory specified by the user (as a file path).
        * @param filePath e.g. to validate and move the file from the current position to the final position.
        * @param currentList A copy of the current list of tasks, to check for no loss of data while transferring.
        */
+/*
     private void assertStorageSuccess(String filePath, TestTask[] currentList){
     	if(filePath.equals("default")){
     		filePath = "data/tasklist.xml";
@@ -31,4 +33,5 @@ public class SetStorageCommandTest extends TaskListGuiTest {
     	assertTrue(TestUtil.setFilePath(filePath));
     	
     }
+*/
 }
