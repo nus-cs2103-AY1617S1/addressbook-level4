@@ -20,9 +20,7 @@ public class ListAliasCommand extends Command {
         
         model.saveState();
         
-        UnmodifiableObservableList<ReadOnlyAlias> aliasList = model.getAliasList();
-        
-        EventsCenter.getInstance().post(new DisplayAliasListEvent(aliasList));
+        EventsCenter.getInstance().post(new DisplayAliasListEvent(model.getFilteredAliasList();));
 
         return new CommandResult(MESSAGE_SUCCESS);
     }
