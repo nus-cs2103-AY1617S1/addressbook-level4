@@ -16,7 +16,7 @@ public class EditCommandTest extends AddressBookGuiTest {
         TestActivity[] currentList = td.getTypicalPersons();
         int index = 1;
         assertEditReminderResult(index,currentList);
-        
+        assertEditNameResult(index,currentList);
         
     }
     
@@ -33,7 +33,21 @@ public class EditCommandTest extends AddressBookGuiTest {
                 activityToEdit.getAsText(),activityAfterEdit.getAsText()));
         
         assertTrue(activityListPanel.isListMatching(currentList));
-
+ 
+    }
+    
+    private void assertEditNameResult(int index,TestActivity... currentList){
+        String newName = "Editted Name";
+        TestActivity activityToEdit = new TestActivity(currentList[index-1]);
+        commandBox.runCommand("edit " + index + " n/" + newName);
         
+        TestActivity activityAfterEdit = currentList[index-1];
+        activityAfterEdit.setName(newName);
+        
+        assertResultMessage(String.format("Edited Task from: %1$s\nto: %2$s",
+                activityToEdit.getAsText(),activityAfterEdit.getAsText()));
+        
+        assertTrue(activityListPanel.isListMatching(currentList));
+ 
     }
 }

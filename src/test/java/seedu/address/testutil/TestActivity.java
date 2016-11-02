@@ -67,6 +67,16 @@ public class TestActivity implements ReadOnlyActivity {
         this.name = name;
     }
 
+    public void setName(String name) {
+        
+        try {
+            this.name = new Name(name);
+        } catch (IllegalValueException e) {
+            assert false;
+            e.printStackTrace();
+        }
+    }
+    
     @Override
     public Reminder getReminder() {
         return reminder;
@@ -148,5 +158,7 @@ public class TestActivity implements ReadOnlyActivity {
         getTags().forEach(builder::append);
         return builder.toString();
     }
+
+
 
 }
