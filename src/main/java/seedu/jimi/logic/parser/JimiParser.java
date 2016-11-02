@@ -385,7 +385,6 @@ public class JimiParser {
                     ShowCommand.MESSAGE_USAGE));
         }
         
-        // keywords delimited by whitespace
         final String sectionToShow = matcher.group("sectionToShow");
         
         try {
