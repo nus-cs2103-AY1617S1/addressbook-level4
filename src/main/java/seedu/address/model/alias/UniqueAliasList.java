@@ -7,6 +7,7 @@ import seedu.address.commons.exceptions.DuplicateDataException;
 
 import java.util.*;
 
+//@@author A0143756Y-reused
 /**
  * A list of aliases that enforces uniqueness between its elements and does not allow nulls.
  *

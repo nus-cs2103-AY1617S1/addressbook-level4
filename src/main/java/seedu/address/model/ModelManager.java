@@ -56,7 +56,7 @@ public class ModelManager extends ComponentManager implements Model {
      * Initializes a ModelManager with the given TaskManager
      * TaskManager and its variables should not be null
      */
-
+    
     public ModelManager(TaskManager taskManager, Config config, UserPrefs userPrefs, AliasManager aliasManager) {
         super();
         assert taskManager != null;
