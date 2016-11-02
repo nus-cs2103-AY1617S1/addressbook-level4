@@ -1,6 +1,13 @@
 package seedu.task;
 
+import java.io.IOException;
+import java.text.ParseException;
+import java.util.Map;
+import java.util.Optional;
+import java.util.logging.Logger;
+
 import com.google.common.eventbus.Subscribe;
+
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.stage.Stage;
@@ -14,18 +21,15 @@ import seedu.task.commons.util.ConfigUtil;
 import seedu.task.commons.util.StringUtil;
 import seedu.task.logic.Logic;
 import seedu.task.logic.LogicManager;
-import seedu.task.model.*;
+import seedu.task.model.Model;
+import seedu.task.model.ModelManager;
+import seedu.task.model.ReadOnlyTaskManager;
+import seedu.task.model.TaskManager;
+import seedu.task.model.UserPrefs;
 import seedu.task.storage.Storage;
 import seedu.task.storage.StorageManager;
 import seedu.task.ui.Ui;
 import seedu.task.ui.UiManager;
-
-
-import java.io.IOException;
-import java.text.ParseException;
-import java.util.Map;
-import java.util.Optional;
-import java.util.logging.Logger;
 
 /**
  * The main entry point to the application.
@@ -122,6 +126,7 @@ public class MainApp extends Application {
         } catch (IOException e) {
             logger.warning("Failed to save config file : " + StringUtil.getDetails(e));
         }
+        Config.setInstance(initializedConfig);
         return initializedConfig;
     }
 

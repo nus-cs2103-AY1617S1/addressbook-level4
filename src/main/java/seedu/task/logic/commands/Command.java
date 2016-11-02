@@ -1,5 +1,8 @@
 package seedu.task.logic.commands;
 
+import java.util.Arrays;
+import java.util.List;
+
 import seedu.task.commons.core.EventsCenter;
 import seedu.task.commons.core.Messages;
 import seedu.task.commons.events.ui.IncorrectCommandAttemptedEvent;
@@ -56,5 +59,14 @@ public abstract class Command {
      */
     protected void indicateAttemptToExecuteIncorrectCommand() {
         EventsCenter.getInstance().post(new IncorrectCommandAttemptedEvent(this));
+    }
+    
+    public static List<String> getAllCommands(){
+		List<String> commands = Arrays.asList(AddCommand.COMMAND_WORD, SelectCommand.COMMAND_WORD,
+				DeleteCommand.COMMAND_WORD, ClearCommand.COMMAND_WORD, EditCommand.COMMAND_WORD,
+				FindCommand.COMMAND_WORD, ListCommand.COMMAND_WORD, ExitCommand.COMMAND_WORD, HelpCommand.COMMAND_WORD,
+				SaveCommand.COMMAND_WORD, DoneCommand.COMMAND_WORD, CustomizeCommand.COMMAND_WORD,
+				UndoCommand.COMMAND_WORD);
+		return commands;
     }
 }
