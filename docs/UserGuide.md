@@ -171,7 +171,8 @@ Command format : **delete INDEX**
 
 Example : **delete 2**
 
-        Deletes the 2nd task in the task manager.
+- Deletes the 2nd task in the task manager.
+
 
 **Finding tasks**
 
