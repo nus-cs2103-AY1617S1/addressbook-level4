@@ -28,8 +28,12 @@ public class XmlSavvyTaskerStorage implements SavvyTaskerStorage {
     public String getSavvyTaskerFilePath() {
         return filePath;
     }
-    
+
+    //@@author A0139915W
     @Override
+    /**
+     * Changes the path of the storage location if the newPath can be successfully created.
+     */
     public boolean setSavvyTaskerFilePath(String newPath) {
         try {
             File file = new File(newPath);
@@ -44,6 +48,7 @@ public class XmlSavvyTaskerStorage implements SavvyTaskerStorage {
         }
         return false;
     }
+    //@@author
 
     /**
      * Similar to {@link #readSavvyTasker()}

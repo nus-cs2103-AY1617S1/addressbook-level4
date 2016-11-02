@@ -191,6 +191,7 @@ public class MainApp extends Application {
         System.exit(0);
     }
     
+    //@@author A0139915W
     @Subscribe
     public void handleSavvyTaskerSaveLocationChangedEvent(DataSavingLocationChangedEvent dslce) {
         try {
@@ -204,6 +205,7 @@ public class MainApp extends Application {
             logger.warning("Failed to save config file : " + StringUtil.getDetails(e));
         }
     }
+    //@@author
 
     @Subscribe
     public void handleExitAppRequestEvent(ExitAppRequestEvent event) {

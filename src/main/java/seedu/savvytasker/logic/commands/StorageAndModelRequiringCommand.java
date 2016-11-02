@@ -3,10 +3,11 @@ package seedu.savvytasker.logic.commands;
 import seedu.savvytasker.model.Model;
 import seedu.savvytasker.storage.Storage;
 
+//@@author A0139915W
 /** 
  * Represents a command which requires the Storage class as a dependency.
- * Commands should inherit this class if they only require dependency the model
- * and not the logic. 
+ * Commands should inherit this class if they only require dependency for
+ * storage and model components
 */
 public abstract class StorageAndModelRequiringCommand extends Command {
     protected Storage storage;

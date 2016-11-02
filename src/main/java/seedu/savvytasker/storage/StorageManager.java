@@ -54,11 +54,13 @@ public class StorageManager extends ComponentManager implements Storage {
     public String getSavvyTaskerFilePath() {
         return savvyTaskerStorage.getSavvyTaskerFilePath();
     }
-    
+
+    //@@author A0139915W
     @Override
     public boolean setSavvyTaskerFilePath(String path) {
         return savvyTaskerStorage.setSavvyTaskerFilePath(path);
     }
+    //@@author
 
     @Override
     public Optional<ReadOnlySavvyTasker> readSavvyTasker() throws DataConversionException, IOException {
@@ -82,6 +84,7 @@ public class StorageManager extends ComponentManager implements Storage {
         savvyTaskerStorage.saveSavvyTasker(savvyTasker, filePath);
     }
 
+    //@@author A0139915W
     @Override
     @Subscribe
     public void handleSavvyTaskerSaveLocationChangedEvent(DataSavingLocationChangedEvent dslce) {
@@ -92,6 +95,7 @@ public class StorageManager extends ComponentManager implements Storage {
             raise(new DataSavingExceptionEvent(e));
         }
     }
+    //@@author
 
     @Override
     @Subscribe

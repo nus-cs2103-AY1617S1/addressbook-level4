@@ -91,11 +91,13 @@ public class StatusBarFooter extends UiPart {
     public String getFxmlPath() {
         return FXML;
     }
-    
+
+    //@@author A0139915W
     @Subscribe
     public void handleSavvyTaskerSaveLocationChangedEvent(DataSavingLocationChangedEvent dslce) {
         setSaveLocation(dslce.newPath);
     }
+    //@@author
 
     @Subscribe
     public void handleSavvyTaskerChangedEvent(SavvyTaskerChangedEvent stce) {
