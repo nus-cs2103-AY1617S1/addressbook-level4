@@ -38,7 +38,7 @@ public class UniqueTaskList implements Iterable<Task> {
     /**
      * Signals that an operation would have violated the 'no duplicates' property of the list.
      */
-    
+
     /**
      * Signals that an operation targeting a specified task in the list would fail because
      * there is no such matching task in the list.
@@ -59,22 +59,20 @@ public class UniqueTaskList implements Iterable<Task> {
     public boolean contains(ReadOnlyTask toCheck) {
         if(toCheck.getTaskCategory()==3){
             assert toCheck != null;
-            for(int i =0; i<internalList.size(); i++){
-                Task temp = internalList.get(i);
-                if(temp.getName().toString().compareTo(toCheck.getName().toString())==0){
-                    if(temp.getIsCompleted() == true){
-                        continue;
-                    }
-                    else 
-                        return true;
-                }
-            }
-
-            return false;
+            return findUncompletedDuplicate(toCheck);
         }
         else 
             assert toCheck != null;
         return internalList.contains(toCheck);
+    }
+    private boolean findUncompletedDuplicate(ReadOnlyTask toCheck) {
+        for(int i =0; i<internalList.size(); i++){
+            Task temp = internalList.get(i);
+            if(temp.getName().toString().compareTo(toCheck.getName().toString())==0){
+                return !temp.getIsCompleted();
+            }
+        }
+        return false;
     }
 
     /**
@@ -82,7 +80,7 @@ public class UniqueTaskList implements Iterable<Task> {
      *
      * @throws DuplicateTaskException if the task to add is a duplicate of an existing task in the list.
      */
-  //@@author A0139430L JingRui
+    //@@author A0139430L JingRui
     public void add(Task toAdd) throws DuplicateTaskException {
         assert toAdd != null;
         if (contains(toAdd)) {
@@ -119,8 +117,8 @@ public class UniqueTaskList implements Iterable<Task> {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof UniqueTaskList // instanceof handles nulls
-                && this.internalList.equals(
-                ((UniqueTaskList) other).internalList));
+                        && this.internalList.equals(
+                                ((UniqueTaskList) other).internalList));
     }
 
     @Override
@@ -129,35 +127,35 @@ public class UniqueTaskList implements Iterable<Task> {
     }
     //@@author A0138993L
     public int markOverdue(ReadOnlyTask key) {
-    	assert key != null;
-    	int overdueIndex = internalList.indexOf(key);
-    	Task overduedTask = internalList.get(overdueIndex);
-    	if (overduedTask.isOverdue(overduedTask.getDate(), overduedTask.getEnd()) == 1) {
-    		overduedTask.setOverdue(1);
-    		return overduedTask.getOverdue();
-    	}
-    	else if (overduedTask.isOverdue(overduedTask.getDate(), overduedTask.getEnd()) == 2) {
-    		overduedTask.setOverdue(2);
-    		return overduedTask.getOverdue();
-    	}
-    	else {
-    		overduedTask.setOverdue(0);
-    		return overduedTask.getOverdue();
-    	}
-    }
-    
-    //@@author A0138993L
-    public int getTaskIndex(ReadOnlyTask key) {
-    	assert key != null;
-    	return internalList.indexOf(key);
+        assert key != null;
+        int overdueIndex = internalList.indexOf(key);
+        Task overduedTask = internalList.get(overdueIndex);
+        if (overduedTask.isOverdue(overduedTask.getDate(), overduedTask.getEnd()) == 1) {
+            overduedTask.setOverdue(1);
+            return overduedTask.getOverdue();
+        }
+        else if (overduedTask.isOverdue(overduedTask.getDate(), overduedTask.getEnd()) == 2) {
+            overduedTask.setOverdue(2);
+            return overduedTask.getOverdue();
+        }
+        else {
+            overduedTask.setOverdue(0);
+            return overduedTask.getOverdue();
+        }
     }
 
-  //@@author A0139430L JingRui
-	public Task edit(ReadOnlyTask key, String args) throws IllegalValueException {
+    //@@author A0138993L
+    public int getTaskIndex(ReadOnlyTask key) {
+        assert key != null;
+        return internalList.indexOf(key);
+    }
+
+    //@@author A0139430L JingRui
+    public Task edit(ReadOnlyTask key, String args) throws IllegalValueException {
         // TODO Auto-generated method stub
         String keyword = args.substring(0, args.indexOf(' '));
         args = args.substring(args.indexOf(' ') + 1);
-        
+
         int editIndex = internalList.indexOf(key);
         //System.out.println(key + " " + args);
         Task toEdit = new Task(internalList.get(editIndex));
@@ -249,8 +247,8 @@ public class UniqueTaskList implements Iterable<Task> {
             return null;
         }
     }
-    
-	//@@author A0135722L Zhiyuan
+
+    //@@author A0135722L Zhiyuan
     public boolean completed(ReadOnlyTask target) {
         int completeIndex = internalList.lastIndexOf(target);
         Task toComplete = new Task(internalList.get(completeIndex));
