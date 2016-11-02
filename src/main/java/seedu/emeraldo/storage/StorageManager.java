@@ -6,6 +6,7 @@ import seedu.emeraldo.commons.core.ComponentManager;
 import seedu.emeraldo.commons.core.LogsCenter;
 import seedu.emeraldo.commons.events.model.EmeraldoChangedEvent;
 import seedu.emeraldo.commons.events.storage.DataSavingExceptionEvent;
+import seedu.emeraldo.commons.events.storage.SaveLocationChangedEvent;
 import seedu.emeraldo.commons.exceptions.DataConversionException;
 import seedu.emeraldo.model.ReadOnlyEmeraldo;
 import seedu.emeraldo.model.UserPrefs;
@@ -54,6 +55,10 @@ public class StorageManager extends ComponentManager implements Storage {
     public String getEmeraldoFilePath() {
         return emeraldoStorage.getEmeraldoFilePath();
     }
+    
+    public void changeEmeraldoFilePath(String filepath) {
+        emeraldoStorage.changeEmeraldoFilePath(filepath);
+    }
 
     @Override
     public Optional<ReadOnlyEmeraldo> readEmeraldo() throws DataConversionException, IOException {
@@ -87,6 +92,13 @@ public class StorageManager extends ComponentManager implements Storage {
         } catch (IOException e) {
             raise(new DataSavingExceptionEvent(e));
         }
+    }
+    
+    @Override
+    @Subscribe
+    public void handleSaveLocationChangedEvent(SaveLocationChangedEvent event){
+        logger.info(LogsCenter.getEventHandlingLogMessage(event, "Save location"));
+        changeEmeraldoFilePath(event.filepath);
     }
 
 }

@@ -10,6 +10,7 @@ import org.controlsfx.control.StatusBar;
 
 import seedu.emeraldo.commons.core.LogsCenter;
 import seedu.emeraldo.commons.events.model.EmeraldoChangedEvent;
+import seedu.emeraldo.commons.events.storage.SaveLocationChangedEvent;
 import seedu.emeraldo.commons.util.FxViewUtil;
 
 import java.util.Date;
@@ -95,5 +96,16 @@ public class StatusBarFooter extends UiPart {
         String lastUpdated = (new Date()).toString();
         logger.info(LogsCenter.getEventHandlingLogMessage(abce, "Setting last updated status to " + lastUpdated));
         setSyncStatus("Last Updated: " + lastUpdated);
+    }
+    
+    @Subscribe
+    public void handleSaveLocationChangedEvent(SaveLocationChangedEvent event){
+        String saveLocation = event.filepath;
+        logger.info(LogsCenter.getEventHandlingLogMessage(event, "Setting save location to " + saveLocation));
+        setSaveLocationStatus(saveLocation);
+    }
+
+    private void setSaveLocationStatus(String saveLocation) {
+        saveLocationStatus.setText(saveLocation);
     }
 }

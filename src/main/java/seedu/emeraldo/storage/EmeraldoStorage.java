@@ -15,7 +15,9 @@ public interface EmeraldoStorage {
      * Returns the file path of the data file.
      */
     String getEmeraldoFilePath();
-
+    
+    void changeEmeraldoFilePath(String filepath);
+    
     /**
      * Returns Emeraldo data as a {@link ReadOnlyEmeraldo}.
      *   Returns {@code Optional.empty()} if storage file is not found.
