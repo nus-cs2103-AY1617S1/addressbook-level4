@@ -7,6 +7,7 @@ import seedu.jimi.model.FilteredListManager.ListId;
 import seedu.jimi.model.datetime.DateTime;
 import seedu.jimi.model.task.ReadOnlyTask;
 import seedu.jimi.model.task.UniqueTaskList;
+import seedu.jimi.model.task.UniqueTaskList.DuplicateTaskException;
 import seedu.jimi.model.task.UniqueTaskList.TaskNotFoundException;
 
 /**
@@ -26,8 +27,9 @@ public interface Model{
     /** Adds the given task */
     void addTask(ReadOnlyTask task) throws UniqueTaskList.DuplicateTaskException;
     
-    /** Replaces {@code oldTask} with {@code newTask} */
-    void replaceTask(ReadOnlyTask oldTask, ReadOnlyTask newTask);
+    /** Replaces {@code oldTask} with {@code newTask} 
+     * @throws DuplicateTaskException */
+    void replaceTask(ReadOnlyTask oldTask, ReadOnlyTask newTask) throws DuplicateTaskException;
     
     /** Returns the filtered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
     UnmodifiableObservableList<ReadOnlyTask> getFilteredFloatingTaskList();
@@ -35,6 +37,8 @@ public interface Model{
     UnmodifiableObservableList<ReadOnlyTask> getFilteredCompletedTaskList();
 
     UnmodifiableObservableList<ReadOnlyTask> getFilteredIncompleteTaskList();
+    
+    UnmodifiableObservableList<ReadOnlyTask> getFilteredOverdueTaskList();
     
     UnmodifiableObservableList<ReadOnlyTask> getFilteredDay1TaskList();
     
@@ -88,8 +92,4 @@ public interface Model{
     UserPrefs getUserPrefs();
     
     Model clone();
-
-
-
-
 }

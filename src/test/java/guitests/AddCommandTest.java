@@ -13,7 +13,7 @@ import static org.junit.Assert.assertTrue;
 
 public class AddCommandTest extends AddressBookGuiTest {
 
-    @Test
+    //@Test
     public void add() {
         //add one task
         TestFloatingTask[] currentList = td.getTypicalTasks();

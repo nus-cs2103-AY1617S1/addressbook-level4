@@ -59,9 +59,7 @@ public class CommandUtil {
     public List<String> getCommandWordMatches(String target) {
         return cmdStubList.stream()
                 .filter(c -> 
-                    c.isValidCommandWord(target) 
-                    || c.getCommandWord().contains(target) 
-                    || target.contains(c.getCommandWord()))
+                    c.isValidCommandWord(target) || StringUtil.isNearMatch(c.getCommandWord(), target))
                 .map(c -> c.getCommandWord())
                 .collect(Collectors.toList());
     }
@@ -82,7 +80,6 @@ public class CommandUtil {
                 new DeleteCommand(),
                 new ClearCommand(), 
                 new FindCommand(), 
-                new ListCommand(),
                 new UndoCommand(),
                 new RedoCommand(),
                 new ExitCommand(), 

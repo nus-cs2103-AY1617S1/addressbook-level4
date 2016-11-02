@@ -54,7 +54,7 @@ public class JimiParser {
     private static final Pattern TASK_INDEX_ARGS_FORMAT = Pattern.compile("[te](?<targetIndex>.+)");
 
     private static final Pattern KEYWORDS_WITH_DATES_ARGS_FORMAT =
-            Pattern.compile("((\"(?<keywords>\\S+(?:\\s+\\S+)*)\"?)?(((on|from) (?<specificDateTime>.+))?)|(from (?<startDateTime>((?!to ).)*))?(to (?<endDateTime>.+))?)");
+            Pattern.compile("((\"(?<keywords>\\S+(?:\\s+\\S+)*)\")?(((on|from) (?<specificDateTime>.+))?)|(from (?<startDateTime>((?!to ).)*))?(to (?<endDateTime>.+))?)");
     
     private static final Pattern ADD_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<ArgsDetails>[^/]+)(?<tagArguments>(?: t/[^/]+)?)(?<priorityArguments>(?: p/[^/]+)?)"); // zero or one tag only, zero or one priority    
@@ -398,25 +398,20 @@ public class JimiParser {
      */
     private Command prepareShow(String args) {
         final Matcher matcher = SHOW_COMMAND_ARGS_FORMAT.matcher(args.trim());
-        boolean keywordFound = false;
+
         
-        //goes through list of keywords to check if user input is valid
-        for (String validKey : ShowCommand.VALID_KEYWORDS) {
-            if (validKey.toLowerCase().equals(args.toLowerCase())) {
-                keywordFound = true;
-                break;
-            }
-        }
-        
-        if (!keywordFound || !matcher.matches()) {
+        if (!matcher.matches()) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     ShowCommand.MESSAGE_USAGE));
         }
         
-        // keywords delimited by whitespace
         final String sectionToShow = matcher.group("sectionToShow");
         
-        return new ShowCommand(sectionToShow.toLowerCase().trim());
+        try {
+            return new ShowCommand(sectionToShow);
+        } catch (IllegalValueException ive) {
+            return new IncorrectCommand(ive.getMessage());
+        }
     }
 
     
@@ -438,11 +433,13 @@ public class JimiParser {
         
     }
     
+    //@author A0138915X
     /**
      * Parses arguments in the context of the find task command.
      *
      * @param args full command args string
      * @return the prepared command
+     *
      */
     private Command prepareFind(String args) {
         final Matcher matcher = KEYWORDS_WITH_DATES_ARGS_FORMAT.matcher(args.trim());
@@ -480,6 +477,7 @@ public class JimiParser {
         
         return new FindCommand(keywordSet, startDates, optEndDate.orElse(null));
     }
+    //@@author
     
     // @@author A0140133B
     /**

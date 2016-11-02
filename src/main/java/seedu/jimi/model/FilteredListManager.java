@@ -3,6 +3,7 @@ package seedu.jimi.model;
 import java.time.DayOfWeek;
 import java.time.LocalDateTime;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
@@ -10,6 +11,7 @@ import java.util.Set;
 import java.util.logging.Logger;
 
 import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import seedu.jimi.commons.core.LogsCenter;
 import seedu.jimi.commons.core.UnmodifiableObservableList;
 import seedu.jimi.commons.util.StringUtil;
@@ -39,24 +41,31 @@ public class FilteredListManager {
         COMPLETED, 
         INCOMPLETE, 
         TASKS_AGENDA, 
-        EVENTS_AGENDA
+        EVENTS_AGENDA,
+        OVERDUE
     }
     
     private final HashMap<ListId, FilteredList<ReadOnlyTask>> listMap =
             new HashMap<ListId, FilteredList<ReadOnlyTask>>();
+    
+    private final HashMap<ListId, SortedList<ReadOnlyTask>> sortedListMap =
+            new HashMap<ListId, SortedList<ReadOnlyTask>>();
     
     private final HashMap<ListId, Expression> defaultExpressions = new HashMap<ListId, Expression>();
     
     
     public FilteredListManager(TaskBook taskBook) {
         initDefaultExpressions();
-        
-        /*
-         *  1. Initializing each list with taskBook's own internal list.
-         *  2. Setting default filters for each list.
-         *  
-         *  Adds in CompletedQualifiers when initializing agenda lists.
-         */
+        initFilteredLists(taskBook);
+        initSortedLists();
+    }
+    /*
+     *  1. Initializing each list with taskBook's own internal list.
+     *  2. Setting default filters for each list.
+     *  
+     *  Adds in CompletedQualifiers when initializing agenda lists.
+     */
+    private void initFilteredLists(TaskBook taskBook) {
         for (ListId id : ListId.values()) {
             listMap.put(id, new FilteredList<ReadOnlyTask>(taskBook.getTasks()));
             
@@ -72,6 +81,43 @@ public class FilteredListManager {
         }
     }
     
+    /**
+     * @@author A0138915X
+     * 
+     * Wraps all the filteredLists with sortedLists.
+     */
+    private void initSortedLists() {
+        for(ListId id : ListId.values()) {
+            SortedList<ReadOnlyTask> sortedList = new SortedList<ReadOnlyTask>(listMap.get(id));
+            sortedList.setComparator(new Comparator<ReadOnlyTask>() {
+                @Override
+                public int compare(ReadOnlyTask arg0, ReadOnlyTask arg1) {
+                    if(arg0 instanceof Event) {
+                        if(arg1 instanceof Event) {
+                            return ((Event) arg0).getStart().compareTo(((Event) arg1).getStart());
+                        } else { //return 1, lowest natural ordering
+                            return 1;
+                        }
+                    } else if(arg0 instanceof DeadlineTask) {
+                        if(arg1 instanceof DeadlineTask) {
+                            return ((DeadlineTask) arg0).getDeadline().compareTo(((DeadlineTask) arg1).getDeadline());
+                        } else { //return -1, 2nd lowest natural ordering
+                            return 1;
+                        }
+                    } else if(!(arg1 instanceof DeadlineTask) && !(arg1 instanceof Event)){
+                        //compare names of floating tasks
+                        return arg0.getName().fullName.compareToIgnoreCase(arg1.getName().fullName);
+                    } 
+                    
+                    return 0;
+                }
+            });
+            sortedListMap.put(id, sortedList);
+        }
+    }
+    //@@author
+    
+    // @@author A0140133B
     /**
      * Initializes default expressions used by all the filtered lists in {@code listMap}.
      */
@@ -109,17 +155,21 @@ public class FilteredListManager {
         // Expression matches if it's an event.
         defaultExpressions.put(ListId.EVENTS_AGENDA,
                 new PredicateExpression(new EventQualifier(true)));
+        
+        // Expression matches if task is overdue.
+        defaultExpressions.put(ListId.OVERDUE,
+                new PredicateExpression(new TaskQualifier(true), new OverdueQualifier()));
     }
     //@@author
     
     /*
      * ===========================================================
-     *                  Getters for Filtered Lists
+     *                  Getters for Sorted-Filtered Lists
      * ===========================================================
      */
     
-    public UnmodifiableObservableList<ReadOnlyTask> getFilteredList(ListId id) {
-        return new UnmodifiableObservableList<ReadOnlyTask>(listMap.get(id));
+    public UnmodifiableObservableList<ReadOnlyTask> getSortedFilteredList(ListId id) {
+        return new UnmodifiableObservableList<ReadOnlyTask>(sortedListMap.get(id));
     }
     
     /*
@@ -244,7 +294,7 @@ public class FilteredListManager {
         @Override
         public boolean run(ReadOnlyTask task) {
             return nameKeyWords.stream()
-                    .filter(keyword -> StringUtil.containsIgnoreCase(task.getName().fullName, keyword))
+                    .filter(keyword -> StringUtil.isNearMatch(task.getName().fullName, keyword))
                     .findAny()
                     .isPresent();
         }
@@ -299,6 +349,26 @@ public class FilteredListManager {
         }
         
     }
+    
+    /**
+     * Qualifier to check if task/event is overdue w.r.t. current time.
+     * @author zexuan
+     *
+     */
+    private class OverdueQualifier implements Qualifier {
+
+        @Override
+        public boolean run(ReadOnlyTask task) {
+            if(task instanceof Event) { //needed?
+            } else if(task instanceof DeadlineTask) {
+                return LocalDateTime.now().compareTo(((DeadlineTask) task).getDeadline().getLocalDateTime()) >= 0;
+            }
+            
+            return false;
+        }
+        
+    }
+    
     //@@author
     
     private class WeekQualifier implements Qualifier {

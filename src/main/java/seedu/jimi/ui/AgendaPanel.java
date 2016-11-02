@@ -2,10 +2,13 @@ package seedu.jimi.ui;
 
 import java.util.logging.Logger;
 
+import com.google.common.eventbus.Subscribe;
+
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
+import javafx.scene.control.Label;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
@@ -15,6 +18,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import seedu.jimi.commons.core.LogsCenter;
+import seedu.jimi.commons.events.ui.JumpToListRequestEvent;
 import seedu.jimi.commons.util.FxViewUtil;
 import seedu.jimi.model.event.Event;
 import seedu.jimi.model.task.DeadlineTask;
@@ -28,6 +32,8 @@ import seedu.jimi.model.task.ReadOnlyTask;
 public class AgendaPanel extends UiPart{
     private final Logger logger = LogsCenter.getLogger(AgendaPanel.class);
     private static final String FXML = "AgendaPanel.fxml";
+    private static final String EMPTY_TASK_TABLE_MESSAGE = "There seems to be no tasks here.";
+    private static final String EMPTY_EVENT_TABLE_MESSAGE = "There seems to be no events here.";
     private VBox panel;
     private AnchorPane placeHolderPane;
     
@@ -78,7 +84,6 @@ public class AgendaPanel extends UiPart{
         placeHolderPane.getChildren().add(panel);
     }
     
-    
     public static AgendaPanel load(Stage primaryStage, AnchorPane agendaPlaceholder, ObservableList<ReadOnlyTask> taskList, ObservableList<ReadOnlyTask> eventList) {
         AgendaPanel agendaPanel = 
                 UiPartLoader.loadUiPart(primaryStage, agendaPlaceholder, new AgendaPanel());
@@ -99,14 +104,18 @@ public class AgendaPanel extends UiPart{
         tasksTableView.setItems(this.tasksList);
         eventsTableView.setItems(this.eventsList);
         
+        tasksTableView.setPlaceholder(new Label(EMPTY_TASK_TABLE_MESSAGE));
+        eventsTableView.setPlaceholder(new Label(EMPTY_EVENT_TABLE_MESSAGE));
+        
+        
         tasksTableView.getColumns().setAll(tasksTableColumnId, 
-                tasksTableColumnTags,
                 tasksTableColumnDetails,
+                tasksTableColumnTags,
                 tasksTableColumnEndDate);
         
         eventsTableView.getColumns().setAll(eventsTableColumnId,
-                eventsTableColumnTags,
                 eventsTableColumnDetails,
+                eventsTableColumnTags,
                 eventsTableColumnStartDate,
                 eventsTableColumnEndDate);
     }
@@ -150,6 +159,13 @@ public class AgendaPanel extends UiPart{
         eventsTableColumnStartDate.setCellFactory(getCustomPriorityCellFactory());
         eventsTableColumnEndDate.setCellValueFactory(cellData -> new SimpleStringProperty(((Event) (cellData.getValue())).getEnd() == null ? null : ((Event) cellData.getValue()).getEnd().toString()));
         eventsTableColumnEndDate.setCellFactory(getCustomPriorityCellFactory());
+    }
+    
+    @Subscribe
+    public void handleJumpToUpdatedTaskOrEvent(JumpToListRequestEvent ev) {
+        int targetIndex = this.tasksList.indexOf(ev.targetTask);
+        tasksTableView.scrollTo(targetIndex);
+        tasksTableView.getSelectionModel().select(targetIndex);
     }
     
     /**
