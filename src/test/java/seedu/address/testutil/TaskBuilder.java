@@ -41,6 +41,21 @@ public class TaskBuilder {
         this.person.setStart(new Start(email));
         return this;
     }
+    
+    public TaskBuilder withTaskCat(int taskCat) throws IllegalValueException {
+    	this.person.setTaskCategory(taskCat);
+    	return this;
+    }
+    
+    public TaskBuilder withOverdue(int overdue) throws IllegalValueException {
+    	this.person.setOverdue(overdue);
+    	return this;
+    }
+    
+    public TaskBuilder withIsCompleted(boolean isCompleted) throws IllegalValueException {
+    	this.person.setIsCompleted(isCompleted);
+    	return this;
+    }
 
     public TestTask build() {
         return this.person;

@@ -37,6 +37,18 @@ public class TestTask implements ReadOnlyTask {
     public void setDate(Date phone) {
         this.date = phone;
     }
+    
+    public void setTaskCategory(int taskCat) {
+    	this.task_cat = taskCat;
+    }
+    
+    public void setOverdue(int overdue) {
+    	this.overdue = overdue;
+    }
+    
+    public void setIsCompleted(boolean isCompleted) {
+    	this.isCompleted = isCompleted;
+    }
 
     @Override
     public Name getName() {
@@ -85,11 +97,11 @@ public class TestTask implements ReadOnlyTask {
 
     public String getAddCommand() {
         StringBuilder sb = new StringBuilder();
-        sb.append("add " + this.getName().taskDetails + " ");
-        sb.append("p/" + this.getDate().value + " ");
-        sb.append("e/" + this.getStart().value + " ");
-        sb.append("a/" + this.getEnd().value + " ");
-       // this.getTags().getInternalList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));
+        sb.append("add [" + this.getName().taskDetails + "; ");
+        sb.append(this.getDate().value + "; ");
+        sb.append(this.getStart().value + "; ");
+        sb.append(this.getEnd().value + "] ");
+        this.getTags().getInternalList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));
         return sb.toString();
     }
 }
