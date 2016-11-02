@@ -97,6 +97,9 @@ public class Parser {
 
         case DoneCommand.COMMAND_WORD:
             return prepareDone(arguments);
+            
+        case ContinueCommand.COMMAND_WORD:
+        	return prepareContinue(arguments);
 
         case EditCommand.COMMAND_WORD:
             return prepareEdit(arguments);
@@ -303,6 +306,24 @@ public class Parser {
      */
 
     // @@author A0138420N
+    private Command prepareContinue(String args) {
+        String[] parts = args.split(",");
+        ArrayList<Integer> indexes = new ArrayList<Integer>();
+        for (int i = 0; i < parts.length; i++) {
+            indexes.add(Integer.parseInt(parts[i].trim()));
+        }
+
+        for (int i = 0; i < parts.length; i++) {
+            Optional<Integer> index = parseIndex(parts[i]);
+            if (!index.isPresent()) {
+                return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ContinueCommand.MESSAGE_USAGE));
+            }
+        }
+        return new ContinueCommand(indexes);
+    }
+    // @@author
+    
+    // @@author A0147994J
     private Command prepareDone(String args) {
         String[] parts = args.split(",");
         ArrayList<Integer> indexes = new ArrayList<Integer>();
@@ -319,7 +340,7 @@ public class Parser {
         return new DoneCommand(indexes);
     }
     // @@author
-
+    
     // @@author A0138420N
     /**
      * Parses arguments in the context of the edit task command.

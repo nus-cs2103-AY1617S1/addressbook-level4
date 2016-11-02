@@ -26,6 +26,9 @@ public interface Model {
     /** Marks the given task as done. */
     void doneTask(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException;
 
+    /**Mark done task to undone*/
+    void continueTask(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException;
+    
     /** Adds the given task */
     void addTask(Task task) throws UniqueTaskList.DuplicateTaskException;
     

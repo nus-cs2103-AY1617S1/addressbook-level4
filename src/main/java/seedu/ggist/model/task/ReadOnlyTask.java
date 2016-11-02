@@ -61,6 +61,7 @@ public interface ReadOnlyTask {
         return builder.toString();
     }
     void setDone();
+    void setContinue();
     void setUndone();
     void setNotOverdue();
     void checkTimeClash() throws IllegalValueException;

@@ -168,7 +168,12 @@ public class TestTask implements ReadOnlyTask {
         done = true;
         setNotOverdue();
     }
-
+    
+    @Override
+    public void setContinue() {
+    	done = false;
+    	setNotOverdue();
+    }
     @Override
     public Date getStartDateTime() {
         return start;
