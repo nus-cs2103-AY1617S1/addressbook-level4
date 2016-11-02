@@ -309,7 +309,7 @@ Priority | As a(n) ... | I want to ... | So that I can...
 `*` | user | sort tasks by priority level | see the most important tasks and prioritize accordingly
 `*` | user | undo most recent command | undo the most recent operation
 `*` | user | redo most recent undo command | redo the operation done by the most recent undo action
-`*` | user | change storage location | easily sync them with the cloud
+`*` | user | change storage location | choose where my tasks are saved at
 `*` | advanced user | alias keywords with shorter versions | type a command faster
 `*` | advanced user | remove alias of keywords with shorter versions | get rid of shorter version of certain keywords
 {More to be added}
@@ -320,7 +320,7 @@ Priority | As a(n) ... | I want to ... | So that I can...
 
 (For all use cases below, the **System** is the `Savvy Tasker` and the **Actor** is the `user`, unless specified otherwise)
 
-#### Use case: Add task
+### Use case: Add task
 
 **MSS**
 
@@ -350,7 +350,7 @@ Use case ends.
 > 2d1. Savvy Tasker shows an error message <br>
 > Use case resumes at step 1
 
-#### Use case: List tasks
+### Use case: List tasks
 
 **MSS**
 
@@ -366,7 +366,7 @@ Use case ends.
 > 3a1. Savvy Tasker shows an error message <br>
   Use case ends
 
-#### Use case: Find task
+### Use case: Find task
 
 **MSS**
 
@@ -387,7 +387,7 @@ Use case ends.
 > Use case ends
 
 
-#### Use case: Modify task
+### Use case: Modify task
 
 **MSS**
 
@@ -413,7 +413,7 @@ Use case ends.
   Use case resumes at step 3
 
 
-#### Use case: Change storage location
+### Use case: Change storage location
 
 **MSS**
 
@@ -435,7 +435,7 @@ Use case ends.
   Use case ends
   
 
-#### Use case: Mark task as done
+### Use case: Mark task as done
 
 **MSS**
 
@@ -458,7 +458,7 @@ Use case ends.
 > 3b1. Savvy Tasker shows a 'task already marked' error message.<br>
 > Use case resumes at step 1
 
-###Use case: Unmark marked task
+### Use case: Unmark marked task
 
 **MSS**
 
@@ -479,7 +479,7 @@ Use case ends.
 > Use case resumes at step 1
 
 
-#### Use case: Delete task
+### Use case: Delete task
 
 **MSS**
 
@@ -501,7 +501,7 @@ Use case ends.
 > 4a1. Savvy Tasker shows an error message 
 > Use case resumes at step 3 <br>
 
-###Use case: Alias keyword and use shorten keyword
+### Use case: Alias keyword and use shorten keyword
 
 **MSS**
 
@@ -523,7 +523,7 @@ Use case ends.
 > 2b1. Savvy Tasker shows a error message and the shorten keyword's original associated keyword 
 > Use case resumes at step 1 <br>
 
-###Use case: Unalias keyword
+### Use case: Unalias keyword
 
 **MSS**
 
@@ -538,7 +538,7 @@ Use case ends.
 > 2a1. Savvy Tasker shows a 'not found' error message 
 > Use case resumes at step 1 <br>
 
-###Use case: Undo previous command
+### Use case: Undo previous command
 
 **MSS**
 
@@ -553,7 +553,7 @@ Use case ends.
 > 2a1. Savvy Tasker shows a 'cannot undo' error message <br>
 > Use case ends
 
-###Use case: Redo most recently undone command
+### Use case: Redo most recently undone command
 
 **MSS**
 
