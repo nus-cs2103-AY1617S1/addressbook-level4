@@ -82,7 +82,7 @@ public class TaskTime {
     private String endDate = null;
 
     private static String TODAY = "today";
-    private static String TMR = "tmr";
+    private static String TMR = "tomorrow";
 
     public TaskTime(String time, String startTime, String endTime, String date, String startDate, String endDate)
             throws IllegalValueException {
