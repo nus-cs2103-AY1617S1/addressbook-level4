@@ -24,6 +24,7 @@ import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
 public class CompleteCommand extends Command {
 
 	public static final String COMMAND_WORD = "complete";
+	public static final String COMMAND_WORD = "com"; //complete shortcut
 
 	public static final String MESSAGE_USAGE = COMMAND_WORD
 			+ ": Complete the task identified by the index number used in the last task listing.\n"

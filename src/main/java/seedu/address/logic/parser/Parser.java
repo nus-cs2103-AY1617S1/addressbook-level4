@@ -66,14 +66,25 @@ public class Parser {
 
         case AddCommand.COMMAND_WORD:
             return prepareAdd(arguments);
-			
-	    case CompleteCommand.COMMAND_WORD:
-	    	try {
-	    		return prepareComplete(arguments);
-	    	} catch (IllegalValueException e) {
-	    		// TODO Auto-generated catch block
-	    		e.printStackTrace();
-	    	}
+	
+        case AddCommand.COMMAND_WORD_2:
+            return prepareAdd(arguments);
+		
+	case CompleteCommand.COMMAND_WORD:
+	    try {
+	   	return prepareComplete(arguments);
+	    } catch (IllegalValueException e) {
+	    	// TODO Auto-generated catch block
+	    	e.printStackTrace();
+	    }
+	
+        case CompleteCommand.COMMAND_WORD_2:
+	    try {
+	   	return prepareComplete(arguments);
+	    } catch (IllegalValueException e) {
+	    	// TODO Auto-generated catch block
+	    	e.printStackTrace();
+	    }
 
         case SelectCommand.COMMAND_WORD:
             return prepareSelect(arguments);
@@ -84,12 +95,18 @@ public class Parser {
         case DeleteCommand.COMMAND_WORD:
             return prepareDelete(arguments);
 
-        case ClearCommand.COMMAND_WORD:
+	case DeleteCommand.COMMAND_WORD_2:
+            return prepareDelete(arguments);
+        
+	case ClearCommand.COMMAND_WORD:
             return new ClearCommand();
 
         case FindCommand.COMMAND_WORD:
             return prepareFind(arguments);
 
+	case FindCommand.COMMAND_WORD_2:
+            return prepareFind(arguments);
+			
         case ListCommand.COMMAND_WORD:
             return new ListCommand();
 
