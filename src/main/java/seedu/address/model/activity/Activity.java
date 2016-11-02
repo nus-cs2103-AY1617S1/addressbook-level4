@@ -33,6 +33,21 @@ public class Activity implements ReadOnlyActivity {
         assert !CollectionUtil.isAnyNull(name, reminder, tags);
         this.name = name;
         this.reminder = reminder;
+        this.reminder.recurring = reminder.recurring;
+        this.reminder.RecurringMessage = reminder.RecurringMessage;
+        this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list  
+    }
+    
+    /**
+     * Every field must be present and not null. isCompleted must be present
+     */
+    public Activity(Name name, Reminder reminder, UniqueTagList tags, boolean isCompleted) {
+        assert !CollectionUtil.isAnyNull(name, reminder, tags);
+        this.name = name;
+        this.reminder = reminder;
+        this.reminder.recurring = reminder.recurring;
+        this.reminder.RecurringMessage = reminder.RecurringMessage;
+        this.isCompleted = isCompleted;
         this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list  
     }
 
@@ -40,7 +55,7 @@ public class Activity implements ReadOnlyActivity {
      * Copy constructor.
      */
     public Activity(ReadOnlyActivity source) {
-        this(source.getName(), source.getReminder(), source.getTags());
+        this(source.getName(), source.getReminder(), source.getTags(), source.getCompletionStatus());
     }
 
     @Override
@@ -110,10 +125,13 @@ public class Activity implements ReadOnlyActivity {
     @Override
     public String toStringCompletionStatus() {
         String message = "";
-        if(reminder.recurring)
-            message = "Recurring";
+        if(reminder.recurring){
+            String[] recurfre = reminder.RecurringMessage.split(" ");
+            message = "Recurring - " + recurfre[0] + " " + recurfre[1];
+        }
         if(isCompleted && reminder.recurring) {
-            message =  "Completed - Recurring";
+            String[] recurfre = reminder.RecurringMessage.split(" ");
+            message =  "Completed - Recurring - " + recurfre[0] + " " + recurfre[1];;
          recurringActivity();
             }
             return message; 

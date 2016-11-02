@@ -69,8 +69,9 @@ public class EndTime extends DateTime {
     }
 
     public Date convertStringtoDate(String date) throws IllegalValueException {
-        DateFormat format = new SimpleDateFormat("EEE, MMM d, yyyy h:mm a");
-        try {
+        DateFormat format = new SimpleDateFormat("d-MM-yyyy h:mm a");
+        if(!date.equals(""))
+            try {
             Date date1 = format.parse(date);
             return date1;
         } catch (ParseException e) {
@@ -131,25 +132,18 @@ public class EndTime extends DateTime {
 
     public EndTime(String date) throws IllegalValueException {
         super(date);
-        Date taskDate;
-
-        if (!date.equals("")) {
-            taskDate = DateUtil.FixedDateConvert(date);
-
-            if (taskDate.equals(null)) {
-                assert false : "Date should not be null";
-            } /*
-               * else if (DateUtil.hasPassed(taskDate)) { throw new
-               * IllegalValueException(MESSAGE_ENDTIME_INVALID); }
-               */
-
-            if (!isValidDate(date)) {
+        String[] recur;
+        if(date!=""){
+        if (date.contains("every")) {
+            this.recurring = true;
+            RecurringMessage = date;
+            recur = date.split(" ", 2);
+            if(recur.length==1)
                 throw new IllegalValueException(MESSAGE_ENDTIME_CONSTRAINTS);
-            }
-            this.value.setTime(taskDate);
-            this.value.set(Calendar.MILLISECOND, 0);
-            this.value.set(Calendar.SECOND, 0);
+            date = recur[1];
         }
+
+        setDate(date);}
     }
 
     public String forDisplay() {

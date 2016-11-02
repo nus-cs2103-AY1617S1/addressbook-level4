@@ -5,7 +5,6 @@ import java.util.Date;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.DateUtil;
-import seedu.address.commons.util.DateValidation;
 import seedu.address.model.activity.DateTime;
 //@@author A0131813R
 public class StartTime extends DateTime {
