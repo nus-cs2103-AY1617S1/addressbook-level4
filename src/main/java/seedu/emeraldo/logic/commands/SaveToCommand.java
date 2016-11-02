@@ -7,6 +7,10 @@ import seedu.emeraldo.commons.core.EventsCenter;
 import seedu.emeraldo.commons.events.storage.SaveLocationChangedEvent;
 import seedu.emeraldo.commons.util.ConfigUtil;
 
+//@@author A0139342H
+/**
+ * Changes the save location of emeraldo.xml
+ */
 public class SaveToCommand extends Command{
     
     public static final String COMMAND_WORD = "saveto";
