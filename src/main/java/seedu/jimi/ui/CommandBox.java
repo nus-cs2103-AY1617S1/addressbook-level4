@@ -114,7 +114,7 @@ public class CommandBox extends UiPart {
             cycleAheadInput();
             return;
         case ENTER :
-            return; // Do nothing since {@link #handleCommandInputChanged} already handles this. 
+            return; // Do nothing since handleCommandInputChanged already handles this. 
         default :
             handleTextFieldKeyTyped();
             return;
