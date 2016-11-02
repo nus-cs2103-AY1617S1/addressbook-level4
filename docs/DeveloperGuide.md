@@ -461,7 +461,8 @@ Use Case ends
     *a1. System requests for confirmation
     *a2. User confirms the cancellation 
     Use Case ends. 
-    
+<!-- @@author -->    
+
 #### Use case: UC08 Create duplicated tasks
    Actor: User
 
