@@ -13,7 +13,7 @@ public class TypicalTestTasks {
 
     public TypicalTestTasks() {
         try {
-            alice =  new TaskBuilder().withName("Alice Pauline").withEndTime("11:59pm")
+            alice =  new TaskBuilder().withName("Alice Alice Pauline").withEndTime("11:59pm")
                     .withStartTime("11:59pm").withDone(false).withRecurrence("")
                     .build();
             benson = new TaskBuilder().withName("Benson Meier").withEndTime("11:59pm")
