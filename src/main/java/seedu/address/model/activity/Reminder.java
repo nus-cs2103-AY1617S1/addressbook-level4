@@ -90,6 +90,15 @@ public class Reminder extends DateTime {
             }
         }
     }
+    
+    /**
+     * Advances the reminder by a week (7 days) if it is recurring.
+     */
+    public void resetTime() {
+        if (this.recurring) {
+            this.value.add(Calendar.DAY_OF_MONTH, 7);
+        }
+    }
 
     public String forDisplay() {
         if (this.value == null) {

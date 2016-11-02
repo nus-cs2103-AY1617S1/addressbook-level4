@@ -87,7 +87,9 @@ public class UpcomingReminders {
 
         while (!reminderQueue.isEmpty()
                 && reminderQueue.peek().getReminder().getCalendarValue().getTime().before(offset10Secs)) {
-            nextRemindedActivities.add(reminderQueue.poll());
+            ReadOnlyActivity toBeReminded = reminderQueue.poll();
+            nextRemindedActivities.add(toBeReminded);
+            toBeReminded.getReminder().resetTime();
         }
         
         return nextRemindedActivities;
