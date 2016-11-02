@@ -73,7 +73,8 @@ public class ModelManager extends ComponentManager implements Model {
         taskManager.clearDone();
         indicateTaskManagerChanged();
     }
-
+    //@@author
+    
     //@@author A0139671X
     public void clearHistory() {
         taskManagerHistory.clear();
@@ -146,7 +147,8 @@ public class ModelManager extends ComponentManager implements Model {
         indicateTaskManagerChanged();
 
     }
-
+    //@@author
+    
     //@@author A0139671X
     @Override
     public synchronized void addTask(Task task) {
@@ -345,7 +347,8 @@ public class ModelManager extends ComponentManager implements Model {
         filteredTasks.setPredicate(isFloating());
         taskManager.counter();
     }
-
+    //@@author
+    
     // ========== Inner classes/interfaces used for filtering
     // ==================================================
 
@@ -408,7 +411,8 @@ public class ModelManager extends ComponentManager implements Model {
     //@@author A0139198N
     public static Predicate<Task> filterByDate(String date) {
         return t -> (t.getStartTime().appearOnUIFormatForDate().equals(date)
-                || t.getEndTime().appearOnUIFormatForDate().equals(date));
+                || t.getEndTime().appearOnUIFormatForDate().equals(date)) && 
+        		t.getDone().getDoneValue() == false;
     }
 
     //@@author A0139198N

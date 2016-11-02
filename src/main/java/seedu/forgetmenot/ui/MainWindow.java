@@ -230,9 +230,9 @@ public class MainWindow extends UiPart {
     public void rerenderStatusBarFooter() {
     	statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getTaskManagerFilePath());
     }
+    //@@author A0139198N
     /**
      * 
-     * @@author A0139198N
      */
     public Predicate<ReadOnlyTask> isFloating() {
     	return t -> t.getStartTime().isMissing() && t.getEndTime().isMissing() && t.getDone().getDoneValue() == false;
