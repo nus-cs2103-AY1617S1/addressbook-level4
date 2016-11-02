@@ -73,8 +73,8 @@ public class UniqueItemList implements Iterable<Item> {
         }
         internalList.set(itemIndex, toReplace);
     }
-    //@@author 
     
+    //@@author A0143641M - reused
     /**
      * Removes the equivalent item from the list.
      *
@@ -88,6 +88,19 @@ public class UniqueItemList implements Iterable<Item> {
         }
         return itemFoundAndDeleted;
     }
+    
+    //@@author A0143641M
+    /**
+     * Removes all equivalent items from the list.
+     * @throws ItemNotFoundException if any of the items are not found in the list.
+     */
+    public boolean removeAll(ReadOnlyItem[] itemsToRemove) throws ItemNotFoundException {
+        for (ReadOnlyItem toRemove : itemsToRemove) {
+            remove(toRemove);
+        }
+        return true;
+    }
+    //@@author
     
     public void setDone(ReadOnlyItem toEdit) throws ItemNotFoundException {
         assert toEdit != null;

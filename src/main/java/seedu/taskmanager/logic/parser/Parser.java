@@ -827,7 +827,7 @@ public class Parser {
         else if(itemIndexesMatcher.matches()) {
             // separate into the different indexes
             args = args.trim();
-            ArrayList<String> indexList = new ArrayList<String>(Arrays.asList(args.split("[^0-9]*")));
+            ArrayList<String> indexList = new ArrayList<String>(Arrays.asList(args.split("[^0-9]")));
             
             // remove empty strings from split
             for(Iterator<String> itr = indexList.iterator(); itr.hasNext(); ) {
