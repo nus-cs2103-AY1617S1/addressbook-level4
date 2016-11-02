@@ -12,7 +12,9 @@ import seedu.unburden.model.task.Task;
 import seedu.unburden.model.task.UniqueTaskList;
 import seedu.unburden.model.task.UniqueTaskList.TaskNotFoundException;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayDeque;
+import java.util.Calendar;
 import java.util.Deque;
 import java.util.NoSuchElementException;
 import java.util.Set;
@@ -33,12 +35,16 @@ public class ModelManager extends ComponentManager implements Model {
     private final FilteredList<Task> filteredTasks;
     private ArrayDeque<ListOfTask> prevLists = new ArrayDeque<ListOfTask>();
     private ArrayDeque<ListOfTask> undoHistory = new ArrayDeque<ListOfTask>();
-
+    private Calendar calendar = Calendar.getInstance();
+    private static final SimpleDateFormat DATEFORMATTER = new SimpleDateFormat("dd-MM-yyyy");
+    private static int size1,size2,size3;
+    
     private java.util.function.Predicate<? super Task> getAllUndone() {
 		return t -> {
 			return !t.getDone();
 		};
 	}
+    
     /**
      * Initializes a ModelManager with the given ListOfTask
      * ListOfTask and its variables should not be null
@@ -63,11 +69,14 @@ public class ModelManager extends ComponentManager implements Model {
         filteredTasks = new FilteredList<>(listOfTask.getTasks());
     }
     
+    
+    
     //@@author A0139714B	
     @Override
     public void resetData(ReadOnlyListOfTask newData) {
     	prevLists.push(new ListOfTask(listOfTask));
         listOfTask.resetData(newData);
+        countSize();
         indicateTaskListChanged();
     }
 
@@ -84,6 +93,7 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public synchronized void deleteTask(ReadOnlyTask target) throws TaskNotFoundException {
         listOfTask.removeTask(target);
+        countSize();
         indicateTaskListChanged();
     }
 
@@ -92,7 +102,8 @@ public class ModelManager extends ComponentManager implements Model {
         listOfTask.addTask(task);
         //updateFilteredListToShowAll();
         updateFilteredTaskList(getAllUndone());
-        indicateTaskListChanged();
+        countSize(); 
+        indicateTaskListChanged();    		
     }
     
     //@@author A0139714B
@@ -102,6 +113,7 @@ public class ModelManager extends ComponentManager implements Model {
         listOfTask.editTask(target, toEdit);
         //updateFilteredListToShowAll();
         updateFilteredTaskList(getAllUndone());
+        countSize(); 
         indicateTaskListChanged();
     }
     
@@ -113,6 +125,7 @@ public class ModelManager extends ComponentManager implements Model {
     	listOfTask.doneTask(taskToDone,isDone);
     	//updateFilteredListToShowAll();
         updateFilteredTaskList(getAllUndone());
+        countSize(); 
     	indicateTaskListChanged();
     }
     
@@ -122,6 +135,7 @@ public class ModelManager extends ComponentManager implements Model {
     	listOfTask.doneTask(taskToDone,isunDone);
     	//updateFilteredListToShowAll();
         updateFilteredTaskList(getAllUndone());
+        countSize(); 
     	indicateTaskListChanged();
     }
     
@@ -138,6 +152,7 @@ public class ModelManager extends ComponentManager implements Model {
     	ListOfTask oldCopy = prevLists.pop();
     	undoHistory.push(new ListOfTask(listOfTask));
     	listOfTask.setTasks(oldCopy.getTasks());
+    	countSize(); 
     	indicateTaskListChanged();
     }
     
@@ -147,10 +162,50 @@ public class ModelManager extends ComponentManager implements Model {
     	ListOfTask oldCopy = undoHistory.pop();
     	prevLists.push(new ListOfTask(listOfTask));
     	listOfTask.setTasks(oldCopy.getTasks());
+    	countSize(); 
     	indicateTaskListChanged();
     }
+        
+    //@@author A0147986H
+    public void countSize(){  
+    	
+    	size1=0;
+    	size2=0;
+        size3=0;    
+        
+    	for(int i=0; i<listOfTask.getUniqueTaskList().getInternalList().size(); i++){
+    		
+    		if(listOfTask.getUniqueTaskList().getInternalList().get(i).getDone()==true)
+    	     
+    			size2 ++;
+    		else if(listOfTask.getUniqueTaskList().getInternalList().get(i).getDone()==false)
+    		 
+    			size3++;   		    	
+    	}
+    	
+    	for(int i=0; i<listOfTask.getUniqueTaskList().getInternalList().size(); i++){
+    		if(listOfTask.getUniqueTaskList().getInternalList().get(i).getDate().fullDate == DATEFORMATTER.format(calendar.getTime()))
+    		 
+    			size1 ++;
+    			
+    		}
+    	
+    }
+    	
+       
+    public static String getSize1(){
+    	return String.valueOf(size1);
+    }
     
-
+    public static String getSize2(){
+    	return String.valueOf(size2);
+    }
+    
+    public static String getSize3(){
+    	return String.valueOf(size3);
+    }
+   
+    
     //=========== Filtered Task List Accessors ===============================================================
 
     @Override

@@ -191,7 +191,10 @@ public class MainWindow extends UiPart {
     public AnchorPane getSummaryPlaceholder(){
         return summaryPlaceholder;
     }
-    
+    //@@author A0147986H
+    public SummaryPanel getSummaryPanel(){
+    	return summaryPanel;
+    }
 
     /*public void loadPersonPage(ReadOnlyTask person) {
         summaryPanel.loadPersonPage(person);

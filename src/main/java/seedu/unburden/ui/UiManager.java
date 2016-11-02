@@ -10,6 +10,7 @@ import seedu.unburden.MainApp;
 import seedu.unburden.commons.core.ComponentManager;
 import seedu.unburden.commons.core.Config;
 import seedu.unburden.commons.core.LogsCenter;
+import seedu.unburden.commons.events.model.ListOfTaskChangedEvent;
 import seedu.unburden.commons.events.storage.DataSavingExceptionEvent;
 import seedu.unburden.commons.events.ui.JumpToListRequestEvent;
 import seedu.unburden.commons.events.ui.TaskPanelSelectionChangedEvent;
@@ -20,9 +21,12 @@ import seedu.unburden.model.UserPrefs;
 
 import java.util.logging.Logger;
 
+
 /**
- * The manager of the UI component.
+ * The manager of the UI component. accept events to make changes of the UI components
+ * @@author A0147986H
  */
+
 public class UiManager extends ComponentManager implements Ui {
     private static final Logger logger = LogsCenter.getLogger(UiManager.class);
     private static final String ICON_APPLICATION = "/images/Unburden3_logo.JPG";
@@ -122,5 +126,8 @@ public class UiManager extends ComponentManager implements Ui {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
        // mainWindow.loadPersonPage(event.getNewSelection());
     }
-
+    @Subscribe
+    private void handleSummaryPanelEvent(ListOfTaskChangedEvent event){
+         mainWindow.getSummaryPanel().initialize();
+    }
 }
