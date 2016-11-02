@@ -37,7 +37,7 @@ Responsibilities: Team Lead, Logic
 * Components in charge of: [Add command]
 * Features implemented:
    * <kbd>[Add](UserGuide.md#adding-a-task-add)</kbd> Command
-   * <kbd>[Edit](UserGuide.md#adding-a-task-edit)</kbd> Command
+   * <kbd>[Edit](UserGuide.md#editing-a-task-edit)</kbd> Command
    * Natural input using natty
 * Code written: <kbd>[Functional code](../collated/main/A0152958R.md)</kbd> <kbd>[Test code]</kbd> <kbd>[Docs]</kbd>
 
@@ -68,7 +68,7 @@ Responsibilities: Testing, GUI
 * Features implemented:
    * <kbd>[Backup](UserGuide.md#backup--backup)</kbd> Command
    * <kbd>[Directory](UserGuide.md#change-working-directory--directory)</kbd> Command
-   * <kbd>[Sort](UserGuide.md#change-working-directory--directory)</kbd> Command
+   * <kbd>[Sort](UserGuide.md#sorting-tasks--sort)</kbd> Command
 * Code written: <kbd>[Functional code](../collated/main/A0147944U.md)</kbd> <kbd>[Test code](../collated/test/A0147944U.md)</kbd> <kbd>[Docs](../collated/docs/A0147944U.md)</kbd>
 * Other major contributions:
   * Organize and manage [GitHub repository](https://github.com/CS2103AUG2016-T17-C3/main)
