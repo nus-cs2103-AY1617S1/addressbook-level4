@@ -6,32 +6,33 @@ import seedu.address.logic.commands.AddCommand;
 import seedu.address.commons.core.Messages;
 import seedu.address.testutil.TestTask;
 import seedu.address.testutil.TestUtil;
+import seedu.address.testutil.TypicalTestTasks;
 
 import static org.junit.Assert.assertTrue;
 
 public class AddCommandTest extends AddressBookGuiTest {
 
-    //@Test
+   // @Test
     public void add() {
         //add one person
         TestTask[] currentList = td.getTypicalPersons();
-        TestTask personToAdd = td.hoon;
+        TestTask personToAdd = TypicalTestTasks.hoon;
         assertAddSuccess(personToAdd, currentList);
         currentList = TestUtil.addPersonsToList(currentList, personToAdd);
 
         //add another person
-        personToAdd = td.ida;
+        personToAdd = TypicalTestTasks.ida;
         assertAddSuccess(personToAdd, currentList);
         currentList = TestUtil.addPersonsToList(currentList, personToAdd);
 
         //add duplicate person
-        commandBox.runCommand(td.hoon.getAddCommand());
+        commandBox.runCommand(TypicalTestTasks.hoon.getAddCommand());
         assertResultMessage(AddCommand.MESSAGE_DUPLICATE_TASK);
         assertTrue(personListPanel.isListMatching(currentList));
 
         //add to empty list
         commandBox.runCommand("clear");
-        assertAddSuccess(td.alice);
+        assertAddSuccess(TypicalTestTasks.alice);
 
         //invalid command
         commandBox.runCommand("adds Johnny");
@@ -42,7 +43,7 @@ public class AddCommandTest extends AddressBookGuiTest {
         commandBox.runCommand(personToAdd.getAddCommand());
 
         //confirm the new card contains the right data
-        PersonCardHandle addedCard = personListPanel.navigateToPerson(personToAdd.getName().taskDetails);
+        PersonCardHandle addedCard = personListPanel.navigateToPerson(personToAdd.getName().toString());
         assertMatching(personToAdd, addedCard);
 
         //confirm the list now contains all previous persons plus the new person
