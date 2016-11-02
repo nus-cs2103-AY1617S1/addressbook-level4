@@ -15,20 +15,27 @@ public class TypicalTestTasks {
     public TypicalTestTasks() {
         try {
             alice =  new TaskBuilder().withName("Alice Pauline").withEnd("2359")
-                    .withStart("1100").withDate("12.12.23")
-                    .withTags("friends").build();
+                    .withStart("1100").withDate("12.12.23").withTaskCat(1).withIsCompleted(false)
+                    .withOverdue(0).withTags("friends").build();
             benson = new TaskBuilder().withName("Benson Meier").withEnd("6pm")
-                    .withStart("2am").withDate("01.05.23")
-                    .withTags("owesMoney", "friends").build();
-            carl = new TaskBuilder().withName("Carl Kurz").withDate("12/12/16").withStart("default").withEnd("2350").build();
-            daniel = new TaskBuilder().withName("Daniel Meier").withDate("15.11.23").withStart("7am").withEnd("11pm").build();
-            elle = new TaskBuilder().withName("Elle Meyer").withDate("29/05/12").withStart("0001").withEnd("1212").build();
-            fiona = new TaskBuilder().withName("Fiona Kunz").withDate("no date").withStart("no start").withEnd("no end").build();
-            george = new TaskBuilder().withName("George Best").withDate("210223").withStart("1111").withEnd("1212").build();
+                    .withStart("2am").withDate("01.05.23").withTaskCat(1).withIsCompleted(false)
+                    .withOverdue(0).withTags("owesMoney", "friends").build();
+            carl = new TaskBuilder().withName("Carl Kurz").withDate("12/12/16").withStart("default").withEnd("2350")
+            		.withTaskCat(1).withIsCompleted(false).withOverdue(0).build();
+            daniel = new TaskBuilder().withName("Daniel Meier").withDate("15.11.23").withStart("7am").withEnd("11pm")
+            		.withTaskCat(1).withIsCompleted(false).withOverdue(0).build();
+            elle = new TaskBuilder().withName("Elle Meyer").withDate("29/05/36").withStart("0001").withEnd("1212")
+            		.withTaskCat(1).withIsCompleted(false).withOverdue(0).build();
+            fiona = new TaskBuilder().withName("Fiona Kunz").withDate("12/12/16").withStart("1000").withEnd("1300")
+            		.withTaskCat(1).withIsCompleted(false).withOverdue(0).build();
+            george = new TaskBuilder().withName("George Best").withDate("210223").withStart("1111").withEnd("1212")
+            		.withTaskCat(1).withIsCompleted(false).withOverdue(0).build();
 
             //Manually added
-            hoon = new TaskBuilder().withName("Hoon Meier").withDate("010123").withStart("no start").withEnd("no end").build();
-            ida = new TaskBuilder().withName("Ida Mueller").withDate("101023").withStart("default").withEnd("default").build();
+            hoon = new TaskBuilder().withName("Hoon Meier").withDate("010123").withStart("10am").withEnd("2pm")
+            		.withTaskCat(1).withIsCompleted(false).withOverdue(0).build();
+            ida = new TaskBuilder().withName("Ida Mueller").withDate("101023").withStart("2am").withEnd("4pm")
+            		.withTaskCat(1).withIsCompleted(false).withOverdue(0).build();
         } catch (IllegalValueException e) {
             e.printStackTrace();
             assert false : "not possible";
