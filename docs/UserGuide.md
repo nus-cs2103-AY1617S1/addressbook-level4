@@ -119,7 +119,8 @@ Set Task as completed
 Format: `done TASKID`
 
 Example: `done 1`
- 
+
+<a id="edit_task" class="anchor" aria-hidden="true">
 #### Edit a task: `edit`
 Edit details to an existing task <br>
 One other parameter must be use other than the TASKID <br>
@@ -128,6 +129,7 @@ Format: `edit TASKID [t/TASK_NAME] [d/DESCRIPTION] [sd/START_DATE] [dd/DUE_DATE]
 Examples: 
 * `edit 1 t/Homework d/Physics sd/11-11-2011 dd/12-12-2012 c/red ts/school`
 
+<a id="color_coding" class="anchor" aria-hidden="true">
 #### Coloring a task
 Color can be added or edited with the add or edit commands and the c/ parameter. <br>
 The available colors are "red", "blue", "green", and "none". None represents no color/white.

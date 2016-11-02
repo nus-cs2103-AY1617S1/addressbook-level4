@@ -33,6 +33,16 @@ Responsibilities: Logic
 <img src="images/YingYing.png" width="150"><br>
 Role: Documentation and Code Quality <br>  
 Responsibilities: UI
+* Features Implemented:
+   * [Edit command] (https://github.com/CS2103AUG2016-T15-C1/main/blob/master/docs/UserGuide.md#edit_task)
+   * [Color coding] (https://github.com/CS2103AUG2016-T15-C1/main/blob/master/docs/UserGuide.md#color_coding)
+   * Code Written: [Functional Code] (https://github.com/CS2103AUG2016-T15-C1/main/blob/master/collated/main/A0153751H.md) [Test Code] (https://github.com/CS2103AUG2016-T15-C1/main/blob/master/collated/test/A0153751H.md) [Docs]      (https://github.com/CS2103AUG2016-T15-C1/main/blob/master/collated/docs/A0153751H.md)
+   [functional code reused](https://github.com/CS2103AUG2016-T15-C1/main/tree/master/collated/main/A0153751H-reused.md)
+* Contribution
+   * Created the initial structure of EditCommand based on address book   (https://github.com/CS2103AUG2016-T15-C1/main/commit/7e0641217b05ee431981fab8bc0d4b43741a7855)
+   * Updating the information in README.md
+   (https://github.com/CS2103AUG2016-T15-C1/main/commit/6a87411a102a8bf46bea3c343c8d77b411349fe7)
+   * Keep track of releases and builds
 
 -----
 
