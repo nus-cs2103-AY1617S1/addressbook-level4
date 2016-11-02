@@ -240,23 +240,16 @@ public class Time {
     	return time.isMissing() || time.time.compareTo(now.time) >= 0;
 	}
   
-//    @Override
-//    public String toString() {
-//    	SimpleDateFormat dateFormatter = new SimpleDateFormat("E, MMM d, yyyy, hh:mm a");
-//        if(time.getTime().equals(new Date(0))) {
-//        	return dateFormatter.format(new Date(0));
-//        }
-//        else
-//            return dateFormatter.format(time.getTime());
-//    }
-    
     @Override
     public String toString() {
-        if(time.getTime().equals(new Date(0)))
-        	return (new Date(0)).toString();
+    	SimpleDateFormat dateFormatter = new SimpleDateFormat("E, MMM d, yyyy, hh:mm a");
+        if(time.getTime().equals(new Date(0))) {
+        	return dateFormatter.format(new Date(0));
+        }
         else
-        	return time.getTime().toString();
+            return dateFormatter.format(time.getTime());
     }
+    
 
     @Override
     public boolean equals(Object other) {

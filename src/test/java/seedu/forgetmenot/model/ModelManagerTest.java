@@ -151,21 +151,33 @@ public class ModelManagerTest {
         assertEquals(taskToCheck, testModel.getTaskManager().getUniqueTaskList().getInternalList().get(0));
     }
     
-//    public void sortTasks_addListOfUnsortedTasks_trueIfSorted() throws IllegalValueException {
-//    	TestTask task1 = new TaskBuilder().withName("task1").withStartTime("5 days later").withEndTime("next week")
-//    			.withDone(false).withRecurrence("").build();
-//    	TestTask task2 = new TaskBuilder().withName("task2").withStartTime("today").withEndTime("tmr")
-//    			.withDone(false).withRecurrence("").build();
-//    	TestTask task3 = new TaskBuilder().withName("task3").withStartTime("").withEndTime("11pm")
-//    			.withDone(false).withRecurrence("").build();
-//    	TestTask task4 = new TaskBuilder().withName("task4").withStartTime("11pm").withEndTime("")
-//    			.withDone(false).withRecurrence("").build();
-//    	TestTask task5 = new TaskBuilder().withName("task5").withStartTime("").withEndTime("")
-//    			.withDone(false).withRecurrence("").build();
-//    	
-//    	ModelManager testModel = new ModelManager();
-//    	testModel.addTask(task1);
-//    	
-//    }
+    @Test
+    public void sortTasks_addListOfUnsortedTasks_trueIfSorted() throws IllegalValueException {
+    	Task task1 = new Task(new Name("task1"), new Done(false), new Time("5 days later"), new Time("next week"), new Recurrence(""));
+    	Task task2 = new Task(new Name("task2"), new Done(false), new Time("today"), new Time("tmr"), new Recurrence(""));
+    	Task task3 = new Task(new Name("task3"), new Done(false), new Time("tmr"), new Time("day after tmr 11am"), new Recurrence(""));
+    	Task task4 = new Task(new Name("task4"), new Done(false), new Time("day after tmr"), new Time("4 days later"), new Recurrence(""));
+    	Task task5 = new Task(new Name("task5"), new Done(false), new Time("1/1/18"), new Time("2/2/18"), new Recurrence(""));
+    	
+    	ModelManager initialUnsortedModel = new ModelManager();
+    	initialUnsortedModel.addTask(task1);
+    	initialUnsortedModel.addTask(task2);
+    	initialUnsortedModel.addTask(task3);
+    	initialUnsortedModel.addTask(task4);
+    	initialUnsortedModel.addTask(task5);
+    	
+    	initialUnsortedModel.sortTasks();
+ 
+    	ModelManager initialSortedModel = new ModelManager();
+    	initialSortedModel.addTask(task2);
+    	initialSortedModel.addTask(task3);
+    	initialSortedModel.addTask(task4);
+    	initialSortedModel.addTask(task1);
+    	initialSortedModel.addTask(task5);
+    	
+    	for(int i = 0; i < 5; i++)
+    		assertEquals(initialSortedModel.getTaskManager().getTaskList().get(i), initialUnsortedModel.getTaskManager().getTaskList().get(i));
+    	
+    }
     
 }
