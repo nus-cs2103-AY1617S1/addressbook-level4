@@ -13,8 +13,12 @@ public class MainGuiHandle extends GuiHandle {
         super(guiRobot, primaryStage, TestApp.APP_TITLE);
     }
 
-    public DatedListPanelHandle getPersonListPanel() {
+    public DatedListPanelHandle getDatedListPanel() {
         return new DatedListPanelHandle(guiRobot, primaryStage);
+    }
+    
+    public UndatedListPanelHandle getUndatedListPanel() {
+        return new UndatedListPanelHandle(guiRobot, primaryStage);
     }
 
     public ResultDisplayHandle getResultDisplay() {

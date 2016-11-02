@@ -6,11 +6,11 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-public class CommandBoxTest extends AddressBookGuiTest {
+public class CommandBoxTest extends TaskBookGuiTest {
 
     @Test
     public void commandBox_commandSucceeds_textCleared() {
-        commandBox.runCommand(TypicalTestTasks.two.getAddCommand());
+        commandBox.runCommand(TypicalTestTasks.datedTwo.getAddCommand());
         assertEquals(commandBox.getCommandInput(), "");
     }
 

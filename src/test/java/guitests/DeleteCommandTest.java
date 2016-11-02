@@ -8,13 +8,13 @@ import static seedu.address.logic.commands.DeleteCommand.MESSAGE_DELETE_TASK_SUC
 
 import org.junit.Test;
 
-public class DeleteCommandTest extends AddressBookGuiTest {
+public class DeleteCommandTest extends TaskBookGuiTest {
 
     @Test
     public void delete() {
 
         //delete the first in the list
-        TestTask[] currentList = td.getTypicalTasks();
+        TestTask[] currentList = td.getTypicalDatedTasks();
         int targetIndex = 1;
         assertDeleteSuccess("B"+targetIndex, currentList);
 

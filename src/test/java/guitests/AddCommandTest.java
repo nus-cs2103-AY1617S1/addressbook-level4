@@ -11,27 +11,27 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-public class AddCommandTest extends AddressBookGuiTest {
+public class AddCommandTest extends TaskBookGuiTest {
 
     @Test
     public void add() {
-        //add one task
-        TestTask[] currentList = td.getTypicalTasks();
-        TestTask taskToAdd = TypicalTestTasks.four;
-        assertAddSuccess(taskToAdd, currentList);
-        currentList = TestUtil.addTasksToList(currentList, taskToAdd);
+        //add datedOne task
+        TestTask[] currentDatedList = td.getTypicalDatedTasks();
+        TestTask taskToAdd = TypicalTestTasks.datedFour;
+        assertAddSuccess(taskToAdd, currentDatedList);
+        currentDatedList = TestUtil.addTasksToList(currentDatedList, taskToAdd);
 
         //add another task
-        taskToAdd = TypicalTestTasks.five;
-        assertAddSuccess(taskToAdd, currentList);
-        currentList = TestUtil.addTasksToList(currentList, taskToAdd);
-        assertTrue(datedListPanel.isListMatching(currentList));
+        taskToAdd = TypicalTestTasks.datedFive;
+        assertAddSuccess(taskToAdd, currentDatedList);
+        currentDatedList = TestUtil.addTasksToList(currentDatedList, taskToAdd);
+        assertTrue(datedListPanel.isListMatching(currentDatedList));
 
         //TODO add duplicate, add undated task
         
         //add to empty list
         commandBox.runCommand("clear");
-        assertAddSuccess(TypicalTestTasks.one);
+        assertAddSuccess(TypicalTestTasks.datedOne);
 
         //invalid command
         commandBox.runCommand("adds Johnny");

@@ -54,7 +54,7 @@ public class UndoCommand extends Command {
             return new CommandResult(String.format(MESSAGE_SUCCESS, toUndo.getCommand()));
         }
         catch (UniqueTaskList.TaskNotFoundException tnfe){
-            assert false : "Task not found";
+            assert false : "Task not found not possible";
             return new CommandResult(MESSAGE_UNDO_NOT_POSSIBLE);
         }
         
