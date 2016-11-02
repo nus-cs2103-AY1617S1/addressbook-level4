@@ -52,10 +52,6 @@ public class TaskCard extends UiPart{
         dueDate.setText("Due Date: " + isDateNull(task.getDueDate().dueDate));
         status.setText(task.getStatus().status.toString());
         tags.setText(task.tagsString());
-        //@@author A0153751H
-        //cardPane.setBackground(new Background(new BackgroundFill(task.getTaskColor().getColor(), CornerRadii.EMPTY, Insets.EMPTY)));
-        cardPane.setStyle(task.getTaskColor().toStyle());
-        //@@author
     }
     
     public String isDateNull(Date inputDate) {
