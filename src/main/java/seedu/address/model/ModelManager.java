@@ -41,13 +41,12 @@ public class ModelManager extends ComponentManager implements Model {
      * Initializes a ModelManager with the given ToDo
      * ToDo and its variables should not be null
      */
-    public ModelManager(ToDo src, UserPrefs userPrefs, Storage storage) {
+    public ModelManager(ToDo src, Storage storage) {
         super();
         assert src != null;
-        assert userPrefs != null;
         assert storage != null;
 
-        logger.fine("Initializing with SmartyDo: " + src + " and user prefs " + userPrefs);
+        logger.fine("Initializing with SmartyDo: " + src);
 
         toDo = new ToDo(src);
         filteredTasks = new FilteredList<>(toDo.getTasks());
@@ -55,10 +54,10 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     public ModelManager(Storage storage) {
-        this(new ToDo(), new UserPrefs(), storage);
+        this(new ToDo(), storage);
     }
 
-    public ModelManager(ReadOnlyToDo initialData, UserPrefs userPrefs, Storage storage) {
+    public ModelManager(ReadOnlyToDo initialData, Storage storage) {
         toDo = new ToDo(initialData);
         filteredTasks = new FilteredList<>(toDo.getTasks());
         this.storage = storage;
