@@ -47,4 +47,5 @@ public class ActivityListPanel extends ListPanel {
 		this.placeHolderPane = pane;
 	}
 
+
 }

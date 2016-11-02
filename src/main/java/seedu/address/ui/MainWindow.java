@@ -230,4 +230,9 @@ public class MainWindow extends UiPart {
         return this.activityListPanel;
     }
 
+    public void refresh() {
+        activityListPanel.refresh();
+        
+    }
+
 }

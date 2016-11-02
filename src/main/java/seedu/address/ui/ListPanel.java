@@ -54,7 +54,7 @@ public abstract class ListPanel extends UiPart {
         addToPlaceholder();
     }
     
-    private void setConnections(ObservableList<ReadOnlyActivity> personList) {
+    protected void setConnections(ObservableList<ReadOnlyActivity> personList) {
         activityListView.setItems(personList);
         activityListView.setCellFactory(listView -> new ActivityListViewCell());
     }
@@ -88,6 +88,11 @@ public abstract class ListPanel extends UiPart {
                 setGraphic(ActivityCard.load(person, getIndex() + 1).getLayout());
             }
         }
+    }
+    
+    public void refresh(){
+        ObservableList<ReadOnlyActivity> items = activityListView.<ReadOnlyActivity>getItems();
+        setConnections(items);
     }
     
 	public abstract String getFxmlPath();
