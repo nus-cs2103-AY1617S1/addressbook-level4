@@ -6,8 +6,6 @@ We are a team based in the [School of Computing, National University of Singapor
 
 #### [Ravi Shwetha](http://github.com/ravishwetha) 
 <img src="images/RaviShwetha.jpg" width="150"><br>
-Role: Developer <br>  
-Responsibilities: Storage and Testing
 
 * Components in charge of: [Storage and Testing](https://github.com/se-edu/addressbook-level4/blob/master/docs/DeveloperGuide.md#storage-component)
 * Aspects/tools in charge of: Testing, Git
