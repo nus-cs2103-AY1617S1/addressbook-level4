@@ -63,6 +63,6 @@ public interface ReadOnlyTask {
     void setDone();
     void setUndone();
     void setNotOverdue();
-    void checkTimeClash() throws IllegalValueException;
+    void checkTimeOverdue() throws IllegalValueException;
 
 }

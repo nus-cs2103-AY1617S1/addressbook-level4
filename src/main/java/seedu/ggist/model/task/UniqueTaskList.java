@@ -6,8 +6,11 @@ import seedu.ggist.commons.core.Messages;
 import seedu.ggist.commons.exceptions.DuplicateDataException;
 import seedu.ggist.commons.exceptions.IllegalValueException;
 import seedu.ggist.commons.util.CollectionUtil;
+import seedu.ggist.logic.parser.DateTimeParser;
 
 import java.util.*;
+
+import org.ocpsoft.prettytime.nlp.PrettyTimeParser;
 
 /**
  * A list of tasks that enforces uniqueness between its elements and does not allow nulls.
@@ -79,7 +82,7 @@ public class UniqueTaskList implements Iterable<Task> {
         }
         return taskFoundAndDeleted;
     }
-  //@@author A0144727B
+  //@@author A0138411N
     public void edit(ReadOnlyTask toEdit, String field, String value) throws IllegalValueException {
         assert toEdit != null;
         switch (field) {
@@ -87,34 +90,67 @@ public class UniqueTaskList implements Iterable<Task> {
                 toEdit.getTaskName().editTaskName(value);
             break;
         case "start date":
+                Task.checkTimeClash(Task.formatMissingDateTime(new TaskDate(value),toEdit.getStartTime()),(toEdit.getEndDateTime()));
                 toEdit.getStartDate().editDate(value);
                 toEdit.constructStartDateTime(toEdit.getStartDate(), toEdit.getStartTime());
-                toEdit.checkTimeClash();
+                toEdit.checkTimeOverdue();
             break;
         case "start time":
+                Task.checkTimeClash(Task.formatMissingDateTime(toEdit.getStartDate(),new TaskTime(value)),(toEdit.getEndDateTime()));
                 toEdit.getStartTime().editTime(value);
-                if (toEdit.getStartDate().value.equals(Messages.MESSAGE_NO_START_DATE_SPECIFIED)) {
+                //if there is no start time saved and there is an end date
+                //use the end date as the start date
+                if (toEdit.getStartDate().value.equals(Messages.MESSAGE_NO_START_DATE_SPECIFIED) 
+                    && !toEdit.getEndDate().value.equals(Messages.MESSAGE_NO_END_DATE_SPECIFIED) ) {
                     toEdit.constructStartDateTime(toEdit.getEndDate(), toEdit.getStartTime());
+   //                 toEdit.getStartDate().editDate(toEdit.getEndDate().value);
+                //if there is no start and end date
+                //use the current date as start date
+                } else if (toEdit.getStartDate().value.equals(Messages.MESSAGE_NO_START_DATE_SPECIFIED)) {
+                    toEdit.constructStartDateTime(new TaskDate(new DateTimeParser(new Date().toString()).getDate()), toEdit.getStartTime());
+   //                 toEdit.getStartDate().editDate(new DateTimeParser(new Date().toString()).getDate());
+                //if there is a start date and an end date
                 } else {
                     toEdit.constructStartDateTime(toEdit.getStartDate(), toEdit.getStartTime());   
                 }
-                toEdit.checkTimeClash();
+                toEdit.checkTimeOverdue();
             break;
         case "end date":
-                toEdit.getEndDate().editDate(value);
-                toEdit.constructEndDateTime(toEdit.getEndDate(), toEdit.getEndTime());
-                if (toEdit.getStartDate().value.equals(Messages.MESSAGE_NO_START_DATE_SPECIFIED) && toEdit.getStartTime().value.equals(Messages.MESSAGE_NO_START_TIME_SET)) {
+                
+                //if it is a deadline task, construct the start using the end date and times
+                if (toEdit.getStartDate().value.equals(Messages.MESSAGE_NO_START_DATE_SPECIFIED) && toEdit.getStartTime().value.equals(Messages.MESSAGE_NO_START_TIME_SET)) { 
+                    toEdit.getEndDate().editDate(value);
                     toEdit.constructStartDateTime(toEdit.getEndDate(), toEdit.getEndTime());
+                } else {
+                    Task.checkTimeClash(toEdit.getStartDateTime(), Task.formatMissingDateTime(new TaskDate(value),toEdit.getEndTime()));
+                    toEdit.getEndDate().editDate(value);
                 }
-                toEdit.checkTimeClash();
+                toEdit.constructEndDateTime(toEdit.getEndDate(), toEdit.getEndTime());
+                toEdit.checkTimeOverdue();
             break;
-        case "end time":
-                toEdit.getEndTime().editTime(value);
-                toEdit.constructEndDateTime(toEdit.getEndDate(), toEdit.getEndTime());
-                if (toEdit.getStartDate().value.equals(Messages.MESSAGE_NO_START_DATE_SPECIFIED) && toEdit.getStartTime().value.equals(Messages.MESSAGE_NO_START_TIME_SET)) {
+        case "end time":  
+              //if it is a deadline task, construct the start using the end date and times
+                if (toEdit.getStartDate().value.equals(Messages.MESSAGE_NO_START_DATE_SPECIFIED) && toEdit.getStartTime().value.equals(Messages.MESSAGE_NO_START_TIME_SET)) { 
+                    toEdit.getEndTime().editTime(value); 
                     toEdit.constructStartDateTime(toEdit.getEndDate(), toEdit.getEndTime());
+                } else {
+                    Task.checkTimeClash(toEdit.getStartDateTime(), Task.formatMissingDateTime(toEdit.getEndDate(), new TaskTime(value)));
+                    toEdit.getEndTime().editTime(value);   
                 }
-                toEdit.checkTimeClash();
+                //if there is no end date but has a start date
+                //use the start date as the end date
+                if (toEdit.getEndDate().value.equals(Messages.MESSAGE_NO_END_DATE_SPECIFIED) 
+                    && !toEdit.getStartDate().value.equals(Messages.MESSAGE_NO_START_DATE_SPECIFIED) ) {
+                    toEdit.constructEndDateTime(toEdit.getStartDate(), toEdit.getEndTime());
+        //            toEdit.getEndDate().editDate(toEdit.getStartDate().value);
+                //if there is no start and end dates
+                //use current date as end date
+                } else if (toEdit.getEndDate().value.equals(Messages.MESSAGE_NO_END_DATE_SPECIFIED)) {
+                    toEdit.constructEndDateTime(new TaskDate(new DateTimeParser(new Date().toString()).getDate()), toEdit.getEndTime());
+          //          toEdit.getEndDate().editDate(new DateTimeParser(new Date().toString()).getDate());
+                }                
+                toEdit.constructEndDateTime(toEdit.getEndDate(), toEdit.getEndTime());
+                toEdit.checkTimeOverdue();
             break;
         case "priority":
                 toEdit.getPriority().editPriority(value);
