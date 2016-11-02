@@ -54,11 +54,7 @@ public class Task implements ReadOnlyTask{
         this.endDate = endDate;
         this.endTime = endTime;
         this.priority = priority;
-        if (startDate.value.equals(Messages.MESSAGE_NO_START_DATE_SPECIFIED) && startTime.value.equals(Messages.MESSAGE_NO_START_TIME_SET)) {
-            constructStartDateTime(endDate, endTime);
-        } else {
-            constructStartDateTime(startDate, startTime);
-        }
+
         constructEndDateTime(endDate, endTime);
         checkTimeClash();
     }
@@ -113,6 +109,11 @@ public class Task implements ReadOnlyTask{
      * @throws IllegalValueException
      */
     public void checkTimeClash() throws IllegalValueException {
+        if (startDate.value.equals(Messages.MESSAGE_NO_START_DATE_SPECIFIED) && startTime.value.equals(Messages.MESSAGE_NO_START_TIME_SET)) {
+            constructStartDateTime(endDate, endTime);
+        } else {
+            constructStartDateTime(startDate, startTime);
+        }
         Date currentDate  = new Date();
         if (end.before(currentDate) && isDone == false) {
             isOverdue = true;
