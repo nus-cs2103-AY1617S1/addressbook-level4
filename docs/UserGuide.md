@@ -211,47 +211,47 @@ Command format : find st/STARTTIME
 
 - Examples:
 
-**find st/tues**
+- **find st/tues**
 
-Returns any task that starts after the current time of the specified day of the week, this Week.
+- Returns any task that starts after the current time of the specified day of the week, this Week.
 
-**find st/27.10.2016**
+- **find st/27.10.2016**
 
-                Returns any task that starts after  **27.10.2016, 00:00**.
+- Returns any task that starts after  **27.10.2016, 00:00**.
 
-**        find st/16:00**
+- **find st/16:00**
 
-                Returns any tasks that starts after  **16:00 today**.
+- Returns any tasks that starts after  **16:00 today**.
 
 **Finding tasks with a given ENDTIME**
 
 Command format : find ed/ENDTIME
 
-**        find ed/tues**
+- **find ed/tues**
 
-Returns any task that ends before the current time of the specified day of the week, this Week.
+- Returns any task that ends before the current time of the specified day of the week, this Week.
 
-**find ed/27.10.2016**
+- **find ed/27.10.2016**
 
-**               ** Returns any tasks that end **before 17.10.2016, 00:00**.
+- ** Returns any tasks that end **before 17.10.2016, 00:00**.
 
-**find ed/16:00**
+- **find ed/16:00**
 
-                Returns any tasks that end **before 16:00 today**.
+- Returns any tasks that end **before 16:00 today**.
 
 **Finding tasks with a given tag**
 
 Command format **: t/tag [MORE\_TAGS]**
 
-Examples:
+- Examples:
 
-**find t/blue**
+- **find t/blue**
 
-Returns any tasks with tag **blue**.
+- Returns any tasks with tag **blue**.
 
-**find t/cheese salty**
+- **find t/cheese salty**
 
-Returns any tasks with tags **cheese** and **salty**.
+- Returns any tasks with tags **cheese** and **salty**.
 
 **Updating a task**
 
