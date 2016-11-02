@@ -13,9 +13,11 @@ public class ListCommand extends Command {
     
     public static final String MESSAGE_LIST_UNCOMPLETED = "Listed all uncompleted tasks";
     
+    public static final String MESSAGE_LIST_KEYWORD = "Tasks with tag '%s' successfully listed!\n";
+    
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Lists all uncompleted tasks\n"
             + COMMAND_WORD + " [KEYWORD]: Lists all tasks with tags containing the specified keyword (case-sensitive)"
-            + "and displays them as a list with index numbers.\n"
+            + "and displays them as a list with index numberss.\n"
             + "Example: " + COMMAND_WORD + " or " + COMMAND_WORD + " homework";
 
     private String keyword;
@@ -35,7 +37,8 @@ public class ListCommand extends Command {
         	this.successMessage = MESSAGE_LIST_ALL;
         }else{
             model.updateFilteredTaskList(keyword);
-            this.successMessage = getMessageForTaskListShownSummary(model.getFilteredTaskList().size());
+            this.successMessage = String.format(MESSAGE_LIST_KEYWORD, keyword.toLowerCase())
+            		+ getMessageForTaskListShownSummary(model.getFilteredTaskList().size());
         }
         return new CommandResult(successMessage);
     }
