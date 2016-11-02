@@ -13,6 +13,7 @@ import seedu.taskmanager.commons.core.Messages;
 import seedu.taskmanager.commons.core.UnmodifiableObservableList;
 import seedu.taskmanager.commons.exceptions.IllegalValueException;
 import seedu.taskmanager.model.item.Item;
+import seedu.taskmanager.model.item.Item.UnableToConvertFromTaskToDeadlineException;
 import seedu.taskmanager.model.item.ItemDate;
 import seedu.taskmanager.model.item.ItemTime;
 import seedu.taskmanager.model.item.ItemType;
@@ -115,6 +116,15 @@ public class EditCommand extends Command {
         ReadOnlyItem itemToEdit = lastShownList.get(targetIndex - 1);
         Item itemToReplace = new Item(itemToEdit);
         
+        if (isAttemptToConvertTaskToDeadline(itemToReplace)) {
+            try {
+                itemToReplace.convertTaskToDeadline(endDate, endTime);
+            } catch (UnableToConvertFromTaskToDeadlineException utcfttde) {
+                indicateAttemptToExecuteIncorrectCommand();
+                return new CommandResult(utcfttde.getMessage());
+            }
+        }
+        
         if (isInvalidInputForItemType(itemToReplace)) {
             indicateAttemptToExecuteIncorrectCommand();
             return new CommandResult(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_USAGE));
@@ -123,13 +133,16 @@ public class EditCommand extends Command {
         setNameIfAvailable(itemToReplace);
         setStartDateIfAvailable(itemToReplace);
         setStartTimeIfAvailable(itemToReplace);
-        setEndDateIfAvailable(itemToReplace);
-        setEndTimeIfAvailable(itemToReplace);
+        if (!isAttemptToConvertTaskToDeadline(itemToEdit)) {
+            setEndDateIfAvailable(itemToReplace);
+            setEndTimeIfAvailable(itemToReplace);
+        }
         addTagsIfAvailable(itemToEdit, itemToReplace);
         
         try {
             removeTagsIfApplicable(itemToEdit, itemToReplace);
         } catch (TagNotFoundException tnfe) {
+            indicateAttemptToExecuteIncorrectCommand();
             return new CommandResult(String.format(MESSAGE_INVALID_COMMAND_FORMAT, tnfe.getMessage()));
         }
 
@@ -144,9 +157,20 @@ public class EditCommand extends Command {
         } catch (ItemNotFoundException pnfe) {
             assert false : "The target item cannot be missing";
         } catch (UniqueItemList.DuplicateItemException e) {
+            indicateAttemptToExecuteIncorrectCommand();
             return new CommandResult(MESSAGE_NOTHING_EDITED);
         }
         return new CommandResult(String.format(MESSAGE_EDIT_ITEM_SUCCESS, itemToReplace));
+    }
+
+    
+    /**
+     * Checks if user is attempting to convert a task to a deadline by adding an end date 
+     * or time to task
+     */
+    private boolean isAttemptToConvertTaskToDeadline(ReadOnlyItem item) {
+        return item.getItemType().isTask() 
+               && (isToBeEdited(endDate) || isToBeEdited(endTime));
     }
 
     /**
@@ -169,7 +193,7 @@ public class EditCommand extends Command {
      * Checks if itemToReplace is an event and if its end datetime comes before its start datetime 
      */
     private boolean isEventEndDateTimeBeforeStartDateTime(Item itemToReplace) {
-        return itemToReplace.getItemType().isAnEvent() 
+        return itemToReplace.getItemType().isEvent() 
                && isEndDateTimeBeforeStartDateTime(itemToReplace.getStartDate(), itemToReplace.getStartTime(), 
                                                    itemToReplace.getEndDate(), itemToReplace.getEndTime());
     }
@@ -200,7 +224,7 @@ public class EditCommand extends Command {
     /**
      * Adds tags to item being edited if possible 
      */
-    private void addTagsIfAvailable(ReadOnlyItem itemToEdit, Item itemToReplace) {
+    private void addTagsIfAvailable(ReadOnlyItem itemToEdit, Item itemToReplace) {//throws DuplicateTagException {
         if (isToBeEdited(this.tagsToAdd)) {
             UniqueTagList tagListToEdit = itemToEdit.getTags();
             tagListToEdit.mergeFrom(this.tagsToAdd);
@@ -309,20 +333,15 @@ public class EditCommand extends Command {
      * Detects if parameters input by user is not valid for the item being edited
      */
     private boolean isInvalidInputForItemType(ReadOnlyItem itemToReplace) { 
-        String itemType = itemToReplace.getItemType().toString();
-        assert itemType.equals(ItemType.TASK_WORD) 
-               || itemType.equals(ItemType.DEADLINE_WORD) 
-               || itemType.equals(ItemType.EVENT_WORD);
+        ItemType itemType = itemToReplace.getItemType();
+        assert itemType.isTask() || itemType.isDeadline() || itemType.isEvent();
         
         boolean result = true;
         
-        if (itemType.equals(ItemType.TASK_WORD)) {
-            result = startDate != null || startTime != null || endDate != null || endTime != null;
+        if (itemType.isTask() || itemType.isDeadline()) {
+            result = isToBeEdited(startDate) || isToBeEdited(startTime);
         }
-        if (itemType.equals(ItemType.DEADLINE_WORD)) {
-            result = startDate != null || startTime != null;
-        }
-        if (itemType.equals(ItemType.EVENT_WORD)) {
+        if (itemType.isEvent()) {
             result = false;
         }
         

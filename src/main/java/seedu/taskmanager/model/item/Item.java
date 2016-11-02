@@ -1,5 +1,6 @@
 package seedu.taskmanager.model.item;
 
+import seedu.taskmanager.commons.exceptions.IllegalValueException;
 import seedu.taskmanager.commons.util.CollectionUtil;
 import seedu.taskmanager.model.tag.UniqueTagList;
 
@@ -11,7 +12,16 @@ import java.util.Objects;
  * Date and Time can be empty strings.
  */
 public class Item implements ReadOnlyItem {
-
+    /**
+     * Signals that conversion from a task to deadline has failed.
+     */
+    public static class UnableToConvertFromTaskToDeadlineException extends Exception {
+        public static final String MESSAGE_CONVERSION_FAILED = "Conversion from task to deadline failed:"
+                                                        + " End date or end time not found";
+        protected UnableToConvertFromTaskToDeadlineException() {
+            super(MESSAGE_CONVERSION_FAILED);
+        }
+    }
     private ItemType itemType;
     private Name name;
     private ItemDate startDate;
@@ -127,6 +137,28 @@ public class Item implements ReadOnlyItem {
         this.endTime = endTime;
     }
     
+    public void convertTaskToDeadline(ItemDate endDate, ItemTime endTime) throws UnableToConvertFromTaskToDeadlineException {
+        if (!CollectionUtil.isAnyNull(endDate, endTime)) {
+            convertItemTypeFromTaskToDeadline();
+            setEndDate(endDate);
+            setEndTime(endTime);
+        } else {
+            throw new UnableToConvertFromTaskToDeadlineException();
+        }
+    }
+    
+    /*
+     * Converts this item from a task into a deadline;
+     */
+    private void convertItemTypeFromTaskToDeadline() {
+        assert itemType.isTask();
+        try {
+            this.itemType = new ItemType(ItemType.DEADLINE_WORD);
+        } catch (IllegalValueException e) {
+            assert false : "ItemType.DEADLINE_WORD constant is now an illegal value";
+        }
+    }
+    
     //@@author
     @Override
     public boolean getDone() {
@@ -171,5 +203,4 @@ public class Item implements ReadOnlyItem {
     public String toString() {
         return getAsText();
     }
-
 }

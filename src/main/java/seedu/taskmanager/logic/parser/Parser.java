@@ -614,35 +614,30 @@ public class Parser {
      * Gets the parsed argument if available 
      */
     private Optional<String> getParsedArgumentFromArgumentTokenizer(ArgumentTokenizer argsTokenizer, Prefix argumentPrefix) {
-        try {
-            return Optional.of(argsTokenizer.getValue(argumentPrefix).get());
-        } catch (NoSuchElementException nsee) { 
-            return Optional.empty();
-        } 
+            return argsTokenizer.getValue(argumentPrefix); 
     }
 
     /**
      * Gets the list of parsed tags to be removed if available 
      */
     private Optional<List<String>> getParsedTagsToRemoveFromArgumentTokenizer(ArgumentTokenizer argsTokenizer, Prefix tagPrefix) {
-        try {
-            Optional<List<String>> tags = argsTokenizer.getAllValues(tagPrefix);
-            
-            if (!tags.isPresent()) {
-                return Optional.empty();
+        Optional<List<String>> tags = argsTokenizer.getAllValues(tagPrefix);
+        
+        if (!tags.isPresent()) {
+            return Optional.empty();
+        }
+        
+        logger.fine("Before remove tags check");
+        
+        List<String> tagsToRemove = new ArrayList<String>();
+        for (String tag : tags.get()) {
+            if (tag.length() > 0 && isATagToBeRemoved(tag)) {                            
+                tagsToRemove.add(extractTagToBeRemoved(tag));
             }
-            
-            logger.fine("Before remove tags check");
-            
-            List<String> tagsToRemove = new ArrayList<String>();
-            for (String tag : tags.get()) {
-                if (tag.length() > 0 && isATagToBeRemoved(tag)) {                            
-                    tagsToRemove.add(extractTagToBeRemoved(tag));
-                }
-            }
-            
-            return Optional.of(tagsToRemove);
-        } catch (NoSuchElementException nsee) {
+        }
+        if (!tagsToRemove.isEmpty()) {
+            return Optional.of(tagsToRemove);    
+        } else {
             return Optional.empty();
         }
     }
@@ -651,22 +646,21 @@ public class Parser {
      * Gets the list of parsed tags to be added if available 
      */
     private Optional<List<String>> getParsedTagsToAddFromArgumentTokenizer(ArgumentTokenizer argsTokenizer, Prefix tagPrefix) {
-        try {
-            Optional<List<String>> tags = argsTokenizer.getAllValues(tagPrefix);
-            
-            if (!tags.isPresent()) {
-                return Optional.empty();
+        Optional<List<String>> tags = argsTokenizer.getAllValues(tagPrefix);
+        
+        if (!tags.isPresent()) {
+            return Optional.empty();
+        }
+        
+        List<String> tagsToAdd = new ArrayList<String>();
+        for (String tag : tags.get()) {
+            if (tag.length() > 0 && !isATagToBeRemoved(tag)) {                            
+                tagsToAdd.add(tag);
             }
-            
-            List<String> tagsToAdd = new ArrayList<String>();
-            for (String tag : tags.get()) {
-                if (tag.length() > 0 && !isATagToBeRemoved(tag)) {                            
-                    tagsToAdd.add(tag);
-                }
-            }
-            
-            return Optional.of(tagsToAdd);
-        } catch (NoSuchElementException nsee) {
+        }
+        if (!tagsToAdd.isEmpty()) {
+            return Optional.of(tagsToAdd);    
+        } else {
             return Optional.empty();
         }
     }

@@ -113,17 +113,29 @@ public class UniqueTagList implements Iterable<Tag> {
     
     //@@author A0140060A
     /**
+     * Removes a Tag from the list.
+     *
+     * @throws TagNotFoundException if the Tag to remove does not exist in the list.
+     */
+    public void remove(Tag toRemove) throws TagNotFoundException {
+        assert toRemove != null;
+        if (contains(toRemove)) {
+            this.internalList.remove(toRemove);
+        } else {
+            throw new TagNotFoundException(toRemove);
+        }
+    }
+    
+    /**
      * removes every tag in the argument list from this list.
      * @param tagsToRemove 
-     * @throws TagNotFoundException if the Tag to remove does not exist in the list.
+     * @throws TagNotFoundException if a Tag to remove does not exist in the list.
      */
     public void remove(UniqueTagList tagsToRemove) throws TagNotFoundException {
         for (Tag tag : tagsToRemove) {
-            if (!this.internalList.contains(tag)) {
-                throw new TagNotFoundException(tag); 
-            }
+            remove(tag);
         }
-        
+        /*
         ObservableList<Tag> internalListCopy = FXCollections.observableArrayList(internalList);
         this.internalList.clear();
         
@@ -131,7 +143,7 @@ public class UniqueTagList implements Iterable<Tag> {
             if (!tagsToRemove.contains(tag)) {
                 internalList.add(tag);
             }
-        }
+        }*/
     }
     //@@author
     
