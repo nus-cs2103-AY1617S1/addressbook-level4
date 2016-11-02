@@ -23,7 +23,8 @@ public class CompleteCommand extends Command {
             + "Example: complete " + Activity.TASK_TYPE + " 1";
     public static final String MESSAGE_COMPLETED_ACTIVITY_SUCCESS = "Completed Activity: %1$s";
     public static final String MESSAGE_ALREADY_COMPLETED = "Menion has already completed this activity!";
-
+    public static final String MESSAGE_EVENT_CANT_BE_COMPLETED = "Events do not need to be completed!";
+    
     public final int targetIndex;
     public final String targetType;
     ReadOnlyActivity activityToComplete;
@@ -43,9 +44,11 @@ public class CompleteCommand extends Command {
             if (targetType.equals(Activity.FLOATING_TASK_TYPE)) {
                 lastShownList = model.getFilteredFloatingTaskList();
                 activityToComplete = lastShownList.get(targetIndex);
-            } else {
+            } else if (targetType.equals(Activity.TASK_TYPE)) {
                 lastShownList = model.getFilteredTaskList();
                 activityToComplete = lastShownList.get(targetIndex);
+            } else {
+                return new CommandResult(String.format(MESSAGE_EVENT_CANT_BE_COMPLETED, activityToComplete));
             }
         } catch (IndexOutOfBoundsException e) {
             return new CommandResult(Messages.MESSAGE_INVALID_ACTIVITY_DISPLAYED_INDEX);
@@ -74,12 +77,15 @@ public class CompleteCommand extends Command {
         try {
             if (targetType.equals(Activity.FLOATING_TASK_TYPE)) {
                 model.completeFloatingTask(activityToComplete);
-            } else {
+            } else if (targetType.equals(Activity.TASK_TYPE)){
                 model.completeTask(activityToComplete);
+            } else {
+                assert false: "Events do not need to be completed";
             }
         }catch (ActivityNotFoundException pnfe) {
             assert false : "The target activity cannot be missing";
         }
+        
     }
     
     // @@author A0139515A
