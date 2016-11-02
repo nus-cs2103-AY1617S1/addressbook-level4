@@ -107,7 +107,7 @@ public class ModelManager extends ComponentManager implements Model {
         deadlineList.resetData();
         indicateDeadlineListChanged();
     }
-    
+    /*
     @Override
     public void removeDoneTodoData() {
         undoer.prepareUndoClear("todo");
@@ -126,7 +126,7 @@ public class ModelManager extends ComponentManager implements Model {
         deadlineList.resetData();
         indicateDeadlineListChanged();
     }
-    
+    */
     @Override
     public void restoreTodoListData() {
         todoList.restoreData();
