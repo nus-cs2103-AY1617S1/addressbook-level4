@@ -65,7 +65,6 @@ public class ListOfTask implements ReadOnlyListOfTask {
 			try {
 				return new Task(t);
 			} catch (IllegalValueException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			return null;

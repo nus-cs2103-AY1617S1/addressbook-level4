@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Objects;
 
+import javafx.collections.ObservableList;
 import seedu.unburden.commons.core.Messages;
 import seedu.unburden.commons.exceptions.IllegalValueException;
 import seedu.unburden.commons.util.CollectionUtil;
@@ -255,6 +256,7 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
         this.done = done;
     }
     
+    //This method will check if the task is overdue and returns true 
     public boolean checkOverDue() throws IllegalValueException{
     	Calendar calendar = Calendar.getInstance();
     	calendar.setTime(calendar.getTime());
@@ -264,10 +266,26 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
     	return false;
     }
     
+    //This method will set the task to be overdue by adding a tag of "OVERDUE"
     public void setOverdue() throws DuplicateTagException, IllegalValueException{
-    	Tag overdue = new Tag("Overdue");
+    	Tag overdue = new Tag("OVERDUE");
     	if(!this.tags.contains(overdue)){
     		this.tags.add(overdue);
+    	}
+    }
+    
+    //This method will set the task to not be overdue but removing the tag of "OVERDUE"
+    public void setNotOverdue() throws IllegalValueException{
+    	Tag overdue = new Tag("OVERDUE");
+    	ObservableList<Tag> currentTagList = this.tags.getInternalList();
+    	UniqueTagList newTagList = new UniqueTagList();
+    	if(this.tags.contains(overdue)){
+    		for(Tag tag : currentTagList){
+    			if(!tag.equals(overdue)){
+    				newTagList.add(tag);
+    			}
+    		}
+    		this.tags.setTags(newTagList);
     	}
     }
     
