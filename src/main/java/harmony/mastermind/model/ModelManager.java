@@ -17,7 +17,6 @@ import harmony.mastermind.commons.core.UnmodifiableObservableList;
 import harmony.mastermind.commons.events.model.ExpectingConfirmationEvent;
 import harmony.mastermind.commons.events.model.TaskManagerChangedEvent;
 import harmony.mastermind.commons.events.storage.RelocateFilePathEvent;
-import harmony.mastermind.commons.exceptions.CommandCancelledException;
 import harmony.mastermind.commons.exceptions.FolderDoesNotExistException;
 import harmony.mastermind.commons.exceptions.NotRecurringTaskException;
 import harmony.mastermind.commons.util.StringUtil;
