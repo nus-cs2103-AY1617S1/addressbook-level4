@@ -43,6 +43,8 @@ public class ModelManager extends ComponentManager implements Model {
     
     private final Stack<Emeraldo> savedStates;
     
+    private Object keywords = null;
+    
     /**
      * Initializes a ModelManager with the given Emeraldo
      * Emeraldo and its variables should not be null
@@ -158,7 +160,17 @@ public class ModelManager extends ComponentManager implements Model {
     	} catch (IllegalValueException e) {
     		e.printStackTrace();
     	}
+    	updateFilteredTaskListWithCompleted();
     	indicateEmeraldoChanged();
+    }
+    
+    private void updateFilteredTaskListWithCompleted(){
+    	if(keywords instanceof Set<?>)
+    		updateFilteredTaskListWithCompleted((Set<String>)keywords);
+    	else if(keywords instanceof String)
+    		updateFilteredTaskListWithCompleted((String)keywords);
+    	else if(keywords instanceof TimePeriod)
+    		updateFilteredTaskListWithCompleted((TimePeriod)keywords);
     }
 
     //=========== Filtered Task List Accessors ===============================================================
@@ -180,20 +192,41 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public void updateFilteredTaskList(Set<String> keywords){
-        updateFilteredTaskList(new PredicateExpression(new DescriptionQualifier(keywords)));
+    	this.keywords = keywords;
+        updateFilteredTaskList(new PredicateExpression(new DescriptionQualifier(keywords), new ListQualifier()));
     }
     
     //@@author A0139749L
     @Override
     public void updateFilteredTaskList(String keyword){
+    	this.keywords = keyword;
+        updateFilteredTaskList(new PredicateExpression(new TagQualifier(keyword), new ListQualifier()));
+    }
+    
+    /*
+     * Combines the result from both qualifier such satisfies returns true only when 
+     * both qualifiers are satisfied
+     */
+    @Override
+    public void updateFilteredTaskList(TimePeriod keyword){
+    	this.keywords = keyword;
+        updateFilteredTaskList(new PredicateExpression(new DateTimeQualifier(keyword), new ListQualifier()));
+    }
+    
+    @Override
+    public void updateFilteredTaskListWithCompleted(Set<String> keywords){
+        updateFilteredTaskList(new PredicateExpression(new DescriptionQualifier(keywords)));
+    }
+    
+    @Override
+    public void updateFilteredTaskListWithCompleted(String keyword){
         updateFilteredTaskList(new PredicateExpression(new TagQualifier(keyword)));
     }
     
     @Override
-    public void updateFilteredTaskList(TimePeriod keyword){
+    public void updateFilteredTaskListWithCompleted(TimePeriod keyword){
         updateFilteredTaskList(new PredicateExpression(new DateTimeQualifier(keyword)));
     }
-
     //@@author
     
     private void updateFilteredTaskList(Expression expression) {
@@ -209,20 +242,30 @@ public class ModelManager extends ComponentManager implements Model {
 
     private class PredicateExpression implements Expression {
 
-        private final Qualifier qualifier;
+        private final Qualifier qualifier1;
+        private final Qualifier qualifier2;
 
         PredicateExpression(Qualifier qualifier) {
-            this.qualifier = qualifier;
+            this.qualifier1 = qualifier;
+            this.qualifier2 = null;
+        }
+        
+        PredicateExpression(Qualifier qualifier1, Qualifier qualifier2) {
+            this.qualifier1 = qualifier1;
+            this.qualifier2 = qualifier2;
         }
 
         @Override
         public boolean satisfies(ReadOnlyTask task) {
-            return qualifier.run(task);
+        	if(qualifier2 == null)
+        		return qualifier1.run(task);
+        	else
+            	return qualifier1.run(task) && qualifier2.run(task);
         }
-
+        
         @Override
         public String toString() {
-            return qualifier.toString();
+            return qualifier1.toString();
         }
     }
 
@@ -290,6 +333,7 @@ public class ModelManager extends ComponentManager implements Model {
     
     /*
      *  Compare tasks dateTime with the period specified by the keyword
+     *  (Only list uncompleted tasks)
      */
     private class DateTimeQualifier implements Qualifier {
         private TimePeriod DateTimeKeyWord;

@@ -53,16 +53,33 @@ public interface Model {
     /** Updates the filter of the filtered task list to show all tasks */
     void updateFilteredListToShowAll();
 
-    /** Updates the filter of the filtered task list to filter by the given keywords*/
+//=========== Filtered Task List Without completed tag ==============================================
+    
+    //@@author A0139749L
+    /** Updates the filter of the filtered task list to filter by the given keywords
+     * without task with completed tag*/
     void updateFilteredTaskList(Set<String> keywords);
     
-    /** Updates the filter of the filtered task list to filter by a single given keyword*/
-    //@@author A0139749L
+    /** Updates the filter of the filtered task list to filter by a single given keyword
+     * without task with completed tag*/
     void updateFilteredTaskList(String keyword);
     
-    /** Updates the filter of the filtered task list to filter by the given keywords*/
+    /** Updates the filter of the filtered task list to filter by the given time period
+     * without task with completed tag*/
     void updateFilteredTaskList(TimePeriod keywords);
+    
+    /** Updates the filter of the filtered task list to show all tasks without completed tag*/
+    void updateFilteredListToShowUncompleted();
+    
+//=========== Filtered Task List With completed tag ==============================================
+    
+    /** Updates the filter of the filtered task list to filter by the given keywords*/
+	void updateFilteredTaskListWithCompleted(Set<String> keywords);
 
-    /** Updates the filter of the filtered task list to filter out tasks with completed tag*/
-    void updateFilteredListToShowUncompleted(); 
+    /** Updates the filter of the filtered task list to filter by a single given keyword*/
+	void updateFilteredTaskListWithCompleted(String keyword); 
+    
+    /** Updates the filter of the filtered task list to filter by the given time period*/
+    void updateFilteredTaskListWithCompleted(TimePeriod keyword);
+
 }
