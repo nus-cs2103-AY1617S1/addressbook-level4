@@ -6,6 +6,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.paint.Color;
 import seedu.address.model.activity.ReadOnlyActivity;
 import seedu.address.model.activity.task.ReadOnlyTask;
 import seedu.address.model.activity.task.Task;
@@ -67,8 +68,14 @@ public class ActivityCard extends UiPart {
 			priorityIcon.setImage(((ReadOnlyTask) activity).getPriority().getPriorityIcon());
 
 			if (((Task) activity).isDueDateApproaching()) {
+			    completion.setStyle("-fx-text-fill: #505000;"
+                        + " -fx-font-size: 13;"
+                        + " -fx-font-family: Georgia;");
 				cardPane.setStyle("-fx-background-color: yellow;");
 			} else if (((Task) activity).hasPassedDueDate()) {
+			    completion.setStyle("-fx-text-fill: #500000;"
+                + " -fx-font-size: 13;"
+                + " -fx-font-family: Georgia;");
 				cardPane.setStyle("-fx-background-color: salmon;");
 			}
 			break;
@@ -76,7 +83,15 @@ public class ActivityCard extends UiPart {
 		case "event":
 			line1.setText(((ReadOnlyEvent) activity).displayTiming());
 			if (((Event) activity).isOngoing()) {
+			    completion.setStyle("-fx-text-fill: #000080;"
+	                    + " -fx-font-size: 13;"
+	                    + " -fx-font-family: Georgia;");
 				cardPane.setStyle("-fx-background-color: lightskyblue;");
+			} else if (((Event) activity).isOver()) {
+			    completion.setStyle("-fx-text-fill: #005000;"
+	                    + " -fx-font-size: 13;"
+	                    + " -fx-font-family: Georgia;");
+	            cardPane.setStyle("-fx-background-color: springgreen;");
 			}
 			break;
 		}
@@ -86,6 +101,9 @@ public class ActivityCard extends UiPart {
 		completion.setText(activity.toStringCompletionStatus());
 		
 		if (activity.getCompletionStatus()) {
+		    completion.setStyle("-fx-text-fill: #005000;"
+	                + " -fx-font-size: 13;"
+	                + " -fx-font-family: Georgia;");
 			cardPane.setStyle("-fx-background-color: springgreen;");
 		}
 	}

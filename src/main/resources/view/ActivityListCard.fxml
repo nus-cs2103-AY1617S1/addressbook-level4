@@ -44,9 +44,9 @@
                         <Label fx:id="reminder" styleClass="cell_small_label" text="\$reminder" />
                     </children>
                 </VBox>
-                  <Label fx:id="completion" text="\\$completion" textAlignment="CENTER" wrapText="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="TOP">
+                  <Label fx:id="completion" style="-fx-font-size: 13; -fx-font-family: Georgia;" text="\\$completion" textAlignment="CENTER" wrapText="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="TOP">
                <font>
-                  <Font name="Segoe UI Black" size="13.0" />
+                  <Font name="Georgia" size="13.0" />
                </font>
                <GridPane.margin>
                   <Insets top="15.0" />

@@ -1,5 +1,6 @@
 package seedu.address.model.activity.event;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Objects;
@@ -85,7 +86,17 @@ public class Event extends Activity implements ReadOnlyEvent{
     
     @Override
     public String displayTiming() {
-        return "From " + startTime.toString() + " to " + endTime.toString();
+        if (isStartAndEndOnSameDate()) {
+            SimpleDateFormat timeOnly = new SimpleDateFormat("h:mm aa");
+            return "From " + startTime.toString() + " to " + timeOnly.format(endTime.getCalendarValue().getTime());
+        } else {
+            return "From " + startTime.toString() + " to " + endTime.toString();
+        }
+    }
+    
+    private boolean isStartAndEndOnSameDate() {
+        return startTime.getCalendarValue().get(Calendar.YEAR) == endTime.getCalendarValue().get(Calendar.YEAR)
+                && startTime.getCalendarValue().get(Calendar.DAY_OF_YEAR) == endTime.getCalendarValue().get(Calendar.DAY_OF_YEAR);
     }
     
     @Override
