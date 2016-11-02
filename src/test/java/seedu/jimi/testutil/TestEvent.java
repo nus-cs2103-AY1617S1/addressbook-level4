@@ -86,7 +86,7 @@ public class TestEvent implements ReadOnlyTask {
     public String getAddCommand() {
         StringBuilder sb = new StringBuilder();
         sb.append("add " + "\"" + this.getName().fullName + "\"" + " ");
-        sb.append("on " + this.start + " to " + this.end);
+        sb.append("on " + this.start + " to " + this.end + " ");
         this.getTags().getInternalList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));
         sb.append("p/" + this.getPriority().tagName + " ");
         return sb.toString();
@@ -96,7 +96,7 @@ public class TestEvent implements ReadOnlyTask {
     public String getAsText() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
-               .append(" Start :")
+               .append(" Start: ")
                .append(getStart())
                .append(" End: ")
                .append(getEnd())

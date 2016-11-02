@@ -9,9 +9,11 @@ import seedu.jimi.logic.commands.AddCommand;
 import seedu.jimi.model.task.Name;
 import seedu.jimi.model.task.ReadOnlyTask;
 import seedu.jimi.testutil.TestDeadlineTask;
+import seedu.jimi.testutil.TestEvent;
 import seedu.jimi.testutil.TestFloatingTask;
 import seedu.jimi.testutil.TestUtil;
 import seedu.jimi.testutil.TypicalTestDeadlineTasks;
+import seedu.jimi.testutil.TypicalTestEvents;
 import seedu.jimi.testutil.TypicalTestFloatingTasks;
 
 import static org.junit.Assert.assertTrue;
@@ -43,9 +45,11 @@ public class AddCommandTest extends AddressBookGuiTest {
         //add deadline task
         TestDeadlineTask deadlineTaskToAdd = TypicalTestDeadlineTasks.homework;
         assertAddSuccess(deadlineTaskToAdd);
-        currentList = TestUtil.addTasksToList(currentList, deadlineTaskToAdd);
-        Arrays.sort(currentList, 0, currentList.length, NameComparator);
        
+        //add events
+        TestEvent eventToAdd = TypicalTestEvents.nightClass;
+        assertAddSuccess(eventToAdd);
+        
         //add to empty list
         commandBox.runCommand("clear");
         assertAddSuccess(TypicalTestFloatingTasks.beach);
@@ -70,10 +74,15 @@ public class AddCommandTest extends AddressBookGuiTest {
     
     //@@author A0143471L
     private void assertAddSuccess(TestDeadlineTask deadlineTaskToAdd) {
-        System.out.print(deadlineTaskToAdd.getAddCommand());
         commandBox.runCommand(deadlineTaskToAdd.getAddCommand());
 
         assertResultMessage(String.format(AddCommand.MESSAGE_SUCCESS, deadlineTaskToAdd));
+    }
+    
+    private void assertAddSuccess(TestEvent eventToAdd) {
+        commandBox.runCommand(eventToAdd.getAddCommand());
+
+        assertResultMessage(String.format(AddCommand.MESSAGE_SUCCESS, eventToAdd));
     }
     
     public static Comparator<ReadOnlyTask> NameComparator
