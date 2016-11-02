@@ -130,7 +130,7 @@ public class CommandBox extends UiPart {
         if (currentText.isEmpty()) {
             setResultDisplayAndCmdBoxToDefault();
         } else {
-            postCommandSuggestions(currentText);
+            postCommandSuggestions(currentText.toLowerCase());
         }
     }
     
