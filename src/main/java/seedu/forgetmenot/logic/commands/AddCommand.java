@@ -1,17 +1,14 @@
 package seedu.forgetmenot.logic.commands;
 
-import static seedu.forgetmenot.commons.core.Messages.MESSAGE_INVALID_START_AND_END_TIME;
-
 import seedu.forgetmenot.commons.exceptions.IllegalValueException;
 import seedu.forgetmenot.model.task.Done;
 import seedu.forgetmenot.model.task.Name;
 import seedu.forgetmenot.model.task.Recurrence;
 import seedu.forgetmenot.model.task.Task;
 import seedu.forgetmenot.model.task.Time;
-import seedu.forgetmenot.model.task.UniqueTaskList;
+import static seedu.forgetmenot.commons.core.Messages.MESSAGE_INVALID_START_AND_END_TIME;
 
-
-
+//@@author A0147619W 
 /**
  * Adds a task to the task manager.
  */
@@ -25,7 +22,7 @@ public class AddCommand extends Command {
             + " Homework by tomorrow 6pm";
 
     public static final String MESSAGE_SUCCESS = "New task added: %1$s";
-    public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in ForgetMeNot";
+    public static final String MESSAGE_CLASH_WARNING = "WARNING! This task clashes with one of the tasks in ForgetMeNot. Type undo if you want to undo the previous add.";
     
     private final Task toAdd;
 //    private Storage storage;
@@ -33,8 +30,7 @@ public class AddCommand extends Command {
     /**
      * Convenience constructor using raw values.
      *
-     * @throws IllegalValueException if any of the raw values are invalid
-     * @@author A0147619W            
+     * @throws IllegalValueException if any of the raw values are invalid           
      */
     public AddCommand(String name, String date, String start, String end, String recur)
             throws IllegalValueException {
@@ -46,10 +42,6 @@ public class AddCommand extends Command {
         	throw new IllegalValueException(MESSAGE_INVALID_START_AND_END_TIME);
         }
         
-//        if(!Time.taskTimeisAfterCurrentTime(start) || !Time.taskTimeisAfterCurrentTime(end)) {
-//        	throw new IllegalValueException(MESSAGE_INVALID_TIME);
-//        }
-        
         this.toAdd = new Task(
                 new Name(name),
                 new Done(false),
@@ -60,15 +52,19 @@ public class AddCommand extends Command {
     }
 
 	@Override
-    public CommandResult execute() {
+    public CommandResult execute() throws IllegalValueException {
         assert model != null;
-        try {
+        	boolean clashCheck = false;
+        	if(model.isClashing(toAdd))
+        		clashCheck = true;
+        	
             model.saveToHistory();
             model.addTask(toAdd);
+            if (toAdd.getRecurrence().getValue())
+                model.addRecurringTask(toAdd);
             model.updateFilteredTaskListToShowNotDone();
-            return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
-        } catch (UniqueTaskList.DuplicateTaskException e) {
-            return new CommandResult(MESSAGE_DUPLICATE_TASK);
-        }
+            
+        	return clashCheck? new CommandResult(MESSAGE_CLASH_WARNING + "\n" + String.format(MESSAGE_SUCCESS, toAdd)):
+        					new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 }

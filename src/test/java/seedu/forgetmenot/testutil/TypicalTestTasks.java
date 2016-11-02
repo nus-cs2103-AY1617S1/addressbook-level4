@@ -3,7 +3,6 @@ package seedu.forgetmenot.testutil;
 import seedu.forgetmenot.commons.exceptions.IllegalValueException;
 import seedu.forgetmenot.model.TaskManager;
 import seedu.forgetmenot.model.task.Task;
-import seedu.forgetmenot.model.task.UniqueTaskList;
 
 /**
  *
@@ -14,7 +13,7 @@ public class TypicalTestTasks {
 
     public TypicalTestTasks() {
         try {
-            alice =  new TaskBuilder().withName("Alice Pauline").withEndTime("11:59pm")
+            alice =  new TaskBuilder().withName("Alice Alice Pauline").withEndTime("11:59pm")
                     .withStartTime("11:59pm").withDone(false).withRecurrence("")
                     .build();
             benson = new TaskBuilder().withName("Benson Meier").withEndTime("11:59pm")
@@ -30,24 +29,19 @@ public class TypicalTestTasks {
             hoon = new TaskBuilder().withName("Hoon Meier").withDone(false).withStartTime("11:59pm").withEndTime("11:59pm").withRecurrence("").build();
             ida = new TaskBuilder().withName("Ida Mueller").withDone(false).withStartTime("11:59pm").withEndTime("11:59pm").withRecurrence("").build();
         } catch (IllegalValueException e) {
-            e.printStackTrace();
-            assert false : "not possible";
+            assert false : "TypicalTestTasks data details are invalid";
         }
     }
 
     public static void loadTaskManagerWithSampleData(TaskManager ab) {
 
-        try {
-            ab.addTask(new Task(alice));
-            ab.addTask(new Task(benson));
-            ab.addTask(new Task(carl));
-            ab.addTask(new Task(daniel));
-            ab.addTask(new Task(elle));
-            ab.addTask(new Task(fiona));
-            ab.addTask(new Task(george));
-        } catch (UniqueTaskList.DuplicateTaskException e) {
-            assert false : "not possible";
-        }
+        ab.addTask(new Task(alice));
+		ab.addTask(new Task(benson));
+		ab.addTask(new Task(carl));
+		ab.addTask(new Task(daniel));
+		ab.addTask(new Task(elle));
+		ab.addTask(new Task(fiona));
+		ab.addTask(new Task(george));
     }
 
     public TestTask[] getTypicalTasks() {

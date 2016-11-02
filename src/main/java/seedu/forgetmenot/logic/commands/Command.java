@@ -3,6 +3,7 @@ package seedu.forgetmenot.logic.commands;
 import seedu.forgetmenot.commons.core.EventsCenter;
 import seedu.forgetmenot.commons.core.Messages;
 import seedu.forgetmenot.commons.events.ui.IncorrectCommandAttemptedEvent;
+import seedu.forgetmenot.commons.exceptions.IllegalValueException;
 import seedu.forgetmenot.model.Model;
 
 /**
@@ -25,8 +26,9 @@ public abstract class Command {
      * Executes the command and returns the result message.
      *
      * @return feedback message of the operation result for display
+     * @throws IllegalValueException 
      */
-    public abstract CommandResult execute();
+    public abstract CommandResult execute() throws IllegalValueException;
 
     /**
      * Provides any needed dependencies to the command.

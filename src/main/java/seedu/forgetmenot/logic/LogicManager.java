@@ -5,6 +5,7 @@ import java.util.logging.Logger;
 import javafx.collections.ObservableList;
 import seedu.forgetmenot.commons.core.ComponentManager;
 import seedu.forgetmenot.commons.core.LogsCenter;
+import seedu.forgetmenot.commons.exceptions.IllegalValueException;
 import seedu.forgetmenot.logic.commands.Command;
 import seedu.forgetmenot.logic.commands.CommandResult;
 import seedu.forgetmenot.logic.parser.Parser;
@@ -27,7 +28,7 @@ public class LogicManager extends ComponentManager implements Logic {
     }
 
     @Override
-    public CommandResult execute(String commandText) {
+    public CommandResult execute(String commandText) throws IllegalValueException {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
         Command command = parser.parseCommand(commandText);
         command.setData(model);

@@ -11,19 +11,16 @@ import seedu.forgetmenot.model.task.ReadOnlyTask;
 public class TaskCard extends UiPart{
 
     private static final String FXML = "TaskListCard.fxml";
+    //@@author A0139211R
     ImageView tickmark = new ImageView("/images/tick.png");
-    ImageView recurringIcon = new ImageView("/images/recurring.png");
     ImageView floatingIcon = new ImageView("/images/floatingicon.png");
-    ImageView crossicon = new ImageView("/images/cross.png");
     ImageView overdueicon = new ImageView("/images/overdue.png");
-    @FXML
-    private ImageView floating;
-    @FXML
-    private ImageView recurring;
+   
     @FXML
     private ImageView stateicon;
     @FXML
-    private ImageView overdue;
+    private ImageView tasklabel;
+    //@@author
     @FXML
     private GridPane gridpane;
     @FXML
@@ -33,9 +30,11 @@ public class TaskCard extends UiPart{
     @FXML
     private Label id;
     @FXML
-    private Label address;
+    private Label end;
     @FXML
     private Label start;
+    @FXML
+    private Label recur;
 
     private ReadOnlyTask task;
     private int displayedIndex;
@@ -51,30 +50,27 @@ public class TaskCard extends UiPart{
         return UiPartLoader.loadUiPart(card);
     }
     
-    /**
-     * @@author A0139211R
-     */
-    
+    //@@author A0139211R
     @FXML
     public void initialize() {
         name.setText(task.getName().fullName);
         id.setText(displayedIndex + ". ");
-        address.setText("End: " + task.getEndTime().easyReadDateFormatForUI());
+        end.setText("End: " + task.getEndTime().easyReadDateFormatForUI());
         start.setText("Start: " + task.getStartTime().easyReadDateFormatForUI());
         if (task.getDone().getDoneValue() == true) {
         	stateicon.setImage(tickmark.getImage());
             cardPane.setStyle("-fx-background-color : #c1f0c1;");   
         }
-        if (task.getRecurrence().getValue() == true) {
-        	recurring.setImage(recurringIcon.getImage());
-        }
         if (task.getStartTime().isMissing() 
 				 && task.getEndTime().isMissing()) {
-        	floating.setImage(floatingIcon.getImage());
+        	tasklabel.setImage(floatingIcon.getImage());
         }
         if (task.checkOverdue() == true && task.getDone().getDoneValue() == false) {
-        	overdue.setImage(overdueicon.getImage());
+        	tasklabel.setImage(overdueicon.getImage());
         	cardPane.setStyle("-fx-background-color : #ff7f7f");
+        }
+        if (task.getRecurrence().getValue()) {
+            recur.setText("Recurrence: " +  task.getRecurrence().getRecurFreq());
         }
        
 

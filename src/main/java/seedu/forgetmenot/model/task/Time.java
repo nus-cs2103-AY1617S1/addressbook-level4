@@ -15,11 +15,10 @@ import com.joestelmach.natty.Parser;
 import seedu.forgetmenot.commons.exceptions.IllegalValueException;
 import seedu.forgetmenot.logic.parser.DatePreParse;
 
-
+//@@author A0147619W
 /**
  * Represents a Task's time in the task manager.
  * Guarantees: immutable; is valid as declared in {@link #isValidStart(String)}
- * @@author A0147619W
  */
 public class Time {
     
@@ -82,7 +81,7 @@ public class Time {
     		return dateFormat.format(time.getTime());
     	}
     }
-    
+    //@@author
     /**
      * @return a String for a date and time thats easy to read. Example, "Thu, Feb 17, 2016, 10:11 AM"
      * @@author A0139671X
@@ -161,15 +160,15 @@ public class Time {
 		
 		return false;
     }
-
+    //@@author
     
+    //@@author A0147619W
     /**
      * 
      * @param token
      * @return true if the given date is a valid date
-     * @@author A0147619W
      */
-	static boolean isValidDate(String token) {
+	public static boolean isValidDate(String token) {
 		
 		String[] date = token.split(" ");
 		Pattern dateType = Pattern.compile("(0?[1-9]|[12][0-9]|3[01])/(0?[1-9]|1[012])/(\\d\\d)");
@@ -213,10 +212,10 @@ public class Time {
      * @return true only if time1 < time2
      * @throws IllegalValueException
      */
-    public static boolean checkOrderOfDates(String startTime, String endTime) throws IllegalValueException {  
+    public static boolean checkOrderOfDates(String time1, String time2) throws IllegalValueException {  
     	
-    	Time start = new Time(startTime);
-    	Time end = new Time(endTime);
+    	Time start = new Time(time1);
+    	Time end = new Time(time2);
     	
     	return end.isMissing() || start.time.compareTo(end.time) <= 0;
 	}
@@ -240,14 +239,17 @@ public class Time {
     	
     	return time.isMissing() || time.time.compareTo(now.time) >= 0;
 	}
-    
+  
     @Override
     public String toString() {
-        if(time.getTime().equals(new Date(0)))
-        	return (new Date(0)).toString();
+    	SimpleDateFormat dateFormatter = new SimpleDateFormat("E, MMM d, yyyy, hh:mm a");
+        if(time.getTime().equals(new Date(0))) {
+        	return dateFormatter.format(new Date(0));
+        }
         else
-        	return time.getTime().toString();
+            return dateFormatter.format(time.getTime());
     }
+    
 
     @Override
     public boolean equals(Object other) {

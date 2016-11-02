@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<!-- //@@author A0139211R 
+-->
+
 <?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
@@ -11,13 +14,12 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.forgetmenot.ui.ContentBox">
+<VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.forgetmenot.ui.ContentBox">
    <children>
-      <GridPane prefWidth="300.0" style="-fx-background-color: white;" styleClass="contentbox" VBox.vgrow="ALWAYS">
+      <GridPane style="-fx-background-color: white;" styleClass="contentbox" VBox.vgrow="ALWAYS">
         <columnConstraints>
-            <ColumnConstraints hgrow="ALWAYS" />
-          <ColumnConstraints hgrow="ALWAYS" />
-          <ColumnConstraints hgrow="ALWAYS" />
+          <ColumnConstraints hgrow="ALWAYS" maxWidth="1.7976931348623157E308" prefWidth="207.0" />
+            <ColumnConstraints hgrow="ALWAYS" maxWidth="1.7976931348623157E308" prefWidth="50.0" />
         </columnConstraints>
         <rowConstraints>
           <RowConstraints vgrow="ALWAYS" />
@@ -27,16 +29,16 @@
             <RowConstraints vgrow="ALWAYS" />
         </rowConstraints>
          <children>
-            <Label fx:id="overdue" style="-fx-text-fill: red;" text="Overdue" textAlignment="CENTER" GridPane.columnIndex="1" />
-            <Label fx:id="today" text="Today" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <Label fx:id="tomorrow" text="Tomorrow" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <Label fx:id="someday" text="Upcoming" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <Label fx:id="upcoming" text="Floating" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-            <Label fx:id="dummy1" style="-fx-text-fill: red;" text="\$dummy1" GridPane.columnIndex="2" GridPane.halignment="CENTER" />
-            <Label fx:id="dummy2" text="2" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
-            <Label fx:id="dummy3" text="3" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
-            <Label fx:id="dummy4" text="4" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
-            <Label fx:id="dummy5" text="5" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
+            <Label fx:id="overdue" prefWidth="126.0" style="-fx-text-fill: red;" text="Overdue" textAlignment="CENTER" translateX="80.0" />
+            <Label fx:id="today" prefWidth="126.0" text="Today" translateX="80.0" GridPane.rowIndex="1" />
+            <Label fx:id="tomorrow" prefWidth="126.0" text="Tomorrow" translateX="80.0" GridPane.rowIndex="2" />
+            <Label fx:id="someday" prefWidth="126.0" text="Upcoming" translateX="80.0" GridPane.rowIndex="3" />
+            <Label fx:id="upcoming" prefWidth="126.0" text="Floating" translateX="80.0" GridPane.rowIndex="4" />
+            <Label fx:id="dummy1" style="-fx-text-fill: red;" text="\$dummy1" GridPane.columnIndex="1" GridPane.halignment="CENTER" />
+            <Label fx:id="dummy2" text="2" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+            <Label fx:id="dummy3" text="3" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+            <Label fx:id="dummy4" text="4" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
+            <Label fx:id="dummy5" text="5" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
             <ImageView fx:id="todayicon" fitHeight="50.0" fitWidth="50.0" preserveRatio="true" translateX="18.0" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS">
                <image>
                   <Image url="@../images/today.png" />

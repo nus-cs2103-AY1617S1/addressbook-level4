@@ -10,7 +10,7 @@
    > Having any Java 8 version is not enough. <br>
    This app will not work with earlier versions of Java 8.
    
-1. Download the latest `taskmanager.jar` from the [releases](../../../releases) tab.
+1. Download the latest `forgetmenot.jar` from the [releases](../../../releases) tab.
 2. Copy the file to the folder you want to use as the home folder for ForgetMeNot.
 3. Double-click the file to start the app. The GUI should appear in a few seconds. 
    > <img src="images/ForgetMeNotUI.png" width="600">
@@ -19,7 +19,7 @@
    e.g. typing **`help`** and pressing <kbd>Enter</kbd> will open the help window. 
 5. Refer to the [Features](#features) section below for details of each command.<br>
 
-
+//@@author A0147619W
 ## Features
 
 > **Command Format**
@@ -95,9 +95,17 @@ Example:
 * `edit 2 at today 3pm` (Edits the start time to the current day 3pm for task 2)
 * `edit 3 every 7 days` (Edits the recurrence of task 3 to be every 7 days)
 
+#### Priority tasks: `priority`
+Allows the user to set the priority of a task when creating it. If the task is of importance, the user can assign it with a high priority. <br>
+Format : `add <task name> priority high`
+
+Example:
+* `add CS2101 by 01/01/2016 priority high`
+
 
 #### Undo a Task: `undo`
 Undo the most recent task entered in the command line<br>
+Undo only supports for task modifying comands such as add, delete, clear, redo but not find, show, setstorage<br>
 Format: `undo`
 
 
@@ -114,14 +122,14 @@ Example:
 * `delete 1`
 
 
-#### Finding a Task: `find`
+#### Finding a Task: `Find`
 Finds tasks in the task manager. Task manager will display all task with the input keywords<br>
 Format: `find <task name>`
 
 Example:
 *`find project`
 
-//@@author A0139198N
+
 ### Mark as done: `done`
 Marks a task as done. <br>
 Format: `done <task index>`
@@ -129,21 +137,10 @@ Format: `done <task index>`
 Example:
 * `done 1`
 
-### Mark as undone: `undone`
-Marks a task as done. <br>
-Format: `undone <task index>`
 
-Example:
-* `undone 1`
-
-
-#### Showing list for undone task: `show`
+#### Showing full list: `show`
 Displays all the task for the user to view.<br>
 Format: `show`
-
-#### Showing all task: `show all`
-Displays all the task for the user to view.<br>
-Format: `show all`
 
 ##### Showing list for today: `show today`
 Displays all the task for today for the user to view.<br>
@@ -153,37 +150,25 @@ Format: `show today`
 Displays all the task for tomorrow for the user to view.<br>
 Format: `show tomorrow`
 
+##### Showing list for upcoming: `show upcoming`
+Displays all the task for upcoming task for the user to view.<br>
+Format: `show upcoming`
+
 ##### Showing list for specific date: `show <date>`
 Displays all the task for today the user to view.<br>
 Format: `show <date>`
-
-Example:
-* `show 10/10/16`
-
-##### Showing list for special parameters: `show <parameter>`
-Displays all the task for today the user to view.<br>
-Format: `show <parameter>`
-
-Example:
-* `show 3 days later`
-* `show next week`
-* `show next month`
-* `show next Tuesday`
-* `show xmas`
 
 ##### Showing a list for overdue tasks: `show overdue`
 Displays all the overdue tasks. <br>
 Format `show overdue`
 
-##### Showing a list for floating tasks: `show floating`
-Displays all the overdue tasks. <br>
-Format `show floating`
+Example:
+* `show 10/10/16`
 
 ##### Show all the done tasks: `show done`
 Displays all the done tasks. <br>
 Format: `show done`
 
-//@@author
 
 #### Clearing the display: `clear`
 Clears all the tasks in the task manager <br>
@@ -201,34 +186,13 @@ Format: `select <index>`
 Example:
 * `select 2`
 
-
+//@@author A0147619W
 #### Set storage: `setstorage`
 Allows the user to change the storage location to a different folder
 Format: `setstorage <folder name>`
 
 Example:
 * `setstorage data/newFile.xml`
-
-
-#### Autocomplete feature: `TAB` button or `SPACE BAR`
-Autocompletes any command word that has been typed on the command box, upon pressing `TAB` or `SPACEBAR`.
-If 2 commands have the same starting letter, pressing either of the buttons wont do anything. It shall only autocomplete on encountering the first unequal character, that is, when it can distinguish a command clearly. <br>
-
-Example:
-* If you press `TAB`/`SPACEBAR` after entering `a`, it will complete `add`
-* If you press `TAB`/`SPACEBAR` after entering `d`, it will do nothing as both `done` and `delete` start with `d`
-* If you press `TAB`/`SPACEBAR` after entering `de`, it will complete `delete`
-
-
-#### Command History: `UP` and `DOWN` arrow keys
-Allows the user to go through the previously entered commands. <br>
-The `UP` arrow key displays the next older command. <br>
-The `DOWN` arrow key displays the next newer command. <br>
-
-#### Exit the app: `exit`
-Allows the user to exit the application. <br>
-Format: `exit`
-
 
 #### Saving the data 
 ForgetMeNot data are saved in the hard disk automatically after any command that changes the data.<br>
@@ -249,14 +213,12 @@ Following is the list of all commands:
 | `edit`      | `edit` `<index>` `<New Parameters>`                | Edits a task with the new parameters           |
 | `done`      | `done` `<index>`                                   | Marks a task as done                           |
 | `delete`    | `delete` `<index>`                                 | Removes a task from the task manager           |
-| `show`      | `show`                                             | Shows all undone tasks                         |
-|             | `show` all                                         | Shows all tasks                                | 
-|             | `show` done                                        | Shows all done tasks                           |
+| `show`      | `show`                                             | Shows all tasks                                |
+|             | `show` done                                        | Shows the done tasks                           |
 |             | `show` today                                       | Shows all tasks for today                      |
 |             | `show` tmr                                         | Shows all tasks for tomorrow                   |
-|             | `show` <date>                                      | Shows all tasks for that particular date       |
+|             | `show` `<date>`                                    | Shows all tasks for that particular date       |
 |             | `show` overdue                                     | Shows all the overdue tasks                    |
-|             | `show` <parameter>                                 | Shows all task for the input parameter         |
 | `undo`      | `undo`                                             | Undoes the most recent command                 |
 | `redo`      | `redo`                                             | Redoes the latest undo                         |
 | `find`      | `find` `<name>`                                    | Finds a task with task name as <name>          |
@@ -264,4 +226,3 @@ Following is the list of all commands:
 |             | `clear done`                                       | Clears all the done tasks from the done list   |
 | `select`    | `select` `<index>`                                 | Highlights the particular task at that index   |
 |`setstorage` | `setstorage` `<folder name>`                       | Set storage to a particular folder             |
-| `exit`      | `exit`                                             | Exits the application                          |

@@ -1,12 +1,10 @@
 package seedu.forgetmenot.logic.parser;
 
+//@@author A0147619W
 import static seedu.forgetmenot.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.forgetmenot.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Arrays;
-import java.util.Calendar;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
@@ -29,17 +27,13 @@ import seedu.forgetmenot.logic.commands.IncorrectCommand;
 import seedu.forgetmenot.logic.commands.RedoCommand;
 import seedu.forgetmenot.logic.commands.SelectCommand;
 import seedu.forgetmenot.logic.commands.SetStorageCommand;
-import seedu.forgetmenot.logic.commands.ShowAllCommand;
 import seedu.forgetmenot.logic.commands.ShowCommand;
-import seedu.forgetmenot.logic.commands.ShowDateCommand;
-import seedu.forgetmenot.logic.commands.ShowDoneCommand;
-import seedu.forgetmenot.logic.commands.ShowOverdueCommand;
 import seedu.forgetmenot.logic.commands.UndoCommand;
 import seedu.forgetmenot.logic.commands.UndoneCommand;
+import seedu.forgetmenot.model.task.Time;
 
 /**
  * Parses user input.
- * //@@author A0147619W
  */
 public class Parser {
 
@@ -64,7 +58,6 @@ public class Parser {
             + "((?: (to|by) )(?<end>(([^;](?<! (every) ))|(\\[^/]))+))?"
     		+ "((?: (every) )(?<recurring>(([^;](?<! p/))|(\\[^/]))+))?"
             );
-    private static final Pattern DATE_ARGS_FORMAT = Pattern.compile("(0?[1-9]|[12][0-9]|3[01])/(0?[1-9]|1[012])/(\\d\\d)");
 
     public Parser() {}
 
@@ -106,11 +99,8 @@ public class Parser {
             return prepareFind(arguments);
 
         case ShowCommand.COMMAND_WORD:
-        	return prepareShow(arguments);
-
-        case ShowDateCommand.COMMAND_WORD:
-        	return new ShowDateCommand(arguments.trim());
-        	
+			return prepareShow(arguments);
+			
         case UndoCommand.COMMAND_WORD:
             return new UndoCommand();
         
@@ -154,47 +144,47 @@ public class Parser {
     }
     
     //@@author A0139198N
-    private Command prepareShow(String args){
-    	final Matcher matcher = DATE_ARGS_FORMAT.matcher(args.trim());
+    private Command prepareShow(String args) {
+//    	final Matcher matcher = DATE_ARGS_FORMAT.matcher(args.trim());
     	
     	args = args.trim();
     	
     	if(args.equals("done")) {
-    		return new ShowDoneCommand();
+    		return new ShowCommand("done");
     	}
     	
     	else if(args.equals("all")) {
-    		return new ShowAllCommand();
+    		return new ShowCommand("all");
     	}
     	else if (args.equals("")) {
-    		return new ShowCommand();
+    		return new ShowCommand("");
     	}
     	
         else if (args.equals("overdue")) {
-            return new ShowOverdueCommand();
+            return new ShowCommand("overdue");
         }
     	
-    	else if (args.equals("today") || args.equals("tdy") ) {
-    		Calendar cal = Calendar.getInstance();
-    		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yy");
-    		System.out.println(dateFormat.format(cal.getTime()).toString());
-    		return new ShowDateCommand(dateFormat.format(cal.getTime()).toString());
-    	}
+        else if (args.equals("floating")) {
+        	return new ShowCommand("floating");
+        }
     	
-    	else if (args.equals("tomorrow") || args.equals("tmr") ) {
-    		Calendar cal = Calendar.getInstance();
-    		cal.add(Calendar.DATE, 1);
-    		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yy");
-    		System.out.println(dateFormat.format(cal.getTime()).toString());
-    		return new ShowDateCommand(dateFormat.format(cal.getTime()).toString());
+    	else {
+            Time time;
+            try {
+                time = new Time(args);
+                if (Time.isValidDate(time.appearOnUIFormatForDate())) {
+                return new ShowCommand(time.appearOnUIFormatForDate());
+            } 
+                
+            } catch (IllegalValueException e) {
+                return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ShowCommand.MESSAGE_USAGE));
+            }
+            
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ShowCommand.MESSAGE_USAGE));
     	}
-    	
-    	else if (matcher.matches()){
-            return new ShowDateCommand(args.trim());
-        } 
-    	else
-    		return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ShowCommand.MESSAGE_USAGE));
     }
+    //@@author
+    
     //@@author A0147619W
     private Command prepareSetStorage(String args) {
     	if(args != null) {
@@ -208,27 +198,26 @@ public class Parser {
     //@@author A0139671X
     private Command prepareEdit(String args) {
         final Matcher matcher = TASK_EDIT_ARGS_FORMAT.matcher(args.trim());
-        String name, startTime, endTime, recur;
+        String name, startTime, endTime;
         
         // Validate arg string format
         if (!matcher.matches()) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
         } else {
-            name = (matcher.group("name") == null) ? null : matcher.group("name").replace('\\', '\0');
+            name = (matcher.group("name") == null) ? null : matcher.group("name");
             startTime = (matcher.group("start") == null) ? null : matcher.group("start");
             endTime = (matcher.group("end") == null) ? null : matcher.group("end");
-            recur = (matcher.group("recurring") == null) ? null : matcher.group("recurring");
         }
         
-        return new EditCommand(matcher.group("index"), name, startTime, endTime, recur);
+        return new EditCommand(matcher.group("index"), name, startTime, endTime);
     }
 
+    //@@author A0147619W
     /**
      * Parses arguments in the context of the add task command.
      *
      * @param args full command args string
      * @return the prepared command
-     * @@author A0147619W
      */
     private Command prepareAdd(String args){
     	final Matcher matcher = TASK_DATA_ARGS_FORMAT.matcher(args.trim());
@@ -279,6 +268,7 @@ public class Parser {
      * @return the prepared command
      */
     
+    //@@author A0139198N
     private Command prepareDone(String args) {
 
         Optional<Integer> index = parseIndex(args);
@@ -300,7 +290,8 @@ public class Parser {
 
         return new UndoneCommand(index.get());
     }
-
+    //@@author
+    
     /**
      * Parses arguments in the context of the select task command.
      *

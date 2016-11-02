@@ -7,7 +7,6 @@ import seedu.forgetmenot.commons.exceptions.IllegalValueException;
 import seedu.forgetmenot.model.task.ReadOnlyTask;
 import seedu.forgetmenot.model.task.Task;
 import seedu.forgetmenot.model.task.UniqueTaskList;
-import seedu.forgetmenot.model.task.UniqueTaskList.DuplicateTaskException;
 import seedu.forgetmenot.model.task.UniqueTaskList.TaskNotFoundException;
 
 /**
@@ -23,16 +22,18 @@ public interface Model {
     /** Deletes the given task. */
     void deleteTask(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException;
 
+    //@@author A0147619W
     /** Adds the given task 
-     * @@author A0147619W
      * */
-    void addTask(Task task) throws UniqueTaskList.DuplicateTaskException;
+    void addTask(Task task);
  
-    /** Adds the given recurring task again with the correct date and time*/
-    void addRecurringTask(ReadOnlyTask taskToMark, String recurringDays) throws DuplicateTaskException, IllegalValueException;
+    //@@author
+    /** Adds the given recurring task again with the correct date and time
+     * @throws IllegalValueException */
+    void addRecurringTask(ReadOnlyTask taskToMark) throws IllegalValueException;
     
     /** Edits the given task */
-    void editTask(ReadOnlyTask task, String newName, String newInfo, String newEnd, String newRecur) throws TaskNotFoundException, IllegalValueException;
+    void editTask(ReadOnlyTask task, String newName, String newInfo, String newEnd) throws TaskNotFoundException, IllegalValueException;
     
     /** Marks the given task as done */
     void doneTask(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException;
@@ -56,12 +57,14 @@ public interface Model {
      * @throws TaskNotFoundException */
     void clearDone() throws TaskNotFoundException;
 
+    //@@author A0147619W
     /**  Sorts all the tasks in the list according to date with floating tasks below */
     void sortTasks();
     
+    //@@author
     /** Returns the filtered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
     UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList();
-
+    
     /** Updates the filter of the filtered task list to show all tasks */
     void updateFilteredListToShowAll();
     
@@ -79,6 +82,13 @@ public interface Model {
 	
 	/** Updates the filter of the filtered task list to show overdue tasks */
 	void updateFilteredTaskListToShowOverdue();
+	
+	/** Updates the filter of the filtered task list to show floating tasks */
+	void updateFilteredTaskListToShowFloating();
+	
+	//@@author A0147619W
+	/** Checks if the current task clashes with other tasks in ForgetMeNot or not */
+	boolean isClashing(Task toAdd);
 
 
 }

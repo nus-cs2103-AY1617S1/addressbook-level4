@@ -3,13 +3,12 @@ package seedu.forgetmenot.model.task;
 import java.util.Calendar;
 import java.util.Objects;
 
-import seedu.forgetmenot.commons.exceptions.IllegalValueException;
 import seedu.forgetmenot.commons.util.CollectionUtil;
 
+//@@author A0147619W
 /**
  * Represents a Task in ForgetMeNot.
  * Guarantees: details are present and not null, field values are validated.
- * @@author A0147619W
  */
 public class Task implements ReadOnlyTask {
 
@@ -48,7 +47,9 @@ public class Task implements ReadOnlyTask {
     public Done getDone() {
         return done;
     }
-
+    //@@author
+    
+    //@@author A0147619W
     @Override
     public Time getStartTime() {
         return start;
@@ -100,33 +101,17 @@ public class Task implements ReadOnlyTask {
     //@@author A0139671X
     @Override
     public String toString() {
-        final StringBuilder builder = new StringBuilder();
-        
-        builder.append(getName());
-        builder.append(System.lineSeparator());
-        
-        if (!getStartTime().isMissing())
-            builder.append("Start: " + getStartTime().easyReadDateFormatForUI());
-        
-        if (!getEndTime().isMissing())
-            builder.append(" End: " + getEndTime().easyReadDateFormatForUI());
-        
-        if (getRecurrence().getValue())
-            builder.append(" Recurrence: Every " + getRecurrence());
-        
-        return builder.toString();
+        return getAsText();
     }
     
     /**
-     * @return true if the tasks is past the current time
-     * @throws IllegalValueException
-     * @@author A0139671X
+     * @return true if the tasks is past the current time.
      */
     public boolean checkOverdue() {
-        if (start.isMissing() && !end.isMissing())
+        if (isDeadlineTask())
             return end.time.compareTo(Calendar.getInstance()) < 0;
         
-        if (!start.isMissing())
+        else if (isStartTask() || isEventTask())
             return start.time.compareTo(Calendar.getInstance()) < 0;
         
         return false;
@@ -162,5 +147,5 @@ public class Task implements ReadOnlyTask {
     public boolean isFloatingTask() {
         return start.isMissing() && end.isMissing();
     }
-    
+    //@@author
 }

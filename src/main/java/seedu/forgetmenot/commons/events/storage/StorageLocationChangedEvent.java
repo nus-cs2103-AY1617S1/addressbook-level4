@@ -1,9 +1,9 @@
+//@@author A0147619W
 package seedu.forgetmenot.commons.events.storage;
 import seedu.forgetmenot.commons.events.BaseEvent;
 
 /**
  * indicates that the storage location has changed
- * @@author A0147619W
  */
 public class StorageLocationChangedEvent extends BaseEvent{
 

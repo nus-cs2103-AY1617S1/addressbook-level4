@@ -248,6 +248,7 @@ is better than these alternatives.<br>
 a. Include those libraries in the repo (this bloats the repo size)<br>
 b. Require developers to download those libraries manually (this creates extra work for developers)<br>
 
+//@@author A0147619W
 ## Appendix A: User Stories
 
 Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (unlikely to have) - `*`
@@ -256,18 +257,16 @@ Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (un
 Priority | As a ... | I want to ... | So that I can...
 -------- | :-------- | :--------- | :-----------
 `* * *` | user | add floating tasks without date or time | I can keep track of tasks which need to be done whenever I have time.
-`* * *` | user | add deadline tasks with a date and end time | I can keep track of deadlines.
-`* * *` | user | add event tasks with a date, start time and end time| I can keep track of events.
-`* * *` | user | add event tasks with a date and start time only | I can keep track of events.
+`* * *` | user | add deadline tasks with only an end time | I can keep track of deadlines.
+`* * *` | user | add event tasks with only a start time | I can keep track of events.
+`* * *` | user | add event tasks with both start time and end time | I can keep track of events.
 `* * *` | user | search for tasks | review the details of the task. 
-`* * *` | user | delete a task | can get rid of tasks that I no longer care to track. 
-`* * *` | user | view more information about various command | learn how to use those commands. 
+`* * *` | user | delete a task | can get rid of tasks that I no longer care to track.  
 `* * *` | user | edit the details of a specific task | reschedule the task if the deadline has changed.
 `* * *` | new user | view the availability of all the possible commands | understand what features there are in the product.
 `* * *` | user | have a few natural variations in my command inputs | key in my task more efficiently.
 `* * *` | user | view all my tasks | I have an idea about the pending tasks.
 `* * *` | user | mark a task as done | it will be removed from my list of things to do.
-`* * *` | user | add floating tasks without date or time | I can do that task whenever I want.
 `* * *` | user | specify a specific folder as the data storage location | I can decide where to place my file for the task manager.
 `* * *` | user | have a done list | see what has been done for the day to know how productive I've been.
 `* * *` | user | clear my tasks | delete all the tasks in my task manager at once.
@@ -275,14 +274,10 @@ Priority | As a ... | I want to ... | So that I can...
 `* *` | user | add a recurring tasks | add the task once and not every time it occurs.
 `* *` | user | undo a command | go back to the previous command if I have made a mistake.
 `* *` | user | redo an undo | go back to the previous state if I have made an accidental undo.
-`* *` | user | rearrange my task based on certain commands | make my schedule more flexible.
-`* *` | user | set the priority of the task when I'm adding a new task | know the urgency of the task.
-`*` | user | sort my task according to the priority | can work on the important task first.
+`*` | user | auto-complete my commands | quickly type all my commands.
+`*` | user | view my command history | look at all my previously typed commands and reuse them if I want to. 
 
 
-
-
-{More to be added}
 
 ## Appendix B: Use Cases
 
@@ -355,24 +350,6 @@ Priority | As a ... | I want to ... | So that I can...
 
 > 3a1. ForgetMeNot displays an error message
 > 2a2. Use case resumes at step 2
-
-#### Use Case: View information on various commands
-
-**MSS**
-
-1. User requests help to find information about various commands
-2. ForgetMeNot shows the user the list of commands the user can use, along with the format in which they are supposed to be used
-3. User requests to view more information about a particular command
-4. ForgetMeNot show the user more examples on how the particular command can be used
-     Use case ends.
-
-**Extensions**
-
-3a. Invalid command entered
-
-> 3a1. ForgetMeNot displays an error message
-
-> 3a2. Use case resumes at step 2
 
 #### Use case: Edit a task
 
@@ -492,28 +469,9 @@ Priority | As a ... | I want to ... | So that I can...
 	
 > 1b1. ForgetMeNot shows help message
 
-#### User Case: Set priority while creating a task
-
-**MSS**
-
-1. User sets priority when creating a task
-2. ForgetMeNot adds the task to the list with high priority
-3. ForgetMeNot automatically shows the task at the top of the list
-      Use case ends
-      
-**Extension**
-
-    1a. Priority entered by user is of invalid format
-    
-> 1a1. ForgetMeNot shows error message and displays the correct format to input priority when creating a task 
-
-
-
-{More to be added}
-
 ## Appendix C: Non Functional Requirements
 
-1. Should be able to hold up to 100 tasks.
+1. Should be able to hold atleast 100 tasks.
 2. Should be able to display request under 0.5 seconds.
 3. Should work on any mainstream OS as long as it has Java 8 or higher installed.
 4. Should be able to add task up to 1 year ahead.

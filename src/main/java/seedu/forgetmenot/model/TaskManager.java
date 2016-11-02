@@ -10,11 +10,9 @@ import javafx.collections.ObservableList;
 import seedu.forgetmenot.commons.exceptions.IllegalValueException;
 import seedu.forgetmenot.model.task.Name;
 import seedu.forgetmenot.model.task.ReadOnlyTask;
-import seedu.forgetmenot.model.task.Recurrence;
 import seedu.forgetmenot.model.task.Task;
 import seedu.forgetmenot.model.task.Time;
 import seedu.forgetmenot.model.task.UniqueTaskList;
-import seedu.forgetmenot.model.task.UniqueTaskList.TaskNotFoundException;
 
 /**
  * Wraps all data at the task-manager level Duplicates are not allowed (by
@@ -76,14 +74,14 @@ public class TaskManager implements ReadOnlyTaskManager {
 
     //// task-level operations
 
+    //@@author A0147619W
     /**
      * Adds a task to the task manager.
      *
      * @throws UniqueTaskList.DuplicateTaskException
      *             if an equivalent task already exists.
-     * @@author A0147619W
      */
-    public void addTask(Task p) throws UniqueTaskList.DuplicateTaskException {
+    public void addTask(Task p) {
         tasks.add(p);
         counter();
     }
@@ -97,18 +95,18 @@ public class TaskManager implements ReadOnlyTaskManager {
         }
     }
 
-    // @@author A0147619W
+    //@@author A0147619W
     public void sortTasksList() {
         tasks.sortList();
     }
 
-    // @@author A0139198N
+    //@@author A0139198N
     public void doneTask(ReadOnlyTask task) throws UniqueTaskList.TaskNotFoundException {
         tasks.done(task);
         counter();
     }
 
-    // @@author A0139198N
+    //@@author A0139198N
     public void clearDone() throws UniqueTaskList.TaskNotFoundException {
         for (int i = 0; i < tasks.getInternalList().size(); i++) {
             if (tasks.getInternalList().get(i).getDone().getDoneValue() == true) {
@@ -119,43 +117,36 @@ public class TaskManager implements ReadOnlyTaskManager {
         counter();
     }
 
-    // @@author A0139198N
+    //@@author A0139198N
     public void undoneTask(ReadOnlyTask task) throws UniqueTaskList.TaskNotFoundException {
         tasks.undone(task);
         counter();
     }
+    //@@author
 
-    // @@author A0139671X
+    //@@author A0139671X
     public void editTaskName(ReadOnlyTask task, String newInfo)
             throws UniqueTaskList.TaskNotFoundException, IllegalValueException {
-        tasks.editTaskName(task, new Name(newInfo));
+        tasks.editName(task, new Name(newInfo));
         counter();
     }
 
-    // @@author A0139671X
     public void editTaskStartTime(ReadOnlyTask task, String newInfo)
             throws UniqueTaskList.TaskNotFoundException, IllegalValueException {
         tasks.editStartTime(task, new Time(newInfo));
         counter();
     }
 
-    // @@author A0139671X
     public void editTaskEndTime(ReadOnlyTask task, String newInfo)
             throws UniqueTaskList.TaskNotFoundException, IllegalValueException {
         tasks.editEndTime(task, new Time(newInfo));
         counter();
-
     }
-
-    // @@author A0139671X
-    public void editTaskRecurFreq(ReadOnlyTask task, String newRecur) throws TaskNotFoundException {
-        tasks.editRecurFreq(task, new Recurrence(newRecur));
-        counter();
-
-    }
+    //@@author
 
     //// util methods
 
+    //@@author
     @Override
     public String toString() {
         return tasks.getInternalList().size() + " tasks, ";
@@ -185,7 +176,7 @@ public class TaskManager implements ReadOnlyTaskManager {
         return Objects.hash(tasks);
     }
 
-    // @@author A0139198N
+    //@@author A0139198N
     public void counter() {
         int floating = 0;
         int today = 0;
@@ -197,7 +188,7 @@ public class TaskManager implements ReadOnlyTaskManager {
 
             Task toCount = tasks.getInternalList().get(i);
 
-            if (toCount.getStartTime().isMissing() && toCount.getEndTime().isMissing()
+            if (toCount.isFloatingTask()
                     && toCount.getDone().getDoneValue() == false) {
                 floating++;
             }
@@ -228,6 +219,26 @@ public class TaskManager implements ReadOnlyTaskManager {
         tomorrowCounter = tomorrow;
         upcomingCounter = upcoming;
         overdueCounter = overdue;
+    }
+    
+    public int getFloatingCounter() {
+    	return floatingCounter;
+    }
+    
+    public int getOverdueCounter() {
+    	return overdueCounter;
+    }
+    
+    public int getUpcomingCounter() {
+    	return upcomingCounter;
+    }
+    
+    public int getTodayCounter() {
+    	return todayCounter;
+    }
+    
+    public int getTomorrowCounter() {
+    	return tomorrowCounter;
     }
 
 }

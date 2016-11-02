@@ -10,14 +10,14 @@ import seedu.forgetmenot.model.task.ReadOnlyTask;
  */
 public class TaskCardHandle extends GuiHandle {
     private static final String NAME_FIELD_ID = "#name";
-    private static final String ADDRESS_FIELD_ID = "#address";
+    private static final String END_FIELD_ID = "#end";
     private static final String DATE_FIELD_ID = "#date";
     private static final String START_FIELD_ID = "#start";
 
     private Node node;
 
-    public TaskCardHandle(GuiRobot guiRobot, Stage primaryStage, Node node){
-        super(guiRobot, primaryStage, null);
+    public TaskCardHandle(GuiRobot guiRobot, Stage primaryStage, Node node) {       
+    	super(guiRobot, primaryStage, null);
         this.node = node;
     }
 
@@ -30,7 +30,7 @@ public class TaskCardHandle extends GuiHandle {
     }
 
     public String getEndTime() {
-        return getTextFromLabel(ADDRESS_FIELD_ID);
+        return getTextFromLabel(END_FIELD_ID);
     }
 
     public String getDate() {
@@ -42,8 +42,8 @@ public class TaskCardHandle extends GuiHandle {
     }
 
     public boolean isSameTask(ReadOnlyTask task){
-        return getFullName().equals(task.getName().fullName) && (getDate().equals(""))
-                && getStartTime().equals("Start Time: " + task.getStartTime().appearOnUIFormat()) && getEndTime().equals("End Time: " + task.getEndTime().appearOnUIFormat());
+        return getFullName().equals(task.getName().fullName)
+                && getStartTime().equals("Start: " + task.getStartTime().easyReadDateFormatForUI()) && getEndTime().equals("End: " + task.getEndTime().easyReadDateFormatForUI());
     }
 
     @Override

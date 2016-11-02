@@ -78,6 +78,7 @@ public class TestTask implements ReadOnlyTask {
         return sb.toString();
     }
 
+    //@@author A0139671X
 	@Override
 	public boolean checkOverdue() {
 		if (start.isMissing() && !end.isMissing())
@@ -88,5 +89,24 @@ public class TestTask implements ReadOnlyTask {
         
         return false;
 	}
+    @Override
+    public boolean isStartTask() {
+        return !start.isMissing() && end.isMissing();
+    }
+
+    @Override
+    public boolean isDeadlineTask() {
+        return start.isMissing() && !end.isMissing();
+    }
+
+    @Override
+    public boolean isEventTask() {
+        return !start.isMissing() && !end.isMissing();
+    }
+    
+    @Override
+    public boolean isFloatingTask() {
+        return start.isMissing() && end.isMissing();
+    }
 
 }

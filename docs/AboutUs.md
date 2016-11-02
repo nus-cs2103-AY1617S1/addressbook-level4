@@ -1,4 +1,4 @@
-<!-- @@author A0147619W -->
+//@@author A0147619W
 # About Us
 
 We are a team of four 2nd Year Computer Engineering students based in the [School of Computing, National University of Singapore](http://www.comp.nus.edu.sg).
@@ -7,29 +7,8 @@ We are a team of four 2nd Year Computer Engineering students based in the [Schoo
 
 #### [Shailesh Nahata](https://github.com/nahata-shailesh) <br>
 <img src="images/Shailesh.JPG" width="150"><br>
-
-* Project Lead
-* Components in charge of : Parsing and Storage <br>
-* Aspects/Tools in charge of: Github, Eclipse
-* Features Implemented:
-   * [Add Command](https://github.com/CS2103AUG2016-T11-C2/main/blob/master/docs/UserGuide.md#adding-a-task-add)
-   * [Adding a floating task](https://github.com/CS2103AUG2016-T11-C2/main/blob/master/docs/UserGuide.md#adding-a-floating-task)
-   * [Adding a task with start time only](https://github.com/CS2103AUG2016-T11-C2/main/blob/master/docs/UserGuide.md#adding-a-task-with-a-start-time-only)
-   * [Adding a deadline task](https://github.com/CS2103AUG2016-T11-C2/main/blob/master/docs/UserGuide.md#adding-a-deadline-task)
-   * [Adding an event task](https://github.com/CS2103AUG2016-T11-C2/main/blob/master/docs/UserGuide.md#adding-an-event-task)
-   * [Set storage](https://github.com/CS2103AUG2016-T11-C2/main/blob/master/docs/UserGuide.md#set-storage-setstorage)
-   * [Command history](https://github.com/CS2103AUG2016-T11-C2/main/blob/master/docs/UserGuide.md#command-history-up-and-down-arrow-keys)
-   * [Auto-complete](https://github.com/CS2103AUG2016-T11-C2/main/blob/master/docs/UserGuide.md#autocomplete-feature-tab-button-or-space-bar)
-* Code written: [[functional code](A0147619W.md)][[test code](A0147619W.md)][[docs](A0147619W.md)]
-* Other major contributions:
-  * Implemented the Natty Parser for Natural Language Processing
-  * Set up Travis and Coverall
-  * Integration of all codes
-  * Handled clashing of events
-  * Implemented all validation checks regarding date and time
-  * Helped with the initial refactoring from AddressBook to ForgetMeNot
-
-  
+**Role**: Developer <br>
+**Responsibilities**: Parsing
 
 -----
 
@@ -52,39 +31,15 @@ We are a team of four 2nd Year Computer Engineering students based in the [Schoo
 
 #### [Tan Jun Hao](https://github.com/e0003083)  <br>
 <img src="images/Jun Hao.jpg" width="150"><br>
-
-* Components in charge of: [Model](https://github.com/CS2103AUG2016-T11-C2/main/tree/master/src/main/java/seedu/forgetmenot/model)
-* Aspects/tools in charge of: Testing, Sourcetree, Eclipse
-* Features implemented:
-   * [show](https://github.com/CS2103AUG2016-T11-C2/main/blob/master/docs/UserGuide.md#showing-full-list-show)
-   * [show all](https://github.com/CS2103AUG2016-T11-C2/main/blob/master/docs/UserGuide.md#showing-all-task-show-all)
-   * [show done](https://github.com/CS2103AUG2016-T11-C2/main/blob/master/docs/UserGuide.md#show-all-the-done-tasks-show-done)
-   * [show today](https://github.com/CS2103AUG2016-T11-C2/main/blob/master/docs/UserGuide.md#showing-list-for-today-show-today)
-   * [show tomorrow](https://github.com/CS2103AUG2016-T11-C2/main/blob/master/docs/UserGuide.md#showing-list-for-tomorrow-show-tomorrow)
-   * [show date](https://github.com/CS2103AUG2016-T11-C2/main/blob/master/docs/UserGuide.md#showing-list-for-specific-date-show-date)
-   * [show parameter](https://github.com/CS2103AUG2016-T11-C2/main/blob/master/docs/UserGuide.md#showing-list-for-special-parameters-show-parameter)
-   * [show overdue](https://github.com/CS2103AUG2016-T11-C2/main/blob/master/docs/UserGuide.md#showing-a-list-for-overdue-tasks-show-overdue) 
-   * [done](https://github.com/CS2103AUG2016-T11-C2/main/blob/master/docs/UserGuide.md#mark-as-done-done)
-   * [undone](https://github.com/CS2103AUG2016-T11-C2/main/blob/master/docs/UserGuide.md#mark-as-undone-undone)
-   * [clear done](https://github.com/CS2103AUG2016-T11-C2/main/blob/master/docs/UserGuide.md#clearing-only-the-done-tasks-clear-done)
-* Code written: [[functional code]()][[test code](d)][[docs]()]
-* Other major contributions:
-  * Did the initial refactoring from AddressBook to ForgetMeNot
-  
+**Role**: Developer <br>  
+**Responsibilities**: Storage
 
 -----
 
 #### [Qiang Yu](https://github.com/Hastyrush) <br>
 <img src="images/Qiang Yu.png" width="150"><br>
-
-* Components in charge of: [UI](https://github.com/CS2103AUG2016-T11-C2/main/tree/master/src/main/java/seedu/forgetmenot/ui)
-* Aspects/tools in charge of: JavaFX, FXML
-* Features implemented:
-   * [UI Design](https://github.com/CS2103AUG2016-T11-C2/main/blob/master/docs/images/ForgetMeNotUI.png)
-* Code written: [[functional code]()][[test code]()][[docs]()]
-* Other major contributions:
-  * Major contributor to changes of UI
-
+**Role**: Developer <br>  
+**Responsibilities**: UI
 
 -----
 
