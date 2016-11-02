@@ -29,6 +29,7 @@ Format: `help`
 
 > Help is also shown if you enter an incorrect command e.g. `abcd`
 
+	<!-- @@author A0139923X -->
 #### Adding a task: `add`
 Adds a task to the task-list.<br>
 Different Types of tasks (Todo/Event/Deadline) have different command format.<br>
@@ -46,6 +47,7 @@ Todos will be rearranged in the Todo-List based on their priority.<br>
 > Format: `add TASK_NAME on/DATE at/END_TIME`<br>
 > Example: `add CS2103 v0.2 on/25-12-2016 at/16:00`
 
+	<!-- @@author A0139923X -->
 #### Editing a task: `edit`
 Edits information of the task in the task-list.<br>
 Different Types of tasks (Todo/Event/Deadline) have different command format.<br>
@@ -77,6 +79,8 @@ Mark a Todo-task with given index number as done.<br>
 > Example(Event): `done event 1` <br>
 > Example(Deadline): `done deadline 1`
 
+
+	<!-- @@author A0139923X -->
 #### Un-Marking a completed task : `undone`
 Mark a Todo-task with given index number as undone.<br>
 > Format: `undone TASK_TYPE INDEX_NUMBER`<br>
@@ -92,6 +96,7 @@ Shows a list of all tasks in the task-list.<br>
 > Example(Deadline): `list deadline` <br>
 > Example(All): `list all`
 
+	<!-- @@author A0139923X -->
 #### Finding all tasks containing any keyword in their name: `find`
 Finds tasks whose names contain any of the given keywords.<br>
 The order of the keywords does not matter, only the name is searched, and tasks matching at least one keyword will be returned (i.e. `OR` search).<br>
