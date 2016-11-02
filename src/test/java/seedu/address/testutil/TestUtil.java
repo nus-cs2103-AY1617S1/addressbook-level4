@@ -1,7 +1,10 @@
 package seedu.address.testutil;
 
 import com.google.common.io.Files;
+
+import guitests.guihandles.DeadlineCardHandle;
 import guitests.guihandles.PersonCardHandle;
+import guitests.guihandles.TodoCardHandle;
 import javafx.geometry.Bounds;
 import javafx.geometry.Point2D;
 import javafx.scene.Node;
@@ -327,6 +330,14 @@ public class TestUtil {
     }
 
     public static boolean compareCardAndPerson(PersonCardHandle card, ReadOnlyTask person) {
+        return card.isSamePerson(person);
+    }
+    //@@author A0138993L
+    public static boolean compareCardAndDeadline(DeadlineCardHandle card, ReadOnlyTask person) {
+        return card.isSamePerson(person);
+    }
+  //@@author A0138993L
+    public static boolean compareCardAndTodo(TodoCardHandle card, ReadOnlyTask person) {
         return card.isSamePerson(person);
     }
 
