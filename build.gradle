@@ -111,7 +111,7 @@ coveralls {
 
 tasks.coveralls {
     dependsOn coverage
-    onlyIf { System.env.'CI' }6
+    onlyIf { System.env.'CI' }
 }
 
 class TaskBookTest extends Test {
