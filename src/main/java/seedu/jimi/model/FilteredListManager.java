@@ -19,6 +19,7 @@ import seedu.jimi.model.task.DeadlineTask;
 import seedu.jimi.model.task.FloatingTask;
 import seedu.jimi.model.task.ReadOnlyTask;
 
+//@@author A0140133B
 /**
  * Represents a manager for filtered lists used in the UI component.
  * Respective UI components should already be listeners to each of the lists in {@code listMap}.
@@ -26,7 +27,6 @@ import seedu.jimi.model.task.ReadOnlyTask;
 public class FilteredListManager {
     private static final Logger logger = LogsCenter.getLogger(FilteredListManager.class);
     
-    // @@author A0140133B
     public enum ListId {
         DAY_AHEAD_0, 
         DAY_AHEAD_1, 
