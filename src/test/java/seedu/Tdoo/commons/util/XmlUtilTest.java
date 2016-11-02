@@ -30,13 +30,13 @@ public class XmlUtilTest {
 
     @Test
     public void getDataFromFile_nullFile_AssertionError() throws Exception {
-        thrown.expect(NullPointerException.class);
+        thrown.expect(AssertionError.class);
         XmlUtil.getDataFromFile(null, TaskList.class);//
     }
 
     @Test
-    public void getDataFromFile_nullClass_AssertionError() throws Exception {
-        thrown.expect(IllegalArgumentException.class);
+    public void getDataFromFile_nullClass_AssertionError() throws Exception { 
+        thrown.expect(AssertionError.class);
         XmlUtil.getDataFromFile(TEMP_FILE, null);//
     }
 
@@ -61,13 +61,13 @@ public class XmlUtilTest {
 
     @Test
     public void saveDataToFile_nullFile_AssertionError() throws Exception {
-        thrown.expect(NullPointerException.class);
+        thrown.expect(AssertionError.class);
         XmlUtil.saveDataToFile(null, new TaskList());
     }
 
     @Test
     public void saveDataToFile_nullClass_AssertionError() throws Exception {
-        thrown.expect(NullPointerException.class);
+        thrown.expect(AssertionError.class);
         XmlUtil.saveDataToFile(TEMP_FILE, null);//
     }
 

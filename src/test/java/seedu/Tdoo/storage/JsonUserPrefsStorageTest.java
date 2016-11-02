@@ -30,7 +30,7 @@ public class JsonUserPrefsStorageTest {
 
     @Test
     public void readUserPrefs_nullFilePath_assertionFailure() throws DataConversionException {
-        thrown.expect(NullPointerException.class);
+        thrown.expect(AssertionError.class);
         readUserPrefs(null);//
     }
 
@@ -86,13 +86,13 @@ public class JsonUserPrefsStorageTest {
 
     @Test
     public void savePrefs_nullPrefs_assertionFailure() throws IOException {
-        //thrown.expect(AssertionError.class);
+        thrown.expect(AssertionError.class);
         saveUserPrefs(null, "SomeFile.json");
     }
 
     @Test
     public void saveUserPrefs_nullFilePath_assertionFailure() throws IOException {
-        thrown.expect(NullPointerException.class);
+        thrown.expect(AssertionError.class);
         saveUserPrefs(new UserPrefs(), null);//
     }
 
