@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.util.Optional;
 import java.util.logging.Logger;
 
+import jym.manager.storage.XmlTaskManagerStorage;
 import jym.manager.commons.core.ComponentManager;
 import jym.manager.commons.core.LogsCenter;
 import jym.manager.commons.events.model.TaskManagerChangedEvent;
@@ -89,6 +90,12 @@ public class StorageManager extends ComponentManager implements Storage {
         } catch (IOException e) {
             raise(new DataSavingExceptionEvent(e));
         }
+    }
+
+    @Override
+    public void setFilePath(String filepath){
+    	String taskManagerFilePath = filepath + "/taskmanager.xml";
+    	taskManagerStorage = new XmlTaskManagerStorage(taskManagerFilePath);
     }
 
 }

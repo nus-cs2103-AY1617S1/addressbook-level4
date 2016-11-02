@@ -9,6 +9,7 @@ import jym.manager.commons.exceptions.IllegalValueException;
 import jym.manager.model.tag.Tag;
 import jym.manager.model.tag.UniqueTagList;
 import jym.manager.model.task.ReadOnlyTask;
+import jym.manager.model.task.Status;
 import jym.manager.model.task.Task;
 import jym.manager.model.task.UniqueTaskList;
 import jym.manager.model.task.UniqueTaskList.DuplicateTaskException;
@@ -32,20 +33,20 @@ public class TaskManager implements ReadOnlyTaskManager {
     public TaskManager() {}
     
     /**
-     * Tasks and Tags are copied into this addressbook
+     * Tasks and Tags are copied into this taskmanager
      */
     public TaskManager(ReadOnlyTaskManager toBeCopied) {
         this(toBeCopied.getUniqueTaskList(), toBeCopied.getUniqueTagList());
     }
 
     /**
-     * Tasks and Tags are copied into this addressbook
+     * Tasks and Tags are copied into this taskmanager
      */
     public TaskManager(UniqueTaskList tasks, UniqueTagList tags) {
         resetData(tasks.getInternalList(), tags.getInternalList());
     }
 
-    public static ReadOnlyTaskManager getEmptyAddressBook() {
+    public static ReadOnlyTaskManager getEmptyTaskManager() {
         return new TaskManager();
     }
 
@@ -53,6 +54,14 @@ public class TaskManager implements ReadOnlyTaskManager {
 
     public ObservableList<Task> getTasks() {
         return tasks.getInternalList();
+    }
+    
+    public ObservableList<Task> getCompletedTasks() {
+        return tasks.getFilteredTaskList(Status.STATUS_COMPLETE);
+    }
+    
+    public ObservableList<Task> getIncompleteTasks() {
+        return tasks.getFilteredTaskList(Status.STATUS_INCOMPLETE);
     }
 
     public void setTasks(List<Task> tasks) {
@@ -110,6 +119,8 @@ public class TaskManager implements ReadOnlyTaskManager {
         }
         task.setTags(new UniqueTagList(commonTagReferences));
     }
+    
+    
 
     public boolean removeTask(ReadOnlyTask key) throws UniqueTaskList.TaskNotFoundException {
         if (tasks.remove(key)) {
@@ -124,17 +135,16 @@ public class TaskManager implements ReadOnlyTaskManager {
     	tasks.update(oldTask, updatedTask);
     }
 
-    public boolean completeTask(ReadOnlyTask key) throws UniqueTaskList.TaskNotFoundException {
-    	if(tasks.remove(key)){
-    		completedTasks.add(new Task(key));
-    		completedTasks.forEach(t -> System.out.println("completed: " + t.getAsText()));
-    		return true;
-    	} else {
-    		throw new UniqueTaskList.TaskNotFoundException();
-    	}
+    public boolean completeTask(ReadOnlyTask... keys) throws UniqueTaskList.TaskNotFoundException {
+        if (tasks.complete(keys)) {
+            return true;
+        } else {
+            throw new UniqueTaskList.TaskNotFoundException();
+        }
     }
 //@@author
 
+    
 //// tag-level operations
 
     public void addTag(Tag t) throws UniqueTagList.DuplicateTagException {

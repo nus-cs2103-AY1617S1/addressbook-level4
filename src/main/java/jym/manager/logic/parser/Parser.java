@@ -9,11 +9,17 @@ import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import jym.manager.logic.commands.UndoCommand;
+import jym.manager.logic.commands.Command;
+import jym.manager.logic.commands.CompleteCommand;
+import jym.manager.logic.commands.IncorrectCommand;
 import jym.manager.commons.exceptions.IllegalValueException;
 import jym.manager.commons.util.StringUtil;
 import jym.manager.logic.commands.*;
 import static jym.manager.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static jym.manager.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static jym.manager.commons.core.Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX;
+import static jym.manager.commons.core.Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX;
 
 import com.joestelmach.natty.*;
 /**
@@ -116,6 +122,9 @@ public class Parser {
 
         case CompleteCommand.COMMAND_WORD:
         	return prepareComplete(arguments);
+        	
+		case UndoCommand.COMMAND_WORD:
+			return new UndoCommand();
         	
         default:
             return prepareAdd(commandWord.concat(arguments));
@@ -241,6 +250,7 @@ public class Parser {
 
         return new DeleteCommand(index.get());
     }
+
     /**
      * Parse arguments in the context of the complete person command
      */
@@ -251,10 +261,75 @@ public class Parser {
     		return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, CompleteCommand.MESSAGE_USAGE));
     		
     	}
-    	
-    	return new CompleteCommand(index.get());
+    	int[] indices = new int[1];
+    	indices[0] = index.get();
+    	return new CompleteCommand(indices);
 	}
-  //@@author A0153440R
+
+
+
+    
+	/**
+	 * Parses arguments in the context of the done task command.
+	 * Works with multiple indices, however, not fully implemented/tested. 
+	 *
+	 * @param args full command args string
+	 * @return the prepared command
+	 */
+//	private Command prepareComplete(String args) {
+//		int[] indexes;
+//		try {
+//			indexes = parseIndexTwo(args);
+//		}
+//		catch (IllegalValueException ive) {
+//			return new IncorrectCommand(
+//					String.format(MESSAGE_INVALID_TASK_DISPLAYED_INDEX, CompleteCommand.MESSAGE_USAGE));
+//		}
+//		return new CompleteCommand(indexes);
+//	}
+//    
+    
+
+	
+	//@@author a0153617e
+
+	/**
+	 * Returns an int[] if valid indexes are provided.
+	 * throws IllegalValueException indexes are invalid
+	 */
+	private int[] parseIndexTwo(String command) throws IllegalValueException {
+		int[] indexes;
+		if (command.trim().contains(",")) {
+			indexes =  parseIndexTwoSeparatedByComma(command);
+		}
+		else {
+			indexes = new int[1];
+			if(!StringUtil.isUnsignedInteger(command.trim())) {
+				throw new IllegalValueException(MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
+			}
+			indexes[0] = Integer.parseInt(command.trim());
+		}
+		Arrays.sort(indexes);
+		return indexes;
+	}
+
+	private int[] parseIndexTwoSeparatedByComma(String command) throws IllegalValueException {
+		assert command != null;
+		command = command.trim();
+
+		String[] indexesString = command.split(",");
+		int[] indexes = new int[indexesString.length];
+		for (int i = 0; i < indexesString.length; i++) {
+			if (!StringUtil.isUnsignedInteger(indexesString[i].trim())) {
+				throw new IllegalValueException(MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
+			}
+			indexes[i] = Integer.parseInt(indexesString[i].trim());
+		}
+		return indexes;
+	}
+	
+    
+//@@author A0153440R
     private Command prepareEdit(String args){
     	final Matcher matcher = PERSON_DATA_ARGS_FORMAT_UPDATE.matcher(args.trim());
     	 if (!matcher.matches()) {
