@@ -156,10 +156,11 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override 
-    public synchronized void editTask(ReadOnlyTask target, String args, char category) throws TaskNotFoundException, IllegalValueException {
-        taskBook.changeTask(target, args, category);
+    public synchronized Task editTask(ReadOnlyTask target, String args, char category) throws TaskNotFoundException, IllegalValueException {
+        Task temp = taskBook.changeTask(target, args, category);
         updateFilteredListToShowAllUncompleted();
         indicateAddressBookChanged();
+        return temp;
     }
 
     @Override

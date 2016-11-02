@@ -1,9 +1,7 @@
 package seedu.address.model.task;
 
 import java.time.LocalDate;
-import java.util.Arrays;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
@@ -16,6 +14,7 @@ import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
+import seedu.address.model.tag.UniqueTagList.DuplicateTagException;
 
 /**
  * A list of tasks that enforces uniqueness between its elements and does not allow nulls.
@@ -38,7 +37,7 @@ public class UniqueTaskList implements Iterable<Task> {
     /**
      * Signals that an operation would have violated the 'no duplicates' property of the list.
      */
-    
+
     /**
      * Signals that an operation targeting a specified task in the list would fail because
      * there is no such matching task in the list.
@@ -59,22 +58,20 @@ public class UniqueTaskList implements Iterable<Task> {
     public boolean contains(ReadOnlyTask toCheck) {
         if(toCheck.getTaskCategory()==3){
             assert toCheck != null;
-            for(int i =0; i<internalList.size(); i++){
-                Task temp = internalList.get(i);
-                if(temp.getName().toString().compareTo(toCheck.getName().toString())==0){
-                    if(temp.getIsCompleted() == true){
-                        continue;
-                    }
-                    else 
-                        return true;
-                }
-            }
-
-            return false;
+            return findUncompletedDuplicate(toCheck);
         }
         else 
             assert toCheck != null;
         return internalList.contains(toCheck);
+    }
+    private boolean findUncompletedDuplicate(ReadOnlyTask toCheck) {
+        for(int i =0; i<internalList.size(); i++){
+            Task temp = internalList.get(i);
+            if(temp.getName().toString().compareTo(toCheck.getName().toString())==0){
+                return !temp.getIsCompleted();
+            }
+        }
+        return false;
     }
 
     /**
@@ -82,7 +79,7 @@ public class UniqueTaskList implements Iterable<Task> {
      *
      * @throws DuplicateTaskException if the task to add is a duplicate of an existing task in the list.
      */
-  //@@author A0139430L JingRui
+    //@@author A0139430L JingRui
     public void add(Task toAdd) throws DuplicateTaskException {
         assert toAdd != null;
         if (contains(toAdd)) {
@@ -119,8 +116,8 @@ public class UniqueTaskList implements Iterable<Task> {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof UniqueTaskList // instanceof handles nulls
-                && this.internalList.equals(
-                ((UniqueTaskList) other).internalList));
+                        && this.internalList.equals(
+                                ((UniqueTaskList) other).internalList));
     }
 
     @Override
@@ -129,128 +126,140 @@ public class UniqueTaskList implements Iterable<Task> {
     }
     //@@author A0138993L
     public int markOverdue(ReadOnlyTask key) {
-    	assert key != null;
-    	int overdueIndex = internalList.indexOf(key);
-    	Task overduedTask = internalList.get(overdueIndex);
-    	if (overduedTask.isOverdue(overduedTask.getDate(), overduedTask.getEnd()) == 1) {
-    		overduedTask.setOverdue(1);
-    		return overduedTask.getOverdue();
-    	}
-    	else if (overduedTask.isOverdue(overduedTask.getDate(), overduedTask.getEnd()) == 2) {
-    		overduedTask.setOverdue(2);
-    		return overduedTask.getOverdue();
-    	}
-    	else {
-    		overduedTask.setOverdue(0);
-    		return overduedTask.getOverdue();
-    	}
-    }
-    
-    //@@author A0138993L
-    public int getTaskIndex(ReadOnlyTask key) {
-    	assert key != null;
-    	return internalList.indexOf(key);
+        assert key != null;
+        int overdueIndex = internalList.indexOf(key);
+        Task overduedTask = internalList.get(overdueIndex);
+        if (overduedTask.isOverdue(overduedTask.getDate(), overduedTask.getEnd()) == 1) {
+            overduedTask.setOverdue(1);
+            return overduedTask.getOverdue();
+        }
+        else if (overduedTask.isOverdue(overduedTask.getDate(), overduedTask.getEnd()) == 2) {
+            overduedTask.setOverdue(2);
+            return overduedTask.getOverdue();
+        }
+        else {
+            overduedTask.setOverdue(0);
+            return overduedTask.getOverdue();
+        }
     }
 
-  //@@author A0139430L JingRui
-	public boolean edit(ReadOnlyTask key, String args) throws IllegalValueException {
+    //@@author A0138993L
+    public int getTaskIndex(ReadOnlyTask key) {
+        assert key != null;
+        return internalList.indexOf(key);
+    }
+
+    //@@author A0139430L JingRui
+    public Task edit(ReadOnlyTask key, String args) throws IllegalValueException {
         // TODO Auto-generated method stub
         String keyword = args.substring(0, args.indexOf(' '));
         args = args.substring(args.indexOf(' ') + 1);
-        
+
         int editIndex = internalList.indexOf(key);
         //System.out.println(key + " " + args);
         Task toEdit = new Task(internalList.get(editIndex));
         if (keyword.equals(EditCommand.DESCRIPTION_WORD)) {
-            toEdit.setName(new Name(args));
-            internalList.set(editIndex, toEdit);
-            return true;
+            return editDescription(args, editIndex, toEdit);
         } else if (keyword.equals(EditCommand.DATE_WORD)) {
-            if(args.compareTo("no date") == 0 & toEdit.getTaskCategory()!=3){ // change to Todo
-                toEdit.setDate(new Date("no date"));
-                toEdit.setStart(new Start("no start"));
-                toEdit.setEnd(new End("no end"));
-                toEdit.setTaskCategory(3);
-            }           
-            else if(toEdit.getTaskCategory()==3){//todo to deadline
-                toEdit.setDate(new Date(args));
-                toEdit.setEnd(new End("2359"));
-                toEdit.setTaskCategory(2);  
-            }
-            else
-                toEdit.setDate(new Date(args));          
-            internalList.set(editIndex, toEdit);
-            FXCollections.sort(internalList);
-            return true;
+            return editDate(args, editIndex, toEdit);
         } else if (keyword.equals(EditCommand.START_WORD)) {
-            if(args.compareTo("no start") == 0 & toEdit.getTaskCategory()==1){ //event to deadline
-                toEdit.setStart(new Start(args));
-                toEdit.setTaskCategory(2);
-            }
-            else if(toEdit.getTaskCategory()==2){   //deadline to event
-                toEdit.setStart(new Start(args));
-                toEdit.setTaskCategory(1);
-            }
-            else if(toEdit.getTaskCategory()==3){  //todo to Event              
-                toEdit.setDate(new Date(this.getCurrentDate()));
-                toEdit.setStart(new Start(args));
-                toEdit.setEnd(new End("2359"));
-                toEdit.setTaskCategory(1);
-            }
-            else
-                toEdit.setStart(new Start(args));
-            internalList.set(editIndex, toEdit);
-            FXCollections.sort(internalList);
-            return true;
+            return editStart(args, editIndex, toEdit);
         } else if (keyword.equals(EditCommand.END_WORD)) {
-            if(args.compareTo("no end") == 0 & toEdit.getTaskCategory()!=3){ //not todo default end time 2359
-                toEdit.setEnd(new End("2359"));
-            }
-            else if(toEdit.getTaskCategory()==3 & args.compareTo("no end") != 0){  //todo to Deadline
-                toEdit.setDate(new Date(this.getCurrentDate()));
-                toEdit.setStart(new Start("no start"));
-                toEdit.setEnd(new End(args));
-                toEdit.setTaskCategory(2);
-            }
-            else
-                toEdit.setEnd(new End(args));
-            internalList.set(editIndex, toEdit);
-            FXCollections.sort(internalList);
-            return true;
-
+            return editEnd(args, editIndex, toEdit);
         } else if (keyword.equals(EditCommand.TAG_WORD)) {
-            //internalList.get(editIndex).setTags(new UniqueTagList(new Tag(args)));
-            //Task toEdit = new Task(internalList.get(editIndex));
-
-            if (args.contains(">")){
-                String[] beforeAndAfter = args.replaceAll(" ","").split(">");              
-                toEdit.setTags(beforeAndAfter[0], beforeAndAfter[beforeAndAfter.length-1]);
-            }
-            else{
-                toEdit.setTags(new UniqueTagList(new Tag(args)));;
-            }
-
-            internalList.set(editIndex, toEdit);
-            return true;
-
+            return editTag(args, editIndex, toEdit);
         } else if (keyword.equals(EditCommand.ADD_WORD)) {            
-            String[] newTag = args.replaceAll(" ", "").replaceFirst("#", "").split("#");          
-            final Set<Tag> tagSet = new HashSet<>();
-            for (int i = 0; i < newTag.length; i++) {
-                tagSet.add(new Tag(newTag[i]));
-            }
-            UniqueTagList addTagList = new UniqueTagList(tagSet);            
-            toEdit.addTags(addTagList);          
-            internalList.set(editIndex, toEdit);
-            return true;
+            return addTag(args, editIndex, toEdit);
         }
-
         else {
-            return false;
+            return null;
         }
     }
-    
-	//@@author A0135722L Zhiyuan
+    private Task addTag(String args, int editIndex, Task toEdit) throws IllegalValueException {
+        String[] newTag = args.replaceAll(" ", "").replaceFirst("#", "").split("#");          
+        final Set<Tag> tagSet = new HashSet<>();
+        for (int i = 0; i < newTag.length; i++) {
+            tagSet.add(new Tag(newTag[i]));
+        }
+        UniqueTagList addTagList = new UniqueTagList(tagSet);            
+        toEdit.addTags(addTagList);          
+        internalList.set(editIndex, toEdit);
+        return toEdit;
+    }
+    private Task editTag(String args, int editIndex, Task toEdit) throws IllegalValueException, DuplicateTagException {
+        if (args.contains(">")){
+            String[] beforeAndAfter = args.replaceAll(" ","").split(">");              
+            toEdit.setTags(beforeAndAfter[0], beforeAndAfter[beforeAndAfter.length-1]);
+        }
+        else{
+            toEdit.setTags(new UniqueTagList(new Tag(args)));;
+        }
+
+        internalList.set(editIndex, toEdit);
+        return toEdit;
+    }
+    private Task editEnd(String args, int editIndex, Task toEdit) throws IllegalValueException {
+        if(args.compareTo("no end") == 0 & toEdit.getTaskCategory()!=3){ //not todo default end time 2359
+            toEdit.setEnd(new End("2359"));
+        }
+        else if(toEdit.getTaskCategory()==3 & args.compareTo("no end") != 0){  //todo to Deadline
+            toEdit.setDate(new Date(this.getCurrentDate()));
+            toEdit.setStart(new Start("no start"));
+            toEdit.setEnd(new End(args));
+            toEdit.setTaskCategory(2);
+        }
+        else
+            toEdit.setEnd(new End(args));
+        internalList.set(editIndex, toEdit);
+        FXCollections.sort(internalList);
+        return toEdit;
+    }
+    private Task editStart(String args, int editIndex, Task toEdit) throws IllegalValueException {
+        if(args.compareTo("no start") == 0 & toEdit.getTaskCategory()==1){ //event to deadline
+            toEdit.setStart(new Start(args));
+            toEdit.setTaskCategory(2);
+        }
+        else if(toEdit.getTaskCategory()==2){   //deadline to event
+            toEdit.setStart(new Start(args));
+            toEdit.setTaskCategory(1);
+        }
+        else if(toEdit.getTaskCategory()==3){  //todo to Event              
+            toEdit.setDate(new Date(this.getCurrentDate()));
+            toEdit.setStart(new Start(args));
+            toEdit.setEnd(new End("2359"));
+            toEdit.setTaskCategory(1);
+        }
+        else
+            toEdit.setStart(new Start(args));
+        internalList.set(editIndex, toEdit);
+        FXCollections.sort(internalList);
+        return toEdit;
+    }
+    private Task editDate(String args, int editIndex, Task toEdit) throws IllegalValueException {
+        if(args.compareTo("no date") == 0 & toEdit.getTaskCategory()!=3){ // change to Todo
+            toEdit.setDate(new Date("no date"));
+            toEdit.setStart(new Start("no start"));
+            toEdit.setEnd(new End("no end"));
+            toEdit.setTaskCategory(3);
+        }           
+        else if(toEdit.getTaskCategory()==3){//todo to deadline
+            toEdit.setDate(new Date(args));
+            toEdit.setEnd(new End("2359"));
+            toEdit.setTaskCategory(2);  
+        }
+        else
+            toEdit.setDate(new Date(args));          
+        internalList.set(editIndex, toEdit);
+        FXCollections.sort(internalList);
+        return toEdit;
+    }
+    private Task editDescription(String args, int editIndex, Task toEdit) throws IllegalValueException {
+        toEdit.setName(new Name(args));
+        internalList.set(editIndex, toEdit);
+        return toEdit;
+    }
+
+    //@@author A0135722L Zhiyuan
     public boolean completed(ReadOnlyTask target) {
         int completeIndex = internalList.lastIndexOf(target);
         Task toComplete = new Task(internalList.get(completeIndex));

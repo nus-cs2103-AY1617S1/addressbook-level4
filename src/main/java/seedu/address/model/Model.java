@@ -56,7 +56,7 @@ public interface Model {
     /** Edits the given task 
      * @throws IllegalValueException 
      * @throws TaskNotFoundException */
-    void editTask(ReadOnlyTask target, String args, char category) throws TaskNotFoundException, IllegalValueException;
+    Task editTask(ReadOnlyTask target, String args, char category) throws TaskNotFoundException, IllegalValueException;
     
     /**
      * Mark the given task as done
