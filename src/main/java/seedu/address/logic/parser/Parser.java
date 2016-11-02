@@ -118,6 +118,9 @@ public class Parser {
         	 
         case RevertCommand.COMMAND_WORD:
         	 return new RevertCommand();
+        	 
+        case ScrollCommand.COMMAND_WORD:
+        	return new ScrollCommand(arguments);
 
         default:
             return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
