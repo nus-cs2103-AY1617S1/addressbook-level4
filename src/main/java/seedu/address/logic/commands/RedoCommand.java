@@ -10,6 +10,11 @@ import seedu.address.model.SaveState;
 import seedu.address.model.TaskBook;
 
 //@@author A0147890U
+/**
+ * 
+ * @author Ronald
+ *Redo undone commands
+ */
 public class RedoCommand extends Command {
     private static final Logger logger = LogsCenter.getLogger(RedoCommand.class);
     public static final String COMMAND_WORD = "redo";
