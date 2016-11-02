@@ -10,7 +10,7 @@ We are a team of four 2nd Year Computer Engineering students based in the [Schoo
 
 * Project Lead
 * Components in charge of : Parsing and Storage <br>
-* Aspects/Tools un charge of: Github, Eclipse
+* Aspects/Tools in charge of: Github, Eclipse
 * Features Implemented:
    * [Add Command](https://github.com/CS2103AUG2016-T11-C2/main/blob/master/docs/UserGuide.md#adding-a-task-add)
    * [Adding a floating task](https://github.com/CS2103AUG2016-T11-C2/main/blob/master/docs/UserGuide.md#adding-a-floating-task)
