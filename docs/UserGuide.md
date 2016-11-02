@@ -55,7 +55,7 @@ Format: `INDEX TASK_PROPERTY, NEW_VALUE`
 > Edit the task at the specific `INDEX` and `TASK_PROPERTY`
      The index refers to the index number shown in the most recent listing.<br>
      The index **must be a positive integer** 1, 2, 3, …
-     `TASK_PROPERTY` can be "name", "start time", "end time", "deadline" and "tag
+     `TASK_PROPERTY` can be "name", "start time", "end time", "deadline" and "tag"
 
 Examples: 
 * `edit 2 start time, 08.00am` 
