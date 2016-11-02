@@ -2,6 +2,8 @@ package seedu.todo.model.property;
 
 import com.google.common.collect.ComparisonChain;
 import com.google.common.collect.Ordering;
+
+import seedu.todo.commons.util.TimeUtil;
 import seedu.todo.model.task.ImmutableTask;
 
 import java.util.Comparator;
@@ -9,6 +11,7 @@ import java.util.function.Predicate;
 
 //@@author A0092382A
 public class TaskViewFilter {
+    private static TimeUtil timeUtil = new TimeUtil();
     private static final Comparator<ImmutableTask> CHRONOLOGICAL = (a, b) -> ComparisonChain.start()
         .compare(a.getEndTime().orElse(null), b.getEndTime().orElse(null), Ordering.natural().nullsLast())
         .result();
@@ -34,6 +37,9 @@ public class TaskViewFilter {
     
     public static final TaskViewFilter COMPLETED = new TaskViewFilter("completed",
         ImmutableTask::isCompleted, LAST_UPDATED);
+    
+    public static final TaskViewFilter TODAY = new TaskViewFilter("today",
+            task -> timeUtil.isToday(task) , CHRONOLOGICAL);
 
     public final String name;
     
@@ -56,7 +62,7 @@ public class TaskViewFilter {
     
     public static TaskViewFilter[] all() {
         return new TaskViewFilter[]{
-            DEFAULT, COMPLETED, INCOMPLETE, EVENTS, DUE_SOON,
+            DEFAULT, COMPLETED, INCOMPLETE, EVENTS, DUE_SOON, TODAY
         };
     }
 

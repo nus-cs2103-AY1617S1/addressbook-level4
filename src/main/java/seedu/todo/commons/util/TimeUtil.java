@@ -1,6 +1,7 @@
 package seedu.todo.commons.util;
 
 import seedu.todo.commons.core.LogsCenter;
+import seedu.todo.model.task.ImmutableTask;
 
 import java.time.*;
 import java.time.format.DateTimeFormatter;
@@ -247,6 +248,16 @@ public class TimeUtil {
         }
         
         return LocalDateTime.now(clock).isAfter(startTime) && LocalDateTime.now(clock).isBefore(endTime);
+    }
+    
+    public boolean isToday(ImmutableTask task){
+        if (!task.getStartTime().isPresent() && !task.getEndTime().isPresent()){
+            return false;
+        }
+        LocalDateTime timeToCompareTo = task.getStartTime().isPresent() ?
+                                        task.getStartTime().get() : 
+                                        task.getEndTime().get();
+        return isToday(LocalDateTime.now(clock), timeToCompareTo);
     }
 
     //@@author A0135817B
