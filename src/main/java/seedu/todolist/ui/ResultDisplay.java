@@ -5,6 +5,7 @@ import javafx.beans.property.StringProperty;
 import javafx.scene.Node;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Region;
 import javafx.stage.Stage;
 import seedu.todolist.commons.util.FxViewUtil;
 
@@ -60,6 +61,22 @@ public class ResultDisplay extends UiPart {
 
     public void postMessage(String message) {
         displayed.setValue(message);
+    }
+    
+    /**
+     * Sets the result display style to indicate a correct command.
+     */
+    public void setStyleToIndicateCorrectCommand() {
+        resultDisplayArea.getStyleClass().remove("error");
+        resultDisplayArea.lookup(".content").getStyleClass().remove("error");
+    }
+    
+    /**
+     * Sets the result display style to indicate an incorrect command.
+     */
+    public void setStyleToIndicateIncorrectCommand() {
+        resultDisplayArea.getStyleClass().add("error");
+        resultDisplayArea.lookup(".content").getStyleClass().add("error");
     }
 
 }
