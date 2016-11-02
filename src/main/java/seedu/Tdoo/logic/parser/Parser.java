@@ -326,42 +326,6 @@ public class Parser {
         return Optional.of(Integer.parseInt(index));
 
     }
-
-    /**
-     * Returns the specified dataType in the {@code command} Returns an
-     * {@code Optional.empty()} otherwise.
-     */
-    //@@author A0139923X
-    private Optional<String> parseDataType(String command) {
-        final Matcher matcher = task_DELETE_ARGS_FORMAT.matcher(command.trim());
-        if (!matcher.matches()) {
-            return Optional.empty();
-        }
-
-        String dataType = matcher.group("dataType");
-        if (!StringUtil.isUnsignedString(dataType)) {
-            return Optional.empty();
-        }
-        return Optional.of(dataType);
-    }
-
-    /**
-     * Parses arguments in the context of the find task command.
-     *
-     * @param args
-     *            full command args string
-     * @return the prepared command
-     */
-    //@@author A0139923X
-    private Command prepareFind(String args) {
-        String[] keywordArr = args.trim().split(" ",2);
-        if(keywordArr[0].equals("todo") || keywordArr[0].equals("event") || keywordArr[0].equals("deadline") 
-                || keywordArr[0].equals("all")){  
-           return new FindCommand(keywordArr[1], keywordArr[0]);  
-        }else{
-           return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
-        }
-    }
     
     //@@author A0139923X
     private Command prepareEdit(String args) {
@@ -450,6 +414,42 @@ public class Parser {
                 Integer.parseInt(matcher_Deadline.group("targetIndex")),
                 dataType.get().trim());
       
+    }
+    
+    /**
+     * Returns the specified dataType in the {@code command} Returns an
+     * {@code Optional.empty()} otherwise.
+     */
+    //@@author A0139923X
+    private Optional<String> parseDataType(String command) {
+        final Matcher matcher = task_DELETE_ARGS_FORMAT.matcher(command.trim());
+        if (!matcher.matches()) {
+            return Optional.empty();
+        }
+
+        String dataType = matcher.group("dataType");
+        if (!StringUtil.isUnsignedString(dataType)) {
+            return Optional.empty();
+        }
+        return Optional.of(dataType);
+    }
+
+    /**
+     * Parses arguments in the context of the find task command.
+     *
+     * @param args
+     *            full command args string
+     * @return the prepared command
+     */
+    //@@author A0139923X
+    private Command prepareFind(String args) {
+        String[] keywordArr = args.trim().split(" ",2);
+        if(keywordArr[0].equals("todo") || keywordArr[0].equals("event") || keywordArr[0].equals("deadline") 
+                || keywordArr[0].equals("all")){  
+           return new FindCommand(keywordArr[1], keywordArr[0]);  
+        }else{
+           return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
+        }
     }
     
     /*
