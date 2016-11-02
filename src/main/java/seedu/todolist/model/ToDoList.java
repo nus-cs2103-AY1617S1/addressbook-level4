@@ -94,9 +94,22 @@ public class ToDoList implements ReadOnlyToDoList {
     public boolean editTask(ReadOnlyTask key, Task replacement) throws UniqueTaskList.TaskNotFoundException {
         if (tasks.edit(key, replacement)) {
             return true;
-        } else {
+        } 
+        else {
             throw new UniqueTaskList.TaskNotFoundException();
         }
+    }
+    
+    /**
+     * Sets notification for a task in the to-do list
+     */
+    public boolean notifyTask(ReadOnlyTask key, int bufferTime) throws UniqueTaskList.TaskNotFoundException {
+    	if(tasks.setNotification(key, bufferTime)) {
+    		return true;
+    	}
+    	else {
+    		throw new UniqueTaskList.TaskNotFoundException();
+    	}
     }
     //@author
     

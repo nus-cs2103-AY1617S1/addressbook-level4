@@ -31,6 +31,9 @@ public interface Model {
     /** Adds the given task */
     void addTask(Task task) throws UniqueTaskList.DuplicateTaskException;
     
+    /** Sets notification for the given task */
+    void notifyTask(ReadOnlyTask task, int bufferTime) throws UniqueTaskList.TaskNotFoundException;
+    
     /** Edits the given task */
     void editTask(ReadOnlyTask task, Task replacement) throws UniqueTaskList.TaskNotFoundException;
 

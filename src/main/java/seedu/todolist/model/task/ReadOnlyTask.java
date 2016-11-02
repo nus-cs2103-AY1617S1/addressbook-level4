@@ -11,6 +11,7 @@ public interface ReadOnlyTask extends Comparable<ReadOnlyTask> {
     Location getLocation();  
     Remarks getRemarks();
     Status getStatus();
+    Notification getNotification();
 
     /**
      * Returns true if both have the same state. (interfaces cannot override .equals)

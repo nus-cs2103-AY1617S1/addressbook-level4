@@ -103,6 +103,19 @@ public class UniqueTaskList implements Iterable<Task> {
     
     //@@author A0146682X
     /**
+     * Sets notification for the equivalent task in the list.
+     */
+    public boolean setNotification(ReadOnlyTask toNotify, int bufferTime) throws TaskNotFoundException {
+        assert toNotify != null;
+        final boolean taskFound = (internalList.indexOf(toNotify) != -1);
+        internalList.get(internalList.indexOf(toNotify)).setNotification(bufferTime);
+        if (!taskFound) {
+            throw new TaskNotFoundException();
+        }
+        return taskFound;
+    }
+    
+    /**
      * Edits the equivalent task in the list.
      *
      * @throws TaskNotFoundException if no such task could be found in the list.

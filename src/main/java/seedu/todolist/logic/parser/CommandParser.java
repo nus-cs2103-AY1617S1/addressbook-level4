@@ -83,6 +83,9 @@ public class CommandParser {
 
 		case EditCommand.COMMAND_WORD:
 			return prepareEdit(arguments);
+			
+		case NotifyCommand.COMMAND_WORD:
+			return prepareNotify(arguments);
 
 		case DoneCommand.COMMAND_WORD:
 			return prepareDone(arguments);
@@ -243,6 +246,35 @@ public class CommandParser {
 	}
 
 	//@@author A0146682X
+	/**
+	 * Parses arguments in the context of the notify task command.
+	 */
+	private Command prepareNotify(String args) {
+		Scanner scanner = new Scanner(args);
+		
+		int index;
+		
+		if (scanner.hasNextInt()) {
+			index = scanner.nextInt();
+		}
+		
+		else return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, NotifyCommand.MESSAGE_USAGE));
+		
+		int bufferTime;
+		
+		if (scanner.hasNextInt()) {
+			bufferTime = scanner.nextInt();
+		}
+		
+		else return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, NotifyCommand.MESSAGE_USAGE));
+		
+		scanner.close();
+		
+		return new NotifyCommand(index, bufferTime);
+
+	}
+	
+	
 	/**
 	 * Parses arguments in the context of the edit task command.
 	 *

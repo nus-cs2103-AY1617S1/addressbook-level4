@@ -13,6 +13,7 @@ public class Task implements ReadOnlyTask {
     private Location location;
     private Remarks remarks;
     private Status status;
+    private Notification notification;
 
     /**
      * Only Name field must be present and not null. Other fields can be null.
@@ -56,6 +57,15 @@ public class Task implements ReadOnlyTask {
     @Override
     public Status getStatus() {
         return status;
+    }
+    
+    @Override
+    public Notification getNotification() {
+    	return notification;
+    }
+    
+    public void setNotification(int bufferTime) {
+    	this.notification = new Notification(bufferTime);
     }
 
     @Override
