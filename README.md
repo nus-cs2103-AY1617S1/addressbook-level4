@@ -24,7 +24,7 @@
 #### Acknowledgements
 
 * The application is based on a desktop address book application available on Github <br>
-  [Original source of the base code: https://github.com/se-edu/]
+  [Original source of the base code: https://github.com/se-edu/addressbook-level4]
 
 
 #### Licence : [MIT](LICENSE)
