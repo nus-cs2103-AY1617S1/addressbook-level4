@@ -158,9 +158,9 @@ public class Task implements ReadOnlyTask {
      */
 	
 	//@@Gauri Joshi A0143095H
-    public Task(ReadOnlyTask source) {
-        this(source.getName(), source.getTaskDescription(), source.getDate(), source.getStartTime(), source.getEndTime(), source.getTags());
-    }
+//    public Task(ReadOnlyTask source) {
+//        this(source.getName(), source.getTaskDescription(), source.getDate(), source.getStartTime(), source.getEndTime(), source.getTags());
+//    }
 
 	@Override
     public Name getName() {
@@ -239,9 +239,6 @@ public class Task implements ReadOnlyTask {
         this.done = done;
     }
     
-    public boolean done(){
-    	return false;
-    }
     
     @Override
     public boolean equals(Object other) {
