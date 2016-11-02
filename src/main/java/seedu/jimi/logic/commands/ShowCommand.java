@@ -6,6 +6,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 
+import seedu.jimi.commons.exceptions.IllegalValueException;
 import seedu.jimi.model.FilteredListManager.ListId;
 import seedu.jimi.model.ModelManager;
 import seedu.jimi.model.datetime.DateTime;
@@ -38,10 +39,14 @@ public class ShowCommand extends Command {
     
     public static final String MESSAGE_USAGE = 
             COMMAND_WORD + ": Shows certain sections of the task panel or all tasks and events in the agenda panel. \n"
-            + "Parameters: NAME_OF_SECTION_TO_DISPLAY\n" 
-            + "Example: " + COMMAND_WORD + " floating tasks\n"
-            + "> Valid case-insensitive keywords: All, Overdue, Floating, Complete, Incomplete, Today, Tomorrow, {day of week displayed}";
-
+            + "Parameters: SECTION_TO_SHOW\n" 
+            + "Example: " + COMMAND_WORD + " floating\n"
+            + "Valid case-insensitive sections to show: \n"
+            + "> all, overdue, floating, complete, incomplete, today, tomorrow, {day of week displayed}";
+    public static final String MESSAGE_INVALID_SECTION =
+            "Invalid section to show!\n" 
+            + "Valid case-insensitive sections to show: \n"
+            + "> all, overdue, floating, complete, incomplete, today, tomorrow, {day of week displayed}";
     public static final String MESSAGE_SUCCESS = "Displayed tasks and events.";
     
     private final String userSelection; //section name from user input
@@ -50,7 +55,10 @@ public class ShowCommand extends Command {
         this.userSelection = null;
     }
     
-    public ShowCommand(String args) {
+    public ShowCommand(String args) throws IllegalValueException {
+        if (!isValidSectionToShow(args)) {
+            throw new IllegalValueException(MESSAGE_INVALID_SECTION);
+        }
         this.userSelection = args.toLowerCase().trim();
     }
     
@@ -132,7 +140,6 @@ public class ShowCommand extends Command {
         }
         return false;
     }
-    // @@author
     
     @Override
     public String getMessageUsage() {
@@ -143,4 +150,13 @@ public class ShowCommand extends Command {
     public String getCommandWord() {
         return COMMAND_WORD;
     }
+    
+    /** Checks if {@code test} is a valid keyword as shown in {@code VALID_KEYWORDS}. */
+    private boolean isValidSectionToShow(String test) {
+        return ShowCommand.VALID_KEYWORDS.stream()
+                .filter(w -> w.toLowerCase().equals(test.toLowerCase()))
+                .findAny()
+                .isPresent();
+    }
+    // @@author
 }

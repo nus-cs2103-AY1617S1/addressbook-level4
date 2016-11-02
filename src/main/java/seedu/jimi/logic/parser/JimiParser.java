@@ -378,17 +378,9 @@ public class JimiParser {
      */
     private Command prepareShow(String args) {
         final Matcher matcher = SHOW_COMMAND_ARGS_FORMAT.matcher(args.trim());
-        boolean keywordFound = false;
+
         
-        //goes through list of keywords to check if user input is valid
-        for (String validKey : ShowCommand.VALID_KEYWORDS) {
-            if (validKey.toLowerCase().equals(args.toLowerCase())) {
-                keywordFound = true;
-                break;
-            }
-        }
-        
-        if (!keywordFound || !matcher.matches()) {
+        if (!matcher.matches()) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     ShowCommand.MESSAGE_USAGE));
         }
@@ -396,7 +388,11 @@ public class JimiParser {
         // keywords delimited by whitespace
         final String sectionToShow = matcher.group("sectionToShow");
         
-        return new ShowCommand(sectionToShow.toLowerCase().trim());
+        try {
+            return new ShowCommand(sectionToShow.toLowerCase().trim());
+        } catch (IllegalValueException ive) {
+            return new IncorrectCommand(ive.getMessage());
+        }
     }
 
     
