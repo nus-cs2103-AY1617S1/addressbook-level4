@@ -129,7 +129,6 @@ public class LogicManagerTest {
     private void assertCommandBehavior(String inputCommand, String expectedMessage,
                                        ReadOnlyTaskBook expectedTaskBook,
                                        List<? extends ReadOnlyTask> expectedShownList) throws Exception {
-
         //Execute the command
         CommandResult result = logic.execute(inputCommand);
 
@@ -486,7 +485,6 @@ public class LogicManagerTest {
 
     @Test
     public void execute_delete_removesCorrectPerson() throws Exception {
-        
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
         FloatingTask index0 = helper.generateFloatingTaskWithName("first");
@@ -494,16 +492,15 @@ public class LogicManagerTest {
         FloatingTask index2 = helper.generateFloatingTaskWithName("third");
         
         List<FloatingTask> threeFloatingTasks = helper.generateFloatingTaskList(index0, index1, index2);
-        TaskBook expectedAB = helper.generateFloatingTaskBook(threeFloatingTasks);
         List<FloatingTask> twoFloatingTasks = helper.generateFloatingTaskList(index0, index2);
+        TaskBook expectedTB = helper.generateFloatingTaskBook(twoFloatingTasks);
+
         helper.addToModel(model, threeFloatingTasks);
         
-        // execute command and verify result
-        expectedAB.removeTask(threeFloatingTasks.get(1));
-        
+        // execute command and verify result     
         assertCommandBehavior("delete t2",
                 String.format(DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS, threeFloatingTasks.get(1)),
-                expectedAB,
+                expectedTB,
                 twoFloatingTasks);
     }
 
