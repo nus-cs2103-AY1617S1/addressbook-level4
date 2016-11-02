@@ -10,6 +10,7 @@ import seedu.address.commons.util.DateUtil;
 public abstract class DateTime {
     public Calendar value;
     protected static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("EEE, MMM d, yyyy h:mm a");
+    protected static final SimpleDateFormat RECUR_FORMAT = new SimpleDateFormat("EEE, h:mm a");
     protected static final SimpleDateFormat SAVE_DATE_FORMAT = new SimpleDateFormat("d-MM-yyyy h:mm a");
     protected static final DateUtil DATE_PARSER = new DateUtil();
     public boolean recurring;
@@ -60,6 +61,13 @@ public abstract class DateTime {
         }
     }
 
+    public String toRecur() {
+        if (this.value == null) {
+            return "";
+        } else {
+            return RECUR_FORMAT.format(value.getTime());
+        }
+    }
 
     public String toSave() {
         if (this.value == null) {

@@ -128,16 +128,7 @@ public class Activity implements ReadOnlyActivity {
 
     @Override
     public String toStringCompletionStatus() {
-        String message = "";
-        if (reminder.recurring) {
-            message = "Recurring\t " + forMessage(this.reminder.RecurringMessage);
-        }
-        if (isCompleted && reminder.recurring) {
-            message = "Completed - Recurring\t " + forMessage(this.reminder.RecurringMessage);
-            if (reminder.value.before(Calendar.getInstance()))
-                recurringActivity();
-        }
-        return message;
+        return "";
     }
 
     public String forMessage(String input) {

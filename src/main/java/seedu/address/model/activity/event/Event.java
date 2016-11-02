@@ -80,25 +80,10 @@ public class Event extends Activity implements ReadOnlyEvent {
             message = "Event Over";
         } else if (this.isOngoing()) {
             message = "Event Ongoing";
-        } else if (this.isOver() && this.startTime.recurring) {            
-            recurringEvent();
-            message = forMessage (this.startTime.RecurringMessage);
-        } else if (!this.isOver() && this.startTime.recurring) {
-            message = forMessage (this.startTime.RecurringMessage);
-        }
-        if (this.reminder.recurring){
-            message = message.concat("\t Remind " + forMessage (this.reminder.RecurringMessage));
-        }
+        } 
+        if(this.startTime.recurring || this.reminder.recurring)
+        recurringEvent();
         return message;
-    }
-    
-    public String forMessage(String input){
-        if(input!=null){
-        String[] recurfre = input.split(" ");
-        String cap = recurfre[0].substring(0, 1).toUpperCase() + recurfre[0].substring(1);
-        String capfreq = recurfre[1].substring(0, 1).toUpperCase() + recurfre[1].substring(1);
-        return cap + " " + capfreq;}
-        return "";
     }
 
     @Override

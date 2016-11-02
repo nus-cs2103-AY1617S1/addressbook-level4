@@ -90,7 +90,10 @@ public class Reminder extends DateTime {
         if (this.value == null) {
             return "Reminder:\t-";
         } else {
+            if(!recurring)
             return "Reminder:\t".concat(this.toString());
+            else 
+                return "Reminder:\t\t".concat("Every " + this.toRecur());
         }
     }
 }
