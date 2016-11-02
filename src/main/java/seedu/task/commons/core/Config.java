@@ -1,5 +1,6 @@
 package seedu.task.commons.core;
 
+import java.util.HashMap;
 import java.util.Objects;
 import java.util.logging.Level;
 
@@ -8,6 +9,7 @@ import java.util.logging.Level;
  */
 public class Config {
 
+	private static Config instance = null;
     public static final String DEFAULT_CONFIG_FILE = "config.json";
 
     // Config values customizable through config file
@@ -16,10 +18,21 @@ public class Config {
     private String userPrefsFilePath = "preferences.json";
     private String taskManagerFilePath = "data/taskmanager.xml";
     private String taskManagerName = "MyTaskManager";
-
+	private HashMap<String, String> customCommands = new HashMap<String, String>();
 
     public Config() {
     }
+    
+	public static Config getInstance() {
+		if (instance == null) {
+			instance = new Config();
+		}
+		return instance;
+	}
+	
+	public static void setInstance(Config instance) {
+		Config.instance = instance; 
+	}
 
     public String getAppTitle() {
         return appTitle;
@@ -60,8 +73,24 @@ public class Config {
     public void setTaskManagerName(String taskManagerName) {
         this.taskManagerName = taskManagerName;
     }
-
-
+    
+	public void setCustomCommandFormat(String commandWord, String userCommand)
+			throws DublicatedValueCustomCommandsException {
+		for (String key : customCommands.keySet()) {
+			if (customCommands.get(key).equals(userCommand) && !key.equals(commandWord))
+				throw new DublicatedValueCustomCommandsException("This custom command already exists for:"+key);
+		}
+		customCommands.put(commandWord, userCommand);
+	}
+	
+	public String getCommandbyCustomValue(String userCommand){
+		for (String key : customCommands.keySet()) {
+			if (customCommands.get(key).equals(userCommand))
+				return key;
+		}
+		return "";
+	}
+	
     @Override
     public boolean equals(Object other) {
         if (other == this){
@@ -96,4 +125,10 @@ public class Config {
         return sb.toString();
     }
 
+	@SuppressWarnings("serial")
+	public class DublicatedValueCustomCommandsException extends Exception {
+		public DublicatedValueCustomCommandsException(String message) {
+			super(message);
+		}
+	}
 }

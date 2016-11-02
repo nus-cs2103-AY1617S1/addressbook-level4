@@ -8,6 +8,7 @@ import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -15,14 +16,14 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.util.Date;
 
-
+import seedu.task.commons.core.Config;
 import seedu.task.commons.exceptions.IllegalValueException;
 import seedu.task.commons.util.StringUtil;
 import seedu.task.logic.commands.AddCommand;
 import seedu.task.logic.commands.ClearCommand;
 import seedu.task.logic.commands.Command;
+import seedu.task.logic.commands.CustomizeCommand;
 import seedu.task.logic.commands.DeleteCommand;
 import seedu.task.logic.commands.DoneCommand;
 import seedu.task.logic.commands.EditCommand;
@@ -64,6 +65,7 @@ public class Parser {
     public static final Prefix intervalPrefix = new Prefix(" i/", true);
     public static final Prefix timeIntervalPrefix = new Prefix(" ti/", true);
     public static final Prefix tagArgumentsPrefix = new Prefix(" t/");
+	public static final Prefix formatCustomCommandPrefix = new Prefix(" f/");
     //@@author 
     
     //@@author A0153751H
@@ -99,7 +101,7 @@ public class Parser {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
         }
 
-        final String commandWord = matcher.group("commandWord");
+        final String commandWord = getCommandWord(matcher);
         final String arguments = matcher.group("arguments");
         switch (commandWord) {
 
@@ -138,11 +140,24 @@ public class Parser {
 
         case UndoCommand.COMMAND_WORD:
             return new UndoCommand();
+          
+		case CustomizeCommand.COMMAND_WORD:
+			return prepareCustomize(arguments);
             
         default:
             return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
         }
     }
+    
+	private String getCommandWord(Matcher matcher) {
+		String command = matcher.group("commandWord");
+		if (Command.getAllCommands().contains(command))
+			return command;
+		else {
+			command = Config.getInstance().getCommandbyCustomValue(command);
+			return command;
+		}
+	}
     
     /**
      * Parses arguments in the context of the add task command.
@@ -214,6 +229,19 @@ public class Parser {
 			return new IncorrectCommand(nvfrt.getMessage());
 		}
     }
+    
+	private Command prepareCustomize(String args) throws ParseException {
+		ArgumentTokenizer argsTokenizer = new ArgumentTokenizer(formatCustomCommandPrefix);
+		argsTokenizer.tokenize(args);
+		try {
+			return new CustomizeCommand(argsTokenizer.getPreamble(), argsTokenizer.getValue(formatCustomCommandPrefix));
+		} catch (NoSuchElementException nsee) {
+			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, CustomizeCommand.MESSAGE_USAGE));
+		} catch (NoValueForRequiredTagException nvfrt) {
+			return new IncorrectCommand(nvfrt.getMessage());
+		}
+	}
+	
     //@@author A0139932X
     public boolean checkDateFormate(String dateToValidate) {
         if (!DueDate.isValidDateTime(dateToValidate) && !DueDate.isValidDate(dateToValidate)) {
