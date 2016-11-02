@@ -96,6 +96,7 @@ public abstract class UiPart {
         return twelveHourClock;
     } 
     
+    //@@author
     /**
      * Override this method to receive the main Node generated while loading the view from the .fxml file.
      * @param node

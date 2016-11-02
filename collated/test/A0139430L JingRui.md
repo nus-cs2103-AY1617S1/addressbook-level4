@@ -28,14 +28,14 @@
         Task toBeAdded = helper.beta();
         TaskBook expectedAB = new TaskBook();
         expectedAB.addTask(toBeAdded);
-        
+
         assertCommandBehavior(helper.generateAddDeadlineCommand(toBeAdded),
                 String.format(AddCommand.DEADLINE_SUCCESS, toBeAdded),
                 expectedAB,
                 expectedAB.getEventList(),
                 expectedAB.getDeadlineList(),
                 expectedAB.getTodoList());
-        
+
     }
 ```
 ###### \java\seedu\address\logic\LogicManagerTest.java
@@ -46,17 +46,29 @@
         TestDataHelper helper = new TestDataHelper();
         Task toBeAdded = helper.charlie();
         TaskBook expectedAB = helper.generateAddressBook(1, 1, 1);
+        TaskBook undolist = new TaskBook(expectedAB);
         helper.addToModel(model, 1, 1, 1);
         expectedAB.addTask(toBeAdded);
-        
+
         assertCommandBehavior(helper.generateAddTodoCommand(toBeAdded),
                 String.format(AddCommand.TODO_SUCCESS, toBeAdded),
                 expectedAB,
                 expectedAB.getEventList(),
                 expectedAB.getDeadlineList(),
                 expectedAB.getTodoList());
+        
+        assertCommandBehavior("undo 1", UndoCommand.MESSAGE_UNDO_TASK_SUCCESS,
+                undolist,
+                undolist.getEventList(),
+                undolist.getDeadlineList(),
+                undolist.getTodoList());
+        assertCommandBehavior("redo 1", RedoCommand.MESSAGE_REDO_TASK_SUCCESS,
+                expectedAB,
+                expectedAB.getEventList(),
+                expectedAB.getDeadlineList(),
+                expectedAB.getTodoList());
+    }   
 
-    }
 ```
 ###### \java\seedu\address\logic\LogicManagerTest.java
 ``` java
@@ -126,7 +138,12 @@
                 Collections.emptyList(),
                 expectedAB.getTodoList());
     }
-
+    
+    @Test
+    public void execute_invalidListFormat() throws Exception {
+        assertCommandBehavior("list asdasd",
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, ListCommand.MESSAGE_USAGE));
+    }
 
 ```
 ###### \java\seedu\address\logic\LogicManagerTest.java
@@ -149,22 +166,6 @@
                 expectedDeadlineList,
                 expectedTodoList);
     }
-    
-    //@Test error
-    public void execute_one_undo() throws Exception {
-    	TestDataHelper helper = new TestDataHelper();
-    	TaskBook expectedAB = helper.generateAddressBook(1, 0, 1);
-    	Task toBeAdded = helper.generateDeadline(1);
-    	helper.addToModel(model, 1, 0, 1);
-    	expectedAB.addTask(toBeAdded);
-    	
-    	assertCommandBehavior("undo 1", UndoCommand.MESSAGE_UNDO_TASK_SUCCESS,
-    			expectedAB,
-    			expectedAB.getEventList(),
-    			expectedAB.getDeadlineList(),
-    			expectedAB.getTodoList());
-    }
-
 ```
 ###### \java\seedu\address\logic\LogicManagerTest.java
 ``` java
@@ -186,13 +187,13 @@
     @Test
     public void execute_delete_removesCorrectEvent() throws Exception {
         TestDataHelper helper = new TestDataHelper();
-        List<Task> threePersons = helper.generatePersonList(3);
+        List<Task> threePersons = helper.generateEventsList(3);
         List<Task> threeDeadlines = helper.generateDeadlineList(3);
         List<Task> threeTodos = helper.generateTodoList(3);
-        
+
         TaskBook expectedAB = helper.generateAddressBook(threePersons, threeDeadlines, threeTodos);
         expectedAB.removeTask(threePersons.get(1));
-        
+
         helper.addToModel(model, threePersons, threeDeadlines, threeTodos);
 
         assertCommandBehavior("delete E2",
@@ -208,13 +209,13 @@
     @Test
     public void execute_delete_removesCorrectDeadline() throws Exception {
         TestDataHelper helper = new TestDataHelper();
-        List<Task> threePersons = helper.generatePersonList(3);
+        List<Task> threePersons = helper.generateEventsList(3);
         List<Task> threeDeadlines = helper.generateDeadlineList(3);
         List<Task> threeTodos = helper.generateTodoList(3);
-        
+
         TaskBook expectedAB = helper.generateAddressBook(threePersons, threeDeadlines, threeTodos);
         expectedAB.removeTask(threeDeadlines.get(1));
-        
+
         helper.addToModel(model, threePersons, threeDeadlines, threeTodos);
 
         assertCommandBehavior("delete D2",
@@ -230,13 +231,13 @@
     @Test
     public void execute_delete_removesCorrectTodo() throws Exception {
         TestDataHelper helper = new TestDataHelper();
-        List<Task> threePersons = helper.generatePersonList(3);
+        List<Task> threePersons = helper.generateEventsList(3);
         List<Task> threeDeadlines = helper.generateDeadlineList(3);
         List<Task> threeTodos = helper.generateTodoList(3);
-        
+
         TaskBook expectedAB = helper.generateAddressBook(threePersons, threeDeadlines, threeTodos);
         expectedAB.removeTask(threeTodos.get(1));
-        
+
         helper.addToModel(model, threePersons, threeDeadlines, threeTodos);
 
         assertCommandBehavior("delete T2",
@@ -252,10 +253,10 @@
     @Test
     public void execute_delete_removesCorrectPersonsEventMultiple() throws Exception {
         TestDataHelper helper = new TestDataHelper();
-        List<Task> threePersons = helper.generatePersonList(3);
+        List<Task> threePersons = helper.generateEventsList(3);
         List<Task> threeDeadlines = helper.generateDeadlineList(3);
         List<Task> threeTodos = helper.generateTodoList(3);
-        
+
         TaskBook expectedAB = helper.generateAddressBook(threePersons, threeDeadlines, threeTodos);
         expectedAB.removeTask(threePersons.get(0));
         expectedAB.removeTask(threePersons.get(1));
@@ -275,10 +276,10 @@
     @Test
     public void execute_delete_removesCorrectEventRange() throws Exception {
         TestDataHelper helper = new TestDataHelper();
-        List<Task> threePersons = helper.generatePersonList(3);
+        List<Task> threePersons = helper.generateEventsList(3);
         List<Task> threeDeadlines = helper.generateDeadlineList(3);
         List<Task> threeTodos = helper.generateTodoList(3);
-        
+
         TaskBook expectedAB = helper.generateAddressBook(threePersons, threeDeadlines, threeTodos);
         expectedAB.removeTask(threePersons.get(0));
         expectedAB.removeTask(threePersons.get(1));
@@ -298,10 +299,10 @@
     @Test
     public void execute_delete_removesCorrectDeadlineRange() throws Exception {
         TestDataHelper helper = new TestDataHelper();
-        List<Task> threePersons = helper.generatePersonList(3);
+        List<Task> threePersons = helper.generateEventsList(3);
         List<Task> threeDeadlines = helper.generateDeadlineList(3);
         List<Task> threeTodos = helper.generateTodoList(3);
-        
+
         TaskBook expectedAB = helper.generateAddressBook(threePersons, threeDeadlines, threeTodos);
         expectedAB.removeTask(threeDeadlines.get(0));
         expectedAB.removeTask(threeDeadlines.get(1));
@@ -321,10 +322,10 @@
     @Test
     public void execute_delete_removesCorrectDeadlineMultiple() throws Exception {
         TestDataHelper helper = new TestDataHelper();
-        List<Task> threePersons = helper.generatePersonList(3);
+        List<Task> threePersons = helper.generateEventsList(3);
         List<Task> threeDeadlines = helper.generateDeadlineList(3);
         List<Task> threeTodos = helper.generateTodoList(3);
-        
+
         TaskBook expectedAB = helper.generateAddressBook(threePersons, threeDeadlines, threeTodos);
         expectedAB.removeTask(threeDeadlines.get(0));
         expectedAB.removeTask(threeDeadlines.get(1));
@@ -344,10 +345,10 @@
     @Test
     public void execute_delete_removesCorrectTodoRange() throws Exception {
         TestDataHelper helper = new TestDataHelper();
-        List<Task> threePersons = helper.generatePersonList(3);
+        List<Task> threePersons = helper.generateEventsList(3);
         List<Task> threeDeadlines = helper.generateDeadlineList(3);
         List<Task> threeTodos = helper.generateTodoList(3);
-        
+
         TaskBook expectedAB = helper.generateAddressBook(threePersons, threeDeadlines, threeTodos);
         expectedAB.removeTask(threeTodos.get(0));
         expectedAB.removeTask(threeTodos.get(1));
@@ -367,10 +368,10 @@
     @Test
     public void execute_delete_removesCorrectTodoMultiple() throws Exception {
         TestDataHelper helper = new TestDataHelper();
-        List<Task> threePersons = helper.generatePersonList(3);
+        List<Task> threePersons = helper.generateEventsList(3);
         List<Task> threeDeadlines = helper.generateDeadlineList(3);
         List<Task> threeTodos = helper.generateTodoList(3);
-        
+
         TaskBook expectedAB = helper.generateAddressBook(threePersons, threeDeadlines, threeTodos);
         expectedAB.removeTask(threeTodos.get(0));
         expectedAB.removeTask(threeTodos.get(1));
@@ -403,14 +404,14 @@
         assertIndexNotFoundBehaviorForCommand("edit E5 end 2359");
         assertIndexNotFoundBehaviorForCommand("edit E5 tag love");
         assertIndexNotFoundBehaviorForCommand("edit E5 tag love>this");
-        
+
         assertIndexNotFoundBehaviorForCommand("edit D5 des sadas");
         assertIndexNotFoundBehaviorForCommand("edit D5 date 121222");
         assertIndexNotFoundBehaviorForCommand("edit D5 start 1234");
         assertIndexNotFoundBehaviorForCommand("edit D5 end 2359");
         assertIndexNotFoundBehaviorForCommand("edit D5 tag love");
         assertIndexNotFoundBehaviorForCommand("edit D5 tag love>this");
-        
+
         assertIndexNotFoundBehaviorForCommand("edit T5 des sadas");
         assertIndexNotFoundBehaviorForCommand("edit T5 date 121222");
         assertIndexNotFoundBehaviorForCommand("edit T5 start 1234");
@@ -424,13 +425,13 @@
     @Test
     public void execute_edit_editCorrectEventName() throws Exception {      
         TestDataHelper helper = new TestDataHelper();
-        List<Task> threePersons = helper.generatePersonList(3);
+        List<Task> threePersons = helper.generateEventsList(3);
         List<Task> threeDeadlines = helper.generateDeadlineList(3);
         List<Task> threeTodos = helper.generateTodoList(3);
-        
+
         TaskBook expectedAB = helper.generateAddressBook(threePersons, threeDeadlines, threeTodos);
         helper.addToModel(model, threePersons, threeDeadlines, threeTodos);
-        
+
         UnmodifiableObservableList<ReadOnlyTask> lastShownEventList = model.getFilteredEventList();
         ReadOnlyTask eventToEdit = lastShownEventList.get(1-1);
         expectedAB.changeTask(eventToEdit, "des BEACH parTy" , 'E');
@@ -448,13 +449,13 @@
     @Test
     public void execute_edit_editCorrectEventDate() throws Exception {      
         TestDataHelper helper = new TestDataHelper();
-        List<Task> threePersons = helper.generatePersonList(3);
+        List<Task> threePersons = helper.generateEventsList(3);
         List<Task> threeDeadlines = helper.generateDeadlineList(3);
         List<Task> threeTodos = helper.generateTodoList(3);
-        
+
         TaskBook expectedAB = helper.generateAddressBook(threePersons, threeDeadlines, threeTodos);
         helper.addToModel(model, threePersons, threeDeadlines, threeTodos);
-        
+
         UnmodifiableObservableList<ReadOnlyTask> lastShownEventList = model.getFilteredEventList();
         ReadOnlyTask eventToEdit = lastShownEventList.get(1-1);
         expectedAB.changeTask(eventToEdit, "date 12-12-17" , 'E');
@@ -466,25 +467,26 @@
                 expectedAB.getDeadlineList(),
                 expectedAB.getTodoList());
     }
+  
 ```
 ###### \java\seedu\address\logic\LogicManagerTest.java
 ``` java
     @Test
     public void execute_edit_editCorrectEventStart() throws Exception {      
         TestDataHelper helper = new TestDataHelper();
-        List<Task> threePersons = helper.generatePersonList(3);
+        List<Task> threePersons = helper.generateEventsList(3);
         List<Task> threeDeadlines = helper.generateDeadlineList(3);
         List<Task> threeTodos = helper.generateTodoList(3);
-        
+
         TaskBook expectedAB = helper.generateAddressBook(threePersons, threeDeadlines, threeTodos);
         helper.addToModel(model, threePersons, threeDeadlines, threeTodos);
-        
+
         UnmodifiableObservableList<ReadOnlyTask> lastShownEventList = model.getFilteredEventList();
         ReadOnlyTask eventToEdit = lastShownEventList.get(1-1);
-        expectedAB.changeTask(eventToEdit, "start 5.00pm" , 'E');
+        expectedAB.changeTask(eventToEdit, "start 1.00am" , 'E');
 
-        assertCommandBehavior("edit E1 start 5.00pm",
-                String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, "E", "1", "start 5.00pm"),
+        assertCommandBehavior("edit E1 start 1.00am",
+                String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, "E", "1", "start 1.00am"),
                 expectedAB,
                 expectedAB.getEventList(),
                 expectedAB.getDeadlineList(),
@@ -496,13 +498,13 @@
     @Test
     public void execute_edit_editCorrectEventEnd() throws Exception {      
         TestDataHelper helper = new TestDataHelper();
-        List<Task> threePersons = helper.generatePersonList(3);
+        List<Task> threePersons = helper.generateEventsList(3);
         List<Task> threeDeadlines = helper.generateDeadlineList(3);
         List<Task> threeTodos = helper.generateTodoList(3);
-        
+
         TaskBook expectedAB = helper.generateAddressBook(threePersons, threeDeadlines, threeTodos);
         helper.addToModel(model, threePersons, threeDeadlines, threeTodos);
-        
+
         UnmodifiableObservableList<ReadOnlyTask> lastShownEventList = model.getFilteredEventList();
         ReadOnlyTask eventToEdit = lastShownEventList.get(1-1);
         expectedAB.changeTask(eventToEdit, "end 5.00pm" , 'E');
@@ -520,13 +522,13 @@
     @Test
     public void execute_edit_editCorrectEventSpecificTag() throws Exception {      
         TestDataHelper helper = new TestDataHelper();
-        List<Task> threePersons = helper.generatePersonList(3);
+        List<Task> threePersons = helper.generateEventsList(3);
         List<Task> threeDeadlines = helper.generateDeadlineList(3);
         List<Task> threeTodos = helper.generateTodoList(3);
-        
+
         TaskBook expectedAB = helper.generateAddressBook(threePersons, threeDeadlines, threeTodos);
         helper.addToModel(model, threePersons, threeDeadlines, threeTodos);
-        
+
         UnmodifiableObservableList<ReadOnlyTask> lastShownEventList = model.getFilteredEventList();
         ReadOnlyTask eventToEdit = lastShownEventList.get(1-1);
         expectedAB.changeTask(eventToEdit, "tag tag1>anything" , 'E');
@@ -544,13 +546,13 @@
     @Test
     public void execute_edit_editCorrectEventTag() throws Exception {      
         TestDataHelper helper = new TestDataHelper();
-        List<Task> threePersons = helper.generatePersonList(3);
+        List<Task> threePersons = helper.generateEventsList(3);
         List<Task> threeDeadlines = helper.generateDeadlineList(3);
         List<Task> threeTodos = helper.generateTodoList(3);
-        
+
         TaskBook expectedAB = helper.generateAddressBook(threePersons, threeDeadlines, threeTodos);
         helper.addToModel(model, threePersons, threeDeadlines, threeTodos);
-        
+
         UnmodifiableObservableList<ReadOnlyTask> lastShownEventList = model.getFilteredEventList();
         ReadOnlyTask eventToEdit = lastShownEventList.get(1-1);
         expectedAB.changeTask(eventToEdit, "tag anything" , 'E');
@@ -566,15 +568,35 @@
 ###### \java\seedu\address\logic\LogicManagerTest.java
 ``` java
     @Test
-    public void execute_edit_addTagSingle() throws Exception {      
+    public void execute_add_invalidTagFormat() throws Exception {
         TestDataHelper helper = new TestDataHelper();
-        List<Task> threePersons = helper.generatePersonList(3);
+        List<Task> threePersons = helper.generateEventsList(3);
         List<Task> threeDeadlines = helper.generateDeadlineList(3);
         List<Task> threeTodos = helper.generateTodoList(3);
-        
+
         TaskBook expectedAB = helper.generateAddressBook(threePersons, threeDeadlines, threeTodos);
         helper.addToModel(model, threePersons, threeDeadlines, threeTodos);
-        
+
+        assertCommandBehavior("add T1 #.", Tag.MESSAGE_TAG_CONSTRAINTS,
+                expectedAB,
+                expectedAB.getEventList(),
+                expectedAB.getDeadlineList(),
+                expectedAB.getTodoList());
+    }
+
+```
+###### \java\seedu\address\logic\LogicManagerTest.java
+``` java
+    @Test
+    public void execute_edit_addTagSingle() throws Exception {      
+        TestDataHelper helper = new TestDataHelper();
+        List<Task> threePersons = helper.generateEventsList(3);
+        List<Task> threeDeadlines = helper.generateDeadlineList(3);
+        List<Task> threeTodos = helper.generateTodoList(3);
+
+        TaskBook expectedAB = helper.generateAddressBook(threePersons, threeDeadlines, threeTodos);
+        helper.addToModel(model, threePersons, threeDeadlines, threeTodos);
+
         UnmodifiableObservableList<ReadOnlyTask> lastShownEventList = model.getFilteredEventList();
         ReadOnlyTask eventToEdit = lastShownEventList.get(1-1);
         expectedAB.changeTask(eventToEdit, "add anything" , 'E');
@@ -592,13 +614,13 @@
     @Test
     public void execute_edit_addTagMultiple() throws Exception {      
         TestDataHelper helper = new TestDataHelper();
-        List<Task> threePersons = helper.generatePersonList(3);
+        List<Task> threePersons = helper.generateEventsList(3);
         List<Task> threeDeadlines = helper.generateDeadlineList(3);
         List<Task> threeTodos = helper.generateTodoList(3);
-        
+
         TaskBook expectedAB = helper.generateAddressBook(threePersons, threeDeadlines, threeTodos);
         helper.addToModel(model, threePersons, threeDeadlines, threeTodos);
-        
+
         UnmodifiableObservableList<ReadOnlyTask> lastShownEventList = model.getFilteredEventList();
         ReadOnlyTask eventToEdit = lastShownEventList.get(1-1);
         expectedAB.changeTask(eventToEdit, "add anything something" , 'E');
@@ -616,13 +638,13 @@
     @Test
     public void execute_edit_editCorrectDeadlineName() throws Exception {      
         TestDataHelper helper = new TestDataHelper();
-        List<Task> threePersons = helper.generatePersonList(3);
+        List<Task> threePersons = helper.generateEventsList(3);
         List<Task> threeDeadlines = helper.generateDeadlineList(3);
         List<Task> threeTodos = helper.generateTodoList(3);
-        
+
         TaskBook expectedAB = helper.generateAddressBook(threePersons, threeDeadlines, threeTodos);
         helper.addToModel(model, threePersons, threeDeadlines, threeTodos);
-        
+
         UnmodifiableObservableList<ReadOnlyTask> lastShownEventList = model.getFilteredDeadlineList();
         ReadOnlyTask eventToEdit = lastShownEventList.get(1-1);
         expectedAB.changeTask(eventToEdit, "des BEACH parTy" , 'D');
@@ -640,13 +662,13 @@
     @Test
     public void execute_edit_editCorrectTodoName() throws Exception {      
         TestDataHelper helper = new TestDataHelper();
-        List<Task> threePersons = helper.generatePersonList(3);
+        List<Task> threePersons = helper.generateEventsList(3);
         List<Task> threeDeadlines = helper.generateDeadlineList(3);
         List<Task> threeTodos = helper.generateTodoList(3);
-        
+
         TaskBook expectedAB = helper.generateAddressBook(threePersons, threeDeadlines, threeTodos);
         helper.addToModel(model, threePersons, threeDeadlines, threeTodos);
-        
+
         UnmodifiableObservableList<ReadOnlyTask> lastShownEventList = model.getFilteredTodoList();
         ReadOnlyTask eventToEdit = lastShownEventList.get(1-1);
         expectedAB.changeTask(eventToEdit, "des BEACH parTy" , 'T');
