@@ -58,6 +58,14 @@ public class Tokenizer {
     public static Map<String, String[]> tokenize(Map<String, String[]> tokenDefinitions, String inputCommand)
             throws UnmatchedQuotesException {
         
+        if (inputCommand.length() == 0) {
+            return null;
+        }
+        
+        if (StringUtils.countMatches(inputCommand, QUOTE) % 2 == 1) {
+            throw new UnmatchedQuotesException(MESSAGE_UNMATCHED_QUOTES);
+        }
+        
         // Generate token -> tokenType mapping and list of tokens
         List<String> tokens = new ArrayList<String>();
         HashMap<String, String> getTokenType = new HashMap<String, String>();
@@ -69,16 +77,7 @@ public class Tokenizer {
             }
         }
 
-        if (inputCommand.length() == 0) {
-            return null;
-        }
-
         // Split inputCommand into arraylist of chunks
-
-        if (StringUtils.countMatches(inputCommand, QUOTE) % 2 == 1) {
-            throw new UnmatchedQuotesException(MESSAGE_UNMATCHED_QUOTES);
-        }
-
         // --- Split by quotes
         String[] splitString = inputCommand.split(QUOTE);
 
