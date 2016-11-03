@@ -21,13 +21,12 @@ public class OverdueListPanel extends ListPanel {
 	/**
 	 * Panel containing the list of persons.
 	 */
-	private final Logger logger = LogsCenter.getLogger(ActivityListPanel.class);
-	private static final String FXML = "PersonListPanel.fxml";
-	private VBox panel;
-	private AnchorPane placeHolderPane;
+	private final Logger logger = LogsCenter.getLogger(OverdueListPanel.class);
+	private static final String FXML = "OverdueListPanel.fxml";
+
 
 	@FXML
-	private ListView<ReadOnlyActivity> personListView;
+	private ListView<ReadOnlyActivity> activityListView;
 
 	public OverdueListPanel() {
 	        super();
