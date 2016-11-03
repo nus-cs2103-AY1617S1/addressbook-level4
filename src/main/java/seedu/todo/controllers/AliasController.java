@@ -29,6 +29,9 @@ public class AliasController implements Controller {
     private static final String MESSAGE_INVALID_INPUT = "Invalid alias parameters! Alias inputs must consist solely "
                                                       + "of alphabetical characters.";
     private static final String SAVE_ERROR = "There was an error saving your aliases. Please try again.";
+    private static final String ALIAS_TEMPLATE = "alias %s %s";
+    private static final String ALIAS_VALUE_FIELD = "<alias value>";
+    private static final String ALIAS_KEY_FIELD = "<alias key>";
     
     private static CommandDefinition commandDefinition =
             new CommandDefinition(NAME, DESCRIPTION, COMMAND_SYNTAX); 
@@ -122,10 +125,10 @@ public class AliasController implements Controller {
     
     private static void renderDisambiguation(String aliasKey, String aliasValue, String message) {
         String sanitizedAliasKey = StringUtil.sanitize(aliasKey);
-        sanitizedAliasKey = StringUtil.replaceEmpty(sanitizedAliasKey, "<alias key>");
+        sanitizedAliasKey = StringUtil.replaceEmpty(sanitizedAliasKey, ALIAS_KEY_FIELD);
         String sanitizedAliasValue = StringUtil.sanitize(aliasValue);
-        sanitizedAliasValue = StringUtil.replaceEmpty(sanitizedAliasValue, "<alias value>");
-        Renderer.renderDisambiguation(String.format("alias %s %s",
+        sanitizedAliasValue = StringUtil.replaceEmpty(sanitizedAliasValue, ALIAS_VALUE_FIELD);
+        Renderer.renderDisambiguation(String.format(ALIAS_TEMPLATE,
                 sanitizedAliasKey, sanitizedAliasValue), message);
     }
 
