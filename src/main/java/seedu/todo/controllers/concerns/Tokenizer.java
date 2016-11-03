@@ -121,12 +121,24 @@ public class Tokenizer {
             String token = tokenizedSplitString.get(tokenIndex.getValue()).string;
             String tokenField = null;
             // Should just EAFP instead of LBYL, but oh well.
-            if (tokenIndex.getValue() + 1 < tokenizedSplitString.size() && !tokenizedSplitString.get(tokenIndex.getValue() + 1).isToken) {
+            if (tokenIndexPresent(tokenIndex, tokenizedSplitString)) {
                 tokenField = tokenizedSplitString.get(tokenIndex.getValue() + 1).string;
             }
             parsedResult.put(tokenType, new String[] { token, tokenField });
         }
         return parsedResult;
+    }
+    
+    /**
+     * Checks if an identified tokenIndex contains any data immediately after the token.
+     * 
+     * @param tokenIndex
+     * @param tokenizedSplitString
+     * @return true if data is present, false otherwise
+     */
+    private static boolean tokenIndexPresent(Map.Entry<String, Integer> tokenIndex, List<TokenizedString> tokenizedSplitString) {
+        return tokenIndex.getValue() + 1 < tokenizedSplitString.size()
+                && !tokenizedSplitString.get(tokenIndex.getValue() + 1).isToken;
     }
 
     /**
