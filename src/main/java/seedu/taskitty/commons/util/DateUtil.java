@@ -11,6 +11,7 @@ import java.util.Date;
 
 import seedu.taskitty.model.task.Task;
 import seedu.taskitty.model.task.TaskDate;
+import seedu.taskitty.model.task.TaskTime;
 
 //@@author A0139930B-unused
 //Code was written before switching over to using Natty
@@ -160,12 +161,26 @@ public class DateUtil {
         }
         return fullMonthName;
     }
+    
+    public static String formatDateTimeForUI(TaskDate date, TaskTime time) {
+        return TaskDate.DATE_FORMATTER_UI.format(date.getDate()) + ", "
+                + TaskTime.TIME_FORMATTER_UI.format(time.getTime());
+    }
+    
+    public static String formatDateForUI(TaskDate date) {
+        return TaskDate.DATE_FORMATTER_UI.format(date.getDate());
+    }
+    
+    public static String formatTimeForUI(TaskTime time) {
+        return TaskTime.TIME_FORMATTER_UI.format(time.getTime());
+    }
+    
     //@@author A0130853L
     public static LocalDate createCurrentDate() {
 		DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
     	Date dateobj = new Date();
     	String date = df.format(dateobj);
-    	return LocalDate.parse(date, TaskDate.DATE_FORMATTER);
+    	return LocalDate.parse(date, TaskDate.DATE_FORMATTER_STORAGE);
 	}  
     
     public static String createDefaultDateString() {

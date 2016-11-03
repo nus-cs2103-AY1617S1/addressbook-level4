@@ -23,16 +23,16 @@ public class MainWindow extends UiPart {
     private static final String ICON = "/images/Tasks-icon.png";
     private static final String FXML = "MainWindow.fxml";
     private static final String VIEW_TODAY = "view";
-    public static final int MIN_HEIGHT = 600;
-    public static final int MIN_WIDTH = 450;
+    public static final int MIN_HEIGHT = 650;
+    public static final int MIN_WIDTH = 750;
 
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
 
-    private TodoListPanel taskListPanel;
-    private DeadlineListPanel deadlineListPanel;
-    private EventListPanel eventListPanel;
+    private TaskListPanel taskListPanel;
+    private TaskListPanel deadlineListPanel;
+    private TaskListPanel eventListPanel;
     private ResultDisplay resultDisplay;
     private static StatusBarFooter statusBarFooter;
     private CommandBox commandBox;
@@ -146,9 +146,9 @@ public class MainWindow extends UiPart {
     //@@author A0130853L
     public void fillInnerParts() {
 
-        taskListPanel = TaskListPanel.load(primaryStage, getTaskListPlaceholder(), logic.getFilteredTaskList(), new TodoListPanel());
-        deadlineListPanel = TaskListPanel.load(primaryStage, getDeadlineListPlaceholder(), logic.getFilteredDeadlineList(), new DeadlineListPanel());
-        eventListPanel = TaskListPanel.load(primaryStage, getEventListPlaceholder(), logic.getFilteredEventList(), new EventListPanel());
+        taskListPanel = TaskListPanel.load(primaryStage, getTaskListPlaceholder(), logic.getFilteredTaskList(), new TaskListPanel());
+        deadlineListPanel = TaskListPanel.load(primaryStage, getDeadlineListPlaceholder(), logic.getFilteredDeadlineList(), new TaskListPanel());
+        eventListPanel = TaskListPanel.load(primaryStage, getEventListPlaceholder(), logic.getFilteredEventList(), new TaskListPanel());
         resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
         statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getTaskManagerFilePath());
         commandBox = CommandBox.load(primaryStage, getCommandBoxPlaceholder(), resultDisplay, logic);

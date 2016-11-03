@@ -63,7 +63,7 @@ public class ViewCommand extends Command {
     	        viewType = ViewType.all;
     	        break;
     	    default: // view tasks based on date
-    	        this.date = LocalDate.parse(parameter, TaskDate.DATE_FORMATTER);
+    	        this.date = LocalDate.parse(parameter, TaskDate.DATE_FORMATTER_STORAGE);
     	        viewType = ViewType.date;
         }
     }
