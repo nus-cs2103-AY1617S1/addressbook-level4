@@ -39,6 +39,7 @@ import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.commands.ViewCommand;
 import seedu.address.logic.util.DateFormatterUtil;
 import seedu.address.model.task.RecurringType;
+import seedu.address.model.task.Task;
 import seedu.address.model.task.TaskDate;
 
 /**
@@ -278,13 +279,13 @@ public class Parser {
     private int extractRecurringTaskPeriod(String args) {
         final Matcher matcher = RECURRING_TASK_PERIOD_DATA_ARGS_FORMAT.matcher(args.trim());
         if (!matcher.find()) {
-            return 0;
+            return Task.NO_RECURRING_PERIOD;
         }
         try {
             final int period = DateParser.getInstance().extractRecurringPeriod(matcher.group("period"));
             return period - RECURRING_PERIOD_OFFSET;
         } catch (NumberFormatException nfe) {
-            return 0;
+            return Task.NO_RECURRING_PERIOD;
         }
     }
 
