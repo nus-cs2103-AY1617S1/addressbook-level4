@@ -1,5 +1,8 @@
 package seedu.cmdo.ui;
 
+import java.util.Comparator;
+import java.util.logging.Logger;
+
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -13,8 +16,6 @@ import javafx.stage.Stage;
 import seedu.cmdo.commons.core.LogsCenter;
 import seedu.cmdo.commons.events.ui.TaskPanelSelectionChangedEvent;
 import seedu.cmdo.model.task.ReadOnlyTask;
-
-import java.util.logging.Logger;
 
 /**
  * Panel containing the list of tasks.
@@ -60,10 +61,23 @@ public class TaskListPanel extends UiPart {
         addToPlaceholder();
     }
 
+    //@@author A0139661Y
     private void setConnections(ObservableList<ReadOnlyTask> taskList) {
-        taskListView.setItems(taskList);
+    	taskListView.setItems(taskList.sorted(getStartDueByDateAndTimeComparator()));
         taskListView.setCellFactory(listView -> new TaskListViewCell());
         setEventHandlerForSelectionChangeEvent();
+    }
+    
+    //@@author A0139661Y
+    private Comparator<ReadOnlyTask> getStartDueByDateAndTimeComparator() {
+    	Comparator<ReadOnlyTask> comparator = new Comparator<ReadOnlyTask>(){
+    	    @Override
+    	    public int compare(final ReadOnlyTask t1, final ReadOnlyTask t2){
+    	        // let your comparator look up your car's color in the custom order
+    	        return t1.getStartLdt().compareTo(t2.getStartLdt());
+    	    }
+    	};
+    	return comparator;
     }
 
     private void addToPlaceholder() {

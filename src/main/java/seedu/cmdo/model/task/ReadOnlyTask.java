@@ -1,5 +1,7 @@
 package seedu.cmdo.model.task;
 
+import java.time.LocalDateTime;
+
 import seedu.cmdo.model.tag.UniqueTagList;
 
 /**
@@ -15,6 +17,7 @@ public interface ReadOnlyTask extends Cloneable {
     Priority getPriority();
 	boolean getBlock();
 	boolean isRange();
+	LocalDateTime getStartLdt();
 
     /**
      * The returned TagList is a deep copy of the internal TagList,
@@ -36,26 +39,6 @@ public interface ReadOnlyTask extends Cloneable {
                 && other.getPriority().value.equals(this.getPriority().value)
                 && other.getBlock() == (this.getBlock()));
     }
-
-//    /**
-//     * Formats the task as text, showing all contact details.
-//     */
-//    default String getAsText() {
-//        final StringBuilder builder = new StringBuilder();
-//        builder.append(getDetail())
-//                .append(" due on ")
-//                .append(getDueByDate())
-//                .append(" due at: ")
-//                .append(getDueByTime())
-//                .append(" with ")
-//                .append(getPriority())
-//                .append(" priority.")
-//                .append(" Tags applied: ")
-//        		.append(" Done? ")
-//        		.append(checkDone().value ? "yes" : "no");
-//        getTags().forEach(builder::append);
-//        return builder.toString();
-//    }
 
   /**
    * Formats the task as text, showing all details.

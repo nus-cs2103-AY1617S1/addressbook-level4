@@ -1,6 +1,7 @@
 package seedu.cmdo.model.task;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -23,6 +24,7 @@ public class Task implements ReadOnlyTask {
     private Boolean block = false;
     // ObjectID assign each Task instance a distinct ID
     private String objectID = null;
+    private LocalDateTime startLdt;
 
     /**
      * Every field must be present and not null.
@@ -35,6 +37,7 @@ public class Task implements ReadOnlyTask {
         this.dueByTime = dueByTime;
         this.priority = priority;
         this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
+        this.startLdt = LocalDateTime.of(dueByDate.start, dueByTime.start);
     }
     
     /**
@@ -54,6 +57,7 @@ public class Task implements ReadOnlyTask {
         this.priority = priority;
         this.block = block;
         this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
+        this.startLdt = LocalDateTime.of(dueByDate.start, dueByTime.start);
     }
     
     /**
@@ -126,6 +130,11 @@ public class Task implements ReadOnlyTask {
     
     public void updateObjectID() {
         objectID = UUID.randomUUID().toString();
+    }
+    
+    @Override
+    public LocalDateTime getStartLdt() {
+    	return startLdt;
     }
 
     /**
