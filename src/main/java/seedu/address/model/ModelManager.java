@@ -298,20 +298,6 @@ public class ModelManager extends ComponentManager implements Model {
         filteredTasks.setPredicate(predicates);
     }
 
-    private void updateFilteredTaskListOrOperation(ArrayList<Expression> expression) {
-        Predicate<? super Task> predicate;
-        if (expression.size() == 0) {
-            filteredTasks.setPredicate(null);
-        } else {
-            Predicate<Task> predicates = task -> expression.get(0).satisfies(task);
-            for (Expression e : expression) {
-                predicate = task -> e.satisfies(task);
-                predicates = predicates.or(predicate);
-            }
-            filteredTasks.setPredicate(predicates);
-        }
-    }
-
     @Subscribe
     @Override
     public void handleFilterPanelChangedEvent(FilterPanelChangedEvent abce) {
@@ -444,39 +430,59 @@ public class ModelManager extends ComponentManager implements Model {
         }
 
         @Override
-        public String toString(){
+        public String toString() {
             return "done=" + isDone;
         }
     }
 
-    //@@author A0146123R
+    // @@author A0146123R
     private class DateQualifier implements Qualifier {
+        private final String TIME_SEPERATOR = "-";
+        private final int NUM_OF_PARTS_DAY = 1;
+        private final int DAY = 0;
+
         private String dateValue;
         private String dateType;
+        private boolean isEvent;
+        private boolean isDay;
 
         DateQualifier(String dateValue, String dateType) {
             assert dateValue != null;
             this.dateValue = dateValue.trim();
             this.dateType = dateType;
+            this.isEvent = dateType.equals(DEADLINE) ? false : true;
+            this.isDay = isDay(this.dateValue);
         }
 
         @Override
         public boolean run(ReadOnlyTask task) {
-            switch (dateType) {
-            case START_DATE:
-                return task.isEvent() && ((EventDate) task.getDate()).getStartDate().equals(dateValue);
-            case END_DATE:
-                return task.isEvent() && ((EventDate) task.getDate()).getEndDate().equals(dateValue);
-            case DEADLINE:
-                return task.getDate().getValue().equals(dateValue);
-            default:
-                return false;
+            if (task.isEvent() == isEvent) {
+                switch (dateType) {
+                case START_DATE:
+                    return isDay ? getDay(((EventDate) task.getDate()).getStartDate()).equals(dateValue)
+                            : ((EventDate) task.getDate()).getStartDate().equals(dateValue);
+                case END_DATE:
+                    return isDay ? getDay(((EventDate) task.getDate()).getEndDate()).equals(dateValue)
+                            : ((EventDate) task.getDate()).getEndDate().equals(dateValue);
+                case DEADLINE:
+                    return isDay ? getDay(task.getDate().getValue()).equals(dateValue)
+                            : task.getDate().getValue().equals(dateValue);
+                }
             }
+            return false;
         }
 
         @Override
         public String toString() {
-            return "date type=" + dateType +  " date=" + dateValue;
+            return "date type=" + dateType + " date=" + dateValue;
+        }
+
+        private boolean isDay(String date) {
+            return date.split(TIME_SEPERATOR).length == NUM_OF_PARTS_DAY;
+        }
+
+        private String getDay(String date) {
+            return date.split(TIME_SEPERATOR)[DAY];
         }
     }
 
