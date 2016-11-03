@@ -160,7 +160,7 @@ public class StringUtil {
         StringBuilder sb = new StringBuilder(src);
         for (int i = 0; i <= src.length(); i++) {
             for (Character c : ALPHABET) {
-                dictionary.add(sb.insert(i, c.toString()).toString()); // Inserting character c
+                dictionary.add(sb.insert(i, c.toString()).toString()); // Inserting character c at idx i.
                 sb.deleteCharAt(i); // Deleting after adding to dictionary.
             }
         }
