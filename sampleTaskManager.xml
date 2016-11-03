@@ -5,61 +5,73 @@
         <deadline>03-Nov-2016 09:00 PM</deadline>
         <endTime>03-Nov-2016 10:00 PM</endTime>
         <address>no location</address>
+        <status>incomplete</status>
     </tasks>
     <tasks>
         <description>Task B</description>
         <deadline>no deadline</deadline>
         <address>no location</address>
+        <status>complete</status>
     </tasks>
     <tasks>
         <description>Task C</description>
         <deadline>04-Nov-2016 09:00 PM</deadline>
         <address>bishan </address>
+        <status>incomplete</status>
     </tasks>
     <tasks>
         <description>tchoukball</description>
         <deadline>04-Nov-2016 09:00 PM</deadline>
         <address>MPSH </address>
+        <status>incomplete</status>
     </tasks>
     <tasks>
         <description>Task D</description>
         <deadline>no deadline</deadline>
         <address>no location</address>
+        <status>incomplete</status>
     </tasks>
     <tasks>
         <description>Task E</description>
         <deadline>no deadline</deadline>
         <address>no location</address>
+        <status>complete</status>
     </tasks>
     <tasks>
         <description>finish writing program</description>
         <deadline>no deadline</deadline>
         <address>no location</address>
+        <status>incomplete</status>
     </tasks>
     <tasks>
         <description>write essay</description>
         <deadline>05-Nov-2016 11:59 PM</deadline>
         <address>no location</address>
+        <status>complete</status>
     </tasks>
     <tasks>
         <description>do yoga</description>
         <deadline>04-Nov-2016 09:00 AM</deadline>
         <address>no location</address>
+        <status>incomplete</status>
     </tasks>
     <tasks>
         <description>netball</description>
         <deadline>03-Nov-2016 07:00 PM</deadline>
         <address>mpsh </address>
+        <status>incomplete</status>
     </tasks>
     <tasks>
         <description>write progress report for boss</description>
         <deadline>03-Nov-2016 09:00 PM</deadline>
         <address>no location</address>
+        <status>complete</status>
     </tasks>
     <tasks>
         <description>birthday party</description>
         <deadline>05-Nov-2016 06:00 PM</deadline>
         <endTime>05-Nov-2016 12:00 PM</endTime>
         <address>NUS</address>
+        <status>incomplete</status>
     </tasks>
 </taskmanager>

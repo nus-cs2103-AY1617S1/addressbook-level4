@@ -103,12 +103,16 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public synchronized void deleteTask(ReadOnlyTask target) throws TaskNotFoundException {
-        taskManager.removeTask(target);
+    	TaskManager previousToDoList = new TaskManager(this.taskManager);
+        taskManagerHistory.push(previousToDoList);
+    	taskManager.removeTask(target);
         indicateTaskManagerChanged();
     }
     
     @Override
     public synchronized void updateTask(ReadOnlyTask target, Task updatedTask) throws TaskNotFoundException {
+    	TaskManager previousToDoList = new TaskManager(this.taskManager);
+        taskManagerHistory.push(previousToDoList);
     	taskManager.updateTask(target, updatedTask);
     	updateFilteredListToShowAll();
     	indicateTaskManagerChanged();
@@ -116,7 +120,9 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public synchronized void addTask(Task task) throws UniqueTaskList.DuplicateTaskException {
-        taskManager.addTask(task);
+    	TaskManager previousToDoList = new TaskManager(this.taskManager);
+        taskManagerHistory.push(previousToDoList);
+    	taskManager.addTask(task);
         updateFilteredListToShowAll();
         indicateTaskManagerChanged();
     }
@@ -124,8 +130,8 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public synchronized void completeTask(ReadOnlyTask target) throws TaskNotFoundException {
     	TaskManager previousToDoList = new TaskManager(this.taskManager);
-        taskManager.completeTask(target);
         taskManagerHistory.push(previousToDoList);
+        taskManager.completeTask(target);
         indicateTaskManagerChanged();
     }
 
@@ -135,7 +141,8 @@ public class ModelManager extends ComponentManager implements Model {
     public UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList() {
         return new UnmodifiableObservableList<>(filteredTasks);
     }
-    
+  //@@author a0153617e
+
     @Override
     public UnmodifiableObservableList<ReadOnlyTask> getFilteredCompleteTaskList() {
         return new UnmodifiableObservableList<>(filteredCompleteTasks);
@@ -145,6 +152,7 @@ public class ModelManager extends ComponentManager implements Model {
     public UnmodifiableObservableList<ReadOnlyTask> getFilteredIncompleteTaskList() {
         return new UnmodifiableObservableList<>(filteredIncompleteTasks);
     }
+  
 
     @Override
     public void updateFilteredListToShowAll() {
@@ -163,7 +171,7 @@ public class ModelManager extends ComponentManager implements Model {
         filteredCompleteTasks.setPredicate(expression::satisfies);
         filteredIncompleteTasks.setPredicate(expression::satisfies);
     }
-
+  //@@author
     //========== Inner classes/interfaces used for filtering ==================================================
 
     interface Expression {

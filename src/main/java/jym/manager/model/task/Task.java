@@ -44,9 +44,6 @@ public class Task extends TaskManagerItem implements ReadOnlyTask {
     }
     
     
-    
-    
-    
 	public Task(Description description, Object ... objects) throws IllegalValueException{
 		assert !CollectionUtil.isAnyNull(description, objects);
 		this.descr = description;

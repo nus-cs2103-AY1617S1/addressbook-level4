@@ -19,6 +19,7 @@ import java.util.logging.Logger;
 /**
  * Panel containing the list of completed tasks.
  */
+//@@author a0153617e
 public class CompleteTaskListPanel extends UiPart {
     private final Logger logger = LogsCenter.getLogger(CompleteTaskListPanel.class);
     private static final String FXML = "CompleteTaskListPanel.fxml";
