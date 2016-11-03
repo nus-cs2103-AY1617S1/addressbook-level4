@@ -6,6 +6,7 @@ import org.junit.Test;
 
 import seedu.address.testutil.TestActivity;
 
+//@@author A0125097A
 public class ListCommandTest extends AddressBookGuiTest  {
 
     @Test

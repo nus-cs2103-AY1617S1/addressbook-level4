@@ -9,6 +9,7 @@ import org.junit.Test;
 import seedu.address.model.activity.Reminder;
 import seedu.address.testutil.*;
 
+//@@author A0125097A
 public class EditCommandTest extends AddressBookGuiTest {
 
     @Test
