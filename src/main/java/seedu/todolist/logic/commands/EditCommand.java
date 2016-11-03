@@ -75,7 +75,7 @@ public class EditCommand extends Command {
 
 		name = name.trim();
 		
-		if(name==null) {
+		if(name==null||name.isEmpty()) {
 			name = taskToEdit.getName().toString();
 		}
 
