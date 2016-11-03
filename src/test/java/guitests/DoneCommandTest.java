@@ -6,6 +6,7 @@ import static seedu.cmdo.logic.commands.DoneCommand.MESSAGE_DONE_TASK_SUCCESS;
 import org.junit.Test;
 
 import seedu.cmdo.testutil.TestTask;
+import seedu.cmdo.testutil.TestTaskArraySorter;
 import seedu.cmdo.testutil.TestUtil;
 
 /*
@@ -69,7 +70,7 @@ public class DoneCommandTest extends ToDoListGuiTest {
         TestTask[] expectedRemainder = updateList(targetIndexOneIndexed, currentList);
 
         //confirm the list now contains all previous tasks except the done task
-        compareList(expectedRemainder);
+        compareList(TestTaskArraySorter.sortTestTasks(expectedRemainder));
 
         //confirm the result message is correct
         assertResultMessage(String.format(MESSAGE_DONE_TASK_SUCCESS, taskToDone));

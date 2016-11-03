@@ -138,8 +138,8 @@ public class TestTask implements ReadOnlyTask, Comparable {
 	//@@author A0139661Y
 	@Override
 	public int compareTo(Object o) {
-		int i = this.getStartLdt().compareTo(((Task) o).getStartLdt());
+		int i = this.getStartLdt().compareTo(((TestTask) o).getStartLdt());
     	if (i != 0) return i;
-    	return this.getDetail().toString().compareToIgnoreCase(((Task)o).getDetail().toString());
+    	return this.getDetail().toString().compareToIgnoreCase(((TestTask)o).getDetail().toString());
 	}
 }
