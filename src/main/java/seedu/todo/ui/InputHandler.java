@@ -101,25 +101,8 @@ public class InputHandler {
         } else {
             Controller[] controllers = instantiateAllControllers();
 
-            // Define the controller which returns the maximum confidence.
-            Controller maxController = null;
-
             // Get controller which has the maximum confidence.
-            float maxConfidence = Integer.MIN_VALUE;
-
-            for (int i = 0; i < controllers.length; i++) {
-                float confidence = controllers[i].inputConfidence(aliasedInput);
-
-                // Don't consider controllers with non-positive confidence.
-                if (confidence <= 0) {
-                    continue;
-                }
-
-                if (confidence > maxConfidence) {
-                    maxConfidence = confidence;
-                    maxController = controllers[i];
-                }
-            }
+            Controller maxController = getMaxController(aliasedInput, controllers);
 
             // No controller exists with confidence > 0.
             if (maxController == null) {
@@ -132,6 +115,27 @@ public class InputHandler {
         }
         
         // Process using best-matched controller.
+        processWithController(input, aliasedInput, selectedController);
+        
+        // Since command is not invalid, we push it to history
+        pushCommand(aliasedInput);
+
+        return true;
+    }
+
+    /**
+     * Process an input/aliasedInput with a selected controller.
+     * 
+     * Note that for proper functioning, <code>alias</code> and
+     * <code>unalias</code> will receive the <code>input</code> instead of
+     * <code>aliasedInput</code> for proper functioning.
+     * 
+     * @param input                 Raw user input
+     * @param aliasedInput          Input with aliases replaced
+     * @param selectedController    Controller to process input
+     * @return                      true if processing was successful, false otherwise
+     */
+    private boolean processWithController(String input, String aliasedInput, Controller selectedController) {
         try {
             // Alias and unalias should not receive an aliasedInput for proper functioning.
             if (selectedController.getClass() == AliasController.class ||
@@ -140,14 +144,39 @@ public class InputHandler {
             } else {
                 selectedController.process(aliasedInput);
             }
+            return true;
         } catch (ParseException e) {
             return false;
         }
-        
-        // Since command is not invalid, we push it to history
-        pushCommand(aliasedInput);
+    }
 
-        return true;
+    /**
+     * Get controller which has the maximum confidence.
+     * 
+     * @param aliasedInput  Input with aliases replaced appropriately
+     * @param controllers   Array of instantiated controllers to test
+     * @return              Controller with maximum confidence, null if all non-positive.
+     */
+    private Controller getMaxController(String aliasedInput, Controller[] controllers) {
+        // Define the controller which returns the maximum confidence.
+        Controller maxController = null;
+        
+        float maxConfidence = Integer.MIN_VALUE;
+
+        for (int i = 0; i < controllers.length; i++) {
+            float confidence = controllers[i].inputConfidence(aliasedInput);
+
+            // Don't consider controllers with non-positive confidence.
+            if (confidence <= 0) {
+                continue;
+            }
+
+            if (confidence > maxConfidence) {
+                maxConfidence = confidence;
+                maxController = controllers[i];
+            }
+        }
+        return maxController;
     }
     
     private Controller[] instantiateAllControllers() {
