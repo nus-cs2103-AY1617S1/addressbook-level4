@@ -29,7 +29,7 @@ public class EditCommand extends Command {
     public static final String MESSAGE_TASK_NOT_IN_LIST = "This event/task is not found in the task manager";
     private static final Pattern KEYWORDS_ARGS_FORMAT =
             Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more keywords separated by whitespace
-    public static final String MESSAGE_DELETE_SAME_NAME="Please select the Task identified "
+    public static final String MESSAGE_EDIT_SAME_NAME="Please select the Task identified "
     		+ "by the index number.\n"+"Parameters: EVENT_NAME [s/START_DATE] [e/END_DATE] [r/RECURRING_EVENT] [p/PRIORITY_LEVEL] [i/INDEX(must be a positive integer)]\n"
     		+"Example: "+COMMAND_WORD+"CS3230 Lecture e/14.10.2016-12 i/1";
     public static final String MESSAGE_EVENT_SUCCESS = "This event has been edited: %1$s";
@@ -83,11 +83,11 @@ public class EditCommand extends Command {
 	                 final String[] keywords = matcher.group("keywords").split("\\s+");
 	                 final Set<String> keywordSet = new HashSet<>(Arrays.asList(keywords));
 	            	model.updateFilteredTaskList(keywordSet);
-	            	return new CommandResult(MESSAGE_DELETE_SAME_NAME);
+	            	return new CommandResult(MESSAGE_EDIT_SAME_NAME);
 	            }else if(shownList.size()==1){
 	            	target = shownList.get(0);
 	            }else{
-	            	return new CommandResult(Messages.MESSAGE_INVALID_TASK_NAME);
+	            	return new CommandResult(MESSAGE_TASK_NOT_IN_LIST);
 	            }
 	        } //end if statment to find the target task
 

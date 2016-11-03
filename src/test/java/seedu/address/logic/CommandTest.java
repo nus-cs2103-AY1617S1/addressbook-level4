@@ -61,7 +61,7 @@ public class CommandTest {
     }
 
     /*************************Pre and Post setup******************************************/
-    
+
     @Before
     public void setup() {
         model = new ModelManager();
@@ -79,7 +79,7 @@ public class CommandTest {
     public void teardown() {
         EventsCenter.clearSubscribers();
     }
-    
+
     /*************************test cases***********************************************/
 
     @Test
@@ -88,14 +88,14 @@ public class CommandTest {
         assertCommandBehavior(invalidCommand,
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
     }
-    
+
     @Test
     public void execute_unknownCommandWord() throws Exception {
         String unknownCommand = "uicfhmowqewca";
         assertCommandBehavior(unknownCommand, MESSAGE_UNKNOWN_COMMAND);
     }
-    
-    
+
+
     /*********************Utility methods*****************************************/
 
     /**
@@ -130,7 +130,7 @@ public class CommandTest {
         assertEquals(expectedAddressBook, latestSavedAddressBook);
     }
 
-    
+
 
     /**
      * Confirms the 'invalid argument index number behaviour' for the given command
@@ -141,16 +141,16 @@ public class CommandTest {
         String expectedMessage = MESSAGE_INVALID_TASK_DISPLAYED_INDEX;
         TestDataHelper helper = new TestDataHelper();
         List<Task> taskList = helper.generateTaskList(2);
-        
+
         // set AB state to 2 tasks
         model.resetData(new TaskManager());
         for (Task p : taskList) {
             model.addTask(p);
         }
-        
+
         assertCommandBehavior(commandWord + " 3", expectedMessage, model.getTaskManager(), taskList);
     }
-    
+
     /**
      * Confirms the 'absence argument keyword behaviour' for the given command
      * targeting a single task in the shown list, using visible index.
@@ -159,7 +159,7 @@ public class CommandTest {
     protected void assertAbsenceKeywordFormatBehaviorForCommand(String commandWord, String expectedMessage) throws Exception {
         assertCommandBehavior(commandWord , expectedMessage); //keyword missing
     }
-    
+
    /***********************test cases to be copy pasted to other places***************************/
 
     @Test
@@ -233,47 +233,47 @@ public class CommandTest {
      * A utility class to generate test data.
      */
     class TestDataHelper{
-        
+
         Task getFloatingTask() throws Exception {
             Name name = new Name("Visit grandma");
             Tag tag1 = new Tag("tag1");
             UniqueTagList tags = new UniqueTagList(tag1);
             return new Task(name,tags, new Priority(0));
         }
-        
+
         Task getDeadlineTask() throws Exception{
             Name name=new Name("project due");
             Date deadline=new Deadline("01.01.2016");
             return new Task(name,deadline,new UniqueTagList(), new Priority(0));
         }
-        
+
         Task getDuplicateDeadlineTask() throws Exception{
             Name name=new Name("Visit grandma");
             Date deadline=new Deadline("01.01.2016-14");
             return new Task(name,deadline,new UniqueTagList(), new Priority(0));
         }
-        
+
         Task getEvent() throws Exception{
             Name name=new Name("do homework");
             Date date=new EventDate("01.01.2016","02.01.2016");
             return new Task(name,date,new UniqueTagList(), new Priority(0));
         }
-        
+
         Task getRecurringDeadlineTask() throws Exception{
             Name name=new Name("post on GitHub");
             Date deadline=new Deadline("02.03.2016");
             Recurring recurring=new Recurring("weekly");
             return new Task(name,deadline,new UniqueTagList(),recurring, new Priority(0));
         }
-        
+
         Task getRecurringEvent() throws Exception{
             Name name=new Name("eat lunch");
             Date date=new EventDate("01.01.2016-14","02.01.2016-16");
             Recurring recurring=new Recurring("monthly");
             return new Task(name,date,new UniqueTagList(),recurring, new Priority(0));
         }
-        
-        
+
+
 
         /**
          * Generates a valid task using the given seed.
@@ -308,8 +308,8 @@ public class CommandTest {
                 cmd.append("r/ "+p.getRecurring().recurringFrequency);
             return cmd.toString();
         }
-    
-        
+
+
         /** Generates the correct flexi add command based on the task given */
         public String generateFlexiAddCommand(Task p) {
             StringBuilder sb = new StringBuilder();
@@ -407,7 +407,7 @@ public class CommandTest {
             return new Task(new Name(name), new Deadline("11.11.2016"), new UniqueTagList(new Tag("tag")),
                     new Priority(0));
         }
-        
+
         /**
          * Generates an undone Task object with given deadline. Other fields will have some dummy values.
          */
@@ -415,7 +415,7 @@ public class CommandTest {
             return new Task(new Name("name"), new Deadline(deadline), new UniqueTagList(new Tag("tag")),
                     new Priority(0));
         }
-        
+
         /**
          * Generates an undone Task object with given tag. Other fields will have some dummy values.
          */
@@ -423,7 +423,7 @@ public class CommandTest {
             return new Task(new Name("name"), new Deadline("11.11.2016"), new UniqueTagList(new Tag(tag)),
                     new Priority(0));
         }
-        
+
         /**
          * Generates a done Task object with given name. Other fields will have some dummy values.
          */
@@ -431,7 +431,7 @@ public class CommandTest {
             return new Task(new Name(name), new Deadline("11.11.2016"), new UniqueTagList(new Tag("tag")), true, false,
                     new Priority(0));
         }
-        
+
         /**
          * Generates an undone Event object with given name. Other fields will have some dummy values.
          */
@@ -439,7 +439,7 @@ public class CommandTest {
             return new Task(new Name(name), new EventDate("11.11.2016", "12.11.2016"),
                     new UniqueTagList(new Tag("tag")), new Priority(0));
         }
-        
+
         /**
          * Generates an undone Event object with given start date. Other fields will have some dummy values.
          */
@@ -447,7 +447,7 @@ public class CommandTest {
             return new Task(new Name("name"), new EventDate(startDate, "12.11.2016"), new UniqueTagList(new Tag("tag")),
                     new Priority(0));
         }
-        
+
         /**
          * Generates an undone Event object with given start date. Other fields will have some dummy values.
          */
@@ -455,7 +455,7 @@ public class CommandTest {
             return new Task(new Name("name"), new EventDate("11.11.2016", endDate), new UniqueTagList(new Tag("tag")),
                     new Priority(0));
         }
-        
+
         /**
          * Generates a done Event object with given name. Other fields will have some dummy values.
          */
