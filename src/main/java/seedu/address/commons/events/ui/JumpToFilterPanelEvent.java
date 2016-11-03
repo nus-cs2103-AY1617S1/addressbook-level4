@@ -3,7 +3,7 @@ package seedu.address.commons.events.ui;
 import seedu.address.commons.events.BaseEvent;
 
 /**
- * Indicates a request to jump to a text field in filter panel
+ * Indicates a request to jump to the filter panel
  */
 public class JumpToFilterPanelEvent extends BaseEvent {
     

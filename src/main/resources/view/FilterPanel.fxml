@@ -131,7 +131,7 @@
             <Insets left="20.0" />
          </GridPane.margin>
       </Label>
-      <ChoiceBox fx:id="priorityChoiceBox" maxHeight="30.0" minHeight="20.0" prefHeight="28.0" style="-fx-background-color: white; -fx-border-color: white;" value="1" GridPane.rowIndex="9">
+      <ChoiceBox fx:id="priorityChoiceBox" maxHeight="30.0" minHeight="20.0" onAction="#handleFilterChanged" prefHeight="28.0" style="-fx-background-color: white; -fx-border-color: white;" value="" GridPane.rowIndex="9">
          <GridPane.margin>
             <Insets left="20.0" right="20.0" />
          </GridPane.margin>

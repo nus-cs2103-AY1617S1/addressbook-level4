@@ -29,60 +29,60 @@ import seedu.address.model.task.EventDate;
 import seedu.address.model.task.Recurring;
 
 public class FilterPanel extends UiPart {
-    
+
     public static final String SUCCESS_FILTER = "Filter the todoList";
     public static final String INVALID_FILTER = "Invalid filter: ";
-    
+
     private static final Logger logger = LogsCenter.getLogger(FilterPanel.class);
     private static final String FXML = "FilterPanel.fxml";
-    
+
     private static final String EMPTY = "";
     private static final String NIL = "nil";
     private static final String SPACE = "\\s+";
     private static final String ONE = "1";
     private static final String TWO = "2";
     private static final String THREE = "3";
-    
+
     private GridPane mainPane;
     private AnchorPane placeHolder;
     private ResultDisplay resultDisplay;
-    
+
     @FXML
     private ToggleButton eventsToggleButton;
-    
+
     @FXML
     private ToggleButton tasksToggleButton;
-    
+
     @FXML
     private ToggleButton doneToggleButton;
-    
+
     @FXML
     private ToggleButton undoneToggleButton;
-    
+
     @FXML
     private TextField deadlineTextField;
-    
+
     @FXML
     private TextField recurringTextField;
-    
+
     @FXML
     private TextField startDateTextField;
-    
+
     @FXML
     private TextField endDateTextField;
-    
+
     @FXML
     private TextField tagsTextField;
-    
+
     @FXML
     private ChoiceBox<String> priorityChoiceBox;
-    
+
     public static FilterPanel load(Stage stage, AnchorPane placeHolder, ResultDisplay resultDisplay) {
         FilterPanel filterPanel = UiPartLoader.loadUiPart(stage, placeHolder, new FilterPanel());
         filterPanel.configure(resultDisplay);
         return filterPanel;
     }
-    
+
     public void configure(ResultDisplay resultDisplay) {
         this.resultDisplay = resultDisplay;
         addMainPane();
@@ -94,45 +94,49 @@ public class FilterPanel extends UiPart {
         FxViewUtil.applyAnchorBoundaryParameters(mainPane, 0.0, 0.0, 0.0, 0.0);
         placeHolder.getChildren().add(mainPane);
     }
-    
+
     private void initialPriority() {
-        priorityChoiceBox.setItems(FXCollections.observableArrayList(ONE, TWO, THREE));
+        priorityChoiceBox.setItems(FXCollections.observableArrayList(EMPTY, ONE, TWO, THREE));
     }
 
     @Override
     public void setNode(Node node) {
         mainPane = (GridPane) node;
     }
-    
+
     @Override
     public void setPlaceholder(AnchorPane placeholder) {
         this.placeHolder = placeholder;
     }
-    
+
     @Override
     public String getFxmlPath() {
         return FXML;
     }
-    
+
     @Subscribe
     private void handleJumpFilterPanelEvent(JumpToFilterPanelEvent event) {
         String qualification = event.getQualification();
         switch (qualification) {
-        case TypesUtil.DEADLINE :
+        case TypesUtil.DEADLINE:
             deadlineTextField.requestFocus();
             return;
-        case TypesUtil.START_DATE :
+        case TypesUtil.START_DATE:
             startDateTextField.requestFocus();
             return;
-        case TypesUtil.END_DATE :
+        case TypesUtil.END_DATE:
             endDateTextField.requestFocus();
             return;
-        case TypesUtil.RECURRING :
+        case TypesUtil.RECURRING:
             recurringTextField.requestFocus();
+            return;
+        case TypesUtil.PRIORITY:
+            priorityChoiceBox.requestFocus();
+            priorityChoiceBox.show();
             return;
         }
     }
-    
+
     @FXML
     private void handleFilterChanged() {
         Set<String> types = handleTypesChanged();
@@ -151,7 +155,7 @@ public class FilterPanel extends UiPart {
         resultDisplay.postMessage(SUCCESS_FILTER);
         raise(new FilterPanelChangedEvent(types, qualifications, tagSet));
     }
-    
+
     private Set<String> handleTypesChanged() {
         Set<String> types = new HashSet<>();
         if (eventsToggleButton.isSelected()) {
@@ -168,7 +172,7 @@ public class FilterPanel extends UiPart {
         }
         return types;
     }
-    
+
     private Map<String, String> handleQualificationsChanged() throws IllegalValueException {
         HashMap<String, String> qualifications = new HashMap<>();
         String deadline = deadlineTextField.getText().trim();
@@ -202,9 +206,13 @@ public class FilterPanel extends UiPart {
                 throw new IllegalValueException(Recurring.MESSAGE_RECURRING_CONSTRAINTS);
             }
         }
+        String priority = priorityChoiceBox.getSelectionModel().getSelectedItem().toString();
+        if (!priority.equals(EMPTY)) {
+            qualifications.put(TypesUtil.PRIORITY, priority);
+        }
         return qualifications;
     }
-    
+
     private Set<String> handleTagsChanged() {
         String tags = tagsTextField.getText().trim();
         Set<String> tagSet;

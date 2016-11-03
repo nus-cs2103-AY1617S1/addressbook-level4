@@ -132,6 +132,9 @@ public class Parser {
         case JumpToRecurringCommand.COMMAND_WORD:
             return new JumpToRecurringCommand();
 
+        case JumpToPriorityCommand.COMMAND_WORD:
+            return new JumpToPriorityCommand();
+
         default:
             return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
         }
