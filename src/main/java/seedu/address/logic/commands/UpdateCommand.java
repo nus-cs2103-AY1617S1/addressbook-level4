@@ -62,6 +62,7 @@ public class UpdateCommand extends Command {
 					if(deadlineCal != null){
 						deadlineCal = repeatDate(deadlineCal, task);
 						deadline = mutateToDate(deadlineCal);
+						overdue = false;
 					}
 					else{
 						deadline = null;
