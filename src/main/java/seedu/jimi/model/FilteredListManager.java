@@ -109,7 +109,7 @@ public class FilteredListManager {
                         return arg0.getName().fullName.compareToIgnoreCase(arg1.getName().fullName);
                     } 
                     
-                    return 0;
+                    return -1;
                 }
             }));
             sortedListMap.put(id, sortedList);
