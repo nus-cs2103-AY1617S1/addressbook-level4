@@ -23,6 +23,9 @@ allprojects {
         mavenCentral()
         maven { url "https://repo.eclipse.org/content/repositories/egit-releases/" }
         maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
+        flatDir {
+           dirs 'libs'
+       }
     }
 
     // This part is similar to global variables
@@ -54,7 +57,7 @@ allprojects {
         compile "com.fasterxml.jackson.datatype:jackson-datatype-jsr310:$jacksonDataTypeVersion"
         compile "com.google.guava:guava:$guavaVersion"
         compile "com.joestelmach:natty:$nattyVersion"
-        compile name: 'TrayNotification.jar'
+        compile files('TrayNotification')
 
         testCompile "junit:junit:$junitVersion"
         testCompile "org.testfx:testfx-core:$testFxVersion"
