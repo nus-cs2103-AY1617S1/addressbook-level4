@@ -166,18 +166,23 @@ public class ModelManager extends ComponentManager implements Model {
     	} catch (IllegalValueException e) {
     		e.printStackTrace();
     	}
-    	updateFilteredTaskListWithCompletedInPast10Seconds();
+    	updateFilteredTaskListWhenCompletedIsUsed();
     	indicateEmeraldoChanged();
     }
     
     //@@author A0139749L
-    private void updateFilteredTaskListWithCompletedInPast10Seconds(){
-    	if(keywords instanceof Set<?>)
+    private void updateFilteredTaskListWhenCompletedIsUsed(){
+    	if(keywords.equals("show all")){
+    		updateFilteredListToShowAll();
+    	}else if(keywords.equals("show uncompleted")){
+    		updateFilteredTaskListWithCompletedInPast10Seconds();
+    	}else if(keywords instanceof Set<?>){
     		updateFilteredTaskListWithCompletedInPast10Seconds((Set<String>)keywords);
-    	else if(keywords instanceof String)
+    	}else if(keywords instanceof String){
     		updateFilteredTaskListWithCompletedInPast10Seconds((String)keywords);
-    	else if(keywords instanceof TimePeriod)
+    	}else if(keywords instanceof TimePeriod){
     		updateFilteredTaskListWithCompletedInPast10Seconds((TimePeriod)keywords);
+    	}
     }
     //@@author
 
@@ -190,6 +195,7 @@ public class ModelManager extends ComponentManager implements Model {
     
     @Override
     public void updateFilteredListToShowAll() {
+    	this.keywords = "show all";
     	filteredTasks.setPredicate(null);
     }
     
@@ -202,6 +208,7 @@ public class ModelManager extends ComponentManager implements Model {
     //=========== Filtered Task List Accessors (Without completed tag) ========================================
     @Override
     public void updateFilteredListToShowUncompleted() {
+    	this.keywords = "show uncompleted";
         updateFilteredTaskList(new PredicateExpression(new UncompletedQualifier()));
     }
 
@@ -263,6 +270,12 @@ public class ModelManager extends ComponentManager implements Model {
         PredicateExpression predicateExpression
     		= new PredicateExpression(new DateTimeQualifier(keyword),new Past10SecondsQualifier(),new UncompletedQualifier());
         updateFilteredTaskListWithCompletedInPast10Seconds(predicateExpression);
+    }
+    
+    public void updateFilteredTaskListWithCompletedInPast10Seconds(){
+        PredicateExpression predicateExpression = new PredicateExpression(new Past10SecondsQualifier(), new UncompletedQualifier());
+        predicateExpression.setLogicalOperatorList("or");
+    	updateFilteredTaskList(predicateExpression);
     }
     
     private void updateFilteredTaskListWithCompletedInPast10Seconds(Expression expression) {
