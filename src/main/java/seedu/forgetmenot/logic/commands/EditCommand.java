@@ -17,10 +17,10 @@ public class EditCommand extends Command {
     public static final String COMMAND_WORD = "edit";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Edits the task identified using it's last displayed index. " + "Parameters: INDEX PROPERTY NEW_INPUT\n"
-            + "Example: " + COMMAND_WORD + " 1 name oranges";
-    public static final String MESSAGE_EDIT_TASK_SUCCESS = "You've successfully editted the task!\n"
-            + "Editted Task: %1$s";
+            + ": Edits the task identified using it's last displayed index. " + "Parameters: INDEX NEW_DETAILS\n"
+            + "Example: " + COMMAND_WORD + " 1 oranges";
+    public static final String MESSAGE_EDIT_TASK_SUCCESS = "You've successfully edited the task!\n"
+            + "Edited Task: %1$s";
     public static final String MESSAGE_EDIT_TASK_NOT_SUCCESSFUL = "Sorry! The edit details are invalid. Please try again.";
 
     private int targetIndex;
