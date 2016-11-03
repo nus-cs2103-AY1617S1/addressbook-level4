@@ -33,8 +33,8 @@ public class TypicalTestDeadlineTasks {
     public static void loadTaskBookWithSampleData(TaskBook ab) {
 
         try {
-            ab.addTask(new DeadlineTask(groceries));
-            ab.addTask(new DeadlineTask(ideas));
+            ab.addTask(new DeadlineTask(groceries, groceries.getDeadline()));
+            ab.addTask(new DeadlineTask(ideas, ideas.getDeadline()));
         } catch (UniqueTaskList.DuplicateTaskException e) {
             assert false : "not possible";
         }

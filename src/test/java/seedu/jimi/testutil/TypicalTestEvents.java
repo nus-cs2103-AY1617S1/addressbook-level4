@@ -2,6 +2,7 @@ package seedu.jimi.testutil;
 
 import seedu.jimi.commons.exceptions.IllegalValueException;
 import seedu.jimi.model.TaskBook;
+import seedu.jimi.model.event.Event;
 import seedu.jimi.model.task.DeadlineTask;
 import seedu.jimi.model.task.ReadOnlyTask;
 import seedu.jimi.model.task.UniqueTaskList;
@@ -33,7 +34,7 @@ public class TypicalTestEvents {
     public static void loadTaskBookWithSampleData(TaskBook ab) {
 
         try {
-            ab.addTask(new DeadlineTask(wedding));
+            ab.addTask(new Event(wedding, wedding.getStart(), wedding.getEnd()));
         } catch (UniqueTaskList.DuplicateTaskException e) {
             assert false : "not possible";
         }
