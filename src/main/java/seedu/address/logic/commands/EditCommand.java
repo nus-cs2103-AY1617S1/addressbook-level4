@@ -4,7 +4,10 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.commons.exceptions.IllegalValueException;
@@ -18,6 +21,8 @@ import seedu.address.model.item.RecurrenceRate;
 
 //@@author A0139552B
 public class EditCommand extends UndoableCommand {
+
+    private final static Logger logger = LogsCenter.getLogger(EditCommand.class);
 
     public static final String COMMAND_WORD = "edit";
 
@@ -35,6 +40,8 @@ public class EditCommand extends UndoableCommand {
 
     public static final String MESSAGE_RECUR_DATE_TIME_CONSTRAINTS = "For recurring tasks to be valid, "
             + "at least one DATE_TIME must be provided";
+
+    public static final String MESSAGE_END_DATE_CONSTRAINTS = "End date should be later than start date.";
 
     public final int targetIndex;
     
@@ -75,7 +82,9 @@ public class EditCommand extends UndoableCommand {
                 startDate == null && endDate == null) {
             startDate = DateTime.assignStartDateToSpecifiedWeekday(recurrenceRate.timePeriod.toString());
         }
+        
 	}
+
 
     private void initializeForEdit() {
         taskName = null;
@@ -233,7 +242,18 @@ public class EditCommand extends UndoableCommand {
         if (removeEndDate) {
         	endDate = null;
         }
-
+        
+        if(endDate != null && startDate != null && endDate.before(startDate)){
+            return new CommandResult(MESSAGE_END_DATE_CONSTRAINTS);
+        }
+        
+        /*
+        if (endDate != null && startDate != null && endDate.before(startDate)) {
+            logger.log(Level.FINE, "IllegalValueException caught in EditCommand, end date is before start date");
+            throw new IllegalValueException(MESSAGE_END_DATE_CONSTRAINTS);
+        }        
+  */      
+        
         //assign previous priority to priority if user never input one
         if (priority == null) {
         	priority = toEdit.getPriorityValue();
