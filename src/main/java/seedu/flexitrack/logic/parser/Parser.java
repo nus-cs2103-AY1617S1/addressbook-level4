@@ -67,6 +67,7 @@ public class Parser {
         SHORTCUT_MAP.put(BlockCommand.COMMAND_SHORTCUT, BlockCommand.COMMAND_WORD);
         SHORTCUT_MAP.put(UndoCommand.COMMAND_SHORTCUT, UndoCommand.COMMAND_WORD);
         SHORTCUT_MAP.put(RedoCommand.COMMAND_SHORTCUT, RedoCommand.COMMAND_WORD);
+        SHORTCUT_MAP.put(GapCommand.COMMAND_SHORTCUT, GapCommand.COMMAND_WORD);
     }  
 
     //@@author A0127686R
@@ -554,7 +555,6 @@ public class Parser {
         
         if (recurringType.equalsIgnoreCase("task")) {
             Date initialDueDate = new DateTimeInfoParser(matcher.group("dueDate")).getParsedDateTime();
-            System.out.println(initialDueDate);
             
             switch (occurrenceType.toLowerCase()) {
                 
@@ -566,7 +566,7 @@ public class Parser {
                     command.setData(model);
                     command.execute();
                 }
-                return new AddCommand(matcher.group("name"), matcher.group("dueDate"), EMPTY_TIME_INFO, EMPTY_TIME_INFO);
+                return new AddCommand(matcher.group("name"), matcher.group("dueDate"), EMPTY_TIME_INFO, EMPTY_TIME_INFO, numOfOccurrrence);
                 
             case "month" :
                 for(int i=1; i < numOfOccurrrence; i++) {
@@ -581,7 +581,6 @@ public class Parser {
             default: 
                 for(int i=1; i < numOfOccurrrence; i++) {
                     formattedDueDate = dateIncrement(initialDueDate, DAY_INCREMENT, i);
-                    System.out.println(formattedDueDate);
                     Command command = new AddCommand(matcher.group("name"), formattedDueDate, EMPTY_TIME_INFO, EMPTY_TIME_INFO);
                     command.setData(model);
                     command.execute();
@@ -645,9 +644,7 @@ public class Parser {
     public String dateIncrement(Date initialDate, int incrementType, int incrementAmt) {
         final int DAYS_PER_WEEK = 7;
         Date newDate = new Date();
-     
-        System.out.println("Initial Date before increment: " + initialDate);
-        
+             
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(initialDate);
 
@@ -669,7 +666,6 @@ public class Parser {
             break;
         }
         
-        System.out.println(newDate);
         return new SimpleDateFormat("MM-dd-yyyy HHmmss").format(newDate);
     }
     //@@author 

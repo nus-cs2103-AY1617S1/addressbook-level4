@@ -34,7 +34,8 @@ public class AddCommand extends Command {
 
     private Task toAdd;
     private boolean isOverlapping = false;
-
+    int numOfOccurrrence = 0; 
+    
     /**
      * Convenience constructor using raw values.
      *
@@ -48,6 +49,12 @@ public class AddCommand extends Command {
 
     public AddCommand() {
         this.toAdd = null;
+    }
+
+    public AddCommand(String name, String dueDate, String startTime, String endTime, int numOfOccurrrence) throws IllegalValueException {
+        this.toAdd = new Task(new Name(name), new DateTimeInfo(dueDate), new DateTimeInfo(startTime),
+                new DateTimeInfo(endTime));
+        this.numOfOccurrrence = numOfOccurrrence;
     }
 
     @Override
@@ -90,4 +97,13 @@ public class AddCommand extends Command {
         }
     }
 
+    @Override
+    int getNumOfOccurrrence() {
+        return numOfOccurrrence;
+    }
+    
+    @Override
+    void setNumOfOccurrrence(int numOfOccurrrence) {
+        this.numOfOccurrrence = numOfOccurrrence;
+    }
 }

@@ -83,8 +83,6 @@ public class UniqueTaskList implements Iterable<Task> {
         assert toRemove != null;
         boolean taskFoundAndDeleted = false;
         for(Task task : internalList){
-            System.out.println(task.getName().toString());
-            System.out.println(toRemove.getName().toString());
             if(task.equals(toRemove)){
                 internalList.remove(task);
                 taskFoundAndDeleted = true;

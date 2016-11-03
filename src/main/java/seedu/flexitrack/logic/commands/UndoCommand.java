@@ -3,6 +3,8 @@ package seedu.flexitrack.logic.commands;
 
 import java.util.Stack;
 
+import seedu.flexitrack.model.task.ReadOnlyTask;
+
 /**
  * Clears the FlexiTrack.
  */
@@ -28,8 +30,19 @@ public class UndoCommand extends Command {
         if (doneCommandStack.size() == 0) {
             return new CommandResult(String.format(MESSAGE_NOT_SUCCESS));
         }
-
+        
+        
         undo = doneCommandStack.pop();
+        if (undo instanceof AddCommand || undo.getNumOfOccurrrence() !=0 ){
+            int numOfOccurrrence = undo.getNumOfOccurrrence();
+            for (int i = 1; i < numOfOccurrrence; i++) {
+                undo.executeUndo();
+                RedoCommand.undoneCommandStack.push(undo);
+                undo = doneCommandStack.pop();
+                undo.setNumOfOccurrrence(numOfOccurrrence);
+            }
+        }
+
         undo.executeUndo();
         RedoCommand.undoneCommandStack.push(undo);
         model.indicateFlexiTrackerChanged();
