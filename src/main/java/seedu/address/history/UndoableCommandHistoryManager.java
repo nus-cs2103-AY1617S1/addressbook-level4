@@ -6,64 +6,66 @@ import seedu.address.logic.commands.UndoableCommand;
 
 //@@author A0093960X
 /**
- * Stores the history of undoable and redoable commands for UndoCommand to use.
+ * Stores the history of undoable and redoable commands.
  */
-public class UndoableCommandHistoryManager implements UndoableCommandHistory{
-    
+public class UndoableCommandHistoryManager implements UndoableCommandHistory {
+
     private static UndoableCommandHistoryManager theUndoableCommandHistory;
 
     // command effects
     private Stack<UndoableCommand> undoableCommands;
     private Stack<UndoableCommand> redoableCommands;
-    
+
     // Private constructor for Singleton Pattern
-    private UndoableCommandHistoryManager(){
+    private UndoableCommandHistoryManager() {
         undoableCommands = new Stack<UndoableCommand>();
         redoableCommands = new Stack<UndoableCommand>();
     }
-    
+
     // Use Singleton Pattern here
-    public static UndoableCommandHistoryManager getInstance(){
-        if (theUndoableCommandHistory == null){
+    public static UndoableCommandHistoryManager getInstance() {
+        if (theUndoableCommandHistory == null) {
             theUndoableCommandHistory = new UndoableCommandHistoryManager();
         }
         return theUndoableCommandHistory;
     }
-    
+
     @Override
-    public void updateCommandHistory(UndoableCommand undoableCommand){
+    public void updateCommandHistory(UndoableCommand undoableCommand) {
         assert undoableCommands != null;
         undoableCommands.push(undoableCommand);
         resetRedo();
     }
-    
+
     @Override
-    public boolean isEarliestCommand(){
+    public boolean isEarliestCommand() {
         assert undoableCommands != null;
         return undoableCommands.isEmpty();
     }
-    
+
     @Override
-    public boolean isLatestCommand(){
+    public boolean isLatestCommand() {
         assert redoableCommands != null;
         return redoableCommands.isEmpty();
     }
-    
+
     @Override
-    public UndoableCommand undoStep(){
+    public UndoableCommand undoStep() {
         assert redoableCommands != null && undoableCommands != null;
         return redoableCommands.push(undoableCommands.pop());
     }
-    
+
     @Override
-    public UndoableCommand redoStep(){
+    public UndoableCommand redoStep() {
         assert redoableCommands != null && undoableCommands != null;
         return undoableCommands.push(redoableCommands.pop());
     }
-    
-    private void resetRedo(){
-        // not sure if using clear() gives worse performance
+
+    /**
+     * Resets the redoable command history
+     */
+    private void resetRedo() {
         redoableCommands = new Stack<UndoableCommand>();
     }
-    
+
 }

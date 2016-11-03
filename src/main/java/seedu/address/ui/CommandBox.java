@@ -68,13 +68,13 @@ public class CommandBox extends UiPart {
             @Override
             public void handle(KeyEvent keyEvent) {
                 switch (keyEvent.getCode()) {
-                    case UP:
-                        // fall through
-                    case DOWN:                    
-                        keyEvent.consume();
-                        handleUpDownArrow(keyEvent);
-                    default:
-                        break;
+                case UP:
+                    // Fallthrough
+                case DOWN:
+                    keyEvent.consume();
+                    handleUpDownArrow(keyEvent);
+                default:
+                    break;
                 }
             }
         });
