@@ -47,8 +47,8 @@ public class DateTime {
     public LocalTime valueTime;
     public LocalDate valueDateEnd;
     public LocalTime valueTimeEnd;
-    public LocalDate completedValueDate = null;
-    public LocalTime completedValueTime = null;
+    public LocalDate completedValueDate;
+    public LocalTime completedValueTime;
 
     /**
      * Validates given date and time.
@@ -62,6 +62,9 @@ public class DateTime {
         if (!dateTime.isEmpty() && !matcher.matches()) {
             throw new IllegalValueException(MESSAGE_DATETIME_CONSTRAINTS);
         }
+        
+        this.completedValueDate = null;
+        this.completedValueTime = null;
         
         if(dateTime.isEmpty()){
             this.valueDate = null;
@@ -132,6 +135,30 @@ public class DateTime {
         }
     }
 
+    public DateTime(String dateTime, String completedDateTime) throws IllegalValueException, DateTimeException{
+    	//Calls the other constructor to initialise the values less completedValueDate and completedValueTime
+    	this(dateTime);
+    	setCompletedDateTime(completedDateTime);
+    }
+    
+    /*
+     * Converts completedDateTime from a String into LocalDate and LocalTime
+     */
+    private void setCompletedDateTime(String completedDateTime) throws IllegalValueException{	
+    	if(completedDateTime.isEmpty()){
+        	this.completedValueDate = null;
+        	this.completedValueTime = null;       	
+    	}else{   
+    		final Matcher matcher = DateTimeParser.COMPLETED_DATE_TIME_REGEX.matcher(completedDateTime); 
+    		if(!matcher.matches()){
+    			throw new IllegalValueException("Error in format of completedDateTime stored in Xml");
+    		}
+    		this.completedValueDate = DateTimeParser.valueDateCompletedFormatter(matcher); 
+    		this.completedValueTime = DateTimeParser.valueTimeCompletedFormatter(matcher);
+    		this.valueFormatted = completedDateTime;
+    	}
+    }
+    
     private boolean isValidFormatFor_GivenKeyword(String dateTime, String keyword){
         switch(keyword){
             case "on":
@@ -156,6 +183,17 @@ public class DateTime {
     		return false;
     	else
     		return true;
+    }
+    
+
+    /*
+     * Used by XmlAdaptedTask to set its String completedDateTime 
+     */
+    public String completedDateTime_ToString(){
+    	if(completedValueDate == null)
+    		return "";
+    	else
+    		return this.toString();
     }
     
     //@@author A0142290N    
