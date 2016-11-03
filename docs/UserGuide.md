@@ -311,7 +311,7 @@ The window in which the user is currently on is shown by a brown border highligh
 
 
 #### Command Box Features
-When the Command Box is selected, it has 3 main features:
+When the Command Box is selected, it has 2 main features:
 
 * Clearing the Command Box
 
