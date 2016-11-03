@@ -47,8 +47,8 @@ public class DateTime {
     public LocalTime valueTime;
     public LocalDate valueDateEnd;
     public LocalTime valueTimeEnd;
-    public LocalDate completedValueDate = null;
-    public LocalTime completedValueTime = null;
+    public LocalDate completedValueDate;
+    public LocalTime completedValueTime;
 
     /**
      * Validates given date and time.
@@ -63,6 +63,9 @@ public class DateTime {
             throw new IllegalValueException(MESSAGE_DATETIME_CONSTRAINTS);
         }
         
+        this.completedValueDate = null;
+        this.completedValueTime = null;
+System.out.println("DateTime constructor 1");	//TODO        
         if(dateTime.isEmpty()){
             this.valueDate = null;
             this.valueTime = null;
@@ -132,6 +135,14 @@ public class DateTime {
         }
     }
 
+    public DateTime(String dateTime, String completedDateTime) throws IllegalValueException, DateTimeException{
+    	//Calls the other constructor to initialise the values less completedValueDate and completedValueTime
+    	this(dateTime);
+System.out.println("DateTime constructor 2");	//TODO        	
+    	setCompletedDateTime(completedDateTime);
+System.out.println("setCompletedDateTime called in DateTime constructor 2");	//TODO   
+    }
+    
     private boolean isValidFormatFor_GivenKeyword(String dateTime, String keyword){
         switch(keyword){
             case "on":
@@ -162,17 +173,25 @@ public class DateTime {
      * Converts completedDateTime from a String into LocalDate and LocalTime
      */
     public void setCompletedDateTime(String completedDateTime) throws IllegalValueException{
+System.out.println("setCompletedDateTime start");	//TODO  	
     	if(completedDateTime.isEmpty()){
         	this.completedValueDate = null;
         	this.completedValueTime = null;
+System.out.println("setCompletedDateTime isEmpty loop entered");	//TODO          	
     	}else{
+System.out.println("setCompletedDateTime has value loop entered");	//TODO    
     		final Matcher matcher = DateTimeParser.COMPLETED_DATE_TIME_REGEX.matcher(completedDateTime);
-    		if(!matcher.matches())
+System.out.println("setCompletedDateTime matcher created");	//TODO    
+    		if(!matcher.matches()){
+System.out.println("setCompletedDateTime !matcher.matches() loop entered");	//TODO    
     			throw new IllegalValueException("Error in format of completedDateTime stored in Xml");
+    		}
     		this.completedValueDate = DateTimeParser.valueDateCompletedFormatter(matcher);
+System.out.println("setCompletedDateTime valueDateCompletedFormatter entered");	//TODO    
     		this.completedValueTime = DateTimeParser.valueTimeCompletedFormatter(matcher);
+System.out.println("setCompletedDateTime valueTimeCompletedFormatter entered");	//TODO    
     		this.valueFormatted = completedDateTime;
-System.out.println(valueFormatted);	//TODO
+System.out.println("setCompletedDateTime end");	//TODO
     	}
     }
     

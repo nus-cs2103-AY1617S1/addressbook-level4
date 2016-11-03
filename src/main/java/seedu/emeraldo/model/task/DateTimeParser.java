@@ -117,9 +117,9 @@ public class DateTimeParser {
         }
 
         if(month.isEmpty()){
-            month = matcher.group("monthInWords").toLowerCase().substring(0,3);
+            month = matcher.group("monthInWords").substring(0,3);
             if(keyword.equals("to"))
-                month = matcher.group("monthEndInWords").toLowerCase().substring(0,3);
+                month = matcher.group("monthEndInWords").substring(0,3);
             month = convertMonthFromWordsToNumbers(month);
         }
 
@@ -209,9 +209,9 @@ public class DateTimeParser {
         
         //Check for month in words when month not in numbers
         if(month.isEmpty()){
-            month = matcher.group("monthInWords").toLowerCase().substring(0,3);
+            month = matcher.group("monthInWords").substring(0,3);
             if(keyword.equals("to"))
-                month = matcher.group("monthEndInWords").toLowerCase().substring(0,3);
+                month = matcher.group("monthEndInWords").substring(0,3);
             month = convertMonthFromWordsToNumbers(month);
         }
       
@@ -248,11 +248,14 @@ public class DateTimeParser {
     }
     
     public static LocalDate valueDateCompletedFormatter(Matcher matcher) throws IllegalValueException{
+System.out.println("valueDateCompletedFormatter entered");	//TODO    
         String day = matcher.group("day");
         String month = matcher.group("monthInWords");
         String year = matcher.group("year");
+System.out.println("valueDateCompletedFormatter strings matcher.group completed");	//TODO    
+System.out.println(day + " " + month + " " + year);	//TODO   
         month = convertMonthFromWordsToNumbers(month);
-
+System.out.println("valueDateCompletedFormatter convertMonthFromWordsToNumbers completed");	//TODO    
     	return LocalDate.of(Integer.parseInt(year), Integer.parseInt(month), Integer.parseInt(day));
     }
     
@@ -338,7 +341,7 @@ public class DateTimeParser {
      **/
     private static String convertMonthFromWordsToNumbers(String monthInWords)  throws IllegalValueException{
         String monthInNumbers;
-        switch(monthInWords){
+        switch(monthInWords.toLowerCase()){
             case "jan":
                 monthInNumbers = "1";
                 break;
