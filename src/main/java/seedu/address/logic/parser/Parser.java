@@ -55,10 +55,10 @@ public class Parser {
     private static final Pattern EDIT_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<index>[a-z|A-Z][\\d]+)"
                     + "( (?<name>[^/]+)){0,1}"
-                    + "( d/(?<description>[^/]+)){0,1}"
+                    + "( d/(?<description>[^/]*)){0,1}"
                     + "( date/(?<date>[^/]*)){0,1}" // group <date> can be blank to edit DatedTask -> UndatedTask
-                    + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
-    
+                    + "(?<tagArguments>(?: t/[^/]*)*)"); // variable number of tags
+
     public Parser() {}
 
     /**
@@ -96,38 +96,38 @@ public class Parser {
 
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();
-            
+
         case UndoCommand.COMMAND_WORD:
             return new UndoCommand();
 
         case RedoCommand.COMMAND_WORD:
             return new RedoCommand();
-            
+
         case FindCommand.COMMAND_WORD:
             return prepareFind(arguments);
 
         case ListCommand.COMMAND_WORD:
         case ListCommand.COMMAND_ALIAS:
             return prepareList(arguments);
-            
+
         case SaveCommand.COMMAND_WORD:
             return prepareSave(arguments);
-            
+
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
 
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
-        
+
         case ViewCommand.COMMAND_WORD:
-        	return prepareView(arguments); 
-        	
+            return prepareView(arguments); 
+
         default:
             return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
         }
     }
-    
-  //@@author A0143884W
+
+    //@@author A0143884W
     /**
      * Parses arguments in the context of the view task command.
      *
@@ -135,12 +135,12 @@ public class Parser {
      * @return the prepared command
      */
     private Command prepareView(String arguments) {
-    	try {
+        try {
             return new ViewCommand(arguments);
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
         }
-	}
+    }
 
     /**
      * Parses arguments in the context of the add task command.
@@ -174,13 +174,14 @@ public class Parser {
      * Merges duplicate tag strings.
      */
     private static Set<String> getTagsFromArgs(String tagArguments) throws IllegalValueException {
-        // no tags
+        // no input tags
         if (tagArguments.isEmpty()) {
-            return Collections.emptySet();
+            return null;
+        } else {
+            // replace first delimiter prefix, then split
+            final Collection<String> tagStrings = Arrays.asList(tagArguments.replaceFirst(" t/", "").split(" t/"));
+            return new HashSet<>(tagStrings);
         }
-        // replace first delimiter prefix, then split
-        final Collection<String> tagStrings = Arrays.asList(tagArguments.replaceFirst(" t/", "").split(" t/"));
-        return new HashSet<>(tagStrings);
     }
 
     /**
@@ -218,7 +219,7 @@ public class Parser {
         return new DoneCommand(index.get());
     }
     //@@author 
-    
+
     //@@author A0143884W
     /**
      * Parses arguments in the context of the edit person command.
@@ -248,7 +249,7 @@ public class Parser {
         }
     }
     //@@author
-    
+
     /**
      * Parses arguments in the context of the select person command.
      *
@@ -320,23 +321,23 @@ public class Parser {
         }
 
         final String[] keywords = matcher.group("keywords").split("\\s+");
-        
+
         if (keywords.length > 1) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     ListCommand.MESSAGE_LIST_USAGE));
         }
-        
+
         try {
             return new ListCommand(keywords[0]);
-                
+
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     ive.getMessage()));
         }
     }
     //@@author 
-    
-    
+
+
     //@@author A0139528W
     /**
      * Parses arguments in the context of the save folder command.
@@ -349,10 +350,10 @@ public class Parser {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     SaveCommand.MESSAGE_USAGE));
         }
-    	
-		return new SaveCommand(args);
-	}
+
+        return new SaveCommand(args);
+    }
     //@@author
-    
+
 
 }

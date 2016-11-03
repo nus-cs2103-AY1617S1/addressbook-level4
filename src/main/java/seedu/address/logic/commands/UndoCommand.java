@@ -19,7 +19,7 @@ public class UndoCommand extends Command {
     public static final String MESSAGE_UNDO_NOT_POSSIBLE = "There are no actions available for undo";
 
     private UndoTask toUndo;
-    
+
     public UndoCommand() {}
 
     @Override
@@ -58,7 +58,7 @@ public class UndoCommand extends Command {
 
             //Add into redo stack
             model.addRedo(toUndo);
-            
+
             //Determine if duplicate exist
             if (duplicateTaskResult){
                 return new CommandResult(String.format(MESSAGE_SUCCESS, toUndo.getCommand())

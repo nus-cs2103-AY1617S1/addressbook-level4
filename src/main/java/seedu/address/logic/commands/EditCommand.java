@@ -43,11 +43,14 @@ public class EditCommand extends Command implements Undoable{
 
     public EditCommand(String targetIndex, String name, String description, String datetime, Set<String> tagsList)
             throws IllegalValueException {
-        final Set<Tag> tagSet = new HashSet<>();
-        for (String tagName : tagsList) {
-            tagSet.add(new Tag(tagName));
-        }    
-
+        Set<Tag> tagSet = new HashSet<>();
+        if (tagsList == null) {
+            tagSet = null;
+        } else if (!tagsList.contains("")){
+            for (String tagName : tagsList) {
+                tagSet.add(new Tag(tagName));
+            }    
+        }
         populateNonNullFields(targetIndex, name, description, datetime, tagSet);
     } 
 
@@ -64,12 +67,12 @@ public class EditCommand extends Command implements Undoable{
         }
 
         toEdit = CommandUtil.getTaskFromCorrectList(targetIndex, lastDatedTaskList, lastUndatedTaskList);
-        
+
         populateEditedTaskFields();
-        
+
         boolean duplicate = false;
         try {
-        	model.deleteTask(toEdit);  
+            model.deleteTask(toEdit);  
             duplicate = model.addTask(toAdd);                
             populateUndo();
         }  catch (TaskNotFoundException tnfe) {
@@ -77,12 +80,12 @@ public class EditCommand extends Command implements Undoable{
         }
 
         if (duplicate){
-        	return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, toAdd) + "\n" + AddCommand.MESSAGE_DUPLICATE_TASK);
+            return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, toAdd) + "\n" + AddCommand.MESSAGE_DUPLICATE_TASK);
         } else {
-        	return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, toAdd));
+            return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, toAdd));
         }
     }
-    
+
     /**
      * populates non-null instance variables of EditCommand and validates them 
      * 
@@ -98,7 +101,7 @@ public class EditCommand extends Command implements Undoable{
         if (name != null){
             this.name = new Name(name);       
         }
-        
+
         if (description != null){
             this.description = new Description(description);
         }
@@ -107,10 +110,13 @@ public class EditCommand extends Command implements Undoable{
             this.datetime = new Datetime(datetime);
         }
 
-        this.tags = new UniqueTagList(tagSet);
+        if (tagSet != null){
+            this.tags = new UniqueTagList(tagSet);
+        }
+
         this.targetIndex = targetIndex;
     }  
- 
+
     /**
      * combine edit inputs into task to be added
      */
@@ -128,8 +134,15 @@ public class EditCommand extends Command implements Undoable{
         if (datetime != null){
             toAdd.setDatetime(datetime);
         }
-        if (!tags.isEmpty()){
-            toAdd.setTags(tags);
+        //tags == null when no t/ is typed
+        if (tags != null){
+            //tags is empty when t/ is typed (to clear tags)
+            if (tags.isEmpty()){
+                toAdd.setTags(new UniqueTagList());
+            } else {
+                //set tags
+                toAdd.setTags(tags);
+            }
         }
     }
 
