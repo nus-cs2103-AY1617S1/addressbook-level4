@@ -7,7 +7,7 @@ import seedu.address.commons.util.CollectionUtil;
 import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.task.Status.State;
 
-//@@author A0143884W A0139145E
+//@@author A0139145E
 /**
  * Represents a DatedTask in the to-do-list. Guarantees: details are present and
  * not null, field values are validated.
@@ -135,22 +135,22 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
     }
 
     /** 
-     * Static class with methods to compare tasks
+     * Compares between tasks
      */
     public static class Comparators {
 
     	/**
-    	 * Static method to compare tasks by alphabetical order of NAME
+    	 * Compares tasks by alphabetical order of NAME
     	 */
         public static Comparator<Task> NAME = new Comparator<Task>() {
             @Override
             public int compare(Task t1, Task t2) {
-                return t1.getName().toString().compareTo(t2.getName().toString());
+                return t1.getName().toString().toLowerCase().compareTo(t2.getName().toString().toLowerCase());
             }
         };
         
         /**
-         * Static method to compare tasks by chronological order of DATE
+         * Compares tasks by chronological order of DATE
          */
         public static Comparator<Task> DATE = new Comparator<Task>() {
             @Override

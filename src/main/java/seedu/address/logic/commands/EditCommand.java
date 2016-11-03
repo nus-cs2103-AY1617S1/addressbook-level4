@@ -41,10 +41,10 @@ public class EditCommand extends Command implements Undoable{
     private Datetime datetime;
     private UniqueTagList tags;
 
-    public EditCommand(String targetIndex, String name, String description, String datetime, Set<String> tags)
+    public EditCommand(String targetIndex, String name, String description, String datetime, Set<String> tagsList)
             throws IllegalValueException {
         final Set<Tag> tagSet = new HashSet<>();
-        for (String tagName : tags) {
+        for (String tagName : tagsList) {
             tagSet.add(new Tag(tagName));
         }    
 
@@ -78,7 +78,6 @@ public class EditCommand extends Command implements Undoable{
         
         CommandResult temporary = new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, toAdd));
         return CommandUtil.generateCommandResult(temporary,duplicateTaskResult);
-
     }
     
     /**
@@ -126,8 +125,9 @@ public class EditCommand extends Command implements Undoable{
         if (datetime != null){
             toAdd.setDatetime(datetime);
         }
-
-        toAdd.setTags(tags);
+        if (!tags.isEmpty()){
+            toAdd.setTags(tags);
+        }
     }
 
     @Override

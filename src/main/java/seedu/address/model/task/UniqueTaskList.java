@@ -115,12 +115,8 @@ public class UniqueTaskList implements Iterable<Task> {
      *(Set status to OVERDUE)
      * @throws TaskNotFoundException if no such task could be found in the list.
      */
-    public boolean overdue(ReadOnlyTask target) throws TaskNotFoundException {
-        if (!internalList.contains(target)) {
-            throw new TaskNotFoundException();
-        }
-        Task taskFoundAndSetAsOverdue = internalList.get(internalList.indexOf(target));
-        return taskFoundAndSetAsOverdue.setAsOverdue();
+    public boolean overdue(Task target) throws TaskNotFoundException {
+        return target.setAsOverdue();
     }
     
     /**
@@ -142,11 +138,7 @@ public class UniqueTaskList implements Iterable<Task> {
      * @throws TaskNotFoundException if no such task could be found in the list.
      */
     public boolean expire(Task target) throws TaskNotFoundException {
-        if(!internalList.contains(target)){
-            throw new TaskNotFoundException();
-        }
-        Task taskFoundAndSetAsExpired = internalList.get(internalList.indexOf(target));
-        return taskFoundAndSetAsExpired.setAsExpire();
+        return target.setAsExpire();
     }
   //@@author
     

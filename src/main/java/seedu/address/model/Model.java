@@ -76,5 +76,5 @@ public interface Model {
     void updateFilteredTaskListByStatus(String... keyword);
     
     /** Marks task as overdue as compared to system current Datetime */
-    void overdueTask(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException;
+    void overdueTask(Task target) throws UniqueTaskList.TaskNotFoundException;
 }

@@ -197,7 +197,7 @@ public class TaskBook implements ReadOnlyTaskBook {
      * @return
      * @throws UniqueTaskList.TaskNotFoundException
      */
-    public boolean setTaskOverdue(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException {
+    public boolean setTaskOverdue(Task target) throws UniqueTaskList.TaskNotFoundException {
         if (datedTasks.contains(target)) {
             datedTasks.overdue(target);
             return true;

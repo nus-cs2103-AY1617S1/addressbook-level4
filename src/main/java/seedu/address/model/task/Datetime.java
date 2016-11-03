@@ -33,48 +33,53 @@ public class Datetime {
     public Datetime(String input) throws IllegalValueException {
 
         Parser natty = initNatty();
-        List<Date> listOfDate;
+        
+        List<Date> listOfDate = validateInput(input, natty);
+     
+        populateStartEndDates(listOfDate);
+    }
 
-        // 'date/' not found -> floating task
+    /**
+     * Validate input date string using Natty
+     * @param input
+     * @param natty
+     * @return
+     * @throws IllegalValueException
+     */
+	private List<Date> validateInput(String input, Parser natty) throws IllegalValueException {
+		// 'date/' not found -> floating task
         if (input == null) {
-            listOfDate = null;
-        }
-        // check input for '.' characters in date
-        else if (input.matches(DATE_INCORRECT_REGEX)){
+            return null;
+        } else if (input.matches(DATE_INCORRECT_REGEX)){ // check input for '.' characters in date
             throw new IllegalValueException(MESSAGE_DATETIME_CONTAINS_DOTS);
-        }
-        // empty string preceding "date/" -> convert deadline or event to floating task
-        else if (input.equals("")) {
-            listOfDate = null;
-        }
-        // natty returns non-empty list if input is parse-able
-        else if (!natty.parse(input).isEmpty()) {
+        } else if (input.equals("")) { // empty string preceding "date/" -> convert deadline or event to floating task
+            return null;
+        } else if (!natty.parse(input).isEmpty()) { // natty returns non-empty list if input is parse-able
             // rearrange DD-MM-YY to parse-able MM-DD-YY 
             final Matcher matcher = DATE_CORRECT_REGEX.matcher(input.trim());
             if (matcher.matches()){
                 input = matcher.group("month") + "-" + matcher.group("day") + "-" + matcher.group("year") + matcher.group("time");
             }
-            listOfDate = natty.parse(input).get(0).getDates();
-        }
-        // natty returns empty list if input is not parse-able
-        else {
+            return natty.parse(input).get(0).getDates();
+        } else { // natty returns empty list if input is not parse-able
             throw new IllegalValueException(MESSAGE_DATETIME_CONSTRAINTS);
         }
-
-        //floating task
-        if (listOfDate == null) {
+	}
+	
+	/**
+	 * Populate startDate and endDate depending on task type
+	 * @param listOfDate
+	 * @throws IllegalValueException
+	 */
+	private void populateStartEndDates(List<Date> listOfDate) throws IllegalValueException {
+		if (listOfDate == null) { // if task is floating task
             start = null;
             end = null;
-        }
-        //deadline task
-        else if (listOfDate.size() == 1){ 	
-            // date and time were specified 
-            if (listOfDate.get(0).getSeconds() == 0){
+        } else if (listOfDate.size() == 1){ // if task is deadline          
+            if (listOfDate.get(0).getSeconds() == 0){ // date and time specified 
                 start = listOfDate.get(0);
                 end = null;
-            }
-            // only date was specified; default time will be set to 23:59
-            else{  		
+            } else{ // only date was specified; default time will be set to 23:59	
                 Date newDate = listOfDate.get(0);
                 newDate.setHours(23);
                 newDate.setMinutes(59);
@@ -82,22 +87,17 @@ public class Datetime {
                 start = newDate;
                 end = null;
             }
-        }
-        //event task
-        else if (listOfDate.size() == 2){
+        } else if (listOfDate.size() == 2){ // if task is event
             if (listOfDate.get(0).before(listOfDate.get(1))) { // check that start date is before end date
                 start = listOfDate.get(0);
                 end = listOfDate.get(1);
-            }
-            else {
+            } else {
                 throw new IllegalValueException(MESSAGE_DATETIME_CONSTRAINTS);
             }
-        }
-        //wrong number of date elements -> wrong inputs
-        else {
+        } else { //wrong number of date elements -> wrong inputs
             throw new IllegalValueException(MESSAGE_DATETIME_CONSTRAINTS);
         }
-    }
+	}
 
     /**
      * Initialises Natty with the current time zone.

@@ -8,7 +8,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 
 //@@author A0139145E 
 /**
- * Lists all persons in the address book to the user.
+ * Lists all persons in the task book to the user.
  */
 public class ListCommand extends Command {
 

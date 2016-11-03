@@ -197,10 +197,6 @@ public class LogicManagerTest {
     @Test
     public void execute_add_invalidPersonData() throws Exception {
         assertCommandBehavior(
-                "add []\\[;] d/task description", Name.MESSAGE_NAME_CONSTRAINTS);
-        assertCommandBehavior(
-                "add []\\[;] d/task description date/11-11-2018 1111", Name.MESSAGE_NAME_CONSTRAINTS);
-        assertCommandBehavior(
                 "add Valid Name d/can_be_anything date/ab-cd-ef", Datetime.MESSAGE_DATETIME_CONSTRAINTS);
         assertCommandBehavior(
                 "add Valid Name d/can_be_anything date/11-11-2018 1111 t/invalid_-[.tag", Tag.MESSAGE_TAG_CONSTRAINTS);
@@ -555,8 +551,6 @@ public class LogicManagerTest {
     	CommandResult result = logic.execute("view " + date);
     	assertEquals(logic.getFilteredDatedTaskList().size(), listSize);   
     }
-    
-    //@@author
 
     private void genericEdit(String index, int type, String field) throws Exception, DuplicateTaskException, IllegalValueException {
         // actual to be edited
@@ -607,7 +601,7 @@ public class LogicManagerTest {
     // TODO: currently, edits that don't include old tags removes all tags 
     // masterlist of tags in TaskBook also need to be changed
     @Test
-    public void execute_edit_dated_successful() throws Exception {
+    public void execute_editDated_successful() throws Exception {
 
         // initial task in actual model to be edited
         Task original = new Task (new Name("adam"), new Description("111111"),
@@ -656,6 +650,8 @@ public class LogicManagerTest {
                 expectedTB, expectedTB.getDatedTasks(),
                 expectedTB.getUndatedTaskList());
     }
+    
+    //@@author
 
     @Test
     public void execute_find_invalidArgsFormat() throws Exception {
@@ -666,11 +662,11 @@ public class LogicManagerTest {
     @Test
     public void execute_find_isNotCaseSensitive() throws Exception {
         TestDataHelper helper = new TestDataHelper();
-        Task pTarget1a = helper.generateDatedTaskWithName("bla bla KEY bla");
-        Task pTarget1b = helper.generateDatedTaskWithName("bla key bla");
-        Task pTarget2a = helper.generateUndatedTaskWithName("bla KEY bla bceofeia");
-        Task pTarget2b = helper.generateUndatedTaskWithName("bla key bceofeia");
-        Task p1 = helper.generateDatedTaskWithName("KE Y");
+        Task pTarget1a = helper.generateDatedTaskWithName("feed my cat");
+        Task pTarget1b = helper.generateDatedTaskWithName("Feed my cat");
+        Task pTarget2a = helper.generateUndatedTaskWithName("bring cat food");
+        Task pTarget2b = helper.generateUndatedTaskWithName("Buy cat food");
+        Task p1 = helper.generateDatedTaskWithName("ca t");
 
         List<Task> threeDated = helper.generateTaskList(p1, pTarget1a, pTarget1b);
         List<Task> threeUndated = helper.generateTaskList(pTarget2a, pTarget2b);
@@ -682,7 +678,7 @@ public class LogicManagerTest {
         helper.addToModel(model, threeUndated);
         helper.addToModel(model, threeDated);
 
-        assertCommandBehavior("find KEY",
+        assertCommandBehavior("find CAT",
                 (Command.getMessageForPersonListShownSummary(
                         expectedDatedTaskList.size()+expectedUndatedTaskList.size())),
                 expectedAB, expectedDatedTaskList, expectedUndatedTaskList);
@@ -1029,6 +1025,8 @@ public class LogicManagerTest {
                 "save data/new2", SaveCommand.MESSAGE_SUCCESS);
         assertCommandBehavior(
                 "save data/new2", SaveCommand.MESSAGE_LOCATION_SPECIFIED_SAME);
+        assertCommandBehavior(
+                "save data/", SaveCommand.MESSAGE_SUCCESS);
     }
     //@@author
 

@@ -60,7 +60,9 @@ public class AddCommand extends Command implements Undoable {
         
         int checkForDuplicateOrClash = model.addTask(toAdd);
         populateUndo();
+
         return CommandUtil.generateCommandResult(new CommandResult(String.format(MESSAGE_SUCCESS, toAdd)), checkForDuplicateOrClash);
+
 
     }
     
