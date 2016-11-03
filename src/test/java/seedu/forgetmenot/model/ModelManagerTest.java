@@ -99,12 +99,14 @@ public class ModelManagerTest {
         testModel.addRecurringTask(recurringTask);
 
         TestTask toCheck;
-        StringBuilder addedTime = new StringBuilder("");
+        String addedTime = "";
+//        StringBuilder addedTime = new StringBuilder("");
         for (int i = 0; i < Recurrence.DEFAULT_OCCURENCE - 1; i++) {
-            addedTime.insert(0, "day after ");
-            System.out.println(addedTime.toString());
+//            addedTime.insert(0, "day after ");
+            addedTime = "day after " + addedTime;
+            System.out.println(addedTime);
             toCheck = new TaskBuilder().withName("recurring deadline task").withStartTime("")
-                    .withEndTime(addedTime.toString() + "tmr 10am").withDone(false).withRecurrence("day").build();
+                    .withEndTime(addedTime + "tmr 10am").withDone(false).withRecurrence("day").build();
             System.out.println("FOR DEBUGGING toCheck : " + toCheck);
             assertEquals(testModel.getTaskManager().getUniqueTaskList().getInternalList().get(i), toCheck);
 
