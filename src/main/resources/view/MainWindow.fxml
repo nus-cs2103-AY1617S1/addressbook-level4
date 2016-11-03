@@ -85,36 +85,6 @@
                         <DropShadow blurType="GAUSSIAN" color="#0000003f" />
                      </effect>
                   </ScrollPane>
-                  <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="200.0" prefWidth="200.0" styleClass="overdue-scrollpane" GridPane.rowIndex="2">
-                     <effect>
-                        <DropShadow blurType="GAUSSIAN" color="#0000003f" />
-                     </effect>
-                     <content>
-                        <VBox fx:id="overdueList" prefHeight="200.0" prefWidth="100.0" spacing="8.0" styleClass="overdue-panel">
-                           <children>
-                              <AnchorPane fx:id="overduePanelPlaceholder" prefHeight="359.0" prefWidth="257.0" />
-                           </children>
-                        </VBox>
-                     </content>
-                     <padding>
-                        <Insets bottom="10.0" left="10.0" right="15.0" top="10.0" />
-                     </padding>
-                  </ScrollPane>
-                  <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="0.0" prefWidth="287.0" styleClass="upcoming-scrollpane" GridPane.columnIndex="3" GridPane.rowIndex="1" GridPane.rowSpan="2">
-                     <padding>
-                        <Insets bottom="10.0" left="10.0" right="15.0" top="10.0" />
-                     </padding>
-                     <content>
-                        <VBox fx:id="vboxComing" prefHeight="200.0" prefWidth="100.0" spacing="8.0" styleClass="upcoming-panel">
-                           <children>
-                              <AnchorPane fx:id="upcomingPanelPlaceholder" prefHeight="359.0" prefWidth="257.0" />
-                           </children>
-                        </VBox>
-                     </content>
-                     <effect>
-                        <DropShadow blurType="GAUSSIAN" color="#0000003f" />
-                     </effect>
-                  </ScrollPane>
                </children>
             </GridPane>
          </items>
