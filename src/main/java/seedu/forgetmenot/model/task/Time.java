@@ -39,6 +39,12 @@ public class Time {
         if (input.equals(DEFAULT_DATE))
             input = "";
         
+        if (input.equals(new Date(0)))
+            input = "";
+        
+        if (input.equals((new Date(0)).toString()))
+            input = "";
+        
         time = Calendar.getInstance();
         
         if(input.contains("/")) {
