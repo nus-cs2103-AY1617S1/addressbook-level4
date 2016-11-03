@@ -33,22 +33,8 @@
 > * Words in `square brackets ([])` are the parameters.
 > * Items within `arrow signs (<>)` are optional.
 > * Items with `...` after them can have multiple instances.
-> * The order of parameters is fixed.
-
-//@@author A0138455Y
-#### Viewing help : `help`
-#### Shortcut : `h`
-Format: `help` or `help [command word]`
-
-Examples: 
-* `help add`
-* `help edit`
-* `h delete`
-
-> Help is also shown if you enter an incorrect command e.g. `abcd`
-> default help message will show a list of all command word, e.g. enter `help`
+> * The order of parameters is fixed except for edit command.
  
-//@@author A0127686R
 #### Adding a task: `add`
 #### Shortcut : `a`
 Adds a task to the FlexiTrack.<br>
@@ -78,47 +64,38 @@ Examples:
 * `add Submit PC1222 Labsheet fr/ 5 ty/ week by/ Tuesday 5pm`
 * `add complete CS2103 post-lecture quiz fr/ 10 ty/ week by/ Sunday 10pm`
 
-//@@author A0127686R
-#### Finding a task or an event containing any keyword in their title: `find`
-#### Shortcut : `f`
-Finds a task of an event whose title contain any of the given keywords.<br>
-Format: `find KEYWORD [MORE_KEYWORDS]`
 
-> * The search is non case sensitive. e.g `soccer` will match `Soccer`
-> * The order of the keywords does not matter. e.g. `soccer dinner` will match `dinner soccer`
-> * Only the task/event title is searched.
-> * Only full words will be matched e.g. `socc` will not match `soccer` (unless 'f/' keyword is used)
-> * Task or event matching at least one keyword will be returned (i.e. `OR` search).
-    e.g. `soccer` will match `soccer training`
-> * Search by exact task name can be activated with the shortcut 'f/' before the task name.
+//@@author A0138455Y
+#### Block multiple time slot for an event : `block`
+#### Shortcut : `b`
+Block another time slot for an unconfirmed existing event.<br>
+Format: `block [Description] from/ [starting time] to/ [ending time]`  
+
+> The new block period must not overlapping current block task.
+> New event will not be allow to add in if the period of the new event overlapping any blocked task from block list.
 
 Examples: 
-* `find Soccer`<br>
-  Returns `Soccer training` but not `soccer training`
-* `find assignment dinner mid-term`<br>
-  Returns Any task/event having `assignment`, `dinner`, or `mid-term` in the title
-* `f attend CS2103 lecture`<br>
-  Returns Any task/event having `attend`, `CS2103`, or `lecture`
+* `block for cs2103 project from/ 5pm to/ 7pm`<br>
 
-#### Finding a specific task or an event containing an exact phrase in their title: `find f/`
-#### Shortcut : `f f/`
-Finds a task of an event whose title contain any of the given keywords.<br>
-Format: `find f/ EXACT PHRASE`
+//@@author A0127855W
+#### Find free time slots: `gap`
+#### Shortcut: `g`
+Find and list free time slots in the schedule that is equal to or longer than the specified timing (in hours).<br>
+Format: `find time [number of hours] < [number of slots to find] >`  
 
-> * The search is case sensitive. e.g `soccer practice` will not match `Soccer practice`
-> * Only the task/event title is searched..
+> If there is there is a time slot longer than the required free time slot, 
+	then the free time period will be return to you
+> By default, find time will only give a single free slot when the number of slots required is not keyed in.
 
 Examples: 
-* `find f/ Soccer training`<br>
-  Returns `Soccer training` but not `Soccer`
-* `find f/ cn homework`<br>
-  Returns Any task/event containing the exact phrase `cn homework` in their title
-* `f f/ attend CS2103 lecture`<br>
-  Returns Any task/event having exact title `attend CS2103 lecture`
+* `gap 3 `<br>	
+	You have a minimum of 3 hours free time slot between: today 5pm - 9pm. 
+* `g 5 3 `<br>	
+	You have a minimum of 5 hours free time slot between: Monday 2pm - 9pm, Tuesday 1pm - 6pm and Saturday 9am - 5pm. 
 
-#### Deleting a person : `delete`
+#### Deleting a task or event : `delete`
 #### Shortcut : `d`
-Deletes the specified task/event from the FlexiTrack. Irreversible.<br>
+Deletes the specified task/event from the FlexiTrack.<br>
 Format: `delete [index]`
 
 > Deletes the task/event at the specified `index`. 
@@ -130,19 +107,35 @@ Examples:
   Deletes the 2nd task/event in the address book. 
 * `d 1`<br>
   Deletes the 1st task/event in the results of the `find` command.
+  
+//@@author A0127855W  
+#### Clear the FlexiTrack : `clear`
+#### Shortcut : `c`
+Clears the FlexiTrack, resetting it to a blank slate.<br>
+Format: `clear`
 
-#### Undo operations : `undo`
-Undo operation a number of times.<br>
-Format: `undo`
+> The command can be undone as long as the user does not exit FlexiTrack after clearing.
 
-> Users can only undo the command made from the point they open a new flexitrack windows. 
-> Users can undo more than once 
-> Undo works for: add, delete, clear, mark, unmark, block. 
+#### Edit a task or event: `edit`
+#### Shortcut : `e`
+Edits the specified task/event from the FlexiTrack.<br>
+Format: `edit [index] <by/ [deadline]> <n/ [title]> <from/ [starting time]> <to/ [ending time]>`
+
+
+> * Edits the task/event at the specified `index`. 
+  The index refers to the index number shown in the most recent listing.<br>
+  The index **must be a positive integer** 1, 2, 3, ...
+> * Edit parameters must fit the type of task / event being edited. e.g. duedate should only be edited on a task.
+> * Floating tasks can be converted into tasks or events by editing the appropriate parameter.
+> * User cannot edit a floating task into an event with only a starting time but no ending time or vice versa.
 
 Examples: 
-* `undo`<br>
-  Undo the last operation.
-  
+* `edit 2 n/ Name Edited`<br>
+  Edits the title of the task/event. 
+* `e 1 from/ today to/ tomorrow`<br>
+  Edits the start and end times of the specified event.
+//@@author
+
 #### Mark a task as complete : `mark`
 #### Shortcut : `m`
 Mark an existing task to complete and move it to the bottom of the list.<br>
@@ -168,6 +161,76 @@ Format: `unmark [index]`
 Examples: 
 * `unmark 5`<br>
 
+//@@author A0127686R
+#### Finding a task or an event containing any keyword in their title: `find`
+#### Shortcut : `f`
+Finds a task ot an event whose title contain any of the given keywords.<br>
+Format: `find KEYWORD [MORE_KEYWORDS]`
+
+> * The search is non case sensitive. e.g `soccer` will match `Soccer`
+> * The order of the keywords does not matter. e.g. `soccer dinner` will match `dinner soccer`
+> * Only the task/event title is searched.
+> * Only full words will be matched e.g. `socc` will not match `soccer` (unless 'f/' keyword is used)
+> * Task or event matching at least one keyword will be returned (i.e. `OR` search).
+    e.g. `soccer` will match `soccer training`
+> * Search by exact task name can be activated with the shortcut 'f/' before the task name.
+
+Examples: 
+* `find Soccer`<br>
+  Returns `Soccer training` but not `soccer training`
+* `find assignment dinner mid-term`<br>
+  Returns Any task/event having `assignment`, `dinner`, or `mid-term` in the title
+* `f attend CS2103 lecture`<br>
+  Returns Any task/event having `attend`, `CS2103`, or `lecture`
+
+#### Finding a specific task or an event containing an exact phrase in their title: `find f/`
+#### Shortcut : `f f/`
+Finds a task of an event whose title contain any of the given keywords.<br>
+Format: `find f/ EXACT PHRASE`
+  
+//@@author A0127855W
+#### List: `list`
+#### Shortcut : `l`
+Lists tasks and events that match the specified filter.<br>
+Format: `list <filter>`
+
+> Accepted filters include:
+> * future
+> * next week
+> * mark
+> * block
+> Unmarked floating tasks will be listed.
+
+Examples: 
+* `list next month` <br>
+  Returns a list of next month's tasks and events
+  
+#### Select a particular task/event: `select`
+#### Shortcut : `s`
+Selects a particular task/event on the task/event list.<br>
+Format: `select [index]`
+
+> Select the taks/event at the specified `index`. 
+  The index refers to the index number shown in the most recent listing.<br>
+  The index **must be a positive integer** 1, 2, 3, ...
+* `block for cs2103 project from/ 5pm to/ 7pm`<br>	
+
+#### Undo operations : `undo`
+#### Shortcut : `un`
+Undo the previous operation.<br>
+Format: `undo`
+
+> The command will only undo commands entered during the current session of FlexiTrack
+> Undo works for: add, delete, clear, mark, unmark, block. 
+
+#### Redo operations : `redo`
+#### Shortcut : `re`
+Redo the previously undone operation.<br>
+Format: `redo`
+
+> The command will only redo commands undone during the current session of FlexiTrack
+
+//@@author A0138455Y
 #### Specify storage location: `cs`
 Specify the storage location where the program save the data. <br>
 Format: `cs [path]`  
@@ -180,36 +243,24 @@ Limitation: This feature Only allow user to change storage path within the Flexi
 
 > [path] can only contains alphanumeric, forward slash '/' and underscore '_'. 
 
-#### Block multiple time slot for an event : `block`
-#### Shortcut : `b`
-Block another time slot for an unconfirmed existing event.<br>
-Format: `block [Description] from/ [starting time] to/ [ending time]`  
-
-> The new block period must not overlapping current block task.
-> New event will not be allow to add in if the period of the new event overlapping any blocked task from block list.
-
-Examples: 
-* `block for cs2103 project from/ 5pm to/ 7pm`<br>	
-
-//@@author A0127686R
-#### Find free time slot: `find time`
-Find and list free time slot in the schedule that is equal to or longer than the specified timing (in hours).<br>
-Format: `find time [number of hours] < [number of slots to find] >`  
-
-> If there is there is a time slot longer than the required free time slot, 
-	then the free time period will be return to you
-> By default, find time will only give a single free slot when the number of slots required is not keyed in.
-
-Examples: 
-* `find time 3 `<br>	
-	You have a minimum of 3 hours free time slot between: today 5pm - 9pm. 
-* `find time 5 3 `<br>	
-	You have a minimum of 5 hours free time slot between: Monday 2pm - 9pm, Tuesday 1pm - 6pm and Saturday 9am - 5pm. 
-
+//@@author A0127855W
 #### Exiting the program : `exit`
 #### Shortcut : `q`
 Exits the program.<br>
 Format: `exit`  
+
+//@@author A0138455Y
+#### Viewing help : `help`
+#### Shortcut : `h`
+Format: `help` or `help [command word]`
+
+Examples: 
+* `help add`
+* `help edit`
+* `h delete`
+
+> Help is also shown if you enter an incorrect command e.g. `abcd`
+> default help message will show a list of all command word, e.g. enter `help`
 
 #### Saving the data 
 Address book data are saved in the hard disk automatically after any command that changes the data.<br>
@@ -247,22 +298,26 @@ next month 8am | Mar 01 08:00
 **Q**: How do I transfer my data to another Computer?<br>
 **A**: Install the app in the other computer and overwrite the empty data file it creates with 
        the file that contains the data of your previous FlexiTrack folder.
-       
-//@@author
+
+//@@author A0127855W
 ## Command Summary
 
-Command | Format  
--------- | :-------- 
-Add task | `add [task title] < by/ [deadline] >`
-Add event | `add [event title] from/ [starting time] to/ [ending time]`
-Edit | `edit [index] < n/[new title] > < by/[deadline] > < from/[new start time] to/[new end time] >`
-Delete | `delete INDEX`
-Find | `find [key words] < [key words] >`
-Undo | `undo`
-Redo | `redo`
-Mark | `mark [index]`
-Unmark | `unmark [index]`
-cs | `cs [path]`
-Find time | `gap [number of hours] < [number of slots to find] >`
-Block | `block [Description] from/ [starting time] to/ [ending time]`
-Help | `help [command word(optional)]`
+Command | Shortcut | Format
+-------- | ---- | :-------- 
+Add task | a | `add [task title] <fr/ [number of recurrances] ty/ [day | week | month]> <by/ [deadline]>` 
+Add event | a | `add [event title] <fr/ [number of recurrances] ty/ [day | week | month]> from/ [starting time] to/ [ending time]`
+Block | b | `block [description] from/ [starting time] to/ [ending time]`
+Find time | g | `gap [number of hours] < [number of slots to find] >`
+Delete | d | `delete [index]`
+Clear | c | `clear`
+Edit | e | `edit [index] <by/ [deadline]> <n/ [title]> <from/ [starting time]> <to/ [ending time]>`
+Mark | m | `mark [index]`
+Unmark | u | `unmark [index]`
+Find | f | `find [key words] < [key words] >`
+List | l | `list <filter>`
+Select | s | `select [index]`
+Undo | un | `undo`
+Redo | rd | `redo`
+Change Storage Path| cs | `cs [path]`
+Exit | q | `exit`
+Help | h | `help <command word>`
