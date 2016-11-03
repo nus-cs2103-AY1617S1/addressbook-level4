@@ -1,5 +1,5 @@
 # A0153751Hreused
-###### \java\seedu\task\logic\parser\Parser.java
+###### /java/seedu/task/logic/parser/Parser.java
 ``` java
 	private static Set<String> getTagsFromArgs(String tagArguments) throws IllegalValueException {
 		// no tags
