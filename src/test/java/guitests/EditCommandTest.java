@@ -18,6 +18,15 @@ public class EditCommandTest extends TaskManagerGuiTest {
         commandBox.runCommand("edit 1 name, Accompany dad to the doctor");
         commandBox.runCommand("edit 1 tag, gwsDad");
         
+        commandBox.runCommand("edit 1 start, 3pm");
+        commandBox.runCommand("undo");
+
+        commandBox.runCommand("edit 1 end, 6pm");
+        commandBox.runCommand("undo");
+
+        commandBox.runCommand("edit 1 due, 10pm");
+        commandBox.runCommand("undo");
+        
         assertEditSuccess(1, TypicalTestTasks.taskJ, currentList);
         
     }
