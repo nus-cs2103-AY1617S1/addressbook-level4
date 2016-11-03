@@ -1,8 +1,10 @@
 package seedu.task.model;
 
+import java.util.HashMap;
 import java.util.Set;
 
 import seedu.task.commons.core.UnmodifiableObservableList;
+import seedu.task.commons.logic.CommandKeys.Commands;
 import seedu.task.model.task.ReadOnlyTask;
 import seedu.task.model.task.Task;
 import seedu.task.model.task.UniqueTaskList;
@@ -11,6 +13,15 @@ import seedu.task.model.task.UniqueTaskList;
  * The API of the Model component.
  */
 public interface Model {
+    
+    public enum FilterType {
+        ALL,
+        PIN,
+        PENDING,
+        COMPLETED,
+        OVERDUE,
+    }
+    
     /**
      * Clears existing backing model and replaces with the provided new data.
      */
@@ -52,11 +63,29 @@ public interface Model {
 
     /** Updates the filter of the filtered task list to show all tasks */
     void updateFilteredListToShowAll();
+    
+    //@@author A0141052Y
+    /** Updates the filter of the filtered task list to show based on the preset **/
+    void updateFilteredList(FilterType filter);
+    //@@author
 
     /**
      * Updates the filter of the filtered task list to filter by the given
      * keywords
      */
     void updateFilteredTaskList(Set<String> keywords);
-
+    
+    //@@author A0144939R
+    /**
+     * Gets the alias map
+     * @return The command represented by the alias, or null if no mapping exists
+     */
+    public HashMap<String, Commands> getAliasMap();
+    
+    /**
+     * Sets mapping for given alias
+     * @param command
+     * @param alias
+     */
+    public void setMapping(Commands command, String alias);
 }

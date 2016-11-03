@@ -131,6 +131,9 @@ public class UniqueTaskList implements Iterable<Task> {
 
     /**
      * Marks a task as completed in the list.
+     * 
+     * @param originalTask refers to task which is not marked as completed yet
+     * @param completeTask refers to the same task as originalTask except it is marked as completed
      */
     public void complete(ReadOnlyTask originalTask, Task completeTask) {
         assert originalTask != null;
@@ -146,6 +149,9 @@ public class UniqueTaskList implements Iterable<Task> {
     //@@author A0153467Y
     /**
      * Marks a task which is marked as completed to not completed in the list.
+     * 
+     * @param originalTask refers to a task marked as completed
+     * @param uncompleteTask refers to the same task as original except it is not marked as complete
      */
     public void uncomplete(ReadOnlyTask originalTask, Task uncompleteTask) {
         assert originalTask != null;

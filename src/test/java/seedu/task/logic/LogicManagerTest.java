@@ -25,11 +25,11 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -154,13 +154,16 @@ public class LogicManagerTest {
     }
 
     //@@author A0144939R
+    
+    /**
+     * Tests for add command
+     * @throws Exception
+     */
     @Test
     public void execute_add_invalidArgsFormat() throws Exception {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE);
         assertCommandBehavior(
-                "add s/today c/tomorrow", expectedMessage);
-        assertCommandBehavior(
-                "add Valid Name a/sadsadsad", expectedMessage);
+                "add starts today ends tomorrow", expectedMessage);
     }
 
     @Test
@@ -168,12 +171,12 @@ public class LogicManagerTest {
         assertCommandBehavior(
                 "add []\\[;]", Name.MESSAGE_NAME_CONSTRAINTS);
         assertCommandBehavior(
-                "add Do CS2103 t/invalid_-[.tag", Tag.MESSAGE_TAG_CONSTRAINTS);
-        assertCommandBehavior("add Do CS2103 s/hello", DateTime.MESSAGE_DATETIME_CONSTRAINTS);
-        assertCommandBehavior("add Do CS2103 s/hello c/bbye", DateTime.MESSAGE_DATETIME_CONSTRAINTS);
-        assertCommandBehavior("add Do CS2103 c/bbye", DateTime.MESSAGE_DATETIME_CONSTRAINTS);
-        assertCommandBehavior("add Do CS2103 s/tomorrow c/today", Task.MESSAGE_DATETIME_CONSTRAINTS);
-        assertCommandBehavior("add Do CS2103 s/6 hours from now c/3 hours from now", Task.MESSAGE_DATETIME_CONSTRAINTS);
+                "add Do CS2103 tag invalid_-[.tag", Tag.MESSAGE_TAG_CONSTRAINTS);
+        assertCommandBehavior("add Do CS2103 starts hello", DateTime.MESSAGE_DATETIME_CONSTRAINTS);
+        assertCommandBehavior("add Do CS2103 starts hello ends bbye", DateTime.MESSAGE_DATETIME_CONSTRAINTS);
+        assertCommandBehavior("add Do CS2103 ends bbye", DateTime.MESSAGE_DATETIME_CONSTRAINTS);
+        assertCommandBehavior("add Do CS2103 starts tomorrow ends today", Task.MESSAGE_DATETIME_CONSTRAINTS);
+        assertCommandBehavior("add Do CS2103 starts 6 hours from now ends 3 hours from now", Task.MESSAGE_DATETIME_CONSTRAINTS);
 
 
     }
@@ -186,13 +189,12 @@ public class LogicManagerTest {
         expectedAB.addTask(toBeAdded);
 
         // execute command and verify result
-        assertCommandBehavior(helper.generateAddCommand(toBeAdded),
+        assertCommandBehavior(helper.generateAddCommand("add", toBeAdded),
                 String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded),
                 expectedAB,
                 expectedAB.getTaskList());
 
     }
-    //@@author
     @Test
     public void execute_addDuplicate_notAllowed() throws Exception {
         // setup expectations
@@ -206,7 +208,7 @@ public class LogicManagerTest {
 
         // execute command and verify result
         assertCommandBehavior(
-                helper.generateAddCommand(toBeAdded),
+                helper.generateAddCommand("add", toBeAdded),
                 AddCommand.MESSAGE_DUPLICATE_TASK,
                 expectedAB,
                 expectedAB.getTaskList());
@@ -223,12 +225,141 @@ public class LogicManagerTest {
         // prepare task list state
         helper.addToModel(model, 2);
 
-        assertCommandBehavior("list",
+        assertCommandBehavior("list all",
                 ListCommand.MESSAGE_SUCCESS,
                 expectedAB,
                 expectedList);
     }
+    
+    //@@author A0141052Y
+    /**
+     * Tests the preset filter logic for pinned tasks
+     */
+    @Test
+    public void execute_list_showsPinnedTasks() throws Exception {
+        // prepare tasks
+        TestDataHelper helper = new TestDataHelper();
+        
+        Task pinned1 = helper.generateTaskWithName("Pinned");
+        pinned1.setIsImportant(true);
+        Task pinned2 = helper.generateTaskWithName("Pinned Too");
+        pinned2.setIsImportant(true);
+        List<Task> pinnedTasks = helper.generateTaskList(pinned1, pinned2);
+        
+        assertCommandFilteredList("list pinned",
+                ListCommand.MESSAGE_SUCCESS,
+                pinnedTasks,
+                false);
+    }
+    
+    /**
+     * Test the preset filter logic for completed tasks
+     */
+    @Test
+    public void execute_list_showsCompletedTasks() throws Exception {
+        // prepare tasks
+        TestDataHelper helper = new TestDataHelper();
+        
+        Task complete1 = helper.generateTaskWithName("Completed");
+        complete1.setIsCompleted(true);
+        Task complete2 = helper.generateTaskWithName("Completed Also");
+        complete2.setIsCompleted(true);
+        List<Task> completedTasks = helper.generateTaskList(complete1, complete2);
+        
+        assertCommandFilteredList("list completed",
+                ListCommand.MESSAGE_SUCCESS,
+                completedTasks,
+                false);
+    }
+    
+    @Test
+    public void execute_list_showsPendingTasks() throws Exception {
+        // prepare tasks
+        TestDataHelper helper = new TestDataHelper();
+        
+        Task complete1 = helper.generateTaskWithName("Completed");
+        complete1.setIsCompleted(true);
+        Task complete2 = helper.generateTaskWithName("Completed Also");
+        complete2.setIsCompleted(true);
+        List<Task> completedTasks = helper.generateTaskList(complete1, complete2);
+        
+        assertCommandFilteredList("list pending",
+                ListCommand.MESSAGE_SUCCESS,
+                completedTasks,
+                true);
+    }
+    
+    /**
+     * Confirms if execution of the command results in a list that only contains a subset of the list.
+     * @param command the command on test
+     * @param message the expected message to be displayed to the user upon execution of command
+     * @param taskList non-generated list of tasks in the task list
+     * @param isInverse if true, it will assert if taskList if NOT displayed, else only taskList is displayed
+     */
+    private void assertCommandFilteredList(String command, String message, List<Task> taskList, boolean isInverse) throws Exception {
+        // prepare initial state
+        TestDataHelper helper = new TestDataHelper();
+        helper.addToModel(model, 10);
+        helper.addToModel(model, taskList);
 
+        // prepare expected
+        ReadOnlyTaskManager expectedTaskManager = model.getTaskManager();
+        List<Task> expectedTaskList = (isInverse) ? helper.generateTaskList(10) : taskList;
+        
+        assertCommandBehavior(command, message, expectedTaskManager, expectedTaskList);
+    }
+    
+    //@@author
+    /**
+     * Tests for alias command
+     * @throws Exception
+     */
+    @Test
+    public void execute_alias_invalidFormat() throws Exception {
+        assertCommandBehavior("alias", String.format(MESSAGE_INVALID_COMMAND_FORMAT, AliasCommand.MESSAGE_USAGE));
+        assertCommandBehavior("alias add", String.format(MESSAGE_INVALID_COMMAND_FORMAT, AliasCommand.MESSAGE_USAGE));
+        assertCommandBehavior("alias add + -", String.format(MESSAGE_INVALID_COMMAND_FORMAT, AliasCommand.MESSAGE_USAGE));
+    }
+    
+    @Test
+    public void execute_noCommand() throws Exception {
+        assertCommandBehavior("alias - +", AliasCommand.MESSAGE_FAILURE);
+    }
+    
+    @Test
+    public void execute_alias_alreadyTaken() throws Exception {
+        assertCommandBehavior("alias add +", String.format(AliasCommand.MESSAGE_SUCCESS));
+        assertCommandBehavior("alias edit +", String.format(AliasCommand.MESSAGE_FAILURE));
+        assertCommandBehavior("alias add -", String.format(AliasCommand.MESSAGE_SUCCESS));
+    }
+    
+    @Test
+    public void execute_alias_successful() throws Exception {
+        assertCommandBehavior("alias add +", String.format(AliasCommand.MESSAGE_SUCCESS));
+        
+        TestDataHelper helper = new TestDataHelper();
+        Task toBeAdded = helper.adam();
+        TaskManager expectedTM = new TaskManager();
+        expectedTM.addTask(toBeAdded);
+
+        // execute command and verify result
+        assertCommandBehavior(helper.generateAddCommand("+", toBeAdded),
+                String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded),
+                expectedTM,
+                expectedTM.getTaskList());
+        
+        assertCommandBehavior("alias delete -",
+                String.format(AliasCommand.MESSAGE_SUCCESS),
+                expectedTM,
+                expectedTM.getTaskList());
+        expectedTM.removeTask(toBeAdded);
+        
+        assertCommandBehavior("- 1",
+                String.format(DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS, toBeAdded),
+                expectedTM,
+                expectedTM.getTaskList());
+    }
+    //@@author
 
     /**
      * Confirms the 'invalid argument index number behaviour' for the given command
@@ -401,8 +532,7 @@ public class LogicManagerTest {
 
             boolean isImportant = false;
             boolean isComplete = false;
-            int recurrenceWeek=0;
-            return new Task(name, new DateTime(null), new DateTime(null), isImportant, isComplete, tags, recurrenceWeek);
+            return new Task(name, new DateTime(null), new DateTime(null), isImportant, isComplete, tags);
         }
 
         /**
@@ -415,31 +545,31 @@ public class LogicManagerTest {
         Task generateTask(int seed) throws Exception {
             return new Task(
                     new Name("Task " + seed),
-                    new DateTime("" + Math.abs(seed)+" days from now"),
-                    new DateTime(""),
+                    DateTime.fromUserInput("" + Math.abs(seed)+" days from now"),
+                    DateTime.fromUserInput(""),
                     false,
                     false,
-                    new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1))),
-                    0
+                    new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1)))
             );
         }
-
+        //@@author A0144939R
         /** Generates the correct add command based on the Task given */
-        String generateAddCommand(Task p) {
+        public String generateAddCommand(String alias, Task p) {
             StringBuffer cmd = new StringBuffer();
 
-            cmd.append("add ");
+            cmd.append(alias+" ");
 
             cmd.append(p.getName().toString());
 
 
             UniqueTagList tags = p.getTags();
             for(Tag t: tags){
-                cmd.append(" t/").append(t.tagName);
+                cmd.append(" tag ").append(t.tagName);
             }
 
             return cmd.toString();
         }
+        //@@author
 
         /**
          * Generates an TaskManager with auto-generated Tasks.
@@ -514,12 +644,11 @@ public class LogicManagerTest {
         Task generateTaskWithName(String name) throws Exception {
             return new Task(
                     new Name(name),
-                    new DateTime("tomorrow"),
-                    new DateTime("day after tomorrow"),
+                    DateTime.fromUserInput("tomorrow"),
+                    DateTime.fromUserInput("day after tomorrow"),
                     false,
                     false,
-                    new UniqueTagList(new Tag("tag")),
-                    0
+                    new UniqueTagList(new Tag("tag"))
             );
         }
     }

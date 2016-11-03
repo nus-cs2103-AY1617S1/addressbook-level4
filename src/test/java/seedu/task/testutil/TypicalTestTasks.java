@@ -10,7 +10,7 @@ import seedu.task.model.task.*;
  */
 public class TypicalTestTasks {
 
-    public static TestTask cs2103, laundry, carl, daniel, elle, fiona, george, hoon, ida, same, recur, name;
+    public static TestTask cs2103, laundry, carl, daniel, elle, fiona, george, hoon, ida, same, recur, recur2, name;
 
     public TypicalTestTasks() {
         try {
@@ -19,7 +19,7 @@ public class TypicalTestTasks {
             laundry = new TaskBuilder().withName("Meier").withOpenTime("tomorrow")
                     .withCloseTime("day after tomorrow").withImportance(false).withTags("urgent", "important").build();
             carl = new TaskBuilder().withName("Meet Carl").withOpenTime("5 days from now")
-                    .withCloseTime("13 days from now").build();
+                    .withCloseTime("14 days from now").build();
             daniel = new TaskBuilder().withName("Have lunch with Meier").withOpenTime("6 hours from now")
                     .withCloseTime("8 hours from now").build();
             elle = new TaskBuilder().withName("Take Ellie out on a date").withOpenTime("6 hours from now")
@@ -37,8 +37,10 @@ public class TypicalTestTasks {
             same =new TaskBuilder().withName("Ida Mueller").withOpenTime("one week from now")
                     .withCloseTime("two weeks from now").build();
             recur = new TaskBuilder().withName("Ida").withOpenTime("one week from now")
-                    .withCloseTime("two weeks from now").withRecurrentWeek(2).build();
-            name = new TaskBuilder().withName("task name").withRecurrentWeek(2).build();
+                    .withCloseTime("two weeks from now").build();
+            recur2 = new TaskBuilder().withName("Do Homework").withOpenTime("two days from now")
+                    .withCloseTime("five days from now").build();
+            name = new TaskBuilder().withName("task name").build();
             
         } catch (IllegalValueException e) {
             e.printStackTrace();

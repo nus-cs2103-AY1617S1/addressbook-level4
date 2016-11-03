@@ -26,24 +26,19 @@ public class TaskBuilder {
         }
         return this;
     }
-
+    //@@author A0153467Y
     public TaskBuilder withImportance(boolean isImportant) throws IllegalValueException{
     	this.task.setIsImportant(isImportant);
     	return this;
     }
     //@@author A0144939R
     public TaskBuilder withOpenTime(String openTime) throws IllegalValueException {
-        this.task.setOpenTime(new DateTime(openTime));
+        this.task.setOpenTime(DateTime.fromUserInput(openTime));
         return this;
     }
     
     public TaskBuilder withCloseTime(String closeTime) throws IllegalValueException {
-        this.task.setCloseTime(new DateTime(closeTime));
-        return this;
-    }
-    
-    public TaskBuilder withRecurrentWeek(int recurrentWeek){
-        this.task.setRecurrentWeek(recurrentWeek);
+        this.task.setCloseTime(DateTime.fromUserInput(closeTime));
         return this;
     }
 

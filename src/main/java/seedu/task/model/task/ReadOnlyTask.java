@@ -14,7 +14,6 @@ public interface ReadOnlyTask {
     DateTime getCloseTime();
     boolean getImportance();
     boolean getComplete();
-    int getRecurrentWeek();
 
     /**
      * The returned TagList is a deep copy of the internal TagList,
@@ -22,17 +21,21 @@ public interface ReadOnlyTask {
      */
     UniqueTagList getTags();
     
+    //@@author A0141052Y
     /**
      * Equality based on what is shown to the user. Useful for tests.
      */
     default boolean isSameVisualStateAs(ReadOnlyTask other) {
         return other == this // short circuit if same object
                 || (other != null // this is first to avoid NPE below
-                && other.getName().equals(this.getName()) // state checks here onwards
-                && other.getOpenTime().toPrettyString().equals(this.getOpenTime().toPrettyString())
-                && other.getCloseTime().toPrettyString().equals(this.getCloseTime().toPrettyString())
+                  
+                // state checks here onwards
+                && other.getName().equals(this.getName()) 
+                && other.getOpenTime().toDisplayString().equals(this.getOpenTime().toDisplayString())
+                && other.getCloseTime().toDisplayString().equals(this.getCloseTime().toDisplayString())
                 && other.getImportance() == this.getImportance());
     }
+    //@@author A0144939R
 
     /**
      * Returns true if both have the same state. (interfaces cannot override .equals)
@@ -40,7 +43,9 @@ public interface ReadOnlyTask {
     default boolean isSameStateAs(ReadOnlyTask other) {
         return other == this // short circuit if same object
                 || (other != null // this is first to avoid NPE below
-                && other.getName().equals(this.getName()) // state checks here onwards
+                
+                // state checks here onwards
+                && other.getName().equals(this.getName()) 
                 && other.getOpenTime().equals(this.getOpenTime())
                 && other.getCloseTime().equals(this.getCloseTime())
                 && other.getImportance() == this.getImportance());
@@ -52,14 +57,6 @@ public interface ReadOnlyTask {
     default String getAsText() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
-                /**
-                .append(" Open Time: ")
-                .append(getOpenTime())
-                .append(" Close Time: ")
-                .append(getCloseTime())
-                .append("Important: ")
-                .append(getImportance())
-                **/
                 .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();

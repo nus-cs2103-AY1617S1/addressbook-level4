@@ -15,20 +15,34 @@ public class TestTask implements ReadOnlyTask {
     private UniqueTagList tags;
     private boolean isImportant;
     private boolean isCompleted;
-    private int recurrentWeek;
 
     public TestTask() {
         tags = new UniqueTagList();
     }
     
+    //@@author A0141052Y
+    /**
+     * Creates a duplicate (copy) of an existing TestTask
+     * @param task the TestTask to copy from
+     */
+    public TestTask(TestTask task) {
+        this.name = task.getName();
+        this.openTime = task.getOpenTime();
+        this.closeTime = task.getCloseTime();
+        this.isCompleted = task.getComplete();
+        this.isImportant = task.getImportance();
+        this.tags = new UniqueTagList(task.getTags());
+    }
+    //@@author
+    
     public void setName(Name name) {
         this.name = name;
     }
-
+    //@@author A0153467Y
     public void setIsImportant(boolean isImportant){
     	this.isImportant=isImportant;
     }
-    
+    //@@author
     public void setOpenTime(DateTime openTime) {
         this.openTime = openTime;
     }
@@ -36,25 +50,21 @@ public class TestTask implements ReadOnlyTask {
     public void setCloseTime(DateTime closeTime) {
         this.closeTime = closeTime;
     }
-
+    //@@author A0153467Y
     public void setIsCompleted(boolean isCompleted){
         this.isCompleted = isCompleted;
-    }
-    
-    public void setRecurrentWeek(int recurrentWeek){
-        this.recurrentWeek=recurrentWeek;
     }
 
     @Override
     public Name getName() {
         return name;
     }
-
+    //@@author A0153467Y
     @Override
     public boolean getComplete() {
         return isCompleted;
     }
-    
+    //@@author
     @Override
     public DateTime getOpenTime() {
         return openTime;
@@ -70,15 +80,13 @@ public class TestTask implements ReadOnlyTask {
         return tags;
     }
 
-    @Override
-    public int getRecurrentWeek() {
-        return recurrentWeek;
-    }
-    
+    //@@author A0153467Y
+
     @Override
     public boolean getImportance() {
         return isImportant;
     }
+    //@@author
     @Override
     public String toString() {
         return getAsText();
@@ -87,19 +95,19 @@ public class TestTask implements ReadOnlyTask {
     public String getAddCommand() {
         StringBuilder sb = new StringBuilder();
         sb.append("add " + this.getName().taskName + " ");
-        sb.append("s/" + this.getOpenTime().toPrettyString() + " ");
-        sb.append("c/" + this.getCloseTime().toPrettyString() + " ");
-        this.getTags().getInternalList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));
-        sb.append("r/" + this.getRecurrentWeek()+ " ");
+        sb.append("starts " + this.getOpenTime().toPrettyString() + " ");
+        sb.append("ends " + this.getCloseTime().toPrettyString() + " ");
+        this.getTags().getInternalList().stream().forEach(s -> sb.append("tag " + s.tagName + " "));
+        System.out.println("COMMAND" +sb.toString());
         return sb.toString();
     }
     
     public String getArgs() {
         StringBuilder sb = new StringBuilder();
         sb.append(" "+this.getName().taskName + " ");
-        sb.append("s/" + this.getOpenTime().toPrettyString() + " ");
-        sb.append("c/" + this.getCloseTime().toPrettyString() + " ");
-        this.getTags().getInternalList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));
+        sb.append("starts " + this.getOpenTime().toPrettyString() + " ");
+        sb.append("ends " + this.getCloseTime().toPrettyString() + " ");
+        this.getTags().getInternalList().stream().forEach(s -> sb.append("tag " + s.tagName + " "));
         return sb.toString();
     }
 }

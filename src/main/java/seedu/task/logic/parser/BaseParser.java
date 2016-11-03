@@ -26,23 +26,8 @@ public abstract class BaseParser {
         StringJoiner joiner = new StringJoiner(" ");
         
         for (String segment : segments) {
-            if (segment.contains("/")) {
-                addToArgumentsTable(currentKey, joiner.toString().trim());
-                
-                String[] kwargComponent = segment.split("/", 2);
-                
-                // set to next keyword
-                currentKey = kwargComponent[0];
-                
-                joiner = new StringJoiner(" ");
-                if (kwargComponent.length > 1) {
-                    joiner.add(kwargComponent[1]);
-                }
-                
-                continue;
-            } else {
-                joiner.add(segment);
-            }
+            joiner.add(segment);
+            
         }
         
         addToArgumentsTable(currentKey, joiner.toString());
@@ -51,8 +36,8 @@ public abstract class BaseParser {
     /**
      * Assigns a value to a keyword argument. Does not replace any existing
      * values associated with the keyword.
-     * @param keyword
-     * @param value
+     * @param keyword the keyword of the argument
+     * @param value the value the argument is set to
      */
     protected void addToArgumentsTable(String keyword, String value) {
         ArrayList<String> arrayItems;

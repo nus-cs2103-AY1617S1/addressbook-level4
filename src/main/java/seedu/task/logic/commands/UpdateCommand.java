@@ -20,9 +20,9 @@ public class UpdateCommand extends UndoableCommand {
 
     public static final String COMMAND_WORD = "update";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Update a task in the task list.\n "
-            + "Parameters: INDEX (must be a positive integer) [NAME t/TAGADD rt/TAGREMOVE]...\n"
+            + "Parameters: INDEX (must be a positive integer) [NAME tag TAGADD remove-tag TAGREMOVE]...\n"
             + "Example: " + COMMAND_WORD
-            + " 1 cs2103 t/quiz";
+            + " 1 cs2103 tag quiz ends tomorrow";
     
     public static final String MESSAGE_UPDATE_TASK_SUCCESS = "Updated Task: %1$s"; 
     public static final String MESSAGE_ROLLBACK_SUCCESS = "Rollback changes to updated task!";
@@ -38,14 +38,14 @@ public class UpdateCommand extends UndoableCommand {
     
     public UpdateCommand(int targetIndex, String name, String openTime, String closeTime, Set<String> tagsToAdd, Set<String> tagsToRemove) throws IllegalValueException { 
         this.targetIndex = targetIndex;
-        this.newTaskName = (name.isEmpty()) ? null : new Name(name);
+        this.newTaskName = (name == null || name.isEmpty()) ? null : new Name(name);
         
         final Set<Tag> tagSet = new HashSet<>();
         for (String tagName : tagsToAdd) {
             tagSet.add(new Tag(tagName));
         }
-        this.newOpenTime = new DateTime(openTime);
-        this.newCloseTime = new DateTime(closeTime);
+        this.newOpenTime = DateTime.fromUserInput(openTime);
+        this.newCloseTime = DateTime.fromUserInput(closeTime);
         
         this.newTaskTags = new UniqueTagList(tagSet);
         this.removedTags = tagsToRemove;
@@ -90,8 +90,7 @@ public class UpdateCommand extends UndoableCommand {
                     updatedCloseTime,
                     taskToUpdate.getImportance(),
                     taskToUpdate.getComplete(),
-                    newTaskTags,
-                    taskToUpdate.getRecurrentWeek()
+                    newTaskTags
             );
         } catch (IllegalValueException e1) {
             return new CommandResult(false, e1.getMessage()); 

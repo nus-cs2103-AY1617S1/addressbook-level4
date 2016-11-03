@@ -13,7 +13,7 @@ public class TaskCardHandle extends GuiHandle {
     private static final String OPEN_TIME_FIELD_ID = "#openTime";
     private static final String CLOSE_TIME_FIELD_ID = "#closeTime";
     private static final String DETAILS_FIELD_ID = "#cardDetails";
-
+    
     private Node node;
 
     public TaskCardHandle(GuiRobot guiRobot, Stage primaryStage, Node node){
@@ -48,8 +48,8 @@ public class TaskCardHandle extends GuiHandle {
 
     public boolean isSameTask(ReadOnlyTask task){
         return getTaskName().equals(task.getName().taskName)
-                && getOpenTime().equals(task.getOpenTime().toPrettyString())
-                && getCloseTime().equals(task.getCloseTime().toPrettyString());
+                && getOpenTime().equals(task.getOpenTime().toDisplayString())
+                && getCloseTime().equals(task.getCloseTime().toDisplayString());
     }
 
     @Override

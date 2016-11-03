@@ -5,11 +5,14 @@ import seedu.task.commons.core.ComponentManager;
 import seedu.task.commons.core.LogsCenter;
 import seedu.task.commons.core.UnmodifiableObservableList;
 import seedu.task.commons.events.model.TaskManagerChangedEvent;
+import seedu.task.commons.logic.CommandKeys.Commands;
 import seedu.task.commons.util.StringUtil;
+import seedu.task.model.task.DateTime;
 import seedu.task.model.task.ReadOnlyTask;
 import seedu.task.model.task.Task;
 import seedu.task.model.task.UniqueTaskList;
 
+import java.util.HashMap;
 import java.util.Set;
 import java.util.logging.Logger;
 
@@ -22,6 +25,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     private final TaskManager taskManager;
     private final FilteredList<Task> filteredTasks;
+    private final UserPrefs userPrefs;
 
     /**
      * Initializes a ModelManager with the given TaskManager
@@ -36,6 +40,7 @@ public class ModelManager extends ComponentManager implements Model {
 
         taskManager = new TaskManager(src);
         filteredTasks = new FilteredList<>(taskManager.getTasks());
+        this.userPrefs = userPrefs;
     }
 
     public ModelManager() {
@@ -45,6 +50,7 @@ public class ModelManager extends ComponentManager implements Model {
     public ModelManager(ReadOnlyTaskManager initialData, UserPrefs userPrefs) {
         taskManager = new TaskManager(initialData);
         filteredTasks = new FilteredList<>(taskManager.getTasks());
+        this.userPrefs = userPrefs;
     }
 
     @Override
@@ -129,6 +135,41 @@ public class ModelManager extends ComponentManager implements Model {
     public void updateFilteredListToShowAll() {
         filteredTasks.setPredicate(null);
     }
+    
+    //@@author A0141052Y
+    @Override
+    public void updateFilteredList(FilterType filter) {
+        
+        updateFilteredListToShowAll();
+        
+        switch (filter) {
+        case ALL:
+            updateFilteredListToShowAll();
+            break;
+            
+        case PIN:
+            updateFilteredTaskList(new PredicateExpression(new PinQualifier(true)));
+            break;
+            
+        case COMPLETED:
+            updateFilteredTaskList(new PredicateExpression(new CompletedQualifier(true)));
+            break;
+        
+        case PENDING:
+            updateFilteredTaskList(new PredicateExpression(new CompletedQualifier(false)));
+            break;
+            
+        case OVERDUE:
+            DateTime now = DateTime.fromEpoch(System.currentTimeMillis());
+            updateFilteredTaskList(new PredicateExpression(new DueDateQualifier(now)));
+            break;
+            
+        default:
+            // does nothing
+            break;
+        }
+    }
+    //@@author
 
     @Override
     public void updateFilteredTaskList(Set<String> keywords) {
@@ -190,6 +231,81 @@ public class ModelManager extends ComponentManager implements Model {
         public String toString() {
             return "name=" + String.join(", ", nameKeyWords);
         }
+
+    }
+    
+    //@@author A0141052Y
+    /**
+     * Qualifier that checks if Task is not due based on reference time
+     * @author Syed Abdullah
+     *
+     */
+    private class DueDateQualifier implements Qualifier {
+        
+        private DateTime referencePoint;
+        
+        DueDateQualifier(DateTime reference) {
+            this.referencePoint = reference;
+        }
+
+        @Override
+        public boolean run(ReadOnlyTask task) {
+            DateTime toCompare = task.getCloseTime();
+            
+            if (toCompare.isEmpty()) {
+                return false;
+            } else {
+                return (toCompare.compareTo(this.referencePoint) < 1);
+            }
+        }
+    }
+    
+    /**
+     * Qualifier to check the Pin property of the underlying Task.
+     * @author Syed Abdullah
+     *
+     */
+    private class PinQualifier implements Qualifier {
+        
+        private boolean isPinned;
+        
+        PinQualifier(boolean isPinned) {
+            this.isPinned = isPinned;
+        }
+
+        @Override
+        public boolean run(ReadOnlyTask task) {
+            return (task.getImportance() == this.isPinned);
+        }
+    }
+    
+    /**
+     * Qualifier to check the Completed property of the underlying Task.
+     * @author Syed Abdullah
+     *
+     */
+    private class CompletedQualifier implements Qualifier {
+        
+        private boolean isCompleted;
+        
+        CompletedQualifier(boolean isCompleted) {
+            this.isCompleted = isCompleted;
+        }
+
+        @Override
+        public boolean run(ReadOnlyTask task) {
+            return (task.getComplete() == this.isCompleted);
+        }
     }
 
+    //@@author A0144939R
+
+    public HashMap<String, Commands> getAliasMap() {
+        return userPrefs.getAliasMap();
+    }
+    
+    public void setMapping(Commands command, String alias) {
+        userPrefs.setMapping(command, alias);
+    }
+    
 }
