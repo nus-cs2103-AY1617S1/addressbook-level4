@@ -35,13 +35,13 @@ public class ActionHistoryEntry extends UiPart{
     }
     
     public void setTypeFail(){
-        this.title.setStyle("-fx-text-fill: crimson;");
-        this.date.setStyle("-fx-text-fill: crimson;");
+        this.title.setStyle("-fx-text-fill: -fx-quaternary;");
+        this.date.setStyle("-fx-text-fill: -fx-quaternary;");
     }
     
     public void setTypeSuccess(){
-        this.title.setStyle("-fx-text-fill: deepSkyBlue;");
-        this.date.setStyle("-fx-text-fill: deepSkyBlue;");
+        this.title.setStyle("-fx-text-fill: -fx-primary;");
+        this.date.setStyle("-fx-text-fill: -fx-primary;");
     }
     
     @Override

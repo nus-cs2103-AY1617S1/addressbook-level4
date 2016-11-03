@@ -77,7 +77,7 @@ public class MainWindow extends UiPart {
     private static final double WIDTH_MULTIPLIER_NAME = 0.285;
     private static final double WIDTH_MULTIPLIER_STARTDATE = 0.18;
     private static final double WIDTH_MULTIPLIER_ENDDATE = 0.18;
-    private static final double WIDTH_MULTIPLIER_TAGS = 0.2;
+    private static final double WIDTH_MULTIPLIER_TAGS = 0.18;
     private static final double WIDTH_MULTIPLIER_RECUR = 0.1;
 
     private static final short INDEX_HOME = 0;
