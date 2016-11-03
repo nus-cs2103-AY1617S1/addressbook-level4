@@ -38,8 +38,8 @@ public class Time implements Comparable<Time> {
 		}
 		if (time.equals("")) {
 			this.fullTime = "";
-			this.hours = 23;
-			this.minutes = 59;
+			this.hours = 00;
+			this.minutes = 00;
 
 		} else {
 			this.fullTime = time;
