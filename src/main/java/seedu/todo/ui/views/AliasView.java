@@ -69,6 +69,15 @@ public class AliasView extends View {
         AliasItem.reset(aliasesPlaceholder);
 
         // Load items
+        loadAliases(aliasDefinitions);
+    }
+
+    /**
+     * Load aliases into view.
+     * 
+     * @param aliasDefinitions  List of aliasDefinitions
+     */
+    private void loadAliases(List<Map.Entry<String, String>> aliasDefinitions) {
         for (Map.Entry<String, String> aliasPair : aliasDefinitions) {
             AliasItem item = load(primaryStage, aliasesPlaceholder, AliasItem.class);
             item.aliasDefinition = new AliasDefinition(aliasPair.getKey(), aliasPair.getValue());
