@@ -36,6 +36,7 @@ public class UniqueTaskList implements Iterable<Task> {
     }
 
     private final ObservableList<Task> internalList = FXCollections.observableArrayList();
+    private final ObservableList<Task> pinnedList = FXCollections.observableArrayList();
 
     /**
      * Constructs empty PersonList.
@@ -99,9 +100,26 @@ public class UniqueTaskList implements Iterable<Task> {
 	internalList.set(taskIndex, completedTask);
 	FXCollections.sort(internalList);
     	}
+    
+    /**
+     * Pins the task indicated by taskIndex
+     * 
+     * @return
+     */
+    public void pin(int taskIndex) throws PersonNotFoundException {
+	
+	final Task completedTask = internalList.get(taskIndex);
+	completedTask.pin();
+	internalList.set(taskIndex, completedTask);
+	pinnedList.add(completedTask);
+    }
 
     public ObservableList<Task> getInternalList() {
 	return internalList;
+    }
+    
+    public ObservableList<Task> getInternalPinnedList() {
+	return pinnedList;
     }
 
     @Override

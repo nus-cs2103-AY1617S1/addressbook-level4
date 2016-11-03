@@ -2,6 +2,7 @@ package seedu.dailyplanner.model;
 
 import java.util.Set;
 
+import javafx.collections.ObservableList;
 import seedu.dailyplanner.commons.core.UnmodifiableObservableList;
 import seedu.dailyplanner.logic.commands.Command;
 import seedu.dailyplanner.history.HistoryManager;
@@ -33,8 +34,14 @@ public interface Model {
     /** Marks the given task as complete  */
     void markTaskAsComplete(int targetIndex) throws PersonNotFoundException;
     
+    /** Pins the given task. */
+    void pinTask(int targetIndex) throws PersonNotFoundException;
+    
     /** Returns the filtered person list as an {@code UnmodifiableObservableList<ReadOnlyPerson>} */
     UnmodifiableObservableList<ReadOnlyTask> getFilteredPersonList();
+    
+    /** Returns the list of pinned task as an {@code UnmodifiableObservableList<ReadOnlyPerson>} */
+    UnmodifiableObservableList<ReadOnlyTask> getPinnedTaskList();
 
     /** Updates the filter of the filtered person list to show all persons */
     void updateFilteredListToShowAll();
@@ -47,6 +54,5 @@ public interface Model {
 
     /** Updates the filter of the filtered person list to show only completed tasks*/
 	void updateFilteredPersonListByCompletion(Set<String> keywords);
-    
 
 }

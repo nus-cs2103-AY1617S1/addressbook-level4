@@ -6,6 +6,7 @@ import seedu.dailyplanner.model.tag.UniqueTagList;
 import seedu.dailyplanner.model.task.ReadOnlyTask;
 import seedu.dailyplanner.model.task.Task;
 import seedu.dailyplanner.model.task.UniqueTaskList;
+import seedu.dailyplanner.model.task.UniqueTaskList.PersonNotFoundException;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -49,6 +50,10 @@ public class AddressBook implements ReadOnlyAddressBook {
     public ObservableList<Task> getPersons() {
         return persons.getInternalList();
     }
+    
+    public ObservableList<Task> getPinnedTasks() {
+   	return persons.getInternalPinnedList();
+       }
 
     public void setPersons(List<Task> persons) {
         this.persons.getInternalList().setAll(persons);
@@ -116,6 +121,9 @@ public class AddressBook implements ReadOnlyAddressBook {
 	persons.complete(targetIndex);
     }
 
+    public void pinTask(int targetIndex) throws PersonNotFoundException {
+	persons.pin(targetIndex);
+    }
 //// tag-level operations
 
     public void addTag(Tag t) throws UniqueTagList.DuplicateTagException {

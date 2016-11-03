@@ -16,7 +16,7 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
 	private StartTime email;
 	private EndTime address;
 	private String isComplete;
-
+	private boolean isPinned;
 	private UniqueTagList tags;
 
 	/**
@@ -31,6 +31,7 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
 		this.tags = new UniqueTagList(tags); // protect internal tags from
 												// changes in the arg list
 		this.isComplete = isComplete;
+		this.isPinned = false;
 	}
 
 	/**
@@ -134,6 +135,14 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
 			return this.getEmail().compareTo(o.getEmail());
 		}
 		return this.getAddress().compareTo(o.getAddress());
+	}
+
+	public void pin() {
+	    this.isPinned = true;
+	}
+	
+	public void unpin() {
+	    this.isPinned = false;
 	}
 
 
