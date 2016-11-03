@@ -19,6 +19,7 @@ public class TypicalTestTasks<lecture1> {
 
     public TypicalTestTasks() {
         try {
+            // @@author A0127686R
             homework1 = new TaskBuilder().withName("Homework cs 2103").withDueDate("Jan 11 2017 17:00")
                     .withEndTime("Feb 29 2000 00:00").withStartTime("Feb 29 2000 00:00").build();
             homework2 = new TaskBuilder().withName("Homework cs 2101").withDueDate("Sep 01 2016 13:00")
@@ -188,10 +189,6 @@ public class TypicalTestTasks<lecture1> {
         FlexiTrack ab = new FlexiTrack();
         loadFlexiTrackWithSampleData(ab);
         return ab;
-    }
-
-    public TestTask[] testCaseForListLastAndNext() {
-        return new TestTask[] { past2, past1, lecture1, exam1 }; 
     }
 
     public TestTask[] getExpectedTypicalNextWeekTasks() {

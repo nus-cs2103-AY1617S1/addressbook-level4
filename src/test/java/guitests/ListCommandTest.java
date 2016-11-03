@@ -11,7 +11,7 @@ import seedu.flexitrack.testutil.TestUtil;
 public class ListCommandTest extends FlexiTrackGuiTest {
 
     @Test
-    public void list() {
+    public void testListBasic() {
         TestTask[] currentList = td.getTypicalSortedTasks();
 
        // list all future tasks
@@ -54,13 +54,17 @@ public class ListCommandTest extends FlexiTrackGuiTest {
         assertFindSuccess(listCommand, currentList);
         currentList = TestUtil.listTasksAccordingToCommand(currentList, listCommand);
                 
+    }
+    
+    public void testListRelative() {
         commandBox.runCommand("add lecture 1 from/ Nov 08 2016 09:00 to/Nov 08 2016 11:00");
         commandBox.runCommand("add exam 1 from/Nov 20 2016 09:00 to/Nov 20 2016 10:30 ");
         commandBox.runCommand("add past 1 from/Nov 01 2016 09:00 to/ Nov 01 2016 11:00");
         commandBox.runCommand("add past 2 from/Oct 20 2016 15:00 to/Oct 20 2016 16:00");
-        
+        TestTask[] currentList = td.getTypicalSortedTasks();
+
         // list last week task 
-        listCommand = "list last week";
+        String listCommand = "list last week";
         assertFindSuccess(listCommand, currentList);
         currentList = TestUtil.listTasksAccordingToCommand(currentList, listCommand);
         
@@ -78,8 +82,6 @@ public class ListCommandTest extends FlexiTrackGuiTest {
         listCommand = "list next month";
         assertFindSuccess(listCommand, currentList);
         currentList = TestUtil.listTasksAccordingToCommand(currentList, listCommand);
-
-
         
     }
 
