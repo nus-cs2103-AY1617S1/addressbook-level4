@@ -298,3 +298,11 @@
 #filterField, #taskListPanel, #taskWebpage {
     -fx-effect: innershadow(gaussian, black, 10, 0, 0, 0);
 }
+
+#floatingTaskTitle, #deadlineTitle, #eventTitle {
+    -fx-font-size: 13pt;
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-opacity: 0.9;
+}
