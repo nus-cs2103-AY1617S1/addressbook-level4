@@ -97,7 +97,7 @@ public class Parser {
     private static final Pattern EDIT_ARGS_ENDTIME = Pattern.compile("to/\\s*(?<endTime>[^/]+)");
     
     //@@author A0138455Y
-    private static final Pattern STORAGE_PATH_FORMAT = Pattern.compile("(?<path>[\\p{Alnum}|/]+)");
+    private static final Pattern STORAGE_PATH_FORMAT = Pattern.compile("(?<path>^[^\\?~`!@#$^&-+=%*:|\"<>\\|]+)");
     //@@author
     
     private Model model;
