@@ -51,6 +51,17 @@ Responsibilities: UI
 <img src="images/Irwan.png" width="150"><br>
 Role: Scheduling and tracking , Git expert <br>  
 Responsibilities: Data Storage
+* Features Implemented:
+   * [Save command] (https://github.com/CS2103AUG2016-T15-C1/main/blob/master/docs/UserGuide.md#save_storage)
+   * [Select command] (https://github.com/CS2103AUG2016-T15-C1/main/blob/master/docs/UserGuid
+   * 
+   * Code Written: [Functional Code] (https://github.com/CS2103AUG2016-T15-C1/main/blob/master/collated/main/A0139932X.md) [Test Code] (https://github.com/CS2103AUG2016-T15-C1/main/blob/master/collated/test/A0139932X.md) [Docs] (https://github.com/CS2103AUG2016-T15-C1/main/blob/master/collated/docs/A0139932X.md)
+   
+* Contribution
+   * Created the initial structure of SaveCommand	(https://github.com/CS2103AUG2016-T15-C1/main/commit/eb39ef4b92b1d3a668fcc9dc398a19bac2be5985)
+   * Updating the information on Documentation	(https://github.com/CS2103AUG2016-T15-C1/main/commit/1c042f3d464c5654ebdae3889dabb9ec8049939d)
+   * Validation of date that Due Date must be after the Start Date	(https://github.com/CS2103AUG2016-T15-C1/main/commit/429a2ed049e514df995b9aeda5dc9b18122ddae7)
+   
 
 -----
 
