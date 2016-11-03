@@ -201,16 +201,28 @@ public class EditCommand extends Command {
 		copy = new Task(copy.getTitle(), newDescription, copy.getStartDate(), copy.getDueDate(), copy.getInterval(), copy.getTimeInterval(), copy.getStatus(), copy.getTaskColor(), copy.getTags());
 	}
 	
+	//@@author A0148083A
 	/**
 	 * Changes the start date in a task if specified in the parameters
 	 * @param startDate the new start date value
 	 * @throws IllegalValueException if the start date value is invalid
 	 * @throws ParseException if start date value is invalid
 	 */
+	
 	public void changeStartDate(String startDate) throws IllegalValueException, ParseException {
-		StartDate newStartDate = new StartDate(startDate);
+	    StartDate newStartDate;
+	    if (startDate.trim().length() == 5) {
+	        StartDate dateOnly = copy.getStartDate();
+	        String date = dateOnly.toString().substring(0, 11) + startDate;
+	        newStartDate = new StartDate(date);
+		}
+	    else {
+	        newStartDate = new StartDate(startDate);
+	    }
+	    
 		copy = new Task(copy.getTitle(), copy.getDescription(), newStartDate, copy.getDueDate(), copy.getInterval(), copy.getTimeInterval(), copy.getStatus(), copy.getTaskColor(), copy.getTags());
 	}
+	
 
 	/**
 	 * Changes the due date in a task if specified in the parameters
@@ -218,10 +230,21 @@ public class EditCommand extends Command {
 	 * @throws IllegalValueException if the due date value is invalid
 	 * @throws ParseException if due date value is invalid
 	 */
+	
 	public void changeDueDate(String dueDate) throws IllegalValueException, ParseException {
-		DueDate newDueDate = new DueDate(dueDate);
+		DueDate newDueDate;
+		if (dueDate.trim().length() == 5) {
+            DueDate dateOnly = copy.getDueDate();
+            String date = dateOnly.toString().substring(0, 11) + dueDate;
+            newDueDate = new DueDate(date);
+        }
+		else {
+		    newDueDate = new DueDate(dueDate);
+		}
+		
 		copy = new Task(copy.getTitle(), copy.getDescription(), copy.getStartDate(), newDueDate, copy.getInterval(), copy.getTimeInterval(), copy.getStatus(), copy.getTaskColor(), copy.getTags());
 	}
+	//@@author
 	
 	public void changeTaskColor(String taskColor) throws IllegalValueException {
 	    TaskColor color = new TaskColor(taskColor);
