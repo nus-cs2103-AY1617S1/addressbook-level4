@@ -20,15 +20,16 @@
    e.g. typing **`help`** and pressing <kbd>Enter</kbd> will open the help window.
 5. Some example commands you can try:
    * **`list`** : lists all tasks
-   * **`add`**`meeting`: adds a task named CS2103 Tutorial
-   * **`find`**`meeting `: searches the task named tutorial   
+   * **`add`**`CS2103 Tutorial`: adds a task named CS2103 Tutorial
+   * **`alias`**`add a`: aliases the add command to the 'a' key
+   * **`find`**`tutorial `: searches the task named tutorial   
    * **`delete`**`1`: delete the first task in the list
    * **`complete`** `1`: mark the first task as completed
    * **`uncomplete`** `1`: mark the completed first task on the list as not completed
-   * **`update`**`1 presentation c/10/10/2016:1200` : updates first task on the list to presentation having a deadline on 10/10/2016 on 12:00 while the number '1' is the index of task on the list
+   * **`update`**`1 name presentation ends tomorrow` : updates first task on the list to presentation having a deadline tomorrow while the number '1' is the index of task on the list
    * **`undo`** : undo previous one action
    * **`pin`**`1` : pin the first task in the list
-   * **'change-to'**`1`: change the storage location
+   * **'change-to'**`data/taskmanager.xml`: change the storage location
    * **`unpin`**`1` : unpin the pinned first task in the list
    * **`exit`** :exit the program
 6. Refer to the [Features](#features) section below for details of each command.<br>
@@ -41,6 +42,7 @@
 * The order of parameters is fixed.
 * Words in `UPPER_CASE` are the parameters.
 * Words in `SQUARE_BRACKET` are optional.
+<!--@@author A0144939R -->
  
 #### Adding a task or event: `add`
 Adds a task to the to-do list<br>
@@ -54,7 +56,6 @@ Format: `add TASK_NAME [starts START_DATETIME ends CLOSE_DATETIME tag TAG recurs
 * `TAG` is for users to write tags for different tasks. Mulitple tags are available by typing `tag TAG tag TAG`.
 * `NUMBER_OF_RECURRING TASK` is for users to create weekly recurring task. For example, when NUMBER_OF_WEEKLY_RECURRING_TASK is 1 which    means one more tasks will be created with the openTime and endTime one weekly later.
 
-<!--@@author A0144939R -->
 Examples:
 * `add proposal ends tomorrow` <br> Adds a proposal task with a deadline 24 hours from now
 * `add meeting starts tomorrow 1pm ends tomorrow 3pm`<br> Adds a meeting event which start tomorrow at 1pm and ends tomorrow at 3pm
@@ -63,6 +64,20 @@ Examples:
 * `add quiz tag cs2102 tag easy` <br> Adds a floating task named tutorial with a tag CS2012 and easy
 * `add test starts today recurs 1` <br> Adds a task start today and recur for one more week.
 
+
+#### Aliasing a command: `alias`
+Aliases a command to a symbol <br>
+Format: `alias COMMAND_NAME SYMBOL`
+
+> Once aliased, the original command will still continue to work. Hence, symbols cannot be command names.
+> One symbol can map to at most one command
+
+* `COMMAND_NAME` Must be a valid command
+* `SYMBOL` refers to the symbol you wish to alias to. SYMBOL cannot be a command name.
+
+Examples:
+* `alias add +` <br> Aliases the add command to the symbol +
+* `alias alias q`<br> Aliases the alias command to the symbol q
 
 <!--@@author -->
 
@@ -164,15 +179,15 @@ Format: `update INDEX [name TASKNAME starts STARTDATETIME ends ENDDATETIME tag T
 
 Examples:
 * `update 2 name shopping ends 9pm`<br>
-   update the taks name of the second task on the list to shopping and the start time to 3/10/2016 9 p.m.
+   update the task name of the second task on the list to shopping and the start time to 3/10/2016 9 p.m.
 
 * `update 1 tag cs2103`<br>
   add the tag of the first task on to-do list to cs2103
 
 * `update 3 ends three hours later` <br>
-  update the taks name of the third task on the list to a deadline three hours after you type this command
+  update the task name of the third task on the list to a deadline three hours after you type this command
   
-* `update 2 starts family rt/friends` <br>  
+* `update 2 tag family remove-tag friends` <br>  
    add a tag family to the second task and remove the tag named friends
    
 <!-- @@author -->
@@ -208,7 +223,7 @@ Example: 'change-to data/taskmanager.xml'
 ## FAQ
 **Q**: Can I add event which have a start date and time to my to-do list ?<br>
 
-**A**: Yes, you can create an event by typing command with a start and end date. For example, you have a trip from 10/10/2016 8:00 to 13/10/2016 21:00. You can type command like this: `add trip s/8am 10th October c/9pm 13th October`.
+**A**: Yes, you can create an event by typing command with a start and end date. For example, you have a trip from 10/10/2016 8:00 to 13/10/2016 21:00. You can type command like this: `add trip starts 8am 10th October ends 9pm 13th October`.
        
 **Q**: If I don't know the deadline of my task yet, can I still add my task?<br>
 
@@ -221,16 +236,18 @@ In this example, you can see shopping is a floating task without a start time an
 
 Command | Format  
 -------- | :--------
-Add | `add TASK_NAME [s/START_DATE:START_TIME c/CLOSE_DATE:CLOSE_TIME t/TAG]`
+Add | `add TASK_NAME [starts START_DATE_TIME ends CLOSE_DATE_TIME tag TAG]`
+Alias | `alias add a`
 Delete | `delete TASK_NAME` or `delete INDEX`
 Complete | `complete INDEX`
 Uncomplete | `uncomplete INDEX`
 List | `list`
 Find | `find KEYWORD` or `find t/TAG`
-Update | `update INDEX [TASKNAME s/START_DATE:START_TIME c/CLOSE_DATE:CLOSE_TIME t/TAG rt/TO_REMOVE_TAG]`
+Update | `update INDEX [name NAME starts START_DATE_TIME ends CLOSE_DATE_TIME tag TAG remove-tag TAG]`
 Undo | `undo`
 Pin | `pin`
 Unpin | `unpin`
 Live Search | `searchbox`
+Change Storage | `change-to`
 Help | `help`
 Exit | `exit`

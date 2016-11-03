@@ -252,6 +252,7 @@ Priority | As a ... | I want to ... | So that I can...
 `* * *` | user | add a task without start time and deadline| keep track of general, non-time based tasks
 `* * *` | user | add an event with start time and close time|
 `* * *` | user | add an event/task with tag|
+`* * *` | user | add recurring tasks
 `* * *` | user | delete a task| remove tasks that I do not have to take any further action on
 `* * *` |user | undo my previous action | recover from commands entered by mistake
 `* * *` | user | find a task from to-do list| find details of tasks without having to go through the entire list
@@ -259,8 +260,9 @@ Priority | As a ... | I want to ... | So that I can...
 `* * *` | user | see the entire to-do list | know the number of task/ event that I have
 `* * *` | user | specify the file location of the task list | store the list in a more convenient location (such as Dropbox)
 `* *` | user | mark a task as completed | distinguish between completed and pending tasks
-`* *` | user | sync events and tasks with due dates with Google Calendar| collate my tasks
 `* *` |user | be able to mark certain tasks as important | easily distinguish tasks that require attention/action to be taken
+`* *` | user | alias commands to symbols
+`* *` | user | do a live search for commands
  
 ## Appendix B : Use Cases
  
@@ -283,7 +285,30 @@ Use case ends.
 1b. The task name already exists on the list.
 > MESS shows a message to inform user that task already exists
 Use case ends.
+
+<!-- A0144939R -->
+#### Use case: Alias command
  
+**MSS**
+ 
+1. User requests to alias a command
+2. MESS aliases the command to the given symbol<br>
+Use case ends.
+ 
+**Extensions**
+
+1a. The symbol is already aliased to another command
+> MESS changes the mapping to the new command.
+Use case ends.
+
+1b. The symbol is a standard command name(Eg: add, edit)
+> MESS shows an error message.
+Use case ends.
+
+1c. The command already has an alias
+> MESS maps the given symbol to the command, as a command can have multiple aliases
+Use case ends.
+<!- A0144939R --> 
  
 #### Use case: Delete task by task name
  
