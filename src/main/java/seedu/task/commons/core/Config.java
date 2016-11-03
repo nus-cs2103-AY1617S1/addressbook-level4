@@ -3,6 +3,7 @@ package seedu.task.commons.core;
 import java.util.Objects;
 import java.util.logging.Level;
 
+//@@author A0147944U
 /**
  * Config values used by the app
  */
@@ -16,6 +17,7 @@ public class Config {
     private String userPrefsFilePath = "preferences.json";
     private String taskManagerFilePath = "data/taskmanager.xml";
     private String taskManagerName = "MyTaskManager";
+    private String sortPreference = "Default";
 
 
     public Config() {
@@ -60,7 +62,14 @@ public class Config {
     public void setTaskManagerName(String taskManagerName) {
         this.taskManagerName = taskManagerName;
     }
+    
+    public String getsortPreference() {
+        return sortPreference;
+    }
 
+    public void setsortPreference(String sortPreference) {
+        this.sortPreference = sortPreference;
+    }
 
     @Override
     public boolean equals(Object other) {
@@ -77,12 +86,13 @@ public class Config {
                 && Objects.equals(logLevel, o.logLevel)
                 && Objects.equals(userPrefsFilePath, o.userPrefsFilePath)
                 && Objects.equals(taskManagerFilePath, o.taskManagerFilePath)
-                && Objects.equals(taskManagerName, o.taskManagerName);
+                && Objects.equals(taskManagerName, o.taskManagerName)
+                && Objects.equals(sortPreference, o.sortPreference);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(appTitle, logLevel, userPrefsFilePath, taskManagerFilePath, taskManagerName);
+        return Objects.hash(appTitle, logLevel, userPrefsFilePath, taskManagerFilePath, taskManagerName, sortPreference);
     }
 
     @Override
@@ -93,6 +103,7 @@ public class Config {
         sb.append("\nPreference file Location : " + userPrefsFilePath);
         sb.append("\nLocal data file location : " + taskManagerFilePath);
         sb.append("\nTaskManager name : " + taskManagerName);
+        sb.append("\nCurrent Sorting Preference : " + sortPreference);
         return sb.toString();
     }
 
