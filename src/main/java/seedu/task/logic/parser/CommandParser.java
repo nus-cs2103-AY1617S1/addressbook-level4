@@ -126,6 +126,9 @@ public class CommandParser {
 
         case SortCommand.COMMAND_WORD:
             return prepareSort(arguments);
+            
+        case SortCommand.COMMAND_WORD_ALT:
+            return prepareBackup(arguments);
             // @@author
 
         case DoneCommand.COMMAND_WORD:

@@ -7,6 +7,8 @@ package seedu.task.logic.commands;
 public class SortCommand extends Command {
 
     public static final String COMMAND_WORD = "sort";
+    
+    public static final String COMMAND_WORD_ALT = "s";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Sorts tasks according to specified parameters.\n"
             + "If parameter is not given, tasks will be sorted by a default preset.\n"
