@@ -1,18 +1,18 @@
 package seedu.task.storage;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+
 import seedu.task.commons.exceptions.IllegalValueException;
 import seedu.task.model.ReadOnlyTaskBook;
 import seedu.task.model.item.ReadOnlyEvent;
 import seedu.task.model.item.ReadOnlyTask;
 import seedu.task.model.item.UniqueEventList;
 import seedu.task.model.item.UniqueTaskList;
-
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * An Immutable TaskBook that is serializable to XML format

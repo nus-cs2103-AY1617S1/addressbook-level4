@@ -2,8 +2,8 @@ package seedu.task.logic.commands;
 
 import seedu.task.commons.exceptions.IllegalValueException;
 import seedu.task.model.item.Description;
-import seedu.task.model.item.EventDuration;
 import seedu.task.model.item.Event;
+import seedu.task.model.item.EventDuration;
 import seedu.task.model.item.Name;
 import seedu.task.model.item.ReadOnlyEvent;
 import seedu.task.model.item.UniqueEventList;

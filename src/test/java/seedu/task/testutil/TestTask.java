@@ -2,7 +2,10 @@ package seedu.task.testutil;
 
 import java.util.Optional;
 
-import seedu.task.model.item.*;
+import seedu.task.model.item.Deadline;
+import seedu.task.model.item.Description;
+import seedu.task.model.item.Name;
+import seedu.task.model.item.ReadOnlyTask;
 
 /**
  * A mutable task object. For testing only.

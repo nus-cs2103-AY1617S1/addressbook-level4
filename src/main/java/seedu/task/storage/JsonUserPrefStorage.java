@@ -1,14 +1,14 @@
 package seedu.task.storage;
 
-import seedu.task.commons.exceptions.DataConversionException;
-import seedu.task.commons.util.FileUtil;
-import seedu.task.model.UserPrefs;
-import seedu.taskcommons.core.LogsCenter;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.Optional;
 import java.util.logging.Logger;
+
+import seedu.task.commons.exceptions.DataConversionException;
+import seedu.task.commons.util.FileUtil;
+import seedu.task.model.UserPrefs;
+import seedu.taskcommons.core.LogsCenter;
 
 /**
  * A class to access UserPrefs stored in the hard disk as a json file

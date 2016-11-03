@@ -1,6 +1,11 @@
 package seedu.task.storage;
 
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+
+import java.io.IOException;
+
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -8,17 +13,10 @@ import org.junit.rules.TemporaryFolder;
 
 import seedu.task.commons.exceptions.DataConversionException;
 import seedu.task.commons.util.FileUtil;
+import seedu.task.model.ReadOnlyTaskBook;
 import seedu.task.model.TaskBook;
 import seedu.task.model.item.Task;
-import seedu.task.model.ReadOnlyTaskBook;
-import seedu.task.storage.XmlTaskBookStorage;
 import seedu.task.testutil.TypicalTestTasks;
-
-
-import java.io.IOException;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 
 public class XmlTaskBookStorageTest {
     private static String TEST_DATA_FOLDER = FileUtil.getPath("./src/test/data/XmlTaskBookStorageTest/");

@@ -1,8 +1,9 @@
 package seedu.task.logic.parser;
 
+import static seedu.taskcommons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import static seedu.taskcommons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import seedu.task.logic.commands.Command;
 import seedu.task.logic.commands.IncorrectCommand;

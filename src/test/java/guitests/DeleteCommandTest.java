@@ -1,14 +1,14 @@
 package guitests;
 
+import static org.junit.Assert.assertTrue;
+import static seedu.task.logic.commands.DeleteEventCommand.MESSAGE_DELETE_EVENT_SUCCESS;
+import static seedu.task.logic.commands.DeleteTaskCommand.MESSAGE_DELETE_TASK_SUCCESS;
+
 import org.junit.Test;
 
 import seedu.task.testutil.TestEvent;
 import seedu.task.testutil.TestTask;
 import seedu.task.testutil.TestUtil;
-
-import static org.junit.Assert.assertTrue;
-import static seedu.task.logic.commands.DeleteTaskCommand.MESSAGE_DELETE_TASK_SUCCESS;
-import static seedu.task.logic.commands.DeleteEventCommand.MESSAGE_DELETE_EVENT_SUCCESS;
 
 /**
  * Tests Delete Command for GUI Test.

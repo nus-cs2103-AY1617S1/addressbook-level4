@@ -1,18 +1,17 @@
 package seedu.task.storage;
 
 
+import static org.junit.Assert.assertEquals;
+
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 
-import seedu.task.model.TaskBook;
 import seedu.task.model.ReadOnlyTaskBook;
+import seedu.task.model.TaskBook;
 import seedu.task.model.UserPrefs;
-import seedu.task.storage.StorageManager;
 import seedu.task.testutil.TypicalTestTasks;
-
-import static org.junit.Assert.assertEquals;
 
 public class StorageManagerTest {
 

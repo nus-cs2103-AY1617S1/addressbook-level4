@@ -1,5 +1,4 @@
 package seedu.task.commons.util;
-
 import static org.junit.Assert.*;
 
 import org.junit.Test;

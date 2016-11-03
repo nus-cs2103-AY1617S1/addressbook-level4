@@ -4,7 +4,7 @@ import static seedu.taskcommons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import seedu.task.logic.commands.HelpCommand;
+
 import seedu.task.logic.commands.AddCommand;
 import seedu.task.logic.commands.ClearCommand;
 import seedu.task.logic.commands.Command;
@@ -12,6 +12,7 @@ import seedu.task.logic.commands.DeleteCommand;
 import seedu.task.logic.commands.EditCommand;
 import seedu.task.logic.commands.ExitCommand;
 import seedu.task.logic.commands.FindCommand;
+import seedu.task.logic.commands.HelpCommand;
 import seedu.task.logic.commands.IncorrectCommand;
 import seedu.task.logic.commands.ListCommand;
 import seedu.task.logic.commands.MarkCommand;

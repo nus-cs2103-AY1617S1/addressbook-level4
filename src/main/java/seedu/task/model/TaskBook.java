@@ -1,17 +1,18 @@
 package seedu.task.model;
 
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
+
 import javafx.collections.ObservableList;
-import seedu.task.commons.exceptions.IllegalValueException;
 import seedu.task.model.item.Event;
 import seedu.task.model.item.ReadOnlyEvent;
 import seedu.task.model.item.ReadOnlyTask;
 import seedu.task.model.item.Task;
 import seedu.task.model.item.UniqueEventList;
 import seedu.task.model.item.UniqueTaskList;
-import seedu.task.model.item.UniqueTaskList.DuplicateTaskException;
-
-import java.util.*;
-import java.util.stream.Collectors;
 
 /**
  * Wraps all data at the task-book level

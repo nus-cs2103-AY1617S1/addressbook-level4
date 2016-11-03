@@ -2,23 +2,15 @@ package seedu.task.logic.parser;
 
 import static seedu.taskcommons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
-import java.util.NoSuchElementException;
 import java.util.Optional;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import seedu.task.commons.exceptions.EmptyValueException;
 import seedu.task.commons.exceptions.IllegalValueException;
-import seedu.task.logic.commands.AddCommand;
-import seedu.task.logic.commands.AddEventCommand;
-import seedu.task.logic.commands.AddTaskCommand;
 import seedu.task.logic.commands.Command;
-import seedu.task.logic.commands.CommandResult;
 import seedu.task.logic.commands.EditCommand;
 import seedu.task.logic.commands.EditEventCommand;
 import seedu.task.logic.commands.EditTaskCommand;
 import seedu.task.logic.commands.IncorrectCommand;
-import seedu.task.logic.parser.ArgumentTokenizer.Prefix;
 import seedu.taskcommons.core.Messages;
 
 /**

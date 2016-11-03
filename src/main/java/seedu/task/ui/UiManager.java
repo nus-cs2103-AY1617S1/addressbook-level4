@@ -1,6 +1,9 @@
 package seedu.task.ui;
 
+import java.util.logging.Logger;
+
 import com.google.common.eventbus.Subscribe;
+
 import javafx.application.Platform;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -20,8 +23,6 @@ import seedu.task.model.UserPrefs;
 import seedu.taskcommons.core.ComponentManager;
 import seedu.taskcommons.core.Config;
 import seedu.taskcommons.core.LogsCenter;
-
-import java.util.logging.Logger;
 
 /**
  * The manager of the UI component.

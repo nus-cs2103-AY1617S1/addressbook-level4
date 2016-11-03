@@ -13,7 +13,6 @@ import java.util.List;
 import org.ocpsoft.prettytime.nlp.PrettyTimeParser;
 
 import seedu.task.commons.exceptions.IllegalValueException;
-import seedu.task.model.item.EventDuration;
 
 /**
  * Helper functions for handling strings.

@@ -1,6 +1,6 @@
 package seedu.task.logic.commands;
 
-import seedu.task.model.item.*;
+import seedu.task.model.item.ReadOnlyEvent;
 import seedu.task.model.item.UniqueEventList.EventNotFoundException;
 import seedu.taskcommons.core.Messages;
 import seedu.taskcommons.core.UnmodifiableObservableList;

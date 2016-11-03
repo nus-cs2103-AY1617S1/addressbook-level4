@@ -107,10 +107,7 @@ public class EditTaskCommand extends EditCommand  {
             return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, editTask));
         } catch (UniqueTaskList.DuplicateTaskException e) {
             return new CommandResult(MESSAGE_DUPLICATE_TASK);
-        } catch (IndexOutOfBoundsException ie) {
-            indicateAttemptToExecuteIncorrectCommand();
-            return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
-        } 
+        }
 	}
 
 	

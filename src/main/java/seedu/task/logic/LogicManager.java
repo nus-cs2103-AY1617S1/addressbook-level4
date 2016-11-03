@@ -1,11 +1,12 @@
 package seedu.task.logic;
 
-import javafx.collections.ObservableList;
+import java.util.List;
+import java.util.logging.Logger;
 
-import seedu.task.logic.commands.UndoableCommand;
-import seedu.task.commons.exceptions.UndoableException;
+import javafx.collections.ObservableList;
 import seedu.task.logic.commands.Command;
 import seedu.task.logic.commands.CommandResult;
+import seedu.task.logic.commands.UndoableCommand;
 import seedu.task.logic.parser.ParserManager;
 import seedu.task.model.Model;
 import seedu.task.model.item.ReadOnlyEvent;
@@ -13,11 +14,6 @@ import seedu.task.model.item.ReadOnlyTask;
 import seedu.task.storage.Storage;
 import seedu.taskcommons.core.ComponentManager;
 import seedu.taskcommons.core.LogsCenter;
-
-import java.util.ArrayDeque;
-import java.util.Deque;
-import java.util.List;
-import java.util.logging.Logger;
 
 /**
  * The main LogicManager of dowat.

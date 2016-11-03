@@ -1,18 +1,16 @@
 package guitests;
 
-import org.junit.Test;
-
-import seedu.task.testutil.TestEvent;
-import seedu.task.testutil.TestTask;
 import static org.junit.Assert.assertTrue;
 import static seedu.taskcommons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import org.junit.Before;
-import org.junit.Ignore;
+import org.junit.Test;
 
 import seedu.task.logic.commands.ListCommand;
 import seedu.task.logic.commands.ListEventCommand;
 import seedu.task.logic.commands.ListTaskCommand;
+import seedu.task.testutil.TestEvent;
+import seedu.task.testutil.TestTask;
 
 //@@author A0144702N
 /**

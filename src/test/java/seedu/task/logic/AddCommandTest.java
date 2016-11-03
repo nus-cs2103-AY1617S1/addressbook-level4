@@ -4,10 +4,8 @@ import static seedu.taskcommons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import java.util.List;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
-import seedu.task.logic.TestDataHelper;
 import seedu.task.logic.commands.AddCommand;
 import seedu.task.logic.commands.AddEventCommand;
 import seedu.task.logic.commands.AddTaskCommand;

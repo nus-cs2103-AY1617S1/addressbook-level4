@@ -119,9 +119,6 @@ public class EditEventCommand extends EditCommand {
 			return new CommandResult(String.format(MESSAGE_EDIT_EVENT_SUCCESS, editEvent));
 		} catch (UniqueEventList.DuplicateEventException e) {
 			return new CommandResult(MESSAGE_DUPLICATE_EVENT);
-		} catch (IndexOutOfBoundsException ie) {
-			indicateAttemptToExecuteIncorrectCommand();
-			return new CommandResult(Messages.MESSAGE_INVALID_EVENT_DISPLAYED_INDEX);
 		}
 	}
 

@@ -1,6 +1,12 @@
 package guitests.guihandles;
 
 
+import static org.junit.Assert.assertTrue;
+
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
+
 import guitests.GuiRobot;
 import javafx.geometry.Point2D;
 import javafx.scene.Node;
@@ -10,12 +16,6 @@ import seedu.task.TestApp;
 import seedu.task.model.item.ReadOnlyTask;
 import seedu.task.model.item.Task;
 import seedu.task.testutil.TestUtil;
-
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
-
-import static org.junit.Assert.assertTrue;
 
 /**
  * Provides a handle for the panel containing the task list.

@@ -1,15 +1,14 @@
 package seedu.task.ui;
 
-import jfxtras.scene.control.agenda.Agenda.AppointmentImplBase;
 import seedu.task.model.item.ReadOnlyEvent;
 import seedu.task.model.item.ReadOnlyTask;
-
 import java.util.HashMap;
 import java.util.Map;
 
 import jfxtras.scene.control.agenda.Agenda;
 import jfxtras.scene.control.agenda.Agenda.Appointment;
 import jfxtras.scene.control.agenda.Agenda.AppointmentGroup;
+import jfxtras.scene.control.agenda.Agenda.AppointmentImplBase;
 import jfxtras.scene.control.agenda.Agenda.AppointmentImplLocal;
 
 //@@author A0144702N

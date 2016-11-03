@@ -1,5 +1,8 @@
 package seedu.task.model;
 
+import java.util.Set;
+import java.util.logging.Logger;
+
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import seedu.task.commons.events.model.TaskBookChangedEvent;
@@ -12,21 +15,17 @@ import seedu.task.model.item.UniqueEventList;
 import seedu.task.model.item.UniqueEventList.DuplicateEventException;
 import seedu.task.model.item.UniqueEventList.EventNotFoundException;
 import seedu.task.model.item.UniqueTaskList;
-import seedu.task.model.item.UniqueTaskList.DuplicateTaskException;
 import seedu.task.model.item.UniqueTaskList.TaskNotFoundException;
 import seedu.taskcommons.core.ComponentManager;
 import seedu.taskcommons.core.LogsCenter;
 import seedu.taskcommons.core.UnmodifiableObservableList;
-
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.logging.Logger;
 
-import org.ocpsoft.prettytime.shade.edu.emory.mathcs.backport.java.util.Arrays;
-
-import com.google.common.collect.Ordering;
 
 /**
  * Represents the in-memory model of the task book data.

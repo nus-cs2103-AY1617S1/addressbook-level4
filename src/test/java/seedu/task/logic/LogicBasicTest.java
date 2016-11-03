@@ -1,35 +1,21 @@
 package seedu.task.logic;
 
-import com.google.common.eventbus.Subscribe;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Rule;
-import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
+
+import com.google.common.eventbus.Subscribe;
 
 import seedu.task.commons.events.model.TaskBookChangedEvent;
 import seedu.task.commons.events.ui.JumpToTaskListRequestEvent;
 import seedu.task.commons.events.ui.ShowHelpEvent;
-import seedu.task.logic.Logic;
-import seedu.task.logic.LogicManager;
-import seedu.task.logic.commands.*;
-import seedu.task.model.TaskBook;
-import seedu.task.model.item.*;
 import seedu.task.model.Model;
 import seedu.task.model.ModelManager;
 import seedu.task.model.ReadOnlyTaskBook;
+import seedu.task.model.TaskBook;
 import seedu.task.storage.StorageManager;
 import seedu.taskcommons.core.EventsCenter;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static seedu.taskcommons.core.Messages.*;
 
 //@@author A0144702N-reused
 public class LogicBasicTest {

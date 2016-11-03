@@ -1,10 +1,10 @@
 package guitests;
 
+import static org.junit.Assert.assertEquals;
+
 import org.junit.Test;
 
 import javafx.scene.input.KeyCode;
-
-import static org.junit.Assert.assertEquals;
 
 /*
  * GUI test for CommandBox
@@ -45,7 +45,7 @@ public class CommandBoxTest extends TaskBookGuiTest {
         assertEquals(commandBox.getCommandInput(), td.cs1020.getAddCommand());
     }
     
- // test for DOWN key press
+    // test for DOWN key press
     @Test
     public void commandBox_DOWN_keyPress(){
         commandBox.runCommand(td.cs1020.getAddCommand());
@@ -54,6 +54,10 @@ public class CommandBoxTest extends TaskBookGuiTest {
         commandBox.keyPress(KeyCode.UP);
         commandBox.keyPress(KeyCode.UP);
         assertEquals(commandBox.getCommandInput(), td.cs1020.getAddCommand());
+        commandBox.keyPress(KeyCode.DOWN);
+        assertEquals(commandBox.getCommandInput(), td.engine.getAddCommand());
+        commandBox.keyPress(KeyCode.DOWN);
+        commandBox.keyPress(KeyCode.DOWN);
         commandBox.keyPress(KeyCode.DOWN);
         assertEquals(commandBox.getCommandInput(), td.engine.getAddCommand());
     }

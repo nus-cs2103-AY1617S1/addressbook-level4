@@ -1,7 +1,9 @@
 package seedu.task.testutil;
 
 import seedu.task.commons.exceptions.IllegalValueException;
-import seedu.task.model.item.*;
+import seedu.task.model.item.Deadline;
+import seedu.task.model.item.Description;
+import seedu.task.model.item.Name;
 
 
 public class TaskBuilder {

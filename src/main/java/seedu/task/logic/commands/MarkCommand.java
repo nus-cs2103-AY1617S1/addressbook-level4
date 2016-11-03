@@ -1,8 +1,6 @@
 package seedu.task.logic.commands;
 
 import seedu.task.model.item.ReadOnlyTask;
-import seedu.task.model.item.Task;
-import seedu.taskcommons.core.EventsCenter;
 import seedu.taskcommons.core.Messages;
 import seedu.taskcommons.core.UnmodifiableObservableList;
 
@@ -26,10 +24,6 @@ public class MarkCommand extends UndoableCommand {
     public MarkCommand(int targetIndex) {
         this.targetIndex = targetIndex;
     }
-
-    public MarkCommand(ReadOnlyTask taskToMark) {
-		this.taskToMark = taskToMark;
-	}
 
 	@Override
     public CommandResult execute() {

@@ -1,21 +1,20 @@
 package seedu.task.commons.util;
 
+import static org.junit.Assert.assertEquals;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+
+import javax.xml.bind.JAXBException;
+
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import seedu.task.commons.util.FileUtil;
-import seedu.task.commons.util.XmlUtil;
 import seedu.task.model.TaskBook;
 import seedu.task.storage.XmlSerializableTaskBook;
 import seedu.task.testutil.TaskBookBuilder;
 import seedu.task.testutil.TestUtil;
-
-import javax.xml.bind.JAXBException;
-import java.io.File;
-import java.io.FileNotFoundException;
-
-import static org.junit.Assert.assertEquals;
 
 public class XmlUtilTest {
 

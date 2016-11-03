@@ -13,10 +13,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import seedu.task.commons.events.ui.EventPanelSelectionChangedEvent;
-import seedu.task.commons.events.ui.TaskPanelSelectionChangedEvent;
 import seedu.task.model.item.ReadOnlyEvent;
-import seedu.task.model.item.ReadOnlyTask;
-import seedu.task.ui.TaskListPanel.TaskListViewCell;
 import seedu.taskcommons.core.LogsCenter;
 
 //@@author A0144702N-reused

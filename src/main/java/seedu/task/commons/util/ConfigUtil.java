@@ -1,13 +1,13 @@
 package seedu.task.commons.util;
 
-import seedu.task.commons.exceptions.DataConversionException;
-import seedu.taskcommons.core.Config;
-import seedu.taskcommons.core.LogsCenter;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.Optional;
 import java.util.logging.Logger;
+
+import seedu.task.commons.exceptions.DataConversionException;
+import seedu.taskcommons.core.Config;
+import seedu.taskcommons.core.LogsCenter;
 
 /**
  * A class for accessing the Config File.

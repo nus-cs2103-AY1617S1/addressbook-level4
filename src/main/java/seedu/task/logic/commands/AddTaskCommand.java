@@ -1,7 +1,12 @@
 package seedu.task.logic.commands;
 
 import seedu.task.commons.exceptions.IllegalValueException;
-import seedu.task.model.item.*;
+import seedu.task.model.item.Deadline;
+import seedu.task.model.item.Description;
+import seedu.task.model.item.Name;
+import seedu.task.model.item.ReadOnlyTask;
+import seedu.task.model.item.Task;
+import seedu.task.model.item.UniqueTaskList;
 
 /**
  * Adds a task to the task book.

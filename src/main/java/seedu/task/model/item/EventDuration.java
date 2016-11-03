@@ -1,8 +1,9 @@
 package seedu.task.model.item;
 
+import java.time.LocalDateTime;
+
 import seedu.task.commons.exceptions.IllegalValueException;
 import seedu.task.commons.util.StringUtil;
-import java.time.LocalDateTime;
 
 //@@author A0144702N
 /**

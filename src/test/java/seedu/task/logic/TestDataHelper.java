@@ -17,7 +17,7 @@ import seedu.task.model.item.Task;
 /**
  * A utility class to generate test data.
  */
-class TestDataHelper{
+public class TestDataHelper{
 
     /*
      * Tasks

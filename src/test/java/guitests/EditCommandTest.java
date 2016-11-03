@@ -7,7 +7,6 @@ import org.junit.Test;
 
 import guitests.guihandles.EventCardHandle;
 import guitests.guihandles.TaskCardHandle;
-import seedu.task.logic.commands.AddTaskCommand;
 import seedu.task.logic.commands.EditCommand;
 import seedu.task.logic.commands.EditEventCommand;
 import seedu.task.logic.commands.EditTaskCommand;

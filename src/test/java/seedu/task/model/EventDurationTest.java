@@ -1,8 +1,9 @@
 package seedu.task.model;
 
-import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+
+import org.junit.Test;
 
 import seedu.task.commons.exceptions.IllegalValueException;
 import seedu.task.model.item.EventDuration;

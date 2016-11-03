@@ -13,11 +13,11 @@ import static seedu.taskcommons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import seedu.task.logic.commands.Command;
+import seedu.task.logic.commands.IncorrectCommand;
+import seedu.task.logic.commands.SelectCommand;
 import seedu.task.logic.commands.SelectEventCommand;
 import seedu.task.logic.commands.SelectTaskCommand;
-import seedu.task.logic.commands.Command;
-import seedu.task.logic.commands.SelectCommand;
-import seedu.task.logic.commands.IncorrectCommand;
 
 /**
  * Responsible for validating and preparing the arguments for SelectCommand

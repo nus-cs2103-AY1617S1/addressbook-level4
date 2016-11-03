@@ -1,6 +1,13 @@
 package seedu.task.storage;
 
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.Optional;
+
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -9,14 +16,6 @@ import org.junit.rules.TemporaryFolder;
 import seedu.task.commons.exceptions.DataConversionException;
 import seedu.task.commons.util.FileUtil;
 import seedu.task.model.UserPrefs;
-import seedu.task.storage.JsonUserPrefStorage;
-
-import java.io.File;
-import java.io.IOException;
-import java.util.Optional;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 
 public class JsonUserPrefStorageTest {
 

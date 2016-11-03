@@ -2,9 +2,6 @@ package seedu.task.model.item;
 
 import java.util.Optional;
 
-import seedu.task.model.item.Description;
-import seedu.task.model.item.Name;
-
 /**
  * A read-only immutable interface for an event in the task book.
  * Implementations should guarantee: details are present and not null, field values are validated.

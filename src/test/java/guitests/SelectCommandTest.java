@@ -1,17 +1,14 @@
 package guitests;
 
+import static org.junit.Assert.assertEquals;
+
 import org.junit.Test;
 
 import seedu.task.logic.commands.SelectCommand;
-import seedu.task.logic.commands.SelectTaskCommand;
 import seedu.task.model.item.Flag;
 import seedu.task.model.item.ReadOnlyEvent;
 import seedu.task.model.item.ReadOnlyTask;
 import seedu.taskcommons.core.Messages;
-
-import static org.junit.Assert.assertEquals;
-
-import org.junit.Ignore;
 
 //@@author A0127570H
 public class SelectCommandTest extends TaskBookGuiTest {

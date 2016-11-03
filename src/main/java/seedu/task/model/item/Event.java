@@ -1,13 +1,11 @@
 package seedu.task.model.item;
 
-import seedu.task.commons.util.CollectionUtil;
-import seedu.task.model.item.Description;
-import seedu.task.model.item.Name;
-
 import java.time.LocalDateTime;
 import java.util.Comparator;
 import java.util.Objects;
 import java.util.Optional;
+
+import seedu.task.commons.util.CollectionUtil;
 
 /**
  * Represents a event in the task book.

@@ -2,8 +2,6 @@ package seedu.task.logic.commands;
 
 import java.util.logging.Logger;
 
-import seedu.task.commons.util.StringUtil;
-import seedu.task.logic.LogicManager;
 import seedu.taskcommons.core.LogsCenter;
 
 //@@author A0144702N

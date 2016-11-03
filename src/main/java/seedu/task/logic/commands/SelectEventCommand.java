@@ -1,7 +1,7 @@
 package seedu.task.logic.commands;
 
 import seedu.task.commons.events.ui.JumpToEventListRequestEvent;
-import seedu.task.model.item.*;
+import seedu.task.model.item.ReadOnlyEvent;
 import seedu.taskcommons.core.EventsCenter;
 import seedu.taskcommons.core.Messages;
 import seedu.taskcommons.core.UnmodifiableObservableList;

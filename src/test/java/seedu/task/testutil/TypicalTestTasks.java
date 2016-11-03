@@ -2,7 +2,8 @@ package seedu.task.testutil;
 
 import seedu.task.commons.exceptions.IllegalValueException;
 import seedu.task.model.TaskBook;
-import seedu.task.model.item.*;
+import seedu.task.model.item.Task;
+import seedu.task.model.item.UniqueTaskList;
 
 //@@author A0127570H
 public class TypicalTestTasks {

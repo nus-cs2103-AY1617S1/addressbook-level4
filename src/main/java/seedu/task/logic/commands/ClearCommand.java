@@ -1,7 +1,5 @@
 package seedu.task.logic.commands;
 
-import java.awt.Dialog.ModalExclusionType;
-
 import seedu.task.model.ReadOnlyTaskBook;
 import seedu.task.model.TaskBook;
 import seedu.task.model.item.UniqueEventList;

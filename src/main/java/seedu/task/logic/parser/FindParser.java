@@ -13,8 +13,8 @@ import java.util.regex.Pattern;
 
 import seedu.task.commons.exceptions.EmptyValueException;
 import seedu.task.logic.commands.Command;
-import seedu.task.logic.commands.IncorrectCommand;
 import seedu.task.logic.commands.FindCommand;
+import seedu.task.logic.commands.IncorrectCommand;
 
 
 //@@author A0144702N

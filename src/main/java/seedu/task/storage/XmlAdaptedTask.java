@@ -1,11 +1,13 @@
 package seedu.task.storage;
 
-import seedu.task.commons.exceptions.IllegalValueException;
-import seedu.task.model.item.*;
-
 import javax.xml.bind.annotation.XmlElement;
-import java.util.ArrayList;
-import java.util.List;
+
+import seedu.task.commons.exceptions.IllegalValueException;
+import seedu.task.model.item.Deadline;
+import seedu.task.model.item.Description;
+import seedu.task.model.item.Name;
+import seedu.task.model.item.ReadOnlyTask;
+import seedu.task.model.item.Task;
 
 /**
  * JAXB-friendly version of the Task.

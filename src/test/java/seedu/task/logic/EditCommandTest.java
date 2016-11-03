@@ -5,7 +5,6 @@ import static seedu.taskcommons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import org.junit.Ignore;
 import org.junit.Test;
 
-import seedu.task.logic.commands.AddCommand;
 import seedu.task.logic.commands.EditCommand;
 import seedu.task.logic.commands.EditEventCommand;
 import seedu.task.logic.commands.EditTaskCommand;
@@ -14,7 +13,6 @@ import seedu.task.model.TaskBook;
 import seedu.task.model.item.Event;
 import seedu.task.model.item.Name;
 import seedu.task.model.item.Task;
-import seedu.task.model.item.UniqueTaskList.DuplicateTaskException;
 import seedu.taskcommons.core.Messages;
 
 //@@author A0127570H

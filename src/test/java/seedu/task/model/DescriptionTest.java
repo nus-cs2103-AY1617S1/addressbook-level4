@@ -1,8 +1,7 @@
 package seedu.task.model;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
 import seedu.task.commons.exceptions.IllegalValueException;

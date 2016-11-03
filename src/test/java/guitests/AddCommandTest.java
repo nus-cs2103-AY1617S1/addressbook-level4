@@ -1,17 +1,17 @@
 package guitests;
 
-import guitests.guihandles.EventCardHandle;
-import guitests.guihandles.TaskCardHandle;
+import static org.junit.Assert.assertTrue;
+
 import org.junit.Test;
 
+import guitests.guihandles.EventCardHandle;
+import guitests.guihandles.TaskCardHandle;
 import seedu.task.logic.commands.AddEventCommand;
 import seedu.task.logic.commands.AddTaskCommand;
 import seedu.task.testutil.TestEvent;
 import seedu.task.testutil.TestTask;
 import seedu.task.testutil.TestUtil;
 import seedu.taskcommons.core.Messages;
-
-import static org.junit.Assert.assertTrue;
 
 //@@author A0127570H
 public class AddCommandTest extends TaskBookGuiTest {

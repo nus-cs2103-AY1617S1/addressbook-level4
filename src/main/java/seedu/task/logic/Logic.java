@@ -3,9 +3,7 @@ package seedu.task.logic;
 import java.util.List;
 
 import javafx.collections.ObservableList;
-import seedu.task.commons.exceptions.UndoableException;
 import seedu.task.logic.commands.CommandResult;
-import seedu.task.logic.commands.UndoableCommand;
 import seedu.task.model.item.ReadOnlyEvent;
 import seedu.task.model.item.ReadOnlyTask;
 

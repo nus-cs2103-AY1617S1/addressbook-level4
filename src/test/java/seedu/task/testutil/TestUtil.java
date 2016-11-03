@@ -1,5 +1,19 @@
 package seedu.task.testutil;
 
+import java.io.File;
+import java.io.IOException;
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.concurrent.TimeoutException;
+import java.util.stream.Collectors;
+
+import org.loadui.testfx.GuiTest;
+import org.testfx.api.FxToolkit;
+
 import com.google.common.io.Files;
 
 import guitests.guihandles.EventCardHandle;
@@ -12,27 +26,19 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
 import junit.framework.AssertionFailedError;
-import org.loadui.testfx.GuiTest;
-import org.testfx.api.FxToolkit;
-
 import seedu.task.TestApp;
 import seedu.task.commons.exceptions.IllegalValueException;
 import seedu.task.commons.util.FileUtil;
 import seedu.task.commons.util.XmlUtil;
 import seedu.task.model.TaskBook;
-import seedu.task.model.item.*;
+import seedu.task.model.item.Description;
+import seedu.task.model.item.Name;
+import seedu.task.model.item.ReadOnlyEvent;
+import seedu.task.model.item.ReadOnlyTask;
+import seedu.task.model.item.Task;
+import seedu.task.model.item.UniqueEventList;
+import seedu.task.model.item.UniqueTaskList;
 import seedu.task.storage.XmlSerializableTaskBook;
-
-import java.io.File;
-import java.io.IOException;
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
-import java.lang.reflect.Modifier;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.concurrent.TimeoutException;
-import java.util.stream.Collectors;
 
 /**
  * A utility class for test cases.

@@ -1,14 +1,25 @@
 package seedu.task.logic.parser;
 
-import seedu.task.commons.util.StringUtil;
-import seedu.task.logic.commands.*;
-
 import static seedu.taskcommons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.taskcommons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
-import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import seedu.task.logic.commands.AddCommand;
+import seedu.task.logic.commands.CalendarCommand;
+import seedu.task.logic.commands.ClearCommand;
+import seedu.task.logic.commands.Command;
+import seedu.task.logic.commands.DeleteTaskCommand;
+import seedu.task.logic.commands.EditTaskCommand;
+import seedu.task.logic.commands.ExitCommand;
+import seedu.task.logic.commands.FindCommand;
+import seedu.task.logic.commands.HelpCommand;
+import seedu.task.logic.commands.IncorrectCommand;
+import seedu.task.logic.commands.ListCommand;
+import seedu.task.logic.commands.MarkCommand;
+import seedu.task.logic.commands.SelectCommand;
+import seedu.task.logic.commands.UndoCommand;
 
 /**
  * Parses user input.

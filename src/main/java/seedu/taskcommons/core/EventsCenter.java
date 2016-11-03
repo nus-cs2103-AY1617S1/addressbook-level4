@@ -1,10 +1,10 @@
 package seedu.taskcommons.core;
 
+import java.util.logging.Logger;
+
 import com.google.common.eventbus.EventBus;
 
 import seedu.task.commons.events.BaseEvent;
-
-import java.util.logging.Logger;
 
 /**
  * Manages the event dispatching of the app.

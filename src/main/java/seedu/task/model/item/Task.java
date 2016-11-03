@@ -1,11 +1,11 @@
 package seedu.task.model.item;
 
-import seedu.task.commons.exceptions.IllegalValueException;
-import seedu.task.commons.util.CollectionUtil;
-
 import java.util.Comparator;
 import java.util.Objects;
 import java.util.Optional;
+
+import seedu.task.commons.exceptions.IllegalValueException;
+import seedu.task.commons.util.CollectionUtil;
 
 /**
  * Represents a Task in the task book.

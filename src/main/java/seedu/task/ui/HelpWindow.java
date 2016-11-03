@@ -1,5 +1,7 @@
 package seedu.task.ui;
 
+import java.util.logging.Logger;
+
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
@@ -7,8 +9,6 @@ import javafx.scene.web.WebView;
 import javafx.stage.Stage;
 import seedu.task.commons.util.FxViewUtil;
 import seedu.taskcommons.core.LogsCenter;
-
-import java.util.logging.Logger;
 
 /**
  * Controller for a help page

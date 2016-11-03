@@ -1,22 +1,22 @@
 package seedu.task.ui;
 
+import java.util.ArrayList;
+import java.util.logging.Logger;
+
 import com.google.common.eventbus.Subscribe;
+
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextField;
-import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import seedu.task.commons.events.ui.IncorrectCommandAttemptedEvent;
 import seedu.task.commons.util.FxViewUtil;
 import seedu.task.logic.Logic;
-import seedu.task.logic.commands.*;
+import seedu.task.logic.commands.CommandResult;
 import seedu.taskcommons.core.LogsCenter;
-
-import java.util.ArrayList;
-import java.util.logging.Logger;
 
 public class CommandBox extends UiPart {
     private final Logger logger = LogsCenter.getLogger(CommandBox.class);

@@ -1,13 +1,10 @@
 package guitests;
 
 import java.time.LocalDateTime;
-import java.util.Arrays;
-import java.util.Collection;
 import java.util.List;
 import java.util.concurrent.TimeoutException;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
-
 import guitests.guihandles.GuiHandle;
 import javafx.scene.control.Slider;
 import javafx.stage.Stage;

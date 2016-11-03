@@ -1,17 +1,17 @@
 package guitests;
 
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
+import org.junit.Test;
+
 import seedu.task.logic.commands.UndoCommand;
 import seedu.task.testutil.TestEvent;
 import seedu.task.testutil.TestTask;
 import seedu.task.testutil.TestUtil;
 import seedu.task.testutil.TypicalTestEvents;
 import seedu.task.testutil.TypicalTestTasks;
-
-
-import static org.junit.Assert.assertTrue;
-
-import org.junit.Test;
 //@@author A0144702N
 /**
  * GUI test for undo command
@@ -245,6 +245,41 @@ public class UndoCommandTest extends TaskBookGuiTest {
 		commandBox.runCommand(TypicalTestEvents.addedEvent.getEditCommand(1));
 		assertTrue(eventListPanel.isListMatching(modifiedEventList));
 		
+	}
+	
+	//@@author A0121608N
+	@Test
+	public void undo_edit_duplicate() {
+	    TestEvent[] oldEventList = te.getTypicalNotCompletedEvents();
+	    TestTask[] oldTaskList = td.getTypicalTasks();
+	    String MESSAGE_DUPLICATE_TASK = "This task already exists in the task book";
+	    String MESSAGE_DUPLICATE_EVENT = "This event already exists in the task book";
+	    
+	    //edit a task
+	    TestTask taskToEdit = td.cs1010;
+	    TestTask[] modifiedTaskList = TestUtil.editTasksToList(oldTaskList, 0, taskToEdit);
+	    commandBox.runCommand(taskToEdit.getEditFloatTaskCommand(1));
+	    assertTrue(taskListPanel.isListMatching(modifiedTaskList));
+	    assertEquals(resultDisplay.getText(), MESSAGE_DUPLICATE_TASK);
+	    
+	    //undo
+	    commandBox.runCommand("undo");
+	    assertTrue(taskListPanel.isListMatching(oldTaskList));
+	    assertEquals(resultDisplay.getText(), MESSAGE_DUPLICATE_TASK);
+	        
+	    //edit an event
+	    TestEvent eventToEdit = TypicalTestEvents.meeting2;
+	    TestEvent[] modifiedEventList = TestUtil.removeEventFromList(oldEventList, 1);
+	    modifiedEventList = TestUtil.addEventsToListAtIndex(modifiedEventList, 0, eventToEdit);
+	    commandBox.runCommand(eventToEdit.getEditCommand(1));
+	    assertTrue(eventListPanel.isListMatching(modifiedEventList));
+        assertEquals(resultDisplay.getText(), MESSAGE_DUPLICATE_EVENT);
+	    
+	    //undo
+        commandBox.runCommand("undo");
+        assertTrue(eventListPanel.isListMatching(oldEventList));
+        assertEquals(resultDisplay.getText(), MESSAGE_DUPLICATE_EVENT);
+	        
 	}
 
 }

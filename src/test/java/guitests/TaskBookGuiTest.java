@@ -1,7 +1,10 @@
 package guitests;
 
-import guitests.guihandles.*;
-import javafx.stage.Stage;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
+import java.util.concurrent.TimeoutException;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -9,21 +12,23 @@ import org.junit.Rule;
 import org.junit.rules.TestName;
 import org.testfx.api.FxToolkit;
 
+import guitests.guihandles.CommandBoxHandle;
+import guitests.guihandles.EventCardHandle;
+import guitests.guihandles.EventListPanelHandle;
+import guitests.guihandles.MainGuiHandle;
+import guitests.guihandles.MainMenuHandle;
+import guitests.guihandles.ResultDisplayHandle;
+import guitests.guihandles.TaskCardHandle;
+import guitests.guihandles.TaskListPanelHandle;
+import javafx.stage.Stage;
 import seedu.task.TestApp;
 import seedu.task.model.TaskBook;
 import seedu.task.model.item.ReadOnlyEvent;
 import seedu.task.model.item.ReadOnlyTask;
-import seedu.task.testutil.TestTask;
 import seedu.task.testutil.TestUtil;
 import seedu.task.testutil.TypicalTestEvents;
 import seedu.task.testutil.TypicalTestTasks;
-import seedu.task.ui.EventListPanel;
 import seedu.taskcommons.core.EventsCenter;
-
-import java.util.concurrent.TimeoutException;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 /**
  * A GUI Test class for TaskBook.

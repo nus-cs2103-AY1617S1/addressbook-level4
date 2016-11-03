@@ -5,11 +5,10 @@ import static seedu.taskcommons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import seedu.task.commons.exceptions.IllegalValueException;
-import seedu.task.logic.commands.DeleteEventCommand;
-import seedu.task.logic.commands.DeleteTaskCommand;
 import seedu.task.logic.commands.Command;
 import seedu.task.logic.commands.DeleteCommand;
+import seedu.task.logic.commands.DeleteEventCommand;
+import seedu.task.logic.commands.DeleteTaskCommand;
 import seedu.task.logic.commands.IncorrectCommand;
 
 /**
@@ -40,23 +39,19 @@ public class DeleteParser implements Parser {
         final Matcher eventMatcher = EVENT_DATA_ARGS_FORMAT.matcher(args.trim());
         if (taskMatcher.matches()) {
             int index = Integer.parseInt(taskMatcher.group("index"));
-            if (index==0) return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
-            
-            try {
+            if (index==0) {
+                return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
+            }else{
                 return new DeleteTaskCommand(index);
-            } catch (NumberFormatException ive) {
-                return new IncorrectCommand(ive.getMessage());
             }
         } else if (eventMatcher.matches()){
             int index = Integer.parseInt(eventMatcher.group("index"));
-            if (index==0) return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
-            
-            try {
+            if (index==0){
+                return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
+            }else{
                 return new DeleteEventCommand(index);
-            } catch (NumberFormatException ive) {
-                return new IncorrectCommand(ive.getMessage());
             }
-        }else {
+        } else {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
         }
     }
