@@ -1,21 +1,19 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <taskmanager>
     <tasks>
-        <name>DO</name>
-        <startTime>now</startTime>
-        <endTime>no endtime</endTime>
-        <deadline>no deadline</deadline>
-        <doneStatus>true</doneStatus>
-        <overdueStatus>false</overdueStatus>
-        <newlyAdded>false</newlyAdded>
+        <name>test</name>
+        <startTime></startTime>
+        <endTime></endTime>
+        <deadline></deadline>
+        <doneStatus>false</doneStatus>
+        <favoriteStatus>true</favoriteStatus>
     </tasks>
     <tasks>
-        <name>do nothing</name>
-        <startTime>now</startTime>
-        <endTime>no endtime</endTime>
-        <deadline>no deadline</deadline>
-        <doneStatus>true</doneStatus>
-        <overdueStatus>false</overdueStatus>
-        <newlyAdded>false</newlyAdded>
+        <name>do sth</name>
+        <startTime>2016-10-25 09:00</startTime>
+        <endTime></endTime>
+        <deadline></deadline>
+        <doneStatus>false</doneStatus>
+        <favoriteStatus>false</favoriteStatus>
     </tasks>
 </taskmanager>

@@ -14,9 +14,8 @@ public class TypicalTestTasks {
     public TypicalTestTasks() {
       //@@author A0147944U-reused
         try {
-            taskA =  new TaskBuilder().withName("Accompany mom to the doctor").withDeadline("2016-10-27 15:00")
-                    .withEndTime("2016-10-26 17:00").withStartTime("2016-10-25 02:00")
-                    .withTags("gwsMum").withStatus(false, false, false).build();
+            taskA =  new TaskBuilder().withName("Accompany mom to the doctor").withStartTime("2016-10-26 14:00").withEndTime("2016-10-26 17:00")
+            		.withDeadline("").withTags("gwsMum").withStatus(false, false, false).build();
             taskB = new TaskBuilder().withName("Borrow software engineering book").withDeadline("2016-10-27 16:00")
                     .withEndTime("2016-10-26 16:00").withStartTime("2016-10-25 03:00")
                     .withTags("study", "seRocks").withStatus(false, false, false).build();
@@ -25,10 +24,10 @@ public class TypicalTestTasks {
             taskE = new TaskBuilder().withName("Edit AddressBook file").withStartTime("2016-10-25 06:00").withEndTime("2016-10-26 13:49").withDeadline("2016-10-27 19:00").withStatus(false, false, false).build();
             taskF = new TaskBuilder().withName("Finish up the project").withStartTime("2016-10-25 07:00").withEndTime("2016-10-26 13:23").withDeadline("2016-10-27 20:00").withStatus(false, false, false).build();
             taskG = new TaskBuilder().withName("Go for a jog").withStartTime("2016-10-25 08:00").withEndTime("2016-10-26 12:00").withDeadline("2016-10-27 20:59").withStatus(false, false, false).build();
-            taskH = new TaskBuilder().withName("Help Jim with his task").withStartTime("2016-10-25 09:00").withEndTime("2016-10-26 11:00").withDeadline("2016-10-27 21:00").withStatus(false, false, false).build();
-            taskI = new TaskBuilder().withName("Iron new clothes").withStartTime("2016-10-25 02:59").withEndTime("2016-10-26 10:00").withDeadline("2016-10-27 22:00").withStatus(false, false, false).build();
-            taskJ =  new TaskBuilder().withName("Accompany dad to the doctor").withDeadline("2016-10-27 15:00")
-                    .withEndTime("2016-10-26 17:00").withStartTime("2016-10-25 02:00")
+            taskH = new TaskBuilder().withName("Help Jim with his task").withStartTime("2016-10-25 09:00").withEndTime("").withDeadline("").withStatus(false, false, false).build();
+            taskI = new TaskBuilder().withName("Iron new clothes").withStartTime("").withEndTime("").withDeadline("2016-10-27 22:00").withStatus(false, false, false).build();
+            taskJ =  new TaskBuilder().withName("Accompany dad to the doctor").withStartTime("2016-10-26 14:00")
+                    .withEndTime("2016-10-26 17:00").withDeadline("")
                     .withTags("gwsDad").withStatus(false, false, false).build();
         } catch (IllegalValueException e) {
             e.printStackTrace();
