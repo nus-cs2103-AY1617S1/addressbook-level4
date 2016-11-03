@@ -152,7 +152,7 @@ public class Parser {
      *            full command args string
      * @return the prepared command
      */
-    
+
     private Command prepareAdd(String args) {
         ArgumentTokenizer argsTokenizer = new ArgumentTokenizer(deadlinePrefix, namePrefix, tagPrefix, startDatePrefix,
                 endDatePrefix, recurringPrefix, priorityPrefix);
@@ -163,7 +163,7 @@ public class Parser {
         try {
             if (argsTokenizer.isFloatingTask(startDatePrefix, endDatePrefix, deadlinePrefix)) {
                 return prepareAddFloatingTaskCommand(argsTokenizer);
-            } else if (argsTokenizer.isDeadlineTask(startDatePrefix,endDatePrefix,deadlinePrefix)) {
+            } else if (argsTokenizer.isDeadlineTask(startDatePrefix, endDatePrefix, deadlinePrefix)) {
                 return prepareAddDeadlineTaskCommand(argsTokenizer);
             } else if (argsTokenizer.isEvent(startDatePrefix, endDatePrefix, deadlinePrefix)) {
                 return prepareAddEventCommand(argsTokenizer);
@@ -172,9 +172,9 @@ public class Parser {
             }
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
-        }catch(MissingRecurringDateException e){
+        } catch (MissingRecurringDateException e) {
             return new IncorrectCommand(e.getMessage());
-        }catch (Exception e) {
+        } catch (Exception e) {
             return new IncorrectCommand(MESSAGE_INVALID_DATE);
         }
     }
@@ -204,10 +204,10 @@ public class Parser {
      */
 
     private Command prepareAddFloatingTaskCommand(ArgumentTokenizer argsTokenizer) throws Exception {
-        if (!argsTokenizer.isPresent(priorityPrefix)){
+        if (!argsTokenizer.isPresent(priorityPrefix)) {
             return new AddCommand(argsTokenizer.getValue(namePrefix).get(), "",
                     toSet(argsTokenizer.getAllValues(tagPrefix)), "", 0);
-        }else{
+        } else {
             return new AddCommand(argsTokenizer.getValue(namePrefix).get(), "",
                     toSet(argsTokenizer.getAllValues(tagPrefix)), "",
                     Integer.parseInt(argsTokenizer.getValue(priorityPrefix).get()));
@@ -239,11 +239,11 @@ public class Parser {
      */
 
     private Command prepareAddRecurringDeadlineTask(ArgumentTokenizer argsTokenizer) throws Exception {
-        if (!argsTokenizer.isPresent(priorityPrefix)){
+        if (!argsTokenizer.isPresent(priorityPrefix)) {
             return new AddCommand(argsTokenizer.getValue(namePrefix).get(),
                     argsTokenizer.getValue(deadlinePrefix).get(), toSet(argsTokenizer.getAllValues(tagPrefix)),
                     argsTokenizer.getValue(recurringPrefix).get(), 0);
-        }else{
+        } else {
             return new AddCommand(argsTokenizer.getValue(namePrefix).get(),
                     argsTokenizer.getValue(deadlinePrefix).get(), toSet(argsTokenizer.getAllValues(tagPrefix)),
                     argsTokenizer.getValue(recurringPrefix).get(),
@@ -281,10 +281,10 @@ public class Parser {
      */
 
     private Command prepareAddNonRecurringDeadlineTask(ArgumentTokenizer argsTokenizer) throws Exception {
-        if (!argsTokenizer.getTokenizedArguments().containsKey(priorityPrefix)){
+        if (!argsTokenizer.getTokenizedArguments().containsKey(priorityPrefix)) {
             return new AddCommand(argsTokenizer.getValue(namePrefix).get(),
                     argsTokenizer.getValue(deadlinePrefix).get(), toSet(argsTokenizer.getAllValues(tagPrefix)), "", 0);
-        }else{
+        } else {
             return new AddCommand(argsTokenizer.getValue(namePrefix).get(),
                     argsTokenizer.getValue(deadlinePrefix).get(), toSet(argsTokenizer.getAllValues(tagPrefix)), "",
                     Integer.parseInt(argsTokenizer.getValue(priorityPrefix).get()));
@@ -331,10 +331,10 @@ public class Parser {
             if (name == null || name.equals("")) {
                 return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
             }
-
-            return new DeleteCommand(args, KEYWORDS_ARGS_FORMAT);
+            return new DeleteCommand(args);
+        } else {
+            return new DeleteCommand(index.get());
         }
-        return new DeleteCommand(index.get());
 
     }
     // @@author
