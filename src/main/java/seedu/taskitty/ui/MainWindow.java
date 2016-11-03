@@ -13,6 +13,7 @@ import seedu.taskitty.commons.core.GuiSettings;
 import seedu.taskitty.commons.events.ui.ExitAppRequestEvent;
 import seedu.taskitty.logic.Logic;
 import seedu.taskitty.model.UserPrefs;
+import seedu.taskitty.model.task.Task;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -146,22 +147,23 @@ public class MainWindow extends UiPart {
     //@@author A0130853L
     public void fillInnerParts() {
 
-        taskListPanel = TaskListPanel.load(primaryStage, getTaskListPlaceholder(), logic.getFilteredTaskList(), new TaskListPanel());
-        deadlineListPanel = TaskListPanel.load(primaryStage, getDeadlineListPlaceholder(), logic.getFilteredDeadlineList(), new TaskListPanel());
-        eventListPanel = TaskListPanel.load(primaryStage, getEventListPlaceholder(), logic.getFilteredEventList(), new TaskListPanel());
+        taskListPanel = TaskListPanel.load(primaryStage, getTaskListPlaceholder(),
+                logic.getFilteredTaskList(), new TaskListPanel(), Task.TASK_COMPONENT_COUNT);
+        deadlineListPanel = TaskListPanel.load(primaryStage, getDeadlineListPlaceholder(),
+                logic.getFilteredDeadlineList(), new TaskListPanel(), Task.DEADLINE_COMPONENT_COUNT);
+        eventListPanel = TaskListPanel.load(primaryStage, getEventListPlaceholder(),
+                logic.getFilteredEventList(), new TaskListPanel(), Task.EVENT_COMPONENT_COUNT);
         resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
         statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getTaskManagerFilePath());
         commandBox = CommandBox.load(primaryStage, getCommandBoxPlaceholder(), resultDisplay, logic);
     }
     
-    //@@author
-    
     //@@author A0135793W
     public static StatusBarFooter getStatusBarFooter() {
         return statusBarFooter;
     }
-    //@@author
     
+    //@@author
     private AnchorPane getCommandBoxPlaceholder() {
         return commandBoxPlaceholder;
     }
