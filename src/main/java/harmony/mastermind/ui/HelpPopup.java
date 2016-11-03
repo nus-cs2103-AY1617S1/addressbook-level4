@@ -3,10 +3,13 @@ package harmony.mastermind.ui;
 import javafx.scene.Node;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
@@ -26,8 +29,12 @@ public class HelpPopup extends UiPart {
     private Popup popup;
     private TextArea content;
     private boolean isFirstKey;
-    private TableView<String> table = new TableView<String>();
-
+    private TableView<HelpPopupEntry> table = new TableView<HelpPopupEntry>();
+    
+    TableColumn<HelpPopupEntry, String> commandCol = new TableColumn<HelpPopupEntry, String>("Command");
+    TableColumn<HelpPopupEntry, String> formatCol = new TableColumn<HelpPopupEntry, String>("Format");
+    TableColumn<HelpPopupEntry, String> usageCol = new TableColumn<HelpPopupEntry, String>("Usage");
+    
     //@@author A0139194X
     public HelpPopup() {
         initPopup();
@@ -37,6 +44,7 @@ public class HelpPopup extends UiPart {
 
     //@@author A0139194X
     public void show(Node node) {
+        
         popup.show(node, DEFAULT_X_POS, DEFAULT_Y_POS);
         popup.centerOnScreen();
     }
@@ -56,21 +64,49 @@ public class HelpPopup extends UiPart {
     @FXML
     private void initPopup() {
         popup = new Popup();
-        content = new TextArea();
-        properties();
+        //content = new TextArea();
+        //properties();
 
-        popup.getContent().add(content);
+        //popup.getContent().add(content);
+        popup.getContent().add(table);
         popup.addEventHandler(KeyEvent.KEY_RELEASED, keyEventHandler);
 
-        content.setEditable(false);
+        //content.setEditable(false);
     }
     
     @FXML
     private void initTable() {
-        TableColumn<String, String> commandCol = new TableColumn<String, String>("Command");
-        TableColumn<String, String> formatCol = new TableColumn<String, String>("Format");
-        table.getColumns().setAll(commandCol, formatCol);
+        
+        initCommandCol();
+        initFormatCol();
+        initUsageCol();
+        
+        table.getColumns().setAll(commandCol, formatCol, usageCol);
     }
+    
+    private void initCommandCol() {
+        commandCol.setMinWidth(200);
+        commandCol.setCellValueFactory(new PropertyValueFactory<>("commandWord"));
+    }
+    
+    private void initFormatCol() {
+        commandCol.setMinWidth(200);
+        commandCol.setCellValueFactory(new PropertyValueFactory<>("format"));
+    }
+    
+    private void initUsageCol() {
+        commandCol.setMinWidth(200);
+        commandCol.setCellValueFactory(new PropertyValueFactory<>("usage"));
+    }
+    
+    private ObservableList<HelpPopupEntry> getList() {
+        ObservableList<HelpPopupEntry> entries = FXCollections.observableArrayList();
+        entries.add(new HelpPopupEntry("help", "help", "help"));
+        entries.add(new HelpPopupEntry("exit", "exit", "exit"));
+        
+        return entries;
+    }
+    
 
     //@@author A0139194X
     @FXML
@@ -104,5 +140,42 @@ public class HelpPopup extends UiPart {
                 );
 
 //        content.setStyle("-fx-font-family: sample; -fx-font-size: 20;");
+    }
+    
+    //@@author A0139194X
+    class HelpPopupEntry {
+        private String commandWord;
+        private String format;
+        private String usage;
+        
+        public HelpPopupEntry(String commandWord, String format, String usage) {
+            this.setCommandWord(commandWord);
+            this.setFormat(format);
+            this.setUsage(usage);
+        }
+
+        public String getFormat() {
+            return format;
+        }
+
+        public void setFormat(String format) {
+            this.format = format;
+        }
+
+        public String getCommandWord() {
+            return commandWord;
+        }
+
+        public void setCommandWord(String commandWord) {
+            this.commandWord = commandWord;
+        }
+
+        public String getUsage() {
+            return usage;
+        }
+
+        public void setUsage(String usage) {
+            this.usage = usage;
+        }
     }
 }
