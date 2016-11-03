@@ -15,8 +15,7 @@ public class Task implements ReadOnlyTask {
 
     private Name name;
     private DueDate dueDate;
-    private DueDate startDate;
-    private DueDate endDate;
+    private StartDate startDate;
     private Address address;
     private Priority priority;
     private boolean isDone;
