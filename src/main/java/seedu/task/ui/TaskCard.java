@@ -33,6 +33,7 @@ public class TaskCard extends UiPart{
     @FXML
     private Label closeTime;
     //@@author
+    
     @FXML
     private VBox cardDetails;
 
@@ -62,13 +63,14 @@ public class TaskCard extends UiPart{
         setVisualFlags();
         showExtendedInformation();
     }
+    
     //@@author A0144939R
     private void setCardDetails() {
         name.setText(task.getName().taskName);
         id.setText(displayedIndex + ". ");
         
-        openTime.setText(task.getOpenTime().toPrettyString());
-        closeTime.setText(task.getCloseTime().toPrettyString());
+        openTime.setText(task.getOpenTime().toDisplayString());
+        closeTime.setText(task.getCloseTime().toDisplayString());
         
         tagListPanel = TagListPanel.load(getPrimaryStage(), tagsListPlaceholder, task.getTags().getInternalList());
     }

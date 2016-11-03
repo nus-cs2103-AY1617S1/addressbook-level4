@@ -25,6 +25,10 @@ public class DateTime implements Comparable<DateTime> {
 
     public static final String MESSAGE_DATETIME_CONSTRAINTS = "You have entered an invalid Date/Time format. For a complete list of all acceptable formats, please view our user guide.";
 
+    //@@author A0141052Y
+    private static final String DATE_TIME_DISPLAY_FORMAT = "%s (%s)";
+    //@@author
+    
     public final Optional<Instant> value;
     private static PrettyTime p = new PrettyTime();
     
@@ -110,7 +114,7 @@ public class DateTime implements Comparable<DateTime> {
 
         if(value.isPresent()) {
             DateTimeFormatter formatter =
-                    DateTimeFormatter.ofLocalizedDateTime( FormatStyle.FULL )
+                    DateTimeFormatter.ofLocalizedDateTime( FormatStyle.SHORT )
                                      .withLocale( Locale.UK )
                                      .withZone( ZoneId.systemDefault() );
             return formatter.format( value.get() );
@@ -128,6 +132,17 @@ public class DateTime implements Comparable<DateTime> {
     }
     
     //@@author A0141052Y
+    /**
+     * Gets a display friendly representation of the DateTime
+     */
+    public String toDisplayString() {
+        if (this.toString().isEmpty()) {
+            return "";
+        } else {
+            return String.format(DATE_TIME_DISPLAY_FORMAT, this.toString(), this.toPrettyString());
+        }
+    }
+
     public Long getSaveableValue() {
         if(value.isPresent()) {
             return this.value.get().toEpochMilli();
@@ -156,6 +171,7 @@ public class DateTime implements Comparable<DateTime> {
         }
     }
     //@@author
+
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object

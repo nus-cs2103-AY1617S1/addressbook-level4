@@ -21,6 +21,7 @@ public interface ReadOnlyTask {
      */
     UniqueTagList getTags();
     
+    //@@author A0141052Y
     /**
      * Equality based on what is shown to the user. Useful for tests.
      */
@@ -30,10 +31,11 @@ public interface ReadOnlyTask {
                   
                 // state checks here onwards
                 && other.getName().equals(this.getName()) 
-                && other.getOpenTime().toPrettyString().equals(this.getOpenTime().toPrettyString())
-                && other.getCloseTime().toPrettyString().equals(this.getCloseTime().toPrettyString())
+                && other.getOpenTime().toDisplayString().equals(this.getOpenTime().toDisplayString())
+                && other.getCloseTime().toDisplayString().equals(this.getCloseTime().toDisplayString())
                 && other.getImportance() == this.getImportance());
     }
+    //@@author A0144939R
 
     /**
      * Returns true if both have the same state. (interfaces cannot override .equals)
