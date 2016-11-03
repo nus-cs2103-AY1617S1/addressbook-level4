@@ -6,15 +6,15 @@ import javafx.geometry.Point2D;
 import javafx.scene.Node;
 import javafx.scene.control.ListView;
 import javafx.stage.Stage;
-import seedu.address.TestApp;
-import seedu.address.model.task.Task;
-import seedu.address.model.task.ReadOnlyTask;
-import seedu.address.testutil.TestUtil;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
+import jym.manager.TestApp;
+import jym.manager.model.task.ReadOnlyTask;
+import jym.manager.model.task.Task;
+import jym.manager.testutil.TestUtil;
 import static org.junit.Assert.assertTrue;
 
 /**
@@ -25,7 +25,7 @@ public class TaskListPanelHandle extends GuiHandle {
     public static final int NOT_FOUND = -1;
     public static final String CARD_PANE_ID = "#cardPane";
 
-    private static final String Task_LIST_VIEW_ID = "#TaskListView";
+    private static final String Task_LIST_VIEW_ID = "#taskListView";
 
     public TaskListPanelHandle(GuiRobot guiRobot, Stage primaryStage) {
         super(guiRobot, primaryStage, TestApp.APP_TITLE);

@@ -4,7 +4,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import java.net.URL?>
-<VBox maxHeight="Infinity" maxWidth="Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.address.ui.MainWindow">
+<VBox maxHeight="Infinity" maxWidth="Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="jym.manager.ui.MainWindow">
    <stylesheets>
       <URL value="@DarkTheme.css" />
       <URL value="@Extensions.css" />
@@ -44,7 +44,7 @@
                   <AnchorPane fx:id="taskListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
                </children>
             </VBox>
-            <AnchorPane fx:id="browserPlaceholder" prefWidth="340" >
+            <AnchorPane fx:id="completeTaskListPanelPlaceholder" prefWidth="340" >
                 <padding>
                     <Insets top="10" bottom="10" left="10" right="10"/>
                 </padding>

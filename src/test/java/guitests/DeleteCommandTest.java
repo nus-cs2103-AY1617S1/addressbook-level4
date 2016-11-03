@@ -1,13 +1,16 @@
 package guitests;
 
+import jym.manager.testutil.TestTask;
+import jym.manager.testutil.TestUtil;
+
 import org.junit.Test;
-import seedu.address.testutil.TestTask;
-import seedu.address.testutil.TestUtil;
+
+
+import static jym.manager.logic.commands.DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS;
 
 import static org.junit.Assert.assertTrue;
-import static seedu.address.logic.commands.DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS;
 
-public class DeleteCommandTest extends AddressBookGuiTest {
+public class DeleteCommandTest extends TaskManagerGuiTest {
 
     @Test
     public void delete() {
@@ -48,7 +51,7 @@ public class DeleteCommandTest extends AddressBookGuiTest {
         assertTrue(taskListPanel.isListMatching(expectedRemainder));
 
         //confirm the result message is correct
-        assertResultMessage(String.format(MESSAGE_DELETE_PERSON_SUCCESS, taskToDelete));
+        assertResultMessage(String.format(MESSAGE_DELETE_TASK_SUCCESS, taskToDelete));
     }
 
 }

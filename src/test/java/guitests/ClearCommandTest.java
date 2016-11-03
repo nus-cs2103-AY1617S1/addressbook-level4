@@ -4,7 +4,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertTrue;
 
-public class ClearCommandTest extends AddressBookGuiTest {
+public class ClearCommandTest extends TaskManagerGuiTest {
 
     @Test
     public void clear() {
@@ -14,8 +14,8 @@ public class ClearCommandTest extends AddressBookGuiTest {
         assertClearCommandSuccess();
 
         //verify other commands can work after a clear command
-        commandBox.runCommand(td.hoon.getAddCommand());
-        assertTrue(taskListPanel.isListMatching(td.hoon));
+        commandBox.runCommand(td.buyFan.getAddCommand());
+        assertTrue(taskListPanel.isListMatching(td.buyFan));
         commandBox.runCommand("delete 1");
         assertListSize(0);
 
