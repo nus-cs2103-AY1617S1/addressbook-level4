@@ -8,7 +8,7 @@ import w15c2.tusk.commons.core.Messages;
 import w15c2.tusk.commons.exceptions.IllegalValueException;
 import w15c2.tusk.logic.commands.CommandResult;
 import w15c2.tusk.logic.commands.taskcommands.PinTaskCommand;
-import w15c2.tusk.model.task.InMemoryTaskList;
+import w15c2.tusk.model.task.Model;
 import w15c2.tusk.testutil.TestUtil;
 
 //@@author A0138978E
@@ -21,7 +21,7 @@ public class PinTaskCommandTest {
 		 * CommandResult should return a string that denotes that execution failed (since
 		 * there are no tasks that have been added).
 		 */
-		InMemoryTaskList model;
+		Model model;
 		model = TestUtil.setupEmptyTaskList();
 		PinTaskCommand command = new PinTaskCommand(1);
 		command.setData(model);
@@ -36,7 +36,7 @@ public class PinTaskCommandTest {
 		 * CommandResult should return a string that denotes that execution failed (since
 		 * index is too large).
 		 */
-		InMemoryTaskList model;
+		Model model;
 		model = TestUtil.setupFloatingTasks(3);
 		PinTaskCommand command = new PinTaskCommand(4);
 		command.setData(model);
@@ -51,7 +51,7 @@ public class PinTaskCommandTest {
 		 * CommandResult should return a string that denotes that execution failed (since 
 		 * index is too small).
 		 */
-		InMemoryTaskList model;
+		Model model;
 		model = TestUtil.setupFloatingTasks(3);
 		PinTaskCommand command = new PinTaskCommand(-1);
 		command.setData(model);
@@ -66,7 +66,7 @@ public class PinTaskCommandTest {
 		 * CommandResult should return a string that denotes success in execution if index given 
 		 * to pinTaskCommand constructor is within the range of added tasks.
 		 */
-		InMemoryTaskList model;
+		Model model;
 		model = TestUtil.setupFloatingTasks(3);
 		PinTaskCommand command = new PinTaskCommand(2);
 		command.setData(model);
@@ -82,7 +82,7 @@ public class PinTaskCommandTest {
 		 * CommandResult should return a string that the task 
 		 * has already been pinned
 		 */
-		InMemoryTaskList model;
+		Model model;
 		model = TestUtil.setupSomePinnedTasksInTaskList(3);
 		PinTaskCommand command = new PinTaskCommand(2);
 		command.setData(model);

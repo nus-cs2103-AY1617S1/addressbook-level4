@@ -12,14 +12,14 @@ import w15c2.tusk.commons.core.Messages;
 import w15c2.tusk.commons.exceptions.IllegalValueException;
 import w15c2.tusk.logic.commands.CommandResult;
 import w15c2.tusk.logic.commands.taskcommands.FindTaskCommand;
-import w15c2.tusk.model.task.InMemoryTaskList;
+import w15c2.tusk.model.task.Model;
 import w15c2.tusk.testutil.TestUtil;
 
 public class FindTaskCommandTest {
 
 	// Initialized to support the tests
-	InMemoryTaskList emptyTaskList;
-	InMemoryTaskList taskList;
+	Model emptyTaskList;
+	Model taskList;
 	
 	@Before
 	public void setup() throws IllegalValueException {

@@ -4,14 +4,14 @@ import w15c2.tusk.commons.core.EventsCenter;
 import w15c2.tusk.commons.core.Messages;
 import w15c2.tusk.commons.events.ui.IncorrectTaskCommandAttemptedEvent;
 import w15c2.tusk.logic.commands.CommandResult;
-import w15c2.tusk.model.task.InMemoryTaskList;
+import w15c2.tusk.model.task.Model;
 
 //@@author A0138978E
 /**
  * Represents a Task command with hidden internal logic and the ability to be executed.
  */
 public abstract class TaskCommand {
-	protected InMemoryTaskList model;
+	protected Model model;
 	
     /**
      * Constructs a feedback message to summarise an operation that displayed a listing of tasks.
@@ -35,7 +35,7 @@ public abstract class TaskCommand {
      * Commands making use of any of these should override this method to gain
      * access to the dependencies.
      */
-    public void setData(InMemoryTaskList model) {
+    public void setData(Model model) {
         this.model = model;
     }
 

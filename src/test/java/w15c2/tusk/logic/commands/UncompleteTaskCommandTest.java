@@ -8,7 +8,7 @@ import w15c2.tusk.commons.core.Messages;
 import w15c2.tusk.commons.exceptions.IllegalValueException;
 import w15c2.tusk.logic.commands.CommandResult;
 import w15c2.tusk.logic.commands.taskcommands.UncompleteTaskCommand;
-import w15c2.tusk.model.task.InMemoryTaskList;
+import w15c2.tusk.model.task.Model;
 import w15c2.tusk.testutil.TestUtil;
 
 //@@author A0143107U
@@ -20,7 +20,7 @@ public class UncompleteTaskCommandTest {
 		 * CommandResult should return a string that denotes that execution failed (since
 		 * there are no tasks that have been added).
 		 */
-		InMemoryTaskList model;
+		Model model;
 		model = TestUtil.setupEmptyTaskList();
 		UncompleteTaskCommand command = new UncompleteTaskCommand(1);
 		command.setData(model);
@@ -35,7 +35,7 @@ public class UncompleteTaskCommandTest {
 		 * CommandResult should return a string that denotes that execution failed (since
 		 * index is too large).
 		 */
-		InMemoryTaskList model;
+		Model model;
 		model = TestUtil.setupSomeTasksInTaskList(3);
 		UncompleteTaskCommand command = new UncompleteTaskCommand(4);
 		command.setData(model);
@@ -50,7 +50,7 @@ public class UncompleteTaskCommandTest {
 		 * CommandResult should return a string that denotes that execution failed (since 
 		 * index is too small).
 		 */
-		InMemoryTaskList model;
+		Model model;
 		model = TestUtil.setupSomeTasksInTaskList(3);
 		UncompleteTaskCommand command = new UncompleteTaskCommand(-1);
 		command.setData(model);
@@ -65,7 +65,7 @@ public class UncompleteTaskCommandTest {
 		 * CommandResult should return a string that denotes success in execution if index given 
 		 * to UncompleteTaskCommand constructor is within the range of added tasks.
 		 */
-		InMemoryTaskList model;
+		Model model;
 		model = TestUtil.setupSomeCompletedTasksInTaskList(3);
 		UncompleteTaskCommand command = new UncompleteTaskCommand(2);
 		command.setData(model);

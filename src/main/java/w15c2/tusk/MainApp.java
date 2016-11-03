@@ -25,7 +25,7 @@ import w15c2.tusk.logic.Logic;
 import w15c2.tusk.logic.LogicManager;
 import w15c2.tusk.model.Alias;
 import w15c2.tusk.model.UserPrefs;
-import w15c2.tusk.model.task.InMemoryTaskList;
+import w15c2.tusk.model.task.Model;
 import w15c2.tusk.model.task.Task;
 import w15c2.tusk.model.task.TaskManager;
 import w15c2.tusk.storage.task.TaskStorage;
@@ -44,7 +44,7 @@ public class MainApp extends Application {
     protected Ui ui;
     protected Logic logic;
     protected TaskStorage storage;
-    protected InMemoryTaskList model;
+    protected Model model;
     protected TaskConfig config;
     protected UserPrefs userPrefs;
 
@@ -76,7 +76,7 @@ public class MainApp extends Application {
         return applicationParameters.get(parameterName);
     }
 
-    private InMemoryTaskList initModelManager(TaskStorage storage, UserPrefs userPrefs) {
+    private Model initModelManager(TaskStorage storage, UserPrefs userPrefs) {
         Optional<UniqueItemCollection<Task>> tasks;
         Optional<UniqueItemCollection<Alias>> alias;
         UniqueItemCollection<Task> initialData;

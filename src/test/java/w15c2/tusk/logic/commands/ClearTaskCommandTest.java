@@ -11,14 +11,14 @@ import w15c2.tusk.commons.exceptions.IllegalValueException;
 import w15c2.tusk.logic.commands.CommandResult;
 import w15c2.tusk.logic.commands.taskcommands.ClearTaskCommand;
 import w15c2.tusk.logic.commands.taskcommands.FindTaskCommand;
-import w15c2.tusk.model.task.InMemoryTaskList;
+import w15c2.tusk.model.task.Model;
 import w15c2.tusk.testutil.TestUtil;
 
 //@@author A0139817U
 public class ClearTaskCommandTest {
 
 	// Initialized to support the tests
-	InMemoryTaskList model;
+	Model model;
 
 	@Before
 	public void setup() throws IllegalValueException {

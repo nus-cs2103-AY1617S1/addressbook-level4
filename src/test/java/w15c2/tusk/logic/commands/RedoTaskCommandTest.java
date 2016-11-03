@@ -9,14 +9,14 @@ import w15c2.tusk.commons.collections.UniqueItemCollection.DuplicateItemExceptio
 import w15c2.tusk.logic.commands.CommandResult;
 import w15c2.tusk.logic.commands.taskcommands.RedoTaskCommand;
 import w15c2.tusk.model.task.FloatingTask;
-import w15c2.tusk.model.task.InMemoryTaskList;
+import w15c2.tusk.model.task.Model;
 import w15c2.tusk.model.task.TaskManager;
 
 //@@author A0143107U
 public class RedoTaskCommandTest {
 
 	// Initialized to support the tests
-	InMemoryTaskList model;
+	Model model;
 
 	@Before
 	public void setup() {

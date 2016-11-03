@@ -40,7 +40,7 @@ import w15c2.tusk.model.UserPrefs;
 /**
  * Manages a list of tasks & aliases and acts as a gateway for Commands to perform CRUD operations on the list
  */
-public class TaskManager extends ComponentManager implements InMemoryTaskList {
+public class TaskManager extends ComponentManager implements Model {
 	private static final Logger logger = LogsCenter.getLogger(TaskManager.class);
 	private UniqueItemCollection<Task> tasks;
 	private UniqueItemCollection<Alias> aliases;

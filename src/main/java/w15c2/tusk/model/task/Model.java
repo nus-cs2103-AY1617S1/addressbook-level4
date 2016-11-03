@@ -12,7 +12,7 @@ import w15c2.tusk.model.Alias;
 /*
  * Represents an in-memory task list
  */
-public interface InMemoryTaskList {
+public interface Model {
 
 	/*
 	 * Gets collection of tasks

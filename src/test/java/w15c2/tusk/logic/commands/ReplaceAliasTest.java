@@ -7,14 +7,14 @@ import org.junit.Test;
 import w15c2.tusk.commons.exceptions.IllegalValueException;
 import w15c2.tusk.logic.ReplaceAlias;
 import w15c2.tusk.logic.commands.taskcommands.AddAliasCommand;
-import w15c2.tusk.model.task.InMemoryTaskList;
+import w15c2.tusk.model.task.Model;
 import w15c2.tusk.model.task.TaskManager;
 
 //@@author A0143107U
 public class ReplaceAliasTest {
 	
 	// Initialized to support the tests
-	InMemoryTaskList model;
+	Model model;
 
 	@Test
 	public void replaceAlias_noAliasAdded() {

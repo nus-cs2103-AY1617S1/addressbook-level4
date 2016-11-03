@@ -8,7 +8,7 @@ import w15c2.tusk.commons.core.Messages;
 import w15c2.tusk.commons.exceptions.IllegalValueException;
 import w15c2.tusk.logic.commands.CommandResult;
 import w15c2.tusk.logic.commands.taskcommands.CompleteTaskCommand;
-import w15c2.tusk.model.task.InMemoryTaskList;
+import w15c2.tusk.model.task.Model;
 import w15c2.tusk.testutil.TestUtil;
 
 //@@author A0143107U
@@ -21,7 +21,7 @@ public class CompleteTaskCommandTest {
 		 * CommandResult should return a string that denotes that execution failed (since
 		 * there are no tasks that have been added).
 		 */
-		InMemoryTaskList model;
+		Model model;
 		model = TestUtil.setupEmptyTaskList();
 		CompleteTaskCommand command = new CompleteTaskCommand(1);
 		command.setData(model);
@@ -36,7 +36,7 @@ public class CompleteTaskCommandTest {
 		 * CommandResult should return a string that denotes that execution failed (since
 		 * index is too large).
 		 */
-		InMemoryTaskList model;
+		Model model;
 		model = TestUtil.setupSomeTasksInTaskList(3);
 		CompleteTaskCommand command = new CompleteTaskCommand(4);
 		command.setData(model);
@@ -51,7 +51,7 @@ public class CompleteTaskCommandTest {
 		 * CommandResult should return a string that denotes that execution failed (since 
 		 * index is too small).
 		 */
-		InMemoryTaskList model;
+		Model model;
 		model = TestUtil.setupSomeTasksInTaskList(3);
 		CompleteTaskCommand command = new CompleteTaskCommand(-1);
 		command.setData(model);
@@ -66,7 +66,7 @@ public class CompleteTaskCommandTest {
 		 * CommandResult should return a string that denotes success in execution if index given 
 		 * to CompleteTaskCommand constructor is within the range of added tasks.
 		 */
-		InMemoryTaskList model;
+		Model model;
 		model = TestUtil.setupSomeTasksInTaskList(3);
 		CompleteTaskCommand command = new CompleteTaskCommand(2);
 		command.setData(model);

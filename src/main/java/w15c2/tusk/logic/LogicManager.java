@@ -13,7 +13,7 @@ import w15c2.tusk.logic.commands.CommandResult;
 import w15c2.tusk.logic.commands.taskcommands.TaskCommand;
 import w15c2.tusk.logic.parser.TaskCommandsParser;
 import w15c2.tusk.model.Alias;
-import w15c2.tusk.model.task.InMemoryTaskList;
+import w15c2.tusk.model.task.Model;
 import w15c2.tusk.model.task.Task;
 import w15c2.tusk.storage.task.TaskStorage;
 
@@ -23,13 +23,13 @@ import w15c2.tusk.storage.task.TaskStorage;
 public class LogicManager extends ComponentManager implements Logic {
     private final Logger logger = LogsCenter.getLogger(LogicManager.class);
 
-    private final InMemoryTaskList model;
+    private final Model model;
     private final TaskCommandsParser parser;
     private final CommandHistory commandHistory;
     private final AutocompleteEngine autocompleteEngine;
     private AutocompleteResult currentAutocompleteResult;
 
-    public LogicManager(InMemoryTaskList model, TaskStorage storage) {
+    public LogicManager(Model model, TaskStorage storage) {
         this.model = model;
         this.parser = new TaskCommandsParser();
         this.commandHistory = new CommandHistory();

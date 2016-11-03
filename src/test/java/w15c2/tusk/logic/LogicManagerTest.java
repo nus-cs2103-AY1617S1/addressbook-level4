@@ -10,7 +10,7 @@ import w15c2.tusk.commons.events.ui.ShowHelpRequestEvent;
 import w15c2.tusk.logic.Logic;
 import w15c2.tusk.logic.LogicManager;
 import w15c2.tusk.logic.commands.*;
-import w15c2.tusk.model.task.InMemoryTaskList;
+import w15c2.tusk.model.task.Model;
 import w15c2.tusk.model.task.Task;
 import w15c2.tusk.model.task.TaskManager;
 import w15c2.tusk.storage.task.TaskStorageManager;
@@ -34,7 +34,7 @@ public class LogicManagerTest {
     @Rule
     public TemporaryFolder saveFolder = new TemporaryFolder();
 
-    private InMemoryTaskList model;
+    private Model model;
     private Logic logic;
 
     //These are for checking the correctness of the events raised

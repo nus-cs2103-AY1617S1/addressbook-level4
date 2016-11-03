@@ -8,7 +8,7 @@ import w15c2.tusk.commons.core.Messages;
 import w15c2.tusk.commons.exceptions.IllegalValueException;
 import w15c2.tusk.logic.commands.CommandResult;
 import w15c2.tusk.logic.commands.taskcommands.UnpinTaskCommand;
-import w15c2.tusk.model.task.InMemoryTaskList;
+import w15c2.tusk.model.task.Model;
 import w15c2.tusk.testutil.TestUtil;
 
 //@@author A0138978E
@@ -21,7 +21,7 @@ public class UnpinTaskCommandTest {
 		 * CommandResult should return a string that denotes that execution failed (since
 		 * there are no tasks that have been added).
 		 */
-		InMemoryTaskList model;
+		Model model;
 		model = TestUtil.setupEmptyTaskList();
 		UnpinTaskCommand command = new UnpinTaskCommand(1);
 		command.setData(model);
@@ -36,7 +36,7 @@ public class UnpinTaskCommandTest {
 		 * CommandResult should return a string that denotes that execution failed (since
 		 * index is too large).
 		 */
-		InMemoryTaskList model;
+		Model model;
 		model = TestUtil.setupFloatingTasks(3);
 		UnpinTaskCommand command = new UnpinTaskCommand(4);
 		command.setData(model);
@@ -51,7 +51,7 @@ public class UnpinTaskCommandTest {
 		 * CommandResult should return a string that denotes that execution failed (since 
 		 * index is too small).
 		 */
-		InMemoryTaskList model;
+		Model model;
 		model = TestUtil.setupFloatingTasks(3);
 		UnpinTaskCommand command = new UnpinTaskCommand(-1);
 		command.setData(model);
@@ -66,7 +66,7 @@ public class UnpinTaskCommandTest {
 		 * CommandResult should return a string that denotes success in execution if index given 
 		 * to unpinTaskCommand constructor is within the range of added tasks.
 		 */
-		InMemoryTaskList model;
+		Model model;
 		model = TestUtil.setupFloatingTasks(3);
 		UnpinTaskCommand command = new UnpinTaskCommand(2);
 		command.setData(model);
@@ -81,7 +81,7 @@ public class UnpinTaskCommandTest {
 		 * CommandResult should return a string that denotes success in execution if index given 
 		 * to unpinTaskCommand constructor is within the range of added tasks.
 		 */
-		InMemoryTaskList model;
+		Model model;
 		model = TestUtil.setupFloatingTasks(3);
 		model.getCurrentFilteredTasks().get(1).setAsPin();
 		UnpinTaskCommand command = new UnpinTaskCommand(2);

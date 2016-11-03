@@ -7,7 +7,7 @@ import org.junit.Test;
 import w15c2.tusk.commons.exceptions.IllegalValueException;
 import w15c2.tusk.logic.commands.CommandResult;
 import w15c2.tusk.logic.commands.taskcommands.ListTaskCommand;
-import w15c2.tusk.model.task.InMemoryTaskList;
+import w15c2.tusk.model.task.Model;
 import w15c2.tusk.testutil.TestUtil;
 
 //@@author A0139708W
@@ -18,7 +18,7 @@ public class ListTaskCommandTest {
         /* CommandResult should return a string that denotes that 
          * there are no tasks to list.
          */
-        InMemoryTaskList model;
+        Model model;
         model = TestUtil.setupEmptyTaskList();
         ListTaskCommand command = new ListTaskCommand("");
         command.setData(model);
@@ -32,7 +32,7 @@ public class ListTaskCommandTest {
         /* CommandResult should return a string that denotes that 
          * all tasks have been listed.
          */
-        InMemoryTaskList model;
+        Model model;
         model = TestUtil.setupFloatingTasks(1);
         ListTaskCommand command = new ListTaskCommand("");
         command.setData(model);
@@ -46,7 +46,7 @@ public class ListTaskCommandTest {
         /* CommandResult should return a string that denotes that 
          * all tasks have been listed.
          */
-        InMemoryTaskList model;
+        Model model;
         model = TestUtil.setupFloatingTasks(3);
         ListTaskCommand command = new ListTaskCommand("");
         command.setData(model);
@@ -60,7 +60,7 @@ public class ListTaskCommandTest {
         /* CommandResult should return a string that denotes that 
          * the aliases have been listed.
          */
-        InMemoryTaskList model;
+        Model model;
         model = TestUtil.setupFloatingTasks(3);
         ListTaskCommand command = new ListTaskCommand("alias");
         command.setData(model);
@@ -75,7 +75,7 @@ public class ListTaskCommandTest {
 	 * (since there are no completed tasks).
 	 */
 	public void listCompletedTask_noTasksAdded() throws IllegalValueException{
-    	InMemoryTaskList model;
+    	Model model;
 		model = TestUtil.setupEmptyTaskList();
 		ListTaskCommand command = new ListTaskCommand("completed");
 		command.setData(model);
@@ -90,7 +90,7 @@ public class ListTaskCommandTest {
         /* CommandResult should return a string that denotes that 
          * the aliases have been listed.
          */
-        InMemoryTaskList model;
+        Model model;
         model = TestUtil.setupSomeCompletedTasksInTaskList(3);
         ListTaskCommand command = new ListTaskCommand("completed");
         command.setData(model);

@@ -17,7 +17,7 @@ import w15c2.tusk.model.task.DeadlineTask;
 import w15c2.tusk.model.task.Description;
 import w15c2.tusk.model.task.EventTask;
 import w15c2.tusk.model.task.FloatingTask;
-import w15c2.tusk.model.task.InMemoryTaskList;
+import w15c2.tusk.model.task.Model;
 import w15c2.tusk.model.task.Task;
 import w15c2.tusk.testutil.TestUtil;
 
@@ -25,7 +25,7 @@ import w15c2.tusk.testutil.TestUtil;
 public class UpdateTaskCommandTest {
 
 	// Initialized to support the tests
-	InMemoryTaskList model;
+	Model model;
 
 	@Before
 	public void setup() throws IllegalValueException {
