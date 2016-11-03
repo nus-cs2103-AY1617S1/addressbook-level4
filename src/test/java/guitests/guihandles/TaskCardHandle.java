@@ -5,6 +5,7 @@ import javafx.scene.Node;
 import javafx.stage.Stage;
 import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.TaskDateTimeFormatter;
+import seedu.address.model.task.TaskType;
 
 /**
  * Provides a handle to a task card in the task list panel.
@@ -49,14 +50,37 @@ public class TaskCardHandle extends GuiHandle {
     }
 
     public boolean isSameTask(ReadOnlyTask task){
+    	if (getTaskType().equals(TaskType.Type.EVENT)) {
+    		return isSameEventTask(task);
+    	} else if (getTaskType().equals(TaskType.Type.DEADLINE)) {
+    		return isSameDeadlineTask(task);
+    	} else {
+    		return isSameSomedayTask(task);
+    	}
+    }
+
+    private boolean isSameSomedayTask(ReadOnlyTask task) {
+        return getTaskName().equals(task.getName().value)
+               && getTaskType().equals(task.getTaskType().toString())
+               && getTags().equals(task.tagsString());		
+	}
+
+	private boolean isSameDeadlineTask(ReadOnlyTask task) {
+        return getTaskName().equals(task.getName().value)
+               && getTaskType().equals(task.getTaskType().toString())
+               && getEndDate().equals(TaskDateTimeFormatter.formatToShowDateAndTime(task.getEndDate().get()))
+               && getTags().equals(task.tagsString());		
+	}
+
+	private boolean isSameEventTask(ReadOnlyTask task) {
         return getTaskName().equals(task.getName().value)
                && getTaskType().equals(task.getTaskType().toString())
                && getStartDate().equals(TaskDateTimeFormatter.formatToShowDateAndTime(task.getStartDate().get()))
                && getEndDate().equals(TaskDateTimeFormatter.formatToShowDateAndTime(task.getEndDate().get()))
-               && getTags().equals(task.tagsString());
-    }
+               && getTags().equals(task.tagsString());		
+	}
 
-    @Override
+	@Override
     public boolean equals(Object obj) {
         if(obj instanceof TaskCardHandle) {
             TaskCardHandle handle = (TaskCardHandle) obj;
