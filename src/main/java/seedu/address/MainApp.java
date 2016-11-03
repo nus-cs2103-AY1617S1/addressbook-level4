@@ -75,6 +75,7 @@ public class MainApp extends Application {
             @Override
             public void handle(ActionEvent event) {
                 try {
+                	logger.info("UPDATING TPTM....");
 					logic.execute("update");
 				} catch (ParseException e) {
 					// TODO Auto-generated catch block
