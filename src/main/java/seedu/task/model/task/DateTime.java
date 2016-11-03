@@ -142,7 +142,6 @@ public class DateTime {
             return String.format(DATE_TIME_DISPLAY_FORMAT, this.toString(), this.toPrettyString());
         }
     }
-    //@@author
     
     public Long getSaveableValue() {
         if(value.isPresent()) {
@@ -151,6 +150,7 @@ public class DateTime {
             return null;
         }
     }
+    //@@author
 
     @Override
     public boolean equals(Object other) {
