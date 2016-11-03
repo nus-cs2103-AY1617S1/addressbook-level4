@@ -38,7 +38,7 @@
  
 #### Adding a task : `add`
 Adds a task to TARS  
-Format: `<TASK_NAME> [/dt DATETIME] [/p PRIORITY] [/t TAG_NAME ...] [/r NUM_TIMES FREQUENCY]\n` 
+Format: `<TASK_NAME> [/dt DATETIME] [/p PRIORITY] [/t TAG_NAME ...] [/r NUM_TIMES FREQUENCY]` 
  
 > Support for events (i.e., has a start time and end time),  deadlines (tasks that have to be done before a specific deadline),  and floating tasks (tasks without specific times).
 > 
@@ -172,7 +172,7 @@ Examples:
 * `free next tuesdsay`
 * `free 26/10/2016`
 
-[comment]:
+[comment]: # (@@author A0140022H)
 #### Displaying a list of available commands : `help`
 Shows program usage instructions in help panel.
 Format: `help`
