@@ -54,7 +54,7 @@ public class RedoController implements Controller {
         TodoListDB db = TodoListDB.getInstance();
         
         // Attempt to redo DB. If fail, exit method.
-        if (attemptRedo(numRedo, db)) {
+        if (!attemptRedo(numRedo, db)) {
             return;
         }
         

@@ -54,7 +54,7 @@ public class UndoController implements Controller {
         TodoListDB db = TodoListDB.getInstance();
         
         // Attempt to undo DB. If fail, exit method.
-        if (attemptUndo(numUndo, db)) {
+        if (!attemptUndo(numUndo, db)) {
             return;
         }
         
