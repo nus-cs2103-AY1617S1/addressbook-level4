@@ -16,13 +16,9 @@ import seedu.savvytasker.commons.core.LogsCenter;
 import seedu.savvytasker.commons.events.ui.TaskPanelSelectionChangedEvent;
 import seedu.savvytasker.model.task.ReadOnlyTask;
 
-//@@author A0138431L
-
 /**
-* Panel containing the list overdue task.
-* @author A0138431L
-* 
-*/
+ * Panel containing the list of persons.
+ */
 public class OverduePanel extends UiPart {
     private final Logger logger = LogsCenter.getLogger(TaskListPanel.class);
     private static final String FXML = "overdueList.fxml";
@@ -51,10 +47,10 @@ public class OverduePanel extends UiPart {
         this.placeHolderPane = pane;
     }
 
-    public static OverduePanel load(Stage primaryStage, AnchorPane overdueListPlaceholder,
+    public static OverduePanel load(Stage primaryStage, AnchorPane personListPlaceholder,
                                        ObservableList<ReadOnlyTask> taskList) {
     	OverduePanel oveduePanel =
-                UiPartLoader.loadUiPart(primaryStage, overdueListPlaceholder, new OverduePanel());
+                UiPartLoader.loadUiPart(primaryStage, personListPlaceholder, new OverduePanel());
     	oveduePanel.configure(taskList);
         return oveduePanel;
     }
@@ -78,7 +74,7 @@ public class OverduePanel extends UiPart {
     private void setEventHandlerForSelectionChangeEvent() {
         taskListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
-                logger.fine("Selection in overdue task list panel changed to : '" + newValue + "'");
+                logger.fine("Selection in person list panel changed to : '" + newValue + "'");
                 raise(new TaskPanelSelectionChangedEvent(newValue));
             }
         });
