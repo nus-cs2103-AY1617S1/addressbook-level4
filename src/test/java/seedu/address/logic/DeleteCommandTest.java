@@ -11,12 +11,12 @@ import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.model.TaskManager;
 import seedu.address.model.task.Task;
 
+//@@author A0142325R
 /*
  * Responsible for testing the correct execution of DeleteCommand
  */
 
 public class DeleteCommandTest extends CommandTest{
-    
     
     /*
      * DeleteCommand format: delete index/name
@@ -47,7 +47,7 @@ public class DeleteCommandTest extends CommandTest{
     
     @Test
     public void execute_deleteInvalidIndexFormat_errorMessageShown() throws Exception{
-        String expectedMessage=String.format(Messages.MESSAGE_INVALID_TASK_NAME);
+        String expectedMessage=DeleteCommand.MESSAGE_DELETE_NOT_FOUND;
         assertCommandBehavior("delete",String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
         assertCommandBehavior("delete" + " +1", expectedMessage); //index should be unsigned
         assertCommandBehavior("delete"+ " -1", expectedMessage); //index should be unsigned
@@ -72,7 +72,7 @@ public class DeleteCommandTest extends CommandTest{
 
         TaskManager expectedAB = helper.generateTaskManager(threeTasks);
 
-        assertAbsenceKeywordFormatBehaviorForCommand("delete go to school",Messages.MESSAGE_INVALID_TASK_NAME);
+        assertAbsenceKeywordFormatBehaviorForCommand("delete go to school",DeleteCommand.MESSAGE_DELETE_NOT_FOUND);
         
     }
     
@@ -92,9 +92,10 @@ public class DeleteCommandTest extends CommandTest{
      * 
      * Corresponding expected result: 
      *  - task manager list no longer contains the specified task or event
-     *  - task manager list no longer contains the specified task or event
-     *  - a list of tasks or events with the same name is shown, and the user is expected to 
-     *  delete the task or event by index in the last shown list
+     *  - a list of tasks or events with one or some of the input parameters is shown, then user
+     *  is expected to delete by index in the last shown list
+     *  - a list of tasks or events with one or some of the input parameters is shown, and the 
+     *  user is expected to delete the task or event by index in the last shown list
      *  
      */
     
@@ -124,12 +125,12 @@ public class DeleteCommandTest extends CommandTest{
         fourTasks.add(helper.getFloatingTask());
         
         TaskManager expectedAB=helper.generateTaskManager(fourTasks);
-        expectedAB.removeTask(fourTasks.get(3));
+        List<Task> expectedList=helper.generateTaskList(fourTasks.get(3));
         helper.addToModel(model, fourTasks);
         
         assertCommandBehavior("delete Visit grandma", 
-                String.format(DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS,fourTasks.get(3)),
-                expectedAB,expectedAB.getTaskList());
+                String.format(DeleteCommand.MESSAGE_DELETE_SAME_NAME),
+                expectedAB,expectedList);
     }
     
     //Test for the third scenario: delete a task or event with duplicated names

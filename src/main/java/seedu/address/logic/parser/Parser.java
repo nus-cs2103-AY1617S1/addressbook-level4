@@ -3,6 +3,7 @@ package seedu.address.logic.parser;
 import seedu.address.logic.commands.*;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.commons.exceptions.MissingRecurringDateException;
 import seedu.address.logic.parser.ArgumentTokenizer.*;
 
 import java.util.*;
@@ -32,21 +33,21 @@ public class Parser {
                                                                                                            // by
                                                                                                            // whitespace
 
-    //@@author A0138717X
-    private static final Pattern EDIT_FORMAT = Pattern.compile("(?<name>[^/]+)"
-			+ "(?<edit>(?: [dsenrp]/[^/]+)?)"
-			+ "((i/(?<index>([0-9])+)*)?)" );
+    // @@author A0138717X
+    private static final Pattern EDIT_FORMAT = Pattern
+            .compile("(?<name>[^/]+)" + "(?<edit>(?: [dsenrp]/[^/]+)?)" + "((i/(?<index>([0-9])+)*)?)");
 
     private static final String MESSAGE_INVALID_DATE = "Date format entered is invalid";
-//@@author A0142325R
+    // @@author A0142325R
     public static final Prefix deadlinePrefix = new Prefix("d/");
     public static final Prefix tagPrefix = new Prefix("t/");
     public static final Prefix startDatePrefix = new Prefix("s/");
     public static final Prefix endDatePrefix = new Prefix("e/");
     public static final Prefix namePrefix = new Prefix("n/");
     public static final Prefix recurringPrefix = new Prefix("r/");
-  //@@author
+    // @@author
     public static final Prefix priorityPrefix = new Prefix("p/");
+
     public Parser() {
     }
 
@@ -86,8 +87,6 @@ public class Parser {
             return prepareFind(arguments);
 
         case ListCommand.COMMAND_WORD:
-            // return new ListCommand();
-            // System.out.println(arguments);
             return prepareList(arguments);
 
         case ExitCommand.COMMAND_WORD:
@@ -142,7 +141,16 @@ public class Parser {
             return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
         }
     }
-//@@author A0142325R
+
+    // @@author A0142325R
+
+    /**
+     * prepare to mark a task as done
+     * 
+     * @param args
+     * @return
+     */
+
     private Command prepareMarkAsDone(String args) {
         Optional<Integer> index = parseIndex(args);
         String name = args;
@@ -159,8 +167,9 @@ public class Parser {
             final String[] keywords = matcher.group("keywords").split("\\s+");
             final Set<String> keywordSet = new HashSet<>(Arrays.asList(keywords));
             return new DoneCommand(keywordSet);
+        } else {
+            return new DoneCommand(index.get());
         }
-        return new DoneCommand(index.get());
     }
 
     /**
@@ -170,84 +179,163 @@ public class Parser {
      *            full command args string
      * @return the prepared command
      */
+
     private Command prepareAdd(String args) {
         ArgumentTokenizer argsTokenizer = new ArgumentTokenizer(deadlinePrefix, namePrefix, tagPrefix, startDatePrefix,
                 endDatePrefix, recurringPrefix, priorityPrefix);
         argsTokenizer.tokenize(args);
-        try {
-            if (argsTokenizer.getTokenizedArguments().containsKey(namePrefix)) {
-                if (!argsTokenizer.getTokenizedArguments().containsKey(startDatePrefix)
-                        && !argsTokenizer.getTokenizedArguments().containsKey(deadlinePrefix)) {
-                	if(!argsTokenizer.getTokenizedArguments().containsKey(priorityPrefix))
-                		// non-recurring task
-                		return new AddCommand(argsTokenizer.getValue(namePrefix).get(), "",
-                            toSet(argsTokenizer.getAllValues(tagPrefix)), "", 0);
-                	else
-                		return new AddCommand(argsTokenizer.getValue(namePrefix).get(), "",
-                                toSet(argsTokenizer.getAllValues(tagPrefix)), "", Integer.parseInt(argsTokenizer.getValue(priorityPrefix).get()));
-                }
-                // check if task is recurring floating task
-                if (argsTokenizer.getTokenizedArguments().containsKey(deadlinePrefix)
-                        && argsTokenizer.getTokenizedArguments().containsKey(recurringPrefix)) {
-                	if(!argsTokenizer.getTokenizedArguments().containsKey(priorityPrefix))
-                		return new AddCommand(argsTokenizer.getValue(namePrefix).get(),
-                            argsTokenizer.getValue(deadlinePrefix).get(), toSet(argsTokenizer.getAllValues(tagPrefix)),
-                            argsTokenizer.getValue(recurringPrefix).get(),0);
-                	else
-                		return new AddCommand(argsTokenizer.getValue(namePrefix).get(),
-                                argsTokenizer.getValue(deadlinePrefix).get(), toSet(argsTokenizer.getAllValues(tagPrefix)),
-                                argsTokenizer.getValue(recurringPrefix).get(),Integer.parseInt(argsTokenizer.getValue(priorityPrefix).get()));
-                    // non-recurring floating task
-                } else if (argsTokenizer.getTokenizedArguments().containsKey(deadlinePrefix)) {
-                	if(!argsTokenizer.getTokenizedArguments().containsKey(priorityPrefix))
-                		return new AddCommand(argsTokenizer.getValue(namePrefix).get(),
-                            argsTokenizer.getValue(deadlinePrefix).get(), toSet(argsTokenizer.getAllValues(tagPrefix)),
-                            "",0);
-                	else
-                		return new AddCommand(argsTokenizer.getValue(namePrefix).get(),
-                                argsTokenizer.getValue(deadlinePrefix).get(), toSet(argsTokenizer.getAllValues(tagPrefix)),
-                                "",Integer.parseInt(argsTokenizer.getValue(priorityPrefix).get()));
-                } else if (argsTokenizer.getTokenizedArguments().containsKey(startDatePrefix)
-                        && argsTokenizer.getTokenizedArguments().containsKey(endDatePrefix)) {
-                    if (!argsTokenizer.getTokenizedArguments().containsKey(recurringPrefix))
-                    {
-                    	if(!argsTokenizer.getTokenizedArguments().containsKey(priorityPrefix))
-                    		// non-recurring event
-                            return new AddCommand(argsTokenizer.getValue(namePrefix).get(),
-                                argsTokenizer.getValue(startDatePrefix).get(),
-                                argsTokenizer.getValue(endDatePrefix).get(),
-                                toSet(argsTokenizer.getAllValues(tagPrefix)), "",0);
-                    	else
-                    		return new AddCommand(argsTokenizer.getValue(namePrefix).get(),
-                                    argsTokenizer.getValue(startDatePrefix).get(),
-                                    argsTokenizer.getValue(endDatePrefix).get(),
-                                    toSet(argsTokenizer.getAllValues(tagPrefix)), "",
-                                    Integer.parseInt(argsTokenizer.getValue(priorityPrefix).get()));
-                    }
-                    else// recurring event
-                    {
-                    	if(!argsTokenizer.getTokenizedArguments().containsKey(priorityPrefix))
-                    		return new AddCommand(argsTokenizer.getValue(namePrefix).get(),
-                                argsTokenizer.getValue(startDatePrefix).get(),
-                                argsTokenizer.getValue(endDatePrefix).get(),
-                                toSet(argsTokenizer.getAllValues(tagPrefix)),
-                                argsTokenizer.getValue(recurringPrefix).get(),0);
-                    	else
-                    		return new AddCommand(argsTokenizer.getValue(namePrefix).get(),
-                                    argsTokenizer.getValue(startDatePrefix).get(),
-                                    argsTokenizer.getValue(endDatePrefix).get(),
-                                    toSet(argsTokenizer.getAllValues(tagPrefix)),
-                                    argsTokenizer.getValue(recurringPrefix).get(),
-                                    Integer.parseInt(argsTokenizer.getValue(priorityPrefix).get()));
-                    }
-                }
-            }
-
+        if (!argsTokenizer.isPresent(namePrefix)) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+        }
+        try {
+            if (argsTokenizer.isFloatingTask(startDatePrefix, endDatePrefix, deadlinePrefix)) {
+                return prepareAddFloatingTaskCommand(argsTokenizer);
+            } else if (argsTokenizer.isDeadlineTask(startDatePrefix, endDatePrefix, deadlinePrefix)) {
+                return prepareAddDeadlineTaskCommand(argsTokenizer);
+            } else if (argsTokenizer.isEvent(startDatePrefix, endDatePrefix, deadlinePrefix)) {
+                return prepareAddEventCommand(argsTokenizer);
+            } else {
+                return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+            }
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
+        } catch (MissingRecurringDateException e) {
+            return new IncorrectCommand(e.getMessage());
         } catch (Exception e) {
             return new IncorrectCommand(MESSAGE_INVALID_DATE);
+        }
+    }
+
+    /**
+     * prepare to add a deadline task
+     * 
+     * @param argsTokenizer
+     * @return the addCommand
+     * @throws Exception
+     */
+
+    private Command prepareAddDeadlineTaskCommand(ArgumentTokenizer argsTokenizer) throws Exception {
+        if (argsTokenizer.isPresent(recurringPrefix)) {
+            return prepareAddRecurringDeadlineTask(argsTokenizer);
+        } else {
+            return prepareAddNonRecurringDeadlineTask(argsTokenizer);
+        }
+    }
+
+    /**
+     * prepare to add a floating task
+     * 
+     * @param argsTokenizer
+     * @return the addCommand
+     * @throws Exception
+     */
+
+    private Command prepareAddFloatingTaskCommand(ArgumentTokenizer argsTokenizer) throws Exception {
+        if (!argsTokenizer.isPresent(priorityPrefix)) {
+            return new AddCommand(argsTokenizer.getValue(namePrefix).get(), "",
+                    toSet(argsTokenizer.getAllValues(tagPrefix)), "", 0);
+        } else {
+            return new AddCommand(argsTokenizer.getValue(namePrefix).get(), "",
+                    toSet(argsTokenizer.getAllValues(tagPrefix)), "",
+                    Integer.parseInt(argsTokenizer.getValue(priorityPrefix).get()));
+        }
+    }
+
+    /**
+     * prepare to add an event
+     * 
+     * @param argsTokenizer
+     * @return the addCommand
+     * @throws Exception
+     */
+
+    private Command prepareAddEventCommand(ArgumentTokenizer argsTokenizer) throws Exception {
+        if (!argsTokenizer.isPresent(recurringPrefix)) {
+            return prepareAddRecurringEvent(argsTokenizer);
+        } else {
+            return prepareAddNonRecurringEvent(argsTokenizer);
+        }
+    }
+
+    /**
+     * prepare to add a recurring deadline task
+     * 
+     * @param argsTokenizer
+     * @return the addCommand
+     * @throws Exception
+     */
+
+    private Command prepareAddRecurringDeadlineTask(ArgumentTokenizer argsTokenizer) throws Exception {
+        if (!argsTokenizer.isPresent(priorityPrefix)) {
+            return new AddCommand(argsTokenizer.getValue(namePrefix).get(),
+                    argsTokenizer.getValue(deadlinePrefix).get(), toSet(argsTokenizer.getAllValues(tagPrefix)),
+                    argsTokenizer.getValue(recurringPrefix).get(), 0);
+        } else {
+            return new AddCommand(argsTokenizer.getValue(namePrefix).get(),
+                    argsTokenizer.getValue(deadlinePrefix).get(), toSet(argsTokenizer.getAllValues(tagPrefix)),
+                    argsTokenizer.getValue(recurringPrefix).get(),
+                    Integer.parseInt(argsTokenizer.getValue(priorityPrefix).get()));
+        }
+    }
+
+    /**
+     * prepare to add a recurring event
+     * 
+     * @param argsTokenizer
+     * @return the addCommand
+     * @throws Exception
+     */
+
+    private Command prepareAddRecurringEvent(ArgumentTokenizer argsTokenizer) throws Exception {
+        if (!argsTokenizer.isPresent(priorityPrefix)) {
+            return new AddCommand(argsTokenizer.getValue(namePrefix).get(),
+                    argsTokenizer.getValue(startDatePrefix).get(), argsTokenizer.getValue(endDatePrefix).get(),
+                    toSet(argsTokenizer.getAllValues(tagPrefix)), "", 0);
+        } else {
+            return new AddCommand(argsTokenizer.getValue(namePrefix).get(),
+                    argsTokenizer.getValue(startDatePrefix).get(), argsTokenizer.getValue(endDatePrefix).get(),
+                    toSet(argsTokenizer.getAllValues(tagPrefix)), "",
+                    Integer.parseInt(argsTokenizer.getValue(priorityPrefix).get()));
+        }
+    }
+
+    /**
+     * prepare to add a non recurring deadline task
+     * 
+     * @param argsTokenizer
+     * @return the addCommand
+     * @throws Exception
+     */
+
+    private Command prepareAddNonRecurringDeadlineTask(ArgumentTokenizer argsTokenizer) throws Exception {
+        if (!argsTokenizer.getTokenizedArguments().containsKey(priorityPrefix)) {
+            return new AddCommand(argsTokenizer.getValue(namePrefix).get(),
+                    argsTokenizer.getValue(deadlinePrefix).get(), toSet(argsTokenizer.getAllValues(tagPrefix)), "", 0);
+        } else {
+            return new AddCommand(argsTokenizer.getValue(namePrefix).get(),
+                    argsTokenizer.getValue(deadlinePrefix).get(), toSet(argsTokenizer.getAllValues(tagPrefix)), "",
+                    Integer.parseInt(argsTokenizer.getValue(priorityPrefix).get()));
+        }
+    }
+
+    /**
+     * prepare to add a non-recurring event
+     * 
+     * @param argsTokenizer
+     * @return the addCommand
+     * @throws Exception
+     */
+
+    private Command prepareAddNonRecurringEvent(ArgumentTokenizer argsTokenizer) throws Exception {
+        if (!argsTokenizer.isPresent(priorityPrefix)) {
+            return new AddCommand(argsTokenizer.getValue(namePrefix).get(),
+                    argsTokenizer.getValue(startDatePrefix).get(), argsTokenizer.getValue(endDatePrefix).get(),
+                    toSet(argsTokenizer.getAllValues(tagPrefix)), argsTokenizer.getValue(recurringPrefix).get(), 0);
+        } else {
+            return new AddCommand(argsTokenizer.getValue(namePrefix).get(),
+                    argsTokenizer.getValue(startDatePrefix).get(), argsTokenizer.getValue(endDatePrefix).get(),
+                    toSet(argsTokenizer.getAllValues(tagPrefix)), argsTokenizer.getValue(recurringPrefix).get(),
+                    Integer.parseInt(argsTokenizer.getValue(priorityPrefix).get()));
         }
     }
 
@@ -270,13 +358,13 @@ public class Parser {
             if (name == null || name.equals("")) {
                 return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
             }
-
-            return new DeleteCommand(args, KEYWORDS_ARGS_FORMAT);
+            return new DeleteCommand(args);
+        } else {
+            return new DeleteCommand(index.get());
         }
-        return new DeleteCommand(index.get());
 
     }
-    //@@author
+    // @@author
 
     /**
      * Parses arguments in the context of the select person command.
@@ -320,7 +408,7 @@ public class Parser {
      *            full command args string
      * @return the prepared command
      */
-    //@@author A0146123R
+    // @@author A0146123R
     private Command prepareFind(String args) {
         final Matcher matcher = KEYWORDS_ARGS_FORMAT.matcher(args.trim());
         if (!matcher.matches()) {
@@ -331,20 +419,29 @@ public class Parser {
         final String[] keywords = matcher.group("keywords").split("AND");
         // keywords delimited by whitespace
         final Set<Set<String>> keywordsGroup = new HashSet<Set<String>>();
-        for (String keyword: keywords) {
+        for (String keyword : keywords) {
             keywordsGroup.add(new HashSet<>(Arrays.asList(keyword.trim().split("\\s+"))));
         }
         return new FindCommand(keywordsGroup, matcher.group("keywords").contains("exact!"));
     }
 
-    //@@author A0142325R
+    // @@author A0142325R
+    
+    /**
+     * prepare to create list command
+     * @param args
+     * @return
+     */
+    
     private Command prepareList(String args) {
-        if (args.equals(""))
+        if (args.equals("")) {
             return new ListCommand();
-        return new ListCommand(args);
+        } else {
+            return new ListCommand(args);
+        }
     }
 
-    //@@author A0146123R
+    // @@author A0146123R
     /**
      * Parses arguments in the context of the change storage location command.
      *
@@ -383,65 +480,56 @@ public class Parser {
         Optional<String> recurring = argsTokenizer.getValue(recurringPrefix);
         Optional<List<String>> tags = argsTokenizer.getAllValues(tagPrefix);
         Optional<String> priority = argsTokenizer.getValue(priorityPrefix);
-        if (deadline.isPresent() || startDate.isPresent() || endDate.isPresent()
-                || recurring.isPresent() || tags.isPresent() || priority.isPresent()) {
-           return new FilterCommand(deadline, startDate, endDate, recurring, toSet(tags), priority);
+        if (deadline.isPresent() || startDate.isPresent() || endDate.isPresent() || recurring.isPresent()
+                || tags.isPresent() || priority.isPresent()) {
+            return new FilterCommand(deadline, startDate, endDate, recurring, toSet(tags), priority);
         }
         return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FilterCommand.MESSAGE_USAGE));
     }
 
-    //@@author A0138717X
+    // @@author A0138717X
     private Command prepareEdit(String args) {
-    	final Matcher matcher = EDIT_FORMAT.matcher(args.trim());
-    	 if (!matcher.matches()) {
-             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+        final Matcher matcher = EDIT_FORMAT.matcher(args.trim());
+        if (!matcher.matches()) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
         }
-    	 if(!matcher.group("name").isEmpty() && !matcher.group("edit").isEmpty())
-    	 {
-    	    	String name = matcher.group("name");
-    	    	String type = matcher.group("edit");
-    	    	String index = matcher.group("index");
-    	        String detailsType = null;
-    	        String details;
-    	        ArgumentTokenizer argsTokenizer = new ArgumentTokenizer(deadlinePrefix, namePrefix, tagPrefix, startDatePrefix,
-    	                endDatePrefix, recurringPrefix, priorityPrefix);
-    	        argsTokenizer.tokenize(type);
-    	        if (argsTokenizer.getTokenizedArguments().containsKey(namePrefix)) {
-    	        	detailsType = "name";
-    	        	details = argsTokenizer.getValue(namePrefix).get();
-    	        }
-    	        else if(argsTokenizer.getTokenizedArguments().containsKey(recurringPrefix)) {
-    	        	detailsType = "recurring";
-    	        	details = argsTokenizer.getValue(recurringPrefix).get();
-    	        }
-    	        else if(argsTokenizer.getTokenizedArguments().containsKey(startDatePrefix)) {
-    	        	detailsType = "startDate";
-    	        	details = argsTokenizer.getValue(startDatePrefix).get();
-    	        }
-    	        else if(argsTokenizer.getTokenizedArguments().containsKey(endDatePrefix)) {
-    	        	detailsType = "endDate";
-    	        	details = argsTokenizer.getValue(endDatePrefix).get();
-    	        }
-    	        else if(argsTokenizer.getTokenizedArguments().containsKey(deadlinePrefix)) {
-    	        	detailsType = "deadline";
-    	        	details = argsTokenizer.getValue(deadlinePrefix).get();
-    	        }
-    	        else if(argsTokenizer.getTokenizedArguments().containsKey(priorityPrefix)) {
-    	        	detailsType = "priority";
-    	        	details = argsTokenizer.getValue(priorityPrefix).get();
-    	        }
-    	        else
-    	        {
-    	            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
-    	        }
+        if (!matcher.group("name").isEmpty() && !matcher.group("edit").isEmpty()) {
+            String name = matcher.group("name");
+            String type = matcher.group("edit");
+            String index = matcher.group("index");
+            String detailsType = null;
+            String details;
+            ArgumentTokenizer argsTokenizer = new ArgumentTokenizer(deadlinePrefix, namePrefix, tagPrefix,
+                    startDatePrefix, endDatePrefix, recurringPrefix, priorityPrefix);
+            argsTokenizer.tokenize(type);
+            if (argsTokenizer.getTokenizedArguments().containsKey(namePrefix)) {
+                detailsType = "name";
+                details = argsTokenizer.getValue(namePrefix).get();
+            } else if (argsTokenizer.getTokenizedArguments().containsKey(recurringPrefix)) {
+                detailsType = "recurring";
+                details = argsTokenizer.getValue(recurringPrefix).get();
+            } else if (argsTokenizer.getTokenizedArguments().containsKey(startDatePrefix)) {
+                detailsType = "startDate";
+                details = argsTokenizer.getValue(startDatePrefix).get();
+            } else if (argsTokenizer.getTokenizedArguments().containsKey(endDatePrefix)) {
+                detailsType = "endDate";
+                details = argsTokenizer.getValue(endDatePrefix).get();
+            } else if (argsTokenizer.getTokenizedArguments().containsKey(deadlinePrefix)) {
+                detailsType = "deadline";
+                details = argsTokenizer.getValue(deadlinePrefix).get();
+            } else if (argsTokenizer.getTokenizedArguments().containsKey(priorityPrefix)) {
+                detailsType = "priority";
+                details = argsTokenizer.getValue(priorityPrefix).get();
+            } else {
+                return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+            }
 
-    	    	if (index == null) {
-    	            return new EditCommand(name, detailsType, details);
-    	        }
-    	        return new EditCommand(name, detailsType, details, Integer.parseInt(index));
-    	 }
-    	 else
-    		 return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+            if (index == null) {
+                return new EditCommand(name, detailsType, details);
+            }
+            return new EditCommand(name, detailsType, details, Integer.parseInt(index));
+        } else
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
     }
 
 }

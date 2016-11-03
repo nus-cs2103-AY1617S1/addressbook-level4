@@ -10,11 +10,25 @@ import seedu.address.model.tag.Tag;
 import seedu.address.model.task.Name;
 import seedu.address.model.task.Recurring;
 import seedu.address.model.task.Task;
+
 //@@author A0142325R
+
+/**
+ * test for add command 
+ * 
+ * @author LiXiaowei
+ * 
+ * Use scenarios:
+ *  - add a floating task 
+ *  - add a deadline task (can be recurring)
+ *  - add an event (can be recurring)
+ *  
+ *  Expected result:
+ *  - the task specified is added to the toDoList
+ *
+ */
 public class AddCommandTest extends CommandTest{
-    /*
-     * 
-     */
+    
     
     //Invalid argument format
     @Test
@@ -44,6 +58,7 @@ public class AddCommandTest extends CommandTest{
                 "add n/Valid Name d/11.12.2016-14 t/invalid_-[.tag", Tag.MESSAGE_TAG_CONSTRAINTS);
         
     }
+    
     /*
      * 2) Successful adding of floating task, deadline task and events
      *  - add floating task

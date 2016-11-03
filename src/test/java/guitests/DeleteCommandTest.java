@@ -1,6 +1,7 @@
 package guitests;
-//@@author A0142325R
 import org.junit.Test;
+
+import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.testutil.TestTask;
 import seedu.address.testutil.TestUtil;
 
@@ -12,14 +13,26 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_TASK_NAME;
 
 import java.util.ArrayList;
 
+//@@author A0142325R
+
+/**
+ * test for delete command on gui
+ * @author LiXiaowei
+ * 
+ * use cases: 1) delete by index 2) delete by name
+ *  
+ */
 
 public class DeleteCommandTest extends TaskManagerGuiTest {
+    
+    //----------------------------------valid cases-----------------------------------------
+    
+    //test for use scenario 1: delete by index
 
     @Test
-    public void delete_by_index() {
+    public void deleteByIndex_successful() {
 
         //delete the first in the list
-
         TestTask[] currentList = td.getTypicalTasks();
 
         int targetIndex = 1;
@@ -35,13 +48,12 @@ public class DeleteCommandTest extends TaskManagerGuiTest {
         targetIndex = currentList.length/2;
         assertDeleteSuccess(targetIndex, currentList);
 
-        //invalid index
-        commandBox.runCommand("delete " + currentList.length + 1);
-        assertResultMessage("The task index provided is invalid");
-
     }
+    
+    //test for use scenario 2: delete by name
+    
     @Test
-    public void delete_by_name(){
+    public void deleteByName_successful(){
     	TestTask[] currentList=td.getTypicalTasks();
     	
     	//delete task with an unique name
@@ -50,17 +62,33 @@ public class DeleteCommandTest extends TaskManagerGuiTest {
     	//delete task duplicated name
     	assertDeleteSuccess("Meet old friends",currentList);
     	
-    	//delete a non-existant task 
-    	assertDeleteSuccess("bason",currentList);
-    	
-    	
+    }
+    
+    //test for invalid index entered
+    
+    @Test
+    public void deleteByInvalidIndex_fail(){
+        TestTask[] currentList=td.getTypicalTasks();
+        commandBox.runCommand("delete " + currentList.length + 1);
+        assertResultMessage("The task index provided is invalid");
+    }
+    
+    //------------------------------------invalid cases----------------------------------
+    
+    //test for delete task or event name that does not exist
+    
+    @Test
+    public void deleteByNonExistantName_fail(){
+        commandBox.runCommand("delete bason");
+        assertResultMessage(DeleteCommand.MESSAGE_DELETE_NOT_FOUND);
     }
 
     /**
-     * Runs the delete command to delete the person at specified index and confirms the result is correct.
-     * @param targetIndexOneIndexed e.g. to delete the first person in the list, 1 should be given as the target index.
-     * @param currentList A copy of the current list of persons (before deletion).
+     * Runs the delete command to delete the task or event at specified index and confirms the result is correct.
+     * @param targetIndexOneIndexed e.g. to delete the first task in the list, 1 should be given as the target index.
+     * @param currentList A copy of the current list of tasks (before deletion).
      */
+    
     private void assertDeleteSuccess(int targetIndexOneIndexed, final TestTask[] currentList) {
         TestTask[] expectedRemainder = TestUtil.removeTaskFromList(currentList, targetIndexOneIndexed);
 
@@ -69,6 +97,14 @@ public class DeleteCommandTest extends TaskManagerGuiTest {
         //confirm the list now contains all previous persons except the deleted person
         assertTrue(taskListPanel.isListMatching(expectedRemainder));
     }
+    
+    
+    /**
+     * Runs the delete command to delete the item of specific name. A list of possible tasks
+     * or events with one or more of the input parameters will be shown.
+     * @param taskName
+     * @param currentList
+     */
 
    
     private void assertDeleteSuccess(String taskName,final TestTask[] currentList){
@@ -77,13 +113,8 @@ public class DeleteCommandTest extends TaskManagerGuiTest {
     		if(taskName.equals(e.getName().taskName))
     			tasksToDelete.add(e);
     	}
-    	if(tasksToDelete.size()==1){
-    		TestTask[] expectedRemainder=TestUtil.removeTasksFromList(currentList, tasksToDelete.get(0));
-    		commandBox.runCommand("delete "+taskName);
-    		assertResultMessage(String.format(MESSAGE_DELETE_TASK_SUCCESS, tasksToDelete.get(0)));
-    		assertTrue(taskListPanel.isListMatching(expectedRemainder));
-    	}
-    	else if(tasksToDelete.size()==0){
+    	
+    	if(tasksToDelete.size()==0){
     		commandBox.runCommand("delete "+taskName);
     		assertResultMessage(String.format(MESSAGE_INVALID_TASK_NAME));
     	}
