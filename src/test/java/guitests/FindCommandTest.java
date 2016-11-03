@@ -23,10 +23,11 @@ public class FindCommandTest extends MalitioGuiTest {
         assertResultMessage("2 tasks found!");
         
         assertFindResult("find peN HOMEWORK", td.floatingTask2, td.deadline3, td.deadline5);
+      //  assertFindResult("find peN HOMEWORK");
         assertResultMessage("3 tasks found!");
         
-        assertFindResult("find 25-dec", td.deadline4, td.event5); //find dates
-
+        assertFindResult("find 12-25", td.deadline4, td.event5); //find dates
+       // assertFindResult("find 12-25");
         assertResultMessage("2 tasks found!");
         
         assertFindResult("find wedding"); //no result
@@ -66,18 +67,19 @@ public class FindCommandTest extends MalitioGuiTest {
     }
     
     /**
-     * Asserts result in each floating task, deadline and event list is correct
+     * Overload functions to assert result in each floating task, deadline and event list is correct
      * @throws IllegalValueException 
      * @throws IllegalArgumentException 
-     */    
+     */
+    
     private void assertFindResult(String command, Object... expectedHits ) throws IllegalArgumentException, IllegalValueException {
         commandBox.runCommand(command);
         
         switch (expectedHits.getClass().getSimpleName()) {
         case "TestFloatingTask":
-            assertFloatingTaskListSize(expectedHits.length);
-            assertTrue(floatingTaskListPanel.isListMatching((TestFloatingTask[]) expectedHits));
-            break;
+        assertFloatingTaskListSize(expectedHits.length);
+        assertTrue(floatingTaskListPanel.isListMatching((TestFloatingTask[]) expectedHits));
+        break;
         case "TestDeadline":
             assertDeadlineListSize(expectedHits.length);
             assertTrue(deadlineListPanel.isListMatching((TestDeadline[]) expectedHits));
