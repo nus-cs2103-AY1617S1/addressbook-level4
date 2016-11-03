@@ -40,6 +40,23 @@ public class UpdateController implements Controller {
         // TODO
         return (input.toLowerCase().startsWith("update")) ? 1 : 0;
     }
+    
+    /**
+     * Get the token definitions for use with <code>tokenizer</code>.<br>
+     * This method exists primarily because Java does not support HashMap
+     * literals...
+     * 
+     * @return tokenDefinitions
+     */
+    private static Map<String, String[]> getTokenDefinitions() {
+        Map<String, String[]> tokenDefinitions = new HashMap<String, String[]>();
+        tokenDefinitions.put("default", new String[] {"update"});
+        tokenDefinitions.put("name", new String[] {"name"});
+        tokenDefinitions.put("time", new String[] { "at", "by", "on", "before", "time" });
+        tokenDefinitions.put("timeFrom", new String[] { "from" });
+        tokenDefinitions.put("timeTo", new String[] { "to" });
+        return tokenDefinitions;
+    }
 
     @Override
     public void process(String args) {
