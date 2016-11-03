@@ -11,6 +11,7 @@ import seedu.cmdo.model.Model;
 
 /**
  * Represents a command with hidden internal logic and the ability to be executed.
+ * @@author A0139661Y
  */
 public abstract class Command {
     protected Model model;

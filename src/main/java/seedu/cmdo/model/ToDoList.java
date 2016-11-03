@@ -14,6 +14,7 @@ import java.util.stream.Collectors;
 /**
  * Wraps all data at the todo list level
  * Duplicates are not allowed (by .equals comparison)
+ * @@author A0141006B
  */
 public class ToDoList implements ReadOnlyToDoList {
 

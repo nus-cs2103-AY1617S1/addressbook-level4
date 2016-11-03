@@ -3,6 +3,7 @@ package seedu.cmdo.model.task;
 /**
  * Represents if a Task's is done in the To Do List.
  * Guarantees: immutable; is valid as declared in {@link #isValidDone(String)}
+ * @@author A0139661Y
  */
 public class Done {
 

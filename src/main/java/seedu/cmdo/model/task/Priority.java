@@ -6,6 +6,7 @@ import seedu.cmdo.commons.exceptions.IllegalValueException;
 /**
  * Represents a Task's priority in the To Do List.
  * Guarantees: immutable; is valid as declared in {@link #isValidPriority(String)}
+ * @@author A0139661Y
  */
 public class Priority {
     

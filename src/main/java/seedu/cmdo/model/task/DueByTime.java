@@ -11,6 +11,7 @@ import seedu.cmdo.commons.exceptions.IllegalValueException;
 /**
  * Represents a Task's due time in the To Do List.
  * Guarantees: immutable; is valid as declared in {@link #isValidDueByTime(String)}
+ * @@author A0139661Y
  */
 public class DueByTime {
 

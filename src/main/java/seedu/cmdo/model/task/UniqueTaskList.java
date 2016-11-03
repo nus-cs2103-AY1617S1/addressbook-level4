@@ -11,7 +11,7 @@ import seedu.cmdo.commons.util.CollectionUtil;
  * A list of tasks that enforces uniqueness between its elements and does not allow nulls.
  *
  * Supports a minimal set of list operations.
- *
+ * @@author A0139661Y
  * @see Person#equals(Object)
  * @see CollectionUtil#elementsAreUnique(Collection)
  */
