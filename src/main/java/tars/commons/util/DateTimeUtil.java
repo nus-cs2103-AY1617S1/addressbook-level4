@@ -85,7 +85,8 @@ public class DateTimeUtil {
      * @param dateTimeSource
      * @param dateTimeQuery
      */
-    public static boolean isDateTimeWithinRange(DateTime dateTimeSource, DateTime dateTimeQuery) {
+    public static boolean isDateTimeWithinRange(DateTime dateTimeSource,
+            DateTime dateTimeQuery) {
 
         DateTime dateTime1 = new DateTime();
         DateTime dateTime2 = new DateTime();
@@ -107,7 +108,8 @@ public class DateTimeUtil {
         return true;
     }
 
-    private static DateTime fillDateTime(DateTime dateTimeToFill, DateTime filledDateTime) {
+    private static DateTime fillDateTime(DateTime dateTimeToFill,
+            DateTime filledDateTime) {
         dateTimeToFill.setEndDateTime(filledDateTime.getEndDate());
 
         if (filledDateTime.getStartDate() != null) {
@@ -122,7 +124,8 @@ public class DateTimeUtil {
      * Returns an arraylist of free datetime slots in a specified date
      * 
      */
-    public static ArrayList<DateTime> getListOfFreeTimeSlotsInDate(DateTime dateToCheck,
+    public static ArrayList<DateTime> getListOfFreeTimeSlotsInDate(
+            DateTime dateToCheck,
             ArrayList<DateTime> listOfFilledTimeSlotsInDate) {
         ArrayList<DateTime> listOfFreeTimeSlots = new ArrayList<DateTime>();
         LocalDateTime startDateTime = dateToCheck.getStartDate();
@@ -137,7 +140,7 @@ public class DateTimeUtil {
 
             if (startDateTime.isBefore(endDateTime)) {
                 listOfFreeTimeSlots
-                .add(new DateTime(startDateTime, endDateTime));
+                        .add(new DateTime(startDateTime, endDateTime));
             }
 
             if (startDateTime.isBefore(dt.getEndDate())) {
@@ -147,7 +150,7 @@ public class DateTimeUtil {
 
         if (startDateTime.isBefore(dateToCheck.getEndDate())) {
             listOfFreeTimeSlots
-            .add(new DateTime(startDateTime, dateToCheck.getEndDate()));
+                    .add(new DateTime(startDateTime, dateToCheck.getEndDate()));
         }
 
         return listOfFreeTimeSlots;
@@ -157,9 +160,9 @@ public class DateTimeUtil {
         StringBuilder sb = new StringBuilder();
 
         sb.append(dateTime.getEndDate().getDayOfWeek()
-                .getDisplayName(TextStyle.FULL, Locale.ENGLISH)).append(StringUtil.STRING_COMMA)
-        .append(dateTime.getEndDate()
-                .format(stringFormatterWithoutTime));
+                .getDisplayName(TextStyle.FULL, Locale.ENGLISH))
+                .append(StringUtil.STRING_COMMA).append(dateTime.getEndDate()
+                        .format(stringFormatterWithoutTime));
 
         return sb.toString();
     }
@@ -168,20 +171,22 @@ public class DateTimeUtil {
             ArrayList<DateTime> listOfFreeTimeSlotsInDate) {
         StringBuilder sb = new StringBuilder();
 
-        sb.append(getDayAndDateString(dateToCheck)).append(StringUtil.STRING_COLON);
+        sb.append(getDayAndDateString(dateToCheck))
+                .append(StringUtil.STRING_COLON);
 
         int counter = 1;
 
         for (DateTime dt : listOfFreeTimeSlotsInDate) {
-            sb.append(StringUtil.STRING_NEWLINE).append(counter).append(StringUtil.STRING_FULLSTOP)
-            .append(dt.getStartDate()
-                    .format(stringFormatterWithoutDate))
-            .append("hrs to ")
-            .append(dt.getEndDate().format(stringFormatterWithoutDate))
-            .append("hrs (")
-            .append(getDurationInMinutesBetweenTwoLocalDateTime(
-                    dt.getStartDate(), dt.getEndDate()))
-            .append(")");
+            sb.append(StringUtil.STRING_NEWLINE).append(counter)
+                    .append(StringUtil.STRING_FULLSTOP)
+                    .append(dt.getStartDate()
+                            .format(stringFormatterWithoutDate))
+                    .append("hrs to ")
+                    .append(dt.getEndDate().format(stringFormatterWithoutDate))
+                    .append("hrs (")
+                    .append(getDurationInMinutesBetweenTwoLocalDateTime(
+                            dt.getStartDate(), dt.getEndDate()))
+                    .append(")");
             counter++;
         }
 
@@ -189,8 +194,8 @@ public class DateTimeUtil {
 
     }
 
-    public static String getDurationInMinutesBetweenTwoLocalDateTime(LocalDateTime startDateTime,
-            LocalDateTime endDateTime) {
+    public static String getDurationInMinutesBetweenTwoLocalDateTime(
+            LocalDateTime startDateTime, LocalDateTime endDateTime) {
         Duration duration = Duration.between(startDateTime, endDateTime);
         long hours = duration.toHours();
         long minutes = duration.toMinutes() % 60;
@@ -241,7 +246,9 @@ public class DateTimeUtil {
         return dateToModify;
     }
 
-    public static LocalDateTime setLocalTime(LocalDateTime dateTime, int hour, int min, int sec) {
-        return LocalDateTime.of(dateTime.getYear(), dateTime.getMonth(), dateTime.getDayOfMonth(), hour, min, sec);
+    public static LocalDateTime setLocalTime(LocalDateTime dateTime, int hour,
+            int min, int sec) {
+        return LocalDateTime.of(dateTime.getYear(), dateTime.getMonth(),
+                dateTime.getDayOfMonth(), hour, min, sec);
     }
 }

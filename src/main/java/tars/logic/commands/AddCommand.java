@@ -60,7 +60,8 @@ public class AddCommand extends UndoableCommand {
      * @throws IllegalValueException if any of the raw values are invalid
      * @throws DateTimeException if given dateTime string is invalid.
      */
-    public AddCommand(String name, String[] dateTime, String priority, Set<String> tags, String[] recurringString)
+    public AddCommand(String name, String[] dateTime, String priority,
+            Set<String> tags, String[] recurringString)
             throws IllegalValueException, DateTimeException {
 
         toAddArray = new ArrayList<Task>();
@@ -70,34 +71,42 @@ public class AddCommand extends UndoableCommand {
             tagSet.add(new Tag(tagName));
         }
 
-        this.toAdd = new Task(new Name(name), new DateTime(dateTime[0], dateTime[1]), new Priority(priority),
+        this.toAdd = new Task(new Name(name),
+                new DateTime(dateTime[0], dateTime[1]), new Priority(priority),
                 new Status(), new UniqueTagList(tagSet));
 
         int numTask = ADDTASK_DEFAULT_NUMTASK;
         if (recurringString != null && recurringString.length > 1) {
-            numTask = Integer.parseInt(recurringString[RECURRINGSTRING_INDEX_OF_NUMTASK]);
+            numTask = Integer.parseInt(
+                    recurringString[RECURRINGSTRING_INDEX_OF_NUMTASK]);
         }
 
         for (int i = ADDTASK_FIRST_ITERATION; i < numTask; i++) {
             if (i != ADDTASK_FIRST_ITERATION) {
-                if (recurringString != null && recurringString.length > RECURRINGSTRING_NOT_EMPTY) {
+                if (recurringString != null
+                        && recurringString.length > RECURRINGSTRING_NOT_EMPTY) {
                     if (dateTime[DATETIME_INDEX_OF_STARTDATE] != null
-                            && dateTime[DATETIME_INDEX_OF_STARTDATE].length() > DATETIME_EMPTY_DATE) {
-                        dateTime[DATETIME_INDEX_OF_STARTDATE] = DateTimeUtil.modifyDate(
-                                dateTime[DATETIME_INDEX_OF_STARTDATE],
-                                recurringString[RECURRINGSTRING_INDEX_OF_FREQUENCY]);
+                            && dateTime[DATETIME_INDEX_OF_STARTDATE]
+                                    .length() > DATETIME_EMPTY_DATE) {
+                        dateTime[DATETIME_INDEX_OF_STARTDATE] =
+                                DateTimeUtil.modifyDate(
+                                        dateTime[DATETIME_INDEX_OF_STARTDATE],
+                                        recurringString[RECURRINGSTRING_INDEX_OF_FREQUENCY]);
                     }
                     if (dateTime[DATETIME_INDEX_OF_ENDDATE] != null
-                            && dateTime[DATETIME_INDEX_OF_ENDDATE].length() > DATETIME_EMPTY_DATE) {
-                        dateTime[DATETIME_INDEX_OF_ENDDATE] = DateTimeUtil.modifyDate(
-                                dateTime[DATETIME_INDEX_OF_ENDDATE],
-                                recurringString[RECURRINGSTRING_INDEX_OF_FREQUENCY]);
+                            && dateTime[DATETIME_INDEX_OF_ENDDATE]
+                                    .length() > DATETIME_EMPTY_DATE) {
+                        dateTime[DATETIME_INDEX_OF_ENDDATE] = DateTimeUtil
+                                .modifyDate(dateTime[DATETIME_INDEX_OF_ENDDATE],
+                                        recurringString[RECURRINGSTRING_INDEX_OF_FREQUENCY]);
                     }
                 }
             }
             this.toAdd = new Task(new Name(name),
-                    new DateTime(dateTime[DATETIME_INDEX_OF_STARTDATE], dateTime[DATETIME_INDEX_OF_ENDDATE]),
-                    new Priority(priority), new Status(), new UniqueTagList(tagSet));
+                    new DateTime(dateTime[DATETIME_INDEX_OF_STARTDATE],
+                            dateTime[DATETIME_INDEX_OF_ENDDATE]),
+                    new Priority(priority), new Status(),
+                    new UniqueTagList(tagSet));
             toAddArray.add(toAdd);
         }
 
@@ -108,13 +117,16 @@ public class AddCommand extends UndoableCommand {
         assert model != null;
         try {
             for (Task toAdd : toAddArray) {
-                conflictingTaskList += model.getTaskConflictingDateTimeWarningMessage(toAdd.getDateTime());
+                conflictingTaskList +=
+                        model.getTaskConflictingDateTimeWarningMessage(
+                                toAdd.getDateTime());
                 model.addTask(toAdd);
 
-                if (toAddArray.size() == 1 && ((toAdd.getDateTime().getStartDate() == null
+                if (toAddArray.size() == 1 && ((toAdd.getDateTime()
+                        .getStartDate() == null
                         && toAdd.getDateTime().getEndDate() != null)
-                        || (toAdd.getDateTime().getStartDate() != null 
-                            && toAdd.getDateTime().getEndDate() != null))) {
+                        || (toAdd.getDateTime().getStartDate() != null
+                                && toAdd.getDateTime().getEndDate() != null))) {
                     model.updateFilteredTaskListUsingDate(toAdd.getDateTime());
                 }
 
@@ -135,11 +147,12 @@ public class AddCommand extends UndoableCommand {
             for (Task toAdd : toAddArray) {
                 model.deleteTask(toAdd);
             }
-            return new CommandResult(
-                    String.format(UndoCommand.MESSAGE_SUCCESS, String.format(MESSAGE_UNDO, toAdd)));
+            return new CommandResult(String.format(UndoCommand.MESSAGE_SUCCESS,
+                    String.format(MESSAGE_UNDO, toAdd)));
         } catch (TaskNotFoundException e) {
-            return new CommandResult(String.format(UndoCommand.MESSAGE_UNSUCCESS,
-                    Messages.MESSAGE_TASK_CANNOT_BE_FOUND));
+            return new CommandResult(
+                    String.format(UndoCommand.MESSAGE_UNSUCCESS,
+                            Messages.MESSAGE_TASK_CANNOT_BE_FOUND));
         }
     }
 
@@ -151,10 +164,12 @@ public class AddCommand extends UndoableCommand {
             for (Task toAdd : toAddArray) {
                 model.addTask(toAdd);
             }
-            return new CommandResult(String.format(RedoCommand.MESSAGE_SUCCESS, messageSummary()));
+            return new CommandResult(String.format(RedoCommand.MESSAGE_SUCCESS,
+                    messageSummary()));
         } catch (DuplicateTaskException e) {
             return new CommandResult(
-                    String.format(RedoCommand.MESSAGE_UNSUCCESS, Messages.MESSAGE_DUPLICATE_TASK));
+                    String.format(RedoCommand.MESSAGE_UNSUCCESS,
+                            Messages.MESSAGE_DUPLICATE_TASK));
         }
     }
 
@@ -163,11 +178,13 @@ public class AddCommand extends UndoableCommand {
         String summary = ADDTASK_STRING_EMPTY;
 
         for (Task toAdd : toAddArray) {
-            summary += String.format(MESSAGE_SUCCESS, toAdd + ADDTASK_STRING_NEWLINE);
+            summary += String.format(MESSAGE_SUCCESS,
+                    toAdd + ADDTASK_STRING_NEWLINE);
         }
 
         if (!conflictingTaskList.isEmpty()) {
-            summary += "\n" + Messages.MESSAGE_CONFLICTING_TASKS_WARNING + conflictingTaskList;
+            summary += "\n" + Messages.MESSAGE_CONFLICTING_TASKS_WARNING
+                    + conflictingTaskList;
         }
         return summary;
     }
