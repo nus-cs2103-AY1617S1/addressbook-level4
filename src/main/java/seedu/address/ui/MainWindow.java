@@ -34,13 +34,13 @@ public class MainWindow extends UiPart {
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
-    private TaskListPanel taskListLeftPanel;
+    private ListPanel taskListLeftPanel;
     //@@author A0142184L
-    private TaskListPanel todayTaskListTabPanel;
-    private TaskListPanel tomorrowTaskListTabPanel;
-    private TaskListPanel in7DaysTaskListTabPanel;
-    private TaskListPanel in30DaysTaskListTabPanel;
-    private TaskListPanel somedayTaskListTabPanel;
+    private ListPanel todayTaskListTabPanel;
+    private ListPanel tomorrowTaskListTabPanel;
+    private ListPanel in7DaysTaskListTabPanel;
+    private ListPanel in30DaysTaskListTabPanel;
+    private ListPanel somedayTaskListTabPanel;
     //@@author 
     private ResultDisplay resultDisplay;
     private StatusBarFooter statusBarFooter;
@@ -136,12 +136,12 @@ public class MainWindow extends UiPart {
 
     void fillInnerParts() {
         //@@author A0142184L
-        todayTaskListTabPanel = TaskListPanel.loadTaskList(primaryStage, getTodayTaskListTabPanelPlaceholder(), logic.getTodayTaskList());
-        tomorrowTaskListTabPanel = TaskListPanel.loadTaskList(primaryStage, getTomorrowTaskListTabPanelPlaceholder(), logic.getTomorrowTaskList());
-        in7DaysTaskListTabPanel = TaskListPanel.loadTaskList(primaryStage, getIn7DaysTaskListTabPanelPlaceholder(), logic.getIn7DaysTaskList());
-        in30DaysTaskListTabPanel = TaskListPanel.loadTaskList(primaryStage, getIn30DaysTaskListTabPanelPlaceholder(), logic.getIn30DaysTaskList());   
-        somedayTaskListTabPanel = TaskListPanel.loadTaskList(primaryStage, getSomedayTaskListTabPanelPlaceholder(), logic.getSomedayTaskList());
-        taskListLeftPanel = TaskListPanel.loadTaskList(primaryStage, getTaskListLeftPlaceholder(), logic.getFilteredTaskList());
+        todayTaskListTabPanel = ListPanel.loadTaskList(primaryStage, getTodayTaskListTabPanelPlaceholder(), logic.getTodayTaskList());
+        tomorrowTaskListTabPanel = ListPanel.loadTaskList(primaryStage, getTomorrowTaskListTabPanelPlaceholder(), logic.getTomorrowTaskList());
+        in7DaysTaskListTabPanel = ListPanel.loadTaskList(primaryStage, getIn7DaysTaskListTabPanelPlaceholder(), logic.getIn7DaysTaskList());
+        in30DaysTaskListTabPanel = ListPanel.loadTaskList(primaryStage, getIn30DaysTaskListTabPanelPlaceholder(), logic.getIn30DaysTaskList());   
+        somedayTaskListTabPanel = ListPanel.loadTaskList(primaryStage, getSomedayTaskListTabPanelPlaceholder(), logic.getSomedayTaskList());
+        taskListLeftPanel = ListPanel.loadTaskList(primaryStage, getTaskListLeftPlaceholder(), logic.getFilteredTaskList());
         //@@author
         resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
         statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getTaskManagerFilePath());
@@ -257,7 +257,7 @@ public class MainWindow extends UiPart {
         });
     }
     //@@author
-    public TaskListPanel getTaskListPanel() {
+    public ListPanel getTaskListPanel() {
         return this.taskListLeftPanel;
     }
 
