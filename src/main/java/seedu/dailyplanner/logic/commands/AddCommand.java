@@ -23,6 +23,8 @@ public class AddCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "New task added: %1$s";
     public static final String MESSAGE_DUPLICATE_PERSON = "This task already exists in the daily planner";
+    public static final String MESSAGE_WARNING_CLASH = "Warning! Current timeslot clashes with one the tasks: %1$s";
+
 
     private final Task toAdd;
 
@@ -55,11 +57,36 @@ public class AddCommand extends Command {
         try {
         	model.getHistory().stackDeleteInstruction(toAdd);
             model.addPerson(toAdd);
+            
+        	if (checkClash(toAdd) > -1)
+				return new CommandResult(String.format(MESSAGE_WARNING_CLASH, model.getAddressBook().getPersonList().get(checkClash(toAdd))));
+        	
             return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
         } catch (UniqueTaskList.DuplicatePersonException e) {
             return new CommandResult(MESSAGE_DUPLICATE_PERSON);
         }
 
     }
+    
+    public int checkClash(Task toCheck) {
+    	
+		String toAddStartTiming = toCheck.getEmail().toString().replaceAll(":", "");
+		String toAddEndTiming = toCheck.getAddress().toString().replaceAll(":", "");
+
+		for (int i = 0; i < model.getAddressBook().getPersonList().size(); i++) {
+			if (!(toCheck == model.getAddressBook().getPersonList().get(i))) {
+				if (toCheck.getPhone().toString().equals(model.getAddressBook().getPersonList().get(i).getPhone().toString())) {
+					String tasksEndTiming = model.getAddressBook().getPersonList().get(i).getAddress().toString().replaceAll(":", "");
+					String tasksStartTiming = model.getAddressBook().getPersonList().get(i).getEmail().toString().replaceAll(":", "");
+					if ((Integer.parseInt(toAddStartTiming) < Integer.parseInt(tasksEndTiming))
+							&& (Integer.parseInt(toAddStartTiming) > Integer.parseInt(tasksStartTiming))) {
+
+						return i;
+					}
+				}
+			}
+		}
+		return -1;
+	}
     
 }

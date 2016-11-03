@@ -8,6 +8,10 @@ import javafx.stage.Stage;
 import seedu.dailyplanner.commons.core.LogsCenter;
 import seedu.dailyplanner.commons.util.FxViewUtil;
 
+import java.awt.Desktop;
+import java.io.File;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.logging.Logger;
 
 /**
@@ -20,8 +24,7 @@ public class HelpWindow extends UiPart {
     private static final String FXML = "HelpWindow.fxml";
     private static final String TITLE = "Help";
     private static final String USERGUIDE_URL =
-            "https://github.com/CS2103AUG2016-F11-C4/main/blob/master/docs/UserGuide.md";
-
+            "/view/HelpDoc.html";
     private AnchorPane mainPane;
 
     private Stage dialogStage;
@@ -43,18 +46,19 @@ public class HelpWindow extends UiPart {
         return FXML;
     }
 
-    private void configure(){
-        Scene scene = new Scene(mainPane);
-        //Null passed as the parent stage to make it non-modal.
-        dialogStage = createDialogStage(TITLE, null, scene);
-        dialogStage.setMaximized(true); //TODO: set a more appropriate initial size
-        setIcon(dialogStage, ICON);
 
-        WebView browser = new WebView();
-        browser.getEngine().load(USERGUIDE_URL);
-        FxViewUtil.applyAnchorBoundaryParameters(browser, 0.0, 0.0, 0.0, 0.0);
-        mainPane.getChildren().add(browser);
-    }
+    private void configure(){
+           Scene scene = new Scene(mainPane);
+           //Null passed as the parent stage to make it non-modal.
+           dialogStage = createDialogStage(TITLE, null, scene);
+           dialogStage.setMaximized(true); //TODO: set a more appropriate initial size
+           setIcon(dialogStage, ICON);
+
+           WebView browser = new WebView();
+           browser.getEngine().load(USERGUIDE_URL);
+           FxViewUtil.applyAnchorBoundaryParameters(browser, 0.0, 0.0, 0.0, 0.0);
+           mainPane.getChildren().add(browser);
+       }
 
     public void show() {
         dialogStage.showAndWait();
