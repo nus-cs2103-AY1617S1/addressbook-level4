@@ -21,89 +21,88 @@ import java.util.logging.Logger;
  * Panel containing the list of tasks.
  */
 public class TodoListPanel extends UiPart {
-    private final Logger logger = LogsCenter.getLogger(TodoListPanel.class);
-    private static final String FXML = "TodoListPanel.fxml";
-    private VBox panel;
-    private AnchorPane placeHolderPane;
+	private final Logger logger = LogsCenter.getLogger(TodoListPanel.class);
+	private static final String FXML = "TodoListPanel.fxml";
+	private VBox panel;
+	private AnchorPane placeHolderPane;
 
-    @FXML
-    ListView<ReadOnlyTask> todoListView;
+	@FXML
+	ListView<ReadOnlyTask> todoListView;
 
-    public TodoListPanel() {
-        super();
-    }
+	public TodoListPanel() {
+		super();
+	}
 
-    @Override
-    public void setNode(Node node) {
-        panel = (VBox) node;
-    }
+	@Override
+	public void setNode(Node node) {
+		panel = (VBox) node;
+	}
 
-    @Override
-    public String getFxmlPath() {
-        return FXML;
-    }
+	@Override
+	public String getFxmlPath() {
+		return FXML;
+	}
 
-    @Override
-    public void setPlaceholder(AnchorPane pane) {
-        this.placeHolderPane = pane;
-    }
+	@Override
+	public void setPlaceholder(AnchorPane pane) {
+		this.placeHolderPane = pane;
+	}
 
-    public static TodoListPanel load(Stage primaryStage, AnchorPane todoListPlaceholder,
-                                       ObservableList<ReadOnlyTask> todoList) {
-        TodoListPanel todoListPanel =
-                UiPartLoader.loadUiPart(primaryStage, todoListPlaceholder, new TodoListPanel());
-        todoListPanel.configure(todoList);
-        return todoListPanel;
-    }
+	public static TodoListPanel load(Stage primaryStage, AnchorPane todoListPlaceholder,
+			ObservableList<ReadOnlyTask> todoList) {
+		TodoListPanel todoListPanel = UiPartLoader.loadUiPart(primaryStage, todoListPlaceholder, new TodoListPanel());
+		todoListPanel.configure(todoList);
+		return todoListPanel;
+	}
 
-    private void configure(ObservableList<ReadOnlyTask> todokList) {
-        setConnections(todokList);
-        addToPlaceholder();
-    }
+	private void configure(ObservableList<ReadOnlyTask> todokList) {
+		setConnections(todokList);
+		addToPlaceholder();
+	}
 
-    private void setConnections(ObservableList<ReadOnlyTask> todoList) {
-        todoListView.setItems(todoList);
-        todoListView.setCellFactory(listView -> new TodoListViewCell());
-        setEventHandlerForSelectionChangeEvent();
-    }
+	private void setConnections(ObservableList<ReadOnlyTask> todoList) {
+		todoListView.setItems(todoList);
+		todoListView.setCellFactory(listView -> new TodoListViewCell());
+		setEventHandlerForSelectionChangeEvent();
+	}
 
-    private void addToPlaceholder() {
-        SplitPane.setResizableWithParent(placeHolderPane, false);
-        placeHolderPane.getChildren().add(panel);
-    }
+	private void addToPlaceholder() {
+		SplitPane.setResizableWithParent(placeHolderPane, false);
+		placeHolderPane.getChildren().add(panel);
+	}
 
-    private void setEventHandlerForSelectionChangeEvent() {
-        todoListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue != null) {
-                logger.fine("Selection in task list panel changed to : '" + newValue + "'");
-                raise(new TaskPanelSelectionChangedEvent(newValue));
-            }
-        });
-    }
+	private void setEventHandlerForSelectionChangeEvent() {
+		todoListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+			if (newValue != null) {
+				logger.fine("Selection in task list panel changed to : '" + newValue + "'");
+				raise(new TaskPanelSelectionChangedEvent(newValue));
+			}
+		});
+	}
 
-    public void scrollTo(int index) {
-        Platform.runLater(() -> {
-            todoListView.scrollTo(index);
-            todoListView.getSelectionModel().clearAndSelect(index);
-        });
-    }
+	public void scrollTo(int index) {
+		Platform.runLater(() -> {
+			todoListView.scrollTo(index);
+			todoListView.getSelectionModel().clearAndSelect(index);
+		});
+	}
 
-    class TodoListViewCell extends ListCell<ReadOnlyTask> {
+	class TodoListViewCell extends ListCell<ReadOnlyTask> {
 
-        public TodoListViewCell() {
-        }
+		public TodoListViewCell() {
+		}
 
-        @Override
-        protected void updateItem(ReadOnlyTask task, boolean empty) {
-            super.updateItem(task, empty);
+		@Override
+		protected void updateItem(ReadOnlyTask task, boolean empty) {
+			super.updateItem(task, empty);
 
-            if (empty || task == null) {
-                setGraphic(null);
-                setText(null);
-            } else {
-                setGraphic(TodoCard.load(task, getIndex() + 1).getLayout());
-            }
-        }
-    }
+			if (empty || task == null) {
+				setGraphic(null);
+				setText(null);
+			} else {
+				setGraphic(TodoCard.load(task, getIndex() + 1).getLayout());
+			}
+		}
+	}
 
 }

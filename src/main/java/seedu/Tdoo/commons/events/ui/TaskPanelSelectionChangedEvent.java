@@ -8,19 +8,18 @@ import seedu.Tdoo.model.task.ReadOnlyTask;
  */
 public class TaskPanelSelectionChangedEvent extends BaseEvent {
 
+	private final ReadOnlyTask newSelection;
 
-    private final ReadOnlyTask newSelection;
+	public TaskPanelSelectionChangedEvent(ReadOnlyTask newSelection) {
+		this.newSelection = newSelection;
+	}
 
-    public TaskPanelSelectionChangedEvent(ReadOnlyTask newSelection){
-        this.newSelection = newSelection;
-    }
+	@Override
+	public String toString() {
+		return this.getClass().getSimpleName();
+	}
 
-    @Override
-    public String toString() {
-        return this.getClass().getSimpleName();
-    }
-
-    public ReadOnlyTask getNewSelection() {
-        return newSelection;
-    }
+	public ReadOnlyTask getNewSelection() {
+		return newSelection;
+	}
 }

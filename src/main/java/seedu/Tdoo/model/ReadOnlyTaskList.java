@@ -1,6 +1,5 @@
 package seedu.Tdoo.model;
 
-
 import java.util.List;
 
 import seedu.Tdoo.model.task.ReadOnlyTask;
@@ -11,10 +10,10 @@ import seedu.Tdoo.model.task.UniqueTaskList;
  */
 public interface ReadOnlyTaskList {
 
-    UniqueTaskList getUniqueTaskList();
+	UniqueTaskList getUniqueTaskList();
 
-    /**
-     * Returns an unmodifiable view of tasks list
-     */
-    List<ReadOnlyTask> getTaskList();
+	/**
+	 * Returns an unmodifiable view of tasks list
+	 */
+	List<ReadOnlyTask> getTaskList();
 }

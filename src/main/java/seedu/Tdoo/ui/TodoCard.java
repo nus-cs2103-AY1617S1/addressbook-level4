@@ -7,66 +7,66 @@ import javafx.scene.layout.HBox;
 import seedu.Tdoo.model.task.*;
 
 //@@author A0144061U-reused
-public class TodoCard extends UiPart{
+public class TodoCard extends UiPart {
 
-    private static final String FXML = "TodoCard.fxml";
+	private static final String FXML = "TodoCard.fxml";
 
-    @FXML
-    private HBox cardPane;
-    @FXML
-    private Label name;
-    @FXML
-    private Label id;
-    @FXML
-    private Label date;
-    @FXML
-    private Label endDate;
-    @FXML
-    private Label priority;
-    @FXML
-    private Label done;
+	@FXML
+	private HBox cardPane;
+	@FXML
+	private Label name;
+	@FXML
+	private Label id;
+	@FXML
+	private Label date;
+	@FXML
+	private Label endDate;
+	@FXML
+	private Label priority;
+	@FXML
+	private Label done;
 
-    private Todo task;	
-    private int displayedIndex;
+	private Todo task;
+	private int displayedIndex;
 
-    public TodoCard(){
+	public TodoCard() {
 
-    }
+	}
 
-    public static TodoCard load(ReadOnlyTask task, int displayedIndex){
-        TodoCard card = new TodoCard();
-        card.task = (Todo) task;
-        card.displayedIndex = displayedIndex;
-        return UiPartLoader.loadUiPart(card);
-    }
+	public static TodoCard load(ReadOnlyTask task, int displayedIndex) {
+		TodoCard card = new TodoCard();
+		card.task = (Todo) task;
+		card.displayedIndex = displayedIndex;
+		return UiPartLoader.loadUiPart(card);
+	}
 
-    @FXML
-    public void initialize() {
-        name.setText(task.getName().name);
-        id.setText(displayedIndex + ". ");
-        //date.setText("Start Date: " + task.getStartDate().date);
-        //endDate.setText("End Date: " + task.getEndDate().endDate);
-        priority.setText("Priority: " + task.getPriority().toString());
-        if(this.task.getDone().equals("true")) {
-        	done.setText("Completed");
-    		cardPane.setStyle("-fx-background-color: #01DF01");
-    	} else {
-    		done.setText("Not Completed");
-    		cardPane.setStyle("-fx-background-color: #FFFFFF");
-    	}
-    }
+	@FXML
+	public void initialize() {
+		name.setText(task.getName().name);
+		id.setText(displayedIndex + ". ");
+		// date.setText("Start Date: " + task.getStartDate().date);
+		// endDate.setText("End Date: " + task.getEndDate().endDate);
+		priority.setText("Priority: " + task.getPriority().toString());
+		if (this.task.getDone().equals("true")) {
+			done.setText("Completed");
+			cardPane.setStyle("-fx-background-color: #01DF01");
+		} else {
+			done.setText("Not Completed");
+			cardPane.setStyle("-fx-background-color: #FFFFFF");
+		}
+	}
 
-    public HBox getLayout() {
-        return cardPane;
-    }
+	public HBox getLayout() {
+		return cardPane;
+	}
 
-    @Override
-    public void setNode(Node node) {
-        cardPane = (HBox)node;
-    }
+	@Override
+	public void setNode(Node node) {
+		cardPane = (HBox) node;
+	}
 
-    @Override
-    public String getFxmlPath() {
-        return FXML;
-    }
+	@Override
+	public String getFxmlPath() {
+		return FXML;
+	}
 }

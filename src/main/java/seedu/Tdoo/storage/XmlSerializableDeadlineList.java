@@ -18,48 +18,49 @@ import java.util.stream.Collectors;
 @XmlRootElement(name = "DeadlineList")
 public class XmlSerializableDeadlineList implements XmlSerializableTaskList {
 
-    @XmlElement
-    private List<XmlAdaptedDeadline> tasks;
+	@XmlElement
+	private List<XmlAdaptedDeadline> tasks;
 
-    {
-        tasks = new ArrayList<>();
-    }
+	{
+		tasks = new ArrayList<>();
+	}
 
-    /**
-     * Empty constructor required for marshalling
-     */
-    public XmlSerializableDeadlineList() {}
+	/**
+	 * Empty constructor required for marshalling
+	 */
+	public XmlSerializableDeadlineList() {
+	}
 
-    /**
-     * Conversion
-     */
-    public XmlSerializableDeadlineList(ReadOnlyTaskList src) {
-    	tasks.addAll(src.getTaskList().stream().map(XmlAdaptedDeadline::new).collect(Collectors.toList()));
-    }
+	/**
+	 * Conversion
+	 */
+	public XmlSerializableDeadlineList(ReadOnlyTaskList src) {
+		tasks.addAll(src.getTaskList().stream().map(XmlAdaptedDeadline::new).collect(Collectors.toList()));
+	}
 
-    @Override
-    public UniqueTaskList getUniqueTaskList() {
-        UniqueTaskList lists = new UniqueTaskList();
-        for (XmlAdaptedDeadline p : tasks) {
-            try {
-                lists.add(p.toModelType());
-            } catch (IllegalValueException e) {
-                //TODO: better error handling
-            }
-        }
-        return lists;
-    }
+	@Override
+	public UniqueTaskList getUniqueTaskList() {
+		UniqueTaskList lists = new UniqueTaskList();
+		for (XmlAdaptedDeadline p : tasks) {
+			try {
+				lists.add(p.toModelType());
+			} catch (IllegalValueException e) {
+				// TODO: better error handling
+			}
+		}
+		return lists;
+	}
 
-    @Override
-    public List<ReadOnlyTask> getTaskList() {
-        return tasks.stream().map(p -> {
-            try {
-                return p.toModelType();
-            } catch (IllegalValueException e) {
-                e.printStackTrace();
-                //TODO: better error handling
-                return null;
-            }
-        }).collect(Collectors.toCollection(ArrayList::new));
-    }
+	@Override
+	public List<ReadOnlyTask> getTaskList() {
+		return tasks.stream().map(p -> {
+			try {
+				return p.toModelType();
+			} catch (IllegalValueException e) {
+				e.printStackTrace();
+				// TODO: better error handling
+				return null;
+			}
+		}).collect(Collectors.toCollection(ArrayList::new));
+	}
 }

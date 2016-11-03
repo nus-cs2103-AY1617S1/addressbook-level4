@@ -18,74 +18,71 @@ import seedu.Tdoo.model.UserPrefs;
 public interface Storage {
 
 	// ================ UserPrefs methods ==============================
-    Optional<UserPrefs> readUserPrefs() throws DataConversionException, IOException;
+	Optional<UserPrefs> readUserPrefs() throws DataConversionException, IOException;
 
-    void saveUserPrefs(UserPrefs userPrefs) throws IOException;
-    
-    void changeStorage(String path) throws IllegalValueException;
-    
-    void unsubscribe();
+	void saveUserPrefs(UserPrefs userPrefs) throws IOException;
 
-    
-    // ================ TodoList methods ==============================
-    String getTodoListFilePath();
-    
-    public void setTodoListFilePath(String todoListFilePath) throws IllegalValueException;
-    
-    Optional<ReadOnlyTaskList> readTodoList() throws DataConversionException, IOException;
-    
-    public Optional<ReadOnlyTaskList> readTodoList(String filePath) throws DataConversionException, IOException;
+	void changeStorage(String path) throws IllegalValueException;
 
-    void saveTodoList(ReadOnlyTaskList todoList) throws IOException;
-    
-    public void saveTodoList(ReadOnlyTaskList TodoList, String filePath) throws IOException;
+	void unsubscribe();
 
-    /**
-     * Saves the current version of the TaskList to the hard disk.
-     *   Creates the data file if it is missing.
-     * Raises {@link DataSavingExceptionEvent} if there was an error during saving.
-     */
-    void handleTodoListChangedEvent(TodoListChangedEvent abce);
-    
-    
-    // ================ EventList methods ==============================
-    String getEventListFilePath();
-    
-    public void setEventListFilePath(String eventListFilePath) throws IllegalValueException;
+	// ================ TodoList methods ==============================
+	String getTodoListFilePath();
 
-    Optional<ReadOnlyTaskList> readEventList() throws DataConversionException, IOException;
-    
-    public Optional<ReadOnlyTaskList> readEventList(String filePath) throws DataConversionException, IOException;
-    
-    void saveEventList(ReadOnlyTaskList eventList) throws IOException;
-    
-    public void saveEventList(ReadOnlyTaskList eventList, String filePath) throws IOException;
+	public void setTodoListFilePath(String todoListFilePath) throws IllegalValueException;
 
-    /**
-     * Saves the current version of the TaskList to the hard disk.
-     *   Creates the data file if it is missing.
-     * Raises {@link DataSavingExceptionEvent} if there was an error during saving.
-     */
-    void handleEventListChangedEvent(EventListChangedEvent abce);
-    
-    
-    // ================ DeadlineList methods ==============================
-    String getDeadlineListFilePath();
-    
-    public void setDeadlineListFilePath(String deadlineListFilePath) throws IllegalValueException;
+	Optional<ReadOnlyTaskList> readTodoList() throws DataConversionException, IOException;
 
-    Optional<ReadOnlyTaskList> readDeadlineList() throws DataConversionException, IOException;
-    
-    public Optional<ReadOnlyTaskList> readDeadlineList(String filePath) throws DataConversionException, IOException;
-    
-    public void saveDeadlineList(ReadOnlyTaskList taskList, String filePath) throws IOException;
+	public Optional<ReadOnlyTaskList> readTodoList(String filePath) throws DataConversionException, IOException;
 
-    void saveDeadlineList(ReadOnlyTaskList deadlineList) throws IOException;
+	void saveTodoList(ReadOnlyTaskList todoList) throws IOException;
 
-    /**
-     * Saves the current version of the TaskList to the hard disk.
-     *   Creates the data file if it is missing.
-     * Raises {@link DataSavingExceptionEvent} if there was an error during saving.
-     */
-    void handleDeadlineListChangedEvent(DeadlineListChangedEvent abce);
+	public void saveTodoList(ReadOnlyTaskList TodoList, String filePath) throws IOException;
+
+	/**
+	 * Saves the current version of the TaskList to the hard disk. Creates the
+	 * data file if it is missing. Raises {@link DataSavingExceptionEvent} if
+	 * there was an error during saving.
+	 */
+	void handleTodoListChangedEvent(TodoListChangedEvent abce);
+
+	// ================ EventList methods ==============================
+	String getEventListFilePath();
+
+	public void setEventListFilePath(String eventListFilePath) throws IllegalValueException;
+
+	Optional<ReadOnlyTaskList> readEventList() throws DataConversionException, IOException;
+
+	public Optional<ReadOnlyTaskList> readEventList(String filePath) throws DataConversionException, IOException;
+
+	void saveEventList(ReadOnlyTaskList eventList) throws IOException;
+
+	public void saveEventList(ReadOnlyTaskList eventList, String filePath) throws IOException;
+
+	/**
+	 * Saves the current version of the TaskList to the hard disk. Creates the
+	 * data file if it is missing. Raises {@link DataSavingExceptionEvent} if
+	 * there was an error during saving.
+	 */
+	void handleEventListChangedEvent(EventListChangedEvent abce);
+
+	// ================ DeadlineList methods ==============================
+	String getDeadlineListFilePath();
+
+	public void setDeadlineListFilePath(String deadlineListFilePath) throws IllegalValueException;
+
+	Optional<ReadOnlyTaskList> readDeadlineList() throws DataConversionException, IOException;
+
+	public Optional<ReadOnlyTaskList> readDeadlineList(String filePath) throws DataConversionException, IOException;
+
+	public void saveDeadlineList(ReadOnlyTaskList taskList, String filePath) throws IOException;
+
+	void saveDeadlineList(ReadOnlyTaskList deadlineList) throws IOException;
+
+	/**
+	 * Saves the current version of the TaskList to the hard disk. Creates the
+	 * data file if it is missing. Raises {@link DataSavingExceptionEvent} if
+	 * there was an error during saving.
+	 */
+	void handleDeadlineListChangedEvent(DeadlineListChangedEvent abce);
 }

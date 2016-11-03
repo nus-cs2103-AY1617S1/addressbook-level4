@@ -11,44 +11,45 @@ import javax.xml.bind.annotation.XmlElement;
  * JAXB-friendly version of the task.
  */
 public class XmlAdaptedDeadline implements XmlAdaptedTask {
-    
+
 	@XmlElement(required = true)
 	private String name;
 	@XmlElement(required = true)
 	private String startDate;
 	@XmlElement(required = true)
-    private String endTime;
+	private String endTime;
 	@XmlElement(required = true)
-    private String isDone;
+	private String isDone;
 
-    /**
-     * No-arg constructor for JAXB use.
-     */
-    public XmlAdaptedDeadline () {}
+	/**
+	 * No-arg constructor for JAXB use.
+	 */
+	public XmlAdaptedDeadline() {
+	}
 
+	/**
+	 * Converts a given task into this class for JAXB use.
+	 *
+	 * @param source
+	 *            future changes to this will not affect the created
+	 *            XmlAdaptedtask
+	 */
+	public XmlAdaptedDeadline(Deadline source) {
+		name = source.getName().name;
+		startDate = source.getStartDate().saveDate;
+		endTime = source.getEndTime().saveEndTime;
+		isDone = source.getDone();
+	}
 
-    /**
-     * Converts a given task into this class for JAXB use.
-     *
-     * @param source future changes to this will not affect the created XmlAdaptedtask
-     */
-    public XmlAdaptedDeadline(Deadline source) {
-    	name = source.getName().name;
-    	startDate = source.getStartDate().saveDate;
-        endTime = source.getEndTime().saveEndTime;
-        isDone = source.getDone();
-    }
-    
-    public XmlAdaptedDeadline(ReadOnlyTask source) {
-    	this((Deadline) source);
-    }
+	public XmlAdaptedDeadline(ReadOnlyTask source) {
+		this((Deadline) source);
+	}
 
-    public Task toModelType() throws IllegalValueException {
-        final Name name = new Name(this.name);
-        final StartDate date = new StartDate(this.startDate);
-        final EndTime endTime = new EndTime(this.endTime);
-        final String isDone = new String(this.isDone);
-        return new Deadline(name, date, endTime, isDone);
-    }
+	public Task toModelType() throws IllegalValueException {
+		final Name name = new Name(this.name);
+		final StartDate date = new StartDate(this.startDate);
+		final EndTime endTime = new EndTime(this.endTime);
+		final String isDone = new String(this.isDone);
+		return new Deadline(name, date, endTime, isDone);
+	}
 }
-

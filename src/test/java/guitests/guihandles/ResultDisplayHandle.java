@@ -10,17 +10,17 @@ import seedu.Tdoo.TestApp;
  */
 public class ResultDisplayHandle extends GuiHandle {
 
-    public static final String RESULT_DISPLAY_ID = "#resultDisplay";
+	public static final String RESULT_DISPLAY_ID = "#resultDisplay";
 
-    public ResultDisplayHandle(GuiRobot guiRobot, Stage primaryStage) {
-        super(guiRobot, primaryStage, TestApp.APP_TITLE);
-    }
+	public ResultDisplayHandle(GuiRobot guiRobot, Stage primaryStage) {
+		super(guiRobot, primaryStage, TestApp.APP_TITLE);
+	}
 
-    public String getText() {
-        return getResultDisplay().getText();
-    }
+	public String getText() {
+		return getResultDisplay().getText();
+	}
 
-    private TextArea getResultDisplay() {
-        return (TextArea) getNode(RESULT_DISPLAY_ID);
-    }
+	private TextArea getResultDisplay() {
+		return (TextArea) getNode(RESULT_DISPLAY_ID);
+	}
 }

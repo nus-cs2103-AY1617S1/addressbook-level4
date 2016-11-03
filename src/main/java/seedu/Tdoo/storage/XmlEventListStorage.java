@@ -17,62 +17,68 @@ import seedu.Tdoo.model.ReadOnlyTaskList;
  */
 public class XmlEventListStorage implements TaskListStorage {
 
-    private static final Logger logger = LogsCenter.getLogger(XmlEventListStorage.class);
+	private static final Logger logger = LogsCenter.getLogger(XmlEventListStorage.class);
 
-    private String filePath;
+	private String filePath;
 
-    public XmlEventListStorage(String filePath){
-        this.filePath = filePath;
-    }
+	public XmlEventListStorage(String filePath) {
+		this.filePath = filePath;
+	}
 
-    public String getTaskListFilePath(){
-        return filePath;
-    }
-    
-    public void setTaskListFilePath(String filePath){
-        this.filePath = filePath;
-    }
+	public String getTaskListFilePath() {
+		return filePath;
+	}
 
-    /**
-     * Similar to {@link #readTodoList()}
-     * @param filePath location of the data. Cannot be null
-     * @throws DataConversionException if the file is not in the correct format.
-     */
-    public Optional<ReadOnlyTaskList> readTaskList(String filePath) throws DataConversionException, FileNotFoundException {
-        assert filePath != null;
+	public void setTaskListFilePath(String filePath) {
+		this.filePath = filePath;
+	}
 
-        File TaskListFile = new File(filePath);
+	/**
+	 * Similar to {@link #readTodoList()}
+	 * 
+	 * @param filePath
+	 *            location of the data. Cannot be null
+	 * @throws DataConversionException
+	 *             if the file is not in the correct format.
+	 */
+	public Optional<ReadOnlyTaskList> readTaskList(String filePath)
+			throws DataConversionException, FileNotFoundException {
+		assert filePath != null;
 
-        if (!TaskListFile.exists()) {
-            logger.info("TaskList file "  + TaskListFile + " not found");
-            return Optional.empty();
-        }
+		File TaskListFile = new File(filePath);
 
-        ReadOnlyTaskList TaskListOptional = XmlFileStorage.loadDataFromSaveFile(new File(filePath));
+		if (!TaskListFile.exists()) {
+			logger.info("TaskList file " + TaskListFile + " not found");
+			return Optional.empty();
+		}
 
-        return Optional.of(TaskListOptional);
-    }
+		ReadOnlyTaskList TaskListOptional = XmlFileStorage.loadDataFromSaveFile(new File(filePath));
 
-    /**
-     * Similar to {@link #saveTodoList(ReadOnlyTodoList)}
-     * @param filePath location of the data. Cannot be null
-     */
-    public void saveTaskList(ReadOnlyTaskList taskList, String filePath) throws IOException {
-        assert taskList != null;
-        assert filePath != null;
+		return Optional.of(TaskListOptional);
+	}
 
-        File file = new File(filePath);
-        FileUtil.createIfMissing(file);
-        XmlFileStorage.saveDataToFile(file, new XmlSerializableEventList(taskList));
-    }
+	/**
+	 * Similar to {@link #saveTodoList(ReadOnlyTodoList)}
+	 * 
+	 * @param filePath
+	 *            location of the data. Cannot be null
+	 */
+	public void saveTaskList(ReadOnlyTaskList taskList, String filePath) throws IOException {
+		assert taskList != null;
+		assert filePath != null;
 
-    @Override
-    public Optional<ReadOnlyTaskList> readTaskList() throws DataConversionException, IOException {
-        return readTaskList(filePath);
-    }
+		File file = new File(filePath);
+		FileUtil.createIfMissing(file);
+		XmlFileStorage.saveDataToFile(file, new XmlSerializableEventList(taskList));
+	}
 
-    @Override
-    public void saveTaskList(ReadOnlyTaskList taskList) throws IOException {
-        saveTaskList(taskList, filePath);
-    }
+	@Override
+	public Optional<ReadOnlyTaskList> readTaskList() throws DataConversionException, IOException {
+		return readTaskList(filePath);
+	}
+
+	@Override
+	public void saveTaskList(ReadOnlyTaskList taskList) throws IOException {
+		saveTaskList(taskList, filePath);
+	}
 }

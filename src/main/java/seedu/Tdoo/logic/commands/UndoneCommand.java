@@ -10,53 +10,50 @@ import seedu.Tdoo.model.task.UniqueTaskList.TaskNotFoundException;
  */
 public class UndoneCommand extends Command {
 
-    public static final String COMMAND_WORD = "undone";
+	public static final String COMMAND_WORD = "undone";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Mark a Todo-task with given index number as undone.\n"
-            + "Parameters: TASK_TYPE INDEX_NUMBER(must be a positive integer)\n"
-            + "Example: " + COMMAND_WORD + " todo 1\n"
-            + "Example: " + COMMAND_WORD + " event 1\n"
-            + "Example: " + COMMAND_WORD + " deadline 1";
+	public static final String MESSAGE_USAGE = COMMAND_WORD + ": Mark a Todo-task with given index number as undone.\n"
+			+ "Parameters: TASK_TYPE INDEX_NUMBER(must be a positive integer)\n" + "Example: " + COMMAND_WORD
+			+ " todo 1\n" + "Example: " + COMMAND_WORD + " event 1\n" + "Example: " + COMMAND_WORD + " deadline 1";
 
-    public static final String MESSAGE_DONE_TASK_SUCCESS = "Resumed task: %1$s";
-    
-    public final String dataType;
-    public final int targetIndex;
+	public static final String MESSAGE_DONE_TASK_SUCCESS = "Resumed task: %1$s";
 
-    public UndoneCommand(String dataType, int targetIndex) {
-        this.dataType = dataType;
-        this.targetIndex = targetIndex;
-    }
+	public final String dataType;
+	public final int targetIndex;
 
-    @Override
-    public CommandResult execute() {
-        
-        UnmodifiableObservableList<ReadOnlyTask> lastShownList = null;
-        switch (dataType) {
-            case "todo":
-                lastShownList = model.getFilteredTodoList();
-                break;
-            case "event":
-                lastShownList = model.getFilteredEventList();
-                break;
-            case "deadline":
-                lastShownList = model.getFilteredDeadlineList();
-        }
-        if (lastShownList.size() < targetIndex) {
-            indicateAttemptToExecuteIncorrectCommand();
-            return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
-        }
+	public UndoneCommand(String dataType, int targetIndex) {
+		this.dataType = dataType;
+		this.targetIndex = targetIndex;
+	}
 
-        ReadOnlyTask taskToDone = lastShownList.get(targetIndex - 1);
+	@Override
+	public CommandResult execute() {
 
-        try {
-            model.undoneTask(taskToDone, dataType);
-        } catch (TaskNotFoundException pnfe) {
-            assert false : "The target task cannot be missing";
-        }
+		UnmodifiableObservableList<ReadOnlyTask> lastShownList = null;
+		switch (dataType) {
+		case "todo":
+			lastShownList = model.getFilteredTodoList();
+			break;
+		case "event":
+			lastShownList = model.getFilteredEventList();
+			break;
+		case "deadline":
+			lastShownList = model.getFilteredDeadlineList();
+		}
+		if (lastShownList.size() < targetIndex) {
+			indicateAttemptToExecuteIncorrectCommand();
+			return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
+		}
 
-        return new CommandResult(String.format(MESSAGE_DONE_TASK_SUCCESS, taskToDone));
-    }
+		ReadOnlyTask taskToDone = lastShownList.get(targetIndex - 1);
+
+		try {
+			model.undoneTask(taskToDone, dataType);
+		} catch (TaskNotFoundException pnfe) {
+			assert false : "The target task cannot be missing";
+		}
+
+		return new CommandResult(String.format(MESSAGE_DONE_TASK_SUCCESS, taskToDone));
+	}
 
 }

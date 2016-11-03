@@ -10,9 +10,9 @@ import java.util.List;
  */
 public interface XmlSerializableTaskList extends ReadOnlyTaskList {
 
-    @Override
-    public UniqueTaskList getUniqueTaskList();
+	@Override
+	public UniqueTaskList getUniqueTaskList();
 
-    @Override
-    public List<ReadOnlyTask> getTaskList();
+	@Override
+	public List<ReadOnlyTask> getTaskList();
 }
