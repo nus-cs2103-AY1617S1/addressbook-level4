@@ -92,17 +92,17 @@ Examples:
 Shows a list of all tasks in the TaskManager with last used sorting order.<br>
 Format: `list`
 
-#### Sorting tasks : `sort`
+#### Sorting tasks : `sort`, `s`
 Sorts tasks in the TaskManager in order of name, start time, end time, deadline, completion status.<br>
 Format: `sort [PARAMETER]`
 
 Examples:
-* `sort` or `sort default` Sorts tasks in the TaskManager by a default preset: Incomplete tasks first, then floating tasks first, then older tasks first, then by name in ascending order
-* `sort name` or `sort n` Sorts tasks in the TaskManager in order of their names
-* `sort starttime` or `sort start` or `sort s` Sorts tasks in the TaskManager in order of their start times
-* `sort endtime` or `sort end` or `sort e` Sorts tasks in the TaskManager in order of their end times
-* `sort deadline` or `sort dead` or `sort d` Sorts tasks in the TaskManager in order of their deadlines
-* `sort completed` or `sort done` or `sort c` Sorts tasks in the TaskManager in order of their completion statuses
+* `s`, `sort` or `sort default` Sorts tasks in the TaskManager by a default preset: Incomplete tasks first, then floating tasks first, then older tasks first, then by name in ascending order
+* `s name` or `s n` Sorts tasks in the TaskManager in order of their names
+* `s starttime`, `s start` or `s s` Sorts tasks in the TaskManager in order of their start times
+* `s endtime`, `s end` or `s e` Sorts tasks in the TaskManager in order of their end times
+* `s deadline`, `s dead` or `s d` Sorts tasks in the TaskManager in order of their deadlines
+* `s completed`, `s done` or `s c` Sorts tasks in the TaskManager in order of their completion statuses
 
 #### Undo the modification : `undo`
 Undo the modification in the last step. Only includes add, delete, edit, clear, done and undone commands.<br>
@@ -124,7 +124,7 @@ Format: `fav INDEX`
 Unfavorite a task. Reverse action of favorite command. Yellow marker will disappear.<br>
 Format: `unfav INDEX` 
 
-#### Backup : `backup`
+#### Backup : `backup`, `b`
 Save a copy of the current TaskManager data file into the specified directory.<br>
 Format: `backup PATH` or `b PATH`
 Examples: 
@@ -134,7 +134,7 @@ Wrong Examples:
 * `backup C:/TaskManagerBackup` - TaskManager does not have permission to write in root folder of C drive
 * `backup data/backup/backup<1>` - Invalid characters `<` and `>`
 
-#### Change working directory : `directory`
+#### Change working directory : `directory`, `dir`
 Change data file being accessed, effectively using another TaskManager list.<br>
 A manual restart of the application is required for non-Windows OS, thus TaskManager will close itself.
 Format: `directory PATH` or `dir PATH`
@@ -176,12 +176,12 @@ Edit | `edit INDEX TASKNAME at START_TIME to END_TIME [by DEADLINE] [#TAG...]`
 Delete | `delete INDEX`
 Find | `find KEYWORD`
 List | `list`
-Sort | `sort [PARAMETER]`
+Sort | `sort [PARAMETER]` `s [PARAMETER]`
 Undo | `undo`
 Done | `done` `undone`
 Favorite | `fav` `unfav`
-Backup | `backup PATH `
-Change Directory | `directory PATH `
+Backup | `backup PATH ` `b PATH`
+Change Directory | `directory PATH ` `dir PATH`
 Clear | `clear`
 Refresh | `refresh`
 Exit | `exit`
