@@ -20,9 +20,9 @@ import tars.model.task.rsv.RsvTask;
 import tars.model.task.rsv.UniqueRsvTaskList.RsvTaskNotFoundException;
 
 /**
- * Confirms a specified datetime for a reserved task and add it into the task list
- * 
  * @@author A0124333U
+ * 
+ * Confirms a specified datetime for a reserved task and add it into the task list
  */
 public class ConfirmCommand extends UndoableCommand {
 

@@ -15,9 +15,8 @@ import tars.storage.Storage;
 import tars.storage.StorageManager;
 
 /**
- * Changes the directory of the Tars storage file, tars.xml
- * 
  * @@author A0124333U
+ * Changes the directory of the Tars storage file, tars.xml
  */
 public class CdCommand extends Command {
 

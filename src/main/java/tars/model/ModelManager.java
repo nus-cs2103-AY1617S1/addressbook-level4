@@ -355,6 +355,7 @@ public class ModelManager extends ComponentManager implements Model {
     String toString();
   }
 
+  //@@author A0124333U
   private class QuickSearchQualifier implements Qualifier {
     private final ArrayList<String> quickSearchKeywords;
 
@@ -457,7 +458,6 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     /**
-     * @@author A0124333U
      * @param task
      * @return true if ALL keywords are found in the task name
      */

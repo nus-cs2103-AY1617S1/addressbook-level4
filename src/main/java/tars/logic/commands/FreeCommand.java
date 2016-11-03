@@ -5,9 +5,9 @@ import tars.commons.util.DateTimeUtil;
 import tars.model.task.DateTime;
 
 /**
- * Suggests free time slots on a specified date
- * 
  * @@author A0124333U
+ * 
+ * Suggests free time slots on a specified date 
  */
 public class FreeCommand extends Command {
 

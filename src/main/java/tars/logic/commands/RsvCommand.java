@@ -18,9 +18,8 @@ import tars.model.task.rsv.UniqueRsvTaskList.RsvTaskNotFoundException;
 import tars.ui.formatter.Formatter;
 
 /**
- * Adds a reserved task which has a list of reserved date times that can confirmed later on.
- * 
  * @@author A0124333U
+ * Adds a reserved task which has a list of reserved date times that can confirmed later on.
  */
 public class RsvCommand extends UndoableCommand {
 
