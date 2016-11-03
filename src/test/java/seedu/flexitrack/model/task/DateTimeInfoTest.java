@@ -188,7 +188,7 @@ public class DateTimeInfoTest {
         Task event = new Task(new Name("event"), new DateTimeInfo("Feb 29 2000 00:00"),
                 new DateTimeInfo("April 26 2017 07:00"), new DateTimeInfo("Jan 26 2018 07:00"));
         testTime1 = new DateTimeInfo("April 26 2017 07:00");
-        assertTrue(DateTimeInfo.isOnTheDate(testTime1.toString(), event));
+        assertTrue(testTime1.isOnTheDate(event));
     }
 
     private void DateTimeInfoAndAssertCorrect(String validInput, String expectedSetTime) {
