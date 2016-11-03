@@ -9,7 +9,6 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
 import javafx.beans.property.ReadOnlyStringWrapper;
-import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
@@ -84,9 +83,9 @@ public class HelpPopup extends UiPart {
         //content.setEditable(false);
     }
     
+    //@@author A0139194X
     @FXML
     private void initTable() {
-        
         table = new TableView<HelpPopupEntry>();
         table.setEditable(false);
         
@@ -98,39 +97,35 @@ public class HelpPopup extends UiPart {
         table.getColumns().addAll(commandCol, formatCol, usageCol);
     }
     
+    //@@author A0139194X
     private void initCommandCol() {
         commandCol = new TableColumn<HelpPopupEntry, String>(COMMAND_COL_HEADER);
         commandCol.setMinWidth(COMMAND_COL_MIN_WIDTH);
-        //commandCol.setCellValueFactory(new PropertyValueFactory<>("commandWord"));
         commandCol.setCellValueFactory(entry -> new ReadOnlyStringWrapper(entry.getValue().getCommandWord()));
-
     }
-    
+
+    //@@author A0139194X
     private void initFormatCol() {
         formatCol = new TableColumn<HelpPopupEntry, String>(FORMAT_COL_HEADER);
         formatCol.setMinWidth(FORMAT_COL_MIN_WIDTH);
-        //formatCol.setCellValueFactory(new PropertyValueFactory<>("format"));
         formatCol.setCellValueFactory(entry -> new ReadOnlyStringWrapper(entry.getValue().getFormat()));
-
     }
     
+    //@@author A0139194X
     private void initUsageCol() {
         usageCol = new TableColumn<HelpPopupEntry, String>(USAGE_COL_HEADER);
         usageCol.setMinWidth(USAGE_COL_MIN_WIDTH);
-        //usageCol.setCellValueFactory(new PropertyValueFactory<>("usage"));
         usageCol.setCellValueFactory(entry -> new ReadOnlyStringWrapper(entry.getValue().getUsage()));
-
     }
     
+    //@@author A0139194X
     private ObservableList<HelpPopupEntry> getList() {
         ObservableList<HelpPopupEntry> entries = FXCollections.observableArrayList();
         entries.add(new HelpPopupEntry("help", "help", "help"));
         entries.add(new HelpPopupEntry("exit", "exit", "exit"));
-        
         return entries;
     }
     
-
     //@@author A0139194X
     @FXML
     EventHandler<KeyEvent> keyEventHandler = new EventHandler<KeyEvent>() {
@@ -188,7 +183,5 @@ public class HelpPopup extends UiPart {
         public String getUsage() {
             return usage;
         }
-
-        
     }
 }
