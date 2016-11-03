@@ -90,6 +90,12 @@ public class Time {
      * @return true if the time parameter is missing
      */
     public boolean isMissing() {
+        
+        Calendar t = Calendar.getInstance();
+        t.setTime(new Date(0));
+        if (time == t)
+            return true;
+        
 		return time.getTime().toString().equalsIgnoreCase(DEFAULT_DATE);
 	}
     
