@@ -91,4 +91,24 @@ public class GuiHandle {
         guiRobot.interact(() -> ((Stage)window.get()).close());
         focusOnMainApp();
     }
+    
+    //@@author A0121608N
+    public void keyPress(KeyCode key){
+        guiRobot.push(key);
+    }
+    
+    public void mouseClick(String query){
+        guiRobot.clickOn(query);
+    }
+    
+    public void focusOn(String query){
+        Node targetNode = getNode(query);
+        targetNode.requestFocus();
+    }
+    
+    public boolean isFocused(String query){
+        Node targetNode = getNode(query);
+        return targetNode.isFocused();
+    }
+    //@@author
 }

@@ -10,6 +10,8 @@
 
 .root {
 	-fx-font-family: 'Roboto Condensed Light', Arial, sans-serif;
+	-fx-focus-color: SaddleBrown;
+	-fx-faint-focus-color: SaddleBrown;
 }
 
 .cell_big_label {
