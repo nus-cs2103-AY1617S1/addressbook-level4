@@ -49,7 +49,7 @@ By storing the task or event received immediately into `Dowat`, the user can arc
 By accessing `Dowat`, the user is able to determine the important tasks at hand and upcoming events for the day or week.
 This will help the user plan their use of time more effectively.
 
-<img src="images/ADForEmailAndDowat.png" width="250" height="350"><br>
+<img src="images/ADForEmailAndDowat.png" width="850" height="500"><br>
 
 ## Design
 
@@ -81,14 +81,15 @@ Each of the four components
 The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the
 command `delete /t 1`.
 
-<img src="images\SDforDeleteTask.png" width="800">
+<img src="images/SDforDeleteTask.png" width="800">
 
 >Note how the `Model` simply raises a `ModelChangedEvent` when the model is changed,
  instead of asking the `Storage` to save the updates to the hard disk.
 
 The diagram below shows how the `EventsCenter` reacts to that event, which eventually results in the updates
 being saved to the hard disk and the status bar of the UI being updated to reflect the 'Last Updated' time. <br>
-<img src="images\SDforDeleteTaskEventHandling.png" width="800">
+
+<img src="images/SDforDeleteTaskEventHandling.png" width="800">
 
 > Note how the event is propagated through the `EventsCenter` to the `Storage` and `UI` without `Model` having
   to be coupled to either of them. This is an example of how this Event Driven approach helps us reduce direct 
@@ -202,6 +203,7 @@ Certain properties of the application can be controlled (e.g App name, logging l
 <!-- @@author A0144702N -->
 ## Managing Dependencies
 We use several external dependencies:
+
 1. [Jackson library](http://wiki.fasterxml.com/JacksonHome) for XML parsing.
 2. [Guava](https://github.com/google/guava)
 3. [Controlsfx](http://fxexperience.com/controlsfx/) for javafx controls.
