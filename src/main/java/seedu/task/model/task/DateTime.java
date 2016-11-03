@@ -21,7 +21,7 @@ import seedu.task.commons.exceptions.IllegalValueException;
  * Represents a Date and Time in the task list
  * Guarantees: immutable; is valid as declared in {@link #isValidDateTime(String)}
  */
-public class DateTime {
+public class DateTime implements Comparable<DateTime> {
 
     public static final String MESSAGE_DATETIME_CONSTRAINTS = "You have entered an invalid Date/Time format. For a complete list of all acceptable formats, please view our user guide.";
 
@@ -127,6 +127,7 @@ public class DateTime {
         }
     }
     
+    //@@author A0141052Y
     public Long getSaveableValue() {
         if(value.isPresent()) {
             return this.value.get().toEpochMilli();
@@ -134,7 +135,27 @@ public class DateTime {
             return null;
         }
     }
-
+    
+    /**
+     * Compares between two DateTime instances using Comparable.
+     * Empty DateTimes are considered smaller than all possible DateTimes.
+     */
+    @Override
+    public int compareTo(DateTime o) {
+        Optional<Instant> time = this.value;
+        Optional<Instant> otherTime = o.getDateTimeValue();
+        
+        if (!time.isPresent() && !otherTime.isPresent()) {
+            return 0;
+        } else if (!time.isPresent()) {
+            return -1;
+        } else if (!otherTime.isPresent()) {
+            return 1;
+        } else {
+            return time.get().compareTo(otherTime.get());
+        }
+    }
+    //@@author
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
