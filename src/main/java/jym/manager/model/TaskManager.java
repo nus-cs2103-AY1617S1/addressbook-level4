@@ -82,6 +82,11 @@ public class TaskManager implements ReadOnlyTaskManager {
     public void resetData(ReadOnlyTaskManager newData) {
         resetData(newData.getTaskList(), newData.getTagList());
     }
+    
+    public void sortTask(String sortType) throws UniqueTaskList.DuplicateTaskException {
+    	tasks.sort(sortType);
+
+    }
 
 //// task-level operations
 

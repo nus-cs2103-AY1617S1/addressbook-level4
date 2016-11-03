@@ -57,5 +57,8 @@ public interface Model {
 
     /** Reverts the previous state of the list */
     void undoToDoList() throws EmptyStackException;
+    
+    /** Update the list to show all */
+    void updateFilteredListToShowAll(String sortType);
 
 }
