@@ -52,8 +52,9 @@ public class ToDoList implements ReadOnlyToDoList {
 
 //// list overwrite operations
 
+    //@@author A0141006B
     public ObservableList<Task> getTasks() {
-        return tasks.getInternalList();
+    	return tasks.getInternalList().sorted();
     }
 
     public void setTasks(List<Task> tasks) {

@@ -25,8 +25,9 @@ public interface Model {
     /** Done the given task. */
     void doneTask(ReadOnlyTask target, Task replacer) throws UniqueTaskList.TaskNotFoundException, UniqueTaskList.TaskAlreadyDoneException;
     
-    /** Adds the given task */
-    void addTask(Task task);
+    /** Adds the given task 
+     * @return */
+    int addTask(Task task);
 
     /** Returns the filtered task list as an {@code UnmodifiableObservaibleList<ReadOnlyTask>} */
     UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList();
@@ -49,7 +50,7 @@ public interface Model {
     /** Updates the filter of the filtered task list to filter by the given keywords*/
     void updateFilteredTaskList(Set<String> keywords, boolean taskStatus);
 
-	void editTask(ReadOnlyTask taskToEdit, Task toEditWith) throws TaskNotFoundException;
+	int editTask(ReadOnlyTask taskToEdit, Task toEditWith) throws TaskNotFoundException;
 
 	void changeStorageFilePath(String filePath);
 

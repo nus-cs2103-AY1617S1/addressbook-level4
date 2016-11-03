@@ -5,6 +5,7 @@ import java.util.EmptyStackException;
 import java.util.Set;
 import java.util.logging.Logger;
 
+import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.cmdo.commons.core.ComponentManager;
 import seedu.cmdo.commons.core.LogsCenter;
@@ -71,7 +72,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public ReadOnlyToDoList getToDoList() {
-        return toDoList;
+    	return toDoList;
     }
 
     /** Raises an event to indicate the model has changed */
@@ -121,26 +122,40 @@ public class ModelManager extends ComponentManager implements Model {
         indicateToDoListChanged();
     	updateFilteredListToShowAll();
     }
-
+    
+    //@@author A0139661Y
     @Override
-    public synchronized void addTask(Task task) {
+    public synchronized int addTask(Task task) {
         toDoList.addTask(task);
         updateFilteredListToShowAll();
         indicateToDoListChanged();
+        return findTaskInModel(task);
     }
     
     //@@author A0139661Y
     @Override
-    public synchronized void editTask(ReadOnlyTask taskToEdit, Task toEditWith) throws TaskNotFoundException {
+    public synchronized int editTask(ReadOnlyTask taskToEdit, Task toEditWith) throws TaskNotFoundException {
     	toDoList.editTask(taskToEdit, toEditWith);
     	updateFilteredListToShowAll();
     	indicateToDoListChanged();
+        return findTaskInModel(toEditWith);
     }
     
     @Override
     public void changeStorageFilePath(String filePath) {
     	userPrefs.setStorageSettings(filePath);
     	indicateToDoListChanged();
+    }
+    
+    //@@author A0141006B
+    private int findTaskInModel(Task toFind) {
+    	ObservableList<Task> tdl = toDoList.getTasks();
+    	for (int i=0; i<tdl.size(); i++) {
+    		if (tdl.get(i).id.equals(toFind.id)) {
+    			return i;
+    		}
+    	}
+    	return -1;
     }
 
     //=========== Filtered Task List Accessors ===============================================================
@@ -205,9 +220,9 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     private void updateFilteredTaskList(Expression expression) {
-        filteredTasks.setPredicate(expression::satisfies);
+    	filteredTasks.setPredicate(expression::satisfies);
     }
-
+    
     //========== Inner classes/interfaces used for filtering ==================================================
 
     interface Expression {

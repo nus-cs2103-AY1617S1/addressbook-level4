@@ -1,6 +1,5 @@
 package seedu.cmdo.ui;
 
-import java.util.Comparator;
 import java.util.logging.Logger;
 
 import javafx.application.Platform;
@@ -63,23 +62,11 @@ public class TaskListPanel extends UiPart {
 
     //@@author A0139661Y
     private void setConnections(ObservableList<ReadOnlyTask> taskList) {
-    	taskListView.setItems(taskList.sorted(getStartDueByDateAndTimeComparator()));
+    	taskListView.setItems(taskList);
         taskListView.setCellFactory(listView -> new TaskListViewCell());
         setEventHandlerForSelectionChangeEvent();
     }
     
-    //@@author A0139661Y
-    private Comparator<ReadOnlyTask> getStartDueByDateAndTimeComparator() {
-    	Comparator<ReadOnlyTask> comparator = new Comparator<ReadOnlyTask>(){
-    	    @Override
-    	    public int compare(final ReadOnlyTask t1, final ReadOnlyTask t2){
-    	        // let your comparator look up your car's color in the custom order
-    	        return t1.getStartLdt().compareTo(t2.getStartLdt());
-    	    }
-    	};
-    	return comparator;
-    }
-
     private void addToPlaceholder() {
         SplitPane.setResizableWithParent(placeHolderPane, false);
         placeHolderPane.getChildren().add(panel);

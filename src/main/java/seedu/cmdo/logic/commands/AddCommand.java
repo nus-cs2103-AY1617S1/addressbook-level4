@@ -5,6 +5,8 @@ import java.time.LocalTime;
 import java.util.HashSet;
 import java.util.Set;
 
+import seedu.cmdo.commons.core.EventsCenter;
+import seedu.cmdo.commons.events.ui.JumpToListRequestEvent;
 import seedu.cmdo.commons.exceptions.IllegalValueException;
 import seedu.cmdo.commons.exceptions.TaskBlockedException;
 import seedu.cmdo.logic.parser.Blocker;
@@ -104,7 +106,7 @@ public class AddCommand extends Command {
     	try {
     		// Check for block conflicts. Throws a TaskBlockedException if conflicts exist.
     		blocker.checkBlocked(toAdd, model.getBlockedList());
-        	model.addTask(toAdd);
+        	updateSelectionInPanel(model.addTask(toAdd));
             return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
         } catch (TaskBlockedException tbe) {
     		return new CommandResult(tbe.getMessage());
