@@ -9,25 +9,30 @@ import seedu.forgetmenot.model.task.Task;
  */
 public class TypicalTestTasks {
 
-    public static TestTask alice, benson, carl, daniel, elle, fiona, george, hoon, ida;
+    public static TestTask apples, bananas, call, deed, egypt, flowers, garage, hide, iphone;
 
     public TypicalTestTasks() {
         try {
-            alice =  new TaskBuilder().withName("Alice Alice Pauline").withEndTime("11:59pm")
-                    .withStartTime("11:59pm").withDone(false).withRecurrence("")
-                    .build();
-            benson = new TaskBuilder().withName("Benson Meier").withEndTime("11:59pm")
-                    .withStartTime("11:59pm").withDone(false).withRecurrence("")
-                    .build();
-            carl = new TaskBuilder().withName("Carl Kurz").withDone(false).withStartTime("11:59pm").withEndTime("11:59pm").withRecurrence("").build();
-            daniel = new TaskBuilder().withName("Daniel Meier").withDone(false).withStartTime("11:59pm").withEndTime("11:59pm").withRecurrence("").build();
-            elle = new TaskBuilder().withName("Elle Meyer").withDone(false).withStartTime("11:59pm").withEndTime("11:59pm").withRecurrence("").build();
-            fiona = new TaskBuilder().withName("Fiona Kunz").withDone(false).withStartTime("11:59pm").withEndTime("11:59pm").withRecurrence("").build();
-            george = new TaskBuilder().withName("George Best").withDone(false).withStartTime("11:59pm").withEndTime("11:59pm").withRecurrence("").build();
+            apples = new TaskBuilder().withName("buy apples").withStartTime("10:30pm tmr").withEndTime("11pm tmr")
+                    .withDone(false).withRecurrence("").build();
+            bananas = new TaskBuilder().withName("buy bananas").withStartTime("11am tmr").withEndTime("1pm tmr")
+                    .withDone(false).withRecurrence("").build();
+            call = new TaskBuilder().withName("call dad").withDone(false).withEndTime("10am tmr")
+                    .withStartTime("11am tmr").withRecurrence("").build();
+            deed = new TaskBuilder().withName("give bananas away").withDone(false).withEndTime("5pm two days later")
+                    .withStartTime("6pm two days later").withRecurrence("").build();
+            egypt = new TaskBuilder().withName("plan trip to egypt").withDone(false).withStartTime("10am one month later")
+                    .withEndTime("11am one month later").withRecurrence("").build();
+            flowers = new TaskBuilder().withName("flowers for joan").withDone(false).withStartTime("11:59pm today")
+                    .withEndTime("11:59pm today").withRecurrence("").build();
+            garage = new TaskBuilder().withName("Garage sale").withDone(false).withStartTime("9am three days later")
+                    .withEndTime("11am three days later").withRecurrence("").build();
 
-            //Manually added
-            hoon = new TaskBuilder().withName("Hoon Meier").withDone(false).withStartTime("11:59pm").withEndTime("11:59pm").withRecurrence("").build();
-            ida = new TaskBuilder().withName("Ida Mueller").withDone(false).withStartTime("11:59pm").withEndTime("11:59pm").withRecurrence("").build();
+            // Manually added
+            hide = new TaskBuilder().withName("hide bananas").withDone(false).withStartTime("11:59pm four months later")
+                    .withEndTime("11:59pm five months later").withRecurrence("").build();
+            iphone = new TaskBuilder().withName("iphone").withDone(false).withStartTime("11pm five months later")
+                    .withEndTime("11:30pm five months later").withRecurrence("").build();
         } catch (IllegalValueException e) {
             assert false : "TypicalTestTasks data details are invalid";
         }
@@ -35,20 +40,20 @@ public class TypicalTestTasks {
 
     public static void loadTaskManagerWithSampleData(TaskManager ab) {
 
-        ab.addTask(new Task(alice));
-		ab.addTask(new Task(benson));
-		ab.addTask(new Task(carl));
-		ab.addTask(new Task(daniel));
-		ab.addTask(new Task(elle));
-		ab.addTask(new Task(fiona));
-		ab.addTask(new Task(george));
+        ab.addTask(new Task(apples));
+        ab.addTask(new Task(bananas));
+        ab.addTask(new Task(call));
+        ab.addTask(new Task(deed));
+        ab.addTask(new Task(egypt));
+        ab.addTask(new Task(flowers));
+        ab.addTask(new Task(garage));
     }
 
     public TestTask[] getTypicalTasks() {
-        return new TestTask[]{alice, benson, carl, daniel, elle, fiona, george};
+        return new TestTask[] {flowers, call, bananas, apples, deed, garage, egypt};
     }
 
-    public TaskManager getTypicalTaskManager(){
+    public TaskManager getTypicalTaskManager() {
         TaskManager ab = new TaskManager();
         loadTaskManagerWithSampleData(ab);
         return ab;

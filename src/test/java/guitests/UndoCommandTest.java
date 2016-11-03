@@ -18,7 +18,7 @@ public class UndoCommandTest extends TaskManagerGuiTest {
         TestTask[] currentList = td.getTypicalTasks();
 
         // undo add command
-        TestTask taskToAdd = td.hoon;
+        TestTask taskToAdd = td.hide;
         assertUndoAddSuccess(taskToAdd, currentList);
 
         // undo delete command
