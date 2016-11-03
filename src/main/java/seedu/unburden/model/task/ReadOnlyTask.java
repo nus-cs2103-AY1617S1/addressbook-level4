@@ -18,7 +18,6 @@ public interface ReadOnlyTask {
     Time getStartTime();
     Time getEndTime();
     boolean getDone();
-    boolean ifOverdue();
     String getDoneString() throws IllegalValueException;
     
     /**

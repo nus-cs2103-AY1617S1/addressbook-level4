@@ -27,7 +27,6 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
     private UniqueTagList tags;
     private boolean done;
     private String getDoneString;
-    private boolean ifOverdue;
 	private static final SimpleDateFormat DATEFORMATTER = new SimpleDateFormat("dd-MM-yyyy");
 	private static final SimpleDateFormat TIMEFORMATTER = new SimpleDateFormat("HHmm");
 
