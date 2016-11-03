@@ -16,8 +16,12 @@ import seedu.savvytasker.commons.core.LogsCenter;
 import seedu.savvytasker.commons.events.ui.TaskPanelSelectionChangedEvent;
 import seedu.savvytasker.model.task.ReadOnlyTask;
 
+//@@author A0138431L
+
 /**
- * Panel containing the list of persons.
+ * Panel containing the list floating task.
+ * @author A0138431L
+ * 
  */
 public class FloatingPanel extends UiPart {
     private final Logger logger = LogsCenter.getLogger(TaskListPanel.class);
@@ -49,10 +53,10 @@ public class FloatingPanel extends UiPart {
 
     public static FloatingPanel load(Stage primaryStage, AnchorPane floatingListPlaceholder,
                                        ObservableList<ReadOnlyTask> taskList) {
-    	FloatingPanel oveduePanel =
+    	FloatingPanel floatingPanel =
                 UiPartLoader.loadUiPart(primaryStage, floatingListPlaceholder, new FloatingPanel());
-    	oveduePanel.configure(taskList);
-        return oveduePanel;
+    	floatingPanel.configure(taskList);
+        return floatingPanel;
     }
 
     private void configure(ObservableList<ReadOnlyTask> taskList) {
@@ -74,7 +78,7 @@ public class FloatingPanel extends UiPart {
     private void setEventHandlerForSelectionChangeEvent() {
         taskListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
-                logger.fine("Selection in person list panel changed to : '" + newValue + "'");
+                logger.fine("Selection in floating task list panel changed to : '" + newValue + "'");
                 raise(new TaskPanelSelectionChangedEvent(newValue));
             }
         });

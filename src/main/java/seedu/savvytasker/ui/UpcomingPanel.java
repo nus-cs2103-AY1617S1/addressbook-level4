@@ -16,9 +16,13 @@ import seedu.savvytasker.commons.core.LogsCenter;
 import seedu.savvytasker.commons.events.ui.TaskPanelSelectionChangedEvent;
 import seedu.savvytasker.model.task.ReadOnlyTask;
 
+//@@author A0138431L
+
 /**
- * Panel containing the list of persons.
- */
+* Panel containing the list overdue task.
+* @author A0138431L
+* 
+*/
 public class UpcomingPanel extends UiPart {
     private final Logger logger = LogsCenter.getLogger(TaskListPanel.class);
     private static final String FXML = "upcomingList.fxml";
@@ -47,12 +51,12 @@ public class UpcomingPanel extends UiPart {
         this.placeHolderPane = pane;
     }
 
-    public static UpcomingPanel load(Stage primaryStage, AnchorPane personListPlaceholder,
+    public static UpcomingPanel load(Stage primaryStage, AnchorPane UpcomingListPlaceholder,
                                        ObservableList<ReadOnlyTask> taskList) {
-    	UpcomingPanel oveduePanel =
-                UiPartLoader.loadUiPart(primaryStage, personListPlaceholder, new UpcomingPanel());
-    	oveduePanel.configure(taskList);
-        return oveduePanel;
+    	UpcomingPanel upcomingPanel =
+                UiPartLoader.loadUiPart(primaryStage, UpcomingListPlaceholder, new UpcomingPanel());
+    	upcomingPanel.configure(taskList);
+        return upcomingPanel;
     }
 
     private void configure(ObservableList<ReadOnlyTask> taskList) {
@@ -74,7 +78,7 @@ public class UpcomingPanel extends UiPart {
     private void setEventHandlerForSelectionChangeEvent() {
         taskListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
-                logger.fine("Selection in person list panel changed to : '" + newValue + "'");
+                logger.fine("Selection in overdue task list panel changed to : '" + newValue + "'");
                 raise(new TaskPanelSelectionChangedEvent(newValue));
             }
         });
