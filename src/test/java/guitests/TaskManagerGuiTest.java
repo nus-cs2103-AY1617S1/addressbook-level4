@@ -65,13 +65,11 @@ public abstract class TaskManagerGuiTest {
             mainGui = new MainGuiHandle(new GuiRobot(), stage);
             mainMenu = mainGui.getMainMenu();
             taskListPanel = mainGui.getTaskListPanel();
-            //@@author A0142184L
             todayTaskListTabPanel = mainGui.getTodayTaskListTabPanel();
             tomorrowTaskListTabPanel = mainGui.getTomorrowTaskListTabPanel();
             in7DaysTaskListTabPanel = mainGui.getIn7DaysTaskListTabPanel();
             in30DaysTaskListTabPanel = mainGui.getIn30DaysTaskListTabPanel();
             somedayTaskListTabPanel = mainGui.getSomedayTaskListTabPanel();
-            //@@author
             resultDisplay = mainGui.getResultDisplay();
             commandBox = mainGui.getCommandBox();
             this.stage = stage;
