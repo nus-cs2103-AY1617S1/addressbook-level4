@@ -51,6 +51,11 @@ public class TestTask implements ReadOnlyTask {
         return tags;
     }
     
+    @Override
+	public boolean getDone() {
+		return done;
+	}
+
     public void setName(Name name) {
         this.name = name;
     }
@@ -80,6 +85,10 @@ public class TestTask implements ReadOnlyTask {
         this.tags = taskD;
     }
     
+    public void setDone(boolean done){
+    	this.done = done;
+    }
+    
     @Override
     public String toString() {
         return getAsText();
@@ -92,11 +101,7 @@ public class TestTask implements ReadOnlyTask {
         return sb.toString();
     }
 
-	@Override
-	public boolean getDone() {
-		return done;
-	}
-
+	
 	@Override
 	public String getDoneString() {
 		if(done == true){
