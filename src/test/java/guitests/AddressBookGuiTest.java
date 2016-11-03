@@ -40,6 +40,8 @@ public abstract class AddressBookGuiTest {
     protected MainGuiHandle mainGui;
     protected MainMenuHandle mainMenu;
     protected PersonListPanelHandle personListPanel;
+    protected DeadlineListPanelHandle deadlineListPanel;
+    protected TodoListPanelHandle todoListPanel;
     protected ResultDisplayHandle resultDisplay;
     protected CommandBoxHandle commandBox;
     private Stage stage;
@@ -60,6 +62,8 @@ public abstract class AddressBookGuiTest {
             mainGui = new MainGuiHandle(new GuiRobot(), stage);
             mainMenu = mainGui.getMainMenu();
             personListPanel = mainGui.getPersonListPanel();
+            deadlineListPanel = mainGui.getDeadlineListPanel();
+            todoListPanel = mainGui.getTodoListPanel();
             resultDisplay = mainGui.getResultDisplay();
             commandBox = mainGui.getCommandBox();
             this.stage = stage;
@@ -101,6 +105,24 @@ public abstract class AddressBookGuiTest {
         assertTrue(TestUtil.compareCardAndPerson(card, person));
     }
 
+    /**
+     * @@author A0138993L
+     * Asserts the deadline shown in the card is same as the given deadline
+     */
+    public void assertDeadlineMatching(ReadOnlyTask person, DeadlineCardHandle card) {
+    	//System.out.println(person + " " + card + "assertDeadline");
+        assertTrue(TestUtil.compareCardAndDeadline(card, person));
+    }
+    
+    /**
+     * @@author A0138993L
+     * Asserts the todo shown in the card is same as the given todo
+     */
+    public void assertTodoMatching(ReadOnlyTask person, TodoCardHandle card) {
+    	//System.out.println(person + " " + card + "assertDeadline");
+        assertTrue(TestUtil.compareCardAndTodo(card, person));
+    }
+    
     /**
      * Asserts the size of the person list is equal to the given number.
      */
