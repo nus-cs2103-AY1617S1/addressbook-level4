@@ -134,6 +134,9 @@ public class FilterPanel extends UiPart {
             priorityChoiceBox.requestFocus();
             priorityChoiceBox.show();
             return;
+        case TypesUtil.TAG:
+            tagsTextField.requestFocus();
+            return;
         }
     }
 

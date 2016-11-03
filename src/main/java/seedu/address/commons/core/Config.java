@@ -14,7 +14,7 @@ public class Config {
     private String appTitle = "To Do List!";
     private Level logLevel = Level.INFO;
     private String userPrefsFilePath = "preferences.json";
-    private String taskManagerFilePath = "data/taskManager.xml";
+    private String taskManagerFilePath = "data/toDoList.xml";
     private String taskManagerName = "My to-do list";
 
 
@@ -92,7 +92,7 @@ public class Config {
         sb.append("\nCurrent log level : " + logLevel);
         sb.append("\nPreference file Location : " + userPrefsFilePath);
         sb.append("\nLocal data file location : " + taskManagerFilePath);
-        sb.append("\nTaskManager name : " + taskManagerName);
+        sb.append("\nTo-do List name : " + taskManagerName);
         return sb.toString();
     }
 

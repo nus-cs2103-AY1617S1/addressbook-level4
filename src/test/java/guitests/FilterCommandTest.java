@@ -13,23 +13,24 @@ public class FilterCommandTest extends TaskManagerGuiTest {
 
     @Test
     public void filterNonEmptyList() {
-        assertFilterResult("filter d/12.10.2016"); //no results
-        assertFilterResult("filter d/11.10.2016", td.friendEvent, td.work); //multiple results
-        assertFilterResult("filter s/11.10.2016", td.travel);
+        assertFilterResult("filter d/12.10.2016"); // no results
+        assertFilterResult("filter d/11.10.2016", td.friendEvent, td.lunch, td.work, td.movie); // multiple
+                                                                                                // results
+        assertFilterResult("filter s/11.10.2016", td.meeting, td.travel);
         assertFilterResult("filter e/11.10.2016-12", td.meeting);
         assertFilterResult("filter t/friends", td.friend, td.friendEvent, td.lunch);
 
-        //filter after add one result
+        // filter after add one result
         TestTask taskToAdd = td.lecture;
         commandBox.runCommand(taskToAdd.getAddCommand());
         assertFilterResult("filter r/weekly", taskToAdd);
-        
+
     }
 
     @Test
-    public void filterEmptyList(){
+    public void filterEmptyList() {
         commandBox.runCommand("clear");
-        assertFilterResult("filter d/11.10.2016"); //no results
+        assertFilterResult("filter d/11.10.2016"); // no results
     }
 
     @Test
@@ -40,7 +41,7 @@ public class FilterCommandTest extends TaskManagerGuiTest {
         assertResultMessage(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FilterCommand.MESSAGE_USAGE));
     }
 
-    private void assertFilterResult(String command, TestTask... expectedHits ) {
+    private void assertFilterResult(String command, TestTask... expectedHits) {
         commandBox.runCommand(command);
         assertListSize(expectedHits.length);
         assertResultMessage(expectedHits.length + " tasks listed!");

@@ -36,4 +36,9 @@ public class CommandBoxHandle extends GuiHandle{
         pressEnter();
         return new HelpWindowHandle(guiRobot, primaryStage);
     }
+    
+    //@@author A0146123R
+    public boolean isFocused() {
+        return isFocused(COMMAND_INPUT_FIELD_ID);
+    }
 }

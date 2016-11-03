@@ -41,6 +41,11 @@ public class TaskBuilder {
         this.task.setRecurringFrequency(freq);
         return this;
     }
+    
+    public TaskBuilder withPriority(int priority) throws IllegalValueException{
+        this.task.setPriorityLevel(new Priority(priority));
+        return this;
+    }
 
 
     public TestTask build() {

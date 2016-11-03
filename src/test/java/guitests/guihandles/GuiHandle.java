@@ -1,8 +1,10 @@
 package guitests.guihandles;
 
 import guitests.GuiRobot;
+import javafx.application.Platform;
 import javafx.scene.Node;
 import javafx.scene.control.ToggleButton;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
@@ -50,8 +52,8 @@ public class GuiHandle {
         return guiRobot.lookup(query).tryQuery().get();
     }
 
-    protected String getTextFieldText(String filedName) {
-        return ((TextField) getNode(filedName)).getText();
+    protected String getTextFieldText(String fieldName) {
+        return ((TextField) getNode(fieldName)).getText();
     }
     
     protected void setTextField(String textFieldId, String newText) {
@@ -60,14 +62,33 @@ public class GuiHandle {
         guiRobot.sleep(500); // so that the texts stays visible on the GUI for a short period
     }
     
-    protected boolean getToggleButtonInput(String filedName) {
-        return ((ToggleButton) getNode(filedName)).isSelected();
+    //@@author A0146123R
+    protected boolean getToggleButtonInput(String buttonId) {
+        return ((ToggleButton) getNode(buttonId)).isSelected();
     }
     
     protected void clickToggleButton(String toggleButtonId) {
         guiRobot.clickOn(toggleButtonId);
         guiRobot.sleep(500); // so that the texts stays visible on the GUI for a short period
     }
+    
+    protected String getPriorityInput(String boxId) {
+        return ((ChoiceBox<String>) getNode(boxId)).getSelectionModel().getSelectedItem().toString();
+    }
+    
+    protected void chooseChoiceBox(String boxId, String newChoice) {
+        Platform.runLater(() -> ((ChoiceBox<String>) getNode(boxId)).getSelectionModel().select(newChoice));
+        guiRobot.sleep(500); // so that the texts stays visible on the GUI for a short period
+    }
+    
+    protected boolean isFocused(String id) {
+       return getNode(id).isFocused();
+    }
+    
+    protected boolean choiceBoxIsFocused(String id) {
+        return isFocused(id) && ((ChoiceBox<String>) getNode(id)).isShowing();
+     }
+    //@@author
 
     public void pressEnter() {
         guiRobot.type(KeyCode.ENTER).sleep(500);

@@ -14,6 +14,7 @@ public class TypesUtil {
     public static final String END_DATE = "endDate";
     public static final String DEADLINE = "deadline";
     public static final String RECURRING = "recurring";
+    public static final String TAG = "tag";
     // @@author A0138717X
     public static final String PRIORITY = "priorityLevel";
 }

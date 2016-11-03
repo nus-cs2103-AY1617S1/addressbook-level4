@@ -135,6 +135,9 @@ public class Parser {
         case JumpToPriorityCommand.COMMAND_WORD:
             return new JumpToPriorityCommand();
 
+        case JumpToTagCommand.COMMAND_WORD:
+            return new JumpToTagCommand();
+
         default:
             return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
         }

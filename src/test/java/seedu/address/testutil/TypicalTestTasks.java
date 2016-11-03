@@ -24,7 +24,7 @@ public class TypicalTestTasks {
             friendEvent=new TaskBuilder().withName("Meet old friends").withDeadline("11.10.2016")
             		.withTags("friends").build();
             lunch = new TaskBuilder().withName("Eat lunch with friends").withDeadline("11.10.2016-12")
-                    .withTags("lunch", "friends").build();
+                    .withTags("lunch", "friends").withPriority(1).build();
             book = new TaskBuilder().withName("Read book").withDeadline("").build();
             work = new TaskBuilder().withName("Work").withDeadline("11.10.2016").build();
             movie = new TaskBuilder().withName("Watch movie").withDeadline("11.10.2016-16").build();

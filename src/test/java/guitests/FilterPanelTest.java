@@ -16,13 +16,22 @@ public class FilterPanelTest extends TaskManagerGuiTest {
     @Test
     public void filterPanelToggleButtonStays() {
         filterPanel.runCommandForEvent();
-        assertEquals(filterPanel.getEventInput(), true);
+        assertTrue(filterPanel.getEventInput());
+        assertTrue(commandBox.isFocused());
     }
 
     @Test
     public void filterPanelTextStays() {
         filterPanel.runCommandForDeadline("3.12.2016");
         assertEquals(filterPanel.getDeadlineInput(), "3.12.2016");
+        assertTrue(commandBox.isFocused());
+    }
+    
+    @Test
+    public void filterPriorityStays() {
+        filterPanel.runCommandForPriority("2");
+        assertEquals(filterPanel.getPriorityInput(), "2");
+        assertTrue(commandBox.isFocused());
     }
 
     @Test
@@ -63,10 +72,10 @@ public class FilterPanelTest extends TaskManagerGuiTest {
 
     @Test
     public void filterDeadline() {
-        filterPanel.runCommandForDeadline("11.10.2016");
-        assertFilterSuccess(td.friendEvent, td.work);
+        filterPanel.runCommandForDeadline("11.10.2016-16");
+        assertFilterSuccess(td.movie);
         filterPanel.runCommandForDeadline("hi");
-        assertFilterFail(Deadline.MESSAGE_DEADLINE_CONSTRAINTS, td.friendEvent, td.work);
+        assertFilterFail(Deadline.MESSAGE_DEADLINE_CONSTRAINTS, td.movie);
         filterPanel.runCommandForDeadline("nil");
         assertFilterSuccess(td.friend, td.book);
         filterPanel.runCommandForDeadline("");
@@ -76,9 +85,9 @@ public class FilterPanelTest extends TaskManagerGuiTest {
     @Test
     public void filterStartDate() {
         filterPanel.runCommandForStartDate("11.10.2016");
-        assertFilterSuccess(td.travel);
+        assertFilterSuccess(td.meeting, td.travel);
         filterPanel.runCommandForStartDate("hi");
-        assertFilterFail(EventDate.MESSAGE_EVENT_DATE_CONSTRAINTS, td.travel);
+        assertFilterFail(EventDate.MESSAGE_EVENT_DATE_CONSTRAINTS, td.meeting, td.travel);
         filterPanel.runCommandForStartDate("");
         assertFilterSuccess(td.getTypicalTasks());
     }
@@ -111,6 +120,14 @@ public class FilterPanelTest extends TaskManagerGuiTest {
     }
     
     @Test
+    public void filterPriority() {
+        filterPanel.runCommandForPriority("1");
+        assertFilterSuccess(td.lunch);
+        filterPanel.runCommandForPriority("");
+        assertFilterSuccess(td.getTypicalTasks());
+    }
+    
+    @Test
     public void filterIntegral() {
         filterPanel.runCommandForTag("friends");
         assertFilterSuccess(td.friend, td.friendEvent, td.lunch);
@@ -122,9 +139,9 @@ public class FilterPanelTest extends TaskManagerGuiTest {
         assertFilterSuccess();
         filterPanel.runCommandForUndone();
         assertFilterSuccess(td.meeting, td.travel);
-        filterPanel.runCommandForStartDate("11.10.2016");
-        assertFilterSuccess(td.travel);
-        filterPanel.runCommandForEndDate("11.10.2016");
+        filterPanel.runCommandForStartDate("11.10.2016-10");
+        assertFilterSuccess(td.meeting);
+        filterPanel.runCommandForEndDate("12.10.2016");
         assertFilterSuccess();
         filterPanel.runCommandForStartDate("");
         filterPanel.runCommandForEndDate("");
