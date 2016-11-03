@@ -20,7 +20,7 @@ Role: Tutor <br>
 	* Unmark Command
 	* Block Command
 	* Change Storage Path Command
-* Code written: [[functional code](https://github.com/CS2103AUG2016-F09-C3/main/blob/master/collated/main/A0138455Y.md)][[test code](https://github.com/CS2103AUG2016-F09-C3/main/blob/master/collated/test/A0138455Y.md)][docs]
+* Code written: [[functional code](https://github.com/CS2103AUG2016-F09-C3/main/blob/master/collated/main/A0138455Y.md)][[test code](https://github.com/CS2103AUG2016-F09-C3/main/blob/master/collated/test/A0138455Y.md)][[docs]
 (https://github.com/CS2103AUG2016-F09-C3/main/blob/master/collated/docs/A0138455Y.md)]
 * Other major contributions:
 	* Did the initial refactoring from AddressBook to FlexiTrack(Partially) [[#19 ](https://github.com/CS2103AUG2016-F09-C3/main/pull/19)]
