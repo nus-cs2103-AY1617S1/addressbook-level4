@@ -101,25 +101,8 @@ public class InputHandler {
         } else {
             Controller[] controllers = instantiateAllControllers();
 
-            // Define the controller which returns the maximum confidence.
-            Controller maxController = null;
-
             // Get controller which has the maximum confidence.
-            float maxConfidence = Integer.MIN_VALUE;
-
-            for (int i = 0; i < controllers.length; i++) {
-                float confidence = controllers[i].inputConfidence(aliasedInput);
-
-                // Don't consider controllers with non-positive confidence.
-                if (confidence <= 0) {
-                    continue;
-                }
-
-                if (confidence > maxConfidence) {
-                    maxConfidence = confidence;
-                    maxController = controllers[i];
-                }
-            }
+            Controller maxController = getMaxController(aliasedInput, controllers);
 
             // No controller exists with confidence > 0.
             if (maxController == null) {
@@ -148,6 +131,35 @@ public class InputHandler {
         pushCommand(aliasedInput);
 
         return true;
+    }
+
+    /**
+     * Get controller which has the maximum confidence.
+     * 
+     * @param aliasedInput  Input with aliases replaced appropriately
+     * @param controllers   Array of instantiated controllers to test
+     * @return              Controller with maximum confidence, null if all non-positive.
+     */
+    private Controller getMaxController(String aliasedInput, Controller[] controllers) {
+        // Define the controller which returns the maximum confidence.
+        Controller maxController = null;
+        
+        float maxConfidence = Integer.MIN_VALUE;
+
+        for (int i = 0; i < controllers.length; i++) {
+            float confidence = controllers[i].inputConfidence(aliasedInput);
+
+            // Don't consider controllers with non-positive confidence.
+            if (confidence <= 0) {
+                continue;
+            }
+
+            if (confidence > maxConfidence) {
+                maxConfidence = confidence;
+                maxController = controllers[i];
+            }
+        }
+        return maxController;
     }
     
     private Controller[] instantiateAllControllers() {
