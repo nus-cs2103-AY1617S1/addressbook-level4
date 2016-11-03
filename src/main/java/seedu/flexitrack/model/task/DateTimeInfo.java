@@ -364,33 +364,19 @@ public class DateTimeInfo implements Comparable<DateTimeInfo> {
 
     /**
      * Prepare the keyword and process if the task is within the specified date.
+     * For a task the due date is the dateInfo date. For an event, the specified
+     * DateInfo date is within the event duration (inclusive the starting and
+     * the ending date)
      * 
-     * @param dateInfo  The date of interest 
-     * @param task      The task of interest 
+     * @param dateInfo  The date of interest
+     * @param task      The task of interest
      * @return          True if the task is within the specified date
      */
-    public static boolean isOnTheDate(String dateInfo, ReadOnlyTask task) {
-        try {
-            dateInfo = new DateTimeInfo(dateInfo).toString().substring(0, 11);
-        } catch (IllegalValueException e) {
-            new IllegalValueException(MESSAGE_DATETIMEINFO_CONSTRAINTS);
-        }
-        return isTaskOnTheSpecifiedDate(task, dateInfo);
-    }
-
-    /**
-     * Process if the task given has any relation with the dateInfo. For a task
-     * relation is defined as the due date is the dateInfo date. For an event,
-     * the event duration (inclusive the starting and the ending date) is within
-     * the specified DateInfo date.
-     * 
-     * @param task      The task of interest 
-     * @param dateInfo  The date of interest 
-     * @return          True if the task has anything to do with the day of interest
-     */
-    private static boolean isTaskOnTheSpecifiedDate(ReadOnlyTask task, String dateInfo) {
-        return task.getDueDate().toString().contains(dateInfo) || task.getEndTime().toString().contains(dateInfo)
-                || task.getStartTime().toString().contains(dateInfo) || isTaskAnEventPassingThisDate(task, dateInfo);
+    public boolean isOnTheDate(ReadOnlyTask task) {
+        return task.getDueDate().toString().contains(toString().substring(0, 12))
+                || task.getEndTime().toString().contains(toString().substring(0, 12))
+                || task.getStartTime().toString().contains(toString().substring(0, 12))
+                || isTaskAnEventPassingThisDate(task, toString().substring(0, 12));
     }
 
     /**
