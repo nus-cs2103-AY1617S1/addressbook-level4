@@ -1,4 +1,4 @@
-package tars.ui;
+package tars.ui.formatter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +12,7 @@ import tars.model.task.rsv.RsvTask;
 /**
  * Container for formatting
  * 
- * @@author A0139924W
+ * @@author A0139924W 
  */
 public class Formatter {
     /** Format of indexed list item */
@@ -62,7 +62,9 @@ public class Formatter {
         return asIndexedList(formattedTasks);
     }
 
-    /** Formats a list of strings as an indexed list. */
+    /**
+     * Formats a list of strings as an indexed list.
+     */
     private static String asIndexedList(List<String> listItems) {
         final StringBuilder formatted = new StringBuilder();
         int displayIndex = DISPLAYED_INDEX_OFFSET;
@@ -92,7 +94,8 @@ public class Formatter {
         String formatted = "";
         int count = 1;
         for (DateTime dt : dateTimeList) {
-            formatted += "[" + count + "] " + dt.toString() + "\n\n";
+            formatted +=
+                    "[" + count + "] " + DateFormatter.formatDate(dt) + "\n\n";
             count++;
         }
         return formatted;

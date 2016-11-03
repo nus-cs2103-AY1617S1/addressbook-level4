@@ -33,7 +33,6 @@ public class DateTimeUtil {
     private static final DateTimeFormatter stringFormatterWithoutDate =
             DateTimeFormatter.ofPattern("HHmm");
 
-
     /**
      * Extracts the new task's dateTime from the string arguments.
      * 

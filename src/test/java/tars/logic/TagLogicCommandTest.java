@@ -16,7 +16,7 @@ import tars.model.tag.ReadOnlyTag;
 import tars.model.tag.Tag;
 import tars.model.task.ReadOnlyTask;
 import tars.model.task.Task;
-import tars.ui.Formatter;
+import tars.ui.formatter.Formatter;
 
 /**
  * Logic command test for tag

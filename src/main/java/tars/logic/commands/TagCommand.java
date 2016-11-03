@@ -12,7 +12,7 @@ import tars.model.tag.Tag;
 import tars.model.tag.UniqueTagList.DuplicateTagException;
 import tars.model.tag.UniqueTagList.TagNotFoundException;
 import tars.model.task.ReadOnlyTask;
-import tars.ui.Formatter;
+import tars.ui.formatter.Formatter;
 
 /**
  * Rename and delete tag from a list of tags in TARS
