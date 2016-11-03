@@ -339,7 +339,7 @@ public class Parser {
     public static Entry<Integer, Map<TaskField, String>> getIndexAndTaskFieldsFromArgs(String args) throws IllegalValueException, IllegalCmdArgsException {
         final Matcher matcher = EDIT_TASK_COMMAND_ARGS_FORMAT.matcher(args.trim());
         if (!matcher.matches()) {
-            throw new IllegalCmdArgsException("Args not in format <index> <arguments>");
+            throw new IllegalCmdArgsException(Messages.MESSAGE_EDIT_TAG_ARGS_INVALID_FORMAT);
         }
         Integer index = Parser.getIndexFromArgs(matcher.group("index"));
         Map<TaskField, String> fields = Parser.getTaskFieldsFromArgs(matcher.group("args"));
@@ -349,7 +349,7 @@ public class Parser {
     public static Entry<String, Map<TagField, String>> getTagAndTagFieldsFromArgs(String args) throws IllegalValueException, IllegalCmdArgsException {
         final Matcher matcher = EDIT_TAG_COMMAND_ARGS_FORMAT.matcher(args.trim());
         if (!matcher.matches()) {
-            throw new IllegalCmdArgsException("Args not in format #<category> <arguments>");
+            throw new IllegalCmdArgsException(Messages.MESSAGE_EDIT_TAG_ARGS_INVALID_FORMAT);
         }
         String tag = matcher.group("tag");
         Map<TagField, String> fields = Parser.getTagFieldsFromArgs(matcher.group("args"));

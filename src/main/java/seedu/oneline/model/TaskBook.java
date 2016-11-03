@@ -201,7 +201,8 @@ public class TaskBook implements ReadOnlyTaskBook {
         return other == this // short circuit if same object
                 || (other instanceof TaskBook // instanceof handles nulls
                 && this.tasks.equals(((TaskBook) other).tasks)
-                && this.tags.equals(((TaskBook) other).tags));
+                && this.tags.equals(((TaskBook) other).tags)
+                && this.tagColorMap.equals(((TaskBook) other).tagColorMap));
     }
 
     @Override

@@ -2,21 +2,18 @@
 
 package seedu.oneline.logic.commands;
 
-import java.awt.Color;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
+import seedu.oneline.commons.core.Messages;
 import seedu.oneline.commons.exceptions.IllegalCmdArgsException;
 import seedu.oneline.commons.exceptions.IllegalValueException;
 import seedu.oneline.logic.parser.Parser;
 import seedu.oneline.model.tag.Tag;
 import seedu.oneline.model.tag.TagColor;
-import seedu.oneline.model.tag.TagColorMap;
 import seedu.oneline.model.tag.TagField;
 import seedu.oneline.model.task.*;
 import seedu.oneline.model.task.UniqueTaskList.TaskNotFoundException;
@@ -61,54 +58,70 @@ public class EditTagCommand extends EditCommand {
     @Override
     public CommandResult execute() {
         String name = this.name; // Mutability
-        List<String> results = new ArrayList<String>();
-        
-        Tag oldTag = null; 
-        Tag newTag = null; 
-        if (fields.containsKey(TagField.COLOR)) {
-            try {
-                oldTag = Tag.getTag(name);
-                newTag = oldTag; 
-                TagColor color = new TagColor(fields.get(TagField.COLOR));
-                model.setTagColor(Tag.getTag(name), color);
-                results.add(String.format("color updated to " + color.toString()));
-            } catch (Exception e) {
-                assert false;
-            }
+        Tag curTag = null;
+        try {
+            curTag = Tag.getTag(name);
+        } catch (IllegalValueException e1) {
+            assert false;
+        }
+        if (!model.getTaskBook().getTagList().contains(curTag)) {
+            return new CommandResult(Messages.MESSAGE_EDIT_TAG_TAG_NOT_FOUND);
         }
         
+        List<String> results = new ArrayList<String>();
+
         if (fields.containsKey(TagField.NAME)) {
             String newName = fields.get(TagField.NAME);
-            
+            Tag newTag = null;
             try {
-                oldTag = Tag.getTag(name); 
                 newTag = Tag.getTag(newName);
             } catch (IllegalValueException e) {
+                assert false;
             }
             if (model.getTaskBook().getTagList().contains(newTag)) {
                 return new CommandResult(String.format(Tag.MESSAGE_DUPLICATE_TAG, newName));
             }
-            TagColor color = model.getTagColor(oldTag);
-            model.setTagColor(oldTag, TagColor.getDefault());
+            TagColor color = model.getTagColor(curTag);
+            model.setTagColor(curTag, TagColor.getDefault());
             model.setTagColor(newTag, color);
+            List<ReadOnlyTask> taskList = new ArrayList<ReadOnlyTask>(model.getTaskBook().getTaskList());
+            Map<TaskField, String> fields = new HashMap<TaskField, String>();
+            fields.put(TaskField.TAG, newTag.getTagName());
+            for (ReadOnlyTask t : taskList) {
+                if (t.getTag().equals(curTag)) {
+                    try {
+                        Task newTask = t.update(fields);
+                        model.replaceTask(t, newTask);
+                    } catch (TaskNotFoundException | IllegalValueException e) {
+                        assert false : e.getMessage();
+                    }
+                }
+            }
             name = newName;
+            curTag = newTag;
             results.add("renamed to " + newTag.getTagName());
         }
         
-        List<ReadOnlyTask> taskList = new ArrayList<ReadOnlyTask>(model.getTaskBook().getTaskList());
-        Map<TaskField, String> fields = new HashMap<TaskField, String>();
-        fields.put(TaskField.TAG, newTag.getTagName());
-        for (ReadOnlyTask t : taskList) {
-            if (t.getTag().equals(oldTag)) {
-                try {
-                    Task newTask = t.update(fields);
-                    model.replaceTask(t, newTask);
-                } catch (TaskNotFoundException | IllegalValueException e) {
-                    assert false : e.getMessage();
-                }
+        if (fields.containsKey(TagField.COLOR)) {
+            TagColor color = null;
+            try {
+                color = new TagColor(fields.get(TagField.COLOR));
+            } catch (IllegalValueException e) {
+                assert false;
             }
+            model.setTagColor(curTag, color);
+            results.add(String.format("color updated to " + color.toString()));
         }
-        
+          
+        String resultStr = updatesToString(results);
+        return new CommandResult(resultStr);
+    }
+
+    /**
+     * @param results
+     * @return
+     */
+    private String updatesToString(List<String> results) {
         StringBuilder sb = new StringBuilder();
         sb.append(String.format(MESSAGE_SUCCESS, this.name));
         sb.append(" ");
@@ -118,7 +131,7 @@ public class EditTagCommand extends EditCommand {
                 sb.append(", ");
             }
         }
-        return new CommandResult(sb.toString());
+        return sb.toString();
     }
     
     @Override
