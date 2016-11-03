@@ -10,6 +10,7 @@ import java.util.Date;
 public interface ReadOnlyTask {
     
     int getId();
+    int getGroupId();
     boolean isMarked();
     boolean isArchived();
     String getTaskName();
@@ -39,23 +40,68 @@ public interface ReadOnlyTask {
                 .append(" Task Name: ")
                 .append(getTaskName())
                 .append(" Archived: ")
-                .append(isArchived())
-                .append(" Start: ")
-                .append(getStartDateTime())
-                .append(" End: ")
-                .append(getEndDateTime())
-                .append(" Location: ")
-                .append(getLocation())
-                .append(" Priority: ")
+                .append(isArchived());
+        if (getStartDateTime() != null) {
+            builder.append(" Start: ")
+                    .append(getStartDateTime());
+        }
+        if (getEndDateTime() != null) {
+            builder.append(" End: ")
+                    .append(getEndDateTime());
+        }
+        if (getLocation() != null && !getLocation().isEmpty()) {
+            builder.append(" Location: ")
+                    .append(getLocation());
+        }
+        builder.append(" Priority: ")
+                .append(getPriority());
+        if (getCategory() != null && !getCategory().isEmpty()) {
+            builder.append(" Category: ")
+                    .append(getCategory());
+        }
+        if (getDescription() != null && !getDescription().isEmpty()) {
+            builder.append(" Description: ")
+            .       append(getDescription());
+        }
+        return builder.toString();
+    }
+
+
+    /**
+     * Formats the task as text, showing all task details, formatted for the UI.
+     */
+    default String getTextForUi() {
+        final StringBuilder builder = new StringBuilder();
+        if (getStartDateTime() != null) {
+            builder.append(" Start: ")
+                    .append(getStartDateTime())
+                    .append("\n");
+        }
+        if (getEndDateTime() != null) {
+            builder.append(" End: ")
+                    .append(getEndDateTime())
+                    .append("\n");
+        }
+        if (getLocation() != null && !getLocation().isEmpty()) {
+            builder.append(" Location: ")
+                    .append(getLocation())
+                    .append("\n");
+        }
+        builder.append(" Priority: ")
                 .append(getPriority())
-                .append(" Recurring Type: ")
-                .append(getRecurringType())
-                .append(" Nr. Recurrence: ")
-                .append(getNumberOfRecurrence())
-                .append(" Category: ")
-                .append(getCategory())
-                .append(" Description: ")
-                .append(getDescription());
+                .append("\n");
+        if (getCategory() != null && !getCategory().isEmpty()) {
+            builder.append(" Category: ")
+                    .append(getCategory())
+                    .append("\n");
+        }
+        if (getDescription() != null && !getDescription().isEmpty()) {
+            builder.append(" Description: ")
+                    .append(getDescription())
+                    .append("\n");
+        }
+        builder.append(" Archived: ")
+                .append(isArchived());
         return builder.toString();
     }
 

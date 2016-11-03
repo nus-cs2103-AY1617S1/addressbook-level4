@@ -88,6 +88,7 @@ public class LogicManagerTest {
     public void execute_invalid() throws Exception {
         String invalidCommand = "       ";
         assertCommandBehavior(invalidCommand,
+                "Input:        \n" +
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
     }
 
@@ -128,7 +129,7 @@ public class LogicManagerTest {
     @Test
     public void execute_unknownCommandWord() throws Exception {
         String unknownCommand = "uicfhmowqewca";
-        assertCommandBehavior(unknownCommand, String.format(MESSAGE_UNKNOWN_COMMAND, HelpCommand.MESSAGE_USAGE));
+        assertCommandBehavior(unknownCommand, "Input: uicfhmowqewca\n" + String.format(MESSAGE_UNKNOWN_COMMAND, HelpCommand.MESSAGE_USAGE));
     }
 
     @Test
@@ -195,10 +196,11 @@ public class LogicManagerTest {
         
         // the following commands outputs a different expected message dealing with
         // invalid indices.
-        expectedMessage = String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.COMMAND_FORMAT) + ": " + IndexParser.INDEX_MUST_BE_POSITIVE;
-        //assertCommandBehavior(commandWord + " +1", expectedMessage); //index should be unsigned [NOT SUPPORTED]
+        expectedMessage = "Input: delete -1\n" + String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.COMMAND_FORMAT) + ": " + IndexParser.INDEX_MUST_BE_POSITIVE;
         assertCommandBehavior(commandWord + " -1", expectedMessage); //index should be unsigned
+        expectedMessage = "Input: delete 0\n" + String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.COMMAND_FORMAT) + ": " + IndexParser.INDEX_MUST_BE_POSITIVE;
         assertCommandBehavior(commandWord + " 0", expectedMessage); //index cannot be 0
+        expectedMessage = "Input: delete not_a_number\n" + String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.COMMAND_FORMAT) + ": " + IndexParser.INDEX_MUST_BE_POSITIVE;
         assertCommandBehavior(commandWord + " not_a_number", expectedMessage);
     }
 
@@ -253,7 +255,7 @@ public class LogicManagerTest {
 
     @Test
     public void execute_deleteInvalidArgsFormat_errorMessageShown() throws Exception {
-        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.COMMAND_FORMAT);
+        String expectedMessage = "Input: delete\n" + String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.COMMAND_FORMAT);
         assertIncorrectIndexFormatBehaviorForCommand("delete", expectedMessage);
     }
 
@@ -280,7 +282,7 @@ public class LogicManagerTest {
 
     @Test
     public void execute_find_invalidArgsFormat() throws Exception {
-        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.COMMAND_FORMAT);
+        String expectedMessage = "Input: find\n" + String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.COMMAND_FORMAT);
         assertCommandBehavior("find ", expectedMessage);
     }
 

@@ -14,8 +14,8 @@ public class Config {
     private String appTitle = "Savvy Tasker";
     private Level logLevel = Level.INFO;
     private String userPrefsFilePath = "preferences.json";
-    private String addressBookFilePath = "data/savvytasker.xml";
-    private String addressBookName = "MyTaskList";
+    private String savvyTaskerFilePath = "data/savvytasker.xml";
+    private String savvyTaskerListName = "MyTaskList";
 
 
     public Config() {
@@ -45,20 +45,20 @@ public class Config {
         this.userPrefsFilePath = userPrefsFilePath;
     }
 
-    public String getAddressBookFilePath() {
-        return addressBookFilePath;
+    public String getSavvyTaskerFilePath() {
+        return savvyTaskerFilePath;
     }
 
-    public void setAddressBookFilePath(String addressBookFilePath) {
-        this.addressBookFilePath = addressBookFilePath;
+    public void setSavvyTaskerFilePath(String savvyTaskerFilePath) {
+        this.savvyTaskerFilePath = savvyTaskerFilePath;
     }
 
-    public String getAddressBookName() {
-        return addressBookName;
+    public String getSavvyTaskerListName() {
+        return savvyTaskerListName;
     }
 
-    public void setAddressBookName(String addressBookName) {
-        this.addressBookName = addressBookName;
+    public void setSavvyTaskerName(String savvyTaskerName) {
+        this.savvyTaskerListName = savvyTaskerName;
     }
 
 
@@ -76,13 +76,13 @@ public class Config {
         return Objects.equals(appTitle, o.appTitle)
                 && Objects.equals(logLevel, o.logLevel)
                 && Objects.equals(userPrefsFilePath, o.userPrefsFilePath)
-                && Objects.equals(addressBookFilePath, o.addressBookFilePath)
-                && Objects.equals(addressBookName, o.addressBookName);
+                && Objects.equals(savvyTaskerFilePath, o.savvyTaskerFilePath)
+                && Objects.equals(savvyTaskerListName, o.savvyTaskerListName);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(appTitle, logLevel, userPrefsFilePath, addressBookFilePath, addressBookName);
+        return Objects.hash(appTitle, logLevel, userPrefsFilePath, savvyTaskerFilePath, savvyTaskerListName);
     }
 
     @Override
@@ -91,8 +91,8 @@ public class Config {
         sb.append("App title : " + appTitle);
         sb.append("\nCurrent log level : " + logLevel);
         sb.append("\nPreference file Location : " + userPrefsFilePath);
-        sb.append("\nLocal data file location : " + addressBookFilePath);
-        sb.append("\nAddressBook name : " + addressBookName);
+        sb.append("\nLocal data file location : " + savvyTaskerFilePath);
+        sb.append("\nSavvy Tasker List name : " + savvyTaskerListName);
         return sb.toString();
     }
 

@@ -2,7 +2,6 @@ package guitests;
 
 import org.junit.Test;
 
-import seedu.savvytasker.commons.core.Messages;
 import seedu.savvytasker.logic.commands.HelpCommand;
 import seedu.savvytasker.testutil.TestTask;
 
@@ -24,19 +23,25 @@ public class ListCommandTest extends SavvyTaskerGuiTest {
     }
     
     @Test
+    public void list_nonEmptyList_byInvalidSwitch() {
+        commandBox.runCommand("list badswitch");
+        assertResultMessage("Input: list badswitch\nLIST_TYPE: Unknown type \'badswitch\'");
+    }
+    
+    @Test
     public void list_nonEmptyList_byDueDate() {
         // covered by list_nonEmptyList()
     }
     
     @Test
     public void list_nonEmptyList_byPriority() {
-        assertListResult("list t/PriorityLevel", td.highPriority, td.medPriority, 
+        assertListResult("list PriorityLevel", td.highPriority, td.medPriority, 
                 td.furthestDue, td.nearerDue, td.notSoNearerDue, td.earliestDue, td.lowPriority); //multiple results
     }
     
     @Test
     public void list_nonEmptyList_byArchived() {
-        assertListResult("list t/Archived", td.longDue); // one matching result only
+        assertListResult("list Archived", td.longDue); // one matching result only
     }
 
     @Test
@@ -48,7 +53,7 @@ public class ListCommandTest extends SavvyTaskerGuiTest {
     @Test
     public void find_invalidCommand_fail() {
         commandBox.runCommand("listmytasks");
-        assertResultMessage(String.format(MESSAGE_UNKNOWN_COMMAND, HelpCommand.MESSAGE_USAGE));
+        assertResultMessage("Input: listmytasks\n" + String.format(MESSAGE_UNKNOWN_COMMAND, HelpCommand.MESSAGE_USAGE));
     }
 
     private void assertListResult(String command, TestTask... expectedHits ) {

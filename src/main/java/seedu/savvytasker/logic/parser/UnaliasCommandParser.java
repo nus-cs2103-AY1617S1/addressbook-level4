@@ -14,7 +14,8 @@ public class UnaliasCommandParser implements CommandParser<UnaliasCommand> {
     private static final String REGEX_REF_KEYWORD = "Keyword";
     
     private static final Pattern REGEX_PATTERN = Pattern.compile(
-            HEADER+"\\s+(?<"+REGEX_REF_KEYWORD+">[^/]+)"
+            HEADER+"\\s+(?<"+REGEX_REF_KEYWORD+">[^/]+)",
+            Pattern.CASE_INSENSITIVE
     );
     
     @Override

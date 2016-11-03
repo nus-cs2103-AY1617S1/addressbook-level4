@@ -31,6 +31,7 @@ public class MainWindow extends UiPart {
     // Independent Ui parts residing in this Ui container
     private BrowserPanel browserPanel;
     private TaskListPanel taskListPanel;
+    private AliasSymbolListPanel aliasSymbolListPanel;
     private ResultDisplay resultDisplay;
     private StatusBarFooter statusBarFooter;
     private CommandBox commandBox;
@@ -53,13 +54,19 @@ public class MainWindow extends UiPart {
     private MenuItem helpMenuItem;
 
     @FXML
-    private AnchorPane personListPanelPlaceholder;
+    private AnchorPane taskListPanelPlaceholder;
+    
+    @FXML
+    private AnchorPane aliasSymbolListPanelPlaceholder;
 
     @FXML
     private AnchorPane resultDisplayPlaceholder;
 
     @FXML
     private AnchorPane statusbarPlaceholder;
+    
+    @FXML
+    private VBox listPanel;
 
 
     public MainWindow() {
@@ -79,7 +86,7 @@ public class MainWindow extends UiPart {
     public static MainWindow load(Stage primaryStage, Config config, UserPrefs prefs, Logic logic) {
 
         MainWindow mainWindow = UiPartLoader.loadUiPart(primaryStage, new MainWindow());
-        mainWindow.configure(config.getAppTitle(), config.getAddressBookName(), config, prefs, logic);
+        mainWindow.configure(config.getAppTitle(), config.getSavvyTaskerListName(), config, prefs, logic);
         return mainWindow;
     }
 
@@ -109,10 +116,40 @@ public class MainWindow extends UiPart {
 
     void fillInnerParts() {
         browserPanel = BrowserPanel.load(browserPlaceholder);
-        taskListPanel = TaskListPanel.load(primaryStage, getPersonListPlaceholder(), logic.getFilteredTaskList());
+        taskListPanel = TaskListPanel.load(primaryStage, getTaskListPlaceholder(), logic.getFilteredTaskList());
+        aliasSymbolListPanel = AliasSymbolListPanel.load(primaryStage, getAliasSymbolPlaceholder(), logic.getAliasSymbolList());
+        setDefaultView();
         resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
-        statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getAddressBookFilePath());
+        statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getSavvyTaskerFilePath());
         commandBox = CommandBox.load(primaryStage, getCommandBoxPlaceholder(), resultDisplay, logic);
+    }
+    
+    /**
+     * Removes all the children in the taskPanel VBox
+     * Shows the default list, which is the list of tasks
+     */
+    private void setDefaultView() {
+        getListPanel().getChildren().remove(getAliasSymbolPlaceholder());
+        getListPanel().getChildren().remove(getTaskListPlaceholder());
+        getListPanel().getChildren().add(getTaskListPlaceholder());
+    }
+    
+    /**
+     * Set to true to show the list of tasks. Set to false to show the list of alias
+     * @param isShown
+     */
+    public void showTaskList(boolean isShown) {
+        getListPanel().getChildren().remove(getAliasSymbolPlaceholder());
+        getListPanel().getChildren().remove(getTaskListPlaceholder());
+        if (isShown) {
+            getListPanel().getChildren().add(getTaskListPlaceholder());
+        } else {
+            getListPanel().getChildren().add(getAliasSymbolPlaceholder());
+        }
+    }
+    
+    private VBox getListPanel() {
+        return listPanel;
     }
 
     private AnchorPane getCommandBoxPlaceholder() {
@@ -127,8 +164,12 @@ public class MainWindow extends UiPart {
         return resultDisplayPlaceholder;
     }
 
-    public AnchorPane getPersonListPlaceholder() {
-        return personListPanelPlaceholder;
+    public AnchorPane getTaskListPlaceholder() {
+        return taskListPanelPlaceholder;
+    }
+    
+    public AnchorPane getAliasSymbolPlaceholder() {
+        return aliasSymbolListPanelPlaceholder;
     }
 
     public void hide() {
@@ -181,8 +222,12 @@ public class MainWindow extends UiPart {
     private void handleExit() {
         raise(new ExitAppRequestEvent());
     }
+    
+    public AliasSymbolListPanel getAliasSymbolListPanel() {
+        return this.aliasSymbolListPanel;
+    }
 
-    public TaskListPanel getPersonListPanel() {
+    public TaskListPanel getTaskListPanel() {
         return this.taskListPanel;
     }
 

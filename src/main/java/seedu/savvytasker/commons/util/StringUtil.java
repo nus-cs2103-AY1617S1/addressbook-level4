@@ -9,7 +9,7 @@ import java.util.List;
  * Helper functions for handling strings.
  */
 public class StringUtil {
-    //@@author A0139915W-reused
+    //@@author A0139915W
     // reused original implementation of 'containsIgnoreCase' to find exact matches
     public static boolean containsExactIgnoreCase(String source, String query) {
         List<String> strings = Arrays.asList(source);

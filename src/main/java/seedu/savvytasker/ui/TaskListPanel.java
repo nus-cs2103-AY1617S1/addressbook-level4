@@ -17,11 +17,11 @@ import seedu.savvytasker.commons.events.ui.TaskPanelSelectionChangedEvent;
 import seedu.savvytasker.model.task.ReadOnlyTask;
 
 /**
- * Panel containing the list of persons.
+ * Panel containing the list of tasks.
  */
 public class TaskListPanel extends UiPart {
     private final Logger logger = LogsCenter.getLogger(TaskListPanel.class);
-    private static final String FXML = "PersonListPanel.fxml";
+    private static final String FXML = "TaskListPanel.fxml";
     private VBox panel;
     private AnchorPane placeHolderPane;
 
@@ -35,6 +35,10 @@ public class TaskListPanel extends UiPart {
     @Override
     public void setNode(Node node) {
         panel = (VBox) node;
+    }
+    
+    public Node getNode() {
+        return panel;
     }
 
     @Override
@@ -74,7 +78,7 @@ public class TaskListPanel extends UiPart {
     private void setEventHandlerForSelectionChangeEvent() {
         taskListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
-                logger.fine("Selection in person list panel changed to : '" + newValue + "'");
+                logger.fine("Selection in task list panel changed to : '" + newValue + "'");
                 raise(new TaskPanelSelectionChangedEvent(newValue));
             }
         });

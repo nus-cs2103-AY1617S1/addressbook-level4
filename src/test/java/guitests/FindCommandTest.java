@@ -2,7 +2,6 @@ package guitests;
 
 import org.junit.Test;
 
-import seedu.savvytasker.commons.core.Messages;
 import seedu.savvytasker.logic.commands.HelpCommand;
 import seedu.savvytasker.testutil.TestTask;
 
@@ -37,6 +36,11 @@ public class FindCommandTest extends SavvyTaskerGuiTest {
     public void find_nonEmptyList_byExactMatch() {
         assertFindResult("find t/exact Nearer Due Task", td.nearerDue); // one matching result only
     }
+    
+    @Test
+    public void find_nonEmptyList_byCategory() {
+        assertFindResult("find t/category priority", td.highPriority, td.medPriority, td.lowPriority); // matching 3 results
+    }
 
     @Test
     public void find_emptyList(){
@@ -47,7 +51,7 @@ public class FindCommandTest extends SavvyTaskerGuiTest {
     @Test
     public void find_invalidCommand_fail() {
         commandBox.runCommand("findmyring");
-        assertResultMessage(String.format(MESSAGE_UNKNOWN_COMMAND, HelpCommand.MESSAGE_USAGE));
+        assertResultMessage("Input: findmyring\n" + String.format(MESSAGE_UNKNOWN_COMMAND, HelpCommand.MESSAGE_USAGE));
     }
 
     private void assertFindResult(String command, TestTask... expectedHits) {

@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 import java.util.logging.Logger;
@@ -22,7 +23,6 @@ import seedu.savvytasker.model.alias.SymbolKeywordNotFoundException;
 import seedu.savvytasker.model.task.FindType;
 import seedu.savvytasker.model.task.ReadOnlyTask;
 import seedu.savvytasker.model.task.Task;
-import seedu.savvytasker.model.task.TaskList.DuplicateTaskException;
 import seedu.savvytasker.model.task.TaskList.InvalidDateException;
 import seedu.savvytasker.model.task.TaskList.TaskNotFoundException;
 
@@ -50,7 +50,7 @@ public class ModelManager extends ComponentManager implements Model {
 
         savvyTasker = new SavvyTasker(src);
         filteredTasks = new FilteredList<>(savvyTasker.getTasks());
-        sortedAndFilteredTasks = new SortedList<>(filteredTasks, new TaskSortedByDefault());
+        sortedAndFilteredTasks = new SortedList<>(filteredTasks, new TaskSortedByDueDate());
         updateFilteredListToShowActive(); // shows only active tasks on start
     }
 
@@ -61,7 +61,7 @@ public class ModelManager extends ComponentManager implements Model {
     public ModelManager(ReadOnlySavvyTasker initialData) {
         savvyTasker = new SavvyTasker(initialData);
         filteredTasks = new FilteredList<>(savvyTasker.getTasks());
-        sortedAndFilteredTasks = new SortedList<>(filteredTasks, new TaskSortedByDefault());
+        sortedAndFilteredTasks = new SortedList<>(filteredTasks, new TaskSortedByDueDate());
         updateFilteredListToShowActive(); // shows only active tasks on start
     }
     //@@author
@@ -95,23 +95,33 @@ public class ModelManager extends ComponentManager implements Model {
 
     //@@author A0139915W
     @Override
-    public synchronized void deleteTask(ReadOnlyTask target) throws TaskNotFoundException {
-        savvyTasker.removeTask(target);
+    public synchronized Task deleteTask(ReadOnlyTask target) throws TaskNotFoundException {
+        Task taskDeleted = savvyTasker.removeTask(target);
         indicateSavvyTaskerChanged();
+        return taskDeleted;
     }
 
     @Override
-    public void modifyTask(ReadOnlyTask target, Task replacement) throws TaskNotFoundException, InvalidDateException {
-        savvyTasker.replaceTask(target, replacement);
+    public synchronized Task modifyTask(ReadOnlyTask target, Task replacement) throws TaskNotFoundException, InvalidDateException {
+        Task taskModified = savvyTasker.replaceTask(target, replacement);
         indicateSavvyTaskerChanged();
+        return taskModified;
     }
 
     @Override
-    public synchronized void addTask(Task t) throws DuplicateTaskException, InvalidDateException {
-        t.setId(savvyTasker.getNextTaskId());
-        savvyTasker.addTask(t);
+    public synchronized Task addTask(Task t) throws InvalidDateException {
+        Task taskAdded = savvyTasker.addTask(t);
         updateFilteredListToShowActive();
         indicateSavvyTaskerChanged();
+        return taskAdded;
+    }
+    
+    @Override
+    public synchronized LinkedList<Task> addRecurringTask(Task recurringTask) throws InvalidDateException {
+        LinkedList<Task> recurringTasks = savvyTasker.addRecurringTasks(recurringTask);
+        updateFilteredListToShowActive();
+        indicateSavvyTaskerChanged();
+        return recurringTasks;
     }
     //@@author
     
@@ -129,6 +139,11 @@ public class ModelManager extends ComponentManager implements Model {
         indicateSavvyTaskerChanged();
         indicateAliasSymbolRemoved(symbol);
     }
+    
+    @Override
+    public int getAliasSymbolCount() {
+        return savvyTasker.getAliasSymbolCount();
+    }
     //@@author
 
     //=========== Filtered/Sorted Task List Accessors ===============================================================
@@ -137,11 +152,6 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList() {
         return new UnmodifiableObservableList<ReadOnlyTask>(sortedAndFilteredTasks);
-    }
-    
-    @Override
-    public UnmodifiableObservableList<Task> getFilteredTaskListTask() {
-        return new UnmodifiableObservableList<Task>(sortedAndFilteredTasks);
     }
 
     @Override
@@ -464,18 +474,7 @@ public class ModelManager extends ComponentManager implements Model {
             else if (task1 == null) return 1;
             else if (task2 == null) return -1;
             else {
-                // Priority Level can be nulls
-                // Check for existence of priorityLevel before comparing
-                if (task1.getPriority() == null &&
-                    task2.getPriority() == null) {
-                    return 0;
-                } else if (task1.getPriority() == null) {
-                    return 1;
-                } else if (task2.getPriority() == null) {
-                    return -1;
-                } else {
-                    return task2.getPriority().compareTo(task1.getPriority());
-                }
+                return task2.getPriority().compareTo(task1.getPriority());
             }
         }
         

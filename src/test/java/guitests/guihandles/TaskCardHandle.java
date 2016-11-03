@@ -11,6 +11,7 @@ import seedu.savvytasker.model.task.ReadOnlyTask;
  */
 public class TaskCardHandle extends GuiHandle {
     private static final String TASKNAME_FIELD_ID = "#taskName";
+    private static final String DETAILS_FIELD_ID = "#details";
 
     private Node node;
 
@@ -26,16 +27,21 @@ public class TaskCardHandle extends GuiHandle {
     public String getTaskName() {
         return getTextFromLabel(TASKNAME_FIELD_ID);
     }
+    
+    public String getDetails() {
+        return getTextFromLabel(DETAILS_FIELD_ID);
+    }
 
     public boolean isSameTask(ReadOnlyTask task) {
-        return getTaskName().equals(task.getTaskName());
+        return getTaskName().equals(task.getTaskName()) && getDetails().equals(task.getTextForUi());
     }
 
     @Override
     public boolean equals(Object obj) {
         if(obj instanceof TaskCardHandle) {
             TaskCardHandle handle = (TaskCardHandle) obj;
-            return getTaskName().equals(handle.getTaskName()); //TODO: compare the rest
+            return getTaskName().equals(handle.getTaskName()) && 
+                    getDetails().equals(handle.getDetails());
         }
         return super.equals(obj);
     }

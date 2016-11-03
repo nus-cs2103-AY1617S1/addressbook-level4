@@ -16,6 +16,13 @@ public interface SavvyTaskerStorage {
      */
     String getSavvyTaskerFilePath();
 
+    //@@author A0139915W
+    /**
+     * Sets the file path of the data file. Returns true if successful, false otherwise
+     */
+    boolean setSavvyTaskerFilePath(String path);
+    //@@author
+
     /**
      * Returns SavvyTasker data as a {@link ReadOnlySavvyTasker}.
      *   Returns {@code Optional.empty()} if storage file is not found.

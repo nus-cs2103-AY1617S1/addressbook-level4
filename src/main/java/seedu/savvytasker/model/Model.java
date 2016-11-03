@@ -1,5 +1,7 @@
 package seedu.savvytasker.model;
 
+import java.util.LinkedList;
+
 import seedu.savvytasker.commons.core.UnmodifiableObservableList;
 import seedu.savvytasker.model.alias.AliasSymbol;
 import seedu.savvytasker.model.alias.DuplicateSymbolKeywordException;
@@ -22,22 +24,37 @@ public interface Model {
     ReadOnlySavvyTasker getSavvyTasker();
 
     //@@author A0139915W
-    /** Deletes the given Task. */
-    void deleteTask(ReadOnlyTask target) throws TaskNotFoundException;
+    /** 
+     * Deletes the given Task. 
+     * @throws {@link TaskNotFoundException} if the task does not exist
+     * @return Returns a Task if the delete operation is successful, an exception is thrown otherwise.
+     * */
+    Task deleteTask(ReadOnlyTask target) throws TaskNotFoundException;
 
-    /** Modifies the given Task. */
-    void modifyTask(ReadOnlyTask target, Task replacement) throws TaskNotFoundException, InvalidDateException;
+    /** 
+     * Modifies the given Task. 
+     * @throws {@link TaskNotFoundException} if the task does not exist
+     * @throws {@link InvalidDateException} if the end date is earlier than the start date
+     * @return Returns a Task if the modify operation is successful, an exception is thrown otherwise.
+     * */
+    Task modifyTask(ReadOnlyTask target, Task replacement) throws TaskNotFoundException, InvalidDateException;
 
     /** Adds the given Task. 
      * @throws {@link DuplicateTaskException} if a duplicate is found
+     * @throws {@link InvalidDateException} if the end date is earlier than the start date
+     * @return Returns a Task if the add operation is successful, an exception is thrown otherwise.
      * */
-    void addTask(Task task) throws DuplicateTaskException, InvalidDateException;
+    Task addTask(Task task) throws InvalidDateException;
+    
+    /** Adds the given Task as a recurring task. The task's recurrence type must not be null.
+     * @throws {@link DuplicateTaskException} if a duplicate is found
+     * @throws {@link InvalidDateException} if the end date is earlier than the start date
+     * @return Returns the list of Tasks added if the add operation is successful, an exception is thrown otherwise.
+     * */
+    LinkedList<Task> addRecurringTask(Task task) throws InvalidDateException;
 
     /** Returns the filtered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
     UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList();
-    
-    /** Returns the filtered task list as an {@code UnmodifiableObservableList<Task>} */
-    UnmodifiableObservableList<Task> getFilteredTaskListTask();
 
     /** Updates the filter of the filtered task list to show all active tasks sorted by due date */
     void updateFilteredListToShowActiveSortedByDueDate();
@@ -60,4 +77,7 @@ public interface Model {
     
     /** Removes an the given AliasSymbol. */
     void removeAliasSymbol(AliasSymbol symbol) throws SymbolKeywordNotFoundException;
+    
+    /** Gets the number of aliases */
+    int getAliasSymbolCount();
 }

@@ -280,8 +280,13 @@ public class TestUtil {
      * @param index The index of the task to be replaced.
      * @return
      */
-    public static TestTask[] replaceTaskFromList(TestTask[] tasks, TestTask task, int index) {
-        tasks[index] = task;
+    public static TestTask[] replaceTaskFromList(TestTask[] tasks, TestTask task) {
+        for (int i = 0; i < tasks.length; ++i) {
+            if (tasks[i].getId() == task.getId()) {
+                tasks[i] = task;
+                break;
+            }
+        }
         return tasks;
     }
 

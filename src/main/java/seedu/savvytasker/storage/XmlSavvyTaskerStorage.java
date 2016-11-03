@@ -29,6 +29,27 @@ public class XmlSavvyTaskerStorage implements SavvyTaskerStorage {
         return filePath;
     }
 
+    //@@author A0139915W
+    @Override
+    /**
+     * Changes the path of the storage location if the file at newPath can be successfully created.
+     */
+    public boolean setSavvyTaskerFilePath(String newPath) {
+        try {
+            File file = new File(newPath);
+            if (FileUtil.createIfMissing(file)) {
+                this.filePath = newPath;
+                return true;
+            } else {
+                return false;
+            }
+        } catch (IOException e) {
+            // do nothing, can't set the path to new path
+        }
+        return false;
+    }
+    //@@author
+
     /**
      * Similar to {@link #readSavvyTasker()}
      * @param filePath location of the data. Cannot be null

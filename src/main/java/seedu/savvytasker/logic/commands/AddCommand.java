@@ -1,12 +1,16 @@
 package seedu.savvytasker.logic.commands;
 
+import java.util.Iterator;
+import java.util.LinkedList;
+
+import seedu.savvytasker.commons.core.EventsCenter;
 import seedu.savvytasker.commons.core.UnmodifiableObservableList;
+import seedu.savvytasker.commons.events.ui.JumpToListRequestEvent;
 import seedu.savvytasker.logic.parser.DateParser.InferredDate;
 import seedu.savvytasker.model.task.PriorityLevel;
 import seedu.savvytasker.model.task.ReadOnlyTask;
 import seedu.savvytasker.model.task.RecurrenceType;
 import seedu.savvytasker.model.task.Task;
-import seedu.savvytasker.model.task.TaskList.DuplicateTaskException;
 import seedu.savvytasker.model.task.TaskList.InvalidDateException;
 import seedu.savvytasker.model.task.TaskList.TaskNotFoundException;
 
@@ -38,6 +42,7 @@ public class AddCommand extends ModelRequiringCommand {
     private final String description;
     
     private Task toAdd;
+    private LinkedList<Task> tasksAdded;
 
     //@@author A0139915W
     /**
@@ -55,15 +60,23 @@ public class AddCommand extends ModelRequiringCommand {
         this.numberOfRecurrence = numberOfRecurrence;
         this.category = category;
         this.description = description;
+        tasksAdded = new LinkedList<Task>();
     }
     
     private void createTask() {
         final boolean isArchived = false;   // all tasks are first added as active tasks
         final int taskId = 0;               // taskId to be assigned by ModelManager, leave as 0
+        final int groupId = 0;              // groupId to be assigned by ModelManager, leave as 0
         
-        this.toAdd = new Task(taskId, taskName, startDateTime, endDateTime,
+        this.toAdd = new Task(taskId, groupId, taskName, startDateTime, endDateTime,
                 location, priority, recurringType, numberOfRecurrence,
                 category, description, isArchived);
+    }
+    
+    private void addToListOfTasksAdded(Task... tasks) {
+        for (Task t : tasks) {
+            tasksAdded.add(t);
+        }
     }
 
     @Override
@@ -72,14 +85,40 @@ public class AddCommand extends ModelRequiringCommand {
         createTask();
 
         try {
-            model.addTask(toAdd);
+            Task taskAdded = null;
+            if (toAdd.getRecurringType() == RecurrenceType.None) {
+                // not a recurring task, add a single task
+                taskAdded = model.addTask(toAdd);
+                addToListOfTasksAdded(taskAdded);
+            } else {
+                // a recurring task, add a group of recurring tasks
+                LinkedList<Task> tasksAdded = model.addRecurringTask(toAdd);
+                taskAdded = tasksAdded.peekFirst();
+                addToListOfTasksAdded(tasksAdded.toArray(new Task[tasksAdded.size()]));
+            }
+            
+            int targetIndex = getIndexOfTask(taskAdded);
+            if (targetIndex >= 0) {
+                EventsCenter.getInstance().post(new JumpToListRequestEvent(targetIndex));
+            } else {
+                // GUI should never ever get here
+            }
             return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
-        } catch (DuplicateTaskException e) {
-            return new CommandResult(MESSAGE_DUPLICATE_TASK);
         } catch (InvalidDateException ex) {
             return new CommandResult(MESSAGE_INVALID_START_END);
         }
 
+    }
+    
+    /**
+     * Helper method to retrieve the index of the task in the tasklist that was added.
+     * @param task The task to find
+     * @return Returns the index of the task in the list, -1 if not found.
+     */
+    private int getIndexOfTask(Task task) {
+        model.updateFilteredListToShowActive(); //because newly added tasks are all active.
+        UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
+        return lastShownList.indexOf(task);
     }
     //@@author
     
@@ -100,7 +139,7 @@ public class AddCommand extends ModelRequiringCommand {
     @Override
     public boolean redo() {
         execute();
-        return false;
+        return true;
     }
     
     /**
@@ -109,20 +148,18 @@ public class AddCommand extends ModelRequiringCommand {
      */
     @Override
     public boolean undo() {
-        
-        UnmodifiableObservableList<Task> lastShownList = model.getFilteredTaskListTask();
-        
-        for (int i = 0; i < lastShownList.size(); i++) {
-            if (lastShownList.get(i) == toAdd){
-                ReadOnlyTask taskToDelete = lastShownList.get(i);
-                try {
-                    model.deleteTask(taskToDelete);
-                } catch (TaskNotFoundException e) {
-                    e.printStackTrace();
-                }
+        Iterator<Task> itr = tasksAdded.iterator();
+        while (itr.hasNext()) {
+            try {
+                model.deleteTask(itr.next());
+            } catch (TaskNotFoundException e) {
+                // do nothing.
             }
-        } 
-        return false;
+        }
+        // clears the list of tasks added.
+        // if redo is performed, the list will be populated again.
+        tasksAdded.clear(); 
+        return true;
     }
     
     /**

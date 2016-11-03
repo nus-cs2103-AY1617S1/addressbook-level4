@@ -2,6 +2,7 @@ package seedu.savvytasker.logic;
 
 import javafx.collections.ObservableList;
 import seedu.savvytasker.logic.commands.CommandResult;
+import seedu.savvytasker.model.alias.AliasSymbol;
 import seedu.savvytasker.model.task.ReadOnlyTask;
 
 /**
@@ -17,6 +18,9 @@ public interface Logic {
 
     /** Returns the filtered list of tasks */
     ObservableList<ReadOnlyTask> getFilteredTaskList();
+
+    /** Returns the filtered list of alias symbol */
+    ObservableList<AliasSymbol> getAliasSymbolList();
     
     /** */
     boolean canParseHeader(String keyword);
