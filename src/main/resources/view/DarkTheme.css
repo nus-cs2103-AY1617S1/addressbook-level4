@@ -102,13 +102,8 @@
 
 .list-cell:focused:selected .label {
 	-fx-text-fill: #32CD32;
-	-fx-font-size: 26px;
-}
-
-/*.list-cell .task {
-	-fx-text-fill: aliceblue;
 	-fx-font-size: 30px;
-}*/
+}
 
 /*@@author A0140060A*/
 .cell_big_label {
@@ -121,7 +116,6 @@
 .cell_small_label {
     -fx-font-size: 11px;
     -fx-text-fill: #010504;
-	-fx-max-width:300;
 }
 /*@@author */
 
