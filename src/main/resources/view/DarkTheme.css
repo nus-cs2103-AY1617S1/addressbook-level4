@@ -99,6 +99,7 @@
 
 .cell_big_label {
     -fx-font-size: 18px;
+    -fx-text-overrun : leading-word-ellipsis;
     -fx-text-fill: #010504;
 }
 
