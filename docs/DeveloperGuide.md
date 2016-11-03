@@ -462,9 +462,9 @@ Use case ends
 > 1a2. User selects filepath <br>
   Use case resumes at step 2
 
-> 1a2a. User exits filepicker <br>
-> 1a2b. Task Manager shows a message informing the backup command has been aborted <br>
-Use case ends
+> > 1a2a1. User exits filepicker <br>
+> > 1a2a2. Task Manager shows a message informing the backup command has been aborted <br>
+    Use case ends
 
 1b. The user don't enter a valid file path
 
@@ -494,9 +494,9 @@ Use case ends
 > 1a2. User selects filepath <br>
   Use case resumes at step 2
 
-> 1a2a. User exits filepicker <br>
-> 1a2b. Task Manager shows a message informing the directory command has been aborted <br>
-Use case ends
+> > 1a2a1. User exits filepicker <br>
+> > 1a2a2. Task Manager shows a message informing the directory command has been aborted <br>
+    Use case ends
 
 1b. The user don't enter a valid file path
 
