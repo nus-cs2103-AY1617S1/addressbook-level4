@@ -5,6 +5,7 @@ import seedu.taskmanager.model.item.Item;
 import seedu.taskmanager.model.item.ReadOnlyItem;
 import seedu.taskmanager.model.item.UniqueItemList;
 
+import java.util.ArrayList;
 import java.util.Set;
 
 /**
@@ -16,8 +17,14 @@ public interface Model {
 
     /** Returns the TaskManager */
     ReadOnlyTaskManager getTaskManager();
-  
-    //@@author A0140060A-reused
+    
+    //@@author A0143641M
+    /** Raises relevant event when run command to save to specified location */
+    void saveAction(String location);
+    
+    /** Deletes the specified multiple items. **/
+    void deleteItems(ArrayList<ReadOnlyItem> targets, String actionTaken) throws UniqueItemList.ItemNotFoundException;
+    
     /** Deletes the given item. */
     void deleteItem(ReadOnlyItem target, String actionTaken) throws UniqueItemList.ItemNotFoundException;
 
@@ -35,7 +42,6 @@ public interface Model {
     /** Updates the filter of the filtered person list to show all items */
     void updateFilteredListToShowAll();
     
-    //@@author A0140060A-reused
     /** Updates the filter of the filtered item list to filter by the given keywords*/
     void updateFilteredItemList(Set<String> keywords);
     

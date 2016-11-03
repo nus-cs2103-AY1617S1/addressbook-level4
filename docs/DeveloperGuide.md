@@ -45,6 +45,14 @@
 
 ## Design
 
+[comment]: # (@@author A0140060A)
+
+### Object Oriented Domain Model
+Description: The _User_ manages his _Activities_ using a _TaskManager_. the _TaskManager_ can contain any number of _Item_ objects. Each _Activity_ is managed in the _TaskManager_ using an _Item_. A _User_ can add, modify, delete and view his _Items_ in the _TaskMAnager_.
+<img src="images/OODomainDiagram.png" width="600"><br>
+
+[comment]: # (@@author )
+
 ### Architecture
 
 <img src="images/Architecture.png" width="600"><br>
@@ -156,6 +164,7 @@ The `Model`,
   so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
+[comment]: # (@@author A0143641M)
 ### Storage component
 
 <img src="images/StorageClassDiagram.png" width="800"><br>
@@ -164,8 +173,10 @@ The `Model`,
 
 The `Storage` component,
 * can save `UserPref` objects in json format and read it back.
-* can save the Taskmanager data in xml format and read it back.
+* can save the Taskmanager data in .xml format and read it back.
 * can save the Taskmanager data at a specified location and access the data accordingly.
+
+[comment]: # (@@author )
 
 ### Common classes
 
@@ -293,7 +304,7 @@ Priority | As a ... | I want to ...           | So that I can...
 `* * *`  | user     | undo the last command   | undo an unintentional operation
 `* * *`  | user     | specify the data storage location | use cloud syncing services and access my todo list on different devices
 `* *`  | user     | view all undone tasks/deadlines/events | view items I need to work on
-`*`  | user     | set a deadline for task | know when to finish the task by
+`* *`  | user     | set a deadline for task | know when to finish the task by
 `*`    | user     | sort uncompleted deadlines by deadline | know which deadline I should finish first
 [comment]: # (@@author )
 
@@ -483,12 +494,12 @@ More non functional requirements and project constraints can be found [here](htt
 
 Product Name | Strengths | Weaknesses           | Remarks
 -------- | :------- | :---------------------- | :---------------
-Google Calendar  | Used worldwide, easy to use, understands NLP | Slow, requires internet access, has crashed in recent history  | Our application works offline and is both faster and has NLP as well
+Google Calendar | Used worldwide, easy to use, understands NLP | Slow, requires internet access, has crashed in recent history  | Our application works offline and is both faster and has NLP as well
 Todo.txt        | Works across devices and operating systems    | Quite complicated for new users to pick up as it has a whole range of shortcut-commands | Our application accepts both short cut commands and normal commands, and syncs with Google Calendar to work across devices and platforms
 Swipes          | Simple, cross-platform                        | Unable to specify data storage location  | Our application allows users to specify a location to save data
 Fantastical     | Uses NLP, quick access in mini window         | Works only on Mac/iOS platform | Our application works on major computer operating systems, and since it allows syncing onto Google Calendar, one can even use mobile devices to view and update their task manager
 Apple Reminders | Easy-to-use, fast, backed up on the cloud     | Only works in Apple's ecosystem  | Our application allows users to back up to Google Calendar, which works on most devices and thus most people can use it, along with backing up their data to the cloud through Google Calendar
-Sunrise  | Works across platforms and devices     | Requires internet access to work | Our application works both online and offline
+Sunrise  		| Works across platforms and devices     | Requires internet access to work | Our application works both online and offline
 
 [comment]: # (@@author A0140060A)
 ### Acknowledgements & Dependencies

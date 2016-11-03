@@ -99,11 +99,6 @@ public class AddCommandTest extends TaskManagerGuiTest {
         itemToAdd = td.deadline1;
         assertAddSuccessWithDifferentCommand(itemToAdd, false, false, false, false, true, currentList);
         currentList = TestUtil.addItemsToList(currentList, itemToAdd);
-        
-        //add another task without name prefix
-        itemToAdd = td.task1;
-        assertAddSuccessWithDifferentCommand(itemToAdd, false, false, true, false, false, currentList);
-        currentList = TestUtil.addItemsToList(currentList, itemToAdd);
 
         //invalid command
         commandBox.runCommand("adds Johnny");
@@ -142,7 +137,7 @@ public class AddCommandTest extends TaskManagerGuiTest {
         String itemName = UUID.randomUUID().toString();
         itemName = itemName.replaceAll("\\-", "");
         sb.append(AddCommand.COMMAND_WORD + " " + itemType + " ");
-        sb.append(itemName + " ");
+        sb.append("n/" + itemName + " ");
         if (itemType.equals(ItemType.EVENT_WORD)) {
             sb.append("sdt/" + startDateTime + " ");
         }

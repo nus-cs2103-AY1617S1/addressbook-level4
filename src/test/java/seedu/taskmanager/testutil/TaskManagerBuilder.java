@@ -6,7 +6,6 @@ import seedu.taskmanager.model.item.Item;
 import seedu.taskmanager.model.item.UniqueItemList;
 import seedu.taskmanager.model.tag.Tag;
 
-//@@author A0140060A-reused
 /**
  * A utility class to help with building TaskManager objects.
  * Example usage: <br>

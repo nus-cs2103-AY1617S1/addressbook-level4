@@ -11,6 +11,7 @@ import seedu.taskmanager.model.tag.Tag;
 import seedu.taskmanager.model.tag.UniqueTagList;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -46,7 +47,7 @@ public class AddCommand extends Command {
      *
      * @throws IllegalValueException if any of the raw values are invalid
      */
-    public AddCommand(String itemType, String name, Set<String> tags) throws IllegalValueException {
+    public AddCommand(String itemType, String name, List<String> tags) throws IllegalValueException {
     	this(itemType, name, ItemDate.EMPTY_DATE, ItemTime.EMPTY_TIME, ItemDate.EMPTY_DATE, ItemTime.EMPTY_TIME, tags);
     }
     
@@ -55,8 +56,8 @@ public class AddCommand extends Command {
      *
      * @throws IllegalValueException if any of the raw values are invalid
      */
-    public AddCommand(String itemType, String name, String endDate, String endTime, Set<String> tags) throws IllegalValueException {
-    	this(itemType, name, ItemDate.EMPTY_DATE, ItemTime.EMPTY_TIME, endDate, endTime, tags);
+    public AddCommand(String itemType, String name, String endDate, String endTime, List<String> tagsToAdd) throws IllegalValueException {
+    	this(itemType, name, ItemDate.EMPTY_DATE, ItemTime.EMPTY_TIME, endDate, endTime, tagsToAdd);
     }
     
     //@@author A0065571A
@@ -65,7 +66,7 @@ public class AddCommand extends Command {
      *
      * @throws IllegalValueException if any of the raw values are invalid
      */
-    public AddCommand(String itemType, String name, String startDate, String startTime, String endDate, String endTime, Set<String> tags)
+    public AddCommand(String itemType, String name, String startDate, String startTime, String endDate, String endTime, List<String> tags)
             throws IllegalValueException {
         assert itemType != null;
         if (itemType == ItemType.DEADLINE_WORD && endTime == null) {

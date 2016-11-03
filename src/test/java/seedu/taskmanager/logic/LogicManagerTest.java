@@ -170,16 +170,16 @@ public class LogicManagerTest {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE);
         // Missing Prefix
         assertCommandBehavior(
-        		"add event 12345 ed/2016-08-08 et/18:00", expectedMessage);
+        		"add event n/12345 ed/2016-08-08 et/18:00", expectedMessage);
         // Additional Prefix
-        assertCommandBehavior(
-        		"add task 12345 ed/2016-08-08 et/18:00", expectedMessage);
+        // assertCommandBehavior(
+        // 		"add task n/12345 ed/2016-08-08 et/18:00", expectedMessage);
         // Have Name Prefix
         // assertCommandBehavior(
         //         "add deadline n/12345 ed/2016-08-08 et/18:00", expectedMessage);
         // No EndDate Prefix
         assertCommandBehavior(
-                "add deadline 12345 2016-08-08 et/18:00", expectedMessage);
+                "add deadline n/12345 2016-08-08 et/18:00", expectedMessage);
         // No EndTime Prefix
         // assertCommandBehavior(
         //         "add deadline 12345 ed/2016-08-08 18:00", expectedMessage);
@@ -362,25 +362,6 @@ public class LogicManagerTest {
     }
 
     @Test
-    public void execute_find_onlyMatchesFullWordsInNames() throws Exception {
-        TestDataHelper helper = new TestDataHelper();
-        Item pTarget1 = helper.generateItemWithName("bla bla KEY bla");
-        Item pTarget2 = helper.generateItemWithName("bla KEY bla bceofeia");
-        Item p1 = helper.generateItemWithName("KE Y");
-        Item p2 = helper.generateItemWithName("KEYKEYKEY sduauo");
-
-        List<Item> fourItems = helper.generateItemList(p1, pTarget1, p2, pTarget2);
-        TaskManager expectedAB = helper.generateTaskManager(fourItems);
-        List<Item> expectedList = helper.generateItemList(pTarget1, pTarget2);
-        helper.addToModel(model, fourItems);
-
-        assertCommandBehavior("find KEY",
-                Command.getMessageForItemListShownSummary(expectedList.size()),
-                expectedAB,
-                expectedList);
-    }
-
-    @Test
     public void execute_find_isNotCaseSensitive() throws Exception {
         TestDataHelper helper = new TestDataHelper();
         Item p1 = helper.generateItemWithName("bla bla KEY bla");
@@ -394,25 +375,6 @@ public class LogicManagerTest {
         helper.addToModel(model, fourItems);
 
         assertCommandBehavior("find KEY",
-                Command.getMessageForItemListShownSummary(expectedList.size()),
-                expectedAB,
-                expectedList);
-    }
-
-    @Test
-    public void execute_find_matchesIfAnyKeywordPresent() throws Exception {
-        TestDataHelper helper = new TestDataHelper();
-        Item pTarget1 = helper.generateItemWithName("bla bla KEY bla");
-        Item pTarget2 = helper.generateItemWithName("bla rAnDoM bla bceofeia");
-        Item pTarget3 = helper.generateItemWithName("key key");
-        Item p1 = helper.generateItemWithName("sduauo");
-
-        List<Item> fourItems = helper.generateItemList(pTarget1, p1, pTarget2, pTarget3);
-        TaskManager expectedAB = helper.generateTaskManager(fourItems);
-        List<Item> expectedList = helper.generateItemList(pTarget1, pTarget2, pTarget3);
-        helper.addToModel(model, fourItems);
-
-        assertCommandBehavior("find key rAnDoM",
                 Command.getMessageForItemListShownSummary(expectedList.size()),
                 expectedAB,
                 expectedList);
@@ -518,7 +480,6 @@ public class LogicManagerTest {
             return cmd.toString();
         }
 
-        //@@author A0140060A-reused
         /**
          * Generates a TaskManager with auto-generated items.
          */
@@ -554,7 +515,6 @@ public class LogicManagerTest {
             }
         }
 
-        //@@author A0140060A
         /**
          * Adds auto-generated Item objects to the given model
          * @param model The model to which the Items will be added
@@ -572,7 +532,6 @@ public class LogicManagerTest {
             }
         }
         
-        //@@author A0140060A-reused
         /**
          * Generates a list of Items based on the flags.
          */
