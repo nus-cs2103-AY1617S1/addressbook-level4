@@ -190,7 +190,10 @@ Done | `done TASKID`
 <!-- //@@author -->
 <!-- @@author A0153411W -->
 ## Parameters 
+
+
 Parameter     | Flag               |  Format           		| Required                          | Meaning
+-------- | :--------  | :---------- | :------------ | :-----------
 TITLE         |  /t (editing only) |  Text             		|   Yes                             | Title of a task 
 DESCRIPTION   |  /d                |  Text             		|   Yes                             | Description of a task
 START_DATE    |  /sd               |  Date(DD-MM-YYYY hh:mm) |   NO                              | Start date of a task
