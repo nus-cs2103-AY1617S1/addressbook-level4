@@ -35,6 +35,10 @@ public class Time {
      */
     public Time(String input) throws IllegalValueException {
         input = input.trim();
+        
+        if (input.equals(""))
+            time.setTime(new Date(0));
+
 //        
 //        System.out.println("CHEEYEO CHECK HERE : " + input);
 //        
@@ -63,7 +67,7 @@ public class Time {
     	if(!taskTime.isEmpty() && !taskTime.equals(new Date(0).toString())){
     		List<DateGroup> dates = new Parser().parse(taskTime); // Using the Natty Parser()
     		if(dates.isEmpty()){
-    		    System.out.println("CHEEYEO LOOK HERE : " + taskTime + "%%" + input);
+    		    System.out.println("CHEEYEO LOOK HERE taskTime: " + taskTime + " && input:  " + input);
     			throw new IllegalValueException(MESSAGE_TIME_CONSTRAINTS);
     		}
     		else if(dates.get(0).getDates().isEmpty()){
