@@ -571,14 +571,9 @@ public class LogicManagerTest {
     @Test
     public void execute_done_markCorrectTodoRange() throws Exception {
         TestDataHelper helper = new TestDataHelper();
-        Task toBeMarked1 = helper.generateTodoWithName("la");
-        Task toBeMarked2 = helper.generateTodoWithName("lala");
-        Task toBeMarked3 = helper.generateTodoWithName("lalala");
-        List<Task> todoList = helper.generateTodoList(toBeMarked1, toBeMarked2, toBeMarked3);
+        List<Task> todoList = helper.generateUncompleteTodoList(3);
         TaskBook expectedAB = helper.generateAddressBook(Collections.emptyList(), Collections.emptyList(), todoList);
-        expectedAB.completeTask(toBeMarked1);
-        expectedAB.completeTask(toBeMarked2);
-        expectedAB.completeTask(toBeMarked3);
+        expectedAB = this.completeTodoList(expectedAB, todoList, 0, 1, 2);
         helper.addToModel(model, Collections.emptyList(),  Collections.emptyList(), todoList);
 
         assertCommandBehavior("done T1-T3", 
@@ -589,18 +584,23 @@ public class LogicManagerTest {
                 Collections.emptyList());
     }
 
+    private TaskBook completeTodoList(TaskBook expectedAB, List<Task> todoList, Integer... k) throws TaskNotFoundException {
+        List<Integer> toBeCompletedIndex = Arrays.asList(k);
+        for(int i=0; i<toBeCompletedIndex.size(); i++){
+            int idx = toBeCompletedIndex.get(i);
+            expectedAB.completeTask(todoList.get(idx));
+        }
+        return expectedAB;     
+    }
+
     //@@author A0138993L
     @Test
     public void execute_done_markCorrectTodoMultiple() throws Exception {
         TestDataHelper helper = new TestDataHelper();
-        Task toBeMarked1 = helper.generateTodoWithName("la");
-        Task unmarked = helper.generateTodoWithName("lala");
-        Task toBeMarked3 = helper.generateTodoWithName("lalala");
-        List<Task> unmarkedList = helper.generateTodoList(unmarked);
-        List<Task> todoList = helper.generateTodoList(toBeMarked1, unmarked, toBeMarked3);
+        List<Task> todoList = helper.generateUncompleteTodoList(3);
+        List<Task> unmarkedList = helper.generateTodoList(todoList.get(1));
         TaskBook expectedAB = helper.generateAddressBook(Collections.emptyList(), Collections.emptyList(), todoList);
-        expectedAB.completeTask(toBeMarked1);
-        expectedAB.completeTask(toBeMarked3);
+        expectedAB = this.completeTodoList(expectedAB, todoList, 0, 2);
         helper.addToModel(model, Collections.emptyList(),  Collections.emptyList(), todoList);
 
         assertCommandBehavior("done T1, T3", 
@@ -806,12 +806,12 @@ public class LogicManagerTest {
         List<Task> threeTodos = helper.generateTodoList(3);
 
         TaskBook expectedAB = helper.generateAddressBook(threePersons, threeDeadlines, threeTodos);
-        expectedAB.removeTask(threePersons.get(1));
+        expectedAB.removeTask(threePersons.get(2));
 
         helper.addToModel(model, threePersons, threeDeadlines, threeTodos);
 
-        assertCommandBehavior("delete E2",
-                String.format(DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS, /*threePersons.get(1)*/ new String("[E2]")),
+        assertCommandBehavior("delete E3",
+                String.format(DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS, /*threePersons.get(1)*/ new String("[E3]")),
                 expectedAB,
                 expectedAB.getEventList(),
                 expectedAB.getDeadlineList(),
@@ -1422,6 +1422,18 @@ public class LogicManagerTest {
             Tag tag2 = new Tag("tag2");
             UniqueTagList tags = new UniqueTagList(tag1, tag2);
             return new Task(name, date, start, end, task_cat, overdue, isCompleted, tags);
+        }
+        public List<Task> generateUncompleteTodoList(int num) throws Exception {
+            // TODO Auto-generated method stub
+            TestDataHelper helper = new TestDataHelper();
+            List<Task> todoList = new ArrayList<Task>();
+            String des = "";
+            for(int i =0; i<num; i++){
+                des = des.concat("la");
+                Task toBeMarked = helper.generateTodoWithName(des);
+                todoList.add(toBeMarked);
+            }
+            return todoList;
         }
         Task beta() throws Exception {
             Name name = new Name("Deadlines");
