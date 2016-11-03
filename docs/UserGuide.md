@@ -54,10 +54,10 @@ Format: `INDEX TASK_PROPERTY, NEW_VALUE`
 > Edit the task at the specific `INDEX` and `TASK_PROPERTY`
      The index refers to the index number shown in the most recent listing.<br>
      The index **must be a positive integer** 1, 2, 3, …
-     `TASK_PROPERTY` can be "name", "start time", "end time", "deadline" and "tag"
+     `TASK_PROPERTY` can be "name", "start", "end", "due" and "tag"
 
 Examples: 
-* `edit 2 start time, 08.00am` 
+* `edit 2 start, 08.00am` 
 * `edit 4 tag, school`
 
 #### Deleting a task : `delete`
@@ -116,6 +116,14 @@ Format: `done INDEX`
 Undone a task. Reverse action of done command. Green marker will disappear.<br>
 Format: `undone INDEX` 
 
+#### Favorite a specific task : `fav`
+Favorite a task to show that it is favorited with a yellow marker.<br>
+Format: `fav INDEX` 
+
+#### Unfavorite a specific task : `unfav`
+Unfavorite a task. Reverse action of favorite command. Yellow marker will disappear.<br>
+Format: `unfav INDEX` 
+
 #### Backup : `backup`
 Save a copy of the current TaskManager data file into the specified directory.<br>
 Format: `backup PATH` or `b PATH`
@@ -137,6 +145,10 @@ Examples:
 #### Clearing all entries : `clear`
 Clears all entries from the TaskManager.<br>
 Format: `clear`  
+
+#### Refresh task manager list : `refresh`
+Refresh all entries from the TaskManager.<br>
+Format: `refresh` 
 
 #### Exiting the program : `exit`
 Exits the program.<br>
@@ -167,7 +179,9 @@ List | `list`
 Sort | `sort [PARAMETER]`
 Undo | `undo`
 Done | `done` `undone`
+Favorite | `fav` `unfav`
 Backup | `backup PATH `
 Change Directory | `directory PATH `
 Clear | `clear`
+Refresh | `refresh`
 Exit | `exit`
