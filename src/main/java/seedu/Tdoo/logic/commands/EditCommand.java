@@ -3,6 +3,7 @@ package seedu.Tdoo.logic.commands;
 import seedu.Tdoo.commons.core.Messages;
 import seedu.Tdoo.commons.core.UnmodifiableObservableList;
 import seedu.Tdoo.commons.exceptions.IllegalValueException;
+import seedu.Tdoo.model.Undoer;
 import seedu.Tdoo.model.task.*;
 import seedu.Tdoo.model.task.UniqueTaskList.TaskNotFoundException;
 import seedu.Tdoo.model.task.attributes.*;
@@ -32,6 +33,7 @@ public class EditCommand extends Command {
 	public final int targetIndex;
 	private final Task toEdit;
 	ReadOnlyTask taskToEdit = null;
+	private final Undoer undoer;
 
 	/**
 	 * Edit Todo Convenience constructor using raw values.
@@ -46,6 +48,7 @@ public class EditCommand extends Command {
 		this.dataType = dataType;
 		this.toEdit = new Todo(new Name(name), new StartDate(date), new EndDate(endDate), new Priority(priority),
 				"false");
+		this.undoer = null;
 	}
 
 	/**
@@ -61,6 +64,7 @@ public class EditCommand extends Command {
 		this.dataType = dataType;
 		this.toEdit = new Event(new Name(name), new StartDate(date), new EndDate(endDate), new StartTime(startTime),
 				new EndTime(endTime), "false");
+		this.undoer = null;
 	}
 
 	/**
@@ -74,6 +78,7 @@ public class EditCommand extends Command {
 		this.targetIndex = targetIndex;
 		this.dataType = dataType;
 		this.toEdit = new Deadline(new Name(name), new StartDate(date), new EndTime(endTime), "false");
+		this.undoer = null;
 	}
 
 	// @@author A0139920A
@@ -82,6 +87,7 @@ public class EditCommand extends Command {
 		this.toEdit = (Task) toEdit;
 		this.targetIndex = -1;
 		this.dataType = dataType;
+		this.undoer = null;
 	}
 
 	// @@author A0139920A
@@ -110,7 +116,8 @@ public class EditCommand extends Command {
 
 		assert model != null;
 		try {
-			model.editTask(taskToEdit, dataType, toEdit);
+		    model.deleteTask(taskToEdit, dataType);
+			model.editTask(taskToEdit, dataType, toEdit, targetIndex-1);
 			return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, toEdit));
 		} catch (IllegalValueException ive) {
 			return new CommandResult(INVALID_VALUE);

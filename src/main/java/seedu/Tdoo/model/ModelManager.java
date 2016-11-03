@@ -220,9 +220,8 @@ public class ModelManager extends ComponentManager implements Model {
 	 */
 	@Override
 	// @@author A0139923X
-	public synchronized void editTask(ReadOnlyTask target, String dataType, Task task)
+	public synchronized void editTask(ReadOnlyTask target, String dataType, Task task, int targetIndex)
 			throws IllegalValueException, TaskNotFoundException {
-
 		/*
 		 * Scenario: User wants to edit todo to change to event or deadline User
 		 * enters edit todo 1 n/test d/01-01-2016 e/1000 This will remove index
@@ -234,40 +233,40 @@ public class ModelManager extends ComponentManager implements Model {
 		 */
 		if (task instanceof Todo) {
 			if (dataType.equals("todo")) {
-				todoList.addTask(task);
-				todoList.removeTask(target);
+				todoList.addTaskWithIndex(task , targetIndex);
+				undoer.prepareUndoAdd(task,"todo");
 			} else if (dataType.equals("event")) {
 				todoList.addTask(task);
-				eventList.removeTask(target);
+				undoer.prepareUndoAdd(task,"event");
 			} else if (dataType.equals("deadline")) {
 				todoList.addTask(task);
-				deadlineList.removeTask(target);
+				undoer.prepareUndoAdd(task,"deadline");
 			}
 			updateFilteredTodoListToShowAll();
 			indicateTodoListChanged();
 		} else if (task instanceof Event) {
 			if (dataType.equals("todo")) {
 				eventList.addTask(task);
-				todoList.removeTask(target);
+				undoer.prepareUndoAdd(task,"task");
 			} else if (dataType.equals("event")) {
-				eventList.addTask(task);
-				eventList.removeTask(target);
+				eventList.addTaskWithIndex(task , targetIndex);
+				undoer.prepareUndoAdd(task,"event");
 			} else if (dataType.equals("deadline")) {
 				eventList.addTask(task);
-				deadlineList.removeTask(target);
+				undoer.prepareUndoAdd(task,"deadline");
 			}
 			updateFilteredEventListToShowAll();
 			indicateEventListChanged();
 		} else if (task instanceof Deadline) {
 			if (dataType.equals("todo")) {
 				deadlineList.addTask(task);
-				todoList.removeTask(target);
+				undoer.prepareUndoAdd(task,"todo");
 			} else if (dataType.equals("event")) {
 				deadlineList.addTask(task);
-				eventList.removeTask(target);
+				undoer.prepareUndoAdd(task,"event");
 			} else if (dataType.equals("deadline")) {
-				deadlineList.addTask(task);
-				deadlineList.removeTask(target);
+				deadlineList.addTaskWithIndex(task , targetIndex);
+		        undoer.prepareUndoAdd(task,"deadline");
 			}
 			updateFilteredDeadlineListToShowAll();
 			indicateDeadlineListChanged();
@@ -352,6 +351,28 @@ public class ModelManager extends ComponentManager implements Model {
 			throw new IllegalValueException("Invalid data type for add");
 		}
 	}
+	
+	@Override
+    public synchronized void addTaskWithIndex(Task task, int targetIndex) throws IllegalValueException, UniqueTaskList.DuplicatetaskException {
+        if (task instanceof Todo) {
+            todoList.addTaskWithIndex(task, targetIndex);
+            updateFilteredTodoListToShowAll();
+            indicateTodoListChanged();
+            undoer.prepareUndoAdd(task, "todo");
+        } else if (task instanceof Event) {
+            eventList.addTaskWithIndex(task, targetIndex);
+            updateFilteredEventListToShowAll();
+            indicateEventListChanged();
+            undoer.prepareUndoAdd(task, "event");
+        } else if (task instanceof Deadline) {
+            deadlineList.addTaskWithIndex(task, targetIndex);
+            updateFilteredDeadlineListToShowAll();
+            indicateDeadlineListChanged();
+            undoer.prepareUndoAdd(task, "deadline");
+        } else {
+            throw new IllegalValueException("Invalid data type for add");
+        }
+    }
 
 	@Override
 	public synchronized void undoLatestCommand() {
