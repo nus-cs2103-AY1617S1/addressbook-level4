@@ -3,15 +3,22 @@ package seedu.cmdo.ui;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
+import com.google.common.eventbus.Subscribe;
+
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
+import seedu.cmdo.commons.events.ui.JumpToListRequestEvent;
 import seedu.cmdo.model.task.ReadOnlyTask;
 
 /**
@@ -188,5 +195,13 @@ public class TaskCard extends UiPart{
     @Override
     public String getFxmlPath() {
         return FXML;
+    }
+    
+    @Subscribe
+    private void handleJumpToListRequestEvent(JumpToListRequestEvent event) {
+    	System.out.println(displayedIndex + " / " + event.targetIndex);
+    	if (displayedIndex == event.targetIndex) {
+    		cardPane.setBackground(new Background(new BackgroundFill(Color.AQUA, CornerRadii.EMPTY, Insets.EMPTY)));;
+    	}
     }
 }

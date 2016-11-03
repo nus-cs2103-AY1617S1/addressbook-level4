@@ -1,7 +1,7 @@
 /*
  * CMDo StyleSheet
  * Light theme
- * @@ author A0141006B 
+ * @@author A0141006B 
  * 
  */
 @font-face{
@@ -18,7 +18,7 @@
  */
 .root {
 	-fx-background-color:lightslategray;
-	-fx-accent: grey ;
+	-fx-accent: grey;
 	-fx-focus-color: grey;
 	-fx-font-family: "Helvetica";
 	-fx-font-weight: 100;
@@ -41,15 +41,17 @@
  
  /*List cell for the background of the card */
 .list-cell {
-	-fx-background-color: lightsteelblue;
+	-fx-background-color: ;
 }
 
 .list-view-card-pane {
-	-fx-background-color: white;
+	-fx-background-color:white;	
+	-fx-focus-color: white;
 	-fx-font-size: 14px;
-	-fx-border-color: white;
+	-fx-border-color: black;
 	-fx-font-family: "Helvetica";
 	-fx-font-weight: 100;
+	-fx-color-label-visible: black;
 	-fx-border-radius: 10 10 10 10;
     -fx-background-radius: 10 10 10 10;
 }
@@ -57,6 +59,11 @@
 .list-view-card-pane #id  {
 	-fx-font-size: 60px;
 }
+
+.cell_big_label {
+	-fx-font-size: 16px;
+}
+
 /*
  * SCROLL BAR
  * 
@@ -66,9 +73,9 @@
  	-fx-background-color:lightgray;
  }
  
- .scroll-pane, .split-pane, .scroll-pane > .viewport {
+.scroll-pane, .split-pane, .scroll-pane > .viewport {
   -fx-background-insets: 0;
   -fx-padding: 0;
-  -fx-background-color: #ffffff;
 }
+
  
