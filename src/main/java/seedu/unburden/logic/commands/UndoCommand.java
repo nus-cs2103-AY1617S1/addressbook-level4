@@ -31,22 +31,9 @@ public class UndoCommand extends Command {
 		try {
 			assert model != null;
 			model.loadFromPrevLists();
-			overdueOrNot();
 			return new CommandResult(MESSAGE_SUCCESS);
 		} catch (NoSuchElementException ee) {
 			return new CommandResult(MESSAGE_EMPTY_STACK);
-		}
-	}
-
-	// This method checks the entire list to check for overdue tasks
-	private void overdueOrNot() throws IllegalValueException, DuplicateTagException {
-		List<ReadOnlyTask> currentTaskList = model.getListOfTask().getTaskList();
-		for (ReadOnlyTask task : currentTaskList) {
-			if (((Task) task).checkOverDue()) {
-				((Task) task).setOverdue();
-			} else {
-				((Task) task).setNotOverdue();
-			}
 		}
 	}
 }

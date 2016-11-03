@@ -42,21 +42,7 @@ public class SelectCommand extends Command {
         }
 
         EventsCenter.getInstance().post(new JumpToListRequestEvent(targetIndex - 1));
-        overdueOrNot();
         return new CommandResult(String.format(MESSAGE_SELECT_PERSON_SUCCESS, targetIndex));
 
     }
-    
-    //This method checks the entire list to check for overdue tasks
-   	private void overdueOrNot() throws IllegalValueException, DuplicateTagException {
-   		List<ReadOnlyTask> currentTaskList= model.getListOfTask().getTaskList();
-   		for(ReadOnlyTask task : currentTaskList){
-   			if(((Task) task).checkOverDue()){
-   				((Task) task).setOverdue();
-   			}
-   			else{
-   				((Task) task).setNotOverdue();
-   			}
-   		}
-   	}
 }

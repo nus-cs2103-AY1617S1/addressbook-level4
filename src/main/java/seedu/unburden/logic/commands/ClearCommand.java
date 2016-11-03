@@ -38,20 +38,7 @@ public class ClearCommand extends Command {
 		} catch (TaskNotFoundException pnfe) {
 			assert false : "The target task cannot be missing";
 		}
-		overdueOrNot();
 		return new CommandResult(MESSAGE_SUCCESS);
 	}
 	
-    //This method checks the entire list to check for overdue tasks
-	private void overdueOrNot() throws IllegalValueException, DuplicateTagException {
-		List<ReadOnlyTask> currentTaskList= model.getListOfTask().getTaskList();
-		for(ReadOnlyTask task : currentTaskList){
-			if(((Task) task).checkOverDue()){
-				((Task) task).setOverdue();
-			}
-			else{
-				((Task) task).setNotOverdue();
-			}
-		}
-	}
 }

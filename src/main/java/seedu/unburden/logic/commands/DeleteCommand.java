@@ -44,26 +44,12 @@ public class DeleteCommand extends Command {
         ReadOnlyTask taskToDelete = lastShownList.get(targetIndex - 1);
 
         try {
-        	model.saveToPrevLists();
+       	model.saveToPrevLists();
             model.deleteTask(taskToDelete);
         } catch (TaskNotFoundException pnfe) {
             assert false : "The target task cannot be missing";
         }
-        overdueOrNot();
         return new CommandResult(String.format(MESSAGE_DELETE_TASK_SUCCESS, taskToDelete));
     }
-    
-    //This method checks the entire list to check for overdue tasks
-    private void overdueOrNot() throws IllegalValueException, DuplicateTagException {
-		List<ReadOnlyTask> currentTaskList= model.getListOfTask().getTaskList();
-		for(ReadOnlyTask task : currentTaskList){
-			if(((Task) task).checkOverDue()){
-				((Task) task).setOverdue();
-			}
-			else{
-				((Task) task).setNotOverdue();
-			}
-		}
-	}
 
 }

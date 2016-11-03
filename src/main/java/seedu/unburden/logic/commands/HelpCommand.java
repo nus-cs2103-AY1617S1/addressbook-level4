@@ -68,7 +68,6 @@ public class HelpCommand extends Command {
 
 	@Override
 	public CommandResult execute() throws DuplicateTagException, IllegalValueException {
-		overdueOrNot();
 		EventsCenter.getInstance().post(new ShowHelpRequestEvent());
 		switch (whichCommand) {
 		case AddCommand.COMMAND_WORD:
@@ -93,18 +92,6 @@ public class HelpCommand extends Command {
 			return new CommandResult(HELP_MESSAGE_EXIT);
 		default:
 			return new CommandResult(HELP_MESSAGE_HELP);
-		}
-	}
-
-	// This method checks the entire list to check for overdue tasks
-	private void overdueOrNot() throws IllegalValueException, DuplicateTagException {
-		List<ReadOnlyTask> currentTaskList = model.getListOfTask().getTaskList();
-		for (ReadOnlyTask task : currentTaskList) {
-			if (((Task) task).checkOverDue()) {
-				((Task) task).setOverdue();
-			} else {
-				((Task) task).setNotOverdue();
-			}
 		}
 	}
 }

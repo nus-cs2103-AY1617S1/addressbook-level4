@@ -53,7 +53,6 @@ public class SetDirectoryCommand extends Command{
 			currentConfig.setTaskListFilePath(newDirectory);
 			ConfigUtil.saveConfig(currentConfig, currentConfigPath);
 			indicateStoragePathChange(currentDirectory, newDirectory);
-			overdueOrNot();
 			return new CommandResult(String.format(MESSAGE_SUCCESS, currentConfig.getTaskListFilePath()));
 			
 		} catch (DataConversionException e) {
@@ -63,16 +62,4 @@ public class SetDirectoryCommand extends Command{
 		}
 	}
 	
-	 //This method checks the entire list to check for overdue tasks
-		private void overdueOrNot() throws IllegalValueException, DuplicateTagException {
-			List<ReadOnlyTask> currentTaskList= model.getListOfTask().getTaskList();
-			for(ReadOnlyTask task : currentTaskList){
-				if(((Task) task).checkOverDue()){
-					((Task) task).setOverdue();
-				}
-				else{
-					((Task) task).setNotOverdue();
-				}
-			}
-		}
 }

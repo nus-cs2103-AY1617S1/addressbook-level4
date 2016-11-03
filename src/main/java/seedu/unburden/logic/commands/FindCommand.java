@@ -67,20 +67,8 @@ public class FindCommand extends Command {
 		case "name":
 			model.updateFilteredTaskList(getTasksWithSameNameOrTags(keywords));
 		}
-		overdueOrNot();
+		
 		return new CommandResult(getMessageForTaskListShownSummary(model.getFilteredTaskList().size()));
 	}
 	
-    //This method checks the entire list to check for overdue tasks
-	private void overdueOrNot() throws IllegalValueException, DuplicateTagException {
-		List<ReadOnlyTask> currentTaskList= model.getListOfTask().getTaskList();
-		for(ReadOnlyTask task : currentTaskList){
-			if(((Task) task).checkOverDue()){
-				((Task) task).setOverdue();
-			}
-			else{
-				((Task) task).setNotOverdue();
-			}
-		}
-	}
 }

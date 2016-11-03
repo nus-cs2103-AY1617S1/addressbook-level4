@@ -46,19 +46,6 @@ public class UnDoneCommand extends Command {
 
 		model.saveToPrevLists();
 		model.doneTask(taskToDone, false);
-		overdueOrNot();
 		return new CommandResult(String.format(MESSAGE_DELETE_TASK_SUCCESS, taskToDone));
-	}
-
-	// This method checks the entire list to check for overdue tasks
-	private void overdueOrNot() throws IllegalValueException, DuplicateTagException {
-		List<ReadOnlyTask> currentTaskList = model.getListOfTask().getTaskList();
-		for (ReadOnlyTask task : currentTaskList) {
-			if (((Task) task).checkOverDue()) {
-				((Task) task).setOverdue();
-			} else {
-				((Task) task).setNotOverdue();
-			}
-		}
 	}
 }

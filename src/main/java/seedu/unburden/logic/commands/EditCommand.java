@@ -101,7 +101,6 @@ public class EditCommand extends Command {
 
         	model.saveToPrevLists();
             model.editTask(taskToEdit, toEdit);
-            overdueOrNot();
             return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, lastShownList.get(targetIndex - 1)));
         } catch (TaskNotFoundException ee) {
             return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
@@ -111,17 +110,6 @@ public class EditCommand extends Command {
         
         
     }
-    //This method checks the entire list to check for overdue tasks
-    private void overdueOrNot() throws IllegalValueException, DuplicateTagException {
-		List<ReadOnlyTask> currentTaskList= model.getListOfTask().getTaskList();
-		for(ReadOnlyTask task : currentTaskList){
-			if(((Task) task).checkOverDue()){
-				((Task) task).setOverdue();
-			}
-			else{
-				((Task) task).setNotOverdue();
-			}
-		}
-	}
+
 }
  
