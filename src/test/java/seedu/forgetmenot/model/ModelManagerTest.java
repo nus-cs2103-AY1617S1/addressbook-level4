@@ -83,8 +83,8 @@ public class ModelManagerTest {
         StringBuilder addedTime = new StringBuilder("");
         for (int i = 0; i < Integer.parseInt(specifiedOccurences) - 1; i++) {
             addedTime.insert(0, "2 days after ");
-            toCheck = new TaskBuilder().withName("recurring task 5 times").withStartTime(addedTime + "tomorrow 9pm")
-                    .withEndTime(addedTime + "tomorrow 10pm").withDone(false).withRecurrence("2 days").build();
+            toCheck = new TaskBuilder().withName("recurring task 5 times").withStartTime(addedTime.toString() + "tomorrow 9pm")
+                    .withEndTime(addedTime.toString() + "tomorrow 10pm").withDone(false).withRecurrence("2 days").build();
             assertEquals(testModel.getTaskManager().getUniqueTaskList().getInternalList().get(i), toCheck);
 
         }
@@ -99,13 +99,11 @@ public class ModelManagerTest {
         testModel.addRecurringTask(recurringTask);
 
         TestTask toCheck;
-        String addedTime = "";
+        StringBuilder addedTime = new StringBuilder("");
         for (int i = 0; i < Recurrence.DEFAULT_OCCURENCE - 1; i++) {
-            addedTime = "day after " + addedTime;
-            System.out.println(addedTime);
+            addedTime.insert(0, "day after ");
             toCheck = new TaskBuilder().withName("recurring deadline task").withStartTime("")
-                    .withEndTime(addedTime + "tmr 10am").withDone(false).withRecurrence("day").build();
-            System.out.println("FOR DEBUGGING toCheck : " + toCheck);
+                    .withEndTime(addedTime.toString() + "tmr 10am").withDone(false).withRecurrence("day").build();
             assertEquals(testModel.getTaskManager().getUniqueTaskList().getInternalList().get(i), toCheck);
 
         }

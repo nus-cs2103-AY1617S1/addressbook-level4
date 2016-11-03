@@ -35,12 +35,6 @@ public class Time {
      */
     public Time(String input) throws IllegalValueException {
         input = input.trim();
-        
-//        if (input.equals("") || input.equals(new Date(0).toString())) {
-//            time = Calendar.getInstance();
-//            time.setTime(new Date(0));
-//            return;
-//        }
 
         time = Calendar.getInstance();
         
@@ -55,7 +49,6 @@ public class Time {
     	if(!taskTime.isEmpty() && !taskTime.equals(new Date(0).toString())){
     		List<DateGroup> dates = new Parser().parse(taskTime); // Using the Natty Parser()
     		if(dates.isEmpty()){
-    		    System.out.println("CHEEYEO LOOK HERE taskTime: " + taskTime + " && input:  " + input);
     			throw new IllegalValueException(MESSAGE_TIME_CONSTRAINTS);
     		}
     		else if(dates.get(0).getDates().isEmpty()){
@@ -72,7 +65,6 @@ public class Time {
     }
     
     /**
-     * 
      * @return true if the time parameter is missing
      */
     public boolean isMissing() {

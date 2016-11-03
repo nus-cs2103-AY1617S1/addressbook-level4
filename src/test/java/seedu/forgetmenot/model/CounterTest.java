@@ -32,28 +32,28 @@ public class CounterTest {
 //        assertTrue(ab.getFloatingCounter() == 3);
 //    }
 
-    @Test
-    public void counter_updateOverDueNumber_isCorrect() throws Exception {
-    	Calendar start = Calendar.getInstance();
-    	Calendar end = Calendar.getInstance();
-    	start.add(Calendar.HOUR, -2);
-    	end.add(Calendar.HOUR, -1);
-    	String startTime = dateFormat.format(start.getTime());
-    	String endTime = dateFormat.format(end.getTime());
-    	Task overdue1 = new Task(new Name("aaa"), new Done(false), new Time("yesterday"), new Time("today"), new Recurrence(""));
-    	Task overdue2 = new Task(new Name("bbb"), new Done(false), new Time("20/10/16"), new Time("2/12/16"), new Recurrence(""));
-    	Task overdue3 = new Task(new Name("ccc"), new Done(false), new Time("yesterday"), new Time(startTime), new Recurrence(""));
-    	Task overdue4 = new Task(new Name("ddd"), new Done(false), new Time(startTime), new Time(endTime), new Recurrence(""));
-    	Task overdue5 = new Task(new Name("ddd"), new Done(false), new Time("tomorrow"), new Time("day after tomorrow"), new Recurrence("")); //not overdue
-        TaskManager ab = new TaskManager();
-        ab.addTask(overdue1);
-        ab.addTask(overdue2);
-        ab.addTask(overdue3);
-        ab.addTask(overdue4);
-        ab.addTask(overdue5);
-        
-        assertTrue(ab.getOverdueCounter() == 4);
-    }
+//    @Test
+//    public void counter_updateOverDueNumber_isCorrect() throws Exception {
+//    	Calendar start = Calendar.getInstance();
+//    	Calendar end = Calendar.getInstance();
+//    	start.add(Calendar.HOUR, -2);
+//    	end.add(Calendar.HOUR, -1);
+//    	String startTime = dateFormat.format(start.getTime());
+//    	String endTime = dateFormat.format(end.getTime());
+//    	Task overdue1 = new Task(new Name("aaa"), new Done(false), new Time("yesterday"), new Time("today"), new Recurrence(""));
+//    	Task overdue2 = new Task(new Name("bbb"), new Done(false), new Time("20/10/16"), new Time("2/12/16"), new Recurrence(""));
+//    	Task overdue3 = new Task(new Name("ccc"), new Done(false), new Time("yesterday"), new Time(startTime), new Recurrence(""));
+//    	Task overdue4 = new Task(new Name("ddd"), new Done(false), new Time(startTime), new Time(endTime), new Recurrence(""));
+//    	Task overdue5 = new Task(new Name("ddd"), new Done(false), new Time("tomorrow"), new Time("day after tomorrow"), new Recurrence("")); //not overdue
+//        TaskManager ab = new TaskManager();
+//        ab.addTask(overdue1);
+//        ab.addTask(overdue2);
+//        ab.addTask(overdue3);
+//        ab.addTask(overdue4);
+//        ab.addTask(overdue5);
+//        
+//        assertTrue(ab.getOverdueCounter() == 4);
+//    }
     
     @Test
     public void counter_updateTomorrowCounter_isCorrect() throws Exception {
