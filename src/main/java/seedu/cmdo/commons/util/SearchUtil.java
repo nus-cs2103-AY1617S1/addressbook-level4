@@ -24,9 +24,9 @@ public class SearchUtil {
 	public static void setLTolerance(int newTolerance) {
 		levenshtein_tolerance = newTolerance;
 	}
-	
-	// For searching of all parameters
+
 	//@@author A0139661Y
+	// For searching of all parameters
     public static boolean containsIgnoreCase(String source, String query) {
         String[] split = source.toLowerCase().split("\\s+");
         List<String> strings = Arrays.asList(split);
@@ -35,8 +35,8 @@ public class SearchUtil {
         		.count() > 0;
     }
     
+    //@@author A0139661Y
     // For searching of tags.
-    // @@author A0139661Y
     public static boolean containsIgnoreCase(UniqueTagList source, String query) {
     	ArrayList<String> strings = new ArrayList<String>(); 
     	for (Tag t : source) {
@@ -47,15 +47,14 @@ public class SearchUtil {
         		.count() > 0;
     }
     
-	/**
+	//@@author A0112898U-reused
+    /**
 	 * String similarity checking and returns a percentage of
 	 * how similar the strings are
 	 * 
 	 * @param s1 - First string to check with.
 	 * @param s2 - Secnd string to check with.
 	 * @return double The percentage of the similarity of strings
-	 * 
-	 * @@author A0112898U-reused
 	 */
     public static double checkStringSimilarity(String s1, String s2) {
     	// s1 should always be bigger, for easy check thus the swapping.
@@ -74,14 +73,13 @@ public class SearchUtil {
         		(double) bigLen) * LEVENSHTEIN_FULL;
     }
     
+    //@@author A0112898U-reused
     /**
      * Computes the distance btw the 2 strings, via the Levenshtein Distance Algorithm
      * 
 	 * @param s1 - First string to check with.
 	 * @param s2 - Second string to check with.
      * @return the new cost to change to make the string same
-     * 
-     * @@author A0112898U-reused
      */
     private static int extractLDistance(String s1, String s2) {
         s1 = s1.toLowerCase();
@@ -111,6 +109,7 @@ public class SearchUtil {
         return costToChange[s2.length()];
     }
     
+    //@@author A0139661Y
     /**
      * Queries the task in question for date and time based on the user's NLP input.
      * 
@@ -118,8 +117,6 @@ public class SearchUtil {
      * @param dbt
      * @param query
      * @return boolean
-     * 
-     * @@author A0139661Y
      */
     public static boolean containsTimeAndDate(DueByDate dbd, DueByTime dbt, String query) {
     	Parser parser = new Parser();

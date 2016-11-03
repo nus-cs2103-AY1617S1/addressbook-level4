@@ -1,21 +1,52 @@
 package seedu.cmdo.logic.parser;
 
-import static seedu.cmdo.commons.core.Messages.*;
+import static seedu.cmdo.commons.core.Messages.MESSAGE_BLANK_DETAIL_WARNING;
+import static seedu.cmdo.commons.core.Messages.MESSAGE_ENCAPSULATE_DETAIL_WARNING;
+import static seedu.cmdo.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.cmdo.commons.core.Messages.MESSAGE_INVALID_PRIORITY;
+import static seedu.cmdo.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.ZoneId;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import com.joestelmach.natty.*;
+
+import com.joestelmach.natty.DateGroup;
+import com.joestelmach.natty.ParseLocation;
+import com.joestelmach.natty.Parser;
 
 import seedu.cmdo.commons.core.Messages;
 import seedu.cmdo.commons.exceptions.IllegalValueException;
 import seedu.cmdo.commons.util.StringUtil;
-import seedu.cmdo.logic.commands.*;
-import seedu.cmdo.model.Model;
+import seedu.cmdo.logic.commands.AddCommand;
+import seedu.cmdo.logic.commands.BlockCommand;
+import seedu.cmdo.logic.commands.ClearCommand;
+import seedu.cmdo.logic.commands.Command;
+import seedu.cmdo.logic.commands.DeleteCommand;
+import seedu.cmdo.logic.commands.DoneCommand;
+import seedu.cmdo.logic.commands.EditCommand;
+import seedu.cmdo.logic.commands.ExitCommand;
+import seedu.cmdo.logic.commands.FindCommand;
+import seedu.cmdo.logic.commands.HelpCommand;
+import seedu.cmdo.logic.commands.IncorrectCommand;
+import seedu.cmdo.logic.commands.ListCommand;
+import seedu.cmdo.logic.commands.RedoCommand;
+import seedu.cmdo.logic.commands.SelectCommand;
+import seedu.cmdo.logic.commands.StorageCommand;
+import seedu.cmdo.logic.commands.UndoCommand;
+import seedu.cmdo.logic.commands.UpDownCommand;
 import seedu.cmdo.model.task.Priority;
 
 /**
@@ -58,9 +89,7 @@ public class MainParser {
 	// Singleton
 	private static MainParser mainParser;
 	private static final Parser parser = new Parser();
-
-
-		
+	
     /**
      * Private constructor
      */
@@ -74,10 +103,9 @@ public class MainParser {
     	} return mainParser;
     }
     
+    //@@author A0139661Y
     /**
      * Initialize main parser.
-     * 
-     * @@author A0139661Y
      */
     private void init() {
     	datesAndTimes = new ArrayList<LocalDateTime>();
@@ -112,6 +140,7 @@ public class MainParser {
             
     	}
     	args = getCleanString(arguments);
+        args = convertToTo(args); 
         switch (commandWord) {
 
         case AddCommand.COMMAND_WORD:
@@ -345,14 +374,12 @@ public class MainParser {
     }
     
 //  ============== HELPER METHODS
+    //@@author A0139661Y
     /**
      * Processes parameters detail, dbt, dbd, priority.
      * 
      * @throws IllegalValueException if any are invalid.
-     * 
-     * @@author A0139661Y
      */
-    //@@author A0139661Y
     private void process() throws IllegalValueException {
     	extractDetail();			// Saves to detailToAdd
     	extractDueByDateAndTime(); 	// Saves to datesAndTimes
@@ -362,13 +389,11 @@ public class MainParser {
     	reset();         			// Clear dates and times		
 	}
 
-    
+    //@@author A0138471A
     /**
      * Extracts the detail embedded in user input ' '.
      * 
      * @throws IllegalValueException if only one ' found, or if detail is blank.
-     * 
-     * @@author A0139661Y
      */
     private void extractDetail() throws IllegalValueException {
     	checkValidDetailInput();
@@ -378,21 +403,28 @@ public class MainParser {
     	String output = new StringBuilder(details[0]).replace(details[0].lastIndexOf("'"), 
     													details[0].length(), 
     													"").toString();
+        // Details only, get rid of anything before the ' 
+        for(char o : output.toCharArray()) { 
+          if(o =='\''){ 
+            break; 
+          } 
+          else 
+            output=output.replaceFirst(".", ""); 
+        } 
     	// Get rid of the first '
     	output = output.replaceFirst("'","");
     	// Save to instance
     	detailToAdd = output;
-    	// return rear end
-    	args = new StringBuilder(details[0]).substring(details[0].lastIndexOf("'")+1).toString();
+        // return args without details 
+        args = args.replace(output, ""); 
     }
-        
+
+    //@@author A0138471A
     /**
      * Extracts the detail embedded in user input ' ' for edit purposes.
      * ie details are optional, and if they are input, should not be empty.
      * 
      * @throws IllegalValueException if detail is blank.
-     * 
-     * @@author A0139661Y
      */
     private void extractDetailForEdit() throws IllegalValueException {
     	if (!checkValidDetailInputForEdit()) {
@@ -405,14 +437,25 @@ public class MainParser {
     	String output = new StringBuilder(details[0]).replace(details[0].lastIndexOf("'"), 
     													details[0].length(), 
     													"").toString();
+        // Details only, get rid of anything before the ' 
+        for(char o : output.toCharArray()){ 
+          if(o =='\''){ 
+            break; 
+          } 
+          else 
+            output=output.replaceFirst(".", ""); 
+        } 
     	// Get rid of the first '
     	output = output.replaceFirst("'","");
     	// Save to instance
     	detailToAdd = output;
     	// return rear end
     	args = new StringBuilder(details[0]).substring(details[0].lastIndexOf("'")+1).toString();
+        // return args without details 
+        args = args.replace(output, ""); 
     }
 	
+    //@@author A0139661Y
     /**
      * Extracts the priority out of the args.
      * If / precedes neither high, medium or low, it will throw an error
@@ -420,8 +463,6 @@ public class MainParser {
      * 
      * @param splittedArgs an array of split user input
      * @return priority level string.
-     * 
-     * @@author A0139661Y
      */ 
     private String extractPriority() throws IllegalValueException {
     	List<String> rawArgs = Arrays.asList(splittedArgs);
@@ -442,10 +483,9 @@ public class MainParser {
     	return "";
     }
     
+    //@@author A0139661Y
     /** 
      * Takes out the date and time of the natural language input
-     *
-     * @@author A0139661Y
      */
     public void extractDueByDateAndTime() {
     	List<DateGroup> groups = parser.parse(args);
@@ -478,13 +518,12 @@ public class MainParser {
     	} catch (IndexOutOfBoundsException e) {} // No date/time found. Do nothing
     }
     
+    //@@author A0139661Y
     /**
      * Checks if the detail input is valid, as in, it requires the use of encapsulating ' ',
      * and must not be blank. This is used in conjunction with {@link #extractDetail()}.
      * 
      * @throws IllegalValueException if only one ' found, or if detail is blank.
-     * 
-     * @@author A0139661Y
      */
 	private void checkValidDetailInput() throws IllegalValueException {
     	// Check if only one ' used
@@ -495,13 +534,12 @@ public class MainParser {
     		throw new IllegalValueException(MESSAGE_BLANK_DETAIL_WARNING);
 	}
 	
-    /**
+    //@@author A0139661Y
+	/**
      * Checks if the detail input is valid, as in, it must not be blank. 
      * This is used in conjunction with {@link #extractDetailForEdit()}.
      * 
      * @throws IllegalValueException if only one ' found, or if detail is blank.
-     * 
-     * @@author A0139661Y
      */
 	private boolean checkValidDetailInputForEdit() throws IllegalValueException {
     	// Check if only one ' used
@@ -535,17 +573,21 @@ public class MainParser {
     	return new HashSet<>(tagStrings);
     }
     
+    //@@author A0139661Y
     /**
      * Utility method which replaces all redundant spaces
      * 
      * @param args an uncleaan string
      * @return a cleaned up string
-     * 
-     * @@author A0139661Y
      */
     private String getCleanString(String args) {
     	return args.trim().replaceAll("\\s+", " ");
     }
+    
+    //@@author A0138471A 
+    private String convertToTo(String args) { 
+    	return args.replaceAll(" - ", " to "); 
+    } 
     
     /**
      * Returns the specified index in the {@code command} IF a positive unsigned integer is given as the index.
@@ -566,13 +608,12 @@ public class MainParser {
         return Optional.of(Integer.parseInt(index));
     }
     
+    //@@author A0139661Y
     /**
      * Returns the specified index in the {@code command} IF a positive unsigned integer is given as the index.
      * An index is loose if there are arguments after the index.  
      *   
      * @return {@code Optional.empty()} otherwise.
-     *
-     * @@author A0139661Y
      */
     private Optional<Integer> parseLooseIndex(String command) {
         final Matcher matcher = TASK_LOOSE_INDEX_ARGS_FORMAT.matcher(command.trim());
@@ -587,23 +628,21 @@ public class MainParser {
         return Optional.of(Integer.parseInt(index));
     } 
 
-	/**
+	//@@author A0139661Y
+    /**
 	 * Checks for accidental '/' instead of ' /'.
 	 * 
 	 * @throws IllegalValueException
-	 *
-	 * @@author A0139661Y
 	 */
     private void checkPriorityValidity() throws IllegalValueException {
     	if (args.contains("/") && !args.contains(" /"))
     		throw new IllegalValueException(Messages.MESSAGE_INVALID_PRIORITY_SPACE);
 	}
 
+    //@@author A0139661Y
     /**
      * Checks if the user wants to edit time or priority.
      * Used in conjunction with {@link #prepareEdit()}
-     * 
-     * @@author A0139661Y
      */
     private void checkSpecialRequestInEdit() {
         //if keyword float is entered, it becomes a floating task (no date no time)
@@ -621,12 +660,11 @@ public class MainParser {
         
     }
     
+    //@@author A0139661Y
     /**
      * Tests to see if command ends in an index.
      * 
      * @return boolean indicative of where index is present
-     * 
-     * @@author A0139661Y
      */
     private boolean isIndexInCommandPresent() {
     	Optional<Integer> checkForIndex = parseIndex(args);
@@ -636,13 +674,12 @@ public class MainParser {
     	return true;
     }
 
+    //@@author A0139661Y
     /**
      * Tests to see if command ends in a loose index.
      * A loose index is an index with proceeding strings.
      * 
      * @return boolean indicative of where loose index is present
-     * 
-     * @@author A0139661Y
      */    
     private boolean isLooseIndexInCommandPresent() {
     	Optional<Integer> checkForIndex = parseLooseIndex(args);
@@ -652,7 +689,8 @@ public class MainParser {
     	return true;
     }
     
-	/**
+	//@@author A0139661Y
+    /**
 	 * Saves the date and time from list to dt family according to the following table
 	 * 
 	 * ______________________
@@ -662,8 +700,6 @@ public class MainParser {
 	 * | 1		| single DT	|
 	 * | 2		| two DT	|
 	 * ======================
-	 * 
-	 * @@author A0139661Y
 	 */
     private void saveDueByDateAndTime() {
     	if (datesAndTimes.size() == 1) {
@@ -679,13 +715,13 @@ public class MainParser {
     	}
 	}
     
+    
+    //@@author A0139661Y
     /**
      * Overrides the DBD and DBT when editing or adding a block task.
      * This is to comply with the constraints specified for blocks.
      * 
      * @throws IllegalValueException
-     * 
-     * @@author A0139661Y
      */
     private void overrideDueByDateAndTimeForBlock() throws IllegalValueException {
 		// Override saveDueByDateAndTime()

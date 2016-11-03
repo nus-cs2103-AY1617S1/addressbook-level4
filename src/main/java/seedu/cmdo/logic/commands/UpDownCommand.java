@@ -4,10 +4,9 @@ import seedu.cmdo.commons.core.EventsCenter;
 import seedu.cmdo.commons.events.ui.JumpToListRequestEvent;
 import seedu.cmdo.commons.events.ui.UpDownCommandEvent;
 
+//@@author A0141006B
 /**
  * Moves up and down the task list.
- * 
- * @@author A0141006B
  */
 public class UpDownCommand extends Command {
 

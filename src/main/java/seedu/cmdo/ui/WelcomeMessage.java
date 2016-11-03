@@ -7,11 +7,10 @@ import javafx.fxml.FXML;
 import seedu.cmdo.commons.core.LogsCenter;
 import java.util.logging.Logger;
 
+//@@author A0141006B-unused
 /**
  * To implement welcome screen
  * (in progress)
- * 
- * @@author A0141006B
  */
 
 public class WelcomeMessage extends UiPart {

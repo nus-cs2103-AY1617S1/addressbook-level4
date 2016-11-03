@@ -43,14 +43,13 @@ public class StorageManager extends ComponentManager implements Storage {
         userPrefStorage.saveUserPrefs(userPrefs);
     }
         
+    //@@author A0139661Y
     /**
      * Updates the user prefs file with filePath change.
      * 
      * @param filePath
      * @throws DataConversionException
      * @throws IOException
-     *
-     * @@author A0139661Y
      */
     @Override
     public void updateFilePathInUserPrefs(String filePath) throws DataConversionException, IOException {

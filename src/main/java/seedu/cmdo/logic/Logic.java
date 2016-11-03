@@ -27,6 +27,4 @@ public interface Logic {
 	ObservableList<ReadOnlyTask> getAllTaskList();
 
 	void handleJumpToListRequestEvent(JumpToListRequestEvent event);
-
-
 }

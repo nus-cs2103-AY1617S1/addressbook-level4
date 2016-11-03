@@ -14,7 +14,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import jfxtras.scene.control.CalendarPicker;
 import javafx.stage.Stage;
-import seedu.cmdo.MainApp;
 import seedu.cmdo.commons.core.Config;
 import seedu.cmdo.commons.core.GuiSettings;
 import seedu.cmdo.commons.core.LogsCenter;
@@ -22,11 +21,10 @@ import seedu.cmdo.commons.events.ui.ExitAppRequestEvent;
 import seedu.cmdo.logic.Logic;
 import seedu.cmdo.model.UserPrefs;
 
+//@@author A0141006B
 /**
  * The Main Window. Provides the basic application layout containing
  * a menu bar and space where other JavaFX elements can be placed.
- * 
- * @@author A0141006B
  */
 public class MainWindow extends UiPart {
 

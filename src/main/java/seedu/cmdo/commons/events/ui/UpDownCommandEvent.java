@@ -1,8 +1,8 @@
 package seedu.cmdo.commons.events.ui;
 
 import seedu.cmdo.commons.events.BaseEvent;
-import seedu.cmdo.logic.commands.Command;
 
+//@@author A0139661Y
 /**
  * Indicates an attempt to execute an incorrect command
  */
@@ -17,5 +17,4 @@ public class UpDownCommandEvent extends BaseEvent {
     public String toString() {
         return this.getClass().getSimpleName();
     }
-
 }

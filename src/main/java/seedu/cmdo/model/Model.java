@@ -38,7 +38,6 @@ public interface Model {
     
 	UnmodifiableObservableList<ReadOnlyTask> getAllTaskList();
 
-
     void updateFilteredListToShowBlocked();
     
     /** Updates the filter of the filtered task list to show all undone tasks by default **/

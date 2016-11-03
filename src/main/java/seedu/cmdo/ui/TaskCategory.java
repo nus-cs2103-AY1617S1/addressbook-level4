@@ -21,7 +21,6 @@ import seedu.cmdo.model.task.ReadOnlyTask;
 import javafx.scene.Node;
 
 //@@author A0141006B
-
 public class TaskCategory extends UiPart {
 	private static final Logger logger = LogsCenter.getLogger(WelcomeMessage.class);
 	private static final String FXML = "TaskCategory.fxml";	
@@ -216,7 +215,8 @@ public class TaskCategory extends UiPart {
         totalDoneNo.setFont(new Font(null, 20));
     }
 
-     /**
+    //@@author A0139661Y 
+    /**
      * Determines the time-state of the task in question
      * 
      * =======TIME-STATE TABLE=======
@@ -233,8 +233,6 @@ public class TaskCategory extends UiPart {
      * 
      * @param task (undone) in question
      * @return Integer based on the time-state
-     * 
-     * @@author A0139661Y
      */
     public Integer getTaskTimeState(ReadOnlyTask task) {
     	assert task != null;

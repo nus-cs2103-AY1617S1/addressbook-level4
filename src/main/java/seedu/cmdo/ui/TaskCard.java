@@ -21,12 +21,12 @@ import javafx.scene.text.Font;
 import seedu.cmdo.commons.events.ui.JumpToListRequestEvent;
 import seedu.cmdo.model.task.ReadOnlyTask;
 
+//@@author A0141006B
 /**
  * Task Card displays the individual tasks in the list.
  * 
  * @@author A0141006B
  */
-
 public class TaskCard extends UiPart{
 
     private static final String FXML = "TaskListCard.fxml";

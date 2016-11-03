@@ -5,6 +5,7 @@ import java.util.Stack;
 
 import seedu.cmdo.commons.core.EventsCenter;
 
+//@@author A0139661Y
 public class Undoer {
 	private static Undoer undoer;
 	private Stack<ReadOnlyToDoList> undoList;
@@ -48,14 +49,11 @@ public class Undoer {
 	 * Creates a snapshot of the ToDoList and saves it to the stack.
 	 * 
 	 * @param tdl ToDoList to be saved
-	 * 
-	 * @@author A0139661Y
 	 */
 	public void snapshot(ReadOnlyToDoList tdl) {
 		undoList.push(tdl);
 	}
 	
-	//@@ author A0139661Y
 	public ReadOnlyToDoList undo(ToDoList currentState) throws EmptyStackException {
 		if (undoList.size() <= 1 )
 			throw new EmptyStackException();
@@ -64,7 +62,6 @@ public class Undoer {
 		return topmost;	
 	}
 	
-	//@@author A0141006B
 	public ReadOnlyToDoList redo(ToDoList currentState) throws EmptyStackException {
 		if (redoList.size() <= 0)
 			throw new EmptyStackException();
@@ -73,7 +70,6 @@ public class Undoer {
 		return topmost;
 	}
 
-	//@@author A0139661Y
 	public void clearRedoStack() {
 		redoList.removeAllElements();
 	}
