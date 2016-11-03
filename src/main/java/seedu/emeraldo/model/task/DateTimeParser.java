@@ -248,14 +248,11 @@ public class DateTimeParser {
     }
     
     public static LocalDate valueDateCompletedFormatter(Matcher matcher) throws IllegalValueException{
-System.out.println("valueDateCompletedFormatter entered");	//TODO    
         String day = matcher.group("day");
         String month = matcher.group("monthInWords");
-        String year = matcher.group("year");
-System.out.println("valueDateCompletedFormatter strings matcher.group completed");	//TODO    
-System.out.println(day + " " + month + " " + year);	//TODO   
+        String year = matcher.group("year"); 
         month = convertMonthFromWordsToNumbers(month);
-System.out.println("valueDateCompletedFormatter convertMonthFromWordsToNumbers completed");	//TODO    
+
     	return LocalDate.of(Integer.parseInt(year), Integer.parseInt(month), Integer.parseInt(day));
     }
     

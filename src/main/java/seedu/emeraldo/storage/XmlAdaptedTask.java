@@ -57,7 +57,6 @@ public class XmlAdaptedTask {
             taskTags.add(tag.toModelType());
         }
 
-System.out.println("Task " + completedDateTime); //TODO
         final Description description = new Description(this.description);
         final DateTime dateTime = new DateTime(this.dateTime, this.completedDateTime);
         final UniqueTagList tags = new UniqueTagList(taskTags);
