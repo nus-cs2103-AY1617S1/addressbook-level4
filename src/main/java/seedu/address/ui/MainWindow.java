@@ -25,10 +25,9 @@ public class MainWindow extends UiPart {
 
     private static final String ICON = "/images/address_book_32.png";
     private static final String FXML = "MainWindow.fxml";
-    public static final int MIN_HEIGHT = 1020;
-    public static final int MIN_WIDTH = 1200;
+    public static final int MIN_HEIGHT = 870;
+    public static final int MIN_WIDTH = 1545;
     
-    private final String BLUE_THEME = getClass().getResource("/view/BlueTheme.css").toExternalForm();
     private final String DARK_THEME = getClass().getResource("/view/DarkTheme.css").toExternalForm();
     private final String AGENDA = getClass().getResource("/view/MyAgenda.css").toExternalForm();
 

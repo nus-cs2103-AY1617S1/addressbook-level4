@@ -221,32 +221,42 @@ public class UniqueTaskList implements Iterable<Task> {
         }
         return taskFoundAndArchived;
     }
-
+    
+    //Bad SLAP, needs improvement
+    public boolean overlapsForEdit(TaskOccurrence original, TaskOccurrence toCheck){
+        for(TaskOccurrence t: internalComponentList){
+            if(!t.equals(original) && t.getTaskReference().getName().fullName.equals(BlockCommand.DUMMY_NAME)){
+                if(!(!t.getEndDate().getDate()
+                        .after(toCheck.getStartDate().getDate())
+                        || !t.getStartDate().getDate()
+                                .before(toCheck.getEndDate().getDate()))) return true;
+            }
+        }
+        return false;
+    }
+    
     // @@author
     // @@author A0147995H
-    public boolean updateTask(Task target, Name name, UniqueTagList tags, TaskDate startDate, TaskDate endDate,
+    public boolean updateTask(TaskOccurrence target, Name name, UniqueTagList tags, TaskDate startDate, TaskDate endDate,
             RecurringType recurringType) throws TimeslotOverlapException {
         assert target != null;
 
         boolean taskFoundAndUpdated = false;
-        for (Task t : internalList) {
+        for (TaskOccurrence t : internalComponentList) {
             if (t.equals(target)) {
                 TaskDate realStartDate = startDate == null ? new TaskDate(TaskDate.DATE_NOT_PRESENT) : startDate;
                 TaskDate realEndDate = endDate == null ? new TaskDate(TaskDate.DATE_NOT_PRESENT) : endDate;
-                Task checkTask = new Task(target.getName(), target.getTags(), realStartDate, realEndDate,
+                Task checkTask = new Task(target.getTaskReference().getName(), target.getTaskReference().getTags(), realStartDate, realEndDate,
                         recurringType);
-                if (overlaps(checkTask))
+                if (overlapsForEdit(t, checkTask.getLastAppendedComponent()))
                     throw new TimeslotOverlapException();
-
-                t.updateTask(name, tags, startDate, endDate, recurringType);
+                t.getTaskReference().updateTask(name, tags, startDate, endDate, recurringType);
                 internalComponentList.clear();
                 for (Task h : internalList) {
-                    System.out.println(h.getName().fullName);
-                    System.out.println(h.getTaskDateComponent().get(0).getTaskReference().getName().fullName);
                     internalComponentList.addAll(h.getTaskDateComponent());
                 }
-
                 taskFoundAndUpdated = true;
+                break;
             }
         }
         return taskFoundAndUpdated;

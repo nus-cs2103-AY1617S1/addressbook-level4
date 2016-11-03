@@ -60,6 +60,7 @@
     -fx-text-fill: #010504;
 }
 
+/* Styles for navbar */
 #navbarView .list-cell {
     -fx-label-padding: 0 0 0 0;
     -fx-graphic-text-gap : 10;
@@ -93,7 +94,6 @@
     -fx-image:url('/images/task_icon.png');
     -fx-alignment:left;
 }
-
 
 .cell_big_label {
     -fx-font-size: 16px;

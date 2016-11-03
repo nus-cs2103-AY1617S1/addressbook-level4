@@ -1328,6 +1328,31 @@ public class LogicManagerTest {
         assertUndoRedoAble(String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, afterModification), expectedTM,
                 expectedTM.getTaskComponentList());
     }
+    
+    @Test
+    public void execute_editBlockedSlotNameAndTiming_Successful() throws Exception {
+        Task placebo = new Task(new Name(BlockCommand.DUMMY_NAME),new UniqueTagList(),
+                new TaskDate("2am"), new TaskDate("3am"), RecurringType.NONE);
+        Task beforeModification = new Task(new Name(BlockCommand.DUMMY_NAME),new UniqueTagList(),
+                new TaskDate("3am"), new TaskDate("6am"), RecurringType.NONE);
+        Task afterModification = new Task(new Name("Confirmed"),new UniqueTagList(),
+                new TaskDate("4am"), new TaskDate("5am"), RecurringType.NONE);
+        
+        model.addTask(placebo);
+        model.addTask(beforeModification);
+        TaskMaster expectedTM = new TaskMaster();
+        expectedTM.addTask(placebo);
+        expectedTM.addTask(afterModification);
+        TestDataHelper helper = new TestDataHelper();
+        List<TaskOccurrence> expectedComponentList = helper
+                .buildReadOnlyTaskComponentsFromTaskList(expectedTM.getTaskList());
+        // execute command and verify result
+        assertCommandBehavior("edit 2 Confirmed from 4am to 5am",
+                String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, afterModification), expectedTM,
+                expectedComponentList);
+        assertUndoRedoAble(String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, afterModification), expectedTM,
+                expectedTM.getTaskComponentList());
+    }
     // @@author
 
     /**

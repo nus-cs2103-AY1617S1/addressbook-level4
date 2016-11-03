@@ -48,7 +48,7 @@ public interface Model {
     void updateFilteredTaskList(Set<String> keywords, Set<String> tags, Date startDate, Date endDate, Date deadline);
 	
 	/** Edits the given task.*/
-	void editTask(Task target, Name name, UniqueTagList tags, TaskDate startDate, TaskDate endDate, RecurringType recurringType) throws TaskNotFoundException, TimeslotOverlapException;
+	void editTask(TaskOccurrence taskToEdit, Name name, UniqueTagList tags, TaskDate startDate, TaskDate endDate, RecurringType recurringType) throws TaskNotFoundException, TimeslotOverlapException;
 	
 	//@@author A0147967J
 	/** Returns previous filtering expression. */

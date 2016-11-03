@@ -29,7 +29,7 @@ public class MyAgenda extends Agenda {
         super();
 
         /** Sets preferred size */
-        setPrefSize(550, 700);
+        setPrefSize(760, 570);
 
         /** Sets css class. */
         this.getStyleClass().add(MyAgenda.class.getSimpleName());
