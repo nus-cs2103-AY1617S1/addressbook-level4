@@ -293,8 +293,9 @@ public class FilteredListManager {
         
         @Override
         public boolean run(ReadOnlyTask task) {
+            String[] splitTaskName = task.getName().fullName.split("\\s+");
             return nameKeyWords.stream()
-                    .filter(keyword -> StringUtil.isNearMatch(task.getName().fullName, keyword))
+                    .filter(kw -> StringUtil.isNearMatch(kw, splitTaskName))
                     .findAny()
                     .isPresent();
         }

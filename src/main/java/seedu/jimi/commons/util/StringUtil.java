@@ -2,6 +2,7 @@ package seedu.jimi.commons.util;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
@@ -16,10 +17,18 @@ public class StringUtil {
     
     private final static char[] ALPHABET = "abcdefghijklmnopqrstuvwxyz".toCharArray();
     
+    /** Returns true if any of the strings in {@code keywords} nearly matches {@code query}. */
+    public static boolean isNearMatch(String query, String... keywords) {
+        return Arrays.stream(keywords)
+                .filter(kw -> isNearMatch(kw, query))
+                .findAny()
+                .isPresent();
+    }
+    
     /**
      * Returns true if {@code query} is a near match of {@code source}, where: <br>
      * <ul>
-     * <li> {@code query} is a substring of {@code source} or {@code source} is a substring of {@code query}.
+     * <li> {@code query} is a substring of {@code source}.
      * <li> {@code query} is the same as {@code source} but missing a character.
      * <li> {@code query} is the same as {@code source} but differing by a character.
      * <li> {@code query} has identical character frequencies as {@code source}.
@@ -37,8 +46,9 @@ public class StringUtil {
         // Removing all spaces and converting both strings to lower case.
         String sourceNoSpaces = source.toLowerCase().replaceAll("\\s+", "");
         String queryNoSpaces = query.toLowerCase().replaceAll("\\s+", "");
-        if (sourceNoSpaces.contains(queryNoSpaces) || queryNoSpaces.contains(sourceNoSpaces)) {
-            return true; // Strings containing each other
+        
+        if (sourceNoSpaces.contains(queryNoSpaces)) {
+            return true; // Source string contains query.
         }
         
         HashMap<Character, Integer> srcFrequencyMap = generateCharFrequencyMap(sourceNoSpaces);
