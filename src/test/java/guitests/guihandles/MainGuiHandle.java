@@ -17,6 +17,14 @@ public class MainGuiHandle extends GuiHandle {
         return new PersonListPanelHandle(guiRobot, primaryStage);
     }
 
+    public DeadlineListPanelHandle getDeadlineListPanel() {
+        return new DeadlineListPanelHandle(guiRobot, primaryStage);
+    }
+    
+    public TodoListPanelHandle getTodoListPanel() {
+        return new TodoListPanelHandle(guiRobot, primaryStage);
+    }
+    
     public ResultDisplayHandle getResultDisplay() {
         return new ResultDisplayHandle(guiRobot, primaryStage);
     }
