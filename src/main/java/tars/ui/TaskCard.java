@@ -1,5 +1,7 @@
 package tars.ui;
 
+import java.time.LocalDateTime;
+
 import com.google.common.eventbus.Subscribe;
 
 import javafx.fxml.FXML;
@@ -10,6 +12,7 @@ import javafx.scene.shape.Circle;
 import tars.commons.events.model.TarsChangedEvent;
 import tars.commons.util.StringUtil;
 import tars.model.task.ReadOnlyTask;
+import tars.ui.formatter.DateFormatter;
 
 /**
  * UI Controller for Task Card
@@ -33,13 +36,7 @@ public class TaskCard extends UiPart {
     @FXML
     private Label id;
     @FXML
-    private Label start;
-    @FXML
-    private Label end;
-    @FXML
-    private Label startDate;
-    @FXML
-    private Label endDate;
+    private Label date;
     @FXML
     private Label statusTick;
     @FXML
@@ -82,19 +79,19 @@ public class TaskCard extends UiPart {
     }
 
     private void setDate() {
-        String startDateString = task.getDateTime().startDateString;
-        String endDateString = task.getDateTime().endDateString;
-        if (startDateString == null) {
-            startDate.setVisible(false);
-            startDate.setManaged(false);
-        } else if (startDateString != null) {
-            startDate.setText(startDateString);
-        }
-        if (endDateString == null) {
-            endDate.setVisible(false);
-            endDate.setManaged(false);
-        } else if (endDateString != null) {
-            endDate.setText(endDateString);
+        LocalDateTime startDateTime = task.getDateTime().getStartDate();
+        LocalDateTime endDateTime = task.getDateTime().getEndDate();
+        
+        if (startDateTime != null && endDateTime == null) {
+            date.setText(DateFormatter.generateSingleDateFormat(startDateTime));
+            return;
+        } else if (startDateTime == null && endDateTime != null) {
+            date.setText(DateFormatter.generateSingleDateFormat(endDateTime));
+            return;
+        } else if (startDateTime != null && endDateTime != null) {
+            date.setText(DateFormatter.generateDateRangeFormat(startDateTime, endDateTime));
+        } else {
+            date.setText("");
         }
     }
 
@@ -125,10 +122,7 @@ public class TaskCard extends UiPart {
         }
         id.setStyle(color);
         name.setStyle(color);
-        start.setStyle(color);
-        end.setStyle(color);
-        startDate.setStyle(color);
-        endDate.setStyle(color);
+        date.setStyle(color);
         tags.setStyle(color);
     }
 
