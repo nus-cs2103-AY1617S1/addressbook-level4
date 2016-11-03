@@ -243,6 +243,8 @@ public class UniqueTaskList implements Iterable<Task> {
         return toEdit;
     }
     private boolean isNotValidTime(String start, String end) {
+        if(start.compareTo("no start")==0 || end.compareTo("no end")==0)
+            return false;
         if(start.compareTo(end) >= 0)
             return true;
         return false;
