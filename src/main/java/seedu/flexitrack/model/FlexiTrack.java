@@ -175,7 +175,6 @@ public class FlexiTrack implements ReadOnlyFlexiTrack {
         setBlockList();
 
         if(blockList.getInternalList().size()==0) {
-            //System.out.println("block list equal to 0");
             return false;
         }
         for(Task forCheck: blockList) {

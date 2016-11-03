@@ -34,7 +34,6 @@ import seedu.flexitrack.logic.commands.IncorrectCommand;
 import seedu.flexitrack.logic.commands.ListCommand;
 import seedu.flexitrack.logic.commands.MarkCommand;
 import seedu.flexitrack.logic.commands.RedoCommand;
-import seedu.flexitrack.logic.commands.SelectCommand;
 import seedu.flexitrack.logic.commands.UndoCommand;
 import seedu.flexitrack.logic.commands.UnmarkCommand;
 import seedu.flexitrack.model.Model;
@@ -65,10 +64,10 @@ public class Parser {
         SHORTCUT_MAP.put(ListCommand.COMMAND_SHORTCUT, ListCommand.COMMAND_WORD);
         SHORTCUT_MAP.put(MarkCommand.COMMAND_SHORTCUT, MarkCommand.COMMAND_WORD);
         SHORTCUT_MAP.put(UnmarkCommand.COMMAND_SHORTCUT, UnmarkCommand.COMMAND_WORD);
-        SHORTCUT_MAP.put(SelectCommand.COMMAND_SHORTCUT, SelectCommand.COMMAND_WORD);
         SHORTCUT_MAP.put(BlockCommand.COMMAND_SHORTCUT, BlockCommand.COMMAND_WORD);
         SHORTCUT_MAP.put(UndoCommand.COMMAND_SHORTCUT, UndoCommand.COMMAND_WORD);
         SHORTCUT_MAP.put(RedoCommand.COMMAND_SHORTCUT, RedoCommand.COMMAND_WORD);
+        SHORTCUT_MAP.put(GapCommand.COMMAND_SHORTCUT, GapCommand.COMMAND_WORD);
     }  
 
     //@@author A0127686R
@@ -136,9 +135,6 @@ public class Parser {
 
         case BlockCommand.COMMAND_WORD:
             return prepareBlock(arguments);
-
-        case SelectCommand.COMMAND_WORD:
-            return prepareSelect(arguments);
 
         case EditCommand.COMMAND_WORD:
             return prepareEdit(arguments);
@@ -559,7 +555,6 @@ public class Parser {
         
         if (recurringType.equalsIgnoreCase("task")) {
             Date initialDueDate = new DateTimeInfoParser(matcher.group("dueDate")).getParsedDateTime();
-            System.out.println(initialDueDate);
             
             switch (occurrenceType.toLowerCase()) {
                 
@@ -571,7 +566,7 @@ public class Parser {
                     command.setData(model);
                     command.execute();
                 }
-                return new AddCommand(matcher.group("name"), matcher.group("dueDate"), EMPTY_TIME_INFO, EMPTY_TIME_INFO);
+                return new AddCommand(matcher.group("name"), matcher.group("dueDate"), EMPTY_TIME_INFO, EMPTY_TIME_INFO, numOfOccurrrence);
                 
             case "month" :
                 for(int i=1; i < numOfOccurrrence; i++) {
@@ -581,17 +576,16 @@ public class Parser {
                     command.setData(model);
                     command.execute();
                 }
-                return new AddCommand(matcher.group("name"), matcher.group("dueDate"), EMPTY_TIME_INFO, EMPTY_TIME_INFO);
+                return new AddCommand(matcher.group("name"), matcher.group("dueDate"), EMPTY_TIME_INFO, EMPTY_TIME_INFO, numOfOccurrrence);
                 
             default: 
                 for(int i=1; i < numOfOccurrrence; i++) {
                     formattedDueDate = dateIncrement(initialDueDate, DAY_INCREMENT, i);
-                    System.out.println(formattedDueDate);
                     Command command = new AddCommand(matcher.group("name"), formattedDueDate, EMPTY_TIME_INFO, EMPTY_TIME_INFO);
                     command.setData(model);
                     command.execute();
                 }
-                return new AddCommand(matcher.group("name"), matcher.group("dueDate"), EMPTY_TIME_INFO, EMPTY_TIME_INFO);
+                return new AddCommand(matcher.group("name"), matcher.group("dueDate"), EMPTY_TIME_INFO, EMPTY_TIME_INFO, numOfOccurrrence);
             }
             
         } else {  // Recurring Event
@@ -610,7 +604,7 @@ public class Parser {
                     command.setData(model);
                     command.execute();
                 }
-                return new AddCommand(matcher.group("name"), EMPTY_TIME_INFO, matcher.group("startTime"), matcher.group("endTime"));
+                return new AddCommand(matcher.group("name"), EMPTY_TIME_INFO, matcher.group("startTime"), matcher.group("endTime"), numOfOccurrrence);
                 
             case "month":
                 for(int i=1; i < numOfOccurrrence; i++) {
@@ -621,7 +615,7 @@ public class Parser {
                     command.setData(model);
                     command.execute();
                 }
-                return new AddCommand(matcher.group("name"), EMPTY_TIME_INFO, matcher.group("startTime"), matcher.group("endTime"));
+                return new AddCommand(matcher.group("name"), EMPTY_TIME_INFO, matcher.group("startTime"), matcher.group("endTime"), numOfOccurrrence);
             
             default:
                 for(int i=1; i < numOfOccurrrence; i++){
@@ -633,7 +627,7 @@ public class Parser {
                     command.setData(model);
                     command.execute();
                 }
-                return new AddCommand(matcher.group("name"), EMPTY_TIME_INFO, matcher.group("startTime"), matcher.group("endTime"));
+                return new AddCommand(matcher.group("name"), EMPTY_TIME_INFO, matcher.group("startTime"), matcher.group("endTime"), numOfOccurrrence);
             }
         }
     }
@@ -650,9 +644,7 @@ public class Parser {
     public String dateIncrement(Date initialDate, int incrementType, int incrementAmt) {
         final int DAYS_PER_WEEK = 7;
         Date newDate = new Date();
-     
-        System.out.println("Initial Date before increment: " + initialDate);
-        
+             
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(initialDate);
 
@@ -674,7 +666,6 @@ public class Parser {
             break;
         }
         
-        System.out.println(newDate);
         return new SimpleDateFormat("MM-dd-yyyy HHmmss").format(newDate);
     }
     //@@author 
@@ -707,22 +698,6 @@ public class Parser {
         }
 
         return new DeleteCommand(index.get());
-    }
-
-    /**
-     * Parses arguments in the context of the select task command.
-     *
-     * @param args
-     *            full command args string
-     * @return the prepared command
-     */
-    private Command prepareSelect(String args) {
-        Optional<Integer> index = parseIndex(args);
-        if (!index.isPresent()) {
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SelectCommand.MESSAGE_USAGE));
-        }
-
-        return new SelectCommand(index.get());
     }
 
     /**

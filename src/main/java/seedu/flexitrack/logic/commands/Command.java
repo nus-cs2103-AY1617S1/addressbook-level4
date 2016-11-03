@@ -56,7 +56,20 @@ public abstract class Command {
     }
     
     //@@author A0127686R
+    /**
+     * Record the command to perform undo 
+     * 
+     * @param command
+     */
     public void recordCommand(Command command){
         UndoCommand.doneCommandStack.add(command); 
+    }
+    
+    int getNumOfOccurrrence(){
+        return 0; 
+    }
+
+    void setNumOfOccurrrence(int numOfOccurrrence) {
+        assert numOfOccurrrence != 0;
     }
 }

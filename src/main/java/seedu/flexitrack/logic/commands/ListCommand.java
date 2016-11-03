@@ -28,21 +28,20 @@ public class ListCommand extends Command {
     public static final String LIST_NEXT_WEEK_COMMAND = "next week";
     public static final String LIST_NEXT_MONTH_COMMAND = "next month";
     public static final String LIST_UNSPECIFIED_COMMAND = "";
-            
+
     public final String arguments;
-    
+
     public ListCommand(String args) {
-        this.arguments = args; 
+        this.arguments = args;
     }
 
     @Override
     public CommandResult execute() {
-        if (arguments.equals(LIST_UNSPECIFIED_COMMAND)){
+        if (arguments.equals(LIST_UNSPECIFIED_COMMAND)) {
             model.updateFilteredListToShowAll();
+        } else {
+            model.updateFilteredListToFitUserInput(arguments);
         }
-        else {
-            model.updateFilteredListToFitUserInput( arguments );
-        }      
         return new CommandResult(MESSAGE_SUCCESS);
     }
 
