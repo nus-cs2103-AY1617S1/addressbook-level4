@@ -32,6 +32,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     private final TaskManager taskManager;
     private final FilteredList<Task> filteredTasks;
+    private final FilteredList<Task> filteredTasksForFloating;
     private Deque<TaskManager> taskManagerHistory = new ArrayDeque<TaskManager>();
     private Deque<TaskManager> undoHistory = new ArrayDeque<TaskManager>();
 
@@ -48,6 +49,7 @@ public class ModelManager extends ComponentManager implements Model {
 
         taskManager = new TaskManager(src);
         filteredTasks = new FilteredList<>(taskManager.getTasks());
+        filteredTasksForFloating = new FilteredList<>(taskManager.getTasks());
     }
 
     public ModelManager() {
@@ -57,6 +59,7 @@ public class ModelManager extends ComponentManager implements Model {
     public ModelManager(ReadOnlyTaskManager initialData, UserPrefs userPrefs) {
         taskManager = new TaskManager(initialData);
         filteredTasks = new FilteredList<>(taskManager.getTasks());
+        filteredTasksForFloating = new FilteredList<>(taskManager.getTasks());
     }
 
     @Override
@@ -302,6 +305,11 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList() {
         return new UnmodifiableObservableList<>(filteredTasks);
+    }
+    
+    @Override
+    public UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskListForFloating() {
+        return new UnmodifiableObservableList<>(filteredTasksForFloating);
     }
 
     //@@author A0147619W
