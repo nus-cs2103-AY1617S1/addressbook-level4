@@ -29,8 +29,15 @@ public class AddController implements Controller {
     private static final String DESCRIPTION = "Adds a task / event to the to-do list.\n"
                                             + "Accepts natural date formats (e.g. \"Today 5pm\" is allowed).";
     private static final String COMMAND_SYNTAX = "add <task> by <deadline> || add <event> from <start_date> to <end_date>";
-    
+
     private static final String MESSAGE_ADD_SUCCESS = "Item successfully added!";
+    private static final String STRING_WHITESPACE = "";
+    private static final String ADD_EVENT_TEMPLATE = "add event \"%s\" from \"%s\" to \"%s\"";
+    private static final String ADD_TASK_TEMPLATE = "add task \"%s\" by \"%s\"";
+    private static final String START_TIME_FIELD = "<start time>";
+    private static final String END_TIME_FIELD = "<end time>";
+    private static final String DEADLINE_FIELD = "<deadline>";
+    private static final String NAME_FIELD = "<name>";
     
     private static CommandDefinition commandDefinition =
             new CommandDefinition(NAME, DESCRIPTION, COMMAND_SYNTAX); 
@@ -64,7 +71,6 @@ public class AddController implements Controller {
 
     @Override
     public void process(String input) throws ParseException {
-        
         Map<String, String[]> parsedResult;
         parsedResult = Tokenizer.tokenize(getTokenDefinitions(), input);
         
@@ -234,19 +240,19 @@ public class AddController implements Controller {
     }
     
     private void renderDisambiguation(boolean isTask, String name, String naturalFrom, String naturalTo) {
-        name = StringUtil.replaceEmpty(name, "<name>");
-        naturalTo = StringUtil.replaceEmpty(name, "<end time>");
+        name = StringUtil.replaceEmpty(name, NAME_FIELD);
+        naturalTo = StringUtil.replaceEmpty(name, END_TIME_FIELD);
 
         String disambiguationString;
-        String errorMessage = ""; // TODO
+        String errorMessage = STRING_WHITESPACE; // TODO
         
         if (isTask) {
-            naturalFrom = StringUtil.replaceEmpty(naturalFrom, "<deadline>");
-            disambiguationString = String.format("add task \"%s\" by \"%s\"", name, naturalFrom);
+            naturalFrom = StringUtil.replaceEmpty(naturalFrom, DEADLINE_FIELD);
+            disambiguationString = String.format(ADD_TASK_TEMPLATE, name, naturalFrom);
         } else {
-            naturalFrom = StringUtil.replaceEmpty(naturalFrom, "<start time>");
-            naturalTo = StringUtil.replaceEmpty(naturalTo, "<end time>");
-            disambiguationString = String.format("add event \"%s\" from \"%s\" to \"%s\"", name, naturalFrom, naturalTo);
+            naturalFrom = StringUtil.replaceEmpty(naturalFrom, START_TIME_FIELD);
+            naturalTo = StringUtil.replaceEmpty(naturalTo, END_TIME_FIELD);
+            disambiguationString = String.format(ADD_EVENT_TEMPLATE, name, naturalFrom, naturalTo);
         }
         
         // Show an error in the console
