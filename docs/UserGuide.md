@@ -3,6 +3,7 @@
 
 * [Quick Start](#quick-start)
 * [Features](#features)
+* [UI Control](#ui-control)
 * [FAQ](#faq)
 * [Command Summary](#command-summary)
 
@@ -71,6 +72,7 @@ Examples:
 * `add CS2103 Workshop /desc OOP workshop /from 12-01-16 > 12-07-16` <br>
 
 <!-- @@author A0144702N -->
+
 #### Listing tasks
 Shows a list of tasks that are not marked done. Or shows a list of all tasks. <br>
 
@@ -203,6 +205,7 @@ Can go back to historical versions of dowat with the use of undo commands. Only 
 Format: `undo`
 
 <!-- @@author A0144702N -->
+
 #### Finding for events/tasks
 With the find command, you can find for tasks or events which contain some keywords in their **name** as well as in their **descriptions**. 
 
@@ -262,6 +265,7 @@ Examples:
   Clears all tasks and events.
   
 <!-- @@author A0144702N -->
+
 #### Toggle calendar view
 Toggle the view of calendar and focus to certain time time as user specified. 
 
@@ -281,7 +285,49 @@ Examples:
 #### Exiting the program
 Format : `exit`
 
+<!-- @@author A0121608N -->
 
+## UI Control
+
+#### Traversing between Windows
+The four main windows in which the user can traverse are:
+
+	* Command Box
+	* Result Display Panel
+	* Task Panel
+	* Event Panel
+
+By utilizing the TAB key, the user is able to switch between the different windows in the above-mentioned order. The order of traversal is descending down the list before it loops back to the beginning. 
+
+The window in which the user is currently on is shown by a brown border highlight.
+
+<img src="images/MockUI.png" width="600">
+
+
+#### Command Box Features
+When the Command Box is selected, it has 3 main features:
+
+* Clearing the Command Box
+
+	Pressing the DELETE key will clear the Command Box of its text content. This allows for easy clearing of commands.
+
+* Accessing past History of Commands
+	
+	Pressing the UP key will access the previous command in the history and will copy it into the Command Box. Pressing the DOWN key will access the next command in the history and will copy it into the Command Box. 
+
+	The Command history resets itself after each session of usage (i.e exit the program).
+
+#### Result Display Panel Features
+When the Result Display Panel is selected, it has a scrolling feature where the UP and DOWN key would be able to control the scroll bar within the window. This prevents the need to use the mouse wheel for scrolling.
+
+#### Task and Event Panel Features
+When the Task or Event Panel is selected, it has a scrolling feature where the UP and DOWN key would be able to control the scroll bar within the window. This prevents the need to use the mouse wheel for scrolling.
+
+<!-- @@author-->
+
+#### Interpreting Task and Event Card
+
+#### Calendar thingies
 
 ## FAQ
 
