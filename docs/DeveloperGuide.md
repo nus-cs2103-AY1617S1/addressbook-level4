@@ -67,8 +67,9 @@ Each of the four components
 * Defines its _API_ an interface with the same name as the Component. `Logic.java`
 * Exposes its functionality using a `{Component Name}Manager` class e.g. `LogicManager.java`
 
+<!-- @@author A0127570H -->
 The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the
-command `delete 1`.
+command `delete /t 1`.
 
 <img src="images\SDforDeleteTask.png" width="800">
 
@@ -104,8 +105,9 @@ The `UI` component,
 * Executes user commands using the `Logic` component.
 * Binds itself to some data in the `Model` so that the UI can auto-update when data in the `Model` change.
 * Responds to events raises from various parts of the App and updates the UI accordingly.
-
+<!-- @@author -->
 <!-- @@author A0144702N -->
+
 ### Logic component
 
 <img src="images/LogicClassDiagram.png" width="800"><br>
@@ -119,6 +121,7 @@ The `UI` component,
 5. The UndoableCommandHistory applies the Singleton pattern which holds the sole copy of the modifications done to the Taskbook. 
 6. We did not choose to store a list of events/tasks, or copies of taskbooks as a history. Instead, we chose to store a stack of commands which are more lightweighted, and occupy less storage. 
 <!-- @@author  -->
+<!-- @@author A0127570H -->
 
 ### Model component
 
@@ -128,7 +131,7 @@ The `UI` component,
 
 The `Model`,
 * Stores a `UserPref` object that represents the user's preferences
-* Stores the Address Book data
+* Stores the dowat data
 * Exposes a `UnmodifiableObservableList<ReadOnlyTask>` as well as `UnmodifiableObservableList<ReadOnlyEvent>` that can be 'observed' e.g. the UI can be bound to this list
   so that the UI automatically updates when the data in the list change.
 * Does not depend on any of the other three components.
@@ -141,7 +144,8 @@ The `Model`,
 
 The `Storage` component,
 * can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in xml format and read it back.
+* can save dowat data in xml format and read it back.
+<!-- @@author  -->
 
 ### Common classes
 
@@ -210,7 +214,6 @@ Priority | As a ... | I want to ... | So that I can...
 `* * *` | user | be able to list all the tasks in the database | keep track of all my tasks that I have to do 
 `* * *` | user | be able to list the tasks undone or done | keep track of tasks which are done which are not
 `* * *` | user | be able to edit the description of an existing task in the program | keep my tasks updated
-`* * *` | user | be able to edit the priority of an existing task in the program | keep my priorities updated
 `* * *` | user | be able to edit the deadline of an existing task in the program | keep the deadlines for my tasks updated
 `* * *` | user | be able to edit the occurrence and duration of an event in the program | keep my events updated
 `* * *` | user | be able to mark the completion of an existing task in the program | keep update list of uncompleted tasks 
@@ -219,9 +222,8 @@ Priority | As a ... | I want to ... | So that I can...
 `* * *` | user | be able to seek help with the operations and commands of the program | keep the program user friendly
 `* * *` | user | be able to exit the program | keep a proper shutdown of the program
 `* * *` | user | be able to simple search for tasks using keywords that are in the name and description | retrieve tasks easily
-`* * *` | user | be able undo the most recent modification | revert from unintended modifications. 
-`* * *` | user | be able to use flexible commands when adding tasks | have greater flexibility in adding tasks.
-`* *` | user | be able to edit the category of an existing task or event in the program | correct any changes in categorization
+`* * *` | user | be able undo the most recent modification | revert from unintended modifications
+`* * *` | user | be able to use flexible commands when adding tasks | have greater flexibility in adding tasks
 `* *` | user | be able to search any words related to a task | retrieve tasks more easily
 `* *` | user | see a snapshot of events in the calendar view | retrieve informaiton in a graphical way.
 
