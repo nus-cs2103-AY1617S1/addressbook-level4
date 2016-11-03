@@ -2,6 +2,11 @@ package tars.ui;
 
 import javafx.scene.paint.Color;
 
+/**
+ * Manages color for UI parts
+ * @@author A0121533W
+ *
+ */
 public class UiColor {
 
     public static final String STATUS_UNDONE_TEXT_FILL =
