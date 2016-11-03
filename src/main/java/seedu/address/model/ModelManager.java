@@ -207,10 +207,12 @@ public class ModelManager extends ComponentManager implements Model {
         indicateTaskBookChanged();
         raise(new UpdateListCountEvent(this));
     }
-
+    
+    //@@author A0139024M
     private void checkClashingEvents(Task target) {
         filteredDatedTasks.setPredicate((new PredicateExpression(new ClashingQualifier(target)))::satisfies);
     }
+    //@@author
 
     //@@author A0143884W
     @Override
@@ -500,7 +502,9 @@ public class ModelManager extends ComponentManager implements Model {
                     && inputDate.getYear() == other.getYear();
         }
     }
-
+  //@@author
+    
+    //@@author A0139024M
     private class ClashingQualifier implements Qualifier {
         private ReadOnlyTask newDatedTask;
 
