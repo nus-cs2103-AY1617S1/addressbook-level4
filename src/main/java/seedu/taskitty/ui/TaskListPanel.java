@@ -86,13 +86,13 @@ public abstract class TaskListPanel extends UiPart {
                     setGraphic(TodoCard.load(task, getIndex() + 1).getLayout());
                     break;
                 
-                case (DeadlineListPanel.DEADLINE_CARD_ID):
+                /*case (DeadlineListPanel.DEADLINE_CARD_ID):
                     setGraphic(DeadlineCard.load(task, getIndex() + 1).getLayout());
                     break;
                     
                 case (EventListPanel.EVENT_CARD_ID):
                     setGraphic(EventCard.load(task, getIndex() + 1).getLayout());
-                    break;
+                    break;*/
                 
                 default:
                     setGraphic(TodoCard.load(task, getIndex() + 1).getLayout());
