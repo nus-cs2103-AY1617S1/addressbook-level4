@@ -83,7 +83,7 @@ public class ModelManager extends ComponentManager implements Model {
     
     private void initRecurringTaskManager() {
         RecurringTaskManager.getInstance().setTaskList(taskMaster.getUniqueTaskList());
-        if (RecurringTaskManager.getInstance().updateAnyRecurringTasks()) {
+        if (RecurringTaskManager.getInstance().appendAnyRecurringTasks()) {
             indicateTaskListChanged();
         }
     }    
@@ -134,6 +134,7 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public synchronized void archiveTask(TaskOccurrence target) throws TaskNotFoundException {
         taskMaster.archiveTask(target);
+        RecurringTaskManager.getInstance().updateRecurringTasks(target);
         indicateTaskListChanged();
         updateFilteredTaskList(previousExpression);
         

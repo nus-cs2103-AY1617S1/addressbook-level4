@@ -76,7 +76,7 @@ public class TaskTester {
         }
         
         public Task createNonFloatingTask(RecurringType type) throws IllegalValueException {
-            return new Task(new NameStub("dummy"), new UniqueTagListStub(), new TaskDateStub(), new TaskDateStub(), type);
+            return new Task(new NameStub("dummy"), new UniqueTagListStub(), new TaskDateStub(), new TaskDateStub(), type, Task.NO_RECURRING_PERIOD);
         }
         
         public TaskOccurrenceStub createTaskOccurenceStub(Task task) {

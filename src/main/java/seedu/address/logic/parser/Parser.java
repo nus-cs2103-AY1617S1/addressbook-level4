@@ -101,6 +101,9 @@ public class Parser {
     private static final Pattern RECURRING_TASK_DATA_ARGS_FORMAT = Pattern
             .compile("(?<recurring>\\b(?i)daily|weekly|monthly|yearly|none(?i)\\b)");
 
+    private static final Pattern RECURRING_TASK_PERIOD_DATA_ARGS_FORMAT = Pattern
+            .compile("repeat (?<period>\\d+)");    
+    
     private static final Pattern BLOCK_DATA_ARGS_FORMAT = // '/' forward slashes
                                                           // are reserved for
                                                           // delimiter prefixes
@@ -251,7 +254,6 @@ public class Parser {
     private Command prepareAddNonFloating(String args) {
         final Matcher matcher = NON_FLOATING_TASK_DATA_ARGS_FORMAT.matcher(args.trim());
         matcher.matches();
-
         if (matcher.group("deadline") != null) {
             return prepareAddNonFloatingByDate(matcher);
         } else {
@@ -259,17 +261,29 @@ public class Parser {
         }
     }
 
-    private RecurringType checkForRecurringTask(String args) {
+    private RecurringType prepareRecurringTask(String args) {
         final Matcher matcher = RECURRING_TASK_DATA_ARGS_FORMAT.matcher(args.trim());
         RecurringType recurringType = RecurringType.IGNORED;
         if (!matcher.find()) {
             return recurringType;
         } else {
-
             recurringType = DateParser.getInstance().
                     extractRecurringInfo(matcher.group("recurring"));
         }
         return recurringType;
+    }
+
+    private int extractRecurringTaskPeriod(String args) {
+        final Matcher matcher = RECURRING_TASK_PERIOD_DATA_ARGS_FORMAT.matcher(args.trim());
+        if (!matcher.find()) {
+            return 0;
+        }
+        try {
+            final int period = DateParser.getInstance().extractRecurringPeriod(matcher.group("period"));
+            return period;
+        } catch (NumberFormatException nfe) {
+            return 0;
+        }
     }
 
     /**
@@ -285,14 +299,16 @@ public class Parser {
      */
     private Command prepareAddNonFloatingByDate(Matcher matcher) {
         String endInput = matcher.group("deadline");
-        RecurringType recurringType = checkForRecurringTask(endInput);
+        RecurringType recurringType = prepareRecurringTask(endInput);
         if (recurringType == RecurringType.IGNORED) {
             recurringType = RecurringType.NONE;
         }
+        final int repeatCount = extractRecurringTaskPeriod(endInput);
         try {
             return new AddNonFloatingCommand(matcher.group("name"), getTagsFromArgs(matcher.group("tagArguments")),
-                    new TaskDate(TaskDate.DATE_NOT_PRESENT), new TaskDate(DateParser.getInstance().getDateFromString(endInput).getTime()),
-                    recurringType);
+                    new TaskDate(TaskDate.DATE_NOT_PRESENT), 
+                    new TaskDate(DateParser.getInstance().getDateFromString(endInput).getTime()),
+                    recurringType, repeatCount);
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
         }
@@ -312,15 +328,17 @@ public class Parser {
     private Command prepareAddNonFloatingFromDateToDate(Matcher matcher) {
         String startInput = matcher.group("startTime");
         String endInput = matcher.group("endTime");
-        RecurringType recurringType = checkForRecurringTask(endInput);
+        RecurringType recurringType = prepareRecurringTask(endInput);
         if (recurringType == RecurringType.IGNORED) {
             recurringType = RecurringType.NONE;
         }
+        final int repeatCount = extractRecurringTaskPeriod(endInput);        
         try {
             List<Date> datesToAdd = DateParser.getInstance().getFromToDatesFromString(startInput);
             return new AddNonFloatingCommand(matcher.group("name"), getTagsFromArgs(matcher.group("tagArguments")),
                     new TaskDate(datesToAdd.get(0)),
-                    new TaskDate(datesToAdd.get(1)), recurringType);
+                    new TaskDate(datesToAdd.get(1)), 
+                    recurringType, repeatCount);
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
         }
@@ -585,11 +603,11 @@ public class Parser {
             ArrayList<Date> dateSet = extractDateInfo(m);
             if (dateSet.size() == ONLY_DEADLINE) {
                 endTime = dateSet.get(DEADLINE_INDEX);
-                recurringType = checkForRecurringTask(m.group("deadline"));
+                recurringType = prepareRecurringTask(m.group("deadline"));
             } else if (dateSet.size() == TIME_PERIOD) {
                 startTime = dateSet.get(START_TIME_INDEX);
                 endTime = dateSet.get(END_TIME_INDEX);
-                recurringType = checkForRecurringTask(m.group("startTime"));
+                recurringType = prepareRecurringTask(m.group("startTime"));
             }
 
             tagSet = getTagsFromArgs(m.group("tagArguments"));
@@ -613,11 +631,11 @@ public class Parser {
             ArrayList<Date> dateSet = extractDateInfo(m);
             if (dateSet.size() == ONLY_DEADLINE) {
                 endTime = dateSet.get(DEADLINE_INDEX);
-                recurringType = checkForRecurringTask(m.group("deadline"));
+                recurringType = prepareRecurringTask(m.group("deadline"));
             } else if (dateSet.size() == TIME_PERIOD) {
                 startTime = dateSet.get(START_TIME_INDEX);
                 endTime = dateSet.get(END_TIME_INDEX);
-                recurringType = checkForRecurringTask(m.group("startTime"));
+                recurringType = prepareRecurringTask(m.group("startTime"));
             }
 
             tagSet = getTagsFromArgs(m.group("tagArguments"));
@@ -657,7 +675,7 @@ public class Parser {
         // -------Parts for detecting recurring information-----------------
         String[] words = taskName.split(" ");
         String lastWord = words[words.length - 1];
-        recurringType = checkForRecurringTask(lastWord);
+        recurringType = prepareRecurringTask(lastWord);
         if (recurringType != RecurringType.IGNORED) {
             taskName = (words.length == 1) ? "" : taskName.substring(0, taskName.length() - lastWord.length());
         }

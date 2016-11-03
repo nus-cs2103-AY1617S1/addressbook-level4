@@ -226,7 +226,7 @@ public class TaskMaster implements ReadOnlyTaskMaster {
     public boolean updateTask(TaskOccurrence target, Name name, UniqueTagList tags, TaskDate startDate, TaskDate endDate,
             RecurringType recurringType) throws TaskNotFoundException, TimeslotOverlapException {
         int index = tasks.getInternalComponentList().indexOf(target);
-        if (tasks.updateTask(target, name, tags, startDate, endDate, recurringType)) {
+        if (tasks.updateTask(target, name, tags, startDate, endDate, recurringType, Task.NO_RECURRING_PERIOD)) {
             if (tags != null) {
                 this.tags.mergeFrom(tags);
 

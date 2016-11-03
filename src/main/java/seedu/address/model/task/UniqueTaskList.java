@@ -238,7 +238,7 @@ public class UniqueTaskList implements Iterable<Task> {
     // @@author
     // @@author A0147995H
     public boolean updateTask(TaskOccurrence target, Name name, UniqueTagList tags, TaskDate startDate, TaskDate endDate,
-            RecurringType recurringType) throws TimeslotOverlapException {
+            RecurringType recurringType, int recurringPeriod) throws TimeslotOverlapException {
         assert target != null;
 
         boolean taskFoundAndUpdated = false;
@@ -247,7 +247,7 @@ public class UniqueTaskList implements Iterable<Task> {
                 TaskDate realStartDate = startDate == null ? new TaskDate(TaskDate.DATE_NOT_PRESENT) : startDate;
                 TaskDate realEndDate = endDate == null ? new TaskDate(TaskDate.DATE_NOT_PRESENT) : endDate;
                 Task checkTask = new Task(target.getTaskReference().getName(), target.getTaskReference().getTags(), realStartDate, realEndDate,
-                        recurringType);
+                        recurringType, recurringPeriod);
                 if (overlapsForEdit(t, checkTask.getLastAppendedComponent()))
                     throw new TimeslotOverlapException();
                 t.getTaskReference().updateTask(name, tags, startDate, endDate, recurringType);

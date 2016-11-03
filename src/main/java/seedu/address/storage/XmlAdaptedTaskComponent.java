@@ -113,7 +113,7 @@ public class XmlAdaptedTaskComponent {
             toBeAdded = RecurringType.valueOf(recurringType);
         }
         
-        Task task = new Task(name, tags, taskStartDate, taskEndDate, toBeAdded);
+        Task task = new Task(name, tags, taskStartDate, taskEndDate, toBeAdded, Task.NO_RECURRING_PERIOD);
         if(isArchived){
         	task.setTaskType(TaskType.COMPLETED);
         	for(TaskOccurrence t: task.getTaskDateComponent()){

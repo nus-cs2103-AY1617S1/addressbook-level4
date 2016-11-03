@@ -77,4 +77,8 @@ public class DateParser {
             instance = new DateParser();
         return instance;
     }
+
+    public int extractRecurringPeriod(String group) throws NumberFormatException {
+        return Integer.parseInt(group);
+    }
 }
