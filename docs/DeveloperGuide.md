@@ -311,14 +311,14 @@ Priority | As a ... | I want to ... | So that I can...
 `* * *` | user | create floating tasks | tasks can be created without specific times
 `* * *` | user | change the default storage path | sync the cloud services to access data from multiple computers
 `* * *` | user | exit the task list | close the task list 
-`* *` | user | use up arrow or down arrow to reuse previous command(s) | minimise re-typing
+`* *` | user | use up arrow or down arrow to reuse previous command(s) | revert the previous command
 `* *` | user | indicate overdue tasks with color code (red) | easily to track overdue task
 `* *` | user | indicate a completed task with color code (green) | easily to track done task  
 `* *` | user | make a task recurring | duplicate a task for specific number of days  
 `* *` | user | have a ui that display useful information | manage my task list easily
 `* *` | user | have powerful search function | find tasks easily
 `* *` | user | sort my task by date/time | see the task that needs to be done first
-`*` | user | redo a command | revert the previous command
+`*` | user | select a task | display and refer to the task's command 
 `*` | user | unmark a task | unmark the task that is accidentally marked as completed
 `*` | user | lock task scheduler(with a password) | prevent unauthorized access/modification 
 
@@ -388,29 +388,7 @@ Use case ends.
 
 > Use case ends
 
-#### Use case 5: Select task
-
-**MSS**
-
-1. User requests to list tasks
-2. MustDoList shows a list of tasks
-3. User requests to select the index of a specific task in the list
-4. MustDoList highlight the selected task in the list
-Use case ends.
-
-**Extensions**
-
-2a. The list is empty
-
-> Use case ends
-
-3a. The given index is invaild
-
-> 3a1. MustDoList shows an error message <br>
-  Use case resumes at step 3
-
-
-#### Use case 6: Delete task
+#### Use case 5: Delete task
 
 **MSS**
 
@@ -431,7 +409,7 @@ Use case ends.
 > 3a1. MustDoList shows an error message <br>
   Use case resumes at step 3
 
-#### Use case 7: Clear task
+#### Use case 6: Clear task
 
 **MSS**
 
@@ -439,7 +417,7 @@ Use case ends.
 2. MustDoList clears all entries of tasks <br>
 Use case ends.
 
-#### Use case 8: Edit task
+#### Use case 7: Edit task
 
 **MSS**
 
@@ -466,7 +444,7 @@ Use case ends.
   Use case resumes at step 3
   
 
-#### Use case 9: Undo task
+#### Use case 8: Undo task
 
 **MSS**
 
@@ -480,7 +458,7 @@ Use case ends.
 > 2a1. MustDoList shows an error message <br>
   Use case ends.
   
-#### Use case 10: Mark task
+#### Use case 9: Mark task
 
 **MSS**
 
@@ -500,7 +478,7 @@ Use case ends
 > 3a1. MustDoList shows an error message <br>
   Use case resumes at step 2
 
-#### Use case 11: Set storage path
+#### Use case 10: Set storage path
 
 **MSS**
 
@@ -514,8 +492,8 @@ Use case ends.
 
 > 1a1. MustDoList shows an error message <br>
   Use case resumes at step 1
-
-#### Use case 12: Exit task list
+  
+#### Use case 11: Exit task list
 
 **MSS**
 
@@ -523,7 +501,7 @@ Use case ends.
 2. MustDoList closes the task list <br>
 Use case ends.
 
-#### Use case 13: Recur a task
+#### Use case 12: Recur a task
 
 **MSS**
 
@@ -548,22 +526,29 @@ Use case ends
 
 > 3b1. MustDoList shows an error message <br>
   Use case resumes at step 3
-  
-#### Use case 14: Redo task
+
+#### Use case 13: Select task
 
 **MSS**
 
-1. User requests to redo task
-2. MustDoList redo the task <br>
+1. User requests to list tasks
+2. MustDoList shows a list of tasks
+3. User requests to select the index of a specific task in the list
+4. MustDoList highlight the selected task in the list
 Use case ends.
 
 **Extensions**
 
-2a. The task list is at initial stage
-> 2a1. MustDoList shows an error message <br>
-  Use case ends.
-  
-#### Use case 15: Unmark task
+2a. The list is empty
+
+> Use case ends
+
+3a. The given index is invaild
+
+> 3a1. MustDoList shows an error message <br>
+  Use case resumes at step 3  
+
+#### Use case 14: Unmark task
 
 **MSS**
 
