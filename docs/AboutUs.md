@@ -31,24 +31,24 @@ We are a team based in the [School of Computing, National University of Singapor
 
 #### [Li Xiaowei](https://github.com/LiXiaoooowei)
 <img src="images/LiXiaowei.jpg" width="150"><br>
-    •	Components in charge of: Logic and Common
-    •	Aspects/tool in charge of: Testing
-    •	Features implemented:
-        o	Flexi command for adding a task/event
-        o	
-    •	Code written: [<src="../collated/main/A0146123R.md">functional code</src>][test code][docs]
-    •	Other major contributions:
-        o	
+    •	Components in charge of: Logic and Common<br>
+    •	Aspects/tool in charge of: Testing<br>
+    •	Features implemented:<br>
+        o	Flexi command for adding a task/eve<br>nt<br>
+        o	<br>
+    •	Code written: [<link="../collated/main/A0146123R.md">functional code</link>][test code][docs]<br>
+    •	Other major contributions:<br>
+        o	<br>
         
 -----
 
 #### [Angeline Neoh Xing Yii](https://github.com/angellineeee)
 <img src="images/AngelineNeoh.jpg" width="150"><br>
-    •	Components in charge of: UI
-    •	Aspects/tool in charge of: Documentation and Integration
-    •	Features implemented:
-        o	Edit a task/event field
-        o	
-    •	Code written: [functional code][test code][docs]
-    •	Other major contributions:
-        o	
+    •	Components in charge of: UI<br>
+    •	Aspects/tool in charge of: Documentation and Integration<br>
+    •	Features implemented:<br>
+        o	Edit a task/event field<br>
+        o	<br>
+    •	Code written: [functional code][test code][docs]<br>
+    •	Other major contributions:<br>
+        o	<br>
