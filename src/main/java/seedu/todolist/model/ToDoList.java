@@ -1,12 +1,7 @@
 package seedu.todolist.model;
 
 import javafx.collections.ObservableList;
-<<<<<<< HEAD
 import seedu.todolist.commons.exceptions.IllegalValueException;
-import seedu.todolist.model.tag.Tag;
-import seedu.todolist.model.tag.UniqueTagList;
-=======
->>>>>>> 39310372efc4754a66a9051c1604761f9e13eba1
 import seedu.todolist.model.task.ReadOnlyTask;
 import seedu.todolist.model.task.Status;
 import seedu.todolist.model.task.Task;
