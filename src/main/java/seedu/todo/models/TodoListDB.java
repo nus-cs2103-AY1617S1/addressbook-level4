@@ -43,6 +43,18 @@ public class TodoListDB {
         // Prevent instantiation.
     }
     
+    /**
+     * Gets the singleton instance of the TodoListDB.
+     * 
+     * @return TodoListDB
+     */
+    public static TodoListDB getInstance() {
+        if (instance == null) {
+            instance = new TodoListDB();
+        }
+        return instance;
+    }
+    
     public void setStorage(Storage storageToSet) {
         storage = storageToSet;
     }
@@ -257,23 +269,9 @@ public class TodoListDB {
         events.removeAll(selectedEvents);
     }
     
-    
-    
     /**
      * @@author A0093907W
      * 
-     * Gets the singleton instance of the TodoListDB.
-     * 
-     * @return TodoListDB
-     */
-    public static TodoListDB getInstance() {
-        if (instance == null) {
-            instance = new TodoListDB();
-        }
-        return instance;
-    }
-    
-    /**
      * Explicitly persists the database to disk.
      * 
      * @return true if the save was successful, false otherwise
