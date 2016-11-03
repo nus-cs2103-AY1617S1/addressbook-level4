@@ -143,26 +143,30 @@ public class ModelManager extends ComponentManager implements Model {
         updateFilteredListToShowAll();
         
         switch (filter) {
-            case ALL:
-                updateFilteredListToShowAll();
-                break;
-                
-            case PIN:
-                updateFilteredTaskList(new PredicateExpression(new PinQualifier(true)));
-                break;
-                
-            case COMPLETED:
-                updateFilteredTaskList(new PredicateExpression(new CompletedQualifier(true)));
-                break;
+        case ALL:
+            updateFilteredListToShowAll();
+            break;
             
-            case PENDING:
-                updateFilteredTaskList(new PredicateExpression(new CompletedQualifier(false)));
-                break;
-                
-            case OVERDUE:
-                DateTime now = DateTime.fromEpoch(System.currentTimeMillis());
-                updateFilteredTaskList(new PredicateExpression(new DueDateQualifier(now)));
-                break;
+        case PIN:
+            updateFilteredTaskList(new PredicateExpression(new PinQualifier(true)));
+            break;
+            
+        case COMPLETED:
+            updateFilteredTaskList(new PredicateExpression(new CompletedQualifier(true)));
+            break;
+        
+        case PENDING:
+            updateFilteredTaskList(new PredicateExpression(new CompletedQualifier(false)));
+            break;
+            
+        case OVERDUE:
+            DateTime now = DateTime.fromEpoch(System.currentTimeMillis());
+            updateFilteredTaskList(new PredicateExpression(new DueDateQualifier(now)));
+            break;
+            
+        default:
+            // does nothing
+            break;
         }
     }
     //@@author
