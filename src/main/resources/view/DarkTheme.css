@@ -105,6 +105,12 @@
 	-fx-font-size: 30px;
 }
 
+#splitPane {
+	-fx-background-color: #F0FFFF;
+	-fx-border-color: black;
+	-fx-border-width: 1px;
+}
+
 /*@@author A0140060A*/
 .cell_big_label {
     -fx-font-size: 16px;
@@ -124,13 +130,13 @@
 }
 
 .anchor-pane-with-border {
-     -fx-background-color: derive(#1d1d1d, 20%);
+     -fx-background-color: #F0FFFF;
      -fx-border-color: derive(#1d1d1d, 10%);
      -fx-border-top-width: 1px;
 }
 
 .status-bar {
-    -fx-background-color: derive(#1d1d1d, 20%);
+    -fx-background-color: #F0FFFF;
     -fx-text-fill: black;
 }
 
@@ -143,7 +149,7 @@
 }
 
 .status-bar .label {
-    -fx-text-fill: white;
+    -fx-text-fill: #1d1d1d;
 }
 
 .status-bar-with-border {
@@ -167,7 +173,7 @@
 }
 
 .context-menu {
-    -fx-background-color: derive(#1d1d1d, 50%);
+    -fx-background-color: derive(#009999, 80%);
 }
 
 .context-menu .label {
@@ -175,13 +181,13 @@
 }
 
 .menu-bar {
-    -fx-background-color: derive(#1d1d1d, 20%);
+    -fx-background-color: derive(#009999, 80%);
 }
 
 .menu-bar .label {
     -fx-font-size: 14pt;
     -fx-font-family: "Segoe UI Light";
-    -fx-text-fill: white;
+    -fx-text-fill: black;
     -fx-opacity: 0.9;
 }
 
