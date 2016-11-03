@@ -14,6 +14,8 @@ import java.util.regex.Pattern;
 
 import seedu.unburden.commons.core.Config;
 import seedu.unburden.commons.core.Messages;
+import seedu.unburden.commons.exceptions.CannotAddEndTimeWithoutDateException;
+import seedu.unburden.commons.exceptions.CannotAddStartTimeWithoutEndTimeException;
 import seedu.unburden.commons.exceptions.IllegalValueException;
 import seedu.unburden.commons.util.StringUtil;
 import seedu.unburden.logic.commands.*;
@@ -425,7 +427,7 @@ public class Parser {
 			Optional<Integer> index = parseIndex(seperateIndex[0]);
 			if (!index.isPresent()) {
 				return new IncorrectCommand(
-						String.format(MESSAGE_INVALID_TASK_DISPLAYED_INDEX, EditCommand.MESSAGE_USAGE));
+						String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
 			}
 			
 			String[] newArgs = seperateIndex[1].split(" ");
@@ -442,7 +444,7 @@ public class Parser {
 
 		} catch (IllegalValueException ive) {
 			return new IncorrectCommand(ive.getMessage());
-		}
+		} 
 	}
 
 	/*
@@ -627,7 +629,9 @@ public class Parser {
           int loopIndex = 0;
           int targetIndex = 0;
           while (loopIndex < tokens.length) {
-         	 if (tokens[loopIndex].charAt(1) == '/') {
+        	  System.out.println(loopIndex);
+        	  System.out.println(tokens[loopIndex]);
+         	 if (tokens[loopIndex].length() > 1 && tokens[loopIndex].charAt(1) == '/') {
          		 switch (tokens[loopIndex].charAt(0)) {
          		 	case ('i') : targetIndex = 1;
          		 			     break;

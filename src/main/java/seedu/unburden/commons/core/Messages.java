@@ -13,4 +13,8 @@ public class Messages {
     public static final String MESSAGE_INVALID_START_TIME = "Invalid Start Time Entered";
     public static final String MESSAGE_INVALID_END_TIME = "Invalid End Time Entered";
     public static final String MESSAGE_STARTTIME_AFTER_ENDTIME = "Start Time cannot be after End Time";
+    public static final String MESSAGE_CANNOT_ADD_ENDTIME_WITH_NO_DATE = "Sorry! You cannot add end time to a task with no date!";
+    public static final String MESSAGE_CANNOT_ADD_STARTTIME_WITH_NO_ENDTIME = "Sorry! You cannot add start time to a task with no end time!";
+    public static final String MESSAGE_CANNOT_REMOVE_ENDTIME_WHEN_THERE_IS_STARTTIME = "Sorry! You cannot remove end time from a task with start time!";
+    public static final String MESSAGE_CANNOT_REMOVE_DATE_WHEN_THERE_IS_STARTtIME_AND_ENDTIME = "Sorry! You cannot remove date from a task with satrt time and end time!";
 }
