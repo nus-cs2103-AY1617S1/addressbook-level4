@@ -223,8 +223,9 @@ public class TaskMaster implements ReadOnlyTaskMaster {
     // @@author
 
     // @@author A0147995H
-    public boolean updateTask(Task target, Name name, UniqueTagList tags, TaskDate startDate, TaskDate endDate,
+    public boolean updateTask(TaskOccurrence target, Name name, UniqueTagList tags, TaskDate startDate, TaskDate endDate,
             RecurringType recurringType) throws TaskNotFoundException, TimeslotOverlapException {
+        int index = tasks.getInternalComponentList().indexOf(target);
         if (tasks.updateTask(target, name, tags, startDate, endDate, recurringType)) {
             if (tags != null) {
                 this.tags.mergeFrom(tags);
@@ -242,7 +243,7 @@ public class TaskMaster implements ReadOnlyTaskMaster {
                 for (Tag tag : tags) {
                     commonTagReferences.add(masterTagObjects.get(tag));
                 }
-                target.setTags(new UniqueTagList(commonTagReferences));
+                ((Task)(tasks.getInternalComponentList().get(index).getTaskReference())).setTags(new UniqueTagList(commonTagReferences));
             }
             return true;
         } else {
