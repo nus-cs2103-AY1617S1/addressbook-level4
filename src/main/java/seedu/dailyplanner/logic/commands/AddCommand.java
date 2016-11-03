@@ -28,10 +28,11 @@ public class AddCommand extends Command {
 
     /**
      * Convenience constructor using raw values.
+     * @param endDate 
      *
      * @throws IllegalValueException if any of the raw values are invalid
      */
-    public AddCommand(String taskName, String date, String startTime, String endTime, Set<String> tags)
+    public AddCommand(String taskName, String date, String endDate, String startTime, String endTime, Set<String> tags)
             throws IllegalValueException {
         final Set<Tag> tagSet = new HashSet<>();
         for (String tagName : tags) {
@@ -39,7 +40,7 @@ public class AddCommand extends Command {
         }
         this.toAdd = new Task(
                 new Name(taskName),
-                new Date(date),
+                new Date(date, endDate),
                 new StartTime(startTime),
                 new EndTime(endTime),
                 new UniqueTagList(tagSet),

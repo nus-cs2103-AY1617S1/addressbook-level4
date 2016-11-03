@@ -30,12 +30,13 @@ public class HistoryManager {
 
 		String pushName = toPush.getName().toString();
 		String pushDate = toPush.getPhone().toString();
+		String pushEndDate = toPush.getPhone().getEndDate();
 		String pushStart = toPush.getEmail().toString();
 		String pushEnd = toPush.getAddress().toString();
 		UniqueTagList pushTag = toPush.getTags();
 		String isComplete = toPush.getCompletion();
 
-		recordCommand.push(new Instruction("A", pushName, pushDate, pushStart, pushEnd, pushTag, isComplete));
+		recordCommand.push(new Instruction("A", pushName, pushDate, pushEndDate, pushStart, pushEnd, pushTag, isComplete));
 
 	}
 	
@@ -43,12 +44,13 @@ public class HistoryManager {
 
 		String pushName = toPush.getName().toString();
 		String pushDate = toPush.getPhone().toString();
+		String pushEndDate = toPush.getPhone().getEndDate();
 		String pushStart = toPush.getEmail().toString();
 		String pushEnd = toPush.getAddress().toString();
 		UniqueTagList pushTag = toPush.getTags();
 		String isComplete = toPush.getCompletion();
 
-		recordCommand.push(new Instruction("D", pushName, pushDate, pushStart, pushEnd, pushTag, isComplete));
+		recordCommand.push(new Instruction("D", pushName, pushDate, pushEndDate, pushStart, pushEnd, pushTag, isComplete));
 
 	}
 	
@@ -56,21 +58,23 @@ public class HistoryManager {
 
         String taskToEditName = taskToEdit.getName().toString();
         String taskToEditDate = taskToEdit.getPhone().toString();
+        String taskToEditEndDate = taskToEdit.getPhone().getEndDate();
         String taskToEditStart = taskToEdit.getEmail().toString();
         String taskToEditEnd = taskToEdit.getAddress().toString();
         UniqueTagList taskToEditTag = taskToEdit.getTags();
         String taskToEditIsComplete = taskToEdit.getCompletion();
 
-        recordCommand.push(new Instruction("EA", taskToEditName, taskToEditDate, taskToEditStart, taskToEditEnd, taskToEditTag,taskToEditIsComplete));
+        recordCommand.push(new Instruction("EA", taskToEditName, taskToEditDate, taskToEditEndDate, taskToEditStart, taskToEditEnd, taskToEditTag,taskToEditIsComplete));
         
         String toAddName = toAdd.getName().toString();
         String toAddDate = toAdd.getPhone().toString();
+        String toAddEndDate = taskToEdit.getEmail().toString();
         String toAddStart = toAdd.getEmail().toString();
         String toAddEnd = toAdd.getAddress().toString();
         UniqueTagList toAddTag = toAdd.getTags();
         String toAddIsComplete = toAdd.getCompletion();
 
-        recordCommand.push(new Instruction("ED", toAddName, toAddDate, toAddStart, toAddEnd, toAddTag, toAddIsComplete));
+        recordCommand.push(new Instruction("ED", toAddName, toAddDate, toAddEndDate, toAddStart, toAddEnd, toAddTag, toAddIsComplete));
 
     }
 	

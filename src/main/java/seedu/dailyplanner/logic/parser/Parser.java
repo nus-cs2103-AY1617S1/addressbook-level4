@@ -106,9 +106,6 @@ public class Parser {
 		}
 	}
 
-	private void prepareUndo() {
-
-	}
 
 	private Command prepareComplete(String arguments) {
 		Optional<Integer> index = parseIndex(arguments);
@@ -124,7 +121,7 @@ public class Parser {
 	private Command prepareEdit(String arguments) {
 
 		int index = 0;
-		String taskName = "", date = "", startTime = "", endTime = "", isRecurring = "";
+		String taskName = "", date = "", startTime = "", endTime = "", isRecurring = "", endDate = "";
 		HashMap<String, String> mapArgs = parseEdit(arguments.trim());
 
 		// If arguments are in hashmap, pass them to addCommand, if not pass
@@ -143,6 +140,10 @@ public class Parser {
 			date = mapArgs.get("date");
 			date = natty.parseDate(date);
 		}
+		if (mapArgs.containsKey("end date")) {
+			endDate = mapArgs.get("end date");
+			endDate = natty.parseDate(endDate);
+		}
 
 		if (mapArgs.containsKey("startTime")) {
 			startTime = mapArgs.get("startTime");
@@ -160,7 +161,7 @@ public class Parser {
 
 		try {
 
-			return new EditCommand(index, taskName, date, startTime, endTime, emptySet);
+			return new EditCommand(index, taskName, date, endDate, startTime, endTime, emptySet);
 		} catch (IllegalValueException ive) {
 			return new IncorrectCommand(ive.getMessage());
 		}
@@ -176,7 +177,7 @@ public class Parser {
 
 	// @@author A0140124B
 	private Command prepareAdd(String args) {
-		String taskName = "", date = "", startTime = "", endTime = "", isRecurring = "";
+		String taskName = "", date = "", startTime = "", endTime = "", isRecurring = "", endDate = "";
 		Set<String> tagSet = Collections.emptySet();
 		String trimmedArgs = args.trim();
 
@@ -200,7 +201,14 @@ public class Parser {
 		} else {
 			date = "today";
 		}
+		if (mapArgs.containsKey("end date")) {
+			endDate = mapArgs.get("date");
+		} else {
+			endDate = "today";
+		}
 		date = natty.parseDate(date);
+		endDate = natty.parseDate(endDate);
+		
 		if (mapArgs.containsKey("startTime")) {
 			startTime = mapArgs.get("startTime");
 			startTime = natty.parseTime(startTime);
@@ -219,7 +227,7 @@ public class Parser {
 
 		try {
 
-			return new AddCommand(taskName, date, startTime, endTime, tagSet);
+			return new AddCommand(taskName, date, endDate, startTime, endTime, tagSet);
 		} catch (IllegalValueException ive) {
 			return new IncorrectCommand(ive.getMessage());
 		}
@@ -308,6 +316,18 @@ public class Parser {
 				}
 				mapArgs.put("date", arg);
 			}
+			
+			if (splitArgs[i].substring(0, 2).equals("ed/")) {
+				int j = i + 1;
+				String arg = splitArgs[i].substring(2);
+				while (j < splitArgs.length && !splitArgs[j].contains("/")) {
+					arg += " " + splitArgs[j];
+					j++;
+				}
+				mapArgs.put("end date", arg);
+			}
+			
+				
 			if (splitArgs[i].substring(0, 2).equals("s/")) {
 				int j = i + 1;
 				String arg = splitArgs[i].substring(2);

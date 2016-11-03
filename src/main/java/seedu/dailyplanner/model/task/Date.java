@@ -15,21 +15,29 @@ public class Date implements Comparable<Date> {
 	private final int day;
 	private final int month;
 	private final int year;
+	public final String endDate;
 
 	/**
 	 * Validates given phone number.
+	 * @param endDate 
 	 *
 	 * @throws IllegalValueException
 	 *             if given phone string is invalid.
 	 */
 	// @@author A0140124B
-	public Date(String phone) throws IllegalValueException {
+	public Date(String phone, String endDate) throws IllegalValueException {
 		assert phone != null;
+		assert endDate != null;
 		phone = phone.trim();
+		endDate = endDate.trim();
+		
 		// if (!isValidPhone(phone)) {
 		// throw new IllegalValueException(MESSAGE_PHONE_CONSTRAINTS);
 		// }
+		
 		this.value = phone;
+		this.endDate = endDate;
+		
 		if (phone.equals("")) {
 			this.day = 0;
 			this.month = 0;
@@ -52,6 +60,10 @@ public class Date implements Comparable<Date> {
 	@Override
 	public String toString() {
 		return value;
+	}
+	
+	public String getEndDate() {
+		return endDate;
 	}
 
 	@Override

@@ -38,7 +38,7 @@ import seedu.dailyplanner.model.task.UniqueTaskList.PersonNotFoundException;
 	    public final int targetIndex;
 	    private final Task toAdd;
 
-	    public EditCommand(int targetIndex, String taskName, String date, String startTime, String endTime, Set<String> tags) throws IllegalValueException {
+	    public EditCommand(int targetIndex, String taskName, String date, String endDate, String startTime, String endTime, Set<String> tags) throws IllegalValueException {
 	        this.targetIndex = targetIndex;
 	        final Set<Tag> tagSet = new HashSet<>();
 	        for (String tagName : tags) {
@@ -46,7 +46,7 @@ import seedu.dailyplanner.model.task.UniqueTaskList.PersonNotFoundException;
 	        }
 	        this.toAdd = new Task(
 	                new Name(taskName),
-	                new Date(date),
+	                new Date(date, endDate),
 	                new StartTime(startTime),
 	                new EndTime(endTime),
 	                new UniqueTagList(tagSet),

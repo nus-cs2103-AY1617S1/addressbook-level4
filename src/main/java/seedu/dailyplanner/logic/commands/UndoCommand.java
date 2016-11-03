@@ -28,7 +28,7 @@ public class UndoCommand extends Command {
 		
 		try {
 	        
-			 taskToUndo = new Task(new Name(undoInstruction.getTaskName()), new Date(undoInstruction.getTaskDate()), new StartTime(undoInstruction.getTaskStart()), new EndTime(undoInstruction.getTaskEnd()),
+			 taskToUndo = new Task(new Name(undoInstruction.getTaskName()), new Date(undoInstruction.getTaskDate(), undoInstruction.getTaskEndDate()), new StartTime(undoInstruction.getTaskStart()), new EndTime(undoInstruction.getTaskEnd()),
 					undoInstruction.getTag(), undoInstruction.getCompletion());
 			
 		} catch (IllegalValueException e) {
@@ -71,7 +71,7 @@ public class UndoCommand extends Command {
 
             try {
                 
-                taskToUndo = new Task(new Name(undoInstruction.getTaskName()), new Date(undoInstruction.getTaskDate()),
+                taskToUndo = new Task(new Name(undoInstruction.getTaskName()), new Date(undoInstruction.getTaskDate(), undoInstruction.getTaskEndDate()),
                         new StartTime(undoInstruction.getTaskStart()), new EndTime(undoInstruction.getTaskEnd()),
                         undoInstruction.getTag(), undoInstruction.getCompletion());
 

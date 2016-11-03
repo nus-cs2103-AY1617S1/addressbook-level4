@@ -14,19 +14,21 @@ public class Instruction {
 	private int taskIndex;
 	private String taskName;
 	private String taskDate;
+	private String taskEndDate;
 	private String taskStart;
 	private String taskEnd;
 	private UniqueTagList tag;
     private String isComplete;
 
 	
-	public Instruction(String reverse, String taskName, String taskDate, String taskStart,
+	public Instruction(String reverse, String taskName, String taskDate, String taskEndDate, String taskStart,
 			String taskEnd, UniqueTagList pushTag, String isComplete) {
 		
 		this.reverse = reverse;
 		//this.taskIndex = taskIndex;
 		this.taskName = taskName;
 		this.taskDate = taskDate;
+		this.taskEndDate = taskEndDate;
 		this.taskStart = taskStart;
 		this.taskEnd = taskEnd;
 		this.tag = pushTag;
@@ -59,6 +61,13 @@ public class Instruction {
 	}
 	public void setTaskDate(String taskDate) {
 		this.taskDate = taskDate;
+	}
+	
+	public String getTaskEndDate() {
+		return taskEndDate;
+	}
+	public void setTasEndkDate(String taskEndDate) {
+		this.taskEndDate = taskEndDate;
 	}
 	
 	public String getTaskStart() {
