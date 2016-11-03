@@ -36,8 +36,8 @@ public abstract class BaseParser {
     /**
      * Assigns a value to a keyword argument. Does not replace any existing
      * values associated with the keyword.
-     * @param keyword
-     * @param value
+     * @param keyword the keyword of the argument
+     * @param value the value the argument is set to
      */
     protected void addToArgumentsTable(String keyword, String value) {
         ArrayList<String> arrayItems;
