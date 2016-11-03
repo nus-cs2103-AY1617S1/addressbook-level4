@@ -5,6 +5,13 @@ import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import seedu.Tdoo.model.task.*;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+//author A0132157M
+import org.ocpsoft.prettytime.PrettyTime;
 
 //@@author A0144061U-reused
 public class DeadlineCard extends UiPart {
@@ -70,8 +77,8 @@ public class DeadlineCard extends UiPart {
 		cardPane = (HBox) node;
 	}
 
-	@Override
-	public String getFxmlPath() {
-		return FXML;
-	}
+    @Override
+    public String getFxmlPath() {
+        return FXML;
+    }
 }
