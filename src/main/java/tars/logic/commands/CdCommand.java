@@ -18,64 +18,65 @@ import tars.storage.XmlTarsStorage;
  */
 public class CdCommand extends Command {
 
-    public static final String COMMAND_WORD = "cd";
+  public static final String COMMAND_WORD = "cd";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Changes the directory of the "
-            + "TARS storage file.\n" + "Parameters: <FILE_PATH.xml> \n" + "Example: " + COMMAND_WORD
-            + " data/tars.xml";
+  public static final String MESSAGE_USAGE =
+      COMMAND_WORD + ": Changes the directory of the " + "TARS storage file.\n"
+          + "Parameters: <FILE_PATH.xml> \n" + "Example: " + COMMAND_WORD + " data/tars.xml";
 
-    public static final String MESSAGE_INVALID_FILEPATH = "Invalid file path. File paths should not"
-            + " include any white spaces and should end with the file type .xml \n" + "Example: " + COMMAND_WORD
-            + " data/tars.xml";
+  public static final String MESSAGE_INVALID_FILEPATH =
+      "Invalid file path. File paths should end with the file type .xml \n" + "Example: "
+          + COMMAND_WORD + " data/tars.xml";
 
-    public static final String MESSAGE_SUCCESS = "Change Directory Success! Directory of TARS storage file"
-            + " changed to: '%1$s'.";
+  public static final String MESSAGE_SUCCESS =
+      "Change Directory Success! Directory of TARS storage file" + " changed to: '%1$s'.";
 
-    public static final String MESSAGE_FAILURE = "Unable to write to location, please choose another directory";
+  public static final String MESSAGE_FAILURE =
+      "Unable to write to location, please choose another directory";
 
-    private final String newFilePath;
-    private final static String xmlFileExt = "xml";;
-    private Storage storageUpdater = new StorageManager();
+  private final String newFilePath;
+  private final static String xmlFileExt = "xml";;
+  private Storage storageUpdater = new StorageManager();
 
-    public CdCommand(String filepath) {
-        this.newFilePath = filepath;
+  public CdCommand(String filepath) {
+    this.newFilePath = filepath;
+  }
+
+  public final static String getXmlFileExt() {
+    return xmlFileExt;
+  }
+
+  @Override
+  public String toString() {
+    return this.newFilePath;
+  }
+
+  @Override
+  public CommandResult execute() {
+    Config newConfig = new Config();
+    newConfig.setTarsFilePath(newFilePath);
+    XmlTarsStorage xmlTarsStorage = new XmlTarsStorage(newFilePath);
+
+    try {
+      xmlTarsStorage.saveTars(model.getTars(), newFilePath); // try to save TARS data into new file
+
+      if (!isFileSavedSuccessfully(newFilePath)) {
+        return new CommandResult(MESSAGE_FAILURE);
+      }
+
+      storageUpdater.updateTarsStorageDirectory(newFilePath, newConfig);
+      ConfigUtil.updateConfig(newConfig);
+
+      return new CommandResult(String.format(MESSAGE_SUCCESS, newFilePath));
+
+    } catch (IOException ioe) {
+      return new CommandResult(MESSAGE_FAILURE);
     }
+  }
 
-    public final static String getXmlFileExt() {
-        return xmlFileExt;
-    }
-
-    @Override
-    public String toString() {
-        return this.newFilePath;
-    }
-
-    @Override
-    public CommandResult execute() {
-        Config newConfig = new Config();
-        newConfig.setTarsFilePath(newFilePath);
-        XmlTarsStorage xmlTarsStorage = new XmlTarsStorage(newFilePath);
-
-        try {
-            xmlTarsStorage.saveTars(model.getTars(), newFilePath); // try to save TARS data into new file
-            
-            if (!isFileSavedSuccessfully(newFilePath)) {
-                return new CommandResult(MESSAGE_FAILURE); 
-            }
-            
-            storageUpdater.updateTarsStorageDirectory(newFilePath, newConfig);
-            ConfigUtil.updateConfig(newConfig);
-
-            return new CommandResult(String.format(MESSAGE_SUCCESS, newFilePath));
-            
-        } catch (IOException ioe) {
-            return new CommandResult(MESSAGE_FAILURE);
-        }
-    }
-
-    private boolean isFileSavedSuccessfully(String filePath) {
-        Path path = Paths.get(filePath);
-        return Files.exists(path);
-    }
+  private boolean isFileSavedSuccessfully(String filePath) {
+    Path path = Paths.get(filePath);
+    return Files.exists(path);
+  }
 
 }
