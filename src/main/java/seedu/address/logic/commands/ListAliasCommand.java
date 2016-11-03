@@ -10,15 +10,13 @@ import seedu.address.commons.events.ui.DisplayAliasListEvent;
 public class ListAliasCommand extends Command {
 
     public static final String COMMAND_WORD = "list-alias";
-    public static final String MESSAGE_SUCCESS = "Listed all aliases in alias manager.";
+    public static final String MESSAGE_SUCCESS = "Listed all aliases.";
 
     public ListAliasCommand() {}
 
     @Override
     public CommandResult execute() {
         assert model != null;
-        
-        model.saveState();
         
         EventsCenter.getInstance().post(new DisplayAliasListEvent(model.getFilteredAliasList()));
 
