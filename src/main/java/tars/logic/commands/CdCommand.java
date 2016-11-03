@@ -43,9 +43,6 @@ public class CdCommand extends Command {
   public static final String MESSAGE_FAILURE_READ_FILE =
       "Unable to read from location, please choose another directory";
 
-  public static final String MESSAGE_SAME_FILE_PATH =
-      "Directory is the same as the current directory. Please choose another directory";
-
   private final String newFilePath;
   private final static String xmlFileExt = "xml";;
   private Storage storageUpdater = new StorageManager();
