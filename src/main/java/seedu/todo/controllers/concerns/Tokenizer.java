@@ -18,7 +18,7 @@ import seedu.todo.commons.exceptions.UnmatchedQuotesException;
  */
 public class Tokenizer {
 
-    private static final String UNMATCHED_QUOTES_MESSAGE = "Unmatched double-quotes detected.";
+    private static final String MESSAGE_UNMATCHED_QUOTES = "Unmatched double-quotes detected.";
     private final static String QUOTE = "\"";
 
     /**
@@ -76,7 +76,7 @@ public class Tokenizer {
         // Split inputCommand into arraylist of chunks
 
         if (StringUtils.countMatches(inputCommand, QUOTE) % 2 == 1) {
-            throw new UnmatchedQuotesException(UNMATCHED_QUOTES_MESSAGE);
+            throw new UnmatchedQuotesException(MESSAGE_UNMATCHED_QUOTES);
         }
 
         // --- Split by quotes
