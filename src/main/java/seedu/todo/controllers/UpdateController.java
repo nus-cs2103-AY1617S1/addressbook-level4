@@ -15,6 +15,7 @@ import com.joestelmach.natty.Parser;
 import seedu.todo.commons.EphemeralDB;
 import seedu.todo.commons.exceptions.InvalidNaturalDateException;
 import seedu.todo.commons.exceptions.ParseException;
+import seedu.todo.commons.util.StringUtil;
 import seedu.todo.controllers.concerns.DateParser;
 import seedu.todo.controllers.concerns.Renderer;
 import seedu.todo.controllers.concerns.Tokenizer;
@@ -35,6 +36,13 @@ public class UpdateController implements Controller {
     private static final String COMMAND_SYNTAX = "update <index> <task> by <deadline>";
     
     private static final String MESSAGE_UPDATE_SUCCESS = "Item successfully updated!";
+    private static final String STRING_WHITESPACE = "";
+    private static final String UPDATE_EVENT_TEMPLATE = "update \"%s\" [name \"%s\"] [from \"%s\" to \"%s\"]";
+    private static final String UPDATE_TASK_TEMPLATE = "update \"%s\" [name \"%s\"] [by \"%s\"]";
+    private static final String START_TIME_FIELD = "<start time>";
+    private static final String END_TIME_FIELD = "<end time>";
+    private static final String DEADLINE_FIELD = "<deadline>";
+    private static final String NAME_FIELD = "<name>";
     
     private static CommandDefinition commandDefinition =
             new CommandDefinition(NAME, DESCRIPTION, COMMAND_SYNTAX); 
@@ -183,5 +191,32 @@ public class UpdateController implements Controller {
         
         // Persist
         db.save();
+    }
+    
+    /**
+     * Renders disambiguation with best-effort input matching to template.
+     * 
+     * @param isTask
+     * @param name
+     * @param naturalFrom
+     * @param naturalTo
+     */
+    private void renderDisambiguation(boolean isTask, int recordIndex, String name, String naturalFrom, String naturalTo) {
+        name = StringUtil.replaceEmpty(name, NAME_FIELD);
+
+        String disambiguationString;
+        String errorMessage = STRING_WHITESPACE; // TODO
+        
+        if (isTask) {
+            naturalFrom = StringUtil.replaceEmpty(naturalFrom, DEADLINE_FIELD);
+            disambiguationString = String.format(UPDATE_TASK_TEMPLATE, recordIndex, name, naturalFrom);
+        } else {
+            naturalFrom = StringUtil.replaceEmpty(naturalFrom, START_TIME_FIELD);
+            naturalTo = StringUtil.replaceEmpty(naturalTo, END_TIME_FIELD);
+            disambiguationString = String.format(UPDATE_EVENT_TEMPLATE, recordIndex, name, naturalFrom, naturalTo);
+        }
+        
+        // Show an error in the console
+        Renderer.renderDisambiguation(disambiguationString, errorMessage);
     }
 }
