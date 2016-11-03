@@ -28,6 +28,7 @@ public class NotifyCommand extends Command{
 			+ " 1 24";
 
 	public static final String MESSAGE_SUCCESS = "Notification Set: %1$s\t\t\t\t%2$d hours beforehand.";
+	public static final String MESSAGE_NO_TEMPORAL = "Error: Target task does not have a time parameter!";
 
 	private final int targetIndex;
 	private final int bufferTime;
@@ -40,30 +41,37 @@ public class NotifyCommand extends Command{
 
 	@Override
 	public CommandResult execute() {
-		
+
 		UnmodifiableObservableList<ReadOnlyTask> lastShownList;
-        
-        if (model.getCurrentTab().equals(MainWindow.TAB_TASK_COMPLETE)) {
-            lastShownList = model.getFilteredCompleteTaskList();
-        }
-        else {
-            lastShownList = model.getFilteredIncompleteTaskList();
-        }
-        
+
+		if (model.getCurrentTab().equals(MainWindow.TAB_TASK_COMPLETE)) {
+			lastShownList = model.getFilteredCompleteTaskList();
+		}
+		else {
+			lastShownList = model.getFilteredIncompleteTaskList();
+		}
+
 		if (targetIndex < 1 || lastShownList.size() < targetIndex) {
 			indicateAttemptToExecuteIncorrectCommand();
 			return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
 		}
 
 		ReadOnlyTask taskToNotify = lastShownList.get(targetIndex - 1);
-		
-		try {
-			model.notifyTask(taskToNotify, bufferTime);
-		} catch (TaskNotFoundException pnfe) {
-			assert false : "The target task cannot be missing";
+
+		if (taskToNotify.getInterval()==null || (taskToNotify.getInterval().getStartDate()==null && taskToNotify.getInterval().getEndDate()==null)) {
+			return new CommandResult(MESSAGE_NO_TEMPORAL);
 		}
 
-		return new CommandResult(String.format(MESSAGE_SUCCESS, taskToNotify, bufferTime));
+		else {
+
+			try {
+				model.notifyTask(taskToNotify, bufferTime);
+			} catch (TaskNotFoundException pnfe) {
+				assert false : "The target task cannot be missing";
+			}
+
+			return new CommandResult(String.format(MESSAGE_SUCCESS, taskToNotify, bufferTime));
+		}
 	}
 
 }

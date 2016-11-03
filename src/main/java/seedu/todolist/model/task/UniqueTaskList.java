@@ -146,7 +146,7 @@ public class UniqueTaskList implements Iterable<Task> {
 					}
 					if (timeToNotify!=null && timeToNotify.isBefore(LocalDateTime.now())) {
 						String title = currentTask.getName().toString();
-						String message = String.format("is happening %1$s", currentTask.getInterval().toString());
+						String message = String.format("is happening on %1$s", currentTask.getInterval().toString());
 						NotificationType notificationType = NotificationType.NOTICE;
 						TrayNotification tray = new TrayNotification(title, message, notificationType);
 						tray.setRectangleFill(Paint.valueOf("#F3A473"));

@@ -71,7 +71,6 @@ public class Task implements ReadOnlyTask {
     
     public void dismissNotification() {
     	this.notification = null;
-    	System.out.println("dismissed");
     }
 
     @Override

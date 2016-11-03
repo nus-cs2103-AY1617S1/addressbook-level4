@@ -44,7 +44,7 @@ public class MainApp extends Application {
 	protected Config config;
 	protected UserPrefs userPrefs;
 	protected Timer timer;
-	protected final int minuteInMilliseconds = 60000;
+	protected final int secondInMilliseconds = 1000;
 
 	public MainApp() {}
 
@@ -178,7 +178,7 @@ public class MainApp extends Application {
 					}
 				});
 			}
-		}, 0, minuteInMilliseconds);
+		}, 0, secondInMilliseconds);
 		ui.start(primaryStage);
 
 	}
