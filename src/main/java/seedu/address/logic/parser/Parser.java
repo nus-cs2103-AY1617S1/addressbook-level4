@@ -46,6 +46,8 @@ import seedu.address.model.task.TaskDate;
  */
 public class Parser {
 
+    private static final int RECURRING_PERIOD_OFFSET = 1;
+
     /**
      * Used for initial separation of command word and args.
      */
@@ -263,7 +265,7 @@ public class Parser {
 
     private RecurringType prepareRecurringTask(String args) {
         final Matcher matcher = RECURRING_TASK_DATA_ARGS_FORMAT.matcher(args.trim());
-        RecurringType recurringType = RecurringType.IGNORED;
+        RecurringType recurringType = RecurringType.NONE;
         if (!matcher.find()) {
             return recurringType;
         } else {
@@ -280,7 +282,7 @@ public class Parser {
         }
         try {
             final int period = DateParser.getInstance().extractRecurringPeriod(matcher.group("period"));
-            return period;
+            return period - RECURRING_PERIOD_OFFSET;
         } catch (NumberFormatException nfe) {
             return 0;
         }

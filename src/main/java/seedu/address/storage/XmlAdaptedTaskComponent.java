@@ -32,6 +32,8 @@ public class XmlAdaptedTaskComponent {
     @XmlElement
     private String recurringType;
     @XmlElement
+    private int recurringPeriod;
+    @XmlElement
     private boolean isArchived;
     //@@author
     
@@ -70,6 +72,7 @@ public class XmlAdaptedTaskComponent {
             endDate = endCopy.getDateInLong();
         }
         recurringType = source.getTaskReference().getRecurringType().name();
+        recurringPeriod = source.getTaskReference().getRecurringPeriod();
         isArchived = source.isArchived();
     }
     
@@ -113,7 +116,7 @@ public class XmlAdaptedTaskComponent {
             toBeAdded = RecurringType.valueOf(recurringType);
         }
         
-        Task task = new Task(name, tags, taskStartDate, taskEndDate, toBeAdded, Task.NO_RECURRING_PERIOD);
+        Task task = new Task(name, tags, taskStartDate, taskEndDate, toBeAdded, recurringPeriod);
         if(isArchived){
         	task.setTaskType(TaskType.COMPLETED);
         	for(TaskOccurrence t: task.getTaskDateComponent()){

@@ -207,8 +207,8 @@ public class Task implements ReadOnlyTask {
     }
     
     public int decrementRecurringPeriod() {
-        final int toOutput = recurringPeriod - 1;
-        return toOutput;
+         recurringPeriod -= 1;
+        return recurringPeriod;
     }
     // @@author
 }

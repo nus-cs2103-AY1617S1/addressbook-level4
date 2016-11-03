@@ -226,13 +226,10 @@ public class RecurringTaskManager {
     }
 
     private boolean handleRecurringPeriod(Task task) {
-        if (task.getRecurringPeriod() == task.NO_RECURRING_PERIOD) {
-            return false;   
+        if (task.getRecurringPeriod() == Task.NO_RECURRING_PERIOD) {
+            return true;   
         }
         final int output = task.decrementRecurringPeriod();
-        if (output == NO_MORE_RECURRING_PERIOD) {
-            return true;
-        }
         return false;
     }
 
@@ -243,6 +240,9 @@ public class RecurringTaskManager {
             LocalDate localDateCurrently, LocalDate startDateInLocalDate, LocalDate endDateInLocalDate) {
         final int elapsedYear = RecurringTaskUtil.getNumElapsedTaskToAppend(localDateCurrently, startDateInLocalDate, endDateInLocalDate, RecurringType.YEARLY);
         for (int i = 0; i < elapsedYear; i++) {
+            if (handleRecurringPeriod(task)) {
+                break;
+            }
             appendYearlyRecurringTask(task, startDate, endDate);
         }
     }    
@@ -255,6 +255,9 @@ public class RecurringTaskManager {
             LocalDate localDateCurrently, LocalDate startDateInLocalDate, LocalDate endDateInLocalDate) {
         final int elapsedMonth = RecurringTaskUtil.getNumElapsedTaskToAppend(localDateCurrently, startDateInLocalDate, endDateInLocalDate, RecurringType.MONTHLY);
         for (int i = 0; i < elapsedMonth; i++) {
+            if (handleRecurringPeriod(task)) {
+                break;
+            }
             appendMonthlyRecurringTask(task, startDate, endDate);
         }
     }
@@ -266,6 +269,9 @@ public class RecurringTaskManager {
             LocalDate localDateCurrently, LocalDate startDateInLocalDate, LocalDate endDateInLocalDate) {
         final int elapsedWeek = RecurringTaskUtil.getNumElapsedTaskToAppend(localDateCurrently, startDateInLocalDate, endDateInLocalDate, RecurringType.WEEKLY);
         for (int i = 0; i < elapsedWeek; i++) {
+            if (handleRecurringPeriod(task)) {
+                break;
+            }
             appendWeeklyRecurringTask(task, startDate, endDate);
         }
     }
@@ -277,6 +283,9 @@ public class RecurringTaskManager {
             LocalDate localDateCurrently, LocalDate startDateInLocalDate, LocalDate endDateInLocalDate) {
         final int elapsedDay = RecurringTaskUtil.getNumElapsedTaskToAppend(localDateCurrently, startDateInLocalDate, endDateInLocalDate, RecurringType.DAILY);
         for (int i = 0; i < elapsedDay; i++) {
+            if (handleRecurringPeriod(task)) {
+                break;
+            }
             appendDailyRecurringTask(task, startDate, endDate);
         }
     }
@@ -311,7 +320,8 @@ public class RecurringTaskManager {
     
     public void updateRecurringTasks(TaskOccurrence target) {
         ReadOnlyTask taskDesc = target.getTaskReference();
-        if (taskDesc.getRecurringType().equals(RecurringType.NONE)) {
+        if (taskDesc.getRecurringType().equals(RecurringType.NONE) ||
+                taskDesc.getRecurringPeriod() <= NO_MORE_RECURRING_PERIOD) {
             return;
         }
         Calendar startDate = new GregorianCalendar();
@@ -337,6 +347,7 @@ public class RecurringTaskManager {
             default:
                 break;
         }
+        ((Task)taskDesc).decrementRecurringPeriod();
     }
 
     public static RecurringTaskManager getInstance() {
