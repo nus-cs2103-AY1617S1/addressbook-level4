@@ -146,7 +146,6 @@ public class TaskManager implements ReadOnlyTaskManager {
 
     //// util methods
 
-    //@@author
     @Override
     public String toString() {
         return tasks.getInternalList().size() + " tasks, ";
