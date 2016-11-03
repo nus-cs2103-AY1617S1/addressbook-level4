@@ -11,7 +11,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.junit.After;
 import org.junit.Before;
@@ -37,7 +36,6 @@ import seedu.jimi.logic.commands.DeleteCommand;
 import seedu.jimi.logic.commands.ExitCommand;
 import seedu.jimi.logic.commands.FindCommand;
 import seedu.jimi.logic.commands.HelpCommand;
-import seedu.jimi.logic.commands.ListCommand;
 import seedu.jimi.logic.commands.SaveAsCommand;
 import seedu.jimi.logic.commands.ShowCommand;
 import seedu.jimi.model.Model;
