@@ -28,7 +28,7 @@ public class BackupCommand extends Command {
             + "Parameters: directory/filename OR filename\n"
             + "Example: " + COMMAND_WORD + " c:/Users/user/Desktop/TaskManagerBackup1 OR TaskManagerBackup2";
 
-    public static final String MESSAGE_BACKUP_SUCCESS = "Backup successful: %1$s %1$s";
+    public static final String MESSAGE_BACKUP_SUCCESS = "Backup successful: %1$s %2$s";
 
     public static final String MESSAGE_BACKUP_FAILURE = "Backup unsuccessful: %1$s , invalid location";
 

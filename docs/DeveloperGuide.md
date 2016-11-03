@@ -456,9 +456,19 @@ Use case ends
 
 **Extensions**
 
-1a. The user don't enter a valid file path
+1a. The user don't enter a filepath
 
-> 1a1. Task Manager shows an error message <br>
+> 1a1. User is provided with a filepicker <br>
+> 1a2. User selects filepath <br>
+  Use case resumes at step 2
+
+> > 1a2a1. User exits filepicker <br>
+> > 1a2a2. Task Manager shows a message informing the backup command has been aborted <br>
+    Use case ends
+
+1b. The user don't enter a valid file path
+
+> 1b1. Task Manager shows an error message <br>
   Use case ends
 
  2a. Specified location is inaccessible by TaskManager or does not exist
@@ -478,9 +488,19 @@ Use case ends
 
 **Extensions**
 
-1a. The user don't enter a valid file path
+1a. The user don't enter a filepath
 
-> 1a1. Task Manager shows an error message <br>
+> 1a1. User is provided with a filepicker <br>
+> 1a2. User selects filepath <br>
+  Use case resumes at step 2
+
+> > 1a2a1. User exits filepicker <br>
+> > 1a2a2. Task Manager shows a message informing the directory command has been aborted <br>
+    Use case ends
+
+1b. The user don't enter a valid file path
+
+> 1b1. Task Manager shows an error message <br>
   Use case ends
 
  2a. Specified file is inaccessible by TaskManager or does not exist
