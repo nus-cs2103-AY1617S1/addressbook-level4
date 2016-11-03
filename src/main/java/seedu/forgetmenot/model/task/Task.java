@@ -137,7 +137,6 @@ public class Task implements ReadOnlyTask {
      * @return true if only end time is present.
      */
     public boolean isDeadlineTask() {
-        System.out.println("isDeadline CHECK: " + start.isMissing() + end.isMissing());
         return start.isMissing() && !end.isMissing();
     }
     

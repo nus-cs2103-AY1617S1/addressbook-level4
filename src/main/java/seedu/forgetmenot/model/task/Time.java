@@ -36,11 +36,11 @@ public class Time {
     public Time(String input) throws IllegalValueException {
         input = input.trim();
         
-        if (input.equals("") || input.equals(new Date(0).toString())) {
-            time = Calendar.getInstance();
-            time.setTime(new Date(0));
-            return;
-        }
+//        if (input.equals("") || input.equals(new Date(0).toString())) {
+//            time = Calendar.getInstance();
+//            time.setTime(new Date(0));
+//            return;
+//        }
 
         time = Calendar.getInstance();
         
