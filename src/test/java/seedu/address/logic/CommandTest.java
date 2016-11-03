@@ -184,8 +184,6 @@ public class CommandTest {
     }
 
 
-   
-
     @Test
     public void execute_list_showsAllTasks() throws Exception {
         // prepare expectations
@@ -201,8 +199,6 @@ public class CommandTest {
                 expectedAB,
                 expectedList);
     }
-
-
 
 
     @Test
@@ -232,78 +228,11 @@ public class CommandTest {
         assertEquals(model.getFilteredTaskList().get(1), threeTasks.get(1));
     }
 
-
-   
-    @Test
-    public void execute_find_invalidArgsFormat() throws Exception {
-        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE);
-        assertCommandBehavior("find ", expectedMessage);
-    }
-
-    @Test
-    public void execute_find_onlyMatchesFullWordsInNames() throws Exception {
-        TestDataHelper helper = new TestDataHelper();
-        Task pTarget1 = helper.generateUndoneTaskWithName("bla bla KEY bla");
-        Task pTarget2 = helper.generateUndoneTaskWithName("bla KEY bla bceofeia");
-        Task p1 = helper.generateUndoneTaskWithName("KE Y");
-        Task p2 = helper.generateUndoneTaskWithName("KEYKEYKEY sduauo");
-
-        List<Task> fourTasks = helper.generateTaskList(p1, pTarget1, p2, pTarget2);
-        TaskManager expectedAB = helper.generateTaskManager(fourTasks);
-        List<Task> expectedList = helper.generateTaskList(pTarget1, pTarget2);
-        helper.addToModel(model, fourTasks);
-
-        assertCommandBehavior("find KEY",
-                Command.getMessageForTaskListShownSummary(expectedList.size()),
-                expectedAB,
-                expectedList);
-    }
-
-    @Test
-    public void execute_find_isNotCaseSensitive() throws Exception {
-        TestDataHelper helper = new TestDataHelper();
-        Task p1 = helper.generateUndoneTaskWithName("bla bla KEY bla");
-        Task p2 = helper.generateUndoneTaskWithName("bla KEY bla bceofeia");
-        Task p3 = helper.generateUndoneTaskWithName("key key");
-        Task p4 = helper.generateUndoneTaskWithName("KEy sduauo");
-
-        List<Task> fourTasks = helper.generateTaskList(p3, p1, p4, p2);
-        TaskManager expectedAB = helper.generateTaskManager(fourTasks);
-        List<Task> expectedList = fourTasks;
-        helper.addToModel(model, fourTasks);
-
-        assertCommandBehavior("find KEY",
-                Command.getMessageForTaskListShownSummary(expectedList.size()),
-                expectedAB,
-                expectedList);
-    }
-
-    @Test
-    public void execute_find_matchesIfAnyKeywordPresent() throws Exception {
-        TestDataHelper helper = new TestDataHelper();
-        Task pTarget1 = helper.generateUndoneTaskWithName("bla bla KEY bla");
-        Task pTarget2 = helper.generateUndoneTaskWithName("bla rAnDoM bla bceofeia");
-        Task pTarget3 = helper.generateUndoneTaskWithName("key key");
-        Task p1 = helper.generateUndoneTaskWithName("sduauo");
-
-        List<Task> fourTasks = helper.generateTaskList(pTarget1, p1, pTarget2, pTarget3);
-        TaskManager expectedAB = helper.generateTaskManager(fourTasks);
-        List<Task> expectedList = helper.generateTaskList(pTarget1, pTarget2, pTarget3);
-        helper.addToModel(model, fourTasks);
-
-        assertCommandBehavior("find key rAnDoM",
-                Command.getMessageForTaskListShownSummary(expectedList.size()),
-                expectedAB,
-                expectedList);
-    }
-
     //@@author A0142325R
-
     /**
      * A utility class to generate test data.
      */
     class TestDataHelper{
-        
         
         Task getFloatingTask() throws Exception {
             Name name = new Name("Visit grandma");
@@ -478,7 +407,23 @@ public class CommandTest {
             return new Task(new Name(name), new Deadline("11.11.2016"), new UniqueTagList(new Tag("tag")),
                     new Priority(0));
         }
-
+        
+        /**
+         * Generates an undone Task object with given deadline. Other fields will have some dummy values.
+         */
+        Task generateUndoneTaskWithDeadline(String deadline) throws Exception {
+            return new Task(new Name("name"), new Deadline(deadline), new UniqueTagList(new Tag("tag")),
+                    new Priority(0));
+        }
+        
+        /**
+         * Generates an undone Task object with given tag. Other fields will have some dummy values.
+         */
+        Task generateUndoneTaskWithTag(String tag) throws Exception {
+            return new Task(new Name("name"), new Deadline("11.11.2016"), new UniqueTagList(new Tag(tag)),
+                    new Priority(0));
+        }
+        
         /**
          * Generates a done Task object with given name. Other fields will have some dummy values.
          */
@@ -493,6 +438,22 @@ public class CommandTest {
         Task generateUndoneEventWithName(String name) throws Exception {
             return new Task(new Name(name), new EventDate("11.11.2016", "12.11.2016"),
                     new UniqueTagList(new Tag("tag")), new Priority(0));
+        }
+        
+        /**
+         * Generates an undone Event object with given start date. Other fields will have some dummy values.
+         */
+        Task generateUndoneEventWithStartDate(String startDate) throws Exception {
+            return new Task(new Name("name"), new EventDate(startDate, "12.11.2016"), new UniqueTagList(new Tag("tag")),
+                    new Priority(0));
+        }
+        
+        /**
+         * Generates an undone Event object with given start date. Other fields will have some dummy values.
+         */
+        Task generateUndoneEventWithEndDate(String endDate) throws Exception {
+            return new Task(new Name("name"), new EventDate("11.11.2016", endDate), new UniqueTagList(new Tag("tag")),
+                    new Priority(0));
         }
         
         /**

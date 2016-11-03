@@ -7,21 +7,16 @@ import java.util.List;
 import org.junit.Test;
 
 import seedu.address.commons.core.Messages;
-import seedu.address.logic.CommandTest.TestDataHelper;
-import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.model.TaskManager;
 import seedu.address.model.task.Task;
 
 //@@author A0142325R
-
-
 /*
  * Responsible for testing the correct execution of DeleteCommand
  */
 
 public class DeleteCommandTest extends CommandTest{
-    
     
     /*
      * DeleteCommand format: delete index/name

@@ -22,7 +22,7 @@ public class FilterCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Filter list for specified attributes "
             + "and displays them as a list with index numbers.\n"
-            + "Parameters: KEYWORD [s/START_DATE] [e/END_DATE] [d/DEADLINE] [r/RECURRING] [t/TAG]...\n" + "Example: "
+            + "Parameters: [s/START_DATE] [e/END_DATE] [d/DEADLINE] [r/RECURRING] [p/PRIORITY] [t/TAG]...\n" + "Example: "
             + COMMAND_WORD + " s/23.10.2016 r/daily";
 
     private final Optional<String> deadline;
