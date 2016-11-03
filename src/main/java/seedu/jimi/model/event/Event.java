@@ -6,6 +6,7 @@ import seedu.jimi.commons.util.CollectionUtil;
 import seedu.jimi.model.datetime.DateTime;
 import seedu.jimi.model.tag.Priority;
 import seedu.jimi.model.tag.UniqueTagList;
+import seedu.jimi.model.task.DeadlineTask;
 import seedu.jimi.model.task.Name;
 import seedu.jimi.model.task.ReadOnlyTask;
 
@@ -45,6 +46,19 @@ public class Event implements ReadOnlyTask {
      */
     public Event(Event source) {
         this(source.getName(), ((Event) source).getStart(), ((Event) source).getEnd(), source.getTags(),
+                source.isCompleted(), source.getPriority());
+    }
+    
+    /**
+     * Copy constructor.
+     */
+    public Event(ReadOnlyTask source) {
+        this(source.getName(), ((Event) source).getStart(), ((Event) source).getEnd(), source.getTags(),
+                source.isCompleted(), source.getPriority());
+    }
+    
+    public Event(ReadOnlyTask source, DateTime start, DateTime end) {
+        this(source.getName(), start, end, source.getTags(),
                 source.isCompleted(), source.getPriority());
     }
     
