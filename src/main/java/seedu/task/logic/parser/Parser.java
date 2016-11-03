@@ -23,6 +23,8 @@ public interface Parser {
     public static final Prefix allPrefix = new Prefix(Flag.allFlag);
     public static final Prefix taskPresencePrefix = new Prefix(Flag.taskPresenceFlag);
     public static final Prefix eventPresencePrefix = new Prefix(Flag.eventPresenceFlag);
+    public static final Prefix powerSearchPrefix = new Prefix(Flag.powerSearchFlag);
+    public static final Prefix findKeywordPrefix = new Prefix(Flag.findKeywordFlag);
     
     /**
      * Prepares the command and returns the prepared Command.

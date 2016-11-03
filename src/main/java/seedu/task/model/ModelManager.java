@@ -18,8 +18,13 @@ import seedu.taskcommons.core.ComponentManager;
 import seedu.taskcommons.core.LogsCenter;
 import seedu.taskcommons.core.UnmodifiableObservableList;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.logging.Logger;
+
+import org.ocpsoft.prettytime.shade.edu.emory.mathcs.backport.java.util.Arrays;
 
 import com.google.common.collect.Ordering;
 
@@ -188,13 +193,13 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public void updateFilteredTaskList(Set<String> keywords){
-        updateFilteredTaskList(new PredicateExpression(new NameQualifier(keywords)));
+    public void showFoundTaskList(Set<String> keywords, boolean isPowerSearch){
+        updateFilteredTaskList(new PredicateExpression(new NameQualifier(keywords, isPowerSearch)));
     }
     
     @Override
-    public void updateFilteredEventList(Set<String> keywords){
-        updateFilteredEventList(new PredicateExpression(new NameQualifier(keywords)));
+    public void showFoundEventList(Set<String> keywords, boolean isPowerSearch){
+        updateFilteredEventList(new PredicateExpression(new NameQualifier(keywords, isPowerSearch)));
     }
     
     @Override
@@ -260,36 +265,93 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     private class NameQualifier implements Qualifier {
-        private Set<String> taskKeyWords;
-
-        NameQualifier(Set<String> taskKeyWords) {
-            this.taskKeyWords = taskKeyWords;
+    	private boolean isPowerSearch;
+    	private Set<String> keyWords;
+    	
+        private String taskName;
+        private String taskDesc; 
+        private String eventName;
+        private String eventDesc; 
+        NameQualifier(Set<String> keyWords, boolean isPowerSearch) {
+            this.keyWords = keyWords;
+            this.isPowerSearch = isPowerSearch;
         }
 
-        @Override
+        @SuppressWarnings("unchecked")
+		@Override
         public boolean run(ReadOnlyTask task) {
-            return taskKeyWords.stream()
-                    .filter(keyword -> StringUtil.containsIgnoreCase(task.getTask().fullName, keyword) 
-                    		|| StringUtil.containsIgnoreCase(task.getDescriptionValue() , keyword))
-                    .findAny()
-                    .isPresent();
+        	taskName = task.getTask().fullName;
+    		taskDesc = task.getDescriptionValue();
+    		List<String> sourceSet = new ArrayList<>();
+    		
+        	if(isPowerSearch) {
+        		//break the name and desc to allow power search
+        		sourceSet = new ArrayList<>(Arrays.asList(taskName.split("\\s")));
+        		sourceSet.addAll(Arrays.asList(taskDesc.split("\\s")));
+        		
+        		//break the keyword to allow power search
+        		List<String> tempSet = new ArrayList<>(keyWords);
+        		keyWords = new HashSet<>();
+        		tempSet.stream().forEach(keyword -> keyWords.addAll(Arrays.asList(keyword.split("\\s"))));
+        		
+        	} else {
+        		sourceSet.add(taskName);
+        		sourceSet.add(taskDesc);
+        	}
+        	
+        	for(String source: sourceSet) {
+    			boolean found = keyWords.stream()
+                .filter(keyword -> StringUtil.findMatch(source.trim(), keyword.trim()))
+                .findAny()
+                .isPresent();
+    			
+    			if (found) {
+    				return true;
+    			}
+    		}
+    		return false;
         }
 
         @Override
         public String toString() {
-            return "task=" + String.join(", ", taskKeyWords);
+            return "task=" + String.join(", ", keyWords);
         }
 
 		@Override
 		public boolean run(ReadOnlyEvent event) {
-			return taskKeyWords.stream()
-                    .filter(keyword -> StringUtil.containsIgnoreCase(event.getEvent().fullName, keyword)
-                    		|| StringUtil.containsIgnoreCase(event.getDescriptionValue(), keyword))
-                    .findAny()
-                    .isPresent();
+			eventName = event.getEvent().fullName;
+    		eventDesc = event.getDescriptionValue();
+    		List<String> sourceSet = new ArrayList<>();
+    		
+        	if(isPowerSearch) {
+        		//break the name and desc to allow power search
+        		sourceSet = new ArrayList<>(Arrays.asList(eventName.split("\\s")));
+        		sourceSet.addAll(Arrays.asList(eventDesc.split("\\s")));
+        		
+        		//break the keyword to allow power search
+        		List<String> tempSet = new ArrayList<>(keyWords);
+        		keyWords = new HashSet<>();
+        		tempSet.stream().forEach(keyword -> keyWords.addAll(Arrays.asList(keyword.split("\\s"))));
+        		
+        	} else {
+        		sourceSet.add(eventName);
+        		sourceSet.add(eventDesc);
+        	}
+        	
+        	for(String source: sourceSet) {
+    			boolean found = keyWords.stream()
+                .filter(keyword -> StringUtil.findMatch(source.trim(), keyword.trim()))
+                .findAny()
+                .isPresent();
+    			
+    			if (found) {
+    				return true;
+    			}
+    		}
+    		return false;
 		}
     }
-    //@@author A0144702N
+    
     private class StatusQualifier implements Qualifier {
     	private Boolean status;
     	
