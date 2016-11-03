@@ -79,7 +79,8 @@ public class RecurringTaskManager {
      */
     public void correctAddingOverdueTasks(Task task, LocalDate currentDate) {
         assert !CollectionUtil.isAnyNull(task, currentDate);
-        if (task.getRecurringType().equals(RecurringType.NONE)) {
+        if (task.getRecurringType().equals(RecurringType.NONE) 
+                || task.getRecurringPeriod() != Task.NO_RECURRING_PERIOD) {
             return;
         }
         LocalDate localDateCurrently = currentDate;
