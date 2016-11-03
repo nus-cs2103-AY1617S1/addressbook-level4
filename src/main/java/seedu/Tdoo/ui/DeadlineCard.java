@@ -45,14 +45,7 @@ public class DeadlineCard extends UiPart {
         card.displayedIndex = displayedIndex;
         return UiPartLoader.loadUiPart(card);
     }
-
-	public static DeadlineCard load(ReadOnlyTask task, int displayedIndex) {
-		DeadlineCard card = new DeadlineCard();
-		card.task = (Deadline) task;
-		card.displayedIndex = displayedIndex;
-		return UiPartLoader.loadUiPart(card);
-	}
-
+    
 	// @@author A0144061U-reused
 	@FXML
 	public void initialize() {
