@@ -36,15 +36,17 @@ public class BackupCommandTest extends TaskManagerGuiTest {
         assertResultMessage(String.format(BackupCommand.MESSAGE_BACKUP_SUCCESS, filepath_B + ".xml"));
         //assertBackupCommandSuccess();
         
-      //verify TaskManager can be backed up in a valid directory onto an existing backup
+        //verify TaskManager can be backed up in a valid directory onto an existing backup
         commandBox.runCommand("backup " + filepath_A);
         assertResultMessage(String.format(BackupCommand.MESSAGE_BACKUP_SUCCESS, filepath_A + ".xml"));
         //assertBackupCommandSuccess();
 
+        /* Removed as C:/ is accessible on Travis
         //verify a TaskManager can't be backed up in an inaccessible directory
         commandBox.runCommand("backup " + filepath_C);
         assertResultMessage(String.format(BackupCommand.MESSAGE_BACKUP_FAILURE, filepath_C + ".xml"));
         //assertBackupCommandFailure();
+         */
         
         //verify a TaskManager can't be backed up in an invalid directory
         commandBox.runCommand("backup " + filepath_D);
@@ -54,14 +56,4 @@ public class BackupCommandTest extends TaskManagerGuiTest {
         assertResultMessage(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, BackupCommand.MESSAGE_USAGE));
         //assertBackupCommandFailure();
     }
-
-    /* Needs more in depth testing
-     * 1) Check content of successful backup
-     * private void assertBackupCommandSuccess() {
-
-    }
-    
-    private void assertBackupCommandFailure() {
-
-    }*/
 }
