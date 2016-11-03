@@ -353,7 +353,8 @@ public class ModelManager extends ComponentManager implements Model {
 	}
 	
 	@Override
-    public synchronized void addTaskWithIndex(Task task, int targetIndex) throws IllegalValueException, UniqueTaskList.DuplicatetaskException {
+    //@@author A0139923X
+	public synchronized void addTaskWithIndex(Task task, int targetIndex) throws IllegalValueException, UniqueTaskList.DuplicatetaskException {
         if (task instanceof Todo) {
             todoList.addTaskWithIndex(task, targetIndex);
             updateFilteredTodoListToShowAll();
@@ -373,7 +374,8 @@ public class ModelManager extends ComponentManager implements Model {
             throw new IllegalValueException("Invalid data type for add");
         }
     }
-
+	//@@author
+	
 	@Override
 	public synchronized void undoLatestCommand() {
 		undoer.executeUndo();

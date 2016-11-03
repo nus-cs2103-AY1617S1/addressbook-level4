@@ -108,11 +108,8 @@ public class EditCommand extends Command {
 			taskToEdit = lastShownList.get(targetIndex - 1);
 		}
 
-        System.out.println("show me this" + (this.targetIndex-1));
-        System.out.println("and this : " + (targetIndex-1));
 		assert model != null;
 		try {
-		    //model.deleteTask(taskToEdit, dataType);
 			model.editTask(taskToEdit, dataType, toEdit, targetIndex);
 			return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, toEdit));
 		} catch (IllegalValueException ive) {

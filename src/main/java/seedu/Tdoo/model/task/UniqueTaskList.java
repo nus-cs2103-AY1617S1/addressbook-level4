@@ -74,6 +74,7 @@ public class UniqueTaskList implements Iterable<Task> {
 		internalList.add(toAdd);
 	}
 	
+	//@@author A0139923X
 	 /**   
      * Adds a task to the list at specific place
      *
@@ -86,7 +87,8 @@ public class UniqueTaskList implements Iterable<Task> {
         }
         internalList.add(index,toAdd);
     }
-
+    //@@author
+    
 	/**
 	 * Edit a task to the list.
 	 *
