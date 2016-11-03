@@ -64,4 +64,20 @@ public class UpdateController implements Controller {
         
         
     }
+    
+    /**
+     * Extracts the record index from parsedResult.
+     * 
+     * @param parsedResult
+     * @return  Integer index if parse was successfull, null otherwise.
+     */
+    private Integer parseIndex(Map<String, String[]> parsedResult) {
+        String indexStr = null;
+        if (parsedResult.get("default") != null && parsedResult.get("default")[1] != null) {
+            indexStr = parsedResult.get("default")[1].trim();
+            return Integer.decode(indexStr);
+        } else {
+            return null;
+        }
+    }
 }
