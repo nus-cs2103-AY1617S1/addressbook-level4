@@ -15,6 +15,18 @@ public class nattyParser {
     nattyParserPackage = new com.joestelmach.natty.Parser();
     }
     
+    public String parse(String dateAndTime) {
+        List<DateGroup> groups = nattyParserPackage.parse(dateAndTime);
+        Date parsedDateAndTime = new Date();
+        for(DateGroup group:groups) {
+          parsedDateAndTime = group.getDates().get(0);
+          break;
+          
+        }
+        DateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+        return df.format(parsedDateAndTime);
+    }
+    
     public String parseDate(String date) {
         List<DateGroup> groups = nattyParserPackage.parse(date);
         Date parsedDate = new Date();

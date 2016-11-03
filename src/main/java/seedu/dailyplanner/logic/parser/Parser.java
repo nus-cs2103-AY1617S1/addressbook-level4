@@ -106,7 +106,6 @@ public class Parser {
 		}
 	}
 
-
 	private Command prepareComplete(String arguments) {
 		Optional<Integer> index = parseIndex(arguments);
 		if (!index.isPresent()) {
@@ -121,7 +120,7 @@ public class Parser {
 	private Command prepareEdit(String arguments) {
 
 		int index = 0;
-		String taskName = "", date = "", startTime = "", endTime = "", isRecurring = "", endDate = "";
+		String taskName = "", startDate = "", startTime = "", endTime = "", isRecurring = "", endDate = "";
 		HashMap<String, String> mapArgs = parseEdit(arguments.trim());
 
 		// If arguments are in hashmap, pass them to addCommand, if not pass
@@ -136,22 +135,17 @@ public class Parser {
 		if (mapArgs.containsKey("taskName")) {
 			taskName = mapArgs.get("taskName");
 		}
-		if (mapArgs.containsKey("date")) {
-			date = mapArgs.get("date");
-			date = natty.parseDate(date);
+		if (mapArgs.containsKey("start")) {
+			String start = natty.parse(mapArgs.get("start"));
+			String[] dateAndTime = start.split(" ");
+			startDate = dateAndTime[0];
+			startTime = dateAndTime[1];
 		}
-		if (mapArgs.containsKey("end date")) {
-			endDate = mapArgs.get("end date");
-			endDate = natty.parseDate(endDate);
-		}
-
-		if (mapArgs.containsKey("startTime")) {
-			startTime = mapArgs.get("startTime");
-			startTime = natty.parseTime(startTime);
-		}
-		if (mapArgs.containsKey("endTime")) {
-			endTime = mapArgs.get("endTime");
-			endTime = natty.parseTime(endTime);
+		if (mapArgs.containsKey("end")) {
+			String end = natty.parse(mapArgs.get("end"));
+			String[] dateAndTime = end.split(" ");
+			endDate = dateAndTime[0];
+			endTime = dateAndTime[1];
 		}
 		if (mapArgs.containsKey("isRecurring")) {
 			isRecurring = mapArgs.get("isRecurring");
@@ -161,7 +155,7 @@ public class Parser {
 
 		try {
 
-			return new EditCommand(index, taskName, date, endDate, startTime, endTime, emptySet);
+			return new EditCommand(index, taskName, startDate, endDate, startTime, endTime, emptySet);
 		} catch (IllegalValueException ive) {
 			return new IncorrectCommand(ive.getMessage());
 		}
@@ -177,7 +171,7 @@ public class Parser {
 
 	// @@author A0140124B
 	private Command prepareAdd(String args) {
-		String taskName = "", date = "", startTime = "", endTime = "", isRecurring = "", endDate = "";
+		String taskName = "", startDate = "", startTime = "", endTime = "", endDate = "", isRecurring = "";
 		Set<String> tagSet = Collections.emptySet();
 		String trimmedArgs = args.trim();
 
@@ -196,26 +190,18 @@ public class Parser {
 		if (mapArgs.containsKey("taskName")) {
 			taskName = mapArgs.get("taskName");
 		}
-		if (mapArgs.containsKey("date")) {
-			date = mapArgs.get("date");
-		} else {
-			date = "today";
+		if (mapArgs.containsKey("start")) {
+			String start = natty.parse(mapArgs.get("start"));
+			String[] dateAndTime = start.split(" ");
+			startDate = dateAndTime[0];
+			startTime = dateAndTime[1];
 		}
-		if (mapArgs.containsKey("end date")) {
-			endDate = mapArgs.get("date");
-		} else {
-			endDate = "today";
-		}
-		date = natty.parseDate(date);
-		endDate = natty.parseDate(endDate);
-		
-		if (mapArgs.containsKey("startTime")) {
-			startTime = mapArgs.get("startTime");
-			startTime = natty.parseTime(startTime);
-		}
-		if (mapArgs.containsKey("endTime")) {
-			endTime = mapArgs.get("endTime");
-			endTime = natty.parseTime(endTime);
+		if (mapArgs.containsKey("end")) {
+			System.out.println("HEYOOOOO!!!");
+			String end = natty.parse(mapArgs.get("end"));
+			String[] dateAndTime = end.split(" ");
+			endDate = dateAndTime[0];
+			endTime = dateAndTime[1];
 		}
 		if (mapArgs.containsKey("isRecurring")) {
 			isRecurring = mapArgs.get("isRecurring");
@@ -227,7 +213,7 @@ public class Parser {
 
 		try {
 
-			return new AddCommand(taskName, date, endDate, startTime, endTime, tagSet);
+			return new AddCommand(taskName, startDate, endDate, startTime, endTime, tagSet);
 		} catch (IllegalValueException ive) {
 			return new IncorrectCommand(ive.getMessage());
 		}
@@ -307,27 +293,6 @@ public class Parser {
 
 	private void argumentArrayToHashMap(HashMap<String, String> mapArgs, String[] splitArgs) {
 		for (int i = 0; i < splitArgs.length; i++) {
-			if (splitArgs[i].substring(0, 2).equals("d/")) {
-				int j = i + 1;
-				String arg = splitArgs[i].substring(2);
-				while (j < splitArgs.length && !splitArgs[j].contains("/")) {
-					arg += " " + splitArgs[j];
-					j++;
-				}
-				mapArgs.put("date", arg);
-			}
-			
-			if (splitArgs[i].substring(0, 2).equals("ed/")) {
-				int j = i + 1;
-				String arg = splitArgs[i].substring(2);
-				while (j < splitArgs.length && !splitArgs[j].contains("/")) {
-					arg += " " + splitArgs[j];
-					j++;
-				}
-				mapArgs.put("end date", arg);
-			}
-			
-				
 			if (splitArgs[i].substring(0, 2).equals("s/")) {
 				int j = i + 1;
 				String arg = splitArgs[i].substring(2);
@@ -335,8 +300,9 @@ public class Parser {
 					arg += " " + splitArgs[j];
 					j++;
 				}
-				mapArgs.put("startTime", arg);
+				mapArgs.put("start", arg);
 			}
+
 			if (splitArgs[i].substring(0, 2).equals("e/")) {
 				int j = i + 1;
 				String arg = splitArgs[i].substring(2);
@@ -344,8 +310,9 @@ public class Parser {
 					arg += " " + splitArgs[j];
 					j++;
 				}
-				mapArgs.put("endTime", arg);
+				mapArgs.put("end", arg);
 			}
+
 			if (splitArgs[i].substring(0, 2).equals("r/")) {
 				int j = i + 1;
 				String arg = splitArgs[i].substring(2);
@@ -438,7 +405,7 @@ public class Parser {
 			keywords[0] = keyword;
 		} else {
 			nattyParser natty = new nattyParser();
-			keywords[0] = natty.parseDate(keyword);
+			keywords[0] = natty.parse(keyword);
 		}
 		final Set<String> keywordSet = new HashSet<>(Arrays.asList(keywords));
 		return new ShowCommand(keywordSet);
