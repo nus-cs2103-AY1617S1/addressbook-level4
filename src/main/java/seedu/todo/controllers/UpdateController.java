@@ -19,6 +19,7 @@ import seedu.todo.controllers.concerns.DateParser;
 import seedu.todo.controllers.concerns.Renderer;
 import seedu.todo.controllers.concerns.Tokenizer;
 import seedu.todo.models.CalendarItem;
+import seedu.todo.models.Event;
 import seedu.todo.models.Task;
 import seedu.todo.models.TodoListDB;
 
@@ -122,5 +123,48 @@ public class UpdateController implements Controller {
             return parsedResult.get("name")[1];
         }
         return null;
+    }
+    
+    /**
+     * Updates and persists a CalendarItem to the DB.
+     * 
+     * @param db
+     *            TodoListDB instance
+     * @param record
+     *            Record to update
+     * @param isTask
+     *            true if CalendarItem is a Task, false if Event
+     * @param name
+     *            Display name of CalendarItem object
+     * @param dateFrom
+     *            Due date for Task or start date for Event
+     * @param dateTo
+     *            End date for Event
+     */
+    private void updateCalendarItem(TodoListDB db, CalendarItem record,
+            boolean isTask, String name, LocalDateTime dateFrom, LocalDateTime dateTo) {
+        // Update name if not null
+        if (name != null) {
+            record.setName(name);
+        }
+        
+        // Update time
+        if (isTask) {
+            Task task = (Task) record;
+            if (dateFrom != null) {
+                task.setDueDate(dateFrom);
+            }
+        } else {
+            Event event = (Event) record;
+            if (dateFrom != null) {
+                event.setStartDate(dateFrom);
+            }
+            if (dateTo != null) {
+                event.setEndDate(dateTo);
+            }
+        }
+        
+        // Persist
+        db.save();
     }
 }
