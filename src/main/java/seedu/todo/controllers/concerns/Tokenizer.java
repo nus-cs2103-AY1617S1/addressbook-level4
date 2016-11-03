@@ -18,7 +18,7 @@ import seedu.todo.commons.exceptions.UnmatchedQuotesException;
  */
 public class Tokenizer {
 
-    private static final String UNMATCHED_QUOTES_MESSAGE = "Unmatched double-quotes detected.";
+    private static final String MESSAGE_UNMATCHED_QUOTES = "Unmatched double-quotes detected.";
     private final static String QUOTE = "\"";
 
     /**
@@ -44,7 +44,7 @@ public class Tokenizer {
     }
 
     /**
-     * Tokenizer method to parse a user-input string into a mapping of tokenType -> tokenField.
+     * Parses and tokenizes a user-input string into a mapping of tokenType -> tokenField.
      * <ul>
      *   <li>Quoted chunks are kept as a whole and never matched to a token.</li>
      *   <li>If there are multiple token matches, only the first one will be registered.</li>
@@ -58,6 +58,14 @@ public class Tokenizer {
     public static Map<String, String[]> tokenize(Map<String, String[]> tokenDefinitions, String inputCommand)
             throws UnmatchedQuotesException {
         
+        if (inputCommand.length() == 0) {
+            return null;
+        }
+        
+        if (StringUtils.countMatches(inputCommand, QUOTE) % 2 == 1) {
+            throw new UnmatchedQuotesException(MESSAGE_UNMATCHED_QUOTES);
+        }
+        
         // Generate token -> tokenType mapping and list of tokens
         List<String> tokens = new ArrayList<String>();
         HashMap<String, String> getTokenType = new HashMap<String, String>();
@@ -69,24 +77,9 @@ public class Tokenizer {
             }
         }
 
-        if (inputCommand.length() == 0) {
-            return null;
-        }
-
         // Split inputCommand into arraylist of chunks
-
-        if (StringUtils.countMatches(inputCommand, QUOTE) % 2 == 1) {
-            throw new UnmatchedQuotesException(UNMATCHED_QUOTES_MESSAGE);
-        }
-
         // --- Split by quotes
-        String[] splitString = inputCommand.split(QUOTE);
-
-        // If first char is QUOTE, then first element is a quoted string.
-        List<TokenizedString> tokenizedSplitString = new ArrayList<TokenizedString>();
-        for (int i = 0; i < splitString.length; i++) {
-            tokenizedSplitString.add(new TokenizedString(splitString[i].trim(), false, (i % 2 == 1)));
-        }
+        List<TokenizedString> tokenizedSplitString = tokenizeQuotes(inputCommand);
         
         // --- Split by tokens
         Map<String, Integer> tokenIndices = splitByTokens(tokens, getTokenType, tokenizedSplitString);
@@ -95,6 +88,23 @@ public class Tokenizer {
         // Get dictionary of tokenType -> index
         // Return dictionary of tokenType -> {token, tokenField}
         return constructParsedResult(tokenizedSplitString, tokenIndices);
+    }
+
+    /**
+     * Given a string, extract quoted substrings and flag them as quotes.
+     * 
+     * @param inputCommand
+     * @return List of TokenizedString
+     */
+    private static List<TokenizedString> tokenizeQuotes(String inputCommand) {
+        String[] splitString = inputCommand.split(QUOTE);
+
+        // If first char is QUOTE, then first element is a quoted string.
+        List<TokenizedString> tokenizedSplitString = new ArrayList<TokenizedString>();
+        for (int i = 0; i < splitString.length; i++) {
+            tokenizedSplitString.add(new TokenizedString(splitString[i].trim(), false, (i % 2 == 1)));
+        }
+        return tokenizedSplitString;
     }
 
     /**
@@ -111,12 +121,24 @@ public class Tokenizer {
             String token = tokenizedSplitString.get(tokenIndex.getValue()).string;
             String tokenField = null;
             // Should just EAFP instead of LBYL, but oh well.
-            if (tokenIndex.getValue() + 1 < tokenizedSplitString.size() && !tokenizedSplitString.get(tokenIndex.getValue() + 1).isToken) {
+            if (tokenIndexPresent(tokenIndex, tokenizedSplitString)) {
                 tokenField = tokenizedSplitString.get(tokenIndex.getValue() + 1).string;
             }
             parsedResult.put(tokenType, new String[] { token, tokenField });
         }
         return parsedResult;
+    }
+    
+    /**
+     * Checks if an identified tokenIndex contains any data immediately after the token.
+     * 
+     * @param tokenIndex
+     * @param tokenizedSplitString
+     * @return true if data is present, false otherwise
+     */
+    private static boolean tokenIndexPresent(Map.Entry<String, Integer> tokenIndex, List<TokenizedString> tokenizedSplitString) {
+        return tokenIndex.getValue() + 1 < tokenizedSplitString.size()
+                && !tokenizedSplitString.get(tokenIndex.getValue() + 1).isToken;
     }
 
     /**
