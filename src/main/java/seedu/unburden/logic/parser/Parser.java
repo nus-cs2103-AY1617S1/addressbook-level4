@@ -53,23 +53,23 @@ public class Parser {
 			.compile("(?<name>[^/]+)" + "d/(?<date>[^/]+)" + "(?<tagArguments>(?: t/[^/]+)*)");
 
 	// Deadline without task description and date
-	private static final Pattern ADD_FORMAT_5 = Pattern
+	/*private static final Pattern ADD_FORMAT_5 = Pattern
 			.compile("(?<name>[^/]+)" + "e/(?<endTimeArguments>[^/]+)" + "(?<tagArguments>(?: t/[^/]+)*)");
 
 	// Deadline without date
 	private static final Pattern ADD_FORMAT_6 = Pattern.compile("(?<name>[^/]+)" + "i/(?<taskDescriptions>[^/]+)"
-			+ "e/(?<endTimeArguments>[^/]+)" + "(?<tagArguments>(?: t/[^/]+)*)");
+			+ "e/(?<endTimeArguments>[^/]+)" + "(?<tagArguments>(?: t/[^/]+)*)"); */
 
 	// Deadline without time
-	private static final Pattern ADD_FORMAT_7 = Pattern.compile(
+	private static final Pattern ADD_FORMAT_5 = Pattern.compile(
 			"(?<name>[^/]+)" + "i/(?<taskDescriptions>[^/]+)" + "d/(?<date>[^/]+)" + "(?<tagArguments>(?: t/[^/]+)*)");
 
 	// Floating task
-	private static final Pattern ADD_FORMAT_8 = Pattern
+	private static final Pattern ADD_FORMAT_6 = Pattern
 			.compile("(?<name>[^/]+)" + "i/(?<taskDescriptions>[^/]+)" + "(?<tagArguments>(?: t/[^/]+)*)");
 
 	// Floating task without task description
-	private static final Pattern ADD_FORMAT_9 = Pattern.compile("(?<name>[^/]+)" + "(?<tagArguments>(?: t/[^/]+)*)");
+	private static final Pattern ADD_FORMAT_7 = Pattern.compile("(?<name>[^/]+)" + "(?<tagArguments>(?: t/[^/]+)*)");
 
 	private static final Pattern EDIT_FORMAT = Pattern
 			.compile("(?<index>[^/]+)(?!$)" + "((?<name>[^/]+))?" + "(i/(?<taskDescriptions>[^/]+))?"
@@ -203,13 +203,12 @@ public class Parser {
 		final Matcher matcher5 = ADD_FORMAT_5.matcher(args.trim());
 		final Matcher matcher6 = ADD_FORMAT_6.matcher(args.trim());
 		final Matcher matcher7 = ADD_FORMAT_7.matcher(args.trim());
-		final Matcher matcher8 = ADD_FORMAT_8.matcher(args.trim());
-		final Matcher matcher9 = ADD_FORMAT_9.matcher(args.trim());
+		//final Matcher matcher8 = ADD_FORMAT_8.matcher(args.trim());
+		//final Matcher matcher9 = ADD_FORMAT_9.matcher(args.trim());
 
 		// Validate arg string format
 		if (!matcher0.matches() & !matcher1.matches() & !matcher2.matches() & !matcher3.matches() & !matcher4.matches()
-				& !matcher5.matches() & !matcher6.matches() & !matcher7.matches() & !matcher8.matches()
-				& !matcher9.matches()) {
+				& !matcher5.matches() & !matcher6.matches() & !matcher7.matches()) {
 			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 		}
 
@@ -251,7 +250,7 @@ public class Parser {
 				return new AddCommand("deadline without task description and time", details,
 						getTagsFromArgs(matcher4.group("tagArguments")));
 
-			} else if (matcher5.matches()) {
+			} /*else if (matcher5.matches()) {
 				details.add(matcher5.group("name"));
 				details.add(matcher5.group("endTimeArguments"));
 				return new AddCommand("deadline without task description and date", details,
@@ -264,59 +263,59 @@ public class Parser {
 				return new AddCommand("deadline without date", details,
 						getTagsFromArgs(matcher6.group("tagArguments")));
 
-			} else if (matcher7.matches()) {
+			}*/ else if (matcher7.matches()) {
 				details.add(matcher7.group("name"));
 				details.add(matcher7.group("taskDescriptions"));
 				details.add(matcher7.group("date"));
 				return new AddCommand("deadline without time", details,
 						getTagsFromArgs(matcher7.group("tagArguments")));
 
-			} else if (matcher8.matches()) {
-				details.add(matcher8.group("name"));
-				details.add(matcher8.group("taskDescriptions"));
-				return new AddCommand("floating task", details, getTagsFromArgs(matcher8.group("tagArguments")));
+			} else if (matcher6.matches()) {
+				details.add(matcher6.group("name"));
+				details.add(matcher6.group("taskDescriptions"));
+				return new AddCommand("floating task", details, getTagsFromArgs(matcher6.group("tagArguments")));
 
 			} else {
-				if (matcher9.group("name").toLowerCase().contains(BYTODAY)) {
-					details.add(matcher9.group("name").replaceAll("(?i)" + Pattern.quote(BYTODAY), ""));
+				if (matcher7.group("name").toLowerCase().contains(BYTODAY)) {
+					details.add(matcher7.group("name").replaceAll("(?i)" + Pattern.quote(BYTODAY), ""));
 					details.add(DATEFORMATTER.format(calendar.getTime()));
 					return new AddCommand("deadline without task description and time", details,
-							getTagsFromArgs(matcher9.group("tagArguments")));
+							getTagsFromArgs(matcher7.group("tagArguments")));
 
 				}
 
-				else if (matcher9.group("name").toLowerCase().contains(BYTOMORROW)) {
+				else if (matcher7.group("name").toLowerCase().contains(BYTOMORROW)) {
 					calendar.setTime(calendar.getTime());
 					calendar.add(Calendar.DAY_OF_YEAR, 1);
-					details.add(matcher9.group("name").replaceAll("(?i)" + Pattern.quote(BYTOMORROW), ""));
+					details.add(matcher7.group("name").replaceAll("(?i)" + Pattern.quote(BYTOMORROW), ""));
 					details.add(DATEFORMATTER.format(calendar.getTime()));
 					return new AddCommand("deadline without task description and time", details,
-							getTagsFromArgs(matcher9.group("tagArguments")));
+							getTagsFromArgs(matcher7.group("tagArguments")));
 
 				}
 
-				else if (matcher9.group("name").toLowerCase().contains(BYNEXTWEEK)) {
+				else if (matcher7.group("name").toLowerCase().contains(BYNEXTWEEK)) {
 					calendar.setTime(calendar.getTime());
 					calendar.add(Calendar.WEEK_OF_YEAR, 1);
-					details.add(matcher9.group("name").replaceAll("(?i)" + Pattern.quote(BYNEXTWEEK), ""));
+					details.add(matcher7.group("name").replaceAll("(?i)" + Pattern.quote(BYNEXTWEEK), ""));
 					details.add(DATEFORMATTER.format(calendar.getTime()));
 					return new AddCommand("deadline without task description and time", details,
-							getTagsFromArgs(matcher9.group("tagArguments")));
+							getTagsFromArgs(matcher7.group("tagArguments")));
 
 				}
 
-				else if (matcher9.group("name").toLowerCase().contains(BYNEXTMONTH)) {
+				else if (matcher7.group("name").toLowerCase().contains(BYNEXTMONTH)) {
 					calendar.setTime(calendar.getTime());
 					calendar.add(Calendar.WEEK_OF_MONTH, 4);
-					details.add(matcher9.group("name").replaceAll("(?i)" + Pattern.quote(BYNEXTMONTH), ""));
+					details.add(matcher7.group("name").replaceAll("(?i)" + Pattern.quote(BYNEXTMONTH), ""));
 					details.add(DATEFORMATTER.format(calendar.getTime()));
 					return new AddCommand("deadline without task description and time", details,
-							getTagsFromArgs(matcher9.group("tagArguments")));
+							getTagsFromArgs(matcher7.group("tagArguments")));
 
 				} else {
-					details.add(matcher9.group("name"));
+					details.add(matcher7.group("name"));
 					return new AddCommand("floating task without task description", details,
-							getTagsFromArgs(matcher9.group("tagArguments")));
+							getTagsFromArgs(matcher7.group("tagArguments")));
 				}
 			}
 
