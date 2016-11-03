@@ -38,11 +38,11 @@ public class TestTask implements ReadOnlyTask {
     public void setName(Name name) {
         this.name = name;
     }
-
+    //@@author A0153467Y
     public void setIsImportant(boolean isImportant){
     	this.isImportant=isImportant;
     }
-    
+    //@@author
     public void setOpenTime(DateTime openTime) {
         this.openTime = openTime;
     }
@@ -50,7 +50,7 @@ public class TestTask implements ReadOnlyTask {
     public void setCloseTime(DateTime closeTime) {
         this.closeTime = closeTime;
     }
-
+    //@@author A0153467Y
     public void setIsCompleted(boolean isCompleted){
         this.isCompleted = isCompleted;
     }
@@ -59,12 +59,12 @@ public class TestTask implements ReadOnlyTask {
     public Name getName() {
         return name;
     }
-
+    //@@author A0153467Y
     @Override
     public boolean getComplete() {
         return isCompleted;
     }
-    
+    //@@author
     @Override
     public DateTime getOpenTime() {
         return openTime;
@@ -79,11 +79,14 @@ public class TestTask implements ReadOnlyTask {
     public UniqueTagList getTags() {
         return tags;
     }
-    
+
+    //@@author A0153467Y
+
     @Override
     public boolean getImportance() {
         return isImportant;
     }
+    //@@author
     @Override
     public String toString() {
         return getAsText();

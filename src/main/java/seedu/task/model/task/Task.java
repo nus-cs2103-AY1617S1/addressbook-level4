@@ -99,7 +99,6 @@ public class Task implements ReadOnlyTask {
     }
     
     //@@author A0141052Y
-    
     /**
      * Retrieves an immutable version of the task. Will not mutate if task is changed afterwards.
      */
@@ -129,7 +128,8 @@ public class Task implements ReadOnlyTask {
     public void setIsCompleted(boolean isCompleted) {
         this.isCompleted = isCompleted;
     }
-	//@@author 
+	//@@author
+    
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
