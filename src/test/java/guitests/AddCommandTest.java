@@ -7,7 +7,9 @@ import org.junit.Test;
 
 import guitests.guihandles.TaskCardHandle;
 import seedu.flexitrack.commons.core.Messages;
+import seedu.flexitrack.commons.exceptions.IllegalValueException;
 import seedu.flexitrack.logic.commands.AddCommand;
+import seedu.flexitrack.testutil.TaskBuilder;
 import seedu.flexitrack.testutil.TestTask;
 import seedu.flexitrack.testutil.TestUtil;
 import seedu.flexitrack.testutil.TypicalTestTasks;
@@ -71,5 +73,33 @@ public class AddCommandTest extends FlexiTrackGuiTest {
         TestTask[] expectedList = TestUtil.addTasksToList(currentList, taskToAdd);
         assertTrue(taskListPanel.isListMatching(expectedList));
     }
-
+    
+    @Test
+    public void assertAddRecursiveEventSuccess() throws IllegalValueException {
+        commandBox.runCommand("add Attend PC1222 lecture fr/3 ty/week from/Fri 3pm to/Fri 5pm");
+        
+        for (int i = 0; i < 3; i++) {
+            TestTask recursiveEvent = new TaskBuilder().withName("Attend PC1222 lecture").withStartTime("Nov " + (4 + (i*7)) +" 2016 15:00")
+                    .withEndTime("Nov " + (4 + (i*7)) +" 2016 17:00").withDueDate("Feb 29 2000 00:00").build();
+            
+            currentList = TestUtil.addTasksToList(currentList, recursiveEvent);
+            
+        }
+        assertTrue(taskListPanel.isListMatching(0, currentList));
+    }
+    
+    @Test
+    public void assertAddRecursiveTaskSuccess() throws IllegalValueException {
+        commandBox.runCommand("add Submit PC1222 Lab Assignment fr/3 ty/week by/Nov 1 2016 17:00");
+        
+        for (int i = 0; i < 3; i++) {
+            TestTask recursiveTask = new TaskBuilder().withName("Submit PC1222 Lab Assignment").withStartTime("Feb 29 2000 00:00")
+                    .withEndTime("Feb 29 2000 00:00").withDueDate("Nov " + (1 +(i*7)) + " 2016 17:00").build();
+            
+            currentList = TestUtil.addTasksToList(currentList, recursiveTask);
+            
+        }
+        assertTrue(taskListPanel.isListMatching(0, currentList));
+    }
+    
 }
