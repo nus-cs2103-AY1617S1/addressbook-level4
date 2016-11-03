@@ -286,7 +286,7 @@ Use case ends.
 > MESS shows a message to inform user that task already exists
 Use case ends.
 
-<!-- A0144939R -->
+<!-- @@author A0144939R -->
 #### Use case: Alias command
  
 **MSS**
@@ -308,7 +308,7 @@ Use case ends.
 1c. The command already has an alias
 > MESS maps the given symbol to the command, as a command can have multiple aliases
 Use case ends.
-<!- A0144939R --> 
+<!- @@author --> 
  
 #### Use case: Delete task by task name
  
