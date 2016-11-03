@@ -2,6 +2,9 @@ package seedu.todolist.model.task;
 
 import java.util.Objects;
 
+import tray.notification.NotificationType;
+import tray.notification.TrayNotification;
+
 /**
  * Represents a Task in the to do list.
  * Guarantees: name is present and not null, field values are validated.
@@ -66,6 +69,17 @@ public class Task implements ReadOnlyTask {
     
     public void setNotification(int bufferTime) {
     	this.notification = new Notification(bufferTime);
+    }
+    
+    public void sendNotification() {
+    	String title = "name ah";
+    	//name.toString();
+        String message = "try lah";
+        		//String.format("is happening %1$s", interval.toString());
+        NotificationType notificationType = NotificationType.SUCCESS;
+        
+        TrayNotification tray = new TrayNotification(title, message, notificationType);
+        tray.showAndWait();
     }
 
     @Override

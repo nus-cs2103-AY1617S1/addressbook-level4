@@ -4,8 +4,10 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.todolist.commons.exceptions.DuplicateDataException;
+import seedu.todolist.commons.exceptions.IllegalValueException;
 import seedu.todolist.commons.util.CollectionUtil;
 
+import java.time.LocalDateTime;
 import java.util.*;
 
 /**
@@ -102,6 +104,46 @@ public class UniqueTaskList implements Iterable<Task> {
     //@@author
     
     //@@author A0146682X
+    /**
+     * Sends out notifications for tasks
+     * @throws IllegalValueException 
+     */
+    public void sendNotifications() throws IllegalValueException {
+    	Interval temp = null;
+    	TaskDate actualDate;
+    	TaskTime actualTime;
+    	LocalDateTime timeToNotify;
+    	for (Task task: internalList) {
+    		if (task.getNotification()!=null) {
+    			temp = task.getInterval();
+    		}
+    		
+    		task.sendNotification();
+    		System.out.println("sent");
+    		
+    		if (temp!=null) {
+    			if (temp.getStartDate()!=null) {
+    				actualDate = temp.getStartDate();
+    				if (temp.getStartTime()!=null) {
+    					actualTime = temp.getStartTime();
+    				}
+    				else actualTime = new TaskTime("00:00");
+    			}
+    			else {
+    				actualDate = temp.getEndDate();
+    				if (temp.getEndTime()!=null) {
+    					actualTime = temp.getEndTime();
+    				}
+    				else actualTime = new TaskTime("23:59");
+    			}
+				timeToNotify = LocalDateTime.of(actualDate.getDate(), actualTime.getTime()).minusHours(task.getNotification().getBufferTime());
+				if (timeToNotify.isBefore(LocalDateTime.now())) {
+					task.sendNotification();
+				}
+    		}
+    	}
+    }
+    
     /**
      * Sets notification for the equivalent task in the list.
      */

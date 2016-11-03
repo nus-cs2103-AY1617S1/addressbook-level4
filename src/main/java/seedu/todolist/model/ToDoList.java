@@ -1,6 +1,7 @@
 package seedu.todolist.model;
 
 import javafx.collections.ObservableList;
+import seedu.todolist.commons.exceptions.IllegalValueException;
 import seedu.todolist.model.tag.Tag;
 import seedu.todolist.model.tag.UniqueTagList;
 import seedu.todolist.model.task.ReadOnlyTask;
@@ -111,6 +112,15 @@ public class ToDoList implements ReadOnlyToDoList {
     		throw new UniqueTaskList.TaskNotFoundException();
     	}
     }
+    
+    /**
+     * Sends notifications for tasks
+     * @throws IllegalValueException 
+     */
+    public void sendNotifications() throws IllegalValueException {
+    	tasks.sendNotifications();
+    }
+    
     //@author
     
     public boolean markTask(ReadOnlyTask... keys) throws UniqueTaskList.TaskNotFoundException {
