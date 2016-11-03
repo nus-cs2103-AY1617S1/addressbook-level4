@@ -65,7 +65,7 @@ public class ViewCommandTest extends CommandTest {
         Thread.sleep(1);
 
         all = new int[]{ 3, 6, 5, 4, 2, 1, 0 };
-        events = new int[]{ 6, 5 };
+        events = new int[]{ 5, 6 };
         dueSoon = new int[]{ 2, 1 };
         completed = new int[]{ 6, 4, 0 };
         incomplete = new int[]{ 3, 5, 2, 1 };
