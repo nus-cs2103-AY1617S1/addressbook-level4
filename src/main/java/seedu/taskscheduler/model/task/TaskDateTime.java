@@ -8,8 +8,8 @@ import seedu.taskscheduler.commons.util.DateFormatter;
 //@@author A0148145E
 
 /**
-* Represents the Task date and time model.
-*/
+ * Represents the Task date and time model.
+ */
 public class TaskDateTime {
 
     private Date date;
@@ -43,6 +43,8 @@ public class TaskDateTime {
         if (!DateFormatter.convertDateToFullTimeString(date)
                 .equals(DateFormatter.convertDateToFullTimeString(other))) {
             enShowTime = true;
+        } else {
+            setTimeToMax(date);
         }
     }
     
@@ -110,5 +112,12 @@ public class TaskDateTime {
     
     public boolean isSameStateAs(TaskDateTime other) {
         return getDisplayString().equals(other.getDisplayString());
+    }
+    
+    @SuppressWarnings("deprecation")
+    private void setTimeToMax(Date date) {
+        date.setHours(23);
+        date.setMinutes(59);
+        date.setSeconds(59);
     }
 }

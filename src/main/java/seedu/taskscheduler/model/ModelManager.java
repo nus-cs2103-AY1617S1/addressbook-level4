@@ -145,16 +145,6 @@ public class ModelManager extends ComponentManager implements Model {
     }
     
     @Override
-    public UnmodifiableObservableList<ReadOnlyTask> getPriorityFilteredTaskList() {
-        FilteredList<Task> priorityTasks = new FilteredList<Task>(filteredTasks);
-        Set<String> strings = new HashSet<String>();
-        strings.add("incomplete");
-        Expression expression = new PredicateExpression(new NameQualifier(strings));
-        priorityTasks.setPredicate(expression::satisfies);
-        return new UnmodifiableObservableList<>(priorityTasks);
-    }
-
-    @Override
     public void updateFilteredListToShowAll() {
         filteredTasks.setPredicate(null);
     }

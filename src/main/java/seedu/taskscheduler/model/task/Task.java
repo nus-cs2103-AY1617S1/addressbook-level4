@@ -4,6 +4,7 @@ import seedu.taskscheduler.commons.exceptions.IllegalValueException;
 import seedu.taskscheduler.commons.util.CollectionUtil;
 import seedu.taskscheduler.model.tag.UniqueTagList;
 
+import java.util.Date;
 import java.util.Objects;
 
 //@@author A0148145E
@@ -72,6 +73,15 @@ public class Task implements ReadOnlyTask {
     public boolean isCompleted() {
         return completeStatus;
     }
+
+    @Override
+    public boolean isOverdue() {
+        boolean overdue = false;
+        if (getType() != TaskType.FLOATING) {
+            overdue = endDateTime.getDate().before(new Date());
+        }
+        return !completeStatus && overdue;
+    }
     
     public void setName(Name name) {
         this.name = name;
@@ -112,7 +122,7 @@ public class Task implements ReadOnlyTask {
      * Change completeStatus to indicate task undone.
      * @throws IllegalValueException if already undone
      */
-    public void unMarkComplete() throws IllegalValueException {
+    public void unmarkComplete() throws IllegalValueException {
         if (!completeStatus) {
             throw new IllegalValueException("");
         } else {
