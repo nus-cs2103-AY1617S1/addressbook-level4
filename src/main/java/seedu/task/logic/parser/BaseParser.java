@@ -26,23 +26,8 @@ public abstract class BaseParser {
         StringJoiner joiner = new StringJoiner(" ");
         
         for (String segment : segments) {
-            if (segment.contains("/")) {
-                addToArgumentsTable(currentKey, joiner.toString().trim());
-                
-                String[] kwargComponent = segment.split("/", 2);
-                
-                // set to next keyword
-                currentKey = kwargComponent[0];
-                
-                joiner = new StringJoiner(" ");
-                if (kwargComponent.length > 1) {
-                    joiner.add(kwargComponent[1]);
-                }
-                
-                continue;
-            } else {
-                joiner.add(segment);
-            }
+            joiner.add(segment);
+            
         }
         
         addToArgumentsTable(currentKey, joiner.toString());

@@ -36,7 +36,7 @@ public class AddCommandTest extends TaskManagerGuiTest {
         assertAddSuccess(td.cs2103);
        
         //add a task which has endTime < openTime 
-        commandBox.runCommand("add testEvent s/tomorrow c/today");
+        commandBox.runCommand("add testEvent starts tomorrow ends today");
         assertResultMessage(MESSAGE_DATETIME_CONSTRAINTS);
         
         //add test with only name
@@ -86,19 +86,19 @@ public class AddCommandTest extends TaskManagerGuiTest {
         assertResultMessage(String.format(AddCommand.MESSAGE_SUCCESS, taskToAdd));
         
         //recurring task number exceeds the maximum
-        commandBox.runCommand("add testRecurring r/21");
+        commandBox.runCommand("add testRecurring recurs 21");
         assertResultMessage(AddCommand.MESSAGE_WRONG_NUMBER_OF_RECURRENCE);
         
         // recurring number of task is negative
-        commandBox.runCommand("add testRecurring r/-1");
+        commandBox.runCommand("add testRecurring recurs -1");
         assertResultMessage(AddCommand.MESSAGE_NEGATIVE_NUMBER_OF_RECURRENCE);
         
         //invalid recurring argument with alphanumeric is not allowed
-        commandBox.runCommand("add testRecurring r/abc");
+        commandBox.runCommand("add testRecurring recurs abc");
         assertResultMessage(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         
         //missing recurring argument 
-        commandBox.runCommand("add testRecurring r/");
+        commandBox.runCommand("add testRecurring recurs ");
         assertResultMessage(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
     }
     //@@author
@@ -117,7 +117,7 @@ public class AddCommandTest extends TaskManagerGuiTest {
     
     //@@author A0141052Y
     private TestTask[] assertAddRecurringSuccess(int numTimes, TestTask taskToAdd, TestTask... currentList) {
-        commandBox.runCommand(taskToAdd.getAddCommand() + " r/" + numTimes);
+        commandBox.runCommand(taskToAdd.getAddCommand() + " recurs " + numTimes);
         
         TestTask[] expectedList = currentList.clone();
         

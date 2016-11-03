@@ -23,9 +23,9 @@ public class AddCommand extends UndoableCommand {
     public static final String COMMAND_WORD = "add";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task to the task list. "
-            + "Parameters: NAME s/start-datetime c/closedatetime [t/TAG r/NUMBER_TO_RECUR]...\n"
+            + "Parameters: NAME starts DATETIME ends DATETIME tag TAG1 tag TAG2 recurs NUMBER_TO_RECUR\n"
             + "Example: " + COMMAND_WORD
-            + " Finish CS2103";
+            + " Finish CS2103 ends tomorrow starts today tag important tag urgent";
     public static final String MESSAGE_SUCCESS = "New task added: %1$s";
     public static final String MESSAGE_ROLLBACK_SUCCESS = "Added task removed: %1$s";
     public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the task list";
@@ -102,7 +102,7 @@ public class AddCommand extends UndoableCommand {
             model.addTask(newTask);
         }
     }
-    //@author   
+    //@@author   
 
     @Override
     public CommandResult rollback() {

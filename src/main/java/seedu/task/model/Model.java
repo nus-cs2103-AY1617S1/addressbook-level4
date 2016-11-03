@@ -1,8 +1,10 @@
 package seedu.task.model;
 
+import java.util.HashMap;
 import java.util.Set;
 
 import seedu.task.commons.core.UnmodifiableObservableList;
+import seedu.task.commons.logic.CommandKeys.Commands;
 import seedu.task.model.task.ReadOnlyTask;
 import seedu.task.model.task.Task;
 import seedu.task.model.task.UniqueTaskList;
@@ -72,5 +74,18 @@ public interface Model {
      * keywords
      */
     void updateFilteredTaskList(Set<String> keywords);
-
+    
+    //@@author A0144939R
+    /**
+     * Gets the alias map
+     * @return The command represented by the alias, or null if no mapping exists
+     */
+    public HashMap<String, Commands> getAliasMap();
+    
+    /**
+     * Sets mapping for given alias
+     * @param command
+     * @param alias
+     */
+    public void setMapping(Commands command, String alias);
 }

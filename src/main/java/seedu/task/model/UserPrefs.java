@@ -2,13 +2,17 @@ package seedu.task.model;
 
 import java.util.Objects;
 
+import java.util.HashMap;
 import seedu.task.commons.core.GuiSettings;
+import seedu.task.commons.logic.CommandKeys.Commands;
 
 /**
  * Represents User's preferences.
  */
 public class UserPrefs {
-
+    //@@author A0144939R
+    private HashMap<String, Commands> aliases = new HashMap<String, Commands>();
+    //@@author
     public GuiSettings guiSettings;
 
     public GuiSettings getGuiSettings() {
@@ -50,5 +54,23 @@ public class UserPrefs {
     public String toString(){
         return guiSettings.toString();
     }
-
+    
+    //@@author A0144939R
+    /**
+     * Gets mapping for a given alias.
+     * @param alias: a user defined string
+     * @return The command represented by the alias, or null if no mapping exists
+     */
+    public HashMap<String, Commands> getAliasMap() {
+        return aliases;
+    }
+    
+    /**
+     * Sets mapping for given alias
+     * @param command
+     * @param alias
+     */
+    public void setMapping(Commands command, String alias) {
+        aliases.put(alias, command);
+    }
 }
