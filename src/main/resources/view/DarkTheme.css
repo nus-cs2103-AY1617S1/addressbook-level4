@@ -98,20 +98,15 @@
     -fx-background-color: -fx-focus-color;
 }
 
-.split-pane:horizontal .split-pane-divider {
-    -fx-border-color: transparent #1d1d1d transparent #1d1d1d;
-    -fx-background-color: transparent, derive(#1d1d1d, 10%);
-}
-
-.split-pane:vertical .split-pane-divider {
-    -fx-border-color: transparent #1d1d1d transparent #1d1d1d;
-    -fx-background-color: transparent, derive(#1d1d1d, 10%);
+.split-pane .split-pane-divider {
+    -fx-border-color: transparent;
+    -fx-background-color: transparent;
 }
 
 .split-pane {
     -fx-border-radius: 1;
     -fx-border-width: 1;
-    -fx-background-color: derive(#1d1d1d, 20%);
+    -fx-background-color: derive(#1d1d1d, 40%);
 }
 
 .list-view {
@@ -185,13 +180,7 @@
 }
 
 .anchor-pane {
-     -fx-background-color: derive(#1d1d1d, 20%);
-}
-
-.anchor-pane-with-border {
-     -fx-background-color: derive(#1d1d1d, 20%);
-     -fx-border-color: derive(#1d1d1d, 10%);
-     -fx-border-top-width: 1px;
+     -fx-background-color: derive(#1d1d1d, 40%);
 }
 
 .status-bar {
@@ -350,11 +339,11 @@
 }
 
 .scroll-bar:horizontal .increment-arrow, .scroll-bar:horizontal .decrement-arrow {
-    -fx-padding: 0 0 0 0;
+    -fx-padding: 0 0 0 0s;
 }
 
 #cardPane {
-    -fx-background-color: red;
+    -fx-background-color: derive(grey, 80%);
     -fx-padding: 10 10 10 10;
     -fx-background-radius: 5;
     -fx-border-color: #d6d6d6;
