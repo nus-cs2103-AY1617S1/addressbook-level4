@@ -158,6 +158,7 @@ public class TaskCard extends UiPart {
             default:
                 priorityCircle
                         .setFill(UiColor.Priority.DEFAULT.getCircleColor());
+                break;
         }
     }
 
