@@ -12,24 +12,32 @@ import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.stage.Popup;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 
 //@@author A0139194X
 public class HelpPopup extends UiPart {
 
     private static final String FXML = "HelpPopup.fxml";
+    private final int DEFAULT_X_POS = 200;
+    private final int DEFAULT_Y_POS = 100;
+    private final int DEFAULT_HEIGHT = 800;
+    private final int DEFAULT_WIDTH = 1000;
     private Popup popup;
     private TextArea content;
     private boolean isFirstKey;
+    private TableView<String> table = new TableView<String>();
 
     //@@author A0139194X
     public HelpPopup() {
         initPopup();
+        initTable();
         isFirstKey = true;
     }
 
     //@@author A0139194X
     public void show(Node node) {
-        popup.show(node, 200, 100);
+        popup.show(node, DEFAULT_X_POS, DEFAULT_Y_POS);
         popup.centerOnScreen();
     }
 
@@ -56,6 +64,13 @@ public class HelpPopup extends UiPart {
 
         content.setEditable(false);
     }
+    
+    @FXML
+    private void initTable() {
+        TableColumn<String, String> commandCol = new TableColumn<String, String>("Command");
+        TableColumn<String, String> formatCol = new TableColumn<String, String>("Format");
+        table.getColumns().setAll(commandCol, formatCol);
+    }
 
     //@@author A0139194X
     @FXML
@@ -76,8 +91,8 @@ public class HelpPopup extends UiPart {
     //@@author A0143378Y
     public void properties() { 
         //Setting up the width and height
-        content.setPrefHeight(800);
-        content.setPrefWidth(1000);
+        content.setPrefHeight(DEFAULT_HEIGHT);
+        content.setPrefWidth(DEFAULT_WIDTH);
         
         //Setting up wrapping of text in the content box 
         content.setWrapText(true);
