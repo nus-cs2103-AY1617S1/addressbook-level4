@@ -6,7 +6,7 @@ import seedu.flexitrack.commons.exceptions.IllegalValueException;
 /**
  * 
  * Change current storage to other place
- *
+ * Limitation : only allow user to change storage within FlexiTrack folder
  */
 public class ChangeStoragePathCommand extends Command{
 

@@ -58,7 +58,8 @@ public class DateTimeInfoParser {
     public List<Date> getParsedTimingObject() {
         return timingInfo.getDates();
     }
-
+    
+    //@@author A0138455Y
     public DateGroup getTimingInfo() {
         return timingInfo;
     }

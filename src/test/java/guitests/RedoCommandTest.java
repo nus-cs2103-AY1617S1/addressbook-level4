@@ -40,7 +40,8 @@ public class RedoCommandTest extends FlexiTrackGuiTest {
         TestTask[] expectedList = td.getTypicalSortedTasks();
 
         // redo fail
-        logic.execute("redo");
+        //logic.execute("redo");
+        commandBox.runCommand("redo");
         assertResultMessage(RedoCommand.MESSAGE_NOT_SUCCESS);
         
         // redo add command 

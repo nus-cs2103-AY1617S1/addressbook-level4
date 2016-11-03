@@ -327,6 +327,11 @@ public class Parser {
     }
 
     //@@author A0138455Y
+    /**
+     * 
+     * @param args
+     * @return
+     */
     private Command prepareBlock(String args) {
         final Matcher matcherEvent = TASK_EVENT_TYPE_DATA_ARGS_FORMAT.matcher(args.trim());
 

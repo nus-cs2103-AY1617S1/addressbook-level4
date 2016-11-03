@@ -73,9 +73,11 @@ public class Name {
         return isDonePrefix.equals(DONE_PREFIX);
     }
     
+    //@@author A0138455Y
     public boolean getIsBlock() {
         return isBlockPrefix.equals(BLOCK_PREFIX);
     }
+    //@@author
     
     public String setBlock(){ 
         return isBlockPrefix = BLOCK_PREFIX; 

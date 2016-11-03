@@ -1,3 +1,4 @@
+//@@author A0138455Y
 package guitests;
 
 import static org.junit.Assert.assertEquals;
@@ -26,7 +27,7 @@ import seedu.flexitrack.logic.commands.UnmarkCommand;
 import seedu.flexitrack.model.Model;
 import seedu.flexitrack.model.ModelManager;
 import seedu.flexitrack.storage.StorageManager;
-//@@author A0138455Y
+
 public class HelpCommandTest extends FlexiTrackGuiTest {
 
     /**
@@ -112,7 +113,7 @@ public class HelpCommandTest extends FlexiTrackGuiTest {
     public void execute_help_select() throws Exception {
         // help for select command
         String help_Select = "help select";
-        assertValidHelpSuccess(help_Select, SelectCommand.MESSAGE_USAGE);
+        assertValidHelpSuccess(help_Select, HelpCommand.HELP_MESSAGE_USAGE);
     }
 
     @Test

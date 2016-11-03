@@ -145,14 +145,32 @@ public class FlexiTrack implements ReadOnlyFlexiTrack {
     }
     
     //@@author A0138455Y
+    /**
+     * 
+     * @param targetIndex is non-negative integer
+     * @return
+     * @throws IllegalValueException
+     */
     public Task markTask(ReadOnlyTask targetIndex) throws IllegalValueException {
         return task.mark(targetIndex, Boolean.TRUE);
     }
-
+    
+    /**
+     * 
+     * @param targetIndex is non-negative integer
+     * @return
+     * @throws IllegalValueException
+     */
     public Task unmarkTask(ReadOnlyTask targetIndex) throws IllegalValueException {
         return task.mark(targetIndex, Boolean.FALSE);
     }
     
+    /**
+     * 
+     * @param toCheck is a Task Object and not null
+     * @return return ture if this task is not happen in any Block list slot
+     * @throws DuplicateTaskException
+     */
     public boolean checkBlock(Task toCheck) throws DuplicateTaskException {
         setBlockList();
 
@@ -168,6 +186,11 @@ public class FlexiTrack implements ReadOnlyFlexiTrack {
         return false;
     }
     
+    /**
+     * 
+     * @param toCheck is a Task Object and not null
+     * @return true if there is an event happen in the same timing
+     */
     public boolean checkOverlapEvent(Task toCheck) {
         if(task.getInternalList().size()==0) {
             return false;
@@ -198,6 +221,7 @@ public class FlexiTrack implements ReadOnlyFlexiTrack {
         }
         return false;
     }
+    //@@author
     
     /**
      * return a list of Block task
