@@ -1,32 +1,16 @@
 package tars.ui;
 
-import javafx.scene.input.KeyEvent;
-
-import java.util.logging.Logger;
-
-import com.google.common.eventbus.Subscribe;
-
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TabPane;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import tars.commons.core.Config;
 import tars.commons.core.GuiSettings;
-import tars.commons.core.KeyCombinations;
-import tars.commons.core.LogsCenter;
-import tars.commons.events.ui.CommandBoxTextFieldValueChangedEvent;
-import tars.commons.events.ui.ExitAppRequestEvent;
-import tars.commons.events.ui.KeyCombinationPressedEvent;
 import tars.logic.Logic;
-import tars.logic.commands.ConfirmCommand;
-import tars.logic.commands.RsvCommand;
 import tars.model.UserPrefs;
 
 /**
@@ -36,15 +20,15 @@ import tars.model.UserPrefs;
 public class MainWindow extends UiPart {
 
     private static final String ICON = "/images/tars_icon_32.png";
-    private final Logger logger = LogsCenter.getLogger(MainWindow.class);
     private static final String FXML = "MainWindow.fxml";
     public static final int MIN_HEIGHT = 600;
     public static final int MIN_WIDTH = 450;
-
-    private double xOffset = 0;
-    private double yOffset = 0;
+    public static final int OVERVIEW_PANEL_TAB_PANE_INDEX = 0;
+    public static final int RSV_TASK_LIST_PANEL_TAB_PANE_INDEX = 1;
+    public static final int HELP_PANEL_TAB_PANE_INDEX = 2;
 
     private Logic logic;
+    private MainWindowEventsHandler mainWindowEventsHandler;
 
     // Independent Ui parts residing in this Ui container
     private Header header;
@@ -61,10 +45,6 @@ public class MainWindow extends UiPart {
     // Handles to elements of this Ui container
     private VBox rootLayout;
     private Scene scene;
-
-    public static final int OVERVIEW_PANEL_TAB_PANE_INDEX = 0;
-    public static final int RSV_TASK_LIST_PANEL_TAB_PANE_INDEX = 1;
-    public static final int HELP_PANEL_TAB_PANE_INDEX = 2;
 
     @FXML
     private AnchorPane commandBoxPlaceholder;
@@ -118,6 +98,7 @@ public class MainWindow extends UiPart {
     private void configure(String appTitle, Config config,
             UserPrefs prefs, Logic logic) {
 
+
         // Set dependencies
         this.logic = logic;
         this.config = config;
@@ -129,63 +110,14 @@ public class MainWindow extends UiPart {
         setWindowMinSize();
         setWindowDefaultSize(userPrefs);
 
-        addMouseEventHandler();
-        addTabPaneHandler();
-
-        registerAsAnEventHandler(this);
+        // Configure event handling
+        this.mainWindowEventsHandler = new MainWindowEventsHandler(primaryStage,
+                rootLayout, tabPane);
 
         scene = new Scene(rootLayout);
         primaryStage.setScene(scene);
 
-    }
 
-    private void addMouseEventHandler() {
-        rootLayout.setOnMousePressed(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                xOffset = event.getSceneX();
-                yOffset = event.getSceneY();
-            }
-        });
-        rootLayout.setOnMouseDragged(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                primaryStage.setX(event.getScreenX() - xOffset);
-                primaryStage.setY(event.getScreenY() - yOffset);
-            }
-        });
-    }
-
-    private void addTabPaneHandler() {
-        rootLayout.setOnKeyPressed(new EventHandler<KeyEvent>() {
-            @Override
-            public void handle(KeyEvent event) {
-                if (event.getCode() == KeyCode.RIGHT) {
-                    cycleTabPaneRight();
-                    event.consume();
-                } else if (event.getCode() == KeyCode.LEFT) {
-                    cycleTabPaneLeft();
-                    event.consume();
-                }
-            }
-        });
-    }
-
-    private void cycleTabPaneRight() {
-        if (tabPane.getSelectionModel().isSelected(HELP_PANEL_TAB_PANE_INDEX)) {
-            tabPane.getSelectionModel().selectFirst();
-        } else {
-            tabPane.getSelectionModel().selectNext();
-        }
-    }
-
-    private void cycleTabPaneLeft() {
-        if (tabPane.getSelectionModel()
-                .isSelected(OVERVIEW_PANEL_TAB_PANE_INDEX)) {
-            tabPane.getSelectionModel().selectLast();
-        } else {
-            tabPane.getSelectionModel().selectPrevious();
-        }
     }
 
     protected void fillInnerParts() {
@@ -229,22 +161,34 @@ public class MainWindow extends UiPart {
         return resultDisplayPlaceholder;
     }
 
-    public AnchorPane getTaskListPlaceholder() {
+    private AnchorPane getTaskListPlaceholder() {
         return taskListPanelPlaceholder;
     }
 
-    public AnchorPane getRsvTaskListPlaceholder() {
+    private AnchorPane getRsvTaskListPlaceholder() {
         return rsvTaskListPanelPlaceholder;
     }
 
-    public AnchorPane getHelpPanelPlaceholder() {
+    private AnchorPane getHelpPanelPlaceholder() {
         return helpPanelPlaceholder;
     }
 
-    public AnchorPane getThisWeekPanelPlaceholder() {
+    private AnchorPane getThisWeekPanelPlaceholder() {
         return thisWeekPanelPlaceholder;
     }
+    
+    public TaskListPanel getTaskListPanel() {
+        return this.taskListPanel;
+    }
+    
+    public HelpPanel getHelpPanel() {
+        return this.helpPanel;
+    }
 
+    public MainWindowEventsHandler getEventsHandler() {
+        return this.mainWindowEventsHandler;
+    }
+    
     public void hide() {
         primaryStage.hide();
     }
@@ -281,60 +225,9 @@ public class MainWindow extends UiPart {
                 (int) primaryStage.getY());
     }
 
-    /**
-     * @@author A0140022H
-     */
-    @FXML
-    public void handleHelp(String args) {
-        helpPanel.loadUserGuide(args);
-        tabPane.getSelectionModel().select(HELP_PANEL_TAB_PANE_INDEX);
-    }
 
     public void show() {
         primaryStage.show();
     }
 
-    /**
-     * Closes the application.
-     */
-    @FXML
-    private void handleExit() {
-        raise(new ExitAppRequestEvent());
-    }
-
-    public TaskListPanel getTaskListPanel() {
-        return this.taskListPanel;
-    }
-
-    public RsvTaskListPanel getRsvTaskListPanel() {
-        return this.rsvTaskListPanel;
-    }
-
-    // ==================== Event Handling Code ====================
-
-    @Subscribe
-    private void KeyCombinationPressedEventHandler(
-            KeyCombinationPressedEvent event) {
-        logger.info(LogsCenter.getEventHandlingLogMessage(event,
-                event.getKeyCombination().getDisplayText()));
-        if (event
-                .getKeyCombination() == KeyCombinations.KEY_COMB_CTRL_RIGHT_ARROW) {
-            cycleTabPaneRight();
-        } else if (event
-                .getKeyCombination() == KeyCombinations.KEY_COMB_CTRL_LEFT_ARROW) {
-            cycleTabPaneLeft();
-        }
-    }
-
-    @Subscribe
-    private void CommandBoxTextFieldValueChangedEventHandler(
-            CommandBoxTextFieldValueChangedEvent event) {
-        logger.info(LogsCenter.getEventHandlingLogMessage(event,
-                event.getTextFieldValue() + " command detected."));
-        if (event.getTextFieldValue().equals(RsvCommand.COMMAND_WORD) || event
-                .getTextFieldValue().equals(ConfirmCommand.COMMAND_WORD)) {
-            tabPane.getSelectionModel()
-                    .select(RSV_TASK_LIST_PANEL_TAB_PANE_INDEX);
-        }
-    }
 }

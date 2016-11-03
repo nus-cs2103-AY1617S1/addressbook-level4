@@ -71,11 +71,11 @@ public class StringUtil {
             return s;
         }
         if (isSingleNumber(s)) {
-            return formatSingleNumber(s);
+            return getIndexForSingleNumber(s);
         } else if (isListOfIndexes(s)) {
-            return formatListOfIndexes(s);
+            return getIndexesForList(s);
         } else if (isRangeOfIndexes(s)) {
-            return formateRangeOfIndexes(s);
+            return getIndexesForRange(s);
         } else {
             throw new IllegalValueException(
                     UNEXPECTED_ERROR_IN_GETING_INDEX_FROM_STRING);
@@ -87,7 +87,10 @@ public class StringUtil {
                 && !s.contains(RANGE_SEPARATOR));
     }
 
-    private static String formatSingleNumber(String s)
+    /**
+     * Returns a valid single index
+     */
+    private static String getIndexForSingleNumber(String s)
             throws IllegalValueException {
         if (!isUnsignedInteger(s)) {
             throw new IllegalValueException(INVALID_INDEX_ENTERED);
@@ -95,44 +98,37 @@ public class StringUtil {
         return s;
     }
 
-    /**
-     * Returns true if s is a list of indexes separated by white space
-     * 
-     * @@author A0121533W
-     */
     private static boolean isListOfIndexes(String s) {
         return (s.indexOf(STRING_WHITESPACE) != INVALID_POSITION
                 && !s.contains(RANGE_SEPARATOR));
     }
 
-    private static String formatListOfIndexes(String s)
+    /**
+     * Returns a valid list of indexes
+     * 
+     * @@author A0121533W
+     */
+    private static String getIndexesForList(String s)
             throws IllegalValueException {
         String indexString = EMPTY_STRING;
         String[] indexArray = s.split(STRING_WHITESPACE);
         for (int i = START_INDEX; i < indexArray.length; i++) {
-            if (!isUnsignedInteger(indexArray[i])) {
-                throw new IllegalValueException(INVALID_INDEX_ENTERED);
-            }
-            indexString += indexArray[i] + STRING_WHITESPACE;
+            String index = getIndexForSingleNumber(indexArray[i]);
+            indexString += index + STRING_WHITESPACE;
         }
         return indexString.trim();
     }
 
-    /**
-     * Returns true if s is a range of indexes e.g. 1..3
-     * 
-     * @@author A0121533W
-     */
     private static boolean isRangeOfIndexes(String s) {
         return s.contains(RANGE_SEPARATOR);
     }
 
     /**
-     * Formats a range of indexes to a list of indexes separated by white space
+     * Returns a list of indexes separated by white space from a range of indexes
      * 
      * @@author A0121533W
      */
-    private static String formateRangeOfIndexes(String s)
+    private static String getIndexesForRange(String s)
             throws IllegalValueException, InvalidRangeException {
         String rangeToReturn = EMPTY_STRING;
 
@@ -140,9 +136,8 @@ public class StringUtil {
         String start = s.substring(START_INDEX, toIndex);
         String end = s.substring(toIndex + RANGE_SEPARATOR.length());
 
-        if (!isUnsignedInteger(start) || !isUnsignedInteger(end)) {
-            throw new IllegalValueException(INVALID_INDEX_ENTERED);
-        }
+        start = getIndexForSingleNumber(start);
+        end = getIndexForSingleNumber(end);
 
         int startInt = Integer.parseInt(start);
         int endInt = Integer.parseInt(end);
