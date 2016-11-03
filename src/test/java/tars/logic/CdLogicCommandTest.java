@@ -27,6 +27,6 @@ public class CdLogicCommandTest extends LogicCommandTest {
         String tempTestTarsFilePath =
                 saveFolder.getRoot().getPath() + "TempTestTars.xml";
         assertCommandBehavior("cd " + tempTestTarsFilePath,
-                String.format(CdCommand.MESSAGE_SUCCESS, tempTestTarsFilePath));
+                String.format(CdCommand.MESSAGE_SUCCESS_NEW_FILE, tempTestTarsFilePath));
     }
 }

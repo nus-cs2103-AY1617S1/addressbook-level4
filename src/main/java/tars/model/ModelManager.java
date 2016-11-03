@@ -83,6 +83,11 @@ public class ModelManager extends ComponentManager implements Model {
     tars.resetData(newData);
     indicateTarsChanged();
   }
+  
+  @Override
+  public void overwriteDataFromNewFilePath(ReadOnlyTars newData) {
+    tars.resetData(newData);
+  }
 
   @Override
   public ReadOnlyTars getTars() {

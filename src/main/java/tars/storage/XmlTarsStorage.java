@@ -8,6 +8,9 @@ import tars.model.ReadOnlyTars;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Optional;
 import java.util.logging.Logger;
 
@@ -54,7 +57,7 @@ public class XmlTarsStorage implements TarsStorage {
      */
     public void saveTars(ReadOnlyTars tars, String filePath) throws IOException {
         assert tars != null;
-        assert filePath != null;
+        assert filePath != null;        
 
         File file = new File(filePath);
         FileUtil.createIfMissing(file);

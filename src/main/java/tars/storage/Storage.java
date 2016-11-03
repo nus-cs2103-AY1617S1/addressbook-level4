@@ -44,4 +44,11 @@ public interface Storage extends TarsStorage, UserPrefsStorage {
      * @param newConfig
      */
     void updateTarsStorageDirectory(String newFilePath, Config newConfig);
+    
+    void saveTarsInNewFilePath(ReadOnlyTars tars, String newFilePath) throws IOException;
+    
+    boolean isFileSavedSuccessfully(String filePath);
+    
+    Optional<ReadOnlyTars> readTarsFromNewFilePath(String newFilePath)
+        throws DataConversionException, FileNotFoundException;
 }
