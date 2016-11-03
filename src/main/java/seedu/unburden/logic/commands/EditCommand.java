@@ -136,6 +136,7 @@ public class EditCommand extends Command {
         	EditValidation.checkIfCanEditStartTime(targetTask, toEdit);
         	EditValidation.checkIfCanRemoveEndTime(targetTask, toEdit);
         	EditValidation.checkIfCanRemoveDate(targetTask, toEdit);
+        	EditValidation.checkIfStartTimeLaterThanEndTime(targetTask, toEdit);
         	
             model.editTask(taskToEdit, toEdit);
             
@@ -151,7 +152,9 @@ public class EditCommand extends Command {
         } catch (CannotRemoveEndTimeWhenThereIsStartTimeException abc) {
         	return new CommandResult(Messages.MESSAGE_CANNOT_REMOVE_ENDTIME_WHEN_THERE_IS_STARTTIME);
         } catch (CannotRemoveDateWhenThereIsStartTimeAndEndTimeException def) {
-        	return new CommandResult(Messages.MESSAGE_CANNOT_REMOVE_DATE_WHEN_THERE_IS_STARTtIME_AND_ENDTIME);
+        	return new CommandResult(Messages.MESSAGE_CANNOT_REMOVE_DATE_WHEN_THERE_IS_STARTTIME_AND_ENDTIME);
+        } catch (CannotHaveStartTimeLaterThanEndTimeException ghi) {
+        	return new CommandResult(Messages.MESSAGE_STARTTIME_AFTER_ENDTIME);
         }
         
     }
@@ -184,6 +187,14 @@ public class EditCommand extends Command {
     			 throw new CannotRemoveDateWhenThereIsStartTimeAndEndTimeException();
     		 }
     	 }
+    	 
+    	 static void checkIfStartTimeLaterThanEndTime(Task targetTask, Task toEdit) throws CannotHaveStartTimeLaterThanEndTimeException {
+    		 if (targetTask.getEndTime().getFullTime() != "" && toEdit.getStartTime().getFullTime() != "" && 
+    				 toEdit.getStartTime().getFullTime().compareTo(targetTask.getEndTime().getFullTime()) > 0) {
+    			 throw new CannotHaveStartTimeLaterThanEndTimeException();
+    		 }
+    	 }
+    	 
     }
     
 }

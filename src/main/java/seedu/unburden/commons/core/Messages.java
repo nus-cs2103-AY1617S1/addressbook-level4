@@ -16,5 +16,6 @@ public class Messages {
     public static final String MESSAGE_CANNOT_ADD_ENDTIME_WITH_NO_DATE = "Sorry! You cannot add end time to a task with no date!";
     public static final String MESSAGE_CANNOT_ADD_STARTTIME_WITH_NO_ENDTIME = "Sorry! You cannot add start time to a task with no end time!";
     public static final String MESSAGE_CANNOT_REMOVE_ENDTIME_WHEN_THERE_IS_STARTTIME = "Sorry! You cannot remove end time from a task with start time!";
-    public static final String MESSAGE_CANNOT_REMOVE_DATE_WHEN_THERE_IS_STARTtIME_AND_ENDTIME = "Sorry! You cannot remove date from a task with satrt time and end time!";
+    public static final String MESSAGE_CANNOT_REMOVE_DATE_WHEN_THERE_IS_STARTTIME_AND_ENDTIME = "Sorry! You cannot remove date from a task with satrt time and end time!";
+    
 }

@@ -9,12 +9,8 @@ import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import seedu.unburden.commons.core.Config;
-<<<<<<< HEAD
-=======
+
 import seedu.unburden.commons.core.Messages;
-import seedu.unburden.commons.exceptions.CannotAddEndTimeWithoutDateException;
-import seedu.unburden.commons.exceptions.CannotAddStartTimeWithoutEndTimeException;
->>>>>>> f6f9e7d07d20b38f282eaad20089b8ff6134b169
 import seedu.unburden.commons.exceptions.IllegalValueException;
 import seedu.unburden.commons.util.StringUtil;
 import seedu.unburden.logic.commands.*;
@@ -436,11 +432,6 @@ public class Parser {
 				return new IncorrectCommand(
 						String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
 			}
-<<<<<<< HEAD
-
-			return new EditCommand(index.get(), matcher.group("name"), matcher.group("taskDescriptions"),
-					matcher.group("date"), matcher.group("startTimeArguments"), matcher.group("endTimeArguments"));
-=======
 			
 			String[] newArgs = seperateIndex[1].split(" ");
 			
@@ -453,7 +444,6 @@ public class Parser {
 			
 			
 			return new EditCommand(index.get(), name, taskDescription, date, startTime, endTime);
->>>>>>> f6f9e7d07d20b38f282eaad20089b8ff6134b169
 
 		} catch (IllegalValueException ive) {
 			return new IncorrectCommand(ive.getMessage());
@@ -642,8 +632,6 @@ public class Parser {
           int loopIndex = 0;
           int targetIndex = 0;
           while (loopIndex < tokens.length) {
-        	  System.out.println(loopIndex);
-        	  System.out.println(tokens[loopIndex]);
          	 if (tokens[loopIndex].length() > 1 && tokens[loopIndex].charAt(1) == '/') {
          		 switch (tokens[loopIndex].charAt(0)) {
          		 	case ('i') : targetIndex = 1;
