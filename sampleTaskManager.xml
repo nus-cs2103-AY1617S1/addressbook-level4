@@ -74,4 +74,46 @@
         <address>NUS</address>
         <status>incomplete</status>
     </tasks>
+    <tasks>
+        <description>do that</description>
+        <deadline>no deadline</deadline>
+        <address>no location</address>
+        <status>complete</status>
+    </tasks>
+    <tasks>
+        <description>do this</description>
+        <deadline>no deadline</deadline>
+        <address>no location</address>
+        <status>incomplete</status>
+    </tasks>
+    <tasks>
+        <description>do everything</description>
+        <deadline>no deadline</deadline>
+        <address>no location</address>
+        <status>complete</status>
+    </tasks>
+    <tasks>
+        <description>do things</description>
+        <deadline>no deadline</deadline>
+        <address>no location</address>
+        <status>incomplete</status>
+    </tasks>
+    <tasks>
+        <description>do more things</description>
+        <deadline>no deadline</deadline>
+        <address>no location</address>
+        <status>complete</status>
+    </tasks>
+    <tasks>
+        <description>do more things</description>
+        <deadline>no deadline</deadline>
+        <address>no location</address>
+        <status>incomplete</status>
+    </tasks>
+    <tasks>
+        <description>do all the things</description>
+        <deadline>no deadline</deadline>
+        <address>no location</address>
+        <status>incomplete</status>
+    </tasks>
 </taskmanager>

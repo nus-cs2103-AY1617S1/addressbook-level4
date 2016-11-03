@@ -3,6 +3,12 @@ package jym.manager.commons.core;
 import java.util.Objects;
 import java.util.logging.Level;
 
+import jdk.nashorn.internal.ir.debug.JSONWriter;
+import jym.manager.commons.util.ConfigUtil;
+
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 /**
  * Config values used by the app
  */
@@ -24,7 +30,7 @@ public class Config {
     public String getAppTitle() {
         return appTitle;
     }
-
+    
     public void setAppTitle(String appTitle) {
         this.appTitle = appTitle;
     }
@@ -51,6 +57,13 @@ public class Config {
 
     public void setTaskManagerFilePath(String taskManagerFilePath) {
         this.taskManagerFilePath = taskManagerFilePath;
+        try {
+			ConfigUtil.saveConfig(this, DEFAULT_CONFIG_FILE);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        
     }
 
     public String getTaskManagerName() {

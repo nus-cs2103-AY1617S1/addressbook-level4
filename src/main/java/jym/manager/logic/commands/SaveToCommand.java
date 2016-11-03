@@ -26,7 +26,10 @@ public static final String COMMAND_WORD = "saveto";
     @Override
 	public CommandResult execute() {
 		storage.setFilePath(filepath);
-    	return new CommandResult(MESSAGE_SUCCESS);
+		config.setTaskManagerFilePath(filepath + "/taskmanager.xml");
+
+		return new CommandResult(MESSAGE_SUCCESS);
+    	
 	}
 	
 

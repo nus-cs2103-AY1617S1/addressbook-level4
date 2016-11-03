@@ -13,6 +13,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+import jym.manager.commons.core.Config;
 import jym.manager.commons.core.EventsCenter;
 import jym.manager.commons.events.model.TaskManagerChangedEvent;
 import jym.manager.commons.events.ui.JumpToListRequestEvent;
@@ -68,7 +69,7 @@ public class LogicManagerTest {
         model = new ModelManager();
         String tempAddressBookFile = saveFolder.getRoot().getPath() + "TempAddressBook.xml";
         String tempPreferencesFile = saveFolder.getRoot().getPath() + "TempPreferences.json";
-        logic = new LogicManager(model, new StorageManager(tempAddressBookFile, tempPreferencesFile));
+        logic = new LogicManager(model, new StorageManager(tempAddressBookFile, tempPreferencesFile), new Config());
         EventsCenter.getInstance().registerHandler(this);
 
         latestSavedAddressBook = new TaskManager(model.getTaskManager()); // last saved assumed to be up to date before.

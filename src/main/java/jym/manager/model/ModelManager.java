@@ -24,6 +24,8 @@ import jym.manager.ui.MainWindow;
  * Represents the in-memory model of the address book data.
  * All changes to any model should be synchronized.
  */
+//@@author a0153617e
+
 public class ModelManager extends ComponentManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
@@ -100,6 +102,7 @@ public class ModelManager extends ComponentManager implements Model {
     	taskManagerHistory.push(previousTaskManager);
         indicateTaskManagerChanged();
     }
+    //@@author a0153617e
 
     @Override
     public synchronized void deleteTask(ReadOnlyTask target) throws TaskNotFoundException {
