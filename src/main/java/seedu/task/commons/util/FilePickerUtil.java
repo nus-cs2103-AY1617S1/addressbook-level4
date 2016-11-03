@@ -43,7 +43,7 @@ public class FilePickerUtil {
      *             if there was an error during reading the file
      */
     public static String saveXMLFile() {
-        JFileChooser chooser = new JFileChooser();
+        JFileChooser chooser = new JFileChooser(".");
         FileNameExtensionFilter filter = new FileNameExtensionFilter("XML files", "xml");
         chooser.setFileFilter(filter);
         int returnVal = chooser.showSaveDialog(null);
