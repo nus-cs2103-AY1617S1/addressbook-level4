@@ -2,17 +2,21 @@ package seedu.jimi.commons.util;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
+//@@author A0140133B
 /**
  * Helper functions for handling strings.
  */
 public class StringUtil {
     
-    // @@author A0140133B
+    private final static char[] ALPHABET = "abcdefghijklmnopqrstuvwxyz".toCharArray();
     /**
      * Returns true if {@code query} is a near match of {@code source}, where: <br>
      * <ul>
@@ -20,6 +24,7 @@ public class StringUtil {
      * <li> {@code query} is the same as {@code source} but missing a character.
      * <li> {@code query} is the same as {@code source} but differing by a character.
      * <li> {@code query} has identical character frequencies as {@code source}.
+     * <li> {@code query} is the same as {@code source} but has an extra character.
      * </ul>
      * 
      * All matches are case-insensitive and have all spaces removed in both strings prior to comparison. <br>
@@ -52,10 +57,15 @@ public class StringUtil {
             return true; // Similar by a differing character.
         }
         
+        Set<String> oneExtraCharDict = generateOneExtraCharDictionary(sourceNoSpaces);
+        if (oneExtraCharDict.contains(queryNoSpaces)) {
+            return true; // Similar by an extra character.
+        }
+        
         return false;
     }
     // @@author
-    
+
     /**
      * Returns a detailed message of the t, including the stack trace.
      */
@@ -100,7 +110,7 @@ public class StringUtil {
     private static boolean isSameCharFrequency(HashMap<Character, Integer> map, String s) {
         for (int i = 0; i < s.length(); i++) {
             Character c = s.charAt(i);
-            if (!map.containsKey(c) || (map.containsKey(c) && map.get(c) <= 0)) { 
+            if (!map.containsKey(c) || (map.containsKey(c) && map.get(c) <= 0)) {
                 return false; // Character or frequency mismatch.
             } else if (map.containsKey(c)) {
                 map.put(c, map.get(c) - 1); // Subtracting acts as a way to track frequency.
@@ -119,24 +129,23 @@ public class StringUtil {
         HashMap<Character, Integer> map = new HashMap<Character, Integer>();
         for (int i = 0; i < s.length(); i++) {
             Character c = s.charAt(i);
-            if (map.containsKey(c)) {
-                map.put(c, map.get(c) + 1); // Increasing frequency count.
-            } else {
-                map.put(c, 1); // First occurrence of character.
-            }
+            Integer currentFrequency = map.containsKey(c) ? map.get(c) : 0;
+            map.put(c, currentFrequency + 1); // Increasing frequency count.
         }
         return map;
     }
-
+    
     /** Generates a dictionary of strings that differ by one character from {@code src}. */
     private static Set<String> generateOneCharDiffDictionary(String src) {
-        return IntStream.range(0, src.length()).mapToObj(i -> { // Streaming across all characters of src.
+        Set<String> dictionary = new HashSet<String>();
+        for (int i = 0; i < src.length(); i++) {
             StringBuilder sb = new StringBuilder(src);
-            return IntStream.rangeClosed('a', 'z').mapToObj(c -> { // Streaming across letters 'a' to 'z'
-                sb.setCharAt(i, (char) c); // Replacing the char at idx i. with character c.
-                return sb.toString();
-            }).collect(Collectors.toList()); // Collecting the replaced strings.
-        }).flatMap(l -> l.stream()).collect(Collectors.toSet()); // Flattening and collecting everything as a set.
+            for (Character c : ALPHABET) {
+                sb.setCharAt(i, c); // Replacing the char at idx i. with character c.
+                dictionary.add(sb.toString());
+            }
+        }
+        return dictionary;
     }
 
     /** Generates a dictionary of strings that are missing a letter from {@code src}. */
@@ -144,6 +153,19 @@ public class StringUtil {
         return IntStream.range(0, src.length()) 
                 .mapToObj(i -> src.substring(0, i) + src.substring(i + 1)) // Removing character at idx i.
                 .collect(Collectors.toSet());
+    }
+    
+    /** Generates a dictionary of strings that have one extra character from {@code src}. */
+    private static Set<String> generateOneExtraCharDictionary(String src) {
+        Set<String> dictionary = new HashSet<String>();
+        StringBuilder sb = new StringBuilder(src);
+        for (int i = 0; i <= src.length(); i++) {
+            for (Character c : ALPHABET) {
+                dictionary.add(sb.insert(i, c.toString()).toString()); // Inserting character c
+                sb.deleteCharAt(i); // Deleting after adding to dictionary.
+            }
+        }
+        return dictionary;
     }
     // @@author
 }
