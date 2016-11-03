@@ -234,39 +234,39 @@ public class ModelManager extends ComponentManager implements Model {
 		if (task instanceof Todo) {
 			if (dataType.equals("todo")) {
 				todoList.addTaskWithIndex(task , targetIndex);
-				undoer.prepareUndoAdd(task,"todo");
+				todoList.removeTask(target);
 			} else if (dataType.equals("event")) {
 				todoList.addTask(task);
-				undoer.prepareUndoAdd(task,"event");
+				eventList.removeTask(target);
 			} else if (dataType.equals("deadline")) {
 				todoList.addTask(task);
-				undoer.prepareUndoAdd(task,"deadline");
+				deadlineList.removeTask(target);
 			}
 			updateFilteredTodoListToShowAll();
 			indicateTodoListChanged();
 		} else if (task instanceof Event) {
 			if (dataType.equals("todo")) {
 				eventList.addTask(task);
-				undoer.prepareUndoAdd(task,"task");
+				todoList.removeTask(target);
 			} else if (dataType.equals("event")) {
 				eventList.addTaskWithIndex(task , targetIndex);
-				undoer.prepareUndoAdd(task,"event");
+				eventList.removeTask(target);
 			} else if (dataType.equals("deadline")) {
 				eventList.addTask(task);
-				undoer.prepareUndoAdd(task,"deadline");
+				deadlineList.removeTask(target);
 			}
 			updateFilteredEventListToShowAll();
 			indicateEventListChanged();
 		} else if (task instanceof Deadline) {
 			if (dataType.equals("todo")) {
 				deadlineList.addTask(task);
-				undoer.prepareUndoAdd(task,"todo");
+				todoList.removeTask(target);
 			} else if (dataType.equals("event")) {
 				deadlineList.addTask(task);
-				undoer.prepareUndoAdd(task,"event");
+				eventList.removeTask(target);
 			} else if (dataType.equals("deadline")) {
 				deadlineList.addTaskWithIndex(task , targetIndex);
-		        undoer.prepareUndoAdd(task,"deadline");
+		        deadlineList.removeTask(target);
 			}
 			updateFilteredDeadlineListToShowAll();
 			indicateDeadlineListChanged();

@@ -10,7 +10,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
-//author A0132157M
+//@@author A0132157M
 import org.ocpsoft.prettytime.PrettyTime;
 
 //@@author A0144061U-reused
@@ -74,7 +74,7 @@ public class DeadlineCard extends UiPart {
 		}
 	}
 
-    //@@author A0132157M
+  //@@author A0132157M
   public String convertDateToMilli(String s, String q) throws ParseException {
       String string = s;
       String[] parts = string.split(" ");
