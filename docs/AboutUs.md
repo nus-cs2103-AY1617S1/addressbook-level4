@@ -53,8 +53,7 @@ Role: Scheduling and tracking , Git expert <br>
 Responsibilities: Data Storage
 * Features Implemented:
    * [Save command] (https://github.com/CS2103AUG2016-T15-C1/main/blob/master/docs/UserGuide.md#save_storage)
-   * [Select command] (https://github.com/CS2103AUG2016-T15-C1/main/blob/master/docs/UserGuid
-   * 
+   * [Find command] (https://github.com/CS2103AUG2016-T15-C1/main/blob/master/docs/UserGuide.md#find_substring)
    * Code Written: [Functional Code] (https://github.com/CS2103AUG2016-T15-C1/main/blob/master/collated/main/A0139932X.md) [Test Code] (https://github.com/CS2103AUG2016-T15-C1/main/blob/master/collated/test/A0139932X.md) [Docs] (https://github.com/CS2103AUG2016-T15-C1/main/blob/master/collated/docs/A0139932X.md)
    
 * Contribution
