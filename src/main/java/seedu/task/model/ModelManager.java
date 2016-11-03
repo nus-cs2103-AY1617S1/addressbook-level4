@@ -4,15 +4,21 @@ package seedu.task.model;
 
 import javafx.collections.transformation.FilteredList;
 import seedu.task.commons.core.ComponentManager;
+import seedu.task.commons.core.Config;
 import seedu.task.commons.core.LogsCenter;
 import seedu.task.commons.core.UnmodifiableObservableList;
 import seedu.task.commons.events.model.TaskManagerChangedEvent;
+import seedu.task.commons.exceptions.DataConversionException;
+import seedu.task.commons.util.ConfigUtil;
+import seedu.task.commons.util.FileUtil;
 import seedu.task.model.task.ReadOnlyTask;
 import seedu.task.model.task.Status;
 import seedu.task.model.task.Task;
 import seedu.task.model.task.UniqueTaskList;
 import seedu.task.model.task.UniqueTaskList.TaskNotFoundException;
 
+import java.io.File;
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
@@ -106,7 +112,7 @@ public class ModelManager extends ComponentManager implements Model {
        
     }
     
-    //@@author A0147335E-reused
+    // @@author A0147335E-reused
     @Override
     public synchronized void addTask(int index, Task task) throws UniqueTaskList.DuplicateTaskException {
         if (!task.getDeadline().toString().isEmpty()) {
@@ -162,7 +168,7 @@ public class ModelManager extends ComponentManager implements Model {
     /**
      * Select sorting method based on keyword
      * 
-     * @param keyword keyword given by user to sort tasks by
+     * @param keyword keyword to sort tasks by
      */
     public void sortFilteredTaskList(String keyword) {
         if (keyword.equals("Deadline")) {
@@ -178,7 +184,58 @@ public class ModelManager extends ComponentManager implements Model {
         } else {
             taskManager.sortByDefaultRules();
         }
+        // Save data in that order
         indicateTaskManagerChanged();
+    }
+    
+    /**
+     * Updates sorting method in config based on keyword
+     * 
+     * @param keyword keyword to sort tasks by
+     */
+    @Override
+    public void saveCurrentSortPreference(String keyword) {
+        Config config = new Config();
+        File configFile = new File("config.json");
+        try {
+            config = FileUtil.deserializeObjectFromJsonFile(configFile, Config.class);
+        } catch (IOException e) {
+            logger.warning("Error reading from config file " + "config.json" + ": " + e);
+            try {
+                throw new DataConversionException(e);
+            } catch (DataConversionException e1) {
+                e1.printStackTrace();
+            }
+        }
+        config.setsortPreference(keyword);
+        try {
+            ConfigUtil.saveConfig(config, "config.json");
+        } catch (IOException e) {
+            logger.warning("Error saving to config file : " + e);
+            e.printStackTrace();
+        }
+    }
+    
+    /**
+     * Automatically sorts tasks based on current sort preferences in config
+     */
+    public void autoSortBasedOnCurrentSortPreference() {
+        Config config = new Config();
+        File configFile = new File("config.json");
+        try {
+            config = FileUtil.deserializeObjectFromJsonFile(configFile, Config.class);
+        } catch (IOException e) {
+            logger.warning("Error reading from config file : " + "config.json " + e);
+            try {
+                throw new DataConversionException(e);
+            } catch (DataConversionException e1) {
+                e1.printStackTrace();
+            }
+        }
+        String CurrentSortPreference = config.getsortPreference();
+        if (!CurrentSortPreference.equals("None")) {
+            sortFilteredTaskList(CurrentSortPreference);
+        }
     }
     // @@author
     

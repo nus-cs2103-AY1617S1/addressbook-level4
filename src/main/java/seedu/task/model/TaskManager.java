@@ -233,26 +233,38 @@ public class TaskManager implements ReadOnlyTaskManager {
     }
 
     /**
-     * Tasks are sorted according to DoneStatus, followed by Deadline, followed
-     * by StartTime, followed by Name
+     * Tasks are sorted according to these criteria in the order: Incomplete
+     * tasks, Floating tasks, Older tasks, lastly Name in ascending order.
      */
     public void sortByDefaultRules() {
         this.tasks.getInternalList().sort(new Comparator<Task>() {
             @Override
             public int compare(Task one, Task other) {
-                int statusResult = other.getStatus().compareDoneStatusTo(one.getStatus());
-                int deadlineResult = other.getDeadline().compareTo(one.getDeadline());
+                // Incomplete tasks first
+                int statusResult = one.getStatus().compareDoneStatusTo(other.getStatus());
+                // Older tasks first
+                int deadlineResult = one.getDeadline().compareTo(other.getDeadline());
                 int startTimeResult = one.getStartTime().compareTo(other.getStartTime());
+                int timeResult;
+                if (deadlineResult == 0 && startTimeResult == 0) {
+                    timeResult = 0;
+                } else if (!one.getDeadline().toString().equals("") && !other.getStartTime().toString().equals("")) {
+                    timeResult = one.getDeadline().compareTo(other.getStartTime());
+                } else if (!one.getStartTime().toString().equals("") && !other.getDeadline().toString().equals("")) {
+                    timeResult = one.getStartTime().compareTo(other.getDeadline());
+                } else if (!(deadlineResult == 0)) {
+                    timeResult = deadlineResult;
+                } else {
+                    timeResult = startTimeResult;
+                }
+                // Name in ascending order
                 int nameResult = one.getName().compareTo(other.getName());
+
                 if (statusResult == 0) {
-                    if (deadlineResult == 0) {
-                        if (startTimeResult == 0) {
-                            return nameResult;
-                        } else {
-                            return startTimeResult;
-                        }
+                    if (timeResult == 0) {
+                        return nameResult;
                     } else {
-                        return deadlineResult;
+                        return timeResult;
                     }
                 } else {
                     return statusResult;

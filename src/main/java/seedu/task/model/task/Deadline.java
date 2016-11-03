@@ -67,6 +67,15 @@ public class Deadline {
     public int compareTo(Deadline anotherDeadline) {
         return this.toString().compareTo(anotherDeadline.toString());
     }
-    // @@author
 
+    /**
+     * Compares the Deadline with Start Time lexicographically.
+     * 
+     * @param anotherStartTime
+     *            Start Time of another Task to compare to
+     */
+    public int compareTo(StartTime anotherStartTime) {
+        return this.toString().compareTo(anotherStartTime.toString());
+    }
+    // @@author
 }

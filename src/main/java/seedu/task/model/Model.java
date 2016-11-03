@@ -38,7 +38,13 @@ public interface Model {
     
     //@@author A0147944U
     /** Updates the sort comparator of the sorted task list to sort by the given comparator*/
-    void sortFilteredTaskList(String keywords);
+    void sortFilteredTaskList(String keyword);
+    
+    /** Updates sorting method in config based on keyword*/
+    void saveCurrentSortPreference(String keyword);
+    
+    /** Automatically sorts tasks based on current sort preferences in config*/
+    public void autoSortBasedOnCurrentSortPreference();
     //@@author
 
 }

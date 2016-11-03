@@ -8,9 +8,9 @@ import seedu.task.model.task.Task;
 import seedu.task.model.task.UniqueTaskList;
 import seedu.task.model.task.UniqueTaskList.TaskNotFoundException;
 
+// @@author A0147335E
 /**
  * Favorite a task from the task manager.
- * @@author A0147335E
  */
 public class FavoriteCommand extends Command {
 
@@ -65,6 +65,10 @@ public class FavoriteCommand extends Command {
         if (isUndo == false) {
             history.getUndoList().add(new RollBackCommand(COMMAND_WORD, newTask, null));
         }
+        // @author A0147944U-reused
+        // Sorts updated list of tasks
+        model.autoSortBasedOnCurrentSortPreference();
+        // @@author A0147335E
         return new CommandResult(String.format(MESSAGE_FAVORITE_TASK_SUCCESS, newTask.getName()));
     }
 

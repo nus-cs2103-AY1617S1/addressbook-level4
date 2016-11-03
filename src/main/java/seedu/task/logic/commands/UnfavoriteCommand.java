@@ -9,9 +9,9 @@ import seedu.task.model.task.Task;
 import seedu.task.model.task.UniqueTaskList.DuplicateTaskException;
 import seedu.task.model.task.UniqueTaskList.TaskNotFoundException;
 
+// @@author A0147335E
 /**
  * Unfavorite a task from the task manager.
- * @@author A0147335E
  */
 public class UnfavoriteCommand extends Command {
     public static final String COMMAND_WORD = "unfav";
@@ -61,6 +61,10 @@ public class UnfavoriteCommand extends Command {
         if (isUndo == false) {
             history.getUndoList().add(new RollBackCommand(COMMAND_WORD, newTask, null));
         }
+        // @author A0147944U-reused
+        // Sorts updated list of tasks
+        model.autoSortBasedOnCurrentSortPreference();
+        // @@author A0147335E
         return new CommandResult(String.format(MESSAGE_UNFAVORITE_TASK_SUCCESS, newTask.getName()));
     }
 

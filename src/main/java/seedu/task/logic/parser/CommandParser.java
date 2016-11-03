@@ -126,6 +126,9 @@ public class CommandParser {
 
         case SortCommand.COMMAND_WORD:
             return prepareSort(arguments);
+            
+        case SortCommand.COMMAND_WORD_ALT:
+            return prepareBackup(arguments);
             // @@author
 
         case DoneCommand.COMMAND_WORD:
@@ -557,7 +560,7 @@ public class CommandParser {
      */
     private Command prepareSort(String args) {
         if (args.equals("")) {
-            return new SortCommand("_default");
+            return new SortCommand("default");
         } else {
             final Matcher matcher = KEYWORDS_ARGS_FORMAT.matcher(args.trim());
             if (!matcher.matches()) {

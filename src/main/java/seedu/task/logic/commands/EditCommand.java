@@ -14,7 +14,6 @@ import seedu.task.model.task.Deadline;
 import seedu.task.model.task.Name;
 import seedu.task.model.task.ReadOnlyTask;
 import seedu.task.model.task.StartTime;
-import seedu.task.model.task.Status;
 import seedu.task.model.task.Task;
 import seedu.task.model.task.UniqueTaskList;
 import seedu.task.model.task.UniqueTaskList.TaskNotFoundException;
@@ -55,7 +54,7 @@ public class EditCommand extends Command {
     //        this.targetIndex = targetIndex;
     //    }
     
-    //@@author A0152958R
+    // @@author A0152958R
     public EditCommand(int targetIndex, String item, String editResult,  Set<String> tags) throws IllegalValueException {
         this.targetIndex = targetIndex;
         this.toEdit = editResult;
@@ -66,7 +65,7 @@ public class EditCommand extends Command {
     
     
     
-    //@@author A0152958R
+    // @@author A0152958R
     @Override
     public CommandResult execute(boolean isUndo) {
         assert model != null;
@@ -152,6 +151,10 @@ public class EditCommand extends Command {
         if (isUndo == false) {
             history.getUndoList().add(new RollBackCommand(COMMAND_WORD, toAdd, (Task) currentTask));
         }
+        // @author A0147944U-reused
+        // Sorts updated list of tasks
+        model.autoSortBasedOnCurrentSortPreference();
+        // @@author A0152958R
         return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, toEdit));
     }
     
