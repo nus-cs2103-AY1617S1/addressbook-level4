@@ -7,16 +7,15 @@ import seedu.flexitrack.model.task.Task;
 import seedu.flexitrack.model.task.UniqueTaskList;
 
 /**
+ * @param <lecture1>
  *
  */
-public class TypicalTestTasks {
+public class TypicalTestTasks<lecture1> {
 
-    public static TestTask homework1, homework2, homework3, event, soccer, dinner, exam, midterm, basketball, lecture,
-            job, homework1EditName, homework1EditDueDate, homework3EditName, homework3EditToTask, soccerEditName,
-            soccerEditStartTime, soccerEditEndTime, eventEditToEvent, tutorial1,tutorial2,tutorial3;
-    
-    // additional events to for testing 
-    public static TestTask lecture1, lecture2, lecture3, lecture4, lecture5, exam1, exam2, exam3, study1, study2;
+    public static TestTask homework1, homework2, homework3, event, soccer, dinner, exam, midterm, basketball, lecture,job, 
+            homework1EditName, homework1EditDueDate, homework3EditName, homework3EditToTask, soccerEditName,
+            soccerEditStartTime, soccerEditEndTime, eventEditToEvent, tutorial1,tutorial2,tutorial3,
+            lecture1, lecture2, lecture3, lecture4, lecture5, exam1, exam2, exam3, study1, study2, past1, past2;
 
     public TypicalTestTasks() {
         try {
@@ -74,26 +73,31 @@ public class TypicalTestTasks {
 
             // @@author A0127686R
             // Additional Event Task 
-            lecture1 = new TaskBuilder().withName("Name Edited 2").withStartTime("Nov 08 2016 09:00")
+            lecture1 = new TaskBuilder().withName("lecture 1").withStartTime("Nov 08 2016 09:00")
                     .withEndTime("Nov 08 2016 11:00").withDueDate("Feb 29 2000 00:00").build();
-            lecture2 = new TaskBuilder().withName("Name Edited 2").withStartTime("Nov 08 2016 15:00")
+            lecture2 = new TaskBuilder().withName("lecture 2").withStartTime("Nov 08 2016 15:00")
                     .withEndTime("Nov 08 2016 16:00").withDueDate("Feb 29 2000 00:00").build();
-            lecture3 = new TaskBuilder().withName("Name Edited 2").withStartTime("Nov 09 2016 14:00")
+            lecture3 = new TaskBuilder().withName("lecture 3").withStartTime("Nov 09 2016 14:00")
                     .withEndTime("Nov 09 2016 16:00").withDueDate("Feb 29 2000 00:00").build();
-            lecture4 = new TaskBuilder().withName("Name Edited 2").withStartTime("Nov 12 2016 10:00")
+            lecture4 = new TaskBuilder().withName("lecture 4").withStartTime("Nov 12 2016 10:00")
                     .withEndTime("Nov 12 2016 12:00").withDueDate("Feb 29 2000 00:00").build();
-            lecture5 = new TaskBuilder().withName("Name Edited 2").withStartTime("Nov 12 2016 13:00")
+            lecture5 = new TaskBuilder().withName("lecture 5").withStartTime("Nov 12 2016 13:00")
                     .withEndTime("Nov 12 2016 14:00").withDueDate("Feb 29 2000 00:00").build();
-            exam1 = new TaskBuilder().withName("Name Edited 2").withStartTime("Nov 20 2016 09:00")
+            exam1 = new TaskBuilder().withName("exam 1").withStartTime("Nov 20 2016 09:00")
                     .withEndTime("Nov 20 2016 10:30").withDueDate("Feb 29 2000 00:00").build();
-            exam2 = new TaskBuilder().withName("Name Edited 2").withStartTime("Nov 20 2016 12:00")
+            exam2 = new TaskBuilder().withName("exam 2").withStartTime("Nov 20 2016 12:00")
                     .withEndTime("Nov 20 2016 14:00").withDueDate("Feb 29 2000 00:00").build();
-            exam3 = new TaskBuilder().withName("Name Edited 2").withStartTime("Nov 22 2016 19:00")
+            exam3 = new TaskBuilder().withName("exam 3").withStartTime("Nov 22 2016 19:00")
                     .withEndTime("Nov 22 2016 21:00").withDueDate("Feb 29 2000 00:00").build();
-            study1 = new TaskBuilder().withName("Name Edited 2").withStartTime("Nov 18 2016 09:00")
+            study1 = new TaskBuilder().withName("study 1").withStartTime("Nov 18 2016 09:00")
                     .withEndTime("Nov 18 2016 23:00").withDueDate("Feb 29 2000 00:00").build();
-            study2 = new TaskBuilder().withName("Name Edited 2").withStartTime("Nov 19 2016 06:00")
-                    .withEndTime("Nov 19 2016 10:00").withDueDate("Feb 29 2000 00:00").build();           
+            study2 = new TaskBuilder().withName("study 2").withStartTime("Nov 19 2016 06:00")
+                    .withEndTime("Nov 19 2016 10:00").withDueDate("Feb 29 2000 00:00").build();     
+            past1 = new TaskBuilder().withName("past 1").withStartTime("Nov 01 2016 09:00")
+                    .withEndTime("Nov 01 2016 11:00").withDueDate("Feb 29 2000 00:00").build();
+            past2 = new TaskBuilder().withName("past 2").withStartTime("Oct 20 2016 15:00")
+                    .withEndTime("Oct 20 2016 16:00").withDueDate("Feb 29 2000 00:00").build();
+
         } catch (IllegalValueException e) {
             e.printStackTrace();
             assert false : "not possible";
@@ -185,4 +189,25 @@ public class TypicalTestTasks {
         loadFlexiTrackWithSampleData(ab);
         return ab;
     }
+
+    public TestTask[] testCaseForListLastAndNext() {
+        return new TestTask[] { past2, past1, lecture1, exam1 }; 
+    }
+
+    public TestTask[] getExpectedTypicalNextWeekTasks() {
+        return new TestTask[] { lecture1 };
+    }
+
+    public TestTask[] getExpectedTypicalLastWeekTasks() {
+        return new TestTask[] { past1 };
+    }
+
+    public TestTask[] getExpectedTypicalNextMonthTasks() {
+        return new TestTask[] { lecture1, exam1 };
+    }
+
+    public TestTask[] getExpectedTypicalLastMonthTasks() {
+        return new TestTask[] { past2, past1 };
+    }
+    
 }

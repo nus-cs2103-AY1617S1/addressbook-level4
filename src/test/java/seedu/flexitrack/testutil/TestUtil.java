@@ -419,17 +419,35 @@ public class TestUtil {
         TestTask[] testTaskArray;
         switch (listCommand) { 
         case "list":
-            testTaskArray = tt.getTypicalSortedTasks(); break;
+            testTaskArray = tt.getTypicalSortedTasks(); 
+            break;
         case "list future":
-            testTaskArray = tt.getExpectedTypicalFutureTasks(); break;
+            testTaskArray = tt.getExpectedTypicalFutureTasks(); 
+            break;
         case "list past": 
-            testTaskArray = tt.getExpectedTypicalPastTasks(); break;
+            testTaskArray = tt.getExpectedTypicalPastTasks(); 
+            break;
         case "list mark": 
-            testTaskArray = tt.getExpectedTypicalMarkTasks(); break;
+            testTaskArray = tt.getExpectedTypicalMarkTasks(); 
+            break;
         case "list unmark": 
-            testTaskArray = tt.getExpectedTypicalUnMarkTasks(); break;
+            testTaskArray = tt.getExpectedTypicalUnMarkTasks(); 
+            break;
         case "list future mark":
-            testTaskArray = tt.getExpectedTypicalFutureMarkTasks(); break;
+            testTaskArray = tt.getExpectedTypicalFutureMarkTasks(); 
+            break;
+        case "list next week": 
+            testTaskArray = tt.getExpectedTypicalNextWeekTasks(); 
+            break; 
+        case "list last week": 
+            testTaskArray = tt.getExpectedTypicalLastWeekTasks(); 
+            break; 
+        case "list next month": 
+            testTaskArray = tt.getExpectedTypicalNextMonthTasks(); 
+            break; 
+        case "list last month": 
+            testTaskArray = tt.getExpectedTypicalLastMonthTasks(); 
+            break; 
         default: 
             return null;
         }

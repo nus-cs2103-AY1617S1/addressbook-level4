@@ -53,6 +53,33 @@ public class ListCommandTest extends FlexiTrackGuiTest {
         listCommand = "list future mark";
         assertFindSuccess(listCommand, currentList);
         currentList = TestUtil.listTasksAccordingToCommand(currentList, listCommand);
+                
+        commandBox.runCommand("add lecture 1 from/ Nov 08 2016 09:00 to/Nov 08 2016 11:00");
+        commandBox.runCommand("add exam 1 from/Nov 20 2016 09:00 to/Nov 20 2016 10:30 ");
+        commandBox.runCommand("add past 1 from/Nov 01 2016 09:00 to/ Nov 01 2016 11:00");
+        commandBox.runCommand("add past 2 from/Oct 20 2016 15:00 to/Oct 20 2016 16:00");
+        
+        // list last week task 
+        listCommand = "list last week";
+        assertFindSuccess(listCommand, currentList);
+        currentList = TestUtil.listTasksAccordingToCommand(currentList, listCommand);
+        
+        // list last month task 
+        listCommand = "list last month";
+        assertFindSuccess(listCommand, currentList);
+        currentList = TestUtil.listTasksAccordingToCommand(currentList, listCommand);
+        
+        // list next week 
+        listCommand = "list next week";
+        assertFindSuccess(listCommand, currentList);
+        currentList = TestUtil.listTasksAccordingToCommand(currentList, listCommand);
+
+        //list next month
+        listCommand = "list next month";
+        assertFindSuccess(listCommand, currentList);
+        currentList = TestUtil.listTasksAccordingToCommand(currentList, listCommand);
+
+
         
     }
 

@@ -45,7 +45,7 @@ public class DateTimeInfo implements Comparable<DateTimeInfo> {
             parsedTiming = new DateTimeInfoParser(matcher.group("info"));
             timeInfo = parsedTiming;
             this.setTime = parsedTiming.getParsedTimingInfo();
-            formatTiming(parsedTiming.isInferred());
+            formatTimingIntoString(); 
         } catch (IllegalValueException e) {
             throw new IllegalValueException(MESSAGE_DATETIMEINFO_CONSTRAINTS);
         }
@@ -60,19 +60,33 @@ public class DateTimeInfo implements Comparable<DateTimeInfo> {
         return timeInfo;
     }
 
+    private void formatTimingIntoString() { 
+        this.setTime = getDateMonthYear() + " " + setTime.substring(12, 17);
+    }
+    
     /**
      * Change the format of the timing saved in setTime
      * 
      * @param inferred  True if the timing is inferred 
      */
-    private void formatTiming(boolean inferred) {
-        if (inferred) {
-            setTime = getDateMonthYear() + " 07:59";
-        } else {
-            setTime = getDateMonthYear() + " " + setTime.substring(12, 17);
-        }
+    void formatStartOrDueDateTime() {
+        if (timeInfo.isTimeInferred()) {
+            setTime = setTime.substring(0, 12) + "08:00";
+        } 
     }
 
+
+    /**
+     * If the time is inferred, replace "08:00" with "17:00"
+     */
+    void formatEndTime(DateTimeInfo startTime) {
+        if (timeInfo.isDateInferred()) {
+            setTime = startTime.setTime.substring(0, 12) + setTime.substring(12);
+        } 
+        if (timeInfo.isTimeInferred()) { 
+            setTime = setTime.substring(0, 12) + "17:00";
+        }
+    }
     /**
      * Extract the month, date and year of a particular date
      * 
@@ -166,19 +180,19 @@ public class DateTimeInfo implements Comparable<DateTimeInfo> {
         if (timeDifference[0] == -1) {
             return MESSAGE_FROM_IS_AFTER_TO;
         } else if (timeDifference[0] > 0) {
-            duration = " " + timeDifference[0] + " minute" + ((timeDifference[0] == 1) ? "" : "s");
+            duration = " " + timeDifference[0] + " minute" + ((timeDifference[0] == 1) ? "" + duration : "s");
         }
         if (timeDifference[1] > 0) {
-            duration = " " + timeDifference[1] + " hour" + ((timeDifference[1] == 1) ? "" : "s" + duration);
+            duration = " " + timeDifference[1] + " hour" + ((timeDifference[1] == 1) ? "" + duration : "s" + duration);
         }
         if (timeDifference[2] > 0) {
-            duration = " " + timeDifference[2] + " day" + ((timeDifference[2] == 1) ? "" : "s" + duration);
+            duration = " " + timeDifference[2] + " day" + ((timeDifference[2] == 1) ? "" + duration : "s" + duration);
         }
         if (timeDifference[3] > 0) {
-            duration = " " + timeDifference[3] + " month" + ((timeDifference[3] == 1) ? "" : "s" + duration);
+            duration = " " + timeDifference[3] + " month" + ((timeDifference[3] == 1) ? "" + duration : "s" + duration);
         }
         if (timeDifference[4] > 0) {
-            duration = " " + timeDifference[4] + " year" + ((timeDifference[4] == 1) ? "" : "s" + duration);
+            duration = " " + timeDifference[4] + " year" + ((timeDifference[4] == 1) ? "" + duration : "s" + duration);
         }
         if (duration.equals("")) {
             return "Event starts and end at the same time.";
@@ -321,14 +335,6 @@ public class DateTimeInfo implements Comparable<DateTimeInfo> {
         return this.setTime.equals("Feb 29 2000 00:00");
     }
 
-    /**
-     * If the time is inferred, replace "07:59" with "16:59"
-     */
-    public void isEndTimeInferred() {
-        if (setTime.substring(12, 17).equals("07:59")) {
-            setTime = setTime.substring(0, 12) + "16:59";
-        }
-    }
 
     /**
      * Process the task if the task is in the future
@@ -390,12 +396,12 @@ public class DateTimeInfo implements Comparable<DateTimeInfo> {
      * Process the data if it the task is a event and it is passing through the
      * date specified.
      * 
-     * @param task      The task of interest
+     * @param task      The event of interest
      * @param dateInfo  The date of interest
      * @return          True if a task is an event and the day interest is within the
      *                  starting date and the ending date
      */
-    private static boolean isTaskAnEventPassingThisDate(ReadOnlyTask task, String dateInfo) {
+     static boolean isTaskAnEventPassingThisDate(ReadOnlyTask task, String dateInfo) {
         if (!task.getIsEvent()) {
             return false;
         }
@@ -416,7 +422,7 @@ public class DateTimeInfo implements Comparable<DateTimeInfo> {
      * @param task      the task of interest 
      * @return          True if the date is within the duration
      */
-    public static boolean withInTheDuration(String keyWords, ReadOnlyTask task, String dateNow) {
+     public static boolean withInTheDuration(String keyWords, ReadOnlyTask task, String dateNow) {
         boolean isWithInTime = false;
         if (keyWords.contains(ListCommand.LIST_LAST_WEEK_COMMAND)) {
             return isNotFloatingTaskAndWithinTheTime(task, dateNow, -DAYS_IN_A_WEEK);
@@ -441,22 +447,22 @@ public class DateTimeInfo implements Comparable<DateTimeInfo> {
      *                      specified timing
      */
     private static boolean isNotFloatingTaskAndWithinTheTime(ReadOnlyTask task, String dateNow, int expectedDays) {
-        return (task.getIsNotFloatingTask()) ? isTaskWithInTheDuration(task, dateNow, expectedDays) : false;
-    }
-
-    /**
-     * Process if a deadline task or an event is within the duration specified.
-     *  
-     * @param task          The task of interest 
-     * @param dateNow       The current date 
-     * @param expectedDays  The longest timing accepted 
-     * @return              True if the task is within the stated duration
-     */
-    private static boolean isTaskWithInTheDuration(ReadOnlyTask task, String dateNow, int expectedDays) {
-        return (task.getIsNotFloatingTask())
+        return (task.getIsNotFloatingTask()) 
                 ? isTimeDifferenceLessThanSpecified(dateNow, task.getStartingTimeOrDueDate().toString(), expectedDays)
                 : false;
     }
+
+//    /**
+//     * Process if a deadline task or an event is within the duration specified.
+//     *  
+//     * @param task          The task of interest 
+//     * @param dateNow       The current date 
+//     * @param expectedDays  The longest timing accepted 
+//     * @return              True if the task is within the stated duration
+//     */
+//    private static boolean isTaskWithInTheDuration(ReadOnlyTask task, String dateNow, int expectedDays) {
+//        return 
+//    }
 
     /**
      * Provide an easy access to the current timing in String
@@ -468,7 +474,7 @@ public class DateTimeInfo implements Comparable<DateTimeInfo> {
         try {
             dateNow = new DateTimeInfo("now");
         } catch (IllegalValueException e) {
-            new IllegalValueException(MESSAGE_DATETIMEINFO_CONSTRAINTS);
+            assert false; 
         }
         return dateNow;
     }

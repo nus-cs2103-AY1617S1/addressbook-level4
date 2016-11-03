@@ -31,9 +31,14 @@ public class Task implements ReadOnlyTask{
         this.endTime = endTime;
         this.isTask = dueDate.isDateNull() ? false : true;
         this.isEvent = startTime.isDateNull() ? false : true;
-        this.endTime.isEndTimeInferred();
         this.isDone = name.getIsDone();
         this.isBlock = name.getIsDone();
+        if (isTask){
+            this.dueDate.formatStartOrDueDateTime(); 
+        } else { 
+            this.startTime.formatStartOrDueDateTime(); 
+            this.endTime.formatEndTime(this.startTime);
+        }
     }
 
     /**
