@@ -103,7 +103,7 @@ public class ModelManagerTest {
         for (int i = 0; i < Recurrence.DEFAULT_OCCURENCE - 1; i++) {
             addedTime.insert(0, "day after ");
             toCheck = new TaskBuilder().withName("recurring deadline task").withStartTime("")
-                    .withEndTime(addedTime + "tomorrow 10pm").withDone(false).withRecurrence("day").build();
+                    .withEndTime(addedTime.toString() + "10pm tomorrow").withDone(false).withRecurrence("day").build();
             assertEquals(testModel.getTaskManager().getUniqueTaskList().getInternalList().get(i), toCheck);
 
         }

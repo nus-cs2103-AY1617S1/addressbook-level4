@@ -44,7 +44,6 @@ public class Recurrence {
     }
     
     public String getRecurFreq() {
-        System.out.println(this.days);
         return this.days;
     }
 
