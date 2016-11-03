@@ -93,7 +93,7 @@ public interface Model {
 
     /** Returns the filtered task list of daily task as an {@code UnmodifiableObservableList<ReadOnlyTask>} 
      * as of expected date */
-	UnmodifiableObservableList<ReadOnlyTask> getFilteredDailyTasks(Date date);
+	UnmodifiableObservableList<ReadOnlyTask> getFilteredDailyTasks(int dayOfWeek, Date date);
 
     /** Returns the filtered task list of upcoming task as an {@code UnmodifiableObservableList<ReadOnlyTask>} 
      * as of expected date */
@@ -106,7 +106,7 @@ public interface Model {
     void updateFilteredListToShowFloating();
     
     /** Updates the filter of the filtered task list to show all tasks of the selected week*/
-    void updateFilteredListToShowDaily();
+    void updateFilteredListToShowDaily(int i);
 
     /** Updates the filter of the filtered task list to show all upcoming tasks after the selected week*/
     void updateFilteredListToShowUpcoming();
