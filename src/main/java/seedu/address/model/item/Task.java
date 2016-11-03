@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.Optional;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.commons.exceptions.TaskNotRecurringException;
 import seedu.address.commons.util.CollectionUtil;
 
 /**
@@ -13,6 +14,8 @@ import seedu.address.commons.util.CollectionUtil;
  */
 public class Task implements ReadOnlyTask, Comparable<Task> {
 
+    private static final String MESSAGE_RECURRING_TASK_CONSTRAINTS = "Unable to update recurring task as task "
+            + "is not recurring or task does not have both start and end dates";
     protected Name taskName;
     private Date startDate;
     private Date endDate;
@@ -77,14 +80,13 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
     //@@author A0139655U
     /**
      * Updates the startDate and/or endDate of the completed recurring task.
+     * 
+     * @throws TaskNotRecurringException    if task does not have recurrence rate or does not have both start and end dates.
      */
-    //TODO: Not sure to put this here or at DoneCommand
-    public void updateRecurringTask() {
+    public void updateRecurringTask() throws TaskNotRecurringException {
         if (recurrenceRate == null || (startDate == null && endDate == null)) {
-            
+            throw new TaskNotRecurringException(MESSAGE_RECURRING_TASK_CONSTRAINTS);
         }
-        assert recurrenceRate != null && recurrenceRate.timePeriod != null && recurrenceRate.rate != null &&
-                (startDate != null || endDate != null);
 
         if (startDate != null && endDate == null) {
             startDate = DateTime.updateDateByRecurrenceRate(startDate, recurrenceRate);

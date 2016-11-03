@@ -32,7 +32,7 @@ public class AddCommandHelper {
     private static final String STRING_CONSTANT_ONE = "1";
     public static final String MESSAGE_RECUR_DATE_TIME_CONSTRAINTS = "For recurring tasks to be valid, "
             + "at least one DATE_TIME must be provided.";
-    public static final String MESSAGE_END_DATE_CONSTRAINTS = "End date should be later than start date";
+    public static final String MESSAGE_END_DATE_CONSTRAINTS = "End date should be later than start date.";
     private static final String MESSAGE_DATE_CONSTRAINTS = "Invalid date!";
     
     // used to check for invalid dates e.g 40 Oct

@@ -318,6 +318,8 @@ Format: `list done`
 
 Example:
 * `list done`
+
+> `add` and `edit` commands do not work in done list view. As such, you are not able to directly add tasks into the done list, or edit the details of done tasks. 
 <br/>
 
 ### Finding a task: `find`

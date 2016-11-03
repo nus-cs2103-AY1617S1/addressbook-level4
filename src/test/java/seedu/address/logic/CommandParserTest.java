@@ -42,8 +42,8 @@ public class CommandParserTest {
     public void prepareAdd_invalidArgument() {
         parser = new CommandParser();
         Command command = parser.parseCommand("add eat bingsu from 10:30am from 10:40am");
-        IncorrectCommand expectedFeedback = new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, 
-                AddCommand.MESSAGE_USAGE + "\n" + "Repeated start times are not allowed."));
+        IncorrectCommand expectedFeedback = new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                "Repeated start times are not allowed." + "\n" + AddCommand.MESSAGE_USAGE));
         if (command instanceof IncorrectCommand) {
             assertEquals(((IncorrectCommand) command).feedbackToUser, expectedFeedback.feedbackToUser);
         } else {

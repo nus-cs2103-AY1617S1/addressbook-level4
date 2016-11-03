@@ -83,6 +83,7 @@ public abstract class DateTime {
      */
     public static boolean hasTimeValue(String dateString) throws IllegalValueException {
         assert dateString != null;
+        
         if (isValidDate(dateString)) {
             List<DateGroup> dates = new Parser().parse(dateString);
             String syntaxTree = dates.get(BASE_INDEX).getSyntaxTree().toStringTree();
@@ -139,11 +140,6 @@ public abstract class DateTime {
         List<DateGroup> dates = new Parser().parse(dateString.trim());
         try {
             int positionOfMatchingValue = dates.get(BASE_INDEX).getPosition();
-            String matchingValue = dates.get(BASE_INDEX).getText();
-            
-            /*if (positionOfMatchingValue > ONE || !matchingValue.equals(dateString)) {
-                return false;
-            }*/
             
             if (positionOfMatchingValue > ONE) {
                 return false;
@@ -153,9 +149,8 @@ public abstract class DateTime {
         }
         return true;
     }
-    //TODO:
     /**
-     * Assigns start date to a specified weekday
+     * Assigns start date to a specified weekday according to the given dateString.
      * 
      * @param dateString    user's input for date
      * @throws IllegalValueException 
@@ -237,7 +232,6 @@ public abstract class DateTime {
         return updatedDate;
     }
     
-    //TODO: Not sure to put this here or where
     /**
      * Updates date according to recurrence rate.
      * 
