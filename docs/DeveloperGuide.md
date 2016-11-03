@@ -41,6 +41,23 @@
   > * Depending on your connection speed and server load, it can even take up to 30 minutes for the set up to finish
       (This is because Gradle downloads library files from servers during the project set up process)
 
+## Problem Domain
+
+With the use of Activity Diagrams, we can understand the context under which `Dowat` is used.
+Users of `Dowat` receive their task and event items mainly from their email inbox.
+By storing the task or event received immediately into `Dowat`, the user can archive the email immediately.
+By accessing `Dowat`, the user is able to determine the important tasks at hand and upcoming events for the day or week.
+This will help the user plan their use of time more effectively.
+
+* Storing tasks and events in `Dowat` based on emails
+
+<img src="images/ADForDowatAndEmail.png" width="600"><br>
+
+* Accessing `Dowat`
+
+<img src="images/ADForDowat.png" width="600"><br>
+
+
 ## Design
 
 <img src="images/Architecture.png" width="600"><br>
@@ -118,8 +135,8 @@ The `UI` component,
 2. This results in a `Command` object which is executed by the `LogicManager`.
 3. The command execution can affect the `Model` (e.g. adding a person) and/or raise events.
 4. The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`
-5. The UndoableCommandHistory applies the Singleton pattern which holds the sole copy of the modifications done to the Taskbook. 
-6. We did not choose to store a list of events/tasks, or copies of taskbooks as a history. Instead, we chose to store a stack of commands which are more lightweighted, and occupy less storage. 
+5. The UndoableCommandHistory applies the Singleton pattern which holds the sole copy of the modifications done to the `Dowat`. 
+6. We did not choose to store a list of events/tasks, or copies of `Dowat` as a history. Instead, we chose to store a stack of commands which are more lightweighted, and occupy less storage. 
 <!-- @@author  -->
 <!-- @@author A0127570H -->
 
@@ -230,7 +247,7 @@ Priority | As a ... | I want to ... | So that I can...
 
 ## Appendix B : Use Cases
 
-(For all use cases below, the **System** is the `TaskBook` and the **Actor** is the `user`, unless specified otherwise)
+(For all use cases below, the **System** is `Dowat` and the **Actor** is the `user`, unless specified otherwise)
 
 <!-- @@author A0127570H -->
 
@@ -239,13 +256,13 @@ Priority | As a ... | I want to ... | So that I can...
 **MSS**
 
 1. User requests to add task of specified parameters
-2. TaskBook adds task to system
+2. `Dowat` adds task to system
 Use case ends.
 
 **Extensions**
 
 1a. The add task request has invalid format
-  > 1a1. Taskbook displays an error message
+  > 1a1. `Dowat` displays an error message
   Use case resumes at step 1
 
 <br>
@@ -255,12 +272,12 @@ Use case ends.
 **MSS**
 
 1. User requests to add event of specified parameters
-2. TaskBook adds event to system
+2. `Dowat` adds event to system
 Use case ends.
 
 **Extensions**
 1a. The add event request has invalid format
-  > 1a1. Taskbook displays an error message
+  > 1a1. `Dowat` displays an error message
     Use case resumes at step 1
 
 <br>
@@ -270,7 +287,7 @@ Use case ends.
 **MSS**
 
 1. User requests to list tasks/events
-2. TaskBook shows a list of tasks/events
+2. `Dowat` shows a list of tasks/events
 Use case ends.
 
 The Use case can be elaborated by the SD as below in addition the SD mentioned in the [Design](#design):  
@@ -287,14 +304,14 @@ The SD for list events is similiar to task.
 
 **MSS**
 1. User requests to list tasks
-2. TaskBook displays a list of tasks
+2. `Dowat` displays a list of tasks
 3. User requests to edit task in the list with new specified parameters with the index of task in the list
-4. TaskBook edits existing task in database according to new specified parameters
+4. `Dowat` edits existing task in database according to new specified parameters
   Use case ends.
 
 **Extensions**
 3a. The given index is invalid
-  > 3a1. Taskbook displays an error message that task cannot be found
+  > 3a1. `Dowat` displays an error message that task cannot be found
   Use case resumes at step 2
 
 <br>
@@ -303,14 +320,14 @@ The SD for list events is similiar to task.
 
 **MSS**
 1. User requests to list events
-2. TaskBook displays a list of events
+2. `Dowat` displays a list of events
 3. User requests to edit event in the list with new specified parameters with the index of event in the list
-4. TaskBook edits existing event in database according to new specified parameters
+4. `Dowat` edits existing event in database according to new specified parameters
   Use case ends.
 
 **Extensions**
 3a. The given index is invalid
-  > 3a1. Taskbook displays an error message that the event cannot be found
+  > 3a1. `Dowat` displays an error message that the event cannot be found
   Use case resumes at step 2
 
 <br>
@@ -320,16 +337,16 @@ The SD for list events is similiar to task.
 
 **MSS**
 1. User requests to list tasks
-2. TaskBook displays a list of tasks
+2. `Dowat` displays a list of tasks
 3. User requests to mark a task as completed with the index of task in the list
-4. TaskBook marks the existing task as completed and archives the completed task
-5. TaskBook displays the updated list of tasks
+4. `Dowat` marks the existing task as completed and archives the completed task
+5. `Dowat` displays the updated list of tasks
 
   Use case ends.
 
 **Extensions**
 3a. The given index is invalid
-  > 3a1. Taskbook displays an error message that the task cannot be found
+  > 3a1. `Dowat` displays an error message that the task cannot be found
   Use case resumes at step 2
 
 <br>
@@ -338,16 +355,16 @@ The SD for list events is similiar to task.
 
 **MSS**
 1. User requests to list tasks or events
-2. TaskBook displays a list of tasks or events
+2. `Dowat` displays a list of tasks or events
 3. User requests to delete an existing task or event with the index in the list
-4. TaskBook deletes the task or event
-5. Taskbook displays the updated list of tasks or events
+4. `Dowat` deletes the task or event
+5. `Dowat` displays the updated list of tasks or events
 
   Use case ends.
 
 **Extensions**
 3a. The given index is invalid
-  > 3a1. Taskbook displays an error message that the task cannot be found
+  > 3a1. `Dowat` displays an error message that the task cannot be found
   Use case resumes at step 2
 
 <br>
@@ -356,13 +373,13 @@ The SD for list events is similiar to task.
 
 **MSS**
 1. User request to save file at a specific directory 
-2. Taskbook saves the file at the specified directory
+2. `Dowat` saves the file at the specified directory
 
   Use case ends.
 
 **Extensions**
 1a. The selected directory is invalid
-  > 1a1. Taskbook displays an error message that directory cannot be found
+  > 1a1. `Dowat` displays an error message that directory cannot be found
   Use case resumes at step 1
 
 <br>
@@ -372,13 +389,13 @@ The SD for list events is similiar to task.
 
 **MSS**
 1. User requests for Help 
-2. TaskBook displays the Help list 
+2. `Dowat` displays the Help list 
 
   Use case ends.
 
 **Extensions**
 1a. The KEYWORD for Help Command is invalid
-  > 1a1. Taskbook displays an error message that KEYWORD cannot be found
+  > 1a1. `Dowat` displays an error message that KEYWORD cannot be found
   Use case resumes at step 1
 
 <br>
@@ -387,13 +404,13 @@ The SD for list events is similiar to task.
 
 **MSS**
 1. User request to find for tasks containing a set of keywords in description
-2. TaskBook displays zero or more tasks matching the find criteria
+2. `Dowat` displays zero or more tasks matching the find criteria
 
   Use case ends.
 
 **Extensions**
 1a. No keywords entered after command word
-  > 1a1. Taskbook displays help message on the find command
+  > 1a1. `Dowat` displays help message on the find command
   Use case resumes at step 1  
 
 
@@ -407,15 +424,15 @@ The SD for list events is similiar to task.
 
 **MSS**
 1. User requests to undo the last modification. 
-2. TaskBook shows the last command which modified the TaskBook database
-3. TaskBook undoes the the last modification
+2. `Dowat` shows the last command which modified the `Dowat` database
+3. `Dowat` undoes the the last modification
 
   Use case ends.
 
 **Extensions**
 Extensions
-1a. There is no command which modified the TaskBook during this session
-  > 1a1. Taskbook displays displays a message indicating no commands can be undone
+1a. There is no command which modified the `Dowat` during this session
+  > 1a1. `Dowat` displays displays a message indicating no commands can be undone
   Use case ends
 
 Besides the abstract SD as shown in the section [Design](#design). A more detailed Sequence Diagram of undo a deletion of task is shown below. 
@@ -427,14 +444,14 @@ Besides the abstract SD as shown in the section [Design](#design). A more detail
 
 **MSS**
 1. User requests to show a certain time period with a certain view.
-2. Calendar view is updated in the TaskBook. 
+2. Calendar view is updated in the `Dowat`. 
   
   Use Case ends
 
 
 **Extensions**
 1a. User key in invalid time or date. 
-  > 1a1. Taskbook feedbacks time is not valid.
+  > 1a1. `Dowat` feedbacks time is not valid.
 
   Use Case ends
 
