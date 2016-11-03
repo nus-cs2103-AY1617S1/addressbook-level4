@@ -43,8 +43,10 @@ public class AddCommand extends Command implements Undoable {
      */
     public AddCommand(String name, String description, String datetime, Set<String> tags) throws IllegalValueException {
         final Set<Tag> tagSet = new HashSet<>();
-        for (String tagName : tags) {
-            tagSet.add(new Tag(tagName));
+        if (tags != null){
+            for (String tagName : tags) {
+                tagSet.add(new Tag(tagName));
+            }
         }
 
         this.toAdd = new Task(new Name(name), 

@@ -29,6 +29,8 @@ public class UndatedListPanel extends UiPart {
     private VBox panel;
     private AnchorPane placeHolderPane;
     private String indexAlphabet = "A";
+    
+    private String label;
 
     @FXML
     private Label label_count;
@@ -71,7 +73,7 @@ public class UndatedListPanel extends UiPart {
     }
     
     private void initializeLabelCount(ObservableList<ReadOnlyTask> personList) {
-    	String label = "Floating : ";
+    	label = "To Do : ";
     	assert personList != null;
     	label_count.setText(label + personList.size());
 	}
@@ -128,7 +130,6 @@ public class UndatedListPanel extends UiPart {
     @Subscribe 
     private void updateLabelCount(UpdateListCountEvent e){
     	int listSize = e.model.getFilteredUndatedTaskList().size();
-    	String label = "Floating : ";
     	label_count.setText(label + listSize);
     }
 
