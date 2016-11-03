@@ -115,6 +115,27 @@ public class InputHandler {
         }
         
         // Process using best-matched controller.
+        processWithController(input, aliasedInput, selectedController);
+        
+        // Since command is not invalid, we push it to history
+        pushCommand(aliasedInput);
+
+        return true;
+    }
+
+    /**
+     * Process an input/aliasedInput with a selected controller.
+     * 
+     * Note that for proper functioning, <code>alias</code> and
+     * <code>unalias</code> will receive the <code>input</code> instead of
+     * <code>aliasedInput</code> for proper functioning.
+     * 
+     * @param input                 Raw user input
+     * @param aliasedInput          Input with aliases replaced
+     * @param selectedController    Controller to process input
+     * @return                      true if processing was successful, false otherwise
+     */
+    private boolean processWithController(String input, String aliasedInput, Controller selectedController) {
         try {
             // Alias and unalias should not receive an aliasedInput for proper functioning.
             if (selectedController.getClass() == AliasController.class ||
@@ -123,14 +144,10 @@ public class InputHandler {
             } else {
                 selectedController.process(aliasedInput);
             }
+            return true;
         } catch (ParseException e) {
             return false;
         }
-        
-        // Since command is not invalid, we push it to history
-        pushCommand(aliasedInput);
-
-        return true;
     }
 
     /**
