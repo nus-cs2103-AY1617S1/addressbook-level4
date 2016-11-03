@@ -10,6 +10,7 @@ import org.controlsfx.control.StatusBar;
 
 import seedu.taskmanager.commons.core.LogsCenter;
 import seedu.taskmanager.commons.events.model.TaskManagerChangedEvent;
+import seedu.taskmanager.commons.events.storage.SaveLocationChangedEvent;
 import seedu.taskmanager.commons.util.FxViewUtil;
 
 import java.util.Date;
@@ -95,5 +96,12 @@ public class StatusBarFooter extends UiPart {
         String lastUpdated = (new Date()).toString();
         logger.info(LogsCenter.getEventHandlingLogMessage(abce, "Setting last updated status to " + lastUpdated));
         setSyncStatus("Last Updated: " + lastUpdated);
+    }
+    
+    //@@author A0143641M
+    @Subscribe
+    public void handleSaveLocationChangedEvent(SaveLocationChangedEvent slce) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(slce, "Save location changed. Updating..."));
+        setSaveLocation("./" + slce.location);
     }
 }

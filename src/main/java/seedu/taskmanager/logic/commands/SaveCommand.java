@@ -56,6 +56,7 @@ public class SaveCommand extends Command {
             
             logger.fine("New data file created. Saved to specified file path: " + newTaskManagerFilePath);
 
+            model.saveAction(newTaskManagerFilePath);
             return new CommandResult(String.format(MESSAGE_SUCCESS, newStorage.getTaskManagerFilePath()));
             
         } catch (DataConversionException e) {

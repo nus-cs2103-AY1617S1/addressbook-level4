@@ -6,6 +6,7 @@ import seedu.taskmanager.commons.core.ComponentManager;
 import seedu.taskmanager.commons.core.LogsCenter;
 import seedu.taskmanager.commons.core.UnmodifiableObservableList;
 import seedu.taskmanager.commons.events.model.TaskManagerChangedEvent;
+import seedu.taskmanager.commons.events.storage.SaveLocationChangedEvent;
 import seedu.taskmanager.commons.events.ui.ChangeDoneEvent;
 import seedu.taskmanager.commons.events.ui.FilterEvent;
 import seedu.taskmanager.commons.util.StringUtil;
@@ -153,6 +154,11 @@ public class ModelManager extends ComponentManager implements Model {
     public synchronized void deleteItems(ArrayList<ReadOnlyItem> targets, String actionTaken) throws ItemNotFoundException {
         taskManager.removeItems(targets);
         indicateTaskManagerChanged(actionTaken);
+    }
+    
+    public synchronized void saveAction(String location) {
+        raise(new SaveLocationChangedEvent(location));
+        raise(new TaskManagerChangedEvent(taskManager));
     }
     //@@author
 
