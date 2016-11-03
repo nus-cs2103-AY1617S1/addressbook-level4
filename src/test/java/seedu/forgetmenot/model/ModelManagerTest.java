@@ -19,7 +19,7 @@ public class ModelManagerTest {
     
     @Test
     public void editTask_editName_changesNameOfTask() throws IllegalValueException, TaskNotFoundException {
-        Task taskToChange = new Task(new Name("first name"), new Done(false), new Time("tmr 10pm"), new Time("tmr 11pm"), new Recurrence(""));
+        Task taskToChange = new Task(new Name("first name"), new Done(false), new Time("10pm tmr"), new Time("11pm tmr"), new Recurrence(""));
         Task taskToCheck = new Task(new Name("second name"), new Done(false), new Time("tmr 10pm"), new Time("tmr 11pm"), new Recurrence(""));
         ModelManager testModel = new ModelManager();
         testModel.addTask(taskToChange);
@@ -94,7 +94,7 @@ public class ModelManagerTest {
     public void addRecurringTask_addDefaultNumberOfRecurringDeadlineTask_addsNineInstancesToTaskManager()
             throws IllegalValueException {
         TestTask recurringTask = new TaskBuilder().withName("recurring deadline task").withStartTime("")
-                .withEndTime("tomorrow 10pm").withDone(false).withRecurrence("day").build();
+                .withEndTime("10pm tomorrow").withDone(false).withRecurrence("day").build();
         ModelManager testModel = new ModelManager();
         testModel.addRecurringTask(recurringTask);
 

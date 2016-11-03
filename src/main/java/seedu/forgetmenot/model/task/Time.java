@@ -36,7 +36,10 @@ public class Time {
     public Time(String input) throws IllegalValueException {
         input = input.trim();
         
-        System.out.println("CHEEYEO CHECK HERE" + input);
+        System.out.println("CHEEYEO CHECK HERE : " + input);
+        
+        if (input.equals("-"))
+            input = "";
         
         if (input.equals(DEFAULT_DATE))
             input = "";
