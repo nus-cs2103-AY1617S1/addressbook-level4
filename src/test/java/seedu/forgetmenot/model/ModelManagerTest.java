@@ -90,26 +90,26 @@ public class ModelManagerTest {
         }
     }
     
-//    @Test
-//    public void addRecurringTask_addDefaultNumberOfRecurringDeadlineTask_addsNineInstancesToTaskManager()
-//            throws IllegalValueException {
-//        TestTask recurringTask = new TaskBuilder().withName("recurring deadline task").withStartTime("")
-//                .withEndTime("10pm tomorrow").withDone(false).withRecurrence("day").build();
-//        ModelManager testModel = new ModelManager();
-//        testModel.addRecurringTask(recurringTask);
-//
-//        TestTask toCheck;
-//        StringBuilder addedTime = new StringBuilder("");
-//        for (int i = 0; i < Recurrence.DEFAULT_OCCURENCE - 1; i++) {
-//            addedTime.insert(0, "day after ");
-//            System.out.println(addedTime.toString());
-//            toCheck = new TaskBuilder().withName("recurring deadline task").withStartTime("")
-//                    .withEndTime(addedTime.toString() + "10pm tomorrow").withDone(false).withRecurrence("day").build();
-//            System.out.println("FOR DEBUGGING toCheck : " + toCheck);
-//            assertEquals(testModel.getTaskManager().getUniqueTaskList().getInternalList().get(i), toCheck);
-//
-//        }
-//    }
+    @Test
+    public void addRecurringTask_addDefaultNumberOfRecurringDeadlineTask_addsNineInstancesToTaskManager()
+            throws IllegalValueException {
+        TestTask recurringTask = new TaskBuilder().withName("recurring deadline task").withStartTime("")
+                .withEndTime("tmr 10am").withDone(false).withRecurrence("day").build();
+        ModelManager testModel = new ModelManager();
+        testModel.addRecurringTask(recurringTask);
+
+        TestTask toCheck;
+        StringBuilder addedTime = new StringBuilder("");
+        for (int i = 0; i < Recurrence.DEFAULT_OCCURENCE - 1; i++) {
+            addedTime.insert(0, "day after ");
+            System.out.println(addedTime.toString());
+            toCheck = new TaskBuilder().withName("recurring deadline task").withStartTime("")
+                    .withEndTime(addedTime.toString() + "tmr 10am").withDone(false).withRecurrence("day").build();
+            System.out.println("FOR DEBUGGING toCheck : " + toCheck);
+            assertEquals(testModel.getTaskManager().getUniqueTaskList().getInternalList().get(i), toCheck);
+
+        }
+    }
     
 //    @Test
 //    public void addRecurringTask_addDefaultNumberOfRecurringStartOnlyTask_addsNineInstancesToTaskManager()

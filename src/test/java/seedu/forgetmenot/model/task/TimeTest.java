@@ -83,7 +83,6 @@ public class TimeTest {
 	private void assertInvalidTime(String time) {
 		try {
 			Time checkTime = new Time(time);
-			System.out.println("Able to print correct time" + checkTime.easyReadDateFormatForUI());
 			fail("didn't throw exception");
 		} catch (IllegalValueException e) {
 			assertEquals(e.getMessage(), Time.MESSAGE_TIME_CONSTRAINTS);

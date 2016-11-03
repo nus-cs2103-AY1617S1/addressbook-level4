@@ -94,7 +94,6 @@ public class UniqueTaskList implements Iterable<Task> {
     					return start1.time.compareTo(start2.time);
     				}
     				else {
-    					System.out.println("7");
     					return start1.time.compareTo(end2.time) == 0?
     							1: start1.time.compareTo(end2.time);
     				}

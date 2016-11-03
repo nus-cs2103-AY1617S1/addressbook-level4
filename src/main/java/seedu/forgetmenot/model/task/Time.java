@@ -37,6 +37,7 @@ public class Time {
         input = input.trim();
         
         if (input.equals("")) {
+            System.out.println("a blank string was detected");
             time = Calendar.getInstance();
             time.setTime(new Date(0));
         }
