@@ -27,6 +27,7 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
     private UniqueTagList tags;
     private boolean done;
     private String getDoneString;
+    private boolean ifOverdue;
 	private static final SimpleDateFormat DATEFORMATTER = new SimpleDateFormat("dd-MM-yyyy");
 	private static final SimpleDateFormat TIMEFORMATTER = new SimpleDateFormat("HHmm");
 
@@ -216,11 +217,22 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
 		return done;
 	}
 	
-	public String getDoneString(){
+	public boolean ifOverdue(){
+		if(getDoneString.equals("Overdue!")){
+			return true;
+		}
+		else return false;
+	}
+	
+	public String getDoneString() throws IllegalValueException{
 		if(done){
 			getDoneString = "Done!";
 		}
 		else {
+			if(checkOverDue()){
+				getDoneString = "Overdue!";
+			}
+			else 
 			getDoneString = "Undone!";
 		}
 		return getDoneString;
@@ -269,29 +281,6 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
     		}
     	}
     	return false;
-    }
-    
-    //This method will set the task to be overdue by adding a tag of "OVERDUE"
-    public void setOverdue() throws DuplicateTagException, IllegalValueException{
-    	Tag overdue = new Tag("OVERDUE");
-    	if(!this.tags.contains(overdue)){
-    		this.tags.add(overdue);
-    	}
-    }
-    
-    //This method will set the task to not be overdue but removing the tag of "OVERDUE"
-    public void setNotOverdue() throws IllegalValueException{
-    	Tag overdue = new Tag("OVERDUE");
-    	ObservableList<Tag> currentTagList = this.tags.getInternalList();
-    	UniqueTagList newTagList = new UniqueTagList();
-    	if(this.tags.contains(overdue)){
-    		for(Tag tag : currentTagList){
-    			if(!tag.equals(overdue)){
-    				newTagList.add(tag);
-    			}
-    		}
-    		this.tags.setTags(newTagList);
-    	}
     }
     
     
