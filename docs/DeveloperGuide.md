@@ -1,3 +1,6 @@
+//@@author A0135722L Zhiyuan
+
+
 # Developer Guide 
 
 * [Setting Up](#setting-up)
