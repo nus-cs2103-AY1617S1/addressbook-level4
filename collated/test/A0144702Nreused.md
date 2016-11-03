@@ -1,5 +1,5 @@
 # A0144702Nreused
-###### /java/guitests/guihandles/EventCardHandle.java
+###### \java\guitests\guihandles\EventCardHandle.java
 ``` java
 /**
  * Provides a handle to an event card in the event list panel.
@@ -36,9 +36,23 @@ public class EventCardHandle extends GuiHandle {
     }
 
     public boolean isSameEvent(ReadOnlyEvent event){
-        return getFullEventName().equals(event.getNameWithStatus()) 
-                && getEventDuration().equals(event.getDuration().toString())
-                && getDescription().equals(event.getDescriptionValue());
+        return isSameName(event) && isSameDuration(event) && isSameDescription(event);
+    }
+
+    private boolean isSameDescription(ReadOnlyEvent event) {
+        if (!event.getDescription().isPresent()) {
+            return true;
+        } else {
+            return getDescription().equals(event.getDescriptionToString().trim());
+        }
+    }
+
+    private boolean isSameDuration(ReadOnlyEvent event) {
+        return getEventDuration().equals(event.getDuration().toString().trim());
+    }
+
+    private boolean isSameName(ReadOnlyEvent event) {
+        return getFullEventName().equals(event.getNameWithStatus());
     }
 
     @Override
@@ -58,7 +72,7 @@ public class EventCardHandle extends GuiHandle {
     }
 }
 ```
-###### /java/guitests/guihandles/EventListPanelHandle.java
+###### \java\guitests\guihandles\EventListPanelHandle.java
 ``` java
 /**
  * Provides a handle for the panel containing the event list
@@ -218,7 +232,7 @@ public class EventListPanelHandle extends GuiHandle {
 	
 }
 ```
-###### /java/seedu/task/logic/LogicBasicTest.java
+###### \java\seedu\task\logic\LogicBasicTest.java
 ``` java
 public class LogicBasicTest {
 	 /**

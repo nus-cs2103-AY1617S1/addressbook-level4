@@ -1,5 +1,5 @@
 # generated
-###### /java/seedu/task/model/item/EventDuration.java
+###### \java\seedu\task\model\item\EventDuration.java
 ``` java
 	@Override
 	public int hashCode() {
