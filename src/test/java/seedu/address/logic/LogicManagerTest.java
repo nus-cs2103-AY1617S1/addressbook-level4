@@ -555,8 +555,6 @@ public class LogicManagerTest {
     	CommandResult result = logic.execute("view " + date);
     	assertEquals(logic.getFilteredDatedTaskList().size(), listSize);   
     }
-    
-    //@@author
 
     private void genericEdit(String index, int type, String field) throws Exception, DuplicateTaskException, IllegalValueException {
         // actual to be edited
@@ -607,7 +605,7 @@ public class LogicManagerTest {
     // TODO: currently, edits that don't include old tags removes all tags 
     // masterlist of tags in TaskBook also need to be changed
     @Test
-    public void execute_edit_dated_successful() throws Exception {
+    public void execute_editDated_successful() throws Exception {
 
         // initial task in actual model to be edited
         Task original = new Task (new Name("adam"), new Description("111111"),
@@ -656,6 +654,8 @@ public class LogicManagerTest {
                 expectedTB, expectedTB.getDatedTasks(),
                 expectedTB.getUndatedTaskList());
     }
+    
+    //@@author
 
     @Test
     public void execute_find_invalidArgsFormat() throws Exception {
