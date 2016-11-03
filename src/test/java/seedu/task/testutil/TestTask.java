@@ -79,16 +79,9 @@ public class TestTask implements ReadOnlyTask {
     public UniqueTagList getTags() {
         return tags;
     }
-<<<<<<< HEAD
 
-    @Override
-    public int getRecurrentWeek() {
-        return recurrentWeek;
-    }
     //@@author A0153467Y
-=======
-    
->>>>>>> origin/develop
+
     @Override
     public boolean getImportance() {
         return isImportant;
