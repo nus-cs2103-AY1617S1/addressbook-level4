@@ -138,7 +138,7 @@ Examples:
 * `edit /e 4 /desc CS2103 TaskBook Project Meeting 4`  
   Edits the description of the 4th task to “CS2103 TaskBook Project Meeting 4”
 
-<!-- @@author -->
+<!-- @@author A0121608N -->
 
 #### Marking a task as completed
 Mark an existing task as completed in dowat.
@@ -165,6 +165,7 @@ Examples:
 * `delete /t 1`  
   Deletes the 1st task in the most recent listing
 
+<!-- @@author -->
   
 #### Selecting a task/event
 Selects an existing task/event from the last shown task/event list.  
@@ -221,7 +222,7 @@ Examples:
 * `find CS2106 CS2103`
   Returns any tasks or events having "CS2106", "CS2103" in their names. 
 
-<!-- @@author-->
+<!-- @@author A0121608N -->
 
 #### Clearing of tasks
 Clears all completed tasks or clears all tasks. <br>

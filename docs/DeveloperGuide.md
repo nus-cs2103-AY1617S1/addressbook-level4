@@ -57,7 +57,7 @@ This will help the user plan their use of time more effectively.
 The **_Architecture Diagram_** given above explains the high-level design of the App.
 Given below is a quick overview of each component.
 
-`Main` has only one class called [`MainApp`](../src/main/java/seedu/address/MainApp.java). It is responsible for,
+`Main` has only one class called [`MainApp`](../src/main/java/seedu/task/MainApp.java). It is responsible for,
 * At app launch: Initializes the components in the correct sequence, and connect them up with each other.
 * At shut down: Shuts down the components and invoke clean up method where necessary.
 
@@ -101,7 +101,7 @@ The sections below give more details of each component.
 
 <img src="images/UiClassDiagram.png" width="800"><br>
 
-**API** : [`Ui.java`](../src/main/java/seedu/address/ui/Ui.java)
+**API** : [`Ui.java`](../src/main/java/seedu/task/ui/Ui.java)
 
 The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `TaskListPanel`, `EventListPanel`, `CalendarView`,
 `StatusBarFooter` etc. All these, including the `MainWindow` inherits from the abstract `UiPart` class
@@ -109,7 +109,7 @@ and they can be loaded using the `UiPartLoader`.
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files
  that are in the `src/main/resources/view` folder.<br>
- For example, the layout of the [`MainWindow`](../src/main/java/seedu/address/ui/MainWindow.java) is specified in
+ For example, the layout of the [`MainWindow`](../src/main/java/seedu/task/ui/MainWindow.java) is specified in
  [`MainWindow.fxml`](../src/main/resources/view/MainWindow.fxml)
 
 The `UI` component,
@@ -123,11 +123,11 @@ The `UI` component,
 
 <img src="images/LogicClassDiagram.png" width="800"><br>
 
-**API** : [`Logic.java`](../src/main/java/seedu/address/logic/Logic.java)
+**API** : [`Logic.java`](../src/main/java/seedu/task/logic/Logic.java)
 
 1. `Logic` uses the `Parser` class to parse the user command.
 2. This results in a `Command` object which is executed by the `LogicManager`.
-3. The command execution can affect the `Model` (e.g. adding a person) and/or raise events.
+3. The command execution can affect the `Model` (e.g. adding a task) and/or raise events.
 4. The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`
 5. The UndoableCommandHistory applies the Singleton pattern which holds the sole copy of the modifications done to the `Dowat`. 
 6. We did not choose to store a list of events/tasks, or copies of `Dowat` as a history. Instead, we chose to store a stack of commands which are more lightweighted, and occupy less storage. 
@@ -138,7 +138,7 @@ The `UI` component,
 
 <img src="images/ModelClassDiagram.png" width="800"><br>
 
-**API** : [`Model.java`](../src/main/java/seedu/address/model/Model.java)
+**API** : [`Model.java`](../src/main/java/seedu/task/model/Model.java)
 
 The `Model`,
 * Stores a `UserPref` object that represents the user's preferences
@@ -151,7 +151,7 @@ The `Model`,
 
 <img src="images/StorageClassDiagram.png" width="800"><br>
 
-**API** : [`Storage.java`](../src/main/java/seedu/address/storage/Storage.java)
+**API** : [`Storage.java`](../src/main/java/seedu/task/storage/Storage.java)
 
 The `Storage` component,
 * can save `UserPref` objects in json format and read it back.
@@ -326,7 +326,7 @@ The SD for list events is similiar to task.
   Use case resumes at step 2
 
 <br>
-<!-- @@author -->
+<!-- @@author A0121608N -->
 
 #### Use case 6: Mark task as completed
 
@@ -359,10 +359,11 @@ The SD for list events is similiar to task.
 
 **Extensions**
 3a. The given index is invalid
-  > 3a1. `Dowat` displays an error message that the task cannot be found
+  > 3a1. `Dowat` displays an error message that the task or event cannot be found
   Use case resumes at step 2
 
 <br>
+<!-- @@author -->
 
 #### Use case 8: Specify storage location
 
@@ -456,9 +457,10 @@ Notice how this command does not involve the Model Component at all. Since it do
 
 <!-- @@author --> 
 
+<!-- @@author A0121608N -->
 ## Appendix C : Non Functional Requirements
 - Storage
-  - Should not use relational databases. Data storage must be done using text files you create yourself. 
+  - Should not use relational databases. Data storage must be done using text, json, xml files you create yourself. 
   - Should be stored locally and should be in a human editable text file. The intention of this constraint is to allow advanced users to manipulate the data by editing the data file.
 
 - GUI
@@ -476,13 +478,11 @@ Notice how this command does not involve the Model Component at all. Since it do
 - Should work stand-alone. It should not be a plug-in to another software. 
 - Should follow the Object-oriented paradigm. 
 - Should work without requiring an installer. Having an optional installer is OK as longs as the portable (non-installed) version has all the critical functionality. 
-- Should only work with Third Party User/Libraries if they,
-are 
-  - free.
-  - do not require any installation by the user of your software.
-  - do not violate other constraints. 
+- Should only work with Third Party User/Libraries if they are free.
+- do not require any installation by the user of your software.
+- do not violate other constraints. 
 
-
+<!-- @@author --> 
 {More to be added}
 
 ## Appendix D : Glossary
