@@ -102,6 +102,12 @@ public class UpdateController implements Controller {
         String naturalFrom = naturalDates[0];
         String naturalTo = naturalDates[1];
 
+        // Validate isTask, name and times.
+        if (!validateParams(isTask, name, naturalFrom, naturalTo)) {
+            renderDisambiguation(isTask, recordIndex, name, naturalFrom, naturalTo);
+            return;
+        }
+        
         // Parse natural date using Natty.
         LocalDateTime dateFrom;
         LocalDateTime dateTo;
@@ -191,6 +197,11 @@ public class UpdateController implements Controller {
         
         // Persist
         db.save();
+    }
+    
+    private boolean validateParams(boolean isTask, String name, String naturalFrom, String naturalTo) {
+        // TODO: Not enough sleep
+        return true;
     }
     
     /**
