@@ -13,6 +13,7 @@ import javafx.stage.Stage;
 import seedu.taskitty.commons.core.LogsCenter;
 import seedu.taskitty.commons.events.ui.TaskPanelSelectionChangedEvent;
 import seedu.taskitty.model.task.ReadOnlyTask;
+import seedu.taskitty.model.task.Task;
 
 import java.util.logging.Logger;
 
@@ -22,6 +23,17 @@ import java.util.logging.Logger;
  */
 public class TaskListPanel extends UiPart {
     private final Logger logger = LogsCenter.getLogger(TaskListPanel.class);
+    
+    //@@author A0139930B
+    private static final String ID_TODO = "todoListView";
+    private static final String ID_DEADLINE = "deadlineListView";
+    private static final String ID_EVENT = "eventListView";
+    
+    private static final String HEADER_TODO = "TODOS";
+    private static final String HEADER_DEADLINE = "DEADLINES";
+    private static final String HEADER_EVENT = "EVENTS";
+    
+    //@@author A0130853L-reused
     protected VBox panel;
     protected AnchorPane placeHolderPane;
     
@@ -45,29 +57,40 @@ public class TaskListPanel extends UiPart {
         this.placeHolderPane = pane;
     }
     
-    public void configure(ObservableList<ReadOnlyTask> taskList) {
-        if(taskList.get(0).isTodo()) {
-            header.setText("TODOS");
-            taskListView.setId("todoListView");
-        } else if (taskList.get(0).isDeadline()) {
-            header.setText("DEADLINES");
-            taskListView.setId("deadlineListView");
-        } else if (taskList.get(0).isEvent()) {
-            header.setText("EVENTS");
-            taskListView.setId("eventListView");
-        }
+    public void configure(ObservableList<ReadOnlyTask> taskList, int type) {
+        initializeListView(type);
         setConnections(taskListView, taskList);
         addToPlaceholder();
     }
     
+    //@@author A0139930B
+    /**
+     * Initializes the list view header and ID depending on the type of list it is
+     */
+    private void initializeListView(int type) {
+        if(type == Task.TASK_COMPONENT_COUNT) {
+            header.setText(HEADER_TODO);
+            taskListView.setId(ID_TODO);
+        } else if (type == Task.DEADLINE_COMPONENT_COUNT) {
+            header.setText(HEADER_DEADLINE);
+            taskListView.setId(ID_DEADLINE);
+        } else if (type == Task.EVENT_COMPONENT_COUNT) {
+            header.setText(HEADER_EVENT);
+            taskListView.setId(ID_EVENT);
+        } else {
+            assert false : "List must be either todo, deadline or event";
+        }
+    }
+    
+    //@@author A0130853L-reused
     public int getTaskCardID() {
         return CARD_ID;
     }
     
     public static <T extends TaskListPanel> T load(Stage primaryStage, AnchorPane taskListPlaceholder,
-                                       ObservableList<ReadOnlyTask> taskList, T listPanel) {
+                                       ObservableList<ReadOnlyTask> taskList, T listPanel, int type) {
         T taskListPanel =  UiPartLoader.loadUiPart(primaryStage, taskListPlaceholder, listPanel);
-        taskListPanel.configure(taskList);
+        taskListPanel.configure(taskList, type);
         return taskListPanel;
     }    
     
