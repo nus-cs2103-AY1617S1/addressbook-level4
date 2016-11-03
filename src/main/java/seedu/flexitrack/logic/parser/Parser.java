@@ -83,10 +83,13 @@ public class Parser {
             Pattern.compile("(?<name>.+)" + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
     //@@author A0147092E
     private static final Pattern TASK_RECURRING_EVENT_TYPE_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
-            Pattern.compile("(?<name>.+)" + "fr/(?<numOfOccurrence>\\d{1,2}) " + "ty/(?<occurrenceType>[^/].+)" + "from/(?<startTime>[^/]+)" + "to/(?<endTime>[^/]+)");
+            Pattern.compile("(?<name>.+)" + "fr/(?<numOfOccurrence>\\d{1,2}) " + "ty/(?<occurrenceType>[^/\\d]{5,7})" + "from/(?<startTime>[^/]+)" + "to/(?<endTime>[^/]+)");
 
     private static final Pattern TASK_RECURRING_TASK_TYPE_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
-            Pattern.compile("(?<name>.+)" + "fr/(?<numOfOccurrence>\\d{1,2}) " + "ty/(?<occurrenceType>[^/\\d]{3,5})" + "by/(?<dueDate>[^/]+)");
+            Pattern.compile("(?<name>.+)" + "fr/(?<numOfOccurrence>\\d{1,2}) " + "ty/(?<occurrenceType>[^/\\d]{5,7})" + "by/(?<dueDate>[^/]+)");
+    
+    private static final Pattern TASK_RECURRING_FLOATING_TASK_TYPE_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
+            Pattern.compile("(?<name>.+)" + "fr/(?<numOfOccurrence>\\d{1,2})");
     //@@author 
     
     private static final Pattern EDIT_COMMAND_FORMAT = Pattern.compile("(?<index>[0-9]+)(?<arguments>.*)");
@@ -492,13 +495,17 @@ public class Parser {
         final Matcher matcherDeadline = TASK_DEADLINE_TYPE_DATA_ARGS_FORMAT.matcher(args.trim());
         final Matcher matcherFloating = TASK_FLOATING_TYPE_DATA_ARGS_FORMAT.matcher(args.trim());
         //@@author A0147092E
+        final Matcher matcherRecurringFloatingTask = TASK_RECURRING_FLOATING_TASK_TYPE_DATA_ARGS_FORMAT.matcher(args.trim());
         final Matcher matcherRecurringEvent = TASK_RECURRING_EVENT_TYPE_DATA_ARGS_FORMAT.matcher(args.trim());
         final Matcher matcherRecurringTask = TASK_RECURRING_TASK_TYPE_DATA_ARGS_FORMAT.matcher(args.trim());
         //@@author A0127686R
         // Validate arg string format
         try {
+            //@@author A0147092E
             if (args.trim().contains("fr/") || args.trim().contains("ty/")) {
-                if (matcherRecurringEvent.matches()) {
+                if (matcherRecurringFloatingTask.matches()) {
+                    return addRecurring(matcherRecurringFloatingTask, "floating");
+                } else if (matcherRecurringEvent.matches()) {
                     return addRecurring(matcherRecurringEvent, "event");
                 } else if (matcherRecurringTask.matches()) {
                     return addRecurring(matcherRecurringTask, "task");
@@ -550,52 +557,60 @@ public class Parser {
         String formattedEndTime;
         String formattedDueDate;
         
-        int numOfOccurrrence = Integer.parseInt(matcher.group("numOfOccurrence").trim());
-        String occurrenceType = matcher.group("occurrenceType").trim().toLowerCase();
+        int numOfOccurrence = Integer.parseInt(matcher.group("numOfOccurrence").trim());
         
-        if (recurringType.equalsIgnoreCase("task")) {
+        if (recurringType.equalsIgnoreCase("floating")) {
+            for (int i = 1; i < numOfOccurrence; i++) {
+                Command command = new AddCommand(matcher.group("name"), EMPTY_TIME_INFO, EMPTY_TIME_INFO, EMPTY_TIME_INFO);
+                command.setData(model);
+                command.execute();    
+            } 
+            return new AddCommand(matcher.group("name"), EMPTY_TIME_INFO, EMPTY_TIME_INFO, EMPTY_TIME_INFO);
+            
+        } else if (recurringType.equalsIgnoreCase("task")) {
+            String occurrenceType = matcher.group("occurrenceType").trim().toLowerCase();
             Date initialDueDate = new DateTimeInfoParser(matcher.group("dueDate")).getParsedDateTime();
             
             switch (occurrenceType.toLowerCase()) {
-                
-            case "week":
-                for(int i=1; i < numOfOccurrrence; i++) {
+            case "weekly":
+                for (int i=1; i < numOfOccurrence; i++) {
                     formattedDueDate = dateIncrement(initialDueDate, WEEK_INCREMENT, i);
                     
                     Command command = new AddCommand(matcher.group("name"), formattedDueDate, EMPTY_TIME_INFO, EMPTY_TIME_INFO);
                     command.setData(model);
                     command.execute();
                 }
-                return new AddCommand(matcher.group("name"), matcher.group("dueDate"), EMPTY_TIME_INFO, EMPTY_TIME_INFO, numOfOccurrrence);
+                return new AddCommand(matcher.group("name"), matcher.group("dueDate"), EMPTY_TIME_INFO, EMPTY_TIME_INFO);
                 
-            case "month" :
-                for(int i=1; i < numOfOccurrrence; i++) {
+            case "monthly" :
+                for (int i=1; i < numOfOccurrence; i++) {
                     formattedDueDate = dateIncrement(initialDueDate, MONTH_INCREMENT, i);
                     
                     Command command = new AddCommand(matcher.group("name"), formattedDueDate, EMPTY_TIME_INFO, EMPTY_TIME_INFO);
                     command.setData(model);
                     command.execute();
                 }
-                return new AddCommand(matcher.group("name"), matcher.group("dueDate"), EMPTY_TIME_INFO, EMPTY_TIME_INFO, numOfOccurrrence);
+                return new AddCommand(matcher.group("name"), matcher.group("dueDate"), EMPTY_TIME_INFO, EMPTY_TIME_INFO);
                 
             default: 
-                for(int i=1; i < numOfOccurrrence; i++) {
+                for (int i=1; i < numOfOccurrence; i++) {
                     formattedDueDate = dateIncrement(initialDueDate, DAY_INCREMENT, i);
+                    
                     Command command = new AddCommand(matcher.group("name"), formattedDueDate, EMPTY_TIME_INFO, EMPTY_TIME_INFO);
                     command.setData(model);
                     command.execute();
                 }
-                return new AddCommand(matcher.group("name"), matcher.group("dueDate"), EMPTY_TIME_INFO, EMPTY_TIME_INFO, numOfOccurrrence);
+                return new AddCommand(matcher.group("name"), matcher.group("dueDate"), EMPTY_TIME_INFO, EMPTY_TIME_INFO);
             }
             
         } else {  // Recurring Event
-            
+            String occurrenceType = matcher.group("occurrenceType").trim().toLowerCase();
             Date initialStartTime = new DateTimeInfoParser(matcher.group("startTime")).getParsedDateTime();
             Date initialEndTime = new DateTimeInfoParser(matcher.group("endTime")).getParsedDateTime();
             
             switch (occurrenceType.toLowerCase()) {
-            case "week":
-                for(int i=1; i < numOfOccurrrence; i++) {
+            case "weekly":
+                for (int i=1; i < numOfOccurrence; i++) {
                     
                     formattedStartTime = dateIncrement(initialStartTime, WEEK_INCREMENT, i);
                     formattedEndTime = dateIncrement(initialEndTime, WEEK_INCREMENT, i);
@@ -604,10 +619,10 @@ public class Parser {
                     command.setData(model);
                     command.execute();
                 }
-                return new AddCommand(matcher.group("name"), EMPTY_TIME_INFO, matcher.group("startTime"), matcher.group("endTime"), numOfOccurrrence);
+                return new AddCommand(matcher.group("name"), EMPTY_TIME_INFO, matcher.group("startTime"), matcher.group("endTime"));
                 
-            case "month":
-                for(int i=1; i < numOfOccurrrence; i++) {
+            case "monthly":
+                for (int i=1; i < numOfOccurrence; i++) {
                     formattedStartTime = dateIncrement(initialStartTime, MONTH_INCREMENT, i);
                     formattedEndTime = dateIncrement(initialEndTime, MONTH_INCREMENT, i);
                     
@@ -615,10 +630,10 @@ public class Parser {
                     command.setData(model);
                     command.execute();
                 }
-                return new AddCommand(matcher.group("name"), EMPTY_TIME_INFO, matcher.group("startTime"), matcher.group("endTime"), numOfOccurrrence);
+                return new AddCommand(matcher.group("name"), EMPTY_TIME_INFO, matcher.group("startTime"), matcher.group("endTime"));
             
             default:
-                for(int i=1; i < numOfOccurrrence; i++){
+                for (int i=1; i < numOfOccurrence; i++){
                     
                     formattedStartTime = dateIncrement(initialStartTime, DAY_INCREMENT, i);
                     formattedEndTime = dateIncrement(initialEndTime, DAY_INCREMENT, i);
@@ -627,7 +642,7 @@ public class Parser {
                     command.setData(model);
                     command.execute();
                 }
-                return new AddCommand(matcher.group("name"), EMPTY_TIME_INFO, matcher.group("startTime"), matcher.group("endTime"), numOfOccurrrence);
+                return new AddCommand(matcher.group("name"), EMPTY_TIME_INFO, matcher.group("startTime"), matcher.group("endTime"));
             }
         }
     }
@@ -644,7 +659,7 @@ public class Parser {
     public String dateIncrement(Date initialDate, int incrementType, int incrementAmt) {
         final int DAYS_PER_WEEK = 7;
         Date newDate = new Date();
-             
+        
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(initialDate);
 
@@ -665,7 +680,6 @@ public class Parser {
             newDate = calendar.getTime();
             break;
         }
-        
         return new SimpleDateFormat("MM-dd-yyyy HHmmss").format(newDate);
     }
     //@@author 
