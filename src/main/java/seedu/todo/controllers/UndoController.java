@@ -52,26 +52,45 @@ public class UndoController implements Controller {
         
         // We don't really have a nice way to support SQL transactions, so yeah >_<
         TodoListDB db = TodoListDB.getInstance();
-        if (numUndo <= 0 || db.undoSize() <= 0) {
-            UiManager.updateConsoleMessage(MESSAGE_FAILURE);
+        
+        // Attempt to undo DB. If fail, exit method.
+        if (attemptUndo(numUndo, db)) {
             return;
         }
-        if (db.undoSize() < numUndo) {
-            UiManager.updateConsoleMessage(String.format(MESSAGE_MULTIPLE_FAILURE,
-                    numUndo, StringUtil.pluralizer(numUndo, "command", "commands"),
-                    db.undoSize(), StringUtil.pluralizer(db.undoSize(), "command", "commands")));
-            return;
-        }
-        for (int i = 0; i < numUndo; i++) {
-            if (!db.undo()) {
-                UiManager.updateConsoleMessage(MESSAGE_FAILURE);
-                return;
-            }
-        }
+        
+        // Reload DB
         db = TodoListDB.getInstance();
         
         // Render
         Renderer.renderIndex(db, String.format(MESSAGE_SUCCESS, numUndo,
                 StringUtil.pluralizer(numUndo, "command", "commands")));
+    }
+    
+    /**
+     * Attempt to undo the DB by <code>numUndo</code> steps. If this fails, this
+     * method will update the console message with appropriate error messages.
+     * 
+     * @param numUndo   Number of steps to undo
+     * @param db        TodoListDB instance
+     * @return          true if undo attempt successful, false otherwise
+     */
+    private boolean attemptUndo(int numUndo, TodoListDB db) {
+        if (numUndo <= 0 || db.undoSize() <= 0) {
+            UiManager.updateConsoleMessage(MESSAGE_FAILURE);
+            return false;
+        }
+        if (db.undoSize() < numUndo) {
+            UiManager.updateConsoleMessage(String.format(MESSAGE_MULTIPLE_FAILURE,
+                    numUndo, StringUtil.pluralizer(numUndo, "command", "commands"),
+                    db.undoSize(), StringUtil.pluralizer(db.undoSize(), "command", "commands")));
+            return false;
+        }
+        for (int i = 0; i < numUndo; i++) {
+            if (!db.undo()) {
+                UiManager.updateConsoleMessage(MESSAGE_FAILURE);
+                return false;
+            }
+        }
+        return true;
     }
 }
