@@ -28,6 +28,7 @@ public class TaskBuilder {
     }
 
     public TaskBuilder withEndTime(String end) throws IllegalValueException {
+        System.out.println("CHECKING withEndTime in TaskBuilder: " + end);
         this.task.setEndTime(new Time(end));
         return this;
     }

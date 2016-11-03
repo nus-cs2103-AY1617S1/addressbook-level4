@@ -123,8 +123,6 @@ public class UniqueTaskList implements Iterable<Task> {
      */
     public void add(Task toAdd) {
         assert toAdd != null;
-        System.out.println(toAdd.getStartTime().easyReadDateFormatForUI());
-        System.out.println(toAdd.getEndTime().easyReadDateFormatForUI());
         internalList.add(toAdd);
     }
 

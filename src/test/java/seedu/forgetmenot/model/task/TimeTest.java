@@ -62,9 +62,9 @@ public class TimeTest {
 		assertTrue(Time.checkOrderOfDates("28/2/17", "1/3/17"));
 		assertTrue(Time.checkOrderOfDates("christmas", "new year"));
 		assertTrue(Time.checkOrderOfDates("today 11:59pm", "1 week later"));
-//		assertTrue(Time.checkOrderOfDates("today", "")); // If the end time is missing, it is still considered valid
-//		assertTrue(Time.checkOrderOfDates("", "tmr")); // If the start time is missing, it is still considered valid
-//		assertTrue(Time.checkOrderOfDates("", "")); // If both start time and end time is missing, it is still considered valid
+		assertTrue(Time.checkOrderOfDates("today", "")); // If the end time is missing, it is still considered valid
+		assertTrue(Time.checkOrderOfDates("", "tmr")); // If the start time is missing, it is still considered valid
+		assertTrue(Time.checkOrderOfDates("", "")); // If both start time and end time is missing, it is still considered valid
 		
 	}
 	

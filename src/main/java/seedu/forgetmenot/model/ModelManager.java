@@ -209,8 +209,12 @@ public class ModelManager extends ComponentManager implements Model {
         StringBuilder recurEndTime = new StringBuilder(task.getEndTime().appearOnUIFormat());
            for (int i = 0; i < occur - 1; i++) {
                recurEndTime.insert(0, freq + " after ");
-               addTask(new Task(task.getName(), new Done(false), new Time(""), new Time(recurEndTime.toString()),
-                       new Recurrence(task.getRecurrence().getRecurFreq())));
+               Task taskss = new Task(task.getName(), new Done(false), new Time(""), new Time(recurEndTime.toString()),
+                       new Recurrence(task.getRecurrence().getRecurFreq()));
+               System.out.println("FOR DEBUGGING ONLY : " + taskss);
+//               addTask(new Task(task.getName(), new Done(false), new Time(""), new Time(recurEndTime.toString()),
+//                       new Recurrence(task.getRecurrence().getRecurFreq())));
+               addTask(taskss);
            }
     }
 
