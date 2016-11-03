@@ -64,7 +64,6 @@ public class AddController implements Controller {
 
     @Override
     public void process(String input) throws ParseException {
-        
         Map<String, String[]> parsedResult;
         parsedResult = Tokenizer.tokenize(getTokenDefinitions(), input);
         
