@@ -5,11 +5,13 @@ import seedu.task.commons.core.ComponentManager;
 import seedu.task.commons.core.LogsCenter;
 import seedu.task.commons.core.UnmodifiableObservableList;
 import seedu.task.commons.events.model.TaskManagerChangedEvent;
+import seedu.task.commons.logic.CommandKeys.Commands;
 import seedu.task.commons.util.StringUtil;
 import seedu.task.model.task.ReadOnlyTask;
 import seedu.task.model.task.Task;
 import seedu.task.model.task.UniqueTaskList;
 
+import java.util.HashMap;
 import java.util.Set;
 import java.util.logging.Logger;
 
@@ -22,6 +24,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     private final TaskManager taskManager;
     private final FilteredList<Task> filteredTasks;
+    private final UserPrefs userPrefs;
 
     /**
      * Initializes a ModelManager with the given TaskManager
@@ -36,6 +39,7 @@ public class ModelManager extends ComponentManager implements Model {
 
         taskManager = new TaskManager(src);
         filteredTasks = new FilteredList<>(taskManager.getTasks());
+        this.userPrefs = userPrefs;
     }
 
     public ModelManager() {
@@ -45,6 +49,7 @@ public class ModelManager extends ComponentManager implements Model {
     public ModelManager(ReadOnlyTaskManager initialData, UserPrefs userPrefs) {
         taskManager = new TaskManager(initialData);
         filteredTasks = new FilteredList<>(taskManager.getTasks());
+        this.userPrefs = userPrefs;
     }
 
     @Override
@@ -190,6 +195,17 @@ public class ModelManager extends ComponentManager implements Model {
         public String toString() {
             return "name=" + String.join(", ", nameKeyWords);
         }
-    }
 
+    }
+    
+    //@@author A0144939R
+
+    public HashMap<String, Commands> getAliasMap() {
+        return userPrefs.getAliasMap();
+    }
+    
+    public void setMapping(Commands command, String alias) {
+        userPrefs.setMapping(command, alias);
+    }
+    
 }

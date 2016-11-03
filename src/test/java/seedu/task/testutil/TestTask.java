@@ -92,18 +92,19 @@ public class TestTask implements ReadOnlyTask {
     public String getAddCommand() {
         StringBuilder sb = new StringBuilder();
         sb.append("add " + this.getName().taskName + " ");
-        sb.append("s/" + this.getOpenTime().toPrettyString() + " ");
-        sb.append("c/" + this.getCloseTime().toPrettyString() + " ");
-        this.getTags().getInternalList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));
+        sb.append("starts " + this.getOpenTime().toPrettyString() + " ");
+        sb.append("ends " + this.getCloseTime().toPrettyString() + " ");
+        this.getTags().getInternalList().stream().forEach(s -> sb.append("tag " + s.tagName + " "));
+        System.out.println("COMMAND" +sb.toString());
         return sb.toString();
     }
     
     public String getArgs() {
         StringBuilder sb = new StringBuilder();
         sb.append(" "+this.getName().taskName + " ");
-        sb.append("s/" + this.getOpenTime().toPrettyString() + " ");
-        sb.append("c/" + this.getCloseTime().toPrettyString() + " ");
-        this.getTags().getInternalList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));
+        sb.append("starts " + this.getOpenTime().toPrettyString() + " ");
+        sb.append("ends " + this.getCloseTime().toPrettyString() + " ");
+        this.getTags().getInternalList().stream().forEach(s -> sb.append("tag " + s.tagName + " "));
         return sb.toString();
     }
 }

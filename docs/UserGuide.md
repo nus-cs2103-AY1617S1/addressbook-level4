@@ -44,29 +44,28 @@
  
 #### Adding a task or event: `add`
 Adds a task to the to-do list<br>
-Format: `add TASK_NAME [s/START_DATE:START_TIME c/CLOSE_DATE:CLOSE_TIME t/TAG r/NUMBER_OF_WEEKLY_RECURRING_TASK]`
+Format: `add TASK_NAME [starts START_DATETIME ends CLOSE_DATETIME tag TAG recurs NUMBER_OF_WEEKLY_RECURRING_TASK]`
 
 > Date format of START_DATE and CLOSE_DATE includes words like today, tomorrow, 3 days from now, day after tomorrow, noon, 12pm, 6am
 
 * `TASK_NAME` need not be unique.
 * If there is no argument, the task will become floating.
 * `START_DATE` refer to the starting date and time of an event. For a task, the timestamp will be automatically saved as start date and time when the task is created. User can input start date and time for events.
-* `TAG` is for users to write tags for different tasks. Mulitple tags are available by typing `t/TAG t/TAG`.
+* `TAG` is for users to write tags for different tasks. Mulitple tags are available by typing `tag TAG tag TAG`.
 * `NUMBER_OF_RECURRING TASK` is for users to create weekly recurring task. For example, when NUMBER_OF_WEEKLY_RECURRING_TASK is 1 which    means one more tasks will be created with the openTime and endTime one weekly later.
 
-
+<!--@@author A0144939R -->
 Examples:
-* `add proposal c/10-10-2016:2100` <br> Adds a proposal task with a deadline on 10-10-2016 at 21:00
-* `add meeting s/01-10-2016:1300 c/01-10-2016:2200`<br> Adds a meeting event which start on 1-10-2016 at 1 p.m. and ends at 10 p.m.
+* `add proposal ends tomorrow` <br> Adds a proposal task with a deadline 24 hours from now
+* `add meeting starts tomorrow 1pm ends tomorrow 3pm`<br> Adds a meeting event which start tomorrow at 1pm and ends tomorrow at 3pm
 * `add shopping` <br> Adds a floating task named revision test which has not specify the start and end date
-* `add tutorial t/cs2103` <br> Adds a flaoting task named tutorial with a tag CS2013
-* `add quiz t/cs2102 t/easy` <br> Adds a flaoting task named tutorial with a tag CS2012 and easy
-* `add test s/today r/1` <br> Adds a task start today and recur for one more week.
+* `add tutorial tag cs2103` <br> Adds a floating task named tutorial with a tag CS2013
+* `add quiz tag cs2102 tag easy` <br> Adds a floating task named tutorial with a tag CS2012 and easy
+* `add test starts today recurs 1` <br> Adds a task start today and recur for one more week.
 
-Examples on date time flexibility:
-* `add project c/3 days from now` <br> Adds a project task three days later from the time you input this command
 
-<!-- @@author A0153467Y-->
+<!--@@author -->
+
 #### Deleting a task : `delete`
 Deletes a specific task by task name or index from the to-do list.<br>
 Format: `delete TASK_NAME` or `delete INDEX`
@@ -78,7 +77,7 @@ Examples:
   Deletes `meeting` task.
 * `delete 1`<br>
   Deletes the first task in the to-do list.
-
+<!-- @@author A0153467Y-->
 #### Marking a task as completed: `complete`
 Marks a specific task by index from the to-do list.<br>
 FormatL `complete INDEX`
@@ -118,7 +117,7 @@ Format: `unpin INDEX`
 Example:
 * `unpin 1`<br>
 unpin the pinned and first task on the list. 
-
+<!-- @@author -->
 #### Listing all persons : `list`
 Shows a list of tasks and events in the todo list.<br>
 Format: `list`
@@ -136,7 +135,7 @@ Format: `find KEYWORD` or `find t/TAG`
 Examples:
 * `find meeting`<br>
   Returns tasks having name `meeting` 
-* `find t/cs2103`<br>
+* `find tag cs2103`<br>
   Returns tasks having tag `cs2103`
 
 <!-- @@author A0141052Y -->
@@ -149,27 +148,34 @@ Format: `searchbox`
 
 <!-- @@author -->
 
+
+<!-- @@author A0144939R-->
+
+
 #### Update entries : `update`
 Update a specific task.<br>
-Format: `update INDEX [TASKNAME s/START_DATE:START_TIME c/CLOSE_DATE:CLOSE_TIME t/TAG rt/TO_REMOVE_TAG]`
+Format: `update INDEX [name TASKNAME starts STARTDATETIME ends ENDDATETIME tag TAG remove-tag TO_REMOVE_TAG]`
 
 > * INDEX refers to the number appears on the list in front the task name.
-> * The TAG here will be added to the referred task and the orginial tag remains. If you want to delete a tag, use `rt/TO_REMOVE_TAG` to delete tag by name.
+> * THE task name is optional, but needs to be preceeded by name
+> * The TAG here will be added to the referred task and the orginial tag remains. If you want to delete a tag, use `remove-tag TO_REMOVE_TAG` to delete tag by name.
 > * TO_REMOVE_TAG refers to the tag (or tags) that you want to be removed by typing the tags' name that you want to delete.
 > * You can choose what to update. It depends on you whether you want to update only one information or update multiple information. 
 
 Examples:
-* `update 2 shopping c/03/10/2016:2100`<br>
+* `update 2 name shopping ends 9pm`<br>
    update the taks name of the second task on the list to shopping and the start time to 3/10/2016 9 p.m.
 
-* `update 1 t/cs2103`<br>
+* `update 1 tag cs2103`<br>
   add the tag of the first task on to-do list to cs2103
 
-* `update 3 c/three hours later` <br>
+* `update 3 ends three hours later` <br>
   update the taks name of the third task on the list to a deadline three hours after you type this command
   
-* `update 2 t/family rt/friends` <br>  
+* `update 2 starts family rt/friends` <br>  
    add a tag family to the second task and remove the tag named friends
+   
+<!-- @@author -->
 
 <!-- @@author A0153467Y-->
 #### Undo action : `undo`
@@ -177,7 +183,7 @@ Undo the previous action.<br>
 Format: `undo`
 
 > * Will only undo `add`, `delete` and `update` actions.
-
+<!-- @@author -->
 #### Viewing help : `help`
 Show the help menu. Format: `help`
 > Help is also shown if you enter an incorrect command e.g. `123abc`
