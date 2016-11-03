@@ -266,18 +266,9 @@ Priority | As a ... | I want to ... | So that I can...
 `* * *` | user | list upcoming tasks in sorted order | determine which tasks I should do next
 `* * *` | user | edit tasks | update tasks if things change.
 `* * *` | user | undo recent commands | revert tasks/events created by mistake.
-`* * *` | user | receive reminders for upcoming tasks | don't forget about tasks
 `* * *` | user | specify the location to place the data storage | do things with it, like sync it to my Dropbox.
 `* *` | user | add tasks through plain English | type more naturally than having to write in commands and flags.
-`* *` | user | view tasks in a calendar format | figure out what events/tasks I have upcoming more easily.
-`* *` | user | bring up the program with a hotkey | pull it up quickly and conveniently when I need to add a task.
-`* *` | user | schedule multiple time blocks with one task | schedule tasks or events that have multiple and different deadlines or dates.
-`* *` | user | auto-complete certain commands (complete, clear, anything longer than about 5 letters) | save time instead of having to type out the whole command.
-`*` | user | manipulate the schedule with a mouse | save time manipulating the calendar directly as opposed to having to go back to the CLI and type in more command rescheduling events (e.g. drag-drop vs. retyping event details)
-`*` | user | view list or calendar in a pop out window | look at it more easily while working on other items.
-`*` | user | customize the GUI if need (manipulate color schemes, move text boxes/output boxes to various locations, etc.) | have an easier time manipulating the information and let the program be more pleasing to my eyes.
 
-{More to be added}
 
 ## Appendix B : Use Cases
 

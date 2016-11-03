@@ -164,20 +164,11 @@ public class Parser {
     private Command prepareAdd(String args){
         final Matcher matcher = PERSON_DATA_ARGS_FORMAT.matcher(args.trim());
         matcher.matches();
-        // Validate arg string format
-//        if (!matcher.matches()) {
-//            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
-//        }
-//        System.out.println(matcher.groupCount());
-        
+
         com.joestelmach.natty.Parser p = new com.joestelmach.natty.Parser();
     	List<DateGroup> dg = p.parse(args);
         String[] sections; //split around the time
         
-        
-	    System.out.println("Section dates: ");
-	    dg.forEach(n-> System.out.println(n.getText() + " " + n.getDates()));
-	    System.out.println(LocalDateTime.now().toString());
         
         String priority = null;
         String date = null;
@@ -217,14 +208,6 @@ public class Parser {
         	priority = ps[1];
         }
 
-        
-//        
-//        List<String> list = Arrays.asList(sections);
-//        System.out.println("Section groups: ");
-//        list.forEach(n-> System.out.println(n));
-//        System.out.println(LocalDateTime.now().toString());
-//        
-        
         try {
             return new AddCommand(
                     description,
