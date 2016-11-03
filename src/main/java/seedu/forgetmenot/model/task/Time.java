@@ -36,11 +36,11 @@ public class Time {
     public Time(String input) throws IllegalValueException {
         input = input.trim();
         
-//        if (input.equals("") || input.equals(new Date(0).toString())) {
-//            time = Calendar.getInstance();
-//            time.setTime(new Date(0));
-//            return;
-//        }
+        if (input.equals("") || input.equals(new Date(0).toString())) {
+            time = Calendar.getInstance();
+            time.setTime(new Date(0));
+            return;
+        }
 
         time = Calendar.getInstance();
         
@@ -76,11 +76,11 @@ public class Time {
      * @return true if the time parameter is missing
      */
     public boolean isMissing() {
-        
-        Calendar t = Calendar.getInstance();
-        t.setTime(new Date(0));
-        if (time.equals(t))
-            return true;
+//        
+//        Calendar t = Calendar.getInstance();
+//        t.setTime(new Date(0));
+//        if (time.equals(t))
+//            return true;
         
 		return time.getTime().toString().equalsIgnoreCase(DEFAULT_DATE);
 	}
