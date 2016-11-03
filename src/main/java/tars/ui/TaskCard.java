@@ -1,7 +1,5 @@
 package tars.ui;
 
-import java.time.LocalDateTime;
-
 import com.google.common.eventbus.Subscribe;
 
 import javafx.fxml.FXML;
@@ -79,20 +77,7 @@ public class TaskCard extends UiPart {
     }
 
     private void setDate() {
-        LocalDateTime startDateTime = task.getDateTime().getStartDate();
-        LocalDateTime endDateTime = task.getDateTime().getEndDate();
-        
-        if (startDateTime != null && endDateTime == null) {
-            date.setText(DateFormatter.generateSingleDateFormat(startDateTime));
-            return;
-        } else if (startDateTime == null && endDateTime != null) {
-            date.setText(DateFormatter.generateSingleDateFormat(endDateTime));
-            return;
-        } else if (startDateTime != null && endDateTime != null) {
-            date.setText(DateFormatter.generateDateRangeFormat(startDateTime, endDateTime));
-        } else {
-            date.setText("");
-        }
+        date.setText(DateFormatter.formatDate(task.getDateTime()));
     }
 
     /**

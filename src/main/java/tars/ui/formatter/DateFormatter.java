@@ -3,6 +3,9 @@ package tars.ui.formatter;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+import tars.commons.util.StringUtil;
+import tars.model.task.DateTime;
+
 /**
  * Container for formatting dates
  * 
@@ -20,6 +23,22 @@ public class DateFormatter {
 
     private static final String TODAY_PREFIX_TEXT = "Today at ";
     private static final String TOMORROW_PREFIX_TEXT = "Tomorrow at ";
+    
+    public static String formatDate(DateTime dateTime) {
+        LocalDateTime startDateTime = dateTime.getStartDate();
+        LocalDateTime endDateTime = dateTime.getEndDate();
+
+        if (startDateTime != null && endDateTime == null) {
+            return DateFormatter.generateSingleDateFormat(startDateTime);
+        } else if (startDateTime == null && endDateTime != null) {
+            return DateFormatter.generateSingleDateFormat(endDateTime);
+        } else if (startDateTime != null && endDateTime != null) {
+            return DateFormatter.generateDateRangeFormat(startDateTime,
+                    endDateTime);
+        } else {
+            return StringUtil.EMPTY_STRING;
+        }
+    }
 
     public static String generateSingleDateFormat(LocalDateTime firstDate) {
         if (isToday(firstDate)) {
