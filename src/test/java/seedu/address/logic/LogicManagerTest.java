@@ -66,6 +66,7 @@ public class LogicManagerTest {
     }
 
     @Before
+  //@@author A0141812R
     public void setup() {
         model = new ModelManager();
         String tempAddressBookFile = saveFolder.getRoot().getPath() + "TempAddressBook.xml";
@@ -77,6 +78,7 @@ public class LogicManagerTest {
         helpShown = false;
         targetedJumpIndex = -1; // non yet
     }
+  //@@author
 
     @After
     public void teardown() {

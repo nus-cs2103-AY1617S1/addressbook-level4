@@ -12,6 +12,8 @@ import seedu.address.model.deadline.Deadline;
 /**
  * Represents a task's starting time in the task manager.
  * Guarantees: immutable; is valid as declared in 
+ * 
+ * @@author A0139097U
  */
 public class Startline  {
 	

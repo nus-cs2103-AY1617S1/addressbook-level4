@@ -4,6 +4,8 @@ import seedu.address.commons.exceptions.FinishStateException;
 
 /**
  * Reverts back to the initial state in the task manager before undo occurs.
+ * 
+ * @@author A0139516B
  */
 public class RevertCommand extends Command {
 	

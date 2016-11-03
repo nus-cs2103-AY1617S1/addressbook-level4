@@ -1,5 +1,7 @@
 package seedu.address.model.task;
 
+//@@author A0139097U
+
 public class Repeating {
 	private boolean isRepeating;
 	private String timeInterval;

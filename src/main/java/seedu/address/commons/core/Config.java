@@ -5,6 +5,7 @@ import java.util.logging.Level;
 
 /**
  * Config values used by the app
+ * @@author A0144202Y
  */
 public class Config {
 
