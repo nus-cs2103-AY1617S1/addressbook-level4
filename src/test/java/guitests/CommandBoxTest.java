@@ -6,7 +6,7 @@ import static org.junit.Assert.assertEquals;
 
 public class CommandBoxTest extends ListOfTaskGuiTest {
 
-    //@Test
+    @Test
     public void commandBox_commandSucceeds_textCleared() {
         commandBox.runCommand(td.benson.getAddCommand());
         assertEquals(commandBox.getCommandInput(), "");

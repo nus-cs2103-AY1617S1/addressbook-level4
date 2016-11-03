@@ -163,7 +163,7 @@ public class LogicManagerTest {
     public void execute_add_invalidTaskData() throws Exception {
     	//TODO : add test case to check if start time later than end time
         assertCommandBehavior(
-                "add []\\[;] i/Valid Task Description d/12-12-2010 s/2300 e/2359", Name.MESSAGE_NAME_CONSTRAINTS);
+                "add []\\[;] i/Valid Task Description d/12-12-2016 s/2300 e/2359", Name.MESSAGE_NAME_CONSTRAINTS);
         assertCommandBehavior(
         		"add Valid Name i/[]\\[;] d/12-12-2016 s/2300 e/2359", TaskDescription.MESSAGE_TASK_CONSTRAINTS);
         assertCommandBehavior(
@@ -409,8 +409,8 @@ public class LogicManagerTest {
             return new Task(
                     new Name("Task " + seed),
                     new Date( (seed%2==1) ? "1" + seed + "-12-2" + seed + "22" : "1" + seed + "-12-212" + seed ),
-                    new Time( (seed%2==1) ? "0" + seed + "0" + seed : "0" + seed + "00" ),
-                    new Time( (seed%2==1) ? "0" + seed + "00" : "0" + seed + "0" + seed ),
+                    new Time( "0" + seed + "00" ),
+                    new Time( "0" + seed + "0" + seed ),
                     new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1)))
             );
         }
