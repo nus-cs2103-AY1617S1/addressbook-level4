@@ -33,21 +33,9 @@
 > * Words in `square brackets ([])` are the parameters.
 > * Items within `arrow signs (<>)` are optional.
 > * Items with `...` after them can have multiple instances.
-> * The order of parameters is fixed.
+> * The order of parameters is fixed except for edit command.
 
-//@@author A0138455Y
-#### Viewing help : `help`
-#### Shortcut : `h`
-Format: `help` or `help [command word]`
 
-Examples: 
-* `help add`
-* `help edit`
-* `h delete`
-
-> Help is also shown if you enter an incorrect command e.g. `abcd`
-> default help message will show a list of all command word, e.g. enter `help`
-//@@author
  
 #### Adding a task: `add`
 #### Shortcut : `a`
@@ -79,6 +67,104 @@ Examples:
 * `add Bintan trip from/ Saturday to/ Sunday`
 * `a CS2103 Lecture from/ Friday 2pm to/ Friday 4pm `
 * `add complete CS2103 post-lecture quiz fr/ 10 ty/ week by/ Sunday 10pm`
+
+//@@author A0138455Y
+#### Block multiple time slot for an event : `block`
+#### Shortcut : `b`
+Block another time slot for an unconfirmed existing event.<br>
+Format: `block [Description] from/ [starting time] to/ [ending time]`  
+
+> The new block period must not overlapping current block task.
+> New event will not be allow to add in if the period of the new event overlapping any blocked task from block list.
+
+Examples: 
+* `block for cs2103 project from/ 5pm to/ 7pm`<br>	
+
+//@@author A0127855W
+#### Find free time slots: `gap`
+#### Shortcut: `g`
+Find and list free time slot in the schedule that is equal to or longer than the specified timing (in hours).<br>
+Format: `find time [number of hours] < [number of slots to find] >`  
+
+> If there is there is a time slot longer than the required free time slot, 
+	then the free time period will be return to you
+> By default, find time will only give a single free slot when the number of slots required is not keyed in.
+
+Examples: 
+* `find time 3 `<br>	
+	You have a minimum of 3 hours free time slot between: today 5pm - 9pm. 
+* `find time 5 3 `<br>	
+	You have a minimum of 5 hours free time slot between: Monday 2pm - 9pm, Tuesday 1pm - 6pm and Saturday 9am - 5pm. 
+//@@author
+
+#### Deleting a task or event : `delete`
+#### Shortcut : `d`
+Deletes the specified task/event from the FlexiTrack.<br>
+Format: `delete [index]`
+
+> Deletes the task/event at the specified `index`. 
+  The index refers to the index number shown in the most recent listing.<br>
+  The index **must be a positive integer** 1, 2, 3, ...
+
+Examples: 
+* `delete 2`<br>
+  Deletes the 2nd task/event in the address book. 
+* `d 1`<br>
+  Deletes the 1st task/event in the results of the `find` command.
+  
+//@@author A0127855W  
+#### Clear the FlexiTrack : `clear`
+#### Shortcut : `c`
+Clears the FlexiTrack, resetting it to a blank slate.<br>
+Format: `clear`
+
+> The command can be undone as long as the user does not exit FlexiTrack after clearing.
+
+#### Edit a task or event: `edit`
+#### Shortcut : `e`
+Edits the specified task/event from the FlexiTrack.<br>
+Format: `edit [index] <by/ [deadline]> <n/ [title]> <from/ [starting time]> <to/ [ending time]>`
+
+
+> Edits the task/event at the specified `index`. 
+  The index refers to the index number shown in the most recent listing.<br>
+  The index **must be a positive integer** 1, 2, 3, ...
+> Edit parameters must fit the type of task / event being edited. e.g. duedate should only be edited on a task.
+> Floating tasks can be converted into tasks or events by editing the appropriate parameter.
+> User cannot edit a floating task into an event with only a starting time but no ending time or vice versa.
+
+Examples: 
+* `edit 2 n/ Name Edited`<br>
+  Edits the title of the task/event. 
+* `e 1 from/ today to/ tomorrow`<br>
+  Edits the start and end times of the specified event.
+
+//@@author
+#### Mark a task as complete : `mark`
+#### Shortcut : `m`
+Mark an existing task to complete and move it to the bottom of the list.<br>
+Format: `mark [index]`  
+
+> Mark the task/event at the specified `index`. 
+  The index refers to the index number shown in the most recent listing.<br>
+  The index **must be a positive integer** 1, 2, 3, ...
+
+Examples: 
+* `mark 5`<br>	
+
+//@@author A0138455Y
+#### Mark a task as complete : `unmark`
+#### Shortcut : `u`
+Mark an existing task to complete and move it to the bottom of the list.<br>
+Format: `unmark [index]`  
+
+> Unmark the taks/event at the specified `index`. 
+  The index refers to the index number shown in the most recent listing.<br>
+  The index **must be a positive integer** 1, 2, 3, ...
+
+Examples: 
+* `unmark 5`<br>
+//@@author
 
 #### Finding a task or an event containing any keyword in their title: `find`
 #### Shortcut : `f`
@@ -117,59 +203,22 @@ Examples:
 * `f f/ attend CS2103 lecture`<br>
   Returns Any task/event having exact title `attend CS2103 lecture`
 
-#### Deleting a person : `delete`
-#### Shortcut : `d`
-Deletes the specified task/event from the FlexiTrack. Irreversible.<br>
-Format: `delete [index]`
-
-> Deletes the task/event at the specified `index`. 
-  The index refers to the index number shown in the most recent listing.<br>
-  The index **must be a positive integer** 1, 2, 3, ...
-
-Examples: 
-* `delete 2`<br>
-  Deletes the 2nd task/event in the address book. 
-* `d 1`<br>
-  Deletes the 1st task/event in the results of the `find` command.
-
+//@@author A0127855W
 #### Undo operations : `undo`
-Undo operation a number of times.<br>
-Format: `undo < [number of undo] >`
+#### Shortcut : `un`
+Undo the previous operation.<br>
+Format: `undo`
 
-> The number of undo parameter is optional. When it is not satisfied, one undo will be done. 
-> The maximum number of undo is 15 
+> The command will only undo commands entered during the current session of FlexiTrack
 
-Examples: 
-* `undo`<br>
-  Undo the operation 1 time.
-* `undo 4`<br>
-  Undo the operations 4 times. 
-  
-#### Mark a task as complete : `mark`
-#### Shortcut : `m`
-Mark an existing task to complete and move it to the bottom of the list.<br>
-Format: `mark [index]`  
+#### Redo operations : `redo`
+#### Shortcut : `re`
+Redo the previously undone operation.<br>
+Format: `redo`
 
-> Mark the task/event at the specified `index`. 
-  The index refers to the index number shown in the most recent listing.<br>
-  The index **must be a positive integer** 1, 2, 3, ...
-
-Examples: 
-* `mark 5`<br>	
+> The command will only redo commands undone during the current session of FlexiTrack
 
 //@@author A0138455Y
-#### Mark a task as complete : `unmark`
-#### Shortcut : `u`
-Mark an existing task to complete and move it to the bottom of the list.<br>
-Format: `unmark [index]`  
-
-> Unmark the taks/event at the specified `index`. 
-  The index refers to the index number shown in the most recent listing.<br>
-  The index **must be a positive integer** 1, 2, 3, ...
-
-Examples: 
-* `unmark 5`<br>
-
 #### Specify storage location: `cs`
 Specify the storage location where the program save the data. <br>
 Format: `cs [path]`  
@@ -182,36 +231,25 @@ Limitation: This feature Only allow user to change storage path within the Flexi
 
 > [path] can only contains alphanumeric, forward slash '/' and underscore '_'. 
 
-#### Block multiple time slot for an event : `block`
-#### Shortcut : `b`
-Block another time slot for an unconfirmed existing event.<br>
-Format: `block [Description] from/ [starting time] to/ [ending time]`  
-
-> The new block period must not overlapping current block task.
-> New event will not be allow to add in if the period of the new event overlapping any blocked task from block list.
-
-Examples: 
-* `block for cs2103 project from/ 5pm to/ 7pm`<br>	
-//@@author
-
-#### Find free time slot: `find time`
-Find and list free time slot in the schedule that is equal to or longer than the specified timing (in hours).<br>
-Format: `find time [number of hours] < [number of slots to find] >`  
-
-> If there is there is a time slot longer than the required free time slot, 
-	then the free time period will be return to you
-> By default, find time will only give a single free slot when the number of slots required is not keyed in.
-
-Examples: 
-* `find time 3 `<br>	
-	You have a minimum of 3 hours free time slot between: today 5pm - 9pm. 
-* `find time 5 3 `<br>	
-	You have a minimum of 5 hours free time slot between: Monday 2pm - 9pm, Tuesday 1pm - 6pm and Saturday 9am - 5pm. 
-
+//@@author A0127855W
 #### Exiting the program : `exit`
 #### Shortcut : `q`
 Exits the program.<br>
 Format: `exit`  
+
+//@@author A0138455Y
+#### Viewing help : `help`
+#### Shortcut : `h`
+Format: `help` or `help [command word]`
+
+Examples: 
+* `help add`
+* `help edit`
+* `h delete`
+
+> Help is also shown if you enter an incorrect command e.g. `abcd`
+> default help message will show a list of all command word, e.g. enter `help`
+//@@author
 
 #### Saving the data 
 Address book data are saved in the hard disk automatically after any command that changes the data.<br>
@@ -253,13 +291,13 @@ next month 8am | Mar 01 08:00
 
 Command | Shortcut | Format
 -------- | ---- | :-------- 
-Add task | a | `add [task title] <fr/ [number of recurrances] ty/ [day | week | month] (optional)> <by/ [deadline] (optional)>` 
-Add event | a | `add [event title] <fr/ [number of recurrances] ty/ [day | week | month] (optional)> from/ [starting time] to/ [ending time]`
+Add task | a | `add [task title] <fr/ [number of recurrances] ty/ [day | week | month]> <by/ [deadline]>` 
+Add event | a | `add [event title] <fr/ [number of recurrances] ty/ [day | week | month]> from/ [starting time] to/ [ending time]`
 Block | b | `block [description] from/ [starting time] to/ [ending time]`
-Gap | g | `gap [duration] <\n [number of slots] (optional)>`
+Gap | g | `gap [duration] <\n [number of slots]>`
 Delete | d | `delete [index]`
 Clear | c | `clear`
-Edit | e | `edit [index] <by/ [deadline] (optional)> <n/ [title] (optional)> <from/ [starting time] (optional)> <to/ [ending time] (optional)>`
+Edit | e | `edit [index] <by/ [deadline]> <n/ [title]> <from/ [starting time]> <to/ [ending time]>`
 Mark | m | `mark [index]`
 Unmark | u | `unmark [index]`
 Find | f | `find KEYWORD [MORE_KEYWORDS]`
@@ -269,4 +307,4 @@ Undo | un | `undo`
 Redo | rd | `redo`
 Change Storage Path| cs | `cs [path]`
 Exit | q | `exit`
-Help | h | `help [command word(optional)]`
+Help | h | `help <command word>`
