@@ -22,6 +22,7 @@ We are a team based in the [School of Computing, National University of Singapor
    * [Delete Reserved Tasks](https://github.com/CS2103AUG2016-F10-C1/main/blob/develop/docs/UserGuide.md#deleting-a-task-with-reserved-timeslots--rsv-d)
    * [Confirm Tasks](https://github.com/CS2103AUG2016-F10-C1/main/blob/develop/docs/UserGuide.md#confirming-a-reserved-timeslot--confirm)
    * [Find Tasks [Quick Search & Filter Search]](https://github.com/CS2103AUG2016-F10-C1/main/blob/develop/docs/UserGuide.md#finding-tasks--find)
+   * [List Free Timeslots in a Specified Day](https://github.com/CS2103AUG2016-F10-C1/main/blob/develop/src/main/java/tars/logic/commands/FreeCommand.java)
 * Code Written: [[functional code](https://github.com/CS2103AUG2016-F10-C1/main/blob/master/collated/main/A0124333U.md)][[test code](https://github.com/CS2103AUG2016-F10-C1/main/blob/master/collated/test/A0124333U.md)][[docs](https://github.com/CS2103AUG2016-F10-C1/main/blob/master/collated/docs/A0124333U.md)]
 * Other Major Contributions:
    * Did the initial refactoring from AddressBook-Level4 to TARS
@@ -37,6 +38,7 @@ We are a team based in the [School of Computing, National University of Singapor
 * Features implemented: 
    * [Add Recurring Task](https://github.com/CS2103AUG2016-F10-C1/main/blob/develop/docs/UserGuide.md#adding-a-task--add)
    * [List Tasks](https://github.com/CS2103AUG2016-F10-C1/main/blob/develop/docs/UserGuide.md#listing-tasks--ls)
+   * [Help](https://github.com/CS2103AUG2016-F10-C1/main/blob/develop/docs/UserGuide.md#displaying-a-list-of-available-commands--help)
    * Result Summary
 * Code Written: [[functional code](https://github.com/CS2103AUG2016-F10-C1/main/blob/master/collated/main/A0140022H.md)][[test code](https://github.com/CS2103AUG2016-F10-C1/main/blob/master/collated/test/A0140022H.md)][[docs](https://github.com/CS2103AUG2016-F10-C1/main/blob/master/collated/docs/A0140022H.md)]
 * Other Major Contributions:
@@ -56,14 +58,12 @@ We are a team based in the [School of Computing, National University of Singapor
     * [Edit Tags](https://github.com/CS2103AUG2016-F10-C1/main/blob/develop/docs/UserGuide.md#editing-a-tags-name--tag-e)
     * [Delete Tags from all Tasks](https://github.com/CS2103AUG2016-F10-C1/main/blob/develop/docs/UserGuide.md#deleting-a-tag--tag-del)
     * [List Tags](https://github.com/CS2103AUG2016-F10-C1/main/blob/develop/docs/UserGuide.md#listing-all-tags--tag-ls)
-    * [Help](https://github.com/CS2103AUG2016-F10-C1/main/blob/develop/docs/UserGuide.md#displaying-a-list-of-available-commands--help)
     * [Natural Date Input](https://github.com/CS2103AUG2016-F10-C1/main/blob/develop/docs/UserGuide.md#supported-date-formats)
     * Shortcut keys for undo and redo commands
 * Code Written: [[functional code](https://github.com/CS2103AUG2016-F10-C1/main/blob/master/collated/main/A0139924W.md)][[test code](https://github.com/CS2103AUG2016-F10-C1/main/blob/master/collated/test/A0139924W.md)][[docs](https://github.com/CS2103AUG2016-F10-C1/main/blob/master/collated/docs/A0139924W.md)]
 * Other Major Contributions:
-    * Did the initial refactoring from AddressBook-Level4 to TARS
     * ArgumentTokenizer (flexible commands)
-    * Did the refactoring of parser
+    * Did the refactoring of parser and logic command test
     * Set up Travis, Codacy and Coveralls
 
 -----

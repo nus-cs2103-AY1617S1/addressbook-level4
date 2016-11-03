@@ -70,7 +70,7 @@ public class ModelManager extends ComponentManager implements Model {
     this(new Tars(), new UserPrefs());
   }
 
-  public ModelManager(ReadOnlyTars initialData, UserPrefs userPrefs) {
+  public ModelManager(ReadOnlyTars initialData) {
     tars = new Tars(initialData);
     filteredTasks = new FilteredList<>(tars.getTasks());
     filteredRsvTasks = new FilteredList<>(tars.getRsvTasks());
@@ -82,6 +82,11 @@ public class ModelManager extends ComponentManager implements Model {
   public void resetData(ReadOnlyTars newData) {
     tars.resetData(newData);
     indicateTarsChanged();
+  }
+  
+  @Override
+  public void overwriteDataFromNewFilePath(ReadOnlyTars newData) {
+    tars.resetData(newData);
   }
 
   @Override
@@ -350,6 +355,7 @@ public class ModelManager extends ComponentManager implements Model {
     String toString();
   }
 
+  //@@author A0124333U
   private class QuickSearchQualifier implements Qualifier {
     private final ArrayList<String> quickSearchKeywords;
 
@@ -387,58 +393,61 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public boolean run(ReadOnlyTask task) {
 
-      Boolean isTaskFound = true;
+      return isNameFound(task) && isDateTimeFound(task) && isPriorityFound(task)
+          && isStatusFound(task) && isTagFound(task);
+    }
 
-      if (taskQuery.getNameKeywordsAsList()
-          .get(StringUtil.START_INDEX) != StringUtil.EMPTY_STRING) {
-        isTaskFound = taskQuery.getNameKeywordsAsList().stream()
+    private Boolean isNameFound(ReadOnlyTask task) {
+      if (taskQuery.getNameKeywordsAsList().get(StringUtil.START_INDEX).isEmpty()) {
+        return true;
+      } else {
+        return taskQuery.getNameKeywordsAsList().stream()
             .filter(keyword -> StringUtil.containsIgnoreCase(task.getName().taskName, keyword))
             .count() == taskQuery.getNameKeywordsAsList().size();
-        if (!isTaskFound) {
-          return false;
-        }
       }
+    }
 
-      if (taskQuery.getDateTimeQueryRange() != null) {
-        isTaskFound = DateTimeUtil.isDateTimeWithinRange(task.getDateTime(),
+    private Boolean isDateTimeFound(ReadOnlyTask task) {
+      if (taskQuery.getDateTimeQueryRange() == null) {
+        return true;
+      } else {
+        return DateTimeUtil.isDateTimeWithinRange(task.getDateTime(),
             taskQuery.getDateTimeQueryRange());
-        if (!isTaskFound) {
-          return false;
-        }
       }
+    }
 
-      if (taskQuery.getPriorityKeywordsAsList()
-          .get(StringUtil.START_INDEX) != StringUtil.EMPTY_STRING) {
-        isTaskFound = taskQuery.getPriorityKeywordsAsList().stream()
+    private Boolean isPriorityFound(ReadOnlyTask task) {
+      if (taskQuery.getPriorityKeywordsAsList().get(StringUtil.START_INDEX).isEmpty()) {
+        return true;
+      } else {
+        return taskQuery.getPriorityKeywordsAsList().stream()
             .filter(keyword -> StringUtil.containsIgnoreCase(task.priorityString(), keyword))
             .count() == taskQuery.getPriorityKeywordsAsList().size();
-        if (!isTaskFound) {
-          return false;
-        }
       }
+    }
 
-      if (taskQuery.getStatusQuery() != StringUtil.EMPTY_STRING) {
-        isTaskFound = taskQuery.getStatusQuery() == task.getStatus().toString();
-        if (!isTaskFound) {
-          return false;
-        }
+    private Boolean isStatusFound(ReadOnlyTask task) {
+      if (taskQuery.getStatusQuery().isEmpty()) {
+        return true;
+      } else {
+        return taskQuery.getStatusQuery() == task.getStatus().toString();
       }
+    }
 
-      if (taskQuery.getTagKeywordsAsList().get(StringUtil.START_INDEX) != StringUtil.EMPTY_STRING) {
+    private Boolean isTagFound(ReadOnlyTask task) {
+      if (taskQuery.getTagKeywordsAsList().get(StringUtil.START_INDEX).isEmpty()) {
+        return true;
+      } else {
         String stringOfTags =
             task.tagsString().replace(StringUtil.STRING_COMMA.trim(), StringUtil.EMPTY_STRING)
                 .replace(StringUtil.STRING_SQUARE_BRACKET_OPEN, StringUtil.EMPTY_STRING)
                 .replace(StringUtil.STRING_SQUARE_BRACKET_CLOSE, StringUtil.EMPTY_STRING);
-        isTaskFound = taskQuery.getTagKeywordsAsList().stream()
+        return taskQuery.getTagKeywordsAsList().stream()
             .filter(keyword -> StringUtil.containsIgnoreCase(stringOfTags, keyword))
             .count() == taskQuery.getTagKeywordsAsList().size();
-        if (!isTaskFound) {
-          return false;
-        }
       }
-
-      return isTaskFound;
     }
+
   }
 
   private class NameQualifier implements Qualifier {
@@ -449,7 +458,6 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     /**
-     * @@author A0124333U
      * @param task
      * @return true if ALL keywords are found in the task name
      */

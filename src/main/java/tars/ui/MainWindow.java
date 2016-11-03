@@ -46,8 +46,6 @@ public class MainWindow extends UiPart {
     private VBox rootLayout;
     private Scene scene;
 
-    private String tarsName;
-
     @FXML
     private AnchorPane commandBoxPlaceholder;
     @FXML
@@ -92,18 +90,17 @@ public class MainWindow extends UiPart {
 
         MainWindow mainWindow =
                 UiPartLoader.loadUiPart(primaryStage, new MainWindow());
-        mainWindow.configure(config.getAppTitle(), config.getTarsName(), config,
+        mainWindow.configure(config.getAppTitle(), config,
                 prefs, logic);
         return mainWindow;
     }
 
-    private void configure(String appTitle, String tarsName, Config config,
+    private void configure(String appTitle, Config config,
             UserPrefs prefs, Logic logic) {
 
 
         // Set dependencies
         this.logic = logic;
-        this.tarsName = tarsName;
         this.config = config;
         this.userPrefs = prefs;
 
@@ -111,7 +108,7 @@ public class MainWindow extends UiPart {
         setTitle(appTitle);
         setIcon(ICON);
         setWindowMinSize();
-        setWindowDefaultSize(prefs);
+        setWindowDefaultSize(userPrefs);
 
         // Configure event handling
         this.mainWindowEventsHandler = new MainWindowEventsHandler(primaryStage,
