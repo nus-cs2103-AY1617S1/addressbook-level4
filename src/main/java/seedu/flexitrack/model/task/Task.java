@@ -122,9 +122,9 @@ public class Task implements ReadOnlyTask{
 
     public void markTask(boolean isDone) throws IllegalValueException {
         this.isDone = this.name.getIsDone(); 
-        if(this.isDone && isDone) {
+        if (this.isDone && isDone) {
             throw new IllegalValueException("Task already marked!");
-        } else if(!this.isDone && !isDone) {
+        } else if (!this.isDone && !isDone) {
             throw new IllegalValueException("Task already unmarked!");
         } else {
             setIsDone(isDone);

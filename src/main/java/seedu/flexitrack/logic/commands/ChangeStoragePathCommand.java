@@ -13,7 +13,7 @@ public class ChangeStoragePathCommand extends Command{
     public static final String COMMAND_WORD = "cs";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Change the storage directory of FlexiTrack.\n"
-            + "Parameters: DIRECTORY"
+            + "Parameters: DIRECTORY (input can only contains alphanumric, forward slash '/' and underscore '_')\n"
             + "Example: " + COMMAND_WORD
             + " /Documents/newFolder/tasktracker";
 
