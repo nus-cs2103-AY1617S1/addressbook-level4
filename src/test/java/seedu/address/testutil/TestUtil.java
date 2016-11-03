@@ -287,7 +287,6 @@ public class TestUtil {
         return listOfPersons.toArray(new TestTask[listOfPersons.size()]);
     }
 
-
     /**
      * Returns a copy of the list with the person at specified index removed.
      * @param list original list to copy from
@@ -297,6 +296,52 @@ public class TestUtil {
         return removePersonsFromList(list, list[targetIndexInOneIndexedFormat-1]);
     }
 
+    /**
+     * @@author A0138993L
+     * Removes a subset from the list of deadliness.
+     * @param deadlines The list of deadliness
+     * @param deadlinesToRemove The subset of deadlines.
+     * @return The modified deadlines after removal of the subset from deadlines.
+     */
+    public static TestDeadline[] removeDeadlinesFromList(final TestDeadline[] persons, TestDeadline... personsToRemove) {
+        List<TestDeadline> listOfPersons = asList(persons);
+        listOfPersons.removeAll(asList(personsToRemove));
+        return listOfPersons.toArray(new TestDeadline[listOfPersons.size()]);
+    }
+    
+    /**
+     * @@author A0138993L
+     * Removes a subset from the list of todo.
+     * @param todos The list of todos
+     * @param todosToRemove The subset of todos.
+     * @return The modified todos after removal of the subset from todos.
+     */
+    public static TestTodo[] removeTodosFromList(final TestTodo[] persons, TestTodo... personsToRemove) {
+        List<TestTodo> listOfPersons = asList(persons);
+        listOfPersons.removeAll(asList(personsToRemove));
+        return listOfPersons.toArray(new TestTodo[listOfPersons.size()]);
+    }
+
+    /**
+     * @@author A0138993L
+     * Returns a copy of the list with the deadline at specified index removed.
+     * @param list original list to copy from
+     * @param targetIndexInOneIndexedFormat e.g. if the first element to be removed, 1 should be given as index.
+     */
+    public static TestDeadline[] removeDeadlinesFromList(final TestDeadline[] list, int targetIndexInOneIndexedFormat) {
+        return removeDeadlinesFromList(list, list[targetIndexInOneIndexedFormat-1]);
+    }
+
+    /**
+     * @@author A0138993L
+     * Returns a copy of the list with the todo at specified index removed.
+     * @param list original list to copy from
+     * @param targetIndexInOneIndexedFormat e.g. if the first element to be removed, 1 should be given as index.
+     */
+    public static TestTodo[] removeTodosFromList(final TestTodo[] list, int targetIndexInOneIndexedFormat) {
+        return removeTodosFromList(list, list[targetIndexInOneIndexedFormat-1]);
+    }
+    
     /**
      * Replaces persons[i] with a person.
      * @param persons The array of persons.
@@ -320,6 +365,32 @@ public class TestUtil {
         listOfPersons.addAll(asList(personsToAdd));
         return listOfPersons.toArray(new TestTask[listOfPersons.size()]);
     }
+    
+    /**
+     * @@author A0138993L
+     * Appends deadlines to the array of deadlines.
+     * @param deadlines A array of deadlines.
+     * @param deadlinesToAdd The deadlines that are to be appended behind the original array.
+     * @return The modified array of deadlines.
+     */
+    public static TestDeadline[] addDeadlinesToList(final TestDeadline[] persons, TestDeadline... personsToAdd) {
+        List<TestDeadline> listOfPersons = asList(persons);
+        listOfPersons.addAll(asList(personsToAdd));
+        return listOfPersons.toArray(new TestDeadline[listOfPersons.size()]);
+    }
+    
+    /**
+     * @@author A0138993L
+     * Appends todos to the array of todos.
+     * @param todos A array of todos.
+     * @param todosToAdd The todos that are to be appended behind the original array.
+     * @return The modified array of todos.
+     */
+    public static TestTodo[] addTodosToList(final TestTodo[] persons, TestTodo... personsToAdd) {
+        List<TestTodo> listOfPersons = asList(persons);
+        listOfPersons.addAll(asList(personsToAdd));
+        return listOfPersons.toArray(new TestTodo[listOfPersons.size()]);
+    }
 
     private static <T> List<T> asList(T[] objs) {
         List<T> list = new ArrayList<>();
@@ -334,6 +405,7 @@ public class TestUtil {
     }
     //@@author A0138993L
     public static boolean compareCardAndDeadline(DeadlineCardHandle card, ReadOnlyTask person) {
+    	//System.out.println(card + " " + person + "compareCardAndDeadline");
         return card.isSamePerson(person);
     }
   //@@author A0138993L
