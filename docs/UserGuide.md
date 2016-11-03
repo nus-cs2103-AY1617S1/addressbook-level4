@@ -84,8 +84,9 @@ User has to specify INTERVAL or TIME_INTERVAL.
 
 <!-- @@author A0153411W -->
 <a id="customized-command" class="anchor" href="#customized-command" aria-hidden="true">
-#### Customize commands
+### Customize commands
 Customize command with specific format. 
+Format: `customize COMMAND NEW_FORMAT`
 User has to specify NEW_FORMAT.
 * `customize add f/a`
 * `customize list f/ls'
