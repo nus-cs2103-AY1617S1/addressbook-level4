@@ -7,8 +7,11 @@ import java.util.Iterator;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.forgetmenot.commons.core.EventsCenter;
+import seedu.forgetmenot.commons.events.ui.JumpToListRequestEvent;
 import seedu.forgetmenot.commons.exceptions.IllegalValueException;
 import seedu.forgetmenot.commons.util.CollectionUtil;
+import seedu.forgetmenot.model.Model;
 
 /**
  * A list of tasks that enforces uniqueness between its elements and does not allow nulls.
@@ -25,9 +28,9 @@ public class UniqueTaskList implements Iterable<Task> {
      * there is no such matching task in the list.
      */
     public static class TaskNotFoundException extends Exception {}
-
+    
     private final ObservableList<Task> internalList = FXCollections.observableArrayList();
-
+    
     /**
      * Constructs empty TaskList.
      */
@@ -161,21 +164,9 @@ public class UniqueTaskList implements Iterable<Task> {
         internalList.set(taskIndex, taskFound);
     }
     
-    //@@author A0139671X
-    public void editRecurFreq(ReadOnlyTask toEdit, Recurrence newRec) throws TaskNotFoundException {
-        assert toEdit != null;
-        if(!internalList.contains(toEdit))
-            throw new TaskNotFoundException();
-        int taskIndex = internalList.indexOf(toEdit);
-        Task taskFound = internalList.get(taskIndex);
-        taskFound.setRecurrence(newRec);
-        internalList.set(taskIndex, taskFound);        
-    }
     //@@author A0139198N
     /**
-     * 
      * Mark a task as done from the list.
-     *
      */
     public void done(ReadOnlyTask toDone) throws TaskNotFoundException {
     	assert toDone != null;
