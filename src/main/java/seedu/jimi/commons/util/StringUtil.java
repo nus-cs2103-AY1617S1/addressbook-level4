@@ -15,6 +15,7 @@ import java.util.stream.IntStream;
 public class StringUtil {
     
     private final static char[] ALPHABET = "abcdefghijklmnopqrstuvwxyz".toCharArray();
+    
     /**
      * Returns true if {@code query} is a near match of {@code source}, where: <br>
      * <ul>
