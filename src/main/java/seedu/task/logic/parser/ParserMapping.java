@@ -4,9 +4,9 @@ package seedu.task.logic.parser;
 import java.util.HashMap;
 import java.util.Optional;
 import java.util.logging.Logger;
-
 import seedu.task.commons.core.LogsCenter;
-import seedu.task.logic.LogicManager;
+import seedu.task.commons.logic.CommandKeys;
+import seedu.task.commons.logic.CommandKeys.Commands;
 
 /**
  * Provides command word and alias mappings
@@ -14,33 +14,36 @@ import seedu.task.logic.LogicManager;
  *
  */
 public class ParserMapping {
-    HashMap<String, Class<? extends BaseParser>> mappingTable = new HashMap<>();
+    HashMap<Commands, Class<? extends BaseParser>> mappingTable = new HashMap<>();
     private final Logger logger = LogsCenter.getLogger(ParserMapping.class);
+    private final HashMap<String, Commands> aliasMappings;
     
-    public ParserMapping() {
+    public ParserMapping(HashMap<String, Commands> aliasMappings) {
         populateMappings();
+        this.aliasMappings = aliasMappings;
     }
-    
+       
     /**
      * Populates the command word to command parsers mapping table
      */
     private void populateMappings() {
-        mappingTable.put("add", AddParser.class);
-        mappingTable.put("clear", ClearParser.class);
-        mappingTable.put("complete", CompleteParser.class);
-        mappingTable.put("change-to", ChangePathParser.class);
-        mappingTable.put("delete", DeleteParser.class);
-        mappingTable.put("exit", ExitParser.class);
-        mappingTable.put("find", FindParser.class);
-        mappingTable.put("help", HelpParser.class);
-        mappingTable.put("list", ListParser.class);
-        mappingTable.put("pin", PinParser.class);
-        mappingTable.put("searchbox", SearchParser.class);
-        mappingTable.put("select", SelectParser.class);
-        mappingTable.put("undo", UndoParser.class);
-        mappingTable.put("update", UpdateParser.class);
-        mappingTable.put("uncomplete", UncompleteParser.class);
-        mappingTable.put("unpin", UnpinParser.class);
+        mappingTable.put(Commands.ADD, AddParser.class);
+        mappingTable.put(Commands.ALIAS, AliasParser.class);
+        mappingTable.put(Commands.CLEAR, ClearParser.class);
+        mappingTable.put(Commands.COMPLETE, CompleteParser.class);
+        mappingTable.put(Commands.CHANGE_TO, ChangePathParser.class);
+        mappingTable.put(Commands.DELETE, DeleteParser.class);
+        mappingTable.put(Commands.EXIT, ExitParser.class);
+        mappingTable.put(Commands.FIND, FindParser.class);
+        mappingTable.put(Commands.HELP, HelpParser.class);
+        mappingTable.put(Commands.LIST, ListParser.class);
+        mappingTable.put(Commands.PIN, PinParser.class);
+        mappingTable.put(Commands.SEARCH_BOX, SearchParser.class);
+        mappingTable.put(Commands.SELECT, SelectParser.class);
+        mappingTable.put(Commands.UNDO, UndoParser.class);
+        mappingTable.put(Commands.UPDATE, UpdateParser.class);
+        mappingTable.put(Commands.UNCOMPLETE, UncompleteParser.class);
+        mappingTable.put(Commands.UNPIN, UnpinParser.class);
     }
 
     /**
@@ -48,9 +51,17 @@ public class ParserMapping {
      * @param commandWord
      * @return
      */
-    public Optional<Class<? extends BaseParser>> getParserForCommand(String commandWord) {
-        if (mappingTable.containsKey(commandWord) && mappingTable.get(commandWord) != null) {
-            return Optional.of(mappingTable.get(commandWord));
+    public Optional<Class<? extends BaseParser>> getParserForCommand(String commandWord) {        
+        
+        //check if it's an alias
+        if(aliasMappings.containsKey(commandWord) && aliasMappings.get(commandWord) != null) {
+            Commands command = aliasMappings.get(commandWord);
+            return Optional.of(mappingTable.get(command));
+        } 
+        
+        if (CommandKeys.commandKeyMap.containsKey(commandWord) && CommandKeys.commandKeyMap.get(commandWord) != null) {
+            Commands command = CommandKeys.commandKeyMap.get(commandWord);
+            return Optional.of(mappingTable.get(command));
         } else {
             logger.info("[USER COMMAND][" + commandWord + "] not found!");
             return Optional.empty();
