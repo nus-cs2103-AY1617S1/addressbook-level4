@@ -4,12 +4,9 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 
 import org.junit.Test;
 
-import seedu.address.logic.CommandTest.TestDataHelper;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.model.TaskManager;
 import seedu.address.model.tag.Tag;
-import seedu.address.model.task.Deadline;
-import seedu.address.model.task.EventDate;
 import seedu.address.model.task.Name;
 import seedu.address.model.task.Recurring;
 import seedu.address.model.task.Task;

@@ -1,17 +1,12 @@
 package seedu.address.logic;
 
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Test;
 
-import seedu.address.logic.CommandTest.TestDataHelper;
-import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.model.TaskManager;
-import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.Task;
 
 //@@author A0142325R
