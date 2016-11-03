@@ -188,6 +188,12 @@ public class LogicManagerTest {
         assertCommandBehavior("add event d/without due date sd/12-12-2016", expectedMessage);
     }
     
+    @Test
+    public void execute_add_event_dueDateBeforeStartDate() throws Exception {
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_INVALID_DATE);
+        assertCommandBehavior("add event d/due date before start date sd/12-12-2016 dd/01-01-2016", expectedMessage);
+    }
+    
 	@Test
 	public void execute_add_successful() throws Exception {
 		// setup expectations
@@ -200,6 +206,26 @@ public class LogicManagerTest {
 		// execute command and verify result
 		assertCommandBehavior(helper.generateAddCommand(toBeAdded), expectedMessage, expectedAB, expectedAB.getTaskList());
 	}
+	
+//	@Test
+//    public void execute_add_deadline_withoutTimeInDate() throws Exception {
+//	    TestDataHelper helper = new TestDataHelper();
+//        Task toBeAdded = new Task(
+//                new Title("Task "),
+//                new Description("Description "),
+//                new StartDate("Not Set"),
+//                new DueDate("01-01-2016"),
+//                new Interval("1"),
+//                new TimeInterval("7"),
+//                new Status("ONGOING"),
+//                new TaskColor("none"),
+//                new UniqueTagList(new Tag("tag" + Math.abs(1)), new Tag("tag" + Math.abs(2))));
+//        TaskManager expectedAB = new TaskManager();
+//        String expectedTask = toBeAdded.getAsText();
+//	    String expectedMessage = String.format(AddCommand.MESSAGE_SUCCESS, expectedTask);
+//	    String command = helper.generateAddCommand(toBeAdded).replaceAll("sd/Not Set ", "").replaceAll("23:59 ", "");
+//        assertCommandBehavior(command, expectedMessage, expectedAB, expectedAB.getTaskList());
+//	}
 	//@@author
 
 	//@@author A0153411W
