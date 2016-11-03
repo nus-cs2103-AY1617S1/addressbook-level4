@@ -96,8 +96,8 @@ public class AddController implements Controller {
         LocalDateTime dateFrom;
         LocalDateTime dateTo;
         try {
-            dateFrom = naturalFrom == null ? null : parseNatural(naturalFrom);
-            dateTo = naturalTo == null ? null : parseNatural(naturalTo);
+            dateFrom = naturalFrom == null ? null : DateParser.parseNatural(naturalFrom);
+            dateTo = naturalTo == null ? null : DateParser.parseNatural(naturalTo);
         } catch (InvalidNaturalDateException e) {
             renderDisambiguation(isTask, name, naturalFrom, naturalTo);
             return;
@@ -194,26 +194,6 @@ public class AddController implements Controller {
             isTask = false;
         }
         return isTask;
-    }
-
-    /**
-     * Parse a natural date into a LocalDateTime object.
-     * 
-     * @param natural
-     * @return LocalDateTime object
-     * @throws InvalidNaturalDateException 
-     */
-    private LocalDateTime parseNatural(String natural) throws InvalidNaturalDateException {
-        Parser parser = new Parser();
-        List<DateGroup> groups = parser.parse(natural);
-        Date date = null;
-        try {
-            date = groups.get(0).getDates().get(0);
-        } catch (IndexOutOfBoundsException e) {
-            throw new InvalidNaturalDateException(natural);
-        }
-        LocalDateTime ldt = LocalDateTime.ofInstant(date.toInstant(), ZoneId.systemDefault());
-        return ldt;
     }
     
     private void renderDisambiguation(boolean isTask, String name, String naturalFrom, String naturalTo) {
