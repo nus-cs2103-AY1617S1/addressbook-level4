@@ -22,6 +22,14 @@ import javafx.scene.control.TableView;
 public class HelpPopup extends UiPart {
 
     private static final String FXML = "HelpPopup.fxml";
+    private final String COMMAND_COL_HEADER = "Command";
+    private final String FORMAT_COL_HEADER = "Format";
+    private final String USAGE_COL_HEADER = "Usage";
+    
+    private final int COMMAND_COL_MIN_WIDTH = 100;
+    private final int FORMAT_COL_MIN_WIDTH = 200;
+    private final int USAGE_COL_MIN_WIDTH = 200;
+    
     private final int DEFAULT_X_POS = 200;
     private final int DEFAULT_Y_POS = 100;
     private final int DEFAULT_HEIGHT = 800;
@@ -89,20 +97,20 @@ public class HelpPopup extends UiPart {
     }
     
     private void initCommandCol() {
-        commandCol = new TableColumn<HelpPopupEntry, String>("Command");
-        commandCol.setMinWidth(100);
+        commandCol = new TableColumn<HelpPopupEntry, String>(COMMAND_COL_HEADER);
+        commandCol.setMinWidth(COMMAND_COL_MIN_WIDTH);
         commandCol.setCellValueFactory(new PropertyValueFactory<>("commandWord"));
     }
     
     private void initFormatCol() {
-        formatCol = new TableColumn<HelpPopupEntry, String>("Format");
-        formatCol.setMinWidth(200);
+        formatCol = new TableColumn<HelpPopupEntry, String>(FORMAT_COL_HEADER);
+        formatCol.setMinWidth(FORMAT_COL_MIN_WIDTH);
         formatCol.setCellValueFactory(new PropertyValueFactory<>("format"));
     }
     
     private void initUsageCol() {
-        usageCol = new TableColumn<HelpPopupEntry, String>("Usage");
-        usageCol.setMinWidth(200);
+        usageCol = new TableColumn<HelpPopupEntry, String>(USAGE_COL_HEADER);
+        usageCol.setMinWidth(USAGE_COL_MIN_WIDTH);
         usageCol.setCellValueFactory(new PropertyValueFactory<>("usage"));
     }
     
