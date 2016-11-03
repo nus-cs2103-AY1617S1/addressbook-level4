@@ -66,17 +66,47 @@ public class HelpPanel extends UiPart {
             case UserGuide.ADD:
                 url = url.concat(UserGuide.ADD_ID);
                 break;
+            case UserGuide.CD:
+                url = url.concat(UserGuide.CD_ID);
+                break;
+            case UserGuide.CLEAR:
+                url = url.concat(UserGuide.CLEAR_ID);
+                break;
+            case UserGuide.CONFIRM:
+                url = url.concat(UserGuide.CONFIRM_ID);
+                break;
+            case UserGuide.DELETE:
+                url = url.concat(UserGuide.DELETE_ID);
+                break;
+            case UserGuide.DONE:
+                url = url.concat(UserGuide.DONE_ID);
+                break;
+            case UserGuide.EDIT:
+                url = url.concat(UserGuide.EDIT_ID);
+                break;
+            case UserGuide.EXIT:
+                url = url.concat(UserGuide.EXIT_ID);
+                break;
+            case UserGuide.FIND:
+                url = url.concat(UserGuide.FIND_ID);
+                break;
+            case UserGuide.FREE:
+                url = url.concat(UserGuide.FREE_ID);
+                break;
+            case UserGuide.HELP:
+                url = url.concat(UserGuide.HELP_ID);
+                break;
+            case UserGuide.LIST:
+                url = url.concat(UserGuide.LIST_ID);
+                break;
+            case UserGuide.REDO:
+                url = url.concat(UserGuide.REDO_ID);
+                break;
             case UserGuide.RSV:
                 url = url.concat(UserGuide.RSV_ID);
                 break;
             case UserGuide.RSV_DELETE:
                 url = url.concat(UserGuide.RSV_DELETE_ID);
-                break;
-            case UserGuide.CONFIRM:
-                url = url.concat(UserGuide.CONFIRM_ID);
-                break;
-            case UserGuide.EDIT:
-                url = url.concat(UserGuide.EDIT_ID);
                 break;
             case UserGuide.TAG_EDIT:
                 url = url.concat(UserGuide.TAG_EDIT_ID);
@@ -87,38 +117,11 @@ public class HelpPanel extends UiPart {
             case UserGuide.TAG_LIST:
                 url = url.concat(UserGuide.TAG_LIST_ID);
                 break;
-            case UserGuide.MARK_DONE:
-                url = url.concat(UserGuide.MARK_DONE_ID);
-                break;
-            case UserGuide.MARK_UNDONE:
-                url = url.concat(UserGuide.MARK_UNDONE_ID);
-                break;
-            case UserGuide.DELETE:
-                url = url.concat(UserGuide.DELETE_ID);
-                break;
-            case UserGuide.LIST:
-                url = url.concat(UserGuide.LIST_ID);
-                break;
-            case UserGuide.FIND:
-                url = url.concat(UserGuide.FIND_ID);
-                break;
-            case UserGuide.FREE:
-                url = url.concat(UserGuide.FREE_ID);
+            case UserGuide.UNDONE:
+                url = url.concat(UserGuide.UNDONE_ID);
                 break;
             case UserGuide.UNDO:
                 url = url.concat(UserGuide.UNDO_ID);
-                break;
-            case UserGuide.REDO:
-                url = url.concat(UserGuide.REDO_ID);
-                break;
-            case UserGuide.CLEAR:
-                url = url.concat(UserGuide.CLEAR_ID);
-                break;
-            case UserGuide.EXIT:
-                url = url.concat(UserGuide.EXIT_ID);
-                break;
-            case UserGuide.CD:
-                url = url.concat(UserGuide.CD_ID);
                 break;
             case UserGuide.SUMMARY:
                 url = url.concat(UserGuide.SUMMARY_ID);
