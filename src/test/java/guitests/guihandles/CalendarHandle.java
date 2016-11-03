@@ -1,11 +1,12 @@
-package guitests;
+package guitests.guihandles;
 
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.concurrent.TimeoutException;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
-import guitests.guihandles.GuiHandle;
+
+import guitests.GuiRobot;
 import javafx.scene.control.Slider;
 import javafx.stage.Stage;
 import jfxtras.internal.scene.control.skin.agenda.AgendaDaySkin;

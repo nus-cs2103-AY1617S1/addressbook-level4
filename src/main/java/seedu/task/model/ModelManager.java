@@ -256,7 +256,7 @@ public class ModelManager extends ComponentManager implements Model {
             return qualifier.toString();
         }
     }
-
+    //@@author A0144702N
     interface Qualifier {
         boolean run(ReadOnlyTask task);
         boolean run(ReadOnlyEvent event);
@@ -276,7 +276,6 @@ public class ModelManager extends ComponentManager implements Model {
             this.isPowerSearch = isPowerSearch;
         }
 
-        @SuppressWarnings("unchecked")
 		@Override
         public boolean run(ReadOnlyTask task) {
         	taskName = task.getTask().fullName;

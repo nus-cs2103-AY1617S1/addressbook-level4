@@ -12,6 +12,7 @@ import org.junit.Rule;
 import org.junit.rules.TestName;
 import org.testfx.api.FxToolkit;
 
+import guitests.guihandles.CalendarHandle;
 import guitests.guihandles.CommandBoxHandle;
 import guitests.guihandles.EventCardHandle;
 import guitests.guihandles.EventListPanelHandle;

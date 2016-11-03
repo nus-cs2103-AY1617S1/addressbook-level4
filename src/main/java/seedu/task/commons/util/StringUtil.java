@@ -76,6 +76,12 @@ public class StringUtil {
     }
 
     
+    /**
+     * return true if two strings are simlar with distance less than 2. 
+     * @param a
+     * @param b
+     * @return
+     */
     public static boolean findMatch(String a, String b) {
     	
     	//short circuit if one of null

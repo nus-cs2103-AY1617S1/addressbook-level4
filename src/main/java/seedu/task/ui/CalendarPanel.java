@@ -41,12 +41,11 @@ public class CalendarPanel extends UiPart {
 	private Agenda agenda;
 	private final Logger logger = LogsCenter.getLogger(CalendarPanel.class);
 	private AnchorPane placeHolderPane;
-	private final CalendarHelper helper;
+	
 	
 
 	public CalendarPanel() {
 		agenda = new Agenda();
-		helper = CalendarHelper.getInstance();
 	}
 
 	public static CalendarPanel load(Stage primaryStage, AnchorPane calendarPlaceHolder,
@@ -124,7 +123,6 @@ public class CalendarPanel extends UiPart {
 		agenda.selectedAppointments().clear();
 		setConnectionEvent(eventList);
 		setConnectionTask(taskList);
-		ObservableList<Appointment> list= agenda.appointments();
 	}
 
 	private void setConnectionEvent(List<ReadOnlyEvent> eventList) {

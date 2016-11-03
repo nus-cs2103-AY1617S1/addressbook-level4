@@ -10,7 +10,7 @@ public class JumpToTaskListRequestEvent extends BaseEvent {
 
     public final int targetIndex;
     public final ReadOnlyTask targetTask;
-    
+    //@@author A0144702N
     public JumpToTaskListRequestEvent(ReadOnlyTask task, int targetIndex) {
         this.targetIndex = targetIndex;
         this.targetTask = task;

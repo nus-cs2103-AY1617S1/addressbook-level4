@@ -25,7 +25,7 @@ public class StringUtilTest {
         assertTrue(StringUtil.isUnsignedInteger("1"));
         assertTrue(StringUtil.isUnsignedInteger("10"));
     }
-    
+    //@author A0144702N
     @Test
     public void getDistanceOfTwoStrings_twoSimiliarStrings_shouldReturnDifference(){
         String a = new String("Xu Chen");
