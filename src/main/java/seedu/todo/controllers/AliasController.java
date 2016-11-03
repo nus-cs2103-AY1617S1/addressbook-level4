@@ -25,7 +25,7 @@ public class AliasController implements Controller {
     private static final int ARGS_LENGTH = 2;
     private static final String MESSAGE_SHOWING = "Showing all aliases.";
     private static final String MESSAGE_SAVE_SUCCESS = "Successfully saved alias!";
-    private static final String INVALID_NUM_PARAMS = "Seems like you have provided an invalid number of parameters!";
+    private static final String MESSAGE_INVALID_NUM_PARAMS = "Seems like you have provided an invalid number of parameters!";
     private static final String MESSAGE_INVALID_INPUT = "Invalid alias parameters! Alias inputs must consist solely "
                                                       + "of alphabetical characters.";
     private static final String SAVE_ERROR = "There was an error saving your aliases. Please try again.";
@@ -77,7 +77,7 @@ public class AliasController implements Controller {
                     aliasValue = args[0];
                     break;
             }
-            renderDisambiguation(aliasKey, aliasValue, INVALID_NUM_PARAMS);
+            renderDisambiguation(aliasKey, aliasValue, MESSAGE_INVALID_NUM_PARAMS);
             return;
         }
         
