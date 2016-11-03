@@ -30,7 +30,7 @@ public class AddCommandTest extends TaskManagerGuiTest {
     
     //------------------------------valid cases---------------------------------------------
     
-    //add event to list
+    //add an event to list
     
     @Test
     public void addEventToList_successful(){
@@ -45,7 +45,6 @@ public class AddCommandTest extends TaskManagerGuiTest {
     @Test
     public void addTaskToList_successful(){
         taskToAdd = td.workshop;
-        // currentList = TestUtil.addTasksToList(currentList, taskToAdd);
         assertAddSuccess(taskToAdd, currentList);
         
     }
@@ -65,7 +64,7 @@ public class AddCommandTest extends TaskManagerGuiTest {
     public void addFlexiCommandFormat_successful(){
         
         taskToAdd = td.project;
-        assertFlexiAddSuccess(taskToAdd, td.friend);
+        assertFlexiAddSuccess(taskToAdd, currentList);
     }
     
     //-----------------------------invalid cases--------------------------------------------

@@ -10,6 +10,7 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 
 //@@author A0142325R
+
 /**
  * Test GUI for list command
  * @author LiXiaowei
@@ -73,7 +74,7 @@ public class ListCommandTest extends TaskManagerGuiTest {
     @Test
     public void listAllUndoneTasksAndEvents_successful(){
         
-        assertListResult("list undone", td.friendEvent, td.lunch, td.book, td.work, td.movie, td.meeting, td.travel);
+        assertListResult("list undone", td.friend,td.friendEvent, td.lunch, td.book, td.work, td.movie, td.meeting, td.travel);
         assertResultMessage(String.format(ListCommand.MESSAGE_LIST_UNDONE_TASK_SUCCESS));
     }
     

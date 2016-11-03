@@ -1,5 +1,6 @@
-//@@author A0142325R
 package seedu.address.logic.commands;
+
+//@@author A0142325R
 
 /**
  * Lists tasks or events in the task manager to the user.

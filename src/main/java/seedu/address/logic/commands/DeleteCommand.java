@@ -1,4 +1,3 @@
-//@@author A0142325R
 package seedu.address.logic.commands;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
@@ -14,6 +13,8 @@ import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
+
+//@@author A0142325R
 
 /**
  * Deletes a task identified using its last displayed index or name from the
@@ -36,6 +37,7 @@ public class DeleteCommand extends Command {
     public static final String MESSAGE_DELETE_TASK_SUCCESS = "Deleted Task: %1$s";
     public static final String MESSAGE_DELETE_EVENT_SUCCESS = "Deleted Event: %1$s";
     public static final String MESSAGE_DELETE_NOT_FOUND = "Task to delete is not found: %1$s";
+    public static final String MESSAGE_DELETE_INVALID_INDEX="The task index provided is invalid";
 
     private static final Pattern KEYWORDS_ARGS_FORMAT = Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one
                                                                                                            // or
@@ -78,7 +80,7 @@ public class DeleteCommand extends Command {
         if (targetIndex != Integer.MIN_VALUE) {
             if (lastShownList.size() < targetIndex) {
                 indicateAttemptToExecuteIncorrectCommand();
-                return new CommandResult(String.format(MESSAGE_INVALID_COMMAND_FORMAT));
+                return new CommandResult(MESSAGE_DELETE_INVALID_INDEX);
             }
             taskToDelete = prepareDeleteTaskbyIndex(lastShownList);
         } else {

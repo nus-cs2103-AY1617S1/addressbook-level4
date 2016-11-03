@@ -1,4 +1,3 @@
-//@@author A0142325R
 package seedu.address.logic.commands;
 
 import java.util.Set;
@@ -6,6 +5,8 @@ import java.util.Set;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.model.task.ReadOnlyTask;
+
+//@@author A0142325R
 
 /**
  * Mark the specified task or event as done.
