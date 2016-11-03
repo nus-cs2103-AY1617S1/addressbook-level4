@@ -66,6 +66,7 @@ allprojects {
             exclude group: "junit", module: "junit"
         }
         testCompile "org.testfx:openjfx-monocle:$monocleVersion"
+        testCompile name: 'TrayNotification'
     }
     
     sourceSets {
