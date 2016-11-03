@@ -163,9 +163,17 @@ public class AgendaPanel extends UiPart{
     
     @Subscribe
     public void handleJumpToUpdatedTaskOrEvent(JumpToListRequestEvent ev) {
-        int targetIndex = this.tasksList.indexOf(ev.targetTask);
-        tasksTableView.scrollTo(targetIndex);
-        tasksTableView.getSelectionModel().select(targetIndex);
+        int targetIndex = 0;
+        
+        if(ev.targetTask instanceof Event) {
+            targetIndex = this.eventsList.indexOf(ev.targetTask);
+            eventsTableView.scrollTo(targetIndex);
+            eventsTableView.getSelectionModel().select(targetIndex); 
+        } else {
+            targetIndex = this.tasksList.indexOf(ev.targetTask);
+            tasksTableView.scrollTo(targetIndex);
+            tasksTableView.getSelectionModel().select(targetIndex);
+        }
     }
     
     /**
