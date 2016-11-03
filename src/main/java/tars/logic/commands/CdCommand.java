@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.util.Optional;
 
 import tars.commons.core.Config;
+import tars.commons.core.EventsCenter;
+import tars.commons.events.ui.ScrollToTopEvent;
 import tars.commons.exceptions.DataConversionException;
 import tars.commons.util.ConfigUtil;
 import tars.commons.util.FileUtil;
@@ -69,7 +71,8 @@ public class CdCommand extends Command {
         
     newConfig.setTarsFilePath(newFilePath);
     File file = new File(newFilePath);
-
+    
+    EventsCenter.getInstance().post(new ScrollToTopEvent());
     return FileUtil.isFileExists(file) ? readTarsFromNewFilePath() : saveTarsToNewFilePath();
   }
 
