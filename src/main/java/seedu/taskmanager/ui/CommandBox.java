@@ -97,13 +97,6 @@ public class CommandBox extends UiPart {
     }
 
     /**
-     * Restores the command box text to the previously entered command
-     */
-    private void restoreCommandText() {
-        commandTextField.setText(previousCommandTest);
-    }
-
-    /**
      * Sets the command box style to indicate an error
      */
     private void setStyleToIndicateIncorrectCommand() {
