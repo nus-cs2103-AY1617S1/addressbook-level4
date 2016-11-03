@@ -220,7 +220,6 @@ public class FlexiTrack implements ReadOnlyFlexiTrack {
         }
         return false;
     }
-    //@@author
     
     /**
      * return a list of Block task
@@ -234,6 +233,7 @@ public class FlexiTrack implements ReadOnlyFlexiTrack {
             }
         }
     }
+    //@@author
 
     // @@author A0127686R
     /**
