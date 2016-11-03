@@ -24,13 +24,13 @@ public class ListOfTask implements ReadOnlyListOfTask {
     
     public static int todayCounter;
     public static int tomorrowCounter;
-    public static int nextWeekCounter;
     public static int doneCounter;
     public static int undoneCounter;
+    public static int overdueCounter;
     
     private Calendar calendar = Calendar.getInstance();
     private Calendar calendar_tmr = Calendar.getInstance();
-    private Calendar calendar_nextWeek = Calendar.getInstance();
+    //private Calendar calendar_nextWeek = Calendar.getInstance();
     
     private static final SimpleDateFormat DATEFORMATTER = new SimpleDateFormat("dd-MM-yyyy");
 
@@ -217,15 +217,15 @@ public class ListOfTask implements ReadOnlyListOfTask {
     public void Counter(){
     	int today = 0;
     	int tomorrow = 0;
-    	int nextWeek = 0;
+    	int overdue = 0;
     	int done = 0;
     	int undone = 0;
     	
     	calendar_tmr.setTime(calendar.getTime());
     	calendar_tmr.add(Calendar.DAY_OF_YEAR, 1);
     	
-    	calendar_nextWeek.setTime(calendar.getTime());
-    	calendar_nextWeek.add(Calendar.WEEK_OF_YEAR, 1);
+//    	calendar_nextWeek.setTime(calendar.getTime());
+//    	calendar_nextWeek.add(Calendar.WEEK_OF_YEAR, 1);
     	
     	for(int i=0; i<tasks.getInternalList().size(); i++) {
     		
@@ -248,15 +248,19 @@ public class ListOfTask implements ReadOnlyListOfTask {
     		}
     		
     		//Checks if date of task matches the date "next week" and ensures that task is still undone 
-    		else if(tasks.getInternalList().get(i).getDate().getFullDate().equals(DATEFORMATTER.format(calendar_nextWeek.getTime())) && (tasks.getInternalList().get(i).getDone() == false)){
-    			nextWeek++;
+//    		else if(tasks.getInternalList().get(i).getDate().getFullDate().equals(DATEFORMATTER.format(calendar_nextWeek.getTime())) && (tasks.getInternalList().get(i).getDone() == false)){
+//    			nextWeek++;
+//    		}
+    		
+    		else if(tasks.getInternalList().get(i).getOverdue()){
+    			overdue++;
     		}
     		
     	}
     	
     	todayCounter = today;
     	tomorrowCounter = tomorrow;
-    	nextWeekCounter = nextWeek;
+    	overdueCounter = overdue;
     	doneCounter = done;
     	undoneCounter = undone;
     	
