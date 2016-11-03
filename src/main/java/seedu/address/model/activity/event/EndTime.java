@@ -72,6 +72,15 @@ public class EndTime extends DateTime {
                 this.value.add(Calendar.DAY_OF_WEEK, 7);                
                 this.value.add(Calendar.DAY_OF_MONTH, 1);
         }
+        if (this.value.before(starttime.value)) {
+            while (this.value.before(starttime.value)) {
+                if ((date.contains("mon") || date.contains("tue") || date.contains("wed") || date.contains("thu")
+                        || date.contains("fri") || date.contains("sat") || date.contains("sun")))
+                    this.value.add(Calendar.DAY_OF_WEEK, 7);
+                else 
+                    this.value.add(Calendar.DAY_OF_MONTH, 1);
+            }
+        }
     }
 
     private void recurringEndTime(StartTime starttime, Date startdate, String date) throws IllegalValueException {
@@ -98,15 +107,6 @@ public class EndTime extends DateTime {
 
         Calendar cal = Calendar.getInstance();
         cal.setTime(startdate);
-        if (this.value.before(starttime.value)) {
-            while (this.value.before(starttime.value)) {
-                if ((date.contains("mon") || date.contains("tue") || date.contains("wed") || date.contains("thu")
-                        || date.contains("fri") || date.contains("sat") || date.contains("sun"))&&recur.length!=1)
-                    this.value.add(Calendar.DAY_OF_WEEK, 7);
-                else 
-                    this.value.add(Calendar.DAY_OF_MONTH, 1);
-            }
-        }
     }
 
     public Date convertStringtoDate(String date) throws IllegalValueException {
@@ -151,16 +151,6 @@ public class EndTime extends DateTime {
             this.value.setTime(taskDate);
             this.value.set(Calendar.MILLISECOND, 0);
             this.value.set(Calendar.SECOND, 0);
-            while ((this.value.before(Calendar.getInstance())&&recurring)) {
-                if (recurfreq.contains("mon") || recurfreq.contains("tue") || recurfreq.contains("wed")
-                        || recurfreq.contains("thu") || recurfreq.contains("fri") || recurfreq.contains("sat")
-                        || recurfreq.contains("sun"))
-                    this.value.add(Calendar.DAY_OF_WEEK, 7);
-                if (recurfreq.contains("day"))
-                    this.value.add(Calendar.DAY_OF_MONTH, 1);
-            }
-            
-
         }
     }
 

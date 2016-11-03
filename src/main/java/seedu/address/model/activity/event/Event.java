@@ -87,8 +87,9 @@ public class Event extends Activity implements ReadOnlyEvent{
     @Override
     public String displayTiming() {
         String message = "From ";
-        if(this.getStartTime().recurring)
-            message = message.concat(" Every ");
+        if(this.getStartTime().recurring){
+            checkrecurring();
+            message = message.concat(" Every ");}
         if (isStartAndEndOnSameDate()) {
             SimpleDateFormat timeOnly = new SimpleDateFormat("h:mm aa");
             message = message.concat(startTime.toString() + " to " + timeOnly.format(endTime.getCalendarValue().getTime()));
@@ -98,6 +99,18 @@ public class Event extends Activity implements ReadOnlyEvent{
         return message;
     }
     
+    private void checkrecurring() {
+        if(this.getStartTime().value.before(Calendar.getInstance())){
+        if(this.getStartTime().RecurringMessage.contains("sun")||this.getStartTime().RecurringMessage.contains("mon")||this.getStartTime().RecurringMessage.contains("tue")||this.getStartTime().RecurringMessage.contains("wed")||this.getStartTime().RecurringMessage.contains("thu")||this.getStartTime().RecurringMessage.contains("fri")||this.getStartTime().RecurringMessage.contains("sat")){
+            this.getStartTime().value.add(Calendar.DAY_OF_WEEK, 7);
+            this.getEndTime().value.add(Calendar.DAY_OF_WEEK, 7);
+        }
+        else{
+            this.getEndTime().value.add(Calendar.DAY_OF_MONTH, 1);
+            this.getStartTime().value.add(Calendar.DAY_OF_MONTH, 1);}}
+        
+    }
+
     private boolean isStartAndEndOnSameDate() {
         return startTime.getCalendarValue().get(Calendar.YEAR) == endTime.getCalendarValue().get(Calendar.YEAR)
                 && startTime.getCalendarValue().get(Calendar.DAY_OF_YEAR) == endTime.getCalendarValue().get(Calendar.DAY_OF_YEAR);
