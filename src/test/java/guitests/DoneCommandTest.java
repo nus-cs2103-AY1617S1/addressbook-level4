@@ -30,7 +30,7 @@ public class DoneCommandTest {
     public ExpectedException thrown = ExpectedException.none();
 	
 	private Model model;
-	private String MESSAGE_DONE_TASK_SUCCESS = "Completed Task: %1$s";
+	private String MESSAGE_DONE_TASK_SUCCESS = "Completed Task: %1$s. Showing all completed tasks now.";
 	private String MESSAGE_INVALID_PERSON_DISPLAYED_INDEX = "The task index provided is invalid";
 	
 	
@@ -63,17 +63,17 @@ public class DoneCommandTest {
     	String expectedString = String.format(MESSAGE_DONE_TASK_SUCCESS, model.getTaskList().getTaskList().get(0).getTaskDetails());
     	assertEquals(result.feedbackToUser, expectedString);
     }
-/**
+
     @Test
     public void doneTest2_by_name() throws DuplicateTaskException, IllegalValueException, IOException, JSONException, ParseException {
     	setup();
-    	Command doneCommand = new DoneCommand("test2");
+    	Command doneCommand = new DoneCommand("test1");
     	doneCommand.setData(model);
     	CommandResult result = doneCommand.execute();
     	String expectedString = String.format(MESSAGE_DONE_TASK_SUCCESS, model.getTaskList().getTaskList().get(1).getTaskDetails());
     	assertEquals(result.feedbackToUser, expectedString);
     }
-*/    
+   
     @Test
     public void doneTest3_recurring() throws DuplicateTaskException, IllegalValueException, IOException, JSONException, ParseException{
         setup();
