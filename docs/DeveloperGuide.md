@@ -242,7 +242,7 @@ Thanks to the [TestFX](https://github.com/TestFX/TestFX) library we use,
 
 See [UsingGradle.md](UsingGradle.md) to learn how to use Gradle for build automation.
 
-//@@author A0146749N
+
 ### Continuous Integration
 
 We use [Travis CI](https://travis-ci.org/) to perform _Continuous Integration_ on our projects.
@@ -266,7 +266,7 @@ is better than these alternatives.<br>
 a. Include those libraries in the repo (this bloats the repo size)<br>
 b. Require developers to download those libraries manually (this creates extra work for developers)<br>
 
-//@@author A0139102U
+
 ## Appendix A : User Stories
 
 Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (unlikely to have) - `*`
@@ -307,8 +307,8 @@ Use case ends.
 >1a1. Task Manager shows an error message<br>
     Use case resumes back to step 1
     
-1b.  Timeslot for task is already filled
->1b1. Task manager informs user that timeslot is already filled <br>
+1b.  Time slot for task is already filled
+>1b1. Task manager warns user that time slot clashes <br>
 Use case resumes at step 1 
 
 
@@ -340,6 +340,26 @@ Use case resumes at step 2
 >
 >4a3. Task manager deletes accordingly<br>
     User case ends
+    
+#### Use case: Completing task
+
+**MSS**
+
+1. User requests to view tasks for specific time period
+2. Task Manager displays all tasks during time period
+3. User requests to mark a specific task in the list as completed
+4. Task Manager mark the task as completed
+Use case ends
+
+**Extensions**
+
+2a. The list is empty
+>Use case ends
+    
+3a. Given index is invalid
+>3b1. Task manager shows error message <br>
+Use case resumes at step 2
+
     
 #### Use case: View task
 
@@ -388,7 +408,7 @@ Use case ends.
     
 
  <br>
-//@@author A0146749N
+
 ## Appendix C : Non Functional Requirements
 
 1. Should work on any [mainstream OS](#mainstream-os) as long as it has Java `1.8.0_60` or higher installed.
