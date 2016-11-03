@@ -5,6 +5,7 @@ import seedu.todolist.commons.core.ComponentManager;
 import seedu.todolist.commons.core.LogsCenter;
 import seedu.todolist.commons.core.UnmodifiableObservableList;
 import seedu.todolist.commons.events.model.ToDoListChangedEvent;
+import seedu.todolist.commons.exceptions.IllegalValueException;
 import seedu.todolist.commons.util.StringUtil;
 import seedu.todolist.model.parser.DateParser;
 import seedu.todolist.model.task.ReadOnlyTask;
@@ -151,6 +152,18 @@ public class ModelManager extends ComponentManager implements Model {
     
     @Override
     //@@author A0146682X
+    public synchronized void sendNotifications() throws IllegalValueException {
+    	ToDoList.sendNotifications();
+    }
+    
+    public synchronized void notifyTask(ReadOnlyTask target, int bufferTime) throws TaskNotFoundException {
+    	ToDoList previousToDoList = new ToDoList(this.ToDoList);
+    	ToDoList.notifyTask(target, bufferTime);
+    	ToDoListHistory.push(previousToDoList);
+        indicateToDoListChanged();
+    }
+    
+    @Override
     public synchronized void editTask(ReadOnlyTask target, Task replacement) throws TaskNotFoundException {
     	ToDoList previousToDoList = new ToDoList(this.ToDoList);
     	ToDoList.editTask(target, replacement);

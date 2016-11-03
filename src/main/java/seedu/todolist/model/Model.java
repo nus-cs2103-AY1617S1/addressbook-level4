@@ -1,6 +1,7 @@
 package seedu.todolist.model;
 
 import seedu.todolist.commons.core.UnmodifiableObservableList;
+import seedu.todolist.commons.exceptions.IllegalValueException;
 import seedu.todolist.model.task.ReadOnlyTask;
 import seedu.todolist.model.task.Task;
 import seedu.todolist.model.task.UniqueTaskList;
@@ -33,6 +34,12 @@ public interface Model {
 
     /** Adds the given task */
     void addTask(Task task) throws UniqueTaskList.DuplicateTaskException;
+    
+    /** Sets notification for the given task */
+    void notifyTask(ReadOnlyTask task, int bufferTime) throws UniqueTaskList.TaskNotFoundException;
+    
+    /** Sends notifications for tasks */
+    void sendNotifications() throws IllegalValueException;
     
     /** Edits the given task */
     void editTask(ReadOnlyTask task, Task replacement) throws UniqueTaskList.TaskNotFoundException;
