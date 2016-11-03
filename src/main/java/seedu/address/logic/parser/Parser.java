@@ -125,6 +125,14 @@ public class Parser {
     }
 
     // @@author A0142325R
+
+    /**
+     * prepare to mark a task as done
+     * 
+     * @param args
+     * @return
+     */
+
     private Command prepareMarkAsDone(String args) {
         Optional<Integer> index = parseIndex(args);
         String name = args;
@@ -141,8 +149,9 @@ public class Parser {
             final String[] keywords = matcher.group("keywords").split("\\s+");
             final Set<String> keywordSet = new HashSet<>(Arrays.asList(keywords));
             return new DoneCommand(keywordSet);
+        } else {
+            return new DoneCommand(index.get());
         }
-        return new DoneCommand(index.get());
     }
 
     /**
