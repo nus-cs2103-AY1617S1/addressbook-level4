@@ -74,7 +74,7 @@ public class UniqueItemList implements Iterable<Item> {
         internalList.set(itemIndex, toReplace);
     }
     
-    //@@author A0143641M - reused
+    //@@author A0143641M-reused
     /**
      * Removes the equivalent item from the list.
      *
