@@ -662,11 +662,11 @@ public class LogicManagerTest {
     @Test
     public void execute_find_isNotCaseSensitive() throws Exception {
         TestDataHelper helper = new TestDataHelper();
-        Task pTarget1a = helper.generateDatedTaskWithName("bla bla KEY bla");
-        Task pTarget1b = helper.generateDatedTaskWithName("bla key bla");
-        Task pTarget2a = helper.generateUndatedTaskWithName("bla KEY bla bceofeia");
-        Task pTarget2b = helper.generateUndatedTaskWithName("bla key bceofeia");
-        Task p1 = helper.generateDatedTaskWithName("KE Y");
+        Task pTarget1a = helper.generateDatedTaskWithName("feed my cat");
+        Task pTarget1b = helper.generateDatedTaskWithName("Feed my cat");
+        Task pTarget2a = helper.generateUndatedTaskWithName("bring cat food");
+        Task pTarget2b = helper.generateUndatedTaskWithName("Buy cat food");
+        Task p1 = helper.generateDatedTaskWithName("ca t");
 
         List<Task> threeDated = helper.generateTaskList(p1, pTarget1a, pTarget1b);
         List<Task> threeUndated = helper.generateTaskList(pTarget2a, pTarget2b);
@@ -678,7 +678,7 @@ public class LogicManagerTest {
         helper.addToModel(model, threeUndated);
         helper.addToModel(model, threeDated);
 
-        assertCommandBehavior("find KEY",
+        assertCommandBehavior("find CAT",
                 (Command.getMessageForPersonListShownSummary(
                         expectedDatedTaskList.size()+expectedUndatedTaskList.size())),
                 expectedAB, expectedDatedTaskList, expectedUndatedTaskList);

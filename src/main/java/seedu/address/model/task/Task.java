@@ -145,7 +145,7 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
         public static Comparator<Task> NAME = new Comparator<Task>() {
             @Override
             public int compare(Task t1, Task t2) {
-                return t1.getName().toString().compareTo(t2.getName().toString());
+                return t1.getName().toString().toLowerCase().compareTo(t2.getName().toString().toLowerCase());
             }
         };
         
