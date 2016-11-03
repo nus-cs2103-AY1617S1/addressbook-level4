@@ -17,21 +17,24 @@ public class AddCommandTest extends TaskManagerGuiTest {
         //add one task
         TestTask[] currentList = td.getTypicalTasks();
         TestTask taskToAdd = TypicalTestTasks.taskH;
+        commandBox.runCommand("add Help Jim with his task, at 2016-10-25 9am");
         assertAddSuccess(taskToAdd, currentList);
         currentList = TestUtil.addTasksToList(currentList, taskToAdd);
 
         //add another task
         taskToAdd = TypicalTestTasks.taskI;
+        commandBox.runCommand("add Iron new clothes, by 2016-10-27 10pm");
         assertAddSuccess(taskToAdd, currentList);
         currentList = TestUtil.addTasksToList(currentList, taskToAdd);
 
         //add duplicate task
-        commandBox.runCommand(TypicalTestTasks.taskH.getAddCommand());
+        commandBox.runCommand("add Help Jim with his task, at 2016-10-25 9am");
         assertResultMessage(AddCommand.MESSAGE_DUPLICATE_TASK);
         assertTrue(taskListPanel.isListMatching(currentList));
 
         //add to empty list
         commandBox.runCommand("clear");
+        commandBox.runCommand("add Accompany mom to the doctor, from 2016-10-26 2pm to 2016-10-26 5pm #gwsMum");
         assertAddSuccess(TypicalTestTasks.taskA);
 
         //invalid command
@@ -40,7 +43,7 @@ public class AddCommandTest extends TaskManagerGuiTest {
     }
 
     private void assertAddSuccess(TestTask taskToAdd, TestTask... currentList) {
-        commandBox.runCommand(taskToAdd.getAddCommand());
+        
 
         //confirm the new card contains the right data
         TaskCardHandle addedCard = taskListPanel.navigateToTask(taskToAdd.getName().fullName);
