@@ -37,10 +37,57 @@ public class ListCommand extends Command {
     public CommandResult execute() {
     	EventsCenter.getInstance().post(new DisplayTaskListEvent(model.getFilteredTaskList()));
     	
+    	Predicate <ReadOnlyTask> listPredicate = null;
     	Predicate <ReadOnlyTask> taskTypePredicate = null;
     	Predicate <ReadOnlyTask> donePredicate = null;
+    	boolean isFirstPredicate = true;
     	
-    	if(taskType.isPresent()) {
+    	taskTypePredicate = getTaskTypePredicate(taskTypePredicate);
+    	donePredicate = getStatusPredicate(donePredicate);
+    	
+    	listPredicate = getListPredicate(listPredicate, taskTypePredicate, donePredicate, isFirstPredicate);
+    	
+    	model.updateFilteredTaskList(listPredicate);
+    	
+    	model.checkForOverdueTasks();
+    	
+        return new CommandResult(MESSAGE_SUCCESS);
+    }
+    //@@author
+
+	private Predicate<ReadOnlyTask> getListPredicate(Predicate<ReadOnlyTask> listPredicate,
+			Predicate<ReadOnlyTask> taskTypePredicate, Predicate<ReadOnlyTask> donePredicate,
+			boolean isFirstPredicate) {
+		if(taskType.isPresent()) {
+    		listPredicate = taskTypePredicate;
+    		isFirstPredicate = false;
+    	}
+    	if(doneStatus.isPresent()) {
+    		listPredicate = isFirstPredicate ? 
+    				donePredicate : listPredicate.and(donePredicate);
+    		isFirstPredicate = false;
+    	}
+		return listPredicate;
+	}
+
+	private Predicate<ReadOnlyTask> getStatusPredicate(Predicate<ReadOnlyTask> donePredicate) {
+		if(doneStatus.isPresent()) {
+    		switch(doneStatus.get()) {
+    		case "done":
+    			donePredicate = ReadOnlyTaskFilter.isDone();
+    			break;
+    		case "pending":
+    			donePredicate = ReadOnlyTaskFilter.isPending();
+    			break;
+    		case "overdue":
+    			donePredicate = ReadOnlyTaskFilter.isOverdue();
+    		}
+    	}
+		return donePredicate;
+	}
+
+	private Predicate<ReadOnlyTask> getTaskTypePredicate(Predicate<ReadOnlyTask> taskTypePredicate) {
+		if(taskType.isPresent()) {
     		assert taskType.get().equals("someday") || taskType.get().equals("sd") ||
     				taskType.get().equals("deadline") || taskType.get().equals("dl") ||
     				taskType.get().equals("event") || taskType.get().equals("ev"); 
@@ -59,32 +106,6 @@ public class ListCommand extends Command {
     			break;
     		}
     	}
-    	if(doneStatus.isPresent()) {
-    		switch(doneStatus.get()) {
-    		case "done":
-    			donePredicate = ReadOnlyTaskFilter.isDone();
-    			break;
-    		case "pending":
-    			donePredicate = ReadOnlyTaskFilter.isPending();
-    			break;
-    		case "overdue":
-    			donePredicate = ReadOnlyTaskFilter.isOverdue();
-    		}
-    	}
-    	
-    	if(doneStatus.isPresent() && taskType.isPresent()) {
-    		model.updateFilteredTaskList(taskTypePredicate.and(donePredicate));
-    	} else if(!doneStatus.isPresent() && taskType.isPresent()) {
-    		model.updateFilteredTaskList(taskTypePredicate);
-    	} else if(doneStatus.isPresent() && !taskType.isPresent()) {
-    		model.updateFilteredTaskList(donePredicate);
-    	} else if(!doneStatus.isPresent() && !taskType.isPresent()) {
-    		model.updateFilteredListToShowAll();
-    	}
-    	
-    	model.checkForOverdueTasks();
-    	
-        return new CommandResult(MESSAGE_SUCCESS);
-    }
-    //@@author
+		return taskTypePredicate;
+	}
 }
