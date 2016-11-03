@@ -1029,6 +1029,8 @@ public class LogicManagerTest {
                 "save data/new2", SaveCommand.MESSAGE_SUCCESS);
         assertCommandBehavior(
                 "save data/new2", SaveCommand.MESSAGE_LOCATION_SPECIFIED_SAME);
+        assertCommandBehavior(
+                "save data/", SaveCommand.MESSAGE_SUCCESS);
     }
     //@@author
 
