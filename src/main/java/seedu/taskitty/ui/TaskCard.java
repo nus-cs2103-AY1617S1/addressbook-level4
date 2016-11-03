@@ -10,9 +10,9 @@ import seedu.taskitty.model.task.ReadOnlyTask;
 import seedu.taskitty.model.task.TaskDate;
 import seedu.taskitty.model.task.TaskTime;
 
-public class TodoCard extends UiPart {
+public class TaskCard extends UiPart {
 
-    private static final String FXML = "TodoListCard.fxml";
+    private static final String FXML = "TaskListCard.fxml";
     private static final String INDEX_PREFIX_TODO = "T";
     private static final String INDEX_PREFIX_DEADLINE = "D";
     private static final String INDEX_PREFIX_EVENT = "E";
@@ -46,8 +46,8 @@ public class TodoCard extends UiPart {
     private ReadOnlyTask task;
     private int displayedIndex;
 
-    public static TodoCard load(ReadOnlyTask task, int displayedIndex){
-        TodoCard card = new TodoCard();
+    public static TaskCard load(ReadOnlyTask task, int displayedIndex){
+        TaskCard card = new TaskCard();
         card.task = task;
         card.displayedIndex = displayedIndex;
         return UiPartLoader.loadUiPart(card);

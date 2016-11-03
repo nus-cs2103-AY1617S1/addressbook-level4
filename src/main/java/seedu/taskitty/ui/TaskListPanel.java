@@ -1,7 +1,9 @@
 package seedu.taskitty.ui;
 
 import javafx.collections.ObservableList;
+import javafx.fxml.FXML;
 import javafx.scene.Node;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.SplitPane;
@@ -18,10 +20,20 @@ import java.util.logging.Logger;
 /**
  * Base class for the 3 panels containing the list of tasks.
  */
-public abstract class TaskListPanel extends UiPart {
+public class TaskListPanel extends UiPart {
     private final Logger logger = LogsCenter.getLogger(TaskListPanel.class);
     protected VBox panel;
     protected AnchorPane placeHolderPane;
+    
+    private static final String FXML = "TaskListPanel.fxml";
+
+    @FXML
+    private Label header;
+    
+    @FXML
+    private ListView<ReadOnlyTask> taskListView;
+    
+    public static final int CARD_ID = 0;
 
     @Override
     public void setNode(Node node) {
@@ -33,9 +45,21 @@ public abstract class TaskListPanel extends UiPart {
         this.placeHolderPane = pane;
     }
     
-    public abstract void configure(ObservableList<ReadOnlyTask> taskList);
+    public void configure(ObservableList<ReadOnlyTask> taskList) {
+        if(taskList.get(0).isTodo()) {
+            header.setText("TODOS");
+        } else if (taskList.get(0).isDeadline()) {
+            header.setText("DEADLINES");
+        } else if (taskList.get(0).isEvent()) {
+            header.setText("EVENTS");
+        }
+        setConnections(taskListView, taskList);
+        addToPlaceholder();
+    }
     
-    public abstract int getTaskCardID();
+    public int getTaskCardID() {
+        return CARD_ID;
+    }
     
     public static <T extends TaskListPanel> T load(Stage primaryStage, AnchorPane taskListPlaceholder,
                                        ObservableList<ReadOnlyTask> taskList, T listPanel) {
@@ -80,26 +104,14 @@ public abstract class TaskListPanel extends UiPart {
                 setGraphic(null);
                 setText(null);
             } else {
-                switch (taskCardID) {
-                
-                case (TodoListPanel.TODO_CARD_ID):
-                    setGraphic(TodoCard.load(task, getIndex() + 1).getLayout());
-                    break;
-                
-                /*case (DeadlineListPanel.DEADLINE_CARD_ID):
-                    setGraphic(DeadlineCard.load(task, getIndex() + 1).getLayout());
-                    break;
-                    
-                case (EventListPanel.EVENT_CARD_ID):
-                    setGraphic(EventCard.load(task, getIndex() + 1).getLayout());
-                    break;*/
-                
-                default:
-                    setGraphic(TodoCard.load(task, getIndex() + 1).getLayout());
-                    break;
-                }                
+                setGraphic(TaskCard.load(task, getIndex() + 1).getLayout());       
             }
         }
+    }
+    
+    @Override
+    public String getFxmlPath() {
+        return FXML;
     }
 
 }
