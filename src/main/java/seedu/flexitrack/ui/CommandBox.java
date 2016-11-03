@@ -37,11 +37,11 @@ public class CommandBox extends UiPart {
     public static CommandBox load(Stage primaryStage, AnchorPane commandBoxPlaceholder, ResultDisplay resultDisplay,
             Logic logic) {
         CommandBox commandBox = UiPartLoader.loadUiPart(primaryStage, commandBoxPlaceholder, new CommandBox());
-        TextFields.bindAutoCompletion(commandBox.commandTextField, "add ", "add <EventName> from/ to/ ", "add <TaskName> by/", 
-                "delete 1", "delete 2", "delete 3", "delete 4", "delete 5", "delete 6", "delete 7", "delete 8", "delete 9",
-                "edit 1 ", "edit 2 ", "edit 3 ", "edit 4 ", "edit 5 ", "edit 6 ", "edit 7 ", "edit 8 ", "edit 9 ", 
-                "find ",
-                "list", "list mark", "list unmark", "list future", "list past");
+//        TextFields.bindAutoCompletion(commandBox.commandTextField, "add ", "add <EventName> from/ to/ ", "add <TaskName> by/", 
+//                "delete 1", "delete 2", "delete 3", "delete 4", "delete 5", "delete 6", "delete 7", "delete 8", "delete 9",
+//                "edit 1 ", "edit 2 ", "edit 3 ", "edit 4 ", "edit 5 ", "edit 6 ", "edit 7 ", "edit 8 ", "edit 9 ", 
+//                "find ",
+//                "list", "list mark", "list unmark", "list future", "list past");
         commandBox.configure(resultDisplay, logic);
         commandBox.addToPlaceholder();
         return commandBox;
