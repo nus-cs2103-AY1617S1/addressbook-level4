@@ -342,6 +342,11 @@
     -fx-padding: 0 0 0 0s;
 }
 
+.pane-title {
+	-fx-text-fill: #f9f9f9; 
+	-fx-font-weight: bold;
+}
+
 #cardPane {
     -fx-background-color: derive(grey, 80%);
     -fx-padding: 10 10 10 10;

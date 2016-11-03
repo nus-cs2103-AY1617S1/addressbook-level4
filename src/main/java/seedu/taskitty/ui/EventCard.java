@@ -20,7 +20,11 @@ public class EventCard extends UiPart {
     @FXML
     private Label startDate;
     @FXML
+    private Label startTime;
+    @FXML
     private Label endDate;
+    @FXML
+    private Label endTime;
     @FXML
     private Label id;
     @FXML
@@ -54,13 +58,15 @@ public class EventCard extends UiPart {
         
         TaskDate startTaskDate = task.getPeriod().getStartDate();
         TaskTime startTaskTime = task.getPeriod().getStartTime();
-        startDate.setText(DateUtil.formatDateTimeForUI(startTaskDate, startTaskTime));
+        startTime.setText(DateUtil.formatTimeForUI(startTaskTime));
+        startDate.setText(DateUtil.formatDateForUI(startTaskDate));
         
         TaskDate endTaskDate = task.getPeriod().getEndDate();
         TaskTime endTaskTime = task.getPeriod().getEndTime();
-        endDate.setText(DateUtil.formatDateTimeForUI(endTaskDate, endTaskTime));
+        endTime.setText(DateUtil.formatTimeForUI(endTaskTime));
+        endDate.setText(DateUtil.formatDateForUI(endTaskDate));
         
-        id.setText("e" + displayedIndex);
+        id.setText("e" + displayedIndex + ". ");
         tags.setText(task.tagsString());
     }
 
