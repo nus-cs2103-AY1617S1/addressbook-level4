@@ -13,6 +13,7 @@ import seedu.todo.commons.exceptions.InvalidNaturalDateException;
 import seedu.todo.commons.exceptions.ParseException;
 import seedu.todo.commons.util.StringUtil;
 import seedu.todo.controllers.concerns.Tokenizer;
+import seedu.todo.controllers.concerns.DateParser;
 import seedu.todo.controllers.concerns.Renderer;
 import seedu.todo.models.Event;
 import seedu.todo.models.Task;
@@ -81,7 +82,7 @@ public class AddController implements Controller {
         String name = parseName(parsedResult);
         
         // Time
-        String[] naturalDates = parseDates(parsedResult);
+        String[] naturalDates = DateParser.extractDatePair(parsedResult);
         String naturalFrom = naturalDates[0];
         String naturalTo = naturalDates[1];
         
@@ -162,30 +163,6 @@ public class AddController implements Controller {
     private boolean validateParams(boolean isTask, String name, String naturalFrom, String naturalTo) {
         return (name == null ||
                 (naturalFrom == null && naturalTo != null) || (isTask && naturalTo != null));
-    }
-    
-    /**
-     * Extracts the natural dates from parsedResult.
-     * 
-     * @param parsedResult
-     * @return { naturalFrom, naturalTo }
-     */
-    private String[] parseDates(Map<String, String[]> parsedResult) {
-        String naturalFrom = null;
-        String naturalTo = null;
-        setTime: {
-            if (parsedResult.get("time") != null && parsedResult.get("time")[1] != null) {
-                naturalFrom = parsedResult.get("time")[1];
-                break setTime;
-            }
-            if (parsedResult.get("timeFrom") != null && parsedResult.get("timeFrom")[1] != null) {
-                naturalFrom = parsedResult.get("timeFrom")[1];
-            }
-            if (parsedResult.get("timeTo") != null && parsedResult.get("timeTo")[1] != null) {
-                naturalTo = parsedResult.get("timeTo")[1];
-            }
-        }
-        return new String[] { naturalFrom, naturalTo };
     }
 
     /**
