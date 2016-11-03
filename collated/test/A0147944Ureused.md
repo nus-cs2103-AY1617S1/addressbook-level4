@@ -35,15 +35,15 @@ public class TaskCardHandle extends GuiHandle {
     }
 
     public String getStartTime() {
-        return getTextFromLabel(STARTTIME_FIELD_ID).replace(" from ", "");
+        return getTextFromLabel(STARTTIME_FIELD_ID).replace(" Starts: ", "");
     }
 
     public String getEndTime() {
-        return getTextFromLabel(ENDTIME_FIELD_ID).replace(" to ", "");
+        return getTextFromLabel(ENDTIME_FIELD_ID).replace(" Ends: ", "");
     }
 
     public String getDeadline() {
-        return getTextFromLabel(DEADLINE_FIELD_ID).replace(" ends ", "");
+        return getTextFromLabel(DEADLINE_FIELD_ID).replace(" Due: ", "");
     }
     
     public boolean getDoneStatus() {
@@ -136,7 +136,7 @@ public class TaskCardHandle extends GuiHandle {
 ``` java
         Task revise() throws Exception {
             Name name = new Name("Revise CS2103");
-            StartTime startTime = new StartTime("2016-10-25 13:00");
+            StartTime startTime = new StartTime("2016-10-25 15:00");
             EndTime endTime = new EndTime("2016-11-25 15:00");
             Deadline location = new Deadline("2016-11-26 15:00");
             Tag tag1 = new Tag("tag1");
@@ -155,9 +155,9 @@ public class TaskCardHandle extends GuiHandle {
         Task generateTask(int seed) throws Exception {
             return new Task(
                     new Name("Task " + seed),
-                    new StartTime("11." + seed + "1am"),
-                    new EndTime("11." + seed + "1pm"),
-                    new Deadline("12." + seed + "2am"),
+                    new StartTime("2016-11-26 11:" + seed + "1"),
+                    new EndTime("2016-11-26 11:" + seed + "1"),
+                    new Deadline("2016-11-26 12:" + seed + "2"),
                     new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1))),
                     new Status()
             );
@@ -187,9 +187,9 @@ public class TaskCardHandle extends GuiHandle {
         Task generateTaskWithName(String name) throws Exception {
             return new Task(
                     new Name(name),
-                    new StartTime("11.11am"),
-                    new EndTime("12.34pm"),
-                    new Deadline("12.40pm"),
+                    new StartTime("2016-11-26 11:11"),
+                    new EndTime("2016-11-26 12:44"),
+                    new Deadline("2016-11-26 12:40"),
                     new UniqueTagList(new Tag("tag")),
                     new Status()
             );
@@ -200,15 +200,15 @@ public class TaskCardHandle extends GuiHandle {
     private static Task[] getSampleTaskData() {
         try {
             return new Task[]{
-                    new Task(new Name("Accompany mom to the doctor"), new StartTime("10.00am"), new EndTime("02.59am"), new Deadline("10.00pm"), new UniqueTagList(), new Status()),
-                    new Task(new Name("Borrow software engineering book"), new StartTime("10.00am"), new EndTime("02.59am"), new Deadline("10.00pm"), new UniqueTagList(), new Status()),
-                    new Task(new Name("Call Jim"), new StartTime("10.00am"), new EndTime("02.59am"), new Deadline("10.00pm"), new UniqueTagList(), new Status()),
-                    new Task(new Name("Do homework"), new StartTime("10.00am"), new EndTime("02.59am"), new Deadline("10.00pm"), new UniqueTagList(), new Status()),
-                    new Task(new Name("Edit AddressBook file"), new StartTime("10.00am"), new EndTime("02.59am"), new Deadline("10.00pm"), new UniqueTagList(), new Status()),
-                    new Task(new Name("Finish up the project"), new StartTime("10.00am"), new EndTime("02.59am"), new Deadline("10.00pm"), new UniqueTagList(), new Status()),
-                    new Task(new Name("Go for a jog"), new StartTime("10.00am"), new EndTime("02.59am"), new Deadline("10.00pm"), new UniqueTagList(), new Status()),
-                    new Task(new Name("Help Jim with his task"), new StartTime("10.00am"), new EndTime("02.59am"), new Deadline("10.00pm"), new UniqueTagList(), new Status()),
-                    new Task(new Name("Iron new clothes"), new StartTime("10.00am"), new EndTime("02.59am"), new Deadline("10.00pm"), new UniqueTagList(), new Status())
+                    new Task(new Name("Accompany mom to the doctor"), new StartTime("2016-11-01 21:55"), new EndTime("2016-11-01 21:55"), new Deadline("2016-11-01 21:55"), new UniqueTagList(), new Status()),
+                    new Task(new Name("Borrow software engineering book"), new StartTime("2016-11-01 21:55"), new EndTime("2016-11-01 21:55"), new Deadline("2016-11-01 21:55"), new UniqueTagList(), new Status()),
+                    new Task(new Name("Call Jim"), new StartTime("2016-11-01 21:55"), new EndTime("2016-11-01 21:55"), new Deadline("2016-11-01 21:55"), new UniqueTagList(), new Status()),
+                    new Task(new Name("Do homework"), new StartTime("2016-11-01 21:55"), new EndTime("2016-11-01 21:55"), new Deadline("2016-11-01 21:55"), new UniqueTagList(), new Status()),
+                    new Task(new Name("Edit AddressBook file"), new StartTime("2016-11-01 21:55"), new EndTime("2016-11-01 21:55"), new Deadline("2016-11-01 21:55"), new UniqueTagList(), new Status()),
+                    new Task(new Name("Finish up the project"), new StartTime("2016-11-01 21:55"), new EndTime("2016-11-01 21:55"), new Deadline("2016-11-01 21:55"), new UniqueTagList(), new Status()),
+                    new Task(new Name("Go for a jog"), new StartTime("2016-11-01 21:55"), new EndTime("2016-11-01 21:55"), new Deadline("2016-11-01 21:55"), new UniqueTagList(), new Status()),
+                    new Task(new Name("Help Jim with his task"), new StartTime("2016-11-01 21:55"), new EndTime("2016-11-01 21:55"), new Deadline("2016-11-01 21:55"), new UniqueTagList(), new Status()),
+                    new Task(new Name("Iron new clothes"), new StartTime("2016-11-01 21:55"), new EndTime("2016-11-01 21:55"), new Deadline("2016-11-01 21:55"), new UniqueTagList(), new Status())
             };
           
             
@@ -223,9 +223,8 @@ public class TaskCardHandle extends GuiHandle {
 ###### \java\seedu\task\testutil\TypicalTestTasks.java
 ``` java
         try {
-            taskA =  new TaskBuilder().withName("Accompany mom to the doctor").withDeadline("2016-10-27 15:00")
-                    .withEndTime("2016-10-26 17:00").withStartTime("2016-10-25 02:00")
-                    .withTags("gwsMum").withStatus(false, false, false).build();
+            taskA =  new TaskBuilder().withName("Accompany mom to the doctor").withStartTime("2016-10-26 14:00").withEndTime("2016-10-26 17:00")
+            		.withDeadline("").withTags("gwsMum").withStatus(false, false, false).build();
             taskB = new TaskBuilder().withName("Borrow software engineering book").withDeadline("2016-10-27 16:00")
                     .withEndTime("2016-10-26 16:00").withStartTime("2016-10-25 03:00")
                     .withTags("study", "seRocks").withStatus(false, false, false).build();
@@ -234,10 +233,10 @@ public class TaskCardHandle extends GuiHandle {
             taskE = new TaskBuilder().withName("Edit AddressBook file").withStartTime("2016-10-25 06:00").withEndTime("2016-10-26 13:49").withDeadline("2016-10-27 19:00").withStatus(false, false, false).build();
             taskF = new TaskBuilder().withName("Finish up the project").withStartTime("2016-10-25 07:00").withEndTime("2016-10-26 13:23").withDeadline("2016-10-27 20:00").withStatus(false, false, false).build();
             taskG = new TaskBuilder().withName("Go for a jog").withStartTime("2016-10-25 08:00").withEndTime("2016-10-26 12:00").withDeadline("2016-10-27 20:59").withStatus(false, false, false).build();
-            taskH = new TaskBuilder().withName("Help Jim with his task").withStartTime("2016-10-25 09:00").withEndTime("2016-10-26 11:00").withDeadline("2016-10-27 21:00").withStatus(false, false, false).build();
-            taskI = new TaskBuilder().withName("Iron new clothes").withStartTime("2016-10-25 02:59").withEndTime("2016-10-26 10:00").withDeadline("2016-10-27 22:00").withStatus(false, false, false).build();
-            taskJ =  new TaskBuilder().withName("Accompany dad to the doctor").withDeadline("2016-10-27 15:00")
-                    .withEndTime("2016-10-26 17:00").withStartTime("2016-10-25 02:00")
+            taskH = new TaskBuilder().withName("Help Jim with his task").withStartTime("2016-10-25 09:00").withEndTime("").withDeadline("").withStatus(false, false, false).build();
+            taskI = new TaskBuilder().withName("Iron new clothes").withStartTime("").withEndTime("").withDeadline("2016-10-27 22:00").withStatus(false, false, false).build();
+            taskJ =  new TaskBuilder().withName("Accompany dad to the doctor").withStartTime("2016-10-26 14:00")
+                    .withEndTime("2016-10-26 17:00").withDeadline("")
                     .withTags("gwsDad").withStatus(false, false, false).build();
         } catch (IllegalValueException e) {
             e.printStackTrace();

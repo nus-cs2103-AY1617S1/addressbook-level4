@@ -26,7 +26,7 @@ public class AddCommand extends Command {
         for (String tagName : tags) {
             tagSet.add(new Tag(tagName));
         }
-        this.toAdd = new Task(new Name(name), new StartTime(startTime), new EndTime(endTime), new Deadline(deadline), new UniqueTagList(tagSet), new Status(false, false, true));
+        this.toAdd = new Task(new Name(name), new StartTime(startTime), new EndTime(endTime), new Deadline(deadline), new UniqueTagList(tagSet), new Status(false, false, false));
     }
 
     @Override
@@ -292,6 +292,28 @@ public interface Model {
 ``` java
     @Override
     public synchronized void addTask(int index, Task task) throws UniqueTaskList.DuplicateTaskException {
+        if (!task.getDeadline().toString().isEmpty()) {
+            String strDatewithTime = task.getDeadline().toString().replace(" ", "T");
+            LocalDateTime aLDT = LocalDateTime.parse(strDatewithTime);
+
+            Date currentDate=new Date();
+            LocalDateTime localDateTime = LocalDateTime.ofInstant(currentDate.toInstant(), ZoneId.systemDefault());
+
+            if (aLDT.isBefore(localDateTime)) {
+
+                task = new Task (task.getName(), task.getStartTime(), task.getEndTime(), task.getDeadline(), task.getTags(), new Status(task.getStatus().getDoneStatus(), true, task.getStatus().getFavoriteStatus()));
+
+            }
+            else{
+                task = new Task (task.getName(), task.getStartTime(), task.getEndTime(), task.getDeadline(), task.getTags(), new Status(task.getStatus().getDoneStatus(), false, task.getStatus().getFavoriteStatus()));
+
+            }
+
+        }
+        else {
+            task = new Task (task.getName(), task.getStartTime(), task.getEndTime(), task.getDeadline(), task.getTags(), new Status(task.getStatus().getDoneStatus(), false, task.getStatus().getFavoriteStatus()));
+
+        }
         taskManager.addTask(index, task);
         updateFilteredListToShowAll();
         indicateTaskManagerChanged();
@@ -362,7 +384,6 @@ public class UniqueTaskList implements Iterable<Task> {
 ###### \java\seedu\task\ui\TaskCard.java
 ``` java
 public class TaskCard extends UiPart{
-
     private static final String FXML = "TaskListCard.fxml";
 
     @FXML
@@ -399,18 +420,18 @@ public class TaskCard extends UiPart{
     public void initialize() {
         name.setText(task.getName().fullName);
         id.setText(displayedIndex + ". ");
-        if(!task.getStartTime().value.equals("now") && !task.getStartTime().value.equals(" from now")){
-            startTimeLabel.setText(" from " + task.getStartTime().value);
+        if (!task.getStartTime().toString().isEmpty()) {
+            startTimeLabel.setText(" Starts: " + task.getStartTime().value);
         }else{
             startTimeLabel.setText("");
         }
-        if(!task.getEndTime().value.equals("no endtime") && !task.getEndTime().value.equals(" to no endtime")){
-            endTimeLabel.setText(" to " + task.getEndTime().value);
+        if(!task.getEndTime().toString().isEmpty()){
+            endTimeLabel.setText(" Ends: " + task.getEndTime().value);
         }else{
             endTimeLabel.setText("");
         }
-        if(!task.getDeadline().value.equals("no deadline") && !task.getDeadline().value.equals(" to no deadline")){
-            deadlineLabel.setText(" ends " + task.getDeadline().value);
+        if(!task.getDeadline().toString().isEmpty()){
+            deadlineLabel.setText(" Due: " + task.getDeadline().value);
         }else{
             deadlineLabel.setText("");
         }
