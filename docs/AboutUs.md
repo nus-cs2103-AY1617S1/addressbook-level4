@@ -58,7 +58,8 @@ Responsibilities: Code Quality/Deliverables/UI
 * Aspects/tools in charge of: Junit
 * Features Implemented
 * Code Written:
-..* Test Activities, Test Task, Test Events
+..* 
 * Other major contributions:
-..* Helped to identify and debug errors for AddCommandTesting
+..* [Created sub-classes for ListPanel]
+..* [Helped with AddCommandTest]
 -----

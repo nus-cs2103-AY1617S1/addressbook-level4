@@ -22,7 +22,7 @@ import seedu.address.model.tag.UniqueTagList.DuplicateTagException;
  * 
  */
 
-//@@author a0125284
+//@@author A0125284H
 public class TestActivity implements ReadOnlyActivity {
 
     protected Name name;

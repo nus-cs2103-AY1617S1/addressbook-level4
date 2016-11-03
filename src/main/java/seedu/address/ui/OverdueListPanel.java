@@ -15,7 +15,7 @@ import seedu.address.model.activity.ReadOnlyActivity;
 /**
  * Panel containing the list of activities that are set as High Priority.
  * 
- * @author A0125284H
+ * @@author A0125284H
  */
 public class OverdueListPanel extends ListPanel {
 	/**

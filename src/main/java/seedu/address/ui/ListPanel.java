@@ -15,7 +15,7 @@ import seedu.address.model.activity.ReadOnlyActivity;
 /**
  * Base class for all List Panels.
  * 
- * @author A0125284H
+ * @@author A0125284H
  *
  */
 

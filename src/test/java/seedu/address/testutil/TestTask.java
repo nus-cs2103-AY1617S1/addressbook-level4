@@ -22,7 +22,7 @@ import seedu.address.commons.util.DateUtil;
  *
  */
 
-//@@author a0125284
+//@@author A0125284H
 
 public class TestTask extends TestActivity implements ReadOnlyTask{
 

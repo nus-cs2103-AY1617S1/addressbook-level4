@@ -21,7 +21,7 @@ import seedu.address.model.tag.UniqueTagList;
  *
  */
 
-//@@author a0125284
+//@@author A0125284H
 
 public class TestEvent extends TestActivity implements ReadOnlyEvent {
 
