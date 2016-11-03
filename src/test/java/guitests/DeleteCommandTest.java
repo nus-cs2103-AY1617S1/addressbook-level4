@@ -2,6 +2,7 @@ package guitests;
 
 import org.junit.Test;
 
+import seedu.unburden.commons.exceptions.IllegalValueException;
 import seedu.unburden.testutil.TestTask;
 import seedu.unburden.testutil.TestUtil;
 
@@ -10,8 +11,8 @@ import static seedu.unburden.logic.commands.DeleteCommand.MESSAGE_DELETE_TASK_SU
 
 public class DeleteCommandTest extends ListOfTaskGuiTest {
 
-    //@Test
-    public void delete() {
+    @Test
+    public void delete() throws IllegalValueException {
 
         //delete the first in the list
         TestTask[] currentList = td.getTypicalPersons();
@@ -39,7 +40,7 @@ public class DeleteCommandTest extends ListOfTaskGuiTest {
      * @param targetIndexOneIndexed e.g. to delete the first person in the list, 1 should be given as the target index.
      * @param currentList A copy of the current list of persons (before deletion).
      */
-    private void assertDeleteSuccess(int targetIndexOneIndexed, final TestTask[] currentList) {
+    private void assertDeleteSuccess(int targetIndexOneIndexed, final TestTask[] currentList) throws IllegalValueException {
         TestTask personToDelete = currentList[targetIndexOneIndexed-1]; //-1 because array uses zero indexing
         TestTask[] expectedRemainder = TestUtil.removeTaskFromList(currentList, targetIndexOneIndexed);
 

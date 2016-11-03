@@ -4,6 +4,7 @@ import guitests.guihandles.TaskCardHandle;
 import org.junit.Test;
 
 import seedu.unburden.commons.core.Messages;
+import seedu.unburden.commons.exceptions.IllegalValueException;
 import seedu.unburden.logic.commands.AddCommand;
 import seedu.unburden.testutil.TestTask;
 import seedu.unburden.testutil.TestUtil;
@@ -13,7 +14,7 @@ import static org.junit.Assert.assertTrue;
 public class AddCommandTest extends ListOfTaskGuiTest {
 	
         @Test
-        public void add() {
+        public void add() throws IllegalValueException {
             //add one task
             TestTask[] currentList = td.getTypicalPersons();
             TestTask taskToAdd = td.hoon;
@@ -65,7 +66,7 @@ public class AddCommandTest extends ListOfTaskGuiTest {
         
               
 
-    private void assertAddSuccess(TestTask personToAdd, TestTask... currentList) {
+    private void assertAddSuccess(TestTask personToAdd, TestTask... currentList) throws IllegalValueException {
         commandBox.runCommand(personToAdd.getAddCommand());
 
         //confirm the new card contains the right data

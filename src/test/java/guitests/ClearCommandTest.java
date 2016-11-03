@@ -2,12 +2,14 @@ package guitests;
 
 import org.junit.Test;
 
+import seedu.unburden.commons.exceptions.IllegalValueException;
+
 import static org.junit.Assert.assertTrue;
 
 public class ClearCommandTest extends ListOfTaskGuiTest {
 
-    //@Test
-    public void clear() {
+    @Test
+    public void clear() throws IllegalValueException {
 
         //verify a non-empty list can be cleared
         assertTrue(taskListPanel.isListMatching(td.getTypicalPersons()));
