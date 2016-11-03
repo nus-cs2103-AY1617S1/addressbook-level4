@@ -180,7 +180,7 @@ public class ModelManager extends ComponentManager implements Model {
 
         // Recurring task with only start time.
        if (task.isStartTask())
-            addRecurringTaskWithStartOnly(task, freq, occur);
+            addRecurringStartOnly(task, freq, occur);
 
        // Recurring task with only end time.
        else if (task.isDeadlineTask()) 
@@ -214,7 +214,7 @@ public class ModelManager extends ComponentManager implements Model {
            }
     }
 
-    public void addRecurringTaskWithStartOnly(ReadOnlyTask task, String freq, int occur) throws IllegalValueException {
+    public void addRecurringStartOnly(ReadOnlyTask task, String freq, int occur) throws IllegalValueException {
         StringBuilder recurStartTime = new StringBuilder(task.getStartTime().appearOnUIFormat());
         for (int i = 0; i < occur - 1; i++) {
             recurStartTime.insert(0, freq + " after ");
@@ -228,15 +228,16 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public synchronized void editTask(ReadOnlyTask task, String newName, String newStart, String newEnd
             ) throws TaskNotFoundException, IllegalValueException {
-        if (newName != null)
+        if (newName != null) {
             taskManager.editTaskName(task, newName);
-
-        if (newStart != null)
+        }
+        if (newStart != null) {
             taskManager.editTaskStartTime(task, newStart);
-
-        if (newEnd != null)
+        }
+        if (newEnd != null) {
             taskManager.editTaskEndTime(task, newEnd);
-
+        }
+        
         updateFilteredListToShowAll();
         indicateTaskManagerChanged();
         EventsCenter.getInstance().post(new JumpToListRequestEvent(filteredTasks.indexOf(task)));

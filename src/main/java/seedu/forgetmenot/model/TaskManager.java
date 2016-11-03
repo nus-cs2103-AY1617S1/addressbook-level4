@@ -77,9 +77,6 @@ public class TaskManager implements ReadOnlyTaskManager {
     //@@author A0147619W
     /**
      * Adds a task to the task manager.
-     *
-     * @throws UniqueTaskList.DuplicateTaskException
-     *             if an equivalent task already exists.
      */
     public void addTask(Task p) {
         tasks.add(p);

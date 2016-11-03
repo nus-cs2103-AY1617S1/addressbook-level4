@@ -198,18 +198,13 @@ public class Parser {
     //@@author A0139671X
     private Command prepareEdit(String args) {
         final Matcher matcher = TASK_EDIT_ARGS_FORMAT.matcher(args.trim());
-        String name, startTime, endTime;
         
         // Validate arg string format
         if (!matcher.matches()) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
-        } else {
-            name = (matcher.group("name") == null) ? null : matcher.group("name");
-            startTime = (matcher.group("start") == null) ? null : matcher.group("start");
-            endTime = (matcher.group("end") == null) ? null : matcher.group("end");
         }
         
-        return new EditCommand(matcher.group("index"), name, startTime, endTime);
+        return new EditCommand(matcher.group("index"), matcher.group("name"), matcher.group("start"), matcher.group("end"));
     }
 
     //@@author A0147619W
