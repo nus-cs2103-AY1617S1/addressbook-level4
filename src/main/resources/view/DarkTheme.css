@@ -114,15 +114,19 @@
     -fx-background-color: derive(#1d1d1d, 20%);
 }
 
+.list-view {
+	-fx-background-color: transparent;
+}
+
 .list-cell:filled:selected:focused, .list-cell:filled:selected {
-    -fx-background-color: #FFFFFF;
+    -fx-background-color: transparent;
 }
 
 .list-cell {
-	-fx-background-color: #FFFFFF;
+	-fx-background-color: transparent;
     -fx-label-padding: 0 0 0 0;
     -fx-graphic-text-gap : 0;
-    -fx-padding: 0 0 0 0;
+    -fx-padding: 0 0 1 0;
 }
 
 .label-done {
@@ -323,9 +327,13 @@
     -fx-text-fill: white;
 }
 
+.scroll-bar {
+	-fx-background-color: transparent;
+}
+
 .scroll-bar .thumb {
     -fx-background-color: derive(grey, 50%);
-    -fx-background-insets: 0;
+    -fx-background-insets: 5;
 }
 
 .scroll-bar .increment-button, .scroll-bar .decrement-button {
@@ -338,7 +346,7 @@
 }
 
 .scroll-bar:vertical .increment-arrow, .scroll-bar:vertical .decrement-arrow {
-    -fx-padding: 0 0 0 0;
+    -fx-padding: 1 8 1 8;
 }
 
 .scroll-bar:horizontal .increment-arrow, .scroll-bar:horizontal .decrement-arrow {
@@ -346,38 +354,13 @@
 }
 
 #cardPane {
-    -fx-background-color: transparent;
+    -fx-background-color: red;
     -fx-padding: 10 10 10 10;
     -fx-background-radius: 5;
     -fx-border-color: #d6d6d6;
-    -fx-border-width: 0 0 1 0;
-}
-
-#commandTypeLabel {
-    -fx-font-size: 11px;
-    -fx-text-fill: #F70D1A;
+    -fx-border-width: 0 0 0 0;
 }
 
 #filterField, #taskListPanel, #taskWebpage {
     -fx-effect: innershadow(gaussian, black, 10, 0, 0, 0);
-}
-
-#deadlineListPanelPlaceholder {
-	-fx-background-color: #428bca;
-	-fx-background-radius: 5;
-} 
-
-#deadlineListView {
-	-fx-background-color: #ffffff;
-	-fx-background-radius: 10;
-}
-
-#taskListPanelPlaceholder {
-	-fx-background-color: #428bca;
-	-fx-background-radius: 5;
-}
-
-#eventListPanelPlaceholder {
-	-fx-background-color: #428bca;
-	-fx-background-radius: 5;
 }
