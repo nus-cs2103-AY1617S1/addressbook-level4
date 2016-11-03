@@ -117,7 +117,7 @@ The `UI` component,
 
 ### Logic component
 
-<img src="images/logic.png" width="800"><br>
+<img src="images/LogicDiagram.png" width="800"><br>
 
 **API** : [`Logic.java`](../src/main/java/seedu/task/logic/Logic.java)
 
@@ -128,7 +128,7 @@ The `UI` component,
 
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")`
  API call.<br>
-<img src="images/DeletePersonSdForLogic.png" width="800"><br>
+<img src="images/logic.png" width="800"><br>
 
 **Undo Command** : [`UndoCommand.java`](../src/main/java/seedu/task/logic/commands/UndoCommand.java)
 
