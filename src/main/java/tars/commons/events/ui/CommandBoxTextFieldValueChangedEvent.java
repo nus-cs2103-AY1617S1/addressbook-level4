@@ -2,6 +2,9 @@ package tars.commons.events.ui;
 
 import tars.commons.events.BaseEvent;
 
+/**
+ * Indicates a change of value in the command box
+ */
 public class CommandBoxTextFieldValueChangedEvent extends BaseEvent {
 
     private String value;
