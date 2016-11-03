@@ -28,8 +28,8 @@ public class Parser {
 	private static final Pattern KEYWORDS_NAME_FORMAT = Pattern.compile("(?<keywords>[^/]+)");
 
 	// @@author A0143095H
-	private static final Pattern KEYWORDS_DATE_FORMAT = Pattern.compile(
-			"(?<dates>([0-9]{2})[-]([0-9]{2})[-]([0-9]{4}))");
+	private static final Pattern KEYWORDS_DATE_FORMAT = Pattern
+			.compile("(?<dates>([0-9]{2})[-]([0-9]{2})[-]([0-9]{4}))");
 
 	// Event
 	private static final Pattern ADD_FORMAT_0 = Pattern.compile(
@@ -94,6 +94,10 @@ public class Parser {
 	private static final String NEXTWEEK = "next week";
 
 	private static final String DONE = "done";
+
+	private static final String UNDONE = "undone";
+
+	private static final String OVERDUE = "overdue";
 
 	private static final String ALL = "all";
 
@@ -365,26 +369,34 @@ public class Parser {
 		if (matcherDate.matches()) {
 			return new ListCommand(args, "date");
 		} else {
-			Calendar calendar = Calendar.getInstance();
-			switch (args.toLowerCase()) {
-			case TOMORROW:
-				calendar.setTime(calendar.getTime());
-				calendar.add(Calendar.DAY_OF_YEAR, 1);
-				final String tomorrowKeyword = DATEFORMATTER.format(calendar.getTime());
-				System.out.println(tomorrowKeyword);
-				return new ListCommand(tomorrowKeyword, "date");
-			case NEXTWEEK:
-				calendar.setTime(calendar.getTime());
-				calendar.add(Calendar.WEEK_OF_YEAR, 1);
-				final String nextWeekKeyword = DATEFORMATTER.format(calendar.getTime());
-				return new ListCommand(nextWeekKeyword, "date");
-			case DONE:
-				return new ListCommand(DONE);
-			case ALL:
-				return new ListCommand(ALL);
-			default:
-				return new IncorrectCommand("Try List, or List followed by \"done\" or \"all\" or a date");
+			if (args.toLowerCase().contains("to")) {
+				String[] dates = args.toLowerCase().split("to");
+				return new ListCommand(dates, "period");
 			}
+		}
+		Calendar calendar = Calendar.getInstance();
+		switch (args.toLowerCase()) {
+		case TOMORROW:
+			calendar.setTime(calendar.getTime());
+			calendar.add(Calendar.DAY_OF_YEAR, 1);
+			final String tomorrowKeyword = DATEFORMATTER.format(calendar.getTime());
+			System.out.println(tomorrowKeyword);
+			return new ListCommand(tomorrowKeyword, "date");
+		case NEXTWEEK:
+			calendar.setTime(calendar.getTime());
+			calendar.add(Calendar.WEEK_OF_YEAR, 1);
+			final String nextWeekKeyword = DATEFORMATTER.format(calendar.getTime());
+			return new ListCommand(nextWeekKeyword, "date");
+		case DONE:
+			return new ListCommand(DONE);
+		case UNDONE:
+			return new ListCommand(UNDONE);
+		case OVERDUE:
+			return new ListCommand(OVERDUE);
+		case ALL:
+			return new ListCommand(ALL);
+		default:
+			return new IncorrectCommand("Try List, or List followed by \"done\" or \"all\" or a date");
 		}
 	}
 
@@ -417,7 +429,7 @@ public class Parser {
 				return new IncorrectCommand(
 						String.format(MESSAGE_INVALID_TASK_DISPLAYED_INDEX, EditCommand.MESSAGE_USAGE));
 			}
-			
+
 			return new EditCommand(index.get(), matcher.group("name"), matcher.group("taskDescriptions"),
 					matcher.group("date"), matcher.group("startTimeArguments"), matcher.group("endTimeArguments"));
 

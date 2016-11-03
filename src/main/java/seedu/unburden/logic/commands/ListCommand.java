@@ -29,30 +29,53 @@ public class ListCommand extends Command {
 	public static final String MESSAGE_USAGE = "Type : \"" + COMMAND_WORD + "\" or type : \"" + COMMAND_WORD
 			+ "\" your specified date ";
 
-	public final Date date;
+	private final Date endDate;
 
-	public final String mode;
+	private final Date startDate;
+
+	private final String mode;
 
 	public ListCommand() {
-		this.date = null;
+		this.endDate = null;
+		this.startDate = null;
 		this.mode = "undone";
 	}
 
 	public ListCommand(String doneOrUndone) {
-		this.date = null;
+		this.endDate = null;
+		this.startDate = null;
 		this.mode = doneOrUndone;
 	}
 
 	public ListCommand(String args, String mode) throws ParseException {
-		SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
-		this.date = df.parse(args);
-		this.mode = "date";
+		SimpleDateFormat dateFormatter = new SimpleDateFormat("dd-MM-yyyy");
+		this.endDate = dateFormatter.parse(args.trim());
+		this.startDate = null;
+		this.mode = mode;
+	}
+
+	public ListCommand(String[] args, String mode) throws ParseException {
+		SimpleDateFormat dateFormatter = new SimpleDateFormat("dd-MM-yyyy");
+		this.endDate = dateFormatter.parse(args[1].trim());
+		this.startDate = dateFormatter.parse(args[0].trim());
+		this.mode = mode;
 	}
 
 	private java.util.function.Predicate<? super Task> getAllDatesBefore(Date date) {
 		return t -> {
 			try {
 				return t.getDate().toDate().before(date) || t.getDate().toDate().equals(date);
+			} catch (ParseException e) {
+				return false;
+			}
+		};
+	}
+
+	private java.util.function.Predicate<? super Task> getAllDatesBetween(Date startDate, Date endDate) {
+		return t -> {
+			try {
+				return (t.getDate().toDate().before(endDate) && t.getDate().toDate().after(startDate))
+						|| t.getDate().toDate().equals(startDate) || t.getDate().toDate().equals(endDate);
 			} catch (ParseException e) {
 				return false;
 			}
@@ -67,23 +90,48 @@ public class ListCommand extends Command {
 
 	private java.util.function.Predicate<? super Task> getAllUndone() {
 		return t -> {
-			return !t.getDone();
+			return !t.getDone() && !t.getOverdue();
+		};
+	}
+
+	private java.util.function.Predicate<? super Task> getAllOverdue() {
+		return t -> {
+			return t.getOverdue();
 		};
 	}
 
 	@Override
 	public CommandResult execute() throws DuplicateTagException, IllegalValueException {
-		if (mode.equals("undone")) {
+		switch (mode) {
+		case "undone":
 			model.updateFilteredTaskList(getAllUndone());
-			// model.updateFilteredListToShowAll();
-		} else if (mode.equals("done")) {
+			break;
+		case "overdue":
+			model.updateFilteredTaskList(getAllOverdue());
+			break;
+		case "done":
 			model.updateFilteredTaskList(getAllDone());
-		} else if (mode.equals("all")) {
-			// model.updateFilteredTaskList(getAllUndone());
+			break;
+		case "period":
+			model.updateFilteredTaskList(getAllDatesBetween(startDate, endDate));
+			break;
+		case "all":
 			model.updateFilteredListToShowAll();
-		} else {
-			model.updateFilteredTaskList(getAllDatesBefore(date));
+			break;
+		default:
+			model.updateFilteredTaskList(getAllDatesBefore(endDate));
+			break;
 		}
+		/*
+		 * if (mode.equals("undone")) {
+		 * model.updateFilteredTaskList(getAllUndone()); //
+		 * model.updateFilteredListToShowAll(); } else if (mode.equals("done"))
+		 * { model.updateFilteredTaskList(getAllDone()); } else if
+		 * (mode.equals("all")) { //
+		 * model.updateFilteredTaskList(getAllUndone());
+		 * model.updateFilteredListToShowAll(); } else {
+		 * model.updateFilteredTaskList(getAllDatesBefore(date)); }
+		 */
 		return new CommandResult(MESSAGE_SUCCESS);
 	}
 

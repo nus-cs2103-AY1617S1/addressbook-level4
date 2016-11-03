@@ -26,6 +26,7 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
     private Time endTime;
     private UniqueTagList tags;
     private boolean done;
+    private boolean overdue;
     private String getDoneString;
 	private static final SimpleDateFormat DATEFORMATTER = new SimpleDateFormat("dd-MM-yyyy");
 	private static final SimpleDateFormat TIMEFORMATTER = new SimpleDateFormat("HHmm");
@@ -34,7 +35,22 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
      * Every field must be present and not null.
      * @throws IllegalValueException 
      */
-    
+   
+	
+	 public Task(Name name, TaskDescription taskD, Date date, Time startTime, Time endTime, Boolean done,Boolean overdue,UniqueTagList tags) throws IllegalValueException {
+	        assert !CollectionUtil.isAnyNull(name, taskD, date, startTime, endTime, tags);
+	        if(startTime.compareTo(endTime) > 0){
+	        	throw new IllegalValueException(Messages.MESSAGE_STARTTIME_AFTER_ENDTIME);
+	        }
+	        this.name = name;
+	        this.taskD = taskD;
+	        this.date = date;
+	        this.startTime = startTime;
+	        this.endTime = endTime;
+	        this.done = done;
+	        this.overdue = overdue;
+	        this.tags = tags; // protect internal tags from changes in the arg list
+	    }
     
     public Task(Name name, TaskDescription taskD, Date date, Time startTime, Time endTime, Boolean done,UniqueTagList tags) throws IllegalValueException {
         assert !CollectionUtil.isAnyNull(name, taskD, date, startTime, endTime, tags);
@@ -51,7 +67,7 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
     }
    
     public Task(ReadOnlyTask source) throws IllegalValueException {
-        this(source.getName(), source.getTaskDescription(), source.getDate(), source.getStartTime(), source.getEndTime(), source.getDone(),source.getTags());
+        this(source.getName(), source.getTaskDescription(), source.getDate(), source.getStartTime(), source.getEndTime(), source.getDone(),source.getOverdue(),source.getTags());
     }
     //@@Nathanael Chan A0139678J
     // adds event
@@ -216,14 +232,13 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
 		return done;
 	}
 	
-	public boolean ifOverdue(){
-		if(getDoneString.equals("Overdue!")){
-			return true;
-		}
-		else return false;
+	
+	public boolean getOverdue(){
+		setOverdue();
+		return overdue;
 	}
 	
-	public String getDoneString() throws IllegalValueException{
+	public String getDoneString() {
 		if(done){
 			getDoneString = "Done!";
 		}
@@ -236,6 +251,7 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
 		}
 		return getDoneString;
 	}
+	
     //@@Gauri Joshi A0143095H
     /**
      * Replaces this person's tags with the tags in the argument tag list.
@@ -268,17 +284,32 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
         this.done = done;
     }
     
+    public void setOverdue(){
+		if(getDoneString().equals("Overdue!")){
+			 overdue = true;
+		}
+		else 
+			overdue =  false;
+	}
+    
     //This method will check if the task is overdue and returns true 
-    public boolean checkOverDue() throws IllegalValueException{
+    public boolean checkOverDue(){
     	Calendar calendar = Calendar.getInstance();
     	calendar.setTime(calendar.getTime());
-    	if(this.getDate().compareTo(new Date(DATEFORMATTER.format(calendar.getTime()))) < 0){
-    		return true;
-    	}else if(this.getDate().compareTo(new Date(DATEFORMATTER.format(calendar.getTime()))) == 0){
-    		if(this.getEndTime().compareTo(new Time(TIMEFORMATTER.format(calendar.getTime()))) < 0){
-    			return true;
-    		}
+    	
+    	if(this.getDate().getFullDate()!= ""){
+    		if(this.getDate().getFullDate().compareTo(DATEFORMATTER.format(calendar.getTime())) < 0){
+        		return true;
+        	}
+    		else if(this.getDate().getFullDate().compareTo(DATEFORMATTER.format(calendar.getTime())) == 0){
+        		if(this.getEndTime().getFullTime()!= ""){
+        			if(this.getEndTime().getFullTime().compareTo(TIMEFORMATTER.format(calendar.getTime())) < 0){
+            			return true;
+            		}	
+        		}
+        	}
     	}
+    	
     	return false;
     }
     
