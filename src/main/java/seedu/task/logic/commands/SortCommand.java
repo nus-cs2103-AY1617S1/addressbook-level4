@@ -8,12 +8,14 @@ public class SortCommand extends Command {
 
     public static final String COMMAND_WORD = "sort";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Sorts tasks according to specified parameters."
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Sorts tasks according to specified parameters.\n"
             + "If parameter is not given, tasks will be sorted by a default preset.\n"
             + "Parameters: PARAMETER\n"
             + "Example: " + COMMAND_WORD + " deadline";
 
     public static final String MESSAGE_SUCCESS = "Listed all tasks with order: %1$s";
+    public static final String MESSAGE_SUCCESS_DEFAULT = "Listed all tasks with order: Default Preset\n"
+            + "Tasks are sorted in the order: Incomplete tasks first, deadline, start time, name";
 
     private final String keyword;
 
@@ -45,6 +47,9 @@ public class SortCommand extends Command {
     public CommandResult execute(boolean isUndo) {
         model.sortFilteredTaskList(keyword);
         model.saveCurrentSortPreference(keyword);
+        if (keyword.equals("Default")) {
+            return new CommandResult(String.format(MESSAGE_SUCCESS_DEFAULT));
+        }
         return new CommandResult(String.format(MESSAGE_SUCCESS, keyword));
     }
 
