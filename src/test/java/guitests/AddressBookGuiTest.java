@@ -83,6 +83,8 @@ public abstract class AddressBookGuiTest {
     protected TaskBook getInitialData() {
         TaskBook ab = TestUtil.generateEmptyTaskBook();
         TypicalTestFloatingTasks.loadTaskBookWithSampleData(ab);
+        TypicalTestDeadlineTasks.loadTaskBookWithSampleData(ab);
+        TypicalTestEvents.loadTaskBookWithSampleData(ab);
         return ab;
     }
 
