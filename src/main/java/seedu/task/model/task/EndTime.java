@@ -10,7 +10,7 @@ public class EndTime {
 
     public static final String MESSAGE_ENDTIME_CONSTRAINTS = "Task end times should be in hh.mmam or hh.mmpm format";
     public static final String ENDTIME_VALIDATION_REGEX = "((1[012]|[1-9]).[0-5][0-9](\\s)?(?i)(am|pm)|(1[012]|[1-9])(\\s)?(?i)(am|pm))|(^.+)";
-    public static final String NO_ENDTIME = "no end time";
+    public static final String NO_ENDTIME = "";
 
     public final String value;
 

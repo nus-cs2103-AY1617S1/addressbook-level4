@@ -33,15 +33,15 @@ public class TaskCardHandle extends GuiHandle {
     }
 
     public String getStartTime() {
-        return getTextFromLabel(STARTTIME_FIELD_ID).replace(" from ", "");
+        return getTextFromLabel(STARTTIME_FIELD_ID).replace(" Starts: ", "");
     }
 
     public String getEndTime() {
-        return getTextFromLabel(ENDTIME_FIELD_ID).replace(" to ", "");
+        return getTextFromLabel(ENDTIME_FIELD_ID).replace(" Ends: ", "");
     }
 
     public String getDeadline() {
-        return getTextFromLabel(DEADLINE_FIELD_ID).replace(" ends ", "");
+        return getTextFromLabel(DEADLINE_FIELD_ID).replace(" Due: ", "");
     }
     
     public boolean getDoneStatus() {

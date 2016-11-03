@@ -1,19 +1,27 @@
 package seedu.task.storage;
 
+import seedu.task.commons.core.LogsCenter;
 import seedu.task.commons.exceptions.IllegalValueException;
 import seedu.task.model.tag.Tag;
 import seedu.task.model.tag.UniqueTagList;
 import seedu.task.model.task.*;
+import seedu.task.ui.TaskCard;
 
 import javax.xml.bind.annotation.XmlElement;
+
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.logging.Logger;
 
 /**
  * JAXB-friendly version of the Task.
  */
 public class XmlAdaptedTask {
-
+    
     @XmlElement(required = true)
     private String name;
     @XmlElement(required = true)
@@ -24,10 +32,9 @@ public class XmlAdaptedTask {
     private String deadline;
     @XmlElement(required = true)
     private boolean doneStatus;
+    
     @XmlElement(required = true)
-    private boolean overdueStatus;
-    @XmlElement(required = true)
-    private boolean newlyAdded;
+    private boolean favoriteStatus;
     
 
     @XmlElement
@@ -49,9 +56,11 @@ public class XmlAdaptedTask {
         startTime = source.getStartTime().value;
         endTime = source.getEndTime().value;
         deadline = source.getDeadline().value;
+        
+        
         doneStatus = source.getStatus().getDoneStatus();
-        overdueStatus = source.getStatus().getOverdueStatus();
-        newlyAdded = source.getStatus().getNewlyAddedStatus();
+        
+        favoriteStatus = source.getStatus().getFavoriteStatus();
         tagged = new ArrayList<>();
         for (Tag tag : source.getTags()) {
             tagged.add(new XmlAdaptedTag(tag));
@@ -73,7 +82,24 @@ public class XmlAdaptedTask {
         final EndTime endTime = new EndTime(this.endTime);
         final Deadline deadline = new Deadline(this.deadline);
         final UniqueTagList tags = new UniqueTagList(taskTags);
-        final Status status = new Status(this.doneStatus, this.overdueStatus, this.newlyAdded);
+        boolean isDue = false;
+        if (!this.deadline.isEmpty()) {
+            String strDatewithTime = this.deadline.replace(" ", "T");
+            LocalDateTime aLDT = LocalDateTime.parse(strDatewithTime);
+
+            Date currentDate=new Date();
+            LocalDateTime localDateTime = LocalDateTime.ofInstant(currentDate.toInstant(), ZoneId.systemDefault());
+            
+            if (aLDT.isBefore(localDateTime)) {
+                //this.overdueStatus = true;
+                isDue = true;
+            }
+            
+            
+            }
+            
+            
+        final Status status = new Status(this.doneStatus, isDue, this.favoriteStatus);
         return new Task(name, startTime, endTime, deadline, tags, status);
     }
 }

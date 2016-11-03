@@ -8,11 +8,14 @@ import seedu.task.commons.core.LogsCenter;
 import seedu.task.commons.core.UnmodifiableObservableList;
 import seedu.task.commons.events.model.TaskManagerChangedEvent;
 import seedu.task.model.task.ReadOnlyTask;
+import seedu.task.model.task.Status;
 import seedu.task.model.task.Task;
 import seedu.task.model.task.UniqueTaskList;
 import seedu.task.model.task.UniqueTaskList.TaskNotFoundException;
 
-
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.Date;
 import java.util.Set;
 import java.util.logging.Logger;
 
@@ -74,6 +77,28 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public synchronized void addTask(Task task) throws UniqueTaskList.DuplicateTaskException {
+        if (!task.getDeadline().toString().isEmpty()) {
+            String strDatewithTime = task.getDeadline().toString().replace(" ", "T");
+            LocalDateTime aLDT = LocalDateTime.parse(strDatewithTime);
+
+            Date currentDate=new Date();
+            LocalDateTime localDateTime = LocalDateTime.ofInstant(currentDate.toInstant(), ZoneId.systemDefault());
+
+            if (aLDT.isBefore(localDateTime)) {
+
+                task = new Task (task.getName(), task.getStartTime(), task.getEndTime(), task.getDeadline(), task.getTags(), new Status(task.getStatus().getDoneStatus(), true, task.getStatus().getFavoriteStatus()));
+
+            }
+            else{
+                task = new Task (task.getName(), task.getStartTime(), task.getEndTime(), task.getDeadline(), task.getTags(), new Status(task.getStatus().getDoneStatus(), false, task.getStatus().getFavoriteStatus()));
+
+            }
+
+        }
+        else {
+            task = new Task (task.getName(), task.getStartTime(), task.getEndTime(), task.getDeadline(), task.getTags(), new Status(task.getStatus().getDoneStatus(), false, task.getStatus().getFavoriteStatus()));
+
+        }
         taskManager.addTask(task);
         updateFilteredListToShowAll();
         indicateTaskManagerChanged();
@@ -84,6 +109,28 @@ public class ModelManager extends ComponentManager implements Model {
     //@@author A0147335E-reused
     @Override
     public synchronized void addTask(int index, Task task) throws UniqueTaskList.DuplicateTaskException {
+        if (!task.getDeadline().toString().isEmpty()) {
+            String strDatewithTime = task.getDeadline().toString().replace(" ", "T");
+            LocalDateTime aLDT = LocalDateTime.parse(strDatewithTime);
+
+            Date currentDate=new Date();
+            LocalDateTime localDateTime = LocalDateTime.ofInstant(currentDate.toInstant(), ZoneId.systemDefault());
+
+            if (aLDT.isBefore(localDateTime)) {
+
+                task = new Task (task.getName(), task.getStartTime(), task.getEndTime(), task.getDeadline(), task.getTags(), new Status(task.getStatus().getDoneStatus(), true, task.getStatus().getFavoriteStatus()));
+
+            }
+            else{
+                task = new Task (task.getName(), task.getStartTime(), task.getEndTime(), task.getDeadline(), task.getTags(), new Status(task.getStatus().getDoneStatus(), false, task.getStatus().getFavoriteStatus()));
+
+            }
+
+        }
+        else {
+            task = new Task (task.getName(), task.getStartTime(), task.getEndTime(), task.getDeadline(), task.getTags(), new Status(task.getStatus().getDoneStatus(), false, task.getStatus().getFavoriteStatus()));
+
+        }
         taskManager.addTask(index, task);
         updateFilteredListToShowAll();
         indicateTaskManagerChanged();

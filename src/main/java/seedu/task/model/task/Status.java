@@ -10,18 +10,18 @@ public class Status {
 
     private boolean isOverdue;
 
-    private boolean newlyAdded;
+    private boolean isFavorite;
 
     public Status() {
         this.isDone = false;
         this.isOverdue = false;
-        this.newlyAdded = false;
+        this.isFavorite = false;
     }
 
-    public Status(boolean isDone, boolean isOverdue, boolean newlyAdded) {
+    public Status(boolean isDone, boolean isOverdue, boolean isFavorite) {
         this.isDone = isDone;
         this.isOverdue = isOverdue;
-        this.newlyAdded = newlyAdded;
+        this.isFavorite = isFavorite;
     }
 
     public void setDoneStatus(boolean doneStatus) {
@@ -32,8 +32,8 @@ public class Status {
         this.isDone = overdueStatus;
     }
 
-    public void setNewlyAdded(boolean newlyAdded) {
-        this.newlyAdded = newlyAdded;
+    public void setFavoriteStatus(boolean isFavorite) {
+        this.isFavorite = isFavorite;
     }
 
     public boolean getDoneStatus() {
@@ -44,8 +44,8 @@ public class Status {
         return isOverdue;
     }
 
-    public boolean getNewlyAddedStatus() {
-        return newlyAdded;
+    public boolean getFavoriteStatus() {
+        return isFavorite;
     }
 
     // @@author A0147944U

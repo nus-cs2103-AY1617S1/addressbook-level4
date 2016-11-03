@@ -16,7 +16,7 @@ public class EditCommandTest extends TaskManagerGuiTest {
         TestTask[] currentList = td.getTypicalTasks();
         
         commandBox.runCommand("edit 1 name, Accompany dad to the doctor");
-
+        commandBox.runCommand("edit 1 tag, gwsDad");
         
         assertEditSuccess(1, TypicalTestTasks.taskJ, currentList);
         

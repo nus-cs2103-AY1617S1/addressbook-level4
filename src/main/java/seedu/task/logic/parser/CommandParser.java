@@ -15,50 +15,52 @@ import seedu.task.logic.parser.TimeParserResult.DateTimeStatus;
  */
 public class CommandParser {
 
+    private static final String EMPTY_STRING = "";
+
     // @@author A0147944U
     /**
      * Used for initial separation of command word and args.
      */
-    
+
     private static final Pattern BASIC_COMMAND_FORMAT =
             Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
-    
+
     private static final Pattern TASK_INDEX_ARGS_FORMAT =
             Pattern.compile("(?<targetIndex>.+)");
-    
+
     //One or more keywords separated by whitespace
     private static final Pattern KEYWORDS_ARGS_FORMAT =
             Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)");
-    
+
     private static final Pattern NATURAL_ARGS_FORMAT =
             Pattern.compile("(?<name>[^,#]+)" + "(?<tagArguments>(?: #[^/]+)*)");
-    
+
     private static final Pattern NATURAL_ARGS_FORMAT_WITH_START_TIME =
             Pattern.compile("(?<name>[^,#]+)" + ", (at|on) (?<startTime>[^@#]+)" + "(?<tagArguments>(?: #[^/]+)*)");
-    
+
     private static final Pattern NATURAL_ARGS_FORMAT_WITH_DEADLINE =
             Pattern.compile("(?<name>[^,#]+)" + ", by (?<deadline>[^@#]+)" + "(?<tagArguments>(?: #[^/]+)*)");
-    
+
     private static final Pattern NATURAL_ARGS_FORMAT_WITH_START_AND_END_TIME =
             Pattern.compile("(?<name>[^,#]+)" + ", from (?<startTime>[^@#]+)" + " to (?<endTime>[^@#]+)" + "(?<tagArguments>(?: #[^/]+)*)");
-    
+
     private static final Pattern NATURAL_ARGS_FORMAT_WITH_START_AND_DEADLINE =
             Pattern.compile("(?<name>[^,#]+)" + ", (at|on) (?<startTime>[^@#]+)" + " (by|to) (?<deadline>[^@#]+)" + "(?<tagArguments>(?: #[^/]+)*)");
-    
+
     private static final Pattern NATURAL_ARGS_FORMAT_WITH_START_AND_END_TIME_AND_DEADLINE =
             Pattern.compile("(?<name>[^,#]+)" + ", from (?<startTime>[^@#]+)" + "to (?<endTime>[^@#]+)" + "by (?<deadline>[^@#]+)" + "(?<tagArguments>(?: #[^/]+)*)");
-    
+
     public static final Pattern EDIT_TASK_DATA_ARGS_FORMAT_NATURAL =
             Pattern.compile("(?<targetIndex>[0-9]+)" + " (?<item>[^,]+)" + ", (?<content>.+)");
-    
+
     public static final Pattern DIRECTORY_ARGS_FORMAT =
             Pattern.compile("(?<directory>[^<>|]+)");
     //@@author
-    
+
     public static final String EDIT_NAME = "name";
-    public static final String EDIT_START_TIME = "start time";
-    public static final String EDIT_END_TIME = "end time";
-    public static final String EDIT_DEADLINE = "deadline";
+    public static final String EDIT_START_TIME = "start";
+    public static final String EDIT_END_TIME = "end";
+    public static final String EDIT_DEADLINE = "due";
     public static final String EDIT_TAG = "tag";
 
     public CommandParser() {
@@ -109,7 +111,7 @@ public class CommandParser {
         case UndoCommand.COMMAND_WORD:
             return prepareUndo(arguments);
 
-        // @@author A0147944U-reused
+            // @@author A0147944U-reused
         case DirectoryCommand.COMMAND_WORD:
             return prepareDirectory(arguments);
 
@@ -124,13 +126,23 @@ public class CommandParser {
 
         case SortCommand.COMMAND_WORD:
             return prepareSort(arguments);
-        // @@author
+            // @@author
 
         case DoneCommand.COMMAND_WORD:
             return prepareDone(arguments);
 
         case UndoneCommand.COMMAND_WORD:
             return prepareUndone(arguments);
+
+        case FavoriteCommand.COMMAND_WORD:
+            return prepareFavorite(arguments);
+
+        case UnfavoriteCommand.COMMAND_WORD:
+            return prepareUnfavorite(arguments);
+
+        case RefreshCommand.COMMAND_WORD:
+            return new RefreshCommand();
+
         default:
             return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
         }
@@ -161,7 +173,7 @@ public class CommandParser {
 
         else if (matcherNatural.matches()) {
             try {
-                return new AddCommand(matcherNatural.group("name"), "now", "no endtime", "no deadline",
+                return new AddCommand(matcherNatural.group("name"), EMPTY_STRING, EMPTY_STRING, EMPTY_STRING,
                         getTagsFromArgs(matcherNatural.group("tagArguments")));
             } catch (IllegalValueException ive) {
                 return new IncorrectCommand(ive.getMessage());
@@ -169,15 +181,15 @@ public class CommandParser {
 
         } else if (matcherStart.matches() && !(Pattern.compile("at.*by").matcher(args).find())) {
             try {
-                return createCommandStart(matcherStart.group("name"), matcherStart.group("startTime"), "no endtime",
-                        "no deadline", getTagsFromArgs(matcherStart.group("tagArguments")));
+                return createCommandStart(matcherStart.group("name"), matcherStart.group("startTime"), EMPTY_STRING,
+                        EMPTY_STRING, getTagsFromArgs(matcherStart.group("tagArguments")));
 
             } catch (IllegalValueException i) {
                 return new IncorrectCommand(i.getMessage());
             }
         } else if (matcherDeadline.matches()) {
             try {
-                return createCommandDeadline(matcherDeadline.group("name"), "now", "no endtime",
+                return createCommandDeadline(matcherDeadline.group("name"), EMPTY_STRING, EMPTY_STRING,
                         matcherDeadline.group("deadline"), getTagsFromArgs(matcherDeadline.group("tagArguments")));
 
             } catch (IllegalValueException i) {
@@ -188,7 +200,7 @@ public class CommandParser {
         else if (matcherStartEnd.matches() && !(Pattern.compile("from.*to.*by").matcher(args).find())) {
             try {
                 return createCommandStartEnd(matcherStartEnd.group("name"), matcherStartEnd.group("startTime"),
-                        matcherStartEnd.group("endTime"), "no deadline",
+                        matcherStartEnd.group("endTime"), EMPTY_STRING,
                         getTagsFromArgs(matcherStartEnd.group("tagArguments")));
 
             } catch (IllegalValueException i) {
@@ -197,7 +209,7 @@ public class CommandParser {
         } else if (matcherStartDeadline.matches() && (Pattern.compile("at.*by").matcher(args).find())) {
             try {
                 return createCommandStartDeadline(matcherStartDeadline.group("name"),
-                        matcherStartDeadline.group("startTime"), "no endtime", matcherStartDeadline.group("deadline"),
+                        matcherStartDeadline.group("startTime"), EMPTY_STRING, matcherStartDeadline.group("deadline"),
                         getTagsFromArgs(matcherStartDeadline.group("tagArguments")));
 
             } catch (IllegalValueException i) {
@@ -411,7 +423,7 @@ public class CommandParser {
             }
         case EDIT_TAG:
             try {
-                return new EditCommand(index, item, item, getTagsFromArgs(content));
+                return new EditCommand(index, item, item, getTagsFromArgs(" " + content));
             } catch (IllegalValueException ive) {
                 return new IncorrectCommand(ive.getMessage());
             }
@@ -576,4 +588,23 @@ public class CommandParser {
 
         return new UndoneCommand(index.get());
     }
+    private Command prepareFavorite(String args) {
+        Optional<Integer> index = parseIndex(args);
+        if(!index.isPresent()){
+            return new IncorrectCommand(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, FavoriteCommand.MESSAGE_USAGE));
+        }
+        return new FavoriteCommand(index.get());
+    }
+    private Command prepareUnfavorite(String args) {
+        Optional<Integer> index = parseIndex(args);
+        if(!index.isPresent()){
+            return new IncorrectCommand(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, UnfavoriteCommand.MESSAGE_USAGE));
+        }
+        return new UnfavoriteCommand(index.get());
+    }
+
+
 }
+

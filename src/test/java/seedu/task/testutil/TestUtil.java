@@ -67,15 +67,15 @@ public class TestUtil {
     private static Task[] getSampleTaskData() {
         try {
             return new Task[]{
-                    new Task(new Name("Accompany mom to the doctor"), new StartTime("10.00am"), new EndTime("02.59am"), new Deadline("10.00pm"), new UniqueTagList(), new Status()),
-                    new Task(new Name("Borrow software engineering book"), new StartTime("10.00am"), new EndTime("02.59am"), new Deadline("10.00pm"), new UniqueTagList(), new Status()),
-                    new Task(new Name("Call Jim"), new StartTime("10.00am"), new EndTime("02.59am"), new Deadline("10.00pm"), new UniqueTagList(), new Status()),
-                    new Task(new Name("Do homework"), new StartTime("10.00am"), new EndTime("02.59am"), new Deadline("10.00pm"), new UniqueTagList(), new Status()),
-                    new Task(new Name("Edit AddressBook file"), new StartTime("10.00am"), new EndTime("02.59am"), new Deadline("10.00pm"), new UniqueTagList(), new Status()),
-                    new Task(new Name("Finish up the project"), new StartTime("10.00am"), new EndTime("02.59am"), new Deadline("10.00pm"), new UniqueTagList(), new Status()),
-                    new Task(new Name("Go for a jog"), new StartTime("10.00am"), new EndTime("02.59am"), new Deadline("10.00pm"), new UniqueTagList(), new Status()),
-                    new Task(new Name("Help Jim with his task"), new StartTime("10.00am"), new EndTime("02.59am"), new Deadline("10.00pm"), new UniqueTagList(), new Status()),
-                    new Task(new Name("Iron new clothes"), new StartTime("10.00am"), new EndTime("02.59am"), new Deadline("10.00pm"), new UniqueTagList(), new Status())
+                    new Task(new Name("Accompany mom to the doctor"), new StartTime("2016-11-01 21:55"), new EndTime("2016-11-01 21:55"), new Deadline("2016-11-01 21:55"), new UniqueTagList(), new Status()),
+                    new Task(new Name("Borrow software engineering book"), new StartTime("2016-11-01 21:55"), new EndTime("2016-11-01 21:55"), new Deadline("2016-11-01 21:55"), new UniqueTagList(), new Status()),
+                    new Task(new Name("Call Jim"), new StartTime("2016-11-01 21:55"), new EndTime("2016-11-01 21:55"), new Deadline("2016-11-01 21:55"), new UniqueTagList(), new Status()),
+                    new Task(new Name("Do homework"), new StartTime("2016-11-01 21:55"), new EndTime("2016-11-01 21:55"), new Deadline("2016-11-01 21:55"), new UniqueTagList(), new Status()),
+                    new Task(new Name("Edit AddressBook file"), new StartTime("2016-11-01 21:55"), new EndTime("2016-11-01 21:55"), new Deadline("2016-11-01 21:55"), new UniqueTagList(), new Status()),
+                    new Task(new Name("Finish up the project"), new StartTime("2016-11-01 21:55"), new EndTime("2016-11-01 21:55"), new Deadline("2016-11-01 21:55"), new UniqueTagList(), new Status()),
+                    new Task(new Name("Go for a jog"), new StartTime("2016-11-01 21:55"), new EndTime("2016-11-01 21:55"), new Deadline("2016-11-01 21:55"), new UniqueTagList(), new Status()),
+                    new Task(new Name("Help Jim with his task"), new StartTime("2016-11-01 21:55"), new EndTime("2016-11-01 21:55"), new Deadline("2016-11-01 21:55"), new UniqueTagList(), new Status()),
+                    new Task(new Name("Iron new clothes"), new StartTime("2016-11-01 21:55"), new EndTime("2016-11-01 21:55"), new Deadline("2016-11-01 21:55"), new UniqueTagList(), new Status())
             };
           
             

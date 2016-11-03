@@ -2,35 +2,39 @@
 <taskmanager>
     <tasks>
         <name>Watch world news</name>
-        <startTime isPrivate="false">2100hrs</startTime>
-        <endTime isPrivate="false">2200hrs</endTime>
-        <deadline isPrivate="false">Living Room</deadline>
+        <startTime>2016-11-01 21:55</startTime>
+        <endTime>2016-11-01 21:55</endTime>
+        <deadline>2016-11-01 21:55</deadline>
         <doneStatus>false</doneStatus>
         <overdueStatus>false</overdueStatus>
+        <favoriteStatus>false</favoriteStatus>
     </tasks>
     <tasks>
         <name>Play soccer</name>
-        <startTime isPrivate="false">1800hrs</startTime>
-        <endTime isPrivate="false">1900hrs</endTime>
-        <deadline isPrivate="false">Bedok Stadium</deadline>
+        <startTime>2016-11-01 21:55</startTime>
+        <endTime>2016-11-01 21:55</endTime>
+        <deadline>2016-11-01 21:55</deadline>
         <doneStatus>false</doneStatus>
         <overdueStatus>false</overdueStatus>
+        <favoriteStatus>false</favoriteStatus>
     </tasks>
     <tasks>
         <name>Train for IPPT</name>
-        <startTime isPrivate="false">0900hrs</startTime>
-        <endTime isPrivate="false">1100hrs</endTime>
-        <deadline isPrivate="false">Tekong Park</deadline>
+        <startTime>2016-11-01 21:55</startTime>
+        <endTime>2016-11-01 21:55</endTime>
+        <deadline>2016-11-01 21:55</deadline>
         <doneStatus>false</doneStatus>
         <overdueStatus>false</overdueStatus>
+        <favoriteStatus>false</favoriteStatus>
     </tasks>
     <tasks>
         <name>Buy pizza</name>
-        <startTime isPrivate="false">1500hrs</startTime>
-        <endTime isPrivate="false">1500hrs</endTime>
-        <deadline isPrivate="false">Pizza hut</deadline>
+        <startTime>2016-11-01 21:55</startTime>
+        <endTime>2016-11-01 21:55</endTime>
+        <deadline>2016-11-01 21:55</deadline>
         <doneStatus>false</doneStatus>
         <overdueStatus>false</overdueStatus>
+        <favoriteStatus>false</favoriteStatus>
     </tasks>
     
     

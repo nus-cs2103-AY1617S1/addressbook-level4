@@ -102,7 +102,8 @@ public class TaskListPanel extends UiPart {
             c.next();
             final int size = view.getItems().size();
             if (size > 0) {
-                view.scrollTo(size - 1);
+                view.scrollTo(c.getFrom());
+                view.getSelectionModel().clearAndSelect(c.getFrom());
             }
         }));
     }

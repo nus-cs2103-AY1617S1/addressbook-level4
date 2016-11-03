@@ -10,7 +10,7 @@ public class Deadline {
 
     public static final String MESSAGE_DEADLINE_CONSTRAINTS = "Task deadline should be in any date format";
     public static final String DEADLINE_VALIDATION_REGEX = "((1[012]|[1-9]).[0-5][0-9](\\s)?(?i)(am|pm)|(1[012]|[1-9])(\\s)?(?i)(am|pm))|(^.+)";
-    public static final String NO_DEADLINE = "no deadline";
+    public static final String NO_DEADLINE = "";
     public final String value;
 
     /**

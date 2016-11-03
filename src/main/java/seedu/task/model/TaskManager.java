@@ -179,7 +179,7 @@ public class TaskManager implements ReadOnlyTaskManager {
         this.tasks.getInternalList().sort(new Comparator<Task>() {
             @Override
             public int compare(Task one, Task other) {
-                return one.getDeadline().compareTo(other.getDeadline());
+                return other.getDeadline().compareTo(one.getDeadline());
             }
         });
     }
@@ -215,7 +215,7 @@ public class TaskManager implements ReadOnlyTaskManager {
         this.tasks.getInternalList().sort(new Comparator<Task>() {
             @Override
             public int compare(Task one, Task other) {
-                return one.getStatus().compareDoneStatusTo(other.getStatus());
+                return other.getStatus().compareDoneStatusTo(one.getStatus());
             }
         });
     }
@@ -240,8 +240,8 @@ public class TaskManager implements ReadOnlyTaskManager {
         this.tasks.getInternalList().sort(new Comparator<Task>() {
             @Override
             public int compare(Task one, Task other) {
-                int statusResult = one.getStatus().compareDoneStatusTo(other.getStatus());
-                int deadlineResult = one.getDeadline().compareTo(other.getDeadline());
+                int statusResult = other.getStatus().compareDoneStatusTo(one.getStatus());
+                int deadlineResult = other.getDeadline().compareTo(one.getDeadline());
                 int startTimeResult = one.getStartTime().compareTo(other.getStartTime());
                 int nameResult = one.getName().compareTo(other.getName());
                 if (statusResult == 0) {
