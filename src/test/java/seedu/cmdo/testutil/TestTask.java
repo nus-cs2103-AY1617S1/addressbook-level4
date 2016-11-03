@@ -1,5 +1,7 @@
 package seedu.cmdo.testutil;
 
+import java.time.LocalDateTime;
+
 import seedu.cmdo.model.tag.UniqueTagList;
 import seedu.cmdo.model.task.Detail;
 import seedu.cmdo.model.task.Done;
@@ -122,5 +124,11 @@ public class TestTask implements ReadOnlyTask {
 	@Override
 	public boolean isRange() {
 		return dueByDate.isRange() || dueByTime.isRange();
+	}
+
+	@Override
+	public LocalDateTime getStartLdt() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
