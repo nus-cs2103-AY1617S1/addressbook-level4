@@ -11,8 +11,6 @@ import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.model.TaskManager;
 import seedu.address.model.task.Task;
 
-
-
 /*
  * Responsible for testing the correct execution of DeleteCommand
  */

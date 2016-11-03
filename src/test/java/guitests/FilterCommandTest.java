@@ -19,6 +19,7 @@ public class FilterCommandTest extends TaskManagerGuiTest {
         assertFilterResult("filter s/11.10.2016", td.meeting, td.travel);
         assertFilterResult("filter e/11.10.2016-12", td.meeting);
         assertFilterResult("filter t/friends", td.friend, td.friendEvent, td.lunch);
+        assertFilterResult("filter p/1", td.lunch);
 
         // filter after add one result
         TestTask taskToAdd = td.lecture;

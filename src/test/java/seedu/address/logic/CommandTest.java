@@ -184,8 +184,6 @@ public class CommandTest {
     }
 
 
-   
-
     @Test
     public void execute_list_showsAllTasks() throws Exception {
         // prepare expectations
@@ -201,8 +199,6 @@ public class CommandTest {
                 expectedAB,
                 expectedList);
     }
-
-
 
 
     @Test
@@ -410,7 +406,23 @@ public class CommandTest {
             return new Task(new Name(name), new Deadline("11.11.2016"), new UniqueTagList(new Tag("tag")),
                     new Priority(0));
         }
-
+        
+        /**
+         * Generates an undone Task object with given deadline. Other fields will have some dummy values.
+         */
+        Task generateUndoneTaskWithDeadline(String deadline) throws Exception {
+            return new Task(new Name("name"), new Deadline(deadline), new UniqueTagList(new Tag("tag")),
+                    new Priority(0));
+        }
+        
+        /**
+         * Generates an undone Task object with given tag. Other fields will have some dummy values.
+         */
+        Task generateUndoneTaskWithTag(String tag) throws Exception {
+            return new Task(new Name("name"), new Deadline("11.11.2016"), new UniqueTagList(new Tag(tag)),
+                    new Priority(0));
+        }
+        
         /**
          * Generates a done Task object with given name. Other fields will have some dummy values.
          */
@@ -425,6 +437,22 @@ public class CommandTest {
         Task generateUndoneEventWithName(String name) throws Exception {
             return new Task(new Name(name), new EventDate("11.11.2016", "12.11.2016"),
                     new UniqueTagList(new Tag("tag")), new Priority(0));
+        }
+        
+        /**
+         * Generates an undone Event object with given start date. Other fields will have some dummy values.
+         */
+        Task generateUndoneEventWithStartDate(String startDate) throws Exception {
+            return new Task(new Name("name"), new EventDate(startDate, "12.11.2016"), new UniqueTagList(new Tag("tag")),
+                    new Priority(0));
+        }
+        
+        /**
+         * Generates an undone Event object with given start date. Other fields will have some dummy values.
+         */
+        Task generateUndoneEventWithEndDate(String endDate) throws Exception {
+            return new Task(new Name("name"), new EventDate("11.11.2016", endDate), new UniqueTagList(new Tag("tag")),
+                    new Priority(0));
         }
         
         /**

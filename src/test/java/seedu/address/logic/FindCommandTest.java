@@ -19,9 +19,8 @@ public class FindCommandTest extends CommandTest {
     /*
      * FindCommand format: find KEYWORD [AND] [MORE_KEYWORDS] [exact!]
      * 
-     * Equivalence partitions: find (empty parameter), find KEYWORD, find
-     * KEYWORD MORE_KEYWORDS, find KEYWORD AND MORE_KEYWORDS, find KEYWORD [AND]
-     * [MORE_KEYWORDS] exact!
+     * Equivalence partitions for parameters: empty parameter, KEYWORD, KEYWORD
+     * MORE_KEYWORDS, KEYWORD AND MORE_KEYWORDS, KEYWORD [AND] [MORE_KEYWORDS] exact!
      */
 
     // -------------------------test for invalid commands------------------------------------------------
@@ -76,10 +75,10 @@ public class FindCommandTest extends CommandTest {
         assertCommandBehavior("find KEY", Command.getMessageForTaskListShownSummary(expectedList.size()), expectedAB,
                 expectedList);
     }
-    
+
     /*
-     * Only events and tasks matching the exact keyword should be returned if the
-     * command contains the exact! parameter.
+     * Only events and tasks matching the exact keyword should be returned if
+     * the command contains the exact! parameter.
      */
     @Test
     public void execute_find_onlyMatchesExactWordsInNames() throws Exception {
@@ -94,8 +93,8 @@ public class FindCommandTest extends CommandTest {
         List<Task> expectedList = helper.generateTaskList(pTarget1);
         helper.addToModel(model, fourTasks);
 
-        assertCommandBehavior("find KEY exact!", Command.getMessageForTaskListShownSummary(expectedList.size()), expectedAB,
-                expectedList);
+        assertCommandBehavior("find KEY exact!", Command.getMessageForTaskListShownSummary(expectedList.size()),
+                expectedAB, expectedList);
     }
 
     /*
@@ -121,8 +120,8 @@ public class FindCommandTest extends CommandTest {
 
     /*
      * Only events and tasks matching both groups of keywords should be returned
-     * if the two groups of keywords are connected by AND (i.e. AND search).
-     * The order of the keywords does not matter.
+     * if the two groups of keywords are connected by AND (i.e. AND search). The
+     * order of the keywords does not matter.
      */
     @Test
     public void execute_find_matchesAllKeywordPresent() throws Exception {
@@ -140,7 +139,7 @@ public class FindCommandTest extends CommandTest {
         assertCommandBehavior("find key AND rAnDoM", Command.getMessageForTaskListShownSummary(expectedList.size()),
                 expectedAB, expectedList);
     }
-    
+
     /*
      * Use both the AND and exact! parameter.
      */
@@ -157,7 +156,7 @@ public class FindCommandTest extends CommandTest {
         List<Task> expectedList = helper.generateTaskList(pTarget1);
         helper.addToModel(model, fourTasks);
 
-        assertCommandBehavior("find exact! key AND rAnDoM", Command.getMessageForTaskListShownSummary(expectedList.size()),
-                expectedAB, expectedList);
+        assertCommandBehavior("find exact! key AND rAnDoM",
+                Command.getMessageForTaskListShownSummary(expectedList.size()), expectedAB, expectedList);
     }
 }
