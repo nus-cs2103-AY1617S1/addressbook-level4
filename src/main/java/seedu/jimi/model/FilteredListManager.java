@@ -87,9 +87,9 @@ public class FilteredListManager {
      * Wraps all the filteredLists with sortedLists.
      */
     private void initSortedLists() {
-        for(ListId id : ListId.values()) {
+        for (ListId id : ListId.values()) {
             SortedList<ReadOnlyTask> sortedList = new SortedList<ReadOnlyTask>(listMap.get(id));
-            sortedList.setComparator(new Comparator<ReadOnlyTask>() {
+            sortedList.comparatorProperty().setValue((new Comparator<ReadOnlyTask>() {
                 @Override
                 public int compare(ReadOnlyTask arg0, ReadOnlyTask arg1) {
                     if(arg0 instanceof Event) {
@@ -111,7 +111,7 @@ public class FilteredListManager {
                     
                     return 0;
                 }
-            });
+            }));
             sortedListMap.put(id, sortedList);
         }
     }
@@ -226,6 +226,7 @@ public class FilteredListManager {
      */
     public void updateFilteredList(ListId id, ListId other) {
         updateFilteredList(id, defaultExpressions.get(id), defaultExpressions.get(other));
+        
     }
     
     /** 
