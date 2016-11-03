@@ -49,12 +49,6 @@ public class CompleteTaskListPanel extends UiPart {
 
     public static CompleteTaskListPanel load(Stage primaryStage, AnchorPane taskListPlaceholder,
                                        ObservableList<ReadOnlyTask> taskList) {
-        if (primaryStage == null) {
-            System.out.println("WHY");
-        }
-        if (taskListPlaceholder == null) {
-            System.out.println("FUCK");
-        }
         CompleteTaskListPanel taskListPanel =
                 UiPartLoader.loadUiPart(primaryStage, taskListPlaceholder, new CompleteTaskListPanel());
         taskListPanel.configure(taskList);

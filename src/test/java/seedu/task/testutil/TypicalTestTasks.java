@@ -18,12 +18,12 @@ public class TypicalTestTasks {
     public TypicalTestTasks() {
         try {
             eventWithoutParameter = new TaskBuilder().withName("Event without parameter")
-                    .withInterval("27/10/2016", "9:30am", "27/10/2016", "12:00pm")
+                    .withInterval("1/11/2016", "9:30am", "1/11/2016", "12:00pm")
                     .withLocation(null)
                     .withRemarks(null)
                     .withStatus(false).build();
             eventWithLocation = new TaskBuilder().withName("Event with location")
-                    .withInterval("28 oct 2016", "13:00", "28 oct 2016", "23:59")
+                    .withInterval("2 nov 2016", "13:00", "2 nov 2016", "23:59")
                     .withLocation("Office")
                     .withRemarks(null)
                     .withStatus(false).build();

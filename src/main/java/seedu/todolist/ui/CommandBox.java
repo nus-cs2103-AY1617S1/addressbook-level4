@@ -86,6 +86,7 @@ public class CommandBox extends UiPart {
      * Sets the command box style to indicate a correct command.
      */
     private void setStyleToIndicateCorrectCommand() {
+        resultDisplay.setStyleToIndicateCorrectCommand();
         commandTextField.getStyleClass().remove("error");
         commandTextField.setText("");
     }
@@ -108,6 +109,7 @@ public class CommandBox extends UiPart {
      * Sets the command box style to indicate an error
      */
     private void setStyleToIndicateIncorrectCommand() {
+        resultDisplay.setStyleToIndicateIncorrectCommand();
         commandTextField.getStyleClass().add("error");
     }
 

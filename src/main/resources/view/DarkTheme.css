@@ -28,14 +28,14 @@
     -fx-font-family: "Segoe UI Semibold";
 }
 
-.tab-pane {
-    -fx-padding: 0 0 0 1;
-}
-
 .tab-pane .tab-header-area {
     -fx-padding: 0 0 0 0;
     -fx-min-height: 0;
     -fx-max-height: 0;
+}
+
+.tab-pane *.tab-header-background {
+    -fx-background-color: transparent;
 }
 
 .table-view {
@@ -76,14 +76,14 @@
 }
 
 .split-pane .split-pane-divider {
-    -fx-border-color: transparent #1d1d1d transparent #1d1d1d;
-    -fx-background-color: transparent, derive(#1d1d1d, 10%);
+    -fx-background-color: transparent, derive(#1d1d1d, 5%);
+    -fx-padding: 0 0.1em 0 0.1em;
 }
 
 .split-pane {
     -fx-border-radius: 1;
     -fx-border-width: 1;
-    -fx-background-color: derive(#1d1d1d, 20%);
+    -fx-background-color: derive(#1d1d1d, 10%);
 }
 
 .list-cell {
@@ -97,23 +97,17 @@
 }
 
 .cell_big_label {
-    -fx-font-size: 16px;
+    -fx-font-size: 18px;
     -fx-text-fill: #010504;
 }
 
 .cell_small_label {
-    -fx-font-size: 11px;
+    -fx-font-size: 13px;
     -fx-text-fill: #010504;
 }
 
 .anchor-pane {
-     -fx-background-color: derive(#1d1d1d, 20%);
-}
-
-.anchor-pane-with-border {
-     -fx-background-color: derive(#1d1d1d, 20%);
-     -fx-border-color: derive(#1d1d1d, 10%);
-     -fx-border-top-width: 1px;
+     -fx-background-color: derive(#1d1d1d, 10%);
 }
 
 .status-bar {
@@ -131,11 +125,14 @@
 
 .status-bar .label {
     -fx-text-fill: white;
+    -fx-font-size: 11pt;
+    -fx-font-family: "Segoe UI Light";
+    -fx-padding: 0 0 0 10;
 }
 
 .status-bar-with-border {
-    -fx-background-color: derive(#1d1d1d, 30%);
-    -fx-border-color: derive(#1d1d1d, 25%);
+    -fx-background-color: derive(#1d1d1d, 20%);
+    -fx-border-color: derive(#1d1d1d, 20%);
     -fx-border-width: 1px;
 }
 
@@ -163,6 +160,10 @@
 
 .menu-bar {
     -fx-background-color: derive(#1d1d1d, 20%);
+    -fx-border-color: derive(#1d1d1d, 30%);
+    -fx-border-top-width: 1px;
+    -fx-border-bottom-width: 1px;
+
 }
 
 .menu-bar .label {
@@ -278,11 +279,85 @@
     -fx-border-width: 1 1 1 1;
 }
 
-#commandTypeLabel {
-    -fx-font-size: 11px;
-    -fx-text-fill: #F70D1A;
+.titled-pane {
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 11pt;
 }
 
-#filterField, #taskListPanel, #taskWebpage {
-    -fx-effect: innershadow(gaussian, black, 10, 0, 0, 0);
+.tab {
+	-fx-focus-color: transparent;
+	-fx-background-color: transparent;
+	-fx-opacity: 0.7;
+	-fx-padding: 20 20 5 60;
+}
+
+.tab .tab-label { 
+    -fx-alignment: CENTER;
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-text-fill: #bab6b6;
+    -fx-font-size: 11pt;
+}
+
+.tab:selected {
+	-fx-opacity: 1.0;
+}
+
+.tab:selected .tab-label { 
+    -fx-alignment: CENTER;
+    -fx-text-fill: #ffffff;
+}
+
+#notificationPane .title{
+	-fx-background-color: transparent;
+	-fx-padding: 25 20 10 60;
+	-fx-background-image: url('../images/notification_title.png');
+	-fx-background-repeat: no-repeat;
+	-fx-background-size: 170;
+}
+
+#incompleteTab {
+	-fx-background-image: url('../images/incomplete_tab_title.png');
+	-fx-background-size: cover;
+}
+
+#completedTab {
+	-fx-translate-x: -1;
+	-fx-background-image: url('../images/completed_tab_title.png');
+	-fx-background-size: cover;
+}
+
+#overdueTab {
+	-fx-translate-x: -1;
+	-fx-padding: 20 30 5 70;
+	-fx-background-image: url('../images/overdue_tab_title.png');
+	-fx-background-size: cover;
+}
+
+#taskListPanelPlaceholder {
+    -fx-background-color: #ffc425;
+    -fx-background-radius: 0 3 3 3;
+}
+
+#completeTaskListPanelPlaceholder {
+    -fx-background-color: #00b159;
+    -fx-background-radius: 0 3 3 3;
+}
+
+#overdueTaskListPanelPlaceholder {
+    -fx-background-color: #d11141;
+    -fx-background-radius: 0 3 3 3;
+}
+
+#commandPaneTitleLabel {
+	-fx-background-image: url('../images/command_pane_title.png');
+	-fx-background-repeat: no-repeat;
+	-fx-background-size: 170;
+	-fx-text-fill: #ffffff;
+	-fx-padding: 25 30 10 70;
+}
+
+#resultDisplayPlaceholder, #commandBoxPlaceholder {
+    -fx-background-color: #f37735;
+    -fx-background-radius: 0 3 3 3;
 }
