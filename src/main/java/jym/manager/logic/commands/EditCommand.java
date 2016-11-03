@@ -51,23 +51,18 @@ public class EditCommand extends Command {
 	}
 	
 	 public EditCommand(int index, String description, Object ... objects) throws IllegalValueException{
-	    	if(objects.length > 3){//f**k in this case - this should never happen b/c we control parser.
-	    		throw new IllegalArgumentException();
-	    	}
-	    	this.targetIndex = index;
-	    	for(Object o : objects){
-	    		if(o instanceof List){
-	    			List<LocalDateTime> d = (List<LocalDateTime>)o;
-	    			if(d.size() == 1)
-	    				o = d.get(0);
-	    		}
-	    	}
-//	      final Set<Tag> tagSet = new HashSet<>();
-//	      for (String tagName : tags) {
-//	          tagSet.add(new Tag(tagName));
-//	      }
-	   
-	    	this.toUpdate = new Task(new Description(description), objects);
+		assert objects.length < 4; //date, location, priority.
+		
+		this.targetIndex = index;
+		for(Object o : objects){
+			if(o instanceof List){
+				List<LocalDateTime> d = (List<LocalDateTime>)o;
+				if(d.size() == 1)
+					o = d.get(0);
+			}
+		}
+	
+	    this.toUpdate = new Task(new Description(description), objects);
 	 }
 
 	@Override

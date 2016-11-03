@@ -46,7 +46,7 @@ public class AddCommand extends Command {
     }
 //@@author A0153440R
     public AddCommand(String description, Object ... objects) throws IllegalValueException{
-    	if(objects.length > 3){//f**k in this case - this should never happen b/c we control parser. max args is date(s), location, priority
+    	if(objects.length > 3){//this should never happen b/c we control parser. max args is date(s), location, priority
     		throw new IllegalArgumentException();
     	}
     	boolean isTask = true; //by default
@@ -59,18 +59,11 @@ public class AddCommand extends Command {
     				o = d.get(0);
     		}
     	}
-//      final Set<Tag> tagSet = new HashSet<>();
-//      for (String tagName : tags) {
-//          tagSet.add(new Tag(tagName));
-//      }
- //   	if(isTask){
-        	this.toAdd = new Task(new Description(description), objects);
-  //  	} else {
-   // 		this.toAdd = new Event(new Description(description), objects);
- //   	}
+
+        this.toAdd = new Task(new Description(description), objects);
+
     }
-    public AddCommand(String description, Set<String> tags) throws IllegalValueException
-    {
+    public AddCommand(String description, Set<String> tags) throws IllegalValueException {
         final Set<Tag> tagSet = new HashSet<>();
         for (String tagName : tags) {
             tagSet.add(new Tag(tagName));
@@ -80,8 +73,7 @@ public class AddCommand extends Command {
                 new UniqueTagList(tagSet)
         );
     }
-    public AddCommand(String description, LocalDateTime deadline, Set<String> tags) throws IllegalValueException
-    {
+    public AddCommand(String description, LocalDateTime deadline, Set<String> tags) throws IllegalValueException {
         final Set<Tag> tagSet = new HashSet<>();
         for (String tagName : tags) {
             tagSet.add(new Tag(tagName));
@@ -92,8 +84,7 @@ public class AddCommand extends Command {
                 new UniqueTagList(tagSet)
         );
     }
-    public AddCommand(String description, LocalDateTime deadline) throws IllegalValueException
-    {
+    public AddCommand(String description, LocalDateTime deadline) throws IllegalValueException {
      
         this.toAdd = new Task(
                 new Description(description),
