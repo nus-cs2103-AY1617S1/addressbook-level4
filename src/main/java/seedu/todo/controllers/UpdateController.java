@@ -45,40 +45,6 @@ public class UpdateController implements Controller {
     public void process(String args) {
         // TODO: Example of last minute work
         
-        args = args.replaceFirst("update", "").trim();
         
-        // Get index.
-        System.out.println(args);
-        
-        Matcher matcher = Pattern.compile("^\\d+").matcher(args);
-        matcher.find();
-        String indexStr = matcher.group();
-        int index = Integer.decode(indexStr.trim());
-        
-        // Parse name and date.
-        args = args.replaceFirst(indexStr, "").trim();
-        String[] splitted = args.split("( at | by )", 2);
-        String name = splitted[0].trim();
-        String naturalDate = splitted[1].trim();
-        
-        // Parse natural date using Natty.
-        Parser parser = new Parser();
-        List<DateGroup> groups = parser.parse(naturalDate);
-        Date date = groups.get(0).getDates().get(0);
-        LocalDateTime ldt = LocalDateTime.ofInstant(date.toInstant(), ZoneId.systemDefault());
-        
-        // Get record
-        EphemeralDB edb = EphemeralDB.getInstance();
-        CalendarItem calendarItem = edb.getCalendarItemsByDisplayedId(index);
-        TodoListDB db = TodoListDB.getInstance();
-        
-        if (calendarItem != null) {
-            calendarItem.setName(name);
-            calendarItem.setCalendarDateTime(ldt);
-            db.save();
-        }
-        
-        // Re-render
-        Renderer.renderIndex(db, MESSAGE_UPDATE_SUCCESS);
     }
 }
