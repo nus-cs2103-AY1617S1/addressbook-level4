@@ -13,6 +13,15 @@ import seedu.task.model.task.UniqueTaskList;
  * The API of the Model component.
  */
 public interface Model {
+    
+    public enum FilterType {
+        ALL,
+        PIN,
+        PENDING,
+        COMPLETED,
+        OVERDUE,
+    }
+    
     /**
      * Clears existing backing model and replaces with the provided new data.
      */
@@ -54,6 +63,11 @@ public interface Model {
 
     /** Updates the filter of the filtered task list to show all tasks */
     void updateFilteredListToShowAll();
+    
+    //@@author A0141052Y
+    /** Updates the filter of the filtered task list to show based on the preset **/
+    void updateFilteredList(FilterType filter);
+    //@@author
 
     /**
      * Updates the filter of the filtered task list to filter by the given

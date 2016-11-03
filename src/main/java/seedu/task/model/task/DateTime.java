@@ -21,10 +21,14 @@ import seedu.task.commons.exceptions.IllegalValueException;
  * Represents a Date and Time in the task list
  * Guarantees: immutable; is valid as declared in {@link #isValidDateTime(String)}
  */
-public class DateTime {
+public class DateTime implements Comparable<DateTime> {
 
     public static final String MESSAGE_DATETIME_CONSTRAINTS = "You have entered an invalid Date/Time format. For a complete list of all acceptable formats, please view our user guide.";
 
+    //@@author A0141052Y
+    private static final String DATE_TIME_DISPLAY_FORMAT = "%s (%s)";
+    //@@author
+    
     public final Optional<Instant> value;
     private static PrettyTime p = new PrettyTime();
     
@@ -110,7 +114,7 @@ public class DateTime {
 
         if(value.isPresent()) {
             DateTimeFormatter formatter =
-                    DateTimeFormatter.ofLocalizedDateTime( FormatStyle.FULL )
+                    DateTimeFormatter.ofLocalizedDateTime( FormatStyle.SHORT )
                                      .withLocale( Locale.UK )
                                      .withZone( ZoneId.systemDefault() );
             return formatter.format( value.get() );
@@ -127,6 +131,18 @@ public class DateTime {
         }
     }
     
+    //@@author A0141052Y
+    /**
+     * Gets a display friendly representation of the DateTime
+     */
+    public String toDisplayString() {
+        if (this.toString().isEmpty()) {
+            return "";
+        } else {
+            return String.format(DATE_TIME_DISPLAY_FORMAT, this.toString(), this.toPrettyString());
+        }
+    }
+
     public Long getSaveableValue() {
         if(value.isPresent()) {
             return this.value.get().toEpochMilli();
@@ -134,6 +150,27 @@ public class DateTime {
             return null;
         }
     }
+    
+    /**
+     * Compares between two DateTime instances using Comparable.
+     * Empty DateTimes are considered smaller than all possible DateTimes.
+     */
+    @Override
+    public int compareTo(DateTime o) {
+        Optional<Instant> time = this.value;
+        Optional<Instant> otherTime = o.getDateTimeValue();
+        
+        if (!time.isPresent() && !otherTime.isPresent()) {
+            return 0;
+        } else if (!time.isPresent()) {
+            return -1;
+        } else if (!otherTime.isPresent()) {
+            return 1;
+        } else {
+            return time.get().compareTo(otherTime.get());
+        }
+    }
+    //@@author
 
     @Override
     public boolean equals(Object other) {
