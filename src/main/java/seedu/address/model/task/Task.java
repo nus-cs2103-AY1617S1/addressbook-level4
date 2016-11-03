@@ -96,6 +96,14 @@ public class Task implements ReadOnlyTask {
         this.priorityLevel = priorityLevel;
         this.priorityInteger = new SimpleIntegerProperty(priorityLevel.priorityLevel);
     }
+    
+    public Task(Name name, Date date, UniqueTagList tags, boolean isDone, Recurring recurring, Priority priorityLevel) {
+        this(name,date,tags,isDone,true,priorityLevel);
+        this.recurring = recurring;
+        recurringString.set(recurring.recurringFrequency);
+
+    }
+
 
     public Task(ReadOnlyTask source) {
         this(source.getName(), source.getDate(), source.getTags(), source.isDone(), source.isRecurring(),

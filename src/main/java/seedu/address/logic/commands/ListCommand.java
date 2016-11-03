@@ -1,10 +1,14 @@
+//@@author A0142325R
 package seedu.address.logic.commands;
 
-//@@author A0142325R
 /**
  * Lists tasks or events in the task manager to the user.
  */
 public class ListCommand extends Command {
+    
+    public enum listType{
+        TASKS,EVENTS,DONE,UNDONE,INVALID
+    }
 
     public static final String COMMAND_WORD = "list";
     
@@ -23,32 +27,42 @@ public class ListCommand extends Command {
     public static final String MESSAGE_INVALID_LIST_COMMAND = "The list command argument provided is invalid."
             + MESSAGE_USAGE;
     
-    private String toList=null;
+    private listType toList=null;
     
     public ListCommand() {}
+    
     public ListCommand(String typeToList){
-    	toList=typeToList.trim();
+        try{
+    	toList=Enum.valueOf(listType.class,typeToList.trim().toUpperCase());
+        }catch(IllegalArgumentException e){
+            toList=listType.INVALID;
+        }
     }
 
     @Override
-    public CommandResult execute() {
-    	if(toList==null){
-        model.updateFilteredListToShowAll();
-        return new CommandResult(MESSAGE_SUCCESS);
-    	}else if(toList.equals("events")){
-    		model.updateFilteredTaskList(toList);
-    		return new CommandResult(MESSAGE_EVENT_SUCCESS);
-    	}else if (toList.equals("tasks")){
-    		model.updateFilteredTaskList(toList);
-    		return new CommandResult(MESSAGE_TASK_SUCCESS);
-    	}else if (toList.equals("done")) {
-    		model.updateFilteredTaskList(toList);
-    		return new CommandResult(MESSAGE_LIST_DONE_TASK_SUCCESS);
-    	} else if (toList.equals("undone")) {
-    	    model.updateFilteredTaskList(toList);
-    	    return new CommandResult(MESSAGE_LIST_UNDONE_TASK_SUCCESS); 
-    	} else {
-    	    return new CommandResult(MESSAGE_INVALID_LIST_COMMAND);
-    	}
+    public CommandResult execute() {  
+        
+        if(toList==null){
+            model.updateFilteredListToShowAll();
+            return new CommandResult(MESSAGE_SUCCESS);
+        }
+        
+        switch(toList){
+        case EVENTS:
+            model.updateFilteredTaskList(toList.toString().toLowerCase());
+            return new CommandResult(MESSAGE_EVENT_SUCCESS);
+        case TASKS:
+            model.updateFilteredTaskList(toList.toString().toLowerCase());
+            return new CommandResult(MESSAGE_TASK_SUCCESS);
+        case DONE:
+            model.updateFilteredTaskList(toList.toString().toLowerCase());
+            return new CommandResult(MESSAGE_LIST_DONE_TASK_SUCCESS);
+        case UNDONE:
+            model.updateFilteredTaskList(toList.toString().toLowerCase());
+            return new CommandResult(MESSAGE_LIST_UNDONE_TASK_SUCCESS);
+        default:
+            return new CommandResult(MESSAGE_INVALID_LIST_COMMAND);
+        }
+        
     }
 }

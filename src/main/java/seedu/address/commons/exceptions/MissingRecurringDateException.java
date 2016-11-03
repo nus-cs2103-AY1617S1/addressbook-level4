@@ -3,7 +3,7 @@ package seedu.address.commons.exceptions;
 
 
 /**
- * Signals that some given data does not fulfill some constraints.
+ * Signals that the recurring task added does not have a recurring date.
  */
 public class MissingRecurringDateException extends Exception {
     /**

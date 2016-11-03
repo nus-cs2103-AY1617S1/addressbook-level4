@@ -408,10 +408,19 @@ public class Parser {
     }
 
     // @@author A0142325R
+    
+    /**
+     * prepare to create list command
+     * @param args
+     * @return
+     */
+    
     private Command prepareList(String args) {
-        if (args.equals(""))
+        if (args.equals("")) {
             return new ListCommand();
-        return new ListCommand(args);
+        } else {
+            return new ListCommand(args);
+        }
     }
 
     // @@author A0146123R

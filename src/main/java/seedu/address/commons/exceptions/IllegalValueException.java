@@ -2,7 +2,8 @@
 package seedu.address.commons.exceptions;
 
 /**
- * Signals that the recurring task added does not have a recurring date.
+ * 
+ * Signals that some given data does not fulfill some constraints.
  */
 public class IllegalValueException extends Exception {
     /**
