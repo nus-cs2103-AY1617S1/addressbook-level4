@@ -44,6 +44,9 @@ public interface Model {
     
     /** Updates the filter of the filtered person list to filter by the given date*/
     void updateFilteredPersonListByDate(Set<String> keywords);
+
+    /** Updates the filter of the filtered person list to show only completed tasks*/
+	void updateFilteredPersonListByCompletion(Set<String> keywords);
     
 
 }

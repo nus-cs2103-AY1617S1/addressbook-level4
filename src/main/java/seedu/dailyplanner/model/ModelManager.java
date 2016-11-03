@@ -119,7 +119,16 @@ public class ModelManager extends ComponentManager implements Model {
     private void updateFilteredPersonListByDate(Expression expression) {
         filteredPersons.setPredicate(expression::satisfies);
     }
+    
+    @Override
+	public void updateFilteredPersonListByCompletion(Set<String> keywords) {
+    	updateFilteredPersonList(new PredicateExpression(new CompletionQualifier(keywords)));
+	}
 
+    private void updateFilteredPersonListByCompletion(Expression expression) {
+        filteredPersons.setPredicate(expression::satisfies);
+    }
+    
     //========== Inner classes/interfaces used for filtering ==================================================
 
     interface Expression {
@@ -149,6 +158,24 @@ public class ModelManager extends ComponentManager implements Model {
     interface Qualifier {
         boolean run(ReadOnlyTask person);
         String toString();
+    }
+    
+    private class CompletionQualifier implements Qualifier {
+    	private Set<String> completionKeywords;
+
+        CompletionQualifier(Set<String> completionKeyword) {
+            this.completionKeywords = completionKeyword;
+        }
+
+        @Override
+        public boolean run(ReadOnlyTask person) {
+            return completionKeywords.contains(person.getCompletion().toLowerCase());
+        }
+
+        @Override
+        public String toString() {
+            return "completion=" + String.join(", ", completionKeywords);
+        }
     }
     
     private class DateQualifier implements Qualifier {
@@ -198,4 +225,6 @@ public class ModelManager extends ComponentManager implements Model {
 		
 		return history;
 	}
+
+	
     }
