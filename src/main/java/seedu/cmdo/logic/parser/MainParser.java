@@ -112,6 +112,7 @@ public class MainParser {
             
     	}
     	args = getCleanString(arguments);
+        args = convertToTo(args); 
         switch (commandWord) {
 
         case AddCommand.COMMAND_WORD:
@@ -368,7 +369,7 @@ public class MainParser {
      * 
      * @throws IllegalValueException if only one ' found, or if detail is blank.
      * 
-     * @@author A0139661Y
+     * @@author A0138471A
      */
     private void extractDetail() throws IllegalValueException {
     	checkValidDetailInput();
@@ -378,21 +379,31 @@ public class MainParser {
     	String output = new StringBuilder(details[0]).replace(details[0].lastIndexOf("'"), 
     													details[0].length(), 
     													"").toString();
+        // Details only, get rid of anything before the ' 
+        for(char o : output.toCharArray()) { 
+          if(o =='\''){ 
+            break; 
+          } 
+          else 
+            output=output.replaceFirst(".", ""); 
+        } 
     	// Get rid of the first '
     	output = output.replaceFirst("'","");
     	// Save to instance
     	detailToAdd = output;
-    	// return rear end
-    	args = new StringBuilder(details[0]).substring(details[0].lastIndexOf("'")+1).toString();
+//    	// return rear end
+//    	args = new StringBuilder(details[0]).substring(details[0].lastIndexOf("'")+1).toString();
+        // return args without details 
+        args = args.replace(output, ""); 
     }
-        
+
     /**
      * Extracts the detail embedded in user input ' ' for edit purposes.
      * ie details are optional, and if they are input, should not be empty.
      * 
      * @throws IllegalValueException if detail is blank.
      * 
-     * @@author A0139661Y
+     * @@author A0138471A
      */
     private void extractDetailForEdit() throws IllegalValueException {
     	if (!checkValidDetailInputForEdit()) {
@@ -405,12 +416,22 @@ public class MainParser {
     	String output = new StringBuilder(details[0]).replace(details[0].lastIndexOf("'"), 
     													details[0].length(), 
     													"").toString();
+        // Details only, get rid of anything before the ' 
+        for(char o : output.toCharArray()){ 
+          if(o =='\''){ 
+            break; 
+          } 
+          else 
+            output=output.replaceFirst(".", ""); 
+        } 
     	// Get rid of the first '
     	output = output.replaceFirst("'","");
     	// Save to instance
     	detailToAdd = output;
     	// return rear end
     	args = new StringBuilder(details[0]).substring(details[0].lastIndexOf("'")+1).toString();
+        // return args without details 
+        args = args.replace(output, ""); 
     }
 	
     /**
@@ -546,6 +567,11 @@ public class MainParser {
     private String getCleanString(String args) {
     	return args.trim().replaceAll("\\s+", " ");
     }
+    
+    //@@author A0138471A 
+    private String convertToTo(String args) { 
+    	return args.replaceAll(" - ", " to "); 
+    } 
     
     /**
      * Returns the specified index in the {@code command} IF a positive unsigned integer is given as the index.
