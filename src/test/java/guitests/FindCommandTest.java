@@ -15,7 +15,7 @@ public class FindCommandTest extends AddressBookGuiTest {
         assertFindResult("find Meier", TypicalTestTasks.benson, TypicalTestTasks.daniel); //multiple results
 
         //find after deleting one result
-        commandBox.runCommand("delete E1");
+        commandBox.runCommand("delete E1, D1, T1");
         assertFindResult("find Meier",TypicalTestTasks.daniel);
     }
 
@@ -31,11 +31,12 @@ public class FindCommandTest extends AddressBookGuiTest {
         assertResultMessage(Messages.MESSAGE_UNKNOWN_COMMAND);
     }
 
-    private void assertFindResult(String command, TestTask... expectedHits ) {
+    private void assertFindResult(String command, TestTask... expectedHits) {
         commandBox.runCommand(command);
         assertListSize(expectedHits.length);
         assertResultMessage("Found " + expectedHits.length + " Events! \n"
-        		+ "Found 0 Deadlines!\n" + "Found 0 Todo!");
+        		+ "Found " + expectedHits.length + " Deadlines!\n"
+        		+ "Found " + expectedHits.length + " Todo!");
         assertTrue(personListPanel.isListMatching(expectedHits));
     }
 }
