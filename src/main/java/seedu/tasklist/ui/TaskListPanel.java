@@ -125,7 +125,7 @@ public class TaskListPanel extends UiPart {
 	//@@author A0144919W
 	public void setLabelText() {
 		assert dateTimeLabel != null;
-		SimpleDateFormat dateFormatter = new SimpleDateFormat("dd\'"+getDateSuffix(Integer.parseInt(new SimpleDateFormat("dd").format(new Date())))+"\' MMMMMMMMM, yyyy | h:mm a");
+		SimpleDateFormat dateFormatter = new SimpleDateFormat("d\'"+getDateSuffix(Integer.parseInt(new SimpleDateFormat("dd").format(new Date())))+"\' MMMM, yyyy | h:mm a");
 		dateTimeLabel.setText(dateFormatter.format(new Date()));
 	}
 	private String getDateSuffix(int date) {

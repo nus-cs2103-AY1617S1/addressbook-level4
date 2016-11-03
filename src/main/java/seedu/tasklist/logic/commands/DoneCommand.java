@@ -21,7 +21,7 @@ public class DoneCommand extends Command {
             + "Parameters: either INDEX (must be a positive integer) or TASKNAME\n"
             + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_DONE_TASK_SUCCESS = "Completed Task: %1$s";
+    public static final String MESSAGE_DONE_TASK_SUCCESS = "Completed Task: %1$s. Showing all completed tasks now.";
     public static final String MESSAGE_DONE_TASK_FAILURE = "No such task was found.";
     public static final String MESSAGE_DONE_IN_NEXT_STEP = "Multiple tasks were found containing the entered keywords. Please check below and mark as complete by index.";
     public static final String MESSAGE_ALREADY_DONE = "This task is already marked as complete.";
@@ -104,7 +104,7 @@ public class DoneCommand extends Command {
         catch (TaskNotFoundException e) {
             assert false: "The target task cannot be missing";
         }
-        model.updateFilteredListToShowAll();
+        model.updateFilteredListToShowComplete();
         return new CommandResult(String.format(MESSAGE_DONE_TASK_SUCCESS, taskToMark.getTaskDetails()));
     }
 
@@ -127,6 +127,7 @@ public class DoneCommand extends Command {
         catch (TaskNotFoundException e) {
             assert false: "The target task cannot be missing";
         }
+        model.updateFilteredListToShowComplete();
         return new CommandResult(String.format(MESSAGE_DONE_TASK_SUCCESS, taskToMark.getTaskDetails()));
     }
 
