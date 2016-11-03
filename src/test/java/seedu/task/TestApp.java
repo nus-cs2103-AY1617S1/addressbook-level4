@@ -48,6 +48,7 @@ public class TestApp extends MainApp {
         config.setTaskManagerFilePath(saveFileLocation);
         config.setUserPrefsFilePath(DEFAULT_PREF_FILE_LOCATION_FOR_TESTING);
         config.setTaskManagerName(TASK_MANAGER_NAME);
+        config.setsortPreference("None");
         return config;
     }
 
