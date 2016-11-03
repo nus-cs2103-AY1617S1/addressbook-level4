@@ -5,6 +5,7 @@ import java.util.Set;
 import seedu.cmdo.commons.core.EventsCenter;
 import seedu.cmdo.commons.core.Messages;
 import seedu.cmdo.commons.events.ui.IncorrectCommandAttemptedEvent;
+import seedu.cmdo.commons.events.ui.JumpToListRequestEvent;
 import seedu.cmdo.commons.util.SearchUtil;
 import seedu.cmdo.model.Model;
 
@@ -68,5 +69,16 @@ public abstract class Command {
      */
     protected void indicateAttemptToExecuteIncorrectCommand() {
         EventsCenter.getInstance().post(new IncorrectCommandAttemptedEvent(this));
+    }
+    
+    /**
+     * Updates the selection panel to select the task at index given.
+     * 
+     * @param addedTo Index that the task was added at
+     * 
+     * @@author A0141006B
+     */
+    protected void updateSelectionInPanel(int index) {
+        EventsCenter.getInstance().post(new JumpToListRequestEvent(index));
     }
 }

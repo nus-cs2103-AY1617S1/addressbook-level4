@@ -12,19 +12,16 @@ import seedu.cmdo.model.tag.UniqueTagList;
  * Represents a Task in the To Do List.
  * Guarantees: details are present and not null, field values are validated.
  **/
-public class Task implements ReadOnlyTask {
-
-	
-    private Detail detail;
+public class Task implements ReadOnlyTask, Comparable {
+	private Detail detail;
     private Done done = new Done();
     private DueByDate dueByDate;
     private DueByTime dueByTime; 
     private Priority priority;
     private UniqueTagList tags;
     private Boolean block = false;
-    // ObjectID assign each Task instance a distinct ID
-    private String objectID = null;
     private LocalDateTime startLdt;
+    public UUID id = UUID.randomUUID();
 
     /**
      * Every field must be present and not null.
@@ -128,10 +125,6 @@ public class Task implements ReadOnlyTask {
         return new UniqueTagList(tags);
     }
     
-    public void updateObjectID() {
-        objectID = UUID.randomUUID().toString();
-    }
-    
     @Override
     public LocalDateTime getStartLdt() {
     	return startLdt;
@@ -215,5 +208,12 @@ public class Task implements ReadOnlyTask {
 	public boolean isRange() {
 		return dueByDate.isRange() || dueByTime.isRange();
 	}
-    
+
+	//@@author A0139661Y
+	@Override
+	public int compareTo(Object o) {
+		int i = this.getStartLdt().compareTo(((Task) o).getStartLdt());
+    	if (i != 0) return i;
+    	return this.getDetail().toString().compareToIgnoreCase(((Task)o).getDetail().toString());
+	}
 }

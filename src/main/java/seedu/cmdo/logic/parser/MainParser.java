@@ -50,9 +50,9 @@ public class MainParser {
 	private static String detailToAdd;
 	private static Integer dateTimeType;
 	private static String[] splittedArgs;
-	private static Boolean floatingRequestInEdit;
-	private static Boolean priorityRequestInEdit;
-	private static Boolean onlyOneDateOrTimeRequestInEdit;
+	private static Boolean floatingRequestInEdit = false;
+	private static Boolean priorityRequestInEdit = false;
+	private static Boolean onlyOneDateOrTimeRequestInEdit = false;
 	private static Integer targetIndex;
 	
 	// Singleton

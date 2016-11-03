@@ -88,7 +88,7 @@ public class BlockCommand extends Command {
     public CommandResult execute() {
         try {
     		blocker.checkBlocked(toBlock, model.getBlockedList());
-            model.addTask(toBlock);
+        	updateSelectionInPanel(model.addTask(toBlock));
             return new CommandResult(String.format(MESSAGE_SUCCESS, toBlock));
         } catch (TaskBlockedException tbe) {
         	return new CommandResult (tbe.getMessage());

@@ -202,7 +202,7 @@ public class EditCommand extends Command {
         
         
         try {
-            model.editTask(taskToEdit, toEditWith);
+        	updateSelectionInPanel(model.editTask(taskToEdit, toEditWith));
         } catch (TaskNotFoundException tnfe) {
             assert false : "The target task cannot be missing";
         }  
