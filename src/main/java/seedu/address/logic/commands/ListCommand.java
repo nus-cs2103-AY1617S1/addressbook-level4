@@ -1,5 +1,7 @@
 package seedu.address.logic.commands;
 
+import seedu.address.commons.util.TypesUtil;
+
 //@@author A0142325R
 /**
  * Lists tasks or events in the task manager to the user.
@@ -35,16 +37,16 @@ public class ListCommand extends Command {
     	if(toList==null){
         model.updateFilteredListToShowAll();
         return new CommandResult(MESSAGE_SUCCESS);
-    	}else if(toList.equals("events")){
+    	}else if(toList.equals(TypesUtil.EVENTS)){
     		model.updateFilteredTaskList(toList);
     		return new CommandResult(MESSAGE_EVENT_SUCCESS);
-    	}else if (toList.equals("tasks")){
+    	}else if (toList.equals(TypesUtil.TASKS)){
     		model.updateFilteredTaskList(toList);
     		return new CommandResult(MESSAGE_TASK_SUCCESS);
-    	}else if (toList.equals("done")) {
+    	}else if (toList.equals(TypesUtil.DONE)) {
     		model.updateFilteredTaskList(toList);
     		return new CommandResult(MESSAGE_LIST_DONE_TASK_SUCCESS);
-    	} else if (toList.equals("undone")) {
+    	} else if (toList.equals(TypesUtil.UNDONE)) {
     	    model.updateFilteredTaskList(toList);
     	    return new CommandResult(MESSAGE_LIST_UNDONE_TASK_SUCCESS); 
     	} else {

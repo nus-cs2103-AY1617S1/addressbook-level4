@@ -1,9 +1,11 @@
 package seedu.address.model.task;
-//@@author A0142325R
+import java.util.Arrays;
 import java.util.HashSet;
+import java.util.Set;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 
+//@@author A0142325R
 /**
  * Represents a recurring task in the task manager.
  * Guarantees: immutable; is valid as declared in {@link #isValidName(String)}
@@ -11,7 +13,8 @@ import seedu.address.commons.exceptions.IllegalValueException;
 public class Recurring {
 
     public static final String MESSAGE_RECURRING_CONSTRAINTS = "Recurring frequency should be 'daily/weekly/monthly/yearly' ";
-    public static HashSet<String> frequencySet=new HashSet<String>();
+    public static final String[] FREQUENCY_VALUES = new String[] {"daily", "weekly", "monthly", "yearly"};
+    public static final Set<String> FREQUENCY_SET = new HashSet<String>(Arrays.asList(FREQUENCY_VALUES));
 
     public String recurringFrequency;
 
@@ -21,10 +24,6 @@ public class Recurring {
      * @throws IllegalValueException if given frequency string is invalid.
      */
     public Recurring(String freq) throws IllegalValueException {
-        frequencySet.add("daily");
-        frequencySet.add("weekly");
-        frequencySet.add("monthly");
-        frequencySet.add("yearly");
         assert freq != null;
         recurringFrequency = freq.trim();
         if (!isValidFrequency(recurringFrequency)) {
@@ -37,7 +36,7 @@ public class Recurring {
      * Returns true if a given string is a valid task recurring frequency.
      */
     public static boolean isValidFrequency(String test) {
-        return frequencySet.contains(test);
+        return FREQUENCY_SET.contains(test);
     }
 
 

@@ -18,9 +18,25 @@ public class FilterPanelHandle extends GuiHandle{
     private static final String END_DATE_INPUT_FIELD_ID = "#endDateTextField";
     private static final String RECURRING_INPUT_FIELD_ID = "#recurringTextField";
     private static final String TAG_INPUT_FIELD_ID = "#tagsTextField";
+    private static final String PRIORITY_INPUT_FIELD_ID = "#priorityChoiceBox";
 
     public FilterPanelHandle(GuiRobot guiRobot, Stage primaryStage) {
         super(guiRobot, primaryStage, TestApp.APP_TITLE);
+    }
+    
+    /**
+     * Get the given inputs in the Filter Panel
+     */
+    public boolean getEventInput() {
+        return getToggleButtonInput(EVENT_INPUT_FIELD_ID);
+    }
+    
+    public String getDeadlineInput() {
+        return getTextFieldText(DEADLINE_INPUT_FIELD_ID);
+    }
+    
+    public String getPriorityInput() {
+        return getPriorityInput(PRIORITY_INPUT_FIELD_ID);
     }
     
     /**
@@ -76,15 +92,36 @@ public class FilterPanelHandle extends GuiHandle{
         guiRobot.sleep(200); 
     }
     
-    /**
-     * Get the given inputs in the Filter Panel
-     */
-    public boolean getEventInput() {
-        return getToggleButtonInput(EVENT_INPUT_FIELD_ID);
+    public void runCommandForPriority(String command) {
+        enterCommandForPriority(command);
+        guiRobot.sleep(200); 
     }
     
-    public String getDeadlineInput() {
-        return getTextFieldText(DEADLINE_INPUT_FIELD_ID);
+    /**
+     * Check the given fields in the Filter Panel are focused
+     */
+    public boolean deadlineIsFocused() {
+        return isFocused(DEADLINE_INPUT_FIELD_ID);
+    }
+    
+    public boolean startDateIsFocused() {
+        return isFocused(START_DATE_INPUT_FIELD_ID);
+    }
+    
+    public boolean endDateIsFocused() {
+        return isFocused(END_DATE_INPUT_FIELD_ID);
+    }
+    
+    public boolean recurringIsFocused() {
+        return isFocused(RECURRING_INPUT_FIELD_ID);
+    }
+    
+    public boolean tagIsFocused() {
+        return isFocused(TAG_INPUT_FIELD_ID);
+    }
+    
+    public boolean priorityIsFocused() {
+        return choiceBoxIsFocused(PRIORITY_INPUT_FIELD_ID);
     }
     
     /**
@@ -107,7 +144,7 @@ public class FilterPanelHandle extends GuiHandle{
     }
 
     /**
-     * For text fields, enter command by set textf field
+     * For text fields, enter command by set text field
      */
     private void enterCommandForDeadline(String command) {
         setTextField(DEADLINE_INPUT_FIELD_ID, command);
@@ -127,6 +164,10 @@ public class FilterPanelHandle extends GuiHandle{
     
     private void enterCommandForTag(String command) {
         setTextField(TAG_INPUT_FIELD_ID, command);
+    }
+    
+    private void enterCommandForPriority(String command) {
+        chooseChoiceBox(PRIORITY_INPUT_FIELD_ID, command);
     }
     
 }

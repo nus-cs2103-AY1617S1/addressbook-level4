@@ -6,6 +6,7 @@ import java.util.Optional;
 import java.util.Set;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.commons.util.TypesUtil;
 import seedu.address.model.task.Deadline;
 import seedu.address.model.task.EventDate;
 import seedu.address.model.task.Priority;
@@ -21,14 +22,8 @@ public class FilterCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Filter list for specified attributes "
             + "and displays them as a list with index numbers.\n"
-            + "Parameters: KEYWORD [s/START_DATE] [e/END_DATE] [d/DEADLINE] [r/RECURRING] [t/TAG]...\n"
-            + "Example: " + COMMAND_WORD + " s/23.10.2016 r/daily";
-
-    private static final String DEADLINE = "deadline";
-    private static final String START_DATE = "startDate";
-    private static final String END_DATE = "endDate";
-    private static final String RECURRING = "recurring";
-    private static final String PRIORITY = "priorityLevel";
+            + "Parameters: KEYWORD [s/START_DATE] [e/END_DATE] [d/DEADLINE] [r/RECURRING] [t/TAG]...\n" + "Example: "
+            + COMMAND_WORD + " s/23.10.2016 r/daily";
 
     private final Optional<String> deadline;
     private final Optional<String> startDate;
@@ -37,7 +32,8 @@ public class FilterCommand extends Command {
     private final Set<String> tags;
     private final Optional<String> priority;
 
-    public FilterCommand(Optional<String> deadline, Optional<String> startDate, Optional<String> endDate, Optional<String> recurring, Set<String> tags, Optional<String> priority) {
+    public FilterCommand(Optional<String> deadline, Optional<String> startDate, Optional<String> endDate,
+            Optional<String> recurring, Set<String> tags, Optional<String> priority) {
         this.deadline = deadline;
         this.startDate = startDate;
         this.endDate = endDate;
@@ -52,28 +48,28 @@ public class FilterCommand extends Command {
         try {
             if (deadline.isPresent()) {
                 String deadlineString = Deadline.getValidDate(deadline.get());
-                filterQualifications.put(DEADLINE, deadlineString);
+                filterQualifications.put(TypesUtil.DEADLINE, deadlineString);
             }
             if (startDate.isPresent()) {
                 String startDateString = EventDate.getValidDate(startDate.get());
-                filterQualifications.put(START_DATE, startDateString);
+                filterQualifications.put(TypesUtil.START_DATE, startDateString);
             }
             if (endDate.isPresent()) {
                 String endDateString = EventDate.getValidDate(endDate.get());
-                filterQualifications.put(END_DATE, endDateString);
+                filterQualifications.put(TypesUtil.END_DATE, endDateString);
             }
             if (recurring.isPresent()) {
                 if (Recurring.isValidFrequency(recurring.get())) {
-                    filterQualifications.put(RECURRING, recurring.get());
+                    filterQualifications.put(TypesUtil.RECURRING, recurring.get());
                 } else {
                     throw new IllegalValueException(Recurring.MESSAGE_RECURRING_CONSTRAINTS);
                 }
             }
             if (priority.isPresent()) {
-            	if (Priority.isValidPriorityLevel(Integer.parseInt(priority.get())))
-            		filterQualifications.put(PRIORITY, priority.get());
-            	else
-            		throw new IllegalValueException(Priority.MESSAGE_INVALID_PRIORITY_LEVEL);
+                if (Priority.isValidPriorityLevel(Integer.parseInt(priority.get())))
+                    filterQualifications.put(TypesUtil.PRIORITY, priority.get());
+                else
+                    throw new IllegalValueException(Priority.MESSAGE_INVALID_PRIORITY_LEVEL);
             }
         } catch (IllegalValueException e) {
             return new CommandResult(e.getMessage());
@@ -81,6 +77,5 @@ public class FilterCommand extends Command {
         model.updateFilteredTaskList(filterQualifications, tags);
         return new CommandResult(getMessageForTaskListShownSummary(model.getFilteredTaskList().size()));
     }
-
 
 }
