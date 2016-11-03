@@ -15,7 +15,7 @@ public class ListCommand extends Command {
             + "Example: " + COMMAND_WORD
             + " ALL";
 
-    public static final String MESSAGE_SUCCESS = "Listed all tasks";
+    public static final String MESSAGE_SUCCESS = "Filtered tasks listed.";
     
     private final Model.FilterType listFilter;
 
