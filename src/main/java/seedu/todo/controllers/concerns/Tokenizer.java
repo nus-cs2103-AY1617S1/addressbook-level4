@@ -44,7 +44,7 @@ public class Tokenizer {
     }
 
     /**
-     * Tokenizer method to parse a user-input string into a mapping of tokenType -> tokenField.
+     * Parses and tokenizes a user-input string into a mapping of tokenType -> tokenField.
      * <ul>
      *   <li>Quoted chunks are kept as a whole and never matched to a token.</li>
      *   <li>If there are multiple token matches, only the first one will be registered.</li>
