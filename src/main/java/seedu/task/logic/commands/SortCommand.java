@@ -15,14 +15,17 @@ public class SortCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "Listed all tasks with order: %1$s";
     public static final String MESSAGE_SUCCESS_DEFAULT = "Listed all tasks with order: Default Preset\n"
-            + "Tasks are sorted in the order: Incomplete tasks first, deadline, start time, name";
+            + "Tasks are sorted according to these criteria in the order:\n"
+            + "Incomplete tasks, Floating tasks, Older tasks,\n"
+            + "lastly Name in ascending order.";
 
     private final String keyword;
 
     /**
      * Parse the keyword given by user based on first character of the input
      * 
-     * @param keyword keyword given by user to sort tasks by
+     * @param keyword
+     *            keyword given by user to sort tasks by
      */
     public SortCommand(String keyword) {
         if (keyword.startsWith("d")) { // deadline

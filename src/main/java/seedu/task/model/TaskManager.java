@@ -1,8 +1,6 @@
 package seedu.task.model;
 
 import javafx.collections.ObservableList;
-import seedu.task.commons.core.LogsCenter;
-import seedu.task.commons.util.ConfigUtil;
 import seedu.task.model.tag.Tag;
 import seedu.task.model.tag.UniqueTagList;
 import seedu.task.model.task.ReadOnlyTask;
@@ -10,7 +8,6 @@ import seedu.task.model.task.Task;
 import seedu.task.model.task.UniqueTaskList;
 
 import java.util.*;
-import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 /**
@@ -18,8 +15,6 @@ import java.util.stream.Collectors;
  * Duplicates are not allowed (by .equals comparison)
  */
 public class TaskManager implements ReadOnlyTaskManager {
-    
-    private static final Logger logger = LogsCenter.getLogger(ConfigUtil.class);
 
     private final UniqueTaskList tasks;
     private final UniqueTagList tags;
@@ -238,8 +233,8 @@ public class TaskManager implements ReadOnlyTaskManager {
     }
 
     /**
-     * Tasks are sorted according to DoneStatus, followed by Deadline, followed
-     * by StartTime, followed by Name
+     * Tasks are sorted according to these criteria in the order: Incomplete
+     * tasks, Floating tasks, Older tasks, lastly Name in ascending order.
      */
     public void sortByDefaultRules() {
         this.tasks.getInternalList().sort(new Comparator<Task>() {
@@ -255,14 +250,8 @@ public class TaskManager implements ReadOnlyTaskManager {
                     timeResult = 0;
                 } else if (!one.getDeadline().toString().equals("") && !other.getStartTime().toString().equals("")) {
                     timeResult = one.getDeadline().compareTo(other.getStartTime());
-                    logger.warning("onedead vs otherstart");
-                    logger.warning(one.getStartTime().toString());
-                    logger.warning(one.getDeadline().toString());
-                    logger.warning(other.getStartTime().toString());
-                    logger.warning(other.getDeadline().toString());
                 } else if (!one.getStartTime().toString().equals("") && !other.getDeadline().toString().equals("")) {
                     timeResult = one.getStartTime().compareTo(other.getDeadline());
-                    logger.warning("onestart vs otherdead");
                 } else if (!(deadlineResult == 0)) {
                     timeResult = deadlineResult;
                 } else {
@@ -270,7 +259,7 @@ public class TaskManager implements ReadOnlyTaskManager {
                 }
                 // Name in ascending order
                 int nameResult = one.getName().compareTo(other.getName());
-                
+
                 if (statusResult == 0) {
                     if (timeResult == 0) {
                         return nameResult;
