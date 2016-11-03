@@ -164,6 +164,7 @@ The `Model`,
   so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
+[comment]: # (@@author A0143641M)
 ### Storage component
 
 <img src="images/StorageClassDiagram.png" width="800"><br>
@@ -172,8 +173,10 @@ The `Model`,
 
 The `Storage` component,
 * can save `UserPref` objects in json format and read it back.
-* can save the Taskmanager data in xml format and read it back.
+* can save the Taskmanager data in .xml format and read it back.
 * can save the Taskmanager data at a specified location and access the data accordingly.
+
+[comment]: # (@@author )
 
 ### Common classes
 
