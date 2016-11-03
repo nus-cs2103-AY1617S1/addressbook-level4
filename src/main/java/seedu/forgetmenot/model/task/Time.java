@@ -36,6 +36,9 @@ public class Time {
     public Time(String input) throws IllegalValueException {
         input = input.trim();
         
+        if (input.equals(DEFAULT_DATE))
+            input = "";
+        
         time = Calendar.getInstance();
         
         if(input.contains("/")) {
