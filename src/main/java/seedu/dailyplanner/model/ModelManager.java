@@ -188,7 +188,7 @@ public class ModelManager extends ComponentManager implements Model {
         @Override
         public boolean run(ReadOnlyTask person) {
             return dateKeyWords.stream()
-                    .filter(keyword -> StringUtil.containsIgnoreCase(person.getPhone().value, keyword))
+                    .filter(keyword -> StringUtil.withinDateRange(person.getPhone(), keyword))
                     .findAny()
                     .isPresent();
         }

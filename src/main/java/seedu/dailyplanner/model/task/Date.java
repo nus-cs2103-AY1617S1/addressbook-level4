@@ -12,13 +12,13 @@ public class Date implements Comparable<Date> {
 	public static final String PHONE_VALIDATION_REGEX = ".+";
 
 	public final String value;
-	private final int startDay;
-	private final int startMonth;
-	private final int startYear;
+	public final int startDay;
+	public final int startMonth;
+	public final int startYear;
 	public final String endDate;
-	private final int endDay;
-	private final int endMonth;
-	private final int endYear;
+	public final int endDay;
+	public final int endMonth;
+	public final int endYear;
 
 	/**
 	 * Validates given phone number.
@@ -56,9 +56,9 @@ public class Date implements Comparable<Date> {
 			this.endMonth = 0;
 			this.endYear = 9999;
 		} else {
-			this.endDay = Integer.parseInt(phone.substring(0, 2));
-			this.endMonth = Integer.parseInt(phone.substring(3, 5));
-			this.endYear = Integer.parseInt(phone.substring(6, 8));
+			this.endDay = Integer.parseInt(endDate.substring(0, 2));
+			this.endMonth = Integer.parseInt(endDate.substring(3, 5));
+			this.endYear = Integer.parseInt(endDate.substring(6, 8));
 		}
 	}
 
