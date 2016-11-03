@@ -83,11 +83,12 @@ public class HelpPopup extends UiPart {
         content.setWrapText(true);
         
         //Setting up the background, font and borders
-        content.setStyle("-fx-background-color: #00BFFF;-fx-padding:10px;"
-                + "-fx-text-fill: #000080;"+ "-fx-font-family: Consolas;"
+        content.setStyle("-fx-background-color: #00BFFF;"
+                + "-fx-padding:10px;"
+                + "-fx-text-fill: #000080;"
+                + "-fx-font-family: Fantasy;"
                 + "-fx-alignment: center"
+                + "-fx-font-size: 20px"
                 );
-
-//        content.setStyle("-fx-font-family: sample; -fx-font-size: 20;");
     }
 }
