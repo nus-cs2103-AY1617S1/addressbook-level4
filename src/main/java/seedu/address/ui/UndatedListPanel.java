@@ -71,7 +71,7 @@ public class UndatedListPanel extends UiPart {
     }
     
     private void initializeLabelCount(ObservableList<ReadOnlyTask> personList) {
-    	String label = "Floating : ";
+    	String label = "To Do : ";
     	assert personList != null;
     	label_count.setText(label + personList.size());
 	}
