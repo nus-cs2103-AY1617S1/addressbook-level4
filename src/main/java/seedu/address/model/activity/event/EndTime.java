@@ -15,7 +15,7 @@ import seedu.address.model.activity.DateTime;
 //@@author A0131813R
 public class EndTime extends DateTime {
 
-    public static final String MESSAGE_ENDTIME_CONSTRAINTS = "Event's start time should only contain valid date";
+    public static final String MESSAGE_ENDTIME_CONSTRAINTS = "Event's end time should only contain valid date";
     public static final String MESSAGE_ENDTIME_INVALID = "Event has already ended";
     public static final String MESSAGE_ENDTIME_NOTVALID = "Event end time is before start time";
     public String RecurringMessage;
@@ -53,7 +53,6 @@ public class EndTime extends DateTime {
             }
             else {
                 recurringEndTime(starttime, startdate, date);
-                setDate(date);
             }
         } else if (date.equals("")) {
             this.value = DateUtil.EndDateTime(startdate);
@@ -66,6 +65,13 @@ public class EndTime extends DateTime {
             setDate(date);
         }
 
+        while ((this.value.before(Calendar.getInstance()))) {
+            if (date.contains("mon") || date.contains("tue") || date.contains("wed")
+                    || date.contains("thu") || date.contains("fri") || date.contains("sat")
+                    || date.contains("sun"))
+                this.value.add(Calendar.DAY_OF_WEEK, 7);                
+                this.value.add(Calendar.DAY_OF_MONTH, 1);
+        }
     }
 
     private void recurringEndTime(StartTime starttime, Date startdate, String date) throws IllegalValueException {
@@ -83,7 +89,7 @@ public class EndTime extends DateTime {
             recurendtime = date.split(" ", 2);
             if (recurendtime.length == 1)
                 throw new IllegalValueException(MESSAGE_ENDTIME_CONSTRAINTS);
-            date = recur[1];
+            date = recurendtime[1];
         } else if (recur.length == 2) {
             RecurringMessage = "every " + date;
         } else
@@ -92,12 +98,12 @@ public class EndTime extends DateTime {
 
         Calendar cal = Calendar.getInstance();
         cal.setTime(startdate);
-        if (this.value.before(startdate)) {
-            while (this.value.before(startdate)) {
-                if (date.contains("mon") || date.contains("tues") || date.contains("wedn") || date.contains("thur")
-                        || date.contains("frid") || date.contains("satu") || date.contains("sund"))
+        if (this.value.before(starttime.value)) {
+            while (this.value.before(starttime.value)) {
+                if ((date.contains("mon") || date.contains("tue") || date.contains("wed") || date.contains("thu")
+                        || date.contains("fri") || date.contains("sat") || date.contains("sun"))&&recur.length!=1)
                     this.value.add(Calendar.DAY_OF_WEEK, 7);
-                if (date.contains("day"))
+                else 
                     this.value.add(Calendar.DAY_OF_MONTH, 1);
             }
         }
@@ -145,7 +151,7 @@ public class EndTime extends DateTime {
             this.value.setTime(taskDate);
             this.value.set(Calendar.MILLISECOND, 0);
             this.value.set(Calendar.SECOND, 0);
-            while (recurring && this.value.before(Calendar.getInstance())) {
+            while ((this.value.before(Calendar.getInstance())&&recurring)) {
                 if (recurfreq.contains("mon") || recurfreq.contains("tue") || recurfreq.contains("wed")
                         || recurfreq.contains("thu") || recurfreq.contains("fri") || recurfreq.contains("sat")
                         || recurfreq.contains("sun"))
@@ -153,6 +159,7 @@ public class EndTime extends DateTime {
                 if (recurfreq.contains("day"))
                     this.value.add(Calendar.DAY_OF_MONTH, 1);
             }
+            
 
         }
     }
