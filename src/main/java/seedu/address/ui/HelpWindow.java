@@ -13,6 +13,7 @@ import seedu.address.commons.core.LogsCenter;
 
 import java.util.logging.Logger;
 
+//@@author A0093960X
 /**
  * Controller for a help page
  */
@@ -34,7 +35,6 @@ public class HelpWindow extends UiPart {
         return helpWindow;
     }
 
-
     public void setNode(Node node) {
         mainPane = (AnchorPane) node;
     }
@@ -44,12 +44,12 @@ public class HelpWindow extends UiPart {
         return FXML;
     }
 
-    private void configure(){
+    private void configure() {
         Scene scene = new Scene(mainPane);
-        //Null passed as the parent stage to make it non-modal.
+        // Null passed as the parent stage to make it non-modal.
         dialogStage = createDialogStage(TITLE, null, scene);
         setIcon(dialogStage, ICON);
-        
+
         scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
             public void handle(KeyEvent ke) {
                 dialogStage.close();
@@ -58,14 +58,7 @@ public class HelpWindow extends UiPart {
     }
 
     public void show() {
-        //dialogStage.showAndWait();
         dialogStage.show();
     }
-    
-    @FXML
-    public void handleKeyPressed() {
-        dialogStage.close();
-    }
-    
-    
+
 }

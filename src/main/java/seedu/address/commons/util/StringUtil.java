@@ -23,36 +23,7 @@ public class StringUtil {
     public static boolean isSubstringFromStart(String source, String query) {
         return source != null & query != null && source.indexOf(query) == 0;
     }
-    
-    /**
-     * Combines the given list of strings into a single string, with newlines separating the strings.
-     * The list given cannot be null.
-     * If list of strings is empty, returns an empty string.
-     * If a string in the list is null, it will be ignored.
-     * 
-     * @param strings the list of strings to combine
-     * @return the single combined string
-     */
-    public static String combineStrings(List<String> strings) {
-        assert strings != null;
         
-        StringBuilder sb = new StringBuilder();
-                
-        for (String string : strings) {
-            if (string != null) {
-                sb.append(string);
-                sb.append("\n");
-            }
-        }
-        
-        // remove the final newline char if present
-        if (sb.length() > 0) {
-            sb.deleteCharAt(sb.length()-1);
-        }
-        
-        return sb.toString();
-    }
-    
     //@@author
     /**
      * Removes array brackets from a target String.

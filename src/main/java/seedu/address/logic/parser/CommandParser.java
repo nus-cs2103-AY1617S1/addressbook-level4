@@ -44,10 +44,12 @@ public class CommandParser {
     private static final String MAP_RECURRENCE_TIME_PERIOD = "timePeriod";
     private static final String MAP_PRIORITY = "priority";
     
-    private static final String RESET_START = "start";
-    private static final String RESET_END = "end";
-    private static final String RESET_RECURRENCE = "repeat";
-    private static final String RESET_PRIORITY = "priority";
+    private static final String RESET_START_KEYWORD = "start";
+    private static final String RESET_END_KEYWORD = "end";
+    private static final String RESET_RECURRENCE_KEYWORD = "repeat";
+    private static final String RESET_PRIORITY_KEYWORD = "priority";
+    
+    private static final String NEWLINE_CHARACTER = "\n";
 
     public CommandParser() {}
 
@@ -280,23 +282,6 @@ public class CommandParser {
     }
     
     /**
-     * Parses arguments in the context of the help command.
-     *
-     * @param args full command args string
-     * @return the prepared command
-     */
-    /*
-    private Command prepareHelp(String args) {
-        
-        if (args != null) {
-            return new HelpCommand(args.trim());
-        }
-        
-        return new HelpCommand(HelpCommand.COMMAND_WORD);
-    }
-    */
-
-    /**
      * Returns the specified index in the {@code command} IF a positive unsigned integer is given as the index.
      *   Returns an {@code Optional.empty()} otherwise.
      */
@@ -470,7 +455,7 @@ public class CommandParser {
             return Messages.MESSAGE_DONE_LIST_RESTRICTED_COMMANDS;
         }
 
-        String combinedTooltip = StringUtil.combineStrings(tooltips);
+        String combinedTooltip = String.join(NEWLINE_CHARACTER, tooltips);
         return combinedTooltip;
     }
     
@@ -566,7 +551,7 @@ public class CommandParser {
             return prepareAddDetailedTooltip(commandWord + arguments);      
         } 
         
-        String combinedTooltip = StringUtil.combineStrings(tooltips);
+        String combinedTooltip = String.join(NEWLINE_CHARACTER, tooltips);
         return combinedTooltip;
     }
     
@@ -655,13 +640,13 @@ public class CommandParser {
             String[] resetFieldNames = resetField.split("\\s+");
             
             for (String resetFieldStr : resetFieldNames) {
-                if (resetFieldStr.equals(RESET_START)) {
+                if (resetFieldStr.equals(RESET_START_KEYWORD)) {
                     resetStartDate = true;
-                } else if (resetFieldStr.equals(RESET_END)) {
+                } else if (resetFieldStr.equals(RESET_END_KEYWORD)) {
                     resetEndDate = true;
-                } else if (resetFieldStr.equals(RESET_RECURRENCE)) {
+                } else if (resetFieldStr.equals(RESET_RECURRENCE_KEYWORD)) {
                     resetRecurrence = true;
-                } else if (resetFieldStr.equals(RESET_PRIORITY)) {
+                } else if (resetFieldStr.equals(RESET_PRIORITY_KEYWORD)) {
                     resetPriority = true;
                 }
             }
