@@ -113,7 +113,7 @@ public class HelpCommandTest extends FlexiTrackGuiTest {
     public void execute_help_select() throws Exception {
         // help for select command
         String help_Select = "help select";
-        assertValidHelpSuccess(help_Select, SelectCommand.MESSAGE_USAGE);
+        assertValidHelpSuccess(help_Select, HelpCommand.HELP_MESSAGE_USAGE);
     }
 
     @Test
