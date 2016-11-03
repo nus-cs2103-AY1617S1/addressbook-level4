@@ -1,6 +1,7 @@
 package seedu.task.logic.parser;
 
 import seedu.task.logic.commands.*;
+import seedu.task.commons.util.FilePickerUtil;
 import seedu.task.commons.util.StringUtil;
 import seedu.task.commons.exceptions.IllegalValueException;
 import java.util.*;
@@ -532,7 +533,11 @@ public class CommandParser {
         final Matcher matcher = DIRECTORY_ARGS_FORMAT.matcher(args.trim());
         // Validate arg string format
         if (!matcher.matches()) {
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DirectoryCommand.MESSAGE_USAGE));
+            String directory = FilePickerUtil.openXMLFile();
+            if (directory == "") {
+              return new IncorrectCommand("Cancelled");
+            }
+            return new DirectoryCommand(directory);
         }
         return new DirectoryCommand(matcher.group("directory"));
     }
@@ -547,7 +552,11 @@ public class CommandParser {
         final Matcher matcher = DIRECTORY_ARGS_FORMAT.matcher(args.trim());
         // Validate arg string format
         if (!matcher.matches()) {
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, BackupCommand.MESSAGE_USAGE));
+            String directory = FilePickerUtil.saveXMLFile();
+            if (directory == "") {
+              return new IncorrectCommand("Cancelled");
+            }
+            return new BackupCommand(directory);
         }
         return new BackupCommand(matcher.group("directory"));
     }
