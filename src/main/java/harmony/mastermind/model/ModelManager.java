@@ -224,6 +224,7 @@ public class ModelManager extends ComponentManager implements Model {
         for (Task t: targets) {
             taskManager.markTask(t);
         }
+        updateFilteredListToShowAll();
         indicateTaskManagerChanged();
     }
 
