@@ -16,7 +16,7 @@ import seedu.flexitrack.testutil.TypicalTestTasks;
 public class EditCommandTest extends FlexiTrackGuiTest {
 
     @Test
-    public void editPass() {
+    public void edit_typicalTaskSet_pass() {
         TestTask[] currentList = td.getTypicalSortedTasks();
         TestTask editedTask;
         int index;
@@ -81,7 +81,7 @@ public class EditCommandTest extends FlexiTrackGuiTest {
     }
 
     @Test
-    public void editFail() {
+    public void edit_typicalTaskSet_fail() {
         TestTask[] currentList = td.getTypicalSortedTasks();
 
         // index not found

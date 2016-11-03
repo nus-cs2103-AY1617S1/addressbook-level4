@@ -53,28 +53,28 @@ public interface ReadOnlyTask extends Comparable<ReadOnlyTask>{
      * Sorts by whether the task is a floating task, then by whether the task is done, then by start time/due date, then by name
      */
     default public int compareTo(ReadOnlyTask task) {
-        int c = compareByDone(task);
-        if(c != 0){
-            return c;
+        int compareResult = compareByDone(task);
+        if (compareResult != 0){
+            return compareResult;
         }
-        c = compareByType(task);
-        if(c != 0){
-            return c;
+        compareResult = compareByType(task);
+        if (compareResult != 0){
+            return compareResult;
         }
-        if(this.getIsNotFloatingTask() && task.getIsNotFloatingTask()){
-            c = compareByDate(task);
-            if(c != 0){
-                return c;
+        if (this.getIsNotFloatingTask() && task.getIsNotFloatingTask()){
+            compareResult = compareByDate(task);
+            if (compareResult != 0){
+                return compareResult;
             }
         }
-       c = compareByName(task);
-       return c;
+       compareResult = compareByName(task);
+       return compareResult;
     }
 
     default int compareByDone(ReadOnlyTask task) {
-        if(this.getIsDone() && !task.getIsDone()){
+        if (this.getIsDone() && !task.getIsDone()){
             return 1;
-        }else if(!this.getIsDone() && task.getIsDone()){
+        }else if (!this.getIsDone() && task.getIsDone()){
             return -1;
         }else{
             return 0;
@@ -82,9 +82,9 @@ public interface ReadOnlyTask extends Comparable<ReadOnlyTask>{
     }
     
     default int compareByType(ReadOnlyTask task) {
-        if(this.getIsNotFloatingTask() && !task.getIsNotFloatingTask()){
+        if (this.getIsNotFloatingTask() && !task.getIsNotFloatingTask()){
             return 1;
-        }else if(!this.getIsNotFloatingTask() && task.getIsNotFloatingTask()){
+        }else if (!this.getIsNotFloatingTask() && task.getIsNotFloatingTask()){
             return -1;
         }else{
             return 0;

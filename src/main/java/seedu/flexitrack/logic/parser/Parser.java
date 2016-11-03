@@ -395,20 +395,20 @@ public class Parser {
         final Matcher matcherStartTime = EDIT_ARGS_STARTTIME.matcher(editParameters);
         final Matcher matcherEndTime = EDIT_ARGS_ENDTIME.matcher(editParameters);
 
-        boolean namePresent = matcherName.find();
-        boolean dueDatePresent = matcherDueDate.find();
-        boolean startTimePresent = matcherStartTime.find();
-        boolean endTimePresent = matcherEndTime.find();
+        boolean isNamePresent = matcherName.find();
+        boolean isDueDatePresent = matcherDueDate.find();
+        boolean isStartTimePresent = matcherStartTime.find();
+        boolean isEndTimePresent = matcherEndTime.find();
 
         //Check that at least one edit parameter exists
-        if (!namePresent && !dueDatePresent && !startTimePresent && !endTimePresent) {
+        if (!isNamePresent && !isDueDatePresent && !isStartTimePresent && !isEndTimePresent) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
         }
 
-        prepareEditParameter(passing, matcherName, namePresent, "name");
-        prepareEditParameter(passing, matcherDueDate, dueDatePresent, "dueDate");
-        prepareEditParameter(passing, matcherStartTime, startTimePresent, "startTime");
-        prepareEditParameter(passing, matcherEndTime, endTimePresent, "endTime");
+        prepareEditParameter(passing, matcherName, isNamePresent, "name");
+        prepareEditParameter(passing, matcherDueDate, isDueDatePresent, "dueDate");
+        prepareEditParameter(passing, matcherStartTime, isStartTimePresent, "startTime");
+        prepareEditParameter(passing, matcherEndTime, isEndTimePresent, "endTime");
 
         return new EditCommand(index, passing);
     }
