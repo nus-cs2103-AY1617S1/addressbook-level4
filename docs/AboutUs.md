@@ -41,16 +41,19 @@ Role: Tutor <br>
 #### [Antonia Devina](https://github.com/antoniadevina)
 <img src="images/AntoniaDevina.jpeg" width="150"><br>
 * Role: Developer <br>  
-* Responsibilities: Integration, Scheduling and tracking
+* Responsibilities: Integration, Scheduling and Testing
 * Features implemented:
 	* Mark Command 
 	* Undo Command 
 	* List Command 
+	* Find time (Gap) Command
 * Code written: [[functional code](https://github.com/CS2103AUG2016-F09-C3/main/blob/master/collated/main/A0127686R.md)][[test code](https://github.com/CS2103AUG2016-F09-C3/main/blob/master/collated/test/A0127686R.md)][[docs](https://github.com/CS2103AUG2016-F09-C3/main/blob/master/collated/docs/A0127686R.md)]
 * Other major contributions:
 	* Did the initial refactoring from AddressBook to FlexiTrack 
-	* Fix the Initial test cases to fit FlexiTrack 
-	* Implement natty and the DateTimeInfo class
+		* Fix the basic function to work for flexi track 
+		* Fix the initial test cases to fit FlexiTrack 
+	* Implement natty and the DateTimeInfo class and DateTimeInfoParser class 
+	* Remove Tag and all the classes associated with tag 
 
 -----
 
@@ -62,6 +65,7 @@ Role: Tutor <br>
 	* Edit Command 
 	* Sort the Task
 	* Shortcut commands
+	* Redo Command 
 * Code written: [[functional code](https://github.com/CS2103AUG2016-F09-C3/main/blob/master/collated/main/A0127855W.md)][[test code](https://github.com/CS2103AUG2016-F09-C3/main/blob/master/collated/test/A0127855W.md)][[docs](https://github.com/CS2103AUG2016-F09-C3/main/blob/master/collated/docs/A0127855W.md)]
 * Other major contributions:
 	* Cleaninging up code

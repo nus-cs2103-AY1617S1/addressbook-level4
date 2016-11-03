@@ -47,42 +47,41 @@ Examples:
 
 > Help is also shown if you enter an incorrect command e.g. `abcd`
 > default help message will show a list of all command word, e.g. enter `help`
-//@@author
  
+//@@author A0127686R
 #### Adding a task: `add`
 #### Shortcut : `a`
 Adds a task to the FlexiTrack.<br>
 Format: `add [task title] < by/ [deadline] >`
 
-#### Adding an recurring task
-#### Shortcut : `a`
-Adds a task(recursive) to the FlexiTrack.<br>
-Format: `add [task title] fr/ [number of occurrence] ty/ [day | week | month] from/ [starting time] to/ [ending time]`
-
 Examples: 
 * `add CS2103 tutorial 3 `
 * `add CS2103 tutorial 3 by/ Saturday`
 * `a CS2103 tutorial 3 by/ tmr 9am`
-* `add Submit PC1222 Labsheet fr/ 5 ty/ week by/ Tuesday 5pm`
 
 #### Adding an event: `add`
 #### Shortcut : `a`
 Adds a event to the FlexiTrack.<br>
 Format: `add [event title] from/ [starting time] to/ [ending time]`
 
-#### Adding an recurring event : `add`
-#### Shortcut : `a`
-Adds a event(recursive) to the FlexiTrack.<br>
-Format: `add [event title] fr/ [number of occurrence] ty/ [day | week | month] from/ [starting time] to/ [ending time]`
-
 Examples: 
 * `add Bintan trip from/ Saturday to/ Sunday`
 * `a CS2103 Lecture from/ Friday 2pm to/ Friday 4pm `
+
+//@@author 
+#### Adding an recurring task: `add`
+#### Shortcut : `a`
+Adds a task(recursive) to the FlexiTrack.<br>
+Format: `add [task title] fr/ [number of occurrence] ty/ [day | week | month] from/ [starting time] to/ [ending time]`
+
+Examples: 
+* `add Submit PC1222 Labsheet fr/ 5 ty/ week by/ Tuesday 5pm`
 * `add complete CS2103 post-lecture quiz fr/ 10 ty/ week by/ Sunday 10pm`
 
+//@@author A0127686R
 #### Finding a task or an event containing any keyword in their title: `find`
 #### Shortcut : `f`
-Finds a task ot an event whose title contain any of the given keywords.<br>
+Finds a task of an event whose title contain any of the given keywords.<br>
 Format: `find KEYWORD [MORE_KEYWORDS]`
 
 > * The search is non case sensitive. e.g `soccer` will match `Soccer`
@@ -103,7 +102,7 @@ Examples:
 
 #### Finding a specific task or an event containing an exact phrase in their title: `find f/`
 #### Shortcut : `f f/`
-Finds a task ot an event whose title contain any of the given keywords.<br>
+Finds a task of an event whose title contain any of the given keywords.<br>
 Format: `find f/ EXACT PHRASE`
 
 > * The search is case sensitive. e.g `soccer practice` will not match `Soccer practice`
@@ -134,16 +133,15 @@ Examples:
 
 #### Undo operations : `undo`
 Undo operation a number of times.<br>
-Format: `undo < [number of undo] >`
+Format: `undo`
 
-> The number of undo parameter is optional. When it is not satisfied, one undo will be done. 
-> The maximum number of undo is 15 
+> Users can only undo the command made from the point they open a new flexitrack windows. 
+> Users can undo more than once 
+> Undo works for: add, delete, clear, mark, unmark, block. 
 
 Examples: 
 * `undo`<br>
-  Undo the operation 1 time.
-* `undo 4`<br>
-  Undo the operations 4 times. 
+  Undo the last operation.
   
 #### Mark a task as complete : `mark`
 #### Shortcut : `m`
@@ -192,8 +190,8 @@ Format: `block [Description] from/ [starting time] to/ [ending time]`
 
 Examples: 
 * `block for cs2103 project from/ 5pm to/ 7pm`<br>	
-//@@author
 
+//@@author A0127686R
 #### Find free time slot: `find time`
 Find and list free time slot in the schedule that is equal to or longer than the specified timing (in hours).<br>
 Format: `find time [number of hours] < [number of slots to find] >`  
@@ -217,6 +215,7 @@ Format: `exit`
 Address book data are saved in the hard disk automatically after any command that changes the data.<br>
 There is no need to save manually.
 
+//@@author A0127686R
 ## Time Format 
 FlexiTrack support various timing input. Here are some examples! 
 
@@ -249,19 +248,21 @@ next month 8am | Mar 01 08:00
 **A**: Install the app in the other computer and overwrite the empty data file it creates with 
        the file that contains the data of your previous FlexiTrack folder.
        
+//@@author
 ## Command Summary
 
 Command | Format  
 -------- | :-------- 
 Add task | `add [task title] < by/ [deadline] >`
 Add event | `add [event title] from/ [starting time] to/ [ending time]`
-Deadline | `deadline [index] [new deadline]`
+Edit | `edit [index] < n/[new title] > < by/[deadline] > < from/[new start time] to/[new end time] >`
 Delete | `delete INDEX`
-Find | `find KEYWORD [MORE_KEYWORDS]`
-Undo | `undo [number of times]`
+Find | `find [key words] < [key words] >`
+Undo | `undo`
+Redo | `redo`
 Mark | `mark [index]`
 Unmark | `unmark [index]`
 cs | `cs [path]`
-Find time | `find time [number of hours] < [number of slots to find] >`
+Find time | `gap [number of hours] < [number of slots to find] >`
 Block | `block [Description] from/ [starting time] to/ [ending time]`
 Help | `help [command word(optional)]`
