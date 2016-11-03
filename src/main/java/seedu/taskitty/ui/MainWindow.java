@@ -23,8 +23,8 @@ public class MainWindow extends UiPart {
     private static final String ICON = "/images/Tasks-icon.png";
     private static final String FXML = "MainWindow.fxml";
     private static final String VIEW_TODAY = "view";
-    public static final int MIN_HEIGHT = 600;
-    public static final int MIN_WIDTH = 850;
+    public static final int MIN_HEIGHT = 650;
+    public static final int MIN_WIDTH = 750;
 
     private Logic logic;
 
