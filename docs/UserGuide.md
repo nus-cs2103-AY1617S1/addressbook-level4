@@ -46,30 +46,41 @@ Format: `help`
 Adds a task to the FlexiTrack.<br>
 Format: `add [task title] < by/ [deadline] >`
 
+#### Adding an recurring task
+#### Shortcut : `a`
+Adds a task(recursive) to the FlexiTrack.<br>
+Format: `add [task title] fr/ [number of occurrence] ty/ [day | week | month] from/ [starting time] to/ [ending time]`
+
 Examples: 
 * `add CS2103 tutorial 3 `
 * `add CS2103 tutorial 3 by/ Saturday`
 * `a CS2103 tutorial 3 by/ tmr 9am`
-
+* `add Submit PC1222 Labsheet fr/ 5 ty/ week by/ Tuesday 5pm`
 
 #### Adding an event: `add`
-#### Shortcut : `h`
-Adds a task to the FlexiTrack.<br>
+#### Shortcut : `a`
+Adds a event to the FlexiTrack.<br>
 Format: `add [event title] from/ [starting time] to/ [ending time]`
+
+#### Adding an recurring event : `add`
+#### Shortcut : `a`
+Adds a event(recursive) to the FlexiTrack.<br>
+Format: `add [event title] fr/ [number of occurrence] ty/ [day | week | month] from/ [starting time] to/ [ending time]`
 
 Examples: 
 * `add Bintan trip from/ Saturday to/ Sunday`
 * `a CS2103 Lecture from/ Friday 2pm to/ Friday 4pm `
+* `add complete CS2103 post-lecture quiz fr/ 10 ty/ week by/ Sunday 10pm`
 
 #### Finding a task or an event containing any keyword in their title: `find`
 #### Shortcut : `f`
 Finds a task ot an event whose title contain any of the given keywords.<br>
 Format: `find KEYWORD [MORE_KEYWORDS]`
 
-> * The search is case sensitive. e.g `soccer` will not match `Soccer`
+> * The search is non case sensitive. e.g `soccer` will match `Soccer`
 > * The order of the keywords does not matter. e.g. `soccer dinner` will match `dinner soccer`
 > * Only the task/event title is searched.
-> * Only full words will be matched e.g. `socc` will not match `soccer`
+> * Only full words will be matched e.g. `socc` will not match `soccer` (unless 'f/' keyword is used)
 > * Task or event matching at least one keyword will be returned (i.e. `OR` search).
     e.g. `soccer` will match `soccer training`
 > * Search by exact task name can be activated with the shortcut 'f/' before the task name.
@@ -131,7 +142,7 @@ Examples:
 Mark an existing task to complete and move it to the bottom of the list.<br>
 Format: `mark [index]`  
 
-> Mark the taks/event at the specified `index`. 
+> Mark the task/event at the specified `index`. 
   The index refers to the index number shown in the most recent listing.<br>
   The index **must be a positive integer** 1, 2, 3, ...
 > The marked task will be deleted once the you exit the program 
