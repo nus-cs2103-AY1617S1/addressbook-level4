@@ -439,14 +439,44 @@ public class ModelManager extends ComponentManager implements Model {
         @Override
         public boolean run(ReadOnlyTask task) {
         	DateTime dateTime = task.getDateTime();
+        	boolean result;
+        	
         	if(dateTime.valueDate == null)	//For tasks without date specified
         		return false;
-        	else if(DateTimeKeyWord == TimePeriod.today)
-        		return dateTime.valueDate.equals(LocalDate.now());
-        	else if(DateTimeKeyWord == TimePeriod.tomorrow)
-        		return dateTime.valueDate.equals(LocalDate.now().plusDays(1));
-        	else
-        		return false;
+        	else{
+        		switch(DateTimeKeyWord){
+        			case today:
+        				result = dateTime.valueDate.equals(LocalDate.now());
+        				break;
+        			case tomorrow:
+        				result = dateTime.valueDate.equals(LocalDate.now().plusDays(1));
+        				break;
+        			case thisWeek:
+        				result = dateTime.valueDate.isAfter(dateOfThisWeekSunday().minusWeeks(1))
+        						&& dateTime.valueDate.isBefore(dateOfThisWeekSunday().plusDays(1));
+        				break;
+        			case nextWeek:
+        				result = dateTime.valueDate.isAfter(dateOfThisWeekSunday())
+								&& dateTime.valueDate.isBefore(dateOfThisWeekSunday().plusDays(8));
+        				break;
+        			case thisMonth:
+        				result = dateTime.valueDate.getMonthValue() == LocalDate.now().getMonthValue();
+        				break;
+        			case nextMonth:
+        				result = dateTime.valueDate.getMonthValue() == LocalDate.now().plusMonths(1).getMonthValue();
+        				break;
+        			default:
+        				result = false;
+        		}
+        	}
+        	
+        	return result;
+        }
+        
+        //Returns a LocalDate object with the date of this week's Sunday
+        private LocalDate dateOfThisWeekSunday(){
+        	int noOfDaysFromTodayToSunday = 7 - LocalDate.now().getDayOfWeek().getValue();
+        	return LocalDate.now().plusDays(noOfDaysFromTodayToSunday);
         }
 
         @Override

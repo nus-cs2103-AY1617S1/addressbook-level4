@@ -27,6 +27,7 @@ public class ListCommand extends Command {
 
     private String keyword;
     private String successMessage;
+    private TimePeriod timePeriod;
     
     public ListCommand(String keyword){
         this.keyword = keyword;
@@ -37,18 +38,19 @@ public class ListCommand extends Command {
         if(keyword.isEmpty()){
             model.updateFilteredListToShowUncompleted();
             this.successMessage = MESSAGE_LIST_UNCOMPLETED;
+            
         }else if(keyword.equalsIgnoreCase("all")){
         	model.updateFilteredListToShowAll();
         	this.successMessage = MESSAGE_LIST_ALL;
-        }else if(keyword.equalsIgnoreCase("today")){
-        	model.updateFilteredTaskList(TimePeriod.today);
-        	this.successMessage = String.format(MESSAGE_LIST_TIMEPERIOD, keyword.toLowerCase());
-        }else if(keyword.equalsIgnoreCase("tomorrow")){
-        	model.updateFilteredTaskList(TimePeriod.tomorrow);
-        	this.successMessage = String.format(MESSAGE_LIST_TIMEPERIOD, keyword.toLowerCase());
+        	
+        }else if(keywordSatifiesTimePeriod()){
+        	model.updateFilteredTaskList(timePeriod);
+        	this.successMessage = String.format(MESSAGE_LIST_TIMEPERIOD, keyword);
+        	
         }else if (keyword.equalsIgnoreCase("completed")){
         	model.updateFilteredTaskList(Completed.completed);
         	this.successMessage = String.format(MESSAGE_LIST_COMPLETED, keyword.toLowerCase());
+        	
     	}else{
             model.updateFilteredTaskList(keyword);
             this.successMessage = String.format(MESSAGE_LIST_KEYWORD, keyword.toLowerCase())
@@ -57,6 +59,43 @@ public class ListCommand extends Command {
         return new CommandResult(successMessage);
     }
     
-    public enum TimePeriod {today, tomorrow};
+    private boolean keywordSatifiesTimePeriod(){
+    	boolean result;
+    	switch(this.keyword.toLowerCase()){
+    		case "today":
+    			this.timePeriod = TimePeriod.today;    			
+    			result = true;
+    			break;
+    		case "tomorrow":
+    			this.timePeriod = TimePeriod.tomorrow;
+    			result = true;
+    			break;
+    		case "thisweek":
+    			this.timePeriod = TimePeriod.thisWeek;
+    			this.keyword = "this week";
+    			result = true;
+    			break;
+    		case "nextweek":
+    			this.timePeriod = TimePeriod.nextWeek;
+    			this.keyword = "next week";
+    			result = true;
+    			break;
+    		case "thismonth":
+    			this.timePeriod = TimePeriod.thisMonth;
+    			this.keyword = "this month";
+    			result = true;
+    			break;
+    		case "nextmonth":
+    			this.timePeriod = TimePeriod.nextMonth;
+    			this.keyword = "next month";
+    			result = true;
+    			break;
+    		default:
+    			result = false;
+    	}
+    	return result;
+    }
+    
+    public enum TimePeriod {today, tomorrow, thisWeek, nextWeek, thisMonth, nextMonth};
     public enum Completed {completed};
 }
