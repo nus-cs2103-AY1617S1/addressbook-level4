@@ -272,10 +272,18 @@
     -fx-padding: 8 1 8 1;
 }
 
+.invisible-star {
+	-fx-fill: gold;
+}
+
 #cardPane {
     -fx-background-color: transparent;
     -fx-border-color: #d6d6d6;
     -fx-border-width: 1 1 1 1;
+}
+
+#cardPane-completed {
+	-fx-opacity: 0.2;
 }
 
 #commandTypeLabel {
@@ -283,6 +291,19 @@
     -fx-text-fill: #F70D1A;
 }
 
-#filterField, #personListPanel, #personWebpage {
+#filterField, #taskListPanel, #taskWebpage {
     -fx-effect: innershadow(gaussian, black, 10, 0, 0, 0);
+}
+
+#tagCardPane {
+	-fx-background-color: black;
+	-fx-border-color: black;
+	-fx-border-width: 1;
+	-fx-border-style: solid;
+	-fx-border-radius: 10 10 10 10;
+	-fx-background-radius: 10 10 10 10;
+}
+
+#tagCardPane #tagName {
+	-fx-text-fill: white;
 }

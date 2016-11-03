@@ -6,10 +6,11 @@ import javafx.geometry.Point2D;
 import javafx.scene.Node;
 import javafx.scene.control.ListView;
 import javafx.stage.Stage;
-import seedu.address.TestApp;
-import seedu.address.model.task.Task;
-import seedu.address.model.task.ReadOnlyTask;
-import seedu.address.testutil.TestUtil;
+import seedu.task.TestApp;
+import seedu.task.commons.exceptions.IllegalValueException;
+import seedu.task.testutil.TestUtil;
+import seedu.task.model.task.ReadOnlyTask;
+import seedu.task.model.task.Task;
 
 import java.util.List;
 import java.util.Optional;
@@ -115,14 +116,20 @@ public class TaskListPanelHandle extends GuiHandle {
      */
     public TaskCardHandle navigateToTask(ReadOnlyTask task) {
         int index = getTaskIndex(task);
-
-        guiRobot.interact(() -> {
+        return navigateToTask(index);
+    }
+    
+    /**
+     * Navigates the listview to display and select the task by index.
+     */
+    public TaskCardHandle navigateToTask(int index) {
+           guiRobot.interact(() -> {
             getListView().scrollTo(index);
             guiRobot.sleep(150);
             getListView().getSelectionModel().select(index);
         });
         guiRobot.sleep(100);
-        return getTaskCardHandle(task);
+        return getTaskCardHandle(index);
     }
 
 
@@ -132,7 +139,7 @@ public class TaskListPanelHandle extends GuiHandle {
     public int getTaskIndex(ReadOnlyTask targetTask) {
         List<ReadOnlyTask> tasksInList = getListView().getItems();
         for (int i = 0; i < tasksInList.size(); i++) {
-            if(tasksInList.get(i).getName().equals(targetTask.getName())){
+            if(tasksInList.get(i).isSameVisualStateAs(targetTask)){
                 return i;
             }
         }
@@ -147,7 +154,12 @@ public class TaskListPanelHandle extends GuiHandle {
     }
 
     public TaskCardHandle getTaskCardHandle(int index) {
-        return getTaskCardHandle(new Task(getListView().getItems().get(index)));
+        try {
+            return getTaskCardHandle(new Task(getListView().getItems().get(index)));
+        } catch (IllegalValueException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     public TaskCardHandle getTaskCardHandle(ReadOnlyTask task) {
@@ -166,7 +178,7 @@ public class TaskListPanelHandle extends GuiHandle {
         return guiRobot.lookup(CARD_PANE_ID).queryAll();
     }
 
-    public int getNumberOfPeople() {
+    public int getNumberOfTask() {
         return getListView().getItems().size();
     }
 }

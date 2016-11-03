@@ -5,10 +5,11 @@ import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.stage.Window;
-import seedu.address.TestApp;
-import seedu.address.commons.core.LogsCenter;
+import seedu.task.TestApp;
+import seedu.task.commons.core.LogsCenter;
 
 import java.util.logging.Logger;
 
@@ -48,6 +49,10 @@ public class GuiHandle {
     protected Node getNode(String query) {
         return guiRobot.lookup(query).tryQuery().get();
     }
+    
+    protected Node getNode(String query, Node parentNode) {
+        return guiRobot.from(parentNode).lookup(query).tryQuery().get();
+    }
 
     protected String getTextFieldText(String filedName) {
         return ((TextField) getNode(filedName)).getText();
@@ -64,10 +69,15 @@ public class GuiHandle {
     }
 
     protected String getTextFromLabel(String fieldId, Node parentNode) {
-        return ((Label) guiRobot.from(parentNode).lookup(fieldId).tryQuery().get()).getText();
+        return ((Label) getNode(fieldId, parentNode)).getText();
+    }
+    
+    protected String getTextFromText(String fieldId, Node parentNode) {
+        return ((Text) getNode(fieldId, parentNode)).getText();
     }
 
     public void focusOnSelf() {
+        
         if (stageTitle != null) {
             focusOnWindow(stageTitle);
         }
@@ -77,6 +87,7 @@ public class GuiHandle {
         this.focusOnWindow(TestApp.APP_TITLE);
     }
 
+    
     public void closeWindow() {
         java.util.Optional<Window> window = guiRobot.listTargetWindows()
                 .stream()

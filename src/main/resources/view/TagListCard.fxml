@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.*?>
+
+<VBox id="tagCardPane" fx:id="tagCardPane" xmlns:fx="http://javafx.com/fxml/1">
+	<children>
+		<Label id="tagName" fx:id="name" text="sample text" style="-fx-padding: 0 2.5 0 2.5;" />
+	</children>
+</VBox>
+
