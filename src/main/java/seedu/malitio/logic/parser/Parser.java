@@ -33,7 +33,7 @@ public class Parser {
     private static final Pattern EDIT_DATA_ARGS_FORMAT =
 
             Pattern.compile("(?<targetIndex>[e|d|f|E|D|F]\\d+)"
-                    + "(?<name>(?:[^/]+)?)"
+                    + "(?<name>(?:\\s[^/]+)?)"
                     + "(?<tagArguments>(?: t/[^/]+)*)");
 
     private static final Pattern COMPLETE_INDEX_ARGS_FORMAT = Pattern.compile("(?<targetIndex>[d|f|D|F]\\d+)");
@@ -41,8 +41,6 @@ public class Parser {
     private static final Set<String> TYPES_OF_TASKS = new HashSet<String>(Arrays.asList("f", "d", "e" ));
 
     public static final String MESSAGE_MISSING_START_END = "Expecting start and end times\nExample: start thursday 800 end thursday 900";
-    
-    public static final String MESSAGE_CONFLICTING_ARG = "Expecting either a due date or start and end time.";
     
     public Parser() {}
 
@@ -154,25 +152,21 @@ public class Parser {
         }
         try {
             String name = matcher.group("name");
-
-            
-            String start = getStartFromArgs(StringUtil.removeTagsFromString(name));
-            if (!start.isEmpty()) {
-                name = name.replaceAll("start " + start, "");
-                hasStart = true;
-            }
-            
-            String end = getEndFromArgs(StringUtil.removeTagsFromString(name));
-            if (!end.isEmpty()) {
-                name = name.replaceAll("end " + end, "");
-                hasEnd = true;
-            }
-            
             String deadline = getDeadlineFromArgs(StringUtil.removeTagsFromString(name));
             if (!deadline.isEmpty()) {
-                name = name.replaceAll("by " + deadline, "");
-            }
-            if (!deadline.isEmpty() && !hasStart && !hasEnd) {
+                name = name.replaceAll(" by " + deadline, "");
+            }         
+            String start = getStartFromArgs(StringUtil.removeTagsFromString(name));
+            if (!start.isEmpty()) {
+                name = name.replaceAll(" start " + start, "");
+                hasStart = true;
+            }            
+            String end = getEndFromArgs(StringUtil.removeTagsFromString(name));
+            if (!end.isEmpty()) {
+                name = name.replaceAll(" end " + end, "");
+                hasEnd = true;
+            }            
+            if (!deadline.isEmpty()) {
                 return new AddCommand(
                         name,
                         deadline,
@@ -185,8 +179,6 @@ public class Parser {
                         end,
                         getTagsFromArgs(matcher.group("tagArguments"))
                         );
-            } else if ((!deadline.isEmpty() && hasStart) || (!deadline.isEmpty() && hasEnd)) {
-                return new IncorrectCommand(MESSAGE_CONFLICTING_ARG);
             } else if (hasStart ^ hasEnd) {
                 return new IncorrectCommand(MESSAGE_MISSING_START_END);
             }
@@ -218,8 +210,8 @@ public class Parser {
             }
             char taskType = index.charAt(0);
             int taskNum = Integer.parseInt(index.substring(1));
-
             String name = matcher.group("name");
+            System.out.println(name);
             if (name.equals("") && getTagsFromArgs(matcher.group("tagArguments")).isEmpty()) {
                 return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
             }
@@ -237,6 +229,7 @@ public class Parser {
             if (!end.isEmpty()) {
                 name = name.replaceAll(" end " + end, "");
             }
+            name = name.trim();
                 return new EditCommand(
                         taskType,
                         taskNum,
@@ -441,10 +434,10 @@ public class Parser {
      * Extracts the task's deadline from the command's arguments string.
      */
     private static String getDeadlineFromArgs(String args) throws IllegalValueException {
-        int byIndex = args.lastIndexOf("by ");
+        int byIndex = args.lastIndexOf(" by ");
         String deadline = "";
-        if(byIndex > 0 && byIndex < args.length() - 2) {
-                deadline = args.substring(byIndex + 3);
+        if(byIndex >= 0 && byIndex < args.length() - 4) {
+                deadline = args.substring(byIndex + 4);
         }
         return deadline;
     }
@@ -453,12 +446,12 @@ public class Parser {
      * Extracts the task's event start from the command's arguments string.
      */
     private static String getStartFromArgs(String args) throws IllegalValueException {
-        int startIndex = args.lastIndexOf("start ");
-        int endIndex = args.lastIndexOf("end");
-        if (startIndex > 0 && endIndex > 0) {
-            return args.substring(startIndex + 6, endIndex - 1);
-        } else if (startIndex > 0 && endIndex < 0) {
-            return args.substring(startIndex + 6);
+        int startIndex = args.lastIndexOf(" start ");
+        int endIndex = args.lastIndexOf(" end");
+        if (startIndex >= 0 && endIndex > 0) {
+            return args.substring(startIndex + 7, endIndex);
+        } else if (startIndex >= 0 && endIndex < 0) {
+            return args.substring(startIndex + 7);
         } else {
             return "";
         }
@@ -468,9 +461,9 @@ public class Parser {
      * Extracts the task's event end from the command's arguments string.
      */
     private static String getEndFromArgs(String args) throws IllegalValueException {
-        int endIndex = args.lastIndexOf("end ");
-        if (endIndex > 0) {
-         return args.substring(endIndex + 4);
+        int endIndex = args.lastIndexOf(" end ");
+        if (endIndex >= 0) {
+         return args.substring(endIndex + 5);
         } else {
             return ""; 
         }

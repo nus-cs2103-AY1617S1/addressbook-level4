@@ -13,7 +13,6 @@ import seedu.malitio.commons.events.ui.ShowHelpRequestEvent;
 import seedu.malitio.logic.Logic;
 import seedu.malitio.logic.LogicManager;
 import seedu.malitio.logic.commands.*;
-import seedu.malitio.logic.parser.Parser;
 import seedu.malitio.model.Malitio;
 import seedu.malitio.model.Model;
 import seedu.malitio.model.ModelManager;
@@ -21,9 +20,6 @@ import seedu.malitio.model.ReadOnlyMalitio;
 import seedu.malitio.model.tag.Tag;
 import seedu.malitio.model.tag.UniqueTagList;
 import seedu.malitio.model.task.*;
-import seedu.malitio.model.task.UniqueDeadlineList.DuplicateDeadlineException;
-import seedu.malitio.model.task.UniqueEventList.DuplicateEventException;
-import seedu.malitio.model.task.UniqueFloatingTaskList.DuplicateFloatingTaskException;
 import seedu.malitio.storage.StorageManager;
 
 import java.util.ArrayList;
@@ -185,17 +181,7 @@ public class LogicManagerTest {
         String expectedMessage = Event.MESSAGE_INVALID_EVENT;
         assertCommandBehavior(
                 "add do now start today end yesterday", expectedMessage);        
-    }
-    
-    @Test
-    public void execute_add_unclearTask() throws Exception {
-        String expectedMessage = Parser.MESSAGE_CONFLICTING_ARG;
-        assertCommandBehavior(
-                "add do now by today start tomorrow", expectedMessage);
-        assertCommandBehavior(
-                "add do now by today end tomorrow", expectedMessage);       
-    }
-   
+    }   
 
     /**
      * Test to make sure all three types of task can be added
@@ -640,8 +626,6 @@ public class LogicManagerTest {
         
         //Find within events
         expectedEventList = helper.generateEventList(eTarget1, eTarget2); 
-      
-        //Find within events
         assertCommandBehavior("find e key rAnDoM",
                 Command.getMessageForTaskListShownSummary(expectedDeadlineList.size()),
                 expectedAB,
