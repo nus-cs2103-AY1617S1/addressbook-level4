@@ -16,7 +16,7 @@ import seedu.todo.testutil.TaskBuilder;
 
 //@@ author A0092382A
 public class ViewCommandTest extends CommandTest {
-    private int[] all, events, dueSoon, completed, incomplete;
+    private int[] all, events, dueSoon, completed, incomplete, today;
     
     private List<ImmutableTask> tasks;
     
@@ -27,6 +27,7 @@ public class ViewCommandTest extends CommandTest {
     
     @Before
     public void setUp() throws Exception {
+        //TODO Set this to be fixed instance, due to the times sensitive nature of Today tasks.
         LocalDateTime now = LocalDateTime.now();
         
         tasks = ImmutableList.of(
@@ -69,6 +70,7 @@ public class ViewCommandTest extends CommandTest {
         dueSoon = new int[]{ 2, 1 };
         completed = new int[]{ 6, 4, 0 };
         incomplete = new int[]{ 3, 5, 2, 1 };
+        today = new int[]{5, 2, 4};
     }
     
     private void assertViewChange(TaskViewFilter filter) {
@@ -148,6 +150,15 @@ public class ViewCommandTest extends CommandTest {
         
         assertViewChange(TaskViewFilter.EVENTS);
         assertTasksVisible(events);
+    }
+    
+    @Test
+    public void testToday() throws Exception {
+        setParameter("today"); 
+        execute(true);
+        
+        assertViewChange(TaskViewFilter.TODAY);
+        assertTasksVisible(today);
     }
 
     @Test
