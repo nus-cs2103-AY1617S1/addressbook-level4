@@ -49,14 +49,9 @@ public class DateTimeInfoParser {
         return timingInfo.isDateInferred();
     }
 
-    // @@author A0147092E
+    //@@author A0147092E
     public Date getParsedDateTime() {
         return timingInfo.getDates().get(0);
-    }
-    
-    // @@author 
-    public List<Date> getParsedTimingObject() {
-        return timingInfo.getDates();
     }
     
     //@@author A0138455Y

@@ -32,7 +32,6 @@ import seedu.flexitrack.logic.commands.ExitCommand;
 import seedu.flexitrack.logic.commands.FindCommand;
 import seedu.flexitrack.logic.commands.HelpCommand;
 import seedu.flexitrack.logic.commands.ListCommand;
-import seedu.flexitrack.logic.commands.SelectCommand;
 import seedu.flexitrack.model.FlexiTrack;
 import seedu.flexitrack.model.Model;
 import seedu.flexitrack.model.ModelManager;
@@ -277,32 +276,6 @@ public class LogicManagerTest {
         }
 
         assertCommandBehavior(commandWord + " 3", expectedMessage, model.getFlexiTrack(), taskList);
-    }
-
-    @Test
-    public void execute_selectInvalidArgsFormat_errorMessageShown() throws Exception {
-        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, SelectCommand.MESSAGE_USAGE);
-        assertIncorrectIndexFormatBehaviorForCommand("select", expectedMessage);
-    }
-
-    @Test
-    public void execute_selectIndexNotFound_errorMessageShown() throws Exception {
-        assertIndexNotFoundBehaviorForCommand("select");
-    }
-
-    // TODO: need to change all the test casses
-    @Test
-    public void execute_select_jumpsToCorrectPerson() throws Exception {
-        TestDataHelper helper = new TestDataHelper();
-        List<Task> threePersons = helper.generateTaskList(3);
-
-        FlexiTrack expectedAB = helper.generateFlexiTracker(threePersons);
-        helper.addToModel(model, threePersons);
-
-        assertCommandBehavior("select 2", String.format(SelectCommand.MESSAGE_SELECT_TASK_SUCCESS, 2), expectedAB,
-                expectedAB.getTaskList());
-        assertEquals(1, targetedJumpIndex);
-        assertEquals(model.getFilteredTaskList().get(1), threePersons.get(1));
     }
     
     @Test

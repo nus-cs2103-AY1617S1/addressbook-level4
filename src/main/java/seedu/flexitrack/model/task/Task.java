@@ -9,7 +9,7 @@ import seedu.flexitrack.commons.util.CollectionUtil;
  * Represents a Person in the address book. Guarantees: details are present and
  * not null, field values are validated.
  */
-public class Task implements ReadOnlyTask{
+public class Task implements ReadOnlyTask {
 
     private Name name;
     private DateTimeInfo dueDate;
@@ -178,5 +178,5 @@ public class Task implements ReadOnlyTask{
     public String getDueDateInString() {
         return this.dueDate.toString();
     }
-    
+
 }

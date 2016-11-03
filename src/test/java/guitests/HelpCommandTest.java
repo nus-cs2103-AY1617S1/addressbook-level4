@@ -22,7 +22,6 @@ import seedu.flexitrack.logic.commands.FindCommand;
 import seedu.flexitrack.logic.commands.HelpCommand;
 import seedu.flexitrack.logic.commands.ListCommand;
 import seedu.flexitrack.logic.commands.MarkCommand;
-import seedu.flexitrack.logic.commands.SelectCommand;
 import seedu.flexitrack.logic.commands.UnmarkCommand;
 import seedu.flexitrack.model.Model;
 import seedu.flexitrack.model.ModelManager;

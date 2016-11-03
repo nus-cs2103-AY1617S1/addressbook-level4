@@ -30,9 +30,7 @@ public interface ReadOnlyTask extends Comparable<ReadOnlyTask>{
     default boolean isSameStateAs(ReadOnlyTask other) {
         return other == this // short circuit if same object
                 || (other != null // this is first to avoid NPE below
-                        && other.getName().getNameOnly().equals(this.getName().getNameOnly()) // state
-                                                                  // checks here
-                                                                  // onwards
+                        && other.getName().getNameOnly().equals(this.getName().getNameOnly()) // state checks here onwards
                         && other.getDueDate().equals(this.getDueDate())
                         && other.getStartTime().equals(this.getStartTime())
                         && other.getEndTime().equals(this.getEndTime()));

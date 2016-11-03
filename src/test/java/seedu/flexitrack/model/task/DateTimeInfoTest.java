@@ -2,8 +2,6 @@ package seedu.flexitrack.model.task;
 
 import static org.junit.Assert.assertTrue;
 import static seedu.flexitrack.model.task.DateTimeInfo.MESSAGE_FROM_IS_AFTER_TO;
-import static seedu.flexitrack.model.task.DateTimeInfo.MESSAGE_DATETIMEINFO_CONSTRAINTS;
-import static seedu.flexitrack.logic.commands.ListCommand.LIST_LAST_WEEK_COMMAND;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -21,13 +19,6 @@ public class DateTimeInfoTest {
         testTime1 = null;
         testTime2 = null;
     }
-
-//    @Test
-//    public void DateTimeInfo_emptyInput_returnsIncorrect() {
-//        final String[] emptyInputs = { "", "  ", "\n  \n" };
-//        final String resultMessage = String.format(MESSAGE_DATETIMEINFO_CONSTRAINTS);
-//        DateTimeInfoAndAssertIncorrectWithMessage(emptyInputs,resultMessage);
-//    }
 
     @Test
     public void DateTimeInfo_ValidInputWithNoSpecificHoursAndMinutes_returnsDate() {
@@ -101,7 +92,7 @@ public class DateTimeInfoTest {
         testTime2 = new DateTimeInfo("July 19 2017 10:00");
         String expected = "Duration of the event is: 2 months 7 days 3 hours.";
         assertTrue(DateTimeInfo.durationOfTheEvent(testTime1.toString(), testTime2.toString()).equals(expected));
-        
+
         testTime2 = new DateTimeInfo("Aug 02 2019 10:30");
         expected = "Duration of the event is: 2 years 2 months 21 days 3 hours 30 minutes.";
         assertTrue(DateTimeInfo.durationOfTheEvent(testTime1.toString(), testTime2.toString()).equals(expected));
@@ -118,11 +109,11 @@ public class DateTimeInfoTest {
         testTime2 = new DateTimeInfo("Feb 19 2017 10:00");
         String expected = MESSAGE_FROM_IS_AFTER_TO;
         assertTrue(DateTimeInfo.durationOfTheEvent(testTime1.toString(), testTime2.toString()).equals(expected));
-        
+
         testTime1 = new DateTimeInfo("Dec 12 2017 07:30");
         testTime2 = new DateTimeInfo("Nov 19 2017 02:10");
         assertTrue(DateTimeInfo.durationOfTheEvent(testTime1.toString(), testTime2.toString()).equals(expected));
-        
+
         testTime1 = new DateTimeInfo("Sep 12 2017 07:30");
         testTime2 = new DateTimeInfo("March 19 2017 02:10");
         assertTrue(DateTimeInfo.durationOfTheEvent(testTime1.toString(), testTime2.toString()).equals(expected));
@@ -178,28 +169,28 @@ public class DateTimeInfoTest {
 
     @Test
     public void isTaskAnEventPassingThisDate_DateIsWithinEvent_True() throws IllegalValueException {
-        Task event = new Task ( new Name ("event"), new DateTimeInfo ("Feb 29 2000 00:00"), 
-                new DateTimeInfo ("April 26 2017 07:00"), new DateTimeInfo ("Jan 26 2018 07:00"));
+        Task event = new Task(new Name("event"), new DateTimeInfo("Feb 29 2000 00:00"),
+                new DateTimeInfo("April 26 2017 07:00"), new DateTimeInfo("Jan 26 2018 07:00"));
         testTime1 = new DateTimeInfo("Jun 26 2017 07:00");
         assertTrue(DateTimeInfo.isTaskAnEventPassingThisDate(event, testTime1.toString()));
     }
-    
+
     @Test
     public void isTaskAnEventPassingThisDate_DateIsNotWithinEvent_True() throws IllegalValueException {
-        Task event = new Task ( new Name ("event"), new DateTimeInfo ("Feb 29 2000 00:00"), 
-                new DateTimeInfo ("April 26 2017 07:00"), new DateTimeInfo ("Jan 26 2018 07:00"));
+        Task event = new Task(new Name("event"), new DateTimeInfo("Feb 29 2000 00:00"),
+                new DateTimeInfo("April 26 2017 07:00"), new DateTimeInfo("Jan 26 2018 07:00"));
         testTime1 = new DateTimeInfo("Jan 26 2017 07:00");
         assertTrue(!DateTimeInfo.isTaskAnEventPassingThisDate(event, testTime1.toString()));
     }
-    
+
     @Test
     public void isOnTheDate_DateIsNotWithinEvent_True() throws IllegalValueException {
-        Task event = new Task ( new Name ("event"), new DateTimeInfo ("Feb 29 2000 00:00"), 
-                new DateTimeInfo ("April 26 2017 07:00"), new DateTimeInfo ("Jan 26 2018 07:00"));
+        Task event = new Task(new Name("event"), new DateTimeInfo("Feb 29 2000 00:00"),
+                new DateTimeInfo("April 26 2017 07:00"), new DateTimeInfo("Jan 26 2018 07:00"));
         testTime1 = new DateTimeInfo("April 26 2017 07:00");
-        assertTrue(DateTimeInfo.isOnTheDate(testTime1.toString(),event));
+        assertTrue(DateTimeInfo.isOnTheDate(testTime1.toString(), event));
     }
-    
+
     private void DateTimeInfoAndAssertCorrect(String validInput, String expectedSetTime) {
         try {
             testTime1 = new DateTimeInfo(validInput);

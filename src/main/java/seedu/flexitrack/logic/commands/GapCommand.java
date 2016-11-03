@@ -42,39 +42,40 @@ public class GapCommand extends Command {
     private final int numberOfSlot; 
 
     public GapCommand(int keyword, int length, int numberOfSlot) {
-        this.keyword = keyword; 
-        this.length = length; 
-        this.numberOfSlot = numberOfSlot; 
+        this.keyword = keyword;
+        this.length = length;
+        this.numberOfSlot = numberOfSlot;
     }
 
     @Override
     public CommandResult execute() {
-        List<DateTimeInfo> listOfTiming = model.findSpecifiedGapTiming(keyword,length,numberOfSlot);
+        List<DateTimeInfo> listOfTiming = model.findSpecifiedGapTiming(keyword, length, numberOfSlot);
         String theListOfDates = putResultIntoString(listOfTiming);
-        String keywordString = putKeywordIntoString(); 
+        String keywordString = putKeywordIntoString();
         return new CommandResult((String.format(MESSAGE_SUCCESS, keywordString) + theListOfDates));
     }
 
     /**
      * Put the user specified timing back into string
-     * @return the specified timing by the users 
+     * 
+     * @return the specified timing by the users
      */
     private String putKeywordIntoString() {
-        String keywordString = ""; 
-        switch (keyword){
-        case 0: 
+        String keywordString = "";
+        switch (keyword) {
+        case 0:
             keywordString = "minute";
-            break; 
-        case 1: 
-            keywordString = "hour"; 
-            break; 
-        case 2: 
-            keywordString = "day"; 
+            break;
+        case 1:
+            keywordString = "hour";
+            break;
+        case 2:
+            keywordString = "day";
             break;
         }
         keywordString = length + " " + keywordString;
-        if (length>1){
-            keywordString = keywordString +"s";
+        if (length > 1) {
+            keywordString = keywordString + "s";
         }
         return keywordString;
     }
@@ -85,19 +86,20 @@ public class GapCommand extends Command {
      * @return The timing of the gap in string, ready to be shown to the user 
      */
     private String putResultIntoString(List<DateTimeInfo> listOfTiming) {
-        String theListOfDates = ""; 
-        int iter = 0; 
-        for (; iter<listOfTiming.size()-1 ; iter++){
-            if ( iter == 0 && listOfTiming.get(iter).toString().equals(DateTimeInfo.getCurrentTime().toString())){
+        String theListOfDates = "";
+        int iter = 0;
+        for (; iter < listOfTiming.size() - 1; iter++) {
+            if (iter == 0 && listOfTiming.get(iter).toString().equals(DateTimeInfo.getCurrentTime().toString())) {
                 theListOfDates = theListOfDates + "\nBetween:  now                        ";
             } else {
                 theListOfDates = theListOfDates + "\nBetween:  " + listOfTiming.get(iter).toString();
-            }iter=iter+1;
+            }
+            iter = iter + 1;
             theListOfDates = theListOfDates + "  to: " + listOfTiming.get(iter).toString();
 
         }
-        if ((iter+1)/2 <numberOfSlot){
-            theListOfDates = theListOfDates + "\nFree from: " + listOfTiming.get(iter).toString()+ " onwards. ";
+        if ((iter + 1) / 2 < numberOfSlot) {
+            theListOfDates = theListOfDates + "\nFree from: " + listOfTiming.get(iter).toString() + " onwards. ";
         }
         return theListOfDates;
     }

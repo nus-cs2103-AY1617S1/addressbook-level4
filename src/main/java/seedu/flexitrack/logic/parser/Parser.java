@@ -34,7 +34,6 @@ import seedu.flexitrack.logic.commands.IncorrectCommand;
 import seedu.flexitrack.logic.commands.ListCommand;
 import seedu.flexitrack.logic.commands.MarkCommand;
 import seedu.flexitrack.logic.commands.RedoCommand;
-import seedu.flexitrack.logic.commands.SelectCommand;
 import seedu.flexitrack.logic.commands.UndoCommand;
 import seedu.flexitrack.logic.commands.UnmarkCommand;
 import seedu.flexitrack.model.Model;
@@ -65,7 +64,6 @@ public class Parser {
         SHORTCUT_MAP.put(ListCommand.COMMAND_SHORTCUT, ListCommand.COMMAND_WORD);
         SHORTCUT_MAP.put(MarkCommand.COMMAND_SHORTCUT, MarkCommand.COMMAND_WORD);
         SHORTCUT_MAP.put(UnmarkCommand.COMMAND_SHORTCUT, UnmarkCommand.COMMAND_WORD);
-        SHORTCUT_MAP.put(SelectCommand.COMMAND_SHORTCUT, SelectCommand.COMMAND_WORD);
         SHORTCUT_MAP.put(BlockCommand.COMMAND_SHORTCUT, BlockCommand.COMMAND_WORD);
         SHORTCUT_MAP.put(UndoCommand.COMMAND_SHORTCUT, UndoCommand.COMMAND_WORD);
         SHORTCUT_MAP.put(RedoCommand.COMMAND_SHORTCUT, RedoCommand.COMMAND_WORD);
@@ -136,9 +134,6 @@ public class Parser {
 
         case BlockCommand.COMMAND_WORD:
             return prepareBlock(arguments);
-
-        case SelectCommand.COMMAND_WORD:
-            return prepareSelect(arguments);
 
         case EditCommand.COMMAND_WORD:
             return prepareEdit(arguments);
@@ -707,22 +702,6 @@ public class Parser {
         }
 
         return new DeleteCommand(index.get());
-    }
-
-    /**
-     * Parses arguments in the context of the select task command.
-     *
-     * @param args
-     *            full command args string
-     * @return the prepared command
-     */
-    private Command prepareSelect(String args) {
-        Optional<Integer> index = parseIndex(args);
-        if (!index.isPresent()) {
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SelectCommand.MESSAGE_USAGE));
-        }
-
-        return new SelectCommand(index.get());
     }
 
     /**

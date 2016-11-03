@@ -15,7 +15,8 @@ public class AddCommand extends Command {
     public static final String COMMAND_WORD = "add";
     public static final String COMMAND_SHORTCUT = "a";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD  + ", Shortcut [" + COMMAND_SHORTCUT + "]" + ": Adds a task to the FlexiTrack.\n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ", Shortcut [" + COMMAND_SHORTCUT + "]"
+            + ": Adds a task to the FlexiTrack.\n"
             + "1. Add Floating Task - Parameters to add an Floating Task: [task title]\n" + "\tExample: " + COMMAND_WORD
             + " Do CS homework\n"
             + "2. Add Event - Parameters to add an event: [task title] from/ [starting time] to/ [ending time]\n"
@@ -30,7 +31,7 @@ public class AddCommand extends Command {
     public static final String MESSAGE_SUCCESS = "New task added: %1$s";
     public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the FlexiTrack";
     public static final String MESSAGE_OVERLAPPING_EVENT_WARNING = "\nWarning: this event is overlaping a existing event!";
-    
+
     private Task toAdd;
     private boolean isOverlapping = false;
 
@@ -40,34 +41,34 @@ public class AddCommand extends Command {
      * @throws IllegalValueException
      *             if any of the raw values are invalid
      */
-    public AddCommand(String name, String dueDate, String startTime, String endTime)
-            throws IllegalValueException {
+    public AddCommand(String name, String dueDate, String startTime, String endTime) throws IllegalValueException {
         this.toAdd = new Task(new Name(name), new DateTimeInfo(dueDate), new DateTimeInfo(startTime),
                 new DateTimeInfo(endTime));
     }
 
     public AddCommand() {
-        this.toAdd = null; 
+        this.toAdd = null;
     }
 
     @Override
     public CommandResult execute() {
         assert model != null;
         try {
-            
-            if(model.checkBlock(toAdd)) {
+
+            if (model.checkBlock(toAdd)) {
                 return new CommandResult(BlockCommand.MESSAGE_DUPLICATE_TIME);
             }
             this.isOverlapping = model.checkOverlapEvent(toAdd);
-            
+
             model.addTask(toAdd);
             toAdd = toAdd.copy();
-            recordCommand(this); 
-            
+            recordCommand(this);
+
             if (toAdd.getIsEvent()) {
-                return new CommandResult((String.format(MESSAGE_SUCCESS, toAdd)) + "\n" + DateTimeInfo
-                        .durationOfTheEvent(toAdd.getStartTime().toString(), toAdd.getEndTime().toString())
-                        + (isOverlapping? MESSAGE_OVERLAPPING_EVENT_WARNING : ""));
+                return new CommandResult((String.format(MESSAGE_SUCCESS, toAdd)) + "\n"
+                        + DateTimeInfo.durationOfTheEvent(toAdd.getStartTime().toString(),
+                                toAdd.getEndTime().toString())
+                        + (isOverlapping ? MESSAGE_OVERLAPPING_EVENT_WARNING : ""));
             } else {
                 return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
             }
@@ -77,7 +78,7 @@ public class AddCommand extends Command {
 
     }
 
-    //@@author A0127686R
+    // @@author A0127686R
     @Override
     public void executeUndo() {
         Task toDelete = toAdd;

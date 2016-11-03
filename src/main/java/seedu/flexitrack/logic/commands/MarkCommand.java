@@ -67,15 +67,15 @@ public class MarkCommand extends Command {
     //@@author A0127686R
     @Override
     public void executeUndo() {
-        Task toDelete = markedTask; 
+        Task toDelete = markedTask;
         Task toAddBack = taskStore;
-        
+
         try {
             model.deleteTask(toDelete);
         } catch (TaskNotFoundException pnfe) {
             assert false : "The target task cannot be missing";
         }
-        
+
         try {
             model.addTask(toAddBack);
         } catch (DuplicateTaskException e) {
