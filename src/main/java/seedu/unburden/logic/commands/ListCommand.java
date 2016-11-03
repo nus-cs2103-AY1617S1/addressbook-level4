@@ -49,15 +49,15 @@ public class ListCommand extends Command {
 
 	public ListCommand(String args, String mode) throws ParseException {
 		SimpleDateFormat dateFormatter = new SimpleDateFormat("dd-MM-yyyy");
-		this.endDate = dateFormatter.parse(args);
+		this.endDate = dateFormatter.parse(args.trim());
 		this.startDate = null;
 		this.mode = mode;
 	}
 
 	public ListCommand(String[] args, String mode) throws ParseException {
 		SimpleDateFormat dateFormatter = new SimpleDateFormat("dd-MM-yyyy");
-		this.endDate = dateFormatter.parse(args[1]);
-		this.startDate = dateFormatter.parse(args[0]);
+		this.endDate = dateFormatter.parse(args[1].trim());
+		this.startDate = dateFormatter.parse(args[0].trim());
 		this.mode = mode;
 	}
 
@@ -65,6 +65,17 @@ public class ListCommand extends Command {
 		return t -> {
 			try {
 				return t.getDate().toDate().before(date) || t.getDate().toDate().equals(date);
+			} catch (ParseException e) {
+				return false;
+			}
+		};
+	}
+
+	private java.util.function.Predicate<? super Task> getAllDatesBetween(Date startDate, Date endDate) {
+		return t -> {
+			try {
+				return (t.getDate().toDate().before(endDate) && t.getDate().toDate().after(startDate))
+						|| t.getDate().toDate().equals(startDate) || t.getDate().toDate().equals(endDate);
 			} catch (ParseException e) {
 				return false;
 			}
@@ -91,7 +102,6 @@ public class ListCommand extends Command {
 
 	@Override
 	public CommandResult execute() throws DuplicateTagException, IllegalValueException {
-
 		switch (mode) {
 		case "undone":
 			model.updateFilteredTaskList(getAllUndone());
@@ -101,6 +111,9 @@ public class ListCommand extends Command {
 			break;
 		case "done":
 			model.updateFilteredTaskList(getAllDone());
+			break;
+		case "period":
+			model.updateFilteredTaskList(getAllDatesBetween(startDate, endDate));
 			break;
 		case "all":
 			model.updateFilteredListToShowAll();
