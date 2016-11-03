@@ -144,28 +144,30 @@ public class CommandBox extends UiPart {
      */
     private String getUserInputAfterKeyPressed(String keyAsString) {
         String userInput = commandTextField.getText();
+        int caretPosition = commandTextField.getCaretPosition();
                 
         switch (keyAsString) {
             case BACKSPACE_UNICODE:
                 // backspace action occurs before event triggers, just return the user input
                 return userInput;
             case SPACE_UNICODE:
-                return applySpaceOnInputEnd(userInput);
+                return applySpaceAtPosition(userInput, caretPosition);
             default:
                 // is a normal letter/digit
-                return applyKeyOnInputEnd(userInput, keyAsString);
+                return applyKeyAtPosition(userInput, keyAsString, caretPosition);
         }
         
     }
 
     /**
-     * Returns a string that is the result of the key appended to the back of the user input
+     * Returns a string that is the result of adding the given key in the specified position of the string.
      * @param userInput the user input
      * @param keyString the key as a string
-     * @return string with key appended to the user input string
+     * @param position the position to add the key
+     * @return string with key at the specified position in the user input string
      */
-    private String applyKeyOnInputEnd(String userInput, String keyString) {
-        return userInput + keyString;
+    private String applyKeyAtPosition(String userInput, String keyString, int position) {
+        return userInput.substring(0, position) + keyString + userInput.substring(position);
     }
 
     /**
@@ -191,8 +193,8 @@ public class CommandBox extends UiPart {
      * @param userInput
      * @return
      */
-    private String applySpaceOnInputEnd(String userInput) {
-        return userInput + " ";
+    private String applySpaceAtPosition(String userInput, int position) {
+        return userInput.substring(0, position) + " " + userInput.substring(position);
     }
 
     /**

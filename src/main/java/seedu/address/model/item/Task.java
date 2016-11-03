@@ -323,17 +323,7 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
         if (comparedVal != 0) {
             return comparedVal;
         }
-
-        comparedVal = this.startDate.compareTo(other.endDate);
-        if (comparedVal != 0) {
-            return comparedVal;
-        }
-
-        comparedVal = this.endDate.compareTo(other.startDate);
-        if (comparedVal != 0) {
-            return comparedVal;
-        }
-
+        // compare the end dates
         comparedVal = this.endDate.compareTo(other.endDate);
         return comparedVal;
 
