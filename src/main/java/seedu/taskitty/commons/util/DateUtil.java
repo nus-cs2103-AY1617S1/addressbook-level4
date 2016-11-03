@@ -4,10 +4,12 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.DateTimeException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.Month;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
+import seedu.taskitty.model.task.Task;
 import seedu.taskitty.model.task.TaskDate;
 
 //@@author A0139930B-unused
@@ -197,5 +199,14 @@ public class DateUtil {
     
     public static boolean isToday(LocalDate date) {
     	return date.equals(createCurrentDate());
+    }
+    
+    /**
+     * This method specifically checks if a deadline task is overdue.
+     */
+    public static boolean isOverdue(Task t) {
+        LocalDateTime currentTime = TimeUtil.createCurrentTime();
+        LocalDateTime taskTime = t.getPeriod().getEndDate().getDate().atTime(t.getPeriod().getEndTime().getTime());
+        return currentTime.isAfter(taskTime);
     }
 }

@@ -5,6 +5,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.taskitty.commons.exceptions.DuplicateDataException;
 import seedu.taskitty.commons.util.CollectionUtil;
+import seedu.taskitty.commons.util.DateUtil;
 import seedu.taskitty.commons.util.TimeUtil;
 import seedu.taskitty.ui.ResultDisplay;
 
@@ -173,7 +174,7 @@ public class UniqueTaskList implements Iterable<Task> {
     	boolean hasOverdue = false;    	
     	for (Task t: internalList) {
     		if (t.isDeadline() && !t.getIsDone()) {
-    			if (isOverdue(t)) {
+    			if (DateUtil.isOverdue(t)) {
     				t.markAsOverdue();
     				hasOverdue = true;
     			}
@@ -190,7 +191,7 @@ public class UniqueTaskList implements Iterable<Task> {
     private void checkAndSetIsOverToday() {
         final ArrayList<Task> eventsToSetOver = new ArrayList<Task>();
     	for (Task t: internalList) {
-    	    if (t.isEvent() && isOverdue(t)) {
+    	    if (t.isEvent() && DateUtil.isOverdue(t)) {
     	        eventsToSetOver.add(t);
     	    }
     	}
@@ -205,11 +206,6 @@ public class UniqueTaskList implements Iterable<Task> {
     	}
     }
     
-    private boolean isOverdue(Task t) {
-        LocalDateTime currentTime = TimeUtil.createCurrentTime();
-    	LocalDateTime taskTime = t.getPeriod().getEndDate().getDate().atTime(t.getPeriod().getEndTime().getTime());
-    	return currentTime.isAfter(taskTime);
-    }
     
     //@@author A0139930B
     public FilteredList<Task> getFilteredTaskList(int filter) {
