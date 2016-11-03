@@ -69,7 +69,7 @@ public class UpdateController implements Controller {
      * Extracts the record index from parsedResult.
      * 
      * @param parsedResult
-     * @return  Integer index if parse was successfull, null otherwise.
+     * @return  Integer index if parse was successful, null otherwise.
      */
     private Integer parseIndex(Map<String, String[]> parsedResult) {
         String indexStr = null;
@@ -79,5 +79,18 @@ public class UpdateController implements Controller {
         } else {
             return null;
         }
+    }
+    
+    /**
+     * Extracts the name to be updated from parsedResult.
+     * 
+     * @param parsedResult
+     * @return  String name if found, null otherwise.
+     */
+    private String parseName(Map<String, String[]> parsedResult) {
+        if (parsedResult.get("name") != null && parsedResult.get("name")[1] != null) {
+            return parsedResult.get("name")[1];
+        }
+        return null;
     }
 }
