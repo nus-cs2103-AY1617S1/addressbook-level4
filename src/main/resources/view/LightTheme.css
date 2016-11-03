@@ -52,36 +52,6 @@
     -fx-text-fill: #010504;
 }
 
-.cell_big_label {
-    -fx-font-size: 30px;
-    -fx-font-family:"Zapf-Chancery";
-    -fx-text-fill: #010504;
-}
-
-.cell_small_label {
-    -fx-font-size: 11px;
-    -fx-text-fill: #010504;
-}
-.cell_date_label{
-	-fx-font-size: 14px;
-	-fx-text-fill: #757575;
-}
-.cell_tag_label{
-	-fx-font-size: 11px;
-	-fx-text-fill: #ff0000;
-}
-.cell_done_label{
-	-fx-font-size: 14px;
-	-fx-text-fill: #ff0000;
-	-fx-text-decoration-color: red;
-	text-decoration: underline;
-}
-.cell_recurring_label{
-	-fx-font-size: 14px;
-	-fx-font-family:fantasy;
-	-fx-text-fill: #ff0000;
-}
-
 .anchor-pane {
      -fx-background-color: white;
 }
@@ -232,6 +202,40 @@
     -fx-text-fill: white;
 }
 
-#cardPane #date {
-	-fx-font-size: 11px;
+.cell_id_label {
+    -fx-font-size: 25px;
+    /*-fx-font-family:"Zapf-Chancery";*/
+    -fx-font-family:"Rockwell";
+    -fx-text-fill: #010504;
 }
+
+.cell_name_label {
+	-fx-font-family: "Imprint MT Shadow";
+	-fx-font-size: 30px;
+	-fx-font-weight: bold
+}
+
+.cell_date_label{
+	-fx-font-family: "Rockwell";
+	-fx-font-size: 20px;
+	-fx-text-fill: #757575;
+	-fx-label-padding: 0, 0, 0, 50;
+}
+
+.cell_tag_label{
+	-fx-font-size: 18px;
+	-fx-text-fill: #ff0000;
+}
+.cell_done_label{
+	-fx-font-size: 18px;
+	-fx-text-fill: #ff0000;
+	-fx-text-decoration-color: red;
+	text-decoration: underline;
+}
+.cell_recurring_label{
+	-fx-font-size: 18px;
+	-fx-font-family:fantasy;
+	-fx-text-fill: #ff0000;
+}
+
+

@@ -19,6 +19,7 @@ import seedu.address.model.*;
 import seedu.address.commons.util.ConfigUtil;
 import seedu.address.storage.Storage;
 import seedu.address.storage.StorageManager;
+import seedu.address.ui.MainWindow;
 import seedu.address.ui.Ui;
 import seedu.address.ui.UiManager;
 
@@ -41,7 +42,7 @@ public class MainApp extends Application {
     protected Model model;
     protected Config config;
     protected UserPrefs userPrefs;
-    
+
     private String configFilePathUsed;
 
     public MainApp() {}
@@ -183,12 +184,12 @@ public class MainApp extends Application {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         this.stop();
     }
-    
+
     //@@author A0146123R
     @Subscribe
     public void handleStoragePathChangedEvent(StoragePathChangedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        
+
         //Update config file
         this.config.setTaskManagerFilePath(event.newStorageFilePath);
         try {
@@ -197,11 +198,11 @@ public class MainApp extends Application {
             logger.warning("Failed to save config file : " + StringUtil.getDetails(e));
         }
     }
-    //@@author 
+    //@@author
 
     public static void main(String[] args) {
             launch(args);
-    
+
 }
 }
 

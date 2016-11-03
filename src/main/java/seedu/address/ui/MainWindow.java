@@ -84,7 +84,6 @@ public class MainWindow extends UiPart {
 
     private void configure(String appTitle, String taskManagerName, Config config, UserPrefs prefs,
                            Logic logic) {
-
         //Set dependencies
         this.logic = logic;
         this.taskManagerName = taskManagerName;
