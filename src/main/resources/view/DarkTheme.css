@@ -5,7 +5,6 @@
 .label {
     -fx-font-size: 11pt;
     -fx-font-family: "Segoe UI Semibold";
-    -fx-text-fill: #555555;
     -fx-opacity: 0.9;
 }
 
@@ -93,7 +92,6 @@
 }
 
 .list-cell .label {
-    -fx-text-fill: #010504;
 }
 
 .cell_big_label {

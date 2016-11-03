@@ -8,13 +8,14 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
 <HBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1">
     <children>
         <GridPane HBox.hgrow="ALWAYS">
             <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="150.0" />
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="100.0" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="150" minWidth="10.0" prefWidth="100" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="150" minWidth="10.0" prefWidth="100" />
             </columnConstraints>
             <children>
                 <VBox alignment="CENTER_LEFT" maxHeight="150.0" minHeight="105.0" prefHeight="115.0" GridPane.columnIndex="0">
@@ -43,7 +44,10 @@
                         <Label fx:id="address" styleClass="cell_small_label" text="\$address" />
                     </children>
                 </VBox>
-            <Label fx:id="isComplete" styleClass="cell_small_label" text="\$isComplete" GridPane.columnIndex="1" />
+            <Label fx:id="isComplete" prefHeight="15.0" prefWidth="121.0" text="\$isComplete" textFill="RED" GridPane.columnIndex="1" GridPane.halignment="LEFT">
+               <font>
+                  <Font size="10.0" />
+               </font></Label>
             </children>
          <rowConstraints>
             <RowConstraints />

@@ -136,16 +136,27 @@ public class Parser {
 			taskName = mapArgs.get("taskName");
 		}
 		if (mapArgs.containsKey("start")) {
-			String start = natty.parse(mapArgs.get("start"));
-			String[] dateAndTime = start.split(" ");
-			startDate = dateAndTime[0];
-			startTime = dateAndTime[1];
+			String start = mapArgs.get("start");
+			if (start.contains("am") || start.contains("pm")) {
+				start = natty.parse(start);
+				String[] dateAndTime = start.split(" ");
+				startDate = dateAndTime[0];
+				startTime = dateAndTime[1];
+			} else {
+				startDate = natty.parseDate(start);
+			}
+
 		}
 		if (mapArgs.containsKey("end")) {
-			String end = natty.parse(mapArgs.get("end"));
-			String[] dateAndTime = end.split(" ");
-			endDate = dateAndTime[0];
-			endTime = dateAndTime[1];
+			String end = mapArgs.get("end");
+			if (end.contains("am") || end.contains("pm")) {
+				end = natty.parse(end);
+				String[] dateAndTime = end.split(" ");
+				endDate = dateAndTime[0];
+				endTime = dateAndTime[1];
+			} else {
+				endDate = natty.parseDate(end);
+			}
 		}
 		if (mapArgs.containsKey("isRecurring")) {
 			isRecurring = mapArgs.get("isRecurring");
@@ -191,17 +202,27 @@ public class Parser {
 			taskName = mapArgs.get("taskName");
 		}
 		if (mapArgs.containsKey("start")) {
-			String start = natty.parse(mapArgs.get("start"));
-			String[] dateAndTime = start.split(" ");
-			startDate = dateAndTime[0];
-			startTime = dateAndTime[1];
+			String start = mapArgs.get("start");
+			if (start.contains("am") || start.contains("pm")) {
+				start = natty.parse(start);
+				String[] dateAndTime = start.split(" ");
+				startDate = dateAndTime[0];
+				startTime = dateAndTime[1];
+			} else {
+				startDate = natty.parseDate(start);
+			}
+
 		}
 		if (mapArgs.containsKey("end")) {
-			System.out.println("HEYOOOOO!!!");
-			String end = natty.parse(mapArgs.get("end"));
-			String[] dateAndTime = end.split(" ");
-			endDate = dateAndTime[0];
-			endTime = dateAndTime[1];
+			String end = mapArgs.get("end");
+			if (end.contains("am") || end.contains("pm")) {
+				end = natty.parse(end);
+				String[] dateAndTime = end.split(" ");
+				endDate = dateAndTime[0];
+				endTime = dateAndTime[1];
+			} else {
+				endDate = natty.parseDate(end);
+			}
 		}
 		if (mapArgs.containsKey("isRecurring")) {
 			isRecurring = mapArgs.get("isRecurring");
@@ -405,7 +426,7 @@ public class Parser {
 			keywords[0] = keyword;
 		} else {
 			nattyParser natty = new nattyParser();
-			keywords[0] = natty.parse(keyword);
+			keywords[0] = natty.parseDate(keyword);
 		}
 		final Set<String> keywordSet = new HashSet<>(Arrays.asList(keywords));
 		return new ShowCommand(keywordSet);
