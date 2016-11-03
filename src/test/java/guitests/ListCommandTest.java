@@ -21,19 +21,19 @@ public class ListCommandTest extends ToDoListGuiTest {
 	
 	@Test
 	public void listToday() {
-		TestTaskList currentList = new TestTaskList();
+		TestTaskList currentList = new TestTaskList(new TestTask[] {td.eventWithoutParameter, td.eventWithLocation});
 		assertFindCommandSuccess("list month", currentList);
 	}
 	
 	@Test
 	public void listWeek() {
-		TestTaskList currentList = new TestTaskList();
+		TestTaskList currentList = new TestTaskList(new TestTask[] {td.eventWithoutParameter, td.eventWithLocation});
 		assertFindCommandSuccess("list week", currentList);
 	}
 	
 	@Test
 	public void listMonth() {
-		TestTaskList currentList = new TestTaskList();
+		TestTaskList currentList = new TestTaskList(new TestTask[] {td.eventWithoutParameter, td.eventWithLocation});
 		assertFindCommandSuccess("list month", currentList);
 	}
 	

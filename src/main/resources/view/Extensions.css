@@ -1,8 +1,7 @@
 
 .error {
-    -fx-background-color: red;
+    -fx-background-color: #fccece;
 }
-
 
 .tag-selector {
     -fx-border-width: 1;
