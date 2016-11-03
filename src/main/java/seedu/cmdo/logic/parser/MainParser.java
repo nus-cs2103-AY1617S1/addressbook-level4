@@ -77,8 +77,6 @@ public class MainParser {
     /**
      * Initialize main parser.
      * 
-     * Natty is a natural language parser for dates by Joe Stelmach.
-     * 
      * @@author A0139661Y
      */
     private void init() {
@@ -159,7 +157,20 @@ public class MainParser {
         case ListCommand.COMMAND_WORD_ALL:        	
         case ListCommand.COMMAND_WORD_SHORT_ALL:
         	return prepareList(args);
-            
+        	
+        case UpDownCommand.UP:
+        case UpDownCommand.UP_ALT:
+        	return new UpDownCommand(UpDownCommand.UP);
+        case UpDownCommand.DOWN:
+        case UpDownCommand.DOWN_ALT:
+        	return new UpDownCommand(UpDownCommand.DOWN);
+        case UpDownCommand.TOP:
+        case UpDownCommand.TOP_ALT:
+        	return new UpDownCommand(UpDownCommand.TOP);
+        case UpDownCommand.BOTTOM:
+        case UpDownCommand.BOTTOM_ALT:
+        	return new UpDownCommand(UpDownCommand.BOTTOM);
+        	
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
 

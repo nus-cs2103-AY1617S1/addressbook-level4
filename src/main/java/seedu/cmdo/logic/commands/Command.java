@@ -14,6 +14,7 @@ import seedu.cmdo.model.Model;
  */
 public abstract class Command {
     protected Model model;
+    protected int currentSelected;
     public Boolean isUndoable = false;
 
     /**
@@ -62,6 +63,10 @@ public abstract class Command {
      */
     public void setData(Model model) {
         this.model = model;
+    }
+    
+    public void setCurrentSelected(int index) {
+    	this.currentSelected = index;
     }
     
     /**

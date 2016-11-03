@@ -2,9 +2,12 @@ package seedu.cmdo.logic;
 
 import java.util.logging.Logger;
 
+import com.google.common.eventbus.Subscribe;
+
 import javafx.collections.ObservableList;
 import seedu.cmdo.commons.core.ComponentManager;
 import seedu.cmdo.commons.core.LogsCenter;
+import seedu.cmdo.commons.events.ui.JumpToListRequestEvent;
 import seedu.cmdo.logic.commands.Command;
 import seedu.cmdo.logic.commands.CommandResult;
 import seedu.cmdo.logic.commands.RedoCommand;
@@ -25,6 +28,7 @@ public class LogicManager extends ComponentManager implements Logic {
     private final Model model;
     private final MainParser parser;
     private final Undoer undoer;
+    private int currentSelected;
 
     public LogicManager(Model model, Storage storage) {
         this.model = model;
@@ -49,6 +53,7 @@ public class LogicManager extends ComponentManager implements Logic {
         	logger.info("Redo stack cleared.");
         }
         command.setData(model);
+        command.setCurrentSelected(currentSelected);
         return command.execute();
     }
     
@@ -74,4 +79,12 @@ public class LogicManager extends ComponentManager implements Logic {
     public ObservableList<ReadOnlyTask> getFilteredTaskList(boolean firstRun) {
         return model.getFilteredTaskList(firstRun);
     }    
+    
+    //@@author A0139661Y
+    @Override
+    @Subscribe
+    public void handleJumpToListRequestEvent(JumpToListRequestEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event, String.format("Current selection is index %d", event.targetIndex)));
+        currentSelected = event.targetIndex;
+    }
 }
