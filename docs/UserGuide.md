@@ -35,11 +35,19 @@
 > * Items with `...` after them can have multiple instances.
 > * The order of parameters is fixed.
 
+//@@author A0138455Y
 #### Viewing help : `help`
 #### Shortcut : `h`
-Format: `help`
+Format: `help` or `help [command word]`
+
+Examples: 
+* `help add`
+* `help edit`
+* `h delete`
 
 > Help is also shown if you enter an incorrect command e.g. `abcd`
+> default help message will show a list of all command word, e.g. enter `help`
+//@@author
  
 #### Adding a task: `add`
 #### Shortcut : `a`
@@ -145,28 +153,46 @@ Format: `mark [index]`
 > Mark the task/event at the specified `index`. 
   The index refers to the index number shown in the most recent listing.<br>
   The index **must be a positive integer** 1, 2, 3, ...
-> The marked task will be deleted once the you exit the program 
 
 Examples: 
 * `mark 5`<br>	
 
-#### Specify storage location: `storage`
-Specify the storage location where the program save the data. <br>
-Format: `storage [path]`  
+//@@author A0138455Y
+#### Mark a task as complete : `unmark`
+#### Shortcut : `u`
+Mark an existing task to complete and move it to the bottom of the list.<br>
+Format: `unmark [index]`  
 
-Examples: 
-* `storage C:/Document/Personal/Others `<br>	
-
-#### Block multiple time slot for an event : `block`
-Block another time slot for an unconfirmed existing event.<br>
-Format: `block [starting time] to/ [ending time] for/ [index]`  
-
-> Deletes the task/event at the specified `index`. 
+> Unmark the taks/event at the specified `index`. 
   The index refers to the index number shown in the most recent listing.<br>
   The index **must be a positive integer** 1, 2, 3, ...
 
 Examples: 
-* `block Monday 3pm to/ 5pm for/ 3`<br>	
+* `unmark 5`<br>
+
+#### Specify storage location: `cs`
+Specify the storage location where the program save the data. <br>
+Format: `cs [path]`  
+
+Examples: 
+* `cs data/newStorage `<br>	
+* `cs newDataStorage `<br>
+
+Limitation: This feature Only allow user to change storage path within the FlexiTrack folder.
+
+> [path] can only contains alphanumeric, forward slash '/' and underscore '_'. 
+
+#### Block multiple time slot for an event : `block`
+#### Shortcut : `b`
+Block another time slot for an unconfirmed existing event.<br>
+Format: `block [Description] from/ [starting time] to/ [ending time]`  
+
+> The new block period must not overlapping current block task.
+> New event will not be allow to add in if the period of the new event overlapping any blocked task from block list.
+
+Examples: 
+* `block for cs2103 project from/ 5pm to/ 7pm`<br>	
+//@@author
 
 #### Find free time slot: `find time`
 Find and list free time slot in the schedule that is equal to or longer than the specified timing (in hours).<br>
@@ -234,6 +260,8 @@ Delete | `delete INDEX`
 Find | `find KEYWORD [MORE_KEYWORDS]`
 Undo | `undo [number of times]`
 Mark | `mark [index]`
-Storage | `storage [path]`
+Unmark | `unmark [index]`
+cs | `cs [path]`
 Find time | `find time [number of hours] < [number of slots to find] >`
-Block | `block Monday 3pm to/ 5pm for/ 3`
+Block | `block [Description] from/ [starting time] to/ [ending time]`
+Help | `help [command word(optional)]`
