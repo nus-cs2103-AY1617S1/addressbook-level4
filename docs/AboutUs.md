@@ -21,7 +21,7 @@ Responsibilities: Logic
    * [Adding duplicated tasks](https://github.com/CS2103AUG2016-T15-C1/main/blob/master/docs/UserGuide.md#adding-duplicated--add)
    * [Customize commands](https://github.com/CS2103AUG2016-T15-C1/main/blob/master/docs/UserGuide.md#customized-command)
    * Code written: [functional code](https://github.com/CS2103AUG2016-T15-C1/main/tree/master/collated/main/A0153411W.md)
-   [functional code reused](https://github.com/CS2103AUG2016-T15-C1/main/tree/master/collated/main/A0153411W-reused.md)
+   [functional code reused](https://github.com/CS2103AUG2016-T15-C1/main/tree/master/collated/main/A0153411Wreused.md)
    [test code](https://github.com/CS2103AUG2016-T15-C1/main/tree/master/collated/test/A0153411W.md)
    [docs](https://github.com/CS2103AUG2016-T15-C1/main/tree/master/collated/docs/A0153411W.md)
   * Other major contributions:
