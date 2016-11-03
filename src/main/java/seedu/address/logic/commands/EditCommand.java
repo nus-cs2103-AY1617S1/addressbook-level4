@@ -13,16 +13,16 @@ import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
 
 import java.util.HashSet;
 import java.util.Set;
-
+//@@author A0139097U
 public class EditCommand extends Command {
-	
+
 	public static final String COMMAND_WORD = "edit";
-	
+
 	public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits a task in the task manager. "
-            + "Parameters: NAME" 
+            + "Parameters: NAME"
             + " Example: " + COMMAND_WORD
             + " 1 Task Name to be Changed d/121016";
-	
+
 	public static final String MESSAGE_EDIT_TASK_SUCCESS = "Task edited: %1$s";
     public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the task manager.";
 
@@ -33,9 +33,9 @@ public class EditCommand extends Command {
     public Priority priority;
     public final UniqueTagList tagSet;
     private Task toAdd;
-    
-    
-    public EditCommand(String targetIndex, String name, String startline, String deadline, String priority, Set<String> tags) 
+
+    //@@author A0141812R
+    public EditCommand(String targetIndex, String name, String startline, String deadline, String priority, Set<String> tags)
     		throws IllegalValueException{
     	final Set<Tag> tagSet = new HashSet<>();
         for (String tagName : tags) {
@@ -59,14 +59,14 @@ public class EditCommand extends Command {
         }
 
         ReadOnlyTask taskToDelete = lastShownList.get(targetIndex - 1);
-        
-  
+
+
         try {
             model.deleteTask(taskToDelete);
         } catch (TaskNotFoundException pnfe) {
             assert false : "The target task cannot be missing";
         }
-        
+
         if (this.startline.toString() == ""){
         	String startlineEdit = taskToDelete.getStartline().toString();
         	try {
@@ -76,9 +76,9 @@ public class EditCommand extends Command {
 		    	e1.printStackTrace();
 		    }
         }
-        
+
         if (this.deadline.toString() == ""){
-        
+
         	String deadlineEdit = taskToDelete.getDeadline().toString();
         	try {
         		this.deadline = new Deadline(deadlineEdit);
@@ -87,10 +87,10 @@ public class EditCommand extends Command {
         		e1.printStackTrace();
         	}
         }
-        
+
         if (this.priority.toString() == ""){
         	String priorityEdit = taskToDelete.getPriority().toString();
-       
+
         	try {
         		this.priority = new Priority(priorityEdit);
         	} catch (IllegalValueException e1) {
@@ -98,7 +98,7 @@ public class EditCommand extends Command {
         		e1.printStackTrace();
         	}
         }
-        
+
         toAdd = new Task(this.name, this.startline, this.deadline, this.priority, this.tagSet); //null for now
 
         assert model != null;
@@ -111,9 +111,9 @@ public class EditCommand extends Command {
         } catch (UniqueTaskList.DuplicateTaskException e) {
             return new CommandResult(MESSAGE_DUPLICATE_TASK);
         }
- 
-        
+
+
 	}
-    
-    
+
+
 }

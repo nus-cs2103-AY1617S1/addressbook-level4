@@ -21,11 +21,15 @@ import seedu.address.model.task.Task;
 import seedu.address.model.task.UniqueTaskList;
 import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
 
+//@@author A0144202Y
 public class CompleteCommand extends Command {
 
 	public static final String COMMAND_WORD = "complete";
+	//@@author 
+	//@@author A0141812R
 	public static final String COMMAND_WORD_2 = "com"; //complete shortcut
-
+   //@@author 
+  //@@author A0144202Y
 	public static final String MESSAGE_USAGE = COMMAND_WORD
 			+ ": Complete the task identified by the index number used in the last task listing.\n"
 			+ "Parameters: INDEX (must be a positive integer)\n" + "Example: " + COMMAND_WORD + " 1";

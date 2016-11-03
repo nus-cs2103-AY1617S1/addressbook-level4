@@ -15,11 +15,11 @@ Responsibilities: Code Quality
 #### [Anniya Baskaran](https://github.com/AnniyaB)
 <img src="images/AnniyaB.png" width="150"><br>
 Role: Developer <br>  
-Responsibilities: Integration 
+Responsibilities: Integration
 
 -----
 
-#### [Muhammad Arif Bin Syed Nasser](https://github.com/Halo3fanz) 
+#### [Muhammad Arif Bin Syed Nasser](https://github.com/Halo3fanz)
 <img src="images/M.Arif.png" width="150"><br>
 Role: Developer <br>  
 Responsibilities: Documentation

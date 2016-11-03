@@ -21,7 +21,7 @@ import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
 
 /**
  * Checks if tasks are overdue and repeats them if they are set to do so.
- * @author User
+ * @author A0139097U
  *
  */
 public class UpdateCommand extends Command {

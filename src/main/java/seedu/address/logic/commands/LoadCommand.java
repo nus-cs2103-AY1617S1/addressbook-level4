@@ -7,6 +7,7 @@ import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.events.ui.ExitAppRequestEvent;
 import seedu.address.commons.util.ConfigUtil;
 
+//@@author A0144202Y
 public class LoadCommand extends Command {
 	
 	public static final String COMMAND_WORD = "load";

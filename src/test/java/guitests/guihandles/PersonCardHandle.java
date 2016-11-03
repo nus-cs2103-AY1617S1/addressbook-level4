@@ -36,10 +36,11 @@ public class PersonCardHandle extends GuiHandle {
         return getTextFromLabel(DEADLINE_FIELD_ID);
     }
 
+  //@@author A0141812R
     public String getPriority() {
         return getTextFromLabel(PRIORITY_FIELD_ID);
     }
-
+  //@@author
     
     public boolean isSamePerson(ReadOnlyTask task){
         return getFullName().equals(task.getName().fullName);

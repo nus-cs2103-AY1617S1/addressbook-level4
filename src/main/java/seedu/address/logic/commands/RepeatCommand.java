@@ -20,7 +20,7 @@ import seedu.address.model.task.UniqueTaskList;
 import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
 /**
  * Sets whether or not a task repeats itself in intervals
- * @author Muhammad Arif Bin Syed Nasser
+ * @author A0139097U
  *
  */
 public class RepeatCommand extends Command{

@@ -13,6 +13,7 @@ import seedu.address.storage.Storage;
 public abstract class Command {
     
 	protected Model model;
+	//@@author A0144202Y
 	protected Config config;
 	protected Storage storage;
 	

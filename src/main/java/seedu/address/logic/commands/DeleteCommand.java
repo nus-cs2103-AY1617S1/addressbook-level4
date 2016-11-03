@@ -11,8 +11,9 @@ import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
 public class DeleteCommand extends Command {
 
     public static final String COMMAND_WORD = "delete";
+    //@@author A0141812R
     public static final String COMMAND_WORD_2 = "-"; //delete shortcut
-
+    //@@author
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes the task identified by the index number used in the last task listing.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
