@@ -215,7 +215,7 @@ public class EventCard extends UiPart{
     @Override
     public void setNode(Node node) {
         cardPane = (HBox)node;
-    }
+    }        
 
     @Override
     public String getFxmlPath() {

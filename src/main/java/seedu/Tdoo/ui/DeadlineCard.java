@@ -182,7 +182,7 @@ public class DeadlineCard extends UiPart{
             countdown.setText(p.format(new Date(System.currentTimeMillis() + dateToMilli(task.getStartDate().date, task.getEndTime().endTime))));
             cardPane.setStyle("-fx-background-color: #FFFFFF");
         }
-    }
+    }     
     //@@author A0132157M
     public long dateToMilli(String s, String q) throws ParseException {
         String string = s;
