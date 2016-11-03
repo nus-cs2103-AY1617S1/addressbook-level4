@@ -18,14 +18,14 @@ We are a team based in the [School of Computing, National University of Singapor
 
 #### [Shi Xiyue](https://github.com/shixiyue)
 <img src="images/ShiXiyue.jpg" width="150"><br>
-    •	Components in charge of: Storage and Model
-    •	Aspects/tool in charge of: Code Quality
-    •	Features implemented:
-        o	Add a task/event
-        o	
-    •	Code written: [functional code][test code][docs]
-    •	Other major contributions:
-        o	
+    •	Components in charge of: Storage and Model<br>
+    •	Aspects/tool in charge of: Code Quality<br>
+    •	Features implemented:<br>
+        o	Add a task/event<br>
+        o	<br>
+    •	Code written: [functional code][test code][docs]<br>
+    •	Other major contributions:<br>
+        o	<br>
 
 -----
 
