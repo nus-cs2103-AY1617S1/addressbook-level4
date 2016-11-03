@@ -25,7 +25,7 @@ public class UpcomingCommand extends Command {
     public static final String MESSAGE_SUCCESS_UPCOMING = "Listed all upcoming tasks";
     public static final String MESSAGE_SUCCESS_UPCOMING_DEADLINE = "Listed all upcoming deadlines";
     public static final String MESSAGE_SUCCESS_UPCOMING_EVENT = "Listed all upcoming events";
-    
+    public static final String COMMAND_SUMMARY = "Upcoming tasks: \n" + COMMAND_WORD;
     
     private String taskType;
     
