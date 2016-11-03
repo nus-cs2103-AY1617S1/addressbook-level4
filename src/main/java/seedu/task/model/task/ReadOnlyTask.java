@@ -27,7 +27,9 @@ public interface ReadOnlyTask {
     default boolean isSameVisualStateAs(ReadOnlyTask other) {
         return other == this // short circuit if same object
                 || (other != null // this is first to avoid NPE below
-                && other.getName().equals(this.getName()) // state checks here onwards
+                  
+                // state checks here onwards
+                && other.getName().equals(this.getName()) 
                 && other.getOpenTime().toPrettyString().equals(this.getOpenTime().toPrettyString())
                 && other.getCloseTime().toPrettyString().equals(this.getCloseTime().toPrettyString())
                 && other.getImportance() == this.getImportance());
@@ -39,7 +41,9 @@ public interface ReadOnlyTask {
     default boolean isSameStateAs(ReadOnlyTask other) {
         return other == this // short circuit if same object
                 || (other != null // this is first to avoid NPE below
-                && other.getName().equals(this.getName()) // state checks here onwards
+                
+                // state checks here onwards
+                && other.getName().equals(this.getName()) 
                 && other.getOpenTime().equals(this.getOpenTime())
                 && other.getCloseTime().equals(this.getCloseTime())
                 && other.getImportance() == this.getImportance());
@@ -51,14 +55,6 @@ public interface ReadOnlyTask {
     default String getAsText() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
-                /**
-                .append(" Open Time: ")
-                .append(getOpenTime())
-                .append(" Close Time: ")
-                .append(getCloseTime())
-                .append("Important: ")
-                .append(getImportance())
-                **/
                 .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();
