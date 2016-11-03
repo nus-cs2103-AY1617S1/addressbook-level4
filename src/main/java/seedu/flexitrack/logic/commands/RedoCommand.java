@@ -27,20 +27,24 @@ public class RedoCommand extends Command {
         if (undoneCommandStack.size() == 0 ){ 
             return new CommandResult(String.format(MESSAGE_NOT_SUCCESS));
         }
-        
+
         redo = undoneCommandStack.pop();
-        if (redo instanceof AddCommand || redo.getNumOfOccurrrence() !=0 ){
+        if (redo instanceof AddCommand && redo.getNumOfOccurrrence() !=0 ){
             int numOfOccurrrence = redo.getNumOfOccurrrence();
+            redo.setNumOfOccurrrence(0);
             for (int i = 1; i < numOfOccurrrence; i++) {
                 redo.execute();
-                UndoCommand.doneCommandStack.push(redo);
+                System.out.println("UNDO.doneCommandStack.size(): " + UndoCommand.doneCommandStack.size());
                 redo = undoneCommandStack.pop();
-                redo.setNumOfOccurrrence(numOfOccurrrence);
+                System.out.println("undoneCommandStack.size(): " + undoneCommandStack.size());
+                System.out.println("UNDO.doneCommandStack.size(): " + UndoCommand.doneCommandStack.size());
+                System.out.println("redo iterate");
             }
+            redo.setNumOfOccurrrence(numOfOccurrrence);
+            System.out.println(numOfOccurrrence);
         }
-        
+
         redo.execute();
-        UndoCommand.doneCommandStack.push(redo);
         model.indicateFlexiTrackerChanged();
         return new CommandResult(MESSAGE_SUCCESS);
     }

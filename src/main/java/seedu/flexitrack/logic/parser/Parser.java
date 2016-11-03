@@ -576,7 +576,7 @@ public class Parser {
                     command.setData(model);
                     command.execute();
                 }
-                return new AddCommand(matcher.group("name"), matcher.group("dueDate"), EMPTY_TIME_INFO, EMPTY_TIME_INFO);
+                return new AddCommand(matcher.group("name"), matcher.group("dueDate"), EMPTY_TIME_INFO, EMPTY_TIME_INFO, numOfOccurrrence);
                 
             default: 
                 for(int i=1; i < numOfOccurrrence; i++) {
@@ -585,7 +585,7 @@ public class Parser {
                     command.setData(model);
                     command.execute();
                 }
-                return new AddCommand(matcher.group("name"), matcher.group("dueDate"), EMPTY_TIME_INFO, EMPTY_TIME_INFO);
+                return new AddCommand(matcher.group("name"), matcher.group("dueDate"), EMPTY_TIME_INFO, EMPTY_TIME_INFO, numOfOccurrrence);
             }
             
         } else {  // Recurring Event
@@ -604,7 +604,7 @@ public class Parser {
                     command.setData(model);
                     command.execute();
                 }
-                return new AddCommand(matcher.group("name"), EMPTY_TIME_INFO, matcher.group("startTime"), matcher.group("endTime"));
+                return new AddCommand(matcher.group("name"), EMPTY_TIME_INFO, matcher.group("startTime"), matcher.group("endTime"), numOfOccurrrence);
                 
             case "month":
                 for(int i=1; i < numOfOccurrrence; i++) {
@@ -615,7 +615,7 @@ public class Parser {
                     command.setData(model);
                     command.execute();
                 }
-                return new AddCommand(matcher.group("name"), EMPTY_TIME_INFO, matcher.group("startTime"), matcher.group("endTime"));
+                return new AddCommand(matcher.group("name"), EMPTY_TIME_INFO, matcher.group("startTime"), matcher.group("endTime"), numOfOccurrrence);
             
             default:
                 for(int i=1; i < numOfOccurrrence; i++){
@@ -627,7 +627,7 @@ public class Parser {
                     command.setData(model);
                     command.execute();
                 }
-                return new AddCommand(matcher.group("name"), EMPTY_TIME_INFO, matcher.group("startTime"), matcher.group("endTime"));
+                return new AddCommand(matcher.group("name"), EMPTY_TIME_INFO, matcher.group("startTime"), matcher.group("endTime"), numOfOccurrrence);
             }
         }
     }

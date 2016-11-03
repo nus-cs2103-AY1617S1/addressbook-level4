@@ -30,17 +30,22 @@ public class UndoCommand extends Command {
         if (doneCommandStack.size() == 0) {
             return new CommandResult(String.format(MESSAGE_NOT_SUCCESS));
         }
-        
+
         
         undo = doneCommandStack.pop();
-        if (undo instanceof AddCommand || undo.getNumOfOccurrrence() !=0 ){
+        if (undo instanceof AddCommand && undo.getNumOfOccurrrence() !=0 ){
             int numOfOccurrrence = undo.getNumOfOccurrrence();
+            undo.setNumOfOccurrrence(0);
             for (int i = 1; i < numOfOccurrrence; i++) {
                 undo.executeUndo();
                 RedoCommand.undoneCommandStack.push(undo);
+                System.out.println("RedoCommand.undoneCommandStack.size(): " + RedoCommand.undoneCommandStack.size());
+                System.out.println("doneCommandStack.size(): " + doneCommandStack.size());
                 undo = doneCommandStack.pop();
-                undo.setNumOfOccurrrence(numOfOccurrrence);
+                System.out.println("undo iterate");
             }
+            undo.setNumOfOccurrrence(numOfOccurrrence);
+            System.out.println(numOfOccurrrence);
         }
 
         undo.executeUndo();
