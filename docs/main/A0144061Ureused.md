@@ -656,6 +656,45 @@ public class DeadlineCard extends UiPart{
     }
 
 ```
+###### /java/seedu/Tdoo/ui/DeadlineCard.java
+``` java
+    @FXML
+    public void initialize() {
+        name.setText(task.getName().name);
+        id.setText(displayedIndex + ". ");
+        if(checkEndDateTime() && this.task.getDone().equals("true")) {
+            date.setText("Date: " + task.getStartDate().date);
+            endTime.setText("End Time: " + task.getEndTime().endTime);
+            done.setText("Completed");
+            cardPane.setStyle("-fx-background-color: #01DF01");
+        }else if(!checkEndDateTime() && this.task.getDone().equals("false")) {
+            date.setText("Date: " + task.getStartDate().date);
+            endTime.setText("End Time: " + task.getEndTime().endTime);
+            done.setText("Overdue");
+            cardPane.setStyle("-fx-background-color: #ff2002");
+        }else {
+            date.setText("Date: " + task.getStartDate().date);
+            endTime.setText("End Time: " + task.getEndTime().endTime);
+            done.setText("Not Completed");
+            cardPane.setStyle("-fx-background-color: #FFFFFF");
+        }
+    }
+
+    public HBox getLayout() {
+        return cardPane;
+    }
+
+    @Override
+    public void setNode(Node node) {
+        cardPane = (HBox)node;
+    }
+
+    @Override
+    public String getFxmlPath() {
+        return FXML;
+    }
+}
+```
 ###### /java/seedu/Tdoo/ui/DeadlineListPanel.java
 ``` java
 /**
