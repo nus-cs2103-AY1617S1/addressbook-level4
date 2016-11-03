@@ -2,8 +2,8 @@ package seedu.task.logic.commands;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Paths;
 import java.util.logging.Logger;
+import java.awt.Desktop;
 
 import seedu.task.commons.core.Config;
 import seedu.task.commons.core.EventsCenter;
@@ -30,6 +30,8 @@ public class DirectoryCommand extends Command {
             + "Example: " + COMMAND_WORD + " c:/Users/user/Desktop/TaskManagerBackup1 OR TaskManagerBackup2";
 
     public static final String MESSAGE_NEW_DIRECTORY_SUCCESS = "New data: %1$s";
+    
+    public static final String MESSAGE_UNSUPPORTED_OPERATING_SYSTEM = "Unsupported operating system, please manually close application and start it again.";
 
     public static final String MESSAGE_FILE_NOT_FOUND_ERROR = "File does not exist: %1$s";
 
@@ -113,9 +115,52 @@ public class DirectoryCommand extends Command {
         }
     }
 
+    @Override
+    public CommandResult execute(boolean isUndo) {
+        // Check if file supplied by user exists
+        if (!new File(_destination).exists()) {
+            return new CommandResult(String.format(MESSAGE_FILE_NOT_FOUND_ERROR, _destination));
+        }
+
+        assert model != null;
+        if (!isOperatingSystemSupported()) {
+            return new CommandResult(String.format(MESSAGE_UNSUPPORTED_OPERATING_SYSTEM));
+        }
+        restartTaskManager();
+        // Shut down current TaskManager
+        EventsCenter.getInstance().post(new ExitAppRequestEvent());
+        return new CommandResult(String.format(MESSAGE_NEW_DIRECTORY_SUCCESS, _destination));
+    }
+
+    private Boolean isOperatingSystemSupported() {
+        //first check if Desktop is supported by Platform or not
+        if(Desktop.isDesktopSupported()){
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
+    /**
+     * Run TaskManager.jar
+     */
+    private void restartTaskManager() {
+        logger.info("============================ [ Restarting Task Manager ] =============================");
+        File Taskmanager = new File("TaskManager.jar");
+        Desktop desktop = Desktop.getDesktop();
+        if (Taskmanager.exists()) {
+            try {
+                desktop.open(Taskmanager);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+    
+    /* Older method to restart TaskManger, keeping for knowledge
     /**
      * Locates TaskManager.jar file and silently run it via Windows Command Line
-     */
+     *
     private void restartTaskManagerOnWindows() {
         logger.info("============================ [ Restarting Task Manager ] =============================");
         String command = "";
@@ -127,22 +172,8 @@ public class DirectoryCommand extends Command {
         } catch (IOException e) {
             logger.warning("Error starting process. " + e);
         }
-
     }
-
-    @Override
-    public CommandResult execute(boolean isUndo) {
-        // Check if file supplied by user exists
-        if (!new File(_destination).exists()) {
-            return new CommandResult(String.format(MESSAGE_FILE_NOT_FOUND_ERROR, _destination));
-        }
-
-        assert model != null;
-        restartTaskManagerOnWindows();
-        // Shut down current TaskManager
-        EventsCenter.getInstance().post(new ExitAppRequestEvent());
-        return new CommandResult(String.format(MESSAGE_NEW_DIRECTORY_SUCCESS, _destination));
-    }
+    */
 
     @Override
     public CommandResult execute(int index) {
