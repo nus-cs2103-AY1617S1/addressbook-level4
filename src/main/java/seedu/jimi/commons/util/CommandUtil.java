@@ -13,7 +13,6 @@ import seedu.jimi.logic.commands.EditCommand;
 import seedu.jimi.logic.commands.ExitCommand;
 import seedu.jimi.logic.commands.FindCommand;
 import seedu.jimi.logic.commands.HelpCommand;
-import seedu.jimi.logic.commands.ListCommand;
 import seedu.jimi.logic.commands.RedoCommand;
 import seedu.jimi.logic.commands.SaveAsCommand;
 import seedu.jimi.logic.commands.ShowCommand;
