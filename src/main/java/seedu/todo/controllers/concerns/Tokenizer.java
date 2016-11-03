@@ -79,13 +79,7 @@ public class Tokenizer {
 
         // Split inputCommand into arraylist of chunks
         // --- Split by quotes
-        String[] splitString = inputCommand.split(QUOTE);
-
-        // If first char is QUOTE, then first element is a quoted string.
-        List<TokenizedString> tokenizedSplitString = new ArrayList<TokenizedString>();
-        for (int i = 0; i < splitString.length; i++) {
-            tokenizedSplitString.add(new TokenizedString(splitString[i].trim(), false, (i % 2 == 1)));
-        }
+        List<TokenizedString> tokenizedSplitString = tokenizeQuotes(inputCommand);
         
         // --- Split by tokens
         Map<String, Integer> tokenIndices = splitByTokens(tokens, getTokenType, tokenizedSplitString);
@@ -94,6 +88,23 @@ public class Tokenizer {
         // Get dictionary of tokenType -> index
         // Return dictionary of tokenType -> {token, tokenField}
         return constructParsedResult(tokenizedSplitString, tokenIndices);
+    }
+
+    /**
+     * Given a string, extract quoted substrings and flag them as quotes.
+     * 
+     * @param inputCommand
+     * @return List of TokenizedString
+     */
+    private static List<TokenizedString> tokenizeQuotes(String inputCommand) {
+        String[] splitString = inputCommand.split(QUOTE);
+
+        // If first char is QUOTE, then first element is a quoted string.
+        List<TokenizedString> tokenizedSplitString = new ArrayList<TokenizedString>();
+        for (int i = 0; i < splitString.length; i++) {
+            tokenizedSplitString.add(new TokenizedString(splitString[i].trim(), false, (i % 2 == 1)));
+        }
+        return tokenizedSplitString;
     }
 
     /**
