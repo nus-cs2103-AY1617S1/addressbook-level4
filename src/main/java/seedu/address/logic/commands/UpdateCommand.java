@@ -30,13 +30,13 @@ public class UpdateCommand extends Command {
 	public static final String COMMAND_WORD = "update";
 	
 	private Task toAdd;
-	boolean overdue = false;
 	String startline, deadline;
 	
 	public UpdateCommand(){}
 	
 	@Override
 	public CommandResult execute() {
+		boolean overdue = false;
 		Calendar cal = Calendar.getInstance();
 		List<Task> addList = new LinkedList();
 		List<Task> deleteList = new LinkedList();
@@ -44,6 +44,8 @@ public class UpdateCommand extends Command {
 		Iterator<Task> it = taskmanager.getUniqueTaskList().iterator(); 
 		while(it.hasNext()){
 			Task task = it.next();
+			//System.out.println(task.toString());
+			//System.out.println(task.getDeadline().date.toString());
 			Calendar startlineCal = task.getStartline().calendar;
 			Calendar deadlineCal = task.getDeadline().calendar;
 			startline = task.getStartline().value;
@@ -65,10 +67,16 @@ public class UpdateCommand extends Command {
 						deadline = null;
 					}
 				} else if((deadlineCal != null) && (!task.getName().toString().contains(" is completed"))) {
-					System.out.println(task.getName().toString());
-					System.out.println(task.getName().toString().contains(" is completed"));
+					//System.out.println(task.getName().toString());
+					//System.out.println(task.getName().toString().contains(" is completed"));
 					overdue = true;
+				} else {
+					overdue = false;
+					//System.out.println(task.getName().toString());
 				}
+				
+			} else {
+				overdue = false;
 			}
 			Name name = task.getName();								
 			Priority priority = task.getPriority();
@@ -81,6 +89,7 @@ public class UpdateCommand extends Command {
 				return new CommandResult("FAILED " + ive.getMessage());
 			}
 			if(overdue) {
+				System.out.println(toAdd.toString());
 				toAdd.setOverdue(true);
 			}
 			addList.add(toAdd);
@@ -111,6 +120,9 @@ public class UpdateCommand extends Command {
 	}
 	
 	private boolean checkOverdue(Calendar current, Calendar toCheck){
+		if(toCheck == null){
+			return false;
+		}
 		if(current.after(toCheck)){
 			return true;
 		}

@@ -111,8 +111,10 @@ public class RepeatCommand extends Command{
         
         deleteTask(taskToDelete);
         addTask(toAdd);
+        String point = String.format(MESSAGE_SUCCESS + toAdd.getRepeating().getRepeating());
         EventsCenter.getInstance().post(new JumpToListRequestEvent(model.getFilteredPersonList().size() - 1));
-		return new CommandResult(MESSAGE_SUCCESS + toAdd.getRepeating().getRepeating());
+		model.currentState(point);
+        return new CommandResult(point);
 	}
 	
 	/**
