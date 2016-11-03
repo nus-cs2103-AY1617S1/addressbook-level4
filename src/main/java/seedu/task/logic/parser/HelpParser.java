@@ -16,6 +16,7 @@ import seedu.task.logic.commands.HelpCommand;
 import seedu.task.logic.commands.IncorrectCommand;
 import seedu.task.logic.commands.ListCommand;
 import seedu.task.logic.commands.MarkCommand;
+import seedu.task.logic.commands.SaveCommand;
 import seedu.task.logic.commands.SelectCommand;
 import seedu.task.logic.commands.UndoCommand;
 
@@ -23,7 +24,7 @@ import seedu.task.logic.commands.UndoCommand;
  * Responsible for validating and preparing the arguments for HelpCommand
  * execution
  * 
- * @author Yee Heng
+ * @@author A0125534L
  */
 
 public class HelpParser implements Parser {
@@ -65,12 +66,15 @@ public class HelpParser implements Parser {
 			return new HelpCommand(MarkCommand.MESSAGE_USAGE, false);
 		case UndoCommand.COMMAND_WORD:
 			return new HelpCommand(UndoCommand.MESSAGE_USAGE, false);
+		case SaveCommand.COMMAND_WORD:
+			return new HelpCommand(SaveCommand.MESSAGE_USAGE, false);
 		case ClearCommand.COMMAND_WORD:
 			return new HelpCommand(ClearCommand.MESSAGE_USAGE, false);
 		case ExitCommand.COMMAND_WORD:
 			return new HelpCommand(ExitCommand.MESSAGE_USAGE, false);
 		default:
 			return new HelpCommand(HelpCommand.MESSAGE_USAGE, true);
+			
 			
 		}
 	}

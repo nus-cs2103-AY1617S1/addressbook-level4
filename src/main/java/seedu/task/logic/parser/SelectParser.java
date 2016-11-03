@@ -10,6 +10,7 @@ package seedu.task.logic.parser;
 
 import static seedu.taskcommons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -22,9 +23,9 @@ import seedu.task.logic.commands.SelectTaskCommand;
 /**
  * Responsible for validating and preparing the arguments for SelectCommand
  * execution
- * //@@author A0125534L
-*/
-//@@author A0125534L
+ * @@author A0125534L
+ */
+
 public class SelectParser implements Parser {
 
     public SelectParser() {}

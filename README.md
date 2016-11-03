@@ -7,7 +7,7 @@
 <img src="docs/images/MockUI.png" width="600"><br>
 
 - We are a group of NUS undergraduate students from various schools and faculties working on a text-based task manager app. We hope the task manager app will be useful for students and working adults alike to keep track of their tasks, be it for school, work or household chores, amid their busy schedules.
-- This is a desktop Address Book application. It has a GUI but most of the user interactions happen using 
+- This is a desktop TaskBook application. It has a GUI but most of the user interactions happen using 
   a CLI (Command Line Interface).
 
   

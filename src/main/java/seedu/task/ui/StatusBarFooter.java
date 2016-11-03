@@ -16,6 +16,10 @@ import seedu.task.commons.events.model.TaskBookChangedEvent;
 import seedu.task.commons.util.FxViewUtil;
 import seedu.taskcommons.core.LogsCenter;
 
+import java.util.Date;
+import java.util.logging.Logger;
+import seedu.task.commons.events.storage.StorageLocationChangedEvent;
+
 /**
  * A ui for the status bar that is displayed at the footer of the application.
  */
@@ -97,4 +101,10 @@ public class StatusBarFooter extends UiPart {
         logger.info(LogsCenter.getEventHandlingLogMessage(abce, "Setting last updated status to " + lastUpdated));
         setSyncStatus("Last Updated: " + lastUpdated);
     }
+    
+    @Subscribe
+    public void handleStorageLocationChangedEvent(StorageLocationChangedEvent event) {
+        setSaveLocation(event.getConfig().getTaskBookFilePath());
+    }
+    
 }

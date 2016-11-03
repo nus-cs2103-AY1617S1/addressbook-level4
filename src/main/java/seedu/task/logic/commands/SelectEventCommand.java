@@ -9,7 +9,7 @@ import seedu.taskcommons.core.UnmodifiableObservableList;
 /**
  * Selects an Event identified using it's last displayed index from the task
  * book.
- * @author Yee Heng
+ * @@author A0125534L
  */
 
 //@@author A0125534L

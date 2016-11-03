@@ -7,9 +7,9 @@ import seedu.taskcommons.core.Messages;
 import seedu.taskcommons.core.UnmodifiableObservableList;
 
 /**
- * Selects an Event identified using it's last displayed index from the task
+ * Selects an Task identified using it's last displayed index from the task
  * book.
- * @author Yee Heng
+ * @@author A0125534L
  */
 
 //@@author A0125534L
@@ -26,7 +26,7 @@ public class SelectTaskCommand extends SelectCommand {
 
 		UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
 
-		if (lastShownList.size() < targetIndex) {
+		if (lastShownList.size() < targetIndex) { //check the input index with list size
 			indicateAttemptToExecuteIncorrectCommand();
 			return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
 		}

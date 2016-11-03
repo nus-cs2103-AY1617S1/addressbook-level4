@@ -12,7 +12,8 @@ import seedu.task.model.ReadOnlyTaskBook;
 import seedu.taskcommons.core.LogsCenter;
 
 /**
- * A class to access AddressBook data stored as an xml file on the hard disk.
+ * A class to access TaskBook data stored as an xml file on the hard disk.
+ *
  */
 public class XmlTaskBookStorage implements TaskBookStorage {
 

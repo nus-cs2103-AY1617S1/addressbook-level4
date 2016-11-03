@@ -14,7 +14,7 @@ public class ConfigTest {
         String expected = "App title : dowat\n"
                             + "Current log level : INFO\n"
                             + "Preference file Location : preferences.json\n"
-                            + "Local data file location : taskbook.xml\n"
+                            + "Local data file location : dowat.xml\n"
                             + "TaskBook name : TypicalTaskBookName";
         assertEquals(config.toString(),expected);
     }

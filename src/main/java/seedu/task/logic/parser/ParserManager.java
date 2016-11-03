@@ -18,6 +18,7 @@ import seedu.task.logic.commands.HelpCommand;
 import seedu.task.logic.commands.IncorrectCommand;
 import seedu.task.logic.commands.ListCommand;
 import seedu.task.logic.commands.MarkCommand;
+import seedu.task.logic.commands.SaveCommand;
 import seedu.task.logic.commands.SelectCommand;
 import seedu.task.logic.commands.UndoCommand;
 
@@ -76,6 +77,9 @@ public class ParserManager {
 
         case ListCommand.COMMAND_WORD:
             return new ListParser().prepare(arguments);
+            
+        case SaveCommand.COMMAND_WORD:
+            return new SaveParser().prepare(arguments);
             
         case CalendarCommand.COMMAND_WORD:
         	return new CalendarParser().prepare(arguments);
