@@ -70,7 +70,7 @@ public class ModelManager extends ComponentManager implements Model {
     this(new Tars(), new UserPrefs());
   }
 
-  public ModelManager(ReadOnlyTars initialData, UserPrefs userPrefs) {
+  public ModelManager(ReadOnlyTars initialData) {
     tars = new Tars(initialData);
     filteredTasks = new FilteredList<>(tars.getTasks());
     filteredRsvTasks = new FilteredList<>(tars.getRsvTasks());
