@@ -11,9 +11,9 @@ import seedu.todo.controllers.concerns.Renderer;
 import seedu.todo.models.TodoListDB;
 
 /**
- * Controller to declare aliases
- * 
  * @@author A0093907W
+ * 
+ * Controller to declare aliases
  */
 public class AliasController implements Controller {
     

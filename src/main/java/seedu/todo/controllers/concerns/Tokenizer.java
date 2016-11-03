@@ -12,9 +12,9 @@ import org.apache.commons.lang.StringUtils;
 import seedu.todo.commons.exceptions.UnmatchedQuotesException;
 
 /**
- * Class to store the static method <code>tokenizer</code>.
- * 
  * @@author A0093907W
+ * 
+ * Class to store the static method <code>tokenizer</code>.
  */
 public class Tokenizer {
 

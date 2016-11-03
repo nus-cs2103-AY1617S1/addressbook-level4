@@ -4,10 +4,9 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 /**
- * Task model
- * 
  * @@author A0093907W
- *
+ * 
+ * Task model
  */
 public class Task implements CalendarItem {
     

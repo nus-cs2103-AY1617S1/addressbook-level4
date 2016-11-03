@@ -4,9 +4,9 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 /**
- * CalendarItem interface
- * 
  * @@author A0093907W
+ * 
+ * CalendarItem interface
  */
 public interface CalendarItem {
     

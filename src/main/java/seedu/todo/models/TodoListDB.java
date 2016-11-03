@@ -19,6 +19,8 @@ import seedu.todo.storage.JsonStorage;
 import seedu.todo.storage.Storage;
 
 /**
+ * @@author A0093907W
+ * 
  * This class holds the entire persistent database for the TodoList app.
  * <ul>
  * <li>This is a singleton class. For obvious reasons, the TodoList app should
@@ -26,9 +28,6 @@ import seedu.todo.storage.Storage;
  * <li>Object to object dynamic references should not be expected to survive
  * serialization.</li>
  * </ul>
- * 
- * @@author A0093907W
- *
  */
 public class TodoListDB {
 
@@ -202,13 +201,13 @@ public class TodoListDB {
     }
     
     /**
+     * @@author A0093907W
+     * 
      * Create a new Event in the DB and return it.<br>
      * <i>The new record is not persisted until <code>save</code> is explicitly
      * called.</i>
      * 
      * @return event
-     * 
-     * @@author A0093907W
      */
     public Event createEvent() {
         Event event = new Event();
@@ -261,11 +260,11 @@ public class TodoListDB {
     
     
     /**
+     * @@author A0093907W
+     * 
      * Gets the singleton instance of the TodoListDB.
      * 
      * @return TodoListDB
-     * 
-     * @@author A0093907W
      */
     public static TodoListDB getInstance() {
         if (instance == null) {

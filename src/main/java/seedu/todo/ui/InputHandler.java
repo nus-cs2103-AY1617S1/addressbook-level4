@@ -85,10 +85,10 @@ public class InputHandler {
     }
 
     /**
+     * @@author A0093907W
+     * 
      * Processes the command. Returns true if the command was intercepted by a controller, false if otherwise.
      * If the command was not intercepted by a controller, it means that the command is not recognizd.
-     * 
-     * @@author A0093907W
      */
     public boolean processInput(String input) {
         

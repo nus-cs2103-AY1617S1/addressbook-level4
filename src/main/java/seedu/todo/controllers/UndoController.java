@@ -11,9 +11,9 @@ import seedu.todo.models.TodoListDB;
 import seedu.todo.ui.UiManager;
 
 /**
- * Controller to undo a database commit.
- * 
  * @@author A0093907W
+ * 
+ * Controller to undo a database commit.
  */
 public class UndoController implements Controller {
     

@@ -4,10 +4,9 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 /**
- * Event model
- * 
  * @@author A0093907W
- *
+ * 
+ * Event model
  */
 public class Event implements CalendarItem {
     
