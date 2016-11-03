@@ -25,7 +25,7 @@ import seedu.flexitrack.model.task.UniqueTaskList.TaskNotFoundException;
 public class FlexiTrack implements ReadOnlyFlexiTrack {
 
     private final UniqueTaskList task;
-    private UniqueTaskList blockList = new UniqueTaskList();
+    private UniqueTaskList blockList;
     
     {
         task = new UniqueTaskList();
@@ -227,6 +227,7 @@ public class FlexiTrack implements ReadOnlyFlexiTrack {
      * @throws DuplicateTaskException
      */
     private void setBlockList() throws DuplicateTaskException {
+        blockList = new UniqueTaskList();
         for(Task toAdd: task) {
             if(toAdd.getName().toString().contains("(Blocked) ")) {
                 blockList.add(toAdd);
