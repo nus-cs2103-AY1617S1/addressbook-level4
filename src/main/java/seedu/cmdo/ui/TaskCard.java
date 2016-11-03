@@ -103,13 +103,12 @@ public class TaskCard extends UiPart{
 
 	private void setDetails() {
 		detail.setText(task.getDetail().details);
-    	setFont(detail, "Times New Roman", 18);
     	detail.wrapTextProperty();
     	detail.setWrapText(true);
     }
 
 	private void setId() {
-        id.setText(displayedIndex + ". ");
+        id.setText(displayedIndex + "");
 	}
 
 	private void setDueDateAndTime() {

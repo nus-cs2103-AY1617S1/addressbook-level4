@@ -123,37 +123,37 @@ public class TaskCategory extends UiPart {
 		overDue.setPrefSize(LABEL_WIDTH, LABEL_HEIGHT);
 		GridPane.setConstraints(overDue, 1, 0);
 		overDue.setText("Overdue");	
-		overDue.setFont(new Font("Copperplate", 24));
+		overDue.setFont(new Font(null, 20));
 		
 		today = new Label();
 		today.setPrefSize(LABEL_WIDTH, LABEL_HEIGHT);
 		GridPane.setConstraints(today, 1, 1);		
 		today.setText("Today");
-		today.setFont(new Font("Copperplate", 24));
+		today.setFont(new Font(null, 20));
 		
 		thisWeek = new Label();
 		thisWeek.setPrefSize(LABEL_WIDTH, LABEL_HEIGHT);
 		GridPane.setConstraints(thisWeek, 1, 2);		
 		thisWeek.setText("This Week");
-		thisWeek.setFont(new Font("Copperplate", 24));
+		thisWeek.setFont(new Font(null, 20));
 		
 		thisMonth = new Label();
 		thisMonth.setPrefSize(LABEL_WIDTH, LABEL_HEIGHT);
 		GridPane.setConstraints(thisMonth, 1, 3);		
 		thisMonth.setText("This Month");	
-		thisMonth.setFont(new Font("Copperplate", 24));	
+		thisMonth.setFont(new Font(null, 20));	
 		
 		someday = new Label();
 		someday.setPrefSize(LABEL_WIDTH, LABEL_HEIGHT);
 		GridPane.setConstraints(someday, 1, 4);		
 		someday.setText("Someday");	
-		someday.setFont(new Font("Copperplate", 24));
+		someday.setFont(new Font(null, 20));
 		
 		totalTask = new Label();
 		totalTask.setPrefSize(LABEL_WIDTH, LABEL_HEIGHT);
 		GridPane.setConstraints(totalTask, 1, 5);		
 		totalTask.setText("Total Tasks");
-		totalTask.setFont(new Font("Copperplate", 24));
+		totalTask.setFont(new Font(null, 20));
 		
 		emptySpace = new Region();
 		emptySpace.setPrefSize(20, LABEL_HEIGHT);
@@ -164,9 +164,7 @@ public class TaskCategory extends UiPart {
 		totalDone.setPrefSize(LABEL_WIDTH, LABEL_HEIGHT);
 		GridPane.setConstraints(totalDone, 1, 7);		
 		totalDone.setText("Total Done");
-		totalDone.setFont(new Font("Copperplate", 24));
-		
-		
+		totalDone.setFont(new Font(null, 20));				
 	}
 	
 	//@@author A0139661Y
@@ -202,20 +200,20 @@ public class TaskCategory extends UiPart {
         	}
         }
         overDueNo.setText("[" + Integer.toString(overdueNumber) + "]");
-        overDueNo.setFont(new Font("Copperplate", 20));
+        overDueNo.setFont(new Font(null, 20));
         todayNo.setText("[" + Integer.toString(todayNumber) + "]");
-        todayNo.setFont(new Font("Copperplate", 20));
+        todayNo.setFont(new Font(null, 20));
         thisWeekNo.setText("[" + Integer.toString(thisWeekNumber) + "]");
-        thisWeekNo.setFont(new Font("Copperplate", 20));
+        thisWeekNo.setFont(new Font(null, 20));
         thisMonthNo.setText("[" + Integer.toString(thisMonthNumber) + "]");
-        thisMonthNo.setFont(new Font("Copperplate", 20));
+        thisMonthNo.setFont(new Font(null, 20));
         somedayNo.setText("[" + Integer.toString(somedayNumber) + "]");
-        somedayNo.setFont(new Font("Copperplate", 20));
+        somedayNo.setFont(new Font(null, 20));
         totalTasksNumber = taskObservableList.size() - doneNumber;
         totalTaskNo.setText("[" + Integer.toString(totalTasksNumber) + "]");
-        totalTaskNo.setFont(new Font("Copperplate", 20));
+        totalTaskNo.setFont(new Font(null, 20));
         totalDoneNo.setText("[" + Integer.toString(doneNumber) + "]"); 
-        totalDoneNo.setFont(new Font("Copperplate", 20));
+        totalDoneNo.setFont(new Font(null, 20));
     }
 
      /**

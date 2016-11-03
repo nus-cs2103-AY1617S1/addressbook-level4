@@ -14,8 +14,13 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<HBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
+<HBox id="cardPane" fx:id="cardPane" styleClass="list-view-card-pane" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
     <children>
+               <Label fx:id="id" alignment="CENTER" styleClass="cell_big_label" text="\$index" textAlignment="CENTER" wrapText="true" HBox.hgrow="ALWAYS">
+         <HBox.margin>
+            <Insets bottom="3.0" left="5.0" top="3.0" />
+         </HBox.margin>
+      </Label>
       <GridPane HBox.hgrow="ALWAYS">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -29,12 +34,11 @@
                <children>
                   <HBox VBox.vgrow="ALWAYS">
                      <children>
-                                 <Label fx:id="id" alignment="BOTTOM_CENTER" styleClass="cell_big_label" text="\$index" wrapText="true" HBox.hgrow="ALWAYS">
+                                 <Label fx:id="detail" alignment="TOP_LEFT" ellipsisString="" styleClass="cell_big_label" stylesheets="@../CSS/Labels.css" text="\$task" textOverrun="CLIP" wrapText="true" HBox.hgrow="ALWAYS">
                            <HBox.margin>
-                              <Insets left="5.0" />
+                              <Insets bottom="3.0" left="2.0" right="2.0" top="3.0" />
                            </HBox.margin>
                         </Label>
-                                 <Label fx:id="detail" ellipsisString="" styleClass="cell_big_label" stylesheets="@../CSS/Labels.css" text="\$task" textOverrun="CLIP" wrapText="true" HBox.hgrow="ALWAYS" />
                      </children>
                   </HBox>
                </children>
@@ -42,7 +46,11 @@
             <HBox prefHeight="48.0" prefWidth="313.0" GridPane.rowIndex="1">
                <children>
                   <Region prefWidth="20.0" />
-                  <Rectangle fx:id="status" arcHeight="5.0" arcWidth="5.0" fill="#ff1f1f" height="50.0" stroke="BLACK" strokeType="INSIDE" width="80.0" />
+                  <Rectangle fx:id="status" arcHeight="5.0" arcWidth="5.0" fill="#ff1f1f" height="50.0" stroke="BLACK" strokeType="INSIDE" width="80.0">
+                     <HBox.margin>
+                        <Insets bottom="3.0" />
+                     </HBox.margin>
+                  </Rectangle>
                   <VBox fillWidth="false">
                      <children>
                         <HBox>
@@ -50,15 +58,15 @@
                               <Region prefWidth="40.0" />
                               <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Start " underline="true">
                                  <font>
-                                    <Font name="Times New Roman" size="10.0" />
+                                    <Font name="Helvetica Neue UltraLight" size="10.0" />
                                  </font>
                               </Text>
-                              <Label fx:id="sd" alignment="CENTER" prefWidth="73.0" text="10/19/2016" />
-                              <Label fx:id="st" alignment="CENTER" prefWidth="43.0" text="2359" />
-                              <Region prefWidth="70.0" HBox.hgrow="ALWAYS" />
+                              <Label fx:id="sd" alignment="CENTER" prefWidth="85.0" text="10/19/2016" />
+                              <Label fx:id="st" alignment="CENTER" prefWidth="45.0" text="2359" />
+                              <Region prefWidth="65.0" HBox.hgrow="ALWAYS" />
                               <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Tags: ">
                                  <font>
-                                    <Font size="11.0" />
+                                    <Font name="Helvetica Neue UltraLight" size="11.0" />
                                  </font>
                               </Text>
                                       <Label fx:id="tags" alignment="CENTER" styleClass="cell_small_label" text="\$tags" />
@@ -69,15 +77,15 @@
                               <Region prefWidth="40.0" />
                               <Text strokeType="OUTSIDE" strokeWidth="0.0" text="End " underline="true">
                                  <font>
-                                    <Font name="Times New Roman" size="10.0" />
+                                    <Font name="Helvetica Neue UltraLight" size="10.0" />
                                  </font>
                               </Text>
-                                    <Label fx:id="dbd" alignment="CENTER" prefWidth="73.0" styleClass="cell_small_label" text="10/19/2016" />
-                                    <Label fx:id="dbt" alignment="CENTER" prefWidth="43.0" styleClass="cell_small_label" text="2359" />
-                              <Region prefWidth="70.0" HBox.hgrow="ALWAYS" />
+                                    <Label fx:id="dbd" alignment="CENTER" prefWidth="85.0" styleClass="cell_small_label" text="10/19/2016" />
+                                    <Label fx:id="dbt" alignment="CENTER" prefWidth="45.0" styleClass="cell_small_label" text="2359" />
+                              <Region prefWidth="65.0" HBox.hgrow="ALWAYS" />
                               <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Priority: ">
                                  <font>
-                                    <Font name="Times New Roman" size="11.0" />
+                                    <Font name="Helvetica Neue UltraLight" size="11.0" />
                                  </font>
                               </Text>
                                     <Label fx:id="priority" alignment="CENTER" prefWidth="49.0" styleClass="cell_small_label" text="medium" />
