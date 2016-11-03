@@ -7,6 +7,7 @@ import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import seedu.address.commons.events.ui.FilterPanelChangedEvent;
 import seedu.address.commons.events.ui.IncorrectCommandAttemptedEvent;
 import seedu.address.logic.Logic;
 import seedu.address.logic.commands.*;
@@ -98,6 +99,11 @@ public class CommandBox extends UiPart {
         setStyleToIndicateIncorrectCommand();
         resultDisplay.setStyleToIndicateIncorrectCommand();
         restoreCommandText();
+    }
+    
+    @Subscribe
+    private void handleFilterPanelChangedEvent(FilterPanelChangedEvent abce) {
+        commandTextField.requestFocus();
     }
 
     /**

@@ -120,6 +120,18 @@ public class Parser {
         case RedoChangeCommand.COMMAND_WORD:
             return new RedoChangeCommand();
 
+        case JumpToDeadlineCommand.COMMAND_WORD:
+            return new JumpToDeadlineCommand();
+
+        case JumpToStartDateCommand.COMMAND_WORD:
+            return new JumpToStartDateCommand();
+
+        case JumpToEndDateCommand.COMMAND_WORD:
+            return new JumpToEndDateCommand();
+
+        case JumpToRecurringCommand.COMMAND_WORD:
+            return new JumpToRecurringCommand();
+
         default:
             return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
         }

@@ -5,6 +5,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.commons.util.Stemmer;
 import seedu.address.commons.util.StringUtil;
+import seedu.address.commons.util.TypesUtil;
 import seedu.address.model.state.StateManager;
 import seedu.address.model.state.TaskManagerState;
 import seedu.address.model.tag.Tag;
@@ -41,18 +42,6 @@ import com.google.common.eventbus.Subscribe;
 public class ModelManager extends ComponentManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    //@@author A0146123R
-    private static final String EVENTS = "events";
-    private static final String TASKS = "tasks";
-    private static final String DONE = "done";
-    private static final String UNDONE = "undone";
-    private static final String START_DATE = "startDate";
-    private static final String END_DATE = "endDate";
-    private static final String DEADLINE = "deadline";
-    private static final String RECURRING = "recurring";
-    //@@author
-    //@@author A0138717X
-    private static final String PRIORITY = "priorityLevel";
     //@@author
     private final TaskManager taskManager;
     private FilteredList<Task> filteredTasks;
@@ -202,12 +191,12 @@ public class ModelManager extends ComponentManager implements Model {
 
     private Expression getPredicateForType(String type) {
         switch (type) {
-        case EVENTS:
+        case TypesUtil.EVENTS:
             return new PredicateExpression(new EventQualifier());
-        case TASKS:
+        case TypesUtil.TASKS:
             return new PredicateExpression(new TaskQualifier());
-        case DONE:
-        case UNDONE:
+        case TypesUtil.DONE:
+        case TypesUtil.UNDONE:
             return new PredicateExpression(new DoneQualifier(type));
         default:
             return null;
@@ -222,13 +211,13 @@ public class ModelManager extends ComponentManager implements Model {
 
     private Expression getPredicateForKeywordType(String type, String keyword) {
     	switch (type) {
-        case START_DATE:
-        case DEADLINE:
-        case END_DATE:
+        case TypesUtil.START_DATE:
+        case TypesUtil.DEADLINE:
+        case TypesUtil.END_DATE:
             return new PredicateExpression(new DateQualifier(keyword, type));
-        case RECURRING:
+        case TypesUtil.RECURRING:
             return new PredicateExpression(new RecurringQualifier(keyword));
-        case PRIORITY:
+        case TypesUtil.PRIORITY:
         	return new PredicateExpression(new PriorityQualifier(Integer.parseInt(keyword)));
         default:
             return null;
@@ -421,7 +410,7 @@ public class ModelManager extends ComponentManager implements Model {
         private boolean isDone;
 
         DoneQualifier(String isDone){
-            this.isDone = isDone.equals(DONE);
+            this.isDone = isDone.equals(TypesUtil.DONE);
         }
 
         @Override
@@ -450,7 +439,7 @@ public class ModelManager extends ComponentManager implements Model {
             assert dateValue != null;
             this.dateValue = dateValue.trim();
             this.dateType = dateType;
-            this.isEvent = dateType.equals(DEADLINE) ? false : true;
+            this.isEvent = dateType.equals(TypesUtil.DEADLINE) ? false : true;
             this.isDay = isDay(this.dateValue);
         }
 
@@ -458,13 +447,13 @@ public class ModelManager extends ComponentManager implements Model {
         public boolean run(ReadOnlyTask task) {
             if (task.isEvent() == isEvent) {
                 switch (dateType) {
-                case START_DATE:
+                case TypesUtil.START_DATE:
                     return isDay ? getDay(((EventDate) task.getDate()).getStartDate()).equals(dateValue)
                             : ((EventDate) task.getDate()).getStartDate().equals(dateValue);
-                case END_DATE:
+                case TypesUtil.END_DATE:
                     return isDay ? getDay(((EventDate) task.getDate()).getEndDate()).equals(dateValue)
                             : ((EventDate) task.getDate()).getEndDate().equals(dateValue);
-                case DEADLINE:
+                case TypesUtil.DEADLINE:
                     return isDay ? getDay(task.getDate().getValue()).equals(dateValue)
                             : task.getDate().getValue().equals(dateValue);
                 }

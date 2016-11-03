@@ -5,7 +5,7 @@ import java.nio.file.Paths;
 
 //@@author A0146123R
 /**
- * Change the default storage location of the task manager.
+ * Changes the default storage location of the task manager.
  */
 public class ChangeCommand extends Command{
 

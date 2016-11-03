@@ -7,6 +7,8 @@ import java.util.Map;
 import java.util.Set;
 import java.util.logging.Logger;
 
+import com.google.common.eventbus.Subscribe;
+
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -18,8 +20,10 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.FilterPanelChangedEvent;
+import seedu.address.commons.events.ui.JumpToFilterPanelEvent;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.FxViewUtil;
+import seedu.address.commons.util.TypesUtil;
 import seedu.address.model.task.Deadline;
 import seedu.address.model.task.EventDate;
 import seedu.address.model.task.Recurring;
@@ -32,14 +36,6 @@ public class FilterPanel extends UiPart {
     private static final Logger logger = LogsCenter.getLogger(FilterPanel.class);
     private static final String FXML = "FilterPanel.fxml";
     
-    private static final String EVENTS = "events";
-    private static final String TASKS = "tasks";
-    private static final String DONE = "done";
-    private static final String UNDONE = "undone";
-    private static final String START_DATE = "startDate";
-    private static final String END_DATE = "endDate";
-    private static final String DEADLINE = "deadline";
-    private static final String RECURRING = "recurring";
     private static final String EMPTY = "";
     private static final String NIL = "nil";
     private static final String SPACE = "\\s+";
@@ -91,6 +87,7 @@ public class FilterPanel extends UiPart {
         this.resultDisplay = resultDisplay;
         addMainPane();
         initialPriority();
+        registerAsAnEventHandler(this);
     }
 
     private void addMainPane() {
@@ -117,6 +114,25 @@ public class FilterPanel extends UiPart {
         return FXML;
     }
     
+    @Subscribe
+    private void handleJumpFilterPanelEvent(JumpToFilterPanelEvent event) {
+        String qualification = event.getQualification();
+        switch (qualification) {
+        case TypesUtil.DEADLINE :
+            deadlineTextField.requestFocus();
+            return;
+        case TypesUtil.START_DATE :
+            startDateTextField.requestFocus();
+            return;
+        case TypesUtil.END_DATE :
+            endDateTextField.requestFocus();
+            return;
+        case TypesUtil.RECURRING :
+            recurringTextField.requestFocus();
+            return;
+        }
+    }
+    
     @FXML
     private void handleFilterChanged() {
         Set<String> types = handleTypesChanged();
@@ -139,16 +155,16 @@ public class FilterPanel extends UiPart {
     private Set<String> handleTypesChanged() {
         Set<String> types = new HashSet<>();
         if (eventsToggleButton.isSelected()) {
-            types.add(EVENTS);
+            types.add(TypesUtil.EVENTS);
         }
         if (tasksToggleButton.isSelected()) {
-            types.add(TASKS);
+            types.add(TypesUtil.TASKS);
         }
         if (doneToggleButton.isSelected()) {
-            types.add(DONE);
+            types.add(TypesUtil.DONE);
         }
         if (undoneToggleButton.isSelected()) {
-            types.add(UNDONE);
+            types.add(TypesUtil.UNDONE);
         }
         return types;
     }
@@ -158,27 +174,31 @@ public class FilterPanel extends UiPart {
         String deadline = deadlineTextField.getText().trim();
         if (!deadline.equals(EMPTY)) {
             if (deadline.equals(NIL)) {
-                qualifications.put(DEADLINE, EMPTY);
+                qualifications.put(TypesUtil.DEADLINE, EMPTY);
             } else {
+                deadlineTextField.requestFocus();
                 deadline = Deadline.getValidDate(deadline);
-                qualifications.put(DEADLINE, deadline);
+                qualifications.put(TypesUtil.DEADLINE, deadline);
             }
         }
         String startDate = startDateTextField.getText().trim();
         if (!startDate.equals(EMPTY)) {
+            startDateTextField.requestFocus();
             startDate = EventDate.getValidDate(startDate);
-            qualifications.put(START_DATE, startDate);
+            qualifications.put(TypesUtil.START_DATE, startDate);
         }
         String endDate = endDateTextField.getText().trim();
         if (!endDate.equals(EMPTY)) {
+            endDateTextField.requestFocus();
             endDate = EventDate.getValidDate(endDate);
-            qualifications.put(END_DATE, endDate);
+            qualifications.put(TypesUtil.END_DATE, endDate);
         }
         String recurring = recurringTextField.getText().trim();
         if (!recurring.equals(EMPTY)) {
             if (Recurring.isValidFrequency(recurring)) {
-                qualifications.put(RECURRING, recurring);
+                qualifications.put(TypesUtil.RECURRING, recurring);
             } else {
+                recurringTextField.requestFocus();
                 throw new IllegalValueException(Recurring.MESSAGE_RECURRING_CONSTRAINTS);
             }
         }
