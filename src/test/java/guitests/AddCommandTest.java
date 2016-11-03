@@ -6,7 +6,6 @@ import org.junit.Test;
 import edu.emory.mathcs.backport.java.util.Arrays;
 import seedu.jimi.commons.core.Messages;
 import seedu.jimi.logic.commands.AddCommand;
-import seedu.jimi.model.task.Name;
 import seedu.jimi.model.task.ReadOnlyTask;
 import seedu.jimi.testutil.TestDeadlineTask;
 import seedu.jimi.testutil.TestEvent;
