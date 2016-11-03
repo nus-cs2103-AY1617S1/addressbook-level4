@@ -97,7 +97,7 @@ The sections below give more details of each component.
 
 ### UI component
 
-<img src="images/UiClassDiagram.png" width="800"><br>
+<img src="images/UI.png" width="800"><br>
 
 **API** : [`Ui.java`](../src/main/java/seedu/task/ui/Ui.java)
 
