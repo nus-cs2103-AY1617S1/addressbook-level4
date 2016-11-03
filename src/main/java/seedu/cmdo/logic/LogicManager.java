@@ -57,13 +57,13 @@ public class LogicManager extends ComponentManager implements Logic {
         return command.execute();
     }
     
-    // @@author A0139661Y
+    //@@author A0139661Y
     @Override
     public ObservableList<ReadOnlyTask> getBlockedList() {
     	return model.getBlockedList();
     }
     
-    // @@author A0139661Y
+    //@@author A0139661Y
     @Override
     public ObservableList<ReadOnlyTask> getAllTaskList() {
     	return model.getAllTaskList();
@@ -74,7 +74,7 @@ public class LogicManager extends ComponentManager implements Logic {
         return model.getFilteredTaskList();
     }
     
-    // @@author A0139661Y
+    //@@author A0139661Y
     @Override
     public ObservableList<ReadOnlyTask> getFilteredTaskList(boolean firstRun) {
         return model.getFilteredTaskList(firstRun);
@@ -84,7 +84,8 @@ public class LogicManager extends ComponentManager implements Logic {
     @Override
     @Subscribe
     public void handleJumpToListRequestEvent(JumpToListRequestEvent event) {
-        logger.info(LogsCenter.getEventHandlingLogMessage(event, String.format("Current selection is index %d", event.targetIndex)));
+        logger.info(LogsCenter.getEventHandlingLogMessage(event, 
+        		String.format("Current selection is index %d", event.targetIndex)));
         currentSelected = event.targetIndex;
     }
 }

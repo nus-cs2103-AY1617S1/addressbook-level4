@@ -8,10 +8,10 @@ import java.util.Objects;
 
 import seedu.cmdo.commons.exceptions.IllegalValueException;
 
+//@@author A0141128R
 /**
  * Represents a Task's due time in the To Do List.
  * Guarantees: immutable; is valid as declared in {@link #isValidDueByTime(String)}
- * @@author A0139661Y
  */
 public class DueByTime {
 
@@ -28,8 +28,6 @@ public class DueByTime {
      * Validates given dueByTime.
      *
      * @throws IllegalValueException if given dueByTime string is invalid.
-     * 
-     * @@author A0139661Y
      */
     public DueByTime(LocalTime dueByTime) throws IllegalValueException {
         assert dueByTime != null;
@@ -48,8 +46,6 @@ public class DueByTime {
      * Create a range of dueByTime.
      *
      * @throws IllegalValueException if given dueByTime string is invalid.
-     * 
-     * @@author A0139661Y
      */
     public DueByTime(LocalTime dueByTimeStart, LocalTime dueByTimeEnd) throws IllegalValueException {
         assert dueByTimeStart != null && dueByTimeEnd != null;
@@ -80,7 +76,6 @@ public class DueByTime {
                 && this.equals((DueByTime) other)); 
     }
     
-    //@@author A0141128R
     //to set it to a floating task for edit command purpose
     public void setFloating(){
     	this.start = LocalTime.MAX;
@@ -103,7 +98,6 @@ public class DueByTime {
     	return Objects.hash(start, end);
     }
 
-	//@@author A0139661Y
     public boolean isRange() {
 		return isRange;
 	}
@@ -114,8 +108,6 @@ public class DueByTime {
     
     /*
      * Produces a friendly string of values in the format HH:MM
-     * 
-     * @@author A0139661Y
      */
     public String getFriendlyString() {
 		// If floating date, return do not print anything
@@ -131,14 +123,12 @@ public class DueByTime {
 				.toString();
 	}
     
-	// @@author A0139661Y
 	public String getFriendlyStartString() {
 		if (!isRange && isFloating)
 			return "";
 		return start.format(TIME_FORMAT).toString(); 
 	}
 	
-	// @@author A0139661Y
 	public String getFriendlyEndString() {
 		if (!isRange) {
 			return "";

@@ -22,8 +22,6 @@ public class StorageCommand extends Command {
      * Created an command to change storage filepath.
      *
      * @throws IllegalValueException if any of the raw values are invalid
-     * 
-     * @@author A0139661Y
      */
     public StorageCommand(String filePath) {
     	this.filePath = filePath;

@@ -6,10 +6,10 @@ import java.util.Objects;
 
 import seedu.cmdo.commons.exceptions.IllegalValueException;
 
+//@@author A0141128R
 /**
  * Represents a Task's Due date in the To Do List.
  * Guarantees: immutable; is valid as declared in {@link #isValidDueByDate(String)}
- * @@author A0139661Y
  */
 public class DueByDate {
 
@@ -26,8 +26,6 @@ public class DueByDate {
      * Takes in a single date.
      *
      * @throws IllegalValueException if given due date string is invalid.
-     * 
-     * @@author A0139661Y
      */
     public DueByDate(LocalDate dueByDate) throws IllegalValueException {
         assert dueByDate != null;
@@ -42,8 +40,6 @@ public class DueByDate {
      * Takes in a start date and end date.
      *
      * @throws IllegalValueException if given due date string is invalid.
-     * 
-     * @@author A0139661Y
      */
     public DueByDate(LocalDate dueByDateStart, LocalDate dueByDateEnd) {
         assert dueByDateStart != null && dueByDateEnd != null;
@@ -82,8 +78,6 @@ public class DueByDate {
     
     /*
      * Produces a friendly string of values in the format MM/DD/YYYY
-     * 
-     * @@author A0139661Y
      */
 	public String getFriendlyString() {		
 		// If floating date, return do not print anything
@@ -98,7 +92,6 @@ public class DueByDate {
 								.toString();
 	}
 	
-	//@@author A0141128R
 	//setter to set it a floating for edit command purpose
 	public void setFloating(){
 		end = LocalDate.MIN;
@@ -112,14 +105,12 @@ public class DueByDate {
 	}
 	
 	// Operates on the premise that the start date is always specified.
-	// @@author A0139661Y
 	public String getFriendlyStartString() {
 		if (isFloating) return "";
 		if (!isRange) return start.format(DATE_FORMAT).toString();
 		return start.format(DATE_FORMAT).toString(); 
 	}
 	
-	// @@author A0139661Y
 	public String getFriendlyEndString() {
 		if (!isRange || isFloating || end.equals(NO_DATE)) return "";
 		return end.format(DATE_FORMAT).toString();

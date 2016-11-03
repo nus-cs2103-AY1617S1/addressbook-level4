@@ -1,10 +1,10 @@
 package seedu.cmdo.commons.core;
 
+import java.util.logging.Logger;
+
 import com.google.common.eventbus.EventBus;
 
 import seedu.cmdo.commons.events.BaseEvent;
-
-import java.util.logging.Logger;
 
 /**
  * Manages the event dispatching of the app.

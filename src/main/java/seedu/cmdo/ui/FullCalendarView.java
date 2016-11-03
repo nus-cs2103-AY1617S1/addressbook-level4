@@ -12,12 +12,9 @@ import java.time.LocalDate;
 import java.time.YearMonth;
 import java.util.ArrayList;
 
+//@@author A0141006B
 /**
  * Creates a custom calendar for user to refer to day and date
- * 
- * @@author A0141006B
- * Credits to MrGoose
- * 
  */
 public class FullCalendarView {
 

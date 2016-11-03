@@ -16,6 +16,7 @@ import seedu.cmdo.commons.core.LogsCenter;
 import seedu.cmdo.commons.events.ui.TaskPanelSelectionChangedEvent;
 import seedu.cmdo.model.task.ReadOnlyTask;
 
+//@@author A0141006B
 /**
  * Panel containing the list of tasks.
  */
@@ -60,7 +61,6 @@ public class TaskListPanel extends UiPart {
         addToPlaceholder();
     }
 
-    //@@author A0139661Y
     private void setConnections(ObservableList<ReadOnlyTask> taskList) {
     	taskListView.setItems(taskList);
         taskListView.setCellFactory(listView -> new TaskListViewCell());

@@ -63,12 +63,11 @@ public class XmlAdaptedTask {
         }
     }
 
+    //@@author A0139661Y
     /**
      * Converts this jaxb-friendly adapted task object into the model's Task object.
      *
      * @throws IllegalValueException if there were any data constraints violated in the adapted task
-     * 
-     * @@author A0139661Y
      */
     public Task toModelType() throws IllegalValueException {
         final List<Tag> taskTags = new ArrayList<>();
@@ -99,6 +98,7 @@ public class XmlAdaptedTask {
         return new Task(detail, done, dbd, dbt, priority, block, tags);
     }
     
+    //@@author A0139661Y
     private String[] tokenizeTo(String input) {
     	return input.split("/to/");
     }

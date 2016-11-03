@@ -30,6 +30,7 @@ public class ModelManager extends ComponentManager implements Model {
     private final UserPrefs userPrefs;
     private final Undoer undoer;
     
+    //@@author A0139661Y
     /**
      * Initializes a ModelManager with the given ToDoList
      * ToDoList and its variables should not be null
@@ -44,8 +45,6 @@ public class ModelManager extends ComponentManager implements Model {
         toDoList = new ToDoList(src);
         filteredTasks = new FilteredList<>(toDoList.getTasks());
         this.userPrefs = userPrefs;
-        
-        //@@author A0139661Y
         this.undoer = Undoer.getInstance();
         logger.info("Saved new toDoList into Undoer stack. " + toDoList.toString());
     }
@@ -54,12 +53,11 @@ public class ModelManager extends ComponentManager implements Model {
         this(new ToDoList(), new UserPrefs());
     }
 
+    //@@author A0139661Y
     public ModelManager(ReadOnlyToDoList initialData, UserPrefs userPrefs) {
         toDoList = new ToDoList(initialData);
         filteredTasks = new FilteredList<>(toDoList.getTasks());
         this.userPrefs = userPrefs;
-
-        //@@author A0139661Y
         this.undoer = Undoer.getInstance();
         logger.info("Saved last stable toDoList into Undoer stack. " + toDoList.toString());
     }
@@ -141,6 +139,7 @@ public class ModelManager extends ComponentManager implements Model {
         return findTaskInModel(toEditWith);
     }
     
+    //@@author A0139661Y
     @Override
     public void changeStorageFilePath(String filePath) {
     	userPrefs.setStorageSettings(filePath);
@@ -166,13 +165,13 @@ public class ModelManager extends ComponentManager implements Model {
     	return new UnmodifiableObservableList<>(toDoList.getTasks());
     }
     
-    // @@author A0139661Y
+    //@@author A0139661Y
     @Override 
     public UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList() {
     	return new UnmodifiableObservableList<>(filteredTasks); 
     }
     
-    // @@author A0139661Y
+    //@@author A0139661Y
     @Override 
     public UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList(boolean firstRun) {
     	UnmodifiableObservableList<ReadOnlyTask> initList = new UnmodifiableObservableList<>(filteredTasks);
@@ -212,8 +211,8 @@ public class ModelManager extends ComponentManager implements Model {
     	filteredTasks.setPredicate(expression::satisfies);
     }
     
-    // Used by find done <...> or find <...> where taskStatus depends on user input.
     // @@author A0139661Y
+    // Used by find done <...> or find <...> where taskStatus depends on user input.
     @Override
     public void updateFilteredTaskList(Set<String> keywords, boolean taskStatus){
         updateFilteredTaskList(new PredicateExpression(new DetailQualifier(keywords, taskStatus)));
@@ -277,6 +276,7 @@ public class ModelManager extends ComponentManager implements Model {
         	taskStatus = false;
         }
         
+        //@@author A0139661Y
         /*
          * Matches tasks with command done parameter, and filters.
          * 

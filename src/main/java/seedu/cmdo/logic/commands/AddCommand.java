@@ -5,8 +5,6 @@ import java.time.LocalTime;
 import java.util.HashSet;
 import java.util.Set;
 
-import seedu.cmdo.commons.core.EventsCenter;
-import seedu.cmdo.commons.events.ui.JumpToListRequestEvent;
 import seedu.cmdo.commons.exceptions.IllegalValueException;
 import seedu.cmdo.commons.exceptions.TaskBlockedException;
 import seedu.cmdo.logic.parser.Blocker;
@@ -37,12 +35,11 @@ public class AddCommand extends Command {
     private final Task toAdd;
     private final Blocker blocker = new Blocker();
     
+    //@@author A0139661Y
     /**
      * Created an add command for SINGULAR NON-RANGE DATE AND TIME
      *
      * @throws IllegalValueException if any of the raw values are invalid
-     * 
-     * @@author A0139661Y
      */
     public AddCommand(String details,
                       LocalDate dueByDate,
@@ -63,12 +60,11 @@ public class AddCommand extends Command {
         isUndoable = true;
     }
     
+    //@@author A0139661Y
     /**
      * Created an add command for RANGE DATE AND TIME
      *
      * @throws IllegalValueException if any of the raw values are invalid
-     * 
-     * @@author A0139661Y
      */
     public AddCommand(String details,
                       LocalDate dueByDateStart,

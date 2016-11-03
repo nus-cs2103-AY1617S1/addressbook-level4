@@ -1,13 +1,12 @@
 package guitests;
 
-import org.junit.Test;
-
-import guitests.guihandles.TaskCardHandle;
-import seedu.cmdo.testutil.TestTask;
-import seedu.cmdo.testutil.TestUtil;
-
 import static org.junit.Assert.assertTrue;
 import static seedu.cmdo.logic.commands.DoneCommand.MESSAGE_DONE_TASK_SUCCESS;
+
+import org.junit.Test;
+
+import seedu.cmdo.testutil.TestTask;
+import seedu.cmdo.testutil.TestUtil;
 
 /*
  * @@author A0141128R tested and passed

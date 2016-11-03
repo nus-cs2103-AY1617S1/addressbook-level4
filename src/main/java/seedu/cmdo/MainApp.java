@@ -1,6 +1,13 @@
 package seedu.cmdo;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.Map;
+import java.util.Optional;
+import java.util.logging.Logger;
+
 import com.google.common.eventbus.Subscribe;//don't need
+
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.stage.Stage;
@@ -15,17 +22,15 @@ import seedu.cmdo.commons.util.ConfigUtil;
 import seedu.cmdo.commons.util.StringUtil;
 import seedu.cmdo.logic.Logic;
 import seedu.cmdo.logic.LogicManager;
-import seedu.cmdo.model.*;
+import seedu.cmdo.model.Model;
+import seedu.cmdo.model.ModelManager;
+import seedu.cmdo.model.ReadOnlyToDoList;
+import seedu.cmdo.model.ToDoList;
+import seedu.cmdo.model.UserPrefs;
 import seedu.cmdo.storage.Storage;
 import seedu.cmdo.storage.StorageManager;
 import seedu.cmdo.ui.Ui;
 import seedu.cmdo.ui.UiManager;
-
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.util.Map;
-import java.util.Optional;
-import java.util.logging.Logger;
 
 /**
  * The main entry point to the application.
@@ -33,7 +38,7 @@ import java.util.logging.Logger;
 public class MainApp extends Application {
     private static final Logger logger = LogsCenter.getLogger(MainApp.class);
 
-    public static final Version VERSION = new Version(0, 0, 3, true);
+    public static final Version VERSION = new Version(0, 0, 5, true);
 
     protected Ui ui  ;
     protected Logic logic;
@@ -71,11 +76,10 @@ public class MainApp extends Application {
         initEventsCenter();
     }
 	
-    /** 
+    //@@author A0139661Y
+	/** 
      * Read user defined settings, if any 
      * @throws Exception
-     * 
-     * @@author A0139661Y
      */
 	private void syncUserPrefsToConfig() throws Exception {
         config.setToDoListFilePath(userPrefs.getStorageSettings().getFilePath());
@@ -204,11 +208,10 @@ public class MainApp extends Application {
         this.stop();
     }
     
+    //@@author A0139661Y
     /**
      * Handles an event where the storage file has been changed.
      * @param event
-     * 
-     * @@author A0139661Y
      */
     @Subscribe
     public void handleStorageFileChangedEvent(StorageFileChangedEvent event) {

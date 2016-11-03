@@ -2,10 +2,10 @@ package seedu.cmdo.model.task;
 
 import seedu.cmdo.commons.exceptions.IllegalValueException;
 
+//@@author A0139661Y
 /**
  * Represents a Task's detail in the To Do List.
  * Guarantees: immutable; is valid as declared in {@link #isValidDetail(String)}
- * @@author A0139661Y
  */
 public class Detail {
 

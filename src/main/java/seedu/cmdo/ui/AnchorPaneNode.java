@@ -5,10 +5,9 @@ import javafx.scene.layout.AnchorPane;
 
 import java.time.LocalDate;
 
+//@@author A0141006B
 /**
  * Create an anchor pane that can store additional data.
- * @@A0141006B
- * Credits to SirGoose3432
  */
 public class AnchorPaneNode extends AnchorPane {
 
