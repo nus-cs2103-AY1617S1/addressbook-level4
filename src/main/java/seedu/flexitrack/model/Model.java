@@ -59,7 +59,7 @@ public interface Model {
     Task markTask(ReadOnlyTask taskToMark) throws IllegalValueException;
 
     /**
-     * Unmarks the given task as done
+     * Unmarks the given task
      * 
      * @throws TaskNotFoundException
      */
@@ -84,7 +84,12 @@ public interface Model {
      * @return true if new event want to place at a period that reserve for other event
      */
     boolean checkBlock(Task toAdd) throws DuplicateTaskException;   
-
+    
+    /**
+     * Limitation: only allow user change path within Flexitrack folder
+     * @param storagePath : only accept alpha or forward slash '/' (example: data/newStorage)
+     *                      storagePath should not include ".xml" 
+     */
     void changeStorage(String storagePath);
     
     /**

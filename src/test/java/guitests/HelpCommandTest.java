@@ -1,3 +1,4 @@
+//@@author A0138455Y
 package guitests;
 
 import static org.junit.Assert.assertEquals;
@@ -26,7 +27,7 @@ import seedu.flexitrack.logic.commands.UnmarkCommand;
 import seedu.flexitrack.model.Model;
 import seedu.flexitrack.model.ModelManager;
 import seedu.flexitrack.storage.StorageManager;
-//@@author A0138455Y
+
 public class HelpCommandTest extends FlexiTrackGuiTest {
 
     /**
