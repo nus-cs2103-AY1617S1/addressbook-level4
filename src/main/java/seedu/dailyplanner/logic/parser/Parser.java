@@ -154,6 +154,9 @@ public class Parser {
 				String[] dateAndTime = end.split(" ");
 				endDate = dateAndTime[0];
 				endTime = dateAndTime[1];
+				if (!endDate.equals(startDate) && endDate.equals(natty.parseDate("today"))) {
+					endDate = startDate;
+				}
 			} else {
 				endDate = natty.parseDate(end);
 			}
@@ -220,6 +223,9 @@ public class Parser {
 				String[] dateAndTime = end.split(" ");
 				endDate = dateAndTime[0];
 				endTime = dateAndTime[1];
+				if (!endDate.equals(startDate) && endDate.equals(natty.parseDate("today"))) {
+					endDate = startDate;
+				}
 			} else {
 				endDate = natty.parseDate(end);
 			}

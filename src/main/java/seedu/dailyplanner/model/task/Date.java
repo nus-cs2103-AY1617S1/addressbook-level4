@@ -12,14 +12,18 @@ public class Date implements Comparable<Date> {
 	public static final String PHONE_VALIDATION_REGEX = ".+";
 
 	public final String value;
-	private final int day;
-	private final int month;
-	private final int year;
+	public final int startDay;
+	public final int startMonth;
+	public final int startYear;
 	public final String endDate;
+	public final int endDay;
+	public final int endMonth;
+	public final int endYear;
 
 	/**
 	 * Validates given phone number.
-	 * @param endDate 
+	 * 
+	 * @param endDate
 	 *
 	 * @throws IllegalValueException
 	 *             if given phone string is invalid.
@@ -30,22 +34,31 @@ public class Date implements Comparable<Date> {
 		assert endDate != null;
 		phone = phone.trim();
 		endDate = endDate.trim();
-		
+
 		// if (!isValidPhone(phone)) {
 		// throw new IllegalValueException(MESSAGE_PHONE_CONSTRAINTS);
 		// }
-		
+
 		this.value = phone;
 		this.endDate = endDate;
-		
+
 		if (phone.equals("")) {
-			this.day = 0;
-			this.month = 0;
-			this.year = 9999;
+			this.startDay = 0;
+			this.startMonth = 0;
+			this.startYear = 9999;
 		} else {
-			this.day = Integer.parseInt(phone.substring(0, 2));
-			this.month = Integer.parseInt(phone.substring(3, 5));
-			this.year = Integer.parseInt(phone.substring(6, 8));
+			this.startDay = Integer.parseInt(phone.substring(0, 2));
+			this.startMonth = Integer.parseInt(phone.substring(3, 5));
+			this.startYear = Integer.parseInt(phone.substring(6, 8));
+		}
+		if (endDate.equals("")) {
+			this.endDay = 0;
+			this.endMonth = 0;
+			this.endYear = 9999;
+		} else {
+			this.endDay = Integer.parseInt(endDate.substring(0, 2));
+			this.endMonth = Integer.parseInt(endDate.substring(3, 5));
+			this.endYear = Integer.parseInt(endDate.substring(6, 8));
 		}
 	}
 
@@ -61,7 +74,7 @@ public class Date implements Comparable<Date> {
 	public String toString() {
 		return value;
 	}
-	
+
 	public String getEndDate() {
 		return endDate;
 	}
@@ -81,10 +94,16 @@ public class Date implements Comparable<Date> {
 
 	@Override
 	public int compareTo(Date o) {
-		if (this.year != o.year)
-			return this.year - o.year;
-		if (this.month != o.month)
-			return this.month - o.month;
-		return this.day - o.day;
+		if (this.startYear != o.startYear)
+			return this.startYear - o.startYear;
+		if (this.startMonth != o.startMonth)
+			return this.startMonth - o.startMonth;
+		if (this.startDay != o.startDay)
+			return this.startDay - o.startDay;
+		if (this.endYear != o.endYear)
+			return this.endYear - o.endYear;
+		if (this.endMonth != o.endMonth)
+			return this.endMonth - o.endMonth;
+		return this.endDay - o.endDay;
 	}
 }

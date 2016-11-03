@@ -44,7 +44,7 @@
                         <Label fx:id="address" styleClass="cell_small_label" text="\$address" />
                     </children>
                 </VBox>
-            <Label fx:id="isComplete" prefHeight="15.0" prefWidth="121.0" text="\$isComplete" textFill="RED" GridPane.columnIndex="1" GridPane.halignment="LEFT">
+            <Label fx:id="isComplete" prefHeight="15.0" prefWidth="121.0" styleClass="cell_personCard_complete" text="\$isComplete" textAlignment="CENTER" GridPane.columnIndex="1">
                <font>
                   <Font size="10.0" />
                </font></Label>
