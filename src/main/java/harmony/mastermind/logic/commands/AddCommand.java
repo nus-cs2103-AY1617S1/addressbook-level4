@@ -78,6 +78,10 @@ public class AddCommand extends Command implements Undoable, Redoable {
 
     // @@author A0124797R
     /** adds an event */
+    /**
+     * @deprecated
+     */
+    /*
     public AddCommand(String name, String startDate, String endDate, Set<String> tags, String recurVal, Memory mem) throws IllegalValueException, InvalidEventDateException {
         final Set<Tag> tagSet = new HashSet<>();
         for (String tagName : tags) {
@@ -102,14 +106,18 @@ public class AddCommand extends Command implements Undoable, Redoable {
         event = new GenericMemory(tags.toString(), name, "", start, end, 0);
         mem.add(event);
     }
+    */
 
     // deadline
     // @@author A0138862W-unused
     /**
+     * 
      * The builder constructor has taken care of all the construction of event, floating and deadline
      * @see AddCommand(AddCommandBuilder)
+     * @deprecated
      * 
      */
+    /*
     public AddCommand(String name, String endDateStr, Set<String> tags, String recur, Memory mem) throws IllegalValueException {
         final Set<Tag> tagSet = new HashSet<>();
         for (String tagName : tags) {
@@ -128,14 +136,17 @@ public class AddCommand extends Command implements Undoable, Redoable {
         mem.add(deadline);
 
     }
+    */
 
     // floating
     // @@author A0138862W-unused
     /**
      * The builder constructor has taken care of all the construction of event, floating and deadline
      * @see AddCommand(AddCommandBuilder)
+     * @deprecated
      * 
      */
+    /*
     public AddCommand(String name, Set<String> tags, Memory mem) throws IllegalValueException {
         final Set<Tag> tagSet = new HashSet<>();
         for (String tagName : tags) {
@@ -149,6 +160,7 @@ public class AddCommand extends Command implements Undoable, Redoable {
         task = new GenericMemory(tags.toString(), name, "");
         mem.add(task);
     }
+    */
 
     // @@author A0138862W
     /**
