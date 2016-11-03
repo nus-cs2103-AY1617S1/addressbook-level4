@@ -72,17 +72,17 @@ public class AddCommandTest extends TaskManagerGuiTest {
 
         //add another deadline with 't' instead of 'task'
         itemToAdd = td.task2;
-        assertAddSuccessWithDifferentCommand(itemToAdd, false, true, false, false, false, currentList);
+        assertAddSuccessWithDifferentCommand(itemToAdd, false, true, true, false, false, currentList);
         currentList = TestUtil.addItemsToList(currentList, itemToAdd);
         
         //add another deadline with 'd' instead of 'deadline'
         itemToAdd = td.deadline2;
-        assertAddSuccessWithDifferentCommand(itemToAdd, false, true, false, false, false, currentList);
+        assertAddSuccessWithDifferentCommand(itemToAdd, false, true, true, false, false, currentList);
         currentList = TestUtil.addItemsToList(currentList, itemToAdd);
         
         //add another deadline with 'e' instead of 'event'
         itemToAdd = td.event2;
-        assertAddSuccessWithDifferentCommand(itemToAdd, false, true, false, false, false, currentList);
+        assertAddSuccessWithDifferentCommand(itemToAdd, false, true, true, false, false, currentList);
         currentList = TestUtil.addItemsToList(currentList, itemToAdd);
         
         //add another event without endtime and starttime
@@ -137,7 +137,7 @@ public class AddCommandTest extends TaskManagerGuiTest {
         String itemName = UUID.randomUUID().toString();
         itemName = itemName.replaceAll("\\-", "");
         sb.append(AddCommand.COMMAND_WORD + " " + itemType + " ");
-        sb.append("n/" + itemName + " ");
+        sb.append(itemName + " ");
         if (itemType.equals(ItemType.EVENT_WORD)) {
             sb.append("sdt/" + startDateTime + " ");
         }
