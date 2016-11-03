@@ -20,6 +20,18 @@ public class SetPathCommandTest extends TaskSchedulerGuiTest {
     @Test
     public void setPath() {
        
+        // Checking for undo setpath
+        Config origConfig = initConfig("ConfigTest.json");
+        String exceptedInitialFilePath = origConfig.getTaskSchedulerFilePath();
+        
+        String setPath = "data/testing123";
+        commandBox.runCommand("setpath " + setPath);
+        commandBox.runCommand("setpath " + setPath + "456");
+        commandBox.runCommand("undo");
+        commandBox.runCommand("undo");
+        String currFilePath = origConfig.getTaskSchedulerFilePath();
+        assertEquals(exceptedInitialFilePath.toString(), currFilePath);
+        
         // Checking for the existence of User specified filename or path.
         String newPath = "testtaskscheduler";
         commandBox.runCommand("setpath " + newPath);
@@ -28,7 +40,7 @@ public class SetPathCommandTest extends TaskSchedulerGuiTest {
         assertResultMessage(String.format(SetpathCommand.MESSAGE_SUCCESS, newPath + ".xml"));
         
         // Checking for the consistency of setting, repeatedly, of setpath <filename> in ConfigTest.json.
-        Config origConfig = initConfig("ConfigTest.json");
+        origConfig = initConfig("ConfigTest.json");
         String origPath = origConfig.getTaskSchedulerFilePath().replace(".xml","");
         String newPath2 = "taskscheduler";
         

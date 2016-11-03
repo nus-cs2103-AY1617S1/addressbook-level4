@@ -8,6 +8,7 @@ import seedu.taskscheduler.commons.events.model.TaskSchedulerChangedEvent;
 import seedu.taskscheduler.commons.events.storage.DataSavingExceptionEvent;
 import seedu.taskscheduler.commons.events.storage.FilePathChangedEvent;
 import seedu.taskscheduler.commons.exceptions.DataConversionException;
+import seedu.taskscheduler.logic.commands.CommandHistory;
 import seedu.taskscheduler.model.ReadOnlyTaskScheduler;
 import seedu.taskscheduler.model.UserPrefs;
 
@@ -30,8 +31,16 @@ public class StorageManager extends ComponentManager implements Storage {
         super();
         this.taskSchedulerStorage = new XmlTaskSchedulerStorage(taskSchedulerFilePath);
         this.userPrefStorage = new JsonUserPrefStorage(userPrefsFilePath);
+        
+        setStoragePath();
     }
-
+    //@@author A0138696L
+    private void setStoragePath() {
+        CommandHistory.setPreviousStorageFilePath(taskSchedulerStorage.getTaskSchedulerFilePath());
+        CommandHistory.setInitStoragePath(taskSchedulerStorage.getTaskSchedulerFilePath());
+    }
+    //@@author
+    
     // ================ UserPrefs methods ==============================
 
     @Override

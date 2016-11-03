@@ -3,7 +3,9 @@ package seedu.taskscheduler.logic.commands;
 import java.util.EmptyStackException;
 import java.util.Set;
 import java.util.Stack;
+import java.util.logging.Logger;
 
+import seedu.taskscheduler.commons.core.LogsCenter;
 import seedu.taskscheduler.commons.core.Messages;
 import seedu.taskscheduler.model.task.ReadOnlyTask;
 import seedu.taskscheduler.model.task.UniqueTaskList.TaskNotFoundException;
@@ -13,6 +15,8 @@ import seedu.taskscheduler.model.task.UniqueTaskList.TaskNotFoundException;
  * Keep track of commands and modifications to task scheduler.
  */
 public class CommandHistory {
+    
+    private static final Logger logger = LogsCenter.getLogger(CommandHistory.class);
 	
 	private static Stack<String> prevCommand = new Stack<String>();
 	private static Stack<String> nextCommand = new Stack<String>();
@@ -20,7 +24,8 @@ public class CommandHistory {
     private static Stack<Command> revertedCommands = new Stack<Command>();
 	private static ReadOnlyTask lastModifiedTask = null;
     private static Set<String> filteredKeywords = null;
-//    private static String storageFilePath;
+    private static Stack<String> previousStorageFilePath = new Stack<String>();
+    private static String initStoragePath;
 	
 	public static void addPrevCommand(String commandText) {
 		while (!nextCommand.isEmpty()) {
@@ -130,4 +135,27 @@ public class CommandHistory {
         flushPrevCommands();
         flushRevertedCommands();
     }
+    
+    //@@author A0138696L
+    public static void setPreviousStorageFilePath(String filePath) {
+        previousStorageFilePath.push(filePath);
+    }
+    
+    public static String getPreviousStorageFilePath() {
+        if (initStoragePath == previousStorageFilePath.peek()) {
+            previousStorageFilePath.push(initStoragePath);
+            return previousStorageFilePath.pop();
+        } else {
+            return previousStorageFilePath.pop();
+        }        
+    }
+    
+    public static String readPreviousStorageFilePath() {
+        return previousStorageFilePath.peek();      
+    }
+    
+    public static void setInitStoragePath(String filePath) {
+        initStoragePath = filePath;
+    }
+    //@@author
 }
