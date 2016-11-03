@@ -46,7 +46,7 @@ public class Parser {
 //                    + " (?<isAddressPrivate>p?)a/(?<location>[^/]+)"
                     + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
 
-    private static final Pattern PERSON_DATA_ARGS_FORMAT_UPDATE = // '/' forward slashes are reserved for delimiter prefixes
+    private static final Pattern INDEX_WITH_DESCRIPTION_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<index>[\\d+]\\s)"
             		 + "(?<description>[^/]+)"
   //          		 + " (by)?\\s(?<deadline>[^/]+)"
@@ -126,13 +126,17 @@ public class Parser {
 		case UndoCommand.COMMAND_WORD:
 			return new UndoCommand();
         	
+		case SaveToCommand.COMMAND_WORD:
+			return new SaveToCommand(arguments);
+			
         default:
             return prepareAdd(commandWord.concat(arguments));
         }
     }
 
 
-    /**
+
+	/**
      * Helper function to extract dates from argument
      * @param args
      * @return
@@ -241,14 +245,16 @@ public class Parser {
      * @return the prepared command
      */
     private Command prepareDelete(String args) {
-
-        Optional<Integer> index = parseIndex(args);
-        if(!index.isPresent()){
+    	String[] sections = args.split(" ");
+    	
+        Optional<Integer> index = parseIndex(sections[1]); //there is an extra space in front, so we take the second section.
+        
+        if(!index.isPresent() || args.length() > 14){ //14 is the upper bound for how long the args can be.
             return new IncorrectCommand(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
         }
-
-        return new DeleteCommand(index.get());
+        boolean completed = args.contains("right") || args.contains("completed");
+        return new DeleteCommand(index.get(), completed);
     }
 
     /**
@@ -261,21 +267,19 @@ public class Parser {
     		return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, CompleteCommand.MESSAGE_USAGE));
     		
     	}
-    	int[] indices = new int[1];
-    	indices[0] = index.get();
-    	return new CompleteCommand(indices);
+
+    	return new CompleteCommand(index.get());
 	}
-
-
-
+	
     
 	/**
 	 * Parses arguments in the context of the done task command.
-	 * Works with multiple indices, however, not fully implemented/tested. 
+	 * Designed to work with multiple indices, however, not fully implemented/tested. 
 	 *
 	 * @param args full command args string
 	 * @return the prepared command
 	 */
+  //@@author a0153617e
 //	private Command prepareComplete(String args) {
 //		int[] indexes;
 //		try {
@@ -289,9 +293,6 @@ public class Parser {
 //	}
 //    
     
-
-	
-	//@@author a0153617e
 
 	/**
 	 * Returns an int[] if valid indexes are provided.
@@ -331,7 +332,7 @@ public class Parser {
     
 //@@author A0153440R
     private Command prepareEdit(String args){
-    	final Matcher matcher = PERSON_DATA_ARGS_FORMAT_UPDATE.matcher(args.trim());
+    	final Matcher matcher = INDEX_WITH_DESCRIPTION_FORMAT.matcher(args.trim());
     	 if (!matcher.matches()) {
              return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
          }
@@ -400,6 +401,7 @@ public class Parser {
  
     	
     }
+    
 //@@author
     /**
      * Parses arguments in the context of the select person command.

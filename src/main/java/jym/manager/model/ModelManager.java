@@ -96,7 +96,7 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public synchronized void markTask(ReadOnlyTask... tasks) throws TaskNotFoundException {
     	TaskManager previousTaskManager = new TaskManager(this.taskManager);
-    	taskManager.completeTask(tasks);
+ //   	taskManager.completeTask(tasks);
     	taskManagerHistory.push(previousTaskManager);
         indicateTaskManagerChanged();
     }

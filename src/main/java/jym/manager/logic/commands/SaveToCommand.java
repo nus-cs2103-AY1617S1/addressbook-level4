@@ -4,7 +4,7 @@ package jym.manager.logic.commands;
 /**
  * Sets the location of the storage file. 
  */
-public class Saveto extends Command{
+public class SaveToCommand extends Command{
 
 public static final String COMMAND_WORD = "saveto";
     
@@ -19,7 +19,7 @@ public static final String COMMAND_WORD = "saveto";
 
     private final String filepath;
     
-    public Saveto(String filepath) {
+    public SaveToCommand(String filepath) {
     	this.filepath = filepath;
     }
 	

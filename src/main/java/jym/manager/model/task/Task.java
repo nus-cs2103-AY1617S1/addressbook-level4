@@ -53,6 +53,7 @@ public class Task extends TaskManagerItem implements ReadOnlyTask {
 		this.loc = new Location();
 		this.dueDate = new Deadline();
 		this.endTime = null;
+		this.status = new Status(false);
 		this.pri = new Priority(0);
 		for(int i = 0; i < objects.length; i++){
     		Object o = objects[i];
@@ -90,8 +91,11 @@ public class Task extends TaskManagerItem implements ReadOnlyTask {
     			this.pri = new Priority((Integer)o);
     		} else if(o instanceof UniqueTagList){
     			this.tags = new UniqueTagList((UniqueTagList)o);
+    		} else if(o instanceof Status){
+    			this.status = new Status(((Status)o).isComplete());
     		}
     	}
+	
 	}
 	public Task(Description d, Deadline due, Location location, Status status){
 		this.descr = d;
@@ -104,8 +108,8 @@ public class Task extends TaskManagerItem implements ReadOnlyTask {
      * Every field must be present and not null.
      */
 
-    public Task(Description description, Location location, Deadline due, Deadline end, Priority p, UniqueTagList tags) {
-//    public Task(Description description, Location location, Deadline due, Priority p, UniqueTagList tags, Status status) {
+//    public Task(Description description, Location location, Deadline due, Deadline end, Priority p, UniqueTagList tags) {
+    public Task(Description description, Location location, Deadline due, Deadline end, Priority p, UniqueTagList tags, Status status) {
     //	assert !CollectionUtil.isAnyNull(description, location, due);
     	this.descr = description;
     	this.loc = (location == null)? new Location():location;
@@ -120,8 +124,8 @@ public class Task extends TaskManagerItem implements ReadOnlyTask {
      * @throws IllegalValueException 
      */
     public Task(ReadOnlyTask source) {
-        this(source.getDescription(), source.getLocation(), source.getDate(), source.getEndTime(), source.getPriority(), source.getTags());
-  //      this(source.getDescription(), source.getLocation(), source.getDate(), source.getPriority(), source.getTags(), source.getStatus());
+  //      this(source.getDescription(), source.getLocation(), source.getDate(), source.getEndTime(), source.getPriority(), source.getTags());
+        this(source.getDescription(), source.getLocation(), source.getDate(), source.getPriority(), source.getStatus());
     }
    
     public Task update(ReadOnlyTask source){

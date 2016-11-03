@@ -114,11 +114,12 @@ public class MainWindow extends UiPart {
     }
 
     void fillInnerParts() {
-        browserPanel = BrowserPanel.load(browserPlaceholder);
-        taskListPanel = TaskListPanel.load(primaryStage, getTaskListPlaceholder(), logic.getFilteredTaskList());
+    //    browserPanel = BrowserPanel.load(browserPlaceholder);
+        taskListPanel = TaskListPanel.load(primaryStage, getTaskListPlaceholder(), logic.getFilteredIncompleteTaskList());
         resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
         statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getTaskManagerFilePath());
         commandBox = CommandBox.load(primaryStage, getCommandBoxPlaceholder(), resultDisplay, logic);
+        completeTaskListPanel = CompleteTaskListPanel.load(primaryStage,  getCompleteTaskListPlaceholder(), logic.getFilteredCompleteTaskList());
     }
 
     private AnchorPane getCommandBoxPlaceholder() {
@@ -205,6 +206,6 @@ public class MainWindow extends UiPart {
     }
 
     public void releaseResources() {
-        browserPanel.freeResources();
+      //  browserPanel.freeResources();
     }
 }

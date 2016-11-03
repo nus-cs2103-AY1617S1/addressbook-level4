@@ -20,7 +20,7 @@ import java.util.logging.Logger;
  * Panel containing the list of completed tasks.
  */
 public class CompleteTaskListPanel extends UiPart {
-    private final Logger logger = LogsCenter.getLogger(TaskListPanel.class);
+    private final Logger logger = LogsCenter.getLogger(CompleteTaskListPanel.class);
     private static final String FXML = "CompleteTaskListPanel.fxml";
     private VBox panel;
     private AnchorPane placeHolderPane;
@@ -47,18 +47,13 @@ public class CompleteTaskListPanel extends UiPart {
         this.placeHolderPane = pane;
     }
 
-    public static CompleteTaskListPanel load(Stage primaryStage, AnchorPane taskListPlaceholder,
+    public static CompleteTaskListPanel load(Stage primaryStage, AnchorPane completeTaskListPlaceholder,
                                        ObservableList<ReadOnlyTask> taskList) {
-        if (primaryStage == null) {
-            System.out.println("WHY");
-        }
-        if (taskListPlaceholder == null) {
-            System.out.println("FUCK");
-        }
-        CompleteTaskListPanel taskListPanel =
-                UiPartLoader.loadUiPart(primaryStage, taskListPlaceholder, new CompleteTaskListPanel());
-        taskListPanel.configure(taskList);
-        return taskListPanel;
+
+        CompleteTaskListPanel completeTaskListPanel =
+                UiPartLoader.loadUiPart(primaryStage, completeTaskListPlaceholder, new CompleteTaskListPanel());
+        completeTaskListPanel.configure(taskList);
+        return completeTaskListPanel;
     }
 
     private void configure(ObservableList<ReadOnlyTask> taskList) {

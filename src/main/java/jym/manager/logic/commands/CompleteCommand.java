@@ -26,36 +26,42 @@ public class CompleteCommand extends Command {
     
     public static final int MULTIPLE_MARK_OFFSET = 1;
     
-    public final int[] targetIndexes;
-
-    public CompleteCommand(int[] targetIndexes) {
-        this.targetIndexes = targetIndexes;
+//    public final int[] targetIndexes;
+    private final int targetIndex;
+    
+    public CompleteCommand(int tgtindex) {
+        this.targetIndex = tgtindex;
     }
 
 
     @Override
     public CommandResult execute() {
 
-    	UnmodifiableObservableList<ReadOnlyTask> lastShownList = null;
+    	UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredIncompleteTaskList();
 
-    	if (model.getCurrentTab().equals(MainWindow.TAB_TASK_COMPLETE)) {
-            return new CommandResult(MESSAGE_MARK_COMPLETED_TASK);
-        }
-        else {
-            lastShownList = model.getFilteredIncompleteTaskList();
-        }
+//    	if (model.getCurrentTab().equals(MainWindow.TAB_TASK_COMPLETE)) {
+//            return new CommandResult(MESSAGE_MARK_COMPLETED_TASK);
+//        }
+//        else {
+//            lastShownList = model.getFilteredIncompleteTaskList();
+//        }
 
-        if (!isValidIndexes(lastShownList, targetIndexes)) {
-            return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
-        }
-        
-        ReadOnlyTask[] tasksToMark = new ReadOnlyTask[targetIndexes.length];        
-        for (int i = 0; i < targetIndexes.length; i++) {
-            tasksToMark[i] = lastShownList.get(targetIndexes[i] - MULTIPLE_MARK_OFFSET);
-        }
+//        if (!isValidIndexes(lastShownList, targetIndexes)) {
+//            return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
+//        }
+//        
+//        ReadOnlyTask[] tasksToMark = new ReadOnlyTask[targetIndexes.length];        
+//        for (int i = 0; i < targetIndexes.length; i++) {
+//            tasksToMark[i] = lastShownList.get(targetIndexes[i] - MULTIPLE_MARK_OFFSET);
+//        }
+    	 if (lastShownList.size() < targetIndex) {
+             indicateAttemptToExecuteIncorrectCommand();
+             return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
+         }
+        ReadOnlyTask taskToMark = lastShownList.get(targetIndex - 1);
         
         try {
-            model.markTask(tasksToMark);
+            model.completeTask(taskToMark);
         } catch (TaskNotFoundException pnfe) {
             assert false : "The target task cannot be missing";
         }
@@ -64,7 +70,7 @@ public class CompleteCommand extends Command {
     }
     
     private boolean isValidIndexes(UnmodifiableObservableList<ReadOnlyTask> lastShownList, int[] targetIndex) {
-        for (int index : targetIndexes) {
+        for (int index : targetIndex) {
             if (lastShownList.size() < index) {
                 indicateAttemptToExecuteIncorrectCommand();
                 return false;

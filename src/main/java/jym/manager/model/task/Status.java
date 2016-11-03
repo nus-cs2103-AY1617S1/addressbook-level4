@@ -4,6 +4,7 @@ package jym.manager.model.task;
  * Represents a Task's status in the to do list.
  * Guarantees: is one of the two values 'complete' or 'incomplete'
  */
+//@@author a0153617e
 public class Status {
     public static final String STATUS_COMPLETE = "complete";
     public static final String STATUS_INCOMPLETE = "incomplete";
