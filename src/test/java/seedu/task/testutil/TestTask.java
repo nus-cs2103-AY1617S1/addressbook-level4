@@ -12,8 +12,7 @@ public class TestTask implements ReadOnlyTask {
     private Location location;
     private Remarks remarks;
     private Status status;
-    
-    
+
     public void setName(Name name) {
         this.name = name;
     }
@@ -133,9 +132,4 @@ public class TestTask implements ReadOnlyTask {
         }
         return sb.toString();
     }
-
-	@Override
-	public Notification getNotification() {
-		return null;
-	}
 }
