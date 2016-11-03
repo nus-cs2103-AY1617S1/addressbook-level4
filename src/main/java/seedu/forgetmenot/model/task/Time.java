@@ -37,25 +37,11 @@ public class Time {
         input = input.trim();
         
         if (input.equals("") || input.equals(new Date(0).toString())) {
-            System.out.println("a blank string was detected");
             time = Calendar.getInstance();
             time.setTime(new Date(0));
+            return;
         }
-//        
-//        System.out.println("CHEEYEO CHECK HERE : " + input);
-//        
-//        if (input.equals("-"))
-//            input = "";
-//        
-//        if (input.equals(DEFAULT_DATE))
-//            input = "";
-//        
-//        if (input.equals(new Date(0)))
-//            input = "";
-//        
-//        if (input.equals((new Date(0)).toString()))
-//            input = "";
-        
+
         time = Calendar.getInstance();
         
         if(input.contains("/")) {
@@ -93,7 +79,7 @@ public class Time {
         
         Calendar t = Calendar.getInstance();
         t.setTime(new Date(0));
-        if (time == t)
+        if (time.equals(t))
             return true;
         
 		return time.getTime().toString().equalsIgnoreCase(DEFAULT_DATE);
