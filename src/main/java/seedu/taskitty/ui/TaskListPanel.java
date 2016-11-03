@@ -48,10 +48,13 @@ public class TaskListPanel extends UiPart {
     public void configure(ObservableList<ReadOnlyTask> taskList) {
         if(taskList.get(0).isTodo()) {
             header.setText("TODOS");
+            taskListView.setId("todoListView");
         } else if (taskList.get(0).isDeadline()) {
             header.setText("DEADLINES");
+            taskListView.setId("deadlineListView");
         } else if (taskList.get(0).isEvent()) {
             header.setText("EVENTS");
+            taskListView.setId("eventListView");
         }
         setConnections(taskListView, taskList);
         addToPlaceholder();
