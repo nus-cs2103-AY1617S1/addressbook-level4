@@ -6,10 +6,10 @@ import seedu.address.model.task.ReadOnlyTask;
 
 import static org.junit.Assert.assertEquals;
 
-public class SelectCommandTest extends AddressBookGuiTest {
+public class SelectEventCommandTest extends AddressBookGuiTest {
 
 
-   // @Test
+    @Test
     public void selectPerson_nonEmptyList() {
 
         assertSelectionInvalid(10); //invalid index
@@ -27,7 +27,7 @@ public class SelectCommandTest extends AddressBookGuiTest {
         /* Testing other invalid indexes such as -1 should be done when testing the SelectCommand */
     }
 
-    //@Test
+    @Test
     public void selectPerson_emptyList(){
         commandBox.runCommand("clear");
         assertListSize(0);
@@ -35,13 +35,13 @@ public class SelectCommandTest extends AddressBookGuiTest {
     }
 
     private void assertSelectionInvalid(int index) {
-        commandBox.runCommand("select " + index);
-        assertResultMessage("The person index provided is invalid");
+        commandBox.runCommand("select E" + index);
+        assertResultMessage("The task index provided is invalid");
     }
 
     private void assertSelectionSuccess(int index) {
-        commandBox.runCommand("select " + index);
-        assertResultMessage("Selected Person: "+index);
+        commandBox.runCommand("select E" + index);
+        assertResultMessage("Selected Task: "+ td.getSelectedPerson(index-1));
         assertPersonSelected(index);
     }
 

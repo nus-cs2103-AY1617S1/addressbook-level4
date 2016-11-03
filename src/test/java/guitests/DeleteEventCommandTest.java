@@ -7,9 +7,9 @@ import seedu.address.testutil.TestUtil;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS;
 
-public class DeleteCommandTest extends AddressBookGuiTest {
+public class DeleteEventCommandTest extends AddressBookGuiTest {
 
-    //@Test
+    @Test
     public void delete() {
 
         //delete the first in the list
@@ -28,8 +28,8 @@ public class DeleteCommandTest extends AddressBookGuiTest {
         assertDeleteSuccess(targetIndex, currentList);
 
         //invalid index
-        commandBox.runCommand("delete " + currentList.length + 1);
-        assertResultMessage("The person index provided is invalid");
+        commandBox.runCommand("delete E" + currentList.length + 1);
+        assertResultMessage("The task index provided is invalid");
 
     }
 
@@ -42,13 +42,13 @@ public class DeleteCommandTest extends AddressBookGuiTest {
         TestTask personToDelete = currentList[targetIndexOneIndexed-1]; //-1 because array uses zero indexing
         TestTask[] expectedRemainder = TestUtil.removePersonFromList(currentList, targetIndexOneIndexed);
 
-        commandBox.runCommand("delete " + targetIndexOneIndexed);
+        commandBox.runCommand("delete " + ("E" + targetIndexOneIndexed));
 
         //confirm the list now contains all previous persons except the deleted person
         assertTrue(personListPanel.isListMatching(expectedRemainder));
 
         //confirm the result message is correct
-        assertResultMessage(String.format(MESSAGE_DELETE_TASK_SUCCESS, personToDelete));
+        assertResultMessage(String.format(MESSAGE_DELETE_TASK_SUCCESS, "[E"+targetIndexOneIndexed +"]"));
     }
 
 }
