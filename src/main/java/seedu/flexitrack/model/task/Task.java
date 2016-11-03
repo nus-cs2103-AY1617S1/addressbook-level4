@@ -33,13 +33,24 @@ public class Task implements ReadOnlyTask{
         this.isEvent = startTime.isDateNull() ? false : true;
         this.isDone = name.getIsDone();
         this.isBlock = name.getIsDone();
-        if (isTask){
-            this.dueDate.formatStartOrDueDateTime(); 
-        } else { 
-            this.startTime.formatStartOrDueDateTime(); 
+        updateTimeFormat();
+    }
+
+    // @@ author A0127686R
+    /**
+     * To set the time if they are inferred. Starting and DueDate will start at
+     * 8 and ending time will end at 17:00
+     * 
+     */
+    private void updateTimeFormat() {
+        if (isTask) {
+            this.dueDate.formatStartOrDueDateTime();
+        } else if (isEvent) {
+            this.startTime.formatStartOrDueDateTime();
             this.endTime.formatEndTime(this.startTime);
         }
     }
+    // @@ author
 
     /**
      * Copy constructor.
@@ -67,12 +78,12 @@ public class Task implements ReadOnlyTask{
     public boolean getIsDone() {
         return name.getIsDone();
     }
-    
+
     @Override
     public boolean getIsBlock() {
         return name.getIsBlock();
     }
-    
+
     public void setIsBlock() {
         name.setBlock();
     }
@@ -111,8 +122,8 @@ public class Task implements ReadOnlyTask{
         return getAsText();
     }
 
-  //@@author A0138455Y
-    private void setIsDone(boolean isDone) {     
+    // @@author A0138455Y
+    private void setIsDone(boolean isDone) {
         if (isDone && !this.isDone) {
             name.setAsMark();
         } else if (!isDone && this.isDone) {
@@ -121,7 +132,7 @@ public class Task implements ReadOnlyTask{
     }
 
     public void markTask(boolean isDone) throws IllegalValueException {
-        this.isDone = this.name.getIsDone(); 
+        this.isDone = this.name.getIsDone();
         if (this.isDone && isDone) {
             throw new IllegalValueException("Task already marked!");
         } else if (!this.isDone && !isDone) {
@@ -130,7 +141,7 @@ public class Task implements ReadOnlyTask{
             setIsDone(isDone);
         }
     }
-  //@@author
+    // @@author
 
     public void setName(String name) {
         this.name.setName(name);
@@ -156,17 +167,16 @@ public class Task implements ReadOnlyTask{
         this.isEvent = bool;
     }
 
-    public String getStartingTimeInString(){
+    public String getStartingTimeInString() {
         return this.startTime.toString();
     }
-    
-    public String getEndingTimeInString(){
+
+    public String getEndingTimeInString() {
         return this.endTime.toString();
     }
-    
-    public String getDueDateInString(){
+
+    public String getDueDateInString() {
         return this.dueDate.toString();
     }
-
     
 }

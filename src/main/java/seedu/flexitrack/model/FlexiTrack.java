@@ -262,7 +262,7 @@ public class FlexiTrack implements ReadOnlyFlexiTrack {
                 dateNow = task.getEndTime();
             }
 
-            if (DateTimeInfo.isInTheFuture(dateNow, task.getEndTime())) {
+            if (dateNow.isInTheFuture(task.getEndTime())) {
                 dateNow = task.getEndTime();
             }
         }
@@ -280,7 +280,7 @@ public class FlexiTrack implements ReadOnlyFlexiTrack {
      * @return true when there is an available gap
      */
     private boolean canTheGapBeFound(Task task, DateTimeInfo dateNow, int keyword, int length) {
-        if (task.getIsEvent() && DateTimeInfo.isInTheFuture(dateNow, task.getStartTime())) {
+        if (task.getIsEvent() && dateNow.isInTheFuture(task.getStartTime())) {
             return isTheLengthOfTheGapSatisfied(task, dateNow, keyword, length);
         }
         return false;

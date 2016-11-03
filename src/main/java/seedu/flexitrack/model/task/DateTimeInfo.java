@@ -339,24 +339,22 @@ public class DateTimeInfo implements Comparable<DateTimeInfo> {
     /**
      * Process the task if the task is in the future
      * 
-     * @param timeNow   Current Timing
      * @param Date      Timing to be compared to the current timing
      * @return          True if the timing timeNow is after the timing Date
      */
-    public static boolean isInTheFuture(DateTimeInfo timeNow, DateTimeInfo Date) {
-        int[] duration = durationBetweenTwoTiming(timeNow.toString(), Date.toString());
+    public boolean isInTheFuture(DateTimeInfo Date) {
+        int[] duration = durationBetweenTwoTiming(this.toString(), Date.toString());
         return duration[0] != -1;
     }
 
     /**
      * Process the task if the task is in the past
      * 
-     * @param timeNow   Current Timing
      * @param Date      Timing to be compared to the current timing 
      * @return          True if the timing timeNow is before the timing Date
      */
-    public static boolean isInThePast(DateTimeInfo timeNow, DateTimeInfo Date) {
-        return isInTheFuture(Date, timeNow);
+    public boolean isInThePast(DateTimeInfo Date) {
+        return !this.isInTheFuture(Date);
     }
 
     /**
@@ -408,7 +406,7 @@ public class DateTimeInfo implements Comparable<DateTimeInfo> {
         DateTimeInfo dateSpecified;
         try {
             dateSpecified = new DateTimeInfo(dateInfo);
-            return isInTheFuture(task.getStartTime(), dateSpecified) && isInTheFuture(dateSpecified, task.getEndTime());
+            return task.getStartTime().isInTheFuture(dateSpecified) && dateSpecified.isInTheFuture(task.getEndTime());
         } catch (IllegalValueException e) {
             new IllegalValueException(MESSAGE_DATETIMEINFO_CONSTRAINTS);
         }
