@@ -2,9 +2,6 @@ package seedu.todolist.model.task;
 
 import java.util.Objects;
 
-import tray.notification.NotificationType;
-import tray.notification.TrayNotification;
-
 /**
  * Represents a Task in the to do list.
  * Guarantees: name is present and not null, field values are validated.
@@ -17,6 +14,7 @@ public class Task implements ReadOnlyTask {
     private Remarks remarks;
     private Status status;
     private Notification notification;
+
 
     /**
      * Only Name field must be present and not null. Other fields can be null.
@@ -71,15 +69,9 @@ public class Task implements ReadOnlyTask {
     	this.notification = new Notification(bufferTime);
     }
     
-    public void sendNotification() {
-    	String title = "name ah";
-    	//name.toString();
-        String message = "try lah";
-        		//String.format("is happening %1$s", interval.toString());
-        NotificationType notificationType = NotificationType.SUCCESS;
-        
-        TrayNotification tray = new TrayNotification(title, message, notificationType);
-        tray.showAndWait();
+    public void dismissNotification() {
+    	this.notification = null;
+    	System.out.println("dismissed");
     }
 
     @Override

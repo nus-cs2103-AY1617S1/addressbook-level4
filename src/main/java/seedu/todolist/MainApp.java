@@ -23,7 +23,6 @@ import seedu.todolist.ui.UiManager;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.time.LocalDateTime;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Timer;
@@ -45,7 +44,7 @@ public class MainApp extends Application {
 	protected Config config;
 	protected UserPrefs userPrefs;
 	protected Timer timer;
-	protected final int hourInMilliseconds = 3600000;
+	protected final int minuteInMilliseconds = 60000;
 
 	public MainApp() {}
 
@@ -171,15 +170,15 @@ public class MainApp extends Application {
 		timer.schedule(new TimerTask() {
 			@Override
 			public void run() {
-				try {
-					model.sendNotifications();
-					System.out.println("started");
-				} catch (IllegalValueException e) {
-					System.out.println("Impossible");
-				}
+				Platform.runLater(() -> {
+					try {
+						model.sendNotifications();
+					} catch (IllegalValueException e) {
+						System.out.println("Impossible");
+					}
+				});
 			}
-		}, 0, //hourInMilliseconds
-				5000);
+		}, 0, minuteInMilliseconds);
 		ui.start(primaryStage);
 
 	}
