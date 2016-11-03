@@ -91,6 +91,7 @@ public class HelpPopup extends UiPart {
     public String getContent() {
         assert content!= null;
         return content.getText();
+    }
 
     //@@author A0143378Y
     public void properties() { 
