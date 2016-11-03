@@ -25,7 +25,7 @@ public class TaskDate {
     public static final String DATE_VALIDATION_REGEX_2 = "((\\p{Digit}){1,2}\\s?(\\p{Alpha}){3,9}\\s?((\\p{Digit}){4})?)";
     public static final String DATE_VALIDATION_REGEX_FORMAT = DATE_VALIDATION_REGEX_1 + "|" + DATE_VALIDATION_REGEX_2;
     
-    public static final String DATE_DISPLAY_FORMAT = "dd MMM yyyy";
+    public static final String DATE_DISPLAY_FORMAT = "d MMM yyyy";
     
     public final LocalDate date;
 

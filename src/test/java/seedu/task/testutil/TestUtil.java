@@ -18,8 +18,6 @@ import seedu.todolist.commons.exceptions.IllegalValueException;
 import seedu.todolist.commons.util.FileUtil;
 import seedu.todolist.commons.util.XmlUtil;
 import seedu.todolist.model.ToDoList;
-import seedu.todolist.model.tag.Tag;
-import seedu.todolist.model.tag.UniqueTagList;
 import seedu.todolist.model.task.*;
 import seedu.todolist.storage.XmlSerializableToDoList;
 
@@ -83,21 +81,6 @@ public class TestUtil {
         }
     }
 
-    public static final Tag[] sampleTagData = getSampleTagData();
-
-    private static Tag[] getSampleTagData() {
-        try {
-            return new Tag[]{
-                    new Tag("relatives"),
-                    new Tag("friends")
-            };
-        } catch (IllegalValueException e) {
-            assert false;
-            return null;
-            //not possible
-        }
-    }
-
     public static List<Task> generateSampleTaskData() {
         return Arrays.asList(sampleTaskData);
     }
@@ -136,7 +119,7 @@ public class TestUtil {
     }
 
     public static ToDoList generateEmptyToDoList() {
-        return new ToDoList(new UniqueTaskList(), new UniqueTagList());
+        return new ToDoList(new UniqueTaskList());
     }
 
     public static XmlSerializableToDoList generateSampleStorageToDoList() {
@@ -295,27 +278,6 @@ public class TestUtil {
 
     public static boolean compareCardAndTask(TaskCardHandle card, ReadOnlyTask task) {
         return card.isSameTask(task);
-    }
-
-    public static Tag[] getTagList(String tags) {
-
-        if (tags.equals("")) {
-            return new Tag[]{};
-        }
-
-        final String[] split = tags.split(", ");
-
-        final List<Tag> collect = Arrays.asList(split).stream().map(e -> {
-            try {
-                return new Tag(e.replaceFirst("Tag: ", ""));
-            } catch (IllegalValueException e1) {
-                //not possible
-                assert false;
-                return null;
-            }
-        }).collect(Collectors.toList());
-
-        return collect.toArray(new Tag[split.length]);
     }
 
 }

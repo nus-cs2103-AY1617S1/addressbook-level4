@@ -23,6 +23,9 @@ public interface Model {
     /** Reverts the previous state of the ToDoList */
     void undoToDoList() throws EmptyStackException;
     
+    /** Reverts the state of the ToDoList before applying an undo operation */
+    void redoToDoList() throws EmptyStackException;
+    
     /** Marks the given task(s) as done. */
     void markTask(ReadOnlyTask... tasks) throws UniqueTaskList.TaskNotFoundException;
 

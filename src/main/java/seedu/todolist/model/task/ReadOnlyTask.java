@@ -27,10 +27,10 @@ public interface ReadOnlyTask extends Comparable<ReadOnlyTask> {
      */
     default String getAsText() {
         final StringBuilder builder = new StringBuilder();
-        builder.append("\t" + getNameAsText() + "\n")
-                .append("\t\t\t\t" + getIntervalAsText() + "\n")
-                .append("\t\t\t\t" + getLocationAsText() + "\n")
-                .append("\t\t\t\t" + getRemarksAsText() + "\n");
+        builder.append(getNameAsText() + " ")
+                .append(getIntervalAsText() + " ")
+                .append(getLocationAsText() + " ")
+                .append(getRemarksAsText() + " ");
         return builder.toString();
     }
     
@@ -38,7 +38,7 @@ public interface ReadOnlyTask extends Comparable<ReadOnlyTask> {
      * Formats the name as text.
      */
     default String getNameAsText() {
-        return "Task: " + getName().toString();
+        return getName().toString();
     }
     
     /**
@@ -47,7 +47,7 @@ public interface ReadOnlyTask extends Comparable<ReadOnlyTask> {
     default String getIntervalAsText() {
         Interval interval = getInterval();
         if (!interval.isFloat()) {
-            return "Time: " + getInterval().toString();
+            return "from" + getInterval().toString();
         }
         return "";
     }
@@ -58,7 +58,7 @@ public interface ReadOnlyTask extends Comparable<ReadOnlyTask> {
     default String getLocationAsText() {
         Location location = getLocation();
         if (location.location != null) {
-            return "Location: " + getLocation().toString();
+            return "at" + getLocation().toString();
         }
         return "";
     }
@@ -69,7 +69,7 @@ public interface ReadOnlyTask extends Comparable<ReadOnlyTask> {
     default String getRemarksAsText() {
         Remarks remarks = getRemarks();
         if (remarks.remarks != null) {
-            return "Remarks: " + getRemarks().toString();
+            return "remarks" + getRemarks().toString();
         }
         return "";
     } 
