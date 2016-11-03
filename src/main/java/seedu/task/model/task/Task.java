@@ -19,7 +19,6 @@ public class Task implements ReadOnlyTask {
     private DateTime closeTime;
     private boolean isCompleted;
     private boolean isImportant;
-    private int recurrentWeek;
 
     private UniqueTagList tags;
     public static final String MESSAGE_DATETIME_CONSTRAINTS = "Please ensure that your start and end time combination is valid.";
@@ -27,7 +26,7 @@ public class Task implements ReadOnlyTask {
      * Assigns instance variables
      * @throws IllegalValueException if DateTime pair is invalid
      */
-    public Task(Name name, DateTime openTime, DateTime closeTime, boolean isImportant, boolean isCompleted, UniqueTagList tags, int recurrentWeek) throws IllegalValueException {
+    public Task(Name name, DateTime openTime, DateTime closeTime, boolean isImportant, boolean isCompleted, UniqueTagList tags) throws IllegalValueException {
         assert !CollectionUtil.isAnyNull(name, tags);
         this.name = name;
         this.openTime = openTime;
@@ -35,7 +34,6 @@ public class Task implements ReadOnlyTask {
         this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
         this.isCompleted = isCompleted;
         this.isImportant = isImportant;
-        this.recurrentWeek=recurrentWeek;
         if (!isValidDateTimePair()) {
             throw new IllegalValueException(MESSAGE_DATETIME_CONSTRAINTS);
         }
@@ -59,7 +57,7 @@ public class Task implements ReadOnlyTask {
      * @throws IllegalValueException 
      */
     public Task(ReadOnlyTask source) throws IllegalValueException {
-        this(source.getName(), source.getOpenTime(), source.getCloseTime(), source.getImportance(), source.getComplete(), source.getTags(), source.getRecurrentWeek());
+        this(source.getName(), source.getOpenTime(), source.getCloseTime(), source.getImportance(), source.getComplete(), source.getTags());
     }
     @Override
     public Name getName() {
@@ -87,11 +85,6 @@ public class Task implements ReadOnlyTask {
         return isCompleted;
     }
     //@@author
-
-    @Override
-    public int getRecurrentWeek() {
-        return recurrentWeek;
-    }
     
     @Override
     public UniqueTagList getTags() {
@@ -105,6 +98,7 @@ public class Task implements ReadOnlyTask {
         tags.setTags(replacement);
     }
     
+    //@@author A0141052Y
     /**
      * Retrieves an immutable version of the task. Will not mutate if task is changed afterwards.
      */
@@ -116,7 +110,9 @@ public class Task implements ReadOnlyTask {
             return null;
         }
     }
+    
     //@@author A0153467Y
+    
     /**
      * Sets the task's importance flag
      * @param isImportant is a variable to show whether the task is important or not
@@ -132,7 +128,8 @@ public class Task implements ReadOnlyTask {
     public void setIsCompleted(boolean isCompleted) {
         this.isCompleted = isCompleted;
     }
-	//@@author 
+	//@@author
+    
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
