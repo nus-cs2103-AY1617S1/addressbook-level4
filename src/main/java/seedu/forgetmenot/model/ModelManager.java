@@ -427,28 +427,28 @@ public class ModelManager extends ComponentManager implements Model {
 
     //@@author A0139198N
     public static Predicate<Task> isDone() {
-        return t -> t.getDone().getDoneValue() == true;
+        return t -> t.isDone() == true;
     }
 
     //@@author A0139198N
     public static Predicate<Task> filterByDate(String date) {
         return t -> (t.getStartTime().appearOnUIFormatForDate().equals(date)
                 || t.getEndTime().appearOnUIFormatForDate().equals(date)) && 
-        		t.getDone().getDoneValue() == false;
+        		t.isDone() == false;
     }
 
     //@@author A0139198N
     public static Predicate<Task> isNotDone() {
-        return t -> t.getDone().getDoneValue() == false;
+        return t -> t.isDone() == false;
     }
 
     //@@author A0139198N
     public static Predicate<Task> isOverdue() {
-        return t -> t.checkOverdue() == true && t.getDone().getDoneValue() == false;
+        return t -> t.checkOverdue() == true && t.isDone() == false;
     }
     
   //@@author A0139198N
     public static Predicate<Task> isFloating() {
-        return t -> t.isFloatingTask() && t.getDone().getDoneValue() == false;
+        return t -> t.isFloatingTask() && t.isDone() == false;
     }
 }

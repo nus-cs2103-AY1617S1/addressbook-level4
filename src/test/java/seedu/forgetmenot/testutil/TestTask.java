@@ -109,4 +109,10 @@ public class TestTask implements ReadOnlyTask {
         return start.isMissing() && end.isMissing();
     }
 
+	@Override
+	public boolean isDone() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 }

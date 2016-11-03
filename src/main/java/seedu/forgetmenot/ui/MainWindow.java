@@ -227,10 +227,10 @@ public class MainWindow extends UiPart {
      * 
      */
     public Predicate<ReadOnlyTask> isFloating() {
-    	return t -> t.getStartTime().isMissing() && t.getEndTime().isMissing() && t.getDone().getDoneValue() == false;
+    	return t -> t.isFloatingTask() && t.isDone() == false;
     }
     public Predicate<ReadOnlyTask> isNotFloating() {
-    	return t -> !(t.getStartTime().isMissing() && t.getEndTime().isMissing());
+    	return t -> t.isFloatingTask() && t.isDone() == false;
     }
 
 }
