@@ -94,7 +94,8 @@ public class Formatter {
         String formatted = "";
         int count = 1;
         for (DateTime dt : dateTimeList) {
-            formatted += "[" + count + "] " + dt.toString() + "\n\n";
+            formatted +=
+                    "[" + count + "] " + DateFormatter.formatDate(dt) + "\n\n";
             count++;
         }
         return formatted;

@@ -19,7 +19,6 @@ import tars.ui.formatter.Formatter;
  * UI Controller for Reserve Task Card
  * 
  * @@author A0121533W
- *
  */
 public class RsvTaskCard extends UiPart {
 
