@@ -44,47 +44,37 @@ public class DeadlineCard extends UiPart {
     
     @FXML
     public void initialize() {
+        String endTime =  twelveHourConvertor(deadline.getEnd().value);
+        
         name.setText(deadline.getName().taskDetails);
         id.setText("D" + displayedIndex + ". ");
-        date.setText("Date:" + "    " + deadline.getDate().value);
-        end.setText("End time:" + "    " + deadline.getEnd().value);
+        date.setText("Date:" + "            " + deadline.getDate().value);
+        end.setText("End time:" + "     " + endTime);
         tags.setText(deadline.tagsString());
         
-        
         registerAsAnEventHandler(this);
-        
     }
     
     @Subscribe
     private void handleTaskOverdueChanged(OverdueChangedEvent change) {
-        //overdueChangeColor(deadline, cardPane);
         changeColor();
     }
 
     private void changeColor() {
-        int overdueState = overdueChangeColor(deadline, this.cardPane);
+        int overdueState = overdueChangeBorderColor(deadline, this.cardPane);
         setTextColor(overdueState);
     }
 
     private void setTextColor(int overdueState) {
         if (overdueState == 1) {
-            name.setStyle("-fx-text-fill: red");
-            id.setStyle("-fx-text-fill: red");
-            date.setStyle("-fx-text-fill: red");
-            end.setStyle("-fx-text-fill: red");
-            tags.setStyle("-fx-text-fill: red");
+            setFxStyle("red");
         }
         
         if(overdueState == 2) {
-            name.setStyle("-fx-text-fill: #004402");
-            id.setStyle("-fx-text-fill: #004402");
-            date.setStyle("-fx-text-fill: #004402");
-            end.setStyle("-fx-text-fill: #004402");
-            tags.setStyle("-fx-text-fill: #004402");
+            setFxStyle("#004402");
         }
         
         if (overdueState == 0) {
-
             name.setStyle(null);
             id.setStyle(null);
             date.setStyle(null);
@@ -92,6 +82,15 @@ public class DeadlineCard extends UiPart {
             tags.setStyle(null);
         }
     }
+    
+    private void setFxStyle(String color) {
+        name.setStyle("-fx-text-fill: " + color);
+        id.setStyle("-fx-text-fill: " + color);
+        date.setStyle("-fx-text-fill: " + color);
+        end.setStyle("-fx-text-fill: " + color);
+        tags.setStyle("-fx-text-fill: " + color);
+    }
+
 
     public HBox getLayout() {
         return cardPane;

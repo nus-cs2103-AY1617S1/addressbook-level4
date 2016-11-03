@@ -18,7 +18,7 @@
 3. Copy the file to the folder you want to use as the home folder for your Simply.
 4. Double-click the file to start the app. The GUI should appear in a few seconds. 
   
- <img src="images/startup_new2.png" width="600"><br>
+<img src="images/startup_new2.png" width="600"><br>
 
 5. Type the command in the command box and press <kbd>Enter</kbd> to execute it. <br>
    e.g. typing **`help`** and pressing <kbd>Enter</kbd> will open the help window. 

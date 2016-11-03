@@ -11,6 +11,7 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.exceptions.DuplicateDataException;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.CollectionUtil;
+import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
@@ -199,6 +200,9 @@ public class UniqueTaskList implements Iterable<Task> {
         return toEdit;
     }
     private Task editEnd(String args, int editIndex, Task toEdit) throws IllegalValueException {
+        if(this.isNotValidTime(toEdit.getStart().toString(), args)){
+            throw new IllegalValueException(AddCommand.END_TIME_BEFORE_START_TIME_MESSAGE);
+        }
         if(args.compareTo("no end") == 0 & toEdit.getTaskCategory()!=3){ //not todo default end time 2359
             toEdit.setEnd(new End("2359"));
         }
@@ -215,7 +219,10 @@ public class UniqueTaskList implements Iterable<Task> {
         return toEdit;
     }
     private Task editStart(String args, int editIndex, Task toEdit) throws IllegalValueException {
-        if(args.compareTo("no start") == 0 & toEdit.getTaskCategory()==1){ //event to deadline
+        if(this.isNotValidTime(args, toEdit.getEnd().toString())){
+            throw new IllegalValueException(AddCommand.START_TIME_BEFORE_END_TIME_MESSAGE);
+        }
+        else if(args.compareTo("no start") == 0 & toEdit.getTaskCategory()==1){ //event to deadline
             toEdit.setStart(new Start(args));
             toEdit.setTaskCategory(2);
         }
@@ -234,6 +241,11 @@ public class UniqueTaskList implements Iterable<Task> {
         internalList.set(editIndex, toEdit);
         FXCollections.sort(internalList);
         return toEdit;
+    }
+    private boolean isNotValidTime(String start, String end) {
+        if(start.compareTo(end) >= 0)
+            return true;
+        return false;
     }
     private Task editDate(String args, int editIndex, Task toEdit) throws IllegalValueException {
         if(args.compareTo("no date") == 0 & toEdit.getTaskCategory()!=3){ // change to Todo

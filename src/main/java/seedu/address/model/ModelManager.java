@@ -124,7 +124,8 @@ public class ModelManager extends ComponentManager implements Model {
     public Stack<SaveState> getRedoStack() {
         return this.redoStack;
     }
-
+    
+    //@@author
     @Override
     public void resetData(ReadOnlyTaskBook newData) {
         taskBook.resetData(newData);
@@ -273,7 +274,8 @@ public class ModelManager extends ComponentManager implements Model {
         });
 
     }
-
+    
+    //@@author
     @Override
     public void updateFilteredEventList(Set<String> keywords){
         updateFilteredEventList(new PredicateExpression(new NameQualifier(keywords)));

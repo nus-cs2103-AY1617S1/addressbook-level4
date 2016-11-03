@@ -223,7 +223,8 @@ public class MainApp extends Application {
         Path targetFilePath = Paths.get(config.getAddressBookFilePath());
         return targetFilePath;
     }
-
+    
+    //@@author
     @Subscribe
     public void handleExitAppRequestEvent(ExitAppRequestEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));

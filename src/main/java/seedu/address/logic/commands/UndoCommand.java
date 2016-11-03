@@ -12,12 +12,17 @@ import seedu.address.model.TaskBook;
 
 
 //@@author A0147890U
+/**
+ * 
+ * @author Ronald
+ *Undo executed commands
+ */
 public class UndoCommand extends Command {
     private static final Logger logger = LogsCenter.getLogger(UndoCommand.class);
 
     public static final String COMMAND_WORD = "undo";
 
-    public static final String MESSAGE_UNDO_TASK_SUCCESS = "Undid Task.";
+    public static final String MESSAGE_UNDO_TASK_SUCCESS = "Undo successful.";
     public static final String MESSAGE_UNDO_TASK_FAILURE = "Failed to undo task.";
 
     private int numTimes;
@@ -32,10 +37,12 @@ public class UndoCommand extends Command {
     @Override
     public CommandResult execute() {
         assert model != null;
+        
         if (numTimes > model.getUndoStack().size()) {
             Command command = new IncorrectCommand("There are not so many tasks available to be undone.");
             return command.execute();
         }
+        
         for (int i = 0; i < numTimes; i++) {
             TaskBook currentTaskBook = new TaskBook(model.getAddressBook());
             
@@ -52,6 +59,7 @@ public class UndoCommand extends Command {
             } catch (IOException e) {
                 logger.warning("config file could not be saved to");
             }
+            
             SaveState saveToBeAdded = new SaveState(currentTaskBook, currentConfig);
             model.getCommandHistory().add("undo");
             model.getRedoStack().push(saveToBeAdded);

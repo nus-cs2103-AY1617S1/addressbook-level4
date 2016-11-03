@@ -350,7 +350,7 @@ public class LogicManagerTest {
         model.markDone(done);
 
         assertCommandBehavior("list done",
-                ListCommand.MESSAGE_SUCCESS,
+                ListCommand.MESSAGE_DONE_SUCCESS,
                 expectedAB,
                 eventList,
                 Collections.emptyList(),
@@ -373,7 +373,7 @@ public class LogicManagerTest {
         model.markDone(done);
 
         assertCommandBehavior("list done",
-                ListCommand.MESSAGE_SUCCESS,
+                ListCommand.MESSAGE_DONE_SUCCESS,
                 expectedAB,
                 Collections.emptyList(),
                 deadlineList,
@@ -396,7 +396,7 @@ public class LogicManagerTest {
         model.markDone(done);
 
         assertCommandBehavior("list done",
-                ListCommand.MESSAGE_SUCCESS,
+                ListCommand.MESSAGE_DONE_SUCCESS,
                 expectedAB,
                 Collections.emptyList(),
                 Collections.emptyList(),
@@ -1143,10 +1143,10 @@ public class LogicManagerTest {
 
         UnmodifiableObservableList<ReadOnlyTask> lastShownEventList = model.getFilteredEventList();
         ReadOnlyTask eventToEdit = lastShownEventList.get(1-1);
-        expectedAB.changeTask(eventToEdit, "start 5.00pm" , 'E');
+        expectedAB.changeTask(eventToEdit, "start 1.00am" , 'E');
 
-        assertCommandBehavior("edit E1 start 5.00pm",
-                String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, "E", "1", "start 5.00pm"),
+        assertCommandBehavior("edit E1 start 1.00am",
+                String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, "E", "1", "start 1.00am"),
                 expectedAB,
                 expectedAB.getEventList(),
                 expectedAB.getDeadlineList(),

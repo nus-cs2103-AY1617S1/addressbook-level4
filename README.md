@@ -3,7 +3,7 @@
 
 # Simply
 
-<img src="docs/images/Startup3.PNG" width="600"><br>
+<img src="docs/images/startup_new2.png" width="600"><br>
 
 * This is a desktop Task Manager application. It has a GUI but most of the user interactions happen using 
   a CLI (Command Line Interface).

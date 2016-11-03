@@ -44,9 +44,9 @@ public abstract class UiPart {
     
     //@@author A0147890U
     /**
-     * changes color of the card depending on task overdue status
+     * changes color of the card border depending on task overdue status
      */
-    protected int overdueChangeColor(ReadOnlyTask task, HBox cardPane) {
+    protected int overdueChangeBorderColor(ReadOnlyTask task, HBox cardPane) {
         if (task.getOverdue() == 2) {
             cardPane.setStyle("-fx-border-color: #02f21e");
             return 2;
@@ -63,6 +63,40 @@ public abstract class UiPart {
         }
     }
     
+    //@@author A0147890U
+    /**
+     * @param 24 hour string value
+     * @return 12 hour string value
+     * this method converts 24 hour format to 12 hour format for display in event and deadline cards
+     */
+    protected String twelveHourConvertor(String value) {
+        int toBeConverted = Integer.parseInt(value);
+        int firstTwoDigits = toBeConverted / 100;
+        int twelveHourFormat = 0;
+        String twelveHourClock;
+        if (firstTwoDigits == 12) {
+            twelveHourFormat = toBeConverted;
+        } 
+        else {
+            twelveHourFormat = toBeConverted % 1200;
+        }
+        
+        twelveHourClock = Integer.toString(twelveHourFormat);
+        
+        twelveHourClock = new StringBuilder(twelveHourClock).insert(twelveHourClock.length() - 2, '.').toString();
+        
+        if (firstTwoDigits == 12) {
+            twelveHourClock = twelveHourClock + "pm";
+        } else if (firstTwoDigits > 12) {
+            twelveHourClock = twelveHourClock + "pm";
+        } else {
+            twelveHourClock = twelveHourClock + "am";
+        }
+            
+        return twelveHourClock;
+    } 
+    
+    //@@author
     /**
      * Override this method to receive the main Node generated while loading the view from the .fxml file.
      * @param node

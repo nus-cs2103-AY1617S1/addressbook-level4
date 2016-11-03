@@ -11,7 +11,7 @@ import seedu.address.commons.events.ui.OverdueChangedEvent;
 import seedu.address.model.task.ReadOnlyTask;
 
 //@@author A0147890U
-public class EventCard extends UiPart{
+public class EventCard extends UiPart {
 
     private static final String FXML = "EventListCard.fxml";
 
@@ -33,71 +33,68 @@ public class EventCard extends UiPart{
     private ReadOnlyTask event;
     private int displayedIndex;
 
-    public EventCard(){
+    public EventCard() {
 
     }
 
-    public static EventCard load(ReadOnlyTask event, int displayedIndex){
+    public static EventCard load(ReadOnlyTask event, int displayedIndex) {
         EventCard card = new EventCard();
         card.event = event;
         card.displayedIndex = displayedIndex;
         return UiPartLoader.loadUiPart(card);
     }
 
-
     @FXML
     public void initialize() {
+        String startTime = twelveHourConvertor(event.getStart().value);
+        String endTime = twelveHourConvertor(event.getEnd().value);
+
         name.setText(event.getName().taskDetails);
         id.setText("E" + displayedIndex + ". ");
-        date.setText("Date:" + "    " + event.getDate().value);
-        start.setText("Start time:" + "    " + event.getStart().value);
-        end.setText("End time:" + "    " + event.getEnd().value);
+        date.setText("Date:" + "            " + event.getDate().value);
+        start.setText("Start time:" + "    " + startTime);
+        end.setText("End time:" + "     " + endTime);
         tags.setText(event.tagsString());
-   
-        
+
         registerAsAnEventHandler(this);
-        
     }
-    
+
     @Subscribe
     private void handleTaskOverdueChanged(OverdueChangedEvent change) {
-        //overdueChangeColor(event, cardPane);
         changeColor();
     }
 
     private void changeColor() {
-        int overdueState = overdueChangeColor(event, this.cardPane);
+        int overdueState = overdueChangeBorderColor(event, this.cardPane);
         setTextColor(overdueState);
     }
 
     private void setTextColor(int overdueState) {
         if (overdueState == 1) {
-            name.setStyle("-fx-text-fill: red");
-            id.setStyle("-fx-text-fill: red");
-            date.setStyle("-fx-text-fill: red");
-            start.setStyle("-fx-text-fill: red");
-            end.setStyle("-fx-text-fill: red");
-            tags.setStyle("-fx-text-fill: red");
+            setFxStyle("red");
         }
-        
+
         if (overdueState == 2) {
-            name.setStyle("-fx-text-fill: #004402");
-            id.setStyle("-fx-text-fill: #004402");
-            date.setStyle("-fx-text-fill: #004402");
-            start.setStyle("-fx-text-fill: #004402");
-            end.setStyle("-fx-text-fill: #004402");
-            tags.setStyle("-fx-text-fill: #004402");
+            setFxStyle("#004402");
         }
-        
+
         if (overdueState == 0) {
-            Platform.runLater(() -> {
-                name.setStyle(null);
-                id.setStyle(null);
-                date.setStyle(null);
-                end.setStyle(null);
-                tags.setStyle(null);
-            });
+            name.setStyle(null);
+            id.setStyle(null);
+            date.setStyle(null);
+            start.setStyle(null);
+            end.setStyle(null);
+            tags.setStyle(null);
         }
+    }
+
+    private void setFxStyle(String color) {
+        name.setStyle("-fx-text-fill: " + color);
+        id.setStyle("-fx-text-fill: " + color);
+        date.setStyle("-fx-text-fill: " + color);
+        start.setStyle("-fx-text-fill: " + color);
+        end.setStyle("-fx-text-fill: " + color);
+        tags.setStyle("-fx-text-fill: " + color);
     }
 
     public HBox getLayout() {
@@ -106,7 +103,7 @@ public class EventCard extends UiPart{
 
     @Override
     public void setNode(Node node) {
-        cardPane = (HBox)node;
+        cardPane = (HBox) node;
     }
 
     @Override
