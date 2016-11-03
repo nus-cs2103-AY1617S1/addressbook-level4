@@ -17,6 +17,10 @@ import javafx.stage.Popup;
 public class HelpPopup extends UiPart {
 
     private static final String FXML = "HelpPopup.fxml";
+    private final int DEFAULT_HEIGHT = 575;
+    private final int DEFAULT_WIDTH = 700;
+    private final int DEFAULT_X_POS = 200;
+    private final int DEFAULT_Y_POS = 100;
     private Popup popup;
     private TextArea content;
     private boolean isFirstKey;
@@ -28,12 +32,13 @@ public class HelpPopup extends UiPart {
     }
 
     //@@author A0139194X
-    public void show(Node node) {
-        popup.show(node, 200, 100);
+    public void show (Node node) {
+        assert node != null;
+        popup.show(node, DEFAULT_X_POS, DEFAULT_Y_POS);
         popup.centerOnScreen();
     }
 
-    //@@author A0139194X
+    //@@author
     @Override
     public void setNode(Node node) {
     }
@@ -49,8 +54,11 @@ public class HelpPopup extends UiPart {
     private void initPopup() {
         popup = new Popup();
         content = new TextArea();
-        properties();
 
+        content.setPrefHeight(DEFAULT_HEIGHT);
+        content.setPrefWidth(DEFAULT_WIDTH);
+        
+        properties();
         popup.getContent().add(content);
         popup.addEventHandler(KeyEvent.KEY_RELEASED, keyEventHandler);
 
@@ -69,10 +77,21 @@ public class HelpPopup extends UiPart {
     };
 
     //@@author A0139194X
+    /**
+     * Sets content of the help popup
+     * @param text
+     */
     public void setContent(String text) {
+        assert content != null;
         content.setText(text);
     }
     
+
+    //@@author A0139194X
+    public String getContent() {
+        assert content!= null;
+        return content.getText();
+
     //@@author A0143378Y
     public void properties() { 
         //Setting up the width and height

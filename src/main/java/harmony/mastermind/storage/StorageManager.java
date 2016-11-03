@@ -98,6 +98,7 @@ public class StorageManager extends ComponentManager implements Storage {
         String oldPath = taskManagerStorage.getTaskManagerFilePath();
         String newPath = correctFilePathFormat(event.getFilePath());
         taskManagerStorage.setTaskManagerFilePath(newPath);
+        updateConfig(newPath);
         try {
             logger.info("Trying to move into new file path.");
             taskManagerStorage.migrateIntoNewFolder(oldPath, newPath);
@@ -105,8 +106,8 @@ public class StorageManager extends ComponentManager implements Storage {
             logger.warning("Error occured while handling relocate event.");
             logger.warning("Reverting save location back to " + oldPath);
             taskManagerStorage.setTaskManagerFilePath(oldPath);
+            updateConfig(oldPath);
         }
-        updateConfig(newPath);
     }
    
     //@@author A0139194X
@@ -122,6 +123,11 @@ public class StorageManager extends ComponentManager implements Storage {
     }
     
     //@@author A0139194X
+    /**
+     * Updates the config.json file so that upon startup, the correct xml file will be
+     * loaded.
+     * @param newPath
+     */
     public void updateConfig(String newPath) {
         assert newPath != null;
         Config config;
