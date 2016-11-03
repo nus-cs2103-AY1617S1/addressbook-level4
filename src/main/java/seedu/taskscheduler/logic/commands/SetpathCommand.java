@@ -24,6 +24,7 @@ public class SetpathCommand extends Command {
 
     @Override
     public CommandResult execute() {
+        CommandHistory.setPreviousStorageFilePath(savedPathLink);
         EventsCenter.getInstance().post(new FilePathChangedEvent(savedPathLink));
         CommandHistory.addExecutedCommand(this);
         return new CommandResult(String.format(MESSAGE_SUCCESS, savedPathLink));
@@ -31,9 +32,14 @@ public class SetpathCommand extends Command {
 
     @Override
     public CommandResult revert() {
+        // Discard similar pathlink on the top of the stack
+        if (savedPathLink == CommandHistory.readPreviousStorageFilePath()) {
+            CommandHistory.getPreviousStorageFilePath();
+        }
+        savedPathLink = CommandHistory.getPreviousStorageFilePath();
+        System.out.println(savedPathLink);
         EventsCenter.getInstance().post(new FilePathChangedEvent(savedPathLink));
         CommandHistory.addRevertedCommand(this);
         return new CommandResult(String.format(MESSAGE_SUCCESS, savedPathLink));
-    }
-
+    } 
 }
