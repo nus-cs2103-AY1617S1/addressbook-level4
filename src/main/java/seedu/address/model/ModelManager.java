@@ -216,12 +216,20 @@ public class ModelManager extends ComponentManager implements Model {
         return duplicate;
     }
 
-    // after task is added, scroll to it in the UndatedListPanel || DatedListPanel
+    /**
+     * after task is added, scroll to it in the UndatedListPanel || DatedListPanel
+     * @param target
+     */ 
     private void scrollToAddedTask(Task target) {
         int [] result = indexOfAddedTask(target);       
         raise (new JumpToListRequestEvent(result[0], result[1]));
     }
 
+    /**
+     * find the task's list and index
+     * @param target
+     * @return
+     */
     private int[] indexOfAddedTask(Task target) {
         int datedTaskIndex = filteredDatedTasks.indexOf(target);
         int undatedTaskIndex = filteredUndatedTasks.indexOf(target);
@@ -230,8 +238,7 @@ public class ModelManager extends ComponentManager implements Model {
         if (datedTaskIndex == -1){
             result[0] = undatedTaskIndex;
             result[1] = JumpToListRequestEvent.UNDATED_LIST;
-        }
-        else if (undatedTaskIndex == -1){
+        } else if (undatedTaskIndex == -1){
             result[0] = datedTaskIndex;
             result[1] = JumpToListRequestEvent.DATED_LIST;
         }
@@ -442,6 +449,9 @@ public class ModelManager extends ComponentManager implements Model {
     //@@author
 
     //@@author A0143884W
+    /**
+     * Qualifies if tasks fall on input date
+     */
     private class DateQualifier implements Qualifier {
         private Date inputDate;
 
@@ -456,19 +466,13 @@ public class ModelManager extends ComponentManager implements Model {
             Date startDate = taskDate.getStart();
             Date endDate = taskDate.getEnd();
 
-            // check deadline and event start date
-            if (sameDate(startDate)){
+            if (sameDate(startDate)){ // check start date
                 return true;
-            }
-            // check event end date but make sure deadlines are excluded
-            else if (endDate != null && sameDate(endDate)){
+            } else if (endDate != null && sameDate(endDate)){  // check end date only
                 return true;
-            }
-            // check event dates between start date and end date but make sure deadlines are excluded
-            else if (endDate != null && inputDate.after(startDate) && inputDate.before(endDate)){
+            } else if (endDate != null && inputDate.after(startDate) && inputDate.before(endDate)){ // check between start and end date only
                 return true;
-            }
-            else {
+            } else {
                 return false;
             }
         }
@@ -478,6 +482,7 @@ public class ModelManager extends ComponentManager implements Model {
             return "date=" + inputDate.toString();
         }
 
+        // excludes time when checking for equality
         private boolean sameDate(Date other){
             return inputDate.getDate() == other.getDate() && inputDate.getMonth() == other.getMonth() 
                     && inputDate.getYear() == other.getYear();

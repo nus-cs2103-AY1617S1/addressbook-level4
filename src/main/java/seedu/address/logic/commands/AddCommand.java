@@ -57,8 +57,7 @@ public class AddCommand extends Command implements Undoable {
         populateUndo();
         if (duplicate){
         	return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd) + "\n" + MESSAGE_DUPLICATE_TASK);
-        }
-        else {
+        } else {
         	return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
         }
 

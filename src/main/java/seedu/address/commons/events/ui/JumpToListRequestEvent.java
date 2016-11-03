@@ -2,7 +2,7 @@ package seedu.address.commons.events.ui;
 
 import seedu.address.commons.events.BaseEvent;
 
-//@@author A01438884W
+//@@author A0143884W
 /**
  * Indicates a request to jump to the list of task
  */

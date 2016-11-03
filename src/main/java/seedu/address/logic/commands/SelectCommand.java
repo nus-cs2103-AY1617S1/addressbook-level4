@@ -56,11 +56,9 @@ public class SelectCommand extends Command {
         
         if (type == TaskType.DATED) {
             EventsCenter.getInstance().post(new JumpToListRequestEvent(indexNum - 1, JumpToListRequestEvent.DATED_LIST));
-        }
-        else if (type == TaskType.UNDATED){
+        } else if (type == TaskType.UNDATED){
             EventsCenter.getInstance().post(new JumpToListRequestEvent(indexNum - 1, JumpToListRequestEvent.UNDATED_LIST));
-        }
-        else {
+        } else {
             assert false : "Task type not found";
         }
 	}

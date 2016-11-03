@@ -78,8 +78,7 @@ public class EditCommand extends Command implements Undoable{
 
         if (duplicate){
         	return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, toAdd) + "\n" + AddCommand.MESSAGE_DUPLICATE_TASK);
-        }
-        else {
+        } else {
         	return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, toAdd));
         }
     }
