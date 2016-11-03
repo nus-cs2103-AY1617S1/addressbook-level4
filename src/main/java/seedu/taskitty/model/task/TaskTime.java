@@ -39,14 +39,14 @@ public class TaskTime {
             throw new IllegalValueException(MESSAGE_TIME_MISSING);
         }
         
-        time = time.trim();
+        String trimTime = time.trim();
         //This is not an assert because user can change the database and input wrong formats
-        if (!isValidTimeFormat(time)) {
+        if (!isValidTimeFormat(trimTime)) {
             throw new IllegalValueException(MESSAGE_TIME_CONSTRAINTS);
         }
         
         try {
-            this.time = LocalTime.parse(time, TIME_FORMATTER_STORAGE);
+            this.time = LocalTime.parse(trimTime, TIME_FORMATTER_STORAGE);
         } catch (DateTimeParseException dtpe){
             throw new IllegalValueException(MESSAGE_TIME_INVALID);
         }

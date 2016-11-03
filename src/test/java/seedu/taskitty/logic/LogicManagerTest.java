@@ -378,7 +378,7 @@ public class LogicManagerTest {
         /**
          * Adds the given list of Tasks to the given TaskManager
          */
-        void addToTaskManager(TaskManager taskManager, List<Task> tasksToAdd) throws Exception{
+        private void addToTaskManager(TaskManager taskManager, List<Task> tasksToAdd) throws Exception{
             for(Task p: tasksToAdd){
                 taskManager.addTask(p);
             }
@@ -388,14 +388,14 @@ public class LogicManagerTest {
          * Adds auto-generated Task objects to the given model
          * @param model The model to which the Tasks will be added
          */
-        void addToModel(Model model, int numGenerated) throws Exception{
+        private void addToModel(Model model, int numGenerated) throws Exception{
             addToModel(model, generateTaskList(numGenerated));
         }
 
         /**
          * Adds the given list of Tasks to the given model
          */
-        void addToModel(Model model, List<Task> tasksToAdd) throws Exception{
+        private void addToModel(Model model, List<Task> tasksToAdd) throws Exception{
             for(Task p: tasksToAdd){
                 model.addTask(p);
             }

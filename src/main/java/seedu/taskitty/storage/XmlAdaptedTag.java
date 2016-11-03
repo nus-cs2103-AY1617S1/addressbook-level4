@@ -1,7 +1,6 @@
 package seedu.taskitty.storage;
 
 import seedu.taskitty.commons.exceptions.IllegalValueException;
-import seedu.taskitty.commons.util.CollectionUtil;
 import seedu.taskitty.model.tag.Tag;
 
 import javax.xml.bind.annotation.XmlValue;

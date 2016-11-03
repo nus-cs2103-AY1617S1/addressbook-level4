@@ -1,9 +1,6 @@
 package seedu.taskitty.logic.commands;
 
-import java.io.File;
 import java.io.IOException;
-import java.net.URISyntaxException;
-import java.util.ArrayList;
 
 import seedu.taskitty.commons.util.ConfigUtil;
 import seedu.taskitty.commons.util.StringUtil;
