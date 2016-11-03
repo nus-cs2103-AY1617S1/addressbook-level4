@@ -36,9 +36,10 @@ public class Time {
     public Time(String input) throws IllegalValueException {
         input = input.trim();
         
-        if (input.equals(""))
+        if (input.equals("")) {
+            time = Calendar.getInstance();
             time.setTime(new Date(0));
-
+        }
 //        
 //        System.out.println("CHEEYEO CHECK HERE : " + input);
 //        
