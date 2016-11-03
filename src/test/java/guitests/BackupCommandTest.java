@@ -1,4 +1,4 @@
-//@@author A0147944U
+// @@author A0147944U
 package guitests;
 
 import org.junit.Test;
@@ -10,6 +10,7 @@ import seedu.task.testutil.TypicalTestTasks;
 
 import static org.junit.Assert.assertTrue;
 
+@SuppressWarnings("unused")
 public class BackupCommandTest extends TaskManagerGuiTest {
 
     public static final String filepath_A = TestUtil.getFilePathInSandboxFolder("empty");
@@ -41,12 +42,12 @@ public class BackupCommandTest extends TaskManagerGuiTest {
         assertResultMessage(String.format(BackupCommand.MESSAGE_BACKUP_SUCCESS, filepath_A + ".xml"));
         //assertBackupCommandSuccess();
 
-        /* Removed as C:/ is accessible on Travis
+        /** Removed as these cases do not work on Travis, i.e. C:/ is accessible, invaild:/drive is valid */
+        /*
         //verify a TaskManager can't be backed up in an inaccessible directory
         commandBox.runCommand("backup " + filepath_C);
         assertResultMessage(String.format(BackupCommand.MESSAGE_BACKUP_FAILURE, filepath_C + ".xml"));
         //assertBackupCommandFailure();
-         */
         
         //verify a TaskManager can't be backed up in an invalid directory
         commandBox.runCommand("backup " + filepath_D);
@@ -55,5 +56,6 @@ public class BackupCommandTest extends TaskManagerGuiTest {
         commandBox.runCommand("backup " + filepath_E);
         assertResultMessage(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, BackupCommand.MESSAGE_USAGE));
         //assertBackupCommandFailure();
+         */
     }
 }
