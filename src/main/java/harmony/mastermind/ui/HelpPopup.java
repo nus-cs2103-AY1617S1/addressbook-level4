@@ -29,16 +29,16 @@ public class HelpPopup extends UiPart {
     private Popup popup;
     private TextArea content;
     private boolean isFirstKey;
-    private TableView<HelpPopupEntry> table = new TableView<HelpPopupEntry>();
+    private TableView<HelpPopupEntry> table;
     
-    TableColumn<HelpPopupEntry, String> commandCol = new TableColumn<HelpPopupEntry, String>("Command");
-    TableColumn<HelpPopupEntry, String> formatCol = new TableColumn<HelpPopupEntry, String>("Format");
-    TableColumn<HelpPopupEntry, String> usageCol = new TableColumn<HelpPopupEntry, String>("Usage");
+    TableColumn<HelpPopupEntry, String> commandCol;
+    TableColumn<HelpPopupEntry, String> formatCol;
+    TableColumn<HelpPopupEntry, String> usageCol;
     
     //@@author A0139194X
     public HelpPopup() {
-        initPopup();
         initTable();
+        initPopup();
         isFirstKey = true;
     }
 
@@ -64,7 +64,7 @@ public class HelpPopup extends UiPart {
     @FXML
     private void initPopup() {
         popup = new Popup();
-        //content = new TextArea();
+        content = new TextArea();
         //properties();
 
         //popup.getContent().add(content);
@@ -77,26 +77,33 @@ public class HelpPopup extends UiPart {
     @FXML
     private void initTable() {
         
+        table = new TableView<HelpPopupEntry>();
+        table.setEditable(false);
+        
         initCommandCol();
         initFormatCol();
         initUsageCol();
         
+        table.setItems(getList());
         table.getColumns().setAll(commandCol, formatCol, usageCol);
     }
     
     private void initCommandCol() {
-        commandCol.setMinWidth(200);
+        commandCol = new TableColumn<HelpPopupEntry, String>("Command");
+        commandCol.setMinWidth(100);
         commandCol.setCellValueFactory(new PropertyValueFactory<>("commandWord"));
     }
     
     private void initFormatCol() {
-        commandCol.setMinWidth(200);
-        commandCol.setCellValueFactory(new PropertyValueFactory<>("format"));
+        formatCol = new TableColumn<HelpPopupEntry, String>("Format");
+        formatCol.setMinWidth(200);
+        formatCol.setCellValueFactory(new PropertyValueFactory<>("format"));
     }
     
     private void initUsageCol() {
-        commandCol.setMinWidth(200);
-        commandCol.setCellValueFactory(new PropertyValueFactory<>("usage"));
+        usageCol = new TableColumn<HelpPopupEntry, String>("Usage");
+        usageCol.setMinWidth(200);
+        usageCol.setCellValueFactory(new PropertyValueFactory<>("usage"));
     }
     
     private ObservableList<HelpPopupEntry> getList() {
