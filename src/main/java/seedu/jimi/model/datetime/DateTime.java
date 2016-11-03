@@ -25,7 +25,7 @@ public class DateTime implements Comparable<DateTime> {
     private LocalDateTime dtInstance;
     
     public DateTime() {
-        dtInstance = LocalDateTime.now();
+        dtInstance = LocalDateTime.now().withSecond(0).withNano(0);
     }
     
     public DateTime(String dateStr) throws IllegalValueException {
@@ -38,7 +38,8 @@ public class DateTime implements Comparable<DateTime> {
     }
     
     public DateTime(Date date) {
-        dtInstance = LocalDateTime.ofInstant(date.toInstant(), ZoneId.systemDefault());
+        dtInstance = LocalDateTime.ofInstant(date.toInstant(), ZoneId.systemDefault())
+                .withSecond(0).withNano(0);
     }
 
     public String getDate() {
