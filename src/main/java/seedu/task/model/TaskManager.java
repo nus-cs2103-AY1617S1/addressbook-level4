@@ -215,7 +215,7 @@ public class TaskManager implements ReadOnlyTaskManager {
         this.tasks.getInternalList().sort(new Comparator<Task>() {
             @Override
             public int compare(Task one, Task other) {
-                return other.getStatus().compareDoneStatusTo(one.getStatus());
+                return one.getStatus().compareDoneStatusTo(other.getStatus());
             }
         });
     }

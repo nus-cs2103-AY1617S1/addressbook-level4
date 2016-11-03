@@ -158,7 +158,7 @@ public class ModelManager extends ComponentManager implements Model {
         filteredTasks.setPredicate(expression::satisfies);
     }
     
-    //@@author A0147944U
+    // @@author A0147944U
     /**
      * Select sorting method based on keyword
      * 
@@ -180,7 +180,7 @@ public class ModelManager extends ComponentManager implements Model {
         }
         indicateTaskManagerChanged();
     }
-    //@@author
+    // @@author
     
     //========== Inner classes/interfaces used for filtering ==================================================
 
