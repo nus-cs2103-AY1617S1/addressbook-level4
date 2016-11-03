@@ -91,17 +91,31 @@
     -fx-graphic-text-gap : 0;
     -fx-padding: 0 0 0 0;
 }
-
+/*@@author A0143641M */
+.list-cell:focused {
+	-fx-background-color: derive(#F0E68E, 10%);
+}
 .list-cell .label {
     -fx-text-fill: #010504;
+    -fx-text-overrun: word-ellipsis ;
 }
+
+.list-cell:focused:selected .label {
+	-fx-text-fill: #32CD32;
+	-fx-font-size: 26px;
+}
+
+/*.list-cell .task {
+	-fx-text-fill: aliceblue;
+	-fx-font-size: 30px;
+}*/
 
 /*@@author A0140060A*/
 .cell_big_label {
     -fx-font-size: 16px;
     -fx-text-fill: #010504;
     -fx-max-width:300;
-    -fx-text-wrap: true;
+    -fx-wrap-text: true;
 }
 
 .cell_small_label {
