@@ -16,7 +16,7 @@ import tars.model.task.DateTime;
 import tars.model.task.DateTime.IllegalDateException;
 
 /**
- * Date time util test
+ * Date time utility test
  */
 public class DateTimeUtilTest {
 
@@ -25,7 +25,7 @@ public class DateTimeUtilTest {
     public ExpectedException thrown = ExpectedException.none();
 
     @Test
-    public void natty_parser_invalid_date() {
+    public void parseStringToDateTime_invalidDate() {
         thrown.expect(DateTimeException.class);
         thrown.expectMessage(Messages.MESSAGE_INVALID_DATE);
 
@@ -37,7 +37,7 @@ public class DateTimeUtilTest {
     }
 
     @Test
-    public void natty_parser_empty_args() {
+    public void parseStringToDateTime_emptyArgs() {
         String[] expected =
                 new String[] {StringUtil.EMPTY_STRING, StringUtil.EMPTY_STRING};
         String[] actual = DateTimeUtil
@@ -52,11 +52,20 @@ public class DateTimeUtilTest {
     }
 
     @Test
-    public void extract_date_successful() {
+    public void parseStringToDateTime_singleDateSuccessful() {
         String[] expectedDateTime =
                 {StringUtil.EMPTY_STRING, "01/01/2016 1500"};
         String[] actualDateTime =
                 DateTimeUtil.parseStringToDateTime("1/1/2016 1500");
+
+        assertArrayEquals(expectedDateTime, actualDateTime);
+    }
+    
+    @Test
+    public void parseStringToDateTime_dateRangeSuccessful() {
+        String[] expectedDateTime = {"01/01/2016 1500", "02/01/2016 1600"};
+        String[] actualDateTime = DateTimeUtil
+                .parseStringToDateTime("1/1/2016 1500 to 2/1/2016 1600");
 
         assertArrayEquals(expectedDateTime, actualDateTime);
     }
