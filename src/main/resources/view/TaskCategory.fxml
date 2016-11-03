@@ -4,10 +4,11 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
 
 <fx:root gridLinesVisible="true" type="GridPane" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.cmdo.ui.TaskCategory">
    <columnConstraints>
@@ -22,29 +23,31 @@
       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
    </rowConstraints>
    <children>
-      <ImageView fx:id="overDueImg" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+      <Label fx:id="overDue" alignment="CENTER" stylesheets="@../CSS/Labels.css" text="Label">
          <GridPane.margin>
             <Insets />
          </GridPane.margin>
-      </ImageView>
-      <ImageView fx:id="todayImg" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="1" />
-      <ImageView fx:id="thisWeekImg" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="2" />
-      <ImageView fx:id="thisMonthImg" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="3" />
-      <ImageView fx:id="somedayImg" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="4" />
-      <ImageView fx:id="totalTaskImg" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="5" />
-      <Label fx:id="overDue" text="Label" GridPane.columnIndex="1" />
-      <Label fx:id="today" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-      <Label fx:id="thisWeek" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-      <Label fx:id="thisMonth" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-      <Label fx:id="someday" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-      <Label fx:id="totalTask" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-      <Label fx:id="overDueNo" text="Label" GridPane.columnIndex="2" />
+         <font>
+            <Font name="Helvetica Neue UltraLight" size="13.0" />
+         </font></Label>
+      <Label fx:id="today" alignment="CENTER" styleClass="today" text="Label" GridPane.rowIndex="1" />
+      <Label fx:id="thisWeek" alignment="CENTER" styleClass="thisweek" text="Label" GridPane.rowIndex="2" />
+      <Label fx:id="thisMonth" alignment="CENTER" styleClass="thismonth" text="Label" GridPane.rowIndex="3" />
+      <Label fx:id="someday" alignment="CENTER" styleClass="someday" text="Label" GridPane.rowIndex="4" />
+      <Label fx:id="totalTask" alignment="CENTER" styleClass="totaltask" text="Label" GridPane.rowIndex="5" />
+      <Label fx:id="overDueNo" styleClass="overdueno" text="Label" GridPane.columnIndex="2" />
       <Label fx:id="todayNo" text="Label" GridPane.columnIndex="2" GridPane.rowIndex="1" />
       <Label fx:id="thisWeekNo" text="Label" GridPane.columnIndex="2" GridPane.rowIndex="2" />
       <Label fx:id="thisMonthNo" text="Label" GridPane.columnIndex="2" GridPane.rowIndex="3" />
       <Label fx:id="somedayNo" text="Label" GridPane.columnIndex="2" GridPane.rowIndex="4" />
       <Label fx:id="totalTaskNo" text="Label" GridPane.columnIndex="2" GridPane.rowIndex="5" />
+      <Label fx:id="totalDone" alignment="CENTER" text="Label" GridPane.rowIndex="7" />
+      <Region fx:id="emptySpace" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="6" />
+      <Region fx:id="emptyColumn" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" />
+      <Label fx:id="totalDoneNo" text="Label" GridPane.columnIndex="2" GridPane.rowIndex="7" />
    </children>
 </fx:root>

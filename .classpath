@@ -28,5 +28,6 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="/Users/HongWei/WorkSpace/main/lib/jfxtras-labs-samples-8.0-r6-SNAPSHOT-all.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
