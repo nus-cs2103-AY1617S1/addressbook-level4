@@ -40,13 +40,21 @@ public class DateTimeInfoParser {
     public String getParsedTimingInfo() {
         return timingInfo.getDates().toString();
     }
+    
+    public boolean isTimeInferred() {
+        return timingInfo.isTimeInferred();
+    }
+    
+    public boolean isDateInferred() {
+        return timingInfo.isDateInferred();
+    }
 
     // @@author A0147092E
     public Date getParsedDateTime() {
         return timingInfo.getDates().get(0);
     }
     
-    // @@author A0127686R
+    // @@author 
     public List<Date> getParsedTimingObject() {
         return timingInfo.getDates();
     }
@@ -55,7 +63,4 @@ public class DateTimeInfoParser {
         return timingInfo;
     }
 
-    public boolean isInferred() {
-        return timingInfo.isTimeInferred();
-    }
 }

@@ -14,15 +14,13 @@ public class Name {
     public static final String BLOCK_PREFIX = "(Blocked) ";
         
     private String isDonePrefix;
-    private String fullName;
     private String isBlockPrefix;
-    
+    private String name;
     
     /**
      * Validates given name.
      *
-     * @throws IllegalValueException
-     *             if given name string is invalid.
+     * @throws IllegalValueException if given name string is invalid.
      */
     public Name(String name) throws IllegalValueException {
         assert name != null;
@@ -31,17 +29,18 @@ public class Name {
             throw new IllegalValueException(MESSAGE_NAME_CONSTRAINTS);
         }
         if (name.contains(DONE_PREFIX)){
-            this.isDonePrefix = name.substring(0, 7); 
-            this.fullName = name.substring(7);
+            this.isDonePrefix = DONE_PREFIX; 
+            this.name = name.substring(7);
+            name = name.substring(7);
         } else {
-            this.fullName = name;
+            this.name = name;
             this.isDonePrefix = ""; 
         }
         if (name.contains(BLOCK_PREFIX)){
-            this.isBlockPrefix = name.substring(0, 10); 
-            this.fullName = name.substring(10);
+            this.isBlockPrefix = BLOCK_PREFIX; 
+            this.name = name.substring(10);
         } else {
-            this.fullName = name;
+            this.name = name;
             this.isBlockPrefix = ""; 
         }
     }
@@ -54,20 +53,20 @@ public class Name {
     }
 
     public void setName(String name) {
-        this.fullName = name;
+        this.name = name;
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof Name // instanceof handles nulls
-                        && this.fullName.equals(((Name) other).fullName)); // state
+                        && this.name.equals(((Name) other).name)); // state
                                                                            // check
     }
 
     @Override
     public int hashCode() {
-        return fullName.hashCode();
+        return name.hashCode();
     }
     
     public boolean getIsDone(){ 
@@ -85,11 +84,11 @@ public class Name {
   //@@author A0127686R
     @Override
     public String toString(){ 
-        return isDonePrefix + isBlockPrefix + fullName; 
+        return isDonePrefix + isBlockPrefix + name; 
     }
 
     public String getNameOnly(){ 
-        return fullName; 
+        return name; 
     }
 
     public String setAsMark(){ 
@@ -97,6 +96,7 @@ public class Name {
     }
 
     public String setAsUnmark(){ 
+        name = name.replace(DONE_PREFIX, "");
         return isDonePrefix = ""; 
     }
 }
