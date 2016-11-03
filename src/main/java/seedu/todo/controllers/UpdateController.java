@@ -3,7 +3,9 @@ package seedu.todo.controllers;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -11,7 +13,10 @@ import com.joestelmach.natty.DateGroup;
 import com.joestelmach.natty.Parser;
 
 import seedu.todo.commons.EphemeralDB;
+import seedu.todo.commons.exceptions.ParseException;
+import seedu.todo.controllers.concerns.DateParser;
 import seedu.todo.controllers.concerns.Renderer;
+import seedu.todo.controllers.concerns.Tokenizer;
 import seedu.todo.models.CalendarItem;
 import seedu.todo.models.TodoListDB;
 
@@ -59,9 +64,22 @@ public class UpdateController implements Controller {
     }
 
     @Override
-    public void process(String args) {
+    public void process(String input) throws ParseException {
         // TODO: Example of last minute work
         
+        Map<String, String[]> parsedResult;
+        parsedResult = Tokenizer.tokenize(getTokenDefinitions(), input);
+        
+        // Record index
+        Integer recordIndex = parseIndex(parsedResult);
+        
+        // Name
+        String name = parseName(parsedResult);
+        
+        // Time
+        String[] naturalDates = DateParser.extractDatePair(parsedResult);
+        String naturalFrom = naturalDates[0];
+        String naturalTo = naturalDates[1];
         
     }
     
