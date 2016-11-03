@@ -224,7 +224,9 @@ public class UniqueTaskList implements Iterable<Task> {
                         throw new IllegalEditException();
                     }
                     break;
-                }
+                default:
+                    break;
+                }    
             }
         }
     }
