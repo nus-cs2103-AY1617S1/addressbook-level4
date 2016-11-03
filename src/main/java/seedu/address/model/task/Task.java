@@ -200,7 +200,9 @@ public class Task implements ReadOnlyTask {
     
     @Override
     public int getRecurringPeriod() {
-        assert !recurringType.equals(RecurringType.NONE) : "Non recurring tasks cannot have recurring periods";
+        if (recurringType.equals(RecurringType.NONE)) {
+            return NO_RECURRING_PERIOD;
+        }
         return recurringPeriod;
     }
     

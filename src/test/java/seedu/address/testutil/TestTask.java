@@ -18,6 +18,7 @@ public class TestTask extends Task implements ReadOnlyTask {
     private TaskType type = TaskType.FLOATING;
 
     private RecurringType recurringType;
+    private int recurringPeriod;
     private List<TaskOccurrence> recurringDates;
 
     public TestTask() {
@@ -25,6 +26,7 @@ public class TestTask extends Task implements ReadOnlyTask {
         recurringType = RecurringType.NONE;
         recurringDates = new ArrayList<TaskOccurrence>();
         recurringDates.add(new TaskOccurrence(this ,new TaskDate(), new TaskDate()));
+        recurringPeriod = Task.NO_RECURRING_PERIOD;
     }
     
     public TestTask(TestTask copy) {
@@ -83,6 +85,11 @@ public class TestTask extends Task implements ReadOnlyTask {
     public RecurringType getRecurringType() {
         return recurringType;
     }
+    
+    @Override
+    public int getRecurringPeriod() {
+        return recurringPeriod;
+    }    
     
     @Override
     public List<TaskOccurrence> getTaskDateComponent() {
