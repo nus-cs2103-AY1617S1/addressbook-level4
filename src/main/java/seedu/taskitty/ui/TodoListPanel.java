@@ -38,8 +38,6 @@ public class TodoListPanel extends TaskListPanel {
     
     @Override
     public void configure(ObservableList<ReadOnlyTask> taskList) {
-    	header.setText("TODOS [t]");
-    	header.setStyle("-fx-text-fill: white");
         setConnections(todoListView, taskList);
         addToPlaceholder();
     }

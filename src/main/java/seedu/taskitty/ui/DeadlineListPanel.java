@@ -37,8 +37,6 @@ public class DeadlineListPanel extends TaskListPanel {
     
     @Override
     public void configure(ObservableList<ReadOnlyTask> deadlineList) {
-    	header.setText("DEADLINES [d]");
-    	header.setStyle("-fx-text-fill: #f9f9f9; -fx-font-weight: bold;");
         setConnections(deadlineListView, deadlineList);
         addToPlaceholder();
     }
