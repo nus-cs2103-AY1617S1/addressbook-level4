@@ -97,12 +97,12 @@ Sorts tasks in the TaskManager in order of name, start time, end time, deadline,
 Format: `sort [PARAMETER]`
 
 Examples:
-* `sort` Sorts tasks in the TaskManager by default order: completion status, followed by deadline, followed by start time
+* `sort` or `sort default` Sorts tasks in the TaskManager by a default preset: Incomplete tasks first, then floating tasks first, then older tasks first, then by name in ascending order
 * `sort name` or `sort n` Sorts tasks in the TaskManager in order of their names
-* `sort starttime` or `sort s` Sorts tasks in the TaskManager in order of their start times
-* `sort endtime` or `sort e` Sorts tasks in the TaskManager in order of their end times
-* `sort deadline` or `sort d` Sorts tasks in the TaskManager in order of their deadlines
-* `sort completion status` or `sort c` Sorts tasks in the TaskManager in order of their completion statuses
+* `sort starttime` or `sort start` or `sort s` Sorts tasks in the TaskManager in order of their start times
+* `sort endtime` or `sort end` or `sort e` Sorts tasks in the TaskManager in order of their end times
+* `sort deadline` or `sort dead` or `sort d` Sorts tasks in the TaskManager in order of their deadlines
+* `sort completed` or `sort done` or `sort c` Sorts tasks in the TaskManager in order of their completion statuses
 
 #### Undo the modification : `undo`
 Undo the modification in the last step. Only includes add, delete, edit, clear, done and undone commands.<br>
