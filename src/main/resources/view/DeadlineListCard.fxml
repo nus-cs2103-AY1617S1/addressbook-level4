@@ -11,7 +11,6 @@
 
 <!-- @@author A0139930B -->
 
-
 <HBox id="cardPane" fx:id="cardPane" stylesheets="@DarkTheme.css" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
     <children>
         <GridPane HBox.hgrow="ALWAYS">
@@ -21,7 +20,7 @@
                 <ColumnConstraints halignment="RIGHT" hgrow="NEVER" maxWidth="125.0" minWidth="125.0" prefWidth="125.0" />
             </columnConstraints>
             <children>
-                <VBox alignment="CENTER_LEFT" maxHeight="201.0" prefWidth="160.0" GridPane.columnIndex="1">
+                <VBox alignment="CENTER_LEFT" GridPane.columnIndex="1">
                     <stylesheets>
                         <URL value="@DarkTheme.css" />
                         <URL value="@Extensions.css" />
