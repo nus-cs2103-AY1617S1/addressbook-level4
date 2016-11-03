@@ -35,20 +35,20 @@ public class Time {
      */
     public Time(String input) throws IllegalValueException {
         input = input.trim();
-        
-        System.out.println("CHEEYEO CHECK HERE : " + input);
-        
-        if (input.equals("-"))
-            input = "";
-        
-        if (input.equals(DEFAULT_DATE))
-            input = "";
-        
-        if (input.equals(new Date(0)))
-            input = "";
-        
-        if (input.equals((new Date(0)).toString()))
-            input = "";
+//        
+//        System.out.println("CHEEYEO CHECK HERE : " + input);
+//        
+//        if (input.equals("-"))
+//            input = "";
+//        
+//        if (input.equals(DEFAULT_DATE))
+//            input = "";
+//        
+//        if (input.equals(new Date(0)))
+//            input = "";
+//        
+//        if (input.equals((new Date(0)).toString()))
+//            input = "";
         
         time = Calendar.getInstance();
         
@@ -66,6 +66,7 @@ public class Time {
     			throw new IllegalValueException(MESSAGE_TIME_CONSTRAINTS);
     		}
     		else if(dates.get(0).getDates().isEmpty()){
+    		    System.out.println("CHEEYEO LOOK HERE : " + taskTime + "%%" + input);
     			throw new IllegalValueException(MESSAGE_TIME_CONSTRAINTS);
     		}
     		else{
