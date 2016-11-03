@@ -154,7 +154,7 @@ public class DeadlineListPanelHandle extends GuiHandle {
     public DeadlineCardHandle getDeadlineCardHandle(ReadOnlyTask person) {
         Set<Node> nodes = getAllCardNodes();
         Optional<Node> personCardNode = nodes.stream()
-                .filter(n -> new TodoCardHandle(guiRobot, primaryStage, n).isSamePerson(person))
+                .filter(n -> new DeadlineCardHandle(guiRobot, primaryStage, n).isSamePerson(person))
                 .findFirst();
         if (personCardNode.isPresent()) {
             return new DeadlineCardHandle(guiRobot, primaryStage, personCardNode.get());
