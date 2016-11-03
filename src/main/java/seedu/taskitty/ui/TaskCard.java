@@ -18,7 +18,6 @@ public class TaskCard extends UiPart {
     private static final String INDEX_PREFIX_EVENT = "E";
     
     private static final int COLUMN_DATETIME = 2;
-    private static final int COLUMN_DATETIME_SIZE_EVENT = 200;
     private static final int COLUMN_DATETIME_SIZE_DEADLINE = 120;
     private static final int COLUMN_DATETIME_SIZE_TODO = 0;
 
