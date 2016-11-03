@@ -20,14 +20,14 @@ import static org.junit.Assert.assertTrue;
 /**
  * Provides a handle for the panel containing the task list.
  */
-public class TaskListPanelHandle extends GuiHandle {
+public class ListPanelHandle extends GuiHandle {
 
     public static final int NOT_FOUND = -1;
     public static final String CARD_PANE_ID = "#cardPane";
 
     private static final String TASK_LIST_VIEW_ID = "#taskListView";
 
-    public TaskListPanelHandle(GuiRobot guiRobot, Stage primaryStage) {
+    public ListPanelHandle(GuiRobot guiRobot, Stage primaryStage) {
         super(guiRobot, primaryStage, TestApp.APP_TITLE);
     }
 
@@ -98,57 +98,27 @@ public class TaskListPanelHandle extends GuiHandle {
             final int scrollTo = i + startPosition;
             guiRobot.interact(() -> getListView().scrollTo(scrollTo));
             guiRobot.sleep(200);
-            if (tasks[i].getTaskType().value.equals(TaskType.Type.SOMEDAY) && !TestUtil.compareSomedayCardAndTask(getSomedayTaskCardHandle(startPosition + i), tasks[i])) {
-                return false;
-            } else if (tasks[i].getTaskType().value.equals(TaskType.Type.DEADLINE) && !TestUtil.compareDeadlineCardAndTask(getDeadlineTaskCardHandle(startPosition + i), tasks[i])) {
-                return false;
-            } else if (tasks[i].getTaskType().value.equals(TaskType.Type.EVENT) && !TestUtil.compareEventCardAndTask(getEventTaskCardHandle(startPosition + i), tasks[i])) {
+            if (!TestUtil.compareCardAndTask(getTaskCardHandle(startPosition + i), tasks[i])) {
                 return false;
             }
         }
         return true;
     }
-
-
-    public SomedayTaskCardHandle navigateToSomedayTask(String name) {
-        guiRobot.sleep(500); //Allow a bit of time for the list to be updated
-        final Optional<ReadOnlyTask> task = getListView().getItems().stream().filter(p -> (p.getTaskType().value.equals(TaskType.Type.SOMEDAY)) && p.getName().value.equals(name)).findAny();
-        if (!task.isPresent()) {
-            throw new IllegalStateException("Name not found: " + name);
-        }
-
-        return navigateToSomedayTask(task.get());
-    }
-
-    /**
-     * Navigates the listview to display and select the someday task.
-     */
-    public SomedayTaskCardHandle navigateToSomedayTask(ReadOnlyTask task) {
-        int index = getTaskIndex(task);
-
-        guiRobot.interact(() -> {
-            getListView().scrollTo(index);
-            guiRobot.sleep(150);
-            getListView().getSelectionModel().select(index);
-        });
-        guiRobot.sleep(100);
-        return getSomedayTaskCardHandle(task);
-    }
     
-    public DeadlineTaskCardHandle navigateToDeadlineTask(String name) {
+    public TaskCardHandle navigateToTask(String name) {
         guiRobot.sleep(500); //Allow a bit of time for the list to be updated
         final Optional<ReadOnlyTask> task = getListView().getItems().stream().filter(p -> (p.getTaskType().value.equals(TaskType.Type.DEADLINE)) && p.getName().value.equals(name)).findAny();
         if (!task.isPresent()) {
             throw new IllegalStateException("Name not found: " + name);
         }
 
-        return navigateToDeadlineTask(task.get());
+        return navigateToTask(task.get());
     }
 
     /**
      * Navigates the listview to display and select the deadline task.
      */
-    public DeadlineTaskCardHandle navigateToDeadlineTask(ReadOnlyTask task) {
+    public TaskCardHandle navigateToTask(ReadOnlyTask task) {
         int index = getTaskIndex(task);
 
         guiRobot.interact(() -> {
@@ -157,32 +127,7 @@ public class TaskListPanelHandle extends GuiHandle {
             getListView().getSelectionModel().select(index);
         });
         guiRobot.sleep(100);
-        return getDeadlineTaskCardHandle(task);
-    }
-    
-    public EventTaskCardHandle navigateToEventTask(String name) {
-        guiRobot.sleep(500); //Allow a bit of time for the list to be updated
-        final Optional<ReadOnlyTask> task = getListView().getItems().stream().filter(p -> (p.getTaskType().value.equals(TaskType.Type.DEADLINE)) && p.getName().value.equals(name)).findAny();
-        if (!task.isPresent()) {
-            throw new IllegalStateException("Name not found: " + name);
-        }
-
-        return navigateToEventTask(task.get());
-    }
-
-    /**
-     * Navigates the listview to display and select the deadline task.
-     */
-    public EventTaskCardHandle navigateToEventTask(ReadOnlyTask task) {
-        int index = getTaskIndex(task);
-
-        guiRobot.interact(() -> {
-            getListView().scrollTo(index);
-            guiRobot.sleep(150);
-            getListView().getSelectionModel().select(index);
-        });
-        guiRobot.sleep(100);
-        return getEventTaskCardHandle(task);
+        return getTaskCardHandle(task);
     }
 
 
@@ -205,51 +150,18 @@ public class TaskListPanelHandle extends GuiHandle {
     public ReadOnlyTask getTask(int index) {
         return getListView().getItems().get(index);
     }
-
-    public SomedayTaskCardHandle getSomedayTaskCardHandle(int index) {
-        return getSomedayTaskCardHandle(new Task(getListView().getItems().get(index)));
-    }
-
-    public SomedayTaskCardHandle getSomedayTaskCardHandle(ReadOnlyTask task) {
-        Set<Node> nodes = getAllCardNodes();
-        Optional<Node> taskCardNode = nodes.stream()
-                .filter(n -> new SomedayTaskCardHandle(guiRobot, primaryStage, n).isSameTask(task))
-                .findFirst();
-        if (taskCardNode.isPresent()) {
-            return new SomedayTaskCardHandle(guiRobot, primaryStage, taskCardNode.get());
-        } else {
-            return null;
-        }
-    }
-
-    public DeadlineTaskCardHandle getDeadlineTaskCardHandle(int index) {
-        return getDeadlineTaskCardHandle(new Task(getListView().getItems().get(index)));
-    }
-
-    public DeadlineTaskCardHandle getDeadlineTaskCardHandle(ReadOnlyTask task) {
-        Set<Node> nodes = getAllCardNodes();
-        System.out.println(nodes);
-        Optional<Node> taskCardNode = nodes.stream()
-                .filter(n -> new DeadlineTaskCardHandle(guiRobot, primaryStage, n).isSameTask(task))
-                .findFirst();
-        if (taskCardNode.isPresent()) {
-            return new DeadlineTaskCardHandle(guiRobot, primaryStage, taskCardNode.get());
-        } else {
-            return null;
-        }
-    }
     
-    public EventTaskCardHandle getEventTaskCardHandle(int index) {
-        return getEventTaskCardHandle(new Task(getListView().getItems().get(index)));
+    public TaskCardHandle getTaskCardHandle(int index) {
+        return getTaskCardHandle(new Task(getListView().getItems().get(index)));
     }
 
-    public EventTaskCardHandle getEventTaskCardHandle(ReadOnlyTask task) {
+    public TaskCardHandle getTaskCardHandle(ReadOnlyTask task) {
         Set<Node> nodes = getAllCardNodes();
         Optional<Node> taskCardNode = nodes.stream()
-                .filter(n -> new EventTaskCardHandle(guiRobot, primaryStage, n).isSameTask(task))
+                .filter(n -> new TaskCardHandle(guiRobot, primaryStage, n).isSameTask(task))
                 .findFirst();
         if (taskCardNode.isPresent()) {
-            return new EventTaskCardHandle(guiRobot, primaryStage, taskCardNode.get());
+            return new TaskCardHandle(guiRobot, primaryStage, taskCardNode.get());
         } else {
             return null;
         }

@@ -13,28 +13,28 @@ public class MainGuiHandle extends GuiHandle {
         super(guiRobot, primaryStage, TestApp.APP_TITLE);
     }
 
-    public TaskListPanelHandle getTaskListPanel() {
-        return new TaskListPanelHandle(guiRobot, primaryStage);
+    public ListPanelHandle getListPanel() {
+        return new ListPanelHandle(guiRobot, primaryStage);
     }
     
-    public TaskListPanelHandle getTodayTaskListTabPanel() {
-        return new TaskListPanelHandle(guiRobot, primaryStage);
+    public ListPanelHandle getTodayTaskListTabPanel() {
+        return new ListPanelHandle(guiRobot, primaryStage);
     }
     
-    public TaskListPanelHandle getTomorrowTaskListTabPanel() {
-        return new TaskListPanelHandle(guiRobot, primaryStage);
+    public ListPanelHandle getTomorrowTaskListTabPanel() {
+        return new ListPanelHandle(guiRobot, primaryStage);
     }
     
-    public TaskListPanelHandle getIn7DaysTaskListTabPanel() {
-        return new TaskListPanelHandle(guiRobot, primaryStage);
+    public ListPanelHandle getIn7DaysTaskListTabPanel() {
+        return new ListPanelHandle(guiRobot, primaryStage);
     }
     
-    public TaskListPanelHandle getIn30DaysTaskListTabPanel() {
-        return new TaskListPanelHandle(guiRobot, primaryStage);
+    public ListPanelHandle getIn30DaysTaskListTabPanel() {
+        return new ListPanelHandle(guiRobot, primaryStage);
     }
     
-    public TaskListPanelHandle getSomedayTaskListTabPanel() {
-        return new TaskListPanelHandle(guiRobot, primaryStage);
+    public ListPanelHandle getSomedayTaskListTabPanel() {
+        return new ListPanelHandle(guiRobot, primaryStage);
     }
 
     public ResultDisplayHandle getResultDisplay() {

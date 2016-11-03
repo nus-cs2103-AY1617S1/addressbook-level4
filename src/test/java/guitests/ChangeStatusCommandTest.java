@@ -65,9 +65,9 @@ public class ChangeStatusCommandTest extends TaskManagerGuiTest {
 			TestTask[] pendingList, TestTask[] doneList) {
 		commandBox.runCommand(command);
 		commandBox.runCommand("list pending");
-		assertTrue(taskListPanel.isListMatching(pendingList));
+		assertTrue(listPanel.isListMatching(pendingList));
 		commandBox.runCommand("list done");
-		assertTrue(taskListPanel.isListMatching(doneList));
+		assertTrue(listPanel.isListMatching(doneList));
 	}
 	
 	public ArrayList<TestTask[]> doneTasks(int[] indices, 
