@@ -102,9 +102,9 @@ public class DateTimeUtil {
         if (dateTime1.getEndDate().isBefore(dateTime2.getStartDate())
                 || dateTime1.getStartDate().isAfter(dateTime2.getEndDate())) {
             return false;
+        } else {
+          return true;
         }
-
-        return true;
     }
 
     private static DateTime fillDateTime(DateTime dateTimeToFill, DateTime filledDateTime) {
