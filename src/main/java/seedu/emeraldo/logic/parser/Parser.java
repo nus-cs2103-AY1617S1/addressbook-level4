@@ -46,10 +46,9 @@ public class Parser {
     //@@author
     
     private static final Pattern TASK_TAG_ARGS_FORMAT = 
-            Pattern.compile("((?<action>((add)|(delete)|(clear))[^#]+)?)"
+            Pattern.compile("(?<action>(( add )|( delete )|( clear )))"
             + "(?<targetIndex>\\d+)" //index must be digits
-            + "\\s+"                               //any number of whitespace
-            + "(?<tagArguments>(?: #[^#]+)*)");    //quote marks are reserved for start and end of description field
+            + "(?<tagArguments>(?: #[^#]+)+)");    //quote marks are reserved for start and end of description field
     
     private static final Pattern SAVE_LOCATION = Pattern.compile("(?<targetLocation>(([^\\/\\s]*\\/)+|default))");
     
@@ -124,16 +123,22 @@ public class Parser {
 
         final Matcher matcher = TASK_TAG_ARGS_FORMAT.matcher(args.trim());
         
+        System.out.println(matcher.group("action"));
+        System.out.println(matcher.group("targetIndex"));
+        System.out.println(matcher.group("tagArguments"));
+        
+        // Validate arg string format
+        if (!matcher.matches()) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, TagCommand.MESSAGE_USAGE));
+        }
+        
         Optional<Integer> index = parseIndex(matcher.group("targetIndex"));
         if(!index.isPresent()){
             return new IncorrectCommand(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, TagCommand.MESSAGE_USAGE));
         }
         
-        // Validate arg string format
-        if (!matcher.matches()) {
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, TagCommand.MESSAGE_USAGE));
-        }
+
 
         try {
             return new TagCommand(
