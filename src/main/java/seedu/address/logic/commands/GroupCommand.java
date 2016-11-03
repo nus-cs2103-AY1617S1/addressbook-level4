@@ -4,6 +4,8 @@ import java.util.Set;
 
 /**
  * This class allows the program to group up and sort tasks/events by their tags
+ * 
+ * @@author A0144202Y
  */
 
 public class GroupCommand extends Command{

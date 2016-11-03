@@ -4,7 +4,7 @@ import java.util.Calendar;
 
 /**
  * Handles calculations with dates.
- * @author Muhammad Arif Bin Syed Nasser
+ * @author A0139097U
  *
  */
 public class DateManager {

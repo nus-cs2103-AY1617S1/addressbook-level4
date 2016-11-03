@@ -18,9 +18,12 @@ import java.util.Set;
 public class AddCommand extends Command {
 
     public static final String COMMAND_WORD = "add";
+    //@@author A0141812R
+    public static final String COMMAND_WORD_2 = "+"; //add shortcut
 
+    //@@author A0141812R
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task to the task manager. "
-            + "Parameters: NAME" 
+            + "Parameters: NAME"
             + " Example: " + COMMAND_WORD
             + " CS2103T Software Engineeringv0.1";
 
@@ -33,7 +36,7 @@ public class AddCommand extends Command {
      * Convenience constructor using raw values.
      *
      * @throws IllegalValueException if any of the raw values are invalid
-     * @throws ParseException 
+     * @throws ParseException
      */
     public AddCommand(String name, String startline, String deadline, String priority, Set<String> tags)
             throws IllegalValueException {
@@ -41,8 +44,8 @@ public class AddCommand extends Command {
         for (String tagName : tags) {
             tagSet.add(new Tag(tagName));
         }
-        
-        
+
+
         this.toAdd = new Task(
                 new Name(name),
                 new Startline(startline),

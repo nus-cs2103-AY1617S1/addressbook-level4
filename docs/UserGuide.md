@@ -8,13 +8,13 @@
 
 
 ## About the Task Manager
-
-Our client Jim had a desire to have an efficient and intuitive task manager that he would be able to use to schedule his work more effectively. Jim stated that his main criteria for his own ease of use was that the task manager should function almost exclusively with a command line interface. <br> 
+//@@author A0141812R
+Our client Jim had a desire to have an efficient and intuitive task manager that he would be able to use to schedule his work more effectively. Jim stated that his main criteria for his own ease of use was that the task manager should function almost exclusively with a command line interface. <br>
 
 Therefore with this in mind our team designed this task manager, which we have named “The Practical Task Manager” or “TPTM” for short. <br>
 
 We believe that our program will be very beneficial to any user like Jim and are thus releasing it to the public to use free of charge (with permission given by our client). So, if you need a simple program to manage your busy life TPTM is the program for you!     
-
+//@@author
 
 ## Quick Start Guide
 
@@ -39,21 +39,25 @@ Figure 1: Graphical User Interface (GUI) Mockup
 6. Refer to the [Basic Command Summary](#basic-command-summary) section below for the extensive list of commands as well as their format and simple examples. If you need any further information the [Features](#features) section will provide you with all you need to know about each command.<br>
 
 ## Basic Command Summary
-
+//@@author A0139516B
 Command | Format | Example  
 -------- | :------- | :--------
 Add | `add TASKNAME d/<DEADLINE> p/<PRIORITY>` | add CS2103 Project d/231217 p/4
 Edit | `edit INDEX <TASKNAME> d/<DEADLINE> p/<PRIORITY>` | edit CS2103 Project d/071116 p/5
 Delete | `delete INDEX` | delete 2
-Find | `find KEYWORD <MORE_KEYWORDS>` | find CS2101 Report 
+Find | `find KEYWORD <MORE_KEYWORDS>` | find CS2101 Report
 List | `list`  
 Listall | `listall`
 Complete | 'complete INDEX' | complete 1
-Help | `help` 
+Help | `help`
+Undo | `undo`
+Revert | `rev`
 Select | `select INDEX` | select 4
 View | `view TASKNAME` | view Reservist
+Exit | `exit`
+Update | `update`
 Clear | `clear`
-
+//@@author
 <div style="page-break-after: always;"></div>
 
 ## Features
@@ -76,11 +80,12 @@ Format: `add TASKNAME s/<STARTDATE> d/<DEADLINE> p/<PRIORITY> t/<TAG>...`
 > Tasks can have different priority levels or none at all (from 1 to 5, where 1 is the lowest priority and 5 is the highest priority).<br>
 > Tasks can have any amount of tags (even 0).
 
+//@@author A0141812R
 Examples:
 * `add complete report`
   Adds a floating task named ‘complete report’
 * `add CS2103 project d/231016 p/5 t/Group`
-  Adds a deadline task named ‘CS2103 project’ that is due on ‘23-10-16’ with a priority level of ‘5’ and the tag ‘Group’. 
+  Adds a deadline task named ‘CS2103 project’ that is due on ‘23-10-16’ with a priority level of ‘5’ and the tag ‘Group’.
 * `add make sandwich s/111016 [12:45] d/111016 [13:00] p/5 t/hungry`                                         `
   Adds an event named ‘make sandwich’ which starts at ‘12:45’ on ’11-10-16’ due on the same day at ’13:00’ with a priority level of ‘5’ and the tag ‘hungry’
 
@@ -99,7 +104,7 @@ Examples:
 * `find CS2101 meeting`<br>
   `edit 1 CS2101 meeting d/131016 p/5 t/John will be late`<br>
   Added in the tag `John will be late` and changed the priority.
-  
+
 #### Deleting a task : `delete`
 Description: Deletes the specified task from the task manager.<br>
 **Note: This process is irreversible.**<br>
@@ -118,8 +123,9 @@ Examples:
   `delete 1`<br>
   Deletes the 1st task based on the results of the `find` command.
 
+//@@author A0141812R
 #### Finding all tasks containing any keyword in their name: `find`
-Description: Finds task/s whose names contain any of the given keywords.<br>
+Description: Finds task/s whose names contain any of the specified keywords.<br>
 Format: `find KEYWORD <MORE_KEYWORDS>`
 
 > Key things to note:
@@ -135,6 +141,7 @@ Examples:
   Returns `Software Engineering` but not `software`
 * `find CS2103T Software Engineering`<br>
   Returns any task that has the names `CS2103T`, `Software`, or `Engineering`
+//@@author
 
 #### Listing all uncomplete tasks : `list`
 Format: `list`
@@ -148,6 +155,7 @@ Format: `listall`
 > Key thing to note:
 > `listall` will show in order of tasks added.
 
+//@@author A0141812R
 #### Completing a task : `complete`
 Description: Completes the specified task based on the task manager.
 Format: `complete INDEX`
@@ -166,7 +174,8 @@ Examples:
 * `list`<br>
   `complete 8`<br>
   Completes the 8th task in the task manager.
-  
+//@@author
+
 #### Viewing help : `help`
 Description: Displays all commands<br>
 Format: `help`
@@ -175,6 +184,18 @@ Format: `help`
 > Help is also shown if you enter an incorrect command e.g. `abcd`
 
 <div style="page-break-after: always;"></div>
+
+#### Undoing a command: `undo`
+Format: `undo`
+
+> Key thing to note:
+> Undo can only be used for up to 10 commands in a row
+
+#### Reverting back from an undo command: `rev`
+Format: `rev`
+
+> Key thing to note:
+> Revert can only be used for up to 10 undoes in a row
 
 #### Selecting a task : `select`
 Description: Selects the task identified by the index number used in the last task listing.<br>
@@ -188,7 +209,7 @@ Format: `select INDEX`
 Examples:
 * `list`<br>
   `select 2`<br>
-  Selects the 2nd task in the address book.<br>
+  Selects the 2nd task in the task manager.<br>
 * `find CS2103T` <br>
   `select 1`<br>
   Selects the 1st person in the results of the `find` command.
@@ -207,11 +228,24 @@ Examples:
 Description: Exits the program.<br>
 Format: `exit`
 
+#### Updating the task manager: `update`
+Description: Updates the task manager if the date and time is out of synchronisation with the computer and checks the amount of time left to do a task or prepare for an event.
+Format: `update`
+
+> Key things to note:<br>
+> The name of the task/event will be highlighted in blue, if the task or event has only four days left.<br>
+> The name will be highlighted in green, if there are three days left.<br>
+> The name will be highlighted in purple, if there are two days left.<br>
+> The name will be highlighted in orange, if there is only a day left.<br>
+> The name will be highlighted in red, if the task or event is not labelled complete as it will be taken to be overdue or unattended.
+
 #### Clearing all entries : `clear`
 Description: Clears all entries from the task manager.<br>
 Format: `clear`
 
-> Please only use this if you need to reset the task manager. For example if you need to pass the task manager to someone else at your work terminal or if you are changing jobs this would be a good way to remove all your personal effects in one command.
+> Key things to note: <br>
+> Please only use this if you need to reset the task manager.<br>
+> For example if you need to pass the task manager to someone else at your work terminal or if you are changing jobs this would be a good way to remove all your personal effects in one command.
 
 #### Saving the data
 Task Manager data is saved in the hard disk automatically after any command that changes the data.<br>
@@ -222,4 +256,3 @@ There is no need to save manually.
 **Q**: How do I transfer my data to another Computer?<br>
 **A**: Install the app in the other computer and overwrite the empty data file it creates with
        the file that contains the data of your previous Task Manager folder.          
-

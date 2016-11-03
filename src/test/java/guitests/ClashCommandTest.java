@@ -3,6 +3,7 @@ package guitests;
 import org.junit.Test;
 import static org.junit.Assert.assertTrue;
 
+//@@author A0139097U
 public class ClashCommandTest extends AddressBookGuiTest {
 	
 	@Test

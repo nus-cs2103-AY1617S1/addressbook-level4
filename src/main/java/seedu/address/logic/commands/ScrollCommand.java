@@ -3,6 +3,7 @@ package seedu.address.logic.commands;
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.events.ui.JumpToListRequestEvent;
 
+//@@author A0139097U
 public class ScrollCommand extends Command {
 	
 	public static final String COMMAND_WORD = "scroll";

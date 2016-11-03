@@ -7,6 +7,7 @@ import seedu.address.logic.commands.*;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
+import java.io.File;
 import java.text.ParseException;
 import java.util.*;
 import java.util.regex.Matcher;
@@ -65,14 +66,25 @@ public class Parser {
 
         case AddCommand.COMMAND_WORD:
             return prepareAdd(arguments);
-			
-	    case CompleteCommand.COMMAND_WORD:
-	    	try {
-	    		return prepareComplete(arguments);
-	    	} catch (IllegalValueException e) {
-	    		// TODO Auto-generated catch block
-	    		e.printStackTrace();
-	    	}
+	
+        case AddCommand.COMMAND_WORD_2:
+            return prepareAdd(arguments);
+		
+	case CompleteCommand.COMMAND_WORD:
+	    try {
+	   	return prepareComplete(arguments);
+	    } catch (IllegalValueException e) {
+	    	// TODO Auto-generated catch block
+	    	e.printStackTrace();
+	    }
+	
+        case CompleteCommand.COMMAND_WORD_2:
+	    try {
+	   	return prepareComplete(arguments);
+	    } catch (IllegalValueException e) {
+	    	// TODO Auto-generated catch block
+	    	e.printStackTrace();
+	    }
 
         case SelectCommand.COMMAND_WORD:
             return prepareSelect(arguments);
@@ -83,12 +95,18 @@ public class Parser {
         case DeleteCommand.COMMAND_WORD:
             return prepareDelete(arguments);
 
+        case DeleteCommand.COMMAND_WORD_2:
+            return prepareDelete(arguments);
+        
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();
 
         case FindCommand.COMMAND_WORD:
             return prepareFind(arguments);
 
+        case FindCommand.COMMAND_WORD_2:
+            return prepareFind(arguments);
+			
         case ListCommand.COMMAND_WORD:
             return new ListCommand();
 
@@ -121,6 +139,12 @@ public class Parser {
         	 
         case ScrollCommand.COMMAND_WORD:
         	return new ScrollCommand(arguments);
+        	
+        case SaveCommand.COMMAND_WORD:
+            return prepareSave(arguments);
+        
+        case LoadCommand.COMMAND_WORD:
+            return prepareLoad(arguments);
 
         default:
             return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
@@ -184,6 +208,7 @@ public class Parser {
     	return args; 
 	}
     
+  //@@ author A0141812R
     private String getPriorityFromArgs(String args) {
         if (args.isEmpty()) {
             return "0";
@@ -315,6 +340,8 @@ public class Parser {
         if (!matcher.matches()) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
         }
+        
+        //@@ author A0141812R
         try {
             return new EditCommand(
             		matcher.group("targetIndex"),
@@ -350,5 +377,18 @@ public class Parser {
     	 }
 
     }
+    
+    private Command prepareSave(String args) throws ParseException{
+       
+        
+            return new SaveCommand(args.trim());
+    }
+    
+    private Command prepareLoad(String args) throws ParseException{
+        
+        
+        return new LoadCommand(args.trim());
+}
+
 
 }

@@ -1,4 +1,4 @@
-# Developer Guide 
+# Developer Guide
 
 * [Introduction](#introduction)
 * [Setting Up](#setting-up)
@@ -13,10 +13,10 @@
 * [Appendix E: Product Survey's](#appendix-e--product-surveys)
 
 
-## Introduction 
+## Introduction
 
-This guide will allow you as a developer to obtain a better understanding of how 'The Practical Task Manager' functions. This task manager was designed based on two main principles, that the user would find it intuitive to use and simple to understand. 
-   
+This guide will allow you as a developer to obtain a better understanding of how 'The Practical Task Manager' functions. This task manager was designed based on two main principles, that the user would find it intuitive to use and simple to understand.
+
 ## Setting up
 
 #### Prerequisites
@@ -25,19 +25,19 @@ This guide will allow you as a developer to obtain a better understanding of how
 
     > Having any Java 8 version is not enough. <br>
     This application will not work with earlier versions of Java 8.
-    
+
 2. **Eclipse** IDE
 
 3. **e(fx)clipse** plugin for Eclipse (Do the steps 2 onwards given in
    [this page](http://www.eclipse.org/efxclipse/install.html#for-the-ambitious))
-   
+
 4. **Buildship Gradle Integration** plugin from the [Eclipse Marketplace](https://marketplace.eclipse.org/content/buildship-gradle-integration)
 
 
 #### Importing the project into Eclipse
 
 0. Fork this repo, and clone the fork to your computer
-1. Open Eclipse (Note: Ensure you have installed the **e(fx)clipse** and **buildship** plugins as given 
+1. Open Eclipse (Note: Ensure you have installed the **e(fx)clipse** and **buildship** plugins as given
    in the prerequisites above)
 2. Click `File` > `Import`
 3. Click `Gradle` > `Gradle Project` > `Next` > `Next`
@@ -48,18 +48,18 @@ This guide will allow you as a developer to obtain a better understanding of how
   > * Depending on your connection speed and server load, it can even take up to 30 minutes for the set up to finish
       (This is because Gradle downloads library files from servers during the project set up process)
   > * If Eclipse auto-changed any settings files during the import process, you can discard those changes.
-  
+
 #### Troubleshooting project setup
 
 **Problem: Eclipse reports compile errors after new commits are pulled from Git**
-* Reason: Eclipse fails to recognize new files that appeared due to the Git pull. 
-* Solution: Refresh the project in Eclipse:<br> 
+* Reason: Eclipse fails to recognize new files that appeared due to the Git pull.
+* Solution: Refresh the project in Eclipse:<br>
   Right click on the project (in Eclipse package explorer), choose `Gradle` -> `Refresh Gradle Project`.
-  
+
 **Problem: Eclipse reports some required libraries missing**
-* Reason: Required libraries may not have been downloaded during the project import. 
+* Reason: Required libraries may not have been downloaded during the project import.
 * Solution: [Run tests using Gradle](UsingGradle.md) once (to refresh the libraries).
- 
+
 
 ## Design
 
@@ -110,7 +110,7 @@ being saved to the hard disk and the status bar of the UI being updated to refle
 <img src="images/SDforDeleteTaskEventHandling.png" width="800">
 Figure 4: Sequence Diagram For Event Handling Of Delete Person
 > Note how the event is propagated through the `EventsCenter` to the `Storage` and `UI` without `Model` having
-  to be coupled to either of them. This is an example of how this Event Driven approach helps us reduce direct 
+  to be coupled to either of them. This is an example of how this Event Driven approach helps us reduce direct
   coupling between components.
 
 The sections below give more details of each component.
@@ -208,7 +208,7 @@ and logging destinations.
 
 ### Configuration
 
-Certain properties of the application can be controlled (e.g App name, logging level) through the configuration file 
+Certain properties of the application can be controlled (e.g App name, logging level) through the configuration file
 (default: `config.json`):
 
 ## Testing
@@ -226,31 +226,31 @@ Tests can be found in the `./src/test/java` folder.
 
 We have two types of tests:
 
-1. **GUI Tests** - These are _System Tests_ that test the entire App by simulating user actions on the GUI. 
+1. **GUI Tests** - These are _System Tests_ that test the entire App by simulating user actions on the GUI.
    These are in the `guitests` package.
-  
+
 2. **Non-GUI Tests** - These are tests not involving the GUI. They include,
    1. _Unit tests_ targeting the lowest level methods/classes. <br>
       e.g. `seedu.address.commons.UrlUtilTest`
-   2. _Integration tests_ that are checking the integration of multiple code units 
+   2. _Integration tests_ that are checking the integration of multiple code units
      (those code units are assumed to be working).<br>
       e.g. `seedu.address.storage.StorageManagerTest`
-   3. Hybrids of unit and integration tests. These test are checking multiple code units as well as 
+   3. Hybrids of unit and integration tests. These test are checking multiple code units as well as
       how the are connected together.<br>
       e.g. `seedu.address.logic.LogicManagerTest`
-  
+
 **Headless GUI Testing** :
 Thanks to the [TestFX](https://github.com/TestFX/TestFX) library we use,
- our GUI tests can be run in the _headless_ mode. 
+ our GUI tests can be run in the _headless_ mode.
  In the headless mode, GUI tests do not show up on the screen.
  That means the developer can do other things on the Computer while the tests are running.<br>
  See [UsingGradle.md](UsingGradle.md#running-tests) to learn how to run tests in headless mode.
- 
+
 #### Troubleshooting tests
  **Problem: Tests fail because NullPointException when AssertionError is expected**
- * Reason: Assertions are not enabled for JUnit tests.<br> 
+ * Reason: Assertions are not enabled for JUnit tests.<br>
    This can happen if you are not using a recent Eclipse version (i.e. _Neon_ or later)
- * Solution: Enable assertions in JUnit tests as described 
+ * Solution: Enable assertions in JUnit tests as described
    [here](http://stackoverflow.com/questions/2522897/eclipse-junit-ea-vm-option). <br>
    Delete run configurations created when you ran tests earlier.
 
@@ -269,12 +269,12 @@ See [UsingTravis.md](UsingTravis.md) for more details.
 ### Making a Release
 
 Here are the steps to create a new release.
- 
+
  1. Generate a JAR file [using Gradle](UsingGradle.md#creating-the-jar-file).
  2. Tag the repo with the version number. e.g. `v0.1`
- 3. [Create a new release using GitHub](https://help.github.com/articles/creating-releases/) 
+ 3. [Create a new release using GitHub](https://help.github.com/articles/creating-releases/)
     and upload the JAR file your created.
-   
+
 ### Managing Dependencies
 
 A project often depends on third-party libraries. For example, Address Book depends on the
@@ -283,6 +283,7 @@ can be automated using Gradle. For example, Gradle can download the dependencies
 is better than these alternatives.<br>
 a. Include those libraries in the repo (this bloats the repo size)<br>
 b. Require developers to download those libraries manually (this creates extra work for developers)<br>
+
 
 <div style="page-break-after: always;"></div>
 ## Appendix A : User Stories
@@ -313,9 +314,9 @@ Priority | As a ... | I want to ... | So that I can...
 `*` | user | delegate a task to my friends | lessen the workload
 `*` | advanced user | track the amount of time spent on a task | detect and manage time wasters
 `*` | user | keep track of ideas and history | not forget ideas
-`*` | user | see the number of tasks completed at the end of the day | have a better understanding of my capabilities. 
+`*` | user | see the number of tasks completed at the end of the day | have a better understanding of my capabilities.
 
-
+//@@author A0139516B
 ## Appendix B : Use Cases
 
 (For all use cases below, the **System** is the `TaskManager` and the **Actor** is the `user`, unless specified otherwise)
@@ -377,7 +378,7 @@ Priority | As a ... | I want to ... | So that I can...
 3. System updates the task with its new details.
 4. System displays a feedback message that the task has been updated successfully.
 5. List displayed reflects the updated details of the specific task.
-6. Use case ends. 
+6. Use case ends.
 
 **Extensions**
 
@@ -417,15 +418,15 @@ Priority | As a ... | I want to ... | So that I can...
 
 ##### MSS
 
-> Main Success Scenario 
+> Main Success Scenario
 
 ## Appendix E : Product Survey's
 
-### Google Calendar Quick Add 
+### Google Calendar Quick Add
 
 **Strengths**
 
-1. Has an intuitive User Interface. 
+1. Has an intuitive User Interface.
 2. Is able to have user shared schedules to accommodate for better planning.
 
 **Weaknesses**
@@ -449,7 +450,7 @@ Priority | As a ... | I want to ... | So that I can...
 
 **Strengths**
 
-1. Is able to customize labels for grouped tasks (in a column) 
+1. Is able to customize labels for grouped tasks (in a column)
 2. Has a convenient inbuilt scheduling service.
 
 **Weaknesses**
