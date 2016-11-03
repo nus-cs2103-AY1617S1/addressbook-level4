@@ -14,6 +14,7 @@ import seedu.taskscheduler.commons.events.storage.DataSavingExceptionEvent;
 import seedu.taskscheduler.commons.events.ui.JumpToListRequestEvent;
 import seedu.taskscheduler.commons.events.ui.ShowHelpEvent;
 import seedu.taskscheduler.commons.events.ui.TagPanelSelectionChangedEvent;
+import seedu.taskscheduler.commons.events.ui.TaskPanelItemChangedEvent;
 import seedu.taskscheduler.commons.events.ui.TaskPanelSelectionChangedEvent;
 import seedu.taskscheduler.commons.util.StringUtil;
 import seedu.taskscheduler.logic.Logic;
@@ -54,7 +55,8 @@ public class UiManager extends ComponentManager implements Ui {
             mainWindow = MainWindow.load(primaryStage, config, prefs, logic);
             mainWindow.show(); //This should be called before creating other UI parts
             mainWindow.fillInnerParts();
-
+            mainWindow.fillLabels();
+            mainWindow.updateLabels(logic.getFilteredTaskList());
         } catch (Throwable e) {
             logger.severe(StringUtil.getDetails(e));
             showFatalErrorDialogAndShutdown("Fatal error during initializing", e);
@@ -135,6 +137,11 @@ public class UiManager extends ComponentManager implements Ui {
     @Subscribe
     private void handleTaskPanelSelectionChangedEvent(TaskPanelSelectionChangedEvent event){
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
+    }
+
+    @Subscribe
+    private void handleTaskPanelItemChangedEvent(TaskPanelItemChangedEvent event){
+        mainWindow.updateLabels(event.getNewList());
     }
 
 }

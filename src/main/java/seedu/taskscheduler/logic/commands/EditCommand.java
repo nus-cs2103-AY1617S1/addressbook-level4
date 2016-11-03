@@ -94,7 +94,7 @@ public class EditCommand extends Command {
     private void extractParamsFromArgs() throws IllegalValueException {
         String args = this.args;
         args = extractAddressFromArgs(args);
-        args = extractDatetimesFromArgs(args);
+        args = extractPeriodFromArgs(args);
         extractNameFromArgs(args);
     }
     
@@ -107,7 +107,7 @@ public class EditCommand extends Command {
         return args;
     }
     
-    private String extractDatetimesFromArgs(String args) throws IllegalValueException {
+    private String extractPeriodFromArgs(String args) throws IllegalValueException {
         if (args.contains("from ") && args.contains("to ")) {
             int indexTo = args.lastIndexOf("to ");
             int indexFrom = args.lastIndexOf("from ");
@@ -135,8 +135,9 @@ public class EditCommand extends Command {
     
     private Task assignParamsToTask(Task task) {
         Task newTask = new Task(task);
-        if (task.getType() != TaskType.EVENT && (address != null || startDate != null))
+        if (task.getType() != TaskType.EVENT && (address != null || startDate != null)) {
             newTask.setType(TaskType.EVENT);
+        }
         else if (endDate != null && task.getType() == TaskType.FLOATING) {
             newTask.setType(TaskType.DEADLINE);
         }

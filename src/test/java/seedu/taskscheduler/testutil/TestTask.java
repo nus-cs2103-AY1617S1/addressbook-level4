@@ -142,4 +142,9 @@ public class TestTask implements ReadOnlyTask {
     public void setType(TaskType type) {
         this.type = type;
     }
+    @Override
+    public boolean isOverdue() {
+        // TODO Auto-generated method stub
+        return false;
+    }
 }

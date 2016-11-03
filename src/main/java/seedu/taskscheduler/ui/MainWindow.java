@@ -1,10 +1,13 @@
 package seedu.taskscheduler.ui;
 
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
-import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -13,6 +16,7 @@ import seedu.taskscheduler.commons.core.GuiSettings;
 import seedu.taskscheduler.commons.events.ui.ExitAppRequestEvent;
 import seedu.taskscheduler.logic.Logic;
 import seedu.taskscheduler.model.UserPrefs;
+import seedu.taskscheduler.model.task.ReadOnlyTask;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -36,6 +40,9 @@ public class MainWindow extends UiPart {
     private CommandBox commandBox;
     private Config config;
     private UserPrefs userPrefs;
+    private StringProperty completedCounter;
+    private StringProperty pendingCounter;
+    private StringProperty overdueCounter;
 
     // Handles to elements of this Ui container
     private VBox rootLayout;
@@ -49,13 +56,25 @@ public class MainWindow extends UiPart {
 
     @FXML
     private MenuItem tagsPaneMenuItem;
+    
     @FXML
     private MenuItem priorityPaneMenuItem;
+    
     @FXML
     private MenuItem taskPaneMenuItem;
+    
     @FXML
     private MenuItem commandBoxPaneMenuItem;
 
+    @FXML
+    private Label lblCompleted;
+    
+    @FXML
+    private Label lblPending;
+    
+    @FXML
+    private Label lblOverdue;
+    
     @FXML
     private AnchorPane priorityListPanelPlaceholder;
     
@@ -115,10 +134,19 @@ public class MainWindow extends UiPart {
         taskListPanel = TaskListPanel.load(primaryStage, getTaskListPlaceholder(), logic.getFilteredTaskList());
         tagListPanel = TagListPanel.load(primaryStage, getTagListPlaceholder(), logic.getUnmodifiableTagList());
         priorityListPanel = PriorityListPanel.load(primaryStage, getPriorityListPlaceholder(), 
-                logic.getPriorityFilteredTaskList());
+                logic.getFilteredTaskList());
         resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
         statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getTaskSchedulerFilePath());
         commandBox = CommandBox.load(primaryStage, getCommandBoxPlaceholder(), resultDisplay, logic);
+    }
+    
+    public void fillLabels() {
+        completedCounter = new SimpleStringProperty();
+        pendingCounter = new SimpleStringProperty();
+        overdueCounter = new SimpleStringProperty();
+        lblCompleted.textProperty().bind(completedCounter);
+        lblPending.textProperty().bind(pendingCounter);
+        lblOverdue.textProperty().bind(overdueCounter);
     }
     //@@author 
 
@@ -223,4 +251,15 @@ public class MainWindow extends UiPart {
 
     public void releaseResources() {
     }
+    
+    //@@author A0148145E
+    public void updateLabels(ObservableList<ReadOnlyTask> list){
+        long pendingCount = list.stream().filter(b -> !b.isCompleted()).count();
+        long completedCount = list.size() - pendingCount;
+        long overdueCount = list.stream().filter(b -> b.isOverdue()).count();
+        pendingCounter.set(String.valueOf(pendingCount));
+        completedCounter.set(String.valueOf(completedCount));
+        overdueCounter.set(String.valueOf(overdueCount));
+    }
+
 }

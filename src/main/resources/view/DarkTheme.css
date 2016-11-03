@@ -5,8 +5,8 @@
 .label {
     -fx-font-size: 11pt;
     -fx-font-family: "Segoe UI Semibold";
-    -fx-text-fill: #555555;
-    -fx-opacity: 0.9;
+    -fx-text-fill: #FFFFFF;
+    -fx-opacity: 0.8;
 }
 
 .label-bright {

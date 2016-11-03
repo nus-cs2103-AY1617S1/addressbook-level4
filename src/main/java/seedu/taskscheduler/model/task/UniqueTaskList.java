@@ -142,7 +142,7 @@ public class UniqueTaskList implements Iterable<Task> {
         if (index < 0) {
             throw new TaskNotFoundException();
         }
-        toMark.unMarkComplete();
+        toMark.unmarkComplete();
         internalList.set(index, toMark);
         EventsCenter.getInstance().post(new JumpToListRequestEvent(index));
     }

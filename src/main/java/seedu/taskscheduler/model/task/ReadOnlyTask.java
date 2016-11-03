@@ -106,12 +106,23 @@ public interface ReadOnlyTask {
     }
 
     //@@author A0148145E
+    /**  
+     * Compare TaskDateTime and return true if is before
+     */  
     default boolean isBefore(ReadOnlyTask other) {
         return getComparisonDateTime().isBefore(other.getComparisonDateTime());
     }
 
     //@@author A0148145E
+    /**  
+     * Compare TaskDateTime and return true if is after
+     */ 
     default boolean isAfter(ReadOnlyTask other) {
         return getComparisonDateTime().isAfter(other.getComparisonDateTime());
     }
+
+    /**  
+     * Compare TaskDateTime and return true if it is overdue
+     */ 
+    boolean isOverdue();
 }

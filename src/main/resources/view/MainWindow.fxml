@@ -96,7 +96,7 @@
                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <Label contentDisplay="CENTER" focusTraversable="false" text="1000">
+                        <Label fx:id="lblCompleted" contentDisplay="CENTER" focusTraversable="false" text="1000">
                            <padding>
                               <Insets left="100.0" />
                            </padding>
@@ -111,12 +111,12 @@
                               <Insets left="10.0" />
                            </padding>
                         </Label>
-                        <Label contentDisplay="CENTER" focusTraversable="false" text="1000" GridPane.columnIndex="1">
+                        <Label fx:id="lblPending" contentDisplay="CENTER" focusTraversable="false" text="1000" GridPane.columnIndex="1">
                            <padding>
                               <Insets left="100.0" />
                            </padding>
                         </Label>
-                        <Label contentDisplay="CENTER" focusTraversable="false" text="1000" GridPane.columnIndex="2">
+                        <Label fx:id="lblOverdue" contentDisplay="CENTER" focusTraversable="false" text="1000" GridPane.columnIndex="2">
                            <padding>
                               <Insets left="100.0" />
                            </padding>

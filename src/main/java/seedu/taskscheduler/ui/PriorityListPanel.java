@@ -99,9 +99,10 @@ public class PriorityListPanel extends UiPart {
         protected void updateItem(ReadOnlyTask task, boolean empty) {
             super.updateItem(task, empty);
 
-            if (empty || task == null) {
+            if (empty || task == null || task.isCompleted()) {
                 setGraphic(null);
                 setText(null);
+                setHeight(0);
             } else {
                 setGraphic(TaskCard.load(task, getIndex() + 1).getLayout());
             }
