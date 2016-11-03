@@ -15,7 +15,7 @@
         <URL value="@Extensions.css" />
     </stylesheets>
     <children>
-      <Label fx:id="header" text="Label" VBox.vgrow="ALWAYS">
+      <Label fx:id="header" styleClass="pane-title" text="EVENTS" VBox.vgrow="ALWAYS">
          <VBox.margin>
             <Insets bottom="4.0" left="4.0" right="4.0" />
          </VBox.margin>
