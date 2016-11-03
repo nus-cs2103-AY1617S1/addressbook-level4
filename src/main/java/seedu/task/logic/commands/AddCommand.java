@@ -102,7 +102,7 @@ public class AddCommand extends UndoableCommand {
             model.addTask(newTask);
         }
     }
-    //@author   
+    //@@author   
 
     @Override
     public CommandResult rollback() {
