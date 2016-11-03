@@ -57,10 +57,10 @@ public interface Model {
     void updateFilteredTaskListToShowAll();
 
     /** Updates the filter of the filtered task list to filter by the given keywords*/
-    void updateFilteredTaskList(Set<String> keywords);
+    void showFoundTaskList(Set<String> keywords, boolean isPowerFind);
     
     /** Updates the filter of the filtered event list to filter by the given keywords*/
-    void updateFilteredEventList(Set<String> keywords);
+    void showFoundEventList(Set<String> keywords, boolean isPowerFind);
     
     /** Updates the filter of the filtered task list to filter by the status*/
     void updateFilteredTaskListToShowWithStatus(Boolean statusCompleted);

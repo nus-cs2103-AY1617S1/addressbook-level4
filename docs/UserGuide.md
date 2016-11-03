@@ -206,17 +206,22 @@ Format: `undo`
 #### Finding for events/tasks
 With the find command, you can find for tasks or events which contain some keywords in their **name** as well as in their **descriptions**. 
 
-Format: `find [/e|/t] KEYWORD [MORE_KEYWORDS]`
+Format: `find KEYWORD [/ MORE_KEYWORDS]`
 
+You can supply the `/power` flag to indicate a more powerful search, where events or tasks will be found as long as they contain some of the keywords. 
+
+Format: `find KEYWORD [/ MORE_KEYWORDS] [/power]`
+
+> When finding items, two strings are matched if they are similar, where they have a distance of less than 2. Refer to [FAQ](#faq) for a detailed definition of word distance. 
 > `KEYWORDS` are case insensitive. Events/Tasks which contain at least one keyword in their names will be returned. 
 
 Examples:
 * `find cs2103`
-  Shows tasks and events which have CS2103 (ignoring cases) in their names or description.
+  Shows tasks and events which have CS2103 (ignoring cases) in their names or description, or have similar words. 
 * `find CS`
   Partial match is not supported. Will not return any other tasks or events unless they contain "CS" (ignoring cases) in the names or description.
-* `find CS2106 CS2103`
-  Returns any tasks or events having "CS2106", "CS2103" in their names. 
+* `find cs210X /power`
+  Returns any tasks or events having which contain similar words of "cs210X" in the descriptiosn or names. 
 
 <!-- @@author-->
 
@@ -287,8 +292,12 @@ Format : `exit`
 
 **Q**: How do I transfer my data to another Computer?<br>
 **A**: Install the app in the other computer and overwrite the empty data file it creates with 
-       the file that contains the data of your previous dowat.
-       
+       the file that contains the data of your previous dowat.<br>
+
+**Q**: What is word distance? <br>
+**A**: It is the Levenshtein distance between two words is the minimum number of single-character edits (i.e. insertions, deletions or substitutions) required to change one word into the other.
+
+
 ## Command Summary
 
  Command | Format  
@@ -304,7 +313,7 @@ Format : `exit`
 [Save](#changing-the-save-location) | `save FILEPATH`
 [Help](#viewing-help) | `help [COMMAND]`
 [Undo](#undo-modifications) | `undo`
-[Find](#finding-for-events/tasks) | `find KEYWORD [MORE_KEYWORDS]`
+[Find](#finding-for-events/tasks) | `find KEYWORD [/ MORE_KEYWORDS][/power]`
 [Clear Tasks or Events](#clearing-completed/uncompleted-tasks/events) |`clear /t|/e [/a]`
 [Clear Tasks and Events](#clearing-completed/uncompleted-tasks and events) |`clear [/a]`
 [Show Day/Week view of the calendar of certain time](#toggle-calendar-view) | `show today [/day|/wk]`
