@@ -197,10 +197,6 @@ public class LogicManagerTest {
     @Test
     public void execute_add_invalidPersonData() throws Exception {
         assertCommandBehavior(
-                "add []\\[;] d/task description", Name.MESSAGE_NAME_CONSTRAINTS);
-        assertCommandBehavior(
-                "add []\\[;] d/task description date/11-11-2018 1111", Name.MESSAGE_NAME_CONSTRAINTS);
-        assertCommandBehavior(
                 "add Valid Name d/can_be_anything date/ab-cd-ef", Datetime.MESSAGE_DATETIME_CONSTRAINTS);
         assertCommandBehavior(
                 "add Valid Name d/can_be_anything date/11-11-2018 1111 t/invalid_-[.tag", Tag.MESSAGE_TAG_CONSTRAINTS);

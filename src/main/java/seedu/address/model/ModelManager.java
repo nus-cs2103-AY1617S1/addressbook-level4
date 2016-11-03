@@ -277,7 +277,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public synchronized void overdueTask(ReadOnlyTask target) throws TaskNotFoundException {
+    public synchronized void overdueTask(Task target) throws TaskNotFoundException {
         taskBook.setTaskOverdue(target);
         updateFilteredListToShowAll();
         indicateTaskBookChanged();
