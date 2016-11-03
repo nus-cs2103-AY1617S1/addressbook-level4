@@ -151,7 +151,7 @@ public class ModelManager extends ComponentManager implements Model {
                 break;
             
             case PENDING:
-                updateFilteredTaskList(new PredicateExpression(new CompletedQualifier(true)));
+                updateFilteredTaskList(new PredicateExpression(new CompletedQualifier(false)));
                 break;
                 
             case OVERDUE:
