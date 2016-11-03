@@ -8,6 +8,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.commons.exceptions.DuplicateDataException;
 import seedu.address.commons.util.CollectionUtil;
+import seedu.address.logic.commands.AddCommand;
 
 /**
  * A list of tasks that enforces uniqueness between its elements and does not allow nulls.
@@ -54,16 +55,16 @@ public class UniqueTaskList implements Iterable<Task> {
      *
      * @throws DuplicateTaskException if the task to add is a duplicate of an existing task in the list.
      */
-    public boolean add(Task toAdd) {
+    public int add(Task toAdd) {
         assert toAdd != null;
+        int checkForDuplicate = 0;
         
-        boolean duplicate = false;
         if (contains(toAdd)) {
-        	duplicate = true;
+        	checkForDuplicate = AddCommand.DUPLICATE;
         }
         
         internalList.add(toAdd);
-        return duplicate;
+        return checkForDuplicate;
     }
 
     /**

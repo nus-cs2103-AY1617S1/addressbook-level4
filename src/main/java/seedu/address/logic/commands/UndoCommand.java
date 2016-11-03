@@ -1,5 +1,6 @@
 package seedu.address.logic.commands;
 
+import seedu.address.commons.util.CommandUtil;
 import seedu.address.model.task.UniqueTaskList;
 import seedu.address.model.undo.UndoTask;
 
@@ -32,7 +33,7 @@ public class UndoCommand extends Command {
             return new CommandResult(MESSAGE_UNDO_NOT_POSSIBLE);
         }
 
-        boolean duplicateTaskResult = false;
+        int duplicateOrClashTaskResult = 0;
 
         try {
             switch (toUndo.getCommand()){
@@ -42,12 +43,12 @@ public class UndoCommand extends Command {
                 break;
 
             case DeleteCommand.COMMAND_WORD:
-                duplicateTaskResult = model.addTask(toUndo.getPostData());
+                duplicateOrClashTaskResult = model.addTask(toUndo.getPostData());
                 break;
 
             case EditCommand.COMMAND_WORD:
                 model.deleteTask(toUndo.getPostData());               
-                duplicateTaskResult = model.addTask(toUndo.getPreData());
+                duplicateOrClashTaskResult = model.addTask(toUndo.getPreData());
                 break;
 
             case DoneCommand.COMMAND_WORD:
@@ -60,13 +61,8 @@ public class UndoCommand extends Command {
             model.addRedo(toUndo);
 
             //Determine if duplicate exist
-            if (duplicateTaskResult){
-                return new CommandResult(String.format(MESSAGE_SUCCESS, toUndo.getCommand())
-                        + "\n" + AddCommand.MESSAGE_DUPLICATE_TASK);
-            }
-            else {
-                return new CommandResult(String.format(MESSAGE_SUCCESS, toUndo.getCommand()));
-            }
+            CommandResult temporary = new CommandResult(String.format(MESSAGE_SUCCESS, toUndo.getCommand()));
+            return CommandUtil.generateCommandResult(temporary,duplicateOrClashTaskResult);
         }
         catch (UniqueTaskList.TaskNotFoundException tnfe){
             assert false : "Task not found not possible";

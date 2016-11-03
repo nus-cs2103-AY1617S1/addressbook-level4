@@ -23,7 +23,7 @@ public interface Model {
     void deleteTask(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException;
 
     /** Adds the given task */
-    boolean addTask(Task toAdd);
+    int addTask(Task toAdd);
     
     /** Adds the given undo */
     void addUndo(String command, ReadOnlyTask data);

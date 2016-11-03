@@ -107,7 +107,7 @@ public class TaskBook implements ReadOnlyTaskBook {
      *
      * @throws UniqueTaskList.DuplicateTaskException if an equivalent task already exists.
      */
-    public boolean addTask(Task p) {
+    public int addTask(Task p) {
         syncTagsWithMasterList(p);
         if (checkIfDated(p)){
             return datedTasks.add(p);

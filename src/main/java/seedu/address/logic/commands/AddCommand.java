@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.commons.util.CommandUtil;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.task.Datetime;
@@ -26,7 +27,11 @@ public class AddCommand extends Command implements Undoable {
             + COMMAND_WORD + " Wash Clothes d/Wash with detergent date/27-9-2016 2359 t/!!!";
 
     public static final String MESSAGE_SUCCESS = "New task added: %1$s";
-    public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the task book!";
+    public static final String MESSAGE_DUPLICATE_TASK = "THERE IS A DUPLICATE TASK IN THE TASK BOOK!";
+    public static final String MESSAGE_CLASHING_EVENTS = "THIS EVENT CLASHES WITH OTHER EVENT(S) IN THE TASK BOOK!";
+    public static final int NO_DUPLICATE_OR_CLASH = 0;
+    public static final int DUPLICATE = 1;
+    public static final int CLASH = 2;
 
     private final Task toAdd;
 
@@ -55,13 +60,11 @@ public class AddCommand extends Command implements Undoable {
     public CommandResult execute() {
         assert model != null;
         
-        boolean duplicate = model.addTask(toAdd);
+        int checkForDuplicateOrClash = model.addTask(toAdd);
         populateUndo();
-        if (duplicate){
-        	return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd) + "\n" + MESSAGE_DUPLICATE_TASK);
-        } else {
-        	return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
-        }
+
+        return CommandUtil.generateCommandResult(new CommandResult(String.format(MESSAGE_SUCCESS, toAdd)), checkForDuplicateOrClash);
+
 
     }
     
