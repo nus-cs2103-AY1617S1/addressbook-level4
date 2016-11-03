@@ -54,7 +54,7 @@ public class XmlTarsStorage implements TarsStorage {
      */
     public void saveTars(ReadOnlyTars tars, String filePath) throws IOException {
         assert tars != null;
-        assert filePath != null;
+        assert filePath != null;        
 
         File file = new File(filePath);
         FileUtil.createIfMissing(file);

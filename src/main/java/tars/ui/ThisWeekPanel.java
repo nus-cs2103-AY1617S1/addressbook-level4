@@ -18,6 +18,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import tars.commons.core.LogsCenter;
 import tars.commons.events.model.TarsChangedEvent;
+import tars.commons.events.storage.TarsStorageDirectoryChangedEvent;
 import tars.commons.util.DateTimeUtil;
 import tars.commons.util.StringUtil;
 import tars.model.task.ReadOnlyTask;
@@ -148,14 +149,29 @@ public class ThisWeekPanel extends UiPart {
             }
             taskListLabel.setText(list);
     }
-
-    @Subscribe
-    public void handleTarsChangedEvent(TarsChangedEvent event) {
-        logger.info(LogsCenter.getEventHandlingLogMessage(event,
-                "Update this week panel"));
+    
+    /**
+     * Updates panel with latest data
+     */
+    private void updateThisWeekPanel() {
         upcomingTasks.clear();
         handleUpcomingTasks();
         overduedTasks.clear();
         handleOverdueTasks();
+    }
+
+    @Subscribe
+    private void handleTarsChangedEvent(TarsChangedEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event,
+                "Update this week panel"));
+        updateThisWeekPanel();
+    }
+    
+    @Subscribe
+    private void handleTarsStorageChangeDirectoryEvent(
+            TarsStorageDirectoryChangedEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event,
+                "Update this week panel"));
+        updateThisWeekPanel();
     }
 }

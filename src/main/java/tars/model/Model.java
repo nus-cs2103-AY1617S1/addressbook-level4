@@ -28,8 +28,13 @@ import tars.model.task.rsv.UniqueRsvTaskList.RsvTaskNotFoundException;
 public interface Model {
     /** Clears existing backing model and replaces with the provided new data. */
     void resetData(ReadOnlyTars newData);
+    
+    /**@@author A0124333U 
+     * Overwrites current data with data from a new file path. */
+    public void overwriteDataFromNewFilePath(ReadOnlyTars newData);
 
-    /** Returns the Tars */
+    /**@@author A0124333U 
+     * Returns the Tars */
     ReadOnlyTars getTars();
     
     /** Undo an edited task */
