@@ -390,12 +390,17 @@ public class Parser {
 	 */
 	private Command prepareDelete(String args) {
 
-		Optional<Integer> index = parseIndex(args);
-		if (!index.isPresent()) {
-			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
-		}
+		if (args.contains("complete")) {
+			return new DeleteCompletedCommand();
+		} else {
 
-		return new DeleteCommand(index.get());
+			Optional<Integer> index = parseIndex(args);
+			if (!index.isPresent()) {
+				return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
+			}
+
+			return new DeleteCommand(index.get());
+		}
 	}
 
 	private Command prepareShow(String args) {
