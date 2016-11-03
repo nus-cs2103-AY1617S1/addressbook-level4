@@ -28,13 +28,13 @@ public class TodoCardHandle extends GuiHandle {
     }
 
     public boolean isSamePerson(ReadOnlyTask person){
-        return getFullName().equals(person.getName()); 
+        return getFullName().equals(person.getName().toString()); 
     }
 
     @Override
     public boolean equals(Object obj) {
-        if(obj instanceof DeadlineCardHandle) {
-            DeadlineCardHandle handle = (DeadlineCardHandle) obj;
+        if(obj instanceof TodoCardHandle) {
+            TodoCardHandle handle = (TodoCardHandle) obj;
             return getFullName().equals(handle.getFullName());
         }
         return super.equals(obj);
