@@ -1,6 +1,7 @@
 package seedu.cmdo.logic;
 
 import javafx.collections.ObservableList;
+import seedu.cmdo.commons.events.ui.JumpToListRequestEvent;
 import seedu.cmdo.logic.commands.CommandResult;
 import seedu.cmdo.model.task.ReadOnlyTask;
 
@@ -24,6 +25,8 @@ public interface Logic {
     ObservableList<ReadOnlyTask> getBlockedList();
 
 	ObservableList<ReadOnlyTask> getAllTaskList();
+
+	void handleJumpToListRequestEvent(JumpToListRequestEvent event);
 
 
 }
