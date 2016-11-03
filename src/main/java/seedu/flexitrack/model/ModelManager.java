@@ -327,7 +327,7 @@ public class ModelManager extends ComponentManager implements Model {
          * @return      True if it has passed
          */
         private boolean isTaskInThePast(ReadOnlyTask task) {
-            return DateTimeInfo.isInThePast(DateTimeInfo.getCurrentTime(), task.getEndingTimeOrDueDate());
+            return DateTimeInfo.getCurrentTime().isInThePast(task.getEndingTimeOrDueDate());
         }
 
         /**
@@ -338,7 +338,7 @@ public class ModelManager extends ComponentManager implements Model {
          */
         private boolean isTaskInTheFuture(ReadOnlyTask task) {
             if (task.getIsNotFloatingTask()) {
-                return DateTimeInfo.isInTheFuture(DateTimeInfo.getCurrentTime(), task.getEndingTimeOrDueDate());
+                return DateTimeInfo.getCurrentTime().isInTheFuture(task.getEndingTimeOrDueDate());
             } else {
                 return !task.getIsDone();
             }

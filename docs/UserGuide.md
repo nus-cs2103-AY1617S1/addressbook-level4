@@ -34,38 +34,36 @@
 > * Items within `arrow signs (<>)` are optional.
 > * Items with `...` after them can have multiple instances.
 > * The order of parameters is fixed except for edit command.
-
-
+ 
 #### Adding a task: `add`
 #### Shortcut : `a`
 Adds a task to the FlexiTrack.<br>
 Format: `add [task title] < by/ [deadline] >`
 
-#### Adding an recurring task
-#### Shortcut : `a`
-Adds a task(recursive) to the FlexiTrack.<br>
-Format: `add [task title] fr/ [number of occurrence] ty/ [day | week | month] from/ [starting time] to/ [ending time]`
-
 Examples: 
 * `add CS2103 tutorial 3 `
 * `add CS2103 tutorial 3 by/ Saturday`
 * `a CS2103 tutorial 3 by/ tmr 9am`
-* `add Submit PC1222 Labsheet fr/ 5 ty/ week by/ Tuesday 5pm`
 
 #### Adding an event: `add`
 #### Shortcut : `a`
 Adds a event to the FlexiTrack.<br>
 Format: `add [event title] from/ [starting time] to/ [ending time]`
 
-#### Adding an recurring event : `add`
-#### Shortcut : `a`
-Adds a event(recursive) to the FlexiTrack.<br>
-Format: `add [event title] fr/ [number of occurrence] ty/ [day | week | month] from/ [starting time] to/ [ending time]`
-
 Examples: 
 * `add Bintan trip from/ Saturday to/ Sunday`
 * `a CS2103 Lecture from/ Friday 2pm to/ Friday 4pm `
+
+//@@author 
+#### Adding an recurring task: `add`
+#### Shortcut : `a`
+Adds a task(recursive) to the FlexiTrack.<br>
+Format: `add [task title] fr/ [number of occurrence] ty/ [day | week | month] from/ [starting time] to/ [ending time]`
+
+Examples: 
+* `add Submit PC1222 Labsheet fr/ 5 ty/ week by/ Tuesday 5pm`
 * `add complete CS2103 post-lecture quiz fr/ 10 ty/ week by/ Sunday 10pm`
+
 
 //@@author A0138455Y
 #### Block multiple time slot for an event : `block`
@@ -77,9 +75,9 @@ Format: `block [Description] from/ [starting time] to/ [ending time]`
 > New event will not be allow to add in if the period of the new event overlapping any blocked task from block list.
 
 Examples: 
-* `block for cs2103 project from/ 5pm to/ 7pm`<br>	
-//@@author
+* `block for cs2103 project from/ 5pm to/ 7pm`<br>
 
+//@@author A0127855W
 #### Find free time slots: `gap`
 #### Shortcut: `g`
 Find and list free time slots in the schedule that is equal to or longer than the specified timing (in hours).<br>
@@ -136,8 +134,8 @@ Examples:
   Edits the title of the task/event. 
 * `e 1 from/ today to/ tomorrow`<br>
   Edits the start and end times of the specified event.
-
 //@@author
+
 #### Mark a task as complete : `mark`
 #### Shortcut : `m`
 Mark an existing task to complete and move it to the bottom of the list.<br>
@@ -162,8 +160,8 @@ Format: `unmark [index]`
 
 Examples: 
 * `unmark 5`<br>
-//@@author
 
+//@@author A0127686R
 #### Finding a task or an event containing any keyword in their title: `find`
 #### Shortcut : `f`
 Finds a task ot an event whose title contain any of the given keywords.<br>
@@ -187,19 +185,8 @@ Examples:
 
 #### Finding a specific task or an event containing an exact phrase in their title: `find f/`
 #### Shortcut : `f f/`
-Finds a task ot an event whose title contain any of the given keywords.<br>
+Finds a task of an event whose title contain any of the given keywords.<br>
 Format: `find f/ EXACT PHRASE`
-
-> * The search is case sensitive. e.g `soccer practice` will not match `Soccer practice`
-> * Only the task/event title is searched..
-
-Examples: 
-* `find f/ Soccer training`<br>
-  Returns `Soccer training` but not `Soccer`
-* `find f/ cn homework`<br>
-  Returns Any task/event containing the exact phrase `cn homework` in their title
-* `f f/ attend CS2103 lecture`<br>
-  Returns Any task/event having exact title `attend CS2103 lecture`
   
 //@@author A0127855W
 #### List: `list`
@@ -226,6 +213,7 @@ Format: `select [index]`
 > Select the taks/event at the specified `index`. 
   The index refers to the index number shown in the most recent listing.<br>
   The index **must be a positive integer** 1, 2, 3, ...
+* `block for cs2103 project from/ 5pm to/ 7pm`<br>	
 
 #### Undo operations : `undo`
 #### Shortcut : `un`
@@ -233,6 +221,7 @@ Undo the previous operation.<br>
 Format: `undo`
 
 > The command will only undo commands entered during the current session of FlexiTrack
+> Undo works for: add, delete, clear, mark, unmark, block. 
 
 #### Redo operations : `redo`
 #### Shortcut : `re`
@@ -272,12 +261,12 @@ Examples:
 
 > Help is also shown if you enter an incorrect command e.g. `abcd`
 > default help message will show a list of all command word, e.g. enter `help`
-//@@author
 
 #### Saving the data 
 Address book data are saved in the hard disk automatically after any command that changes the data.<br>
 There is no need to save manually.
 
+//@@author A0127686R
 ## Time Format 
 FlexiTrack support various timing input. Here are some examples! 
 
@@ -318,13 +307,13 @@ Command | Shortcut | Format
 Add task | a | `add [task title] <fr/ [number of recurrances] ty/ [day | week | month]> <by/ [deadline]>` 
 Add event | a | `add [event title] <fr/ [number of recurrances] ty/ [day | week | month]> from/ [starting time] to/ [ending time]`
 Block | b | `block [description] from/ [starting time] to/ [ending time]`
-Gap | g | `gap [duration] <\n [number of slots]>`
+Find time | g | `gap [number of hours] < [number of slots to find] >`
 Delete | d | `delete [index]`
 Clear | c | `clear`
 Edit | e | `edit [index] <by/ [deadline]> <n/ [title]> <from/ [starting time]> <to/ [ending time]>`
 Mark | m | `mark [index]`
 Unmark | u | `unmark [index]`
-Find | f | `find KEYWORD [MORE_KEYWORDS]`
+Find | f | `find [key words] < [key words] >`
 List | l | `list <filter>`
 Select | s | `select [index]`
 Undo | un | `undo`

@@ -104,12 +104,10 @@ public class DateTimeInfoTest {
         
         testTime2 = new DateTimeInfo("Aug 02 2019 10:30");
         expected = "Duration of the event is: 2 years 2 months 21 days 3 hours 30 minutes.";
-        System.out.println(DateTimeInfo.durationOfTheEvent(testTime1.toString(), testTime2.toString()));
         assertTrue(DateTimeInfo.durationOfTheEvent(testTime1.toString(), testTime2.toString()).equals(expected));
 
         testTime2 = new DateTimeInfo("Jun 13 2018 08:01");
         expected = "Duration of the event is: 1 year 1 month 1 day 1 hour 1 minute.";
-        System.out.println(DateTimeInfo.durationOfTheEvent(testTime1.toString(), testTime2.toString()));
         assertTrue(DateTimeInfo.durationOfTheEvent(testTime1.toString(), testTime2.toString()).equals(expected));
 
     }
@@ -142,40 +140,40 @@ public class DateTimeInfoTest {
     public void isInTheFuture_validInput_True() throws IllegalValueException {
         testTime1 = new DateTimeInfo("Jun 26 2017 07:00");
         testTime2 = new DateTimeInfo("Jun 26 2018 07:00");
-        assertTrue(DateTimeInfo.isInTheFuture(testTime1, testTime2));
+        assertTrue(testTime1.isInTheFuture(testTime2));
     }
 
     @Test
     public void isInTheFuture_invalidInput_False() throws IllegalValueException {
         testTime1 = new DateTimeInfo("Jun 26 2017 07:00");
         testTime2 = new DateTimeInfo("Jun 26 2018 07:00");
-        assertTrue(!DateTimeInfo.isInTheFuture(testTime2, testTime1));
+        assertTrue(!testTime2.isInTheFuture(testTime1));
     }
 
     @Test
     public void isInTheFuture_sameInput_True() throws IllegalValueException {
         testTime1 = new DateTimeInfo("Jun 26 2017 07:00");
-        assertTrue(DateTimeInfo.isInTheFuture(testTime1, testTime1));
+        assertTrue(testTime1.isInTheFuture(testTime1));
     }
 
     @Test
     public void isInThePast_validInput_True() throws IllegalValueException {
         testTime1 = new DateTimeInfo("Jun 26 2017 07:00");
         testTime2 = new DateTimeInfo("Jun 26 2018 07:00");
-        assertTrue(DateTimeInfo.isInThePast(testTime2, testTime1));
+        assertTrue(testTime2.isInThePast(testTime1));
     }
 
     @Test
     public void isInThePast_invalidInput_False() throws IllegalValueException {
         testTime1 = new DateTimeInfo("Jun 26 2017 07:00");
         testTime2 = new DateTimeInfo("Jun 26 2018 07:00");
-        assertTrue(!DateTimeInfo.isInThePast(testTime1, testTime2));
+        assertTrue(!testTime1.isInThePast(testTime2));
     }
 
     @Test
     public void isInThePast_sameInput_True() throws IllegalValueException {
         testTime1 = new DateTimeInfo("Jun 26 2017 07:00");
-        assertTrue(DateTimeInfo.isInThePast(testTime1, testTime1));
+        assertTrue(!testTime1.isInThePast(testTime1));
     }
 
     @Test
