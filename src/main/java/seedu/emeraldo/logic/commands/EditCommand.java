@@ -1,7 +1,9 @@
 package seedu.emeraldo.logic.commands;
 
+import seedu.emeraldo.commons.core.EventsCenter;
 import seedu.emeraldo.commons.core.Messages;
 import seedu.emeraldo.commons.core.UnmodifiableObservableList;
+import seedu.emeraldo.commons.events.ui.JumpToListRequestEvent;
 import seedu.emeraldo.commons.exceptions.IllegalValueException;
 import seedu.emeraldo.model.task.Description;
 import seedu.emeraldo.model.task.DateTime;
@@ -51,6 +53,7 @@ public class EditCommand extends Command{
 
         try {
             model.editTask(taskToEdit, description, dateTime);
+            EventsCenter.getInstance().post(new JumpToListRequestEvent(targetIndex - 1));
         } catch (TaskNotFoundException pnfe) {
             assert false : "The target task cannot be missing";
         }
