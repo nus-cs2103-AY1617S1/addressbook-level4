@@ -30,7 +30,6 @@ import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.EmptyStackException;
-import java.util.List;
 import java.util.Set;
 import java.util.Stack;
 import java.util.function.Predicate;
@@ -69,7 +68,7 @@ public class ModelManager extends ComponentManager implements Model {
         this.taskManager = new TaskManager(taskManager);
         this.aliasManager = new AliasManager(aliasManager);
         filteredTasks = new FilteredList<>(taskManager.getFilteredTasks());
-        filteredAliases = new FilteredList<>(aliasManager.getInternalList());
+        filteredAliases = new FilteredList<>(aliasManager.getFilteredAliases());
         stateHistory = new Stack<>();
         undoHistory = new Stack<>();
         this.config = config;
@@ -83,7 +82,7 @@ public class ModelManager extends ComponentManager implements Model {
         taskManager = new TaskManager(initialTaskManagerData);
         aliasManager = new AliasManager(initialAliasManagerData);
         filteredTasks = new FilteredList<>(taskManager.getFilteredTasks());
-        filteredAliases = new FilteredList<>(aliasManager.getInternalList());
+        filteredAliases = new FilteredList<>(aliasManager.getFilteredAliases());
         stateHistory = new Stack<>();
         undoHistory = new Stack<>();
         this.config = config;
@@ -189,7 +188,7 @@ public class ModelManager extends ComponentManager implements Model {
     	assert alias != null;
     	assert !alias.isEmpty();
     	
-    	ObservableList<Alias> aliasList = aliasManager.getInternalList();
+    	ObservableList<Alias> aliasList = aliasManager.getFilteredAliases();
     	for(Alias currentAlias: aliasList){
     		if(currentAlias.getAlias().contains(alias) || alias.contains(currentAlias.getAlias())){
     			return false;
@@ -264,22 +263,12 @@ public class ModelManager extends ComponentManager implements Model {
     //@@author 
     
     //=========== Filtered Task List Accessors ===============================================================
-    
-    public List<Alias> getAliasList() {
-    	return aliasManager.getInternalList();
-    }
-    //@@author
-    
+
     @Override
     public UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList() {
         return new UnmodifiableObservableList<>(filteredTasks);
     }
     
-    //@@author A0142184L
-    @Override
-    public UnmodifiableObservableList<ReadOnlyAlias> getFilteredAliasList() {
-        return new UnmodifiableObservableList<>(filteredAliases);
-    }
     //@@author
     @Override
     public UnmodifiableObservableList<ReadOnlyTask> getUnfilteredTaskList() {
@@ -339,7 +328,15 @@ public class ModelManager extends ComponentManager implements Model {
         filteredTasks.setPredicate(expression::satisfies);
     }
     
-
+    //=========== Filtered Alias List Accessors ===============================================================
+    
+    //@@author A0142184L
+    
+    @Override
+    public UnmodifiableObservableList<ReadOnlyAlias> getFilteredAliasList() {
+        return new UnmodifiableObservableList<>(filteredAliases);
+    }
+    
     //========== Inner classes/interfaces used for filtering ==================================================
 
     interface Expression {

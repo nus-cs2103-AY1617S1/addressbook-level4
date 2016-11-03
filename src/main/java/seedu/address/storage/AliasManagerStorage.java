@@ -1,7 +1,6 @@
 package seedu.address.storage;
 
 import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.model.AliasManager;
 import seedu.address.model.ReadOnlyAliasManager;
 import seedu.address.model.ReadOnlyTaskManager;
 

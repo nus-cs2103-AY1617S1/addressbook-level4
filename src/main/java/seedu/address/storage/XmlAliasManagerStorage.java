@@ -3,7 +3,6 @@ package seedu.address.storage;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.util.FileUtil;
-import seedu.address.model.AliasManager;
 import seedu.address.model.ReadOnlyAliasManager;
 import seedu.address.model.ReadOnlyTaskManager;
 
