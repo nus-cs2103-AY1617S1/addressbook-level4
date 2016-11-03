@@ -13,7 +13,7 @@
 
 <!--@@Gauri Joshi A0143095H  -->
 
-<AnchorPane fx:id="summary" maxWidth="350.0" prefHeight="300.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.unburden.ui.SummaryPanel">
+<AnchorPane fx:id="summary" maxWidth="350.0" prefHeight="325.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.unburden.ui.SummaryPanel">
    <children>
       <GridPane layoutX="14.0" prefHeight="300.0" prefWidth="300.0" style="-fx-background-color: #fcfeff;">
         <columnConstraints>
@@ -24,9 +24,9 @@
         <rowConstraints>
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
             <Label fx:id="today" text="#Today" GridPane.columnIndex="2">
@@ -54,20 +54,7 @@
                   <Font size="24.0" />
                </font>
             </Label>
-            <Label fx:id="nextWeek" text="#NextWeek" GridPane.columnIndex="2" GridPane.rowIndex="2">
-            	<textFill>
-                  <LinearGradient endX="1.0" endY="1.0" startX="0.7285714285714286" startY="0.7142857142857143">
-                     <stops>
-                        <Stop color="BLACK" />
-                        <Stop color="WHITE" offset="1.0" />
-                     </stops>
-                  </LinearGradient>
-               </textFill>
-               <font>
-                  <Font size="24.0" />
-               </font>
-            </Label>
-            <Label fx:id="done" text="#Done" GridPane.columnIndex="2" GridPane.rowIndex="3">
+            <Label fx:id="done" text="#Done" GridPane.columnIndex="2" GridPane.rowIndex="2">
                <textFill>
                   <LinearGradient endX="1.0" endY="1.0" startX="0.6857142857142857" startY="0.7">
                      <stops>
@@ -79,7 +66,7 @@
                <font>
                   <Font size="24.0" />
                </font></Label>
-            <Label fx:id="undone" text="#Undone" GridPane.columnIndex="2" GridPane.rowIndex="4">
+            <Label fx:id="undone" text="#Undone" GridPane.columnIndex="2" GridPane.rowIndex="3">
                <textFill>
                   <LinearGradient endX="1.0" endY="1.0" startX="0.6952380952380952" startY="0.6952380952380952">
                      <stops>
@@ -91,29 +78,42 @@
                <font>
                   <Font size="24.0" />
                </font></Label>
+            <Label fx:id="overdue" text="#Overdue" GridPane.columnIndex="2" GridPane.rowIndex="4">
+	            <textFill>
+	                  <LinearGradient endX="1.0" endY="1.0" startX="0.6952380952380952" startY="0.6952380952380952">
+	                     <stops>
+	                        <Stop color="BLACK" />
+	                        <Stop color="WHITE" offset="1.0" />
+	                     </stops>
+	                  </LinearGradient>
+	               </textFill>
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
             <ImageView fitHeight="35.0" fitWidth="87.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1">
                <image>
                   <Image url="@../images/Today.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="84.0" fitWidth="94.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <ImageView fitHeight="21.0" fitWidth="155.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <image>
-                  <Image url="@../images/tomorrow3.jpg" />
+                  <Image url="@../images/Tomorrow_Logo.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="68.0" fitWidth="97.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="2">
-               <image>
-                  <Image url="@../images/nextweek2.jpg" />
-               </image>
-            </ImageView>
-            <ImageView fitHeight="65.0" fitWidth="71.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="3">
+            <ImageView fitHeight="65.0" fitWidth="71.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="2">
                <image>
                   <Image url="@../images/Done.jpg" />
                </image>
             </ImageView>
-            <ImageView fitHeight="56.0" fitWidth="74.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="4">
+            <ImageView fitHeight="56.0" fitWidth="74.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="3">
                <image>
                   <Image url="@../images/uNDONE.JPG" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="24.0" fitWidth="134.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="4">
+               <image>
+                  <Image url="@../images/Overdue.jpg" />
                </image>
             </ImageView>
          </children>
