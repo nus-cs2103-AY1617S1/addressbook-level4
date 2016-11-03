@@ -127,10 +127,12 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
 
 	@Override
 	public int compareTo(Task o) {
-		if (this.getPhone().compareTo(o.getPhone()) != 0)
+		if (this.getPhone().compareTo(o.getPhone()) != 0) {
 			return this.getPhone().compareTo(o.getPhone());
-		else if (this.getEmail().compareTo(o.getEmail()) != 0)
+		}
+		else if (this.getEmail().compareTo(o.getEmail()) != 0) {
 			return this.getEmail().compareTo(o.getEmail());
+		}
 		return this.getAddress().compareTo(o.getAddress());
 	}
 
