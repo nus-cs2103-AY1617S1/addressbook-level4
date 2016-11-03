@@ -45,8 +45,8 @@
 }
 
 .list-view-card-pane {
-	-fx-background-color:white;	
-	-fx-focus-color: white;
+	-fx-background-color: white;
+	-fx-focus-color: yellow;
 	-fx-font-size: 14px;
 	-fx-border-color: black;
 	-fx-font-family: "Helvetica";
