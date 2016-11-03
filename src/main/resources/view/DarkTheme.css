@@ -287,9 +287,7 @@
     -fx-effect: innershadow(gaussian, black, 10, 0, 0, 0);
 }
 
-#taskListView {
-	-fx-background-color: transparent;
-}
+
 /*------------------------------------------ OverduePanel Styling ------------------------------------------*/
 
 .overdue-scrollpane, .overdue-panel {
