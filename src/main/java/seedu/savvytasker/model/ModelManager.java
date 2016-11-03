@@ -139,6 +139,11 @@ public class ModelManager extends ComponentManager implements Model {
         indicateSavvyTaskerChanged();
         indicateAliasSymbolRemoved(symbol);
     }
+    
+    @Override
+    public int getAliasSymbolCount() {
+        return savvyTasker.getAliasSymbolCount();
+    }
     //@@author
 
     //=========== Filtered/Sorted Task List Accessors ===============================================================

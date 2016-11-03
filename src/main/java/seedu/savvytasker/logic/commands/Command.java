@@ -19,6 +19,15 @@ public abstract class Command {
     public static String getMessageForTaskListShownSummary(int displaySize) {
         return String.format(Messages.MESSAGE_TASKS_LISTED_OVERVIEW, displaySize);
     }
+    /**
+     * Constructs a feedback message to summarise an operation that displayed a listing of aliases.
+     *
+     * @param displaySize used to generate summary
+     * @return summary message for tasks displayed
+     */
+    public static String getMessageForAliasListShownSummary(int displaySize) {
+        return String.format(Messages.MESSAGE_ALIASES_LISTED_OVERVIEW, displaySize);
+    }
 
     /**
      * Executes the command and returns the result message.

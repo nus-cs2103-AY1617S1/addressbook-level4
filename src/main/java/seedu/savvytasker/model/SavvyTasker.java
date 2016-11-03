@@ -252,6 +252,10 @@ public class SavvyTasker implements ReadOnlySavvyTasker {
     }
     //@@author
     
+    public int getAliasSymbolCount() {
+        return symbols.size();
+    }
+    
 //// util methods
 
     @Override
