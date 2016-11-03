@@ -9,7 +9,7 @@
 [![Coverage Status](https://coveralls.io/repos/github/CS2103AUG2016-T14-C4/main/badge.svg?branch=develop)](https://coveralls.io/github/CS2103AUG2016-T14-C4/main?branch=develop)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/03ea8214af7d4213bc41ce73905a24e4)](https://www.codacy.com/app/syed/main?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=CS2103AUG2016-T14-C4/main&amp;utm_campaign=Badge_Grade)
 
-<img src="docs/images/mockup pic.jpg" width="600"><br>
+<img src="docs/images/MESS_003.png" width="600"><br>
 
 * This is a desktop to do list application. It has a GUI but most of the user interactions happen using
   a CLI (Command Line Interface).
@@ -21,6 +21,7 @@
  
 #### Site Map
 * [User Guide](docs/UserGuide.md)
+* [Developer Guide](docs/DeveloperGuide.md)
 * [About Us](docs/AboutUs.md)
 
 
