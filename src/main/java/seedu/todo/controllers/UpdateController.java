@@ -93,7 +93,24 @@ public class UpdateController implements Controller {
         String[] naturalDates = DateParser.extractDatePair(parsedResult);
         String naturalFrom = naturalDates[0];
         String naturalTo = naturalDates[1];
+
+        // Parse natural date using Natty.
+        LocalDateTime dateFrom;
+        LocalDateTime dateTo;
+        try {
+            dateFrom = naturalFrom == null ? null : DateParser.parseNatural(naturalFrom);
+            dateTo = naturalTo == null ? null : DateParser.parseNatural(naturalTo);
+        } catch (InvalidNaturalDateException e) {
+            System.out.println("Disambiguate!");
+            return;
+        }
         
+        // Update and persist task / event.
+        TodoListDB db = TodoListDB.getInstance();
+        updateCalendarItem(db, calendarItem, isTask, name, dateFrom, dateTo);
+        
+        // Re-render
+        Renderer.renderIndex(db, MESSAGE_UPDATE_SUCCESS);
     }
     
     /**
