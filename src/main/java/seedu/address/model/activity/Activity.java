@@ -69,6 +69,7 @@ public class Activity implements ReadOnlyActivity {
         return new UniqueTagList(tags);
     }
     
+    //@@author A0125680H
     public boolean hasReminderPassed() {
         return reminder.isBeforeNow();
     }
