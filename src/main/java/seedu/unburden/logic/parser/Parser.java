@@ -1,24 +1,17 @@
 package seedu.unburden.logic.parser;
 
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-
 import static seedu.unburden.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.unburden.commons.core.Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX;
 import static seedu.unburden.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
 import seedu.unburden.commons.core.Config;
-import seedu.unburden.commons.core.Messages;
 import seedu.unburden.commons.exceptions.IllegalValueException;
 import seedu.unburden.commons.util.StringUtil;
 import seedu.unburden.logic.commands.*;
-import seedu.unburden.model.task.Date;
-import seedu.unburden.model.task.Time;
 
 /**
  * Parses user input.
@@ -101,8 +94,6 @@ public class Parser {
 	private static final String NEXTWEEK = "next week";
 
 	private static final String DONE = "done";
-
-	private static final String UNDONE = "undone";
 
 	private static final String ALL = "all";
 

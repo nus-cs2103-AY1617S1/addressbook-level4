@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
+import seedu.unburden.commons.exceptions.IllegalValueException;
 import seedu.unburden.model.task.ReadOnlyTask;
 
 //@@Gauri Joshi A0143095H
@@ -45,12 +46,16 @@ public class TaskCard extends UiPart{
     }
 
     @FXML
-    public void initialize() {
+    public void initialize() throws IllegalValueException {
         
         id.setText(displayedIndex + ". ");
         name.setText(task.getName().getFullName());
         if(task.getDone()){
-        	cardPane.setStyle("-fx-background-color : #a5a5a5");
+        	cardPane.setStyle("-fx-background-color : #91c692");
+        }
+        
+        if(task.getDoneString().equals("Overdue!")){
+        	cardPane.setStyle("-fx-background-color : #efb6bf");
         }
         
         taskD.setText(task.getTaskDescription().getFullTaskDescription());

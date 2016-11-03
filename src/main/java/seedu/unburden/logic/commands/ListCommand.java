@@ -4,9 +4,13 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import com.google.common.base.Predicate;
 
+import seedu.unburden.commons.exceptions.IllegalValueException;
+import seedu.unburden.model.tag.UniqueTagList.DuplicateTagException;
+import seedu.unburden.model.task.ReadOnlyTask;
 import seedu.unburden.model.task.Task;
 
 /**
@@ -68,18 +72,19 @@ public class ListCommand extends Command {
 	}
 
 	@Override
-	public CommandResult execute() {
+	public CommandResult execute() throws DuplicateTagException, IllegalValueException {
 		if (mode.equals("undone")) {
 			model.updateFilteredTaskList(getAllUndone());
 			// model.updateFilteredListToShowAll();
 		} else if (mode.equals("done")) {
 			model.updateFilteredTaskList(getAllDone());
 		} else if (mode.equals("all")) {
-			//model.updateFilteredTaskList(getAllUndone());
+			// model.updateFilteredTaskList(getAllUndone());
 			model.updateFilteredListToShowAll();
 		} else {
 			model.updateFilteredTaskList(getAllDatesBefore(date));
 		}
 		return new CommandResult(MESSAGE_SUCCESS);
 	}
+
 }

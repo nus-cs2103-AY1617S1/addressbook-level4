@@ -1,9 +1,12 @@
 package seedu.unburden.logic.commands;
 
+import java.util.List;
+
 import seedu.unburden.commons.core.Messages;
 import seedu.unburden.commons.exceptions.*;
 import seedu.unburden.commons.core.UnmodifiableObservableList;
 import seedu.unburden.model.tag.UniqueTagList;
+import seedu.unburden.model.tag.UniqueTagList.DuplicateTagException;
 import seedu.unburden.model.task.Date;
 import seedu.unburden.model.task.Name;
 import seedu.unburden.model.task.ReadOnlyTask;
@@ -84,7 +87,7 @@ public class EditCommand extends Command {
     }
     
     @Override
-    public CommandResult execute() {
+    public CommandResult execute() throws IllegalValueException{
         UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
 
         if (lastShownList.size() < targetIndex) {
@@ -98,7 +101,6 @@ public class EditCommand extends Command {
 
         	model.saveToPrevLists();
             model.editTask(taskToEdit, toEdit);
-            
             return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, lastShownList.get(targetIndex - 1)));
         } catch (TaskNotFoundException ee) {
             return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
@@ -108,5 +110,6 @@ public class EditCommand extends Command {
         
         
     }
+
 }
  

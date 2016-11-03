@@ -128,6 +128,7 @@ public class UniqueTagList implements Iterable<Tag> {
 		internalList.add(toAdd);
 	}
 
+	//This method check if the UniqueTagList for the tasks contains a specific tag and returns a boolean value
 	public boolean contains(Set<String> tags) throws IllegalValueException {
 		boolean trueOrFalse = false;
 		for(String tagToCheck : tags){

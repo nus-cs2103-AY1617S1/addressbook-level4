@@ -2,11 +2,14 @@ package seedu.unburden.logic.commands;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
+import javafx.collections.ObservableList;
 import seedu.unburden.commons.exceptions.IllegalValueException;
 import seedu.unburden.model.tag.Tag;
 import seedu.unburden.model.tag.UniqueTagList;
+import seedu.unburden.model.tag.UniqueTagList.DuplicateTagException;
 import seedu.unburden.model.task.*;
 
 /**
@@ -92,7 +95,7 @@ public class AddCommand extends Command {
 	}
 
 	@Override
-	public CommandResult execute() {
+	public CommandResult execute() throws IllegalValueException {
 		assert model != null;
 		try {
 			model.saveToPrevLists();

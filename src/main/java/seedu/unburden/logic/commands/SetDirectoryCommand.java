@@ -1,11 +1,16 @@
 package seedu.unburden.logic.commands;
 
 import java.io.IOException;
+import java.util.List;
 
 import seedu.unburden.commons.core.Config;
 import seedu.unburden.commons.exceptions.DataConversionException;
+import seedu.unburden.commons.exceptions.IllegalValueException;
 import seedu.unburden.commons.util.ConfigUtil;
 import seedu.unburden.commons.util.FileUtil;
+import seedu.unburden.model.tag.UniqueTagList.DuplicateTagException;
+import seedu.unburden.model.task.ReadOnlyTask;
+import seedu.unburden.model.task.Task;
 //@@Gary Goh A0139714B
 public class SetDirectoryCommand extends Command{
 	
@@ -33,7 +38,7 @@ public class SetDirectoryCommand extends Command{
 	}
 	
 	@Override
-	public CommandResult execute() {
+	public CommandResult execute() throws DuplicateTagException, IllegalValueException {
 		if (!FileUtil.isValidPath(newDirectory)) {
 			return new CommandResult(MESSAGE_INVALID_PATH);
 		}
@@ -56,4 +61,5 @@ public class SetDirectoryCommand extends Command{
 			return new CommandResult(ee.getMessage());
 		}
 	}
+	
 }

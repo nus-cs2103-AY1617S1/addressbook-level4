@@ -1,5 +1,6 @@
 package seedu.unburden.model.task;
 
+import seedu.unburden.commons.exceptions.IllegalValueException;
 import seedu.unburden.model.tag.UniqueTagList;
 
 /**
@@ -17,7 +18,7 @@ public interface ReadOnlyTask {
     Time getStartTime();
     Time getEndTime();
     boolean getDone();
-    String getDoneString();
+    String getDoneString() throws IllegalValueException;
     
     /**
      * The returned TagList is a deep copy of the internal TagList,

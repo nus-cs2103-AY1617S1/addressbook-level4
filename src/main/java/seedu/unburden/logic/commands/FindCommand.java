@@ -2,9 +2,12 @@ package seedu.unburden.logic.commands;
 
 import java.text.ParseException;
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 import seedu.unburden.commons.exceptions.IllegalValueException;
+import seedu.unburden.model.tag.UniqueTagList.DuplicateTagException;
+import seedu.unburden.model.task.ReadOnlyTask;
 import seedu.unburden.model.task.Task;
 
 /**
@@ -56,7 +59,7 @@ public class FindCommand extends Command {
 	}
 
 	@Override
-	public CommandResult execute() {
+	public CommandResult execute() throws DuplicateTagException, IllegalValueException {
 		switch (modeOfSearch) {
 		case "date":
 			model.updateFilteredTaskList(getDates(date));
@@ -64,6 +67,8 @@ public class FindCommand extends Command {
 		case "name":
 			model.updateFilteredTaskList(getTasksWithSameNameOrTags(keywords));
 		}
+		
 		return new CommandResult(getMessageForTaskListShownSummary(model.getFilteredTaskList().size()));
 	}
+	
 }

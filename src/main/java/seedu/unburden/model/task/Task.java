@@ -1,10 +1,16 @@
 package seedu.unburden.model.task;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Objects;
 
+import javafx.collections.ObservableList;
+import seedu.unburden.commons.core.Messages;
 import seedu.unburden.commons.exceptions.IllegalValueException;
 import seedu.unburden.commons.util.CollectionUtil;
+import seedu.unburden.model.tag.Tag;
 import seedu.unburden.model.tag.UniqueTagList;
+import seedu.unburden.model.tag.UniqueTagList.DuplicateTagException;
 
 /**
  * Represents a Task in the address book.
@@ -21,14 +27,20 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
     private UniqueTagList tags;
     private boolean done;
     private String getDoneString;
+	private static final SimpleDateFormat DATEFORMATTER = new SimpleDateFormat("dd-MM-yyyy");
+	private static final SimpleDateFormat TIMEFORMATTER = new SimpleDateFormat("HHmm");
 
     /**
      * Every field must be present and not null.
+     * @throws IllegalValueException 
      */
     
     
-    public Task(Name name, TaskDescription taskD, Date date, Time startTime, Time endTime, Boolean done,UniqueTagList tags) {
+    public Task(Name name, TaskDescription taskD, Date date, Time startTime, Time endTime, Boolean done,UniqueTagList tags) throws IllegalValueException {
         assert !CollectionUtil.isAnyNull(name, taskD, date, startTime, endTime, tags);
+        if(startTime.compareTo(endTime) > 0){
+        	throw new IllegalValueException(Messages.MESSAGE_STARTTIME_AFTER_ENDTIME);
+        }
         this.name = name;
         this.taskD = taskD;
         this.date = date;
@@ -38,13 +50,16 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
         this.tags = tags; // protect internal tags from changes in the arg list
     }
    
-    public Task(ReadOnlyTask source) {
+    public Task(ReadOnlyTask source) throws IllegalValueException {
         this(source.getName(), source.getTaskDescription(), source.getDate(), source.getStartTime(), source.getEndTime(), source.getDone(),source.getTags());
     }
     //@@Nathanael Chan A0139678J
     // adds event
-    public Task(Name name, TaskDescription taskD, Date date, Time startTime, Time endTime, UniqueTagList tags) {
+    public Task(Name name, TaskDescription taskD, Date date, Time startTime, Time endTime, UniqueTagList tags) throws IllegalValueException {
         assert !CollectionUtil.isAnyNull(name, taskD, date, startTime, endTime, tags);
+        if(startTime.compareTo(endTime) > 0){
+        	throw new IllegalValueException(Messages.MESSAGE_STARTTIME_AFTER_ENDTIME);
+        }
         this.name = name;
         this.taskD = taskD;
         this.date = date;
@@ -57,6 +72,9 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
     // adds event without description 
     public Task(Name name,Date date, Time startTime, Time endTime, UniqueTagList tags) throws IllegalValueException {
         assert !CollectionUtil.isAnyNull(name, date, startTime, endTime, tags);
+        if(startTime.compareTo(endTime) > 0){
+        	throw new IllegalValueException(Messages.MESSAGE_STARTTIME_AFTER_ENDTIME);
+        }
         this.name = name;
         this.taskD = new TaskDescription("");
         this.date = date;
@@ -198,11 +216,22 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
 		return done;
 	}
 	
-	public String getDoneString(){
+	public boolean ifOverdue(){
+		if(getDoneString.equals("Overdue!")){
+			return true;
+		}
+		else return false;
+	}
+	
+	public String getDoneString() throws IllegalValueException{
 		if(done){
 			getDoneString = "Done!";
 		}
 		else {
+			if(checkOverDue()){
+				getDoneString = "Overdue!";
+			}
+			else 
 			getDoneString = "Undone!";
 		}
 		return getDoneString;
@@ -237,6 +266,20 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
     
     public void setDone(boolean done) {
         this.done = done;
+    }
+    
+    //This method will check if the task is overdue and returns true 
+    public boolean checkOverDue() throws IllegalValueException{
+    	Calendar calendar = Calendar.getInstance();
+    	calendar.setTime(calendar.getTime());
+    	if(this.getDate().compareTo(new Date(DATEFORMATTER.format(calendar.getTime()))) < 0){
+    		return true;
+    	}else if(this.getDate().compareTo(new Date(DATEFORMATTER.format(calendar.getTime()))) == 0){
+    		if(this.getEndTime().compareTo(new Time(TIMEFORMATTER.format(calendar.getTime()))) < 0){
+    			return true;
+    		}
+    	}
+    	return false;
     }
     
     

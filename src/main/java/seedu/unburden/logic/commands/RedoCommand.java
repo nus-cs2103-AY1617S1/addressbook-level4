@@ -1,6 +1,12 @@
 package seedu.unburden.logic.commands;
 
+import java.util.List;
 import java.util.NoSuchElementException;
+
+import seedu.unburden.commons.exceptions.IllegalValueException;
+import seedu.unburden.model.tag.UniqueTagList.DuplicateTagException;
+import seedu.unburden.model.task.ReadOnlyTask;
+import seedu.unburden.model.task.Task;
 
 /**
  * Redo an undo action.
@@ -18,15 +24,15 @@ public class RedoCommand extends Command {
 	
 
 	
-	public CommandResult execute() {
+	public CommandResult execute() throws DuplicateTagException, IllegalValueException {
 		try {
 			assert model != null;
 			model.loadFromUndoHistory();
+			
 			return new CommandResult(MESSAGE_SUCCESS);
 		} catch (NoSuchElementException ee) {
 			return new CommandResult(MESSAGE_EMPTY_STACK);
 		}
-		
-		
 	}
+
 }
