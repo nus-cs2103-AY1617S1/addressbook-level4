@@ -11,9 +11,9 @@ import seedu.task.model.tag.Tag;
 import seedu.task.model.task.ReadOnlyTask;
 import seedu.task.model.task.Task;
 
+// @@author A0147335E
 /**
  * Refresh the task manager.
- * @@author A0147335E
  */
 public class RefreshCommand extends Command {
 
@@ -71,6 +71,10 @@ public class RefreshCommand extends Command {
         if (isUndo == false) {
             history.getUndoList().add(new RollBackCommand(COMMAND_WORD, null, null));
         }
+        // @author A0147944U-reused
+        // Sorts updated list of tasks
+        model.autoSortBasedOnCurrentSortPreference();
+        // @@author A0147335E
         return new CommandResult(MESSAGE_SUCCESS);
     }
 

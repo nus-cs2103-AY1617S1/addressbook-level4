@@ -9,9 +9,9 @@ import seedu.task.model.task.*;
 import java.util.HashSet;
 import java.util.Set;
 
+// @@author A0147335E-reused
 /**
  * Adds a task to the task manager.
- * @@author A0147335E-reused
  */
 public class AddCommand extends Command {
 
@@ -48,6 +48,10 @@ public class AddCommand extends Command {
             if(isUndo == false){
                 history.getUndoList().add(new RollBackCommand(COMMAND_WORD, toAdd, null));
             }
+            // @author A0147944U-reused
+            // Sorts updated list of tasks
+            model.autoSortBasedOnCurrentSortPreference();
+            // @@author A0147335E-reused
             return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
         } catch (UniqueTaskList.DuplicateTaskException e) {
             return new CommandResult(MESSAGE_DUPLICATE_TASK);

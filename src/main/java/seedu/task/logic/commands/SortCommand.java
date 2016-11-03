@@ -44,6 +44,7 @@ public class SortCommand extends Command {
     @Override
     public CommandResult execute(boolean isUndo) {
         model.sortFilteredTaskList(keyword);
+        model.saveCurrentSortPreference(keyword);
         return new CommandResult(String.format(MESSAGE_SUCCESS, keyword));
     }
 
