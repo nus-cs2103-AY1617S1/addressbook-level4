@@ -13,15 +13,23 @@ import seedu.task.logic.commands.EditTaskCommand;
 import seedu.task.logic.commands.IncorrectCommand;
 import seedu.taskcommons.core.Messages;
 
+//@@author A0127570H
 /**
  * Prepares EditTaskCommand or EditEventCommand according to the input argument.
  * @author kian ming
  */
 
-//@@author A0127570H
 public class EditParser implements Parser {
     
     private static final String INDEX_VALIDATION_REGEX = "[0-9]+";
+    
+    private Optional <String> taskIndex;
+    private Optional <String> eventIndex;
+    private Optional <String> name;
+    private Optional <String> description;
+    private Optional <String> startDuration;
+    private Optional <String> endDuration;
+    private Optional <String> deadline;
     
     public EditParser() {}
     
@@ -45,13 +53,7 @@ public class EditParser implements Parser {
         argsTokenizer.tokenize(args.trim());
         
         try {           
-            Optional <String> taskIndex = argsTokenizer.getValue(taskPrefix);
-            Optional <String> eventIndex = argsTokenizer.getValue(eventPrefix);
-            Optional <String> name = argsTokenizer.getValue(namePrefix);
-            Optional <String> description = argsTokenizer.getValue(descriptionPrefix);
-            Optional <String> startDuration = argsTokenizer.getValue(durationStartPrefix);
-            Optional <String> endDuration = argsTokenizer.getValue(durationEndPrefix);
-            Optional <String> deadline = argsTokenizer.getValue(deadlinePrefix);
+            getTokenizerValue(argsTokenizer);
             
             if (eventIndex.isPresent()) { 
                 int index = getIndex(eventIndex.get().trim());
@@ -68,6 +70,16 @@ public class EditParser implements Parser {
         } catch (EmptyValueException e) {
             return new IncorrectCommand(e.getMessage());
         }
+    }
+
+    private void getTokenizerValue(ArgumentTokenizer argsTokenizer) throws EmptyValueException {
+        taskIndex = argsTokenizer.getValue(taskPrefix);
+        eventIndex = argsTokenizer.getValue(eventPrefix);
+        name = argsTokenizer.getValue(namePrefix);
+        description = argsTokenizer.getValue(descriptionPrefix);
+        startDuration = argsTokenizer.getValue(durationStartPrefix);
+        endDuration = argsTokenizer.getValue(durationEndPrefix);
+        deadline = argsTokenizer.getValue(deadlinePrefix);
     }
     
     /**

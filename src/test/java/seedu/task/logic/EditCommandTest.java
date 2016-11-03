@@ -10,12 +10,16 @@ import seedu.task.logic.commands.EditEventCommand;
 import seedu.task.logic.commands.EditTaskCommand;
 import seedu.task.logic.parser.ArgumentTokenizer;
 import seedu.task.model.TaskBook;
+import seedu.task.model.item.Description;
 import seedu.task.model.item.Event;
 import seedu.task.model.item.Name;
 import seedu.task.model.item.Task;
 import seedu.taskcommons.core.Messages;
 
 //@@author A0127570H
+/*
+ * Logic test for Edit Command
+ */
 public class EditCommandTest extends CommandTest {
 
     /*
@@ -98,8 +102,24 @@ public class EditCommandTest extends CommandTest {
                 "edit /t 1 /name   ",
                 String.format(ArgumentTokenizer.MESSAGE_EMPTY_VALUE),
                 expectedAB,
-                expectedAB.getTaskList()); 
+                expectedAB.getTaskList());          
         
+    }
+    
+    // invalid removing deadline in floating task
+    @Test
+    public void execute_editInvalidDeadlineRemoval_invalid() throws Exception {
+        // setup expectations
+        TaskBook expectedAB = new TaskBook();
+        TestDataHelper helper = new TestDataHelper();
+        Task toBeAdded = helper.computingDescTask();
+        expectedAB.addTask(toBeAdded);
+
+        assertEditTaskCommandBehavior(helper.generateAddDescTaskCommand(toBeAdded),helper.generateListTaskCommand(),
+                "edit /t 1 /by rm   ",
+                EditTaskCommand.MESSAGE_INVALID_DEADLINE_REMOVAL,
+                expectedAB,
+                expectedAB.getTaskList());
     }
     
     // Invalid argument format
@@ -147,17 +167,23 @@ public class EditCommandTest extends CommandTest {
     }
     
     @Test
-    public void execute_edit_invalidIndex_unsuccessful() throws Exception {
+    public void execute_edit_invalidIndexAndDescription_unsuccessful() throws Exception {
      // setup expectations
         TestDataHelper helper = new TestDataHelper();
         Event toBeAdded = helper.computingUpComingEvent();
         TaskBook expectedAB = new TaskBook();
         expectedAB.addEvent(toBeAdded);
 
-        // execute command and verify result
+        // execute invalid index command and verify result
         assertEditEventCommandBehavior(helper.generateAddEventCommand(toBeAdded),helper.generateListEventCommand(),
                 "edit /e 10.2 /name blah blah",
                 String.format(Messages.MESSAGE_INVALID_EVENT_DISPLAYED_INDEX),
+                expectedAB,
+                expectedAB.getEventList());
+        // execute invalid description command and verify result
+        assertEditEventCommandBehavior(helper.generateAddEventCommand(toBeAdded),helper.generateListEventCommand(),
+                "edit /e 1 /desc /blah /blah",
+                Description.MESSAGE_DESCRIPTION_CONSTRAINTS,
                 expectedAB,
                 expectedAB.getEventList());
 
@@ -170,6 +196,7 @@ public class EditCommandTest extends CommandTest {
      *      -> Editing name
      *      -> Editing description
      *      -> Editing name and description
+     *      -> Removing deadline to change to floating task
      *      -> Adding deadline to change to deadline task
      *      -> Editing all 3 fields
      *      
@@ -230,6 +257,26 @@ public class EditCommandTest extends CommandTest {
         // execute command and verify result
         assertEditTaskCommandBehavior(helper.generateAddDescTaskCommand(toBeAdded),helper.generateListTaskCommand(),
                 helper.generateEditFloatTaskCommand(toBeEdited,1),
+                String.format(EditTaskCommand.MESSAGE_EDIT_TASK_SUCCESS, toBeEdited),
+                expectedAB,
+                expectedAB.getTaskList());
+
+    }
+    
+    //Removing deadline from deadline task
+    @Test
+    public void execute_editDeadlineTaskToFloatTask_successful() throws Exception {
+        // setup expectations
+        TestDataHelper helper = new TestDataHelper();
+        Task toBeAdded = helper.computingTask();
+        TaskBook expectedAB = new TaskBook();
+        expectedAB.addTask(toBeAdded);
+        Task toBeEdited = helper.computingDescTask();
+        expectedAB.editTask(toBeEdited, toBeAdded);
+
+        // execute command and verify result
+        assertEditTaskCommandBehavior(helper.generateAddTaskCommand(toBeAdded),helper.generateListTaskCommand(),
+                helper.generateEditDeadlineTaskCommand(toBeEdited,1),
                 String.format(EditTaskCommand.MESSAGE_EDIT_TASK_SUCCESS, toBeEdited),
                 expectedAB,
                 expectedAB.getTaskList());
@@ -342,28 +389,6 @@ public class EditCommandTest extends CommandTest {
         // execute command and verify result
         assertEditTaskCommandBehavior(helper.generateAddTaskCommand(toBeAdded),helper.generateListTaskCommand(),
                 helper.generateEditTaskCommand(toBeEdited,1),
-                String.format(EditTaskCommand.MESSAGE_EDIT_TASK_SUCCESS, toBeEdited),
-                expectedAB,
-                expectedAB.getTaskList());
-
-    }
-    
-    //Removing deadline to change to floating task
-    //TODO
-    @Ignore
-    @Test
-    public void execute_editTask_remove_deadline_successful() throws Exception {
-        // setup expectations
-        TestDataHelper helper = new TestDataHelper();
-        Task toBeAdded = helper.computingTask();
-        TaskBook expectedAB = new TaskBook();
-        expectedAB.addTask(toBeAdded);
-        Task toBeEdited = helper.computingDescTask();
-        expectedAB.editTask(toBeEdited, toBeAdded);
-
-        // execute command and verify result
-        assertEditTaskCommandBehavior(helper.generateAddTaskCommand(toBeAdded),helper.generateListTaskCommand(),
-                helper.generateEditFloatTaskCommand(toBeEdited,1),
                 String.format(EditTaskCommand.MESSAGE_EDIT_TASK_SUCCESS, toBeEdited),
                 expectedAB,
                 expectedAB.getTaskList());

@@ -6,13 +6,13 @@ import seedu.task.commons.exceptions.IllegalValueException;
 import seedu.task.commons.util.StringUtil;
 
 
+//@@author A0127570H
 /**
  * Represents a Task's deadline in the task book.
  * Guarantees: immutable; is valid as declared in {@link #isValidDeadline(String)}
  * @author kian ming
  */
 
-//@@author A0127570H
 public class Deadline implements Comparable<Deadline> {
 
     public static final String MESSAGE_DEADLINE_CONSTRAINTS = 
@@ -60,23 +60,24 @@ public class Deadline implements Comparable<Deadline> {
 
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
+		if (this == obj) {
 			return true;
-		if (obj == null)
+		}
+		if (obj == null) {
 			return false;
-		if (getClass() != obj.getClass())
+		}
+		if (getClass() != obj.getClass()) {
 			return false;
+		}
 		
 		Deadline other = (Deadline) obj;
-		if (deadLine == null) {
-			if (other.deadLine != null)
-				return false;
-		} else if (!this.toString()
-				.equals(other.toString())) /*Standardized String to compare for equality */
+		if (deadLine == null && (other.deadLine != null)) {
 			return false;
+		} else if (!this.toString().equals(other.toString())) /*Standardized String to compare for equality */ {
+			return false;
+		}
 		return true;
 	}
-
 
 	@Override
 	public int compareTo(Deadline o) {

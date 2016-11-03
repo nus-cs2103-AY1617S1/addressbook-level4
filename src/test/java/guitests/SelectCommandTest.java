@@ -11,6 +11,9 @@ import seedu.task.model.item.ReadOnlyTask;
 import seedu.taskcommons.core.Messages;
 
 //@@author A0127570H
+/*
+ * GUI test for Select Command
+ */
 public class SelectCommandTest extends TaskBookGuiTest {
 
     @Test

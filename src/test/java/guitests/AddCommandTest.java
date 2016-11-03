@@ -14,6 +14,9 @@ import seedu.task.testutil.TestUtil;
 import seedu.taskcommons.core.Messages;
 
 //@@author A0127570H
+/*
+ * GUI test for Add Command
+ */
 public class AddCommandTest extends TaskBookGuiTest {
 
     @Test
@@ -23,13 +26,11 @@ public class AddCommandTest extends TaskBookGuiTest {
         TestTask taskToAdd = td.arts;
         currentList = TestUtil.addTasksToListAtIndex(currentList, 0,taskToAdd);
         assertAddTaskSuccess(taskToAdd, currentList);
-        
 
         //add another task
         taskToAdd = td.socSciences;
         currentList = TestUtil.addTasksToList(currentList, taskToAdd);
         assertAddTaskSuccess(taskToAdd, currentList);
-        
 
         //add duplicate task
         commandBox.runCommand(td.arts.getFullAddCommand());

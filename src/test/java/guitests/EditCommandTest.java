@@ -16,6 +16,9 @@ import seedu.task.testutil.TestUtil;
 import seedu.taskcommons.core.Messages;
 
 //@@author A0127570H
+/*
+ * GUI test for Edit Command
+ */
 public class EditCommandTest extends TaskBookGuiTest{
 
     @Test

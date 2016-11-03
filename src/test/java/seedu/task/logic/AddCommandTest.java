@@ -19,6 +19,9 @@ import seedu.task.model.item.Name;
 import seedu.task.model.item.Task;
 
 //@@author A0127570H
+/*
+ * Logic test for Add Command
+ */
 public class AddCommandTest extends CommandTest{
 
 	/*
@@ -36,7 +39,7 @@ public class AddCommandTest extends CommandTest{
 	
     // Invalid argument format
     @Test
-    public void execute_add_invalidArgsFormat() throws Exception {
+    public void execute_addInvalidArgsFormat_Unsuccessful() throws Exception {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE);
         assertCommandBehavior_task(
                 "add", expectedMessage);
@@ -44,7 +47,7 @@ public class AddCommandTest extends CommandTest{
     
     //Invalid data field format
     @Test 
-    public void execute_addTask_invalidTaskData() throws Exception {
+    public void execute_addTaskInvalidTaskData_Unsuccessful() throws Exception {
     	//Invalid Name 
     	assertCommandBehavior_task(
                 "add []\\[;] /desc nil /by 30-12-16", Name.MESSAGE_NAME_CONSTRAINTS);

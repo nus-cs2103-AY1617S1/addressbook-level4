@@ -1,5 +1,7 @@
 package seedu.task.logic.commands;
 
+import java.util.logging.Logger;
+
 import seedu.task.commons.exceptions.IllegalValueException;
 import seedu.task.model.item.Description;
 import seedu.task.model.item.Event;
@@ -8,18 +10,20 @@ import seedu.task.model.item.Name;
 import seedu.task.model.item.ReadOnlyEvent;
 import seedu.task.model.item.UniqueEventList;
 import seedu.task.model.item.UniqueTaskList.DuplicateTaskException;
+import seedu.taskcommons.core.LogsCenter;
 import seedu.taskcommons.core.Messages;
 import seedu.taskcommons.core.UnmodifiableObservableList;
 
+//@@author A0127570H
 /**
  * Executes editing of events according to the input argument.
  * 
  * @author kian ming
  */
 
-//@@author A0127570H
 public class EditEventCommand extends EditCommand {
 
+    private final Logger logger = LogsCenter.getLogger(EditTaskCommand.class);    
 	public static final String MESSAGE_EDIT_EVENT_SUCCESS = "Edited Event: %1$s";
 	public static final String MESSAGE_DUPLICATE_EVENT = "This event already exists in the task book";
 
@@ -61,14 +65,19 @@ public class EditEventCommand extends EditCommand {
 	 * Executes the editing of the event
 	 * 
 	 * @throws DuplicateTaskException
+	 * @throws IllegalValueException Fields edited do not abide by restrictions
+	 * @throws IndexOutOfBoundsException Index provided is not valid
 	 */
 	@Override
 	public CommandResult execute() {
-		try {
+	    logger.info("-------[Executing EditEventCommand]");
+	    try {
 		    UnmodifiableObservableList<ReadOnlyEvent> lastShownList = model.getFilteredEventList();	        
 	        targetEvent = lastShownList.get(getTargetIndex());
 	        editEvent = editEvent(targetEvent); 		    
 		    model.editEvent(editEvent, targetEvent);
+		    
+		    logger.info("-------[Executed EditEventCommand]" + this.toString());
 
 			return new CommandResult(String.format(MESSAGE_EDIT_EVENT_SUCCESS, editEvent));
 
@@ -100,16 +109,26 @@ public class EditEventCommand extends EditCommand {
 		if (newStartDuration.isEmpty() && newEndDuration.isEmpty()) {
 			newDuration = targetEvent.getDuration();
 		} else {
-		    if (newStartDuration.isEmpty()) {
-		        newDuration = new EventDuration (targetEvent.getDuration().getStartTimeAsText(), newEndDuration);
-		    } else if (newEndDuration.isEmpty()){
-		        newDuration = new EventDuration (newStartDuration, targetEvent.getDuration().getEndTimeAsText());
-		    } else {
-                newDuration = new EventDuration (newStartDuration, newEndDuration);
-            }
+		    setupNewDuration(targetEvent);
 		}
+		
 		return new Event(this.newName, this.newDescription, this.newDuration);
 	}
+
+	/**
+     * Setups new duration for event.
+     * 
+     * @throws IllegalValueException 
+     */
+    private void setupNewDuration(ReadOnlyEvent targetEvent) throws IllegalValueException {
+        if (newStartDuration.isEmpty() && !newEndDuration.isEmpty()) {
+            newDuration = new EventDuration (targetEvent.getDuration().getStartTimeAsText(), newEndDuration);
+        } else if (!newStartDuration.isEmpty() && newEndDuration.isEmpty()){
+            newDuration = new EventDuration (newStartDuration, targetEvent.getDuration().getEndTimeAsText());
+        } else {
+            newDuration = new EventDuration (newStartDuration, newEndDuration);
+        }
+    }
 
 	@Override
 	public CommandResult undo() {
@@ -120,6 +139,11 @@ public class EditEventCommand extends EditCommand {
 		} catch (UniqueEventList.DuplicateEventException e) {
 			return new CommandResult(MESSAGE_DUPLICATE_EVENT);
 		}
+	}
+	
+	@Override
+	public String toString() {
+	    return COMMAND_WORD+ " from " + this.targetEvent.getAsText()+ " to " + this.editEvent.getAsText();
 	}
 
 }

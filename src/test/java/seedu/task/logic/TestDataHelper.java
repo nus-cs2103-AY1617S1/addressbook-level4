@@ -376,6 +376,16 @@ public class TestDataHelper{
         return cmd.toString();
     }
     
+    /** Generates the correct edit task command to remove deadline */
+    public String generateEditDeadlineTaskCommand(Task p, int index) {
+        StringBuffer cmd = new StringBuffer();
+
+        cmd.append("edit /t " + index);
+        cmd.append(" /by  rm");
+
+        return cmd.toString();
+    }
+    
     /** Generates the correct edit event command based on the new description string given */
     public String generateEditEventCommand(Event p, int index) {
         StringBuffer cmd = new StringBuffer();

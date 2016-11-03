@@ -12,13 +12,19 @@ import seedu.task.logic.commands.AddTaskCommand;
 import seedu.task.logic.commands.Command;
 import seedu.task.logic.commands.IncorrectCommand;
 
+//@@author A0127570H
 /**
  * Responsible for validating and preparing the arguments for AddCommand execution
  * @author kian ming
  */
 
-//@@author A0127570H
 public class AddParser implements Parser {
+    
+    private String name;
+    private Optional <String> description;
+    private Optional <String> startDuration;
+    private Optional <String> endDuration;
+    private Optional <String> deadline;
     
     public AddParser() {}
     
@@ -40,11 +46,7 @@ public class AddParser implements Parser {
         argsTokenizer.tokenize(args);
         
         try {           
-            String name = argsTokenizer.getPreamble().get();
-            Optional <String> description = argsTokenizer.getValue(descriptionPrefix);
-            Optional <String> startDuration = argsTokenizer.getValue(durationStartPrefix);
-            Optional <String> endDuration = argsTokenizer.getValue(durationEndPrefix);
-            Optional <String> deadline = argsTokenizer.getValue(deadlinePrefix);
+            getTokenizerValue(argsTokenizer);
             
             if (startDuration.isPresent()) { //Only events have duration
                 return new AddEventCommand(name, description.orElse(""), startDuration.orElse(""), endDuration.orElse(""));
@@ -56,6 +58,14 @@ public class AddParser implements Parser {
         } catch (EmptyValueException e) {
             return new IncorrectCommand(e.getMessage());
         }
+    }
+
+    private void getTokenizerValue(ArgumentTokenizer argsTokenizer) throws EmptyValueException {
+        name = argsTokenizer.getPreamble().get();
+        description = argsTokenizer.getValue(descriptionPrefix);
+        startDuration = argsTokenizer.getValue(durationStartPrefix);
+        endDuration = argsTokenizer.getValue(durationEndPrefix);
+        deadline = argsTokenizer.getValue(deadlinePrefix);
     } 
     
 }

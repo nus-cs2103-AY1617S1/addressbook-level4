@@ -8,12 +8,12 @@ import seedu.task.model.item.Name;
 import seedu.task.model.item.ReadOnlyEvent;
 import seedu.task.model.item.UniqueEventList;
 
+//@@author A0127570H
 /**
  * Adds an event to the task book.
  * @author kian ming
  */
 
-//@@author A0127570H
 public class AddEventCommand extends AddCommand {
 
     public static final String MESSAGE_SUCCESS = "New event added: %1$s";
