@@ -160,4 +160,11 @@ public class UniqueTagList implements Iterable<Tag> {
             return buffer.substring(0, buffer.length() - separator.length());
         }
     }
+    
+    public boolean isEmpty(){
+        final StringBuffer buffer = new StringBuffer();
+        final String separator = " ";
+        internalList.forEach(tag -> buffer.append(tag.toString().substring(1, tag.toString().length()-1)).append(separator));
+        return (buffer.length() == 0);
+    }
 }
