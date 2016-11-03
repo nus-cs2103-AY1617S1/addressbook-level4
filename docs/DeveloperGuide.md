@@ -117,7 +117,7 @@ The `UI` component,
 
 ### Logic component
 
-<img src="images/LogicDiagram.png" width="800"><br>
+<img src="images/LogicClassDiagram.png" width="800"><br>
 
 **API** : [`Logic.java`](../src/main/java/seedu/task/logic/Logic.java)
 
