@@ -79,7 +79,6 @@ public class DoneCommand extends Command {
             return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
         taskToMark = lastShownList.get(targetIndex - 1);
-        markTaskDone(taskToMark);
         return markTaskDone(taskToMark);
     }
 

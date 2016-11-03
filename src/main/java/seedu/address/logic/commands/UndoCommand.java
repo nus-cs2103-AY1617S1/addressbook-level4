@@ -10,14 +10,14 @@ public class UndoCommand extends Command{
     
     public static final String COMMAND_WORD = "undo";
 
-    public static final String MESSAGE_UNDO_SUCCESS = "Undid the most receent action.";
+    public static final String MESSAGE_UNDO_SUCCESS = "Undid the most receent action:\n";
     public static final String MESSAGE_UNDO_FAILED = "No command to undo.";
 
     @Override
     public CommandResult execute() {
         try {
-            model.getPreviousState();
-            return new CommandResult(MESSAGE_UNDO_SUCCESS);
+            String message = model.getPreviousState();
+            return new CommandResult(MESSAGE_UNDO_SUCCESS + message);
         } catch (StateLimitException e){
             return new CommandResult(MESSAGE_UNDO_FAILED);
         }
