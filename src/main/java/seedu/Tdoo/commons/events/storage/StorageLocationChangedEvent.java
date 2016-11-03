@@ -8,19 +8,19 @@ import seedu.Tdoo.commons.events.BaseEvent;
  */
 public class StorageLocationChangedEvent extends BaseEvent {
 
-    public String newDirectory;
+	public String newDirectory;
 
-    public StorageLocationChangedEvent(String directory) {
-        this.newDirectory = directory.trim();
-    }
-    
-    public String getNewDirectory() {
-    	return newDirectory;
-    }
+	public StorageLocationChangedEvent(String directory) {
+		this.newDirectory = directory.trim();
+	}
 
-    @Override
-    public String toString(){
-        return "New Location: " + this.newDirectory;
-    }
+	public String getNewDirectory() {
+		return newDirectory;
+	}
+
+	@Override
+	public String toString() {
+		return "New Location: " + this.newDirectory;
+	}
 
 }

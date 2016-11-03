@@ -7,21 +7,21 @@ import static org.junit.Assert.assertTrue;
 
 public class HelpWindowTest extends ListGuiTest {
 
-    @Test
-    public void openHelpWindow() {
+	@Test
+	public void openHelpWindow() {
 
-        taskListPanel.clickOnListView();
+		taskListPanel.clickOnListView();
 
-        assertHelpWindowOpen(mainMenu.openHelpWindowUsingAccelerator());
+		assertHelpWindowOpen(mainMenu.openHelpWindowUsingAccelerator());
 
-        assertHelpWindowOpen(mainMenu.openHelpWindowUsingMenu());
+		assertHelpWindowOpen(mainMenu.openHelpWindowUsingMenu());
 
-        assertHelpWindowOpen(commandBox.runHelpCommand());
+		assertHelpWindowOpen(commandBox.runHelpCommand());
 
-    }
+	}
 
-    private void assertHelpWindowOpen(HelpWindowHandle helpWindowHandle) {
-        assertTrue(helpWindowHandle.isWindowOpen());
-        helpWindowHandle.closeWindow();
-    }
+	private void assertHelpWindowOpen(HelpWindowHandle helpWindowHandle) {
+		assertTrue(helpWindowHandle.isWindowOpen());
+		helpWindowHandle.closeWindow();
+	}
 }

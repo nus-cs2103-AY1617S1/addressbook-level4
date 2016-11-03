@@ -36,235 +36,238 @@ import seedu.Tdoo.ui.UiManager;
  * The main entry point to the application.
  */
 public class MainApp extends Application {
-    private static final Logger logger = LogsCenter.getLogger(MainApp.class);
+	private static final Logger logger = LogsCenter.getLogger(MainApp.class);
 
-    public static final Version VERSION = new Version(1, 0, 0, true);
+	public static final Version VERSION = new Version(1, 0, 0, true);
 
-    protected Ui ui;
-    protected Logic logic;
-    protected Storage storage;
-    protected Model model;
-    protected Config config;
-    protected UserPrefs userPrefs;
-    
-    private Stage primaryStage;
+	protected Ui ui;
+	protected Logic logic;
+	protected Storage storage;
+	protected Model model;
+	protected Config config;
+	protected UserPrefs userPrefs;
 
-    public MainApp() {}
+	private Stage primaryStage;
 
-    @Override
-    public void init() throws Exception {
-        logger.info("=============================[ Initializing TodoList ]===========================");
-        super.init();
+	public MainApp() {
+	}
 
-        config = initConfig(getApplicationParameter("config"));
-        storage = new StorageManager(config);
+	@Override
+	public void init() throws Exception {
+		logger.info("=============================[ Initializing TodoList ]===========================");
+		super.init();
 
-        userPrefs = initPrefs(config);
+		config = initConfig(getApplicationParameter("config"));
+		storage = new StorageManager(config);
 
-        initLogging(config);
+		userPrefs = initPrefs(config);
 
-        model = initModelManager(storage, userPrefs);
+		initLogging(config);
 
-        logic = new LogicManager(model, storage);
+		model = initModelManager(storage, userPrefs);
 
-        ui = new UiManager(logic, config, userPrefs);
+		logic = new LogicManager(model, storage);
 
-        initEventsCenter();
-    }
+		ui = new UiManager(logic, config, userPrefs);
 
-    private String getApplicationParameter(String parameterName){
-        Map<String, String> applicationParameters = getParameters().getNamed();
-        return applicationParameters.get(parameterName);
-    }
+		initEventsCenter();
+	}
 
-    //@@author A0144061U-reused
-    private Model initModelManager(Storage storage, UserPrefs userPrefs) {
-        Optional<ReadOnlyTaskList> TodoListOptional;
-        ReadOnlyTaskList initialTodoListData;
-        Optional<ReadOnlyTaskList> EventListOptional;
-        ReadOnlyTaskList initialEventListData;
-        Optional<ReadOnlyTaskList> DeadlineListOptional;
-        ReadOnlyTaskList initialDeadlineListData;
-        
-        try {
-            TodoListOptional = storage.readTodoList();
-            if(!TodoListOptional.isPresent()){
-                logger.info("Data file not found. Will be starting with an empty TodoList");
-            }
-            initialTodoListData = TodoListOptional.orElse(new TaskList());
-            
-            EventListOptional = storage.readEventList();
-            if(!EventListOptional.isPresent()){
-                logger.info("Data file not found. Will be starting with an empty EventList");
-            }
-            initialEventListData = EventListOptional.orElse(new TaskList());
-            
-            DeadlineListOptional = storage.readDeadlineList();
-            if(!DeadlineListOptional.isPresent()){
-                logger.info("Data file not found. Will be starting with an empty DeadlineList");
-            }
-            initialDeadlineListData = DeadlineListOptional.orElse(new TaskList());
-            
-        } catch (DataConversionException e) {
-            logger.warning("Data file not in the correct format. Will be starting with an empty TodoList");
-            initialTodoListData = new TaskList();
-            initialEventListData = new TaskList();
-            initialDeadlineListData = new TaskList();
-        } catch (IOException e) {
-            logger.warning("Problem while reading from the file. . Will be starting with an empty TodoList");
-            initialTodoListData = new TaskList();
-            initialEventListData = new TaskList();
-            initialDeadlineListData = new TaskList();
-        }
+	private String getApplicationParameter(String parameterName) {
+		Map<String, String> applicationParameters = getParameters().getNamed();
+		return applicationParameters.get(parameterName);
+	}
 
-        return new ModelManager(initialTodoListData, initialEventListData, initialDeadlineListData, userPrefs);
-    }
-    //@@author
+	// @@author A0144061U-reused
+	private Model initModelManager(Storage storage, UserPrefs userPrefs) {
+		Optional<ReadOnlyTaskList> TodoListOptional;
+		ReadOnlyTaskList initialTodoListData;
+		Optional<ReadOnlyTaskList> EventListOptional;
+		ReadOnlyTaskList initialEventListData;
+		Optional<ReadOnlyTaskList> DeadlineListOptional;
+		ReadOnlyTaskList initialDeadlineListData;
 
-    private void initLogging(Config config) {
-        LogsCenter.init(config);
-    }
+		try {
+			TodoListOptional = storage.readTodoList();
+			if (!TodoListOptional.isPresent()) {
+				logger.info("Data file not found. Will be starting with an empty TodoList");
+			}
+			initialTodoListData = TodoListOptional.orElse(new TaskList());
 
-    protected Config initConfig(String configFilePath) {
-        Config initializedConfig;
-        String configFilePathUsed;
+			EventListOptional = storage.readEventList();
+			if (!EventListOptional.isPresent()) {
+				logger.info("Data file not found. Will be starting with an empty EventList");
+			}
+			initialEventListData = EventListOptional.orElse(new TaskList());
 
-        configFilePathUsed = Config.DEFAULT_CONFIG_FILE;
+			DeadlineListOptional = storage.readDeadlineList();
+			if (!DeadlineListOptional.isPresent()) {
+				logger.info("Data file not found. Will be starting with an empty DeadlineList");
+			}
+			initialDeadlineListData = DeadlineListOptional.orElse(new TaskList());
 
-        if(configFilePath != null) {
-            logger.info("Custom Config file specified " + configFilePath);
-            configFilePathUsed = configFilePath;
-        }
+		} catch (DataConversionException e) {
+			logger.warning("Data file not in the correct format. Will be starting with an empty TodoList");
+			initialTodoListData = new TaskList();
+			initialEventListData = new TaskList();
+			initialDeadlineListData = new TaskList();
+		} catch (IOException e) {
+			logger.warning("Problem while reading from the file. . Will be starting with an empty TodoList");
+			initialTodoListData = new TaskList();
+			initialEventListData = new TaskList();
+			initialDeadlineListData = new TaskList();
+		}
 
-        logger.info("Using config file : " + configFilePathUsed);
+		return new ModelManager(initialTodoListData, initialEventListData, initialDeadlineListData, userPrefs);
+	}
+	// @@author
 
-        try {
-            Optional<Config> configOptional = ConfigUtil.readConfig(configFilePathUsed);
-            initializedConfig = configOptional.orElse(new Config());
-        } catch (DataConversionException e) {
-            logger.warning("Config file at " + configFilePathUsed + " is not in the correct format. " +
-                    "Using default config properties");
-            initializedConfig = new Config();
-        }
+	private void initLogging(Config config) {
+		LogsCenter.init(config);
+	}
 
-        //Update config file in case it was missing to begin with or there are new/unused fields
-        try {
-            ConfigUtil.saveConfig(initializedConfig, configFilePathUsed);
-        } catch (IOException e) {
-            logger.warning("Failed to save config file : " + StringUtil.getDetails(e));
-        }
-        return initializedConfig;
-    }
+	protected Config initConfig(String configFilePath) {
+		Config initializedConfig;
+		String configFilePathUsed;
 
-    protected UserPrefs initPrefs(Config config) {
-        assert config != null;
+		configFilePathUsed = Config.DEFAULT_CONFIG_FILE;
 
-        String prefsFilePath = config.getUserPrefsFilePath();
-        logger.info("Using prefs file : " + prefsFilePath);
+		if (configFilePath != null) {
+			logger.info("Custom Config file specified " + configFilePath);
+			configFilePathUsed = configFilePath;
+		}
 
-        UserPrefs initializedPrefs;
-        try {
-            Optional<UserPrefs> prefsOptional = storage.readUserPrefs();
-            initializedPrefs = prefsOptional.orElse(new UserPrefs());
-        } catch (DataConversionException e) {
-            logger.warning("UserPrefs file at " + prefsFilePath + " is not in the correct format. " +
-                    "Using default user prefs");
-            initializedPrefs = new UserPrefs();
-        } catch (IOException e) {
-            logger.warning("Problem while reading from the file. . Will be starting with an empty TodoList");
-            initializedPrefs = new UserPrefs();
-        }
+		logger.info("Using config file : " + configFilePathUsed);
 
-        //Update prefs file in case it was missing to begin with or there are new/unused fields
-        try {
-            storage.saveUserPrefs(initializedPrefs);
-        } catch (IOException e) {
-            logger.warning("Failed to save config file : " + StringUtil.getDetails(e));
-        }
+		try {
+			Optional<Config> configOptional = ConfigUtil.readConfig(configFilePathUsed);
+			initializedConfig = configOptional.orElse(new Config());
+		} catch (DataConversionException e) {
+			logger.warning("Config file at " + configFilePathUsed + " is not in the correct format. "
+					+ "Using default config properties");
+			initializedConfig = new Config();
+		}
 
-        return initializedPrefs;
-    }
+		// Update config file in case it was missing to begin with or there are
+		// new/unused fields
+		try {
+			ConfigUtil.saveConfig(initializedConfig, configFilePathUsed);
+		} catch (IOException e) {
+			logger.warning("Failed to save config file : " + StringUtil.getDetails(e));
+		}
+		return initializedConfig;
+	}
 
-    private void initEventsCenter() {
-        EventsCenter.getInstance().registerHandler(this);
-    }
+	protected UserPrefs initPrefs(Config config) {
+		assert config != null;
 
-    @Override
-    public void start(Stage primaryStage) {
-        logger.info("Starting TodoList " + MainApp.VERSION);
-        setPrimaryStage(primaryStage);
-        ui.start(primaryStage);
-    }
+		String prefsFilePath = config.getUserPrefsFilePath();
+		logger.info("Using prefs file : " + prefsFilePath);
 
-    @Override
-    public void stop() {
-        logger.info("============================ [ Stopping Todo Book ] =============================");
-        ui.stop();
-        try {
-            storage.saveUserPrefs(userPrefs);
-        } catch (IOException e) {
-            logger.severe("Failed to save preferences " + StringUtil.getDetails(e));
-        }
-        Platform.exit();
-        System.exit(0);
-    }
-    
-    private void setPrimaryStage(Stage primaryStage) {
-    	this.primaryStage = primaryStage;
-    }
+		UserPrefs initializedPrefs;
+		try {
+			Optional<UserPrefs> prefsOptional = storage.readUserPrefs();
+			initializedPrefs = prefsOptional.orElse(new UserPrefs());
+		} catch (DataConversionException e) {
+			logger.warning("UserPrefs file at " + prefsFilePath + " is not in the correct format. "
+					+ "Using default user prefs");
+			initializedPrefs = new UserPrefs();
+		} catch (IOException e) {
+			logger.warning("Problem while reading from the file. . Will be starting with an empty TodoList");
+			initializedPrefs = new UserPrefs();
+		}
 
-    @Subscribe
-    public void handleExitAppRequestEvent(ExitAppRequestEvent event) {
-        logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        this.stop();
-    }
-    
-    //@@author A0144061U
-    /*
-     * Stop and restart the app with new storage file
-     */
-    @Subscribe
-    private void handleStorageLocationChangedEvent (StorageLocationChangedEvent event) throws Exception {
-    	logger.info(LogsCenter.getEventHandlingLogMessage(event));
-    	
-    	File from;
-    	File to;
-    	
-    	from = new File(config.getTodoListFilePath());
-    	to = new File(event.getNewDirectory() + "/TodoList.xml");
-    	from.renameTo(to);
-    	
-    	from = new File(config.getEventListFilePath());
-    	to = new File(event.getNewDirectory() + "/EventList.xml");
-    	from.renameTo(to);
-    	
-    	from = new File(config.getDeadlineListFilePath());
-    	to = new File(event.getNewDirectory() + "/DeadlineList.xml");
-    	from.renameTo(to);
-    	
-        String newDirectory = event.getNewDirectory();
-        Config changedConfig = new Config(newDirectory);
-        ConfigUtil.saveConfig(changedConfig, Config.DEFAULT_CONFIG_FILE);
-        
-        //this.primaryStage.close();
-        
-        config = initConfig(getApplicationParameter("config"));
-        storage.unsubscribe();
-        storage = new StorageManager(config);
+		// Update prefs file in case it was missing to begin with or there are
+		// new/unused fields
+		try {
+			storage.saveUserPrefs(initializedPrefs);
+		} catch (IOException e) {
+			logger.warning("Failed to save config file : " + StringUtil.getDetails(e));
+		}
 
-        userPrefs = initPrefs(config);
+		return initializedPrefs;
+	}
 
-        initLogging(config);
+	private void initEventsCenter() {
+		EventsCenter.getInstance().registerHandler(this);
+	}
 
-        model = initModelManager(storage, userPrefs);
+	@Override
+	public void start(Stage primaryStage) {
+		logger.info("Starting TodoList " + MainApp.VERSION);
+		setPrimaryStage(primaryStage);
+		ui.start(primaryStage);
+	}
 
-        logic = new LogicManager(model, storage);
-        
-        ui = new UiManager(logic, config, userPrefs);
-    }
+	@Override
+	public void stop() {
+		logger.info("============================ [ Stopping Todo Book ] =============================");
+		ui.stop();
+		try {
+			storage.saveUserPrefs(userPrefs);
+		} catch (IOException e) {
+			logger.severe("Failed to save preferences " + StringUtil.getDetails(e));
+		}
+		Platform.exit();
+		System.exit(0);
+	}
 
-    public static void main(String[] args) {
-        launch(args);
-    }
-    //@@author
+	private void setPrimaryStage(Stage primaryStage) {
+		this.primaryStage = primaryStage;
+	}
+
+	@Subscribe
+	public void handleExitAppRequestEvent(ExitAppRequestEvent event) {
+		logger.info(LogsCenter.getEventHandlingLogMessage(event));
+		this.stop();
+	}
+
+	// @@author A0144061U
+	/*
+	 * Stop and restart the app with new storage file
+	 */
+	@Subscribe
+	private void handleStorageLocationChangedEvent(StorageLocationChangedEvent event) throws Exception {
+		logger.info(LogsCenter.getEventHandlingLogMessage(event));
+
+		File from;
+		File to;
+
+		from = new File(config.getTodoListFilePath());
+		to = new File(event.getNewDirectory() + "/TodoList.xml");
+		from.renameTo(to);
+
+		from = new File(config.getEventListFilePath());
+		to = new File(event.getNewDirectory() + "/EventList.xml");
+		from.renameTo(to);
+
+		from = new File(config.getDeadlineListFilePath());
+		to = new File(event.getNewDirectory() + "/DeadlineList.xml");
+		from.renameTo(to);
+
+		String newDirectory = event.getNewDirectory();
+		Config changedConfig = new Config(newDirectory);
+		ConfigUtil.saveConfig(changedConfig, Config.DEFAULT_CONFIG_FILE);
+
+		// this.primaryStage.close();
+
+		config = initConfig(getApplicationParameter("config"));
+		storage.unsubscribe();
+		storage = new StorageManager(config);
+
+		userPrefs = initPrefs(config);
+
+		initLogging(config);
+
+		model = initModelManager(storage, userPrefs);
+
+		logic = new LogicManager(model, storage);
+
+		ui = new UiManager(logic, config, userPrefs);
+	}
+
+	public static void main(String[] args) {
+		launch(args);
+	}
+	// @@author
 }

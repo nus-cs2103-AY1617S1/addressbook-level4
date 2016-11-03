@@ -7,15 +7,15 @@ import seedu.Tdoo.commons.events.BaseEvent;
  */
 public class DataSavingExceptionEvent extends BaseEvent {
 
-    public Exception exception;
+	public Exception exception;
 
-    public DataSavingExceptionEvent(Exception exception) {
-        this.exception = exception;
-    }
+	public DataSavingExceptionEvent(Exception exception) {
+		this.exception = exception;
+	}
 
-    @Override
-    public String toString(){
-        return exception.toString();
-    }
+	@Override
+	public String toString() {
+		return exception.toString();
+	}
 
 }

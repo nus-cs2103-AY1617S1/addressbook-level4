@@ -8,21 +8,21 @@ import seedu.Tdoo.commons.events.BaseEvent;
  * Registers the class' event handlers in eventsCenter
  */
 public abstract class ComponentManager {
-    protected EventsCenter eventsCenter;
+	protected EventsCenter eventsCenter;
 
-    /**
-     * Uses default {@link EventsCenter}
-     */
-    public ComponentManager(){
-        this(EventsCenter.getInstance());
-    }
+	/**
+	 * Uses default {@link EventsCenter}
+	 */
+	public ComponentManager() {
+		this(EventsCenter.getInstance());
+	}
 
-    public ComponentManager(EventsCenter eventsCenter) {
-        this.eventsCenter = eventsCenter;
-        eventsCenter.registerHandler(this);
-    }
+	public ComponentManager(EventsCenter eventsCenter) {
+		this.eventsCenter = eventsCenter;
+		eventsCenter.registerHandler(this);
+	}
 
-    protected void raise(BaseEvent event){
-        eventsCenter.post(event);
-    }
+	protected void raise(BaseEvent event) {
+		eventsCenter.post(event);
+	}
 }
