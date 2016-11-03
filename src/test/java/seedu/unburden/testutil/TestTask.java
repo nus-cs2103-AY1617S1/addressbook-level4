@@ -5,6 +5,7 @@ import seedu.unburden.model.task.*;
 
 /**
  * A mutable person object. For testing only.
+ * Author A0147986H
  */
 public class TestTask implements ReadOnlyTask {
 
@@ -18,10 +19,6 @@ public class TestTask implements ReadOnlyTask {
 
     public TestTask() {
         tags = new UniqueTagList();
-    }
-
-    public void setName(Name name) {
-        this.name = name;
     }
 
     @Override
@@ -48,12 +45,41 @@ public class TestTask implements ReadOnlyTask {
     public Time getEndTime() {
         return endTime;
     }
-
+    
     @Override
     public UniqueTagList getTags() {
         return tags;
     }
-
+    
+    public void setName(Name name) {
+        this.name = name;
+    }
+    
+    
+    public void setTaskDescription(TaskDescription taskD) {
+        this.taskD = taskD;
+    }
+      
+    
+    public void setDate(Date date) {
+        this.date = date;
+    }
+    
+    
+    public void setStartTime(Time startTime) {
+        this.startTime = startTime;
+    }
+    
+    
+    public void setEndTime(Time endTime){
+        this.endTime = endTime;
+    }
+    
+    
+    public void setTags(UniqueTagList taskD) {
+        this.tags = taskD;
+    }
+    
     @Override
     public String toString() {
         return getAsText();
