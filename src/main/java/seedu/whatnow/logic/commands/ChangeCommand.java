@@ -31,9 +31,9 @@ public class ChangeCommand extends Command {
 
     public static final String MESSAGE_UNDO_FAIL = "Unable to undo due to no previous location information";
 
-    public static final String MESSAGE_UNDO_SUCCESS = "Successfully able to undo due to %1$s";
+    public static final String MESSAGE_UNDO_SUCCESS = "Successfully able to undo to %1$s";
 
-    public static final String MESSAGE_REDO_SUCCESS = "Successfully able to redo due to %1$s";
+    public static final String MESSAGE_REDO_SUCCESS = "Successfully able to redo to %1$s";
 
     public static final String MESSAGE_REDO_FAIL = "Unable to redo due to no previous undo command";
     
