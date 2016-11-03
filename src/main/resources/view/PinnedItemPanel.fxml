@@ -9,6 +9,6 @@
         <URL value="@Extensions.css" />
     </stylesheets>
     <children>
-        <ListView fx:id="pinnedListView" VBox.vgrow="ALWAYS" />
+        <ListView fx:id="pinnedListView" minHeight = "550" VBox.vgrow="ALWAYS" />
     </children>
 </VBox>

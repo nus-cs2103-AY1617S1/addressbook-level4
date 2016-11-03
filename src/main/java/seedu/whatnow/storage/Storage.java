@@ -7,6 +7,7 @@ import java.util.Optional;
 
 import seedu.whatnow.commons.core.Config;
 import seedu.whatnow.commons.events.model.ConfigChangedEvent;
+import seedu.whatnow.commons.events.model.PinnedItemChangedEvent;
 import seedu.whatnow.commons.events.model.WhatNowChangedEvent;
 import seedu.whatnow.commons.events.storage.DataSavingExceptionEvent;
 import seedu.whatnow.commons.exceptions.DataConversionException;
@@ -45,4 +46,6 @@ public interface Storage extends WhatNowStorage, UserPrefsStorage {
     void saveConfig(Config config) throws IOException;
 
     void saveConfig(Config config, String filePath) throws IOException;
+    
+    void handlePinnedItemChangedEvent(PinnedItemChangedEvent pice);
 }

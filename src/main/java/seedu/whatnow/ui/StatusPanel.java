@@ -53,7 +53,7 @@ public class StatusPanel extends UiPart {
         ImageView iv1 = new ImageView();
         iv1.setImage(image);
         iv1.setFitWidth(350);
-        iv1.setFitHeight(200);
+        iv1.setFitHeight(178);
         
         statusDisplayArea = new TextArea();
         statusDisplayArea.setEditable(false);
@@ -67,16 +67,14 @@ public class StatusPanel extends UiPart {
         statusDisplayArea.setBorder(Border.EMPTY);
         
         Text pinHeader = new Text();
-        Text blank = new Text();
         pinHeader.setText("Pinned Items");
         pinHeader.setFont(Font.font(20));
         pinHeader.setFill(Paint.valueOf("white"));
         
         gridPane.add(iv1, 0, 0, 1, 1);
         gridPane.add(statusDisplayArea, 0, 1, 1, 1);
-        gridPane.add(blank, 0, 2, 1, 1);
-        gridPane.add(pinHeader, 0, 3, 1, 1);
-        GridPane.setHalignment(gridPane.getChildren().get(5), HPos.CENTER);
+        gridPane.add(pinHeader, 0, 2, 1, 1);
+        GridPane.setHalignment(gridPane.getChildren().get(4), HPos.CENTER);
     }
 
     @Override

@@ -10,10 +10,12 @@ import seedu.whatnow.commons.core.LogsCenter;
 import seedu.whatnow.commons.core.UnmodifiableObservableList;
 import seedu.whatnow.commons.events.model.AddTaskEvent;
 import seedu.whatnow.commons.events.model.ConfigChangedEvent;
+import seedu.whatnow.commons.events.model.PinnedItemChangedEvent;
 import seedu.whatnow.commons.events.model.UpdateTaskEvent;
 import seedu.whatnow.commons.events.model.WhatNowChangedEvent;
 import seedu.whatnow.commons.exceptions.DataConversionException;
 import seedu.whatnow.commons.exceptions.IllegalValueException;
+import seedu.whatnow.commons.util.ConfigUtil;
 import seedu.whatnow.commons.util.StringUtil;
 import seedu.whatnow.logic.commands.Command;
 import seedu.whatnow.model.freetime.FreePeriod;
@@ -26,6 +28,7 @@ import seedu.whatnow.model.task.UniqueTaskList.DuplicateTaskException;
 import seedu.whatnow.model.task.UniqueTaskList.TaskNotFoundException;
 
 import java.io.IOException;
+import java.nio.file.FileSystems;
 import java.nio.file.Path;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -36,6 +39,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 import java.util.Stack;
 import java.util.logging.Logger;
@@ -213,6 +217,19 @@ public class ModelManager extends ComponentManager implements Model {
     /** Raises an event to indicate that a task was updated */
     private void indicateUpdateTask(Task task) {
         raise(new UpdateTaskEvent(task));
+    }
+    
+    private void indicatePinnedItemsChanged(String type, String keyword) {
+        try {
+            Optional<Config> configOptional = ConfigUtil.readConfig(Config.DEFAULT_CONFIG_FILE);
+            Config config = configOptional.orElse(new Config());
+            config.setPinnedItemType(type);
+            config.setPinnedItemKeyword(keyword);
+            raise (new PinnedItemChangedEvent(config, type, keyword));
+        } catch (DataConversionException e) {
+            logger.warning("Config file is not in the correct format. " +
+                    "Using default config properties");
+        }
     }
 
     //@@author A0141021H
@@ -703,6 +720,7 @@ public class ModelManager extends ComponentManager implements Model {
     
     @Override
     public void updatePinnedItemsToShowMatchKeywords(String type, String keyword) {
+        indicatePinnedItemsChanged(type, keyword);
         Calendar cal = Calendar.getInstance();
         DateFormat df = new SimpleDateFormat(DATE_NUM_SLASH_WITH_YEAR_FORMAT);
         

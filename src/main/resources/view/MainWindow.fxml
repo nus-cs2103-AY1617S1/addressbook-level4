@@ -44,7 +44,7 @@
 							</AnchorPane>
 						</children>
 					</VBox>
-					<VBox fx:id="pinnedItemList" minWidth="340" alignment="CENTER"
+					<VBox fx:id="pinnedItemList" maxWidth="350" alignment="CENTER"
 						GridPane.columnIndex="0" GridPane.rowIndex="4">
 						<children>
 							<AnchorPane fx:id="pinnedItemPlaceholder" VBox.vgrow="ALWAYS"
@@ -69,7 +69,6 @@
 							<Insets right="10.0" />
 						</padding>
 					</AnchorPane>
-
 					<SplitPane id="splitPane" fx:id="splitPane"
 						dividerPositions="0.9" VBox.vgrow="ALWAYS">
 						<items>
