@@ -37,6 +37,14 @@ public class DeadlineCard extends UiPart {
 	public DeadlineCard() {
 
 	}
+	
+	PrettyTime p = new PrettyTime();
+    public static DeadlineCard load(ReadOnlyTask task, int displayedIndex){
+        DeadlineCard card = new DeadlineCard();
+        card.task = (Deadline) task;
+        card.displayedIndex = displayedIndex;
+        return UiPartLoader.loadUiPart(card);
+    }
 
 	public static DeadlineCard load(ReadOnlyTask task, int displayedIndex) {
 		DeadlineCard card = new DeadlineCard();

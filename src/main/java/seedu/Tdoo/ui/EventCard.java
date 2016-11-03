@@ -41,6 +41,14 @@ public class EventCard extends UiPart {
 	public EventCard() {
 
 	}
+	
+	PrettyTime p = new PrettyTime();
+    public static DeadlineCard load(ReadOnlyTask task, int displayedIndex){
+        DeadlineCard card = new DeadlineCard();
+        card.task = (Deadline) task;
+        card.displayedIndex = displayedIndex;
+        return UiPartLoader.loadUiPart(card);
+    }
 
 	public static EventCard load(ReadOnlyTask task, int displayedIndex) {
 		EventCard card = new EventCard();
