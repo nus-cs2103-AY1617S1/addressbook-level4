@@ -31,6 +31,7 @@ public class MainWindow extends UiPart {
     // Independent Ui parts residing in this Ui container
     private BrowserPanel browserPanel;
     private PersonListPanel personListPanel;
+    private PinnedTaskPanel pinnedTaskPanel;
     private ResultDisplay resultDisplay;
     private StatusBarFooter statusBarFooter;
     private CommandBox commandBox;
@@ -54,6 +55,9 @@ public class MainWindow extends UiPart {
 
     @FXML
     private AnchorPane personListPanelPlaceholder;
+    
+    @FXML
+    private AnchorPane pinnedTaskPlaceholder;
 
     @FXML
     private AnchorPane resultDisplayPlaceholder;
@@ -108,7 +112,8 @@ public class MainWindow extends UiPart {
     }
 
     void fillInnerParts() {
-        browserPanel = BrowserPanel.load(browserPlaceholder);
+        //browserPanel = BrowserPanel.load(browserPlaceholder);
+        pinnedTaskPanel = PinnedTaskPanel.load(primaryStage, getPinnedTaskPlaceholder(), logic.getPinnedTaskList());
         personListPanel = PersonListPanel.load(primaryStage, getPersonListPlaceholder(), logic.getFilteredPersonList());
         resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
         statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getAddressBookFilePath());
@@ -129,6 +134,10 @@ public class MainWindow extends UiPart {
 
     public AnchorPane getPersonListPlaceholder() {
         return personListPanelPlaceholder;
+    }
+    
+    public AnchorPane getPinnedTaskPlaceholder() {
+        return pinnedTaskPlaceholder;
     }
 
     public void hide() {
