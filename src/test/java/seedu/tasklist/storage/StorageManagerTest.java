@@ -8,6 +8,7 @@ import org.junit.rules.TemporaryFolder;
 
 import seedu.tasklist.model.UserPrefs;
 import seedu.tasklist.storage.StorageManager;
+
 import static org.junit.Assert.assertEquals;
 
 public class StorageManagerTest {
@@ -43,15 +44,5 @@ public class StorageManagerTest {
         UserPrefs retrieved = storageManager.readUserPrefs().get();
         assertEquals(original, retrieved);
     }
-/**
-    @Test
-    public void taskListReadSave() throws Exception {
-        TaskList original = new TypicalTestTasks().getTypicalTaskList();
-        storageManager.saveTaskList(original);
-        ReadOnlyTaskList retrieved = storageManager.readTaskList().get();
-        assertEquals(original, new TaskList(retrieved));
-        //More extensive testing of TaskList saving/reading is done in XmlTaskListStorageTest
-    }
-*/
 
 }

@@ -51,14 +51,7 @@ public class XmlUtilTest {
         thrown.expect(JAXBException.class);
         XmlUtil.getDataFromFile(EMPTY_FILE, TaskList.class);
     }
-/*
-    @Test
-    public void getDataFromFile_validFile_validResult() throws Exception {
-        XmlSerializableTaskList dataFromFile = XmlUtil.getDataFromFile(VALID_FILE, XmlSerializableTaskList.class);
-        assertEquals(8, dataFromFile.getTaskList().size());
-        assertEquals(0, dataFromFile.getTagList().size());
-    }
-*/
+
     @Test
     public void saveDataToFile_nullFile_AssertionError() throws Exception {
         thrown.expect(AssertionError.class);
@@ -84,8 +77,7 @@ public class XmlUtilTest {
         XmlUtil.saveDataToFile(TEMP_FILE, dataToWrite);
         XmlSerializableTaskList dataFromFile = XmlUtil.getDataFromFile(TEMP_FILE, XmlSerializableTaskList.class);
         assertEquals((new TaskList(dataToWrite)).toString(),(new TaskList(dataFromFile)).toString());
-        //TODO: use equality instead of string comparisons
-
+        
         TaskListBuilder builder = new TaskListBuilder(new TaskList());
         dataToWrite = new XmlSerializableTaskList(builder.withTask(TestUtil.generateSamplePersonData().get(0)).build());
 
