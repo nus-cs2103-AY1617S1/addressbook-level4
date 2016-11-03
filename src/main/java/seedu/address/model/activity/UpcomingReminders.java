@@ -9,6 +9,8 @@ import java.util.PriorityQueue;
 
 import seedu.address.model.activity.Activity;
 
+
+//@@author A0125680H
 /**
  * Keeps a queue of upcoming events. Events that are ongoing or over will not be
  * added to the queue.
@@ -75,10 +77,6 @@ public class UpcomingReminders {
      * @return a list of the events with start time closest to current time.
      */
     public static ArrayList<ReadOnlyActivity> popNextReminders() {
-        /*System.out.println(reminderQueue.size());
-        for (Object a : reminderQueue.toArray()) {
-            System.out.println("Hi " + ((Activity) a).toString());
-        }*/
         ArrayList<ReadOnlyActivity> nextRemindedActivities = new ArrayList<>();
 
         Calendar cal = Calendar.getInstance();

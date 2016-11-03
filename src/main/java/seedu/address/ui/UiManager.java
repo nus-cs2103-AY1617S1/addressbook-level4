@@ -120,6 +120,7 @@ public class UiManager extends ComponentManager implements Ui {
     
     //==================== Reminder Dialog Box =================================================================
     
+    //@@author A0125680H
     private void showReminderDialog(ArrayList<ReadOnlyActivity> activities) {
         ImageIcon reminderIcon = new ImageIcon(getClass().getResource("/images/ringing.png"),
                 "Reminder Bell");
@@ -135,6 +136,7 @@ public class UiManager extends ComponentManager implements Ui {
         }
     }
     
+    //@@author A0125680H
     private String textForReminderDialog(ReadOnlyActivity activity, String type) {
         final StringBuilder sb = new StringBuilder();
         
@@ -183,6 +185,10 @@ public class UiManager extends ComponentManager implements Ui {
     
     //==================== Refresh Handling Code =================================================================
     
+    //@@author A0125680H
+    /**
+     * Methods to invoke refreshing every minute
+     */
     private void initRefresh() {
         refreshTimer.cancel();
         reminderTimer.cancel();

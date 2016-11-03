@@ -36,6 +36,7 @@ public abstract class DateTime implements Comparable<DateTime>{
         }
     }
     
+    //@@author A0125680H
     /**
      * Returns true if the stored time is before the current time.
      */
@@ -44,6 +45,7 @@ public abstract class DateTime implements Comparable<DateTime>{
         return this.value.getTime().before(now);
     }
     
+    //@@author A0125680H
     /**
      * Returns true if the stored time is after the current time.
      */
@@ -52,21 +54,22 @@ public abstract class DateTime implements Comparable<DateTime>{
         return this.value.getTime().after(now);
     }
     
+    //@@author A0125680H
     /**
      * Returns true if the stored time is before the date in the specified DateTime object.
      */
-    
     public boolean isBefore(DateTime other) {
         Date otherDate = other.getCalendarValue().getTime();
         return this.value.getTime().before(otherDate);
     }
     
+    //@@author A0125680H
     /**
      * Returns true if the stored time is after the date in the specified DateTime object.
      */
     public boolean isAfter(DateTime other) {
-        Date now = Calendar.getInstance().getTime();
-        return this.value.getTime().after(now);
+        Date otherDate = Calendar.getInstance().getTime();
+        return this.value.getTime().after(otherDate);
     }
     
     /**
