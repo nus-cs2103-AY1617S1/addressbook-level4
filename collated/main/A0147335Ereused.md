@@ -1,6 +1,8 @@
 # A0147335Ereused
 ###### \java\seedu\task\logic\commands\AddCommand.java
 ``` java
+/**
+ * Adds a task to the task manager.
  */
 public class AddCommand extends Command {
 
@@ -37,6 +39,12 @@ public class AddCommand extends Command {
             if(isUndo == false){
                 history.getUndoList().add(new RollBackCommand(COMMAND_WORD, toAdd, null));
             }
+            // @author A0147944U-reused
+            // Sorts updated list of tasks
+            model.autoSortBasedOnCurrentSortPreference();
+```
+###### \java\seedu\task\logic\commands\AddCommand.java
+``` java
             return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
         } catch (UniqueTaskList.DuplicateTaskException e) {
             return new CommandResult(MESSAGE_DUPLICATE_TASK);
