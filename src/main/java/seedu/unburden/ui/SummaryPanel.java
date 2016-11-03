@@ -47,12 +47,12 @@ public class SummaryPanel extends UiPart{
     @FXML
     private Label tomorrow;
     @FXML
-    private Label nextWeek;    
+    private Label overdue;    
     @FXML
     private Label done;
     @FXML
     private Label undone;
-
+    @FXML
     private AnchorPane placeHolderPane;    
 
 
@@ -83,9 +83,9 @@ public class SummaryPanel extends UiPart{
     	
    	    today.setText(Integer.toString(ListOfTask.todayCounter));
    	    tomorrow.setText(Integer.toString(ListOfTask.tomorrowCounter));
-   	    nextWeek.setText(Integer.toString(ListOfTask.nextWeekCounter));
         done.setText(Integer.toString(ListOfTask.doneCounter));
         undone.setText(Integer.toString(ListOfTask.undoneCounter));
+        overdue.setText(Integer.toString(ListOfTask.overdueCounter));
        
     }
              
@@ -95,9 +95,9 @@ public class SummaryPanel extends UiPart{
     	
    	    today.setText(Integer.toString(ListOfTask.todayCounter));
    	    tomorrow.setText(Integer.toString(ListOfTask.tomorrowCounter));
-   	    nextWeek.setText(Integer.toString(ListOfTask.nextWeekCounter));
         done.setText(Integer.toString(ListOfTask.doneCounter));
         undone.setText(Integer.toString(ListOfTask.undoneCounter));
+        overdue.setText(Integer.toString(ListOfTask.overdueCounter));
        
     }    
     
