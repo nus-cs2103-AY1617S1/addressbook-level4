@@ -116,11 +116,14 @@ public class UiManager extends ComponentManager implements Ui {
                 "Could not save data to file", event.exception);
     }
 
-    //@@author A0140022H
+    /**
+     * @@author A0140022H
+     */
     @Subscribe
     private void handleShowHelpEvent(ShowHelpRequestEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        mainWindow.handleHelp(event.getHelpRequestEventArgs());
+        mainWindow.getEventsHandler().handleHelp(mainWindow.getHelpPanel(),
+                event.getHelpRequestEventArgs());
     }
 
     @Subscribe
@@ -129,7 +132,7 @@ public class UiManager extends ComponentManager implements Ui {
                 "Scrolling to newly added task"));
         mainWindow.getTaskListPanel().scrollTo(event.targetIndex);
     }
-    
+
     @Subscribe
     private void handleScrollToTopEvent(ScrollToTopEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event,
