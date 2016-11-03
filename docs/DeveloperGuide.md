@@ -379,6 +379,13 @@ Use case ends
 2. Task Manager successfully sorts based on user's input <br>
 Use case ends
 
+**Extensions**
+
+1a. The given parameter is invalid
+
+> 1a1. Task Manager shows an error message stating that the parameter is invalid and provides the list of valid parameters <br>
+  Use case ends
+
 
 ### Use case: Undo last command
 
