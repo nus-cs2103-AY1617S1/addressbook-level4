@@ -2,17 +2,19 @@ package guitests;
 
 import org.junit.Test;
 
+import seedu.address.testutil.TypicalTestTasks;
+
 import static org.junit.Assert.assertEquals;
 
 public class CommandBoxTest extends AddressBookGuiTest {
 
-    //@Test
+    @Test
     public void commandBox_commandSucceeds_textCleared() {
-        commandBox.runCommand(td.benson.getAddCommand());
+        commandBox.runCommand(TypicalTestTasks.benson.getAddCommand());
         assertEquals(commandBox.getCommandInput(), "");
     }
 
-    //@Test
+    @Test
     public void commandBox_commandFails_textStays(){
         commandBox.runCommand("invalid command");
         assertEquals(commandBox.getCommandInput(), "invalid command");
