@@ -251,17 +251,22 @@ next month 8am | Mar 01 08:00
        
 ## Command Summary
 
-Command | Format  
--------- | :-------- 
-Add task | `add [task title] < by/ [deadline] >`
-Add event | `add [event title] from/ [starting time] to/ [ending time]`
-Deadline | `deadline [index] [new deadline]`
-Delete | `delete INDEX`
-Find | `find KEYWORD [MORE_KEYWORDS]`
-Undo | `undo [number of times]`
-Mark | `mark [index]`
-Unmark | `unmark [index]`
-cs | `cs [path]`
-Find time | `find time [number of hours] < [number of slots to find] >`
-Block | `block [Description] from/ [starting time] to/ [ending time]`
-Help | `help [command word(optional)]`
+Command | Shortcut | Format
+-------- | ---- | :-------- 
+Add task | a | `add [task title] <fr/ [number of recurrances] ty/ [day | week | month] (optional)> <by/ [deadline] (optional)>` 
+Add event | a | `add [event title] <fr/ [number of recurrances] ty/ [day | week | month] (optional)> from/ [starting time] to/ [ending time]`
+Block | b | `block [description] from/ [starting time] to/ [ending time]`
+Gap | g | `gap [duration] <\n [number of slots] (optional)>`
+Delete | d | `delete [index]`
+Clear | c | `clear`
+Edit | e | `edit [index] <by/ [deadline] (optional)> <n/ [title] (optional)> <from/ [starting time] (optional)> <to/ [ending time] (optional)>`
+Mark | m | `mark [index]`
+Unmark | u | `unmark [index]`
+Find | f | `find KEYWORD [MORE_KEYWORDS]`
+List | l | `list [filter]`
+Select | s | `select [index]`
+Undo | un | `undo`
+Redo | rd | `redo`
+Change Storage Path| cs | `cs [path]`
+Exit | q | `exit`
+Help | h | `help [command word(optional)]`
