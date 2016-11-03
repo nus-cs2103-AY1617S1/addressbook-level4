@@ -28,6 +28,10 @@ public class PersonCard extends UiPart {
 	private Label tags;
 	@FXML
 	private Label isComplete;
+	@FXML
+	private Label startAtLabel;
+	@FXML
+	private Label endAtLabel;
 
 	private ReadOnlyTask person;
 	private int displayedIndex;
@@ -54,9 +58,25 @@ public class PersonCard extends UiPart {
 		tags.setText(person.tagsString());
 		if (person.getCompletion().equals("COMPLETE")) {
 			isComplete.setText(person.getCompletion());
+			isComplete.setVisible(true);
 		} else {
 			isComplete.setText("");
+			isComplete.setVisible(false);
 		}
+		
+		if (person.getPhone().value.equals("") && person.getEmail().value.equals("")) {
+		    startAtLabel.setVisible(false);
+		} else {
+		    startAtLabel.setText("Starts at: ");
+		}
+		
+		if (person.getPhone().getEndDate().equals("") && person.getAddress().value.equals("")) {
+            endAtLabel.setVisible(false);
+        } else {
+            endAtLabel.setText("Ends at: ");
+        }
+		
+		
 	}
 
 	public HBox getLayout() {

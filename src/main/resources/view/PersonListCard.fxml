@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<HBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1">
+<HBox id="cardPane" fx:id="cardPane" minWidth="280.0" prefHeight="114.0" prefWidth="280.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1">
     <children>
         <GridPane HBox.hgrow="ALWAYS">
             <columnConstraints>
@@ -18,7 +18,7 @@
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="150" minWidth="10.0" prefWidth="100" />
             </columnConstraints>
             <children>
-                <VBox alignment="CENTER_LEFT" maxHeight="150.0" minHeight="105.0" prefHeight="115.0" GridPane.columnIndex="0">
+                <VBox alignment="CENTER_LEFT" maxHeight="150.0" minHeight="105.0" minWidth="180.0" prefHeight="115.0" GridPane.columnIndex="0">
                     <stylesheets>
                         <URL value="@DarkTheme.css" />
                         <URL value="@Extensions.css" />
@@ -32,22 +32,58 @@
                             <children>
                                 <HBox>
                                     <Label fx:id="id" styleClass="cell_big_label" />
-                                    <Label fx:id="name" styleClass="cell_big_label" text="\$first" />
                                 </HBox>
-                                <Label fx:id="tags" styleClass="cell_small_label" text="\$tags" />
+                                 <Label fx:id="name" styleClass="cell_big_label" text="\$first" />
                             </children>
                         </HBox>
-                        <Label fx:id="phone" styleClass="cell_small_label" text="\$phone" />
-                        
-                        <Label fx:id="email" styleClass="cell_small_label" text="\$email" />
-                  <Label fx:id="endDate" styleClass="cell_small_label" text="\$endDate" />
-                        <Label fx:id="address" styleClass="cell_small_label" text="\$address" />
+                  <HBox>
+                     <children>
+                                <Label fx:id="tags" styleClass="cell_small_label" text="\$tags" />
+                     </children>
+                  </HBox>
+                  <HBox>
+                     <children>
+                        <Label fx:id="startAtLabel" layoutX="10.0" layoutY="10.0" styleClass="cell_small_label" text="\$startAtLabel" />
+                              <Label fx:id="phone" styleClass="cell_small_label" text="\$phone" />
+                              
+                                                      <Label fx:id="email" styleClass="cell_small_label" text="\$email">
+                           <HBox.margin>
+                              <Insets left="5.0" />
+                           </HBox.margin>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <HBox>
+                     <children>
+                        <Label fx:id="endAtLabel" layoutX="10.0" layoutY="10.0" styleClass="cell_small_label" text="\$endAtLabel" />
+                        <Label fx:id="endDate" styleClass="cell_small_label" text="\$endDate" />
+                              <Label fx:id="address" styleClass="cell_small_label" text="\$address">
+                           <HBox.margin>
+                              <Insets left="5.0" />
+                           </HBox.margin></Label>
+                     </children>
+                  </HBox>
                     </children>
                 </VBox>
-            <Label fx:id="isComplete" prefHeight="15.0" prefWidth="121.0" styleClass="cell_personCard_complete" text="\$isComplete" textAlignment="CENTER" GridPane.columnIndex="1">
-               <font>
-                  <Font size="10.0" />
-               </font></Label>
+            <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1">
+               <children>
+                  <HBox>
+                     <children>
+                        <Label fx:id="isComplete" prefHeight="15.0" prefWidth="118.0" styleClass="cell_personCard_complete" text="\$isComplete" textAlignment="CENTER">
+                           <font>
+                              <Font size="10.0" />
+                           </font>
+                        </Label>
+                     </children>
+                     <VBox.margin>
+                        <Insets top="30.0" />
+                     </VBox.margin>
+                  </HBox>
+               </children>
+               <padding>
+                  <Insets left="25.0" />
+               </padding>
+            </VBox>
             </children>
          <rowConstraints>
             <RowConstraints />
