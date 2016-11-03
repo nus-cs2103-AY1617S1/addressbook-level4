@@ -21,6 +21,7 @@ import tars.commons.events.model.TarsChangedEvent;
 import tars.commons.util.DateTimeUtil;
 import tars.commons.util.StringUtil;
 import tars.model.task.ReadOnlyTask;
+import tars.ui.formatter.Formatter;
 
 /**
  * UI Controller for this week panel

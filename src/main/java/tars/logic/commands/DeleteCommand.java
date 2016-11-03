@@ -10,7 +10,7 @@ import tars.commons.util.StringUtil;
 import tars.model.task.ReadOnlyTask;
 import tars.model.task.Task;
 import tars.model.task.UniqueTaskList.TaskNotFoundException;
-import tars.ui.Formatter;
+import tars.ui.formatter.Formatter;
 
 /**
  * Deletes a task identified using it's last displayed index from tars.

@@ -15,7 +15,7 @@ import tars.model.task.DateTime;
 import tars.model.task.Name;
 import tars.model.task.rsv.RsvTask;
 import tars.model.task.rsv.UniqueRsvTaskList.RsvTaskNotFoundException;
-import tars.ui.Formatter;
+import tars.ui.formatter.Formatter;
 
 /**
  * Adds a reserved task which has a list of reserved date times that can confirmed later on.

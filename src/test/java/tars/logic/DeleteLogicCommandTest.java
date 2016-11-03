@@ -15,7 +15,7 @@ import tars.logic.commands.UndoCommand;
 import tars.model.Tars;
 import tars.model.task.ReadOnlyTask;
 import tars.model.task.Task;
-import tars.ui.Formatter;
+import tars.ui.formatter.Formatter;
 
 /**
  * Logic command test for delete
