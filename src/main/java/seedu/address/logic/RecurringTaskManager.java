@@ -186,7 +186,7 @@ public class RecurringTaskManager {
         if (!lastAddedComponent.getStartDate().isValid()) {
             startDate = null;
         }
-        attempAppendRecurringTasks(task, startDate, endDate, currentDate);        
+        attemptAppendRecurringTasks(task, startDate, endDate, currentDate);        
     }
 
     /**
@@ -194,7 +194,7 @@ public class RecurringTaskManager {
      * tasks that pass their recurring dates will be appended to show the next
      * task date.
      */
-    public void attempAppendRecurringTasks(ReadOnlyTask task, Calendar startDate, Calendar endDate, LocalDate currentDate) {
+    public void attemptAppendRecurringTasks(ReadOnlyTask task, Calendar startDate, Calendar endDate, LocalDate currentDate) {
         assert !CollectionUtil.isAnyNull(task, endDate, currentDate);
         LocalDate localDateCurrently = currentDate;
         LocalDate startDateInLocalDate = null;
@@ -226,10 +226,10 @@ public class RecurringTaskManager {
     }
 
     private boolean handleRecurringPeriod(Task task) {
-        if (task.getRecurringPeriod() == Task.NO_RECURRING_PERIOD) {
+        if (task.getRecurringPeriod() == NO_MORE_RECURRING_PERIOD) {
             return true;   
         }
-        final int output = task.decrementRecurringPeriod();
+        task.decrementRecurringPeriod();
         return false;
     }
 

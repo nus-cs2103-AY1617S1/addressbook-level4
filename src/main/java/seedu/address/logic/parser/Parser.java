@@ -265,7 +265,7 @@ public class Parser {
 
     private RecurringType prepareRecurringTask(String args) {
         final Matcher matcher = RECURRING_TASK_DATA_ARGS_FORMAT.matcher(args.trim());
-        RecurringType recurringType = RecurringType.NONE;
+        RecurringType recurringType = RecurringType.IGNORED;
         if (!matcher.find()) {
             return recurringType;
         } else {
