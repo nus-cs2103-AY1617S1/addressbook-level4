@@ -121,7 +121,7 @@ Example:
 
 
 <a id="find_substring" class="anchor" aria-hidden="true">
-#### Find an event: `Find`
+#### Find an event: `find`
 Find an event on the list task according to the Substring based on the TITLE
 Format: `find KEYWORD`
 
