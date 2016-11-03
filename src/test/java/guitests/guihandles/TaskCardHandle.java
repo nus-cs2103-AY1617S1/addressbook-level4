@@ -8,6 +8,7 @@ import jym.manager.model.task.ReadOnlyTask;
 /**
  * Provides a handle to a Task card in the Task list panel.
  */
+//@@author A0153440R
 public class TaskCardHandle extends GuiHandle {
     private static final String DESCRIPTION_FIELD_ID = "#desc";
     private static final String ADDRESS_FIELD_ID = "#address";

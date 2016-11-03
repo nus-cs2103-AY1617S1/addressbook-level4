@@ -108,8 +108,15 @@ public class Event extends TaskManagerItem implements ReadOnlyTask {
 		return null;
 	}
 
+
 	@Override
 	public String getDateString() {
+		return null;
+	}
+
+	@Override
+	public Status getStatus() {
+
 		// TODO Auto-generated method stub
 		return null;
 	}

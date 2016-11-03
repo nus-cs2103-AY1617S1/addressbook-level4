@@ -1,5 +1,6 @@
 package jym.manager.logic.commands;
 
+import jym.manager.commons.core.Config;
 import jym.manager.commons.core.EventsCenter;
 import jym.manager.commons.core.Messages;
 import jym.manager.commons.events.ui.IncorrectCommandAttemptedEvent;
@@ -12,6 +13,7 @@ import jym.manager.storage.Storage;
 public abstract class Command {
     protected Model model;
     protected Storage storage;
+    protected Config config;
     /**
      * Constructs a feedback message to summarise an operation that displayed a listing of persons.
      *
@@ -37,7 +39,8 @@ public abstract class Command {
     public void setData(Model model) {
         this.model = model;
     }
-    
+  
+
     /**
      * Provides any needed dependencies to the command.
      * Commands making use of any of these should override this method to gain
@@ -45,6 +48,14 @@ public abstract class Command {
      */
     public void setData(Storage storage){
     	this.storage = storage;
+    }
+    /**
+     * Provides any needed dependencies to the command.
+     * Commands making use of any of these should override this method to gain
+     * access to the dependencies.
+     */
+    public void setData(Config config){
+    	this.config = config;
     }
 
     /**

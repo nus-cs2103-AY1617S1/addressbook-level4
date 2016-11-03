@@ -10,6 +10,7 @@ import jym.manager.model.task.UniqueTaskList.TaskNotFoundException;
  */
 public class DeleteCommand extends Command {
 
+	 
     public static final String COMMAND_WORD = "delete";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
@@ -19,17 +20,20 @@ public class DeleteCommand extends Command {
 
     public static final String MESSAGE_DELETE_TASK_SUCCESS = "Deleted Task: %1$s";
 
-    public final int targetIndex;
+    private final int targetIndex;
+    private final boolean isComplete;
 
-    public DeleteCommand(int targetIndex) {
+    public DeleteCommand(int targetIndex, boolean completed) {
         this.targetIndex = targetIndex;
+        isComplete = completed;
     }
 
 
     @Override
     public CommandResult execute() {
 
-        UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
+        UnmodifiableObservableList<ReadOnlyTask> lastShownList = (isComplete)? 
+        		model.getFilteredCompleteTaskList() : model.getFilteredIncompleteTaskList();
 
         if (lastShownList.size() < targetIndex) {
             indicateAttemptToExecuteIncorrectCommand();

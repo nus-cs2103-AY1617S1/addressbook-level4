@@ -25,12 +25,16 @@ public class MainWindow extends UiPart {
     private static final String FXML = "MainWindow.fxml";
     public static final int MIN_HEIGHT = 600;
     public static final int MIN_WIDTH = 450;
+    
+    public static final String TAB_TASK_COMPLETE = "Completed";
+    public static final String TAB_TASK_INCOMPLETE = "Incomplete";
 
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
     private BrowserPanel browserPanel;
     private TaskListPanel taskListPanel;
+    private CompleteTaskListPanel completeTaskListPanel;
     private ResultDisplay resultDisplay;
     private StatusBarFooter statusBarFooter;
     private CommandBox commandBox;
@@ -45,6 +49,9 @@ public class MainWindow extends UiPart {
 
     @FXML
     private AnchorPane browserPlaceholder;
+    
+    @FXML
+    private AnchorPane completeTaskListPanelPlaceholder;
 
     @FXML
     private AnchorPane commandBoxPlaceholder;
@@ -60,8 +67,7 @@ public class MainWindow extends UiPart {
 
     @FXML
     private AnchorPane statusbarPlaceholder;
-
-
+    
     public MainWindow() {
         super();
     }
@@ -108,11 +114,12 @@ public class MainWindow extends UiPart {
     }
 
     void fillInnerParts() {
-        browserPanel = BrowserPanel.load(browserPlaceholder);
-        taskListPanel = TaskListPanel.load(primaryStage, getTaskListPlaceholder(), logic.getFilteredTaskList());
+    //    browserPanel = BrowserPanel.load(browserPlaceholder);
+        taskListPanel = TaskListPanel.load(primaryStage, getTaskListPlaceholder(), logic.getFilteredIncompleteTaskList());
         resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
         statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getTaskManagerFilePath());
         commandBox = CommandBox.load(primaryStage, getCommandBoxPlaceholder(), resultDisplay, logic);
+        completeTaskListPanel = CompleteTaskListPanel.load(primaryStage,  getCompleteTaskListPlaceholder(), logic.getFilteredCompleteTaskList());
     }
 
     private AnchorPane getCommandBoxPlaceholder() {
@@ -129,6 +136,10 @@ public class MainWindow extends UiPart {
 
     public AnchorPane getTaskListPlaceholder() {
         return taskListPanelPlaceholder;
+    }
+    
+    public AnchorPane getCompleteTaskListPlaceholder() {
+        return completeTaskListPanelPlaceholder;
     }
 
     public void hide() {
@@ -185,12 +196,16 @@ public class MainWindow extends UiPart {
     public TaskListPanel getTaskListPanel() {
         return this.taskListPanel;
     }
+    
+    public CompleteTaskListPanel getCompleteTaskListPanel() {
+        return this.completeTaskListPanel;
+    }
 
     public void loadTaskPage(ReadOnlyTask task) {
         browserPanel.loadTaskPage(task);
     }
 
     public void releaseResources() {
-        browserPanel.freeResources();
+      //  browserPanel.freeResources();
     }
 }

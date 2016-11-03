@@ -14,7 +14,11 @@ public interface ReadOnlyTask {
 	Deadline getEndTime();
 	Priority getPriority();
 	Complete getComplete();
+
 	String getDateString();
+
+    Status getStatus();
+
 	
     /**
      * The returned TagList is a deep copy of the internal TagList,
