@@ -13,11 +13,13 @@ import com.joestelmach.natty.DateGroup;
 import com.joestelmach.natty.Parser;
 
 import seedu.todo.commons.EphemeralDB;
+import seedu.todo.commons.exceptions.InvalidNaturalDateException;
 import seedu.todo.commons.exceptions.ParseException;
 import seedu.todo.controllers.concerns.DateParser;
 import seedu.todo.controllers.concerns.Renderer;
 import seedu.todo.controllers.concerns.Tokenizer;
 import seedu.todo.models.CalendarItem;
+import seedu.todo.models.Task;
 import seedu.todo.models.TodoListDB;
 
 /**
@@ -72,6 +74,16 @@ public class UpdateController implements Controller {
         
         // Record index
         Integer recordIndex = parseIndex(parsedResult);
+        
+        // Retrieve record and check if task or event
+        EphemeralDB edb = EphemeralDB.getInstance();
+        CalendarItem calendarItem = null;
+        try {
+            calendarItem = edb.getCalendarItemsByDisplayedId(recordIndex);
+        } catch (NullPointerException e) {
+            System.out.println("Wrong index!");
+        }
+        boolean isTask = calendarItem.getClass() == Task.class;
         
         // Name
         String name = parseName(parsedResult);
