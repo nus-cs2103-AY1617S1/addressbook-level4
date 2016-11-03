@@ -95,7 +95,7 @@ public class ModelManager extends ComponentManager implements Model {
      */
     private void checkUndatedTaskStatus(UniqueTaskList floating) {
         for (Task undatedTarget : floating) {
-            if (undatedTarget.getStatus().status == Status.State.OVERDUE || undatedTarget.getStatus().status == Status.State.OVERDUE ) {
+            if (undatedTarget.getStatus().status == Status.State.OVERDUE || undatedTarget.getStatus().status == Status.State.EXPIRE ) {
                 try {
                     taskBook.resetFloatingTaskStatus(undatedTarget);
                 }catch (TaskNotFoundException e){}
