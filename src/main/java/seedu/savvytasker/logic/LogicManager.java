@@ -30,7 +30,11 @@ import seedu.savvytasker.logic.parser.MarkCommandParser;
 import seedu.savvytasker.logic.parser.MasterParser;
 import seedu.savvytasker.logic.parser.ModifyCommandParser;
 import seedu.savvytasker.logic.parser.RedoCommandParser;
+<<<<<<< HEAD
 import seedu.savvytasker.logic.parser.StorageCommandParser;
+=======
+import seedu.savvytasker.logic.parser.SaveCommandParser;
+>>>>>>> parent of ff51186... Revert "Save Command and Keyboard Shortcuts and Task Card Colour Code according to Priority Level"
 import seedu.savvytasker.logic.parser.UnaliasCommandParser;
 import seedu.savvytasker.logic.parser.UndoCommandParser;
 import seedu.savvytasker.logic.parser.UnmarkCommandParser;
@@ -129,6 +133,7 @@ public class LogicManager extends ComponentManager implements Logic {
     public ObservableList<ReadOnlyTask> getFilteredUpcomingTasks(Date date) {
         return model.getFilteredUpcomingTasks(date);
     }
+    //@@author
     
     //@@author A0139916U
     private void registerAllDefaultCommandParsers() {
@@ -146,7 +151,11 @@ public class LogicManager extends ComponentManager implements Logic {
         parser.registerCommandParser(new RedoCommandParser());
         parser.registerCommandParser(new AliasCommandParser());
         parser.registerCommandParser(new UnaliasCommandParser());
+<<<<<<< HEAD
         parser.registerCommandParser(new StorageCommandParser());
+=======
+        parser.registerCommandParser(new SaveCommandParser());
+>>>>>>> parent of ff51186... Revert "Save Command and Keyboard Shortcuts and Task Card Colour Code according to Priority Level"
     }
     
     private void loadAllAliasSymbols() {
