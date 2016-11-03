@@ -392,9 +392,9 @@ public class Parser {
             return taskIds;
         }
 
-        args = args.replaceAll("[ ]+", ",").replaceAll(",+", ",");
+        String replacedArgs = args.replaceAll("[ ]+", ",").replaceAll(",+", ",");
 
-        String[] taskIdStrings = args.split(",");
+        String[] taskIdStrings = replacedArgs.split(",");
         for (String taskIdString : taskIdStrings) {
             if (taskIdString.matches("\\d+")) {
                 taskIds.add(Integer.parseInt(taskIdString));

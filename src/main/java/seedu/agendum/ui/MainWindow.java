@@ -169,7 +169,7 @@ public class MainWindow extends UiPart {
     /**
      * Loads the ui elements
      */
-    void fillInnerParts() {
+    public void fillInnerParts() {
         upcomingTasksPanel = UpcomingTasksPanel.load(primaryStage, getUpcomingTasksPlaceHolder(),
                 logic.getFilteredTaskList(), new UpcomingTasksPanel());
         completedTasksPanel = CompletedTasksPanel.load(primaryStage, getCompletedTasksPlaceHolder(),

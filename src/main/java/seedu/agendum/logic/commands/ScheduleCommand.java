@@ -37,12 +37,13 @@ public class ScheduleCommand extends Command {
     //@@author A0133367E
     public ScheduleCommand(int targetIndex, Optional<LocalDateTime> startTime,
             Optional<LocalDateTime> endTime) {
+        Optional<LocalDateTime> balancedEndTime = endTime;
         if (startTime.isPresent() && endTime.isPresent()) {
-            endTime = Optional.of(DateTimeUtils.balanceStartAndEndDateTime(startTime.get(), endTime.get()));
+            balancedEndTime = Optional.of(DateTimeUtils.balanceStartAndEndDateTime(startTime.get(), endTime.get()));
         }
         this.targetIndex = targetIndex;
         this.newStartDateTime = startTime;
-        this.newEndDateTime = endTime;
+        this.newEndDateTime = balancedEndTime;
     }
 
     @Override

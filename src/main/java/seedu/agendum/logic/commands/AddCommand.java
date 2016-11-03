@@ -63,13 +63,14 @@ public class AddCommand extends Command {
      */
     public AddCommand(String name, Optional<LocalDateTime> startDateTime, Optional<LocalDateTime> endDateTime)
             throws IllegalValueException {
+        Optional<LocalDateTime> balancedEndDateTime = endDateTime;
         if (startDateTime.isPresent() && endDateTime.isPresent()) {
-            endDateTime = Optional.of(DateTimeUtils.balanceStartAndEndDateTime(startDateTime.get(), endDateTime.get()));
+            balancedEndDateTime = Optional.of(DateTimeUtils.balanceStartAndEndDateTime(startDateTime.get(), endDateTime.get()));
         }
         this.toAdd = new Task(
                 new Name(name),
                 startDateTime,
-                endDateTime
+                balancedEndDateTime
         );
     }
 
