@@ -20,7 +20,8 @@ public class TaskDate {
     public static final String MESSAGE_DATE_MISSING =
             "Task date must be provided";
     public static final String DATE_FORMAT_STRING = "dd/MM/yyyy";
-    public static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern(DATE_FORMAT_STRING);
+    public static final DateTimeFormatter DATE_FORMATTER_STORAGE = DateTimeFormatter.ofPattern(DATE_FORMAT_STRING);
+    public static final DateTimeFormatter DATE_FORMATTER_UI = DateTimeFormatter.ofPattern("E, dd MMM");
     
     //format: dd/mm/yyyy
     private static final String DATE_VALIDATION_REGEX = "[\\p{Digit}]{1,2}/[\\p{Digit}]{1,2}/[\\p{Digit}]{4}";
@@ -44,7 +45,7 @@ public class TaskDate {
         }
         
         try {
-            this.date = LocalDate.parse(date, DATE_FORMATTER);
+            this.date = LocalDate.parse(date, DATE_FORMATTER_STORAGE);
         } catch (DateTimeParseException dtpe){
             throw new IllegalValueException(MESSAGE_DATE_INVALID);
         }
@@ -68,7 +69,7 @@ public class TaskDate {
 
     @Override
     public String toString() {
-        return date.format(DATE_FORMATTER);
+        return date.format(DATE_FORMATTER_STORAGE);
     }
 
     @Override

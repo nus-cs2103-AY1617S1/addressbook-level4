@@ -98,30 +98,32 @@
     -fx-background-color: -fx-focus-color;
 }
 
-.split-pane:horizontal .split-pane-divider {
-    -fx-border-color: transparent #1d1d1d transparent #1d1d1d;
-    -fx-background-color: transparent, derive(#1d1d1d, 10%);
-}
-
-.split-pane:vertical .split-pane-divider {
-    -fx-border-color: transparent #1d1d1d transparent #1d1d1d;
-    -fx-background-color: transparent, derive(#1d1d1d, 10%);
+.split-pane .split-pane-divider {
+    -fx-border-color: transparent;
+    -fx-background-color: transparent;
 }
 
 .split-pane {
     -fx-border-radius: 1;
     -fx-border-width: 1;
-    -fx-background-color: derive(#1d1d1d, 20%);
+    -fx-background-color: derive(#1d1d1d, 40%);
+}
+
+.list-view {
+	-fx-background-color: transparent;
+	-fx-border-width: 3 0 0 0;
+	-fx-border-color: grey;
+}
+
+.list-cell:filled:selected:focused, .list-cell:filled:selected {
+    -fx-background-color: transparent;
 }
 
 .list-cell {
+	-fx-background-color: transparent;
     -fx-label-padding: 0 0 0 0;
     -fx-graphic-text-gap : 0;
-    -fx-padding: 0 0 0 0;
-}
-
-.list-cell .label {
-    -fx-text-fill: #010504;
+    -fx-padding: 1 0 0 0;
 }
 
 .label-done {
@@ -137,24 +139,50 @@
 	-fx-background-color: grey;
 	-fx-text-fill: #FFFFFF;
 }
-.cell_big_label {
+
+.cell_id_label {
+    -fx-font-size: 20px;
+    -fx-text-fill: #010504;
+    -fx-font-family: "Helvetica";
+}
+
+.cell_name_label {
+    -fx-font-size: 20px;
+    -fx-text-fill: #010504;
+    -fx-font-family: "Helvetica";
+}
+
+.cell_time_label {
+    -fx-font-size: 20px;
+    -fx-text-fill: #010504;
+    -fx-font-family: "Helvetica";
+}
+
+.cell_date_label {
     -fx-font-size: 16px;
     -fx-text-fill: #010504;
+    -fx-font-family: "Helvetica";
+}
+
+.cell_big_label {
+    -fx-font-size: 20px;
+    -fx-text-fill: #010504;
+    -fx-font-family: "Helvetica";
+}
+
+.cell_tag_label {
+    -fx-font-size: 14px;
+    -fx-font-family: "Helvetica";
 }
 
 .cell_small_label {
-    -fx-font-size: 14px;
+    -fx-font-size: 16px;
     -fx-text-fill: #010504;
+    -fx-font-family: "Helvetica";
 }
 
 .anchor-pane {
-     -fx-background-color: derive(#1d1d1d, 20%);
-}
-
-.anchor-pane-with-border {
-     -fx-background-color: derive(#1d1d1d, 20%);
-     -fx-border-color: derive(#1d1d1d, 10%);
-     -fx-border-top-width: 1px;
+     -fx-background-color: derive(#1d1d1d, 40%);
 }
 
 .status-bar {
@@ -167,6 +195,7 @@
     -fx-border-radius: 10 10 10 10;
   	-fx-background-radius: 10 10 10 10;
 }
+
 
 .status-bar .label {
     -fx-text-fill: white;
@@ -289,9 +318,13 @@
     -fx-text-fill: white;
 }
 
+.scroll-bar {
+	-fx-background-color: transparent;
+}
+
 .scroll-bar .thumb {
     -fx-background-color: derive(grey, 50%);
-    -fx-background-insets: 0;
+    -fx-background-insets: 5;
 }
 
 .scroll-bar .increment-button, .scroll-bar .decrement-button {
@@ -304,22 +337,24 @@
 }
 
 .scroll-bar:vertical .increment-arrow, .scroll-bar:vertical .decrement-arrow {
-    -fx-padding: 0 0 0 0;
+    -fx-padding: 1 8 1 8;
 }
 
 .scroll-bar:horizontal .increment-arrow, .scroll-bar:horizontal .decrement-arrow {
     -fx-padding: 0 0 0 0;
 }
 
-#cardPane {
-    -fx-background-color: transparent;
-    -fx-border-color: #d6d6d6;
-    -fx-border-width: 1 1 1 1;
+.pane-title {
+	-fx-text-fill: #f9f9f9; 
+	-fx-font-weight: bold;
 }
 
-#commandTypeLabel {
-    -fx-font-size: 11px;
-    -fx-text-fill: #F70D1A;
+#cardPane {
+    -fx-background-color: derive(grey, 80%);
+    -fx-padding: 10 10 10 10;
+    -fx-background-radius: 5;
+    -fx-border-color: #d6d6d6;
+    -fx-border-width: 0 0 0 0;
 }
 
 #filterField, #taskListPanel, #taskWebpage {

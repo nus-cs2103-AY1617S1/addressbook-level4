@@ -20,7 +20,8 @@ public class TaskTime {
     public static final String MESSAGE_TIME_MISSING =
             "Task time must be provided";
     public static final String TIME_FORMAT_STRING = "HH:mm";
-    public static final DateTimeFormatter TIME_FORMATTER = DateTimeFormatter.ofPattern(TIME_FORMAT_STRING);
+    public static final DateTimeFormatter TIME_FORMATTER_STORAGE = DateTimeFormatter.ofPattern(TIME_FORMAT_STRING);
+    public static final DateTimeFormatter TIME_FORMATTER_UI = DateTimeFormatter.ofPattern("hh:mma");
     
     //format: hh:mm
     private static final String TIME_VALIDATION_FORMAT = "[\\p{Digit}]{1,2}:[\\p{Digit}]{2}";
@@ -45,7 +46,7 @@ public class TaskTime {
         }
         
         try {
-            this.time = LocalTime.parse(time, TIME_FORMATTER);
+            this.time = LocalTime.parse(time, TIME_FORMATTER_STORAGE);
         } catch (DateTimeParseException dtpe){
             throw new IllegalValueException(MESSAGE_TIME_INVALID);
         }
@@ -69,7 +70,7 @@ public class TaskTime {
 
     @Override
     public String toString() {
-        return time.format(TIME_FORMATTER);
+        return time.format(TIME_FORMATTER_STORAGE);
     }
 
     @Override
