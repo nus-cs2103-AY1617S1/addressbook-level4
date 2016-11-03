@@ -37,7 +37,6 @@ import harmony.mastermind.logic.commands.FindCommand;
 import harmony.mastermind.logic.commands.FindTagCommand;
 import harmony.mastermind.logic.commands.HelpCommand;
 import harmony.mastermind.logic.commands.ImportCommand;
-import harmony.mastermind.logic.commands.ImportIcsCommand;
 import harmony.mastermind.logic.commands.IncorrectCommand;
 import harmony.mastermind.logic.commands.ListCommand;
 import harmony.mastermind.logic.commands.MarkCommand;
@@ -266,6 +265,7 @@ public class Parser {
         final String extension = matcher.group("extension");
         
         assert source != null;
+        assert extension != null;
         
         return new ImportCommand(source, extension);
     }
