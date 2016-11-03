@@ -53,9 +53,9 @@ public class TaskCard extends UiPart{
         name.setText(task.getName().taskName);
         id.setText(displayedIndex + ". ");
         date.setText(task.getDate().getValue());
-//        date.setFont(new Font("Arial", 30));
-        done.setText(task.isDone() ? "done" : "");
-        tags.setText(task.tagsString());
+        done.setText(task.isDone() ? "DONE" : "");
+        if(!task.tagsString().equals(""))
+        	tags.setText("Tags: " + task.tagsString());
         recurring.setText(task.isRecurring()? "recurring":"");
        frequency.setText(task.isRecurring()?task.getRecurring().recurringFrequency:"");
 //       priority.setText(task.getPriorityLevel().toString());
@@ -64,22 +64,22 @@ public class TaskCard extends UiPart{
        {
        		priorityImage = new Image("/images/thunderbolt.png");
        		priority.setImage(priorityImage);
-       		priority.setFitWidth(16.0);
-       		priority.setFitHeight(25.0);
+       		priority.setFitWidth(21.0);
+       		priority.setFitHeight(40.0);
        }
        else if(priorityLevel == 2)
        {
     	   priorityImage = new Image("/images/thunderbolt2.png");
     	   priority.setImage(priorityImage);
-    	   priority.setFitWidth(25.0);
-    	   priority.setFitHeight(25.0);
+    	   priority.setFitWidth(36.0);
+    	   priority.setFitHeight(40.0);
        }
        else if(priorityLevel == 3)
        {
     	   priorityImage = new Image("/images/thunderbolt3.png");
     	   priority.setImage(priorityImage);
-    	   priority.setFitWidth(33.0);
-    	   priority.setFitHeight(25.0);
+    	   priority.setFitWidth(48.0);
+    	   priority.setFitHeight(40.0);
        }
        // frequency.setText("not yet");
 

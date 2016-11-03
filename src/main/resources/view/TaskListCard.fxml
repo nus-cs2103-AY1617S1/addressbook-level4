@@ -26,11 +26,18 @@
                             <children>
                                     <Label fx:id="id" styleClass="cell_id_label"/>
                                     <Label fx:id="name" text="\$name" styleClass="cell_name_label"/>
-	                                <Label fx:id="date" styleClass="cell_date_label" text="\$deadline" />
-	                                <Label fx:id="tags" styleClass="cell_tag_label" text="\$tags" />
-	                                <Label fx:id="done" styleClass="cell_done_label" text="\$isDone" />
-	                                <Label fx:id="recurring" styleClass="cell_recurring_label" text="\$isRecurring"/>
-	                                <Label fx:id="frequency" styleClass="cell_recurring_label" text="\$frequency"/>
+	                                <HBox spacing="10" alignment="CENTER_LEFT">
+	                                <padding>
+				                        <Insets bottom="5" left="15" right="5" top="5" />
+				                    </padding>
+	                                <children>
+		                                <Label fx:id="date" styleClass="cell_date_label" text="\$deadline" />
+		                                <Label fx:id="tags" styleClass="cell_tag_label"  />
+		                                <Label fx:id="done" styleClass="cell_done_label" text="\$isDone" />
+		                                <Label fx:id="recurring" styleClass="cell_recurring_label" text="\$isRecurring"/>
+		                                <Label fx:id="frequency" styleClass="cell_recurring_label" text="\$frequency"/>
+		                                </children>
+		                                </HBox>
 	                            	<Pane HBox.hgrow="ALWAYS" />
 			                        	<ImageView fx:id="priority"/>
                             </children>
