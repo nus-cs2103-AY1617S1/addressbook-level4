@@ -36,7 +36,7 @@ public class Time {
     public Time(String input) throws IllegalValueException {
         input = input.trim();
         
-        if (input.equals("")) {
+        if (input.equals("") || input.equals(new Date(0).toString())) {
             System.out.println("a blank string was detected");
             time = Calendar.getInstance();
             time.setTime(new Date(0));
