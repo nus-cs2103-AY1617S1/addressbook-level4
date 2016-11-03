@@ -223,11 +223,91 @@ public class LogicManagerTest {
         // prepare task list state
         helper.addToModel(model, 2);
 
-        assertCommandBehavior("list",
+        assertCommandBehavior("list all",
                 ListCommand.MESSAGE_SUCCESS,
                 expectedAB,
                 expectedList);
     }
+    
+    //@@author A0141052Y
+    /**
+     * Tests the preset filter logic for pinned tasks
+     */
+    @Test
+    public void execute_list_showsPinnedTasks() throws Exception {
+        // prepare tasks
+        TestDataHelper helper = new TestDataHelper();
+        
+        Task pinned1 = helper.generateTaskWithName("Pinned");
+        pinned1.setIsImportant(true);
+        Task pinned2 = helper.generateTaskWithName("Pinned Too");
+        pinned2.setIsImportant(true);
+        List<Task> pinnedTasks = helper.generateTaskList(pinned1, pinned2);
+        
+        assertCommandFilteredList("list pinned",
+                ListCommand.MESSAGE_SUCCESS,
+                pinnedTasks,
+                false);
+    }
+    
+    /**
+     * Test the preset filter logic for completed tasks
+     */
+    @Test
+    public void execute_list_showsCompletedTasks() throws Exception {
+        // prepare tasks
+        TestDataHelper helper = new TestDataHelper();
+        
+        Task complete1 = helper.generateTaskWithName("Completed");
+        complete1.setIsCompleted(true);
+        Task complete2 = helper.generateTaskWithName("Completed Also");
+        complete2.setIsCompleted(true);
+        List<Task> completedTasks = helper.generateTaskList(complete1, complete2);
+        
+        assertCommandFilteredList("list completed",
+                ListCommand.MESSAGE_SUCCESS,
+                completedTasks,
+                false);
+    }
+    
+    @Test
+    public void execute_list_showsPendingTasks() throws Exception {
+        // prepare tasks
+        TestDataHelper helper = new TestDataHelper();
+        
+        Task complete1 = helper.generateTaskWithName("Completed");
+        complete1.setIsCompleted(true);
+        Task complete2 = helper.generateTaskWithName("Completed Also");
+        complete2.setIsCompleted(true);
+        List<Task> completedTasks = helper.generateTaskList(complete1, complete2);
+        
+        assertCommandFilteredList("list pending",
+                ListCommand.MESSAGE_SUCCESS,
+                completedTasks,
+                true);
+    }
+    
+    /**
+     * Confirms if execution of the command results in a list that only contains a subset of the list.
+     * @param command the command on test
+     * @param message the expected message to be displayed to the user upon execution of command
+     * @param taskList non-generated list of tasks in the task list
+     * @param isInverse if true, it will assert if taskList if NOT displayed, else only taskList is displayed
+     */
+    private void assertCommandFilteredList(String command, String message, List<Task> taskList, boolean isInverse) throws Exception {
+        // prepare initial state
+        TestDataHelper helper = new TestDataHelper();
+        helper.addToModel(model, 10);
+        helper.addToModel(model, taskList);
+
+        // prepare expected
+        ReadOnlyTaskManager expectedTaskManager = model.getTaskManager();
+        List<Task> expectedTaskList = (isInverse) ? helper.generateTaskList(10) : taskList;
+        
+        assertCommandBehavior(command, message, expectedTaskManager, expectedTaskList);
+    }
+    
+    //@@author
 
 
     /**
