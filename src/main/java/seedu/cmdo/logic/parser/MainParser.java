@@ -311,7 +311,7 @@ public class MainParser {
         return new SelectCommand(targetIndex);
     }
 
-    //@@author A0139661Y
+    //@@author A0141006B
     private Command prepareStorage() {
     	if (args.equals("")) {
     		return new StorageCommand("data/cmdo.xml");
