@@ -74,6 +74,18 @@ public class UniqueTaskList implements Iterable<Task> {
         internalList.set(targetIndex, toEdit);
     }
     
+    public void done(int targetIndex, Task taskdone) throws TaskNotFoundException {
+    	System.out.println("in uniquetasklist");
+    	System.out.println(taskdone.getName() + " " + taskdone.getisDone());
+    	System.out.println("index at final:" + targetIndex);
+    	assert taskdone != null;
+        if (invalidIndex(targetIndex)) {
+            throw new TaskNotFoundException();
+        }
+        System.out.println("marked done in model");
+        internalList.set(targetIndex, taskdone);  
+    }
+    
     private boolean invalidIndex(int i) {
     	if(i < 0 || i >= internalList.size()) return true;
     	return false;

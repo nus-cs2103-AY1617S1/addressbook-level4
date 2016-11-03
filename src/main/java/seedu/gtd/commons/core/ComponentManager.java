@@ -27,4 +27,9 @@ public abstract class ComponentManager {
     protected void raise(BaseEvent event){
         eventsCenter.post(event);
     }
+
+	public void updateFilteredListToShowRemoved() {
+		// TODO Auto-generated method stub
+		
+	}
 }

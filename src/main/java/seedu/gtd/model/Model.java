@@ -11,14 +11,14 @@ import seedu.gtd.model.task.UniqueTaskList;
  * The API of the Model component.
  */
 public interface Model {
-    /** Clears existing backing model and replaces with the provided new data. */
-    void resetData(ReadOnlyAddressBook newData);
-
     /** Returns the AddressBook */
     ReadOnlyAddressBook getAddressBook();
 
     /** Deletes the given task. */
     void deleteTask(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException;
+    
+    /** Marks the given task as done. */
+    void doneTask(int targetIndex, Task target) throws UniqueTaskList.TaskNotFoundException;
 
     /** Adds the given task */
     void addTask(Task task) throws UniqueTaskList.DuplicateTaskException;
@@ -31,6 +31,9 @@ public interface Model {
 
     /** Updates the filter of the filtered task list to show all tasks */
     void updateFilteredListToShowAll();
+    
+    /** Updates the filter of the filtered task list to show all tasks */
+    void updateFilteredListToShowRemoved();
 
     /** Updates the filter of the filtered task list to filter by the given exact phrase
      * @param keywordSet */
@@ -41,4 +44,11 @@ public interface Model {
 	
 	/** Updates the filter of the filtered task list to filter by the right parameter*/
 	void updateFilteredTaskList(String keywords, String cmd);
+	
+	/** Un-does a change to the AddressBook 
+	 * @return true if undo command was effective or false if undo is not possible, i.e the stack of previous task list states is empty */
+	boolean undoAddressBookChange();
+	
+	/** Clears all tasks */
+	void clearTaskList();
 }

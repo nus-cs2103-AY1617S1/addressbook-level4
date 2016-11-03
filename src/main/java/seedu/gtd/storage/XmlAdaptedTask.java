@@ -23,6 +23,8 @@ public class XmlAdaptedTask {
     private String address;
     @XmlElement(required = true)
     private String priority;
+    @XmlElement(required = true)
+    private boolean isDone;
 
     @XmlElement
     private List<XmlAdaptedTag> tagged = new ArrayList<>();
@@ -43,6 +45,7 @@ public class XmlAdaptedTask {
         dueDate = source.getDueDate().value;
         address = source.getAddress().value;
         priority = source.getPriority().value;
+        isDone = source.getisDone();
         tagged = new ArrayList<>();
         for (Tag tag : source.getTags()) {
             tagged.add(new XmlAdaptedTag(tag));
@@ -63,7 +66,8 @@ public class XmlAdaptedTask {
         final DueDate dueDate = new DueDate(this.dueDate);
         final Address address = new Address(this.address);
         final Priority priority = new Priority(this.priority);
+        final boolean isDone = this.isDone;
         final UniqueTagList tags = new UniqueTagList(taskTags);
-        return new Task(name, dueDate, address, priority, tags);
+        return new Task(name, dueDate, address, priority, tags, isDone);
     }
 }
