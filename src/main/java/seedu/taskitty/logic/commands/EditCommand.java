@@ -10,6 +10,7 @@ import seedu.taskitty.commons.core.Messages;
 import seedu.taskitty.commons.core.UnmodifiableObservableList;
 import seedu.taskitty.commons.exceptions.IllegalValueException;
 import seedu.taskitty.commons.util.AppUtil;
+import seedu.taskitty.commons.util.DateUtil;
 import seedu.taskitty.model.tag.Tag;
 import seedu.taskitty.model.tag.UniqueTagList;
 import seedu.taskitty.model.task.Name;
@@ -110,6 +111,9 @@ public class EditCommand extends Command{
                 new TaskPeriod(),
                 new UniqueTagList(tagSet)
             );
+            if (taskToEdit.getIsDone()) {
+                this.toEdit.markAsDone();
+            }
         } else if (data.length == Task.DEADLINE_COMPONENT_COUNT) {
             if (data[Task.DEADLINE_COMPONENT_INDEX_NAME].isEmpty()) {
                 data[Task.DEADLINE_COMPONENT_INDEX_NAME] = taskToEdit.getName().toString();   
@@ -126,6 +130,11 @@ public class EditCommand extends Command{
                         new TaskTime(data[Task.DEADLINE_COMPONENT_INDEX_END_TIME])),
                 new UniqueTagList(tagSet)
             );
+            if (taskToEdit.getIsDone()) {
+                this.toEdit.markAsDone();
+            } else if (DateUtil.isOverdue(this.toEdit)) {
+                this.toEdit.markAsOverdue();
+            }
         } else if (data.length == Task.EVENT_COMPONENT_COUNT) {
             if (data[Task.EVENT_COMPONENT_INDEX_NAME].isEmpty()) {
                 data[Task.EVENT_COMPONENT_INDEX_NAME] = taskToEdit.getName().toString();   
@@ -147,6 +156,9 @@ public class EditCommand extends Command{
                         new TaskTime(data[Task.EVENT_COMPONENT_INDEX_END_TIME])),
                 new UniqueTagList(tagSet)
             );
+            if (taskToEdit.getIsDone()) {
+                this.toEdit.markAsDone();
+            }
         }
         return emptyOptional();
     }
