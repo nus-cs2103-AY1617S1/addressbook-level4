@@ -25,7 +25,7 @@ import seedu.savvytasker.model.task.ReadOnlyTask;
  */
 public class FloatingPanel extends UiPart {
     private final Logger logger = LogsCenter.getLogger(TaskListPanel.class);
-    private static final String FXML = "floatingList.fxml";
+    private static final String FXML = "FloatingList.fxml";
     private VBox panel;
     private AnchorPane placeHolderPane;
 

@@ -25,7 +25,7 @@ import seedu.savvytasker.model.task.ReadOnlyTask;
 */
 public class OverduePanel extends UiPart {
     private final Logger logger = LogsCenter.getLogger(TaskListPanel.class);
-    private static final String FXML = "overdueList.fxml";
+    private static final String FXML = "OverdueList.fxml";
     private VBox panel;
     private AnchorPane placeHolderPane;
 

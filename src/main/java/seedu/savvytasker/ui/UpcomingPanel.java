@@ -25,7 +25,7 @@ import seedu.savvytasker.model.task.ReadOnlyTask;
 */
 public class UpcomingPanel extends UiPart {
     private final Logger logger = LogsCenter.getLogger(TaskListPanel.class);
-    private static final String FXML = "upcomingList.fxml";
+    private static final String FXML = "UpcomingList.fxml";
     private VBox panel;
     private AnchorPane placeHolderPane;
 

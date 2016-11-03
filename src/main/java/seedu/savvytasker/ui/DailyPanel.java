@@ -35,7 +35,7 @@ public class DailyPanel extends UiPart {
 	private static String DAY_DATE_FORMAT = "%1$s, %2$s";
 
 	private final Logger logger = LogsCenter.getLogger(TaskListPanel.class);
-	private static final String FXML = "dailyList.fxml";
+	private static final String FXML = "DailyList.fxml";
 	private VBox panel;
 	private AnchorPane placeHolderPane;
 

@@ -14,11 +14,7 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import seedu.savvytasker.commons.core.LogsCenter;
 import seedu.savvytasker.commons.events.model.SavvyTaskerChangedEvent;
-<<<<<<< HEAD
 import seedu.savvytasker.commons.events.storage.DataSavingLocationChangedEvent;
-=======
-import seedu.savvytasker.commons.events.storage.StorageLocationChangedEvent;
->>>>>>> parent of ff51186... Revert "Save Command and Keyboard Shortcuts and Task Card Colour Code according to Priority Level"
 import seedu.savvytasker.commons.util.FxViewUtil;
 
 /**
@@ -96,7 +92,7 @@ public class StatusBarFooter extends UiPart {
         return FXML;
     }
 
-    //@@author A0139915W
+    //@@author A0138431L
     @Subscribe
     public void handleSavvyTaskerSaveLocationChangedEvent(DataSavingLocationChangedEvent dslce) {
         setSaveLocation(dslce.newPath);
@@ -108,10 +104,5 @@ public class StatusBarFooter extends UiPart {
         String lastUpdated = (new Date()).toString();
         logger.info(LogsCenter.getEventHandlingLogMessage(stce, "Setting last updated status to " + lastUpdated));
         setSyncStatus("Last Updated: " + lastUpdated);
-    }
-    
-    @Subscribe
-    public void handleStorageLocationChangedEvent(StorageLocationChangedEvent event) {
-        setSaveLocation(event.getConfig().getSavvyTaskerFilePath());
     }
 }

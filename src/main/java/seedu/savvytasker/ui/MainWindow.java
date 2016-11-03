@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
+import com.google.common.eventbus.Subscribe;
+
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -17,6 +19,8 @@ import javafx.stage.Stage;
 
 import seedu.savvytasker.commons.core.Config;
 import seedu.savvytasker.commons.core.GuiSettings;
+import seedu.savvytasker.commons.core.LogsCenter;
+import seedu.savvytasker.commons.events.model.SavvyTaskerChangedEvent;
 import seedu.savvytasker.commons.events.ui.ExitAppRequestEvent;
 import seedu.savvytasker.logic.Logic;
 import seedu.savvytasker.model.UserPrefs;
@@ -97,74 +101,7 @@ public class MainWindow extends UiPart {
     @FXML
     private VBox listPanel;
 
-<<<<<<< HEAD
-    @FXML 
-    private AnchorPane floatingPanelPlaceholder;
-    /*
-    @FXML 
-    private AnchorPane overduePanelPlaceholder;
-    
-    @FXML 
-    private AnchorPane upcomingPanelPlaceholder;
-*/
-    public MainWindow() {
-        super();
-    }
 
-    @Override
-    public void setNode(Node node) {
-        rootLayout = (VBox) node;
-    }
-
-    @Override
-    public String getFxmlPath() {
-        return FXML;
-    }
-
-    public static MainWindow load(Stage primaryStage, Config config, UserPrefs prefs, Logic logic) {
-
-        MainWindow mainWindow = UiPartLoader.loadUiPart(primaryStage, new MainWindow());
-        mainWindow.configure(config.getAppTitle(), config.getSavvyTaskerListName(), config, prefs, logic);
-        return mainWindow;
-    }
-
-    private void configure(String appTitle, String addressBookName, Config config, UserPrefs prefs,
-                           Logic logic) {
-
-        //Set dependencies
-        this.logic = logic;
-        this.addressBookName = addressBookName;
-        this.config = config;
-        this.userPrefs = prefs;
-
-        //Configure the UI
-        setTitle(appTitle);
-        setIcon(ICON);
-        setWindowMinSize();
-        setWindowDefaultSize(prefs);
-        scene = new Scene(rootLayout);
-        primaryStage.setScene(scene);
-
-        setAccelerators();
-    }
-
-    private void setAccelerators() {
-        helpMenuItem.setAccelerator(KeyCombination.valueOf("F1"));
-    }
-
-    void fillInnerParts() {
-        //browserPanel = BrowserPanel.load(browserPlaceholder);
-        taskListPanel = TaskListPanel.load(primaryStage, getTaskListPlaceholder(), logic.getFilteredTaskList());
-        aliasSymbolListPanel = AliasSymbolListPanel.load(primaryStage, getAliasSymbolPlaceholder(), logic.getAliasSymbolList());
-        setDefaultView();
-        resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
-        statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getSavvyTaskerFilePath());
-        commandBox = CommandBox.load(primaryStage, getCommandBoxPlaceholder(), resultDisplay, logic);
-        floatingPanel = FloatingPanel.load(primaryStage, getFloatingPanelPlaceholder(), logic.getFilteredFloatingTasks());
-        overduePanel = OverduePanel.load(primaryStage, getOverduePanelPlaceholder(), logic.getFilteredOverdueTasks());
-        upcomingPanel = UpcomingPanel.load(primaryStage, getUpcomingPanelPlaceholder(), logic.getFilteredUpcomingTasks(date));
-    }
-=======
 	@FXML 
 	private AnchorPane floatingPanelPlaceholder;
 
@@ -206,7 +143,7 @@ public class MainWindow extends UiPart {
 	public static MainWindow load(Stage primaryStage, Config config, UserPrefs prefs, Logic logic) {
 
 		MainWindow mainWindow = UiPartLoader.loadUiPart(primaryStage, new MainWindow());
-		mainWindow.configure(config.getAppTitle(), config.getSavvyTaskerName(), config, prefs, logic);
+		mainWindow.configure(config.getAppTitle(), config.getSavvyTaskerListName(), config, prefs, logic);
 		return mainWindow;
 	}
 
@@ -218,6 +155,7 @@ public class MainWindow extends UiPart {
 		this.addressBookName = addressBookName;
 		this.config = config;
 		this.userPrefs = prefs;
+        registerAsAnEventHandler(this);
 
 		//Configure the UI
 		setTitle(appTitle);
@@ -227,11 +165,6 @@ public class MainWindow extends UiPart {
 		scene = new Scene(rootLayout);
 		primaryStage.setScene(scene);
 
-		setAccelerators();
-	}
-
-	private void setAccelerators() {
-		helpMenuItem.setAccelerator(KeyCombination.valueOf("F1"));
 	}
 
 	void fillInnerParts() {
@@ -246,17 +179,21 @@ public class MainWindow extends UiPart {
 		commandBox.getCommandTextField().requestFocus();
 		floatingPanel = FloatingPanel.load(primaryStage, getFloatingPanelPlaceholder(), logic.getFilteredFloatingTasks());
 		overduePanel = OverduePanel.load(primaryStage, getOverduePanelPlaceholder(), logic.getFilteredOverdueTasks());
-		for(int i = 0; i < DAYS_OF_WEEK; i++) {
-			Date onDate = new Date();
-			onDate.setTime(date.getTime());
-			onDate = addDay(i, onDate);
-			dailyPanel = DailyPanel.load(primaryStage, getDailyPanelPlaceholder(i), logic.getFilteredDailyTasks(i, onDate), i, onDate);
-		}
+		loadDailyPanel();
 		upcomingPanel = UpcomingPanel.load(primaryStage, getUpcomingPanelPlaceholder(), logic.getFilteredUpcomingTasks(date));
 	}
->>>>>>> parent of ff51186... Revert "Save Command and Keyboard Shortcuts and Task Card Colour Code according to Priority Level"
-    
-    /**
+
+	private void loadDailyPanel() {
+        for (int i = 0; i < DAYS_OF_WEEK; i++) {
+            Date onDate = new Date();
+            onDate.setTime(date.getTime());
+            onDate = addDay(i, onDate);
+            dailyPanel = DailyPanel.load(primaryStage, getDailyPanelPlaceholder(i),
+                    logic.getFilteredDailyTasks(i, onDate), i, onDate);
+        }
+	}
+
+	/**
      * Removes all the children in the taskPanel VBox
      * Shows the default list, which is the list of tasks
      */
@@ -440,6 +377,11 @@ public class MainWindow extends UiPart {
 
 	public void releaseResources() {
         //browserPanel.freeResources();
+    }
+
+    @Subscribe
+    public void handleSavvyTaskerChangedEvent(SavvyTaskerChangedEvent stce) {
+        loadDailyPanel();
     }
 		
 }

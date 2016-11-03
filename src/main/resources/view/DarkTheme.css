@@ -122,7 +122,11 @@
 }
 
 .result-display {
-    -fx-background-color: #ffffff;
+    -fx-background-color: transparent;
+}
+
+.result-display .content {
+    -fx-background-color: #383838;
 }
 
 .result-display .label {

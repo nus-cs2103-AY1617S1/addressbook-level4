@@ -79,10 +79,9 @@ public interface Model {
     /** Removes an the given AliasSymbol. */
     void removeAliasSymbol(AliasSymbol symbol) throws SymbolKeywordNotFoundException;
     
-<<<<<<< HEAD
     /** Gets the number of aliases */
     int getAliasSymbolCount();
-=======
+
     //@@author A0138431L
     /** Returns the filtered task list of overdue task as an {@code UnmodifiableObservableList<ReadOnlyTask>} 
      * as of current date */
@@ -111,5 +110,4 @@ public interface Model {
     /** Updates the filter of the filtered task list to show all upcoming tasks after the selected week*/
     void updateFilteredListToShowUpcoming();
     //@@author
->>>>>>> parent of 6fe53d1... Revert "Generate overdue, floating, daily and upcoming list in model manager and load them in mainWindow"
 }

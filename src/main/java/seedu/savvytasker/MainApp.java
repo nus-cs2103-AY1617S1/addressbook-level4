@@ -21,7 +21,6 @@ import seedu.savvytasker.commons.util.ConfigUtil;
 import seedu.savvytasker.commons.util.StringUtil;
 import seedu.savvytasker.logic.Logic;
 import seedu.savvytasker.logic.LogicManager;
-import seedu.savvytasker.logic.commands.SaveCommand;
 import seedu.savvytasker.model.Model;
 import seedu.savvytasker.model.ModelManager;
 import seedu.savvytasker.model.ReadOnlySavvyTasker;
@@ -31,7 +30,6 @@ import seedu.savvytasker.storage.Storage;
 import seedu.savvytasker.storage.StorageManager;
 import seedu.savvytasker.ui.Ui;
 import seedu.savvytasker.ui.UiManager;
-import seedu.savvytasker.commons.events.storage.StorageLocationChangedEvent;
 
 /**
  * The main entry point to the application.
@@ -72,25 +70,8 @@ public class MainApp extends Application {
 
         initEventsCenter();
         
-        initSaveStorageLocationCommand();
-        
     }
-<<<<<<< HEAD
-=======
     
-    public static Ui getUiManager() {
-        if (instance != null) {
-            return instance.ui;
-        } else {
-            return null;
-    }
-
-    private void initSaveStorageLocationCommand() {
-        SaveCommand.setConfig(config);
-        SaveCommand.setStorage(storage);
-    }
->>>>>>> parent of ff51186... Revert "Save Command and Keyboard Shortcuts and Task Card Colour Code according to Priority Level"
-
     private String getApplicationParameter(String parameterName){
         Map<String, String> applicationParameters = getParameters().getNamed();
         return applicationParameters.get(parameterName);
@@ -203,7 +184,7 @@ public class MainApp extends Application {
         System.exit(0);
     }
     
-    //@@author A0139915W
+    //@@author A0138431L
     @Subscribe
     public void handleSavvyTaskerSaveLocationChangedEvent(DataSavingLocationChangedEvent dslce) {
         try {
@@ -224,14 +205,6 @@ public class MainApp extends Application {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         this.stop();
     }
-    
-    //@@author A0138431L 
-    @Subscribe
-    private void handleStorageLocationChangedEvent(StorageLocationChangedEvent event) {
-        config = event.getConfig();
-        storage = new StorageManager(config.getSavvyTaskerFilePath(), config.getUserPrefsFilePath());
-    }
-    //@@author
 
     public static void main(String[] args) {
         launch(args);

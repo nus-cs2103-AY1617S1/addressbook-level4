@@ -15,12 +15,7 @@ public class Config {
     private Level logLevel = Level.INFO;
     private String userPrefsFilePath = "preferences.json";
     private String savvyTaskerFilePath = "data/savvytasker.xml";
-<<<<<<< HEAD
     private String savvyTaskerListName = "MyTaskList";
-=======
-    private String savvyTaskerName = "MyTaskList";
->>>>>>> parent of ff51186... Revert "Save Command and Keyboard Shortcuts and Task Card Colour Code according to Priority Level"
-
 
     public Config() {
     }
@@ -57,21 +52,12 @@ public class Config {
         this.savvyTaskerFilePath = savvyTaskerFilePath;
     }
 
-<<<<<<< HEAD
     public String getSavvyTaskerListName() {
         return savvyTaskerListName;
     }
 
     public void setSavvyTaskerName(String savvyTaskerName) {
         this.savvyTaskerListName = savvyTaskerName;
-=======
-    public String getSavvyTaskerName() {
-        return savvyTaskerName;
-    }
-
-    public void setSavvyTaskerName(String savvyTaskerName) {
-        this.savvyTaskerName = savvyTaskerName;
->>>>>>> parent of ff51186... Revert "Save Command and Keyboard Shortcuts and Task Card Colour Code according to Priority Level"
     }
 
     @Override
@@ -89,20 +75,12 @@ public class Config {
                 && Objects.equals(logLevel, o.logLevel)
                 && Objects.equals(userPrefsFilePath, o.userPrefsFilePath)
                 && Objects.equals(savvyTaskerFilePath, o.savvyTaskerFilePath)
-<<<<<<< HEAD
                 && Objects.equals(savvyTaskerListName, o.savvyTaskerListName);
-=======
-                && Objects.equals(savvyTaskerName, o.savvyTaskerName);
->>>>>>> parent of ff51186... Revert "Save Command and Keyboard Shortcuts and Task Card Colour Code according to Priority Level"
     }
 
     @Override
     public int hashCode() {
-<<<<<<< HEAD
         return Objects.hash(appTitle, logLevel, userPrefsFilePath, savvyTaskerFilePath, savvyTaskerListName);
-=======
-        return Objects.hash(appTitle, logLevel, userPrefsFilePath, savvyTaskerFilePath, savvyTaskerName);
->>>>>>> parent of ff51186... Revert "Save Command and Keyboard Shortcuts and Task Card Colour Code according to Priority Level"
     }
 
     @Override
@@ -112,11 +90,7 @@ public class Config {
         sb.append("\nCurrent log level : " + logLevel);
         sb.append("\nPreference file Location : " + userPrefsFilePath);
         sb.append("\nLocal data file location : " + savvyTaskerFilePath);
-<<<<<<< HEAD
         sb.append("\nSavvy Tasker List name : " + savvyTaskerListName);
-=======
-        sb.append("\nSavvyTasker name : " + savvyTaskerName);
->>>>>>> parent of ff51186... Revert "Save Command and Keyboard Shortcuts and Task Card Colour Code according to Priority Level"
         return sb.toString();
     }
 
