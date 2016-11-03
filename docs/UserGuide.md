@@ -44,17 +44,17 @@ Format: `help`
  
 #### Adding a todo: `add`
 Add an event with a starting and ending date to the calendar.<br>
-Format: `add EVENT_NAME s/START_DATE e/END_DATE [t/TAG]... [p/PRIORITY_LEVEL]`
+Format: `add n/EVENT_NAME s/START_DATE e/END_DATE [t/TAG]... [p/PRIORITY_LEVEL]`
 
 Add a task (with or without deadline) to the calendar.<br>
-Format: `add TASK_NAME [d/DEADLINE] [t/TAG]... [p/PRIORITY_LEVEL]`
+Format: `add n/TASK_NAME [d/DEADLINE] [t/TAG]... [p/PRIORITY_LEVEL]`
 
 > Todos can have any number of tags (including 0)
 
 Examples:
-* `add Lecture s/7.10.2016-14 e/7.10.2016-16 t/CS2103 p/3 `
-* `add Project Deadline d/14.10.2016 t/CS2103 p/3`
-* `add Read Book`
+* `add n/Lecture s/7.10.2016-14 e/7.10.2016-16 t/CS2103 p/3 `
+* `add n/Project Deadline d/14.10.2016 t/CS2103 p/3`
+* `add n/Read Book`
 
 #### Listing all todos : `list`
 Shows a list of all todos.<br>
@@ -108,15 +108,15 @@ Examples:
   Deletes the task with name `Lecture`  in the results of the `find` command.
 
 ####Edit an todo: `edit`
-Edit an existing todo.<br>
-Format: `edit EVENT_NAME [s/START_DATE] [e/END_DATE] [n/NEW_EVENT_NAME] [p/PRIORITY_LEVEL]`<br>
-  `edit TASK_NAME [d/DEADLINE] [n/NEW_TASK_NAME] [p/PRIORITY_LEVEL]`
+Edit an existing field of an todo.<br>
+Format: `edit EVENT_NAME [s/START_DATE] [e/END_DATE] [n/NEW_EVENT_NAME] [r/RECURRING_EVENT] [p/PRIORITY_LEVEL]`<br>
+  `edit TASK_NAME [d/DEADLINE] [n/NEW_TASK_NAME] [r/RECURRING_TASK] [p/PRIORITY_LEVEL]`
 
 Example:
 
 * `edit Lecture s/7.10.2016-14 `
-* `edit Project Deadline d/14.10.2016`
-* `edit Read Book`
+* `edit Project deadline d/14.10.2016`
+* `edit Read book n/Borrow a book`
 
 #### Mark as done : `done`
 Mark an todos identified by the index number used in the last listing as done.<br>
@@ -221,7 +221,7 @@ Change | `change FILE_PATH [clear]`<br> e.g. `change /Desktop/folder/taskManager
 Clear | `clear`
 Delete | `delete INDEX`<br> `delete EVENT_NAME/TASK_NAME`
 Done | `done INDEX`
-Edit | `edit TASK_NAME [d/DEADLINE] [n/NEW_TASK_NAME] [p/PRIORITY_LEVEL]`<br> `edit EVENT_NAME [s/START_DATE] [e/END_DATE] [n/NEW_EVENT_NAME] [p/PRIORITY_LEVEL]`
+Edit | `edit TASK_NAME [d/DEADLINE] [n/NEW_TASK_NAME] [r/RECURRING_TASK] [p/PRIORITY_LEVEL]`<br> `edit EVENT_NAME [s/START_DATE] [e/END_DATE] [n/NEW_EVENT_NAME] [r/RECURRING_EVENT] [p/PRIORITY_LEVEL]`
 Filter | `filter [s/START_DATE] [e/END_DATE] [d/DEADLINE] [p/PRIORITY_LEVEL] [t/TAG]...`<br>  e.g. `filter s/7.10.2016-14 t/CS2103`
 Find | `find KEYWORD [AND] [MORE_KEYWORDS] [exact!]` <br> e.g. `find CS2103 Software Project`, `find CS2103 AND Software Project`, `find lecture exact!`
 Help | `help`

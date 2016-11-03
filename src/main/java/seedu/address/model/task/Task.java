@@ -36,13 +36,13 @@ public class Task implements ReadOnlyTask {
     private Recurring recurring;
     private UniqueTagList tags;
     private Priority priorityLevel;
-    
+
     private IntegerProperty priorityInteger;
     private BooleanProperty done; // Use Observable so that listeners can know
     private StringProperty nameString;
     private StringProperty dateString;
     private StringProperty recurringString;
-    
+
     private boolean isEvent;
     private boolean isDone;
     private boolean isRecurring;
@@ -56,14 +56,14 @@ public class Task implements ReadOnlyTask {
      */
 
     // @@author A0142325R
-    
+
    //----------------------------Constructors-------------------------------------------------
-    
+
     public Task(Name name, UniqueTagList tags, Priority priorityLevel) throws IllegalValueException {
         this(name, new Deadline(""), tags, false, false, priorityLevel);
         this.recurring = null;
     }
-    
+
     public Task(Name name, Date date, UniqueTagList tags, Priority priorityLevel) {
         this(name, date, tags, false, false, priorityLevel);
         recurring = null;
@@ -96,7 +96,7 @@ public class Task implements ReadOnlyTask {
         this.priorityLevel = priorityLevel;
         this.priorityInteger = new SimpleIntegerProperty(priorityLevel.priorityLevel);
     }
-    
+
     public Task(Name name, Date date, UniqueTagList tags, boolean isDone, Recurring recurring, Priority priorityLevel) {
         this(name,date,tags,isDone,true,priorityLevel);
         this.recurring = recurring;
@@ -150,7 +150,7 @@ public class Task implements ReadOnlyTask {
 
     /**
      * update recurring task based on the number of days to update
-     * 
+     *
      * @param daysToUpdate
      */
 
@@ -181,7 +181,7 @@ public class Task implements ReadOnlyTask {
 
     /**
      * update start and end date of a recurring event
-     * 
+     *
      * @param startDate
      * @param endDate
      */
@@ -207,7 +207,7 @@ public class Task implements ReadOnlyTask {
 
     /**
      * update deadline of a recurring task
-     * 
+     *
      * @param deadlineDate
      */
 
@@ -386,11 +386,5 @@ public class Task implements ReadOnlyTask {
         this.priorityLevel = priorityLevel;
         priorityInteger.set(priorityLevel.priorityLevel);
     }
-
-    // public boolean isValidPriorityLevel(int priorityLevel) {
-    // if(priorityLevel <= 3)
-    // return true;
-    // return false;
-    // }
 
 }

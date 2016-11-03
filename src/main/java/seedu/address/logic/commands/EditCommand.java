@@ -19,7 +19,7 @@ public class EditCommand extends Command {
 	public static final String COMMAND_WORD = "edit";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": " + "Edit a field of a event/task in the task manager.\n"
-            + "Parameters: EVENT_NAME [s/START_DATE] [e/END_DATE] [r/RECURRING_EVENT] [p/PRIORITY_LEVEL] or TASK_NAME [d/DEADLINE] [r/RECURRING_EVENT] [p/PRIORITY_LEVEL]\n"
+            + "Parameters: EVENT_NAME [s/START_DATE] [e/END_DATE] [r/RECURRING_EVENT] [p/PRIORITY_LEVEL] or TASK_NAME [d/DEADLINE] [r/RECURRING_TASK] [p/PRIORITY_LEVEL]\n"
             + "Examples: " + COMMAND_WORD
             + " CS3230 Lecture s/14.10.2016-10 \n"
             + COMMAND_WORD
