@@ -99,7 +99,7 @@ public class EditCommand extends Command {
         	model.saveToPrevLists();
             model.editTask(taskToEdit, toEdit);
             
-            return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, lastShownList.get(targetIndex - 1)));
+            return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, toEdit));
         } catch (TaskNotFoundException ee) {
             return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         } catch (IllegalValueException e) {
