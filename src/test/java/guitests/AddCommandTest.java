@@ -47,6 +47,7 @@ public class AddCommandTest extends TaskBookGuiTest {
         TestEvent[] currentList = te.getTypicalNotCompletedEvents();
         TestEvent eventToAdd = te.addedEvent;
         currentList = TestUtil.addEventsToListAtIndex(currentList, 0,eventToAdd);
+
         assertAddEventSuccess(eventToAdd, currentList);        
 
         //add duplicate event
@@ -68,7 +69,8 @@ public class AddCommandTest extends TaskBookGuiTest {
     }
     
     private void assertAddEventSuccess(TestEvent eventToAdd, TestEvent... currentList) {
-        commandBox.runCommand(eventToAdd.getAddCommand());
+
+    	commandBox.runCommand(eventToAdd.getAddCommand());
         
         //confirm the new card contains the right data
         EventCardHandle addedCard = eventListPanel.navigateToEvent(eventToAdd.getEvent().fullName);

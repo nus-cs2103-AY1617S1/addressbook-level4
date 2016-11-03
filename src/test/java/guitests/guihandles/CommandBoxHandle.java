@@ -37,9 +37,5 @@ public class CommandBoxHandle extends GuiHandle{
         pressEnter();
         return new HelpWindowHandle(guiRobot, primaryStage);
     }
-    //@@author A0121608N
-    public void keyPress(KeyCode key){
-        guiRobot.push(key);
-    }
-    //@@author
+
 }

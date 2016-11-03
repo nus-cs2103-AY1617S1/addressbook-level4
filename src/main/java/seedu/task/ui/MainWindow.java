@@ -1,13 +1,21 @@
 package seedu.task.ui;
 
 import java.time.LocalDateTime;
+import com.aquafx_project.AquaFx;
+import com.sun.javafx.scene.traversal.TraversalEngine;
+
+import java.util.ArrayList;
 import java.util.List;
 
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.MenuItem;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCombination;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -15,6 +23,7 @@ import seedu.task.commons.events.ui.ExitAppRequestEvent;
 import seedu.task.logic.Logic;
 import seedu.task.model.UserPrefs;
 import seedu.task.model.item.ReadOnlyEvent;
+import seedu.task.model.item.ReadOnlyTask;
 import seedu.taskcommons.core.Config;
 import seedu.taskcommons.core.GuiSettings;
 
@@ -69,6 +78,11 @@ public class MainWindow extends UiPart {
     @FXML
     private AnchorPane calendarPlaceholder;
 
+    //@@author A0121608N
+    // focus variables
+    private int focusNumber;
+    private ArrayList<Node> focusElements = new ArrayList<Node>();
+    //@@author
 
     public MainWindow() {
         super();
@@ -77,6 +91,37 @@ public class MainWindow extends UiPart {
     @Override
     public void setNode(Node node) {
         rootLayout = (VBox) node;
+        
+        //@@author A0121608N
+        // adds an event filter to bypass default focus traversal hierarchy
+        rootLayout.addEventFilter(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent event) {
+                if (event.getCode() == KeyCode.TAB) {
+                    event.consume();
+                    focusNumber++;
+                    if(focusNumber > 3){
+                        focusNumber = 0;
+                    }
+                    focusElements.get(focusNumber).requestFocus();
+                }
+            }
+        });
+       
+        // adds an event filter to handle mouse selection 
+        rootLayout.addEventFilter(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                for (int i=0;i<3;i++){
+                    Node element = focusElements.get(i);
+                    if(element.isFocused()){
+                        focusNumber = i;
+                    }
+                }
+            }
+        });
+
+        //@@author
     }
 
     @Override
@@ -117,12 +162,23 @@ public class MainWindow extends UiPart {
     }
 
     void fillInnerParts() {
-    	calendarPanel = CalendarPanel.load(primaryStage, getCalendarPlaceholder(), logic.getAllEvents());
+//    	AquaFx.style();
+    	calendarPanel = CalendarPanel.load(primaryStage, getCalendarPlaceholder(), logic.getAllEvents(), logic.getAllTasks());
     	eventListPanel = EventListPanel.load(primaryStage, getEventListPlaceholder(), logic.getFilteredEventList());
         taskListPanel = TaskListPanel.load(primaryStage, getTaskListPlaceholder(), logic.getFilteredTaskList());
         resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
         statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getTaskBookFilePath());
         commandBox = CommandBox.load(primaryStage, getCommandBoxPlaceholder(), resultDisplay, logic);
+        
+        //@@author A0121608N
+        // define focus variables
+        focusNumber = 0;
+        focusElements.add(commandBox.getCommandTextField());
+        focusElements.add(resultDisplay.getResultDisplayArea());
+        focusElements.add(taskListPanel.getTaskListView());
+        focusElements.add(eventListPanel.getEventListView());
+        //@@author
+        
     }
 
     private AnchorPane getCalendarPlaceholder() {
@@ -212,8 +268,8 @@ public class MainWindow extends UiPart {
         return this.calendarPanel;
     }
     
-	public void updateCalendarEvent(List<ReadOnlyEvent> eventList) {
-		this.calendarPanel.refresh(eventList);
+	public void updateCalendar(List<ReadOnlyEvent> eventList, List<ReadOnlyTask> taskList) {
+		this.calendarPanel.refresh(eventList,taskList);
 	}
 
 	public void updateCalendarView(LocalDateTime displayedDateTime, int calendarViewMode) {

@@ -27,6 +27,10 @@ public interface Logic {
     ObservableList<ReadOnlyEvent> getFilteredEventList();
     
     //@@author A0144702N
-    /** Returns all the events */
+    /** Convenient method returns all the events */
     List<ReadOnlyEvent> getAllEvents();
+    
+    /** Convenient method returns all the tasks*/
+    List<ReadOnlyTask> getAllTasks();
+    
 }

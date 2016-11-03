@@ -61,5 +61,10 @@ public class ResultDisplay extends UiPart {
     public void postMessage(String message) {
         displayed.setValue(message);
     }
+    
+    //@@author A0121608N
+    public Node getResultDisplayArea(){
+        return resultDisplayArea;
+    }
 
 }

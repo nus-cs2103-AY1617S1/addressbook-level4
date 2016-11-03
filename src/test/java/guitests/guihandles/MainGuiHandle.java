@@ -2,6 +2,7 @@ package guitests.guihandles;
 
 import guitests.CalendarHandle;
 import guitests.GuiRobot;
+import javafx.scene.Node;
 import javafx.stage.Stage;
 import seedu.task.TestApp;
 

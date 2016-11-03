@@ -104,5 +104,9 @@ public class TaskListPanel extends UiPart {
             }
         }
     }
-
+    
+    //@@author A0121608N
+    public Node getTaskListView(){
+        return taskListView;
+    }
 }

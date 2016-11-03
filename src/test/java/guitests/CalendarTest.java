@@ -6,6 +6,7 @@ import static org.junit.Assert.assertTrue;
 
 import java.time.LocalDateTime;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.testfx.api.FxToolkit;
 
@@ -16,8 +17,11 @@ import jfxtras.scene.control.agenda.Agenda.Appointment;
 import seedu.task.commons.util.StringUtil;
 import seedu.task.logic.commands.CalendarCommand;
 import seedu.task.testutil.TestEvent;
+import seedu.task.testutil.TestTask;
 import seedu.task.testutil.TestUtil;
 import seedu.task.testutil.TypicalTestEvents;
+import seedu.task.testutil.TypicalTestTasks;
+import seedu.task.ui.CalendarHelper;
 
 //@@author A0144702N
 public class CalendarTest extends TaskBookGuiTest {
@@ -30,12 +34,14 @@ public class CalendarTest extends TaskBookGuiTest {
 	 * 	4. Response to show command
 	 */
 	
+	
 	@Test
 	public void initAsWeekView() {
 		Agenda agenda = calendar.getAgenda();
-		TestEvent[] currentList = te.getTypicalAllEvents();
+		TestEvent[] currentEventList = te.getTypicalAllEvents();
+		TestTask[] currentTaskList = td.getTypicalTasks();
 		calendarViewMatch(agenda, new AgendaDaysFromDisplayedSkin(new Agenda()));
-		calendarListMatch(currentList);
+		calendarListMatch(currentEventList, currentTaskList);
 	}
 	
 
@@ -87,41 +93,44 @@ public class CalendarTest extends TaskBookGuiTest {
 	@Test
 	public void modifyEventsList_shouldSync() {
 		//set up 
-		TestEvent[] currentList = te.getTypicalAllEvents();
+		TestEvent[] currentEventList = te.getTypicalAllEvents();
+		TestTask[] currentTaskList = td.getTypicalTasks();
 		Agenda agenda = calendar.getAgenda();
-		calendar.isCalendarMatching(currentList);
+		calendarListMatch(currentEventList, currentTaskList);
+		
 		
 		//add an event
-		currentList = TestUtil.addEventsToList(currentList, TypicalTestEvents.addedEvent); /* Add to end since it is not sorted in the end */
+		currentEventList = TestUtil.addEventsToList(currentEventList, TypicalTestEvents.addedEvent); /* Add to end since it is not sorted in the end */
 		commandBox.runCommand(TypicalTestEvents.addedEvent.getAddCommand());
-		calendarListMatch( currentList);
+		calendarListMatch(currentEventList, currentTaskList);
 		
 		//delete an event
-		currentList= TestUtil.removeEventFromList(currentList, 4);
+		currentEventList= TestUtil.removeEventFromList(currentEventList, 4);
 		commandBox.runCommand("delete /e 1");
-		calendarListMatch(currentList);
+		calendarListMatch(currentEventList, currentTaskList);
 		
 		//edit an event
-		currentList = TestUtil.editEventsToList(currentList, 1, TypicalTestEvents.addedEvent);
+		currentEventList = TestUtil.editEventsToList(currentEventList, 1, TypicalTestEvents.addedEvent);
 		commandBox.runCommand(TypicalTestEvents.addedEvent.getEditCommand(1));
-		calendarListMatch(currentList);
+		calendarListMatch(currentEventList, currentTaskList);
 		
 		//undo
-		currentList = TestUtil.editEventsToList(currentList, 1, TypicalTestEvents.meeting2);
+		currentEventList = TestUtil.editEventsToList(currentEventList, 1, TypicalTestEvents.meeting2);
 		commandBox.runCommand("undo");
-		calendarListMatch(currentList);
+		calendarListMatch(currentEventList, currentTaskList);
 	}
 	
 	@Test
 	public void select_shouldSync() {
-		TestEvent[] currentList = te.getTypicalAllEvents();
-		calendarListMatch(currentList);
+		TestEvent[] currentEventList = te.getTypicalAllEvents();
+		TestTask[] currentTaskList = td.getTypicalTasks();
+		calendarListMatch(currentEventList, currentTaskList);
 		
 		//select a event
 		commandBox.runCommand("select /e 1");
 		
 		//calendar size should not change
-		calendarListMatch(currentList);
+		calendarListMatch(currentEventList, currentTaskList);
 		calendarSelectedCorrectTask(TypicalTestEvents.meeting2);
 	}
 	
@@ -158,8 +167,8 @@ public class CalendarTest extends TaskBookGuiTest {
 		return (agenda.getSkin().getClass().getName().equals(skin.getClass().getName()));
 	}
 	
-	private void calendarListMatch(TestEvent[] currentList) {
-		assertTrue(calendar.isCalendarMatching(currentList));
+	private void calendarListMatch(TestEvent[] eventList, TestTask[] taskList) {
+		assertTrue(calendar.isCalendarEventsMatching(eventList) && calendar.isCalendarTaskMatching(taskList)) ;
 	}
 
 	

@@ -35,7 +35,7 @@
             <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
          </padding>
       </AnchorPane>
-       <AnchorPane fx:id="resultDisplayPlaceholder" maxHeight="100" minHeight="100" prefHeight="100" styleClass="anchor-pane-with-border" VBox.vgrow="NEVER">
+       <AnchorPane fx:id="resultDisplayPlaceholder" maxHeight="100" minHeight="100" prefHeight="100" styleClass="titled-pane" VBox.vgrow="NEVER">
            <padding>
                <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
            </padding>
@@ -46,13 +46,21 @@
                <items>
                   <VBox fx:id="taskList">
                      <children>
-                        <Label alignment="TOP_LEFT" styleClass="panel-header" text="Tasks TO DO!" />
+                        <AnchorPane styleClass="list-panel-head" VBox.vgrow="ALWAYS">
+                           <children>
+                              <Label alignment="CENTER" contentDisplay="CENTER" styleClass="event-panel-header" text="Tasks TO DO!" textAlignment="CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                           </children>
+                        </AnchorPane>
                         <AnchorPane fx:id="taskListPanelPlaceholder" VBox.vgrow="ALWAYS" />
                      </children>
                   </VBox>
                   <VBox fx:id="eventList">
                      <children>
-                        <Label alignment="TOP_LEFT" styleClass="panel-header" text="Events TO ATTEND!" />
+                        <AnchorPane VBox.vgrow="ALWAYS">
+                           <children>
+                              <Label alignment="CENTER" contentDisplay="CENTER" styleClass="task-panel-header" text="Events TO ATTEND!" textAlignment="CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                           </children>
+                        </AnchorPane>
                         <AnchorPane fx:id="eventListPanelPlaceholder" VBox.vgrow="ALWAYS" />
                      </children>
                   </VBox>

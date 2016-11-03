@@ -38,6 +38,10 @@ public class Deadline implements Comparable<Deadline> {
         	throw new IllegalValueException(MESSAGE_DEADLINE_CONSTRAINTS);
         }
     }
+    
+    public LocalDateTime getTime() {
+    	return this.deadLine;
+    }
 
 
     @Override

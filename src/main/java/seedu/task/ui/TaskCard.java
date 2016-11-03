@@ -1,10 +1,13 @@
 package seedu.task.ui;
 
 import javafx.fxml.FXML;
+
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import seedu.task.model.item.ReadOnlyTask;
+import com.guigarage.flatterfx.emoji.EmojiFactory;
+
 
 public class TaskCard extends UiPart{
 
