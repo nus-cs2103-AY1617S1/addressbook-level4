@@ -74,7 +74,7 @@ public class UpdateController implements Controller {
         
         if (calendarItem != null) {
             calendarItem.setName(name);
-            calendarItem.setCalendarDT(ldt);
+            calendarItem.setCalendarDateTime(ldt);
             db.save();
         }
         

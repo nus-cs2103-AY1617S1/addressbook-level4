@@ -28,7 +28,7 @@ public interface CalendarItem {
      * 
      * @return datetime
      */
-    public LocalDateTime getCalendarDT();
+    public LocalDateTime getCalendarDateTime();
     
     /**
      * Set the calendar date of the calendar item. The behavior of this will
@@ -41,7 +41,7 @@ public interface CalendarItem {
      * 
      * @param datetime
      */
-    public void setCalendarDT(LocalDateTime datetime);
+    public void setCalendarDateTime(LocalDateTime datetime);
     
     /**
      * Returns true if the calendar item has passed, false otherwise.

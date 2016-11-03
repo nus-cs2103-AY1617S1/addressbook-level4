@@ -725,7 +725,7 @@ public class TodoListDB {
         Iterator<Event> iterator = events.iterator();
         while (iterator.hasNext()) {
             Event currEvent = iterator.next();
-            if (DateUtil.floorDate(currEvent.getCalendarDT()).equals(givenDate)) {
+            if (DateUtil.floorDate(currEvent.getCalendarDateTime()).equals(givenDate)) {
                 eventByDate.add(currEvent);
             }
         }
@@ -752,7 +752,7 @@ public class TodoListDB {
         Iterator<Event> iterator = events.iterator();
         while (iterator.hasNext()) {
             Event currEvent = iterator.next();
-            if (DateUtil.floorDate(currEvent.getCalendarDT()).equals(givenDate)) {
+            if (DateUtil.floorDate(currEvent.getCalendarDateTime()).equals(givenDate)) {
                 eventByDate.add(currEvent);
             }
         }

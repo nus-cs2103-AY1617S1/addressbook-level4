@@ -60,12 +60,12 @@ public class Event implements CalendarItem {
     }
 
     @Override
-    public LocalDateTime getCalendarDT() {
+    public LocalDateTime getCalendarDateTime() {
         return getStartDate(); 
     }
 
     @Override
-    public void setCalendarDT(LocalDateTime datetime) {
+    public void setCalendarDateTime(LocalDateTime datetime) {
         setStartDate(datetime);
     }
     

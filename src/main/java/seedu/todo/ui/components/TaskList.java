@@ -88,7 +88,7 @@ public class TaskList extends Component {
         Map<LocalDateTime, ArrayList<T>> itemsByDate = new HashMap<>();
 
         for (T item : calendarItems) {
-            LocalDateTime itemDate = DateUtil.floorDate(item.getCalendarDT());
+            LocalDateTime itemDate = DateUtil.floorDate(item.getCalendarDateTime());
             
             // Handle tasks without a date
             if (itemDate == null) {

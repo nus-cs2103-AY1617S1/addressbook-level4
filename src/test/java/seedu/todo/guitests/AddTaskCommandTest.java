@@ -23,7 +23,7 @@ public class AddTaskCommandTest extends GuiTest {
         String command = "add task Buy milk by Oct 15 2016 2pm";
         Task task = new Task();
         task.setName("Buy milk");
-        task.setCalendarDT(DateUtil.parseDateTime("2016-10-15 14:00:00"));
+        task.setCalendarDateTime(DateUtil.parseDateTime("2016-10-15 14:00:00"));
         assertAddSuccess(command, task);
     }
 
@@ -48,7 +48,7 @@ public class AddTaskCommandTest extends GuiTest {
         console.runCommand(command);
         
         // Get the task date.
-        LocalDateTime taskDateTime = taskToAdd.getCalendarDT();
+        LocalDateTime taskDateTime = taskToAdd.getCalendarDateTime();
         if (taskDateTime == null) {
             taskDateTime = DateUtil.NO_DATETIME_VALUE;
         }

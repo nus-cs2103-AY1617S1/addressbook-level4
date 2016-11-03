@@ -38,20 +38,20 @@ public class CalendarItemTests {
     public void test_event_calendardt() {
         Event event = new Event();
         LocalDateTime time = LocalDateTime.now();
-        event.setCalendarDT(time);
-        assertEquals(event.getCalendarDT(), time);
+        event.setCalendarDateTime(time);
+        assertEquals(event.getCalendarDateTime(), time);
     }
     
     @Test
     public void test_event_calendardt_is_start() {
         Event event = new Event();
         LocalDateTime time1 = LocalDateTime.now();
-        event.setCalendarDT(time1);
+        event.setCalendarDateTime(time1);
         assertEquals(event.getStartDate(), time1);
         
         LocalDateTime time2 = LocalDateTime.now();
         event.setStartDate(time2);
-        assertEquals(event.getCalendarDT(), time2);
+        assertEquals(event.getCalendarDateTime(), time2);
     }
     
     @Test
@@ -123,20 +123,20 @@ public class CalendarItemTests {
     public void test_task_calendardt() {
         Task task = new Task();
         LocalDateTime time = LocalDateTime.now();
-        task.setCalendarDT(time);
-        assertEquals(task.getCalendarDT(), time);
+        task.setCalendarDateTime(time);
+        assertEquals(task.getCalendarDateTime(), time);
     }
     
     @Test
     public void test_task_calendardt_is_duedate() {
         Task task = new Task();
         LocalDateTime time1 = LocalDateTime.now();
-        task.setCalendarDT(time1);
+        task.setCalendarDateTime(time1);
         assertEquals(task.getDueDate(), time1);
         
         LocalDateTime time2 = LocalDateTime.now();
         task.setDueDate(time2);
-        assertEquals(task.getCalendarDT(), time2);
+        assertEquals(task.getCalendarDateTime(), time2);
     }
     
     @Test

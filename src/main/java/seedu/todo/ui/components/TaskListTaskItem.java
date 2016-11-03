@@ -48,7 +48,7 @@ public class TaskListTaskItem extends MultiComponent {
         taskText.setText(task.getName());
         taskTagListText.setText(StringUtil.checkEmptyList(task.getTagList())); 
         
-        LocalDateTime dateTime = task.getCalendarDT();
+        LocalDateTime dateTime = task.getCalendarDateTime();
         if (dateTime != null) {
             taskTime.setText(DateUtil.formatTime(dateTime));
         }

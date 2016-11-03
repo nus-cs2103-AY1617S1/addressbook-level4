@@ -44,12 +44,12 @@ public class Task implements CalendarItem {
     }
     
     @Override
-    public LocalDateTime getCalendarDT() {
+    public LocalDateTime getCalendarDateTime() {
         return getDueDate();
     }
     
     @Override
-    public void setCalendarDT(LocalDateTime date) {
+    public void setCalendarDateTime(LocalDateTime date) {
         setDueDate(date);
     }
     
