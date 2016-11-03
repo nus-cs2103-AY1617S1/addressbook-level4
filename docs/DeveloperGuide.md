@@ -49,14 +49,7 @@ By storing the task or event received immediately into `Dowat`, the user can arc
 By accessing `Dowat`, the user is able to determine the important tasks at hand and upcoming events for the day or week.
 This will help the user plan their use of time more effectively.
 
-* Storing tasks and events in `Dowat` based on emails
-
-<img src="images/ADForDowatAndEmail.png" width="600"><br>
-
-* Accessing `Dowat`
-
-<img src="images/ADForDowat.png" width="600"><br>
-
+<img src="images/ADForEmailAndDowat.png" width="250" height="350"><br>
 
 ## Design
 
