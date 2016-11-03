@@ -55,8 +55,9 @@ public class ConfigUtil {
     public static void saveConfig(Config config, String configFilePath) throws IOException {
         assert config != null;
         assert configFilePath != null;
-
+        logger.info("Saving config: \n" + config);
         FileUtil.serializeObjectToJsonFile(new File(configFilePath), config);
+        logger.info("Config file saved to " + configFilePath);
     }
 
 }

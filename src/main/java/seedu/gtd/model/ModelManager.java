@@ -2,9 +2,12 @@ package seedu.gtd.model;
 
 import javafx.collections.transformation.FilteredList;
 import seedu.gtd.commons.core.ComponentManager;
+import seedu.gtd.commons.core.Config;
 import seedu.gtd.commons.core.LogsCenter;
 import seedu.gtd.commons.core.UnmodifiableObservableList;
 import seedu.gtd.commons.events.model.AddressBookChangedEvent;
+import seedu.gtd.commons.exceptions.DataConversionException;
+import seedu.gtd.commons.util.ConfigUtil;
 import seedu.gtd.commons.util.StringUtil;
 import seedu.gtd.model.task.Task;
 import seedu.gtd.model.tag.Tag;
@@ -13,7 +16,9 @@ import seedu.gtd.model.task.ReadOnlyTask;
 import seedu.gtd.model.task.UniqueTaskList;
 import seedu.gtd.model.task.UniqueTaskList.TaskNotFoundException;
 
+import java.io.IOException;
 import java.util.Arrays;
+import java.util.Optional;
 import java.util.Set;
 import java.util.logging.Logger;
 
@@ -253,9 +258,12 @@ public class ModelManager extends ComponentManager implements Model {
         }
     }
 
-	@Override
-	public void setFilePathTask(String newFilePath) {
-		// TODO Auto-generated method stub
-		
-	}
+		@Override
+		//@@author A0139072H    
+		//application-wide operations
+	   public void setFilePathTask(String newFilePath) throws IOException{
+	        addressBook.setFilePathTask(newFilePath);
+	        indicateAddressBookChanged();
+	        //NEEDS TO SAVE TO NEW FILEPATH
+	   };
 }

@@ -1,18 +1,13 @@
 package seedu.gtd.logic.commands;
 
-import java.util.HashSet;
-import java.util.Set;
 
 import seedu.gtd.commons.exceptions.IllegalValueException;
-import seedu.gtd.model.task.*;
-import seedu.gtd.model.tag.Tag;
-import seedu.gtd.model.tag.UniqueTagList;
 
 //@@author A0139072H
 
 /**
- * Adds a task to the task list.
- */
+ * Sets the file path of the saved tasklist to a new file
+ **/
 public class SetFilePathCommand extends Command {
 
     public static final String COMMAND_WORD = "setPath";
@@ -35,14 +30,18 @@ public class SetFilePathCommand extends Command {
     public SetFilePathCommand(String givenString)
             throws IllegalValueException {
         this.newFilePath = new String(
-        		givenString
+        		givenString.trim()
         );
     }
 
     @Override
     public CommandResult execute() {
         assert model != null;
-        model.setFilePathTask(newFilePath);
+        try{
+        	model.setFilePathTask(newFilePath);
+        } catch (Exception e) {
+            return new CommandResult(MESSAGE_INVALID_LOC_TASK);
+        }
         return new CommandResult(String.format(MESSAGE_SUCCESS, newFilePath));
     }
 
