@@ -18,16 +18,16 @@ public class AddCommand extends Command {
     //@@author A0146123R
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Add an event with a starting and ending date or a task (with or without deadline) to the task manager.\n"
-            + "Parameters: n/EVENT_NAME s/START_DATE e/END_DATE [p/PRIORITY_LEVEL] [t/TAG]... or TASK_NAME [d/DEADLINE] [p/PRIORITY_LEVEL] [t/TAG]...\n"
+            + "Parameters: n/EVENT_NAME s/START_DATE e/END_DATE [p/PRIORITY_LEVEL] [t/TAG]... or n/TASK_NAME [d/DEADLINE] [p/PRIORITY_LEVEL] [t/TAG]...\n"
             + "Example: " + COMMAND_WORD
-            + " n/Lecture s/7.10.2016-14 e/7.10.2016-16 p/1 t/CS2103, add Project Deadline d/14.10.2016 p/3 t/CS2103";
+            + " n/Lecture s/7.10.2016-14 e/7.10.2016-16 p/1 t/CS2103, add n/Project Deadline d/14.10.2016 p/3 t/CS2103";
 
     public static final String MESSAGE_EVENT_SUCCESS = "New event added: %1$s";
     public static final String MESSAGE_TASK_SUCCESS = "New task added: %1$s";
     public static final String MESSAGE_DUPLICATE_TASK = "It's already exists in the task manager";
 
     private final Task toAdd;
-    
+
     //@@author A0142325R
     /**
      * Convenience constructor using raw values.
@@ -96,7 +96,7 @@ public class AddCommand extends Command {
             return MESSAGE_TASK_SUCCESS;
         }
     }
-    
+
     private MissingRecurringDateException MissingRecurringDateException() throws MissingRecurringDateException{
             return new MissingRecurringDateException("Recurring task must have a deadline");
     }
