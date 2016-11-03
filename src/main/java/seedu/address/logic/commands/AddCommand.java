@@ -27,8 +27,8 @@ public class AddCommand extends Command implements Undoable {
             + COMMAND_WORD + " Wash Clothes d/Wash with detergent date/27-9-2016 2359 t/!!!";
 
     public static final String MESSAGE_SUCCESS = "New task added: %1$s";
-    public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the task book!";
-    public static final String MESSAGE_CLASHING_EVENTS = "This event clashes with other events in the task book!";
+    public static final String MESSAGE_DUPLICATE_TASK = "THERE IS A DUPLICATE TASK IN THE TASK BOOK!";
+    public static final String MESSAGE_CLASHING_EVENTS = "THIS EVENT CLASHES WITH OTHER EVENT(S) IN THE TASK BOOK!";
     public static final int NO_DUPLICATE_OR_CLASH = 0;
     public static final int DUPLICATE = 1;
     public static final int CLASH = 2;
