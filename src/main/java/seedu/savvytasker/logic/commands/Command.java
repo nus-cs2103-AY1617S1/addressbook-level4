@@ -5,6 +5,7 @@ import seedu.savvytasker.commons.core.Messages;
 import seedu.savvytasker.commons.events.ui.IncorrectCommandAttemptedEvent;
 import seedu.savvytasker.logic.Logic;
 import seedu.savvytasker.model.Model;
+import seedu.savvytasker.storage.Storage;
 
 /**
  * Represents a command with hidden internal logic and the ability to be executed.
@@ -49,6 +50,13 @@ public abstract class Command {
      * access to the dependencies.
      */
     public void setLogic(Logic logic) { /* Intentionally does nothing */ }
+    
+    /**
+     * Provides any storage related dependencies to the command.
+     * Commands making use of any of these should override this method to gain
+     * access to the dependencies.
+     */
+    public void setStorage(Storage storage) { /* Intentionally does nothing */ }
 
     /**
      * Raises an event to indicate an attempt to execute an incorrect command
