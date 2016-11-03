@@ -17,14 +17,14 @@ import tars.commons.util.CollectionUtil;
  * @see CollectionUtil#elementsAreUnique(Collection)
  */
 public class UniqueTaskList implements Iterable<Task> {
+    
+    private final ObservableList<Task> internalList = FXCollections.observableArrayList();
 
     /**
      * Signals that an operation targeting a specified task in the list would fail because
      * there is no such matching task in the list.
      */
     public static class TaskNotFoundException extends Exception {}
-
-    private final ObservableList<Task> internalList = FXCollections.observableArrayList();
 
     /**
      * Returns true if the list contains an equivalent task as the given argument.
