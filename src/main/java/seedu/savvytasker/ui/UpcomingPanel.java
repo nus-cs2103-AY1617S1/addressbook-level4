@@ -78,7 +78,7 @@ public class UpcomingPanel extends UiPart {
     private void setEventHandlerForSelectionChangeEvent() {
         taskListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
-                logger.fine("Selection in overdue task list panel changed to : '" + newValue + "'");
+                logger.fine("Selection in upcoming task list panel changed to : '" + newValue + "'");
                 raise(new TaskPanelSelectionChangedEvent(newValue));
             }
         });
