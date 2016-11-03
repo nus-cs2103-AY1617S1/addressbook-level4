@@ -245,7 +245,7 @@ public class ModelManager extends ComponentManager implements Model {
             if (toCompare.isEmpty()) {
                 return false;
             } else {
-                return (this.referencePoint.compareTo(toCompare) < 1);
+                return (toCompare.compareTo(this.referencePoint) < 1);
             }
         }
     }
