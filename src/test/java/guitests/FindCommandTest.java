@@ -6,7 +6,8 @@ import seedu.cmdo.commons.core.Messages;
 import seedu.cmdo.testutil.TestTask;
 
 import static org.junit.Assert.assertTrue;
-//@@author A0141128R for fuzzy search and need slap
+
+//@@author A0141006B
 public class FindCommandTest extends ToDoListGuiTest {
 
     @Test
