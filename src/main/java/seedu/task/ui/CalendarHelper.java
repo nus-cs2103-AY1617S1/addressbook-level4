@@ -31,7 +31,7 @@ public class CalendarHelper extends AppointmentImplBase implements Appointment {
 		}
 	}
 	
-	public static Appointment convertFromEvent(ReadOnlyEvent event) {
+	public Appointment convertFromEvent(ReadOnlyEvent event) {
 		Appointment item = new AppointmentImplLocal();
 		item.setSummary(event.getEvent().fullName);
 		item.setStartLocalDateTime(event.getDuration().getStartTime());
@@ -43,7 +43,7 @@ public class CalendarHelper extends AppointmentImplBase implements Appointment {
 	}
 	
 
-	public static Appointment convertFromTask(ReadOnlyTask task) {
+	public Appointment convertFromTask(ReadOnlyTask task) {
 		Appointment item = new AppointmentImplLocal();
 		item.setSummary(task.getTask().fullName);
 		item.setStartLocalDateTime(task.getDeadline().get().getTime());

@@ -41,11 +41,13 @@ public class CalendarPanel extends UiPart {
 	private Agenda agenda;
 	private final Logger logger = LogsCenter.getLogger(CalendarPanel.class);
 	private AnchorPane placeHolderPane;
+	private final CalendarHelper calHelper;
 	
 	
 
 	public CalendarPanel() {
 		agenda = new Agenda();
+		calHelper = CalendarHelper.getInstance();
 	}
 
 	public static CalendarPanel load(Stage primaryStage, AnchorPane calendarPlaceHolder,
@@ -127,14 +129,14 @@ public class CalendarPanel extends UiPart {
 
 	private void setConnectionEvent(List<ReadOnlyEvent> eventList) {
 		eventList.forEach(event ->
-			agenda.appointments().add(CalendarHelper.convertFromEvent(event)));
+			agenda.appointments().add(calHelper.convertFromEvent(event)));
 	}
 	
 	private void setConnectionTask(List<ReadOnlyTask> taskList) {
 		taskList.stream()
 			.filter(task -> task.getDeadline().isPresent() && !task.getTaskStatus().booleanValue())
 			.collect(Collectors.toList())
-			.forEach(task -> agenda.appointments().add(CalendarHelper.convertFromTask(task)));
+			.forEach(task -> agenda.appointments().add(calHelper.convertFromTask(task)));
 	}
 
 	
