@@ -34,6 +34,8 @@ public class EventCard extends UiPart {
 	private Label endTime;
 	@FXML
 	private Label done;
+	@FXML
+    private Label countdown;
 
 	private Event task;
 	private int displayedIndex;
@@ -52,7 +54,7 @@ public class EventCard extends UiPart {
 
 	@FXML
 	//@@author A0139923X
-	public void initialize() {
+	public void initialize() throws ParseException {
 		name.setText(task.getName().name);
 		id.setText(displayedIndex + ". ");
 		date.setText("Start Date: " + task.getStartDate().date);
@@ -60,6 +62,7 @@ public class EventCard extends UiPart {
 			endDate.setText("End Date: " + task.getEndDate().endDate);
 			startTime.setText("Start Time: " + task.getStartTime().startTime);
 			endTime.setText("End Time: " + task.getEndTime().endTime);
+	        countdown.setText(convertDateToMilli(task.getEndDate().endDate, task.getEndTime().endTime));
 			done.setText("Completed");
 			cardPane.setStyle("-fx-background-color: #01DF01");
 		} else if (!task.checkEndDateTime() && this.task.getDone().equals("false")) {
@@ -67,30 +70,45 @@ public class EventCard extends UiPart {
 			startTime.setText("Start Time: " + task.getStartTime().startTime);
 			endTime.setText("End Time: " + task.getEndTime().endTime);
 			done.setText("Overdue");
+	        countdown.setText(convertDateToMilli(task.getEndDate().endDate, task.getEndTime().endTime));
 			cardPane.setStyle("-fx-background-color: #ff2002");
 		} else {
 			endDate.setText("End Date: " + task.getEndDate().endDate);
 			startTime.setText("Start Time: " + task.getStartTime().startTime);
 			endTime.setText("End Time: " + task.getEndTime().endTime);
 			done.setText("Not Completed");
+			countdown.setText(convertDateToMilli(task.getEndDate().endDate, task.getEndTime().endTime));
 			cardPane.setStyle("-fx-background-color: #FFFFFF");
 		}
 	}
 
-    //@@author A0132157M
-    public long dateToMilli(String s, String q) throws ParseException {
+	//@@author A0132157M
+    public String convertDateToMilli(String s, String q) throws ParseException {
         String string = s;
         String[] parts = string.split(" ");
         String part1 = parts[0]; 
         String part2 = parts[1]; 
         String part3 = parts[2];
-        String parta = part1.substring(0, 2);
+        String part4 = part1.substring(0, 2);
         String bstring = q;
-        String input = part3 + " " + part2 + " " + parta + " " + bstring;
+        String input = part3 + " " + part2 + " " + part4 + " " + bstring;
+        String result = convertToSDF(input);
+        return result;
+    }
+    
+    //@@author A0132157M
+    public String convertToSDF(String input) throws ParseException {
         Date date = new SimpleDateFormat("yyyy MMMM dd HH:mmaaa", Locale.ENGLISH).parse(input);
         long milliseconds = date.getTime();
-        long ss = milliseconds - (new Date()).getTime();
-        return ss;
+        long dateToMilli = milliseconds - (new Date()).getTime();
+        String result = setPrettyTime(dateToMilli);
+        return result;
+    }
+    
+    //@@author A0132157M
+    public String setPrettyTime(long input) {
+        String result = p.format(new Date(System.currentTimeMillis() + input));
+        return result; 
     }
     
 	public HBox getLayout() {
