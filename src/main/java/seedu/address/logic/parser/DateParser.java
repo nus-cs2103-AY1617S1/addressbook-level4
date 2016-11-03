@@ -103,7 +103,7 @@ public class DateParser {
 				int minute = parseMinute(minuteOpt.orElse("0"));
 				
 				try {
-					LocalDateTime date = LocalDateTime.of(year, month, day, hour, minute);
+					return LocalDateTime.of(year, month, day, hour, minute);
 				}
 				catch (DateTimeException e) {
 					throw new ParseException("Date '" + Integer.toString(day) + "' is invalid for month entered.", -1);
