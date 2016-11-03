@@ -221,7 +221,20 @@ public class UniqueTaskList implements Iterable<Task> {
         }
         return taskFoundAndArchived;
     }
-
+    
+    //Bad SLAP, needs improvement
+    public boolean overlapsForEdit(TaskOccurrence original, TaskOccurrence toCheck){
+        for(TaskOccurrence t: internalComponentList){
+            if(!t.equals(original) && t.getTaskReference().getName().fullName.equals(BlockCommand.DUMMY_NAME)){
+                if(!(!t.getEndDate().getDate()
+                        .after(toCheck.getStartDate().getDate())
+                        || !t.getStartDate().getDate()
+                                .before(toCheck.getEndDate().getDate()))) return true;
+            }
+        }
+        return false;
+    }
+    
     // @@author
     // @@author A0147995H
     public boolean updateTask(TaskOccurrence target, Name name, UniqueTagList tags, TaskDate startDate, TaskDate endDate,
@@ -235,7 +248,7 @@ public class UniqueTaskList implements Iterable<Task> {
                 TaskDate realEndDate = endDate == null ? new TaskDate(TaskDate.DATE_NOT_PRESENT) : endDate;
                 Task checkTask = new Task(target.getTaskReference().getName(), target.getTaskReference().getTags(), realStartDate, realEndDate,
                         recurringType);
-                if (overlaps(checkTask))
+                if (overlapsForEdit(t, checkTask.getLastAppendedComponent()))
                     throw new TimeslotOverlapException();
                 t.getTaskReference().updateTask(name, tags, startDate, endDate, recurringType);
                 internalComponentList.clear();
