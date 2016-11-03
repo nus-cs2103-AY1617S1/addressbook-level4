@@ -21,43 +21,49 @@ import javafx.util.Callback;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
-import java.util.Locale;
 import java.time.temporal.ChronoUnit;
+import java.util.Locale;
 
 /**
  * Represents an event or a task (with or without deadline) in the task manager.
  * Guarantees: details are present and not null, field values are validated.
  */
+
 public class Task implements ReadOnlyTask {
 
-    private boolean isEvent;
     private Name name;
-    private StringProperty nameString;
     private Date date;
-    private StringProperty dateString;
-    private boolean isDone;
-    private BooleanProperty done; // Use Observable so that listeners can know
-                                  // when the task's done status is updated
-    private boolean isRecurring;
     private Recurring recurring;
-    private StringProperty recurringString;
     private UniqueTagList tags;
     private Priority priorityLevel;
+    
     private IntegerProperty priorityInteger;
-    /*
-     * public static void main(String[] args) throws IllegalValueException{ Task
-     * t=new Task(new Name("xiaowei"),new Deadline("22.09.2016-14"),new
-     * UniqueTagList(),new Recurring("weekly")); t.updateRecurringTask(); Task
-     * k=new Task(new Name("Donghae"),new
-     * EventDate("22.11.2016-14","25.11.2016-15"),new UniqueTagList(),new
-     * Recurring("daily")); k.updateRecurringTask();
-     * System.out.println(k.getAsText()); }
-     */
+    private BooleanProperty done; // Use Observable so that listeners can know
+    private StringProperty nameString;
+    private StringProperty dateString;
+    private StringProperty recurringString;
+    
+    private boolean isEvent;
+    private boolean isDone;
+    private boolean isRecurring;
+                                  // when the task's done status is updated
+    public static final String RECURDAILY = "daily";
+    public static final String RECURWEEKLY = "weekly";
+    public static final String RECURMONTHLY = "monthly";
 
     /**
      * Every field must be present and not null.
      */
-    //@@author A0142325R
+
+    // @@author A0142325R
+    
+   //----------------------------Constructors-------------------------------------------------
+    
+    public Task(Name name, UniqueTagList tags, Priority priorityLevel) throws IllegalValueException {
+        this(name, new Deadline(""), tags, false, false, priorityLevel);
+        this.recurring = null;
+    }
+    
     public Task(Name name, Date date, UniqueTagList tags, Priority priorityLevel) {
         this(name, date, tags, false, false, priorityLevel);
         recurring = null;
@@ -67,6 +73,7 @@ public class Task implements ReadOnlyTask {
         this(name, date, tags, false, true, priorityLevel);
         this.recurring = recurring;
         recurringString.set(recurring.recurringFrequency);
+
     }
 
     public Task(Name name, Date date, UniqueTagList tags, boolean isDone, boolean isRecurring, Priority priorityLevel) {
@@ -74,7 +81,7 @@ public class Task implements ReadOnlyTask {
         this.name = name;
         this.nameString = new SimpleStringProperty(name.taskName);
         this.date = date;
-        this.dateString=new SimpleStringProperty(date.getValue());
+        this.dateString = new SimpleStringProperty(date.getValue());
         if (date instanceof EventDate) {
             isEvent = true;
         } else {
@@ -85,48 +92,24 @@ public class Task implements ReadOnlyTask {
         this.isDone = isDone;
         this.done = new SimpleBooleanProperty(isDone);
         this.isRecurring = isRecurring;
-        recurringString = new SimpleStringProperty();
+        this.recurringString = new SimpleStringProperty();
         this.priorityLevel = priorityLevel;
         this.priorityInteger = new SimpleIntegerProperty(priorityLevel.priorityLevel);
     }
 
-    public Task(Name name, Date date, UniqueTagList tags, boolean isDone, Recurring Recurring, Priority priorityLevel) {
-        assert !CollectionUtil.isAnyNull(name, date, tags);
-        this.name = name;
-        this.nameString = new SimpleStringProperty(name.taskName);
-        this.date = date;
-        this.dateString=new SimpleStringProperty(date.getValue());
-        if (date instanceof EventDate) {
-            isEvent = true;
-        } else {
-            isEvent = false;
-        }
-        this.tags = new UniqueTagList(tags); // protect internal tags from
-                                             // changes in the arg list
-        this.isDone = isDone;
-        this.done = new SimpleBooleanProperty(isDone);
-        this.isRecurring=true;
-        this.recurring = Recurring;
-        recurringString = new SimpleStringProperty(recurring.recurringFrequency);
-        this.priorityLevel = priorityLevel;
-        this.priorityInteger = new SimpleIntegerProperty(priorityLevel.priorityLevel);
-    }
-
-    /**
-     * Copy constructor.
-     */
     public Task(ReadOnlyTask source) {
-        this(source.getName(), source.getDate(), source.getTags(), source.isDone(), source.isRecurring(), source.getPriorityLevel());
+        this(source.getName(), source.getDate(), source.getTags(), source.isDone(), source.isRecurring(),
+                source.getPriorityLevel());
         if (source.isRecurring()) {
             this.recurring = source.getRecurring();
             recurringString.set(recurring.recurringFrequency);
         }
     }
 
-    public Task(Name name, UniqueTagList tags, Priority priorityLevel) throws IllegalValueException {
-        this(name, new Deadline(""), tags, false, false, priorityLevel);
-        this.recurring = null;
-    }
+
+    /**
+     * update the recurring task to its next recurring date
+     */
 
     public void updateRecurringTask() {
         DateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
@@ -137,30 +120,37 @@ public class Task implements ReadOnlyTask {
                 germanFormatter);
         LocalDate startDate = LocalDate.parse(date.getValue().substring(0, 10), germanFormatter);
         long elapsedDays = ChronoUnit.DAYS.between(startDate, currentDate);
-        if (elapsedDays < 1)
+        if (elapsedDays < 1) {
             return;
+        }
         switch (recurring.recurringFrequency) {
-        case "daily":
+        case RECURDAILY:
             updateRecurringTask(elapsedDays);
             break;
-        case "weekly":
+        case RECURWEEKLY:
             long numWeek = (elapsedDays - 1) / 7 + 1;
             updateRecurringTask(numWeek * 7);
             break;
-        case "monthly":
+        case RECURMONTHLY:
             long numMonth = elapsedDays / 28 + 1;
             updateRecurringTask(numMonth * 28);
-        case "yearly":
             break;
         default:
-           // System.out.println("default");
             break;
         }
     }
 
+    /**
+     * update recurring task based on the number of days to update
+     * 
+     * @param daysToUpdate
+     */
+
     private void updateRecurringTask(long daysToUpdate) {
+
         DateTimeFormatter germanFormatter = DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM)
                 .withLocale(Locale.GERMAN);
+
         if (date instanceof EventDate) {
             String startDate = ((EventDate) date).getStartDate().substring(0, 10);
             LocalDate startLocalDate = LocalDate.parse(startDate, germanFormatter);
@@ -168,53 +158,77 @@ public class Task implements ReadOnlyTask {
             String endDate = ((EventDate) date).getEndDate().substring(0, 10);
             LocalDate endLocalDate = LocalDate.parse(endDate, germanFormatter);
             endDate = germanFormatter.format(endLocalDate.plusDays(daysToUpdate)).toString();
-            String startTime = "", endTime = "";
-            if (((EventDate) date).getStartDate().length() > 10) {
-                startTime = ((EventDate) date).getStartDate().substring(11);
-                endTime = ((EventDate) date).getEndDate().substring(11);
-            }
-            if(!startTime.equals("")&&!endTime.equals("")){
-            ((EventDate) date).updateDate(startDate + "-" + startTime, endDate + "-" + endTime);
-            }else if(!startTime.equals("")){
-                ((EventDate) date).updateDate(startDate+"-"+startTime, endDate);
-            }else if(!endTime.equals("")){
-                ((EventDate) date).updateDate(startDate, endDate+"-"+endTime);
-            }else{
-                ((EventDate) date).updateDate(startDate, endDate);
-            }
+            updateRecurringEvent(startDate, endDate);
+        } else if (date instanceof Deadline) {
+            String deadlineDate = date.getValue().substring(0, 10);
+            LocalDate deadlineLocalDate = LocalDate.parse(deadlineDate, germanFormatter);
+            deadlineDate = germanFormatter.format(deadlineLocalDate.plusDays(daysToUpdate)).toString();
+            updateRecurringDeadlineTask(deadlineDate);
         } else {
-            if (date instanceof Deadline) {
-                String deadlineDate = date.getValue().substring(0, 10);
-                LocalDate deadlineLocalDate = LocalDate.parse(deadlineDate, germanFormatter);
-                deadlineDate = germanFormatter.format(deadlineLocalDate.plusDays(daysToUpdate)).toString();
-                String deadlineTime = "";
-                if (date.toString().length() > 10) {
-                    deadlineTime = date.toString().substring(11);
-                }
-                if(!deadlineTime.equals(""))
-                ((Deadline) date).updateDate(deadlineDate + "-" + deadlineTime);
-                else
-                    ((Deadline) date).updateDate(deadlineDate);
-            }
-
+            return;
         }
         dateString.set(date.getValue());
+
     }
-    //@@author
+
+    /**
+     * update start and end date of a recurring event
+     * 
+     * @param startDate
+     * @param endDate
+     */
+
+    private void updateRecurringEvent(String startDate, String endDate) {
+
+        String startTime = "", endTime = "";
+        if (((EventDate) date).getStartDate().length() > 10) {
+            startTime = ((EventDate) date).getStartDate().substring(11);
+            endTime = ((EventDate) date).getEndDate().substring(11);
+        }
+
+        if (!startTime.equals("") && !endTime.equals("")) {
+            ((EventDate) date).updateDate(startDate + "-" + startTime, endDate + "-" + endTime);
+        } else if (!startTime.equals("")) {
+            ((EventDate) date).updateDate(startDate + "-" + startTime, endDate);
+        } else if (!endTime.equals("")) {
+            ((EventDate) date).updateDate(startDate, endDate + "-" + endTime);
+        } else {
+            ((EventDate) date).updateDate(startDate, endDate);
+        }
+    }
+
+    /**
+     * update deadline of a recurring task
+     * 
+     * @param deadlineDate
+     */
+
+    private void updateRecurringDeadlineTask(String deadlineDate) {
+        String deadlineTime = "";
+        if (date.toString().length() > 10) {
+            deadlineTime = date.toString().substring(11);
+        }
+        if (!deadlineTime.equals(""))
+            ((Deadline) date).updateDate(deadlineDate + "-" + deadlineTime);
+        else
+            ((Deadline) date).updateDate(deadlineDate);
+    }
+
+    // @@author
 
     @Override
     public Name getName() {
         return name;
     }
 
-    //@@author A0142325R
+    // @@author A0142325R
     @Override
     public Recurring getRecurring() {
         // assert recurring!=null;
         return this.recurring;
     }
 
-    //@@author A0146123R
+    // @@author A0146123R
     @Override
     public Date getDate() {
         return date;
@@ -224,14 +238,14 @@ public class Task implements ReadOnlyTask {
     public boolean isEvent() {
         return isEvent;
     }
-    //@@author
+    // @@author
 
     @Override
     public UniqueTagList getTags() {
         return new UniqueTagList(tags);
     }
 
-    //@@author A0142325R
+    // @@author A0142325R
     @Override
     public boolean isDone() {
         return isDone;
@@ -241,12 +255,12 @@ public class Task implements ReadOnlyTask {
     public boolean isRecurring() {
         return isRecurring;
     }
-    //@@author
+    // @@author
 
-    //@@author A0138717X
+    // @@author A0138717X
     @Override
     public Priority getPriorityLevel() {
-    	return priorityLevel;
+        return priorityLevel;
     }
 
     /**
@@ -275,14 +289,14 @@ public class Task implements ReadOnlyTask {
         return getAsText();
     }
 
-    //@@author A0142325R
+    // @@author A0142325R
     @Override
     public void markAsDone() {
         isDone = true;
         done.set(true);
     }
 
-    //@@author A0146123R
+    // @@author A0146123R
     public void setName(Name newName) {
         name = newName;
         nameString.set(name.taskName);
@@ -291,8 +305,9 @@ public class Task implements ReadOnlyTask {
     public void setDate(Date newDate) {
         date = newDate;
         dateString.setValue(date.getValue());
-        // It does nothing but can magically fix a bug. It seems like the UI need some time to reflect.
-        dateString.get(); 
+        // It does nothing but can magically fix a bug. It seems like the UI
+        // need some time to reflect.
+        dateString.get();
     }
 
     public void setRecurring(Recurring newRecurring) {
@@ -304,11 +319,11 @@ public class Task implements ReadOnlyTask {
     /**
      * Returns Observable wrappers of the task
      */
-    public StringProperty getNameString(){
+    public StringProperty getNameString() {
         return nameString;
     }
 
-    public StringProperty getDateString(){
+    public StringProperty getDateString() {
         return dateString;
     }
 
@@ -316,7 +331,7 @@ public class Task implements ReadOnlyTask {
         return done;
     }
 
-    public StringProperty getRecurringString(){
+    public StringProperty getRecurringString() {
         return recurringString;
     }
 
@@ -325,36 +340,49 @@ public class Task implements ReadOnlyTask {
      */
     public static Callback<Task, Observable[]> extractor() {
         return (Task task) -> new Observable[] { task.getNameString(), task.getDateString(), task.getDone(),
-                task.getRecurringString(), task.getPriorityInteger()};
+                task.getRecurringString(), task.getPriorityInteger() };
     }
 
-    //@@author A0138717X
-	public boolean editDetail(String type, String details) throws IllegalValueException {
-		switch(type) {
-    	case "name": setName(new Name(details)); break;
-    	case "priority": setPriorityLevel(new Priority(Integer.parseInt(details))); break;
-    	case "recurring": setRecurring(new Recurring(details)); break;
-    	case "startDate": setDate(new EventDate(details,((EventDate) date).getEndDate())); break;
-    	case "endDate": setDate(new EventDate(((EventDate) date).getStartDate(), details)); break;
-    	case "deadline": setDate(new Deadline(details)); break;
-    	default: return false;
-		}
-		return true;
-	}
+    // @@author A0138717X
+    public boolean editDetail(String type, String details) throws IllegalValueException {
+        switch (type) {
+        case "name":
+            setName(new Name(details));
+            break;
+        case "priority":
+            setPriorityLevel(new Priority(Integer.parseInt(details)));
+            break;
+        case "recurring":
+            setRecurring(new Recurring(details));
+            break;
+        case "startDate":
+            setDate(new EventDate(details, ((EventDate) date).getEndDate()));
+            break;
+        case "endDate":
+            setDate(new EventDate(((EventDate) date).getStartDate(), details));
+            break;
+        case "deadline":
+            setDate(new Deadline(details));
+            break;
+        default:
+            return false;
+        }
+        return true;
+    }
 
-	public IntegerProperty getPriorityInteger() {
-		return priorityInteger;
-	}
+    public IntegerProperty getPriorityInteger() {
+        return priorityInteger;
+    }
 
-	public void setPriorityLevel(Priority priorityLevel) {
-		this.priorityLevel = priorityLevel;
-		priorityInteger.set(priorityLevel.priorityLevel);
-	}
+    public void setPriorityLevel(Priority priorityLevel) {
+        this.priorityLevel = priorityLevel;
+        priorityInteger.set(priorityLevel.priorityLevel);
+    }
 
-//	public boolean isValidPriorityLevel(int priorityLevel) {
-//		if(priorityLevel <= 3)
-//			return true;
-//		return false;
-//	}
+    // public boolean isValidPriorityLevel(int priorityLevel) {
+    // if(priorityLevel <= 3)
+    // return true;
+    // return false;
+    // }
 
 }

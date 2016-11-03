@@ -1,10 +1,12 @@
-package seedu.address.logic.commands;
 //@@author A0142325R
+package seedu.address.logic.commands;
+
 /**
  * Refresh tasks or events in the task manager to the user.
  * For outdated recurring tasks, its date and time will be shown based on its next occurrence 
  * from today's date and time
  */
+
 public class RefreshCommand extends Command {
 
     public static final String COMMAND_WORD = "refresh";
