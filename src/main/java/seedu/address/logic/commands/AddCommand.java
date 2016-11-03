@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.commons.exceptions.MissingRecurringDateException;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.task.*;
@@ -26,6 +27,7 @@ public class AddCommand extends Command {
     public static final String MESSAGE_DUPLICATE_TASK = "It's already exists in the task manager";
 
     private final Task toAdd;
+    
     //@@author A0142325R
     /**
      * Convenience constructor using raw values.
@@ -33,7 +35,7 @@ public class AddCommand extends Command {
      * @throws IllegalValueException
      *             if any of the raw values are invalid
      */
-    public AddCommand(String name, String deadline, Set<String> tags, String freq, int priorityLevel) throws IllegalValueException {
+    public AddCommand(String name, String deadline, Set<String> tags, String freq, int priorityLevel) throws Exception{
         final Set<Tag> tagSet = new HashSet<>();
         for (String tagName : tags) {
             tagSet.add(new Tag(tagName));
@@ -43,8 +45,11 @@ public class AddCommand extends Command {
                     new Recurring(freq), new Priority(priorityLevel));
         } else if (deadline != "") {
             this.toAdd = new Task(new Name(name), new Deadline(deadline), new UniqueTagList(tagSet), new Priority(priorityLevel));
-        } else {
+        } else if(deadline==""&&freq==""){
             this.toAdd = new Task(new Name(name), new UniqueTagList(tagSet), new Priority(priorityLevel));
+        }else{
+            this.toAdd=null;
+            MissingRecurringDateException();
         }
     }
 
@@ -55,18 +60,19 @@ public class AddCommand extends Command {
      *             if any of the raw values are invalid
      */
     public AddCommand(String name, String startDate, String endDate, Set<String> tags, String freq, int priorityLevel)
-            throws IllegalValueException {
+            throws Exception {
         final Set<Tag> tagSet = new HashSet<>();
         for (String tagName : tags) {
             tagSet.add(new Tag(tagName));
         }
-        if (freq != "" && startDate != "") {
+        if (!freq.equals("") && !startDate.equals("")) {
             this.toAdd = new Task(new Name(name), new EventDate(startDate, endDate), new UniqueTagList(tagSet),
                     new Recurring(freq), new Priority(priorityLevel));
-        } else if (startDate != "") {
+        } else if (!startDate.equals("")&&freq.equals("")) {
             this.toAdd = new Task(new Name(name), new EventDate(startDate, endDate), new UniqueTagList(tagSet), new Priority(priorityLevel));
-        } else {
-            this.toAdd = new Task(new Name(name), new UniqueTagList(tagSet), new Priority(priorityLevel));
+        } else{
+            MissingRecurringDateException();
+            this.toAdd=null;
         }
     }
 
@@ -89,6 +95,10 @@ public class AddCommand extends Command {
         } else {
             return MESSAGE_TASK_SUCCESS;
         }
+    }
+    
+    private MissingRecurringDateException MissingRecurringDateException() throws MissingRecurringDateException{
+            return new MissingRecurringDateException("Recurring task must have a deadline");
     }
 
 }

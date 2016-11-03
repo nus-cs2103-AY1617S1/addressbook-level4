@@ -8,34 +8,83 @@ import seedu.address.testutil.TestUtil;
 
 import static org.junit.Assert.assertTrue;
 
-//@@author A0142325R
-public class AddCommandTest extends TaskManagerGuiTest {
+import org.junit.Before;
 
+//@@author A0142325R
+
+/**
+ * test for add command in gui
+ * @author LiXiaowei
+ *
+ */
+
+public class AddCommandTest extends TaskManagerGuiTest {
+    
+    TestTask[] currentList;
+    TestTask taskToAdd;
+    
+    @Before
+    public void setUpLists(){
+        currentList=td.getTypicalTasks();
+    }
+    
+    //------------------------------valid cases---------------------------------------------
+    
+    //add an event to list
+    
     @Test
-    public void add() {
-        // add one person
-        TestTask[] currentList = td.getTypicalTasks();
-        TestTask taskToAdd = td.project;
+    public void addEventToList_successful(){
+        
+        taskToAdd = td.project;
         assertAddSuccess(taskToAdd, currentList);
         currentList = TestUtil.addTasksToList(currentList, taskToAdd);
-
-        // add another person
+    }
+    
+    //add a task to list
+    
+    @Test
+    public void addTaskToList_successful(){
         taskToAdd = td.workshop;
-        // currentList = TestUtil.addTasksToList(currentList, taskToAdd);
         assertAddSuccess(taskToAdd, currentList);
-
-        // add to empty list
+        
+    }
+    
+    //add item to an empty list
+    
+    @Test
+    public void addToEmptyList_successful(){
         commandBox.runCommand("clear");
         assertAddSuccess(td.friend);
-
-        // add project to current list with flexi command
+        
+    }
+    
+    //use flexi add command
+    
+    @Test
+    public void addFlexiCommandFormat_successful(){
+        
         taskToAdd = td.project;
-        assertFlexiAddSuccess(taskToAdd, td.friend);
-
-        // invalid command
+        assertFlexiAddSuccess(taskToAdd, currentList);
+    }
+    
+    //-----------------------------invalid cases--------------------------------------------
+    
+    //invalid command
+    
+    @Test
+    public void addInvalidArgsFormat_fail(){
+        
         commandBox.runCommand("adds Johnny");
         assertResultMessage(Messages.MESSAGE_UNKNOWN_COMMAND);
     }
+    
+    
+    /**
+     * assert add success for general addCommand with correct argument order
+     * @param personToAdd
+     * @param currentList
+     */
+
 
     private void assertAddSuccess(TestTask personToAdd, TestTask... currentList) {
         commandBox.runCommand(personToAdd.getAddCommand());
@@ -49,6 +98,12 @@ public class AddCommandTest extends TaskManagerGuiTest {
         TestTask[] expectedList = TestUtil.addTasksToList(currentList, personToAdd);
         assertTrue(taskListPanel.isListMatching(expectedList));
     }
+    
+    /**
+     * assert add success for flexi add command with arguments in any random order
+     * @param personToAdd
+     * @param currentList
+     */
 
     private void assertFlexiAddSuccess(TestTask personToAdd, TestTask... currentList) {
         commandBox.runCommand(personToAdd.getFlexiAddCommand());

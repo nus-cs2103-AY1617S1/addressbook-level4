@@ -121,8 +121,9 @@ public class TaskManager implements ReadOnlyTaskManager {
     //@@author A0142325R
     public void refreshTask(){
         for(Task e:tasks){
-            if(e.isRecurring())
+            if(e.isRecurring()){
             e.updateRecurringTask();
+            }
         }
     }
 
