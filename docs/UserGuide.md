@@ -126,8 +126,9 @@ Format: `unfav INDEX`
 
 #### Backup : `backup`, `b`
 Save a copy of the current TaskManager data file into the specified directory.<br>
-Format: `backup PATH` or `b PATH`
+Format: `backup [PATH]` or `b [PATH]`
 Examples: 
+* `backup`
 * `backup C:/Documents and Settings/User/Desktop/TaskManagerBackup`
 * `b data/backup/backup1`
 Wrong Examples: 
@@ -136,9 +137,10 @@ Wrong Examples:
 
 #### Change working directory : `directory`, `dir`
 Change data file being accessed, effectively using another TaskManager list.<br>
-A manual restart of the application is required for non-Windows OS, thus TaskManager will close itself.
-Format: `directory PATH` or `dir PATH`
+A manual restart of the application is required for unsupported OS.
+Format: `directory [PATH]` or `dir [PATH]`
 Examples: 
+* `directory`
 * `dirctory C:/Documents and Settings/User/Desktop/TaskManager2`
 * `dir data/olddata`
 
@@ -180,8 +182,8 @@ Sort | `sort [PARAMETER]` `s [PARAMETER]`
 Undo | `undo`
 Done | `done` `undone`
 Favorite | `fav` `unfav`
-Backup | `backup PATH ` `b PATH`
-Change Directory | `directory PATH ` `dir PATH`
+Backup | `backup [PATH]` `b [PATH]`
+Change Directory | `directory [PATH]` `dir [PATH]`
 Clear | `clear`
 Refresh | `refresh`
 Exit | `exit`

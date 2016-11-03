@@ -535,7 +535,7 @@ public class CommandParser {
         if (!matcher.matches()) {
             String directory = FilePickerUtil.openXMLFile();
             if (directory == "") {
-              return new IncorrectCommand("Cancelled");
+              return new IncorrectCommand("Aborted");
             }
             return new DirectoryCommand(directory);
         }
@@ -554,7 +554,7 @@ public class CommandParser {
         if (!matcher.matches()) {
             String directory = FilePickerUtil.saveXMLFile();
             if (directory == "") {
-              return new IncorrectCommand("Cancelled");
+              return new IncorrectCommand("Aborted");
             }
             return new BackupCommand(directory);
         }
