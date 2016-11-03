@@ -171,7 +171,7 @@ public class StringUtil {
         for (int i = 0; i <= src.length(); i++) {
             for (Character c : ALPHABET) {
                 dictionary.add(sb.insert(i, c.toString()).toString()); // Inserting character c at idx i.
-                sb.deleteCharAt(i); // Deleting after adding to dictionary.
+                sb.deleteCharAt(i); // Deleting inserted character.
             }
         }
         return dictionary;
