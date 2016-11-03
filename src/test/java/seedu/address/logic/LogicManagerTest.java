@@ -923,6 +923,29 @@ public class LogicManagerTest {
     }
     //@@author
     
+    //@@ A0139024M
+    @Test
+    public void execute_undoDuplicate_sucessful() throws Exception {
+        Task[] toUndo = generateStartStateForUndo(2);  
+        model.addTask(toUndo[0]);
+        expectedTB.addTask(toUndo[0]);
+        
+        //Add duplicate undated task
+        model.addTask(toUndo[0]);
+        model.addUndo("add", toUndo[0]);
+        expectedTB.addTask(toUndo[0]);
+        model.deleteTask(toUndo[0]);
+        model.addUndo("delete", toUndo[0]);
+        expectedTB.removeTask(toUndo[0]);
+        
+        expectedTB.addTask(toUndo[0]);
+        assertCommandBehavior("undo", (String.format(UndoCommand.MESSAGE_SUCCESS, "delete")
+                + "\n" + AddCommand.MESSAGE_DUPLICATE_TASK), expectedTB, 
+                expectedTB.getDatedTaskList(), expectedTB.getUndatedTaskList());
+        
+    }
+    //@@author
+    
     //@@author A0139145E
     @Test
     public void execute_undoRedoMultiple_successful() throws Exception {
