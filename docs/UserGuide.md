@@ -36,7 +36,6 @@
 > * The order of parameters is fixed except for edit command.
 
 
- 
 #### Adding a task: `add`
 #### Shortcut : `a`
 Adds a task to the FlexiTrack.<br>
@@ -79,11 +78,11 @@ Format: `block [Description] from/ [starting time] to/ [ending time]`
 
 Examples: 
 * `block for cs2103 project from/ 5pm to/ 7pm`<br>	
+//@@author
 
-//@@author A0127855W
 #### Find free time slots: `gap`
 #### Shortcut: `g`
-Find and list free time slot in the schedule that is equal to or longer than the specified timing (in hours).<br>
+Find and list free time slots in the schedule that is equal to or longer than the specified timing (in hours).<br>
 Format: `find time [number of hours] < [number of slots to find] >`  
 
 > If there is there is a time slot longer than the required free time slot, 
@@ -91,11 +90,10 @@ Format: `find time [number of hours] < [number of slots to find] >`
 > By default, find time will only give a single free slot when the number of slots required is not keyed in.
 
 Examples: 
-* `find time 3 `<br>	
+* `gap 3 `<br>	
 	You have a minimum of 3 hours free time slot between: today 5pm - 9pm. 
-* `find time 5 3 `<br>	
+* `g 5 3 `<br>	
 	You have a minimum of 5 hours free time slot between: Monday 2pm - 9pm, Tuesday 1pm - 6pm and Saturday 9am - 5pm. 
-//@@author
 
 #### Deleting a task or event : `delete`
 #### Shortcut : `d`
@@ -126,12 +124,12 @@ Edits the specified task/event from the FlexiTrack.<br>
 Format: `edit [index] <by/ [deadline]> <n/ [title]> <from/ [starting time]> <to/ [ending time]>`
 
 
-> Edits the task/event at the specified `index`. 
+> * Edits the task/event at the specified `index`. 
   The index refers to the index number shown in the most recent listing.<br>
   The index **must be a positive integer** 1, 2, 3, ...
-> Edit parameters must fit the type of task / event being edited. e.g. duedate should only be edited on a task.
-> Floating tasks can be converted into tasks or events by editing the appropriate parameter.
-> User cannot edit a floating task into an event with only a starting time but no ending time or vice versa.
+> * Edit parameters must fit the type of task / event being edited. e.g. duedate should only be edited on a task.
+> * Floating tasks can be converted into tasks or events by editing the appropriate parameter.
+> * User cannot edit a floating task into an event with only a starting time but no ending time or vice versa.
 
 Examples: 
 * `edit 2 n/ Name Edited`<br>
@@ -202,8 +200,33 @@ Examples:
   Returns Any task/event containing the exact phrase `cn homework` in their title
 * `f f/ attend CS2103 lecture`<br>
   Returns Any task/event having exact title `attend CS2103 lecture`
-
+  
 //@@author A0127855W
+#### List: `list`
+#### Shortcut : `l`
+Lists tasks and events that match the specified filter.<br>
+Format: `list <filter>`
+
+> Accepted filters include:
+> * future
+> * next week
+> * mark
+> * block
+> Unmarked floating tasks will be listed.
+
+Examples: 
+* `list next month` <br>
+  Returns a list of next month's tasks and events
+  
+#### Select a particular task/event: `select`
+#### Shortcut : `s`
+Selects a particular task/event on the task/event list.<br>
+Format: `select [index]`
+
+> Select the taks/event at the specified `index`. 
+  The index refers to the index number shown in the most recent listing.<br>
+  The index **must be a positive integer** 1, 2, 3, ...
+
 #### Undo operations : `undo`
 #### Shortcut : `un`
 Undo the previous operation.<br>
@@ -286,7 +309,8 @@ next month 8am | Mar 01 08:00
 **Q**: How do I transfer my data to another Computer?<br>
 **A**: Install the app in the other computer and overwrite the empty data file it creates with 
        the file that contains the data of your previous FlexiTrack folder.
-       
+
+//@@author A0127855W
 ## Command Summary
 
 Command | Shortcut | Format
@@ -301,7 +325,7 @@ Edit | e | `edit [index] <by/ [deadline]> <n/ [title]> <from/ [starting time]> <
 Mark | m | `mark [index]`
 Unmark | u | `unmark [index]`
 Find | f | `find KEYWORD [MORE_KEYWORDS]`
-List | l | `list [filter]`
+List | l | `list <filter>`
 Select | s | `select [index]`
 Undo | un | `undo`
 Redo | rd | `redo`
