@@ -97,7 +97,7 @@ Shows a list of upcoming task in the task management tool.<br>
 Format: `list`
 Examples: 
 * `list`<br>
-  Returns `Homework` but not `homework`
+  
 
 <!-- @@author A0153751H -->
 ### Deleting a task : `delete`
@@ -108,14 +108,30 @@ Format: `delete TASKID`
  
 Examples: 
 * `delete 1`<br>
+<!-- @@author -->
 
+<!-- @@author A0139932X -->
+<a id="save_storage" class="anchor" aria-hidden="true">
 #### Change the file directory stored: `save`
 Change the folder path name
 Format: `save folderpath`
 
 Example:
-* `save C:\\Users\\<username>\\Desktop\\CS2103 Tutorial`.
+* `save C:\\Users\\<username>\\Desktop\\CS2103 Tutorial`.<br>
 
+
+<a id="find_substring" class="anchor" aria-hidden="true">
+#### Find an event: `Find`
+Find an event on the list task according to the Substring based on the TITLE
+Format: `find KEYWORD`
+
+Example:
+* `find work`.
+RETURNS any Title that contains 'work'
+
+<!-- @@author -->
+
+<!-- @@author A0153411W -->
 <a id="undo-method--undo" class="anchor" href="#listing-all-persons--list" aria-hidden="true">
 #### Undo the last executed command: `undo`
 Restore the task manager to the state before command was executed 
@@ -123,6 +139,7 @@ Format: `undo`
 
 Example:
 * `undo`.
+<!-- @@author -->
 
 #### Complete a task: `done`
 Set Task as completed
@@ -152,7 +169,7 @@ Examples:
 
 **Q**: How do I transfer my data to another Computer?<br>
 **A**: Install the app in the other computer and overwrite the empty data file it creates with 
-       the file that contains the data of your previous Address Book folder.
+       the file that contains the data of your previous Task Manager folder.
       
 ## Command Summary
 
