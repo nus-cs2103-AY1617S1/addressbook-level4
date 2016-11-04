@@ -24,6 +24,7 @@ public class UnmarkCommand extends Command {
             + "Parameters: INDEX (must be a positive integer)\n" + "Example: " + COMMAND_WORD + " 1";
 
     public static final String MESSAGE_UNMARK_TASK_SUCCESS = "Unmark Task: %1$s";
+    private static final String MESSAGE_UNDO_SUCCESS = "Undid unmark task: %1$s";
     
     private Task taskStore; 
     private Task unMarkedTask;
@@ -78,5 +79,11 @@ public class UnmarkCommand extends Command {
         } catch (DuplicateTaskException e) {
             indicateAttemptToExecuteIncorrectCommand();
         }
+    }
+    
+  //@@author A0127855W
+    @Override
+    public String getUndoMessage(){
+        return String.format(MESSAGE_UNDO_SUCCESS, unMarkedTask);
     }
 }

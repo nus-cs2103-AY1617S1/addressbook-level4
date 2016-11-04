@@ -35,6 +35,7 @@ public class EditCommand extends Command {
             + COMMAND_WORD + " 1 " + "by/ 01062016";
 
     public static final String MESSAGE_EDIT_TASK_SUCCESS = "Edited: %1$s";
+    private static final String MESSAGE_UNDO_SUCCESS = "Undid edit: %1$s into %2%s";
     
     public static final HashMap<String, Integer> EDIT_PARAMETER_PASSING_MASK = new HashMap<String, Integer>();
     static {
@@ -116,5 +117,11 @@ public class EditCommand extends Command {
         } catch (DuplicateTaskException e) {
             indicateAttemptToExecuteIncorrectCommand();
         }
+    }
+    
+  //@@author A0127855W
+    @Override
+    public String getUndoMessage(){
+        return String.format(MESSAGE_UNDO_SUCCESS, taskStore, editedTask);
     }
 }

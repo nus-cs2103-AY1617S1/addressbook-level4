@@ -39,9 +39,9 @@ public class RedoCommand extends Command {
             redo.setNumOfOccurrrence(numOfOccurrrence);
         }
 
-        redo.execute();
+        CommandResult redoMessage = redo.execute();
         model.indicateFlexiTrackerChanged();
-        return new CommandResult(MESSAGE_SUCCESS);
+        return new CommandResult(MESSAGE_SUCCESS + "\n" + redoMessage.getString());
     }
     
    

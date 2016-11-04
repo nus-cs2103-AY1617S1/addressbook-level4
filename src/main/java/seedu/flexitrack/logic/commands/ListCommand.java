@@ -1,6 +1,11 @@
 //@@author A0127686R
 package seedu.flexitrack.logic.commands;
 
+import java.util.logging.Logger;
+
+import seedu.flexitrack.commons.core.LogsCenter;
+import seedu.flexitrack.model.ModelManager;
+
 /**
  * Lists all task in the FlexiTrack to the user.
  */
@@ -31,8 +36,11 @@ public class ListCommand extends Command {
 
     public final String arguments;
 
+    private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
+
     public ListCommand(String args) {
         this.arguments = args;
+        logger.info("----------------[LIST COMMAND STORE ARGS][" + args.toUpperCase() + "]");
     }
 
     @Override

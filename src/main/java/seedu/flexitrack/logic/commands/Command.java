@@ -38,6 +38,10 @@ public abstract class Command {
      */
     public void executeUndo(){ 
     }
+    
+    public String getUndoMessage(){
+        return "";
+    }
 
     /**
      * Provides any needed dependencies to the command. Commands making use of

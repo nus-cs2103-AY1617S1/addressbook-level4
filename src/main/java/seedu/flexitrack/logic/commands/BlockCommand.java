@@ -25,6 +25,7 @@ public static final String COMMAND_WORD = "block";
     public static final String MESSAGE_SUCCESS = "Block the date for %1$s";
     public static final String MESSAGE_DUPLICATE_TIME = "This period of time has already taken by other event, Please choose another time.";
     public static final String MESSAGE_OVERLAPPING_EVENT_WARNING = "\nWarning: this event is overlaping a existing event!";
+    private static final String MESSAGE_UNDO_SUCCESS = "Undid block: %1$s";
     
     private Task toBlock;
     private boolean isOverlapping = false;
@@ -77,6 +78,12 @@ public static final String COMMAND_WORD = "block";
         } catch (TaskNotFoundException pnfe) {
             assert false : "The target task cannot be missing";
         }      
+    }
+    
+  //@@author A0127855W
+    @Override
+    public String getUndoMessage(){
+        return String.format(MESSAGE_UNDO_SUCCESS, toBlock);
     }
 
 }

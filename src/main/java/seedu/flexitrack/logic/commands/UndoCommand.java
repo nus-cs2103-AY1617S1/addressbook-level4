@@ -2,7 +2,10 @@
 package seedu.flexitrack.logic.commands;
 
 import java.util.Stack;
+import java.util.logging.Logger;
 
+import seedu.flexitrack.commons.core.LogsCenter;
+import seedu.flexitrack.model.ModelManager;
 import seedu.flexitrack.model.task.ReadOnlyTask;
 
 /**
@@ -17,9 +20,11 @@ public class UndoCommand extends Command {
     public static final String MESSAGE_SUCCESS = "Your last command has been undone!";
     public static final String MESSAGE_NOT_SUCCESS = "You have no command to undo!";
 
+    private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
+
     // Stores all the commands done from app launch
     static Stack<Command> doneCommandStack = new Stack<Command>();
-
+    
     public UndoCommand() {
     }
 
@@ -27,6 +32,8 @@ public class UndoCommand extends Command {
     public CommandResult execute() {
         Command undo = null;
 
+        logger.info("----------------[UNDO COMMAND][ executing undo ]");
+        
         if (doneCommandStack.size() == 0) {
             return new CommandResult(String.format(MESSAGE_NOT_SUCCESS));
         }
@@ -47,7 +54,7 @@ public class UndoCommand extends Command {
         undo.executeUndo();
         RedoCommand.undoneCommandStack.push(undo);
         model.indicateFlexiTrackerChanged();
-        return new CommandResult(MESSAGE_SUCCESS);
+        return new CommandResult(MESSAGE_SUCCESS + "\n" + undo.getUndoMessage());
     }
    
 }

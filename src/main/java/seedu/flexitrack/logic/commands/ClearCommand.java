@@ -13,6 +13,7 @@ public class ClearCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD  + ", Shortcut [" + COMMAND_SHORTCUT + "]" + ": Clear the to do lists in FlexiTrack.\n" + "Example: "
             + COMMAND_WORD;
     public static final String MESSAGE_SUCCESS = "FlexiTrack has been cleared!";
+    private static final String MESSAGE_UNDO_SUCCESS = "Undid clear";
 
     //TODO: i think only allowed one MODEL 
     private ReadOnlyFlexiTrack storeDataChange;
@@ -31,5 +32,11 @@ public class ClearCommand extends Command {
     
     public void executeUndo() {
         model.resetData(storeDataChange);
+    }
+    
+  //@@author A0127855W
+    @Override
+    public String getUndoMessage(){
+        return String.format(MESSAGE_UNDO_SUCCESS);
     }
 }
