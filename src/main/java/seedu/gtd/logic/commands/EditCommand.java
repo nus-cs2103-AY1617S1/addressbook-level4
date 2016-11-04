@@ -1,5 +1,9 @@
 package seedu.gtd.logic.commands;
 
+import java.util.Hashtable;
+import java.util.Iterator;
+import java.util.Set;
+
 import seedu.gtd.commons.core.Messages;
 import seedu.gtd.commons.core.UnmodifiableObservableList;
 import seedu.gtd.commons.exceptions.IllegalValueException;
@@ -24,13 +28,11 @@ import seedu.gtd.model.task.UniqueTaskList.TaskNotFoundException;
      public static final String MESSAGE_EDIT_TASK_SUCCESS = "Task updated: %1$s";
      
      private int targetIndex;
-     private String detailType;
-     private String newDetail;
+     private Hashtable<String, String> newDetails;
  
-     public EditCommand(int targetIndex, String detailType, String newDetail) {
+     public EditCommand(int targetIndex, Hashtable<String, String> newDetails) {
          this.targetIndex = targetIndex;
-         this.detailType = detailType;
-         this.newDetail = newDetail;
+         this.newDetails = newDetails;
      }
      
  
@@ -47,20 +49,20 @@ import seedu.gtd.model.task.UniqueTaskList.TaskNotFoundException;
         ReadOnlyTask toEdit = lastShownList.get(targetIndex);
         Task taskToUpdate = new Task(toEdit);
         
+        assert model != null;
 		try {
-	      taskToUpdate = updateTask(taskToUpdate, detailType, newDetail);
+			Set<String> detailTypes = newDetails.keySet();
+			for(String detailType : detailTypes) {
+				System.out.println(detailType + " " + newDetails.get(detailType));
+			    taskToUpdate = updateTask(taskToUpdate, detailType, newDetails.get(detailType));
+			    model.editTask(targetIndex, taskToUpdate);
+			}
 		} catch (IllegalValueException ive) {
 			return new CommandResult(ive.getMessage());
-		}
-
-        assert model != null;
-        try {
-			model.editTask(targetIndex, taskToUpdate);
 		} catch (TaskNotFoundException e) {
 			assert false : "The target task cannot be missing";
 		}
          return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, taskToUpdate));
-
      }
      
      private Task updateTask(Task taskToUpdate, String detailType, String newDetail) throws IllegalValueException {

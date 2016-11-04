@@ -139,7 +139,7 @@ public class LogicManagerTest {
         assertCommandBehavior(unknownCommand, MESSAGE_UNKNOWN_COMMAND);
     }
     
-    //@@author A0146130W-reusedToTest
+    //@@author A0146130W-reused
     @Test
     public void execute_help() throws Exception {
         assertCommandBehavior("help", HelpCommand.MESSAGE_USAGE+"/n"+HelpCommand.SHOWING_HELP_MESSAGE);

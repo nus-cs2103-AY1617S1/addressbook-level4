@@ -51,7 +51,7 @@ public class Parser {
     
     private static final Pattern EDIT_DATA_ARGS_FORMAT =
     		Pattern.compile("(?<targetIndex>\\S+)" 
-                    + " (?<newDetail>.*)");
+                    + " (?<newDetails>\\S+(?:\\s+\\S+)*)");
 
     public Parser() {}
 
@@ -215,38 +215,68 @@ public class Parser {
         }
         
         Optional<Integer> index = Optional.of(Integer.parseInt(matcher.group("targetIndex")));
-        String newDetail = matcher.group("newDetail");
+        final String[] splitNewDetails = matcher.group("newDetails").split("\\s+");
+        ArrayList<String> preparedNewDetails = combineNameWords(splitNewDetails);
         
-        String detailType = extractDetailType(newDetail); 
-        newDetail = prepareNewDetail(detailType, newDetail);
+        Hashtable<String, String> newDetailsSet = new Hashtable<String, String>();
+        
+        for (String newDetail : preparedNewDetails) {
+        	String detailType = extractDetailType(newDetail);
+        	String preparedNewDetail = prepareNewDetail(detailType, newDetail);
+			newDetailsSet.put(detailType, preparedNewDetail);
+		}
         
         return new EditCommand(
-           (index.get() - 1),
-           detailType,
-           newDetail
+           index.get()-1,
+           newDetailsSet
         );
     }
     
-    private String extractDetailType(String detailType) {
-    	switch(detailType.substring(0, 2)) {
-    	case "d/": return "dueDate";
-    	case "a/": return "address";
-    	case "p/": return "priority";
-    	default: return "name";
+    private ArrayList<String> combineNameWords(String[] details) {
+    	ArrayList<String> alDetails = new ArrayList<String>(Arrays.asList(details));
+    	String name = new String();
+    	
+    	for (String detail : alDetails) {
+    		if(extractDetailType(detail).equals("name")) {
+    			System.out.println("detected name " + detail);
+    			alDetails.remove(detail);
+    			if(name.equals(new String())) name = detail;
+    			else name = name + " " + detail;
+    		}
     	}
+    	
+    	alDetails.add(name);
+    	return alDetails;
     }
     
-    private String prepareNewDetail(String detailType, String newDetail) {
-  
-    	if(detailType == "name") {
-        	return newDetail;
-        }
+    private String removeDetailPrefix(String detailWithPrefix) {
+    	return detailWithPrefix.substring(detailWithPrefix.indexOf('/') + 1);
+    }
+    
+    private String prepareNewDetail(String detailType, String detailWithPrefix) {
+    	String detail = removeDetailPrefix(detailWithPrefix);
+    	if(detailType.equals("dueDate")) detail = parseDueDate(detail);
+    	return detail;
+    }
+    
+    //@@author A0146130W-reused
+    private String extractDetailType(String args) {
+    	String preprocessedArgs = " " + appendEnd(args.trim());
+        final Matcher dueDateMatcher = DUEDATE_TASK_DATA_ARGS_FORMAT.matcher(preprocessedArgs);
+        final Matcher addressMatcher = ADDRESS_TASK_DATA_ARGS_FORMAT.matcher(preprocessedArgs);
+        final Matcher priorityMatcher = PRIORITY_TASK_DATA_ARGS_FORMAT.matcher(preprocessedArgs);
     	
-    	newDetail = newDetail.substring(2);
-    	if(detailType == "dueDate") {
-    		newDetail = parseDueDate(newDetail);
+    	if(addressMatcher.matches()) {
+    		return "address";
     	}
-    	return newDetail;
+    	else if(dueDateMatcher.matches()) {
+    		return "dueDate";
+    	}
+    	else if(priorityMatcher.matches()) {
+    		return "priority";
+    	}
+    	
+    	return "name";
     }
     
     //@@author addressbook-level4
