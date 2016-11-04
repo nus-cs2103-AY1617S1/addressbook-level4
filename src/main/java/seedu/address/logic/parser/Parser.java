@@ -33,14 +33,16 @@ import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.IncorrectCommand;
+import seedu.address.logic.commands.ListAliasCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SetStorageCommand;
+import seedu.address.logic.commands.TabCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.parser.ArgumentTokenizer.Prefix;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
-import seedu.address.model.alias.Alias;
+import seedu.address.model.alias.ReadOnlyAlias;
 
 public class Parser {
 	// @@author A0141019U
@@ -66,14 +68,13 @@ public class Parser {
 	private static final Prefix datePrefix = new Prefix("on ");
 	private static final Prefix tagsPrefix = new Prefix("#");
 	
-	
 	public Parser(Model model) {
 		this.model = model;
 	}
 	
 	//@@author A0141019U-reused
 	public Command parseCommand(String userInput) {
-		 String replacedInput = replaceAliases(userInput);
+		String replacedInput = replaceAliases(userInput);
 		
 		final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(replacedInput.trim());
 		if (!matcher.matches()) {
@@ -101,9 +102,6 @@ public class Parser {
 
 		case EditCommand.COMMAND_WORD:
 			return prepareEdit(arguments);
-		
-		case AddAliasCommand.COMMAND_WORD:
-			return prepareAddAlias(arguments);
 			
 		case SetStorageCommand.COMMAND_WORD:
 			return prepareSetStorage(arguments);	
@@ -128,7 +126,16 @@ public class Parser {
 
 		case RedoCommand.COMMAND_WORD:
 			return new RedoCommand();
+		
+		case AddAliasCommand.COMMAND_WORD:
+			return prepareAddAlias(arguments);
 			
+		case ListAliasCommand.COMMAND_WORD:
+			return new ListAliasCommand();
+			
+		case TabCommand.COMMAND_WORD:
+			return prepareTabCommand(arguments);
+
 		default:
 			return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
 		}
@@ -136,22 +143,27 @@ public class Parser {
 
 	//@@author A0141019U	
 	private String replaceAliases(String userInput) {
-		List<Alias> aliasList = this.model.getAliasList();
+		List<ReadOnlyAlias> aliasList = this.model.getFilteredAliasList();
 		List<String> aliases = new ArrayList<>(); 
 		List<String> originals = new ArrayList<>(); 
 		
-		for (Alias aliasObj : aliasList) {
+		for (ReadOnlyAlias aliasObj : aliasList) {
 			aliases.add(aliasObj.getAlias());
 			originals.add(aliasObj.getOriginalPhrase());
 		}
 		
 		for (int i=0; i<aliases.size(); i++) {
 			String alias = aliases.get(i);
+			String original = originals.get(i);
+			
 			System.out.println("alias: " + alias);
+			
 			// Does not replace arguments in find command or within quotes			
-			if (userInput.contains(alias) && !userInput.matches(".*'.*(" + alias + ").*'.*") && !userInput.contains("find")) {
+			if (userInput.contains(alias) 
+					&& !userInput.matches(".*'.*(" + alias + ").*'.*") 
+					&& !userInput.contains("find")) {
 				System.out.println("match");
-				userInput = userInput.replace(alias, originals.get(i));
+				userInput = userInput.replace(alias, original);
 			}
 		}
 		
@@ -412,6 +424,7 @@ public class Parser {
 		if(!endDateTimeString.isPresent()) {
 			endDateTimeString = argsTokenizer.getValue(dlEndDateTimePrefix);
 		}
+		//TODO
 		Optional<List<String>> tagSet = argsTokenizer.getAllValues(tagsPrefix);
 		
 		boolean isRemoveStartDateTime = isToRemoveDateTime(startDateTimeString);
@@ -510,8 +523,33 @@ public class Parser {
         
         return new AddAliasCommand(alias, originalPhrase);
     }
-
+    
+    
 	//@@author A0141019U
+    /**
+     * @return a TabCommand with argument corresponding to the name 
+     * of the tab to switch to.
+     * @throws IllegalArgumentException for inputs other than
+     * today, tomorrow, week, month, someday (case-insensitive)
+     */
+    private Command prepareTabCommand(String arguments) {
+    	switch (arguments.trim().toLowerCase()) {
+    	case "today":
+    		return new TabCommand(TabCommand.TabName.TODAY);
+    	case "tomorrow":
+    		return new TabCommand(TabCommand.TabName.TOMORROW);
+    	case "week":
+    		return new TabCommand(TabCommand.TabName.WEEK);
+    	case "month":
+    		return new TabCommand(TabCommand.TabName.MONTH);
+    	case "someday":
+    		return new TabCommand(TabCommand.TabName.SOMEDAY);
+    	default: 
+    		return new IncorrectCommand("Invalid tab name input.");
+    	}
+    }
+    
+    
 	/**
 	 * @return an array of the specified indices in the {@code command} if
 	 * positive unsigned integers are given. 

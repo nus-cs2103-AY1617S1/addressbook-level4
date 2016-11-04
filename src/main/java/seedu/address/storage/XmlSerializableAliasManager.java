@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+//@@author A0143756Y-reused
 /**
  * An immutable AliasManager that is serializable to XML format
  */
