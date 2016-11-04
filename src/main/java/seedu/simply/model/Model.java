@@ -24,7 +24,7 @@ public interface Model {
     ReadOnlyTaskBook getAddressBook();
 
     /** Deletes the given task. */
-    void deleteTask(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException;
+    void deleteTask(ReadOnlyTask target);
 
     /** Adds the given task */
     void addTask(Task task) throws UniqueTaskList.DuplicateTaskException;
@@ -93,4 +93,8 @@ public interface Model {
      * finds all tasks in the wrong category and changes it to the correct category
      */
     void changeTaskCategory();
+    /**
+     * Check if the given Task exist in the Simply
+     */
+    boolean checkTask(ReadOnlyTask target);
 }
