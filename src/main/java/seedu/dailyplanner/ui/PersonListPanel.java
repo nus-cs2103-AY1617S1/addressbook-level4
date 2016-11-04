@@ -1,6 +1,7 @@
 package seedu.dailyplanner.ui;
 
 import javafx.application.Platform;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -64,6 +65,7 @@ public class PersonListPanel extends UiPart {
         personListView.setItems(personList);
         personListView.setCellFactory(listView -> new PersonListViewCell());
         setEventHandlerForSelectionChangeEvent();
+        setEventHandlerForAdditionToListEvent(personList);
     }
 
     private void addToPlaceholder() {
@@ -76,6 +78,15 @@ public class PersonListPanel extends UiPart {
             if (newValue != null) {
                 logger.fine("Selection in person list panel changed to : '" + newValue + "'");
                 raise(new PersonPanelSelectionChangedEvent(newValue));
+            }
+        });
+    }
+    
+    private void setEventHandlerForAdditionToListEvent(ObservableList<ReadOnlyTask> personList) {
+        personListView.getItems().addListener(new ListChangeListener() {
+            @Override
+            public void onChanged(ListChangeListener.Change change) {
+                scrollTo(personList.size()-1);
             }
         });
     }
