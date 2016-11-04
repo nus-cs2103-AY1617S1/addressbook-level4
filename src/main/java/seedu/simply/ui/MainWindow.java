@@ -33,10 +33,8 @@ public class MainWindow extends UiPart {
     private DeadlineListPanel deadlineListPanel;
     private TodoListPanel todoListPanel; 
      
-    private BrowserPanel browserPanel;
     private EventListPanel eventListPanel;
     private ResultDisplay resultDisplay;
-    //private StatusBarFooter statusBarFooter;
     private CommandBox commandBox;
     private Config config;
     private UserPrefs userPrefs;
@@ -47,23 +45,14 @@ public class MainWindow extends UiPart {
 
     private String addressBookName;
 
-    //@FXML
-    //private AnchorPane browserPlaceholder;
-
     @FXML
     private AnchorPane commandBoxPlaceholder;
-
-    //@FXML
-    //private MenuItem helpMenuItem;
 
     @FXML
     private AnchorPane eventListPanelPlaceholder;
 
     @FXML
     private AnchorPane resultDisplayPlaceholder;
-
-    //@FXML
-    //private AnchorPane statusbarPlaceholder;
 
     @FXML
     private AnchorPane deadlineListPanelPlaceholder;
@@ -121,10 +110,8 @@ public class MainWindow extends UiPart {
     //}
 
     void fillInnerParts() {
-        //browserPanel = BrowserPanel.load(browserPlaceholder);
         eventListPanel = EventListPanel.load(primaryStage, getEventListPlaceholder(), logic.getFilteredEventList());
         resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
-        //statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getAddressBookFilePath());
         commandBox = CommandBox.load(primaryStage, getCommandBoxPlaceholder(), resultDisplay, logic);
         
         deadlineListPanel = DeadlineListPanel.load(primaryStage, getDeadlineListPlaceHolder(), logic.getFilteredDeadlineList());
@@ -142,10 +129,6 @@ public class MainWindow extends UiPart {
     private AnchorPane getCommandBoxPlaceholder() {
         return commandBoxPlaceholder;
     }
-
-    /*private AnchorPane getStatusbarPlaceholder() {
-        return statusbarPlaceholder;
-    } */
 
     private AnchorPane getResultDisplayPlaceholder() {
         return resultDisplayPlaceholder;
@@ -218,11 +201,8 @@ public class MainWindow extends UiPart {
         return this.todoListPanel;
     }
 
-    public void loadTaskPage(ReadOnlyTask task) {
+    /*public void loadTaskPage(ReadOnlyTask task) {
         browserPanel.loadTaskPage(task);
-    }
-
-    /*public void releaseResources() {
-        browserPanel.freeResources();
     }*/
+
 }
