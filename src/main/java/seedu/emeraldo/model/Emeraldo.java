@@ -2,6 +2,7 @@ package seedu.emeraldo.model;
 
 import javafx.collections.ObservableList;
 import seedu.emeraldo.commons.exceptions.IllegalValueException;
+import seedu.emeraldo.commons.exceptions.TaskAlreadyCompletedException;
 import seedu.emeraldo.model.tag.Tag;
 import seedu.emeraldo.model.tag.UniqueTagList;
 import seedu.emeraldo.model.task.DateTime;
@@ -121,7 +122,7 @@ public class Emeraldo implements ReadOnlyEmeraldo {
     }
     
     //@@author A0142290N
-    public void completedTask(Task task) throws IllegalValueException {
+    public void completedTask(Task task) throws IllegalValueException, TaskAlreadyCompletedException {
     	tasks.complete(task);
     }
     //@@author

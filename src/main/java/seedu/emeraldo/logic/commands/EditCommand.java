@@ -1,7 +1,9 @@
 package seedu.emeraldo.logic.commands;
 
+import seedu.emeraldo.commons.core.EventsCenter;
 import seedu.emeraldo.commons.core.Messages;
 import seedu.emeraldo.commons.core.UnmodifiableObservableList;
+import seedu.emeraldo.commons.events.ui.JumpToListRequestEvent;
 import seedu.emeraldo.commons.exceptions.IllegalValueException;
 import seedu.emeraldo.model.task.Description;
 import seedu.emeraldo.model.task.DateTime;
@@ -19,9 +21,10 @@ public class EditCommand extends Command{
 
     public static final String MESSAGE_USAGE = COMMAND_WORD            
             + ": Edits the task identified by the index number used in the last tasks listing.\n"
-            + "Parameters: INDEX (must be a positive integer) and/or \"TASK_DESCRIPTION\" and/or [by/on/from DD/MM/YYYY and/or HH:MM]\n"
+            + "Parameters: INDEX (must be a positive integer) + (one or more of the following) \"TASK_DESCRIPTION\""
+            + " [on DATE] [by DATE_TIME] [from START_DATE_TIME] [to END_DATE_TIME]\n"
             + "Example: \n" + COMMAND_WORD + " 1" + " \"CS2103T Software Demo\"" + " by 7/11/2016 23:59\n"
-            + COMMAND_WORD + " 4" + " \"Photoshop Camp\"" + " from 14/12/2016 09:00 to 16/12/2016 18:00";
+            + COMMAND_WORD + " 4" + " \"Photoshop Camp\"" + " from 14 dec, 9am to 16 dec, 6pm";
    
     public static final String MESSAGE_EDIT_TASK_SUCCESS = "Edited task: %1$s";
     
@@ -50,6 +53,7 @@ public class EditCommand extends Command{
 
         try {
             model.editTask(taskToEdit, description, dateTime);
+            EventsCenter.getInstance().post(new JumpToListRequestEvent(targetIndex - 1));
         } catch (TaskNotFoundException pnfe) {
             assert false : "The target task cannot be missing";
         }

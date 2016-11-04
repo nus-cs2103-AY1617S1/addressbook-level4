@@ -6,8 +6,8 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.emeraldo.commons.exceptions.DuplicateDataException;
 import seedu.emeraldo.commons.exceptions.IllegalValueException;
+import seedu.emeraldo.commons.exceptions.TaskAlreadyCompletedException;
 import seedu.emeraldo.commons.util.CollectionUtil;
-
 
 import java.util.*;
 
@@ -94,10 +94,16 @@ public class UniqueTaskList implements Iterable<Task> {
     }
     
     //@@author A0142290N
-    public void complete(Task toCompleteObj) throws IllegalValueException {
-    	toCompleteObj.getDateTime().setCompletedDateTime();
-    	int mainListIndex = internalList.indexOf(toCompleteObj);
-    	internalList.set(mainListIndex, toCompleteObj);
+    public void complete(Task toCompleteObj) throws IllegalValueException, TaskAlreadyCompletedException {
+    	if (toCompleteObj.getDateTime().completedValueDate != null){
+    		throw new TaskAlreadyCompletedException();
+    	}
+    	
+    	else {
+    		toCompleteObj.getDateTime().setCompletedDateTime();
+    		int mainListIndex = internalList.indexOf(toCompleteObj);
+    		internalList.set(mainListIndex, toCompleteObj);
+    	}
     }
     //@@author
     

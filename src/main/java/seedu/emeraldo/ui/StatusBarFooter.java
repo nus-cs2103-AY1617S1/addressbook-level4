@@ -98,6 +98,7 @@ public class StatusBarFooter extends UiPart {
         setSyncStatus("Last Updated: " + lastUpdated);
     }
     
+    //@@author A0139342H
     @Subscribe
     public void handleSaveLocationChangedEvent(SaveLocationChangedEvent event){
         String saveLocation = event.filepath;
@@ -108,4 +109,5 @@ public class StatusBarFooter extends UiPart {
     private void setSaveLocationStatus(String saveLocation) {
         saveLocationStatus.setText(saveLocation);
     }
+    //@@author
 }

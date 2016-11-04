@@ -95,6 +95,9 @@ public class Parser {
 
         case FindCommand.COMMAND_WORD:
             return prepareFind(arguments);
+            
+        case FindAllCommand.COMMAND_WORD:
+        	return prepareFindAll(arguments);
 
         case ListCommand.COMMAND_WORD:
             return prepareList(arguments);
@@ -150,6 +153,13 @@ public class Parser {
         
     }
 
+    //@@author A0139342H
+    /**
+     * Parses arguments in the context of the saveto command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     */
     private Command prepareSaveTo(String args) {
     	//TO-DO: Implement exception handling
         final Matcher matcher = SAVE_LOCATION.matcher(args.trim());
@@ -168,6 +178,7 @@ public class Parser {
         return new SaveToCommand(args);
         
     }
+    //@@author
 
     /**
      * Parses arguments in the context of the add task command.
@@ -264,6 +275,12 @@ public class Parser {
     }
     
     //@@author A0142290N
+    /**
+     * Parses arguments in the context of the complete task command
+     * @param args full command args string
+     * @return the prepared command
+     * @throws IllegalValueException
+     */
     Command prepareComplete(String args) throws IllegalValueException {
     	
     	  Optional<Integer> index = parseIndex(args);
@@ -328,6 +345,27 @@ public class Parser {
         final Set<String> keywordSet = new HashSet<>(Arrays.asList(keywords));
         return new FindCommand(keywordSet);
     }
+    
+    //@@author A0142290N
+    /**
+     * Parses arguments in the context of the findall task command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     */   
+    private Command prepareFindAll(String args) {
+        final Matcher matcher = FIND_KEYWORDS_ARGS_FORMAT.matcher(args.trim());
+        if (!matcher.matches()) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    FindAllCommand.MESSAGE_USAGE));
+        }
+
+        // keywords delimited by whitespace
+        final String[] keywords = matcher.group("keywords").split("\\s+");
+        final Set<String> keywordSet = new HashSet<>(Arrays.asList(keywords));
+        return new FindAllCommand(keywordSet);
+    }
+    //@@author
 
     //@@author A0139749L
     /**

@@ -36,6 +36,8 @@ public class DateTime {
             + "Keyword 'by' : by DD/MM/YYYY, HH:MM\n"
             + "Keyword 'from' and 'to' : from DD/MM/YYYY, HH:MM to DD/MM/YYYY, HH:MM";
 
+	private static final String MESSAGE_PERIOD_INVALID = "Start date/time is later or same as end date/time!";
+
     public final String value;
     public String context;
     public String overdueContext;
@@ -45,8 +47,8 @@ public class DateTime {
     public LocalTime valueTime;
     public LocalDate valueDateEnd;
     public LocalTime valueTimeEnd;
-    public LocalDate completedValueDate = null;
-    public LocalTime completedValueTime = null;
+    public LocalDate completedValueDate;
+    public LocalTime completedValueTime;
 
     /**
      * Validates given date and time.
@@ -60,6 +62,9 @@ public class DateTime {
         if (!dateTime.isEmpty() && !matcher.matches()) {
             throw new IllegalValueException(MESSAGE_DATETIME_CONSTRAINTS);
         }
+        
+        this.completedValueDate = null;
+        this.completedValueTime = null;
         
         if(dateTime.isEmpty()){
             this.valueDate = null;
@@ -104,7 +109,7 @@ public class DateTime {
                 this.valueDateEnd = null;
                 this.valueTimeEnd = null;
                 
-            }else{
+            }else if(preKeyword.equals("from")){
                 if(!isValidFormatFor_GivenKeyword(dateTime, preKeyword))
                     throw new IllegalValueException(MESSAGE_KEYWORD_FROM_CONSTRAINTS);
                 
@@ -116,6 +121,10 @@ public class DateTime {
 
                 this.valueDateEnd = DateTimeParser.valueDateFormatter(matcher, aftKeyword);
                 this.valueTimeEnd = DateTimeParser.valueTimeFormatter(matcher, aftKeyword);
+                
+                if(!isStartDateTime_Before_EndDateTime(valueDate,valueTime,valueDateEnd,valueTimeEnd))
+                    throw new IllegalValueException(MESSAGE_PERIOD_INVALID);
+                
                 this.overdueContext = setOverdueContext(valueDateEnd, valueTimeEnd); 
                 this.eventContext = setEventContext(valueDate, valueTime, valueDateEnd, valueTimeEnd);
                 
@@ -126,6 +135,30 @@ public class DateTime {
         }
     }
 
+    public DateTime(String dateTime, String completedDateTime) throws IllegalValueException, DateTimeException{
+    	//Calls the other constructor to initialise the values less completedValueDate and completedValueTime
+    	this(dateTime);
+    	setCompletedDateTime(completedDateTime);
+    }
+    
+    /*
+     * Converts completedDateTime from a String into LocalDate and LocalTime
+     */
+    private void setCompletedDateTime(String completedDateTime) throws IllegalValueException{	
+    	if(completedDateTime.isEmpty()){
+        	this.completedValueDate = null;
+        	this.completedValueTime = null;       	
+    	}else{   
+    		final Matcher matcher = DateTimeParser.COMPLETED_DATE_TIME_REGEX.matcher(completedDateTime); 
+    		if(!matcher.matches()){
+    			throw new IllegalValueException("Error in format of completedDateTime stored in Xml");
+    		}
+    		this.completedValueDate = DateTimeParser.valueDateCompletedFormatter(matcher); 
+    		this.completedValueTime = DateTimeParser.valueTimeCompletedFormatter(matcher);
+    		this.valueFormatted = completedDateTime;
+    	}
+    }
+    
     private boolean isValidFormatFor_GivenKeyword(String dateTime, String keyword){
         switch(keyword){
             case "on":
@@ -137,6 +170,30 @@ public class DateTime {
             default:
                 return false;
         }
+    }
+    
+    private boolean isStartDateTime_Before_EndDateTime(LocalDate startDate, LocalTime startTime,
+    		LocalDate endDate, LocalTime endTime){
+    	
+    	//Condition returns true if startDate > endDate
+    	if(startDate.isAfter(endDate))	
+    		return false;
+    	//Condition returns true if startDate == endDate and startTime >= endTime
+    	else if(startDate.isEqual(endDate) && (startTime.equals(endTime) || startTime.isAfter(endTime))) 
+    		return false;
+    	else
+    		return true;
+    }
+    
+
+    /*
+     * Used by XmlAdaptedTask to set its String completedDateTime 
+     */
+    public String completedDateTime_ToString(){
+    	if(completedValueDate == null)
+    		return "";
+    	else
+    		return this.toString();
     }
     
     //@@author A0142290N    

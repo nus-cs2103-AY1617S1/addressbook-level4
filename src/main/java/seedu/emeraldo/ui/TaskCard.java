@@ -10,7 +10,7 @@ public class TaskCard extends UiPart{
 
     private static final String FXML = "TaskListCard.fxml";
 
-    //When changing the FXML labels, PersonCardHandle.java has to be updated also
+    //When changing the FXML labels, TaskCardHandle.java has to be updated also
     
     @FXML
     private HBox cardPane;
@@ -46,12 +46,14 @@ public class TaskCard extends UiPart{
         description.setText(task.getDescription().fullDescription);
         id.setText(displayedIndex + ". ");
         
-        if (task.getDateTime().completedValueDate == null)
+        if (task.getDateTime().completedValueDate == null){
         	dateTime.setText(task.getDateTime().toString());
-        else 
+        	overdueContext.setText(task.getDateTime().getOverdueContext());
+        }
+        else {
         	completedDateTime.setText(task.getDateTime().toString());
+        }
         
-        overdueContext.setText(task.getDateTime().getOverdueContext());
         tags.setText(task.tagsString());
     }
 
