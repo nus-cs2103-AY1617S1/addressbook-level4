@@ -13,21 +13,24 @@ import java.util.Arrays;
 public class ClearCommandTest extends TaskBookGuiTest {
 
     @Test
-    public void clear() {
-
-        //verify a non-empty list can be cleared
+    public void clearCommand_clearTasks_success() {
         TestTask[] ts = td.getTypicalTasks();
         Arrays.sort(ts);
         assertTrue(taskPane.isListMatching(ts));
         assertClearCommandSuccess();
-
-        //verify other commands can work after a clear command
-        commandBox.runCommand(td.todo1.getAddCommand());
-        assertTrue(taskPane.isListMatching(td.todo1));
+    }
+    
+    @Test
+    public void clearCommand_addAfterClear_success() {
+        assertClearCommandSuccess();
+        commandBox.runCommand(TypicalTestTasks.todo1.getAddCommand());
+        assertTrue(taskPane.isListMatching(TypicalTestTasks.todo1));
         commandBox.runCommand("del 1");
         assertListSize(0);
-
-        //verify clear command works when the list is empty
+    }
+    
+    @Test
+    public void clearCommand_clearEmptyList_success() {
         assertClearCommandSuccess();
     }
 
