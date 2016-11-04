@@ -12,7 +12,10 @@
    * [Showing full list: `show`](#showing-full-list-show)
    * [Clearing the display: `clear`](#clearing-the-display-clear)
    * [Selecting a task: `select`](#selecting-a-task-select)
+   * [Autocomplete: `TAB` or `SPACEBAR`](#autocomplete-tab-or-spacebar)
    * [Set storage: `setstorage`](#set-storage-setstorage)
+   * [Finding more information about various commands: `help`](#finding-more-information-about-various-commands-help)
+   * [Command History: `UP` and `DOWN` arrow keys](#command-history-up-and-down-arrow-keys)
 * [Saving the data](#saving-the-data)    
 * [Command Summary](#command-summary)
 
@@ -198,7 +201,7 @@ Example:
 	Finds all task with the word homework or assignment in the name.
 	
 
-### Mark as done: `done`
+#### Mark as done: `done`
 Marks a task as done. A task that is done will be removed from the main list and placed in the done list. <br>
 Format: `done <task index>`
 
@@ -212,41 +215,36 @@ Example:
 Displays all the task for the user to view.<br>
 Format: `show`
 
-##### Showing list for today: `show today`
+#### Showing list for today: `show today`
 Displays all the task for today for the user to view.<br>
 Format: `show today`
 
-##### Showing list for tomorrow: `show tomorrow`
+#### Showing list for tomorrow: `show tomorrow`
 Displays all the task for tomorrow for the user to view.<br>
 Format: `show tomorrow`
 
-##### Showing list for specific date: `show <date>`
-Displays all the task for a specific date for the user to view.<br>
-Format: `show <date>`
-
-Example:
-* `show 10/10/16`
-
-##### Showing list for a specific parameter: `show <parameter>`
+#### Showing list for a specific parameter: `show <parameter>`
 Displays all the task for a specific <parameter> the user to view.<br>
-<parameter> only takes in dates for parameter as show in the examples.<br>
+<parameter> Only takes in dates for parameter as show in the examples.<br>
 Format: `show <parameter>`
 
 Example:
+* `show 10/12/16`
 * `show 2 days later`
 * `show next week`
 * `show 2 days after tmr`
 * `show next tuesday`
+* `show new year`
 
-##### Showing a list for overdue tasks: `show overdue`
+#### Showing a list for overdue tasks: `show overdue`
 Displays all the overdue tasks. <br>
 Format `show overdue`
 
-##### Showing a list for floating tasks: `show floating`
+#### Showing a list for floating tasks: `show floating`
 Displays all the floating tasks. <br>
 Format `show floating`
 
-##### Show all the done tasks: `show done`
+#### Show all the done tasks: `show done`
 Displays all the done tasks. <br>
 Format: `show done`
 
@@ -254,7 +252,7 @@ Format: `show done`
 Clears all the tasks in the task manager <br>
 Format: `clear`
 
-##### Clearing only the done tasks: `clear done`
+#### Clearing only the done tasks: `clear done`
 Clears all the done tasks <br>
 Format: `clear done`
 
