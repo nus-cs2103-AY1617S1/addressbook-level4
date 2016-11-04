@@ -372,22 +372,24 @@ public class Parser {
 		} else {
 			if (args.toLowerCase().contains("to")) {
 				String[] dates = args.toLowerCase().split("to");
-				return new ListCommand(dates, "period");
+				return new ListCommand(dates[0], dates[1], "date");
 			}
 		}
 		Calendar calendar = Calendar.getInstance();
 		switch (args.toLowerCase()) {
 		case TOMORROW:
 			calendar.setTime(calendar.getTime());
+			final String todayKeyword = DATEFORMATTER.format(calendar.getTime());
 			calendar.add(Calendar.DAY_OF_YEAR, 1);
 			final String tomorrowKeyword = DATEFORMATTER.format(calendar.getTime());
 			System.out.println(tomorrowKeyword);
-			return new ListCommand(tomorrowKeyword, "date");
+			return new ListCommand(todayKeyword, tomorrowKeyword, "date");
 		case NEXTWEEK:
 			calendar.setTime(calendar.getTime());
+			final String todayKeyword2 = DATEFORMATTER.format(calendar.getTime());
 			calendar.add(Calendar.WEEK_OF_YEAR, 1);
 			final String nextWeekKeyword = DATEFORMATTER.format(calendar.getTime());
-			return new ListCommand(nextWeekKeyword, "date");
+			return new ListCommand(todayKeyword2, nextWeekKeyword, "date");
 		case DONE:
 			return new ListCommand(DONE);
 		case UNDONE:

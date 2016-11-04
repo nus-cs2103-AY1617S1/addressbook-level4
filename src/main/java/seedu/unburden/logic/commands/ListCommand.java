@@ -1,16 +1,10 @@
 package seedu.unburden.logic.commands;
 
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
-
-import com.google.common.base.Predicate;
-
 import seedu.unburden.commons.exceptions.IllegalValueException;
 import seedu.unburden.model.tag.UniqueTagList.DuplicateTagException;
-import seedu.unburden.model.task.ReadOnlyTask;
 import seedu.unburden.model.task.Task;
 
 /**
@@ -40,37 +34,37 @@ public class ListCommand extends Command {
 		this.startDate = null;
 		this.mode = "undone";
 	}
-
-	public ListCommand(String doneOrUndone) {
+	
+	/**
+	 * This constructor is used when listing done, undone or overdue
+	 * @param args
+	 */
+	public ListCommand(String args) {
 		this.endDate = null;
 		this.startDate = null;
-		this.mode = doneOrUndone;
+		this.mode = args;
 	}
-
-	public ListCommand(String args, String mode) throws ParseException {
+	
+	/**
+	 * This constructor is used when the listing all tasks within a start time and end time 
+	 * @param startTime
+	 * @param endTime
+	 * @param mode
+	 * @throws ParseException
+	 */
+	public ListCommand(String startTime, String endTime, String mode) throws ParseException {
 		SimpleDateFormat dateFormatter = new SimpleDateFormat("dd-MM-yyyy");
-		this.endDate = dateFormatter.parse(args.trim());
-		this.startDate = null;
+		this.endDate = dateFormatter.parse(endTime.trim());
+		this.startDate = dateFormatter.parse(startTime.trim());
 		this.mode = mode;
 	}
-
-	public ListCommand(String[] args, String mode) throws ParseException {
-		SimpleDateFormat dateFormatter = new SimpleDateFormat("dd-MM-yyyy");
-		this.endDate = dateFormatter.parse(args[1].trim());
-		this.startDate = dateFormatter.parse(args[0].trim());
-		this.mode = mode;
-	}
-
-	private java.util.function.Predicate<? super Task> getAllDatesBefore(Date date) {
-		return t -> {
-			try {
-				return t.getDate().toDate().before(date) || t.getDate().toDate().equals(date);
-			} catch (ParseException e) {
-				return false;
-			}
-		};
-	}
-
+	
+	/**
+	 * Returns true if the task's deadline falls within the start date and end date and is undone
+	 * @param startDate
+	 * @param endDate
+	 * @return true if the task meets the requirements specified, false otherwise
+	 */
 	private java.util.function.Predicate<? super Task> getAllDatesBetween(Date startDate, Date endDate) {
 		return t -> {
 			try {
@@ -81,19 +75,31 @@ public class ListCommand extends Command {
 			}
 		};
 	}
-
+	
+	/**
+	 * Returns true if the task is done
+	 * @return true if the task is done, false otherwise
+	 */
 	private java.util.function.Predicate<? super Task> getAllDone() {
 		return t -> {
 			return t.getDone();
 		};
 	}
-
+	
+	/**
+	 * Returns true if the task is undone
+	 * @return true if the task is undone, false otherwise
+	 */
 	private java.util.function.Predicate<? super Task> getAllUndone() {
 		return t -> {
 			return !t.getDone() && !t.getOverdue();
 		};
 	}
-
+	
+	/**
+	 * Returns true if the task is overdue
+	 * @return true if the task is overdue, false otherwise
+	 */
 	private java.util.function.Predicate<? super Task> getAllOverdue() {
 		return t -> {
 			return t.getOverdue();
@@ -112,26 +118,13 @@ public class ListCommand extends Command {
 		case "done":
 			model.updateFilteredTaskList(getAllDone());
 			break;
-		case "period":
-			model.updateFilteredTaskList(getAllDatesBetween(startDate, endDate));
-			break;
 		case "all":
 			model.updateFilteredListToShowAll();
 			break;
 		default:
-			model.updateFilteredTaskList(getAllDatesBefore(endDate));
-			break;
+			model.updateFilteredTaskList(getAllDatesBetween(startDate, endDate));
 		}
-		/*
-		 * if (mode.equals("undone")) {
-		 * model.updateFilteredTaskList(getAllUndone()); //
-		 * model.updateFilteredListToShowAll(); } else if (mode.equals("done"))
-		 * { model.updateFilteredTaskList(getAllDone()); } else if
-		 * (mode.equals("all")) { //
-		 * model.updateFilteredTaskList(getAllUndone());
-		 * model.updateFilteredListToShowAll(); } else {
-		 * model.updateFilteredTaskList(getAllDatesBefore(date)); }
-		 */
+		
 		return new CommandResult(MESSAGE_SUCCESS);
 	}
 
