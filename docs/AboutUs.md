@@ -30,23 +30,28 @@ We are a team based in the [School of Computing, National University of Singapor
   * Did the initial refactoring from AddressBook to TaskManager [[#1](https://github.com/CS2103AUG2016-F10-C4/main/pull/1)]
   * Set up Travis and Coveralls
   * Add the Filter Panel in UI [[#46](https://github.com/CS2103AUG2016-F10-C4/main/pull/46)]
-<!-- @@author -->
 
 -----
+<!-- @@author A0142325R-->
 
 #### [Li Xiaowei](https://github.com/LiXiaoooowei)
 <img src="images/LiXiaowei.jpg" width="150">
-* Components in charge of: Logic and Common
+* Components in charge of: [Logic](https://github.com/CS2103AUG2016-F10-C4/main/tree/master/src/main/java/seedu/address/logic) and [Common] (https://github.com/CS2103AUG2016-F10-C4/main/tree/master/src/main/java/seedu/address/commons)
 * Aspects/tools in charge of: Testing
 * Features implemented:
-  * Flexi command for adding a task/event
-  * 
+  * [Flexi  addCommand for adding a task/event]
+  * [Delete Command]
+  * [Refresh Command to update all outdated recurring tasks or events]
+  * [Implement recurring tasks]
+  * [ListCommand]
+  * [Mark a task or event as done]
 * Code written: [<a href="../collated/main/A0142325R.md">functional code</a>][<a href="../collated/test/A0142325R.md">test code</a>][<a href="../collated/docs/A0142325R.md">docs</a>]
 * Other major contributions:
-  * 
+  * Import natty to support natural language for date and time [[#36](https://github.com/CS2103AUG2016-F10-C4/main/pull/36)]
+  
         
 -----
-
+<!--@@author-->
 #### [Angeline Neoh Xing Yii](https://github.com/angellineeee)
 <img src="images/AngelineNeoh.jpg" width="150"><br>
 * Components in charge of: UI
