@@ -49,11 +49,11 @@
 	eg. 12/11/16
 > * next day/week/month/year<br>
 	eg. next week, next month
-> * <number> days later<br>
+> * days later<br>
 	eg. 2 days later<br>
-> * next <day><br>
+> * next `day`<br>
 	eg. next wednesday, next friday<br>
-> * <number> days after<br>
+> * days after<br>
 	eg. 2 days after 10/11/16, 5 days after next monday<br>
 > * a range of holidays is also accepted. You can check the entire list of accepted holidays [here](https://github.com/joestelmach/natty/blob/master/src/main/java/com/joestelmach/natty/Holiday.java)
 <!-- @@author -->
@@ -320,14 +320,14 @@ Following is the list of all commands:
 | `edit`      | `edit` `<index>` `<New Parameters>`                | Edits a task with the new parameters           										   |
 | `done`      | `done` `<index>`                                   | Marks a task as done                           										   |
 | `delete`    | `delete` `<index>`                                 | Removes a task from the task manager           										   |
-| `show`      | `show`                                             | Shows all the tasks, due on the parameter(Eg: 5 days later)                               |
+| `show`      | `show`                                             | Shows all the undone task                                |
 |             | `show` done                                        | Shows the done tasks                           										   |
 |             | `show` today                                       | Shows all tasks for today                      										   |
 |             | `show` tmr                                         | Shows all tasks for tomorrow                   										   |
 |             | `show` floating                                    | Shows all the floating tasks                   										   |
 |             | `show` overdue                                     | Shows all the overdue tasks                    										   |
 |             | `show` `<date>`                                    | Shows all tasks for that particular date       										   |
-|             | `show` `<parameter>`                               | Shows all the                     														   |
+|             | `show` `<parameter>`                               | Shows all the tasks, due on the parameter (Eg: 5 days later)                    														   |
 | `undo`      | `undo`                                             | Undoes the most recent command                 										   |
 | `redo`      | `redo`                                             | Redoes the latest undo                         										   |
 | `find`      | `find` `<name>`                                    | Finds a task with task name as <name>          										   |
