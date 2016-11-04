@@ -151,7 +151,7 @@ public class LogicManagerTest {
     }
 
 
-    @Test
+    @Test    
     public void execute_add_invalidArgsFormat() throws Exception {
         String expectedMessageInvalidFormat = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE);
         String expectedMessageInvalidActivity = Command.MESSAGE_INVALID_ACTIVITY_TYPE;
