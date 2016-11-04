@@ -210,7 +210,7 @@ public class ModelManager extends ComponentManager implements Model {
 
 	@Override
 	public boolean run(ReadOnlyTask person) {
-	    return dateKeyWords.stream().filter(keyword -> StringUtil.withinDateRange(person.getPhone(), keyword))
+	    return dateKeyWords.stream().filter(keyword -> StringUtil.withinDateRange(person.getStart(), keyword))
 		    .findAny().isPresent();
 	}
 

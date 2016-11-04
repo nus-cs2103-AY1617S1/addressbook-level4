@@ -1,5 +1,6 @@
 package seedu.dailyplanner.history;
 
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.Stack;
@@ -28,54 +29,47 @@ public class HistoryManager {
 
 	public void stackAddInstruction(ReadOnlyTask toPush) {
 
-		String pushName = toPush.getName().toString();
-		String pushDate = toPush.getPhone().toString();
-		String pushEndDate = toPush.getPhone().getEndDate();
-		String pushStart = toPush.getEmail().toString();
-		String pushEnd = toPush.getAddress().toString();
+		String pushName = toPush.getName();
+		Date pushStart = toPush.getStart();
+		Date pushEnd = toPush.getEnd();
+		boolean isComplete = toPush.isComplete();
+		boolean isPinned = toPush.isPinned();
 		UniqueTagList pushTag = toPush.getTags();
-		String isComplete = toPush.getCompletion();
-
-		recordCommand.push(new Instruction("A", pushName, pushDate, pushEndDate, pushStart, pushEnd, pushTag, isComplete));
-
+		
+		recordCommand.push(new Instruction("A", pushName, pushStart, pushEnd, isComplete, isPinned, pushTag));
 	}
 	
 	public void stackDeleteInstruction(ReadOnlyTask toPush) {
 
-		String pushName = toPush.getName().toString();
-		String pushDate = toPush.getPhone().toString();
-		String pushEndDate = toPush.getPhone().getEndDate();
-		String pushStart = toPush.getEmail().toString();
-		String pushEnd = toPush.getAddress().toString();
+		String pushName = toPush.getName();
+		Date pushStart = toPush.getStart();
+		Date pushEnd = toPush.getEnd();
+		boolean isComplete = toPush.isComplete();
+		boolean isPinned = toPush.isPinned();
 		UniqueTagList pushTag = toPush.getTags();
-		String isComplete = toPush.getCompletion();
-
-		recordCommand.push(new Instruction("D", pushName, pushDate, pushEndDate, pushStart, pushEnd, pushTag, isComplete));
-
+		
+		recordCommand.push(new Instruction("A", pushName, pushStart, pushEnd, isComplete, isPinned, pushTag));
 	}
 	
-	public void stackEditInstruction(ReadOnlyTask taskToEdit, ReadOnlyTask toAdd) {
+	public void stackEditInstruction(ReadOnlyTask originalTask, ReadOnlyTask editedTask) {
 
-        String taskToEditName = taskToEdit.getName().toString();
-        String taskToEditDate = taskToEdit.getPhone().toString();
-        String taskToEditEndDate = taskToEdit.getPhone().getEndDate();
-        String taskToEditStart = taskToEdit.getEmail().toString();
-        String taskToEditEnd = taskToEdit.getAddress().toString();
-        UniqueTagList taskToEditTag = taskToEdit.getTags();
-        String taskToEditIsComplete = taskToEdit.getCompletion();
-
-        recordCommand.push(new Instruction("EA", taskToEditName, taskToEditDate, taskToEditEndDate, taskToEditStart, taskToEditEnd, taskToEditTag,taskToEditIsComplete));
+		String pushAddName = originalTask.getName();
+		Date pushAddStart = originalTask.getStart();
+		Date pushAddEnd = originalTask.getEnd();
+		boolean pushAddComplete = originalTask.isComplete();
+		boolean pushAddPinned = originalTask.isPinned();
+		UniqueTagList pushAddTag = originalTask.getTags();
+		
+		recordCommand.push(new Instruction("EA", pushAddName, pushAddStart, pushAddEnd, pushAddComplete, pushAddPinned, pushAddTag));
         
-        String toAddName = toAdd.getName().toString();
-        String toAddDate = toAdd.getPhone().toString();
-        String toAddEndDate = taskToEdit.getEmail().toString();
-        String toAddStart = toAdd.getEmail().toString();
-        String toAddEnd = toAdd.getAddress().toString();
-        UniqueTagList toAddTag = toAdd.getTags();
-        String toAddIsComplete = toAdd.getCompletion();
-
-        recordCommand.push(new Instruction("ED", toAddName, toAddDate, toAddEndDate, toAddStart, toAddEnd, toAddTag, toAddIsComplete));
-
+		String pushDeleteName = originalTask.getName();
+		Date pushDeleteStart = originalTask.getStart();
+		Date pushDeleteEnd = originalTask.getEnd();
+		boolean pushDeleteComplete = originalTask.isComplete();
+		boolean pushDeletePinned = originalTask.isPinned();
+		UniqueTagList pushDeleteTag = originalTask.getTags();
+		
+		recordCommand.push(new Instruction("ED", pushDeleteName, pushDeleteStart, pushDeleteEnd, pushDeleteComplete, pushDeletePinned, pushDeleteTag));
     }
 	
 	

@@ -48,9 +48,9 @@ public class XmlAdaptedPerson {
      */
     public XmlAdaptedPerson(ReadOnlyTask source) {
 	name = source.getName().fullName;
-	phone = source.getPhone().value;
-	endDate = source.getPhone().endDate;
-	email = source.getEmail().value;
+	phone = source.getStart().value;
+	endDate = source.getStart().endDate;
+	email = source.getEnd().value;
 	address = source.getAddress().value;
 	isComplete = source.getCompletion();
 	isPinned = source.isPinned();
@@ -74,7 +74,7 @@ public class XmlAdaptedPerson {
 	    personTags.add(tag.toModelType());
 	}
 	final Name name = new Name(this.name);
-	final Date phone = new Date(this.phone, this.endDate);
+	final Date1 phone = new Date1(this.phone, this.endDate);
 	final StartTime email = new StartTime(this.email);
 	final EndTime address = new EndTime(this.address);
 	final UniqueTagList tags = new UniqueTagList(personTags);

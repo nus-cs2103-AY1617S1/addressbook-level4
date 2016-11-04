@@ -391,7 +391,7 @@ public class LogicManagerTest {
 
         Task adam() throws Exception {
             Name name = new Name("Adam Brown");
-            Date privatePhone = new Date("111111");
+            Date1 privatePhone = new Date1("111111");
             StartTime email = new StartTime("adam@gmail.com");
             EndTime privateAddress = new EndTime("111, alpha street");
             //Tag tag1 = new Tag("tag1");
@@ -412,7 +412,7 @@ public class LogicManagerTest {
         Task generatePerson(int seed) throws Exception {
             return new Task(
                     new Name("Person " + seed),
-                    new Date("" + Math.abs(seed)),
+                    new Date1("" + Math.abs(seed)),
                     new StartTime(seed + "@email"),
                     new EndTime("House of " + seed),
                     new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1))),"NOT COMPLETE"
@@ -426,8 +426,8 @@ public class LogicManagerTest {
             cmd.append("add ");
 
             cmd.append(p.getName().toString());
-            cmd.append(" d/").append(p.getPhone());
-            cmd.append(" s/").append(p.getEmail());
+            cmd.append(" d/").append(p.getStart());
+            cmd.append(" s/").append(p.getEnd());
             cmd.append(" e/").append(p.getAddress());
 
             UniqueTagList tags = p.getTags();
@@ -511,7 +511,7 @@ public class LogicManagerTest {
         Task generatePersonWithName(String name) throws Exception {
             return new Task(
                     new Name(name),
-                    new Date("1"),
+                    new Date1("1"),
                     new StartTime("1@email"),
                     new EndTime("House of 1"),
                     new UniqueTagList(new Tag("tag")),"NOT COMPLETE"

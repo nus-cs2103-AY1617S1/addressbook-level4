@@ -1,5 +1,6 @@
 package seedu.dailyplanner.history;
 
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -9,91 +10,57 @@ import seedu.dailyplanner.model.tag.UniqueTagList;
 import seedu.dailyplanner.model.task.*;
 public class Instruction {
 	
-	private String reverse;
-	
-	private int taskIndex;
-	private String taskName;
-	private String taskDate;
-	private String taskEndDate;
-	private String taskStart;
-	private String taskEnd;
-	private UniqueTagList tag;
-    private String isComplete;
+	private String reverseCommand;
+	private Date start;
+	private Date end;
+	private boolean isComplete;
+	private boolean isPinned;
+	private UniqueTagList tags;
 
-	
-	public Instruction(String reverse, String taskName, String taskDate, String taskEndDate, String taskStart,
-			String taskEnd, UniqueTagList pushTag, String isComplete) {
-		
-		this.reverse = reverse;
-		//this.taskIndex = taskIndex;
-		this.taskName = taskName;
-		this.taskDate = taskDate;
-		this.taskEndDate = taskEndDate;
-		this.taskStart = taskStart;
-		this.taskEnd = taskEnd;
-		this.tag = pushTag;
-		this.isComplete = isComplete;
+	public Instruction(String cmd, String name, Date start, Date end, boolean complete,
+			boolean pin, UniqueTagList tags) {
+		this.reverseCommand = cmd;
+		this.start = start;
+		this.end = end;
+		this.isComplete = complete;
+		this.isPinned = pin;
+		this.tags = tags;
 	}
-	
+
 	public String getReverse() {
-		return reverse;
+		return reverseCommand;
 	}
-	public void setReverse(String reverse) {
-		this.reverse = reverse;
+	public void setReverse(String cmd) {
+		this.reverseCommand = cmd;
 	}
-	
-	public int getTaskIndex() {
-		return taskIndex;
+	public Date getTaskStart() {
+		return start;
 	}
-	public void setTaskIndex(int taskIndex) {
-		this.taskIndex = taskIndex;
+	public void setTaskStart(Date start) {
+		this.start = start;
 	}
-	
-	public String getTaskName() {
-		return taskName;
+	public Date getTaskEnd() {
+		return end;
 	}
-	public void setTaskName(String taskName) {
-		this.taskName = taskName;
+	public void setTaskEnd(Date end) {
+		this.end = end;
 	}
-	
-	public String getTaskDate() {
-		return taskDate;
+	public boolean isComplete() {
+		return isComplete;
 	}
-	public void setTaskDate(String taskDate) {
-		this.taskDate = taskDate;
+	public void setComplete(boolean complete) {
+		this.isComplete = complete;
 	}
-	
-	public String getTaskEndDate() {
-		return taskEndDate;
+	public boolean isPinned() {
+		return isPinned;
 	}
-	public void setTasEndkDate(String taskEndDate) {
-		this.taskEndDate = taskEndDate;
+	public void setPinned(boolean pin) {
+		this.isPinned = pin;
 	}
-	
-	public String getTaskStart() {
-		return taskStart;
-	}
-	public void setTaskStart(String taskStart) {
-		this.taskStart = taskStart;
-	}
-	
-	public String getTaskEnd() {
-		return taskEnd;
-	}
-	public void setTaskEnd(String taskEnd) {
-		this.taskEnd = taskEnd;
-	}
-	
 	public UniqueTagList getTag() {
-		return tag;
+		return tags;
 	}
-	public void setTag(UniqueTagList tag) {
-		this.tag = tag;
+	public void setTag(UniqueTagList tags) {
+		this.tags = tags;
 	}
-
-    public String getCompletion() {
-        return isComplete;
-    }
-	
-	
 }

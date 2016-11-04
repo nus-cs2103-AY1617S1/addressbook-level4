@@ -7,7 +7,7 @@ import seedu.dailyplanner.commons.exceptions.IllegalValueException;
 import seedu.dailyplanner.history.Instruction;
 import seedu.dailyplanner.model.tag.Tag;
 import seedu.dailyplanner.model.tag.UniqueTagList;
-import seedu.dailyplanner.model.task.Date;
+import seedu.dailyplanner.model.task.Date1;
 import seedu.dailyplanner.model.task.EndTime;
 import seedu.dailyplanner.model.task.Name;
 import seedu.dailyplanner.model.task.ReadOnlyTask;
@@ -28,7 +28,7 @@ public class UndoCommand extends Command {
 		
 		try {
 	        
-			 taskToUndo = new Task(new Name(undoInstruction.getTaskName()), new Date(undoInstruction.getTaskDate(), undoInstruction.getTaskEndDate()), new StartTime(undoInstruction.getTaskStart()), new EndTime(undoInstruction.getTaskEnd()),
+			 taskToUndo = new Task(new Name(undoInstruction.getTaskName()), new Date1(undoInstruction.getTaskDate(), undoInstruction.getTaskEndDate()), new StartTime(undoInstruction.getTaskStart()), new EndTime(undoInstruction.getTaskEnd()),
 					undoInstruction.getTag(), undoInstruction.getCompletion());
 			
 		} catch (IllegalValueException e) {
@@ -71,7 +71,7 @@ public class UndoCommand extends Command {
 
             try {
                 
-                taskToUndo = new Task(new Name(undoInstruction.getTaskName()), new Date(undoInstruction.getTaskDate(), undoInstruction.getTaskEndDate()),
+                taskToUndo = new Task(new Name(undoInstruction.getTaskName()), new Date1(undoInstruction.getTaskDate(), undoInstruction.getTaskEndDate()),
                         new StartTime(undoInstruction.getTaskStart()), new EndTime(undoInstruction.getTaskEnd()),
                         undoInstruction.getTag(), undoInstruction.getCompletion());
 

@@ -65,15 +65,15 @@ public class TestUtil {
     private static Task[] getSamplePersonData() {
         try {
             return new Task[]{
-                    new Task(new Name("Ali Muster"), new Date("9482424"), new StartTime("hans@google.com"), new EndTime("4th street"), new UniqueTagList(),"NOT COMPLETE"),
-                    new Task(new Name("Boris Mueller"), new Date("87249245"), new StartTime("ruth@google.com"), new EndTime("81th street"), new UniqueTagList(),"NOT COMPLETE"),
-                    new Task(new Name("Carl Kurz"), new Date("95352563"), new StartTime("heinz@yahoo.com"), new EndTime("wall street"), new UniqueTagList(),"NOT COMPLETE"),
-                    new Task(new Name("Daniel Meier"), new Date("87652533"), new StartTime("cornelia@google.com"), new EndTime("10th street"), new UniqueTagList(),"NOT COMPLETE"),
-                    new Task(new Name("Elle Meyer"), new Date("9482224"), new StartTime("werner@gmail.com"), new EndTime("michegan ave"), new UniqueTagList(),"NOT COMPLETE"),
-                    new Task(new Name("Fiona Kunz"), new Date("9482427"), new StartTime("lydia@gmail.com"), new EndTime("little tokyo"), new UniqueTagList(),"NOT COMPLETE"),
-                    new Task(new Name("George Best"), new Date("9482442"), new StartTime("anna@google.com"), new EndTime("4th street"), new UniqueTagList(),"NOT COMPLETE"),
-                    new Task(new Name("Hoon Meier"), new Date("8482424"), new StartTime("stefan@mail.com"), new EndTime("little india"), new UniqueTagList(),"NOT COMPLETE"),
-                    new Task(new Name("Ida Mueller"), new Date("8482131"), new StartTime("hans@google.com"), new EndTime("chicago ave"), new UniqueTagList(),"NOT COMPLETE")
+                    new Task(new Name("Ali Muster"), new Date1("9482424"), new StartTime("hans@google.com"), new EndTime("4th street"), new UniqueTagList(),"NOT COMPLETE"),
+                    new Task(new Name("Boris Mueller"), new Date1("87249245"), new StartTime("ruth@google.com"), new EndTime("81th street"), new UniqueTagList(),"NOT COMPLETE"),
+                    new Task(new Name("Carl Kurz"), new Date1("95352563"), new StartTime("heinz@yahoo.com"), new EndTime("wall street"), new UniqueTagList(),"NOT COMPLETE"),
+                    new Task(new Name("Daniel Meier"), new Date1("87652533"), new StartTime("cornelia@google.com"), new EndTime("10th street"), new UniqueTagList(),"NOT COMPLETE"),
+                    new Task(new Name("Elle Meyer"), new Date1("9482224"), new StartTime("werner@gmail.com"), new EndTime("michegan ave"), new UniqueTagList(),"NOT COMPLETE"),
+                    new Task(new Name("Fiona Kunz"), new Date1("9482427"), new StartTime("lydia@gmail.com"), new EndTime("little tokyo"), new UniqueTagList(),"NOT COMPLETE"),
+                    new Task(new Name("George Best"), new Date1("9482442"), new StartTime("anna@google.com"), new EndTime("4th street"), new UniqueTagList(),"NOT COMPLETE"),
+                    new Task(new Name("Hoon Meier"), new Date1("8482424"), new StartTime("stefan@mail.com"), new EndTime("little india"), new UniqueTagList(),"NOT COMPLETE"),
+                    new Task(new Name("Ida Mueller"), new Date1("8482131"), new StartTime("hans@google.com"), new EndTime("chicago ave"), new UniqueTagList(),"NOT COMPLETE")
             };
         } catch (IllegalValueException e) {
             assert false;

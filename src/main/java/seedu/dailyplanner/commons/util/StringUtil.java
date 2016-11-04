@@ -5,7 +5,7 @@ import java.io.StringWriter;
 import java.util.Arrays;
 import java.util.List;
 
-import seedu.dailyplanner.model.task.Date;
+import seedu.dailyplanner.model.task.Date1;
 
 /**
  * Helper functions for handling strings.
@@ -39,7 +39,7 @@ public class StringUtil {
 	return s != null && s.matches("^0*[1-9]\\d*$");
     }
 
-    public static boolean withinDateRange(Date phone, String keyword) {
+    public static boolean withinDateRange(Date1 phone, String keyword) {
 	int keyDate = Integer.parseInt(keyword.substring(0, 2));
 	int keyMonth = Integer.parseInt(keyword.substring(3, 5));
 	int keyYear = Integer.parseInt(keyword.substring(6, 8));

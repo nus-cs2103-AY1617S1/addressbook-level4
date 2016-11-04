@@ -51,10 +51,10 @@ public class PersonCard extends UiPart {
 	public void initialize() {
 		name.setText(person.getName().fullName);
 		id.setText(displayedIndex + ". ");
-		phone.setText(person.getPhone().value);
-		endDate.setText(person.getPhone().getEndDate());
+		phone.setText(person.getStart().value);
+		endDate.setText(person.getStart().getEndDate());
 		address.setText(person.getAddress().value);
-		email.setText(person.getEmail().value);
+		email.setText(person.getEnd().value);
 		tags.setText(person.tagsString());
 		if (person.getCompletion().equals("COMPLETE")) {
 			isComplete.setText(person.getCompletion());
@@ -64,13 +64,13 @@ public class PersonCard extends UiPart {
 			isComplete.setVisible(false);
 		}
 		
-		if (person.getPhone().value.equals("") && person.getEmail().value.equals("")) {
+		if (person.getStart().value.equals("") && person.getEnd().value.equals("")) {
 		    startAtLabel.setVisible(false);
 		} else {
 		    startAtLabel.setText("Starts at: ");
 		}
 		
-		if (person.getPhone().getEndDate().equals("") && person.getAddress().value.equals("")) {
+		if (person.getStart().getEndDate().equals("") && person.getAddress().value.equals("")) {
             endAtLabel.setVisible(false);
         } else {
             endAtLabel.setText("Ends at: ");

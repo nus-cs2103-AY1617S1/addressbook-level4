@@ -42,7 +42,7 @@ public class AddCommand extends Command {
         }
         this.toAdd = new Task(
                 new Name(taskName),
-                new Date(date, endDate),
+                new Date1(date, endDate),
                 new StartTime(startTime),
                 new EndTime(endTime),
                 new UniqueTagList(tagSet),
@@ -70,14 +70,14 @@ public class AddCommand extends Command {
     
     public int checkClash(Task toCheck) {
     	
-		String toAddStartTiming = toCheck.getEmail().toString().replaceAll(":", "");
+		String toAddStartTiming = toCheck.getEnd().toString().replaceAll(":", "");
 		String toAddEndTiming = toCheck.getAddress().toString().replaceAll(":", "");
 
 		for (int i = 0; i < model.getAddressBook().getPersonList().size(); i++) {
 			if (!(toCheck == model.getAddressBook().getPersonList().get(i))) {
-				if (toCheck.getPhone().toString().equals(model.getAddressBook().getPersonList().get(i).getPhone().toString())) {
+				if (toCheck.getStart().toString().equals(model.getAddressBook().getPersonList().get(i).getStart().toString())) {
 					String tasksEndTiming = model.getAddressBook().getPersonList().get(i).getAddress().toString().replaceAll(":", "");
-					String tasksStartTiming = model.getAddressBook().getPersonList().get(i).getEmail().toString().replaceAll(":", "");
+					String tasksStartTiming = model.getAddressBook().getPersonList().get(i).getEnd().toString().replaceAll(":", "");
 					if ((Integer.parseInt(toAddStartTiming) < Integer.parseInt(tasksEndTiming))
 							&& (Integer.parseInt(toAddStartTiming) > Integer.parseInt(tasksStartTiming))) {
 

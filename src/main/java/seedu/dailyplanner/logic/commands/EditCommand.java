@@ -9,7 +9,7 @@ import seedu.dailyplanner.commons.core.UnmodifiableObservableList;
 import seedu.dailyplanner.commons.exceptions.IllegalValueException;
 import seedu.dailyplanner.model.tag.Tag;
 import seedu.dailyplanner.model.tag.UniqueTagList;
-import seedu.dailyplanner.model.task.Date;
+import seedu.dailyplanner.model.task.Date1;
 import seedu.dailyplanner.model.task.EndTime;
 import seedu.dailyplanner.model.task.Name;
 import seedu.dailyplanner.model.task.ReadOnlyTask;
@@ -45,7 +45,7 @@ public class EditCommand extends Command {
 	for (String tagName : tags) {
 	    tagSet.add(new Tag(tagName));
 	}
-	this.toAdd = new Task(new Name(taskName), new Date(date, endDate), new StartTime(startTime),
+	this.toAdd = new Task(new Name(taskName), new Date1(date, endDate), new StartTime(startTime),
 		new EndTime(endTime), new UniqueTagList(tagSet), "NOT COMPLETE");
     }
 
@@ -62,13 +62,13 @@ public class EditCommand extends Command {
 	ReadOnlyTask taskToEdit = lastShownList.get(targetIndex - 1);
 
 	Name taskToEditName = taskToEdit.getName();
-	Date taskToEditDate = taskToEdit.getPhone();
-	StartTime taskToEditStartTime = taskToEdit.getEmail();
+	Date1 taskToEditDate = taskToEdit.getStart();
+	StartTime taskToEditStartTime = taskToEdit.getEnd();
 	EndTime taskToEditEndTime = taskToEdit.getAddress();
 
 	Name toAddName = toAdd.getName();
-	Date toAddDate = toAdd.getPhone();
-	StartTime toAddStartTime = toAdd.getEmail();
+	Date1 toAddDate = toAdd.getStart();
+	StartTime toAddStartTime = toAdd.getEnd();
 	EndTime toAddEndTime = toAdd.getAddress();
 
 	if (toAddName.toString().equals("")) {
@@ -79,14 +79,14 @@ public class EditCommand extends Command {
 	    toAdd.setDate(taskToEditDate);
 	} else if (toAddDate.toString().equals("")) {
 	    try {
-		toAdd.setDate(new Date(taskToEditDate.value, toAddDate.getEndDate()));
+		toAdd.setDate(new Date1(taskToEditDate.value, toAddDate.getEndDate()));
 	    } catch (IllegalValueException e) {
 		e.printStackTrace();
 	    }
 	} else if (toAddEndTime.toString().equals("")) {
 	    
 	    try {
-		toAdd.setDate(new Date(toAddDate.value, taskToEditDate.getEndDate()));
+		toAdd.setDate(new Date1(toAddDate.value, taskToEditDate.getEndDate()));
 	    } catch (IllegalValueException e) {
 	    }
 	}

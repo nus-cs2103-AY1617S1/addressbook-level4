@@ -1,5 +1,6 @@
 package seedu.dailyplanner.model.task;
 
+import java.util.Date;
 import java.util.Objects;
 
 import seedu.dailyplanner.commons.util.CollectionUtil;
@@ -11,26 +12,24 @@ import seedu.dailyplanner.model.tag.UniqueTagList;
  */
 public class Task implements ReadOnlyTask, Comparable<Task> {
 
-	private Name name;
-	private Date phone;
-	private StartTime email;
-	private EndTime address;
-	private String isComplete;
+	private String taskName;
+	private Date start;
+	private Date end;
+	private boolean isComplete;
 	private boolean isPinned;
 	private UniqueTagList tags;
 
 	/**
 	 * Every field must be present and not null.
 	 */
-	public Task(Name name, Date phone, StartTime email, EndTime address, UniqueTagList tags, String isComplete) {
-		assert !CollectionUtil.isAnyNull(name, phone, email, address, tags);
-		this.name = name;
-		this.phone = phone;
-		this.email = email;
-		this.address = address;
+	public Task(String name, Date start, Date end, UniqueTagList tags) {
+		assert !CollectionUtil.isAnyNull(name, start, end, tags);
+		this.taskName = name;
+		this.start = start;
+		this.end = end;
 		this.tags = new UniqueTagList(tags); // protect internal tags from
 												// changes in the arg list
-		this.isComplete = isComplete;
+		this.isComplete = false;
 		this.isPinned = false;
 	}
 
@@ -38,64 +37,69 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
 	 * Copy constructor.
 	 */
 	public Task(ReadOnlyTask source) {
-		this(source.getName(), source.getPhone(), source.getEmail(), source.getAddress(), source.getTags(), source.getCompletion());
+		this(source.getName(), source.getStart(), source.getEnd(), source.getTags());
 	}
 
 	@Override
-	public void setName(Name name) {
-		this.name = name;
+	public void setName(String name) {
+		this.taskName = name;
 	}
 
 	@Override
-	public void setDate(Date date) {
-		this.phone = date;
+	public void setStart(Date startDate) {
+		this.start = startDate;
 	}
 
 	@Override
-	public void setStartTime(StartTime time) {
-		this.email = time;
+	public void setEnd(Date endDate) {
+		this.end = endDate;
 	}
 
-	@Override
-	public void setEndTime(EndTime time) {
-		this.address = time;
-	}
-	
-	@Override
-	public String getCompletion() {
-        return isComplete;
-    }
-	@Override
-	public void setCompletion(String completion) {
-		this.isComplete = completion;
-	}
 	@Override
 	public void markAsComplete() {
-		this.isComplete = "COMPLETE";
+		this.isComplete = true;
 	}
 
 	@Override
-	public Name getName() {
-		return name;
+	public void markAsNotComplete() {
+		this.isComplete = false;
+	}
+
+	public void pin() {
+		this.isPinned = true;
+	}
+
+	public void unpin() {
+		this.isPinned = false;
 	}
 
 	@Override
-	public Date getPhone() {
-		return phone;
+	public String getName() {
+		return taskName;
 	}
 
 	@Override
-	public StartTime getEmail() {
-		return email;
+	public Date getStart() {
+		return start;
 	}
 
 	@Override
-	public EndTime getAddress() {
-		return address;
+	public Date getEnd() {
+		return end;
+	}
+
+	@Override
+	public String getCompletion() {
+		return (isComplete) ? "COMPLETED" : "NOT COMPLETED";
 	}
 	
+	@Override
+	public boolean isComplete() {
+		return isComplete;
+	}
+
 	public boolean isPinned() {
-	    return isPinned;
+		return isPinned;
 	}
 
 	@Override
@@ -121,7 +125,7 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
 	public int hashCode() {
 		// use this method for custom fields hashing instead of implementing
 		// your own
-		return Objects.hash(name, phone, email, address, tags, isComplete);
+		return Objects.hash(taskName, start, end, isComplete, isPinned, tags);
 	}
 
 	@Override
@@ -129,25 +133,20 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
 		return getAsText();
 	}
 
-
 	@Override
 	public int compareTo(Task o) {
-		if (this.getPhone().compareTo(o.getPhone()) != 0) {
-			return this.getPhone().compareTo(o.getPhone());
+		if (this.getStart().before(o.getStart())) {
+			return -1;
+		} else if (this.getStart().after(o.getStart())) {
+			return 1;
+		} else {
+			if (this.getEnd().before(o.getEnd())) {
+				return -1;
+			} else if (this.getEnd().after(o.getEnd())) {
+				return 1;
+			} else {
+				return 0;
+			}
 		}
-		else if (this.getEmail().compareTo(o.getEmail()) != 0) {
-			return this.getEmail().compareTo(o.getEmail());
-		}
-		return this.getAddress().compareTo(o.getAddress());
 	}
-
-	public void pin() {
-	    this.isPinned = true;
-	}
-	
-	public void unpin() {
-	    this.isPinned = false;
-	}
-
-
 }

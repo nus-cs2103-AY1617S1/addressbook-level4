@@ -1,5 +1,7 @@
 package seedu.dailyplanner.model.task;
 
+import java.util.Date;
+
 import seedu.dailyplanner.model.tag.UniqueTagList;
 
 /**
@@ -8,12 +10,20 @@ import seedu.dailyplanner.model.tag.UniqueTagList;
  */
 public interface ReadOnlyTask {
 
-    Name getName();
-    Date getPhone();
-    StartTime getEmail();
-    EndTime getAddress();
+    String getName();
+    Date getStart();
+    Date getEnd();
     String getCompletion();
     boolean isPinned();
+    boolean isComplete();
+    
+    void setName(String name);
+    void setStart(Date date);
+    void setEnd(Date date);
+    void markAsComplete();
+    void markAsNotComplete();
+    void pin();
+    void unpin();
 
     /**
      * The returned TagList is a deep copy of the internal TagList,
@@ -28,10 +38,10 @@ public interface ReadOnlyTask {
         return other == this // short circuit if same object
                 || (other != null // this is first to avoid NPE below
                 && other.getName().equals(this.getName()) // state checks here onwards
-                && other.getPhone().equals(this.getPhone())
-                && other.getEmail().equals(this.getEmail())
-                && other.getAddress().equals(this.getAddress())
-        		&& other.getCompletion().equals(this.getCompletion()));
+                && other.getStart().equals(this.getStart())
+                && other.getEnd().equals(this.getEnd())
+        		&& other.getCompletion().equals(this.getCompletion())
+        		&& other.isPinned() == this.isPinned());
     }
 
     /**
@@ -40,14 +50,10 @@ public interface ReadOnlyTask {
     default String getAsText() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
-                .append(" Date: ")
-                .append(getPhone())
-                .append(" Start Time: ")
-                .append(getEmail())
-                .append(" End Time: ")
-                .append(getAddress())
-                .append("Completed: ")
-                .append(getCompletion())
+                .append(" Start: ")
+                .append(getStart())
+                .append(" End: ")
+                .append(getEnd())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();
@@ -66,11 +72,4 @@ public interface ReadOnlyTask {
             return buffer.substring(0, buffer.length() - separator.length());
         }
     }
-    void setName(Name name);
-    void setDate(Date date);
-    void setStartTime(StartTime time);
-    void setEndTime(EndTime time);
-    void setCompletion(String completion);
-    void markAsComplete();
-
 }
