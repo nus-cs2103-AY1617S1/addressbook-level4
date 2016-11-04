@@ -52,6 +52,11 @@ public class TaskCard extends UiPart {
             }
         } else {
             dateInfo = "";
+            if (task.getIsDone()) {
+                cardPane.setStyle("-fx-background-color: #78AB46");
+            } else {
+                cardPane.setStyle("-fx-background-color: #FFFFFF");
+            }
         }
         dateTime.setText(dateInfo);
         title.setText(task.getName().toString());
