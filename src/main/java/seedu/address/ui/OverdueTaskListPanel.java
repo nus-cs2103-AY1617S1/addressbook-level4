@@ -13,21 +13,21 @@ import seedu.address.commons.events.ui.PersonPanelSelectionChangedEvent;
 import seedu.address.model.activity.ReadOnlyActivity;
 
 /**
- * Panel containing the list of activities that are already Overdue.
+ * Panel containing the list of tasks that are already Overdue.
  */
 //@@author A0125284H
-public class OverdueListPanel extends ListPanel {
+public class OverdueTaskListPanel extends ListPanel {
 	/**
 	 * Panel containing the list of persons.
 	 */
-	private final Logger logger = LogsCenter.getLogger(OverdueListPanel.class);
+	private final Logger logger = LogsCenter.getLogger(OverdueTaskListPanel.class);
 	private static final String FXML = "OverdueListPanel.fxml";
 
 /*
 	@FXML
 	private static ListView<ReadOnlyActivity> overdueActivityListView;
 */
-	public OverdueListPanel() {
+	public OverdueTaskListPanel() {
 	        super();
 	    }
 
@@ -50,13 +50,26 @@ public class OverdueListPanel extends ListPanel {
      * @return
      */
 
-	public static OverdueListPanel load(Stage primaryStage, AnchorPane personListPlaceholder,
+	public static OverdueTaskListPanel load(Stage primaryStage, AnchorPane personListPlaceholder,
 		                            	ObservableList<ReadOnlyActivity> activityList) {
-		OverdueListPanel overdueActivitiesListPanel = 
-				UiPartLoader.loadUiPart(primaryStage, personListPlaceholder, new OverdueListPanel());
+		OverdueTaskListPanel overdueActivitiesListPanel = 
+				UiPartLoader.loadUiPart(primaryStage, personListPlaceholder, new OverdueTaskListPanel());
 		overdueActivitiesListPanel.configure(activityList);
 		return overdueActivitiesListPanel;
 	}
+	
+	/**
+	 * To configure listView in activityListView to accept overdue Tasks
+	 * 
+	 * @preconditions: personList only contains (overdue) Tasks.
+	 * 
+	 */
+	
+	//@@author A0125284H
+    protected void setConnections(ObservableList<ReadOnlyActivity> personList) {
+        activityListView.setItems(personList);
+        activityListView.setCellFactory(listView -> new OverdueTaskListViewCell());
+    }
 	
 	@Override
 	public String getFxmlPath() {

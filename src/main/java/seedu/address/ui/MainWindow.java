@@ -36,7 +36,7 @@ public class MainWindow extends UiPart {
 
     // Independent Ui parts residing in this Ui container
     private ActivityListPanel activityListPanel;
-    private OverdueListPanel overdueListPanel;
+    private OverdueTaskListPanel overdueListPanel;
     private ResultDisplay resultDisplay;
     private StatusBarFooter statusBarFooter;
     private CommandBox commandBox;
@@ -123,7 +123,7 @@ public class MainWindow extends UiPart {
         activityListPanel = ActivityListPanel.load(primaryStage, getPersonListPlaceholder(), logic.getFilteredPersonList());
 
         //fill dash board
-        overdueListPanel = OverdueListPanel.load(primaryStage, getOverdueListPlaceholder(), logic.getFilteredPersonList());
+        overdueListPanel = OverdueTaskListPanel.load(primaryStage, getOverdueListPlaceholder(), logic.getFilteredPersonList());
         
         		
         resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
