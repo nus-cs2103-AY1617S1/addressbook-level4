@@ -1,7 +1,9 @@
 package seedu.emeraldo.model;
 
 import seedu.emeraldo.commons.core.UnmodifiableObservableList;
+import seedu.emeraldo.commons.exceptions.TagExistException;
 import seedu.emeraldo.commons.exceptions.TagListEmptyException;
+import seedu.emeraldo.commons.exceptions.TagNotFoundException;
 import seedu.emeraldo.commons.exceptions.TaskAlreadyCompletedException;
 import seedu.emeraldo.logic.commands.ListCommand.Completed;
 import seedu.emeraldo.logic.commands.ListCommand.TimePeriod;
@@ -53,11 +55,12 @@ public interface Model {
     /** Adds the given task */
     void addTask(Task task) throws UniqueTaskList.DuplicateTaskException;
     
-    /** Adds the tag to the specified task */
-    void addTag(Task taskTagToEdit, Tag tag);
+    /** Adds the tag to the specified task 
+     * @throws TagExistException */
+    void addTag(Task taskTagToEdit, Tag tag) throws TagExistException;
     
     /** Deletes the tag from the specified task */
-    void deleteTag(Task taskTagToEdit, Tag tag);
+    void deleteTag(Task taskTagToEdit, Tag tag) throws TagNotFoundException;
 
     /** Clears all tags from the specified task */
     void clearTag(Task taskTagToEdit) throws TagListEmptyException;

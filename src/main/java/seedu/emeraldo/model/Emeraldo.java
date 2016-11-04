@@ -2,7 +2,9 @@ package seedu.emeraldo.model;
 
 import javafx.collections.ObservableList;
 import seedu.emeraldo.commons.exceptions.IllegalValueException;
+import seedu.emeraldo.commons.exceptions.TagExistException;
 import seedu.emeraldo.commons.exceptions.TagListEmptyException;
+import seedu.emeraldo.commons.exceptions.TagNotFoundException;
 import seedu.emeraldo.commons.exceptions.TaskAlreadyCompletedException;
 import seedu.emeraldo.model.tag.Tag;
 import seedu.emeraldo.model.tag.UniqueTagList;
@@ -128,11 +130,11 @@ public class Emeraldo implements ReadOnlyEmeraldo {
     }
     //@@author
     
-    public void taskAddTag(Task task, Tag tag) throws IllegalValueException {
+    public void taskAddTag(Task task, Tag tag) throws IllegalValueException, TagExistException {
         tasks.addTag(task, tag);
     }
     
-    public void taskDeleteTag(Task task, Tag tag) throws IllegalValueException {
+    public void taskDeleteTag(Task task, Tag tag) throws IllegalValueException, TagNotFoundException {
         tasks.deleteTag(task, tag);
     }
     

@@ -43,12 +43,13 @@ public class Parser {
             + "(?<description>(\"[^\"]+\")?)"      //quote marks are reserved for start and end of description field
             + "( )?(?<dateTime>(((by )|(on )|(from ))[^#]+)?)"
             );
-    //@@author
     
+    //@@author A0139196U
     private static final Pattern TASK_TAG_ARGS_FORMAT = 
             Pattern.compile("(?<action>((add )|(delete )|(clear )))"
             + "(?<targetIndex>\\d+)" //index must be digits
-            + "(?<tag>(?: #[^#]+)?)");    //quote marks are reserved for start and end of description field
+            + "(?<tag>(?: #[^#]+)?)");    // one or zero tag
+    //@@author
     
     private static final Pattern SAVE_LOCATION = Pattern.compile("(?<targetLocation>(([^\\/\\s]*\\/)+|default))");
     
@@ -122,6 +123,7 @@ public class Parser {
         }
     }
     
+    //@@author A0139196U
     /**
      * Parses arguments in the context of the edit tag command.
      *
@@ -140,12 +142,6 @@ public class Parser {
         System.out.println(matcher.group("action"));
         System.out.println(matcher.group("targetIndex"));
         System.out.println(matcher.group("tag"));
-        
-//        Optional<Integer> index = parseIndex(matcher.group("targetIndex"));
-//        if(!index.isPresent()){
-//            return new IncorrectCommand(
-//                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, TagCommand.MESSAGE_USAGE));
-//        }
 
         try {
             return new TagCommand(

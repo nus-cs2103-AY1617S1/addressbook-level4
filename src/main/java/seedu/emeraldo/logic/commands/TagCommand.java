@@ -8,7 +8,9 @@ import java.util.Set;
 import seedu.emeraldo.commons.core.Messages;
 import seedu.emeraldo.commons.core.UnmodifiableObservableList;
 import seedu.emeraldo.commons.exceptions.IllegalValueException;
+import seedu.emeraldo.commons.exceptions.TagExistException;
 import seedu.emeraldo.commons.exceptions.TagListEmptyException;
+import seedu.emeraldo.commons.exceptions.TagNotFoundException;
 import seedu.emeraldo.model.tag.Tag;
 import seedu.emeraldo.model.tag.UniqueTagList;
 import seedu.emeraldo.model.task.ReadOnlyTask;
@@ -26,6 +28,8 @@ public class TagCommand extends Command {
             + "Example: " + COMMAND_WORD + " add" + " 1" + " #friends";
     
     public static final String MESSAGE_TAG_EDIT_SUCCESS = "Edited task: %1$s";
+    public static final String MESSAGE_TAG_DUPLICATE = "Tag already exists in the indicated task!";
+    public static final String MESSAGE_TAG_NOT_FOUND = "Tag does not exist in the indicated task!";
     private static final String MESSAGE_TAG_LIST_EMPTY = "Tags are empty!";    
     
     private String action;
@@ -52,10 +56,18 @@ public class TagCommand extends Command {
         Task taskTagToEdit = (Task) lastShownList.get(targetIndex - 1);
         
         if (action.equalsIgnoreCase("add")){
-            model.addTag(taskTagToEdit, tag);
+            try {
+                model.addTag(taskTagToEdit, tag);
+            } catch (TagExistException tee) {
+                return new CommandResult(MESSAGE_TAG_DUPLICATE);
+            }
         }
         else if (action.equalsIgnoreCase("delete")){
-            model.deleteTag(taskTagToEdit, tag);
+            try {
+                model.deleteTag(taskTagToEdit, tag);
+            } catch (TagNotFoundException tnfe) {
+                return new CommandResult(MESSAGE_TAG_NOT_FOUND);
+            }
         }
         else if (action.equalsIgnoreCase("clear")){
             try{
