@@ -11,8 +11,10 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import seedu.tasklist.commons.core.EventsCenter;
 import seedu.tasklist.commons.core.LogsCenter;
 import seedu.tasklist.commons.events.ui.IncorrectCommandAttemptedEvent;
+import seedu.tasklist.commons.events.ui.TaskListScrollEvent;
 import seedu.tasklist.commons.util.FxViewUtil;
 import seedu.tasklist.logic.Logic;
 import seedu.tasklist.logic.commands.*;
@@ -68,22 +70,39 @@ public class CommandBox extends UiPart {
 	private void configureKeyEvents(){
 		commandTextField.setOnKeyPressed(new EventHandler<KeyEvent>() {
 			public void handle(final KeyEvent keyEvent) {
-				if (keyEvent.getCode() == KeyCode.UP) {
-					getUpLine();
+				switch(keyEvent.getCode()){
+				case UP:
+					handleButtonUp(keyEvent.isControlDown());
 					keyEvent.consume();
-				}
-				if (keyEvent.getCode() == KeyCode.DOWN) {
-					getDownLine();
+					break;
+				case DOWN:
+					handleButtonDown(keyEvent.isControlDown());
 					keyEvent.consume();
-				}
-				if (keyEvent.getCode() == KeyCode.TAB || keyEvent.getCode() == KeyCode.SPACE) {
-					autoComplete();
-					keyEvent.consume();
+					break;
+				default:
 				}
 			}
 		});
 	}
-
+	
+	private void handleButtonUp(boolean isControlDown){
+		if(isControlDown){
+			EventsCenter.getInstance().post(new TaskListScrollEvent(TaskListPanel.Direction.UP));
+		}
+		else{
+			getUpLine();
+		}
+	}
+	
+	private void handleButtonDown(boolean isControlDown){
+		if(isControlDown){
+			EventsCenter.getInstance().post(new TaskListScrollEvent(TaskListPanel.Direction.DOWN));
+		}
+		else{
+			getDownLine();
+		}
+	}
+	
 	private void getUpLine(){
 		if(!upStack.isEmpty()){
 			if(downStack.isEmpty()){
