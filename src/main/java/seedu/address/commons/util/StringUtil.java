@@ -21,7 +21,7 @@ public class StringUtil {
      * @return boolean representing if the query is a valid substring of source
      */
     public static boolean isSubstringFromStart(String source, String query) {
-        return source != null & query != null && source.indexOf(query) == 0;
+        return source != null && query != null && source.indexOf(query) == 0;
     }
         
     //@@author

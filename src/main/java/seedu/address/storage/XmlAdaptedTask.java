@@ -61,7 +61,7 @@ public class XmlAdaptedTask {
      * @throws ParseException
      */
     public Task toModelType() throws IllegalValueException, ParseException {
-        final Name nameForModel = getNameFromStoredTask();
+        Name nameForModel = getNameFromStoredTask();
         Priority priorityForModel = getPriorityFromStoredTask();
 
         Date startDateForModel = getStartDateFromStoredTask();

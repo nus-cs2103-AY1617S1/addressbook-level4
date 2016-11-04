@@ -12,18 +12,23 @@ public interface ReadOnlyTask {
     Optional<Date> getEndDate();
     Optional<RecurrenceRate> getRecurrenceRate();
     
+    
+    //@@author A0093960X
     /**
-     * Returns true if both have the same state. (interfaces cannot override .equals)
+     * Returns true if both have the same state. (interfaces cannot override
+     * .equals) All fields must be equal.
      */
     default boolean isSameStateAs(ReadOnlyTask other) {
         return other == this // short circuit if same object
                 || (other != null // this is first to avoid NPE below
-                && other.getName().name.equals(this.getName().name) // state checks here onwards
-                && other.getPriorityValue() == this.getPriorityValue())
+                && other.getName().equals(this.getName()) // state checks here onwards
+                && other.getPriorityValue().equals(this.getPriorityValue())
                 && other.getStartDate().equals(this.getStartDate())
-                && other.getEndDate().equals(this.getEndDate());
+                && other.getEndDate().equals(this.getEndDate())
+                && other.getRecurrenceRate().equals(this.getRecurrenceRate()));
     }
-    
+       
+    //@@author
     /**
      * Formats the floating task as text, showing all details.
      */
