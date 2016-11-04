@@ -22,6 +22,9 @@ public class HelpWindow extends UiPart {
     private static final String USERGUIDE_URL =
             HelpWindow.class.getResource("/UserGuide/UserGuide.html").toExternalForm();
 
+    private static final double START_H = 1000;
+    private static final double START_W = 1200;
+    
     private AnchorPane mainPane;
 
     private Stage dialogStage;
@@ -47,7 +50,9 @@ public class HelpWindow extends UiPart {
         Scene scene = new Scene(mainPane);
         //Null passed as the parent stage to make it non-modal.
         dialogStage = createDialogStage(TITLE, null, scene);
-        dialogStage.setMaximized(true); //TODO: set a more appropriate initial size
+        dialogStage.setMaximized(false); //TODO: set a more appropriate initial size
+        dialogStage.setHeight(START_H);
+        dialogStage.setWidth(START_W);
         setIcon(dialogStage, ICON);
 
         WebView browser = new WebView();
