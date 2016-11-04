@@ -250,7 +250,7 @@ public class ModelManager extends ComponentManager implements Model {
         		String address = task.getAddress().toString().toLowerCase();
         		boolean addressMatch = address.contains(nameKeyWords.toLowerCase());
         		return addressMatch;
-        	} else if (cmd == "priority") {
+        	}  else if (cmd == "priority") {
         		System.out.println("finding priority..");
         		String priority = task.getPriority().toString();
         		boolean priorityMatch = priority.contains(nameKeyWords);
@@ -312,8 +312,6 @@ public class ModelManager extends ComponentManager implements Model {
         	return eachWordMatch && nameMatch;
         }
     }
-<<<<<<< HEAD
-    
     private class AllQualifiers implements Qualifier {
 
         AllQualifiers() {}
@@ -348,8 +346,6 @@ public class ModelManager extends ComponentManager implements Model {
 
         }
     }
-=======
-
 		@Override
 		//@@author A0139072H    
 		//application-wide operations
@@ -358,5 +354,4 @@ public class ModelManager extends ComponentManager implements Model {
 	        indicateAddressBookChanged();
 	        //NEEDS TO SAVE TO NEW FILEPATH
 	   };
->>>>>>> C3/change-storage-path
 }

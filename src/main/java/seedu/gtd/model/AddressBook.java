@@ -10,14 +10,11 @@ import seedu.gtd.model.tag.UniqueTagList;
 import seedu.gtd.model.task.ReadOnlyTask;
 import seedu.gtd.model.task.Task;
 import seedu.gtd.model.task.UniqueTaskList;
-<<<<<<< HEAD
 import seedu.gtd.model.task.UniqueTaskList.TaskNotFoundException;
-=======
 import seedu.gtd.storage.JsonUserPrefsStorage;
 import seedu.gtd.storage.StorageManager;
 import seedu.gtd.storage.XmlAddressBookStorage;
 import seedu.gtd.MainApp;
->>>>>>> C3/change-storage-path
 
 import java.io.IOException;
 import java.util.*;

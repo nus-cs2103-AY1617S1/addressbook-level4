@@ -29,9 +29,7 @@ public class SetFilePathCommand extends Command {
      */
     public SetFilePathCommand(String givenString)
             throws IllegalValueException {
-        this.newFilePath = new String(
-        		givenString.trim()
-        );
+        this.newFilePath = givenString.trim();
     }
 
     @Override

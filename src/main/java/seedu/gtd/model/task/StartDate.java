@@ -25,14 +25,17 @@ public class StartDate {
      */
     public StartDate(String startdate) throws IllegalValueException {
         assert startdate != null;
+        String newValue;
         try{
 	        if (isInvalidStartDate(startdate)) {
 	            throw new IllegalValueException(MESSAGE_STARTDATE_CONSTRAINTS);
 	        }
+	    	newValue = startdate;
         }catch(NullPointerException e){
-        	startdate = new String("none");
+        	newValue = "none";
         }
-    	this.value = startdate;
+        
+        this.value = newValue;
     }
 
     /**

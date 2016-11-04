@@ -104,13 +104,13 @@ public class Parser {
         case HelpCommand.COMMAND_WORD:
         	return prepareHelp(arguments);
         	
-<<<<<<< HEAD
+
         case UndoCommand.COMMAND_WORD:
         	return new UndoCommand();
-=======
+
         case SetFilePathCommand.COMMAND_WORD:
         	return prepareSetFilePath(arguments);
->>>>>>> C3/change-storage-path
+
 
         default:
             return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
