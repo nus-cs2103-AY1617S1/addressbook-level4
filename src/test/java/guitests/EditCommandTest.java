@@ -18,8 +18,6 @@ public class EditCommandTest extends AddressBookGuiTest {
         int index = 1;
         assertEditNameResult(index,currentList);
         assertEditReminderResult(index,currentList);
-
-        
     }
     
     @Test

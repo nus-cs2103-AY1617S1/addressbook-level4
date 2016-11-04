@@ -119,77 +119,7 @@ public class XmlAdaptedActivity {
         }
     }
 
-    /**
-     * Converts a given Task into this class for JAXB use.
-     *
-     * @param source
-     *            future changes to this will not affect the created
-     *            XmlAdaptedActivity
-     */
-    public XmlAdaptedActivity(ReadOnlyTask source) {
-        type = "task";
-        name = source.getName().fullName;
-        line1 = source.getDueDate().toString();
-        line2 = source.getPriority().value;
-        reminder = source.getReminder().toString();
-        tagged = new ArrayList<>();
-        for (Tag tag : source.getTags()) {
-            tagged.add(new XmlAdaptedTag(tag));
-        }
-
-        if (source.getCompletionStatus()) {
-            completion = true;
-        } else {
-            completion = false;
-        }
-    }
-    //@@author 
-    /**
-     * Converts a given Task into this class for JAXB use.
-     *
-     * @param source
-     *            future changes to this will not affect the created
-     *            XmlAdaptedActivity
-     */
-    public XmlAdaptedActivity(ReadOnlyEvent source) {
-        type = "event";
-        name = source.getName().fullName;
-        line1 = source.getStartTime().toString();
-        line2 = source.getEndTime().toString();
-        reminder = source.getReminder().toString();
-        tagged = new ArrayList<>();
-        for (Tag tag : source.getTags()) {
-            tagged.add(new XmlAdaptedTag(tag));
-        }
-
-        if (source.getCompletionStatus()) {
-            completion = true;
-        } else {
-            completion = false;
-        }
-        if (source.getReminder().value != null) {
-            if (source.getReminder().recurring || (source).getStartTime().recurring)
-                recurring = true;
-            else
-                recurring = false;
-        }
-        if (source.getReminder() != null && !source.getReminder().RecurringMessage.isEmpty())
-            reminderRecurring = source.getReminder().RecurringMessage;
-        if ((source).getStartTime().value != null) {
-            if ((source).getStartTime().recurring)
-                recurring = true;
-            else
-                recurring = false;
-        }
-        if (((ReadOnlyEvent) source).getStartTime() != null
-                && ((ReadOnlyEvent) source).getStartTime().RecurringMessage!=null)
-            starttimeRecurring = ((ReadOnlyEvent) source).getStartTime().RecurringMessage;
-        if (((ReadOnlyEvent) source).getEndTime() != null)
-                if(((ReadOnlyEvent) source).getEndTime().RecurringMessage!=null)
-            endtimeRecurring = ((ReadOnlyEvent) source).getEndTime().RecurringMessage;
-    }
-
-    /**
+     /**
      * Converts this jaxb-friendly adapted Activity object into the model's
      * Activity object.
      *
