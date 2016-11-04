@@ -9,8 +9,6 @@ import seedu.taskitty.commons.core.UnmodifiableObservableList;
 import seedu.taskitty.commons.util.AppUtil;
 import seedu.taskitty.model.task.ReadOnlyTask;
 import seedu.taskitty.model.task.Task;
-import seedu.taskitty.model.task.UniqueTaskList.DuplicateMarkAsDoneException;
-import seedu.taskitty.model.task.UniqueTaskList.TaskNotFoundException;
 
 //@@author A0130853L
 /**
@@ -22,7 +20,7 @@ public class DoneCommand extends Command {
 
     public static final String MESSAGE_PARAMETER = COMMAND_WORD + " [index] [more indexes]...";
     public static final String MESSAGE_USAGE = "This command marks tasks in TasKitty as done, Meow!"
-            + "\n[index] is the index eg. t1, d1, e1.";
+            + "\n[index] is the index eg. t1, d1, e1-3.";
 
     public static final String MESSAGE_MARK_TASK_AS_DONE_SUCCESS_HEADER = "%1$s" + " tasks marked as done: ";
     public static final String MESSAGE_DUPLICATE_MARK_AS_DONE_ERROR_HEADER = "These tasks has already been marked as done: ";
@@ -68,14 +66,9 @@ public class DoneCommand extends Command {
         if (errorMessage != null) { // there are errors
             return new CommandResult(errorMessage);
         }
-                    
-        try {
-            executeMarkTasks();
-        } catch (TaskNotFoundException pnfe) {
-            assert false : "The target task cannot be missing";
-        } catch (DuplicateMarkAsDoneException e) {
-            assert false: "The target task should not be marked done";
-        }
+        
+        executeMarkTasks();
+
         return new CommandResult(generateSuccessMessage());
     }
     
@@ -128,7 +121,7 @@ public class DoneCommand extends Command {
      * @throws TaskNotFoundException
      * @throws DuplicateMarkAsDoneException
      */
-    private void executeMarkTasks() throws TaskNotFoundException, DuplicateMarkAsDoneException {
+    private void executeMarkTasks() {
         model.markTasksAsDone(listOfTasksToMarkDone);
         model.storeCommandInfo(COMMAND_WORD, commandText, listOfTasksToMarkDone);
     }

@@ -6,7 +6,6 @@ import seedu.taskitty.commons.exceptions.NoRecentUndoCommandException;
 import seedu.taskitty.model.task.ReadOnlyTask;
 import seedu.taskitty.model.task.Task;
 import seedu.taskitty.model.task.UniqueTaskList;
-import seedu.taskitty.model.task.UniqueTaskList.DuplicateMarkAsDoneException;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -23,14 +22,14 @@ public interface Model {
     ReadOnlyTaskManager getTaskManager();
 
     /** Deletes the given task. */
-    void deleteTasks(List<ReadOnlyTask> target) throws UniqueTaskList.TaskNotFoundException;
+    void deleteTasks(List<ReadOnlyTask> target);
     
     /** Edits the given task. */
-    void editTask(ReadOnlyTask target, Task task) throws UniqueTaskList.TaskNotFoundException, UniqueTaskList.DuplicateTaskException;
+    void editTask(ReadOnlyTask target, Task task) throws UniqueTaskList.DuplicateTaskException;
 
     /** Marks the given task as done. 
      * @throws DuplicateMarkAsDoneException */
-    void markTasksAsDone(List<ReadOnlyTask> target) throws UniqueTaskList.TaskNotFoundException, DuplicateMarkAsDoneException;
+    void markTasksAsDone(List<ReadOnlyTask> target);
     
     /** Adds the given task */
     void addTask(Task task) throws UniqueTaskList.DuplicateTaskException;
