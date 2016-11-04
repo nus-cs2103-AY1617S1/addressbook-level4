@@ -5,6 +5,8 @@ import seedu.taskitty.model.task.TaskDate;
 import seedu.taskitty.model.task.TaskPeriod;
 import seedu.taskitty.model.task.TaskTime;
 
+import static org.junit.Assert.fail;
+
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -18,39 +20,45 @@ public class TaskTest {
     @Test
     public void invalidDateFormat_exceptionThrown() throws Exception {
         thrown.expect(IllegalValueException.class);
-        TaskDate date = new TaskDate("25-12-2016");
+        new TaskDate("25-12-2016");
+        fail();
     }
     
     @Test
     public void invalidDate_exceptionThrown() throws Exception {
         thrown.expect(IllegalValueException.class);
-        TaskDate date = new TaskDate("29/2/2015");
+        new TaskDate("29/2/2015");
+        fail();
     }
     
     @Test
     public void invalidTimeFormat_exceptionThrown() throws Exception {
         thrown.expect(IllegalValueException.class);
-        TaskTime date = new TaskTime("3pm");
+        new TaskTime("3pm");
+        fail();
     }
     
     @Test
     public void invalidTime_exceptionThrown() throws Exception {
         thrown.expect(IllegalValueException.class);
-        TaskDate date = new TaskDate("25:00");
+        new TaskDate("25:00");
+        fail();
     }
     
     @Test
     public void invalidPeriod_startDateAfterEndDate_exceptionThrown() throws Exception {
         thrown.expect(IllegalValueException.class);
-        TaskPeriod period = new TaskPeriod(new TaskDate("25/12/2016"), new TaskTime("10:00"),
-                        new TaskDate("24/12/2016"), new TaskTime("12:00"));
+        new TaskPeriod(new TaskDate("25/12/2016"), new TaskTime("10:00"),
+                new TaskDate("24/12/2016"), new TaskTime("12:00"));
+        fail();
     }
     
     @Test
     public void invalidPeriod_startTimeAfterEndTime_exceptionThrown() throws Exception {
         thrown.expect(IllegalValueException.class);
         TaskDate date = new TaskDate("25/12/2016");
-        TaskPeriod period = new TaskPeriod(date, new TaskTime("10:00"),
-                        date, new TaskTime("9:00"));
+        new TaskPeriod(date, new TaskTime("10:00"),
+                date, new TaskTime("9:00"));
+        fail();
     }
 }

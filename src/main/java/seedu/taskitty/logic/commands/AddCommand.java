@@ -31,7 +31,7 @@ public class AddCommand extends Command {
     /**
      * Convenience constructor using values parsed from Natty
      *
-     * @throws IllegalValueException if any of the values are invalid or there are too many inputs
+     * @throws IllegalValueException if data is invalid
      */
     public AddCommand(String[] data, Set<String> tags, String commandText) throws IllegalValueException {
         final Set<Tag> tagSet = new HashSet<>();
@@ -39,33 +39,75 @@ public class AddCommand extends Command {
         for (String tagName : tags) {
             tagSet.add(new Tag(tagName));
         }
+        this.toAdd = createNewTaskFromData(data, tagSet);
+    }
+    
+    /**
+     * Returns a newly created Task based on the input data.
+     * 
+     * @throws IllegalValueException if any of the values are invalid or there are too many inputs
+     */
+    private Task createNewTaskFromData(String[] data, Set<Tag> tagSet) throws IllegalValueException {
+        Task newTask;
         
         if (data.length == Task.TASK_COMPONENT_COUNT) {
-            this.toAdd = new Task(
-                new Name(data[Task.TASK_COMPONENT_INDEX_NAME]),
-                new TaskPeriod(),
-                new UniqueTagList(tagSet)
-            );
+            newTask = createNewTodoTask(data, tagSet);
         } else if (data.length == Task.DEADLINE_COMPONENT_COUNT) {
-            this.toAdd = new Task(
-                new Name(data[Task.DEADLINE_COMPONENT_INDEX_NAME]),
-                new TaskPeriod(new TaskDate(data[Task.DEADLINE_COMPONENT_INDEX_END_DATE]),
-                        new TaskTime(data[Task.DEADLINE_COMPONENT_INDEX_END_TIME])),
-                new UniqueTagList(tagSet)
-            );
+            newTask = createNewDeadlineTask(data, tagSet);
         } else if (data.length == Task.EVENT_COMPONENT_COUNT) {
-            this.toAdd = new Task(
-                new Name(data[Task.EVENT_COMPONENT_INDEX_NAME]),
-                new TaskPeriod(new TaskDate(data[Task.EVENT_COMPONENT_INDEX_START_DATE]),
-                        new TaskTime(data[Task.EVENT_COMPONENT_INDEX_START_TIME]),
-                        new TaskDate(data[Task.EVENT_COMPONENT_INDEX_END_DATE]),
-                        new TaskTime(data[Task.EVENT_COMPONENT_INDEX_END_TIME])),
-                new UniqueTagList(tagSet)
-            );
+            newTask = createNewEventTask(data, tagSet);
         } else {
             throw new IllegalValueException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, 
                     MESSAGE_FORMAT + MESSAGE_PARAMETER));
         }
+        
+        return newTask;
+    }
+    
+    /**
+     * Returns a newly created Todo Task
+     * Todo Tasks only have name, tags
+     * 
+     * @throws IllegalValueException if any of the values are invalid
+     */
+    private Task createNewTodoTask(String[] data, Set<Tag> tagSet) throws IllegalValueException {
+        assert data.length == Task.TASK_COMPONENT_COUNT;
+        
+        return new Task(new Name(data[Task.TASK_COMPONENT_INDEX_NAME]),
+            new TaskPeriod(),
+            new UniqueTagList(tagSet));
+    }
+    
+    /**
+     * Returns a newly created Deadline Task
+     * Deadline Tasks only have name, endDate, endTime, tags
+     * 
+     * @throws IllegalValueException if any of the values are invalid
+     */
+    private Task createNewDeadlineTask(String[] data, Set<Tag> tagSet) throws IllegalValueException {
+        assert data.length == Task.DEADLINE_COMPONENT_COUNT;
+        
+        return new Task(new Name(data[Task.DEADLINE_COMPONENT_INDEX_NAME]),
+            new TaskPeriod(new TaskDate(data[Task.DEADLINE_COMPONENT_INDEX_END_DATE]),
+                new TaskTime(data[Task.DEADLINE_COMPONENT_INDEX_END_TIME])),
+            new UniqueTagList(tagSet));
+    }
+    
+    /**
+     * Returns a newly created Event Task
+     * Event Tasks have name, startDate, startTime, endDate, endTime, tags
+     * 
+     * @throws IllegalValueException if any of the values are invalid
+     */
+    private Task createNewEventTask(String[] data, Set<Tag> tagSet) throws IllegalValueException {
+        assert data.length == Task.EVENT_COMPONENT_COUNT;
+        
+        return new Task(new Name(data[Task.EVENT_COMPONENT_INDEX_NAME]),
+            new TaskPeriod(new TaskDate(data[Task.EVENT_COMPONENT_INDEX_START_DATE]),
+                new TaskTime(data[Task.EVENT_COMPONENT_INDEX_START_TIME]),
+                new TaskDate(data[Task.EVENT_COMPONENT_INDEX_END_DATE]),
+                new TaskTime(data[Task.EVENT_COMPONENT_INDEX_END_TIME])),
+            new UniqueTagList(tagSet));
     }
 
     //@@author

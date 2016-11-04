@@ -170,11 +170,9 @@ public class UniqueTaskList implements Iterable<Task> {
     private void checkAndSetOverdue() {
     	boolean hasOverdue = false;    	
     	for (Task t: internalList) {
-    		if (t.isDeadline() && !t.getIsDone()) {
-    			if (DateTimeUtil.isOverdue(t)) {
-    				t.markAsOverdue();
-    				hasOverdue = true;
-    			}
+    		if (t.isDeadline() && !t.getIsDone() && DateTimeUtil.isOverdue(t)) {
+    		    t.markAsOverdue();
+    		    hasOverdue = true;
     		}
     	}
     	if (hasOverdue) {

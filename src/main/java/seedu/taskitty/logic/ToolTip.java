@@ -1,18 +1,14 @@
 package seedu.taskitty.logic;
 
-import java.util.logging.Logger;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
-import seedu.taskitty.commons.core.LogsCenter;
 import seedu.taskitty.logic.commands.Command;
 
 import static seedu.taskitty.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
 //@@author A0139930B
 public class ToolTip {
-    private final Logger logger = LogsCenter.getLogger(ToolTip.class);
     
     public static final String TOOLTIP_DELIMITER = " | ";
     private static final int COMMAND_WORD_POSITION = 0;
@@ -22,8 +18,7 @@ public class ToolTip {
     private static final int COMMAND_WORD_COUNT_SINGLE_MATCH = 1;
     
     private static final String TOOLTIP_POSSIBLE_COMMANDS = "These are the possible commands, Meow!";
-    private static final String TOOLTIP_UNKNOWN_COMMAND = "Meow? This does not resemble any command I have, Meow!\n" 
-                            + "Please erase the current text in the command box to see all available commands I have, Meow!";
+    private static final String TOOLTIP_UNKNOWN_COMMAND = "This does not resemble any command I have, Meow!\n";
     
     private static ToolTip tooltip;
     
@@ -55,7 +50,6 @@ public class ToolTip {
      * @param input to determine the tooltip to be shown
      */
     public void createToolTip(String input) {
-        logger.info("Finding tooltip for: " + input);
         clearToolTip();
         String[] splitedInput = input.split(COMMAND_WORD_DELIMITER);
         
@@ -68,9 +62,9 @@ public class ToolTip {
         if (!isCommandWordMatch()) {
             setToolTip(MESSAGE_UNKNOWN_COMMAND, TOOLTIP_UNKNOWN_COMMAND);
         } else if (isSingleMatchFound()) {
-            getMatchCommandToolTipSingle(command);
+            getToolTipForCommand(command);
         } else {
-            getMatchCommandToolTipAll();
+            getToolTipForAllCommands();
         }
     }
     
@@ -93,7 +87,7 @@ public class ToolTip {
      *  
      * @param command to determine which command tooltip to show
      */
-    private void getMatchCommandToolTipSingle(String command) {
+    private void getToolTipForCommand(String command) {
         for (int i = 0; i < Command.ALL_COMMAND_WORDS.length; i++) {
             if (Command.ALL_COMMAND_WORDS[i].startsWith(command)) {
                 setToolTip(Command.ALL_COMMAND_MESSAGE_PARAMETER[i], Command.ALL_COMMAND_MESSAGE_USAGE[i]);
@@ -106,7 +100,7 @@ public class ToolTip {
     /**
      * Returns a string representing the matched input, delimitered by TOOLTIP_DELIMITER
      */
-    private void getMatchCommandToolTipAll() {
+    private void getToolTipForAllCommands() {
         assert commands.size() != COMMAND_WORD_COUNT_NO_MATCH
                 && commands.size() != COMMAND_WORD_COUNT_SINGLE_MATCH;
         
