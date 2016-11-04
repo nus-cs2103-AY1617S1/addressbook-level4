@@ -15,13 +15,14 @@
    > This app will not work with earlier versions of Java 8.
    
 1. Download the latest `CMDo.jar` from the 'releases' tab.
-2. Copy the file to the folder you want to use as the home folder for your CMDo.
-3. Double-click the file to start the app. The GUI should appear in a few seconds. 
+2. Copy the file to the folder you want to use as the home folder for your CMDo. A folder `data` will be created to store your task list XML file.
+3. Double-click the JAR file to start the app. The GUI should appear in a few seconds. 
    <img src="images/Ui.jpeg" width="600">
    <img src="images/Main.jpeg" width="600">
-4. Tasks in CMDo are sorted according, hence, tasks that are closest to the deadline with be at the top, as shown below.
+4. Tasks in CMDo are sorted accordingly, hence, tasks that are closest to the deadline will be at the top, as shown below.
 
 5. Tasks are colour coded with icons.
+
 `Red Colour` overdue tasks
 
 `Green Colour` Tasks 
@@ -30,7 +31,7 @@
 
 `Chill zone icon` Longer than 7 days to due date
 
-6. Calander
+6. Calendar
 Displays from year ### to year #### so you can use CMDo your whole life :)
 
 7. Side bar
@@ -41,7 +42,7 @@ Displays cateregories of task with a counter at the side of the number of tasks 
    
 9. Some example commands you can try:
    * **`list all`** : lists all task
-   * **`add`**` email prof damith to feedback on the module on wednesday` : 
+   * **`add`**` 'email prof damith to feedback on the module on wednesday'` : 
      adds a task named `email prof damith to feedback on module` to the To Do List.
    * **`delete`**` 3` : deletes the task 3 “email prof damith” in the current list
    * **`exit`** : exits the app
@@ -63,9 +64,6 @@ add 'give me'                                         # floating
 
 # Events
 add 'give me some sugar' from tmr to 10/31/2016		  # you get the idea
-
-# Restrictions
-add 'don't use dashes' 1000-1200					  # natty doesn't place nice with dashes. use 'to' instead
 ```
 
 ## `block` time slots #LikeABoss
