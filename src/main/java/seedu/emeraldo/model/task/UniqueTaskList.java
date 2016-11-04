@@ -158,6 +158,8 @@ public class UniqueTaskList implements Iterable<Task> {
     
     /**
      * Clears all tags from the indicated task from the list.
+     * 
+     * @throws TagListEmptyException if there are no tags in the indicated tasks to begin with.
     */
     public void clearTag(Task toEditTagTask) throws IllegalValueException, TagListEmptyException {
         if (toEditTagTask.getTags().getInternalList().isEmpty()){
