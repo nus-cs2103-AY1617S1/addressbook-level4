@@ -21,7 +21,7 @@ public class CompleteCommand extends Command {
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_COMPLETE_TASK_SUCCESS = "Completed Task: %1$s";
+    public static final String MESSAGE_COMPLETE_TASK_SUCCESS = "Completed Task!";
     public static final String MESSAGE_MARK_COMPLETED_TASK = "This task is already completed!";
     
     public static final int MULTIPLE_MARK_OFFSET = 1;
