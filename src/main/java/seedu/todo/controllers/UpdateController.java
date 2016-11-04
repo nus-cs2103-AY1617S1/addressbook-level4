@@ -204,21 +204,21 @@ public class UpdateController implements Controller {
     /**
      * Validate that applying the update changes to the record will not result in an inconsistency.
      * 
-     * <li>
-     * <ul>Fail if name is invalid</ul>
-     * <ul>Fail if no update changes</ul>
-     * </li>
+     * <ul>
+     * <li>Fail if name is invalid</li>
+     * <li>Fail if no update changes</li>
+     * </ul>
      * 
      * Tasks:
-     * <li>
-     * <ul>Fail if task has a dateTo</ul>
-     * </li>
+     * <ul>
+     * <li>Fail if task has a dateTo</li>
+     * </ul>
      * 
      * Events:
-     * <li>
-     * <ul>Fail if event does not have both dateFrom and dateTo</ul>
-     * <ul>Fail if event has a dateTo that is before dateFrom</ul>
-     * </li>
+     * <ul>
+     * <li>Fail if event does not have both dateFrom and dateTo</li>
+     * <li>Fail if event has a dateTo that is before dateFrom</li>
+     * </ul>
      * 
      * @param isTask
      * @param name
