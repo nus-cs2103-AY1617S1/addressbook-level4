@@ -75,9 +75,18 @@ interface and exposes its functionality using the `LogicManager.java` class.<br>
 <img src="images/LogicClassDiagram.png" width="800"><br>
 
 The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the
-command `delete 3`.
+command `delete 1`. This same _Sequence Diagram_ will be used to illustrace `undo` in the following _Sequence Diagram_.
 
-<img src="images\SDforDeleteTask.png" width="800">
+<img src="images\SDforDeleteTask.png" width="800"><br>
+
+>Note how the method saveToHistory() is called when delete is being executed. A copy of the `TaskManager` will be stored
+within `Model`. This is the same for task modifying commands such as `add`, `edit` and `clear`.
+
+The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the command `undo`.
+
+<img src="images\SDforUndo.png" width="800"><br>
+
+When `undo` is entered by the user, the method loadFromHistory() will be executed to replace the current `TaskManager` to the most recent `TaskManager` saved in `Model` when saveToHistory() was previously executed. When the user exits ForgetMeNot, this stored history will be cleared.
 
 >Note how the `Model` simply raises a `TaskManagerChangedEvent` when the Task Manager data are changed,
  instead of asking the `Storage` to save the updates to the hard disk.
