@@ -99,6 +99,8 @@ public class StorageManager extends ComponentManager implements Storage {
     @Override
     @Subscribe
     public void handleLoadLifekeeperEvent(LoadLifekeeperEvent event) throws DataConversionException {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        
         Optional<ReadOnlyLifeKeeper> lifekeeperOptional;
         try {
             lifekeeperOptional = readAddressBook(event.openFile.getAbsolutePath());

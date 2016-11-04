@@ -254,6 +254,7 @@ public class MainWindow extends UiPart {
     }
     
     public void openFile(File selectedFile) {
+        System.out.println(selectedFile.getAbsolutePath());
         if (!selectedFile.exists()) {
             resultDisplay.postMessage("The specified file doesn't exist");
         } else {
