@@ -24,10 +24,9 @@ public class SetStorageCommand extends Command {
 
 	public CommandResult execute() throws IOException, JSONException, ParseException {
 		assert model != null;
-		model.changeFileStorage(filePath);
 		if(!isValidFilePath(filePath))
 			return new CommandResult(String.format(MESSAGE_STORAGE_FAILURE+""));
-		else
+		    model.changeFileStorage(filePath);
 			return new CommandResult(String.format(MESSAGE_SUCCESS + filePath));
 	}
 
@@ -35,8 +34,8 @@ public class SetStorageCommand extends Command {
 		if(filepath.equals("default")){
 			filepath = "data/tasklist.xml";
 		}
-		File targetListFile = new File(filePath);
-		return filePath.equals("default")||targetListFile.exists()||targetListFile.isDirectory();
+		File targetListFile = new File(filepath);
+		return filepath.equals("default")||targetListFile.exists()||targetListFile.isDirectory();
 	}
 
 }
