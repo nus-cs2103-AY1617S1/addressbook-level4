@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.Optional;
 import seedu.address.model.task.TaskType;
-
+import seedu.address.model.task.TaskType.Type;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.model.tag.UniqueTagList;
 
@@ -73,6 +73,10 @@ public class Task implements ReadOnlyTask, Comparable<ReadOnlyTask> {
     
     public void setStatus(Status status) {
         this.status = status;
+        if(this.status.equals(new Status("pending")) && 
+        		getEndDate().orElse(LocalDateTime.MAX).isBefore(LocalDateTime.now())) {
+        	this.status = new Status("overdue");
+        }
     }
     
     public Optional<LocalDateTime> getEndDate() {
@@ -99,6 +103,24 @@ public class Task implements ReadOnlyTask, Comparable<ReadOnlyTask> {
         	startDate = Optional.of(date);
         }
     }
+    //@@author A0139339W
+    public void removeStartDate() {
+    	this.startDate = Optional.empty();
+    	this.taskType = new TaskType(Type.DEADLINE);
+    }
+    
+    public void removeEndDate() {
+    	if(startDate.isPresent()) {
+    		this.endDate = this.startDate;
+    		this.startDate = Optional.empty();
+    		this.taskType = new TaskType(Type.DEADLINE);
+    	} else {
+    		this.endDate = Optional.empty();
+        	this.taskType = new TaskType(Type.SOMEDAY);
+    	}
+    	
+    }
+    //@@author
 
     /**
      * The returned TagList is a deep copy of the internal TagList, changes on
@@ -153,5 +175,4 @@ public class Task implements ReadOnlyTask, Comparable<ReadOnlyTask> {
 			}
 		}
 	}
-  
 }

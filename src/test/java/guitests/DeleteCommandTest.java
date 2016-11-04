@@ -13,9 +13,8 @@ public class DeleteCommandTest extends TaskManagerGuiTest {
 	
     @Test
     public void delete() {
-
         //delete the first in the list
-        TestTask[] currentList = td.getSortedTypicalTasks();
+        TestTask[] currentList = td.getTypicalTasksNotDone();
         int targetIndex = 1;
         assertDeleteSuccess(targetIndex, currentList);
 
@@ -37,7 +36,6 @@ public class DeleteCommandTest extends TaskManagerGuiTest {
         //invalid index
         commandBox.runCommand("del " + currentList.length + 1);
         assertResultMessage(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
-
     }
     
     //@@author A0141019U-reused

@@ -3,6 +3,7 @@ package seedu.address.logic.parser;
 import static org.junit.Assert.*;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 import org.junit.Test;
 
@@ -15,7 +16,9 @@ import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.IncorrectCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.RedoCommand;
+import seedu.address.logic.commands.TabCommand;
 import seedu.address.logic.commands.UndoCommand;
+import seedu.address.model.ModelManager;
 
 //@@author A0141019U
 public class ParserTest {
@@ -29,18 +32,23 @@ public class ParserTest {
 	private final EditCommand editCommand;
 	private final UndoCommand undoCommand;
 	private final RedoCommand redoCommand;
+	private final TabCommand tabCommand;
 	
 	public ParserTest() throws IllegalValueException {
-		parser = new Parser();
+		parser = new Parser(new ModelManager());
 		incorrectCommand = new IncorrectCommand("test");
 		addCommand = new AddCommand("test adding someday");
 		listCommand = new ListCommand();
 		deleteCommand = new DeleteCommand(new int[]{1});
 		changeStatusCommand = new ChangeStatusCommand(new int[]{1}, "done");
-		editCommand = new EditCommand(1, "editing", LocalDateTime.now(), LocalDateTime.now());
+		editCommand = new EditCommand(1, Optional.of("editing"), 
+				Optional.of(LocalDateTime.now()), Optional.of(LocalDateTime.now()),
+				false, false);
 		undoCommand = new UndoCommand();
 		redoCommand = new RedoCommand();
+		tabCommand = new TabCommand(TabCommand.TabName.WEEK);
 	}
+	
 	
 	@Test
 	public void parseCommand_whitespaceInput_incorrectCommandReturned() {
@@ -136,19 +144,19 @@ public class ParserTest {
 	}
 	
 	@Test
-	public void parseCommand_addEventValidOrder5_incorrectCommandReturned() {
+	public void parseCommand_addEventValidOrder5_addCommandReturned() {
 		String userInput = "add from 8:00 'party' to 10:00 on 12-12-12";
 		Command command = parser.parseCommand(userInput);
 
-		assertEquals(incorrectCommand.getClass(), command.getClass());
+		assertEquals(addCommand.getClass(), command.getClass());
 	}
 	
 	@Test
-	public void parseCommand_addEventValidOrder6_incorrectCommandReturned() {
+	public void parseCommand_addEventValidOrder6_addCommandReturned() {
 		String userInput = "add from 8:00 to 10:00 'party' on 12-10-12";
 		Command command = parser.parseCommand(userInput);
 		
-		assertEquals(incorrectCommand.getClass(), command.getClass());
+		assertEquals(addCommand.getClass(), command.getClass());
 	}
 	
 	
@@ -464,10 +472,45 @@ public class ParserTest {
 	}
 	
 	@Test
-	public void parseCommand_redoValid_undoCommandReturned() {
+	public void parseCommand_redoValid_redoCommandReturned() {
 		String userInput = "redo";
 		Command command = parser.parseCommand(userInput);
 
 		assertEquals(redoCommand.getClass(), command.getClass());
+	}
+	
+	/*
+	 * Tests for the `tab` command
+	 */
+	@Test
+	public void parseCommand_tabNoArgs_incorrectCommandReturned() {
+		String userInput = "tab 	";
+		Command command = parser.parseCommand(userInput);
+
+		assertEquals(incorrectCommand.getClass(), command.getClass());
+	}
+	
+	@Test
+	public void parseCommand_tabInvalidArg_incorrectCommandReturned() {
+		String userInput = "tab tod";
+		Command command = parser.parseCommand(userInput);
+
+		assertEquals(incorrectCommand.getClass(), command.getClass());
+	}
+	
+	@Test
+	public void parseCommand_tabValid_tabCommandReturned() {
+		String userInput = "tab week";
+		Command command = parser.parseCommand(userInput);
+
+		assertEquals(tabCommand.getClass(), command.getClass());
+	}
+	
+	@Test
+	public void parseCommand_tabValid2_tabCommandReturned() {
+		String userInput = "tab someday";
+		Command command = parser.parseCommand(userInput);
+
+		assertEquals(tabCommand.getClass(), command.getClass());
 	}
 }

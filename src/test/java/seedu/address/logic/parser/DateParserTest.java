@@ -50,6 +50,16 @@ public class DateParserTest {
 	}
 	
 	@Test
+	public void ddmmyyHHmm_dateInvalidForMonth_throwsParseException() throws ParseException {
+		thrown.expect(ParseException.class);
+		thrown.expectMessage("Date '30' is invalid for month entered.");
+		
+		String userInput = "30-2-16 16:30";
+		DateParser.parse(userInput);
+	}
+	
+	
+	@Test
 	public void yyyymmddhhmmpm_valid_valueAsExpected() throws ParseException {
 		String userInput = "2016-12-25 4:30pm";
 		LocalDateTime date = DateParser.parse(userInput);

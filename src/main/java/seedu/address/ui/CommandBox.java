@@ -101,10 +101,16 @@ public class CommandBox extends UiPart {
          * in the event handling code {@link #handleIncorrectCommandAttempted}
          */
         setStyleToIndicateCorrectCommand();
+        restoreCommandBoxBackground();
         mostRecentResult = logic.execute(previousCommandText);
         resultDisplay.postMessage(mostRecentResult.feedbackToUser);
         logger.info("Result: " + mostRecentResult.feedbackToUser);
     }
+    
+    //@@author A0142184L
+	private void restoreCommandBoxBackground() {
+		commandTextField.setStyle("-fx-background-color: white");
+	}
     
     //@@author A0141019U
     /**
@@ -137,9 +143,14 @@ public class CommandBox extends UiPart {
         logger.info(LogsCenter.getEventHandlingLogMessage(event,"Invalid command: " + previousCommandText));
         setStyleToIndicateIncorrectCommand();
         restoreCommandText();
+        putCaretToEndOfText();
     }
-
-    /**
+    //@@author A0142184L
+	private void putCaretToEndOfText() {
+		commandTextField.end();
+	}
+	//@@author
+	/**
      * Restores the command box text to the previously entered command
      */
     private void restoreCommandText() {
@@ -151,6 +162,7 @@ public class CommandBox extends UiPart {
      */
     private void setStyleToIndicateIncorrectCommand() {
         commandTextField.getStyleClass().add("error");
+        commandTextField.setStyle("-fx-background-color: #ee6666");
     }
 
 }

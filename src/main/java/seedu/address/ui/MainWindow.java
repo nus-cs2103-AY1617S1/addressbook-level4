@@ -53,9 +53,6 @@ public class MainWindow extends UiPart {
     private Scene scene;
 
     private String taskManagerName;
-    
-    @FXML
-    private TabPane tabPane;
 
     @FXML
     private AnchorPane commandBoxPlaceholder;
@@ -67,6 +64,9 @@ public class MainWindow extends UiPart {
     private AnchorPane taskListLeftPanelPlaceholder;
 
     //@@author A0142184L
+    @FXML
+    private TabPane tabPane;
+    
     @FXML 
 	private AnchorPane todayTaskListTabPanelPlaceholder;
     
@@ -135,13 +135,13 @@ public class MainWindow extends UiPart {
     }
 
     void fillInnerParts() {
-        taskListLeftPanel = TaskListPanel.load(primaryStage, getTaskListLeftPlaceholder(), logic.getFilteredTaskList());
         //@@author A0142184L
-        todayTaskListTabPanel = TaskListPanel.load(primaryStage, getTodayTaskListTabPanelPlaceholder(), logic.getTodayTaskList());
-        tomorrowTaskListTabPanel = TaskListPanel.load(primaryStage, getTomorrowTaskListTabPanelPlaceholder(), logic.getTomorrowTaskList());
-        in7DaysTaskListTabPanel = TaskListPanel.load(primaryStage, getIn7DaysTaskListTabPanelPlaceholder(), logic.getIn7DaysTaskList());
-        in30DaysTaskListTabPanel = TaskListPanel.load(primaryStage, getIn30DaysTaskListTabPanelPlaceholder(), logic.getIn30DaysTaskList());   
-        somedayTaskListTabPanel = TaskListPanel.load(primaryStage, getSomedayTaskListTabPanelPlaceholder(), logic.getSomedayTaskList());
+        todayTaskListTabPanel = TaskListPanel.loadTaskList(primaryStage, getTodayTaskListTabPanelPlaceholder(), logic.getTodayTaskList());
+        tomorrowTaskListTabPanel = TaskListPanel.loadTaskList(primaryStage, getTomorrowTaskListTabPanelPlaceholder(), logic.getTomorrowTaskList());
+        in7DaysTaskListTabPanel = TaskListPanel.loadTaskList(primaryStage, getIn7DaysTaskListTabPanelPlaceholder(), logic.getIn7DaysTaskList());
+        in30DaysTaskListTabPanel = TaskListPanel.loadTaskList(primaryStage, getIn30DaysTaskListTabPanelPlaceholder(), logic.getIn30DaysTaskList());   
+        somedayTaskListTabPanel = TaskListPanel.loadTaskList(primaryStage, getSomedayTaskListTabPanelPlaceholder(), logic.getSomedayTaskList());
+        taskListLeftPanel = TaskListPanel.loadTaskList(primaryStage, getTaskListLeftPlaceholder(), logic.getFilteredTaskList());
         //@@author
         resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
         statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getTaskManagerFilePath());
@@ -236,28 +236,15 @@ public class MainWindow extends UiPart {
     private void handleExit() {
         raise(new ExitAppRequestEvent());
     }
+    
     //@@author A0142184L
-    @FXML
-    private void handleQuickView() {
-    	tabPane.setOnKeyPressed(new EventHandler<KeyEvent>() {
-            @Override
-            public void handle(KeyEvent event) {
-                if (event.getCode() == (KeyCode.DIGIT1)) {
-                	tabPane.getSelectionModel().select(0);
-                } else if (event.getCode() == KeyCode.DIGIT2) {
-                	tabPane.getSelectionModel().select(1);
-                } else if (event.getCode() == KeyCode.DIGIT3) {
-                	tabPane.getSelectionModel().select(2);
-                } else if (event.getCode() == KeyCode.DIGIT4) {
-                	tabPane.getSelectionModel().select(3);
-                } else if (event.getCode() == KeyCode.DIGIT5) {
-                	tabPane.getSelectionModel().select(4);
-                }
-            }
-        });
+    public TabPane getTabPane() {
+    	return tabPane;
     }
+    
     //@@author
     public TaskListPanel getTaskListPanel() {
         return this.taskListLeftPanel;
     }
+
 }

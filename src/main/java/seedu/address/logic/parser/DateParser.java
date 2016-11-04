@@ -1,6 +1,7 @@
 package seedu.address.logic.parser;
 
 import java.text.ParseException;
+import java.time.DateTimeException;
 import java.time.DayOfWeek;
 import java.time.LocalDateTime;
 import java.time.temporal.TemporalAdjusters;
@@ -100,8 +101,13 @@ public class DateParser {
 
 				Optional<String> minuteOpt = Optional.ofNullable(matcher.group("minute"));
 				int minute = parseMinute(minuteOpt.orElse("0"));
-
-				return LocalDateTime.of(year, month, day, hour, minute);
+				
+				try {
+					return LocalDateTime.of(year, month, day, hour, minute);
+				}
+				catch (DateTimeException e) {
+					throw new ParseException("Date '" + Integer.toString(day) + "' is invalid for month entered.", -1);
+				}
 			}
 		}
 

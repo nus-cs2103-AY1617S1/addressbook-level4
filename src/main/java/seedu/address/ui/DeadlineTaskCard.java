@@ -6,7 +6,6 @@ import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import seedu.address.model.task.ReadOnlyTask;
-import seedu.address.model.task.Status;
 import seedu.address.model.task.TaskDateTimeFormatter;
 
 public class DeadlineTaskCard extends UiPart{
@@ -53,11 +52,13 @@ public class DeadlineTaskCard extends UiPart{
     }
 
     private void setTaskStatus() {
-		if (task.getStatus().value.equals(Status.StatusType.DONE)) {
+		if (task.getStatus().isDone()) {
 			taskStatus.setText(task.getStatus().value.toString().toUpperCase());
+			taskStatus.setStyle("-fx-font-size: 14");
 			taskStatus.setStyle("-fx-text-fill: green");
-		} else if (task.getStatus().value.equals(Status.StatusType.OVERDUE)) {
+		} else if (task.getStatus().isOverdue()) {
 			taskStatus.setText(task.getStatus().value.toString().toUpperCase());
+			taskStatus.setStyle("-fx-font-size: 14");
 			taskStatus.setStyle("-fx-text-fill: red");
 		}
 	}

@@ -1,12 +1,10 @@
-//@@author A0142184L
 package seedu.address.ui;
-
+//@@author A0142184L
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import seedu.address.model.task.ReadOnlyTask;
-import seedu.address.model.task.Status;
 
 public class SomedayTaskCard extends UiPart{
 
@@ -49,12 +47,10 @@ public class SomedayTaskCard extends UiPart{
     }
     
     private void setTaskStatus() {
-		if (task.getStatus().value.equals(Status.StatusType.DONE)) {
+		if (task.getStatus().isDone()) {
 			taskStatus.setText(task.getStatus().value.toString().toUpperCase());
+			taskStatus.setStyle("-fx-font-size: 14");
 			taskStatus.setStyle("-fx-text-fill: green");
-		} else if (task.getStatus().value.equals(Status.StatusType.OVERDUE)) {
-			taskStatus.setText(task.getStatus().value.toString().toUpperCase());
-			taskStatus.setStyle("-fx-text-fill: red");
 		}
 	}
 
