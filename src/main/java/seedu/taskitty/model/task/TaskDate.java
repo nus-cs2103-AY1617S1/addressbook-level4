@@ -38,14 +38,14 @@ public class TaskDate {
         //date cannot be null after being parsed by natty
         assert date != null;
         
-        date = date.trim();
+        String trimDate = date.trim();
         //This is not an assert because user can change the database and input wrong formats
-        if (!isValidDateFormat(date)) {
+        if (!isValidDateFormat(trimDate)) {
             throw new IllegalValueException(MESSAGE_DATE_CONSTRAINTS);
         }
         
         try {
-            this.date = LocalDate.parse(date, DATE_FORMATTER_STORAGE);
+            this.date = LocalDate.parse(trimDate, DATE_FORMATTER_STORAGE);
         } catch (DateTimeParseException dtpe){
             throw new IllegalValueException(MESSAGE_DATE_INVALID);
         }
