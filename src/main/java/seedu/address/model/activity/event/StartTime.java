@@ -18,12 +18,6 @@ public class StartTime extends DateTime {
     public StartTime(Calendar date) {
         super(date);
     }
-    
-    public StartTime(Calendar date, boolean isRecurring, String recurringMessage) {
-        super(date);
-        this.recurring = isRecurring;
-        this.RecurringMessage = recurringMessage;
-    }
 
     /**
      * Validates given Start Time.
@@ -43,8 +37,7 @@ public class StartTime extends DateTime {
                     throw new IllegalValueException(MESSAGE_STARTTIME_CONSTRAINTS);
                 date = recur[1];
             }
-
-            setDate(date);
+            this.value= DateUtil.setDate(date);
         }
 
     }
@@ -58,8 +51,10 @@ public class StartTime extends DateTime {
             date = "today " + recur[1];
         }
         if (!date.equals("")) {
-            Date taskDate = DateUtil.convertFixedDate(date);
-
+            Date taskDate = DateUtil.FixedDateConvert(date);
+            if (!DateUtil.isValidDate(date)) {
+                throw new IllegalValueException(MESSAGE_STARTTIME_CONSTRAINTS);
+            }
             if (taskDate == null) {
                 assert false : "Date should not be null";
             } /*
@@ -70,14 +65,6 @@ public class StartTime extends DateTime {
             this.value.setTime(taskDate);
             this.value.set(Calendar.MILLISECOND, 0);
             this.value.set(Calendar.SECOND, 0);
-            while (recurring && this.value.before(Calendar.getInstance())) {
-                if (recurfreq.equals("mon") || recurfreq.contains("tue") || recurfreq.contains("wed")
-                        || recurfreq.contains("thu") || recurfreq.contains("fri") || recurfreq.contains("sat")
-                        || recurfreq.contains("sun"))
-                    this.value.add(Calendar.DAY_OF_WEEK, 7);
-                if (recurfreq.contains("day"))
-                    this.value.add(Calendar.DAY_OF_MONTH, 1);
-            }
         }
     }
 

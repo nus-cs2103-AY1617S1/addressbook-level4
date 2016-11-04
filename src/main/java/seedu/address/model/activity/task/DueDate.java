@@ -32,7 +32,7 @@ public class DueDate extends DateTime {
      */
     public DueDate(String date) throws IllegalValueException {
         super(date);
-        if (!isValidDate(date)) {
+        if (!DateUtil.isValidDate(date)) {
             throw new IllegalValueException(MESSAGE_DUEDATE_CONSTRAINTS);
         }
         
