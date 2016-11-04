@@ -109,9 +109,8 @@ public class Parser {
         final String arguments = matcher.group("arguments");
         switch (commandWord) {
 
-        case AddCommand.COMMAND_WORD: {
+        case AddCommand.COMMAND_WORD: 
             return prepareAdd(userInput, arguments);
-        }
 
         case SelectCommand.COMMAND_WORD:
             return prepareSelect(arguments);
@@ -161,18 +160,18 @@ public class Parser {
      * @return the prepared command
      */
     private Command prepareAdd(String userInput, final String arguments) {
-        if (ARGS_FORMAT_EVENT_DATA.matcher(userInput).find())
+        if (ARGS_FORMAT_EVENT_DATA.matcher(userInput).find()) {
             return prepareEvent(arguments);
-        else if (ARGS_FORMAT_DEADLINE_DATA.matcher(userInput).find())
+        } else if (ARGS_FORMAT_DEADLINE_DATA.matcher(userInput).find()) {
             return prepareDeadline(arguments);
-        else if (ARGS_FORMAT_ADD_TAGS.matcher(userInput).find())
+        } else if (ARGS_FORMAT_ADD_TAGS.matcher(userInput).find()) {
             return prepareAddTags(arguments);
-        else if (ARGS_FORMAT_TODO_DATA.matcher(userInput).find())
+        } else if (ARGS_FORMAT_TODO_DATA.matcher(userInput).find()) {
             return prepareToDo(arguments);
-        else
+        } else {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+        }
     }
-
     //@@author A0139430L
     /**
      * Parses arguments in the context of the add tag command.
@@ -509,8 +508,8 @@ public class Parser {
     }
 
     /**
-     * Parses arguments in the context of the select task command.
      * @@author A0138993L
+     * Parses arguments in the context of the select task command.
      * @param args full command args string
      * @return the prepared command
      */
