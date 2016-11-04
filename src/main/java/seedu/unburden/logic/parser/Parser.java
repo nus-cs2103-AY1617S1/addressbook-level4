@@ -265,7 +265,7 @@ public class Parser {
 				return new AddCommand("deadline without date", details,
 						getTagsFromArgs(matcher6.group("tagArguments")));
 
-			}*/ else if (matcher7.matches()) {
+			}*/ else if (matcher5.matches()) {
 				details.add(matcher7.group("name"));
 				details.add(matcher7.group("taskDescriptions"));
 				details.add(matcher7.group("date"));
@@ -308,7 +308,7 @@ public class Parser {
 
 				else if (matcher7.group("name").toLowerCase().contains(BYNEXTMONTH)) {
 					calendar.setTime(calendar.getTime());
-					calendar.add(Calendar.WEEK_OF_MONTH, 4);
+					calendar.add(Calendar.MONTH, 1);
 					details.add(matcher7.group("name").replaceAll("(?i)" + Pattern.quote(BYNEXTMONTH), ""));
 					details.add(DATEFORMATTER.format(calendar.getTime()));
 					return new AddCommand("deadline without task description and time", details,
