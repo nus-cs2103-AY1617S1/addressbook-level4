@@ -50,9 +50,11 @@ public class ChangeCommand extends Command{
         assert clear != null;
         
         if (!isValidPath(filePath) || !isXml(filePath)) {
+            indicateAttemptToExecuteIncorrectCommand();
             return new CommandResult(MESSAGE_INVALID_FILE_PATH);
         }
         if (isToClearOld && !isValidClear()) {
+            indicateAttemptToExecuteIncorrectCommand();
             return new CommandResult(MESSAGE_INVALID_CLEAR_DATA);
         }
         model.updateTaskManager(filePath, isToClearOld);

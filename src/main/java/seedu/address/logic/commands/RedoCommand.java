@@ -19,6 +19,7 @@ public class RedoCommand extends Command{
             String message = model.getNextState();
             return new CommandResult(MESSAGE_REDO_SUCCESS + message);
         } catch (StateLimitException e){
+            indicateAttemptToExecuteIncorrectCommand();
             return new CommandResult(MESSAGE_REDO_FAILED);
         }
     }

@@ -77,6 +77,7 @@ public class EditCommand extends Command {
 	            if(shownList.size()>1){
 	            	final Matcher matcher = KEYWORDS_ARGS_FORMAT.matcher(name.trim());
 	            	 if (!matcher.matches()) {
+	            	     indicateAttemptToExecuteIncorrectCommand();
 	                     return new CommandResult(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
 	                             EditCommand.MESSAGE_USAGE));
 	                 }
@@ -87,6 +88,7 @@ public class EditCommand extends Command {
 	            }else if(shownList.size()==1){
 	            	target = shownList.get(0);
 	            }else{
+	                indicateAttemptToExecuteIncorrectCommand();
 	            	return new CommandResult(MESSAGE_TASK_NOT_IN_LIST);
 	            }
 	        } //end if statment to find the target task
@@ -98,6 +100,7 @@ public class EditCommand extends Command {
 				model.saveState(message);
 				return new CommandResult(message);
 			} catch (IllegalValueException e) {
+			    indicateAttemptToExecuteIncorrectCommand();
 				return new CommandResult(MESSAGE_TASK_NOT_IN_LIST);
 			}
 

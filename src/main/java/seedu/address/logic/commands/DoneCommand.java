@@ -44,6 +44,7 @@ public class DoneCommand extends Command {
         } else if (keywords == null && targetIndex != -1) {
             return markAsDoneByIndex();
         } else {
+            indicateAttemptToExecuteIncorrectCommand();
             return new CommandResult(DoneCommand.MESSAGE_USAGE);
         }
     }
@@ -57,6 +58,7 @@ public class DoneCommand extends Command {
     private CommandResult markAsDoneByName() {
         model.updateFilteredTaskList(keywords);
         if (model.getFilteredTaskList().size() == 0) {
+            indicateAttemptToExecuteIncorrectCommand();
             return new CommandResult(TASK_NOT_FOUND);
         } else {
             return new CommandResult(MULTIPLE_TASK_SATISFY_KEYWORD);
