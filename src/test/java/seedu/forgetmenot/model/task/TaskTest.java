@@ -13,92 +13,92 @@ import seedu.forgetmenot.testutil.TestTask;
 //@@author A0139671X
 public class TaskTest {
 
-//    @Test
-//    public void checkOverdue_checkIfGivenTimeIsOverdue_trueIfOverdue() throws IllegalValueException {
-//        TestDataHelper helper = new TestDataHelper();
-//        ArrayList<TestTask> overdueTasks = helper.generateOverdueTasks();
-//        ArrayList<TestTask> notOverdueTasks = helper.generateNotOverdueTasks();
-//
-//        for (int i = 0; i < overdueTasks.size(); i++)
-//            assertTrue(overdueTasks.get(i).checkOverdue());
-//        for (int i = 0; i < notOverdueTasks.size(); i++)
-//            assertFalse(notOverdueTasks.get(i).checkOverdue());
-//    }
+    @Test
+    public void checkOverdue_checkIfGivenTimeIsOverdue_trueIfOverdue() throws IllegalValueException {
+        TestDataHelper helper = new TestDataHelper();
+        ArrayList<TestTask> overdueTasks = helper.generateOverdueTasks();
+        ArrayList<TestTask> notOverdueTasks = helper.generateNotOverdueTasks();
 
-//    @Test
-//    public void isEventTask_checkIfGivenTaskIsNotAnEvent_falseIfNotAnEvent() throws IllegalValueException {
-//        TestDataHelper helper = new TestDataHelper();
-//        ArrayList<TestTask> deadlineTasks = helper.generateDeadlineTasks();
-//        ArrayList<TestTask> startTimeOnlyTasks = helper.generateStartTimeOnlyTasks();
-//        ArrayList<TestTask> floatingTasks = helper.generateFloatingTasks();
-//        ArrayList<TestTask> eventTasks = helper.generateEventTasks();
-//
-//        for (int i = 0; i < deadlineTasks.size(); i++)
-//            assertFalse(deadlineTasks.get(i).isEventTask());
-//        for (int i = 0; i < startTimeOnlyTasks.size(); i++)
-//            assertFalse(startTimeOnlyTasks.get(i).isEventTask());
-//        for (int i = 0; i < floatingTasks.size(); i++)
-//            assertFalse(floatingTasks.get(i).isEventTask());
-//        for (int i = 0; i < eventTasks.size(); i++)
-//            assertTrue(eventTasks.get(i).isEventTask());
-//    }
+        for (int i = 0; i < overdueTasks.size(); i++)
+            assertTrue(overdueTasks.get(i).checkOverdue());
+        for (int i = 0; i < notOverdueTasks.size(); i++)
+            assertFalse(notOverdueTasks.get(i).checkOverdue());
+    }
 
-//    @Test
-//    public void isStartTask_checkIfGivenTaskOnlyContainsStartTime_trueIfOnlyStartTimeExists()
-//            throws IllegalValueException {
-//        TestDataHelper helper = new TestDataHelper();
-//        ArrayList<TestTask> deadlineTasks = helper.generateDeadlineTasks();
-//        ArrayList<TestTask> startTimeOnlyTasks = helper.generateStartTimeOnlyTasks();
-//        ArrayList<TestTask> floatingTasks = helper.generateFloatingTasks();
-//        ArrayList<TestTask> eventTasks = helper.generateEventTasks();
-//
-//        for (int i = 0; i < deadlineTasks.size(); i++)
-//            assertFalse(deadlineTasks.get(i).isStartTask());
-//        for (int i = 0; i < startTimeOnlyTasks.size(); i++)
-//            assertTrue(startTimeOnlyTasks.get(i).isStartTask());
-//        for (int i = 0; i < floatingTasks.size(); i++)
-//            assertFalse(floatingTasks.get(i).isStartTask());
-//        for (int i = 0; i < eventTasks.size(); i++)
-//            assertFalse(eventTasks.get(i).isStartTask());
-//    }
+    @Test
+    public void isEventTask_checkIfGivenTaskIsNotAnEvent_falseIfNotAnEvent() throws IllegalValueException {
+        TestDataHelper helper = new TestDataHelper();
+        ArrayList<TestTask> deadlineTasks = helper.generateDeadlineTasks();
+        ArrayList<TestTask> startTimeOnlyTasks = helper.generateStartTimeOnlyTasks();
+        ArrayList<TestTask> floatingTasks = helper.generateFloatingTasks();
+        ArrayList<TestTask> eventTasks = helper.generateEventTasks();
 
-//    @Test
-//    public void isDeadlineTask_checkIfGivenTaskOnlyContainsEndTime_trueIfOnlyEndTimeExists()
-//            throws IllegalValueException {
-//        TestDataHelper helper = new TestDataHelper();
-//        ArrayList<TestTask> deadlineTasks = helper.generateDeadlineTasks();
-//        ArrayList<TestTask> startTimeOnlyTasks = helper.generateStartTimeOnlyTasks();
-//        ArrayList<TestTask> floatingTasks = helper.generateFloatingTasks();
-//        ArrayList<TestTask> eventTasks = helper.generateEventTasks();
-//
-//        for (int i = 0; i < deadlineTasks.size(); i++)
-//            assertTrue(deadlineTasks.get(i).isDeadlineTask());
-//        for (int i = 0; i < startTimeOnlyTasks.size(); i++)
-//            assertFalse(startTimeOnlyTasks.get(i).isDeadlineTask());
-//        for (int i = 0; i < floatingTasks.size(); i++)
-//            assertFalse(floatingTasks.get(i).isDeadlineTask());
-//        for (int i = 0; i < eventTasks.size(); i++)
-//            assertFalse(eventTasks.get(i).isDeadlineTask());
-//    }
+        for (int i = 0; i < deadlineTasks.size(); i++)
+            assertFalse(deadlineTasks.get(i).isEventTask());
+        for (int i = 0; i < startTimeOnlyTasks.size(); i++)
+            assertFalse(startTimeOnlyTasks.get(i).isEventTask());
+        for (int i = 0; i < floatingTasks.size(); i++)
+            assertFalse(floatingTasks.get(i).isEventTask());
+        for (int i = 0; i < eventTasks.size(); i++)
+            assertTrue(eventTasks.get(i).isEventTask());
+    }
+
+    @Test
+    public void isStartTask_checkIfGivenTaskOnlyContainsStartTime_trueIfOnlyStartTimeExists()
+            throws IllegalValueException {
+        TestDataHelper helper = new TestDataHelper();
+        ArrayList<TestTask> deadlineTasks = helper.generateDeadlineTasks();
+        ArrayList<TestTask> startTimeOnlyTasks = helper.generateStartTimeOnlyTasks();
+        ArrayList<TestTask> floatingTasks = helper.generateFloatingTasks();
+        ArrayList<TestTask> eventTasks = helper.generateEventTasks();
+
+        for (int i = 0; i < deadlineTasks.size(); i++)
+            assertFalse(deadlineTasks.get(i).isStartTask());
+        for (int i = 0; i < startTimeOnlyTasks.size(); i++)
+            assertTrue(startTimeOnlyTasks.get(i).isStartTask());
+        for (int i = 0; i < floatingTasks.size(); i++)
+            assertFalse(floatingTasks.get(i).isStartTask());
+        for (int i = 0; i < eventTasks.size(); i++)
+            assertFalse(eventTasks.get(i).isStartTask());
+    }
+
+    @Test
+    public void isDeadlineTask_checkIfGivenTaskOnlyContainsEndTime_trueIfOnlyEndTimeExists()
+            throws IllegalValueException {
+        TestDataHelper helper = new TestDataHelper();
+        ArrayList<TestTask> deadlineTasks = helper.generateDeadlineTasks();
+        ArrayList<TestTask> startTimeOnlyTasks = helper.generateStartTimeOnlyTasks();
+        ArrayList<TestTask> floatingTasks = helper.generateFloatingTasks();
+        ArrayList<TestTask> eventTasks = helper.generateEventTasks();
+
+        for (int i = 0; i < deadlineTasks.size(); i++)
+            assertTrue(deadlineTasks.get(i).isDeadlineTask());
+        for (int i = 0; i < startTimeOnlyTasks.size(); i++)
+            assertFalse(startTimeOnlyTasks.get(i).isDeadlineTask());
+        for (int i = 0; i < floatingTasks.size(); i++)
+            assertFalse(floatingTasks.get(i).isDeadlineTask());
+        for (int i = 0; i < eventTasks.size(); i++)
+            assertFalse(eventTasks.get(i).isDeadlineTask());
+    }
     
-//    @Test
-//    public void isFloatingTask_checkIfGivenTaskHasNoStartAndNoEnd_trueIfTaskHasNoStartTimeAndNoEndTime()
-//            throws IllegalValueException {
-//        TestDataHelper helper = new TestDataHelper();
-//        ArrayList<TestTask> deadlineTasks = helper.generateDeadlineTasks();
-//        ArrayList<TestTask> startTimeOnlyTasks = helper.generateStartTimeOnlyTasks();
-//        ArrayList<TestTask> floatingTasks = helper.generateFloatingTasks();
-//        ArrayList<TestTask> eventTasks = helper.generateEventTasks();
-//
-//        for (int i = 0; i < deadlineTasks.size(); i++)
-//            assertTrue(deadlineTasks.get(i).isDeadlineTask());
-//        for (int i = 0; i < startTimeOnlyTasks.size(); i++)
-//            assertFalse(startTimeOnlyTasks.get(i).isDeadlineTask());
-//        for (int i = 0; i < floatingTasks.size(); i++)
-//            assertFalse(floatingTasks.get(i).isDeadlineTask());
-//        for (int i = 0; i < eventTasks.size(); i++)
-//            assertFalse(eventTasks.get(i).isDeadlineTask());
-//    }
+    @Test
+    public void isFloatingTask_checkIfGivenTaskHasNoStartAndNoEnd_trueIfTaskHasNoStartTimeAndNoEndTime()
+            throws IllegalValueException {
+        TestDataHelper helper = new TestDataHelper();
+        ArrayList<TestTask> deadlineTasks = helper.generateDeadlineTasks();
+        ArrayList<TestTask> startTimeOnlyTasks = helper.generateStartTimeOnlyTasks();
+        ArrayList<TestTask> floatingTasks = helper.generateFloatingTasks();
+        ArrayList<TestTask> eventTasks = helper.generateEventTasks();
+
+        for (int i = 0; i < deadlineTasks.size(); i++)
+            assertTrue(deadlineTasks.get(i).isDeadlineTask());
+        for (int i = 0; i < startTimeOnlyTasks.size(); i++)
+            assertFalse(startTimeOnlyTasks.get(i).isDeadlineTask());
+        for (int i = 0; i < floatingTasks.size(); i++)
+            assertFalse(floatingTasks.get(i).isDeadlineTask());
+        for (int i = 0; i < eventTasks.size(); i++)
+            assertFalse(eventTasks.get(i).isDeadlineTask());
+    }
 
     /**
      * A utility class to generate test data.
