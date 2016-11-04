@@ -1,3 +1,4 @@
+//@@author A0138455Y
 package guitests;
 
 import org.junit.Test;
@@ -9,38 +10,59 @@ import seedu.flexitrack.testutil.TestTask;
 import seedu.flexitrack.testutil.TestUtil;
 
 public class MarkCommandTest extends FlexiTrackGuiTest {
-
+    TestTask[] currentList = td.getTypicalSortedTasks();
+    
     @Test
     public void mark() {
         // mark a task
-        TestTask[] currentList = td.getTypicalSortedTasks();
+        //TestTask[] currentList = td.getTypicalSortedTasks();
         assertMarkSuccess(4, currentList);
         currentList = TestUtil.markTasksToList(currentList, 4);
-        
-        
+    }   
+    
+    @Test
+    public void markFloatingTask() {
         // mark a floating task
+        //TestTask[] currentList = td.getTypicalSortedTasks();
         assertMarkSuccess(1, currentList);
         currentList = TestUtil.markTasksToList(currentList, 1);
-
+    }   
+    
+    @Test
+    public void markInvailidIndex() {
         // mark a task with invalid number
         commandBox.runCommand(TestTask.getMarkCommand(100));
         assertResultMessage(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         //assertTrue(taskListPanel.isListMatching(currentList));
-
+    }   
+    
+    @Test
+    public void markAnMarkedTask() {
         // mark an already marked task
-        assertMarkFail(7, currentList);
-        currentList = TestUtil.markTasksToList(currentList, 4);
-
+        commandBox.runCommand(TestTask.getMarkCommand(8));
+        assertMarkFail(8, currentList);
+        //currentList = TestUtil.markTasksToList(currentList, 4);
+    }   
+    
+    @Test
+    public void unmark() {
         // un-mark a marked task
+        commandBox.runCommand(TestTask.getMarkCommand(8));
         assertUnMarkSuccess(8, currentList);
-        currentList = TestUtil.unMarkTasksToList(currentList, 1);
+        currentList = TestUtil.unMarkTasksToList(currentList, 8);
         //assertTrue(taskListPanel.isListMatching(currentList));
-
+    }   
+    
+    @Test
+    public void unmarkUndoneTask() {
         // un-mark an unmarked task
         assertUnMarkFail(3, currentList);
         currentList = TestUtil.unMarkTasksToList(currentList, 3);
         //assertTrue(taskListPanel.isListMatching(currentList));
-
+    }   
+    
+    @Test
+    public void unmarkInvalidIndex() {
         // unmark a task with invalid number
         commandBox.runCommand(TestTask.getUnMarkCommand(100));
         assertResultMessage(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
