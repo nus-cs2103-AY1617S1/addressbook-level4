@@ -51,15 +51,15 @@ public class EditCommandTest extends AddressBookGuiTest {
 	}
     
     	private void assertEditResult(int index,String type, TestActivity... currentList){
-    	String newName = "Editted Name";
-    	String newReminder = "2-02-2020 1212";
+    	String newName = "Totally New Name";
+    	String newReminder = "1-01-2020 1111";
     	String newDuedate = "10-10-2020 1010";
     	String newPriority = "3";
     	String newStartTime = "2-02-2020 1212";
     	String newEndTime = "10-10-2020 1010";
-        String editCommand = "Edit " + index;
+        String editCommand = "edit " + index;
     	
-    	TestActivity activityToEdit = new TestActivity(currentList[index-1]);
+        String activityText= currentList[index-1].getAsText();
     	TestActivity activityAfterEdit = null;
 
         editCommand += " n/" + newName ;
@@ -97,10 +97,10 @@ public class EditCommandTest extends AddressBookGuiTest {
         activityAfterEdit.setName(newName);
         activityAfterEdit.setReminder(newReminder);
         editCommand += " r/" + newReminder;
-        commandBox.runCommand("edit " + index + " n/" + newName + " r/" + newReminder);
+        commandBox.runCommand(editCommand);
         
         assertResultMessage(String.format("Edited Task from: %1$s\nto: %2$s",
-                activityToEdit.getAsText(),activityAfterEdit.getAsText()));
+        		activityText,activityAfterEdit.getAsText()));
         
         assertTrue(activityListPanel.isListMatching(currentList));
  
