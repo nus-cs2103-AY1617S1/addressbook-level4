@@ -83,16 +83,9 @@ public class TaskDate {
      * This method can be used when unsure which dates are null
      */
     public static boolean isEquals(TaskDate date, TaskDate other) {
-        if (date == other) {
-            return true;
-        }
-        
-        //if either one is null, they are not equal
-        if (date == null || other == null) {
-            return false;
-        }
-        
-        return date.equals(other);
+
+        return (date == null && other == null) //if both are null, they are equal
+                || date != null && date.equals(other);
     }
 
     @Override

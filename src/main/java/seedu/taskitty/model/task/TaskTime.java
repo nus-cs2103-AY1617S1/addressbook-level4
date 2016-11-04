@@ -84,16 +84,9 @@ public class TaskTime {
      * This method can be used when unsure which times are null
      */
     public static boolean isEquals(TaskTime time, TaskTime other) {
-        if (time == other) {
-            return true;
-        }
-        
-        //if either one is null, they are not equal
-        if (time == null || other == null) {
-            return false;
-        }
-        
-        return time.equals(other);
+
+        return (time == null && other == null) //if both are null, they are equal
+                || time != null && time.equals(other);
     }
 
     @Override
