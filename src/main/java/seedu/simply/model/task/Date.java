@@ -12,17 +12,17 @@ import seedu.simply.commons.exceptions.IllegalValueException;
 public class Date implements Comparable<Date> {
 
     public static final String MESSAGE_DATE_CONSTRAINTS = "Dates should be entered in the format DDMMYY, DD.MM.YY, DD/MM/YY, DD-MM-YY";
-    public static final String DATE_VALIDATION_REGEX = "([3][01][1][012]\\d{2})|([3][01][0]\\d{3})|([012]\\d{1}[1][012]\\d{2})|"+ //6digits
-    												   "([012]\\d{1}[0]\\d{3})|"+
-    												   "([3][01]-[1][012]-\\d{2})|([3][01]-[0]\\d{1}-\\d{2})|([12]\\d{1}-[1][012]-\\d{2})|"+ //2d-2d-2d
-    												   "([12]\\d{1}-[0]\\d{1}-\\d{2})|([0]\\d{1}-[1][012]-\\d{2})|([0]\\d{1}-[0]\\d{1}-\\d{2})|"+
-    												   "([3][01]\\.[1][012]\\.\\d{2})|([3][01]\\.[0]\\d{1}\\.\\d{2})|([12]\\d{1}\\.[1][012]\\.\\d{2})|"+ //2d.2d.2d
-    												   "([12]\\d{1}\\.[0]\\d{1}\\.\\d{2})|([0]\\d{1}\\.[1][012]\\.\\d{2})|([0]\\d{1}\\.[0]\\d{1}\\.\\d{2})|"+
-    												   "([3][01]/[1][012]/\\d{2})|([3][01]/[0]\\d{1}/\\d{2})|([12]\\d{1}/[1][012]/\\d{2})|"+ //2d/2d/2d
-    												   "([12]\\d{1}/[0]\\d{1}/\\d{2})|([0]\\d{1}/[1][012]/\\d{2})|([0]\\d{1}/[0]\\d{1}/\\d{2})|"+
-    												   "(no date)";
+    public static final String DATE_VALIDATION_REGEX = "([3][01][1][012]\\d{2})|([3][01][0]\\d{3})|([012]\\d{1}[1][012]\\d{2})|" 
+            + "([012]\\d{1}[0]\\d{3})|" //DDMMYY
+            + "([3][01]-[1][012]-\\d{2})|([3][01]-[0]\\d{1}-\\d{2})|([12]\\d{1}-[1][012]-\\d{2})|" //DD-MM-YY
+            + "([12]\\d{1}-[0]\\d{1}-\\d{2})|([0]\\d{1}-[1][012]-\\d{2})|([0]\\d{1}-[0]\\d{1}-\\d{2})|"
+            + "([3][01]\\.[1][012]\\.\\d{2})|([3][01]\\.[0]\\d{1}\\.\\d{2})|([12]\\d{1}\\.[1][012]\\.\\d{2})|" //DD.MM.YY
+            + "([12]\\d{1}\\.[0]\\d{1}\\.\\d{2})|([0]\\d{1}\\.[1][012]\\.\\d{2})|([0]\\d{1}\\.[0]\\d{1}\\.\\d{2})|"
+            + "([3][01]/[1][012]/\\d{2})|([3][01]/[0]\\d{1}/\\d{2})|([12]\\d{1}/[1][012]/\\d{2})|" //DD/MM/YY
+            + "([12]\\d{1}/[0]\\d{1}/\\d{2})|([0]\\d{1}/[1][012]/\\d{2})|([0]\\d{1}/[0]\\d{1}/\\d{2})|"
+            + "(no date)";
     public static final String MESSAGE_PAST_DATE = "Cannot enter a date that have already past!";
-    
+
     public final String value;
     private int beforeCurrentDate;
 
@@ -53,18 +53,27 @@ public class Date implements Comparable<Date> {
     	if (date.contains("-")) {
 			String[] date_cat = date.split("-");
 			String date_year = "20" + date_cat[2];
-			LocalDate now = LocalDate.now();
 			LocalDate test = LocalDate.of(Integer.parseInt(date_year), Integer.parseInt(date_cat[1]), Integer.parseInt(date_cat[0]));
-			if (test.isAfter(now))
-				return 1;
-			else if (test.isEqual(now))
-				return 2;
-			else	
-				return 0;
+            LocalDate now = LocalDate.now();
+			return currentDateStatus(now, test);
     	}
     	else//accounting for no date
     		return 1;
 	}
+	/**
+	 * @@author A0138993L
+	 * @param now  current local date
+	 * @param test the date entered by the user
+	 * @return the status of the date with 1 being past and 2 being equal and 0 being in the future
+	 */
+    private int currentDateStatus(LocalDate now, LocalDate test) {
+        if (test.isAfter(now))
+        	return 1;
+        else if (test.isEqual(now))
+        	return 2;
+        else	
+        	return 0;
+    }
 	//@@author A0138993L
 	/**
 	 * standardize the date format to DD-MM-YY
