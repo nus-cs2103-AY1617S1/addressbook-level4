@@ -6,6 +6,7 @@ import seedu.address.model.alias.ReadOnlyAlias;
 
 import javax.xml.bind.annotation.XmlElement;
 
+//@@author A0143756Y-reused
 /**
  * JAXB-friendly version of the Alias.
  */

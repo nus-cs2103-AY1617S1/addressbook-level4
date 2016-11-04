@@ -2,7 +2,7 @@ package seedu.address.model.alias;
 
 import java.util.Objects;
 
-//@@author A0143756Y
+//@@author A0143756Y-reused
 public class Alias implements ReadOnlyAlias, Comparable<ReadOnlyAlias> {
 	
 	private String alias;
