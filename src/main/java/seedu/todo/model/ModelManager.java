@@ -22,7 +22,7 @@ import java.util.Set;
 import java.util.logging.Logger;
 
 /**
- * Represents the in-memory model of the address book data.
+ * Represents the in-memory model of the to do list data.
  * All changes to any model should be synchronized.
  */
 public class ModelManager extends ComponentManager implements Model {
@@ -61,7 +61,8 @@ public class ModelManager extends ComponentManager implements Model {
     public ModelManager() {
         this(new DoDoBird(), new UserPrefs());
     }    
-
+    
+    
     @Override
     public ReadOnlyToDoList getToDoList() {
         return dodobird;

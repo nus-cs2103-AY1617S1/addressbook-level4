@@ -1,6 +1,7 @@
 //@@author A0093896H
 package seedu.todo.testutil;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -38,7 +39,41 @@ public class TestDataHelper {
                 new Recurrence(Frequency.NONE)
         );
     }
-    
+  //@@author A0138967J
+    /**
+     * Generates a valid full task using the given seed.
+     * Running this function with the same parameter values guarantees the returned task will have the same state.
+     * Each unique seed will generate a unique Task object on today date.
+     *
+     * @param seed used to generate the task data field values
+     */
+    public Task generateFullTaskToday(int seed) throws Exception {
+        return new Task(
+                new Name("Task " + seed),
+                new Detail("House of " + seed),
+                new TaskDate("today", TaskDate.TASK_DATE_ON),
+                new TaskDate("tomorrow", TaskDate.TASK_DATE_BY),
+                new Priority("high"),
+                new Recurrence(Frequency.NONE)
+        );
+    }
+    /**
+     * Generates a valid full task using the given seed.
+     * Running this function with the same parameter values guarantees the returned task will have the same state.
+     * Each unique seed will generate a unique Task object on tomrrow date.
+     *
+     * @param seed used to generate the task data field values
+     */
+    public Task generateFullTaskTmr(int seed) throws Exception {
+        return new Task(
+                new Name("Task " + seed),
+                new Detail("House of " + seed),
+                new TaskDate("tomorrow", TaskDate.TASK_DATE_ON),
+                new TaskDate("tomorrow", TaskDate.TASK_DATE_BY),
+                new Priority("high"),
+                new Recurrence(Frequency.NONE)
+        );
+    }
     //@@author A0121643R
     /**
      * Generates a valid full task using the given seed.
