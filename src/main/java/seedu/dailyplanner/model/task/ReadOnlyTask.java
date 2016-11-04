@@ -13,6 +13,7 @@ public interface ReadOnlyTask {
     StartTime getEmail();
     EndTime getAddress();
     String getCompletion();
+    boolean isPinned();
 
     /**
      * The returned TagList is a deep copy of the internal TagList,

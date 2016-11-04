@@ -27,6 +27,8 @@ public class XmlAdaptedPerson {
     private String address;
     @XmlElement(required = true)
     private String isComplete;
+    @XmlElement(required = true)
+    private boolean isPinned;
 
     @XmlElement
     private List<XmlAdaptedTag> tagged = new ArrayList<>();
@@ -51,6 +53,7 @@ public class XmlAdaptedPerson {
 	email = source.getEmail().value;
 	address = source.getAddress().value;
 	isComplete = source.getCompletion();
+	isPinned = source.isPinned();
 	tagged = new ArrayList<>();
 	for (Tag tag : source.getTags()) {
 	    tagged.add(new XmlAdaptedTag(tag));

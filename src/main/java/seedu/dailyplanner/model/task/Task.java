@@ -93,6 +93,10 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
 	public EndTime getAddress() {
 		return address;
 	}
+	
+	public boolean isPinned() {
+	    return isPinned;
+	}
 
 	@Override
 	public UniqueTagList getTags() {
