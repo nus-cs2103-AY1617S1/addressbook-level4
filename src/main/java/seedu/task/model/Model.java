@@ -27,6 +27,10 @@ public interface Model {
     void completeTask(ReadOnlyTask target, ReadOnlyTask toBeComplete) throws UniqueTaskList.TaskNotFoundException;
     //@@author
     
+    //@@author A0139932X
+    void changeFilePath();
+    //@@author
+    
     /** Adds the given task */
     void addTask(Task task) throws UniqueTaskList.DuplicateTaskException;
     

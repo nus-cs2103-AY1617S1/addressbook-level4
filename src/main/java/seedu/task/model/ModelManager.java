@@ -89,6 +89,12 @@ public class ModelManager extends ComponentManager implements Model {
         indicateTaskManagerChanged();
     }
     //@@author
+    
+  //@@author A0139932X
+    public synchronized void changeFilePath() {
+        indicateTaskManagerChanged();
+    }
+  //@@author
 
     @Override
     public synchronized void addTask(Task task) throws UniqueTaskList.DuplicateTaskException {

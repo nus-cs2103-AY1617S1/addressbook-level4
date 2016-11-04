@@ -44,6 +44,7 @@ public static final String MESSAGE_USAGE = COMMAND_WORD + ": Change location of 
             
          
             new StorageManager(config.getTaskManagerFilePath(), config.getUserPrefsFilePath());
+            model.changeFilePath();
             
             return new CommandResult("Change save path:" + changePathLink + " Updated");
             
@@ -51,7 +52,7 @@ public static final String MESSAGE_USAGE = COMMAND_WORD + ": Change location of 
         
         catch(IOException e){
 			//remove this command from list for undo
-			model.getCommandForUndo();
+			
             return new CommandResult("Failed to save config file: "+ StringUtil.getDetails(e));
         }
         
