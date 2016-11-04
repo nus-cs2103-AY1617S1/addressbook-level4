@@ -188,9 +188,20 @@ public class Activity implements ReadOnlyActivity {
     
     /**
      * @throws IllegalValueException 
-     * List of methods to set Activity's param : Name, Note, startDate, startTime
+     * List of methods to set Activity's param : Type, Name, Note, startDate, startTime
      * Exception handling to be editted ----------> ALERT! (Assumes User to pass in correct parameters)
      */
+
+    @Override
+    public void setActivityType(String newType) throws IllegalValueException {
+        if (!newType.equals(FLOATING_TASK_TYPE) && !newType.equals(TASK_TYPE) && !newType.equals(EVENT_TYPE)) {
+            throw new IllegalValueException("Activity type invalid! It should only be: " + FLOATING_TASK_TYPE + 
+                    ", " + TASK_TYPE + ", " + EVENT_TYPE);
+        }
+        else {
+            this.activityType = newType;
+        }
+    }
     @Override
     public void setActivityName(String newName) throws IllegalValueException {
         assert (newName != null);
@@ -217,9 +228,10 @@ public class Activity implements ReadOnlyActivity {
         if (isEvent) {
             DateChecker check = new DateChecker();
             check.validEventDate(newDateObject, newTimeObject, this.endDate, this.endTime);
+        } else {
+            this.startDate = newDateObject;
+            this.startTime = newTimeObject;
         }
-        this.startDate = newDateObject;
-        this.startTime = newTimeObject;
 
     }
     

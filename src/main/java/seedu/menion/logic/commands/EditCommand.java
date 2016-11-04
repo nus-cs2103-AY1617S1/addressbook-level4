@@ -177,7 +177,7 @@ public class EditCommand extends Command {
             return 0;
         } else if (paramToChange.equals(NOTE_PARAM)) {
             return 1;
-        } else if (paramToChange.equals(TASK_DEADLINE_PARAM) && this.targetType.equals(Activity.TASK_TYPE)) {
+        } else if (paramToChange.equals(TASK_DEADLINE_PARAM) && (this.targetType.equals(Activity.TASK_TYPE) || (this.targetType.equals(Activity.FLOATING_TASK_TYPE)))) {
             return 2;
         } else if (paramToChange.equals(EVENT_FROM_PARAM) && this.targetType.equals(Activity.EVENT_TYPE)) {
             return 3;

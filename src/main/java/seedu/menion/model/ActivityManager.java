@@ -236,11 +236,12 @@ public class ActivityManager implements ReadOnlyActivityManager {
     }
     
     /**
-     * Methods, edits a Task/Event's starting Date & Time in the activity manager.
+     * Methods, edits a Activity's starting Date & Time in the activity manager.
      * Passes in the index of the list to complete, and changes to make
      * @param taskToEdit
      * @throws IllegalValueException 
      */
+
     public void editTaskDateTime(ReadOnlyActivity taskToEdit, String newDate, String newTime) throws IllegalValueException, ActivityNotFoundException {
         Activity dub = (Activity)taskToEdit;
         dub.setActivityStartDateTime(newDate, newTime);
@@ -255,7 +256,15 @@ public class ActivityManager implements ReadOnlyActivityManager {
             dub.setTimePassed(false);
             dub.setEmailSent(false);
         }
-        
+        // It is a floatingTask changing to a Task
+        // Removes the floatingTask from it's panel and adds it to task
+        if (taskToEdit.getActivityType().equals(Activity.FLOATING_TASK_TYPE)) {
+            removeFloatingTask(taskToEdit);
+            dub.setActivityType(Activity.TASK_TYPE);
+            tasks.getInternalList().add(dub);
+            Collections.sort(tasks.getInternalList(), new TaskComparator());
+            return;
+        }
         tasks.getInternalList().set(tasks.getIndexOf(taskToEdit), dub); 
         Collections.sort(tasks.getInternalList(), new TaskComparator());
     }
