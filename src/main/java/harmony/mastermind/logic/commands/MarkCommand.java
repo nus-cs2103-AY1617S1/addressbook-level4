@@ -146,6 +146,7 @@ public class MarkCommand extends Command implements Undoable, Redoable {
             
             model.markDue(tasksToMark);
         }
+        
 
     }
 }

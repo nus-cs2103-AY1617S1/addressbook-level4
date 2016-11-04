@@ -19,6 +19,7 @@ import javafx.scene.control.TableView;
 public class HelpPopup extends UiPart {
 
     private static final String FXML = "HelpPopup.fxml";
+
     private final String COMMAND_COL_HEADER = "Command";
     private final String FORMAT_COL_HEADER = "Format";
     private final String USAGE_COL_HEADER = "Usage";
@@ -31,8 +32,8 @@ public class HelpPopup extends UiPart {
     private final int DEFAULT_Y_POS = 100;
     private final int DEFAULT_HEIGHT = 800;
     private final int DEFAULT_WIDTH = 1000;
+
     private Popup popup;
-    private TextArea content;
     private boolean isFirstKey;
     private TableView<HelpPopupEntry> table;
     
@@ -51,12 +52,14 @@ public class HelpPopup extends UiPart {
 
     //@@author A0139194X
     public void show(Node node) {
+        assert node != null;
         table.setItems(entries);
+
         popup.show(node, DEFAULT_X_POS, DEFAULT_Y_POS);
         popup.centerOnScreen();
     }
 
-    //@@author A0139194X
+    //@@author
     @Override
     public void setNode(Node node) {
     }
@@ -71,10 +74,10 @@ public class HelpPopup extends UiPart {
     @FXML
     private void initPopup() {
         popup = new Popup();
-        content = new TextArea();
-        //properties();
 
         popup.getContent().add(table);
+        //properties();
+
         popup.addEventHandler(KeyEvent.KEY_RELEASED, keyEventHandler);
     }
     
@@ -123,23 +126,25 @@ public class HelpPopup extends UiPart {
         }
     };
     
-    //@@author A0143378Y
-    public void properties() { 
-        //Setting up the width and height
-        content.setPrefHeight(DEFAULT_HEIGHT);
-        content.setPrefWidth(DEFAULT_WIDTH);
-        
-        //Setting up wrapping of text in the content box 
-        content.setWrapText(true);
-        
-        //Setting up the background, font and borders
-        content.setStyle("-fx-background-color: #00BFFF;-fx-padding:10px;"
-                + "-fx-text-fill: #000080;"+ "-fx-font-family: Consolas;"
-                + "-fx-alignment: center"
-                );
 
-//        content.setStyle("-fx-font-family: sample; -fx-font-size: 20;");
-    }
+//    //@@author A0143378Y
+//    public void properties() { 
+//        //Setting up the width and height
+//        content.setPrefHeight(DEFAULT_HEIGHT);
+//        content.setPrefWidth(DEFAULT_WIDTH);
+//        
+//        //Setting up wrapping of text in the content box 
+//        content.setWrapText(true);
+//        
+//        //Setting up the background, font and borders
+//        content.setStyle("-fx-background-color: #00BFFF;"
+//                + "-fx-padding:10px;"
+//                + "-fx-text-fill: #000080;"
+//                + "-fx-font-family: Fantasy;"
+//                + "-fx-alignment: center"
+//                + "-fx-font-size: 20px"
+//                );
+//    }
 
     //@@author A0139194X
     public void injectData(ArrayList<HelpPopupEntry> helpEntries) {

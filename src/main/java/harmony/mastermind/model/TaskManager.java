@@ -5,6 +5,8 @@ import javafx.collections.ObservableList;
 import java.util.*;
 import java.util.stream.Collectors;
 
+import harmony.mastermind.commons.core.EventsCenter;
+import harmony.mastermind.commons.events.ui.HighlightLastActionedRowRequestEvent;
 import harmony.mastermind.commons.exceptions.NotRecurringTaskException;
 import harmony.mastermind.logic.parser.ParserSearch;
 import harmony.mastermind.memory.Memory;
@@ -184,6 +186,7 @@ public class TaskManager implements ReadOnlyTaskManager {
         Task newT = getNextTask(t);
         tasks.add(newT);
         syncAddTask(newT);
+        EventsCenter.getInstance().post(new HighlightLastActionedRowRequestEvent(newT));
     }
     
     
