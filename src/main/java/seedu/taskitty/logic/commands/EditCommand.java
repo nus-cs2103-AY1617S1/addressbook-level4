@@ -10,7 +10,7 @@ import seedu.taskitty.commons.core.Messages;
 import seedu.taskitty.commons.core.UnmodifiableObservableList;
 import seedu.taskitty.commons.exceptions.IllegalValueException;
 import seedu.taskitty.commons.util.AppUtil;
-import seedu.taskitty.commons.util.DateUtil;
+import seedu.taskitty.commons.util.DateTimeUtil;
 import seedu.taskitty.model.tag.Tag;
 import seedu.taskitty.model.tag.UniqueTagList;
 import seedu.taskitty.model.task.Name;
@@ -135,7 +135,7 @@ public class EditCommand extends Command{
             );
             if (taskToEdit.getIsDone()) {
                 this.toEdit.markAsDone();
-            } else if (DateUtil.isOverdue(this.toEdit)) {
+            } else if (DateTimeUtil.isOverdue(this.toEdit)) {
                 this.toEdit.markAsOverdue();
             }
         } else if (data.length == Task.EVENT_COMPONENT_COUNT) {

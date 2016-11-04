@@ -9,7 +9,7 @@ import seedu.taskitty.commons.events.model.TaskManagerChangedEvent;
 import seedu.taskitty.commons.events.model.ViewTypeChangedEvent;
 import seedu.taskitty.commons.exceptions.NoPreviousValidCommandException;
 import seedu.taskitty.commons.exceptions.NoRecentUndoCommandException;
-import seedu.taskitty.commons.util.DateUtil;
+import seedu.taskitty.commons.util.DateTimeUtil;
 import seedu.taskitty.commons.util.StringUtil;
 import seedu.taskitty.logic.commands.AddCommand;
 import seedu.taskitty.logic.commands.ClearCommand;
@@ -386,7 +386,7 @@ public class ModelManager extends ComponentManager implements Model {
 	 *@return the evaluated boolean expression
 	 */
 	private boolean isEventAndIsNotBeforeToday(Task task) {
-		LocalDate today = DateUtil.createCurrentDate();
+		LocalDate today = DateTimeUtil.createCurrentDate();
 		return isEventAndIsNotBeforeDate(task, today);
 	}
 	

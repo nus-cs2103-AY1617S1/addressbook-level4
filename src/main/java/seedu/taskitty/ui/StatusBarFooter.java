@@ -11,7 +11,7 @@ import org.controlsfx.control.StatusBar;
 import seedu.taskitty.commons.core.LogsCenter;
 import seedu.taskitty.commons.events.model.TaskManagerChangedEvent;
 import seedu.taskitty.commons.events.model.ViewTypeChangedEvent;
-import seedu.taskitty.commons.util.DateUtil;
+import seedu.taskitty.commons.util.DateTimeUtil;
 import seedu.taskitty.commons.util.FxViewUtil;
 import seedu.taskitty.logic.commands.ViewCommand;
 
@@ -126,7 +126,7 @@ public class StatusBarFooter extends UiPart {
     	String viewStatus = "Viewing: ";
     	switch(newView) {
     		case("date"):
-    			viewStatus += DateUtil.createUISpecifiedDateString(vtce.getDate());
+    			viewStatus += DateTimeUtil.createUISpecifiedDateString(vtce.getDate());
     			break;
     		case("done"):
     			viewStatus += COMPLETED_TASKS;
