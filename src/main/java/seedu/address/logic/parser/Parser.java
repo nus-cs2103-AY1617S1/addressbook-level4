@@ -320,7 +320,16 @@ public class Parser {
 
 		String taskType = null;
 		String status = null;
+		LocalDateTime day = null;
 		for (int i = 0; i < args.length; i++) {
+			//TODO: fit in parser for days properly
+			try {
+				day = DateParser.parse(args[i].trim() + " 00:00");
+				continue;
+			} catch (ParseException e) {
+				//continue check
+			}
+				
 			switch (args[i].trim()) {
 			case "event":
 			case "ev":
@@ -342,7 +351,7 @@ public class Parser {
 			}
 		}
 
-		return new ListCommand(taskType, status);
+		return new ListCommand(taskType, status, day);
 	}
 	
 	//@@author A0141019U

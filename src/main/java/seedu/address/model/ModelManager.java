@@ -207,8 +207,6 @@ public class ModelManager extends ComponentManager implements Model {
     	for (Task task : taskManager.getUniqueTaskList().getInternalList()) {
     		
     		if (!task.getStatus().isDone() && task.getEndDate().orElse(LocalDateTime.MAX).isBefore(now)) {
-    			System.out.println("now: " + now);
-    			System.out.println("endDateee: " + task.getEndDate());
     			task.setStatus(new Status("overdue"));
     		} 
     		else if (task.getStatus().isOverdue() && task.getEndDate().orElse(LocalDateTime.MIN).isAfter(now)) {

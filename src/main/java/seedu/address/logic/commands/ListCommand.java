@@ -1,5 +1,6 @@
 package seedu.address.logic.commands;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.function.Predicate;
 
@@ -25,12 +26,14 @@ public class ListCommand extends Command {
     //@@author A0139339W
     private Optional<String> taskType = Optional.empty();
     private Optional<String> doneStatus = Optional.of("default");
+    private Optional<LocalDateTime> day = Optional.empty();
     
     public ListCommand() {}
     
-    public ListCommand(String taskType, String doneStatus) {
+    public ListCommand(String taskType, String doneStatus, LocalDateTime day) {
     	this.taskType = Optional.ofNullable(taskType);
     	this.doneStatus = Optional.ofNullable(doneStatus);
+    	this.day = Optional.ofNullable(day);
     }
 
     @Override
@@ -40,22 +43,33 @@ public class ListCommand extends Command {
     	Predicate <ReadOnlyTask> listPredicate = null;
     	Predicate <ReadOnlyTask> taskTypePredicate = null;
     	Predicate <ReadOnlyTask> donePredicate = null;
+    	Predicate <ReadOnlyTask> dayPredicate = null;
     	
     	taskTypePredicate = getTaskTypePredicate(taskTypePredicate);
     	donePredicate = getStatusPredicate(donePredicate);
-    	
-    	listPredicate = getListPredicate(listPredicate, taskTypePredicate, donePredicate);
-    	
+    	System.out.println("DEBUG1");
+    	dayPredicate = getDayPredicate(dayPredicate);
+    	System.out.println("DEBUG2: " + dayPredicate);
+    	listPredicate = getListPredicate(listPredicate, taskTypePredicate,
+    			donePredicate, dayPredicate);
+    	System.out.println("DEBUG3");
     	model.updateFilteredTaskList(listPredicate);
-    	
+    	System.out.println("DEBUG4");
     	model.checkForOverdueTasks();
     	
         return new CommandResult(MESSAGE_SUCCESS);
     }
-    //@@author
+
+	private Predicate<ReadOnlyTask> getDayPredicate(Predicate<ReadOnlyTask> dayPredicate) {
+		if(day.isPresent()) {
+			dayPredicate = ReadOnlyTaskFilter.isThisDate(day.get().toLocalDate());
+    	}
+		return dayPredicate;
+	}
 
 	private Predicate<ReadOnlyTask> getListPredicate(Predicate<ReadOnlyTask> listPredicate,
-			Predicate<ReadOnlyTask> taskTypePredicate, Predicate<ReadOnlyTask> donePredicate) {
+			Predicate<ReadOnlyTask> taskTypePredicate, Predicate<ReadOnlyTask> donePredicate,
+			Predicate<ReadOnlyTask> dayPredicate) {
 		boolean isFirstPredicate = true;
 		if(taskType.isPresent()) {
     		listPredicate = taskTypePredicate;
@@ -64,6 +78,11 @@ public class ListCommand extends Command {
     	if(doneStatus.isPresent()) {
     		listPredicate = isFirstPredicate ? 
     				donePredicate : listPredicate.and(donePredicate);
+    		isFirstPredicate = false;
+    	}
+    	if(day.isPresent()) {
+    		listPredicate = isFirstPredicate ?
+    				dayPredicate : listPredicate.and(dayPredicate);
     		isFirstPredicate = false;
     	}
 		return listPredicate;
@@ -112,3 +131,5 @@ public class ListCommand extends Command {
 		return taskTypePredicate;
 	}
 }
+
+//@@author
