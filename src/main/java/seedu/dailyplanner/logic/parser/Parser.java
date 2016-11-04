@@ -117,7 +117,6 @@ public class Parser {
 		if (!index.isPresent()) {
 			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, CompleteCommand.MESSAGE_USAGE));
 		}
-
 		return new UnpinCommand(index.get());
 	}
 
@@ -126,7 +125,6 @@ public class Parser {
 		if (!index.isPresent()) {
 			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, CompleteCommand.MESSAGE_USAGE));
 		}
-
 		return new PinCommand(index.get());
 	}
 
@@ -135,7 +133,6 @@ public class Parser {
 		if (!index.isPresent()) {
 			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, CompleteCommand.MESSAGE_USAGE));
 		}
-
 		return new CompleteCommand(index.get());
 	}
 
@@ -144,13 +141,16 @@ public class Parser {
 	private Command prepareEdit(String arguments) {
 
 		int index = 0;
-		String taskName = "", startDate = "", startTime = "", endTime = "", isRecurring = "", endDate = "";
+		String taskName;
+		Date start, end;
+		Set<String> tags;
+		
 		HashMap<String, String> mapArgs = parseEdit(arguments.trim());
 
 		// If arguments are in hashmap, pass them to addCommand, if not pass
 		// them as empty string
-
 		// Change date to "dd/mm/yy/", time to "hh:mm"
+		
 		nattyParser natty = new nattyParser();
 
 		if (mapArgs.containsKey("index")) {
@@ -160,14 +160,11 @@ public class Parser {
 			taskName = mapArgs.get("taskName");
 		}
 		if (mapArgs.containsKey("start")) {
-			String start = mapArgs.get("start");
-			if (start.contains("am") || start.contains("pm")) {
-				start = natty.parse(start);
-				String[] dateAndTime = start.split(" ");
-				startDate = dateAndTime[0];
-				startTime = dateAndTime[1];
+			String startString = mapArgs.get("start");
+			if (startString.contains("am") || startString.contains("pm")) {
+				start = natty.parse(startString);
 			} else {
-				startDate = natty.parseDate(start);
+				start = natty.parseDate(startString);
 			}
 
 		}

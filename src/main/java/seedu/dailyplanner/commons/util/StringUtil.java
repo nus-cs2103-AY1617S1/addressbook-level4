@@ -3,6 +3,7 @@ package seedu.dailyplanner.commons.util;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 import seedu.dailyplanner.model.task.Date1;
@@ -39,11 +40,11 @@ public class StringUtil {
 	return s != null && s.matches("^0*[1-9]\\d*$");
     }
 
-    public static boolean withinDateRange(Date1 phone, String keyword) {
+    public static boolean withinDateRange(Date date, String keyword) {
 	int keyDate = Integer.parseInt(keyword.substring(0, 2));
 	int keyMonth = Integer.parseInt(keyword.substring(3, 5));
 	int keyYear = Integer.parseInt(keyword.substring(6, 8));
-	return (phone.startDay <= keyDate && phone.startMonth <= keyMonth && phone.startYear <= keyYear
-		&& phone.endDay >= keyDate && phone.endMonth >= keyMonth && phone.endYear >= keyYear);
+	return (date.startDay <= keyDate && date.startMonth <= keyMonth && date.startYear <= keyYear
+		&& date.endDay >= keyDate && date.endMonth >= keyMonth && date.endYear >= keyYear);
     }
 }
