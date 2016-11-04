@@ -10,30 +10,49 @@ import static org.junit.Assert.assertEquals;
 
 public class SelectCommandTest extends TaskBookGuiTest {
 
-
     @Test
-    public void selectTask_nonEmptyList() {
-
-        assertSelectionInvalid(10); //invalid index
-        assertNoTaskSelected();
-
-        assertSelectionSuccess(1); //first task in the list
-        int taskCount = td.getTypicalTasks().length;
-        assertSelectionSuccess(taskCount); //last task in the list
-        int middleIndex = taskCount / 2;
-        assertSelectionSuccess(middleIndex); //a task in the middle of the list
-
-        assertSelectionInvalid(taskCount + 1); //invalid index
-        assertTaskSelected(middleIndex); //assert previous selection remains
-
-        /* Testing other invalid indexes such as -1 should be done when testing the SelectCommand */
-    }
-
-    @Test
-    public void selectTask_emptyList(){
+    public void selectCommand_emptyList_noTaskSelected(){
         commandBox.runCommand("clear");
         assertListSize(0);
         assertSelectionInvalid(1); //invalid index
+    }
+    
+    @Test
+    public void selectCommand_invalidIndex_noTaskSelected() {
+        assertSelectionInvalid(10); //invalid index
+        assertNoTaskSelected();
+    }
+
+    @Test
+    public void selectCommand_negativeIndex_noTaskSelected() {
+        commandBox.runCommand("select -1");
+        assertResultMessage(Messages.getInvalidCommandFormatMessage(SelectCommand.MESSAGE_USAGE));
+        assertNoTaskSelected();
+    }
+    
+    @Test
+    public void selectCommand_firstIndex_taskSelected() {
+        assertSelectionSuccess(1); //first task in the list
+    }
+    
+    @Test
+    public void selectCommand_lastIndex_taskSelected() {
+        int taskCount = td.getTypicalTasks().length;
+        assertSelectionSuccess(taskCount); //last task in the list
+    }
+    
+    @Test
+    public void selectCommand_middleIndex_taskSelected() {
+        int middleIndex = td.getTypicalTasks().length / 2;
+        assertSelectionSuccess(middleIndex); //a task in the middle of the list
+    }
+    
+    @Test
+    public void selectCommand_secondSelectInvalid_taskSelectedRemains() {
+        commandBox.runCommand("select 2");
+        int taskCount = td.getTypicalTasks().length;
+        commandBox.runCommand("select " + (taskCount + 1));
+        assertTaskSelected(2); //assert previous selection remains
     }
 
     private void assertSelectionInvalid(int index) {

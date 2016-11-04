@@ -11,7 +11,7 @@ import seedu.oneline.model.task.TaskName;
 public class AddCommandTest extends LogicTestManager {
 
     @Test
-    public void execute_add_invalidTaskData() throws Exception {
+    public void addCommand_invalidTaskData_constrantsMessage() throws Exception {
         assertCommandBehavior(
                 "add []\\[;] .from Monday .to Tuesday .due Wednesday .every week", TaskName.MESSAGE_TASK_NAME_CONSTRAINTS);
         // TODO: ADD PROPER CONSTRAINTS
@@ -25,7 +25,7 @@ public class AddCommandTest extends LogicTestManager {
     }
 
     @Test
-    public void execute_add_successful() throws Exception {
+    public void addCommand_validTask_success() throws Exception {
         TestDataHelper helper = new TestDataHelper();
         // setup expectations
         Task toBeAdded = helper.myTask();
@@ -41,7 +41,7 @@ public class AddCommandTest extends LogicTestManager {
     }
 
     @Test
-    public void execute_addDuplicate_notAllowed() throws Exception {
+    public void addCommand_duplicateTask_duplicateMessage() throws Exception {
         TestDataHelper helper = new TestDataHelper();
         // setup expectations
         Task toBeAdded = helper.myTask();
@@ -57,7 +57,6 @@ public class AddCommandTest extends LogicTestManager {
                 AddCommand.MESSAGE_DUPLICATE_TASK,
                 expectedAB,
                 expectedAB.getTaskList());
-
     }
     
 }

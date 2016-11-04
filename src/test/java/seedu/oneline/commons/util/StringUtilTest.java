@@ -20,7 +20,7 @@ public class StringUtilTest {
     public ExpectedException thrown = ExpectedException.none();
 
     @Test
-    public void isUnsignedPositiveInteger() {
+    public void isUnsignedInteger_nonUnsignedIntegers_returnFalse() {
         assertFalse(StringUtil.isUnsignedInteger(null));
         assertFalse(StringUtil.isUnsignedInteger(""));
         assertFalse(StringUtil.isUnsignedInteger("a"));

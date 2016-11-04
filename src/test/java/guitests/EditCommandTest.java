@@ -2,44 +2,32 @@
 
 package guitests;
 
-import guitests.guihandles.TaskCardHandle;
 import org.junit.Test;
 
 import edu.emory.mathcs.backport.java.util.Arrays;
 import seedu.oneline.commons.core.Messages;
 import seedu.oneline.commons.exceptions.IllegalValueException;
-import seedu.oneline.logic.commands.AddCommand;
 import seedu.oneline.logic.commands.CommandConstants;
-import seedu.oneline.logic.commands.EditCommand;
 import seedu.oneline.logic.commands.EditTaskCommand;
-import seedu.oneline.logic.parser.Parser;
-import seedu.oneline.model.Model;
 import seedu.oneline.model.tag.Tag;
-import seedu.oneline.model.tag.UniqueTagList;
 import seedu.oneline.model.task.TaskField;
 import seedu.oneline.model.task.TaskName;
 import seedu.oneline.model.task.TaskRecurrence;
 import seedu.oneline.model.task.TaskTime;
 import seedu.oneline.testutil.TestTask;
-import seedu.oneline.testutil.TestUtil;
 import seedu.oneline.testutil.TypicalTestTasks;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import static seedu.oneline.logic.commands.DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS;
-
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
-import java.util.Map.Entry;
 
 public class EditCommandTest extends TaskBookGuiTest {
 
     @Test
-    public void edit() {
+    public void editCommand_validTask_() {
         //edit one task
         TestTask[] currentList = td.getTypicalTasks();
-        TestTask newTask = td.eventExtra;
+        TestTask newTask = TypicalTestTasks.eventExtra;
         Map<TaskField, String> fields = new HashMap<TaskField, String>();
         fields.put(TaskField.NAME, newTask.getName().name);
         fields.put(TaskField.START_TIME, newTask.getStartTime().toString());
@@ -48,14 +36,19 @@ public class EditCommandTest extends TaskBookGuiTest {
         fields.put(TaskField.RECURRENCE, newTask.getRecurrence().toString());
         fields.put(TaskField.TAG, newTask.getTag().getTagName());
         assertEditSuccess(2, fields, currentList);
-        currentList[1] = newTask;
-
+    }
+    
+    @Test
+    public void editCommand_invalidFields_unknownMessage() {
         //edit with invalid fields
-        fields = new HashMap<TaskField, String>();
+        TestTask[] currentList = td.getTypicalTasks();
+        Map<TaskField, String> fields = new HashMap<TaskField, String>();
         fields.put(TaskField.START_TIME, "Not a real time");
         assertEditFailed(2, fields, TaskTime.MESSAGE_TASK_TIME_CONSTRAINTS, currentList);
-
-        //invalid command
+    }
+    
+    @Test
+    public void editCommand_invalidCommand_unknownMessage() {
         commandBox.runCommand("edits Task");
         assertResultMessage(Messages.MESSAGE_UNKNOWN_COMMAND);
     }
