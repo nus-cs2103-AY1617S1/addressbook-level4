@@ -11,7 +11,7 @@
 
 <VBox prefHeight="448.0" prefWidth="270.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.forgetmenot.ui.FloatingPanel">
    <children>
-      <Label fx:id="floatheader" alignment="CENTER" prefHeight="48.0" prefWidth="270.0" style="-fx-background-color: #bddfeb; -fx-font-size: 230%; -fx-text-fill: black; -fx-font-family: &quot;Arial Black&quot;;" text="Floating Tasks" VBox.vgrow="ALWAYS">
+      <Label fx:id="floatheader" alignment="CENTER" prefHeight="48.0" prefWidth="270.0" style="-fx-background-color: #bddfeb; -fx-font-size: 230%; -fx-text-fill: black;" text="Floating Tasks" VBox.vgrow="ALWAYS">
          <padding>
             <Insets left="10.0" right="10.0" />
          </padding></Label>
