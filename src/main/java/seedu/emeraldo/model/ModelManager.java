@@ -31,13 +31,6 @@ import seedu.emeraldo.model.task.Task;
 import seedu.emeraldo.model.task.UniqueTaskList;
 import seedu.emeraldo.model.task.UniqueTaskList.TaskNotFoundException;
 
-import java.util.EmptyStackException;
-import java.util.Iterator;
-import java.util.Set;
-import java.util.logging.Logger;
-
-import java.util.Stack;
-
 /**
  * Represents the in-memory model of the Emeraldo data.
  * All changes to any model should be synchronized.
@@ -96,18 +89,13 @@ public class ModelManager extends ComponentManager implements Model {
     }
     
     public void undoChanges() throws EmptyStackException, UndoException{
-    	
-    	
     	if(savedStates.size() > 1){
     	    savedStates.pop();    	    
 	        emeraldo.resetData(savedStates.peek());
     	    indicateEmeraldoChanged();
     	}
-    	else if(savedStates.size() == 1){
-    	    throw new UndoException();
-    	}
     	else{
-    	    System.out.println("savedState.size = " + savedStates.size());
+    	    throw new UndoException();
     	}
     }
     
@@ -195,6 +183,7 @@ public class ModelManager extends ComponentManager implements Model {
     		throws TaskAlreadyCompletedException {
     	try {
     		emeraldo.completedTask(target);
+    		saveState();
     	} catch (IllegalValueException e) {
     		e.printStackTrace();
     	}
@@ -471,43 +460,88 @@ public class ModelManager extends ComponentManager implements Model {
      *  Compare tasks dateTime with the period specified by the keyword
      */
     private class DateTimeQualifier implements Qualifier {
-        TimePeriod DateTimeKeyWord;
+        TimePeriod dateTimeKeyWord;
 
         DateTimeQualifier(TimePeriod keyWord) {
-            this.DateTimeKeyWord = keyWord;
+            this.dateTimeKeyWord = keyWord;
         }
 
         @Override
         public boolean run(ReadOnlyTask task) {
         	DateTime dateTime = task.getDateTime();
-        	boolean result;
         	
-        	if(dateTime.valueDate == null)	//For tasks without date specified
+        	if(dateTime.valueDate == null){				//For tasks without date specified
         		return false;
-        	else{
-        		switch(DateTimeKeyWord){
-        			case today:
-        				result = dateTime.valueDate.equals(LocalDate.now());
-        				break;
-        			case tomorrow:
-        				result = dateTime.valueDate.equals(LocalDate.now().plusDays(1));
-        				break;
-        			case thisWeek:
-        				result = dateTime.valueDate.isAfter(dateOfThisWeekSunday().minusWeeks(1))
-        						&& dateTime.valueDate.isBefore(dateOfThisWeekSunday().plusDays(1));
-        				break;
-        			case nextWeek:
-        				result = dateTime.valueDate.isAfter(dateOfThisWeekSunday())
-								&& dateTime.valueDate.isBefore(dateOfThisWeekSunday().plusDays(8));
-        				break;
-        			case thisMonth:
-        				result = dateTime.valueDate.getMonthValue() == LocalDate.now().getMonthValue();
-        				break;
-        			case nextMonth:
-        				result = dateTime.valueDate.getMonthValue() == LocalDate.now().plusMonths(1).getMonthValue();
-        				break;
-        			default:
-        				result = false;
+        	}else if(dateTime.valueDateEnd == null){	//For tasks without end date specified
+        		return isWithinTimePeriodSpecified(dateTimeKeyWord,dateTime,false);
+        	}else{										//For tasks with end date specified
+        		return isWithinTimePeriodSpecified(dateTimeKeyWord,dateTime,true);
+        	}
+        }
+        
+        private boolean isWithinTimePeriodSpecified(TimePeriod dateTimeKeyWord,DateTime dateTime, boolean hasEndDate){
+        	boolean result;
+        	LocalDate startDate = dateTime.valueDate;
+        	LocalDate endDate;
+        	LocalDate dateForConsideration;
+        	
+        	if(!hasEndDate){
+        		switch(dateTimeKeyWord){
+					case today:
+						result = startDate.equals(LocalDate.now());
+						break;
+					case tomorrow:
+						result = startDate.equals(LocalDate.now().plusDays(1));
+						break;
+					case thisWeek:
+						result = startDate.isAfter(dateOfThisWeekSunday().minusWeeks(1))
+							&& startDate.isBefore(dateOfThisWeekSunday().plusDays(1));
+						break;
+					case nextWeek:
+						result = startDate.isAfter(dateOfThisWeekSunday())
+							&& startDate.isBefore(dateOfThisWeekSunday().plusDays(8));
+						break;
+					case thisMonth:
+						result = startDate.getMonthValue() == LocalDate.now().getMonthValue();
+						break;
+					case nextMonth:
+						result = startDate.getMonthValue() == LocalDate.now().plusMonths(1).getMonthValue();
+						break;
+					default:
+						result = false;
+        		}
+        		
+        	} else {
+        		endDate = dateTime.valueDateEnd;
+        		switch(dateTimeKeyWord){
+					case today:
+						dateForConsideration = LocalDate.now();
+						result = startDate.equals(dateForConsideration) || endDate.equals(dateForConsideration)
+							|| (startDate.isBefore(dateForConsideration) && endDate.isAfter(dateForConsideration));
+						break;
+					case tomorrow:
+						dateForConsideration = LocalDate.now().plusDays(1);
+						result = startDate.equals(dateForConsideration) || endDate.equals(dateForConsideration)
+							|| (startDate.isBefore(dateForConsideration) && endDate.isAfter(dateForConsideration));
+						break;
+					case thisWeek:
+						result = startDate.isBefore(dateOfThisWeekSunday().plusDays(1))
+							&& endDate.isAfter(dateOfThisWeekSunday().minusWeeks(1));
+						break;
+					case nextWeek:
+						result = startDate.isBefore(dateOfThisWeekSunday().plusDays(8))
+							&& endDate.isAfter(dateOfThisWeekSunday());
+						break;
+					case thisMonth:
+						result = startDate.getMonthValue() <= LocalDate.now().getMonthValue()
+							&& endDate.getMonthValue() >= LocalDate.now().getMonthValue();
+						break;
+					case nextMonth:
+						result = startDate.getMonthValue() <= LocalDate.now().plusMonths(1).getMonthValue()
+							&& endDate.getMonthValue() >= LocalDate.now().plusMonths(1).getMonthValue();
+						break;
+					default:
+						result = false;
         		}
         	}
         	
@@ -522,7 +556,7 @@ public class ModelManager extends ComponentManager implements Model {
 
         @Override
         public String toString() {
-            return "DateTime= " + DateTimeKeyWord;
+            return "DateTime= " + dateTimeKeyWord;
         }
     }
     

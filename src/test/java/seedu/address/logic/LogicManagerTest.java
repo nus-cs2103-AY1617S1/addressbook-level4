@@ -174,8 +174,7 @@ public class LogicManagerTest {
                 expectedAB.getTaskList());
 
     }
-    
-    //@@author A0139749L
+
     @Test
     public void execute_addDuplicate_notAllowed() throws Exception {
         // setup expectations
@@ -195,9 +194,8 @@ public class LogicManagerTest {
                 expectedAB.getTaskList());
 
     }
-    //@@author
 
-
+    //@@author A0139749L
     @Test
     public void execute_list_showsAllTasks() throws Exception {
         // prepare expectations
@@ -208,8 +206,8 @@ public class LogicManagerTest {
         // prepare Emeraldo state
         helper.addToModel(model, 2);
 
-        assertCommandBehavior("list all",
-                ListCommand.MESSAGE_LIST_ALL,
+        assertCommandBehavior("listAll",
+                ListAllCommand.MESSAGE_LIST_ALL,
                 expectedAB,
                 expectedList);
     }
@@ -229,7 +227,7 @@ public class LogicManagerTest {
                 expectedAB,
                 expectedList);
     }
-
+    //@@author
 
     /**
      * Confirms the 'invalid argument index number behaviour' for the given command
