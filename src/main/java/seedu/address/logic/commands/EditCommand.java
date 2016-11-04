@@ -2,7 +2,6 @@ package seedu.address.logic.commands;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
-import java.lang.IllegalArgumentException;
 
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.Messages;
@@ -146,9 +145,6 @@ public class EditCommand extends Command {
         } catch (TaskNotFoundException tnfe) {
             model.undoSaveState();
             assert false : "The target task cannot be missing";
-        } catch(IllegalArgumentException iae){
-        	model.undoSaveState();
-        	return new CommandResult(iae.getMessage());
         }
         
         
