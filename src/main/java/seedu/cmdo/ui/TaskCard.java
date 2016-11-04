@@ -125,7 +125,7 @@ public class TaskCard extends UiPart{
           	dbt.setText(task.getDueByTime().getFriendlyEndString());
           }
           else {
-          	dbt.setText(", "+ task.getDueByTime().getFriendlyEndString());
+          	dbt.setText(task.getDueByTime().getFriendlyEndString());
           }
 	}
 
@@ -135,7 +135,7 @@ public class TaskCard extends UiPart{
          if(task.getDueByTime().start.equals(LocalTime.MAX)) {
          	st.setText(task.getDueByTime().getFriendlyStartString());
          }else {
-         	st.setText(", " + task.getDueByTime().getFriendlyStartString());
+         	st.setText(task.getDueByTime().getFriendlyStartString());
          } 
 	}
 

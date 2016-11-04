@@ -18,8 +18,11 @@ public class DeleteCommandTest extends ToDoListGuiTest {
     @Test
     public void delete() {
 
-        //delete the first in the list
         TestTask[] currentList = td.getTypicalTasks();
+        //sort unsorted test populated list
+        currentList = sortList(currentList);
+        
+        //delete the first in the list
         int targetIndex = 1;
         assertDeleteSuccess(targetIndex, currentList);
         currentList = updateList(targetIndex,currentList);

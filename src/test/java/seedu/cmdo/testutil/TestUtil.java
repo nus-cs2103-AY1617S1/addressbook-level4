@@ -330,7 +330,10 @@ public class TestUtil {
     }
 
     public static boolean compareCardAndTask(TaskCardHandle card, ReadOnlyTask task) {
-    	return card.isSameTask(task);
+    	boolean truth =  card.isSameTask(task);
+    	System.out.println(card.getDetail() + "" + task.getAsText());
+    	System.out.println("PO" + truth);
+    	return truth;
     }
 
     public static Tag[] getTagList(String tags) {

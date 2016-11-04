@@ -20,9 +20,10 @@ public class EditCommandTest extends ToDoListGuiTest {
     @Test
     public void edit() {
     	TestTask[] currentList = td.getTypicalTasks();
+    	currentList = sortList(currentList);
         
-    	//edit the detail of the first task in the list to Eat buffet
-    	int targetIndex = 1;
+    	//edit the detail of the 2nd task in the list to Eat buffet
+    	int targetIndex = 2;
     	execute(targetIndex, currentList, "'Eat Buffet'",td.editedGrocery);
 
 
@@ -30,17 +31,17 @@ public class EditCommandTest extends ToDoListGuiTest {
         targetIndex = currentList.length;
         execute(targetIndex, currentList, "/low",td.editedZika);
         
-        //make first task floating
-        targetIndex = 1;
+        //make 2nd task floating
+        targetIndex = 2;
         execute(targetIndex, currentList, "floating",td.floatingGrocery);
         
         //change tags of last task to dangerous
         targetIndex = currentList.length;
         execute(targetIndex, currentList, "-dangerous",td.taggedZika);
         
-        //remove priority of first task 
-        targetIndex = 1;
-        execute(targetIndex, currentList, "remove priority",td.noPriorityGrocery);
+        //remove priority of 2nd task 
+        targetIndex = 2;
+        execute(targetIndex, currentList, "no priority",td.noPriorityGrocery);
         
         //change time of task 2 to 1120
         targetIndex = 2;
@@ -99,7 +100,7 @@ public class EditCommandTest extends ToDoListGuiTest {
      //confirm the new card contains the right data
     private void checkCard(TestTask editedTask){
     	TaskCardHandle EditedCard = taskListPanel.navigateToTask(editedTask.getDetail().details);
-        assertMatching(editedTask, EditedCard);
+    	assertMatching(editedTask, EditedCard);
     }
     
     //confirm the list now contains all tasks after edit
@@ -115,7 +116,7 @@ public class EditCommandTest extends ToDoListGuiTest {
     }
 
     /**
-     * Runs the edit command to delete the task at specified index and confirms the result is correct.
+     * Runs the edit command to edit the task at specified index and confirms the result is correct.
      * @param targetIndexOneIndexed e.g. to edit the first task in the list, 1 should be given as the target index.
      * @param currentList A copy of the current list of tasks (before edit).
      */
@@ -123,16 +124,23 @@ public class EditCommandTest extends ToDoListGuiTest {
     	
         runEditCommand(targetIndexOneIndexed, change);
         
+//        TestTask[] expectedRemainder = currentList;
+//        //sort list
+//        expectedRemainder = sortList(expectedRemainder);
+//        System.out.println(expectedRemainder[1].getDetail());
+        
         //updateList
         TestTask[] expectedRemainder = updateList(currentList,ed,targetIndexOneIndexed);
+        System.out.println(expectedRemainder[1].getDetail());
         
         //sort list
         expectedRemainder = sortList(expectedRemainder);
+        System.out.println(expectedRemainder[3].getDetail());
         
         //confirm the new card contains the right data
         checkCard(ed);
 
-        //confirm the list now contains all previous tasks except the deleted task
+        //confirm the list now contains all previous tasks except the edited task
         compareList(expectedRemainder);
         
         //confirm the result message is correct

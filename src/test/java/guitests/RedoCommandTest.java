@@ -52,13 +52,13 @@ public class RedoCommandTest extends ToDoListGuiTest {
         execute(currentList);
         
         //redo undo of edit details
-        int targetIndex = 1;
+        int targetIndex = 2;
         commandBox.runCommand("edit " + targetIndex + " 'Eat Buffet'");
         TestTask editedTask = td.editedGrocery;
         currentList = TestUtil.replaceTaskFromList(currentList,editedTask,targetIndex-1);
         execute(currentList);
 
-        //redo undo of edit the priority of the last task in the list
+        //redo undo of edit the priority of the 4th task in the list
         targetIndex = 4;
         commandBox.runCommand("edit " + targetIndex + " /low");
         editedTask = td.editedZika;
@@ -66,13 +66,13 @@ public class RedoCommandTest extends ToDoListGuiTest {
         execute(currentList);
         
         //redo undo of make first task floating
-        targetIndex = 1;
+        targetIndex = 2;
         commandBox.runCommand("edit " + targetIndex + " floating");
         editedTask = td.floatingGrocery;
         currentList = TestUtil.replaceTaskFromList(currentList,editedTask,targetIndex-1);
         execute(currentList);
         
-        //redo undo of change tags of last task
+        //redo undo of change tags of 4th task
         targetIndex = 4;
         commandBox.runCommand("edit " + targetIndex + " -dangerous");
         editedTask = td.taggedZika;
@@ -81,21 +81,21 @@ public class RedoCommandTest extends ToDoListGuiTest {
         
         //fails assertion if called after add
         //redo undo of remove priority of first task using 'rp' or 'remove priority'
-        targetIndex = 1;
-        commandBox.runCommand("edit " + targetIndex + " remove priority");
+        targetIndex = 2;
+        commandBox.runCommand("edit " + targetIndex + " no priority");
         editedTask = td.noPriorityGrocery;
         currentList = TestUtil.replaceTaskFromList(currentList,editedTask,targetIndex-1);
         execute(currentList);
         
         //redo undo of change time of task 2
-        targetIndex = 2;
+        targetIndex = 1;
         commandBox.runCommand("edit " + targetIndex + " 1120");
         editedTask = td.editedHouse1;
         currentList = TestUtil.replaceTaskFromList(currentList,editedTask,targetIndex-1);
         execute(currentList);
         
         //redo undo of change date of task 2
-        targetIndex = 2;
+        targetIndex = 1;
         commandBox.runCommand("edit " + targetIndex + " 10/20/2016");
         editedTask = td.editedHouse2;
         currentList = TestUtil.replaceTaskFromList(currentList,editedTask,targetIndex-1);
