@@ -152,9 +152,9 @@ Sets the data storage path. Must be a valid path. <br>
 Format: `saveto PATH`
 Example:
 * `saveto MyDropbox` <br>
-    It will create a folder 'MyDropbox' under the current path where the program is and save the data file when user start to add task.
+    It will create a folder `MyDropbox` under the current path where the program is and save the data file when user start to add task.
 
-#### Deleting tasks: `delete`
+#### Deleting tasks: `delete` 
 Deletes tasks or events for when you wish to remove them entirely from the list. <br>
 <!-- Format: `delete INDEX [LEFT/RIGHT/INCOMPLETED/COMPLETED]` -->
 Format: `delete INDEX`
@@ -168,7 +168,7 @@ There is no need to save manually.
 **A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous session.
 
 **Q**: How do I backup my data?<br>
-**A**: The easy way is to use the 'saveto PATH' command, where the PATH points to your cloud folder (Google drive, dropbox, iCloud). In that way, everytime when you save your data, it will automatically save inside the cloud folder. Also, remember to set your cloud folder sync automatically.
+**A**: The easy way is to use the `saveto PATH` command, where the PATH points to your cloud folder (Google drive, dropbox, iCloud). In that way, everytime when you save your data, it will automatically save inside the cloud folder. Also, remember to set your cloud folder sync automatically.
 
 ## Command Summary
 
@@ -180,10 +180,7 @@ Clear | `clear`
 Undo | `undo`
 Complete | `complete INDEX [MORE_INDICES]`
 Find | `search KEYWORD [MORE_KEYWORDS]`
-<!-- List | `list [TASK/EVENT]` -->
 List | `list`
-<!-- Calendar | `calendar [TASK/EVENT]` -->
-<!-- View | `view [LIST/CALENDAR] [TASK/EVENT]` -->
 Help | `help`
 Saveto | `storage PATH`
 Delete | `delete INDEX [COMPLETED/RIGHT]`
