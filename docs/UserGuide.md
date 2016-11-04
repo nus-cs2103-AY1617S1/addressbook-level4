@@ -38,12 +38,12 @@
 <!-- @@author A0147619W -->
 ## Features
 
-> **Command Format**
+**Command Format**
 > * Words in angle brackets `<>` are parameters.
 > * The order of parameters is fixed.
 
 <!-- @@author A0139198N -->
-> **Date Format**
+**Date Format**
 > ForgetMeNot implements [Natty](http://natty.joestelmach.com/). Thus, it accepts a wide range of date format. Formats that are accept in ForgetMeNot is listed here:<br>
 > * dd/mm/yy
 	eg. 12/11/16
@@ -67,7 +67,7 @@ Format: `help`
 <!-- @@author A0147619W -->
 #### Adding a Task: `add`
 Adds a task to the task manager<br>
-Time Format: 12-hour clock(Eg:10am, 5:30pm, etc).
+Time Format: 12-hour clock(Eg: 10am, 5:30pm, etc).
  
 * If you want to use keywords such as `at`, `from`, `to` and `by` in the task name in isolation, it should be preceded by a `\\`.             
 * If no particular time is mentioned, ForgetMeNot adds a task at the current time.
