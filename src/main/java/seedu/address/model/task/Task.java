@@ -31,6 +31,7 @@ public class Task implements ReadOnlyTask, Comparable<ReadOnlyTask> {
     	if (startDate.isPresent() && taskType.value != TaskType.Type.EVENT) {
     		throw new IllegalArgumentException("Only events can have start dates");
     	}
+    	
     	if (endDate.isPresent() && taskType.value == TaskType.Type.SOMEDAY) {
     		throw new IllegalArgumentException("Only events and deadlines can have end dates");
     	}
@@ -131,7 +132,8 @@ public class Task implements ReadOnlyTask, Comparable<ReadOnlyTask> {
     //@@author A0143756Y
     public static void validateEndDateTimeAfterStartDateTime(LocalDateTime startDateTime, LocalDateTime endDateTime){
     	if(!endDateTime.isAfter(startDateTime)){
-    		throw new IllegalArgumentException("End date/ time is not after start date/ time.\n");
+    		throw new IllegalArgumentException("End date/ time cannot be after start date/ time.\n"
+    				+ "Please re-enter command with valid end and start dates/ times.\n");
     	}
     }
     //@@author
