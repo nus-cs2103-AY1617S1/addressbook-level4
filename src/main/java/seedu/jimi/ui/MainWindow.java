@@ -29,6 +29,8 @@ public class MainWindow extends UiPart {
     private static final String FXML = "MainWindow.fxml";
     public static final int MIN_HEIGHT = 600;
     public static final int MIN_WIDTH = 450;
+    
+    public static final int MAX_WIDTH = 1200;
 
     private Logic logic;
 
@@ -103,6 +105,7 @@ public class MainWindow extends UiPart {
         setTitle(appTitle);
         setIcon(ICON);
         setWindowMinSize();
+        setWindowMaxSize();
         setWindowDefaultSize(prefs);
         scene = new Scene(rootLayout);
         primaryStage.setScene(scene);
@@ -110,7 +113,7 @@ public class MainWindow extends UiPart {
 
         setAccelerators();
     }
-    
+
     /**
      * Sets the label in the mainwindow to the current date.
      * @@author A0138915X
@@ -181,6 +184,10 @@ public class MainWindow extends UiPart {
     private void setWindowMinSize() {
         primaryStage.setMinHeight(MIN_HEIGHT);
         primaryStage.setMinWidth(MIN_WIDTH);
+    }
+
+    private void setWindowMaxSize() {
+        primaryStage.setMaxWidth(MAX_WIDTH);
     }
 
     /**
