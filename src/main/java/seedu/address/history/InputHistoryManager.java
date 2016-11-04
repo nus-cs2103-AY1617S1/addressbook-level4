@@ -4,127 +4,141 @@ import java.util.Stack;
 
 //@@author A0093960X
 /**
- * Stores the history of user inputs for navigating previous and next user inputs using up and down arrow keys.
+ * Stores the history of user inputs for navigating previous and next user
+ * inputs.
  */
-public class InputHistoryManager implements InputHistory{
-    
+public class InputHistoryManager implements InputHistory {
+
     private static InputHistoryManager theInputHistoryManager;
-    
+
     // command inputs
     private Stack<String> prevInputs;
     private Stack<String> nextInputs;
     private String currentStoredInputShown;
     
+    private static final String STRING_EMPTY = "";
+
+
     // Private constructor for Singleton Pattern
-    private InputHistoryManager(){
+    private InputHistoryManager() {
         prevInputs = new Stack<String>();
         nextInputs = new Stack<String>();
-        currentStoredInputShown = "";
+        currentStoredInputShown = STRING_EMPTY;
     }
-    
+
     // Use Singleton Pattern here
     public static InputHistoryManager getInstance() {
-        if (theInputHistoryManager == null){
+        if (theInputHistoryManager == null) {
             theInputHistoryManager = new InputHistoryManager();
         }
         return theInputHistoryManager;
     }
-    
+
     @Override
     public void updateInputHistory(String userInput) {
         assert prevInputs != null && nextInputs != null && currentStoredInputShown != null;
-        
-        // user tried to access a prev input
-        // first store back that prev input that was shown
+
         if (!isLatestInput()) {
-            pushPrevInput(currentStoredInputShown);
+            pushToPrevInput(currentStoredInputShown);
         }
-        
-        // transfer all the next input back to prev input in the right order
-        while (!isLatestInput()) {
-            
-            // last 'next' is the one that i typed halfway, don't push it in my history 
-            if (isLastNextInput()) {
-                nextInputs.pop();
-                break;
-            }
-                
-            transferNextInputToPrevInputHistory();
-        }
-        
-        pushPrevInput(userInput);
-        currentStoredInputShown = "";
+
+        resetInputHistoryToLatestState();
+        pushToPrevInput(userInput);
+        currentStoredInputShown = STRING_EMPTY;
     }
 
-    /**
-     * @return
-     */
-    private boolean isLastNextInput() {
-        return nextInputs.size() == 1;
-    }
-
-    /**
-     * Transfers a next input to the prev input stack.
-     */
-    private void transferNextInputToPrevInputHistory() {
-        String nextCmdToTransfer = nextInputs.pop();
-        prevInputs.push(nextCmdToTransfer);
-    }
-    
     @Override
     public boolean isEarliestInput() {
         assert prevInputs != null;
         return prevInputs.isEmpty();
     }
-    
+
     @Override
     public boolean isLatestInput() {
         assert nextInputs != null;
         return nextInputs.isEmpty();
     }
-    
+
     @Override
     public String prevStep(String currentInput) {
         String inputToStore;
-        
+
         if (isLatestInput()) {
             inputToStore = currentInput;
         } else {
             inputToStore = currentStoredInputShown;
         }
-        
-        pushNextInput(inputToStore);
-        return popPrevInput();
+
+        pushToNextInput(inputToStore);
+        return popFromPrevInput();
     }
-    
+
     @Override
     public String nextStep() {
-        pushPrevInput(currentStoredInputShown);
-        return popNextInput();
+        pushToPrevInput(currentStoredInputShown);
+        return popFromNextInput();
     }
-    
+
     // private helper methods below
-    
-    private String popPrevInput() {
-        assert prevInputs != null;
+
+    /**
+     * Resets the previous and next input history to the latest state,
+     * transferring all the valid next input into the previous input history.
+     */
+    private void resetInputHistoryToLatestState() {
+
+        boolean isEarliestNextInputValid = isLatestInput();
+        String nextInputToTransfer;
+
+        while (!isLatestInput()) {
+            nextInputToTransfer = popFromNextInput();
+            pushToPrevInput(nextInputToTransfer);
+        }
+
+        if (!isEarliestNextInputValid) {
+            popFromPrevInput();
+        }
+    }
+
+    /**
+     * Pops and returns the last stored previous input from the previous input
+     * history. The caller should ensure that the previous input history is not
+     * empty.
+     * 
+     * @return the last stored previous input String
+     */
+    private String popFromPrevInput() {
+        assert prevInputs != null && prevInputs.size() > 0;
         currentStoredInputShown = prevInputs.pop();
         return currentStoredInputShown;
-    }  
-    
-    private String pushPrevInput(String input) {
-        assert prevInputs != null;
-        return prevInputs.push(input);
     }
-    
-    private String popNextInput() {
-        assert nextInputs != null;
+
+    /**
+     * Pops and returns the last stored next input from the next input history.
+     * The caller should ensure that the next input history is not empty.
+     * 
+     * @return the last stored next input String
+     */
+    private String popFromNextInput() {
+        assert nextInputs != null && nextInputs.size() > 0;
         currentStoredInputShown = nextInputs.pop();
         return currentStoredInputShown;
     }
-    
-    private String pushNextInput(String input) {
+
+    /**
+     * Pushes the given input into the previous input history.
+     */
+    private void pushToPrevInput(String input) {
+        assert prevInputs != null;
+        prevInputs.push(input);
+    }
+
+    /**
+     * Pushes the given input into the next input history.
+     */
+    private void pushToNextInput(String input) {
         assert nextInputs != null;
-        return nextInputs.push(input);
+        nextInputs.push(input);
     }
 
 }

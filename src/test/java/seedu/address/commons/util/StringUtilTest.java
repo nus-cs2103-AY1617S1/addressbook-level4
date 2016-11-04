@@ -46,50 +46,5 @@ public class StringUtilTest {
         thrown.expect(AssertionError.class);
         StringUtil.getDetails(null);
     }
-    
-    @Test
-    public void substringStart_nullSource_false() {
-        assertFalse(StringUtil.isSubstringFromStart(null, "test string"));
-    }
-    
-    @Test
-    public void substringStart_nullQuery_false() {
-        assertFalse(StringUtil.isSubstringFromStart("test string", null));
-    }
-    
-    @Test
-    public void substringStart_bothNull_false() {
-        assertFalse(StringUtil.isSubstringFromStart(null, null));
-    }
-    
-    @Test
-    public void substringStart_emptyQuery_true() {
-        assertTrue(StringUtil.isSubstringFromStart("another string", ""));
-    }
-    
-    @Test
-    public void substringStart_emptySource_false() {
-        assertFalse(StringUtil.isSubstringFromStart("", "another string"));
-    }
-    
-    @Test
-    public void substringStart_validQuery_true() {
-        assertTrue(StringUtil.isSubstringFromStart("test string", "test"));
-    }
-    
-    @Test
-    public void substringStart_validQueryDiffCaps_false() {
-        assertFalse(StringUtil.isSubstringFromStart("tEsT string", "TEST"));
-    }
-    
-    @Test
-    public void substringStart_validQueryNotAtStart_false() {
-        assertFalse(StringUtil.isSubstringFromStart("a test string", "test"));
-    }
-
-    @Test
-    public void substringStart_validQueryNotSubstring_false() {
-        assertFalse(StringUtil.isSubstringFromStart("a test string", "lolololol"));
-    }
 
 }
