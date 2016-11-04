@@ -24,7 +24,6 @@ public class ActivityTime {
     public ActivityTime(String time) throws IllegalValueException {
         assert time != null;
         time = time.trim();
-        isValidTime(time);
         this.value = time;
     }
 

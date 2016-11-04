@@ -9,6 +9,7 @@ import org.junit.Test;
 import seedu.menion.commons.exceptions.IllegalValueException;
 import seedu.menion.logic.parser.AddParser;
 import seedu.menion.model.activity.Activity;
+import seedu.menion.model.activity.ActivityTime;
 //@@author A0139277U
 public class AddParserTest {
 
@@ -161,6 +162,21 @@ public class AddParserTest {
 			System.out.println(e.getMessage());
 		}
 		
+	}
+	
+	@Test
+	public void parseTaskCommandTimeInferredShouldReturnCorrectArguments(){
+		
+		String arguments = "complete cs2103t homework by: 08-18-2016";
+		try{
+			assertEquals("complete cs2103t homework", AddParser.parseCommand(arguments).get(1));
+			assertEquals(null, AddParser.parseCommand(arguments).get(2));
+			assertEquals("18-08-2016", AddParser.parseCommand(arguments).get(3));
+			assertEquals(ActivityTime.INFERRED_TIME, AddParser.parseCommand(arguments).get(4));
+			
+		} catch (IllegalValueException e){
+			
+		}
 	}
 	
 }
