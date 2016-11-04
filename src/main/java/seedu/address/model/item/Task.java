@@ -203,16 +203,19 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
      * Compares this Task with other Task by date chronologically.
      * The result is a negative integer if this Task object chronologically precedes the argument Task.
      * The result is a positive integer if this Task object chronologically follows the argument Task.
-     * The result is zero if the Dates of the Tasks are equal.
+     * The result is zero if the Dates of the Tasks are chronologically equal.
+     *  
+     * Tasks with at least one type of date (start date only, end date only, both start and end date)
+     * will always chronologically precede Tasks without any dates.
      * 
-     * As dates are optional, if the Tasks have different Date combinations 
-     * yet involve the same start and/or end dates (e.g. this Task has start date, other Task has no dates), 
-     * Tasks will be arranged in this order: 
+     * If both Tasks have at least one type of date, but are chronologically equal 
+     * Example: this Task has an end date that is equal to the start date and end date of another Task
+     * Example 2: this Task has a start date that is equal to the end date of another Task
      * 
+     * Tasks will be ordered in this manner:
      * 1. Tasks with start dates only
      * 2. Tasks with start dates and end dates
      * 3. Tasks with end dates only
-     * 4. Tasks without any dates
      * 
      * @param other the other Task to compare by Date with
      * @return the value 0 if the argument Task is equal to this Task, a value less than 0 if this Task 
