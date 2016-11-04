@@ -18,7 +18,7 @@ public class StringUtil {
     private final static char[] ALPHABET = "abcdefghijklmnopqrstuvwxyz".toCharArray();
     
     /** Returns true if any of the strings in {@code keywords} nearly matches {@code query}. */
-    public static boolean isNearMatch(String query, String... keywords) {
+    public static boolean isAnyNearMatch(String query, String... keywords) {
         return Arrays.stream(keywords)
                 .filter(kw -> isNearMatch(kw, query))
                 .findAny()
