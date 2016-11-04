@@ -150,7 +150,7 @@ Examples:
 
 #### Editing a Task: `edit`
 Allows the user to edit a particular task. Once a task is given a time, it can only be modified and not removed. If you wish to remove a time from a task, you may delete the task and re-add it without the time. Edit is supported for multiple fields at once. <br>
-Format: `edit <task index> <new detail(s) to edit>`
+Format: `edit <task index> <new detail(s)>`
 
 Example:
 * `edit 2 from 11am to 2pm` 
@@ -267,20 +267,20 @@ Example:
 * `select 2`
 
 
-#### Autocomplete: `TAB` or `SPACEBAR`
+#### Autocomplete: <kbd>TAB</kbd> or <kbd>SPACEBAR</kbd>
 Autocompletes the unfinished command on pressing `TAB` or `SPACEBAR`. <br>
 It will only complete when it can distinguish exactly what the command is.
 
 Example:
-* Pressing `TAB` or `SPACEBAR` after typing `a` would autocomplete it to `add`
-* Pressing `TAB` or `SPACEBAR` after typing `d` wont do anything as both `done` and `delete` start with `d`
-* Pressing `TAB` or `SPACEBAR` after typing `de` would autocomplete it to `delete
+* Pressing <kbd>TAB</kbd> or <kbd>SPACEBAR</kbd> after typing `a` would autocomplete it to `add`
+* Pressing <kbd>TAB</kbd> or <kbd>SPACEBAR</kbd> after typing `d` wont do anything as both `done` and `delete` start with `d`
+* Pressing <kbd>TAB</kbd> or <kbd>SPACEBAR</kbd> after typing `de` would autocomplete it to `delete
 
 
-#### Command History: `UP` and `DOWN` arrow keys
+#### Command History: <kbd>UP</kbd> and <kbd>DOWN</kbd> arrow keys
 Shows the user the previous commands that he/she typed. <br>
-Pressing the `UP` key would show the last older command. <br>
-Pressing the `DOWN` key would show the last newer command. <br>
+Pressing the <kbd>UP</kbd> key would show the last older command. <br>
+Pressing the <kbd>DOWN</kbd> key would show the last newer command. <br>
 
 
 
@@ -333,6 +333,6 @@ Following is the list of all commands:
 | `find`      | `find` `<name>`                                    | Finds a task with task name as <name>          										   |
 | `clear`     | `clear`                                            | Clears all the tasks in the task manager       										   |
 |             | `clear done`                                       | Clears all the done tasks from the done list   										   |
-| `select`    | `select` `<index>`                                 | Highlights the particular task at that index   										   |
+| `select`    | `select` `<index>`                                 | Goes to the particular task at that index   										   |
 |`setstorage` | `setstorage` `<folder name>`                       | Set storage to a particular folder             										   |
 |`exit`       | `exit`                                             | Exits ForgetMeNot                              										   |
