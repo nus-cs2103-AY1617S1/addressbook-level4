@@ -38,14 +38,14 @@ public class TaskDate {
         //date cannot be null after being parsed by natty
         assert date != null;
         
-        date = date.trim();
+        String trimDate = date.trim();
         //This is not an assert because user can change the database and input wrong formats
-        if (!isValidDateFormat(date)) {
+        if (!isValidDateFormat(trimDate)) {
             throw new IllegalValueException(MESSAGE_DATE_CONSTRAINTS);
         }
         
         try {
-            this.date = LocalDate.parse(date, DATE_FORMATTER_STORAGE);
+            this.date = LocalDate.parse(trimDate, DATE_FORMATTER_STORAGE);
         } catch (DateTimeParseException dtpe){
             throw new IllegalValueException(MESSAGE_DATE_INVALID);
         }
@@ -83,16 +83,9 @@ public class TaskDate {
      * This method can be used when unsure which dates are null
      */
     public static boolean isEquals(TaskDate date, TaskDate other) {
-        if (date == other) {
-            return true;
-        }
-        
-        //if either one is null, they are not equal
-        if (date == null || other == null) {
-            return false;
-        }
-        
-        return date.equals(other);
+
+        return (date == null && other == null) //if both are null, they are equal
+                || date != null && date.equals(other);
     }
 
     @Override

@@ -1,4 +1,3 @@
-//@@author A0139930B
 package seedu.taskitty.testutil;
 
 import java.util.ArrayList;
@@ -10,6 +9,7 @@ import guitests.guihandles.TaskListPanelHandle;
 import seedu.taskitty.commons.core.LogsCenter;
 import seedu.taskitty.model.task.Task;
 
+//@@author A0139930B
 public class TestTaskList {
     private List<TestTask> todoList;
     private List<TestTask> deadlineList;
@@ -57,6 +57,7 @@ public class TestTaskList {
             
         default :
             logger.warning("Task did not fit in any list");
+            break;
         }
     }
     
@@ -75,7 +76,7 @@ public class TestTaskList {
     }
     
     public void removeTaskFromList(int index) {
-        removeTaskFromList(index, ' ');;
+        removeTaskFromList(index, ' ');
     }
     
     //@@author

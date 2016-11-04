@@ -1,13 +1,11 @@
 package seedu.taskitty.model;
 
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.taskitty.model.tag.Tag;
 import seedu.taskitty.model.tag.UniqueTagList;
 import seedu.taskitty.model.task.ReadOnlyTask;
 import seedu.taskitty.model.task.Task;
 import seedu.taskitty.model.task.UniqueTaskList;
-import seedu.taskitty.model.task.UniqueTaskList.DuplicateMarkAsDoneException;
 
 import java.util.*;
 import java.util.stream.Collectors;

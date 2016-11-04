@@ -5,7 +5,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import seedu.taskitty.commons.util.DateUtil;
+import seedu.taskitty.commons.util.DateTimeUtil;
 import seedu.taskitty.model.task.ReadOnlyTask;
 import seedu.taskitty.model.task.TaskDate;
 import seedu.taskitty.model.task.TaskTime;
@@ -161,8 +161,8 @@ public class TaskCard extends UiPart {
     private void displayStartDateTime() {
         TaskDate startTaskDate = task.getPeriod().getStartDate();
         TaskTime startTaskTime = task.getPeriod().getStartTime();
-        startTime.setText(DateUtil.formatTimeForUI(startTaskTime));
-        startDate.setText(DateUtil.formatDateForUI(startTaskDate));
+        startTime.setText(DateTimeUtil.formatTimeForUI(startTaskTime));
+        startDate.setText(DateTimeUtil.formatDateForUI(startTaskDate));
     }
     
     /**
@@ -171,8 +171,8 @@ public class TaskCard extends UiPart {
     private void displayEndDateTime() {
         TaskDate endTaskDate = task.getPeriod().getEndDate();  
         TaskTime endTaskTime = task.getPeriod().getEndTime();
-        endTime.setText(DateUtil.formatTimeForUI(endTaskTime));
-        endDate.setText(DateUtil.formatDateForUI(endTaskDate));
+        endTime.setText(DateTimeUtil.formatTimeForUI(endTaskTime));
+        endDate.setText(DateTimeUtil.formatDateForUI(endTaskDate));
     }
     
     /**

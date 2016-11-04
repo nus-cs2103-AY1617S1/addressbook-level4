@@ -5,11 +5,8 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.taskitty.commons.exceptions.DuplicateDataException;
 import seedu.taskitty.commons.util.CollectionUtil;
-import seedu.taskitty.commons.util.DateUtil;
-import seedu.taskitty.commons.util.TimeUtil;
+import seedu.taskitty.commons.util.DateTimeUtil;
 import seedu.taskitty.ui.ResultDisplay;
-
-import java.time.LocalDateTime;
 import java.util.*;
 
 /**
@@ -174,7 +171,7 @@ public class UniqueTaskList implements Iterable<Task> {
     	boolean hasOverdue = false;    	
     	for (Task t: internalList) {
     		if (t.isDeadline() && !t.getIsDone()) {
-    			if (DateUtil.isOverdue(t)) {
+    			if (DateTimeUtil.isOverdue(t)) {
     				t.markAsOverdue();
     				hasOverdue = true;
     			}
@@ -191,7 +188,7 @@ public class UniqueTaskList implements Iterable<Task> {
     private void checkAndSetIsOverToday() {
         final ArrayList<Task> eventsToSetOver = new ArrayList<Task>();
     	for (Task t: internalList) {
-    	    if (t.isEvent() && DateUtil.isOverdue(t)) {
+    	    if (t.isEvent() && DateTimeUtil.isOverdue(t)) {
     	        eventsToSetOver.add(t);
     	    }
     	}

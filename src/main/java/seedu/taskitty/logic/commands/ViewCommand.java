@@ -1,8 +1,6 @@
 package seedu.taskitty.logic.commands;
 
 import java.time.LocalDate;
-
-import seedu.taskitty.commons.util.DateUtil;
 import seedu.taskitty.model.task.TaskDate;
 //@@author A0130853L
 /**

@@ -1,6 +1,5 @@
 package seedu.taskitty.model;
 
-import javafx.beans.value.ObservableValue;
 import javafx.collections.transformation.FilteredList;
 import seedu.taskitty.commons.core.ComponentManager;
 import seedu.taskitty.commons.core.LogsCenter;
@@ -9,7 +8,7 @@ import seedu.taskitty.commons.events.model.TaskManagerChangedEvent;
 import seedu.taskitty.commons.events.model.ViewTypeChangedEvent;
 import seedu.taskitty.commons.exceptions.NoPreviousValidCommandException;
 import seedu.taskitty.commons.exceptions.NoRecentUndoCommandException;
-import seedu.taskitty.commons.util.DateUtil;
+import seedu.taskitty.commons.util.DateTimeUtil;
 import seedu.taskitty.commons.util.StringUtil;
 import seedu.taskitty.logic.commands.AddCommand;
 import seedu.taskitty.logic.commands.ClearCommand;
@@ -43,7 +42,6 @@ public class ModelManager extends ComponentManager implements Model {
     private FilteredList<Task> filteredTodos;
     private FilteredList<Task> filteredDeadlines;
     private FilteredList<Task> filteredEvents;
-    private ObservableValue<String> date;
     
     private final CommandHistoryManager undoHistory;
     private final CommandHistoryManager redoHistory;
@@ -386,7 +384,7 @@ public class ModelManager extends ComponentManager implements Model {
 	 *@return the evaluated boolean expression
 	 */
 	private boolean isEventAndIsNotBeforeToday(Task task) {
-		LocalDate today = DateUtil.createCurrentDate();
+		LocalDate today = DateTimeUtil.createCurrentDate();
 		return isEventAndIsNotBeforeDate(task, today);
 	}
 	
