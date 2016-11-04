@@ -48,7 +48,7 @@ public class Parser {
     private static final Pattern TASK_TAG_ARGS_FORMAT = 
             Pattern.compile("(?<action>(( add )|( delete )|( clear )))"
             + "(?<targetIndex>\\d+)" //index must be digits
-            + "(?<tagArguments>(?: #[^#]+)+)");    //quote marks are reserved for start and end of description field
+            + "(?<tag>(?: #[^#]+)+)");    //quote marks are reserved for start and end of description field
     
     private static final Pattern SAVE_LOCATION = Pattern.compile("(?<targetLocation>(([^\\/\\s]*\\/)+|default))");
     
@@ -125,7 +125,7 @@ public class Parser {
         
         System.out.println(matcher.group("action"));
         System.out.println(matcher.group("targetIndex"));
-        System.out.println(matcher.group("tagArguments"));
+        System.out.println(matcher.group("tag"));
         
         // Validate arg string format
         if (!matcher.matches()) {
@@ -138,13 +138,11 @@ public class Parser {
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, TagCommand.MESSAGE_USAGE));
         }
         
-
-
         try {
             return new TagCommand(
                     matcher.group("action"),
                     matcher.group("targetIndex"),
-                    getTagsFromArgs(matcher.group("tagArguments"))
+                    matcher.group("tag")
             );
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());

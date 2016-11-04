@@ -2,9 +2,13 @@ package seedu.emeraldo.logic.commands;
 
 import static seedu.emeraldo.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import seedu.emeraldo.commons.core.Messages;
+import seedu.emeraldo.commons.exceptions.IllegalValueException;
+import seedu.emeraldo.model.tag.Tag;
+import seedu.emeraldo.model.tag.UniqueTagList;
 
 /**
 * Edit the tags of a particular task in the task manager.
@@ -20,24 +24,33 @@ public class TagCommand extends Command {
     public static final String MESSAGE_TAG_EDIT_SUCCESS = "Edited task: %1$s";    
     
     private String action;
-    private Set<String> tags;
     private int targetIndex;
+    private Tag tag;
     
-    public TagCommand(String action, String targetIndex, Set<String> tags) {
+    
+    public TagCommand(String action, String targetIndex, String tag) throws IllegalValueException {
         this.action = action;
         this.targetIndex = Integer.parseInt(targetIndex);
-        this.tags = tags;
+        this.tag = new Tag(tag);
     }
     
     @Override
     public CommandResult execute() {
-        // TODO Auto-generated method stub
         
-        if ((!action.equalsIgnoreCase("add"))||(!action.equalsIgnoreCase("delete"))||(!action.equalsIgnoreCase("clear"))){
+        if (action.equalsIgnoreCase("add")){
+            model.addTag(tag);
+        }
+        else if (action.equalsIgnoreCase("delete")){
+            model.deleteTag(tag);
+        }
+        else if (action.equalsIgnoreCase("clear")){
+            model.clearTag();
+        }
+        else{
             return new CommandResult(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, TagCommand.MESSAGE_USAGE));
         }
-        
-        return null;
+       
+        return new CommandResult(String.format(MESSAGE_TAG_EDIT_SUCCESS, targetIndex - 1));
     }
 
 }

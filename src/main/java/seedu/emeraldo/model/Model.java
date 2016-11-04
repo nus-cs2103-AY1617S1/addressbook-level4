@@ -3,6 +3,8 @@ package seedu.emeraldo.model;
 import seedu.emeraldo.commons.core.UnmodifiableObservableList;
 import seedu.emeraldo.logic.commands.ListCommand.Completed;
 import seedu.emeraldo.logic.commands.ListCommand.TimePeriod;
+import seedu.emeraldo.model.tag.Tag;
+import seedu.emeraldo.model.tag.UniqueTagList;
 import seedu.emeraldo.model.task.DateTime;
 import seedu.emeraldo.model.task.Description;
 import seedu.emeraldo.model.task.ReadOnlyTask;
@@ -47,6 +49,12 @@ public interface Model {
     
     /** Adds the given task */
     void addTask(Task task) throws UniqueTaskList.DuplicateTaskException;
+    
+    void addTag(Tag tag);
+    
+    void deleteTag(Tag tag);
+
+    void clearTag();
 
     /** Returns the filtered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
     UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList();
@@ -86,4 +94,5 @@ public interface Model {
     //@@author A0142290N
     /**Updates the filter of the filtered task list to filter by the keyword "completed*/
     void updateFilteredTaskList(Completed keyword);
+
 }

@@ -165,6 +165,18 @@ public class ModelManager extends ComponentManager implements Model {
     	indicateEmeraldoChanged();
     }
     
+    public synchronized void addTag(Tag tag){
+        
+    }
+    
+    public synchronized void deleteTag(Tag tag){
+        
+    }
+    
+    public synchronized void clearTag(){
+        
+    }
+    
     private void updateFilteredTaskListWithCompleted(){
     	if(keywords instanceof Set<?>)
     		updateFilteredTaskListWithCompleted((Set<String>)keywords);
@@ -416,4 +428,5 @@ public class ModelManager extends ComponentManager implements Model {
             return "Completed= " + CompletedKeyword;
         }
     }
+
 }
