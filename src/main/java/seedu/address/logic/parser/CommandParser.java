@@ -791,7 +791,7 @@ public class CommandParser {
      */
     private void generateAddDetailedTooltipStartDate(Optional<String> startDate, StringBuilder sb) {
         if (startDate.isPresent()) {
-            sb.append("\n\tStart Date\t:" + startDate.get());
+            sb.append("\n\tStart Date:\t" + startDate.get());
         }
     }
 
@@ -801,7 +801,7 @@ public class CommandParser {
      */
     private void generateAddDetailedTooltipEndDate(Optional<String> endDate, StringBuilder sb) {
         if (endDate.isPresent()) {
-            sb.append("\n\tEnd Date:" + StringUtils.repeat(STRING_ONE_SPACE, 17) + endDate.get());
+            sb.append("\n\tEnd Date:\t\t" + endDate.get());
         }
     }
 
