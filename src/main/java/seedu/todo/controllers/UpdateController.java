@@ -101,12 +101,6 @@ public class UpdateController implements Controller {
         String[] naturalDates = DateParser.extractDatePair(parsedResult);
         String naturalFrom = naturalDates[0];
         String naturalTo = naturalDates[1];
-
-        // Validate isTask, name and times.
-        if (!validateParams(isTask, name, naturalFrom, naturalTo)) {
-            renderDisambiguation(isTask, recordIndex, name, naturalFrom, naturalTo);
-            return;
-        }
         
         // Parse natural date using Natty.
         LocalDateTime dateFrom;
@@ -116,6 +110,12 @@ public class UpdateController implements Controller {
             dateTo = naturalTo == null ? null : DateParser.parseNatural(naturalTo);
         } catch (InvalidNaturalDateException e) {
             System.out.println("Disambiguate!");
+            return;
+        }
+        
+        // Validate isTask, name and times.
+        if (!validateParams(isTask, calendarItem, name, dateFrom, dateTo)) {
+            renderDisambiguation(isTask, (int) recordIndex, name, naturalFrom, naturalTo);
             return;
         }
         
