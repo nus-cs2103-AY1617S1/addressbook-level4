@@ -36,7 +36,7 @@ public static final String COMMAND_WORD = "block";
      * @throws IllegalValueException
      *             if any of the raw values are invalid
      */
-    public BlockCommand(String name, String dueDate, String startTime, String endTime, Set<String> tags)
+    public BlockCommand(String name, String dueDate, String startTime, String endTime)
             throws IllegalValueException {
         this.toBlock = new Task(new Name(name), new DateTimeInfo(dueDate), new DateTimeInfo(startTime),
                 new DateTimeInfo(endTime));

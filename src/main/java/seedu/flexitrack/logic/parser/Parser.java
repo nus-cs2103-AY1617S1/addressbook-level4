@@ -386,7 +386,7 @@ public class Parser {
         try {
             if (matcherEvent.matches()) {
                 return new BlockCommand("(Blocked) " + matcherEvent.group("name"), EMPTY_TIME_INFO, matcherEvent.group("startTime"),
-                        matcherEvent.group("endTime"), getTagsFromArgs(matcherEvent.group("tagArguments")));
+                        matcherEvent.group("endTime"));
             } else {
                 return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, BlockCommand.MESSAGE_USAGE));
             }
@@ -751,20 +751,6 @@ public class Parser {
             break;
         }
         return new SimpleDateFormat("MM-dd-yyyy HHmmss").format(newDate);
-    }
-    //@@author 
-    /**
-     * Extracts the new task's tags from the add command's tag arguments string.
-     * Merges duplicate tag strings.
-     */
-    private static Set<String> getTagsFromArgs(String tagArguments) throws IllegalValueException {
-        // no tags
-        if (tagArguments.isEmpty()) {
-            return Collections.emptySet();
-        }
-        // replace first delimiter prefix, then split
-        final Collection<String> tagStrings = Arrays.asList(tagArguments.replaceFirst(" t/", "").split(" t/"));
-        return new HashSet<>(tagStrings);
     }
 
     /**
