@@ -89,8 +89,8 @@ public class ActivityManager {
                     } else if (newParamsType.equals("activity") && type.equals("edit")) {
                         newActivity = new Event(
                                 updateTaskName(oldTask, newParams, type),
-                                new StartTime(((Event) oldTask).getStartTime().getCalendarValue()),
-                                new EndTime(((Event) oldTask).getEndTime().getCalendarValue()),
+                                new StartTime(((Event) oldTask).getStartTime().getCalendarValue(), ((Event) oldTask).getStartTime().recurring, ((Event) oldTask).getStartTime().RecurringMessage),
+                                new EndTime(((Event) oldTask).getEndTime().getCalendarValue(), ((Event) oldTask).getStartTime().recurring, ((Event) oldTask).getStartTime().RecurringMessage),
                                 updateReminder(oldTask, newParams, type),
                                 updateTags(oldTask, newParams)
                                 );

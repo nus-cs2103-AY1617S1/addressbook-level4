@@ -18,6 +18,12 @@ public class StartTime extends DateTime {
     public StartTime(Calendar date) {
         super(date);
     }
+    
+    public StartTime(Calendar date, boolean isRecurring, String recurringMessage) {
+        super(date);
+        this.recurring = isRecurring;
+        this.RecurringMessage = recurringMessage;
+    }
 
     /**
      * Validates given Start Time.

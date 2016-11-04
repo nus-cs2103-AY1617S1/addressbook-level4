@@ -22,6 +22,13 @@ public class EndTime extends DateTime {
     public EndTime(Calendar date) {
         super(date);
     }
+    
+    public EndTime(Calendar date, boolean isRecurring, String recurringMessage) {
+        super(date);
+        this.recurring = isRecurring;
+        this.RecurringMessage = recurringMessage;
+    }
+
 
     /**
      * Validates given Start Time.
