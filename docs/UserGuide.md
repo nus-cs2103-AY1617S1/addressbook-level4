@@ -101,6 +101,8 @@ Examples:
 Reverses the last command done. Repeated calls to this command will undo each command in the reverse order of that which they were called. Can only go back up to 20 commands in history via undos. <br>
 Format: `undo`
 
+<!--- @@author a0153617e -->
+
 #### Marking a task complete: `complete`
 Marks the given task as completed from the active task list. Can be reversed if done immediately after. <br>
 Format: `complete INDEX`
@@ -165,19 +167,23 @@ There is no need to save manually.
 **Q**: How do I transfer my data to another Computer?<br>
 **A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous session.
 
+**Q**: How do I backup my data?<br>
+**A**: The easy way is to use the 'saveto PATH' command, where the PATH points to your cloud folder (Google drive, dropbox, iCloud). In that way, everytime when you save your data, it will automatically save inside the cloud folder. Also, remember to set your cloud folder sync automatically.
+
 ## Command Summary
 
 Command | Format  
 -------- | :--------
-Add | `Format: add [TASK/EVENT] DESCRIPTION [due/at/by DATE START_TIME END_TIME] [PRIORITY]` OR `DESCRIPTION [due/at DATE START_TIME END_TIME] [PRIORITY]`
-Update | `update INDEX [DESCRIPTION] [due/at DATE START_TIME END_TIME] [PRIORITY]`
+Add | `Format: [TASK/EVENT] DESCRIPTION [at/by DATE START_TIME END_TIME]` OR `DESCRIPTION [by/at DATE START_TIME to END_TIME]`
+Update | `update INDEX [DESCRIPTION] [due/at DATE START_TIME to END_TIME]`
 Clear | `clear`
 Undo | `undo`
 Complete | `complete INDEX [MORE_INDICES]`
-Search | `search KEYWORD [MORE_KEYWORDS]`
-List | `list [TASK/EVENT]`
-Calendar | `calendar [TASK/EVENT]`
-View | `view [LIST/CALENDAR] [TASK/EVENT]`
+Find | `search KEYWORD [MORE_KEYWORDS]`
+<!-- List | `list [TASK/EVENT]` -->
+List | `list`
+<!-- Calendar | `calendar [TASK/EVENT]` -->
+<!-- View | `view [LIST/CALENDAR] [TASK/EVENT]` -->
 Help | `help`
 Saveto | `storage PATH`
 Delete | `delete INDEX [COMPLETED/RIGHT]`
