@@ -25,11 +25,12 @@
 > **Command Format**
 > * Words in angle brackets `<>` are parameters.
 > * The order of parameters is fixed.
+<!-- @@author A0139671X -->
 
 #### Finding more information about various commands: `help`
-Displays the list of commands(along with their formats) for the user to help him use those commands.<br>
+Displays the list of commands(along with their formats) to assist the user in using ForgetMeNot.<br>
 Format: `help`
-
+<!-- @@author -->
 
 #### Adding a Task: `add`
 Adds a task to the task manager<br>
@@ -74,27 +75,39 @@ Examples:
 * `add exam from tmr 7pm to tmr 8pm`
 * `add event from today 5pm to next fri 10pm`
 
+<!-- @@author A0139671X -->
 ##### Adding a recurring task
-Adds a task with a recurring period in days <br>
+Adds a recurring task a certain number of times with a specified duration in between <br>
+If the number of times is not specified, ForgetMeNot adds by default, 10 instances of the recurring task <br>
+Recurring task addition is not supported for task without any date or time <br>
+Format : `add <task name> at/from <start time> by/to <end time> every <number> <time interval> x<number> `
 <number> has to be numeric. For example, 8 and not eight. <br>
-Format : `add <task name> at/from <start time> by/to <end time> every <number> days`
+Allowed time intervals : days, weeks, months, years
 
 Examples:
-* `add school homework by 9pm friday every 8 days`
-* `add planning meeting from 2pm thursday to 3pm thursday every 30 days`
-* `add movie night at 8pm Friday every 7 days`
+* `add family dinner by 9pm friday every year`
+	adds 10 instances of the task with a year in between the instances
+* `add jog with jim at 9pm tomorrow every 2 weeks`
+	adds 10 instances of the task with 2 weeks in between the instances
+* `add planning meeting from 2pm thursday to 3pm thursday every 30 days x3`
+	adds 3 instances of the task with 30 days in between the instances
+* `add movie night at 8pm Friday every 2 months x2`
+	adds 2 instances of the task with 2 months in between the instances
 
 #### Editing a Task: `edit`
 Allows the user to edit a particular task<br>
 Once a task is given a time, it can only be modified and not removed <br>
 If you wish to remove a time from a task, kindly delete the task and re-add it without the time <br>
-Format: `edit <task index> <detail to edit> <new value>`
+Format: `edit <task index> <new detail(s) to edit>`
 
 Example:
-* `edit 2 from 11am to 2pm` (Edits the start time to 11am and end time to 2pm for task 2)
-* `edit 1 CS2103T Tutorial` (Edits the name to CS2103 Tutorial for task 1)
-* `edit 2 at today 3pm` (Edits the start time to the current day 3pm for task 2)
-* `edit 3 every 7 days` (Edits the recurrence of task 3 to be every 7 days)
+* `edit 2 from 11am to 2pm` 
+	Edits the start time to 11am and end time to 2pm for the task at index 2
+* `edit 1 CS2103T Tutorial` 
+	Edits the name to CS2103 Tutorial for the task at index 1
+* `edit 2 at today 3pm` 
+	Edits the start time to the current day 3pm for the task at index 2
+<!-- @@author -->
 
 #### Priority tasks: `priority`
 Allows the user to set the priority of a task when creating it. If the task is of importance, the user can assign it with a high priority. <br>
@@ -103,17 +116,20 @@ Format : `add <task name> priority high`
 Example:
 * `add CS2101 by 01/01/2016 priority high`
 
-
+<!-- @@author A0139671X -->
 #### Undo a Task: `undo`
 Undo the most recent task entered in the command line<br>
-Undo only supports for task modifying comands such as add, delete, clear, redo but not find, show, setstorage<br>
+Undo only supports for task modifying commands such as add, delete, clear, edit and redo but not find, show, setstorage<br>
+Once ForgetMeNot is exited, the possible undo history is cleared<br>
 Format: `undo`
 
 
 #### Redo a Task: `redo`
-Redo the most recent undo in the command line<br>
+Redos the most recent undo executed<br>
+Redo supports as many undos that were executed<br>
+Once ForgetMeNot is exited, or a new task modifying command is executed, the history of possible redos is cleared<br>
 Format: `redo`
-
+<!-- @@author -->
 
 #### Deleting a Task: `delete`
 Deletes a particular task in the task manager<br>
@@ -124,11 +140,15 @@ Example:
 
 
 #### Finding a Task: `Find`
-Finds tasks in the task manager. Task manager will display all task with the input keywords<br>
+Finds tasks in ForgetMeNot. ForgetMeNot will display all task with the input keywords<br>
+Find does not display subsets of a word. For example, `find home` does not display homework<br>
 Format: `find <task name>`
 
 Example:
 *`find project`
+	finds all tasks with the word project in the name
+*`find homework assignment`
+	finds all task with the word homework or assignment in the name
 
 
 ### Mark as done: `done`
@@ -211,6 +231,8 @@ Following is the list of all commands:
 |             | `add` `<name>` at `<Start Time>`                   | Adds a task only with a start time             |
 |             | `add` `<name>` by `<End Time>`                     | Adds a deadline task                           |
 |             | `add` `<name>` from `<Start Time>` to `<End_Time>` | Adds an event task from start time to end time |
+|             | `add` `<name>` `<time detals>` every `<duration>`  | Adds 10 instances of a task with a specified   duration in between |
+|             | `add` `<name>` `<time details>` every `<duration>` x`<instances>`| Adds the specified instances of a task with a specified duration in between |
 | `edit`      | `edit` `<index>` `<New Parameters>`                | Edits a task with the new parameters           |
 | `done`      | `done` `<index>`                                   | Marks a task as done                           |
 | `delete`    | `delete` `<index>`                                 | Removes a task from the task manager           |
