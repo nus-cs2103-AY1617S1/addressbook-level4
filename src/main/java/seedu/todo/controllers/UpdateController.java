@@ -206,6 +206,7 @@ public class UpdateController implements Controller {
      * 
      * <li>
      * <ul>Fail if name is invalid</ul>
+     * <ul>Fail if no update changes</ul>
      * </li>
      * 
      * Tasks:
@@ -229,6 +230,10 @@ public class UpdateController implements Controller {
             LocalDateTime dateFrom, LocalDateTime dateTo) {
         // TODO: Not enough sleep
         // We really need proper ActiveRecord validation and rollback, sigh...
+        
+        if (name == null && dateFrom == null && dateTo == null) {
+            return false;
+        }
         
         if (isTask) {
             // Fail if task has a dateTo
