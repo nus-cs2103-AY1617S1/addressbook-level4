@@ -135,7 +135,10 @@ public class TaskListPanel extends UiPart {
 	//@@author A0146107M
 	public void scrollTraverse(Direction direction){
 		int newIndex = personListView.getSelectionModel().getSelectedIndex();
-		if(direction==Direction.UP){
+		if(newIndex==-1){
+			newIndex = 0;
+		}
+		else if(direction==Direction.UP){
 			newIndex = Math.max(0, newIndex - 10);
 		}
 		else{

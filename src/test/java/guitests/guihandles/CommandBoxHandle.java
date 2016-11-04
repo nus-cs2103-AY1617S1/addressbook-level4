@@ -2,6 +2,8 @@ package guitests.guihandles;
 
 import guitests.GuiRobot;
 import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyCodeCombination;
+import javafx.scene.input.KeyCombination;
 import javafx.stage.Stage;
 
 /**
@@ -32,16 +34,23 @@ public class CommandBoxHandle extends GuiHandle{
         guiRobot.sleep(200); //Give time for the command to take effect
     }
     
-    public void getPressUpKey() {
+    //@@author A0146107M
+    public void pressUpKey() {
     	pressKey(KeyCode.UP);
     	guiRobot.sleep(50);
     }
     
-    public void getPressDownKey() {
+    public void pressDownKey() {
     	pressKey(KeyCode.DOWN);
     	guiRobot.sleep(50);
     }
-
+    
+    public void pressKeyCombi(KeyCode... codes){
+    	guiRobot.push(codes);
+    	guiRobot.sleep(50);
+    }
+    
+    //@@author
     public HelpWindowHandle runHelpCommand() {
         enterCommand("help");
         pressEnter();
