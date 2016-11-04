@@ -139,18 +139,26 @@ public class Parser {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, TagCommand.MESSAGE_USAGE));
         }
         
-        System.out.println(matcher.group("action"));
-        System.out.println(matcher.group("targetIndex"));
-        System.out.println(matcher.group("tag"));
-
-        try {
-            return new TagCommand(
-                    matcher.group("action"),
-                    matcher.group("targetIndex"),
-                    matcher.group("tag")
-            );
-        } catch (IllegalValueException ive) {
-            return new IncorrectCommand(ive.getMessage());
+        if (matcher.group("action").trim().equalsIgnoreCase("clear")){
+            try {
+                return new TagCommand(
+                        matcher.group("action"),
+                        matcher.group("targetIndex")
+                );
+            } catch (IllegalValueException ive) {
+                return new IncorrectCommand(ive.getMessage());
+            }
+        }
+        else {
+            try {
+                return new TagCommand(
+                        matcher.group("action"),
+                        matcher.group("targetIndex"),
+                        matcher.group("tag")
+                );
+            } catch (IllegalValueException ive) {
+                return new IncorrectCommand(ive.getMessage());
+            }
         }
         
     }

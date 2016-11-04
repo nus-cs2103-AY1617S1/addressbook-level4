@@ -161,19 +161,7 @@ public class ModelManager extends ComponentManager implements Model {
         indicateEmeraldoChanged();
     }
     
-    //@@author A0142290N
-    @Override 
-    public synchronized void completedTask(Task target)
-    		throws TaskAlreadyCompletedException {
-    	try {
-    		emeraldo.completedTask(target);
-    	} catch (IllegalValueException e) {
-    		e.printStackTrace();
-    	}
-    	updateFilteredTaskListWhenCompletedIsUsed();
-    	indicateEmeraldoChanged();
-    }
-
+    //@@author A0139196U
     public synchronized void addTag(Task target, Tag tag) throws TagExistException {
         try {
             emeraldo.taskAddTag(target, tag);
@@ -199,6 +187,19 @@ public class ModelManager extends ComponentManager implements Model {
             e.printStackTrace();
         }
         indicateEmeraldoChanged();
+    }
+    
+    //@@author A0142290N
+    @Override 
+    public synchronized void completedTask(Task target)
+    		throws TaskAlreadyCompletedException {
+    	try {
+    		emeraldo.completedTask(target);
+    	} catch (IllegalValueException e) {
+    		e.printStackTrace();
+    	}
+    	updateFilteredTaskListWhenCompletedIsUsed();
+    	indicateEmeraldoChanged();
     }
     
     private void updateFilteredTaskListWithCompleted(){

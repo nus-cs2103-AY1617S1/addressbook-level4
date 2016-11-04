@@ -16,6 +16,7 @@ import seedu.emeraldo.model.tag.UniqueTagList;
 import seedu.emeraldo.model.task.ReadOnlyTask;
 import seedu.emeraldo.model.task.Task;
 
+//@@author A0139196U
 /**
 * Edit the tags of a particular task in the task manager.
 */
@@ -41,6 +42,11 @@ public class TagCommand extends Command {
         this.action = action.trim();
         this.targetIndex = Integer.parseInt(targetIndex);
         this.tag = new Tag(tag.replaceFirst(" #", ""));
+    }
+    
+    public TagCommand(String action, String targetIndex) throws IllegalValueException {
+        this.action = action.trim();
+        this.targetIndex = Integer.parseInt(targetIndex);
     }
     
     @Override

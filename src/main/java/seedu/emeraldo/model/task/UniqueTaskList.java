@@ -159,8 +159,13 @@ public class UniqueTaskList implements Iterable<Task> {
             throw new TagListEmptyException();
         }
         else {
-            toEditTagTask.getTags().getInternalList().clear();
+            UniqueTagList editedTagList = toEditTagTask.getTags();
+            editedTagList.getInternalList().clear();
+            toEditTagTask.setTags(editedTagList);
         }
+        
+        int mainListIndex = internalList.indexOf(toEditTagTask);
+        internalList.set(mainListIndex, toEditTagTask);
     }
     //@@author
 
