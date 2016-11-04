@@ -383,7 +383,7 @@ public class Parser {
             }
             indexes = rangeToMultiple(start, end , cat);
         }
-        //check if index is valid 1st number check
+        //check if index is an integer 1st number check
         Iterator<String> itr = indexes.iterator();
         String tempIndex = itr.next();
         String indexToDelete = tempIndex.substring(1, tempIndex.length());
@@ -392,7 +392,7 @@ public class Parser {
             return new IncorrectCommand(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
         }          
-        //the rest of the number check
+        //check if index is an integer the rest
         while(itr.hasNext()){
             tempIndex = itr.next();
             indexToDelete = tempIndex.substring(1, tempIndex.length());
