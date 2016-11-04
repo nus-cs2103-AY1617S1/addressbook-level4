@@ -35,7 +35,12 @@ public class NattyDateParser {
 		calendar.setTime(date);
 		
 		dateTimeList.add(0, formatDate(calendar));
-		dateTimeList.add(1, formatTime(calendar));
+		if (group.isTimeInferred()){
+			dateTimeList.add(1, "");
+		}
+		else {
+			dateTimeList.add(1, formatTime(calendar));
+		}
 			
 	}
 	

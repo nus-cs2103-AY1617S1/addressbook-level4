@@ -60,6 +60,8 @@ allprojects {
         testCompile "junit:junit:$junitVersion"
         testCompile "org.testfx:testfx-core:$testFxVersion"
         testCompile "org.testfx:testfx-junit:$testFxVersion"
+        testCompile "org.antlr:gunit:3.5.2"
+        testCompile "org.slf4j:slf4j-log4j12:version: '1.7.10"
         testCompile "org.testfx:testfx-legacy:$testFxVersion", {
             exclude group: "junit", module: "junit"
         }
