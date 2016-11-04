@@ -16,8 +16,7 @@ public class Task implements ReadOnlyTask, Comparable<ReadOnlyTask> {
 	private Status status;
 	private Optional<LocalDateTime> startDate;
 	private Optional<LocalDateTime> endDate;
-	private UniqueTagList tags;
-	
+	private UniqueTagList tags;	
 	
 	/**
      * Constructor for events, deadlines and somedays.
@@ -34,6 +33,13 @@ public class Task implements ReadOnlyTask, Comparable<ReadOnlyTask> {
     	}
     	if (endDate.isPresent() && taskType.value == TaskType.Type.SOMEDAY) {
     		throw new IllegalArgumentException("Only events and deadlines can have end dates");
+    	}
+    	
+    	if(startDate.isPresent() && endDate.isPresent()){
+    		LocalDateTime startDateTime = startDate.get();
+    		LocalDateTime endDateTime = endDate.get();
+    		
+    		validateEndDateTimeAfterStartDateTime(startDateTime, endDateTime);
     	}
     	
     	this.taskType = taskType;
@@ -96,13 +102,14 @@ public class Task implements ReadOnlyTask, Comparable<ReadOnlyTask> {
     
     public void setStartDate(LocalDateTime date) throws UnsupportedOperationException {
         if (!endDate.isPresent()) {
-            throw new UnsupportedOperationException("End date missing, start date cannot be set");
+            throw new UnsupportedOperationException("End date/ time is missing, start date/ time cannot be set.\n");
         }
-        else {
-            this.setTaskType(new TaskType("event"));
-        	startDate = Optional.of(date);
-        }
+        	
+        this.setTaskType(new TaskType("event"));
+        startDate = Optional.of(date);
+
     }
+    
     //@@author A0139339W
     public void removeStartDate() {
     	this.startDate = Optional.empty();
@@ -119,6 +126,13 @@ public class Task implements ReadOnlyTask, Comparable<ReadOnlyTask> {
         	this.taskType = new TaskType(Type.SOMEDAY);
     	}
     	
+    }
+    
+    //@@author A0143756Y
+    public static void validateEndDateTimeAfterStartDateTime(LocalDateTime startDateTime, LocalDateTime endDateTime){
+    	if(!endDateTime.isAfter(startDateTime)){
+    		throw new IllegalArgumentException("End date/ time is not after start date/ time.\n");
+    	}
     }
     //@@author
 

@@ -2,6 +2,7 @@ package seedu.address.logic.commands;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
+import java.lang.IllegalArgumentException;
 
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.Messages;
@@ -29,13 +30,6 @@ public class EditCommand extends Command {
  
     public static final String MESSAGE_EDIT_TASK_SUCCESS = "Edited Task: %1$s";
     public static final String MESSAGE_DUPLICATE_TASK = "Edit will result in duplicate tasks in task manager";   
-    
-    //@@author A0143756Y
-    public static final String MESSAGE_START_DATE_TIME_AFTER_END_DATE_TIME = 
-    		"Start of event is scheduled after end of event. Please re-enter correct start and end dates/times.\n";
-    public static final String MESSAGE_START_DATE_TIME_EQUALS_END_DATE_TIME =
-    		"Start of event equals end of event. Please re-enter correct start and end dates/times.\n";
-    //@@author A0139339W
 
     public final int targetIndex;
     private final Optional<Name> newName;
@@ -89,27 +83,36 @@ public class EditCommand extends Command {
         	    postEdit.setName(newName.get());
             }
             
+            if(newStartDateTime.isPresent() && newEndDateTime.isPresent()){
+            	LocalDateTime startDateTime = newStartDateTime.get();
+            	LocalDateTime endDateTime = newEndDateTime.get();
+            	
+            	Task.validateEndDateTimeAfterStartDateTime(startDateTime, endDateTime);
+            }
+            
             if(newStartDateTime.isPresent() && !newEndDateTime.isPresent()){
             	LocalDateTime startDateTime = newStartDateTime.get();
             	
-            	if(taskToEdit.getEndDate().isPresent()){
-            		LocalDateTime endDateTime = taskToEdit.getEndDate().get();
-            		
-                	if(startDateTime.isAfter(endDateTime)){
-                    	return new CommandResult(MESSAGE_START_DATE_TIME_AFTER_END_DATE_TIME);
-                	}  
+            	if(isRemoveEndDateTime){
+            		throw new UnsupportedOperationException("Start date/ time cannot be set with end date/ time removed.\n");
             	}
+            	
+            	if(!taskToEdit.getEndDate().isPresent()){
+            		throw new UnsupportedOperationException("End date/ time is missing, start date/ time cannot be set.\n");
+            	}
+            	
+        		LocalDateTime endDateTime = taskToEdit.getEndDate().get();
+        		
+        		Task.validateEndDateTimeAfterStartDateTime(startDateTime, endDateTime);
             }
             
             if(!newStartDateTime.isPresent() && newEndDateTime.isPresent()){
             	LocalDateTime endDateTime = newEndDateTime.get();
             	
-            	if(taskToEdit.getStartDate().isPresent()){
+            	if((!isRemoveStartDateTime) && taskToEdit.getStartDate().isPresent()){
             		LocalDateTime startDateTime = taskToEdit.getStartDate().get();
             		
-                	if(!endDateTime.isAfter(startDateTime)){
-                		return new CommandResult(MESSAGE_START_DATE_TIME_AFTER_END_DATE_TIME);
-                	}      
+            		Task.validateEndDateTimeAfterStartDateTime(startDateTime, endDateTime);
             	}
             }
             
@@ -136,7 +139,6 @@ public class EditCommand extends Command {
         	
             model.editTask(index, postEdit);
             
-           
             raiseJumpToTaskEvent(postEdit);
 
             
@@ -146,6 +148,9 @@ public class EditCommand extends Command {
         } catch (TaskNotFoundException tnfe) {
             model.undoSaveState();
             assert false : "The target task cannot be missing";
+        } catch(IllegalArgumentException iae){
+        	model.undoSaveState();
+        	return new CommandResult(iae.getMessage());
         }
         
         
