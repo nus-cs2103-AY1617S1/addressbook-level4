@@ -1,6 +1,12 @@
 package seedu.address.testutil;
 
 import seedu.task.model.task.*;
+
+import java.util.HashSet;
+import java.util.Set;
+
+import seedu.task.commons.exceptions.IllegalValueException;
+import seedu.task.model.tag.Tag;
 import seedu.task.model.tag.UniqueTagList;
 
 /**
@@ -50,11 +56,24 @@ public class TestTask implements ReadOnlyTask {
         this.status = status;
     }
     
-  //@@author A0153751H
+    //@@author A0153751H
     public void setTaskColor(TaskColor taskColor) {
         this.taskColor = taskColor;
     }
-  //@@author
+    
+    public void setTags(UniqueTagList tags) {
+        this.tags = tags;
+    }
+    
+    public void setTags(String...strings) throws IllegalValueException {
+    	Set<Tag> temp = new HashSet<Tag>();
+    	for(String a: strings) {
+    		Tag newTag = new Tag(a);
+    		temp.add(newTag);
+    	}
+    	this.tags = new UniqueTagList(temp);
+    }
+    //@@author
     
     @Override
     public String toString() {
