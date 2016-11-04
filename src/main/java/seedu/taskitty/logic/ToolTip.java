@@ -18,8 +18,7 @@ public class ToolTip {
     private static final int COMMAND_WORD_COUNT_SINGLE_MATCH = 1;
     
     private static final String TOOLTIP_POSSIBLE_COMMANDS = "These are the possible commands, Meow!";
-    private static final String TOOLTIP_UNKNOWN_COMMAND = "Meow? This does not resemble any command I have, Meow!\n" 
-                            + "Please erase the current text in the command box to see all available commands I have, Meow!";
+    private static final String TOOLTIP_UNKNOWN_COMMAND = "This does not resemble any command I have, Meow!\n";
     
     private static ToolTip tooltip;
     
