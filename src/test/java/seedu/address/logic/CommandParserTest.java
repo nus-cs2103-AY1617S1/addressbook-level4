@@ -19,7 +19,7 @@ public class CommandParserTest {
         parser = new CommandParser();
         Command command = parser.parseCommand("add     ");
         IncorrectCommand expectedFeedback = new IncorrectCommand(String.format(
-                MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+                MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.getMessageUsage()));
         if (command instanceof IncorrectCommand) {
             assertEquals(((IncorrectCommand) command).feedbackToUser, expectedFeedback.feedbackToUser);
         } else {
@@ -43,7 +43,7 @@ public class CommandParserTest {
         parser = new CommandParser();
         Command command = parser.parseCommand("add eat bingsu from 10:30am from 10:40am");
         IncorrectCommand expectedFeedback = new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                "Repeated start times are not allowed." + "\n" + AddCommand.MESSAGE_USAGE));
+                "Repeated start times are not allowed." + "\n" + AddCommand.getMessageUsage()));
         if (command instanceof IncorrectCommand) {
             assertEquals(((IncorrectCommand) command).feedbackToUser, expectedFeedback.feedbackToUser);
         } else {

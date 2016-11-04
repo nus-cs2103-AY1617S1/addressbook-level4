@@ -35,7 +35,7 @@ public class AddCommandHelper {
     public static final String MESSAGE_END_DATE_CONSTRAINTS = "End date should be later than start date.";
     private static final String MESSAGE_DATE_CONSTRAINTS = "Invalid date!";
     
-    // used to check for invalid dates e.g 40 Oct
+    /** used to check for invalid dates e.g 40 Oct */
     private static final String REGEX_VALIDATE_DATE = ".*?(?:SEEK > by_day (?<date>\\d+) \\W+).*";
 
     private static final int BASE_INDEX = 0;
@@ -48,16 +48,17 @@ public class AddCommandHelper {
      * @return  HashMap containing values of taskName, startDate, endDate, recurrenceRate and priority.
      * @throws IllegalValueException  if recurrenceRate or date is invalid
      */
-    public static HashMap<String, Object> convertStringToObjects(HashMap<String, Optional<String>> map) 
+    public static HashMap<String, Object> convertStringToObjects(HashMap<String, Optional<String>> mapOfStrings) 
             throws IllegalValueException {
-        Name taskName = new Name(map.get("taskName").get());
-        Date startDate = convertStringToStartDate(map.get("startDate"));
-        Date endDate = convertStringToEndDate(map.get("endDate"), startDate);
-        RecurrenceRate recurrenceRate = convertStringToRecurrenceRate(map.get("rate"), map.get("timePeriod")); 
-        Priority priority = Priority.convertStringToPriority(map.get("priority").get());
+        Name taskName = new Name(mapOfStrings.get(Name.getMapNameKey()).get());
+        Date startDate = convertStringToStartDate(mapOfStrings.get(DateTime.getMapStartDateKey()));
+        Date endDate = convertStringToEndDate(mapOfStrings.get(DateTime.getMapEndDateKey()), startDate);
+        RecurrenceRate recurrenceRate = convertStringToRecurrenceRate(mapOfStrings.get(RecurrenceRate.getMapRateKey()), 
+                mapOfStrings.get(TimePeriod.getTimePeriodKey())); 
+        Priority priority = Priority.convertStringToPriority(mapOfStrings.get(Priority.getMapPriorityKey()).get());
         
         if (isRecurWeekdaysButDatesNotGiven(startDate, endDate, recurrenceRate)) {
-            startDate = DateTime.assignStartDateToSpecifiedWeekday(recurrenceRate.timePeriod.toString());
+            startDate = DateTime.assignStartDateToSpecifiedWeekday(recurrenceRate.getTimePeriod().toString());
         } 
         
         checkInvalidCombinations(startDate, endDate, recurrenceRate);
@@ -101,11 +102,11 @@ public class AddCommandHelper {
         assert taskName != null && priority != null;
         HashMap<String, Object> map = new HashMap<String, Object>();
 
-        map.put("taskName", taskName);
-        map.put("startDate", startDate);
-        map.put("endDate", endDate);
-        map.put("recurrenceRate", recurrenceRate);
-        map.put("priority", priority);
+        map.put(Name.getMapNameKey(), taskName);
+        map.put(DateTime.getMapStartDateKey(), startDate);
+        map.put(DateTime.getMapEndDateKey(), endDate);
+        map.put(RecurrenceRate.getMapRecurrenceRateKey(), recurrenceRate);
+        map.put(Priority.getMapPriorityKey(), priority);
         
         return map;
     }
@@ -148,7 +149,7 @@ public class AddCommandHelper {
                 throw new IllegalValueException(MESSAGE_DATE_CONSTRAINTS);
             }
         } else {
-            throw new IllegalValueException(DateTime.MESSAGE_VALUE_CONSTRAINTS);
+            throw new IllegalValueException(DateTime.getMessageValueConstraints());
         }
     }
     
@@ -198,7 +199,7 @@ public class AddCommandHelper {
             recurrenceRate = new RecurrenceRate(STRING_CONSTANT_ONE, timePeriodString.get());
         } else if (rateString.isPresent() && !timePeriodString.isPresent()) {
             logger.log(Level.FINE, "IllegalValueException caught in AddCommandHelper, convertStringToRecurrenceRate()");
-            throw new IllegalValueException(RecurrenceRate.MESSAGE_VALUE_CONSTRAINTS);
+            throw new IllegalValueException(RecurrenceRate.getMessageValueConstraints());
         }
         return recurrenceRate;
     }
@@ -212,8 +213,8 @@ public class AddCommandHelper {
      * @return  true if both dates are null and Task repeats every weekday. Else, returns false.
      */
     private static boolean isRecurWeekdaysButDatesNotGiven(Date startDate, Date endDate, RecurrenceRate recurrenceRate) {
-        return recurrenceRate != null && recurrenceRate.timePeriod != TimePeriod.DAY && 
-                recurrenceRate.timePeriod.toString().toLowerCase().contains("day") &&
+        return recurrenceRate != null && recurrenceRate.getTimePeriod() != TimePeriod.DAY && 
+                recurrenceRate.getTimePeriod().toString().toLowerCase().contains("day") &&
                 startDate == null && endDate == null;
     }
     
