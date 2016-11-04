@@ -3,7 +3,9 @@ package seedu.task.ui;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
@@ -12,8 +14,18 @@ import seedu.task.commons.core.Config;
 import seedu.task.commons.core.GuiSettings;
 import seedu.task.commons.events.ui.ExitAppRequestEvent;
 import seedu.task.logic.Logic;
+import seedu.task.logic.commands.EditCommand;
+import seedu.task.logic.parser.Parser;
 import seedu.task.model.UserPrefs;
 import seedu.task.model.task.ReadOnlyTask;
+
+import java.text.ParseException;
+import java.util.HashSet;
+import java.util.Set;
+
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -29,13 +41,13 @@ public class MainWindow extends UiPart {
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
-    private BrowserPanel browserPanel;
     private TaskListPanel taskListPanel;
     private ResultDisplay resultDisplay;
     private StatusBarFooter statusBarFooter; 
     private CommandBox commandBox;
     private Config config;
     private UserPrefs userPrefs; 
+
 
     // Handles to elements of this Ui container
     private VBox rootLayout;
@@ -60,7 +72,20 @@ public class MainWindow extends UiPart {
 
     @FXML
     private AnchorPane statusbarPlaceholder;
-
+    
+    @FXML
+    private Button aButton;
+    
+    @FXML
+    private Button eButton;
+    
+    @FXML
+    private TextField eIndex, eTitle, eDes, eStart, eDue,
+    	eColor, eTags;
+    
+    @FXML
+    private TextField aTitle, aDes, aStart, aDue, aInterval,
+    	aTimeInterval, aColor, aTags;
 
     public MainWindow() {
         super();
@@ -99,16 +124,93 @@ public class MainWindow extends UiPart {
         setWindowDefaultSize(prefs);
         scene = new Scene(rootLayout);
         primaryStage.setScene(scene);
-
+        aButton.setOnAction((ActionEvent e) -> {
+        	String aHead = "add";
+        	aHead = processAddParams(aHead);
+        	try {
+				logic.execute(aHead);
+			} catch (ParseException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+        });
+        eButton.setOnAction((ActionEvent e) -> {
+        	String eHead = "edit";
+        	eHead = processEditParams(eHead);
+        	try {
+				logic.execute(eHead);
+			} catch (ParseException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+        });
         setAccelerators();
     }
+
+	private String processEditParams(String eHead) {
+		if (!eIndex.getText().isEmpty()) {
+			eHead = eHead + " " + eIndex.getText();
+		}
+		if (!eTitle.getText().isEmpty()) {
+			eHead = eHead + " t/" + eTitle.getText();
+		}
+		if (!eDes.getText().isEmpty()) {
+			eHead = eHead + " d/" + eDes.getText();
+		}
+		if (!eStart.getText().isEmpty()) {
+			eHead = eHead + " sd/" + eStart.getText();
+		}
+		if (!eDue.getText().isEmpty()) {
+			eHead = eHead + " dd/" + eDue.getText();
+		}
+		if (!eColor.getText().isEmpty()) {
+			eHead = eHead + " c/" + eColor.getText();
+		}
+		if (!eTags.getText().isEmpty()) {
+			String[] temp = eTags.getText().split(" ");
+			for (String tag : temp) {
+				eHead = eHead + " ts/" + tag;
+			}
+		}
+		return eHead;
+	}
+
+	private String processAddParams(String aHead) {
+		if (!aTitle.getText().isEmpty()) {
+			aHead = aHead + " " + aTitle.getText();
+		}
+		if (!aDes.getText().isEmpty()) {
+			aHead = aHead + " d/" + aDes.getText();
+		}
+		if (!aStart.getText().isEmpty()) {
+			aHead = aHead + " sd/" + aStart.getText();
+		}
+		if (!aDue.getText().isEmpty()) {
+			aHead = aHead + " dd/" + aDue.getText();
+		}
+		if (!aInterval.getText().isEmpty()) {
+			aHead = aHead + " i/" + aInterval.getText();
+		}
+		if (!aTimeInterval.getText().isEmpty()) {
+			aHead = aHead + " ti/" + aTimeInterval.getText();
+		}
+		if (!aColor.getText().isEmpty()) {
+			aHead = aHead + " c/" + aColor.getText();
+		}
+		if (!aTags.getText().isEmpty()) {
+			String[] temp = aTags.getText().split(" ");
+			for (String tag : temp) {
+				aHead = aHead + " t/" + tag;
+			}
+		}
+		return aHead;
+	}
 
     private void setAccelerators() {
         helpMenuItem.setAccelerator(KeyCombination.valueOf("F1"));
     }
 
     void fillInnerParts() {
-        browserPanel = BrowserPanel.load(browserPlaceholder);
         taskListPanel = TaskListPanel.load(primaryStage, getTaskListPlaceholder(), logic.getFilteredTaskList());
         resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
         statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getTaskManagerFilePath());
@@ -184,13 +286,5 @@ public class MainWindow extends UiPart {
 
     public TaskListPanel getTaskListPanel() {
         return this.taskListPanel;
-    }
-
-    public void loadTaskPage(ReadOnlyTask task) {
-        browserPanel.loadTaskPage(task);
-    }
-
-    public void releaseResources() {
-        browserPanel.freeResources();
     }
 }
