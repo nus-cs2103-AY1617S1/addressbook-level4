@@ -132,6 +132,7 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
 		this.tags = tags;
 	}
     
+    /*
     // adds deadline without task description and date
     public Task(Name name, Time endTime, UniqueTagList tags) throws IllegalValueException {
 		assert!CollectionUtil.isAnyNull(name, endTime, tags);
@@ -152,7 +153,8 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
 		this.startTime = new Time("");
 		this.endTime = endTime;
 		this.tags = tags;
-	}
+	}*/
+    
     // adds deadline without time
     public Task(Name name, TaskDescription taskD, Date date, UniqueTagList tags) throws IllegalValueException {
 		assert!CollectionUtil.isAnyNull(name, taskD, date, tags);

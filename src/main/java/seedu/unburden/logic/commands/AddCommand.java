@@ -70,14 +70,14 @@ public class AddCommand extends Command {
 			this.toAdd = new Task(new Name(details.get(0)), new Date(details.get(1)), new UniqueTagList(tagSet));
 			break;
 
-		case "deadline without task description and date":
+		/*case "deadline without task description and date":
 			this.toAdd = new Task(new Name(details.get(0)), new Time(details.get(1)), new UniqueTagList(tagSet));
 			break;
 
 		case "deadline without date":
 			this.toAdd = new Task(new Name(details.get(0)), new TaskDescription(details.get(1)),
 					new Time(details.get(2)), new UniqueTagList(tagSet));
-			break;
+			break; */
 
 		case "deadline without time":
 			this.toAdd = new Task(new Name(details.get(0)), new TaskDescription(details.get(1)),
