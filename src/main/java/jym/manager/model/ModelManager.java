@@ -17,6 +17,7 @@ import jym.manager.commons.util.StringUtil;
 import jym.manager.model.task.ReadOnlyTask;
 import jym.manager.model.task.Task;
 import jym.manager.model.task.UniqueTaskList;
+import jym.manager.model.task.UniqueTaskList.DuplicateTaskException;
 import jym.manager.model.task.UniqueTaskList.TaskNotFoundException;
 import jym.manager.ui.MainWindow;
 
@@ -174,6 +175,18 @@ public class ModelManager extends ComponentManager implements Model {
         filteredCompleteTasks.setPredicate(expression::satisfies);
         filteredIncompleteTasks.setPredicate(expression::satisfies);
     }
+    
+	@Override
+	public void updateFilteredListToShowAll(String sortType) {
+		try {
+			taskManager.sortTask(sortType);
+			updateFilteredListToShowAll();
+			indicateTaskManagerChanged();
+		} catch (DuplicateTaskException e) {
+			e.printStackTrace();
+		}
+	}
+    
   //@@author
     //========== Inner classes/interfaces used for filtering ==================================================
 

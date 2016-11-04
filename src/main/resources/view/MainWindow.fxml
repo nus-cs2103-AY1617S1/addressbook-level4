@@ -6,7 +6,7 @@
 <?import java.net.URL?>
 <VBox maxHeight="Infinity" maxWidth="Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="jym.manager.ui.MainWindow">
    <stylesheets>
-      <URL value="@DarkTheme.css" />
+      <URL value="@BlueTheme.css" />
       <URL value="@Extensions.css" />
    </stylesheets>
    <children>

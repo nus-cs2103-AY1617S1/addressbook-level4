@@ -9,7 +9,9 @@ import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import jym.manager.logic.commands.SortCommand;
 import jym.manager.logic.commands.UndoCommand;
+import jym.manager.logic.commands.SortCommand;
 import jym.manager.logic.commands.Command;
 import jym.manager.logic.commands.CompleteCommand;
 import jym.manager.logic.commands.IncorrectCommand;
@@ -128,6 +130,9 @@ public class Parser {
         	
 		case SaveToCommand.COMMAND_WORD:
 			return new SaveToCommand(arguments);
+			
+		case SortCommand.COMMAND_WORD:
+			return prepareSort(arguments);
 			
         default:
             return prepareAdd(commandWord.concat(arguments));
@@ -438,5 +443,19 @@ public class Parser {
         final Set<String> keywordSet = new HashSet<>(Arrays.asList(keywords));
         return new FindCommand(keywordSet);
     }
+    
+    
+    private Command prepareSort(String args) {
+		System.out.println("sort: " + args);
+		if (args == null || "".equals(args.trim())) {
+			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SortCommand.MESSAGE_USAGE));
+		}
+		args = args.toLowerCase().trim();
+		if (args.equals("ans") || args.equals("desc")) {
+			return new SortCommand(args);
+		} else {
+			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SortCommand.MESSAGE_USAGE));
+		}
+	}
 
 }

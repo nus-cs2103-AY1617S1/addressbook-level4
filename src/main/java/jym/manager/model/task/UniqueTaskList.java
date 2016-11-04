@@ -4,6 +4,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 
+import java.time.LocalDateTime;
 import java.util.*;
 
 import javax.swing.event.InternalFrameListener;
@@ -137,4 +138,71 @@ public class UniqueTaskList implements Iterable<Task> {
     public int hashCode() {
         return internalList.hashCode();
     }
+
+    /**
+     * Sorting the task
+     *
+     */
+    
+    public void sort(String sortType) {
+		System.out.println("size1: " + internalList.size());
+		if (internalList != null && internalList.size() > 0) {
+			if (sortType.equals("ans")) {
+				internalList.sort(new SortAns());
+			} else {
+				internalList.sort(new SortDesc());
+			}
+		}
+		System.out.println("size2: " + internalList.size());
+	}
+        
+    class SortAns implements Comparator<Task> {
+		@Override
+		public int compare(Task o1, Task o2) {
+			int ret = 0;
+			LocalDateTime date1 = null;
+			LocalDateTime date2 = null;
+			if (o1.getDate() == null || o1.getDate().getDate() == null) {
+				date1= LocalDateTime.now();
+			}else{
+				date1= o1.getDate().getDate();
+			}
+			if (o2.getDate() == null || o2.getDate().getDate() == null) {
+				date2= LocalDateTime.now();
+			}else{
+				date2= o2.getDate().getDate();
+			}
+			ret = date1.compareTo(date2);
+			if (ret == 0) {
+				ret = o1.getDescription().toString().compareTo(o2.getDescription().toString());
+			}
+			return ret;
+
+		}
+	}
+    
+	class SortDesc implements Comparator<Task> {
+		@Override
+		public int compare(Task o1, Task o2) {
+			int ret = 0;
+			LocalDateTime date1 = null;
+			LocalDateTime date2 = null;
+			if (o1.getDate() == null || o1.getDate().getDate() == null) {
+				date1= LocalDateTime.now();
+			}else{
+				date1= o1.getDate().getDate();
+			}
+			if (o2.getDate() == null || o2.getDate().getDate() == null) {
+				date2= LocalDateTime.now();
+			}else{
+				date2= o2.getDate().getDate();
+			}
+			ret = date2.compareTo(date1);
+			if (ret == 0) {
+				ret = o2.getDescription().toString().compareTo(o1.getDescription().toString());
+			}
+			return ret;
+
+		}
+	}
 }
