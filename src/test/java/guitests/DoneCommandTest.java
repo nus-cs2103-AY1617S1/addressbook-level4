@@ -22,6 +22,7 @@ public class DoneCommandTest extends ToDoListGuiTest {
     public void done() {
 
         TestTask[] currentList = td.getTypicalTasks();
+        //sort unsorted list
     	currentList = sortList(currentList);
         
         //done the first task in the list
