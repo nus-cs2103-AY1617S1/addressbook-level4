@@ -4,7 +4,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.unburden.commons.exceptions.*;
 import seedu.unburden.commons.util.CollectionUtil;
-
+import seedu.unburden.logic.commands.EditCommand;
 
 import java.util.*;
 
@@ -92,19 +92,19 @@ public class UniqueTaskList implements Iterable<Task> {
     		updatedTask.setName(oldTask.getName());
     	}
     	
-    	if (updatedTask.getTaskDescription().getFullTaskDescription() == "") {
+    	if (EditCommand.removeTaskDescription == false && updatedTask.getTaskDescription().getFullTaskDescription() == "") {
     		updatedTask.setTaskDescription(oldTask.getTaskDescription());
     	}
     	
-    	if (updatedTask.getDate().getFullDate() == "") {
+    	if (EditCommand.removeDate == false && updatedTask.getDate().getFullDate() == "") {
     		updatedTask.setDate(oldTask.getDate());
     	}
     	
-    	if (updatedTask.getStartTime().getFullTime() == "") {
+    	if (EditCommand.removeStartTime == false && updatedTask.getStartTime().getFullTime() == "") {
     		updatedTask.setStartTime(oldTask.getStartTime());
     	}
     	
-    	if (updatedTask.getEndTime().getFullTime() == "") {
+    	if (EditCommand.removeEndTime == false && updatedTask.getEndTime().getFullTime() == "") {
     		updatedTask.setEndTime(oldTask.getEndTime());
     	}
     	

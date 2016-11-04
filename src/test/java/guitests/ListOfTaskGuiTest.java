@@ -11,6 +11,7 @@ import org.testfx.api.FxToolkit;
 
 import seedu.unburden.TestApp;
 import seedu.unburden.commons.core.EventsCenter;
+import seedu.unburden.commons.exceptions.IllegalValueException;
 import seedu.unburden.model.ListOfTask;
 import seedu.unburden.model.task.ReadOnlyTask;
 import seedu.unburden.testutil.TestUtil;
@@ -78,7 +79,11 @@ public abstract class ListOfTaskGuiTest {
      */
     protected ListOfTask getInitialData() {
         ListOfTask ab = TestUtil.generateEmptyListOfTask();
-        TypicalTestTasks.loadListOfTaskWithSampleData(ab);
+        try {
+        	TypicalTestTasks.loadListOfTaskWithSampleData(ab);
+        } catch (IllegalValueException e) {
+        	return new ListOfTask();
+        }
         return ab;
     }
 

@@ -38,8 +38,8 @@ public class Time implements Comparable<Time> {
 		}
 		if (time.equals("")) {
 			this.fullTime = "";
-			this.hours = 23;
-			this.minutes = 59;
+			this.hours = 00;
+			this.minutes = 00;
 
 		} else {
 			this.fullTime = time;
@@ -88,16 +88,19 @@ public class Time implements Comparable<Time> {
 		// entry check
 		if (this.equals(time)) { // check if same time or both dummy values
 			return 0;
-		} else if (this.getFullTime() == "") { // check if this Time
-												// object contains the
-												// dummy value
-			return 1;
-		} else if (time.getFullTime() == "") { // check if the Time
-												// object compared to
-												// contains the dummy
-												// value
+		} else if (this.getFullTime() == "" && time.getFullTime() == "") { // check if this Time
+												                           // object contains the
+											                               // dummy value
+			return 0;
+		} else if (this.getFullTime() == "" && time.getFullTime() != "") { // check if the Time
+												                           // object compared to
+												                           // contains the dummy
+												                           // value
 			return -1;
+		} else if (this.getFullTime() != "" && time.getFullTime() == "") {
+			return 1;
 		}
+		
 
 		// comparing the values, hours and minutes.
 		if (this.getHours() == time.getHours() && this.getMinutes() == time.getMinutes()) {

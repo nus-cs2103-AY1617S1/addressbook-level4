@@ -9,6 +9,8 @@ import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import seedu.unburden.commons.core.Config;
+
+import seedu.unburden.commons.core.Messages;
 import seedu.unburden.commons.exceptions.IllegalValueException;
 import seedu.unburden.commons.util.StringUtil;
 import seedu.unburden.logic.commands.*;
@@ -53,23 +55,23 @@ public class Parser {
 			.compile("(?<name>[^/]+)" + "d/(?<date>[^/]+)" + "(?<tagArguments>(?: t/[^/]+)*)");
 
 	// Deadline without task description and date
-	private static final Pattern ADD_FORMAT_5 = Pattern
+	/*private static final Pattern ADD_FORMAT_5 = Pattern
 			.compile("(?<name>[^/]+)" + "e/(?<endTimeArguments>[^/]+)" + "(?<tagArguments>(?: t/[^/]+)*)");
 
 	// Deadline without date
 	private static final Pattern ADD_FORMAT_6 = Pattern.compile("(?<name>[^/]+)" + "i/(?<taskDescriptions>[^/]+)"
-			+ "e/(?<endTimeArguments>[^/]+)" + "(?<tagArguments>(?: t/[^/]+)*)");
+			+ "e/(?<endTimeArguments>[^/]+)" + "(?<tagArguments>(?: t/[^/]+)*)"); */
 
 	// Deadline without time
-	private static final Pattern ADD_FORMAT_7 = Pattern.compile(
+	private static final Pattern ADD_FORMAT_5 = Pattern.compile(
 			"(?<name>[^/]+)" + "i/(?<taskDescriptions>[^/]+)" + "d/(?<date>[^/]+)" + "(?<tagArguments>(?: t/[^/]+)*)");
 
 	// Floating task
-	private static final Pattern ADD_FORMAT_8 = Pattern
+	private static final Pattern ADD_FORMAT_6 = Pattern
 			.compile("(?<name>[^/]+)" + "i/(?<taskDescriptions>[^/]+)" + "(?<tagArguments>(?: t/[^/]+)*)");
 
 	// Floating task without task description
-	private static final Pattern ADD_FORMAT_9 = Pattern.compile("(?<name>[^/]+)" + "(?<tagArguments>(?: t/[^/]+)*)");
+	private static final Pattern ADD_FORMAT_7 = Pattern.compile("(?<name>[^/]+)" + "(?<tagArguments>(?: t/[^/]+)*)");
 
 	private static final Pattern EDIT_FORMAT = Pattern
 			.compile("(?<index>[^/]+)(?!$)" + "((?<name>[^/]+))?" + "(i/(?<taskDescriptions>[^/]+))?"
@@ -203,13 +205,12 @@ public class Parser {
 		final Matcher matcher5 = ADD_FORMAT_5.matcher(args.trim());
 		final Matcher matcher6 = ADD_FORMAT_6.matcher(args.trim());
 		final Matcher matcher7 = ADD_FORMAT_7.matcher(args.trim());
-		final Matcher matcher8 = ADD_FORMAT_8.matcher(args.trim());
-		final Matcher matcher9 = ADD_FORMAT_9.matcher(args.trim());
+		//final Matcher matcher8 = ADD_FORMAT_8.matcher(args.trim());
+		//final Matcher matcher9 = ADD_FORMAT_9.matcher(args.trim());
 
 		// Validate arg string format
 		if (!matcher0.matches() & !matcher1.matches() & !matcher2.matches() & !matcher3.matches() & !matcher4.matches()
-				& !matcher5.matches() & !matcher6.matches() & !matcher7.matches() & !matcher8.matches()
-				& !matcher9.matches()) {
+				& !matcher5.matches() & !matcher6.matches() & !matcher7.matches()) {
 			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 		}
 
@@ -251,7 +252,7 @@ public class Parser {
 				return new AddCommand("deadline without task description and time", details,
 						getTagsFromArgs(matcher4.group("tagArguments")));
 
-			} else if (matcher5.matches()) {
+			} /*else if (matcher5.matches()) {
 				details.add(matcher5.group("name"));
 				details.add(matcher5.group("endTimeArguments"));
 				return new AddCommand("deadline without task description and date", details,
@@ -264,59 +265,59 @@ public class Parser {
 				return new AddCommand("deadline without date", details,
 						getTagsFromArgs(matcher6.group("tagArguments")));
 
-			} else if (matcher7.matches()) {
+			}*/ else if (matcher7.matches()) {
 				details.add(matcher7.group("name"));
 				details.add(matcher7.group("taskDescriptions"));
 				details.add(matcher7.group("date"));
 				return new AddCommand("deadline without time", details,
 						getTagsFromArgs(matcher7.group("tagArguments")));
 
-			} else if (matcher8.matches()) {
-				details.add(matcher8.group("name"));
-				details.add(matcher8.group("taskDescriptions"));
-				return new AddCommand("floating task", details, getTagsFromArgs(matcher8.group("tagArguments")));
+			} else if (matcher6.matches()) {
+				details.add(matcher6.group("name"));
+				details.add(matcher6.group("taskDescriptions"));
+				return new AddCommand("floating task", details, getTagsFromArgs(matcher6.group("tagArguments")));
 
 			} else {
-				if (matcher9.group("name").toLowerCase().contains(BYTODAY)) {
-					details.add(matcher9.group("name").replaceAll("(?i)" + Pattern.quote(BYTODAY), ""));
+				if (matcher7.group("name").toLowerCase().contains(BYTODAY)) {
+					details.add(matcher7.group("name").replaceAll("(?i)" + Pattern.quote(BYTODAY), ""));
 					details.add(DATEFORMATTER.format(calendar.getTime()));
 					return new AddCommand("deadline without task description and time", details,
-							getTagsFromArgs(matcher9.group("tagArguments")));
+							getTagsFromArgs(matcher7.group("tagArguments")));
 
 				}
 
-				else if (matcher9.group("name").toLowerCase().contains(BYTOMORROW)) {
+				else if (matcher7.group("name").toLowerCase().contains(BYTOMORROW)) {
 					calendar.setTime(calendar.getTime());
 					calendar.add(Calendar.DAY_OF_YEAR, 1);
-					details.add(matcher9.group("name").replaceAll("(?i)" + Pattern.quote(BYTOMORROW), ""));
+					details.add(matcher7.group("name").replaceAll("(?i)" + Pattern.quote(BYTOMORROW), ""));
 					details.add(DATEFORMATTER.format(calendar.getTime()));
 					return new AddCommand("deadline without task description and time", details,
-							getTagsFromArgs(matcher9.group("tagArguments")));
+							getTagsFromArgs(matcher7.group("tagArguments")));
 
 				}
 
-				else if (matcher9.group("name").toLowerCase().contains(BYNEXTWEEK)) {
+				else if (matcher7.group("name").toLowerCase().contains(BYNEXTWEEK)) {
 					calendar.setTime(calendar.getTime());
 					calendar.add(Calendar.WEEK_OF_YEAR, 1);
-					details.add(matcher9.group("name").replaceAll("(?i)" + Pattern.quote(BYNEXTWEEK), ""));
+					details.add(matcher7.group("name").replaceAll("(?i)" + Pattern.quote(BYNEXTWEEK), ""));
 					details.add(DATEFORMATTER.format(calendar.getTime()));
 					return new AddCommand("deadline without task description and time", details,
-							getTagsFromArgs(matcher9.group("tagArguments")));
+							getTagsFromArgs(matcher7.group("tagArguments")));
 
 				}
 
-				else if (matcher9.group("name").toLowerCase().contains(BYNEXTMONTH)) {
+				else if (matcher7.group("name").toLowerCase().contains(BYNEXTMONTH)) {
 					calendar.setTime(calendar.getTime());
 					calendar.add(Calendar.WEEK_OF_MONTH, 4);
-					details.add(matcher9.group("name").replaceAll("(?i)" + Pattern.quote(BYNEXTMONTH), ""));
+					details.add(matcher7.group("name").replaceAll("(?i)" + Pattern.quote(BYNEXTMONTH), ""));
 					details.add(DATEFORMATTER.format(calendar.getTime()));
 					return new AddCommand("deadline without task description and time", details,
-							getTagsFromArgs(matcher9.group("tagArguments")));
+							getTagsFromArgs(matcher7.group("tagArguments")));
 
 				} else {
-					details.add(matcher9.group("name"));
+					details.add(matcher7.group("name"));
 					return new AddCommand("floating task without task description", details,
-							getTagsFromArgs(matcher9.group("tagArguments")));
+							getTagsFromArgs(matcher7.group("tagArguments")));
 				}
 			}
 
@@ -410,6 +411,7 @@ public class Parser {
 	 * @@author A0139714B
 	 */
 	private Command prepareEdit(String args) {
+		String name, taskDescription, date, startTime, endTime;
 
 		final Matcher matcher = EDIT_FORMAT.matcher(args.trim());
 		if (!matcher.matches())
@@ -419,23 +421,32 @@ public class Parser {
 
 			String tempArgs = args.trim();
 
-			String[] newArgs = tempArgs.split(" ", 2); // if no parameters is
+			String[] seperateIndex = tempArgs.split(" ", 2); // if no parameters is
 														// entered
-			if (newArgs.length <= 1)
+			if (seperateIndex.length <= 1)
 				return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
 
-			Optional<Integer> index = parseIndex(newArgs[0]);
+			Optional<Integer> index = parseIndex(seperateIndex[0]);
 			if (!index.isPresent()) {
 				return new IncorrectCommand(
-						String.format(MESSAGE_INVALID_TASK_DISPLAYED_INDEX, EditCommand.MESSAGE_USAGE));
+						String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
 			}
-
-			return new EditCommand(index.get(), matcher.group("name"), matcher.group("taskDescriptions"),
-					matcher.group("date"), matcher.group("startTimeArguments"), matcher.group("endTimeArguments"));
+			
+			String[] newArgs = seperateIndex[1].split(" ");
+			
+			String[] parameters = getNewArgs(newArgs);
+			name = parameters[0];
+			taskDescription = (parameters[1].length() == 0) ? null : parameters[1].substring(2);
+			date = (parameters[2].length() == 0) ? null : parameters[2].substring(2);
+			startTime = (parameters[3].length() == 0) ? null : parameters[3].substring(2);
+			endTime = (parameters[4].length() == 0) ? null : parameters[4].substring(2);
+			
+			
+			return new EditCommand(index.get(), name, taskDescription, date, startTime, endTime);
 
 		} catch (IllegalValueException ive) {
 			return new IncorrectCommand(ive.getMessage());
-		}
+		} 
 	}
 
 	/*
@@ -611,4 +622,42 @@ public class Parser {
 			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
 		}
 	}
+	
+    private String[] getNewArgs(String[] tokens) {
+     	 String[] newArgs = new String[5];
+          for (int i=0;i<5;i++)
+          	newArgs[i] = "";
+          
+          int loopIndex = 0;
+          int targetIndex = 0;
+          while (loopIndex < tokens.length) {
+         	 if (tokens[loopIndex].length() > 1 && tokens[loopIndex].charAt(1) == '/') {
+         		 switch (tokens[loopIndex].charAt(0)) {
+         		 	case ('i') : targetIndex = 1;
+         		 			     break;
+         		 	case ('d') : targetIndex = 2;
+ 		 			   		     break;
+         		 	case ('s') : targetIndex = 3;
+ 			   		   			 break;
+         		 	case ('e') : targetIndex = 4;
+ 			   		   			 break;
+ 			   		default    : break; 
+         		 }
+         	 }
+         	 
+         	 if (newArgs[targetIndex] == "") {
+         		 newArgs[targetIndex] = tokens[loopIndex] + " ";
+         	 }
+         	 else {
+         		 newArgs[targetIndex] = newArgs[targetIndex] + (tokens[loopIndex]) + " ";
+         	 }
+     		 loopIndex = loopIndex + 1;
+          }
+          
+          for (int i=0;i<newArgs.length;i++) {
+         	 newArgs[i] = newArgs[i].trim();
+          }
+          
+     	return newArgs;
+     }
 }

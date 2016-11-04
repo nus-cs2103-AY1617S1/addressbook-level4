@@ -1,5 +1,6 @@
 package seedu.unburden.testutil;
 
+import seedu.unburden.commons.exceptions.IllegalValueException;
 import seedu.unburden.model.tag.UniqueTagList;
 import seedu.unburden.model.task.*;
 
@@ -16,6 +17,7 @@ public class TestTask implements ReadOnlyTask {
     private Time endTime;
     private UniqueTagList tags;
     private boolean done;
+    private boolean overdue;
 
     public TestTask() {
         tags = new UniqueTagList();
@@ -55,6 +57,13 @@ public class TestTask implements ReadOnlyTask {
 	public boolean getDone() {
 		return done;
 	}
+    
+    @Override 
+    public boolean getOverdue() {
+    	return overdue;
+    }
+    
+    
 
     public void setName(Name name) {
         this.name = name;
@@ -111,4 +120,5 @@ public class TestTask implements ReadOnlyTask {
 			return "Task unDone!";
 		}
 	}
+	
 }

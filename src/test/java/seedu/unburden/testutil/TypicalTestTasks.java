@@ -28,7 +28,7 @@ public class TypicalTestTasks {
             
             luhua = new TaskBuilder().withName("Luhua Yang").withDate("21-11-2016").build();
             
-            haha = new TaskBuilder().withName("haha").withStartTime("1800").build();
+            haha = new TaskBuilder().withName("haha").build();
             
             hahaha = new TaskBuilder().withName("hahaha").withDate("31-10-2016").withEndTime("2100").build();
             
@@ -40,7 +40,7 @@ public class TypicalTestTasks {
         }
     }
 
-    public static void loadListOfTaskWithSampleData(ListOfTask ab) {
+    public static void loadListOfTaskWithSampleData(ListOfTask ab) throws IllegalValueException {
 
         try {
             ab.addTask(new Task(alice));
@@ -59,7 +59,7 @@ public class TypicalTestTasks {
         return new TestTask[]{alice, benson, carl, daniel, elle, fiona, george};
     }
 
-    public ListOfTask getTypicalListOfTask(){
+    public ListOfTask getTypicalListOfTask() throws IllegalValueException {
         ListOfTask ab = new ListOfTask();
         loadListOfTaskWithSampleData(ab);
         return ab;
