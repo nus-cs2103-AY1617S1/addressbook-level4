@@ -143,9 +143,9 @@ public class Parser {
 
 	//@@author A0141019U	
 	private String replaceAliases(String userInput) {
-		String inputWithNameRemoved = separateNameAndArgs(userInput).getValue();
-		System.out.println("userInput before replacing: " + userInput);
-		System.out.println("input with name removed: " + inputWithNameRemoved);
+		Pair<String, String> separatedInput = separateNameAndArgs(userInput);
+		String textInQuotes = separatedInput.getKey();
+		String inputWithNameRemoved = separatedInput.getValue();
 		
 		List<ReadOnlyAlias> aliasList = this.model.getFilteredAliasList();
 		List<String> aliases = new ArrayList<>(); 
@@ -155,27 +155,19 @@ public class Parser {
 			aliases.add(aliasObj.getAlias());
 			originals.add(aliasObj.getOriginalPhrase());
 		}
-		aliases.add("a");
-		originals.add("add");
 		
 		for (int i=0; i<aliases.size(); i++) {
 			String alias = aliases.get(i);
 			String original = originals.get(i);
 			
-			System.out.println("alias: " + alias);
-			
 			// Does not replace arguments in find command or within quotes			
 			if (inputWithNameRemoved.contains(alias) 
-					&& !inputWithNameRemoved.matches(".*'.*(" + alias + ").*'.*") 
 					&& !inputWithNameRemoved.contains("find")) {
-				System.out.println("match");
-				userInput = userInput.replace(alias, original);
+				inputWithNameRemoved = inputWithNameRemoved.replace(alias, original);
 			}
-		}
+		}		
 		
-		System.out.println("userInput after replacing: " + userInput);
-		
-		return userInput;
+		return inputWithNameRemoved + "'" + textInQuotes + "'";
 	}
 	
 	
@@ -588,6 +580,6 @@ public class Parser {
 	public static void main(String[] args) {
 		Parser p = new Parser(new ModelManager());
 //		p.parseCommand("add 'dd' by 5pm today");
-		p.replaceAliases("bloh 'a' k");
+		p.replaceAliases("a 'a' k");
 	}
 }
