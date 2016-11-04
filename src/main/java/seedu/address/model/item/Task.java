@@ -241,13 +241,13 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
 
         // Easy case 1
         if (!hasStart && hasEnd && !otherHasStart && otherHasEnd) {
-            comparedVal = this.endDate.compareTo(other.endDate);
+            comparedVal = endDate.compareTo(other.endDate);
             return comparedVal;
         }
 
         // Easy case 2
         if (!hasStart && hasEnd && otherHasStart && !otherHasEnd) {
-            comparedVal = this.endDate.compareTo(other.startDate);
+            comparedVal = endDate.compareTo(other.startDate);
             if (comparedVal == 0) {
                 return 1;
             }
@@ -256,24 +256,24 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
 
         // Easy case 3
         if (hasStart && !hasEnd && !otherHasStart && otherHasEnd) {
-            comparedVal = this.startDate.compareTo(other.endDate);
+            comparedVal = startDate.compareTo(other.endDate);
             return comparedVal;
         }
 
         // Easy case 4
         if (hasStart && !hasEnd && otherHasStart && !otherHasEnd) {
-            comparedVal = this.startDate.compareTo(other.startDate);
+            comparedVal = startDate.compareTo(other.startDate);
             return comparedVal;
         }
 
         // Medium case 1
         if (!hasStart && hasEnd && otherHasStart && otherHasEnd) {
-            comparedVal = this.endDate.compareTo(other.startDate);
+            comparedVal = endDate.compareTo(other.startDate);
             if (comparedVal != 0) {
                 return comparedVal;
             }
 
-            comparedVal = this.endDate.compareTo(other.endDate);
+            comparedVal = endDate.compareTo(other.endDate);
             if (comparedVal == 0) {
                 return 1;
             }
@@ -282,34 +282,34 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
 
         // Medium case 2
         if (hasStart && !hasEnd && otherHasStart && otherHasEnd) {
-            comparedVal = this.startDate.compareTo(other.startDate);
+            comparedVal = startDate.compareTo(other.startDate);
             if (comparedVal != 0) {
                 return comparedVal;
             }
 
-            comparedVal = this.startDate.compareTo(other.endDate);
+            comparedVal = startDate.compareTo(other.endDate);
             return comparedVal;
         }
 
         // Medium case 3
         if (hasStart && hasEnd && !otherHasStart && otherHasEnd) {
-            comparedVal = this.startDate.compareTo(other.endDate);
+            comparedVal = startDate.compareTo(other.endDate);
             if (comparedVal != 0) {
                 return comparedVal;
             }
 
-            comparedVal = this.endDate.compareTo(other.endDate);
+            comparedVal = endDate.compareTo(other.endDate);
             return comparedVal;
         }
 
         // Medium case 4
         if (hasStart && hasEnd && otherHasStart && !otherHasEnd) {
-            comparedVal = this.startDate.compareTo(other.startDate);
+            comparedVal = startDate.compareTo(other.startDate);
             if (comparedVal != 0) {
                 return comparedVal;
             }
 
-            comparedVal = this.endDate.compareTo(other.startDate);
+            comparedVal = endDate.compareTo(other.startDate);
             if (comparedVal == 0) {
                 return 1;
             }
@@ -318,20 +318,17 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
 
         // Final case
         // compare start first
-        comparedVal = this.startDate.compareTo(other.startDate);
+        comparedVal = startDate.compareTo(other.startDate);
         if (comparedVal != 0) {
             return comparedVal;
         }
         // compare the end dates
-        comparedVal = this.endDate.compareTo(other.endDate);
+        comparedVal = endDate.compareTo(other.endDate);
         return comparedVal;
 
     }
-
-    /*
-     * private boolean bothHaveRecurrenceRate(Task other) { return
-     * this.recurrenceRate != null && other.recurrenceRate != null; }
-     */
+    
+    // @@author
     private boolean haveDifferentPriority(Task other) {
         return !this.priority.equals(other.priority);
     }

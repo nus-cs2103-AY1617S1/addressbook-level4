@@ -49,7 +49,7 @@ public class CommandParser {
     private static final String RESET_RECURRENCE_KEYWORD = "repeat";
     private static final String RESET_PRIORITY_KEYWORD = "priority";
     
-    private static final String NEWLINE_CHARACTER = "\n";
+    private static final String NEWLINE_STRING = "\n";
 
     public CommandParser() {}
 
@@ -455,7 +455,7 @@ public class CommandParser {
             return Messages.MESSAGE_DONE_LIST_RESTRICTED_COMMANDS;
         }
 
-        String combinedTooltip = String.join(NEWLINE_CHARACTER, tooltips);
+        String combinedTooltip = String.join(NEWLINE_STRING, tooltips);
         return combinedTooltip;
     }
     
@@ -551,7 +551,7 @@ public class CommandParser {
             return prepareAddDetailedTooltip(commandWord + arguments);      
         } 
         
-        String combinedTooltip = String.join(NEWLINE_CHARACTER, tooltips);
+        String combinedTooltip = String.join(NEWLINE_STRING, tooltips);
         return combinedTooltip;
     }
     

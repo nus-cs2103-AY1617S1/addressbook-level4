@@ -23,6 +23,9 @@ public class TaskCard extends UiPart {
     private static final String RECURRENCE_RATE_DISPLAY_PREFIX = "Every ";
     private static final String END_DATE_DISPLAY_PREFIX = "End: ";
     private static final String START_DATE_DISPLAY_PREFIX = "Start: ";
+    private static final String STRING_PLURAL_POSTFIX = "s";
+    private static final String STRING_ONE_SPACE = " ";
+    private static final String STRING_EMPTY = "";
 
     private static final int ONE = 1;
     private static final int ZERO = 0;
@@ -103,9 +106,9 @@ public class TaskCard extends UiPart {
      * displaying.
      */
     private void setTaskCardName() {
-        assert task != null && task.getName() != null && task.getName().name != null;
+        assert task != null && task.getName() != null;
 
-        String taskName = task.getName().name;
+        String taskName = task.getName().toString();
         name.setText(taskName);
     }
 
@@ -144,7 +147,7 @@ public class TaskCard extends UiPart {
     private void setTaskCardStartDate() {
         assert task != null;
 
-        String startDateText = "";
+        String startDateText = STRING_EMPTY;
         boolean hasStartDate = task.getStartDate().isPresent();
 
         if (hasStartDate) {
@@ -160,7 +163,7 @@ public class TaskCard extends UiPart {
     private void setTaskCardEndDate() {
         assert task != null;
 
-        String endDateText = "";
+        String endDateText = STRING_EMPTY;
         boolean hasEndDate = task.getEndDate().isPresent();
 
         if (hasEndDate) {
@@ -176,7 +179,7 @@ public class TaskCard extends UiPart {
     private void setTaskCardRecurrence() {
         assert task != null;
 
-        String recurrenceRateText = "";
+        String recurrenceRateText = STRING_EMPTY;
         boolean taskIsRecurring = task.getRecurrenceRate().isPresent();
 
         if (taskIsRecurring) {
@@ -244,10 +247,10 @@ public class TaskCard extends UiPart {
     private String getRecurrenceRateString(Integer recurrenceRateInteger, TimePeriod timePeriod) {
         boolean isRecurrenceRateOne = (recurrenceRateInteger == ONE);
 
-        return RECURRENCE_RATE_DISPLAY_PREFIX + ((isRecurrenceRateOne) ? "" : recurrenceRateInteger.toString() + " ")
+        return RECURRENCE_RATE_DISPLAY_PREFIX + ((isRecurrenceRateOne) ? STRING_EMPTY : recurrenceRateInteger.toString() + STRING_ONE_SPACE)
                 + timePeriod.toString().substring(ZERO, ONE).toUpperCase()
                 + timePeriod.toString().substring(ONE).toLowerCase()
-                + (recurrenceRateInteger.intValue() > ONE ? "s" : "");
+                + (recurrenceRateInteger.intValue() > ONE ? STRING_PLURAL_POSTFIX : STRING_EMPTY);
     }
 
 }
