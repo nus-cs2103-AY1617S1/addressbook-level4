@@ -11,7 +11,8 @@ public class Undoer {
 	private final Stack<Command> undoStack;
 	private final Model model;
 	private static Undoer instance;
-
+	private boolean undoEdit = false;
+	
 	private final String EMPTY_UNDOSTACK_MESSAGE = "There was no undoable command before.";
 
 	public static Undoer getInstance(Model model) {
@@ -43,9 +44,17 @@ public class Undoer {
 	/*
 	 * Push an edit command that undo this edit command
 	 */
-	public void prepareUndoEdit(ReadOnlyTask original, String dataType, ReadOnlyTask toEdit) {
-		undoStack.push(new EditCommand(toEdit, dataType, original));
+	//@@author A0139923X
+	public void prepareUndoEdit(ReadOnlyTask original, String dataType, ReadOnlyTask toEdit , int targetIndex , String type) {
+	    System.out.println("index undo = " + targetIndex);
+	    if(!type.equals("")){
+	        undoStack.push(new UndoEditCommand(type, original, toEdit, targetIndex));
+	        undoEdit = true;
+		}else{
+		    undoStack.push(new EditCommand(toEdit, dataType, original, targetIndex));
+		}
 	}
+	//@@author
 
 	/*
 	 * Push a restore command that undo this clear command
@@ -65,5 +74,9 @@ public class Undoer {
 		Command undoCommand = undoStack.pop();
 		undoCommand.setData(model, null);
 		undoCommand.execute();
+		if(undoEdit){
+		    undoStack.pop();
+		    undoStack.pop();
+		}
 	}
 }

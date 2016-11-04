@@ -77,10 +77,10 @@ public class EditCommand extends Command {
 	}
 
 	// @@author A0139920A
-	public EditCommand(ReadOnlyTask original, String dataType, ReadOnlyTask toEdit) {
+	public EditCommand(ReadOnlyTask original, String dataType, ReadOnlyTask toEdit , int targetIndex) {
 		this.taskToEdit = original;
 		this.toEdit = (Task) toEdit;
-		this.targetIndex = -1;
+		this.targetIndex = targetIndex;
 		this.dataType = dataType;
 	}
 

@@ -222,6 +222,8 @@ public class ModelManager extends ComponentManager implements Model {
 	// @@author A0139923X
 	public synchronized void editTask(ReadOnlyTask target, String dataType, Task task, int targetIndex)
 			throws IllegalValueException, TaskNotFoundException {
+	    
+	    String type = "";
 		/*
 		 * Scenario: User wants to edit todo to change to event or deadline User
 		 * enters edit todo 1 n/test d/01-01-2016 e/1000 This will remove index
@@ -237,9 +239,11 @@ public class ModelManager extends ComponentManager implements Model {
 				todoList.removeTask(target);
 			} else if (dataType.equals("event")) {
 				todoList.addTask(task);
+                type = "todo";
 				eventList.removeTask(target);
 			} else if (dataType.equals("deadline")) {
 				todoList.addTask(task);
+                type = "todo";
 				deadlineList.removeTask(target);
 			}
 			updateFilteredTodoListToShowAll();
@@ -247,12 +251,14 @@ public class ModelManager extends ComponentManager implements Model {
 		} else if (task instanceof Event) {
 			if (dataType.equals("todo")) {
 				eventList.addTask(task);
+                type = "event";
 				todoList.removeTask(target);
 			} else if (dataType.equals("event")) {
 				eventList.addTaskWithIndex(task , targetIndex);
 				eventList.removeTask(target);
 			} else if (dataType.equals("deadline")) {
 				eventList.addTask(task);
+                type = "event";
 				deadlineList.removeTask(target);
 			}
 			updateFilteredEventListToShowAll();
@@ -260,9 +266,11 @@ public class ModelManager extends ComponentManager implements Model {
 		} else if (task instanceof Deadline) {
 			if (dataType.equals("todo")) {
 				deadlineList.addTask(task);
+	            type = "deadline";
 				todoList.removeTask(target);
 			} else if (dataType.equals("event")) {
 				deadlineList.addTask(task);
+	            type = "deadline";
 				eventList.removeTask(target);
 			} else if (dataType.equals("deadline")) {
 				deadlineList.addTaskWithIndex(task , targetIndex);
@@ -271,8 +279,8 @@ public class ModelManager extends ComponentManager implements Model {
 			updateFilteredDeadlineListToShowAll();
 			indicateDeadlineListChanged();
 		}
-
-		undoer.prepareUndoEdit(target, dataType, task);
+		
+		undoer.prepareUndoEdit(target, dataType, task , targetIndex , type);
 	}
 
 	// @@author A0139920A
