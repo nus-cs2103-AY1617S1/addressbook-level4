@@ -15,12 +15,15 @@ public class InputHistoryManager implements InputHistory {
     private Stack<String> prevInputs;
     private Stack<String> nextInputs;
     private String currentStoredInputShown;
+    
+    private static final String STRING_EMPTY = "";
+
 
     // Private constructor for Singleton Pattern
     private InputHistoryManager() {
         prevInputs = new Stack<String>();
         nextInputs = new Stack<String>();
-        currentStoredInputShown = "";
+        currentStoredInputShown = STRING_EMPTY;
     }
 
     // Use Singleton Pattern here
@@ -41,7 +44,7 @@ public class InputHistoryManager implements InputHistory {
 
         resetInputHistoryToLatestState();
         pushToPrevInput(userInput);
-        currentStoredInputShown = "";
+        currentStoredInputShown = STRING_EMPTY;
     }
 
     @Override
@@ -88,12 +91,12 @@ public class InputHistoryManager implements InputHistory {
         String nextInputToTransfer;
 
         while (!isLatestInput()) {
-            nextInputToTransfer = nextInputs.pop();
-            prevInputs.push(nextInputToTransfer);
+            nextInputToTransfer = popFromNextInput();
+            pushToPrevInput(nextInputToTransfer);
         }
 
         if (!isEarliestNextInputValid) {
-            prevInputs.pop();
+            popFromPrevInput();
         }
     }
 
@@ -106,7 +109,8 @@ public class InputHistoryManager implements InputHistory {
      */
     private String popFromPrevInput() {
         assert prevInputs != null && prevInputs.size() > 0;
-        return prevInputs.pop();
+        currentStoredInputShown = prevInputs.pop();
+        return currentStoredInputShown;
     }
 
     /**
@@ -117,7 +121,8 @@ public class InputHistoryManager implements InputHistory {
      */
     private String popFromNextInput() {
         assert nextInputs != null && nextInputs.size() > 0;
-        return nextInputs.pop();
+        currentStoredInputShown = nextInputs.pop();
+        return currentStoredInputShown;
     }
 
     /**

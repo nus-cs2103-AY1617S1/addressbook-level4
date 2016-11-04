@@ -154,9 +154,9 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
     @Override
     public int compareTo(Task other) {
 
-        int compareByDateVal = compareByDate(other);
-        if (compareByDateVal != 0) {
-            return compareByDateVal;
+        int compareByDateValue = compareByDate(other);
+        if (compareByDateValue != 0) {
+            return compareByDateValue;
         }
 
         if (haveDifferentPriority(other)) {
@@ -235,7 +235,7 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
         
         boolean hasNoDates = !hasDate(this);
         boolean hasNoDatesOther = !hasDate(other);
-        int comparedVal;
+        int compareByDateValue;
         
         if (hasNoDates && hasNoDatesOther) {
             return CHRONOLOGICALLY_EQUAL;
@@ -262,68 +262,68 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
 
         // Easy case 2
         if (!hasStartDate && hasEndDate && hasStartDateOther && !hasEndDateOther) {
-            comparedVal = endDate.compareTo(other.startDate);
-            if (comparedVal == CHRONOLOGICALLY_EQUAL) {
+            compareByDateValue = endDate.compareTo(other.startDate);
+            if (compareByDateValue == CHRONOLOGICALLY_EQUAL) {
                 return CHRONOLOGICALLY_AFTER;
             }
-            return comparedVal;
+            return compareByDateValue;
         }
 
         // Medium case 1
         if (!hasStartDate && hasEndDate && hasStartDateOther && hasEndDateOther) {
-            comparedVal = endDate.compareTo(other.startDate);
-            if (comparedVal != CHRONOLOGICALLY_EQUAL) {
-                return comparedVal;
+            compareByDateValue = endDate.compareTo(other.startDate);
+            if (compareByDateValue != CHRONOLOGICALLY_EQUAL) {
+                return compareByDateValue;
             }
 
-            comparedVal = endDate.compareTo(other.endDate);
-            if (comparedVal == CHRONOLOGICALLY_EQUAL) {
+            compareByDateValue = endDate.compareTo(other.endDate);
+            if (compareByDateValue == CHRONOLOGICALLY_EQUAL) {
                 return CHRONOLOGICALLY_AFTER;
             }
-            return comparedVal;
+            return compareByDateValue;
         }
 
         // Medium case 2
         if (hasStartDate && !hasEndDate && hasStartDateOther && hasEndDateOther) {
-            comparedVal = startDate.compareTo(other.startDate);
-            if (comparedVal != CHRONOLOGICALLY_EQUAL) {
-                return comparedVal;
+            compareByDateValue = startDate.compareTo(other.startDate);
+            if (compareByDateValue != CHRONOLOGICALLY_EQUAL) {
+                return compareByDateValue;
             }
 
-            comparedVal = startDate.compareTo(other.endDate);
-            return comparedVal;
+            compareByDateValue = startDate.compareTo(other.endDate);
+            return compareByDateValue;
         }
 
         // Medium case 3
         if (hasStartDate && hasEndDate && !hasStartDateOther && hasEndDateOther) {
-            comparedVal = startDate.compareTo(other.endDate);
-            if (comparedVal != CHRONOLOGICALLY_EQUAL) {
-                return comparedVal;
+            compareByDateValue = startDate.compareTo(other.endDate);
+            if (compareByDateValue != CHRONOLOGICALLY_EQUAL) {
+                return compareByDateValue;
             }
 
-            comparedVal = endDate.compareTo(other.endDate);
-            return comparedVal;
+            compareByDateValue = endDate.compareTo(other.endDate);
+            return compareByDateValue;
         }
 
         // Medium case 4
         if (hasStartDate && hasEndDate && hasStartDateOther && !hasEndDateOther) {
-            comparedVal = startDate.compareTo(other.startDate);
-            if (comparedVal != CHRONOLOGICALLY_EQUAL) {
-                return comparedVal;
+            compareByDateValue = startDate.compareTo(other.startDate);
+            if (compareByDateValue != CHRONOLOGICALLY_EQUAL) {
+                return compareByDateValue;
             }
 
-            comparedVal = endDate.compareTo(other.startDate);
-            if (comparedVal == CHRONOLOGICALLY_EQUAL) {
+            compareByDateValue = endDate.compareTo(other.startDate);
+            if (compareByDateValue == CHRONOLOGICALLY_EQUAL) {
                 return CHRONOLOGICALLY_AFTER;
             }
-            return comparedVal;
+            return compareByDateValue;
         }
 
         // Final case
         // compare start first
-        comparedVal = startDate.compareTo(other.startDate);
-        if (comparedVal != CHRONOLOGICALLY_EQUAL) {
-            return comparedVal;
+        compareByDateValue = startDate.compareTo(other.startDate);
+        if (compareByDateValue != CHRONOLOGICALLY_EQUAL) {
+            return compareByDateValue;
         }
         // compare the end dates
         return endDate.compareTo(other.endDate);
