@@ -13,13 +13,13 @@ import seedu.simply.commons.exceptions.IllegalValueException;
 public class End implements Comparable<End> {
     
     public static final String MESSAGE_END_CONSTRAINTS = "Task end time can be entered in 24hour or 12hour format.";
-    public static final String END_VALIDATION_REGEX = "([01]\\d{1}[0-5]\\d{1})|" +
-    												  "([2][0-3][0-5]\\d{1})|" +
-    												  "([1-9](?:pm|am|PM|AM))|" + 
-    												  "(1[0-2](?:pm|am|PM|AM))|" +
-    												  "([1-9]\\.[0-5]{1}\\d{1}(?:pm|am))|" +
-    												  "(1[0-2]\\.[0-5]{1}\\d{1}(?:pm|am))|" +
-    												  "(no end)";
+    public static final String END_VALIDATION_REGEX = "([01]\\d{1}[0-5]\\d{1})|"
+            + "([2][0-3][0-5]\\d{1})|"
+            + "([1-9](?:pm|am|PM|AM))|" 
+            + "(1[0-2](?:pm|am|PM|AM))|"
+            + "([1-9]\\.[0-5]{1}\\d{1}(?:pm|am))|"
+            + "(1[0-2]\\.[0-5]{1}\\d{1}(?:pm|am))|"
+            + "(no end)";
     public static final String DEFAULT_END_TIME = "2359";
     public final String value;
     private int pastEndTime =0;
@@ -31,7 +31,6 @@ public class End implements Comparable<End> {
      * @throws IllegalValueException if given address string is invalid.
      */
     public End(String end) throws IllegalValueException {
-        //assert end != null;
     	if (end == null) 
     		end = "default";
         if (!isValidEnd(end)) {
@@ -48,24 +47,51 @@ public class End implements Comparable<End> {
              }
         }
     }
-    //@@author A0138993L
+    /**
+     * @@author A0138993L
+     * checks if the end time have past
+     * @param end the user input end time
+     * @return true is it has past and false if it has not past
+     */
     public boolean isPastEndTime(String end) {
     	String localTime = new String("");
-    	String new_min = new String(LocalTime.now().getMinute() + "");
-		String new_hr = new String(LocalTime.now().getHour() + "");
-		if (new_hr.length() ==1)
-			new_hr = "0" + new_hr;
-		if (new_min.length() ==1 )
-			new_min = "0" + new_min;
+    	String new_min = formatLocalTimeMinutes();
+        String new_hr = formatLocalTimeHours();
 		localTime = new_hr +""+ new_min;
 		if (Integer.parseInt(end) - Integer.parseInt(localTime) < 0){
-		//	System.out.println("end:" + Integer.parseInt(end) + " local:" + Integer.parseInt(localTime));
 			return true;
 		}
 		else
 			return false;
 	}
-    //@@author A0138993L
+    /**
+     * @@author A0138993L
+     * formatting the local time class hours to the desired format
+     * @return the formatted hours
+     */
+    private String formatLocalTimeHours() {
+        String new_hr = new String(LocalTime.now().getHour() + "");
+		if (new_hr.length() ==1)
+			new_hr = "0" + new_hr;
+        return new_hr;
+    }
+    /**
+     * @@author A0138993L
+     * formatting the local time class minutes to the desired format
+     * @return the formatted minutes
+     */
+    private String formatLocalTimeMinutes() {
+        String new_min = new String(LocalTime.now().getMinute() + "");
+    	if (new_min.length() ==1 )
+            new_min = "0" + new_min;
+        return new_min;
+    }
+    /**
+     * @@author A0138993L
+     * changing the end time to 24 hour format for easier sorting and display
+     * @param end the user input end time
+     * @return the standardize format of the user end time
+     */
 	private String changeTo24HourFormat(String end) {
 		if (Character.isDigit(end.charAt(end.length()-1)))
 			return end;
