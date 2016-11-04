@@ -102,7 +102,12 @@ public class UpdateController implements Controller {
         }
         
         // Record index
-        Integer recordIndex = parseIndex(parsedResult);
+        Integer recordIndex = null;
+        try {
+            recordIndex = parseIndex(parsedResult);
+        } catch (NumberFormatException e) {
+            recordIndex = null; // Later then disambiguate
+        }
         
         // Retrieve record and check if task or event
         EphemeralDB edb = EphemeralDB.getInstance();
