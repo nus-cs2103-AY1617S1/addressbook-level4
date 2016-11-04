@@ -62,6 +62,10 @@ public class GuiHandle {
     public void pressEnter() {
         guiRobot.type(KeyCode.ENTER).sleep(500);
     }
+    
+    public void pressKey(KeyCode keyCode){
+    	guiRobot.type(keyCode).sleep(500);
+    }
 
     protected String getTextFromLabel(String fieldId, Node parentNode) {
         return ((Label) guiRobot.from(parentNode).lookup(fieldId).tryQuery().get()).getText();
