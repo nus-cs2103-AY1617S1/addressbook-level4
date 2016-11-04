@@ -173,13 +173,13 @@ public class Parser {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
     }
 
+    //@@author A0139430L
     /**
      * Parses arguments in the context of the add tag command.
      *
      * @param args full command args string
      * @return the prepared command
      */
-    //@@author A0139430L
     private Command prepareAddTags(String args) {
         final Matcher matcher = ARGS_FORMAT_ADD_TAGS.matcher(args.trim());
         if (!matcher.matches()) {
@@ -353,14 +353,14 @@ public class Parser {
         final Collection<String> tagStrings = Arrays.asList(tagArguments.replaceFirst(" #", "").split(" #"));
         return new HashSet<>(tagStrings);
     }
-
+    
+    //@@author A0139430L
     /**
      * Parses arguments in the context of the delete task command.
      *
      * @param args full command args string
      * @return the prepared command
      */
-    //@@author A0139430L
     private Command prepareDelete(String args){
         final Matcher matcher = ARGS_FORMAT_DELETE.matcher(args.trim());
         if (!matcher.matches()) {
@@ -419,13 +419,14 @@ public class Parser {
         ArrayList<String> indexes = new ArrayList<String> (Arrays.asList(newArgs.trim().replaceAll(" ", "").split(",")));
         return indexes;
     }
+    
+    //@@author A0139430L
     /**
      * Parses arguments in the context of the Edit command.
      *
      * @param args full command args string
      * @return the prepared command
      */
-    //@@author A0139430L
     private Command prepareEdit(String args) {
         final Matcher matcher = ARGS_FORMAT_EDIT.matcher(args.trim());
         if (!matcher.matches()) {
@@ -552,14 +553,14 @@ public class Parser {
         return Optional.of(Integer.parseInt(index));
 
     }
-
+    
+    //@@author A0139430L
     /**
      * Parses arguments in the context of the find task command.
      *
      * @param args full command args string
      * @return the prepared command
      */
-    //@@author A0139430L
     private Command prepareFind(String args) {
         final Matcher matcher = ARGS_FORMAT_KEYWORDS.matcher(args.trim());
         if (!matcher.matches()) {
