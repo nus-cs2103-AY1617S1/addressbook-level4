@@ -43,6 +43,7 @@ public class UpdateController implements Controller {
     private static final String END_TIME_FIELD = "<end time>";
     private static final String DEADLINE_FIELD = "<deadline>";
     private static final String NAME_FIELD = "<name>";
+    private static final String INDEX_FIELD = "<index>";
     
     private static CommandDefinition commandDefinition =
             new CommandDefinition(NAME, DESCRIPTION, COMMAND_SYNTAX); 
@@ -266,19 +267,20 @@ public class UpdateController implements Controller {
      * @param naturalFrom
      * @param naturalTo
      */
-    private void renderDisambiguation(boolean isTask, int recordIndex, String name, String naturalFrom, String naturalTo) {
+    private void renderDisambiguation(boolean isTask, Integer recordIndex, String name, String naturalFrom, String naturalTo) {
         name = StringUtil.replaceEmpty(name, NAME_FIELD);
 
         String disambiguationString;
         String errorMessage = STRING_WHITESPACE; // TODO
+        String indexStr = (recordIndex == null) ? INDEX_FIELD : recordIndex.toString();
         
         if (isTask) {
             naturalFrom = StringUtil.replaceEmpty(naturalFrom, DEADLINE_FIELD);
-            disambiguationString = String.format(UPDATE_TASK_TEMPLATE, recordIndex, name, naturalFrom);
+            disambiguationString = String.format(UPDATE_TASK_TEMPLATE, indexStr, name, naturalFrom);
         } else {
             naturalFrom = StringUtil.replaceEmpty(naturalFrom, START_TIME_FIELD);
             naturalTo = StringUtil.replaceEmpty(naturalTo, END_TIME_FIELD);
-            disambiguationString = String.format(UPDATE_EVENT_TEMPLATE, recordIndex, name, naturalFrom, naturalTo);
+            disambiguationString = String.format(UPDATE_EVENT_TEMPLATE, indexStr, name, naturalFrom, naturalTo);
         }
         
         // Show an error in the console
