@@ -169,12 +169,14 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
 	//@@author A0139052L
     @Override
     public int compareTo(Task taskToCompare) {
+        assert taskToCompare != null;
         // sort all tasks that are done to the back of the list
 	    if (this.getIsDone() && !taskToCompare.getIsDone()) {
 	        return 1;
 	    } else if (!this.getIsDone() && taskToCompare.getIsDone()) {
 	        return -1;
-       } else {           
+        } else {
+           assert this.getPeriod() != null && taskToCompare.getPeriod() != null;
        	   int periodCompare = this.getPeriod().compareTo(taskToCompare.period);
        	   if (this.getIsDone()) {
        	       periodCompare = -periodCompare; // sort done tasks in the opposite order

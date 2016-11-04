@@ -498,7 +498,7 @@ public class CommandParser {
             return;
         }    
         
-        addRangeOfIndexesToList(listOfIndexes, secondIndex.get(), categoryAndIndex.getValue(), categoryAndIndex.getKey());
+        addRangeOfIndexesToList(listOfIndexes, categoryAndIndex.getValue(), secondIndex.get(), categoryAndIndex.getKey());
     }
 
     /**
