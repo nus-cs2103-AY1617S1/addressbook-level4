@@ -52,7 +52,9 @@ allprojects {
         compile "com.fasterxml.jackson.core:jackson-databind:$jacksonVersion"
         compile "com.fasterxml.jackson.datatype:jackson-datatype-jsr310:$jacksonDataTypeVersion"
         compile "com.google.guava:guava:$guavaVersion"
-		compile "com.joestelmach:natty:0.11"
+		compile "com.joestelmach:natty:0.12"
+		compile "org.slf4j:slf4j-api:1.7.10"
+		compile "org.antlr:antlr-runtime:3.5.2"
 		compile "javax.mail:mail:1.5.0-b01"
 
         testCompile "junit:junit:$junitVersion"

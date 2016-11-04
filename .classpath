@@ -27,5 +27,9 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry exported="true" kind="lib" path="/Users/lowjiansheng/Documents/Menion/src/main/resources/dependencies/slf4j-api-1.7.10.jar"/>
+	<classpathentry exported="true" kind="lib" path="/Users/lowjiansheng/Documents/Menion/src/main/resources/dependencies/natty-0.12.jar"/>
+	<classpathentry exported="true" kind="lib" path="/Users/lowjiansheng/Documents/Menion/src/main/resources/dependencies/javax.mail.jar"/>
+	<classpathentry exported="true" kind="lib" path="/Users/lowjiansheng/Documents/Menion/src/main/resources/dependencies/antlr-runtime-3.5.2.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
