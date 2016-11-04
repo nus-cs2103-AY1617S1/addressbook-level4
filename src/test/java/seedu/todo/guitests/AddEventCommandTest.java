@@ -37,7 +37,8 @@ public class AddEventCommandTest extends GuiTest {
         String twoDaysBeforeNowString = DateUtil.formatDate(twoDaysBeforeNow);
         String twoDaysBeforeNowIsoString = DateUtil.formatIsoDate(twoDaysBeforeNow);
         
-        console.runCommand("add something by " + twoDaysBeforeNowString);
+        // Creates a task in the same date to make sure that a DateItem is created but not a EventItem
+        console.runCommand("add Task in the same day by " + twoDaysBeforeNowString);
         
         String command = String.format("add event Presentation in the Past from %s 2pm to %s 9pm", twoDaysBeforeNowString, twoDaysBeforeNowString);
         Event event = new Event();
@@ -58,6 +59,14 @@ public class AddEventCommandTest extends GuiTest {
     @Test
     public void addEvent_missingEndDate_disambiguate() {
         // TODO
+    }
+    
+    @Test
+    public void addEvent_missingName_disambiguate() {
+        String command = "add event from 2pm to 9pm";
+        console.runCommand(command);
+        String expectedDisambiguation = "add event \"<name>\" from \"2pm\" to \"9pm\"";
+        assertEquals(console.getConsoleInputText(), expectedDisambiguation);
     }
 
     /**
