@@ -57,7 +57,7 @@ Keyboard Shortcut: `Ctrl+F1`
 **Example:**<br>
 If you wish to get help on using SmartyDo, you may enter `help` into the Command Bar.
 
-<img src="images/help.png" width="500" align="middle"><br>Figure 2. SmartyDo's Help Command<br>
+<img src="images/helpCommand.png" width="500" align="middle"><br>Figure 2. SmartyDo's Help Command<br>
 
 After entering the command, a new window will appear showing you a summary of all commands and keyboard shortcuts.
 
@@ -70,7 +70,7 @@ Format: `save FILEPATH.xml`
 **Example:**<br>
 If you wish to save your files to the filepath data/todolist.xml, you may enter `save data/todolist.xml` into the Command Bar.
 
-<img src="images/saveCommand.png" width="500" align="middle"><br>Figure 3. SmartyDo's Save Command<br>
+<img src="images/saveCommand.png" width="250" align="middle"><br>Figure 3. SmartyDo's Save Command<br>
 
 After entering the command, MessageBox will show you if your new save file has been successfully created.
 
@@ -82,7 +82,7 @@ Format: `load FILEPATH.xml`
 **Example:**<br>
 If you wish to load a previously saved file stored in data/my_todo_list.xml, you may enter `load data/my_todo_list.xml` into the Command Bar.
 
-<img src="images/loadCommand.png" width="500" align="middle"><br>Figure 4. SmartyDo's Load Command<br>
+<img src="images/loadCommand.png" width="250" align="middle"><br>Figure 4. SmartyDo's Load Command<br>
 
 After entering the command, MessageBox will show you if the save file has been successfully loaded to SmartyDo.
 
@@ -133,7 +133,7 @@ If the task you want to edit is not shown in the Visual Panel, you can use `view
 **Example:**<br>
 Let's say you want to add deadline time for task named "Presentation". Then, you must first check the INDEX of that task. In this case, the INDEX of the task is 1. So to add deadline for this task, enter `edit 1 t; DEADLINE`. This will update the deadline of the task. A demonstration of this functionality shown below.
 
-<img src="images/addeditCommand.png" width="500" align="middle"><br>Figure 6. Before(left) and after(right) of an edit command<br>
+<img src="images/addEditCommand.png" width="500" align="middle"><br>Figure 6. Before(left) and after(right) of an edit command<br>
 
 ### 3.6. **Deleting Tasks**
 
@@ -146,7 +146,7 @@ Similar to `edit` command, `delete` command also uses INDEX. INDEX can be found 
 **Example:**<br>
 If you want to delete specfic task, find the INDEX of that task. Let's say the INDEX is 1. Then, enter `delete 1` in the command bar.
 
-<img src="images/adddeleteCommand.png" width="500" align="middle"><br>Figure 7. Example of delete command<br>
+<img src="images/addDeleteCommand.png" width="500" align="middle"><br>Figure 7. Example of delete command<br>
 
 After entering `delete` command, SmartyDo will delete the task specified by the INDEX and will show the updated list in the Visual Panel. In the screenshot above, you can see that the "Presentation" task has been deleted from SmartyDo.
 
@@ -183,13 +183,13 @@ Format: `undo`, `redo`
 **Example:**<br>
 Let's say you have added a task and your friend told you that your tutor has changed the date. You would like to undo it. You can undo it as long as you just added it, as shown below.
 
-<img src="images/doundoCommand.png" width="500" align="middle"><br>Figure 9.1. Before(left) and after(right) of an undo command<br>
+<img src="images/editUndoCommand.png" width="500" align="middle"><br>Figure 9.1. Before(left) and after(right) of an undo command<br>
 
 By entering `undo` command, SmartyDo updates your list of tasks to how it was before you executed an undoable action. From the screenshot above, you can see that the date of the task named "Presentation" had changed.
 
 However, you realized that your friend was wrong and you want to change the date back again. In this case, you do not need to use edit command again. Instead you can simply use `redo` command, as shown below.
 
-<img src="images/undoredoCommand.png" width="500" align="middle"><br>Figure 9.2. Before(left) and after(right) of an undo command<br>
+<img src="images/undoRedoCommand.png" width="500" align="middle"><br>Figure 9.2. Before(left) and after(right) of an undo command<br>
 
 By using `redo` command, SmartyDo updates your list of tasks to how it was before you executed `undo` command. From the screenshot above, you can see that the "Presentation" task has been restored to its previous state.
 
@@ -200,9 +200,9 @@ Select the task identified by the parameter. A full detailed description will ap
 Format: `select PARAM`
 
 **Example:**<br>
-Let's say you want to know detailed information about the third task in the Visual Panel. All you need to do is enter `view 3` into command bar, just as shown below.
+Let's say you want to know detailed information about the third task in the Visual Panel. All you need to do is enter `select 3` into command bar, just as shown below.
 
-<img src="images/view3Command.png" width="500" align="middle"><br>Figure 10. Example of view command<br>
+<img src="images/selectCommand.png" width="500" align="middle"><br>Figure 10. Example of select command<br>
 
 After entering the command, Browser Panel will show a detailed description about task 3.
 
@@ -224,7 +224,7 @@ Format: `view KEYWORD` where KEYWORD in this case are any of the following: ALL/
 
 For example, after finding specific tasks, to return the Visual Panel back to where it lists all the tasks, simply input `view ALL` just as shown below.
 
-<img src="images/listAllCommand.png" width="250" align="middle"><br>Figure 12. Example of list command<br>
+<img src="images/viewAllCommand.png" width="250" align="middle"><br>Figure 12. Example of view command<br>
 
 ### 3.12. **Locating a Destination**
 You may search for destinations listed in the LOCATION parameter of your task by using the `locate` command. A separate window will appear showing the details of the location mentioned (if any) in your task. Each task can be referred to by the index displayed in front of its title. 
@@ -232,12 +232,23 @@ You may search for destinations listed in the LOCATION parameter of your task by
 Format: `locate INDEX`
 
 **Example:**<br>
-If you wish to search for the location of the task named Presentation which has the index of 1, you may enter `locate 1` into the Command Bar.
+If you wish to search for the location of the task named Presentation which has the index of 3, you may enter `locate 3` into the Command Bar.
 
 <img src="images/locateCommand.png" width="250" align="middle"><br>Figure 13. Example of locate command<br>
 
 After entering the command, a new window will appear showing you the details of the task you requested.
 
+### 3.13. **Clearing Saved Data**
+You may clear all data stored in SmartyDo by using the `clear` command. SmartyDo will prompt you to confirm this action. Enter `yes` to complete the command. Entering a different command will cancel the `clear` command.
+
+Format: `clear`
+
+**Example**<br>
+If you wish to clear all data in SmartyDo, you many enter `clear` into the CommandBox.
+
+<img src="images/clearConfirmCommand.png" width="500" align="middle"><br>Figure 14. Example of locate command<br>
+
+After entering the command, a prompt will appear in the MessageBox asking you to confirm this action. Enter `yes` to proceed.
 
 ### 3.14. **Exiting SmartyDo**
 
