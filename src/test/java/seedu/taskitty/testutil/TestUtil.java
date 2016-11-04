@@ -41,21 +41,6 @@ public class TestUtil {
 
     public static String LS = System.lineSeparator();
 
-    public static void assertThrows(Class<? extends Throwable> expected, Runnable executable) {
-        try {
-            executable.run();
-        }
-        catch (Throwable actualException) {
-            if (!actualException.getClass().isAssignableFrom(expected)) {
-                String message = String.format("Expected thrown: %s, actual: %s", expected.getName(),
-                        actualException.getClass().getName());
-                throw new AssertionFailedError(message);
-            } else return;
-        }
-        throw new AssertionFailedError(
-                String.format("Expected %s to be thrown, but nothing was thrown.", expected.getName()));
-    }
-
     /**
      * Folder used for temp files created during testing. Ignored by Git.
      */
@@ -96,6 +81,21 @@ public class TestUtil {
     }
 
     //@@author
+    public static void assertThrows(Class<? extends Throwable> expected, Runnable executable) {
+        try {
+            executable.run();
+        }
+        catch (Throwable actualException) {
+            if (!actualException.getClass().isAssignableFrom(expected)) {
+                String message = String.format("Expected thrown: %s, actual: %s", expected.getName(),
+                        actualException.getClass().getName());
+                throw new AssertionFailedError(message);
+            } else return;
+        }
+        throw new AssertionFailedError(
+                String.format("Expected %s to be thrown, but nothing was thrown.", expected.getName()));
+    }
+    
     public static final Tag[] sampleTagData = getSampleTagData();
 
     private static Tag[] getSampleTagData() {
