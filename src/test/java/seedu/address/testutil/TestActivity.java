@@ -52,6 +52,7 @@ public class TestActivity implements ReadOnlyActivity {
             this.name = new Name(testActivity.getName().toString());
             this.reminder = new Reminder(testActivity.getReminder().toString());
             this.tags = new UniqueTagList(testActivity.getTags());
+            this.isCompleted = testActivity.getCompletionStatus();
         } catch (IllegalValueException e) {
             assert false;
             e.printStackTrace();
