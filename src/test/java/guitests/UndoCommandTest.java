@@ -18,12 +18,14 @@ public class UndoCommandTest extends ToDoListGuiTest {
     public void undo() {
         
         TestTask[] currentList = td.getTypicalTasks();
+        currentList = sortList(currentList);
         
-        //undo up to 2 times
+        //undo up to 3 times
         for(int i=0;i<3;i++){
         	TestTask taskToAdd = td.car;
         	commandBox.runCommand(taskToAdd.getAddCommand());	
         }
+        
         for(int y=0;y<2;y++)
         commandBox.runCommand("undo");
         
