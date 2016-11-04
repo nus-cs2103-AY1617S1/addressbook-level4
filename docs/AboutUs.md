@@ -16,7 +16,9 @@ We are a team based in the [School of Computing, National University of Singapor
     - Code written: [functional code] (../collated/main/A0121608N.md) [test code] (../collated/test/A0121608N.md) [docs] (../collated/docs/A0121608N.md)
     - Other major contributions:
       - Refactored original AddressBookLevel4 to current TaskBook
-
+			- [Morphing Commons Package and MainApp] (https://github.com/CS2103AUG2016-F09-C4/main/commit/41e7508a43b1531e7ad2e1a9b0821121a4621881)
+			- [Integrate Event Class] (https://github.com/CS2103AUG2016-F09-C4/main/commit/7f0c091aae1ecd6dc4d9f7b7b3c78abec583d8c6)
+			
 2. Phua Kian Ming [@daredevil999] (https://github.com/daredevil999)  
   <img src="images/Kianming.jpg" width="150">  
   - Year 3 Mechanical Engineering Major
