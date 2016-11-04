@@ -1,7 +1,10 @@
 package seedu.menion.commons.core;
 
+import java.io.File;
 import java.util.Objects;
 import java.util.logging.Level;
+
+import seedu.menion.logic.commands.ModifyStoragePathCommand;
 
 /**
  * Config values used by the app
@@ -14,9 +17,9 @@ public class Config {
     private String appTitle = "Menion";
     private Level logLevel = Level.INFO;
     private String userPrefsFilePath = "preferences.json";
-    private String activityManagerFilePath = "data/menion.xml";
+    private String activityManagerFilePath = 
+    		new File(ModifyStoragePathCommand.class.getProtectionDomain().getCodeSource().getLocation().getPath()).getParent() + File.separator + "data/menion.xml";
     private String activityManagerName = "Menion";
-
 
     public Config() {
     }
