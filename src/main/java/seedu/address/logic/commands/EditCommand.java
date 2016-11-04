@@ -4,7 +4,10 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.commons.exceptions.IllegalValueException;
@@ -19,14 +22,15 @@ import seedu.address.model.item.RecurrenceRate;
 //@@author A0139552B
 public class EditCommand extends UndoableCommand {
 
+    private final static Logger logger = LogsCenter.getLogger(EditCommand.class);
+
     public static final String COMMAND_WORD = "edit";
 
     private static final String STRING_CONSTANT_ONE = "1";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edit an item in the To-Do List. "
             + "Parameters: edit [NAME] [from/at/start DATE_TIME] [to/by/end DATE_TIME] [repeat every RECURRING_INTERVAL] [-PRIORITY] [-reset PARAMETER]\n"
-            + "Example: " + COMMAND_WORD
-            + "edit 1 play with cat by 3pm repeat every day -medium";
+            + "Example: " + COMMAND_WORD + " 1 play with cat by 3pm repeat every day -medium";
               
     public static final String TOOL_TIP = "edit INDEX [NAME] [start DATE_TIME] [end DATE_TIME] [repeat every RECURRING_INTERVAL] [-PRIORITY] [-reset PARAMETER]";
 
@@ -36,6 +40,8 @@ public class EditCommand extends UndoableCommand {
 
     public static final String MESSAGE_RECUR_DATE_TIME_CONSTRAINTS = "For recurring tasks to be valid, "
             + "at least one DATE_TIME must be provided";
+
+    public static final String MESSAGE_END_DATE_CONSTRAINTS = "End date should be later than start date.";
 
     public final int targetIndex;
     
@@ -57,25 +63,18 @@ public class EditCommand extends UndoableCommand {
 		
 		this.targetIndex = targetIndex;
 		initializeForEdit();
-        
         assignTaskNameIfPresent(taskNameString); 
         assignStartDateIfPresent(startDateString);
         assignEndDateIfPresent(endDateString);
         assignRecurrenceRateIfPresent(rateString, timePeriodString); 
-        
-        if(priorityString != null){
-            assignPriority(priorityString);                                     
-        }
-        
-        if(resetFieldString != null){
-            fieldsToReset(resetFieldString); 
-        }
+        assignPriorityIfPresent(priorityString);
+        assignResetIfPresent(resetFieldString);
 
-        if (recurrenceRate != null && recurrenceRate.getTimePeriod() != TimePeriod.DAY && 
-                recurrenceRate.getTimePeriod().toString().toLowerCase().contains("day") && 
-                startDate == null && endDate == null) {
+
+        if (isRecurWeekdaysButDatesNotGiven(startDate, endDate, recurrenceRate)) {
             startDate = DateTime.assignStartDateToSpecifiedWeekday(recurrenceRate.getTimePeriod().toString());
-        }
+        } 
+
 	}
 
     private void initializeForEdit() {
@@ -87,6 +86,47 @@ public class EditCommand extends UndoableCommand {
         removeReccurence = false;
         removeStartDate = false;
         removeEndDate = false;
+    }
+    
+    /**
+     * Check which field is to be reset
+     * 
+     * @param resetFieldString user's input of fields to be reset
+     * set the remove fields as true if present
+     */
+    private void assignResetIfPresent(String resetFieldString) {
+        if(resetFieldString != null){
+            String[] resetField = resetFieldString.trim().split(" ");
+            for(int i = 0; i < resetField.length; i++){
+                switch (resetField[i].trim()) {
+                    case ("repeat"):  removeReccurence = true; break; 
+                    case ("start"): removeStartDate = true; break;
+                    case ("end"): removeEndDate = true; break;
+                }
+            }                    
+        }
+    }
+
+    /**
+     * Assigns priority depending on the level stated
+     * 
+     * @param priorityString user's input of priority
+     */
+    private void assignPriorityIfPresent(Optional<String> priorityString) {
+        if(priorityString != null){
+            switch (priorityString.get()) {
+                case ("low"):
+                case ("l"):
+                    priority = Priority.LOW; break; 
+                case ("high"):
+                case ("h"):
+                    priority = Priority.HIGH; break;
+                case ("medium"):
+                case ("m"):
+                case ("med"):
+                    priority = Priority.MEDIUM; break;
+            }
+        }        
     }
     
     /**
@@ -153,42 +193,19 @@ public class EditCommand extends UndoableCommand {
     }
 
     /**
-     * Assigns priority depending on the level stated
-     * 
-     * @param priorityString user's input of priority
+     * Returns true if both dates are null and the Task repeats every weekday e.g "monday". 
+     *
+     * @param startDate start date of Task
+     * @param endDate   end date of Task
+     * @param recurrenceRate    recurrence rate of Task
+     * @return  true if both dates are null and Task repeats every weekday. Else, returns false.
      */
-    private void assignPriority(Optional<String> priorityString) {
-        switch (priorityString.get()) {
-        case ("low"):
-        case ("l"):
-            priority = Priority.LOW; break; 
-        case ("high"):
-        case ("h"):
-            priority = Priority.HIGH; break;
-        case ("medium"):
-        case ("m"):
-        case ("med"):
-            priority = Priority.MEDIUM; break;
-        }
+    private static boolean isRecurWeekdaysButDatesNotGiven(Date startDate, Date endDate, RecurrenceRate recurrenceRate) {
+        return recurrenceRate != null && recurrenceRate.getTimePeriod() != TimePeriod.DAY && 
+                recurrenceRate.getTimePeriod().toString().toLowerCase().contains("day") &&
+                startDate == null && endDate == null;
     }
-	
-    /**
-     * Check which field is to be reset
-     * 
-     * @param resetFieldString user's input of fields to be reset
-     * set the remove fields as true if present
-     */
-    private void fieldsToReset(String resetFieldString) {
-        String[] resetField = resetFieldString.trim().split(" ");
-        for(int i = 0; i < resetField.length; i++){
-            switch (resetField[i].trim()) {
-                case ("repeat"):  removeReccurence = true; break; 
-                case ("start"): removeStartDate = true; break;
-                case ("end"): removeEndDate = true; break;
-            }
-        }        
-    }
-
+    
 	@Override
 	public CommandResult execute() {	    
 	    assert model != null;
@@ -197,6 +214,7 @@ public class EditCommand extends UndoableCommand {
 	        indicateAttemptToExecuteIncorrectCommand();
 	        return new CommandResult(String.format(Messages.MESSAGE_DONE_LIST_RESTRICTION));
 	    }
+	    
         UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredUndoneTaskList();
 
         if (lastShownList.size() < targetIndex || targetIndex == 0) {
@@ -215,16 +233,46 @@ public class EditCommand extends UndoableCommand {
             taskName = toEdit.getName();
         }
         
-        //assign previous start date to startDate if user never input one
-        if (startDate == null && toEdit.getStartDate().isPresent()) {
-            startDate = toEdit.getStartDate().get();
+        assignStartDate();
+        assignEndDate();
+        
+        /*
+         * Return error message if user key in end date that occurs before start date  
+         */
+        if(endDate != null && startDate != null && endDate.before(startDate)){
+            indicateAttemptToExecuteIncorrectCommand();
+            return new CommandResult(MESSAGE_END_DATE_CONSTRAINTS);
+        }      
+        
+        //assign previous priority to priority if user never input one
+        if (priority == null) {
+        	priority = toEdit.getPriorityValue();
+        }    
+
+        if (recurrenceRate == null && toEdit.getRecurrenceRate().isPresent()) {
+            recurrenceRate = toEdit.getRecurrenceRate().get();
+        }  
+        
+        /*
+         * Return error message if user key in recurrence rate without any dates 
+         */
+        if (recurrenceRate != null && !beforeEdit.getStartDate().isPresent() && !beforeEdit.getEndDate().isPresent()
+                && startDate == null && endDate == null){
+            indicateAttemptToExecuteIncorrectCommand();
+            return new CommandResult(MESSAGE_RECUR_DATE_TIME_CONSTRAINTS);
         }
         
-        //assign startDate as null if user choose to reset start date
-        if (removeStartDate) {
-        	startDate = null;
+        //remove recurrence if the start and end date are removed
+        if (removeReccurence || (startDate == null && endDate == null)) {
+            recurrenceRate = null;
         }
+        
+        model.editTask(taskToEdit, taskName, startDate, endDate, priority, recurrenceRate);
+        updateHistory();
+        return new CommandResult(String.format(MESSAGE_SUCCESS, toEdit));      
+	}
 
+    private void assignEndDate() {
         //assign previous end date to endDate if user never input one
         if (endDate == null && toEdit.getEndDate().isPresent()) {
         	endDate = toEdit.getEndDate().get();
@@ -234,33 +282,19 @@ public class EditCommand extends UndoableCommand {
         if (removeEndDate) {
         	endDate = null;
         }
+    }
 
-        //assign previous priority to priority if user never input one
-        if (priority == null) {
-        	priority = toEdit.getPriorityValue();
+    private void assignStartDate() {
+        //assign previous start date to startDate if user never input one
+        if (startDate == null && toEdit.getStartDate().isPresent()) {
+            startDate = toEdit.getStartDate().get();
         }
         
-        /*
-         * Set recurrenceRate as the previous one if it exist should the user not input any
-         * Ensure that start date or end date exist, otherwise set recurrence as null even if user input one
-         */
-        if (recurrenceRate == null && toEdit.getRecurrenceRate().isPresent()) {
-        	recurrenceRate = toEdit.getRecurrenceRate().get();
-        } else if (recurrenceRate != null && !beforeEdit.getStartDate().isPresent() && !beforeEdit.getEndDate().isPresent()
-                && startDate == null && endDate == null){
-            //return new CommandResult(MESSAGE_RECUR_DATE_TIME_CONSTRAINTS);
-            recurrenceRate = null;
+        //assign startDate as null if user choose to reset start date
+        if (removeStartDate) {
+        	startDate = null;
         }
-        
-        //remove recurrence if the start and end date are removed
-        if (removeReccurence || (startDate == null && endDate == null)) {
-            recurrenceRate = null;
-        }
-
-        model.editTask(taskToEdit, taskName, startDate, endDate, priority, recurrenceRate);
-        updateHistory();
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toEdit));      
-	}
+    }
 
     //@@author A0093960X
     @Override
