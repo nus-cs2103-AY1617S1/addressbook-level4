@@ -52,10 +52,12 @@ public class TaskListPanel extends UiPart {
     public AnchorPane getPlaceHolderPane() {
     	return placeHolderPane;
     }
+    
     //@@author A0142184L
-    public boolean getIsShowingTaskList() {
+    public boolean isShowingTaskList() {
     	return isShowingTaskList;
     }
+    
     //@@author
     @Override
     public void setPlaceholder(AnchorPane pane) {
