@@ -231,8 +231,13 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
 	//@@author A0142102E
 	@Override
 	public int compareTo(Task o) {
-		// compare floating tasks
-		if (this.startTime.equals(o.getStartTime()) && this.endTime.equals(o.getEndTime())) {
+	    if (this.startTime.isMissing() && this.endTime.isMissing() && !o.getEndTime().isMissing() && o.isOverDue()) {
+	        return 1;
+	    }
+	    else if (o.getStartTime().isMissing() && o.getEndTime().isMissing() && !this.endTime.isMissing() && this.isOverDue()) {
+            return -1;
+        }
+	    if (this.startTime.equals(o.getStartTime()) && this.endTime.equals(o.getEndTime())) {
 			return this.priority.compareTo(o.getPriority());
 		}
 		else {
@@ -242,11 +247,10 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
 			else if (this.endTime.equals(o.getEndTime())) {
 			    return this.startTime.compareTo(o.getStartTime());
 			}
-			// if only has end time
-			else if(this.startTime.toCardString().equals("-")) {
+			else if(this.startTime.isMissing()) {
 			    return this.endTime.compareTo(o.getStartTime());
 			}
-			else if (o.getStartTime().toCardString().equals("-")){
+			else if (o.getStartTime().isMissing()){
 			    return this.startTime.compareTo(o.getEndTime());
 			}
 			// if only has start time
