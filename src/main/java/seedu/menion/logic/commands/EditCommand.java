@@ -91,6 +91,7 @@ public class EditCommand extends Command {
         
         return new CommandResult(String.format(MESSAGE_EDITTED_ACTIVITY_SUCCESS, activityToEdit));
     }
+    
 
     private void floatingTaskEdit(ReadOnlyActivity floatingTaskToEdit, String paramToChange) throws IllegalValueException, ActivityNotFoundException{
         int indexOfParam;
@@ -130,7 +131,7 @@ public class EditCommand extends Command {
             break;
         }
     }
-
+    
     private void eventEdit(ReadOnlyActivity eventToEdit, String paramToChange) throws IllegalValueException , ActivityNotFoundException{
         int indexOfParam;
         indexOfParam = checkParam(paramToChange);
@@ -161,7 +162,7 @@ public class EditCommand extends Command {
      * @return an integer to match with the param to change, refer below for index:
      *         0 = name (For all) 
      *         1 = note (For all) 
-     *         2 = by (For Tasks only) 
+     *         2 = by (For Tasks only, and floating Task) 
      *         3 = from (For Event's Start Date & Time)
      *         4 = to (For Event's End Date & Time)
      */
