@@ -20,18 +20,18 @@ import java.util.logging.Logger;
 public class StorageManager extends ComponentManager implements Storage {
 
     private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
-    private TaskBookStorage addressBookStorage;
+    private TaskBookStorage taskBookStorage;
     private UserPrefsStorage userPrefsStorage;
 
 
-    public StorageManager(TaskBookStorage addressBookStorage, UserPrefsStorage userPrefsStorage) {
+    public StorageManager(TaskBookStorage taskBookStorage, UserPrefsStorage userPrefsStorage) {
         super();
-        this.addressBookStorage = addressBookStorage;
+        this.taskBookStorage = taskBookStorage;
         this.userPrefsStorage = userPrefsStorage;
     }
 
-    public StorageManager(String addressBookFilePath, String userPrefsFilePath) {
-        this(new XmlTaskBookStorage(addressBookFilePath), new JsonUserPrefsStorage(userPrefsFilePath));
+    public StorageManager(String taskBookFilePath, String userPrefsFilePath) {
+        this(new XmlTaskBookStorage(taskBookFilePath), new JsonUserPrefsStorage(userPrefsFilePath));
     }
 
     // ================ UserPrefs methods ==============================
@@ -51,35 +51,35 @@ public class StorageManager extends ComponentManager implements Storage {
 
     @Override
     public String getTaskBookFilePath() {
-        return addressBookStorage.getTaskBookFilePath();
+        return taskBookStorage.getTaskBookFilePath();
     }
 
     @Override
     public Optional<ReadOnlyTaskBook> readTaskBook() throws DataConversionException, IOException {
-        return readTaskBook(addressBookStorage.getTaskBookFilePath());
+        return readTaskBook(taskBookStorage.getTaskBookFilePath());
     }
 
     @Override
     public Optional<ReadOnlyTaskBook> readTaskBook(String filePath) throws DataConversionException, IOException {
         logger.fine("Attempting to read data from file: " + filePath);
-        return addressBookStorage.readTaskBook(filePath);
+        return taskBookStorage.readTaskBook(filePath);
     }
 
     @Override
-    public void saveTaskBook(ReadOnlyTaskBook addressBook) throws IOException {
-        saveTaskBook(addressBook, addressBookStorage.getTaskBookFilePath());
+    public void saveTaskBook(ReadOnlyTaskBook taskBook) throws IOException {
+        saveTaskBook(taskBook, taskBookStorage.getTaskBookFilePath());
     }
 
     @Override
     public void saveTaskBook(ReadOnlyTaskBook addressBook, String filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
-        addressBookStorage.saveTaskBook(addressBook, filePath);
+        taskBookStorage.saveTaskBook(addressBook, filePath);
     }
 
 
     @Override
     @Subscribe
-    public void handleAddressBookChangedEvent(TaskBookChangedEvent event) {
+    public void handleTaskBookChangedEvent(TaskBookChangedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event, "Local data changed, saving to file"));
         try {
             saveTaskBook(event.data);
@@ -94,7 +94,7 @@ public class StorageManager extends ComponentManager implements Storage {
     public void handleStorageDataChangedEvent(StorageDataPathChangedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event, "Saving task.xml in a new location."));
         
-        this.addressBookStorage = new XmlTaskBookStorage(event.newDataPath);
+        this.taskBookStorage = new XmlTaskBookStorage(event.newDataPath);
     }
     //@@author
 
