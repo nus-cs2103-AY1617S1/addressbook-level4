@@ -14,6 +14,10 @@ import seedu.address.commons.util.CollectionUtil;
  */
 public class Task implements ReadOnlyTask, Comparable<Task> {
 
+    private static final int CHRONOLOGICALLY_AFTER = 1;
+    private static final int CHRONOLOGICALLY_BEFORE = -1;
+    private static final int CHRONOLOGICALLY_EQUAL = 0;
+
     private static final String MESSAGE_RECURRING_TASK_CONSTRAINTS = "Unable to update recurring task as task "
             + "is not recurring or task does not have both start and end dates";
 
@@ -103,12 +107,7 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
     /**
      * Updates endDate using the timeDifference between startDate and endDate.
      * 
-<<<<<<< HEAD
-     * @param timeDifference the difference in days between end date and start
-     *            date
-=======
      * @param timeDifference    the difference in milliseconds between end date and start date
->>>>>>> 9f31068263abdd6b263887dc966a6e77fcfd0241
      * @return updated value of endDate
      */
     private Date updateEndDate(int timeDifference) {
@@ -154,11 +153,10 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
 
     @Override
     public int compareTo(Task other) {
-        int comparedVal = 0;
 
-        comparedVal = compareByDate(other);
-        if (comparedVal != 0) {
-            return comparedVal;
+        int compareByDateVal = compareByDate(other);
+        if (compareByDateVal != 0) {
+            return compareByDateVal;
         }
 
         if (haveDifferentPriority(other)) {
@@ -202,8 +200,9 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
             return Optional.of(recurrenceRate);
         }
         return Optional.empty();
-    }
-
+    }   
+    
+    //@@author A0093960X
     /**
      * Compares this Task with other Task by date chronologically.
      * The result is a negative integer if this Task object chronologically precedes the argument Task.
@@ -229,66 +228,65 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
      */
     private int compareByDate(Task other) {
 
-        boolean hasStart = this.startDate != null, hasEnd = this.endDate != null;
-        boolean otherHasStart = other.startDate != null, otherHasEnd = other.endDate != null;
-        int comparedVal = 0;
-
-        boolean hasNoDate = !hasStart && !hasEnd;
-        boolean otherNoDate = !otherHasStart && !otherHasEnd;
-
-        if (hasNoDate && otherNoDate) {
-            return 0;
-        } else if (hasNoDate) {
-            return 1;
-        } else if (otherNoDate) {
-            return -1;
+        boolean hasStartDate = isStartDatePresent(this);
+        boolean hasEndDate = isEndDatePresent(this);
+        boolean hasStartDateOther = isStartDatePresent(other); 
+        boolean hasEndDateOther = isEndDatePresent(other);
+        
+        boolean hasNoDates = !hasDate(this);
+        boolean hasNoDatesOther = !hasDate(other);
+        int comparedVal;
+        
+        if (hasNoDates && hasNoDatesOther) {
+            return CHRONOLOGICALLY_EQUAL;
+        } else if (hasNoDates) {
+            return CHRONOLOGICALLY_AFTER;
+        } else if (hasNoDatesOther) {
+            return CHRONOLOGICALLY_BEFORE;
         }
 
         // Easy case 1
-        if (!hasStart && hasEnd && !otherHasStart && otherHasEnd) {
-            comparedVal = endDate.compareTo(other.endDate);
-            return comparedVal;
+        if (!hasStartDate && hasEndDate && !hasStartDateOther && hasEndDateOther) {
+            return endDate.compareTo(other.endDate);
         }
-
-        // Easy case 2
-        if (!hasStart && hasEnd && otherHasStart && !otherHasEnd) {
-            comparedVal = endDate.compareTo(other.startDate);
-            if (comparedVal == 0) {
-                return 1;
-            }
-            return comparedVal;
-        }
-
+        
         // Easy case 3
-        if (hasStart && !hasEnd && !otherHasStart && otherHasEnd) {
-            comparedVal = startDate.compareTo(other.endDate);
-            return comparedVal;
+        if (hasStartDate && !hasEndDate && !hasStartDateOther && hasEndDateOther) {
+            return startDate.compareTo(other.endDate);
         }
 
         // Easy case 4
-        if (hasStart && !hasEnd && otherHasStart && !otherHasEnd) {
-            comparedVal = startDate.compareTo(other.startDate);
+        if (hasStartDate && !hasEndDate && hasStartDateOther && !hasEndDateOther) {
+            return startDate.compareTo(other.startDate);
+        }
+
+        // Easy case 2
+        if (!hasStartDate && hasEndDate && hasStartDateOther && !hasEndDateOther) {
+            comparedVal = endDate.compareTo(other.startDate);
+            if (comparedVal == CHRONOLOGICALLY_EQUAL) {
+                return CHRONOLOGICALLY_AFTER;
+            }
             return comparedVal;
         }
 
         // Medium case 1
-        if (!hasStart && hasEnd && otherHasStart && otherHasEnd) {
+        if (!hasStartDate && hasEndDate && hasStartDateOther && hasEndDateOther) {
             comparedVal = endDate.compareTo(other.startDate);
-            if (comparedVal != 0) {
+            if (comparedVal != CHRONOLOGICALLY_EQUAL) {
                 return comparedVal;
             }
 
             comparedVal = endDate.compareTo(other.endDate);
-            if (comparedVal == 0) {
-                return 1;
+            if (comparedVal == CHRONOLOGICALLY_EQUAL) {
+                return CHRONOLOGICALLY_AFTER;
             }
             return comparedVal;
         }
 
         // Medium case 2
-        if (hasStart && !hasEnd && otherHasStart && otherHasEnd) {
+        if (hasStartDate && !hasEndDate && hasStartDateOther && hasEndDateOther) {
             comparedVal = startDate.compareTo(other.startDate);
-            if (comparedVal != 0) {
+            if (comparedVal != CHRONOLOGICALLY_EQUAL) {
                 return comparedVal;
             }
 
@@ -297,9 +295,9 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
         }
 
         // Medium case 3
-        if (hasStart && hasEnd && !otherHasStart && otherHasEnd) {
+        if (hasStartDate && hasEndDate && !hasStartDateOther && hasEndDateOther) {
             comparedVal = startDate.compareTo(other.endDate);
-            if (comparedVal != 0) {
+            if (comparedVal != CHRONOLOGICALLY_EQUAL) {
                 return comparedVal;
             }
 
@@ -308,15 +306,15 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
         }
 
         // Medium case 4
-        if (hasStart && hasEnd && otherHasStart && !otherHasEnd) {
+        if (hasStartDate && hasEndDate && hasStartDateOther && !hasEndDateOther) {
             comparedVal = startDate.compareTo(other.startDate);
-            if (comparedVal != 0) {
+            if (comparedVal != CHRONOLOGICALLY_EQUAL) {
                 return comparedVal;
             }
 
             comparedVal = endDate.compareTo(other.startDate);
-            if (comparedVal == 0) {
-                return 1;
+            if (comparedVal == CHRONOLOGICALLY_EQUAL) {
+                return CHRONOLOGICALLY_AFTER;
             }
             return comparedVal;
         }
@@ -324,13 +322,24 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
         // Final case
         // compare start first
         comparedVal = startDate.compareTo(other.startDate);
-        if (comparedVal != 0) {
+        if (comparedVal != CHRONOLOGICALLY_EQUAL) {
             return comparedVal;
         }
         // compare the end dates
-        comparedVal = endDate.compareTo(other.endDate);
-        return comparedVal;
+        return endDate.compareTo(other.endDate);
 
+    }
+
+    private boolean hasDate(Task task) {
+        return task.isStartDatePresent(task) || task.isEndDatePresent(task);
+    }
+
+    private boolean isEndDatePresent(Task task) {
+        return task.endDate != null;
+    }
+
+    private boolean isStartDatePresent(Task task) {
+        return task.startDate != null;
     }
     
     // @@author

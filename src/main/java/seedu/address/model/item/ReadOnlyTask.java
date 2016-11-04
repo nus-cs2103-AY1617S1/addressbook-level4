@@ -28,7 +28,7 @@ public interface ReadOnlyTask {
                 && other.getRecurrenceRate().equals(this.getRecurrenceRate()));
     }
        
-    //@@author
+    //@@author A0139498J
     /**
      * Formats the floating task as text, showing all details.
      */
