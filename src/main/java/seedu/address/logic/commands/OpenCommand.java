@@ -27,7 +27,6 @@ public class OpenCommand extends Command {
     @Override
     public CommandResult execute() {
         File openFile = new File(openPath);
-        //System.out.println(saveFile.getAbsolutePath());
         if (FileUtil.isValidFilePath(openPath)) {
             String filePath = openFile.getAbsolutePath();
             

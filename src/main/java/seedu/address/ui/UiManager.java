@@ -10,7 +10,11 @@ import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.Config;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.storage.DataSavingExceptionEvent;
+import seedu.address.commons.events.ui.FileDirectoryChangedEvent;
 import seedu.address.commons.events.ui.JumpToListRequestEvent;
+import seedu.address.commons.events.ui.OpenFileChooserEvent;
+import seedu.address.commons.events.ui.PersonPanelSelectionChangedEvent;
+import seedu.address.commons.events.ui.SaveFileChooserEvent;
 import seedu.address.commons.events.ui.ShowHelpRequestEvent;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Logic;
@@ -22,6 +26,7 @@ import seedu.address.model.activity.event.Event;
 import seedu.address.model.activity.task.Task;
 import seedu.lifekeeper.MainApp;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -170,13 +175,46 @@ public class UiManager extends ComponentManager implements Ui {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         mainWindow.handleHelp();
     }
+    
+    @Subscribe
+    private void handleSaveEvent(SaveFileChooserEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        
+        if (event.saveDirectory.equals("")) {
+            mainWindow.handleSaveLoc();
+        } else {
+            mainWindow.setSaveLoc(event.saveDirectory);
+        }
+    }
+    
+    @Subscribe
+    private void handleOpenEvent(OpenFileChooserEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        
+        if (event.fileDirectory.equals("")) {
+            mainWindow.handleOpen();
+        } else {
+            mainWindow.openFile(new File(event.fileDirectory));
+        }
+    }
 
     @Subscribe
     private void handleJumpToListRequestEvent(JumpToListRequestEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         mainWindow.getActivityListPanel().scrollTo(event.targetIndex);
     }
-   
+
+    @Subscribe
+    private void handlePersonPanelSelectionChangedEvent(PersonPanelSelectionChangedEvent event){
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+    }
+    
+    @Subscribe
+    private void handleDirectoryChangedEvent(FileDirectoryChangedEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        mainWindow.changeFileLoc(event.filePath);
+    }
+    
     //==================== Refresh Handling Code =================================================================
     
     //@@author A0125680H
