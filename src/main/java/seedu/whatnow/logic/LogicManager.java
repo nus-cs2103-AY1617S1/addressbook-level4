@@ -53,4 +53,9 @@ public class LogicManager extends ComponentManager implements Logic {
     public ObservableList<ReadOnlyTask> getOverdueScheduleList() {
         return model.getOverdueScheduleList();
     }
+    
+    @Override
+    public ObservableList<ReadOnlyTask> getPinnedItems(String type, String keyword) {
+        return model.getPinnedItems(type, keyword);
+    }
 }

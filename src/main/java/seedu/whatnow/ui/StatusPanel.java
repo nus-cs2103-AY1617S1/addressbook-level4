@@ -5,8 +5,11 @@ import java.awt.Color;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.geometry.HPos;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -14,7 +17,10 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.Border;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
+import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import seedu.whatnow.commons.util.FxViewUtil;
 
@@ -32,21 +38,23 @@ public class StatusPanel extends UiPart {
     private AnchorPane placeHolder;
 
     private AnchorPane mainPane;
+    
+    private GridPane gridPane;
 
-    public static StatusPanel load(Stage primaryStage, AnchorPane placeHolder) {
+    public static StatusPanel load(Stage primaryStage, AnchorPane placeHolder, GridPane gridPane) {
         StatusPanel statusBar = UiPartLoader.loadUiPart(primaryStage, placeHolder, new StatusPanel());
-        statusBar.configure();
+        statusBar.configure(gridPane);
         return statusBar;
     }
 
-    public void configure() {
-        GridPane grid = new GridPane();
-
-        Image image = new Image("/images/WhatNowWhiteOnBlack.png");
+    public void configure(GridPane gridPane) {
+        this.gridPane = gridPane;
+        Image image = new Image("/images/WhatNowWhiteOnBlue.png");
         ImageView iv1 = new ImageView();
         iv1.setImage(image);
         iv1.setFitWidth(350);
-        iv1.setFitHeight(200);
+        iv1.setFitHeight(178);
+        
         statusDisplayArea = new TextArea();
         statusDisplayArea.setEditable(false);
         statusDisplayArea.setId(STATUS_DISPLAY_ID);
@@ -57,9 +65,16 @@ public class StatusPanel extends UiPart {
         statusDisplayArea.setPadding(Insets.EMPTY);
         statusDisplayArea.setFont(Font.font(15));
         statusDisplayArea.setBorder(Border.EMPTY);
-        grid.addRow(0, iv1);
-        grid.addRow(1, statusDisplayArea);  
-        placeHolder.getChildren().add(grid);
+        
+        Text pinHeader = new Text();
+        pinHeader.setText("Pinned Items");
+        pinHeader.setFont(Font.font(20));
+        pinHeader.setFill(Paint.valueOf("white"));
+        
+        gridPane.add(iv1, 0, 0, 1, 1);
+        gridPane.add(statusDisplayArea, 0, 1, 1, 1);
+        gridPane.add(pinHeader, 0, 2, 1, 1);
+        GridPane.setHalignment(gridPane.getChildren().get(4), HPos.CENTER);
     }
 
     @Override

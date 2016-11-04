@@ -230,6 +230,16 @@ public interface Model {
      * Returns the overdue task list
      */
     UnmodifiableObservableList<ReadOnlyTask> getOverdueScheduleList();
+    
+    /**
+     * Returns the pinned item list based on keyword and pin item match type
+     */
+    UnmodifiableObservableList<ReadOnlyTask> getPinnedItems(String type, String keyword);
+    
+    /**
+     * Updates the pinnedItems to display all tasks with keyword of type
+     */
+    void updatePinnedItemsToShowMatchKeywords(String type, String keyword);
 
     //@@author A0141021H
     void changeLocation(Path destination, Config config) throws DataConversionException;
