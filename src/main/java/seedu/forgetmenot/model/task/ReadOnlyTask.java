@@ -18,6 +18,7 @@ public interface ReadOnlyTask {
     boolean isDeadlineTask();
     boolean isEventTask();
     boolean isFloatingTask();
+    boolean isDone();
     
     /**
      * Returns true if both have the same state. (interfaces cannot override .equals)

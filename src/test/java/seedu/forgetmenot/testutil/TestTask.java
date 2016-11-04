@@ -109,4 +109,9 @@ public class TestTask implements ReadOnlyTask {
         return start.isMissing() && end.isMissing();
     }
 
+	@Override
+	public boolean isDone() {
+		return done.getDoneValue();
+	}
+
 }

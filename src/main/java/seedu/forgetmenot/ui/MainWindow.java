@@ -115,7 +115,8 @@ public class MainWindow extends UiPart {
 
     //@@author A0139211R
     void fillInnerParts() {
-    	floatingPanel = FloatingPanel.load(primaryStage, getFloatingPanelPlaceholder(), logic.getFilteredTaskList().filtered(isFloating()));
+    	// @@author A0139211R
+    	floatingPanel = FloatingPanel.load(primaryStage, getFloatingPanelPlaceholder(), logic.getFilteredTaskListForFloating().filtered(isFloating()));
     	contentBox = ContentBox.load(primaryStage, getContentBoxPlaceholder(), logic.getFilteredTaskList());
         taskListPanel = TaskListPanel.load(primaryStage, getTaskListPlaceholder(), logic.getFilteredTaskList());
         resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
@@ -225,10 +226,10 @@ public class MainWindow extends UiPart {
      * 
      */
     public Predicate<ReadOnlyTask> isFloating() {
-    	return t -> t.getStartTime().isMissing() && t.getEndTime().isMissing() && t.getDone().getDoneValue() == false;
+    	return t -> t.isFloatingTask() && t.isDone() == false;
     }
     public Predicate<ReadOnlyTask> isNotFloating() {
-    	return t -> !(t.getStartTime().isMissing() && t.getEndTime().isMissing());
+    	return t -> t.isFloatingTask() && t.isDone() == false;
     }
 
 }

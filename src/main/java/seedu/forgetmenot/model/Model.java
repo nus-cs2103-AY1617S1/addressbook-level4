@@ -2,6 +2,7 @@ package seedu.forgetmenot.model;
 
 import java.util.Set;
 
+import javafx.collections.ObservableList;
 import seedu.forgetmenot.commons.core.UnmodifiableObservableList;
 import seedu.forgetmenot.commons.exceptions.IllegalValueException;
 import seedu.forgetmenot.model.task.ReadOnlyTask;
@@ -83,5 +84,10 @@ public interface Model {
 	
 	/** Checks if the current task clashes with other tasks in ForgetMeNot or not */
 	boolean isClashing(Task toAdd);
+
+	/** Returns the filtered task list for floating task as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
+	UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskListForFloating();
+
+
 
 }

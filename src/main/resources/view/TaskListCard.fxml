@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<HBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
+<HBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1">
     <children>
         <GridPane fx:id="gridpane" HBox.hgrow="ALWAYS">
             <columnConstraints>
@@ -21,13 +21,13 @@
                 <ColumnConstraints hgrow="ALWAYS" maxWidth="1.7976931348623157E308" />
             </columnConstraints>
             <children>
-                <VBox alignment="CENTER_LEFT" maxHeight="150.0" minHeight="97.0" GridPane.columnIndex="0" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
+                <VBox alignment="CENTER_LEFT" maxHeight="150.0" prefWidth="76.0" GridPane.columnIndex="0" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
                     <stylesheets>
                         <URL value="@DarkTheme.css" />
                         <URL value="@Extensions.css" />
                     </stylesheets>
                     <padding>
-                        <Insets bottom="15.0" left="15.0" right="5.0" top="15.0" />
+                        <Insets bottom="5.0" left="15.0" right="5.0" top="5.0" />
                     </padding>
 
                     <children>
@@ -46,8 +46,8 @@
                 </VBox>
             <AnchorPane prefHeight="120.0" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
                <children>
-                  <ImageView fx:id="stateicon" fitHeight="60.0" fitWidth="80.0" layoutX="113.0" layoutY="29.0" pickOnBounds="true" preserveRatio="true" />
-                  <ImageView fx:id="tasklabel" fitHeight="93.0" fitWidth="99.0" layoutY="42.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="stateicon" fitHeight="60.0" fitWidth="80.0" layoutX="113.0" layoutY="3.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="tasklabel" fitHeight="77.0" fitWidth="99.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true" />
                </children>
             </AnchorPane>
             </children>
