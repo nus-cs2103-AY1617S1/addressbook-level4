@@ -70,8 +70,8 @@ public class MainWindow extends UiPart {
 //    @FXML
 //    private AnchorPane upcomingListPanelPlaceholder;
     
-//    @FXML
-//    private AnchorPane overdueListPanelPlaceholder;
+    @FXML
+    private AnchorPane overdueListDisplayPlaceHolder;
 
     public MainWindow() {
         super();
@@ -121,8 +121,9 @@ public class MainWindow extends UiPart {
     void fillInnerParts() {
     	//fill main activities display panel
         activityListPanel = ActivityListPanel.load(primaryStage, getPersonListPlaceholder(), logic.getFilteredPersonList());
+
         //fill dash board
-//        overdueListPanel = OverdueListPanel.load(primaryStage, getOverdueListPlaceholder(), logic.getFilteredPersonList());
+        overdueListPanel = OverdueListPanel.load(primaryStage, getOverdueListPlaceholder(), logic.getFilteredPersonList());
         
         		
         resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
@@ -145,11 +146,11 @@ public class MainWindow extends UiPart {
     public AnchorPane getPersonListPlaceholder() {
         return activityListPanelPlaceholder;
     }
-/*    
-    public AnchorPane getOverdueListPlaceholder() {
-    	return overdueListPanelPlaceholder;
-    }
     
+    public AnchorPane getOverdueListPlaceholder() {
+    	return overdueListDisplayPlaceHolder;
+    }
+/*    
     public AnchorPane getUpcomingListPlaceholder() {
     	return upcomingListPanelPlaceholder;
     }

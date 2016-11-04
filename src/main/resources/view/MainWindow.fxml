@@ -57,7 +57,7 @@
                <children>
                   <VBox fx:id="overdueTaskList" prefHeight="200.0" prefWidth="200.0">
                      <children>
-                        <AnchorPane fx:id="overdueTaskDisplayPlaceHolder" />
+                        <AnchorPane fx:id="overdueListDisplayPlaceHolder" />
                      </children>
                   </VBox>
                </children>

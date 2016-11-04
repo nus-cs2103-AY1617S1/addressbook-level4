@@ -43,6 +43,7 @@ public class ActivityListPanel extends ListPanel {
 		ActivityListPanel personListPanel = 
 				UiPartLoader.loadUiPart(primaryStage, personListPlaceholder, new ActivityListPanel());
 		personListPanel.configure(activityList);
+		System.out.println("ActivityListPanel has been loaded!");
 		return personListPanel;
 	}
     

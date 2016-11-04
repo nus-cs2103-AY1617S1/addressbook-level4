@@ -13,10 +13,9 @@ import seedu.address.commons.events.ui.PersonPanelSelectionChangedEvent;
 import seedu.address.model.activity.ReadOnlyActivity;
 
 /**
- * Panel containing the list of activities that are set as High Priority.
- * 
- * @@author A0125284H
+ * Panel containing the list of activities that are already Overdue.
  */
+//@@author A0125284H
 public class OverdueListPanel extends ListPanel {
 	/**
 	 * Panel containing the list of persons.
@@ -24,17 +23,50 @@ public class OverdueListPanel extends ListPanel {
 	private final Logger logger = LogsCenter.getLogger(OverdueListPanel.class);
 	private static final String FXML = "OverdueListPanel.fxml";
 
-
+/*
 	@FXML
-	private ListView<ReadOnlyActivity> activityListView;
-
+	private static ListView<ReadOnlyActivity> overdueActivityListView;
+*/
 	public OverdueListPanel() {
 	        super();
 	    }
 
 	// Function specific to OverdueListPanel
+	
+    private void setEventHandlerForSelectionChangeEvent() {
+        this.activityListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null) {
+                logger.fine("Selection in person list panel changed to : '" + newValue + "'");
+                raise(new PersonPanelSelectionChangedEvent(newValue));
+            }
+        });
+    }
+    
+    /**
+     * 
+     * @param primaryStage
+     * @param personListPlaceholder
+     * @param activityList - the function calling should make sure that an ActivityList consisting of only tasks are passed.
+     * @return
+     */
+
+	public static OverdueListPanel load(Stage primaryStage, AnchorPane personListPlaceholder,
+		                            	ObservableList<ReadOnlyActivity> activityList) {
+		if (activityList != null) System.out.println("hello!");
+		OverdueListPanel overdueActivitiesListPanel = 
+				UiPartLoader.loadUiPart(primaryStage, personListPlaceholder, new OverdueListPanel());
+		overdueActivitiesListPanel.configure(activityList);
+		System.out.println("OverdueListPanel has been loaded!");
+		return overdueActivitiesListPanel;
+	}
+	
 	@Override
 	public String getFxmlPath() {
 		return FXML;
+	}
+	
+	@Override
+	public void setPlaceholder(AnchorPane pane) {
+		this.placeHolderPane = pane;
 	}
 }
