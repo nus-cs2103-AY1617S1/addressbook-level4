@@ -20,10 +20,6 @@ public class EventCard extends UiPart {
 	@FXML
 	private Label id;
 	@FXML
-	private Label date;
-	@FXML
-	private Label endDate;
-	@FXML
 	private Label startTime;
 	@FXML
 	private Label endTime;
@@ -52,27 +48,17 @@ public class EventCard extends UiPart {
 	public void initialize() throws ParseException {
 		name.setText(task.getName().name);
 		id.setText(displayedIndex + ". ");
-		date.setText("Start Date: " + task.getStartDate().date);
+		startTime.setText("Start Time: " + task.getStartDate().date + " @" + task.getStartTime().startTime);
+		endTime.setText("End Time: " + task.getEndDate().endDate + " @" + task.getEndTime().endTime);
+		countdown.setText(count.convertDateToMilli(task.getEndDate().endDate, task.getEndTime().endTime));
 		if (task.checkEndDateTime() && this.task.getDone().equals("true")) {
-			endDate.setText("End Date: " + task.getEndDate().endDate);
-			startTime.setText("Start Time: " + task.getStartTime().startTime);
-			endTime.setText("End Time: " + task.getEndTime().endTime);
-	        countdown.setText(count.convertDateToMilli(task.getEndDate().endDate, task.getEndTime().endTime));
 			done.setText("Completed");
 			cardPane.setStyle("-fx-background-color: #01DF01");
 		} else if (!task.checkEndDateTime() && this.task.getDone().equals("false")) {
-			endDate.setText("End Date: " + task.getEndDate().endDate);
-			startTime.setText("Start Time: " + task.getStartTime().startTime);
-			endTime.setText("End Time: " + task.getEndTime().endTime);
 			done.setText("Overdue");
-	        countdown.setText(count.convertDateToMilli(task.getEndDate().endDate, task.getEndTime().endTime));
 			cardPane.setStyle("-fx-background-color: #ff2002");
 		} else {
-			endDate.setText("End Date: " + task.getEndDate().endDate);
-			startTime.setText("Start Time: " + task.getStartTime().startTime);
-			endTime.setText("End Time: " + task.getEndTime().endTime);
 			done.setText("Not Completed");
-			countdown.setText(count.convertDateToMilli(task.getEndDate().endDate, task.getEndTime().endTime));
 			cardPane.setStyle("-fx-background-color: #FFFFFF");
 		}
 	}
