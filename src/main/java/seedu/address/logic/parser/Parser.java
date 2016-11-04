@@ -143,6 +143,10 @@ public class Parser {
 
 	//@@author A0141019U	
 	private String replaceAliases(String userInput) {
+		String inputWithNameRemoved = separateNameAndArgs(userInput).getValue();
+		System.out.println("userInput before replacing: " + userInput);
+		System.out.println("input with name removed: " + inputWithNameRemoved);
+		
 		List<ReadOnlyAlias> aliasList = this.model.getFilteredAliasList();
 		List<String> aliases = new ArrayList<>(); 
 		List<String> originals = new ArrayList<>(); 
@@ -151,6 +155,8 @@ public class Parser {
 			aliases.add(aliasObj.getAlias());
 			originals.add(aliasObj.getOriginalPhrase());
 		}
+		aliases.add("a");
+		originals.add("add");
 		
 		for (int i=0; i<aliases.size(); i++) {
 			String alias = aliases.get(i);
@@ -159,15 +165,15 @@ public class Parser {
 			System.out.println("alias: " + alias);
 			
 			// Does not replace arguments in find command or within quotes			
-			if (userInput.contains(alias) 
-					&& !userInput.matches(".*'.*(" + alias + ").*'.*") 
-					&& !userInput.contains("find")) {
+			if (inputWithNameRemoved.contains(alias) 
+					&& !inputWithNameRemoved.matches(".*'.*(" + alias + ").*'.*") 
+					&& !inputWithNameRemoved.contains("find")) {
 				System.out.println("match");
 				userInput = userInput.replace(alias, original);
 			}
 		}
 		
-		System.out.println("userInput: " + userInput);
+		System.out.println("userInput after replacing: " + userInput);
 		
 		return userInput;
 	}
@@ -213,13 +219,25 @@ public class Parser {
 	}
 	
 	
+	/**
+	 * 
+	 * @param an input command string that may contain 0 or 2 single quotes
+	 * @return a Pair of strings. If there are 2 quotes, the first value in the pair is the 
+	 * text enclosed by the quotes and the second is a concatenation of the text outside them.
+	 * If there are no quotes, the first argument is an empty string and the second is the argument
+	 * string that was supplied to the method.
+	 */
 	private Pair<String, String> separateNameAndArgs(String arguments) {
 		ArgumentTokenizer argsTokenizer = new ArgumentTokenizer(namePrefix);
 		argsTokenizer.tokenize(arguments);
 		
 		String preamble = argsTokenizer.getPreamble().orElse("");
 		
-		List<String> stringsAfterQuotes = argsTokenizer.getAllValues(namePrefix).get();
+		List<String> listEmptyString = new ArrayList<>();
+		listEmptyString.add("");
+		listEmptyString.add("");
+		
+		List<String> stringsAfterQuotes = argsTokenizer.getAllValues(namePrefix).orElse(listEmptyString);
 		String taskName = stringsAfterQuotes.get(0);
 		String argsAfterName = stringsAfterQuotes.get(1);
 		
@@ -570,6 +588,6 @@ public class Parser {
 	public static void main(String[] args) {
 		Parser p = new Parser(new ModelManager());
 //		p.parseCommand("add 'dd' by 5pm today");
-		p.replaceAliases("find k");
+		p.replaceAliases("bloh 'a' k");
 	}
 }
