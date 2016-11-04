@@ -60,7 +60,12 @@ public class DoneCommand extends Command {
 
         if (oldStatus == newTask.getStatus().getDoneStatus()) {
             return new CommandResult(MESSAGE_ALREADY_DONE);
+        } else {
+            // @author A0147944U
+            model.repeatRecurringTask(new Task(currentTask));
+            // @author
         }
+        // @@author A0147335E
 
         if (isUndo == false) {
             history.getUndoList().add(new RollBackCommand(COMMAND_WORD, newTask, null));
