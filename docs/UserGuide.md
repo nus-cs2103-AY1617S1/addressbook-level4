@@ -255,6 +255,23 @@ Example:
 * `select 2`
 
 
+#### Autocomplete: `TAB` or `SPACEBAR`
+Autocompletes the unfinished command on pressing `TAB` or `SPACEBAR`. <br>
+It will only complete when it can distinguish exactly what the command is.
+
+Example:
+* Pressing `TAB` or `SPACEBAR` after typing `a` would autocomplete it to `add`
+* Pressing `TAB` or `SPACEBAR` after typing `d` wont do anything as both `done` and `delete` start with `d`
+* Pressing `TAB` or `SPACEBAR` after typing `de` would autocomplete it to `delete
+
+
+#### Command History: `UP` and `DOWN` arrow keys
+Shows the user the previous commands that he/she typed. <br>
+Pressing the `UP` key would show the last older command. <br>
+Pressing the `DOWN` key would show the last newer command. <br>
+
+
+
 #### Set storage: `setstorage`
 Allows the user to change the storage location to a different folder. <br>
 Format: `setstorage <folder name>`
