@@ -18,7 +18,6 @@ import seedu.address.commons.events.ui.ShowHelpRequestEvent;
 import seedu.address.commons.events.ui.ViewTabRequestEvent;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Logic;
-import seedu.address.logic.commands.TabCommand;
 import seedu.address.model.UserPrefs;
 
 import java.util.logging.Logger;
@@ -28,7 +27,7 @@ import java.util.logging.Logger;
  */
 public class UiManager extends ComponentManager implements Ui {
     private static final Logger logger = LogsCenter.getLogger(UiManager.class);
-    private static final String ICON_APPLICATION = "/images/address_book_32.png";
+    private static final String ICON_APPLICATION = "/images/amethyst_task_manager.png";
 
     private Logic logic;
     private Config config;
