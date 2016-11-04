@@ -9,21 +9,21 @@ import seedu.address.commons.events.ui.DisplayTaskListEvent;
 import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.ReadOnlyTaskFilter;
 
+//@@author A0139339W
 /**
- * Lists all tasks in the address book to the user.
+ * Lists tasks in the task manager to the user according to the specified filter.
  */
 public class ListCommand extends Command {
 
     public static final String COMMAND_WORD = "list";
     
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Lists all tasks filtered by specified parameters\n"
-            + "Event Parameters: [TASK_TYPE] [done | pending] [dd-mm-yy] [hh:mm]\n"
+            + "Event Parameters: [TASK_TYPE] [STATUS] [DAY]\n"
             + "Event Example: " + COMMAND_WORD
-            + " someday pending\n";  
+            + " someday pending 08-11-16\n";  
     
     public static final String MESSAGE_SUCCESS = "Listed all tasks";
 
-    //@@author A0139339W
     private Optional<String> taskType = Optional.empty();
     private Optional<String> doneStatus = Optional.of("default");
     private Optional<LocalDateTime> day = Optional.empty();
@@ -47,27 +47,24 @@ public class ListCommand extends Command {
     	
     	taskTypePredicate = getTaskTypePredicate(taskTypePredicate);
     	donePredicate = getStatusPredicate(donePredicate);
-    	System.out.println("DEBUG1");
     	dayPredicate = getDayPredicate(dayPredicate);
-    	System.out.println("DEBUG2: " + dayPredicate);
     	listPredicate = getListPredicate(listPredicate, taskTypePredicate,
     			donePredicate, dayPredicate);
-    	System.out.println("DEBUG3");
     	model.updateFilteredTaskList(listPredicate);
-    	System.out.println("DEBUG4");
     	model.checkForOverdueTasks();
     	
         return new CommandResult(MESSAGE_SUCCESS);
     }
 
-	private Predicate<ReadOnlyTask> getDayPredicate(Predicate<ReadOnlyTask> dayPredicate) {
-		if(day.isPresent()) {
-			dayPredicate = ReadOnlyTaskFilter.isThisDate(day.get().toLocalDate());
-    	}
-		return dayPredicate;
-	}
-
-	private Predicate<ReadOnlyTask> getListPredicate(Predicate<ReadOnlyTask> listPredicate,
+	/**
+	 * Takes in the parameters
+	 * @param taskTypePredicate
+	 * @param donePredicate
+	 * @param dayPredicate
+	 * 
+	 * @return listPredicate which combines all the three Predicates 
+	 */
+    private Predicate<ReadOnlyTask> getListPredicate(Predicate<ReadOnlyTask> listPredicate,
 			Predicate<ReadOnlyTask> taskTypePredicate, Predicate<ReadOnlyTask> donePredicate,
 			Predicate<ReadOnlyTask> dayPredicate) {
 		boolean isFirstPredicate = true;
@@ -87,8 +84,21 @@ public class ListCommand extends Command {
     	}
 		return listPredicate;
 	}
+    
+    /**
+     * set the predicate for the day to be listed
+     */
+    private Predicate<ReadOnlyTask> getDayPredicate(Predicate<ReadOnlyTask> dayPredicate) {
+    	if(day.isPresent()) {
+    		dayPredicate = ReadOnlyTaskFilter.isThisDate(day.get().toLocalDate());
+    	}
+    	return dayPredicate;
+    }
 
-	private Predicate<ReadOnlyTask> getStatusPredicate(Predicate<ReadOnlyTask> donePredicate) {
+	/**
+	 * set the predicate based on the specified status to be listed if any
+	 */
+    private Predicate<ReadOnlyTask> getStatusPredicate(Predicate<ReadOnlyTask> donePredicate) {
 		if(doneStatus.isPresent()) {
 			assert doneStatus.equals("done") || doneStatus.equals("pending") || 
 				doneStatus.equals("overdue");
@@ -108,7 +118,10 @@ public class ListCommand extends Command {
 		return donePredicate;
 	}
 
-	private Predicate<ReadOnlyTask> getTaskTypePredicate(Predicate<ReadOnlyTask> taskTypePredicate) {
+	/**
+	 * Set the predicate for what kind of task list should display 
+	 */
+    private Predicate<ReadOnlyTask> getTaskTypePredicate(Predicate<ReadOnlyTask> taskTypePredicate) {
 		if(taskType.isPresent()) {
     		assert taskType.get().equals("someday") || taskType.get().equals("sd") ||
     				taskType.get().equals("deadline") || taskType.get().equals("dl") ||
