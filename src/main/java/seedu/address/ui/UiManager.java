@@ -15,6 +15,7 @@ import seedu.address.commons.events.ui.DisplayAliasListEvent;
 import seedu.address.commons.events.ui.DisplayTaskListEvent;
 import seedu.address.commons.events.ui.JumpToListRequestEvent;
 import seedu.address.commons.events.ui.ShowHelpRequestEvent;
+import seedu.address.commons.events.ui.ViewTabRequestEvent;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Logic;
 import seedu.address.model.UserPrefs;
@@ -31,7 +32,7 @@ public class UiManager extends ComponentManager implements Ui {
     private Logic logic;
     private Config config;
     private UserPrefs prefs;
-    private MainWindow newMainWindow;
+    private MainWindow MainWindow;
 
     public UiManager(Logic logic, Config config, UserPrefs prefs) {
         super();
@@ -49,9 +50,9 @@ public class UiManager extends ComponentManager implements Ui {
         primaryStage.getIcons().add(getImage(ICON_APPLICATION));
 
         try {
-            newMainWindow = MainWindow.load(primaryStage, config, prefs, logic);
-            newMainWindow.show(); //This should be called before creating other UI parts
-            newMainWindow.fillInnerParts();
+            MainWindow = MainWindow.load(primaryStage, config, prefs, logic);
+            MainWindow.show(); //This should be called before creating other UI parts
+            MainWindow.fillInnerParts();
 
         } catch (Throwable e) {
             logger.severe(StringUtil.getDetails(e));
@@ -61,8 +62,8 @@ public class UiManager extends ComponentManager implements Ui {
 
     @Override
     public void stop() {
-        prefs.updateLastUsedGuiSetting(newMainWindow.getCurrentGuiSetting());
-        newMainWindow.hide();
+        prefs.updateLastUsedGuiSetting(MainWindow.getCurrentGuiSetting());
+        MainWindow.hide();
     }
 
     private void showFileOperationAlertAndWait(String description, String details, Throwable cause) {
@@ -75,7 +76,7 @@ public class UiManager extends ComponentManager implements Ui {
     }
 
     void showAlertDialogAndWait(Alert.AlertType type, String title, String headerText, String contentText) {
-        showAlertDialogAndWait(newMainWindow.getPrimaryStage(), type, title, headerText, contentText);
+        showAlertDialogAndWait(MainWindow.getPrimaryStage(), type, title, headerText, contentText);
     }
 
     private static void showAlertDialogAndWait(Stage owner, AlertType type, String title, String headerText,
@@ -108,27 +109,51 @@ public class UiManager extends ComponentManager implements Ui {
     @Subscribe
     private void handleShowHelpEvent(ShowHelpRequestEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        newMainWindow.handleHelp();
+        MainWindow.handleHelp();
     }
 
     @Subscribe
     private void handleJumpToListRequestEvent(JumpToListRequestEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        newMainWindow.getTaskListPanel().scrollTo(event.targetIndex);
+        MainWindow.getTaskListPanel().scrollTo(event.targetIndex);
     }
     
     //@@author A0142184L
     @Subscribe
     private void handleDisplayTaskListEvent(DisplayTaskListEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
-		TaskListPanel listPanel = newMainWindow.getTaskListPanel();
-		listPanel = TaskListPanel.loadTaskList(newMainWindow.primaryStage, newMainWindow.getTaskListLeftPlaceholder(), event.list);
+		TaskListPanel listPanel = MainWindow.getTaskListPanel();
+		listPanel = TaskListPanel.loadTaskList(MainWindow.primaryStage, MainWindow.getTaskListLeftPlaceholder(), event.list);
     }
     
     @Subscribe
     private void handleDisplayAliasListEvent(DisplayAliasListEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        TaskListPanel listPanel = newMainWindow.getTaskListPanel();
-		listPanel = TaskListPanel.loadAliasList(newMainWindow.primaryStage, newMainWindow.getTaskListLeftPlaceholder(), event.list);
+        TaskListPanel listPanel = MainWindow.getTaskListPanel();
+		listPanel = TaskListPanel.loadAliasList(MainWindow.primaryStage, MainWindow.getTaskListLeftPlaceholder(), event.list);
+    }
+    
+    @Subscribe
+    private void handleViewTabRequestEvent(ViewTabRequestEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        switch (event.tabName) {
+        case "today":
+            MainWindow.getTabPane().getSelectionModel().select(0);
+            break;
+        case "tomorrow":
+            MainWindow.getTabPane().getSelectionModel().select(1);
+            break;
+        case "week":
+            MainWindow.getTabPane().getSelectionModel().select(2);
+            break;
+        case "month":
+            MainWindow.getTabPane().getSelectionModel().select(3);
+            break;
+        case "someday":
+            MainWindow.getTabPane().getSelectionModel().select(4);
+            break;
+        default:
+            MainWindow.getTabPane().getSelectionModel().select(0);
+        }
     }
 }

@@ -1,5 +1,8 @@
 package seedu.address.logic.commands;
 
+import seedu.address.commons.core.EventsCenter;
+import seedu.address.commons.events.ui.ViewTabRequestEvent;
+
 //@@author A0141019U
 public class TabCommand extends Command {
 	
@@ -24,21 +27,17 @@ public class TabCommand extends Command {
 
     @Override
     public CommandResult execute() {
+        EventsCenter.getInstance().post(new ViewTabRequestEvent(tabTo.name().toLowerCase()));
     	switch (tabTo) {
     	case TODAY:
-    		//TODO
     		return new CommandResult(String.format(MESSAGE_SUCCESS, tabTo.name().toLowerCase()));
     	case TOMORROW:
-    		//TODO
     		return new CommandResult(String.format(MESSAGE_SUCCESS, tabTo.name().toLowerCase()));
     	case WEEK:
-    		//TODO
     		return new CommandResult(String.format(MESSAGE_SUCCESS, tabTo.name().toLowerCase()));
     	case MONTH:
-    		//TODO
     		return new CommandResult(String.format(MESSAGE_SUCCESS, tabTo.name().toLowerCase()));
     	case SOMEDAY:
-    		//TODO
     		return new CommandResult(String.format(MESSAGE_SUCCESS, tabTo.name().toLowerCase()));
     	default:
     		return new CommandResult(MESSAGE_FAIL);
