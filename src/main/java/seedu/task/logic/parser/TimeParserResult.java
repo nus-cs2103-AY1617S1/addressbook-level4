@@ -7,20 +7,12 @@ import java.util.Date;
 //@@author A0152958R
 public class TimeParserResult {
 
-    private static final int FIRST_HOUR_OF_DAY = 0;
-    private static final int FIRST_MINUTE_OF_HOUR = 0;
-    private static final int FIRST_SECOND_OF_MINUTE = 0;
-    private static final int LAST_HOUR_OF_DAY = 23;
-    private static final int LAST_MINUTE_OF_HOUR = 59;
-    private static final int LAST_SECOND_OF_MINUTE = 59;
 
     private String matchString;
     private LocalDate firstDate;
     private LocalDate secondDate;
     private LocalTime firstTime;
     private LocalTime secondTime;
-    private LocalDate thirdDate;
-    private LocalTime thirdTime;
     private boolean timeValid;
     private DateTimeStatus rawDateTimeStatus = DateTimeStatus.NONE;
 
@@ -34,25 +26,6 @@ public class TimeParserResult {
         START_DATE, START_DATE_END_TIME, START_DATE_END_DATE, START_DATE_END_DATE_END_TIME,
         START_DATE_START_TIME, START_DATE_START_TIME_END_TIME,
         START_DATE_START_TIME_END_DATE, START_DATE_START_TIME_END_DATE_END_TIME,
-        
-        START_TIME_DEAD_TIME, START_TIME_END_TIME_DEAD_TIME, START_TIME_END_DATE_DEAD_TIME, START_TIME_END_DATE_END_TIME_DEAD_TIME,
-        START_DATE_DEAD_TIME, START_DATE_END_TIME_DEAD_TIME, START_DATE_END_DATE_DEAD_TIME, START_DATE_END_DATE_END_TIME_DEAD_TIME,
-        START_DATE_START_TIME_DEAD_TIME, START_DATE_START_TIME_END_TIME_DEAD_TIME,
-        START_DATE_START_TIME_END_DATE_DEAD_TIME, START_DATE_START_TIME_END_DATE_END_TIME_DEAD_TIME,
-        
-        START_TIME_DEAD_DATE, START_TIME_END_TIME_DEAD_DATE, START_TIME_END_DATE_DEAD_DATE, START_TIME_END_DATE_END_TIME_DEAD_DATE,
-        START_DATE_DEAD_DATE, START_DATE_END_TIME_DEAD_DATE, START_DATE_END_DATE_DEAD_DATE, START_DATE_END_DATE_END_TIME_DEAD_DATE,
-        START_DATE_START_TIME_DEAD_DATE, START_DATE_START_TIME_END_TIME_DEAD_DATE,
-        START_DATE_START_TIME_END_DATE_DEAD_DATE, START_DATE_START_TIME_END_DATE_END_TIME_DEAD_DATE,
-        
-        START_TIME_DEAD_DATE_DEAD_TIME, START_TIME_END_TIME_DEAD_DATE_DEAD_TIME, START_TIME_END_DATE_DEAD_DATE_DEAD_TIME, 
-        START_TIME_END_DATE_END_TIME_DEAD_DATE_DEAD_TIME,
-        START_DATE_DEAD_DATE_DEAD_TIME, START_DATE_END_TIME_DEAD_DATE_DEAD_TIME, START_DATE_END_DATE_DEAD_DATE_DEAD_TIME,
-        START_DATE_END_DATE_END_TIME_DEAD_DATE_DEAD_TIME,
-        START_DATE_START_TIME_DEAD_DATE_DEAD_TIME, START_DATE_START_TIME_END_TIME_DEAD_DATE_DEAD_TIME,
-        START_DATE_START_TIME_END_DATE_DEAD_DATE_DEAD_TIME, START_DATE_START_TIME_END_DATE_END_TIME_DEAD_DATE_DEAD_TIME,
-        
-        DEAD_TIME, DEAD_DATE, DEAD_DATE_DEAD_TIME
     }
 
     /**
@@ -85,42 +58,6 @@ public class TimeParserResult {
      */
     public void updateDateTime() {
         rawDateTimeStatus = getDateTimeStatus();
-        switch (rawDateTimeStatus) {
-            case START_TIME_END_TIME:
-                firstDate = LocalDate.now();
-                secondDate = LocalDate.now();
-                break;
-            case START_TIME_END_DATE:
-                firstDate = LocalDate.now();
-                secondTime = LocalTime.of(LAST_HOUR_OF_DAY, LAST_MINUTE_OF_HOUR, LAST_SECOND_OF_MINUTE);
-                break;
-            case START_TIME_END_DATE_END_TIME:
-                firstDate = LocalDate.now();
-                break;
-            case START_DATE_END_TIME:
-                firstTime = LocalTime.of(FIRST_HOUR_OF_DAY, FIRST_MINUTE_OF_HOUR, FIRST_SECOND_OF_MINUTE);
-                secondDate = LocalDate.now();
-                break;
-            case START_DATE_END_DATE_END_TIME:
-                firstTime = LocalTime.of(FIRST_HOUR_OF_DAY, FIRST_MINUTE_OF_HOUR, FIRST_SECOND_OF_MINUTE);
-                break;
-            case START_DATE_START_TIME_END_TIME:
-                secondDate = firstDate;
-                break;
-            case START_DATE_START_TIME_END_DATE:
-                secondTime = LocalTime.of(LAST_HOUR_OF_DAY, LAST_MINUTE_OF_HOUR, LAST_SECOND_OF_MINUTE);
-                break;
-            case DEAD_TIME:
-            	firstDate = LocalDate.now();
-                secondDate = LocalDate.now();
-                thirdDate = LocalDate.now();
-            case DEAD_DATE:
-            	firstTime = LocalTime.of(FIRST_HOUR_OF_DAY, FIRST_MINUTE_OF_HOUR, FIRST_SECOND_OF_MINUTE);
-            	secondTime = LocalTime.of(LAST_HOUR_OF_DAY, LAST_MINUTE_OF_HOUR, LAST_SECOND_OF_MINUTE);
-            	thirdTime = LocalTime.of(LAST_HOUR_OF_DAY, LAST_MINUTE_OF_HOUR, LAST_SECOND_OF_MINUTE);
-            default:
-                break;
-        }
     }
 
     /**
@@ -192,126 +129,6 @@ public class TimeParserResult {
                     break;
             }
         }
-        if(thirdTime != null){
-        	switch(dateTimeStatus){
-        		case NONE:
-        			dateTimeStatus = DateTimeStatus.DEAD_TIME;
-        			break;
-        		case START_TIME:
-                    dateTimeStatus = DateTimeStatus.START_TIME_DEAD_TIME;
-                    break;
-                case START_TIME_END_TIME:
-                    dateTimeStatus = DateTimeStatus.START_TIME_END_TIME_DEAD_TIME;
-                    break;
-                case START_TIME_END_DATE:
-                    dateTimeStatus = DateTimeStatus.START_TIME_END_DATE_DEAD_TIME;
-                    break;
-                case START_TIME_END_DATE_END_TIME:
-                    dateTimeStatus = DateTimeStatus.START_TIME_END_DATE_END_TIME_DEAD_TIME;
-                    break;
-                case START_DATE:
-                    dateTimeStatus = DateTimeStatus.START_DATE_DEAD_TIME;
-                    break;
-                case START_DATE_END_TIME:
-                    dateTimeStatus = DateTimeStatus.START_DATE_END_TIME_DEAD_TIME;
-                    break;
-                case START_DATE_END_DATE:
-                    dateTimeStatus = DateTimeStatus.START_DATE_END_DATE_DEAD_TIME;
-                    break;
-                case START_DATE_END_DATE_END_TIME:
-                    dateTimeStatus = DateTimeStatus.START_DATE_END_DATE_END_TIME_DEAD_TIME;
-                    break;
-                case START_DATE_START_TIME_END_TIME:
-                	dateTimeStatus = DateTimeStatus.START_DATE_START_TIME_END_TIME_DEAD_TIME;
-                	break;
-                case START_DATE_START_TIME_END_DATE:
-                	dateTimeStatus = DateTimeStatus.START_DATE_START_TIME_END_DATE_DEAD_TIME;
-                	break;
-                case START_DATE_START_TIME_END_DATE_END_TIME:
-                	dateTimeStatus = DateTimeStatus.START_DATE_START_TIME_END_DATE_END_TIME_DEAD_TIME;
-                	break;
-                default:
-                	break;
-        	}
-        }
-        if(thirdDate != null){
-        	switch(dateTimeStatus){
-    		case NONE:
-    			dateTimeStatus = DateTimeStatus.DEAD_TIME;
-    			break;
-    		case START_TIME:
-                dateTimeStatus = DateTimeStatus.START_TIME_DEAD_DATE;
-                break;
-            case START_TIME_END_TIME:
-                dateTimeStatus = DateTimeStatus.START_TIME_END_TIME_DEAD_DATE;
-                break;
-            case START_TIME_END_DATE:
-                dateTimeStatus = DateTimeStatus.START_TIME_END_DATE_DEAD_DATE;
-                break;
-            case START_TIME_END_DATE_END_TIME:
-                dateTimeStatus = DateTimeStatus.START_TIME_END_DATE_END_TIME_DEAD_DATE;
-                break;
-            case START_DATE:
-                dateTimeStatus = DateTimeStatus.START_DATE_DEAD_DATE;
-                break;
-            case START_DATE_END_TIME:
-                dateTimeStatus = DateTimeStatus.START_DATE_END_TIME_DEAD_DATE;
-                break;
-            case START_DATE_END_DATE:
-                dateTimeStatus = DateTimeStatus.START_DATE_END_DATE_DEAD_DATE;
-                break;
-            case START_DATE_END_DATE_END_TIME:
-                dateTimeStatus = DateTimeStatus.START_DATE_END_DATE_END_TIME_DEAD_DATE;
-                break;
-            case START_DATE_START_TIME_END_TIME:
-            	dateTimeStatus = DateTimeStatus.START_DATE_START_TIME_END_TIME_DEAD_DATE;
-            	break;
-            case START_DATE_START_TIME_END_DATE:
-            	dateTimeStatus = DateTimeStatus.START_DATE_START_TIME_END_DATE_DEAD_DATE;
-            	break;
-            case START_DATE_START_TIME_END_DATE_END_TIME:
-            	dateTimeStatus = DateTimeStatus.START_DATE_START_TIME_END_DATE_END_TIME_DEAD_DATE;
-            	break;
-            case DEAD_TIME:
-    			dateTimeStatus = DateTimeStatus.DEAD_DATE_DEAD_TIME;
-    			break;
-    		case START_TIME_DEAD_TIME:
-                dateTimeStatus = DateTimeStatus.START_TIME_DEAD_DATE_DEAD_TIME;
-                break;
-            case START_TIME_END_TIME_DEAD_TIME:
-                dateTimeStatus = DateTimeStatus.START_TIME_END_TIME_DEAD_DATE_DEAD_TIME;
-                break;
-            case START_TIME_END_DATE_DEAD_TIME:
-                dateTimeStatus = DateTimeStatus.START_TIME_END_DATE_DEAD_DATE_DEAD_TIME;
-                break;
-            case START_TIME_END_DATE_END_TIME_DEAD_TIME:
-                dateTimeStatus = DateTimeStatus.START_TIME_END_DATE_END_TIME_DEAD_DATE_DEAD_TIME;
-                break;
-            case START_DATE_DEAD_TIME:
-                dateTimeStatus = DateTimeStatus.START_DATE_DEAD_DATE_DEAD_TIME;
-                break;
-            case START_DATE_END_TIME_DEAD_TIME:
-                dateTimeStatus = DateTimeStatus.START_DATE_END_TIME_DEAD_DATE_DEAD_TIME;
-                break;
-            case START_DATE_END_DATE_DEAD_TIME:
-                dateTimeStatus = DateTimeStatus.START_DATE_END_DATE_DEAD_DATE_DEAD_TIME;
-                break;
-            case START_DATE_END_DATE_END_TIME_DEAD_TIME:
-                dateTimeStatus = DateTimeStatus.START_DATE_END_DATE_END_TIME_DEAD_DATE_DEAD_TIME;
-                break;
-            case START_DATE_START_TIME_END_TIME_DEAD_TIME:
-            	dateTimeStatus = DateTimeStatus.START_DATE_START_TIME_END_TIME_DEAD_DATE_DEAD_TIME;
-            	break;
-            case START_DATE_START_TIME_END_DATE_DEAD_TIME:
-            	dateTimeStatus = DateTimeStatus.START_DATE_START_TIME_END_DATE_DEAD_DATE_DEAD_TIME;
-            	break;
-            case START_DATE_START_TIME_END_DATE_END_TIME_DEAD_TIME:
-            	dateTimeStatus = DateTimeStatus.START_DATE_START_TIME_END_DATE_END_TIME_DEAD_DATE_DEAD_TIME;
-            	break;
-            default:
-            	break;
-    	}
-        }
         return dateTimeStatus;
     }
 
@@ -343,13 +160,6 @@ public class TimeParserResult {
     public void setSecondTime(Date date) {
         secondTime = date.toInstant().atZone(ZoneId.systemDefault()).toLocalTime();
     }
-    public void setThirdDate(Date date) {
-        thirdDate = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-    }
-
-    public void setThirdTime(Date date) {
-        thirdTime = date.toInstant().atZone(ZoneId.systemDefault()).toLocalTime();
-    }
     public LocalDate getFirstDate() {
         return firstDate;
     }
@@ -364,14 +174,6 @@ public class TimeParserResult {
 
     public LocalTime getSecondTime() {
         return secondTime;
-    }
-    
-    public LocalDate getThirdDate() {
-        return thirdDate;
-    }
-
-    public LocalTime getThirdTime() {
-        return thirdTime;
     }
     public void setFirstDate(LocalDate firstDate) {
         this.firstDate = firstDate;
@@ -388,37 +190,8 @@ public class TimeParserResult {
     public void setSecondTime(LocalTime secondTime) {
         this.secondTime = secondTime;
     }
-    public void setThirdDate(LocalDate thirdDate) {
-        this.thirdDate = thirdDate;
-    }
-
-    public void setThirdTime(LocalTime thirdTime) {
-        this.thirdTime = thirdTime;
-    }
     public boolean isTimeValid() {
         return timeValid;
     }
 
-    /**
-     * True if the time result only have a time and no date
-     */
-    public boolean hasNoDateAndOneTime() {
-        return firstDate == null && secondDate == null && firstTime != null && 
-        		secondTime == null;// && thirdDate == null && thirdTime != null;
-    }
-
-    /**
-     * True if the time result only have a date and no time
-     */
-    public boolean hasOneDateAndNoTime() {
-        return firstDate != null && secondDate == null && firstTime == null && 
-        		secondTime == null;// && thirdDate != null && thirdTime == null;
-    }
-
-    /**
-     * True if the time result have two date and no time
-     */
-    public boolean hasTwoDateAndNoTime() {
-        return firstDate != null && secondDate != null && firstTime == null && secondTime == null;
-    }
 }
