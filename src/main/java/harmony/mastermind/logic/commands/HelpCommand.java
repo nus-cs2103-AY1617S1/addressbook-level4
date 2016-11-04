@@ -14,15 +14,14 @@ public class HelpCommand extends Command {
 
     public static final String COMMAND_WORD = "help";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Shows program usage instructions.\n"
-            + "Example: " + COMMAND_WORD;
+    public static final String COMMAND_DESCRIPTION = "Shows program usage instructions";
     
     public static final String COMMAND_SUMMARY = "Getting help:"
             + "\n" + COMMAND_WORD;
     
-    public static final ArrayList<String> commandWords = new ArrayList<String>();
-    public static final ArrayList<String> format = new ArrayList<String>();
-    public static final ArrayList<String> description = new ArrayList<String>();
+    private ArrayList<String> commandList;
+    private ArrayList<String> formatList;
+    private ArrayList<String> descriptionList;
     
     public static final String SUCCESSFULLY_SHOWN = "Command summary displayed.";
 
@@ -31,60 +30,82 @@ public class HelpCommand extends Command {
     }
 
     private void initInfo() {
-        initCommandWords();
-        initFormat();
-        initDescription();
+        if (commandList == null || formatList == null || descriptionList == null) {
+            initCommandWords();
+            initFormat();
+            initDescription();
+        }
     }
     
     private void initCommandWords() {
-        commandWords.add(AddCommand.COMMAND_KEYWORD_ADD + ", " + AddCommand.COMMAND_KEYWORD_DO);
-        commandWords.add(EditCommand.COMMAND_KEYWORD_EDIT + ", " 
+        commandList = new ArrayList<String>();
+        commandList.add(AddCommand.COMMAND_KEYWORD_ADD + ", " + AddCommand.COMMAND_KEYWORD_DO);
+        commandList.add(EditCommand.COMMAND_KEYWORD_EDIT + ", " 
         + EditCommand.COMMAND_KEYWORD_UPDATE + ", "
         + EditCommand.COMMAND_KEYWORD_CHANGE);
-        commandWords.add(UndoCommand.COMMAND_WORD);
-        commandWords.add(RedoCommand.COMMAND_WORD);
-        commandWords.add(MarkCommand.COMMAND_WORD);
-        commandWords.add(UnmarkCommand.COMMAND_WORD);
-        commandWords.add(DeleteCommand.COMMAND_WORD);
-        commandWords.add(ClearCommand.COMMAND_WORD);
-        commandWords.add(FindCommand.COMMAND_WORD);
-        commandWords.add(ListCommand.COMMAND_WORD);
-        commandWords.add(UpcomingCommand.COMMAND_WORD);
-        commandWords.add(RelocateCommand.COMMAND_WORD);
-        commandWords.add(ImportCommand.COMMAND_WORD);
-        commandWords.add(ExportCommand.COMMAND_KEYWORD_EXPORT);
-        commandWords.add(ActionHistoryCommand.COMMAND_KEYWORD_ACTIONHISTORY);
-        commandWords.add(HelpCommand.COMMAND_WORD);
-        commandWords.add(ExitCommand.COMMAND_WORD);
+        commandList.add(UndoCommand.COMMAND_WORD);
+        commandList.add(RedoCommand.COMMAND_WORD);
+        commandList.add(MarkCommand.COMMAND_WORD);
+        commandList.add(UnmarkCommand.COMMAND_WORD);
+        commandList.add(DeleteCommand.COMMAND_WORD);
+        commandList.add(ClearCommand.COMMAND_WORD);
+        commandList.add(FindCommand.COMMAND_WORD);
+        commandList.add(ListCommand.COMMAND_WORD);
+        commandList.add(UpcomingCommand.COMMAND_WORD);
+        commandList.add(RelocateCommand.COMMAND_WORD);
+        commandList.add(ImportCommand.COMMAND_WORD);
+        commandList.add(ExportCommand.COMMAND_KEYWORD_EXPORT);
+        commandList.add(ActionHistoryCommand.COMMAND_KEYWORD_ACTIONHISTORY);
+        commandList.add(HelpCommand.COMMAND_WORD);
+        commandList.add(ExitCommand.COMMAND_WORD);
     }
     
     private void initFormat() {
-        commandWords.add(AddCommand.COMMAND_FORMAT);
-        commandWords.add(EditCommand.COMMAND_FORMAT);
-        commandWords.add(UndoCommand.COMMAND_WORD);
-        commandWords.add(RedoCommand.COMMAND_WORD);
-        commandWords.add(MarkCommand.COMMAND_FORMAT);
-        commandWords.add(UnmarkCommand.COMMAND_FORMAT);
-        commandWords.add(DeleteCommand.COMMAND_FORMAT);
-        commandWords.add(ClearCommand.COMMAND_WORD);
-        commandWords.add(FindCommand.COMMAND_FORMAT);
-        commandWords.add(ListCommand.COMMAND_FORMAT);
-        commandWords.add(UpcomingCommand.COMMAND_FORMAT);
-        commandWords.add(RelocateCommand.COMMAND_FORMAT);
-        commandWords.add(ImportCommand.COMMAND_FORMAT);
-        commandWords.add(ExportCommand.COMMAND_FORMAT);
-        commandWords.add(HelpCommand.COMMAND_WORD);
-        commandWords.add(ExitCommand.COMMAND_WORD);
+        formatList = new ArrayList<String>();
+        formatList.add(AddCommand.COMMAND_FORMAT);
+        formatList.add(EditCommand.COMMAND_FORMAT);
+        formatList.add(UndoCommand.COMMAND_WORD);
+        formatList.add(RedoCommand.COMMAND_WORD);
+        formatList.add(MarkCommand.COMMAND_FORMAT);
+        formatList.add(UnmarkCommand.COMMAND_FORMAT);
+        formatList.add(DeleteCommand.COMMAND_FORMAT);
+        formatList.add(ClearCommand.COMMAND_WORD);
+        formatList.add(FindCommand.COMMAND_FORMAT);
+        formatList.add(ListCommand.COMMAND_FORMAT);
+        formatList.add(UpcomingCommand.COMMAND_FORMAT);
+        formatList.add(RelocateCommand.COMMAND_FORMAT);
+        formatList.add(ImportCommand.COMMAND_FORMAT);
+        formatList.add(ExportCommand.COMMAND_FORMAT);
+        formatList.add(ActionHistoryCommand.COMMAND_KEYWORD_ACTIONHISTORY);
+        formatList.add(HelpCommand.COMMAND_WORD);
+        formatList.add(ExitCommand.COMMAND_WORD);
     }
     
     private void initDescription() {
-        
+        descriptionList = new ArrayList<String>();
+        descriptionList.add(AddCommand.COMMAND_DESCRIPTION);
+        descriptionList.add(EditCommand.COMMAND_DESCRIPTION);
+        descriptionList.add(UndoCommand.COMMAND_DESCRIPTION);
+        descriptionList.add(RedoCommand.COMMAND_DESCRIPTION);
+        descriptionList.add(MarkCommand.COMMAND_DESCRIPTION);
+        descriptionList.add(UnmarkCommand.COMMAND_DESCRIPTION);
+        descriptionList.add(DeleteCommand.COMMAND_DESCRIPTION);
+        descriptionList.add(ClearCommand.COMMAND_DESCRIPTION);
+        descriptionList.add(FindCommand.COMMAND_DESCRIPTION);
+        descriptionList.add(ListCommand.COMMAND_DESCRIPTION);
+        descriptionList.add(UpcomingCommand.COMMAND_DESCRIPTION);
+        descriptionList.add(RelocateCommand.COMMAND_DESCRIPTION);
+        descriptionList.add(ImportCommand.COMMAND_DESCRIPTION);
+        descriptionList.add(ExportCommand.COMMAND_DESCRIPTION);
+        descriptionList.add(ActionHistoryCommand.COMMAND_DESCRIPTION);
+        descriptionList.add(HelpCommand.COMMAND_DESCRIPTION);
+        descriptionList.add(ExitCommand.COMMAND_DESCRIPTION);
     }
     
     //@@author A0139194X
     @Override
     public CommandResult execute() {
-        EventsCenter.getInstance().post(new ShowHelpRequestEvent(SHOWING_HELP_MESSAGE));
+        EventsCenter.getInstance().post(new ShowHelpRequestEvent(commandList, formatList, descriptionList));
         return new CommandResult(COMMAND_WORD, SUCCESSFULLY_SHOWN);
     }
 

@@ -1,5 +1,7 @@
 package harmony.mastermind.commons.events.ui;
 
+import java.util.ArrayList;
+
 import harmony.mastermind.commons.events.BaseEvent;
 
 /**@@author A0139194X
@@ -7,10 +9,29 @@ import harmony.mastermind.commons.events.BaseEvent;
  */
 public class ShowHelpRequestEvent extends BaseEvent {
 
-    public final String message;
+    private final ArrayList<String> commandList;
+    private final ArrayList<String> formatList;
+    private final ArrayList<String> descriptionList;
+
     
-    public ShowHelpRequestEvent(String msg) {
-        this.message = msg;
+    public ShowHelpRequestEvent(ArrayList<String> commandList,
+            ArrayList<String> formatList,
+            ArrayList<String> descriptionList) {
+        this.commandList = commandList;
+        this.formatList = formatList;
+        this.descriptionList = descriptionList;
+    }
+    
+    public ArrayList<String> getCommandList() {
+        return commandList;
+    }
+    
+    public ArrayList<String> getFormatList() {
+        return formatList;
+    }
+
+    public ArrayList<String> getDescriptionList() {
+        return descriptionList;
     }
     
     @Override

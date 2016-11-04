@@ -19,6 +19,8 @@ public class UpcomingCommand extends Command {
                                                + COMMAND_WORD + " deadlines";
     
     public static final String COMMAND_FORMAT = COMMAND_WORD + "[TAB_NAME]";
+    public static final String COMMAND_DESCRIPTION = "List tasks due in the week";
+
             
     public static final Pattern COMMAND_ARGUMENTS_PATTERN = Pattern.compile("(?<taskType>deadlines|events)");
 

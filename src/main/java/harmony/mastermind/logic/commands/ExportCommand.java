@@ -29,6 +29,8 @@ public class ExportCommand extends Command {
     public static final Pattern COMMAND_ARGUMENTS_PATTERN = Pattern.compile(COMMAND_ARGUMENTS_REGEX);
 
     public static final String COMMAND_FORMAT = "export [tasks] [deadlines] [events] [archives] to <destination>";
+    
+    public static final String COMMAND_DESCRIPTION = "Export to desired format";
 
     public static final String MESSAGE_EXAMPLE = "export tasks deadlines to C:\\Desktop\\mastermind.csv";
 

@@ -11,8 +11,7 @@ public class UndoCommand extends Command{
     public static final String MESSAGE_SUCCESS = "Undo successfully.";
     public static final String MESSAGE_EMPTY_COMMAND_HISTORY = "There's no more action available to undo.";
     public static final String MESSAGE_COMMAND_NOT_UNDOABLE = "This command is not undoable";
-    public static final String COMMAND_SUMMARY = "Undoing a command:"
-            + "\n" + COMMAND_WORD;
+    public static final String COMMAND_DESCRIPTION = "Undo an action";
 
     @Override
     //@@author A0138862W

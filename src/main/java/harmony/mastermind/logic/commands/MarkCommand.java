@@ -28,6 +28,7 @@ public class MarkCommand extends Command implements Undoable, Redoable {
                                                + " 1";
 
     public static final String COMMAND_FORMAT = COMMAND_WORD + " INDEX";
+    public static final String COMMAND_DESCRIPTION = "Marking a task as done";
 
     public static final String MESSAGE_MARK_SUCCESS = "%1$s has been archived";
     public static final String MESSAGE_MARK_DUE_SUCCESS = "All Tasks that are due has been archived";

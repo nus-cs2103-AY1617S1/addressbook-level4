@@ -56,6 +56,8 @@ public class EditCommand extends Command implements Undoable, Redoable {
 
     public static final String MESSAGE_UNDO_SUCCESS = "[Undo Edit Command] Task reverted: %1$s";
     public static final String MESSAGE_REDO_SUCCESS = "[Redo Edit Command] Edit the following task: %1$s";
+    
+    public static final String COMMAND_DESCRIPTION = "Editing a task";
 
     // private MainWindow window;
     private ReadOnlyTask originalTask;

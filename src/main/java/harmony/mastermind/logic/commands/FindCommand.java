@@ -27,6 +27,8 @@ public class FindCommand extends Command {
             "\n" + COMMAND_WORD + " DATE in DDMMYY format";
     
     public static final String COMMAND_FORMAT = COMMAND_WORD + " KEYWORD [MORE_KEYWORDS]...";
+    public static final String COMMAND_DESCRIPTION = "Finds task based on keywords input entered";
+    
     private final Set<String> keywords;
     public static ArrayList<GenericMemory> findResult;
     Memory memory;
