@@ -147,19 +147,20 @@ Example:
 	
 	Delete task indexed 1.
 	
-<!-- @@author -->
-
 #### Finding a Task: `Find`
-Finds tasks in ForgetMeNot. ForgetMeNot will display all task with the input keywords<br>
-Find does not display subsets of a word. For example, `find home` does not display homework<br>
+Finds tasks in ForgetMeNot. ForgetMeNot will display all task with the input keywords. Find does not display subsets of a word. For example, `find home` does not display homework<br>
 Format: `find <task name>`
 
 Example:
-*`find project`
-	finds all tasks with the word project in the name
-*`find homework assignment`
-	finds all task with the word homework or assignment in the name
+* `find project`
 
+	Finds all tasks with the word project in the name.
+	
+* `find homework assignment`
+
+	Finds all task with the word homework or assignment in the name.
+
+<!-- @@author -->
 
 ### Mark as done: `done`
 Marks a task as done. <br>
