@@ -20,6 +20,7 @@ import seedu.tasklist.commons.core.EventsCenter;
 import seedu.tasklist.commons.core.LogsCenter;
 import seedu.tasklist.commons.events.TickEvent;
 import seedu.tasklist.commons.events.model.TaskModifiedEvent;
+import seedu.tasklist.commons.events.ui.TaskListScrollEvent;
 import seedu.tasklist.commons.events.ui.TaskPanelSelectionChangedEvent;
 import seedu.tasklist.model.task.ReadOnlyTask;
 
@@ -37,6 +38,10 @@ import com.google.common.eventbus.Subscribe;
 public class TaskListPanel extends UiPart {
 	private static final int DIRECTION_SCROLL_DOWN = 1;
 	private static final int DIRECTION_SCROLL_UP = -1;
+	
+	public enum Direction {
+		UP, DOWN;
+	}
 	
 	private final Logger logger = LogsCenter.getLogger(TaskListPanel.class);
 	private static final String FXML = "TaskListPanel.fxml";
@@ -67,17 +72,9 @@ public class TaskListPanel extends UiPart {
 		personListView.getSelectionModel().select(tme.task);
 	}
 	
-	private void configureKeyEvents(){
-		personListView.setOnKeyPressed(new EventHandler<KeyEvent>() {
-			public void handle(final KeyEvent keyEvent) {
-				if (keyEvent.getCode() == KeyCode.UP && keyEvent.isControlDown()) {
-					scrollTraverse(DIRECTION_SCROLL_UP);
-				}
-				else if (keyEvent.getCode() == KeyCode.DOWN && keyEvent.isControlDown()) {
-					scrollTraverse(DIRECTION_SCROLL_DOWN);
-				}
-			}
-		});
+	@Subscribe
+	public void scrollEventHandler(TaskListScrollEvent tlse){
+		scrollTraverse(tlse.dir);
 	}
 	
 	//@@author
@@ -107,7 +104,6 @@ public class TaskListPanel extends UiPart {
 	private void configure(ObservableList<ReadOnlyTask> personList) {
 		//@@author A0146107M
 		setLabelText();
-		configureKeyEvents();
 		scrollPane.setFitToHeight(true);
 		scrollPane.setFitToWidth(true);
 		EventsCenter.getInstance().registerHandler(this);
@@ -137,10 +133,14 @@ public class TaskListPanel extends UiPart {
 	}
 	
 	//@@author A0146107M
-	public void scrollTraverse(int direction){
-		int newIndex = personListView.getSelectionModel().getSelectedIndex() + direction * 10;
-		newIndex = (newIndex<0)?0:newIndex;
-		newIndex = (newIndex>=personListView.getItems().size())?(personListView.getItems().size()-1):newIndex;
+	public void scrollTraverse(Direction direction){
+		int newIndex = personListView.getSelectionModel().getSelectedIndex();
+		if(direction==Direction.UP){
+			newIndex = Math.max(0, newIndex - 10);
+		}
+		else{
+			newIndex = Math.min(personListView.getItems().size()-1, newIndex + 10);
+		}
 		scrollTo(newIndex);
 	}
 
