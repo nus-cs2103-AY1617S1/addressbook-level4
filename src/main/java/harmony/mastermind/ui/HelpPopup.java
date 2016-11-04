@@ -1,21 +1,16 @@
 package harmony.mastermind.ui;
 
+import java.util.ArrayList;
+
 import harmony.mastermind.logic.HelpPopupEntry;
 import javafx.scene.Node;
 import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
-import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.GridPane;
-import javafx.scene.text.Text;
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.stage.Popup;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -45,6 +40,8 @@ public class HelpPopup extends UiPart {
     TableColumn<HelpPopupEntry, String> formatCol;
     TableColumn<HelpPopupEntry, String> usageCol;
     
+    ObservableList<HelpPopupEntry> entries;
+    
     //@@author A0139194X
     public HelpPopup() {
         initTable();
@@ -54,7 +51,7 @@ public class HelpPopup extends UiPart {
 
     //@@author A0139194X
     public void show(Node node) {
-        
+        table.setItems(entries);
         popup.show(node, DEFAULT_X_POS, DEFAULT_Y_POS);
         popup.centerOnScreen();
     }
@@ -91,7 +88,6 @@ public class HelpPopup extends UiPart {
         initFormatCol();
         initUsageCol();
         
-        table.setItems(getList());
         table.getColumns().addAll(commandCol, formatCol, usageCol);
     }
     
@@ -117,13 +113,6 @@ public class HelpPopup extends UiPart {
     }
     
     //@@author A0139194X
-    private ObservableList<HelpPopupEntry> getList() {
-        ObservableList<HelpPopupEntry> entries = FXCollections.observableArrayList();
-        
-        return entries;
-    }
-    
-    //@@author A0139194X
     @FXML
     EventHandler<KeyEvent> keyEventHandler = new EventHandler<KeyEvent>() {
         public void handle(KeyEvent event) {
@@ -133,11 +122,6 @@ public class HelpPopup extends UiPart {
             isFirstKey = !isFirstKey;
         }
     };
-
-    //@@author A0139194X
-    public void setContent(String text) {
-        content.setText(text);
-    }
     
     //@@author A0143378Y
     public void properties() { 
@@ -155,5 +139,13 @@ public class HelpPopup extends UiPart {
                 );
 
 //        content.setStyle("-fx-font-family: sample; -fx-font-size: 20;");
+    }
+
+    //@@author A0139194X
+    public void injectData(ArrayList<HelpPopupEntry> helpEntries) {
+        entries = FXCollections.observableArrayList();
+        for (int i = 0; i < helpEntries.size(); i++) {
+            entries.add(helpEntries.get(i));
+        }
     }
 }

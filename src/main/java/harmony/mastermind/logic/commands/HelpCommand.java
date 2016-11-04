@@ -22,6 +22,7 @@ public class HelpCommand extends Command {
     private ArrayList<String> commandList;
     private ArrayList<String> formatList;
     private ArrayList<String> descriptionList;
+    private ArrayList<HelpPopupEntry> helpEntries;
     
     public static final String SUCCESSFULLY_SHOWN = "Command summary displayed.";
 
@@ -30,13 +31,21 @@ public class HelpCommand extends Command {
     }
 
     private void initInfo() {
-        if (commandList == null || formatList == null || descriptionList == null) {
+        if (helpEntries == null) {
             initCommandWords();
             initFormat();
             initDescription();
+            initEntries();
         }
     }
     
+    private void initEntries() {
+        helpEntries = new ArrayList<HelpPopupEntry>();
+        for (int i = 0; i < commandList.size(); i++) {
+            helpEntries.add(new HelpPopupEntry(commandList.get(i), formatList.get(i), descriptionList.get(i)));
+        }
+    }
+
     private void initCommandWords() {
         commandList = new ArrayList<String>();
         commandList.add(AddCommand.COMMAND_KEYWORD_ADD + ", " + AddCommand.COMMAND_KEYWORD_DO);
@@ -105,7 +114,7 @@ public class HelpCommand extends Command {
     //@@author A0139194X
     @Override
     public CommandResult execute() {
-        EventsCenter.getInstance().post(new ShowHelpRequestEvent(commandList, formatList, descriptionList));
+        EventsCenter.getInstance().post(new ShowHelpRequestEvent(helpEntries));
         return new CommandResult(COMMAND_WORD, SUCCESSFULLY_SHOWN);
     }
 
