@@ -53,8 +53,8 @@ public class Date implements Comparable<Date> {
 		
 		if (date.equals("")) {
 			this.fullDate = "";
-			this.day = 32;
-			this.month = 13;
+			this.day = 01;
+			this.month = 01;
 			this.year = 2015;
 		} else {
 			this.fullDate = date;
@@ -180,10 +180,13 @@ public class Date implements Comparable<Date> {
 		if (this.equals(date)) { // check if same date object or both dummy values
 			return 0;
 		}
-		else if (this.getFullDate() == "") { // check if this Date Object contains the dummy variable 
+		else if (this.getFullDate() == "" && date.getFullDate() == "") { // check if this Date Object contains the dummy variable 
+			return 0;
+		}
+		else if (this.getFullDate() != "" && date.getFullDate() == "") { // check if the Date Object compared to contains the dummy variable
 			return 1;
 		}
-		else if (date.getFullDate() == "") { // check if the Date Object compared to contains the dummy variable
+		else if (this.getFullDate() == "" && date.getFullDate() != "") {
 			return -1;
 		}
 		

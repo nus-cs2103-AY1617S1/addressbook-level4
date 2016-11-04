@@ -9,6 +9,8 @@ import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import seedu.unburden.commons.core.Config;
+
+import seedu.unburden.commons.core.Messages;
 import seedu.unburden.commons.exceptions.IllegalValueException;
 import seedu.unburden.commons.util.StringUtil;
 import seedu.unburden.logic.commands.*;
@@ -410,6 +412,7 @@ public class Parser {
 	 * @@author A0139714B
 	 */
 	private Command prepareEdit(String args) {
+		String name, taskDescription, date, startTime, endTime;
 
 		final Matcher matcher = EDIT_FORMAT.matcher(args.trim());
 		if (!matcher.matches())
@@ -419,23 +422,32 @@ public class Parser {
 
 			String tempArgs = args.trim();
 
-			String[] newArgs = tempArgs.split(" ", 2); // if no parameters is
+			String[] seperateIndex = tempArgs.split(" ", 2); // if no parameters is
 														// entered
-			if (newArgs.length <= 1)
+			if (seperateIndex.length <= 1)
 				return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
 
-			Optional<Integer> index = parseIndex(newArgs[0]);
+			Optional<Integer> index = parseIndex(seperateIndex[0]);
 			if (!index.isPresent()) {
 				return new IncorrectCommand(
-						String.format(MESSAGE_INVALID_TASK_DISPLAYED_INDEX, EditCommand.MESSAGE_USAGE));
+						String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
 			}
-
-			return new EditCommand(index.get(), matcher.group("name"), matcher.group("taskDescriptions"),
-					matcher.group("date"), matcher.group("startTimeArguments"), matcher.group("endTimeArguments"));
+			
+			String[] newArgs = seperateIndex[1].split(" ");
+			
+			String[] parameters = getNewArgs(newArgs);
+			name = parameters[0];
+			taskDescription = (parameters[1].length() == 0) ? null : parameters[1].substring(2);
+			date = (parameters[2].length() == 0) ? null : parameters[2].substring(2);
+			startTime = (parameters[3].length() == 0) ? null : parameters[3].substring(2);
+			endTime = (parameters[4].length() == 0) ? null : parameters[4].substring(2);
+			
+			
+			return new EditCommand(index.get(), name, taskDescription, date, startTime, endTime);
 
 		} catch (IllegalValueException ive) {
 			return new IncorrectCommand(ive.getMessage());
-		}
+		} 
 	}
 
 	/*
@@ -611,4 +623,42 @@ public class Parser {
 			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
 		}
 	}
+	
+    private String[] getNewArgs(String[] tokens) {
+     	 String[] newArgs = new String[5];
+          for (int i=0;i<5;i++)
+          	newArgs[i] = "";
+          
+          int loopIndex = 0;
+          int targetIndex = 0;
+          while (loopIndex < tokens.length) {
+         	 if (tokens[loopIndex].length() > 1 && tokens[loopIndex].charAt(1) == '/') {
+         		 switch (tokens[loopIndex].charAt(0)) {
+         		 	case ('i') : targetIndex = 1;
+         		 			     break;
+         		 	case ('d') : targetIndex = 2;
+ 		 			   		     break;
+         		 	case ('s') : targetIndex = 3;
+ 			   		   			 break;
+         		 	case ('e') : targetIndex = 4;
+ 			   		   			 break;
+ 			   		default    : break; 
+         		 }
+         	 }
+         	 
+         	 if (newArgs[targetIndex] == "") {
+         		 newArgs[targetIndex] = tokens[loopIndex] + " ";
+         	 }
+         	 else {
+         		 newArgs[targetIndex] = newArgs[targetIndex] + (tokens[loopIndex]) + " ";
+         	 }
+     		 loopIndex = loopIndex + 1;
+          }
+          
+          for (int i=0;i<newArgs.length;i++) {
+         	 newArgs[i] = newArgs[i].trim();
+          }
+          
+     	return newArgs;
+     }
 }
