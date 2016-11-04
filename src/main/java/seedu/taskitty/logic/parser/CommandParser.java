@@ -212,8 +212,7 @@ public class CommandParser {
             return new AddCommand(
                     extractTaskDetailsNatty(taskDetailArguments),
                     getTagsFromArgs(tagArguments),
-                    args
-            );
+                    args);
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
         }
@@ -254,35 +253,19 @@ public class CommandParser {
      * @param dataArguments command args string with only name, date, time arguments
      */
     private String[] extractTaskDetailsNatty(String dataArguments) {
-        String dataArgumentsNattyFormat = convertToNattyDateFormat(dataArguments);
+        String nattyDataArguments = convertToNattyDateFormat(dataArguments);
         
-        int nameEndIndex = dataArgumentsNattyFormat.length();
+        int nameEndIndex = nattyDataArguments.length();
         ArrayList<String> details = new ArrayList<String>();
         
-        //Attempt to extract name out if it is surrounded by quotes
-        nameEndIndex = dataArgumentsNattyFormat.lastIndexOf(COMMAND_QUOTE_SYMBOL);
-        boolean isNameExtracted = false;
-        if (nameEndIndex != NOT_FOUND) {
-            int nameStartIndex = dataArgumentsNattyFormat.indexOf(COMMAND_QUOTE_SYMBOL);
-            if (nameStartIndex == NOT_FOUND) {
-                nameStartIndex = STRING_START;
-            }
-            //+1 because we want the quote included in the string
-            String nameDetail = dataArgumentsNattyFormat.substring(nameStartIndex, nameEndIndex + 1);
-            
-            //remove name from dataArguments
-            dataArgumentsNattyFormat = dataArgumentsNattyFormat.replace(nameDetail, EMPTY_STRING);
-            
-            //remove quotes from nameDetail
-            nameDetail = nameDetail.replaceAll(COMMAND_QUOTE_SYMBOL, EMPTY_STRING);
-            
-            details.add(Task.TASK_COMPONENT_INDEX_NAME, nameDetail);
-            isNameExtracted = true;
-        }
+        String dataArgumentsNameExtracted = extractNameInQuotes(nattyDataArguments, details);
+        
+        //if list is not empty at this point, it means that name was successfully extracted
+        boolean isNameExtracted = !details.isEmpty();
         
         Parser dateTimeParser = new Parser(); 
-        List<DateGroup> dateGroups = dateTimeParser.parse(dataArgumentsNattyFormat);
-        nameEndIndex = dataArgumentsNattyFormat.length();
+        List<DateGroup> dateGroups = dateTimeParser.parse(dataArgumentsNameExtracted);
+        nameEndIndex = dataArgumentsNameExtracted.length();
         
         for (DateGroup group : dateGroups) {
             List<Date> dates = group.getDates();
@@ -297,12 +280,36 @@ public class CommandParser {
         
         if (!isNameExtracted) {
             details.add(Task.TASK_COMPONENT_INDEX_NAME,
-                    dataArgumentsNattyFormat.substring(STRING_START, nameEndIndex).trim());
+                    dataArgumentsNameExtracted.substring(STRING_START, nameEndIndex).trim());
         }
         
         String[] returnDetails = new String[details.size()];
         details.toArray(returnDetails);
         return returnDetails;
+    }
+    
+    private String extractNameInQuotes(String dataArgumentsNattyFormat, ArrayList<String> details) {
+        String dataArgumentsAfterExtract;
+        int quoteEndIndex = dataArgumentsNattyFormat.lastIndexOf(COMMAND_QUOTE_SYMBOL);
+        if (quoteEndIndex != NOT_FOUND) {
+            int nameStartIndex = dataArgumentsNattyFormat.indexOf(COMMAND_QUOTE_SYMBOL);
+            if (nameStartIndex == NOT_FOUND) {
+                nameStartIndex = STRING_START;
+            }
+
+            String nameDetail = dataArgumentsNattyFormat.substring(nameStartIndex, quoteEndIndex);
+            
+            //remove name from dataArguments
+            dataArgumentsAfterExtract = dataArgumentsNattyFormat.replace(nameDetail, EMPTY_STRING);
+            
+            //remove quotes from nameDetail
+            nameDetail = nameDetail.replaceAll(COMMAND_QUOTE_SYMBOL, EMPTY_STRING);
+            
+            details.add(Task.TASK_COMPONENT_INDEX_NAME, nameDetail);
+        } else {
+            dataArgumentsAfterExtract = dataArgumentsNattyFormat; //nothing is extracted
+        }
+        return dataArgumentsAfterExtract;
     }
     
     //@@author A0139052L
