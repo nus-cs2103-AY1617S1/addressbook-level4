@@ -65,11 +65,12 @@ public class AddCommand extends Command {
                 false,
                 new UniqueTagList(tagSet)
         );
-        if (!startBeforeEnd(toAdd.getStart().toString(), toAdd.getEnd().toString())){
+        if (!startBeforeEnd(toAdd.getStart().toString(), toAdd.getEnd().toString())) {
         	throw new IllegalValueException(END_TIME_BEFORE_START_TIME_MESSAGE);
         }
-        if (this.toAdd.getOverdue()==1)
+        if (this.toAdd.getOverdue()==1) {
         	overdue =1;
+        }
     }   
     //@@author A0138993L
     public AddCommand(String name, String date, String end, Set<String> tags) //deadline
@@ -88,8 +89,9 @@ public class AddCommand extends Command {
                 false,
                 new UniqueTagList(tagSet)
         );
-        if (this.toAdd.getOverdue()==1)
+        if (this.toAdd.getOverdue()==1) {
         	overdue =1;
+        }
     }
     //@@author A0138993L
     public AddCommand(String name, Set<String> tags) //todos
@@ -117,10 +119,11 @@ public class AddCommand extends Command {
     private boolean startBeforeEnd(String start, String end) {
 		LocalTime start_time = LocalTime.of(Integer.parseInt(start.substring(0,2)), Integer.parseInt(start.substring(2, 4)));
 		LocalTime end_time = LocalTime.of(Integer.parseInt(end.substring(0,2)), Integer.parseInt(end.substring(2, 4)));
-		if (start_time.isBefore(end_time))
+		if (start_time.isBefore(end_time)) {
 			return true;
-		else
+		} else {
 			return false;
+		}
 	}
 
     @Override
@@ -149,12 +152,10 @@ public class AddCommand extends Command {
         if (toAdd.getTaskCategory() == 1){
             selectEvent(toAdd);
             return new CommandResult(String.format(EVENT_SUCCESS, toAdd));
-        }
-        else if (toAdd.getTaskCategory() == 2){
+        } else if (toAdd.getTaskCategory() == 2){
         	selectDeadline(toAdd);
             return new CommandResult(String.format(DEADLINE_SUCCESS, toAdd));
-        }
-        else{
+        } else{
             selectTodo(toAdd);
             return new CommandResult(String.format(TODO_SUCCESS, toAdd));
         }
