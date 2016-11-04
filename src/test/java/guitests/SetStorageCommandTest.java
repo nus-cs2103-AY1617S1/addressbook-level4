@@ -14,13 +14,13 @@ public class SetStorageCommandTest extends TaskListGuiTest {
 	@Test
 	public void setStorage(){
 		TestTask[] currentList = td.getTypicalTasks();
-		String testCase1 = "docs/tasklist.xml";
-		String testCase2 = "data/tasklist.xml";
-		String testCase3 = "default";
+		String testCase1 = "/docs/tasklist.xml";
+		String testCase2 = "/config";
+		//String testCase3 = "default";
 		String testCase4 = null;
 		assertStorageSuccess(testCase1);
 		assertStorageSuccess(testCase2);
-		assertStorageSuccess(testCase3);
+		//assertStorageSuccess(testCase3);
 		assertStorageSuccess(testCase4);
 	}
 	/**
