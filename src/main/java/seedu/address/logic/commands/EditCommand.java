@@ -205,6 +205,7 @@ public class EditCommand extends UndoableCommand {
 	        indicateAttemptToExecuteIncorrectCommand();
 	        return new CommandResult(String.format(Messages.MESSAGE_DONE_LIST_RESTRICTION));
 	    }
+	    
         UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredUndoneTaskList();
 
         if (lastShownList.size() < targetIndex || targetIndex == 0) {
@@ -223,46 +224,30 @@ public class EditCommand extends UndoableCommand {
             taskName = toEdit.getName();
         }
         
-        //assign previous start date to startDate if user never input one
-        if (startDate == null && toEdit.getStartDate().isPresent()) {
-            startDate = toEdit.getStartDate().get();
-        }
-        
-        //assign startDate as null if user choose to reset start date
-        if (removeStartDate) {
-        	startDate = null;
-        }
-
-        //assign previous end date to endDate if user never input one
-        if (endDate == null && toEdit.getEndDate().isPresent()) {
-        	endDate = toEdit.getEndDate().get();
-        }
-        
-        //assign endDate as null if user choose to reset end date
-        if (removeEndDate) {
-        	endDate = null;
-        }
+        assignStartDate();
+        assignEndDate();
+        assignRecurrenceRate();
         
         if(endDate != null && startDate != null && endDate.before(startDate)){
+            indicateAttemptToExecuteIncorrectCommand();
             return new CommandResult(MESSAGE_END_DATE_CONSTRAINTS);
-        }
-        
-        /*
-        if (endDate != null && startDate != null && endDate.before(startDate)) {
-            logger.log(Level.FINE, "IllegalValueException caught in EditCommand, end date is before start date");
-            throw new IllegalValueException(MESSAGE_END_DATE_CONSTRAINTS);
-        }        
-  */      
+        }      
         
         //assign previous priority to priority if user never input one
         if (priority == null) {
         	priority = toEdit.getPriorityValue();
-        }
-        
-        /*
-         * Set recurrenceRate as the previous one if it exist should the user not input any
-         * Ensure that start date or end date exist, otherwise set recurrence as null even if user input one
-         */
+        }      
+
+        model.editTask(taskToEdit, taskName, startDate, endDate, priority, recurrenceRate);
+        updateHistory();
+        return new CommandResult(String.format(MESSAGE_SUCCESS, toEdit));      
+	}
+
+    /*
+     * Set recurrenceRate as the previous one if it exist should the user not input any
+     * Ensure that start date or end date exist, otherwise set recurrence as null even if user input one
+     */
+    private void assignRecurrenceRate() {
         if (recurrenceRate == null && toEdit.getRecurrenceRate().isPresent()) {
         	recurrenceRate = toEdit.getRecurrenceRate().get();
         } else if (recurrenceRate != null && !beforeEdit.getStartDate().isPresent() && !beforeEdit.getEndDate().isPresent()
@@ -275,11 +260,31 @@ public class EditCommand extends UndoableCommand {
         if (removeReccurence || (startDate == null && endDate == null)) {
             recurrenceRate = null;
         }
+    }
 
-        model.editTask(taskToEdit, taskName, startDate, endDate, priority, recurrenceRate);
-        updateHistory();
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toEdit));      
-	}
+    private void assignEndDate() {
+        //assign previous end date to endDate if user never input one
+        if (endDate == null && toEdit.getEndDate().isPresent()) {
+        	endDate = toEdit.getEndDate().get();
+        }
+        
+        //assign endDate as null if user choose to reset end date
+        if (removeEndDate) {
+        	endDate = null;
+        }
+    }
+
+    private void assignStartDate() {
+        //assign previous start date to startDate if user never input one
+        if (startDate == null && toEdit.getStartDate().isPresent()) {
+            startDate = toEdit.getStartDate().get();
+        }
+        
+        //assign startDate as null if user choose to reset start date
+        if (removeStartDate) {
+        	startDate = null;
+        }
+    }
 
     //@@author A0093960X
     @Override
