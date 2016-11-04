@@ -73,7 +73,7 @@ public class EditCommand extends Command {
         }
         // checks that the new end time must be after start
         if (newEnd != null && !taskToEdit.getStartTime().isMissing()
-                && !Time.checkOrderOfDates(newEnd, taskToEdit.getStartTime().appearOnUIFormat())) {
+                && Time.checkOrderOfDates(newEnd, taskToEdit.getStartTime().appearOnUIFormat())) {
             return false;
         }
         // checks that the new start and end time are valid
