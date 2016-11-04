@@ -1,14 +1,11 @@
 package seedu.task.model;
 
-
-
 import javafx.collections.transformation.FilteredList;
 import seedu.task.commons.core.ComponentManager;
 import seedu.task.commons.core.Config;
 import seedu.task.commons.core.LogsCenter;
 import seedu.task.commons.core.UnmodifiableObservableList;
 import seedu.task.commons.events.model.TaskManagerChangedEvent;
-import seedu.task.commons.exceptions.DataConversionException;
 import seedu.task.commons.exceptions.IllegalValueException;
 import seedu.task.commons.util.ConfigUtil;
 import seedu.task.commons.util.FileUtil;
@@ -34,8 +31,8 @@ import java.util.Set;
 import java.util.logging.Logger;
 
 /**
- * Represents the in-memory model of the task manager data.
- * All changes to any model should be synchronized.
+ * Represents the in-memory model of the task manager data. All changes to any
+ * model should be synchronized.
  */
 public class ModelManager extends ComponentManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
@@ -173,7 +170,7 @@ public class ModelManager extends ComponentManager implements Model {
                 Task newTask = new Task(recurringTask.getName(), new StartTime(newStartTime), new EndTime(newEndTime), new Deadline(newDeadline), recurringTask.getTags(), new Status(false, false, recurringTask.getStatus().getFavoriteStatus()), recurringTask.getRecurring());
                 taskManager.addTask(newTask);
             } catch (DuplicateTaskException e) {
-                e.printStackTrace();
+                logger.info("Next iteration of this recurring task already exists");
             } catch (IllegalValueException e) {
                 e.printStackTrace();
             }
@@ -262,18 +259,13 @@ public class ModelManager extends ComponentManager implements Model {
         try {
             config = FileUtil.deserializeObjectFromJsonFile(configFile, Config.class);
         } catch (IOException e) {
-            logger.warning("Error reading from config file " + "config.json" + ": " + e);
-            try {
-                throw new DataConversionException(e);
-            } catch (DataConversionException e1) {
-                e1.printStackTrace();
-            }
+            logger.warning("Error reading from config file " + "config.json" + " : " + e);
         }
         config.setsortPreference(keyword);
         try {
             ConfigUtil.saveConfig(config, "config.json");
         } catch (IOException e) {
-            logger.warning("Error saving to config file : " + e);
+            logger.warning("Error saving to config file " + "config.json" + " : " + e);
             e.printStackTrace();
         }
     }
@@ -287,12 +279,7 @@ public class ModelManager extends ComponentManager implements Model {
         try {
             config = FileUtil.deserializeObjectFromJsonFile(configFile, Config.class);
         } catch (IOException e) {
-            logger.warning("Error reading from config file : " + "config.json " + e);
-            try {
-                throw new DataConversionException(e);
-            } catch (DataConversionException e1) {
-                e1.printStackTrace();
-            }
+            logger.warning("Error reading from config file " + "config.json" + " : " + e);
         }
         String CurrentSortPreference = config.getsortPreference();
         if (!CurrentSortPreference.equals("None")) {

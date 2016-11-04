@@ -3,9 +3,9 @@ package seedu.task.logic.commands;
 import java.io.File;
 import java.io.IOException;
 import java.util.logging.Logger;
+
 import seedu.task.commons.core.Config;
 import seedu.task.commons.core.LogsCenter;
-import seedu.task.commons.exceptions.DataConversionException;
 import seedu.task.commons.util.ConfigUtil;
 import seedu.task.commons.util.FileUtil;
 
@@ -123,11 +123,6 @@ public class BackupCommand extends Command {
             config = FileUtil.deserializeObjectFromJsonFile(configFile, Config.class);
         } catch (IOException e) {
             logger.warning("Error reading from config file " + "config.json" + ": " + e);
-            try {
-                throw new DataConversionException(e);
-            } catch (DataConversionException e1) {
-                e1.printStackTrace();
-            }
         }
         _source = config.getTaskManagerFilePath();
     }
