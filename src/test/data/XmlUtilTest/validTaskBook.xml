@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addressbook>
+<taskbook>
     <datedTasks>
         <name>Jim birthday party</name>
         <description>at Wave House</description>
@@ -24,4 +24,4 @@
         <datetime></datetime>
         <status>NONE</status>
     </undatedTasks>
-</addressbook>
+</taskbook>

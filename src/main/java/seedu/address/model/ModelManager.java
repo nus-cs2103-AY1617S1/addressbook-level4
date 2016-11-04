@@ -98,7 +98,7 @@ public class ModelManager extends ComponentManager implements Model {
             if (undatedTarget.getStatus().status == Status.State.OVERDUE || undatedTarget.getStatus().status == Status.State.EXPIRE ) {
                 try {
                     taskBook.resetFloatingTaskStatus(undatedTarget);
-                }catch (TaskNotFoundException e){}
+                } catch (TaskNotFoundException e){}
             }
         }
     }
@@ -112,12 +112,10 @@ public class ModelManager extends ComponentManager implements Model {
     private void checkDatedTaskStatus(UniqueTaskList tasks, LocalDateTime currentTime, DateTimeFormatter formatter) {
         for (Task target : tasks) {
             assert target.getDatetime().getStart() != null;
-            //Deadline
+            //Check if the task is a Deadline
             if (target.getDatetime().getEnd() == null) {
                 updateDeadlineStatus(currentTime, formatter, target);
-            }
-            //Event
-            else if (target.getDatetime().getEnd() != null) {
+            } else if (target.getDatetime().getEnd() != null) { //Check if the task is a event Event
                 updateEventStatus(currentTime, formatter, target);                                
             }
         }
@@ -139,7 +137,8 @@ public class ModelManager extends ComponentManager implements Model {
                 throw new AssertionError("Impossible!");
             }                
         }
-        else if (dateTime.isAfter(currentTime) && (target.getStatus().status == Status.State.EXPIRE || target.getStatus().status == Status.State.OVERDUE)) {
+        else if (dateTime.isAfter(currentTime) && (target.getStatus().status == Status.State.EXPIRE 
+                || target.getStatus().status == Status.State.OVERDUE)) {
             try {
                 taskBook.postponeTask(target);
             }catch (TaskNotFoundException e) {
@@ -164,11 +163,11 @@ public class ModelManager extends ComponentManager implements Model {
      * @param target
      */
     private void updateDeadlineStatus(LocalDateTime currentTime, DateTimeFormatter formatter, Task target) {
-        LocalDateTime dateTime = LocalDateTime.parse(target.getDatetime().toString(), formatter);
+        LocalDateTime dateTime = convertDatetimeFormat(formatter, target);
         if (dateTime.isBefore(currentTime) && target.getStatus().status != Status.State.DONE) {
             try {
                 taskBook.setTaskOverdue(target);
-            }catch (TaskNotFoundException e) {
+            } catch (TaskNotFoundException e) {
                 throw new AssertionError("Impossible!");
             }                
         }
@@ -179,6 +178,10 @@ public class ModelManager extends ComponentManager implements Model {
                 throw new AssertionError("Impossible!");
             }
         }
+    }
+
+    private LocalDateTime convertDatetimeFormat(DateTimeFormatter formatter, Task target) {
+        return LocalDateTime.parse(target.getDatetime().toString(), formatter);
     }
     //@@author
 
@@ -508,22 +511,20 @@ public class ModelManager extends ComponentManager implements Model {
     private class ClashingQualifier implements Qualifier {
         private ReadOnlyTask newDatedTask;
 
-        ClashingQualifier(ReadOnlyTask target){
+        ClashingQualifier(ReadOnlyTask target) {
             this.newDatedTask = target;
-
         }
 
         @Override
         public boolean run(ReadOnlyTask task) {
-
+            
+            //Ensure that the task added and the dated task from the original list are not events
             if (task.getDatetime().getEnd() == null || newDatedTask.getDatetime().getEnd() == null) {
                 return false;
-            }
-            else if (task.getDatetime().getStart().before(newDatedTask.getDatetime().getEnd()) 
+            } else if (task.getDatetime().getStart().before(newDatedTask.getDatetime().getEnd())
                     && task.getDatetime().getEnd().after(newDatedTask.getDatetime().getStart())) {
                 return true;
-            }
-            else {
+            } else {
                 return false;
             }
         }

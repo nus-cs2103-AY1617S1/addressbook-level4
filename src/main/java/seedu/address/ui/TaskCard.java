@@ -92,13 +92,17 @@ public class TaskCard extends UiPart{
      */
     private void setBorderColourBaseOnStatus(String status) {
         switch (status) {
-            case "OVERDUE": cardPane.setStyle("-fx-border-color: #202020 #202020 red red");
+            case "OVERDUE": 
+                cardPane.setStyle("-fx-border-color: #202020 #202020 red red");
             break;
-            case "DONE": cardPane.setStyle("-fx-border-color: #202020 #202020 blue blue");
+            case "DONE": 
+                cardPane.setStyle("-fx-border-color: #202020 #202020 blue blue");
             break;
-            case "EXPIRE" : cardPane.setStyle("-fx-border-color: #202020 #202020 magenta magenta");
+            case "EXPIRE" : 
+                cardPane.setStyle("-fx-border-color: #202020 #202020 magenta magenta");
             break;
-            default: cardPane.setStyle("-fx-border-color: #202020 #202020 #F0F0F0 #F0F0F0");
+            default: 
+                cardPane.setStyle("-fx-border-color: #202020 #202020 #F0F0F0 #F0F0F0");
             break;
         }
     }
