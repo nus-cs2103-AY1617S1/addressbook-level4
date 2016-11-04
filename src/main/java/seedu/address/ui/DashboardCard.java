@@ -11,6 +11,7 @@ import seedu.address.model.activity.event.ReadOnlyEvent;
 import seedu.address.model.activity.task.ReadOnlyTask;
 import seedu.address.model.activity.task.Task;
 
+
 public abstract class DashboardCard extends UiPart {
 
 	@FXML
@@ -25,20 +26,32 @@ public abstract class DashboardCard extends UiPart {
 	public DashboardCard() {
 
 	}
+	
+	/**
+	 * Function to load activity attributes onto a UI Dashboard card.
+	 * @param event or tasks only.
+	 * @return UI DashboardCard containing details of Activity
+	 */
 
 	public static DashboardCard load(ReadOnlyActivity activity) {
-		DashboardCard card = null;
+		
+		DashboardCard card = new OverdueTaskCard();
 		String type = activity.getClass().getSimpleName().toLowerCase();
-				switch(type){
-				case "task": 
-	                if (((Task) activity).isDueDateApproaching()) {
-	                   //DashboardCard card = new UpcomingTaskCard();
-	                } else if (((Task) activity).hasPassedDueDate()) {
-	                	card = new OverdueTaskCard();
-	                }
-				case "event":
-					//DashboardCard card = new UpcomingEventCard();
-				}
+		/*
+		switch (type) {
+		case "task":
+			if (((Task) activity).isDueDateApproaching()) {
+				// DashboardCard card = new UpcomingTaskCard();
+				card = new OverdueTaskCard();
+			} else if (((Task) activity).hasPassedDueDate()) {
+				card = new OverdueTaskCard();
+			}
+		case "event":
+			card = new OverdueTaskCard();
+			// DashboardCard card = new UpcomingEventCard();
+		}
+		*/
+		
 		card.activity = activity;
 		return UiPartLoader.loadUiPart(card);
 	}

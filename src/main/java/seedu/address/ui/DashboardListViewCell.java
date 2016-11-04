@@ -1,17 +1,18 @@
 package seedu.address.ui;
 
 import seedu.address.model.activity.ReadOnlyActivity;
+import seedu.address.ui.ActivityListViewCell;
 
 /**
- * Class that represents a cell containing Overdue Tasks.
+ * Class that represents a cell containing either Overdue Tasks, Upcoming Tasks, or Upcoming Events.
  * 
  * Extension of ListCell<ReadOnlyActivity>
  */
 
 
-public class OverdueTaskListViewCell extends ActivityListViewCell {
+public class DashboardListViewCell extends ActivityListViewCell {
 
-	public OverdueTaskListViewCell() {
+	public DashboardListViewCell() {
 	}
 	
     @Override
@@ -22,7 +23,7 @@ public class OverdueTaskListViewCell extends ActivityListViewCell {
             setGraphic(null);
             setText(null);
         } else {
-            setGraphic(ActivityCard.load(person, getIndex() + 1).getLayout());
+            setGraphic(DashboardCard.load(person).getLayout());
         }
     }
 	

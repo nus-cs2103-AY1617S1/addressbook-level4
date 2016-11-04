@@ -68,7 +68,7 @@ public class OverdueTaskListPanel extends ListPanel {
 	//@@author A0125284H
     protected void setConnections(ObservableList<ReadOnlyActivity> personList) {
         activityListView.setItems(personList);
-        activityListView.setCellFactory(listView -> new OverdueTaskListViewCell());
+        activityListView.setCellFactory(listView -> new DashboardListViewCell());
     }
 	
 	@Override

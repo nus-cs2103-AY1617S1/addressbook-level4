@@ -27,6 +27,7 @@ public class UiPartLoader {
     public static <T extends UiPart> T loadUiPart(Stage primaryStage, AnchorPane placeholder, T sampleUiPart) {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(MainApp.class.getResource(FXML_FILE_FOLDER + sampleUiPart.getFxmlPath()));
+        System.out.println(FXML_FILE_FOLDER + sampleUiPart.getFxmlPath());
         Node mainNode = loadLoader(loader, sampleUiPart.getFxmlPath());
         UiPart controller = loader.getController();
         controller.setStage(primaryStage);
@@ -56,6 +57,7 @@ public class UiPartLoader {
             return loader.load();
         } catch (Exception e) {
             String errorMessage = "FXML Load Error for " + fxmlFileName;
+            System.out.println(errorMessage);
             throw new RuntimeException(errorMessage, e);
         }
     }
