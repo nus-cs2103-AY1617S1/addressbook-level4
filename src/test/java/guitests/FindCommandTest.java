@@ -1,7 +1,6 @@
 package guitests;
 
 import org.junit.Test;
-import seedu.address.commons.core.Messages;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.FindCommand;

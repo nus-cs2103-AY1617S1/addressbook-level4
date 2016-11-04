@@ -122,8 +122,8 @@ public class TypicalTestTasks {
         return new TestTask[] {someday2, someday3, someday1};
     }
     
-    public TestTask[] getDeadlineTasks() {
-        return new TestTask[] {deadline2, deadlineTomorrow, deadlineIn7Days, deadlineIn30Days, deadline1, deadlineToday};
+    public TestTask[] getDeadlineTasksNotDone() {
+        return new TestTask[] {deadlineTomorrow, deadlineIn7Days, deadlineIn30Days, deadline1, deadlineToday};
     }
     
     public TestTask[] getEventTasks() {
@@ -134,7 +134,7 @@ public class TypicalTestTasks {
         return new TestTask[] {deadline1, event1, deadlineToday, someday3, someday1};
     }
     
-    public TestTask[] getNotDoneTasks() {
+    public TestTask[] getPendingTasks() {
         return new TestTask[] {eventToday, deadlineTomorrow, eventTomorrow, deadlineIn7Days, eventIn7Days, deadlineIn30Days, eventIn30Days, someday2};
     }
     

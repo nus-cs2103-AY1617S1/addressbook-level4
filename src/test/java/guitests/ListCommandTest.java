@@ -22,7 +22,7 @@ public class ListCommandTest extends TaskManagerGuiTest {
 		assertListResult("list sd", expectedList);
 		
 		//list deadline
-		expectedList = td.getDeadlineTasks();
+		expectedList = td.getDeadlineTasksNotDone();
 		assertListResult("list deadline", expectedList);
 		assertListResult("list dl", expectedList);
 		
@@ -36,7 +36,7 @@ public class ListCommandTest extends TaskManagerGuiTest {
 		assertListResult("list done", expectedList);
 		
 		//list not done
-		expectedList = td.getNotDoneTasks();
+		expectedList = td.getPendingTasks();
 		assertListResult("list pending", expectedList);
 		
 		//list overdue
