@@ -121,7 +121,8 @@ public abstract class DateTime implements Comparable<DateTime>{
         } else {
             return other == this // short circuit if same object
                     || (other instanceof DateTime // instanceof handles nulls
-                            && this.value.equals(((DateTime) other).value)); // state
+                            && (this.value.equals(((DateTime) other).value))
+                            && this.recurring == ((DateTime) other).recurring); // state
                                                                              // check
         }
     }
