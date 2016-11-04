@@ -54,19 +54,19 @@ public class TypicalTestTasks<lecture1> {
             // After edit
             homework1EditName = new TaskBuilder().withName("Name Edited").withDueDate("Jan 11 2017 17:00")
                     .withEndTime("Feb 29 2000 00:00").withStartTime("Feb 29 2000 00:00").build();
-            homework1EditDueDate = new TaskBuilder().withName("Name Edited").withDueDate("Jan 14 2016 10:00")
+            homework1EditDueDate = new TaskBuilder().withName("Homework cs 2103").withDueDate("Jan 14 2016 10:00")
                     .withEndTime("Feb 29 2000 00:00").withStartTime("Feb 29 2000 00:00").build();
 
             soccerEditName = new TaskBuilder().withName("Name Edited 2").withStartTime("Jun 30 2016 21:00")
                     .withEndTime("Jun 30 2016 23:00").withDueDate("Feb 29 2000 00:00").build();
-            soccerEditStartTime = new TaskBuilder().withName("Name Edited 2").withStartTime("Jun 10 2016 21:00")
+            soccerEditStartTime = new TaskBuilder().withName("Soccer training").withStartTime("Jun 10 2016 21:00")
                     .withEndTime("Jun 30 2016 23:00").withDueDate("Feb 29 2000 00:00").build();
-            soccerEditEndTime = new TaskBuilder().withName("Name Edited 2").withStartTime("Jun 10 2016 21:00")
+            soccerEditEndTime = new TaskBuilder().withName("Soccer training").withStartTime("Jun 30 2016 21:00")
                     .withEndTime("Jun 30 2020 6:00").withDueDate("Feb 29 2000 00:00").build();
 
             homework3EditName = new TaskBuilder().withName("Name Edited 3").withStartTime("Feb 29 2000 00:00")
                     .withEndTime("Feb 29 2000 00:00").withDueDate("Feb 29 2000 00:00").build();
-            homework3EditToTask = new TaskBuilder().withName("Name Edited 3").withStartTime("Feb 29 2000 00:00")
+            homework3EditToTask = new TaskBuilder().withName("Homework ma 1505").withStartTime("Feb 29 2000 00:00")
                     .withEndTime("Feb 29 2000 00:00").withDueDate("Jun 10 2016 21:00").build();
 
             eventEditToEvent = new TaskBuilder().withName("Event lol").withStartTime("Jun 10 2016 21:00")
