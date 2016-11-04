@@ -9,6 +9,7 @@ import seedu.gtd.model.tag.UniqueTagList;
 public class TestTask implements ReadOnlyTask {
 
     private Name name;
+    private StartDate startDate;
     private DueDate dueDate;
     private Address address;
     private Priority priority;
@@ -19,8 +20,19 @@ public class TestTask implements ReadOnlyTask {
         tags = new UniqueTagList();
     }
 
+    public TestTask(Name name, StartDate startDate, DueDate dueDate, Address address, Priority priority, UniqueTagList tags) {
+    	this.name = name;
+    	this.startDate = startDate;
+        this.dueDate = dueDate;
+        this.address = address;
+        this.priority = priority;
+        this.isDone = false;
+        this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
+	}
+    
     public TestTask(Name name, DueDate dueDate, Address address, Priority priority, UniqueTagList tags) {
     	this.name = name;
+    	this.startDate = null;
         this.dueDate = dueDate;
         this.address = address;
         this.priority = priority;
@@ -49,6 +61,11 @@ public class TestTask implements ReadOnlyTask {
         return name;
     }
     
+    @Override
+    public StartDate getStartDate() {
+        return startDate;
+    }
+        
     @Override
     public DueDate getDueDate() {
         return dueDate;

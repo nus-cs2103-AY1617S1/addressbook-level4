@@ -139,7 +139,8 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public void updateFilteredListToShowAll() {
-    	updateFilteredListToShowAll(new PredicateExpression(new RemoveDoneQualifier()));
+    	updateFilteredListToShowAll(new PredicateExpression(new AllQualifiers()));
+    	//updateFilteredListToShowAll(null);
     	System.out.println("show all");
     }
     
@@ -307,6 +308,16 @@ public class ModelManager extends ComponentManager implements Model {
         }
     }
     
+    private class AllQualifiers implements Qualifier {
+
+        AllQualifiers() {}
+        
+        @Override
+        public boolean run(ReadOnlyTask task) {
+        	return true; 	
+        }
+    }
+    
     // to check and return a list of tasks that are already done
     private class DoneQualifier implements Qualifier {
 
@@ -327,6 +338,8 @@ public class ModelManager extends ComponentManager implements Model {
         public boolean run(ReadOnlyTask task) {
         	System.out.println(task.getName());
         	return !task.getisDone(); 	
+        	//return task.getisDone(); 	
+
         }
     }
 }

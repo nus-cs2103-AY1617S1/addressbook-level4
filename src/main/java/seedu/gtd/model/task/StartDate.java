@@ -8,7 +8,7 @@ import seedu.gtd.commons.exceptions.IllegalValueException;
  */
 public class StartDate {
 
-    public static final String MESSAGE_STARTDATE_CONSTRAINTS = "Task duedate is formatted like the following: Wed Nov 02 15:39:55 UTC 2016 \n" 
+    public static final String MESSAGE_STARTDATE_CONSTRAINTS = "Task startdate is formatted like the following: Wed Nov 02 15:39:55 UTC 2016 \n" 
             + " Accepted formal dates: 1978-01-28, 1984/04/02, 1/02/1980, 2/28/79 \n"
             + " Relaxed dates: The 31st of April in the year 2008, Fri, 21 Nov 1997, Jan 21, '97, Sun, Nov 21, jan 1st, february twenty-eighth \n"
             + " Relative dates: next thursday, last wednesday, today, tomorrow, yesterday, next week, next month, next year, 3 days from now, three weeks ago \n"
@@ -25,17 +25,21 @@ public class StartDate {
      */
     public StartDate(String startdate) throws IllegalValueException {
         assert startdate != null;
-        if (isInvalidStartDate(startdate)) {
-            throw new IllegalValueException(MESSAGE_STARTDATE_CONSTRAINTS);
+        try{
+	        if (isInvalidStartDate(startdate)) {
+	            throw new IllegalValueException(MESSAGE_STARTDATE_CONSTRAINTS);
+	        }
+        }catch(NullPointerException e){
+        	startdate = new String("none");
         }
-        this.value = startdate;
+    	this.value = startdate;
     }
 
     /**
      * Returns true if a given string is a valid task due date number.
      */
-    public static boolean isInvalidStartDate(String test) {
-        return test.isEmpty();
+    public static boolean isInvalidStartDate(String test) throws NullPointerException {
+   		return test.isEmpty();
     }
 
     @Override

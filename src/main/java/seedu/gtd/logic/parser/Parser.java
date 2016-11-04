@@ -42,7 +42,10 @@ public class Parser {
     
     private static final Pattern ADDRESS_TASK_DATA_ARGS_FORMAT =
             Pattern.compile(".* a/(?<address>[^/]+) (t|p|d|z)/.*");
-    
+
+    private static final Pattern STARTDATE_TASK_DATA_ARGS_FORMAT =
+            Pattern.compile(".* s/(?<startDate>[^/]+) (t|a|p|z)/.*");
+
     private static final Pattern DUEDATE_TASK_DATA_ARGS_FORMAT =
             Pattern.compile(".* d/(?<dueDate>[^/]+) (t|a|p|z)/.*");
     
@@ -119,16 +122,22 @@ public class Parser {
     	String preprocessedArg = appendEnd(args.trim());
     	
         final Matcher nameMatcher = NAME_TASK_DATA_ARGS_FORMAT.matcher(preprocessedArg);
+        final Matcher startDateMatcher = STARTDATE_TASK_DATA_ARGS_FORMAT.matcher(preprocessedArg);
         final Matcher dueDateMatcher = DUEDATE_TASK_DATA_ARGS_FORMAT.matcher(preprocessedArg);
         final Matcher addressMatcher = ADDRESS_TASK_DATA_ARGS_FORMAT.matcher(preprocessedArg);
         final Matcher priorityMatcher = PRIORITY_TASK_DATA_ARGS_FORMAT.matcher(preprocessedArg);
         final Matcher tagsMatcher = TAGS_TASK_DATA_ARGS_FORMAT.matcher(preprocessedArg);
         
         String nameToAdd = checkEmptyAndAddDefault(nameMatcher, "name", "none");
+        String startDateToAdd = checkEmptyAndAddDefault(startDateMatcher, "startDate", "none");
         String dueDateToAdd = checkEmptyAndAddDefault(dueDateMatcher, "dueDate", "none");
         String addressToAdd = checkEmptyAndAddDefault(addressMatcher, "address", "none");
         String priorityToAdd = checkEmptyAndAddDefault(priorityMatcher, "priority", "1");
 //        String tagsToAdd = checkEmptyAndAddDefault(tagsMatcher, "tagsArgument", "");
+
+        if (startDateMatcher.matches()) {
+        	startDateToAdd = parseStartDate(startDateToAdd);
+        }
         
         // format date if due date is specified
         if (dueDateMatcher.matches()) {
@@ -149,6 +158,7 @@ public class Parser {
         try {
             return new AddCommand(
                     nameToAdd,
+                    startDateToAdd,
                     dueDateToAdd,
                     addressToAdd,
                     priorityToAdd,
@@ -158,8 +168,9 @@ public class Parser {
             return new IncorrectCommand(ive.getMessage());
         }
     }
-    
-    private String appendEnd(String args) {
+
+
+	private String appendEnd(String args) {
     	return args + " z/";
     }
     
@@ -171,6 +182,13 @@ public class Parser {
     	}
     }
     
+//    @@author A0139072H
+    
+    private String parseStartDate(String startDateRaw) {
+    	NaturalLanguageProcessor nlp = new DateNaturalLanguageProcessor();
+    	return nlp.formatString(startDateRaw);
+	}
+    
     //@@author A0146130W
     
     private String parseDueDate(String dueDateRaw) {
@@ -179,8 +197,8 @@ public class Parser {
     }
     
     // remove time on date parsed to improve search results
-    private String removeTimeOnDate(String dueDateRaw) {
-    	String[] dateTime = dueDateRaw.split(" ");
+    private String removeTimeOnDate(String dateRaw) {
+    	String[] dateTime = dateRaw.split(" ");
     	return dateTime[0];
     }
     
@@ -229,6 +247,7 @@ public class Parser {
     
     private String extractDetailType(String detailType) {
     	switch(detailType.substring(0, 2)) {
+    	case "s/": return "startDate";
     	case "d/": return "dueDate";
     	case "a/": return "address";
     	case "p/": return "priority";
@@ -243,6 +262,11 @@ public class Parser {
         }
     	
     	newDetail = newDetail.substring(2);
+    	
+    	if(detailType == "startDate") {
+    		newDetail = parseStartDate(newDetail);
+    	}
+    	
     	if(detailType == "dueDate") {
     		newDetail = parseDueDate(newDetail);
     	}
@@ -326,6 +350,7 @@ public class Parser {
     	String preprocessedArgs = " " + appendEnd(args.trim());
     	final Matcher addressMatcher = ADDRESS_TASK_DATA_ARGS_FORMAT.matcher(preprocessedArgs);
     	final Matcher priorityMatcher = PRIORITY_TASK_DATA_ARGS_FORMAT.matcher(preprocessedArgs);
+    	final Matcher startDateMatcher = STARTDATE_TASK_DATA_ARGS_FORMAT.matcher(preprocessedArgs);
     	final Matcher dueDateMatcher = DUEDATE_TASK_DATA_ARGS_FORMAT.matcher(preprocessedArgs);
     	final Matcher tagsMatcher = TAGS_TASK_DATA_ARGS_FORMAT.matcher(preprocessedArgs);
     	
@@ -338,6 +363,11 @@ public class Parser {
     	if (priorityMatcher.matches()) {
     		String priorityToBeFound = priorityMatcher.group("priority");
     		return new FindCommand(priorityToBeFound, defaultSet, "priority");
+    	}
+    	if (startDateMatcher.matches()) {
+    		String startDateToBeFound = startDateMatcher.group("startDate");
+    		String parsedStartDateToBeFound = removeTimeOnDate(parseStartDate(startDateToBeFound));
+    		return new FindCommand(parsedStartDateToBeFound, defaultSet, "startDate");
     	}
     	if (dueDateMatcher.matches()) {
     		String dueDateToBeFound = dueDateMatcher.group("dueDate");

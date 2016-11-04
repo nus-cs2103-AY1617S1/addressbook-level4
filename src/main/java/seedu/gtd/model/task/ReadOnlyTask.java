@@ -9,6 +9,7 @@ import seedu.gtd.model.tag.UniqueTagList;
 public interface ReadOnlyTask {
 
     Name getName();
+	StartDate getStartDate();
     DueDate getDueDate();
 	Address getAddress();
 	Priority getPriority();
@@ -36,6 +37,12 @@ public interface ReadOnlyTask {
     default String getAsText() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
+		        .append(" StartDate: ")
+		        .append(getStartDate())
+                .append(" Address: ")
+                .append(getAddress())
+                .append(" Priority: ")
+                .append(getPriority())
                 .append(" DueDate: ")
                 .append(getDueDate())
                 .append(" Tags: ");
@@ -57,4 +64,19 @@ public interface ReadOnlyTask {
         }
     }
 	
+    /**
+     * Returns a formatted version of this Task's dates
+     * startDate - dueDate
+     */
+
+    default String dateString(){
+        final StringBuffer buffer = new StringBuffer();
+        final String separator = " - ";
+        
+        buffer.append(getStartDate()).append(separator).append(getDueDate());
+
+        return buffer.substring(0);
+    }
+    
+    
 }

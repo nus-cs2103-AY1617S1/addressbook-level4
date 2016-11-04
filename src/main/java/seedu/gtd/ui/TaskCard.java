@@ -15,9 +15,11 @@ public class TaskCard extends UiPart{
     @FXML
     private Label name;
     @FXML
+    private Label doneStatus;
+    @FXML
     private Label id;
     @FXML
-    private Label dueDate;
+    private Label dateString;
     @FXML
     private Label address;
     @FXML
@@ -43,7 +45,11 @@ public class TaskCard extends UiPart{
     public void initialize() {
         name.setText(task.getName().fullName);
         id.setText(displayedIndex + ". ");
-        dueDate.setText(task.getDueDate().value);
+        dateString.setText(task.dateString());
+        if(task.getisDone())
+        	doneStatus.setText(" [O]");
+       	else
+       		doneStatus.setText(" [X]");
         address.setText(task.getAddress().value);
         priority.setText(task.getPriority().value);
         tags.setText(task.tagsString());
