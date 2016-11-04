@@ -4,16 +4,20 @@
 1. [Introduction](#1-introduction)
 2. [Quick Start](#2-quick-start)
 3. [Getting Started](#3-getting-started)
-  1. [Requesting Help from SmartyDo](#31-requesting-help-from-smartydo)
-  2. [Adding Task into SmartyDo](#32-adding-task-into-smartydo)
-  3. [Editing Task Details](#33-editing-task-details)
-  4. [Deleting Tasks](#34-deleting-tasks)
-  5. [Marking Completed Tasks](#35-marking-completed-tasks)
-  6. [Undoing and Redoing](#36-undoing-and-redoing)
-  7. [Viewing Details of Specific Task](#37-viewing-details-of-specific-task)
-  8. [Finding Specific Tasks](#38-finding-specific-tasks)
-  9. [Filtering Task List](#39-filtering-task-list)
-  10. [Exiting SmartyDo](#310-exiting-smartydo)
+  1. [Requesting Help](#31-requesting-help)
+  2. [Choosing Your Save Location](#32-choosing-your-save-location)
+  3. [Loading Save Files](#33-loading-save-files)
+  4. [Adding Tasks](#34-adding-tasks)
+  5. [Editing Task Details](#35-editing-task-details)
+  6. [Deleting Tasks](#36-deleting-tasks)
+  7. [Marking Completed Tasks](#37-marking-completed-tasks)
+  8. [Undoing and Redoing](#38-undoing-and-redoing)
+  9. [Selecting Specific Tasks](#39-selecting-specific-tasks)
+  10. [Finding Specific Tasks](#310-finding-specific-tasks)
+  11. [Filtering the Task List](#311-filtering-the-task-list)
+  12. [Locating a Destination](#312-locating-a-destination)
+  13. [Clearing Saved Data](#313-clearing-saved-data)
+  14. [Exiting SmartyDo](#314-exiting-smartydo)
 4. [Smart Features](#4-smart-features)
   1. [FlexiCommand](#41-flexicommand)
   2. [Saving The Data](#42-saving-the-data)
@@ -48,17 +52,41 @@ The order of parameters is flexible. <br>
 You can use the help command to gain access to this user guide should you need any help with the commands and their format. Should you enter an invalid command (e.g. `abcd`), information will be shown, when possible, to help correct your mistakes. You may also access this function through a keyboard shortcut.<br>
 
 Format: `help`
-Keyboard Shortcut: 'F1`
+Keyboard Shortcut: `Ctrl+F1`
 
 **Example:**<br>
 If you wish to get help on using SmartyDo, you may enter `help` into the Command Bar.
 
-<img src="images/help.png" width="500" align="middle"><br>Figure 2. SmartyDo's help Command<br>
+<img src="images/help.png" width="500" align="middle"><br>Figure 2. SmartyDo's Help Command<br>
 
-After entering the command, a new window will appear showing you the user guide.
+After entering the command, a new window will appear showing you a summary of all commands and keyboard shortcuts.
 
+### 3.2. **Choosing Your Save Location**
 
-### 3.2. **Adding Task Into SmartyDo**
+You can choose where to save your data on your computer by using the `save` command. The save location will be referenced from the directory in which SmartyDo is stored. From this point, all data will be saved to the file you specified.
+
+Format: `save FILEPATH.xml`
+
+**Example:**<br>
+If you wish to save your files to the filepath data/todolist.xml, you may enter `save data/todolist.xml` into the Command Bar.
+
+<img src="images/saveCommand.png" width="500" align="middle"><br>Figure 3. SmartyDo's Save Command<br>
+
+After entering the command, MessageBox will show you if your new save file has been successfully created.
+
+### 3.3. **Loading Save Files**
+You can load different save files from your computer into SmartyDo by using the `load` command. The location from which your save file is retrieved will be referenced from the directory in which SmartyDo is stored. From this point, all data will be saved to the file you specified.
+
+Format: `load FILEPATH.xml`
+
+**Example:**<br>
+If you wish to load a previously saved file stored in data/my_todo_list.xml, you may enter `load data/my_todo_list.xml` into the Command Bar.
+
+<img src="images/loadCommand.png" width="500" align="middle"><br>Figure 4. SmartyDo's Load Command<br>
+
+After entering the command, MessageBox will show you if the save file has been successfully loaded to SmartyDo.
+
+### 3.4. **Adding Tasks Into SmartyDo**
 
 You can add a task into SmartyDo by using the add command. There are number of parameters that you can use to add more details to the task. Below is a summary of the various parameters and their usage:<br>
 
@@ -88,11 +116,11 @@ Format : `add TASK_NAME [t; DATE START_TIME] [a;LOCATION] [t/TAG] [d;`
 **Example:**<br>
 Let's say you want to add task named "Presentation" which is scheduled for 18 July 2016, 9:00AM. All you need to do is enter the following as shown below.
 
-<img src="images/addCommand.png" width="250" align="middle"><br>Figure 3. Example of add command<br>
+<img src="images/addCommand.png" width="250" align="middle"><br>Figure 5. Example of add command<br>
 
 After entering the command, MessageBox will show you task is successfully added into SmartyDo and you will see the updated list of task in the VisualBox.
 
-### 3.3. **Editing Task Details**
+### 3.5. **Editing Task Details**
 
 You might want to edit details of a task for several reasons. For example, when deadline was extended you will need to update the SmartyDo for this change. Using `edit` command will solve this problem.
 
@@ -105,9 +133,9 @@ If the task you want to edit is not shown in the Visual Panel, you can use `view
 **Example:**<br>
 Let's say you want to add deadline time for task named "Presentation". Then, you must first check the INDEX of that task. In this case, the INDEX of the task is 1. So to add deadline for this task, enter `edit 1 t; DEADLINE`. This will update the deadline of the task. A demonstration of this functionality shown below.
 
-<img src="images/addeditCommand.png" width="500" align="middle"><br>Figure 4. Before(left) and after(right) of an edit command<br>
+<img src="images/addeditCommand.png" width="500" align="middle"><br>Figure 6. Before(left) and after(right) of an edit command<br>
 
-### 3.4. **Deleting Tasks**
+### 3.6. **Deleting Tasks**
 
 Sometimes, you may also want to delete tasks due to unexpected circumstances. To help you to handle such problem, `delete` command can be used. `delete` command is simply deleting task from SmartyDo.
 
@@ -118,11 +146,11 @@ Similar to `edit` command, `delete` command also uses INDEX. INDEX can be found 
 **Example:**<br>
 If you want to delete specfic task, find the INDEX of that task. Let's say the INDEX is 1. Then, enter `delete 1` in the command bar.
 
-<img src="images/adddeleteCommand.png" width="500" align="middle"><br>Figure 5. Example of delete command<br>
+<img src="images/adddeleteCommand.png" width="500" align="middle"><br>Figure 7. Example of delete command<br>
 
 After entering `delete` command, SmartyDo will delete the task specified by the INDEX and will show the updated list in the Visual Panel. In the screenshot above, you can see that the "Presentation" task has been deleted from SmartyDo.
 
-### 3.5. **Marking Completed Tasks**
+### 3.7. **Marking Completed Tasks**
 
 Instead of deleting the task, you may want to mark the task as complete and store the details of the task in the SmartyDo. In this case, you can use `done` command. By using `done` command, you can easily identify the completed tasks from the list.
 
@@ -133,11 +161,11 @@ Similar to `delete` command and `edit` command, INDEX is used in `done` command.
 **Example:**<br>
 You have now completed the task named "Presentation" and now you want to mark this task as complete. To do this, you will need to check the INDEX of this task. In this case, INDEX of this task is 1. So, entering `done 1` will mark "User Guide" task as complete.
 
-<img src="images/doneCommand.png" width="250" align="middle"><br>Figure 6. Example of done command<br>
+<img src="images/doneCommand.png" width="250" align="middle"><br>Figure 8. Example of done command<br>
 
 After entering the `done` command, you are now able to identify the completed task easily from the list.
 
-### 3.6. **Undoing and Redoing**
+### 3.8. **Undoing and Redoing**
 
 With `undo`, you are allowed to reverse your previous changes sequentially while `redo` allows you to reverse the change done by `undo`.<br>
 
@@ -155,50 +183,63 @@ Format: `undo`, `redo`
 **Example:**<br>
 Let's say you have added a task and your friend told you that your tutor has changed the date. You would like to undo it. You can undo it as long as you just added it, as shown below.
 
-<img src="images/doundoCommand.png" width="500" align="middle"><br>Figure 7.1. Before(left) and after(right) of an undo command<br>
+<img src="images/doundoCommand.png" width="500" align="middle"><br>Figure 9.1. Before(left) and after(right) of an undo command<br>
 
 By entering `undo` command, SmartyDo updates your list of tasks to how it was before you executed an undoable action. From the screenshot above, you can see that the date of the task named "Presentation" had changed.
 
 However, you realized that your friend was wrong and you want to change the date back again. In this case, you do not need to use edit command again. Instead you can simply use `redo` command, as shown below.
 
-<img src="images/undoredoCommand.png" width="500" align="middle"><br>Figure 7.2. Before(left) and after(right) of an undo command<br>
+<img src="images/undoredoCommand.png" width="500" align="middle"><br>Figure 9.2. Before(left) and after(right) of an undo command<br>
 
 By using `redo` command, SmartyDo updates your list of tasks to how it was before you executed `undo` command. From the screenshot above, you can see that the "Presentation" task has been restored to its previous state.
 
-### 3.7. **Viewing Details of a Specific Task**
+### 3.9. **Selecting Specific Tasks**
 
-View the task identified by the parameter. A full detailed description will appear in a pop up window.
+Select the task identified by the parameter. A full detailed description will appear in a pop up window.
 
-Format: `view PARAM`
+Format: `select PARAM`
 
 **Example:**<br>
 Let's say you want to know detailed information about the third task in the Visual Panel. All you need to do is enter `view 3` into command bar, just as shown below.
 
-<img src="images/view3Command.png" width="500" align="middle"><br>Figure 8. Example of view command<br>
+<img src="images/view3Command.png" width="500" align="middle"><br>Figure 10. Example of view command<br>
 
 After entering the command, Browser Panel will show a detailed description about task 3.
 
-### 3.8. **Finding Specific Tasks**
+### 3.10. **Finding Specific Tasks**
 
 If you want to find tasks that contain specific keyword in their name, you can use `find` command. `find` command is a command that will list all the tasks matching atleast one keyword. You can enter more than one keyword for `find` command.
 
 Format: `find KEYWORD [MORE_KEYWORDS]`
 
-<img src="images/findCommand.png" width="250" align="middle"><br>Figure 9. Example of find command<br>
+<img src="images/findCommand.png" width="250" align="middle"><br>Figure 11. Example of find command<br>
 
 > Beware that keywords are case sensitive and only the task's name is searched. However, the order of the keywords does not matter. e.g. `find cs2103 project` is same as `find project cs2103`
 
-### 3.9. **Filtering Task List**
+### 3.11. **Filtering the Task List**
 
 You can filter the list of tasks that you are viewing on the Visual Panel.
 
-Format: `list KEYWORD` where KEYWORD in this case are any of the following: ALL/OVERDUE/UPCOMING/COMPLETED/INCOMPLETE
+Format: `view KEYWORD` where KEYWORD in this case are any of the following: ALL/OVERDUE/UPCOMING/COMPLETED/INCOMPLETE
 
-For example, after finding specific tasks, to return the Visual Panel back to where it lists all the tasks, simply input `list ALL` just as shown below.
+For example, after finding specific tasks, to return the Visual Panel back to where it lists all the tasks, simply input `view ALL` just as shown below.
 
-<img src="images/listAllCommand.png" width="250" align="middle"><br>Figure 10. Example of list command<br>
+<img src="images/listAllCommand.png" width="250" align="middle"><br>Figure 12. Example of list command<br>
 
-### 3.10. **Exiting SmartyDo**
+### 3.12. **Locating a Destination**
+You may search for destinations listed in the LOCATION parameter of your task by using the `locate` command. A separate window will appear showing the details of the location mentioned (if any) in your task. Each task can be referred to by the index displayed in front of its title. 
+
+Format: `locate INDEX`
+
+**Example:**<br>
+If you wish to search for the location of the task named Presentation which has the index of 1, you may enter `locate 1` into the Command Bar.
+
+<img src="images/locateCommand.png" width="250" align="middle"><br>Figure 13. Example of locate command<br>
+
+After entering the command, a new window will appear showing you the details of the task you requested.
+
+
+### 3.14. **Exiting SmartyDo**
 
 After using SmartyDo, you can exit the program by using `exit` command.
 
@@ -220,20 +261,26 @@ SmartyDo will automatically save your data in the hard disk after any command th
 |**Command**|**Parameters**|**Format**|
 |:---------:|:--------:|-------|
 |Help   || `help`|
+|Save     |FILEPATH.xml|`save FILEPATH.xml`|
+|Load     |FILEPATH.xml|`load FILEPATH.xml`|
 |Add      |TASK_NAME, DATE_TIME,[LOCATION], [TAG] |`add /n TASK_NAME d; DATE START_TIME END_TIME t/ TAG a; LOCATION `|
-|View     |PARAM|`view PARAM`|
-|Find     |KEYWORD, [MORE_KEYWORD]|`find KEYWORD [MORE_KEYWORD]`|
 |Edit     |INDEX|`edit INDEX`|
+|Delete   |INDEX|`delete INDEX`|
+|Done     |INDEX|`done INDEX`|
 |Undo     ||`undo`|
 |Redo     ||`redo`|
-|Done     |INDEX|`done INDEX`|
+|Select   |INDEX|`select INDEX`|
+|Find     |KEYWORD, [MORE_KEYWORD]|`find KEYWORD [MORE_KEYWORD]`|
+|View     |PARAM|`view PARAM`|
+|Locate   |INDEX|`locate INDEX`|
+|Clear    ||`clear`|
 |Exit     ||`exit`|
 Table 5. Command Summary
 
 ### 5.2. **Keyboard Shortcuts**
 |**Command**|**Shortcut**|
 |:---:|:---:|
-|help|`F1`|
+|help|`Ctrl+F1`|
 |list all| `Ctrl+1`|
 |list overdue| `Ctrl+2`|
 |list upcoming| `Ctrl+3`|
