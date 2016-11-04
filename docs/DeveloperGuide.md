@@ -68,7 +68,7 @@ To import the lastest version of this project into Eclipse, follow the instructi
 ### 3.1 Architecture
 The **_Architecture Diagram_** given above will explain to you the high-level design of the App. Below, we will give you a quick overview of each component.
 
-<img src="images/Architecture.png" width="600"><br>Figure 3.1.1. Overview of underlying architecture<br>Figure 1. Overview of Main
+<img src="images/Architecture.png" width="600"><br>Figure 1. Overview of Main
 
 `Main` has only one class called [`MainApp`](../src/main/java/seedu/address/MainApp.java). It is responsible for,
 * At app launch: `Main` will initialize the components in the correct sequence, and connect them up with each other.
