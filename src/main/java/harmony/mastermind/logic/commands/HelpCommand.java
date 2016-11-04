@@ -1,8 +1,11 @@
 package harmony.mastermind.logic.commands;
 
 
+import java.util.ArrayList;
+
 import harmony.mastermind.commons.core.EventsCenter;
 import harmony.mastermind.commons.events.ui.ShowHelpRequestEvent;
+import harmony.mastermind.logic.HelpPopupEntry;
 
 /**@@author A0139194X
  * Format full help instructions for every command for display.
@@ -17,8 +20,7 @@ public class HelpCommand extends Command {
     public static final String COMMAND_SUMMARY = "Getting help:"
             + "\n" + COMMAND_WORD;
     
-    public static final String SHOWING_HELP_MESSAGE = "===Command Summary==="
-            + "\n" + AddCommand.COMMAND_FORMAT + "\n"
+    public static final String SHOWING_HELP_MESSAGE = AddCommand.COMMAND_FORMAT + "\n"
             + "\n" + EditCommand.COMMAND_SUMMARY + "\n"
             + "\n" + UndoCommand.COMMAND_SUMMARY + "\n"
             + "\n" + RedoCommand.COMMAND_SUMMARY + "\n"
@@ -33,17 +35,59 @@ public class HelpCommand extends Command {
             + "\n" + ImportCommand.COMMAND_FORMAT + "\n"
             + "\n" + ExportCommand.COMMAND_FORMAT + "\n"
             + "\n" + HelpCommand.COMMAND_SUMMARY + "\n"
-            + "\n" + ExitCommand.COMMAND_SUMMARY + "\n"
-            + "====================";
+            + "\n" + ExitCommand.COMMAND_SUMMARY + "\n";
+    
+    public static final ArrayList<String> commandWords = new ArrayList<String>();
+    public static final ArrayList<String> format = new ArrayList<String>();
+    public static final ArrayList<String> description = new ArrayList<String>();
+
     
     public static final String SUCCESSFULLY_SHOWN = "Command summary displayed.";
 
-    public HelpCommand() {}
+    public HelpCommand() {
+        initInfo();
+    }
 
+    private void initInfo() {
+        initCommandWords();
+        initFormat();
+        initDescription();
+    }
+    
+    private void initCommandWords() {
+        commandWords.add(AddCommand.COMMAND_KEYWORD_ADD + ", " + AddCommand.COMMAND_KEYWORD_DO);
+        commandWords.add(EditCommand.COMMAND_KEYWORD_EDIT + ", " 
+        + EditCommand.COMMAND_KEYWORD_UPDATE + ", "
+        + EditCommand.COMMAND_KEYWORD_CHANGE);
+        commandWords.add(UndoCommand.COMMAND_WORD);
+        commandWords.add(RedoCommand.COMMAND_WORD);
+        commandWords.add(MarkCommand.COMMAND_WORD);
+        commandWords.add(UnmarkCommand.COMMAND_WORD);
+        commandWords.add(DeleteCommand.COMMAND_WORD);
+        commandWords.add(ClearCommand.COMMAND_WORD);
+        commandWords.add(FindCommand.COMMAND_WORD);
+        commandWords.add(ListCommand.COMMAND_WORD);
+        commandWords.add(UpcomingCommand.COMMAND_WORD);
+        commandWords.add(RelocateCommand.COMMAND_WORD);
+        commandWords.add(ImportCommand.COMMAND_WORD);
+        commandWords.add(ExportCommand.COMMAND_KEYWORD_EXPORT);
+        commandWords.add(HelpCommand.COMMAND_WORD);
+        commandWords.add(ExitCommand.COMMAND_WORD);
+    }
+    
+    private void initFormat() {
+        
+    }
+    
+    private void initDescription() {
+        
+    }
+    
     //@@author A0139194X
     @Override
     public CommandResult execute() {
         EventsCenter.getInstance().post(new ShowHelpRequestEvent(SHOWING_HELP_MESSAGE));
         return new CommandResult(COMMAND_WORD, SUCCESSFULLY_SHOWN);
     }
+
 }

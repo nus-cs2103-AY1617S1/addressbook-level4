@@ -1,5 +1,6 @@
 package harmony.mastermind.ui;
 
+import harmony.mastermind.logic.HelpPopupEntry;
 import javafx.scene.Node;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -76,11 +77,8 @@ public class HelpPopup extends UiPart {
         content = new TextArea();
         //properties();
 
-        //popup.getContent().add(content);
         popup.getContent().add(table);
         popup.addEventHandler(KeyEvent.KEY_RELEASED, keyEventHandler);
-
-        //content.setEditable(false);
     }
     
     //@@author A0139194X
@@ -115,14 +113,18 @@ public class HelpPopup extends UiPart {
     private void initUsageCol() {
         usageCol = new TableColumn<HelpPopupEntry, String>(USAGE_COL_HEADER);
         usageCol.setMinWidth(USAGE_COL_MIN_WIDTH);
-        usageCol.setCellValueFactory(entry -> new ReadOnlyStringWrapper(entry.getValue().getUsage()));
+        usageCol.setCellValueFactory(entry -> new ReadOnlyStringWrapper(entry.getValue().getDescription()));
     }
     
     //@@author A0139194X
     private ObservableList<HelpPopupEntry> getList() {
         ObservableList<HelpPopupEntry> entries = FXCollections.observableArrayList();
-        entries.add(new HelpPopupEntry("help", "help", "help"));
-        entries.add(new HelpPopupEntry("exit", "exit", "exit"));
+        entries.add(new HelpPopupEntry("add, do", "help", "Displays command summary"));
+        entries.add(new HelpPopupEntry("help", "help", "Displays command summary"));
+        entries.add(new HelpPopupEntry("help", "help", "Displays command summary"));
+
+        entries.add(new HelpPopupEntry("help", "help", "Displays command summary"));
+        entries.add(new HelpPopupEntry("exit", "exit", "Exit Mastermind"));
         return entries;
     }
     
@@ -158,30 +160,5 @@ public class HelpPopup extends UiPart {
                 );
 
 //        content.setStyle("-fx-font-family: sample; -fx-font-size: 20;");
-    }
-    
-    //@@author A0139194X
-    class HelpPopupEntry {
-        private String commandWord;
-        private String format;
-        private String usage;
-        
-        public HelpPopupEntry(String commandWord, String format, String usage) {
-            this.commandWord = commandWord;
-            this.format = format;
-            this.usage = usage;
-        }
-
-        public String getFormat() {
-            return format;
-        }
-
-        public String getCommandWord() {
-            return commandWord;
-        }
-
-        public String getUsage() {
-            return usage;
-        }
     }
 }
