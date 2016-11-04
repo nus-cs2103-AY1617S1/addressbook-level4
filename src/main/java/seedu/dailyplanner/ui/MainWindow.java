@@ -102,7 +102,14 @@ public class MainWindow extends UiPart {
         setWindowMinSize();
         setWindowDefaultSize(prefs);
         scene = new Scene(rootLayout);
+        
+        String css = getClass().getResource("/view/DarkTheme.css").toExternalForm();
+        scene.getStylesheets().clear();
+        scene.getStylesheets().add(css);
+        
         primaryStage.setScene(scene);
+        
+        
 
         setAccelerators();
     }
