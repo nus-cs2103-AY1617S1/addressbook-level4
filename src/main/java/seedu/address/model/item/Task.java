@@ -16,7 +16,7 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
 
     private static final String MESSAGE_RECURRING_TASK_CONSTRAINTS = "Unable to update recurring task as task "
             + "is not recurring or task does not have both start and end dates";
-    protected Name taskName;
+    private Name taskName;
     private Date startDate;
     private Date endDate;
     private RecurrenceRate recurrenceRate;
@@ -66,7 +66,6 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
      *             if given value is invalid.
      */
     public Task(Name taskName, Date startDate, Date endDate, RecurrenceRate recurrenceRate, Priority priorityValue) {
-        // TODO: is the code below necessary? (comment by ZY)
         assert !CollectionUtil.isAnyNull(taskName);
         assert taskName != null;
         assert priorityValue != null;
@@ -100,12 +99,14 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
     }
 
     /**
-     * Updates endDate using the timeDifference from startDate.
+     * Updates endDate using the timeDifference between startDate and endDate.
      * 
-     * @param timeDifference    the difference in days between end date and start date
+     * @param timeDifference    the difference in milliseconds between end date and start date
      * @return updated value of endDate
      */
     private Date updateEndDate(int timeDifference) {
+        assert timeDifference >= 0;
+        
         Calendar endCalendar = Calendar.getInstance();
         endCalendar.setTime(startDate);
         endCalendar.add(Calendar.MILLISECOND, timeDifference);
@@ -120,7 +121,7 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
         final StringBuilder builder = new StringBuilder();
 
         if (getName() != null) {
-            builder.append(getName().name);
+            builder.append(getName().getTaskName());
         }
         if (getPriorityValue() != null) {
             builder.append(", Priority: ").append(getPriorityValue());
@@ -353,7 +354,7 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
     }
     //@@author A0139498J
     private int compareByTaskName(Task other) {
-        return this.taskName.name.compareTo(other.taskName.name);
+        return this.taskName.getTaskName().compareTo(other.taskName.getTaskName());
     }
     
     //@@author A0139498J

@@ -68,7 +68,7 @@ public class XmlAdaptedTask {
      * @param source
      */
     private void saveName(ReadOnlyTask source) {
-        name = source.getName().name;
+        name = source.getName().getTaskName();
     }
 
     /**

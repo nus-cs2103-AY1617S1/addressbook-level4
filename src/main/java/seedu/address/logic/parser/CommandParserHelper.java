@@ -11,6 +11,10 @@ import java.util.regex.Pattern;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.item.DateTime;
+import seedu.address.model.item.Name;
+import seedu.address.model.item.Priority;
+import seedu.address.model.item.RecurrenceRate;
+import seedu.address.model.item.TimePeriod;
 
 
 //@@author A0139655U
@@ -33,46 +37,52 @@ public class CommandParserHelper {
     private static final String REGEX_CASE_IGNORE = "?i:";
     private static final String REGEX_CLOSE_BRACE = ")";
     private static final String REGEX_GREEDY_SELECT = ".*?";
-    private static final String REGEX_INVERTED_COMMA = "\"";
+    private static final String REGEX_ESCAPE_CHARACTER = "\"";
     
-    // greedily captures the taskName until it reaches the following keyword
+    /** greedily captures the taskName until it reaches the following keyword */
     private static final String REGEX_NAME = "?<taskName>.*?";
     
-    // used for concatenating keyword to REGEX_NAME
+    /** used for concatenating keyword to REGEX_NAME */
     private static final String REGEX_ADDITIONAL_KEYWORD = "(?:" + "(?: from )" + "|(?: at )" + "|(?: start )"
             + "|(?: by )" + "|(?: to )" + "|(?: end )" + ")";
     
-    // greedily captures everything after the keyword (from, at, start, by, to, end), 
-    // until it reaches the next regex expression or end of input
+    /** 
+     * greedily captures everything after the keyword (from, at, start, by, to, end), 
+     * until it reaches the next regex expression or end of input
+     */
     private static final String REGEX_FIRST_DATE = "(?:" + "(?: from (?<startDateFormatOne>.*?))"
             + "|(?: at (?<startDateFormatTwo>.*?))" + "|(?: start (?<startDateFormatThree>.*?))"
             + "|(?: by (?<endDateFormatOne>.*?))" + "|(?: to (?<endDateFormatTwo>.*?))"
             + "|(?: end (?<endDateFormatThree>.*?))" + ")";
     
-    // greedily captures everything after the keyword (from, at, start, by, to, end), 
-    // until it reaches the next regex expression or end of input
+    /** 
+     * greedily captures everything after the keyword (from, at, start, by, to, end), 
+     * until it reaches the next regex expression or end of input
+     */
     private static final String REGEX_SECOND_DATE = "(?:" + "(?: from (?:.*?))"
             + "|(?: at (?:.*?))" + "|(?: start (?:.*?))"
             + "|(?: by (?<endDateFormatFour>.*?))" + "|(?: to (?<endDateFormatFive>.*?))"
             + "|(?: end (?<endDateFormatSix>.*?))" + ")";
     
-    // greedily captures everything after the keyword (repeat every, -), 
-    // until it reaches the next regex expression or end of input
+    /** 
+     * greedily captures everything after the keyword (repeat every, -), 
+     * until it reaches the next regex expression or end of input
+     */
     private static final String REGEX_RECURRENCE_AND_PRIORITY = "(?: repeat every (?<rate>\\d+)?(?<timePeriod>.*?))?"
             + "(?: -(?<priority>.*?))?";
 
-    // beginning of regex in the event that input is escaped
+    /** beginning of regex in the event that input is escaped */
     private static final String REGEX_OPEN_BRACE_CASE_IGNORE_NAME_ESCAPE = REGEX_OPEN_BRACE + REGEX_CASE_IGNORE
-            + REGEX_INVERTED_COMMA + REGEX_OPEN_BRACE + REGEX_NAME + REGEX_CLOSE_BRACE + REGEX_INVERTED_COMMA;
+            + REGEX_ESCAPE_CHARACTER + REGEX_OPEN_BRACE + REGEX_NAME + REGEX_CLOSE_BRACE + REGEX_ESCAPE_CHARACTER;
     
-    // beginning of regex in the event that input is not escaped
+    /** beginning of regex in the event that input is not escaped */
     private static final String REGEX_OPEN_BRACE_CASE_IGNORE_NAME = REGEX_OPEN_BRACE + REGEX_CASE_IGNORE
             + REGEX_OPEN_BRACE + REGEX_NAME;
     
-    // used for concatenating keyword to REGEX_NAME
+    /** used for concatenating keyword to REGEX_NAME */
     private static final String REGEX_KEYWORD_GREEDY_SELECT = REGEX_ADDITIONAL_KEYWORD + REGEX_GREEDY_SELECT;
     
-    // end of regex; only concatenated at the end after other required regex expressions have been concatenated.
+    /** end of regex; only concatenated at the end after other required regex expressions have been concatenated. */
     private static final String REGEX_RECURRENCE_PRIORITY_CLOSE_BRACE = REGEX_RECURRENCE_AND_PRIORITY
             + REGEX_CLOSE_BRACE;
     
@@ -91,7 +101,7 @@ public class CommandParserHelper {
         assert args != null;
         OptionalStringTask task = new OptionalStringTask();
         
-        if (args.contains(REGEX_INVERTED_COMMA)) {
+        if (args.contains(REGEX_ESCAPE_CHARACTER)) {
             generateMatcherForEscapeInput(args, task);
         } else {
             generateMatcherForNonEscapeInput(args, task);
@@ -106,7 +116,7 @@ public class CommandParserHelper {
         assert args != null;
         OptionalStringTask task = new OptionalStringTask();
         
-        if (args.contains(REGEX_INVERTED_COMMA)) {
+        if (args.contains(REGEX_ESCAPE_CHARACTER)) {
             generateMatcherForEscapeInput(args, task);
         } else {
             generateMatcherForNonEscapeInput(args, task);
@@ -143,7 +153,7 @@ public class CommandParserHelper {
             matcherSetEndDate(task);
         }
     }
-    //TODO: remove validateMatcherTwoKeywords?
+    
     /**
      * Generates the matcher for the input args.
      *
@@ -234,7 +244,7 @@ public class CommandParserHelper {
     private String generateArgsMinusTaskName(String args) {
         assert args != null;
         
-        int indexOfEndOfTaskName = args.lastIndexOf(REGEX_INVERTED_COMMA) + ONE;
+        int indexOfEndOfTaskName = args.lastIndexOf(REGEX_ESCAPE_CHARACTER) + ONE;
         return args.substring(indexOfEndOfTaskName);
     }
     
@@ -319,24 +329,6 @@ public class CommandParserHelper {
         assert args != null && regex != null;
         regex += REGEX_RECURRENCE_PRIORITY_CLOSE_BRACE;
         generateAndValidateMatcher(args, regex);
-    }
-    
-    /**
-     * Validates the matcher for the given args, where args has one keyword.
-     *
-     * @param args  user input of task to add.
-     * @param task  object to store values for startDate and endDate.
-     * @param regex used to generate matcher.
-     * @throws IllegalValueException  If args does not match the matcher.
-     */
-    private void validateMatcherForOneKeyword(String args, OptionalStringTask task, String regex)
-            throws IllegalValueException {
-        assert args != null && task != null && regex != null;
-        generateMatcherForOneKeyword(args, regex);
-        matcherSetStartOrEndDate(task);
-        if (startOrEndDateIsInvalid(task.startDate, task.endDate)) {
-            tryGenerateMatcherForNoKeyword(args, task, regex);
-        }
     }
     
     /**
@@ -474,28 +466,6 @@ public class CommandParserHelper {
     }
 
     /**
-     * Validates the matcher for the given args, where args has two keywords.
-     *
-     * @param args  user input of task to add.
-     * @param task  object to store values for startDate and endDate.
-     * @param regex used to generate matcher.
-     * @throws IllegalValueException  If args does not match the matcher.
-     */
-    private void validateMatcherForTwoKeywords(String args, OptionalStringTask task, String regex)
-            throws IllegalValueException {
-        assert args != null && task != null && regex != null;
-        generateMatcherForTwoKeywords(args, regex);
-        matcherSetStartOrEndDate(task);
-        if (startOrEndDateIsInvalid(task.startDate, task.endDate)) {
-            reinitialiseStartAndEndDatesToEmpty(task);
-            regex += REGEX_KEYWORD_GREEDY_SELECT;
-            validateMatcherForOneKeyword(args, task, regex);
-        } else { 
-            matcherSetEndDate(task);
-        }
-    }
-    
-    /**
      * Generates the matcher for the given escaped args, where args has two keywords.
      *
      * @param args  user input of task to add.
@@ -605,12 +575,12 @@ public class CommandParserHelper {
         assert task != null;
         HashMap<String, Optional<String>> map = new HashMap<String, Optional<String>>();
         
-        map.put("taskName", task.taskName);
-        map.put("startDate", task.startDate);
-        map.put("endDate", task.endDate);
-        map.put("rate", task.rate);
-        map.put("timePeriod", task.timePeriod);
-        map.put("priority", task.priority);
+        map.put(Name.getMapNameKey(), task.taskName);
+        map.put(DateTime.getMapStartDateKey(), task.startDate);
+        map.put(DateTime.getMapEndDateKey(), task.endDate);
+        map.put(RecurrenceRate.getMapRateKey(), task.rate);
+        map.put(TimePeriod.getTimePeriodKey(), task.timePeriod);
+        map.put(Priority.getMapPriorityKey(), task.priority);
         
         return map;
     }
