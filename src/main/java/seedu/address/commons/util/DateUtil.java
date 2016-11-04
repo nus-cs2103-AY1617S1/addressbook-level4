@@ -144,13 +144,6 @@ public class DateUtil {
         }
     }
 
-    public static boolean isValidDate(String test) {
-        if (validate(test) || test == "")
-            return true;
-        else
-            return false;
-    }
-
     /**
      * Convert today's date into date format Must contain time of the day in
      * hour and mins
