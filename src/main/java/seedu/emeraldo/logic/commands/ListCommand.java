@@ -1,27 +1,24 @@
 package seedu.emeraldo.logic.commands;
 
-
+//@@author A0139749L
 /**
  * Lists all tasks in Emeraldo to the user.
  */
-//@@author A0139749L
 public class ListCommand extends Command {
 
     public static final String COMMAND_WORD = "list";
-
-    public static final String MESSAGE_LIST_ALL = "All tasks are successfully listed!\n";
     
     public static final String MESSAGE_LIST_UNCOMPLETED = "Tasks that are uncompleted are successfully listed!\n";
     
-    public static final String MESSAGE_LIST_KEYWORD = "Tasks with tag '%s' successfully listed!\n";
+    public static final String MESSAGE_LIST_KEYWORD = "Uncompleted tasks with tag '%s' successfully listed!\n";
     
-    public static final String MESSAGE_LIST_TIMEPERIOD = "Tasks happening %s successfully listed!\n";
+    public static final String MESSAGE_LIST_TIMEPERIOD = "Uncompleted tasks happening %s successfully listed!\n";
     
     public static final String MESSAGE_LIST_COMPLETED = "Tasks that are completed successfully listed!\n";
     
     public static final String MESSAGE_USAGE = "(1) " + COMMAND_WORD + " :  Lists all uncompleted tasks\n"
-    		+ "(2) " + COMMAND_WORD + " [PRE-DEFINED KEYWORDS] :  Lists all tasks in the period specified\n"
-            + "(3) " + COMMAND_WORD + " [KEYWORD] :  Lists all tasks with tags containing the specified keyword\n"
+    		+ "(2) " + COMMAND_WORD + " [PRE-DEFINED KEYWORDS] :  Lists uncompleted tasks in the period specified\n"
+            + "(3) " + COMMAND_WORD + " [KEYWORD] :  Lists uncompleted tasks with tags containing the specified keyword\n"
             + "Example:  " + COMMAND_WORD + "  |  " + COMMAND_WORD + " today  |  " + COMMAND_WORD + " tomorrow"
     		+ "  |  " + COMMAND_WORD + " homework";
 
@@ -39,10 +36,6 @@ public class ListCommand extends Command {
             model.updateFilteredListToShowUncompleted();
             this.successMessage = MESSAGE_LIST_UNCOMPLETED;
             
-        }else if(keyword.equalsIgnoreCase("all")){
-        	model.updateFilteredListToShowAll();
-        	this.successMessage = MESSAGE_LIST_ALL;
-        	
         }else if(keywordSatifiesTimePeriod()){
         	model.updateFilteredTaskList(timePeriod);
         	this.successMessage = String.format(MESSAGE_LIST_TIMEPERIOD, keyword);

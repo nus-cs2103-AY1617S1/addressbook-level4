@@ -30,6 +30,9 @@ public class Parser {
     private static final Pattern LIST_KEYWORD_ARGS_FORMAT =
             Pattern.compile("(?<keyword>\\S+)?"); //Only one keyword
     
+    private static final Pattern LISTALL_KEYWORD_ARGS_FORMAT = 
+    		Pattern.compile("(?<keyword>\\S+)?"); //Only one keyword
+    
     //@@author A0139749L
     private static final Pattern TASK_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("\"(?<description>.+)\""
@@ -93,6 +96,9 @@ public class Parser {
 
         case ListCommand.COMMAND_WORD:
             return prepareList(arguments);
+        
+        case ListAllCommand.COMMAND_WORD:
+            return prepareListAll(arguments);
             
         case UndoCommand.COMMAND_WORD:
             return new UndoCommand();
@@ -253,6 +259,7 @@ public class Parser {
           return new CompleteCommand(index.get());
     	
     }
+    //@@author
 
     /**
      * Parses arguments in the context of the select task command.
@@ -343,5 +350,15 @@ public class Parser {
         }
 
         return new ListCommand(args.trim());
+    }
+    
+    private Command prepareListAll(String args) {
+        final Matcher matcher = LISTALL_KEYWORD_ARGS_FORMAT.matcher(args.trim());
+        if (!matcher.matches()) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    ListAllCommand.MESSAGE_USAGE));
+        }
+
+        return new ListAllCommand(args.trim());
     }
 }
