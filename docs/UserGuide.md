@@ -130,26 +130,24 @@ Example:
 
 <!-- @@author A0139671X -->
 #### Undo a Task: `undo`
-Undo the most recent task entered in the command line<br>
-Undo only supports for task modifying commands such as add, delete, clear, edit and redo but not find, show, setstorage<br>
-Once ForgetMeNot is exited, the possible undo history is cleared<br>
+Undo the most recent task entered in the command line. Undo only supports for task modifying commands such as add, delete, clear, edit and redo but not find, show, setstorage. Once ForgetMeNot is exited, the possible undo history is cleared. <br>
 Format: `undo`
 
 
 #### Redo a Task: `redo`
-Redos the most recent undo executed<br>
-Redo supports as many undos that were executed<br>
-Once ForgetMeNot is exited, or a new task modifying command is executed, the history of possible redos is cleared<br>
+Redos the most recent undo executed.Redo supports as many undos that were executed. Once ForgetMeNot is exited, or a new task modifying command is executed, the history of possible redos is cleared. <br>
 Format: `redo`
-<!-- @@author -->
 
 #### Deleting a Task: `delete`
-Deletes a particular task in the task manager<br>
+Deletes the particular index of a task that is displayed on the main list of tasks. <br>
 Format: `delete <task index>`
 
 Example:
 * `delete 1`
-
+	
+	Delete task indexed 1.
+	
+<!-- @@author -->
 
 #### Finding a Task: `Find`
 Finds tasks in ForgetMeNot. ForgetMeNot will display all task with the input keywords<br>
