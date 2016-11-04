@@ -76,7 +76,7 @@ public class TestTaskList {
     }
     
     public void removeTaskFromList(int index) {
-        removeTaskFromList(index, ' ');;
+        removeTaskFromList(index, ' ');
     }
     
     //@@author
