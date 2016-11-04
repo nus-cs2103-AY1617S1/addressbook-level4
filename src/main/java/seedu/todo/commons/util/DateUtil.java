@@ -89,6 +89,26 @@ public class DateUtil {
     }
     
     /**
+     * Formats a LocalDateTime to a formatted date, following the dd MMM yyyy format.
+     * 
+     * @param dateTime   LocalDateTime to format.
+     * @return           Formatted date in dd MMM yyyy format.
+     */
+    public static String formatDate(LocalDateTime dateTime) {
+        return dateTime.format(DateTimeFormatter.ofPattern("dd MMM yyyy"));
+    }
+
+    /**
+     * Formats a LocalDateTime to a ISO formatted date, following the ISO yyyy-MM-dd format.
+     * 
+     * @param dateTime   LocalDateTime to format.
+     * @return           Formatted date in ISO format.
+     */
+    public static String formatIsoDate(LocalDateTime dateTime) {
+        return dateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+    }
+    
+    /**
      * Formats a LocalDateTime to a short date. Excludes the day of week only if
      * the date is within 2-6 days from now.
      * 

@@ -71,7 +71,12 @@ public class GuiHandle {
     }
 
     protected String getStringFromText(String fieldId, Node parentNode) {
-        return ((Text) guiRobot.from(parentNode).lookup(fieldId).tryQuery().get()).getText();
+        com.google.common.base.Optional<Node> text = guiRobot.from(parentNode).lookup(fieldId).tryQuery();
+        if (text.isPresent()) {
+            return ((Text) text.get()).getText();
+        } else {
+            return "";
+        }
     }
 
     protected String getStringFromText(String fieldId) {
