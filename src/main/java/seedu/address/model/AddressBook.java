@@ -72,9 +72,11 @@ public class AddressBook implements ReadOnlyLifeKeeper {
         this.tags.getInternalList().setAll(tags);
     }
 
-    public void resetData(Collection<? extends ReadOnlyActivity> newPersons, Collection<Tag> newTags) {	
-    	setPersons(newPersons.stream().map(Activity::create).collect(Collectors.toList()));
+    public void resetData(Collection<? extends ReadOnlyActivity> newPersons, Collection<Tag> newTags) {
+        List<Activity> activities = newPersons.stream().map(Activity::create).collect(Collectors.toList()); 
+    	setPersons(activities);
         setTags(newTags);
+        nextReminders.initialize(activities);
     }
 
     public void resetData(ReadOnlyLifeKeeper newData) {

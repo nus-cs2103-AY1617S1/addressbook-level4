@@ -3,12 +3,17 @@ package seedu.address.commons.util;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * Writes and reads file
  */
 public class FileUtil {
     private static final String CHARSET = "UTF-8";
+    
+    private static final ArrayList<Character> FORBIDDEN_CHARACTERS = new ArrayList<>(
+            Arrays.asList('<', '>', ':', '"', '|', '?', '*'));
 
     public static boolean isFileExists(File file) {
         return file.exists() && file.isFile();
@@ -91,5 +96,19 @@ public class FileUtil {
     public static <T> T deserializeObjectFromJsonFile(File jsonFile, Class<T> classOfObjectToDeserialize)
             throws IOException {
         return JsonUtil.fromJsonString(FileUtil.readFromFile(jsonFile), classOfObjectToDeserialize);
+    }
+    
+    public static boolean isValidFilePath(String filePath) {
+        if (filePath.equals("")) {
+            return false;
+        } else {
+            for (char forbidden : FORBIDDEN_CHARACTERS) {
+                if (filePath.contains(String.valueOf(forbidden))) {
+                    return false;
+                }
+            }
+        }
+        
+        return true;
     }
 }

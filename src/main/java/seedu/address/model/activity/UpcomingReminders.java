@@ -39,8 +39,14 @@ public class UpcomingReminders {
             }
         }
     }
-
+    
+    /**
+     * Empties the current event queue and adds the specified activities into the queue. 
+     * @param activities to be added into the queue
+     */
     public void initialize(Collection<Activity> activities) {
+        empty();
+        
         for (ReadOnlyActivity activity : activities) {
             if (activity.getReminder().getCalendarValue() != null && !activity.hasReminderPassed()) {
                 reminderQueue.add(activity);
@@ -91,5 +97,14 @@ public class UpcomingReminders {
         }
         
         return nextRemindedActivities;
+    }
+    
+    /**
+     * Clears the reminder queue.
+     */
+    public static void empty() {
+        while (!reminderQueue.isEmpty()) {
+            reminderQueue.poll();
+        }
     }
 }

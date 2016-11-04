@@ -2,9 +2,12 @@ package seedu.address.storage;
 
 import com.google.common.eventbus.Subscribe;
 import seedu.address.commons.core.ComponentManager;
+import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
+import seedu.address.commons.events.model.LoadLifekeeperEvent;
 import seedu.address.commons.events.storage.DataSavingExceptionEvent;
+import seedu.address.commons.events.ui.FileDirectoryChangedEvent;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.ReadOnlyLifeKeeper;
 import seedu.address.model.UserPrefs;
@@ -88,6 +91,26 @@ public class StorageManager extends ComponentManager implements Storage {
         logger.info(LogsCenter.getEventHandlingLogMessage(event, "Local data changed, saving to file"));
         try {
             saveAddressBook(event.data);
+        } catch (IOException e) {
+            raise(new DataSavingExceptionEvent(e));
+        }
+    }
+    
+    @Override
+    @Subscribe
+    public void handleLoadLifekeeperEvent(LoadLifekeeperEvent event) throws DataConversionException {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        
+        Optional<ReadOnlyLifeKeeper> lifekeeperOptional;
+        try {
+            lifekeeperOptional = readAddressBook(event.openFile.getAbsolutePath());
+            
+            if (lifekeeperOptional.isPresent()) {
+                EventsCenter.getInstance().post(new FileDirectoryChangedEvent(event.openFile.getAbsolutePath()));
+                event.logic.resetData(lifekeeperOptional.get());
+            }
+        } catch (DataConversionException e) {
+            logger.warning("Data file not in the correct format. Loading aborted.");
         } catch (IOException e) {
             raise(new DataSavingExceptionEvent(e));
         }

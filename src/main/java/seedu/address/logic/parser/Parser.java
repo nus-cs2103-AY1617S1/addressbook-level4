@@ -49,7 +49,7 @@ public class Parser {
                     + "(?<recurring>(?: every/[^/]+)?)"
                     + "(?<reminder>(?: r/[^/]+)?)"
                     + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
-
+    
     public Parser() {}
 
     /**
@@ -103,9 +103,15 @@ public class Parser {
 
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
+            
+        case OpenCommand.COMMAND_WORD:
+            return prepareOpen(arguments);
+                    
+        case SaveCommand.COMMAND_WORD:
+            return prepareSave(arguments);
 
         default:
-            return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
+            return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND/* + ": " + commandWord*/);
         }
     }
 
@@ -253,6 +259,26 @@ public class Parser {
         }
 
         return new SelectCommand(index.get());
+    }
+    
+    /**
+     * Parses arguments in the context of the open command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     */
+    private Command prepareOpen(String args) {
+        return new OpenCommand(args.trim());
+    }
+    
+    /**
+     * Parses arguments in the context of the save command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     */
+    private Command prepareSave(String args) {
+        return new SaveCommand(args.trim());
     }
 
     /**

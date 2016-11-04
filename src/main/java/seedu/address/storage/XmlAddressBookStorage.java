@@ -38,7 +38,11 @@ public class XmlAddressBookStorage implements AddressBookStorage {
         XmlAddressBookStorage.filePath = filePath;
     }
 
-    public String getAddressBookFilePath(){
+    public String getAddressBookFilePath() {
+        return filePath;
+    }
+    
+    public static String getFilePathForSaveCommand() {
         return filePath;
     }
 
