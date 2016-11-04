@@ -9,8 +9,6 @@ import seedu.taskitty.commons.core.UnmodifiableObservableList;
 import seedu.taskitty.commons.util.AppUtil;
 import seedu.taskitty.model.task.ReadOnlyTask;
 import seedu.taskitty.model.task.Task;
-import seedu.taskitty.model.task.UniqueTaskList.DuplicateMarkAsDoneException;
-import seedu.taskitty.model.task.UniqueTaskList.TaskNotFoundException;
 
 //@@author A0130853L
 /**
@@ -68,14 +66,9 @@ public class DoneCommand extends Command {
         if (errorMessage != null) { // there are errors
             return new CommandResult(errorMessage);
         }
-                    
-        try {
-            executeMarkTasks();
-        } catch (TaskNotFoundException pnfe) {
-            assert false : "The target task cannot be missing";
-        } catch (DuplicateMarkAsDoneException e) {
-            assert false: "The target task should not be marked done";
-        }
+        
+        executeMarkTasks();
+
         return new CommandResult(generateSuccessMessage());
     }
     
@@ -128,7 +121,7 @@ public class DoneCommand extends Command {
      * @throws TaskNotFoundException
      * @throws DuplicateMarkAsDoneException
      */
-    private void executeMarkTasks() throws TaskNotFoundException, DuplicateMarkAsDoneException {
+    private void executeMarkTasks() {
         model.markTasksAsDone(listOfTasksToMarkDone);
         model.storeCommandInfo(COMMAND_WORD, commandText, listOfTasksToMarkDone);
     }

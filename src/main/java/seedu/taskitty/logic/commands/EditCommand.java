@@ -20,7 +20,6 @@ import seedu.taskitty.model.task.TaskDate;
 import seedu.taskitty.model.task.TaskPeriod;
 import seedu.taskitty.model.task.TaskTime;
 import seedu.taskitty.model.task.UniqueTaskList;
-import seedu.taskitty.model.task.UniqueTaskList.TaskNotFoundException;
 
 //@@author A0135793W
 /**
@@ -90,8 +89,6 @@ public class EditCommand extends Command{
             model.storeCommandInfo(COMMAND_WORD, commandText, toEdit, taskToEdit);
         } catch (UniqueTaskList.DuplicateTaskException e) {
             return new CommandResult(MESSAGE_DUPLICATE_TASK);
-        } catch (TaskNotFoundException pnfe) {
-            assert false : "The target task cannot be missing";
         } catch (IllegalValueException ive) {
             return new CommandResult(ive.getMessage());
         }

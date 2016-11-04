@@ -10,8 +10,6 @@ import seedu.taskitty.commons.core.UnmodifiableObservableList;
 import seedu.taskitty.commons.util.AppUtil;
 import seedu.taskitty.model.task.ReadOnlyTask;
 import seedu.taskitty.model.task.Task;
-import seedu.taskitty.model.task.UniqueTaskList.DuplicateMarkAsDoneException;
-import seedu.taskitty.model.task.UniqueTaskList.TaskNotFoundException;
 
 //@@author A0139052L
 /**
@@ -38,6 +36,7 @@ public class DeleteCommand extends Command {
     private int categoryIndex;
     private int targetIndex;
     private String currentTaskIndex;
+    private Optional<String> errorMessage;
     
     private UnmodifiableObservableList<ReadOnlyTask> lastShownList;
     private ArrayList<ReadOnlyTask> listOfTaskToDelete;
@@ -61,16 +60,11 @@ public class DeleteCommand extends Command {
         initialiseMessageBuildersAndTasksToMarkList();
         evaluatePresenceOfErrors();
         
-        Optional<String> errorMessage = generateErrorMessage();
+        generateErrorMessage();
         if (errorMessage.isPresent()) { // there are errors
             return new CommandResult(errorMessage.get());
-        }
-                    
-        try {
-            executeDeleteTasks();
-        } catch (TaskNotFoundException pnfe) {
-            assert false : "The target task cannot be missing";
-        } 
+        }                  
+        executeDeleteTasks();
         
         return new CommandResult(generateSuccessMessage());
     }
@@ -118,7 +112,7 @@ public class DeleteCommand extends Command {
      * This method calls the model to mark the specified tasks as done and stores the command for usage during undo/redo.
      * @throws TaskNotFoundException
      */
-    private void executeDeleteTasks() throws TaskNotFoundException {
+    private void executeDeleteTasks() {
         model.deleteTasks(listOfTaskToDelete);
         model.storeCommandInfo(COMMAND_WORD, commandText, listOfTaskToDelete);
     }
@@ -135,18 +129,16 @@ public class DeleteCommand extends Command {
     /** 
      * Returns an error message if an error was detected, else an empty Optional is returned
      */
-    private Optional<String> generateErrorMessage() {
+    private void generateErrorMessage() {
         if (hasInvalidIndex) {
             indicateAttemptToExecuteIncorrectCommand();
-            return Optional.of(invalidIndexMessageBuilder.toString().trim());
-        }
-        
-        if (hasDuplicateIndexesProvided) {
+            errorMessage = Optional.of(invalidIndexMessageBuilder.toString().trim());
+        } else if (hasDuplicateIndexesProvided) {
             indicateAttemptToExecuteIncorrectCommand();
-            return Optional.of(duplicateIndexesProvidedMessageBuilder.toString().trim());
-        }       
-        
-        return Optional.empty(); // no errors
+            errorMessage = Optional.of(duplicateIndexesProvidedMessageBuilder.toString().trim());
+        }  else {     
+            errorMessage = Optional.empty(); // no errors
+        }
     }
     
     /**
