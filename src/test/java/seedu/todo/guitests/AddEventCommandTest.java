@@ -29,7 +29,7 @@ public class AddEventCommandTest extends GuiTest {
         event.setEndDate(DateUtil.parseDateTime(String.format("%s 19:00:00", twoDaysFromNowIsoString)));
         assertAddSuccess(command, event);
     }
-
+    
     @Test
     public void addEvent_eventSameDateInPast_isNotVisible() {
         // Get formatted string for two days before now, e.g. 13 Oct 2016
@@ -45,6 +45,19 @@ public class AddEventCommandTest extends GuiTest {
         event.setStartDate(DateUtil.parseDateTime(String.format("%s 14:00:00", twoDaysBeforeNowIsoString)));
         event.setEndDate(DateUtil.parseDateTime(String.format("%s 19:00:00", twoDaysBeforeNowIsoString)));
         assertAddNotVisible(command, event);
+    }
+    
+    @Test
+    public void addEvent_missingStartDate_disambiguate() {
+        String command = "add event Presentation that never starts to 9pm";
+        console.runCommand(command);
+        String expectedDisambiguation = "add event \"Presentation that never starts\" from \"<start time>\" to \"9pm\"";
+        assertEquals(console.getConsoleInputText(), expectedDisambiguation);
+    }
+
+    @Test
+    public void addEvent_missingEndDate_disambiguate() {
+        // TODO
     }
 
     /**
