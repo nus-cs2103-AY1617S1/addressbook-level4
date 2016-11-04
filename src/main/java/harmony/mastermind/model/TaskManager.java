@@ -106,7 +106,7 @@ public class TaskManager implements ReadOnlyTaskManager {
     
     //@@author generated
     public void setTasks(List<Task> tasks) {
-        this.getUniqueTaskList().getInternalList().sort(comparator);
+        this.tasks.getInternalList().sort(comparator);
         this.tasks.getInternalList().setAll(tasks);
     }
 

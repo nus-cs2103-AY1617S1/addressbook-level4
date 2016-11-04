@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TextField?>
+
+<TextField
+	fx:id="commandField"
+	fx:controller="harmony.mastermind.ui.CommandBox"
+	stylesheets="@MainWindow.css"
+	alignment="BOTTOM_LEFT"
+	onAction="#handleCommandInputChanged"
+	onKeyPressed="#handleKeyPressed"
+	promptText="Enter command here..."
+	xmlns="http://javafx.com/javafx/8.0.101"
+	xmlns:fx="http://javafx.com/fxml/1" />

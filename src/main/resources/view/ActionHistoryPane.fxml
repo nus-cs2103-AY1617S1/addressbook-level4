@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.HBox?>
+
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<TitledPane
+	fx:id="actionHistoryPane"
+	fx:controller="harmony.mastermind.ui.ActionHistoryPane"
+    stylesheets="@MainWindow.css"
+	expanded="false"
+	xmlns="http://javafx.com/javafx/8.0.101"
+    xmlns:fx="http://javafx.com/fxml/1">
+	<content>
+		<HBox>
+			<children>
+				<VBox prefWidth="400.0">
+					<children>
+						<ListView
+							fx:id="actionHistory"
+							VBox.vgrow="ALWAYS" />
+					</children>
+				</VBox>
+				<VBox HBox.hgrow="ALWAYS">
+					<children>
+						<TextArea
+							fx:id="consoleOutput"
+							editable="false"
+							wrapText="true"
+							VBox.vgrow="ALWAYS" />
+					</children>
+				</VBox>
+			</children>
+		</HBox>
+	</content>
+</TitledPane>

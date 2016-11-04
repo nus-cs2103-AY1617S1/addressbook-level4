@@ -11,10 +11,10 @@ import javafx.scene.layout.HBox;
 //@@author A0138862W
 public class ActionHistoryEntry extends UiPart{
 
-    private static final String FXML = "ActionHistoryItem.fxml";
+    private static final String FXML = "ActionHistoryEntry.fxml";
     
     @FXML
-    private HBox actionHistoryItem;
+    private HBox actionHistoryEntry;
     
     @FXML
     private Label title;
@@ -31,7 +31,7 @@ public class ActionHistoryEntry extends UiPart{
     }
 
     public Node getNode(){
-        return actionHistoryItem;
+        return actionHistoryEntry;
     }
     
     public void setTypeFail(){
@@ -46,7 +46,7 @@ public class ActionHistoryEntry extends UiPart{
     
     @Override
     public void setNode(Node node) {
-        actionHistoryItem = (HBox) node;
+        actionHistoryEntry = (HBox) node;
     }
 
     @Override

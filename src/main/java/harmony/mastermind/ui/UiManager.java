@@ -62,7 +62,7 @@ public class UiManager extends ComponentManager implements Ui {
     @Override
     public void stop() {
         prefs.updateLastUsedGuiSetting(mainWindow.getCurrentGuiSetting());
-        mainWindow.disposeAutoCompleteBinding();
+        //mainWindow.disposeAutoCompleteBinding();
         mainWindow.hide();
     }
 
@@ -94,27 +94,27 @@ public class UiManager extends ComponentManager implements Ui {
     // @@author A0138862W
     @Subscribe
     private void handleExecuteCommandEvent(ExecuteCommandEvent event){
-        mainWindow.pushToActionHistory(event.title, event.description);
+        mainWindow.getActionHistoryPane().pushToActionHistory(event.title, event.description);
     }
     //@@author
     
     // @@author A0138862W
     @Subscribe
     private void handleHighlightLastActionedRowRequestEvent(HighlightLastActionedRowRequestEvent event){
-        mainWindow.highlightLastActionedRow(event.task);
+        //mainWindow.highlightLastActionedRow(event.task);
     }
     //@@author
     
     // @@author A0138862W
     @Subscribe
     private void handleToggleActionHistoryRequest(ToggleActionHistoryEvent event){
-        mainWindow.toggleActionHistory();
+        //mainWindow.toggleActionHistory();
     }
     // @@author
 
     // @@author A0124797R
     @Subscribe
     private void handleTaskManagerChanged(TaskManagerChangedEvent event) {
-        mainWindow.updateTabTitle();
+        //mainWindow.updateTabTitle();
     }
 }
