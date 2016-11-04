@@ -226,7 +226,6 @@ public class EditCommand extends UndoableCommand {
         
         assignStartDate();
         assignEndDate();
-        assignRecurrenceRate();
         
         if(endDate != null && startDate != null && endDate.before(startDate)){
             indicateAttemptToExecuteIncorrectCommand();
@@ -238,29 +237,24 @@ public class EditCommand extends UndoableCommand {
         	priority = toEdit.getPriorityValue();
         }      
 
-        model.editTask(taskToEdit, taskName, startDate, endDate, priority, recurrenceRate);
-        updateHistory();
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toEdit));      
-	}
-
-    /*
-     * Set recurrenceRate as the previous one if it exist should the user not input any
-     * Ensure that start date or end date exist, otherwise set recurrence as null even if user input one
-     */
-    private void assignRecurrenceRate() {
         if (recurrenceRate == null && toEdit.getRecurrenceRate().isPresent()) {
-        	recurrenceRate = toEdit.getRecurrenceRate().get();
+            recurrenceRate = toEdit.getRecurrenceRate().get();
         } else if (recurrenceRate != null && !beforeEdit.getStartDate().isPresent() && !beforeEdit.getEndDate().isPresent()
                 && startDate == null && endDate == null){
-            //return new CommandResult(MESSAGE_RECUR_DATE_TIME_CONSTRAINTS);
-            recurrenceRate = null;
+            indicateAttemptToExecuteIncorrectCommand();
+            return new CommandResult(MESSAGE_RECUR_DATE_TIME_CONSTRAINTS);
+            //recurrenceRate = null;
         }
         
         //remove recurrence if the start and end date are removed
         if (removeReccurence || (startDate == null && endDate == null)) {
             recurrenceRate = null;
         }
-    }
+        
+        model.editTask(taskToEdit, taskName, startDate, endDate, priority, recurrenceRate);
+        updateHistory();
+        return new CommandResult(String.format(MESSAGE_SUCCESS, toEdit));      
+	}
 
     private void assignEndDate() {
         //assign previous end date to endDate if user never input one
