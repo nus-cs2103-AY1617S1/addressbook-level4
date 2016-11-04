@@ -8,7 +8,7 @@ import seedu.simply.commons.exceptions.IllegalValueException;
  */
 public class Name {
 
-    public static final String MESSAGE_NAME_CONSTRAINTS = "Task details should be spaces or alphanumeric characters";
+    public static final String MESSAGE_NAME_CONSTRAINTS = "Task details must not contain the ; character!";
     public static final String NAME_VALIDATION_REGEX = "[^;]+";
 
     public final String taskDetails;
