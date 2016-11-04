@@ -12,7 +12,10 @@
    * [Showing full list: `show`](#showing-full-list-show)
    * [Clearing the display: `clear`](#clearing-the-display-clear)
    * [Selecting a task: `select`](#selecting-a-task-select)
+   * [Autocomplete: `TAB` or `SPACEBAR`](#autocomplete-tab-or-spacebar)
    * [Set storage: `setstorage`](#set-storage-setstorage)
+   * [Finding more information about various commands: `help`](#finding-more-information-about-various-commands-help)
+   * [Command History: `UP` and `DOWN` arrow keys](#command-history-up-and-down-arrow-keys)
 * [Saving the data](#saving-the-data)    
 * [Command Summary](#command-summary)
 
@@ -38,24 +41,24 @@
 <!-- @@author A0147619W -->
 ## Features
 
-> **Command Format**
+**Command Format**
 > * Words in angle brackets `<>` are parameters.
 > * The order of parameters is fixed.
 
 <!-- @@author A0139198N -->
-> **Date Format**
-> ForgetMeNot implements Natty(http://natty.joestelmach.com/). Thus, it accepts a wide range of date format. Formats that are accept in ForgetMeNot is listed here:<br>
+**Date Format**
+> ForgetMeNot implements [Natty](http://natty.joestelmach.com/). Thus, it accepts a wide range of date format. Formats that are accept in ForgetMeNot is listed here:<br>
 > * dd/mm/yy
 	eg. 12/11/16
 > * next day/week/month/year<br>
 	eg. next week, next month
-> * <number> days later<br>
+> * days later<br>
 	eg. 2 days later<br>
-> * next <day><br>
+> * next `day`<br>
 	eg. next wednesday, next friday<br>
-> * <number> days after<br>
+> * days after<br>
 	eg. 2 days after 10/11/16, 5 days after next monday<br>
-> * a range of holidays is also accepted. This is the entire list - https://github.com/joestelmach/natty/blob/master/src/main/java/com/joestelmach/natty/Holiday.java
+> * a range of holidays is also accepted. You can check the entire list of accepted holidays [here](https://github.com/joestelmach/natty/blob/master/src/main/java/com/joestelmach/natty/Holiday.java)
 <!-- @@author -->
 
 <!-- @@author A0139671X -->
@@ -67,7 +70,7 @@ Format: `help`
 <!-- @@author A0147619W -->
 #### Adding a Task: `add`
 Adds a task to the task manager<br>
-Time Format: 12-hour clock(Eg:10am, 5:30pm, etc).
+Time Format: 12-hour clock(Eg: 10am, 5:30pm, etc).
  
 * If you want to use keywords such as `at`, `from`, `to` and `by` in the task name in isolation, it should be preceded by a `\\`.             
 * If no particular time is mentioned, ForgetMeNot adds a task at the current time.
@@ -150,7 +153,7 @@ Examples:
 
 #### Editing a Task: `edit`
 Allows the user to edit a particular task. Once a task is given a time, it can only be modified and not removed. If you wish to remove a time from a task, you may delete the task and re-add it without the time. Edit is supported for multiple fields at once. <br>
-Format: `edit <task index> <new detail(s) to edit>`
+Format: `edit <task index> <new detail(s)>`
 
 Example:
 * `edit 2 from 11am to 2pm` 
@@ -184,7 +187,7 @@ Example:
 	
 	Delete task indexed 1.
 	
-#### Finding a Task: `Find`
+#### Finding a Task: `find`
 Finds tasks in ForgetMeNot. ForgetMeNot will display all task with the input keywords. Find does not display subsets of a word. For example, `find home` does not display homework<br>
 Format: `find <task name>`
 
@@ -198,7 +201,7 @@ Example:
 	Finds all task with the word homework or assignment in the name.
 	
 
-### Mark as done: `done`
+#### Mark as done: `done`
 Marks a task as done. A task that is done will be removed from the main list and placed in the done list. <br>
 Format: `done <task index>`
 
@@ -212,41 +215,36 @@ Example:
 Displays all the task for the user to view.<br>
 Format: `show`
 
-##### Showing list for today: `show today`
+#### Showing list for today: `show today`
 Displays all the task for today for the user to view.<br>
 Format: `show today`
 
-##### Showing list for tomorrow: `show tomorrow`
+#### Showing list for tomorrow: `show tomorrow`
 Displays all the task for tomorrow for the user to view.<br>
 Format: `show tomorrow`
 
-##### Showing list for specific date: `show <date>`
-Displays all the task for a specific date for the user to view.<br>
-Format: `show <date>`
-
-Example:
-* `show 10/10/16`
-
-##### Showing list for a specific parameter: `show <parameter>`
+#### Showing list for a specific parameter: `show <parameter>`
 Displays all the task for a specific <parameter> the user to view.<br>
-<parameter> only takes in dates for parameter as show in the examples.<br>
+<parameter> Only takes in dates for parameter as show in the examples.<br>
 Format: `show <parameter>`
 
 Example:
+* `show 10/12/16`
 * `show 2 days later`
 * `show next week`
 * `show 2 days after tmr`
 * `show next tuesday`
+* `show new year`
 
-##### Showing a list for overdue tasks: `show overdue`
+#### Showing a list for overdue tasks: `show overdue`
 Displays all the overdue tasks. <br>
 Format `show overdue`
 
-##### Showing a list for floating tasks: `show floating`
+#### Showing a list for floating tasks: `show floating`
 Displays all the floating tasks. <br>
 Format `show floating`
 
-##### Show all the done tasks: `show done`
+#### Show all the done tasks: `show done`
 Displays all the done tasks. <br>
 Format: `show done`
 
@@ -254,7 +252,7 @@ Format: `show done`
 Clears all the tasks in the task manager <br>
 Format: `clear`
 
-##### Clearing only the done tasks: `clear done`
+#### Clearing only the done tasks: `clear done`
 Clears all the done tasks <br>
 Format: `clear done`
 
@@ -267,20 +265,20 @@ Example:
 * `select 2`
 
 
-#### Autocomplete: `TAB` or `SPACEBAR`
+#### Autocomplete: <kbd>TAB</kbd> or <kbd>SPACEBAR</kbd>
 Autocompletes the unfinished command on pressing `TAB` or `SPACEBAR`. <br>
 It will only complete when it can distinguish exactly what the command is.
 
 Example:
-* Pressing `TAB` or `SPACEBAR` after typing `a` would autocomplete it to `add`
-* Pressing `TAB` or `SPACEBAR` after typing `d` wont do anything as both `done` and `delete` start with `d`
-* Pressing `TAB` or `SPACEBAR` after typing `de` would autocomplete it to `delete
+* Pressing <kbd>TAB</kbd> or <kbd>SPACEBAR</kbd> after typing `a` would autocomplete it to `add`
+* Pressing <kbd>TAB</kbd> or <kbd>SPACEBAR</kbd> after typing `d` wont do anything as both `done` and `delete` start with `d`
+* Pressing <kbd>TAB</kbd> or <kbd>SPACEBAR</kbd> after typing `de` would autocomplete it to `delete
 
 
-#### Command History: `UP` and `DOWN` arrow keys
+#### Command History: <kbd>UP</kbd> and <kbd>DOWN</kbd> arrow keys
 Shows the user the previous commands that he/she typed. <br>
-Pressing the `UP` key would show the last older command. <br>
-Pressing the `DOWN` key would show the last newer command. <br>
+Pressing the <kbd>UP</kbd> key would show the last older command. <br>
+Pressing the <kbd>DOWN</kbd> key would show the last newer command. <br>
 
 
 
@@ -320,19 +318,19 @@ Following is the list of all commands:
 | `edit`      | `edit` `<index>` `<New Parameters>`                | Edits a task with the new parameters           										   |
 | `done`      | `done` `<index>`                                   | Marks a task as done                           										   |
 | `delete`    | `delete` `<index>`                                 | Removes a task from the task manager           										   |
-| `show`      | `show`                                             | Shows all the tasks, due on the parameter(Eg: 5 days later)                               |
+| `show`      | `show`                                             | Shows all the undone task                                |
 |             | `show` done                                        | Shows the done tasks                           										   |
 |             | `show` today                                       | Shows all tasks for today                      										   |
 |             | `show` tmr                                         | Shows all tasks for tomorrow                   										   |
 |             | `show` floating                                    | Shows all the floating tasks                   										   |
 |             | `show` overdue                                     | Shows all the overdue tasks                    										   |
 |             | `show` `<date>`                                    | Shows all tasks for that particular date       										   |
-|             | `show` `<parameter>`                               | Shows all the                     														   |
+|             | `show` `<parameter>`                               | Shows all the tasks, due on the parameter (Eg: 5 days later)                    														   |
 | `undo`      | `undo`                                             | Undoes the most recent command                 										   |
 | `redo`      | `redo`                                             | Redoes the latest undo                         										   |
 | `find`      | `find` `<name>`                                    | Finds a task with task name as <name>          										   |
 | `clear`     | `clear`                                            | Clears all the tasks in the task manager       										   |
 |             | `clear done`                                       | Clears all the done tasks from the done list   										   |
-| `select`    | `select` `<index>`                                 | Highlights the particular task at that index   										   |
+| `select`    | `select` `<index>`                                 | Goes to the particular task at that index   										   |
 |`setstorage` | `setstorage` `<folder name>`                       | Set storage to a particular folder             										   |
 |`exit`       | `exit`                                             | Exits ForgetMeNot                              										   |
