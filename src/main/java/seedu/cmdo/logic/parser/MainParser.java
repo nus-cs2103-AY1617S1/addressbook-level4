@@ -283,10 +283,7 @@ public class MainParser {
     	                String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
     		}    	
         args = args.replaceFirst("[0-9]+\\s", "");
-        //If details is not empty, extract details
-        if(detailToAdd == null || !detailToAdd.equals("")) {
-        	extractDetailForEdit();
-        }
+        extractDetailForEdit();
     	splittedArgs = getCleanString(args).split(" ");
         // Parse date and time
         extractDueByDateAndTime();
@@ -389,7 +386,7 @@ public class MainParser {
     	reset();         			// Clear dates and times		
 	}
 
-    //@@author A0138471A
+    //@@author A0139661Y 
     /**
      * Extracts the detail embedded in user input ' '.
      * 
@@ -399,27 +396,25 @@ public class MainParser {
     	checkValidDetailInput();
     	// Split into '  ...  '
     	String[] details = args.split("^ '(.+)'$");
-    	// Details only, get rid of anything after the '
-    	String output = new StringBuilder(details[0]).replace(details[0].lastIndexOf("'"), 
+    	// Details only, get rid of anything after the last '
+    	String output = new StringBuilder(details[0]).replace(details[0].lastIndexOf("'")+1, 
     													details[0].length(), 
     													"").toString();
-        // Details only, get rid of anything before the ' 
-        for(char o : output.toCharArray()) { 
-          if(o =='\''){ 
-            break; 
-          } 
-          else 
-            output=output.replaceFirst(".", ""); 
-        } 
+    	// Details only, get rid of anything before the first '
+    	output = new StringBuilder(output).replace(0, output.indexOf("'"), "").toString();
+    	System.out.println(details[0]);
+    	System.out.println(output);
+    	// Take out the detail.
+    	args = args.replace(output, "");
+    	System.out.println(args);
     	// Get rid of the first '
-    	output = output.replaceFirst("'","");
+    	output = output.substring(output.indexOf("'")+1, output.lastIndexOf("'"));
+    	System.out.println(output);
     	// Save to instance
     	detailToAdd = output;
-        // return args without details 
-        args = args.replace(output, ""); 
     }
 
-    //@@author A0138471A
+    //@@author A0139661Y 
     /**
      * Extracts the detail embedded in user input ' ' for edit purposes.
      * ie details are optional, and if they are input, should not be empty.
@@ -431,28 +426,7 @@ public class MainParser {
     		detailToAdd = "";
     		return;
     	}
-    	// Split into '  ...  '
-    	String[] details = args.split("^ '(.+)'$");
-    	// Details only, get rid of anything after the '
-    	String output = new StringBuilder(details[0]).replace(details[0].lastIndexOf("'"), 
-    													details[0].length(), 
-    													"").toString();
-        // Details only, get rid of anything before the ' 
-        for(char o : output.toCharArray()){ 
-          if(o =='\''){ 
-            break; 
-          } 
-          else 
-            output=output.replaceFirst(".", ""); 
-        } 
-    	// Get rid of the first '
-    	output = output.replaceFirst("'","");
-    	// Save to instance
-    	detailToAdd = output;
-    	// return rear end
-    	args = new StringBuilder(details[0]).substring(details[0].lastIndexOf("'")+1).toString();
-        // return args without details 
-        args = args.replace(output, ""); 
+    	extractDetail();
     }
 	
     //@@author A0139661Y
