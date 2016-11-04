@@ -25,7 +25,10 @@ public class FindCommand extends Command {
     public static final String COMMAND_SUMMARY = "Searching for a task:"
             + "\n" + COMMAND_WORD + " KEYWORD" + "\n" +  "\n" + "Searching for a task based on date:" + 
             "\n" + COMMAND_WORD + " DATE in DDMMYY format";
-
+    
+    public static final String COMMAND_FORMAT = COMMAND_WORD + " KEYWORD [MORE_KEYWORDS]...";
+    public static final String COMMAND_DESCRIPTION = "Finds task based on keywords input entered";
+    
     private final Set<String> keywords;
     public static ArrayList<GenericMemory> findResult;
     Memory memory;

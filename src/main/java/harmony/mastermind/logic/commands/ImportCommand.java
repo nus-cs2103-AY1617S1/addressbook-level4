@@ -60,6 +60,8 @@ public class ImportCommand extends Command {
     
     public static final String MESSAGE_FAILURE_DUPLICATE_TASK = "Failed to import ics. Duplicate task detected when importing.";
 
+    public static final String COMMAND_FORMAT = "import <File Location>";
+    public static final String COMMAND_DESCRIPTION = "Reads file and add all task from file into Mastermind";
     
     public static final String EXT_CSV = "csv";
     public static final String EXT_ICS = "ics";

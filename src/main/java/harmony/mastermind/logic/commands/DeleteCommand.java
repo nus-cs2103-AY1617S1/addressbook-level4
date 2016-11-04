@@ -27,10 +27,8 @@ public class DeleteCommand extends Command implements Undoable, Redoable {
                                                + " 1";
 
     public static final String MESSAGE_DELETE_TASK_SUCCESS = "Deleted Task: %1$s";
-    public static final String COMMAND_SUMMARY = "Deleting a task:"
-                                                 + "\n"
-                                                 + COMMAND_WORD
-                                                 + " INDEX";
+    public static final String COMMAND_FORMAT = COMMAND_WORD + " INDEX";
+    public static final String COMMAND_DESCRIPTION = "Deletes the task identified by the index number";
 
     public static final String MESSAGE_UNDO_SUCCESS = "[Undo Delete Command] Task added: %1$s";
     public static final String MESSAGE_REDO_SUCCESS = "[Redo Delete Command] Deleted Task: %1$s";

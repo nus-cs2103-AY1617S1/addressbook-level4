@@ -15,6 +15,7 @@ import harmony.mastermind.commons.events.ui.ToggleActionHistoryEvent;
 public class ActionHistoryCommand extends Command {
 
     public static final String COMMAND_KEYWORD_ACTIONHISTORY = "actionhistory";
+    public static final String COMMAND_DESCRIPTION = "Toggles action history bar";
 
     public static final String MESSAGE_SUCCESS = "Action history toggled.";
 

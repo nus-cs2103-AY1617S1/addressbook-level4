@@ -81,7 +81,7 @@ public class UiManager extends ComponentManager implements Ui {
     @Subscribe
     private void handleShowHelpEvent(ShowHelpRequestEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        helpPopup.setContent(event.message);
+        helpPopup.injectData(event.getHelpEntries());
         helpPopup.show(mainWindow.getNode());
     }
 

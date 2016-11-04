@@ -10,10 +10,9 @@ public class ExitCommand extends Command {
 
     public static final String COMMAND_WORD = "exit";
 
-    public static final String MESSAGE_EXIT_ACKNOWLEDGEMENT = "Exiting Schema as requested ...";
+    public static final String MESSAGE_EXIT_ACKNOWLEDGEMENT = "Exiting Mastermind as requested ...";
     
-    public static final String COMMAND_SUMMARY = "Exitting Mastermind:"
-            + "\n" + COMMAND_WORD;
+    public static final String COMMAND_DESCRIPTION = "Exit Mastermind";
 
     public ExitCommand() {}
 

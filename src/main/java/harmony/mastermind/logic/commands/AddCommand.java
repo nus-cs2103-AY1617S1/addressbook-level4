@@ -38,6 +38,8 @@ public class AddCommand extends Command implements Undoable, Redoable {
                                                         + "(?:(?=.*#(?<tags>.+)))?.*";
 
     public static final Pattern COMMAND_ARGUMENTS_PATTERN = Pattern.compile(COMMAND_ARGUMENTS_REGEX);
+    
+    public static final String COMMAND_DESCRIPTION = "Adding a task";
 
     public static final String COMMAND_FORMAT = "Floating Task: (add|do) <task_name> #[<comma_separated_tags>]\n"
                                                 + "Deadline: (add|do) <task_name> by <end_date> [daily|weekly|monthly|yearly] #[comma_separated_tags]\n"
