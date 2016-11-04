@@ -14,70 +14,74 @@ import seedu.flexitrack.testutil.TestUtil;
 import seedu.flexitrack.testutil.TypicalTestTasks;
 
 public class EditCommandTest extends FlexiTrackGuiTest {
-
+    
+    TestTask[] currentList = td.getTypicalSortedTasks();
+    TestTask editedTask;
+    int index;
+    String command;
+    
     @Test
-    public void edit_typicalTaskSet_pass() {
-        TestTask[] currentList = td.getTypicalSortedTasks();
-        TestTask editedTask;
-        int index;
-        String command;
-
-        // edit a task name
+    public void edit_taskName_pass() {
         editedTask = TypicalTestTasks.homework1EditName;
         index = 6;
         command = " n/ Name Edited";
         assertEditSuccess(editedTask, currentList, index, command);
-        currentList = TestUtil.editTasksToList(currentList, index - 1, editedTask);
-
-        // edit a task duedate
+    }
+    
+    @Test
+    public void edit_taskDueDate_pass() {
         editedTask = TypicalTestTasks.homework1EditDueDate;
         index = 6;
         command = " by/ Jan 14 2016 10am";
         assertEditSuccess(editedTask, currentList, index, command);
-        currentList = TestUtil.editTasksToList(currentList, index - 1, editedTask);
-
-        // edit an event name
+    }
+    
+    @Test
+    public void edit_eventName_pass() {
         editedTask = TypicalTestTasks.soccerEditName;
-        index = 5;
+        index = 4;
         command = " n/ Name Edited 2";
         assertEditSuccess(editedTask, currentList, index, command);
-        currentList = TestUtil.editTasksToList(currentList, index - 1, editedTask);
+    }
 
-        // edit an event start time
+    @Test
+    public void edit_eventStartTime_pass() {
         editedTask = TypicalTestTasks.soccerEditStartTime;
-        index = 5;
+        index = 4;
         command = " from/ June 10 2016 9pm";
         assertEditSuccess(editedTask, currentList, index, command);
-        currentList = TestUtil.editTasksToList(currentList, index - 1, editedTask);
-
-        // edit an event end time
+    }
+    
+    @Test
+    public void edit_eventEndTime_pass() {
         editedTask = TypicalTestTasks.soccerEditEndTime;
-        index = 5;
+        index = 4;
         command = " to/ June 30 2020 6am";
         assertEditSuccess(editedTask, currentList, index, command);
-        currentList = TestUtil.editTasksToList(currentList, index - 1, editedTask);
-
-        // edit a floating task name
+    }
+    
+    @Test
+    public void edit_floatingTaskName_pass() {
         editedTask = TypicalTestTasks.homework3EditName;
         index = 2;
         command = " n/ Name Edited 3";
         assertEditSuccess(editedTask, currentList, index, command);
-        currentList = TestUtil.editTasksToList(currentList, index - 1, editedTask);
-
-        // edit a floating task into a task
+    }
+    
+    @Test
+    public void edit_floatingTaskIntoTask_pass() {
         editedTask = TypicalTestTasks.homework3EditToTask;
         index = 2;
         command = " by/ Jun 10 2016 9pm";
         assertEditSuccess(editedTask, currentList, index, command);
-        currentList = TestUtil.editTasksToList(currentList, index - 1, editedTask);
+    }
 
-        // edit a floating task into an event
+    @Test
+    public void edit_floatingTaskIntoEvent_pass() {
         editedTask = TypicalTestTasks.eventEditToEvent;
         index = 1;
         command = " from/ Jun 10 2016 21:00 to/ Jun 30 2016 23:00";
         assertEditSuccess(editedTask, currentList, index, command);
-        currentList = TestUtil.editTasksToList(currentList, index - 1, editedTask);
-
     }
 
     @Test
