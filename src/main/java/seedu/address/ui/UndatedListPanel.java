@@ -21,7 +21,7 @@ import seedu.address.commons.events.ui.UpdateListCountEvent;
 import seedu.address.model.task.ReadOnlyTask;
 
 /**
- * Panel containing the list of persons.
+ * Panel containing the list of undated Tasks.
  */
 public class UndatedListPanel extends UiPart {
     private final Logger logger = LogsCenter.getLogger(UndatedListPanel.class);
@@ -58,11 +58,11 @@ public class UndatedListPanel extends UiPart {
     }
 
     public static UndatedListPanel load(Stage primaryStage, AnchorPane undatedTaskListPlaceholder,
-                                       ObservableList<ReadOnlyTask> personList) {
-        UndatedListPanel personListPanel =
+                                       ObservableList<ReadOnlyTask> undatedTaskList) {
+        UndatedListPanel undatedTaskListPanel =
                 UiPartLoader.loadUiPart(primaryStage, undatedTaskListPlaceholder, new UndatedListPanel());
-        personListPanel.configure(personList); 
-        return personListPanel;
+        undatedTaskListPanel.configure(undatedTaskList); 
+        return undatedTaskListPanel;
     }
 
     private void configure(ObservableList<ReadOnlyTask> undatedTaskList) {
@@ -92,7 +92,7 @@ public class UndatedListPanel extends UiPart {
     private void setEventHandlerForSelectionChangeEvent() {
         undatedListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
-                logger.fine("Selection in person list panel changed to : '" + newValue + "'");
+                logger.fine("Selection in undated task list panel changed to : '" + newValue + "'");
                 raise(new UndatedPanelSelectionChangedEvent(newValue));
             }
         });

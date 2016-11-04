@@ -27,9 +27,9 @@ public class MainWindow extends UiPart {
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
-    // private BrowserPanel browserPanel;
+
     private UndatedListPanel undatedListPanel;
-    private DatedListPanel personListPanel;
+    private DatedListPanel datedListPanel;
     private ResultDisplay resultDisplay;
     private StatusBarFooter statusBarFooter;
     private CommandBox commandBox;
@@ -40,10 +40,10 @@ public class MainWindow extends UiPart {
     private VBox rootLayout;
     private Scene scene;
 
-    private String addressBookName;
+    private String taskManagerName;
 
     @FXML
-    private AnchorPane browserPlaceholder;
+    private AnchorPane undatedTaskPlaceholder;
 
     @FXML
     private AnchorPane commandBoxPlaceholder;
@@ -52,7 +52,7 @@ public class MainWindow extends UiPart {
     private MenuItem helpMenuItem;
 
     @FXML
-    private AnchorPane personListPanelPlaceholder;
+    private AnchorPane datedTaskListPanelPlaceholder;
 
     @FXML
     private AnchorPane resultDisplayPlaceholder;
@@ -78,16 +78,16 @@ public class MainWindow extends UiPart {
     public static MainWindow load(Stage primaryStage, Config config, UserPrefs prefs, Logic logic) {
 
         MainWindow mainWindow = UiPartLoader.loadUiPart(primaryStage, new MainWindow());
-        mainWindow.configure(config.getAppTitle(), config.getAddressBookName(), config, prefs, logic);
+        mainWindow.configure(config.getAppTitle(), config.getTaskManagerName(), config, prefs, logic);
         return mainWindow;
     }
 
-    private void configure(String appTitle, String addressBookName, Config config, UserPrefs prefs,
+    private void configure(String appTitle, String taskManagerName, Config config, UserPrefs prefs,
                            Logic logic) {
 
         //Set dependencies
         this.logic = logic;
-        this.addressBookName = addressBookName;
+        this.taskManagerName = taskManagerName;
         this.config = config;
         this.userPrefs = prefs;
 
@@ -98,19 +98,12 @@ public class MainWindow extends UiPart {
         setWindowDefaultSize(prefs);
         scene = new Scene(rootLayout);
         primaryStage.setScene(scene);
+    }
 
-//        setAccelerators(); //For the menu bar
-    }
-/*
-    private void setAccelerators() {
-        helpMenuItem.setAccelerator(KeyCombination.valueOf("F1"));
-    }
-*/
     void fillInnerParts() {
-        // browserPanel = BrowserPanel.load(browserPlaceholder);
         undatedListPanel = UndatedListPanel.load(primaryStage, getUndatedListPlaceholder(),
                 logic.getFilteredUndatedTaskList());
-        personListPanel = DatedListPanel.load(primaryStage, getDatedListPlaceholder(),
+        datedListPanel = DatedListPanel.load(primaryStage, getDatedListPlaceholder(),
                 logic.getFilteredDatedTaskList());
         resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
         statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getTaskBookFilePath());
@@ -130,11 +123,11 @@ public class MainWindow extends UiPart {
     }
 
     public AnchorPane getUndatedListPlaceholder() {
-        return personListPanelPlaceholder;
+        return datedTaskListPanelPlaceholder;
     }
 
     public AnchorPane getDatedListPlaceholder() {
-        return browserPlaceholder;
+        return undatedTaskPlaceholder;
     }
     
     public void hide() {
@@ -188,20 +181,11 @@ public class MainWindow extends UiPart {
         raise(new ExitAppRequestEvent());
     }
 
-    public DatedListPanel getPersonListPanel() {
-        return this.personListPanel;
+    public DatedListPanel getDatedListPanel() {
+        return this.datedListPanel;
     }
     
     public UndatedListPanel getUndatedListPanel() {
         return this.undatedListPanel;
     }
-/*
-    public void loadPersonPage(ReadOnlyDatedTask person) {
-        browserPanel.loadPersonPage(person);
-    }
-
-    public void releaseResources() {
-        browserPanel.freeResources();
-    }
-*/
 }
