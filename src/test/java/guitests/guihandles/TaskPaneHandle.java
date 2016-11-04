@@ -95,15 +95,7 @@ public class TaskPaneHandle extends GuiHandle {
         }
         for (int i = startPosition; i < tasksInList.size(); i++) {
             ReadOnlyTask taskToFind = tasksInList.get(i);
-            boolean found = false;
-            for (int j = 0; j < tasksToCheck.size(); j++) {
-                ReadOnlyTask taskToCheck = tasksToCheck.get(j);
-                if (taskToCheck.getName().toString().equals(taskToFind.getName().toString())) {
-                    tasksToCheck.remove(j);
-                    found = true;
-                    break;
-                }
-            }
+            boolean found = findAndRemoveTask(tasksToCheck, taskToFind);
             if (!found) {
                 assert false;
                 return false;
@@ -114,6 +106,25 @@ public class TaskPaneHandle extends GuiHandle {
             return false;
         }
         return true;
+    }
+
+    /**
+     * @param tasksToCheck
+     * @param taskToFind
+     * @param found
+     * @return
+     */
+    private boolean findAndRemoveTask(List<ReadOnlyTask> tasksToCheck, ReadOnlyTask taskToFind) {
+        boolean found = false;
+        for (int j = 0; j < tasksToCheck.size(); j++) {
+            ReadOnlyTask taskToCheck = tasksToCheck.get(j);
+            if (taskToCheck.getName().toString().equals(taskToFind.getName().toString())) {
+                tasksToCheck.remove(j);
+                found = true;
+                break;
+            }
+        }
+        return found;
     }
 
     /**

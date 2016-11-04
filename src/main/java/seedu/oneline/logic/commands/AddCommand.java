@@ -63,7 +63,13 @@ public class AddCommand extends Command {
         } catch (IllegalCmdArgsException e) {
             throw new IllegalCmdArgsException(Messages.getInvalidCommandFormatMessage(MESSAGE_USAGE));
         }
-        Task blankTask = new Task(new TaskName("A"), TaskTime.getDefault(), TaskTime.getDefault(), TaskTime.getDefault(), TaskRecurrence.getDefault(), Tag.EMPTY_TAG);
+        Task blankTask = new Task(
+                new TaskName("A"),
+                TaskTime.getDefault(),
+                TaskTime.getDefault(),
+                TaskTime.getDefault(),
+                TaskRecurrence.getDefault(),
+                Tag.EMPTY_TAG);
         return new AddCommand(blankTask.update(fields));
     }
   //@@author

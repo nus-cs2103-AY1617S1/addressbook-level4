@@ -245,8 +245,6 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
         return newTask;
     }
     /**
-     * Returns true if task is floating
-     * 
      * floating task is defined as a task without a start/end time or a deadline
      * 
      * @return true if task is floating
@@ -256,8 +254,6 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
     }
     
     /**
-     * Returns true if task is an event
-     * 
      * event task is defined as a task with a start time and end time
      * 
      * @return true if task is an event
@@ -267,8 +263,6 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
     }
 
     /**
-     * Returns true if task has a deadline
-     * 
      * Note that events and tasks with deadline will have a deadline.
      * Event tasks automatically has its endTime set as the deadline.
      * 

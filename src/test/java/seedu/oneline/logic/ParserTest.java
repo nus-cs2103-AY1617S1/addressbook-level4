@@ -4,7 +4,9 @@ package seedu.oneline.logic;
 
 import static org.junit.Assert.*;
 
+import java.util.AbstractMap.SimpleEntry;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import org.junit.Test;
 
@@ -37,15 +39,15 @@ public class ParserTest {
             e.printStackTrace();
             assert false;
         }
-        assertEquals(6, fields.entrySet().size());
-        assertEquals(testName, fields.get(TaskField.NAME));
-        assertEquals(testStartTime, fields.get(TaskField.START_TIME));
-        assertEquals(testEndTime, fields.get(TaskField.END_TIME));
-        assertEquals(testDeadline, fields.get(TaskField.DEADLINE));
-        assertEquals(testRecurrence, fields.get(TaskField.RECURRENCE));
-        assertEquals(testTag, fields.get(TaskField.TAG));
+        assertEqualFields(fields,
+                new SimpleEntry<TaskField, String>(TaskField.NAME, testName),
+                new SimpleEntry<TaskField, String>(TaskField.START_TIME, testStartTime),
+                new SimpleEntry<TaskField, String>(TaskField.END_TIME, testEndTime),
+                new SimpleEntry<TaskField, String>(TaskField.DEADLINE, testDeadline),
+                new SimpleEntry<TaskField, String>(TaskField.RECURRENCE, testRecurrence),
+                new SimpleEntry<TaskField, String>(TaskField.TAG, testTag));
     }
-    
+    // KEN TODO EXPLAIN DIFF EQUIV CLASSES
     @Test
     public void parser_optionalArgs1_success() {
         String args = testName + " " +
@@ -59,16 +61,15 @@ public class ParserTest {
             e.printStackTrace();
             assert false;
         }
-        assertEquals(4, fields.entrySet().size());
-        assertEquals(testName, fields.get(TaskField.NAME));
-        assertEquals(testEndTime, fields.get(TaskField.END_TIME));
-        assertEquals(testDeadline, fields.get(TaskField.DEADLINE));
-        assertEquals(testTag, fields.get(TaskField.TAG));
+        assertEqualFields(fields,
+                new SimpleEntry<TaskField, String>(TaskField.NAME, testName),
+                new SimpleEntry<TaskField, String>(TaskField.END_TIME, testEndTime),
+                new SimpleEntry<TaskField, String>(TaskField.DEADLINE, testDeadline),
+                new SimpleEntry<TaskField, String>(TaskField.TAG, testTag));
     }
     
     @Test
     public void parser_optionalArgs2_success() {
-        // Optional arguments 2
         String args = CommandConstants.KEYWORD_PREFIX + CommandConstants.KEYWORD_START_TIME + " " + testStartTime + " " +
                CommandConstants.KEYWORD_PREFIX + CommandConstants.KEYWORD_RECURRENCE + " " + testRecurrence;
         Map<TaskField, String> fields = null;
@@ -78,9 +79,20 @@ public class ParserTest {
             e.printStackTrace();
             assert false;
         }
-        assertEquals(2, fields.entrySet().size());
-        assertEquals(testStartTime, fields.get(TaskField.START_TIME));
-        assertEquals(testRecurrence, fields.get(TaskField.RECURRENCE));
+        assertEqualFields(fields,
+                new SimpleEntry<TaskField, String>(TaskField.START_TIME, testStartTime),
+                new SimpleEntry<TaskField, String>(TaskField.RECURRENCE, testRecurrence));
+    }
+    
+    @SafeVarargs
+    private final void assertEqualFields(Map<TaskField, String> actualFields, Entry<TaskField, String> ... expectedFields) {
+        assertEquals(actualFields.size(), expectedFields.length);
+        for (int i = 0; i < expectedFields.length; i++) {
+            Entry<TaskField, String> entry = expectedFields[i];
+            String expectedFieldValue = entry.getValue();
+            String actualFieldValue = actualFields.get(entry.getKey());
+            assertEquals(expectedFieldValue, actualFieldValue);
+        }
     }
     
 }
