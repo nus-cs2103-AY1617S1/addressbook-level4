@@ -68,9 +68,9 @@ public class MainParser {
     private static final Pattern KEYWORDS_ARGS_FORMAT =
             Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more keywords separated by whitespace
 	
-	public static final LocalDate NO_DATE_DEFAULT = LocalDate.MIN;	// All floating tasks are giving this date.
+	public static final LocalDate NO_DATE_DEFAULT = LocalDate.MAX;	// All floating tasks are giving this date.
 	public static final LocalTime NO_TIME_DEFAULT = LocalTime.MAX;	// All timeless tasks are given this time.
-	public static final LocalDateTime NO_DATETIME_DEFAULT = LocalDateTime.of(LocalDate.MIN, LocalTime.MAX);
+	public static final LocalDateTime NO_DATETIME_DEFAULT = LocalDateTime.of(LocalDate.MAX, LocalTime.MAX);
 	public static final String EMPTY_STRING = "";
 	
 	private static LocalDateTime dt = NO_DATETIME_DEFAULT;

@@ -168,7 +168,7 @@ public class Task implements ReadOnlyTask, Comparable {
      */
     
     public boolean isFloatingTask() {
-    	if(getDueByDate().start.equals(LocalDate.MIN)) {
+    	if(getDueByDate().start.equals(LocalDate.MAX)) {
     		return true;
     	}else
     		return false;

@@ -155,8 +155,7 @@ public class TaskCard extends UiPart{
     	} else if(task.getDueByDate().start.isBefore(LocalDate.now().plusDays(9999)) 
     			&& task.getDueByDate().start.isAfter(LocalDate.now())) {
     		status.setFill(new ImagePattern(chill));
-    	}else if(task.getDueByDate().start.isBefore(LocalDate.now())
-    			&& task.getDueByDate().start.isAfter(LocalDate.MIN.plusDays(1))) {
+    	}else if(task.getDueByDate().start.isBefore(LocalDate.now())) {
     		status.setFill(new ImagePattern(overdue));
     		id.setTextFill(Color.RED);
     		detail.setTextFill(Color.RED);

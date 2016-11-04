@@ -249,7 +249,7 @@ public class TaskCategory extends UiPart {
         LocalDate dueDate = dbd.start;
         
         // Floating tasks.
-        if (dueDate.equals(LocalDate.MIN)) {
+        if (dueDate.equals(LocalDate.MAX)) {
             return 0;
         }
         

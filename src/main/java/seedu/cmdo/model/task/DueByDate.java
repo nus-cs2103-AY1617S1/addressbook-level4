@@ -15,7 +15,7 @@ public class DueByDate {
 
     public static final String MESSAGE_DUEBYDATE_CONSTRAINTS = "Due by? You should enter a day, or a date.";
     private final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("MM/dd/uuuu");
-    private final LocalDate NO_DATE = LocalDate.MIN;
+    private final LocalDate NO_DATE = LocalDate.MAX;
 
     public final LocalDate start;
     public LocalDate end;
@@ -29,7 +29,7 @@ public class DueByDate {
      */
     public DueByDate(LocalDate dueByDate) throws IllegalValueException {
         assert dueByDate != null;
-        this.end = LocalDate.MIN;
+        this.end = NO_DATE;
         this.start = dueByDate;
         this.isRange = false;
         if (dueByDate.equals(NO_DATE))
@@ -94,11 +94,11 @@ public class DueByDate {
 	
 	//setter to set it a floating for edit command purpose
 	public void setFloating(){
-		end = LocalDate.MIN;
+		end = NO_DATE;
 	}
 	//to check if date was entered
 	public boolean dateNotEntered(){
-		if (end.equals(LocalDate.MIN) & start.equals(LocalDate.MIN))
+		if (end.equals(NO_DATE) & start.equals(NO_DATE))
 			return true;
 		else
 			return false;

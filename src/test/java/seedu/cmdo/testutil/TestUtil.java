@@ -73,10 +73,10 @@ public class TestUtil {
                     new Task(new Detail("Carl Kurz"), new DueByDate(LocalDate.of(2016,11,30)), new DueByTime(LocalTime.now()), new Priority("low"), new UniqueTagList()),
                     new Task(new Detail("Daniel Meier"), new DueByDate(LocalDate.now()), new DueByTime(LocalTime.of(5, 55)), new Priority("medium"), new UniqueTagList()),
                     new Task(new Detail("Elle Meyer"), new DueByDate(LocalDate.now()), new DueByTime(LocalTime.NOON), new Priority("low"), new UniqueTagList()),
-                    new Task(new Detail("Fiona Kunz"), new DueByDate(LocalDate.MIN), new DueByTime(LocalTime.NOON), new Priority("medium"), new UniqueTagList()),
-                    new Task(new Detail("George Best"), new DueByDate(LocalDate.MIN), new DueByTime(LocalTime.of(6,00)), new Priority("high"), new UniqueTagList()),
+                    new Task(new Detail("Fiona Kunz"), new DueByDate(LocalDate.MAX), new DueByTime(LocalTime.NOON), new Priority("medium"), new UniqueTagList()),
+                    new Task(new Detail("George Best"), new DueByDate(LocalDate.MAX), new DueByTime(LocalTime.of(6,00)), new Priority("high"), new UniqueTagList()),
                     new Task(new Detail("Hoon Meier"), new DueByDate(LocalDate.now().plusDays(1)), new DueByTime(LocalTime.MAX), new Priority("low"), new UniqueTagList()),
-                    new Task(new Detail("Ida Mueller"), new DueByDate(LocalDate.MIN), new DueByTime(LocalTime.MAX), new Priority("low"), new UniqueTagList()) 
+                    new Task(new Detail("Ida Mueller"), new DueByDate(LocalDate.MAX), new DueByTime(LocalTime.MAX), new Priority("low"), new UniqueTagList()) 
             };
         } catch (IllegalValueException e) {
             assert false;
