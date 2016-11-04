@@ -6,10 +6,7 @@ import javafx.collections.transformation.FilteredList;
 import seedu.taskitty.commons.exceptions.DuplicateDataException;
 import seedu.taskitty.commons.util.CollectionUtil;
 import seedu.taskitty.commons.util.DateTimeUtil;
-import seedu.taskitty.commons.util.TimeUtil;
 import seedu.taskitty.ui.ResultDisplay;
-
-import java.time.LocalDateTime;
 import java.util.*;
 
 /**
