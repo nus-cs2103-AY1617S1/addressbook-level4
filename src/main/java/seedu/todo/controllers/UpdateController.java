@@ -87,12 +87,14 @@ public class UpdateController implements Controller {
         // Retrieve record and check if task or event
         EphemeralDB edb = EphemeralDB.getInstance();
         CalendarItem calendarItem = null;
+        boolean isTask;
         try {
             calendarItem = edb.getCalendarItemsByDisplayedId(recordIndex);
+            isTask = calendarItem.getClass() == Task.class;
         } catch (NullPointerException e) {
             System.out.println("Wrong index!");
+            return;
         }
-        boolean isTask = calendarItem.getClass() == Task.class;
         
         // Name
         String name = parseName(parsedResult);
