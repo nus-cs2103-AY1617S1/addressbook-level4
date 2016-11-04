@@ -16,7 +16,7 @@ public class MainGuiHandle extends GuiHandle {
     public TaskListPanelHandle getTaskListPanel() {
         return new TaskListPanelHandle(guiRobot, primaryStage);
     }
-    
+
     public RsvTaskListPanelHandle getRsvTaskListPanel() {
         return new RsvTaskListPanelHandle(guiRobot, primaryStage);
     }

@@ -10,6 +10,7 @@ import javafx.stage.Window;
 import tars.TestApp;
 import tars.commons.core.LogsCenter;
 
+import java.util.Optional;
 import java.util.logging.Logger;
 
 /**
@@ -31,12 +32,14 @@ public class GuiHandle {
 
     public void focusOnWindow(String stageTitle) {
         logger.info("Focusing " + stageTitle);
-        java.util.Optional<Window> window = guiRobot.listTargetWindows()
-                .stream()
-                .filter(w -> w instanceof Stage && ((Stage) w).getTitle().equals(stageTitle)).findAny();
+        Optional<Window> window = guiRobot.listTargetWindows().stream()
+                .filter(w -> w instanceof Stage
+                        && ((Stage) w).getTitle().equals(stageTitle))
+                .findAny();
 
         if (!window.isPresent()) {
-            logger.warning("Can't find stage " + stageTitle + ", Therefore, aborting focusing");
+            logger.warning("Can't find stage " + stageTitle
+                    + ", Therefore, aborting focusing");
             return;
         }
 
@@ -55,8 +58,10 @@ public class GuiHandle {
 
     protected void setTextField(String textFieldId, String newText) {
         guiRobot.clickOn(textFieldId);
-        ((TextField)guiRobot.lookup(textFieldId).tryQuery().get()).setText(newText);
-        guiRobot.sleep(500); // so that the texts stays visible on the GUI for a short period
+        ((TextField) guiRobot.lookup(textFieldId).tryQuery().get())
+        .setText(newText);
+        guiRobot.sleep(500); // so that the texts stays visible on the GUI for a
+        // short period
     }
 
     public void pressEnter() {
@@ -64,7 +69,8 @@ public class GuiHandle {
     }
 
     protected String getTextFromLabel(String fieldId, Node parentNode) {
-        return ((Label) guiRobot.from(parentNode).lookup(fieldId).tryQuery().get()).getText();
+        return ((Label) guiRobot.from(parentNode).lookup(fieldId).tryQuery()
+                .get()).getText();
     }
 
     public void focusOnSelf() {
@@ -78,16 +84,18 @@ public class GuiHandle {
     }
 
     public void closeWindow() {
-        java.util.Optional<Window> window = guiRobot.listTargetWindows()
-                .stream()
-                .filter(w -> w instanceof Stage && ((Stage) w).getTitle().equals(stageTitle)).findAny();
+        Optional<Window> window =
+                guiRobot.listTargetWindows().stream()
+                        .filter(w -> w instanceof Stage
+                                && ((Stage) w).getTitle().equals(stageTitle))
+                        .findAny();
 
         if (!window.isPresent()) {
             return;
         }
 
         guiRobot.targetWindow(window.get());
-        guiRobot.interact(() -> ((Stage)window.get()).close());
+        guiRobot.interact(() -> ((Stage) window.get()).close());
         focusOnMainApp();
     }
 }

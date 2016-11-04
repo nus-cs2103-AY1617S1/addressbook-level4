@@ -12,14 +12,16 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import tars.model.task.rsv.RsvTask;
 
-
 /**
- * Panel containing the list of reserved tasks.
+ * UI Controller for panel containing the list of reserved tasks.
+ * 
+ * @@author A0121533W
  */
 public class RsvTaskListPanel extends UiPart {
     private static final String FXML = "RsvTaskListPanel.fxml";
     private VBox panel;
     private AnchorPane placeHolderPane;
+    private static final int START_INDEX = 1;
 
     @FXML
     private ListView<RsvTask> rsvTaskListView;
@@ -43,10 +45,11 @@ public class RsvTaskListPanel extends UiPart {
         this.placeHolderPane = pane;
     }
 
-    public static RsvTaskListPanel load(Stage primaryStage, AnchorPane rsvTaskListPlaceholder,
-                                       ObservableList<RsvTask> rsvTaskList) {
-        RsvTaskListPanel rsvTaskListPanel =
-                UiPartLoader.loadUiPart(primaryStage, rsvTaskListPlaceholder, new RsvTaskListPanel());
+    public static RsvTaskListPanel load(Stage primaryStage,
+            AnchorPane rsvTaskListPlaceholder,
+            ObservableList<RsvTask> rsvTaskList) {
+        RsvTaskListPanel rsvTaskListPanel = UiPartLoader.loadUiPart(
+                primaryStage, rsvTaskListPlaceholder, new RsvTaskListPanel());
         rsvTaskListPanel.configure(rsvTaskList);
         return rsvTaskListPanel;
     }
@@ -69,14 +72,12 @@ public class RsvTaskListPanel extends UiPart {
     public void scrollTo(int index) {
         Platform.runLater(() -> {
             rsvTaskListView.scrollTo(index);
-            rsvTaskListView.getSelectionModel().clearAndSelect(index);
         });
     }
 
     class RsvTaskListViewCell extends ListCell<RsvTask> {
 
-        public RsvTaskListViewCell() {
-        }
+        public RsvTaskListViewCell() {}
 
         @Override
         protected void updateItem(RsvTask task, boolean empty) {
@@ -86,7 +87,8 @@ public class RsvTaskListPanel extends UiPart {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(RsvTaskCard.load(task, getIndex() + 1).getLayout());
+                setGraphic(RsvTaskCard.load(task, getIndex() + START_INDEX)
+                        .getLayout());
             }
         }
     }

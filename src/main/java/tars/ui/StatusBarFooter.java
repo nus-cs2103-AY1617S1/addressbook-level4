@@ -22,7 +22,8 @@ import java.util.logging.Logger;
  * A ui for the status bar that is displayed at the footer of the application.
  */
 public class StatusBarFooter extends UiPart {
-    private static final Logger logger = LogsCenter.getLogger(StatusBarFooter.class);
+    private static final Logger logger =
+            LogsCenter.getLogger(StatusBarFooter.class);
     private StatusBar syncStatus;
     private StatusBar saveLocationStatus;
 
@@ -37,13 +38,15 @@ public class StatusBarFooter extends UiPart {
     private AnchorPane placeHolder;
 
     private Text locationText = new Text();
-    
-    
+
+
 
     private static final String FXML = "StatusBarFooter.fxml";
 
-    public static StatusBarFooter load(Stage stage, AnchorPane placeHolder, String saveLocation) {
-        StatusBarFooter statusBarFooter = UiPartLoader.loadUiPart(stage, placeHolder, new StatusBarFooter());
+    public static StatusBarFooter load(Stage stage, AnchorPane placeHolder,
+            String saveLocation) {
+        StatusBarFooter statusBarFooter = UiPartLoader.loadUiPart(stage,
+                placeHolder, new StatusBarFooter());
         statusBarFooter.configure(saveLocation);
         return statusBarFooter;
     }
@@ -73,7 +76,8 @@ public class StatusBarFooter extends UiPart {
     private void addSaveLocation() {
         this.saveLocationStatus = new StatusBar();
         this.saveLocationStatus.getRightItems().add(locationText);
-        FxViewUtil.applyAnchorBoundaryParameters(saveLocationStatus, 0.0, 0.0, 0.0, 0.0);
+        FxViewUtil.applyAnchorBoundaryParameters(saveLocationStatus, 0.0, 0.0,
+                0.0, 0.0);
         saveLocStatusBarPane.getChildren().add(saveLocationStatus);
     }
 
@@ -83,7 +87,8 @@ public class StatusBarFooter extends UiPart {
 
     private void addSyncStatus() {
         this.syncStatus = new StatusBar();
-        FxViewUtil.applyAnchorBoundaryParameters(syncStatus, 0.0, 0.0, 0.0, 0.0);
+        FxViewUtil.applyAnchorBoundaryParameters(syncStatus, 0.0, 0.0, 0.0,
+                0.0);
         syncStatusBarPane.getChildren().add(syncStatus);
     }
 
@@ -105,14 +110,17 @@ public class StatusBarFooter extends UiPart {
     @Subscribe
     public void handleTarsChangedEvent(TarsChangedEvent event) {
         String lastUpdated = (new Date()).toString();
-        logger.info(LogsCenter.getEventHandlingLogMessage(event, "Setting last updated status to " + lastUpdated));
+        logger.info(LogsCenter.getEventHandlingLogMessage(event,
+                "Setting last updated status to " + lastUpdated));
         setSyncStatus("Last Updated: " + lastUpdated);
     }
 
     // @@author A0124333U
     @Subscribe
-    private void handleTarsStorageChangeDirectoryEvent(TarsStorageDirectoryChangedEvent event) {
+    private void handleTarsStorageChangeDirectoryEvent(
+            TarsStorageDirectoryChangedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        setSaveLocation("Storage Location Changed: ./" + event.getNewFilePath());
+        setSaveLocation(
+                "Storage Location Changed: " + event.getNewFilePath());
     }
 }

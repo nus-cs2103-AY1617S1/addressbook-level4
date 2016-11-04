@@ -40,7 +40,6 @@ public class AddCommandTest extends TarsGuiTest {
         assertAddSuccess(td.taskA);
 
         // invalid command
-        
         commandBox.runCommand("adds Johnny");
         assertResultMessage(Messages.MESSAGE_UNKNOWN_COMMAND);
         

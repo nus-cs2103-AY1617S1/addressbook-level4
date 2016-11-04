@@ -19,17 +19,15 @@ import tars.commons.util.CollectionUtil;
  * @see RsvTask#equals(Object)
  * @see CollectionUtil#elementsAreUnique(Collection)
  */
-
 public class UniqueRsvTaskList implements Iterable<RsvTask> {
+    
+    private final ObservableList<RsvTask> internalList = FXCollections.observableArrayList();
 
     /**
      * Signals that an operation targeting a specified task in the list would
      * fail because there is no such matching task in the list.
      */
-    public static class RsvTaskNotFoundException extends Exception {
-    }
-
-    private final ObservableList<RsvTask> internalList = FXCollections.observableArrayList();
+    public static class RsvTaskNotFoundException extends Exception {}
 
     /**
      * Constructs empty RsvTaskList.

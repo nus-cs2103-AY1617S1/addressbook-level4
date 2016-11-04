@@ -9,6 +9,9 @@ import tars.logic.commands.Command;
 import tars.logic.commands.DeleteCommand;
 import tars.logic.commands.IncorrectCommand;
 
+/**
+ * Delete command parser
+ */
 public class DeleteCommandParser extends CommandParser {
 
     /**
@@ -21,7 +24,7 @@ public class DeleteCommandParser extends CommandParser {
     public Command prepareCommand(String args) {
         args = args.trim();
 
-        if (EMPTY_STRING.equals(args)) {
+        if (StringUtil.EMPTY_STRING.equals(args)) {
             return new IncorrectCommand(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
         }

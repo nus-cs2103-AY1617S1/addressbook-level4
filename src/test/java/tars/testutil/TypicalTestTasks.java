@@ -6,9 +6,6 @@ import tars.model.Tars;
 import tars.model.task.*;
 import tars.model.task.rsv.RsvTask;
 
-/**
- *
- */
 public class TypicalTestTasks {
 
     public static TestTask taskA, taskB, taskC, taskD, taskE, taskF, taskG, taskH, taskI, cfmTaskA;

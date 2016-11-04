@@ -44,6 +44,15 @@ import java.util.stream.Collectors;
 public class TestUtil {
 
     public static String LS = System.lineSeparator();
+    
+    /**
+     * Folder used for temp files created during testing. Ignored by Git.
+     */
+    public static String SANDBOX_FOLDER = FileUtil.getPath("./src/test/data/sandbox/");
+
+    public static final Task[] sampleTaskData = getSampleTaskData();
+    
+    public static final Tag[] sampleTagData = getSampleTagData();
 
     public static void assertThrows(Class<? extends Throwable> expected, Runnable executable) {
         try {
@@ -59,13 +68,6 @@ public class TestUtil {
         throw new AssertionFailedError(
                 String.format("Expected %s to be thrown, but nothing was thrown.", expected.getName()));
     }
-
-    /**
-     * Folder used for temp files created during testing. Ignored by Git.
-     */
-    public static String SANDBOX_FOLDER = FileUtil.getPath("./src/test/data/sandbox/");
-
-    public static final Task[] sampleTaskData = getSampleTaskData();
 
     private static Task[] getSampleTaskData() {
         try {
@@ -94,8 +96,6 @@ public class TestUtil {
             return null;
         }
     }
-
-    public static final Tag[] sampleTagData = getSampleTagData();
 
     private static Tag[] getSampleTagData() {
         try {
@@ -305,11 +305,9 @@ public class TestUtil {
     /**
      * Returns a copy of the list with the task at specified index removed.
      * 
-     * @param list
-     *            original list to copy from
-     * @param targetIndexInOneIndexedFormat
-     *            e.g. if the first element to be removed, 1 should be given as
-     *            index.
+     * @param list original list to copy from
+     * @param targetIndexInOneIndexedFormat e.g. if the first element to be removed, 1 should be
+     *        given as index.
      */
     public static TestTask[] removeTaskFromList(final TestTask[] list, int targetIndexInOneIndexedFormat) {
         return removeTasksFromList(list, list[targetIndexInOneIndexedFormat - 1]);
@@ -318,12 +316,9 @@ public class TestUtil {
     /**
      * Replaces tasks[i] with a task.
      * 
-     * @param tasks
-     *            The array of tasks.
-     * @param task
-     *            The replacement task
-     * @param index
-     *            The index of the task to be replaced.
+     * @param tasks The array of tasks.
+     * @param task The replacement task
+     * @param index The index of the task to be replaced.
      * @return
      */
     public static TestTask[] replaceTaskFromList(TestTask[] tasks, TestTask task, int index) {
@@ -334,10 +329,8 @@ public class TestUtil {
     /**
      * Appends tasks to the array of tasks.
      * 
-     * @param tasks
-     *            An array of tasks.
-     * @param tasksToAdd
-     *            The tasks that are to be appended behind the original array.
+     * @param tasks An array of tasks.
+     * @param tasksToAdd The tasks that are to be appended behind the original array.
      * @return The modified array of tasks.
      */
     public static TestTask[] addTasksToList(final TestTask[] tasks, TestTask... tasksToAdd) {
@@ -362,7 +355,7 @@ public class TestUtil {
      * Removes a reserved task from the array of rsvTasks
      * @param rsvTasks
      * @param rsvTaskToDel
-     * @return The modifed array of rsv tasks
+     * @return The modified array of rsv tasks
      */
 
     public static TestRsvTask[] delRsvTaskFromList(final TestRsvTask[] rsvTasks, TestRsvTask rsvTaskToDel) {
@@ -376,14 +369,10 @@ public class TestUtil {
      * 
      * @@author A0124333U
      * 
-     * @param tasks
-     *            An array of tasks.
-     * @param indexToEdit
-     *            Index of the task to edit.
-     * @param nameToEdit
-     *            Name of the task to edit.
-     * @param priorityToEdit
-     *            Priority of the task to edit.
+     * @param tasks An array of tasks.
+     * @param indexToEdit Index of the task to edit.
+     * @param nameToEdit Name of the task to edit.
+     * @param priorityToEdit Priority of the task to edit.
      * @return The modified array of tasks.
      */
     public static TestTask[] editTask(final TestTask[] tasks, int indexToEdit, Name nameToEdit,
@@ -400,13 +389,11 @@ public class TestUtil {
      * 
      * @@author A0121533W
      * 
-     * @param tasks
-     *            An array of tasks.
-     * @param indexes
-     *            An array of indexes to mark
+     * @param tasks An array of tasks.
+     * @param indexes An array of indexes to mark
      * @return The modified array of marked tasks
      */
-    public static TestTask[] markTaskDone(final TestTask[] tasks, int[] indexesToMark, Status status) {
+    public static TestTask[] markTasks(final TestTask[] tasks, int[] indexesToMark, Status status) {
         List<TestTask> listOfTasks = asList(tasks);
         for (int i = 0; i < indexesToMark.length; i++) {
             listOfTasks.get(i).setStatus(status);
@@ -429,27 +416,6 @@ public class TestUtil {
 
     public static boolean compareCardAndRsvTask(RsvTaskCardHandle card, RsvTask tasks) {
         return card.isSameRsvTask(tasks);
-    }
-
-    public static Tag[] getTagList(String tags) {
-
-        if (tags.equals("")) {
-            return new Tag[] {};
-        }
-
-        final String[] split = tags.split(", ");
-
-        final List<Tag> collect = Arrays.asList(split).stream().map(e -> {
-            try {
-                return new Tag(e.replaceFirst("Tag: ", ""));
-            } catch (IllegalValueException e1) {
-                // not possible
-                assert false;
-                return null;
-            }
-        }).collect(Collectors.toList());
-
-        return collect.toArray(new Tag[split.length]);
     }
 
 }

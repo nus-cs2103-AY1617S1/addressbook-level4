@@ -4,17 +4,19 @@ import java.io.IOException;
 import java.util.logging.*;
 
 import tars.commons.events.BaseEvent;
+import tars.commons.util.StringUtil;
 
 /**
- * Configures and manages loggers and handlers, including their logging level
- * Named {@link Logger}s can be obtained from this class<br>
- * These loggers have been configured to output messages to the console and a {@code .log} file by default,
- *   at the {@code INFO} level. A new {@code .log} file with a new numbering will be created after the log
- *   file reaches 5MB big, up to a maximum of 5 files.<br>
+ * Configures and manages loggers and handlers, including their logging level Named {@link Logger}s
+ * can be obtained from this class<br>
+ * These loggers have been configured to output messages to the console and a {@code .log} file by
+ * default, at the {@code INFO} level. A new {@code .log} file with a new numbering will be created
+ * after the log file reaches 5MB big, up to a maximum of 5 files.<br>
  */
 public class LogsCenter {
     private static final int MAX_FILE_COUNT = 5;
-    private static final int MAX_FILE_SIZE_IN_BYTES = (int) (Math.pow(2, 20) * 5); // 5MB
+    private static final int MAX_FILE_SIZE_IN_BYTES =
+            (int) (Math.pow(2, 20) * 5); // 5MB
     private static final String LOG_FILE = "tars.log";
     private static Level currentLogLevel = Level.INFO;
     private static final Logger logger = LogsCenter.getLogger(LogsCenter.class);
@@ -22,10 +24,10 @@ public class LogsCenter {
     private static ConsoleHandler consoleHandler;
 
     /**
-     * Initializes with a custom log level (specified in the {@code config} object)
-     * Loggers obtained *AFTER* this initialization will have their logging level changed<br>
-     * Logging levels for existing loggers will only be updated if the logger with the same name is requested again
-     * from the LogsCenter.
+     * Initializes with a custom log level (specified in the {@code config} object) Loggers obtained
+     * *AFTER* this initialization will have their logging level changed<br>
+     * Logging levels for existing loggers will only be updated if the logger with the same name is
+     * requested again from the LogsCenter.
      */
     public static void init(Config config) {
         currentLogLevel = config.getLogLevel();
@@ -47,7 +49,8 @@ public class LogsCenter {
     }
 
     private static void addConsoleHandler(Logger logger) {
-        if (consoleHandler == null) consoleHandler = createConsoleHandler();
+        if (consoleHandler == null)
+            consoleHandler = createConsoleHandler();
         logger.addHandler(consoleHandler);
     }
 
@@ -60,7 +63,8 @@ public class LogsCenter {
 
     private static void addFileHandler(Logger logger) {
         try {
-            if (fileHandler == null) fileHandler = createFileHandler();
+            if (fileHandler == null)
+                fileHandler = createFileHandler();
             logger.addHandler(fileHandler);
         } catch (IOException e) {
             logger.warning("Error adding file handler for logger.");
@@ -68,7 +72,8 @@ public class LogsCenter {
     }
 
     private static FileHandler createFileHandler() throws IOException {
-        FileHandler fileHandler = new FileHandler(LOG_FILE, MAX_FILE_SIZE_IN_BYTES, MAX_FILE_COUNT, true);
+        FileHandler fileHandler = new FileHandler(LOG_FILE,
+                MAX_FILE_SIZE_IN_BYTES, MAX_FILE_COUNT, true);
         fileHandler.setFormatter(new SimpleFormatter());
         fileHandler.setLevel(currentLogLevel);
         return fileHandler;
@@ -84,21 +89,25 @@ public class LogsCenter {
      * Creates a Logger for the given class name.
      */
     public static <T> Logger getLogger(Class<T> clazz) {
-        if (clazz == null) return Logger.getLogger("");
+        if (clazz == null)
+            return Logger.getLogger(StringUtil.EMPTY_STRING);
         return getLogger(clazz.getSimpleName());
     }
 
     /**
-     * Decorates the given string to create a log message suitable for logging event handling methods.
+     * Decorates the given string to create a log message suitable for logging event handling
+     * methods.
      */
-    public static String getEventHandlingLogMessage(BaseEvent e, String message) {
-        return "---[Event handled][" + e + "]" + message;
+    public static String getEventHandlingLogMessage(BaseEvent e,
+            String message) {
+        return "---[Event handled]" + StringUtil.STRING_SQUARE_BRACKET_OPEN + e
+                + StringUtil.STRING_SQUARE_BRACKET_CLOSE + message;
     }
 
     /**
      * @see #getEventHandlingLogMessage(BaseEvent, String)
      */
     public static String getEventHandlingLogMessage(BaseEvent e) {
-        return getEventHandlingLogMessage(e,"");
+        return getEventHandlingLogMessage(e, StringUtil.EMPTY_STRING);
     }
 }

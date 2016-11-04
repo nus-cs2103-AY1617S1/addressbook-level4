@@ -1,5 +1,8 @@
 package tars.ui;
 
+import java.util.ArrayList;
+
+import edu.emory.mathcs.backport.java.util.Collections;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.fxml.FXML;
@@ -8,9 +11,16 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
+import tars.model.task.DateTime;
 import tars.model.task.rsv.RsvTask;
+import tars.ui.formatter.Formatter;
 
-public class RsvTaskCard extends UiPart{
+/**
+ * UI Controller for Reserve Task Card
+ * 
+ * @@author A0121533W
+ */
+public class RsvTaskCard extends UiPart {
 
     private static final String FXML = "RsvTaskListCard.fxml";
     private static final String DATETIMELIST_ID = "dateTimeList";
@@ -30,11 +40,11 @@ public class RsvTaskCard extends UiPart{
     private RsvTask rsvTask;
     private int displayedIndex;
 
-    public RsvTaskCard(){
+    public RsvTaskCard() {
 
     }
 
-    public static RsvTaskCard load(RsvTask rsvTask, int displayedIndex){
+    public static RsvTaskCard load(RsvTask rsvTask, int displayedIndex) {
         RsvTaskCard card = new RsvTaskCard();
         card.cardPane = new HBox();
         card.dateTimeListPane = new AnchorPane();
@@ -62,13 +72,15 @@ public class RsvTaskCard extends UiPart{
         dateTimeListArea.setPrefSize(200, 75);
         dateTimeListArea.textProperty().bind(dateTimeListdisplayed);
         dateTimeListArea.autosize();
-        
+
         dateTimeListPane.getChildren().add(dateTimeListArea);
         cardPane.getChildren().add(dateTimeListPane);
     }
 
     private void setDateTimeList() {
-        String toSet = Formatter.formatDateTimeList(rsvTask);
+        ArrayList<DateTime> dateTimeList = rsvTask.getDateTimeList();
+        Collections.sort(dateTimeList);
+        String toSet = Formatter.formatDateTimeList(dateTimeList);
         dateTimeListdisplayed.setValue(toSet);
     }
 

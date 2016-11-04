@@ -6,18 +6,26 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
-import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import tars.commons.events.model.TarsChangedEvent;
+import tars.commons.util.StringUtil;
 import tars.model.task.ReadOnlyTask;
+import tars.ui.formatter.DateFormatter;
 
-public class TaskCard extends UiPart{
+/**
+ * UI Controller for Task Card
+ * 
+ * @@author A0121533W
+ *
+ */
+public class TaskCard extends UiPart {
 
     private static final String FXML = "TaskListCard.fxml";
     private static final String PRIORITY_HIGH = "high";
     private static final String PRIORITY_MEDIUM = "medium";
     private static final String PRIORITY_LOW = "low";
     private static final String STATUS_UNDONE = "Undone";
+    private static final Object STATUS_DONE = "Done";
 
     @FXML
     private HBox cardPane;
@@ -26,33 +34,22 @@ public class TaskCard extends UiPart{
     @FXML
     private Label id;
     @FXML
-    private Label start;
-    @FXML
-    private Label end;
-    @FXML
-    private Label startDate;
-    @FXML
-    private Label endDate;
+    private Label date;
     @FXML
     private Label statusTick;
     @FXML
     private Label tags;
     @FXML
     private Circle priorityCircle;
-    @FXML
-    private Label status;
-    @FXML
-    private Label priority;
 
     private ReadOnlyTask task;
     private int displayedIndex;
 
-
-    public TaskCard(){
+    public TaskCard() {
 
     }
 
-    public static TaskCard load(ReadOnlyTask task, int displayedIndex){
+    public static TaskCard load(ReadOnlyTask task, int displayedIndex) {
         TaskCard card = new TaskCard();
         card.task = task;
         card.displayedIndex = displayedIndex;
@@ -66,89 +63,58 @@ public class TaskCard extends UiPart{
         setIndex();
         setDate();
         setPriority();
-        setStatus();
+        setTickColorByStatus();
         setTags();
-        setTextFill();
+        setTextFillByStatus();
     }
 
     private void setName() {
         name.setText(task.getName().taskName);
-    }   
+    }
 
     private void setIndex() {
         id.setText(displayedIndex + ". ");
     }
 
     private void setDate() {
-        String startDateString = task.getDateTime().startDateString;
-        String endDateString = task.getDateTime().endDateString;
-        if (startDateString == null) {
-            startDate.setVisible(false);
-            startDate.setManaged(false);
-        } else if (startDateString != null) {
-            startDate.setText(startDateString);
-        }
-        if (endDateString == null) {
-            endDate.setVisible(false);
-            endDate.setManaged(false);
-        } else if (endDateString != null){
-            endDate.setText(endDateString);
-        }      
+        date.setText(DateFormatter.formatDate(task.getDateTime()));
     }
 
     /**
-     * Sets tick color based on task's status
+     * Sets tick priority color based on the status of a task
      */
-    private void setStatus() {
+    private void setTickColorByStatus() {
         if (task.getStatus().toString().equals(STATUS_UNDONE)) {
-            String tickColor = "";
-            switch (task.priorityString()) {
-            case PRIORITY_HIGH:
-                tickColor = "red";
-                break;
-            case PRIORITY_MEDIUM:
-                tickColor = "orange";
-                break;
-            case PRIORITY_LOW:
-                tickColor = "green";
-                break;  
-            default:
-                tickColor = "darkgrey";
-            }
-            statusTick.setStyle("-fx-text-fill: " + tickColor);
+            statusTick.setStyle("-fx-text-fill: transparent");
         } else {
-            statusTick.setStyle("-fx-text-fill: #F5F5F5");
+            statusTick.setStyle(UiColor.STATUS_DONE_TICK_COLOR);
         }
-        status.setText(task.getStatus().toString());
-        status.setVisible(false);
-        status.setManaged(false);
     }
 
     /**
-     * Set text to different color based on status of task
+     * Sets text to different color based on the status of a task
      */
-    private void setTextFill() {
-        if (task.getStatus().toString().equals(STATUS_UNDONE)) {
-            id.setStyle("-fx-text-fill: #212121");
-            name.setStyle("-fx-text-fill: #212121");
-            start.setStyle("-fx-text-fill: #212121");
-            startDate.setStyle("-fx-text-fill: #212121");
-            end.setStyle("-fx-text-fill: #212121");
-            endDate.setStyle("-fx-text-fill: #212121");
+    private void setTextFillByStatus() {
+        String taskStatus = task.getStatus().toString();
+        String color = StringUtil.EMPTY_STRING;
+        if (taskStatus.equals(STATUS_UNDONE)) {
+            color = UiColor.STATUS_UNDONE_TEXT_FILL;
+        } else if (taskStatus.equals(STATUS_DONE)) {
+            color = UiColor.STATUS_DONE_TEXT_FILL;
         } else {
-            id.setStyle("-fx-text-fill: #BDBDBD");
-            name.setStyle("-fx-text-fill: #BDBDBD");
-            start.setStyle("-fx-text-fill: #BDBDBD");
-            startDate.setStyle("-fx-text-fill: #BDBDBD");
-            end.setStyle("-fx-text-fill: #BDBDBD");
-            endDate.setStyle("-fx-text-fill: #BDBDBD");
+            // default case
+            color = UiColor.STATUS_UNDONE_TEXT_FILL;
         }
+        id.setStyle(color);
+        name.setStyle(color);
+        date.setStyle(color);
+        tags.setStyle(color);
     }
 
     @Subscribe
     private void handleTarsChangeEvent(TarsChangedEvent event) {
-        setTextFill();
-        setStatus();
+        setTextFillByStatus();
+        setTickColorByStatus();
     }
 
     /**
@@ -158,25 +124,25 @@ public class TaskCard extends UiPart{
      */
     private void setPriority() {
         switch (task.priorityString()) {
-        case PRIORITY_HIGH:
-            priorityCircle.setFill(Color.RED);
-            break;
-        case PRIORITY_MEDIUM:
-            priorityCircle.setFill(Color.ORANGE);
-            break;
-        case PRIORITY_LOW:
-            priorityCircle.setFill(Color.GREEN);
-            break;  
-        default:
-            priorityCircle.setFill(Color.DARKGREY);
+            case PRIORITY_HIGH:
+                priorityCircle.setFill(UiColor.Priority.HIGH.getCircleColor());
+                break;
+            case PRIORITY_MEDIUM:
+                priorityCircle
+                        .setFill(UiColor.Priority.MEDIUM.getCircleColor());
+                break;
+            case PRIORITY_LOW:
+                priorityCircle.setFill(UiColor.Priority.LOW.getCircleColor());
+                break;
+            default:
+                priorityCircle
+                        .setFill(UiColor.Priority.DEFAULT.getCircleColor());
+                break;
         }
-        priority.setText(task.priorityString());
-        priority.setVisible(false);
-        priority.setManaged(false);
     }
 
     private void setTags() {
-        tags.setText(task.tagsString());        
+        tags.setText(task.tagsString());
     }
 
     public HBox getLayout() {
@@ -185,7 +151,7 @@ public class TaskCard extends UiPart{
 
     @Override
     public void setNode(Node node) {
-        cardPane = (HBox)node;
+        cardPane = (HBox) node;
     }
 
     @Override

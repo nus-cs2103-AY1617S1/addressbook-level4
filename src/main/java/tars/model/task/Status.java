@@ -6,6 +6,8 @@ package tars.model.task;
 public class Status {
     private static final String MESSAGE_STATUS_DONE = "Done";
     private static final String MESSAGE_STATUS_UNDONE = "Undone";
+    public static final boolean DONE = true;
+    public static final boolean UNDONE = false;
 
     public boolean status;
 
@@ -13,7 +15,7 @@ public class Status {
      * Default constructor
      */
     public Status() {
-        status = false;
+        status = UNDONE;
     }
     
     /**

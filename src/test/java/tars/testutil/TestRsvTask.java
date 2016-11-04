@@ -3,12 +3,7 @@ package tars.testutil;
 import tars.model.task.DateTime;
 import tars.model.task.rsv.RsvTask;
 
-public class TestRsvTask extends RsvTask {
-    
-    public TestRsvTask() {
-        
-    }
-    
+public class TestRsvTask extends RsvTask { 
    
     public void setDateTimeList(DateTime...dateTimes) {
         for (DateTime dt : dateTimes) {

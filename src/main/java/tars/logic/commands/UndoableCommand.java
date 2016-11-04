@@ -6,8 +6,8 @@ package tars.logic.commands;
  * @@author A0139924W
  */
 public abstract class UndoableCommand extends Command {
-    
+
     public abstract CommandResult undo();
-    
+
     public abstract CommandResult redo();
 }

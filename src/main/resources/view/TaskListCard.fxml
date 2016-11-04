@@ -12,90 +12,64 @@
 <?import javafx.scene.text.Font?>
 
 <HBox id="cardPane" fx:id="cardPane" prefWidth="270.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
-    <children>
-        <GridPane HBox.hgrow="ALWAYS">
-            <columnConstraints>
-                <ColumnConstraints hgrow="ALWAYS" />
-                <ColumnConstraints percentWidth="20.0" />
-            </columnConstraints>
-            <children>
-                <VBox alignment="CENTER_LEFT" maxHeight="80.0" minHeight="70.0" prefHeight="75.0" GridPane.columnIndex="0">
-                    <stylesheets>
-                        <URL value="@TarsTheme.css" />
-                        <URL value="@Extensions.css" />
-                    </stylesheets>
+	<children>
+		<GridPane HBox.hgrow="ALWAYS">
+			<columnConstraints>
+				<ColumnConstraints hgrow="ALWAYS" />
+				<ColumnConstraints percentWidth="20.0" />
+			</columnConstraints>
+			<children>
+				<VBox alignment="CENTER_LEFT" maxHeight="80.0" minHeight="70.0" prefHeight="75.0" GridPane.columnIndex="0">
+					<stylesheets>
+						<URL value="@TarsTheme.css" />
+						<URL value="@Extensions.css" />
+					</stylesheets>
 
-                          <children>
-                        <HBox alignment="CENTER_LEFT" spacing="5">
-                            <children>
-                                <HBox>
-                                    <Label fx:id="id" styleClass="cell_index_label" />
-                                    <Label fx:id="name" styleClass="cell_big_label" text="\$first">
-                              <HBox.margin>
-                                 <Insets bottom="5.0" />
-                              </HBox.margin>
-                           </Label>
-                                </HBox>
-                                <Label fx:id="tags" styleClass="cell_small_label" text="\$tags">
-                           <HBox.margin>
-                              <Insets bottom="5.0" />
-                           </HBox.margin>
-                        </Label>
-                            </children>
-                        </HBox>
-                  <Label fx:id="startDate" layoutX="25.0" layoutY="52.0" styleClass="cell_small_label" text="\$startDate">
-                     <graphic>
-                        <Label fx:id="start" styleClass="cell_medium_label" text="Start:">
-                           <padding>
-                              <Insets left="5.0" right="5.0" />
-                           </padding>
-                        </Label>
-                     </graphic>
-                     <VBox.margin>
-                        <Insets />
-                     </VBox.margin>
-                  </Label>
-                        <Label fx:id="endDate" styleClass="cell_small_label" text="\$endDate">
-                     <graphic>
-                        <Label fx:id="end" styleClass="cell_medium_label" text="End:">
-                           <padding>
-                              <Insets left="5.0" right="5.0" />
-                           </padding>
-                        </Label>
-                     </graphic>
-                  </Label>
-                    </children>
-               <padding>
-                  <Insets left="15.0" />
-               </padding>
-                </VBox>
-            <Label fx:id="status" text="Label" textFill="WHITE">
-               <font>
-                  <Font size="1.0" />
-               </font>
-            </Label>
-            <Label fx:id="priority" text="Label" textFill="WHITE">
-               <font>
-                  <Font size="1.0" />
-               </font>
-            </Label>
-            <Circle fx:id="priorityCircle" fill="#8d9194" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.valignment="CENTER">
-               <GridPane.margin>
-                  <Insets right="15.0" />
-               </GridPane.margin>
-            </Circle>
-            <Label fx:id="statusTick" prefHeight="15.0" prefWidth="18.0" text="✔" textAlignment="CENTER" textFill="#8d9194" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.valignment="CENTER">
-               <font>
-                  <Font size="10.0" />
-               </font>
-               <GridPane.margin>
-                  <Insets right="13.0" top="2.0" />
-               </GridPane.margin>
-            </Label>
-            </children>
-         <rowConstraints>
-            <RowConstraints />
-         </rowConstraints>
-        </GridPane>
-    </children>
+					<children>
+						<HBox alignment="CENTER_LEFT" spacing="5">
+							<children>
+								<HBox>
+									<Label fx:id="id" styleClass="cell_index_label" />
+									<Label fx:id="name" styleClass="cell_big_label" text="\$first">
+										<HBox.margin>
+											<Insets bottom="5.0" />
+										</HBox.margin>
+									</Label>
+								</HBox>
+								<Label fx:id="tags" styleClass="cell_small_label" text="\$tags">
+									<HBox.margin>
+										<Insets bottom="5.0" />
+									</HBox.margin>
+								</Label>
+							</children>
+						</HBox>
+						<Label fx:id="date" layoutX="25.0" layoutY="52.0" styleClass="cell_small_label" text="\$date">
+							<VBox.margin>
+								<Insets />
+							</VBox.margin>
+						</Label>
+					</children>
+					<padding>
+						<Insets left="15.0" />
+					</padding>
+				</VBox>
+				<Circle fx:id="priorityCircle" fill="#8d9194" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.valignment="CENTER">
+					<GridPane.margin>
+						<Insets right="15.0" />
+					</GridPane.margin>
+				</Circle>
+				<Label fx:id="statusTick" prefHeight="15.0" prefWidth="18.0" text="✔" textAlignment="CENTER" textFill="#8d9194" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.valignment="CENTER">
+					<font>
+						<Font size="10.0" />
+					</font>
+					<GridPane.margin>
+						<Insets right="13.0" top="2.0" />
+					</GridPane.margin>
+				</Label>
+			</children>
+			<rowConstraints>
+				<RowConstraints />
+			</rowConstraints>
+		</GridPane>
+	</children>
 </HBox>

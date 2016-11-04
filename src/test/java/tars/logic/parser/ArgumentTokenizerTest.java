@@ -6,6 +6,14 @@ import static org.junit.Assert.assertFalse;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
+/**
+ * Argument tokenizer test.
+ * 
+ * Credit: Test adapted from nus-cs2103-AY1617S1/addressbook-level4
+ * 
+ * @@author A0139924W
+ *
+ */
 public class ArgumentTokenizerTest {
     private static final Prefix unknownPrefix = new Prefix("/uuuuuu");
     private static final Prefix tagPrefix = new Prefix("/t");
@@ -79,7 +87,7 @@ public class ArgumentTokenizerTest {
         /** Also covers: testing for prefixes not specified as a prefix **/
 
         // Prefixes not previously given to the tokenizer should not return any values
-        String stringWithUnknownPrefix = unknownPrefix.prefix + "some value";
+        String stringWithUnknownPrefix = unknownPrefix.value + "some value";
         tokenizer.tokenize(stringWithUnknownPrefix);
         assertArgumentAbsent(tokenizer, unknownPrefix);
         assertPreamblePresent(tokenizer, stringWithUnknownPrefix); // Unknown prefix is taken as part of preamble

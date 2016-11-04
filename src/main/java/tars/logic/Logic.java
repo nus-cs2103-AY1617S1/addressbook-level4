@@ -1,5 +1,7 @@
 package tars.logic;
 
+import java.util.List;
+
 import javafx.collections.ObservableList;
 import tars.logic.commands.CommandResult;
 import tars.model.task.ReadOnlyTask;
@@ -15,6 +17,9 @@ public interface Logic {
      * @return the result of the command execution.
      */
     CommandResult execute(String commandText);
+    
+    /** Returns the unmodifiable list of tasks */
+    List<ReadOnlyTask> getTaskList();
 
     /** Returns the filtered list of tasks */
     ObservableList<ReadOnlyTask> getFilteredTaskList();

@@ -1,6 +1,5 @@
 package tars.storage;
 
-
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -23,7 +22,7 @@ public class StorageManagerTest {
 
 
     @Before
-    public void setup() {
+    public void setUp() {
         storageManager = new StorageManager(getTempFilePath("ab"), getTempFilePath("prefs"));
     }
 

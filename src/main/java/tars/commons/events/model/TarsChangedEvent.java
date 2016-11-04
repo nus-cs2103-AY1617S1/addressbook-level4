@@ -14,7 +14,8 @@ public class TarsChangedEvent extends BaseEvent {
 
     @Override
     public String toString() {
-        return "number of tasks " + data.getTaskList().size() + ", number of reserved tasks "
-                + data.getRsvTaskList().size() + ", number of tags " + data.getTagList().size();
+        return "number of tasks " + data.getTaskList().size()
+                + ", number of reserved tasks " + data.getRsvTaskList().size()
+                + ", number of tags " + data.getTagList().size();
     }
 }

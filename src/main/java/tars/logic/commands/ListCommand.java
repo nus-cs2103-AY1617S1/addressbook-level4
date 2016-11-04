@@ -2,6 +2,9 @@ package tars.logic.commands;
 
 import java.util.Set;
 
+import tars.commons.core.EventsCenter;
+import tars.commons.events.ui.ScrollToTopEvent;
+
 import static tars.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 /**
@@ -20,7 +23,7 @@ public class ListCommand extends Command {
 	public static final String MESSAGE_SUCCESS_PRIORITY_DESCENDING = "Listed all tasks by priority from high to low";
 
 	public static final String MESSAGE_USAGE = COMMAND_WORD
-			+ ": Lists all task with the specified keywords and displays them as a list with index numbers.\n"
+			+ ": Lists all tasks.\n"
 			+ "Parameters: [KEYWORD] " + "Example: " + COMMAND_WORD + " /dt";
 
 	private static final String LIST_ARG_DATETIME = "/dt";
@@ -38,6 +41,7 @@ public class ListCommand extends Command {
 
 	@Override
 	public CommandResult execute() {
+	    EventsCenter.getInstance().post(new ScrollToTopEvent());
 		if (keywords != null && !keywords.isEmpty()) {
 			if (keywords.contains(LIST_ARG_DATETIME) || keywords.contains(LIST_ARG_PRIORITY)
 					|| keywords.contains(LIST_KEYWORD_DESCENDING)) {

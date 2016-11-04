@@ -4,6 +4,8 @@ import tars.logic.commands.Command;
 
 /**
  * Represents a parser command with hidden internal logic and the ability to be executed.
+ * 
+ * @@author A0139924W
  */
 public abstract class CommandParser {
     protected static final Prefix namePrefix = new Prefix("/n");
@@ -18,9 +20,6 @@ public abstract class CommandParser {
     protected static final Prefix undonePrefix = new Prefix("/ud");
     protected static final Prefix listPrefix = new Prefix("/ls");
     protected static final Prefix editPrefix = new Prefix("/e");
-    
-    protected static final String EMPTY_STRING = "";
-    protected static final String EMPTY_SPACE_ONE = " ";
 
     public abstract Command prepareCommand(String args);
 }

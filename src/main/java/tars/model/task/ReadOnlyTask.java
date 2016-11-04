@@ -1,5 +1,6 @@
 package tars.model.task;
 
+import tars.commons.util.StringUtil;
 import tars.model.tag.UniqueTagList;
 
 /**
@@ -74,7 +75,7 @@ public interface ReadOnlyTask {
             level = PRIORITY_LOW;
             break;
         default:
-            level = "";
+            level = StringUtil.EMPTY_STRING;
             break;
         }
         return level;
@@ -85,10 +86,10 @@ public interface ReadOnlyTask {
      */
     default String tagsString() {
         final StringBuffer buffer = new StringBuffer();
-        final String separator = ", ";
+        final String separator = StringUtil.STRING_COMMA;
         getTags().forEach(tag -> buffer.append(tag).append(separator));
         if (buffer.length() == 0) {
-            return "";
+            return StringUtil.EMPTY_STRING;
         } else {
             return buffer.substring(0, buffer.length() - separator.length());
         }

@@ -19,8 +19,8 @@ public class HelpPanelHandle extends GuiHandle {
     }
 
     public boolean isTabSelected() {
-        return ((TabPane) getNode(TAB_PANEL_ROOT_FIELD_ID)).getSelectionModel().isSelected(MainWindow.HELP_PANEL_TAB_PANE_INDEX);
+        return ((TabPane) getNode(TAB_PANEL_ROOT_FIELD_ID)).getSelectionModel()
+                .isSelected(MainWindow.HELP_PANEL_TAB_PANE_INDEX);
     }
-
 
 }

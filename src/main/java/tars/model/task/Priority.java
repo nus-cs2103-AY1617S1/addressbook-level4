@@ -26,13 +26,12 @@ public class Priority implements Comparable<Priority> {
     private static final int PRIORITY_COMPARE_BIGGER = 1;
 
     public String priorityLevel;
-    public int level;
+    private int level;
 
     /**
      * Validates given task priority level.
      *
-     * @throws IllegalValueException
-     *             if given priority level string is invalid.
+     * @throws IllegalValueException if given priority level string is invalid.
      */
     public Priority(String priorityLevel) throws IllegalValueException {
         assert priorityLevel != null;
@@ -43,15 +42,17 @@ public class Priority implements Comparable<Priority> {
         this.priorityLevel = priorityLevel;
 
         switch (this.priorityLevel) {
-        case PRIORITY_LEVEL_LOW:
-            level = PRIORITY_LEVEL_ONE;
-            break;
-        case PRIORITY_LEVEL_MEDIUM:
-            level = PRIORITY_LEVEL_TWO;
-            break;
-        case PRIORITY_LEVEL_HIGH:
-            level = PRIORITY_LEVEL_THREE;
-            break;
+            case PRIORITY_LEVEL_LOW :
+                level = PRIORITY_LEVEL_ONE;
+                break;
+            case PRIORITY_LEVEL_MEDIUM :
+                level = PRIORITY_LEVEL_TWO;
+                break;
+            case PRIORITY_LEVEL_HIGH :
+                level = PRIORITY_LEVEL_THREE;
+                break;
+            default :
+                break;
         }
     }
 

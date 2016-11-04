@@ -11,7 +11,6 @@ import tars.model.task.Name;
  * 
  * @@author A0124333U
  */
-
 public class RsvTask {
 
     protected Name name;
@@ -51,7 +50,6 @@ public class RsvTask {
     /*
      * Mutators
      */
-
     public void setName(Name name) {
         this.name = name;
     }
@@ -67,13 +65,12 @@ public class RsvTask {
                         && this.isSameStateAs((RsvTask) other));
     }
 
-    boolean isSameStateAs(RsvTask other) {
+    private boolean isSameStateAs(RsvTask other) {
         return other == this // short circuit if same object
                 || (other != null // this is first to avoid NPE below
-                        && other.getName().equals(this.getName()) // state
-                                                                  // checks here
-                                                                  // onwards
-                        && other.getDateTimeList().equals(this.getDateTimeList()));
+                        && other.getName().equals(this.getName())
+                        && other.getDateTimeList()
+                                .equals(this.getDateTimeList()));
     }
 
     @Override

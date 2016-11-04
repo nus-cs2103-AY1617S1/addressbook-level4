@@ -12,6 +12,12 @@ import tars.logic.commands.Command;
 import tars.logic.commands.ConfirmCommand;
 import tars.logic.commands.IncorrectCommand;
 
+/**
+ * Confirm command parser
+ * 
+ * @@author A0124333U
+ *
+ */
 public class ConfirmCommandParser extends CommandParser {
 
     @Override
@@ -30,7 +36,7 @@ public class ConfirmCommandParser extends CommandParser {
 
         try {
             String indexArgs = argsTokenizer.getPreamble().get();
-            String[] indexStringArray = StringUtil.indexString(indexArgs).split(EMPTY_SPACE_ONE);
+            String[] indexStringArray = StringUtil.indexString(indexArgs).split(StringUtil.STRING_WHITESPACE);
             if (indexStringArray.length != 2) {
                 return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                         ConfirmCommand.MESSAGE_USAGE));
@@ -47,7 +53,7 @@ public class ConfirmCommandParser extends CommandParser {
 
         try {
             return new ConfirmCommand(taskIndex, dateTimeIndex,
-                    argsTokenizer.getValue(priorityPrefix).orElse(EMPTY_STRING),
+                    argsTokenizer.getValue(priorityPrefix).orElse(StringUtil.EMPTY_STRING),
                     argsTokenizer.getMultipleValues(tagPrefix).orElse(new HashSet<>()));
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(

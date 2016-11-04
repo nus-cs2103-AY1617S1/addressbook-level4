@@ -16,6 +16,12 @@ import tars.logic.commands.Command;
 import tars.logic.commands.IncorrectCommand;
 import tars.logic.commands.RsvCommand;
 
+/**
+ * Reserve command parser
+ * 
+ * @@author A0124333U
+ *
+ */
 public class RsvCommandParser extends CommandParser {
 
     @Override
@@ -40,14 +46,14 @@ public class RsvCommandParser extends CommandParser {
     private Command prepareRsvAdd(ArgumentTokenizer argsTokenizer) {
         if (!argsTokenizer.getValue(dateTimePrefix).isPresent()) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    RsvCommand.MESSAGE_DATETIME_NOTFOUND));
+                    RsvCommand.MESSAGE_DATETIME_NOT_FOUND));
         }
 
         Set<String[]> dateTimeStringSet = new HashSet<>();
 
         try {
             for (String dateTimeString : argsTokenizer.getMultipleValues(dateTimePrefix).get()) {
-                dateTimeStringSet.add(DateTimeUtil.getDateTimeFromArgs(dateTimeString));
+                dateTimeStringSet.add(DateTimeUtil.parseStringToDateTime(dateTimeString));
             }
 
             return new RsvCommand(argsTokenizer.getPreamble().get(), dateTimeStringSet);

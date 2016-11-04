@@ -3,6 +3,7 @@ package tars.storage;
 import tars.commons.core.LogsCenter;
 import tars.commons.exceptions.DataConversionException;
 import tars.commons.util.FileUtil;
+import tars.commons.util.StringUtil;
 import tars.model.UserPrefs;
 
 import java.io.File;
@@ -13,18 +14,20 @@ import java.util.logging.Logger;
 /**
  * A class to access UserPrefs stored in the hard disk as a json file
  */
-public class JsonUserPrefStorage implements UserPrefsStorage{
+public class JsonUserPrefStorage implements UserPrefsStorage {
 
-    private static final Logger logger = LogsCenter.getLogger(JsonUserPrefStorage.class);
+    private static final Logger logger =
+            LogsCenter.getLogger(JsonUserPrefStorage.class);
 
     private String filePath;
 
-    public JsonUserPrefStorage(String filePath){
+    public JsonUserPrefStorage(String filePath) {
         this.filePath = filePath;
     }
 
     @Override
-    public Optional<UserPrefs> readUserPrefs() throws DataConversionException, IOException {
+    public Optional<UserPrefs> readUserPrefs()
+            throws DataConversionException, IOException {
         return readUserPrefs(filePath);
     }
 
@@ -35,25 +38,29 @@ public class JsonUserPrefStorage implements UserPrefsStorage{
 
     /**
      * Similar to {@link #readUserPrefs()}
+     * 
      * @param prefsFilePath location of the data. Cannot be null.
      * @throws DataConversionException if the file format is not as expected.
      */
-    public Optional<UserPrefs> readUserPrefs(String prefsFilePath) throws DataConversionException {
+    public Optional<UserPrefs> readUserPrefs(String prefsFilePath)
+            throws DataConversionException {
         assert prefsFilePath != null;
 
         File prefsFile = new File(prefsFilePath);
 
         if (!prefsFile.exists()) {
-            logger.info("Prefs file "  + prefsFile + " not found");
+            logger.info("Prefs file " + prefsFile + " not found");
             return Optional.empty();
         }
 
         UserPrefs prefs;
 
         try {
-            prefs = FileUtil.deserializeObjectFromJsonFile(prefsFile, UserPrefs.class);
+            prefs = FileUtil.deserializeObjectFromJsonFile(prefsFile,
+                    UserPrefs.class);
         } catch (IOException e) {
-            logger.warning("Error reading from prefs file " + prefsFile + ": " + e);
+            logger.warning("Error reading from prefs file " + prefsFile
+                    + StringUtil.STRING_COLON + e);
             throw new DataConversionException(e);
         }
 
@@ -62,9 +69,11 @@ public class JsonUserPrefStorage implements UserPrefsStorage{
 
     /**
      * Similar to {@link #saveUserPrefs(UserPrefs)}
+     * 
      * @param prefsFilePath location of the data. Cannot be null.
      */
-    public void saveUserPrefs(UserPrefs userPrefs, String prefsFilePath) throws IOException {
+    public void saveUserPrefs(UserPrefs userPrefs, String prefsFilePath)
+            throws IOException {
         assert userPrefs != null;
         assert prefsFilePath != null;
 

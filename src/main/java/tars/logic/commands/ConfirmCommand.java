@@ -9,6 +9,7 @@ import tars.commons.core.Messages;
 import tars.commons.core.UnmodifiableObservableList;
 import tars.commons.exceptions.DuplicateTaskException;
 import tars.commons.exceptions.IllegalValueException;
+import tars.commons.util.StringUtil;
 import tars.model.tag.Tag;
 import tars.model.tag.UniqueTagList;
 import tars.model.task.Priority;
@@ -19,20 +20,22 @@ import tars.model.task.rsv.RsvTask;
 import tars.model.task.rsv.UniqueRsvTaskList.RsvTaskNotFoundException;
 
 /**
- * Confirms a specified datetime for a reserved task and add it into the task list
- * 
  * @@author A0124333U
+ * 
+ * Confirms a specified datetime for a reserved task and add it into the task list
  */
 public class ConfirmCommand extends UndoableCommand {
-    
+
     public static final String COMMAND_WORD = "confirm";
-    
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Confirms a datetime for a reserved task"
-            + " and adds the task into the task list.\n"
-            + "Parameters: <RESERVED_TASK_INDEX> <DATETIME_INDEX> /p <PRIORITY> /t <TAG>\n" 
-            + "Example: " + COMMAND_WORD + " 1 3 /p h /t tag1";
-    
-    public static final String MESSAGE_CONFIRM_SUCCESS = "Task Confirmation Success! New task added: %1$s";
+
+    public static final String MESSAGE_USAGE =
+            COMMAND_WORD + ": Confirms a datetime for a reserved task"
+                    + " and adds it to the task list.\n"
+                    + "Parameters: <RSV_TASK_INDEX> <DATETIME_INDEX> [/p PRIORITY] [/t TAG_NAME ...]\n"
+                    + "Example: " + COMMAND_WORD + " 1 3 /p h /t tag";
+
+    public static final String MESSAGE_CONFIRM_SUCCESS =
+            "Task Confirmation Success! New task added: %1$s";
     private String conflictingTaskList = "";
 
     private final int taskIndex;
@@ -42,9 +45,9 @@ public class ConfirmCommand extends UndoableCommand {
 
     private Task toConfirm;
     private RsvTask rsvTask;
-    
-    public ConfirmCommand(int taskIndex, int dateTimeIndex, String priority, Set<String> tags)
-            throws IllegalValueException {
+
+    public ConfirmCommand(int taskIndex, int dateTimeIndex, String priority,
+            Set<String> tags) throws IllegalValueException {
         this.taskIndex = taskIndex;
         this.dateTimeIndex = dateTimeIndex;
         this.priority = priority;
@@ -55,60 +58,33 @@ public class ConfirmCommand extends UndoableCommand {
     }
 
     @Override
-    public CommandResult undo() {
-        try {
-            model.addRsvTask(rsvTask);
-            model.deleteTask(toConfirm);
-        } catch (DuplicateTaskException e) {
-            return new CommandResult(
-                    String.format(UndoCommand.MESSAGE_UNSUCCESS, Messages.MESSAGE_DUPLICATE_TASK));
-        } catch (TaskNotFoundException e) {
-            return new CommandResult(String.format(UndoCommand.MESSAGE_UNSUCCESS,
-                    Messages.MESSAGE_TASK_CANNOT_BE_FOUND));
-        }
-        
-        return new CommandResult(String.format(UndoCommand.MESSAGE_SUCCESS, ""));
-    }
-
-    @Override
-    public CommandResult redo() {
-        try {
-            model.deleteRsvTask(rsvTask);
-            model.addTask(toConfirm);
-        } catch (DuplicateTaskException e) {
-            return new CommandResult(
-                    String.format(RedoCommand.MESSAGE_UNSUCCESS, Messages.MESSAGE_DUPLICATE_TASK));
-        } catch (RsvTaskNotFoundException e) {
-            return new CommandResult(String.format(RedoCommand.MESSAGE_UNSUCCESS,
-                    Messages.MESSAGE_RSV_TASK_CANNOT_BE_FOUND));
-        }
-
-        return new CommandResult(String.format(RedoCommand.MESSAGE_SUCCESS, ""));
-    }
-
-    @Override
     public CommandResult execute() {
         assert model != null;
-        UnmodifiableObservableList<RsvTask> lastShownList = model.getFilteredRsvTaskList();
+        UnmodifiableObservableList<RsvTask> lastShownList =
+                model.getFilteredRsvTaskList();
 
         if (lastShownList.size() < taskIndex) {
             indicateAttemptToExecuteIncorrectCommand();
-            return new CommandResult(Messages.MESSAGE_INVALID_RSV_TASK_DISPLAYED_INDEX);
+            return new CommandResult(
+                    Messages.MESSAGE_INVALID_RSV_TASK_DISPLAYED_INDEX);
         }
 
         rsvTask = lastShownList.get(taskIndex - 1);
 
         if (rsvTask.getDateTimeList().size() < dateTimeIndex) {
             indicateAttemptToExecuteIncorrectCommand();
-            return new CommandResult(Messages.MESSAGE_INVALID_DATETIME_DISPLAYED_INDEX);
+            return new CommandResult(
+                    Messages.MESSAGE_INVALID_DATETIME_DISPLAYED_INDEX);
         }
 
         try {
-            toConfirm =
-                    new Task(rsvTask.getName(), rsvTask.getDateTimeList().get((dateTimeIndex - 1)),
-                            new Priority(priority), new Status(), new UniqueTagList(tagSet));
+            toConfirm = new Task(rsvTask.getName(),
+                    rsvTask.getDateTimeList().get((dateTimeIndex - 1)),
+                    new Priority(priority), new Status(),
+                    new UniqueTagList(tagSet));
         } catch (IllegalValueException ive) {
-            return new CommandResult(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_USAGE));
+            return new CommandResult(String
+                    .format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_USAGE));
         }
 
         try {
@@ -119,7 +95,8 @@ public class ConfirmCommand extends UndoableCommand {
 
         try {
             conflictingTaskList +=
-                    model.getTaskConflictingDateTimeWarningMessage(toConfirm.getDateTime());
+                    model.getTaskConflictingDateTimeWarningMessage(
+                            toConfirm.getDateTime());
             model.addTask(toConfirm);
         } catch (DuplicateTaskException e) {
             return new CommandResult(Messages.MESSAGE_DUPLICATE_TASK);
@@ -128,15 +105,60 @@ public class ConfirmCommand extends UndoableCommand {
         model.getUndoableCmdHist().push(this);
         return new CommandResult(getSuccessMessageSummary());
     }
-    
+
     private String getSuccessMessageSummary() {
-        String summary = String.format(MESSAGE_CONFIRM_SUCCESS, toConfirm.toString());
+        String summary =
+                String.format(MESSAGE_CONFIRM_SUCCESS, toConfirm.toString());
 
         if (!conflictingTaskList.isEmpty()) {
-            summary += "\n" + Messages.MESSAGE_CONFLICTING_TASKS_WARNING + conflictingTaskList;
+            summary += StringUtil.STRING_NEWLINE
+                    + Messages.MESSAGE_CONFLICTING_TASKS_WARNING
+                    + conflictingTaskList;
         }
 
         return summary;
+    }
+
+    // @@author
+
+    // @@author A0139924W
+    @Override
+    public CommandResult undo() {
+        try {
+            model.addRsvTask(rsvTask);
+            model.deleteTask(toConfirm);
+        } catch (DuplicateTaskException e) {
+            return new CommandResult(
+                    String.format(UndoCommand.MESSAGE_UNSUCCESS,
+                            Messages.MESSAGE_DUPLICATE_TASK));
+        } catch (TaskNotFoundException e) {
+            return new CommandResult(
+                    String.format(UndoCommand.MESSAGE_UNSUCCESS,
+                            Messages.MESSAGE_TASK_CANNOT_BE_FOUND));
+        }
+
+        return new CommandResult(String.format(UndoCommand.MESSAGE_SUCCESS,
+                StringUtil.EMPTY_STRING));
+    }
+
+    // @@author A0139924W
+    @Override
+    public CommandResult redo() {
+        try {
+            model.deleteRsvTask(rsvTask);
+            model.addTask(toConfirm);
+        } catch (DuplicateTaskException e) {
+            return new CommandResult(
+                    String.format(RedoCommand.MESSAGE_UNSUCCESS,
+                            Messages.MESSAGE_DUPLICATE_TASK));
+        } catch (RsvTaskNotFoundException e) {
+            return new CommandResult(
+                    String.format(RedoCommand.MESSAGE_UNSUCCESS,
+                            Messages.MESSAGE_RSV_TASK_CANNOT_BE_FOUND));
+        }
+
+        return new CommandResult(String.format(RedoCommand.MESSAGE_SUCCESS,
+                StringUtil.EMPTY_STRING));
     }
 
 }
