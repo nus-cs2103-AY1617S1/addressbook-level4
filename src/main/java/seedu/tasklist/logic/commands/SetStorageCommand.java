@@ -34,8 +34,8 @@ public class SetStorageCommand extends Command {
 		if(filepath.equals("default")){
 			filepath = "data/tasklist.xml";
 		}
-		File targetListFile = new File(filePath);
-		return filePath.equals("default")||targetListFile.exists()||targetListFile.isDirectory();
+		File targetListFile = new File(filepath);
+		return filepath.equals("default")||targetListFile.exists()||targetListFile.isDirectory();
 	}
 
 }
