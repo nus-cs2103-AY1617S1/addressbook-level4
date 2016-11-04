@@ -60,6 +60,11 @@ public class AddEventCommandTest extends GuiTest {
     public void addEvent_missingEndDate_disambiguate() {
         // TODO
     }
+
+    @Test
+    public void addEvent_missingStartEndDate_disambiguate() {
+        // TODO
+    }
     
     @Test
     public void addEvent_missingName_disambiguate() {
@@ -67,6 +72,13 @@ public class AddEventCommandTest extends GuiTest {
         console.runCommand(command);
         String expectedDisambiguation = "add event \"<name>\" from \"2pm\" to \"9pm\"";
         assertEquals(console.getConsoleInputText(), expectedDisambiguation);
+    }
+    
+    @Test
+    public void addEvent_unmatchedQuotes_commandRemains() {
+        String command = "add event \"Presentation from 2pm to 9pm";
+        console.runCommand(command);
+        assertEquals(console.getConsoleInputText(), command);
     }
 
     /**
