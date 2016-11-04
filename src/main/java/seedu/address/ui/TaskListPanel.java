@@ -12,7 +12,6 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import seedu.address.model.alias.ReadOnlyAlias;
 import seedu.address.model.task.ReadOnlyTask;
-import seedu.address.model.task.Task;
 import seedu.address.model.task.TaskType;
 import seedu.address.commons.core.LogsCenter;
 
@@ -27,7 +26,7 @@ public class TaskListPanel extends UiPart {
     private VBox panel;
     private AnchorPane placeHolderPane;
     //@@author A0142184L
-    private static boolean isShowingTaskList;
+    private boolean isShowingTaskList = true;
     //@@author  
     @FXML
     private ListView<ReadOnlyTask> taskListView;
@@ -58,6 +57,10 @@ public class TaskListPanel extends UiPart {
     	return isShowingTaskList;
     }
     
+    public void setIsShowingTaskList(boolean value) {
+    	this.isShowingTaskList = value;
+    }
+    
     //@@author
     @Override
     public void setPlaceholder(AnchorPane pane) {
@@ -70,7 +73,6 @@ public class TaskListPanel extends UiPart {
                 UiPartLoader.loadUiPart(primaryStage, taskListPlaceholder, new TaskListPanel());
         taskListPanel.configureTask(taskList);
         taskListPanel.hideAliasListViewSize();
-        isShowingTaskList = true;
         return taskListPanel;
     }
     
@@ -94,7 +96,6 @@ public class TaskListPanel extends UiPart {
     	TaskListPanel taskListPanel = UiPartLoader.loadUiPart(primaryStage, taskListPlaceholder, new TaskListPanel());
         taskListPanel.configureAlias(aliasList);
         taskListPanel.hideTaskListViewSize();
-        isShowingTaskList = false;
         return taskListPanel;
     }
 	
