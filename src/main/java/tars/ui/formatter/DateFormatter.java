@@ -45,8 +45,10 @@ public class DateFormatter {
             return TODAY_PREFIX_TEXT + TIME_FORMAT.format(firstDate);
         } else if (isTomorrow(firstDate)) {
             return TOMORROW_PREFIX_TEXT + TIME_FORMAT.format(firstDate);
-        } else {
+        } else if(isSameYear(firstDate, LocalDateTime.now())){
             return NORMAL_DATETIME_FORMAT.format(firstDate);
+        } else {
+            return NORMAL_DATE_DIFF_YEAR_FORMAT.format(firstDate);
         }
     }
 
