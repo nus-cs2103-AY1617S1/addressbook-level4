@@ -288,6 +288,8 @@ Priority | As a ... | I want to ... | So that I can...
 `* * *` | user | delete tasks | discard tasks that cannot be done
 `* * *` | user | sort the event by date or priority | easily view events that requires immediate attention
 `* *` | busy user | mark tasks as priority | display them at the top of my tasks
+`* *` | busy user | have a UI panel that summarises the tasks I have | 
+`* *` | busy user | informed of overlapping slots | 
 `* *` | user | set my storage file to some other folder/directory (e.g dropbox) | store a back up of my tasks in dropbox or google drive
 `* *` | user | undo and redo the changes made to my tasklist | Keep my tasklist in order
 `*` | user | Have recurring events | save the trouble of having to add a new task periodically. 

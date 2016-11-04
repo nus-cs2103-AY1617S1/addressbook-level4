@@ -1,3 +1,5 @@
+//@@author A0144919W
+
 package seedu.tasklist.logic.commands;
 
 import java.io.IOException;
@@ -11,6 +13,11 @@ import seedu.tasklist.model.UndoInfo;
 import seedu.tasklist.model.task.Task;
 import seedu.tasklist.model.task.UniqueTaskList;
 import seedu.tasklist.model.task.UniqueTaskList.TaskNotFoundException;
+
+/**
+ * Redo's the last undo action made by the user
+ * Does not work if the user performs a task list mutating action following the undo
+ */
 
 public class RedoCommand extends Command {
 

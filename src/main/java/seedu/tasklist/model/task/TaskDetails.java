@@ -8,8 +8,8 @@ import seedu.tasklist.commons.exceptions.IllegalValueException;
  */
 public class TaskDetails {
 
-    public static final String MESSAGE_NAME_CONSTRAINTS = "Task details should only include alphanumeric characters.";
-    public static final String NAME_VALIDATION_REGEX = ".*";
+    public static final String MESSAGE_NAME_CONSTRAINTS = "Task details should include only alphanumeric/whitespace characters and must not be empty.";
+    public static final String NAME_VALIDATION_REGEX = "^[a-zA-Z0-9\\s]*$";
 
     public final String taskDetails;
 
@@ -31,7 +31,7 @@ public class TaskDetails {
      * Returns true if a given string is a valid task detail.
      */
     public static boolean isValidName(String test) {
-        return test.matches(NAME_VALIDATION_REGEX);
+        return test.matches(NAME_VALIDATION_REGEX) && (!test.trim().isEmpty());
     }
 
 

@@ -113,7 +113,7 @@ public class LogicManagerTest {
 
         //Confirm the ui display elements should contain the right data
         assertEquals(expectedMessage, result.feedbackToUser);
-        assertEquals(expectedShownList, model.getFilteredTaskList());
+        assertEquals(expectedShownList, model.getTaskList().getTaskList());
 
         //Confirm the state of data (saved and in-memory) is as expected
         assertEquals(expectedTaskList, model.getTaskList());
@@ -148,70 +148,45 @@ public class LogicManagerTest {
         assertCommandBehavior("clear", ClearCommand.MESSAGE_SUCCESS, new TaskList(), Collections.emptyList());
     }
 
-/*
+    //@@author A0144919W
     @Test
     public void execute_add_invalidArgsFormat() throws Exception {
-        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE);
         assertCommandBehavior(
-                "add wrong args wrong args", expectedMessage);
+                "add from 5pm to 6pm", TaskDetails.MESSAGE_NAME_CONSTRAINTS);
         assertCommandBehavior(
-                "add Valid Name 12345 e/valid@email.butNoPhonePrefix a/valid, address", expectedMessage);
+                "add hi by 7pm p/blah", Priority.MESSAGE_NAME_CONSTRAINTS);
         assertCommandBehavior(
-                "add Valid Name p/12345 valid@email.butNoPrefix a/valid, address", expectedMessage);
-        assertCommandBehavior(
-                "add Valid Name p/12345 e/valid@email.butNoAddressPrefix valid, address", expectedMessage);
+                "add test@@@ from 5pm p/low", TaskDetails.MESSAGE_NAME_CONSTRAINTS);
     }
 
     @Test
     public void execute_add_invalidPersonData() throws Exception {
         assertCommandBehavior(
-                "add []\\[;] p/12345 e/valid@e.mail a/valid, address", TaskDetails.MESSAGE_NAME_CONSTRAINTS);
+                "add @@@@ from 6pm to 7pm", TaskDetails.MESSAGE_NAME_CONSTRAINTS);
         assertCommandBehavior(
                 "add buy eggs at afeainfoaim by 3pm", StartTime.MESSAGE_START_TIME_CONSTRAINTS);
         assertCommandBehavior(
                 "add buy eggs at 3pm by supermarket", EndTime.MESSAGE_END_TIME_CONSTRAINTS);
-        assertCommandBehavior(
-                "add buy eggs at 3pm by 5pm t/invalid_-[.tag", Tag.MESSAGE_TAG_CONSTRAINTS);
-
     }
-
+    //@@author
+/*
     @Test
     public void execute_add_successful() throws Exception {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
-        Task toBeAdded = helper.adam();
+        Task toBeAdded = helper.take_a_nap();
         TaskList expectedAB = new TaskList();
         expectedAB.addTask(toBeAdded);
 
         // execute command and verify result
         assertCommandBehavior(helper.generateAddCommand(toBeAdded),
-                String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded),
-                expectedAB,
-                expectedAB.getTaskList());
-
-    }
-
-    @Test
-    public void execute_addDuplicate_notAllowed() throws Exception {
-        // setup expectations
-        TestDataHelper helper = new TestDataHelper();
-        Task toBeAdded = helper.adam();
-        TaskList expectedAB = new TaskList();
-        expectedAB.addTask(toBeAdded);
-
-        // setup starting state
-        model.addTask(toBeAdded); // person already in internal address book
-
-        // execute command and verify result
-        assertCommandBehavior(
-                helper.generateAddCommand(toBeAdded),
-                AddCommand.MESSAGE_DUPLICATE_TASK,
+                String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded.getTaskDetails()),
                 expectedAB,
                 expectedAB.getTaskList());
 
     }
 */
-
+    //@@author
     /**
      * Confirms the 'invalid argument index number behaviour' for the given command
      * targeting a single person in the shown list, using visible index.
@@ -245,62 +220,16 @@ public class LogicManagerTest {
     }
 /*
     @Test
-    public void execute_selectIndexNotFound_errorMessageShown() throws Exception {
-        assertIndexNotFoundBehaviorForCommand("select");
-    }
-
-    @Test
-    public void execute_deleteInvalidArgsFormat_errorMessageShown() throws Exception {
-        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE);
-        assertIncorrectIndexFormatBehaviorForCommand("delete", expectedMessage);
-    }
-
-    @Test
     public void execute_deleteIndexNotFound_errorMessageShown() throws Exception {
         assertIndexNotFoundBehaviorForCommand("delete");
     }
-
-    @Test
-    public void execute_delete_removesCorrectPerson() throws Exception {
-        TestDataHelper helper = new TestDataHelper();
-        List<Task> threePersons = helper.generatePersonList(3);
-
-        TaskList expectedAB = helper.generateTaskList(threePersons);
-        expectedAB.removeTask(threePersons.get(1));
-        helper.addToModel(model, threePersons);
-
-        assertCommandBehavior("delete 2",
-                String.format(DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS, threePersons.get(1)),
-                expectedAB,
-                expectedAB.getTaskList());
-    }
 */
-
     @Test
     public void execute_find_invalidArgsFormat() throws Exception {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE);
         assertCommandBehavior("find ", expectedMessage);
     }
 /*
-    @Test
-    public void execute_find_onlyMatchesFullWordsInNames() throws Exception {
-        TestDataHelper helper = new TestDataHelper();
-        Task pTarget1 = helper.generateTaskWithName("bla bla KEY bla");
-        Task pTarget2 = helper.generateTaskWithName("bla KEY bla bceofeia");
-        Task p1 = helper.generateTaskWithName("KE Y");
-        Task p2 = helper.generateTaskWithName("KEYKEYKEY sduauo");
-
-        List<Task> fourPersons = helper.generateTaskList(p1, pTarget1, p2, pTarget2);
-        TaskList expectedAB = helper.generateTaskList(fourPersons);
-        List<Task> expectedList = helper.generateTaskList(pTarget1, pTarget2);
-        helper.addToModel(model, fourPersons);
-
-        assertCommandBehavior("find KEY",
-                Command.getMessageForTaskListShownSummary(expectedList.size()),
-                expectedAB,
-                expectedList);
-    }
-
     @Test
     public void execute_find_isNotCaseSensitive() throws Exception {
         TestDataHelper helper = new TestDataHelper();
@@ -319,26 +248,7 @@ public class LogicManagerTest {
                 expectedAB,
                 expectedList);
     }
-
-    @Test
-    public void execute_find_matchesIfAnyKeywordPresent() throws Exception {
-        TestDataHelper helper = new TestDataHelper();
-        Task pTarget1 = helper.generateTaskWithName("bla bla KEY bla");
-        Task pTarget2 = helper.generateTaskWithName("bla rAnDoM bla bceofeia");
-        Task pTarget3 = helper.generateTaskWithName("key key");
-        Task p1 = helper.generateTaskWithName("sduauo");
-
-        List<Task> fourPersons = helper.generateTaskList(pTarget1, p1, pTarget2, pTarget3);
-        TaskList expectedAB = helper.generateTaskList(fourPersons);
-        List<Task> expectedList = helper.generateTaskList(pTarget1, pTarget2, pTarget3);
-        helper.addToModel(model, fourPersons);
-
-        assertCommandBehavior("find key rAnDoM",
-                Command.getMessageForTaskListShownSummary(expectedList.size()),
-                expectedAB,
-                expectedList);
-    }
- */   
+*/   
     @Test
     public void execute_show_InvalidArgsFormat() throws Exception {
     	assertCommandBehavior("showall", Messages.MESSAGE_UNKNOWN_COMMAND);
@@ -349,49 +259,43 @@ public class LogicManagerTest {
      */
     class TestDataHelper{
 
-        Task adam() throws Exception {
+        Task take_a_nap() throws Exception {
             TaskDetails name = new TaskDetails("Take a nap");
             StartTime startTime = new StartTime("3pm");
             EndTime endTime = new EndTime("5pm");
             Priority priority = new Priority("high");
- /*           Tag tag1 = new Tag("tag1");
-            Tag tag2 = new Tag("tag2");
-            UniqueTagList tags = new UniqueTagList(tag1, tag2);*/
             return new Task(name, startTime, endTime, priority);
         }
 
         /**
-         * Generates a valid person using the given seed.
-         * Running this function with the same parameter values guarantees the returned person will have the same state.
-         * Each unique seed will generate a unique Person object.
+         * Generates a valid task using the given seed.
+         * Running this function with the same parameter values guarantees the returned task will have the same state.
+         * Each unique seed will generate a unique Task object.
          *
-         * @param seed used to generate the person data field values
+         * @param seed used to generate the task data field values
          */
         Task generateTask(int seed) throws Exception {
+            int rand = (int)((Math.random()*11)+1);
             return new Task(
-                    new TaskDetails("Person " + seed),
-                    new StartTime(" at "+seed+"pm"),
-                    new EndTime(" by "+seed + "pm"),
+                    new TaskDetails("Task " + seed),
+                    new StartTime(" at "+rand+"pm"),
+                    new EndTime(" by "+(rand+1) + "pm"),
                     new Priority("high"));
         }
 
         /** Generates the correct add command based on the person given */
         String generateAddCommand(Task p) {
-            StringBuffer cmd = new StringBuffer();
+            StringBuilder sb = new StringBuilder();
 
-            cmd.append("add ");
-
-            cmd.append(p.getTaskDetails().toString());
-            cmd.append(" at ").append(p.getStartTime().toString());
-            cmd.append(" by ").append(p.getEndTime().toString());
-            cmd.append(" p/").append(p.getPriority());
-/*
-            UniqueTagList tags = p.getTags();
-            for(Tag t: tags){
-                cmd.append(" t/").append(t.tagName);
-            }*/
-
-            return cmd.toString();
+            sb.append("add " + p.getTaskDetails() + " ");
+            if(!p.getStartTime().isMissing()){
+                sb.append("at " + p.getStartTime().toDateString() + " ");
+            }
+            if(!p.getEndTime().isMissing()){
+                sb.append("by " + p.getEndTime().toDateString() + " ");
+            }
+            sb.append("p/" + p.getPriority() + " ");
+            return sb.toString();
         }
 
         /**

@@ -126,6 +126,18 @@ public class Time {
     	}
     }
 
+    public String toDateString() {
+        if(time.getTime().equals(new Date(0))){
+            return "-";
+        }
+        else{
+            DateFormat df = new SimpleDateFormat("dd/MM/yyyy hh:mm a");
+            String finalString = df.format(time.getTime());
+            
+            return finalString;
+        }
+    }
+    
     public boolean isMissing(){
     	if(time.getTime().equals(new Date(0)))
         return true;

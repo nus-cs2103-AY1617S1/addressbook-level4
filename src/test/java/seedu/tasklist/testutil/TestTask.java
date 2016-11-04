@@ -98,10 +98,10 @@ public class TestTask implements ReadOnlyTask, Comparable<TestTask> {
         StringBuilder sb = new StringBuilder();
         sb.append("add " + this.getTaskDetails() + " ");
         if(!this.getStartTime().isMissing()){
-        	sb.append("at " + this.getStartTime().toCardString() + " ");
+        	sb.append("at " + this.getStartTime().toDateString() + " ");
         }
         if(!this.getEndTime().isMissing()){
-        	sb.append("by " + this.getEndTime().toCardString() + " ");
+        	sb.append("by " + this.getEndTime().toDateString() + " ");
         }
         sb.append("p/" + this.getPriority() + " ");
         return sb.toString();

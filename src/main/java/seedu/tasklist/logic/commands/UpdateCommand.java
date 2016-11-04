@@ -11,6 +11,9 @@ import seedu.tasklist.model.task.Task;
 import seedu.tasklist.model.task.TaskDetails;
 import seedu.tasklist.model.task.UniqueTaskList;
 
+/**
+ * Updates task information such as task details, start time, end time, priority or recurring frequency for a particular task specified by index
+ */
 public class UpdateCommand extends Command {
 
 	public static final String COMMAND_WORD = "update";
@@ -31,7 +34,6 @@ public class UpdateCommand extends Command {
 	private String startTime;
 	private String endTime;
 	private Priority priority;
-	//private UniqueTagList tags;
 	private String recurringFrequency;
 
 	public UpdateCommand(int targetIndex, String taskDetails, String startTime, String endTime, String priority, String frequency)
@@ -45,7 +47,6 @@ public class UpdateCommand extends Command {
 			this.endTime = endTime;
 		if (priority != null)
 			this.priority = new Priority(priority);
-		//this.tags = new UniqueTagList(tags);
 		if (frequency != null)
 			this.recurringFrequency = frequency;
 	}
@@ -85,7 +86,7 @@ public class UpdateCommand extends Command {
 			}
 		}
 	}
-	
+	//checks if start time is before end time
 	public boolean isNotChronoTime(StartTime starttime, EndTime endtime) throws IllegalValueException{
         if(endtime.time.getTimeInMillis()==0){
             return false;
