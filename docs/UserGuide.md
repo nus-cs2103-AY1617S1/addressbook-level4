@@ -32,7 +32,9 @@
 
 <!-- @@author A0139198N -->
 > **Date Format**
-> ForgetMeNot accepts a wide range of date format. Formats that are accept in ForgetMeNot is listed here:<br>
+> ForgetMeNot implements Natty(http://natty.joestelmach.com/). Thus, it accepts a wide range of date format. Formats that are accept in ForgetMeNot is listed here:<br>
+> * dd/mm/yy
+	eg. 12/11/16
 > * next day/week/month/year<br>
 	eg. next week, next month
 > * <number> days later<br>
@@ -41,6 +43,7 @@
 	eg. next wednesday, next friday<br>
 > * <number> days after<br>
 	eg. 2 days after 10/11/16, 5 days after next monday<br>
+> * a range of holidays is also accepted. This is the entire list - https://github.com/joestelmach/natty/blob/master/src/main/java/com/joestelmach/natty/Holiday.java
 <!-- @@author -->
 
 <!-- @@author A0139671X -->
@@ -52,9 +55,7 @@ Format: `help`
 <!-- @@author A0147619W -->
 #### Adding a Task: `add`
 Adds a task to the task manager<br>
-Date Formats: dd/mm/yy, days (e.g Monday, Friday, Today, Tomorrow), dd Month yy
-Time Format: 12-hour clock(Eg:10am, 5:30pm, etc).Users can also use natural language commands like today, tmr, 3 days later, next mon.<br>
-             It also recognises holidays like christmas and new year. <br>
+Time Format: 12-hour clock(Eg:10am, 5:30pm, etc).
  
 * If you want to use keywords such as `at`, `from`, `to` and `by` in the task name in isolation, it should be preceded by a `\\`.             
 * If no particular time is mentioned, ForgetMeNot adds a task at the current time.
