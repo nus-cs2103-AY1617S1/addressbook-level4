@@ -2,6 +2,18 @@
 
 * [Quick Start](#quick-start)
 * [Features](#features)
+   * [Adding a Task: `add`](#adding-a-task-add)
+   * [Editing a Task: `edit`](#editing-a-task-edit)
+   * [Undo a Task: `undo`](#undo-a-task-undo)
+   * [Redo a Task: `redo`](#redo-a-task-redo)
+   * [Deleting a Task: `delete`](#deleting-a-task-delete)
+   * [Finding a Task: `Find`](#finding-a-task-find)
+   * [Mark as done: `done`](#mark-as-done-done)
+   * [Showing full list: `show`](#showing-full-list-show)
+   * [Clearing the display: `clear`](#clearing-the-display-clear)
+   * [Selecting a task: `select`](#selecting-a-task-select)
+   * [Set storage: `setstorage`](#set-storage-setstorage)
+* [Saving the data](#saving-the-data)    
 * [Command Summary](#command-summary)
 
 <!-- @@author A0139671X -->
