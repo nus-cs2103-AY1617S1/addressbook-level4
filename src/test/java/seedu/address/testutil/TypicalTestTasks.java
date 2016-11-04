@@ -90,6 +90,12 @@ public class TypicalTestTasks {
     
     //@@author
     
+    public TestTask[] getDefaultTasks() {
+    	return new TestTask[]{deadline2, event2, eventToday, deadlineTomorrow, 
+    			eventTomorrow, deadlineIn7Days, eventIn7Days, deadlineIn30Days, 
+    			eventIn30Days, someday2};
+    }
+    
     public TestTask[] getUnsortedTypicalTasks() {
     	return new TestTask[]{someday1, someday2, someday3,
 				   deadline1, deadline2, deadlineToday, deadlineTomorrow, deadlineIn7Days, deadlineIn30Days, 
