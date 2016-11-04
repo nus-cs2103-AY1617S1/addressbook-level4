@@ -4,7 +4,10 @@ package seedu.flexitrack.logic.commands;
 import static seedu.flexitrack.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import java.util.HashMap;
+import java.util.logging.Logger;
 
+import seedu.flexitrack.commons.core.EventsCenter;
+import seedu.flexitrack.commons.core.LogsCenter;
 import seedu.flexitrack.commons.core.Messages;
 import seedu.flexitrack.commons.core.UnmodifiableObservableList;
 import seedu.flexitrack.commons.exceptions.IllegalValueException;
@@ -20,6 +23,7 @@ import seedu.flexitrack.model.task.UniqueTaskList.TaskNotFoundException;
  */
 public class EditCommand extends Command {
 
+    private static final Logger logger = LogsCenter.getLogger(EditCommand.class);
     public static final String COMMAND_WORD = "edit";
     public static final String COMMAND_SHORTCUT = "e";
 
@@ -72,12 +76,15 @@ public class EditCommand extends Command {
             editedTask = editedTask.copy();
             recordCommand(this); 
         } catch (IndexOutOfBoundsException ioobe) {
+            logger.info("Exception: Index Out of Bounds\n");
             indicateAttemptToExecuteIncorrectCommand();
             return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         } catch (IllegalEditException iee) {
+            logger.info("Exception: Illegal Edit");
             indicateAttemptToExecuteIncorrectCommand();
             return new CommandResult(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
         } catch (IllegalValueException ive) {
+            logger.info("Exception: Illegal Value");
             assert false : "Illegal value entered";
         }
         
