@@ -9,15 +9,15 @@ public class CommandHistoryTest extends TaskListGuiTest {
 	@Test
 	public void commandHistory_noHistory_nothingHappens() {
 		//assert empty commandBox
-		assertEquals(commandBox.getCommandInput(), "");
+		assertEquals("", commandBox.getCommandInput());
 
 		//assert commandBox still empty
-		commandBox.getPressUpKey();
-		assertEquals(commandBox.getCommandInput(), "");
+		commandBox.pressUpKey();
+		assertEquals("", commandBox.getCommandInput());
 
 		//assert commandBox still empty
-		commandBox.getPressDownKey();
-		assertEquals(commandBox.getCommandInput(), "");
+		commandBox.pressDownKey();
+		assertEquals("", commandBox.getCommandInput());
 	}
 
 	@Test
@@ -25,16 +25,16 @@ public class CommandHistoryTest extends TaskListGuiTest {
 		populateList();
 
 		//assert previous command displayed
-		commandBox.getPressUpKey();
-		assertEquals(commandBox.getCommandInput(), "add Old1");
+		commandBox.pressUpKey();
+		assertEquals("add Old1", commandBox.getCommandInput());
 
 		//assert last command displayed
-		commandBox.getPressUpKey();
-		assertEquals(commandBox.getCommandInput(), "add Old2");
+		commandBox.pressUpKey();
+		assertEquals("add Old2", commandBox.getCommandInput());
 
 		//traverse back to newer command
-		commandBox.getPressDownKey();
-		assertEquals(commandBox.getCommandInput(), "add Old1");
+		commandBox.pressDownKey();
+		assertEquals("add Old1", commandBox.getCommandInput());
 	}
 
 	@Test
@@ -44,12 +44,12 @@ public class CommandHistoryTest extends TaskListGuiTest {
 		commandBox.enterCommand("Incomplete command...");
 
 		//assert previous command displayed
-		commandBox.getPressUpKey();
-		assertEquals(commandBox.getCommandInput(), "add Old1");
+		commandBox.pressUpKey();
+		assertEquals("add Old1", commandBox.getCommandInput());
 
 		//assert typed command saved
-		commandBox.getPressDownKey();
-		assertEquals(commandBox.getCommandInput(), "Incomplete command...");
+		commandBox.pressDownKey();
+		assertEquals("Incomplete command...", commandBox.getCommandInput());
 	}
 	
 	@Test
@@ -57,18 +57,18 @@ public class CommandHistoryTest extends TaskListGuiTest {
 		populateList();
 		
 		//try traversing down, assert nothing happens
-		assertEquals(commandBox.getCommandInput(), "");
-		commandBox.getPressDownKey();
-		assertEquals(commandBox.getCommandInput(), "");
+		assertEquals("", commandBox.getCommandInput());
+		commandBox.pressDownKey();
+		assertEquals("", commandBox.getCommandInput());
 		
 		//traverse to oldest command
-		commandBox.getPressUpKey();
-		commandBox.getPressUpKey();
-		assertEquals(commandBox.getCommandInput(), "add Old2");
+		commandBox.pressUpKey();
+		commandBox.pressUpKey();
+		assertEquals("add Old2", commandBox.getCommandInput());
 		
 		//try traversing up, assert nothing happens
-		commandBox.getPressUpKey();
-		assertEquals(commandBox.getCommandInput(), "add Old2");
+		commandBox.pressUpKey();
+		assertEquals("add Old2", commandBox.getCommandInput());
 	}
 
 	private void populateList(){
