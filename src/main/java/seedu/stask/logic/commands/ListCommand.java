@@ -1,0 +1,73 @@
+package seedu.stask.logic.commands;
+
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
+
+import seedu.stask.commons.exceptions.IllegalValueException;
+
+//@@author A0139145E 
+/**
+ * Lists all persons in the task book to the user.
+ */
+public class ListCommand extends Command {
+
+    public static final String COMMAND_WORD = "list";
+    public static final String COMMAND_ALIAS = "ls";
+
+    public static final String LIST_KEYWORD_ALL = "all";
+    public static final String LIST_KEYWORD_OD = "od";
+    public static final String LIST_KEYWORD_DONE = "done";
+    public static final String LIST_KEYWORDS = LIST_KEYWORD_ALL + "/" + LIST_KEYWORD_OD + "/" + LIST_KEYWORD_DONE;
+    public static Set<String> keywordsList = new HashSet<>(Arrays.asList(LIST_KEYWORDS.split("/")));
+    
+    
+    public static final String MESSAGE_LIST_USAGE = COMMAND_WORD + ": Lists the tasks in the address book.\n"
+            + "Parameters: list " + LIST_KEYWORDS + "\n"
+            + "Example: " + COMMAND_WORD
+            + " done";
+
+    public static final String MESSAGE_SUCCESS = "Listed %1$s tasks";
+
+    private final String keyword;
+
+    public ListCommand(String key) throws IllegalValueException{
+        
+        if (keywordsList.contains(key)) {
+            this.keyword = key;
+        }
+        else {
+            throw new IllegalValueException(MESSAGE_LIST_USAGE);
+        }
+    }
+
+    @Override
+    public CommandResult execute() {
+        String taskStatus;
+
+        switch (keyword) {
+        case LIST_KEYWORD_ALL:
+            taskStatus = "all";
+            model.updateFilteredListToShowAll();
+            break;
+
+        case LIST_KEYWORD_DONE:
+            taskStatus = "completed";
+            model.updateFilteredTaskListByStatus("DONE");
+            break;
+
+        case LIST_KEYWORD_OD:
+            taskStatus = "overdue and expired";
+            model.updateFilteredTaskListByStatus("OVERDUE", "EXPIRE");
+            break;
+
+        default:
+            taskStatus = "";
+            assert false : "Missing case in switch statement";
+            break;
+        }
+
+        return new CommandResult(String.format(MESSAGE_SUCCESS, taskStatus));
+    }
+
+}

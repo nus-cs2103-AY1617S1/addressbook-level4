@@ -1,7 +1,7 @@
 package guitests;
 
-import seedu.address.logic.commands.ClearCommand;
-import seedu.address.testutil.TypicalTestTasks;
+import seedu.stask.logic.commands.ClearCommand;
+import seedu.stask.testutil.TypicalTestTasks;
 
 import static org.junit.Assert.assertTrue;
 

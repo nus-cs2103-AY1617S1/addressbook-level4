@@ -4,7 +4,7 @@
 <?import javafx.scene.effect.InnerShadow?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane styleClass="anchor-pane" stylesheets="@DarkTheme.css" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.address.ui.CommandBox">
+<AnchorPane styleClass="anchor-pane" stylesheets="@DarkTheme.css" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.stask.ui.CommandBox">
    <TextField fx:id="commandTextField" onAction="#handleCommandInputChanged" promptText="Enter command here...">
       <effect>
          <InnerShadow color="WHITE" height="12.0" radius="5.5" width="12.0" />
