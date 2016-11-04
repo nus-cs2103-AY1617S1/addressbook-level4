@@ -316,19 +316,11 @@ public class CommandParser {
             Matcher matchDate = LOCAL_DATE_FORMAT.matcher(arg);
             if (matchDate.matches()) {
                 String dateSeparator = getDateSeparator(arg);
-                String convertedDate = swapDayAndMonth(arg.split(dateSeparator), dateSeparator);
+                String convertedDate = swapDayAndMonth(arg, dateSeparator);
                 convertedToNattyString = convertedToNattyString.replace(arg, convertedDate);
             }
         }
-        return convertedToNattyString;
-//        Matcher matchDate = LOCAL_DATE_FORMAT.matcher(arguments);
-//        if (matchDate.matches()) {
-//            String localDateString = matchDate.group("arguments");
-//            String dateSeparator = getDateSeparator(localDateString);
-//            return convertToNattyFormat(arguments, localDateString, dateSeparator);
-//        } else {
-//            return arguments;
-//        }       
+        return convertedToNattyString;    
     }
     
     /**
@@ -347,35 +339,18 @@ public class CommandParser {
     }
     
     /**
-     * Convert the local date format inside arguments into a format
-     * which can be parsed by natty
-     * @param arguments the full argument string
-     * @param localDateString the localDate extracted out from arguments
-     * @param dateSeparator the separator for the date extracted out
-     * @return converted string where the date format has been converted from local to natty format
-     */
-    private String convertToNattyFormat(String arguments, String localDateString, String dateSeparator) {
-        String[] dateComponents = localDateString.split(dateSeparator);
-        int indexOfDate = arguments.indexOf(localDateString);
-        String nattyDateString = swapDayAndMonth(dateComponents, dateSeparator);
-        arguments = arguments.replace(localDateString, nattyDateString);
-        String stringFromConvertedDate = arguments.substring(indexOfDate);
-        String stringUpToConvertedDate = arguments.substring(0, indexOfDate);
-        return convertToNattyDateFormat(stringUpToConvertedDate) + stringFromConvertedDate;
-    }
-    
-    /**
      * Swaps the day and month component of the date
-     * @param dateComponents the String array obtained after separting the date string
+     * @param localdate the local date String to convert
      * @param dateSeparator the Separator used in the date string
      * @return the date string with its day and month component swapped
      */
-    private String swapDayAndMonth(String[] dateComponents, String dateSeparator) {
-        StringBuilder nattyDateStringBuilder = new StringBuilder();
-        nattyDateStringBuilder.append(dateComponents[1]);
-        nattyDateStringBuilder.append(dateSeparator);
-        nattyDateStringBuilder.append(dateComponents[0]);
-        return nattyDateStringBuilder.toString();
+    private String swapDayAndMonth(String localDate, String dateSeparator) {
+        String[] splitDate = localDate.split(dateSeparator);
+        if (splitDate.length == 3) {
+            return splitDate[1] + dateSeparator + splitDate[0] + dateSeparator + splitDate[2];
+        } else {
+            return splitDate[1] + dateSeparator + splitDate[0];
+        }
     }
     
     //@@author A0139930B
