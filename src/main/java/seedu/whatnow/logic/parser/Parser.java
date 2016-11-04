@@ -216,6 +216,9 @@ public class Parser {
 
         case FreeTimeCommand.COMMAND_WORD:
             return prepareFreeTimeCommand(arguments);
+            
+        case PinCommand.COMMAND_WORD:
+            return preparePinCommand(arguments);
 
         default:
             return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
@@ -1063,6 +1066,16 @@ public class Parser {
             date = df.format(cal.getTime());
         }
         return new FreeTimeCommand(date);
+    }
+    
+    private Command preparePinCommand(String args) {
+        String[] argComponents = args.trim().split(DELIMITER_BLANK_SPACE);
+        if (argComponents.length != 2) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, PinCommand.MESSAGE_USAGE));
+        }
+        String type = argComponents[ZERO];
+        String keyword = argComponents[ONE];
+        return new PinCommand(type, keyword);
     }
 
 }

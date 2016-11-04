@@ -248,7 +248,6 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
             } else {
                 compareToResult = COMPARE_TO_IS_EQUAL;
             }
-
         } catch (ParseException e) {
             logger.warning("ParseException at Task: \n" + e.getMessage());
         }

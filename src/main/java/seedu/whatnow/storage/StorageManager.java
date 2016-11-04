@@ -7,9 +7,11 @@ import seedu.whatnow.commons.core.ComponentManager;
 import seedu.whatnow.commons.core.Config;
 import seedu.whatnow.commons.core.LogsCenter;
 import seedu.whatnow.commons.events.model.ConfigChangedEvent;
+import seedu.whatnow.commons.events.model.PinnedItemChangedEvent;
 import seedu.whatnow.commons.events.model.WhatNowChangedEvent;
 import seedu.whatnow.commons.events.storage.DataSavingExceptionEvent;
 import seedu.whatnow.commons.exceptions.DataConversionException;
+import seedu.whatnow.commons.util.ConfigUtil;
 import seedu.whatnow.model.ReadOnlyWhatNow;
 import seedu.whatnow.model.UserPrefs;
 import seedu.whatnow.model.WhatNow;
@@ -121,8 +123,22 @@ public class StorageManager extends ComponentManager implements Storage {
             raise(new DataSavingExceptionEvent(e));
         }
     }
+    
+    @Override
+    @Subscribe
+    /**
+     * Changes the config file with updated pinned item type and keyword
+     */
+    public void handlePinnedItemChangedEvent(PinnedItemChangedEvent event) {
+        logger.info(LogsCenter
+                .getEventHandlingLogMessage(event, "Local config data (pinned item and keyword) changed, saving to file"));
+        try {
+            ConfigUtil.saveConfig(event.config, Config.DEFAULT_CONFIG_FILE);
+        } catch (IOException e) {
+            raise(new DataSavingExceptionEvent(e));
+        }
+    }
 
-    // ================ CompletedTask Storage methods
-    // ==============================
+    // ============ CompletedTask Storage methods ================
 
 }
