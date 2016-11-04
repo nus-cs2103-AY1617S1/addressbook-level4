@@ -77,9 +77,8 @@ Examples:
 
 <!-- @@author A0139671X -->
 ##### Adding a recurring task
-Adds a recurring task a certain number of times with a specified duration in between <br>
-If the number of times is not specified, ForgetMeNot adds by default, 10 instances of the recurring task <br>
-Recurring task addition is not supported for task without any date or time <br>
+Adds a recurring task a certain number of times with a specified duration in between. If the number of times is not specified, ForgetMeNot adds by default, 10 instances of the recurring task. <br>
+Recurring task addition is not supported for task without any date or time. <br>
 Format : `add <task name> at/from <start time> by/to <end time> every <number> <time interval> x<number> `
 <number> has to be numeric. For example, 8 and not eight. <br>
 Allowed time intervals : days, weeks, months, years
@@ -102,9 +101,8 @@ Examples:
 	Add 2 instances of the task with 3 months in between the instances.
 
 #### Editing a Task: `edit`
-Allows the user to edit a particular task<br>
-Once a task is given a time, it can only be modified and not removed <br>
-If you wish to remove a time from a task, kindly delete the task and re-add it without the time <br>
+Allows the user to edit a particular task. Once a task is given a time, it can only be modified and not removed <br>
+If you wish to remove a time from a task, kindly delete the task and re-add it without the time. <br>
 Format: `edit <task index> <new detail(s) to edit>`
 
 Example:
