@@ -199,8 +199,55 @@ public class UpdateController implements Controller {
         db.save();
     }
     
-    private boolean validateParams(boolean isTask, String name, String naturalFrom, String naturalTo) {
+    /**
+     * Validate that applying the update changes to the record will not result in an inconsistency.
+     * 
+     * <li>
+     * <ul>Fail if name is invalid</ul>
+     * </li>
+     * 
+     * Tasks:
+     * <li>
+     * <ul>Fail if task has a dateTo</ul>
+     * </li>
+     * 
+     * Events:
+     * <li>
+     * <ul>Fail if event does not have both dateFrom and dateTo</ul>
+     * <ul>Fail if event has a dateTo that is before dateFrom</ul>
+     * </li>
+     * 
+     * @param isTask
+     * @param name
+     * @param dateFrom
+     * @param dateTo
+     * @return
+     */
+    private boolean validateParams(boolean isTask, CalendarItem record, String name,
+            LocalDateTime dateFrom, LocalDateTime dateTo) {
         // TODO: Not enough sleep
+        // We really need proper ActiveRecord validation and rollback, sigh...
+        
+        if (isTask) {
+            // Fail if task has a dateTo
+            if (dateTo != null) {
+                return false;
+            }
+        } else {
+            Event event = (Event) record;
+            
+            // Take union of existing fields and update params
+            LocalDateTime newDateFrom = (dateFrom == null) ? event.getStartDate() : dateFrom;
+            LocalDateTime newDateTo = (dateTo == null) ? event.getEndDate() : dateTo;
+            
+            if (newDateFrom == null || newDateTo == null) {
+                return false;
+            }
+            
+            if (newDateTo.isBefore(newDateFrom)) {
+                return false;
+            }
+        }
         return true;
     }
     
