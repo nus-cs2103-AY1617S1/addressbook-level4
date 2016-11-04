@@ -119,7 +119,7 @@ public class Time {
     		return "-";
     	}
     	else{
-    		DateFormat df = new SimpleDateFormat("dd/MM/yyyy\n hh:mm a");
+    		DateFormat df = new SimpleDateFormat("d MMM yyyy\n  h:mm a");
     		String finalString = df.format(time.getTime());
     		
     		return finalString;
@@ -131,7 +131,7 @@ public class Time {
             return "-";
         }
         else{
-            DateFormat df = new SimpleDateFormat("dd/MM/yyyy hh:mm a");
+            DateFormat df = new SimpleDateFormat("d MMM yyyy h:mm a");
             String finalString = df.format(time.getTime());
             
             return finalString;

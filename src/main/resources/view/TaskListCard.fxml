@@ -11,7 +11,7 @@
 
 <!-- @@author A0144919W -->
 
-<AnchorPane fx:id="cardPane" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="cardPane" prefHeight="64.0" prefWidth="727.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <VBox alignment="CENTER_LEFT" maxHeight="150.0" minHeight="40.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
       	<stylesheets>
@@ -20,7 +20,7 @@
       	</stylesheets>
       
       	<children>
-      		<HBox alignment="CENTER_LEFT" spacing="5">
+      		<HBox alignment="CENTER_LEFT" prefWidth="727.0" spacing="5">
       			<children>
       				<HBox maxWidth="1.7976931348623157E308" minWidth="200.0" prefHeight="30.0" prefWidth="386.0" HBox.hgrow="ALWAYS">
       					<ImageView fx:id="statusButton" fitHeight="14.0" fitWidth="19.0" pickOnBounds="true" preserveRatio="true" smooth="true">
@@ -52,11 +52,11 @@
       				</HBox>
       				<HBox />
       				<Label fx:id="recurring" prefHeight="28.0" prefWidth="75.0" text="\$rec" />
-      				<Label id="priority" fx:id="priority" prefHeight="30.0" prefWidth="73.0" style="-fx-alignment: CENTER-RIGHT;" styleClass="cell_small_label" text="\$priority">
+      				<Label id="priority" fx:id="priority" prefHeight="40.0" prefWidth="101.0" style="-fx-alignment: CENTER-RIGHT;" styleClass="cell_small_label" text="\$priority">
 
 				</Label>
-      				<Label fx:id="startTime" prefWidth="84.0" style="-fx-alignment: center;" styleClass="cell_small_label" text="\$startTime" />
-      				<Label fx:id="endTime" prefWidth="84.0" style="-fx-alignment: center;" styleClass="cell_small_label" text="\$endTime" />
+      				<Label fx:id="startTime" prefHeight="40.0" prefWidth="101.0" style="-fx-alignment: center;" styleClass="cell_small_label" text="\$startTime" />
+      				<Label fx:id="endTime" prefHeight="40.0" prefWidth="101.0" style="-fx-alignment: center;" styleClass="cell_small_label" text="\$endTime" />
       			</children>
       		</HBox>
       		<HBox />

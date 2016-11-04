@@ -59,7 +59,7 @@ public class DeleteCommand extends Command {
 
 		// No tasks match string
 		if (matchingTasks.isEmpty()){
-			model.updateFilteredListToShowAll();
+			model.updateFilteredListToShowIncomplete();
 			return new CommandResult(String.format(MESSAGE_DELETE_TASK_FAILURE));
 		}
 
@@ -72,7 +72,7 @@ public class DeleteCommand extends Command {
 			catch (TaskNotFoundException e) {
 				assert false: "The target task cannot be missing";
 			}
-			model.updateFilteredListToShowAll();
+			model.updateFilteredListToShowIncomplete();
 			return new CommandResult(String.format(MESSAGE_DELETE_TASK_SUCCESS, taskToDelete.getTaskDetails()));
 		} 
 
@@ -99,6 +99,7 @@ public class DeleteCommand extends Command {
 			catch (TaskNotFoundException e){
 				assert false: "The target task cannot be missing";
 			}
+            model.updateFilteredListToShowIncomplete();
 			return new CommandResult(String.format(MESSAGE_DELETE_TASK_SUCCESS, taskToDelete.getTaskDetails()));
 		}
 	}
