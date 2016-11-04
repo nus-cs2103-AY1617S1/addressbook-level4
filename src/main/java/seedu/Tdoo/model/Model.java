@@ -78,9 +78,12 @@ public interface Model {
 
 	/** Adds the given task */
 	void addTask(Task task) throws IllegalValueException, UniqueTaskList.DuplicatetaskException;
+	
+	/** Adds the given task */
+    void addTaskWithIndex(Task task, int targetIndex) throws IllegalValueException, UniqueTaskList.DuplicatetaskException;
 
 	/** Edit the given task */
-	void editTask(ReadOnlyTask target, String dataType, Task task)
+	void editTask(ReadOnlyTask target, String dataType, Task task, int targetIndex)
 			throws IllegalValueException, UniqueTaskList.TaskNotFoundException;
 
 	/** Mark the given task as done */

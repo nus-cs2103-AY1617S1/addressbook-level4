@@ -93,6 +93,16 @@ public class TaskList implements ReadOnlyTaskList {
 	}
 
 	/**
+     * Adds a task to the TodoList.
+     *
+     * @throws UniqueTaskList.DuplicatetaskException
+     *             if an equivalent task already exists.
+     */
+    public void addTaskWithIndex(Task p, int targetIndex) throws UniqueTaskList.DuplicatetaskException {
+        tasks.addAtSameIndex(p,targetIndex);
+    }
+    
+	/**
 	 * Edit a task to the TodoList.
 	 *
 	 * @throws UniqueTaskList.DuplicatetaskException

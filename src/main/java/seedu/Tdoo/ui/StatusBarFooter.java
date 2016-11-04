@@ -49,7 +49,7 @@ public class StatusBarFooter extends UiPart {
 		addSyncStatus();
 		setSyncStatus("Not updated yet in this session");
 		addSaveLocation();
-		setSaveLocation("./" + saveLocation);
+		setSaveLocation(saveLocation);
 		registerAsAnEventHandler(this);
 	}
 
