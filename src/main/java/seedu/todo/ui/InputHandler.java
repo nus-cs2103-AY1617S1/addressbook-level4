@@ -115,7 +115,12 @@ public class InputHandler {
         }
         
         // Process using best-matched controller.
-        processWithController(input, aliasedInput, selectedController);
+        boolean isProcessSuccess = processWithController(input, aliasedInput, selectedController);
+        
+        // Catch commands which throw errors here.
+        if (!isProcessSuccess) {
+            return false;
+        }
         
         // Since command is not invalid, we push it to history
         pushCommand(aliasedInput);
