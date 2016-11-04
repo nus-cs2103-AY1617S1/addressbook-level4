@@ -3,8 +3,6 @@ package seedu.whatnow.model.task;
 import seedu.whatnow.commons.exceptions.IllegalValueException;
 import java.util.Date;
 import java.util.GregorianCalendar;
-import java.util.Locale;
-
 import java.text.ParseException;
 
 import java.text.DateFormat;
@@ -57,6 +55,31 @@ public class TaskDate {
     private String fullDate;
     private String startDate;
     private String endDate;
+    
+    private static final String JANUARY_FULL = "january";
+    private static final String FEBRUARY_FULL = "february";
+    private static final String MARCH_FULL = "march";
+    private static final String APRIL_FULL = "april";
+    private static final String MAY_FULL = "may";
+    private static final String JUNE_FULL = "june";
+    private static final String JULY_FULL = "july";
+    private static final String AUGUST_FULL = "august";
+    private static final String SEPTEMBER_FULL = "september";
+    private static final String OCTOBER_FULL = "october";
+    private static final String NOVEMBER_FULL = "november";
+    private static final String DECEMBER_FULL = "december";
+    
+    private static final String JANUARY_SHORT = "jan";
+    private static final String FEBRUARY_SHORT = "feb";
+    private static final String MARCH_SHORT = "mar";
+    private static final String APRIL_SHORT = "apr";
+    private static final String JUNE_SHORT = "jun";
+    private static final String JULY_SHORT = "jul";
+    private static final String AUGUST_SHORT = "aug";
+    private static final String SEPTEMBER_SHORT = "sep";
+    private static final String OCTOBER_SHORT = "oct";
+    private static final String NOVEMBER_SHORT = "nov";
+    private static final String DECEMBER_SHORT = "dec";
 
     // @@author A0139128A
     /**
@@ -300,6 +323,40 @@ public class TaskDate {
         } else {
             fullDate = incDate;
             return true;
+        }
+    }
+    
+    /**
+     * This method checks the validity of the month entered by the user.
+     */
+    public static boolean isValidMonth(String mth){
+        String month = mth.toLowerCase();
+        if(month.equals(JANUARY_FULL) || month.equals(JANUARY_SHORT)){
+            return true;
+        } else if(month.equals(FEBRUARY_FULL)|| month.equals(FEBRUARY_SHORT)){
+            return true;
+        } else if(month.equals(MARCH_FULL)|| month.equals(MARCH_SHORT)){
+            return true;
+        } else if(month.equals(APRIL_FULL)|| month.equals(APRIL_SHORT)){
+            return true;
+        } else if(month.equals(MAY_FULL)){
+            return true;
+        } else if(month.equals(JUNE_FULL)|| month.equals(JUNE_SHORT)){
+            return true;
+        } else if(month.equals(JULY_FULL)|| month.equals(JULY_SHORT)){
+            return true;
+        } else if(month.equals(AUGUST_FULL)|| month.equals(AUGUST_SHORT)){
+            return true;
+        } else if(month.equals(SEPTEMBER_FULL)|| month.equals(SEPTEMBER_SHORT)){
+            return true;
+        } else if(month.equals(OCTOBER_FULL)|| month.equals(OCTOBER_SHORT)){
+            return true;
+        } else if(month.equals(NOVEMBER_FULL)|| month.equals(NOVEMBER_SHORT)){
+            return true;
+        } else if(month.equals(DECEMBER_FULL)|| month.equals(DECEMBER_SHORT)){
+            return true;
+        } else { 
+            return false;
         }
     }
 
