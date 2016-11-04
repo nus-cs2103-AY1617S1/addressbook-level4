@@ -4,6 +4,7 @@
 * [Features](#features)
 * [Command Summary](#command-summary)
 
+<!-- @@author A0139671X -->
 ## Quick Start
 
 0. Ensure you have Java version `1.8.0_60` or later installed in your Computer.<br>
@@ -11,6 +12,7 @@
    This app will not work with earlier versions of Java 8.
    
 1. Download the latest `forgetmenot.jar` from the [releases](../../../releases) tab.
+   > <img src="images/DownloadSection.png" width="600">
 2. Copy the file to the folder you want to use as the home folder for ForgetMeNot.
 3. Double-click the file to start the app. The GUI should appear in a few seconds. 
    > <img src="images/ForgetMeNotUI.png" width="600">
@@ -18,6 +20,8 @@
 4. Type the command in the command box and press <kbd>Enter</kbd> to execute it. <br>
    e.g. typing **`help`** and pressing <kbd>Enter</kbd> will open the help window. 
 5. Refer to the [Features](#features) section below for details of each command.<br>
+6. Refer to the [Command Summary](#command-summary) section below for a summary of commands. <br>
+<!-- @@author -->
 
 //@@author A0147619W
 ## Features
