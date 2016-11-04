@@ -170,7 +170,7 @@ public class LogicManagerTest {
     @Test
     public void execute_add_invalidTaskData() throws Exception {
         assertCommandBehavior(
-                "add 'new task' -/tag", Messages.MESSAGE_INVALID_PRIORITY_SPACE );
+                "add 'new task' -/tag", Tag.MESSAGE_TAG_CONSTRAINTS);
         assertCommandBehavior(
         		"add new task", Messages.MESSAGE_ENCAPSULATE_DETAIL_WARNING);
     }
