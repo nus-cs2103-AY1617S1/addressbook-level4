@@ -185,29 +185,29 @@ public class TaskManager implements ReadOnlyTaskManager {
             Task toCount = tasks.getInternalList().get(i);
 
             if (toCount.isFloatingTask()
-                    && toCount.getDone().getDoneValue() == false) {
+                    && toCount.isDone() == false) {
                 floating++;
             }
 
             if (((toCount.getStartTime().isToday(toCount.getStartTime().appearOnUIFormatForDate()))
                     || toCount.getEndTime().isToday(toCount.getEndTime().appearOnUIFormatForDate()))
-                    && toCount.getDone().getDoneValue() == false) {
+                    && toCount.isDone() == false) {
                 today++;
             }
 
             if ((toCount.getStartTime().isTomorrow(toCount.getStartTime().appearOnUIFormatForDate())
                     || toCount.getEndTime().isTomorrow(toCount.getEndTime().appearOnUIFormatForDate()))
-                    && toCount.getDone().getDoneValue() == false) {
+                    && toCount.isDone() == false) {
                 tomorrow++;
             }
 
             if ((toCount.getStartTime().isUpcoming(toCount.getStartTime().appearOnUIFormatForDate())
                     || toCount.getEndTime().isUpcoming(toCount.getEndTime().appearOnUIFormatForDate()))
-                    && toCount.getDone().getDoneValue() == false) {
+                    && toCount.isDone() == false) {
                 upcoming++;
             }
 
-            if ((toCount.checkOverdue()) && !toCount.getDone().getDoneValue())
+            if ((toCount.checkOverdue()) && toCount.isDone() == false)
                 overdue++;
         }
         floatingCounter = floating;

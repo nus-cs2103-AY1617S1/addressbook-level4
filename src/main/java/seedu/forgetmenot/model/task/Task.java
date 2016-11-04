@@ -148,4 +148,13 @@ public class Task implements ReadOnlyTask {
         return start.isMissing() && end.isMissing();
     }
     //@@author
+    
+    //@@author A0139198N
+    /**
+     * Checks if a task is done, i.e. done value is true
+     * @return true if done value is true
+     */
+    public boolean isDone() {
+        return done.getDoneValue() == true;
+    }
 }

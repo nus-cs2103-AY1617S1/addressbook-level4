@@ -32,6 +32,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     private final TaskManager taskManager;
     private final FilteredList<Task> filteredTasks;
+    private final FilteredList<Task> filteredTasksForFloating;
     private Deque<TaskManager> taskManagerHistory = new ArrayDeque<TaskManager>();
     private Deque<TaskManager> undoHistory = new ArrayDeque<TaskManager>();
 
@@ -48,6 +49,7 @@ public class ModelManager extends ComponentManager implements Model {
 
         taskManager = new TaskManager(src);
         filteredTasks = new FilteredList<>(taskManager.getTasks());
+        filteredTasksForFloating = new FilteredList<>(taskManager.getTasks());
     }
 
     public ModelManager() {
@@ -57,6 +59,7 @@ public class ModelManager extends ComponentManager implements Model {
     public ModelManager(ReadOnlyTaskManager initialData, UserPrefs userPrefs) {
         taskManager = new TaskManager(initialData);
         filteredTasks = new FilteredList<>(taskManager.getTasks());
+        filteredTasksForFloating = new FilteredList<>(taskManager.getTasks());
     }
 
     @Override
@@ -312,6 +315,11 @@ public class ModelManager extends ComponentManager implements Model {
     public UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList() {
         return new UnmodifiableObservableList<>(filteredTasks);
     }
+    
+    @Override
+    public UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskListForFloating() {
+        return new UnmodifiableObservableList<>(filteredTasksForFloating);
+    }
 
     //@@author A0147619W
     @Override
@@ -427,27 +435,28 @@ public class ModelManager extends ComponentManager implements Model {
 
     //@@author A0139198N
     public static Predicate<Task> isDone() {
-        return t -> t.getDone().getDoneValue() == true;
+        return t -> t.isDone() == true;
     }
 
     //@@author A0139198N
     public static Predicate<Task> filterByDate(String date) {
         return t -> (t.getStartTime().appearOnUIFormatForDate().equals(date)
-                || t.getEndTime().appearOnUIFormatForDate().equals(date)) && t.getDone().getDoneValue() == false;
+                || t.getEndTime().appearOnUIFormatForDate().equals(date)) && 
+        		t.isDone() == false;
     }
 
     //@@author A0139198N
     public static Predicate<Task> isNotDone() {
-        return t -> t.getDone().getDoneValue() == false;
+        return t -> t.isDone() == false;
     }
 
     //@@author A0139198N
     public static Predicate<Task> isOverdue() {
-        return t -> t.checkOverdue() == true && t.getDone().getDoneValue() == false;
+        return t -> t.checkOverdue() == true && t.isDone() == false;
     }
 
     //@@author A0139198N
     public static Predicate<Task> isFloating() {
-        return t -> t.isFloatingTask() && t.getDone().getDoneValue() == false;
+        return t -> t.isFloatingTask() && t.isDone() == false;
     }
 }
