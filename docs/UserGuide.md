@@ -34,6 +34,8 @@
 > * Words in `UPPER_CASE` are the parameters.
 > * Items in `SQUARE_BRACKETS` are optional.
 > * Items with `...` after them can have multiple instances.
+> * Tasks or Events are collectively referred to as Items. For simplicity, we use both 
+> * terms interchangeably
 > * The order of parameters is flexible.
 
 #### Viewing help : `help`
@@ -41,24 +43,104 @@ Shows a list of various commands available.<br>
 Format: `help`
 
 > Help is also shown if you enter an incorrect command e.g. `abcd`
+
+<!-- @@author A0142325R-->
  
-#### Adding a todo: `add`
-Add an event with a starting and ending date to the calendar.<br>
-Format: `add n/EVENT_NAME s/START_DATE e/END_DATE [t/TAG]... [p/PRIORITY_LEVEL]`
+#### Adding an item: `add`
+Add an event with a starting and ending date to the toDoList.<br>
+Format: `add n/EVENT_NAME s/START_DATE e/END_DATE [t/TAG]... [p/PRIORITY_LEVEL][r/RECURRING_FREQUENCY]`
 
-Add a task (with or without deadline) to the calendar.<br>
-Format: `add n/TASK_NAME [d/DEADLINE] [t/TAG]... [p/PRIORITY_LEVEL]`
+Add a task (with or without deadline) to the toDoList.<br>
+Format: `add n/TASK_NAME [d/DEADLINE] [t/TAG]... [p/PRIORITY_LEVEL][r/RECURRING_FREQUENCY]`
 
-> Todos can have any number of tags (including 0)
+> With the exception of command word "add", the order of parameters are not fixed. START_DATE, END_DATE
+>and DEADLINE can be entered in natural language. For example, entering words like today, tommorrow, today
+>at 4pm, the day after tommorrow are recognized. For events, START_DATE and END_DATE must be present at the
+>same time
+
+> Items to be added can have any number of tags (including 0)
 
 Examples:
-* `add n/Lecture s/7.10.2016-14 e/7.10.2016-16 t/CS2103 p/3 `
-* `add n/Project Deadline d/14.10.2016 t/CS2103 p/3`
+* `add n/Lecture s/7.10.2016-14 e/7.10.2016-16 t/CS2103 p/3 r/daily`
+* `add n/Project Deadline d/14.10.2016 t/CS2103 p/3 r/weekly`
 * `add n/Read Book`
 
-#### Listing all todos : `list`
-Shows a list of all todos.<br>
+#### Listing items : `list`
+Shows a list of all items.<br>
 Format: `list`
+Example:
+*`list`
+
+Shows a list of all tasks.<br>
+Format: `list tasks`
+Example:
+*`list tasks`
+
+Shows a list of all events.<br>
+Format: `list events`
+Example:
+*`list events`
+
+Shows a list of all done items.<br>
+Format: `list done`
+Example:
+*`list done`
+
+Shows a list of all undone items.<br>
+Format: `list undone`
+Example:
+*`list undone`
+
+#### Deleting items: `delete`
+Deletes an existing task or event from toDoList storage completely.
+
+Format: `delete INDEX`
+
+> Delete the task or event identified by the specific INDEX in the most recent listing.
+> INDEX must be positive integers like 1 , 2 , 3 ...
+
+Format:`delete NAME...`
+
+> all tasks or events with names matching one or more of the input parameters will be listed
+> user delete the task or event by index in the last shown listing
+
+Example:
+* `delete do homework`
+A list of items with keywords "do" or "homework" or both will be shown.
+
+* `delete 1`
+Delete the first item in the last shown list
+
+#### Refresh toDoList: `refresh`
+Refresh the current toDoList
+
+Format: `refresh`
+
+> refreshes all outdated recurring tasks to reflect next upcoming date
+
+Example:
+* `refresh`
+
+#### Mark an item as done: `done`
+Mark an event or task as done 
+
+Format: `done INDEX`
+
+> Mark the task identified by the INDEX number as done, and reflect it in toDoList
+> INDEX of a task or event refers to the most recent listing
+> INDEX must be positive integer, such as 1, 2, 3 ...
+
+Format: `done NAME...`
+
+> A list of tasks or events with name matching one or more of the input parameters will be shown
+> User is then required to select the corresponding index in the last shown list and mark as done
+
+Example:
+* `done 1`
+Marks the first item in the last shown list as done
+
+* `done homework`
+A list of all items with names matching the keyword "homework" will be shown
 
 <!-- @@author A0146123R-->
 #### Finding all todos containing any keyword in their name: `find`
@@ -85,27 +167,6 @@ Examples:
 * `find CS2103 AND Software Project`<br>
   Returns todos having names `CS2103` and at least one of `Software` or `Project`
 <!-- @@author -->
-
-#### Deleting an todo : `delete`
-Deletes the specified todo from the list. Irreversible.<br>
-Format: `delete INDEX`
-
-> Deletes an todo at the specified `INDEX`.
-  The index refers to the index number shown in the most recent listing.<br>
-  The index **must be a positive integer** 1, 2, 3, …
-
-Delete the todo with the exact name: `delete`<br>
-Format: `delete EVENT_NAME/TASK_NAME`
-
-> Deletes the todo with the specified `EVENT_NAME/TASK_NAME`<br>
-  The event name or task name refers to the full name of the event or task that the user wants to delete.
-
-Examples:
-* `list`<br>
-  `delete 2`<br>
-  Deletes the 2nd todo in the list.
-* `delete Lecture`<br>
-  Deletes the task with name `Lecture`  in the results of the `find` command.
 
 ####Edit an todo: `edit`
 Edit an existing field of an todo.<br>
