@@ -402,14 +402,10 @@ public class MainParser {
     													"").toString();
     	// Details only, get rid of anything before the first '
     	output = new StringBuilder(output).replace(0, output.indexOf("'"), "").toString();
-    	System.out.println(details[0]);
-    	System.out.println(output);
     	// Take out the detail.
     	args = args.replace(output, "");
-    	System.out.println(args);
     	// Get rid of the first '
     	output = output.substring(output.indexOf("'")+1, output.lastIndexOf("'"));
-    	System.out.println(output);
     	// Save to instance
     	detailToAdd = output;
     }
