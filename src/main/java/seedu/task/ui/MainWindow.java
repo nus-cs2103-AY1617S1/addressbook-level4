@@ -72,7 +72,7 @@ public class MainWindow extends UiPart {
 
     @FXML
     private AnchorPane statusbarPlaceholder;
-    
+    //@@author A0153751H
     @FXML
     private Button aButton;
     
@@ -86,7 +86,7 @@ public class MainWindow extends UiPart {
     @FXML
     private TextField aTitle, aDes, aStart, aDue, aInterval,
     	aTimeInterval, aColor, aTags;
-
+    //@@author
     public MainWindow() {
         super();
     }
@@ -124,6 +124,7 @@ public class MainWindow extends UiPart {
         setWindowDefaultSize(prefs);
         scene = new Scene(rootLayout);
         primaryStage.setScene(scene);
+        //@@author A0153751H
         aButton.setOnAction((ActionEvent e) -> {
         	String aHead = "add";
         	aHead = processAddParams(aHead);
@@ -144,9 +145,10 @@ public class MainWindow extends UiPart {
 				e1.printStackTrace();
 			}
         });
+        //@@author
         setAccelerators();
     }
-
+    //@@author A0153751H
 	private String processEditParams(String eHead) {
 		if (!eIndex.getText().isEmpty()) {
 			eHead = eHead + " " + eIndex.getText();
@@ -205,7 +207,7 @@ public class MainWindow extends UiPart {
 		}
 		return aHead;
 	}
-
+	//@@author
     private void setAccelerators() {
         helpMenuItem.setAccelerator(KeyCombination.valueOf("F1"));
     }
