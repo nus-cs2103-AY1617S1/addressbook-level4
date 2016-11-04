@@ -18,6 +18,7 @@ import seedu.emeraldo.commons.exceptions.IllegalValueException;
 import seedu.emeraldo.commons.exceptions.QualifierLogicalOperatorMismatch;
 import seedu.emeraldo.commons.util.StringUtil;
 import seedu.emeraldo.logic.commands.ListCommand.TimePeriod;
+import seedu.emeraldo.logic.commands.TaskAlreadyCompletedException;
 import seedu.emeraldo.logic.commands.ListCommand.Completed;
 import seedu.emeraldo.model.tag.Tag;
 import seedu.emeraldo.model.task.DateTime;
@@ -160,7 +161,7 @@ public class ModelManager extends ComponentManager implements Model {
     //@@author A0142290N
     @Override 
     public synchronized void completedTask(Task target)
-    		throws TaskNotFoundException {
+    		throws TaskAlreadyCompletedException {
     	try {
     		emeraldo.completedTask(target);
     	} catch (IllegalValueException e) {

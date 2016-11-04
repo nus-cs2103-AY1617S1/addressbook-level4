@@ -3,6 +3,7 @@ package seedu.emeraldo.model;
 import seedu.emeraldo.commons.core.UnmodifiableObservableList;
 import seedu.emeraldo.logic.commands.ListCommand.Completed;
 import seedu.emeraldo.logic.commands.ListCommand.TimePeriod;
+import seedu.emeraldo.logic.commands.TaskAlreadyCompletedException;
 import seedu.emeraldo.model.task.DateTime;
 import seedu.emeraldo.model.task.Description;
 import seedu.emeraldo.model.task.ReadOnlyTask;
@@ -41,8 +42,9 @@ public interface Model {
     void editTask(Task target, Description description, DateTime dateTime) throws TaskNotFoundException;
 
     //@@author A0142290N
-    /** Marks given task as complete */
-    void completedTask(Task target) throws TaskNotFoundException;
+    /** Marks given task as complete 
+     * @throws TaskAlreadyCompletedException */
+    void completedTask(Task target) throws TaskAlreadyCompletedException;
     //@@author
     
     /** Adds the given task */

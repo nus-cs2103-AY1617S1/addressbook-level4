@@ -276,7 +276,7 @@ public class DateTimeParser {
     }
     
     
-    public static String valueTimeCompletedFormatter(LocalTime time) throws IllegalValueException{
+    public static String valueTimeCompletedFormatter(LocalTime time){
     	String[] formattedInto12Hours = convert24HoursFormatTo12HoursFormat(Integer.toString(time.getHour()));
     	String minute = Integer.toString(time.getMinute());
     	String hour = formattedInto12Hours[0];
