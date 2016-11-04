@@ -41,10 +41,10 @@ public class Parser {
                     + " (?<args>.+)"); // the other arguments
     
     private static final Pattern TAG_ARGS_FORMAT =
-            Pattern.compile("\\#(?<tag>\\p{Alnum}+)"); // #<tag>
+            Pattern.compile("\\#(?<tag>.+)"); // #<tag>
     
     private static final Pattern EDIT_TAG_COMMAND_ARGS_FORMAT = 
-            Pattern.compile("\\#(?<tag>\\p{Alnum}+)" // tag name
+            Pattern.compile("\\#(?<tag>[^\\s]+)" // tag name
                     + " (?<args>.+)"); // the other arguments
   //@@author
     

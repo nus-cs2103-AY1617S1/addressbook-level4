@@ -35,13 +35,13 @@ public class EditTagCommand extends EditCommand {
     
     public EditTagCommand(String name, Map<TagField, String> fields) throws IllegalValueException, IllegalCmdArgsException {
         if (!Tag.isValidTagName(name)) {
-            throw new IllegalValueException(Tag.MESSAGE_TAG_CONSTRAINTS + " : " + name);
+            throw new IllegalValueException(Tag.MESSAGE_TAG_CONSTRAINTS);
         }
         if (fields.containsKey(TagField.NAME) && !Tag.isValidTagName(fields.get(TagField.NAME))) {
-            throw new IllegalValueException(Tag.MESSAGE_TAG_CONSTRAINTS + " : " + fields.get(TagField.NAME));
+            throw new IllegalValueException(Tag.MESSAGE_TAG_CONSTRAINTS);
         }
         if (fields.containsKey(TagField.COLOR) && !TagColor.isValidColor(fields.get(TagField.COLOR))) {
-            throw new IllegalValueException(TagColor.MESSAGE_COLOR_CONSTRAINTS + " : " + fields.get(TagField.COLOR));
+            throw new IllegalValueException(TagColor.MESSAGE_COLOR_CONSTRAINTS);
         }
         if (fields.size() == 0) {
             throw new IllegalCmdArgsException(EditCommand.MESSAGE_USAGE);

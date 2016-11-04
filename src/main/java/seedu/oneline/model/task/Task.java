@@ -152,7 +152,6 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
             }
         }
         Task newTask = new Task(newName, newStartTime, newEndTime, newDeadline, newRecurrence, newTag, newCompleted);
-        System.out.println("C: " + newTask.isCompleted());
         return newTask;
     }
     

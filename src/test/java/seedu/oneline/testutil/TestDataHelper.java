@@ -58,7 +58,7 @@ public class TestDataHelper{
         cmd.append(" .to ").append(p.getEndTime());
         cmd.append(" .due ").append(p.getDeadline());
         cmd.append(" .every ").append(p.getRecurrence());
-        cmd.append(" #").append(p.getTag().tagName);
+        cmd.append(" #").append(p.getTag().getTagName());
 
         return cmd.toString();
     }
@@ -66,7 +66,7 @@ public class TestDataHelper{
     /**
      * Generates an TaskBook with auto-generated tasks.
      */
-    public static TaskBook generateTaskBook(int numGenerated) throws Exception{
+    public static TaskBook generateTaskBook(int numGenerated) throws Exception {
         TaskBook taskBook = new TaskBook();
         addToTaskBook(taskBook, numGenerated);
         return taskBook;
@@ -75,7 +75,7 @@ public class TestDataHelper{
     /**
      * Generates an AddressBook based on the list of Tasks given.
      */
-    public static TaskBook generateTaskBook(List<Task> tasks) throws Exception{
+    public static TaskBook generateTaskBook(List<Task> tasks) throws Exception {
         TaskBook taskBook = new TaskBook();
         addToTaskBook(taskBook, tasks);
         return taskBook;
@@ -85,14 +85,14 @@ public class TestDataHelper{
      * Adds auto-generated Task objects to the given Task Book
      * @param taskBook The Task Book to which the Tasks will be added
      */
-    public static void addToTaskBook(TaskBook taskBook, int numGenerated) throws Exception{
+    public static void addToTaskBook(TaskBook taskBook, int numGenerated) throws Exception {
         addToTaskBook(taskBook, generateTaskList(numGenerated));
     }
 
     /**
      * Adds the given list of Tasks to the given Task Book
      */
-    public static void addToTaskBook(TaskBook taskBook, List<Task> tasksToAdd) throws Exception{
+    public static void addToTaskBook(TaskBook taskBook, List<Task> tasksToAdd) throws Exception {
         for(Task p: tasksToAdd){
             taskBook.addTask(p);
         }
@@ -102,14 +102,14 @@ public class TestDataHelper{
      * Adds auto-generated Task objects to the given model
      * @param model The model to which the Tasks will be added
      */
-    public static void addToModel(Model model, int numGenerated) throws Exception{
+    public static void addToModel(Model model, int numGenerated) throws Exception {
         addToModel(model, generateTaskList(numGenerated));
     }
 
     /**
      * Adds the given list of Tasks to the given model
      */
-    public static void addToModel(Model model, List<Task> tasksToAdd) throws Exception{
+    public static void addToModel(Model model, List<Task> tasksToAdd) throws Exception {
         for(Task p: tasksToAdd){
             model.addTask(p);
         }
@@ -118,7 +118,7 @@ public class TestDataHelper{
     /**
      * Generates a list of Tasks based on the flags.
      */
-    public static List<Task> generateTaskList(int numGenerated) throws Exception{
+    public static List<Task> generateTaskList(int numGenerated) throws Exception {
         List<Task> tasks = new ArrayList<>();
         for(int i = 1; i <= numGenerated; i++){
             tasks.add(generateTask(i));
