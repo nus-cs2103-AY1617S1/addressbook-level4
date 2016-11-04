@@ -24,10 +24,9 @@ public class SetStorageCommand extends Command {
 
 	public CommandResult execute() throws IOException, JSONException, ParseException {
 		assert model != null;
-		model.changeFileStorage(filePath);
 		if(!isValidFilePath(filePath))
 			return new CommandResult(String.format(MESSAGE_STORAGE_FAILURE+""));
-		else
+		    model.changeFileStorage(filePath);
 			return new CommandResult(String.format(MESSAGE_SUCCESS + filePath));
 	}
 
