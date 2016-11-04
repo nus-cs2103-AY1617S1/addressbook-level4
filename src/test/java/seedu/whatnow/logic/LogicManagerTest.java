@@ -4,6 +4,7 @@ package seedu.whatnow.logic;
 import com.google.common.eventbus.Subscribe;
 
 import seedu.whatnow.commons.core.EventsCenter;
+import seedu.whatnow.commons.core.Messages;
 import seedu.whatnow.commons.events.model.WhatNowChangedEvent;
 import seedu.whatnow.commons.events.ui.JumpToListRequestEvent;
 import seedu.whatnow.commons.events.ui.ShowHelpRequestEvent;
@@ -201,7 +202,7 @@ public class LogicManagerTest {
 
     }
 
-    // @@author A0139128A
+    //@@author A0139128A
     @Test
     public void executeList_correctArgument_showsAllTasks() throws Exception {
         // prepare expectations
@@ -214,7 +215,36 @@ public class LogicManagerTest {
 
         assertCommandBehavior("list", ListCommand.MESSAGE_SUCCESS, expectedAB, expectedList);
     }
-
+    //@@author A0139128A
+    @Test
+    public void executeListDone_correctArgument_showDoneTasks() throws Exception {
+        //prepare expectations
+        TestDataHelper helper = new TestDataHelper();
+        WhatNow expectedA = helper.generateModifiedWhatNow(1);
+        List<? extends ReadOnlyTask> expectedList = expectedA.getTaskList();
+        
+        
+        //prepare WhatNow state
+        helper.addToModel(model, 1);
+        helper.doneToModel(model, 1);
+        
+        assertCommandBehavior("list done", ListCommand.MESSAGE_SUCCESS, expectedA, expectedList);
+    }
+    //@@author A0139128A
+    @Test
+    public void executeListAllDone_correctArgument_showDownTasks() throws Exception {
+        //prepare expectations
+        TestDataHelper helper = new TestDataHelper();
+        WhatNow expectedA = helper.generateModifiedWhatNow(2);
+        
+        List<? extends ReadOnlyTask> expectedList = expectedA.getTaskList();
+        
+        //prepare WhatNow state
+        helper.addToModel(model, 2);
+        helper.doneToModel(model, 1);
+        
+        assertCommandBehavior("list all", ListCommand.MESSAGE_SUCCESS, expectedA, expectedList);
+    }
     /**
      * Confirms the 'invalid argument index number behaviour' for the given
      * command targeting a single task in the shown list, using visible index.
@@ -432,29 +462,32 @@ public class LogicManagerTest {
     }
     //@@author A0139128A
     @Test
-    public void execute_markDoneInvalidArgsFormat_errorMessageShown() throws
+    public void execute_markDoneInvalidIndexFormat_errorMessageShown() throws
     Exception {
-        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                MarkDoneCommand.MESSAGE_USAGE);
+        String expectedMessage = String.format(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         assertIncorrectIndexFormatBehaviorForCommand("done", "todo 2",
                 expectedMessage);
     }
     //@@author A0139128A
     @Test
-    public void execute_markDoneInvalidArgsFormat_Negative_errorMessageShown() throws
-    Exception {
-        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                MarkDoneCommand.MESSAGE_USAGE);
-        assertIncorrectIndexFormatBehaviorForCommand("done", "todo -1",
-                expectedMessage);
+    public void execute_markUndoneInvalidIndexFormat_ErrorMessageShown() throws Exception {
+        String expectedMessage = String.format(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
+        System.out.println(expectedMessage);
+        assertIncorrectIndexFormatBehaviorForCommand("undone", "todo 2", expectedMessage);
     }
-    
-   // @Test
-   // public void execute_markDoneIndexNotFound_errorMessageShown() throws
-   // Exception {
-   //     assertIndexNotFoundBehaviorForCommand("done", "todo");
-   // }
-
+    //@@author A0139128A
+    @Test
+    public void execute_markUndoneMissingIndexFormat_errorMessageShown() throws Exception {
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, MarkUndoneCommand.MESSAGE_MISSING_INDEX);
+        assertIncorrectIndexFormatBehaviorForCommand("undone", "todo", expectedMessage);
+    }
+    //@@author A0139128A
+    @Test
+    public void execute_markDoneIndexNotFound_errorMessageShown() throws
+    Exception {
+        assertIndexNotFoundBehaviorForCommand("done", "todo");
+    }
+     
     // @Test
     // public void execute_markDone_marksCorrectTask() throws Exception {
     // TestDataHelper helper = new TestDataHelper();
@@ -510,35 +543,35 @@ public class LogicManagerTest {
                 expectedMessage);
     }
 
-    // @Test
-    // public void execute_changeLocationInvalidArgsFormat_errorMessageShown()
-    // throws Exception {
-    // String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-    // ChangeCommand.MESSAGE_USAGE);
-    // assertIncorrectArgsFormatBehavior("change", expectedMessage);
-    // }
-    //
-    // @Test
-    // public void execute_changeLocationInvalidPath_errorMessageShown() throws
-    // Exception {
-    // String expectedMessage = String.format(MESSAGE_INVALID_PATH,
-    // ChangeCommand.MESSAGE_USAGE);
-    // assertInvalidPathBehavior("change location to", expectedMessage);
-    // }
-    //
-    // @Test
-    // public void execute_changeLocation_movesToCorrectPath() throws Exception
-    // {
-    // String egPath = "./docs";
-    // assertCommandBehavior("change location to " + egPath,
-    // String.format(ChangeCommand.MESSAGE_SUCCESS, egPath + "/whatnow.xml",
-    // null, null));
-    //
-    // egPath = "./data";
-    // assertCommandBehavior("change location to " + egPath,
-    // String.format(ChangeCommand.MESSAGE_SUCCESS, egPath + "/whatnow.xml",
-    // null, null));
-    // }
+    @Test
+    public void execute_changeLocationInvalidArgsFormat_errorMessageShown()
+            throws Exception {
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                ChangeCommand.MESSAGE_USAGE);
+        assertIncorrectArgsFormatBehavior("change", expectedMessage);
+    }
+
+    @Test
+    public void execute_changeLocationInvalidPath_errorMessageShown() throws
+    Exception {
+        String expectedMessage = String.format(MESSAGE_INVALID_PATH,
+                ChangeCommand.MESSAGE_USAGE);
+        assertInvalidPathBehavior("change location to", expectedMessage);
+    }
+
+    @Test
+    public void execute_changeLocation_movesToCorrectPath() throws Exception
+    {
+        String egPath = "./docs";
+        assertCommandBehavior("change location to " + egPath,
+                String.format(ChangeCommand.MESSAGE_SUCCESS, egPath + "/whatnow.xml",
+                        null, null));
+
+        egPath = "./data";
+        assertCommandBehavior("change location to " + egPath,
+                String.format(ChangeCommand.MESSAGE_SUCCESS, egPath + "/whatnow.xml",
+                        null, null));
+    }
 
     @Test
     public void executeFind_invalidArgsFormat_incorrectComandFeedback() throws Exception {
@@ -596,7 +629,7 @@ public class LogicManagerTest {
         assertCommandBehavior("find key rAnDoM", Command.getMessageForTaskListShownSummary(expectedList.size()),
                 expectedAB, expectedList);
     }
-    
+
     @Test
     public void executeFreetime_noDatePresent_incorrectCommandFeedback() throws Exception {
         assertCommandBehavior("freetime", "Invalid command format! \n" + FreeTimeCommand.MESSAGE_USAGE);
@@ -702,6 +735,15 @@ public class LogicManagerTest {
             addToWhatNow(whatNow, numGenerated);
             return whatNow;
         }
+        
+        /**
+         * Generates an WhatNow with 1 completed task 
+         */
+        WhatNow generateModifiedWhatNow(int numGenerated) throws Exception {
+            WhatNow whatNow = new WhatNow();
+            addToWhatNow(whatNow, numGenerated);
+            return whatNow;
+        }
 
         /**
          * Generates an WhatNow based on the list of Tasks given.
@@ -730,7 +772,7 @@ public class LogicManagerTest {
                 whatNow.addTask(p);
             }
         }
-
+       
         /**
          * Adds auto-generated Task objects to the given model
          * 
@@ -749,7 +791,35 @@ public class LogicManagerTest {
                 model.addTask(p);
             }
         }
-
+        /**
+         * Marks the given list of Tasks to the given WhatNow as done
+         */
+        void doneToWhatNow(WhatNow whatNow, int numGenerated) throws Exception {
+            doneToWhatNow(whatNow, generateTaskList(numGenerated));
+        }
+        /**
+         * Marks the given list of tasks to the given WhatNow as done
+         */
+        void doneToWhatNow(WhatNow whatNow, List<Task> list) throws Exception {
+            for(Task p : list) {
+                whatNow.markTask(p);
+            }
+        }
+        /**
+         * Adds auto-generated Task objects to the given model
+         * Then marks them as completed
+         */
+        void doneToModel(Model model, int numGenerated) throws Exception {
+            doneToModel(model, generateTaskList(numGenerated));
+        }
+        /**
+         * Marks the model list of tasks to be done
+         */
+        void doneToModel(Model model, List<Task> tasksToDone) throws Exception {
+            for(Task p : tasksToDone) {
+                model.markTask(p);
+            }
+        }
         /**
          * Generates a list of Tasks based on the flags.
          */

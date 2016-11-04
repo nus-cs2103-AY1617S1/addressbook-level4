@@ -25,7 +25,9 @@ public class MarkUndoneCommand extends Command {
     public static final String MESSAGE_MARK_TASK_FAIL = "Unable to mark task as incomplete";
     private static final String TASK_TYPE_FLOATING = "todo";
     private static final String TASK_TYPE_SCHEDULE = "schedule";
-
+    public static final String MESSAGE_MISSING_INDEX = "Please specify index";
+    public static final String MESSAGE_MISSING_TASKTYPE_AND_INDEX = "Please specify taskType and index";
+    
     public final String taskType;
     public final int targetIndex;
 
@@ -49,7 +51,8 @@ public class MarkUndoneCommand extends Command {
         } else {
             return new CommandResult(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MarkUndoneCommand.MESSAGE_USAGE));
         }
-        if (lastShownList.size() < targetIndex) {
+      //  System.out.println(targetIndex);
+        if (lastShownList.size() < targetIndex || targetIndex <0) {
             indicateAttemptToExecuteIncorrectCommand();
             return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
