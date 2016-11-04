@@ -1,7 +1,10 @@
 
 package seedu.dailyplanner.logic.commands;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 import seedu.dailyplanner.commons.core.Messages;
@@ -25,91 +28,82 @@ import seedu.dailyplanner.model.task.UniqueTaskList.PersonNotFoundException;
 // @@author A0139102U
 public class EditCommand extends Command {
 
-    public static final String COMMAND_WORD = "edit";
+	public static final String COMMAND_WORD = "edit";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD
-	    + ": Edits the task identified by the index number used in the last task listing.\n"
-	    + "Parameters: INDEX (must be a positive integer) NAME d/DATE s/STARTTIME e/ENDTIME\n" + "Example: "
-	    + COMMAND_WORD + " 2";
+	public static final String MESSAGE_USAGE = COMMAND_WORD
+			+ ": Edits the task identified by the index number used in the last task listing.\n"
+			+ "Parameters: INDEX (must be a positive integer) NAME d/DATE s/STARTTIME e/ENDTIME\n" + "Example: "
+			+ COMMAND_WORD + " 2";
 
-    public static final String MESSAGE_DUPLICATE_PERSON = "This task already exists in the daily planner";
-    public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Task: %1$s";
+	public static final String MESSAGE_DUPLICATE_PERSON = "This task already exists in the daily planner";
+	public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Task: %1$s";
 
-    public final int targetIndex;
-    private final Task toAdd;
+	public final int targetIndex;
+	private final Optional<String> taskName;
+	private final Optional<Date> start;
+	private final Optional<Date> end;
+	private final Optional<Set<String>> tags;
+	private Optional<UniqueTagList> tagSet;
 
-    public EditCommand(int targetIndex, String taskName, String date, String endDate, String startTime, String endTime,
-	    Set<String> tags) throws IllegalValueException {
-	this.targetIndex = targetIndex;
-	final Set<Tag> tagSet = new HashSet<>();
-	for (String tagName : tags) {
-	    tagSet.add(new Tag(tagName));
-	}
-	this.toAdd = new Task(new Name(taskName), new Date1(date, endDate), new StartTime(startTime),
-		new EndTime(endTime), new UniqueTagList(tagSet), "NOT COMPLETE");
-    }
-
-    @Override
-    public CommandResult execute() {
-
-	UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredPersonList();
-
-	if (lastShownList.size() < targetIndex) {
-	    indicateAttemptToExecuteIncorrectCommand();
-	    return new CommandResult(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
-	}
-
-	ReadOnlyTask taskToEdit = lastShownList.get(targetIndex - 1);
-
-	Name taskToEditName = taskToEdit.getName();
-	Date1 taskToEditDate = taskToEdit.getStart();
-	StartTime taskToEditStartTime = taskToEdit.getEnd();
-	EndTime taskToEditEndTime = taskToEdit.getAddress();
-
-	Name toAddName = toAdd.getName();
-	Date1 toAddDate = toAdd.getStart();
-	StartTime toAddStartTime = toAdd.getEnd();
-	EndTime toAddEndTime = toAdd.getAddress();
-
-	if (toAddName.toString().equals("")) {
-	    toAdd.setName(taskToEditName);
+	public EditCommand(int targetIndex, String taskName, Date start, Date end, Set<String> tags)
+			throws IllegalValueException {
+		this.targetIndex = targetIndex;
+		this.taskName = Optional.ofNullable(taskName);
+		this.start = Optional.ofNullable(start);
+		this.end = Optional.ofNullable(end);
+		this.tags = Optional.ofNullable(tags);
+		this.tagSet = Optional.empty();
+		if (this.tags.isPresent()) {
+			final Set<Tag> tagSet = new HashSet<>();
+			for (String tagName : tags) {
+				tagSet.add(new Tag(tagName));
+			}
+			this.tagSet = Optional.of(new UniqueTagList(tagSet));
+		}
 	}
 
-	if (toAddDate.toString().equals("") && toAddDate.getEndDate().equals("")) {
-	    toAdd.setDate(taskToEditDate);
-	} else if (toAddDate.toString().equals("")) {
-	    try {
-		toAdd.setDate(new Date1(taskToEditDate.value, toAddDate.getEndDate()));
-	    } catch (IllegalValueException e) {
-		e.printStackTrace();
-	    }
-	} else if (toAddEndTime.toString().equals("")) {
-	    
-	    try {
-		toAdd.setDate(new Date1(toAddDate.value, taskToEditDate.getEndDate()));
-	    } catch (IllegalValueException e) {
-	    }
-	}
+	@Override
+	public CommandResult execute() {
 
-	if (toAddStartTime.toString().equals("")) {
-	    toAdd.setStartTime(taskToEditStartTime);
-	}
-	if (toAddEndTime.toString().equals("")) {
-	    toAdd.setEndTime(taskToEditEndTime);
-	}
+		UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredPersonList();
 
-	try {
-	    model.getHistory().stackEditInstruction(taskToEdit, toAdd);
-	    model.deletePerson(taskToEdit);
-	    model.addPerson(toAdd);
+		if (lastShownList.size() < targetIndex) {
+			indicateAttemptToExecuteIncorrectCommand();
+			return new CommandResult(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+		}
 
-	} catch (PersonNotFoundException pnfe) {
-	    assert false : "The target task cannot be missing";
-	} catch (UniqueTaskList.DuplicatePersonException e) {
-	    return new CommandResult(MESSAGE_DUPLICATE_PERSON);
+		ReadOnlyTask taskToEdit = lastShownList.get(targetIndex - 1);
+
+		String toAddName = taskToEdit.getName();
+		if (taskName.isPresent()) {
+			toAddName = taskName.get();
+		}
+		Date toAddStart = taskToEdit.getStart();
+		if (start.isPresent()) {
+			toAddStart = start.get();
+		}
+		Date toAddEnd = taskToEdit.getEnd();
+		if (end.isPresent()) {
+			toAddEnd = end.get();
+		}
+		UniqueTagList toAddTags = taskToEdit.getTags();
+		if (tagSet.isPresent()) {
+			toAddTags = tagSet.get();
+		}
+
+		Task toAdd = new Task(toAddName, toAddStart, toAddEnd, taskToEdit.isComplete(), taskToEdit.isPinned(),
+				toAddTags);
+
+		try {
+			model.getHistory().stackEditInstruction(taskToEdit, toAdd);
+			model.deletePerson(taskToEdit);
+			model.addPerson(toAdd);
+		} catch (PersonNotFoundException pnfe) {
+			assert false : "The target task cannot be missing";
+		} catch (UniqueTaskList.DuplicatePersonException e) {
+			return new CommandResult(MESSAGE_DUPLICATE_PERSON);
+		}
+		return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, taskToEdit));
 	}
-
-	return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, taskToEdit));
-    }
 
 }

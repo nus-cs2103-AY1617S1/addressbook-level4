@@ -22,22 +22,23 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
 	/**
 	 * Every field must be present and not null.
 	 */
-	public Task(String name, Date start, Date end, UniqueTagList tags) {
+	public Task(String name, Date start, Date end, boolean isComplete, boolean isPinned, UniqueTagList tags) {
 		assert !CollectionUtil.isAnyNull(name, start, end, tags);
 		this.taskName = name;
 		this.start = start;
 		this.end = end;
 		this.tags = new UniqueTagList(tags); // protect internal tags from
 												// changes in the arg list
-		this.isComplete = false;
-		this.isPinned = false;
+		this.isComplete = isComplete;
+		this.isPinned = isPinned;
 	}
 
 	/**
 	 * Copy constructor.
 	 */
 	public Task(ReadOnlyTask source) {
-		this(source.getName(), source.getStart(), source.getEnd(), source.getTags());
+		this(source.getName(), source.getStart(), source.getEnd(), source.isComplete(), source.isPinned(),
+				source.getTags());
 	}
 
 	@Override
@@ -92,7 +93,7 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
 	public String getCompletion() {
 		return (isComplete) ? "COMPLETED" : "NOT COMPLETED";
 	}
-	
+
 	@Override
 	public boolean isComplete() {
 		return isComplete;
