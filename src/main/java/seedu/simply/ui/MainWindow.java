@@ -4,7 +4,6 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.MenuItem;
-import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -13,7 +12,6 @@ import seedu.simply.commons.core.GuiSettings;
 import seedu.simply.commons.events.ui.ExitAppRequestEvent;
 import seedu.simply.logic.Logic;
 import seedu.simply.model.UserPrefs;
-import seedu.simply.model.task.ReadOnlyTask;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -32,7 +30,6 @@ public class MainWindow extends UiPart {
         
     private DeadlineListPanel deadlineListPanel;
     private TodoListPanel todoListPanel; 
-     
     private EventListPanel eventListPanel;
     private ResultDisplay resultDisplay;
     private CommandBox commandBox;
@@ -47,6 +44,9 @@ public class MainWindow extends UiPart {
 
     @FXML
     private AnchorPane commandBoxPlaceholder;
+
+    @FXML
+    private MenuItem helpMenuItem;
 
     @FXML
     private AnchorPane eventListPanelPlaceholder;
@@ -102,18 +102,12 @@ public class MainWindow extends UiPart {
         scene = new Scene(rootLayout);
         primaryStage.setScene(scene);
 
-      //  setAccelerators();
     }
-
-    //private void setAccelerators() {
-    //    helpMenuItem.setAccelerator(KeyCombination.valueOf("F1"));
-    //}
 
     void fillInnerParts() {
         eventListPanel = EventListPanel.load(primaryStage, getEventListPlaceholder(), logic.getFilteredEventList());
         resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
-        commandBox = CommandBox.load(primaryStage, getCommandBoxPlaceholder(), resultDisplay, logic);
-        
+        commandBox = CommandBox.load(primaryStage, getCommandBoxPlaceholder(), resultDisplay, logic);       
         deadlineListPanel = DeadlineListPanel.load(primaryStage, getDeadlineListPlaceHolder(), logic.getFilteredDeadlineList());
         todoListPanel = TodoListPanel.load(primaryStage, getTodoListPlaceholder(), logic.getFilteredTodoList());
     }
