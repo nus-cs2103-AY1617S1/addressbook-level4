@@ -77,36 +77,46 @@ Examples:
 
 <!-- @@author A0139671X -->
 ##### Adding a recurring task
-Adds a recurring task a certain number of times with a specified duration in between <br>
-If the number of times is not specified, ForgetMeNot adds by default, 10 instances of the recurring task <br>
-Recurring task addition is not supported for task without any date or time <br>
-Format : `add <task name> at/from <start time> by/to <end time> every <number> <time interval> x<number> `
-<number> has to be numeric. For example, 8 and not eight. <br>
-Allowed time intervals : days, weeks, months, years
+Adds a recurring task a certain number of times with a specified duration in between. If the number of times is not specified, ForgetMeNot adds by default, 10 instances of the recurring task. Recurring task addition is not supported for task without any date or time. <br>
+
+Format : `add <task name> at/from <start time> by/to <end time> every <number> <time interval> x<number>` <br>
+Restrictions on  `<number>` : It has to be numeric. For example, 8 and not eight. <br>
+Restrictions on `<time intervals>` : day(s), week(s), month(s), year(s) <br>
 
 Examples:
 * `add family dinner by 9pm friday every year`
-	adds 10 instances of the task with a year in between the instances
+
+	Add 10 instances of the task with a year in between the instances.
+	
 * `add jog with jim at 9pm tomorrow every 2 weeks`
-	adds 10 instances of the task with 2 weeks in between the instances
+
+	Add 10 instances of the task with 2 weeks in between the instances.
+	
 * `add planning meeting from 2pm thursday to 3pm thursday every 30 days x3`
-	adds 3 instances of the task with 30 days in between the instances
-* `add movie night at 8pm Friday every 2 months x2`
-	adds 2 instances of the task with 2 months in between the instances
+
+	Add 3 instances of the task with 30 days in between the instances.
+	
+* `add movie night at 8pm Friday every 3 months x2`
+
+	Add 2 instances of the task with 3 months in between the instances.
 
 #### Editing a Task: `edit`
-Allows the user to edit a particular task<br>
-Once a task is given a time, it can only be modified and not removed <br>
-If you wish to remove a time from a task, kindly delete the task and re-add it without the time <br>
+Allows the user to edit a particular task. Once a task is given a time, it can only be modified and not removed. If you wish to remove a time from a task, you may delete the task and re-add it without the time. Edit is supported for multiple fields at once. <br>
 Format: `edit <task index> <new detail(s) to edit>`
 
 Example:
 * `edit 2 from 11am to 2pm` 
-	Edits the start time to 11am and end time to 2pm for the task at index 2
+
+	Edit the start time to 11am and end time to 2pm for the task at index 2.
+
 * `edit 1 CS2103T Tutorial` 
-	Edits the name to CS2103 Tutorial for the task at index 1
+	
+	Edit the name to CS2103 Tutorial for the task at index 1.
+
 * `edit 2 at today 3pm` 
-	Edits the start time to the current day 3pm for the task at index 2
+	
+	Edit the start time to the current day 3pm for the task at index 2.
+	
 <!-- @@author -->
 
 #### Priority tasks: `priority`
@@ -118,46 +128,47 @@ Example:
 
 <!-- @@author A0139671X -->
 #### Undo a Task: `undo`
-Undo the most recent task entered in the command line<br>
-Undo only supports for task modifying commands such as add, delete, clear, edit and redo but not find, show, setstorage<br>
-Once ForgetMeNot is exited, the possible undo history is cleared<br>
+Undo the most recent task entered in the command line. Undo only supports for task modifying commands such as add, delete, clear, edit and redo but not find, show, setstorage. Once ForgetMeNot is exited, the possible undo history is cleared. <br>
 Format: `undo`
 
 
 #### Redo a Task: `redo`
-Redos the most recent undo executed<br>
-Redo supports as many undos that were executed<br>
-Once ForgetMeNot is exited, or a new task modifying command is executed, the history of possible redos is cleared<br>
+Redos the most recent undo executed.Redo supports as many undos that were executed. Once ForgetMeNot is exited, or a new task modifying command is executed, the history of possible redos is cleared. <br>
 Format: `redo`
-<!-- @@author -->
 
 #### Deleting a Task: `delete`
-Deletes a particular task in the task manager<br>
+Deletes the particular index of a task that is displayed on the main list of tasks. <br>
 Format: `delete <task index>`
 
 Example:
 * `delete 1`
-
-
+	
+	Delete task indexed 1.
+	
 #### Finding a Task: `Find`
-Finds tasks in ForgetMeNot. ForgetMeNot will display all task with the input keywords<br>
-Find does not display subsets of a word. For example, `find home` does not display homework<br>
+Finds tasks in ForgetMeNot. ForgetMeNot will display all task with the input keywords. Find does not display subsets of a word. For example, `find home` does not display homework<br>
 Format: `find <task name>`
 
 Example:
-*`find project`
-	finds all tasks with the word project in the name
-*`find homework assignment`
-	finds all task with the word homework or assignment in the name
+* `find project`
 
+	Finds all tasks with the word project in the name.
+	
+* `find homework assignment`
+
+	Finds all task with the word homework or assignment in the name.
+	
 
 ### Mark as done: `done`
-Marks a task as done. <br>
+Marks a task as done. A task that is done will be removed from the main list and placed in the done list. <br>
 Format: `done <task index>`
 
 Example:
 * `done 1`
+	
+	Removes task indexed 1 from the list and sends it to the done list.
 
+<!-- @@author -->
 
 #### Showing full list: `show`
 Displays all the task for the user to view.<br>
@@ -249,3 +260,4 @@ Following is the list of all commands:
 |             | `clear done`                                       | Clears all the done tasks from the done list   |
 | `select`    | `select` `<index>`                                 | Highlights the particular task at that index   |
 |`setstorage` | `setstorage` `<folder name>`                       | Set storage to a particular folder             |
+|`exit`       | `exit`                                             | Exits ForgetMeNot                              |
