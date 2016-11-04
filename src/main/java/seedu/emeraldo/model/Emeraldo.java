@@ -127,15 +127,15 @@ public class Emeraldo implements ReadOnlyEmeraldo {
     //@@author
     
     public void taskAddTag(Task task, Tag tag) throws IllegalValueException {
-        
+        tasks.addTag(task, tag);
     }
     
     public void taskDeleteTag(Task task, Tag tag) throws IllegalValueException {
-        
+        tasks.deleteTag(task, tag);
     }
     
     public void taskClearTag(Task task) throws IllegalValueException {
-        
+        tasks.clearTag(task);
     }
     
 //// tag-level operations

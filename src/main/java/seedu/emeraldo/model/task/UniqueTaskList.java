@@ -101,6 +101,20 @@ public class UniqueTaskList implements Iterable<Task> {
     }
     //@@author
     
+    public void addTag(Task toEditTagTask, Tag tag) throws IllegalValueException {
+        toEditTagTask.setTags(new UniqueTagList(tag));
+        int mainListIndex = internalList.indexOf(toEditTagTask);
+        internalList.set(mainListIndex, toEditTagTask);
+    }
+    
+    public void deleteTag(Task toEditTagTask, Tag tag) throws IllegalValueException {
+    
+    }
+    
+    public void clearTag(Task toEditTagTask) throws IllegalValueException {
+        
+    }
+    
     public ObservableList<Task> getInternalList() {
         return internalList;
     }
