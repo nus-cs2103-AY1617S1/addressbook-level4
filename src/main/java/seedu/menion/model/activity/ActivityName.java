@@ -8,8 +8,8 @@ import seedu.menion.commons.exceptions.IllegalValueException;
  */
 public class ActivityName {
 
-    public static final String MESSAGE_NAME_CONSTRAINTS = "Activity's names should be spaces or alphanumeric characters";
-    public static final String NAME_VALIDATION_REGEX = "(.+)";
+    public static final String MESSAGE_NAME_CONSTRAINTS = "Please limit the name of your activity to 40 characters.";
+
 
     public final String fullName;
 
@@ -28,10 +28,14 @@ public class ActivityName {
     }
 
     /**
-     * Returns true if a given string is a valid person name.
+     * Returns true if the input name is less than 140 characters.
      */
     public static boolean isValidName(String test) {
-        return test.matches(NAME_VALIDATION_REGEX);
+    	if (test.length() > 40){
+    		return false;
+    	}
+    	
+    	return true;
     }
 
 
