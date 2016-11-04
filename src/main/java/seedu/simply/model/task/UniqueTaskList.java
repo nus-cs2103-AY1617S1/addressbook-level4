@@ -125,7 +125,13 @@ public class UniqueTaskList implements Iterable<Task> {
     public int hashCode() {
         return internalList.hashCode();
     }
-    //@@author A0138993L
+    
+    /**
+     * @@author A0138993L
+     * marks the task as overdue
+     * @param key the selected task
+     * @return status of the task with 1 being overdue 2 being today and 0 being the default
+     */
     public int markOverdue(ReadOnlyTask key) {
         assert key != null;
         int overdueIndex = internalList.indexOf(key);
