@@ -73,25 +73,32 @@ public class ModelManager extends ComponentManager implements Model {
     }
     //@@author
     
+    @Override
+    public ReadOnlyTaskManager getTaskManager() {
+        return taskManager;
+    }
+    
     //@@author A0139671X
+    /**
+     * Clears the stored tasks managers from both undo deque and task manager deque
+     */
     public void clearHistory() {
         taskManagerHistory.clear();
         undoHistory.clear();
     }
 
-    @Override
-    public ReadOnlyTaskManager getTaskManager() {
-        return taskManager;
-    }
-
-    //@@author A0139671X
+    /**
+     * Saves a copy of the current task manager to a deque
+     */
     @Override
     public void saveToHistory() {
         taskManagerHistory.push(new TaskManager(taskManager));
         undoHistory.clear();
     }
-
-    //@@author A0139671X
+    
+    /**
+     * Loads a copy of the most recent task manager and updates the count of tasks in ForgetMeNot
+     */
     @Override
     public void loadFromHistory() throws NoSuchElementException {
         TaskManager oldManager = taskManagerHistory.pop();
@@ -100,8 +107,10 @@ public class ModelManager extends ComponentManager implements Model {
         taskManager.counter();
         indicateTaskManagerChanged();
     }
-
-    //@@author A0139671X
+    
+    /**
+     * Loads a copy of the most recent undone task manager
+     */
     @Override
     public void loadFromUndoHistory() throws NoSuchElementException {
         TaskManager oldManager = undoHistory.pop();
@@ -110,6 +119,7 @@ public class ModelManager extends ComponentManager implements Model {
         taskManager.counter();
         indicateTaskManagerChanged();
     }
+    //@@author
 
     /** Raises an event to indicate the model has changed */
     private void indicateTaskManagerChanged() {
@@ -148,6 +158,9 @@ public class ModelManager extends ComponentManager implements Model {
     //@@author
     
     //@@author A0139671X
+    /**
+     * Adds a task to the task manager and auto jumps to the most recent add in ForgetMeNot UI
+     */
     @Override
     public synchronized void addTask(Task task) {
         taskManager.addTask(task);
@@ -156,7 +169,10 @@ public class ModelManager extends ComponentManager implements Model {
         EventsCenter.getInstance().post(new JumpToListRequestEvent(filteredTasks.indexOf(task)));
     }
 
-    //@@author A0139671X
+    /**
+     * Adds a recurring task with either the default occurence or the specified occurence 
+     * with a specified frequency
+     */
     @Override
     public synchronized void addRecurringTask(ReadOnlyTask task) throws IllegalValueException {
         String freq = task.getRecurrence().getRecurFreq();
@@ -206,8 +222,9 @@ public class ModelManager extends ComponentManager implements Model {
                     new Recurrence(task.getRecurrence().getRecurFreq())));
         }
     }
-
-    //@@author A0139671X
+    /**
+     * Edits a tasks with the new details given and auto selects the editted task in ForgetMeNot UI
+     */
     @Override
     public synchronized void editTask(ReadOnlyTask task, String newName, String newStart, String newEnd
             ) throws TaskNotFoundException, IllegalValueException {
@@ -224,6 +241,7 @@ public class ModelManager extends ComponentManager implements Model {
         indicateTaskManagerChanged();
         EventsCenter.getInstance().post(new JumpToListRequestEvent(filteredTasks.indexOf(task)));
     }
+    //@@author
     
     //@@author A0147619W
     @Override

@@ -32,22 +32,25 @@ public interface ReadOnlyTask {
                 && other.getEndTime().equals(this.getEndTime()))
         		&& other.getRecurrence().equals(this.getRecurrence());
     }
-
+    //@@author A0139671X
     /**
      * Formats the task as text, showing all contact details.
-     * @@author A0139671X
      */
     default String getAsText() {
         final StringBuilder builder = new StringBuilder();
         
-        builder.append(getName())
-                .append(System.lineSeparator())
-                .append("Start: ")
-                .append(getStartTime().easyReadDateFormatForUI())
-                .append(" End: ")
-                .append(getEndTime().easyReadDateFormatForUI());
-        if(getRecurrence().getValue())
-                builder.append(" Recurrence: ").append(getRecurrence());
+        builder.append(getName());
+        builder.append(System.lineSeparator());
+        
+        if (!getStartTime().isMissing())
+            builder.append("Start: " + getStartTime().easyReadDateFormatForUI());
+        
+        if (!getEndTime().isMissing())
+            builder.append(" End: " + getEndTime().easyReadDateFormatForUI());
+        
+        if (getRecurrence().getValue())
+            builder.append(" Recurrence: " + getRecurrence());
+        
         return builder.toString();
     }
 

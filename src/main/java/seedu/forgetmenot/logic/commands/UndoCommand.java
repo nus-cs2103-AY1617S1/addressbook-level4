@@ -2,9 +2,9 @@ package seedu.forgetmenot.logic.commands;
 
 import java.util.NoSuchElementException;
 
+//@@author A0139671X
 /**
  * Undoes a task-modifying action
- * @@author A0139671X
  */
 public class UndoCommand extends Command {
 

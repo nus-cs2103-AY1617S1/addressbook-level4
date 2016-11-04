@@ -76,6 +76,7 @@ Examples:
 
 ##### Adding a recurring task
 Adds a task with a recurring period in days <br>
+<number> has to be numeric. For example, 8 and not eight. <br>
 Format : `add <task name> at/from <start time> by/to <end time> every <number> days`
 
 Examples:
@@ -85,6 +86,8 @@ Examples:
 
 #### Editing a Task: `edit`
 Allows the user to edit a particular task<br>
+Once a task is given a time, it can only be modified and not removed <br>
+If you wish to remove a time from a task, kindly delete the task and re-add it without the time <br>
 Format: `edit <task index> <detail to edit> <new value>`
 
 Example:
