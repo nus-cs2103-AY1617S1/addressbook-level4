@@ -44,17 +44,28 @@ public class DateChecker {
      */
     public void validEventDate(ActivityDate startDate, ActivityTime startTime, ActivityDate endDate, ActivityTime endTime) throws IllegalValueException {
         
+    	Boolean checkTime;
         String[] fromDate = startDate.toString().split("-");
         int fromYear = Integer.valueOf(fromDate[2]);
         int fromMonth = Integer.valueOf(fromDate[1]);
         int fromDay = Integer.valueOf(fromDate[0]);
-        int fromTime = Integer.valueOf(startTime.toString());
+        int fromTime = 0;
+        if (startTime.toString().equals(ActivityTime.INFERRED_TIME)){
+        	checkTime = false;
+        }
+        else {
+        	checkTime = true;
+        	fromTime = Integer.valueOf(startTime.toString());
+        }
 
         String[] toDate = endDate.toString().split("-");
         int toYear = Integer.valueOf(toDate[2]);
         int toMonth = Integer.valueOf(toDate[1]);
         int toDay = Integer.valueOf(toDate[0]);
-        int toTime = Integer.valueOf(endTime.toString());
+        int toTime = 0;
+        if (!endTime.toString().equals(ActivityTime.INFERRED_TIME)){
+        	toTime = Integer.valueOf(endTime.toString());
+        }
         
         boolean sameDate = false;
         
@@ -67,20 +78,19 @@ public class DateChecker {
         }
         if (fromYear == toYear && fromMonth == toMonth && fromDay > toDay) {
             throw new IllegalValueException(END_DATE_BEFORE_START_DATE_ERROR);
-        }
-        if (fromYear == toYear && fromMonth == toMonth && fromDay == toDay && fromTime > toTime) {
-            throw new IllegalValueException(END_DATE_BEFORE_START_DATE_ERROR);
-        }
-        
+		}
+		
         if (fromYear == toYear && fromMonth == toMonth && fromDay == toDay) {
             sameDate = true;
         }
         
         if (sameDate) {
             // Compare time
-            if (fromTime > toTime) {
-                throw new IllegalValueException(END_DATE_BEFORE_START_DATE_ERROR);
-            }
+			if (checkTime) {
+				if (fromTime > toTime) {
+					throw new IllegalValueException(END_DATE_BEFORE_START_DATE_ERROR);
+				}
+			}
         }
         return;
     }

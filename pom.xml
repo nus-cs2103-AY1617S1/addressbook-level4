@@ -29,24 +29,4 @@
       </plugin>
     </plugins>
   </build>
-  <dependencies>
-  	<dependency>
-  		<groupId>com.joestelmach</groupId>
-  		<artifactId>natty</artifactId>
-  	</dependency>
-  	<dependency>
-  		<groupId>javax.mail</groupId>
-  		<artifactId>mail</artifactId>
-  		<version>1.5.0-b01</version>
-  	</dependency>
-  </dependencies>
-  <dependencyManagement>
-  	<dependencies>
-  		<dependency>
-  			<groupId>com.joestelmach</groupId>
-  			<artifactId>natty</artifactId>
-  			<version>0.11</version>
-  		</dependency>
-  	</dependencies>
-  </dependencyManagement>
 </project>

@@ -10,13 +10,13 @@
 
 <!-- @@author A0139515A -->
 
-<VBox maxHeight="Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="1225.0" prefWidth="1225.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.menion.ui.MainWindow">
+<VBox maxHeight="Infinity" maxWidth="Infinity" minHeight="-Infinity" minWidth="1300.0" prefWidth="1300.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.menion.ui.MainWindow">
 	<stylesheets>
 		<URL value="@DarkTheme.css" />
 		<URL value="@Extensions.css" />
 	</stylesheets>
 	<children>
-		<MenuBar VBox.vgrow="NEVER">
+		<MenuBar minWidth="1300.0" VBox.vgrow="NEVER">
 			<menus>
 				<Menu mnemonicParsing="false" text="File">
 					<items>
@@ -30,25 +30,25 @@
 				</Menu>
 			</menus>
 		</MenuBar>
-      <AnchorPane fx:id="datetimeDisplayPlaceholder" prefHeight="50.0" />
-		<VBox fx:id="activityList" maxHeight="Infinity" maxWidth="1.7976931348623157E308" minWidth="1225.0" prefWidth="1225.0" VBox.vgrow="ALWAYS">
+      <AnchorPane fx:id="datetimeDisplayPlaceholder" minWidth="1300.0" prefHeight="50.0" />
+		<VBox fx:id="activityList" maxHeight="Infinity" maxWidth="1.7976931348623157E308" minWidth="1300.0" prefWidth="1300.0" VBox.vgrow="ALWAYS">
 			<padding>
 				<Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
 			</padding>
 			<children>
-				<AnchorPane fx:id="activityListPanelPlaceholder" maxHeight="Infinity" maxWidth="1.7976931348623157E308" VBox.vgrow="ALWAYS" />
+				<AnchorPane fx:id="activityListPanelPlaceholder" maxHeight="Infinity" maxWidth="1.7976931348623157E308" minWidth="1300.0" VBox.vgrow="ALWAYS" />
 			</children>
 		</VBox>
-		<AnchorPane fx:id="resultDisplayPlaceholder" maxHeight="110" minHeight="110" prefHeight="110" styleClass="anchor-pane-with-border" VBox.vgrow="NEVER">
+		<AnchorPane fx:id="resultDisplayPlaceholder" maxHeight="110" minHeight="110" minWidth="1300.0" prefHeight="110" styleClass="anchor-pane-with-border" VBox.vgrow="NEVER">
 			<padding>
 				<Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
 			</padding>
 		</AnchorPane>
-		<AnchorPane fx:id="commandBoxPlaceholder" styleClass="anchor-pane-with-border" VBox.vgrow="NEVER">
+		<AnchorPane fx:id="commandBoxPlaceholder" minWidth="1300.0" styleClass="anchor-pane-with-border" VBox.vgrow="NEVER">
 			<padding>
 				<Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
 			</padding>
 		</AnchorPane>
-		<AnchorPane fx:id="statusbarPlaceholder" style="-fx-border-color: gray;" VBox.vgrow="NEVER" />
+		<AnchorPane fx:id="statusbarPlaceholder" minWidth="1300.0" style="-fx-border-color: gray;" VBox.vgrow="NEVER" />
 	</children>
 </VBox>

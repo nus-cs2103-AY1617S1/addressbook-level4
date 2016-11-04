@@ -13,14 +13,14 @@
 
 <!-- @@author A0139515A -->
 
-<HBox id="taskCardPane" fx:id="taskCardPane" maxWidth="700.0" minWidth="700.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
+<HBox id="taskCardPane" fx:id="taskCardPane" maxWidth="Infinity" minWidth="700.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
 	<children>
-		<GridPane maxWidth="750.0" minWidth="750.0" prefHeight="50.0" prefWidth="750.0" HBox.hgrow="ALWAYS">
+		<GridPane maxWidth="1.7976931348623157E308" minWidth="700.0" prefHeight="50.0" prefWidth="700.0" HBox.hgrow="ALWAYS">
 			<columnConstraints>
-				<ColumnConstraints hgrow="SOMETIMES" maxWidth="750.0" minWidth="750.0" prefWidth="750.0" />
+				<ColumnConstraints hgrow="ALWAYS" maxWidth="Infinity" minWidth="700.0" prefWidth="700.0" />
 			</columnConstraints>
 			<children>
-				<VBox alignment="CENTER_LEFT" maxHeight="150.0" minHeight="70.0" prefHeight="115.0" prefWidth="70.0" GridPane.columnIndex="0">
+				<VBox alignment="CENTER_LEFT" maxHeight="150.0" maxWidth="Infinity" minHeight="70.0" minWidth="700.0" prefHeight="115.0" prefWidth="700.0" GridPane.columnIndex="0">
 					<stylesheets>
 						<URL value="@DarkTheme.css" />
 						<URL value="@Extensions.css" />
@@ -29,7 +29,7 @@
 					<children>
 						<GridPane>
 							<columnConstraints>
-								<ColumnConstraints hgrow="SOMETIMES" maxWidth="280.0" minWidth="280.0" prefWidth="280.0" />
+								<ColumnConstraints hgrow="ALWAYS" maxWidth="Infinity" minWidth="280.0" prefWidth="280.0" />
 								<ColumnConstraints hgrow="SOMETIMES" maxWidth="150.0" minWidth="150.0" prefWidth="150.0" />
 								<ColumnConstraints hgrow="SOMETIMES" maxWidth="150.0" minWidth="150.0" prefWidth="150.0" />
 								<ColumnConstraints hgrow="SOMETIMES" maxWidth="150.0" minWidth="150.0" prefWidth="150.0" />
@@ -38,21 +38,27 @@
 								<RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
 							</rowConstraints>
 							<children>
-								<HBox>
+								<HBox maxWidth="1.7976931348623157E308" GridPane.hgrow="ALWAYS">
 									<Label fx:id="id" styleClass="cell_small_label" />
 									<Label fx:id="name" styleClass="cell_small_label" text="\$first" />
 								</HBox>
-								<HBox GridPane.columnIndex="2">
+								<HBox GridPane.columnIndex="2" GridPane.halignment="LEFT">
 									<children>
 										<Label fx:id="startDate" styleClass="cell_small_label" text="\$startDate" />
 										<Text strokeType="OUTSIDE" strokeWidth="0.0" text=" " />
 										<Label fx:id="startTime" styleClass="cell_small_label" text="\$startTime" />
 									</children>
+                           <GridPane.margin>
+                              <Insets />
+                           </GridPane.margin>
 								</HBox>
-								<HBox alignment="TOP_CENTER" maxWidth="75.0" prefHeight="100.0" prefWidth="75.0" GridPane.columnIndex="3">
+								<HBox alignment="TOP_CENTER" maxWidth="75.0" prefHeight="100.0" prefWidth="75.0" GridPane.columnIndex="3" GridPane.halignment="LEFT">
 									<children>
                               <ImageView fx:id="completionStatus" fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true" />
 									</children>
+                           <GridPane.margin>
+                              <Insets />
+                           </GridPane.margin>
 								</HBox>
 							</children>
 						</GridPane>
