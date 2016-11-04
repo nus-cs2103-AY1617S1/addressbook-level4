@@ -10,7 +10,6 @@ import javafx.scene.control.SplitPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import seedu.address.commons.events.ui.PersonPanelSelectionChangedEvent;
 import seedu.address.model.activity.ReadOnlyActivity;
 import seedu.address.commons.core.LogsCenter;
 
@@ -33,8 +32,7 @@ public class ActivityListPanel extends ListPanel {
         this.activityListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
                 logger.fine("Selection in person list panel changed to : '" + newValue + "'");
-                raise(new PersonPanelSelectionChangedEvent(newValue));
-            }
+                }
         });
     }
     
