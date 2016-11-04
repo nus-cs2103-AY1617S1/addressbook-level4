@@ -360,6 +360,43 @@ Use case ends
 >3b1. Task manager shows error message <br>
 Use case resumes at step 2
 
+#### Use case: Pin a task
+
+**MSS**
+
+1. User requests to view tasks for specific time period
+2. Task Manager displays all tasks during time period
+3. User requests to pin a specific task in the current list to the pinned list 
+4. Task Manager puts the task as on pinned list and displays it there
+Use case ends
+
+**Extensions**
+
+2a. The list is empty
+>Use case ends
+    
+3a. Given index is invalid
+>3b1. Task manager shows error message <br>
+Use case resumes at step 2
+
+
+#### Use case: Pin a task
+
+**MSS**
+
+1. User refers to the INDEX on the pinned list 
+2. User requests to unpin a specific task in the pinned list to the tasks list 
+3. Task Manager puts the task back on schedule list and displays it there
+Use case ends
+
+**Extensions**
+
+2a. The list is empty
+>Use case ends
+    
+2a. Given index is invalid
+>3b1. Task manager shows error message <br>
+Use case resumes at step 2
     
 #### Use case: View task
 
@@ -395,15 +432,7 @@ Use case ends.
 > 3a1. Task Manager shows an error message <br>
 > Use case resumes at step 2
 
-4a. If editing a recurring task 
 
-> 4a1. Task manager prompts user to choose between editing task on that specific day or deleting all the recurring tasks
-> 
-> 4a2. User enters choice
-> 
-> 4a3. Task manager edits task accordingly
-
-> Use case ends
 
     
 

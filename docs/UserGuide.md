@@ -13,14 +13,17 @@
 4. Click `Run As` > `Java Application` and choose the `Main` class. The GUI should 	appear within split second.
 5. Type the command into the command box and press <kbd>Enter</kbd> to execute the 	command. <br>
 	List of commands:
-	 * **`add`** : adds a task
-	 * **`show`** : shows all tasks
-	 * **`find`** : searches for a task
-	 * **`edit`** : edits a task
-	 * **`delete`** : deletes a task
-	 * **`complete`** : marks a task as completed
-	 * **`undo`** : marks a task as completed
-	 * **`help`** : opens instruction
+	 	* **`help`** : opens instruction
+	 	* **`add`** : adds a task
+	 	* **`show`** : shows all tasks
+	 	* **`find`** : searches for a task
+	 	* **`edit`** : edits a task
+	 	* **`delete`** : deletes a task
+	 	* **`complete`** : marks a task as completed
+	  	* **`pin`** : pin tasks
+	 	* **`unpin`** : unpin tasks from the pinned list
+	 	* **`undo`** : marks a task as completed	 
+	 	* **`clear`** : deletes every task on the list
 
 7.  Refer to the [Commands](#commands) section below for details of each command.<br>
 
@@ -88,20 +91,6 @@ afternoon
 midnight
 ```
 
-#### `isRECURRING` field
-
-If a recurring `Task` must be described in a command, (e.g. tasks that must occur every week), the optional recurring field can be entered in the format:
-
-`every CYCLE`,
-
-Where `CYCLE` can be `week` or `month`.
-
-Example Command:
-
-`add cs lecture 2pm to 4pm every week`
-
-
-
 
 ## Commands 
 ### Viewing help : `help`
@@ -150,8 +139,11 @@ Examples:<br>
 >Shows schedule for today<br>
 2. `show next wednesday`
 >Shows schedule for next wednesday <br>
-2. `show complete`
+3. `show complete`
 >Shows completed tasks <br>
+4. `show not complete`
+>Shows uncompleted tasks <br>
+
 
 <br>
 
@@ -198,7 +190,7 @@ Examples:<br>
 (only changes date and time)<br>
   
  
-#### Deleting a task : `delete`
+### Deleting a task : `delete`
 
 Description: Deletes a task from the planner. <br>
 
@@ -212,7 +204,7 @@ Examples: <br>
 ```delete 5```
 >Deletes task 5 of current list being viewed
 
-#### Completing a task : `complete`
+### Completing a task : `complete`
 
 Description: Marks a task as completed from the planner. <br>
 
@@ -224,9 +216,40 @@ Format: `complete INDEX`
 
 Examples: <br>
 ```complete 5```
->Task 5 of current list being viewed is marked as completed
+>Task 5 of current list being viewed is marked as completed<br>
 
-#### Deleting a task : `undo`
+### Pin important task on the pinned task list: `pin`
+
+Description: Pins task on the list on the left. <br>
+
+Format: `pin INDEX` 
+
+> Pins the task at the specified `INDEX`. 
+  The index refers to the index number shown on the list that is currently being viewed<br>
+  The index **must be a positive integer** 1, 2, 3, ...
+
+  
+Examples: <br>
+```pin 5```
+>Task 5 of current list is being pinned on  the pinned list<br>
+
+### Remove important task on the pinned task list: `unpin`
+
+Description: Unpins task on the list from the pinned tasks list. <br>
+
+Format: `unpin INDEX` 
+
+> Unpins the task at the specified `INDEX`. 
+  The index refers to the index number shown on the pinned tasks list(left)<br>
+  The index **must be a positive integer** 1, 2, 3, ...
+
+  
+Examples: <br>
+```unpin 5```
+>Task 5 of pinned list is being removed and put back to the schedule list<br>
+
+
+### Undo last command: `undo`
 
 Description: Undo the latest command. <br>
 
@@ -238,7 +261,21 @@ Format: `undo`
 
 Examples: <br>
 ```undo```
->Undo previous command
+>Undo previous command<br>
+
+### Delete every task: `clear`
+
+Description: Clears all tasks. <br>
+
+Format: `clear` 
+
+> Clears all task from the list
+  <br>
+  
+
+Examples: <br>
+```clear```
+>The list is now empty<br>
 
 ### Exiting the program : `exit`
 Exits the program.<br>
