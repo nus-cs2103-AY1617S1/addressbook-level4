@@ -29,7 +29,7 @@ public class EditCommand extends Command {
             + "Example: " + COMMAND_WORD + " 1 'chill for the day' from 12am today by 11pm today";
  
     public static final String MESSAGE_EDIT_TASK_SUCCESS = "Edited Task: %1$s";
-    public static final String MESSAGE_DUPLICATE_TASK = "Edit will result in duplicate tasks in task manager";   
+    public static final String MESSAGE_DUPLICATE_TASK = "Edit will result in duplicate tasks in task manager";  
 
     public final int targetIndex;
     private final Optional<Name> newName;
@@ -91,25 +91,23 @@ public class EditCommand extends Command {
             }
             
             if(newStartDateTime.isPresent() && !newEndDateTime.isPresent()){
-            	LocalDateTime startDateTime = newStartDateTime.get();
-            	
             	if(isRemoveEndDateTime){
-            		throw new UnsupportedOperationException("Start date/ time cannot be set with end date/ time removed.\n");
+            		throw new UnsupportedOperationException(Task.MESSAGE_START_DATE_TIME_CANNOT_BE_SET_WITH_END_DATE_TIME_REMOVED);
             	}
             	
             	if(!taskToEdit.getEndDate().isPresent()){
-            		throw new UnsupportedOperationException("End date/ time is missing, start date/ time cannot be set.\n");
+            		throw new UnsupportedOperationException(Task.MESSAGE_START_DATE_TIME_CANNOT_BE_SET_WITH_END_DATE_TIME_MISSING);
             	}
             	
+            	LocalDateTime startDateTime = newStartDateTime.get();
         		LocalDateTime endDateTime = taskToEdit.getEndDate().get();
         		
         		Task.validateEndDateTimeAfterStartDateTime(startDateTime, endDateTime);
             }
             
-            if(!newStartDateTime.isPresent() && newEndDateTime.isPresent()){
-            	LocalDateTime endDateTime = newEndDateTime.get();
-            	
+            if(!newStartDateTime.isPresent() && newEndDateTime.isPresent()){           	
             	if((!isRemoveStartDateTime) && taskToEdit.getStartDate().isPresent()){
+            		LocalDateTime endDateTime = newEndDateTime.get();
             		LocalDateTime startDateTime = taskToEdit.getStartDate().get();
             		
             		Task.validateEndDateTimeAfterStartDateTime(startDateTime, endDateTime);

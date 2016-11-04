@@ -1,6 +1,7 @@
 package seedu.address.testutil;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 
 import seedu.address.model.tag.UniqueTagList;
@@ -99,16 +100,18 @@ public class TestTask implements ReadOnlyTask {
     }
 
     public String getAddCommand() {
-        StringBuilder sb = new StringBuilder();
+    	StringBuilder sb = new StringBuilder();
         sb.append("add '");
         sb.append(this.getName().value + "'");
         
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+        
         if (this.getTaskType().value.equals(TaskType.Type.DEADLINE)) {
-        	sb.append(" by " + this.getEndDate().toString());
+        	sb.append(" by " + this.getEndDate().get().format(dtf));
         } 
         else if (this.getTaskType().value.equals(TaskType.Type.EVENT)) {
-        	sb.append(" from " + this.getStartDate().toString());
-        	sb.append(" to " + this.getEndDate().toString());
+        	sb.append(" from " + this.getStartDate().get().format(dtf));
+        	sb.append(" to " + this.getEndDate().get().format(dtf));
         }
 
         System.out.println("cmd string: " + sb.toString());        
@@ -116,15 +119,18 @@ public class TestTask implements ReadOnlyTask {
         return sb.toString();
     }
     
-    public String getEditCommand(int index) {
+    public String getEditCommand(int index) {   	
     	StringBuilder sb = new StringBuilder();
         sb.append("edit " + index + " '");
         sb.append(this.getName().value + "'");
+        
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+        
         if (this.getTaskType().value.equals(TaskType.Type.DEADLINE)) {
-        	sb.append(" by " + this.getEndDate().toString());
+        	sb.append(" by " + this.getEndDate().get().format(dtf));
         } else if (this.getTaskType().value.equals(TaskType.Type.EVENT)) {
-        	sb.append(" from " + this.getStartDate().toString());
-        	sb.append(" to " + this.getEndDate().toString());
+        	sb.append(" from " + this.getStartDate().get().format(dtf));
+        	sb.append(" to " + this.getEndDate().get().format(dtf));
         }
         //this.getTags().getInternalList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));
         return sb.toString();

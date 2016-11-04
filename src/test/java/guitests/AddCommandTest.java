@@ -69,12 +69,12 @@ public class AddCommandTest extends TaskManagerGuiTest {
 //        
 //        //Adds an event task that has startDateTime after endDateTime 
 //        commandBox.runCommand(TypicalTestTasks.eventStartDateTimeAfterEndDateTime.getAddCommand());
-//        assertResultMessage(AddCommand.MESSAGE_START_DATE_TIME_AFTER_END_DATE_TIME);
+//        assertResultMessage(Task.MESSAGE_END_DATE_TIME_NOT_AFTER_START_DATE_TIME);
 //        assertTrue(taskListPanel.isListMatching(currentList));
 //        
 //        //Adds an event task that has identical startDateTime and endDateTime
 //        commandBox.runCommand(TypicalTestTasks.eventStartDateTimeEqualsEndDateTime.getAddCommand());
-//        assertResultMessage(AddCommand.MESSAGE_START_DATE_TIME_EQUALS_END_DATE_TIME);
+//        assertResultMessage(Task.MESSAGE_END_DATE_TIME_NOT_AFTER_START_DATE_TIME);
 //        assertTrue(taskListPanel.isListMatching(currentList));
 //	
 //        //Adds to empty list

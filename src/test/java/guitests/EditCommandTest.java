@@ -1,5 +1,7 @@
 package guitests;
-
+//
+//import java.time.format.DateTimeFormatter;
+//
 //import static org.junit.Assert.*;
 //
 //import java.time.LocalDateTime;
@@ -13,13 +15,13 @@ package guitests;
 //import guitests.guihandles.DeadlineTaskCardHandle;
 //import guitests.guihandles.EventTaskCardHandle;
 //import guitests.guihandles.SomedayTaskCardHandle;
+//import seedu.address.model.task.Task;
 //import seedu.address.model.task.TaskType;
 //import seedu.address.testutil.TestTask;
 //import seedu.address.testutil.TestUtil;
 //import seedu.address.testutil.TypicalTestTasks;
 
 //TODO: Change arguments for postEdit for //Edits the first task in the list to //Edits an in-30-days task from the list
-//TODO: Change result message for //Edits task, new startDateTime given, new startDateTime but no endDateTime
 
 public class EditCommandTest extends TaskManagerGuiTest{
 //	@Test
@@ -121,49 +123,72 @@ public class EditCommandTest extends TaskManagerGuiTest{
 //        postEdit = preEdit.convertoToPostEditTestTask(preEdit.getTaskType(), preEdit.getName(), preEdit.getStartDate(), preEdit.getEndDate());
 //        assertEditSuccess(targetIndex, postEdit, "in 30 days", in30DaysList);
 //        
-//        //Edits a task, startDateTime and new endDateTime given, new startDateTime after new endDateTime 
+//        //Edits task, startDateTime and new endDateTime given, new startDateTime after new endDateTime 
 //        targetIndex = 0; 
 //        commandBox.runCommand(TypicalTestTasks.eventStartDateTimeAfterEndDateTime.getEditCommand(targetIndex + 1)); //+1 to correspond to 1-indexed list display
-//        assertResultMessage(EditCommand.MESSAGE_START_DATE_TIME_AFTER_END_DATE_TIME);
+//        assertResultMessage(Task.MESSAGE_END_DATE_TIME_NOT_AFTER_START_DATE_TIME);
+//  	  	assertTrue(taskListPanel.isListMatching(currentList));
 //        
 //        //Edits task, startDateTime and new endDateTime given, new startDateTime equals new endDateTime
 //        targetIndex = 0; 
 //        commandBox.runCommand(TypicalTestTasks.eventStartDateTimeEqualsEndDateTime.getEditCommand(targetIndex + 1)); //+1 to correspond to 1-indexed list display
-//        assertResultMessage(EditCommand.MESSAGE_START_DATE_TIME_EQUALS_END_DATE_TIME);
+//        assertResultMessage(Task.MESSAGE_END_DATE_TIME_NOT_AFTER_START_DATE_TIME);
+//        assertTrue(taskListPanel.isListMatching(currentList));
 //       
 //        //Edits task, new startDateTime given, new startDateTime after existing endDateTime
 //        targetIndex = Arrays.asList(currentList).indexOf(TypicalTestTasks.deadlineToday); //Task has to be either deadline/ event task to have existing endDateTime
 //        preEdit = currentList[targetIndex];
 //        postEdit = preEdit.convertoToPostEditTestTask(preEdit.getTaskType(), preEdit.getName(), Optional.of(preEdit.getEndDate().get().plusDays(2)), preEdit.getEndDate());
-//        assertResultMessage(EditCommand.MESSAGE_START_DATE_TIME_AFTER_END_DATE_TIME);
+//        commandBox.runCommand(postEdit.getEditCommand(targetIndex + 1)); //+1 to correspond to 1-indexed list display
+//        assertResultMessage(Task.MESSAGE_END_DATE_TIME_NOT_AFTER_START_DATE_TIME);
+//        assertTrue(taskListPanel.isListMatching(currentList));	
 //        
 //        //Edits task, new startDateTime given, new startDateTime equals existing endDateTime
 //        targetIndex = Arrays.asList(currentList).indexOf(TypicalTestTasks.deadlineToday); //Task has to be either deadline/ event task to have existing endDateTime
 //        preEdit = currentList[targetIndex];
 //        postEdit = preEdit.convertoToPostEditTestTask(preEdit.getTaskType(), preEdit.getName(), preEdit.getEndDate(), preEdit.getEndDate());
-//        assertResultMessage(EditCommand.MESSAGE_START_DATE_TIME_EQUALS_END_DATE_TIME);
-//        
+//        commandBox.runCommand(postEdit.getEditCommand(targetIndex + 1)); //+1 to correspond to 1-indexed list display
+//        assertResultMessage(Task.MESSAGE_END_DATE_TIME_NOT_AFTER_START_DATE_TIME);
+//        assertTrue(taskListPanel.isListMatching(currentList));
+//	
 //        //Edits task, new endDateTime given, new endDateTime before existing startDateTime 
-//        targetIndex = Arrays.asList(currentList).indexOf(TypicalTestTasks.deadlineToday); //Task has to be event task to have existing startDateTime
+//        targetIndex = Arrays.asList(currentList).indexOf(TypicalTestTasks.eventIn30Days); //Task has to be event task to have existing startDateTime
 //        preEdit = currentList[targetIndex];
 //        postEdit = preEdit.convertoToPostEditTestTask(preEdit.getTaskType(), preEdit.getName(), preEdit.getStartDate(), Optional.of(preEdit.getStartDate().get().minusDays(2)));
-//        assertResultMessage(EditCommand.MESSAGE_START_DATE_TIME_AFTER_END_DATE_TIME);
-//        
+//        commandBox.runCommand(postEdit.getEditCommand(targetIndex + 1)); //+1 to correspond to 1-indexed list display
+//        assertResultMessage(Task.MESSAGE_END_DATE_TIME_NOT_AFTER_START_DATE_TIME);
+//        assertTrue(taskListPanel.isListMatching(currentList));
+//	
 //        //Edits task, new endDateTime given, new endDateTime equals existing startDateTime
-//        targetIndex = Arrays.asList(currentList).indexOf(TypicalTestTasks.deadlineToday); //Task has to be event task to have existing startDateTime
+//        targetIndex = Arrays.asList(currentList).indexOf(TypicalTestTasks.eventIn30Days); //Task has to be event task to have existing startDateTime
 //        preEdit = currentList[targetIndex];
 //        postEdit = preEdit.convertoToPostEditTestTask(preEdit.getTaskType(), preEdit.getName(), preEdit.getStartDate(), preEdit.getStartDate());
-//        assertResultMessage(EditCommand.MESSAGE_START_DATE_TIME_EQUALS_END_DATE_TIME);
-//        
-//        //Edits task, new startDateTime given, new startDateTime but no endDateTime
+//        commandBox.runCommand(postEdit.getEditCommand(targetIndex + 1)); //+1 to correspond to 1-indexed list display	
+//        assertResultMessage(Task.MESSAGE_END_DATE_TIME_NOT_AFTER_START_DATE_TIME);
+//        assertTrue(taskListPanel.isListMatching(currentList));
+//	
+//        //Edits task, new startDateTime given, new startDateTime but no existing endDateTime
 //        targetIndex = Arrays.asList(currentList).indexOf(TypicalTestTasks.someday3); //Task has to be someday task to have no existing endDateTime
 //        preEdit = currentList[targetIndex];
 //        postEdit = preEdit.convertoToPostEditTestTask(preEdit.getTaskType(), preEdit.getName(), Optional.of(LocalDateTime.of(2016, 12, 1, 12, 40)), preEdit.getEndDate());
-//        assertResultMessage(EditCommand.MESSAGE_START_DATE_TIME_EQUALS_END_DATE_TIME); 
-//        
+//        commandBox.runCommand(postEdit.getEditCommand(targetIndex + 1)); //+1 to correspond to 1-indexed list display	
+//        assertResultMessage(Task.MESSAGE_START_DATE_TIME_CANNOT_BE_SET_WITH_END_DATE_TIME_MISSING);
+//        assertTrue(taskListPanel.isListMatching(currentList));
+//	
+//        //Edits task, new startDateTime given but existing endDateTime to be removed
+//        targetIndex = Arrays.asList(currentList).indexOf(TypicalTestTasks.event1); //Task has to be either deadline/ event task to have existing endDateTime
+//        preEdit = currentList[targetIndex];
+//        postEdit = preEdit.convertoToPostEditTestTask(preEdit.getTaskType(), preEdit.getName(), Optional.of(LocalDateTime.of(2016, 12, 1, 12, 40)), preEdit.getEndDate());
+//        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");      
+//        String newStartDateTime = Optional.of(preEdit.getEndDate().get().plusDays(2)).get().format(dtf);
+//        commandBox.runCommand("edit " + (targetIndex + 1) + " from " + newStartDateTime + "to - "); //+1 to correspond to 1-indexed list display	
+//        assertResultMessage(Task.MESSAGE_START_DATE_TIME_CANNOT_BE_SET_WITH_END_DATE_TIME_REMOVED);
+//        assertTrue(taskListPanel.isListMatching(currentList));	
+//     
 //        //Invalid index
 //        commandBox.runCommand("edit " + currentList.length + 1);
 //        assertResultMessage("The task index provided is invalid");
+//        assertTrue(taskListPanel.isListMatching(currentList));	
 //	}
 //	
 //    /**
