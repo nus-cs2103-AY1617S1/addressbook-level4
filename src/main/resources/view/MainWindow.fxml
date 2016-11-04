@@ -20,6 +20,9 @@
             <Menu mnemonicParsing="false" text="File">
                <!-- @@author A0125680H -->
                <items>
+                  <MenuItem mnemonicParsing="false" onAction="#handleOpen" text="Open" />
+               </items>
+               <items>
                   <MenuItem mnemonicParsing="false" onAction="#handleSaveLoc" text="Save" />
                </items>
                <items>

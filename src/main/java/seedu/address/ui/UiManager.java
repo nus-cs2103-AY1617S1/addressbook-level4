@@ -10,9 +10,10 @@ import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.Config;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.storage.DataSavingExceptionEvent;
+import seedu.address.commons.events.ui.FileDirectoryChangedEvent;
 import seedu.address.commons.events.ui.JumpToListRequestEvent;
 import seedu.address.commons.events.ui.PersonPanelSelectionChangedEvent;
-import seedu.address.commons.events.ui.SaveEvent;
+import seedu.address.commons.events.ui.SaveFileChooserEvent;
 import seedu.address.commons.events.ui.ShowHelpRequestEvent;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Logic;
@@ -174,7 +175,7 @@ public class UiManager extends ComponentManager implements Ui {
     }
     
     @Subscribe
-    private void handleSaveEvent(SaveEvent event) {
+    private void handleSaveEvent(SaveFileChooserEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         
         if (event.saveDirectory.equals("")) {
@@ -193,6 +194,11 @@ public class UiManager extends ComponentManager implements Ui {
     @Subscribe
     private void handlePersonPanelSelectionChangedEvent(PersonPanelSelectionChangedEvent event){
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
+    }
+    
+    @Subscribe
+    private void handleDirectoryChangedEvent(FileDirectoryChangedEvent event) {
+        mainWindow.changeFileLoc(event.filePath);
     }
     
     //==================== Refresh Handling Code =================================================================

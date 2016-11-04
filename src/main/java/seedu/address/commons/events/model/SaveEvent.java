@@ -5,7 +5,7 @@ import seedu.address.commons.events.BaseEvent;
 /**
  * Indicates that the data file location has changed.
  */
-public class SaveLocChangedEvent extends BaseEvent {
+public class SaveEvent extends BaseEvent {
     
     @Override
     public String toString() {

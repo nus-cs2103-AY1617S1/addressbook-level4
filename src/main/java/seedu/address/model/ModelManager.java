@@ -13,7 +13,7 @@ import seedu.address.model.activity.task.Task;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
-import seedu.address.commons.events.model.SaveLocChangedEvent;
+import seedu.address.commons.events.model.SaveEvent;
 import seedu.address.commons.core.ComponentManager;
 
 import java.util.Set;
@@ -121,7 +121,7 @@ public class ModelManager extends ComponentManager implements Model {
 	}
 	
 	@Subscribe
-	public void indicateSaveLocChanged(SaveLocChangedEvent event) {
+	public void indicateSaveLocChanged(SaveEvent event) {
 	    indicateAddressBookChanged();
 	}
     

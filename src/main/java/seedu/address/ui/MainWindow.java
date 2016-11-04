@@ -16,7 +16,8 @@ import javafx.stage.Stage;
 import seedu.address.commons.core.Config;
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.commons.events.model.SaveLocChangedEvent;
+import seedu.address.commons.events.model.LoadLifekeeperEvent;
+import seedu.address.commons.events.model.SaveEvent;
 import seedu.address.commons.events.ui.ExitAppRequestEvent;
 import seedu.address.logic.Logic;
 import seedu.address.model.UserPrefs;
@@ -211,7 +212,7 @@ public class MainWindow extends UiPart {
     @FXML
     public void handleSaveLoc() {
         JFileChooser fileChooser = new JFileChooser();
-        fileChooser.setCurrentDirectory(new File("data/addressbook.xml"));
+        fileChooser.setCurrentDirectory(new File(userPrefs.getDataFilePath()));
         fileChooser.setFileFilter(new FileNameExtensionFilter("XML File", "xml"));
         fileChooser.setAcceptAllFileFilterUsed(false);
         int result = fileChooser.showSaveDialog(null);
@@ -227,14 +228,43 @@ public class MainWindow extends UiPart {
         }
     }
     
-    public void setSaveLoc(String filePath) {
-        XmlAddressBookStorage.setAddressBookFilePath(filePath);
-        resultDisplay.postMessage("New save location: " + filePath);
+    public void handleOpen() {
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setCurrentDirectory(new File(userPrefs.getDataFilePath()));
+        fileChooser.setFileFilter(new FileNameExtensionFilter("XML File", "xml"));
+        fileChooser.setAcceptAllFileFilterUsed(false);
+        int result = fileChooser.showOpenDialog(null);
         
+        if (result == JFileChooser.APPROVE_OPTION) {
+            File selectedFile = fileChooser.getSelectedFile();
+            
+            if (!selectedFile.getAbsolutePath().endsWith(".xml")) {
+                selectedFile = new File(selectedFile.getAbsolutePath() + ".xml");
+            }
+            
+            openFile(selectedFile);
+        }
+    }
+    
+    public void setSaveLoc(String filePath) {
+        resultDisplay.postMessage("New save location: " + filePath);
+        changeFileLoc(filePath);
+        
+        EventsCenter.getInstance().post(new SaveEvent());
+    }
+    
+    public void openFile(File selectedFile) {
+        if (!selectedFile.exists()) {
+            resultDisplay.postMessage("The specified file doesn't exist");
+        } else {
+            EventsCenter.getInstance().post(new LoadLifekeeperEvent(selectedFile, logic));
+        }
+    }
+    
+    public void changeFileLoc(String filePath) {
+        XmlAddressBookStorage.setAddressBookFilePath(filePath);
         userPrefs.setDataFilePath(filePath);
         statusBarFooter.setSaveLocation(filePath);
-        
-        EventsCenter.getInstance().post(new SaveLocChangedEvent());
     }
 
     public ActivityListPanel getActivityListPanel() {

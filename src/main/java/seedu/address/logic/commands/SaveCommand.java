@@ -6,7 +6,7 @@ import java.util.Arrays;
 import java.util.regex.Pattern;
 
 import seedu.address.commons.core.EventsCenter;
-import seedu.address.commons.events.ui.SaveEvent;
+import seedu.address.commons.events.ui.SaveFileChooserEvent;
 import seedu.address.storage.XmlAddressBookStorage;
 
 public class SaveCommand extends Command {
@@ -40,10 +40,10 @@ public class SaveCommand extends Command {
                 filePath.concat(".xml");
             }
             
-            EventsCenter.getInstance().post(new SaveEvent(filePath));
+            EventsCenter.getInstance().post(new SaveFileChooserEvent(filePath));
             return new CommandResult(String.format(SHOWING_HELP_MESSAGE, XmlAddressBookStorage.getFilePathForSaveCommand()));
         } else {
-            EventsCenter.getInstance().post(new SaveEvent(""));
+            EventsCenter.getInstance().post(new SaveFileChooserEvent(""));
             return new CommandResult(String.format(SHOWING_HELP_MESSAGE, XmlAddressBookStorage.getFilePathForSaveCommand()));
         }
     }

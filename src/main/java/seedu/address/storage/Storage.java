@@ -1,6 +1,7 @@
 package seedu.address.storage;
 
 import seedu.address.commons.events.model.AddressBookChangedEvent;
+import seedu.address.commons.events.model.LoadLifekeeperEvent;
 import seedu.address.commons.events.storage.DataSavingExceptionEvent;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.ReadOnlyLifeKeeper;
@@ -38,4 +39,6 @@ public interface Storage extends AddressBookStorage, UserPrefsStorage {
      * Raises {@link DataSavingExceptionEvent} if there was an error during saving.
      */
     void handleAddressBookChangedEvent(AddressBookChangedEvent abce);
+    
+    void handleLoadLifekeeperEvent(LoadLifekeeperEvent llke) throws DataConversionException;
 }

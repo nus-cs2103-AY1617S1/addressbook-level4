@@ -5,11 +5,11 @@ import seedu.address.commons.events.BaseEvent;
 /**
  * Indicates to the UI to bring out the save window.
  */
-public class SaveEvent extends BaseEvent {
+public class SaveFileChooserEvent extends BaseEvent {
     
     public final String saveDirectory;
     
-    public SaveEvent(String saveDirectory) {
+    public SaveFileChooserEvent(String saveDirectory) {
         this.saveDirectory = saveDirectory;
     }
     
