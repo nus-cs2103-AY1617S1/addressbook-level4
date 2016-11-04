@@ -101,9 +101,7 @@ Examples:
 	Add 2 instances of the task with 3 months in between the instances.
 
 #### Editing a Task: `edit`
-Allows the user to edit a particular task. <br>
-If you wish to remove a time from a task, you may delete the task and re-add it without the time. Edit is supported for multiple fields at once. <br>
-Once a task is given a time, it can only be modified and not removed. <br>
+Allows the user to edit a particular task. Once a task is given a time, it can only be modified and not removed. If you wish to remove a time from a task, you may delete the task and re-add it without the time. Edit is supported for multiple fields at once. <br>
 Format: `edit <task index> <new detail(s) to edit>`
 
 Example:
@@ -159,16 +157,18 @@ Example:
 * `find homework assignment`
 
 	Finds all task with the word homework or assignment in the name.
-
-<!-- @@author -->
+	
 
 ### Mark as done: `done`
-Marks a task as done. <br>
+Marks a task as done. A task that is done will be removed from the main list and placed in the done list. <br>
 Format: `done <task index>`
 
 Example:
 * `done 1`
+	
+	Removes task indexed 1 from the list and sends it to the done list.
 
+<!-- @@author -->
 
 #### Showing full list: `show`
 Displays all the task for the user to view.<br>
