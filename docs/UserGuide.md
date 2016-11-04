@@ -77,11 +77,11 @@ Examples:
 
 <!-- @@author A0139671X -->
 ##### Adding a recurring task
-Adds a recurring task a certain number of times with a specified duration in between. If the number of times is not specified, ForgetMeNot adds by default, 10 instances of the recurring task. <br>
-Recurring task addition is not supported for task without any date or time. <br>
+Adds a recurring task a certain number of times with a specified duration in between. If the number of times is not specified, ForgetMeNot adds by default, 10 instances of the recurring task. Recurring task addition is not supported for task without any date or time. <br>
+
 Format : `add <task name> at/from <start time> by/to <end time> every <number> <time interval> x<number>` <br>
-`<number>` has to be numeric. For example, 8 and not eight. <br>
-Allowed time intervals : days, weeks, months, years <br>
+Restrictions on  `<number>` : It has to be numeric. For example, 8 and not eight. <br>
+Restrictions on `<time intervals>` : day(s), week(s), month(s), year(s) <br>
 
 Examples:
 * `add family dinner by 9pm friday every year`
