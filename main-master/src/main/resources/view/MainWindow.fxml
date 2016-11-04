@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- @@author A0133369B -->
+
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import javafx.geometry.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import java.net.URL?>
+
+<VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="1000.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.task.ui.MainWindow">
+   <stylesheets>
+      <URL value="@DarkTheme.css" />
+      <URL value="@Extensions.css" />
+   </stylesheets>
+   <children>
+      <MenuBar prefHeight="40.0" VBox.vgrow="NEVER">
+         <menus>
+            <Menu mnemonicParsing="false" text="File">
+               <items>
+                  <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit" />
+               </items>
+            </Menu>
+            <Menu mnemonicParsing="false" text="Help">
+               <items>
+                  <MenuItem fx:id="helpMenuItem" mnemonicParsing="false" onAction="#handleHelp" text="Help" />
+               </items>
+            </Menu>
+         </menus>
+      </MenuBar>
+      <Label id="label" fx:id="label" prefHeight="130.0" prefWidth="451.0" styleClass="label-logo" />
+      <SplitPane id="splitPane" fx:id="splitPane" minHeight="540.0" prefHeight="540.0" VBox.vgrow="ALWAYS">
+         <items>
+            <VBox fx:id="personList" minHeight="540.0" minWidth="1000.0" prefHeight="540.0" prefWidth="1000.0">
+               <children>
+                  <AnchorPane id="table-view" fx:id="taskListPanelPlaceholder" minHeight="540.0" minWidth="1000.0" prefHeight="540.0" prefWidth="1000.0" VBox.vgrow="ALWAYS">
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                     <padding>
+                        <Insets left="80.0" right="80.0" />
+                     </padding></AnchorPane>
+               </children>
+            </VBox>
+            
+         </items>
+      </SplitPane>
+      <AnchorPane fx:id="commandBoxPlaceholder" prefHeight="60.0" prefWidth="1000.0" styleClass="anchor-pane-with-border" VBox.vgrow="NEVER">
+         <padding>
+            <Insets bottom="10.0" left="100.0" right="100.0" top="10.0" />
+         </padding>
+         <VBox.margin>
+            <Insets />
+         </VBox.margin>
+      </AnchorPane>
+       <AnchorPane fx:id="resultDisplayPlaceholder" prefHeight="120.0" prefWidth="1000.0" styleClass="anchor-pane-with-border" VBox.vgrow="NEVER">
+           <padding>
+               <Insets bottom="10.0" left="100.0" right="100.0" top="10.0" />
+           </padding>
+       </AnchorPane>
+      <AnchorPane fx:id="statusbarPlaceholder" prefHeight="40.0" styleClass="status-bar-with-border" VBox.vgrow="NEVER" />
+   </children>
+</VBox>
