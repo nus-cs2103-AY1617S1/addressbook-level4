@@ -182,25 +182,35 @@ Format: `show today`
 Displays all the task for tomorrow for the user to view.<br>
 Format: `show tomorrow`
 
-##### Showing list for upcoming: `show upcoming`
-Displays all the task for upcoming task for the user to view.<br>
-Format: `show upcoming`
-
 ##### Showing list for specific date: `show <date>`
-Displays all the task for today the user to view.<br>
+Displays all the task for a specific date for the user to view.<br>
 Format: `show <date>`
+
+Example:
+* `show 10/10/16`
+
+##### Showing list for a specific parameter: `show <parameter>`
+Displays all the task for a specific <parameter> the user to view.<br>
+<parameter> only takes in dates for parameter as show in the examples.<br>
+Format: `show <parameter>`
+
+Example:
+* `show 2 days later`
+* `show next week`
+* `show 2 days after tmr`
+* `show next tuesday`
 
 ##### Showing a list for overdue tasks: `show overdue`
 Displays all the overdue tasks. <br>
 Format `show overdue`
 
-Example:
-* `show 10/10/16`
+##### Showing a list for floating tasks: `show floating`
+Displays all the floating tasks. <br>
+Format `show floating`
 
 ##### Show all the done tasks: `show done`
 Displays all the done tasks. <br>
 Format: `show done`
-
 
 #### Clearing the display: `clear`
 Clears all the tasks in the task manager <br>
