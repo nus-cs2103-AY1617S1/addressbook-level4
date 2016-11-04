@@ -112,30 +112,32 @@ public class UiManager extends ComponentManager implements Ui {
         showFileOperationAlertAndWait("Could not save data", "Could not save data to file", event.exception);
     }
 
+    //@@author A0093960X
     @Subscribe
     private void handleShowHelpEvent(ShowHelpRequestEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         mainWindow.handleHelp();
     }
 
+    //@@author
     @Subscribe
     private void handleJumpToListRequestEvent(JumpToListRequestEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        mainWindow.getPersonListPanel().scrollTo(event.targetIndex);
+        mainWindow.getTaskListPanel().scrollTo(event.targetIndex);
     }
 
     //@@author A0139498J
     @Subscribe
     private void handleChangeToListDoneViewEvent(ChangeToListDoneViewEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        mainWindow.getPersonListPanel().switchToDoneTaskListView();
+        mainWindow.getTaskListPanel().switchToDoneTaskListView();
     }
     
     //@@author A0139498J
     @Subscribe
     private void handleChangeToListUndoneViewEvent(ChangeToListUndoneViewEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        mainWindow.getPersonListPanel().switchToUndoneTaskListView();
+        mainWindow.getTaskListPanel().switchToUndoneTaskListView();
     }
     
     @Subscribe

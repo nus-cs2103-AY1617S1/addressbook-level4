@@ -105,7 +105,7 @@ public class DeleteCommand extends UndoableCommand {
      * Sorts the indexes to ensure the proper offset is used
      */
     private void prepareToDeleteTasks() {
-        if (!isRedoAction()) {
+        if (!isRedoAction) {
             setCurrentViewingList();
         }
         adjustmentForRemovedTask = 0;

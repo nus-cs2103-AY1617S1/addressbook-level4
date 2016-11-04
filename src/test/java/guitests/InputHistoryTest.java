@@ -1,7 +1,7 @@
 package guitests;
 
 import org.junit.Test;
-
+//@@author A0093960X
 public class InputHistoryTest extends AddressBookGuiTest {
     
     @Test

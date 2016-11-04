@@ -14,13 +14,23 @@ import seedu.address.model.item.ReadOnlyTask;
 import seedu.address.model.item.TimePeriod;
 
 //@@author A0093960X
-public class TaskCard extends UiPart{
+public class TaskCard extends UiPart {
+
+    private static final Paint PAINT_RED = Paint.valueOf("red");
+    private static final Paint PAINT_GREEN = Paint.valueOf("green");
+    private static final Paint PAINT_YELLOW = Paint.valueOf("yellow");
+
+    private static final String RECURRENCE_RATE_DISPLAY_PREFIX = "Every ";
+    private static final String END_DATE_DISPLAY_PREFIX = "End: ";
+    private static final String START_DATE_DISPLAY_PREFIX = "Start: ";
+    private static final String STRING_PLURAL_POSTFIX = "s";
+    private static final String STRING_ONE_SPACE = " ";
+    private static final String STRING_EMPTY = "";
 
     private static final int ONE = 1;
     private static final int ZERO = 0;
     private static final String FXML = "TaskListCard.fxml";
-    private static SimpleDateFormat dateFormatter = new SimpleDateFormat("EEE, d MMM yyyy, h:mm a");
-
+    private static final SimpleDateFormat dateFormatter = new SimpleDateFormat("EEE, d MMM yyyy, h:mm a");
 
     @FXML
     private HBox cardPane;
@@ -38,12 +48,12 @@ public class TaskCard extends UiPart{
     private Label recurrenceRate;
     @FXML
     private Label tags;
-    
+
     private ReadOnlyTask task;
     private int displayedIndex;
 
     public TaskCard() {
-        
+
     }
 
     public static TaskCard load(ReadOnlyTask task, int displayedIndex) {
@@ -56,148 +66,13 @@ public class TaskCard extends UiPart{
     @FXML
     public void initialize() {
         assert task != null && task.getName() != null && task.getPriorityValue() != null;
-        
-        setTaskCardId();
+
+        setTaskCardIndex();
         setTaskCardName();
-        setTaskCardPriority();                
+        setTaskCardPriority();
         setTaskCardStartDate();
-        setTaskCardEndDate();       
-        setTaskCardRecurrence();       
-    }
-    
-    private void setTaskCardId() {
-        assert displayedIndex > 0;
-        
-        String taskCardId = displayedIndex + ".";
-        id.setText(taskCardId);
-    }
-    
-    private void setTaskCardName() {
-        assert task != null && task.getName() != null && task.getName().getTaskName() != null;
-        
-        String taskName = task.getName().getTaskName();
-        name.setText(taskName);
-    }
-    
-    private void setTaskCardPriority() {
-        assert task != null && task.getPriorityValue() != null;
-        
-        Priority taskPriority = task.getPriorityValue();
-        
-        Paint taskPriorityColour = Paint.valueOf("yellow");
-        
-        switch (taskPriority) {
-            case LOW:
-                taskPriorityColour = Paint.valueOf("green");
-                break;
-            case MEDIUM:
-                taskPriorityColour = Paint.valueOf("yellow");
-                break;
-            case HIGH:
-                taskPriorityColour = Paint.valueOf("red");
-                break;
-            default:
-                assert false: "priority should only be LOW, MEDIUM, or HIGH";
-        }
-        
-        priority.setFill(taskPriorityColour);
-    }
-    
-    private void setTaskCardStartDate() {
-        String startDateText = "";
-        boolean taskHasStartDate = checkIfStartDatePresent();
-        
-        if (taskHasStartDate) {
-            startDateText = prepareStartDateToDisplay();
-        }
-        
-        startDate.setText(startDateText);
-    }
-    
-    private void setTaskCardEndDate() {
-        String endDateText = "";
-        boolean taskHasEndDate = checkIfEndDatePresent();
-        if (taskHasEndDate) {
-            endDateText = prepareEndDateToDisplay();
-        }
-        endDate.setText(endDateText);
-    }
-    
-    private void setTaskCardRecurrence() {
-        String recurrenceRateText = "";
-        boolean taskIsRecurring = task.getRecurrenceRate().isPresent();
-
-        if (taskIsRecurring) {
-            recurrenceRateText = prepareRecurrenceRateToDisplay();
-        }
-        
-        recurrenceRate.setText(recurrenceRateText);
-    }
-
-    private String prepareStartDateToDisplay() {
-        assert task.getStartDate().isPresent();
-        
-        Date startDate = task.getStartDate().get();
-        return "Start: " + formatDateForDisplay(startDate);
-    }
-    
-    private String formatDateForDisplay(Date date) {
-        assert date != null;
-        
-        return dateFormatter.format(date);
-    }
-
-    private boolean checkIfStartDatePresent() {
-        assert task != null;
-
-        return task.getStartDate().isPresent();
-    }
-    
-    private String prepareEndDateToDisplay() {
-        assert task.getEndDate().isPresent();
-
-        Date endDate = task.getEndDate().get();
-        return "End: " + formatDateForDisplay(endDate);
-    }
-
-    private boolean checkIfEndDatePresent() {
-        assert task != null;
-        
-        return task.getEndDate().isPresent();
-    }
-
-    private String prepareRecurrenceRateToDisplay() {
-        //String recurrenceRateText = "";
-        //Integer recurrenceRateInteger = task.getRecurrenceRate().get().rate;
-        //TimePeriod timePeriod = task.getRecurrenceRate().get().timePeriod;
-        //boolean hasRecurrenceRateInt = checkIfHasRecurrenceRateInt(recurrenceRateInteger);
-        
-        String recurrenceRateText = task.getRecurrenceRate().get().toString();
-        
-        /*if (hasRecurrenceRateInt) {
-            recurrenceRateText = prepareRecurrenceRateWithInt(recurrenceRateInteger, timePeriod);
-        } else {
-            recurrenceRateText = prepareRecurrenceRateWithoutInt(timePeriod);
-        }*/
-        
-        return recurrenceRateText;
-    }
-
-    //ZhiYuan comments: Basically won't come here since recurrenceRate confirm won't have null rate.
-    private String prepareRecurrenceRateWithoutInt(TimePeriod timePeriod) {
-        return "Every " + timePeriod.toString().substring(ZERO, ONE).toUpperCase() 
-                + timePeriod.toString().substring(ONE).toLowerCase();
-    }
-    // ZhiYuan comments: I extracted this to toString() method of RecurrenceRate.
-    private String prepareRecurrenceRateWithInt(Integer recurrenceRateInteger, TimePeriod timePeriod) {
-        return "Every " 
-                + (recurrenceRateInteger == ONE ? "" : recurrenceRateInteger.toString() + " ")
-                + timePeriod.toString().substring(ZERO, ONE).toUpperCase() + timePeriod.toString().substring(ONE).toLowerCase()
-                + (recurrenceRateInteger.intValue() == ONE ? "" : "s");
-    }
-
-    private boolean checkIfHasRecurrenceRateInt(Integer recurrenceRateInteger) {
-        return recurrenceRateInteger != null;
+        setTaskCardEndDate();
+        setTaskCardRecurrence();
     }
 
     public HBox getLayout() {
@@ -206,11 +81,174 @@ public class TaskCard extends UiPart{
 
     @Override
     public void setNode(Node node) {
-        cardPane = (HBox)node;
+        cardPane = (HBox) node;
     }
 
     @Override
     public String getFxmlPath() {
         return FXML;
     }
+
+    // private helper methods below
+
+    /**
+     * Sets the task card displayed index to its position in the list.
+     */
+    private void setTaskCardIndex() {
+        assert displayedIndex > 0;
+
+        String taskCardId = displayedIndex + ".";
+        id.setText(taskCardId);
+    }
+
+    /**
+     * Sets the task card name to the name of the task of the task it is
+     * displaying.
+     */
+    private void setTaskCardName() {
+        assert task != null && task.getName() != null;
+
+        String taskName = task.getName().toString();
+        name.setText(taskName);
+    }
+
+    /**
+     * Sets the task card priority rectangle to the appropriate color depending
+     * on the task priority.
+     */
+    private void setTaskCardPriority() {
+        assert task != null && task.getPriorityValue() != null;
+
+        Priority taskPriority = task.getPriorityValue();
+
+        Paint taskPriorityColour = PAINT_YELLOW;
+
+        switch (taskPriority) {
+        case LOW:
+            taskPriorityColour = PAINT_GREEN;
+            break;
+        case MEDIUM:
+            taskPriorityColour = PAINT_YELLOW;
+            break;
+        case HIGH:
+            taskPriorityColour = PAINT_RED;
+            break;
+        default:
+            assert false : "priority should only be LOW, MEDIUM, or HIGH";
+        }
+
+        priority.setFill(taskPriorityColour);
+    }
+
+    /**
+     * Sets the task card start date to the start date of the task it is
+     * displaying.
+     */
+    private void setTaskCardStartDate() {
+        assert task != null;
+
+        String startDateText = STRING_EMPTY;
+        boolean hasStartDate = task.getStartDate().isPresent();
+
+        if (hasStartDate) {
+            startDateText = prepareStartDateToDisplay();
+        }
+
+        startDate.setText(startDateText);
+    }
+
+    /**
+     * Sets the task card end date to the end date of the task it is displaying.
+     */
+    private void setTaskCardEndDate() {
+        assert task != null;
+
+        String endDateText = STRING_EMPTY;
+        boolean hasEndDate = task.getEndDate().isPresent();
+
+        if (hasEndDate) {
+            endDateText = prepareEndDateToDisplay();
+        }
+        endDate.setText(endDateText);
+    }
+
+    /**
+     * Sets the task card recurrence rate to the recurrence rate of the task it
+     * is displaying.
+     */
+    private void setTaskCardRecurrence() {
+        assert task != null;
+
+        String recurrenceRateText = STRING_EMPTY;
+        boolean taskIsRecurring = task.getRecurrenceRate().isPresent();
+
+        if (taskIsRecurring) {
+            recurrenceRateText = prepareRecurrenceRateToDisplay();
+        }
+
+        recurrenceRate.setText(recurrenceRateText);
+    }
+
+    /**
+     * Prepares the start date for display by converting it into a pretty format
+     * as a String.
+     * 
+     * @return the String representation of the start date for display on the
+     *         task card
+     */
+    private String prepareStartDateToDisplay() {
+        assert task != null && task.getStartDate().isPresent();
+
+        Date startDate = task.getStartDate().get();
+        return START_DATE_DISPLAY_PREFIX + dateFormatter.format(startDate);
+    }
+
+    /**
+     * Prepares the end date for display by converting it into a pretty format
+     * as a String.
+     * 
+     * @return the String representation of the end date for display on the task
+     *         card
+     */
+    private String prepareEndDateToDisplay() {
+        assert task != null && task.getEndDate().isPresent();
+
+        Date endDate = task.getEndDate().get();
+        return END_DATE_DISPLAY_PREFIX + dateFormatter.format(endDate);
+    }
+
+    /**
+     * Prepares the recurrence rate for display by converting it into a pretty
+     * format as a String.
+     * 
+     * @return the String representation of the recurrence rate for display on
+     *         the task card
+     */
+    private String prepareRecurrenceRateToDisplay() {
+        assert task != null && task.getRecurrenceRate().isPresent();
+
+        String recurrenceRateText = task.getRecurrenceRate().get().toString();
+        return recurrenceRateText;
+    }
+
+    /**
+     * Get the recurrence rate string for display, given the recurrence rate
+     * integer and the time period associated with the recurrence rate.
+     * 
+     * @param recurrenceRateInteger the integer associated with the recurrence
+     *            rate
+     * @param timePeriod the time period associated with the recurrence rate
+     * @return the String representation of the recurrence rate for display on
+     *         the task card
+     */
+    private String getRecurrenceRateString(Integer recurrenceRateInteger, TimePeriod timePeriod) {
+        boolean isRecurrenceRateOne = (recurrenceRateInteger == ONE);
+
+        return RECURRENCE_RATE_DISPLAY_PREFIX
+                + ((isRecurrenceRateOne) ? STRING_EMPTY : recurrenceRateInteger.toString() + STRING_ONE_SPACE)
+                + timePeriod.toString().substring(ZERO, ONE).toUpperCase()
+                + timePeriod.toString().substring(ONE).toLowerCase()
+                + (recurrenceRateInteger.intValue() > ONE ? STRING_PLURAL_POSTFIX : STRING_EMPTY);
+    }
+
 }
