@@ -20,7 +20,7 @@ public class AddCommandTest extends FlexiTrackGuiTest {
     TestTask taskToAdd;
 
     @Test
-    public void addAnEvent() {
+    public void add_AnEvent_success() {
         TestTask[] currentList = td.getTypicalSortedTasks();
         taskToAdd = TypicalTestTasks.basketball;
         assertAddSuccess(taskToAdd, currentList);
@@ -28,14 +28,14 @@ public class AddCommandTest extends FlexiTrackGuiTest {
     }
 
     @Test
-    public void addADeadLineTask() {
+    public void add_ADeadLineTask_success() {
         taskToAdd = TypicalTestTasks.lecture;
         assertAddSuccess(taskToAdd, currentList);
         currentList = TestUtil.addTasksToList(currentList, taskToAdd);
     }
 
     @Test
-    public void addAFloatingTask() {
+    public void add_AFloatingTask_success() {
         taskToAdd = TypicalTestTasks.job;
         assertAddSuccess(taskToAdd, currentList);
         currentList = TestUtil.addTasksToList(currentList, taskToAdd);
@@ -43,21 +43,21 @@ public class AddCommandTest extends FlexiTrackGuiTest {
     }
 
     @Test
-    public void addADuplicateTask() {
+    public void add_ADuplicateTask_fail() {
         commandBox.runCommand(TypicalTestTasks.soccer.getAddCommand());
         assertResultMessage(AddCommand.MESSAGE_DUPLICATE_TASK);
         assertTrue(taskListPanel.isListMatching(currentList));
     }
 
     @Test
-    public void addToAnEmptyList() {
+    public void add_ToAnEmptyList_success() {
         commandBox.runCommand("clear");
         assertAddSuccess(TypicalTestTasks.homework1);
 
     }
 
     @Test
-    public void invalidAddCommand() {
+    public void add_invalidAddCommand_fail() {
         commandBox.runCommand("adds cs tutorial");
         assertResultMessage(Messages.MESSAGE_UNKNOWN_COMMAND);
     }
@@ -93,7 +93,7 @@ public class AddCommandTest extends FlexiTrackGuiTest {
         assertTrue(taskListPanel.isListMatching(0, currentList));
     }
 
-    // @@author A0127696R
+    // @@author A0127686R
     private void assertAddSuccess(TestTask taskToAdd, TestTask... currentList) {
         commandBox.runCommand(taskToAdd.getAddCommand());
 

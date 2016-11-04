@@ -55,7 +55,8 @@ public class GapCommandTest extends FlexiTrackGuiTest {
     }
     
     @Test
-    public void execute_gap_hour() throws Exception {
+    public void gap_hour_success() throws Exception {
+        // using the word
         String gapUserCommand = "gap hour";
         String messageShown = "The earliest 1 hour free time are found... "
                 + "\nBetween:  now                        " + "  to: " + "Nov 08 2016 09:00"
@@ -63,6 +64,7 @@ public class GapCommandTest extends FlexiTrackGuiTest {
                 + "\nBetween:  " + "Nov 08 2016 16:00" + "  to: " + "Nov 09 2016 14:00";
         assertGapCommandSuccess(gapUserCommand, messageShown);
     
+        // using a single letter to represent the time  
         gapUserCommand = "gap 3h";
         messageShown = "The earliest 3 hours free time are found... "
                 + "\nBetween:  now                        " + "  to: " + "Nov 08 2016 09:00"
@@ -70,6 +72,7 @@ public class GapCommandTest extends FlexiTrackGuiTest {
                 + "\nBetween:  " + "Nov 08 2016 16:00" + "  to: " + "Nov 09 2016 14:00";
         assertGapCommandSuccess(gapUserCommand, messageShown);
     
+        // using the complete word with s 
         gapUserCommand = "gap 7 hours";
         messageShown = "The earliest 7 hours free time are found... "
                 + "\nBetween:  now                        " + "  to: " + "Nov 08 2016 09:00"
@@ -77,6 +80,7 @@ public class GapCommandTest extends FlexiTrackGuiTest {
                 + "\nBetween:  " + "Nov 09 2016 16:00" + "  to: " + "Nov 12 2016 10:00";
         assertGapCommandSuccess(gapUserCommand, messageShown);
 
+        // specify the number of time slot found 
         gapUserCommand = "gap  4h n/2";
         messageShown = "The earliest 4 hours free time are found... "
                 + "\nBetween:  now                        " + "  to: " + "Nov 08 2016 09:00"
@@ -85,7 +89,8 @@ public class GapCommandTest extends FlexiTrackGuiTest {
     }
     
     @Test
-    public void execute_gap_minute_test() throws Exception {
+    public void gap_minute_success() throws Exception {
+        // using a single letter to represent minute
         String gapUserCommand = "gap 40m";
         String messageShown = "The earliest 40 minutes free time are found... "
                 + "\nBetween:  now                        " + "  to: " + "Nov 08 2016 09:00"
@@ -93,6 +98,7 @@ public class GapCommandTest extends FlexiTrackGuiTest {
                 + "\nBetween:  " + "Nov 08 2016 16:00" + "  to: " + "Nov 09 2016 14:00";
         assertGapCommandSuccess(gapUserCommand, messageShown);
 
+        // using the proper word + s
         gapUserCommand = "gap 30minutes";
         messageShown = "The earliest 30 minutes free time are found... "
                 + "\nBetween:  now                        " + "  to: " + "Nov 08 2016 09:00"
@@ -100,6 +106,7 @@ public class GapCommandTest extends FlexiTrackGuiTest {
                 + "\nBetween:  " + "Nov 08 2016 16:00" + "  to: " + "Nov 09 2016 14:00";
         assertGapCommandSuccess(gapUserCommand, messageShown);
 
+        // using the proper word with specified number of time slot
         gapUserCommand = "gap minute n/1";
         messageShown = "The earliest 1 minute free time are found... "
                 + "\nBetween:  now                        " + "  to: " + "Nov 08 2016 09:00";
@@ -107,7 +114,8 @@ public class GapCommandTest extends FlexiTrackGuiTest {
     }
     
     @Test
-    public void execute_gap_day_test() throws Exception {
+    public void gap_day_success() throws Exception {
+        // using a single letter to represent day 
         String gapUserCommand = "gap 2d";
         String messageShown = "The earliest 2 days free time are found... "
                 + "\nBetween:  now                        " + "  to: " + "Nov 08 2016 09:00"
@@ -115,6 +123,7 @@ public class GapCommandTest extends FlexiTrackGuiTest {
                 + "\nBetween:  " + "Nov 12 2016 14:00" + "  to: " + "Nov 18 2016 09:00";
         assertGapCommandSuccess(gapUserCommand, messageShown);
 
+        // using the proper word + s
         gapUserCommand = "gap 3 days";
         messageShown = "The earliest 3 days free time are found... "
                 + "\nBetween:  now                        " + "  to: " + "Nov 08 2016 09:00"
@@ -122,6 +131,7 @@ public class GapCommandTest extends FlexiTrackGuiTest {
                 + "\nBetween:  " + "Nov 22 2016 21:00" + "  to: " + "Nov 16 2017 19:00";
         assertGapCommandSuccess(gapUserCommand, messageShown);
 
+        // using the proper word with specified number of time slot 
         gapUserCommand = "gap day n/6";
         messageShown = "The earliest 1 day free time are found... "
                 + "\nBetween:  now                        " + "  to: " + "Nov 08 2016 09:00"
@@ -135,21 +145,27 @@ public class GapCommandTest extends FlexiTrackGuiTest {
     
     @Test
     public void execute_invalid_help() throws Exception {
+        // missing n/ 
         String invalidUserInput = "gap 5";
         assertGapCommandSuccess(invalidUserInput, ("Invalid command format! \n" + GapCommand.MESSAGE_USAGE));
 
+        // with no time specified 
         invalidUserInput = "gap";
         assertGapCommandSuccess(invalidUserInput, ("Invalid command format! \n" + GapCommand.MESSAGE_USAGE));
         
+        // with no n/ 
         invalidUserInput = "gap 5 months";
         assertGapCommandSuccess(invalidUserInput, ("Invalid command format! \n" + GapCommand.MESSAGE_USAGE));
 
+        // with no number of time slot to be found
         invalidUserInput = "gap 2 days n/";
         assertGapCommandSuccess(invalidUserInput, ("Invalid command format! \n" + GapCommand.MESSAGE_USAGE));
 
+        // number of time slot is in letter 
         invalidUserInput = "gap day n/three";
         assertGapCommandSuccess(invalidUserInput, ("Invalid command format! \n" + "Please enter number in digit."));
 
+        // duration is in word 
         invalidUserInput = "gap two day";
         assertGapCommandSuccess(invalidUserInput, ("Invalid command format! \n" + "Please enter number in digit."));
 
