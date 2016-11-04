@@ -2,7 +2,7 @@ package seedu.emeraldo.model;
 
 import javafx.collections.ObservableList;
 import seedu.emeraldo.commons.exceptions.IllegalValueException;
-import seedu.emeraldo.logic.commands.TaskAlreadyCompletedException;
+import seedu.emeraldo.commons.exceptions.TaskAlreadyCompletedException;
 import seedu.emeraldo.model.tag.Tag;
 import seedu.emeraldo.model.tag.UniqueTagList;
 import seedu.emeraldo.model.task.DateTime;

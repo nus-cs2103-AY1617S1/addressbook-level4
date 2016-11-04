@@ -1,4 +1,4 @@
-package seedu.emeraldo.logic.commands;
+package seedu.emeraldo.commons.exceptions;
 
 public class TaskAlreadyCompletedException extends Exception {
    
