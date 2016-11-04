@@ -51,7 +51,7 @@ public class DeadlineCard extends UiPart {
 		name.setText(task.getName().name);
 		id.setText(displayedIndex + ". ");
 		endTime.setText("End Time: " + task.getStartDate().date + " @" + task.getEndTime().endTime);
-        countdown.setText(count.convertDateToMilli(task.getStartDate().date, task.getEndTime().endTime));
+        countdown.setText(task.getCountdown());
 		if (task.checkEndDateTime() && this.task.getDone().equals("true")) {
 			done.setText("Completed");
 			cardPane.setStyle("-fx-background-color: #01DF01");

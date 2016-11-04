@@ -30,7 +30,6 @@ public class EventCard extends UiPart {
 
 	private Event task;
 	private int displayedIndex;
-    private Countdown count = Countdown.getInstance();
 
 	public EventCard() {
 
@@ -50,7 +49,7 @@ public class EventCard extends UiPart {
 		id.setText(displayedIndex + ". ");
 		startTime.setText("Start Time: " + task.getStartDate().date + " @" + task.getStartTime().startTime);
 		endTime.setText("End Time: " + task.getEndDate().endDate + " @" + task.getEndTime().endTime);
-		countdown.setText(count.convertDateToMilli(task.getEndDate().endDate, task.getEndTime().endTime));
+		countdown.setText(task.getCountdown());
 		if (task.checkEndDateTime() && this.task.getDone().equals("true")) {
 			done.setText("Completed");
 			cardPane.setStyle("-fx-background-color: #01DF01");

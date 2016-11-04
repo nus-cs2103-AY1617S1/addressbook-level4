@@ -19,9 +19,10 @@ public class Countdown {
     }
     
     PrettyTime p = new PrettyTime();
-
+    
     //@@author A0132157M
     public String convertDateToMilli(String s, String q) throws ParseException {
+        //splits the input date and time for conversion to milliseconds  
         String string = s;
         String[] parts = string.split(" ");
         String part1 = parts[0]; 
@@ -36,6 +37,7 @@ public class Countdown {
     
     //@@author A0132157M
     private String convertToSDF(String input) throws ParseException {
+        //Converts the input date and time to milliseconds 
         Date date = new SimpleDateFormat("yyyy MMMM dd HH:mmaaa", Locale.ENGLISH).parse(input);
         long milliseconds = date.getTime();
         long dateToMilli = milliseconds - (new Date()).getTime();
@@ -45,6 +47,8 @@ public class Countdown {
     
     //@@author A0132157M
     private String setPrettyTime(long input) {
+        //Converts milliseconds into readable text for user using PrettyTime library
+        //by comparing input with current date and time
         String result = p.format(new Date(System.currentTimeMillis() + input));
         return result; 
     }

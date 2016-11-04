@@ -1,10 +1,12 @@
 package seedu.Tdoo.model.task;
 
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import seedu.Tdoo.commons.util.CollectionUtil;
+import seedu.Tdoo.model.task.attributes.Countdown;
 import seedu.Tdoo.model.task.attributes.EndDate;
 import seedu.Tdoo.model.task.attributes.EndTime;
 import seedu.Tdoo.model.task.attributes.Name;
@@ -269,5 +271,12 @@ public class Event extends Task implements ReadOnlyTask {
         } else {
             return true;
         }
+    }
+    //@@author A0132157M
+    public String getCountdown() throws ParseException {
+        //Get count down timer
+        Countdown count = Countdown.getInstance();
+        String result = count.convertDateToMilli(this.endDate.toString(), this.endTime.toString());
+        return result;
     }
 }
