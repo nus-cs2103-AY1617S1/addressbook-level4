@@ -29,13 +29,14 @@
 > **Command Format**
 > * Words in angle brackets `<>` are parameters.
 > * The order of parameters is fixed.
-<!-- @@author A0139671X -->
 
+<!-- @@author A0139671X -->
 #### Finding more information about various commands: `help`
 Displays the list of commands(along with their formats) to assist the user in using ForgetMeNot.<br>
 Format: `help`
 <!-- @@author -->
 
+<!-- @@author A0147619W -->
 #### Adding a Task: `add`
 Adds a task to the task manager<br>
 Date Formats: dd/mm/yy, days (e.g Monday, Friday, Today, Tomorrow), dd Month yy
@@ -126,16 +127,7 @@ Example:
 	
 	Edit the start time to the current day 3pm for the task at index 2.
 	
-<!-- @@author -->
 
-#### Priority tasks: `priority`
-Allows the user to set the priority of a task when creating it. If the task is of importance, the user can assign it with a high priority. <br>
-Format : `add <task name> priority high`
-
-Example:
-* `add CS2101 by 01/01/2016 priority high`
-
-<!-- @@author A0139671X -->
 #### Undo a Task: `undo`
 Undo the most recent task entered in the command line. Undo only supports for task modifying commands such as add, delete, clear, edit and redo but not find, show, setstorage. Once ForgetMeNot is exited, the possible undo history is cleared. <br>
 Format: `undo`
@@ -176,7 +168,6 @@ Example:
 * `done 1`
 	
 	Removes task indexed 1 from the list and sends it to the done list.
-
 <!-- @@author -->
 
 #### Showing full list: `show`
@@ -219,7 +210,7 @@ Format: `clear`
 Clears all the done tasks <br>
 Format: `clear done`
 
-
+<!-- @@author A0147619W -->
 #### Selecting a task: `select`
 Selects a task based on index. <br>
 Format: `select <index>`
@@ -227,7 +218,7 @@ Format: `select <index>`
 Example:
 * `select 2`
 
-<!-- @@author A0147619W -->
+
 #### Set storage: `setstorage`
 Allows the user to change the storage location to a different folder. <br>
 Format: `setstorage <folder name>`
@@ -247,7 +238,7 @@ Format: `exit`
 ForgetMeNot data are saved in the hard disk automatically after any command that changes the data.<br>
 There is no need to save manually.
 
-<!-- @@author A0147619W -->
+
 ## Command Summary
 
 Following is the list of all commands:
