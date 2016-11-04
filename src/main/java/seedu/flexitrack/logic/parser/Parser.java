@@ -70,33 +70,34 @@ public class Parser {
         SHORTCUT_MAP.put(GapCommand.COMMAND_SHORTCUT, GapCommand.COMMAND_WORD);
     }  
 
-    //@@author A0127686R
-    private static final Pattern TASK_FIND_GAP_WITH_NUMBER_ARGS_FORMAT = Pattern.compile("(?<info>[^/]+)"+"n/(?<numberOfGaps>[^/]+)");
+    // @@author A0127686R
+    // '/' forward slashes are reserved for delimiter prefixes
+    private static final Pattern TASK_FIND_GAP_WITH_NUMBER_ARGS_FORMAT = Pattern
+            .compile("(?<info>[^/]+)" + "[Nn]/(?<numberOfGaps>[^/]+)");
     private static final Pattern TASK_FIND_GAP_ARGS_FORMAT = Pattern.compile("(?<info>[^/]+)");
 
-    private static final Pattern TASK_EVENT_TYPE_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
-            Pattern.compile("(?<name>.+)" + "from/(?<startTime>[^/]+)" + "to/(?<endTime>[^/]+)"
-                    + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
-    private static final Pattern TASK_DEADLINE_TYPE_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
-            Pattern.compile("(?<name>.+)" + "by/(?<dueDate>[^/]+)" + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
-    private static final Pattern TASK_FLOATING_TYPE_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
-            Pattern.compile("(?<name>.+)" + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
-    //@@author A0147092E
-    private static final Pattern TASK_RECURRING_EVENT_TYPE_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
-            Pattern.compile("(?<name>.+)" + "fr/(?<numOfOccurrence>\\d{1,2}) " + "ty/(?<occurrenceType>[^/\\d]{5,7})" + "from/(?<startTime>[^/]+)" + "to/(?<endTime>[^/]+)");
+    private static final Pattern TASK_EVENT_TYPE_DATA_ARGS_FORMAT = Pattern
+            .compile("(?<name>.+)" + "[fF][rR][oO][mM]/(?<startTime>[^/]+)" + "[Tt][Oo]/(?<endTime>[^/]+)");
+    private static final Pattern TASK_DEADLINE_TYPE_DATA_ARGS_FORMAT = Pattern
+            .compile("(?<name>.+)" + "[Bb][Yy]/(?<dueDate>[^/]+)");
+    private static final Pattern TASK_FLOATING_TYPE_DATA_ARGS_FORMAT = Pattern.compile("(?<name>.+)");
 
-    private static final Pattern TASK_RECURRING_TASK_TYPE_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
-            Pattern.compile("(?<name>.+)" + "fr/(?<numOfOccurrence>\\d{1,2}) " + "ty/(?<occurrenceType>[^/\\d]{5,7})" + "by/(?<dueDate>[^/]+)");
-    
-    private static final Pattern TASK_RECURRING_FLOATING_TASK_TYPE_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
-            Pattern.compile("(?<name>.+)" + "fr/(?<numOfOccurrence>\\d{1,2})");
-    //@@author 
+    // @@author A0147092E
+    private static final Pattern TASK_RECURRING_EVENT_TYPE_DATA_ARGS_FORMAT = Pattern
+            .compile("(?<name>.+)" + "[Ff][Rr]/(?<numOfOccurrence>\\d{1,2}) "
+                    + "[tT][Yy]/(?<occurrenceType>[^/\\d]{5,7})" + "from/(?<startTime>[^/]+)" + "to/(?<endTime>[^/]+)");
+    private static final Pattern TASK_RECURRING_TASK_TYPE_DATA_ARGS_FORMAT = Pattern
+            .compile("(?<name>.+)" + "[Ff][Rr]/(?<numOfOccurrence>\\d{1,2}) "
+                    + "[Tt][Yy]/(?<occurrenceType>[^/\\d]{5,7})" + "by/(?<dueDate>[^/]+)");
+    private static final Pattern TASK_RECURRING_FLOATING_TASK_TYPE_DATA_ARGS_FORMAT = Pattern
+            .compile("(?<name>.+)" + "[Ff][Rr]/(?<numOfOccurrence>\\d{1,2})");
+    // @@author
     
     private static final Pattern EDIT_COMMAND_FORMAT = Pattern.compile("(?<index>[0-9]+)(?<arguments>.*)");
-    private static final Pattern EDIT_ARGS_NAME = Pattern.compile("n/\\s*(?<name>.+)");
-    private static final Pattern EDIT_ARGS_DUEDATE = Pattern.compile("by/\\s*(?<dueDate>[^/]+)");
-    private static final Pattern EDIT_ARGS_STARTTIME = Pattern.compile("from/\\s*(?<startTime>[^/]+)");
-    private static final Pattern EDIT_ARGS_ENDTIME = Pattern.compile("to/\\s*(?<endTime>[^/]+)");
+    private static final Pattern EDIT_ARGS_NAME = Pattern.compile("[Nn]/\\s*(?<name>.+)");
+    private static final Pattern EDIT_ARGS_DUEDATE = Pattern.compile("[Bb][Yy]/\\s*(?<dueDate>[^/]+)");
+    private static final Pattern EDIT_ARGS_STARTTIME = Pattern.compile("[Ff][Rr][oO][mM]/\\s*(?<startTime>[^/]+)");
+    private static final Pattern EDIT_ARGS_ENDTIME = Pattern.compile("[tT][Oo]/\\s*(?<endTime>[^/]+)");
     
     //@@author A0138455Y
     private static final Pattern STORAGE_PATH_FORMAT = Pattern.compile("(?<path>^[^\\?~`!@#$^&-+=%*:|\"<>\\|]+)");
@@ -131,7 +132,7 @@ public class Parser {
         final String parsedCommandWord = parseCommandWord(commandWord);
 
         final String arguments = matcher.group("arguments");
-        switch (parsedCommandWord) {
+        switch (parsedCommandWord.toLowerCase()) {
 
         case AddCommand.COMMAND_WORD:
             return prepareAdd(arguments);
@@ -164,10 +165,10 @@ public class Parser {
             return prepareUnmark(arguments);
 
         case ListCommand.COMMAND_WORD:
-            return prepareList(arguments);
+            return prepareList(arguments.toLowerCase());
 
         case GapCommand.COMMAND_WORD:
-            return prepareGap(arguments);
+            return prepareGap(arguments.toLowerCase());
 
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
@@ -491,14 +492,14 @@ public class Parser {
      * @return the prepared command
      */
     private Command prepareAdd(String args) {
-        final Matcher matcherEvent = TASK_EVENT_TYPE_DATA_ARGS_FORMAT.matcher(args.trim());
-        final Matcher matcherDeadline = TASK_DEADLINE_TYPE_DATA_ARGS_FORMAT.matcher(args.trim());
-        final Matcher matcherFloating = TASK_FLOATING_TYPE_DATA_ARGS_FORMAT.matcher(args.trim());
+        args = args.trim();
+        final Matcher matcherEvent = TASK_EVENT_TYPE_DATA_ARGS_FORMAT.matcher(args);
+        final Matcher matcherDeadline = TASK_DEADLINE_TYPE_DATA_ARGS_FORMAT.matcher(args);
+        final Matcher matcherFloating = TASK_FLOATING_TYPE_DATA_ARGS_FORMAT.matcher(args);
         //@@author A0147092E
         final Matcher matcherRecurringFloatingTask = TASK_RECURRING_FLOATING_TASK_TYPE_DATA_ARGS_FORMAT.matcher(args.trim());
-        final Matcher matcherRecurringEvent = TASK_RECURRING_EVENT_TYPE_DATA_ARGS_FORMAT.matcher(args.trim());
-        final Matcher matcherRecurringTask = TASK_RECURRING_TASK_TYPE_DATA_ARGS_FORMAT.matcher(args.trim());
-        //@@author A0127686R
+        final Matcher matcherRecurringEvent = TASK_RECURRING_EVENT_TYPE_DATA_ARGS_FORMAT.matcher(args);
+        final Matcher matcherRecurringTask = TASK_RECURRING_TASK_TYPE_DATA_ARGS_FORMAT.matcher(args);
         // Validate arg string format
         try {
             //@@author A0147092E
@@ -513,6 +514,7 @@ public class Parser {
                     return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
                 }
             } else {
+                //@@author A0127686R
                 if (matcherEvent.matches()) {
                     return addEventTask(matcherEvent);
                 } else if (matcherDeadline.matches()) {
@@ -523,20 +525,40 @@ public class Parser {
                     return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
                 }
             }
+            //@@author 
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
         }
     }
-
+    
+    //@@author A0127686R
+    /**
+     * Add a floating task, null date for dudate, starting time and ending time. 
+     * 
+     * @return  new AddCommand for Floating task 
+     * @throws IllegalValueException
+     */
     private AddCommand addFloatingTask(Matcher matcher) throws IllegalValueException {
         return new AddCommand(matcher.group("name"), EMPTY_TIME_INFO, EMPTY_TIME_INFO, EMPTY_TIME_INFO);
     }
 
+    /**
+     * Add a deadline task, null date for starting time and ending time. 
+     * 
+     * @return  new AddCommand for deadline task 
+     * @throws IllegalValueException
+     */
     private AddCommand addDeadlineTask(Matcher matcher) throws IllegalValueException {
         return new AddCommand(matcher.group("name"), matcher.group("dueDate"), EMPTY_TIME_INFO, EMPTY_TIME_INFO);
     }
 
-
+    /** 
+     * Add an event task, null date for dudate. 
+     * 
+     * @return  new AddCommand for event task 
+     * @return
+     * @throws IllegalValueException
+     */
     private AddCommand addEventTask(Matcher matcher) throws IllegalValueException {
         return new AddCommand(matcher.group("name"), EMPTY_TIME_INFO, matcher.group("startTime"),
                 matcher.group("endTime"));
@@ -565,7 +587,7 @@ public class Parser {
                 command.setData(model);
                 command.execute();    
             } 
-            return new AddCommand(matcher.group("name"), EMPTY_TIME_INFO, EMPTY_TIME_INFO, EMPTY_TIME_INFO);
+            return new AddCommand(matcher.group("name"), EMPTY_TIME_INFO, EMPTY_TIME_INFO, EMPTY_TIME_INFO, numOfOccurrence);
             
         } else if (recurringType.equalsIgnoreCase("task")) {
             String occurrenceType = matcher.group("occurrenceType").trim().toLowerCase();
@@ -580,7 +602,7 @@ public class Parser {
                     command.setData(model);
                     command.execute();
                 }
-                return new AddCommand(matcher.group("name"), matcher.group("dueDate"), EMPTY_TIME_INFO, EMPTY_TIME_INFO);
+                return new AddCommand(matcher.group("name"), matcher.group("dueDate"), EMPTY_TIME_INFO, EMPTY_TIME_INFO, numOfOccurrence);
                 
             case "monthly" :
                 for (int i=1; i < numOfOccurrence; i++) {
@@ -590,7 +612,7 @@ public class Parser {
                     command.setData(model);
                     command.execute();
                 }
-                return new AddCommand(matcher.group("name"), matcher.group("dueDate"), EMPTY_TIME_INFO, EMPTY_TIME_INFO);
+                return new AddCommand(matcher.group("name"), matcher.group("dueDate"), EMPTY_TIME_INFO, EMPTY_TIME_INFO, numOfOccurrence);
                 
             default: 
                 for (int i=1; i < numOfOccurrence; i++) {
@@ -600,7 +622,7 @@ public class Parser {
                     command.setData(model);
                     command.execute();
                 }
-                return new AddCommand(matcher.group("name"), matcher.group("dueDate"), EMPTY_TIME_INFO, EMPTY_TIME_INFO);
+                return new AddCommand(matcher.group("name"), matcher.group("dueDate"), EMPTY_TIME_INFO, EMPTY_TIME_INFO, numOfOccurrence);
             }
             
         } else {  // Recurring Event
@@ -619,7 +641,7 @@ public class Parser {
                     command.setData(model);
                     command.execute();
                 }
-                return new AddCommand(matcher.group("name"), EMPTY_TIME_INFO, matcher.group("startTime"), matcher.group("endTime"));
+                return new AddCommand(matcher.group("name"), EMPTY_TIME_INFO, matcher.group("startTime"), matcher.group("endTime"), numOfOccurrence);
                 
             case "monthly":
                 for (int i=1; i < numOfOccurrence; i++) {
@@ -630,7 +652,7 @@ public class Parser {
                     command.setData(model);
                     command.execute();
                 }
-                return new AddCommand(matcher.group("name"), EMPTY_TIME_INFO, matcher.group("startTime"), matcher.group("endTime"));
+                return new AddCommand(matcher.group("name"), EMPTY_TIME_INFO, matcher.group("startTime"), matcher.group("endTime"), numOfOccurrence);
             
             default:
                 for (int i=1; i < numOfOccurrence; i++){
@@ -642,7 +664,7 @@ public class Parser {
                     command.setData(model);
                     command.execute();
                 }
-                return new AddCommand(matcher.group("name"), EMPTY_TIME_INFO, matcher.group("startTime"), matcher.group("endTime"));
+                return new AddCommand(matcher.group("name"), EMPTY_TIME_INFO, matcher.group("startTime"), matcher.group("endTime"), numOfOccurrence);
             }
         }
     }
@@ -746,7 +768,7 @@ public class Parser {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
         }
 
-        if (matcher.group("keywords").contains("f/")) {
+        if (matcher.group("keywords").contains("f/") || matcher.group("keywords").contains("F/")) {
             return new FindCommand(matcher.group("keywords").trim());
         }
 
