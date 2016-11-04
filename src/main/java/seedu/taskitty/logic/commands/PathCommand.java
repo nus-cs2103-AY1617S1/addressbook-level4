@@ -37,7 +37,7 @@ public class PathCommand extends Command{
     Config config = MainApp.getConfig();
     Storage storage = MainApp.getStorage();
     Model model = MainApp.getModel();
-    String configFile = config.DEFAULT_CONFIG_FILE;
+    String configFile = Config.DEFAULT_CONFIG_FILE;
     
     public final String filepath;
     

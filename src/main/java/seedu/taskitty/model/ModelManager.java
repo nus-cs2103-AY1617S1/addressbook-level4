@@ -1,6 +1,5 @@
 package seedu.taskitty.model;
 
-import javafx.beans.value.ObservableValue;
 import javafx.collections.transformation.FilteredList;
 import seedu.taskitty.commons.core.ComponentManager;
 import seedu.taskitty.commons.core.LogsCenter;
@@ -43,7 +42,6 @@ public class ModelManager extends ComponentManager implements Model {
     private FilteredList<Task> filteredTodos;
     private FilteredList<Task> filteredDeadlines;
     private FilteredList<Task> filteredEvents;
-    private ObservableValue<String> date;
     
     private final CommandHistoryManager undoHistory;
     private final CommandHistoryManager redoHistory;
