@@ -1,4 +1,4 @@
-//@@author A0147619W
+<!-- @@author A0147619W -->
 # About Us
 
 We are a team of four 2nd Year Computer Engineering students based in the [School of Computing, National University of Singapore](http://www.comp.nus.edu.sg).
@@ -20,14 +20,16 @@ We are a team of four 2nd Year Computer Engineering students based in the [Schoo
    * [Set storage](https://github.com/CS2103AUG2016-T11-C2/main/blob/master/docs/UserGuide.md#set-storage-setstorage)
    * [Command history](https://github.com/CS2103AUG2016-T11-C2/main/blob/master/docs/UserGuide.md#command-history-up-and-down-arrow-keys)
    * [Auto-complete](https://github.com/CS2103AUG2016-T11-C2/main/blob/master/docs/UserGuide.md#autocomplete-feature-tab-button-or-space-bar)
-* Code written: [[functional code](A0147619W.md)][[test code](A0147619W.md)][[docs](A0147619W.md)]
+* Code written: [[functional code](https://github.com/CS2103AUG2016-T11-C2/main/blob/master/collated/main/A0147619W.md)][[test code](https://github.com/CS2103AUG2016-T11-C2/main/blob/master/collated/test/A0147619W.md)][[docs](https://github.com/CS2103AUG2016-T11-C2/main/blob/master/collated/docs/A0147619W.md)]
 * Other major contributions:
   * Implemented the Natty Parser for Natural Language Processing
   * Set up Travis and Coverall
-  * Integration of all codes
+  * Integration and organization of all codes
+  * Fixing all merge conflicts
   * Handled clashing of events
   * Implemented all validation checks regarding date and time
   * Helped with the initial refactoring from AddressBook to ForgetMeNot
+  
 
 -----
 

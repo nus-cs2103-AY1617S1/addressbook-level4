@@ -248,7 +248,7 @@ is better than these alternatives.<br>
 a. Include those libraries in the repo (this bloats the repo size)<br>
 b. Require developers to download those libraries manually (this creates extra work for developers)<br>
 
-//@@author A0147619W
+<!-- @@author A0147619W -->
 ## Appendix A: User Stories
 
 Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (unlikely to have) - `*`
@@ -271,6 +271,7 @@ Priority | As a ... | I want to ... | So that I can...
 `* * *` | user | have a done list | see what has been done for the day to know how productive I've been.
 `* * *` | user | clear my tasks | delete all the tasks in my task manager at once.
 `* * *` | user | clear my done tasks | delete all my tasks that are done from the done list.
+`* * *` | user | exit ForgetMeNot | close my task manager application whenever I want.
 `* *` | user | add a recurring tasks | add the task once and not every time it occurs.
 `* *` | user | undo a command | go back to the previous command if I have made a mistake.
 `* *` | user | redo an undo | go back to the previous state if I have made an accidental undo.
@@ -287,7 +288,7 @@ Priority | As a ... | I want to ... | So that I can...
 #### Use Case: Add task
 
 **MSS** <br>
-1. User types in a task to be added. <br>
+1. User types in a task to be added, with or without start and end times. <br>
 2. ForgetMeNot adds the task in the list of tasks <br>
       Use case ends.
 
@@ -295,7 +296,11 @@ Priority | As a ... | I want to ... | So that I can...
 
 	1a. User enters an incorrect command
 
-> 1a1. ForgetMeNot shows an error and help message
+> 1a1. ForgetMeNot shows an error message.
+	
+	1b. User enters invalid time
+	
+> 1b1. ForgetMeNot shows an appropriate error message.
 
 #### Use Case: Clear Task
 
@@ -469,27 +474,51 @@ Priority | As a ... | I want to ... | So that I can...
 	
 > 1b1. ForgetMeNot shows help message
 
+#### Use case: Set storage of the tasks in ForgetMeNot to a different folder
+
+**MSS**
+
+1. User types in the setstorage command along with the name of the new folder to which he/she wants the location to be changed.
+2. ForgetMeNot changes the location of the tasks to the new specified folder.
+	Use case ends
+	
+**Extension**
+
+	1a. User types in a file in an incorrect format.
+
+> 1a1. ForgetMeNot shows an error message and requests the user to confirm to the set format.
+
+	1b. User tries to access a folder where he/she does not have access to.
+	
+> 1b1. ForgetMeNot shows an appropriate error message.
+
+#### Use Case: Exit ForgetMeNot
+
+**MSS**
+
+1. User types the exit command.
+2. ForgetMeNot shuts down.
+
+
 ## Appendix C: Non Functional Requirements
 
 1. Should be able to hold atleast 100 tasks.
 2. Should be able to display request under 0.5 seconds.
 3. Should work on any mainstream OS as long as it has Java 8 or higher installed.
-4. Should be able to add task up to 1 year ahead.
-5. Should be able to operate without internet connection.
-6. Should come with automated unit tests.
-7. Should be able to use the product efficiently after using it for 30 minutes.
+4. Should be able to operate without internet connection.
+5. Should come with automated unit tests.
+6. Should be able to use the product efficiently after using it for 15 minutes.
+7. For a full list of constrains, see the handbook at http://www.comp.nus.edu.sg/~cs2103/AY1617S1/contents/handbook.html#handbook-project-constraints  
 
-
-{More to be added}
 
 ## Appendix D: Glossary
 
 Mainstream OS: 
 > Windows, Linux, Unix, OS-X
 
-
 Day:
 > From 0000 to 2359 of the current day
+
 
 ## Appendix E: Product Survey
 

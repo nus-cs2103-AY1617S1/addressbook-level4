@@ -19,7 +19,7 @@
    e.g. typing **`help`** and pressing <kbd>Enter</kbd> will open the help window. 
 5. Refer to the [Features](#features) section below for details of each command.<br>
 
-//@@author A0147619W
+<!-- @@author A0147619W -->
 ## Features
 
 > **Command Format**
@@ -36,6 +36,10 @@ Adds a task to the task manager<br>
 Date Formats: dd/mm/yy, days (e.g Monday, Friday, Today, Tomorrow), dd Month yy
 Time Format: 12-hour clock(Eg:10am, 5:30pm, etc).Users can also use natural language commands like today, tmr, 3 days later, next mon.<br>
              It also recognises holidays like christmas and new year. <br>
+ 
+* If you want to use keywords such as `at`, `from`, `to` and `by` in the task name in isolation, it should be preceded by a `\\`.             
+* If no particular time is mentioned, ForgetMeNot adds a task at the current time.
+* If the user tries to add a task which is clashing with any other task, ForgetMeNot displays a warning message.
 
 ##### Adding a floating task
 Adds a task without any start time or end time <br>
@@ -43,15 +47,16 @@ Format : `add <task name>`<br>
 
 Examples:
 * `add Read Harry Potter`
+* `add meet Jim \\at Holland Village`
 
 ##### Adding a task with a Start Time only
 Adds a task with only the start time <br>
 Format : `add <task name> at/from <Start Time>`
 
 Examples:
-* `add Homewok at 2pm` (This add a task to 2pm of the current day)
+* `add Homework at 2pm` (This add a task to 2pm of the current day)
 * `add project meeting at 21/11/16` (This gives it the current time when you add the task)
-* `add tutorial at 12/12/16 7pm`
+* `add tutorial at `7pm 12/12/16`
 * `add buy gift at 3 days later`
 * `add buy presents at christmas`
 
@@ -60,10 +65,10 @@ Adds a task with only the end time <br>
 Format : `add <task name> by/to <End Time>`
 
 Examples:
-* `add Homewok by 2pm` (This add a task to 2pm of the current day)
+* `add Homework by 2pm` (This add a task to 2pm of the current day)
 * `add project meeting at 21/11/16` (This gives it the current time when you add the task)
 * `add tutorial by 12/12/16 7pm`
-* `add buy gift by 3 days later`
+* `add buy gift by 9pm 3 days later`
 * `add buy presents by new year`
 
 ##### Adding an event task
@@ -95,17 +100,13 @@ Example:
 * `edit 2 at today 3pm` (Edits the start time to the current day 3pm for task 2)
 * `edit 3 every 7 days` (Edits the recurrence of task 3 to be every 7 days)
 
-#### Priority tasks: `priority`
-Allows the user to set the priority of a task when creating it. If the task is of importance, the user can assign it with a high priority. <br>
-Format : `add <task name> priority high`
-
 Example:
 * `add CS2101 by 01/01/2016 priority high`
 
 
 #### Undo a Task: `undo`
 Undo the most recent task entered in the command line<br>
-Undo only supports for task modifying comands such as add, delete, clear, redo but not find, show, setstorage<br>
+Undo only supports for task modifying commands such as add, delete, clear, redo but not find, show, setstorage<br>
 Format: `undo`
 
 
@@ -186,43 +187,54 @@ Format: `select <index>`
 Example:
 * `select 2`
 
-//@@author A0147619W
+<!-- @@author A0147619W -->
 #### Set storage: `setstorage`
-Allows the user to change the storage location to a different folder
+Allows the user to change the storage location to a different folder. <br>
 Format: `setstorage <folder name>`
+
+* The new file name must end with a `.xml` extension.
 
 Example:
 * `setstorage data/newFile.xml`
+
+
+#### Exit: `exit`
+Allows the user to exit the application. <br>
+Format: `exit`
+
 
 #### Saving the data 
 ForgetMeNot data are saved in the hard disk automatically after any command that changes the data.<br>
 There is no need to save manually.
 
-//@@author A0147619W
+<!-- @@author A0147619W -->
 ## Command Summary
 
 Following is the list of all commands:
 
-| Command     | Format                                             | Description                                    |
-|-------------|----------------------------------------------------|------------------------------------------------|
-| `help`      | `help`                                             | Opens a help page                              |
-| `add`       | `add` `<name>`                                     | Adds a floating task                           |
-|             | `add` `<name>` at `<Start Time>`                   | Adds a task only with a start time             |
-|             | `add` `<name>` by `<End Time>`                     | Adds a deadline task                           |
-|             | `add` `<name>` from `<Start Time>` to `<End_Time>` | Adds an event task from start time to end time |
-| `edit`      | `edit` `<index>` `<New Parameters>`                | Edits a task with the new parameters           |
-| `done`      | `done` `<index>`                                   | Marks a task as done                           |
-| `delete`    | `delete` `<index>`                                 | Removes a task from the task manager           |
-| `show`      | `show`                                             | Shows all tasks                                |
-|             | `show` done                                        | Shows the done tasks                           |
-|             | `show` today                                       | Shows all tasks for today                      |
-|             | `show` tmr                                         | Shows all tasks for tomorrow                   |
-|             | `show` `<date>`                                    | Shows all tasks for that particular date       |
-|             | `show` overdue                                     | Shows all the overdue tasks                    |
-| `undo`      | `undo`                                             | Undoes the most recent command                 |
-| `redo`      | `redo`                                             | Redoes the latest undo                         |
-| `find`      | `find` `<name>`                                    | Finds a task with task name as <name>          |
-| `clear`     | `clear`                                            | Clears all the tasks in the task manager       |
-|             | `clear done`                                       | Clears all the done tasks from the done list   |
-| `select`    | `select` `<index>`                                 | Highlights the particular task at that index   |
-|`setstorage` | `setstorage` `<folder name>`                       | Set storage to a particular folder             |
+| Command     | Format                                             | Description                                    			|
+|-------------|----------------------------------------------------|------------------------------------------------------------|
+| `help`      | `help`                                             | Opens a help page                              			|
+| `add`       | `add` `<name>`                                     | Adds a floating task                           			|
+|             | `add` `<name>` at `<Start Time>`                   | Adds a task only with a start time             			|
+|             | `add` `<name>` by `<End Time>`                     | Adds a deadline task                           			|
+|             | `add` `<name>` from `<Start Time>` to `<End_Time>` | Adds an event task from start time to end time 			|
+| `edit`      | `edit` `<index>` `<New Parameters>`                | Edits a task with the new parameters           			|
+| `done`      | `done` `<index>`                                   | Marks a task as done                           			|
+| `delete`    | `delete` `<index>`                                 | Removes a task from ForgetMeNot                			|
+| `show`      | `show`                                             | Shows all tasks                                			|
+|             | `show` done                                        | Shows the done tasks                                       |
+|             | `show` today                                       | Shows all tasks for today                                  |
+|             | `show` tmr                                         | Shows all tasks for tomorrow                               | 
+|             | `show` floating                                    | Shows all floating tasks                                   |
+|             | `show` overdue                                     | Shows all the overdue tasks                                |
+|             | `show` `<date>`                                    | Shows all the tasks, due on that date                      |
+|             | `show` `<parameter>`                               | Shows all the tasks, due on the parameter(Eg: 5 days later)|
+| `undo`      | `undo`                                             | Undoes the most recent command                 			|
+| `redo`      | `redo`                                             | Redoes the latest undo                         			|
+| `find`      | `find` `<name>`                                    | Finds a task with task name as <name>          			|
+| `clear`     | `clear`                                            | Clears all the tasks in the task manager       			|
+|             | `clear done`                                       | Clears all the done tasks from the done list   			|
+| `select`    | `select` `<index>`                                 | Highlights the particular task at that index   			|
+|`setstorage` | `setstorage` `<folder name>`                       | Set storage to a particular folder             			|
+| `exit`      | `exit`                                             | Exits ForgetMeNot                              			|
