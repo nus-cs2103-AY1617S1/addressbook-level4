@@ -106,20 +106,48 @@ public class MyAgenda extends Agenda {
         }
         switch (taskOccurrence.getTaskReference().getRecurringType()) {
         case YEARLY:
-            addYearlyOccurrences(appointment);
+            addYearlyOccurrences(appointment, getEndBoundary(taskOccurrence, appointment));
             break;
         case MONTHLY:
-            addMonthlyOccurrences(appointment);
+            addMonthlyOccurrences(appointment, getEndBoundary(taskOccurrence, appointment));
             break;
         case WEEKLY:
-            addWeeklyOccurrences(appointment);
+            addWeeklyOccurrences(appointment, getEndBoundary(taskOccurrence, appointment));
             break;
         case DAILY:
-            addDailyOccurrences(appointment);
+            addDailyOccurrences(appointment, getEndBoundary(taskOccurrence, appointment));
             break;
         default:
             break;
         }
+    }
+    
+    /**
+     * Adds copies of future appointments to the future agenda based on
+     * recurring type.
+     */
+    private LocalDateTime getEndBoundary(TaskOccurrence taskOccurrence, AppointmentImplLocal appointment) {
+        LocalDateTime endBoundary = null;
+        int recurringCount = taskOccurrence.getTaskReference().getRecurringPeriod();
+        if(recurringCount > 0){
+            switch (taskOccurrence.getTaskReference().getRecurringType()) {
+            case YEARLY:
+                endBoundary = appointment.getStartLocalDateTime().plusYears(recurringCount);
+                break;
+            case MONTHLY:
+                endBoundary = appointment.getStartLocalDateTime().plusMonths(recurringCount);
+                break;
+            case WEEKLY:
+                endBoundary = appointment.getStartLocalDateTime().plusWeeks(recurringCount);
+                break;
+            case DAILY:
+                endBoundary = appointment.getStartLocalDateTime().plusDays(recurringCount);
+                break;
+            default:
+                break;
+            }
+        }
+        return endBoundary;
     }
 
     /** Returns an AppointmentImplLocal object from a task component */
@@ -142,7 +170,7 @@ public class MyAgenda extends Agenda {
     }
 
     /** Computes and adds all occurrences of this daily task to agenda. */
-    private void addDailyOccurrences(AppointmentImplLocal appointment) {
+    private void addDailyOccurrences(AppointmentImplLocal appointment, LocalDateTime endBoundary) {
         int dayOfWeek = appointment.getStartLocalDateTime().getDayOfWeek().getValue() % 7;
         if (appointment.getEndLocalDateTime().truncatedTo(ChronoUnit.DAYS).isBefore(agendaStartTime)) {
             dayOfWeek = 0;
@@ -150,20 +178,20 @@ public class MyAgenda extends Agenda {
         for (int i = dayOfWeek; i <= 6; i++) {
             LocalDateTime start = getAppointmentStartTime(agendaStartTime.truncatedTo(ChronoUnit.DAYS), i, appointment);
             LocalDateTime end = getAppointmentEndTime(agendaStartTime.truncatedTo(ChronoUnit.DAYS), i, appointment);
-            addToAgenda(appointment, start, end);
+            addToAgenda(appointment, start, end, endBoundary);
         }
     }
 
     /** Computes and adds all occurrences of this weekly task to agenda. */
-    private void addWeeklyOccurrences(AppointmentImplLocal appointment) {
+    private void addWeeklyOccurrences(AppointmentImplLocal appointment ,LocalDateTime endBoundary) {
         int dayOfWeek = appointment.getStartLocalDateTime().getDayOfWeek().getValue() % 7;
         LocalDateTime start = getAppointmentStartTime(agendaStartTime, dayOfWeek, appointment);
         LocalDateTime end = getAppointmentEndTime(agendaStartTime, dayOfWeek, appointment);
-        addToAgenda(appointment, start, end);
+        addToAgenda(appointment, start, end, endBoundary);
     }
 
     /** Computes and adds all occurrences of this monthly task to agenda. */
-    private void addMonthlyOccurrences(AppointmentImplLocal appointment) {
+    private void addMonthlyOccurrences(AppointmentImplLocal appointment, LocalDateTime endBoundary) {
         int dayOffset = appointment.getStartLocalDateTime().getDayOfMonth() - agendaStartTime.getDayOfMonth();
         if (dayOffset < 0) {
             dayOffset = 6 - (agendaEndTime.getDayOfMonth() - appointment.getStartLocalDateTime().getDayOfMonth());
@@ -171,11 +199,11 @@ public class MyAgenda extends Agenda {
         LocalDateTime start = getAppointmentStartTime(agendaStartTime.truncatedTo(ChronoUnit.DAYS), dayOffset,
                 appointment);
         LocalDateTime end = getAppointmentEndTime(agendaStartTime.truncatedTo(ChronoUnit.DAYS), dayOffset, appointment);
-        addToAgenda(appointment, start, end);
+        addToAgenda(appointment, start, end, endBoundary);
     }
 
     /** Computes and adds all occurrences of this yearly task to agenda. */
-    private void addYearlyOccurrences(AppointmentImplLocal appointment) {
+    private void addYearlyOccurrences(AppointmentImplLocal appointment, LocalDateTime endBoundary) {
         if (appointment.getStartLocalDateTime().getDayOfYear() > agendaStartTime.getDayOfYear() + 6
                 || appointment.getStartLocalDateTime().getDayOfYear() < agendaStartTime.getDayOfYear()) {
             return;
@@ -183,7 +211,7 @@ public class MyAgenda extends Agenda {
         int dayOffset = appointment.getStartLocalDateTime().getDayOfYear() - agendaStartTime.getDayOfYear();
         LocalDateTime start = getAppointmentStartTime(agendaStartTime, dayOffset, appointment);
         LocalDateTime end = getAppointmentEndTime(agendaStartTime, dayOffset, appointment);
-        addToAgenda(appointment, start, end);
+        addToAgenda(appointment, start, end, endBoundary);
     }
 
     // ================Utility
@@ -237,9 +265,10 @@ public class MyAgenda extends Agenda {
     }
 
     /** Adds a new appointment to agenda. */
-    private void addToAgenda(AppointmentImplLocal appointment, LocalDateTime start, LocalDateTime end) {
+    private void addToAgenda(AppointmentImplLocal appointment, LocalDateTime start, LocalDateTime end, LocalDateTime endBoundary) {
         AppointmentImplLocal newAppointment = copyAppointment(appointment, start, end);
-        if (!appointments().contains(newAppointment) && !onSameDay(newAppointment, appointment))
+        if (!appointments().contains(newAppointment) && !onSameDay(newAppointment, appointment) 
+                && (endBoundary == null || !endBoundary.isBefore(newAppointment.getStartLocalDateTime())))
             appointments().add(newAppointment);
     }
 
