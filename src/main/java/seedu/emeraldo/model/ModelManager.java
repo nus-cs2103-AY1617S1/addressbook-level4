@@ -165,15 +165,15 @@ public class ModelManager extends ComponentManager implements Model {
     	indicateEmeraldoChanged();
     }
     
-    public synchronized void addTag(Tag tag){
+    public synchronized void addTag(Task target, Tag tag){
         
     }
     
-    public synchronized void deleteTag(Tag tag){
+    public synchronized void deleteTag(Task target, Tag tag){
         
     }
     
-    public synchronized void clearTag(){
+    public synchronized void clearTag(Task target){
         
     }
     

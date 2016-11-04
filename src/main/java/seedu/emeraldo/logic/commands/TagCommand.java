@@ -50,13 +50,13 @@ public class TagCommand extends Command {
         Task taskTagToEdit = (Task) lastShownList.get(targetIndex - 1);
         
         if (action.equalsIgnoreCase("add")){
-            model.addTag(tag);
+            model.addTag(taskTagToEdit, tag);
         }
         else if (action.equalsIgnoreCase("delete")){
-            model.deleteTag(tag);
+            model.deleteTag(taskTagToEdit, tag);
         }
         else if (action.equalsIgnoreCase("clear")){
-            model.clearTag();
+            model.clearTag(taskTagToEdit);
         }
         else{
             return new CommandResult(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, TagCommand.MESSAGE_USAGE));

@@ -50,11 +50,11 @@ public interface Model {
     /** Adds the given task */
     void addTask(Task task) throws UniqueTaskList.DuplicateTaskException;
     
-    void addTag(Tag tag);
+    void addTag(Task taskTagToEdit, Tag tag);
     
-    void deleteTag(Tag tag);
+    void deleteTag(Task taskTagToEdit, Tag tag);
 
-    void clearTag();
+    void clearTag(Task taskTagToEdit);
 
     /** Returns the filtered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
     UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList();
