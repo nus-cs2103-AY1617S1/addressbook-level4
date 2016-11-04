@@ -280,10 +280,11 @@ Priority | As a ... | I want to ... | So that I can...
 `* * *` | user | delete a task | remove entries that are completed
 `* * *` | user | find a task by name | search for a task  without having to go through the entire list
 `* * *` | user | edit a task and its particulars | update instantly if there are any changes in the task
+`* *` | user | mark my tasks | know which ones are completed and uncompleted
+`* *` | user | undo my last action | amend my mistakes immediately or put lost information back completely
 `* *` | user | view the tasks | take a quick glance or have my tasks presented according to my needs and preference
-`* *` | user | set recurring tasks | save the hassle of contstantly updating my regular activities
-`* *` | busy user | sort my tasks | rank the importance and urgency of my activities
-`*` | advanced user | use shortcuts | key in my commands quicker and easier
+`* *` | busy user | sort my tasks | rank the importance and urgency(time and date) of my activities
+`*` | advanced user | pin my tasks on a new list | remind me of tasks which requires my constant attention
 `*` | advanced user | use natural language| specify my dates and time without using a fixed format
 
 {More to be added}
@@ -309,18 +310,17 @@ Use case ends.
     
 1b.  Time slot for task is already filled
 >1b1. Task manager warns user that time slot clashes <br>
-Use case resumes at step 1 
+	Use case resumes
 
 
 #### Use case: Delete task
 
 **MSS**
 
-1. User requests to view tasks for specific time period
-2. Task Manager displays all tasks during time period
-3. User requests to delete a specific task in the list
-4. Task Manager asks for confirmation on task to delete
-5. Task Manager deletes the task 
+1. User requests to view tasks for specific time period or completed list
+2. Task Manager displays all tasks during time period or the completed tasks
+3. User requests to delete a specific task in the list or the clear the completed task list
+4. Task Manager deletes the task(s)
 Use case ends
 
 **Extensions**
@@ -332,15 +332,7 @@ Use case ends
 >3b1. Task manager shows error message <br>
 Use case resumes at step 2
 
-4a. If deleting a recurring task
 
->4a1. Task manager prompts user to choose between deleting task on that specific day or delete  all recurring tasks
->
->4a2. User enters choice
->
->4a3. Task manager deletes accordingly<br>
-    User case ends
-    
 #### Use case: Completing task
 
 **MSS**
@@ -360,13 +352,50 @@ Use case ends
 >3b1. Task manager shows error message <br>
 Use case resumes at step 2
 
+#### Use case: Pin a task
+
+**MSS**
+
+1. User requests to view tasks for specific time period
+2. Task Manager displays all tasks during time period
+3. User requests to pin a specific task in the current schedule list to the pinned list 
+4. Task Manager puts the task as on pinned list and displays it there
+Use case ends
+
+**Extensions**
+
+2a. The list is empty
+>Use case ends
+    
+3a. Given index is invalid
+>3b1. Task manager shows error message <br>
+Use case resumes at step 2
+
+
+#### Use case: Unpin a task
+
+**MSS**
+
+1. User refers to the INDEX on the pinned list 
+2. User requests to unpin a specific task in the pinned list to the tasks list 
+3. Task Manager removes the task from the pinned list
+Use case ends
+
+**Extensions**
+
+2a. The list is empty
+>Use case ends
+    
+2a. Given index is invalid
+>3b1. Task manager shows error message <br>
+Use case resumes at step 2
     
 #### Use case: View task
 
 **MSS**
 
-1. User requests to view tasks for specific time period and a certain format
-2. Task Manager displays all tasks during time period in that format
+1. User requests to view tasks for specific time period or completed tasks
+2. Task Manager displays all tasks during time period or tasks that are completed
 
 Use case ends
 
@@ -378,9 +407,8 @@ Use case ends
 1. User requests to list tasks for a specific time period
 2. Task Manager displays all tasks during time period
 3. User requests to edit a specific task in the list
-4. Task Manager asks for confirmation on task to be edited
-5. User confirms the changes
-6. Task manager makes the edits <br>
+4. User confirms the changes
+5. Task manager makes the edits <br>
 Use case ends.
 
 
@@ -395,15 +423,7 @@ Use case ends.
 > 3a1. Task Manager shows an error message <br>
 > Use case resumes at step 2
 
-4a. If editing a recurring task 
 
-> 4a1. Task manager prompts user to choose between editing task on that specific day or deleting all the recurring tasks
-> 
-> 4a2. User enters choice
-> 
-> 4a3. Task manager edits task accordingly
-
-> Use case ends
 
     
 
