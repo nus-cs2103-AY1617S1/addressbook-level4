@@ -128,22 +128,12 @@ public class MainWindow extends UiPart {
         aButton.setOnAction((ActionEvent e) -> {
         	String aHead = "add";
         	aHead = processAddParams(aHead);
-        	try {
-				logic.execute(aHead);
-			} catch (ParseException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
+		    commandBox.runCommand(aHead);
         });
         eButton.setOnAction((ActionEvent e) -> {
         	String eHead = "edit";
         	eHead = processEditParams(eHead);
-        	try {
-				logic.execute(eHead);
-			} catch (ParseException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
+        	commandBox.runCommand(eHead);
         });
         //@@author
         setAccelerators();

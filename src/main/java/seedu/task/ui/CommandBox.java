@@ -12,6 +12,7 @@ import seedu.task.commons.events.ui.IncorrectCommandAttemptedEvent;
 import seedu.task.commons.util.FxViewUtil;
 import seedu.task.logic.Logic;
 import seedu.task.logic.commands.*;
+import javafx.scene.input.KeyCodeCombination;
 
 import java.text.ParseException;
 import java.util.logging.Logger;
@@ -110,6 +111,17 @@ public class CommandBox extends UiPart {
      */
     private void setStyleToIndicateIncorrectCommand() {
         commandTextField.getStyleClass().add("error");
+    }
+    //@@author A0153751H
+    public void runCommand(String string) {
+    	commandTextField.setText(string);
+    	try {
+			handleCommandInputChanged();
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	commandTextField.setText(string);
     }
 
 }
