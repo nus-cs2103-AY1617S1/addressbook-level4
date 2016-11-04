@@ -64,6 +64,7 @@ public class CommandBox extends UiPart {
 		configureKeyEvents();
 		upStack = new Stack<String>();
 		downStack = new Stack<String>();
+		commandTextField.requestFocus();
 		registerAsAnEventHandler(this);
 	}
 
@@ -79,7 +80,12 @@ public class CommandBox extends UiPart {
 					handleButtonDown(keyEvent.isControlDown());
 					keyEvent.consume();
 					break;
+				case SPACE: case TAB:
+					autoComplete();
+					keyEvent.consume();
+					break;
 				default:
+					break;
 				}
 			}
 		});
@@ -111,6 +117,7 @@ public class CommandBox extends UiPart {
 			downStack.push(commandTextField.getText());
 			currHistLine = upStack.pop();
 			commandTextField.setText(currHistLine);
+			commandTextField.end();
 		}
 	}
 
@@ -119,6 +126,7 @@ public class CommandBox extends UiPart {
 			upStack.push(commandTextField.getText());
 			currHistLine = downStack.pop();
 			commandTextField.setText(currHistLine);
+			commandTextField.end();
 		}
 	}
 
