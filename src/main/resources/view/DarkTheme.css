@@ -2,10 +2,14 @@
     -fx-background-color: derive(#1d1d1d, 20%);
 }
 
+.hbox {
+    -fx-background-color: derive(#1d1d1d, 20%);
+}
+
 .label {
     -fx-font-size: 11pt;
     -fx-font-family: "Segoe UI Semibold";
-    -fx-text-fill: #555555;
+    -fx-text-fill: #FFFFFF;
     -fx-opacity: 0.9;
 }
 
@@ -30,12 +34,33 @@
 
 .tab-pane {
     -fx-padding: 0 0 0 1;
+    -fx-font-size: 11pt;
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-text-fill: #FFFFFF;
+    -fx-opacity: 0.9;
+    -fx-background-color: derive(#1d1d1d, 20%);
 }
 
-.tab-pane .tab-header-area {
+.tab-pane .tab-header-area .tab-header-background {
+    -fx-background-color: derive(#1d1d1d, 20%);
     -fx-padding: 0 0 0 0;
     -fx-min-height: 0;
     -fx-max-height: 0;
+}
+
+.tab-pane .tab .tab-label {
+    -fx-background-color: derive(#1d1d1d, 50%);
+    -fx-padding: 0 0 0 0;
+    -fx-min-height: 0;
+    -fx-max-height: 0;
+    -fx-font-size: 14pt;
+    -fx-font-family: "Segoe UI Light";
+    -fx-text-fill: white;
+    -fx-opacity: 1;
+}
+
+.tab-pane .tab {
+    -fx-background-color: derive(#1d1d1d, 50%);
 }
 
 .table-view {
