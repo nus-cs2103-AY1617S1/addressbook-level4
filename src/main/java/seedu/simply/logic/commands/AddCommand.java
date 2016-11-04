@@ -133,29 +133,61 @@ public class AddCommand extends Command {
         
         try {
             model.addTask(toAdd);
-            if (toAdd.getTaskCategory() == 1){
-                char category = 'E';
-                int index = model.getFilteredEventList().indexOf(toAdd);
-                EventsCenter.getInstance().post(new JumpToListRequestEvent(index, category));
-                return new CommandResult(String.format(EVENT_SUCCESS, toAdd));
-            }
-            else if (toAdd.getTaskCategory() == 2){
-            	char category = 'D';
-                int index = model.getFilteredDeadlineList().indexOf(toAdd);
-                EventsCenter.getInstance().post(new JumpToListRequestEvent(index, category));
-                return new CommandResult(String.format(DEADLINE_SUCCESS, toAdd));
-            }
-            else{
-                char category = 'T';
-                int index = model.getFilteredTodoList().indexOf(toAdd);
-                EventsCenter.getInstance().post(new JumpToListRequestEvent(index, category));
-                return new CommandResult(String.format(TODO_SUCCESS, toAdd));
-            }
+            return addAndSelectTaskToCorrectLIst(toAdd);
 
         } catch (UniqueTaskList.DuplicateTaskException e) {
             return new CommandResult(MESSAGE_DUPLICATE_TASK);
         }
-
+    }
+    /**
+     * @@author A0138993L
+     * Adds and selects the Task when added into Simply
+     * @param toAdd the tasks added
+     * @return the command Result whether it is a event, deadline or todo
+     */
+    private CommandResult addAndSelectTaskToCorrectLIst(Task toAdd) {
+        if (toAdd.getTaskCategory() == 1){
+            selectEvent(toAdd);
+            return new CommandResult(String.format(EVENT_SUCCESS, toAdd));
+        }
+        else if (toAdd.getTaskCategory() == 2){
+        	selectDeadline(toAdd);
+            return new CommandResult(String.format(DEADLINE_SUCCESS, toAdd));
+        }
+        else{
+            selectTodo(toAdd);
+            return new CommandResult(String.format(TODO_SUCCESS, toAdd));
+        }
+    }
+    /**
+     * @@author A0138993L
+     * selects the added task in the todolist
+     * @param toAdd the added task
+     */
+    private void selectTodo(Task toAdd) {
+        char category = 'T';
+        int index = model.getFilteredTodoList().indexOf(toAdd);
+        EventsCenter.getInstance().post(new JumpToListRequestEvent(index, category));
+    }
+    /**
+     * @@author A0138993L
+     * selects the added task in the deadline list
+     * @param toAdd  the added task
+     */
+    private void selectDeadline(Task toAdd) {
+        char category = 'D';
+        int index = model.getFilteredDeadlineList().indexOf(toAdd);
+        EventsCenter.getInstance().post(new JumpToListRequestEvent(index, category));
+    }
+    /**
+     * @@author A0138993L
+     * selects the added task in the events list
+     * @param toAdd the added task
+     */
+    private void selectEvent(Task toAdd) {
+        char category = 'E';
+        int index = model.getFilteredEventList().indexOf(toAdd);
+        EventsCenter.getInstance().post(new JumpToListRequestEvent(index, category));
     }
     
     //@@author A0147890U
