@@ -20,6 +20,7 @@ public class RedoChangeCommand extends Command {
     @Override
     public CommandResult execute() {
         if (!redoable) {
+            indicateAttemptToExecuteIncorrectCommand();
             return new CommandResult(MESSAGE_REDO_FAILED);
         }
         model.redoUpdateTaskManager(isToClearOld);

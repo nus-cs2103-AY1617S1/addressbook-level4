@@ -39,9 +39,11 @@ public class UndoChangeCommand extends Command {
         assert clear != null;
         
         if (!undoable) {
+            indicateAttemptToExecuteIncorrectCommand();
             return new CommandResult(MESSAGE_UNDO_FAILED);
         }
         if (isToClearNew && !isValidClear()) {
+            indicateAttemptToExecuteIncorrectCommand();
             return new CommandResult(MESSAGE_INVALID_CLEAR_DATA);
         }
         model.changeBackTaskManager(isToClearNew);
