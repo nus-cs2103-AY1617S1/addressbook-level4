@@ -45,6 +45,8 @@ We are a team of four 2nd Year Computer Engineering students based in the [Schoo
   * Implemented checking of overdue tasks
   * Did the initial refactoring from AddressBook to ForgetMeNot
   * Set up EclEmma to aid testing
+  * Documentation
+  * Issue tracking
 
 -----
 
