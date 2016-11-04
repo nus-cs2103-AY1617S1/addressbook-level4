@@ -11,5 +11,9 @@ public class CommandResult {
         assert feedbackToUser != null;
         this.feedbackToUser = feedbackToUser;
     }
+    
+    public String getString(){
+        return feedbackToUser;
+    }
 
 }
