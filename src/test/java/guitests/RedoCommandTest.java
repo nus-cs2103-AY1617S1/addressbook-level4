@@ -136,8 +136,8 @@ public class RedoCommandTest extends TaskListGuiTest {
     
     @Test
     public void redoSetstorageTest() {
-        String filepath1 = "docs/tasklist.xml";
-        String filepath2 = "config/checkstyle.xml";
+        String filepath1 = "docs";
+        String filepath2 = "config";
         commandBox.runCommand("setstorage " + filepath1);
     	assertResultMessage(String.format(SetStorageCommand.MESSAGE_SUCCESS + filepath1));
     	commandBox.runCommand("setstorage " + filepath2);
