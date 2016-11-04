@@ -82,21 +82,6 @@ public class UpdateController implements Controller {
         Map<String, String[]> parsedResult;
         parsedResult = Tokenizer.tokenize(getTokenDefinitions(), input);
         
-        // Record index
-        Integer recordIndex = parseIndex(parsedResult);
-        
-        // Retrieve record and check if task or event
-        EphemeralDB edb = EphemeralDB.getInstance();
-        CalendarItem calendarItem = null;
-        boolean isTask;
-        try {
-            calendarItem = edb.getCalendarItemsByDisplayedId(recordIndex);
-            isTask = calendarItem.getClass() == Task.class;
-        } catch (NullPointerException e) {
-            System.out.println("Wrong index!");
-            return;
-        }
-        
         // Name
         String name = parseName(parsedResult);
         
@@ -113,6 +98,22 @@ public class UpdateController implements Controller {
             dateTo = naturalTo == null ? null : DateParser.parseNatural(naturalTo);
         } catch (InvalidNaturalDateException e) {
             System.out.println("Disambiguate!");
+            return;
+        }
+        
+        // Record index
+        Integer recordIndex = parseIndex(parsedResult);
+        
+        // Retrieve record and check if task or event
+        EphemeralDB edb = EphemeralDB.getInstance();
+        CalendarItem calendarItem = null;
+        boolean isTask;
+        try {
+            calendarItem = edb.getCalendarItemsByDisplayedId(recordIndex);
+            isTask = calendarItem.getClass() == Task.class;
+        } catch (NullPointerException e) {
+            // Assume task for disambiguation purposes since we can't tell
+            renderDisambiguation(true, recordIndex, name, naturalFrom, naturalTo);
             return;
         }
         
