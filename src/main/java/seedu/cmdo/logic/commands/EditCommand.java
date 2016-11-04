@@ -1,6 +1,7 @@
 package seedu.cmdo.logic.commands;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.HashSet;
 import java.util.Set;
@@ -8,6 +9,7 @@ import java.util.Set;
 import seedu.cmdo.commons.core.Messages;
 import seedu.cmdo.commons.core.UnmodifiableObservableList;
 import seedu.cmdo.commons.exceptions.IllegalValueException;
+import seedu.cmdo.logic.parser.MainParser;
 import seedu.cmdo.model.tag.Tag;
 import seedu.cmdo.model.tag.UniqueTagList;
 import seedu.cmdo.model.task.Detail;
@@ -18,13 +20,15 @@ import seedu.cmdo.model.task.ReadOnlyTask;
 import seedu.cmdo.model.task.Task;
 import seedu.cmdo.model.task.UniqueTaskList.TaskNotFoundException;
 
+//@@author A0141128R
 /**
  * Edits the task associated with the intended index.
- * 
- * @@author A0141128R
  */
 public class EditCommand extends Command {
+	public static final LocalDate NO_DATE_DEFAULT = LocalDate.MAX;	// All floating tasks are giving this date.
+	public static final LocalTime NO_TIME_DEFAULT = LocalTime.MAX;	// All timeless tasks are given this time.
     public static final String COMMAND_WORD = "edit";
+    
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the task residing at index input. \n"
             + "Parameters: <index> <details> by/on <date> at <time> /<priority> /<TAG...>\n"
@@ -36,12 +40,14 @@ public class EditCommand extends Command {
     private final int targetIndex;
     private final Task toEditWith;
     private final boolean floating;
+    private final boolean onlyOne;
     private final boolean removePriority;
     private boolean tagIsEmpty = false;
     
     
     public EditCommand(	boolean removePriority,
-    					boolean floating, 
+    					boolean floating,
+    					boolean onlyOne,
     					int targetIndex,
     					String newDetail,
     					LocalDate newDueByDate,
@@ -51,7 +57,6 @@ public class EditCommand extends Command {
         final Set<Tag> tagSet = new HashSet<>();
         if(newTags.isEmpty())
         	tagIsEmpty = true;
-        //System.out.println(tagIsEmpty);
         for (String tagName : newTags) {
             tagSet.add(new Tag(tagName));
         }
@@ -65,14 +70,14 @@ public class EditCommand extends Command {
         this.floating = floating;
         this.targetIndex = targetIndex;
         this.removePriority = removePriority;
+        this.isUndoable=true;
+        this.onlyOne = onlyOne;
     }
         
     /**
      * For RANGE DATE AND TIME
      *
      * @throws IllegalValueException if any of the raw values are invalid
-     * 
-     * @@author A0141128R
      */
     public EditCommand(boolean removePriority, 
     				  int targetIndex,
@@ -84,6 +89,8 @@ public class EditCommand extends Command {
                       String priority,
                       Set<String> tags) throws IllegalValueException {
         final Set<Tag> tagSet = new HashSet<>();
+        if(tags.isEmpty())
+        	tagIsEmpty = true;
         for (String tagName : tags) {
             tagSet.add(new Tag(tagName));
         }
@@ -98,38 +105,36 @@ public class EditCommand extends Command {
         this.isUndoable = true;
         floating = false;//since if range constructor is used, user would have keyed in a timing 
         this.removePriority = removePriority; 
+        this.isUndoable=true;
+        this.onlyOne = false;
     }
     
     public ReadOnlyTask getTask() {
         return toEditWith;
     }
-
-    //@@author A0141128R
-    @Override
-    public CommandResult execute() {
-        UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
-
-        // Check if target index is valid
-        if (lastShownList.size() < targetIndex) {
-            indicateAttemptToExecuteIncorrectCommand();
-            return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
-        }
-        
-        // Retrieve the task and check if done.
-        ReadOnlyTask taskToEdit = lastShownList.get(targetIndex - 1);
-        if (taskToEdit.checkDone().value) {
-            indicateAttemptToExecuteIncorrectCommand();
-        	return new CommandResult(Messages.MESSAGE_EDIT_TASK_IS_DONE_ERROR);
-        }
-        
-        //write a method for it
-        //check for changes in detail and append
+    
+    //check for changes in detail and append
+    public void editDetails(ReadOnlyTask taskToEdit){
         if(toEditWith.getDetail().toString().equals(""))
         	toEditWith.setDetail(taskToEdit.getDetail());
-        
-        //check if changing to floating task
+        }
+    //check for changes in date and time and append
+    public void editDateTime(ReadOnlyTask taskToEdit){
+    	try {//check if changing to floating task
         if(floating)
         	toEditWith.setFloating();
+        // check if the user only meant to key in only one of either date or time
+        else if (onlyOne) {
+        	if (toEditWith.getDueByDate().dateNotEntered() && toEditWith.getDueByTime().timeNotEntered()) {
+        		// The user accidentally typed in only. Ignore.
+        	} else if (toEditWith.getDueByDate().dateNotEntered()) {
+        		// The user used time only, so he must mean today's time.
+        		toEditWith.setDueByDate(new DueByDate(LocalDate.now()));
+        	} else if (toEditWith.getDueByTime().timeNotEntered()) {
+        		// The user used date only, so he must mean one single date only.
+        		toEditWith.setDueByTime(new DueByTime(MainParser.NO_TIME_DEFAULT));
+        	}
+        }
         //check for if time is empty and append and check if have changes in date otherwise append old date
         else{
         if(toEditWith.getDueByDate().dateNotEntered() && toEditWith.getDueByTime().timeNotEntered()){
@@ -139,32 +144,74 @@ public class EditCommand extends Command {
         //time entered only
         //but if single date and time is entered, it bypass the check and fails
         else if(!(toEditWith.getDueByTime().timeNotEntered()) && !(toEditWith.getDueByDate().isRange())){
-        	//need put justin method isFLoating after merging
         	toEditWith.setDueByDate(taskToEdit.getDueByDate());
         	}
         //date entered only
         else if(!(toEditWith.getDueByDate().dateNotEntered()) && toEditWith.getDueByTime().timeNotEntered()){
         	toEditWith.setDueByTime(taskToEdit.getDueByTime());
-        		}
+        			}
+        }
+    	}catch (Exception e) {
+    		// This is an internal method, no exception should be thrown.
+    	}
+    }
+   
+    //check if priority is empty and append with old details
+    public void editPriority(ReadOnlyTask taskToEdit){
+    	if(toEditWith.getPriority().getValue().equals("")) 
+            toEditWith.getPriority().setPriority(taskToEdit.getPriority().getValue()); 
+          //remove priority 
+          if(removePriority) 
+            toEditWith.getPriority().setPriority(""); 
+    }
+    
+    //append tags 
+    public void editTags(ReadOnlyTask taskToEdit){
+    	  if(tagIsEmpty) 
+    		  toEditWith.setTags(taskToEdit.getTags()); 
+    }
+    
+    public void editStartLdt() {
+    	
+    	LocalDate ld = toEditWith.getDueByDate().start;
+    	LocalTime lt = toEditWith.getDueByTime().start;
+    	toEditWith.setStartLdt(LocalDateTime.of(ld, lt));
+    	
+    	if(floating)
+    		toEditWith.setStartLdt(LocalDateTime.of(NO_DATE_DEFAULT, NO_TIME_DEFAULT));
+    }
+    
+    @Override
+    public CommandResult execute() {
+        UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
+        //slap these
+        // Check if target index is valid
+        if (lastShownList.size() < targetIndex) {
+            indicateAttemptToExecuteIncorrectCommand();
+            return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
+        }      
+        ReadOnlyTask taskToEdit = lastShownList.get(targetIndex - 1);
+        // Check if task is done.
+        if (taskToEdit.checkDone().value) {
+            indicateAttemptToExecuteIncorrectCommand();
+        	return new CommandResult(Messages.MESSAGE_EDIT_TASK_IS_DONE_ERROR);
         }
         
+        //check for changes in detail and append
+        editDetails(taskToEdit);
+        //check for date and time and append
+        editDateTime(taskToEdit);
         //check if priority is empty and append with old details
-        if(toEditWith.getPriority().getValue() .equals(""))
-        	toEditWith.getPriority().setPriority(taskToEdit.getPriority().getValue());
-        //remove priority
-        if(removePriority)
-        	toEditWith.getPriority().setPriority("");
-        //append tags
-        if(tagIsEmpty)
-        	toEditWith.setTags(taskToEdit.getTags());
-        
+        editPriority(taskToEdit);
+        //append tags 
+        editTags(taskToEdit);
+        //check for changes in start due by time and date
+        editStartLdt();
         try {
-            model.editTask(taskToEdit, toEditWith);
+        	updateSelectionInPanel(model.editTask(taskToEdit, toEditWith));
         } catch (TaskNotFoundException tnfe) {
             assert false : "The target task cannot be missing";
-        }
-        
+        }      
     	return new CommandResult(MESSAGE_EDITED_TASK_SUCCESS);
     }
-
 }

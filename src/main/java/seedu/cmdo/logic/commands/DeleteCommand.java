@@ -5,9 +5,9 @@ import seedu.cmdo.commons.core.UnmodifiableObservableList;
 import seedu.cmdo.model.task.ReadOnlyTask;
 import seedu.cmdo.model.task.UniqueTaskList.TaskNotFoundException;
 
+//@@author A0141128R
 /**
  * Deletes a task identified using it's last displayed index from CMDo.
- * Working and tested, 12/10/16, A0141128R
  */
 public class DeleteCommand extends Command {
 

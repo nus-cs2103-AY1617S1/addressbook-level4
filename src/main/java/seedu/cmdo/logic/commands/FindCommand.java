@@ -2,8 +2,9 @@ package seedu.cmdo.logic.commands;
 
 import java.util.Set;
 
+//@@author A0139661Y
 /**
- * Finds and lists all persons in address book whose name contains any of the argument keywords.
+ * Finds and lists all tasks in CMDo whose name contains any of the argument keywords.
  * Keyword matching is case insensitive.
  */
 public class FindCommand extends Command {
@@ -25,8 +26,8 @@ public class FindCommand extends Command {
 
     @Override
     public CommandResult execute() {
-        model.updateFilteredTaskList(keywords, taskStatus);
-        return new CommandResult(getMessageForTaskListShownSummary(model.getFilteredTaskList().size()));
+    	model.updateFilteredTaskList(keywords, taskStatus);
+        return new CommandResult(getMessageForFindSummary(keywords));
+        
     }
-
 }

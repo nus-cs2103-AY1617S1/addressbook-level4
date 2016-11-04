@@ -99,7 +99,7 @@ public abstract class ToDoListGuiTest {
      * Asserts the task shown in the card is same as the given task
      */
     public void assertMatching(ReadOnlyTask task, TaskCardHandle card) {
-        assertTrue(TestUtil.compareCardAndTask(card, task));
+    	assertTrue(TestUtil.compareCardAndTask(card, task));
     }
 
     /**

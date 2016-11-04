@@ -3,7 +3,7 @@ package seedu.cmdo.logic.commands;
 import seedu.cmdo.model.ToDoList;
 
 /**
- * Clears the address book.
+ * Clears CMDo.
  */
 public class ClearCommand extends Command {
     public static final String COMMAND_WORD = "clear";
@@ -11,7 +11,7 @@ public class ClearCommand extends Command {
 			+ ": Clears all stored task from the entire list.\n"
 			+ "Example: clear";
 								
-    public static final String MESSAGE_SUCCESS = "Address book has been cleared!";
+    public static final String MESSAGE_SUCCESS = "CMDo has been cleared!";
     
     public ClearCommand() {
     	this.isUndoable = true;

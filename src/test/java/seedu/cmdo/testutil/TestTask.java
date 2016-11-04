@@ -1,5 +1,8 @@
 package seedu.cmdo.testutil;
 
+import java.time.LocalDateTime;
+import java.util.UUID;
+
 import seedu.cmdo.model.tag.UniqueTagList;
 import seedu.cmdo.model.task.Detail;
 import seedu.cmdo.model.task.Done;
@@ -7,11 +10,12 @@ import seedu.cmdo.model.task.DueByDate;
 import seedu.cmdo.model.task.DueByTime;
 import seedu.cmdo.model.task.Priority;
 import seedu.cmdo.model.task.ReadOnlyTask;
+import seedu.cmdo.model.task.Task;
 
 /**
  * A mutable person object. For testing only.
  */
-public class TestTask implements ReadOnlyTask {
+public class TestTask implements ReadOnlyTask, Comparable {
 
     private Detail detail;
     private DueByDate dueByDate;
@@ -20,6 +24,8 @@ public class TestTask implements ReadOnlyTask {
     private Done done = new Done();
     private UniqueTagList tags;
     private boolean block;
+    private LocalDateTime startLdt;
+    public UUID id = UUID.randomUUID();
 
     public TestTask() {
         tags = new UniqueTagList();
@@ -122,5 +128,23 @@ public class TestTask implements ReadOnlyTask {
 	@Override
 	public boolean isRange() {
 		return dueByDate.isRange() || dueByTime.isRange();
+	}
+
+	@Override
+	public LocalDateTime getStartLdt() {
+		return startLdt;
+	}
+	//@@author A0141128R
+	public void setStartLdt(LocalDateTime startLdt){
+		this.startLdt = startLdt;
+	}
+	
+	//@@author A0139661Y
+	@Override
+	public int compareTo(Object o) {
+		assert o != null;
+		int i = this.getStartLdt().compareTo(((TestTask) o).getStartLdt());
+    	if (i != 0) return i;
+    	return this.getDetail().toString().compareToIgnoreCase(((TestTask)o).getDetail().toString());
 	}
 }

@@ -1,4 +1,3 @@
-<!-- @@author A0141128R-->
 # User Guide
 
 <br><img align="center" src="images/Logo.jpeg" width="600"><br>
@@ -16,167 +15,150 @@
    > This app will not work with earlier versions of Java 8.
    
 1. Download the latest `CMDo.jar` from the 'releases' tab.
-2. Copy the file to the folder you want to use as the home folder for your CMDo.
-3. Double-click the file to start the app. The GUI should appear in a few seconds. 
+2. Copy the file to the folder you want to use as the home folder for your CMDo. A folder `data` will be created to store your task list XML file.
+3. Double-click the JAR file to start the app. The GUI should appear in a few seconds. 
    <img src="images/Ui.jpeg" width="600">
    <img src="images/Main.jpeg" width="600">
+4. Tasks in CMDo are sorted accordingly, hence, tasks that are closest to the deadline will be at the top, as shown below.
 
+5. Tasks are colour coded with icons.
 
-4. Type the command in the command box and press <kbd>Enter</kbd> to execute it. <br>
+`Red Colour` overdue tasks
+
+`Green Colour` Tasks 
+
+`Black Colour` floating tasks
+
+`Chill zone icon` Longer than 7 days to due date
+
+6. Calendar
+Displays from year ### to year #### so you can use CMDo your whole life :)
+
+7. Side bar
+Displays cateregories of task with a counter at the side of the number of tasks for each category
+
+8. Type the command in the command box and press <kbd>Enter</kbd> to execute it. <br>
    e.g. typing **`help`** and pressing <kbd>Enter</kbd> will open the help window. 
    
-5. Some example commands you can try:
-   * **`list`** : lists all task
-   * **`add`**` email prof damith to feedback on the module on wednesday` : 
+9. Some example commands you can try:
+   * **`list all`** : lists all task
+   * **`add`**` 'email prof damith to feedback on the module on wednesday'` : 
      adds a task named `email prof damith to feedback on module` to the To Do List.
    * **`delete`**` 3` : deletes the task 3 “email prof damith” in the current list
    * **`exit`** : exits the app
-6. Refer to the [Features](#features) section below for details of each command.<br>
+10. Refer to the [Features](#features) section below for details of each command.<br>
 
+# Features
 
-## Features
+## `add` tasks #LikeASiri
 
-#### Viewing help : `help`
-Format: `help`
+You may add due-by tasks, with relative, explicit or floating date-time inputs. CMDo understands everyday language.
+```
+# Due-bys
+add 'give me some sugar' tmr at noon                  # relative date and time
+add 'give me some coffee' on 10/31/2016 at noon       # explicit date, relative time
+add 'give me some candy' on 10/31/2016 at 2230        # explicit date and time
+add 'give me some' at 3pm                             # implicit today 
+add 'give me some money' tmr                          # floating time
+add 'give me'                                         # floating
 
-> Help is also shown if you enter an incorrect command e.g. `abcd`
+# Events
+add 'give me some sugar' from tmr to 10/31/2016		  # you get the idea
+```
 
-<br><img src="images/Help.jpeg" width="600"><br>
+## `block` time slots #LikeABoss
 
-#### Adding a task in CMDo: `add`
-Adds a task to CMDo <br>
-Format: `add <details> <day> <time> /<priority> -<tag>` 
+You may block off time slots to prevent conflicting tasks. Tasks may not be added to the blocked date/time range.
+```
+block 'CS2103 exam' tmr								# entirety of tomorrow is blocked, no tasks may be added inclusive of tomorrow
+block 'CS2103 tutorial' from 11am to 12pm			# 11am - 12pm today is blocked, no tasks may be added inclusive of the time range
+block 'visit Bolivia' at 11am						# 11am - 12pm (1h enforced) today is blocked
+block 'night of fun' from 10/31 11pm to 11/1 6pm	# 11pm (10/31) - 6pm (11/1) is blocked.
+block 12pm											# impossible. Secret mission? Give it a name at least.
+```
 
-> You need to type your details in '' after add, eg. add 'feed dog'.
-> 
-> You can type anything in details. It must not end with `by`, `on`, `before` or `at`.
-> 
-> If will default as a one hour block if end time is not keyed in or if only one time slot is keyed in.
->
-> For time, typing `tml`, `tmr`, `tomorrow` will still be recognised as tomorrow.
->
-> For time, typing `1300`, `1pm`, will be recognised as 1300.
-> 
-> For priority, use `/low`, `/medium` or `/high`. Tasks added without specific priority will default to low.
-<br><img src="images/Add1.jpeg" width="600"><br>
-<br><img src="images/Add1a.jpeg" width="600"><br>
-> You can also add a tag to the task by using `-`.
-<br><img src="images/Add2.jpeg" width="600"><br>
-<br><img src="images/Add2a.jpeg" width="600"><br>
+## `done`? Mark them and get on with your life
 
-#### Blocking time slots in CMDo: `block`
-Block a time slot in CMDo <br>
-Format: `block <day> <time> /<priority> -<tag>` 
- 
-> You need to type your details in '' after add, eg. add 'feed dog'.
-> 
-> You can type anything in details. It must not end with `by`, `on`, `before` or `at`.
-> 
-> If will default as a one hour block if end time is not keyed in or if only one time slot is keyed in.
->
-> For time, typing `tml`, `tmr`, `tomorrow` will still be recognised as tomorrow.
->
-> For time, typing `1300`, `1pm`, will be recognised as 1300.
+You may mark a task as `done` at anytime. All you need is the index that the task has on the list.
+```
+done 1                                              # all done with task 1 (on list)
+done give me some       						    # invalid
+```
+Does it make sense to mark a done task as done? No, so don't do it.
 
-#### Finding task in CMDo : `find <day>` or `param` or `/priority`
-Shows a list of all task in the CMDo on that day. It also acts as a filter.<br>
-Format: `find <today>`
+## `edit` tasks in the same way
 
-> Key in <day> and all task due on that day will appear
-> <br><img src="images/ListTmr.jpeg" width="600"><br>
-> Key in <done> and all done task will appear
-> <br><img src="images/ListDone.jpeg" width="600"><br>
-> Key in any search parameter and list command will add a filter for you
-<br><img src="images/ListTake.jpeg" width="600"><br>
-> Key in </priority> to show all tasks with specified priority
-<br><img src="images/ListHP.jpeg" width="600"><br>
+You may edit tasks by first keying in the index of the task in the [list](#List them all). Type in only the fields you are interested in changing. Be warned, in this iteration, you cannot undo an edit.
+```
+edit 1 'new name'									# changes the detail
+edit 2 -new tag										# replaces all tags with `-new`	
+edit 3 /medium										# changes the priority to `medium`
+edit 4 tmr at noon					                # relative date and time
+edit 1                                              # actually impossible.
+```
 
-#### Listing all task in CMDo : `list`
-Shows a list of all task in the CMDo.<br>
-Format: `list`
+## `find` tasks with Power Search (wow)
 
-#### Deleting a task in CMDo : `delete`
-Deletes the specified task from the to do list.
-Format: `delete INDEX`
+Are you a goldfish who has about 1,384,103 things to do on your list? You may find tasks using specific keywords! (Add `--done` to search through done tasks)
+```
+find word                                           # pulls up undone tasks with 'word' in their detail or tag
+find high											# pulls up undone tasks with 'high' in their priority, detail or tag
+find tmr 1300										# pulls up undone tasks with tomorrow's date, 1300 in their date/time parameters 
+													# or 'tmr 1300' in their detail or tag
+find --done keyword                                 # pulls up done tasks with 'keyword' in their detail
+find my keys                                        # no we don't do that sort of thing
 
-> Deletes the person at the specified `INDEX`. 
-  The index refers to the index number shown in the most recent listing.<br>
-  The index **must be a positive integer** 1, 2, 3, ...
+\# Do note todolist understands your spelling errors/ambiguity and will pull out similar tasks for you. 
+```
 
-Examples: 
-* `list all`
-  `delete 2`
-  Deletes the 2nd task in the to do list.
-* `find email` 
-  `delete 1`
-  Deletes the 1st task in the results of the `find` command.
+## `list` them all
 
-#### Edit task : `edit`
-Update existing tasks in the CMDo list by just typing in the details you want to change.<br>
-Format: `edit INDEX details`  
+How do you list tasks, you ask? Super simple!
+```
+list                                                # lists all undone tasks
+list all
+la
 
-> Examples: 
-> * `edit 2 eat candy tomorrow`
->  Edit the 2nd task in the to do list to eat candy with date due as tomorrow 
->  
-> * `edit 1 Bear`
->  Edit task 1 details only
->  
-> * `edit 1 1300 `
-> Edit task 1 time only
->
-> * `edit 1 12/12/2016 `
-> Edit task 1 date only
->
-> * `edit 1 /high `
-> Edit task 1 priority only
->
-> * `edit 1 remove priority `
-> Removes Priority of task 1, alternatively, 'rp' can be typed in place of 'remove priority' 
->
-> * `edit 1 floating `
-> Edit task 1 to a floating task
->
-> * `edit 1 12/11/2016 1300 to 12/12/2016 1400 `
-> Edit task 1 to a task with time range
+list done                                           # lists all done tasks
+ld
 
+list block                                			# lists all blocked timeslots
+lb
 
+ls                                                  # woah woah woah, what are you thinking?
+```
 
+## `storage` file path may be changed
 
-####  Mark a task as done : `done <index>`
-Done a task so tick it off the list
+You may change the storage file `cmdo.xml`'s location as an when you like.
+```
+storage												# defaults to location data/
+storage data/test/cmdo.xml							# valid
+storage anywhere/cmdo.xml							# valid
+storage anywhere									# valid (!)
+```
 
-Format: `done <index>`  
-<br><img src="images/Done.jpeg" width="600"><br>
-<br><img src="images/Done1.jpeg" width="600"><br>
+## `undo` and `redo` your last action
 
+You may undo and redo add, block, clear, delete, done, edit commands. Basically commands which modify any tasks in the todo list.
+```
+undo												# undoes one step
+redo												# redoes one step
+```
 
-#### Undo the last action : `undo`
-Undo the earlier action
-Format: `undo`  
+## `up` and `down`, `top` and `bottom`
 
-<br><img src="images/Undo.jpeg" width="600"><br>
-<br><img src="images/Undo1.jpeg" width="600"><br>
-
-
-#### Redo earlier action : `redo`
-Redo the earlier action.
-Format: `redo`
-
-#### Change the storage location : `storage`
-Change the storage location.
-Format: `storage file/path/cmdo.xml`
-
-> There is no need to explicitly write cmdo.xml
-> Filepath which does not start with '/' will imply that the user is working in the app home directory.
-
-#### Exiting the program : `exit`
-Exits the program.<br>
-Format: `exit`  
-
-#### Saving the data 
-To do list data are saved in the hard disk automatically after any command that changes the data.<br>
-There is no need to save manually.
+You can navigate through CMDo by typing!
+```
+up
+u													# move up
+down
+d 													# move down
+top
+t 													# teleport to the top of the list
+bottom
+b 													# teleport to the bottom of the list
+```	
 
 ## FAQ
 
@@ -191,7 +173,7 @@ There is no need to save manually.
 **A**: We will have in the next version :)
 
 **Q**: Can i change the layout?
-**A**: Yes
+**A**:  We will have in the next version :)
 
 **Q**: How do i set priority to a task?
 **A**: add priority under tags eg.(H for high, M for medium, L for low)
@@ -203,42 +185,41 @@ There is no need to save manually.
 **A**: You have to check your to-do list, isnt that the point?
 
 **Q**: How do i block out slots for unconfirmed tasks?
-**A**: use the block command
-
-**Q**: How do i remove a blocked out slot to add task?
-**A**: use the delete command to delete the blocked slot
-
-**Q**: Where did all my tasks go when i try to add a task to a blocked slot?
-**A**: When you attempt to add a task to a blocked slot, CMDo will list all your blocked slots, hence, you are only shown your blocked slots now. Simply use the command 'list all' to go back to your task listing.
-
-**Q**: What if i input only one timing when using the block command?
-**A**: It will create a blocked slot with one hour default end time from the start time which is the time you entered
+**A**: just key in the timming after the task description.
 
 **Q**: How do i see upcoming tasks?
 **A**: The list will be sorted according to date and time
 
+**Q**: What do I do with overdue tasks?
+**A**: You can either delete them or done them.
+
+**Q**: Why CMDo doesnt just remove my overdue tasks automatically?
+**A**: We take into account the fact that you may have been unable to complete it by the set due date but would still need to do so it serves as a reminder.
+
 **Q**: How to scroll?
-**A**: Use the page up and page down commands
+**A**: Use the page up and page down commands, alternatively, use top and bottom commands to for quick access to the top or bottom of the list!
+
+**Q**: This is an interesting product, would I be able to contribute?
+**A**: We are open source so feel free to contact us or submit contributions via pull requests!
        
 ## Command Summary
 
 Command | Format  
 -------- | :-------- 
-Add | `add <task> <day> <start time> <end time> <priority>`
-Block | `Block <day> <start time> <end time>`
+Add | `add <task> <day> <time> <priority> <tags>`
 Delete | `delete <INDEX>`
 Done | `done <INDEX>`
 Find | `find <keyword>`
-List All | `list all / la`
-List Done | `list done / ld`
-List Block | `list block / lb`
-Storage | `storage <new file path> `
+List All | `la`
+List blocked TimeSlots | `lb`
 Help | `help`
 Undo | `undo`
 Redo | `redo`
-Edit | `edit <index> <details to be edited>`
-Page Up | <kbd>PgUp</kbd> (Windows) / <kbd>Fn</kbd>+<kbd>Shift</kbd>+<kbd>Up</kbd> (Mac)
-Page Down | <kbd>PgDown</kbd> (Windows) / <kbd>Fn</kbd>+<kbd>Shift</kbd>+<kbd>Down</kbd> (Mac)
+Edit | `edit <index> <details to edit>`
+Page Up | `up`
+Page Down | `down`
+Top of list | `top`
+Bottom of list | `bottom`
 Exit | `exit`
 
-_Last updated 28 Oct 2016_
+Last updated 5 Nov 2016.

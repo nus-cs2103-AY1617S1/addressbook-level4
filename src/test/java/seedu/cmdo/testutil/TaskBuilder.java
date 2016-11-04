@@ -1,6 +1,7 @@
 package seedu.cmdo.testutil;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 import seedu.cmdo.commons.exceptions.IllegalValueException;
@@ -54,8 +55,12 @@ public class TaskBuilder {
         this.task.setPriority(new Priority(priority));
         return this;
     }
-
+    
+    //@@author A0141128R
     public TestTask build() {
+    	LocalDate startDate = this.task.getDueByDate().start;
+    	LocalTime startTime = this.task.getDueByTime().start;
+    	this.task.setStartLdt(LocalDateTime.of(startDate, startTime));
         return this.task;
     }
 }

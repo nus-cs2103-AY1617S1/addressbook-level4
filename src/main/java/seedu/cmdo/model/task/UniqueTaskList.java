@@ -11,7 +11,6 @@ import seedu.cmdo.commons.util.CollectionUtil;
  * A list of tasks that enforces uniqueness between its elements and does not allow nulls.
  *
  * Supports a minimal set of list operations.
- *
  * @see Person#equals(Object)
  * @see CollectionUtil#elementsAreUnique(Collection)
  */
@@ -23,10 +22,9 @@ public class UniqueTaskList implements Iterable<Task> {
      */
     public static class TaskNotFoundException extends Exception {}
     
+    //@@author A0139661Y
     /**
      * Signals that the task is already done and cannot be done again.
-     * 
-     * @@author A0139661Y
      */
     public static class TaskAlreadyDoneException extends Exception {}
 
@@ -55,11 +53,11 @@ public class UniqueTaskList implements Iterable<Task> {
         internalList.add(toAdd);
     }
 
+    //@@author A0139661Y
     /**
      * Retrieves the equivalent task in the list for editing.
      *
      * @throws TaskNotFoundException
-     * @author A0139661Y
      */
     public void edit(ReadOnlyTask toEdit, Task toEditWith) throws TaskNotFoundException {
     	assert (toEdit != null && toEditWith != null);
@@ -68,8 +66,6 @@ public class UniqueTaskList implements Iterable<Task> {
     		throw new TaskNotFoundException();
     	}
     	internalList.set(index, toEditWith);
-//    	internalList.remove(toEdit);
-//    	internalList.add(toEditWith);
     }
     
     /**

@@ -5,6 +5,7 @@ import java.util.EmptyStackException;
 import java.util.Set;
 import java.util.logging.Logger;
 
+import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.cmdo.commons.core.ComponentManager;
 import seedu.cmdo.commons.core.LogsCenter;
@@ -29,6 +30,7 @@ public class ModelManager extends ComponentManager implements Model {
     private final UserPrefs userPrefs;
     private final Undoer undoer;
     
+    //@@author A0139661Y
     /**
      * Initializes a ModelManager with the given ToDoList
      * ToDoList and its variables should not be null
@@ -43,8 +45,6 @@ public class ModelManager extends ComponentManager implements Model {
         toDoList = new ToDoList(src);
         filteredTasks = new FilteredList<>(toDoList.getTasks());
         this.userPrefs = userPrefs;
-        
-        //@@author A0139661Y
         this.undoer = Undoer.getInstance();
         logger.info("Saved new toDoList into Undoer stack. " + toDoList.toString());
     }
@@ -53,12 +53,11 @@ public class ModelManager extends ComponentManager implements Model {
         this(new ToDoList(), new UserPrefs());
     }
 
+    //@@author A0139661Y
     public ModelManager(ReadOnlyToDoList initialData, UserPrefs userPrefs) {
         toDoList = new ToDoList(initialData);
         filteredTasks = new FilteredList<>(toDoList.getTasks());
         this.userPrefs = userPrefs;
-
-        //@@author A0139661Y
         this.undoer = Undoer.getInstance();
         logger.info("Saved last stable toDoList into Undoer stack. " + toDoList.toString());
     }
@@ -71,7 +70,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public ReadOnlyToDoList getToDoList() {
-        return toDoList;
+    	return toDoList;
     }
 
     /** Raises an event to indicate the model has changed */
@@ -79,11 +78,7 @@ public class ModelManager extends ComponentManager implements Model {
         raise(new ToDoListChangedEvent(toDoList));
     }
     
-    /**
-     * Undo functionality
-     * 
-     * @@author A0139661Y
-     */
+    //@@author A0139661Y
     @Override
     public synchronized void undo() throws CannotUndoException {
     	try {
@@ -97,11 +92,7 @@ public class ModelManager extends ComponentManager implements Model {
     	updateFilteredListToShowAll();
     }
     
-    /**
-     * Redo functionality
-     * 
-     * @@author A0141006B
-     */
+    //@@author A0141006B
     @Override
     public synchronized void redo() throws CannotUndoException {
     	try {
@@ -129,26 +120,41 @@ public class ModelManager extends ComponentManager implements Model {
         indicateToDoListChanged();
     	updateFilteredListToShowAll();
     }
-
+    
+    //@@author A0139661Y
     @Override
-    public synchronized void addTask(Task task) {
+    public synchronized int addTask(Task task) {
         toDoList.addTask(task);
         updateFilteredListToShowAll();
         indicateToDoListChanged();
+        return findTaskInModel(task);
     }
     
     //@@author A0139661Y
     @Override
-    public synchronized void editTask(ReadOnlyTask taskToEdit, Task toEditWith) throws TaskNotFoundException {
+    public synchronized int editTask(ReadOnlyTask taskToEdit, Task toEditWith) throws TaskNotFoundException {
     	toDoList.editTask(taskToEdit, toEditWith);
     	updateFilteredListToShowAll();
     	indicateToDoListChanged();
+        return findTaskInModel(toEditWith);
     }
     
+    //@@author A0139661Y
     @Override
     public void changeStorageFilePath(String filePath) {
     	userPrefs.setStorageSettings(filePath);
     	indicateToDoListChanged();
+    }
+    
+    //@@author A0141006B
+    private int findTaskInModel(Task toFind) {
+    	ObservableList<Task> tdl = toDoList.getTasks();
+    	for (int i=0; i<tdl.size(); i++) {
+    		if (tdl.get(i).id.equals(toFind.id)) {
+    			return i;
+    		}
+    	}
+    	return -1;
     }
 
     //=========== Filtered Task List Accessors ===============================================================
@@ -159,13 +165,13 @@ public class ModelManager extends ComponentManager implements Model {
     	return new UnmodifiableObservableList<>(toDoList.getTasks());
     }
     
-    // @@author A0139661Y
+    //@@author A0139661Y
     @Override 
     public UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList() {
     	return new UnmodifiableObservableList<>(filteredTasks); 
     }
     
-    // @@author A0139661Y
+    //@@author A0139661Y
     @Override 
     public UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList(boolean firstRun) {
     	UnmodifiableObservableList<ReadOnlyTask> initList = new UnmodifiableObservableList<>(filteredTasks);
@@ -205,6 +211,7 @@ public class ModelManager extends ComponentManager implements Model {
     	filteredTasks.setPredicate(expression::satisfies);
     }
     
+    // @@author A0139661Y
     // Used by find done <...> or find <...> where taskStatus depends on user input.
     @Override
     public void updateFilteredTaskList(Set<String> keywords, boolean taskStatus){
@@ -212,9 +219,9 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     private void updateFilteredTaskList(Expression expression) {
-        filteredTasks.setPredicate(expression::satisfies);
+    	filteredTasks.setPredicate(expression::satisfies);
     }
-
+    
     //========== Inner classes/interfaces used for filtering ==================================================
 
     interface Expression {
@@ -251,7 +258,7 @@ public class ModelManager extends ComponentManager implements Model {
         private final boolean taskStatus;
         
         // Keywords, specified tasks status
-        // Likely a find done <...>
+        // Likely a find done <...> or find <...>
         DetailQualifier(Set<String> detailKeyWords, boolean taskStatus) {
             this.detailKeyWords = detailKeyWords;
             this.taskStatus = taskStatus;
@@ -269,8 +276,9 @@ public class ModelManager extends ComponentManager implements Model {
         	taskStatus = false;
         }
         
+        //@@author A0139661Y
         /*
-         * shows only undone tasks
+         * Matches tasks with command done parameter, and filters.
          * 
          * @return boolean: true if match, false if not
          */

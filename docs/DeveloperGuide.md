@@ -1,4 +1,3 @@
-<!-- @@author A0141128R-->
 # Developer Guide 
 
 * [Setting Up](#setting-up)
@@ -61,7 +60,7 @@ Two of those classes play an important role at the architecture level.
 * `LogsCenter` : Used by many classes to write log messages to the App's log files.
 
 The rest of the App consists four components.
-* [**`UI`**](#ui-component) : The UI of that App.
+* [**`UI`**](#ui-component) : The UI of tha App.
 * [**`Logic`**](#logic-component) : The command executor.
 * [**`Model`**](#model-component) : Holds the data of the App in-memory.
 * [**`Storage`**](#storage-component) : Reads data from, and writes data to, the hard disk.
@@ -112,11 +111,11 @@ The `UI` component,
 
 <img src="images/LogicClassDiagram.png" width="800"><br>
 
-**API** : [`Logic.java`](../src/main/java/seedu/address/logic/Logic.java)
+**API** : [`Logic.java`](../src/main/java/seedu/cmdo/logic/Logic.java)
 
 1. `Logic` uses the `MainParser` class to parse the user command. `MainParser` relies on `Parser` of [Natty by Joe Stelmach](https://github.com/joestelmach/natty) for natural language processing.
 2. This results in a `Command` object which is executed by the `LogicManager`.
-3. The command execution can affect the `Model` (e.g. adding a task) and/or raise events.
+3. The command execution can affect the `Model` (e.g. adding a person) and/or raise events.
 4. The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`
 
 ### Model component
@@ -144,7 +143,7 @@ The `Storage` component,
 
 ### Common classes
 
-Classes used by multiple components are in the `seedu.CMDo.commans` package. 
+Classes used by multiple components are in the `seedu.cmdo.commans` package. 
 
 ## Implementation
 
@@ -205,13 +204,13 @@ Tests can be found in the `./src/test/java` folder.
   
 2. **Non-GUI Tests** - These are tests not involving the GUI. They include,
    1. _Unit tests_ targeting the lowest level methods/classes. <br>
-      e.g. `seedu.address.commons.UrlUtilTest`
+      e.g. `seedu.cmdo.commons.UrlUtilTest`
    2. _Integration tests_ that are checking the integration of multiple code units 
      (those code units are assumed to be working).<br>
-      e.g. `seedu.address.storage.StorageManagerTest`
+      e.g. `seedu.cmdo.storage.StorageManagerTest`
    3. Hybrids of unit and integration tests. These test are checking multiple code units as well as 
       how the are connected together.<br>
-      e.g. `seedu.address.logic.LogicManagerTest`
+      e.g. `seedu.cmdo.logic.LogicManagerTest`
   
 **Headless GUI Testing** :
 Thanks to the ([TestFX](https://github.com/TestFX/TestFX)) library we use,
@@ -255,16 +254,16 @@ Priority | As a ... | I want to ... | So that I can...
 `* * *` | user | delete a task | remove entries that I no longer need
 `* * *` | user | edit a task| edit the task by accessing the task and typing the changes
 `* * *` | user | find a task by keywords | access details of tasks quickly without having to go through the entire list
-`* * *` | user | only view uncompleted task in CMDo| avoid being confused by completed task that are overdue| 
+`* * *` | user |only view uncompleted task in CMDo| avoid being confused by completed task that are overd| 
 `* * *` | user | my tasks sorted by due date and due time|locate urgent tasks easily | 
 `* * *` | user | remove my completed tasks| see only uncompleted tasks | 
-`* * *` | user | book by time slots| block out time for unconfirmed events |
-`* * *` | user | undo my previous action | always undo my previous actions so I can act without worrying that if i make a mistake, it will be too troublesome| 
-`* * *` | user | redo my previous action upon undo | always redo my previous actions so I can act without worrying that if i make a mistake, it will be too troublesome  |
+`* * *` | user | undo my previous action | make mistakes | 
+`* * *` | user | redo my previous action upon undo | make mistakes |
 `* * *` | user | set priority to my task | know which task is more important | 
-`* *` | user |Simply assign a date due to my todo by typing in the due date| to enter due dates easily
-`* *` | user | block out time slots of unconfirmed tasks| avoid scheduling tasks that clash
-`* *` | user | auto reschedule a task i am unable to complete due at the moment| save the effort of manual rescheduling
+`* *` | user |simply assign a date due to my todo by typing in the due date| to enter due dates easily
+`* *` | user |block out time slots of unconfirmed tasks| avoid scheduling tasks that clash
+`* ` | user |have a in-built calander|plan my schedule
+`* ` | user |have a nice interface|have more motivation to complete tasks
 
 ## Appendix B : Use Cases
 
@@ -275,69 +274,36 @@ Priority | As a ... | I want to ... | So that I can...
 **MSS**
 
 1. User requests to add a task
-2. User types in task details
-3. CMDo adds the task <br>
-4. CMDo shows a message 'task added'
+2. CMDo converts the natural language into input
+3. CMD0 adds the task <br>
 >Use case ends.
 
 **Extensions**
 
-1a. The given input is invalid
+1a. The given input is invalid such as invalid encapsulation for details and / for priority and - for tags
 
 > 1a1. CMDo shows help message <br>
   Use case resumes at step 1
 
 2a. Date is not specified
 
-> CMDo stores the task as a floating one
-  Use case resumes at step 3	
+> CMDo stores the task as a floating one, with time as `LocalTime.MAX` and date as `LocalDate.MAX`.
+ Use case resumes at step 3
 
 2b. Date is specified but time is not
 
-> CMDo stores the task with the input date and the time would be 2359 for that date.
-  Use case resumes at step 3
+> CMDo stores the task with the input date and the time would be `LocalTime.MAX` for that date.
+ Use case resumes at step 3
 
 2c. Priority is not specified
 
 > CMDo stores it as low priority
   Use case resumes at step 3
-
-2d. Two priorities are specified
-
-> CMDo stores it as the highest priority indicated (eg. low, high, high is stored as the priority)
-   Use case resumes at step 3
   
-### Use case: Block out time slot
+3a.
+> message "New task added: `task details`" will be displayed
+Use case ends.
 
-**MSS**
-  
-1. User requests to block time slot
-2. User inputs details
-3. CMDo blocks the specified time slot 
-4. CMDo shows a message 'time slot blocked'<br>
->Use case ends.
-
-**Extensions**
-
-1a. The given input is invalid
-
-> 1a. CMDo shows help message <br>
-  Use case resumes at step 1
-
-2a. Date is not specified
-
-> 2a. CMDo shows help message <br>
-  Use case resumes at step 1
-
-2b. Date is specified but time is not
-
-> 2b. CMDo shows help message <br>
-  Use case resumes at step 1
-
-2c. Time slot clash
-
-> 2c1. CMDo shows a message informing of time clash and list all the blocked time slots. <br>
-  Use case ends
 
 ### Use case: Delete a task
 
@@ -345,21 +311,24 @@ Priority | As a ... | I want to ... | So that I can...
 
 1. User requests to search a task
 2. CMDo shows a list of tasks
-3. User requests to delete a specific task in the list
-4. CMDo deletes the task 
-5. CMDo shows message "task deleted" <br>
+3. User requests to delete a specific task in the list by entering the index of the task
+4. CMD0 deletes the task <br>
 >Use case ends.
 
 **Extensions**
 
 2a. The list is empty
->2a1. CMDo shows help message <br>
+
 > Use case ends
 
 3a. The given index is invalid
 
 > 3a1. CMDo shows help message <br>
-  Use case resumes at step 2
+  Use case ends
+  
+4a.
+> message "Deleted task: `task details`" will be displayed
+Use case ends.
   
 ### Use case: Edit a task
 
@@ -369,79 +338,78 @@ Priority | As a ... | I want to ... | So that I can...
 2. CMDo shows a list of tasks
 3. User requests to edit a specific task in the list by index
 4. User keys in the changes
-5. CMDo edits the task <br>
+5. CMD0 edits the task <br>
 Use case ends.
 
 **Extensions**
 
 2a. The list is empty
->2a1. CMDo shows help message <br>
+
 > Use case ends
 
 3a. The given index is invalid
 
 >3a1. CMDo shows help message <br>
-> Use case resumes at step 2
+> Use case ends
 
+4a. Only differences between the entry and original task will be applied to the task
+
+5a.
+> Message "Edited task!" will be displayed
+Use case ends.
   
 ### Use case: Find a task
 
 **MSS**
 
 1. User requests to find a task
-2. CMDo shows a list of tasks 
-3. CMDo shows message "tasks listed" <br>
+2. CMDo shows a list of tasks <br>
 >Use case ends.
 
 **Extensions**
 
-1a. The list is empty
->1a1. CMDo shows message "0 tasks listed!" <br>
-> Use case ends
+2a. 
+> Message "You entered: `your input into the command line` 
+Listing all tasks which are 60 percent similar to your input." is shown
 
 ### Use case: List all tasks
 
 **MSS**
 
 1. User requests to list all tasks
-2. CMDo shows a list of tasks
-3. CMDo shows message "task listed" <br>
+2. CMDo shows a list of tasks <br>
 >Use case ends.
 
 **Extensions**
 
-1a. The list is empty
->1a1. CMDo shows message "0 tasks listed!"
-> Use case ends
+2a. 
+> Message "Listed all tasks" will be shown
 
 ### Use case: List done tasks
+
 **MSS**
 
 1. User requests to list done tasks
-2. CMDo shows a list of done tasks
-3. CMDo shows message "task listed" <br>
+2. CMDo shows a list of done tasks <br>
 >Use case ends.
 
 **Extensions**
 
-1a. The list is empty
->1a1. CMDo shows message "0 done tasks listed!"
+2a. 
+> Message "`number of done tasks `done tasks listed" will be shown
 
-> Use case ends
+### Use case: List blocked timeslots
 
 **MSS**
 
-1. User requests to list blocked time slots
-2. CMDo shows a list of blocked time slots
-3. CMDo shows message "task listed" <br>
+1. User requests to list all blocked timeslots
+2. CMDo shows a list of blocked timeslots <br>
 >Use case ends.
 
 **Extensions**
 
-1a. The list is empty
->1a1. CMDo shows message "0 tasks listed!"
-
-> Use case ends
+2a. 
+> Message "Listed all tasks" will be shown
 
 ### Use case: Mark a task as done
 
@@ -451,67 +419,144 @@ Use case ends.
 2. CMDo shows a list of tasks 
 3. Mark the task done by index 
 4. The task is marked as done and moved to storage
-5. CMDo shows message "task done" <br>
+5. User does not see the task in CMDo anymore<br>
 >Use case ends.
 
 **Extensions**
 
 1a. The list is empty
 
-> 1a1. CMDo shows help message <br>
-
 > Use case ends
 
 3a. The given index is invalid
 
 > 3a1. CMDo shows help message <br>
-  Use case resumes at step 2
+  Use case ends
+  
+3b. The task to be marked done is a blocked time slot
+> 3b1. CMDo shows message "You can't do a blocked timeslot... Right?" <br>
+  Use case ends
+
 
 4a. The task will not show up on list or find.
-
-> Use case ends
+> 4a1. CMDo shows message "Done task: `task details`" <br>
+  Use case resumes at step 5
 
 ### Use case: Undo
 
 **MSS**
 
 1. User requests to undo previous action
-2. CMDo undos the previous action 
-3. CMDo shows message "Undone!"<br>
+2. CMDo undos the previous action <br>
 >Use case ends.
+
+**Extensions**
+
+1a. There are no more previous actions
+
+> Message "nothing to undo" will be shown
+Use case ends
+
+2a.
+> message "Undone!" will be displayed
+Use case ends.
 
 ### Use case: Redo
 
 **MSS**
 
 1. User requests to redo previous action
-2. CMDo undos the previous action 
-3. CMDo shows message "Redone!"<br>
+2. CMDo undos the previous action <br>
 > Use case ends.
 
-### Use case: Change storage location
+**Extensions**
+
+1a. There are no more previous actions
+
+> Message "nothing to undo" will be shown
+Use case ends
+
+2a.
+> Message "Redone!" will be displayed
+Use case ends.
+
+### Use case: PageUp
 
 **MSS**
 
-1. User requests to to change file storage location
-2. CMDo changes the file storage location 
-3. CMDo shows message "'file' name now saves to 'new file path'"<br>
-> Use case ends.
+1. User requests to scroll up the the list
+2. List scrolls up <br>
+>Use case ends.
+
+1a. User is at the top of the list already
+> Message "You can't go up no more." will be displayed
+Use case ends.
+
+2a.
+> Message "Up!" will be displayed
+Use case ends.
+
+### Use case: PageDown
+
+**MSS**
+
+1. User requests to scroll down the the list
+2. List scrolls down <br>
+>Use case ends.
+
+**Extensions**
+
+1a. User is at the bottom of the list already
+> Message "You can't go down no more." will be displayed
+Use case ends.
+
+2a.
+> Message "Down!" will be displayed
+Use case ends.
+
+### Use case: Top
+
+**MSS**
+
+1. User requests to go to the top of the list of CMDo
+2. User sees the top of the list <br>
+>Use case ends.
+
+**Extensions**
+
+1a. User is at the top of the list already
+> message "You can't go up no more." will be displayed
+Use case ends.
+
+2a.
+> Message "I can see my house from here" will be displayed
+Use case ends.
+
+### Use case: Bottom
+
+**MSS**
+
+1. User requests to go to the bottom of the list of CMDo
+2. User sees the bottom of the list <br>
+>Use case ends.
+
+**Extensions**
+
+1a. User is at the bottom of the list already
+> Message "You can't go down no more." will be displayed
+Use case ends.
+
+2a.
+> Message "Right at the bottom" will be displayed
+Use case ends.
 
 ### Use case: Exit
 
 **MSS**
 
 1. User requests to Exit CMDo
-2. CMDo request the user to confirm the action
-3. CMDo is exited <br>
+2. CMDo is exited <br>
 >Use case ends.
-
-**Extensions**
-
-2a. User does not confirm the action
-
-> Use case ends
 
 
 ## Appendix C : Non Functional Requirements
@@ -522,9 +567,7 @@ Use case ends.
 4. Should favor DOS style commands over Unix-style commands.
 5. Customize commands to suit user preference
 6. Issue reminders for upcoming tasks
-7. Power Search, able to search for tasks with part of the keyword
-8. Block time slot function, to block out time slots
-9. Natural language input
+
 
 ## Appendix D : Glossary
 
@@ -555,8 +598,7 @@ Use case ends.
 4. Can share with another person via email.
 
 **CONS**
-1. Too many things in the UI
-2. Ugly
+1. 
 
 ---
 ### Product 3: Windows Sticky Note
@@ -585,4 +627,4 @@ Use case ends.
 
 ---
 
-_Last updated 28 Oct 2016_
+_Last updated 14 Nov 2016 by @author A0141128R_

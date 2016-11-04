@@ -1,23 +1,19 @@
 package seedu.cmdo.logic;
 
-import com.google.common.eventbus.Subscribe;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import static seedu.cmdo.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.cmdo.commons.core.Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX;
+import static seedu.cmdo.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
-import seedu.cmdo.commons.core.EventsCenter;
-import seedu.cmdo.commons.core.Messages;
-import seedu.cmdo.commons.events.model.ToDoListChangedEvent;
-import seedu.cmdo.commons.events.ui.JumpToListRequestEvent;
-import seedu.cmdo.commons.events.ui.ShowHelpEvent;
-import seedu.cmdo.logic.Logic;
-import seedu.cmdo.logic.LogicManager;
-import seedu.cmdo.logic.commands.*;
-import seedu.cmdo.model.Model;
-import seedu.cmdo.model.ModelManager;
-import seedu.cmdo.model.ReadOnlyToDoList;
-import seedu.cmdo.model.ToDoList;
-import seedu.cmdo.model.tag.Tag;
-import seedu.cmdo.model.tag.UniqueTagList;
-import seedu.cmdo.model.task.*;
-import seedu.cmdo.storage.StorageManager;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 import org.junit.After;
 import org.junit.Before;
@@ -25,16 +21,34 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import com.google.common.eventbus.Subscribe;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static seedu.cmdo.commons.core.Messages.*;
+import seedu.cmdo.commons.core.EventsCenter;
+import seedu.cmdo.commons.core.Messages;
+import seedu.cmdo.commons.events.model.ToDoListChangedEvent;
+import seedu.cmdo.commons.events.ui.JumpToListRequestEvent;
+import seedu.cmdo.commons.events.ui.ShowHelpEvent;
+import seedu.cmdo.logic.commands.ClearCommand;
+import seedu.cmdo.logic.commands.Command;
+import seedu.cmdo.logic.commands.CommandResult;
+import seedu.cmdo.logic.commands.DeleteCommand;
+import seedu.cmdo.logic.commands.ExitCommand;
+import seedu.cmdo.logic.commands.FindCommand;
+import seedu.cmdo.logic.commands.HelpCommand;
+import seedu.cmdo.logic.commands.SelectCommand;
+import seedu.cmdo.model.Model;
+import seedu.cmdo.model.ModelManager;
+import seedu.cmdo.model.ReadOnlyToDoList;
+import seedu.cmdo.model.ToDoList;
+import seedu.cmdo.model.tag.Tag;
+import seedu.cmdo.model.tag.UniqueTagList;
+import seedu.cmdo.model.task.Detail;
+import seedu.cmdo.model.task.DueByDate;
+import seedu.cmdo.model.task.DueByTime;
+import seedu.cmdo.model.task.Priority;
+import seedu.cmdo.model.task.ReadOnlyTask;
+import seedu.cmdo.model.task.Task;
+import seedu.cmdo.storage.StorageManager;
 
 public class LogicManagerTest {
 
@@ -117,7 +131,8 @@ public class LogicManagerTest {
 
         //Confirm the ui display elements should contain the right data
         assertEquals(expectedMessage, result.feedbackToUser);
-        assertEquals(expectedShownList, model.getFilteredTaskList());
+        assertTrue(model.getFilteredTaskList().containsAll(expectedShownList));
+
 
         //Confirm the state of data (saved and in-memory) is as expected
         assertEquals(expectedToDoList, model.getToDoList());
@@ -265,9 +280,9 @@ public class LogicManagerTest {
         ToDoList expectedAB = helper.generateToDoList(fourTasks);
         List<Task> expectedList = fourTasks;
         helper.addToModel(model, fourTasks);
-
+        Set<String> set = new HashSet<String>(Arrays.asList("KEY"));
         assertCommandBehavior("find KEY",
-                Command.getMessageForTaskListShownSummary(expectedList.size()),
+                Command.getMessageForFindSummary(set),
                 expectedAB,
                 expectedList);
     }
@@ -284,9 +299,9 @@ public class LogicManagerTest {
         ToDoList expectedAB = helper.generateToDoList(fourTasks);
         List<Task> expectedList = helper.generateTaskList(pTarget1, pTarget2, pTarget3);
         helper.addToModel(model, fourTasks);
-
+        Set<String> set = new HashSet<String>(Arrays.asList("rAnDoM, key"));
         assertCommandBehavior("find key rAnDoM",
-                Command.getMessageForTaskListShownSummary(expectedList.size()),
+                Command.getMessageForFindSummary(set),
                 expectedAB,
                 expectedList);
     }

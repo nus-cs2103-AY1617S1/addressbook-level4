@@ -1,5 +1,16 @@
 package seedu.cmdo.model;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Set;
+import java.util.stream.Collectors;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.cmdo.model.tag.Tag;
@@ -8,9 +19,7 @@ import seedu.cmdo.model.task.ReadOnlyTask;
 import seedu.cmdo.model.task.Task;
 import seedu.cmdo.model.task.UniqueTaskList;
 
-import java.util.*;
-import java.util.stream.Collectors;
-
+//@@author A0141006B
 /**
  * Wraps all data at the todo list level
  * Duplicates are not allowed (by .equals comparison)
@@ -41,7 +50,6 @@ public class ToDoList implements ReadOnlyToDoList {
         resetData(tasks.getInternalList(), tags.getInternalList());
     }
     
-    //@@author A0139661Y
     public ToDoList(ArrayList<ReadOnlyTask> tasks, UniqueTagList tags) {
     	resetData(FXCollections.observableList(tasks), tags.getInternalList());
     }
@@ -53,7 +61,7 @@ public class ToDoList implements ReadOnlyToDoList {
 //// list overwrite operations
 
     public ObservableList<Task> getTasks() {
-        return tasks.getInternalList();
+    	return tasks.getInternalList().sorted();
     }
 
     public void setTasks(List<Task> tasks) {
@@ -91,8 +99,6 @@ public class ToDoList implements ReadOnlyToDoList {
      * Edits a Task in the address book.
      * Also checks the new task's tags and updates {@link #tags} with any new tags found,
      * and updates the Tag objects in the tast to oint to those in {@link @tags}.
-     * 
-     * @author A0139661Y
      */
     public void editTask(ReadOnlyTask toEdit, Task toEditWith) throws UniqueTaskList.TaskNotFoundException {
     	// Add tags from replacing task

@@ -19,6 +19,7 @@ import static org.junit.Assert.assertTrue;
 
 /**
  * Provides a handle for the panel containing the task list.
+ * @@author A0141128R
  */
 public class TaskListPanelHandle extends GuiHandle {
 
@@ -97,6 +98,7 @@ public class TaskListPanelHandle extends GuiHandle {
             throw new IllegalArgumentException("List size mismatched\n" +
                     "Expected " + (getListView().getItems().size() - 1) + " tasks but was " + (tasks.length+startPosition));
         }
+        //fail at this
         assertTrue(this.containsInOrder(startPosition, tasks));
         for (int i = 0; i < tasks.length; i++) {
             final int scrollTo = i + startPosition;
@@ -125,7 +127,6 @@ public class TaskListPanelHandle extends GuiHandle {
      */
     public TaskCardHandle navigateToTask(ReadOnlyTask task) {
         int index = getTaskIndex(task);
-
         guiRobot.interact(() -> {
             getListView().scrollTo(index);
             guiRobot.sleep(150);
@@ -142,7 +143,7 @@ public class TaskListPanelHandle extends GuiHandle {
     public int getTaskIndex(ReadOnlyTask targetTask) {
         List<ReadOnlyTask> tasksInList = getListView().getItems();
         for (int i = 0; i < tasksInList.size(); i++) {
-            if(tasksInList.get(i).getDetail().equals(targetTask.getDetail())){
+            if(tasksInList.get(i).getDetail().details.equals(targetTask.getDetail().details)){
                 return i;
             }
         }

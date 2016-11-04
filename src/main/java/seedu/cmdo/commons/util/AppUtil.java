@@ -11,5 +11,4 @@ public class AppUtil {
     public static Image getImage(String imagePath) {
         return new Image(MainApp.class.getResourceAsStream(imagePath));
     }
-
 }

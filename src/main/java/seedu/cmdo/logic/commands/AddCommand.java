@@ -33,13 +33,13 @@ public class AddCommand extends Command {
     public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in CMDo";
 
     private final Task toAdd;
+    private final Blocker blocker = new Blocker();
     
+    //@@author A0139661Y
     /**
      * Created an add command for SINGULAR NON-RANGE DATE AND TIME
      *
      * @throws IllegalValueException if any of the raw values are invalid
-     * 
-     * @@author A0139661Y
      */
     public AddCommand(String details,
                       LocalDate dueByDate,
@@ -60,12 +60,11 @@ public class AddCommand extends Command {
         isUndoable = true;
     }
     
+    //@@author A0139661Y
     /**
      * Created an add command for RANGE DATE AND TIME
      *
      * @throws IllegalValueException if any of the raw values are invalid
-     * 
-     * @@author A0139661Y
      */
     public AddCommand(String details,
                       LocalDate dueByDateStart,
@@ -97,13 +96,13 @@ public class AddCommand extends Command {
         return toAdd;
     }
 
+    //@@author A0139661Y
     @Override
     public CommandResult execute() {
-        Blocker blocker = new Blocker();
     	try {
     		// Check for block conflicts. Throws a TaskBlockedException if conflicts exist.
     		blocker.checkBlocked(toAdd, model.getBlockedList());
-        	model.addTask(toAdd);
+        	updateSelectionInPanel(model.addTask(toAdd));
             return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
         } catch (TaskBlockedException tbe) {
     		return new CommandResult(tbe.getMessage());

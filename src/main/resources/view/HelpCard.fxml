@@ -13,7 +13,7 @@
   <content>
     <AnchorPane fx:id="testPane">
          <children>
-            <VBox fx:id="helpCardPane">
+            <VBox fx:id="helpCardPane" opacity="0.4">
                <children>
                   <VBox fx:id="addCard1" VBox.vgrow="ALWAYS">
                      <children>

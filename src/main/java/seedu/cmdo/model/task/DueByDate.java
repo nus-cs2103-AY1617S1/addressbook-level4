@@ -6,6 +6,7 @@ import java.util.Objects;
 
 import seedu.cmdo.commons.exceptions.IllegalValueException;
 
+//@@author A0141128R
 /**
  * Represents a Task's Due date in the To Do List.
  * Guarantees: immutable; is valid as declared in {@link #isValidDueByDate(String)}
@@ -14,7 +15,7 @@ public class DueByDate {
 
     public static final String MESSAGE_DUEBYDATE_CONSTRAINTS = "Due by? You should enter a day, or a date.";
     private final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("MM/dd/uuuu");
-    private final LocalDate NO_DATE = LocalDate.MIN;
+    private final LocalDate NO_DATE = LocalDate.MAX;
 
     public final LocalDate start;
     public LocalDate end;
@@ -25,12 +26,10 @@ public class DueByDate {
      * Takes in a single date.
      *
      * @throws IllegalValueException if given due date string is invalid.
-     * 
-     * @@author A0139661Y
      */
     public DueByDate(LocalDate dueByDate) throws IllegalValueException {
         assert dueByDate != null;
-        this.end = LocalDate.MIN;
+        this.end = NO_DATE;
         this.start = dueByDate;
         this.isRange = false;
         if (dueByDate.equals(NO_DATE))
@@ -41,8 +40,6 @@ public class DueByDate {
      * Takes in a start date and end date.
      *
      * @throws IllegalValueException if given due date string is invalid.
-     * 
-     * @@author A0139661Y
      */
     public DueByDate(LocalDate dueByDateStart, LocalDate dueByDateEnd) {
         assert dueByDateStart != null && dueByDateEnd != null;
@@ -81,8 +78,6 @@ public class DueByDate {
     
     /*
      * Produces a friendly string of values in the format MM/DD/YYYY
-     * 
-     * @@author A0139661Y
      */
 	public String getFriendlyString() {		
 		// If floating date, return do not print anything
@@ -97,28 +92,25 @@ public class DueByDate {
 								.toString();
 	}
 	
-	//@@author A0141128R
 	//setter to set it a floating for edit command purpose
 	public void setFloating(){
-		end = LocalDate.MIN;
+		end = NO_DATE;
 	}
 	//to check if date was entered
 	public boolean dateNotEntered(){
-		if (end.equals(LocalDate.MIN) & start.equals(LocalDate.MIN))
+		if (end.equals(NO_DATE) & start.equals(NO_DATE))
 			return true;
 		else
 			return false;
 	}
 	
 	// Operates on the premise that the start date is always specified.
-	// @@author A0139661Y
 	public String getFriendlyStartString() {
 		if (isFloating) return "";
 		if (!isRange) return start.format(DATE_FORMAT).toString();
 		return start.format(DATE_FORMAT).toString(); 
 	}
 	
-	// @@author A0139661Y
 	public String getFriendlyEndString() {
 		if (!isRange || isFloating || end.equals(NO_DATE)) return "";
 		return end.format(DATE_FORMAT).toString();

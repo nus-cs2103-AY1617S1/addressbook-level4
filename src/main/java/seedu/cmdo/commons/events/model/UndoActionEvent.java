@@ -3,6 +3,7 @@ package seedu.cmdo.commons.events.model;
 import seedu.cmdo.commons.events.BaseEvent;
 import seedu.cmdo.model.ReadOnlyToDoList;
 
+//@@author A0139661Y
 /** Indicates the AddressBook in the model has changed*/
 public class UndoActionEvent extends BaseEvent {
 
@@ -14,6 +15,9 @@ public class UndoActionEvent extends BaseEvent {
 
     @Override
     public String toString() {
-        return "number of tasks " + data.getTaskList().size() + ", number of tags " + data.getTagList().size();
+        return "number of tasks " 
+        		+ data.getTaskList().size() 
+        		+ ", number of tags " 
+        		+ data.getTagList().size();
     }
 }

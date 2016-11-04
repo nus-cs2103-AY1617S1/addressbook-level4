@@ -1,7 +1,0 @@
-.root {
-	-fx-background-image: url("Welcome.png");
-}
-
-.label .text{
-	-fx-strikethrough: false ;
-}

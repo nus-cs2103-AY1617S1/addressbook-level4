@@ -1,12 +1,12 @@
 package seedu.cmdo.ui;
 
+import javafx.fxml.FXML;
+import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
-import javafx.fxml.FXML;
-import javafx.geometry.Insets;
 import seedu.cmdo.commons.util.FxViewUtil;
 import seedu.cmdo.logic.commands.AddCommand;
 import seedu.cmdo.logic.commands.BlockCommand;
@@ -21,14 +21,11 @@ import seedu.cmdo.logic.commands.ListCommand;
 import seedu.cmdo.logic.commands.SelectCommand;
 import seedu.cmdo.logic.commands.StorageCommand;
 
+//@@author A0141006B
 /**
  * Help Card collects information from the different commands 
  * and adds them to the help screen.
- * 
- * @@author A0141006B
- *
  */
-
 public class HelpCard extends UiPart{
 
 	private static final String FXML = "HelpCard.fxml";

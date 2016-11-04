@@ -1,5 +1,7 @@
 package seedu.cmdo.ui;
 
+import java.util.logging.Logger;
+
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -14,8 +16,7 @@ import seedu.cmdo.commons.core.LogsCenter;
 import seedu.cmdo.commons.events.ui.TaskPanelSelectionChangedEvent;
 import seedu.cmdo.model.task.ReadOnlyTask;
 
-import java.util.logging.Logger;
-
+//@@author A0141006B
 /**
  * Panel containing the list of tasks.
  */
@@ -61,11 +62,11 @@ public class TaskListPanel extends UiPart {
     }
 
     private void setConnections(ObservableList<ReadOnlyTask> taskList) {
-        taskListView.setItems(taskList);
+    	taskListView.setItems(taskList);
         taskListView.setCellFactory(listView -> new TaskListViewCell());
         setEventHandlerForSelectionChangeEvent();
     }
-
+    
     private void addToPlaceholder() {
         SplitPane.setResizableWithParent(placeHolderPane, false);
         placeHolderPane.getChildren().add(panel);

@@ -2,11 +2,16 @@ package seedu.cmdo.logic;
 
 import java.util.logging.Logger;
 
+import com.google.common.eventbus.Subscribe;
+
 import javafx.collections.ObservableList;
 import seedu.cmdo.commons.core.ComponentManager;
 import seedu.cmdo.commons.core.LogsCenter;
+import seedu.cmdo.commons.events.ui.JumpToListRequestEvent;
 import seedu.cmdo.logic.commands.Command;
 import seedu.cmdo.logic.commands.CommandResult;
+import seedu.cmdo.logic.commands.RedoCommand;
+import seedu.cmdo.logic.commands.UndoCommand;
 import seedu.cmdo.logic.parser.MainParser;
 import seedu.cmdo.model.Model;
 import seedu.cmdo.model.ToDoList;
@@ -23,6 +28,7 @@ public class LogicManager extends ComponentManager implements Logic {
     private final Model model;
     private final MainParser parser;
     private final Undoer undoer;
+    private int currentSelected;
 
     public LogicManager(Model model, Storage storage) {
         this.model = model;
@@ -30,6 +36,7 @@ public class LogicManager extends ComponentManager implements Logic {
         this.undoer = Undoer.getInstance(model.getToDoList());
     }
     
+    //@@author A0139661Y
     @Override	
     public CommandResult execute(String commandText) {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
@@ -39,17 +46,24 @@ public class LogicManager extends ComponentManager implements Logic {
         	undoer.snapshot(new ToDoList(model.getToDoList()));
         	logger.info("Snapshot taken of " + model.getToDoList().toString());
         }
+        // Pop redo stack unless command is undo
+        if (!command.getClass().equals(UndoCommand.class) && 
+        		!command.getClass().equals(RedoCommand.class)) {
+        	undoer.clearRedoStack();
+        	logger.info("Redo stack cleared.");
+        }
         command.setData(model);
+        command.setCurrentSelected(currentSelected);
         return command.execute();
     }
     
-    // @@author A0139661Y
+    //@@author A0139661Y
     @Override
     public ObservableList<ReadOnlyTask> getBlockedList() {
     	return model.getBlockedList();
     }
     
-    // @@author A0139661Y
+    //@@author A0139661Y
     @Override
     public ObservableList<ReadOnlyTask> getAllTaskList() {
     	return model.getAllTaskList();
@@ -60,9 +74,18 @@ public class LogicManager extends ComponentManager implements Logic {
         return model.getFilteredTaskList();
     }
     
-    // @@author A0139661Y
+    //@@author A0139661Y
     @Override
     public ObservableList<ReadOnlyTask> getFilteredTaskList(boolean firstRun) {
         return model.getFilteredTaskList(firstRun);
     }    
+    
+    //@@author A0139661Y
+    @Override
+    @Subscribe
+    public void handleJumpToListRequestEvent(JumpToListRequestEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event, 
+        		String.format("Current selection is index %d", event.targetIndex)));
+        currentSelected = event.targetIndex;
+    }
 }
