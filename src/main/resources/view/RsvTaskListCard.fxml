@@ -10,46 +10,50 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<HBox id="cardPane" fx:id="cardPane" prefWidth="270.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
-    <children>
-      <GridPane HBox.hgrow="ALWAYS">
-        <columnConstraints>
-          <ColumnConstraints hgrow="ALWAYS" />
-          <ColumnConstraints percentWidth="20.0" />
-        </columnConstraints>
-        <rowConstraints>
-          <RowConstraints vgrow="NEVER" />
-        </rowConstraints>
-         <children>
-            <VBox alignment="CENTER_LEFT" maxHeight="80.0" minHeight="70.0" prefHeight="70.0" GridPane.columnIndex="0" GridPane.vgrow="NEVER">
-               <children>
-                        <HBox alignment="CENTER_LEFT" spacing="5">
-                            <children>
-                                <HBox>
-                                    <Label fx:id="id" styleClass="cell_index_label">
-                              <HBox.margin>
-                                 <Insets left="15.0" />
-                              </HBox.margin>
-                           </Label>
-                                    <Label fx:id="name" styleClass="cell_big_label" text="\$first" wrapText="true">
-                              <HBox.margin>
-                                 <Insets />
-                              </HBox.margin>
-                           </Label>
-                           <HBox.margin>
-                              <Insets />
-                           </HBox.margin>
-                                </HBox>
-                            </children>
-                        </HBox>
-               </children>
-            </VBox>
-            <AnchorPane fx:id="dateTimeListPane" GridPane.columnIndex="1" GridPane.vgrow="NEVER" />
-         </children>
-      </GridPane>
-    </children>
-   <stylesheets>
-      <URL value="@TarsTheme.css" />
-      <URL value="@Extensions.css" />
-   </stylesheets>
+<HBox id="cardPane" fx:id="cardPane" prefWidth="270.0"
+	xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
+	<children>
+		<GridPane HBox.hgrow="ALWAYS">
+			<columnConstraints>
+				<ColumnConstraints hgrow="ALWAYS" />
+				<ColumnConstraints percentWidth="20.0" />
+			</columnConstraints>
+			<rowConstraints>
+				<RowConstraints vgrow="NEVER" />
+			</rowConstraints>
+			<children>
+				<VBox alignment="CENTER_LEFT" maxHeight="80.0" minHeight="70.0"
+					prefHeight="70.0" GridPane.columnIndex="0" GridPane.vgrow="NEVER">
+					<children>
+						<HBox alignment="CENTER_LEFT" spacing="5">
+							<children>
+								<HBox>
+									<Label fx:id="id" styleClass="cell_index_label">
+										<HBox.margin>
+											<Insets left="15.0" />
+										</HBox.margin>
+									</Label>
+									<Label fx:id="name" styleClass="cell_big_label" text="\$first"
+										wrapText="true">
+										<HBox.margin>
+											<Insets />
+										</HBox.margin>
+									</Label>
+									<HBox.margin>
+										<Insets />
+									</HBox.margin>
+								</HBox>
+							</children>
+						</HBox>
+					</children>
+				</VBox>
+				<AnchorPane fx:id="dateTimeListPane"
+					GridPane.columnIndex="1" GridPane.vgrow="NEVER" />
+			</children>
+		</GridPane>
+	</children>
+	<stylesheets>
+		<URL value="@TarsTheme.css" />
+		<URL value="@Extensions.css" />
+	</stylesheets>
 </HBox>

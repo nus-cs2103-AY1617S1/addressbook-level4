@@ -2,11 +2,15 @@ package tars.ui.formatter;
 
 import static org.junit.Assert.*;
 
+import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 import org.junit.Test;
+
+import tars.model.task.DateTime;
+import tars.model.task.DateTime.IllegalDateException;
 
 /**
  * Date formatter test
@@ -41,7 +45,7 @@ public class DateFormatterTest {
         LocalTime testTime = LocalTime.of(0, 0, 0);
         LocalDateTime testDateTime = LocalDateTime.of(testDate, testTime);
 
-        assertEquals("Sun, Oct 10 12:00 AM",
+        assertEquals("Sun, Oct 10 2010 12:00 AM",
                 DateFormatter.generateSingleDateFormat(testDateTime));
     }
     
@@ -82,5 +86,14 @@ public class DateFormatterTest {
 
         assertEquals("Sun, Oct 10 2010 12:00 AM - Thu, Nov 10 2011 01:00 AM", DateFormatter
                 .generateDateRangeFormat(testDateTimeA, testDateTimeB));
+    }
+    
+    @Test
+    public void formatDate_singleStartDateCorrectFormat()
+            throws DateTimeException, IllegalDateException {
+        DateTime dateTime = new DateTime("", "10/10/2010 1200");
+
+        assertEquals("Sun, Oct 10 2010 12:00 PM",
+                DateFormatter.formatDate(dateTime));
     }
 }
