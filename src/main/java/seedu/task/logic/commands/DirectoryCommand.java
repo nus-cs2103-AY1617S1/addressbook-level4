@@ -11,7 +11,6 @@ import seedu.task.commons.util.ConfigUtil;
 import seedu.task.commons.util.FileUtil;
 import seedu.task.commons.core.LogsCenter;
 import seedu.task.commons.events.ui.ExitAppRequestEvent;
-import seedu.task.commons.exceptions.DataConversionException;
 
 // @@author A0147944U
 /**
@@ -94,11 +93,6 @@ public class DirectoryCommand extends Command {
             config = FileUtil.deserializeObjectFromJsonFile(configFile, Config.class);
         } catch (IOException e) {
             logger.warning("Error reading from config file " + "config.json" + ": " + e);
-            try {
-                throw new DataConversionException(e);
-            } catch (DataConversionException e1) {
-                e1.printStackTrace();
-            }
         }
         return config;
     }
@@ -142,7 +136,7 @@ public class DirectoryCommand extends Command {
     }
     
     /**
-     * Run TaskManager.jar
+     * Run TaskManager.jar located at root directory
      */
     private void restartTaskManager() {
         logger.info("============================ [ Restarting Task Manager ] =============================");
