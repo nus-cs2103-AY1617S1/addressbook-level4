@@ -3,6 +3,9 @@ package seedu.flexitrack.model.task;
 import static org.junit.Assert.assertTrue;
 import static seedu.flexitrack.model.task.DateTimeInfo.MESSAGE_FROM_IS_AFTER_TO;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -50,15 +53,19 @@ public class DateTimeInfoTest {
 
     @Test
     public void DateTimeInfo_RelativeValidInputWithNoSpecificHoursAndMinutes_returnsDate() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.MONTH, 1);
         final String validInput = "next month";
-        final String expectedSetTime = "Dec 03 2016 08:00";
+        final String expectedSetTime = new SimpleDateFormat("MMM dd yyyy 08:00").format(calendar.getTime());
         DateTimeInfoAndAssertCorrect(validInput, expectedSetTime);
     }
 
     @Test
     public void DateTimeInfo_RelativeValidInputSpecificHours_returnsDate() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.MONTH, -1);
         final String validInput = "last month";
-        final String expectedSetTime = "Oct 03 2016 08:00";
+        final String expectedSetTime = new SimpleDateFormat("MMM dd yyyy 08:00").format(calendar.getTime());
         DateTimeInfoAndAssertCorrect(validInput, expectedSetTime);
     }
 
@@ -188,7 +195,7 @@ public class DateTimeInfoTest {
         Task event = new Task(new Name("event"), new DateTimeInfo("Feb 29 2000 00:00"),
                 new DateTimeInfo("April 26 2017 07:00"), new DateTimeInfo("Jan 26 2018 07:00"));
         testTime1 = new DateTimeInfo("April 26 2017 07:00");
-        assertTrue(DateTimeInfo.isOnTheDate(testTime1.toString(), event));
+        assertTrue(testTime1.isOnTheDate(event));
     }
 
     private void DateTimeInfoAndAssertCorrect(String validInput, String expectedSetTime) {

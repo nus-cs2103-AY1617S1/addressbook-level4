@@ -20,7 +20,7 @@ public class AddCommandTest extends FlexiTrackGuiTest {
     TestTask taskToAdd;
 
     @Test
-    public void addAnEvent() {
+    public void add_AnEvent_success() {
         TestTask[] currentList = td.getTypicalSortedTasks();
         taskToAdd = TypicalTestTasks.basketball;
         assertAddSuccess(taskToAdd, currentList);
@@ -28,14 +28,14 @@ public class AddCommandTest extends FlexiTrackGuiTest {
     }
 
     @Test
-    public void addADeadLineTask() {
+    public void add_ADeadLineTask_success() {
         taskToAdd = TypicalTestTasks.lecture;
         assertAddSuccess(taskToAdd, currentList);
         currentList = TestUtil.addTasksToList(currentList, taskToAdd);
     }
 
     @Test
-    public void addAFloatingTask() {
+    public void add_AFloatingTask_success() {
         taskToAdd = TypicalTestTasks.job;
         assertAddSuccess(taskToAdd, currentList);
         currentList = TestUtil.addTasksToList(currentList, taskToAdd);
@@ -43,21 +43,21 @@ public class AddCommandTest extends FlexiTrackGuiTest {
     }
 
     @Test
-    public void addADuplicateTask() {
+    public void add_ADuplicateTask_fail() {
         commandBox.runCommand(TypicalTestTasks.soccer.getAddCommand());
         assertResultMessage(AddCommand.MESSAGE_DUPLICATE_TASK);
         assertTrue(taskListPanel.isListMatching(currentList));
     }
 
     @Test
-    public void addToAnEmptyList() {
+    public void add_ToAnEmptyList_success() {
         commandBox.runCommand("clear");
         assertAddSuccess(TypicalTestTasks.homework1);
 
     }
 
     @Test
-    public void invalidAddCommand() {
+    public void add_invalidAddCommand_fail() {
         commandBox.runCommand("adds cs tutorial");
         assertResultMessage(Messages.MESSAGE_UNKNOWN_COMMAND);
     }
@@ -65,7 +65,7 @@ public class AddCommandTest extends FlexiTrackGuiTest {
     // @@ author
     @Test
     public void assertAddRecursiveEventSuccess() throws IllegalValueException {
-        commandBox.runCommand("add Attend PC1222 lecture fr/3 ty/week from/Fri 3pm to/Fri 5pm");
+        commandBox.runCommand("add Attend PC1222 lecture fr/3 ty/weekly from/4 Nov 3pm to/4 Nov 5pm");
 
         for (int i = 0; i < 3; i++) {
             TestTask recursiveEvent = new TaskBuilder().withName("Attend PC1222 lecture")
@@ -80,7 +80,7 @@ public class AddCommandTest extends FlexiTrackGuiTest {
 
     @Test
     public void assertAddRecursiveTaskSuccess() throws IllegalValueException {
-        commandBox.runCommand("add Submit PC1222 Lab Assignment fr/3 ty/week by/Nov 1 2016 17:00");
+        commandBox.runCommand("add Submit PC1222 Lab Assignment fr/3 ty/weekly by/Nov 1 2016 17:00");
 
         for (int i = 0; i < 3; i++) {
             TestTask recursiveTask = new TaskBuilder().withName("Submit PC1222 Lab Assignment")
@@ -93,7 +93,7 @@ public class AddCommandTest extends FlexiTrackGuiTest {
         assertTrue(taskListPanel.isListMatching(0, currentList));
     }
 
-    // @@author A0127696R
+    // @@author A0127686R
     private void assertAddSuccess(TestTask taskToAdd, TestTask... currentList) {
         commandBox.runCommand(taskToAdd.getAddCommand());
 

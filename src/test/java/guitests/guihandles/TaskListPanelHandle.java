@@ -67,15 +67,11 @@ public class TaskListPanelHandle extends GuiHandle {
 
         // Return false if the list in panel is too short to contain the given
         // list
-        System.out.println("startPosition + tasks.length   :" + startPosition + tasks.length);
-        System.out.println(" tasksInList.size()            :" + tasksInList.size());
         if (startPosition + tasks.length > tasksInList.size()) {
             return false;
         }
 
         for (int i = 0; i < tasks.length; i++) {
-            System.out.println("card handle:    " + tasksInList.get(startPosition + i).getName().toString());
-            System.out.println("TASK:           " + tasks[i].getName().toString());
             if (!tasksInList.get(startPosition + i).getName().toString().equals(tasks[i].getName().toString())) {
                 return false;
             }
@@ -94,7 +90,6 @@ public class TaskListPanelHandle extends GuiHandle {
      *            A list of task in the correct order.
      */
     public boolean isListMatching(int startPosition, ReadOnlyTask... tasks) throws IllegalArgumentException {
-//        System.out.println("MATCH SIZE          " + tasks.length + "  " + startPosition +  "  " + getListView().getItems().size());
         if (tasks.length + startPosition != getListView().getItems().size()) {
             throw new IllegalArgumentException(
                     "List size mismatched\n" + "Expected " + (getListView().getItems().size() - 1) + " tasks");
@@ -104,8 +99,6 @@ public class TaskListPanelHandle extends GuiHandle {
             final int scrollTo = i + startPosition;
             guiRobot.interact(() -> getListView().scrollTo(scrollTo));
             guiRobot.sleep(200);
-//            System.out.println("card handle:    " + getTaskCardHandle(startPosition + i).getName().toString());
-//            System.out.println("TASK:           " + tasks[i].getName().toString());
             if (!TestUtil.compareCardAndTask(getTaskCardHandle(startPosition + i), tasks[i])) {
                 return false;
             }

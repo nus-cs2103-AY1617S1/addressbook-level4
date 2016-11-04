@@ -34,14 +34,9 @@ public class RedoCommand extends Command {
             redo.setNumOfOccurrrence(0);
             for (int i = 1; i < numOfOccurrrence; i++) {
                 redo.execute();
-                System.out.println("UNDO.doneCommandStack.size(): " + UndoCommand.doneCommandStack.size());
                 redo = undoneCommandStack.pop();
-                System.out.println("undoneCommandStack.size(): " + undoneCommandStack.size());
-                System.out.println("UNDO.doneCommandStack.size(): " + UndoCommand.doneCommandStack.size());
-                System.out.println("redo iterate");
             }
             redo.setNumOfOccurrrence(numOfOccurrrence);
-            System.out.println(numOfOccurrrence);
         }
 
         redo.execute();

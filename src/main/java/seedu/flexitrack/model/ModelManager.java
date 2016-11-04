@@ -272,7 +272,10 @@ public class ModelManager extends ComponentManager implements Model {
                 return !task.getIsDone();
             } else if (keyWords.contains(ListCommand.LIST_MARK_COMMAND)) {
                 return task.getIsDone();
+            } else if (keyWords.contains(ListCommand.LIST_BLOCK_COMMAND)) {
+                return task.getIsBlock();
             }
+
 
             return isTaskGoingToBeShown(task);
 
@@ -306,7 +309,13 @@ public class ModelManager extends ComponentManager implements Model {
          * @return      True if task contain or cross the date
          */
         private boolean doesTaskCrossTheParticularStatedDate(ReadOnlyTask task) {
-            return DateTimeInfo.isOnTheDate(dateInfo, task);
+            DateTimeInfo dateTimeInfo=null;
+            try {
+                dateTimeInfo = new DateTimeInfo (dateInfo);
+            } catch (IllegalValueException e) {
+                //ADD LOG
+            }
+            return dateTimeInfo.isOnTheDate(task);
         }
 
         /**
