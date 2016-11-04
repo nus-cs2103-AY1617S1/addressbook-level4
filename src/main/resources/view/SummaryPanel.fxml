@@ -18,8 +18,8 @@
       <GridPane layoutX="14.0" prefHeight="300.0" prefWidth="300.0" style="-fx-background-color: #fcfeff;">
         <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="160.0" minWidth="10.0" prefWidth="51.33331298828125" />
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="165.0" minWidth="10.0" prefWidth="163.3333740234375" />
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="199.0" minWidth="10.0" prefWidth="89.6666259765625" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="237.3333740234375" minWidth="10.0" prefWidth="206.66668701171875" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="199.0" minWidth="10.0" prefWidth="43.33331298828125" />
         </columnConstraints>
         <rowConstraints>
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -29,7 +29,7 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label fx:id="today" text="#Today" GridPane.columnIndex="2">
+            <Label fx:id="today" style="-fx-font-size: 18; -fx-text-fill: black;" text="#Today" GridPane.columnIndex="2">
                <textFill>
                   <LinearGradient endX="1.0" endY="1.0" startX="0.7285714285714286" startY="0.7142857142857143">
                      <stops>
@@ -41,7 +41,7 @@
                <font>
                   <Font size="24.0" />
                </font></Label>
-            <Label fx:id="tomorrow" text="#Tomorrow" GridPane.columnIndex="2" GridPane.rowIndex="1">
+            <Label fx:id="tomorrow" style="-fx-font-size: 18; -fx-text-fill: black;" text="#Tomorrow" GridPane.columnIndex="2" GridPane.rowIndex="1">
             	<textFill>
                   <LinearGradient endX="1.0" endY="1.0" startX="0.7285714285714286" startY="0.7142857142857143">
                      <stops>
@@ -54,7 +54,7 @@
                   <Font size="24.0" />
                </font>
             </Label>
-            <Label fx:id="done" text="#Done" GridPane.columnIndex="2" GridPane.rowIndex="2">
+            <Label fx:id="done" style="-fx-font-size: 18; -fx-text-fill: black;" text="#Done" GridPane.columnIndex="2" GridPane.rowIndex="2">
                <textFill>
                   <LinearGradient endX="1.0" endY="1.0" startX="0.6857142857142857" startY="0.7">
                      <stops>
@@ -66,7 +66,7 @@
                <font>
                   <Font size="24.0" />
                </font></Label>
-            <Label fx:id="undone" text="#Undone" GridPane.columnIndex="2" GridPane.rowIndex="3">
+            <Label fx:id="undone" style="-fx-font-size: 18; -fx-text-fill: black;" text="#Undone" GridPane.columnIndex="2" GridPane.rowIndex="3">
                <textFill>
                   <LinearGradient endX="1.0" endY="1.0" startX="0.6952380952380952" startY="0.6952380952380952">
                      <stops>
@@ -78,7 +78,7 @@
                <font>
                   <Font size="24.0" />
                </font></Label>
-            <Label fx:id="overdue" text="#Overdue" GridPane.columnIndex="2" GridPane.rowIndex="4">
+            <Label fx:id="overdue" style="-fx-font-size: 18; -fx-text-fill: black;" text="#Overdue" GridPane.columnIndex="2" GridPane.rowIndex="4">
 	            <textFill>
 	                  <LinearGradient endX="1.0" endY="1.0" startX="0.6952380952380952" startY="0.6952380952380952">
 	                     <stops>
