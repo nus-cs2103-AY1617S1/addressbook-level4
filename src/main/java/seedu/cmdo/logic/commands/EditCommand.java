@@ -53,7 +53,6 @@ public class EditCommand extends Command {
         final Set<Tag> tagSet = new HashSet<>();
         if(newTags.isEmpty())
         	tagIsEmpty = true;
-        //System.out.println(tagIsEmpty);
         for (String tagName : newTags) {
             tagSet.add(new Tag(tagName));
         }
@@ -178,7 +177,6 @@ public class EditCommand extends Command {
             return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }      
         ReadOnlyTask taskToEdit = lastShownList.get(targetIndex - 1);
-        System.out.println(taskToEdit.getAsText());
         // Check if task is done.
         if (taskToEdit.checkDone().value) {
             indicateAttemptToExecuteIncorrectCommand();

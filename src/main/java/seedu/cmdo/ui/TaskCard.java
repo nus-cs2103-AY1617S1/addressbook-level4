@@ -199,7 +199,6 @@ public class TaskCard extends UiPart{
     
     @Subscribe
     private void handleJumpToListRequestEvent(JumpToListRequestEvent event) {
-    	System.out.println(displayedIndex + " / " + event.targetIndex);
     	if (displayedIndex == event.targetIndex) {
     		cardPane.setBackground(new Background(new BackgroundFill(Color.AQUA, CornerRadii.EMPTY, Insets.EMPTY)));;
     	}
