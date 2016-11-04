@@ -106,6 +106,11 @@ public class EditCommand extends Command {
             String newNote = this.changes;
             model.editFloatingTaskNote(floatingTaskToEdit, newNote);
             break;
+        case 2:
+            NattyDateParser.parseDate(this.changes, fromNatty);
+            model.editFloatingTaskDateTime(floatingTaskToEdit, fromNatty.get(0), fromNatty.get(1));
+            break;
+            
         }
 
     }

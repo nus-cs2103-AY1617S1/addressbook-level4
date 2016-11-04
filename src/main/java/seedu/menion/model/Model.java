@@ -53,6 +53,7 @@ public interface Model {
      * @throws IllegalValueException 
      */
     void editTaskDateTime(ReadOnlyActivity taskToEdit, String newDate, String newTime) throws IllegalValueException, ActivityNotFoundException;
+    void editFloatingTaskDateTime(ReadOnlyActivity FloatingToEdit, String newDate, String newTime) throws IllegalValueException, ActivityNotFoundException;
     void editEventEndDateTime(ReadOnlyActivity eventToEdit, String newDate, String newTime) throws IllegalValueException, ActivityNotFoundException;
     void editEventStartDateTime(ReadOnlyActivity eventToEdit, String newDate, String newTime) throws IllegalValueException, ActivityNotFoundException;
     
