@@ -439,7 +439,7 @@ public class Parser {
 
         args = args.trim();  
         char category = args.charAt(0);
-        Optional<Integer> index = parseIndex(Character.toString(args.charAt(1)));
+        Optional<Integer> index = parseIndex(args.substring(1, args.indexOf(" ")));
         args = args.substring(args.indexOf(' ') + 1);
 
         if(!index.isPresent()) {
