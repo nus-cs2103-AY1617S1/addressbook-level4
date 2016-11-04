@@ -13,6 +13,7 @@ import seedu.todo.commons.exceptions.InvalidNaturalDateException;
 import seedu.todo.commons.exceptions.ParseException;
 import seedu.todo.commons.util.StringUtil;
 import seedu.todo.controllers.concerns.Tokenizer;
+import seedu.todo.controllers.concerns.DateParser;
 import seedu.todo.controllers.concerns.Renderer;
 import seedu.todo.models.Event;
 import seedu.todo.models.Task;
@@ -81,7 +82,7 @@ public class AddController implements Controller {
         String name = parseName(parsedResult);
         
         // Time
-        String[] naturalDates = parseDates(parsedResult);
+        String[] naturalDates = DateParser.extractDatePair(parsedResult);
         String naturalFrom = naturalDates[0];
         String naturalTo = naturalDates[1];
         
@@ -95,8 +96,8 @@ public class AddController implements Controller {
         LocalDateTime dateFrom;
         LocalDateTime dateTo;
         try {
-            dateFrom = naturalFrom == null ? null : parseNatural(naturalFrom);
-            dateTo = naturalTo == null ? null : parseNatural(naturalTo);
+            dateFrom = naturalFrom == null ? null : DateParser.parseNatural(naturalFrom);
+            dateTo = naturalTo == null ? null : DateParser.parseNatural(naturalTo);
         } catch (InvalidNaturalDateException e) {
             renderDisambiguation(isTask, name, naturalFrom, naturalTo);
             return;
@@ -163,30 +164,6 @@ public class AddController implements Controller {
         return (name == null ||
                 (naturalFrom == null && naturalTo != null) || (isTask && naturalTo != null));
     }
-    
-    /**
-     * Extracts the natural dates from parsedResult.
-     * 
-     * @param parsedResult
-     * @return { naturalFrom, naturalTo }
-     */
-    private String[] parseDates(Map<String, String[]> parsedResult) {
-        String naturalFrom = null;
-        String naturalTo = null;
-        setTime: {
-            if (parsedResult.get("time") != null && parsedResult.get("time")[1] != null) {
-                naturalFrom = parsedResult.get("time")[1];
-                break setTime;
-            }
-            if (parsedResult.get("timeFrom") != null && parsedResult.get("timeFrom")[1] != null) {
-                naturalFrom = parsedResult.get("timeFrom")[1];
-            }
-            if (parsedResult.get("timeTo") != null && parsedResult.get("timeTo")[1] != null) {
-                naturalTo = parsedResult.get("timeTo")[1];
-            }
-        }
-        return new String[] { naturalFrom, naturalTo };
-    }
 
     /**
      * Extracts the display name of the CalendarItem from parsedResult.
@@ -217,26 +194,6 @@ public class AddController implements Controller {
             isTask = false;
         }
         return isTask;
-    }
-
-    /**
-     * Parse a natural date into a LocalDateTime object.
-     * 
-     * @param natural
-     * @return LocalDateTime object
-     * @throws InvalidNaturalDateException 
-     */
-    private LocalDateTime parseNatural(String natural) throws InvalidNaturalDateException {
-        Parser parser = new Parser();
-        List<DateGroup> groups = parser.parse(natural);
-        Date date = null;
-        try {
-            date = groups.get(0).getDates().get(0);
-        } catch (IndexOutOfBoundsException e) {
-            throw new InvalidNaturalDateException(natural);
-        }
-        LocalDateTime ldt = LocalDateTime.ofInstant(date.toInstant(), ZoneId.systemDefault());
-        return ldt;
     }
     
     private void renderDisambiguation(boolean isTask, String name, String naturalFrom, String naturalTo) {
