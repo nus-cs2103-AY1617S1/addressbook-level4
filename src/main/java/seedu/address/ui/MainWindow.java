@@ -14,7 +14,9 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import seedu.address.commons.core.Config;
+import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.commons.events.model.SaveLocChangedEvent;
 import seedu.address.commons.events.ui.ExitAppRequestEvent;
 import seedu.address.logic.Logic;
 import seedu.address.model.UserPrefs;
@@ -221,12 +223,18 @@ public class MainWindow extends UiPart {
                 selectedFile = new File(selectedFile.getAbsolutePath() + ".xml");
             }
             
-            XmlAddressBookStorage.setAddressBookFilePath(selectedFile.getAbsolutePath());
-            resultDisplay.postMessage("New save location: " + selectedFile.getAbsolutePath());
-            
-            userPrefs.setDataFilePath(selectedFile.getAbsolutePath());
-            statusBarFooter.setSaveLocation(selectedFile.getAbsolutePath());
+            setSaveLoc(selectedFile.getAbsolutePath());
         }
+    }
+    
+    public void setSaveLoc(String filePath) {
+        XmlAddressBookStorage.setAddressBookFilePath(filePath);
+        resultDisplay.postMessage("New save location: " + filePath);
+        
+        userPrefs.setDataFilePath(filePath);
+        statusBarFooter.setSaveLocation(filePath);
+        
+        EventsCenter.getInstance().post(new SaveLocChangedEvent());
     }
 
     public ActivityListPanel getActivityListPanel() {

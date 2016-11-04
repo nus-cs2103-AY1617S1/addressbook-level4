@@ -20,7 +20,7 @@
             <Menu mnemonicParsing="false" text="File">
                <!-- @@author A0125680H -->
                <items>
-                  <MenuItem mnemonicParsing="false" onAction="#handleSaveLoc" text="Set Save Path..." />
+                  <MenuItem mnemonicParsing="false" onAction="#handleSaveLoc" text="Save" />
                </items>
                <items>
                   <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit" />

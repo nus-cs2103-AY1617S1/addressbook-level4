@@ -13,10 +13,13 @@ import seedu.address.model.activity.task.Task;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
+import seedu.address.commons.events.model.SaveLocChangedEvent;
 import seedu.address.commons.core.ComponentManager;
 
 import java.util.Set;
 import java.util.logging.Logger;
+
+import com.google.common.eventbus.Subscribe;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -115,6 +118,11 @@ public class ModelManager extends ComponentManager implements Model {
         updateFilteredListToShowAll();
         indicateAddressBookChanged();
 		
+	}
+	
+	@Subscribe
+	public void indicateSaveLocChanged(SaveLocChangedEvent event) {
+	    indicateAddressBookChanged();
 	}
     
     //=========== Filtered Person List Accessors ===============================================================

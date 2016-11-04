@@ -176,7 +176,12 @@ public class UiManager extends ComponentManager implements Ui {
     @Subscribe
     private void handleSaveEvent(SaveEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        mainWindow.handleSaveLoc();
+        
+        if (event.saveDirectory.equals("")) {
+            mainWindow.handleSaveLoc();
+        } else {
+            mainWindow.setSaveLoc(event.saveDirectory);
+        }
     }
 
     @Subscribe

@@ -49,7 +49,7 @@ public class Parser {
                     + "(?<recurring>(?: every/[^/]+)?)"
                     + "(?<reminder>(?: r/[^/]+)?)"
                     + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
-
+    
     public Parser() {}
 
     /**
@@ -105,7 +105,7 @@ public class Parser {
             return new HelpCommand();
             
         case SaveCommand.COMMAND_WORD:
-            return new SaveCommand();
+            return prepareSave(arguments);
 
         default:
             return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
@@ -256,6 +256,16 @@ public class Parser {
         }
 
         return new SelectCommand(index.get());
+    }
+    
+    /**
+     * Parses arguments in the context of the save command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     */
+    private Command prepareSave(String args) {
+        return new SaveCommand(args.trim());
     }
 
     /**
