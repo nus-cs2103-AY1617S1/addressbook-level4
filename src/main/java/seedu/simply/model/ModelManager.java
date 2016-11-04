@@ -121,7 +121,7 @@ public class ModelManager extends ComponentManager implements Model {
     public Stack<SaveState> getRedoStack() {
         return this.redoStack;
     }
-    
+
     //@@author
     @Override
     public void resetData(ReadOnlyTaskBook newData) {
@@ -146,7 +146,7 @@ public class ModelManager extends ComponentManager implements Model {
         raise(new OverdueChangedEvent());
     }
 
-    //@@author A0139430L JingRui
+    //@@author A0139430L
     @Override
     public synchronized void deleteTask(ReadOnlyTask target) throws TaskNotFoundException {
         taskBook.removeTask(target);
@@ -188,7 +188,7 @@ public class ModelManager extends ComponentManager implements Model {
         scheduler.scheduleAtFixedRate(overdue, 0, 1, TimeUnit.SECONDS); 
     }
 
-    //@@author A0139430L JingRui
+    //@@author A0139430L
     @Override
     public synchronized void changeTaskCategory() {
         try {
@@ -271,7 +271,7 @@ public class ModelManager extends ComponentManager implements Model {
         });
 
     }
-    
+
     //@@author
     @Override
     public void updateFilteredEventList(Set<String> keywords){
@@ -337,7 +337,7 @@ public class ModelManager extends ComponentManager implements Model {
         NameQualifier(Set<String> anyKeyWords) {
             this.anyKeyWords = anyKeyWords;
         }
-        //@@author A0139430L JingRui
+        //@@author A0139430L
         @Override
         public boolean run(ReadOnlyTask Task) {
 
