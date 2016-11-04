@@ -179,7 +179,7 @@ public class Parser {
      * @param args full command args string
      * @return the prepared command
      */
-    //@@author A0139430L JingRui
+    //@@author A0139430L
     private Command prepareAddTags(String args) {
         final Matcher matcher = ARGS_FORMAT_ADD_TAGS.matcher(args.trim());
         if (!matcher.matches()) {
@@ -360,7 +360,7 @@ public class Parser {
      * @param args full command args string
      * @return the prepared command
      */
-    //@@author A0139430L JingRui
+    //@@author A0139430L
     private Command prepareDelete(String args){
         final Matcher matcher = ARGS_FORMAT_DELETE.matcher(args.trim());
         if (!matcher.matches()) {
@@ -408,7 +408,7 @@ public class Parser {
             return new IncorrectCommand(ive.getMessage());
         }
     }
-    //@@author A0139430L JingRui
+    //@@author A0139430L
     private ArrayList<String> rangeToMultiple(int start, int end, char cat){
         //making format of String: T(start), T2, T3.....T(end)
         String newArgs = Character.toString(cat).concat(Integer.toString(start));
@@ -425,7 +425,7 @@ public class Parser {
      * @param args full command args string
      * @return the prepared command
      */
-    //@@author A0139430L JingRui
+    //@@author A0139430L
     private Command prepareEdit(String args) {
         final Matcher matcher = ARGS_FORMAT_EDIT.matcher(args.trim());
         if (!matcher.matches()) {
@@ -559,7 +559,7 @@ public class Parser {
      * @param args full command args string
      * @return the prepared command
      */
-    //@@author A0139430L JingRui
+    //@@author A0139430L
     private Command prepareFind(String args) {
         final Matcher matcher = ARGS_FORMAT_KEYWORDS.matcher(args.trim());
         if (!matcher.matches()) {
