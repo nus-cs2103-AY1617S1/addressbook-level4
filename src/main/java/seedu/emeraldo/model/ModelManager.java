@@ -92,6 +92,7 @@ public class ModelManager extends ComponentManager implements Model {
     	    savedStates.pop();    	    
 	        emeraldo.resetData(savedStates.peek());
     	    indicateEmeraldoChanged();
+    	    System.out.println("After undo: " + savedStates.peek().getTasks());
     	}
     	else if(savedStates.size() == 1){
     	    throw new UndoException();
@@ -143,8 +144,10 @@ public class ModelManager extends ComponentManager implements Model {
     public synchronized void editTask(Task target, Description description, DateTime dateTime) 
             throws TaskNotFoundException {
         try {
+        	System.out.println("Before edit: " + savedStates.peek().getTasks());
             emeraldo.editTask(target, description, dateTime);
             saveState();
+            System.out.println("After edit: " + savedStates.peek().getTasks());
         } catch (IllegalValueException e) {
             e.printStackTrace();
         }
@@ -156,7 +159,10 @@ public class ModelManager extends ComponentManager implements Model {
     public synchronized void completedTask(Task target)
     		throws TaskAlreadyCompletedException {
     	try {
+    		System.out.println("Before completed: " + savedStates.peek().getTasks());
     		emeraldo.completedTask(target);
+    		saveState();
+    		System.out.println("After Completed: " + savedStates.peek().getTasks());
     	} catch (IllegalValueException e) {
     		e.printStackTrace();
     	}

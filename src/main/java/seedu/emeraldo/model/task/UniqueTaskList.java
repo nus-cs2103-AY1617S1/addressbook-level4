@@ -100,7 +100,12 @@ public class UniqueTaskList implements Iterable<Task> {
     	}
     	
     	else {
-    		toCompleteObj.getDateTime().setCompletedDateTime();
+    		
+    		DateTime newDateTime = new DateTime();
+    		newDateTime.setCompletedDateTime();
+    		
+    		toCompleteObj.setDateTime(newDateTime);
+    		
     		int mainListIndex = internalList.indexOf(toCompleteObj);
     		internalList.set(mainListIndex, toCompleteObj);
     	}
