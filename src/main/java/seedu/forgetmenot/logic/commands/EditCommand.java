@@ -49,7 +49,7 @@ public class EditCommand extends Command {
         ReadOnlyTask taskToEdit = lastShownList.get(targetIndex - 1);
 
         try {
-            if (validateEditTimings(taskToEdit)) {
+            if (!validateEditTimings(taskToEdit)) {
                 return new CommandResult(Messages.MESSAGE_INVALID_START_AND_END_TIME);
             }
 
@@ -73,7 +73,7 @@ public class EditCommand extends Command {
         }
         // checks that the new end time must be after start
         if (newEnd != null && !taskToEdit.getStartTime().isMissing()
-                && Time.checkOrderOfDates(newEnd, taskToEdit.getStartTime().appearOnUIFormat())) {
+                && !Time.checkOrderOfDates(newEnd, taskToEdit.getStartTime().appearOnUIFormat())) {
             return false;
         }
         // checks that the new start and end time are valid

@@ -79,7 +79,7 @@ public class Time {
     
     public String appearOnUIFormat() {
     	if(time.getTime().equals(new Date(0))) {
-    		return "";
+    		return "-";
     	}
     	else {
     		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yy h:mm a");
