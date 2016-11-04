@@ -17,6 +17,7 @@ import java.util.regex.Pattern;
  */
 public class TimeUtil {
 
+    
     /* Constants */
     private static final Logger logger = LogsCenter.getLogger(TimeUtil.class);
 
@@ -47,7 +48,17 @@ public class TimeUtil {
     
     /* Variables */
     protected Clock clock = Clock.systemDefaultZone();
+    protected LocalDateTime now = LocalDateTime.now(clock);
     
+    /*Setters*/
+    protected void setClock(Clock clock) {
+        this.clock = clock;
+        
+    }
+    
+    protected void setNow (LocalDateTime now){
+        this.now = now;
+    }
     /**
      * Gets the task deadline expression for the UI.
      * @param endTime ending time
@@ -59,7 +70,7 @@ public class TimeUtil {
             return "";
         }
 
-        LocalDateTime currentTime = LocalDateTime.now(clock);
+        LocalDateTime currentTime = now;
         if (endTime.isAfter(currentTime)) {
             return getDeadlineNotOverdueText(currentTime, endTime);
         } else {
@@ -132,7 +143,7 @@ public class TimeUtil {
             return "";
         }
 
-        LocalDateTime currentTime = LocalDateTime.now(clock);
+        LocalDateTime currentTime = now;
         StringJoiner joiner = new StringJoiner(WORD_SPACE);
         if (isSameDay(startTime, endTime)) {
             joiner.add(getDateText(currentTime, startTime) + WORD_COMMA)
@@ -232,7 +243,7 @@ public class TimeUtil {
             logger.log(Level.WARNING, "endTime in isOverdue(...) is null.");
             return false;
         }
-        return endTime.isBefore(LocalDateTime.now(clock));
+        return endTime.isBefore(now);
     }
     
     //@@author A0092382A
@@ -247,7 +258,7 @@ public class TimeUtil {
             return false;
         }
         
-        return LocalDateTime.now(clock).isAfter(startTime) && LocalDateTime.now(clock).isBefore(endTime);
+        return now.isAfter(startTime) && now.isBefore(endTime);
     }
     
     public boolean isToday(ImmutableTask task){
@@ -257,7 +268,7 @@ public class TimeUtil {
         LocalDateTime timeToCompareTo = task.getStartTime().isPresent() ?
                                         task.getStartTime().get() : 
                                         task.getEndTime().get();
-        return isToday(LocalDateTime.now(clock), timeToCompareTo);
+        return isToday(now, timeToCompareTo);
     }
 
     //@@author A0135817B
