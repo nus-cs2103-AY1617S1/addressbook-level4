@@ -3,59 +3,56 @@ package guitests;
 
 import org.junit.Test;
 
-import seedu.task.commons.core.Messages;
 import seedu.task.logic.commands.BackupCommand;
 import seedu.task.testutil.TestUtil;
 import seedu.task.testutil.TypicalTestTasks;
 
 import static org.junit.Assert.assertTrue;
 
-@SuppressWarnings("unused")
 public class BackupCommandTest extends TaskManagerGuiTest {
 
-    public static final String filepath_A = TestUtil.getFilePathInSandboxFolder("empty");
-    public static final String filepath_B = TestUtil.getFilePathInSandboxFolder("notempty");
+    public static final String filepath_A = TestUtil.getFilePathInSandboxFolder("backup_not_pre_existing");
+    public static final String filepath_B = TestUtil.getFilePathInSandboxFolder("backup_pre_existing");
     public static final String filepath_C = "c:/inaccessible";
     public static final String filepath_D = "invalid:/drive";
     public static final String filepath_E = "c:/invalid>character";
+    public static final String filepath_F = TestUtil.getFilePathInSandboxFolder("protected");
 
     @Test
     public void backup() {
-
-        /** Removed temporarily as these cases do not work on Travis, i.e. C:/ is accessible, invaild:/drive is valid */
-        /*
         //verify an empty TaskManager can be backed up in a valid directory
         commandBox.runCommand("clear");
         assertListSize(0);
         assertResultMessage("Task manager has been cleared!");
         commandBox.runCommand("backup " + filepath_A);
-        assertResultMessage(String.format(BackupCommand.MESSAGE_BACKUP_SUCCESS, filepath_A + ".xml"));
-        //assertBackupCommandSuccess();
+        assertResultMessage(String.format(BackupCommand.MESSAGE_BACKUP_SUCCESS, filepath_A + ".xml", "created"));
         
         //verify a non-empty TaskManager can be backed up in a valid directory
         commandBox.runCommand("add Help Jim with his task, at 2016-10-25 9am");
         assertTrue(taskListPanel.isListMatching(TypicalTestTasks.taskH));
         commandBox.runCommand("backup " + filepath_B);
-        assertResultMessage(String.format(BackupCommand.MESSAGE_BACKUP_SUCCESS, filepath_B + ".xml"));
-        //assertBackupCommandSuccess();
+        assertResultMessage(String.format(BackupCommand.MESSAGE_BACKUP_SUCCESS, filepath_B + ".xml", "overwritten"));
         
         //verify TaskManager can be backed up in a valid directory onto an existing backup
         commandBox.runCommand("backup " + filepath_A);
-        assertResultMessage(String.format(BackupCommand.MESSAGE_BACKUP_SUCCESS, filepath_A + ".xml"));
-        //assertBackupCommandSuccess();
+        assertResultMessage(String.format(BackupCommand.MESSAGE_BACKUP_SUCCESS, filepath_A + ".xml", "overwritten"));
 
+        /* Disabled as Travis is does not have an inaccessible directory
         //verify a TaskManager can't be backed up in an inaccessible directory
         commandBox.runCommand("backup " + filepath_C);
         assertResultMessage(String.format(BackupCommand.MESSAGE_BACKUP_FAILURE, filepath_C + ".xml"));
-        //assertBackupCommandFailure();
+        */
         
-        //verify a TaskManager can't be backed up in an invalid directory
+        /* Disabled as unable to test with FilePicker
+        //verify if invalid directory given, FilePicker will be presented
         commandBox.runCommand("backup " + filepath_D);
         assertResultMessage(String.format(BackupCommand.MESSAGE_BACKUP_FAILURE, filepath_D + ".xml"));
-        //assertBackupCommandFailure();
         commandBox.runCommand("backup " + filepath_E);
         assertResultMessage(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, BackupCommand.MESSAGE_USAGE));
-        //assertBackupCommandFailure();
-         */
+        */
+        
+        //verify a TaskManager will detect if a file is protected
+        commandBox.runCommand("backup " + filepath_F);
+        assertResultMessage(String.format(BackupCommand.MESSAGE_BACKUP_ERROR, filepath_F + ".xml"));
     }
 }
