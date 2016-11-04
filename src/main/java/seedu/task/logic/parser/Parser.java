@@ -78,8 +78,8 @@ public class Parser {
 																// prefixes
 			Pattern.compile("(?<index>[^/]+)" + "(( t/(?<newTitle>[^/]+))|" + "( d/(?<description>[^/]+))|"
 					+ "( sd/(?<startDate>[^/]+))|" + "( dd/(?<dueDate>[^/]+))|" + "( i/(?<interval>[^/]+))|"
-					+ "( ti/(?<timeInterval>[^/]+))|" + "( c/(?<taskColor>[^/]+))|"
-					+ "(?<tagArguments>(?: ts/[^/]+)*))+?");
+					+ "( ti/(?<timeInterval>[^/]+))|" + "( c/(?<taskColor>[^/]+)))+?"
+					+ "(?<tagArguments>(?: ts/[^/]+)*)");
 	// @@author
 
 	// @@author A0139932X
