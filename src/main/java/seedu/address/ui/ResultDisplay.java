@@ -18,9 +18,8 @@ public class ResultDisplay extends UiPart {
 
     private static final String NEWLINE_STRING = "\n";
     private static final String STRING_EMPTY = "";
-    private static final int HEIGHT_PER_NEW_LINE = 16;
-    private static final int PREF_HEIGHT = 50;
-    private static final int BASE_HEIGHT = PREF_HEIGHT - HEIGHT_PER_NEW_LINE;
+    private static final int HEIGHT_PER_EXTRA_NEWLINE = 17;
+    private static final int PREF_HEIGHT = 65;
 
     public static final String RESULT_DISPLAY_ID = "resultDisplay";
     private static final String STATUS_BAR_STYLE_SHEET = "result-display";
@@ -80,14 +79,14 @@ public class ResultDisplay extends UiPart {
      * @return
      */
     private int computeNewHeight() {
-        return BASE_HEIGHT + getNumLines() * HEIGHT_PER_NEW_LINE;
+        return PREF_HEIGHT + getNumberOfNewLines() * HEIGHT_PER_EXTRA_NEWLINE;
     }
 
     /**
      * Returns 
      * @return
      */
-    private int getNumLines() {
+    private int getNumberOfNewLines() {
         String displayedText = resultDisplayArea.getText();
         return StringUtils.countMatches(displayedText, NEWLINE_STRING);
     }
