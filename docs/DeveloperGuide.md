@@ -368,6 +368,12 @@ Use case ends.
 2. SmartyDo shows a list of upcoming tasks <br>
 Use case ends.
 
+**Extensions**
+
+1a. The given `string` is invalid
+
+> Use case ends
+
 ### Use case: Mark task
 
 **MSS**
@@ -409,6 +415,55 @@ Use case ends.
 
 > 3a1. SmartyDo shows an error message <br>
   Use case resumes at step 2
+
+### Use case: Locate task
+
+**MSS**
+
+1. User requests to view upcoming tasks
+2. SmartyDo shows a list of upcoming tasks
+3. User requests to locate a specific task in the list
+4. SmartyDo shows location of the task <br>
+Use case ends.
+
+**Extensions**
+
+2a. The list is empty
+
+> Use case ends
+
+3a. The given index is invalid
+
+> 3a1. SmartyDo shows an error message <br>
+  Use case resumes at step 2
+
+### Use case: Save file
+
+**MSS**
+
+1. User requests to save file to specific `file path`
+2. SmartyDo saves to `file path` <br>
+Use case ends.
+
+**Extensions**
+
+1a. The `file path` is invalid
+
+> Use case ends
+
+### Use case: Load file
+
+**MSS**
+
+1. User requests to load file from specific `file path`
+2. SmartyDo loads from `file path` <br>
+Use case ends.
+
+**Extensions**
+
+1a. The `file path` is invalid
+
+> Use case ends
 
 ## 7.3 Appendix C : Non Functional Requirements
 
