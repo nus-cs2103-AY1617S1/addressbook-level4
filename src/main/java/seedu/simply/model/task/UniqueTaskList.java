@@ -58,11 +58,9 @@ public class UniqueTaskList implements Iterable<Task> {
     //@@author A0139430L
     public boolean contains(ReadOnlyTask toCheck) {
         if(toCheck.getTaskCategory()==3){
-            assert toCheck != null;
             return findUncompletedDuplicate(toCheck);
         }
         else 
-            assert toCheck != null;
         return internalList.contains(toCheck);
     }
     private boolean findUncompletedDuplicate(ReadOnlyTask toCheck) {
@@ -95,13 +93,9 @@ public class UniqueTaskList implements Iterable<Task> {
      *
      * @throws TaskNotFoundException if no such task could be found in the list.
      */
-    public boolean remove(ReadOnlyTask toRemove) throws TaskNotFoundException {
-        assert toRemove != null;
-        final boolean taskFoundAndDeleted = internalList.remove(toRemove);
-        if (!taskFoundAndDeleted) {
-            throw new TaskNotFoundException();
-        }
-        return taskFoundAndDeleted;
+    public boolean remove(ReadOnlyTask toRemove) {
+        assert toRemove != null; 
+        return internalList.remove(toRemove);
     }
 
     public ObservableList<Task> getInternalList() {
