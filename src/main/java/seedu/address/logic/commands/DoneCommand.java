@@ -146,7 +146,7 @@ public class DoneCommand extends UndoableCommand {
      */
     private void prepareToArchiveTasks() {
         logger.fine("In prepareToArchiveTasks(). Setting up.");
-        if (!isRedoAction()) {
+        if (!isRedoAction) {
             setCurrentViewingList();
         }
         doneTasks = new ArrayList<Task>();

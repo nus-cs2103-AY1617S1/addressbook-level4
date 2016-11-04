@@ -31,15 +31,13 @@ public class MainWindow extends UiPart {
 
     private Logic logic;
     private InputHistory inputHistory;
-    private UndoableCommandHistory undoableCmdHistory;
 
     // Independent Ui parts residing in this Ui container
-    private BrowserPanel browserPanel;
     private TaskListPanel taskListPanel;
     private ResultDisplay resultDisplay;
     private StatusBarFooter statusBarFooter;
     private CommandBox commandBox;
-    private SwitchViewButtons commandBox2;
+    private SwitchViewButtons viewButtons;
     private Config config;
     private UserPrefs userPrefs;
 
@@ -58,9 +56,6 @@ public class MainWindow extends UiPart {
     @FXML
     private AnchorPane switchViewButtonsPlaceholder;
     
-    @FXML
-    private MenuItem helpMenuItem;
-
     @FXML
     private AnchorPane personListPanelPlaceholder;
 
@@ -111,21 +106,14 @@ public class MainWindow extends UiPart {
         scene = new Scene(rootLayout);
         primaryStage.setScene(scene);
 
-        setAccelerators();
-    }
-
-    private void setAccelerators() {
-        helpMenuItem.setAccelerator(KeyCombination.valueOf("F1"));
     }
 
     void fillInnerParts() {
-        //do not show the browser area
-        //browserPanel = BrowserPanel.load(browserPlaceholder);
         taskListPanel = TaskListPanel.load(primaryStage, getPersonListPlaceholder(), logic.getFilteredUndoneTaskList(), logic.getFilteredDoneTaskList());
         resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
         statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getTaskManagerFilePath());
         commandBox = CommandBox.load(primaryStage, getCommandBoxPlaceholder(), resultDisplay, logic, inputHistory);
-        commandBox2 = SwitchViewButtons.load(primaryStage, getSwitchViewButtonsPlaceholder(), resultDisplay, logic, inputHistory);
+        viewButtons = SwitchViewButtons.load(primaryStage, getSwitchViewButtonsPlaceholder(), resultDisplay, logic, inputHistory);
     }
     
     //@@author A0093960X
@@ -187,6 +175,7 @@ public class MainWindow extends UiPart {
                 (int) primaryStage.getX(), (int) primaryStage.getY());
     }
 
+    //@@author A0093960X
     @FXML
     public void handleHelp() {
         HelpWindow helpWindow = HelpWindow.load(primaryStage);
@@ -197,6 +186,7 @@ public class MainWindow extends UiPart {
         primaryStage.show();
     }
 
+    //@@author
     /**
      * Closes the application.
      */
@@ -205,17 +195,8 @@ public class MainWindow extends UiPart {
         raise(new ExitAppRequestEvent());
     }
 
-    public TaskListPanel getPersonListPanel() {
+    public TaskListPanel getTaskListPanel() {
         return this.taskListPanel;
     }
 
-    public void loadPersonPage(ReadOnlyTask person) {
-        browserPanel.loadPersonPage(person);
-    }
-
-    /*
-    public void releaseResources() {
-        browserPanel.freeResources();
-    }
-    */
 }

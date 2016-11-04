@@ -11,6 +11,8 @@ import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.apache.commons.lang.StringUtils;
+
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_TOOLTIP_INVALID_COMMAND_FORMAT;
 
@@ -44,10 +46,13 @@ public class CommandParser {
     private static final String MAP_RECURRENCE_TIME_PERIOD = "timePeriod";
     private static final String MAP_PRIORITY = "priority";
     
-    private static final String RESET_START = "start";
-    private static final String RESET_END = "end";
-    private static final String RESET_RECURRENCE = "repeat";
-    private static final String RESET_PRIORITY = "priority";
+    private static final String RESET_START_KEYWORD = "start";
+    private static final String RESET_END_KEYWORD = "end";
+    private static final String RESET_RECURRENCE_KEYWORD = "repeat";
+    private static final String RESET_PRIORITY_KEYWORD = "priority";
+    
+    private static final String NEWLINE_STRING = "\n";
+    private static final String STRING_ONE_SPACE = " ";
 
     public CommandParser() {}
 
@@ -266,23 +271,6 @@ public class CommandParser {
     }
     
     /**
-     * Parses arguments in the context of the help command.
-     *
-     * @param args full command args string
-     * @return the prepared command
-     */
-    /*
-    private Command prepareHelp(String args) {
-        
-        if (args != null) {
-            return new HelpCommand(args.trim());
-        }
-        
-        return new HelpCommand(HelpCommand.COMMAND_WORD);
-    }
-    */
-
-    /**
      * Returns the specified index in the {@code command} IF a positive unsigned integer is given as the index.
      *   Returns an {@code Optional.empty()} otherwise.
      */
@@ -356,6 +344,7 @@ public class CommandParser {
         return new FindCommand(keywordSet);
     }
     
+    //@@author A0093960X
     /**
      * Parses an incomplete user input to determine the most appropriate tooltip for the user to see.
      * The tooltip depends on the command that the user is trying to execute (which this parser tries to 
@@ -419,34 +408,34 @@ public class CommandParser {
     private String getTooltipForCmdWithNoArgsDoneList(String commandWord) {
         List<String> tooltips = new ArrayList<String>();
 
-        if (StringUtil.isSubstringFromStart(ClearCommand.COMMAND_WORD, commandWord)) {
+        if (StringUtils.startsWith(ClearCommand.COMMAND_WORD, commandWord)) {
             tooltips.add(ClearCommand.TOOL_TIP);
         }
-        if (StringUtil.isSubstringFromStart(DeleteCommand.COMMAND_WORD, commandWord)) {
+        if (StringUtils.startsWith(DeleteCommand.COMMAND_WORD, commandWord)) {
             tooltips.add(DeleteCommand.TOOL_TIP);
         }   
-        if (StringUtil.isSubstringFromStart(ExitCommand.COMMAND_WORD, commandWord)) {
+        if (StringUtils.startsWith(ExitCommand.COMMAND_WORD, commandWord)) {
             tooltips.add(ExitCommand.TOOL_TIP);
         }
-        if (StringUtil.isSubstringFromStart(FindCommand.COMMAND_WORD, commandWord)) {
+        if (StringUtils.startsWith(FindCommand.COMMAND_WORD, commandWord)) {
             tooltips.add(FindCommand.TOOL_TIP);
         }
-        if (StringUtil.isSubstringFromStart(HelpCommand.COMMAND_WORD, commandWord)) {
+        if (StringUtils.startsWith(HelpCommand.COMMAND_WORD, commandWord)) {
             tooltips.add(HelpCommand.TOOL_TIP);
         }
-        if (StringUtil.isSubstringFromStart(ListCommand.COMMAND_WORD, commandWord)) {
+        if (StringUtils.startsWith(ListCommand.COMMAND_WORD, commandWord)) {
             tooltips.add(ListCommand.TOOL_TIP);
         }
-        if (StringUtil.isSubstringFromStart(RedoCommand.COMMAND_WORD, commandWord)) {
+        if (StringUtils.startsWith(RedoCommand.COMMAND_WORD, commandWord)) {
             tooltips.add(RedoCommand.TOOL_TIP);
         }
-        if (StringUtil.isSubstringFromStart(SelectCommand.COMMAND_WORD, commandWord)) {
+        if (StringUtils.startsWith(SelectCommand.COMMAND_WORD, commandWord)) {
             tooltips.add(SelectCommand.TOOL_TIP);
         }
-        if (StringUtil.isSubstringFromStart(StoreCommand.COMMAND_WORD, commandWord)) {
+        if (StringUtils.startsWith(StoreCommand.COMMAND_WORD, commandWord)) {
             tooltips.add(StoreCommand.TOOL_TIP);
         }
-        if (StringUtil.isSubstringFromStart(UndoCommand.COMMAND_WORD, commandWord)) {
+        if (StringUtils.startsWith(UndoCommand.COMMAND_WORD, commandWord)) {
             tooltips.add(UndoCommand.TOOL_TIP);
         }
         
@@ -456,7 +445,7 @@ public class CommandParser {
             return Messages.MESSAGE_DONE_LIST_RESTRICTED_COMMANDS;
         }
 
-        String combinedTooltip = StringUtil.combineStrings(tooltips);
+        String combinedTooltip = String.join(NEWLINE_STRING, tooltips);
         return combinedTooltip;
     }
     
@@ -508,43 +497,43 @@ public class CommandParser {
     private String getTooltipForCmdWithNoArgsUndoneList(final String arguments, final String commandWord) {
         List<String> tooltips = new ArrayList<String>();
         
-        if (StringUtil.isSubstringFromStart(AddCommand.COMMAND_WORD, commandWord)) {
+        if (StringUtils.startsWith(AddCommand.COMMAND_WORD, commandWord)) {
             tooltips.add(AddCommand.TOOL_TIP);
         }
-        if (StringUtil.isSubstringFromStart(ClearCommand.COMMAND_WORD, commandWord)) {
+        if (StringUtils.startsWith(ClearCommand.COMMAND_WORD, commandWord)) {
             tooltips.add(ClearCommand.TOOL_TIP);
         }
-        if (StringUtil.isSubstringFromStart(DeleteCommand.COMMAND_WORD, commandWord)) {
+        if (StringUtils.startsWith(DeleteCommand.COMMAND_WORD, commandWord)) {
             tooltips.add(DeleteCommand.TOOL_TIP);
         }
-        if (StringUtil.isSubstringFromStart(DoneCommand.COMMAND_WORD, commandWord)) {
+        if (StringUtils.startsWith(DoneCommand.COMMAND_WORD, commandWord)) {
             tooltips.add(DoneCommand.TOOL_TIP);
         }
-        if (StringUtil.isSubstringFromStart(EditCommand.COMMAND_WORD, commandWord)) {
+        if (StringUtils.startsWith(EditCommand.COMMAND_WORD, commandWord)) {
             tooltips.add(EditCommand.TOOL_TIP);
         }
-        if (StringUtil.isSubstringFromStart(ExitCommand.COMMAND_WORD, commandWord)) {
+        if (StringUtils.startsWith(ExitCommand.COMMAND_WORD, commandWord)) {
             tooltips.add(ExitCommand.TOOL_TIP);
         }
-        if (StringUtil.isSubstringFromStart(FindCommand.COMMAND_WORD, commandWord)) {
+        if (StringUtils.startsWith(FindCommand.COMMAND_WORD, commandWord)) {
             tooltips.add(FindCommand.TOOL_TIP);
         }
-        if (StringUtil.isSubstringFromStart(HelpCommand.COMMAND_WORD, commandWord)) {
+        if (StringUtils.startsWith(HelpCommand.COMMAND_WORD, commandWord)) {
             tooltips.add(HelpCommand.TOOL_TIP);
         }
-        if (StringUtil.isSubstringFromStart(ListCommand.COMMAND_WORD, commandWord)) {
+        if (StringUtils.startsWith(ListCommand.COMMAND_WORD, commandWord)) {
             tooltips.add(ListCommand.TOOL_TIP);
         }
-        if (StringUtil.isSubstringFromStart(RedoCommand.COMMAND_WORD, commandWord)) {
+        if (StringUtils.startsWith(RedoCommand.COMMAND_WORD, commandWord)) {
             tooltips.add(RedoCommand.TOOL_TIP);
         }
-        if (StringUtil.isSubstringFromStart(SelectCommand.COMMAND_WORD, commandWord)) {
+        if (StringUtils.startsWith(SelectCommand.COMMAND_WORD, commandWord)) {
             tooltips.add(SelectCommand.TOOL_TIP);
         }
-        if (StringUtil.isSubstringFromStart(StoreCommand.COMMAND_WORD, commandWord)) {
+        if (StringUtils.startsWith(StoreCommand.COMMAND_WORD, commandWord)) {
             tooltips.add(StoreCommand.TOOL_TIP);
         }
-        if (StringUtil.isSubstringFromStart(UndoCommand.COMMAND_WORD, commandWord)) {
+        if (StringUtils.startsWith(UndoCommand.COMMAND_WORD, commandWord)) {
             tooltips.add(UndoCommand.TOOL_TIP);
         }
           
@@ -552,7 +541,7 @@ public class CommandParser {
             return prepareAddDetailedTooltip(commandWord + arguments);      
         } 
         
-        String combinedTooltip = StringUtil.combineStrings(tooltips);
+        String combinedTooltip = String.join(NEWLINE_STRING, tooltips);
         return combinedTooltip;
     }
     
@@ -641,13 +630,13 @@ public class CommandParser {
             String[] resetFieldNames = resetField.split("\\s+");
             
             for (String resetFieldStr : resetFieldNames) {
-                if (resetFieldStr.equals(RESET_START)) {
+                if (resetFieldStr.equals(RESET_START_KEYWORD)) {
                     resetStartDate = true;
-                } else if (resetFieldStr.equals(RESET_END)) {
+                } else if (resetFieldStr.equals(RESET_END_KEYWORD)) {
                     resetEndDate = true;
-                } else if (resetFieldStr.equals(RESET_RECURRENCE)) {
+                } else if (resetFieldStr.equals(RESET_RECURRENCE_KEYWORD)) {
                     resetRecurrence = true;
-                } else if (resetFieldStr.equals(RESET_PRIORITY)) {
+                } else if (resetFieldStr.equals(RESET_PRIORITY_KEYWORD)) {
                     resetPriority = true;
                 }
             }
@@ -775,34 +764,34 @@ public class CommandParser {
         return sb.toString();
     }
 
+
     /**
-     * @param priority
+     * @return
+     */
+    private StringBuilder generateAddDetailedTooltipHeader() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(AddCommand.TOOL_TIP);
+        sb.append("\n\tAdding task: ");
+        return sb;
+    }
+
+    /**
+     * @param name
      * @param sb
      */
-    private void generateAddDetailedTooltipPriority(Optional<String> priority, StringBuilder sb) {
-        if (priority.isPresent()) {
-            sb.append("\n\tPriority:\t" + priority.get());
+    private void generateAddDetailedTooltipName(Optional<String> name, StringBuilder sb) {
+        if (name.isPresent()) {
+            sb.append("\n\tName:\t" + name.get());
         }
     }
 
     /**
-     * @param rate
-     * @param timePeriod
+     * @param startDate
      * @param sb
      */
-    private void generateAddDetailedTooltipRecurrence(Optional<String> rate, Optional<String> timePeriod,
-            StringBuilder sb) {
-        
-        if (!timePeriod.isPresent()) {
-            return;
-        }
-        
-        String timePeriodStr = timePeriod.get();
-        if (rate.isPresent()) {
-            String recurRate = rate.get();
-            sb.append("\n\tRecurrence Rate:\t" + "every " + recurRate + " " + timePeriodStr);
-        } else {
-            sb.append("\n\tRecurrence Rate:\t" + "every " + timePeriodStr);
+    private void generateAddDetailedTooltipStartDate(Optional<String> startDate, StringBuilder sb) {
+        if (startDate.isPresent()) {
+            sb.append("\n\tStart Date:\t" + startDate.get());
         }
     }
 
@@ -817,33 +806,34 @@ public class CommandParser {
     }
 
     /**
-     * @param startDate
+     * @param rate
+     * @param timePeriod
      * @param sb
      */
-    private void generateAddDetailedTooltipStartDate(Optional<String> startDate, StringBuilder sb) {
-        if (startDate.isPresent()) {
-            sb.append("\n\tStart Date:\t" +startDate.get());
+    private void generateAddDetailedTooltipRecurrence(Optional<String> rate, Optional<String> timePeriod,
+            StringBuilder sb) {
+
+        if (!timePeriod.isPresent()) {
+            return;
+        }
+
+        String timePeriodStr = timePeriod.get();
+        if (rate.isPresent()) {
+            String recurRate = rate.get();
+            sb.append("\n\tRecurrence Rate:\t" + "every " + recurRate + " " + timePeriodStr);
+        } else {
+            sb.append("\n\tRecurrence Rate:\t" + "every " + timePeriodStr);
         }
     }
 
     /**
-     * @param name
+     * @param priority
      * @param sb
      */
-    private void generateAddDetailedTooltipName(Optional<String> name, StringBuilder sb) {
-        if (name.isPresent()) {
-            sb.append("\n\tName:\t" + name.get());
+    private void generateAddDetailedTooltipPriority(Optional<String> priority, StringBuilder sb) {
+        if (priority.isPresent()) {
+            sb.append("\n\tPriority:\t" + priority.get());
         }
-    }
-
-    /**
-     * @return
-     */
-    private StringBuilder generateAddDetailedTooltipHeader() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(AddCommand.TOOL_TIP);
-        sb.append("\n\tAdding task: ");
-        return sb;
     }
 
     /**
@@ -851,7 +841,8 @@ public class CommandParser {
      * @return
      * @throws IllegalValueException
      */
-    private HashMap<String, Optional<String>> retrieveAddFieldsFromArgs(String trimmedArgs) throws IllegalValueException {
+    private HashMap<String, Optional<String>> retrieveAddFieldsFromArgs(String trimmedArgs)
+            throws IllegalValueException {
         return new CommandParserHelper().prepareAdd(trimmedArgs);
     }
 }
