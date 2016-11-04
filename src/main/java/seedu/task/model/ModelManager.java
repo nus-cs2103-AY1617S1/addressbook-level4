@@ -9,12 +9,20 @@ import seedu.task.commons.core.LogsCenter;
 import seedu.task.commons.core.UnmodifiableObservableList;
 import seedu.task.commons.events.model.TaskManagerChangedEvent;
 import seedu.task.commons.exceptions.DataConversionException;
+import seedu.task.commons.exceptions.IllegalValueException;
 import seedu.task.commons.util.ConfigUtil;
 import seedu.task.commons.util.FileUtil;
+import seedu.task.logic.parser.TimeParser;
+import seedu.task.logic.parser.TimeParserResult;
+import seedu.task.logic.parser.TimeParserResult.DateTimeStatus;
+import seedu.task.model.task.Deadline;
+import seedu.task.model.task.EndTime;
 import seedu.task.model.task.ReadOnlyTask;
+import seedu.task.model.task.StartTime;
 import seedu.task.model.task.Status;
 import seedu.task.model.task.Task;
 import seedu.task.model.task.UniqueTaskList;
+import seedu.task.model.task.UniqueTaskList.DuplicateTaskException;
 import seedu.task.model.task.UniqueTaskList.TaskNotFoundException;
 
 import java.io.File;
@@ -92,17 +100,17 @@ public class ModelManager extends ComponentManager implements Model {
 
             if (aLDT.isBefore(localDateTime)) {
 
-                task = new Task (task.getName(), task.getStartTime(), task.getEndTime(), task.getDeadline(), task.getTags(), new Status(task.getStatus().getDoneStatus(), true, task.getStatus().getFavoriteStatus()));
+                task = new Task (task.getName(), task.getStartTime(), task.getEndTime(), task.getDeadline(), task.getTags(), new Status(task.getStatus().getDoneStatus(), true, task.getStatus().getFavoriteStatus()), task.getRecurring());
 
             }
             else{
-                task = new Task (task.getName(), task.getStartTime(), task.getEndTime(), task.getDeadline(), task.getTags(), new Status(task.getStatus().getDoneStatus(), false, task.getStatus().getFavoriteStatus()));
+                task = new Task (task.getName(), task.getStartTime(), task.getEndTime(), task.getDeadline(), task.getTags(), new Status(task.getStatus().getDoneStatus(), false, task.getStatus().getFavoriteStatus()), task.getRecurring());
 
             }
 
         }
         else {
-            task = new Task (task.getName(), task.getStartTime(), task.getEndTime(), task.getDeadline(), task.getTags(), new Status(task.getStatus().getDoneStatus(), false, task.getStatus().getFavoriteStatus()));
+            task = new Task (task.getName(), task.getStartTime(), task.getEndTime(), task.getDeadline(), task.getTags(), new Status(task.getStatus().getDoneStatus(), false, task.getStatus().getFavoriteStatus()), task.getRecurring());
 
         }
         taskManager.addTask(task);
@@ -124,17 +132,17 @@ public class ModelManager extends ComponentManager implements Model {
 
             if (aLDT.isBefore(localDateTime)) {
 
-                task = new Task (task.getName(), task.getStartTime(), task.getEndTime(), task.getDeadline(), task.getTags(), new Status(task.getStatus().getDoneStatus(), true, task.getStatus().getFavoriteStatus()));
+                task = new Task (task.getName(), task.getStartTime(), task.getEndTime(), task.getDeadline(), task.getTags(), new Status(task.getStatus().getDoneStatus(), true, task.getStatus().getFavoriteStatus()), task.getRecurring());
 
             }
             else{
-                task = new Task (task.getName(), task.getStartTime(), task.getEndTime(), task.getDeadline(), task.getTags(), new Status(task.getStatus().getDoneStatus(), false, task.getStatus().getFavoriteStatus()));
+                task = new Task (task.getName(), task.getStartTime(), task.getEndTime(), task.getDeadline(), task.getTags(), new Status(task.getStatus().getDoneStatus(), false, task.getStatus().getFavoriteStatus()), task.getRecurring());
 
             }
 
         }
         else {
-            task = new Task (task.getName(), task.getStartTime(), task.getEndTime(), task.getDeadline(), task.getTags(), new Status(task.getStatus().getDoneStatus(), false, task.getStatus().getFavoriteStatus()));
+            task = new Task (task.getName(), task.getStartTime(), task.getEndTime(), task.getDeadline(), task.getTags(), new Status(task.getStatus().getDoneStatus(), false, task.getStatus().getFavoriteStatus()), task.getRecurring());
 
         }
         taskManager.addTask(index, task);
@@ -142,6 +150,60 @@ public class ModelManager extends ComponentManager implements Model {
         indicateTaskManagerChanged();
     }
     //@@author
+
+    // @@author A0147944U
+    @Override
+    public void repeatRecurringTask(Task recurringTask) {
+        if (!recurringTask.getRecurring().toString().equals("false")) {
+            String newStartTime = recurringTask.getStartTime().toString();
+            String newEndTime = recurringTask.getEndTime().toString();
+            String newDeadline = recurringTask.getDeadline().toString();
+            
+            if (!newStartTime.equals("")) {
+                newStartTime = addPeriodicTimeToTask(recurringTask.getStartTime().toString(), recurringTask.getRecurring().toString());
+            }
+            if (!newEndTime.equals("")) {
+                newEndTime = addPeriodicTimeToTask(recurringTask.getEndTime().toString(), recurringTask.getRecurring().toString());
+            }
+            if (!newDeadline.equals("")) {
+                newDeadline = addPeriodicTimeToTask(recurringTask.getDeadline().toString(), recurringTask.getRecurring().toString());
+            }
+            
+            try {
+                Task newTask = new Task(recurringTask.getName(), new StartTime(newStartTime), new EndTime(newEndTime), new Deadline(newDeadline), recurringTask.getTags(), new Status(false, false, recurringTask.getStatus().getFavoriteStatus()), recurringTask.getRecurring());
+                taskManager.addTask(newTask);
+            } catch (DuplicateTaskException e) {
+                e.printStackTrace();
+            } catch (IllegalValueException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private String addPeriodicTimeToTask(String originalTime, String interval) {
+        String newTime = "one week after " + originalTime;
+        if (interval.equals("daily")) {
+            newTime = "one day after " + originalTime;
+        } else if (interval.equals("weekly")) {
+            newTime = "one week after " + originalTime;
+        } else if (interval.equals("fortnightly")) {
+            newTime = "two weeks after " + originalTime;
+        } else if (interval.equals("monthly")) {
+            newTime = "one month after " + originalTime;
+        }  else if (interval.equals("yearly")) {
+            newTime = "one year after " + originalTime;
+        }
+        TimeParser parserTime = new TimeParser();
+        TimeParserResult time = parserTime.parseTime(newTime);
+        StringBuilder newTimeString = new StringBuilder();
+        if (time.getRawDateTimeStatus() == DateTimeStatus.START_DATE_START_TIME) {
+            newTimeString.append(time.getFirstDate().toString());
+            newTimeString.append(" ");
+            newTimeString.append(time.getFirstTime().toString().substring(0, 5));
+        }
+        return newTimeString.toString();
+    }
+    // @@author
     
     //=========== Filtered Task List Accessors ===============================================================
 

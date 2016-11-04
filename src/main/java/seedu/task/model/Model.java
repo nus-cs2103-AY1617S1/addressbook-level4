@@ -45,6 +45,9 @@ public interface Model {
     
     /** Automatically sorts tasks based on current sort preferences in config*/
     public void autoSortBasedOnCurrentSortPreference();
+    
+    /** asdasd*/
+    public void repeatRecurringTask(Task recurringTask);
     //@@author
 
 }

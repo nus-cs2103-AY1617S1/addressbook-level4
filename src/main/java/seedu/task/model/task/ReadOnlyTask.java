@@ -5,7 +5,6 @@ import seedu.task.model.tag.UniqueTagList;
 /**
  * A read-only immutable interface for a Task in the task manager.
  * Implementations should guarantee: details are present and not null, field values are validated.
- * @@author 
  */
 public interface ReadOnlyTask {
 
@@ -14,6 +13,7 @@ public interface ReadOnlyTask {
     EndTime getEndTime();
     Deadline getDeadline();
     Status getStatus();
+    Recurring getRecurring();
 
     /**
      * The returned TagList is a deep copy of the internal TagList,
@@ -31,6 +31,7 @@ public interface ReadOnlyTask {
                 && other.getStartTime().equals(this.getStartTime())
                 && other.getEndTime().equals(this.getEndTime())
                 && other.getDeadline().equals(this.getDeadline())
+                && other.getRecurring().equals(this.getRecurring())
                 && other.getTags().equals(this.getTags()));
     }
 
@@ -49,6 +50,9 @@ public interface ReadOnlyTask {
         }
         if (!getDeadline().toString().isEmpty()) {       
             builder.append(" \nDeadline: ").append(getDeadline());
+        }
+        if (!getRecurring().toString().isEmpty()) {       
+            builder.append(" \nRecurring: ").append(getDeadline());
         }
         if (!getTags().toSet().isEmpty()) {       
             builder.append(" \nTags: ");

@@ -40,7 +40,7 @@ public class DeleteCommand extends Command {
 
         ReadOnlyTask taskToDelete = lastShownList.get(targetIndex - 1);
         if (isUndo == false) {
-            Task task = new Task(taskToDelete.getName(), taskToDelete.getStartTime(), taskToDelete.getEndTime(), taskToDelete.getDeadline(), taskToDelete.getTags(), taskToDelete.getStatus());
+            Task task = new Task(taskToDelete.getName(), taskToDelete.getStartTime(), taskToDelete.getEndTime(), taskToDelete.getDeadline(), taskToDelete.getTags(), taskToDelete.getStatus(), taskToDelete.getRecurring());
             history.getUndoList().add(new RollBackCommand(COMMAND_WORD, task, null));
         }
         try {

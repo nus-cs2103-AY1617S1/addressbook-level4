@@ -31,7 +31,7 @@ public class RefreshCommand extends Command {
         for(int i = 0; i < lastShownList.size(); i++) {
             ReadOnlyTask taskToDelete = lastShownList.get(i);
             
-                Task task = new Task(taskToDelete.getName(), taskToDelete.getStartTime(), taskToDelete.getEndTime(), taskToDelete.getDeadline(), taskToDelete.getTags(), taskToDelete.getStatus());
+                Task task = new Task(taskToDelete.getName(), taskToDelete.getStartTime(), taskToDelete.getEndTime(), taskToDelete.getDeadline(), taskToDelete.getTags(), taskToDelete.getStatus(), taskToDelete.getRecurring());
                 taskList.add(new RollBackCommand(COMMAND_WORD , task, null));
             
         }

@@ -8,7 +8,6 @@ import java.util.Objects;
 /**
  * Represents a Task in the task manager.
  * Guarantees: details are present and not null, field values are validated.
- * @@author
  */
 public class Task implements ReadOnlyTask {
 
@@ -17,27 +16,29 @@ public class Task implements ReadOnlyTask {
     private EndTime endTime;
     private Deadline deadline;
     private Status status;
-
+    private Recurring recurring;
+    
     private UniqueTagList tags;
 
     /**
      * Every field must be present and not null.
      */
-    public Task(Name name, StartTime startTime, EndTime endTime, Deadline deadline, UniqueTagList tags, Status status) {
-        assert !CollectionUtil.isAnyNull(name, startTime, endTime, deadline, tags);
+    public Task(Name name, StartTime startTime, EndTime endTime, Deadline deadline, UniqueTagList tags, Status status, Recurring recurring) {
+        assert !CollectionUtil.isAnyNull(name, startTime, endTime, deadline, tags, recurring);
         this.name = name;
         this.startTime = startTime;
         this.endTime = endTime;
         this.deadline = deadline;
         this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
         this.status = status;
+        this.recurring = recurring;
     }
 
     /**
      * Copy constructor.
      */
     public Task(ReadOnlyTask source) {
-        this(source.getName(), source.getStartTime(), source.getEndTime(), source.getDeadline(), source.getTags(), source.getStatus());
+        this(source.getName(), source.getStartTime(), source.getEndTime(), source.getDeadline(), source.getTags(), source.getStatus(), source.getRecurring());
     }
 
     @Override
@@ -69,6 +70,13 @@ public class Task implements ReadOnlyTask {
     public Status getStatus() {
         return status;
     }
+    
+    // @@author A0147944U
+    @Override
+    public Recurring getRecurring() {
+        return recurring;
+    }
+    // @@author
 
     /**
      * Replaces this task tags with the tags in the argument tag list.
@@ -87,7 +95,7 @@ public class Task implements ReadOnlyTask {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, startTime, endTime, deadline, tags, status);
+        return Objects.hash(name, startTime, endTime, deadline, tags, status, recurring);
     }
 
     @Override

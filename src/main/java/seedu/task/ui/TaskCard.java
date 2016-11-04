@@ -1,16 +1,9 @@
 package seedu.task.ui;
 
-import java.util.logging.Logger;
-
-import javafx.animation.PauseTransition;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
-import javafx.util.Duration;
-import seedu.task.commons.core.LogsCenter;
 import seedu.task.model.task.ReadOnlyTask;
 
 //@@author A0147335E-reused
