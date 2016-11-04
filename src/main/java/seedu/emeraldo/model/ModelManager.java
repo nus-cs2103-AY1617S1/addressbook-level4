@@ -173,7 +173,7 @@ public class ModelManager extends ComponentManager implements Model {
     
     //@@author A0139749L
     private void updateFilteredTaskListWhenCompletedIsUsed(){
-    	if(keywords.equals("show all")){
+    	if(keywords == null || keywords.equals("show all")){
     		updateFilteredListToShowAll();
     	}else if(keywords.equals("show uncompleted")){
     		updateFilteredTaskListWithCompletedInPast10Seconds();
