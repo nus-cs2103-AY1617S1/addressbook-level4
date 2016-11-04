@@ -17,13 +17,13 @@ public class DoneCommandTest extends LogicTestManager{
     // TODO CHECK IF CORRECT EXECUTION
     
     @Test
-    public void execute_doneInvalidArgsFormat_errorMessageShown() throws Exception {
+    public void doneCommand_doneInvalidArgsFormat_errorMessageShown() throws Exception {
         String expectedMessage = Messages.getInvalidCommandFormatMessage(DoneCommand.MESSAGE_USAGE);
         assertIncorrectIndexFormatBehaviorForCommand("done", expectedMessage);
     }
     
     @Test
-    public void execute_doneIndexNotFound_errorMessageShown() throws Exception {
+    public void doneCommand_doneIndexNotFound_errorMessageShown() throws Exception {
         assertIndexNotFoundBehaviorForCommand("done");
     }
     

@@ -24,12 +24,12 @@ public class TaskTest {
     }
 
     @Test
-    public void task_sortsByDate() {
+    public void taskComparing_task_sortsByDate() {
         assertTrue(taskDate0.compareTo(taskDate1) < 0);
     }
 
     @Test
-    public void task_sortsByName() {
+    public void taskComparing_task_sortsByName() {
         assertTrue(taskNameA.compareTo(taskNameB) < 0);
     }
 }

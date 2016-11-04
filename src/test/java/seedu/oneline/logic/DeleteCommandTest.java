@@ -17,18 +17,18 @@ import seedu.oneline.model.task.Task;
 public class DeleteCommandTest extends LogicTestManager {
 
     @Test
-    public void execute_deleteInvalidArgsFormat_errorMessageShown() throws Exception {
+    public void deleteCommand_deleteInvalidArgsFormat_errorMessageShown() throws Exception {
         String expectedMessage = Messages.getInvalidCommandFormatMessage(DeleteCommand.MESSAGE_USAGE);
         assertIncorrectIndexFormatBehaviorForCommand("del", expectedMessage);
     }
 
     @Test
-    public void execute_deleteIndexNotFound_errorMessageShown() throws Exception {
+    public void deleteCommand_deleteIndexNotFound_errorMessageShown() throws Exception {
         assertIndexNotFoundBehaviorForCommand("del");
     }
 
     @Test
-    public void execute_delete_removesCorrectTask() throws Exception {
+    public void deleteCommand_delete_removesCorrectTask() throws Exception {
         TestDataHelper helper = new TestDataHelper();
         List<Task> threeTasks = helper.generateTaskList(3);
 

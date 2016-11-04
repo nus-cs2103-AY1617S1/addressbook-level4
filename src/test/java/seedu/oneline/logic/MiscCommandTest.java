@@ -16,31 +16,31 @@ import static seedu.oneline.commons.core.Messages.*;
 public class MiscCommandTest extends LogicTestManager {
     
     @Test
-    public void execute_invalid() throws Exception {
+    public void parseCommand_invalidCommand_invalidFormatMessage() throws Exception {
         String invalidCommand = "       ";
         assertCommandBehavior(invalidCommand,
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
     }
 
     @Test
-    public void execute_unknownCommandWord() throws Exception {
+    public void parseCommand_unknownCommand_unknownMessage() throws Exception {
         String unknownCommand = "uicfhmowqewca";
         assertCommandBehavior(unknownCommand, MESSAGE_UNKNOWN_COMMAND);
     }
 
     @Test
-    public void execute_help() throws Exception {
+    public void helpCommand_help_helpShown() throws Exception {
         assertCommandBehavior("help", HelpCommand.SHOWING_HELP_MESSAGE);
         assertTrue(helpShown);
     }
 
     @Test
-    public void execute_exit() throws Exception {
+    public void exitCommand_exit_programExit() throws Exception {
         assertCommandBehavior("exit", ExitCommand.MESSAGE_EXIT_ACKNOWLEDGEMENT);
     }
 
     @Test
-    public void execute_clear() throws Exception {
+    public void clearCommand_clear_tasksCleared() throws Exception {
         TestDataHelper helper = new TestDataHelper();
         model.addTask(helper.generateTask(1));
         model.addTask(helper.generateTask(2));
@@ -51,7 +51,7 @@ public class MiscCommandTest extends LogicTestManager {
 
  
     @Test
-    public void execute_list_showsAllTasks() throws Exception {
+    public void listCommand_list_showsAllTasks() throws Exception {
         TestDataHelper helper = new TestDataHelper();
         TaskBook expectedTB = helper.generateTaskBook(2);
         List<? extends ReadOnlyTask> expectedList = expectedTB.getTaskList();
@@ -66,18 +66,18 @@ public class MiscCommandTest extends LogicTestManager {
     }
 
     @Test
-    public void execute_selectInvalidArgsFormat_errorMessageShown() throws Exception {
+    public void selectCommand_invalidArgsFormat_errorMessageShown() throws Exception {
         String expectedMessage = Messages.getInvalidCommandFormatMessage(SelectCommand.MESSAGE_USAGE);
         assertIncorrectIndexFormatBehaviorForCommand("select", expectedMessage);
     }
 
     @Test
-    public void execute_selectIndexNotFound_errorMessageShown() throws Exception {
+    public void sellectCommand_invalidIndex_errorMessageShown() throws Exception {
         assertIndexNotFoundBehaviorForCommand("select");
     }
 
     @Test
-    public void execute_select_jumpsToCorrectTask() throws Exception {
+    public void selectCommand_validIndex_jumpsToCorrectTask() throws Exception {
         TestDataHelper helper = new TestDataHelper();
         List<Task> threeTasks = helper.generateTaskList(3);
 
@@ -93,7 +93,7 @@ public class MiscCommandTest extends LogicTestManager {
     }
     
     @Test
-    public void execute_undo_redo() throws Exception {
+    public void undoCommandRedoCommand_undoRedo_changesMade() throws Exception {
         TestDataHelper helper = new TestDataHelper();
         Task task1 = helper.generateTaskWithName("Simple task");
         Task task2 = helper.generateTaskWithName("Harder task");
@@ -123,7 +123,6 @@ public class MiscCommandTest extends LogicTestManager {
         assertCommandBehavior(FindCommand.COMMAND_WORD + " harder", FindCommand.getMessageForTaskListShownSummary(1), expectedTaskBook4, Arrays.asList(task2));
         assertCommandBehavior("undo", UndoCommand.MESSAGE_UNDO_SUCCESS, expectedTaskBook4, Arrays.asList(task4, task2, task1));
         assertCommandBehavior(RedoCommand.COMMAND_WORD, RedoCommand.MESSAGE_REDO_SUCCESS, expectedTaskBook4, Arrays.asList(task2));
-        
         
     }
 }

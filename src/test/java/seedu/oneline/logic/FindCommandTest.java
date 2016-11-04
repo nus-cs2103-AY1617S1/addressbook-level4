@@ -14,13 +14,13 @@ import seedu.oneline.model.task.Task;
 public class FindCommandTest extends LogicTestManager {
     
     @Test
-    public void execute_find_invalidArgsFormat() throws Exception {
+    public void findCommand_noArgs_invalidArgsFormat() throws Exception {
         String expectedMessage = Messages.getInvalidCommandFormatMessage(FindCommand.MESSAGE_USAGE);
         assertCommandBehavior("find ", expectedMessage);
     }
 
     @Test
-    public void execute_find_onlyMatchesFullWordsInNames() throws Exception {
+    public void findCommand_find_onlyMatchesFullWordsInNames() throws Exception {
         TestDataHelper helper = new TestDataHelper();
         Task pTarget1 = helper.generateTaskWithName("bla bla KEY bla");
         Task pTarget2 = helper.generateTaskWithName("bla KEY bla bceofeia");
@@ -40,7 +40,7 @@ public class FindCommandTest extends LogicTestManager {
     }
 
     @Test
-    public void execute_find_isNotCaseSensitive() throws Exception {
+    public void findCommand_find_matchesCaseInsensitive() throws Exception {
         TestDataHelper helper = new TestDataHelper();
         Task p1 = helper.generateTaskWithName("bla bla KEY bla");
         Task p2 = helper.generateTaskWithName("bla KEY bla bceofeia");
@@ -60,7 +60,7 @@ public class FindCommandTest extends LogicTestManager {
     }
 
     @Test
-    public void execute_find_matchesIfAnyKeywordPresent() throws Exception {
+    public void findCommand_find_matchesIfAnyKeywordPresent() throws Exception {
         TestDataHelper helper = new TestDataHelper();
         Task pTarget1 = helper.generateTaskWithName("bla bla KEY bla");
         Task pTarget2 = helper.generateTaskWithName("bla rAnDoM bla bceofeia");
