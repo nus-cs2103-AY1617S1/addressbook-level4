@@ -14,6 +14,7 @@ public class TestTask implements ReadOnlyTask {
     private StartTime startTime;
     private UniqueTagList tags;
     private Status status;
+    private Recurring recurring;
 
     public TestTask() {
         tags = new UniqueTagList();
@@ -37,6 +38,10 @@ public class TestTask implements ReadOnlyTask {
     
     public void setStatus(Status status) {
         this.status = status;
+    }
+    
+    public void setRecurring(Recurring recurring) {
+        this.recurring = recurring;
     }
 
     @Override
@@ -67,6 +72,11 @@ public class TestTask implements ReadOnlyTask {
     @Override
     public Status getStatus() {
         return status;
+    }
+    
+    @Override
+    public Recurring getRecurring() {
+        return recurring;
     }
 
     @Override

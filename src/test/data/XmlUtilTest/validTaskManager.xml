@@ -8,6 +8,7 @@
         <doneStatus>false</doneStatus>
         <overdueStatus>false</overdueStatus>
         <favoriteStatus>false</favoriteStatus>
+        <recurring>false</recurring>
     </tasks>
     <tasks>
         <name>Play soccer</name>
@@ -17,6 +18,7 @@
         <doneStatus>false</doneStatus>
         <overdueStatus>false</overdueStatus>
         <favoriteStatus>false</favoriteStatus>
+        <recurring>false</recurring>
     </tasks>
     <tasks>
         <name>Train for IPPT</name>
@@ -26,6 +28,8 @@
         <doneStatus>false</doneStatus>
         <overdueStatus>false</overdueStatus>
         <favoriteStatus>false</favoriteStatus>
+        <recurring>false</recurring>
+
     </tasks>
     <tasks>
         <name>Buy pizza</name>
@@ -35,6 +39,7 @@
         <doneStatus>false</doneStatus>
         <overdueStatus>false</overdueStatus>
         <favoriteStatus>false</favoriteStatus>
+        <recurring>false</recurring>
     </tasks>
     
     

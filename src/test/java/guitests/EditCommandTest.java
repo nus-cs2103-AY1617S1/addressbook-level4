@@ -6,7 +6,6 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 import seedu.task.testutil.TestTask;
-import seedu.task.testutil.TestUtil;
 import seedu.task.testutil.TypicalTestTasks;
 
 public class EditCommandTest extends TaskManagerGuiTest {

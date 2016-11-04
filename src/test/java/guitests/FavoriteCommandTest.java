@@ -5,11 +5,7 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import guitests.guihandles.TaskCardHandle;
-import seedu.task.commons.core.Messages;
-import seedu.task.logic.commands.UndoCommand;
 import seedu.task.testutil.TestTask;
-import seedu.task.testutil.TestUtil;
 
 public class FavoriteCommandTest extends TaskManagerGuiTest {
     @Test

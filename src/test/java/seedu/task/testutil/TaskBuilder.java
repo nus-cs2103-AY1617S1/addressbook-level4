@@ -46,6 +46,11 @@ public class TaskBuilder {
         this.task.setStatus(new Status(isDone, isOverdue, isNewlyAdded));
         return this;
     }
+    
+    public TaskBuilder withRecurring(String recurring) throws IllegalValueException {
+        this.task.setRecurring(new Recurring(recurring));
+        return this;
+    }
 
     public TestTask build() {
         return this.task;

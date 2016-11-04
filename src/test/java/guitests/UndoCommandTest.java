@@ -1,14 +1,11 @@
 //@@author A0147335E
 package guitests;
 
-import guitests.guihandles.TaskCardHandle;
 import org.junit.Test;
 
 import seedu.task.commons.core.Messages;
 import seedu.task.logic.commands.UndoCommand;
 import seedu.task.testutil.TestTask;
-import seedu.task.testutil.*;
-
 import static org.junit.Assert.assertTrue;
 
 public class UndoCommandTest extends TaskManagerGuiTest {

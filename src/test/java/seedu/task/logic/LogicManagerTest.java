@@ -400,7 +400,8 @@ public class LogicManagerTest {
             Tag tag1 = new Tag("tag1");
             Tag tag2 = new Tag("tag2");
             UniqueTagList tags = new UniqueTagList(tag1, tag2);
-            return new Task(name, startTime, endTime, location, tags, new Status());
+            Recurring recurring = new Recurring("false");
+            return new Task(name, startTime, endTime, location, tags, new Status(), recurring);
         }
 
         /**
@@ -417,7 +418,8 @@ public class LogicManagerTest {
                     new EndTime("2016-11-26 11:" + seed + "1"),
                     new Deadline("2016-11-26 12:" + seed + "2"),
                     new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1))),
-                    new Status()
+                    new Status(),
+                    new Recurring("false")
             );
         }
 
@@ -519,7 +521,8 @@ public class LogicManagerTest {
                     new EndTime("2016-11-26 12:44"),
                     new Deadline("2016-11-26 12:40"),
                     new UniqueTagList(new Tag("tag")),
-                    new Status()
+                    new Status(),
+                    new Recurring("false")
             );
         }
       //@@author
