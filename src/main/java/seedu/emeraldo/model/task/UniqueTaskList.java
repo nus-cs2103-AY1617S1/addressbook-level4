@@ -6,6 +6,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.emeraldo.commons.exceptions.DuplicateDataException;
 import seedu.emeraldo.commons.exceptions.IllegalValueException;
+import seedu.emeraldo.commons.exceptions.TagListEmptyException;
 import seedu.emeraldo.commons.exceptions.TaskAlreadyCompletedException;
 import seedu.emeraldo.commons.util.CollectionUtil;
 
@@ -107,6 +108,11 @@ public class UniqueTaskList implements Iterable<Task> {
     }
     //@@author
     
+    /**
+     * Adds the new tag to the equivalent task from the list.
+     *
+     * @throws IllegalValueException if no such task could be found in the list.
+     */
     public void addTag(Task toEditTagTask, Tag tag) throws IllegalValueException {
         toEditTagTask.setTags(new UniqueTagList(tag));
         int mainListIndex = internalList.indexOf(toEditTagTask);
@@ -114,13 +120,24 @@ public class UniqueTaskList implements Iterable<Task> {
     }
     
     public void deleteTag(Task toEditTagTask, Tag tag) throws IllegalValueException {
-    
-    }
-    
-    public void clearTag(Task toEditTagTask) throws IllegalValueException {
+        UniqueTagList tagList = new UniqueTagList(tag);
+        if (toEditTagTask.getTags().contains(tag)){
+            toEditTagTask.getTags().delete(tag);
+        }
         
+        int mainListIndex = internalList.indexOf(toEditTagTask);
+        internalList.set(mainListIndex, toEditTagTask);
     }
     
+    public void clearTag(Task toEditTagTask) throws IllegalValueException, TagListEmptyException {
+        if (toEditTagTask.getTags().getInternalList().isEmpty()){
+            throw new TagListEmptyException();
+        }
+        else {
+            toEditTagTask.getTags().getInternalList().clear();
+        }
+    }
+
     public ObservableList<Task> getInternalList() {
         return internalList;
     }

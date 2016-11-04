@@ -16,6 +16,7 @@ import seedu.emeraldo.commons.core.UnmodifiableObservableList;
 import seedu.emeraldo.commons.events.model.EmeraldoChangedEvent;
 import seedu.emeraldo.commons.exceptions.IllegalValueException;
 import seedu.emeraldo.commons.exceptions.QualifierLogicalOperatorMismatch;
+import seedu.emeraldo.commons.exceptions.TagListEmptyException;
 import seedu.emeraldo.commons.exceptions.TaskAlreadyCompletedException;
 import seedu.emeraldo.commons.util.StringUtil;
 import seedu.emeraldo.logic.commands.ListCommand.TimePeriod;
@@ -189,7 +190,7 @@ public class ModelManager extends ComponentManager implements Model {
         indicateEmeraldoChanged();
     }
     
-    public synchronized void clearTag(Task target){
+    public synchronized void clearTag(Task target) throws TagListEmptyException {
         try {
             emeraldo.taskClearTag(target);
         } catch (IllegalValueException e) {

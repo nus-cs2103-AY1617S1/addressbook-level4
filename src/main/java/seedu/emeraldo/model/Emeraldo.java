@@ -2,6 +2,7 @@ package seedu.emeraldo.model;
 
 import javafx.collections.ObservableList;
 import seedu.emeraldo.commons.exceptions.IllegalValueException;
+import seedu.emeraldo.commons.exceptions.TagListEmptyException;
 import seedu.emeraldo.commons.exceptions.TaskAlreadyCompletedException;
 import seedu.emeraldo.model.tag.Tag;
 import seedu.emeraldo.model.tag.UniqueTagList;
@@ -135,7 +136,7 @@ public class Emeraldo implements ReadOnlyEmeraldo {
         tasks.deleteTag(task, tag);
     }
     
-    public void taskClearTag(Task task) throws IllegalValueException {
+    public void taskClearTag(Task task) throws IllegalValueException, TagListEmptyException {
         tasks.clearTag(task);
     }
     

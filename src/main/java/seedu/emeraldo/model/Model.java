@@ -1,6 +1,7 @@
 package seedu.emeraldo.model;
 
 import seedu.emeraldo.commons.core.UnmodifiableObservableList;
+import seedu.emeraldo.commons.exceptions.TagListEmptyException;
 import seedu.emeraldo.commons.exceptions.TaskAlreadyCompletedException;
 import seedu.emeraldo.logic.commands.ListCommand.Completed;
 import seedu.emeraldo.logic.commands.ListCommand.TimePeriod;
@@ -52,11 +53,14 @@ public interface Model {
     /** Adds the given task */
     void addTask(Task task) throws UniqueTaskList.DuplicateTaskException;
     
+    /** Adds the tag to the specified task */
     void addTag(Task taskTagToEdit, Tag tag);
     
+    /** Deletes the tag from the specified task */
     void deleteTag(Task taskTagToEdit, Tag tag);
 
-    void clearTag(Task taskTagToEdit);
+    /** Clears all tags from the specified task */
+    void clearTag(Task taskTagToEdit) throws TagListEmptyException;
 
     /** Returns the filtered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
     UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList();

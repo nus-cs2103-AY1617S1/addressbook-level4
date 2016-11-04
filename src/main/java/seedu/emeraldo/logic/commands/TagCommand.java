@@ -8,6 +8,7 @@ import java.util.Set;
 import seedu.emeraldo.commons.core.Messages;
 import seedu.emeraldo.commons.core.UnmodifiableObservableList;
 import seedu.emeraldo.commons.exceptions.IllegalValueException;
+import seedu.emeraldo.commons.exceptions.TagListEmptyException;
 import seedu.emeraldo.model.tag.Tag;
 import seedu.emeraldo.model.tag.UniqueTagList;
 import seedu.emeraldo.model.task.ReadOnlyTask;
@@ -24,7 +25,8 @@ public class TagCommand extends Command {
             + "Parameters: add/delete/clear INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " add" + " 1" + " #friends";
     
-    public static final String MESSAGE_TAG_EDIT_SUCCESS = "Edited task: %1$s";    
+    public static final String MESSAGE_TAG_EDIT_SUCCESS = "Edited task: %1$s";
+    private static final String MESSAGE_TAG_LIST_EMPTY = "Tags are empty!";    
     
     private String action;
     private int targetIndex;
@@ -32,9 +34,9 @@ public class TagCommand extends Command {
     
     
     public TagCommand(String action, String targetIndex, String tag) throws IllegalValueException {
-        this.action = action;
+        this.action = action.trim();
         this.targetIndex = Integer.parseInt(targetIndex);
-        this.tag = new Tag(tag);
+        this.tag = new Tag(tag.replaceFirst(" #", ""));
     }
     
     @Override
@@ -56,7 +58,11 @@ public class TagCommand extends Command {
             model.deleteTag(taskTagToEdit, tag);
         }
         else if (action.equalsIgnoreCase("clear")){
-            model.clearTag(taskTagToEdit);
+            try{
+                model.clearTag(taskTagToEdit);
+            } catch (TagListEmptyException tlee) {
+                return new CommandResult(MESSAGE_TAG_LIST_EMPTY);
+            }
         }
         else{
             return new CommandResult(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, TagCommand.MESSAGE_USAGE));
