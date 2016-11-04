@@ -180,7 +180,7 @@ public class CommandParser {
     	if (arguments.trim().equals("all")) {
     		return new ViewCommand("all"); // view all command
     	}
-		String[] details = extractTaskDetailsNatty(arguments);
+		String[] details = extractTaskDetailsUsingNatty(arguments);
 		if (details.length!= 3) { // no date was successfully extracted
 			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
 			        Command.MESSAGE_FORMAT + ViewCommand.MESSAGE_PARAMETER));
@@ -210,7 +210,7 @@ public class CommandParser {
             String tagArguments = getTagArguments(arguments);
             
             return new AddCommand(
-                    extractTaskDetailsNatty(taskDetailArguments),
+                    extractTaskDetailsUsingNatty(taskDetailArguments),
                     getTagsFromArgs(tagArguments),
                     args);
         } catch (IllegalValueException ive) {
@@ -252,7 +252,7 @@ public class CommandParser {
      * 
      * @param dataArguments command args string with only name, date, time arguments
      */
-    private String[] extractTaskDetailsNatty(String dataArguments) {
+    private String[] extractTaskDetailsUsingNatty(String dataArguments) {
         String nattyDataArguments = convertToNattyDateFormat(dataArguments);
         ArrayList<String> details = new ArrayList<String>();
         int nameEndIndex = nattyDataArguments.length();
@@ -544,7 +544,7 @@ public class CommandParser {
             String tagArguments = getTagArguments(arguments);
 
             return new EditCommand(
-                    extractTaskDetailsNatty(taskDetailArguments),
+                    extractTaskDetailsUsingNatty(taskDetailArguments),
                     getTagsFromArgs(tagArguments),
                     categoryAndIndexPair.getValue(),
                     categoryAndIndexPair.getKey(),
