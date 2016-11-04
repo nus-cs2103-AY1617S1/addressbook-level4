@@ -31,7 +31,7 @@
       </MenuBar>
       <SplitPane id="splitPane" fx:id="splitPane" dividerPositions="0.4" VBox.vgrow="ALWAYS">
          <items>
-            <AnchorPane fx:id="filterPlaceholder" maxWidth="420.0" prefWidth="370.0">
+            <AnchorPane fx:id="filterPlaceholder" maxWidth="370.0" prefWidth="370.0">
                 <padding>
                     <Insets bottom="10" left="10" right="10" top="10" />
                 </padding>

@@ -28,8 +28,8 @@
       <RowConstraints maxHeight="50.0" minHeight="25.0" prefHeight="25.0" />
    </rowConstraints>
    <columnConstraints>
-      <ColumnConstraints maxWidth="210.0" minWidth="80.0" prefWidth="185.0" />
-      <ColumnConstraints maxWidth="210.0" minWidth="80.0" prefWidth="185.0" />
+      <ColumnConstraints maxWidth="185.0" minWidth="80.0" prefWidth="185.0" />
+      <ColumnConstraints maxWidth="185.0" minWidth="80.0" prefWidth="185.0" />
    </columnConstraints>
    <children>
       <ToggleButton fx:id="eventsToggleButton" mnemonicParsing="false" onAction="#handleFilterChanged" prefWidth="97.0" text="Events">

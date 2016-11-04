@@ -38,9 +38,8 @@ public class TaskCardHandle extends GuiHandle {
         return getTextFromLabel(RECURRING_FREQUENCY_FIELD_ID);
     }
     
-    // Temporary design
     public boolean isDone() {
-        return getTextFromLabel(DONE_FIELD_ID).equals("done");
+        return getTextFromLabel(DONE_FIELD_ID).equals("DONE");
     }
     
     public boolean isRecurring(){
