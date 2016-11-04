@@ -4,6 +4,8 @@ import java.io.IOException;
 import org.apache.commons.io.FilenameUtils;
 
 import javax.swing.JFileChooser;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 // @@author A0147944U
@@ -20,7 +22,14 @@ public class FilePickerUtil {
      *             if there was an error during reading the file
      */
     public static String openXMLFile() {
+        try {
+            UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException
+                | UnsupportedLookAndFeelException e1) {
+            e1.printStackTrace();
+        }
         JFileChooser chooser = new JFileChooser(".");
+        chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
         FileNameExtensionFilter filter = new FileNameExtensionFilter("XML files", "xml");
         chooser.setFileFilter(filter);
         int returnVal = chooser.showOpenDialog(null);
@@ -43,7 +52,14 @@ public class FilePickerUtil {
      *             if there was an error during reading the file
      */
     public static String saveXMLFile() {
+        try {
+            UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException
+                | UnsupportedLookAndFeelException e1) {
+            e1.printStackTrace();
+        }
         JFileChooser chooser = new JFileChooser(".");
+        chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
         FileNameExtensionFilter filter = new FileNameExtensionFilter("XML files", "xml");
         chooser.setFileFilter(filter);
         int returnVal = chooser.showSaveDialog(null);

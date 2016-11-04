@@ -142,7 +142,8 @@ public class TaskCardHandle extends GuiHandle {
             Tag tag1 = new Tag("tag1");
             Tag tag2 = new Tag("tag2");
             UniqueTagList tags = new UniqueTagList(tag1, tag2);
-            return new Task(name, startTime, endTime, location, tags, new Status());
+            Recurring recurring = new Recurring("false");
+            return new Task(name, startTime, endTime, location, tags, new Status(), recurring);
         }
 
         /**
@@ -159,7 +160,8 @@ public class TaskCardHandle extends GuiHandle {
                     new EndTime("2016-11-26 11:" + seed + "1"),
                     new Deadline("2016-11-26 12:" + seed + "2"),
                     new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1))),
-                    new Status()
+                    new Status(),
+                    new Recurring("false")
             );
         }
 
@@ -191,7 +193,8 @@ public class TaskCardHandle extends GuiHandle {
                     new EndTime("2016-11-26 12:44"),
                     new Deadline("2016-11-26 12:40"),
                     new UniqueTagList(new Tag("tag")),
-                    new Status()
+                    new Status(),
+                    new Recurring("false")
             );
         }
 ```
@@ -200,15 +203,15 @@ public class TaskCardHandle extends GuiHandle {
     private static Task[] getSampleTaskData() {
         try {
             return new Task[]{
-                    new Task(new Name("Accompany mom to the doctor"), new StartTime("2016-11-01 21:55"), new EndTime("2016-11-01 21:55"), new Deadline("2016-11-01 21:55"), new UniqueTagList(), new Status()),
-                    new Task(new Name("Borrow software engineering book"), new StartTime("2016-11-01 21:55"), new EndTime("2016-11-01 21:55"), new Deadline("2016-11-01 21:55"), new UniqueTagList(), new Status()),
-                    new Task(new Name("Call Jim"), new StartTime("2016-11-01 21:55"), new EndTime("2016-11-01 21:55"), new Deadline("2016-11-01 21:55"), new UniqueTagList(), new Status()),
-                    new Task(new Name("Do homework"), new StartTime("2016-11-01 21:55"), new EndTime("2016-11-01 21:55"), new Deadline("2016-11-01 21:55"), new UniqueTagList(), new Status()),
-                    new Task(new Name("Edit AddressBook file"), new StartTime("2016-11-01 21:55"), new EndTime("2016-11-01 21:55"), new Deadline("2016-11-01 21:55"), new UniqueTagList(), new Status()),
-                    new Task(new Name("Finish up the project"), new StartTime("2016-11-01 21:55"), new EndTime("2016-11-01 21:55"), new Deadline("2016-11-01 21:55"), new UniqueTagList(), new Status()),
-                    new Task(new Name("Go for a jog"), new StartTime("2016-11-01 21:55"), new EndTime("2016-11-01 21:55"), new Deadline("2016-11-01 21:55"), new UniqueTagList(), new Status()),
-                    new Task(new Name("Help Jim with his task"), new StartTime("2016-11-01 21:55"), new EndTime("2016-11-01 21:55"), new Deadline("2016-11-01 21:55"), new UniqueTagList(), new Status()),
-                    new Task(new Name("Iron new clothes"), new StartTime("2016-11-01 21:55"), new EndTime("2016-11-01 21:55"), new Deadline("2016-11-01 21:55"), new UniqueTagList(), new Status())
+                    new Task(new Name("Accompany mom to the doctor"), new StartTime("2016-11-01 21:55"), new EndTime("2016-11-01 21:55"), new Deadline("2016-11-01 21:55"), new UniqueTagList(), new Status(), new Recurring("false")),
+                    new Task(new Name("Borrow software engineering book"), new StartTime("2016-11-01 21:55"), new EndTime("2016-11-01 21:55"), new Deadline("2016-11-01 21:55"), new UniqueTagList(), new Status(), new Recurring("false")),
+                    new Task(new Name("Call Jim"), new StartTime("2016-11-01 21:55"), new EndTime("2016-11-01 21:55"), new Deadline("2016-11-01 21:55"), new UniqueTagList(), new Status(), new Recurring("false")),
+                    new Task(new Name("Do homework"), new StartTime("2016-11-01 21:55"), new EndTime("2016-11-01 21:55"), new Deadline("2016-11-01 21:55"), new UniqueTagList(), new Status(), new Recurring("false")),
+                    new Task(new Name("Edit AddressBook file"), new StartTime("2016-11-01 21:55"), new EndTime("2016-11-01 21:55"), new Deadline("2016-11-01 21:55"), new UniqueTagList(), new Status(), new Recurring("false")),
+                    new Task(new Name("Finish up the project"), new StartTime("2016-11-01 21:55"), new EndTime("2016-11-01 21:55"), new Deadline("2016-11-01 21:55"), new UniqueTagList(), new Status(), new Recurring("false")),
+                    new Task(new Name("Go for a jog"), new StartTime("2016-11-01 21:55"), new EndTime("2016-11-01 21:55"), new Deadline("2016-11-01 21:55"), new UniqueTagList(), new Status(), new Recurring("false")),
+                    new Task(new Name("Help Jim with his task"), new StartTime("2016-11-01 21:55"), new EndTime("2016-11-01 21:55"), new Deadline("2016-11-01 21:55"), new UniqueTagList(), new Status(), new Recurring("false")),
+                    new Task(new Name("Iron new clothes"), new StartTime("2016-11-01 21:55"), new EndTime("2016-11-01 21:55"), new Deadline("2016-11-01 21:55"), new UniqueTagList(), new Status(), new Recurring("false"))
             };
           
             
@@ -224,20 +227,20 @@ public class TaskCardHandle extends GuiHandle {
 ``` java
         try {
             taskA =  new TaskBuilder().withName("Accompany mom to the doctor").withStartTime("2016-10-26 14:00").withEndTime("2016-10-26 17:00")
-            		.withDeadline("").withTags("gwsMum").withStatus(false, false, false).build();
+            		.withDeadline("").withTags("gwsMum").withStatus(false, false, false).withRecurring("false").build();
             taskB = new TaskBuilder().withName("Borrow software engineering book").withDeadline("2016-10-27 16:00")
                     .withEndTime("2016-10-26 16:00").withStartTime("2016-10-25 03:00")
-                    .withTags("study", "seRocks").withStatus(false, false, false).build();
-            taskC = new TaskBuilder().withName("Call Jim").withStartTime("2016-10-25 04:00").withEndTime("2016-10-26 15:00").withDeadline("2016-10-27 17:00").withStatus(false, false, false).build();
-            taskD = new TaskBuilder().withName("Do homework").withStartTime("2016-10-25 05:00").withEndTime("2016-10-26 14:00").withDeadline("2016-10-27 18:00").withStatus(false, false, false).build();
-            taskE = new TaskBuilder().withName("Edit AddressBook file").withStartTime("2016-10-25 06:00").withEndTime("2016-10-26 13:49").withDeadline("2016-10-27 19:00").withStatus(false, false, false).build();
-            taskF = new TaskBuilder().withName("Finish up the project").withStartTime("2016-10-25 07:00").withEndTime("2016-10-26 13:23").withDeadline("2016-10-27 20:00").withStatus(false, false, false).build();
-            taskG = new TaskBuilder().withName("Go for a jog").withStartTime("2016-10-25 08:00").withEndTime("2016-10-26 12:00").withDeadline("2016-10-27 20:59").withStatus(false, false, false).build();
-            taskH = new TaskBuilder().withName("Help Jim with his task").withStartTime("2016-10-25 09:00").withEndTime("").withDeadline("").withStatus(false, false, false).build();
-            taskI = new TaskBuilder().withName("Iron new clothes").withStartTime("").withEndTime("").withDeadline("2016-10-27 22:00").withStatus(false, false, false).build();
+                    .withTags("study", "seRocks").withStatus(false, false, false).withRecurring("false").build();
+            taskC = new TaskBuilder().withName("Call Jim").withStartTime("2016-10-25 04:00").withEndTime("2016-10-26 15:00").withDeadline("2016-10-27 17:00").withStatus(false, false, false).withRecurring("false").build();
+            taskD = new TaskBuilder().withName("Do homework").withStartTime("2016-10-25 05:00").withEndTime("2016-10-26 14:00").withDeadline("2016-10-27 18:00").withStatus(false, false, false).withRecurring("false").build();
+            taskE = new TaskBuilder().withName("Edit AddressBook file").withStartTime("2016-10-25 06:00").withEndTime("2016-10-26 13:49").withDeadline("2016-10-27 19:00").withStatus(false, false, false).withRecurring("false").build();
+            taskF = new TaskBuilder().withName("Finish up the project").withStartTime("2016-10-25 07:00").withEndTime("2016-10-26 13:23").withDeadline("2016-10-27 20:00").withStatus(false, false, false).withRecurring("false").build();
+            taskG = new TaskBuilder().withName("Go for a jog").withStartTime("2016-10-25 08:00").withEndTime("2016-10-26 12:00").withDeadline("2016-10-27 20:59").withStatus(false, false, false).withRecurring("false").build();
+            taskH = new TaskBuilder().withName("Help Jim with his task").withStartTime("2016-10-25 09:00").withEndTime("").withDeadline("").withStatus(false, false, false).withRecurring("false").build();
+            taskI = new TaskBuilder().withName("Iron new clothes").withStartTime("").withEndTime("").withDeadline("2016-10-27 22:00").withStatus(false, false, false).withRecurring("false").build();
             taskJ =  new TaskBuilder().withName("Accompany dad to the doctor").withStartTime("2016-10-26 14:00")
                     .withEndTime("2016-10-26 17:00").withDeadline("")
-                    .withTags("gwsDad").withStatus(false, false, false).build();
+                    .withTags("gwsDad").withStatus(false, false, false).withRecurring("false").build();
         } catch (IllegalValueException e) {
             e.printStackTrace();
             assert false : "not possible";

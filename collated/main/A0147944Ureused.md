@@ -1,4 +1,9 @@
 # A0147944Ureused
+###### \java\seedu\task\logic\commands\FavoriteCommand.java
+``` java
+        // Sorts updated list of tasks
+        model.autoSortBasedOnCurrentSortPreference();
+```
 ###### \java\seedu\task\logic\LogicManager.java
 ``` java
         if (command instanceof IncorrectCommand) {
@@ -24,4 +29,7 @@
             
         case SortCommand.COMMAND_WORD_ALT:
             return prepareBackup(arguments);
+
+        case RepeatCommand.COMMAND_WORD:
+            return prepareRepeat(arguments);
 ```
