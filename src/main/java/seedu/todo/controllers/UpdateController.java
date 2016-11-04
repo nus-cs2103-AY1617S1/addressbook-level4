@@ -43,6 +43,7 @@ public class UpdateController implements Controller {
     private static final String END_TIME_FIELD = "<end time>";
     private static final String DEADLINE_FIELD = "<deadline>";
     private static final String NAME_FIELD = "<name>";
+    private static final String INDEX_FIELD = "<index>";
     
     private static CommandDefinition commandDefinition =
             new CommandDefinition(NAME, DESCRIPTION, COMMAND_SYNTAX); 
@@ -81,19 +82,6 @@ public class UpdateController implements Controller {
         Map<String, String[]> parsedResult;
         parsedResult = Tokenizer.tokenize(getTokenDefinitions(), input);
         
-        // Record index
-        Integer recordIndex = parseIndex(parsedResult);
-        
-        // Retrieve record and check if task or event
-        EphemeralDB edb = EphemeralDB.getInstance();
-        CalendarItem calendarItem = null;
-        try {
-            calendarItem = edb.getCalendarItemsByDisplayedId(recordIndex);
-        } catch (NullPointerException e) {
-            System.out.println("Wrong index!");
-        }
-        boolean isTask = calendarItem.getClass() == Task.class;
-        
         // Name
         String name = parseName(parsedResult);
         
@@ -101,11 +89,13 @@ public class UpdateController implements Controller {
         String[] naturalDates = DateParser.extractDatePair(parsedResult);
         String naturalFrom = naturalDates[0];
         String naturalTo = naturalDates[1];
-
-        // Validate isTask, name and times.
-        if (!validateParams(isTask, name, naturalFrom, naturalTo)) {
-            renderDisambiguation(isTask, recordIndex, name, naturalFrom, naturalTo);
-            return;
+        
+        // Record index
+        Integer recordIndex = null;
+        try {
+            recordIndex = parseIndex(parsedResult);
+        } catch (NumberFormatException e) {
+            recordIndex = null; // Later then disambiguate
         }
         
         // Parse natural date using Natty.
@@ -115,7 +105,26 @@ public class UpdateController implements Controller {
             dateFrom = naturalFrom == null ? null : DateParser.parseNatural(naturalFrom);
             dateTo = naturalTo == null ? null : DateParser.parseNatural(naturalTo);
         } catch (InvalidNaturalDateException e) {
-            System.out.println("Disambiguate!");
+            renderDisambiguation(true, recordIndex, name, naturalFrom, naturalTo);
+            return;
+        }
+        
+        // Retrieve record and check if task or event
+        EphemeralDB edb = EphemeralDB.getInstance();
+        CalendarItem calendarItem = null;
+        boolean isTask;
+        try {
+            calendarItem = edb.getCalendarItemsByDisplayedId(recordIndex);
+            isTask = calendarItem.getClass() == Task.class;
+        } catch (NullPointerException e) {
+            // Assume task for disambiguation purposes since we can't tell
+            renderDisambiguation(true, recordIndex, name, naturalFrom, naturalTo);
+            return;
+        }
+        
+        // Validate isTask, name and times.
+        if (!validateParams(isTask, calendarItem, name, dateFrom, dateTo)) {
+            renderDisambiguation(isTask, (int) recordIndex, name, naturalFrom, naturalTo);
             return;
         }
         
@@ -199,8 +208,60 @@ public class UpdateController implements Controller {
         db.save();
     }
     
-    private boolean validateParams(boolean isTask, String name, String naturalFrom, String naturalTo) {
+    /**
+     * Validate that applying the update changes to the record will not result in an inconsistency.
+     * 
+     * <ul>
+     * <li>Fail if name is invalid</li>
+     * <li>Fail if no update changes</li>
+     * </ul>
+     * 
+     * Tasks:
+     * <ul>
+     * <li>Fail if task has a dateTo</li>
+     * </ul>
+     * 
+     * Events:
+     * <ul>
+     * <li>Fail if event does not have both dateFrom and dateTo</li>
+     * <li>Fail if event has a dateTo that is before dateFrom</li>
+     * </ul>
+     * 
+     * @param isTask
+     * @param name
+     * @param dateFrom
+     * @param dateTo
+     * @return
+     */
+    private boolean validateParams(boolean isTask, CalendarItem record, String name,
+            LocalDateTime dateFrom, LocalDateTime dateTo) {
         // TODO: Not enough sleep
+        // We really need proper ActiveRecord validation and rollback, sigh...
+        
+        if (name == null && dateFrom == null && dateTo == null) {
+            return false;
+        }
+        
+        if (isTask) {
+            // Fail if task has a dateTo
+            if (dateTo != null) {
+                return false;
+            }
+        } else {
+            Event event = (Event) record;
+            
+            // Take union of existing fields and update params
+            LocalDateTime newDateFrom = (dateFrom == null) ? event.getStartDate() : dateFrom;
+            LocalDateTime newDateTo = (dateTo == null) ? event.getEndDate() : dateTo;
+            
+            if (newDateFrom == null || newDateTo == null) {
+                return false;
+            }
+            
+            if (newDateTo.isBefore(newDateFrom)) {
+                return false;
+            }
+        }
         return true;
     }
     
@@ -212,19 +273,20 @@ public class UpdateController implements Controller {
      * @param naturalFrom
      * @param naturalTo
      */
-    private void renderDisambiguation(boolean isTask, int recordIndex, String name, String naturalFrom, String naturalTo) {
+    private void renderDisambiguation(boolean isTask, Integer recordIndex, String name, String naturalFrom, String naturalTo) {
         name = StringUtil.replaceEmpty(name, NAME_FIELD);
 
         String disambiguationString;
         String errorMessage = STRING_WHITESPACE; // TODO
+        String indexStr = (recordIndex == null) ? INDEX_FIELD : recordIndex.toString();
         
         if (isTask) {
             naturalFrom = StringUtil.replaceEmpty(naturalFrom, DEADLINE_FIELD);
-            disambiguationString = String.format(UPDATE_TASK_TEMPLATE, recordIndex, name, naturalFrom);
+            disambiguationString = String.format(UPDATE_TASK_TEMPLATE, indexStr, name, naturalFrom);
         } else {
             naturalFrom = StringUtil.replaceEmpty(naturalFrom, START_TIME_FIELD);
             naturalTo = StringUtil.replaceEmpty(naturalTo, END_TIME_FIELD);
-            disambiguationString = String.format(UPDATE_EVENT_TEMPLATE, recordIndex, name, naturalFrom, naturalTo);
+            disambiguationString = String.format(UPDATE_EVENT_TEMPLATE, indexStr, name, naturalFrom, naturalTo);
         }
         
         // Show an error in the console
