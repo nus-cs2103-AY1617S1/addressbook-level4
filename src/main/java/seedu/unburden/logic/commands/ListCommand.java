@@ -34,9 +34,10 @@ public class ListCommand extends Command {
 		this.startDate = null;
 		this.mode = "undone";
 	}
-	
+
 	/**
 	 * This constructor is used when listing done, undone or overdue
+	 * 
 	 * @param args
 	 */
 	public ListCommand(String args) {
@@ -44,9 +45,11 @@ public class ListCommand extends Command {
 		this.startDate = null;
 		this.mode = args;
 	}
-	
+
 	/**
-	 * This constructor is used when the listing all tasks within a start time and end time 
+	 * This constructor is used when the listing all tasks within a start time
+	 * and end time
+	 * 
 	 * @param startTime
 	 * @param endTime
 	 * @param mode
@@ -58,26 +61,31 @@ public class ListCommand extends Command {
 		this.startDate = dateFormatter.parse(startTime.trim());
 		this.mode = mode;
 	}
-	
+
 	/**
-	 * Returns true if the task's deadline falls within the start date and end date and is undone
+	 * Returns true if the task's deadline falls within the start date and end
+	 * date and is undone
+	 * 
 	 * @param startDate
 	 * @param endDate
-	 * @return true if the task meets the requirements specified, false otherwise
+	 * @return true if the task meets the requirements specified, false
+	 *         otherwise
 	 */
 	private java.util.function.Predicate<? super Task> getAllDatesBetween(Date startDate, Date endDate) {
 		return t -> {
 			try {
-				return (t.getDate().toDate().before(endDate) && t.getDate().toDate().after(startDate))
-						|| t.getDate().toDate().equals(startDate) || t.getDate().toDate().equals(endDate);
+				return (t.getDate().toDate().before(endDate) && t.getDate().toDate().after(startDate) && !t.getDone())
+						|| (t.getDate().toDate().equals(startDate) && !t.getDone())
+						|| (t.getDate().toDate().equals(endDate) && !t.getDone());
 			} catch (ParseException e) {
 				return false;
 			}
 		};
 	}
-	
+
 	/**
 	 * Returns true if the task is done
+	 * 
 	 * @return true if the task is done, false otherwise
 	 */
 	private java.util.function.Predicate<? super Task> getAllDone() {
@@ -85,9 +93,10 @@ public class ListCommand extends Command {
 			return t.getDone();
 		};
 	}
-	
+
 	/**
 	 * Returns true if the task is undone
+	 * 
 	 * @return true if the task is undone, false otherwise
 	 */
 	private java.util.function.Predicate<? super Task> getAllUndone() {
@@ -95,9 +104,10 @@ public class ListCommand extends Command {
 			return !t.getDone() && !t.getOverdue();
 		};
 	}
-	
+
 	/**
 	 * Returns true if the task is overdue
+	 * 
 	 * @return true if the task is overdue, false otherwise
 	 */
 	private java.util.function.Predicate<? super Task> getAllOverdue() {
@@ -124,7 +134,7 @@ public class ListCommand extends Command {
 		default:
 			model.updateFilteredTaskList(getAllDatesBetween(startDate, endDate));
 		}
-		
+
 		return new CommandResult(MESSAGE_SUCCESS);
 	}
 
