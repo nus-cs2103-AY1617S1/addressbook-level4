@@ -55,6 +55,7 @@ public interface Model {
     /** Adds the given task */
     void addTask(Task task) throws UniqueTaskList.DuplicateTaskException;
     
+    //@@author A0139196U
     /** Adds the tag to the specified task 
      * @throws TagExistException */
     void addTag(Task taskTagToEdit, Tag tag) throws TagExistException;
@@ -64,7 +65,8 @@ public interface Model {
 
     /** Clears all tags from the specified task */
     void clearTag(Task taskTagToEdit) throws TagListEmptyException;
-
+    //@@author
+    
     /** Returns the filtered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
     UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList();
 

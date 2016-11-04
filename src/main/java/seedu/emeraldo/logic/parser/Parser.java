@@ -122,46 +122,6 @@ public class Parser {
             return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
         }
     }
-    
-    //@@author A0139196U
-    /**
-     * Parses arguments in the context of the edit tag command.
-     *
-     * @param args full command args string
-     * @return the prepared command
-     */
-    private Command prepareTag(String args) {
-
-        final Matcher matcher = TASK_TAG_ARGS_FORMAT.matcher(args.trim());
-        
-        // Validate arg string format
-        if (!matcher.matches()) {
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, TagCommand.MESSAGE_USAGE));
-        }
-        
-        if (matcher.group("action").trim().equalsIgnoreCase("clear")){
-            try {
-                return new TagCommand(
-                        matcher.group("action"),
-                        matcher.group("targetIndex")
-                );
-            } catch (IllegalValueException ive) {
-                return new IncorrectCommand(ive.getMessage());
-            }
-        }
-        else {
-            try {
-                return new TagCommand(
-                        matcher.group("action"),
-                        matcher.group("targetIndex"),
-                        matcher.group("tag")
-                );
-            } catch (IllegalValueException ive) {
-                return new IncorrectCommand(ive.getMessage());
-            }
-        }
-        
-    }
 
     //@@author A0139342H
     /**
@@ -282,6 +242,51 @@ public class Parser {
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
         }        
+    }
+    
+    /**
+     * Parses arguments in the context of the edit tag command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     */
+    private Command prepareTag(String args) {
+
+        final Matcher matcher = TASK_TAG_ARGS_FORMAT.matcher(args.trim());
+        
+        // Validate arg string format
+        if (!matcher.matches()) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, TagCommand.MESSAGE_USAGE));
+        }
+        
+        Optional<Integer> index = parseIndex(matcher.group("targetIndex"));
+        if(!index.isPresent()){
+            return new IncorrectCommand(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, TagCommand.MESSAGE_USAGE));
+        }
+        
+        if (matcher.group("action").trim().equalsIgnoreCase("clear")){
+            try {
+                return new TagCommand(
+                        matcher.group("action"),
+                        matcher.group("targetIndex")
+                );
+            } catch (IllegalValueException ive) {
+                return new IncorrectCommand(ive.getMessage());
+            }
+        }
+        else {
+            try {
+                return new TagCommand(
+                        matcher.group("action"),
+                        matcher.group("targetIndex"),
+                        matcher.group("tag")
+                );
+            } catch (IllegalValueException ive) {
+                return new IncorrectCommand(ive.getMessage());
+            }
+        }
+        
     }
     
     //@@author A0142290N

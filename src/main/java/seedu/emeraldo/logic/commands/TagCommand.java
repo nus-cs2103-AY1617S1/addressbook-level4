@@ -26,7 +26,8 @@ public class TagCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Add/Delete/Clear the tags to/of the task identified by the index number used in the last tasks listing.\n"
             + "Parameters: add/delete/clear INDEX (must be a positive integer)\n"
-            + "Example: " + COMMAND_WORD + " add" + " 1" + " #friends";
+            + "Example: " + COMMAND_WORD + " add" + " 1" + " #friends\n"
+            + "                " + COMMAND_WORD + " clear 3";
     
     public static final String MESSAGE_TAG_EDIT_SUCCESS = "Edited task: %1$s";
     public static final String MESSAGE_TAG_DUPLICATE = "Tag already exists in the indicated task!";
