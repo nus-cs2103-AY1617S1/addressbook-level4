@@ -31,20 +31,21 @@ public class End implements Comparable<End> {
      * @throws IllegalValueException if given address string is invalid.
      */
     public End(String end) throws IllegalValueException {
-    	if (end == null) 
-    		end = "default";
+        if (end == null) {
+            end = "default";
+        }
         if (!isValidEnd(end)) {
             throw new IllegalValueException(MESSAGE_END_CONSTRAINTS);
         }
-        if (end.equals("default"))
-        	this.value = DEFAULT_END_TIME;
-        else if (end.equals("no end"))
-        	this.value = "no end";
-        else {
-        	this.value = changeTo24HourFormat(end);
-        	if (isPastEndTime(value)) {
-             	pastEndTime =1;
-             }
+        if (end.equals("default")) {
+            this.value = DEFAULT_END_TIME;
+        } else if (end.equals("no end")) {
+            this.value = "no end";
+        } else {
+            this.value = changeTo24HourFormat(end);
+            if (isPastEndTime(value)) {
+                pastEndTime =1;
+            }
         }
     }
     /**
@@ -58,11 +59,11 @@ public class End implements Comparable<End> {
     	String new_min = formatLocalTimeMinutes();
         String new_hr = formatLocalTimeHours();
 		localTime = new_hr +""+ new_min;
-		if (Integer.parseInt(end) - Integer.parseInt(localTime) < 0){
+		if (Integer.parseInt(end) - Integer.parseInt(localTime) < 0) {
 			return true;
-		}
-		else
+		} else {
 			return false;
+		}
 	}
     /**
      * @@author A0138993L
@@ -71,8 +72,9 @@ public class End implements Comparable<End> {
      */
     private String formatLocalTimeHours() {
         String new_hr = new String(LocalTime.now().getHour() + "");
-		if (new_hr.length() ==1)
+		if (new_hr.length() ==1) {
 			new_hr = "0" + new_hr;
+		}
         return new_hr;
     }
     /**
@@ -82,8 +84,9 @@ public class End implements Comparable<End> {
      */
     private String formatLocalTimeMinutes() {
         String new_min = new String(LocalTime.now().getMinute() + "");
-    	if (new_min.length() ==1 )
+    	if (new_min.length() ==1 ) {
             new_min = "0" + new_min;
+    	}
         return new_min;
     }
     /**
@@ -92,31 +95,33 @@ public class End implements Comparable<End> {
      * @param end the user input end time
      * @return the standardize format of the user end time
      */
-	private String changeTo24HourFormat(String end) {
-		if (Character.isDigit(end.charAt(end.length()-1)))
-			return end;
-		else if (end.length() == 3) {
-			if (end.substring(1).equalsIgnoreCase("pm"))
-				return (Integer.parseInt(end.substring(0,1))+12) + "00";
-			else
-				return "0" + end.substring(0, 1) + "00";
-		}
-		else if (end.length() == 4) {
-			if (end.substring(2).equalsIgnoreCase("pm"))
-				return (Integer.parseInt(end.substring(0,2))+12) + "00";
-			else
-				return end.substring(0, 2) + "00";
-		}
-		else {
-			String[] time_cat = end.split("\\.");
-			if (time_cat[0].length() ==1)
-				time_cat[0] = "0" + time_cat[0];
-			if (time_cat[1].substring(2).equalsIgnoreCase("pm")) 
-				time_cat[0] = "" + (Integer.parseInt(time_cat[0]) + 12);
-			return time_cat[0] + time_cat[1].substring(0, 2);
-		}
-			
-	}
+    private String changeTo24HourFormat(String end) {
+        if (Character.isDigit(end.charAt(end.length()-1))) {
+            return end;
+        } else if (end.length() == 3) {
+            if (end.substring(1).equalsIgnoreCase("pm")) {
+                return (Integer.parseInt(end.substring(0,1))+12) + "00";
+            } else {
+                return "0" + end.substring(0, 1) + "00";
+            }
+        } else if (end.length() == 4) {
+            if (end.substring(2).equalsIgnoreCase("pm")) {
+                return (Integer.parseInt(end.substring(0,2))+12) + "00";
+            } else {
+                return end.substring(0, 2) + "00";
+            }
+        } else {
+            String[] time_cat = end.split("\\.");
+            if (time_cat[0].length() ==1) {
+                time_cat[0] = "0" + time_cat[0];
+            }
+            if (time_cat[1].substring(2).equalsIgnoreCase("pm")) {
+                time_cat[0] = "" + (Integer.parseInt(time_cat[0]) + 12);
+            }
+            return time_cat[0] + time_cat[1].substring(0, 2);
+        }
+
+    }
 
 	public int getPastEndTime() {
 		return pastEndTime;
@@ -125,12 +130,13 @@ public class End implements Comparable<End> {
     /**
      * Returns true if a given string is a valid task end time.
      */
-    public static boolean isValidEnd(String test) {
-    	if (test.matches(END_VALIDATION_REGEX) || test.equals("default"))
-    		return true;
-    	else
-    		return false;
-    }
+	public static boolean isValidEnd(String test) {
+	    if (test.matches(END_VALIDATION_REGEX) || test.equals("default")) {
+	        return true;
+	    } else {
+	        return false;
+	    }
+	}
 
     @Override
     public String toString() {
@@ -152,13 +158,13 @@ public class End implements Comparable<End> {
   //@@author A0139430L
     @Override
     public int compareTo(End o) {
-        if(this.value.compareTo("no end") == 0 & o.toString().compareTo("no end") == 0) 
+        if(this.value.compareTo("no end") == 0 & o.toString().compareTo("no end") == 0) {
             return 0;
-        else if(this.value.compareTo("no end") == 0 )
+        } else if(this.value.compareTo("no end") == 0 ) {
             return -1;
-        else if(o.toString().compareTo("no end") == 0 )
+        } else if(o.toString().compareTo("no end") == 0 ) {
             return 1;
-        
+        }
         return this.value.compareTo(o.toString());
     }
 
