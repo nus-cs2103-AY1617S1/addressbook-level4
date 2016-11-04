@@ -104,14 +104,18 @@ public class Parser {
         case HelpCommand.COMMAND_WORD:
         	return prepareHelp(arguments);
         	
+<<<<<<< HEAD
         case UndoCommand.COMMAND_WORD:
         	return new UndoCommand();
+=======
+        case SetFilePathCommand.COMMAND_WORD:
+        	return prepareSetFilePath(arguments);
+>>>>>>> C3/change-storage-path
 
         default:
             return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
         }
     }
-
 	/**
      * Parses arguments in the context of the add task command.
      *
@@ -423,4 +427,24 @@ private Command prepareList(String args) {
         final String commandWord = matcher.group("commandWord");
         return new HelpCommand(commandWord);
     }
+    
+    //@@author A0139072H
+    /**
+     * Parses arguments in the context of the setFilePath command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     */
+	private Command prepareSetFilePath(String args) {
+		if(args.equals("")){
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SetFilePathCommand.MESSAGE_USAGE));
+		}
+		final String filePath = args;
+		try {
+			return new SetFilePathCommand(filePath);
+		} catch (IllegalValueException e) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SetFilePathCommand.MESSAGE_USAGE));
+		}
+	}
+
 }

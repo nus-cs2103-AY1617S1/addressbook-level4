@@ -1,13 +1,25 @@
 package seedu.gtd.model;
 
 import javafx.collections.ObservableList;
+
+import seedu.gtd.commons.util.ConfigUtil;
+import seedu.gtd.commons.core.Config;
+import seedu.gtd.commons.exceptions.DataConversionException;
 import seedu.gtd.model.tag.Tag;
 import seedu.gtd.model.tag.UniqueTagList;
 import seedu.gtd.model.task.ReadOnlyTask;
 import seedu.gtd.model.task.Task;
 import seedu.gtd.model.task.UniqueTaskList;
+<<<<<<< HEAD
 import seedu.gtd.model.task.UniqueTaskList.TaskNotFoundException;
+=======
+import seedu.gtd.storage.JsonUserPrefsStorage;
+import seedu.gtd.storage.StorageManager;
+import seedu.gtd.storage.XmlAddressBookStorage;
+import seedu.gtd.MainApp;
+>>>>>>> C3/change-storage-path
 
+import java.io.IOException;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -47,7 +59,40 @@ public class AddressBook implements ReadOnlyAddressBook {
     public static ReadOnlyAddressBook getEmptyAddressBook() {
         return new AddressBook();
     }
+    
+//@@author A0139072H    
+//// application-wide operations
+    public void setFilePathTask(String newFilePath) throws IOException{
+        Config changedConfig;
+        String configFilePathUsed;
+        
+        System.out.println("SetFilePathTask");
+        
+        //@@author addressbook-level4
+        //Reused config saving
+        configFilePathUsed = Config.DEFAULT_CONFIG_FILE;
+        try {
+            Optional<Config> configOptional = ConfigUtil.readConfig(configFilePathUsed);
+            changedConfig = configOptional.orElse(new Config());
+        } catch (DataConversionException e) {
+            changedConfig = new Config();
+        }
 
+        changedConfig.setAddressBookFilePath(newFilePath);
+        System.out.println("Saved to " + newFilePath);
+        
+        //@@author A0139072H    
+        //Save the config back to the file
+    	ConfigUtil.saveConfig(changedConfig, configFilePathUsed);
+    	StorageManager newSaveMgr = new StorageManager(
+    			new XmlAddressBookStorage(newFilePath), 
+    			new JsonUserPrefsStorage(changedConfig.getUserPrefsFilePath())
+    			);
+    	//Save the addressBook to the new location
+    	newSaveMgr.saveAddressBook(this);
+    };
+    
+//@@author addressbook-level4
 //// list overwrite operations
 
     public ObservableList<Task> getTasks() {
