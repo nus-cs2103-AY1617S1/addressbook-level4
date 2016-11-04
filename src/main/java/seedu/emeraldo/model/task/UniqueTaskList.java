@@ -114,7 +114,12 @@ public class UniqueTaskList implements Iterable<Task> {
      * @throws IllegalValueException if no such task could be found in the list.
      */
     public void addTag(Task toEditTagTask, Tag tag) throws IllegalValueException {
-        toEditTagTask.setTags(new UniqueTagList(tag));
+        
+        UniqueTagList editedTagList = toEditTagTask.getTags();
+
+        editedTagList.mergeFrom(new UniqueTagList(tag));
+        toEditTagTask.setTags(editedTagList);
+        
         int mainListIndex = internalList.indexOf(toEditTagTask);
         internalList.set(mainListIndex, toEditTagTask);
     }

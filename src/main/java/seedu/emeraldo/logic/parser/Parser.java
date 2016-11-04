@@ -121,12 +121,16 @@ public class Parser {
             return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
         }
     }
-
+    
+    /**
+     * Parses arguments in the context of the edit tag command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     */
     private Command prepareTag(String args) {
 
         final Matcher matcher = TASK_TAG_ARGS_FORMAT.matcher(args.trim());
-        
-        
         
         // Validate arg string format
         if (!matcher.matches()) {
@@ -137,12 +141,12 @@ public class Parser {
         System.out.println(matcher.group("targetIndex"));
         System.out.println(matcher.group("tag"));
         
-        Optional<Integer> index = parseIndex(matcher.group("targetIndex"));
-        if(!index.isPresent()){
-            return new IncorrectCommand(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, TagCommand.MESSAGE_USAGE));
-        }
-        System.out.println("Pass 2nd check");
+//        Optional<Integer> index = parseIndex(matcher.group("targetIndex"));
+//        if(!index.isPresent()){
+//            return new IncorrectCommand(
+//                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, TagCommand.MESSAGE_USAGE));
+//        }
+
         try {
             return new TagCommand(
                     matcher.group("action"),

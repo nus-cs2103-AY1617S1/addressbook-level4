@@ -68,7 +68,7 @@ public class TagCommand extends Command {
             return new CommandResult(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, TagCommand.MESSAGE_USAGE));
         }
        
-        return new CommandResult(String.format(MESSAGE_TAG_EDIT_SUCCESS, targetIndex - 1));
+        return new CommandResult(String.format(MESSAGE_TAG_EDIT_SUCCESS, targetIndex));
     }
 
 }
