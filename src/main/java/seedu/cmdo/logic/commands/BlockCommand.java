@@ -16,12 +16,12 @@ import seedu.cmdo.model.task.DueByTime;
 import seedu.cmdo.model.task.Priority;
 import seedu.cmdo.model.task.ReadOnlyTask;
 import seedu.cmdo.model.task.Task;
+
+//@@author A0141128R
 /**
  * Created an Block command
  *
  * @throws IllegalValueException if any of the raw values are invalid
- * 
- * @@author A0141128R
  */
 
 public class BlockCommand extends Command {
@@ -83,7 +83,6 @@ public class BlockCommand extends Command {
         return toBlock;
     }
 
-    //@@author A0139661Y
     @Override
     public CommandResult execute() {
         try {

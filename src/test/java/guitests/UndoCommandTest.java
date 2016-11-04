@@ -11,7 +11,7 @@ import edu.emory.mathcs.backport.java.util.Arrays;
 import edu.emory.mathcs.backport.java.util.Collections;
 import seedu.cmdo.testutil.TestTask;
 
-//@@author A0141128R tested and passed
+//@@author A0141128R
 public class UndoCommandTest extends ToDoListGuiTest {
 
     @Test

@@ -7,7 +7,7 @@ import seedu.cmdo.testutil.TestTask;
 
 import static org.junit.Assert.assertTrue;
 
-//@@author A0141006B for fuzzy search
+//@@author A0141006B
 public class PowerSearchTest extends ToDoListGuiTest {
 
     @Test

@@ -1,14 +1,14 @@
 package seedu.cmdo.ui;
 
+import java.util.logging.Logger;
+
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import seedu.cmdo.commons.core.LogsCenter;
 
-
-import java.util.logging.Logger;
-
+//@@author A0141006B
 /**
  * Controller for a help page
  */

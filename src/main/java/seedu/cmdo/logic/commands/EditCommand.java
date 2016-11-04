@@ -19,10 +19,9 @@ import seedu.cmdo.model.task.ReadOnlyTask;
 import seedu.cmdo.model.task.Task;
 import seedu.cmdo.model.task.UniqueTaskList.TaskNotFoundException;
 
+//@@author A0141128R
 /**
  * Edits the task associated with the intended index.
- * 
- * @@author A0141128R
  */
 public class EditCommand extends Command {
     public static final String COMMAND_WORD = "edit";
@@ -54,7 +53,6 @@ public class EditCommand extends Command {
         final Set<Tag> tagSet = new HashSet<>();
         if(newTags.isEmpty())
         	tagIsEmpty = true;
-        //System.out.println(tagIsEmpty);
         for (String tagName : newTags) {
             tagSet.add(new Tag(tagName));
         }
@@ -76,8 +74,6 @@ public class EditCommand extends Command {
      * For RANGE DATE AND TIME
      *
      * @throws IllegalValueException if any of the raw values are invalid
-     * 
-     * @@author A0141128R
      */
     public EditCommand(boolean removePriority, 
     				  int targetIndex,
@@ -171,7 +167,6 @@ public class EditCommand extends Command {
     		  toEditWith.setTags(taskToEdit.getTags()); 
     }
     
-    //@@author A0141128R
     @Override
     public CommandResult execute() {
         UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
@@ -180,10 +175,8 @@ public class EditCommand extends Command {
         if (lastShownList.size() < targetIndex) {
             indicateAttemptToExecuteIncorrectCommand();
             return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
-        }
-       
+        }      
         ReadOnlyTask taskToEdit = lastShownList.get(targetIndex - 1);
-        System.out.println(taskToEdit.getAsText());
         // Check if task is done.
         if (taskToEdit.checkDone().value) {
             indicateAttemptToExecuteIncorrectCommand();
@@ -197,17 +190,12 @@ public class EditCommand extends Command {
         //check if priority is empty and append with old details
         editPriority(taskToEdit);
         //append tags 
-        editTags(taskToEdit);
-        
-        
+        editTags(taskToEdit);        
         try {
         	updateSelectionInPanel(model.editTask(taskToEdit, toEditWith));
         } catch (TaskNotFoundException tnfe) {
             assert false : "The target task cannot be missing";
-        }  
-      
-        
+        }      
     	return new CommandResult(MESSAGE_EDITED_TASK_SUCCESS);
     }
-
 }

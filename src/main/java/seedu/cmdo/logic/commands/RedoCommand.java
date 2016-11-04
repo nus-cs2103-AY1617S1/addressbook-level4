@@ -2,10 +2,9 @@ package seedu.cmdo.logic.commands;
 
 import seedu.cmdo.commons.exceptions.CannotUndoException;
 
+//@@author A0141006B
 /**
  * Represents a redo command.
- *
- * @@author A0141006B
  */
 public class RedoCommand extends Command {
 	

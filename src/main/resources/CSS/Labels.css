@@ -1,7 +1,81 @@
-.root {
-	-fx-background-image: url("Welcome.png");
+/*
+ * CMDo StyleSheet
+ * Light theme
+ * @@author A0141006B 
+ * 
+ */
+@font-face{
+	src: url("../ui/fonts/HeadLiner.ttf");		
 }
 
-.label .text{
-	-fx-strikethrough: false;
+@font-face{
+	src: url("../ui/fonts/helvetica-neue-ultra-light.ttf");
 }
+
+/*
+ * ROOT LAYOUT
+ * 
+ */
+.root {
+	-fx-background-color:lightslategray;
+	-fx-accent: grey;
+	-fx-focus-color: grey;
+	-fx-font-family: "Helvetica";
+	-fx-font-weight: 100;
+}
+
+/*
+ * MENU BAR
+ */
+.menu-bar {
+	-fx-border-color: #eeeeee;
+}
+.menu-button {
+		-fx-font-size: 13px; 	
+}
+
+/*
+ * LIST VIEW
+ * 
+ */
+ 
+ /*List cell for the background of the card */
+.list-cell {
+	-fx-background-color: ;
+}
+
+.list-view-card-pane {
+	-fx-background-color: white;
+	-fx-focus-color: yellow;
+	-fx-font-size: 14px;
+	-fx-border-color: black;
+	-fx-font-family: "Helvetica";
+	-fx-font-weight: 100;
+	-fx-color-label-visible: black;
+	-fx-border-radius: 10 10 10 10;
+    -fx-background-radius: 10 10 10 10;
+}
+
+.list-view-card-pane #id  {
+	-fx-font-size: 60px;
+}
+
+.cell_big_label {
+	-fx-font-size: 16px;
+}
+
+/*
+ * SCROLL BAR
+ * 
+ */
+ 
+.scroll-bar:vertical {
+ 	-fx-background-color:lightgray;
+ }
+ 
+.scroll-pane, .split-pane, .scroll-pane > .viewport {
+  -fx-background-insets: 0;
+  -fx-padding: 0;
+}
+
+ 

@@ -15,6 +15,7 @@ import seedu.cmdo.commons.exceptions.TaskBlockedException;
 import seedu.cmdo.model.task.ReadOnlyTask;
 import seedu.cmdo.model.task.Task;
 
+//@@author A0139661Y
 public class Blocker {
 
     private static final Logger logger = LogsCenter.getLogger(MainApp.class);
@@ -27,7 +28,6 @@ public class Blocker {
 
 	public Blocker() {}
 
-	//@@author A0139661Y
 	public ArrayList<LocalDateTime> checkBlocked(Task toCheck, UnmodifiableObservableList<ReadOnlyTask> blockedList)
 										throws TaskBlockedException {
 		ArrayList<LocalDateTime> dateTimeList = new ArrayList<LocalDateTime>();
@@ -51,8 +51,6 @@ public class Blocker {
 	 * 
 	 * @param datesAndTimes
 	 * @return boolean based on outcome
-	 * 
-	 * @@author A0139661Y
 	 */
 	public boolean isBlocked(List<LocalDateTime> datesAndTimes, UnmodifiableObservableList<ReadOnlyTask> blockedList) {
 		reset();
@@ -80,8 +78,6 @@ public class Blocker {
 	
 	/**
 	 * Resets values such that each time the Blocker is called we start fresh
-	 * 
-	 * @@author A0139661Y
 	 */
 	private void reset() {
 		checkingDate = LocalDate.MAX;

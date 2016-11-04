@@ -1,17 +1,19 @@
 package seedu.cmdo.ui;
 
 import java.time.YearMonth;
+
 import java.util.logging.Logger;
 
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import jfxtras.scene.control.CalendarPicker;
 import javafx.stage.Stage;
-import seedu.cmdo.MainApp;
 import seedu.cmdo.commons.core.Config;
 import seedu.cmdo.commons.core.GuiSettings;
 import seedu.cmdo.commons.core.LogsCenter;
@@ -19,17 +21,16 @@ import seedu.cmdo.commons.events.ui.ExitAppRequestEvent;
 import seedu.cmdo.logic.Logic;
 import seedu.cmdo.model.UserPrefs;
 
+//@@author A0141006B
 /**
  * The Main Window. Provides the basic application layout containing
  * a menu bar and space where other JavaFX elements can be placed.
- * 
- * @@author A0141006B
  */
 public class MainWindow extends UiPart {
 
     private static final String ICON = "/images/Logo.png";
     private static final String FXML = "MainWindow.fxml";
-    public static final int MIN_HEIGHT = 600;
+    public static final int MIN_HEIGHT = 700;
     public static final int MIN_WIDTH = 800;
 
     private Logic logic;
@@ -62,6 +63,9 @@ public class MainWindow extends UiPart {
 
     @FXML
     private AnchorPane statusbarPlaceholder;
+    
+    @FXML
+    private ScrollPane taskScrollPane;
     
     private Logger logger = LogsCenter.getLogger(MainWindow.class);
 
@@ -113,7 +117,7 @@ public class MainWindow extends UiPart {
 
     void fillInnerParts() {
     	taskCategoryPlaceholder.getChildren().add((new TaskCategory(logic.getAllTaskList())).getTaskCategoryPane());
-    	welcomePanePlaceholder.getChildren().add(new FullCalendarView(YearMonth.now()).getView());
+    	welcomePanePlaceholder.getChildren().add(new CalendarView().getCalendarView());
         taskListPanel = TaskListPanel.load(primaryStage, getTaskListPlaceholder(), logic.getFilteredTaskList(true));
         resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
         StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getToDoListFilePath());

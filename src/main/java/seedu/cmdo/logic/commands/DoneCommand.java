@@ -9,8 +9,8 @@ import seedu.cmdo.model.task.Task;
 import seedu.cmdo.model.task.UniqueTaskList.TaskAlreadyDoneException;
 import seedu.cmdo.model.task.UniqueTaskList.TaskNotFoundException;
 
+//@@author A0141128R
 /*
- * @author A0141128R
  * need to to add a task done list and need to store the task that is done
  */
 
@@ -53,9 +53,7 @@ public class DoneCommand extends Command {
         	if (taskToComplete.checkDone().value.equals(true))
         		throw new TaskAlreadyDoneException();
         	Task newTask = new Task(taskToComplete, new Done(true));
-        	System.out.println(taskToComplete.checkDone().value.toString());
         	newTask.checkDone().setDone();
-        	System.out.println(taskToComplete.checkDone().value.toString());
             model.doneTask(taskToComplete, newTask);
         } catch (TaskNotFoundException tnfe) {
             assert false : "The target task cannot be missing";

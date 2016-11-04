@@ -11,7 +11,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Region;
 import javafx.scene.text.Font;
@@ -22,18 +21,11 @@ import seedu.cmdo.model.task.ReadOnlyTask;
 import javafx.scene.Node;
 
 //@@author A0141006B
-
 public class TaskCategory extends UiPart {
 	private static final Logger logger = LogsCenter.getLogger(WelcomeMessage.class);
 	private static final String FXML = "TaskCategory.fxml";	
-	private static final String ICON1 = "/images/overdue.png";
-	private static final String ICON2 = "/images/today.png";
-	private static final String ICON3 = "/images/thisweek.png";
-	private static final String ICON4 = "/images/thismonth.png";
-	private static final String ICON5 = "/images/someday.png";
-	private static final String ICON6 = "/images/totaltask.png";
-	private static final Integer LABEL_WIDTH = 110;
-	private static final Integer LABEL_HEIGHT = 30;
+	private static final Integer LABEL_WIDTH = 190;
+	private static final Integer LABEL_HEIGHT = 20;
 	private ObservableList<ReadOnlyTask> allTasksList;
 	
 	public TaskCategory(ObservableList<ReadOnlyTask> allTasksList) {
@@ -44,18 +36,6 @@ public class TaskCategory extends UiPart {
 	//======= FXML =======
 	@FXML
 	private GridPane taskCategoryPane;
-	@FXML
-	private ImageView overDueImg; 
-	@FXML
-	private ImageView todayImg; 
-	@FXML
-	private ImageView thisWeekImg;
-	@FXML
-	private ImageView thisMonthImg; 
-	@FXML
-	private ImageView somedayImg; 
-	@FXML
-	private ImageView totalTaskImg;
 	@FXML
 	private static Label overDue;
 	@FXML
@@ -100,13 +80,12 @@ public class TaskCategory extends UiPart {
 	public GridPane getTaskCategoryPane() {
 		logger.info("Starting task category...");
 		GridPane taskCategoryPane = new GridPane();
-		//setGridPictures();
+		taskCategoryPane.setPrefSize(250, 280);
 		setGridLabels();
 		setGridNumbers();
 		taskCategoryPane.getChildren().addAll(
-				//overDueImg, todayImg, thisWeekImg,
-				//thisMonthImg, somedayImg, totalTaskImg,
 				overDue, today, thisWeek, thisMonth, someday, totalTask, totalDone, emptySpace,
+				
 				overDueNo, todayNo, thisWeekNo, thisMonthNo, somedayNo, totalTaskNo, totalDoneNo
 				);		
 		updateTasksOverviewPanel(allTasksList);
@@ -138,75 +117,53 @@ public class TaskCategory extends UiPart {
 		
 	}
 	
-	public void setGridPictures() {
-		overDueImg = new ImageView(ICON1);
-		GridPane.setConstraints(overDueImg, 0, 0);
-		
-		todayImg = new ImageView(ICON2);
-		GridPane.setConstraints(todayImg, 0, 1);
-		
-		thisWeekImg = new ImageView(ICON3);
-		GridPane.setConstraints(thisWeekImg, 0, 2);
-		
-		thisMonthImg = new ImageView(ICON4);
-		GridPane.setConstraints(thisMonthImg, 0, 3);
-		
-		somedayImg = new ImageView(ICON5);
-		GridPane.setConstraints(somedayImg, 0, 4);
-		
-		totalTaskImg = new ImageView(ICON6);
-		GridPane.setConstraints(totalTaskImg, 0, 5);
-	}
-	
 	public void setGridLabels() {
 		overDue = new Label();
 		overDue.setPrefSize(LABEL_WIDTH, LABEL_HEIGHT);
 		GridPane.setConstraints(overDue, 1, 0);
 		overDue.setText("Overdue");	
-		overDue.setFont(new Font("Gothic", 18));
+		overDue.setFont(new Font(null, 20));
 		
 		today = new Label();
 		today.setPrefSize(LABEL_WIDTH, LABEL_HEIGHT);
 		GridPane.setConstraints(today, 1, 1);		
 		today.setText("Today");
-		today.setFont(new Font("Gothic", 18));
+		today.setFont(new Font(null, 20));
 		
 		thisWeek = new Label();
 		thisWeek.setPrefSize(LABEL_WIDTH, LABEL_HEIGHT);
 		GridPane.setConstraints(thisWeek, 1, 2);		
 		thisWeek.setText("This Week");
-		thisWeek.setFont(new Font("Gothic", 18));
+		thisWeek.setFont(new Font(null, 20));
 		
 		thisMonth = new Label();
 		thisMonth.setPrefSize(LABEL_WIDTH, LABEL_HEIGHT);
 		GridPane.setConstraints(thisMonth, 1, 3);		
 		thisMonth.setText("This Month");	
-		thisMonth.setFont(new Font("Gothic", 18));
-		
+		thisMonth.setFont(new Font(null, 20));	
 		
 		someday = new Label();
 		someday.setPrefSize(LABEL_WIDTH, LABEL_HEIGHT);
 		GridPane.setConstraints(someday, 1, 4);		
 		someday.setText("Someday");	
-		someday.setFont(new Font("Gothic", 18));
+		someday.setFont(new Font(null, 20));
 		
 		totalTask = new Label();
 		totalTask.setPrefSize(LABEL_WIDTH, LABEL_HEIGHT);
 		GridPane.setConstraints(totalTask, 1, 5);		
 		totalTask.setText("Total Tasks");
-		totalTask.setFont(new Font("Gothic", 18));
+		totalTask.setFont(new Font(null, 20));
 		
 		emptySpace = new Region();
-		emptySpace.setPrefSize(LABEL_WIDTH, LABEL_HEIGHT);
+		emptySpace.setPrefSize(20, LABEL_HEIGHT);
 		GridPane.setConstraints(emptySpace, 1, 6);
+		GridPane.setConstraints(emptySpace, 0, 6);
 		
 		totalDone = new Label();
 		totalDone.setPrefSize(LABEL_WIDTH, LABEL_HEIGHT);
 		GridPane.setConstraints(totalDone, 1, 7);		
 		totalDone.setText("Total Done");
-		totalDone.setFont(new Font("Gothic", 18));
-		
-		
+		totalDone.setFont(new Font(null, 20));				
 	}
 	
 	//@@author A0139661Y
@@ -242,16 +199,24 @@ public class TaskCategory extends UiPart {
         	}
         }
         overDueNo.setText("[" + Integer.toString(overdueNumber) + "]");
+        overDueNo.setFont(new Font(null, 20));
         todayNo.setText("[" + Integer.toString(todayNumber) + "]");
+        todayNo.setFont(new Font(null, 20));
         thisWeekNo.setText("[" + Integer.toString(thisWeekNumber) + "]");
+        thisWeekNo.setFont(new Font(null, 20));
         thisMonthNo.setText("[" + Integer.toString(thisMonthNumber) + "]");
+        thisMonthNo.setFont(new Font(null, 20));
         somedayNo.setText("[" + Integer.toString(somedayNumber) + "]");
+        somedayNo.setFont(new Font(null, 20));
         totalTasksNumber = taskObservableList.size() - doneNumber;
         totalTaskNo.setText("[" + Integer.toString(totalTasksNumber) + "]");
+        totalTaskNo.setFont(new Font(null, 20));
         totalDoneNo.setText("[" + Integer.toString(doneNumber) + "]"); 
+        totalDoneNo.setFont(new Font(null, 20));
     }
 
-     /**
+    //@@author A0139661Y 
+    /**
      * Determines the time-state of the task in question
      * 
      * =======TIME-STATE TABLE=======
@@ -268,8 +233,6 @@ public class TaskCategory extends UiPart {
      * 
      * @param task (undone) in question
      * @return Integer based on the time-state
-     * 
-     * @@author A0139661Y
      */
     public Integer getTaskTimeState(ReadOnlyTask task) {
     	assert task != null;

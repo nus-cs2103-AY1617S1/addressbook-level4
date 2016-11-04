@@ -1,13 +1,6 @@
-package seedu.cmdo.ui;
-
-import javafx.scene.image.ImageView;
-import javafx.scene.Node;
-import javafx.scene.layout.AnchorPane;
-import javafx.fxml.FXML;
-import seedu.cmdo.commons.core.LogsCenter;
-import java.util.logging.Logger;
-
-//@@author A0141006B-unused
+# A0141006Bunused
+###### /java/seedu/cmdo/ui/WelcomeMessage.java
+``` java
 /**
  * To implement welcome screen
  * (in progress)
@@ -45,3 +38,4 @@ public class WelcomeMessage extends UiPart {
 		return welcomePane;
 	}
 }
+```

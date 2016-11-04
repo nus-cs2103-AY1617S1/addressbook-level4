@@ -12,7 +12,7 @@ import java.util.ArrayList;
 
 import static org.junit.Assert.assertTrue;
 
-//@@author A0141128R tested and passed
+//@@author A0141128R
 public class DeleteCommandTest extends ToDoListGuiTest {
 
     @Test

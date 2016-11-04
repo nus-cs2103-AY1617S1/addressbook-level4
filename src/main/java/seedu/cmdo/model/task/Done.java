@@ -1,9 +1,9 @@
 package seedu.cmdo.model.task;
 
+//@@author A0141006B 
 /**
  * Represents if a Task's is done in the To Do List.
  * Guarantees: immutable; is valid as declared in {@link #isValidDone(String)}
- * @@author A0139661Y
  */
 public class Done {
 
@@ -21,8 +21,6 @@ public class Done {
     
     /**
      * This is for the case where Done needs to take on a previously saved state
-     * 
-     * @author A0141128R
      */
     public Done(boolean value) {
     	this.value = value;
@@ -46,14 +44,6 @@ public class Done {
     public String toString() {
         return value.toString();
     }
-    /*
-    @Override
-    public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof Done // instanceof handles nulls
-                && this.value.equals(((Done) other).value)); // state check
-    }
-	*/
     
     @Override
     public int hashCode() {

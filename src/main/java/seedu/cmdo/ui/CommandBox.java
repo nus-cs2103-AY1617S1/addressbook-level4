@@ -9,6 +9,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import seedu.cmdo.commons.core.LogsCenter;
 import seedu.cmdo.commons.events.ui.IncorrectCommandAttemptedEvent;
+import seedu.cmdo.commons.events.ui.UpDownCommandEvent;
 import seedu.cmdo.commons.util.FxViewUtil;
 import seedu.cmdo.logic.Logic;
 import seedu.cmdo.logic.commands.*;
@@ -95,6 +96,12 @@ public class CommandBox extends UiPart {
         logger.info(LogsCenter.getEventHandlingLogMessage(event,"Invalid command: " + previousCommandTest));
         setStyleToIndicateIncorrectCommand();
         restoreCommandText();
+    }
+    
+    @Subscribe
+    private void handleUpDownCommandEvent(UpDownCommandEvent event) {
+    	logger.info(event.toString() + " pressed.");
+    	restoreCommandText();
     }
 
     /**
