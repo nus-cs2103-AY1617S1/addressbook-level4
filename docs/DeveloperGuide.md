@@ -248,6 +248,7 @@ can be automated using Gradle. For example, Gradle can download the dependencies
 is better than these alternatives.<br>
 a. Include those libraries in the repo (this bloats the repo size)<br>
 b. Require developers to download those libraries manually (this creates extra work for developers)<br>
+c. [Natty] for natural language processing of time and date
 
 ## Appendix A : User Stories
 
@@ -278,14 +279,56 @@ Priority | As a ... | I want to ... | So that I can...
 (For all use cases below, the **System** is the `Task Manager` and the **Actor** is the `user`, unless specified otherwise)
 
 <!-- @@author A0142325R-->
-#### Use case: Delete task
+#### Use case 1: Add task
 
 **MSS**
 
-1. User requests to list tasks
-2. Task Manager shows a list of tasks
-3. User requests to delete a specific task in the list
-4. Task Manager deletes the task <br>
+1. User requests to add task of specified parameters.
+2. toDoList adds task to system<br>
+Use case ends.
+
+**Extensions**
+
+1a. The add task request has invalid format
+
+>1a1. toDoList displays an error message and command usage<br>
+ Use case resumes at step 1.
+
+1b. The date and time for the task added cannot be recognized
+
+>1b1. toDoList displays an error message and command usage<br>
+ Use case resumes at step 1.
+
+1c. User attempts to add a recurring floating task without specific time
+>1c1. toDoList displays an error message <br>
+ Use case ends.
+
+#### Use case 2: Add event
+
+**MSS**
+1. User requests to add event of specified parameters.
+2. toDoList adds event to system<br>
+
+**Extensions**
+
+1a. The add event request has invalid format
+
+>1a1. toDoList displays an error message and command usage<br>
+ Use case resumes at step 1.
+
+1b. The date and time for the event added cannot be recognized
+
+>1b1. toDoList displays an error message and command usage<br>
+ Use case resumes at step 1.
+
+#### Use case 3: Delete task or event
+
+**MSS**
+
+1. User requests to list tasks or events
+2. Task Manager shows a list of tasks or events
+3. User requests to delete a specific task or event with the index in the list
+4. Task Manager deletes the task or event <br>
 Use case ends.
 
 **Extensions**
@@ -297,19 +340,98 @@ Use case resumes at step 4
 
 > Use case ends
 
+2b. User requests to delete a task or event by name
+
+> 2b1. toDoList shows all tasks or events matching one or more input parameters
+> 2b2. User deletes the task or event by index<br>
+  Use case resumes at step 3
+
+2c. User enters an non-existing task or event name
+
+>2c1. toDoList shows an error message<br>
+ Use case ends
+
 3a. The given index is invalid
 
 > 3a1. Task Manager shows an error message <br>
   Use case resumes at step 2
-  
+
+#### Use case 4: List tasks or events
+
+**MSS**
+1. User requests to list tasks or events with the specified parameters
+2. toDoList lists the requests tasks or events<br>
+Use case ends
+
+**Extensions**
+
+1a. User requests to list all tasks or events<br>
+ Use case resumes at step 2
+
+1b. User requests to list all tasks<br>
+ Use case resumes at step 2
+
+1c. User requests to list all events<br>
+ Use case resumes at step 2
+
+1d. User requests to list all done tasks or events<br>
+ Use case resumes at step 2
+
+1e. User requests to list all undone tasks or events<br>
+ Use case resumes at step 2
+
+1d. User enters an invalid list request<br>
+
+> 1d1. toDoList shows an error message and usage instructions.<br>
+ Use case ends
+
+####Use case 5: Mark task or event as done
+
+**MSS**
+1. User requests to list all items
+2. toDoList displays a list of items
+3. User requests to mark a task or event as done with the index specified
+4. toDoList marks the existing item as done
+5. toDoList displays the updated list of items<br>
+Use case ends
+
+**Extensions**
+
+2a. User requests to mark an item as done by name
+
+>2a1. toDoList shows a list of items with names matching one or more input parameters
+>2a2. User selects the item to be marked as done by index<br>
+Use case resumes at step 3
+
+3a. The given index is invalid
+
+>3a1. toDoList displays an error message and ussage instructions<br>
+Use case ends
+
+####Use case 6: Refresh all tasks and events
+
+**MSS**
+1. User requests to list all items
+2. toDoList displays a list of items
+3. User requests to refresh all items in the last shown list
+4. toDoList refreshes all items
+Use case ends
+
+**Extensions**
+
+1a. User enters an invalid refresh command
+>1a1. toDoList shows an error message and command usage <br>
+Use case ends
+
+
 <!-- @@author A0138717X -->
-#### Use case: Edit task
+#### Use case 7: Edit task
 
 **MSS**
 1. Task Manager list all tasks
 2. User requests to edit a task
 3. Task Manager edit the task for the specify field
-4. Task Manager updates the list of task
+4. Task Manager updates the list of task 
 
 Use case ends.
 
@@ -340,7 +462,7 @@ Use case ends.
   Use case resumes at step 1
 
 <!-- @@author A0146123R-->
-#### Use case: Find task
+#### Use case 8: Find task
 
 **MSS**
 
