@@ -139,12 +139,10 @@ public class UniqueTaskList implements Iterable<Task> {
         if (overduedTask.isOverdue(overduedTask.getDate(), overduedTask.getEnd()) == 1) {
             overduedTask.setOverdue(1);
             return overduedTask.getOverdue();
-        }
-        else if (overduedTask.isOverdue(overduedTask.getDate(), overduedTask.getEnd()) == 2) {
+        } else if (overduedTask.isOverdue(overduedTask.getDate(), overduedTask.getEnd()) == 2) {
             overduedTask.setOverdue(2);
             return overduedTask.getOverdue();
-        }
-        else {
+        } else {
             overduedTask.setOverdue(0);
             return overduedTask.getOverdue();
         }
