@@ -12,7 +12,6 @@ import org.junit.Test;
 
 import tars.commons.exceptions.InvalidRangeException;
 import tars.logic.commands.ConfirmCommand;
-import tars.logic.commands.DeleteCommand;
 import tars.logic.commands.RedoCommand;
 import tars.logic.commands.UndoCommand;
 import tars.model.Tars;
