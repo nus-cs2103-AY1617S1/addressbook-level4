@@ -41,6 +41,13 @@ public class DeleteCommand extends Command {
     //@@author A0139430L
     public DeleteCommand(ArrayList<String> targetIndexes) throws IllegalValueException {
         pass = targetIndexes;
+        extractToEachList(targetIndexes);
+        sortAndReverse(targetIndexesE);
+        sortAndReverse(targetIndexesD);
+        sortAndReverse(targetIndexesT);
+    }
+
+    private void extractToEachList(ArrayList<String> targetIndexes) throws IllegalValueException {
         for(int i= 0; i < targetIndexes.size(); i++){
             String temp = targetIndexes.get(i);
             String stringIdx = temp.substring(1);
@@ -66,73 +73,66 @@ public class DeleteCommand extends Command {
         UnmodifiableObservableList<ReadOnlyTask> lastShownEventList = model.getFilteredEventList();
         UnmodifiableObservableList<ReadOnlyTask> lastShownDeadlineList = model.getFilteredDeadlineList();
         UnmodifiableObservableList<ReadOnlyTask> lastShownTodoList = model.getFilteredTodoList();
-
+        ArrayList<ReadOnlyTask> tasksToDeleteList = new ArrayList<ReadOnlyTask>();
+        
         if(targetIndexesE.size()>0){
-            Collections.sort(targetIndexesE);
-            Collections.reverse(targetIndexesE);
-            model.addToUndoStack();
-            for(int i=0; i<targetIndexesE.size();i++){               
+            for(int i=0; i<targetIndexesE.size();i++){    
                 Integer idx = targetIndexesE.get(i); 
                 if (lastShownEventList.size() < idx) {
-                    model.getUndoStack().pop();
                     indicateAttemptToExecuteIncorrectCommand();
                     return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
-                }
-                ReadOnlyTask taskToDelete = lastShownEventList.get(idx-1);             
-                try {
-                    model.deleteTask(taskToDelete);
-                } catch (TaskNotFoundException e) {
-                    model.getUndoStack().pop();
-                    indicateAttemptToExecuteIncorrectCommand();
+                }              
+                ReadOnlyTask taskToDelete = lastShownEventList.get(idx-1);  
+                if (model.checkTask(taskToDelete)) {
+                    tasksToDeleteList.add(taskToDelete);
+                } else {
                     return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
                 }
             }
         }
-
+        
         if(targetIndexesD.size()>0){
-            Collections.sort(targetIndexesD);
-            Collections.reverse(targetIndexesD);
-            model.addToUndoStack();
-            for(int i=0; i<targetIndexesD.size();i++){                 
-                Integer idx = targetIndexesD.get(i);               
+            for(int i=0; i<targetIndexesD.size();i++){    
+                Integer idx = targetIndexesD.get(i); 
                 if (lastShownDeadlineList.size() < idx) {
-                    model.getUndoStack().pop();
                     indicateAttemptToExecuteIncorrectCommand();
                     return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
-                }
-                ReadOnlyTask taskToDelete = lastShownDeadlineList.get(idx-1);             
-                try {
-                    model.deleteTask(taskToDelete);
-                } catch (TaskNotFoundException e) {
-                    model.getUndoStack().pop();
-                    indicateAttemptToExecuteIncorrectCommand();
+                }              
+                ReadOnlyTask taskToDelete = lastShownDeadlineList.get(idx-1);  
+                if (model.checkTask(taskToDelete)) {
+                    tasksToDeleteList.add(taskToDelete);
+                } else {
                     return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
                 }
             }
         }
-
+        
         if(targetIndexesT.size()>0){
-            Collections.sort(targetIndexesT);
-            Collections.reverse(targetIndexesT);
-            model.addToUndoStack();
-            for(int i=0; i<targetIndexesT.size();i++){               
-                Integer idx = targetIndexesT.get(i);                
+            for(int i=0; i<targetIndexesT.size();i++){    
+                Integer idx = targetIndexesT.get(i); 
                 if (lastShownTodoList.size() < idx) {
-                    model.getUndoStack().pop();
                     indicateAttemptToExecuteIncorrectCommand();
                     return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
-                }
-                ReadOnlyTask taskToDelete = lastShownTodoList.get(idx-1);       
-                try {
-                    model.deleteTask(taskToDelete);
-                } catch (TaskNotFoundException e) {
-                    model.getUndoStack().pop();
-                    indicateAttemptToExecuteIncorrectCommand();
+                }              
+                ReadOnlyTask taskToDelete = lastShownTodoList.get(idx-1);  
+                if (model.checkTask(taskToDelete)) {
+                    tasksToDeleteList.add(taskToDelete);
+                } else {
                     return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
                 }
             }
+        }
+        
+        model.addToUndoStack();
+        for (int i=0; i<tasksToDeleteList.size(); i++) {   
+            model.deleteTask(tasksToDeleteList.get(i));
         }
         return new CommandResult(String.format(MESSAGE_DELETE_TASK_SUCCESS, pass));
+    }
+
+    private void sortAndReverse(ArrayList<Integer> list) {
+        Collections.sort(list);
+        Collections.reverse(list);
     }
 
 }
