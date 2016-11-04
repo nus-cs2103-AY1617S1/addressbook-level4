@@ -51,9 +51,6 @@ public class Parser {
 	private static final Logger logger = LogsCenter.getLogger(Parser.class);
 	
 	private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
-	//@@author A0139339W
-	private static final Pattern EDIT_ARGS_FORMAT = Pattern.compile(
-			"(?<index>\\d+)\\s+(?<editTaskArgs>.+)"); 
 	private static final Pattern ADD_ALIAS_COMMAND_FORMAT = Pattern
 			.compile("\\s*'(?<alias>(\\s*\\S+)+)\\s*'\\s*=\\s*'(?<originalPhrase>(\\s*\\S+)+)\\s*'\\s*");
 	//@@author A0143756Y
@@ -384,23 +381,20 @@ public class Parser {
 	 * @return the prepared EditCommand
 	 */
 	private Command prepareEdit(String arguments) {
-		Matcher matcher = EDIT_ARGS_FORMAT.matcher(arguments);
-		if(!matcher.matches()) {
-			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+		String index = arguments.split(" ", 2)[0];
+		if (!StringUtil.isUnsignedInteger(index)) {
+			throw new IllegalArgumentException(MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
 		}
-		
-		int index = Integer.parseInt(matcher.group("index"));
-		String editTaskArgs = matcher.group("editTaskArgs");
 		
 		Optional<String> taskName;
 		String args;
-		if(editTaskArgs.contains("\'")) {
-			Pair<String,String> nameAndArgs = separateNameAndArgs(editTaskArgs);
+		if(arguments.contains("\'")) {
+			Pair<String,String> nameAndArgs = separateNameAndArgs(arguments);
 			taskName = Optional.of(nameAndArgs.getKey());
 			args = nameAndArgs.getValue();
 		} else {
 			taskName = Optional.empty();
-			args = editTaskArgs;
+			args = arguments;
 		}
 		String argsLowerCase = args.toLowerCase();
 		
@@ -432,7 +426,7 @@ public class Parser {
 		}
 		
 		try {
-			return new EditCommand(index, taskName, startDateTime, endDateTime,
+			return new EditCommand(Integer.parseInt(index), taskName, startDateTime, endDateTime,
 					isRemoveStartDateTime, isRemoveEndDateTime);
 		} catch (IllegalValueException e) {
 			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
