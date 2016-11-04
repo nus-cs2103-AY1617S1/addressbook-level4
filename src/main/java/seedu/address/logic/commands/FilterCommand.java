@@ -72,6 +72,7 @@ public class FilterCommand extends Command {
                     throw new IllegalValueException(Priority.MESSAGE_INVALID_PRIORITY_LEVEL);
             }
         } catch (IllegalValueException e) {
+            indicateAttemptToExecuteIncorrectCommand();
             return new CommandResult(e.getMessage());
         }
         model.updateFilteredTaskList(filterQualifications, tags);

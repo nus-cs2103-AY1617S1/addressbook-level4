@@ -62,6 +62,7 @@ public class ListCommand extends Command {
             model.updateFilteredTaskList(toList.toString().toLowerCase());
             return new CommandResult(MESSAGE_LIST_UNDONE_TASK_SUCCESS);
         default:
+            indicateAttemptToExecuteIncorrectCommand();
             return new CommandResult(MESSAGE_INVALID_LIST_COMMAND);
         }
         
