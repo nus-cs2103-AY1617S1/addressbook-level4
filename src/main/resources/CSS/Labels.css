@@ -5,11 +5,7 @@
  * 
  */
 @font-face{
-	src: url("../ui/fonts/HeadLiner.ttf");		
-}
-
-@font-face{
-	src: url("../ui/fonts/helvetica-neue-ultra-light.ttf");
+	src: url("../Fonts/helvetica-neue-ultra-light.ttf");
 }
 
 /*
@@ -41,7 +37,6 @@
  
  /*List cell for the background of the card */
 .list-cell {
-	-fx-background-color: ;
 }
 
 .list-view-card-pane {
