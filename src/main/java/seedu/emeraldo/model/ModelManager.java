@@ -166,15 +166,30 @@ public class ModelManager extends ComponentManager implements Model {
     }
     
     public synchronized void addTag(Task target, Tag tag){
-        
+        try {
+            emeraldo.taskAddTag(target, tag);
+        } catch (IllegalValueException e) {
+            e.printStackTrace();
+        }
+        indicateEmeraldoChanged();
     }
     
     public synchronized void deleteTag(Task target, Tag tag){
-        
+        try {
+            emeraldo.taskDeleteTag(target, tag);
+        } catch (IllegalValueException e) {
+            e.printStackTrace();
+        }
+        indicateEmeraldoChanged();
     }
     
     public synchronized void clearTag(Task target){
-        
+        try {
+            emeraldo.taskClearTag(target);
+        } catch (IllegalValueException e) {
+            e.printStackTrace();
+        }
+        indicateEmeraldoChanged();
     }
     
     private void updateFilteredTaskListWithCompleted(){

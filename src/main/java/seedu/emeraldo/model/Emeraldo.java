@@ -126,6 +126,18 @@ public class Emeraldo implements ReadOnlyEmeraldo {
     }
     //@@author
     
+    public void taskAddTag(Task task, Tag tag) throws IllegalValueException {
+        
+    }
+    
+    public void taskDeleteTag(Task task, Tag tag) throws IllegalValueException {
+        
+    }
+    
+    public void taskClearTag(Task task) throws IllegalValueException {
+        
+    }
+    
 //// tag-level operations
 
     public void addTag(Tag t) throws UniqueTagList.DuplicateTagException {
