@@ -3,10 +3,13 @@ matrix:
   include:
     - jdk: oraclejdk8
 
+
 script: travis_retry ./gradlew clean headless allTests coverage coveralls -i
 before_install:
+		  
           - "export DISPLAY=:99.0"
           - "sh -e /etc/init.d/xvfb start"
+		  - chmod +x gradlew
 
 addons:
   apt:
