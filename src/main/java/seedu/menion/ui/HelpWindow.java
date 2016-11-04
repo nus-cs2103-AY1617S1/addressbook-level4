@@ -17,7 +17,7 @@ import java.util.logging.Logger;
 /**
  * Controller for a help page
  */
-/*
+
 public class HelpWindow extends UiPart {
 
     private static final Logger logger = LogsCenter.getLogger(HelpWindow.class);
@@ -66,4 +66,3 @@ public class HelpWindow extends UiPart {
         dialogStage.showAndWait();
     }
 }
-*/
