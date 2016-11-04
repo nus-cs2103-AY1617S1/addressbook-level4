@@ -1,10 +1,10 @@
 package guitests;
 
-import seedu.address.testutil.TypicalTestTasks;
-
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
+
+import seedu.stask.testutil.TypicalTestTasks;
 
 public class CommandBoxTest extends TaskBookGuiTest {
 
