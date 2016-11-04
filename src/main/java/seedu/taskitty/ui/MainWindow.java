@@ -23,7 +23,6 @@ public class MainWindow extends UiPart {
 
     private static final String ICON = "/images/Tasks-icon.png";
     private static final String FXML = "MainWindow.fxml";
-    private static final String VIEW_TODAY = "view";
     public static final int MIN_HEIGHT = 650;
     public static final int MIN_WIDTH = 750;
 
@@ -90,10 +89,6 @@ public class MainWindow extends UiPart {
     @FXML
     private AnchorPane statusbarPlaceholder;
 
-    
-    public MainWindow() {
-        super();
-    }
 
     @Override
     public void setNode(Node node) {
