@@ -41,6 +41,7 @@ public abstract class Command {
      * Raises an event to indicate an attempt to execute an incorrect command
      */
     protected void indicateAttemptToExecuteIncorrectCommand() {
+        model.updateFilteredListToShowAll();
         EventsCenter.getInstance().post(new IncorrectCommandAttemptedEvent(this));
     }
 }
