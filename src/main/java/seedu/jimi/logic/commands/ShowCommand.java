@@ -47,7 +47,6 @@ public class ShowCommand extends Command {
             "Invalid section to show!\n" 
             + "Valid case-insensitive sections to show: \n"
             + "> all, overdue, floating, complete, incomplete, today, tomorrow, {day of week displayed}";
-    public static final String MESSAGE_SUCCESS = "Displayed tasks and events.";
     
     private final String userSelection; //section name from user input
     
@@ -71,7 +70,7 @@ public class ShowCommand extends Command {
         
         if (userSelection.equals("all")) {
             model.updateAllFilteredListsToNormalListing();
-            return new CommandResult(MESSAGE_SUCCESS);
+            return new CommandResult(getMessageForTaskListShownSummary(model.getShownSize()));
         }
         
         ListId sectionToShow = determineSectionToShow(userSelection);
@@ -79,7 +78,7 @@ public class ShowCommand extends Command {
         model.updateFilteredAgendaTaskList(sectionToShow);
         model.updateFilteredAgendaEventList(sectionToShow);
         
-        return new CommandResult(MESSAGE_SUCCESS);
+        return new CommandResult(getMessageForTaskListShownSummary(model.getShownSize()));
     }
     
     // @@author A0140133B

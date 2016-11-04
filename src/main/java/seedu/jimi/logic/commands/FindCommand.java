@@ -62,8 +62,7 @@ public class FindCommand extends Command {
         }
         
         
-        return new CommandResult(getMessageForTaskListShownSummary(model.getFilteredAgendaTaskList().size()
-                + model.getFilteredAgendaEventList().size()));
+        return new CommandResult(getMessageForTaskListShownSummary(model.getShownSize()));
     }
     
     @Override

@@ -57,6 +57,9 @@ public interface Model{
     UnmodifiableObservableList<ReadOnlyTask> getFilteredAgendaTaskList();
 
     UnmodifiableObservableList<ReadOnlyTask> getFilteredAgendaEventList();
+    
+    /** Returns total number of items showing on UI */
+    int getShownSize();
 
     /** Updates the filter of the filtered task list to show the default listings */
     void updateAllFilteredListsToNormalListing();

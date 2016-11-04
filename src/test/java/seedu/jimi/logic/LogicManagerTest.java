@@ -360,19 +360,19 @@ public class LogicManagerTest {
         helper.addToModel(model, 2);
 
         assertCommandBehavior("s all",
-                ShowCommand.MESSAGE_SUCCESS,
+                Command.getMessageForTaskListShownSummary(model.getShownSize()),
                 expectedAB,
                 expectedList);
         assertCommandBehavior("sh all",
-                ShowCommand.MESSAGE_SUCCESS,
+                Command.getMessageForTaskListShownSummary(model.getShownSize()),
                 expectedAB,
                 expectedList);
         assertCommandBehavior("sho all",
-                ShowCommand.MESSAGE_SUCCESS,
+                Command.getMessageForTaskListShownSummary(model.getShownSize()),
                 expectedAB,
                 expectedList);
         assertCommandBehavior("show all",
-                ShowCommand.MESSAGE_SUCCESS,
+                Command.getMessageForTaskListShownSummary(model.getShownSize()),
                 expectedAB,
                 expectedList);
     }

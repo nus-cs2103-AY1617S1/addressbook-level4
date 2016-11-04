@@ -138,6 +138,16 @@ public class ModelManager extends ComponentManager implements Model {
         return new ModelManager(new TaskBook(taskBook), new UserPrefs(userPrefs));
     }
     
+    @Override
+    public int getShownSize() {
+        return getFilteredAgendaEventList().size() + getFilteredAgendaTaskList().size();
+    }
+    
+    @Override
+    public UserPrefs getUserPrefs() {
+        return userPrefs;
+    }
+    
     /*
      * ==================================================================
      *                  Updating Filtered Lists 
@@ -259,8 +269,7 @@ public class ModelManager extends ComponentManager implements Model {
         return this.filteredListManager.getSortedFilteredList(ListId.EVENTS_AGENDA);
     }
 
-    @Override
-    public UserPrefs getUserPrefs() {
-        return userPrefs;
-    }
+
+
+
 }
