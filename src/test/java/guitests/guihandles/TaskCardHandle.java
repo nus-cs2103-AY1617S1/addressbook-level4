@@ -43,7 +43,7 @@ public class TaskCardHandle extends GuiHandle {
 
 
     public boolean isSameFloatingTask(ReadOnlyTask task){
-        return getName().equals(task.getName().name) && getPriority().equals(task.getPriorityValue().toString());
+        return getName().equals(task.getName().getTaskName()) && getPriority().equals(task.getPriorityValue().toString());
     }
 
     @Override

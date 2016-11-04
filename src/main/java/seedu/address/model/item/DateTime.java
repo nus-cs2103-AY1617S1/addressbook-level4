@@ -14,8 +14,21 @@ import seedu.address.commons.exceptions.IllegalValueException;
  * Contains methods that works with Date objects in addition to what is given in Java Date API.
  */
 public abstract class DateTime {
+    
+    /** Name of key in map that maps to the start date of task */
+    private static final String MAP_START_DATE_KEY = "startDate";
+    /** Name of key in map that maps to the end date of task */
+    private static final String MAP_END_DATE_KEY = "endDate";
 
-    public static final String TIME = "EXPLICIT_TIME";
+    private static final String MONDAY = "monday";
+    private static final String TUESDAY = "tuesday";
+    private static final String WEDNESDAY = "wednesday";
+    private static final String THURSDAY = "thursday";
+    private static final String FRIDAY = "friday";
+    private static final String SATURDAY = "saturday";
+    private static final String SUNDAY = "sunday";
+    
+    private static final String TIME = "EXPLICIT_TIME";
     private static final String DATE_FORMAT_ONE = "EXPLICIT_DATE";
     private static final String DATE_FORMAT_TWO = "RELATIVE_DATE";
 
@@ -25,7 +38,7 @@ public abstract class DateTime {
 
     private static final int NUMBER_OF_DAYS_IN_A_WEEK = 7;
     
-    public static final String MESSAGE_VALUE_CONSTRAINTS = "DATE_TIME format: "
+    private static final String MESSAGE_VALUE_CONSTRAINTS = "DATE_TIME format: "
             + "DATE must be in one of the formats: "
             + "\"13th Sep 2015\", \"02-08-2015\" (mm/dd/yyyy) \n"
             + "TIME must be in one of the formats: "
@@ -130,7 +143,7 @@ public abstract class DateTime {
 
     /**
      * Returns true if given String conforms to what was specified in User Guide e.g 
-     * "5pm tomorrow", "02/10/2016", "13 Sep".
+     * "5pm tomorrow", "02/10/2016", "13 Sep 10pm".
      * 
      * @param dateString    user's input for date
      * @return  true if given String conforms to what was specified in User Guide. Else, return false.
@@ -149,19 +162,20 @@ public abstract class DateTime {
         }
         return true;
     }
+    
     /**
      * Assigns start date to a specified weekday according to the given dateString.
      * 
      * @param dateString    user's input for date
-     * @throws IllegalValueException 
+     * @throws IllegalValueException    if dateString is not a weekday
      */
     public static Date assignStartDateToSpecifiedWeekday(String dateString) throws IllegalValueException {
         assert dateString != null; 
                 
-        if (dateString.toLowerCase().equals("monday") || dateString.toLowerCase().equals("tuesday") ||
-        dateString.toLowerCase().equals("wednesday") || dateString.toLowerCase().equals("thursday") || 
-        dateString.toLowerCase().equals("friday") || dateString.toLowerCase().equals("saturday") || 
-        dateString.toLowerCase().equals("sunday")) {
+        if (dateString.toLowerCase().equals(MONDAY) || dateString.toLowerCase().equals(TUESDAY) ||
+        dateString.toLowerCase().equals(WEDNESDAY) || dateString.toLowerCase().equals(THURSDAY) || 
+        dateString.toLowerCase().equals(FRIDAY) || dateString.toLowerCase().equals(SATURDAY) || 
+        dateString.toLowerCase().equals(SUNDAY)) {
         
             List<DateGroup> dates = new Parser().parse(dateString);
             Date date = dates.get(BASE_INDEX).getDates().get(BASE_INDEX);
@@ -244,43 +258,44 @@ public abstract class DateTime {
         
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
+        int rate = recurrenceRate.getRate();
         
-        switch (recurrenceRate.timePeriod) {
+        switch (recurrenceRate.getTimePeriod()) {
         case HOUR:
-            calendar.add(Calendar.HOUR_OF_DAY, recurrenceRate.rate);
+            calendar.add(Calendar.HOUR_OF_DAY, rate);
             break;
         case DAY:
-            calendar.add(Calendar.DAY_OF_YEAR, recurrenceRate.rate);
+            calendar.add(Calendar.DAY_OF_YEAR, rate);
             break;
         case WEEK:
-            calendar.add(Calendar.WEEK_OF_YEAR, recurrenceRate.rate);
+            calendar.add(Calendar.WEEK_OF_YEAR, rate);
             break;
         case MONTH:
-            calendar.add(Calendar.MONTH, recurrenceRate.rate);
+            calendar.add(Calendar.MONTH, rate);
             break;
         case YEAR:
-            calendar.add(Calendar.YEAR, recurrenceRate.rate);
+            calendar.add(Calendar.YEAR, rate);
             break;
         case MONDAY:
-            DateTime.updateCalendarToComingMondays(calendar, recurrenceRate.rate);
+            DateTime.updateCalendarToComingMondays(calendar, rate);
             break;
         case TUESDAY:
-            DateTime.updateDateToComingTuesdays(calendar, recurrenceRate.rate);
+            DateTime.updateDateToComingTuesdays(calendar, rate);
             break;
         case WEDNESDAY:
-            DateTime.updateDateToComingWednesdays(calendar, recurrenceRate.rate);
+            DateTime.updateDateToComingWednesdays(calendar, rate);
             break;
         case THURSDAY:
-            DateTime.updateDateToComingThursdays(calendar, recurrenceRate.rate);
+            DateTime.updateDateToComingThursdays(calendar, rate);
             break;
         case FRIDAY:
-            DateTime.updateDateToComingFridays(calendar, recurrenceRate.rate);
+            DateTime.updateDateToComingFridays(calendar, rate);
             break;
         case SATURDAY:
-            DateTime.updateDateToComingSaturdays(calendar, recurrenceRate.rate);
+            DateTime.updateDateToComingSaturdays(calendar, rate);
             break;
         case SUNDAY:
-            DateTime.updateDateToComingSundays(calendar, recurrenceRate.rate);
+            DateTime.updateDateToComingSundays(calendar, rate);
             break;
         }
         
@@ -411,5 +426,23 @@ public abstract class DateTime {
         if (rate > ONE) {
             calendar.add(Calendar.DATE, (rate - ONE) * NUMBER_OF_DAYS_IN_A_WEEK);
         }
+    }
+    
+    public static String getMessageValueConstraints() {
+        return MESSAGE_VALUE_CONSTRAINTS;
+    }
+    
+    /** 
+     * @return the key in map that maps to the start date of task
+     */
+    public static String getMapStartDateKey() {
+        return MAP_START_DATE_KEY;
+    }
+    
+    /** 
+     * @return the key in map that maps to the end date of task
+     */
+    public static String getMapEndDateKey() {
+        return MAP_END_DATE_KEY;
     }
 }

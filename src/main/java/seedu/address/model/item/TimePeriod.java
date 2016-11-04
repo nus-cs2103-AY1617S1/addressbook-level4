@@ -22,6 +22,9 @@ public enum TimePeriod {
     SATURDAY,
     SUNDAY;
     
+    /** Name of key in map that maps to the time period of recurrence rate */
+    private static final String MAP_TIME_PERIOD_KEY = "timePeriod";
+    
     /**
      * Map containing valid user inputs and which values these inputs are mapped to.
      */
@@ -71,5 +74,12 @@ public enum TimePeriod {
             }
         }
         return timePeriod;
+    }
+    
+    /** 
+     * @return the key in map that maps to the time period of recurrence rate
+     */
+    public static String getTimePeriodKey() {
+        return MAP_TIME_PERIOD_KEY;
     }
 }

@@ -70,8 +70,9 @@ public class EditCommand extends UndoableCommand {
         assignPriorityIfPresent(priorityString);
         assignResetIfPresent(resetFieldString);
 
+
         if (isRecurWeekdaysButDatesNotGiven(startDate, endDate, recurrenceRate)) {
-            startDate = DateTime.assignStartDateToSpecifiedWeekday(recurrenceRate.timePeriod.toString());
+            startDate = DateTime.assignStartDateToSpecifiedWeekday(recurrenceRate.getTimePeriod().toString());
         } 
 
 	}
@@ -187,7 +188,7 @@ public class EditCommand extends UndoableCommand {
         } else if (!rateString.isPresent() && timePeriodString.isPresent()) {
             recurrenceRate = new RecurrenceRate(STRING_CONSTANT_ONE, timePeriodString.get());
         } else if (rateString.isPresent() && !timePeriodString.isPresent()) {
-            throw new IllegalValueException(RecurrenceRate.MESSAGE_VALUE_CONSTRAINTS);
+            throw new IllegalValueException(RecurrenceRate.getMessageValueConstraints());
         }
     }
 
@@ -200,8 +201,8 @@ public class EditCommand extends UndoableCommand {
      * @return  true if both dates are null and Task repeats every weekday. Else, returns false.
      */
     private static boolean isRecurWeekdaysButDatesNotGiven(Date startDate, Date endDate, RecurrenceRate recurrenceRate) {
-        return recurrenceRate != null && recurrenceRate.timePeriod != TimePeriod.DAY && 
-                recurrenceRate.timePeriod.toString().toLowerCase().contains("day") &&
+        return recurrenceRate != null && recurrenceRate.getTimePeriod() != TimePeriod.DAY && 
+                recurrenceRate.getTimePeriod().toString().toLowerCase().contains("day") &&
                 startDate == null && endDate == null;
     }
     

@@ -73,9 +73,9 @@ public class TaskCard extends UiPart{
     }
     
     private void setTaskCardName() {
-        assert task != null && task.getName() != null && task.getName().name != null;
+        assert task != null && task.getName() != null && task.getName().getTaskName() != null;
         
-        String taskName = task.getName().name;
+        String taskName = task.getName().getTaskName();
         name.setText(taskName);
     }
     
@@ -167,30 +167,33 @@ public class TaskCard extends UiPart{
     }
 
     private String prepareRecurrenceRateToDisplay() {
-        String recurrenceRateText = "";
-        Integer recurrenceRateInteger = task.getRecurrenceRate().get().rate;
-        TimePeriod timePeriod = task.getRecurrenceRate().get().timePeriod;
-        boolean hasRecurrenceRateInt = checkIfHasRecurrenceRateInt(recurrenceRateInteger);
+        //String recurrenceRateText = "";
+        //Integer recurrenceRateInteger = task.getRecurrenceRate().get().rate;
+        //TimePeriod timePeriod = task.getRecurrenceRate().get().timePeriod;
+        //boolean hasRecurrenceRateInt = checkIfHasRecurrenceRateInt(recurrenceRateInteger);
         
-        if (hasRecurrenceRateInt) {
+        String recurrenceRateText = task.getRecurrenceRate().get().toString();
+        
+        /*if (hasRecurrenceRateInt) {
             recurrenceRateText = prepareRecurrenceRateWithInt(recurrenceRateInteger, timePeriod);
         } else {
             recurrenceRateText = prepareRecurrenceRateWithoutInt(timePeriod);
-        }
+        }*/
         
         return recurrenceRateText;
     }
 
+    //ZhiYuan comments: Basically won't come here since recurrenceRate confirm won't have null rate.
     private String prepareRecurrenceRateWithoutInt(TimePeriod timePeriod) {
         return "Every " + timePeriod.toString().substring(ZERO, ONE).toUpperCase() 
                 + timePeriod.toString().substring(ONE).toLowerCase();
     }
-
+    // ZhiYuan comments: I extracted this to toString() method of RecurrenceRate.
     private String prepareRecurrenceRateWithInt(Integer recurrenceRateInteger, TimePeriod timePeriod) {
         return "Every " 
                 + (recurrenceRateInteger == ONE ? "" : recurrenceRateInteger.toString() + " ")
                 + timePeriod.toString().substring(ZERO, ONE).toUpperCase() + timePeriod.toString().substring(ONE).toLowerCase()
-                + (recurrenceRateInteger.intValue() > ONE ? "s" : "");
+                + (recurrenceRateInteger.intValue() == ONE ? "" : "s");
     }
 
     private boolean checkIfHasRecurrenceRateInt(Integer recurrenceRateInteger) {

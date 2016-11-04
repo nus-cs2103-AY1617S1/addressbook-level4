@@ -27,9 +27,9 @@ public class XmlAdaptedRecurrenceRate {
      * @param source future changes to this will not affect the created XmlAdaptedPerson
      */
     public XmlAdaptedRecurrenceRate(RecurrenceRate source) {
-        assert source.rate != null && source.timePeriod != null;
-        this.rate = source.rate.toString().toLowerCase();
-        this.timePeriod = source.timePeriod.toString().toLowerCase();
+        assert source.getRate() != null && source.getTimePeriod() != null;
+        this.rate = source.getRate().toString().toLowerCase();
+        this.timePeriod = source.getTimePeriod().toString().toLowerCase();
     }
 
     /**

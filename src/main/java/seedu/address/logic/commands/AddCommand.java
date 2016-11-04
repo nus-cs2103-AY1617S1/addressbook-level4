@@ -11,6 +11,7 @@ import seedu.address.commons.core.Messages;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.item.Task;
 import seedu.address.model.item.UniqueTaskList.TaskNotFoundException;
+import seedu.address.model.item.DateTime;
 import seedu.address.model.item.Name;
 import seedu.address.model.item.Priority;
 import seedu.address.model.item.RecurrenceRate;
@@ -24,8 +25,7 @@ public class AddCommand extends UndoableCommand {
     private final Logger logger = LogsCenter.getLogger(AddCommand.class);
     
     public static final String COMMAND_WORD = "add";
-
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds an item to To-Do List.\n"
+    private static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds an item to To-Do List.\n"
             + "Parameters: [add] NAME [from/at/start DATE_TIME] [to/by/end DATE_TIME] [repeat every RECURRING_INTERVAL] [-PRIORITY]\n"
             + "Example: " + COMMAND_WORD
             + " feed cat by today 11:30am repeat every day -high";
@@ -36,7 +36,7 @@ public class AddCommand extends UndoableCommand {
     public static final String TOOL_TIP = "[add] NAME [start DATE_TIME] [end DATE_TIME] [repeat every RECURRING_INTERVAL] [-PRIORITY]";
 
     private Task toAdd;
-
+    
     //@@author A0139655U
     /**
      * Convenience constructor using raw values.
@@ -46,14 +46,14 @@ public class AddCommand extends UndoableCommand {
      */
     public AddCommand(HashMap<String, Optional<String>> mapOfStrings) 
                     throws IllegalValueException {
-        HashMap<String, Object> mapOfObjects = AddCommandHelper.convertStringToObjects(mapOfStrings);
-        assert mapOfObjects.get("taskName") != null;
+        HashMap<String, Object> mapOfTaskParameters = AddCommandHelper.convertStringToObjects(mapOfStrings);
+        assert mapOfTaskParameters.get(Name.getMapNameKey()) != null;
         
-        Name taskName = (Name) mapOfObjects.get("taskName");
-        Date startDate = (Date) mapOfObjects.get("startDate");
-        Date endDate = (Date) mapOfObjects.get("endDate");
-        RecurrenceRate recurrenceRate = (RecurrenceRate) mapOfObjects.get("recurrenceRate");
-        Priority priority = (Priority) mapOfObjects.get("priority");
+        Name taskName = (Name) mapOfTaskParameters.get(Name.getMapNameKey());
+        Date startDate = (Date) mapOfTaskParameters.get(DateTime.getMapStartDateKey());
+        Date endDate = (Date) mapOfTaskParameters.get(DateTime.getMapEndDateKey());
+        RecurrenceRate recurrenceRate = (RecurrenceRate) mapOfTaskParameters.get(RecurrenceRate.getMapRecurrenceRateKey());
+        Priority priority = (Priority) mapOfTaskParameters.get(Priority.getMapPriorityKey());
         
         logger.log(Level.FINEST, "taskName is " + taskName + "\nstartDate is " + startDate + "\nendDate is " + endDate
                 + "\n recurrenceRate is " + recurrenceRate + "\npriority is " + priority);
@@ -99,5 +99,10 @@ public class AddCommand extends UndoableCommand {
         }
         
         return new CommandResult(String.format(MESSAGE_UNDO_SUCCESS, toAdd));
+    }
+    
+    //@@author A0139655U
+    public static String getMessageUsage() {
+        return MESSAGE_USAGE;
     }
 }

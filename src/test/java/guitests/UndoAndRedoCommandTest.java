@@ -158,7 +158,7 @@ public class UndoAndRedoCommandTest extends AddressBookGuiTest {
         commandBox.runCommand(taskToAdd.getAddCommand());
 
         //confirm the new card contains the right data
-        TaskCardHandle addedCard = personListPanel.navigateToFloatingTask(taskToAdd.getName().name);
+        TaskCardHandle addedCard = personListPanel.navigateToFloatingTask(taskToAdd.getName().getTaskName());
         assertMatching(taskToAdd, addedCard);
 
         //confirm the list now contains all previous persons plus the new person
