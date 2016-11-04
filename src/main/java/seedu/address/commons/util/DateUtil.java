@@ -210,7 +210,7 @@ public class DateUtil {
         return diff = (today > dayindex) ? (7 - (today - dayindex)) : (dayindex - today);
     }
 
-    public static Date DueDateConvert(String date) throws IllegalValueException {
+    public static Date convertDueDate(String date) throws IllegalValueException {
         if (date.split(" ").length == 1) {
             date = date.concat(" 2359");
         }
@@ -224,7 +224,7 @@ public class DateUtil {
         return taskDate;
     }
 
-    public static Date FixedDateConvert(String date) throws IllegalValueException {
+    public static Date convertFixedDate(String date) throws IllegalValueException {
         if (date.contains("today") || date.contains("tomorrow") || date.contains("mon") || date.contains("tue")
                 || date.contains("wed") || date.contains("thu") || date.contains("fri") || date.contains("sat")
                 || date.contains("sun")) { // allow user to key in "today"

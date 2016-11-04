@@ -38,7 +38,7 @@ public class DueDate extends DateTime {
         
         if (!date.equals("")) {
 
-            Date taskDate = DATE_PARSER.DueDateConvert(date);
+            Date taskDate = DATE_PARSER.convertDueDate(date);
 
             if (taskDate == null) {
                 assert false : "Date should not be null";

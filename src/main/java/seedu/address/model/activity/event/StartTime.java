@@ -52,7 +52,7 @@ public class StartTime extends DateTime {
             date = "today " + recur[1];
         }
         if (!date.equals("")) {
-            Date taskDate = DateUtil.FixedDateConvert(date);
+            Date taskDate = DateUtil.convertFixedDate(date);
 
             if (taskDate == null) {
                 assert false : "Date should not be null";

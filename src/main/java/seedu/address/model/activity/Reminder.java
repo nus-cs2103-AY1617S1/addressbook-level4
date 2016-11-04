@@ -59,7 +59,7 @@ public class Reminder extends DateTime {
             }
 
             if (!date.equals("")) {
-                Date taskDate = DateUtil.FixedDateConvert(date);
+                Date taskDate = DateUtil.convertFixedDate(date);
                 if (!isValidDate(date)) {
                     throw new IllegalValueException(MESSAGE_REMINDER_CONSTRAINTS);
                 }
