@@ -43,14 +43,14 @@ public class Reminder extends DateTime {
                     throw new IllegalValueException(MESSAGE_REMINDER_CONSTRAINTS);
                 date = recur[1];
             }
-            setDate(date);
+            this.value= DateUtil.setDate(date);
         }
     }
 
     public void setDate(String date) throws IllegalValueException {
         String[] recur = date.split(" ", 2);
         String recurfreq = recur[0];
-        if (!isValidDate(date)) {
+        if (!DateUtil.isValidDate(date)) {
             throw new IllegalValueException(MESSAGE_REMINDER_CONSTRAINTS);
         }
         if (recur.length != 1) {
@@ -61,7 +61,7 @@ public class Reminder extends DateTime {
 
             if (!date.equals("")) {
                 Date taskDate = DateUtil.FixedDateConvert(date);
-                if (!isValidDate(date)) {
+                if (!DateUtil.isValidDate(date)) {
                     throw new IllegalValueException(MESSAGE_REMINDER_CONSTRAINTS);
                 }
                 if (taskDate == null) {

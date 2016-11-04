@@ -144,8 +144,11 @@ public class DateUtil {
         }
     }
 
+    /**
+     * Returns true if a given string is a valid task reminder.
+     */
     public static boolean isValidDate(String test) {
-        if (validate(test) || test == "")
+        if (validate(test) || test.equals("") ||test.contains("today") || test.contains("tomorrow")||test.contains("mon")||test.contains("tue")||test.contains("wed")||test.contains("thu")||test.contains("fri")||test.contains("sat")||test.contains("sun"))
             return true;
         else
             return false;
@@ -314,5 +317,40 @@ public class DateUtil {
             }
         }
         return false;
+    }
+    
+    public static Calendar setDate(String date) throws IllegalValueException {
+        String[] recur = date.split(" ", 2);
+        String recurfreq = recur[0];
+        if (!DateUtil.isValidDate(date)) {
+            throw new IllegalValueException(INVALID_FORMAT);
+        }
+        if (recur.length != 1) {
+
+            if (recurfreq.contains("day")) {
+                date = "today " + recur[1];
+            }
+
+            if (!date.equals("")) {
+                Date taskDate = DateUtil.FixedDateConvert(date);
+                if (!DateUtil.isValidDate(date)) {
+                    throw new IllegalValueException(INVALID_FORMAT);
+                }
+                if (taskDate == null) {
+                    assert false : "Date should not be null";
+                } /*
+                   * else if (DateUtil.hasPassed(taskDate)) { throw new
+                   * IllegalValueException(MESSAGE_REMINDER_INVALID);
+                   */
+
+                Calendar cal = Calendar.getInstance();
+                cal.setTime(taskDate);
+                cal.set(Calendar.MILLISECOND, 0);
+                cal.set(Calendar.SECOND, 0);
+            
+            return cal;}
+
+        }
+        throw new IllegalValueException(INVALID_FORMAT);
     }
 }

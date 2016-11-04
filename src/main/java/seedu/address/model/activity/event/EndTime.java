@@ -60,9 +60,9 @@ public class EndTime extends DateTime {
             Calendar startcal = starttime.value;
             SimpleDateFormat format1 = new SimpleDateFormat("d-MM-yyyy");
             date = format1.format(startcal) + " " + date;
-            setDate(date);
+            this.value= DateUtil.setDate(date);
         } else {
-            setDate(date);
+            this.value= DateUtil.setDate(date);
         }
 
         while ((this.value.before(Calendar.getInstance()))) {
@@ -103,7 +103,7 @@ public class EndTime extends DateTime {
             RecurringMessage = "every " + date;
         } else
             throw new IllegalValueException(MESSAGE_ENDTIME_CONSTRAINTS);
-        setDate(date);
+        this.value= DateUtil.setDate(date);
 
         Calendar cal = Calendar.getInstance();
         cal.setTime(startdate);
@@ -124,35 +124,6 @@ public class EndTime extends DateTime {
         throw new IllegalValueException(MESSAGE_ENDTIME_CONSTRAINTS);
     }
 
-    void setDate(String date) throws IllegalValueException {
-        String[] recur = date.split(" ", 2);
-        String recurfreq = recur[0];
-        if (recur.length == 1)
-            throw new IllegalValueException(MESSAGE_ENDTIME_CONSTRAINTS);
-        if (recurfreq.contains("day")) {
-            date = "today " + recur[1];
-        }
-        if (!isValidDate(date)) {
-            throw new IllegalValueException(MESSAGE_ENDTIME_CONSTRAINTS);
-        }
-        if (!date.equals("")) {
-            Date taskDate = DateUtil.FixedDateConvert(date);
-
-            if (taskDate == null) {
-                assert false : "Date should not be null";
-            } /*
-               * else if (DateUtil.hasPassed(taskDate)) { throw new
-               * IllegalValueException(MESSAGE_STARTTIME_INVALID); }
-               */
-
-            if (!isValidDate(date)) {
-                throw new IllegalValueException(MESSAGE_ENDTIME_CONSTRAINTS);
-            }
-            this.value.setTime(taskDate);
-            this.value.set(Calendar.MILLISECOND, 0);
-            this.value.set(Calendar.SECOND, 0);
-        }
-    }
 
     public EndTime(String date) throws IllegalValueException {
         super(date);
@@ -167,7 +138,7 @@ public class EndTime extends DateTime {
                 date = recur[1];
             }
 
-            setDate(date);
+            this.value= DateUtil.setDate(date);
         }
     }
 

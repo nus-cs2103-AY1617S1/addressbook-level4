@@ -80,15 +80,7 @@ public abstract class DateTime implements Comparable<DateTime>{
         return this.value.getTime().compareTo(other.value.getTime());
     }
 
-    /**
-     * Returns true if a given string is a valid task reminder.
-     */
-    protected static boolean isValidDate(String test) {
-        if (DATE_PARSER.validate(test) || test.equals("") ||test.contains("today") || test.contains("tomorrow")||test.contains("mon")||test.contains("tue")||test.contains("wed")||test.contains("thu")||test.contains("fri")||test.contains("sat")||test.contains("sun"))
-            return true;
-        else
-            return false;
-    }
+
 
     public Calendar getCalendarValue() {
         return this.value;
