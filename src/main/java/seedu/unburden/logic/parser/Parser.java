@@ -358,6 +358,9 @@ public class Parser {
 	}
 
 	private Command prepareList(String args) throws ParseException {
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(calendar.getTime());
+		final String todayKeyword = DATEFORMATTER.format(calendar.getTime());
 		args = args.trim();
 		if (args.equals("")) {
 			return new ListCommand();
@@ -368,28 +371,23 @@ public class Parser {
 			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ListCommand.MESSAGE_USAGE));
 		}
 		if (matcherDate.matches()) {
-			return new ListCommand(args, "date");
+			return new ListCommand(todayKeyword, args, "date");
 		} else {
 			if (args.toLowerCase().contains("to")) {
 				String[] dates = args.toLowerCase().split("to");
 				return new ListCommand(dates[0], dates[1], "date");
 			}
 		}
-		Calendar calendar = Calendar.getInstance();
 		switch (args.toLowerCase()) {
 		case TOMORROW:
-			calendar.setTime(calendar.getTime());
-			final String todayKeyword = DATEFORMATTER.format(calendar.getTime());
 			calendar.add(Calendar.DAY_OF_YEAR, 1);
 			final String tomorrowKeyword = DATEFORMATTER.format(calendar.getTime());
 			System.out.println(tomorrowKeyword);
 			return new ListCommand(todayKeyword, tomorrowKeyword, "date");
 		case NEXTWEEK:
-			calendar.setTime(calendar.getTime());
-			final String todayKeyword2 = DATEFORMATTER.format(calendar.getTime());
 			calendar.add(Calendar.WEEK_OF_YEAR, 1);
 			final String nextWeekKeyword = DATEFORMATTER.format(calendar.getTime());
-			return new ListCommand(todayKeyword2, nextWeekKeyword, "date");
+			return new ListCommand(todayKeyword, nextWeekKeyword, "date");
 		case DONE:
 			return new ListCommand(DONE);
 		case UNDONE:
