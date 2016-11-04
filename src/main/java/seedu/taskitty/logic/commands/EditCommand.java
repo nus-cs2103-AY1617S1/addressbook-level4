@@ -46,7 +46,7 @@ public class EditCommand extends Command{
     private Task toEdit;
     private ReadOnlyTask taskToEdit;
     private String[] data;
-    private final Set<Tag> tagSet;
+    private Set<Tag> tagSet;
     private final String commandText;
     
     /**
@@ -105,6 +105,9 @@ public class EditCommand extends Command{
      * @throws IllegalValueException
      */
     private Optional<CommandResult> updateToEditVariable() throws IllegalValueException {
+        if (tagSet.isEmpty()) {
+            tagSet = taskToEdit.getTags().toSet();
+        }
         if (data.length == Task.TASK_COMPONENT_COUNT) {
             this.toEdit = new Task(
                 new Name(data[Task.TASK_COMPONENT_INDEX_NAME]),
