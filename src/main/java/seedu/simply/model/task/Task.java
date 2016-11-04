@@ -204,7 +204,7 @@ public class Task implements ReadOnlyTask, ModifyTask, Comparable<Task> {
      * @throws IllegalValueException 
 
      */
-  //@@author A0139430L JingRui
+  //@@author A0139430L
     public boolean setTags(String specific_tag, String replacement) throws IllegalValueException{        
         Tag tempTag = new Tag(specific_tag);
         System.out.println(tags.contains(tempTag));
@@ -237,7 +237,7 @@ public class Task implements ReadOnlyTask, ModifyTask, Comparable<Task> {
         return getAsText();
     }
     
-  //@@author A0139430L JingRui
+  //@@author A0139430L
     @Override
     public int compareTo(Task other) {
         if(this.isCompleted==true & other.isCompleted == false)

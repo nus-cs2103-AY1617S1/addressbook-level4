@@ -125,7 +125,7 @@ public class Date implements Comparable<Date> {
         return value.hashCode();
     }
     
-  //@@author A0139430L JingRui
+  //@@author A0139430L
     @Override
     public int compareTo(Date o) { 
         if(this.toString().compareTo("no date")==0 & o.toString().compareTo("no date")==0)
