@@ -58,7 +58,7 @@ Format: `add n/TASK_NAME [d/DEADLINE] [t/TAG]... [p/PRIORITY_LEVEL][r/RECURRING_
 >at 4pm, the day after tommorrow are recognized. For events, START_DATE and END_DATE must be present at the
 >same time
 
-> Items to be added can have any number of tags (including 0)
+> Items to be added can have any number of tags (including 0)<br>
 
 Examples:
 * `add n/Lecture s/7.10.2016-14 e/7.10.2016-16 t/CS2103 p/3 r/daily`
@@ -67,80 +67,80 @@ Examples:
 
 #### Listing items : `list`
 Shows a list of all items.<br>
-Format: `list`
-Example:
-*`list`
+Format: `list`<br>
+Example:<br>
+*`list`<br>
 
 Shows a list of all tasks.<br>
-Format: `list tasks`
-Example:
-*`list tasks`
+Format: `list tasks`<br>
+Example:<br>
+*`list tasks`<br>
 
 Shows a list of all events.<br>
-Format: `list events`
-Example:
-*`list events`
+Format: `list events`<br>
+Example:<br>
+*`list events`<br>
 
 Shows a list of all done items.<br>
-Format: `list done`
-Example:
-*`list done`
+Format: `list done`<br>
+Example:<br>
+*`list done`<br>
 
 Shows a list of all undone items.<br>
-Format: `list undone`
-Example:
-*`list undone`
+Format: `list undone`<br>
+Example:<br>
+*`list undone`<br>
 
 #### Deleting items: `delete`
-Deletes an existing task or event from toDoList storage completely.
+Deletes an existing task or event from toDoList storage completely.<br>
 
-Format: `delete INDEX`
+Format: `delete INDEX`<br>
 
 > Delete the task or event identified by the specific INDEX in the most recent listing.
 > INDEX must be positive integers like 1 , 2 , 3 ...
 
-Format:`delete NAME...`
+Format:`delete NAME...`<br>
 
 > all tasks or events with names matching one or more of the input parameters will be listed
 > user delete the task or event by index in the last shown listing
 
-Example:
-* `delete do homework`
-A list of items with keywords "do" or "homework" or both will be shown.
+Example:<br>
+* `delete do homework`<br>
+A list of items with keywords "do" or "homework" or both will be shown.<br>
 
-* `delete 1`
-Delete the first item in the last shown list
+* `delete 1`<br>
+Delete the first item in the last shown list<br>
 
 #### Refresh toDoList: `refresh`
-Refresh the current toDoList
+Refresh the current toDoList<br>
 
-Format: `refresh`
+Format: `refresh`<br>
 
-> refreshes all outdated recurring tasks to reflect next upcoming date
+> refreshes all outdated recurring tasks to reflect next upcoming date<br>
 
-Example:
-* `refresh`
+Example:<br>
+* `refresh`<br>
 
 #### Mark an item as done: `done`
-Mark an event or task as done 
+Mark an event or task as done <br>
 
-Format: `done INDEX`
+Format: `done INDEX`<br>
 
-> Mark the task identified by the INDEX number as done, and reflect it in toDoList
-> INDEX of a task or event refers to the most recent listing
-> INDEX must be positive integer, such as 1, 2, 3 ...
+> Mark the task identified by the INDEX number as done, and reflect it in toDoList<br>
+> INDEX of a task or event refers to the most recent listing<br>
+> INDEX must be positive integer, such as 1, 2, 3 ...<br>
 
-Format: `done NAME...`
+Format: `done NAME...`<br>
 
-> A list of tasks or events with name matching one or more of the input parameters will be shown
-> User is then required to select the corresponding index in the last shown list and mark as done
+> A list of tasks or events with name matching one or more of the input parameters will be shown<br>
+> User is then required to select the corresponding index in the last shown list and mark as done<br>
 
-Example:
-* `done 1`
-Marks the first item in the last shown list as done
+Example:<br>
+* `done 1`<br>
+Marks the first item in the last shown list as done<br>
 
-* `done homework`
-A list of all items with names matching the keyword "homework" will be shown
+* `done homework`<br>
+A list of all items with names matching the keyword "homework" will be shown<br>
 
 <!-- @@author A0146123R-->
 #### Finding all todos containing any keyword in their name: `find`
