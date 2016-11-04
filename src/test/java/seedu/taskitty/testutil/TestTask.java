@@ -14,7 +14,6 @@ public class TestTask implements ReadOnlyTask, Comparable<TestTask> {
     private TaskPeriod period;
     private boolean isDone;
     private boolean isOverdue;
-    private boolean isOver;
     private UniqueTagList tags;
 
     public TestTask() {
