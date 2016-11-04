@@ -1,6 +1,7 @@
 package seedu.cmdo.logic.commands;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.HashSet;
 import java.util.Set;
@@ -167,6 +168,12 @@ public class EditCommand extends Command {
     		  toEditWith.setTags(taskToEdit.getTags()); 
     }
     
+    public void editStartLdt(ReadOnlyTask taskToEdit) {
+    	LocalDate ld = taskToEdit.getDueByDate().start;
+    	LocalTime lt = taskToEdit.getDueByTime().start;
+    	toEditWith.setStartLdt(LocalDateTime.of(ld, lt));
+    }
+    
     @Override
     public CommandResult execute() {
         UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
@@ -190,7 +197,9 @@ public class EditCommand extends Command {
         //check if priority is empty and append with old details
         editPriority(taskToEdit);
         //append tags 
-        editTags(taskToEdit);        
+        editTags(taskToEdit);
+        //check for changes in start due by time and date
+        editStartLdt(taskToEdit);
         try {
         	updateSelectionInPanel(model.editTask(taskToEdit, toEditWith));
         } catch (TaskNotFoundException tnfe) {

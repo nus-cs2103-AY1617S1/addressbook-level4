@@ -96,6 +96,12 @@ public class Task implements ReadOnlyTask, Comparable {
     	dueByTime = dbt;
     }
     
+    //@@author A0141128R
+    //setter to edit start due by date time for edit command
+    public void setStartLdt(LocalDateTime ldt) {
+    	startLdt = ldt;
+    }
+    
 	@Override
     public Detail getDetail() {
         return detail;

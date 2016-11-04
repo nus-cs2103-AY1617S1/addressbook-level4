@@ -9,7 +9,7 @@ import edu.emory.mathcs.backport.java.util.Collections;
 /**
  * Sorts an array according to task comparator
  */
-public class TestTaskArraySorter {
+public class ArraySorter {
 	
 	public static TestTask[] sortTestTasks(TestTask[] tt) {
 		List<TestTask> list = Arrays.asList(tt);
