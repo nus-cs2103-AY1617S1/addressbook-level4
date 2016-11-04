@@ -3,10 +3,8 @@ package seedu.task.logic.commands;
 import java.util.HashSet;
 import seedu.task.commons.core.UnmodifiableObservableList;
 import seedu.task.commons.exceptions.IllegalValueException;
-import seedu.task.logic.RollBackCommand;
 import seedu.task.model.tag.Tag;
 import seedu.task.model.task.ReadOnlyTask;
-import seedu.task.model.task.Task;
 
 /**
  * Undo previous commands that was input by the user.

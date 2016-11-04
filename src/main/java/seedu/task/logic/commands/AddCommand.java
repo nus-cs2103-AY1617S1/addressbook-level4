@@ -37,7 +37,8 @@ public class AddCommand extends Command {
         for (String tagName : tags) {
             tagSet.add(new Tag(tagName));
         }
-        this.toAdd = new Task(new Name(name), new StartTime(startTime), new EndTime(endTime), new Deadline(deadline), new UniqueTagList(tagSet), new Status(false, false, false));
+        String recurring = "false";
+        this.toAdd = new Task(new Name(name), new StartTime(startTime), new EndTime(endTime), new Deadline(deadline), new UniqueTagList(tagSet), new Status(false, false, false), new Recurring(recurring));
     }
 
     @Override

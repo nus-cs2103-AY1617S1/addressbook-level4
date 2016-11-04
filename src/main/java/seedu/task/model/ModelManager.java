@@ -92,17 +92,17 @@ public class ModelManager extends ComponentManager implements Model {
 
             if (aLDT.isBefore(localDateTime)) {
 
-                task = new Task (task.getName(), task.getStartTime(), task.getEndTime(), task.getDeadline(), task.getTags(), new Status(task.getStatus().getDoneStatus(), true, task.getStatus().getFavoriteStatus()));
+                task = new Task (task.getName(), task.getStartTime(), task.getEndTime(), task.getDeadline(), task.getTags(), new Status(task.getStatus().getDoneStatus(), true, task.getStatus().getFavoriteStatus()), task.getRecurring());
 
             }
             else{
-                task = new Task (task.getName(), task.getStartTime(), task.getEndTime(), task.getDeadline(), task.getTags(), new Status(task.getStatus().getDoneStatus(), false, task.getStatus().getFavoriteStatus()));
+                task = new Task (task.getName(), task.getStartTime(), task.getEndTime(), task.getDeadline(), task.getTags(), new Status(task.getStatus().getDoneStatus(), false, task.getStatus().getFavoriteStatus()), task.getRecurring());
 
             }
 
         }
         else {
-            task = new Task (task.getName(), task.getStartTime(), task.getEndTime(), task.getDeadline(), task.getTags(), new Status(task.getStatus().getDoneStatus(), false, task.getStatus().getFavoriteStatus()));
+            task = new Task (task.getName(), task.getStartTime(), task.getEndTime(), task.getDeadline(), task.getTags(), new Status(task.getStatus().getDoneStatus(), false, task.getStatus().getFavoriteStatus()), task.getRecurring());
 
         }
         taskManager.addTask(task);
@@ -124,17 +124,17 @@ public class ModelManager extends ComponentManager implements Model {
 
             if (aLDT.isBefore(localDateTime)) {
 
-                task = new Task (task.getName(), task.getStartTime(), task.getEndTime(), task.getDeadline(), task.getTags(), new Status(task.getStatus().getDoneStatus(), true, task.getStatus().getFavoriteStatus()));
+                task = new Task (task.getName(), task.getStartTime(), task.getEndTime(), task.getDeadline(), task.getTags(), new Status(task.getStatus().getDoneStatus(), true, task.getStatus().getFavoriteStatus()), task.getRecurring());
 
             }
             else{
-                task = new Task (task.getName(), task.getStartTime(), task.getEndTime(), task.getDeadline(), task.getTags(), new Status(task.getStatus().getDoneStatus(), false, task.getStatus().getFavoriteStatus()));
+                task = new Task (task.getName(), task.getStartTime(), task.getEndTime(), task.getDeadline(), task.getTags(), new Status(task.getStatus().getDoneStatus(), false, task.getStatus().getFavoriteStatus()), task.getRecurring());
 
             }
 
         }
         else {
-            task = new Task (task.getName(), task.getStartTime(), task.getEndTime(), task.getDeadline(), task.getTags(), new Status(task.getStatus().getDoneStatus(), false, task.getStatus().getFavoriteStatus()));
+            task = new Task (task.getName(), task.getStartTime(), task.getEndTime(), task.getDeadline(), task.getTags(), new Status(task.getStatus().getDoneStatus(), false, task.getStatus().getFavoriteStatus()), task.getRecurring());
 
         }
         taskManager.addTask(index, task);

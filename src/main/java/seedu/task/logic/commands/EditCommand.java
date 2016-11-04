@@ -83,28 +83,28 @@ public class EditCommand extends Command {
         switch(this.toEditItem){
             case EDIT_NAME:
                 try{
-                    toAdd = new Task(new Name(this.toEdit), currentTask.getStartTime(), currentTask.getEndTime(), currentTask.getDeadline(), currentTask.getTags(), currentTask.getStatus());
+                    toAdd = new Task(new Name(this.toEdit), currentTask.getStartTime(), currentTask.getEndTime(), currentTask.getDeadline(), currentTask.getTags(), currentTask.getStatus(), currentTask.getRecurring());
                 }catch(IllegalValueException e){
                     return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
                 }
                 break;
             case EDIT_START_TIME:
                 try{
-                    toAdd = new Task(currentTask.getName(), new StartTime(this.toEdit), currentTask.getEndTime(), currentTask.getDeadline(), currentTask.getTags(), currentTask.getStatus());
+                    toAdd = new Task(currentTask.getName(), new StartTime(this.toEdit), currentTask.getEndTime(), currentTask.getDeadline(), currentTask.getTags(), currentTask.getStatus(), currentTask.getRecurring());
                 }catch(IllegalValueException e){
                     return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
                 }
                 break;
             case EDIT_END_TIME:
                 try{
-                    toAdd = new Task(currentTask.getName(), currentTask.getStartTime(), new EndTime(this.toEdit), currentTask.getDeadline(), currentTask.getTags(), currentTask.getStatus());
+                    toAdd = new Task(currentTask.getName(), currentTask.getStartTime(), new EndTime(this.toEdit), currentTask.getDeadline(), currentTask.getTags(), currentTask.getStatus(), currentTask.getRecurring());
                 }catch(IllegalValueException e){
                     return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
                 }
                 break;
             case EDIT_DEADLINE:
                 try{
-                    toAdd = new Task(currentTask.getName(), currentTask.getStartTime(), currentTask.getEndTime(), new Deadline(this.toEdit), currentTask.getTags(), currentTask.getStatus());
+                    toAdd = new Task(currentTask.getName(), currentTask.getStartTime(), currentTask.getEndTime(), new Deadline(this.toEdit), currentTask.getTags(), currentTask.getStatus(), currentTask.getRecurring());
                 }catch(IllegalValueException e){
                     return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
                 }
@@ -114,7 +114,7 @@ public class EditCommand extends Command {
                     for (String tagName : this.toEditTags) {
                         tagSet.add(new Tag(tagName));
                     }
-                    toAdd = new Task(currentTask.getName(), currentTask.getStartTime(), currentTask.getEndTime(), currentTask.getDeadline(), new UniqueTagList(tagSet), currentTask.getStatus());
+                    toAdd = new Task(currentTask.getName(), currentTask.getStartTime(), currentTask.getEndTime(), currentTask.getDeadline(), new UniqueTagList(tagSet), currentTask.getStatus(), currentTask.getRecurring());
                 }catch(IllegalValueException e){
                     return new CommandResult("Invalid tag format");
                 }
@@ -124,7 +124,7 @@ public class EditCommand extends Command {
                     for (String tagName : this.toEditTags) {
                         tagSet.add(new Tag(tagName));
                     }
-                    toAdd = new Task(currentTask.getName(), currentTask.getStartTime(), currentTask.getEndTime(), currentTask.getDeadline(), new UniqueTagList(tagSet), currentTask.getStatus());
+                    toAdd = new Task(currentTask.getName(), currentTask.getStartTime(), currentTask.getEndTime(), currentTask.getDeadline(), new UniqueTagList(tagSet), currentTask.getStatus(), currentTask.getRecurring());
                 }catch(IllegalValueException e){
                     return new CommandResult(MESSAGE_DUPLICATE_TASK);
                 }

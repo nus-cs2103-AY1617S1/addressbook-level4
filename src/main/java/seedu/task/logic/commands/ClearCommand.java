@@ -24,7 +24,7 @@ public class ClearCommand extends Command {
         for(int i = 0; i < lastShownList.size(); i++) {
             ReadOnlyTask taskToDelete = lastShownList.get(i);
             if(isUndo == false) {
-                Task task = new Task(taskToDelete.getName(), taskToDelete.getStartTime(), taskToDelete.getEndTime(), taskToDelete.getDeadline(), taskToDelete.getTags(), taskToDelete.getStatus());
+                Task task = new Task(taskToDelete.getName(), taskToDelete.getStartTime(), taskToDelete.getEndTime(), taskToDelete.getDeadline(), taskToDelete.getTags(), taskToDelete.getStatus(), taskToDelete.getRecurring());
                 history.getUndoList().add(new RollBackCommand(COMMAND_WORD , task, null));
             }
         }
