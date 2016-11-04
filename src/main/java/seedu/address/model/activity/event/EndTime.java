@@ -62,6 +62,9 @@ public class EndTime extends DateTime {
             date = format1.format(startcal) + " " + date;
             this.value= DateUtil.setDate(date);
         } else {
+            if (!DateUtil.isValidDate(date)) {
+                throw new IllegalValueException(MESSAGE_ENDTIME_CONSTRAINTS);
+            }
             this.value= DateUtil.setDate(date);
         }
 
@@ -103,6 +106,9 @@ public class EndTime extends DateTime {
             RecurringMessage = "every " + date;
         } else
             throw new IllegalValueException(MESSAGE_ENDTIME_CONSTRAINTS);
+        if (!DateUtil.isValidDate(date)) {
+            throw new IllegalValueException(MESSAGE_ENDTIME_CONSTRAINTS);
+        }
         this.value= DateUtil.setDate(date);
 
         Calendar cal = Calendar.getInstance();
@@ -137,7 +143,9 @@ public class EndTime extends DateTime {
                     throw new IllegalValueException(MESSAGE_ENDTIME_CONSTRAINTS);
                 date = recur[1];
             }
-
+            if (!DateUtil.isValidDate(date)) {
+                throw new IllegalValueException(MESSAGE_ENDTIME_CONSTRAINTS);
+            }
             this.value= DateUtil.setDate(date);
         }
     }

@@ -51,7 +51,7 @@ public class StartTime extends DateTime {
             date = "today " + recur[1];
         }
         if (!date.equals("")) {
-            Date taskDate = DateUtil.FixedDateConvert(date);
+            Date taskDate = DateUtil.convertDate(date);
             if (!DateUtil.isValidDate(date)) {
                 throw new IllegalValueException(MESSAGE_STARTTIME_CONSTRAINTS);
             }

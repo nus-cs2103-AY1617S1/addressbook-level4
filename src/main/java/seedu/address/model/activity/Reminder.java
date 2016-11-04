@@ -43,54 +43,13 @@ public class Reminder extends DateTime {
                     throw new IllegalValueException(MESSAGE_REMINDER_CONSTRAINTS);
                 date = recur[1];
             }
+            if (!DateUtil.isValidDate(date)) {
+                throw new IllegalValueException(MESSAGE_REMINDER_CONSTRAINTS);
+            }
             this.value= DateUtil.setDate(date);
         }
     }
 
-    public void setDate(String date) throws IllegalValueException {
-        String[] recur = date.split(" ", 2);
-        String recurfreq = recur[0];
-        if (!DateUtil.isValidDate(date)) {
-            throw new IllegalValueException(MESSAGE_REMINDER_CONSTRAINTS);
-        }
-        if (recur.length != 1) {
-
-            if (recurfreq.contains("day")) {
-                date = "today " + recur[1];
-            }
-
-            if (!date.equals("")) {
-                Date taskDate = DateUtil.FixedDateConvert(date);
-                if (!DateUtil.isValidDate(date)) {
-                    throw new IllegalValueException(MESSAGE_REMINDER_CONSTRAINTS);
-                }
-                if (taskDate == null) {
-                    assert false : "Date should not be null";
-                } /*
-                   * else if (DateUtil.hasPassed(taskDate)) { throw new
-                   * IllegalValueException(MESSAGE_REMINDER_INVALID);
-                   */
-
-                this.value.setTime(taskDate);
-                this.value.set(Calendar.MILLISECOND, 0);
-                this.value.set(Calendar.SECOND, 0);
-            }
-
-            while (recurring && this.value.before(Calendar.getInstance())) {
-                if (recurfreq.contains("year"))
-                    this.value.add(Calendar.YEAR, 1);
-                if (recurfreq.contains("month"))
-                    this.value.add(Calendar.MONTH, 1);
-                else if (recurfreq.contains("mon") || recurfreq.contains("tue") || recurfreq.contains("wed")
-                        || recurfreq.contains("thu") || recurfreq.contains("fri") || recurfreq.contains("sat")
-                        || recurfreq.contains("sun"))
-                    this.value.add(Calendar.DAY_OF_WEEK, 7);
-                if (recurfreq.contains("day"))
-                    this.value.add(Calendar.DAY_OF_MONTH, 1);
-            }
-        }
-    }
-    
     /**
      * Advances the reminder by a week (7 days) if it is recurring.
      */
