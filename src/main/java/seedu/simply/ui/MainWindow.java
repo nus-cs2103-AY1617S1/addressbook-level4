@@ -201,8 +201,4 @@ public class MainWindow extends UiPart {
         return this.todoListPanel;
     }
 
-    /*public void loadTaskPage(ReadOnlyTask task) {
-        browserPanel.loadTaskPage(task);
-    }*/
-
 }
