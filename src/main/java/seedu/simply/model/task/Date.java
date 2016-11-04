@@ -27,14 +27,14 @@ public class Date implements Comparable<Date> {
     private int beforeCurrentDate;
 
     /**
-     * Validates given date.
      * @@author A0138993L
+     * Validates given date.
      * @throws IllegalValueException if given date string is invalid.
      */
     public Date(String date) throws IllegalValueException {
-        //assert date != null;
-        if (date == null)
+        if (date == null) {
     		date = "default";
+        }
         date = date.trim();
         if (!isValidDate(date)) {
             throw new IllegalValueException(MESSAGE_DATE_CONSTRAINTS);
@@ -43,8 +43,8 @@ public class Date implements Comparable<Date> {
         beforeCurrentDate = isAfterCurrentDate(date);
         this.value = date;
     }
-    //@@author A0138993L
     /**
+     * @@author A0138993L
      * checks if the current date have been past
      * @param date
      * @return int value of 1 if date have past 2 if current date 0 if date is in the future
@@ -56,8 +56,7 @@ public class Date implements Comparable<Date> {
 			LocalDate test = LocalDate.of(Integer.parseInt(date_year), Integer.parseInt(date_cat[1]), Integer.parseInt(date_cat[0]));
             LocalDate now = LocalDate.now();
 			return currentDateStatus(now, test);
-    	}
-    	else//accounting for no date
+    	} else//accounting for no date
     		return 1;
 	}
 	/**
@@ -66,34 +65,36 @@ public class Date implements Comparable<Date> {
 	 * @param test the date entered by the user
 	 * @return the status of the date with 1 being past and 2 being equal and 0 being in the future
 	 */
-    private int currentDateStatus(LocalDate now, LocalDate test) {
-        if (test.isAfter(now))
-        	return 1;
-        else if (test.isEqual(now))
-        	return 2;
-        else	
-        	return 0;
-    }
-	//@@author A0138993L
+	private int currentDateStatus(LocalDate now, LocalDate test) {
+	    if (test.isAfter(now)) {
+	        return 1;
+	    } else if (test.isEqual(now)) {
+	        return 2;
+	    } else {
+	        return 0;
+	    }
+	}
+	
 	/**
+	 * @@author A0138993L
 	 * standardize the date format to DD-MM-YY
 	 * @param date
 	 * @return the date format of DD-MM-YY
 	 */
 	private String standardFormatDate(String date) {
-    	if (date.equals("default"))
-    		return local_date();
-    	else if (date.equals("no date"))
-    		return date;
-    	else if (date.contains("."))
-			return date.replaceAll("\\.", "-");
-		else if (date.contains("-"))
-			return date;
-		else if (date.contains("/"))
-			return date.replaceAll("/",  "-");
-		else {
-			return date.substring(0, 2) + "-" + date.substring(2, 4) + "-" + date.substring(4, 6);
-		}
+	    if (date.equals("default")) {
+	        return local_date();
+	    } else if (date.equals("no date")) {
+	        return date;
+	    } else if (date.contains(".")) {
+	        return date.replaceAll("\\.", "-");
+	    } else if (date.contains("-")) {
+	        return date;
+	    } else if (date.contains("/")) {
+	        return date.replaceAll("/",  "-");
+	    } else {
+	        return date.substring(0, 2) + "-" + date.substring(2, 4) + "-" + date.substring(4, 6);
+	    }
 	}
 	//@@author A0138993L
 	public String local_date(){
@@ -106,13 +107,13 @@ public class Date implements Comparable<Date> {
     /**
      * Returns true if a given string is a valid task date.
      */
-    public static boolean isValidDate(String test) {
-    	if (test.matches(DATE_VALIDATION_REGEX) || test.equals("default"))
-    		return true;
-    	else
-    		return false;
-    }
-    
+	public static boolean isValidDate(String test) {
+	    if (test.matches(DATE_VALIDATION_REGEX) || test.equals("default")) {
+	        return true;
+	    } else {
+	        return false;
+	    }
+	}
     public int getBeforeCurrentDate() {
     	return beforeCurrentDate;
     }
@@ -137,13 +138,14 @@ public class Date implements Comparable<Date> {
   //@@author A0139430L
     @Override
     public int compareTo(Date o) { 
-        if(this.toString().compareTo("no date")==0 & o.toString().compareTo("no date")==0)
+        if(this.toString().compareTo("no date")==0 & o.toString().compareTo("no date")==0) {
             return 0;
-        else if(this.toString().compareTo("no date")==0 )
+        } else if(this.toString().compareTo("no date")==0) {
             return -1;
-        else if(o.toString().compareTo("no date")==0 )
+        } else if(o.toString().compareTo("no date")==0) {
             return 1;
-        
+        }
+
         String[] temp = this.value.split("-");
         String[] temp2 = o.toString().split("-");
         
