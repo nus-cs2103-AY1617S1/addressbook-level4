@@ -3,6 +3,7 @@ package seedu.task.logic.parser;
 import seedu.task.logic.commands.*;
 import seedu.task.commons.util.FilePickerUtil;
 import seedu.task.commons.util.StringUtil;
+import seedu.task.commons.core.Messages;
 import seedu.task.commons.exceptions.IllegalValueException;
 import java.util.*;
 import java.util.regex.Matcher;
@@ -253,7 +254,7 @@ public class CommandParser {
             startString.append(time.getFirstTime().toString().substring(0, 5));
         }
         if (startString.length() == 0) {
-            return new IncorrectCommand("Incorrect time format");
+            return new IncorrectCommand(Messages.MESSAGE_INVALID_TIME_FORMAT);
         }
         try {
             return new AddCommand(name, startString.toString(), endTime, deadline, tags);
@@ -270,7 +271,7 @@ public class CommandParser {
         String timeString = "from " + startTime + " to " + endTime;
         TimeParserResult time = parserTime.parseTime(timeString);
         if (time == null) {
-            return new IncorrectCommand("The task can't end before it starts");
+            return new IncorrectCommand(Messages.MESSAGE_INVALID_TIME_INTERVAL);
         }
         StringBuilder start = new StringBuilder();
         StringBuilder end = new StringBuilder();
@@ -284,7 +285,7 @@ public class CommandParser {
             end.append(time.getSecondTime().toString().substring(0, 5));
         }
         if (start.length() == 0 || end.length() == 0) {
-            return new IncorrectCommand("Incorrect time format");
+            return new IncorrectCommand(Messages.MESSAGE_INVALID_TIME_FORMAT);
         }
         try {
             return new AddCommand(name, start.toString(), end.toString(), deadline, tags);
@@ -300,7 +301,7 @@ public class CommandParser {
         String timeString = "from " + startTime + " to " + deadline;
         TimeParserResult time = parserTime.parseTime(timeString);
         if (time == null) {
-            return new IncorrectCommand("The task can't end before it starts");
+            return new IncorrectCommand(Messages.MESSAGE_INVALID_TIME_INTERVAL);
         }
         StringBuilder start = new StringBuilder();
         StringBuilder end = new StringBuilder();
@@ -313,7 +314,7 @@ public class CommandParser {
             end.append(time.getSecondTime().toString().substring(0, 5));
         }
         if (start.length() == 0 || end.length() == 0) {
-            return new IncorrectCommand("Incorrect time format");
+            return new IncorrectCommand(Messages.MESSAGE_INVALID_TIME_FORMAT);
         }
         try {
             return new AddCommand(name, start.toString(), endTime, end.toString(), tags);
@@ -331,7 +332,7 @@ public class CommandParser {
         TimeParserResult time = parserTime.parseTime(timeString);
         TimeParserResult deadlineTime = parserDeadline.parseTime(deadline);
         if (time == null) {
-            return new IncorrectCommand("The task can't end before it starts");
+            return new IncorrectCommand(Messages.MESSAGE_INVALID_TIME_INTERVAL);
         }
         StringBuilder start = new StringBuilder();
         StringBuilder end = new StringBuilder();
@@ -350,7 +351,7 @@ public class CommandParser {
             end.append(time.getSecondTime().toString().substring(0, 5));
         }
         if (start.length() == 0 || end.length() == 0 || deadString.length() == 0) {
-            return new IncorrectCommand("Incorrect time format");
+            return new IncorrectCommand(Messages.MESSAGE_INVALID_TIME_FORMAT);
         }
         try {
             return new AddCommand(name, start.toString(), end.toString(), deadString.toString(), tags);
@@ -370,7 +371,7 @@ public class CommandParser {
             deadlineString.append(time.getFirstTime().toString().substring(0, 5));
         }
         if (deadlineString.length() == 0) {
-            return new IncorrectCommand("Incorrect time format");
+            return new IncorrectCommand(Messages.MESSAGE_INVALID_TIME_FORMAT);
         }
         try {
             return new AddCommand(name, startTime, endTime, deadlineString.toString(), tags);
@@ -424,7 +425,7 @@ public class CommandParser {
                 start.append(time.getFirstTime().toString().substring(0, 5));
             }
             if (start.length() == 0) {
-                return new IncorrectCommand("Incorrect time format");
+                return new IncorrectCommand(Messages.MESSAGE_INVALID_TIME_FORMAT);
             }
             try {
                 return new EditCommand(index, item, start.toString(), null);

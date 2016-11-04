@@ -40,6 +40,15 @@ public class AddCommandTest extends TaskManagerGuiTest {
         //invalid command
         commandBox.runCommand("adds Meet Jim");
         assertResultMessage(Messages.MESSAGE_UNKNOWN_COMMAND);
+        
+        commandBox.runCommand("add Meet Jim, at what time");
+        assertResultMessage(Messages.MESSAGE_INVALID_TIME_FORMAT);
+        
+        commandBox.runCommand("add Meet Jim, at 9pm to 10pm");
+        assertResultMessage(Messages.MESSAGE_INVALID_TIME_FORMAT);
+        
+        commandBox.runCommand("add Meet Jim, from tomorrow to today");
+        assertResultMessage(Messages.MESSAGE_INVALID_TIME_INTERVAL);      
     }
 
     private void assertAddSuccess(TestTask taskToAdd, TestTask... currentList) {
