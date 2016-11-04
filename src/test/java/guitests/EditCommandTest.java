@@ -10,7 +10,7 @@ import seedu.cmdo.testutil.TestUtil;
 import static org.junit.Assert.assertTrue;
 import static seedu.cmdo.logic.commands.EditCommand.MESSAGE_EDITED_TASK_SUCCESS;
 
-// @@author A0141128R tested and passed
+// @@author A0141128R
 public class EditCommandTest extends ToDoListGuiTest {
 	
     @Test

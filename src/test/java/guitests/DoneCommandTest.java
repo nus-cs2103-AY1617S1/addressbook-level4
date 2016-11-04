@@ -10,9 +10,8 @@ import seedu.cmdo.testutil.TestTaskArraySorter;
 import seedu.cmdo.testutil.TestUtil;
 
 /*
- * @@author A0141128R tested and passed
+ * @@author A0141128R
  */
-
 public class DoneCommandTest extends ToDoListGuiTest {
 
     @Test
