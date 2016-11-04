@@ -34,15 +34,16 @@ public class DateParserTest {
 	
 	@Test
 	public void parseDate_HHmmddmmyy_valueAsExpected() throws ParseException {
-		String userInput = "16:30 25-12-16";
+		String userInput = "16:30 25/12/16";
 		LocalDateTime date = DateParser.parse(userInput);
 
 		assertEquals(christmas430pm, date);
 	}
 
+	// TODO note in user guide that both - and / are both allowed in the same date
 	@Test
 	public void parseDate_yyyymmddhhmmpm_valueAsExpected() throws ParseException {
-		String userInput = "2016-12-25 4:30pm";
+		String userInput = "2016/12-25 4:30pm";
 		LocalDateTime date = DateParser.parse(userInput);
 
 		assertEquals(christmas430pm, date);
@@ -66,7 +67,7 @@ public class DateParserTest {
 
 	@Test
 	public void parseDate_ddmmyyhhmmpm_valueAsExpected() throws ParseException {
-		String userInput = "2-7-11 0400am";
+		String userInput = "2/7/11 0400am";
 		LocalDateTime date = DateParser.parse(userInput);
 		
 		LocalDateTime expected = LocalDateTime.of(2011, 7, 2, 4, 0);
