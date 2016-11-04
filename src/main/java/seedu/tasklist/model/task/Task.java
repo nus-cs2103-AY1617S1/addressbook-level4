@@ -86,11 +86,6 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
 		return uniqueID;
 	}
 
-	public void setUniqueId(int newuniqueId){
-		uniqueID = newuniqueId;
-	}
-
-	
 	public boolean isRecurring() {
 	    return this.isRecurring;
 	}
