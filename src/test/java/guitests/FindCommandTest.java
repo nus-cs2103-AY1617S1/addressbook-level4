@@ -11,12 +11,12 @@ public class FindCommandTest extends TaskManagerGuiTest {
 
     @Test
     public void find_nonEmptyList() {
-        assertFindResult("find Mark"); //no results
-        assertFindResult("find Meier", td.benson, td.daniel); //multiple results
+        assertFindResult("find invalid"); //no results
+        assertFindResult("find bananas", td.bananas, td.deed); //multiple results
 
         //find after deleting one result
         commandBox.runCommand("delete 1");
-        assertFindResult("find Meier",td.daniel);
+        assertFindResult("find bananas",td.deed);
     }
 
     @Test
@@ -27,7 +27,7 @@ public class FindCommandTest extends TaskManagerGuiTest {
 
     @Test
     public void find_invalidCommand_fail() {
-        commandBox.runCommand("findgeorge");
+        commandBox.runCommand("findhomework");
         assertResultMessage(Messages.MESSAGE_UNKNOWN_COMMAND);
     }
 

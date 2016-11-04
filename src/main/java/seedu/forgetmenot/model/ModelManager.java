@@ -72,15 +72,16 @@ public class ModelManager extends ComponentManager implements Model {
         indicateTaskManagerChanged();
     }
     //@@author
-    
+
     @Override
     public ReadOnlyTaskManager getTaskManager() {
         return taskManager;
     }
-    
+
     //@@author A0139671X
     /**
-     * Clears the stored tasks managers from both undo deque and task manager deque
+     * Clears the stored tasks managers from both undo deque and task manager
+     * deque
      */
     public void clearHistory() {
         taskManagerHistory.clear();
@@ -95,9 +96,10 @@ public class ModelManager extends ComponentManager implements Model {
         taskManagerHistory.push(new TaskManager(taskManager));
         undoHistory.clear();
     }
-    
+
     /**
-     * Loads a copy of the most recent task manager and updates the count of tasks in ForgetMeNot
+     * Loads a copy of the most recent task manager and updates the count of
+     * tasks in ForgetMeNot
      */
     @Override
     public void loadFromHistory() throws NoSuchElementException {
@@ -107,7 +109,7 @@ public class ModelManager extends ComponentManager implements Model {
         taskManager.counter();
         indicateTaskManagerChanged();
     }
-    
+
     /**
      * Loads a copy of the most recent undone task manager
      */
@@ -156,10 +158,11 @@ public class ModelManager extends ComponentManager implements Model {
 
     }
     //@@author
-    
+
     //@@author A0139671X
     /**
-     * Adds a task to the task manager and auto jumps to the most recent add in ForgetMeNot UI
+     * Adds a task to the task manager and auto jumps to the most recent add in
+     * ForgetMeNot UI
      */
     @Override
     public synchronized void addTask(Task task) {
@@ -170,8 +173,8 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     /**
-     * Adds a recurring task with either the default occurence or the specified occurence 
-     * with a specified frequency
+     * Adds a recurring task with either the default occurence or the specified
+     * occurence with a specified frequency
      */
     @Override
     public synchronized void addRecurringTask(ReadOnlyTask task) throws IllegalValueException {
@@ -179,16 +182,17 @@ public class ModelManager extends ComponentManager implements Model {
         int occur = task.getRecurrence().getOccurence();
 
         // Recurring task with only start time.
-       if (task.isStartTask())
+        if (task.isStartTask()) {
             addRecurringStartOnly(task, freq, occur);
-
-       // Recurring task with only end time.
-       else if (task.isDeadlineTask()) 
-           addRecurringDeadline(task, freq, occur);
-       
+        }
+        // Recurring task with only end time.
+        if (task.isDeadlineTask()) {
+            addRecurringDeadline(task, freq, occur);
+        }
         // Recurring task with both start and end times
-        else if (task.isEventTask()) 
+        if (task.isEventTask()) {
             addRecurringEvent(task, freq, occur);
+        }
 
         updateFilteredTaskListToShowNotDone();
         indicateTaskManagerChanged();
@@ -197,9 +201,11 @@ public class ModelManager extends ComponentManager implements Model {
     public void addRecurringEvent(ReadOnlyTask task, String freq, int occur) throws IllegalValueException {
         StringBuilder recurStartTime = new StringBuilder(task.getStartTime().appearOnUIFormat());
         StringBuilder recurEndTime = new StringBuilder(task.getEndTime().appearOnUIFormat());
+        
         for (int i = 0; i < occur - 1; i++) {
             recurStartTime.insert(0, freq + " after ");
             recurEndTime.insert(0, freq + " after ");
+
             addTask(new Task(task.getName(), new Done(false), new Time(recurStartTime.toString()),
                     new Time(recurEndTime.toString()), new Recurrence(task.getRecurrence().getRecurFreq())));
         }
@@ -207,27 +213,33 @@ public class ModelManager extends ComponentManager implements Model {
 
     public void addRecurringDeadline(ReadOnlyTask task, String freq, int occur) throws IllegalValueException {
         StringBuilder recurEndTime = new StringBuilder(task.getEndTime().appearOnUIFormat());
-           for (int i = 0; i < occur - 1; i++) {
-               recurEndTime.insert(0, freq + " after ");
-               addTask(new Task(task.getName(), new Done(false), new Time(""), new Time(recurEndTime.toString()),
-                       new Recurrence(task.getRecurrence().getRecurFreq())));
-           }
+        
+        for (int i = 0; i < occur - 1; i++) {
+            recurEndTime.insert(0, freq + " after ");
+            
+            addTask(new Task(task.getName(), new Done(false), new Time(""), new Time(recurEndTime.toString()),
+                    new Recurrence(task.getRecurrence().getRecurFreq())));
+        }
     }
 
     public void addRecurringStartOnly(ReadOnlyTask task, String freq, int occur) throws IllegalValueException {
         StringBuilder recurStartTime = new StringBuilder(task.getStartTime().appearOnUIFormat());
+        
         for (int i = 0; i < occur - 1; i++) {
             recurStartTime.insert(0, freq + " after ");
+          
             addTask(new Task(task.getName(), new Done(false), new Time(recurStartTime.toString()), new Time(""),
                     new Recurrence(task.getRecurrence().getRecurFreq())));
         }
     }
+
     /**
-     * Edits a tasks with the new details given and auto selects the editted task in ForgetMeNot UI
+     * Edits a tasks with the new details given and auto selects the editted
+     * task in ForgetMeNot UI
      */
     @Override
-    public synchronized void editTask(ReadOnlyTask task, String newName, String newStart, String newEnd
-            ) throws TaskNotFoundException, IllegalValueException {
+    public synchronized void editTask(ReadOnlyTask task, String newName, String newStart, String newEnd)
+            throws TaskNotFoundException, IllegalValueException {
         if (newName != null) {
             taskManager.editTaskName(task, newName);
         }
@@ -237,67 +249,64 @@ public class ModelManager extends ComponentManager implements Model {
         if (newEnd != null) {
             taskManager.editTaskEndTime(task, newEnd);
         }
-        
+
         updateFilteredListToShowAll();
         indicateTaskManagerChanged();
         EventsCenter.getInstance().post(new JumpToListRequestEvent(filteredTasks.indexOf(task)));
     }
     //@@author
-    
+
     //@@author A0147619W
     @Override
     public synchronized boolean isClashing(Task toAdd) {
-    	Time start = toAdd.getStartTime();
-    	Time end = toAdd.getEndTime();
-    	
-    	if(start.isMissing() && end.isMissing())
-    		return false;
-    	
-    	if(!start.isMissing() && !end.isMissing()) {
-    		for(Task task: taskManager.getTasks().filtered(isNotDone())) {
-    			if(!task.getStartTime().isMissing() && 
-    					task.getStartTime().time.compareTo(start.time) >= 0 && 
-    					task.getStartTime().time.compareTo(end.time) < 0)
-    				return true;
-    			
-    			if(!task.getEndTime().isMissing() && 
-    					task.getEndTime().time.compareTo(start.time) > 0 && 
-    					task.getEndTime().time.compareTo(end.time) <= 0)
-    				return true;	
-    		}
-    	}
-    	
-    	if(!start.isMissing()) {
-    		for(Task task: taskManager.getTasks().filtered(isNotDone())) {
-    			if(!task.getStartTime().isMissing() && task.getStartTime().time.compareTo(start.time) == 0) {
-    				return true;
-    			}
-    			if(!task.getStartTime().isMissing() && !task.getEndTime().isMissing() && 
-    					task.getStartTime().time.compareTo(start.time) <= 0 && 
-    					task.getEndTime().time.compareTo(start.time) > 0) {
-    				return true;
-    			}
-    		}
-    	}
-    	
-    	if(!end.isMissing()) {
-    		for(Task task: taskManager.getTasks().filtered(isNotDone())) {
-    			if(!task.getEndTime().isMissing() && task.getEndTime().time.compareTo(end.time) == 0) {
-    				return true;
-    			}
-    			if(!task.getStartTime().isMissing() && !task.getEndTime().isMissing() && 
-    					task.getStartTime().time.compareTo(end.time) <= 0 && 
-    					task.getEndTime().time.compareTo(end.time) > 0) {
-    				return true;
-    			}
-    		}
-    	}
-    	
-    	return false;
+        Time start = toAdd.getStartTime();
+        Time end = toAdd.getEndTime();
+
+        if (start.isMissing() && end.isMissing())
+            return false;
+
+        if (!start.isMissing() && !end.isMissing()) {
+            for (Task task : taskManager.getTasks().filtered(isNotDone())) {
+                if (!task.getStartTime().isMissing() && task.getStartTime().time.compareTo(start.time) >= 0
+                        && task.getStartTime().time.compareTo(end.time) < 0)
+                    return true;
+
+                if (!task.getEndTime().isMissing() && task.getEndTime().time.compareTo(start.time) > 0
+                        && task.getEndTime().time.compareTo(end.time) <= 0)
+                    return true;
+            }
+        }
+
+        if (!start.isMissing()) {
+            for (Task task : taskManager.getTasks().filtered(isNotDone())) {
+                if (!task.getStartTime().isMissing() && task.getStartTime().time.compareTo(start.time) == 0) {
+                    return true;
+                }
+                if (!task.getStartTime().isMissing() && !task.getEndTime().isMissing()
+                        && task.getStartTime().time.compareTo(start.time) <= 0
+                        && task.getEndTime().time.compareTo(start.time) > 0) {
+                    return true;
+                }
+            }
+        }
+
+        if (!end.isMissing()) {
+            for (Task task : taskManager.getTasks().filtered(isNotDone())) {
+                if (!task.getEndTime().isMissing() && task.getEndTime().time.compareTo(end.time) == 0) {
+                    return true;
+                }
+                if (!task.getStartTime().isMissing() && !task.getEndTime().isMissing()
+                        && task.getStartTime().time.compareTo(end.time) <= 0
+                        && task.getEndTime().time.compareTo(end.time) > 0) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
     }
 
-    // =========== Filtered Task List Accessors
-    // ===============================================================
+// =========== Filtered Task List Accessors =========================
 
     @Override
     public UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList() {
@@ -349,12 +358,12 @@ public class ModelManager extends ComponentManager implements Model {
     //@@author A0139198N
     @Override
     public void updateFilteredTaskListToShowOverdue() {
-    	sortTasks();
+        sortTasks();
         filteredTasks.setPredicate(isOverdue());
         taskManager.counter();
     }
-    
-  //@@author A0139198N
+
+    //@@author A0139198N
     @Override
     public void updateFilteredTaskListToShowFloating() {
         sortTasks();
@@ -362,9 +371,8 @@ public class ModelManager extends ComponentManager implements Model {
         taskManager.counter();
     }
     //@@author
-    
-    // ========== Inner classes/interfaces used for filtering
-    // ==================================================
+
+// ========== Inner classes/interfaces used for filtering ============================================
 
     interface Expression {
         boolean satisfies(ReadOnlyTask task);
@@ -425,8 +433,7 @@ public class ModelManager extends ComponentManager implements Model {
     //@@author A0139198N
     public static Predicate<Task> filterByDate(String date) {
         return t -> (t.getStartTime().appearOnUIFormatForDate().equals(date)
-                || t.getEndTime().appearOnUIFormatForDate().equals(date)) && 
-        		t.getDone().getDoneValue() == false;
+                || t.getEndTime().appearOnUIFormatForDate().equals(date)) && t.getDone().getDoneValue() == false;
     }
 
     //@@author A0139198N
@@ -438,8 +445,8 @@ public class ModelManager extends ComponentManager implements Model {
     public static Predicate<Task> isOverdue() {
         return t -> t.checkOverdue() == true && t.getDone().getDoneValue() == false;
     }
-    
-  //@@author A0139198N
+
+    //@@author A0139198N
     public static Predicate<Task> isFloating() {
         return t -> t.isFloatingTask() && t.getDone().getDoneValue() == false;
     }

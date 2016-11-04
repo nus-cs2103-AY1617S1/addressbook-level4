@@ -14,12 +14,12 @@ import seedu.forgetmenot.model.task.UniqueTaskList.TaskNotFoundException;
 import seedu.forgetmenot.testutil.TaskBuilder;
 import seedu.forgetmenot.testutil.TestTask;
 
-//@@author A0139671X
 public class ModelManagerTest {
     
+//@@author A0139671X
     @Test
     public void editTask_editName_changesNameOfTask() throws IllegalValueException, TaskNotFoundException {
-        Task taskToChange = new Task(new Name("first name"), new Done(false), new Time("tmr 10pm"), new Time("tmr 11pm"), new Recurrence(""));
+        Task taskToChange = new Task(new Name("first name"), new Done(false), new Time("10pm tmr"), new Time("11pm tmr"), new Recurrence(""));
         Task taskToCheck = new Task(new Name("second name"), new Done(false), new Time("tmr 10pm"), new Time("tmr 11pm"), new Recurrence(""));
         ModelManager testModel = new ModelManager();
         testModel.addTask(taskToChange);
@@ -83,50 +83,51 @@ public class ModelManagerTest {
         StringBuilder addedTime = new StringBuilder("");
         for (int i = 0; i < Integer.parseInt(specifiedOccurences) - 1; i++) {
             addedTime.insert(0, "2 days after ");
-            toCheck = new TaskBuilder().withName("recurring task 5 times").withStartTime(addedTime + "tomorrow 9pm")
-                    .withEndTime(addedTime + "tomorrow 10pm").withDone(false).withRecurrence("2 days").build();
+            toCheck = new TaskBuilder().withName("recurring task 5 times").withStartTime(addedTime.toString() + "tomorrow 9pm")
+                    .withEndTime(addedTime.toString() + "tomorrow 10pm").withDone(false).withRecurrence("2 days").build();
             assertEquals(testModel.getTaskManager().getUniqueTaskList().getInternalList().get(i), toCheck);
 
         }
     }
     
-//    @Test
-//    public void addRecurringTask_addDefaultNumberOfRecurringDeadlineTask_addsNineInstancesToTaskManager()
-//            throws IllegalValueException {
-//        TestTask recurringTask = new TaskBuilder().withName("recurring deadline task").withStartTime("")
-//                .withEndTime("tomorrow 10pm").withDone(false).withRecurrence("day").build();
-//        ModelManager testModel = new ModelManager();
-//        testModel.addRecurringTask(recurringTask);
-//
-//        TestTask toCheck;
-//        StringBuilder addedTime = new StringBuilder("");
-//        for (int i = 0; i < Recurrence.DEFAULT_OCCURENCE - 1; i++) {
-//            addedTime.insert(0, "day after ");
-//            toCheck = new TaskBuilder().withName("recurring deadline task").withStartTime("")
-//                    .withEndTime(addedTime + "tomorrow 10pm").withDone(false).withRecurrence("day").build();
-//            assertEquals(testModel.getTaskManager().getUniqueTaskList().getInternalList().get(i), toCheck);
-//
-//        }
-//    }
+    @Test
+    public void addRecurringTask_addDefaultNumberOfRecurringDeadlineTask_addsNineInstancesToTaskManager()
+            throws IllegalValueException {
+        TestTask recurringTask = new TaskBuilder().withName("recurring deadline task").withStartTime("")
+                .withEndTime("tmr 10am").withDone(false).withRecurrence("day").build();
+        ModelManager testModel = new ModelManager();
+        testModel.addRecurringTask(recurringTask);
+
+        TestTask toCheck;
+        StringBuilder addedTime = new StringBuilder("");
+        for (int i = 0; i < Recurrence.DEFAULT_OCCURENCE - 1; i++) {
+            addedTime.insert(0, "day after ");
+            toCheck = new TaskBuilder().withName("recurring deadline task").withStartTime("")
+                    .withEndTime(addedTime.toString() + "tmr 10am").withDone(false).withRecurrence("day").build();
+            assertEquals(testModel.getTaskManager().getUniqueTaskList().getInternalList().get(i), toCheck);
+
+        }
+    }
     
-//    @Test
-//    public void addRecurringTask_addDefaultNumberOfRecurringStartOnlyTask_addsNineInstancesToTaskManager()
-//            throws IllegalValueException {
-//        TestTask recurringTask = new TaskBuilder().withName("recurring start only task").withStartTime("tmr 10am")
-//                .withEndTime("").withDone(false).withRecurrence("day").build();
-//        ModelManager testModel = new ModelManager();
-//        testModel.addRecurringTask(recurringTask);
-//
-//        TestTask toCheck;
-//        StringBuilder addedTime = new StringBuilder("");
-//        for (int i = 0; i < Recurrence.DEFAULT_OCCURENCE - 1; i++) {
-//            addedTime.insert(0, "day after ");
-//            toCheck = new TaskBuilder().withName("recurring start only task").withStartTime(addedTime + "tmr 10am")
-//                    .withEndTime("").withDone(false).withRecurrence("day").build();
-//            assertEquals(testModel.getTaskManager().getUniqueTaskList().getInternalList().get(i), toCheck);
-//
-//        }
-//    }
+    @Test
+    public void addRecurringTask_addDefaultNumberOfRecurringStartOnlyTask_addsNineInstancesToTaskManager()
+            throws IllegalValueException {
+        TestTask recurringTask = new TaskBuilder().withName("recurring start only task").withStartTime("tmr 10am")
+                .withEndTime("").withDone(false).withRecurrence("day").build();
+        ModelManager testModel = new ModelManager();
+        testModel.addRecurringTask(recurringTask);
+
+        TestTask toCheck;
+        StringBuilder addedTime = new StringBuilder("");
+        for (int i = 0; i < Recurrence.DEFAULT_OCCURENCE - 1; i++) {
+            addedTime.insert(0, "day after ");
+            toCheck = new TaskBuilder().withName("recurring start only task").withStartTime(addedTime + "tmr 10am")
+                    .withEndTime("").withDone(false).withRecurrence("day").build();
+            assertEquals(testModel.getTaskManager().getUniqueTaskList().getInternalList().get(i), toCheck);
+
+        }
+    }
+    //@@author
     
     //@@author A0139198N
     @Test

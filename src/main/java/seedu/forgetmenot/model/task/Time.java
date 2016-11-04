@@ -35,7 +35,7 @@ public class Time {
      */
     public Time(String input) throws IllegalValueException {
         input = input.trim();
-        
+
         time = Calendar.getInstance();
         
         if(input.contains("/")) {
@@ -65,10 +65,15 @@ public class Time {
     }
     
     /**
-     * 
      * @return true if the time parameter is missing
      */
     public boolean isMissing() {
+        
+        Calendar t = Calendar.getInstance();
+        t.setTime(new Date(0));
+        if (time.equals(t))
+            return true;
+        
 		return time.getTime().toString().equalsIgnoreCase(DEFAULT_DATE);
 	}
     

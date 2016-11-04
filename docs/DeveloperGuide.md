@@ -380,20 +380,6 @@ Priority | As a ... | I want to ... | So that I can...
 	
 > 2a1. Command is removed.
 
-#### Use case: List Commands
-
-**MSS**
-
-1. User requests to view a list of commands.
-2. System shows list of commands
-	 Use case ends.
-	 
-**Extensions**
-
-	1a. Input command incorrect.
-	
-> 1a1. System shows help message
-
 #### Use case: Mark task as done
 
 **MSS**
@@ -418,11 +404,11 @@ Priority | As a ... | I want to ... | So that I can...
 	
 > 2a1. Command is removed.
 
-#### Use case: List task
+#### Use case: show task
 
 **MSS**
 
-1. User request to list tasks.
+1. User request to show tasks.
 2. System shows user the list of task.
       Use case ends
       

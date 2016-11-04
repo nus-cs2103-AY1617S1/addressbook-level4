@@ -13,7 +13,7 @@ public class ClearDoneCommandTest extends TaskManagerGuiTest {
         assertClearDoneCommandSuccess();
 
         //verify other commands can work after a clear command
-        commandBox.runCommand(td.hoon.getAddCommand());
+        commandBox.runCommand(td.hide.getAddCommand());
         commandBox.runCommand("delete 1");
 
         //verify clear command works when the list is empty
