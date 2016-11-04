@@ -2,8 +2,12 @@ package guitests;
 
 import static org.junit.Assert.assertTrue;
 
+import java.util.ArrayList;
+
 import org.junit.Test;
 
+import edu.emory.mathcs.backport.java.util.Arrays;
+import edu.emory.mathcs.backport.java.util.Collections;
 import guitests.guihandles.TaskCardHandle;
 import seedu.cmdo.commons.core.Messages;
 import seedu.cmdo.testutil.TestTask;
@@ -74,13 +78,23 @@ public class BlockCommandTest extends ToDoListGuiTest {
     	return TestUtil.addTasksToList(currentList, timeToBlock);
     }
     
+    //sort list
+    private TestTask[] sortList(TestTask... expectedList){
+    	ArrayList<TestTask> list = new ArrayList<TestTask>(Arrays.asList(expectedList));
+    	Collections.sort(list);
+    	return list.toArray(new TestTask[expectedList.length]);
+    }
+    
     private void assertBlockSuccess(TestTask timeToBlock, TestTask... currentList) {
  
     	runBlockCommand(timeToBlock);
     	
     	//update list
     	TestTask[] expectedList = updateList(timeToBlock, currentList);
-
+    	
+    	//sort list
+    	expectedList = sortList(expectedList);
+    	
         //confirm the new card contains the right data
         checkCard(timeToBlock);
 

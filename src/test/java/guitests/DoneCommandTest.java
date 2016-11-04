@@ -2,12 +2,16 @@ package guitests;
 
 import org.junit.Test;
 
+import edu.emory.mathcs.backport.java.util.Arrays;
+import edu.emory.mathcs.backport.java.util.Collections;
 import guitests.guihandles.TaskCardHandle;
 import seedu.cmdo.testutil.TestTask;
 import seedu.cmdo.testutil.TestUtil;
 
 import static org.junit.Assert.assertTrue;
 import static seedu.cmdo.logic.commands.DoneCommand.MESSAGE_DONE_TASK_SUCCESS;
+
+import java.util.ArrayList;
 
 /*
  * @@author A0141128R tested and passed
@@ -55,6 +59,13 @@ public class DoneCommandTest extends ToDoListGuiTest {
     private void compareList(TestTask[] expectedRemainder){
     	  assertTrue(taskListPanel.isListMatching(expectedRemainder));
     }
+    
+    //sort list
+    private TestTask[] sortList(TestTask... RemainderList){
+    	ArrayList<TestTask> list = new ArrayList<TestTask>(Arrays.asList(RemainderList));
+    	Collections.sort(list);
+    	return list.toArray(new TestTask[RemainderList.length]);
+    }
 
 
     /**
@@ -68,6 +79,9 @@ public class DoneCommandTest extends ToDoListGuiTest {
         runDoneCommand(targetIndexOneIndexed);
         
         TestTask[] expectedRemainder = updateList(targetIndexOneIndexed, currentList);
+        
+        //sort list
+        expectedRemainder = sortList(expectedRemainder);
 
         //confirm the list now contains all previous tasks except the done task
         compareList(expectedRemainder);

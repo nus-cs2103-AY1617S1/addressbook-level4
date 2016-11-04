@@ -2,6 +2,8 @@ package guitests;
 
 import org.junit.Test;
 
+import edu.emory.mathcs.backport.java.util.Arrays;
+import edu.emory.mathcs.backport.java.util.Collections;
 import guitests.guihandles.TaskCardHandle;
 import seedu.cmdo.commons.core.Messages;
 import seedu.cmdo.testutil.TestTask;
@@ -9,6 +11,8 @@ import seedu.cmdo.testutil.TestUtil;
 
 import static org.junit.Assert.assertTrue;
 import static seedu.cmdo.logic.commands.EditCommand.MESSAGE_EDITED_TASK_SUCCESS;
+
+import java.util.ArrayList;
 
 // @@author A0141128R tested and passed
 public class EditCommandTest extends ToDoListGuiTest {
@@ -102,6 +106,13 @@ public class EditCommandTest extends ToDoListGuiTest {
     private void compareList(TestTask[] expectedRemainder){
     	  assertTrue(taskListPanel.isListMatching(expectedRemainder));
     }
+    
+    //sort list
+    private TestTask[] sortList(TestTask... RemainderList){
+    	ArrayList<TestTask> list = new ArrayList<TestTask>(Arrays.asList(RemainderList));
+    	Collections.sort(list);
+    	return list.toArray(new TestTask[RemainderList.length]);
+    }
 
     /**
      * Runs the edit command to delete the task at specified index and confirms the result is correct.
@@ -114,6 +125,9 @@ public class EditCommandTest extends ToDoListGuiTest {
         
         //updateList
         TestTask[] expectedRemainder = updateList(currentList,ed,targetIndexOneIndexed);
+        
+        //sort list
+        expectedRemainder = sortList(expectedRemainder);
         
         //confirm the new card contains the right data
         checkCard(ed);

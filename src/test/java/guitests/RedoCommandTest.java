@@ -3,8 +3,12 @@ package guitests;
 import static org.junit.Assert.assertTrue;
 import static seedu.cmdo.logic.commands.RedoCommand.MESSAGE_REDO_SUCCESS;
 
+import java.util.ArrayList;
+
 import org.junit.Test;
 
+import edu.emory.mathcs.backport.java.util.Arrays;
+import edu.emory.mathcs.backport.java.util.Collections;
 import seedu.cmdo.testutil.TestTask;
 import seedu.cmdo.testutil.TestUtil;
 
@@ -144,10 +148,20 @@ public class RedoCommandTest extends ToDoListGuiTest {
     	commandBox.runCommand("undo");
         assertRedoSuccess(currentList);
     }
-
+    
+    //sort list
+    private TestTask[] sortList(TestTask... currentList){
+    	ArrayList<TestTask> list = new ArrayList<TestTask>(Arrays.asList(currentList));
+    	Collections.sort(list);
+    	return list.toArray(new TestTask[currentList.length]);
+    }
+    
     private void assertRedoSuccess(TestTask... currentList) {
     	
     	commandBox.runCommand("redo");
+    	
+    	//sort list
+        currentList = sortList(currentList);
  
     	//confirm the list matches
         compareList(currentList);

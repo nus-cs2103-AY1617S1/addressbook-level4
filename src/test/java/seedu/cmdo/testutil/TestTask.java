@@ -134,12 +134,17 @@ public class TestTask implements ReadOnlyTask, Comparable {
 	public LocalDateTime getStartLdt() {
 		return startLdt;
 	}
+	//@@author A0141128R
+	public void setStartLdt(LocalDateTime startLdt){
+		this.startLdt = startLdt;
+	}
 	
 	//@@author A0139661Y
 	@Override
 	public int compareTo(Object o) {
-		int i = this.getStartLdt().compareTo(((Task) o).getStartLdt());
+		assert o != null;
+		int i = this.getStartLdt().compareTo(((TestTask) o).getStartLdt());
     	if (i != 0) return i;
-    	return this.getDetail().toString().compareToIgnoreCase(((Task)o).getDetail().toString());
+    	return this.getDetail().toString().compareToIgnoreCase(((TestTask)o).getDetail().toString());
 	}
 }

@@ -190,7 +190,6 @@ public class EditCommand extends Command {
         	return new CommandResult(Messages.MESSAGE_EDIT_TASK_IS_DONE_ERROR);
         }
         
-        //slap these methods
         //check for changes in detail and append
         editDetails(taskToEdit);
         //check for date and time and append

@@ -19,6 +19,7 @@ import static org.junit.Assert.assertTrue;
 
 /**
  * Provides a handle for the panel containing the task list.
+ * @@author A0141128R
  */
 public class TaskListPanelHandle extends GuiHandle {
 

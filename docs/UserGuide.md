@@ -27,7 +27,7 @@
    
 5. Some example commands you can try:
    * **`list`** : lists all task
-   * **`add`**` email prof damith to feedback on the module on wednesday` : 
+   * **`add`**` 'email prof damith to feedback on the module on wednesday'` : 
      adds a task named `email prof damith to feedback on module` to the To Do List.
    * **`delete`**` 3` : deletes the task 3 “email prof damith” in the current list
    * **`exit`** : exits the app
@@ -47,20 +47,16 @@ Format: `help`
 Adds a task to CMDo <br>
 Format: `add <details> <day> <time> /<priority> -<tag>` 
 
-> You need to type your details in '' after add, eg. add 'feed dog'.
-> 
-> You can type anything in details. It must not end with `by`, `on`, `before` or `at`.
-> 
-> If will default as a one hour block if end time is not keyed in or if only one time slot is keyed in.
+> You need to type your details in ' ' after add, eg. add 'feed dog'. 
 >
-> For time, typing `tml`, `tmr`, `tomorrow` will still be recognised as tomorrow.
+> For time, typing `tmr` or `tomorrow` will still be recognised as tomorrow.
 >
 > For time, typing `1300`, `1pm`, will be recognised as 1300.
 > 
 > For priority, use `/low`, `/medium` or `/high`. Tasks added without specific priority will default to low.
 <br><img src="images/Add1.jpeg" width="600"><br>
 <br><img src="images/Add1a.jpeg" width="600"><br>
-> You can also add a tag to the task by using `-`.
+> You can also add a tag to the task by using `-<tag>`.
 <br><img src="images/Add2.jpeg" width="600"><br>
 <br><img src="images/Add2a.jpeg" width="600"><br>
 
@@ -68,18 +64,13 @@ Format: `add <details> <day> <time> /<priority> -<tag>`
 Block a time slot in CMDo <br>
 Format: `block <day> <time> /<priority> -<tag>` 
  
-> You need to type your details in '' after add, eg. add 'feed dog'.
-> 
-> You can type anything in details. It must not end with `by`, `on`, `before` or `at`.
+> You need to type your details in ' ' after block, eg. block 'feed dog' tomorrow 1pm to 2pm.
 > 
 > If will default as a one hour block if end time is not keyed in or if only one time slot is keyed in.
 >
-> For time, typing `tml`, `tmr`, `tomorrow` will still be recognised as tomorrow.
->
-> For time, typing `1300`, `1pm`, will be recognised as 1300.
 
-#### Finding task in CMDo : `find <day>` or `param` or `/priority`
-Shows a list of all task in the CMDo on that day. It also acts as a filter.<br>
+#### Finding task in CMDo : `find <day>` or `param` or `/priority` or -tag
+Find and shows a list of all task in the CMDo. It also acts as a filter.<br>
 Format: `find <today>`
 
 > Key in <day> and all task due on that day will appear
@@ -93,7 +84,16 @@ Format: `find <today>`
 
 #### Listing all task in CMDo : `list`
 Shows a list of all task in the CMDo.<br>
-Format: `list`
+Format: `list` , `list all` , `la`
+List all the tasks in the to do list
+
+Shows a list of all done task in CMDo.<br>
+Format: `list done` , `ld`
+List all the done tasks in the to do list
+
+Shows a list of all blocked task in CMDo.<br>
+Format:  `list block` , `lb`
+List all the done tasks in the to do list
 
 #### Deleting a task in CMDo : `delete`
 Deletes the specified task from the to do list.
@@ -116,10 +116,10 @@ Update existing tasks in the CMDo list by just typing in the details you want to
 Format: `edit INDEX details`  
 
 > Examples: 
-> * `edit 2 eat candy tomorrow`
+> * `edit 2 'eat candy' tomorrow`
 >  Edit the 2nd task in the to do list to eat candy with date due as tomorrow 
 >  
-> * `edit 1 Bear`
+> * `edit 1 'Bear'`
 >  Edit task 1 details only
 >  
 > * `edit 1 1300 `
@@ -144,15 +144,14 @@ Format: `edit INDEX details`
 
 
 ####  Mark a task as done : `done <index>`
-Done a task so tick it off the list
-
+Done a task and removes it off the list<br>
 Format: `done <index>`  
 <br><img src="images/Done.jpeg" width="600"><br>
 <br><img src="images/Done1.jpeg" width="600"><br>
 
 
 #### Undo the last action : `undo`
-Undo the earlier action
+Undo the earlier action<br>
 Format: `undo`  
 
 <br><img src="images/Undo.jpeg" width="600"><br>
@@ -160,11 +159,11 @@ Format: `undo`
 
 
 #### Redo earlier action : `redo`
-Redo the earlier action.
+Redo the earlier action.<br>
 Format: `redo`
 
 #### Change the storage location : `storage`
-Change the storage location.
+Change the storage location.<br>
 Format: `storage file/path/cmdo.xml`
 
 > There is no need to explicitly write cmdo.xml
@@ -174,51 +173,56 @@ Format: `storage file/path/cmdo.xml`
 Exits the program.<br>
 Format: `exit`  
 
+####Scroll up and scroll down: `up`/`u` and `down`/`d`
+Scrolls up and scrolls down the CMDo list.
+Format: `up`/`u`/`down`/`d`
+
+####Go top and go bottom: `top`/`t` and `bottom`/`b`
+Goes to the top of the list and bottom of the list 
+Format: `top`/`t`/`bottom`/`b`
+
 #### Saving the data 
 To do list data are saved in the hard disk automatically after any command that changes the data.<br>
 There is no need to save manually.
 
 ## FAQ
 
-**Q**: How do I transfer my data to another Computer?
+**Q**: How do I transfer my data to another Computer?<br>
 **A**: Install the app in the other computer and overwrite the empty data file it creates with 
-       the file that contains the data of your previous Address Book.
+       the file that contains the data of your previous CMDo.
        
-**Q**: Is there a click function? 
-**A**: No
+**Q**: Is there a click function? <br>
+**A**: You can still click around but nothing special will happen.
 
-**Q**: How do i customize the functions and commands to suit my style?
-**A**: We will have in the next version :)
+**Q**: How do I customize the functions and commands to suit my style? <br>
+**A**: Unfortunately, we do not want you to customize our work.
 
-**Q**: Can i change the layout?
-**A**: Yes
+**Q**: Can I change the layout? <br>
+**A**: No.
 
-**Q**: How do i set priority to a task?
-**A**: add priority under tags eg.(H for high, M for medium, L for low)
+**Q**: Is there a cheat sheet for the commands? <br>
+**A**: `help`
 
-**Q**: Is there a cheat sheet for the commands?
-**A**: `/help`
+**Q**: Do I have to check my to-do list regularly, is there something to remind me? <br>
+**A**: You have to check your to-do list, isn't that the point?
 
-**Q**: Do I have to check my to-do list regularly, is there something to remind me?
-**A**: You have to check your to-do list, isnt that the point?
+**Q**: How do I block out slots for unconfirmed tasks? <br>
+**A**: Use the block command
 
-**Q**: How do i block out slots for unconfirmed tasks?
-**A**: use the block command
+**Q**: How do I remove a blocked out slot to add task? <br>
+**A**: Use the delete command to delete the blocked slot
 
-**Q**: How do i remove a blocked out slot to add task?
-**A**: use the delete command to delete the blocked slot
-
-**Q**: Where did all my tasks go when i try to add a task to a blocked slot?
+**Q**: Where did all my tasks go when I try to add a task to a blocked slot? <br>
 **A**: When you attempt to add a task to a blocked slot, CMDo will list all your blocked slots, hence, you are only shown your blocked slots now. Simply use the command 'list all' to go back to your task listing.
 
-**Q**: What if i input only one timing when using the block command?
+**Q**: What if I input only one timing when using the block command?<br>
 **A**: It will create a blocked slot with one hour default end time from the start time which is the time you entered
 
-**Q**: How do i see upcoming tasks?
+**Q**: How do I see upcoming tasks?<br>
 **A**: The list will be sorted according to date and time
 
-**Q**: How to scroll?
-**A**: Use the page up and page down commands
+**Q**: How to scroll?<br>
+**A**: Type `u` into commandbox for scroll up and `d` into commandbox for scroll down.
        
 ## Command Summary
 
@@ -228,6 +232,7 @@ Add | `add <task> <day> <start time> <end time> <priority>`
 Block | `Block <day> <start time> <end time>`
 Delete | `delete <INDEX>`
 Done | `done <INDEX>`
+Edit | `edit <index> <details to be edited>`
 Find | `find <keyword>`
 List All | `list all / la`
 List Done | `list done / ld`
@@ -236,9 +241,10 @@ Storage | `storage <new file path> `
 Help | `help`
 Undo | `undo`
 Redo | `redo`
-Edit | `edit <index> <details to be edited>`
-Page Up | <kbd>PgUp</kbd> (Windows) / <kbd>Fn</kbd>+<kbd>Shift</kbd>+<kbd>Up</kbd> (Mac)
-Page Down | <kbd>PgDown</kbd> (Windows) / <kbd>Fn</kbd>+<kbd>Shift</kbd>+<kbd>Down</kbd> (Mac)
+Scroll Up | `up` or `u`
+Scroll Down | `down` or `d`
+Top | `top` or `t`
+Bottom | `bottom` or `b` 
 Exit | `exit`
 
-_Last updated 28 Oct 2016_
+_Last updated 3 Nov 2016_

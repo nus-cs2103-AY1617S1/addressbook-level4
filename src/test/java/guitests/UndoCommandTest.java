@@ -3,8 +3,12 @@ package guitests;
 import static org.junit.Assert.assertTrue;
 import static seedu.cmdo.logic.commands.UndoCommand.MESSAGE_UNDO_SUCCESS;
 
+import java.util.ArrayList;
+
 import org.junit.Test;
 
+import edu.emory.mathcs.backport.java.util.Arrays;
+import edu.emory.mathcs.backport.java.util.Collections;
 import seedu.cmdo.testutil.TestTask;
 
 //@@author A0141128R tested and passed
@@ -99,10 +103,20 @@ public class UndoCommandTest extends ToDoListGuiTest {
     	commandBox.runCommand(input);
     	assertUndoSuccess(currentList);
     }
+    
+    //sort list
+    private TestTask[] sortList(TestTask... currentList){
+    	ArrayList<TestTask> list = new ArrayList<TestTask>(Arrays.asList(currentList));
+    	Collections.sort(list);
+    	return list.toArray(new TestTask[currentList.length]);
+    }
 
     private void assertUndoSuccess(TestTask... currentList) {
     	
     	commandBox.runCommand("undo");
+    	
+        //sort list
+        currentList = sortList(currentList);
     	
     	//confirm the list matches
         compareList(currentList);

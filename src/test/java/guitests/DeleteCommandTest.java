@@ -2,9 +2,13 @@ package guitests;
 
 import org.junit.Test;
 
+import edu.emory.mathcs.backport.java.util.Arrays;
+import edu.emory.mathcs.backport.java.util.Collections;
 import seedu.cmdo.testutil.TestTask;
 import seedu.cmdo.testutil.TestUtil;
 import static seedu.cmdo.logic.commands.DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS;
+
+import java.util.ArrayList;
 
 import static org.junit.Assert.assertTrue;
 
@@ -57,6 +61,13 @@ public class DeleteCommandTest extends ToDoListGuiTest {
     private void compareList(TestTask[] expectedRemainder){
     	  assertTrue(taskListPanel.isListMatching(expectedRemainder));
     }
+    
+    //sort list
+    private TestTask[] sortList(TestTask... RemainderList){
+    	ArrayList<TestTask> list = new ArrayList<TestTask>(Arrays.asList(RemainderList));
+    	Collections.sort(list);
+    	return list.toArray(new TestTask[RemainderList.length]);
+    }
 
     /**
      * Runs the delete command to delete the task at specified index and confirms the result is correct.
@@ -68,6 +79,9 @@ public class DeleteCommandTest extends ToDoListGuiTest {
         runDeleteCommand(targetIndexOneIndexed);
         
         TestTask[] expectedRemainder = updateList(targetIndexOneIndexed,currentList);
+        
+        //sort list
+        expectedRemainder = sortList(expectedRemainder);
 
         //confirm the list now contains all previous tasks except the deleted task
         compareList(expectedRemainder);

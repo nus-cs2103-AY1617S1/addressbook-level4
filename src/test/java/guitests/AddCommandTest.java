@@ -3,8 +3,12 @@ package guitests;
 import static org.junit.Assert.assertTrue;
 import static seedu.cmdo.logic.commands.AddCommand.MESSAGE_SUCCESS;
 
+import java.util.ArrayList;
+
 import org.junit.Test;
 
+import edu.emory.mathcs.backport.java.util.Arrays;
+import edu.emory.mathcs.backport.java.util.Collections;
 import guitests.guihandles.TaskCardHandle;
 import seedu.cmdo.commons.core.Messages;
 import seedu.cmdo.testutil.TestTask;
@@ -70,6 +74,13 @@ public class AddCommandTest extends ToDoListGuiTest {
     private void compareList(TestTask[] expectedList){
     	  assertTrue(taskListPanel.isListMatching(expectedList));
     }
+    
+    //sort list
+    private TestTask[] sortList(TestTask... expectedList){
+    	ArrayList<TestTask> list = new ArrayList<TestTask>(Arrays.asList(expectedList));
+    	Collections.sort(list);
+    	return list.toArray(new TestTask[expectedList.length]);
+    }
 
     private void assertAddSuccess(TestTask taskToAdd, TestTask... currentList) {
         if (taskToAdd.getDueByDate().isRange() || taskToAdd.getDueByTime().isRange())
@@ -78,6 +89,9 @@ public class AddCommandTest extends ToDoListGuiTest {
         
         //update expected list
         TestTask[] expectedList = TestUtil.addTasksToList(currentList, taskToAdd);
+        
+        //sort list
+        expectedList = sortList(expectedList);
 
         //confirm the new card contains the right data
         checkCard(taskToAdd);
