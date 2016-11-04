@@ -36,4 +36,10 @@
         <address>no location</address>
         <status>complete</status>
     </tasks>
+    <tasks>
+        <description>no egg</description>
+        <deadline>no deadline</deadline>
+        <address>no location</address>
+        <status>incomplete</status>
+    </tasks>
 </taskmanager>

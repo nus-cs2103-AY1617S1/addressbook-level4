@@ -174,13 +174,13 @@ There is no need to save manually.
 
 Command | Format  
 -------- | :--------
-Add | `Format: [TASK/EVENT] DESCRIPTION [at/by DATE START_TIME END_TIME]` OR `DESCRIPTION [by/at DATE START_TIME to END_TIME]`
-Update | `update INDEX [DESCRIPTION] [due/at DATE START_TIME to END_TIME]`
+Add | `DESCRIPTION [at LOCATION] [at/by DATE TIME]` OR `DESCRIPTION [by/at DATE START_TIME to END_TIME]`
+Update | `update INDEX [DESCRIPTION] [by/at DATE START_TIME to END_TIME]`
 Clear | `clear`
 Undo | `undo`
-Complete | `complete INDEX [MORE_INDICES]`
-Find | `search KEYWORD [MORE_KEYWORDS]`
+Complete | `complete INDEX`
+Find | `find KEYWORD [MORE_KEYWORDS]`
 List | `list`
 Help | `help`
-Saveto | `storage PATH`
-Delete | `delete INDEX [COMPLETED/RIGHT]`
+Saveto | `saveto PATH`
+Delete | `delete INDEX`
