@@ -73,15 +73,19 @@ interface and exposes its functionality using the `LogicManager.java` class.<br>
 <img src="images/LogicClassDiagram.png" width="800"><br>
 
 The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the
-command `delete 1`.
+command `add shopping` which refers to adding a floating task named shopping.
 
 <img src="images\SDforAddTask.png" width="800">
+
+This _Sequence Diagram_ below shows how components interact similarly as above with a different command `delete 1` which refers to delete the first task on the to-do list.
+
+<img src="images\SDforDeleteTask.png" width="800">
 
 >Note how the `Model` simply raises a `TaskManager ChangedEvent` when the to-do list data are changed,
 instead of asking the `Storage` to save the updates to the hard disk.
 
 The diagram below shows how the `EventsCenter` reacts to that event, which eventually results in the updates
-being saved to the hard disk and the status bar of the UI being updated to reflect the 'Last Updated' time. <br>
+being saved to the hard disk and the status bar of the UI being updated to reflect the 'Last Updated' time. The sequence diagram below is the one showing the event handling of add command. <br>
 <img src="images\SDforAddTaskEventHandling.png" width="800">
 
 > Note how the event is propagated through the `EventsCenter` to the `Storage` and `UI` without `Model` having
@@ -239,6 +243,7 @@ can be automated using Gradle. For example, Gradle can download the dependencies
 is better than these alternatives.<br>
 a. Include those libraries in the repo (this bloats the repo size)<br>
 b. Require developers to download those libraries manually (this creates extra work for developers)<br>
+PrettyTime is also used for time formatting.
 
 <!-- @@author A0153467Y-->
 ## Appendix A : User Stories
@@ -308,24 +313,10 @@ Use case ends.
 1c. The command already has an alias
 > MESS maps the given symbol to the command, as a command can have multiple aliases
 Use case ends.
-<!- @@author --> 
- 
-#### Use case: Delete task by task name
- 
-**MSS**
- 
-1. User request to delete task by task name
-2.  MESS deletes the task <br>
-Use case ends.
- 
-**Extensions**
- 
-1a. The list is empty
->Use case ends
- 
-1b. No task match with task name
-> Use case ends
- 
+
+<!-- @@author --> 
+
+<!-- @@author A0153467Y --> 
 #### Use case: Delete task by index
  
 **MSS**
@@ -353,8 +344,8 @@ Use case ends.
 
 1. User requests to list tasks
 2. MESS shows a list of tasks
-3. User requests to update a specific task in the list
-4. MESS deletes the person <br>
+3. User requests to update a specific task by index in the list
+4. MESS updates the person <br>
 Use case ends.
  
 **Extensions**
@@ -437,6 +428,7 @@ Use case ends.
 Use case ends.
 
 <!-- @@author -->
+<!-- @@author A0153467Y -->
 ## Appendix C : Non Functional Requirements
  
 1. Should work on any mainstream OS as long as it has Java `1.8.0_60` or higher installed
@@ -453,6 +445,10 @@ Use case ends.
 ##### Mainstream OS
  
 > Windows, Linux, Unix, OS-X
+
+##### Floating Tasks
+
+> A task that does not have open time and close time
 
 <!-- @@author-->
 ## Appendix E : Product Survey
@@ -526,4 +522,4 @@ Use case ends.
 
 #### Summary
 
-In summary, there are a few strengths that the existing products have. They all have simple interfaces so that users can look at their to-do lists in a clear way. Many of them have notifications and priority which can be set for each task which is good for user to find urgent task. Categorize tasks is another key point for most of the products. This can let users to find out the relevant tasks easily. One of the existed product is quite similar to our application which are using one-line command to control the application. However, the interface of this software need to be improved. Therefore, interface, priority for tasks and the tag for tasks are some important features.
+In summary, there are a few strengths that the existing products have. They all have simple interfaces so that users can look at their to-do lists in a clear way. Many of them have notifications and priority which can be set for each task which is good for user to find urgent task. Categorize tasks is another key point for most of the products. This can let users to find out the relevant tasks easily. One of the existed product is quite similar to our application which are using one-line command to control the application. However, the interface of this software need to be improved. Therefore, interface, having priority for tasks and tags for tasks are some important features.
