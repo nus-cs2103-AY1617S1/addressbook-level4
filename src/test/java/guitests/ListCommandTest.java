@@ -2,10 +2,14 @@ package guitests;
 
 import org.junit.Test;
 
+import edu.emory.mathcs.backport.java.util.Arrays;
+import edu.emory.mathcs.backport.java.util.Collections;
 import seedu.cmdo.testutil.TestTask;
 import seedu.cmdo.testutil.TestUtil;
 
 import static org.junit.Assert.assertTrue;
+
+import java.util.ArrayList;
 //@@author A0141128R
 public class ListCommandTest extends ToDoListGuiTest {
 
@@ -15,6 +19,10 @@ public class ListCommandTest extends ToDoListGuiTest {
         TestTask[] currentList = td.getTypicalTasks();
         TestTask[] doneList = td.getEmptyTasks();
         TestTask[] blockList = td.getEmptyTasks();
+        
+        //sort list
+        currentList = sortList(currentList);
+        
         
         
         //test for list block
@@ -47,6 +55,14 @@ public class ListCommandTest extends ToDoListGuiTest {
     private void runCommand(String input){
     	commandBox.runCommand(input);
     }
+    
+    //sort list
+    private TestTask[] sortList(TestTask... currentList){
+    	ArrayList<TestTask> list = new ArrayList<TestTask>(Arrays.asList(currentList));
+    	Collections.sort(list);
+    	return list.toArray(new TestTask[currentList.length]);
+    }
+    
 
     /**
      * Runs the list command to change the task done status at specified index and confirms the result is correct.
