@@ -86,13 +86,20 @@ Allowed time intervals : days, weeks, months, years
 
 Examples:
 * `add family dinner by 9pm friday every year`
-	adds 10 instances of the task with a year in between the instances
+
+	Add 10 instances of the task with a year in between the instances.
+	
 * `add jog with jim at 9pm tomorrow every 2 weeks`
-	adds 10 instances of the task with 2 weeks in between the instances
+
+	Add 10 instances of the task with 2 weeks in between the instances.
+	
 * `add planning meeting from 2pm thursday to 3pm thursday every 30 days x3`
-	adds 3 instances of the task with 30 days in between the instances
-* `add movie night at 8pm Friday every 2 months x2`
-	adds 2 instances of the task with 2 months in between the instances
+
+	Add 3 instances of the task with 30 days in between the instances.
+	
+* `add movie night at 8pm Friday every 3 months x2`
+
+	Add 2 instances of the task with 3 months in between the instances.
 
 #### Editing a Task: `edit`
 Allows the user to edit a particular task<br>
