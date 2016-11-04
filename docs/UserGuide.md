@@ -124,6 +124,15 @@ Format: `fav INDEX`
 Unfavorite a task. Reverse action of favorite command. Yellow marker will disappear.<br>
 Format: `unfav INDEX` 
 
+#### Repeat a specific task at a given interval : `repeat`
+Enables a task to be repeated automatically at specified interval after it is marked as done or passes its deadline.<br>
+Valid intervals include: daily, weekly, fortnightly, monthly, yearly<br>
+Shorter input is allowed, i.e. d, w, f, m, y respectively.
+Format: `repeat INDEX INTERVAL`
+Examples: 
+* `repeat 1 daily`
+* `repeat 3 y`
+
 #### Backup : `backup`, `b`
 Save a copy of the current TaskManager data file into the specified directory.<br>
 Format: `backup [PATH]` or `b [PATH]`
@@ -182,6 +191,7 @@ Sort | `sort [PARAMETER]` `s [PARAMETER]`
 Undo | `undo`
 Done | `done` `undone`
 Favorite | `fav` `unfav`
+Repeat | `repeat INDEX INTERVAL`
 Backup | `backup [PATH]` `b [PATH]`
 Change Directory | `directory [PATH]` `dir [PATH]`
 Clear | `clear`

@@ -445,6 +445,26 @@ Use case ends
   Use case ends
 
 
+### Use case: Set a task to repeat automatically
+
+**MSS**
+
+1. User requests to set a task to repeat automatically
+2. Task Manager successfully updates task, showing affected task in the message panel <br>
+Use case ends
+
+**Extensions**
+
+1a. The given interval is invalid
+
+> 1a1. Task Manager shows an error message stating provided interval is invalid, listing valid intervals <br>
+  Use case ends
+
+1b. The given index is invalid
+
+> 1b1. Task Manager shows an error message stating provided index is invalid <br>
+  Use case ends
+
 ### Use case: Backup Data
 
 **MSS**
