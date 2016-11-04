@@ -78,7 +78,7 @@ public class XmlAdaptedTask {
      * @param source the Task to convert into the XmlAdaptedTask
      */
     private void saveName(ReadOnlyTask source) {
-        name = source.getName().name;
+        name = source.getName().getTaskName();
     }
 
     /**

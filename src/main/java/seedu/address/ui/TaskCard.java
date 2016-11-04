@@ -227,11 +227,8 @@ public class TaskCard extends UiPart {
     private String prepareRecurrenceRateToDisplay() {
         assert task != null && task.getRecurrenceRate().isPresent();
 
-        Integer recurrenceRateInteger = task.getRecurrenceRate().get().rate;
-        TimePeriod timePeriod = task.getRecurrenceRate().get().timePeriod;
-
-        return getRecurrenceRateString(recurrenceRateInteger, timePeriod);
-
+        String recurrenceRateText = task.getRecurrenceRate().get().toString();
+        return recurrenceRateText;
     }
 
     /**
@@ -247,7 +244,8 @@ public class TaskCard extends UiPart {
     private String getRecurrenceRateString(Integer recurrenceRateInteger, TimePeriod timePeriod) {
         boolean isRecurrenceRateOne = (recurrenceRateInteger == ONE);
 
-        return RECURRENCE_RATE_DISPLAY_PREFIX + ((isRecurrenceRateOne) ? STRING_EMPTY : recurrenceRateInteger.toString() + STRING_ONE_SPACE)
+        return RECURRENCE_RATE_DISPLAY_PREFIX
+                + ((isRecurrenceRateOne) ? STRING_EMPTY : recurrenceRateInteger.toString() + STRING_ONE_SPACE)
                 + timePeriod.toString().substring(ZERO, ONE).toUpperCase()
                 + timePeriod.toString().substring(ONE).toLowerCase()
                 + (recurrenceRateInteger.intValue() > ONE ? STRING_PLURAL_POSTFIX : STRING_EMPTY);

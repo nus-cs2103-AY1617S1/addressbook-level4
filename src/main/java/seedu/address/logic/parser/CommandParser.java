@@ -130,8 +130,8 @@ public class CommandParser {
         logger.finer("Entering CommandParser, prepareAdd()");
         String argsTrimmed = args.trim();
         if(argsTrimmed.isEmpty()) {
-            logger.finer("Trimmed argument is empty");
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+            logger.finer("Trimmed argument is empty, returning IncorrectCommand");
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.getMessageUsage()));
         }
         
         try {  
@@ -139,9 +139,10 @@ public class CommandParser {
             logger.finer("Exiting CommandParser, prepareAdd()");
             return new AddCommand(extractedValues);
         } catch (IllegalValueException ive) {
-            logger.finer("IllegalValueException caught in CommandParser, prepareAdd()");
+            logger.finer("IllegalValueException caught in CommandParser, prepareAdd(), returning IncorrectCommand");
+            //TODO ive auto new line?
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ive.getMessage() + "\n" + 
-                    AddCommand.MESSAGE_USAGE));
+                    AddCommand.getMessageUsage()));
         }
     }
 

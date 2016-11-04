@@ -102,7 +102,7 @@ public class TaskListPanelHandle extends GuiHandle {
 
     public TaskCardHandle navigateToFloatingTask(String name) {
         guiRobot.sleep(500); //Allow a bit of time for the list to be updated
-        final Optional<ReadOnlyTask> person = getListView().getItems().stream().filter(p -> p.getName().name.equals(name)).findAny();
+        final Optional<ReadOnlyTask> person = getListView().getItems().stream().filter(p -> p.getName().getTaskName().equals(name)).findAny();
         if (!person.isPresent()) {
             throw new IllegalStateException("Name not found: " + name);
         }

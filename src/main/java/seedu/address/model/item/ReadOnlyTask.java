@@ -34,7 +34,7 @@ public interface ReadOnlyTask {
      */
     default String getAsText() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(getName().name)
+        builder.append(getName().getTaskName())
                 .append(", Priority: ")
                 .append(getPriorityValue());
         if (getStartDate().isPresent()) {

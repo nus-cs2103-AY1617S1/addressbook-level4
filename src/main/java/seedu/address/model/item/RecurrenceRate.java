@@ -11,16 +11,23 @@ import seedu.address.commons.exceptions.IllegalValueException;
  */
 public class RecurrenceRate {
     
+    /** Name of key in map that maps to the recurrence rate of task */
+    private static final String MAP_RECURRENCE_RATE_KEY = "recurrenceRate";
+    /** Name of key in map that maps to the rate of recurrence rate */
+    private static final String MAP_RATE_KEY = "rate";
+    
+    private static final int ZERO = 0;
+    private static final int ONE = 1;
     private static final String STRING_CONSTANT_ONE = "1";
 
-    public static final String MESSAGE_VALUE_CONSTRAINTS = "RECURRING_INTERVAL Format : repeat every [RATE] TIME_PERIOD\n"
+    private static final String MESSAGE_VALUE_CONSTRAINTS = "RECURRING_INTERVAL Format : repeat every [RATE] TIME_PERIOD\n"
             + "RATE must be a positive integer and TIME_PERIOD must be in one of the formats: "
             + "\"hour(s)\", \"day(s)\", \"week(s)\", \"month(s)\", \"year(s)\", "
             + "or days of the week such as \"Monday\", \"Wed\"\n"
             + "For example: \"repeat every 3 days\", \"repeat every week\", \"repeat every Wed\"";
-    
-    public Integer rate;
-    public TimePeriod timePeriod;
+
+    private Integer rate;
+    private TimePeriod timePeriod;
 
     /**
      * Constructor for RecurrenceRate. 
@@ -46,7 +53,7 @@ public class RecurrenceRate {
      * @param rateString  user input of rate of recurrence.
      * @return Integer value of rate.
      * @throws IllegalValueException if rate cannot be converted into an Integer
-     * or rate is <= 0.
+     * or rate <= 0.
      */
     private Integer convertStringToRateInteger(String rateString) throws IllegalValueException {
         assert rateString != null;
@@ -65,9 +72,23 @@ public class RecurrenceRate {
         return rateInteger;
     }
     
+    public static String getMessageValueConstraints() {
+        return MESSAGE_VALUE_CONSTRAINTS;
+    }
+    
+    public Integer getRate() {
+        return rate;
+    }
+    
+    public TimePeriod getTimePeriod() {
+        return timePeriod;
+    }
+    
     @Override
     public String toString() {
-        return Integer.toString(rate) + " " + timePeriod.toString().toLowerCase();
+        return "Every " + (rate == ONE ? "" : rate.toString() + " ")
+                + timePeriod.toString().substring(ZERO, ONE).toUpperCase() + timePeriod.toString().substring(ONE).toLowerCase()
+                + (rate.intValue() > ONE ? "s" : "");
     }
 
     @Override
@@ -81,5 +102,19 @@ public class RecurrenceRate {
     @Override
     public int hashCode() {
         return rate.hashCode();
+    }
+    
+    /** 
+     * @return the key in map that maps to the recurrence rate of task
+     */
+    public static String getMapRecurrenceRateKey() {
+        return MAP_RECURRENCE_RATE_KEY;
+    }
+    
+    /** 
+     * @return the key in map that maps to the rate of recurrence rate
+     */
+    public static String getMapRateKey() {
+        return MAP_RATE_KEY;
     }
 }

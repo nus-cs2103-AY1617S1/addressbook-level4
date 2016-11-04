@@ -53,7 +53,7 @@ public class AddCommandHelperTest {
             AddCommandHelper.convertStringToObjects(testOptionalHashMap.map);
             assert false;
         } catch (IllegalValueException ive) {
-            assertEquals(ive.getMessage(), RecurrenceRate.MESSAGE_VALUE_CONSTRAINTS);
+            assertEquals(ive.getMessage(), RecurrenceRate.getMessageValueConstraints());
         }
     }
     
@@ -64,7 +64,7 @@ public class AddCommandHelperTest {
             AddCommandHelper.convertStringToObjects(testOptionalHashMap.map);
             assert false;
         } catch (IllegalValueException ive) {
-            assertEquals(ive.getMessage(), RecurrenceRate.MESSAGE_VALUE_CONSTRAINTS);
+            assertEquals(ive.getMessage(), RecurrenceRate.getMessageValueConstraints());
         }
     }
     
@@ -86,7 +86,7 @@ public class AddCommandHelperTest {
             AddCommandHelper.convertStringToObjects(testOptionalHashMap.map);
             assert false;
         } catch (IllegalValueException ive) {
-            assertEquals(ive.getMessage(), RecurrenceRate.MESSAGE_VALUE_CONSTRAINTS);
+            assertEquals(ive.getMessage(), RecurrenceRate.getMessageValueConstraints());
         }
     }
     

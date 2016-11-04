@@ -27,10 +27,11 @@ public class XmlAdaptedRecurrenceRate {
      *            XmlAdaptedRecurrenceRate
      */
     public XmlAdaptedRecurrenceRate(RecurrenceRate source) {
-        assert source.rate != null && source.timePeriod != null;
+        assert source.getRate() != null && source.getTimePeriod() != null;
 
-        rate = source.rate.toString();
-        timePeriod = source.timePeriod.toString();
+        rate = source.getRate().toString();
+        timePeriod = source.getTimePeriod().toString();
+
     }
 
     /**

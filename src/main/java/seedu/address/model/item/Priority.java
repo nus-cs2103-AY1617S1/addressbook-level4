@@ -6,6 +6,9 @@ public enum Priority {
     MEDIUM,
     LOW;
     
+    /** Name of key in map that maps to the priority of task */
+    private static final String MAP_PRIORITY_KEY = "priority";
+    
     /**
      * Converts given String into Priority
      */
@@ -25,5 +28,12 @@ public enum Priority {
         default:
             return Priority.MEDIUM;
         }
+    }
+    
+    /** 
+     * @return the key in map that maps to the priority of task
+     */
+    public static String getMapPriorityKey() {
+        return MAP_PRIORITY_KEY;
     }
 }
