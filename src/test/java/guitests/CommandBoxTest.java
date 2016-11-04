@@ -1,18 +1,17 @@
 package guitests;
 
-public class CommandBoxTest extends AddressBookGuiTest {
+import static org.junit.Assert.assertEquals;
 
-//    @Test
-//    public void commandBox_commandSucceeds_textCleared() {
-//        commandBox.runCommand(td.benson.getAddCommand());
-//        assertEquals(commandBox.getCommandInput(), "");
-//    }
-//
-//    @Test
-//    public void commandBox_commandFails_textStays(){
-//        commandBox.runCommand("invalid command");
-//        assertEquals(commandBox.getCommandInput(), "invalid command");
-//        //TODO: confirm the text box color turns to red
-//    }
+import org.junit.Test;
+
+public class CommandBoxTest extends TaskManagerGuiTest {
+
+    @Test
+    public void commandBox_commandFails_blankAdd() {
+        commandBox.runCommand("invalid");
+        assertEquals(commandBox.getCommandInput(), "invalid");
+    }
+
+
 
 }

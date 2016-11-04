@@ -1,17 +1,17 @@
 package guitests;
 
-public class ClearCommandTest extends AddressBookGuiTest {
+public class ClearCommandTest extends TaskManagerGuiTest {
 //
 //    @Test
 //    public void clear() {
 //
 //        //verify a non-empty list can be cleared
-//        assertTrue(personListPanel.isListMatching(td.getTypicalPersons()));
+//        assertTrue(taskListPanel.isListMatching(td.getTypicalPersons()));
 //        assertClearCommandSuccess();
 //
 //        //verify other commands can work after a clear command
 //        commandBox.runCommand(td.hoon.getAddCommand());
-//        assertTrue(personListPanel.isListMatching(td.hoon));
+//        assertTrue(taskListPanel.isListMatching(td.hoon));
 //        commandBox.runCommand("delete 1");
 //        assertListSize(0);
 //

@@ -1,6 +1,6 @@
 package guitests;
 
-public class SelectCommandTest extends AddressBookGuiTest {
+public class SelectCommandTest extends TaskManagerGuiTest {
 
 //
 //    @Test
@@ -40,14 +40,14 @@ public class SelectCommandTest extends AddressBookGuiTest {
 //    }
 //
 //    private void assertPersonSelected(int index) {
-//        assertEquals(personListPanel.getSelectedPersons().size(), 1);
-//        ReadOnlyPerson selectedPerson = personListPanel.getSelectedPersons().get(0);
-//        assertEquals(personListPanel.getPerson(index-1), selectedPerson);
+//        assertEquals(taskListPanel.getSelectedPersons().size(), 1);
+//        ReadOnlyPerson selectedPerson = taskListPanel.getSelectedPersons().get(0);
+//        assertEquals(taskListPanel.getPerson(index-1), selectedPerson);
 //        //TODO: confirm the correct page is loaded in the Browser Panel
 //    }
 //
 //    private void assertNoPersonSelected() {
-//        assertEquals(personListPanel.getSelectedPersons().size(), 0);
+//        assertEquals(taskListPanel.getSelectedPersons().size(), 0);
 //    }
 
 }

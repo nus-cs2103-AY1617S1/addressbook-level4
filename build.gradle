@@ -164,8 +164,9 @@ task headless << {
 }
 
 // Makes sure that headless properties are set before running tests
-nonGuiTests.mustRunAfter headless
-guiTests.mustRunAfter headless
-allTests.mustRunAfter headless
+//nonGuiTests.mustRunAfter headless
+//guiTests.mustRunAfter headless
+//allTests.mustRunAfter headless
 
-defaultTasks 'clean', 'headless', 'allTests', 'coverage'
+defaultTasks 'clean', 'allTests', 'coverage'
+//defaultTasks 'clean', 'headless', 'allTests', 'coverage'
