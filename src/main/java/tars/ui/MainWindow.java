@@ -203,14 +203,6 @@ public class MainWindow extends UiPart {
         helpPanel = HelpPanel.load(primaryStage, getHelpPanelPlaceholder());
         overviewPanel = OverviewPanel.load(primaryStage, getOverviewPanelPlaceholder(), logic.getFilteredTaskList());
     }
-
-    /**
-     * @@author A0124333U 
-     * A method to reload the status bar footer
-     */
-    public void reloadStatusBarFooter(String newTarsFilePath) {
-        statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), newTarsFilePath);
-    }
     
     //@@author
 
