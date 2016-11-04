@@ -3,7 +3,7 @@
 
 # SmartyDo
 
-<img src="docs/images/AddBasicCmd.png" width="600"><br>
+<img src="docs/images/selectCommand.png" width="600"><br>
 
 * This is a desktop time scheduler application. It has a GUI but most of the user interactions happen using 
   a CLI (Command Line Interface).

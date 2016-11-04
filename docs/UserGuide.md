@@ -133,7 +133,7 @@ If the task you want to edit is not shown in the Visual Panel, you can use `view
 **Example:**<br>
 Let's say you want to add deadline time for task named "Presentation". Then, you must first check the INDEX of that task. In this case, the INDEX of the task is 1. So to add deadline for this task, enter `edit 1 t; DEADLINE`. This will update the deadline of the task. A demonstration of this functionality shown below.
 
-<img src="images/addEditCommand.png" width="500" align="middle"><br>Figure 6. Before(left) and after(right) of an edit command<br>
+<img src="images/addeditCommand.png" width="500" align="middle"><br>Figure 6. Before(left) and after(right) of an edit command<br>
 
 ### 3.6. **Deleting Tasks**
 
@@ -146,7 +146,7 @@ Similar to `edit` command, `delete` command also uses INDEX. INDEX can be found 
 **Example:**<br>
 If you want to delete specfic task, find the INDEX of that task. Let's say the INDEX is 1. Then, enter `delete 1` in the command bar.
 
-<img src="images/addDeleteCommand.png" width="500" align="middle"><br>Figure 7. Example of delete command<br>
+<img src="images/adddeleteCommand.png" width="500" align="middle"><br>Figure 7. Example of delete command<br>
 
 After entering `delete` command, SmartyDo will delete the task specified by the INDEX and will show the updated list in the Visual Panel. In the screenshot above, you can see that the "Presentation" task has been deleted from SmartyDo.
 
