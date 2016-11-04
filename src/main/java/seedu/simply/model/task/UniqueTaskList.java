@@ -55,7 +55,7 @@ public class UniqueTaskList implements Iterable<Task> {
      * Returns true if the list contains an equivalent task as the given argument.
      */
 
-    //@@author A0139430L JingRui
+    //@@author A0139430L
     public boolean contains(ReadOnlyTask toCheck) {
         if(toCheck.getTaskCategory()==3){
             assert toCheck != null;
@@ -80,7 +80,7 @@ public class UniqueTaskList implements Iterable<Task> {
      *
      * @throws DuplicateTaskException if the task to add is a duplicate of an existing task in the list.
      */
-    //@@author A0139430L JingRui
+    //@@author A0139430L
     public void add(Task toAdd) throws DuplicateTaskException {
         assert toAdd != null;
         if (contains(toAdd)) {
@@ -150,7 +150,7 @@ public class UniqueTaskList implements Iterable<Task> {
         return internalList.indexOf(key);
     }
 
-    //@@author A0139430L JingRui
+    //@@author A0139430L
     public Task edit(ReadOnlyTask key, String args) throws IllegalValueException {
         // TODO Auto-generated method stub
         String keyword = args.substring(0, args.indexOf(' '));

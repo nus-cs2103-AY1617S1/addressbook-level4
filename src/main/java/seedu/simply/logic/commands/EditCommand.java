@@ -16,31 +16,31 @@ import seedu.simply.model.task.UniqueTaskList.TaskNotFoundException;
 /** 
  * Edits a task identified using its last displayed index in the task manager.
  * @@author Ronald
- * @@author A0139430L JingRui
+ * 
  */
 
-
+//@@author A0139430L
 public class EditCommand extends Command{
-    
+
     public static final String COMMAND_WORD = "edit";
-    
+
     public static final String DESCRIPTION_WORD = "des";
     public static final String DATE_WORD = "date";
     public static final String START_WORD = "start";
     public static final String END_WORD = "end";
     public static final String TAG_WORD = "tag";
     public static final String ADD_WORD = "add";
-    
+
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits an existing task in Simply. "
             +"Parameters: INDEX <section to delete> <edited information>\n" 
             +"Example: " + COMMAND_WORD + " 1 " + DESCRIPTION_WORD + " beach party\t\t"
             +"Example: " + COMMAND_WORD + " 1 " + DATE_WORD + " 120516\n"
             +"Example: " + COMMAND_WORD + " 1 " + START_WORD + " 1600\t\t\t"
             +"Example: " + COMMAND_WORD + " 1 " + END_WORD + " 2300\n"
-    		+"Example: " + COMMAND_WORD + " 1 " + TAG_WORD + " sentosa";
-    
+            +"Example: " + COMMAND_WORD + " 1 " + TAG_WORD + " sentosa";
+
     public static final String MESSAGE_EDIT_TASK_SUCCESS = "Edited task: %1$s%2$s       Changes:  %3$s";
-    
+
     public final Integer targetIndex;
     public final String editArgs;
     public final char category;
@@ -65,13 +65,13 @@ public class EditCommand extends Command{
             }
 
             ReadOnlyTask eventToEdit = lastShownEventList.get(targetIndex - 1);
-            
+
             try {
                 model.addToUndoStack();
                 model.getCommandHistory().add("edit");
                 Task edited = model.editTask(eventToEdit, editArgs, category);
                 lastShownEventList = model.getFilteredEventList();
-               EventsCenter.getInstance().post(new JumpToListRequestEvent(lastShownEventList.indexOf(edited), category));
+                EventsCenter.getInstance().post(new JumpToListRequestEvent(lastShownEventList.indexOf(edited), category));
             } catch (TaskNotFoundException ive){
                 indicateAttemptToExecuteIncorrectCommand();
                 return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
@@ -84,7 +84,7 @@ public class EditCommand extends Command{
             model.changeTaskCategory();
             return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, category, targetIndex, editArgs));
         }
-        
+
         else if(category == 'D'){
             if (lastShownDeadlineList.size() < targetIndex) {
                 indicateAttemptToExecuteIncorrectCommand();
@@ -111,7 +111,7 @@ public class EditCommand extends Command{
             model.changeTaskCategory();
             return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, category, targetIndex, editArgs));
         }
-        
+
         else if(category == 'T'){
             if (lastShownTodoList.size() < targetIndex) {
                 indicateAttemptToExecuteIncorrectCommand();

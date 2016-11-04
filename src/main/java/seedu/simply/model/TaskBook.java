@@ -153,7 +153,7 @@ public class TaskBook implements ReadOnlyTaskBook {
         }
         task.setTags(new UniqueTagList(commonTagReferences));
     }
-    //@@author A0139430L JingRui
+    //@@author A0139430L
     public boolean removeTask(ReadOnlyTask key) throws UniqueTaskList.TaskNotFoundException {
         int taskCategory = key.getTaskCategory();
         if(taskCategory == 1){
@@ -216,7 +216,7 @@ public class TaskBook implements ReadOnlyTaskBook {
         }
     }
 
-    //@@author A0139430L JingRui
+    //@@author A0139430L
     public Task changeTask(ReadOnlyTask target, String args, char category) throws TaskNotFoundException, IllegalValueException {
         // TODO Auto-generated method stub
         if(category == 'E'){
@@ -245,8 +245,8 @@ public class TaskBook implements ReadOnlyTaskBook {
         }
         return null;
     }
-    
-    //@@author A0139430L JingRui
+
+    //@@author A0139430L
     public void changeTaskCategory() throws TaskNotFoundException, DuplicateTaskException {
         for (Task task: events) {
             if(task.getTaskCategory()!=1){
@@ -290,7 +290,7 @@ public class TaskBook implements ReadOnlyTaskBook {
     }
 
     //// tag-level operations
-    //@@author A0139430L JingRui
+    //@@author A0139430L
     public void addTag(Tag t) throws UniqueTagList.DuplicateTagException {
         tags.add(t);
     }
