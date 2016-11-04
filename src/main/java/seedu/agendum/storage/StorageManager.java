@@ -114,7 +114,7 @@ public class StorageManager extends ComponentManager implements Storage {
     
     private void saveConfigFile() {
         try {
-            ConfigUtil.saveConfig(config, Config.DEFAULT_CONFIG_FILE);
+            ConfigUtil.saveConfig(config, config.getConfigFilePath());
         } catch (IOException e) {
             logger.warning("Failed to save config file : " + StringUtil.getDetails(e));
         }        

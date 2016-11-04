@@ -21,6 +21,7 @@ public class Config {
     private String aliasTableFilePath = DEFAULT_ALIAS_TABLE_FILE;
     private String userPrefsFilePath = DEFAULT_USER_PREFS_FILE;
     private String toDoListFilePath = DEFAULT_SAVE_LOCATION;
+    private String configFilePath = DEFAULT_CONFIG_FILE;
     private String toDoListName = "MyToDoList";
 
     public String getAppTitle() {
@@ -69,6 +70,14 @@ public class Config {
 
     public void setToDoListName(String toDoListName) {
         this.toDoListName = toDoListName;
+    }
+    
+    public String getConfigFilePath() {
+        return configFilePath;
+    }
+    
+    public void setConfigFilePath(String configFilePath) {
+        this.configFilePath = configFilePath;
     }
 
 
