@@ -19,10 +19,7 @@ public class UnmarkCommand extends Command implements Undoable, Redoable{
                                                + COMMAND_WORD
                                                + " 1";
 
-    public static final String COMMAND_SUMMARY = "marks a task as not complete:"
-                                                 + "\n"
-                                                 + COMMAND_WORD
-                                                 + " INDEX";
+    public static final String COMMAND_FORMAT = COMMAND_WORD + " INDEX";
 
     public static final String MESSAGE_UNMARK_SUCCESS = "%1$s has been unmarked";
     public static final String MESSAGE_DUPLICATE_UNMARK_TASK = "%1$s already exist in not completed list";

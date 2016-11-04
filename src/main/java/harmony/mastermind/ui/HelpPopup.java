@@ -119,12 +119,7 @@ public class HelpPopup extends UiPart {
     //@@author A0139194X
     private ObservableList<HelpPopupEntry> getList() {
         ObservableList<HelpPopupEntry> entries = FXCollections.observableArrayList();
-        entries.add(new HelpPopupEntry("add, do", "help", "Displays command summary"));
-        entries.add(new HelpPopupEntry("help", "help", "Displays command summary"));
-        entries.add(new HelpPopupEntry("help", "help", "Displays command summary"));
-
-        entries.add(new HelpPopupEntry("help", "help", "Displays command summary"));
-        entries.add(new HelpPopupEntry("exit", "exit", "Exit Mastermind"));
+        
         return entries;
     }
     

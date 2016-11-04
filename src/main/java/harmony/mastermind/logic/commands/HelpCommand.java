@@ -20,27 +20,9 @@ public class HelpCommand extends Command {
     public static final String COMMAND_SUMMARY = "Getting help:"
             + "\n" + COMMAND_WORD;
     
-    public static final String SHOWING_HELP_MESSAGE = AddCommand.COMMAND_FORMAT + "\n"
-            + "\n" + EditCommand.COMMAND_SUMMARY + "\n"
-            + "\n" + UndoCommand.COMMAND_SUMMARY + "\n"
-            + "\n" + RedoCommand.COMMAND_SUMMARY + "\n"
-            + "\n" + MarkCommand.COMMAND_SUMMARY + "\n"
-            + "\n" + UnmarkCommand.COMMAND_SUMMARY + "\n"
-            + "\n" + DeleteCommand.COMMAND_SUMMARY + "\n"
-            + "\n" + ClearCommand.COMMAND_SUMMARY + "\n"
-            + "\n" + FindCommand.COMMAND_SUMMARY + "\n"
-            + "\n" + ListCommand.COMMAND_SUMMARY + "\n"
-            + "\n" + UpcomingCommand.COMMAND_SUMMARY + "\n"
-            + "\n" + RelocateCommand.COMMAND_SUMMARY + "\n"
-            + "\n" + ImportCommand.COMMAND_FORMAT + "\n"
-            + "\n" + ExportCommand.COMMAND_FORMAT + "\n"
-            + "\n" + HelpCommand.COMMAND_SUMMARY + "\n"
-            + "\n" + ExitCommand.COMMAND_SUMMARY + "\n";
-    
     public static final ArrayList<String> commandWords = new ArrayList<String>();
     public static final ArrayList<String> format = new ArrayList<String>();
     public static final ArrayList<String> description = new ArrayList<String>();
-
     
     public static final String SUCCESSFULLY_SHOWN = "Command summary displayed.";
 
@@ -71,12 +53,28 @@ public class HelpCommand extends Command {
         commandWords.add(RelocateCommand.COMMAND_WORD);
         commandWords.add(ImportCommand.COMMAND_WORD);
         commandWords.add(ExportCommand.COMMAND_KEYWORD_EXPORT);
+        commandWords.add(ActionHistoryCommand.COMMAND_KEYWORD_ACTIONHISTORY);
         commandWords.add(HelpCommand.COMMAND_WORD);
         commandWords.add(ExitCommand.COMMAND_WORD);
     }
     
     private void initFormat() {
-        
+        commandWords.add(AddCommand.COMMAND_FORMAT);
+        commandWords.add(EditCommand.COMMAND_FORMAT);
+        commandWords.add(UndoCommand.COMMAND_WORD);
+        commandWords.add(RedoCommand.COMMAND_WORD);
+        commandWords.add(MarkCommand.COMMAND_FORMAT);
+        commandWords.add(UnmarkCommand.COMMAND_FORMAT);
+        commandWords.add(DeleteCommand.COMMAND_FORMAT);
+        commandWords.add(ClearCommand.COMMAND_WORD);
+        commandWords.add(FindCommand.COMMAND_FORMAT);
+        commandWords.add(ListCommand.COMMAND_FORMAT);
+        commandWords.add(UpcomingCommand.COMMAND_FORMAT);
+        commandWords.add(RelocateCommand.COMMAND_FORMAT);
+        commandWords.add(ImportCommand.COMMAND_FORMAT);
+        commandWords.add(ExportCommand.COMMAND_FORMAT);
+        commandWords.add(HelpCommand.COMMAND_WORD);
+        commandWords.add(ExitCommand.COMMAND_WORD);
     }
     
     private void initDescription() {

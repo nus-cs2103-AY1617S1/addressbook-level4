@@ -43,10 +43,9 @@ public class EditCommand extends Command implements Undoable, Redoable {
 
     public static final Pattern COMMAND_ARGUMENTS_PATTERN = Pattern.compile(COMMAND_ARGUMENTS_REGEX);
 
-    public static final String COMMAND_SUMMARY = "Editting a task:\n"
-            + "(edit|update|change) <index> [name to <name>;] [start date to <start_date>;] [end date to <end_date>;] [recur (daily|weekly|monthly|yearly);] [tags to #<comma_separated_tags>;]";
+    public static final String COMMAND_FORMAT = "(edit|update|change) <index> [name to <name>;] [start date to <start_date>;] [end date to <end_date>;] [recur (daily|weekly|monthly|yearly);] [tags to #<comma_separated_tags>;]";
 
-    public static final String MESSAGE_USAGE = COMMAND_SUMMARY
+    public static final String MESSAGE_USAGE = COMMAND_FORMAT
                                                + "\n"
                                                + "Edits the task identified by the index number used in the last task listing.\n"
                                                + "Example: \n"

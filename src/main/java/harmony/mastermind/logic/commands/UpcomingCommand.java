@@ -17,6 +17,8 @@ public class UpcomingCommand extends Command {
                                                + COMMAND_WORD + "\n"
                                                + COMMAND_WORD + " events\n"
                                                + COMMAND_WORD + " deadlines";
+    
+    public static final String COMMAND_FORMAT = COMMAND_WORD + "[TAB_NAME]";
             
     public static final Pattern COMMAND_ARGUMENTS_PATTERN = Pattern.compile("(?<taskType>deadlines|events)");
 
