@@ -44,7 +44,7 @@
 
 <!-- @@author A0139198N -->
 > **Date Format**
-> ForgetMeNot implements Natty(http://natty.joestelmach.com/). Thus, it accepts a wide range of date format. Formats that are accept in ForgetMeNot is listed here:<br>
+> ForgetMeNot implements [Natty](http://natty.joestelmach.com/). Thus, it accepts a wide range of date format. Formats that are accept in ForgetMeNot is listed here:<br>
 > * dd/mm/yy
 	eg. 12/11/16
 > * next day/week/month/year<br>
@@ -55,7 +55,7 @@
 	eg. next wednesday, next friday<br>
 > * <number> days after<br>
 	eg. 2 days after 10/11/16, 5 days after next monday<br>
-> * a range of holidays is also accepted. This is the entire list - https://github.com/joestelmach/natty/blob/master/src/main/java/com/joestelmach/natty/Holiday.java
+> * a range of holidays is also accepted. You can check the entire list of accepted holidays [here](https://github.com/joestelmach/natty/blob/master/src/main/java/com/joestelmach/natty/Holiday.java)
 <!-- @@author -->
 
 <!-- @@author A0139671X -->
@@ -184,7 +184,7 @@ Example:
 	
 	Delete task indexed 1.
 	
-#### Finding a Task: `Find`
+#### Finding a Task: `find`
 Finds tasks in ForgetMeNot. ForgetMeNot will display all task with the input keywords. Find does not display subsets of a word. For example, `find home` does not display homework<br>
 Format: `find <task name>`
 
