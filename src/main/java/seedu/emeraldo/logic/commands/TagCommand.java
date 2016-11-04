@@ -6,9 +6,12 @@ import java.util.HashSet;
 import java.util.Set;
 
 import seedu.emeraldo.commons.core.Messages;
+import seedu.emeraldo.commons.core.UnmodifiableObservableList;
 import seedu.emeraldo.commons.exceptions.IllegalValueException;
 import seedu.emeraldo.model.tag.Tag;
 import seedu.emeraldo.model.tag.UniqueTagList;
+import seedu.emeraldo.model.task.ReadOnlyTask;
+import seedu.emeraldo.model.task.Task;
 
 /**
 * Edit the tags of a particular task in the task manager.
@@ -36,6 +39,15 @@ public class TagCommand extends Command {
     
     @Override
     public CommandResult execute() {
+        
+        UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
+
+        if (lastShownList.size() < targetIndex) {
+            indicateAttemptToExecuteIncorrectCommand();
+            return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
+        }
+
+        Task taskTagToEdit = (Task) lastShownList.get(targetIndex - 1);
         
         if (action.equalsIgnoreCase("add")){
             model.addTag(tag);
