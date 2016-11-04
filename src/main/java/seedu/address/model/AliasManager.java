@@ -8,7 +8,7 @@ import seedu.address.model.alias.UniqueAliasList;
 import java.util.*;
 import java.util.stream.Collectors;
 
-
+//@@author A0143756Y-reused
 /**
  * Wraps all data at the alias manager level
  * Duplicates are not allowed (by .equals comparison)
@@ -49,7 +49,7 @@ public class AliasManager implements ReadOnlyAliasManager{
     
     //list overwrite operations
 
-    public ObservableList<Alias> getInternalList() {
+    public ObservableList<Alias> getFilteredAliases() {
         return aliases.getInternalList();
     }
 
@@ -87,7 +87,7 @@ public class AliasManager implements ReadOnlyAliasManager{
     	}		
     }
     
-    public boolean ediAlias(int key, Alias aliasToEdit) throws UniqueAliasList.AliasNotFoundException {
+    public boolean editAlias(int key, Alias aliasToEdit) throws UniqueAliasList.AliasNotFoundException {
     	if(aliases.set(key, aliasToEdit)){
     		sortAliases();
     		return true;

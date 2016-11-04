@@ -33,6 +33,7 @@ import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.IncorrectCommand;
+import seedu.address.logic.commands.ListAliasCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SetStorageCommand;
@@ -41,7 +42,7 @@ import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.parser.ArgumentTokenizer.Prefix;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
-import seedu.address.model.alias.Alias;
+import seedu.address.model.alias.ReadOnlyAlias;
 
 public class Parser {
 	// @@author A0141019U
@@ -101,9 +102,6 @@ public class Parser {
 
 		case EditCommand.COMMAND_WORD:
 			return prepareEdit(arguments);
-		
-		case AddAliasCommand.COMMAND_WORD:
-			return prepareAddAlias(arguments);
 			
 		case SetStorageCommand.COMMAND_WORD:
 			return prepareSetStorage(arguments);	
@@ -128,10 +126,16 @@ public class Parser {
 
 		case RedoCommand.COMMAND_WORD:
 			return new RedoCommand();
+		
+		case AddAliasCommand.COMMAND_WORD:
+			return prepareAddAlias(arguments);
+			
+		case ListAliasCommand.COMMAND_WORD:
+			return new ListAliasCommand();
 			
 		case TabCommand.COMMAND_WORD:
 			return prepareTabCommand(arguments);
-			
+
 		default:
 			return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
 		}
@@ -139,11 +143,11 @@ public class Parser {
 
 	//@@author A0141019U	
 	private String replaceAliases(String userInput) {
-		List<Alias> aliasList = this.model.getAliasList();
+		List<ReadOnlyAlias> aliasList = this.model.getFilteredAliasList();
 		List<String> aliases = new ArrayList<>(); 
 		List<String> originals = new ArrayList<>(); 
 		
-		for (Alias aliasObj : aliasList) {
+		for (ReadOnlyAlias aliasObj : aliasList) {
 			aliases.add(aliasObj.getAlias());
 			originals.add(aliasObj.getOriginalPhrase());
 		}

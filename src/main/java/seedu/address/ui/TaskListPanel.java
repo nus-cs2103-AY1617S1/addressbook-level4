@@ -12,7 +12,6 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import seedu.address.model.alias.ReadOnlyAlias;
 import seedu.address.model.task.ReadOnlyTask;
-import seedu.address.model.task.Task;
 import seedu.address.model.task.TaskType;
 import seedu.address.commons.core.LogsCenter;
 
