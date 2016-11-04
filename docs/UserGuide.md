@@ -34,14 +34,13 @@
 > **Date Format**
 > ForgetMeNot accepts a wide range of date format. Formats that are accept in ForgetMeNot is listed here:<br>
 > * next day/week/month/year<br>
+	eg. next week, next month
 > * <number> days later<br>
 	eg. 2 days later<br>
 > * next <day><br>
-	eg. next wednesday<br>
-	    next friday<br>
+	eg. next wednesday, next friday<br>
 > * <number> days after<br>
-	eg. 2 days after 10/11/16<br>
-	    5 days after next monday<br>
+	eg. 2 days after 10/11/16, 5 days after next monday<br>
 <!-- @@author -->
 
 <!-- @@author A0139671X -->
