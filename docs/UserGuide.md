@@ -14,7 +14,7 @@
 1. Download the latest `forgetmenot.jar` from the [releases](../../../releases) tab.
    > <img src="images/DownloadSection.png" width="600">
 2. Copy the file to the folder you want to use as the home folder for ForgetMeNot.
-3. Double-click the file to start the app. The GUI should appear in a few seconds. 
+3. Double-click the file to start the app. The application should appear in a few seconds. 
    > <img src="images/ForgetMeNotUI.png" width="600">
 
 4. Type the command in the command box and press <kbd>Enter</kbd> to execute it. <br>
