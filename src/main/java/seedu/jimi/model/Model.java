@@ -68,8 +68,9 @@ public interface Model{
     void updateFilteredAgendaEventList(Set<String> keywords);
     
     /** Sets the task to be completed/incomplete 
-     * @throws TaskNotFoundException */
-    void completeTask(ReadOnlyTask taskToComplete, boolean isComplete) throws TaskNotFoundException;
+     * @throws TaskNotFoundException 
+     * @throws DuplicateTaskException */
+    void completeTask(ReadOnlyTask taskToComplete, boolean isComplete) throws TaskNotFoundException, DuplicateTaskException;
     
     /** Updates the filter of the filtered task list to copy the filter of the list identified by {@code other} */
     void updateFilteredAgendaTaskList(ListId other);
