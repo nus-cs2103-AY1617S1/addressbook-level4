@@ -40,6 +40,7 @@ public class ListCommand extends Command {
         if (arguments.equals(LIST_UNSPECIFIED_COMMAND)) {
             model.updateFilteredListToShowAll();
         } else {
+            
             model.updateFilteredListToFitUserInput(arguments);
         }
         return new CommandResult(MESSAGE_SUCCESS);

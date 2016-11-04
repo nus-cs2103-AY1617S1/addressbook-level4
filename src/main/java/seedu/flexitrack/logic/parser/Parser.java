@@ -14,11 +14,14 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
+import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import seedu.flexitrack.commons.core.LogsCenter;
 import seedu.flexitrack.commons.exceptions.IllegalValueException;
 import seedu.flexitrack.commons.util.StringUtil;
+import seedu.flexitrack.logic.LogicManager;
 import seedu.flexitrack.logic.commands.AddCommand;
 import seedu.flexitrack.logic.commands.BlockCommand;
 import seedu.flexitrack.logic.commands.ChangeStoragePathCommand;
@@ -71,6 +74,22 @@ public class Parser {
     }  
 
     // @@author A0127686R
+    private final Logger logger = LogsCenter.getLogger(LogicManager.class);
+
+    private static final HashMap<String, String> SHORTCUT_LIST_MAP = new HashMap<String, String>();                                                                                                       // more
+    static {
+        SHORTCUT_LIST_MAP.put("f", ListCommand.LIST_FUTURE_COMMAND);
+        SHORTCUT_LIST_MAP.put("p", ListCommand.LIST_PAST_COMMAND);
+        SHORTCUT_LIST_MAP.put("m", ListCommand.LIST_MARK_COMMAND);
+        SHORTCUT_LIST_MAP.put("u", ListCommand.LIST_UNMARK_COMMAND);
+        SHORTCUT_LIST_MAP.put("b", ListCommand.LIST_BLOCK_COMMAND);
+        SHORTCUT_LIST_MAP.put("l", ListCommand.LIST_LAST_COMMAND);
+        SHORTCUT_LIST_MAP.put("n", ListCommand.LIST_NEXT_COMMAND);
+        SHORTCUT_LIST_MAP.put("lw", ListCommand.LIST_LAST_WEEK_COMMAND);
+        SHORTCUT_LIST_MAP.put("lm", ListCommand.LIST_LAST_MONTH_COMMAND);
+        SHORTCUT_LIST_MAP.put("nw", ListCommand.LIST_NEXT_WEEK_COMMAND);
+        SHORTCUT_LIST_MAP.put("nm", ListCommand.LIST_NEXT_MONTH_COMMAND);
+    }
     // '/' forward slashes are reserved for delimiter prefixes
     private static final Pattern TASK_FIND_GAP_WITH_NUMBER_ARGS_FORMAT = Pattern
             .compile("(?<info>[^/]+)" + "[Nn]/(?<numberOfGaps>[^/]+)");
@@ -129,11 +148,11 @@ public class Parser {
         }
 
         final String commandWord = matcher.group("commandWord");
-        final String parsedCommandWord = parseCommandWord(commandWord);
+        final String parsedCommandWord = parseCommandWord(commandWord.toLowerCase());
 
         final String arguments = matcher.group("arguments");
-        switch (parsedCommandWord.toLowerCase()) {
-
+        switch (parsedCommandWord) {
+        
         case AddCommand.COMMAND_WORD:
             return prepareAdd(arguments);
 
@@ -214,6 +233,18 @@ public class Parser {
             args = matcher.group("info").trim();
         }
 
+        return issueGapCommandIfArgsIsValid(args, numberOfSlot);
+    }
+
+    /**
+     * Test if the args is valid, if it is convert the length and key keywords into integer representing them 
+     * and issue a new Gap Command, else log and return invalid command 
+     * 
+     * @param args          Arguments of the length and keyword
+     * @param numberOfSlot  The number of time slot to be find 
+     * @return              GapCommand or IncorrectCommand 
+     */
+    private Command issueGapCommandIfArgsIsValid(String args, int numberOfSlot) {
         if (isGapArgumentValid(args)) {
             try {
                 int keyword = extractKeywordFromArgs(args);
@@ -221,10 +252,12 @@ public class Parser {
                 return new GapCommand(keyword, length, numberOfSlot);
 
             } catch (NumberFormatException nfe) {
+                logger.info("----------------[INVALID USER COMMAND COMMAND][" + "The length of time need to be in digit" + "]");
                 return new IncorrectCommand(
                         String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_NUMBER_NEED_TO_BE_IN_DIGIT));
             }
         } else {
+            logger.info("----------------[INVALID USER COMMAND COMMAND][" + "Gap Arguments is not valid" + "]");
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, GapCommand.MESSAGE_USAGE));
         }
     }
@@ -311,14 +344,16 @@ public class Parser {
     //@@author A0127686R
     /**
      * Check if the arguments are valid for list Command
-     * @param arguments
-     * @return new List Command containing arguments
+     * 
+     * @param arguments The user inputed argument
+     * @return          New ListCommand containing arguments
      */
     private Command prepareList(String arguments) {
-        arguments=arguments.trim();
+        String parsedArguments = parseListWord(arguments.trim());
+        parsedArguments = parsedArguments.trim();
         try {
-            if (isValideListFormat(arguments)) {
-                return new ListCommand(arguments);
+            if (isValideListFormat(parsedArguments)) {
+                return new ListCommand(parsedArguments);
             }
         } catch (IllegalValueException e) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ListCommand.MESSAGE_USAGE));
@@ -326,6 +361,16 @@ public class Parser {
         return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ListCommand.MESSAGE_USAGE));
     }
 
+    /**
+     * if the argument is a shortcut, return the parsed proper word
+     * 
+     * @param listWord  The list argument key word inputed by the user
+     * @return          The pair proper word, if not found return default 
+     */
+    private String parseListWord(String listWord) {     
+        assert listWord != null;
+        return SHORTCUT_LIST_MAP.getOrDefault(listWord, listWord);
+    }
     //@@author A0138455Y
     /**
      * 
@@ -362,6 +407,7 @@ public class Parser {
                 replace(ListCommand.LIST_BLOCK_COMMAND, "").trim());
         if ( !dateInfo.equals("") ){
             DateTimeInfoParser timeArgs = new DateTimeInfoParser(dateInfo);
+            assert timeArgs != null; 
         }
         return (arguments.contains(ListCommand.LIST_FUTURE_COMMAND) || arguments.contains(ListCommand.LIST_UNMARK_COMMAND)
                 || arguments.contains(ListCommand.LIST_PAST_COMMAND) || arguments.contains(ListCommand.LIST_MARK_COMMAND)
