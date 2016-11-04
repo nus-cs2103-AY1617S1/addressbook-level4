@@ -24,7 +24,7 @@ public class ListCommand extends Command {
 
     //@@author A0139339W
     private Optional<String> taskType = Optional.empty();
-    private Optional<String> doneStatus = Optional.empty();
+    private Optional<String> doneStatus = Optional.of("default");
     
     public ListCommand() {}
     
@@ -40,12 +40,11 @@ public class ListCommand extends Command {
     	Predicate <ReadOnlyTask> listPredicate = null;
     	Predicate <ReadOnlyTask> taskTypePredicate = null;
     	Predicate <ReadOnlyTask> donePredicate = null;
-    	boolean isFirstPredicate = true;
     	
     	taskTypePredicate = getTaskTypePredicate(taskTypePredicate);
     	donePredicate = getStatusPredicate(donePredicate);
     	
-    	listPredicate = getListPredicate(listPredicate, taskTypePredicate, donePredicate, isFirstPredicate);
+    	listPredicate = getListPredicate(listPredicate, taskTypePredicate, donePredicate);
     	
     	model.updateFilteredTaskList(listPredicate);
     	
@@ -56,8 +55,8 @@ public class ListCommand extends Command {
     //@@author
 
 	private Predicate<ReadOnlyTask> getListPredicate(Predicate<ReadOnlyTask> listPredicate,
-			Predicate<ReadOnlyTask> taskTypePredicate, Predicate<ReadOnlyTask> donePredicate,
-			boolean isFirstPredicate) {
+			Predicate<ReadOnlyTask> taskTypePredicate, Predicate<ReadOnlyTask> donePredicate) {
+		boolean isFirstPredicate = true;
 		if(taskType.isPresent()) {
     		listPredicate = taskTypePredicate;
     		isFirstPredicate = false;
@@ -72,6 +71,8 @@ public class ListCommand extends Command {
 
 	private Predicate<ReadOnlyTask> getStatusPredicate(Predicate<ReadOnlyTask> donePredicate) {
 		if(doneStatus.isPresent()) {
+			assert doneStatus.equals("done") || doneStatus.equals("pending") || 
+				doneStatus.equals("overdue");
     		switch(doneStatus.get()) {
     		case "done":
     			donePredicate = ReadOnlyTaskFilter.isDone();
@@ -81,6 +82,8 @@ public class ListCommand extends Command {
     			break;
     		case "overdue":
     			donePredicate = ReadOnlyTaskFilter.isOverdue();
+    		case "default":
+    			donePredicate = ReadOnlyTaskFilter.isDone().negate();
     		}
     	}
 		return donePredicate;

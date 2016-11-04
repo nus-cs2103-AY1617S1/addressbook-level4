@@ -312,7 +312,7 @@ public class Parser {
 	//@@author A0141019U
 	// Only supports task type and status type options.
 	private Command prepareList(String arguments) {
-		if (arguments.equals("")) {
+		if (arguments.trim().equals("")) {
 			return new ListCommand();
 		}
 
@@ -334,6 +334,8 @@ public class Parser {
 			case "pending":
 			case "overdue":
 				status = args[i];
+				break;
+			case "all":
 				break;
 			default:
 				return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ListCommand.MESSAGE_USAGE));
