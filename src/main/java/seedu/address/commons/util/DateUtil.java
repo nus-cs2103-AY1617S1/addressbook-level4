@@ -13,7 +13,7 @@ import com.joestelmach.natty.DateGroup;
  */
 public class DateUtil {
 
-    private static final String DATE_VALIDATION_REGEX = "^[0-3]?[0-9].[0-1]?[0-9].([0-9]{4})(-[0-2]?[0-9]?)?";
+    private static final String DATE_VALIDATION_REGEX = "^[0-3][0-9].[0-1][0-9].([0-9]{4})(-[0-2]?[0-9]?)?";
     // EXAMPLE = "15.10.2016-14"
 
     private static final DateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
