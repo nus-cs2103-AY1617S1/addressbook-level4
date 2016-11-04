@@ -105,22 +105,22 @@ public class CommandBox extends UiPart {
         mostRecentResult = logic.execute(currCommandText);
 
         // adds current command into the stack
-        // updateCommandHistory(currCommandText);
+        updateCommandHistory(currCommandText);
 
         this.raise(new NewResultAvailableEvent(mostRecentResult.title, mostRecentResult.feedbackToUser));
 
         logger.info("Result: "
                     + mostRecentResult.feedbackToUser);
     }
-
-    // @@author A0124797R
+    
+ // @@author A0124797R
     /**
      * Sets the command box style to indicate a correct command.
      */
     private void setStyleToIndicateCorrectCommand() {
         commandField.setText("");
-    }
-    
+}
+
  // @@author A0124797R
     /**
      * Handles any KeyPress in the commandField

@@ -125,7 +125,7 @@ public class MainWindow extends UiPart {
 
     @FXML
     private AnchorPane homeTableViewPlaceholder;
-    private DefaultTableView homeTableView;
+    private HomeTableView homeTableView;
 
     @FXML
     private AnchorPane tasksTableViewPlaceholder;
@@ -141,7 +141,7 @@ public class MainWindow extends UiPart {
 
     @FXML
     private AnchorPane archivesTableViewPlaceholder;
-    private DefaultTableView archivesTableView;
+    private ArchivesTableView archivesTableView;
 
     @FXML
     private TextArea consoleOutput;
@@ -260,11 +260,11 @@ public class MainWindow extends UiPart {
     private void fillInnerParts(Logic logic) {
         commandBox = CommandBox.load(primaryStage, commandBoxPlaceholder, logic);
         actionHistoryPane = ActionHistoryPane.load(primaryStage, actionHistoryPanePlaceholder, logic);
-        homeTableView = DefaultTableView.load(primaryStage, homeTableViewPlaceholder, logic);
+        homeTableView = HomeTableView.load(primaryStage, homeTableViewPlaceholder, logic);
         tasksTableView = DefaultTableView.load(primaryStage, tasksTableViewPlaceholder, logic);
         eventsTableView = DefaultTableView.load(primaryStage, eventsTableViewPlaceholder, logic);
         deadlinesTableView = DefaultTableView.load(primaryStage, deadlinesTableViewPlaceholder, logic);
-        archivesTableView = DefaultTableView.load(primaryStage, archivesTableViewPlaceholder, logic);
+        archivesTableView = ArchivesTableView.load(primaryStage, archivesTableViewPlaceholder, logic);
     }
     //@@author
 
@@ -292,7 +292,7 @@ public class MainWindow extends UiPart {
     // @@author
 
     // @@author A0138862W
-    public DefaultTableView getHomeTableView() {
+    public HomeTableView getHomeTableView() {
         return homeTableView;
     }
     // @@author
@@ -315,7 +315,7 @@ public class MainWindow extends UiPart {
     }
 
     // @@author A0138862W
-    public DefaultTableView getArchivesTableView() {
+    public ArchivesTableView getArchivesTableView() {
         return archivesTableView;
     }
 
