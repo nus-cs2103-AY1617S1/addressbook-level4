@@ -1,15 +1,23 @@
 // @@author A0147944U
 package guitests;
 
+import org.apache.commons.io.FileUtils;
 import org.junit.Test;
 
+import seedu.task.commons.core.LogsCenter;
+import seedu.task.commons.util.ConfigUtil;
 import seedu.task.logic.commands.BackupCommand;
 import seedu.task.testutil.TestUtil;
 import seedu.task.testutil.TypicalTestTasks;
 
 import static org.junit.Assert.assertTrue;
 
+import java.io.File;
+import java.util.logging.Logger;
+
 public class BackupCommandTest extends TaskManagerGuiTest {
+
+    private static final Logger logger = LogsCenter.getLogger(ConfigUtil.class);
 
     public static final String filepath_A = TestUtil.getFilePathInSandboxFolder("backup_not_pre_existing");
     public static final String filepath_B = TestUtil.getFilePathInSandboxFolder("backup_pre_existing");
@@ -20,6 +28,19 @@ public class BackupCommandTest extends TaskManagerGuiTest {
 
     @Test
     public void backup() {
+        // Remove backup_not_pre_existing.xml if it exists
+        File notSupposedToBeHere = new File(filepath_A+ ".xml");
+        if (notSupposedToBeHere.exists()) {
+            logger.info("'backup_not_pre_existing' exists");
+            if(FileUtils.deleteQuietly(notSupposedToBeHere)) {
+                logger.info("Not anymore");
+            } else {
+                logger.warning("Unable to delete backup_not_pre_existing");
+            }
+        } else {
+            logger.info("'backup_not_pre_existing' does not exist ");
+        }
+        
         //verify an empty TaskManager can be backed up in a valid directory
         commandBox.runCommand("clear");
         assertListSize(0);
