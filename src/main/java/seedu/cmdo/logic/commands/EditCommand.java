@@ -25,7 +25,10 @@ import seedu.cmdo.model.task.UniqueTaskList.TaskNotFoundException;
  * Edits the task associated with the intended index.
  */
 public class EditCommand extends Command {
+	public static final LocalDate NO_DATE_DEFAULT = LocalDate.MAX;	// All floating tasks are giving this date.
+	public static final LocalTime NO_TIME_DEFAULT = LocalTime.MAX;	// All timeless tasks are given this time.
     public static final String COMMAND_WORD = "edit";
+    
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the task residing at index input. \n"
             + "Parameters: <index> <details> by/on <date> at <time> /<priority> /<TAG...>\n"
@@ -168,10 +171,14 @@ public class EditCommand extends Command {
     		  toEditWith.setTags(taskToEdit.getTags()); 
     }
     
-    public void editStartLdt(ReadOnlyTask taskToEdit) {
-    	LocalDate ld = taskToEdit.getDueByDate().start;
-    	LocalTime lt = taskToEdit.getDueByTime().start;
+    public void editStartLdt() {
+    	
+    	LocalDate ld = toEditWith.getDueByDate().start;
+    	LocalTime lt = toEditWith.getDueByTime().start;
     	toEditWith.setStartLdt(LocalDateTime.of(ld, lt));
+    	
+    	if(floating)
+    		toEditWith.setStartLdt(LocalDateTime.of(NO_DATE_DEFAULT, NO_TIME_DEFAULT));
     }
     
     @Override
@@ -199,7 +206,7 @@ public class EditCommand extends Command {
         //append tags 
         editTags(taskToEdit);
         //check for changes in start due by time and date
-        editStartLdt(taskToEdit);
+        editStartLdt();
         try {
         	updateSelectionInPanel(model.editTask(taskToEdit, toEditWith));
         } catch (TaskNotFoundException tnfe) {
