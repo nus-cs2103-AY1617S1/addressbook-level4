@@ -166,7 +166,7 @@ public class Start implements Comparable<Start> {
         return value.hashCode();
     }
     
-  //@@author A0139430L JingRui
+  //@@author A0139430L
     @Override
     public int compareTo(Start o) {  
         if(this.value.compareTo("no start") == 0 & o.toString().compareTo("no start") == 0) 
