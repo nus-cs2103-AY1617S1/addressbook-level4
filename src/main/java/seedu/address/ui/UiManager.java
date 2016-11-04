@@ -123,21 +123,21 @@ public class UiManager extends ComponentManager implements Ui {
     @Subscribe
     private void handleJumpToListRequestEvent(JumpToListRequestEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        mainWindow.getPersonListPanel().scrollTo(event.targetIndex);
+        mainWindow.getTaskListPanel().scrollTo(event.targetIndex);
     }
 
     //@@author A0139498J
     @Subscribe
     private void handleChangeToListDoneViewEvent(ChangeToListDoneViewEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        mainWindow.getPersonListPanel().switchToDoneTaskListView();
+        mainWindow.getTaskListPanel().switchToDoneTaskListView();
     }
     
     //@@author A0139498J
     @Subscribe
     private void handleChangeToListUndoneViewEvent(ChangeToListUndoneViewEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        mainWindow.getPersonListPanel().switchToUndoneTaskListView();
+        mainWindow.getTaskListPanel().switchToUndoneTaskListView();
     }
     
     @Subscribe
