@@ -33,14 +33,12 @@ public class DeleteCommand extends Command {
     
     private final String commandText;
     
-    private int categoryIndex;
     private int targetIndex;
     private String currentTaskIndex;
     private Optional<String> errorMessage;
     
     private UnmodifiableObservableList<ReadOnlyTask> lastShownList;
     private ArrayList<ReadOnlyTask> listOfTaskToDelete;
-    private ReadOnlyTask taskToDelete;
     
     private StringBuilder invalidIndexMessageBuilder;
     private StringBuilder resultMessageBuilder;
@@ -57,7 +55,7 @@ public class DeleteCommand extends Command {
     @Override
     public CommandResult execute() {                       
         
-        initialiseMessageBuildersAndTasksToMarkList();
+        initialiseMessageBuildersAndList();
         evaluatePresenceOfErrors();
         
         generateErrorMessage();
@@ -87,7 +85,7 @@ public class DeleteCommand extends Command {
      * Initialises the necessary StringBuilders for recording the message to be returned to the user 
      * and the List to store all the indexes of tasks to delete from the task manager
      */
-    private void initialiseMessageBuildersAndTasksToMarkList() {
+    private void initialiseMessageBuildersAndList() {
         listOfTaskToDelete = new ArrayList<ReadOnlyTask>();
         invalidIndexMessageBuilder = new StringBuilder(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX + ": ");
         duplicateIndexesProvidedMessageBuilder = new StringBuilder(Messages.MESSAGE_DUPLICATE_INDEXES_PROVIDED + ": ");
@@ -99,7 +97,7 @@ public class DeleteCommand extends Command {
      * each iteration of evaluation. It also targets the correct list out of the 3 lists.
      */
     private void setRelevantIndexesAndList(Pair<Integer, Integer> indexPair) {
-        categoryIndex = indexPair.getKey();
+        int categoryIndex = indexPair.getKey();
         targetIndex = indexPair.getValue();
         assert categoryIndex >= 0 && categoryIndex < 3;
         
@@ -159,7 +157,7 @@ public class DeleteCommand extends Command {
      *  else it adds the task to the listOfTaskToDelete and appends the task name to the success message builder
      */
     private void evaluateHasDuplicateIndexes() {
-        taskToDelete = lastShownList.get(targetIndex - 1);
+        ReadOnlyTask taskToDelete = lastShownList.get(targetIndex - 1);
         if (!listOfTaskToDelete.contains(taskToDelete)) {
             listOfTaskToDelete.add(taskToDelete);
             resultMessageBuilder.append(taskToDelete.getName() + ", ");

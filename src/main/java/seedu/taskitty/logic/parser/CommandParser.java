@@ -517,8 +517,8 @@ public class CommandParser {
         }  
         
         Pair<Integer, Integer> categoryAndIndex;
-        for (; firstIndex <= secondIndex; firstIndex++) {
-            categoryAndIndex = new Pair<Integer, Integer>(categoryIndex, firstIndex);
+        for (int currentIndex = firstIndex; currentIndex <= secondIndex; currentIndex++) {
+            categoryAndIndex = new Pair<Integer, Integer>(categoryIndex, currentIndex);
             listOfIndexes.add(categoryAndIndex);
         }
     }
