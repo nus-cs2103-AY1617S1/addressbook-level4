@@ -31,6 +31,10 @@
 	 -fx-background-color: derive(#1d1d1d, 20.0%);
 }
 
+.anchor-pane-img {
+	 -fx-background-color: derive(#1d1d1d, 20.0%);
+}
+
 .tab-pane {
     -fx-padding: 0.0 0.0 0.0 1.0;
 }
