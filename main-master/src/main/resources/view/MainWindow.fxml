@@ -31,8 +31,8 @@
             </Menu>
          </menus>
       </MenuBar>
-      <Label id="label" fx:id="label" prefHeight="130.0" prefWidth="451.0" styleClass="label-logo" />
-      <SplitPane id="splitPane" fx:id="splitPane" minHeight="540.0" prefHeight="540.0" VBox.vgrow="ALWAYS">
+      <Label id="label" fx:id="label" prefHeight="0.0" prefWidth="451.0" styleClass="label-logo" />
+      <SplitPane id="splitPane" fx:id="splitPane" minHeight="0.0" prefHeight="540.0" VBox.vgrow="ALWAYS">
          <items>
             <VBox fx:id="personList" minHeight="540.0" minWidth="1000.0" prefHeight="540.0" prefWidth="1000.0">
                <children>

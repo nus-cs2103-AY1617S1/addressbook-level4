@@ -108,7 +108,7 @@ public class MainWindow extends UiPart {
         setTitle(appTitle);
         setIcon(ICON);
         setWindowMinSize();
-        setWindowDefaultSize(prefs);
+        //setWindowDefaultSize(prefs);
         scene = new Scene(rootLayout);
         primaryStage.setScene(scene);
        
@@ -122,7 +122,7 @@ public class MainWindow extends UiPart {
   //@@author A0133369B
     void fillInnerParts() {
     	Image image = new Image(getClass().getResourceAsStream("/images/haha.png"));
-    	label.setGraphic(new ImageView(image));
+    	//label.setGraphic(new ImageView(image));
     	    
         taskListPanel = TaskListPanel.load(primaryStage, getTaskListPlaceholder(), logic.getFilteredTaskList());
         resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
@@ -168,8 +168,9 @@ public class MainWindow extends UiPart {
     }
 
     private void setWindowMinSize() {
-        primaryStage.setMinHeight(MIN_HEIGHT);
-        primaryStage.setMinWidth(MIN_WIDTH);
+        primaryStage.setMaximized(true);
+        //primaryStage.setMinHeight(MIN_HEIGHT);
+        //primaryStage.setMinWidth(MIN_WIDTH);
     }
 
     /**
