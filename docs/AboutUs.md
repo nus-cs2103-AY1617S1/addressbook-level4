@@ -44,7 +44,7 @@ We are a team of four 2nd Year Computer Engineering students based in the [Schoo
 * Other major contributions:
   * Implemented checking of overdue tasks
   * Did the initial refactoring from AddressBook to ForgetMeNot
-
+  * Set up EclEmma to aid testing
 
 -----
 
@@ -52,7 +52,7 @@ We are a team of four 2nd Year Computer Engineering students based in the [Schoo
 <img src="images/Jun Hao.jpg" width="150"><br>
 
 * Components in charge of: [Model](https://github.com/CS2103AUG2016-T11-C2/main/tree/master/src/main/java/seedu/forgetmenot/model)
-* Aspects/tools in charge of: Testing, Sourcetree, Eclipse
+* Aspects/tools in charge of: Sourcetree, Eclipse
 * Features implemented:
    * [show](https://github.com/CS2103AUG2016-T11-C2/main/blob/master/docs/UserGuide.md#showing-full-list-show)
    * [show all](https://github.com/CS2103AUG2016-T11-C2/main/blob/master/docs/UserGuide.md#showing-all-task-show-all)
