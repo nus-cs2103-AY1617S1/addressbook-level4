@@ -154,31 +154,28 @@ public class TaskBook implements ReadOnlyTaskBook {
         task.setTags(new UniqueTagList(commonTagReferences));
     }
     //@@author A0139430L
-    public boolean removeTask(ReadOnlyTask key) throws UniqueTaskList.TaskNotFoundException {
+    public void removeTask(ReadOnlyTask key) {
         int taskCategory = key.getTaskCategory();
-        if(taskCategory == 1){
-            if (events.remove(key)) {
-                return true;
-            } else {
-                throw new UniqueTaskList.TaskNotFoundException();
-            }
-        }
-        else if (taskCategory == 2){
-            if (deadlines.remove(key)) {
-                return true;
-            } else {
-                throw new UniqueTaskList.TaskNotFoundException();
-            }
-        }
-        else{
-            if (todo.remove(key)) {
-                return true;
-            } else {
-                throw new UniqueTaskList.TaskNotFoundException();
-            }
+        if (taskCategory == 1) { 
+            events.remove(key);
+        } else if (taskCategory == 2) {
+            deadlines.remove(key);
+        } else {
+            todo.remove(key);
         }
     }
-
+    public boolean checkTask(ReadOnlyTask toCheck) {
+        int taskCategory = toCheck.getTaskCategory();
+        if(taskCategory == 1){
+            return events.contains(toCheck);
+        } else if(taskCategory == 2){
+            return deadlines.contains(toCheck);
+        } else if(taskCategory == 3){
+            return todo.contains(toCheck);
+        }       
+        return false;
+    }
+    
     //@@author A0135722L Zhiyuan
     public boolean completeTask(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException {
         int category = target.getTaskCategory();
