@@ -85,42 +85,48 @@ public class EditCommandTest extends FlexiTrackGuiTest {
     }
 
     @Test
-    public void edit_typicalTaskSet_fail() {
-        TestTask[] currentList = td.getTypicalSortedTasks();
+    public void edit_wrongIndex_fail() {
 
-        // index not found
         commandBox.runCommand("edit " + (currentList.length + 1) + " n/ hello");
         assertResultMessage(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
-
-        // edit task starttime
+    }
+    @Test
+    public void edit_taskStartTime_fail() {
         commandBox.runCommand("edit " + 5 + " from/ today");
         assertResultMessage(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
-
-        // edit task endtime
+    }
+    @Test
+    public void edit_taskEndTime_fail() {
         commandBox.runCommand("edit " + 5 + " to/ tomorrow");
         assertResultMessage(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
-
-        // edit event duedate
+    }
+    @Test
+    public void edit_eventDueDate_fail() {
         commandBox.runCommand("edit " + 3 + " by/ tomorrow");
         assertResultMessage(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
-
-        // edit floating task with only starttime
+    }
+    @Test
+    public void edit_floatingTaskwithStartTime_fail() {
         commandBox.runCommand("edit " + 1 + " from/ today");
         assertResultMessage(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
-
-        // edit floating task with only endtime
+    }
+    @Test
+    public void edit_floatingTaskWithEndTime_fail() {
         commandBox.runCommand("edit " + 1 + " to/ tomorrow");
         assertResultMessage(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
-
-        // edit floating task with both duedate and starttime
+    }
+    @Test
+    public void edit_floatingTaskWithDueDateAndStartTime_fail() {
         commandBox.runCommand("edit " + 1 + " by/ tomorrow from/ tomorrow");
         assertResultMessage(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
-
-        // edit floating task with both duedate and endtime
+    }
+    @Test
+    public void edit_floatingTaskWithDueDateAndEndTIme_fail() {
         commandBox.runCommand("edit " + 1 + " by/ tomorrow to/ tomorrow");
         assertResultMessage(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
-
-        // invalid command format
+    }
+    @Test
+    public void edit_invalidCommandFormat_fail() {
         commandBox.runCommand("edit what is this");
         assertResultMessage(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
 
@@ -129,10 +135,10 @@ public class EditCommandTest extends FlexiTrackGuiTest {
     private void assertEditSuccess(TestTask editedTask, final TestTask[] currentList, int indexOneIndexed,
             String command) {
         int index = indexOneIndexed - 1;
-       
+
         commandBox.runCommand("edit " + indexOneIndexed + command);
-         TaskCardHandle editedCard = taskListPanel.navigateToTask(editedTask.getName().toString());
-        
+        TaskCardHandle editedCard = taskListPanel.navigateToTask(editedTask.getName().toString());
+
         assertMatching(editedTask, editedCard);
 
         // confirm the list now contains all previous tasks plus the new task
