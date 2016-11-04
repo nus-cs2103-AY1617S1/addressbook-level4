@@ -219,7 +219,7 @@ Format: `change-to NEWFILEPATH`
 Example: 'change-to data/taskmanager.xml'
 
 <!-- @@author -->
-
+<!-- @@author A0153467Y -->
 ## FAQ
 **Q**: Can I add event which have a start date and time to my to-do list ?<br>
 
@@ -232,7 +232,7 @@ Example: 'change-to data/taskmanager.xml'
 > <img src="images/MESS_004.png" width="600"><br>
 
 In this example, you can see shopping is a floating task without a start time and deadline. 
-  	
+<!-- @@author -->  	
 ## Command Summary
 
 Command | Format  
