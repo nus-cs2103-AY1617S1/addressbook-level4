@@ -1,11 +1,8 @@
 package seedu.taskitty.logic;
 
-import java.util.logging.Logger;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
-import seedu.taskitty.commons.core.LogsCenter;
 import seedu.taskitty.logic.commands.Command;
 
 import static seedu.taskitty.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
