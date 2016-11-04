@@ -221,11 +221,13 @@ public class Parser {
             try {
                 numberOfSlot = Integer.parseInt(matcher.group("numberOfGaps").trim());
             } catch (NumberFormatException nfe) {
+                logger.info("----------------[GAP COMMAND PARSER][" + " user input length without a digit " + "]");
                 return new IncorrectCommand(
                         String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_NUMBER_NEED_TO_BE_IN_DIGIT));
             }
         } else {
             if (args.trim().equals("") || args.trim().contains("n/")) {
+                logger.info("----------------[GAP COMMAND PARSER][" + " user used n/ without specifying the number " + "]");
                 return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, GapCommand.MESSAGE_USAGE));
             }
             matcher = TASK_FIND_GAP_ARGS_FORMAT.matcher(args.trim());
@@ -252,12 +254,12 @@ public class Parser {
                 return new GapCommand(keyword, length, numberOfSlot);
 
             } catch (NumberFormatException nfe) {
-                logger.info("----------------[INVALID USER COMMAND COMMAND][" + "The length of time need to be in digit" + "]");
+                logger.info("----------------[GAP COMMAND PARSER][" + " Invalid user input " + "]");
                 return new IncorrectCommand(
                         String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_NUMBER_NEED_TO_BE_IN_DIGIT));
             }
         } else {
-            logger.info("----------------[INVALID USER COMMAND COMMAND][" + "Gap Arguments is not valid" + "]");
+            logger.info("----------------[GAP COMMAND PARSER][" + " Invalid user input " + "]");
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, GapCommand.MESSAGE_USAGE));
         }
     }
@@ -356,6 +358,7 @@ public class Parser {
                 return new ListCommand(parsedArguments);
             }
         } catch (IllegalValueException e) {
+            logger.info("----------------[LIST COMMAND PARSER][" + " Invalid user input " + "]");
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ListCommand.MESSAGE_USAGE));
         }
         return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ListCommand.MESSAGE_USAGE));

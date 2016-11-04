@@ -31,6 +31,7 @@ public class AddCommand extends Command {
     public static final String MESSAGE_SUCCESS = "New task added: %1$s";
     public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the FlexiTrack";
     public static final String MESSAGE_OVERLAPPING_EVENT_WARNING = "\nWarning: this event is overlaping a existing event!";
+    private static final String MESSAGE_UNDO_SUCCESS = "Undid add: %1$s";
 
     private Task toAdd;
     private boolean isOverlapping = false;
@@ -70,7 +71,7 @@ public class AddCommand extends Command {
             model.addTask(toAdd);
             toAdd = toAdd.copy();
             recordCommand(this);
-
+            
             if (toAdd.getIsEvent()) {
                 return new CommandResult((String.format(MESSAGE_SUCCESS, toAdd)) + "\n"
                         + DateTimeInfo.durationOfTheEvent(toAdd.getStartTime().toString(),
@@ -95,6 +96,11 @@ public class AddCommand extends Command {
         } catch (TaskNotFoundException pnfe) {
             assert false : "The target task cannot be missing";
         }
+    }
+    
+    @Override
+    public String getUndoMessage(){
+        return String.format(MESSAGE_UNDO_SUCCESS, toAdd);
     }
 
     @Override
