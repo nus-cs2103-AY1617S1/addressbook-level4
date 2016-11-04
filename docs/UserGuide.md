@@ -30,6 +30,19 @@
 > * Words in angle brackets `<>` are parameters.
 > * The order of parameters is fixed.
 
+<!-- @@author A0139198N -->
+> **Date Format**
+> ForgetMeNot accepts a wide range of date format. Formats that are accept in ForgetMeNot is listed here:<br>
+> * next day/week/month/year<br>
+	eg. next week, next month
+> * <number> days later<br>
+	eg. 2 days later<br>
+> * next <day><br>
+	eg. next wednesday, next friday<br>
+> * <number> days after<br>
+	eg. 2 days after 10/11/16, 5 days after next monday<br>
+<!-- @@author -->
+
 <!-- @@author A0139671X -->
 #### Finding more information about various commands: `help`
 Displays the list of commands(along with their formats) to assist the user in using ForgetMeNot.<br>
