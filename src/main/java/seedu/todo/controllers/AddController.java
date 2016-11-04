@@ -241,7 +241,6 @@ public class AddController implements Controller {
     
     private void renderDisambiguation(boolean isTask, String name, String naturalFrom, String naturalTo) {
         name = StringUtil.replaceEmpty(name, NAME_FIELD);
-        naturalTo = StringUtil.replaceEmpty(name, END_TIME_FIELD);
 
         String disambiguationString;
         String errorMessage = STRING_WHITESPACE; // TODO
