@@ -18,6 +18,7 @@ import seedu.address.commons.events.ui.ShowHelpRequestEvent;
 import seedu.address.commons.events.ui.ViewTabRequestEvent;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Logic;
+import seedu.address.logic.commands.TabCommand;
 import seedu.address.model.UserPrefs;
 
 import java.util.logging.Logger;
@@ -137,19 +138,19 @@ public class UiManager extends ComponentManager implements Ui {
     private void handleViewTabRequestEvent(ViewTabRequestEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         switch (event.tabName) {
-        case "today":
+        case TODAY:
             MainWindow.getTabPane().getSelectionModel().select(0);
             break;
-        case "tomorrow":
+        case TOMORROW:
             MainWindow.getTabPane().getSelectionModel().select(1);
             break;
-        case "week":
+        case WEEK:
             MainWindow.getTabPane().getSelectionModel().select(2);
             break;
-        case "month":
+        case MONTH:
             MainWindow.getTabPane().getSelectionModel().select(3);
             break;
-        case "someday":
+        case SOMEDAY:
             MainWindow.getTabPane().getSelectionModel().select(4);
             break;
         default:

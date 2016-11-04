@@ -27,7 +27,7 @@ public class TabCommand extends Command {
 
     @Override
     public CommandResult execute() {
-        EventsCenter.getInstance().post(new ViewTabRequestEvent(tabTo.name().toLowerCase()));
+        EventsCenter.getInstance().post(new ViewTabRequestEvent(tabTo));
     	switch (tabTo) {
     	case TODAY:
     		return new CommandResult(String.format(MESSAGE_SUCCESS, tabTo.name().toLowerCase()));
