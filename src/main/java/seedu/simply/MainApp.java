@@ -106,7 +106,6 @@ public class MainApp extends Application {
         Config initializedConfig;
         String configFilePathUsed;
 
-        // Important line here
         configFilePathUsed = Config.DEFAULT_CONFIG_FILE;
 
         if(configFilePath != null) {
@@ -187,11 +186,8 @@ public class MainApp extends Application {
     public void stop() {
         logger.info("============================ [ Stopping Address Book ] =============================");
         ui.stop();
-        try {
-            storage.saveUserPrefs(userPrefs);
-        } catch (IOException e) {
-            logger.severe("Failed to save preferences " + StringUtil.getDetails(e));
-        }
+        
+        saveUserPreferences();
 
         Path sourceFilePath = getSourceFilePath();        
         Path targetFilePath = getTargetFilePath();
@@ -199,14 +195,28 @@ public class MainApp extends Application {
         assert sourceFilePath != null;
         assert targetFilePath != null;
 
+        moveFileToSpecifiedFolder(sourceFilePath, targetFilePath);
+
+        Platform.exit();
+        System.exit(0);
+    }
+    
+    //@@author A0147890U
+    private void moveFileToSpecifiedFolder(Path sourceFilePath, Path targetFilePath) {
         try {
             Files.move(sourceFilePath, targetFilePath, REPLACE_EXISTING);
         } catch (IOException e) {
             logger.warning("Failed to move file. Please check if file paths are valid.");
         }
-
-        Platform.exit();
-        System.exit(0);
+    }
+    
+    //@@author A0147890U
+    private void saveUserPreferences() {
+        try {
+            storage.saveUserPrefs(userPrefs);
+        } catch (IOException e) {
+            logger.severe("Failed to save preferences " + StringUtil.getDetails(e));
+        }
     }
 
     //@@author A0147890U
