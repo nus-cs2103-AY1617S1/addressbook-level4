@@ -20,7 +20,7 @@ public class DoneCommand extends Command {
 
     public static final String MESSAGE_PARAMETER = COMMAND_WORD + " [index] [more indexes]...";
     public static final String MESSAGE_USAGE = "This command marks tasks in TasKitty as done, Meow!"
-            + "\n[index] is the index eg. t1, d1, e1.";
+            + "\n[index] is the index eg. t1, d1, e1-3.";
 
     public static final String MESSAGE_MARK_TASK_AS_DONE_SUCCESS_HEADER = "%1$s" + " tasks marked as done: ";
     public static final String MESSAGE_DUPLICATE_MARK_AS_DONE_ERROR_HEADER = "These tasks has already been marked as done: ";
