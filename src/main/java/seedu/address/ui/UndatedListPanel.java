@@ -57,29 +57,29 @@ public class UndatedListPanel extends UiPart {
         this.placeHolderPane = pane;
     }
 
-    public static UndatedListPanel load(Stage primaryStage, AnchorPane personListPlaceholder,
+    public static UndatedListPanel load(Stage primaryStage, AnchorPane undatedTaskListPlaceholder,
                                        ObservableList<ReadOnlyTask> personList) {
         UndatedListPanel personListPanel =
-                UiPartLoader.loadUiPart(primaryStage, personListPlaceholder, new UndatedListPanel());
+                UiPartLoader.loadUiPart(primaryStage, undatedTaskListPlaceholder, new UndatedListPanel());
         personListPanel.configure(personList); 
         return personListPanel;
     }
 
-    private void configure(ObservableList<ReadOnlyTask> personList) {
-        setConnections(personList);
+    private void configure(ObservableList<ReadOnlyTask> undatedTaskList) {
+        setConnections(undatedTaskList);
         addToPlaceholder();
         registerAsAnEventHandler(this);
-        initializeLabelCount(personList);
+        initializeLabelCount(undatedTaskList);
     }
     
-    private void initializeLabelCount(ObservableList<ReadOnlyTask> personList) {
+    private void initializeLabelCount(ObservableList<ReadOnlyTask> undatedTaskList) {
     	label = "To Do : ";
-    	assert personList != null;
-    	label_count.setText(label + personList.size());
+    	assert undatedTaskList != null;
+    	label_count.setText(label + undatedTaskList.size());
 	}
 
-    private void setConnections(ObservableList<ReadOnlyTask> personList) {
-        undatedListView.setItems(personList);
+    private void setConnections(ObservableList<ReadOnlyTask> undatedTaskList) {
+        undatedListView.setItems(undatedTaskList);
         undatedListView.setCellFactory(listView -> new UndatedListViewCell());
         setEventHandlerForSelectionChangeEvent();
     }
@@ -115,14 +115,14 @@ public class UndatedListPanel extends UiPart {
         }
 
         @Override
-        protected void updateItem(ReadOnlyTask person, boolean empty) {
-            super.updateItem(person, empty);
+        protected void updateItem(ReadOnlyTask task, boolean empty) {
+            super.updateItem(task, empty);
 
-            if (empty || person == null) {
+            if (empty || task == null) {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(PersonCard.load(person, getIndex() + 1, indexAlphabet).getLayout());
+                setGraphic(TaskCard.load(task, getIndex() + 1, indexAlphabet).getLayout());
             }
         }
     }

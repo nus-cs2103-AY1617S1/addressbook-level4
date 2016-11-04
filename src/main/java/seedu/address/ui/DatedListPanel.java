@@ -23,9 +23,9 @@ import seedu.address.model.task.ReadOnlyTask;
 /**
  * Panel containing the list of persons.
  */
-public class PersonListPanel extends UiPart {
-    private final Logger logger = LogsCenter.getLogger(PersonListPanel.class);
-    private static final String FXML = "PersonListPanel.fxml";
+public class DatedListPanel extends UiPart {
+    private final Logger logger = LogsCenter.getLogger(DatedListPanel.class);
+    private static final String FXML = "DatedListPanel.fxml";
     private VBox panel;
     private AnchorPane placeHolderPane;
     private String indexAlphabet = "B";
@@ -34,9 +34,9 @@ public class PersonListPanel extends UiPart {
     private Label label_count;
     
     @FXML
-    private ListView<ReadOnlyTask> personListView;
+    private ListView<ReadOnlyTask> datedTaskListView;
 
-    public PersonListPanel() {
+    public DatedListPanel() {
         super();
     }
 
@@ -55,29 +55,29 @@ public class PersonListPanel extends UiPart {
         this.placeHolderPane = pane;
     }
 
-    public static PersonListPanel load(Stage primaryStage, AnchorPane personListPlaceholder,
-                                       ObservableList<ReadOnlyTask> personList) {
-        PersonListPanel personListPanel =
-                UiPartLoader.loadUiPart(primaryStage, personListPlaceholder, new PersonListPanel());
-        personListPanel.configure(personList); 
-        return personListPanel;
+    public static DatedListPanel load(Stage primaryStage, AnchorPane datedTaskListPlaceholder,
+                                       ObservableList<ReadOnlyTask> datedTaskList) {
+        DatedListPanel datedTaskListPanel =
+                UiPartLoader.loadUiPart(primaryStage, datedTaskListPlaceholder, new DatedListPanel());
+        datedTaskListPanel.configure(datedTaskList); 
+        return datedTaskListPanel;
     }
 
-    private void configure(ObservableList<ReadOnlyTask> personList) {
-        setConnections(personList);
+    private void configure(ObservableList<ReadOnlyTask> datedTaskList) {
+        setConnections(datedTaskList);
         addToPlaceholder();
         registerAsAnEventHandler(this);
-        initializeLabelCount(personList);
+        initializeLabelCount(datedTaskList);
     }
 
-    private void initializeLabelCount(ObservableList<ReadOnlyTask> personList) {
+    private void initializeLabelCount(ObservableList<ReadOnlyTask> datedTaskList) {
     	String label = "Events / Deadlines : ";
-    	label_count.setText(label + personList.size());
+    	label_count.setText(label + datedTaskList.size());
 	}
 
-	private void setConnections(ObservableList<ReadOnlyTask> personList) {
-        personListView.setItems(personList);
-        personListView.setCellFactory(listView -> new PersonListViewCell());
+	private void setConnections(ObservableList<ReadOnlyTask> datedTaskList) {
+        datedTaskListView.setItems(datedTaskList);
+        datedTaskListView.setCellFactory(listView -> new DatedTaskListViewCell());
         setEventHandlerForSelectionChangeEvent();
     }
 
@@ -87,7 +87,7 @@ public class PersonListPanel extends UiPart {
     }
 
     private void setEventHandlerForSelectionChangeEvent() {
-        personListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+        datedTaskListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
                 logger.fine("Selection in person list panel changed to : '" + newValue + "'");
                 raise(new DatedPanelSelectionChangedEvent(newValue));
@@ -97,29 +97,29 @@ public class PersonListPanel extends UiPart {
 
     public void scrollTo(int index) {
         Platform.runLater(() -> {
-            personListView.scrollTo(index);
-            personListView.getSelectionModel().clearAndSelect(index);
+            datedTaskListView.scrollTo(index);
+            datedTaskListView.getSelectionModel().clearAndSelect(index);
         });
     }
     
     public void clearSelection(){
-    	personListView.getSelectionModel().clearSelection();
+    	datedTaskListView.getSelectionModel().clearSelection();
     }
 
-    class PersonListViewCell extends ListCell<ReadOnlyTask> {
+    class DatedTaskListViewCell extends ListCell<ReadOnlyTask> {
 
-        public PersonListViewCell() {
+        public DatedTaskListViewCell() {
         }
 
         @Override
-        protected void updateItem(ReadOnlyTask person, boolean empty) {
-            super.updateItem(person, empty);
+        protected void updateItem(ReadOnlyTask task, boolean empty) {
+            super.updateItem(task, empty);
 
-            if (empty || person == null) {
+            if (empty || task == null) {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(PersonCard.load(person, getIndex() + 1, indexAlphabet).getLayout());
+                setGraphic(TaskCard.load(task, getIndex() + 1, indexAlphabet).getLayout());
             }
         }
     }

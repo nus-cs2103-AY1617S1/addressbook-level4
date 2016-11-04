@@ -6,13 +6,13 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.address.ui.PersonListPanel">
+<VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.address.ui.DatedListPanel">
     <stylesheets>
         <URL value="@DarkTheme.css" />
         <URL value="@Extensions.css" />
     </stylesheets>
     <children>
       <Label fx:id="label_count" alignment="TOP_LEFT" prefHeight="17.0" prefWidth="247.0" styleClass="label-bright" text="Events / Deadlines" wrapText="true" />
-        <ListView fx:id="personListView" styleClass="cardPaneBackground" VBox.vgrow="ALWAYS" />
+        <ListView fx:id="datedTaskListView" styleClass="cardPaneBackground" VBox.vgrow="ALWAYS" />
     </children>
 </VBox>
