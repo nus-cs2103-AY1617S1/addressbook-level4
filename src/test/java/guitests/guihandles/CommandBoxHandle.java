@@ -1,6 +1,7 @@
 package guitests.guihandles;
 
 import guitests.GuiRobot;
+import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 
 /**
@@ -29,6 +30,16 @@ public class CommandBoxHandle extends GuiHandle{
         enterCommand(command);
         pressEnter();
         guiRobot.sleep(200); //Give time for the command to take effect
+    }
+    
+    public void getPressUpKey() {
+    	pressKey(KeyCode.UP);
+    	guiRobot.sleep(50);
+    }
+    
+    public void getPressDownKey() {
+    	pressKey(KeyCode.DOWN);
+    	guiRobot.sleep(50);
     }
 
     public HelpWindowHandle runHelpCommand() {
