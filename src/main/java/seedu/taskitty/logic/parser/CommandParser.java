@@ -310,17 +310,17 @@ public class CommandParser {
      * @return arguments with converted dates if any
      */
     private String convertToNattyDateFormat(String arguments) {
-        String convertedString = arguments;
+        String convertedToNattyString = arguments;
         String[] splitArgs = arguments.split(" ");
         for (String arg: splitArgs) {
-            Matcher matchArg = LOCAL_DATE_FORMAT.matcher(arg);
-            if (matchArg.matches()) {
+            Matcher matchDate = LOCAL_DATE_FORMAT.matcher(arg);
+            if (matchDate.matches()) {
                 String dateSeparator = getDateSeparator(arg);
                 String convertedDate = swapDayAndMonth(arg.split(dateSeparator), dateSeparator);
-                convertedString = convertedString.replace(arg, convertedDate);
+                convertedToNattyString = convertedToNattyString.replace(arg, convertedDate);
             }
         }
-        return convertedString;
+        return convertedToNattyString;
 //        Matcher matchDate = LOCAL_DATE_FORMAT.matcher(arguments);
 //        if (matchDate.matches()) {
 //            String localDateString = matchDate.group("arguments");
