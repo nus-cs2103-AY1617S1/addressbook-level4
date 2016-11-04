@@ -13,9 +13,9 @@
 
 <!-- @@author A0139515A -->
 
-<HBox id="floatingTaskCardPane" fx:id="floatingTaskCardPane" maxWidth="420.0" minWidth="420.0" prefWidth="420.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
+<HBox id="floatingTaskCardPane" fx:id="floatingTaskCardPane" maxWidth="1.7976931348623157E308" minWidth="420.0" prefWidth="420.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
 	<children>
-		<GridPane maxWidth="430.0" minWidth="430.0" prefWidth="430.0" HBox.hgrow="ALWAYS">
+		<GridPane maxWidth="1.7976931348623157E308" minWidth="430.0" prefWidth="430.0" HBox.hgrow="ALWAYS">
 			<columnConstraints>
 				<ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="150.0" />
 			</columnConstraints>
@@ -32,14 +32,14 @@
 					<children>
 						<GridPane>
 							<columnConstraints>
-								<ColumnConstraints hgrow="SOMETIMES" maxWidth="280.0" minWidth="280.0" prefWidth="280.0" />
+								<ColumnConstraints hgrow="ALWAYS" maxWidth="1.7976931348623157E308" minWidth="280.0" prefWidth="280.0" />
 								<ColumnConstraints hgrow="SOMETIMES" maxWidth="150.0" minWidth="150.0" prefWidth="150.0" />
 							</columnConstraints>
 							<rowConstraints>
 								<RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
 							</rowConstraints>
 							<children>
-								<HBox alignment="CENTER_LEFT" spacing="5">
+								<HBox alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" spacing="5" GridPane.hgrow="ALWAYS">
 									<children>
 										<HBox>
 											<Label fx:id="id" styleClass="cell_small_label" />
