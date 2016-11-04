@@ -113,18 +113,16 @@ public class MainWindow extends UiPart {
         helpMenuItem.setAccelerator(KeyCombination.valueOf("F1"));
     }
 
+    //@@author A0139211R
     void fillInnerParts() {
-    	// @@author A0139211R
     	floatingPanel = FloatingPanel.load(primaryStage, getFloatingPanelPlaceholder(), logic.getFilteredTaskList().filtered(isFloating()));
     	contentBox = ContentBox.load(primaryStage, getContentBoxPlaceholder(), logic.getFilteredTaskList());
-    	// @@author
         taskListPanel = TaskListPanel.load(primaryStage, getTaskListPlaceholder(), logic.getFilteredTaskList());
         resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
         statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getTaskManagerFilePath());
         commandBox = CommandBox.load(primaryStage, getCommandBoxPlaceholder(), resultDisplay, logic);
     }
     
-    // @@author A0139211R
     private AnchorPane getFloatingPanelPlaceholder() {
     	return floatingPanelPlaceholder;
     }
@@ -132,7 +130,7 @@ public class MainWindow extends UiPart {
     private AnchorPane getContentBoxPlaceholder() {
     	return contentBoxPlaceholder;
     }
-    // @@author
+    //@@author
         
     private AnchorPane getCommandBoxPlaceholder() {
         return commandBoxPlaceholder;
