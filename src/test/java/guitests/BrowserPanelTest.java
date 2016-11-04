@@ -20,7 +20,7 @@ public class BrowserPanelTest extends TaskMasterGuiTest {
     private final long DAY = 24 * 60 * 60 * 1000;
 
     @Test
-    public void browserPanelTest() {
+    public void browserPanelTestWithoutRecurringPeriod() {
 
         // Initial case: Out dated tasks/floating/deadlines not displayed, in
         // the list 10 tasks
@@ -73,7 +73,25 @@ public class BrowserPanelTest extends TaskMasterGuiTest {
         expectedList.clear();
         commandBox.runCommand("view last year today");
         assertIsAgendaMatching(expectedList);
-
+        
+    }
+    
+    @Test 
+    public void browserPanelWithRecurringPeriod(){
+        
+        //Take daily tasks as example
+        TestTask toBeAdded = td.daily;
+        ArrayList<TaskOccurrence> expectedList = new ArrayList<TaskOccurrence>();
+        expectedList.add(toBeAdded.getLastAppendedComponent());
+        int recurringCount = 7 - TestUtil.getConvertedTime(toBeAdded.getLastAppendedComponent().getStartDate()).getDayOfWeek().getValue() % 7;
+        expectedList.addAll(getCopies(toBeAdded.getLastAppendedComponent()));
+        commandBox.runCommand(toBeAdded.getAddRecurringCommand() + " repeat " + recurringCount);
+        assertIsAgendaMatching(expectedList);
+        
+        //View next week lists nothing
+        expectedList.clear();
+        commandBox.runCommand("view next week");
+        assertIsAgendaMatching(expectedList);
     }
 
     private ArrayList<TaskOccurrence> getCopies(TaskOccurrence t) {
