@@ -21,10 +21,11 @@ Responsibilities: Team Mentor
    * <kbd>[Undo](UserGuide.md#undo-the-modification--undo)</kbd> Command
    * <kbd>[Done](UserGuide.md#done-a-specific-task--done)</kbd> Command
    * <kbd>[Undone](UserGuide.md#undone-a-specific-task--undone)</kbd> Command
+   * Offline Help page
 * Code written: <kbd>[Functional code](../collated/main/A0147335E.md)</kbd> <kbd>[Test code](../collated/test/A0147335E.md)</kbd> <kbd>[Docs]</kbd>
 * Other major contributions:
-  * Did the initial refactoring from AddressBook to TaskManager
-  * Did the initial refactoring of testing from AddressBook to TaskManager
+  * Did the initial porting from AddressBook to TaskManager
+  * Did the initial porting of JUnit tests from AddressBook to TaskManager
   
 **Role**: Developer <br>
 Responsibilities: Team Lead, Logic
@@ -36,9 +37,9 @@ Responsibilities: Team Lead, Logic
 
 * Components in charge of: [Add command]
 * Features implemented:
+   * Natural time input parsing using natty
    * <kbd>[Add](UserGuide.md#adding-a-task-add)</kbd> Command
    * <kbd>[Edit](UserGuide.md#editing-a-task-edit)</kbd> Command
-   * Natural input using natty
 * Code written: <kbd>[Functional code](../collated/main/A0152958R.md)</kbd> <kbd>[Test code]</kbd> <kbd>[Docs]</kbd>
 
 **Role**: Developer <br>
@@ -66,9 +67,12 @@ Responsibilities: Testing, GUI
 
 * Components in charge of: [Storage]
 * Features implemented:
-   * <kbd>[Backup](UserGuide.md#backup--backup)</kbd> Command
-   * <kbd>[Directory](UserGuide.md#change-working-directory--directory)</kbd> Command
-   * <kbd>[Sort](UserGuide.md#sorting-tasks--sort)</kbd> Command
+   * RecurringTask functionality
+   * <kbd>[Repeat](UserGuide.md#repeat-a-specific-task-at-a-given-interval--repeat)</kbd> Command
+   * Automated and useful sorting functionality
+   * <kbd>[Sort](UserGuide.md#sorting-tasks--sort-s)</kbd> Command
+   * <kbd>[Backup](UserGuide.md#backup--backup-b)</kbd> Command
+   * <kbd>[Directory](UserGuide.md#change-working-directory--directory-dir)</kbd> Command
 * Code written: <kbd>[Functional code](../collated/main/A0147944U.md)</kbd> <kbd>[Test code](../collated/test/A0147944U.md)</kbd> <kbd>[Docs](../collated/docs/A0147944U.md)</kbd>
 * Other major contributions:
   * Organize and manage [GitHub repository](https://github.com/CS2103AUG2016-T17-C3/main)
