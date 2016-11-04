@@ -182,9 +182,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     private String addPeriodicTimeToTask(String originalTime, String interval) {
         String newTime = "one week after " + originalTime;
-        if (interval.equals("hourly")) {
-            newTime = "one hour after " + originalTime;
-        } else if (interval.equals("daily")) {
+        if (interval.equals("daily")) {
             newTime = "one day after " + originalTime;
         } else if (interval.equals("weekly")) {
             newTime = "one week after " + originalTime;

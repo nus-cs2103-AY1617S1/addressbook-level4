@@ -5,10 +5,10 @@ import seedu.task.commons.exceptions.IllegalValueException;
 // @@author A0147944U
 public class Recurring {
     
-    public static final String MESSAGE_RECURRING_CONSTRAINTS = "Recurring parameter should be hourly, daily, weekly, fortnightly monthly, yearly or false";
+    public static final String MESSAGE_RECURRING_CONSTRAINTS = "Recurring parameter should be daily, weekly, fortnightly monthly, yearly or false";
     public static final String RECURRING_VALIDATION_REGEX = "[\\p{Alnum} ]+";
     
-    public final String recurringState;
+    public String recurringState;
 
     /**
      * Validates given Recurring parameter.
@@ -29,6 +29,13 @@ public class Recurring {
      */
     public static boolean isValidRecurring(String test) {
         return test.matches(RECURRING_VALIDATION_REGEX);
+    }
+    
+    /**
+     * Updates recurringState with input.
+     */
+    public void setRecurring(String interval) {
+        this.recurringState = interval;
     }
     
     @Override

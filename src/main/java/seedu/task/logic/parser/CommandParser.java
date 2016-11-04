@@ -56,6 +56,9 @@ public class CommandParser {
 
     public static final Pattern DIRECTORY_ARGS_FORMAT =
             Pattern.compile("(?<directory>[^<>|]+)");
+    
+    public static final Pattern REPEAT_ARGS_FORMAT =
+            Pattern.compile("(?<targetIndex>[0-9]+)" + " (?<interval>[^,]+)");
     //@@author
 
     public static final String EDIT_NAME = "name";
@@ -130,6 +133,9 @@ public class CommandParser {
             
         case SortCommand.COMMAND_WORD_ALT:
             return prepareBackup(arguments);
+
+        case RepeatCommand.COMMAND_WORD:
+            return prepareRepeat(arguments);
             // @@author
 
         case DoneCommand.COMMAND_WORD:
@@ -578,6 +584,22 @@ public class CommandParser {
             final String keyword = matcher.group("keywords");
             return new SortCommand(keyword);
         }
+    }
+    
+    /**
+     * Parses arguments in the context of the repeat task command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     */
+    private Command prepareRepeat(String args) {
+            final Matcher matcher = REPEAT_ARGS_FORMAT.matcher(args.trim());
+            if (!matcher.matches()) {
+                return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, RepeatCommand.MESSAGE_USAGE));
+            }
+            int index = Integer.parseInt(matcher.group("targetIndex"));
+            String interval = matcher.group("interval");
+            return new RepeatCommand(index, interval);
     }
     // @@author
 
