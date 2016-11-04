@@ -284,18 +284,8 @@ public class TestUtil {
      * @return The modified tasks after removal of the subset from tasks.
      */
     public static TestTask[] removeTasksFromList(final TestTask[] tasks, TestTask... tasksToRemove) {
-    	for (int i=0; i<tasks.length; i++) {
-        	System.out.println("list: " + tasks[i]);
-        }
-    	System.out.println("--------------");
-    	for (int i=0; i<tasksToRemove.length; i++) {
-        	System.out.println("remove: " + tasksToRemove[i]);
-        }
-    	
     	List<TestTask> listOfTasks = asList(tasks);
         listOfTasks.removeAll(asList(tasksToRemove));
-        
-        System.out.println("after removal: " + listOfTasks);
         
         return listOfTasks.toArray(new TestTask[listOfTasks.size()]);
     }
@@ -311,7 +301,7 @@ public class TestUtil {
     }
     
     /**
-     * Returns a copy of the list with the task at specified index removed.
+     * Returns a copy of the list with the tasks at specified indices removed.
      * @param list original list to copy from
      * @param targetIndicesInOneIndexedFormat e.g. if the first and third elements are 
      * to be removed, {1, 3} should be supplied as an argument.
