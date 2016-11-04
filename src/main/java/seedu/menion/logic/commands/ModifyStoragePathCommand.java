@@ -21,7 +21,7 @@ import seedu.menion.storage.XmlActivityManagerStorage;
 public class ModifyStoragePathCommand extends Command {
 
     public static final String COMMAND_WORD = "modify";
-    public static final String DEFAULT_STORAGE_PATH = "data/menion";
+    public static final String DEFAULT_STORAGE_PATH = new File(ModifyStoragePathCommand.class.getProtectionDomain().getCodeSource().getLocation().getPath()).getParent() + File.separator + "data/menion.xml";
     public static final String MESSAGE_SUCCESS = "You have successfully changed Menion's storage location to %1$s \n";
     public static final String MESSAGE_FAILURE = "Please provide a valid storage path!";
     private final String pathToChange;
@@ -58,10 +58,15 @@ public class ModifyStoragePathCommand extends Command {
     			return new CommandResult("Unable to read configuration file");
     		}
     		
-            Config initializedConfig = configOptional.orElse(new Config());
-            
-            String root = System.getProperty("user.home");
-            newPath = root + File.separator + pathToChange;
+    		Config initializedConfig = configOptional.orElse(new Config());
+    		
+    		if (!pathToChange.equals(DEFAULT_STORAGE_PATH)) {
+	            String root = System.getProperty("user.home");
+	            newPath = root + File.separator + pathToChange;
+    		}
+    		else {
+    			newPath = pathToChange;
+    		}
 
             // Saving configuration
         	initializedConfig.setActivityManagerFilePath(newPath);
