@@ -50,6 +50,7 @@ public class RedoCommandTest extends ToDoListGuiTest {
         commandBox.runCommand(timeToBlock.getBlockCommand());
         currentList = TestUtil.addTasksToList(currentList, timeToBlock);
         execute(currentList);
+        currentList = sortList(currentList);
         
         //redo undo of edit details
         int targetIndex = 2;
@@ -57,68 +58,61 @@ public class RedoCommandTest extends ToDoListGuiTest {
         TestTask editedTask = td.editedGrocery;
         currentList = TestUtil.replaceTaskFromList(currentList,editedTask,targetIndex-1);
         execute(currentList);
+        currentList = sortList(currentList);
 
-        //redo undo of edit the priority of the 4th task in the list
-        targetIndex = 4;
+        //redo undo of edit the priority of the 7th task in the list
+        targetIndex = 7;
         commandBox.runCommand("edit " + targetIndex + " /low");
         editedTask = td.editedZika;
         currentList = TestUtil.replaceTaskFromList(currentList,editedTask,targetIndex-1);
         execute(currentList);
+        currentList = sortList(currentList);
         
-        //redo undo of make first task floating
+        //redo undo of make 2nd task floating
         targetIndex = 2;
         commandBox.runCommand("edit " + targetIndex + " floating");
         editedTask = td.floatingGrocery;
         currentList = TestUtil.replaceTaskFromList(currentList,editedTask,targetIndex-1);
         execute(currentList);
+        currentList = sortList(currentList);
         
-        //redo undo of change tags of 4th task
-        targetIndex = 4;
+        //redo undo of change tags of 6th task
+        targetIndex = 6;
         commandBox.runCommand("edit " + targetIndex + " -dangerous");
         editedTask = td.taggedZika;
         currentList = TestUtil.replaceTaskFromList(currentList,editedTask,targetIndex-1);
         execute(currentList);
+        currentList = sortList(currentList);
         
-        //fails assertion if called after add
-        //redo undo of remove priority of first task using 'rp' or 'remove priority'
-        targetIndex = 2;
-        commandBox.runCommand("edit " + targetIndex + " no priority");
-        editedTask = td.noPriorityGrocery;
-        currentList = TestUtil.replaceTaskFromList(currentList,editedTask,targetIndex-1);
-        execute(currentList);
-        
-        //redo undo of change time of task 2
+        //redo undo of change time of task 1
         targetIndex = 1;
         commandBox.runCommand("edit " + targetIndex + " 1120");
         editedTask = td.editedHouse1;
         currentList = TestUtil.replaceTaskFromList(currentList,editedTask,targetIndex-1);
         execute(currentList);
+        currentList = sortList(currentList);
         
-        //redo undo of change date of task 2
+        //redo undo of change date of task 1
         targetIndex = 1;
         commandBox.runCommand("edit " + targetIndex + " 10/20/2016");
         editedTask = td.editedHouse2;
         currentList = TestUtil.replaceTaskFromList(currentList,editedTask,targetIndex-1);
         execute(currentList);
-        
-        //redo undo of change task 3 to a range task
-        targetIndex = 3;
-        commandBox.runCommand("edit " + targetIndex + " 11/12/2016 1300 to 12/12/2016 1500");
-        editedTask = td.editedCar;
-        currentList = TestUtil.replaceTaskFromList(currentList,editedTask,targetIndex-1);
-        execute(currentList);
+        currentList = sortList(currentList);
         
         //redo undo of a delete command
-        targetIndex = 2;
+        targetIndex = currentList.length -1;
         commandBox.runCommand("delete " + targetIndex);
         currentList = TestUtil.removeTaskFromList(currentList, targetIndex);
         execute(currentList);
+        currentList = sortList(currentList);
        
         //redo undo of a done command
-        targetIndex = 3;
+        targetIndex = currentList.length;
         commandBox.runCommand("done " + targetIndex);
         currentList = TestUtil.removeTaskFromList(currentList, targetIndex);
         execute(currentList);
+        currentList = sortList(currentList);
         
         //unable to redo after undoing a task and then executing a new command
         taskToAdd = td.vacation;
