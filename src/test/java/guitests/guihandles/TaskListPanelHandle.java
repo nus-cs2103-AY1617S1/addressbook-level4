@@ -42,7 +42,7 @@ public class TaskListPanelHandle extends GuiHandle {
 
     /**
      * Returns true if the list is showing the task details correctly and in correct order.
-     * @param tasks A list of task in the correct order.
+     * @param tasks A list of tasks in the correct order.
      */
     public boolean isListMatching(ReadOnlyTask... tasks) {
         return this.isListMatching(0, tasks);
