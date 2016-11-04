@@ -52,11 +52,9 @@ public class OverdueListPanel extends ListPanel {
 
 	public static OverdueListPanel load(Stage primaryStage, AnchorPane personListPlaceholder,
 		                            	ObservableList<ReadOnlyActivity> activityList) {
-		if (activityList != null) System.out.println("hello!");
 		OverdueListPanel overdueActivitiesListPanel = 
 				UiPartLoader.loadUiPart(primaryStage, personListPlaceholder, new OverdueListPanel());
 		overdueActivitiesListPanel.configure(activityList);
-		System.out.println("OverdueListPanel has been loaded!");
 		return overdueActivitiesListPanel;
 	}
 	

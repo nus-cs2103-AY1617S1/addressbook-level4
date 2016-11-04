@@ -63,24 +63,6 @@ public abstract class ListPanel extends UiPart {
         });
     }
     
-
-    class ActivityListViewCell extends ListCell<ReadOnlyActivity> {
-
-        public ActivityListViewCell() {
-        }
-
-        @Override
-        protected void updateItem(ReadOnlyActivity person, boolean empty) {
-            super.updateItem(person, empty);
-
-            if (empty || person == null) {
-                setGraphic(null);
-                setText(null);
-            } else {
-                setGraphic(ActivityCard.load(person, getIndex() + 1).getLayout());
-            }
-        }
-    }
     
     public void refresh(){
         ObservableList<ReadOnlyActivity> items = activityListView.<ReadOnlyActivity>getItems();
