@@ -2,15 +2,16 @@ package guitests;
 
 import guitests.guihandles.PersonCardHandle;
 import org.junit.Test;
-import seedu.address.logic.commands.AddCommand;
-import seedu.address.commons.core.Messages;
-import seedu.address.testutil.TestTask;
-import seedu.address.testutil.TestUtil;
-import seedu.address.testutil.TypicalTestTasks;
+
+import seedu.simply.commons.core.Messages;
+import seedu.simply.logic.commands.AddCommand;
+import seedu.simply.testutil.TestTask;
+import seedu.simply.testutil.TestUtil;
+import seedu.simply.testutil.TypicalTestTasks;
 
 import static org.junit.Assert.assertTrue;
 
-public class AddEventCommandTest extends AddressBookGuiTest {
+public class AddEventCommandTest extends SimplyGuiTest {
 
     @Test
     public void add() {

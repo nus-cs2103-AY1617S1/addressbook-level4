@@ -1,13 +1,14 @@
 package guitests;
 
 import org.junit.Test;
-import seedu.address.commons.core.Messages;
-import seedu.address.testutil.TestTask;
-import seedu.address.testutil.TypicalTestTasks;
+
+import seedu.simply.commons.core.Messages;
+import seedu.simply.testutil.TestTask;
+import seedu.simply.testutil.TypicalTestTasks;
 
 import static org.junit.Assert.assertTrue;
 
-public class FindCommandTest extends AddressBookGuiTest {
+public class FindCommandTest extends SimplyGuiTest {
 
     @Test
     public void find_nonEmptyList() {

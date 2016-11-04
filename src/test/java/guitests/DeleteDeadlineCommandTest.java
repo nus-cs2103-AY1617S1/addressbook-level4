@@ -1,13 +1,14 @@
 package guitests;
 
 import org.junit.Test;
-import seedu.address.testutil.TestDeadline;
-import seedu.address.testutil.TestUtil;
+
+import seedu.simply.testutil.TestDeadline;
+import seedu.simply.testutil.TestUtil;
 
 import static org.junit.Assert.assertTrue;
-import static seedu.address.logic.commands.DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS;
+import static seedu.simply.logic.commands.DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS;
 
-public class DeleteDeadlineCommandTest extends AddressBookGuiTest {
+public class DeleteDeadlineCommandTest extends SimplyGuiTest {
 
     @Test
     public void delete() {

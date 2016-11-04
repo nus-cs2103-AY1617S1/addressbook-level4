@@ -2,11 +2,11 @@ package guitests;
 
 import org.junit.Test;
 
-import seedu.address.model.task.ReadOnlyTask;
+import seedu.simply.model.task.ReadOnlyTask;
 
 import static org.junit.Assert.assertEquals;
 
-public class SelectEventCommandTest extends AddressBookGuiTest {
+public class SelectEventCommandTest extends SimplyGuiTest {
 
 
     @Test

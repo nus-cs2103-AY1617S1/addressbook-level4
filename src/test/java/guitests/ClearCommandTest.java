@@ -2,11 +2,11 @@ package guitests;
 
 import org.junit.Test;
 
-import seedu.address.testutil.TypicalTestTasks;
+import seedu.simply.testutil.TypicalTestTasks;
 
 import static org.junit.Assert.assertTrue;
 
-public class ClearCommandTest extends AddressBookGuiTest {
+public class ClearCommandTest extends SimplyGuiTest {
 
    @Test
     public void clear() {

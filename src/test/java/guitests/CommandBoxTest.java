@@ -2,11 +2,11 @@ package guitests;
 
 import org.junit.Test;
 
-import seedu.address.testutil.TypicalTestTasks;
+import seedu.simply.testutil.TypicalTestTasks;
 
 import static org.junit.Assert.assertEquals;
 
-public class CommandBoxTest extends AddressBookGuiTest {
+public class CommandBoxTest extends SimplyGuiTest {
 
     @Test
     public void commandBox_commandSucceeds_textCleared() {
