@@ -168,8 +168,8 @@ Example:
 * `done 1`
 	
 	Removes task indexed 1 from the list and sends it to the done list.
-<!-- @@author -->
 
+<!-- @@author A0139198N -->
 #### Showing full list: `show`
 Displays all the task for the user to view.<br>
 Format: `show`
@@ -260,7 +260,7 @@ Following is the list of all commands:
 |             | `add` `<name>` at `<Start Time>`                   | Adds a task only with a start time             										   |
 |             | `add` `<name>` by `<End Time>`                     | Adds a deadline task                                                                      |
 |             | `add` `<name>` from `<Start Time>` to `<End_Time>` | Adds an event task from start time to end time                                            |
-|             | `add` `<name>` `<time detals>` every `<duration>`  | Adds 10 instances of a task with a specified   duration in between                        |
+|             | `add` `<name>` `<time details>` every `<duration>` | Adds 10 instances of a task with a specified   duration in between                        |
 |             | `add` `<name>` `<time details>` every `<duration>` x`<instances>`| Adds the specified instances of a task with a specified duration in between |
 | `edit`      | `edit` `<index>` `<New Parameters>`                | Edits a task with the new parameters           										   |
 | `done`      | `done` `<index>`                                   | Marks a task as done                           										   |
