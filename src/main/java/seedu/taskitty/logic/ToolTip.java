@@ -12,7 +12,6 @@ import static seedu.taskitty.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
 //@@author A0139930B
 public class ToolTip {
-    private final Logger logger = LogsCenter.getLogger(ToolTip.class);
     
     public static final String TOOLTIP_DELIMITER = " | ";
     private static final int COMMAND_WORD_POSITION = 0;
@@ -55,7 +54,6 @@ public class ToolTip {
      * @param input to determine the tooltip to be shown
      */
     public void createToolTip(String input) {
-        logger.info("Finding tooltip for: " + input);
         clearToolTip();
         String[] splitedInput = input.split(COMMAND_WORD_DELIMITER);
         
@@ -68,9 +66,9 @@ public class ToolTip {
         if (!isCommandWordMatch()) {
             setToolTip(MESSAGE_UNKNOWN_COMMAND, TOOLTIP_UNKNOWN_COMMAND);
         } else if (isSingleMatchFound()) {
-            getMatchCommandToolTipSingle(command);
+            getToolTipForCommand(command);
         } else {
-            getMatchCommandToolTipAll();
+            getToolTipForAllCommands();
         }
     }
     
@@ -93,7 +91,7 @@ public class ToolTip {
      *  
      * @param command to determine which command tooltip to show
      */
-    private void getMatchCommandToolTipSingle(String command) {
+    private void getToolTipForCommand(String command) {
         for (int i = 0; i < Command.ALL_COMMAND_WORDS.length; i++) {
             if (Command.ALL_COMMAND_WORDS[i].startsWith(command)) {
                 setToolTip(Command.ALL_COMMAND_MESSAGE_PARAMETER[i], Command.ALL_COMMAND_MESSAGE_USAGE[i]);
@@ -106,7 +104,7 @@ public class ToolTip {
     /**
      * Returns a string representing the matched input, delimitered by TOOLTIP_DELIMITER
      */
-    private void getMatchCommandToolTipAll() {
+    private void getToolTipForAllCommands() {
         assert commands.size() != COMMAND_WORD_COUNT_NO_MATCH
                 && commands.size() != COMMAND_WORD_COUNT_SINGLE_MATCH;
         
