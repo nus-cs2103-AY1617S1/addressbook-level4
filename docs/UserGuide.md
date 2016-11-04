@@ -92,6 +92,7 @@ Examples:
   Deletes `meeting` task.
 * `delete 1`<br>
   Deletes the first task in the to-do list.
+
 <!-- @@author A0153467Y-->
 #### Marking a task as completed: `complete`
 Marks a specific task by index from the to-do list.<br>
