@@ -15,9 +15,11 @@ import seedu.address.model.activity.UniqueActivityList.DuplicateTaskException;
 import seedu.address.model.activity.UniqueActivityList.TaskNotFoundException;
 import seedu.address.model.activity.event.EndTime;
 import seedu.address.model.activity.event.Event;
+import seedu.address.model.activity.event.ReadOnlyEvent;
 import seedu.address.model.activity.event.StartTime;
 import seedu.address.model.activity.task.DueDate;
 import seedu.address.model.activity.task.Priority;
+import seedu.address.model.activity.task.ReadOnlyTask;
 import seedu.address.model.activity.task.Task;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
@@ -104,7 +106,7 @@ public class EditCommand extends Command {
         }
 
         try {
-            Activity oldTask = new Activity(taskToEdit);
+            Activity oldTask = produceNewActivityObject(taskToEdit);
             Activity editedTask = model.editTask(taskToEdit, newParams);
 
             PreviousCommand editCommand = new PreviousCommand(COMMAND_WORD, oldTask, editedTask);
@@ -119,4 +121,19 @@ public class EditCommand extends Command {
         }
     }
 
+    private Activity produceNewActivityObject(Activity original){
+    String type = original.getClass().getSimpleName().toLowerCase();
+    
+    switch(type){
+    case "activity":
+    	return new Activity(original);
+    case "task":
+    	return new Task((ReadOnlyTask) original);
+    default: //case "event":
+    	return new Event((ReadOnlyEvent) original);	
+    }
+
+    	
+    }
+    
 }
