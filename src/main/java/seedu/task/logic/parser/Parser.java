@@ -78,8 +78,8 @@ public class Parser {
 																// prefixes
 			Pattern.compile("(?<index>[^/]+)" + "(( t/(?<newTitle>[^/]+))|" + "( d/(?<description>[^/]+))|"
 					+ "( sd/(?<startDate>[^/]+))|" + "( dd/(?<dueDate>[^/]+))|" + "( i/(?<interval>[^/]+))|"
-					+ "( ti/(?<timeInterval>[^/]+))|" + "( c/(?<taskColor>[^/]+)))+?"
-					+ "(?<tagArguments>(?: ts/[^/]+)*)");
+					+ "( ti/(?<timeInterval>[^/]+))|" + "( c/(?<taskColor>[^/]+))|"
+					+ "(?<tagArguments>(?: ts/[^/]+)+))");
 	// @@author
 
 	// @@author A0139932X
@@ -309,11 +309,6 @@ public class Parser {
 		final Matcher matcher = TASK_DATA_ARGS_FORMAT_EDIT.matcher(args.trim());
 		// Validate arg string format
 		if (!matcher.matches()) {
-			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
-		} else if (matcher.group("newTitle") == null && matcher.group("description") == null
-				&& matcher.group("startDate") == null && matcher.group("dueDate") == null
-				&& matcher.group("interval") == null && matcher.group("timeInterval") == null
-				&& matcher.group("tagArguments") == null && matcher.group("taskColor") == null) {
 			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
 		}
 		try {
