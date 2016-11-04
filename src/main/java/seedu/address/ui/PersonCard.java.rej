@@ -1,9 +1,0 @@
-diff a/src/main/java/seedu/address/ui/PersonCard.java b/src/main/java/seedu/address/ui/PersonCard.java	(rejected hunks)
-@@ -49,6 +49,7 @@
-      @FXML
-      public void initialize() {
-          name.setText(task.getName().fullName);
-++<<<<<<< f7e63a055c7ffd7c564bc656e806b668ee8d1caa
- +        name.setWrapText(true);  //wrapping function of name 
- +        //name.setMaxWidth(450);
- +        //name.setPrefWidth(400);

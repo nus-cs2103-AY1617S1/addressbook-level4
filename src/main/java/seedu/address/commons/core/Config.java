@@ -15,7 +15,7 @@ public class Config {
     private Level logLevel = Level.INFO;
     private String userPrefsFilePath = "preferences.json";
     private String taskBookFilePath = "data/task.xml";
-    private String taskBookName = "MyTasks";
+    private String taskBookName = "sTask";
 
 
     public Config() {
@@ -53,7 +53,7 @@ public class Config {
         this.taskBookFilePath = addressBookFilePath;
     }
 
-    public String getAddressBookName() {
+    public String getTaskManagerName() {
         return taskBookName;
     }
 
