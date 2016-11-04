@@ -1,7 +1,5 @@
 package seedu.gtd.logic.commands;
 
-import seedu.gtd.model.AddressBook;
-
 /**
  * Clears the address book.
  */

@@ -1,26 +1,15 @@
 package seedu.gtd.logic;
 
-import com.google.common.eventbus.Subscribe;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import static seedu.gtd.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.gtd.commons.core.Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX;
+import static seedu.gtd.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
-import seedu.gtd.commons.core.EventsCenter;
-import seedu.gtd.commons.events.model.AddressBookChangedEvent;
-import seedu.gtd.commons.events.ui.JumpToListRequestEvent;
-import seedu.gtd.commons.events.ui.ShowHelpRequestEvent;
-import seedu.gtd.logic.Logic;
-import seedu.gtd.logic.LogicManager;
-import seedu.gtd.logic.commands.*;
-import seedu.gtd.logic.parser.DateNaturalLanguageProcessor;
-import seedu.gtd.logic.parser.NaturalLanguageProcessor;
-import seedu.gtd.model.AddressBook;
-import seedu.gtd.model.Model;
-import seedu.gtd.model.ModelManager;
-import seedu.gtd.model.ReadOnlyAddressBook;
-import seedu.gtd.model.task.*;
-import seedu.gtd.model.tag.Tag;
-import seedu.gtd.model.tag.UniqueTagList;
-import seedu.gtd.storage.StorageManager;
-import seedu.gtd.testutil.TaskBuilder;
-import seedu.gtd.testutil.TestTask;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 import org.junit.After;
 import org.junit.Before;
@@ -28,14 +17,37 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import com.google.common.eventbus.Subscribe;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static seedu.gtd.commons.core.Messages.*;
+import seedu.gtd.commons.core.EventsCenter;
+import seedu.gtd.commons.events.model.AddressBookChangedEvent;
+import seedu.gtd.commons.events.ui.JumpToListRequestEvent;
+import seedu.gtd.commons.events.ui.ShowHelpRequestEvent;
+import seedu.gtd.logic.commands.AddCommand;
+import seedu.gtd.logic.commands.ClearCommand;
+import seedu.gtd.logic.commands.Command;
+import seedu.gtd.logic.commands.CommandResult;
+import seedu.gtd.logic.commands.DeleteCommand;
+import seedu.gtd.logic.commands.ExitCommand;
+import seedu.gtd.logic.commands.FindCommand;
+import seedu.gtd.logic.commands.HelpCommand;
+import seedu.gtd.logic.commands.ListCommand;
+import seedu.gtd.logic.commands.SelectCommand;
+import seedu.gtd.logic.parser.DateNaturalLanguageProcessor;
+import seedu.gtd.logic.parser.NaturalLanguageProcessor;
+import seedu.gtd.model.AddressBook;
+import seedu.gtd.model.Model;
+import seedu.gtd.model.ModelManager;
+import seedu.gtd.model.ReadOnlyAddressBook;
+import seedu.gtd.model.tag.Tag;
+import seedu.gtd.model.tag.UniqueTagList;
+import seedu.gtd.model.task.Address;
+import seedu.gtd.model.task.DueDate;
+import seedu.gtd.model.task.Name;
+import seedu.gtd.model.task.Priority;
+import seedu.gtd.model.task.ReadOnlyTask;
+import seedu.gtd.model.task.Task;
+import seedu.gtd.storage.StorageManager;
 
 public class LogicManagerTest {
 	

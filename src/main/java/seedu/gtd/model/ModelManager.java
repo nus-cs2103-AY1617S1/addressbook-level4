@@ -1,27 +1,21 @@
 package seedu.gtd.model;
 
-import javafx.collections.transformation.FilteredList;
-import seedu.gtd.commons.core.ComponentManager;
-import seedu.gtd.commons.core.Config;
-import seedu.gtd.commons.core.LogsCenter;
-import seedu.gtd.commons.core.UnmodifiableObservableList;
-import seedu.gtd.commons.events.model.AddressBookChangedEvent;
-import seedu.gtd.commons.exceptions.DataConversionException;
-import seedu.gtd.commons.util.ConfigUtil;
-import seedu.gtd.commons.util.StringUtil;
-import seedu.gtd.model.task.Task;
-import seedu.gtd.model.tag.Tag;
-import seedu.gtd.model.tag.UniqueTagList;
-import seedu.gtd.model.task.ReadOnlyTask;
-import seedu.gtd.model.task.UniqueTaskList;
-import seedu.gtd.model.task.UniqueTaskList.TaskNotFoundException;
-
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.Optional;
 import java.util.Set;
 import java.util.Stack;
 import java.util.logging.Logger;
+
+import javafx.collections.transformation.FilteredList;
+import seedu.gtd.commons.core.ComponentManager;
+import seedu.gtd.commons.core.LogsCenter;
+import seedu.gtd.commons.core.UnmodifiableObservableList;
+import seedu.gtd.commons.events.model.AddressBookChangedEvent;
+import seedu.gtd.commons.util.StringUtil;
+import seedu.gtd.model.tag.UniqueTagList;
+import seedu.gtd.model.task.ReadOnlyTask;
+import seedu.gtd.model.task.Task;
+import seedu.gtd.model.task.UniqueTaskList;
+import seedu.gtd.model.task.UniqueTaskList.TaskNotFoundException;
 
 /**
  * Represents the in-memory model of the address book data.

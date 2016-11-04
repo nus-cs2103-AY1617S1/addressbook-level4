@@ -267,11 +267,11 @@ public class Parser {
     	
     	newDetail = newDetail.substring(2);
     	
-    	if(detailType == "startDate") {
+    	if(detailType.equals("startDate")) {
     		newDetail = parseStartDate(newDetail);
     	}
     	
-    	if(detailType == "dueDate") {
+    	if(detailType.equals("endDate")) {
     		newDetail = parseDueDate(newDetail);
     	}
     	return newDetail;
