@@ -60,8 +60,14 @@ Adds a task with only the start time <br>
 Format : `add <task name> at/from <Start Time>`
 
 Examples:
-* `add Homework at 2pm` (This add a task to 2pm of the current day)
-* `add project meeting at 21/11/16` (This gives it the current time when you add the task)
+* `add Homework at 2pm` 
+
+	This add a task to 2pm of the current day
+	
+* `add project meeting at 21/11/16`
+
+	This gives it the current time when you add the task
+	
 * `add tutorial at `7pm 12/12/16`
 * `add buy gift at 3 days later`
 * `add buy presents at christmas`
@@ -71,8 +77,14 @@ Adds a task with only the end time <br>
 Format : `add <task name> by/to <End Time>`
 
 Examples:
-* `add Homework by 2pm` (This add a task to 2pm of the current day)
-* `add project meeting at 21/11/16` (This gives it the current time when you add the task)
+* `add Homework by 2pm` 
+	
+	This add a task to 2pm of the current day
+	
+* `add project meeting at 21/11/16` 
+	
+	This gives it the current time when you add the task
+	
 * `add tutorial by 12/12/16 7pm`
 * `add buy gift by 9pm 3 days later`
 * `add buy presents by new year`
@@ -257,9 +269,9 @@ Following is the list of all commands:
 |-------------|----------------------------------------------------|-------------------------------------------------------------------------------------------|
 | `help`      | `help`                                             | Opens a help page                              										   |
 | `add`       | `add` `<name>`                                     | Adds a floating task                           										   |
-|             | `add` `<name>` at `<Start Time>`                   | Adds a task only with a start time             										   |
-|             | `add` `<name>` by `<End Time>`                     | Adds a deadline task                                                                      |
-|             | `add` `<name>` from `<Start Time>` to `<End_Time>` | Adds an event task from start time to end time                                            |
+|             | `add` `<name>` at `<start time>`                   | Adds a task only with a start time             										   |
+|             | `add` `<name>` by `<end time>`                     | Adds a deadline task                                                                      |
+|             | `add` `<name>` from `<start time>` to `<end time>` | Adds an event task from start time to end time                                            |
 |             | `add` `<name>` `<time details>` every `<duration>` | Adds 10 instances of a task with a specified   duration in between                        |
 |             | `add` `<name>` `<time details>` every `<duration>` x`<instances>`| Adds the specified instances of a task with a specified duration in between |
 | `edit`      | `edit` `<index>` `<New Parameters>`                | Edits a task with the new parameters           										   |
