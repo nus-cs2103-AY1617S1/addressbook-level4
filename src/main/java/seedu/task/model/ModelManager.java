@@ -154,19 +154,19 @@ public class ModelManager extends ComponentManager implements Model {
     // @@author A0147944U
     @Override
     public void repeatRecurringTask(Task recurringTask) {
-        if (recurringTask.getRecurring().toString().equals("true")) {
+        if (!recurringTask.getRecurring().toString().equals("false")) {
             String newStartTime = recurringTask.getStartTime().toString();
             String newEndTime = recurringTask.getEndTime().toString();
             String newDeadline = recurringTask.getDeadline().toString();
             
             if (!newStartTime.equals("")) {
-                newStartTime = addOneWeekToTask(recurringTask.getStartTime().toString());
+                newStartTime = addPeriodicTimeToTask(recurringTask.getStartTime().toString(), recurringTask.getRecurring().toString());
             }
             if (!newEndTime.equals("")) {
-                newEndTime = addOneWeekToTask(recurringTask.getEndTime().toString());
+                newEndTime = addPeriodicTimeToTask(recurringTask.getEndTime().toString(), recurringTask.getRecurring().toString());
             }
             if (!newDeadline.equals("")) {
-                newDeadline = addOneWeekToTask(recurringTask.getDeadline().toString());
+                newDeadline = addPeriodicTimeToTask(recurringTask.getDeadline().toString(), recurringTask.getRecurring().toString());
             }
             
             try {
@@ -180,8 +180,21 @@ public class ModelManager extends ComponentManager implements Model {
         }
     }
 
-    private String addOneWeekToTask(String originalTime) {
+    private String addPeriodicTimeToTask(String originalTime, String interval) {
         String newTime = "one week after " + originalTime;
+        if (interval.equals("hourly")) {
+            newTime = "one hour after " + originalTime;
+        } else if (interval.equals("daily")) {
+            newTime = "one day after " + originalTime;
+        } else if (interval.equals("weekly")) {
+            newTime = "one week after " + originalTime;
+        } else if (interval.equals("fortnightly")) {
+            newTime = "two weeks after " + originalTime;
+        } else if (interval.equals("monthly")) {
+            newTime = "one month after " + originalTime;
+        }  else if (interval.equals("yearly")) {
+            newTime = "one year after " + originalTime;
+        }
         TimeParser parserTime = new TimeParser();
         TimeParserResult time = parserTime.parseTime(newTime);
         StringBuilder newTimeString = new StringBuilder();

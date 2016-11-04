@@ -5,7 +5,7 @@ import seedu.task.commons.exceptions.IllegalValueException;
 // @@author A0147944U
 public class Recurring {
     
-    public static final String MESSAGE_RECURRING_CONSTRAINTS = "Recurring parameter should be true or false";
+    public static final String MESSAGE_RECURRING_CONSTRAINTS = "Recurring parameter should be hourly, daily, weekly, fortnightly monthly, yearly or false";
     public static final String RECURRING_VALIDATION_REGEX = "[\\p{Alnum} ]+";
     
     public final String recurringState;
