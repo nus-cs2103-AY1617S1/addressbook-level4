@@ -33,13 +33,32 @@ public class TestEvent extends TestActivity implements ReadOnlyEvent {
 	}
 
 
+	public TestEvent(TestActivity testActivity) throws IllegalValueException {
+		this.name = new Name(testActivity.getName().toString());
+		this.reminder = new Reminder(testActivity.getReminder().toString());
+		this.startTime = new StartTime("");
+		this.endTime = new EndTime("");
+	}
+
+
 	@Override
 	public StartTime getStartTime() {
         return startTime;
 	}
 	
-    public void setStartTime(StartTime startTime) {
-        this.startTime= startTime;
+
+	public void setStartTime(StartTime startTime) {
+		this.startTime = startTime;
+		
+	}
+	
+    public void setStartTime(String newStartTime) {
+        try {
+			this.startTime= new StartTime(newStartTime);
+		} catch (IllegalValueException e) {
+			assert false;
+			e.printStackTrace();
+		}
     }
 
 	@Override
@@ -47,8 +66,18 @@ public class TestEvent extends TestActivity implements ReadOnlyEvent {
         return endTime;
 	}
 	
-    public void setEndTime(EndTime endtime) {
-        this.endTime= endtime;
+	public void setEndTime(EndTime endTime) {
+		this.endTime = endTime;
+		
+	}
+	
+    public void setEndTime(String newEndTime) {
+        try {
+			this.endTime= new EndTime(newEndTime);
+		} catch (IllegalValueException e) {
+			assert false;
+			e.printStackTrace();
+		}
     }
     
 	@Override
@@ -121,6 +150,8 @@ public class TestEvent extends TestActivity implements ReadOnlyEvent {
         getTags().forEach(builder::append);
         return builder.toString();
     }
+
+
 
     
 }

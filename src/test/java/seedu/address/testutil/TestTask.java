@@ -10,6 +10,8 @@ import seedu.address.model.activity.Activity;
 import seedu.address.model.activity.Name;
 import seedu.address.model.activity.ReadOnlyActivity;
 import seedu.address.model.activity.Reminder;
+import seedu.address.model.activity.event.EndTime;
+import seedu.address.model.activity.event.StartTime;
 import seedu.address.model.activity.task.DueDate;
 import seedu.address.model.activity.task.Priority;
 import seedu.address.model.activity.task.ReadOnlyTask;
@@ -37,6 +39,13 @@ public class TestTask extends TestActivity implements ReadOnlyTask{
     	this.priority = new Priority("");
     }
     
+	public TestTask(TestActivity testActivity) throws IllegalValueException {
+		this.name = new Name(testActivity.getName().toString());
+		this.reminder = new Reminder(testActivity.getReminder().toString());
+		this.duedate = new DueDate("");
+		this.priority = new Priority("");
+	}
+
 	@Override
 	public DueDate getDueDate() {
         return duedate;

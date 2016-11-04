@@ -6,6 +6,7 @@ import java.awt.List;
 
 import org.junit.Test;
 
+import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.activity.Reminder;
 import seedu.address.testutil.*;
 
@@ -16,80 +17,93 @@ public class EditCommandTest extends AddressBookGuiTest {
     public void edit_activityParameters(){
         TestActivity[] currentList = td.getTypicalActivities();
         int index = 1;
-        assertEditNameResult(index,currentList);
-        assertEditReminderResult(index,currentList);
+        assertEditActivityResult(index,currentList);
     }
     
     @Test
     public void edit_taskParameters(){
         TestActivity[] currentList = td.getTypicalActivities();
         int index = 3;
-        assertEditNameResult(index,currentList);
-        assertEditReminderResult(index,currentList);
-        assertEditDuedateResult(index,currentList);
-        
-        index = 2;
-        assertEditPriorityResult(index,currentList);
-        
+        assertEditTaskResult(index,currentList);
+    }
+    
 
-        
+
+	@Test
+    public void edit_eventParameters(){
+        TestActivity[] currentList = td.getTypicalActivities();
+        int index = 5;
+        assertEditEventResult(index,currentList);        
     }
     
-    private void assertEditReminderResult(int index,TestActivity... currentList){
-        String newReminder = "12-12-2222 2222";
-        TestActivity activityToEdit = new TestActivity(currentList[index-1]);
-        commandBox.runCommand("edit " + index + " r/" + newReminder);
-        
-        TestActivity activityAfterEdit = currentList[index-1];
-        activityAfterEdit.setReminder(newReminder);
-        
-        assertResultMessage(String.format("Edited Task from: %1$s\nto: %2$s",
-                activityToEdit.getAsText(),activityAfterEdit.getAsText()));
-        
-        assertTrue(activityListPanel.isListMatching(currentList));
- 
+
+
+	private void assertEditActivityResult(int index,TestActivity... currentList){
+    	assertEditResult(index,"activity",currentList);
     }
     
-    private void assertEditNameResult(int index,TestActivity... currentList){
-        String newName = "Editted Name";
-        TestActivity activityToEdit = new TestActivity(currentList[index-1]);
-        commandBox.runCommand("edit " + index + " n/" + newName);
-        
-        TestActivity activityAfterEdit = currentList[index-1];
-        activityAfterEdit.setName(newName);
-        
-        assertResultMessage(String.format("Edited Task from: %1$s\nto: %2$s",
-                activityToEdit.getAsText(),activityAfterEdit.getAsText()));
-        
-        assertTrue(activityListPanel.isListMatching(currentList));
- 
-    }
+	private void assertEditTaskResult(int index, TestActivity[] currentList) {
+		assertEditResult(index,"task",currentList);	
+	}
     
-    private void assertEditDuedateResult(int index, TestActivity... currentList) {
-        String newDuedate = "22-12-2222 2222";
-        TestActivity activityToEdit = new TestActivity(currentList[index-1]);
-        commandBox.runCommand("edit " + index + " d/" + newDuedate);
-        
-        TestActivity activityAfterEdit = currentList[index-1];
+    private void assertEditEventResult(int index, TestActivity[] currentList) {
+    	assertEditResult(index,"event",currentList);
+	}
+    
+    	private void assertEditResult(int index,String type, TestActivity... currentList){
+    	String newName = "Editted Name";
+    	String newReminder = "2-02-2020 1212";
+    	String newDuedate = "10-10-2020 1010";
+    	String newPriority = "3";
+    	String newStartTime = "2-02-2020 1212";
+    	String newEndTime = "10-10-2020 1010";
+        String editCommand = "Edit " + index;
+    	
+    	TestActivity activityToEdit = new TestActivity(currentList[index-1]);
+    	TestActivity activityAfterEdit = null;
+
+        editCommand += " n/" + newName ;
+        switch (type) {
+        case "task":
+        {
+        	try {
+				activityAfterEdit = new TestTask(currentList[index-1]);
+			} catch (IllegalValueException e) {
+				e.printStackTrace();
+			}
         ((TestTask) activityAfterEdit).setDuedate(newDuedate);
-        
-        assertResultMessage(String.format("Edited Task from: %1$s\nto: %2$s",
-                activityToEdit.getAsText(),activityAfterEdit.getAsText()));
-        
-        assertTrue(activityListPanel.isListMatching(currentList));
-    }
-    
-    private void assertEditPriorityResult(int index, TestActivity[] currentList) {
-        String newPriority = "3";
-        TestActivity activityToEdit = new TestActivity(currentList[index-1]);
-        commandBox.runCommand("edit " + index + " p/" + newPriority);
-        
-        TestActivity activityAfterEdit = currentList[index-1];
         ((TestTask) activityAfterEdit).setPriority(newPriority);
+        editCommand += " d/" + newDuedate  + " p/" + newPriority;
+        }
+        break;
+        
+        case "event":
+        {
+        	try {
+				activityAfterEdit = new TestEvent(currentList[index-1]);
+			} catch (IllegalValueException e) {
+				e.printStackTrace();
+			}
+        ((TestEvent) activityAfterEdit).setStartTime(newStartTime);
+        ((TestEvent) activityAfterEdit).setEndTime(newEndTime);
+        editCommand += " s/" + newStartTime  + " e/" + newEndTime;
+        } 
+        break;
+        
+        case "activity":
+        	activityAfterEdit = new TestActivity(currentList[index-1]);
+        }
+        
+        activityAfterEdit.setName(newName);
+        activityAfterEdit.setReminder(newReminder);
+        editCommand += " r/" + newReminder;
+        commandBox.runCommand("edit " + index + " n/" + newName + " r/" + newReminder);
         
         assertResultMessage(String.format("Edited Task from: %1$s\nto: %2$s",
                 activityToEdit.getAsText(),activityAfterEdit.getAsText()));
         
         assertTrue(activityListPanel.isListMatching(currentList));
+ 
     }
+        
 }
