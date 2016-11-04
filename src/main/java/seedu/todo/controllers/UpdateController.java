@@ -90,6 +90,14 @@ public class UpdateController implements Controller {
         String naturalFrom = naturalDates[0];
         String naturalTo = naturalDates[1];
         
+        // Record index
+        Integer recordIndex = null;
+        try {
+            recordIndex = parseIndex(parsedResult);
+        } catch (NumberFormatException e) {
+            recordIndex = null; // Later then disambiguate
+        }
+        
         // Parse natural date using Natty.
         LocalDateTime dateFrom;
         LocalDateTime dateTo;
@@ -97,16 +105,8 @@ public class UpdateController implements Controller {
             dateFrom = naturalFrom == null ? null : DateParser.parseNatural(naturalFrom);
             dateTo = naturalTo == null ? null : DateParser.parseNatural(naturalTo);
         } catch (InvalidNaturalDateException e) {
-            System.out.println("Disambiguate!");
+            renderDisambiguation(true, recordIndex, name, naturalFrom, naturalTo);
             return;
-        }
-        
-        // Record index
-        Integer recordIndex = null;
-        try {
-            recordIndex = parseIndex(parsedResult);
-        } catch (NumberFormatException e) {
-            recordIndex = null; // Later then disambiguate
         }
         
         // Retrieve record and check if task or event
