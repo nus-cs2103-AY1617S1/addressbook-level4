@@ -32,16 +32,16 @@
 
 <!-- @@author A0139198N -->
 > **Date Format**
-> ForgetMeNot accepts a wide range of date format. Formats that are accept in ForgetMeNot is listed here:
-> * next day/week/month/year
-> * <number> days later
-	eg. 2 days later
-> * next <day>
-	eg. next wednesday
-	    next friday
-> *<number> days after
-	eg. 2 days after 10/11/16
-	    5 days after next monday
+> ForgetMeNot accepts a wide range of date format. Formats that are accept in ForgetMeNot is listed here:<br>
+> * next day/week/month/year<br>
+> * <number> days later<br>
+	eg. 2 days later<br>
+> * next <day><br>
+	eg. next wednesday<br>
+	    next friday<br>
+> * <number> days after<br>
+	eg. 2 days after 10/11/16<br>
+	    5 days after next monday<br>
 <!-- @@author -->
 
 <!-- @@author A0139671X -->
