@@ -82,14 +82,12 @@ Examples:
 <!--@@author -->
 
 #### Deleting a task : `delete`
-Deletes a specific task by task name or index from the to-do list.<br>
-Format: `delete TASK_NAME` or `delete INDEX`
+Deletes a specific task by task index from the to-do list.<br>
+Format: `delete INDEX`
 
 > * INDEX refers to the number appears on the list in front the task name.
 
 Examples:
-* `delete meeting`<br>
-  Deletes `meeting` task.
 * `delete 1`<br>
   Deletes the first task in the to-do list.
 
@@ -134,13 +132,14 @@ Example:
 * `unpin 1`<br>
 unpin the pinned and first task on the list. 
 <!-- @@author -->
+
 #### Listing all persons : `list`
 Shows a list of tasks and events in the todo list.<br>
 Format: `list`
 
 #### Finding all tasks and events containing keyword in their name: `find`
 Finds tasks which have names containing any of the given keywords.<br>
-Format: `find KEYWORD` or `find t/TAG`
+Format: `find KEYWORD`
 
 > * The search is case insensitive. e.g `meeting` will match `Meeting`
 > * The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
@@ -151,8 +150,8 @@ Format: `find KEYWORD` or `find t/TAG`
 Examples:
 * `find meeting`<br>
   Returns tasks having name `meeting` 
-* `find tag cs2103`<br>
-  Returns tasks having tag `cs2103`
+* `find cs2103`<br>
+  Returns tasks having name `cs2103`
 
 <!-- @@author A0141052Y -->
 #### Activate real time search: `searchbox`
@@ -200,6 +199,7 @@ Format: `undo`
 
 > * Will only undo `add`, `delete` and `update` actions.
 <!-- @@author -->
+
 #### Viewing help : `help`
 Show the help menu. Format: `help`
 > Help is also shown if you enter an incorrect command e.g. `123abc`
@@ -220,6 +220,7 @@ Format: `change-to NEWFILEPATH`
 Example: 'change-to data/taskmanager.xml'
 
 <!-- @@author -->
+
 <!-- @@author A0153467Y -->
 ## FAQ
 **Q**: Can I add event which have a start date and time to my to-do list ?<br>
@@ -234,6 +235,7 @@ Example: 'change-to data/taskmanager.xml'
 
 In this example, you can see shopping is a floating task without a start time and deadline. 
 <!-- @@author -->  	
+
 ## Command Summary
 
 Command | Format  
