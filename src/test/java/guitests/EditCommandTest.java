@@ -24,35 +24,36 @@ public class EditCommandTest extends ToDoListGuiTest {
         
     	//edit the detail of the 2nd task in the list to Eat buffet
     	int targetIndex = 2;
-    	execute(targetIndex, currentList, "'Eat Buffet'",td.editedGrocery);
+    	currentList = execute(targetIndex, currentList, "'Eat Buffet'",td.editedGrocery);
 
 
         //edit the priority of the last task in the list to low
         targetIndex = currentList.length;
-        execute(targetIndex, currentList, "/low",td.editedZika);
+        currentList = execute(targetIndex, currentList, "/low",td.editedZika);
         
         //make 2nd task floating
         targetIndex = 2;
-        execute(targetIndex, currentList, "floating",td.floatingGrocery);
+        currentList = execute(targetIndex, currentList, "floating",td.floatingGrocery);
         
-        //change tags of last task to dangerous
-        targetIndex = currentList.length;
-        execute(targetIndex, currentList, "-dangerous",td.taggedZika);
-        
-        //remove priority of 2nd task 
-        targetIndex = 2;
-        execute(targetIndex, currentList, "no priority",td.noPriorityGrocery);
-        
-        //change time of task 2 to 1120
-        targetIndex = 2;
-        execute(targetIndex, currentList, "1120",td.editedHouse1);
-        
-        //change date of task 2 to 10/20/2016
-        execute(targetIndex, currentList, "10/20/2016",td.editedHouse2);
-        
-        //change task 3 to a range task
+        //fails here as mosquito goes to 2 instead of expected 3
+        //change tags of 3 task to dangerous
         targetIndex = 3;
-        execute(targetIndex, currentList, "11/12/2016 1300 to 12/12/2016 1500",td.editedCar);
+        currentList = execute(targetIndex, currentList, "-dangerous",td.taggedZika);
+        
+        //remove priority of last task 
+        targetIndex = currentList.length;
+        currentList = execute(targetIndex, currentList, "no priority",td.noPriorityGrocery);
+        
+        //change time of task 1 to 1120
+        targetIndex = 1;
+        currentList = execute(targetIndex, currentList, "1120",td.editedHouse1);
+        
+        //change date of task 1 to 10/20/2016
+        currentList = execute(targetIndex, currentList, "10/20/2016",td.editedHouse2);
+        
+        //change task 1 to a range task
+        targetIndex = 1;
+        currentList = execute(targetIndex, currentList, "11/12/2016 1300 to 12/12/2016 1500",td.editedCar);
         
         //invalid priority parameter
         runEditCommand(1, "/yolo");
@@ -81,9 +82,9 @@ public class EditCommandTest extends ToDoListGuiTest {
     
     
     //executes successful edits
-    private void execute(int targetIndex, TestTask[] currentList, String change, TestTask editedTask){
+    private TestTask[] execute(int targetIndex, TestTask[] currentList, String change, TestTask editedTask){
         assertEditSuccess(targetIndex, currentList,change,editedTask);
-        currentList = updateList(currentList,editedTask,targetIndex);
+        return updateList(currentList,editedTask,targetIndex);
     }
     
     //run commands
@@ -94,6 +95,7 @@ public class EditCommandTest extends ToDoListGuiTest {
     //update list
     private TestTask[] updateList(TestTask[] listToUpdate, TestTask editedTask, int targetIndex){
     	TestTask[] list = TestUtil.replaceTaskFromList(listToUpdate,editedTask,targetIndex-1);
+    	list = sortList(list);
     	return list;
     }
     
@@ -124,18 +126,11 @@ public class EditCommandTest extends ToDoListGuiTest {
     	
         runEditCommand(targetIndexOneIndexed, change);
         
-//        TestTask[] expectedRemainder = currentList;
-//        //sort list
-//        expectedRemainder = sortList(expectedRemainder);
-//        System.out.println(expectedRemainder[1].getDetail());
-        
         //updateList
         TestTask[] expectedRemainder = updateList(currentList,ed,targetIndexOneIndexed);
-        System.out.println(expectedRemainder[1].getDetail());
         
         //sort list
         expectedRemainder = sortList(expectedRemainder);
-        System.out.println(expectedRemainder[3].getDetail());
         
         //confirm the new card contains the right data
         checkCard(ed);
