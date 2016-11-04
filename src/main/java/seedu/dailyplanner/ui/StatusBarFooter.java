@@ -44,7 +44,7 @@ public class StatusBarFooter extends UiPart {
     public void configure(String saveLocation) {
         addMainPane();
         addSyncStatus();
-        setSyncStatus("Not updated yet in this session");
+        setSyncStatus("Not saved yet in this session");
         addSaveLocation();
         setSaveLocation("./" + saveLocation);
         registerAsAnEventHandler(this);
@@ -93,7 +93,7 @@ public class StatusBarFooter extends UiPart {
     @Subscribe
     public void handleAddressBookChangedEvent(AddressBookChangedEvent abce) {
         String lastUpdated = (new Date()).toString();
-        logger.info(LogsCenter.getEventHandlingLogMessage(abce, "Setting last updated status to " + lastUpdated));
-        setSyncStatus("Last Updated: " + lastUpdated);
+        logger.info(LogsCenter.getEventHandlingLogMessage(abce, "Setting last saved status to " + lastUpdated));
+        setSyncStatus("Last saved: " + lastUpdated);
     }
 }
