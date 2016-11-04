@@ -94,9 +94,12 @@ public class Parser {
 
 		case UndoCommand.COMMAND_WORD:
 			return new UndoCommand();
-			
+
 		case PinCommand.COMMAND_WORD:
-		    	return preparePin(arguments);
+			return preparePin(arguments);
+
+		case UnpinCommand.COMMAND_WORD:
+			return prepareUnpin(arguments);
 
 		case ShowCommand.COMMAND_WORD:
 			if (arguments.equals(""))
@@ -109,9 +112,17 @@ public class Parser {
 		}
 	}
 
+	private Command prepareUnpin(String arguments) {
+		Optional<Integer> index = parseIndex(arguments);
+		if (!index.isPresent()) {
+			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, CompleteCommand.MESSAGE_USAGE));
+		}
+
+		return new UnpinCommand(index.get());
+	}
+
 	private Command preparePin(String arguments) {
-	    // TODO Auto-generated method stub
-	    Optional<Integer> index = parseIndex(arguments);
+		Optional<Integer> index = parseIndex(arguments);
 		if (!index.isPresent()) {
 			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, CompleteCommand.MESSAGE_USAGE));
 		}

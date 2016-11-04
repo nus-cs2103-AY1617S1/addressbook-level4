@@ -96,7 +96,12 @@ public class ModelManager extends ComponentManager implements Model {
     public void pinTask(int targetIndex) throws PersonNotFoundException {
 	addressBook.pinTask(targetIndex);
 	indicateAddressBookChanged();
-	
+    }
+    
+    @Override
+    public void unpinTask(int targetIndex) throws PersonNotFoundException {
+    	addressBook.unpinTask(targetIndex);
+    	indicateAddressBookChanged();
     }
 
     // =========== Filtered Person List Accessors

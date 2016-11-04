@@ -124,6 +124,11 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void pinTask(int targetIndex) throws PersonNotFoundException {
 	persons.pin(targetIndex);
     }
+    
+    public void unpinTask(int targetIndex) {
+    	persons.unpin(targetIndex);
+		
+	}
 //// tag-level operations
 
     public void addTag(Tag t) throws UniqueTagList.DuplicateTagException {
@@ -172,4 +177,5 @@ public class AddressBook implements ReadOnlyAddressBook {
         // use this method for custom fields hashing instead of implementing your own
         return Objects.hash(persons, tags);
     }
+
 }

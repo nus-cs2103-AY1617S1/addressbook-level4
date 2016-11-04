@@ -36,6 +36,9 @@ public interface Model {
     
     /** Pins the given task. */
     void pinTask(int targetIndex) throws PersonNotFoundException;
+
+    /** Unpins the given task. */
+	void unpinTask(int i) throws PersonNotFoundException;
     
     /** Returns the filtered person list as an {@code UnmodifiableObservableList<ReadOnlyPerson>} */
     UnmodifiableObservableList<ReadOnlyTask> getFilteredPersonList();
@@ -54,5 +57,6 @@ public interface Model {
 
     /** Updates the filter of the filtered person list to show only completed tasks*/
 	void updateFilteredPersonListByCompletion(Set<String> keywords);
+
 
 }
