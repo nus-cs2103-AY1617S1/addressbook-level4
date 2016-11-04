@@ -41,7 +41,7 @@ public class CommandParser {
     private static final Pattern TASK_INDEX_ARGS_FORMAT = Pattern.compile("(?<targetIndex>.+)");
          
     //Used for checking for number date formats in arguments
-    private static final Pattern LOCAL_DATE_FORMAT =  Pattern.compile(".* (?<arguments>\\d(\\d)?[/-]\\d(\\d)?).*");
+    private static final Pattern LOCAL_DATE_FORMAT =  Pattern.compile("\\d{1,2}[/-]\\d{1,2}[/-]?(\\d{2}|\\d{4})?");
     
     private static final Pattern KEYWORDS_ARGS_FORMAT =
             Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more keywords separated by whitespace
@@ -310,14 +310,25 @@ public class CommandParser {
      * @return arguments with converted dates if any
      */
     private String convertToNattyDateFormat(String arguments) {
-        Matcher matchDate = LOCAL_DATE_FORMAT.matcher(arguments);
-        if (matchDate.matches()) {
-            String localDateString = matchDate.group("arguments");
-            String dateSeparator = getDateSeparator(localDateString);
-            return convertToNattyFormat(arguments, localDateString, dateSeparator);
-        } else {
-            return arguments;
-        }       
+        String convertedString = arguments;
+        String[] splitArgs = arguments.split(" ");
+        for (String arg: splitArgs) {
+            Matcher matchArg = LOCAL_DATE_FORMAT.matcher(arg);
+            if (matchArg.matches()) {
+                String dateSeparator = getDateSeparator(arg);
+                String convertedDate = swapDayAndMonth(arg.split(dateSeparator), dateSeparator);
+                convertedString = convertedString.replace(arg, convertedDate);
+            }
+        }
+        return convertedString;
+//        Matcher matchDate = LOCAL_DATE_FORMAT.matcher(arguments);
+//        if (matchDate.matches()) {
+//            String localDateString = matchDate.group("arguments");
+//            String dateSeparator = getDateSeparator(localDateString);
+//            return convertToNattyFormat(arguments, localDateString, dateSeparator);
+//        } else {
+//            return arguments;
+//        }       
     }
     
     /**
