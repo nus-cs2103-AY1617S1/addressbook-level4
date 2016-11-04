@@ -148,9 +148,15 @@ public class ModelManager extends ComponentManager implements Model {
 
     //@@author A0139430L
     @Override
-    public synchronized void deleteTask(ReadOnlyTask target) throws TaskNotFoundException {
+    public synchronized void deleteTask(ReadOnlyTask target) {
         taskBook.removeTask(target);
         indicateAddressBookChanged();
+    }
+    
+    //@@author A0139430L
+    @Override
+    public synchronized boolean checkTask(ReadOnlyTask target) {
+        return taskBook.checkTask(target);
     }
 
     @Override 
