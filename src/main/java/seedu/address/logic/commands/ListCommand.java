@@ -101,7 +101,7 @@ public class ListCommand extends Command {
     private Predicate<ReadOnlyTask> getStatusPredicate(Predicate<ReadOnlyTask> donePredicate) {
 		if(doneStatus.isPresent()) {
 			assert doneStatus.get().equals("done") || doneStatus.get().equals("pending") || 
-				doneStatus.get().equals("overdue");
+				doneStatus.get().equals("overdue") || doneStatus.get().equals("default");
     		switch(doneStatus.get()) {
     		case "done":
     			donePredicate = ReadOnlyTaskFilter.isDone();

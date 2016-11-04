@@ -141,8 +141,8 @@ public class TypicalTestTasks {
     	return new TestTask[] {deadline2, event2};
     }
     
-    public TestTask[] getDoneAndDeadlineTasks() {
-        return new TestTask[] {deadline1, deadlineToday};
+    public TestTask[] getDoneDeadlineTodayTasks() {
+        return new TestTask[] {deadlineToday};
     }
     
     public TaskManager getTypicalTaskManager(){
