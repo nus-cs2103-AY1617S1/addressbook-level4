@@ -258,6 +258,7 @@ public class MainWindow extends UiPart {
             resultDisplay.postMessage("The specified file doesn't exist");
         } else {
             EventsCenter.getInstance().post(new LoadLifekeeperEvent(selectedFile, logic));
+            resultDisplay.postMessage("Loaded data from file: " + selectedFile.getAbsolutePath());
         }
     }
     

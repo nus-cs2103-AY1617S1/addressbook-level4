@@ -104,8 +104,8 @@ public class StorageManager extends ComponentManager implements Storage {
             lifekeeperOptional = readAddressBook(event.openFile.getAbsolutePath());
             
             if (lifekeeperOptional.isPresent()) {
-                event.logic.resetData(lifekeeperOptional.get());
                 EventsCenter.getInstance().post(new FileDirectoryChangedEvent(event.openFile.getAbsolutePath()));
+                event.logic.resetData(lifekeeperOptional.get());
             }
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Loading aborted.");
