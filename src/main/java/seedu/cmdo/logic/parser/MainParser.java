@@ -379,13 +379,23 @@ public class MainParser {
      */
     private void process() throws IllegalValueException {
     	extractDetail();			// Saves to detailToAdd
+    	splitArgsAndRemoveTags();	// For arg splitting and to prevent time parser from reading tags.    	
     	extractDueByDateAndTime(); 	// Saves to datesAndTimes
     	checkPriorityValidity(); 	// Throws exception if priority entered wrongly
-    	splittedArgs = getCleanString(args).split(" ");
     	saveDueByDateAndTime(); 	// Saves to dt family.
     	reset();         			// Clear dates and times		
 	}
-
+    
+    //@@author A0141006B
+    private void splitArgsAndRemoveTags() {
+    	splittedArgs = getCleanString(args).split(" ");
+    	for (int i=0; i<splittedArgs.length; i++) {
+    		if (splittedArgs[i].startsWith("-")) {
+    			args = args.replace(splittedArgs[i], "");
+    		}
+    	}
+    }
+    
     //@@author A0139661Y 
     /**
      * Extracts the detail embedded in user input ' '.

@@ -18,5 +18,7 @@
 
 #### Acknowledgements
 * [Natty](https://github.com/joestelmach/natty), a natural language date parser written in Java by [Joe Stelmach](https://github.com/joestelmach/).
+* [jfxtras](https:/jfxtras.org) for date and time pickers.
+
 
 #### Licence : [MIT](LICENSE)

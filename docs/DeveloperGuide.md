@@ -287,7 +287,7 @@ Priority | As a ... | I want to ... | So that I can...
 
 2a. Date is not specified
 
-> CMDo stores the task as a floating one, with time as `LocalTime.MAX` and date as `LocalDate.MIN`.
+> CMDo stores the task as a floating one, with time as `LocalTime.MAX` and date as `LocalDate.MAX`.
  Use case resumes at step 3
 
 2b. Date is specified but time is not
