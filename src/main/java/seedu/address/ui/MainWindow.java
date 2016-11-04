@@ -29,7 +29,7 @@ public class MainWindow extends UiPart {
     // Independent Ui parts residing in this Ui container
     // private BrowserPanel browserPanel;
     private UndatedListPanel undatedListPanel;
-    private PersonListPanel personListPanel;
+    private DatedListPanel personListPanel;
     private ResultDisplay resultDisplay;
     private StatusBarFooter statusBarFooter;
     private CommandBox commandBox;
@@ -110,7 +110,7 @@ public class MainWindow extends UiPart {
         // browserPanel = BrowserPanel.load(browserPlaceholder);
         undatedListPanel = UndatedListPanel.load(primaryStage, getUndatedListPlaceholder(),
                 logic.getFilteredUndatedTaskList());
-        personListPanel = PersonListPanel.load(primaryStage, getDatedListPlaceholder(),
+        personListPanel = DatedListPanel.load(primaryStage, getDatedListPlaceholder(),
                 logic.getFilteredDatedTaskList());
         resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
         statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getTaskBookFilePath());
@@ -188,7 +188,7 @@ public class MainWindow extends UiPart {
         raise(new ExitAppRequestEvent());
     }
 
-    public PersonListPanel getPersonListPanel() {
+    public DatedListPanel getPersonListPanel() {
         return this.personListPanel;
     }
     

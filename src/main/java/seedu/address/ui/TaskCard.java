@@ -6,9 +6,9 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import seedu.address.model.task.ReadOnlyTask;
 
-public class PersonCard extends UiPart{
+public class TaskCard extends UiPart{
 
-    private static final String FXML = "PersonListCard.fxml";
+    private static final String FXML = "TaskListCard.fxml";
 
     @FXML
     private HBox cardPane;
@@ -30,12 +30,12 @@ public class PersonCard extends UiPart{
     private int displayedIndex;
 
 
-    public PersonCard(){
+    public TaskCard(){
 
     }
 
-    public static PersonCard load(ReadOnlyTask task, int displayedIndex, String indexAlphabet){
-        PersonCard card = new PersonCard();
+    public static TaskCard load(ReadOnlyTask task, int displayedIndex, String indexAlphabet){
+        TaskCard card = new TaskCard();
         card.task = task;
         card.displayedIndex = displayedIndex;
         card.indexAlphabet = indexAlphabet;
