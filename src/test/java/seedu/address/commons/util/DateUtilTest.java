@@ -8,6 +8,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+//@@author A0146123R
 /**
  * Tests the DateUtil methods.
  */
@@ -41,12 +42,12 @@ public class DateUtilTest {
 
     @Test
     public void parseDate_validDate_success() {
-        assertEquals(DateUtil.parseDate("04.11.2016"), "04.11.2016");
-        assertEquals(DateUtil.parseDate("4.11.2016"), "04.11.2016");
-        assertEquals(DateUtil.parseDate("04.11.2016-10"), "04.11.2016-10");
-        assertEquals(DateUtil.parseDate("4.11.2016-10"), "04.11.2016-10");
-        assertEquals(DateUtil.parseDate("4 Nov"), "04.11.2016");
-        assertEquals(DateUtil.parseDate("4 Nov 10am"), "04.11.2016-10");
+        assertEquals("04.11.2016", DateUtil.parseDate("04.11.2016"));
+        assertEquals("04.11.2016", DateUtil.parseDate("4.11.2016"));
+        assertEquals("04.11.2016-10", DateUtil.parseDate("04.11.2016-10"));
+        assertEquals("04.11.2016-10", DateUtil.parseDate("4.11.2016-10"));
+        assertEquals("04.11.2016", DateUtil.parseDate("4 Nov"));
+        assertEquals("04.11.2016-10", DateUtil.parseDate("4 Nov 10am"));
     }
 
     @Test
