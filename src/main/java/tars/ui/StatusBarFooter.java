@@ -121,6 +121,6 @@ public class StatusBarFooter extends UiPart {
             TarsStorageDirectoryChangedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         setSaveLocation(
-                "Storage Location Changed: ./" + event.getNewFilePath());
+                "Storage Location Changed: " + event.getNewFilePath());
     }
 }

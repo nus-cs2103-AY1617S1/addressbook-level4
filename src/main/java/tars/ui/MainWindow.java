@@ -136,18 +136,8 @@ public class MainWindow extends UiPart {
         thisWeekPanel = ThisWeekPanel.load(primaryStage,
                 getThisWeekPanelPlaceholder(), logic.getTaskList());
     }
-
-    /**
-     * A method to reload the status bar footer
-     * 
-     * @@author A0124333U
-     */
-    public void reloadStatusBarFooter(String newTarsFilePath) {
-        statusBarFooter = StatusBarFooter.load(primaryStage,
-                getStatusbarPlaceholder(), newTarsFilePath);
-    }
-
-    // @@author
+    
+  //@@author
 
     private AnchorPane getCommandBoxPlaceholder() {
         return commandBoxPlaceholder;
