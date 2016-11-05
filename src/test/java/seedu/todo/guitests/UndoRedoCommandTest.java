@@ -37,9 +37,7 @@ public class UndoRedoCommandTest extends GuiTest {
     
     @Before
     public void resetDB() {
-        TodoListDB db = TodoListDB.getInstance();
-        db.destroyAllEvent();
-        db.destroyAllTask();
+        console.runCommand("clear");
     }
     
     @Test
