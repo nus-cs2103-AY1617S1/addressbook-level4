@@ -40,7 +40,7 @@ public class Parser {
 
     private static final Set<String> TYPES_OF_TASKS = new HashSet<String>(Arrays.asList("f", "d", "e" ));
 
-    public static final String MESSAGE_MISSING_START_END = "Expecting start and end times\nExample: start thursday 800 end thursday 900";
+    public static final String MESSAGE_MISSING_START_END = "Expecting start and end times\nExample: start thursday 0800 end thursday 0900";
     
     public Parser() {}
 
@@ -213,7 +213,6 @@ public class Parser {
             char taskType = index.charAt(0);
             int taskNum = Integer.parseInt(index.substring(1));
             String name = matcher.group("name");
-            System.out.println(name);
             if (name.equals("") && getTagsFromArgs(matcher.group("tagArguments")).isEmpty()) {
                 return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
             }
