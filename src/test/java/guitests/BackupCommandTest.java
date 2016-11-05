@@ -29,10 +29,10 @@ public class BackupCommandTest extends TaskManagerGuiTest {
     @Test
     public void backup() {
         // Remove backup_not_pre_existing.xml if it exists
-        File notSupposedToBeHere = new File(filepath_A+ ".xml");
+        File notSupposedToBeHere = new File(filepath_A + ".xml");
         if (notSupposedToBeHere.exists()) {
             logger.info("'backup_not_pre_existing' exists");
-            if(FileUtils.deleteQuietly(notSupposedToBeHere)) {
+            if (FileUtils.deleteQuietly(notSupposedToBeHere)) {
                 logger.info("Not anymore");
             } else {
                 logger.warning("Unable to delete backup_not_pre_existing");
@@ -40,21 +40,22 @@ public class BackupCommandTest extends TaskManagerGuiTest {
         } else {
             logger.info("'backup_not_pre_existing' does not exist ");
         }
-        
-        //verify an empty TaskManager can be backed up in a valid directory
+
+        // verify an empty TaskManager can be backed up in a valid directory
         commandBox.runCommand("clear");
         assertListSize(0);
         assertResultMessage("Task manager has been cleared!");
         commandBox.runCommand("backup " + filepath_A);
         assertResultMessage(String.format(BackupCommand.MESSAGE_BACKUP_SUCCESS, filepath_A + ".xml", "created"));
-        
-        //verify a non-empty TaskManager can be backed up in a valid directory
+
+        // verify a non-empty TaskManager can be backed up in a valid directory
         commandBox.runCommand("add Help Jim with his task, at 2016-10-25 9am");
         assertTrue(taskListPanel.isListMatching(TypicalTestTasks.taskH));
         commandBox.runCommand("backup " + filepath_B);
         assertResultMessage(String.format(BackupCommand.MESSAGE_BACKUP_SUCCESS, filepath_B + ".xml", "overwritten"));
-        
-        //verify TaskManager can be backed up in a valid directory onto an existing backup
+
+        // verify TaskManager can be backed up in a valid directory onto an
+        // existing backup
         commandBox.runCommand("backup " + filepath_A);
         assertResultMessage(String.format(BackupCommand.MESSAGE_BACKUP_SUCCESS, filepath_A + ".xml", "overwritten"));
 
@@ -72,10 +73,9 @@ public class BackupCommandTest extends TaskManagerGuiTest {
         assertResultMessage(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, BackupCommand.MESSAGE_USAGE));
         */
         
-        ///* Disabled as Travis does not respect read-only protection
-        //verify a TaskManager will detect if a file is protected
+        // verify a TaskManager will detect if a file is protected
         commandBox.runCommand("backup " + filepath_F);
         assertResultMessage(String.format(BackupCommand.MESSAGE_BACKUP_ERROR, filepath_F + ".xml"));
-        //*/
+        // */
     }
 }
