@@ -31,21 +31,33 @@ public class UndoCommandTest extends AddressBookGuiTest {
     }
 
     @Test
-    public void undo_editCommand() {
+    public void undo_editActivity() {
         TestActivity[] currentList = td.getTypicalActivities();
         int index = 1;
-        String newName = "new name";
-        String newReminder = "29-12-2021 2200";
-        TestActivity activityBeforeEdit = new TestActivity(currentList[index-1]);
-        TestActivity activityAfterEdit = new TestActivity(currentList[index-1]);
-        activityAfterEdit.setName(newName);
-        activityAfterEdit.setReminder(newReminder);
-        String editCommand = "edit " + index + " n/" + newName + " r/" + newReminder;
-        assertUndoEditResult(editCommand,activityBeforeEdit,activityAfterEdit,currentList);
+       
+        
+        assertUndoEditActivityResult(index,currentList);
     }
     
     
-    private void assertUndoEditResult(String command, TestActivity activityAfterUndo, TestActivity activityBeforeUndo, TestActivity[] currentList) {
+    
+    
+    
+    
+    private void assertUndoEditActivityResult(int index, TestActivity[] currentList) {
+    	 String newName = "new name";
+         String newReminder = "29-12-2021 2200";
+         TestActivity activityBeforeEdit = new TestActivity(currentList[index-1]);
+         TestActivity activityAfterEdit = new TestActivity(currentList[index-1]);
+         activityAfterEdit.setName(newName);
+         activityAfterEdit.setReminder(newReminder);
+         String editCommand = "edit " + index + " n/" + newName + " r/" + newReminder;
+    	
+    	assertUndoEditResult(editCommand,activityBeforeEdit,activityAfterEdit,currentList);
+		
+	}
+
+	private void assertUndoEditResult(String command, TestActivity activityAfterUndo, TestActivity activityBeforeUndo, TestActivity[] currentList) {
         commandBox.runCommand(command);
         commandBox.runCommand("undo"); 
         assertResultMessage(String.format("Undo: Editting task from: %1$s\nto: %2$s",
