@@ -1,16 +1,12 @@
 package seedu.todo.guitests;
 
 import static org.junit.Assert.*;
-import static seedu.todo.testutil.AssertUtil.assertSameDate;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import org.junit.Test;
 
 import seedu.todo.commons.util.DateUtil;
-import seedu.todo.guitests.guihandles.TaskListDateItemHandle;
-import seedu.todo.guitests.guihandles.TaskListEventItemHandle;
 import seedu.todo.models.Event;
 
 // @@author A0139812A
@@ -28,7 +24,7 @@ public class AddEventCommandTest extends GuiTest {
         event.setName("Presentation in the Future");
         event.setStartDate(DateUtil.parseDateTime(String.format("%s 14:00:00", twoDaysFromNowIsoString)));
         event.setEndDate(DateUtil.parseDateTime(String.format("%s 19:00:00", twoDaysFromNowIsoString)));
-        assertAddSuccess(command, event);
+        assertEventVisibleAfterCmd(command, event);
     }
     
     @Test
@@ -46,7 +42,7 @@ public class AddEventCommandTest extends GuiTest {
         event.setName("Presentation in the Past");
         event.setStartDate(DateUtil.parseDateTime(String.format("%s 14:00:00", twoDaysBeforeNowIsoString)));
         event.setEndDate(DateUtil.parseDateTime(String.format("%s 19:00:00", twoDaysBeforeNowIsoString)));
-        assertAddNotVisible(command, event);
+        assertEventNotVisibleAfterCmd(command, event);
     }
     
     @Test
@@ -94,57 +90,6 @@ public class AddEventCommandTest extends GuiTest {
         String command = "add event \"Presentation from 2pm to 9pm";
         console.runCommand(command);
         assertEquals(console.getConsoleInputText(), command);
-    }
-
-    /**
-     * Utility method for testing if event has been successfully added to the GUI.
-     * This runs a command and checks if TaskList contains TaskListEventItem that matches
-     * the task that was just added. <br><br>
-     * 
-     * TODO: Extract out method in AddController that can return task from command,
-     *       and possibly remove the need to have eventToAdd.
-     */
-    private void assertAddSuccess(String command, Event eventToAdd) {
-        // Run the command in the console.
-        console.runCommand(command);
-        
-        // Get the event date.
-        LocalDateTime eventStartDateTime = eventToAdd.getStartDate();
-        if (eventStartDateTime == null) {
-            eventStartDateTime = DateUtil.NO_DATETIME_VALUE;
-        }
-        LocalDate eventStartDate = eventStartDateTime.toLocalDate();
-        
-        // Check TaskList if it contains a TaskListDateItem with the date of the event start date.
-        TaskListDateItemHandle dateItem = taskList.getTaskListDateItem(eventStartDate);
-        assertSameDate(eventStartDate, dateItem);
-        
-        // Check TaskListDateItem if it contains the TaskListEventItem with the same data.
-        TaskListEventItemHandle eventItem = dateItem.getTaskListEventItem(eventToAdd.getName());
-        assertEquals(eventItem.getName(), eventToAdd.getName());
-    }
-    
-    private void assertAddNotVisible(String command, Event eventToAdd) {
-        // Run the command in the console.
-        console.runCommand(command);
-        
-        // Get the event date.
-        LocalDateTime eventStartDateTime = eventToAdd.getStartDate();
-        if (eventStartDateTime == null) {
-            eventStartDateTime = DateUtil.NO_DATETIME_VALUE;
-        }
-        LocalDate eventStartDate = eventStartDateTime.toLocalDate();
-        
-        // Gets the date item that might contain the event
-        TaskListDateItemHandle dateItem = taskList.getTaskListDateItem(eventStartDate);
-        
-        // It's fine if there's not date item, because it's not visible.
-        if (dateItem == null) {
-            return;
-        }
-        
-        TaskListEventItemHandle eventItem = dateItem.getTaskListEventItem(eventToAdd.getName());
-        assertNull(eventItem);
     }
 
 }
