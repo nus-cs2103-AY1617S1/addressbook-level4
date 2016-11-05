@@ -41,7 +41,7 @@ Love typing? You will love sTask, as you only need to use the keyboard to type s
 
 >> Tasks are colour coded according to their status : blue for completed tasks, red for overdue deadlines, pink for expired events, and white for the rest.<br>   
 >> You can refer to the [Features](#3-features) section below for details of each command or you can refer to the [Command Summary](#5-command-summary).<br>
-
+<!--@@author-->
 
 ## 3. Features
 
@@ -52,6 +52,7 @@ Love typing? You will love sTask, as you only need to use the keyboard to type s
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;glance through the list of commands and their formats by typing<br>
 >> `help` <br><br>
 
+<!--@@author A0143884W-->
 &nbsp;&nbsp;&nbsp;&nbsp;<b>3.2 Adding a Task </b><br><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;After receiving an email from Starbucks that you have won a free drink,<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;but you are unsure of when you are free. You can remind yourself by adding<br>
@@ -72,6 +73,7 @@ Love typing? You will love sTask, as you only need to use the keyboard to type s
 * add Meeting with client d/Prepare documents date/28-10-2016 10am to 28-10-2016 12pm <br><br>
 
 >> Refer to [Appendix](#7-appendix) for more information on the possible Date and Time formats accepted by sTask. <br><br>
+<!--@@author--> <!--@@author A0139145E-->
 
 &nbsp;&nbsp;&nbsp;&nbsp; <b>3.3 Listing your Tasks </b><br><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; You can list all your uncompleted tasks by typing<br>
@@ -83,6 +85,8 @@ Love typing? You will love sTask, as you only need to use the keyboard to type s
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; You can list all your overdue and expired tasks by typing<br>
 >> `list od` <br><br>
 
+<!--@@author--> <!--@@author A0143884W-->
+
 &nbsp;&nbsp;&nbsp;&nbsp;<b>3.4 Editing your Task </b><br><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; You want to update some of the details of the tasks that you have.<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; You can just edit them by typing<br>
@@ -92,6 +96,7 @@ Love typing? You will love sTask, as you only need to use the keyboard to type s
 * edit B2 t/urgent<br><br>
 
 >> Refer to [Appendix](#7-appendix) for more information on the possible Date and Time formats accepted by sTask. <br><br>
+<!--@@author--> <!--@@author A0139528W-->
 
 &nbsp;&nbsp;&nbsp;&nbsp;<b>3.5 Finding your Tasks </b><br><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Being overwhelmed by the large number of tasks you have,<br>
@@ -100,7 +105,7 @@ Love typing? You will love sTask, as you only need to use the keyboard to type s
 * find meeting <br><br>
 
 >> sTask searches through all the fields and returns all the tasks that contains your KEYWORD.<br><br>
-
+<!--@@author--> <!--@@author A0143884W-->
 
 &nbsp;&nbsp;&nbsp;&nbsp;<b>3.6 Viewing your tasks on a specific date </b><br><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; You have forgotten what task you were supposed to do today. <br>
@@ -111,12 +116,15 @@ Love typing? You will love sTask, as you only need to use the keyboard to type s
 * view valentine day<br><br>
 
 >> Refer to [Appendix](#7-appendix) for more information on the possible Date formats accepted by sTask. <br><br>
-  
+
+<!--@@author--> <!--@@author A0139024M-->
+
 &nbsp;&nbsp;&nbsp;&nbsp;<b>3.7 Deleting your Task </b><br><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Your client has called you to cancel the meeting, so <br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; you can delete that event by typing<br>
 >> `delete INDEX` <br>
 * delete B1 <br><br>
+<!--@@author--> <!--@@author A0139145E-->
 
 &nbsp;&nbsp;&nbsp;&nbsp;<b>3.8 Undoing an action </b><br><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; You can undo your previous action by typing<br>
@@ -133,18 +141,21 @@ You can only redo if you do not use the following commands: `add`, `edit`, `dele
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; you can mark this task as complete by typing<br>
 >> `done INDEX`<br>
 * done A10 <br><br>
+<!--@@author--> <!--@@author A0143884W-->
 
 &nbsp;&nbsp;&nbsp;&nbsp;<b>3.11 Selecting a task </b><br><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; You can select a task by typing<br>
 >> `select INDEX`<br>
 * select A11 <br><br>
 You can use this command to navigate through your list of tasks.<br><br>
+<!--@@author--> <!--@@author A0139528W-->
 
 &nbsp;&nbsp;&nbsp;&nbsp;<b>3.12 Changing saved data location </b><br><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; You want to access all your tasks from multiple devices on Dropbox, so<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; you can change the location of your saved data by typing<br>
 >> `save FOLDERPATH`<br>
 * save C:\Users\Jim\Dropbox<br><br>
+<!--@@author-->
 
 &nbsp;&nbsp;&nbsp;&nbsp;<b>3.13 Exiting sTask </b><br><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;After a hectic long day, it is time to rest, so you <br>
@@ -152,7 +163,7 @@ You can use this command to navigate through your list of tasks.<br><br>
 >> `exit`<br><br>
 
 Now that you have seen how fast, simple and smart sTask can be in managing your mundane tasks, start using it now and become a Champion of your life!<br> 
-
+<!--@@author--> <!--@@author A0139145E-->
 ## 4. FAQ
 
 &nbsp;&nbsp;&nbsp;&nbsp;<b>4.1 General:</b><br>
@@ -182,7 +193,8 @@ Now that you have seen how fast, simple and smart sTask can be in managing your 
        the file that contains the data of your previous sTask.<br>
 
 If you have any further enquiries, drop us an email at sTask@sTask.com.sg!<br><br>
-       
+
+<!--@@author--> <!--@@author A0143884W-->
 ## 5. Command Summary
 
 Command | Format | Description 
@@ -211,9 +223,8 @@ We would like to acknowledge the original source of our code, i.e., the sample A
 
 
 &nbsp;&nbsp;&nbsp;&nbsp;<b>6.2 External Libaries</b>
-We would like to acknowledge the developers of Natty for their natural language date parser at http://natty.joestelmach.com/
-
-<br>
+We would like to acknowledge the developers of Natty for their natural language date parser at http://natty.joestelmach.com/<br>
+<!--@@author--> <!--@@author A0139528W-->
 ## 7. Appendix
 
 &nbsp;&nbsp;&nbsp;&nbsp;<b>7.1 Possible Date Formats</b><br>
