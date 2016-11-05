@@ -8,6 +8,7 @@ import javafx.util.Pair;
 import seedu.taskitty.commons.core.Messages;
 import seedu.taskitty.commons.core.UnmodifiableObservableList;
 import seedu.taskitty.commons.util.AppUtil;
+import seedu.taskitty.commons.util.CollectionUtil;
 import seedu.taskitty.model.task.ReadOnlyTask;
 import seedu.taskitty.model.task.Task;
 
@@ -46,7 +47,7 @@ public class DeleteCommand extends Command {
     private StringBuilder duplicateIndexesProvidedMessageBuilder;
     
     public DeleteCommand(List<Pair<Integer, Integer>> listOfIndexes, String commandText) {
-        assert listOfIndexes != null;
+        assert listOfIndexes != null && !CollectionUtil.isAnyNull(listOfIndexes);
         this.listOfIndexes = listOfIndexes;
         this.hasInvalidIndex = false;
         this.hasDuplicateIndexesProvided = false;
@@ -73,6 +74,7 @@ public class DeleteCommand extends Command {
      * and duplicate indexes entered, and then sets the relevant boolean variables as true accordingly.
      */
     private void evaluatePresenceOfErrors() {
+        
         for (Pair<Integer, Integer> indexPair: listOfIndexes) {
             setRelevantIndexesAndList(indexPair);
             if (isInvalidIndex()) {
@@ -135,7 +137,7 @@ public class DeleteCommand extends Command {
         } else if (hasDuplicateIndexesProvided) {
             indicateAttemptToExecuteIncorrectCommand();
             errorMessage = Optional.of(duplicateIndexesProvidedMessageBuilder.toString().trim());
-        }  else {     
+        } else {     
             errorMessage = Optional.empty(); // no errors
         }
     }

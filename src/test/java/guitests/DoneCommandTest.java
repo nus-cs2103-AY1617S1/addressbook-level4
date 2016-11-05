@@ -48,13 +48,13 @@ public class DoneCommandTest extends TaskManagerGuiTest {
     }
     
     @Test 
-    public void doneContinous() {
+    public void doneRange() {
         
         TestTaskList currentList = new TestTaskList(td.getTypicalTasks());
         
         assertMarkAsDoneSuccess(1, 2, 'e', currentList);       
         
-      //invalid second index larger than first
+        //invalid second index larger than first
         commandBox.runCommand("done t3-1");
         assertResultMessage(String.format(MESSAGE_INVALID_COMMAND_FORMAT, 
                 Command.MESSAGE_FORMAT + DoneCommand.MESSAGE_PARAMETER));
@@ -169,6 +169,7 @@ public class DoneCommandTest extends TaskManagerGuiTest {
         assertResultMessage(resultMessage.substring(0, resultMessage.length() - 2));
     }
     
+    //@@author A0130853L
     private void assertTaskCardMarkedAsDone(TestTask markedTask) {
         // find task card of marked task
         TaskCardHandle markedCard = taskListPanel.navigateToTask(markedTask.getName().fullName, markedTask.getPeriod().getNumArgs());
