@@ -29,8 +29,8 @@ public class UpdateController implements Controller {
     
     private static final String MESSAGE_UPDATE_SUCCESS = "Item successfully updated!";
     private static final String STRING_WHITESPACE = "";
-    private static final String UPDATE_EVENT_TEMPLATE = "update \"%s\" [name \"%s\"] [from \"%s\" to \"%s\"]";
-    private static final String UPDATE_TASK_TEMPLATE = "update \"%s\" [name \"%s\"] [by \"%s\"]";
+    private static final String UPDATE_EVENT_TEMPLATE = "update %s [name \"%s\"] [from \"%s\" to \"%s\"]";
+    private static final String UPDATE_TASK_TEMPLATE = "update %s [name \"%s\"] [by \"%s\"]";
     private static final String START_TIME_FIELD = "<start time>";
     private static final String END_TIME_FIELD = "<end time>";
     private static final String DEADLINE_FIELD = "<deadline>";
