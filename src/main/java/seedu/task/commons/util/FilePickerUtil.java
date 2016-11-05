@@ -12,7 +12,7 @@ import seedu.task.commons.core.LogsCenter;
 
 // @@author A0147944U
 /**
- * A class for JFileChooser, a GUI to select a file.
+ * A class for FileChooser, a GUI to select a file.
  */
 public class FilePickerUtil {
 
