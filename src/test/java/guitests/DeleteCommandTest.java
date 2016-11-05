@@ -1,48 +1,56 @@
 package guitests;
 
+import java.util.List;
+
+import org.junit.Test;
+
+import w15c2.tusk.commons.core.Messages;
+import w15c2.tusk.logic.commands.taskcommands.DeleteTaskCommand;
+import w15c2.tusk.model.task.Task;
+import w15c2.tusk.testutil.TestUtil;
+
+import static org.junit.Assert.*;
+
 public class DeleteCommandTest extends TaskManagerGuiTest {
-//
-//    @Test
-//    public void delete() {
-//
-//        //delete the first in the list
-//        TestPerson[] currentList = td.getTypicalPersons();
-//        int targetIndex = 1;
-//        assertDeleteSuccess(targetIndex, currentList);
-//
-//        //delete the last in the list
-//        currentList = TestUtil.removePersonFromList(currentList, targetIndex);
-//        targetIndex = currentList.length;
-//        assertDeleteSuccess(targetIndex, currentList);
-//
-//        //delete from the middle of the list
-//        currentList = TestUtil.removePersonFromList(currentList, targetIndex);
-//        targetIndex = currentList.length/2;
-//        assertDeleteSuccess(targetIndex, currentList);
-//
-//        //invalid index
-//        commandBox.runCommand("delete " + currentList.length + 1);
-//        assertResultMessage("The person index provided is invalid");
-//
-//    }
-//
-//    /**
-//     * Runs the delete command to delete the person at specified index and confirms the result is correct.
-//     * @param targetIndexOneIndexed e.g. to delete the first person in the list, 1 should be given as the target index.
-//     * @param currentList A copy of the current list of persons (before deletion).
-//     */
-//    private void assertDeleteSuccess(int targetIndexOneIndexed, final TestPerson[] currentList) {
-//        TestPerson personToDelete = currentList[targetIndexOneIndexed-1]; //-1 because array uses zero indexing
-//        TestPerson[] expectedRemainder = TestUtil.removePersonFromList(currentList, targetIndexOneIndexed);
-//
-//        commandBox.runCommand("delete " + targetIndexOneIndexed);
-//
-//        //confirm the list now contains all previous persons except the deleted person
-//        assertTrue(taskListPanel.isListMatching(expectedRemainder));
-//
-//        //confirm the result message is correct
-//        // TODO: Assert correct delete result
-//        //assertResultMessage(String.format(MESSAGE_DELETE_PERSON_SUCCESS, personToDelete));
-//    }
+
+    @Test
+    public void delete() {
+
+        //add one task
+        List<Task> currentTaskList = TestUtil.getInitialTasks().getInternalList();
+        int targetIndex = 1;
+        assertDeleteSuccess(targetIndex, currentTaskList);
+
+        //delete the last in the list
+        targetIndex = currentTaskList.size();
+        assertDeleteSuccess(targetIndex, currentTaskList);
+
+        //delete from the middle of the list
+        targetIndex = currentTaskList.size()/2;
+        assertDeleteSuccess(targetIndex, currentTaskList);
+
+        //invalid index
+        commandBox.runCommand("delete " + currentTaskList.size() + 1);
+        assertResultMessage(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
+
+    }
+
+    /**
+     * Runs the delete command to delete the task at specified index and confirms the result is correct.
+     * @param targetIndexOneIndexed e.g. to delete the first task in the list, 1 should be given as the target index.
+     * @param currentTaskList The current list of tasks
+     */
+    private void assertDeleteSuccess(int targetIndexOneIndexed, List<Task> currentTaskList) {
+        Task taskToDelete = currentTaskList.get(targetIndexOneIndexed-1); //-1 because array uses zero indexing
+        currentTaskList.remove(taskToDelete);
+        
+        commandBox.runCommand("delete " + targetIndexOneIndexed);
+
+        //confirm the list now contains all previous persons except the deleted person
+        assertTrue(taskListPanel.isListMatching(currentTaskList));
+
+        //confirm the result message is correct
+        assertResultMessage(String.format(DeleteTaskCommand.MESSAGE_DELETE_TASK_SUCCESS, taskToDelete));
+    }
 
 }

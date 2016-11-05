@@ -60,9 +60,18 @@ public class TestUtil {
     static {
         
         try {
-            initialTasks.add(new FloatingTask("get the milk"));
-            initialTasks.add(new FloatingTask("get shoes"));
-            initialTasks.add(new FloatingTask("go to work"));
+            initialTasks.add(new FloatingTask("Initial Test Task 1"));
+            initialTasks.add(new FloatingTask("Initial Test Task 2"));
+            initialTasks.add(new FloatingTask("Initial Test Task 3"));
+            initialTasks.add(new FloatingTask("Initial Test Task 4"));
+            initialTasks.add(new FloatingTask("Initial Test Task 5"));
+            initialTasks.add(new FloatingTask("Initial Test Task 6"));
+            initialTasks.add(new FloatingTask("Initial Test Task 7"));
+            initialTasks.add(new FloatingTask("Initial Test Task 8"));
+            initialTasks.add(new FloatingTask("Initial Test Task 9"));
+            initialTasks.add(new FloatingTask("Initial Test Task 10"));
+            initialTasks.add(new FloatingTask("Initial Test Task 11"));
+            initialTasks.add(new FloatingTask("Initial Test Task 12"));
         } catch (DuplicateItemException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
