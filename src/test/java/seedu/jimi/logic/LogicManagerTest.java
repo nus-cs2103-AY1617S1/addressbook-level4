@@ -132,7 +132,6 @@ public class LogicManagerTest {
         //Confirm the ui display elements should contain the right data
         assertEquals(expectedMessage, result.feedbackToUser);
         assertEquals(expectedShownList, model.getFilteredAgendaTaskList());
-
         //Confirm the state of data (saved and in-memory) is as expected
         assertEquals(expectedTaskBook, model.getTaskBook());
         assertEquals(expectedTaskBook, latestSavedTaskBook);
@@ -501,6 +500,7 @@ public class LogicManagerTest {
                 expectedList);
     }
     
+    @Test
     public void execute_delete_removesCorrectRange() throws Exception {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
@@ -509,15 +509,16 @@ public class LogicManagerTest {
         FloatingTask index2 = helper.generateFloatingTaskWithName("third");
         
         List<FloatingTask> threeFloatingTasks = helper.generateFloatingTaskList(index0, index1, index2);
-        List<FloatingTask> expectedList = helper.generateFloatingTaskList(index0);
+        String expectedMsg = String.format(DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS,
+                "1. " + threeFloatingTasks.get(0) + "\n" + "2. " + threeFloatingTasks.get(1));
+        List<FloatingTask> expectedList = helper.generateFloatingTaskList(index2);
         TaskBook expectedTB = helper.generateFloatingTaskBook(expectedList);
 
         helper.addToModel(model, threeFloatingTasks);
         
         // execute command and verify result     
         assertCommandBehavior("delete t1 to t2",
-                String.format(DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS, "1. " + threeFloatingTasks.get(1),
-                        "2. " + threeFloatingTasks.get(2)),
+                expectedMsg,
                 expectedTB,
                 expectedList);
     }
