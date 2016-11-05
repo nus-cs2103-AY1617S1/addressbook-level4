@@ -44,6 +44,7 @@ Aspects in charge of: Documentation, deliverables and deadlines
 	* Uncomplete Task
 	* Recurring Task weekly
 * Code written: [[functional code](https://github.com/CS2103AUG2016-T14-C4/main/blob/master/collated/main/A0153467Y.md)][[test code](https://github.com/CS2103AUG2016-T14-C4/main/blob/master/collated/test/A0153467Y.md)][[docs](https://github.com/CS2103AUG2016-T14-C4/main/blob/master/collated/docs/A0153467Y.md)]
+
 *Other major contributions:
     * Make diagrams in Developer Guide
     * Make mock-up picture of MESS UI
