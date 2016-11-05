@@ -2,12 +2,14 @@ package seedu.todo.controllers;
 
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Predicate;
 
 import com.joestelmach.natty.DateGroup;
 import com.joestelmach.natty.Parser;
@@ -24,7 +26,7 @@ import seedu.todo.models.TodoListDB;
 /**
  * Controller to find task/event by keyword
  * 
- * @@author Tiong YaoCong A0139922Y
+ * @@author A0093907W
  *
  */
 public class FindController implements Controller {
@@ -51,6 +53,16 @@ public class FindController implements Controller {
 
     @Override
     public void process(String input) throws ParseException {
-        return;
+        input = input.replaceFirst(COMMAND_WORD, "").trim();
+        
+        List<Predicate<Task>> taskPredicates = new ArrayList<Predicate<Task>>();
+        taskPredicates.add(Task.predByName(input));
+        List<Task> tasks = Task.where(taskPredicates);
+        
+        List<Predicate<Event>> eventPredicates = new ArrayList<Predicate<Event>>();
+        eventPredicates.add(Event.predByName(input));
+        List<Event> events = Event.where(eventPredicates);
+        
+        Renderer.renderSelected(TodoListDB.getInstance(), "Done!", tasks, events);
     }
 }
