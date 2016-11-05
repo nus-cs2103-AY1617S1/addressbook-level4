@@ -16,9 +16,6 @@ public class ClearCommand extends Command {
 	public static final String COMMAND_WORD = "clear";
 	public static final String MESSAGE_SUCCESS = "Task manager has been cleared!";
 
-	public ClearCommand() {
-	}
-
 	// @@author A0147335E-reused
 	@Override
 	public CommandResult execute(boolean isUndo) {

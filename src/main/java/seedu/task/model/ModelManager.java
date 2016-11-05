@@ -59,7 +59,7 @@ public class ModelManager extends ComponentManager implements Model {
         this(new TaskManager(), new UserPrefs());
     }
 
-    public ModelManager(ReadOnlyTaskManager initialData, UserPrefs userPrefs) {
+    public ModelManager(ReadOnlyTaskManager initialData) {
         taskManager = new TaskManager(initialData);
         filteredTasks = new FilteredList<>(taskManager.getTasks());
     }
