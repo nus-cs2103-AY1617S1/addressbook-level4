@@ -1,5 +1,5 @@
 .background {
-    -fx-background-color: derive(#1d1d1d, 20%);
+    -fx-background-color: black;
 }
 
 .label {
@@ -75,10 +75,12 @@
     -fx-background-color: -fx-focus-color;
 }
 
+/*@@author A0143641M */ 
 .split-pane:horizontal .split-pane-divider {
-    -fx-border-color: transparent #1d1d1d transparent #1d1d1d;
-    -fx-background-color: transparent, derive(#1d1d1d, 10%);
+    -fx-border-color: derive(#1d1d1d, 70%);
+    -fx-background-color: #FFF2CC;
 }
+/*@@author */
 
 .split-pane {
     -fx-border-radius: 1;
@@ -101,13 +103,13 @@
 }
 
 .list-cell:focused:selected .label {
-	-fx-text-fill: #32CD32;
+	-fx-text-fill: #00BFFF;
 	-fx-font-size: 30px;
 }
 
-#splitPane {
-	-fx-background-color: #F0FFFF;
-	-fx-border-color: black;
+#itemsPane {
+	-fx-background-color: #FFF2CC;
+	-fx-border-color: white;
 	-fx-border-width: 1px;
 }
 
@@ -130,15 +132,17 @@
 }
 
 .anchor-pane-with-border {
-     -fx-background-color: #F0FFFF;
-     -fx-border-color: derive(#1d1d1d, 10%);
-     -fx-border-top-width: 1px;
+     -fx-background-color: #FFF2CC;
+     -fx-border-color: derive(#1d1d1d, 100%);
+     -fx-border-width: 1px;
 }
 
+/*@@author A0143641M */
 .status-bar {
-    -fx-background-color: #F0FFFF;
+    -fx-background-color: derive(#FFF05F, 20%);
     -fx-text-fill: black;
 }
+/*@@author */
 
 .result-display {
     -fx-background-color: #ffffff;
@@ -164,14 +168,14 @@
 
 .grid-pane {
     -fx-background-color: derive(#1d1d1d, 30%);
-    -fx-border-color: derive(#1d1d1d, 30%);
+    -fx-border-color: #F1C232;
     -fx-border-width: 1px;
 }
 
 .grid-pane .anchor-pane {
     -fx-background-color: derive(#1d1d1d, 30%);
 }
-
+/*@@author A0143641M */
 .context-menu {
     -fx-background-color: derive(#009999, 80%);
 }
@@ -181,9 +185,11 @@
 }
 
 .menu-bar {
-    -fx-background-color: derive(#009999, 80%);
+    -fx-background-color: derive(#FFF2CC, 90%);
+    -fx-border-color: derive(#1d1d1d, 100%);
+    -fx-border-width: 1px;
 }
-
+/*@@author */
 .menu-bar .label {
     -fx-font-size: 14pt;
     -fx-font-family: "Segoe UI Light";
@@ -192,7 +198,7 @@
 }
 
 .menu .left-container {
-    -fx-background-color: black;
+    -fx-background-color: red;
 }
 
 /*
