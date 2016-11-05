@@ -25,6 +25,7 @@ import seedu.agendum.commons.events.ui.ExitAppRequestEvent;
 import seedu.agendum.logic.Logic;
 import seedu.agendum.model.UserPrefs;
 
+// @@author A0148031R
 /**
  * The Main Window. Provides the basic application layout containing a menu bar
  * and space where other JavaFX elements can be placed.
@@ -101,7 +102,6 @@ public class MainWindow extends UiPart {
         return mainWindow;
     }
 
-    // @@author A0148031R
     private void configure(String appTitle, String toDoListName, Config config, UserPrefs prefs, Logic logic) {
 
         this.logic = logic;
@@ -114,17 +114,8 @@ public class MainWindow extends UiPart {
         scene = new Scene(rootLayout);
         primaryStage.setScene(scene);
         primaryStage.setOnCloseRequest(e -> Platform.exit());
-        setAccelerators();
         configureEscape();
         configureHelpWindowToggle();
-
-    }
-
-    /**
-     * Set shortcut key for help menu item
-     */
-    private void setAccelerators() {
-        helpMenuItem.setAccelerator(new KeyCodeCombination(KeyCode.H, KeyCombination.CONTROL_DOWN));
     }
     
     /**
@@ -138,7 +129,7 @@ public class MainWindow extends UiPart {
             public void handle(KeyEvent evt) {
                 if (toggleHelpWindow.match(evt) && messagePlaceHolder.getChildren().size() == 0) {
                     openHelpWindow();
-                } else if (toggleHelpWindow.match(evt) && messagePlaceHolder.getChildren().size() != 0) {
+                } else if (toggleHelpWindow.match(evt) && messagePlaceHolder.getChildren().contains(helpWindow)) {
                     closeHelpWindow();
                 } else if(undo.match(evt)) {
                     logic.execute(UNDO_COMMAND);
@@ -170,6 +161,7 @@ public class MainWindow extends UiPart {
      * Loads the ui elements
      */
     public void fillInnerParts() {
+        logger.info("loading ui elements");
         upcomingTasksPanel = UpcomingTasksPanel.load(primaryStage, getUpcomingTasksPlaceHolder(),
                 logic.getFilteredTaskList(), new UpcomingTasksPanel());
         completedTasksPanel = CompletedTasksPanel.load(primaryStage, getCompletedTasksPlaceHolder(),
@@ -181,7 +173,7 @@ public class MainWindow extends UiPart {
         commandBox = CommandBox.load(primaryStage, getCommandBoxPlaceholder(), messagePlaceHolder, resultPopUp, logic);
     }
 
-    private AnchorPane getCommandBoxPlaceholder() {
+    public AnchorPane getCommandBoxPlaceholder() {
         return commandBoxPlaceholder;
     }
 
@@ -189,7 +181,7 @@ public class MainWindow extends UiPart {
         return messagePlaceHolder;
     }
 
-    private AnchorPane getStatusbarPlaceholder() {
+    public AnchorPane getStatusbarPlaceholder() {
         return statusbarPlaceholder;
     }
 
@@ -218,10 +210,11 @@ public class MainWindow extends UiPart {
 
     }
 
+    //@@author
     /**
      * Sets the default size based on user preferences.
      */
-    protected void setWindowDefaultSize(UserPrefs prefs) {
+    private void setWindowDefaultSize(UserPrefs prefs) {
         primaryStage.setHeight(prefs.getGuiSettings().getWindowHeight());
         primaryStage.setWidth(prefs.getGuiSettings().getWindowWidth());
 
@@ -229,6 +222,10 @@ public class MainWindow extends UiPart {
             primaryStage.setX(prefs.getGuiSettings().getWindowCoordinates().getX());
             primaryStage.setY(prefs.getGuiSettings().getWindowCoordinates().getY());
         }
+    }
+
+    private void setTitle(String appTitle) {
+        primaryStage.setTitle(appTitle);
     }
 
     /**
@@ -262,10 +259,6 @@ public class MainWindow extends UiPart {
         if(!rootLayout.getChildren().contains(splitPane)) {
             rootLayout.getChildren().add(rootLayout.getChildren().indexOf(statusbarPlaceholder), splitPane);
         }
-    }
-
-    private void setTitle(String appTitle) {
-        primaryStage.setTitle(appTitle);
     }
 
     public void hide() {

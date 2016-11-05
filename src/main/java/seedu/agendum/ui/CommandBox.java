@@ -3,6 +3,7 @@ package seedu.agendum.ui;
 import com.google.common.eventbus.Subscribe;
 
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.ContentDisplay;
@@ -22,6 +23,7 @@ import seedu.agendum.logic.commands.*;
 import seedu.agendum.logic.parser.EditDistanceCalculator;
 import seedu.agendum.commons.util.FxViewUtil;
 import seedu.agendum.commons.core.LogsCenter;
+import seedu.agendum.commons.core.Messages;
 
 import java.util.Optional;
 import java.util.logging.Logger;
@@ -34,8 +36,6 @@ public class CommandBox extends UiPart {
     private static final String HELP_COMMAND = "help";
     private static final String RESULT_FEEDBACK = "Result: ";
     private static final String ERROR = "error";
-    private static final String FIND_COMMAND_REMINDER_MESSAGE = "Showing search results now, press ESC to go back and"
-            + " view all tasks";
 
     private AnchorPane placeHolderPane;
     private AnchorPane commandPane;
@@ -69,9 +69,9 @@ public class CommandBox extends UiPart {
 
     private void addToPlaceholder() {
         SplitPane.setResizableWithParent(placeHolderPane, false);
-        placeHolderPane.getChildren().add(commandTextField);
         FxViewUtil.applyAnchorBoundaryParameters(commandPane, 0.0, 0.0, 0.0, 0.0);
         FxViewUtil.applyAnchorBoundaryParameters(commandTextField, 0.0, 0.0, 0.0, 0.0);
+        placeHolderPane.getChildren().add(commandTextField);
     }
 
     @Override
@@ -89,6 +89,10 @@ public class CommandBox extends UiPart {
         this.placeHolderPane = pane;
     }
 
+    /**
+     * Executes the command and saves this command to history if comamnd input
+     * is changed
+     */
     @FXML
     private void handleCommandInputChanged() {
         //Take a copy of the command text
@@ -96,7 +100,7 @@ public class CommandBox extends UiPart {
         String previousCommandTest = commandBoxHistory.getLastCommand();
         if(previousCommandTest.toLowerCase().trim().startsWith(FIND_COMMAND) && 
                 previousCommandTest.toLowerCase().trim().length() > FIND_COMMAND.length()) {
-            postMessage(FIND_COMMAND_REMINDER_MESSAGE);
+            postMessage(Messages.MESSAGE_ESCAPE_HELP_WINDOW);
         } else {
             raise(new CloseHelpWindowRequestEvent());
         }
@@ -120,10 +124,14 @@ public class CommandBox extends UiPart {
         Label label = new Label(message);
         label.setTextFill(Color.web("#ffffff"));
         label.setContentDisplay(ContentDisplay.CENTER);
+        label.setPadding(new Insets(0, 10, 0, 10));
         this.messagePlaceHolder.setAlignment(Pos.CENTER_LEFT);
         this.messagePlaceHolder.getChildren().add(label);
     }
 
+    /**
+     * Sets arrow key for scrolling through command history
+     */
     private void registerArrowKeyEventFilter() {
         commandTextField.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
             KeyCode keyCode = event.getCode();
@@ -141,6 +149,9 @@ public class CommandBox extends UiPart {
         });
     }
     
+    /**
+     * Sets tab key for autocomplete
+     */
     private void registerTabKeyEventFilter() {
         commandTextField.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
             KeyCode keyCode = event.getCode();

@@ -22,8 +22,10 @@ public class TaskCard extends UiPart {
     private static final String FXML = "TaskCard.fxml";
     private static final String OVERDUE_PREFIX = "Overdue\n";
     private static final String COMPLETED_PREFIX = "Completed on ";
-    private static final String NAME_COLOR = "#3a3d42";
-    private static final String TIME_COLOR = "#4172c1";
+    private static final String NAME_COLOR_DARK = "#3a3d42";
+    private static final String TIME_COLOR_DARK = "#4172c1";
+    private static final String NAME_COLOR_LIGHT = "#ffffff";
+    private static final String TIME_COLOR_LIGHT = "#fff59d";
     private static final String TASK_TIME_PATTERN = "HH:mm EEE, dd MMM";
     private static final String COMPLETED_TIME_PATTERN = "EEE, dd MMM";
     private static final String START_TIME_PREFIX = "from ";
@@ -56,22 +58,23 @@ public class TaskCard extends UiPart {
     @FXML
     public void initialize() {
 
+        Label time = new Label();
+        time.setId("time");
+
         if (task.isOverdue()) {
-            cardPane.setStyle("-fx-background-color: rgb(255, 169, 147)");
+            cardPane.setStyle("-fx-background-color: rgba(244, 67, 54, 0.8)");
+            name.setTextFill(Color.web(NAME_COLOR_LIGHT));
+            time.setTextFill(Color.web(TIME_COLOR_LIGHT));
+            id.setTextFill(Color.web(NAME_COLOR_LIGHT));
         } else if (task.isUpcoming()) {
-            cardPane.setStyle("-fx-background-color: rgb(255, 229, 86)");
+            cardPane.setStyle("-fx-background-color: rgba(255, 235, 59, 0.8)");
+            name.setTextFill(Color.web(NAME_COLOR_DARK));
+            time.setTextFill(Color.web(TIME_COLOR_DARK));
         } else {
             cardPane.setStyle("-fx-background-color: rgba(255,255,255,0.6)");
+            name.setTextFill(Color.web(NAME_COLOR_DARK));
+            time.setTextFill(Color.web(TIME_COLOR_DARK));
         }
-
-        name.setTextFill(Color.web(NAME_COLOR));
-        name.setText(task.getName().fullName);
-        id.setText(displayedIndex);
-
-        Label time = new Label();
-        time.setMaxHeight(Control.USE_COMPUTED_SIZE);
-        time.setTextFill(Color.web(TIME_COLOR));
-        time.setWrapText(true);
 
         StringBuilder timeDescription = new StringBuilder();
         timeDescription.append(formatTaskTime(task));
@@ -80,8 +83,12 @@ public class TaskCard extends UiPart {
             timeDescription.append(formatUpdatedTime(task));
         }
 
+        name.setText(task.getName().fullName);
+        id.setText(displayedIndex);
         time.setText(timeDescription.toString());
-
+        time.setMaxHeight(Control.USE_COMPUTED_SIZE);
+        time.setWrapText(true);
+        
         if (task.hasTime() || task.isCompleted()) {
             taskVbox.getChildren().add(time);
             taskVbox.setAlignment(Pos.CENTER_LEFT);

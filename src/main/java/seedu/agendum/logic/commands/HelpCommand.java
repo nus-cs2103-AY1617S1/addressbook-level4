@@ -4,6 +4,7 @@ package seedu.agendum.logic.commands;
 import seedu.agendum.commons.core.EventsCenter;
 import seedu.agendum.commons.events.ui.ShowHelpRequestEvent;
 
+//@@author A0148031R
 /**
  * Format full help instructions for every command for display.
  */
@@ -15,7 +16,6 @@ public class HelpCommand extends Command {
     public static final String COMMAND_DESCRIPTION = "view a summary of Agendum commands";
     public static final String MESSAGE_USAGE = COMMAND_WORD + "- "
             + COMMAND_DESCRIPTION;
-
     public static final String SHOWING_HELP_MESSAGE = "Opened help window.";
 
     @Override

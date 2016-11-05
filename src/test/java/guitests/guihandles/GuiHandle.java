@@ -19,14 +19,16 @@ public class GuiHandle {
     protected final GuiRobot guiRobot;
     protected final Stage primaryStage;
     protected final String stageTitle;
-
+    private static final String HELP_WINDOW_TITLE = "Help";
     private final Logger logger = LogsCenter.getLogger(this.getClass());
 
     public GuiHandle(GuiRobot guiRobot, Stage primaryStage, String stageTitle) {
         this.guiRobot = guiRobot;
         this.primaryStage = primaryStage;
         this.stageTitle = stageTitle;
-        focusOnSelf();
+        if(stageTitle == null || !stageTitle.equals(HELP_WINDOW_TITLE)) {
+            focusOnSelf();
+        }
     }
 
     public void focusOnWindow(String stageTitle) {
@@ -61,6 +63,10 @@ public class GuiHandle {
 
     public void pressEnter() {
         guiRobot.type(KeyCode.ENTER).sleep(500);
+    }
+    
+    public void pressEscape() {
+        guiRobot.type(KeyCode.ESCAPE).sleep(500);
     }
 
     protected String getTextFromLabel(String fieldId, Node parentNode) {

@@ -31,9 +31,11 @@ import java.util.logging.Logger;
  */
 public class StatusBarFooter extends UiPart {
     private static final Logger logger = LogsCenter.getLogger(StatusBarFooter.class);
+    private static final String NOT_UPDATED_STATUS = "Not updated yet in this session";
     private StatusBar syncStatus;
     private StatusBar saveLocationStatus;
     private Label timeStatus;
+    
 
     private GridPane mainPane;
 
@@ -59,7 +61,7 @@ public class StatusBarFooter extends UiPart {
     public void configure(String saveLocation) {
         addMainPane();
         addSyncStatus();
-        setSyncStatus("Not updated yet in this session");
+        setSyncStatus(NOT_UPDATED_STATUS);
         addSaveLocation();
         setSaveLocation(saveLocation);
         addTimeStatus();
@@ -128,24 +130,25 @@ public class StatusBarFooter extends UiPart {
         logger.info(LogsCenter.getEventHandlingLogMessage(event, "Setting save location to: " + saveLocation));
         setSaveLocation(saveLocation);
     }
-    //@@author
 }
 
-//@@author A0148031R
+// @@author A0148031R
 class DigitalClock extends Label {
+
+    private static final String DATE_TIME_PATTERN = "HH:mm, EEE d MMM yyyy";
+
     public DigitalClock() {
-      bindToTime();
+        bindToTime();
     }
-    
+
     private void bindToTime() {
-        Timeline timeline = new Timeline(
-                new KeyFrame(Duration.seconds(0),
-                        actionEvent -> {
-                            Calendar time = Calendar.getInstance();
-                            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm:ss, EEE d MMM yyyy");
-                            setText(simpleDateFormat.format(time.getTime()));
-                            setTextFill(Color.web("#ffffff"));
+        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(0), actionEvent -> {
+            Calendar time = Calendar.getInstance();
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat(DATE_TIME_PATTERN);
+            setText(simpleDateFormat.format(time.getTime()));
+            setTextFill(Color.web("#ffffff"));
         }), new KeyFrame(Duration.seconds(1)));
+
         timeline.setCycleCount(Animation.INDEFINITE);
         timeline.play();
     }

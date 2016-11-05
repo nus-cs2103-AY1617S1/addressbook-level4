@@ -18,11 +18,21 @@ public class HelpWindowHandle extends GuiHandle {
     }
 
     public boolean isWindowOpen() {
-        return getNode(HELP_WINDOW_ROOT_FIELD_ID) != null;
+        return getNode(HELP_WINDOW_ROOT_FIELD_ID) != null 
+                && getNode(HELP_WINDOW_ROOT_FIELD_ID).getParent() != null;
     }
 
+    public boolean isWindowClose() {
+        try {
+            getNode(HELP_WINDOW_ROOT_FIELD_ID);
+        } catch (IllegalStateException e) {
+            return true;
+        }
+        return false;
+    }
+    
     public void closeWindow() {
-        super.closeWindow();
+        super.pressEscape();
         guiRobot.sleep(500);
     }
 

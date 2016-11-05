@@ -11,5 +11,7 @@ public class Messages {
             "We don't understand your input. Try\n%1$s";
     public static final String MESSAGE_INVALID_TASK_DISPLAYED_INDEX = "Hey, the task id given is invalid";
     public static final String MESSAGE_TASKS_LISTED_OVERVIEW = "%1$d tasks listed/found!";
+    public static final String MESSAGE_ESCAPE_HELP_WINDOW = "Showing search results now, press ESC to go back and"
+            + " view all tasks";
 
 }

@@ -5,8 +5,6 @@ import seedu.agendum.commons.core.Messages;
 import seedu.agendum.testutil.TestTask;
 import seedu.agendum.testutil.TypicalTestTasks;
 
-import static org.junit.Assert.assertTrue;
-
 public class FindCommandTest extends ToDoListGuiTest {
 
     @Test
@@ -30,7 +28,30 @@ public class FindCommandTest extends ToDoListGuiTest {
         commandBox.runCommand("findgeorge");
         assertResultMessage(Messages.MESSAGE_UNKNOWN_COMMAND);
     }
+    
+    //@@author A0148031R
+    @Test
+    public void find_showMesssage() {
+        commandBox.runCommand("find Meier");
+        assertShowingMessage(Messages.MESSAGE_ESCAPE_HELP_WINDOW);
+        assertFindResult("find Meier", TypicalTestTasks.benson, TypicalTestTasks.daniel); 
+    }
+    
+    @Test
+    public void find_showMessage_fail() {
+        commandBox.runCommand("find2");
+        assertShowingMessage(null);
+    }
+    
+    @Test
+    public void find_backToAllTasks_WithEscape() {
+        assertFindResult("find Meier", TypicalTestTasks.benson, TypicalTestTasks.daniel);
+        assertShowingMessage(Messages.MESSAGE_ESCAPE_HELP_WINDOW);
+        mainGui.pressEscape();
+        assertAllPanelsMatch(td.getTypicalTasks());
+    }
 
+    //@@author
     private void assertFindResult(String command, TestTask... expectedHits ) {
         commandBox.runCommand(command);
         assertListSize(expectedHits.length);

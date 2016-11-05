@@ -21,6 +21,9 @@ public class UserPrefs {
     }
 
     //@@author A0148031R
+    /**
+     * Sets default window to be screen size
+     */
     public UserPrefs(){
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         this.setGuiSettings(screenSize.getWidth(), screenSize.getHeight(), 0, 0);

@@ -1,6 +1,6 @@
 /* @@author A0148031R */
 .all-pane {
-	-fx-background-color:  #FFA000;
+	-fx-background-color:  #4DB6AC;
 	-fx-background-radius: 10;
 }
 
@@ -29,7 +29,7 @@
 }
 
 .list-cell:filled:selected:focused, .list-cell:filled:selected {
-    -fx-background-color: #4DD0E1;
+    -fx-background-color: #3949AB;
     -fx-text-fill: red;
 }
 

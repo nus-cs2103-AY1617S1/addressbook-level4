@@ -44,6 +44,7 @@ public abstract class ToDoListGuiTest {
     protected FloatingTasksPanelHandle floatingTasksPanel;
     protected CompletedTasksPanelHandle completedTasksPanel;
     protected ResultDisplayHandle resultDisplay;
+    protected MessageDisplayHandle messageDisplay;
     protected CommandBoxHandle commandBox;
     private Stage stage;
 
@@ -66,6 +67,7 @@ public abstract class ToDoListGuiTest {
             floatingTasksPanel = mainGui.getDoItAnytimePanel();
             completedTasksPanel = mainGui.getCompletedTasksPanel();
             resultDisplay = mainGui.getResultDisplay();
+            messageDisplay = mainGui.getMessageDisplay();
             commandBox = mainGui.getCommandBox();
             this.stage = stage;
         });
@@ -123,13 +125,20 @@ public abstract class ToDoListGuiTest {
     }
     
     /**
+     * Asserts the message shown in the Message Display area is same as the given string.
+     */
+    protected void assertShowingMessage(String expected) {
+        assertEquals(expected, messageDisplay.getText());
+    }
+    
+    /**
      * expectedList is a sorted list of all tasks.
      * Asserts the task shown in each panel will match
      */
     protected void assertAllPanelsMatch(TestTask[] expectedList) {
-        TestTask[] expectedDoItSoonTasks = TestUtil.getDoItSoonTasks(expectedList);
-        TestTask[] expectedDoItAnytimeTasks = TestUtil.getDoItAnytimeTasks(expectedList);
-        TestTask[] expectedDoneTasks = TestUtil.getDoneTasks(expectedList);
+        TestTask[] expectedDoItSoonTasks = TestUtil.getUpcomingTasks(expectedList);
+        TestTask[] expectedDoItAnytimeTasks = TestUtil.getFloatingTasks(expectedList);
+        TestTask[] expectedDoneTasks = TestUtil.getCompletedTasks(expectedList);
         assertTrue(upcomingTasksPanel.isListMatching(expectedDoItSoonTasks));
         assertTrue(floatingTasksPanel.isListMatching(expectedDoItAnytimeTasks));
         assertTrue(completedTasksPanel.isListMatching(expectedDoneTasks));

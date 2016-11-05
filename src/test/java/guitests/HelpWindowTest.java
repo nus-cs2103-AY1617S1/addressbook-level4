@@ -1,7 +1,6 @@
 package guitests;
 
 import guitests.guihandles.HelpWindowHandle;
-import guitests.guihandles.MainGuiHandle;
 
 import org.junit.Test;
 
@@ -12,6 +11,10 @@ public class HelpWindowTest extends ToDoListGuiTest {
 
     @Test
     public void openHelpWindow() {
+        
+        assertHelpWindowOpen(mainMenu.openHelpWindowFromMenu());
+        
+        assertHelpWindowOpen(mainMenu.openHelpWindowUsingAccelerator());
 
         assertHelpWindowOpen(commandBox.runHelpCommand());
 
@@ -19,12 +22,17 @@ public class HelpWindowTest extends ToDoListGuiTest {
 
     @Test
     public void closeHelpWindow() {
+        commandBox.runHelpCommand();
         assertHelpWindowClose(mainMenu.closeHelpWindowUsingAccelerator());
     }
+    
+    @Test
+    public void toggleHelpWindow() {
+        assertHelpWindowClose(mainMenu.toggleHelpWindow());
+    }
 
-    private void assertHelpWindowClose(MainGuiHandle mainGuiHandle) {
-        commandBox.runHelpCommand();
-        assertTrue(mainGuiHandle.isWindowClose());
+    private void assertHelpWindowClose(HelpWindowHandle helpWindowHandle) {
+        assertTrue(helpWindowHandle.isWindowClose());
     }
     
     private void assertHelpWindowOpen(HelpWindowHandle helpWindowHandle) {
