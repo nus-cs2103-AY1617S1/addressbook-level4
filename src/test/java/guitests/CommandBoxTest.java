@@ -1,6 +1,8 @@
 package guitests;
 
 import org.junit.Test;
+
+import seedu.agendum.commons.exceptions.IllegalValueException;
 import seedu.agendum.testutil.TypicalTestTasks;
 
 import static org.junit.Assert.assertEquals;
@@ -9,8 +11,8 @@ import static org.junit.Assert.assertEquals;
 public class CommandBoxTest extends ToDoListGuiTest {
 
     @Test
-    public void commandBoxCommandSucceedsTextCleared() {
-        commandBox.runCommand(TypicalTestTasks.benson.getAddCommand());
+    public void commandBoxCommandSucceedsTextCleared() throws IllegalValueException {
+        commandBox.runCommand(TypicalTestTasks.BENSON.getAddCommand());
         assertEquals(commandBox.getCommandInput(), "");
     }
 

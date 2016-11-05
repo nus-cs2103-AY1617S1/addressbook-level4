@@ -15,7 +15,7 @@ public class UnaliasCommand extends Command {
     public static final String MESSAGE_SUCCESS = "Removed alias <%1$s>";
     public static final String MESSAGE_FAILURE_NO_ALIAS_KEY = 
             "The alias <%1$s> does not exist";
-    public static final Object MESSAGE_USAGE = COMMAND_WORD + " - "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + " - "
             + COMMAND_DESCRIPTION + "\n"
             + COMMAND_FORMAT + "\n"
             + "Example: " + COMMAND_WORD + " m\n"

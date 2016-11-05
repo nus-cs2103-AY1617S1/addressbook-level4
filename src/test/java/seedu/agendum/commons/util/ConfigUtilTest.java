@@ -77,7 +77,7 @@ public class ConfigUtilTest {
 
     private Optional<Config> read(String configFileInTestDataFolder) throws DataConversionException {
         String configFilePath = addToTestDataPathIfNotNull(configFileInTestDataFolder);
-        return new ConfigUtil().readConfig(configFilePath);
+        return ConfigUtil.readConfig(configFilePath);
     }
 
     @Test(expected = AssertionError.class)
@@ -95,7 +95,6 @@ public class ConfigUtilTest {
         Config original = getTypicalConfig();
 
         String configFilePath = testFolder.getRoot() + File.separator + "TempConfig.json";
-        ConfigUtil configStorage = new ConfigUtil();
 
         //Try writing when the file doesn't exist
         ConfigUtil.saveConfig(original, configFilePath);
@@ -112,7 +111,7 @@ public class ConfigUtilTest {
 
     private void save(Config config, String configFileInTestDataFolder) throws IOException {
         String configFilePath = addToTestDataPathIfNotNull(configFileInTestDataFolder);
-        new ConfigUtil().saveConfig(config, configFilePath);
+        ConfigUtil.saveConfig(config, configFilePath);
     }
 
     private String addToTestDataPathIfNotNull(String configFileInTestDataFolder) {

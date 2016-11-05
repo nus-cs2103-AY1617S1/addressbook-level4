@@ -17,7 +17,7 @@ public class AliasCommand extends Command {
     public static final String MESSAGE_FAILURE_UNAVAILABLE_ALIAS = "<%1$s> is a reserved command word";
     public static final String MESSAGE_FAILURE_NON_ORIGINAL_COMMAND =
             "We don't recognise <%1$s> as an Agendum Command";
-    public static final Object MESSAGE_USAGE = COMMAND_WORD + " - "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + " - "
             + COMMAND_DESCRIPTION + "\n"
             + COMMAND_FORMAT + "\n"
             + "Example: " + COMMAND_WORD + " mark m";

@@ -1,7 +1,7 @@
 package seedu.agendum.testutil;
 
 import java.time.LocalDateTime;
-import java.time.temporal.ChronoUnit;
+import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 
 import seedu.agendum.model.task.*;
@@ -12,7 +12,12 @@ import seedu.agendum.model.task.*;
 public class TestTask implements ReadOnlyTask, Comparable<TestTask> {
 
     private static final int UPCOMING_DAYS_THRESHOLD = 7;
-
+    
+    private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("MM/dd HH:mm");
+    private static final String DEADLINE_WORD = " by ";
+    private static final String EVENT_START_WORD = " from ";
+    private static final String EVENT_END_WORD = " to ";
+    
     private Name name;
     private boolean isCompleted;
     private LocalDateTime startDateTime;
@@ -20,9 +25,9 @@ public class TestTask implements ReadOnlyTask, Comparable<TestTask> {
     private LocalDateTime lastUpdatedTime;
 
     public TestTask() {
-        isCompleted = false;
-        startDateTime = null;
-        endDateTime = null;
+        this.isCompleted = false;
+        this.startDateTime = null;
+        this.endDateTime = null;
         setLastUpdatedTimeToNow();
     }
 
@@ -63,7 +68,7 @@ public class TestTask implements ReadOnlyTask, Comparable<TestTask> {
     }
 
     public void setLastUpdatedTimeToNow() {
-        this.lastUpdatedTime = LocalDateTime.now();
+        this.lastUpdatedTime = LocalDateTime.now().withNano(0);
     }
 
     public void setLastUpdatedTime(LocalDateTime updatedTime) {
@@ -81,8 +86,8 @@ public class TestTask implements ReadOnlyTask, Comparable<TestTask> {
     }
 
     public boolean isUpcoming() {
-        return  !isCompleted() && hasTime() && getTaskTime().isBefore(
-                LocalDateTime.now().plusDays(UPCOMING_DAYS_THRESHOLD));
+        return  !isCompleted() && hasTime() && !isOverdue() &&
+                getTaskTime().isBefore(LocalDateTime.now().plusDays(UPCOMING_DAYS_THRESHOLD));
     }
 
     @Override
@@ -135,7 +140,18 @@ public class TestTask implements ReadOnlyTask, Comparable<TestTask> {
     }
 
     public String getAddCommand() {
-        return "add " + this.getName().fullName + " ";
+        StringBuilder command = new StringBuilder();
+        command.append("add " + this.getName().fullName + " ");
+        if (isEvent()) {
+            command.append(EVENT_START_WORD);
+            command.append(startDateTime.format(FORMATTER));
+            command.append(EVENT_END_WORD);
+            command.append(endDateTime.format(FORMATTER));
+        } else if (hasDeadline()) {
+            command.append(DEADLINE_WORD);
+            command.append(endDateTime.format(FORMATTER));
+        }
+        return command.toString();
     }
 
     public int compareTo(TestTask other) {
@@ -144,9 +160,9 @@ public class TestTask implements ReadOnlyTask, Comparable<TestTask> {
             return comparedCompletionStatus;
         }
 
-        int comparedTime = compareTime(other);
-        if (comparedTime != 0) {
-            return comparedTime;
+        int comparedTaskTime = compareTaskTime(other);
+        if (!isCompleted() && comparedTaskTime != 0) {
+            return comparedTaskTime;
         }
 
         int comparedLastUpdatedTime = compareLastUpdatedTime(other);
@@ -161,7 +177,7 @@ public class TestTask implements ReadOnlyTask, Comparable<TestTask> {
         return Boolean.compare(this.isCompleted(), other.isCompleted());
     }
 
-    public int compareTime(TestTask other) {
+    public int compareTaskTime(TestTask other) {
         if (this.hasTime() && other.hasTime()) {
             return this.getTaskTime().compareTo(other.getTaskTime());
         } else if (this.hasTime()) {
@@ -174,11 +190,6 @@ public class TestTask implements ReadOnlyTask, Comparable<TestTask> {
     }
 
     public int compareLastUpdatedTime(TestTask other) {
-        // to fix erratic behavior for logic manager tests
-        long seconds = ChronoUnit.SECONDS.between(this.getLastUpdatedTime(), other.getLastUpdatedTime());
-        if (Math.abs(seconds) < 2) {
-            return 0;
-        }
         return other.getLastUpdatedTime().compareTo(this.getLastUpdatedTime());
     }
 

@@ -61,18 +61,23 @@ public class XmlAdaptedTask {
         final boolean markedAsCompleted = Boolean.valueOf(isCompleted);
 
         Task newTask = new Task(name);
-        newTask.setLastUpdatedTime(LocalDateTime.parse(this.lastUpdatedTime, formatter));
+        
+        if (lastUpdatedTime != null) {
+            newTask.setLastUpdatedTime(LocalDateTime.parse(lastUpdatedTime, formatter));
+        } else {
+            newTask.setLastUpdatedTimeToNow();
+        }
 
         if (markedAsCompleted) {
             newTask.markAsCompleted();
         }
 
         if (startDateTime != null) {
-            newTask.setStartDateTime(Optional.ofNullable(LocalDateTime.parse(this.startDateTime, formatter)));
+            newTask.setStartDateTime(Optional.ofNullable(LocalDateTime.parse(startDateTime, formatter)));
         }
 
         if (endDateTime != null) {
-            newTask.setEndDateTime(Optional.ofNullable(LocalDateTime.parse(this.endDateTime, formatter)));
+            newTask.setEndDateTime(Optional.ofNullable(LocalDateTime.parse(endDateTime, formatter)));
         }
 
         return newTask;

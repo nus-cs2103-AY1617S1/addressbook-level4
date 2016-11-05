@@ -38,7 +38,7 @@ public class StorageManagerTest {
     public TemporaryFolder testFolder = new TemporaryFolder();
 
     @Before
-    public void setup() {
+    public void setUp() {
         storageManager = new StorageManager(getTempFilePath("ab"), getTempFilePath("command"),
                 getTempFilePath("prefs"), TestUtil.createTempConfig());
     }
@@ -68,7 +68,7 @@ public class StorageManagerTest {
      * Verifies that StorageManager is properly wired to {@link JsonAliasTableStorage} class
      */
     @Test
-    public void commandLibraryReadSave() throws Exception {
+    public void aliasTableReadSave() throws Exception {
         Hashtable<String, String> testingTable = new Hashtable<String, String>();
         testingTable.put("a", "add");
         testingTable.put("d", "delete");

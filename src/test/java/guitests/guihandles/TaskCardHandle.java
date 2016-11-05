@@ -21,7 +21,7 @@ public class TaskCardHandle extends GuiHandle {
     private static final String COMPLETED_TIME_PATTERN = "EEE, dd MMM";
     private static final String OVERDUE_PREFIX = "Overdue\n";
     private static final String COMPLETED_PREFIX = "Completed on ";
-    private static final String START_TIME_PREFIX = " from ";
+    private static final String START_TIME_PREFIX = "from ";
     private static final String END_TIME_PREFIX = " to ";
     private static final String DEADLINE_PREFIX = "by ";
     private static final String EMPTY_PREFIX = "";
@@ -52,18 +52,19 @@ public class TaskCardHandle extends GuiHandle {
     public boolean isSameTask(ReadOnlyTask task) {
 
         String name = task.getName().fullName;
-        if(!task.hasTime()) {
+
+        if (!task.isCompleted() && !task.hasTime()) {
             return getName().equals(name);
         }
-        
+
         StringBuilder timeDescription = new StringBuilder();
         timeDescription.append(formatTaskTime(task));
+
         if (task.isCompleted()) {
             timeDescription.append(formatUpdatedTime(task));
-            return getName().equals(name) && getTime().equals(timeDescription);
-        } else {
-            return getName().equals(name) && getTime().equals(timeDescription);
         }
+        
+        return getName().equals(name) && getTime().equals(timeDescription.toString());
     }
 
     public String formatTime(String dateTimePattern, String prefix, Optional<LocalDateTime> dateTime) {
@@ -71,12 +72,12 @@ public class TaskCardHandle extends GuiHandle {
         StringBuilder sb = new StringBuilder();
         DateTimeFormatter format = DateTimeFormatter.ofPattern(dateTimePattern);
         sb.append(prefix).append(dateTime.get().format(format));
-
+        
         return sb.toString();
     }
 
     public String formatTaskTime(ReadOnlyTask task) {
-
+        
         StringBuilder timeStringBuilder = new StringBuilder();
 
         if (task.isOverdue()) {
@@ -102,7 +103,7 @@ public class TaskCardHandle extends GuiHandle {
             timeStringBuilder.append("\n");
         }
         timeStringBuilder.append(COMPLETED_PREFIX);
-        timeStringBuilder.append(formatTime(COMPLETED_TIME_PATTERN, EMPTY_PREFIX, 
+        timeStringBuilder.append(formatTime(COMPLETED_TIME_PATTERN, EMPTY_PREFIX,
                 Optional.ofNullable(task.getLastUpdatedTime())));
         return timeStringBuilder.toString();
     }

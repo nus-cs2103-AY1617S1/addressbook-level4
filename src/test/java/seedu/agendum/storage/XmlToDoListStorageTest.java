@@ -65,14 +65,14 @@ public class XmlToDoListStorageTest {
         assertEquals(original, new ToDoList(readBack));
 
         //Modify data, overwrite exiting file, and read back
-        original.addTask(new Task(TypicalTestTasks.hoon));
-        original.removeTask(new Task(TypicalTestTasks.alice));
+        original.addTask(new Task(TypicalTestTasks.HOON));
+        original.removeTask(new Task(TypicalTestTasks.ALICE));
         xmlToDoListStorage.saveToDoList(original, filePath);
         readBack = xmlToDoListStorage.readToDoList(filePath).get();
         assertEquals(original, new ToDoList(readBack));
 
         //Save and read without specifying file path
-        original.addTask(new Task(TypicalTestTasks.ida));
+        original.addTask(new Task(TypicalTestTasks.IDA));
         xmlToDoListStorage.saveToDoList(original); //file path not specified
         readBack = xmlToDoListStorage.readToDoList().get(); //file path not specified
         assertEquals(original, new ToDoList(readBack));

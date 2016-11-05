@@ -3,6 +3,7 @@ package seedu.agendum.commons.core;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 public class VersionTest {
@@ -124,7 +125,22 @@ public class VersionTest {
         another = new  Version(100, 191, 275, true);
         assertTrue(one.equals(another));
     }
+    
+    //@@author A0148095X
+    @Test
+    public void versionComparableNotEqual() {
+        Version original = new Version(0, 0, 0, false);
 
+        // null
+        Object nullObj = null;
+        assertFalse(original.equals(nullObj));
+        
+        // Different object
+        Object obj = new Object();
+        assertFalse(original.equals(obj));
+    }
+    //@@author
+    
     private void verifyVersionParsedCorrectly(String versionString,
                                               int major, int minor, int patch, boolean isEarlyAccess) {
         assertEquals(new Version(major, minor, patch, isEarlyAccess), Version.fromString(versionString));

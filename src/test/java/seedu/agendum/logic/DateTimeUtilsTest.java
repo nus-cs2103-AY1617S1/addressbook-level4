@@ -7,6 +7,7 @@ import java.time.LocalDateTime;
 import java.util.Optional;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 
 //@@author A0003878Y
 public class DateTimeUtilsTest {
@@ -61,5 +62,24 @@ public class DateTimeUtilsTest {
         end = DateTimeUtils.balanceStartAndEndDateTime(start, end);
         assertSameDateAndTime(end, start.plusHours(1));
     }
+    
+    //@@author A0148095X
+    @Test
+    public void parseNaturalLanguageDateTimeString_emptyInput_emptyOptional() { 
+        Optional<LocalDateTime> parsed = DateTimeUtils.parseNaturalLanguageDateTimeString("");
+        assertFalse(parsed.isPresent());
+    }
+
+    @Test
+    public void parseNaturalLanguageDateTimeString_nullInput_emptyOptional() { 
+        Optional<LocalDateTime> parsed = DateTimeUtils.parseNaturalLanguageDateTimeString(null);
+        assertFalse(parsed.isPresent());
+    }
+
+    @Test
+    public void parseNaturalLanguageDateTimeString_inputNoGroups_emptyOptional() { 
+        Optional<LocalDateTime> parsed = DateTimeUtils.parseNaturalLanguageDateTimeString("asd");
+        assertFalse(parsed.isPresent());
+    }    
 
 }

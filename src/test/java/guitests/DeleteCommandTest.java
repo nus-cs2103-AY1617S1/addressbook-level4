@@ -1,22 +1,21 @@
 package guitests;
 
+import java.util.ArrayList;
+
 import org.junit.Test;
 
+import seedu.agendum.commons.core.Messages;
+import seedu.agendum.commons.exceptions.IllegalValueException;
 import seedu.agendum.logic.commands.CommandResult;
 import seedu.agendum.logic.commands.DeleteCommand;
 import seedu.agendum.model.task.ReadOnlyTask;
-import seedu.agendum.commons.core.Messages;
 import seedu.agendum.testutil.TestTask;
 import seedu.agendum.testutil.TestUtil;
-
-import static org.junit.Assert.assertTrue;
-
-import java.util.ArrayList;
 
 public class DeleteCommandTest extends ToDoListGuiTest {
 
     @Test
-    public void delete() {
+    public void delete() throws IllegalValueException {
 
         //delete the first in the list
         TestTask[] currentList = td.getTypicalTasks();

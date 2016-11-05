@@ -35,15 +35,13 @@ public class Parser {
 
     private static final Pattern RENAME_ARGS_FORMAT = Pattern.compile("(?<targetIndex>\\d+)\\s+(?<name>.+)");
 
-    //@@author A0003878Y
-    private static final Pattern ADD_ARGS_FORMAT = Pattern.compile("(?:.+?(?=(?:(?:by|from|to)\\s|$)))+?");
-
-    private static final Pattern SCHEDULE_ARGS_FORMAT = Pattern.compile("(?:.+?(?=(?:(?:by|from|to)\\s|$)))+?");
-
     private static final Pattern ALIAS_ARGS_FORMAT = Pattern.compile(
             "(?<commandword>[\\p{Alnum}]+)\\s+(?<shorthand>[\\p{Alnum}]+)");
 
     private static final Pattern UNALIAS_ARGS_FORMAT = Pattern.compile("(?<shorthand>[\\p{Alnum}]+)");
+
+    //@@author A0003878Y
+    private static final Pattern ADD_SCHEDULE_ARGS_FORMAT = Pattern.compile("(?:.+?(?=(?:(?:(?i)by|from|to)\\s|$)))+?");
 
     private static final String ARGS_FROM = "from";
     private static final String ARGS_BY = "by";
@@ -143,7 +141,7 @@ public class Parser {
      * @return the prepared command
      */
     private Command prepareAdd(String args) {
-        Matcher matcher = ADD_ARGS_FORMAT.matcher(args.trim());
+        Matcher matcher = ADD_SCHEDULE_ARGS_FORMAT.matcher(args.trim());
         if (!matcher.matches()) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
@@ -190,7 +188,7 @@ public class Parser {
      * @return the prepared command
      */
     private Command prepareSchedule(String args) {
-        Matcher matcher = ADD_ARGS_FORMAT.matcher(args.trim());
+        Matcher matcher = ADD_SCHEDULE_ARGS_FORMAT.matcher(args.trim());
         if (!matcher.matches()) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     ScheduleCommand.MESSAGE_USAGE));

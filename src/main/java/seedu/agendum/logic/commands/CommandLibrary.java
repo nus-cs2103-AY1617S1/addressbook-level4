@@ -119,5 +119,9 @@ public class CommandLibrary {
         EventsCenter eventCenter = EventsCenter.getInstance();
         eventCenter.post(new AliasTableChangedEvent(keyChanged, aliasTable));
     }
+    
+    public Hashtable<String, String> getAliasTable() {
+        return aliasTable;
+    }
 
 }

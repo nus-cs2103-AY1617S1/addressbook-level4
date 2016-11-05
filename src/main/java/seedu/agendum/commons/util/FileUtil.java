@@ -31,7 +31,6 @@ public class FileUtil {
      * @return true if the path is exists and user has sufficient privileges.
      */
     public static boolean isPathAvailable(String path) {
-        assert StringUtil.isValidPathToFile(path);
         
         File file = new File(path);
         boolean exists = file.exists();
@@ -40,7 +39,6 @@ public class FileUtil {
             createParentDirsOfFile(file);
             file.createNewFile();
         } catch (IOException e) {
-            e.printStackTrace();
             return false;
         }
         

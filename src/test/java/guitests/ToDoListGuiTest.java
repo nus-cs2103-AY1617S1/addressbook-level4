@@ -59,7 +59,7 @@ public abstract class ToDoListGuiTest {
     }
 
     @Before
-    public void setup() throws Exception {
+    public void setUp() throws Exception {
         FxToolkit.setupStage((stage) -> {
             mainGui = new MainGuiHandle(new GuiRobot(), stage);
             mainMenu = mainGui.getMainMenu();
@@ -136,6 +136,7 @@ public abstract class ToDoListGuiTest {
      * Asserts the task shown in each panel will match
      */
     protected void assertAllPanelsMatch(TestTask[] expectedList) {
+        TestUtil.sortTasks(expectedList);
         TestTask[] expectedDoItSoonTasks = TestUtil.getUpcomingTasks(expectedList);
         TestTask[] expectedDoItAnytimeTasks = TestUtil.getFloatingTasks(expectedList);
         TestTask[] expectedDoneTasks = TestUtil.getCompletedTasks(expectedList);

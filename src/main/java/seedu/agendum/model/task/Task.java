@@ -85,13 +85,14 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
 
     @Override
     public boolean isUpcoming() {
-        return !isCompleted() && hasTime() && getTaskTime().isBefore(
-                LocalDateTime.now().plusDays(UPCOMING_DAYS_THRESHOLD));
+        return !isCompleted() && hasTime() && !isOverdue()
+                && getTaskTime().isBefore(LocalDateTime.now().plusDays(UPCOMING_DAYS_THRESHOLD));
     }
 
     @Override
     public boolean isOverdue() {
-        return !isCompleted() && hasTime() && getTaskTime().isBefore(LocalDateTime.now());
+        return !isCompleted() && hasTime() 
+                && getTaskTime().isBefore(LocalDateTime.now());
     }
 
     @Override

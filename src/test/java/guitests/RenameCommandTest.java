@@ -2,26 +2,22 @@ package guitests;
 
 import org.junit.Test;
 
-import seedu.agendum.logic.commands.RenameCommand;
-import seedu.agendum.model.task.Name;
 import seedu.agendum.commons.core.Messages;
 import seedu.agendum.commons.exceptions.IllegalValueException;
+import seedu.agendum.logic.commands.RenameCommand;
+import seedu.agendum.model.task.Name;
 import seedu.agendum.testutil.TestTask;
 import seedu.agendum.testutil.TestUtil;
-
-import static org.junit.Assert.assertTrue;
 
 public class RenameCommandTest extends ToDoListGuiTest {
 
     @Test
-    public void rename() {
+    public void rename() throws IllegalValueException {
 
         //rename the first in the list
         TestTask[] currentList = td.getTypicalTasks();
         int targetIndex = 1;
         assertRenameSuccess(targetIndex, currentList);
-        
-        //Task in the original currentList are not renamed (only the copy is tested)
 
         //rename the last in the list
         targetIndex = currentList.length;
@@ -44,9 +40,9 @@ public class RenameCommandTest extends ToDoListGuiTest {
     /**
      * Runs the rename command to rename the task at specified index and confirms the result is correct.
      * @param targetIndexOneIndexed e.g. to rename the first task in the list, 1 should be given as the target index.
-     * @param currentList A copy of the current list of tasks (before renaming).
+     * @param currentList - list of tasks (before renaming).
      */
-    private void assertRenameSuccess(int targetIndexOneIndexed, final TestTask[] currentList) {
+    private void assertRenameSuccess(int targetIndexOneIndexed, TestTask[] currentList) {
         TestTask taskToRename = currentList[targetIndexOneIndexed - 1]; //-1 because array uses zero indexing
         String newTaskName = taskToRename.getName().toString() + " renamed";
 

@@ -1,6 +1,7 @@
 package seedu.agendum.testutil;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 import seedu.agendum.commons.exceptions.IllegalValueException;
 import seedu.agendum.model.task.*;
@@ -38,6 +39,18 @@ public class TaskBuilder {
 
     public TaskBuilder withUncompletedStatus() {
         this.task.markAsUncompleted();
+        this.task.setLastUpdatedTime(fixedTime);
+        return this;
+    }
+
+    public TaskBuilder withStartTime(LocalDateTime startTime) {
+        this.task.setStartDateTime(Optional.ofNullable(startTime));
+        this.task.setLastUpdatedTime(fixedTime);
+        return this;
+    }
+
+    public TaskBuilder withEndTime(LocalDateTime endTime) {
+        this.task.setEndDateTime(Optional.ofNullable(endTime));
         this.task.setLastUpdatedTime(fixedTime);
         return this;
     }
