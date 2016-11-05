@@ -9,36 +9,6 @@
     -fx-opacity: 0.9;
 }
 
-.label-date {
-    -fx-font-size: 11pt;
-    -fx-font-family: "Segoe UI Semibold";
-    -fx-opacity: 0.9;
-    -fx-text-fill: white;
-    -fx-padding: 0 0 0 1;
-}
-
-
-.label-bright {
-    -fx-font-size: 11pt;
-    -fx-font-family: "Segoe UI Semibold";
-    -fx-text-fill: white;
-    -fx-opacity: 1;
-}
-
-.label-tooltip {
-    -fx-font-size: 13pt;
-    -fx-font-family: "Segoe UI Semibold";
-    -fx-text-fill: black;
-    -fx-opacity: 1;
-}
-
-.label-description {
-    -fx-font-size: 11pt;
-    -fx-font-family: "Segoe UI Semibold";
-    -fx-text-fill: #999999;
-    -fx-opacity: 0.8;
-}
-
 .label-header {
     -fx-font-size: 32pt;
     -fx-font-family: "Segoe UI Light";
@@ -46,57 +16,24 @@
     -fx-opacity: 1;
 }
 
-.text-field {
-    -fx-font-size: 12pt;
-    -fx-font-family: "Segoe UI Semibold";
-}
-
-.tab-pane {
-    -fx-padding: 0 0 0 1;
-}
-
-.tab-pane .tab-header-area {
-    -fx-padding: 0 0 0 0;
-    -fx-min-height: 0;
-    -fx-max-height: 0;
-}
-
-.table-view {
-    -fx-base: #1d1d1d;
-    -fx-control-inner-background: #1d1d1d;
-    -fx-background-color: #1d1d1d;
-    -fx-table-cell-border-color: transparent;
-    -fx-table-header-border-color: transparent;
-    -fx-padding: 5;
-}
-
 /* @@author A0139930B */
-.table-view .column-header-background {
-    -fx-background-color: transparent;
+.text-field {
+    -fx-font-size: 13pt;
+    -fx-font-family: "Helvetica";
 }
 
-.table-view .column-header, .table-view .filler {
-    -fx-size: 35;
-    -fx-border-width: 0 0 1 0;
-    -fx-background-color: transparent;
-    -fx-border-color:
-        transparent
-        transparent
-        derive(-fx-base, 80%)
-        transparent;
-    -fx-border-insets: 0 10 1 0;
-}
-
-.table-view .column-header .label {
-    -fx-font-size: 20pt;
-    -fx-font-family: "Segoe UI Light";
-    -fx-text-fill: white;
-    -fx-alignment: center-left;
+.label-tooltip {
+    -fx-font-size: 13pt;
+    -fx-font-family: "Helvetica";
+    -fx-text-fill: black;
     -fx-opacity: 1;
 }
 
-.table-view:focused .table-row-cell:filled:focused:selected {
-    -fx-background-color: -fx-focus-color;
+.label-description {
+    -fx-font-size: 11pt;
+    -fx-font-family: "Helvetica";
+    -fx-text-fill: #999999;
+    -fx-opacity: 0.8;
 }
 
 .split-pane .split-pane-divider {
@@ -127,6 +64,37 @@
     -fx-padding: 1 0 0 0;
 }
 
+.cell_big_label {
+    -fx-font-size: 20px;
+    -fx-text-fill: #010504;
+    -fx-font-family: "Helvetica";
+}
+
+.cell_small_label {
+    -fx-font-size: 16px;
+    -fx-text-fill: #010504;
+    -fx-font-family: "Helvetica";
+}
+
+.cell_tag_label {
+    -fx-font-size: 14px;
+    -fx-font-family: "Helvetica";
+}
+
+.result-display {
+    -fx-background-color: #ffffff;
+    -fx-border-radius: 10 10 10 10;
+      -fx-background-radius: 10 10 10 10;
+}
+
+.error {
+    -fx-background-color: #d9534f;
+}
+
+.done {
+	-fx-background-color: grey;
+	
+}
 /* @@author */
 .label-done {
     -fx-text-fill: #ff0000;
@@ -142,47 +110,6 @@
     -fx-text-fill: #FFFFFF;
 }
 
-.cell_id_label {
-    -fx-font-size: 20px;
-    -fx-text-fill: #010504;
-    -fx-font-family: "Helvetica";
-}
-
-.cell_name_label {
-    -fx-font-size: 20px;
-    -fx-text-fill: #010504;
-    -fx-font-family: "Helvetica";
-}
-
-.cell_time_label {
-    -fx-font-size: 20px;
-    -fx-text-fill: #010504;
-    -fx-font-family: "Helvetica";
-}
-
-.cell_date_label {
-    -fx-font-size: 16px;
-    -fx-text-fill: #010504;
-    -fx-font-family: "Helvetica";
-}
-
-.cell_big_label {
-    -fx-font-size: 20px;
-    -fx-text-fill: #010504;
-    -fx-font-family: "Helvetica";
-}
-
-.cell_tag_label {
-    -fx-font-size: 14px;
-    -fx-font-family: "Helvetica";
-}
-
-.cell_small_label {
-    -fx-font-size: 16px;
-    -fx-text-fill: #010504;
-    -fx-font-family: "Helvetica";
-}
-
 .anchor-pane {
      -fx-background-color: derive(#1d1d1d, 40%);
 }
@@ -192,14 +119,6 @@
     -fx-text-fill: black;
 }
 
-/* @@author A0139930B */
-.result-display {
-    -fx-background-color: #ffffff;
-    -fx-border-radius: 10 10 10 10;
-      -fx-background-radius: 10 10 10 10;
-}
-
-/* @@author */
 .status-bar .label {
     -fx-text-fill: white;
 }
