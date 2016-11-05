@@ -4,17 +4,18 @@ import java.util.Map;
 import java.util.Set;
 
 import seedu.address.commons.events.BaseEvent;
+import seedu.address.commons.util.Types;
 
 /**
  * Represents a change in the Filter Panel
  */
 public class FilterPanelChangedEvent extends BaseEvent {
 
-    private final Set<String> types;
-    private final Map<String, String> qualifications;
+    private final Set<Types> types;
+    private final Map<Types, String> qualifications;
     private final Set<String> tags;
 
-    public FilterPanelChangedEvent(Set<String> types, Map<String, String> qualifications, Set<String> tags){
+    public FilterPanelChangedEvent(Set<Types> types, Map<Types, String> qualifications, Set<String> tags){
         this.types = types;
         this.qualifications = qualifications;
         this.tags = tags;
@@ -25,11 +26,11 @@ public class FilterPanelChangedEvent extends BaseEvent {
         return this.getClass().getSimpleName();
     }
 
-    public Set<String> getTypes() {
+    public Set<Types> getTypes() {
         return types;
     }
     
-    public Map<String, String> getQualifications() {
+    public Map<Types, String> getQualifications() {
         return qualifications;
     }
     

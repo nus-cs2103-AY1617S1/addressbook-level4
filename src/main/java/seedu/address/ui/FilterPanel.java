@@ -23,7 +23,7 @@ import seedu.address.commons.events.ui.FilterPanelChangedEvent;
 import seedu.address.commons.events.ui.JumpToFilterPanelEvent;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.FxViewUtil;
-import seedu.address.commons.util.TypesUtil;
+import seedu.address.commons.util.Types;
 import seedu.address.model.task.Deadline;
 import seedu.address.model.task.EventDate;
 import seedu.address.model.task.Recurring;
@@ -116,34 +116,36 @@ public class FilterPanel extends UiPart {
 
     @Subscribe
     private void handleJumpFilterPanelEvent(JumpToFilterPanelEvent event) {
-        String qualification = event.getQualification();
+        Types qualification = event.getQualification();
         switch (qualification) {
-        case TypesUtil.DEADLINE:
+        case DEADLINE:
             deadlineTextField.requestFocus();
             return;
-        case TypesUtil.START_DATE:
+        case START_DATE:
             startDateTextField.requestFocus();
             return;
-        case TypesUtil.END_DATE:
+        case END_DATE:
             endDateTextField.requestFocus();
             return;
-        case TypesUtil.RECURRING:
+        case RECURRING:
             recurringTextField.requestFocus();
             return;
-        case TypesUtil.PRIORITY:
+        case PRIORITY_LEVEL:
             priorityChoiceBox.requestFocus();
             priorityChoiceBox.show();
             return;
-        case TypesUtil.TAG:
+        case TAG:
             tagsTextField.requestFocus();
             return;
+        default:
+            break;
         }
     }
 
     @FXML
     private void handleFilterChanged() {
-        Set<String> types = handleTypesChanged();
-        Map<String, String> qualifications;
+        Set<Types> types = handleTypesChanged();
+        Map<Types, String> qualifications;
         try {
             qualifications = handleQualificationsChanged();
         } catch (IllegalValueException e) {
@@ -159,51 +161,51 @@ public class FilterPanel extends UiPart {
         raise(new FilterPanelChangedEvent(types, qualifications, tagSet));
     }
 
-    private Set<String> handleTypesChanged() {
-        Set<String> types = new HashSet<>();
+    private Set<Types> handleTypesChanged() {
+        Set<Types> types = new HashSet<>();
         if (eventsToggleButton.isSelected()) {
-            types.add(TypesUtil.EVENTS);
+            types.add(Types.EVENTS);
         }
         if (tasksToggleButton.isSelected()) {
-            types.add(TypesUtil.TASKS);
+            types.add(Types.TASKS);
         }
         if (doneToggleButton.isSelected()) {
-            types.add(TypesUtil.DONE);
+            types.add(Types.DONE);
         }
         if (undoneToggleButton.isSelected()) {
-            types.add(TypesUtil.UNDONE);
+            types.add(Types.UNDONE);
         }
         return types;
     }
 
-    private Map<String, String> handleQualificationsChanged() throws IllegalValueException {
-        HashMap<String, String> qualifications = new HashMap<>();
+    private Map<Types, String> handleQualificationsChanged() throws IllegalValueException {
+        HashMap<Types, String> qualifications = new HashMap<>();
         String deadline = deadlineTextField.getText().trim();
         if (!deadline.equals(EMPTY)) {
             if (deadline.equals(NIL)) {
-                qualifications.put(TypesUtil.DEADLINE, EMPTY);
+                qualifications.put(Types.DEADLINE, EMPTY);
             } else {
                 deadlineTextField.requestFocus();
                 deadline = Deadline.getValidDate(deadline);
-                qualifications.put(TypesUtil.DEADLINE, deadline);
+                qualifications.put(Types.DEADLINE, deadline);
             }
         }
         String startDate = startDateTextField.getText().trim();
         if (!startDate.equals(EMPTY)) {
             startDateTextField.requestFocus();
             startDate = EventDate.getValidDate(startDate);
-            qualifications.put(TypesUtil.START_DATE, startDate);
+            qualifications.put(Types.START_DATE, startDate);
         }
         String endDate = endDateTextField.getText().trim();
         if (!endDate.equals(EMPTY)) {
             endDateTextField.requestFocus();
             endDate = EventDate.getValidDate(endDate);
-            qualifications.put(TypesUtil.END_DATE, endDate);
+            qualifications.put(Types.END_DATE, endDate);
         }
         String recurring = recurringTextField.getText().trim();
         if (!recurring.equals(EMPTY)) {
             if (Recurring.isValidFrequency(recurring)) {
-                qualifications.put(TypesUtil.RECURRING, recurring);
+                qualifications.put(Types.RECURRING, recurring);
             } else {
                 recurringTextField.requestFocus();
                 throw new IllegalValueException(Recurring.MESSAGE_RECURRING_CONSTRAINTS);
@@ -211,7 +213,7 @@ public class FilterPanel extends UiPart {
         }
         String priority = priorityChoiceBox.getSelectionModel().getSelectedItem().toString();
         if (!priority.equals(EMPTY)) {
-            qualifications.put(TypesUtil.PRIORITY, priority);
+            qualifications.put(Types.PRIORITY_LEVEL, priority);
         }
         return qualifications;
     }

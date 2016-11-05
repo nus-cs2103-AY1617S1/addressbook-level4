@@ -6,7 +6,7 @@ import java.util.Optional;
 import java.util.Set;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.commons.util.TypesUtil;
+import seedu.address.commons.util.Types;
 import seedu.address.model.task.Deadline;
 import seedu.address.model.task.EventDate;
 import seedu.address.model.task.Priority;
@@ -44,30 +44,30 @@ public class FilterCommand extends Command {
 
     @Override
     public CommandResult execute() {
-        Map<String, String> filterQualifications = new HashMap<>();
+        Map<Types, String> filterQualifications = new HashMap<>();
         try {
             if (deadline.isPresent()) {
                 String deadlineString = Deadline.getValidDate(deadline.get());
-                filterQualifications.put(TypesUtil.DEADLINE, deadlineString);
+                filterQualifications.put(Types.DEADLINE, deadlineString);
             }
             if (startDate.isPresent()) {
                 String startDateString = EventDate.getValidDate(startDate.get());
-                filterQualifications.put(TypesUtil.START_DATE, startDateString);
+                filterQualifications.put(Types.START_DATE, startDateString);
             }
             if (endDate.isPresent()) {
                 String endDateString = EventDate.getValidDate(endDate.get());
-                filterQualifications.put(TypesUtil.END_DATE, endDateString);
+                filterQualifications.put(Types.END_DATE, endDateString);
             }
             if (recurring.isPresent()) {
                 if (Recurring.isValidFrequency(recurring.get())) {
-                    filterQualifications.put(TypesUtil.RECURRING, recurring.get());
+                    filterQualifications.put(Types.RECURRING, recurring.get());
                 } else {
                     throw new IllegalValueException(Recurring.MESSAGE_RECURRING_CONSTRAINTS);
                 }
             }
             if (priority.isPresent()) {
                 if (Priority.isValidPriorityLevel(Integer.parseInt(priority.get())))
-                    filterQualifications.put(TypesUtil.PRIORITY, priority.get());
+                    filterQualifications.put(Types.PRIORITY_LEVEL, priority.get());
                 else
                     throw new IllegalValueException(Priority.MESSAGE_INVALID_PRIORITY_LEVEL);
             }

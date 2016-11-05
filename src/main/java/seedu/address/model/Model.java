@@ -4,6 +4,7 @@ import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.commons.events.ui.FilterPanelChangedEvent;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.exceptions.StateLimitException;
+import seedu.address.commons.util.Types;
 import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.UniqueTaskList;
@@ -47,25 +48,25 @@ public interface Model {
     /**
      * Updates the filter of the filtered task list to filter by the given type
      */
-    void updateFilteredTaskList(String type);
+    void updateFilteredTaskList(Types type);
 
     /**
      * Updates the filter of the filtered task list to filter by the given
      * keywords of the given type
      */
-    void updateFilteredTaskList(String keyword, String type);
+    void updateFilteredTaskList(String keyword, Types type);
 
     /**
      * Updates the filter of the filtered task list to filter by multiple
      * qualifications
      */
-    void updateFilteredTaskList(Map<String, String> qualifications, Set<String> tags);
+    void updateFilteredTaskList(Map<Types, String> qualifications, Set<String> tags);
     
     /**
      * Updates the filter of the filtered task list to filter by multiple
      * types and qualifications
      */
-    void updateFilteredTaskList(Set<String> types, Map<String, String> qualifications, Set<String> tags);
+    void updateFilteredTaskList(Set<Types> types, Map<Types, String> qualifications, Set<String> tags);
 
     /**
      * Updates the filter of the filtered task list to filter by the the given
