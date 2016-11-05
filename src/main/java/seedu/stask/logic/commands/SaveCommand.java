@@ -38,6 +38,7 @@ public class SaveCommand extends Command {
     public static final String MESSAGE_FOLDER_CANNOT_BE_CREATED = "A new folder cannot be created with the given path.";
     public static final String MESSAGE_CONFIG_FILE_CANNOT_LOAD = "config.json file cannot be found.";
 	public static final String MESSAGE_LOCATION_SPECIFIED_SAME = "The current Data Storage is already in the given folder.";
+	public static final String MESSAGE_NO_PERMISSION_TO_SAVE = "No permission to save data in the specified path.";
 	public static final String MESSAGE_DATA_FILE_OVERWRITE = "The folder specified already contains task.xml\n"
 			+ "Please choose a different folder.";
 
@@ -57,23 +58,10 @@ public class SaveCommand extends Command {
 	@Override
 	public CommandResult execute() {
 		String dirPathArgs = dirPath.trim();
-		
-        String operatingSystem = System.getProperty("os.name");
-        if (operatingSystem.startsWith("Windows")) { // windows formatting
-        	dirPathArgs = dirPathArgs.replaceAll("\\\\", "\\\\\\\\");
-        	dirPathArgs = dirPathArgs.replaceAll("/", "\\\\\\\\");
-        	
-        	if (dirPathArgs.charAt(dirPathArgs.length()-1) != '\\') {
-        		dirPathArgs = dirPathArgs + "\\\\";
-        	}
-        } else { // unix formatting
-        	dirPathArgs = dirPathArgs.replaceAll("\\\\", "/");
-        	
-        	if (dirPathArgs.charAt(dirPathArgs.length()-1) != '/') {
-        		dirPathArgs = dirPathArgs + "/";
-        	}
-        }
-        
+    	dirPathArgs = dirPathArgs.replaceAll("\\\\", "/");
+    	if (dirPathArgs.charAt(dirPathArgs.length()-1) != '/') {
+    		dirPathArgs = dirPathArgs + "/";
+    	}
 		
 		File f = new File(dirPathArgs);
 		
@@ -104,9 +92,20 @@ public class SaveCommand extends Command {
 			if (newDataPath.exists()) {
 				return new CommandResult(MESSAGE_DATA_FILE_OVERWRITE);
 			}
+			
+			File tempDataPath = new File(dirPathArgs);
+			try {
+			    File.createTempFile("test", ".xml", tempDataPath).delete();
+			} catch (IOException e) {
+			    // Doesn't have permission
+				return new CommandResult(MESSAGE_NO_PERMISSION_TO_SAVE);
+			}
+
+
+			indicateStorageDataPathChangeCommand(filePath);
+			
 			changeConfigPaths(filePath);
 			
-			indicateStorageDataPathChangeCommand(newDataPath.toString());
 			
 		} catch (DataConversionException e) {
 			return new CommandResult(MESSAGE_CONFIG_FILE_CANNOT_LOAD);
