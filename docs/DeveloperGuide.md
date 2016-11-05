@@ -71,8 +71,8 @@ Component Name | Purpose | Interface | Implementation |
 -------- | :----------- | :----------- |:-----------
 [**`UI`**](#ui-component) | Handles the <i>Tusk</i> UI | [`Ui.java`](../src/main/java/w15c2/tusk/ui/Ui.java) | `UIManager.java`
 [**`Logic`**](#logic-component) | Executes commands from the UI | [`Logic.java`](../src/main/java/w15c2/tusk/logic/Logic.java) | `LogicManager.java`
-[**`Model`**](#model-component) | Holds all required data in-memory | [`InMemoryTaskList.java`](../src/main/java/w15c2/tusk/model/task/InMemoryTaskList.java) | `TaskManager.java`
-[**`Storage`**](#storage-component) | Reads data from, and writes data to, the hard disk. | [`TaskStorage.java`](../src/main/java/w15c2/tusk/storage/task/TaskStorage.java) | `TaskStorageManager.java`
+[**`Model`**](#model-component) | Holds all required data in-memory | [`Model.java`](../src/main/java/w15c2/tusk/model/Model.java) | [`ModelManager.java`](../src/main/java/w15c2/tusk/model/ModelManager.java)
+[**`Storage`**](#storage-component) | Reads data from, and writes data to, the hard disk. | [`TaskStorage.java`](../src/main/java/w15c2/tusk/storage/task/TaskStorage.java) <br> [`AliasStorage.java`](../src/main/java/w15c2/tusk/storage/task/TaskStorage.java) | [`StorageManager.java`](../src/main/java/w15c2/tusk/storage/StorageManager.java)
 
 ### Integrated Behavior
 
@@ -102,7 +102,7 @@ The sections below give more details of each component.
 **API** : [`Ui.java`](../src/main/java/w15c2/tusk/ui/Ui.java)
 
 The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `TaskListPanel`,
-`StatusBarFooter`, etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class
+`HelpPanel`, etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class
 and they can be loaded using the `UiPartLoader`.
 
 The `UI` component uses JavaFX UI framework. The layout of these UI parts are defined in matching `.fxml` files
@@ -122,7 +122,8 @@ The `UI` component,
 
 **API** : [`Logic.java`](../src/main/java/w15c2/tusk/logic/Logic.java)
 
-1. `Logic` uses the `TaskCommandsParser` class to parse the user command.
+1. `Logic` uses the `TaskCommandsParser` class calls the `ParserSelector` class to select the appropriate parser.
+2. After the appropriate parser is selected, the parser prepares the `Command` object.
 2. This results in a `Command` object which is executed by the `LogicManager`.
 3. The command execution can affect the `Model` (e.g. adding a task) and/or raise events.
 4. The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
@@ -136,7 +137,7 @@ Given below is the Sequence Diagram for interactions within the `Logic` componen
 
 <img src="images/ModelClassDiagram.png" width="800"><br>
 
-**API** : [`InMemoryTaskList.java`](../src/main/java/w15c2/tusk/model/task/InMemoryTaskList.java)
+**API** : [`Model.java`](../src/main/java/w15c2/tusk/model/Model.java)
 
 The `Model` component,
 * stores a `UserPref` object that represents the user's preferences.
@@ -150,7 +151,7 @@ The `Model` component,
 
 <img src="images/StorageClassDiagram.png" width="800"><br>
 
-**API** : [`TaskStorage.java`](../src/main/java/w15c2/tusk/storage/task/TaskStorage.java)
+**API** : [`Storage.java`](../src/main/java/w15c2/tusk/storage/Storage.java)
 
 The `Storage` component,
 * can save `UserPref` objects in json format and read it back.
@@ -188,6 +189,28 @@ and logging destinations.
 Certain properties of the application can be controlled (e.g App name, logging level) through the configuration file
 (default: `taskconfig.json`):
 
+### Autocomplete
+
+* `AutocompleteEngine` pulls data from `AutocompleteSource` to match the appropriate command words.
+* `AutocompleteResult` creates the iterator to allow for <kbd>TAB</kbd> to cycle through the matched commands.
+
+### Alias
+
+* Aliases are checked when a command is entered against a list of aliases in `Model`
+* If a match is found, the alias is replaced before the command is parsed as per normal.
+
+### Command History
+
+* Every command that is entered is added to a list in the `CommandHistory` class.
+* When <kbd>UP</kbd> is pressed, index pointer is reduced by one and previous command replaces text in the command box.
+* When <kbd>DOWN</kbd> is pressed, index pointer is increased by one and following command replaces text in the command box.
+
+### Undo
+* The `ModelHistory` class handles both the undo and redo commands
+* When an undo-able command is executed, a `UniqueItemCollection` of the previous state is saved.
+* An undo command will revert the state to before the command was executed by replacing the `UniqueItemCollection` in the `Model` class
+* Before the execution of an undo command, the current `UniqueItemCollection` is saved to support redo.
+
 <br>
 ## Testing
 
@@ -220,7 +243,7 @@ We have two types of tests:
       how the are connected together.<br>
       e.g. `w15c2.tusk.logic.LogicManagerTest`
 
-**Headless GUI Testing** :
+**Headless GUI Testing**:
 Thanks to the [TestFX](https://github.com/TestFX/TestFX) library we use,
  our GUI tests can be run in the _headless_ mode.
  In the headless mode, GUI tests do not show up on the screen.
