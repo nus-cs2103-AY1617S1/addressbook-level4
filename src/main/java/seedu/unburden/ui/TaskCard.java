@@ -55,7 +55,7 @@ public class TaskCard extends UiPart{
         }
         
         if(task.getDoneString().equals("Overdue!")){
-        	cardPane.setStyle("-fx-background-color : #efb6bf");
+        	cardPane.setStyle("-fx-background-color : #ef83ab");
         }
         
         taskD.setText(task.getTaskDescription().getFullTaskDescription());

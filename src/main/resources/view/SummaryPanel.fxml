@@ -6,6 +6,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.paint.LinearGradient?>
 <?import javafx.scene.paint.Stop?>
@@ -13,9 +14,9 @@
 
 <!--@@Gauri Joshi A0143095H  -->
 
-<AnchorPane fx:id="summary" maxWidth="350.0" prefHeight="325.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.unburden.ui.SummaryPanel">
+<AnchorPane fx:id="summary" maxWidth="350.0" prefHeight="373.0" prefWidth="323.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.unburden.ui.SummaryPanel">
    <children>
-      <GridPane layoutX="14.0" prefHeight="300.0" prefWidth="300.0" style="-fx-background-color: #fcfeff;">
+      <GridPane layoutX="12.0" layoutY="85.0" prefHeight="300.0" prefWidth="300.0" style="-fx-background-color: #fcfeff;">
         <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="160.0" minWidth="10.0" prefWidth="51.33331298828125" />
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="237.3333740234375" minWidth="10.0" prefWidth="206.66668701171875" />
@@ -118,5 +119,10 @@
             </ImageView>
          </children>
       </GridPane>
+      <HBox layoutX="5.0" layoutY="14.0" prefHeight="55.0" prefWidth="314.0">
+         <children>
+            <Label fx:id="todayDate" prefHeight="44.0" prefWidth="318.0" style="-fx-text-fill: #ffffff;" text="#TodayDate" />
+         </children>
+      </HBox>
    </children>
 </AnchorPane>

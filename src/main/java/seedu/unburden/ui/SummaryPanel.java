@@ -1,6 +1,7 @@
 package seedu.unburden.ui;
 
 import java.text.ParseException;
+import java.util.Calendar;
 
 import com.google.common.eventbus.Subscribe;
 
@@ -53,8 +54,11 @@ public class SummaryPanel extends UiPart{
     @FXML
     private Label undone;
     @FXML
+    private Label todayDate;
+    @FXML
     private AnchorPane placeHolderPane;    
 
+    private Calendar calendar = Calendar.getInstance();
 
     public SummaryPanel(){
 
@@ -86,6 +90,7 @@ public class SummaryPanel extends UiPart{
         done.setText(Integer.toString(ListOfTask.doneCounter));
         undone.setText(Integer.toString(ListOfTask.undoneCounter));
         overdue.setText(Integer.toString(ListOfTask.overdueCounter));
+        todayDate.setText("Today's Date : " + calendar.getTime());
        
     }
              
