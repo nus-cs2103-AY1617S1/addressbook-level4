@@ -21,10 +21,10 @@ import static seedu.address.logic.commands.DeleteCommand.MESSAGE_DELETE_ITEM_SUC
 import java.util.Collections;
 
 public class EditCommandTest extends DearJimGuiTest {
-/*    
+    
     //@@author A0139552B
     @Test
-    public void edit() throws IllegalValueException {    	
+    public void editCommand_editFields() throws IllegalValueException {    	
     	
         TestTask[] currentList = td.getTypicalUndoneTasks();
         assertUndoneListClearCommandSuccess();
@@ -64,12 +64,11 @@ public class EditCommandTest extends DearJimGuiTest {
         aliceTask.setStartDate(DateTime.convertStringToDate("1pm"));
         aliceTask.setRecurrence(new RecurrenceRate("3", "years"));
         aliceTask.setPriority(Priority.HIGH);        
-        assertTrue(personListPanel.isListMatching(aliceTask));
-        
+        assertTrue(personListPanel.isListMatching(aliceTask));       
     }
     
     @Test
-    public void editCheckReset() throws IllegalValueException{
+    public void editCommand_editResetFields() throws IllegalValueException{
         
         TestTask[] currentList = td.getTypicalUndoneTasks();
         assertUndoneListClearCommandSuccess();
@@ -90,9 +89,9 @@ public class EditCommandTest extends DearJimGuiTest {
         aliceTask.setStartDate(null);
         assertTrue(personListPanel.isListMatching(aliceTask));
     }
-*/    
+    
     @Test
-    public void editCheckInvalidRecurrence(){
+    public void editCommand_editInvalidRecurrence(){
         TestTask[] currentList = td.getTypicalUndoneTasks();
         commandBox.runCommand("edit " + 1 + " " + "repeat every day");
         assertResultMessage("For recurring tasks to be valid, "
@@ -100,21 +99,21 @@ public class EditCommandTest extends DearJimGuiTest {
     }
     
     @Test
-    public void editCheckInvalidEndDate(){
+    public void editCommand_editInvalidEndDate(){
         TestTask[] currentList = td.getTypicalUndoneTasks();
         commandBox.runCommand("edit 1 from 6 nov 1pm to 6 nov 11am");
         assertResultMessage("End date should be later than start date.");
     }
     
     @Test
-    public void editCheckInvalidFormat(){
+    public void editCommand_editInvalidFormat(){
         TestTask[] currentList = td.getTypicalUndoneTasks();
         commandBox.runCommand("edit " + 1);
         assertResultMessage(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));              
     }
 
     @Test
-    public void editCheckInvalidIndex(){
+    public void editCommand_editInvalidIndex(){
         TestTask[] currentList = td.getTypicalUndoneTasks();
         commandBox.runCommand("edit " + 10 + " " + "testing");
         assertResultMessage("The task index provided is invalid");       

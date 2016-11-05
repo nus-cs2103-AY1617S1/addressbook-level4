@@ -706,15 +706,11 @@ public class LogicManagerTest {
             cmd.append(" -").append("high");
             
             return cmd.toString();
-        } 
-        //TODO fix the add test to include additional parameters first
+        }
+        
         Task read() throws Exception {
             Name name = new Name("Read a lot of books");
-//            Date startDate = DateTime.convertStringToDate("11am");
-//            Date endDate = DateTime.convertStringToDate("3pm");
             Priority priority = Priority.HIGH;
-//            RecurrenceRate recurrenceRate = new RecurrenceRate("2","days");
-//            return new Task(name, startDate, endDate, recurrenceRate, priority);
             return new Task(name, priority);
         }
         
