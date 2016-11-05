@@ -335,13 +335,14 @@ public class Parser {
 		LocalDateTime day = null;
 		for (int i = 0; i < args.length; i++) {
 			//TODO: fit in parser for days properly
-			try {
-				day = DateParser.parse(args[i].trim() + " 00:00");
+			if(DateParser.containsDate(args[i] + " 00:00")) {
+				try {
+					day = DateParser.parse(args[i] + " 00:00");
+				} catch (ParseException e) {
+					return new IncorrectCommand(e.getMessage());
+				}
 				continue;
-			} catch (ParseException e) {
-				//continue check
 			}
-				
 			switch (args[i].trim()) {
 			case "event":
 			case "ev":
