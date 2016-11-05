@@ -6,8 +6,9 @@ import java.util.Set;
  * Finds and lists all tasks in address book whose name contains any of the argument keywords.
  * Keyword matching is case sensitive.
  */
+
+//@@author A0130677A
 public class FindCommand extends Command {
-	//@@author addressbook-level4
     public static final String COMMAND_WORD = "find";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all tasks whose name, date, address, tags and priority contain any of "
@@ -41,6 +42,8 @@ public class FindCommand extends Command {
     	return String.format(MESSAGE_IF_EXACT_PHRASE_NOT_FOUND);
     }
 
+
+    //@@author A0130677A
     @Override
     public CommandResult execute() {
     	System.out.println("command: " + cmd);

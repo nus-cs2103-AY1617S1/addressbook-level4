@@ -23,10 +23,10 @@ public class TestUtilParser {
 		System.out.println("From TestUtil Parser: " + changePrefix + " " + changeWithoutPrefix);
 		
 		switch(change.substring(0, 2)) {
-    	case "d/": newTask = new TestTask(task.getName(), new DueDate(parseDueDate(changeWithoutPrefix)), task.getAddress(), task.getPriority(), task.getTags()); break;
-    	case "a/": newTask = new TestTask(task.getName(), task.getDueDate(), new Address(changeWithoutPrefix), task.getPriority(), task.getTags()); break;
-    	case "p/": newTask = new TestTask(task.getName(), task.getDueDate(), task.getAddress(), new Priority(changeWithoutPrefix), task.getTags()); break;
-    	default: newTask = new TestTask(new Name(change), task.getDueDate(), task.getAddress(), task.getPriority(), task.getTags());
+    	case "d/": newTask = new TestTask(task.getName(), task.getStartDate(), new DueDate(parseDueDate(changeWithoutPrefix)), task.getAddress(), task.getPriority(), task.getTags()); break;
+    	case "a/": newTask = new TestTask(task.getName(), task.getStartDate(), task.getDueDate(), new Address(changeWithoutPrefix), task.getPriority(), task.getTags()); break;
+    	case "p/": newTask = new TestTask(task.getName(), task.getStartDate(), task.getDueDate(), task.getAddress(), new Priority(changeWithoutPrefix), task.getTags()); break;
+    	default: newTask = new TestTask(new Name(change), task.getStartDate(), task.getDueDate(), task.getAddress(), task.getPriority(), task.getTags());
 		}
 		return newTask;
 	}

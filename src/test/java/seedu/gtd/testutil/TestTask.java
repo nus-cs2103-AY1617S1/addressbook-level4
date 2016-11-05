@@ -9,6 +9,7 @@ import seedu.gtd.model.tag.UniqueTagList;
 public class TestTask implements ReadOnlyTask {
 
     private Name name;
+    private DueDate startDate;
     private DueDate dueDate;
     private Address address;
     private Priority priority;
@@ -19,8 +20,9 @@ public class TestTask implements ReadOnlyTask {
         tags = new UniqueTagList();
     }
 
-    public TestTask(Name name, DueDate dueDate, Address address, Priority priority, UniqueTagList tags) {
+    public TestTask(Name name, DueDate startDate, DueDate dueDate, Address address, Priority priority, UniqueTagList tags) {
     	this.name = name;
+    	this.startDate = startDate;
         this.dueDate = dueDate;
         this.address = address;
         this.priority = priority;
@@ -34,6 +36,10 @@ public class TestTask implements ReadOnlyTask {
     
     public void setDueDate(DueDate dueDate) {
         this.dueDate = dueDate;
+    }
+    
+    public void setStartDate(DueDate startDate) {
+        this.startDate = startDate;
     }
 
     public void setAddress(Address address) {
@@ -52,6 +58,11 @@ public class TestTask implements ReadOnlyTask {
     @Override
     public DueDate getDueDate() {
         return dueDate;
+    }
+    
+    @Override
+    public DueDate getStartDate() {
+        return startDate;
     }
     
     @Override
@@ -82,6 +93,7 @@ public class TestTask implements ReadOnlyTask {
     public String getAddCommand() {
         StringBuilder sb = new StringBuilder();
         sb.append("add " + this.getName().fullName + " ");
+        sb.append("s/" + this.getStartDate().value + " ");
         sb.append("d/" + this.getDueDate().value + " ");
         sb.append("a/" + this.getAddress().value + " ");
         sb.append("p/" + this.getPriority().value + " ");

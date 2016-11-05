@@ -10,6 +10,7 @@ public interface ReadOnlyTask {
 
     Name getName();
     DueDate getDueDate();
+    DueDate getStartDate();
 	Address getAddress();
 	Priority getPriority();
 	boolean getisDone();

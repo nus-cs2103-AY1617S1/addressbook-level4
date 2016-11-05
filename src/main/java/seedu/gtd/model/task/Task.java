@@ -16,7 +16,6 @@ public class Task implements ReadOnlyTask {
     private Name name;
     private DueDate dueDate;
     private DueDate startDate;
-    private DueDate endDate;
     private Address address;
     private Priority priority;
     private boolean isDone;
@@ -26,9 +25,10 @@ public class Task implements ReadOnlyTask {
     /**
      * Every field must be present and not null.
      */
-    public Task(Name name, DueDate dueDate, Address address, Priority priority, UniqueTagList tags, boolean isDone) {
+    public Task(Name name, DueDate startDate, DueDate dueDate, Address address, Priority priority, UniqueTagList tags, boolean isDone) {
         assert !CollectionUtil.isAnyNull(name, dueDate, address, priority, tags);
         this.name = name;
+        this.startDate = startDate;
         this.dueDate = dueDate;
         this.address = address;
         this.priority = priority;
@@ -36,9 +36,10 @@ public class Task implements ReadOnlyTask {
         this.isDone = isDone;
     }
     
-    public Task(Name name, DueDate dueDate, Address address, Priority priority, UniqueTagList tags) {
+    public Task(Name name, DueDate startDate, DueDate dueDate, Address address, Priority priority, UniqueTagList tags) {
         assert !CollectionUtil.isAnyNull(name, dueDate, address, priority, tags);
         this.name = name;
+        this.startDate = startDate;
         this.dueDate = dueDate;
         this.address = address;
         this.priority = priority;
@@ -50,12 +51,17 @@ public class Task implements ReadOnlyTask {
      * Copy constructor.
      */
     public Task(ReadOnlyTask source) {
-        this(source.getName(), source.getDueDate(), source.getAddress(), source.getPriority(), source.getTags());
+        this(source.getName(), source.getStartDate(), source.getDueDate(), source.getAddress(), source.getPriority(), source.getTags(), source.getisDone());
     }
 
     @Override
     public Name getName() {
         return name;
+    }
+    
+    @Override
+    public DueDate getStartDate() {
+        return startDate;
     }
 
     @Override
@@ -87,6 +93,10 @@ public class Task implements ReadOnlyTask {
         this.name = name;
     }
     
+    public void setStartDate(DueDate startDate) {
+        this.startDate = startDate;
+    }
+    
     public void setDueDate(DueDate dueDate) {
         this.dueDate = dueDate;
     }
@@ -106,6 +116,7 @@ public class Task implements ReadOnlyTask {
     public void edit(String detailType, String newDetail) throws IllegalValueException {
     	
     	switch(detailType) {
+    	case "startDate": setStartDate(new DueDate(newDetail)); break;
     	case "dueDate": setDueDate(new DueDate(newDetail)); break;
     	case "address": setAddress(new Address(newDetail)); break;
     	case "priority": setPriority(new Priority(newDetail)); break;
