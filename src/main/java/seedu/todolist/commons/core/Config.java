@@ -50,7 +50,7 @@ public class Config {
     }
 
     public void setToDoListFilePath(String ToDoListFilePath) {
-        this.ToDoListFilePath = ToDoListFilePath;
+    	this.ToDoListFilePath = ToDoListFilePath;
     }
 
     public String getToDoListName() {

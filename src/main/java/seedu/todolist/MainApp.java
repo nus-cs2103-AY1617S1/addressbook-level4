@@ -49,6 +49,7 @@ public class MainApp extends Application {
         super.init();
 
         config = initConfig(getApplicationParameter("config"));
+        
         storage = new StorageManager(config.getToDoListFilePath(), config.getUserPrefsFilePath());
 
         userPrefs = initPrefs(config);
@@ -57,11 +58,12 @@ public class MainApp extends Application {
 
         model = initModelManager(storage, userPrefs);
 
-        logic = new LogicManager(model, storage);
+        logic = new LogicManager(model, storage, config);
 
         ui = new UiManager(logic, config, userPrefs);
-
+       
         initEventsCenter();
+        
     }
 
     private String getApplicationParameter(String parameterName){
