@@ -22,7 +22,7 @@
    * **`list deadlines`** : lists all deadlines
    * **`add`**` drink water` : 
      adds `drink water` to the to-do-list.
-   * **`delete`**` 3` : deletes the 3rd item shown in the current list
+   * **`delete`**` e2` : deletes the 2nd event shown in the current schedule list
    * **`exit`** : exits the app
 6. Refer to the [Features](#features) section below for details of each command.<br>
 
@@ -148,11 +148,11 @@ To remove all tags from a task, use the parameter: t/null <br>
 
 Examples: 
   `edit e1 end 12-21 2359` <br>
-  Edits the 1st event in the to-do list replacing its original end time with 12-21 2359. <br>
+  Edits the 1st event in the schedule list, replacing its original end time with 21 December. <br>
   `edit f1 lunch with mom`<br>
-  Edits the 1st task in the results of the `find` or ‘ command.<br>
-  `edit d2 t/wedding t/love`
-  Edits the 2nd deadline tags by replacing existing tags with 'wedding' and 'love'.<br>
+  Edits the 1st task in the to-do list, replacing its original name with "lunch with mom".<br>
+  `edit d2 t/wedding t/love`<br>
+  Edits the 2nd deadline in the deadline list, replacing its existing tags with the tags: 'wedding' and 'love'.<br>
 <!--- @@author --->
 
 <!--- @@author A0122460W--->
