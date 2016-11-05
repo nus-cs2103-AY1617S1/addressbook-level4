@@ -1,11 +1,9 @@
 package seedu.unburden.logic.commands;
 
-import static seedu.unburden.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
+import seedu.unburden.commons.core.Messages;
 import seedu.unburden.commons.core.UnmodifiableObservableList;
 import seedu.unburden.commons.exceptions.IllegalValueException;
 import seedu.unburden.model.tag.UniqueTagList.DuplicateTagException;
@@ -22,10 +20,11 @@ import seedu.unburden.model.task.Task;
 public class ListCommand extends Command {
 
 	public static final String COMMAND_WORD = "list";
-	
-	public static final String MESSAGE_NO_TASKS_FOUND = "There are currently no tasks found. Please add more tasks!";
-
 	public static final String MESSAGE_SUCCESS = "Listed all tasks";
+	public static final String MESSAGE_NO_MATCHES_DONE = "There are currently no tasks that are marked as done.\nDo try again after marking some task.";
+	public static final String MESSAGE_NO_MATCHES_UNDONE = "There are currently no tasks that are marked as undone.\nDo try again after adding more tasks.";
+	public static final String MESSAGE_NO_MATCHES_OVERDUE = "There are currently no tasks that are marked as overdue.\nKeep it up!";
+	public static final String MESSAGE_NO_MATCHES_DATE = "There are currently no tasks found within the dates you specified";
 
 	public static final String MESSAGE_USAGE = "Type : \"" + COMMAND_WORD + "\" or type : \"" + COMMAND_WORD
 			+ "\" your specified date ";
@@ -124,8 +123,8 @@ public class ListCommand extends Command {
 	}
 
 	@Override
-	public CommandResult execute() throws DuplicateTagException, IllegalValueException {
-        UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
+	public CommandResult execute() {
+		UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
 		switch (mode) {
 		case "undone":
 			model.updateFilteredTaskList(getAllUndone());
@@ -141,12 +140,27 @@ public class ListCommand extends Command {
 			break;
 		default:
 			model.updateFilteredListToShowAll();
-			return new CommandResult(MESSAGE_SUCCESS);
 		}
-		if(lastShownList.size() == 0){
-			return new CommandResult(String.format(MESSAGE_NO_TASKS_FOUND, ListCommand.MESSAGE_USAGE));
+		if (lastShownList.size() == 0) {
+			switch (mode) {
+			case "undone":
+				return new CommandResult(MESSAGE_NO_MATCHES_UNDONE);
+			case "done":
+				return new CommandResult(MESSAGE_NO_MATCHES_DONE);
+			case "overdue":
+				return new CommandResult(MESSAGE_NO_MATCHES_OVERDUE);
+			case "date":
+				return new CommandResult(MESSAGE_NO_MATCHES_DATE);
+			}
+			return new CommandResult(String.format(Messages.MESSAGE_NO_TASKS_FOUND, ListCommand.MESSAGE_USAGE));
+		} else {
+			if (mode.equals("all")) {
+				return new CommandResult(MESSAGE_SUCCESS);
+
+			} else {
+				return new CommandResult(getMessageForTaskListShownSummary(model.getFilteredTaskList().size()));
+			}
 		}
-		return new CommandResult(getMessageForTaskListShownSummary(model.getFilteredTaskList().size()));
 	}
 
 }

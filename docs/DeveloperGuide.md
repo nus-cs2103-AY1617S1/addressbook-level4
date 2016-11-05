@@ -58,25 +58,43 @@ In essence, having all of the skills above will definitely help to enhance the u
 
 ###**Prerequisites**
 
-1. JDK 8.0\_60 or later
-2. Having any Java 8 version is not enough.
-3. This app will not work with earlier versions of Java 8.
-4. Eclipse IDE
-5. e(fx)clipse plugin for Eclipse (Do the steps 2 onwards given in [this page](http://www.eclipse.org/efxclipse/install.html#for-the-ambitious))
-6. Buildship Gradle Integration plugin from the Eclipse Marketplace
+1. **JDK `1.8.0_60`**  or later<br>
+
+    > Having any Java 8 version is not enough. <br>
+    This app will not work with earlier versions of Java 8.
+    
+2. **Eclipse** IDE
+3. **e(fx)clipse** plugin for Eclipse (Do the steps 2 onwards given in
+   [this page](http://www.eclipse.org/efxclipse/install.html#for-the-ambitious))
+4. **Buildship Gradle Integration** plugin from the Eclipse Marketplace
+
 
 ###**Importing the project into Eclipse**
 
-1. Fork this repo, and clone the fork to your computer
-2. Open Eclipse (Note: Ensure you have installed the e(fx)clipse and buildship plugins as given in the prerequisites above)
-3. Click File &gt; Import
-4. Click Gradle &gt; Gradle Project &gt; Next &gt; Next
-5. Click Browse, then locate the project&#39;s directory
-6. Click Finish
+0. Fork this repo, and clone the fork to your computer
+1. Open Eclipse (Note: Ensure you have installed the **e(fx)clipse** and **buildship** plugins as given 
+   in the prerequisites above)
+2. Click `File` > `Import`
+3. Click `Gradle` > `Gradle Project` > `Next` > `Next`
+4. Click `Browse`, then locate the project's directory
+5. Click `Finish`
 
+  > * If you are asked whether to 'keep' or 'overwrite' config files, choose to 'keep'.
+  > * Depending on your connection speed and server load, it can even take up to 30 minutes for the set up to finish
+      (This is because Gradle downloads library files from servers during the project set up process)
+  > * If Eclipse auto-changed any settings files during the import process, you can discard those changes.
+  
+#### Troubleshooting project setup
 
-
-
+**Problem: Eclipse reports compile errors after new commits are pulled from Git**
+* Reason: Eclipse fails to recognize new files that appeared due to the Git pull. 
+* Solution: Refresh the project in Eclipse:<br> 
+  Right click on the project (in Eclipse package explorer), choose `Gradle` -> `Refresh Gradle Project`.
+  
+**Problem: Eclipse reports some required libraries missing**
+* Reason: Required libraries may not have been downloaded during the project import. 
+* Solution: [Run tests using Gradle](UsingGradle.md) once (to refresh the libraries).
+ 
 
 ## **Design**
 

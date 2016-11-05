@@ -3,14 +3,11 @@ package seedu.unburden.logic.parser;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import static seedu.unburden.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.unburden.commons.core.Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX;
 import static seedu.unburden.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import seedu.unburden.commons.core.Config;
-
-import seedu.unburden.commons.core.Messages;
 import seedu.unburden.commons.exceptions.IllegalValueException;
 import seedu.unburden.commons.util.StringUtil;
 import seedu.unburden.logic.commands.*;
@@ -53,14 +50,6 @@ public class Parser {
 	// Deadline without task description and time
 	private static final Pattern ADD_FORMAT_4 = Pattern
 			.compile("(?<name>[^/]+)" + "d/(?<date>[^/]+)" + "(?<tagArguments>(?: t/[^/]+)*)");
-
-	// Deadline without task description and date
-	/*private static final Pattern ADD_FORMAT_5 = Pattern
-			.compile("(?<name>[^/]+)" + "e/(?<endTimeArguments>[^/]+)" + "(?<tagArguments>(?: t/[^/]+)*)");
-
-	// Deadline without date
-	private static final Pattern ADD_FORMAT_6 = Pattern.compile("(?<name>[^/]+)" + "i/(?<taskDescriptions>[^/]+)"
-			+ "e/(?<endTimeArguments>[^/]+)" + "(?<tagArguments>(?: t/[^/]+)*)"); */
 
 	// Deadline without time
 	private static final Pattern ADD_FORMAT_5 = Pattern.compile(
@@ -196,7 +185,10 @@ public class Parser {
 	 */
 	private Command prepareAdd(String args) {
 		Calendar calendar = Calendar.getInstance();
-		ArrayList<String> details = new ArrayList<String>();
+		ArrayList<String> details = new ArrayList<String>(); // Arraylist to
+																// store all
+																// details of
+																// the input
 		final Matcher matcher0 = ADD_FORMAT_0.matcher(args.trim());
 		final Matcher matcher1 = ADD_FORMAT_1.matcher(args.trim());
 		final Matcher matcher2 = ADD_FORMAT_2.matcher(args.trim());
@@ -205,17 +197,17 @@ public class Parser {
 		final Matcher matcher5 = ADD_FORMAT_5.matcher(args.trim());
 		final Matcher matcher6 = ADD_FORMAT_6.matcher(args.trim());
 		final Matcher matcher7 = ADD_FORMAT_7.matcher(args.trim());
-		//final Matcher matcher8 = ADD_FORMAT_8.matcher(args.trim());
-		//final Matcher matcher9 = ADD_FORMAT_9.matcher(args.trim());
 
-		// Validate arg string format
+		// Validates that the format for the add command and returns an
+		// IncorrectCommand if the the format is wrong
 		if (!matcher0.matches() & !matcher1.matches() & !matcher2.matches() & !matcher3.matches() & !matcher4.matches()
 				& !matcher5.matches() & !matcher6.matches() & !matcher7.matches()) {
 			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 		}
 
 		try {
-			if (matcher0.matches()) {
+			if (matcher0.matches()) { // Matcher for event with description,
+										// date, start time and end time
 				details.add(matcher0.group("name"));
 				details.add(matcher0.group("taskDescriptions"));
 				details.add(matcher0.group("date"));
@@ -223,7 +215,8 @@ public class Parser {
 				details.add(matcher0.group("endTimeArguments"));
 				return new AddCommand("event with everything", details,
 						getTagsFromArgs(matcher0.group("tagArguments")));
-			}
+
+			} // Matcher for event with date, start time and end time
 			if (matcher1.matches()) {
 				details.add(matcher1.group("name"));
 				details.add(matcher1.group("date"));
@@ -232,21 +225,24 @@ public class Parser {
 				return new AddCommand("event without description", details,
 						getTagsFromArgs(matcher1.group("tagArguments")));
 
-			} else if (matcher2.matches()) {
+			} else if (matcher2.matches()) { // Matcher for deadline with
+												// description, date and end
+												// time
 				details.add(matcher2.group("name"));
 				details.add(matcher2.group("taskDescriptions"));
 				details.add(matcher2.group("date"));
 				details.add(matcher2.group("endTimeArguments"));
 				return new AddCommand("deadline", details, getTagsFromArgs(matcher2.group("tagArguments")));
 
-			} else if (matcher3.matches()) {
+			} else if (matcher3.matches()) { // Matcher for deadline with date
+												// and end time
 				details.add(matcher3.group("name"));
 				details.add(matcher3.group("date"));
 				details.add(matcher3.group("endTimeArguments"));
 				return new AddCommand("deadline without task description", details,
 						getTagsFromArgs(matcher3.group("tagArguments")));
 
-			} else if (matcher4.matches()) {
+			} else if (matcher4.matches()) {// Matcher for deadline with date
 				details.add(matcher4.group("name"));
 				details.add(matcher4.group("date"));
 				return new AddCommand("deadline without task description and time", details,
@@ -272,53 +268,72 @@ public class Parser {
 				return new AddCommand("deadline without time", details,
 						getTagsFromArgs(matcher7.group("tagArguments")));
 
-			} else if (matcher6.matches()) {
+			} else if (matcher6.matches()) { // Matcher for floating task with
+												// description
 				details.add(matcher6.group("name"));
 				details.add(matcher6.group("taskDescriptions"));
 				return new AddCommand("floating task", details, getTagsFromArgs(matcher6.group("tagArguments")));
 
-			} else {
-				if (matcher7.group("name").toLowerCase().contains(BYTODAY)) {
-					details.add(matcher7.group("name").replaceAll("(?i)" + Pattern.quote(BYTODAY), ""));
-					details.add(DATEFORMATTER.format(calendar.getTime()));
-					return new AddCommand("deadline without task description and time", details,
-							getTagsFromArgs(matcher7.group("tagArguments")));
+			} else if (matcher7.group("name").toLowerCase().contains(BYTODAY)) {// Matcher
+																				// for
+																				// deadline
+																				// with
+																				// date
+																				// as
+																				// today
+				details.add(matcher7.group("name").replaceAll("(?i)" + Pattern.quote(BYTODAY), ""));
+				details.add(DATEFORMATTER.format(calendar.getTime()));
+				return new AddCommand("deadline without task description and time", details,
+						getTagsFromArgs(matcher7.group("tagArguments")));
 
-				}
+			} else if (matcher7.group("name").toLowerCase().contains(BYTOMORROW)) { // Matcher
+																					// for
+																					// deadline
+																					// with
+																					// date
+																					// as
+																					// tomorrow
+				calendar.setTime(calendar.getTime());
+				calendar.add(Calendar.DAY_OF_YEAR, 1);
+				details.add(matcher7.group("name").replaceAll("(?i)" + Pattern.quote(BYTOMORROW), ""));
+				details.add(DATEFORMATTER.format(calendar.getTime()));
+				return new AddCommand("deadline without task description and time", details,
+						getTagsFromArgs(matcher7.group("tagArguments")));
 
-				else if (matcher7.group("name").toLowerCase().contains(BYTOMORROW)) {
-					calendar.setTime(calendar.getTime());
-					calendar.add(Calendar.DAY_OF_YEAR, 1);
-					details.add(matcher7.group("name").replaceAll("(?i)" + Pattern.quote(BYTOMORROW), ""));
-					details.add(DATEFORMATTER.format(calendar.getTime()));
-					return new AddCommand("deadline without task description and time", details,
-							getTagsFromArgs(matcher7.group("tagArguments")));
+			} else if (matcher7.group("name").toLowerCase().contains(BYNEXTWEEK)) { // Matcher
+																					// for
+																					// deadline
+																					// with
+																					// date
+																					// as
+																					// next
+																					// week
+				calendar.setTime(calendar.getTime());
+				calendar.add(Calendar.WEEK_OF_YEAR, 1);
+				details.add(matcher7.group("name").replaceAll("(?i)" + Pattern.quote(BYNEXTWEEK), ""));
+				details.add(DATEFORMATTER.format(calendar.getTime()));
+				return new AddCommand("deadline without task description and time", details,
+						getTagsFromArgs(matcher7.group("tagArguments")));
 
-				}
+			} else if (matcher7.group("name").toLowerCase().contains(BYNEXTMONTH)) {// Matcher
+																					// for
+																					// deadline
+																					// with
+																					// date
+																					// as
+																					// next
+																					// month
+				calendar.setTime(calendar.getTime());
+				calendar.add(Calendar.MONTH, 1);
+				details.add(matcher7.group("name").replaceAll("(?i)" + Pattern.quote(BYNEXTMONTH), ""));
+				details.add(DATEFORMATTER.format(calendar.getTime()));
+				return new AddCommand("deadline without task description and time", details,
+						getTagsFromArgs(matcher7.group("tagArguments")));
 
-				else if (matcher7.group("name").toLowerCase().contains(BYNEXTWEEK)) {
-					calendar.setTime(calendar.getTime());
-					calendar.add(Calendar.WEEK_OF_YEAR, 1);
-					details.add(matcher7.group("name").replaceAll("(?i)" + Pattern.quote(BYNEXTWEEK), ""));
-					details.add(DATEFORMATTER.format(calendar.getTime()));
-					return new AddCommand("deadline without task description and time", details,
-							getTagsFromArgs(matcher7.group("tagArguments")));
-
-				}
-
-				else if (matcher7.group("name").toLowerCase().contains(BYNEXTMONTH)) {
-					calendar.setTime(calendar.getTime());
-					calendar.add(Calendar.MONTH, 1);
-					details.add(matcher7.group("name").replaceAll("(?i)" + Pattern.quote(BYNEXTMONTH), ""));
-					details.add(DATEFORMATTER.format(calendar.getTime()));
-					return new AddCommand("deadline without task description and time", details,
-							getTagsFromArgs(matcher7.group("tagArguments")));
-
-				} else {
-					details.add(matcher7.group("name"));
-					return new AddCommand("floating task without task description", details,
-							getTagsFromArgs(matcher7.group("tagArguments")));
-				}
+			} else {// Matcher for floating task
+				details.add(matcher7.group("name"));
+				return new AddCommand("floating task without task description", details,
+						getTagsFromArgs(matcher7.group("tagArguments")));
 			}
 
 		} catch (IllegalValueException ive) {
@@ -421,32 +436,31 @@ public class Parser {
 
 			String tempArgs = args.trim();
 
-			String[] seperateIndex = tempArgs.split(" ", 2); // if no parameters is
-														// entered
+			String[] seperateIndex = tempArgs.split(" ", 2); // if no parameters
+																// is
+			// entered
 			if (seperateIndex.length <= 1)
 				return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
 
 			Optional<Integer> index = parseIndex(seperateIndex[0]);
 			if (!index.isPresent()) {
-				return new IncorrectCommand(
-						String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+				return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
 			}
-			
+
 			String[] newArgs = seperateIndex[1].split(" ");
-			
+
 			String[] parameters = getNewArgs(newArgs);
 			name = parameters[0];
 			taskDescription = (parameters[1].length() == 0) ? null : parameters[1].substring(2);
 			date = (parameters[2].length() == 0) ? null : parameters[2].substring(2);
 			startTime = (parameters[3].length() == 0) ? null : parameters[3].substring(2);
 			endTime = (parameters[4].length() == 0) ? null : parameters[4].substring(2);
-			
-			
+
 			return new EditCommand(index.get(), name, taskDescription, date, startTime, endTime);
 
 		} catch (IllegalValueException ive) {
 			return new IncorrectCommand(ive.getMessage());
-		} 
+		}
 	}
 
 	/*
@@ -533,6 +547,9 @@ public class Parser {
 	private Command prepareFind(String args) {
 		final Matcher matcherName = KEYWORDS_NAME_FORMAT.matcher(args.trim());
 		final Matcher matcherDate = KEYWORDS_DATE_FORMAT.matcher(args.trim());
+
+		// Validates the format for Find command otherwise returns an
+		// IncorrectCommand with an error message to the user
 		if (!matcherName.matches() && !matcherDate.matches()) {
 			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
 		}
@@ -573,9 +590,11 @@ public class Parser {
 		Optional<Integer> index = parseIndex(args);
 		if (!index.isPresent()) {
 			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SelectCommand.MESSAGE_USAGE));
+		} else if (args.toLowerCase().equals(ALL)) {
+			return new DoneCommand();
+		} else {
+			return new DoneCommand(index.get());
 		}
-
-		return new DoneCommand(index.get());
 	}
 
 	// @@Nathanael Chan A0139678J
@@ -614,10 +633,10 @@ public class Parser {
 			return new HelpCommand(ClearCommand.COMMAND_WORD);
 		case ListCommand.COMMAND_WORD:
 			return new HelpCommand(ListCommand.COMMAND_WORD);
-		case "":
-			return new HelpCommand(HelpCommand.COMMAND_WORD);
 		case ExitCommand.COMMAND_WORD:
 			return new HelpCommand(ExitCommand.COMMAND_WORD);
+		case "":
+			return new HelpCommand(HelpCommand.COMMAND_WORD);
 		default:
 			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
 		}

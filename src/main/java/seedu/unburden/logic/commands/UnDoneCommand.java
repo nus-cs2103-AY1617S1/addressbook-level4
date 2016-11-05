@@ -1,14 +1,7 @@
 package seedu.unburden.logic.commands;
-
-import java.util.List;
-
 import seedu.unburden.commons.core.Messages;
 import seedu.unburden.commons.core.UnmodifiableObservableList;
-import seedu.unburden.commons.exceptions.IllegalValueException;
-import seedu.unburden.model.tag.UniqueTagList.DuplicateTagException;
 import seedu.unburden.model.task.ReadOnlyTask;
-import seedu.unburden.model.task.Task;
-import seedu.unburden.model.task.UniqueTaskList.TaskNotFoundException;
 
 /**
  * Deletes a person identified using it's last displayed index from the address
@@ -33,7 +26,7 @@ public class UnDoneCommand extends Command {
 	}
 
 	@Override
-	public CommandResult execute() throws DuplicateTagException, IllegalValueException {
+	public CommandResult execute(){
 
 		UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
 
