@@ -1,10 +1,12 @@
 package seedu.todo.logic.commands;
 
+import com.google.common.collect.Sets;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 import seedu.todo.commons.exceptions.ValidationException;
 import seedu.todo.model.tag.Tag;
+import seedu.todo.model.tag.UniqueTagCollection;
 import seedu.todo.model.task.ImmutableTask;
 
 import java.util.HashSet;
@@ -288,9 +290,9 @@ public class TagCommandTest extends CommandTest {
         execute(false);
     }
 
-    /* Rename Tag Test */
+    /* Global Rename Tag Test */
     @Test
-    public void renameTag_renameTagSuccess() throws Exception {
+    public void globalRenameTag_globalRenameTagSuccess() throws Exception {
         //Renames a tag successfully
         Set<Tag> expectsTask1Tag = convertToTags();
         Set<Tag> expectsTask2Tag = convertToTags(TAG_NAMES[5]);
@@ -312,30 +314,69 @@ public class TagCommandTest extends CommandTest {
     
 
     @Test (expected = ValidationException.class)
-    public void renameTag_newNameExists() throws Exception {
+    public void globalRenameTag_newNameExists() throws Exception {
         //Renames to a name that already exists.
         setParameter("r", TAG_NAMES[0] + " " + TAG_NAMES[1]);
         execute(false);
     }
 
     @Test (expected = ValidationException.class)
-    public void renameTag_oldNameMissing() throws Exception {
+    public void globalRenameTag_oldNameMissing() throws Exception {
         //Renames from a name that does not exist
         setParameter("r", TAG_NAMES[5] + " " + TAG_NAMES[1]);
         execute(false);
     }
 
     @Test (expected = ValidationException.class)
-    public void renameTag_oneTagNameOnly() throws Exception {
+    public void globalRenameTag_oneTagNameOnly() throws Exception {
         //Provides one tag name for rename only. This is incorrect.
         setParameter("r", TAG_NAMES[5]);
         execute(false);
     }
 
     @Test (expected = ValidationException.class)
-    public void renameTag_renameNoParams() throws Exception {
+    public void globalRenameTag_renameNoParams() throws Exception {
         //Provides no tag names for renaming. This is incorrect.
         setParameter("r", "   ");
+        execute(false);
+    }
+
+    /* Rename Tag Test */
+    @Test
+    public void renameTagFromTask_renameSuccess() throws Exception {
+        Set<Tag> expectedTags = convertToTags(TAG_NAMES[3]);
+        Set<Tag> task4Tags = Sets.newHashSet(getTaskAt(4).getTags());
+
+        setParameter("2");
+        setParameter("r", TAG_NAMES[0] + " " + TAG_NAMES[3]);
+        execute(true);
+
+        //Checks if the tag at task 2 is renamed successfully.
+        assertEquals(expectedTags, getTaskAt(2).getTags());
+
+        //Check that tag from other tasks are untouched.
+        assertEquals(task4Tags, getTaskAt(4).getTags());
+    }
+
+    @Test (expected = ValidationException.class)
+    public void renameTagFromTask_tagNameNotFound() throws Exception {
+        setParameter("2");
+        setParameter("r", TAG_NAMES[5] + " " + TAG_NAMES[2]);
+        execute(false);
+    }
+
+    @Test (expected = ValidationException.class)
+    public void renameTagFromTask_sameTagName() throws Exception {
+        //Same old and new tag names.
+        setParameter("2");
+        setParameter("r", TAG_NAMES[0] + " " + TAG_NAMES[0]);
+        execute(false);
+    }
+
+    @Test (expected = ValidationException.class)
+    public void renameTagFromTask_newNameExist() throws Exception {
+        setParameter("4");
+        setParameter("r", TAG_NAMES[0] + " " + TAG_NAMES[2]);
         execute(false);
     }
 }

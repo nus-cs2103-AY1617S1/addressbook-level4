@@ -69,6 +69,26 @@ public class UndoCommandTest extends CommandTest {
     }
 
     @Test
+    public void testUndo_undoRenameTagFromTask() throws Exception {
+
+        String oldName = "pikachu";
+        String newName = "pichu";
+        model.add("Sample Task");
+        Thread.sleep(10);
+        model.addTagsToTask(1, oldName);
+
+        model.renameTag(1, oldName, newName);
+
+        //Sanity check: The tag is really renamed.
+        assertTrue(model.getTask(1).getTags().contains(new Tag(newName)));
+
+        model.undo();
+
+        //Check if the the tag is restored.
+        assertTrue(model.getTask(1).getTags().contains(new Tag(oldName)));
+    }
+
+    @Test
     public void testUndo_undoTagRename_allTagNamesRestored() throws Exception {
         String oldTag = "pikachu";
         String newTag = "pichu";
