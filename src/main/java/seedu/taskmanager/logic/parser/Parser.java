@@ -174,11 +174,11 @@ public class Parser {
         case ClearCommand.COMMAND_WORD:
         case ClearCommand.SHORT_COMMAND_WORD:
             return new ClearCommand();
-
+          
         case FindCommand.COMMAND_WORD:            
         case FindCommand.SHORT_COMMAND_WORD:
             return prepareFind(arguments);
-
+          
         case ListCommand.COMMAND_WORD:
         case ListCommand.SHORT_COMMAND_WORD:
             return new ListCommand();
@@ -186,7 +186,7 @@ public class Parser {
         case ListNotDoneCommand.COMMAND_WORD:
         case ListNotDoneCommand.SHORT_COMMAND_WORD:
             return new ListNotDoneCommand();
-            
+          //@@author A0135792X
         case ListTaskCommand.COMMAND_WORD:
         case ListTaskCommand.SHORT_COMMAND_WORD:
         	return new ListTaskCommand();
@@ -198,7 +198,7 @@ public class Parser {
         case ListEventCommand.COMMAND_WORD:
         case ListEventCommand.SHORT_COMMAND_WORD:
         	return new ListEventCommand();
-
+        	//@@author 
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
 

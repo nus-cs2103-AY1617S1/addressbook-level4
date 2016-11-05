@@ -1,17 +1,16 @@
+[comment]: # (@@author A0135792X)
+
 # Developer Guide
 
 * [Setting Up](#setting-up)
 * [Design](#design)
 * [Implementation](#implementation)
 * [Testing](#testing)
-* [Dev Ops](#dev-ops)
-* [Appendix A: User Stories] (#appendix-a--user-stories)
-* [Appendix B: Use Cases] (#appendix-b--use-cases)
-* [Appendix C: Non Functional Requirements] (#appendix-c--non-functional-requirements)
-* [Appendix D: Glossary] (#appendix-d--glossary)
+* [Appendix A: User Stories](#appendix-a-user-stories)
+* [Appendix B: Use Cases](#appendix-b-use-cases)
+* [Appendix C: Non Functional Requirements](#appendix-c-non-functional-requirements)
+* [Appendix D: Glossary](#appendix-d-glossary)
 * [Appendix E : Product Survey](#appendix-e-product-survey)
-
-[comment]: # (@@author A0135792X)
 
 ## Setting up
 
@@ -52,6 +51,8 @@ Description: The _User_ manages his _Activities_ using a _TaskManager_. the _Tas
 <img src="images/OODomainDiagram.png" width="600"><br>
 
 [comment]: # (@@author )
+
+[comment]: # (@@author A0135792X)
 
 ### Architecture
 
@@ -110,7 +111,7 @@ being saved to the hard disk and the status bar of the UI being updated to refle
 
 The sections below give more details of each component.
 
-//@@author A0135792X
+[comment]: # (@@author A0135792X)
 
 ### UI component
 
@@ -165,6 +166,7 @@ The `Model`,
 * does not depend on any of the other three components.
 
 [comment]: # (@@author A0143641M)
+
 ### Storage component
 
 <img src="images/StorageClassDiagram.png" width="800"><br>
@@ -247,7 +249,6 @@ Thanks to the [TestFX](https://github.com/TestFX/TestFX) library we use,
  That means the developer can do other things on the Computer while the tests are running.<br>
  See [UsingGradle.md](UsingGradle.md#running-tests) to learn how to run tests in headless mode.
 
-## Dev Ops
 
 ### Build Automation
 
@@ -278,7 +279,7 @@ Here are the steps to create a new release.
  2. [Crete a new release using GitHub](https://help.github.com/articles/creating-releases/)
     and upload the JAR file your created.
 
-[comment]: # (@@author A0140060A)
+[comment]: # (@@author A0135792X)
 
 ## Appendix A : User Stories
 
@@ -287,25 +288,25 @@ Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (un
 Priority | As a ... | I want to ...           | So that I can...
 -------- | :------- | :---------------------- | :---------------
 `* * *`  | new user | see usage instructions  | learn how to use the app
-`* * *`  | user     | add a new task | add something to my todo list without a time restrictions
-`* * *`  | user     | add a new deadline      | add something to my todo list with a deadline
-`* * *`  | user     | add a new event         | add something to my todo list with a start and end datetime
-`* * *`  | user     | view all tasks/deadlines/events   | view my entire todo list
-`* *`  | user     | view all tasks   | view only my tasks
-`* *`  | user     | view all deadlines   | view only my deadlines
-`* *`  | user     | view all events   | view only my events
+`* * *`  | user     | add a new task | add something to my task manager without a time restrictions
+`* * *`  | user     | add a new deadline      | add something to my task manager with a deadline
+`* * *`  | user     | add a new event         | add something to my task manager with a start and end date time
+`* * *`  | user     | view all tasks/deadlines/events   | view my entire task manager
+`* *`    | user     | view all tasks   | view only my tasks
+`* *`    | user     | view all deadlines   | view only my deadlines
+`* *`    | user     | view all events   | view only my events
 `* * *`  | user     | edit a task/deadline/event       | change the details of a task/deadline/event
-`* *`  | user     | to enter a command in natural language as much as possible | be flexible about how I enter a command
-`* *`  | user     | have multiple keywords/shortcuts for a command | be flexible about how I enter a command
+`* *`    | user     | to enter a command in natural language as much as possible | be flexible about how I enter a command
+`* *`    | user     | have multiple keywords/shortcuts for a command | be flexible about how I enter a command
 `* * *`  | user     | mark a task/deadline/event as done| know that a task/deadline/event is completed
-`* *`  | user     | mark a done task/deadline/event as not done| know that a task/deadline/event is not completed yet
+`* *`    | user     | mark a done task/deadline/event as not done| know that a task/deadline/event is not completed yet
 `* * *`  | user     | delete a task/deadline/event     | remove an item that is no longer necessary
 `* * *`  | user     | search tasks by name    | find the task that I need to do
 `* * *`  | user     | undo the last command   | undo an unintentional operation
-`* * *`  | user     | specify the data storage location | use cloud syncing services and access my todo list on different devices
-`* *`  | user     | view all undone tasks/deadlines/events | view items I need to work on
-`* *`  | user     | set a deadline for task | know when to finish the task by
-`*`    | user     | sort uncompleted deadlines by deadline | know which deadline I should finish first
+`* * *`  | user     | specify the data storage location | back up my data
+`* *`    | user     | view all undone tasks/deadlines/events | view items I need to work on
+`* *`    | user     | set a deadline for task | know when to finish the task by
+`*`      | user     | sort uncompleted deadlines by deadline | know which deadline I should finish first
 [comment]: # (@@author )
 
 [comment]: # (@@author A0135792X)
