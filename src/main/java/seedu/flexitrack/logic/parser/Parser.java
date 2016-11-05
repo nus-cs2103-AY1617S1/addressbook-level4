@@ -102,13 +102,13 @@ public class Parser {
 
     // @@author A0147092E
     private static final Pattern TASK_RECURRING_EVENT_TYPE_DATA_ARGS_FORMAT = Pattern
-            .compile("(?<name>.+)" + "[Ff][Rr]/(?<numOfOccurrence>\\d{1,2}) "
-                    + "[tT][Yy]/(?<occurrenceType>[^/\\d]{5,7})" + "from/(?<startTime>[^/]+)" + "to/(?<endTime>[^/]+)");
+            .compile("(?<name>.+)" + "[Ff][Rr]/\\s*(?<numOfOccurrence>\\d{1,2})\\s*"
+                    + "[Tt][Yy]/\\s*(?<occurrenceType>[^/\\d]{3,7})" + "from/(?<startTime>[^/]+)" + "to/(?<endTime>[^/]+)");
     private static final Pattern TASK_RECURRING_TASK_TYPE_DATA_ARGS_FORMAT = Pattern
-            .compile("(?<name>.+)" + "[Ff][Rr]/(?<numOfOccurrence>\\d{1,2}) "
-                    + "[Tt][Yy]/(?<occurrenceType>[^/\\d]{5,7})" + "by/(?<dueDate>[^/]+)");
+            .compile("(?<name>.+)" + "[Ff][Rr]/\\s*(?<numOfOccurrence>\\d{1,2})\\s*"
+                    + "[Tt][Yy]/\\s*(?<occurrenceType>[^/\\d]{3,7})" + "by/(?<dueDate>[^/]+)");
     private static final Pattern TASK_RECURRING_FLOATING_TASK_TYPE_DATA_ARGS_FORMAT = Pattern
-            .compile("(?<name>.+)" + "[Ff][Rr]/(?<numOfOccurrence>\\d{1,2})");
+            .compile("(?<name>.+)" + "[Ff][Rr]/\\s*(?<numOfOccurrence>\\d{1,2})");
     //@@author A0127855W
     
     private static final Pattern EDIT_COMMAND_FORMAT = Pattern.compile("(?<index>[0-9]+)(?<arguments>.*)");
@@ -552,7 +552,7 @@ public class Parser {
         // Validate arg string format
         try {
             //@@author A0147092E
-            if (args.trim().contains("fr/") || args.trim().contains("ty/")) {
+            if (args.trim().toLowerCase().contains("fr/") || args.trim().toLowerCase().contains("ty/")) {
                 if (matcherRecurringFloatingTask.matches()) {
                     return addRecurring(matcherRecurringFloatingTask, "floating");
                 } else if (matcherRecurringEvent.matches()) {
