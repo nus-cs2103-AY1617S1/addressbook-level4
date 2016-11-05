@@ -13,6 +13,7 @@ import javafx.stage.Stage;
 import seedu.Tdoo.commons.core.LogsCenter;
 import seedu.Tdoo.commons.events.ui.TaskPanelSelectionChangedEvent;
 import seedu.Tdoo.model.task.ReadOnlyTask;
+import seedu.Tdoo.model.task.Todo;
 
 import java.util.logging.Logger;
 
@@ -84,6 +85,12 @@ public class TodoListPanel extends UiPart {
 		Platform.runLater(() -> {
 			todoListView.scrollTo(index);
 			todoListView.getSelectionModel().clearAndSelect(index);
+		});
+	}
+	
+	public void scrollTo(Todo target) {
+		Platform.runLater(() -> {
+			todoListView.scrollTo(target);
 		});
 	}
 

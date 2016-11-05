@@ -7,7 +7,7 @@ import seedu.Tdoo.commons.core.Messages;
 import seedu.Tdoo.commons.events.model.DeadlineListChangedEvent;
 import seedu.Tdoo.commons.events.model.EventListChangedEvent;
 import seedu.Tdoo.commons.events.model.TodoListChangedEvent;
-import seedu.Tdoo.commons.events.ui.JumpToListRequestEvent;
+import seedu.Tdoo.commons.events.ui.JumpTodoListRequestEvent;
 import seedu.Tdoo.commons.events.ui.ShowHelpRequestEvent;
 import seedu.Tdoo.logic.Logic;
 import seedu.Tdoo.logic.LogicManager;
@@ -74,11 +74,6 @@ public class LogicManagerTest {
 	@Subscribe
 	private void handleShowHelpRequestEvent(ShowHelpRequestEvent she) {
 		helpShown = true;
-	}
-
-	@Subscribe
-	private void handleJumpToListRequestEvent(JumpToListRequestEvent je) {
-		targetedJumpIndex = je.targetIndex;
 	}
 
 	@Before

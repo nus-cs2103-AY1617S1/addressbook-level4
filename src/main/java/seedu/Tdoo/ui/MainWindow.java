@@ -200,7 +200,7 @@ public class MainWindow extends UiPart {
 	}
 
 	// @@author A0144061U
-	public TodoListPanel getTaskListPanel() {
+	public TodoListPanel getTodoListPanel() {
 		return this.todoListPanel;
 	}
 

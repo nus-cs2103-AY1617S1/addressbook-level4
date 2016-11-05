@@ -11,7 +11,9 @@ import seedu.Tdoo.commons.core.ComponentManager;
 import seedu.Tdoo.commons.core.Config;
 import seedu.Tdoo.commons.core.LogsCenter;
 import seedu.Tdoo.commons.events.storage.DataSavingExceptionEvent;
-import seedu.Tdoo.commons.events.ui.JumpToListRequestEvent;
+import seedu.Tdoo.commons.events.ui.JumpDeadlineListRequestEvent;
+import seedu.Tdoo.commons.events.ui.JumpEventListRequestEvent;
+import seedu.Tdoo.commons.events.ui.JumpTodoListRequestEvent;
 import seedu.Tdoo.commons.events.ui.ShowHelpRequestEvent;
 import seedu.Tdoo.commons.events.ui.TaskPanelSelectionChangedEvent;
 import seedu.Tdoo.commons.util.StringUtil;
@@ -115,13 +117,20 @@ public class UiManager extends ComponentManager implements Ui {
 	}
 
 	@Subscribe
-	private void handleJumpToListRequestEvent(JumpToListRequestEvent event) {
+	private void handleJumpTodoListRequestEvent(JumpTodoListRequestEvent event) {
 		logger.info(LogsCenter.getEventHandlingLogMessage(event));
-		mainWindow.getTaskListPanel().scrollTo(event.targetIndex);
+		mainWindow.getTodoListPanel().scrollTo(event.task);
 	}
-
+	
 	@Subscribe
-	private void handletaskPanelSelectionChangedEvent(TaskPanelSelectionChangedEvent event) {
+	private void handleJumpEventListRequestEvent(JumpEventListRequestEvent event) {
+		logger.info(LogsCenter.getEventHandlingLogMessage(event));
+		mainWindow.getEventListPanel().scrollTo(event.task);
 	}
-
+	
+	@Subscribe
+	private void handleJumpDeadlineListRequestEvent(JumpDeadlineListRequestEvent event) {
+		logger.info(LogsCenter.getEventHandlingLogMessage(event));
+		mainWindow.getDeadlineListPanel().scrollTo(event.task);
+	}
 }

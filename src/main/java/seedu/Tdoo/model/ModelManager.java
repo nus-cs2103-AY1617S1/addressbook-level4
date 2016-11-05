@@ -5,11 +5,13 @@ import seedu.Tdoo.commons.core.ComponentManager;
 import seedu.Tdoo.commons.core.LogsCenter;
 import seedu.Tdoo.commons.core.UnmodifiableObservableList;
 import seedu.Tdoo.commons.events.model.*;
+import seedu.Tdoo.commons.events.ui.*;
 import seedu.Tdoo.commons.exceptions.*;
 import seedu.Tdoo.commons.util.StringUtil;
 import seedu.Tdoo.logic.commands.*;
 import seedu.Tdoo.model.task.*;
 import seedu.Tdoo.model.task.UniqueTaskList.TaskNotFoundException;
+import seedu.Tdoo.commons.events.ui.JumpTodoListRequestEvent;
 
 import java.util.EmptyStackException;
 import java.util.Set;
@@ -251,6 +253,7 @@ public class ModelManager extends ComponentManager implements Model {
 			}
 			updateFilteredTodoListToShowAll();
 			indicateTodoListChanged();
+			raise(new JumpTodoListRequestEvent(task));
 		} else if (task instanceof Event) {
 			if (dataType.equals("todo")) {
 				eventList.addTask(task);
@@ -269,6 +272,7 @@ public class ModelManager extends ComponentManager implements Model {
 			}
 			updateFilteredEventListToShowAll();
 			indicateEventListChanged();
+			raise(new JumpEventListRequestEvent(task));
 		} else if (task instanceof Deadline) {
 			if (dataType.equals("todo")) {
 				deadlineList.addTask(task);
@@ -287,6 +291,7 @@ public class ModelManager extends ComponentManager implements Model {
 			}
 			updateFilteredDeadlineListToShowAll();
 			indicateDeadlineListChanged();
+			raise(new JumpDeadlineListRequestEvent(task));
 		}
 		if(!undoer.undoCommand()) {
 			undoer.prepareUndoEdit(target, dataType, task , targetIndex , type);
@@ -301,14 +306,17 @@ public class ModelManager extends ComponentManager implements Model {
 		case "todo":
 			todoList.doneTask(target);
 			indicateTodoListChanged();
+			raise(new JumpTodoListRequestEvent(target));
 			undoer.prepareUndoDone("todo", undoTarget);
 		case "event":
 			eventList.doneTask(target);
 			indicateEventListChanged();
+			raise(new JumpEventListRequestEvent(target));
 			undoer.prepareUndoDone("event", undoTarget);
 		case "deadline":
 			deadlineList.doneTask(target);
 			indicateDeadlineListChanged();
+			raise(new JumpDeadlineListRequestEvent(target));
 			undoer.prepareUndoDone("deadline", undoTarget);
 		}
 	}
@@ -338,12 +346,14 @@ public class ModelManager extends ComponentManager implements Model {
 			if(!undoer.undoCommand()) {
 				undoer.prepareUndoDelete(target);
 			}
+			break;
 		case "event":
 			eventList.removeTask(target);
 			indicateEventListChanged();
 			if(!undoer.undoCommand()) {
 				undoer.prepareUndoDelete(target);
 			}
+			break;
 		case "deadline":
 			deadlineList.removeTask(target);
 			indicateDeadlineListChanged();
@@ -360,6 +370,7 @@ public class ModelManager extends ComponentManager implements Model {
 			todoList.sortData();
 			updateFilteredTodoListToShowAll();
 			indicateTodoListChanged();
+			raise(new JumpTodoListRequestEvent(task));
 			if(!undoer.undoCommand()) {
 				undoer.prepareUndoAdd(task, "todo");
 			}
@@ -368,6 +379,7 @@ public class ModelManager extends ComponentManager implements Model {
 			eventList.sortData();
 			updateFilteredEventListToShowAll();
 			indicateEventListChanged();
+			raise(new JumpEventListRequestEvent(task));
 			if(!undoer.undoCommand()) {
 				undoer.prepareUndoAdd(task, "event");
 			}
@@ -376,6 +388,7 @@ public class ModelManager extends ComponentManager implements Model {
 			deadlineList.sortData();
 			updateFilteredDeadlineListToShowAll();
 			indicateDeadlineListChanged();
+			raise(new JumpDeadlineListRequestEvent(task));
 			if(!undoer.undoCommand()) {
 				undoer.prepareUndoAdd(task, "deadline");
 			}

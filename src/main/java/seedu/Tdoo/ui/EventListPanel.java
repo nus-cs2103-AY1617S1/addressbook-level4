@@ -12,6 +12,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import seedu.Tdoo.commons.core.LogsCenter;
 import seedu.Tdoo.commons.events.ui.TaskPanelSelectionChangedEvent;
+import seedu.Tdoo.model.task.Event;
 import seedu.Tdoo.model.task.ReadOnlyTask;
 
 import java.util.logging.Logger;
@@ -85,6 +86,12 @@ public class EventListPanel extends UiPart {
 		Platform.runLater(() -> {
 			eventListView.scrollTo(index);
 			eventListView.getSelectionModel().clearAndSelect(index);
+		});
+	}
+	
+	public void scrollTo(Event target) {
+		Platform.runLater(() -> {
+			eventListView.scrollTo(target);
 		});
 	}
 

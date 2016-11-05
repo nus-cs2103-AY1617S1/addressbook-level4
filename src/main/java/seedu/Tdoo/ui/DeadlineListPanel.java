@@ -12,6 +12,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import seedu.Tdoo.commons.core.LogsCenter;
 import seedu.Tdoo.commons.events.ui.TaskPanelSelectionChangedEvent;
+import seedu.Tdoo.model.task.Deadline;
 import seedu.Tdoo.model.task.ReadOnlyTask;
 
 import java.util.logging.Logger;
@@ -85,6 +86,12 @@ public class DeadlineListPanel extends UiPart {
 		Platform.runLater(() -> {
 			deadlineListView.scrollTo(index);
 			deadlineListView.getSelectionModel().clearAndSelect(index);
+		});
+	}
+	
+	public void scrollTo(Deadline target) {
+		Platform.runLater(() -> {
+			deadlineListView.scrollTo(target);
 		});
 	}
 
