@@ -9,6 +9,8 @@ import seedu.oneline.commons.exceptions.StateNonExistentException;
 public class UndoCommand extends Command {
 
     public static final String COMMAND_WORD = "undo";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Undo previous command \n"
+            + "Example: " + COMMAND_WORD;
 
     public static final String MESSAGE_UNDO_SUCCESS = "Action undone.";
     public static final String MESSAGE_NO_PREVIOUS_STATE = "No previous state to undo.";

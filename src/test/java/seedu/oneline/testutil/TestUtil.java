@@ -65,17 +65,23 @@ public class TestUtil {
     public static final Task[] sampleTaskData = getSampleTaskData();
 
     private static Task[] getSampleTaskData() {
-        return new Task[]{
-                new Task(TypicalTestTasks.event1),
-                new Task(TypicalTestTasks.event2),
-                new Task(TypicalTestTasks.event3),
-                new Task(TypicalTestTasks.todo1),
-                new Task(TypicalTestTasks.todo2),
-                new Task(TypicalTestTasks.todo3),
-                new Task(TypicalTestTasks.float1),
-                new Task(TypicalTestTasks.float2),
-                new Task(TypicalTestTasks.float3)
-        };
+        try {
+            return new Task[]{
+                    new Task(TypicalTestTasks.event1),
+                    new Task(TypicalTestTasks.event2),
+                    new Task(TypicalTestTasks.event3),
+                    new Task(TypicalTestTasks.todo1),
+                    new Task(TypicalTestTasks.todo2),
+                    new Task(TypicalTestTasks.todo3),
+                    new Task(TypicalTestTasks.float1),
+                    new Task(TypicalTestTasks.float2),
+                    new Task(TypicalTestTasks.float3)
+            };
+        } catch (IllegalValueException e) {
+            e.printStackTrace();
+            assert false;
+        }
+        return null;
     }
 
     public static final Tag[] sampleTagData = getSampleTagData();

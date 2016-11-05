@@ -60,7 +60,7 @@ public class UndoneCommand extends Command {
 
         ReadOnlyTask taskToUndone = lastShownList.get(targetIndex - 1);
         Task undoneTask = null;
-        undoneTask = taskToUndone.markUndone(taskToUndone);
+        undoneTask = taskToUndone.markUndone();
 
         if(!taskToUndone.isCompleted()) {
             return new CommandResult(String.format(MESSAGE_TASK_ALR_NOT_DONE, taskToUndone));

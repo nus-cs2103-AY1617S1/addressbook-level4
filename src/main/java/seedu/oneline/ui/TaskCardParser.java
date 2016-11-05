@@ -1,8 +1,7 @@
-//@@author A0140156R
-
 package seedu.oneline.ui;
 
 import seedu.oneline.model.task.ReadOnlyTask;
+import seedu.oneline.model.task.TaskTime;
 
 public class TaskCardParser {
 
@@ -19,15 +18,14 @@ public class TaskCardParser {
 
     //@@author A0142605N 
     public String getTime() {
-        String deadline = task.getDeadline().toString(); 
-        String startTime = task.getStartTime().toString(); 
-        
-        if (deadline.equals("") && startTime.equals("")) { 
-            return null; 
-        } else if (!deadline.equals("") && startTime.equals("")) { 
-            return "Due " + deadline; 
-        } else {
+        if (task.isFloating()) { 
+            return ""; 
+        } else if (task.hasDeadline()) { 
+            return "Due " + task.getDeadline().toString();
+        } else if (task.isEvent()) {
             return "From " + task.getStartTime().toString() + " to " + task.getEndTime().toString();
+        } else {
+            return "Error: undefined type";
         }
     }
     
@@ -38,7 +36,7 @@ public class TaskCardParser {
     public String getRecurrence() {
         String recurrence = task.getRecurrence().toString(); 
         if (recurrence.equals("")) { 
-            return null; 
+            return "";
         } 
         return "every " + task.getRecurrence().toString();
     }

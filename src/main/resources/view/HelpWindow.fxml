@@ -1,8 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
-<AnchorPane fx:id="helpWindowRoot" maxHeight="Infinity" maxWidth="Infinity" minHeight="-Infinity" minWidth="-Infinity" stylesheets="@DarkTheme.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.oneline.ui.HelpWindow">
-   <children>
 
+<!-- @@author A0142605N -->
+
+<AnchorPane fx:id="helpWindowRoot" maxHeight="Infinity" maxWidth="Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="250.0" prefWidth="500.0" stylesheets="@DarkTheme.css" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.oneline.ui.HelpWindow">
+   <children>
+      <TableView fx:id="helpTable" minWidth="1000.0" opacity="0.89" prefHeight="400.0" stylesheets="@DefaultTheme.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <columns>
+          <TableColumn fx:id="commandCol" editable="false" minWidth="100.0" resizable="false" sortable="false" text="Command" />
+          <TableColumn fx:id="formatCol" editable="false" minWidth="900.0" sortable="false" text="Format" />
+        </columns>
+      </TableView>
    </children>
 </AnchorPane>

@@ -21,8 +21,9 @@ Team lead
 *Aspects/tools in charge of: UI, Documentation
 *Features implemented: 
 - UI Design
-*Code written: [functional code][test code][docs]
-*Other major contributions:
+- Help Command
+Code written: [functional code][test code][docs]
+Other major contributions:
 - Collating User Guide & Developer Guide with Deshun 
 
 ### [Kenneth](https://github.com/Kenneth-LJS) 
@@ -43,16 +44,16 @@ Team lead
 * Components in charge of: Storage
 * Aspects/tools in charge of: Testing, Git
 * Features implemented:
-   * [List](https://github.com/CS2103AUG2016-W09-C1/main/blob/master/docs/UserGuide.md#4.1-list-all-tasks)
-   * [List done](https://github.com/CS2103AUG2016-W09-C1/main/blob/master/docs/UserGuide.md#4.5-list-done)
-   * [Done](https://github.com/CS2103AUG2016-W09-C1/main/blob/master/docs/UserGuide.md#5)
-   * [Undone](https://github.com/CS2103AUG2016-W09-C1/main/blob/master/docs/UserGuide.md#6)
-   * [Location](https://github.com/CS2103AUG2016-W09-C1/main/blob/master/docs/UserGuide#10)
+   * [List](https://github.com/CS2103AUG2016-W09-C1/main/blob/master/docs/UserGuide.md#list-all-tasks)
+   * [List done](https://github.com/CS2103AUG2016-W09-C1/main/blob/master/docs/UserGuide.md#list-done)
+   * [Done](https://github.com/CS2103AUG2016-W09-C1/main/blob/master/docs/UserGuide.md#mark-task-as-done)
+   * [Undone](https://github.com/CS2103AUG2016-W09-C1/main/blob/master/docs/UserGuide.md#mark-task-as-undone)
+   * [Location](https://github.com/CS2103AUG2016-W09-C1/main/blob/master/docs/UserGuide#storage-location)
 * Code written: [[functional code](A0121657H.md)][[test code](A0121657H.md)][[docs](A0121657H.md)]
 * Other major contributions:
   * Did the initial refactoring from AddressBook to ToDoList 
   * Copy-editing the bulk of the Developer's Guide 
-  * Made the images for User Guide
+  * Provided screenshots and formatting for User Guide
 
 ### Damith Rajapakse
 ![Damith](https://github.com/CS2103AUG2016-W09-C1/main/blob/master/docs/images/DamithRajapakse.jpg)

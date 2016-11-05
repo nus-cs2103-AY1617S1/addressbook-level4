@@ -19,7 +19,7 @@
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="100.0" minWidth="10.0" prefWidth="120.0" />
             </columnConstraints>
             <children>
-                <VBox alignment="CENTER_LEFT" maxHeight="60.0" prefHeight="60.0" prefWidth="101.0" GridPane.columnIndex="0">
+                <VBox alignment="CENTER_LEFT" maxHeight="40.0" prefHeight="40.0" prefWidth="101.0" GridPane.columnIndex="0">
                     <stylesheets>
                         <URL value="@DefaultTheme.css" />
                         <URL value="@Extensions.css" />
@@ -30,12 +30,6 @@
 
                     <children>
                            <Label fx:id="name" styleClass="card-title" stylesheets="@DefaultTheme.css" text="\$first" />
-                        <HBox alignment="CENTER_LEFT" spacing="5" stylesheets="@DefaultTheme.css">
-                     <children>
-                        <Label fx:id="duetoday" styleClass="card-text" text="\$today" />
-                              <Label fx:id="line1" styleClass="card-text" text="due today" />
-                     </children>
-                        </HBox>
                     </children>
                 </VBox>
             </children>

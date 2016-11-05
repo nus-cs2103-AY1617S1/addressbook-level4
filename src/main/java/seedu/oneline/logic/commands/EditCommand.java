@@ -23,7 +23,7 @@ public abstract class EditCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits a task or category in the task book. \n"
             + " === Edit Task === \n"
-            + "Parameters: INDEX (must be a positive integer), [taskName] [.from <start> .to <end>] [.due <deadline>] [.every <period>] [#<cat>] \n"
+            + "Parameters: INDEX (must be a positive integer), [taskName] [.from <start> .to <end>] [.due <deadline>] [#<cat>] \n"
             + "Example: " + COMMAND_WORD
             + " 1 Acad meeting .from 2pm .to 4pm #acad"
             + " === Edit Category === \n"

@@ -4,7 +4,12 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+import com.google.common.collect.Maps;
+
+import edu.emory.mathcs.backport.java.util.Arrays;
+import seedu.oneline.commons.core.EventsCenter;
 import seedu.oneline.commons.core.Messages;
+import seedu.oneline.commons.events.ui.ShowAllViewEvent;
 import seedu.oneline.commons.exceptions.IllegalCmdArgsException;
 import seedu.oneline.commons.exceptions.IllegalValueException;
 import seedu.oneline.logic.parser.Parser;
@@ -20,7 +25,7 @@ public class AddCommand extends Command {
     public static final String COMMAND_WORD = "add";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task to the task book. \n"
-            + "Parameters: <taskName> [.from <start> .to <end>] [.due <deadline>] [.every <period>] [#<cat>] \n"
+            + "Parameters: <taskName> [.from <start> .to <end>] [.due <deadline>] [#<cat>] \n"
             + "Example: " + COMMAND_WORD
             + " Acad meeting .from 2pm .to 4pm #acad";
 
@@ -40,7 +45,6 @@ public class AddCommand extends Command {
      */
     public AddCommand(String name, String startTime, String endTime, String deadline, String recurrence, String tag)
             throws IllegalValueException {
-        final Set<Tag> tagSet = new HashSet<>();
         this.toAdd = new Task(
                 new TaskName(name),
                 new TaskTime(startTime),
@@ -59,6 +63,7 @@ public class AddCommand extends Command {
         } catch (IllegalCmdArgsException e) {
             throw new IllegalCmdArgsException(Messages.getInvalidCommandFormatMessage(MESSAGE_USAGE));
         }
+        System.out.println(Arrays.deepToString(fields.entrySet().toArray()));
         Task blankTask = new Task(new TaskName("A"), TaskTime.getDefault(), TaskTime.getDefault(), TaskTime.getDefault(), TaskRecurrence.getDefault(), Tag.EMPTY_TAG);
         return new AddCommand(blankTask.update(fields));
     }
@@ -69,6 +74,7 @@ public class AddCommand extends Command {
         assert model != null;
         try {
             model.addTask(toAdd);
+            EventsCenter.getInstance().post(new ShowAllViewEvent());
             return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
         } catch (UniqueTaskList.DuplicateTaskException e) {
             return new CommandResult(MESSAGE_DUPLICATE_TASK);

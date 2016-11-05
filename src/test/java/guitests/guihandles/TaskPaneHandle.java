@@ -7,6 +7,7 @@ import javafx.scene.Node;
 import javafx.scene.control.ListView;
 import javafx.stage.Stage;
 import seedu.oneline.TestApp;
+import seedu.oneline.commons.exceptions.IllegalValueException;
 import seedu.oneline.model.task.ReadOnlyTask;
 import seedu.oneline.model.task.Task;
 import seedu.oneline.testutil.TestUtil;
@@ -160,6 +161,19 @@ public class TaskPaneHandle extends GuiHandle {
         return true;
     }
     
+    //@@author A0140156R
+    public int indexOf(Task t) {
+        int taskCount = getListView().getItems().size();
+        for (int i = 0; i < taskCount; i++) {
+            final int scrollTo = i;
+            guiRobot.interact(() -> getListView().scrollTo(scrollTo));
+            guiRobot.sleep(200);
+            if (TestUtil.compareCardAndTask(getTaskCardHandle(i), t)) {
+                return i + 1;
+            }
+        }
+        return -1;
+    }
 
     public TaskCardHandle navigateToTask(String name) {
         guiRobot.sleep(500); //Allow a bit of time for the list to be updated
@@ -208,11 +222,18 @@ public class TaskPaneHandle extends GuiHandle {
     }
 
     public TaskCardHandle getTaskCardHandle(int index) {
-        return getTaskCardHandle(new Task(getListView().getItems().get(index)));
+        try {
+            return getTaskCardHandle(new Task(getListView().getItems().get(index)));
+        } catch (IllegalValueException e) {
+            e.printStackTrace();
+            assert false;
+        }
+        return null;
     }
 
     public TaskCardHandle getTaskCardHandle(ReadOnlyTask task) {
-        Set<Node> nodes = getAllCardNodes();
+        assert task != null;
+        Set<Node> nodes = getAllCardNodes();    
         Optional<Node> taskCardNode = nodes.stream()
                 .filter(n -> new TaskCardHandle(guiRobot, primaryStage, n).isSameTask(task))
                 .findFirst();

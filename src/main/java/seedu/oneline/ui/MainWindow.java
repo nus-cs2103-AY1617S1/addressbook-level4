@@ -4,6 +4,9 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.Toggle; 
+import javafx.scene.control.ToggleButton; 
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
@@ -21,7 +24,7 @@ import seedu.oneline.model.task.ReadOnlyTask;
  */
 public class MainWindow extends UiPart {
 
-    private static final String ICON = "/images/address_book_32.png";
+    private static final String ICON = "/images/oneline_32.png";
     private static final String FXML = "MainWindow.fxml";
     public static final int MIN_HEIGHT = 600;
     public static final int MIN_WIDTH = 450;
@@ -35,7 +38,7 @@ public class MainWindow extends UiPart {
     private CommandBox commandBox;
     private Config config;
     private UserPrefs userPrefs;
-
+    
     // Handles to elements of this Ui container
     private VBox rootLayout;
     private Scene scene;
@@ -53,6 +56,17 @@ public class MainWindow extends UiPart {
 
     @FXML
     private AnchorPane resultDisplayPlaceholder;
+    
+    @FXML
+    private ToggleGroup tabGroup; 
+    @FXML
+    private ToggleButton allButton;
+    @FXML
+    private ToggleButton dayButton;
+    @FXML
+    private ToggleButton weekButton;
+    @FXML
+    private ToggleButton floatButton;
 
 
     public MainWindow() {
@@ -95,7 +109,7 @@ public class MainWindow extends UiPart {
     }
 
     void fillInnerParts() {
-        taskPane = TaskPane.load(primaryStage, taskPanePlaceholder, logic.getFilteredTaskList());
+        taskPane = TaskPane.load(primaryStage, taskPanePlaceholder, logic.getFilteredTaskList(), logic.getTagColorMap());
         tagListPanel = TagListPanel.load(primaryStage, getTagListPlaceholder(), logic.getTagList(), logic.getTagColorMap());
         resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
         commandBox = CommandBox.load(primaryStage, getCommandBoxPlaceholder(), resultDisplay, logic);
@@ -164,6 +178,7 @@ public class MainWindow extends UiPart {
         raise(new ExitAppRequestEvent());
     }
     
+    //@@author A0142605N 
     public TaskPane getTaskPane() {
         return this.taskPane; 
     }
@@ -171,5 +186,25 @@ public class MainWindow extends UiPart {
     public TagListPanel getTagListPanel() {
         return this.tagListPanel;
     }
-
+    
+    
+    // Button methods 
+    public void resetAllButtons() {
+        allButton.setSelected(false);
+        dayButton.setSelected(false);
+        weekButton.setSelected(false);
+        floatButton.setSelected(false);
+    }
+    public ToggleButton getAllButton() {
+        return allButton; 
+    }
+    public ToggleButton getDayButton() {
+        return dayButton; 
+    }
+    public ToggleButton getWeekButton() {
+        return weekButton; 
+    }
+    public ToggleButton getFloatButton() {
+        return floatButton; 
+    }
 }
