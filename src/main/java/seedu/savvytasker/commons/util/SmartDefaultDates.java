@@ -27,15 +27,13 @@ public class SmartDefaultDates {
         calendar = Calendar.getInstance();
         today = Calendar.getInstance();
         today.setTime(new Date());
-        if (startDateTime == null && endDateTime == null) {
-            // dates not being supplied, nothing to parse
-        } else if (startDateTime == null && endDateTime != null) {
+        if (startDateTime == null && endDateTime != null) {
             // apply smart default for endDateTime only
             parseEnd(endDateTime);
         } else if (startDateTime != null && endDateTime == null) {
             // apply smart default for startDateTime only
             parseStart(startDateTime);
-        } else {
+        } else if (startDateTime != null && endDateTime != null) {
             parseStartAndEnd(startDateTime, endDateTime);
         }
     }

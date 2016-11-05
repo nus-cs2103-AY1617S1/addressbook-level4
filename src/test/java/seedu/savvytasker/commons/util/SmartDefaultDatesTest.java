@@ -15,6 +15,8 @@ import java.util.Date;
 //@@author A0139915W
 public class SmartDefaultDatesTest {
 
+    private SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy HHmmss");
+    
     @Test
     public void smartDefaultDates_parseStart() {
         DateParser dateParser = new DateParser();
@@ -216,7 +218,6 @@ public class SmartDefaultDatesTest {
         assertEquals(expectedEnd, actualEnd);
     }
 
-    private SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy HHmmss");
     private Date getDate(String ddmmyyyy) {
         try {
             return format.parse(ddmmyyyy);

@@ -28,10 +28,6 @@ public class TaskListPanel extends UiPart {
     @FXML
     private ListView<ReadOnlyTask> taskListView;
 
-    public TaskListPanel() {
-        super();
-    }
-
     @Override
     public void setNode(Node node) {
         panel = (VBox) node;
@@ -92,9 +88,6 @@ public class TaskListPanel extends UiPart {
     }
 
     class TaskListViewCell extends ListCell<ReadOnlyTask> {
-
-        public TaskListViewCell() {
-        }
 
         @Override
         protected void updateItem(ReadOnlyTask task, boolean empty) {

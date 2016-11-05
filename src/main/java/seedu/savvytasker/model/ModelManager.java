@@ -276,6 +276,7 @@ public class ModelManager extends ComponentManager implements Model {
 			break;
 		default:
 			assert false; // should never get here.
+			break;
 		}
 		updateFilteredTaskList(new PredicateExpression(qualifier));
 	}
@@ -586,7 +587,7 @@ public class ModelManager extends ComponentManager implements Model {
 
         @Override
         public boolean run(ReadOnlyTask task) {
-            return task.isArchived() == false;
+            return !task.isArchived();
         }
 
         @Override
@@ -603,7 +604,7 @@ public class ModelManager extends ComponentManager implements Model {
 
         @Override
         public boolean run(ReadOnlyTask task) {
-            return task.isArchived() == true;
+            return task.isArchived();
         }
 
         @Override
@@ -832,10 +833,15 @@ public class ModelManager extends ComponentManager implements Model {
         
         @Override
         public int compare(Task task1, Task task2) {
-            if (task1 == null && task2 == null) return 0;
-            else if (task1 == null) return 1;
-            else if (task2 == null) return -1;
-            else return task1.getId() - task2.getId();
+            if (task1 == null && task2 == null) {
+                return 0;
+            } else if (task1 == null) {
+                return 1;
+            } else if (task2 == null) {
+                return -1;
+            } else {
+                return task1.getId() - task2.getId();
+            }
         }
         
     }
@@ -847,10 +853,13 @@ public class ModelManager extends ComponentManager implements Model {
 
         @Override
         public int compare(Task task1, Task task2) {
-            if (task1 == null && task2 == null) return 0;
-            else if (task1 == null) return 1;
-            else if (task2 == null) return -1;
-            else {
+            if (task1 == null && task2 == null) {
+                return 0;
+            } else if (task1 == null) {
+                return 1;
+            } else if (task2 == null) {
+                return -1;
+            } else {
                 // End dates can be nulls (floating tasks)
                 // Check for existence of endDateTime before comparing
                 if (task1.getEndDateTime() == null &&

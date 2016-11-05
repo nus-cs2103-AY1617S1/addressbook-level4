@@ -97,11 +97,10 @@ public class AddCommand extends ModelRequiringCommand {
                 addToListOfTasksAdded(tasksAdded.toArray(new Task[tasksAdded.size()]));
             }
             
+            // always >= 0  unless this is being run without UI.
             int targetIndex = getIndexOfTask(taskAdded);
             if (targetIndex >= 0) {
                 EventsCenter.getInstance().post(new JumpToListRequestEvent(targetIndex));
-            } else {
-                // GUI should never ever get here
             }
             return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
         } catch (InvalidDateException ex) {
