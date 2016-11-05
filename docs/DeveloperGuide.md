@@ -2,18 +2,19 @@
 
 # Developer Guide 
 
-1. [Setting Up](#1-setting-up)
-2. [Design](#2-design)
-3. [Implementation](#3-implementation)
-4. [Testing](#4-testing)
-5. [Continuous Integration](#5-continuous-integration)
-6. [Making a Release](#6-making-a-release)
-7. [Managing Dependencies](#7-managing-dependencies)
-8. [Appendix A: User Stories](#appendix-a--user-stories)
-9. [Appendix B: Use Cases](#appendix-b--use-cases)
-10. [Appendix C: Non Functional Requirements](#appendix-c--non-functional-requirements)
-11. [Appendix D: Glossary](#appendix-d--glossary)
-12. [Appendix E : Product Survey](#appendix-e--product-survey)
+1. [Introduction](#1-introduction)
+2. [Setting Up](#2-setting-up)
+3. [Design](#3-design)
+4. [Implementation](#4-implementation)
+5. [Testing](#5-testing)
+6. [Continuous Integration](#6-continuous-integration)
+7. [Making a Release](#7-making-a-release)
+8. [Managing Dependencies](#8-managing-dependencies)
+9. [Appendix A: User Stories](#appendix-a--user-stories)
+10. [Appendix B: Use Cases](#appendix-b--use-cases)
+11. [Appendix C: Non Functional Requirements](#appendix-c--non-functional-requirements)
+12. [Appendix D: Glossary](#appendix-d--glossary)
+13. [Appendix E : Product Survey](#appendix-e--product-survey)
 
 ## 1. Introduction 
 
@@ -39,7 +40,7 @@ Before you start to delve into the development of sTask, please ensure that you 
 
 &nbsp;&nbsp;&nbsp;&nbsp;<b>2.2 Importing the project into Eclipse</b>
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>2.2.1</b> Fork this repo, and clone the fork to your computer <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>2.2.1</b> Fork this repository, and clone the fork to your computer <br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>2.2.2</b> Open Eclipse (Note: Ensure you have installed the **e(fx)clipse** and **buildship** plugins as given 
    in the prerequisites above) <br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>2.2.3</b> Click `File` > `Import` <br>
@@ -56,78 +57,73 @@ Before you start to delve into the development of sTask, please ensure that you 
 
 <img src="images/Architecture.png" width="600"><br><br>
 
->The **Architecture Diagram** given above explains the high-level design of the App. <br>
- Given below is a quick overview of each component. <br>
+>For you to get a better understanding of sTask's design architecture, we have compiled it into a diagram as seen above in Figure 1. This **Architecture Diagram** explains the high-level design of sTask, and we will proceed to guide you through each of the components. <br>
  
-### 3.1 Main Component
+&nbsp;&nbsp;&nbsp;&nbsp;<b>3.1 Main Component</b>
  
- `Main` has only one class called [`MainApp`](../src/main/java/seedu/address/MainApp.java). It is responsible for
+ In the `Main` component, you can only find one class called [`MainApp`](../src/main/java/seedu/stask/MainApp.java). During the launch of sTask, MainApp initialises the components in the correct sequence, and connects them to each other. MainApp is also responsible for shutting down the componenets and invoking clean up methods when sTask is exited.<br><br>
+ 
+&nbsp;&nbsp;&nbsp;&nbsp;<b>3.2 Common Component</b>
 
-    At app launch: Initializes the components in the correct sequence, and connect them up with each other.
-    At shut down: Shuts down the components and invoke clean up method where necessary.
+In this component, you can find a collection of classes that are used by several of the other components. 
 
-### 3.2 Common Component
-
-`Commons` represents a collection of classes used by multiple other components.
-Two of those classes play an important role at the architecture level.
+Two of these classes play an important role at the architecture level.
 * `EventsCentre` : This class (written using [Google's Event Bus library](https://github.com/google/guava/wiki/EventBusExplained))
   is used by components to communicate with other components using events (i.e. a form of _Event Driven_ design)
-* `LogsCenter` : Used by many classes to write log messages to the App's log files.
-* Classes used by multiple components are in the `seedu.addressbook.commands` package. 
+* `LogsCenter` : This class is used by many other classes to write log messages to sTask's log files.
+* Classes used by multiple components are in the `seedu.stask.commons` package. 
 
-The rest of the App consists four components.
-* [**`UI`**](#2-3-ui-component) : The UI of tha App.
-* [**`Logic`**](#2-4-logic-component) : The command executor.
-* [**`Model`**](2-5-model-component) : Holds the data of the App in-memory.
-* [**`Storage`**](2-6storage-component) : Reads data from, and writes data to, the hard disk.
+The rest of sTask consists of four components:
+* [**`UI`**](#2-3-ui-component), which is in charge of the User Interface of sTask.
+* [**`Logic`**](#2-4-logic-component), which is in charge of executing the logic.
+* [**`Model`**](2-5-model-component), which holds the data of sTask in-memory.
+* [**`Storage`**](2-6storage-component), which reads data from, and writes data to, the hard disk.
 
 Each of the four components
 * Defines its _API_ an interface with the same name as the Component. `Logic.java`
 * Exposes its functionality using a `{Component Name}Manager` class e.g. `LogicManager.java`
 
 The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the
-command `delete 3`.
+command `delete A3`.
 
 <img src="images\SDforDeletePerson.png" width="800">
 
->Note how the `Model` simply raises a `ModelChangedEvent` when the model is changed,
+>You can see how the `Model` simply raises a `ModelChangedEvent` when the model is changed,
  instead of asking the `Storage` to save the updates to the hard disk.
 
 The diagram below shows how the `EventsCenter` reacts to that event, which eventually results in the updates
 being saved to the hard disk and the status bar of the UI being updated to reflect the 'Last Updated' time. <br>
 <img src="images\SDforDeletePersonEventHandling.png" width="800">
 
-> Note how the event is propagated through the `EventsCenter` to the `Storage` and `UI` without `Model` having
-  to be coupled to either of them. This is an example of how this Event Driven approach helps us reduce direct 
+> You should take note of how the event is propagated through the `EventsCenter` to the `Storage` and `UI` without `Model` having
+  to be coupled to either of them. This is an example of how this Event Driven approach helps to reduce direct 
   coupling between components.
 
-The sections below give more details of each component.
+We will now go into further details about each component.
 
 ### 2.3 UI component
 
 <img src="images/UiClassDiagramTD.png" width="800"><br>
 
-**API** : [`Ui.java`](../src/main/java/seedu/address/ui/Ui.java)
+**API** : [`Ui.java`](../src/main/java/seedu/stask/ui/Ui.java)
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `DatedTaskListPanel`,
-`StatusBarFooter`, `UndatedTaskListPanel` etc. All these, including the `MainWindow` inherits from the abstract `UiPart` class
-and they can be loaded using the `UiPartLoader`.
+As you can see in Figure BLAH, our UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `DatedTaskListPanel`, `StatusBarFooter`, `UndatedTaskListPanel` etc. All these, including the `MainWindow` inherits from the abstract `UiPart` class and they can be loaded using the `UiPartLoader`.
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files
  that are in the `src/main/resources/view` folder.<br>
- For example, the layout of the [`MainWindow`](../src/main/java/seedu/address/ui/MainWindow.java) is specified in
+ For example, the layout of the [`MainWindow`](../src/main/java/seedu/stask/ui/MainWindow.java) is specified in
  [`MainWindow.fxml`](../src/main/resources/view/MainWindow.fxml)
 
 The `UI` component,
 * Executes user commands using the `Logic` component.
-* Binds itself to some data in the `Model` so that the UI can auto-update when data in the `Model` change.
-* Responds to events raises from various parts of the App and updates the UI accordingly.
+* Binds itself to some data in the `Model` so that the UI can auto-update when data in the `Model` has changed.
+* Responds to events raises from various parts of sTask and updates the UI accordingly.
 
 ### 2.4 Logic component
 
 <img src="images/LogicClassDiagram.png" width="800"><br>
 
-**API** : [`Logic.java`](../src/main/java/seedu/address/logic/Logic.java)
+**API** : [`Logic.java`](../src/main/java/seedu/stask/logic/Logic.java)
 
 1. `Logic` uses the `Parser` class to parse the user command.
 2. This results in a `Command` object which is executed by the `LogicManager`.
