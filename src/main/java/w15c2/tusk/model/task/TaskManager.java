@@ -30,10 +30,12 @@ import w15c2.tusk.logic.commands.taskcommands.ListTaskCommand;
 import w15c2.tusk.logic.commands.taskcommands.PinTaskCommand;
 import w15c2.tusk.logic.commands.taskcommands.RedoTaskCommand;
 import w15c2.tusk.logic.commands.taskcommands.SetStorageCommand;
+import w15c2.tusk.logic.commands.taskcommands.TaskCommandList;
 import w15c2.tusk.logic.commands.taskcommands.UncompleteTaskCommand;
 import w15c2.tusk.logic.commands.taskcommands.UndoTaskCommand;
 import w15c2.tusk.logic.commands.taskcommands.UnpinTaskCommand;
 import w15c2.tusk.model.Alias;
+import w15c2.tusk.model.HelpGuide;
 import w15c2.tusk.model.ModelHistory;
 import w15c2.tusk.model.UserPrefs;
 
@@ -297,21 +299,8 @@ public class TaskManager extends ComponentManager implements Model {
 	}
 	//@@author A0139708W
     @Override
-    public ObservableList<String> getHelpList() {
-        ObservableList<String> helpItems = FXCollections.observableArrayList ();
-        helpItems.add(AddTaskCommand.HELP_MESSAGE_USAGE);
-        helpItems.add(AddAliasCommand.HELP_MESSAGE_USAGE);
-        helpItems.add(DeleteAliasCommand.HELP_MESSAGE_USAGE);
-        helpItems.add(ClearTaskCommand.HELP_MESSAGE_USAGE);
-        helpItems.add(FindTaskCommand.HELP_MESSAGE_USAGE);
-        helpItems.add(ListTaskCommand.HELP_MESSAGE_USAGE);
-        helpItems.add(CompleteTaskCommand.HELP_MESSAGE_USAGE);
-        helpItems.add(UncompleteTaskCommand.HELP_MESSAGE_USAGE);
-        helpItems.add(UndoTaskCommand.HELP_MESSAGE_USAGE);
-        helpItems.add(RedoTaskCommand.HELP_MESSAGE_USAGE);
-        helpItems.add(PinTaskCommand.HELP_MESSAGE_USAGE);
-        helpItems.add(UnpinTaskCommand.HELP_MESSAGE_USAGE);
-        helpItems.add(SetStorageCommand.HELP_MESSAGE_USAGE);
+    public ObservableList<HelpGuide> getHelpList() {
+        ObservableList<HelpGuide> helpItems = FXCollections.observableArrayList (TaskCommandList.getHelpList());
         return helpItems;
     }
 	

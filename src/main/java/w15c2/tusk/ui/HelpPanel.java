@@ -7,10 +7,14 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import w15c2.tusk.commons.core.LogsCenter;
+import w15c2.tusk.model.HelpGuide;
 
 //@@author A0139708W
 public class HelpPanel extends UiPart {
@@ -18,9 +22,9 @@ public class HelpPanel extends UiPart {
     private static final String FXML = "HelpListPanel.fxml";
     private VBox panel;
     private AnchorPane placeHolderPane;
-    
+
     @FXML
-    private ListView<String> helpListView;
+    private TableView<HelpGuide> helpListView;
 
     @FXML
     private Label helpLabel;
@@ -45,25 +49,33 @@ public class HelpPanel extends UiPart {
     }
 
     public static HelpPanel load(Stage primaryStage, AnchorPane helpListPlaceholder,
-                                       ObservableList<String> helpList) {
+            ObservableList<HelpGuide> helpList) {
         HelpPanel helpListPanel =
                 UiPartLoader.loadUiPart(primaryStage, helpListPlaceholder, new HelpPanel());
         helpListPanel.configure(helpList);
         return helpListPanel;
     }
-    
-    private void configure(ObservableList<String> helpList) {
+
+    private void configure(ObservableList<HelpGuide> helpList) {
         setConnections(helpList);
-        helpLabel.setText("Help");
         addToPlaceholder();
     }
 
-    private void setConnections(ObservableList<String> helpList) {
+    private void setConnections(ObservableList<HelpGuide> helpList) {
         helpListView.setItems(helpList);
+        TableColumn commandCol = new TableColumn("Command");
+        TableColumn formatCol = new TableColumn("Format");
+        commandCol.setCellValueFactory(new PropertyValueFactory<HelpGuide, String>("name"));
+        formatCol.setCellValueFactory(new PropertyValueFactory<HelpGuide, String>("args"));
+        commandCol.setSortable(false);
+        formatCol.setSortable(false);
+        helpListView.getColumns().addAll(commandCol, formatCol);
+        helpListView.setSelectionModel(null);
+        helpLabel.setText("Help");
     }
     private void addToPlaceholder() {
         placeHolderPane.getChildren().add(panel);
-        
+
     }
 
 

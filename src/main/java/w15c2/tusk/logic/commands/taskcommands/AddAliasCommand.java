@@ -15,8 +15,8 @@ public class AddAliasCommand extends TaskCommand {
 
     public static final String COMMAND_WORD = "alias";
     public static final String ALTERNATE_COMMAND_WORD = null;
-
-    public static final String HELP_MESSAGE_USAGE = "Add an Alias: \t" + "alias <alias> <valid command sentence>"; 
+    public static final String COMMAND_FORMAT = COMMAND_WORD + " <SHORTCUT> <SENTENCE>";
+    public static final String COMMAND_DESCRIPTION = "Add an Alias"; 
     
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Sets a one-word alias for any sentence to be used as a command. "
             + "Parameters: SHORTCUT SENTENCE\n"

@@ -15,14 +15,14 @@ public class UnpinTaskCommand extends TaskCommand {
 
 	public static final String COMMAND_WORD = "unpin";
     public static final String ALTERNATE_COMMAND_WORD = null;
+    public static final String COMMAND_FORMAT = COMMAND_WORD + " <INDEX>";
+    public static final String COMMAND_DESCRIPTION = "Unpin a Task"; 
 	
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Unpins the task identified by the index number used in the last task listing.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
     
-    public static final String HELP_MESSAGE_USAGE = "Unpin a task: \t" + COMMAND_WORD + " <index>";
-
     public static final String MESSAGE_UNPIN_TASK_SUCCESS = "Unpinned task: %1$s";
     public static final String MESSAGE_TASK_ALR_UNPINNED = "Task is already an unpinned task";
 
