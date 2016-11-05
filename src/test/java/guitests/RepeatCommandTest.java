@@ -13,6 +13,7 @@ import java.util.concurrent.ThreadLocalRandom;
 
 import static seedu.task.logic.commands.RepeatCommand.MESSAGE_INVALID_INTERVAL;
 
+// @@author A0147944U
 public class RepeatCommandTest extends TaskManagerGuiTest {
 
     @Test
