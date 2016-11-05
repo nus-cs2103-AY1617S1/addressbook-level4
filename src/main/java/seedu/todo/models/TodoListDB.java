@@ -182,6 +182,15 @@ public class TodoListDB {
     }
     
     /**
+     * Destroys all `tasks` from the DB.
+     * 
+     * @param tasks Tasks to remove
+     */
+    public void destroyTasks(List<Task> tasks) {
+        tasks.removeAll(tasks);
+    }
+    
+    /**
      * Destroys all Task in the DB and persists the commit.
      * 
      * @return true if the save was successful, false otherwise
@@ -236,6 +245,15 @@ public class TodoListDB {
     public boolean destroyEvent(Event event) {
         events.remove(event);
         return save();
+    }
+    
+    /**
+     * Destroys all `events` from the DB.
+     * 
+     * @param tasks Tasks to remove
+     */
+    public void destroyEvents(List<Event> events) {
+        events.removeAll(events);
     }
     
     /**
