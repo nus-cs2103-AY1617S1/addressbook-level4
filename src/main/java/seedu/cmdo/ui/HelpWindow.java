@@ -18,6 +18,8 @@ public class HelpWindow extends UiPart {
     private static final String ICON = "/images/help_icon.png";
     private static final String FXML = "HelpWindow.fxml";
     private static final String TITLE = "Help";
+    public static final String HELP_WINDOW_ROOT_FIELD_ID = "helpWindow";
+
     
     private AnchorPane mainPane;
     private Stage dialogStage;
@@ -42,8 +44,9 @@ public class HelpWindow extends UiPart {
     private void configure(){
         Scene scene = new Scene(mainPane);
         dialogStage = createDialogStage(TITLE, null, scene);
-        setIcon(dialogStage, ICON);        
+        setIcon(dialogStage, ICON);
         mainPane.getChildren().add(new HelpCard().getHelpCardPane());
+        mainPane.setId(HELP_WINDOW_ROOT_FIELD_ID);
     }
 
     public void show() {

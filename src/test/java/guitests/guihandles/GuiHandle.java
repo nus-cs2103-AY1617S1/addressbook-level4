@@ -10,6 +10,7 @@ import javafx.stage.Window;
 import seedu.cmdo.TestApp;
 import seedu.cmdo.commons.core.LogsCenter;
 
+import java.util.Optional;
 import java.util.logging.Logger;
 
 /**
@@ -34,8 +35,6 @@ public class GuiHandle {
      * 
      * After refactoring package from address to cmdo, GUI tests would not run because of Stage title mismatch.
      * The line of code which enforces this is redundant in our opinion and was commented out for testing purposes.
-     * 
-     * @@author A0139661Y
      */
     public void focusOnWindow(String stageTitle) {
         logger.info("Focusing " + stageTitle);
@@ -43,7 +42,6 @@ public class GuiHandle {
                 .stream()
 //                .filter(w -> w instanceof Stage && ((Stage) w).getTitle().equals(stageTitle)).findAny();
         		.filter(w -> w instanceof Stage).findAny();
-
 
         if (!window.isPresent()) {
             logger.warning("Can't find stage " + stageTitle + ", Therefore, aborting focusing");
