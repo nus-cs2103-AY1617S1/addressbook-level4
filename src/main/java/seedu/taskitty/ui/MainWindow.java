@@ -136,7 +136,7 @@ public class MainWindow extends UiPart {
         clearMenuItem.setAccelerator(KeyCombination.valueOf("Ctrl + Shift + C"));        
     }
     
-    //@@author A0130853L
+    //@@author
     public void fillInnerParts() {
 
         TaskListPanel.load(primaryStage, getTaskListPlaceholder(),
