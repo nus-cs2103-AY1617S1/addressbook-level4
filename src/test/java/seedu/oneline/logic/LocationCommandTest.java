@@ -34,7 +34,7 @@ public class LocationCommandTest extends LogicTestManager {
     }
     
     @Test
-    public void locationCommand_setValidPath1_success() throws Exception {
+    public void locationCommand_setValidDirectoryPath_success() throws Exception {
         String path = "\\directory";
         File file = new File(path);
         if (!file.isDirectory()) {
@@ -51,22 +51,14 @@ public class LocationCommandTest extends LogicTestManager {
     // @@author A0121657H
     
     @Test
-    public void locationCommand_setValidPath2_success() {
+    public void locationCommand_setValidHomePath_success() {
         String homeDir = System.getProperty("user.home");
         LocationCommand cmd = new LocationCommand(homeDir);
         CommandResult res = cmd.execute();
         String feedback = res.feedbackToUser;
         assertTrue(feedback.equals(String.format(LocationCommand.MESSAGE_SET_STORAGE_SUCCESS, homeDir)));        
     }
-    
-    @Test
-    public void changeSaveLocation_invalidPath_invalidMessageShown() {
-        LocationCommand cmd = new LocationCommand("!@#$%^&*");
-        CommandResult res = cmd.execute();
-        String feedback = res.feedbackToUser;
-        assertTrue(feedback.equals(String.format(LocationCommand.MESSAGE_SET_STORAGE_FAILURE_PATH_INVALID, "!@#$%^&*")));        
-    }
-    
+
     // @@author
     
 }
