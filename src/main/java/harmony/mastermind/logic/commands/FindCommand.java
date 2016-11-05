@@ -54,6 +54,18 @@ public class FindCommand extends Command {
     }
 
     //@@author A0143378Y
+    // Only for delete and update direct commands to search for exact matching names
+    // Should only return list of 1 item ideally
+    public static ArrayList<GenericMemory> searchExact(String keyword, Memory memory) {
+        assert keyword.length() != 0;
+        ArrayList<GenericMemory> exactResult = new ArrayList<GenericMemory>();
+        for (int i=0; i<memory.getSize(); i++) {
+            containsKeyword(keyword, memory, exactResult, i);
+        }
+        return exactResult;
+    }
+    
+    //@@author A0143378Y
     // Driver for recursive searching of array of keywords
     // Returns ArrayList of GenericEvents found containing keywords in their name or description
     public static ArrayList<GenericMemory> searchTerms(String[] keywords, Memory memory) {
