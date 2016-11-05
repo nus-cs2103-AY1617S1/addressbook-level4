@@ -23,7 +23,11 @@ public class ModifyStoragePathCommand extends Command {
     public static final String COMMAND_WORD = "modify";
     public static final String DEFAULT_STORAGE_PATH = new File(ModifyStoragePathCommand.class.getProtectionDomain().getCodeSource().getLocation().getPath()).getParent() + File.separator + "data/menion.xml";
     public static final String MESSAGE_SUCCESS = "You have successfully changed Menion's storage location to %1$s \n";
-    public static final String MESSAGE_FAILURE = "Please provide a valid storage path!";
+    public static final String MESSAGE_FAILURE = "Please provide a valid storage path!\n" + 
+    										"Examples to modify storage path: \n" + 
+    										"Modify to default storage path: modify default\n" +
+    										"Modify to a specified storage path: modify [FILEPATH]\n" +
+    										"Note that file path specified will be in user home directory.";
     private final String pathToChange;
     
     public ModifyStoragePathCommand(String pathToChange) {
