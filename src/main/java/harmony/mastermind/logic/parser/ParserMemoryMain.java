@@ -31,4 +31,19 @@ public class ParserMemoryMain {
     public static void setTaskName(String newName) { 
         taskName = newName;
     }
+    
+    //@@author A0143378Y
+    protected static void setDescription(String newDescription) { 
+        description = newDescription;
+    }
+    
+    //@@author A0143378Y 
+    protected static void setLength(int newLength) { 
+        length = newLength;
+    }
+    
+    //@@author A0143378Y
+    protected static void setType(int newType) {
+        type = newType;
+    }
 }
