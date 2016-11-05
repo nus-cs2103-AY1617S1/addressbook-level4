@@ -197,16 +197,7 @@ public class ModelManager extends ComponentManager implements Model {
         }
 	    
 	    Task originalTask = new Task(taskToUpdate.getTaskDetails(), originalStartTime, originalEndTime, taskToUpdate.getPriority(), taskToUpdate.getRecurringFrequency());
-
-	    System.out.println("Before updating:");
-        System.out.println("taskToUpdate: " + taskToUpdate.getTaskDetails() + taskToUpdate.getStartTime().toCardString() + taskToUpdate.getEndTime().toCardString());
-        System.out.println("originalTask: " + originalTask.getTaskDetails() + originalTask.getStartTime().toCardString() + originalTask.getEndTime().toCardString());
-		
-		taskList.updateTask(taskToUpdate, taskDetails, startTime, endTime, priority, frequency);
-        System.out.println("After updating:");
-        System.out.println("taskToUpdate: " + taskToUpdate.getTaskDetails() + taskToUpdate.getStartTime().toCardString() + taskToUpdate.getEndTime().toCardString());
-        System.out.println("originalTask: " + originalTask.getTaskDetails() + originalTask.getStartTime().toCardString() + originalTask.getEndTime().toCardString());
-		
+		taskList.updateTask(taskToUpdate, taskDetails, startTime, endTime, priority, frequency);		
         updateFilteredListToShowIncomplete();
 		indicateTaskListChanged();
 		addToUndoStack(UndoCommand.UPD_CMD_ID, null, taskToUpdate, originalTask);

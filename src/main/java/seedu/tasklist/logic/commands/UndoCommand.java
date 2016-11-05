@@ -115,17 +115,8 @@ public class UndoCommand extends Command {
     private void undoUpdate(Task newTask, Task originalTask){
         Task stubTask = new Task (newTask.getTaskDetails(), newTask.getStartTime(), newTask.getEndTime(), newTask.getPriority(), newTask.getRecurringFrequency());
         try {
-            System.out.println("Before undoing:");
-            System.out.println("newTask: " + newTask.getTaskDetails() + newTask.getStartTime().toCardString());
-            System.out.println("originalTask: " + originalTask.getTaskDetails() + originalTask.getStartTime().toCardString());
-            
             model.updateTaskUndo(newTask, originalTask.getTaskDetails(), originalTask.getStartTime(), originalTask.getEndTime(), originalTask.getPriority(), originalTask.getRecurringFrequency());
             model.updateTaskUndo(originalTask, stubTask.getTaskDetails(), stubTask.getStartTime(), stubTask.getEndTime(), stubTask.getPriority(), originalTask.getRecurringFrequency());
-            
-            System.out.println("After undoing:");
-            System.out.println("newTask: " + newTask.getTaskDetails() + newTask.getStartTime().toCardString());
-            System.out.println("originalTask: " + originalTask.getTaskDetails() + originalTask.getStartTime().toCardString());
-            
         } catch (IllegalValueException e) {
 			e.printStackTrace();
 		}
