@@ -39,7 +39,7 @@ public class AddNonFloatingCommand extends AddCommand {
      *
      * @throws IllegalValueException if any of the raw values are invalid
      */
-    public AddNonFloatingCommand(String name, Set<String> tags, TaskDate startDate, TaskDate endDate, RecurringType recurringType)
+    public AddNonFloatingCommand(String name, Set<String> tags, TaskDate startDate, TaskDate endDate, RecurringType recurringType, int recurringPeriod)
             throws IllegalValueException {
         assert !CollectionUtil.isAnyNull(name, tags, startDate, endDate, recurringType);
         final Set<Tag> tagSet = new HashSet<>();
@@ -51,7 +51,8 @@ public class AddNonFloatingCommand extends AddCommand {
                 new UniqueTagList(tagSet),
                 new TaskDate(startDate),
                 new TaskDate(endDate),
-                recurringType
+                recurringType,
+                recurringPeriod
         );
         if(!this.toAdd.getLastAppendedComponent().isValidTimeSlot()){
         	indicateAttemptToExecuteIncorrectCommand();

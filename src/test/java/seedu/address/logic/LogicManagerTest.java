@@ -336,9 +336,9 @@ public class LogicManagerTest {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
         Task toBeAdded = new Task(new Name("Task one"), new UniqueTagList(), new TaskDate("2 oct 2am"),
-                new TaskDate("2 oct 1pm"), RecurringType.NONE);
+                new TaskDate("2 oct 1pm"), RecurringType.NONE, Task.NO_RECURRING_PERIOD);
         Task toBeAddedAfter = new Task(new Name("Task two"), new UniqueTagList(), new TaskDate("2 oct 10am"),
-                new TaskDate("2 oct 11am"), RecurringType.NONE);
+                new TaskDate("2 oct 11am"), RecurringType.NONE, Task.NO_RECURRING_PERIOD);
         TaskMaster expectedTM = new TaskMaster();
         expectedTM.addTask(toBeAdded);
         expectedTM.addTask(toBeAddedAfter);
@@ -358,9 +358,9 @@ public class LogicManagerTest {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
         Task toBeAdded = new Task(new Name("Task one"), new UniqueTagList(), new TaskDate("2 oct 2am"),
-                new TaskDate("2 oct 1pm"), RecurringType.NONE);
+                new TaskDate("2 oct 1pm"), RecurringType.NONE, Task.NO_RECURRING_PERIOD);
         Task toBeAddedAfter = new Task(new Name("Task two"), new UniqueTagList(),
-                new TaskDate(TaskDate.DATE_NOT_PRESENT), new TaskDate("2 oct 11am"), RecurringType.NONE);
+                new TaskDate(TaskDate.DATE_NOT_PRESENT), new TaskDate("2 oct 11am"), RecurringType.NONE, Task.NO_RECURRING_PERIOD);
         TaskMaster expectedTM = new TaskMaster();
         expectedTM.addTask(toBeAdded);
         expectedTM.addTask(toBeAddedAfter);
@@ -382,7 +382,7 @@ public class LogicManagerTest {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
         Task toBeAdded = new Task(new Name("Task one"), new UniqueTagList(), new TaskDate("2 oct 6am"),
-                new TaskDate("2 oct 5am"), RecurringType.NONE);
+                new TaskDate("2 oct 5am"), RecurringType.NONE, Task.NO_RECURRING_PERIOD);
         TaskMaster expectedTM = new TaskMaster();
 
         // execute command and verify result
@@ -422,7 +422,7 @@ public class LogicManagerTest {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
         Task toBeAdded = new Task(new Name(BlockCommand.DUMMY_NAME), new UniqueTagList(), new TaskDate("2 oct 2am"),
-                new TaskDate("2 oct 1pm"), RecurringType.NONE);
+                new TaskDate("2 oct 1pm"), RecurringType.NONE, Task.NO_RECURRING_PERIOD);
         TaskMaster expectedTM = new TaskMaster();
         expectedTM.addTask(toBeAdded);
 
@@ -439,9 +439,9 @@ public class LogicManagerTest {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
         Task toBeBlocked = new Task(new Name(BlockCommand.DUMMY_NAME), new UniqueTagList(), new TaskDate("2 oct 2am"),
-                new TaskDate("2 oct 1pm"), RecurringType.NONE);
+                new TaskDate("2 oct 1pm"), RecurringType.NONE, Task.NO_RECURRING_PERIOD);
         Task toBeAddedAfter = new Task(new Name(BlockCommand.DUMMY_NAME), new UniqueTagList(),
-                new TaskDate("2 oct 10am"), new TaskDate("2 oct 11am"), RecurringType.NONE);
+                new TaskDate("2 oct 10am"), new TaskDate("2 oct 11am"), RecurringType.NONE, Task.NO_RECURRING_PERIOD);
         TaskMaster expectedTM = new TaskMaster();
         expectedTM.addTask(toBeBlocked);
 
@@ -459,9 +459,9 @@ public class LogicManagerTest {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
         Task toBeBlocked = new Task(new Name("Test Task"), new UniqueTagList(), new TaskDate("2 oct 2am"),
-                new TaskDate("2 oct 1pm"), RecurringType.NONE);
+                new TaskDate("2 oct 1pm"), RecurringType.NONE, Task.NO_RECURRING_PERIOD);
         Task toBeAddedAfter = new Task(new Name(BlockCommand.DUMMY_NAME), new UniqueTagList(),
-                new TaskDate("2 oct 10am"), new TaskDate("2 oct 11am"), RecurringType.NONE);
+                new TaskDate("2 oct 10am"), new TaskDate("2 oct 11am"), RecurringType.NONE, Task.NO_RECURRING_PERIOD);
         TaskMaster expectedTM = new TaskMaster();
         expectedTM.addTask(toBeBlocked);
 
@@ -479,7 +479,7 @@ public class LogicManagerTest {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
         Task toBeBlocked = new Task(new Name(BlockCommand.DUMMY_NAME), new UniqueTagList(), new TaskDate("2 oct 6am"),
-                new TaskDate("2 oct 5am"), RecurringType.NONE);
+                new TaskDate("2 oct 5am"), RecurringType.NONE, Task.NO_RECURRING_PERIOD);
         TaskMaster expectedTM = new TaskMaster();
 
         // execute command and verify result
@@ -1092,7 +1092,7 @@ public class LogicManagerTest {
     @Test
     public void execute_edit_invalidTaskData() throws Exception {
         Task toBeAdded = new Task(new Name("anything"), new UniqueTagList(), new TaskDate("2 oct 2am"),
-                new TaskDate("2 oct 1pm"), RecurringType.NONE);
+                new TaskDate("2 oct 1pm"), RecurringType.NONE, Task.NO_RECURRING_PERIOD);
 
         TaskMaster expectedTM = new TaskMaster();
         expectedTM.addTask(toBeAdded);
@@ -1122,9 +1122,9 @@ public class LogicManagerTest {
     public void execute_edit_timeSlotOccupied_notAllowed() throws Exception {
         // setup expectations
         Task dummyTask = new Task(new Name("BLOCKED SLOT"), new UniqueTagList(), new TaskDate("10 oct 2pm"),
-                new TaskDate("10 oct 5pm"), RecurringType.NONE);
+                new TaskDate("10 oct 5pm"), RecurringType.NONE, Task.NO_RECURRING_PERIOD);
         Task beforeModification = new Task(new Name("anything"), new UniqueTagList(), new TaskDate("10 oct 10am"),
-                new TaskDate("10 oct 12am"), RecurringType.NONE);
+                new TaskDate("10 oct 12am"), RecurringType.NONE, Task.NO_RECURRING_PERIOD);
 
         model.addTask(dummyTask);
         model.addTask(beforeModification);
@@ -1201,9 +1201,9 @@ public class LogicManagerTest {
     public void execute_edit_change_fromDateToDate_for_nonFloatingTask_Successful() throws Exception {
         // setup expectations
         Task beforeModification = new Task(new Name("anything"), new UniqueTagList(), new TaskDate("2 oct 3am"),
-                new TaskDate("2 oct 1pm"), RecurringType.NONE);
+                new TaskDate("2 oct 1pm"), RecurringType.NONE, Task.NO_RECURRING_PERIOD);
         Task afterModification = new Task(new Name("anything"), new UniqueTagList(), new TaskDate("2 oct 2am"),
-                new TaskDate("2 oct 1pm"), RecurringType.NONE);
+                new TaskDate("2 oct 1pm"), RecurringType.NONE, Task.NO_RECURRING_PERIOD);
 
         model.addTask(beforeModification);
         TaskMaster expectedTM = new TaskMaster();
@@ -1224,9 +1224,9 @@ public class LogicManagerTest {
     public void execute_edit_change_byDate_for_nonfloatingTask_Successful() throws Exception {
         // setup expectations
         Task beforeModification = new Task(new Name("anything"), new UniqueTagList(),
-                new TaskDate(TaskDate.DATE_NOT_PRESENT), new TaskDate("2 oct 2pm"), RecurringType.NONE);
+                new TaskDate(TaskDate.DATE_NOT_PRESENT), new TaskDate("2 oct 2pm"), RecurringType.NONE, Task.NO_RECURRING_PERIOD);
         Task afterModification = new Task(new Name("anything"), new UniqueTagList(),
-                new TaskDate(TaskDate.DATE_NOT_PRESENT), new TaskDate("2 oct 1pm"), RecurringType.NONE);
+                new TaskDate(TaskDate.DATE_NOT_PRESENT), new TaskDate("2 oct 1pm"), RecurringType.NONE, Task.NO_RECURRING_PERIOD);
 
         model.addTask(beforeModification);
         TaskMaster expectedTM = new TaskMaster();
@@ -1247,9 +1247,9 @@ public class LogicManagerTest {
             throws Exception {
         // setup expectations
         Task beforeModification = new Task(new Name("anything"), new UniqueTagList(), new TaskDate("2 oct 4am"),
-                new TaskDate("2 oct 1pm"), RecurringType.NONE);
+                new TaskDate("2 oct 1pm"), RecurringType.NONE, Task.NO_RECURRING_PERIOD);
         Task afterModification = new Task(new Name("anything"), new UniqueTagList(),
-                new TaskDate(TaskDate.DATE_NOT_PRESENT), new TaskDate("2 oct 1pm"), RecurringType.NONE);
+                new TaskDate(TaskDate.DATE_NOT_PRESENT), new TaskDate("2 oct 1pm"), RecurringType.NONE, Task.NO_RECURRING_PERIOD);
 
         model.addTask(beforeModification);
         TaskMaster expectedTM = new TaskMaster();
@@ -1270,7 +1270,7 @@ public class LogicManagerTest {
         // setup expectations
         Task beforeModification = new Task(new Name("anything"), new UniqueTagList());
         Task afterModification = new Task(new Name("anything"), new UniqueTagList(), new TaskDate("2 oct 2am"),
-                new TaskDate("2 oct 1pm"), RecurringType.NONE);
+                new TaskDate("2 oct 1pm"), RecurringType.NONE, Task.NO_RECURRING_PERIOD);
 
         model.addTask(beforeModification);
         TaskMaster expectedTM = new TaskMaster();
@@ -1292,7 +1292,7 @@ public class LogicManagerTest {
         // setup expectations
         Task beforeModification = new Task(new Name("anything"), new UniqueTagList());
         Task afterModification = new Task(new Name("anything"), new UniqueTagList(),
-                new TaskDate(TaskDate.DATE_NOT_PRESENT), new TaskDate("2 oct 1pm"), RecurringType.NONE);
+                new TaskDate(TaskDate.DATE_NOT_PRESENT), new TaskDate("2 oct 1pm"), RecurringType.NONE, Task.NO_RECURRING_PERIOD);
 
         model.addTask(beforeModification);
         TaskMaster expectedTM = new TaskMaster();
@@ -1313,7 +1313,7 @@ public class LogicManagerTest {
         // setup expectations
         Task beforeModification = new Task(new Name("anything"), new UniqueTagList());
         Task afterModification = new Task(new Name("anything"), new UniqueTagList(),
-                new TaskDate(TaskDate.DATE_NOT_PRESENT), new TaskDate("2 oct 1pm"), RecurringType.DAILY);
+                new TaskDate(TaskDate.DATE_NOT_PRESENT), new TaskDate("2 oct 1pm"), RecurringType.DAILY, Task.NO_RECURRING_PERIOD);
 
         model.addTask(beforeModification);
         TaskMaster expectedTM = new TaskMaster();
@@ -1332,11 +1332,11 @@ public class LogicManagerTest {
     @Test
     public void execute_editBlockedSlotNameAndTiming_Successful() throws Exception {
         Task placebo = new Task(new Name(BlockCommand.DUMMY_NAME),new UniqueTagList(),
-                new TaskDate("2am"), new TaskDate("3am"), RecurringType.NONE);
+                new TaskDate("2am"), new TaskDate("3am"), RecurringType.NONE, Task.NO_RECURRING_PERIOD);
         Task beforeModification = new Task(new Name(BlockCommand.DUMMY_NAME),new UniqueTagList(),
-                new TaskDate("3am"), new TaskDate("6am"), RecurringType.NONE);
+                new TaskDate("3am"), new TaskDate("6am"), RecurringType.NONE, Task.NO_RECURRING_PERIOD);
         Task afterModification = new Task(new Name("Confirmed"),new UniqueTagList(),
-                new TaskDate("4am"), new TaskDate("5am"), RecurringType.NONE);
+                new TaskDate("4am"), new TaskDate("5am"), RecurringType.NONE, Task.NO_RECURRING_PERIOD);
         
         model.addTask(placebo);
         model.addTask(beforeModification);
@@ -1391,7 +1391,7 @@ public class LogicManagerTest {
             UniqueTagList tags = new UniqueTagList(tag1, tag2);
             TaskDate startDate = new TaskDate("19 oct 10pm");
             TaskDate endDate = new TaskDate("20 oct 11am");
-            return new Task(name, tags, startDate, endDate, RecurringType.NONE);
+            return new Task(name, tags, startDate, endDate, RecurringType.NONE, Task.NO_RECURRING_PERIOD);
         }
 
         public Task nonFloatingRecurringFromDateToDate(RecurringType recurringType) throws Exception {
@@ -1407,7 +1407,7 @@ public class LogicManagerTest {
             UniqueTagList tags = new UniqueTagList(tag1, tag2);
             TaskDate startDate = new TaskDate(TaskDate.DATE_NOT_PRESENT);
             TaskDate endDate = new TaskDate("20 oct 11am");
-            return new Task(name, tags, startDate, endDate, RecurringType.NONE);
+            return new Task(name, tags, startDate, endDate, RecurringType.NONE, Task.NO_RECURRING_PERIOD);
         }
 
         public Task nonFloatingRecurringByDate(RecurringType recurringType) throws Exception {

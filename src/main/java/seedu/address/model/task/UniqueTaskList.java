@@ -210,6 +210,9 @@ public class UniqueTaskList implements Iterable<Task> {
      */
     public boolean archive(TaskOccurrence target) {
         assert target != null;
+        if (target.isArchived() == true) {
+            return false;
+        }
         boolean taskFoundAndArchived = false;
         System.out.println(internalComponentList.contains(target));
         for (TaskOccurrence t : internalComponentList) {
@@ -247,7 +250,7 @@ public class UniqueTaskList implements Iterable<Task> {
                 TaskDate realStartDate = startDate == null ? new TaskDate(TaskDate.DATE_NOT_PRESENT) : startDate;
                 TaskDate realEndDate = endDate == null ? new TaskDate(TaskDate.DATE_NOT_PRESENT) : endDate;
                 Task checkTask = new Task(target.getTaskReference().getName(), target.getTaskReference().getTags(), realStartDate, realEndDate,
-                        recurringType);
+                        recurringType, target.getTaskReference().getRecurringPeriod());
                 if (overlapsForEdit(t, checkTask.getLastAppendedComponent()))
                     throw new TimeslotOverlapException();
                 t.getTaskReference().updateTask(name, tags, startDate, endDate, recurringType);

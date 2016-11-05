@@ -17,6 +17,7 @@ import seedu.address.logic.RecurringTaskManager;
 import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.RecurringType;
 import seedu.address.model.task.Task;
+import seedu.address.model.task.TaskDate;
 import seedu.address.model.task.TaskOccurrence;
 import seedu.address.testutil.TaskBuilder;
 import seedu.address.testutil.TestTask;
@@ -49,7 +50,7 @@ public class RecurringTaskManagerTest {
         TestTask testData = helper.buildRecurringTask(RecurringType.DAILY);
         Task tryUpdate = new Task(testData);
         taskMaster.addTask(tryUpdate);
-        recurringManager.updateAnyRecurringTasks(helper.getLocalDateByString("2016-10-12"));
+        recurringManager.appendAnyRecurringTasks(helper.getLocalDateByString("2016-10-12"));
         
         assertEquals("Recurring task should be updated to append 1 more task occurrence", taskMaster.getTaskComponentList().size(), 2);
         assertEquals("Recurring task should be have unique tasks", taskMaster.getTaskList().size(), 1);
@@ -66,7 +67,14 @@ public class RecurringTaskManagerTest {
     }
     
     @Test
-    public void correctAssignOverdueTasks_dailyRecurring() throws Exception {
+    public void correctAssignOverdueTasks_recurringTasks() throws Exception {
+        correctAssignOverdueTasks_daily();
+        correctAssignOverdueTasks_weekly();
+        correctAssignOverdueTasks_monthly();
+        correctAssignOverdueTasks_yearly();
+    }
+    
+    public void correctAssignOverdueTasks_daily() throws Exception {
         RecurringTaskHelper helper = new RecurringTaskHelper();
         TestTask tryCorrect = helper.buildRecurringTask(RecurringType.DAILY);
         TestTask expectedTask = helper.buildRecurringTask(RecurringType.DAILY);
@@ -79,9 +87,8 @@ public class RecurringTaskManagerTest {
         assertEquals("Recurring tasks should be corrected",
                 helper.getLastAppendedOccurrence(tryCorrect), helper.getLastAppendedOccurrence(expectedTask));    
     }
-    
-    @Test
-    public void correctAssignOverdueTasks_weeklyRecurring() throws Exception {
+
+    public void correctAssignOverdueTasks_weekly() throws Exception {
         RecurringTaskHelper helper = new RecurringTaskHelper();
         TestTask tryCorrect = helper.buildRecurringTask(RecurringType.WEEKLY);
         TestTask expectedTask = helper.buildRecurringTask(RecurringType.WEEKLY);
@@ -95,8 +102,7 @@ public class RecurringTaskManagerTest {
                 helper.getLastAppendedOccurrence(tryCorrect), helper.getLastAppendedOccurrence(expectedTask));    
     }            
     
-    @Test
-    public void correctAssignOverdueTasks_monthlyRecurring() throws Exception {
+    public void correctAssignOverdueTasks_monthly() throws Exception {
         RecurringTaskHelper helper = new RecurringTaskHelper();
         TestTask tryCorrect = helper.buildRecurringTask(RecurringType.MONTHLY);
         TestTask expectedTask = helper.buildRecurringTask(RecurringType.MONTHLY);
@@ -116,9 +122,8 @@ public class RecurringTaskManagerTest {
         assertEquals("Recurring tasks should be corrected",
                 helper.getLastAppendedOccurrence(tryCorrect), helper.getLastAppendedOccurrence(expectedTask));      
     }        
-
-    @Test
-    public void correctAssignOverdueTasks_yearlyRecurring() throws Exception {
+    
+    public void correctAssignOverdueTasks_yearly() throws Exception {
         RecurringTaskHelper helper = new RecurringTaskHelper();
         TestTask tryCorrect = helper.buildRecurringTask(RecurringType.YEARLY);
         TestTask expectedTask = helper.buildRecurringTask(RecurringType.YEARLY);
@@ -133,57 +138,103 @@ public class RecurringTaskManagerTest {
     }
     
     @Test
+    public void updateRecurringTask() throws Exception {
+        updateRecurringTask_daily();
+        updateRecurringTask_weekly();
+        updateRecurringTask_monthly();
+        updateRecurringTask_yearly();
+    }
+    
     public void updateRecurringTask_daily() throws Exception {
         RecurringTaskHelper helper = new RecurringTaskHelper();
         TestTask tryAppend = helper.buildRecurringTask(RecurringType.DAILY);
         
-        recurringManager.appendRecurringTasks(tryAppend, helper.getLastAppendedStartDate(tryAppend), 
-                helper.getLastAppendedEndDate(tryAppend), helper.getLocalDateByString("2016-10-11"));
+        recurringManager.attemptAppendRecurringTasks(tryAppend, 
+                helper.getLastAppendedStartDate(tryAppend), helper.getLastAppendedEndDate(tryAppend), 
+                helper.getLocalDateByString("2016-10-11"));
         assertEquals("Recurring tasks should not append until their date has been elapsed", tryAppend.getTaskDateComponent().size(), 1);
-        recurringManager.appendRecurringTasks(tryAppend, helper.getLastAppendedStartDate(tryAppend), 
-                helper.getLastAppendedEndDate(tryAppend), helper.getLocalDateByString("2016-10-12"));
+        recurringManager.attemptAppendRecurringTasks(tryAppend, 
+                helper.getLastAppendedStartDate(tryAppend), helper.getLastAppendedEndDate(tryAppend), 
+                helper.getLocalDateByString("2016-10-12"));
         assertEquals("Recurring tasks should be appended when it is time", tryAppend.getTaskDateComponent().size(), 2);        
     }
 
-    @Test
     public void updateRecurringTask_weekly() throws Exception {
         RecurringTaskHelper helper = new RecurringTaskHelper();
         TestTask tryAppend = helper.buildRecurringTask(RecurringType.WEEKLY);
 
-        recurringManager.appendRecurringTasks(tryAppend, helper.getLastAppendedStartDate(tryAppend), 
-                helper.getLastAppendedEndDate(tryAppend), helper.getLocalDateByString("2016-10-11"));
+        recurringManager.attemptAppendRecurringTasks(tryAppend, 
+                helper.getLastAppendedStartDate(tryAppend), helper.getLastAppendedEndDate(tryAppend), 
+                helper.getLocalDateByString("2016-10-11"));
         assertEquals("Recurring tasks should not append until their date has been elapsed", tryAppend.getTaskDateComponent().size(), 1);
-        recurringManager.appendRecurringTasks(tryAppend, helper.getLastAppendedStartDate(tryAppend), 
-                helper.getLastAppendedEndDate(tryAppend), helper.getLocalDateByString("2016-10-17"));
+        recurringManager.attemptAppendRecurringTasks(tryAppend, 
+                helper.getLastAppendedStartDate(tryAppend), helper.getLastAppendedEndDate(tryAppend), 
+                helper.getLocalDateByString("2016-10-17"));
         assertEquals("Recurring tasks should be appended when it is time", tryAppend.getTaskDateComponent().size(), 2);        
     }
 
-    @Test
     public void updateRecurringTask_monthly() throws Exception {
         RecurringTaskHelper helper = new RecurringTaskHelper();
         TestTask tryAppend = helper.buildRecurringTask(RecurringType.MONTHLY);
 
-        recurringManager.appendRecurringTasks(tryAppend, helper.getLastAppendedStartDate(tryAppend), 
-                helper.getLastAppendedEndDate(tryAppend), helper.getLocalDateByString("2016-10-11"));
+        recurringManager.attemptAppendRecurringTasks(tryAppend, 
+                helper.getLastAppendedStartDate(tryAppend), helper.getLastAppendedEndDate(tryAppend), 
+                helper.getLocalDateByString("2016-10-11"));
         assertEquals("Recurring tasks should not append until their date has been elapsed", tryAppend.getTaskDateComponent().size(), 1);
-        recurringManager.appendRecurringTasks(tryAppend, helper.getLastAppendedStartDate(tryAppend), 
-                helper.getLastAppendedEndDate(tryAppend), helper.getLocalDateByString("2016-11-12"));
+        recurringManager.attemptAppendRecurringTasks(tryAppend, 
+                helper.getLastAppendedStartDate(tryAppend), helper.getLastAppendedEndDate(tryAppend), 
+                helper.getLocalDateByString("2016-11-12"));
         assertEquals("Recurring tasks should be appended when it is time", tryAppend.getTaskDateComponent().size(), 2);        
     }    
 
-    @Test
     public void updateRecurringTask_yearly() throws Exception {
         RecurringTaskHelper helper = new RecurringTaskHelper();
         TestTask tryAppend = helper.buildRecurringTask(RecurringType.YEARLY);
 
-        recurringManager.appendRecurringTasks(tryAppend, helper.getLastAppendedStartDate(tryAppend), 
-                helper.getLastAppendedEndDate(tryAppend), helper.getLocalDateByString("2016-10-11"));
+        recurringManager.attemptAppendRecurringTasks(tryAppend, 
+                helper.getLastAppendedStartDate(tryAppend), helper.getLastAppendedEndDate(tryAppend),
+                helper.getLocalDateByString("2016-10-11"));
         assertEquals("Recurring tasks should not append until their date has been elapsed", tryAppend.getTaskDateComponent().size(), 1);
-        recurringManager.appendRecurringTasks(tryAppend, helper.getLastAppendedStartDate(tryAppend), 
-                helper.getLastAppendedEndDate(tryAppend), helper.getLocalDateByString("2017-10-11"));
+        recurringManager.attemptAppendRecurringTasks(tryAppend, 
+                helper.getLastAppendedStartDate(tryAppend), helper.getLastAppendedEndDate(tryAppend), 
+                helper.getLocalDateByString("2017-10-11"));
         assertEquals("Recurring tasks should be appended when it is time", tryAppend.getTaskDateComponent().size(), 2);        
     }
+    
+    @Test
+    public void updateRecurringTasks() throws Exception {
+        updateRecurringTasks_daily();
+        updateRecurringTasks_weekly();
+        updateRecurringTasks_monthly();
+        updateRecurringTasks_yearly();
+    }
         
+    private void updateRecurringTasks_daily() throws Exception {
+        RecurringTaskHelper helper = new RecurringTaskHelper();
+        TestTask testData = helper.buildRecurringTask(RecurringType.DAILY);
+        Task tryUpdate = new Task(testData);
+        taskMaster.addTask(tryUpdate);
+        taskMaster.archiveTask(helper.getLastAppendedOccurrence(tryUpdate));
+        recurringManager.updateRecurringTasks(helper.getLastAppendedOccurrence(tryUpdate));
+        
+        TaskOccurrence nextDayTaskOccurrence = helper.buildTaskOccurrenceFromTask(tryUpdate, "12 oct 11pm", "13 oct 11pm");
+        
+        assertEquals("The following daily task should have been created", tryUpdate.getTaskDateComponent().size(), 2);
+        assertEquals("Daily task should match in task occurrence", tryUpdate.getLastAppendedComponent(), nextDayTaskOccurrence);
+    }
+
+    private void updateRecurringTasks_weekly() throws Exception {
+        
+    }
+
+    private void updateRecurringTasks_monthly() throws Exception {
+        
+    }
+
+    private void updateRecurringTasks_yearly() throws Exception {
+        
+    }
+
     class RecurringTaskHelper {
         private TaskBuilder builder;
         
@@ -210,7 +261,7 @@ public class RecurringTaskManagerTest {
             builder = new TaskBuilder();
             return builder.withName("recurring").withStartDate("11 oct 11pm")
                     .withEndDate("12 oct 11pm").withRecurringType(type).build();
-        }
+        }        
         
         public TestTask buildNonRecurringTask() throws IllegalValueException {
             builder = new TaskBuilder();
@@ -220,7 +271,28 @@ public class RecurringTaskManagerTest {
         
         public TaskOccurrence getLastAppendedOccurrence(ReadOnlyTask task) {
             int listLen = task.getTaskDateComponent().size();
-            return task.getTaskDateComponent().get(listLen-1);
+            TaskOccurrence toReturn = task.getTaskDateComponent().get(listLen-1);
+            toReturn.setTaskReferrence((Task) task);
+            return toReturn;
+        }
+        
+        public TaskOccurrence buildTaskOccurrenceFromTask(ReadOnlyTask task, String startDate, String endDate) {
+            TaskOccurrence toBuild = new TaskOccurrence(task.getLastAppendedComponent());
+            toBuild = changeStartDate(toBuild, startDate);
+            toBuild = changeEndDate(toBuild, endDate);
+            return toBuild;
+        }
+        
+        public TaskOccurrence changeStartDate(TaskOccurrence occurrence, String startDate) {
+            TaskOccurrence toChange = new TaskOccurrence(occurrence);
+            toChange.setStartDate(new TaskDate(startDate));
+            return toChange;
+        }
+        
+        public TaskOccurrence changeEndDate(TaskOccurrence occurrence, String endDate) {
+            TaskOccurrence toChange = new TaskOccurrence(occurrence);
+            toChange.setEndDate(new TaskDate(endDate));
+            return toChange;
         }
     }
 }

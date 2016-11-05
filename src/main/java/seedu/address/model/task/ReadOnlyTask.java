@@ -72,4 +72,6 @@ public interface ReadOnlyTask {
     void appendRecurringDate(TaskOccurrence componentToBeAppended);
 
     TaskOccurrence getLastAppendedComponent();
+
+    int getRecurringPeriod();
 }

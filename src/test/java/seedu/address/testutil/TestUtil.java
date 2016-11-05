@@ -74,9 +74,9 @@ public class TestUtil {
             return new Task[]{
                     new Task(new Name("take trash"), new UniqueTagList()),
                     new Task(new Name("read book"), new UniqueTagList()),
-                    new Task(new Name("do homework"), new UniqueTagList(), new TaskDate("2 oct 2am"), new TaskDate("2 oct 3am"), RecurringType.NONE),
-                    new Task(new Name("read weblecture"), new UniqueTagList(),new TaskDate("2 oct 4am"), new TaskDate("2 oct 5am"), RecurringType.NONE),
-                    new Task(new Name("group meeting"), new UniqueTagList(),new TaskDate("2 oct 9am"), new TaskDate("2 oct 11am"), RecurringType.NONE),
+                    new Task(new Name("do homework"), new UniqueTagList(), new TaskDate("2 oct 2am"), new TaskDate("2 oct 3am"), RecurringType.NONE, Task.NO_RECURRING_PERIOD),
+                    new Task(new Name("read weblecture"), new UniqueTagList(),new TaskDate("2 oct 4am"), new TaskDate("2 oct 5am"), RecurringType.NONE, Task.NO_RECURRING_PERIOD),
+                    new Task(new Name("group meeting"), new UniqueTagList(),new TaskDate("2 oct 9am"), new TaskDate("2 oct 11am"), RecurringType.NONE, Task.NO_RECURRING_PERIOD),
                     new Task(new Name("jogging"), new UniqueTagList()),
                     new Task(new Name("visit George Best"), new UniqueTagList()),
                     new Task(new Name("eat with Hoon Meier"), new UniqueTagList()),
