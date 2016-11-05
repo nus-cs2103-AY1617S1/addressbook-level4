@@ -44,6 +44,7 @@ SmartyDo is a **to-do-list** application. With SmartyDo, forgetting upcoming dea
 <!-- @@author A0126649W -->
 ## 3. Getting Started
 In this section, you will be introduced to the various commands that you will need when using SmartyDo. These commands will be described to you in the format described below.
+
 **Command Format**<br>
 Words in `lower case` are the command.<br>
 Words in `upper case` are the parameters.<br>
@@ -200,7 +201,7 @@ By entering `undo` command, SmartyDo updates your list of tasks to how it was be
 
 However, you realized that your friend was wrong and you want to change the date back again. In this case, you do not need to use edit command again. Instead you can simply use `redo` command, as shown below.
 
-<img src="images/undoRedoCommand.png" width="500" align="middle"><br>Figure 9.2. Before(left) and after(right) of an undo command<br>
+<img src="images/undoredoCommand.png" width="500" align="middle"><br>Figure 9.2. Before(left) and after(right) of an undo command<br>
 
 By using `redo` command, SmartyDo updates your list of tasks to how it was before you executed `undo` command. From the screenshot above, you can see that the "Presentation" task has been restored to its previous state.
 <!-- @@author -->
