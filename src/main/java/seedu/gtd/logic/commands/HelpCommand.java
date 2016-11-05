@@ -49,13 +49,19 @@ public class HelpCommand extends Command {
         case ExitCommand.COMMAND_WORD:
         	return new CommandResult(ExitCommand.MESSAGE_USAGE);
         	
+        case EditCommand.COMMAND_WORD:
+        	return new CommandResult(EditCommand.MESSAGE_USAGE);	
+        	
+        case UndoCommand.COMMAND_WORD:
+        	return new CommandResult(UndoCommand.MESSAGE_USAGE);
+        	
         case HelpCommand.COMMAND_WORD:
         	EventsCenter.getInstance().post(new ShowHelpRequestEvent());
-        	return new CommandResult(MESSAGE_USAGE+"/n"+SHOWING_HELP_MESSAGE);
+        	return new CommandResult(MESSAGE_USAGE+"\n"+SHOWING_HELP_MESSAGE);
         	
         default:
         	EventsCenter.getInstance().post(new ShowHelpRequestEvent());
-            return new CommandResult(MESSAGE_USAGE+"/n"+SHOWING_HELP_MESSAGE);
+            return new CommandResult(MESSAGE_USAGE+"\n"+SHOWING_HELP_MESSAGE);
     	}
     }
 }
