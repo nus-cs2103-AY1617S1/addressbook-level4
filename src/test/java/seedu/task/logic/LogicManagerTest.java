@@ -1,5 +1,6 @@
 package seedu.task.logic;
 
+import com.google.common.eventbus.Subscribe;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
@@ -7,6 +8,9 @@ import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 
 import seedu.task.commons.core.EventsCenter;
+import seedu.task.commons.events.model.TaskManagerChangedEvent;
+import seedu.task.commons.events.ui.JumpToListRequestEvent;
+import seedu.task.commons.events.ui.ShowHelpRequestEvent;
 import seedu.task.logic.Logic;
 import seedu.task.logic.LogicManager;
 import seedu.task.logic.commands.*;
@@ -17,6 +21,8 @@ import seedu.task.model.TaskManager;
 import seedu.task.model.tag.Tag;
 import seedu.task.model.tag.UniqueTagList;
 import seedu.task.model.task.*;
+import seedu.task.storage.StorageManager;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -42,10 +48,27 @@ public class LogicManagerTest {
     private boolean helpShown;
     private int targetedJumpIndex;
 
+    @Subscribe
+    private void handleLocalModelChangedEvent(TaskManagerChangedEvent abce) {
+        latestSavedTaskManager = new TaskManager(abce.data);
+    }
+
+    @Subscribe
+    private void handleShowHelpRequestEvent(ShowHelpRequestEvent she) {
+        helpShown = true;
+    }
+
+    @Subscribe
+    private void handleJumpToListRequestEvent(JumpToListRequestEvent je) {
+        targetedJumpIndex = je.targetIndex;
+    }
+
     @Before
     public void setup() {
         model = new ModelManager();
-        logic = new LogicManager(model);
+        String tempTaskManagerFile = saveFolder.getRoot().getPath() + "TempTaskManager.xml";
+        String tempPreferencesFile = saveFolder.getRoot().getPath() + "TempPreferences.json";
+        logic = new LogicManager(model, new StorageManager(tempTaskManagerFile, tempPreferencesFile));
         EventsCenter.getInstance().registerHandler(this);
 
         latestSavedTaskManager = new TaskManager(model.getTaskManager()); // last saved assumed to be up to date before.
