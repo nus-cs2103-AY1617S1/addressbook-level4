@@ -3,10 +3,9 @@ package seedu.address.logic.commands;
 import java.util.ArrayList;
 import java.util.List;
 
-import edu.emory.mathcs.backport.java.util.Collections;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.UnmodifiableObservableList;
-import seedu.address.commons.util.StringUtil;
+import seedu.address.commons.util.ListUtil;
 import seedu.address.model.item.ReadOnlyTask;
 import seedu.address.model.item.Task;
 import seedu.address.model.item.UniqueTaskList.TaskNotFoundException;
@@ -26,7 +25,8 @@ public class DeleteCommand extends UndoableCommand {
     
     public static final String MESSAGE_DELETE_ITEM_SUCCESS = "Deleted Task: %1$s";
     public static final String MESSAGE_DELETE_ITEMS_SUCCESS = "Deleted Tasks: %1$s";
-    
+    public static final String MESSAGE_FAILURE = "Failed to delete Task.";
+
     //@@author
     public static final String TOOL_TIP = "delete INDEX [ANOTHER_INDEX ...]";
 
@@ -34,8 +34,7 @@ public class DeleteCommand extends UndoableCommand {
     
     //@@author A0139498J
     public final List<Integer> targetIndexes;
-    private List<Task> deletedTasks;
-    private int adjustmentForRemovedTask;
+    private List<Task> targetTasks;
     private boolean isViewingDoneList;
 
     public DeleteCommand(List<Integer> targetIndexes) {
@@ -43,76 +42,80 @@ public class DeleteCommand extends UndoableCommand {
         this.targetIndexes = targetIndexes;
     }
 
-
     @Override
     public CommandResult execute() {
         assert model != null;
         
         prepareToDeleteTasks();
         try {
-            deleteTasksFromGivenTargetIndexes();
-        } catch (TaskNotFoundException pnfe) {
+            deleteTargetTasks();
+        } catch (TaskNotFoundException tnfe) {
             assert false : "The target task cannot be missing";
+            return generateCommandResultForFailureToDeleteTask();
         }
         updateHistory();
-        
-        if (deletedTasks.isEmpty()) {
-            indicateAttemptToExecuteIncorrectCommand();
-            return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
-        }
-        String toDisplay = StringUtil.removeArrayBrackets(deletedTasks.toString());
-        return (deletedTasks.size() == 1)? 
-                new CommandResult(String.format(MESSAGE_DELETE_ITEM_SUCCESS, toDisplay)):
-                new CommandResult(String.format(MESSAGE_DELETE_ITEMS_SUCCESS, toDisplay));
-        
+        return generateCommandResultForEndOfExecution();
     }
 
+    /**
+     * Deletes the target list of tasks.
+     * 
+     * @throws TaskNotFoundException  If unable to find Task to delete.
+     */
+    private void deleteTargetTasks() throws TaskNotFoundException { 
+        assert targetTasks != null;
+        for (Task taskToDelete : targetTasks) {         
+            deleteTask(taskToDelete);
+        }
+    }
 
     /**
-     * Deletes the tasks denoted by the list of target indexes.
+     * Deletes the task from the current list view.
+     * 
+     * @param taskToDelete The target task to be deleted.
+     * @throws TaskNotFoundException  If unable to find Task to delete in current list view.
+     */
+    private void deleteTask(Task taskToDelete) throws TaskNotFoundException {
+        assert taskToDelete != null;
+        if (isViewingDoneList) {
+            model.deleteDoneTask(taskToDelete);
+        } else {
+            model.deleteTask(taskToDelete);
+        }     
+    }
+
+    /**
+     * Adds the tasks referred to by the list of target indexes into a task list.
      * Invalid target indexes in the list will be ignored.
      */
-    private void deleteTasksFromGivenTargetIndexes() throws TaskNotFoundException {
-        for (int targetIndex : targetIndexes) {
-            UnmodifiableObservableList<ReadOnlyTask> lastShownList = (isViewingDoneList)? 
-                    model.getFilteredDoneTaskList():
-                    model.getFilteredUndoneTaskList();
-                    
-            boolean isTaskTargetIndexOutOfBounds = (lastShownList.size() < targetIndex - adjustmentForRemovedTask);
- 
+    private void initialiseTargetTasksToDeleteFromTargetIndexes() {
+        assert targetIndexes != null;
+        assert targetTasks != null;
+        UnmodifiableObservableList<ReadOnlyTask> lastShownList = (isViewingDoneList)
+                ? model.getFilteredDoneTaskList()
+                : model.getFilteredUndoneTaskList();
+        for (int targetIndex : targetIndexes) {            
+            boolean isTaskTargetIndexOutOfBounds = (lastShownList.size() < targetIndex);
             if (isTaskTargetIndexOutOfBounds) {
                 continue;
             }
-    
-            int adjustedTaskIndex = targetIndex - adjustmentForRemovedTask - 1;
-            ReadOnlyTask taskToDelete = lastShownList.get(adjustedTaskIndex);
-    
-            if (isViewingDoneList) {
-                model.deleteDoneTask(taskToDelete);
-            } else {
-                model.deleteTask(taskToDelete);
-            }
-            
-            deletedTasks.add((Task) taskToDelete);
-            adjustmentForRemovedTask++;
+            int adjustedTaskIndex = targetIndex - 1;
+            Task task = new Task(lastShownList.get(adjustedTaskIndex));
+            targetTasks.add(task);
         }
     }
-
-
+    
     /**
-     * Prepares for the deletion of tasks
-     * Initialises the attributes of this delete command class
-     * Sorts the indexes to ensure the proper offset is used
+     * Prepares for the deletion of tasks.
+     * Initialises the attributes of this delete command class.
      */
     private void prepareToDeleteTasks() {
         if (!isRedoAction) {
             setCurrentViewingList();
         }
-        adjustmentForRemovedTask = 0;
-        deletedTasks = new ArrayList<Task>();
-        Collections.sort(targetIndexes);
+        targetTasks = new ArrayList<Task>();
+        initialiseTargetTasksToDeleteFromTargetIndexes();
     }
-
 
     /**
      * Sets the boolean attribute isViewingDoneList to reflect 
@@ -122,21 +125,48 @@ public class DeleteCommand extends UndoableCommand {
         isViewingDoneList = model.isCurrentListDoneList();
     }
     
+    /**
+     * Generates command result for failing to delete task.
+     * 
+     * @return CommandResult Indicating that a task was unable to be deleted.
+     */
+    private CommandResult generateCommandResultForFailureToDeleteTask() {
+        return new CommandResult(String.format(MESSAGE_FAILURE));
+    }
+    
+    /**
+     * Generates the appropriate command result at the end of execution of delete command
+     * based on the number of tasks inside deleted tasks list.
+     * 
+     * @return CommandResult Indicating the result of the execution of this delete command.
+     */
+    private CommandResult generateCommandResultForEndOfExecution() {
+        assert targetTasks != null;
+        if (targetTasks.isEmpty()) {
+            indicateAttemptToExecuteIncorrectCommand();
+            return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
+        }
+        String toDisplay = ListUtil.generateDisplayString(targetTasks);
+        return (targetTasks.size() == 1)
+                ? new CommandResult(String.format(MESSAGE_DELETE_ITEM_SUCCESS, toDisplay))
+                : new CommandResult(String.format(MESSAGE_DELETE_ITEMS_SUCCESS, toDisplay));
+    }
+    
     //@@author A0093960X
     @Override
     public CommandResult undo() {
-        assert model != null && deletedTasks != null;    
+        assert model != null && targetTasks != null;    
         
         // attempt to undo the delete by adding back the list of tasks that was deleted
         // add back to the list the user was viewing when clear was executed
         if (isViewingDoneList) {
-            model.addDoneTasks(deletedTasks);
+            model.addDoneTasks(targetTasks);
         }
         else {
-            model.addTasks(deletedTasks);
+            model.addTasks(targetTasks);
         }
         
-        return new CommandResult(String.format(MESSAGE_UNDO_SUCCESS, deletedTasks));
+        return new CommandResult(String.format(MESSAGE_UNDO_SUCCESS, targetTasks));
     }
     //@@author 
 

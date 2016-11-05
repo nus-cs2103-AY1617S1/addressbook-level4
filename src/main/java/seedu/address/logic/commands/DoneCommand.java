@@ -59,7 +59,7 @@ public class DoneCommand extends UndoableCommand {
             return generateCommandResultForDoneListRestriction();
         }
         
-        initialiseTargetTasksFromTargetIndexes();
+        initialiseTargetTasksToArchiveFromTargetIndexes();
         try {
             archiveTargetTasks();
         } catch (TaskNotRecurringException tnre) {
@@ -130,7 +130,7 @@ public class DoneCommand extends UndoableCommand {
      * Adds the tasks referred to by the list of target indexes into a task list.
      * Invalid target indexes in the list will be ignored.
      */
-    private void initialiseTargetTasksFromTargetIndexes() {
+    private void initialiseTargetTasksToArchiveFromTargetIndexes() {
         assert targetIndexes != null;
         assert targetTasks != null;
         UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredUndoneTaskList();
@@ -146,9 +146,7 @@ public class DoneCommand extends UndoableCommand {
     }
     
     /**
-     * Archives the target list of tasks by adding them into the done list.
-     * Tasks that are recurring will have their recurrence rates updated in the undone list.
-     * Tasks that are not recurring will be removed from the undone list.
+     * Archives the target list of tasks.
      * 
      * @throws TaskNotRecurringException  If there is an attempt to update recurrence of a non-recurring task.
      * @throws TaskNotFoundException      If the target task to be archived is not present in done task list.
@@ -156,16 +154,30 @@ public class DoneCommand extends UndoableCommand {
     private void archiveTargetTasks() throws TaskNotRecurringException, TaskNotFoundException {
         assert isViewingDoneList == false;
         assert targetTasks != null;
-        logger.fine("In archiveTasks(), archiving Tasks");
+        logger.fine("In archiveTargetTasks(), archiving Tasks");
         for (Task taskToArchive : targetTasks) {                           
-            model.deleteTask(taskToArchive);
-            boolean taskToArchiveIsRecurring = (taskToArchive.getRecurrenceRate().isPresent());
-            if (taskToArchiveIsRecurring) {
-                updateRecurrenceAndReAddTask(taskToArchive);
-            }
-            model.addDoneTask(taskToArchive);
-            logger.fine("Archived Task " + taskToArchive);
+            archiveTask(taskToArchive);
         }
+    }
+
+    /**
+     * Archives the target task by adding it into the done list.
+     * A task that is recurring will have its recurrence rates updated in the undone list.
+     * A task that is not recurring will be removed from the undone list.
+     * 
+     * @param taskToArchive The task to archive from undone task list.
+     * @throws TaskNotRecurringException  If there is an attempt to update recurrence of a non-recurring task.
+     * @throws TaskNotFoundException      If the target task to be archived is not present in done task list.
+     */
+    private void archiveTask(Task taskToArchive) throws TaskNotFoundException, TaskNotRecurringException {
+        assert taskToArchive != null;
+        model.deleteTask(taskToArchive);
+        boolean taskToArchiveIsRecurring = (taskToArchive.getRecurrenceRate().isPresent());
+        if (taskToArchiveIsRecurring) {
+            updateRecurrenceAndReAddTask(taskToArchive);
+        }
+        model.addDoneTask(taskToArchive);
+        logger.fine("Archived Task " + taskToArchive);
     }
     
     /**

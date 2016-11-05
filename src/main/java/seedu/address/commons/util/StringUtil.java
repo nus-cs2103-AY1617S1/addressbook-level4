@@ -10,12 +10,6 @@ import java.util.List;
  */
 public class StringUtil {
            
-    /**
-     * Removes array brackets from a target String.
-     */
-    public static String removeArrayBrackets(String target) {
-        return target.replace("[", "").replace("]", "");
-    }
     
     /**
      * Appends an additional string to the initial string after a new line.
