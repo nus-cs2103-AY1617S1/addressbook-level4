@@ -19,7 +19,7 @@ public class AppUtilTest {
     public void getImage_exitingImage() {
     	URL location = AppUtilTest.class.getProtectionDomain().getCodeSource().getLocation();
         System.out.println(location.getFile());
-    	assertNotNull(AppUtil.getImage("./images/amethyst_task_manager.png"));
+    	assertNotNull(AppUtil.getImage("/images/amethyst_task_manager.png"));
     }
 
 
