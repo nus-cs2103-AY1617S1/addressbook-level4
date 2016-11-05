@@ -1,9 +1,14 @@
 package seedu.emeraldo.model;
 
 import seedu.emeraldo.commons.core.UnmodifiableObservableList;
+import seedu.emeraldo.commons.exceptions.TagExistException;
+import seedu.emeraldo.commons.exceptions.TagListEmptyException;
+import seedu.emeraldo.commons.exceptions.TagNotFoundException;
 import seedu.emeraldo.commons.exceptions.TaskAlreadyCompletedException;
 import seedu.emeraldo.logic.commands.ListCommand.Completed;
 import seedu.emeraldo.logic.commands.ListCommand.TimePeriod;
+import seedu.emeraldo.model.tag.Tag;
+import seedu.emeraldo.model.tag.UniqueTagList;
 import seedu.emeraldo.model.task.DateTime;
 import seedu.emeraldo.model.task.Description;
 import seedu.emeraldo.model.task.ReadOnlyTask;
@@ -49,7 +54,19 @@ public interface Model {
     
     /** Adds the given task */
     void addTask(Task task) throws UniqueTaskList.DuplicateTaskException;
+    
+    //@@author A0139196U
+    /** Adds the tag to the specified task 
+     * @throws TagExistException */
+    void addTag(Task taskTagToEdit, Tag tag) throws TagExistException;
+    
+    /** Deletes the tag from the specified task */
+    void deleteTag(Task taskTagToEdit, Tag tag) throws TagNotFoundException;
 
+    /** Clears all tags from the specified task */
+    void clearTag(Task taskTagToEdit) throws TagListEmptyException;
+    //@@author
+    
     /** Returns the filtered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
     UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList();
 
@@ -87,4 +104,5 @@ public interface Model {
     
     /**Updates the filter of the filtered task list to filter by the keyword "completed*/
     void updateFilteredTaskList(Completed keyword);
+
 }

@@ -6,6 +6,9 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.emeraldo.commons.exceptions.DuplicateDataException;
 import seedu.emeraldo.commons.exceptions.IllegalValueException;
+import seedu.emeraldo.commons.exceptions.TagExistException;
+import seedu.emeraldo.commons.exceptions.TagListEmptyException;
+import seedu.emeraldo.commons.exceptions.TagNotFoundException;
 import seedu.emeraldo.commons.exceptions.TaskAlreadyCompletedException;
 import seedu.emeraldo.commons.util.CollectionUtil;
 
@@ -110,8 +113,69 @@ public class UniqueTaskList implements Iterable<Task> {
     		internalList.set(mainListIndex, toCompleteObj);
     	}
     }
-    //@@author
     
+    //@@author A0139196U
+    /**
+     * Adds the new tag to the equivalent task from the list.
+     *
+     * @throws IllegalValueException if no such task could be found in the list.
+     * @throws TagExistException if tag already exists in the list.
+     */
+    public void addTag(Task toEditTagTask, Tag tag) throws IllegalValueException, TagExistException {
+        
+        UniqueTagList editedTagList = toEditTagTask.getTags();
+
+        if (editedTagList.contains(tag)) {
+            throw new TagExistException();
+        }
+        editedTagList.mergeFrom(new UniqueTagList(tag));
+        toEditTagTask.setTags(editedTagList);
+        
+        int mainListIndex = internalList.indexOf(toEditTagTask);
+        internalList.set(mainListIndex, toEditTagTask);
+    }
+    
+    /**
+     * Deletes the given tag from the equivalent task from the list.
+     * 
+     * @throws TagNotFoundException if no such tag could be found in the task.
+    */
+    public void deleteTag(Task toEditTagTask, Tag tag) throws IllegalValueException, TagNotFoundException {
+        
+        UniqueTagList editedTagList = toEditTagTask.getTags();
+        
+        if (editedTagList.contains(tag)) {
+            editedTagList.delete(tag);
+        }
+        else {
+            throw new TagNotFoundException();
+        }
+        toEditTagTask.setTags(editedTagList);
+        
+        int mainListIndex = internalList.indexOf(toEditTagTask);
+        internalList.set(mainListIndex, toEditTagTask);
+    }
+    
+    /**
+     * Clears all tags from the indicated task from the list.
+     * 
+     * @throws TagListEmptyException if there are no tags in the indicated tasks to begin with.
+    */
+    public void clearTag(Task toEditTagTask) throws IllegalValueException, TagListEmptyException {
+        if (toEditTagTask.getTags().getInternalList().isEmpty()){
+            throw new TagListEmptyException();
+        }
+        else {
+            UniqueTagList editedTagList = toEditTagTask.getTags();
+            editedTagList.getInternalList().clear();
+            toEditTagTask.setTags(editedTagList);
+        }
+        
+        int mainListIndex = internalList.indexOf(toEditTagTask);
+        internalList.set(mainListIndex, toEditTagTask);
+    }
+    //@@author
+
     public ObservableList<Task> getInternalList() {
         return internalList;
     }

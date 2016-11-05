@@ -46,6 +46,12 @@ public class Parser {
             + "(?<description>(\"[^\"]+\")?)"      //quote marks are reserved for start and end of description field
             + "( )?(?<dateTime>(((by )|(on )|(from ))[^#]+)?)"
             );
+    
+    //@@author A0139196U
+    private static final Pattern TASK_TAG_ARGS_FORMAT = 
+            Pattern.compile("(?<action>((add )|(delete )|(clear )))"
+            + "(?<targetIndex>\\d+)" //index must be digits
+            + "(?<tag>(?: #[^#]+)?)");    // one or zero tag
     //@@author
     
     private static final Pattern SAVE_LOCATION = Pattern.compile("(?<targetLocation>(([^\\/\\s]*\\/)+|default))");
@@ -81,6 +87,9 @@ public class Parser {
             
         case EditCommand.COMMAND_WORD:
             return prepareEdit(arguments);
+            
+        case TagCommand.COMMAND_WORD:
+            return prepareTag(arguments);
        
         case CompleteCommand.COMMAND_WORD:
         	return prepareComplete(arguments);
@@ -119,7 +128,7 @@ public class Parser {
             return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
         }
     }
-    
+
     //@@author A0139342H
     /**
      * Parses arguments in the context of the saveto command.
@@ -203,13 +212,13 @@ public class Parser {
         return new DeleteCommand(index.get());
     }
     
+    //@@author A0139196U
     /**
      * Parses arguments in the context of the edit person command.
      * 
      * @param args full command args string
      * @return the prepared command
      */
-    //@@author A0139196U
     private Command prepareEdit(String args) {
         
         final Matcher matcher = TASK_EDIT_ARGS_FORMAT.matcher(args.trim());
@@ -239,6 +248,51 @@ public class Parser {
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
         }        
+    }
+    
+    /**
+     * Parses arguments in the context of the edit tag command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     */
+    private Command prepareTag(String args) {
+
+        final Matcher matcher = TASK_TAG_ARGS_FORMAT.matcher(args.trim());
+        
+        // Validate arg string format
+        if (!matcher.matches()) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, TagCommand.MESSAGE_USAGE));
+        }
+        
+        Optional<Integer> index = parseIndex(matcher.group("targetIndex"));
+        if(!index.isPresent()){
+            return new IncorrectCommand(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, TagCommand.MESSAGE_USAGE));
+        }
+        
+        if (matcher.group("action").trim().equalsIgnoreCase("clear")){
+            try {
+                return new TagCommand(
+                        matcher.group("action"),
+                        matcher.group("targetIndex")
+                );
+            } catch (IllegalValueException ive) {
+                return new IncorrectCommand(ive.getMessage());
+            }
+        }
+        else {
+            try {
+                return new TagCommand(
+                        matcher.group("action"),
+                        matcher.group("targetIndex"),
+                        matcher.group("tag")
+                );
+            } catch (IllegalValueException ive) {
+                return new IncorrectCommand(ive.getMessage());
+            }
+        }
+        
     }
     
     //@@author A0142290N
@@ -335,13 +389,13 @@ public class Parser {
     }
     //@@author
 
+    //@@author A0139749L
     /**
      * Parses arguments in the context of the list task command.
      *
      * @param args full command args string
      * @return the prepared command
-     */
-    //@@author A0139749L
+     */    
     private Command prepareList(String args) {
         final Matcher matcher = LIST_KEYWORD_ARGS_FORMAT.matcher(args.trim());
         if (!matcher.matches()) {
