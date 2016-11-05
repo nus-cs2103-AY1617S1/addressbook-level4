@@ -30,7 +30,6 @@ import seedu.whatnow.commons.util.FxViewUtil;
 public class StatusPanel extends UiPart {
     public static final String STATUS_DISPLAY_ID = "statusPanel";
     private static final String STATUS_BAR_STYLE_SHEET = "status-panel";
-    private TextArea statusDisplayArea;
     private final StringProperty displayed = new SimpleStringProperty("");
 
     private static final String FXML = "StatusPanel.fxml";
@@ -55,7 +54,7 @@ public class StatusPanel extends UiPart {
         iv1.setFitWidth(350);
         iv1.setFitHeight(178);
         
-        statusDisplayArea = new TextArea();
+        TextArea statusDisplayArea = new TextArea();
         statusDisplayArea.setEditable(false);
         statusDisplayArea.setId(STATUS_DISPLAY_ID);
         statusDisplayArea.textProperty().bind(displayed);

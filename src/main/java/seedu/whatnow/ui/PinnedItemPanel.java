@@ -29,10 +29,6 @@ public class PinnedItemPanel extends UiPart {
     @FXML
     private ListView<ReadOnlyTask> pinnedListView;
 
-    public PinnedItemPanel() {
-        super();
-    }
-
     @Override
     public void setNode(Node node) {
         panel = (VBox) node;
@@ -94,9 +90,6 @@ public class PinnedItemPanel extends UiPart {
     }
 
     class PinnedItemListViewCell extends ListCell<ReadOnlyTask> {
-
-        public PinnedItemListViewCell() {
-        }
 
         @Override
         protected void updateItem(ReadOnlyTask task, boolean empty) {
