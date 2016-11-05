@@ -34,20 +34,28 @@ public class Parser {
 //                    + " p/(?<priority>[^/]+)"
 //                    + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
     
+    
+    //@@author A0130677A
+    
     private static final Pattern NAME_TASK_DATA_ARGS_FORMAT =
-            Pattern.compile("(?<name>[^/]+) (t|p|a|d|z)/.*");
+            Pattern.compile("(?<name>[^/]+) (s|t|p|a|d|z)/.*");
     
     private static final Pattern PRIORITY_TASK_DATA_ARGS_FORMAT =
-            Pattern.compile(".* p/(?<priority>[^/]+) (t|a|d|z)/.*");
+            Pattern.compile(".* p/(?<priority>[^/]+) (s|t|a|d|z)/.*");
     
     private static final Pattern ADDRESS_TASK_DATA_ARGS_FORMAT =
-            Pattern.compile(".* a/(?<address>[^/]+) (t|p|d|z)/.*");
+            Pattern.compile(".* a/(?<address>[^/]+) (s|t|p|d|z)/.*");
+    
+    private static final Pattern STARTDATE_TASK_DATA_ARGS_FORMAT =
+            Pattern.compile(".* s/(?<startDate>[^/]+) (d|t|a|p|z)/.*");
     
     private static final Pattern DUEDATE_TASK_DATA_ARGS_FORMAT =
-            Pattern.compile(".* d/(?<dueDate>[^/]+) (t|a|p|z)/.*");
+            Pattern.compile(".* d/(?<dueDate>[^/]+) (s|t|a|p|z)/.*");
     
     private static final Pattern TAGS_TASK_DATA_ARGS_FORMAT =
-            Pattern.compile(".* t/(?<tagArguments>[^/]+) (d|a|p|z)/.*");
+            Pattern.compile(".* t/(?<tagArguments>[^/]+) (s|d|a|p|z)/.*");
+    
+  //@@author addressbook-level4
     
     private static final Pattern EDIT_DATA_ARGS_FORMAT =
     		Pattern.compile("(?<targetIndex>\\S+)" 
@@ -115,24 +123,31 @@ public class Parser {
      * @param args full command args string
      * @return the prepared command
      */
+    
+    //@@author A0130677A
+    
     private Command prepareAdd(String args){
     	String preprocessedArg = appendEnd(args.trim());
     	
         final Matcher nameMatcher = NAME_TASK_DATA_ARGS_FORMAT.matcher(preprocessedArg);
+        final Matcher startDateMatcher = STARTDATE_TASK_DATA_ARGS_FORMAT.matcher(preprocessedArg);
         final Matcher dueDateMatcher = DUEDATE_TASK_DATA_ARGS_FORMAT.matcher(preprocessedArg);
         final Matcher addressMatcher = ADDRESS_TASK_DATA_ARGS_FORMAT.matcher(preprocessedArg);
         final Matcher priorityMatcher = PRIORITY_TASK_DATA_ARGS_FORMAT.matcher(preprocessedArg);
         final Matcher tagsMatcher = TAGS_TASK_DATA_ARGS_FORMAT.matcher(preprocessedArg);
         
-        String nameToAdd = checkEmptyAndAddDefault(nameMatcher, "name", "none");
-        String dueDateToAdd = checkEmptyAndAddDefault(dueDateMatcher, "dueDate", "none");
-        String addressToAdd = checkEmptyAndAddDefault(addressMatcher, "address", "none");
+        String nameToAdd = checkEmptyAndAddDefault(nameMatcher, "name", "nil");
+        String startDateToAdd = checkEmptyAndAddDefault(startDateMatcher, "startDate", "nil");
+        String dueDateToAdd = checkEmptyAndAddDefault(dueDateMatcher, "dueDate", "nil");
+        String addressToAdd = checkEmptyAndAddDefault(addressMatcher, "address", "nil");
         String priorityToAdd = checkEmptyAndAddDefault(priorityMatcher, "priority", "1");
-//        String tagsToAdd = checkEmptyAndAddDefault(tagsMatcher, "tagsArgument", "");
         
-        // format date if due date is specified
+        // format date if due date or start date is specified
         if (dueDateMatcher.matches()) {
         	dueDateToAdd = parseDueDate(dueDateToAdd);
+        }
+        if (startDateMatcher.matches()) {
+        	startDateToAdd = parseDueDate(startDateToAdd);
         }
         
         Set<String> tagsProcessed = Collections.emptySet();
@@ -149,6 +164,7 @@ public class Parser {
         try {
             return new AddCommand(
                     nameToAdd,
+                    startDateToAdd,
                     dueDateToAdd,
                     addressToAdd,
                     priorityToAdd,
@@ -177,6 +193,8 @@ public class Parser {
     	NaturalLanguageProcessor nlp = new DateNaturalLanguageProcessor();
     	return nlp.formatString(dueDateRaw);
     }
+    
+    //@@author A0130677A
     
     // remove time on date parsed to improve search results
     private String removeTimeOnDate(String dueDateRaw) {
@@ -267,10 +285,11 @@ public class Parser {
         return new DeleteCommand(index.get());
     }
     
+    //@@author A0130677A
+    
     private Command prepareDone(String args) {
 
         Optional<Integer> index = parseIndex(args);
-        System.out.println("index at preparedone:" + index.get());
         if(!index.isPresent()){
             return new IncorrectCommand(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, DoneCommand.MESSAGE_USAGE));
@@ -319,6 +338,8 @@ public class Parser {
      * @param args full command args string
      * @return the prepared command
      */
+    
+    //@@author A0130677A
     private Command prepareFind(String args) {
     	
     	// check if parameters are specified and pass specified field to FindCommand
@@ -326,6 +347,7 @@ public class Parser {
     	String preprocessedArgs = " " + appendEnd(args.trim());
     	final Matcher addressMatcher = ADDRESS_TASK_DATA_ARGS_FORMAT.matcher(preprocessedArgs);
     	final Matcher priorityMatcher = PRIORITY_TASK_DATA_ARGS_FORMAT.matcher(preprocessedArgs);
+    	final Matcher startDateMatcher = STARTDATE_TASK_DATA_ARGS_FORMAT.matcher(preprocessedArgs);
     	final Matcher dueDateMatcher = DUEDATE_TASK_DATA_ARGS_FORMAT.matcher(preprocessedArgs);
     	final Matcher tagsMatcher = TAGS_TASK_DATA_ARGS_FORMAT.matcher(preprocessedArgs);
     	
@@ -338,6 +360,11 @@ public class Parser {
     	if (priorityMatcher.matches()) {
     		String priorityToBeFound = priorityMatcher.group("priority");
     		return new FindCommand(priorityToBeFound, defaultSet, "priority");
+    	}
+    	if (startDateMatcher.matches()) {
+    		String dueDateToBeFound = dueDateMatcher.group("startDate");
+    		String parsedDueDateToBeFound = removeTimeOnDate(parseDueDate(dueDateToBeFound));
+    		return new FindCommand(parsedDueDateToBeFound, defaultSet, "startDate");
     	}
     	if (dueDateMatcher.matches()) {
     		String dueDateToBeFound = dueDateMatcher.group("dueDate");
@@ -364,6 +391,8 @@ public class Parser {
         final String keywords = matcher.group("keywords");
         return new FindCommand(keywords, keywordSet, "nil");
     }
+    
+  //@@author addressbook-level4
     
 private Command prepareList(String args) {
     	

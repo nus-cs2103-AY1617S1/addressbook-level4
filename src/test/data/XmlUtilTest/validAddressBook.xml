@@ -5,53 +5,70 @@
         <dueDate isPrivate="false">9482424</dueDate>
         <address isPrivate="false">4th street</address>
         <priority isPrivate="false">4</priority>
-    </tasks>
+        <startDate>startDatestartDate</startDate>
+        <isDone></isDone></tasks>
     <tasks>
         <name>Ruth Mueller</name>
         <dueDate isPrivate="false">87249245</dueDate>
         <address isPrivate="false">81th street</address>
         <priority isPrivate="false">2</priority>
+        <startDate></startDate>
+        <isDone></isDone>
     </tasks>
     <tasks>
         <name>Heinz Kurz</name>
         <dueDate isPrivate="false">95352563</dueDate>
         <address isPrivate="false">wall street</address>
         <priority isPrivate="false">1</priority>
+        <startDate></startDate>
+        <isDone></isDone>
     </tasks>
     <tasks>
         <name>Cornelia Meier</name>
         <dueDate isPrivate="false">87652533</dueDate>
         <address isPrivate="false">10th street</address>
         <priority isPrivate="false">1</priority>
+        <startDate></startDate>
+        <isDone></isDone>
     </tasks>
     <tasks>
         <name>Werner Meyer</name>
         <dueDate isPrivate="false">9482224</dueDate>
         <address isPrivate="false">michegan ave</address>
         <priority isPrivate="false">1</priority>
+        <startDate></startDate>
+        <isDone></isDone>
     </tasks>
     <tasks>
         <name>Lydia Kunz</name>
         <dueDate isPrivate="false">9482427</dueDate>
         <address isPrivate="false">little tokyo</address>
         <priority isPrivate="false">1</priority>
+        <startDate></startDate>
+        <isDone></isDone>
     </tasks>
     <tasks>
         <name>Anna Best</name>
         <dueDate isPrivate="false">9482442</dueDate>
         <address isPrivate="false">4th street</address>
         <priority isPrivate="false">4</priority>
+        <startDate></startDate>
+        <isDone></isDone>
     </tasks>
     <tasks>
         <name>Stefan Meier</name>
         <dueDate isPrivate="false">8482424</dueDate>
         <address isPrivate="false">little india</address>
         <priority isPrivate="false">1</priority>
+        <startDate></startDate>
+        <isDone></isDone>
     </tasks>
     <tasks>
         <name>Martin Mueller</name>
         <dueDate isPrivate="false">8482131</dueDate>
         <address isPrivate="false">chicago ave</address>
         <priority isPrivate="false">1</priority>
+        <startDate></startDate>
+        <isDone></isDone>
     </tasks>
 </addressbook>

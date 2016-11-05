@@ -10,6 +10,9 @@ import seedu.gtd.model.task.UniqueTaskList.TaskNotFoundException;
 /**
  * Mark a task as done, identified using it's last displayed index from the address book.
  */
+
+
+//@@author A0130677A
 public class DoneCommand extends Command {
 
     public static final String COMMAND_WORD = "done";
@@ -43,7 +46,6 @@ public class DoneCommand extends Command {
        
 		try {
 	      taskToUpdate = updateTask(taskToUpdate, "done", "true");
-	      System.out.println("IS IT DONE? " + taskToUpdate.getisDone());
 		} catch (IllegalValueException ive) {
 			return new CommandResult(ive.getMessage());
 		}

@@ -19,7 +19,7 @@ import seedu.gtd.model.task.UniqueTaskList.TaskNotFoundException;
              + "Edits the task identified by the index number used in the last task listing.\n\t"
              + "Parameters: [INDEX] (must be a positive integer) prefix/[NEW DETAIL]\n\t"
              + "Example: " + COMMAND_WORD
-             + " 1 p/9";
+             + " 1 p/3";
  
      public static final String MESSAGE_EDIT_TASK_SUCCESS = "Task updated: %1$s";
      

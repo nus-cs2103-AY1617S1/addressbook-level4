@@ -273,7 +273,7 @@ public class LogicManagerTest {
         helper.addToModel(model, 2);
 
         assertCommandBehavior("list",
-                ListCommand.MESSAGE_SUCCESS,
+                ListCommand.MESSAGE_SUCCESS_LIST,
                 expectedAB,
                 expectedList);
     }
@@ -449,36 +449,41 @@ public class LogicManagerTest {
 
         Task adam() throws Exception {
             Name name = new Name("Pick up laundry");
+            DueDate startDate = new DueDate("morning");
             DueDate privateDueDate = new DueDate("noon");
             Address address = new Address("111, alpha street");
             Priority privatePriority = new Priority("1");
             Tag tag1 = new Tag("tag1");
             UniqueTagList tags = new UniqueTagList(tag1);
-            return new Task(name, privateDueDate, address, privatePriority, tags);
+            return new Task(name, startDate, privateDueDate, address, privatePriority, tags);
         }
         Task adamChanged() throws Exception {
         	NaturalLanguageProcessor nlpTest = new DateNaturalLanguageProcessor();
         	String formattedDate = nlpTest.formatString("noon");
+        	String formattedStartDate = nlpTest.formatString("morning");
         	Name name = new Name("Pick up laundry");
+        	DueDate startDate = new DueDate(formattedStartDate);
             DueDate privateDueDate = new DueDate(formattedDate);
             Address address = new Address("111, alpha street");
             Priority privatePriority = new Priority("1");
             Tag tag1 = new Tag("tag1");
             UniqueTagList tags = new UniqueTagList(tag1);
-            return new Task(name, privateDueDate, address, privatePriority, tags);
+            return new Task(name, startDate, privateDueDate, address, privatePriority, tags);
         }
         
         
         Task optionalAddressDateChanged() throws Exception {
         	NaturalLanguageProcessor nlpTest = new DateNaturalLanguageProcessor();
         	String formattedDate = nlpTest.formatString("noon");
+        	String formattedStartDate = nlpTest.formatString("morning");
         	Name name = new Name("clean room");
+        	DueDate startDate = new DueDate(formattedStartDate);
             DueDate privateDueDate = new DueDate(formattedDate);
             Address address = new Address("none");
             Priority privatePriority = new Priority("3");
             Tag tag1 = new Tag("tag1");
             UniqueTagList tags = new UniqueTagList(tag1);
-            return new Task(name, privateDueDate, address, privatePriority, tags);
+            return new Task(name, startDate, privateDueDate, address, privatePriority, tags);
         }
 
         /**
@@ -491,6 +496,7 @@ public class LogicManagerTest {
         Task generateTask(int seed) throws Exception {
             return new Task(
                     new Name("Task " + seed),
+                    new DueDate("" + Math.abs(seed)),
                     new DueDate("" + Math.abs(seed)),
                     new Address(seed + ", -address"),
                     new Priority("1 " + seed),
@@ -505,6 +511,7 @@ public class LogicManagerTest {
             cmd.append("add ");
 
             cmd.append(p.getName().toString());
+            cmd.append(" s/").append(p.getStartDate());
             cmd.append(" d/").append(p.getDueDate());
             cmd.append(" a/").append(p.getAddress());
             cmd.append(" p/").append(p.getPriority());
@@ -600,6 +607,7 @@ public class LogicManagerTest {
         Task generateTaskWithName(String name) throws Exception {
             return new Task(
                     new Name(name),
+                    new DueDate("3"),
                     new DueDate("1"),
                     new Address("House of 1"),
                     new Priority("1"),
