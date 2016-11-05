@@ -1,9 +1,8 @@
 package harmony.mastermind.memory;
-import harmony.mastermind.ui.MainWindow;
 
 import java.util.ArrayList;
 
-import harmony.mastermind.storage.Storage;
+import harmony.mastermind.storage.StorageMemory;
 
 
 public class Memory{
@@ -18,7 +17,7 @@ public class Memory{
         String type = item.getType();
 
         memory.add(item);
-        Storage.saveToStorage(this);
+        StorageMemory.saveToStorage(this);
     }
 
     //@@author A0143378Y
@@ -43,7 +42,7 @@ public class Memory{
     // Loads GenericMemory from save file into memory
     public void loadFromFile(Memory memory){
         assert memory != null;
-        Storage.checkForFileExists(memory);
+        StorageMemory.checkForFileExists(memory);
     }
 
     //@@author A0143378Y
@@ -54,7 +53,7 @@ public class Memory{
         String type = item.getType();
 
         memory.remove(item);
-        Storage.saveToStorage(this);
+        StorageMemory.saveToStorage(this);
     }
 
     //@@author A0143378Y
