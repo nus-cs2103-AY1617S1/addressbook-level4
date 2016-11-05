@@ -148,6 +148,7 @@ The `Model`,
 * exposes a `UnmodifiableObservableList<ReadOnlyTask>` that can be 'observed' e.g. the UI can be bound to this list
   so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
+<!-- @@author A0139671X -->
 
 ### Storage component
 
@@ -159,6 +160,7 @@ The `Storage` component,
 * can save `UserPref` objects in json format and read it back.
 * can save ForgeMeNot's data in xml format and read it back.
 * can redirect the storage file path for the data in xml format and read it back.
+<!-- @@author -->
 
 ### Common classes
 
