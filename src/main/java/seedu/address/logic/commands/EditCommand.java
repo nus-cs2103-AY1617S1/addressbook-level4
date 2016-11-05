@@ -13,7 +13,6 @@ import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.task.ReadOnlyTask;
-import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
 
 public class EditCommand extends Command {
 
@@ -57,8 +56,6 @@ public class EditCommand extends Command {
 
 	@Override
 	public CommandResult execute() {
-		ReadOnlyTask target = null;
-		//@@author A0142325R-reused
 		ReadOnlyTask toEdit = null;
 		UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
         if (targetIndex != -1) {
@@ -69,7 +66,10 @@ public class EditCommand extends Command {
             toEdit = prepareEditTaskbyIndex(lastShownList);
         } else {
             assert this.name != null;
-            return prepareEditTaskWithName();
+            toEdit = prepareEditTaskByName(lastShownList);
+            if(toEdit == null) {
+            	return prepareEditTaskWithName();
+            }
         } //end if statment to find the target task
 
         return editTask(toEdit);
@@ -77,10 +77,10 @@ public class EditCommand extends Command {
 
 
     /**
-     * return taskToBeEdit found by targetIndex
+     * return the task to be edited found by targetIndex
      *
      * @param lastShownList
-     * @return task to be deleted
+     * @return task to be edited
      */
 
     private ReadOnlyTask prepareEditTaskbyIndex(UnmodifiableObservableList<ReadOnlyTask> lastShownList) {
@@ -88,16 +88,35 @@ public class EditCommand extends Command {
     }
 
     /**
+     * return the task to be edited found by the exact name
+     *
+     * @param lastShownList
+     * @return task to be edited
+     */
+
+    private ReadOnlyTask prepareEditTaskByName(UnmodifiableObservableList<ReadOnlyTask> lastShownList) {
+    	final ArrayList<ReadOnlyTask> shownList = new ArrayList<ReadOnlyTask>();
+    	for(ReadOnlyTask task : lastShownList) {
+        	if(name.trim().equals(task.getName().taskName))
+        		shownList.add(task);
+        }
+    	if(shownList.size() == 1) {
+    		return shownList.get(0);
+    	}
+    	return null;
+    }
+
+    /**
      * shown all task names with one or more occurrences of the input parameters
      *
      * @return commandResult
      */
-
     private CommandResult prepareEditTaskWithName() {
         final Matcher matcher = KEYWORDS_ARGS_FORMAT.matcher(name.trim());
         if (!matcher.matches()) {
-            return new CommandResult(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
+            return new CommandResult(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
         }
+
         final String[] keywords = matcher.group("keywords").split("\\s+");
         final Set<String> keywordSet = new HashSet<>(Arrays.asList(keywords));
         model.updateFilteredTaskList(keywordSet);

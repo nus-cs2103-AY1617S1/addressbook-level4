@@ -93,7 +93,6 @@ public class EditCommandTest extends CommandTest {
     //Test for the first scenario: edit a task or event by a valid unique name in the list
 
     @Test
-    @Ignore
     public void execute_edit_byName() throws Exception {
         TestDataHelper helper = new TestDataHelper();
         Task t1 = helper.generateUndoneEventWithName("Read book");

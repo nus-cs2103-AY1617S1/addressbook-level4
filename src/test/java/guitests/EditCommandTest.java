@@ -15,7 +15,6 @@ import seedu.address.testutil.TestTask;
 public class EditCommandTest extends TaskManagerGuiTest {
 
 	@Test
-	@Ignore
     public void edit_by_name() throws IllegalValueException {
 		TestTask[] currentList = td.getTypicalTasks();
 		currentList[6].setDate(new EventDate("12.10.2016-10","11.10.2016-12"));
@@ -34,9 +33,9 @@ public class EditCommandTest extends TaskManagerGuiTest {
 	private void assertEditSuccess(String name, String type, String details, TestTask[] currentList) {
 		commandBox.runCommand("edit "+ name + " " + type + details);
 		if(type.equals("e/") || type.equals("d/") || type.equals("s/"))
-			taskListPanel.navigateToTask(name).getDate();
+			taskListPanel.navigateToTask(name).getDate().equals(details);
 		else if(type.equals("n/"))
-			taskListPanel.navigateToTask(details).getName();
+			taskListPanel.navigateToTask(name).getName().equals(details);
 		else
 			assertResultMessage(String.format(MESSAGE_INVALID_COMMAND_FORMAT));
 	}
