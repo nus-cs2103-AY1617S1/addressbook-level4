@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<taskmanager>
+    <tasks>
+        <name>Help Jim with his task</name>
+        <startTime>2016-10-25 09:00</startTime>
+        <endTime></endTime>
+        <deadline></deadline>
+        <doneStatus>false</doneStatus>
+        <favoriteStatus>false</favoriteStatus>
+        <recurring>false</recurring>
+    </tasks>
+</taskmanager>
