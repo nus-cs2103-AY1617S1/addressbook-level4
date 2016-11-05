@@ -1,6 +1,8 @@
 package seedu.address.logic.commands;
 
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
@@ -16,6 +18,7 @@ import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.task.Name;
 import seedu.address.model.task.Priority;
 import seedu.address.model.task.ReadOnlyTask;
+import seedu.address.model.task.Repeating;
 import seedu.address.model.task.Startline;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.UniqueTaskList;
@@ -44,6 +47,7 @@ public class CompleteCommand extends Command {
 	public final Deadline deadline;
 	public final Priority priority;
 	public final UniqueTagList tagSet;
+	public Repeating repeating;
 	private Task toAdd;
 
 	public CompleteCommand(int index) throws IllegalValueException {
@@ -58,6 +62,7 @@ public class CompleteCommand extends Command {
 		this.deadline = new Deadline(null);
 		this.priority = new Priority("0");
 		this.tagSet = new UniqueTagList(tagSet);
+		this.repeating = new Repeating();
 	}
 
 	private Set<String> getDeadlinesFromArgs(String deadlineArguments) {
@@ -91,22 +96,24 @@ public class CompleteCommand extends Command {
 		}
 
 		ReadOnlyTask personToDelete = lastShownList.get(targetIndex - 1);
-
-
-		try {
-			String nameComplete = personToDelete.getName().toString();
-           
-			if (!nameComplete.contains(" is completed"))
-				nameComplete = nameComplete + " is completed";
-			else{
-				return new CommandResult(MESSAGE_COMPLETED_FAILURE);
-				
-			}
-			name = new Name(nameComplete);
-
-		} catch (IllegalValueException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
+		this.repeating = personToDelete.getRepeating();
+		if(!repeating.getRepeating()) {
+			try {
+				String nameComplete = personToDelete.getName().toString();
+	           
+				if (!nameComplete.contains(" is completed"))
+					nameComplete = nameComplete + " is completed";
+				else{
+					return new CommandResult(MESSAGE_COMPLETED_FAILURE);
+					
+				}
+				name = new Name(nameComplete);
+	
+			} catch (IllegalValueException e1) {
+				e1.printStackTrace();
+			}		
+		} else {
+			return setToNextDate(personToDelete);
 		}
 
 		try {
@@ -128,4 +135,118 @@ public class CompleteCommand extends Command {
 		}
 
 	}
+	
+	/**
+	 * Sets a repeating task to the next calendar interval.
+	 * @param task
+	 * @return a CommandResult indicating success if able to repeat.
+	 */
+	private CommandResult setToNextDate(ReadOnlyTask task) {
+		Calendar startlineCal = task.getStartline().calendar;
+		Calendar deadlineCal = task.getDeadline().calendar;
+		String repeatedStartline;
+		String repeatedDeadline;
+		if(startlineCal != null) {									// If there is a startline, it is repeated 
+			startlineCal = repeatDate(startlineCal, task);
+			repeatedStartline = mutateToDate(startlineCal);
+		} else {
+			repeatedStartline = null;
+		}
+		if(deadlineCal != null) {									// If there is a deadline, it is repeated 
+			deadlineCal = repeatDate(deadlineCal, task);
+			repeatedDeadline = mutateToDate(deadlineCal);
+		} else {
+			repeatedDeadline = null;
+		}
+		deleteTask(task);
+		toAdd = newRepeatingTask(task, repeatedStartline, repeatedDeadline);
+		return addRepeatingTask();		
+	}
+	
+	/**
+	 * Adds the repeating task to model.
+	 * @return a CommandResult indicating whether task has been added.  
+	 */
+	private CommandResult addRepeatingTask() {
+		assert model != null;
+		try {
+			model.addPerson(toAdd);
+			String point = String.format(MESSAGE_COMPLETE_TASK_SUCCESS, toAdd);
+			model.currentState(point);
+			return new CommandResult(point);
+		} catch (UniqueTaskList.DuplicateTaskException e) {
+			return new CommandResult(MESSAGE_DUPLICATE_TASK);
+		}		
+	}
+	
+	/**
+	 * Creates a new task based on the repeated Task.
+	 * @param task
+	 * @param repeatedStartline
+	 * @param repeatedDeadline
+	 * @return a new repeating Task set to the next time interval.
+	 */
+	private Task newRepeatingTask(ReadOnlyTask task, String repeatedStartline, String repeatedDeadline) {
+		Startline newStartline;
+		Deadline newDeadline;
+		try {
+			newStartline = new Startline(repeatedStartline);
+			newDeadline = new Deadline(repeatedDeadline);
+		} catch (IllegalValueException e) {
+			e.printStackTrace();
+			return null;
+		}
+		Task repeatingTask = new Task(task.getName(), newStartline, newDeadline, task.getPriority(), task.getTags());
+		repeatingTask.setRepeating(repeating);
+		return repeatingTask;
+	}
+	
+	/**
+	 * Deletes the task instance in model.
+	 * @param task
+	 */
+	private void deleteTask(ReadOnlyTask task) {
+		try {
+			model.deleteTask(task);
+		} catch (TaskNotFoundException pnfe) {
+			assert false : "The target task cannot be missing";
+		}
+	}
+	
+	/**
+	 * Sets the date to the next time interval.
+	 * @param toCheck
+	 * @param task
+	 * @return a Calendar value with the repeated value.
+	 */
+	private Calendar repeatDate(Calendar toCheck, ReadOnlyTask task){
+		if(task.getRepeating().getRepeating()){
+			switch(task.getRepeating().getTimeInterval()){
+				case "weekly":
+					toCheck.add(Calendar.DATE, 7);
+					break;
+				case "monthly":
+					toCheck.add(Calendar.MONTH, 1);
+					break;
+				case "yearly":
+					toCheck.add(Calendar.YEAR, 1);
+					break;
+				default :
+					break;						
+			}
+		}
+		return toCheck;
+	}
+	
+	/**
+	 * Gets the string value of a calendar.
+	 * @param cal
+	 * @return a String value in the format dd-MM-yy HH:mm
+	 */
+	private String mutateToDate(Calendar cal){
+		SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yy HH:mm");
+		return sdf.format(cal.getTime());
+	}
+	
+
 }
