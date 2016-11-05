@@ -1,6 +1,8 @@
 package guitests;
 
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
 import seedu.task.commons.core.Messages;
 import seedu.task.testutil.TestTask;
@@ -16,8 +18,11 @@ import static seedu.task.logic.commands.RepeatCommand.MESSAGE_INVALID_INTERVAL;
 // @@author A0147944U
 public class RepeatCommandTest extends TaskManagerGuiTest {
 
+    @Rule
+    public ExpectedException thrown = ExpectedException.none();
+
     @Test
-    public void repeat() {
+    public void repeatCommandTest() {
 
         TestTask[] currentList = td.getTypicalTasks();
 
@@ -73,6 +78,20 @@ public class RepeatCommandTest extends TaskManagerGuiTest {
         // incorrect interval
         targetIndex = ThreadLocalRandom.current().nextInt(1, (currentList.length + 1));
         assertRepeatWrongIntervalFailure(targetIndex, "incorrect interval");
+
+    }
+
+    /**
+     * Check if a recurring task will correctly repeat itself. If it does repeat
+     * itself, getTask(1) will give IndexOutOfBoundsException.
+     */
+    @Test
+    public void recurringTaskFunctionality() {
+        commandBox.runCommand("clear");
+        commandBox.runCommand("add task to repeat, at now");
+        commandBox.runCommand("repeat 1 weekly");
+        commandBox.runCommand("done 1");
+        assertTrue(taskListPanel.getTask(0).getStartTime().compareTo(taskListPanel.getTask(1).getStartTime()) < 0);
     }
 
     /**
