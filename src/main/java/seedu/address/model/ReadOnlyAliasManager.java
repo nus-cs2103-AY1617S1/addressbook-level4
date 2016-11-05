@@ -1,6 +1,6 @@
 package seedu.address.model;
 
-
+//@@author A0143756Y-reused
 import java.util.List;
 
 import seedu.address.model.alias.ReadOnlyAlias;

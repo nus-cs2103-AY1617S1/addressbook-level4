@@ -26,7 +26,7 @@ import seedu.address.model.UserPrefs;
 public class MainWindow extends UiPart {
 
 	//@@author A0142184L
-    private static final String ICON = "/images/address_book_32.png";
+    private static final String ICON = "/images/amethyst_task_manager.png";
     private static final String FXML = "MainWindow.fxml";
     public static final int MIN_HEIGHT = 750;
     public static final int MIN_WIDTH = 800;
@@ -53,9 +53,6 @@ public class MainWindow extends UiPart {
     private Scene scene;
 
     private String taskManagerName;
-    
-    @FXML
-    private TabPane tabPane;
 
     @FXML
     private AnchorPane commandBoxPlaceholder;
@@ -67,6 +64,9 @@ public class MainWindow extends UiPart {
     private AnchorPane taskListLeftPanelPlaceholder;
 
     //@@author A0142184L
+    @FXML
+    private TabPane tabPane;
+    
     @FXML 
 	private AnchorPane todayTaskListTabPanelPlaceholder;
     
@@ -236,26 +236,12 @@ public class MainWindow extends UiPart {
     private void handleExit() {
         raise(new ExitAppRequestEvent());
     }
+    
     //@@author A0142184L
-    @FXML
-    private void handleQuickView() {
-    	tabPane.setOnKeyPressed(new EventHandler<KeyEvent>() {
-            @Override
-            public void handle(KeyEvent event) {
-                if (event.getCode() == (KeyCode.DIGIT1)) {
-                	tabPane.getSelectionModel().select(0);
-                } else if (event.getCode() == KeyCode.DIGIT2) {
-                	tabPane.getSelectionModel().select(1);
-                } else if (event.getCode() == KeyCode.DIGIT3) {
-                	tabPane.getSelectionModel().select(2);
-                } else if (event.getCode() == KeyCode.DIGIT4) {
-                	tabPane.getSelectionModel().select(3);
-                } else if (event.getCode() == KeyCode.DIGIT5) {
-                	tabPane.getSelectionModel().select(4);
-                }
-            }
-        });
+    public TabPane getTabPane() {
+    	return tabPane;
     }
+    
     //@@author
     public TaskListPanel getTaskListPanel() {
         return this.taskListLeftPanel;

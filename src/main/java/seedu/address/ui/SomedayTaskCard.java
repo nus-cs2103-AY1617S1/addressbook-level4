@@ -5,7 +5,6 @@ import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import seedu.address.model.task.ReadOnlyTask;
-import seedu.address.model.task.Status;
 
 public class SomedayTaskCard extends UiPart{
 

@@ -6,11 +6,9 @@ import java.util.ArrayList;
 
 import org.junit.Test;
 
-import edu.emory.mathcs.backport.java.util.Arrays;
 import seedu.address.testutil.TestTask;
 import seedu.address.testutil.TestUtil;
 import seedu.address.commons.core.Messages;
-import seedu.address.logic.commands.ChangeStatusCommand;
 import seedu.address.model.task.Status;
 import seedu.address.model.task.Status.StatusType;
 
