@@ -30,8 +30,8 @@ import java.util.Set;
 import java.util.logging.Logger;
 
 /**
- * Represents the in-memory model of the task manager data.
- * All changes to any model should be synchronized.
+ * Represents the in-memory model of the task manager data. All changes to any
+ * model should be synchronized.
  */
 public class ModelManager extends ComponentManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
@@ -42,13 +42,13 @@ public class ModelManager extends ComponentManager implements Model {
     private FilteredList<Task> filteredTodos;
     private FilteredList<Task> filteredDeadlines;
     private FilteredList<Task> filteredEvents;
-    
+
     private final CommandHistoryManager undoHistory;
     private final CommandHistoryManager redoHistory;
 
     /**
-     * Initializes a ModelManager with the given TaskManager
-     * TaskManager and its variables should not be null
+     * Initializes a ModelManager with the given TaskManager TaskManager and its
+     * variables should not be null
      */
     public ModelManager(TaskManager src, UserPrefs userPrefs) {
         super();
@@ -81,7 +81,7 @@ public class ModelManager extends ComponentManager implements Model {
         redoHistory = new CommandHistoryManager();
         taskManager.sortList();
     }
-    
+
     @Override
     public void resetData(ReadOnlyTaskManager newData) {
         taskManager.resetData(newData);
@@ -98,122 +98,125 @@ public class ModelManager extends ComponentManager implements Model {
         raise(new TaskManagerChangedEvent(taskManager));
     }
 
-    //@@author A0139052L
+    // @@author A0139052L
     @Override
     public synchronized void deleteTasks(List<ReadOnlyTask> taskList) throws TaskNotFoundException {
-        for (ReadOnlyTask targetTask: taskList) {
+        for (ReadOnlyTask targetTask : taskList) {
             taskManager.removeTask(targetTask);
         }
         indicateTaskManagerChanged();
     }
 
     @Override
-    public synchronized void addTask(Task task) throws UniqueTaskList.DuplicateTaskException {        
+    public synchronized void addTask(Task task) throws UniqueTaskList.DuplicateTaskException {
         taskManager.addTask(task);
         indicateTaskManagerChanged();
-    }    
-   
-    //@@author A0130853L
+    }
+
+    // @@author A0130853L
     @Override
-    public synchronized void markTasksAsDone(List<ReadOnlyTask> taskList) throws UniqueTaskList.TaskNotFoundException, DuplicateMarkAsDoneException{
-        for (ReadOnlyTask targetTask: taskList) {
+    public synchronized void markTasksAsDone(List<ReadOnlyTask> taskList)
+            throws UniqueTaskList.TaskNotFoundException, DuplicateMarkAsDoneException {
+        for (ReadOnlyTask targetTask : taskList) {
             taskManager.markTaskAsDoneTask(targetTask);
         }
-    	indicateTaskManagerChanged();
+        indicateTaskManagerChanged();
     }
-    
+
     /**
-     *  To indicate that the currently filtered list has changed.
-     * @param a viewType object from the ViewCommand enum class ViewType.
+     * To indicate that the currently filtered list has changed.
+     * 
+     * @param a
+     *            viewType object from the ViewCommand enum class ViewType.
      */
     private void indicateViewChanged(ViewCommand.ViewType viewType, LocalDate date) {
-    	raise(new ViewTypeChangedEvent(viewType, date));
+        raise(new ViewTypeChangedEvent(viewType, date));
     }
-    
-    //@@author A0135793W
-   	@Override
-    public synchronized void editTask(ReadOnlyTask target, Task task) 
-            throws UniqueTaskList.TaskNotFoundException, UniqueTaskList.DuplicateTaskException {   	    
-   	    taskManager.addTask(task);
+
+    // @@author A0135793W
+    @Override
+    public synchronized void editTask(ReadOnlyTask target, Task task)
+            throws UniqueTaskList.TaskNotFoundException, UniqueTaskList.DuplicateTaskException {
+        taskManager.addTask(task);
         indicateTaskManagerChanged();
         taskManager.removeTask(target);
         indicateTaskManagerChanged();
     }
-   	
-    //@@author A0139052L   	   	
-   	@Override
+
+    // @@author A0139052L
+    @Override
     public synchronized void storeCommandInfo(String commandWord, String commandText, ReadOnlyTask... tasks) {
-   	    undoHistory.storeCommandWord(commandWord);
-   	    undoHistory.storeCommandText(commandWord + commandText);
-   	    for (ReadOnlyTask task: tasks) {
-   	        undoHistory.storeTask(task);
-   	    }   	    
-   	    redoHistory.clear();
-   	}
-   	
-   	@Override
+        undoHistory.storeCommandWord(commandWord);
+        undoHistory.storeCommandText(commandWord + commandText);
+        for (ReadOnlyTask task : tasks) {
+            undoHistory.storeTask(task);
+        }
+        redoHistory.clear();
+    }
+
+    @Override
     public synchronized void storeCommandInfo(String commandWord, String commandText, List<ReadOnlyTask> markedTasks) {
         undoHistory.storeCommandWord(commandWord);
         undoHistory.storeListOfTasks(markedTasks);
         undoHistory.storeCommandText(commandWord + commandText);
         redoHistory.clear();
     }
-   	
-   	@Override
+
+    @Override
     public synchronized void storeCommandInfo(String commandWord) {
         undoHistory.storeCommandWord(commandWord);
         undoHistory.storeCommandText(commandWord);
-        undoHistory.storeTaskManager(new TaskManager(taskManager));        
+        undoHistory.storeTaskManager(new TaskManager(taskManager));
         redoHistory.clear();
     }
-   	
-   	@Override     
+
+    @Override
     public synchronized String undo() throws NoPreviousValidCommandException {
         if (!undoHistory.hasPreviousValidCommand()) {
             throw new NoPreviousValidCommandException(null);
         }
-        return revertBackPreviousState(undoHistory, redoHistory, false);        
-    }        
-    
-   	@Override     
+        return revertBackPreviousState(undoHistory, redoHistory, false);
+    }
+
+    @Override
     public synchronized String redo() throws NoRecentUndoCommandException {
         if (!redoHistory.hasPreviousValidCommand()) {
             throw new NoRecentUndoCommandException(null);
         }
-        return revertBackPreviousState(redoHistory, undoHistory, true);        
+        return revertBackPreviousState(redoHistory, undoHistory, true);
     }
-   	
-    //@@author
-    //=========== Filtered Task List Accessors ===============================================================
+
+    // @@author
+    // =========== Filtered Task List Accessors ===============================================================
 
     @Override
     public UnmodifiableObservableList<ReadOnlyTask> getTaskList() {
         return new UnmodifiableObservableList<>(allTasks);
     }
-    
-    //@@author A0139930B
+
+    // @@author A0139930B
     @Override
     public UnmodifiableObservableList<ReadOnlyTask> getFilteredTodoList() {
         return new UnmodifiableObservableList<>(filteredTodos);
     }
-    
+
     @Override
     public UnmodifiableObservableList<ReadOnlyTask> getFilteredDeadlineList() {
         return new UnmodifiableObservableList<>(filteredDeadlines);
     }
-    
+
     @Override
     public UnmodifiableObservableList<ReadOnlyTask> getFilteredEventList() {
         return new UnmodifiableObservableList<>(filteredEvents);
     }
 
-    //@@author A0130853L
+    // @@author A0130853L
     @Override
-    public void updateFilteredTaskList(Set<String> keywords){
+    public void updateFilteredTaskList(Set<String> keywords) {
         updateFilteredTaskList(new PredicateExpression(new NameQualifier(keywords)));
         indicateViewChanged(ViewCommand.ViewType.all, null);
     }
-    
+
     @Override
     public void updateFilteredListToShowAll() {
         allTasks.setPredicate(null);
@@ -225,35 +228,36 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public void updateFilteredDoneList() {
-    	updateFilteredTaskList(new PredicateExpression(p -> p.getIsDone() == true));
-    	indicateViewChanged(ViewCommand.ViewType.done, null);
+        updateFilteredTaskList(new PredicateExpression(p -> p.getIsDone() == true));
+        indicateViewChanged(ViewCommand.ViewType.done, null);
     }
-    
-    /** 
+
+    /**
      * Updates list to show uncompleted and upcoming tasks only.
      */
     @Override
     public void updateToDefaultList() {
-    	allTasks.setPredicate(p -> !p.getIsDone() && (p.isTodo() || p.isDeadline() || isEventAndIsNotBeforeToday(p)));
-    	filteredTodos.setPredicate(p -> !p.getIsDone());
-    	filteredDeadlines.setPredicate(p -> !p.getIsDone());
-    	filteredEvents.setPredicate(p -> !p.getIsDone() && isEventAndIsNotBeforeToday(p));
-    	indicateViewChanged(ViewCommand.ViewType.normal, null);
+        allTasks.setPredicate(p -> !p.getIsDone() && (p.isTodo() || p.isDeadline() || isEventAndIsNotBeforeToday(p)));
+        filteredTodos.setPredicate(p -> !p.getIsDone());
+        filteredDeadlines.setPredicate(p -> !p.getIsDone());
+        filteredEvents.setPredicate(p -> !p.getIsDone() && isEventAndIsNotBeforeToday(p));
+        indicateViewChanged(ViewCommand.ViewType.normal, null);
     }
-    
+
     /**
-     * Updates list to show deadlines on and before the specified date and events within the date.
+     * Updates list to show deadlines on and before the specified date and
+     * events within the date.
      */
-	@Override
-	public void updateFilteredDateTaskList(LocalDate date) {
-		allTasks.setPredicate(p -> isDateRelevantDeadlinesAndEvents(p, date));
-		filteredTodos.setPredicate(null);
-		filteredDeadlines.setPredicate(p -> isDeadlineAndIsNotAfterDate(p, date));
-		filteredEvents.setPredicate(p -> isEventAndDateIsWithinEventPeriod(p, date));
-		indicateViewChanged(ViewCommand.ViewType.date, date);
-	}
-	
-	//@@author
+    @Override
+    public void updateFilteredDateTaskList(LocalDate date) {
+        allTasks.setPredicate(p -> isDateRelevantDeadlinesAndEvents(p, date));
+        filteredTodos.setPredicate(null);
+        filteredDeadlines.setPredicate(p -> isDeadlineAndIsNotAfterDate(p, date));
+        filteredEvents.setPredicate(p -> isEventAndDateIsWithinEventPeriod(p, date));
+        indicateViewChanged(ViewCommand.ViewType.date, date);
+    }
+
+    // @@author
     private void updateFilteredTaskList(Expression expression) {
         allTasks.setPredicate(expression::satisfies);
         filteredTodos.setPredicate(expression::satisfies);
@@ -261,10 +265,12 @@ public class ModelManager extends ComponentManager implements Model {
         filteredEvents.setPredicate(expression::satisfies);
     }
 
-    //========== Inner classes/interfaces used for filtering ==================================================
+    // ========== Inner classes/interfaces used for filtering
+    // ==================================================
 
     interface Expression {
         boolean satisfies(ReadOnlyTask person);
+
         String toString();
     }
 
@@ -289,6 +295,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     interface Qualifier {
         boolean run(ReadOnlyTask person);
+
         String toString();
     }
 
@@ -299,17 +306,15 @@ public class ModelManager extends ComponentManager implements Model {
             this.nameKeyWords = nameKeyWords;
         }
 
-        //@@author A0139930B
+        // @@author A0139930B
         @Override
         public boolean run(ReadOnlyTask task) {
-            return nameKeyWords.stream()
-                    .allMatch(keyword -> containsByType(task, keyword));
+            return nameKeyWords.stream().allMatch(keyword -> containsByType(task, keyword));
         }
-        
+
         /**
-         * Check if a task contains the given keyword.
-         * Tags will be used to compare if keyword contains TAG_PREFIX
-         * Returns true if keyword is found in task
+         * Check if a task contains the given keyword. Tags will be used to
+         * compare if keyword contains TAG_PREFIX Returns true if keyword is found in task
          * 
          * @param task to be checked
          * @param keyword to look for in task
@@ -317,139 +322,149 @@ public class ModelManager extends ComponentManager implements Model {
         private boolean containsByType(ReadOnlyTask task, String keyword) {
             assert task != null;
             assert keyword != null && !keyword.isEmpty();
-            
-            String toCompare = task.getName().fullName; 
+
+            String toCompare = task.getName().fullName;
             if (keyword.contains(Tag.TAG_PREFIX)) {
                 toCompare = task.tagsString();
             }
             return StringUtil.containsIgnoreCase(toCompare, keyword);
         }
-        
-        //@@author
+
+        // @@author
         @Override
         public String toString() {
             return "name=" + String.join(", ", nameKeyWords);
         }
-    }                
-    
-    //========== Private methods used within ModelManager ==================================================
-    
-    
-    //@@author A0130853L
+    }
+
+    // ========== Private methods used within ModelManager ==================================================
+
+    // @@author A0130853L
     /**
      * Evaluates if the task is a deadline and is not after the specified date.
+     * 
      * @param task
      * @param date
      * @return the evaluated boolean expression
      */
     private boolean isDeadlineAndIsNotAfterDate(Task task, LocalDate date) {
-		return task.isDeadline() && !task.getPeriod().getEndDate().getDate().isAfter(date);
-	}
-    
-	/**
-	 * Evaluates if the task is an event and the specified date is within the event period.
-	 * @param a valid task in the task manager
-	 * @param the date that the user requested to search for
-	 * @return the evaluated boolean expression
-	 */
-	private boolean isEventAndDateIsWithinEventPeriod(Task task, LocalDate date) {
-		boolean relEndDate = isEventAndIsNotBeforeDate(task, date);
-		boolean relStartDate = isEventAndIsNotAfterDate(task, date);
-		return relEndDate && relStartDate;
-	}
-	
-	/**
-	 * A helper method to shorten the evaluated boolean expression that is otherwise longer.
-	 * Evaluates if the task is an event and event is from `date` onwards.
-	 * @param a valid task in the task manager
-	 *@return the evaluated boolean expression
-	 */
-	private boolean isEventAndIsNotBeforeDate(Task task, LocalDate date) {
-		return task.isEvent() && !(task.getPeriod().getEndDate().getDate().isBefore(date));
-	}
-	
-	/**
-	 * A helper method to shorten the evaluated boolean expression that is otherwise longer.
-	 * Evaluates if the task is an event and event is either on `date` or before it.
-	 * @param a valid task in the task manager
-	 *@return the evaluated boolean expression
-	 */
-	private boolean isEventAndIsNotAfterDate(Task task, LocalDate date) {
-		return task.isEvent() && !(task.getPeriod().getStartDate().getDate().isAfter(date));
-	}
-	
-	/** 
-	 * Evaluates if the task is an event and event is from today onwards.
-	 * @param a valid task in the task manager
-	 *@return the evaluated boolean expression
-	 */
-	private boolean isEventAndIsNotBeforeToday(Task task) {
-		LocalDate today = DateTimeUtil.createCurrentDate();
-		return isEventAndIsNotBeforeDate(task, today);
-	}
-	
-	/** 
-	 * Abstracted boolean expression method for filtering according to the function `view date`.
-	 * @param a valid task in the task manager
-	 * @param the date that the user requested to search for
-	 * @return the combined boolean expression from the 3 respective task-derived expressions.
-	 */
-	private boolean isDateRelevantDeadlinesAndEvents(Task p, LocalDate date) {
-		boolean todos = p.isTodo();
-		boolean relDeadlines = isDeadlineAndIsNotAfterDate(p, date);
-		boolean relEvents = isEventAndDateIsWithinEventPeriod(p, date);
-		return todos || relDeadlines || relEvents;
-	}
-	
-	//@@author A0139052L
-	/**
-	 * Reverts back to the previous state by undoing/redoing the previous action
-	 * @param toGetInfo the storage in which to get the info from
-	 * @param toStoreInfo the storage in which to store the info into
-	 * @param isRedo check if it is undo/redo calling this method
-	 * @return the commandText string for result message in Undo/Redo Command
-	 */
-	private String revertBackPreviousState(CommandHistoryManager toGetInfo, CommandHistoryManager toStoreInfo, boolean isRedo) {
+        return task.isDeadline() && !task.getPeriod().getEndDate().getDate().isAfter(date);
+    }
+
+    /**
+     * Evaluates if the task is an event and the specified date is within the
+     * event period.
+     * 
+     * @param a valid task in the task manager
+     * @param the date that the user requested to search for
+     * @return the evaluated boolean expression
+     */
+    private boolean isEventAndDateIsWithinEventPeriod(Task task, LocalDate date) {
+        boolean relEndDate = isEventAndIsNotBeforeDate(task, date);
+        boolean relStartDate = isEventAndIsNotAfterDate(task, date);
+        return relEndDate && relStartDate;
+    }
+
+    /**
+     * A helper method to shorten the evaluated boolean expression that is
+     * otherwise longer. Evaluates if the task is an event and event is from
+     * `date` onwards.
+     * 
+     * @param a valid task in the task manager
+     * @return the evaluated boolean expression
+     */
+    private boolean isEventAndIsNotBeforeDate(Task task, LocalDate date) {
+        return task.isEvent() && !(task.getPeriod().getEndDate().getDate().isBefore(date));
+    }
+
+    /**
+     * A helper method to shorten the evaluated boolean expression that is
+     * otherwise longer. Evaluates if the task is an event and event is either
+     * on `date` or before it.
+     * 
+     * @param a valid task in the task manager
+     * @return the evaluated boolean expression
+     */
+    private boolean isEventAndIsNotAfterDate(Task task, LocalDate date) {
+        return task.isEvent() && !(task.getPeriod().getStartDate().getDate().isAfter(date));
+    }
+
+    /**
+     * Evaluates if the task is an event and event is from today onwards.
+     * 
+     * @param a valid task in the task manager
+     * @return the evaluated boolean expression
+     */
+    private boolean isEventAndIsNotBeforeToday(Task task) {
+        LocalDate today = DateTimeUtil.createCurrentDate();
+        return isEventAndIsNotBeforeDate(task, today);
+    }
+
+    /**
+     * Abstracted boolean expression method for filtering according to the function `view date`.
+     * 
+     * @param a valid task in the task manager
+     * @param the date that the user requested to search for
+     * @return the combined boolean expression from the 3 respective task-derived expressions.
+     */
+    private boolean isDateRelevantDeadlinesAndEvents(Task p, LocalDate date) {
+        boolean todos = p.isTodo();
+        boolean relDeadlines = isDeadlineAndIsNotAfterDate(p, date);
+        boolean relEvents = isEventAndDateIsWithinEventPeriod(p, date);
+        return todos || relDeadlines || relEvents;
+    }
+
+    // @@author A0139052L
+    /**
+     * Reverts back to the previous state by undoing/redoing the previous action
+     * 
+     * @param toGetInfo the storage in which to get the info from
+     * @param toStoreInfo the storage in which to store the info into
+     * @param isRedo check if it is undo/redo calling this method
+     * @return the commandText string for result message in Undo/Redo Command
+     */
+    private String revertBackPreviousState(CommandHistoryManager toGetInfo, CommandHistoryManager toStoreInfo,
+            boolean isRedo) {
         String commandWord = toGetInfo.getCommandWord();
         toStoreInfo.storeCommandWord(commandWord);
-        
+
         try {
-            switch(commandWord) {
-            
+            switch (commandWord) {
+
             case AddCommand.COMMAND_WORD:
                 revertAddCommand(toGetInfo, toStoreInfo, isRedo);
                 break;
-                
+
             case DeleteCommand.COMMAND_WORD:
                 revertDeleteCommand(toGetInfo, toStoreInfo, isRedo);
                 break;
-                
+
             case EditCommand.COMMAND_WORD:
                 revertEditCommand(toGetInfo, toStoreInfo, isRedo);
                 break;
-                
+
             case ClearCommand.COMMAND_WORD:
                 revertClearCommand(toGetInfo, toStoreInfo, isRedo);
                 break;
-                
+
             case DoneCommand.COMMAND_WORD:
                 revertDoneCommand(toGetInfo, toStoreInfo, isRedo);
                 break;
-                
+
             default:
-                assert false: "Should not have an invalid Command Word";
+                assert false : "Should not have an invalid Command Word";
                 break;
-            }            
+            }
         } catch (Exception e) {
-            assert false: "Should not be unable to undo/redo previous command action";
+            assert false : "Should not be unable to undo/redo previous command action";
         }
         String commandText = toGetInfo.getCommandText();
         toStoreInfo.storeCommandText(commandText);
         indicateTaskManagerChanged();
         return commandText;
     }
-	
-	/**
+
+    /**
      * Reverts an AddCommand depending on whether is redo/undo calling it
      */
     private void revertAddCommand(CommandHistoryManager toGetInfo, CommandHistoryManager toStoreInfo, boolean isRedo)
@@ -458,12 +473,12 @@ public class ModelManager extends ComponentManager implements Model {
         if (isRedo) {
             taskManager.addTask((Task) taskAdded);
         } else {
-            taskManager.removeTask(taskAdded); 
-        } 
+            taskManager.removeTask(taskAdded);
+        }
         toStoreInfo.storeTask(taskAdded);
     }
-    
-	/**
+
+    /**
      * Reverts a DeleteCommand depending on whether is redo/undo calling it
      */
     private void revertDeleteCommand(CommandHistoryManager toGetInfo, CommandHistoryManager toStoreInfo, boolean isRedo)
@@ -471,17 +486,17 @@ public class ModelManager extends ComponentManager implements Model {
         List<ReadOnlyTask> listOfDeletedTasks = toGetInfo.getListOfTasks();
         toStoreInfo.storeListOfTasks(listOfDeletedTasks);
         if (isRedo) {
-            for (ReadOnlyTask taskDeleted: listOfDeletedTasks) {
+            for (ReadOnlyTask taskDeleted : listOfDeletedTasks) {
                 taskManager.removeTask(taskDeleted);
             }
-       } else {
-           for (ReadOnlyTask taskDeleted: listOfDeletedTasks) {
-               taskManager.addTask((Task) taskDeleted);
-           }
-       }
+        } else {
+            for (ReadOnlyTask taskDeleted : listOfDeletedTasks) {
+                taskManager.addTask((Task) taskDeleted);
+            }
+        }
     }
-	
-	/**
+
+    /**
      * Reverts an EditCommand depending on whether is redo/undo calling it
      */
     private void revertEditCommand(CommandHistoryManager toGetInfo, CommandHistoryManager toStoreInfo, boolean isRedo)
@@ -490,7 +505,7 @@ public class ModelManager extends ComponentManager implements Model {
         ReadOnlyTask taskAfterEdit = toGetInfo.getTask();
         if (isRedo) {
             taskManager.addTask((Task) taskAfterEdit);
-            taskManager.removeTask(taskBeforeEdit);                    
+            taskManager.removeTask(taskBeforeEdit);
         } else {
             taskManager.addTask((Task) taskBeforeEdit);
             taskManager.removeTask(taskAfterEdit);
@@ -498,8 +513,8 @@ public class ModelManager extends ComponentManager implements Model {
         toStoreInfo.storeTask(taskAfterEdit);
         toStoreInfo.storeTask(taskBeforeEdit);
     }
-    
-	/**
+
+    /**
      * Reverts a ClearCommand depending on whether is redo/undo calling it
      */
     private void revertClearCommand(CommandHistoryManager toGetInfo, CommandHistoryManager toStoreInfo,
@@ -512,8 +527,8 @@ public class ModelManager extends ComponentManager implements Model {
         }
         toStoreInfo.storeTaskManager(previousTaskManager);
     }
-    
-	/**
+
+    /**
      * Reverts a DoneCommand depending on whether is redo/undo calling it
      */
     private void revertDoneCommand(CommandHistoryManager toGetInfo, CommandHistoryManager toStoreInfo, boolean isRedo)
@@ -521,67 +536,67 @@ public class ModelManager extends ComponentManager implements Model {
         List<ReadOnlyTask> listOfTasksMarked = toGetInfo.getListOfTasks();
         toStoreInfo.storeListOfTasks(listOfTasksMarked);
         if (isRedo) {
-            for (ReadOnlyTask taskToRevertMark: listOfTasksMarked) {
+            for (ReadOnlyTask taskToRevertMark : listOfTasksMarked) {
                 taskManager.markTaskAsDoneTask(taskToRevertMark);
             }
         } else {
-            for (ReadOnlyTask taskToRevertMark: listOfTasksMarked) {
+            for (ReadOnlyTask taskToRevertMark : listOfTasksMarked) {
                 taskManager.unMarkTaskAsDoneTask(taskToRevertMark);
-            }    
+            }
         }
     }
 }
 
-	//@@author A0139052L-unused
-	// swap over to different undo function
+// @@author A0139052L-unused
+// swap over to different undo function
 //
-//     *  returns true is there is a previous valid command input by user
-//     *  and false otherwise
-//     */
-//    private boolean hasPreviousValidCommand() {
-//        return !historyCommands.isEmpty();
-//    }
-//    
-//	  
-//    /**
-//     *  returns the Task Manager from the previous state
-//     */	
-//    private ReadOnlyTaskManager getPreviousTaskManager() {
-//        return historyTaskManagers.pop();
-//    }
-//    
-//    /**
-//     * returns the Predicate from the previous state
-//     */
-//    private Predicate getPreviousPredicate() {
-//        return historyPredicates.pop();
-//    }
-//    
-//    /**
-//     * returns the previous valid command input by the user
-//     */
-//    private String getPreviousValidCommand() {
-//        return historyCommands.pop();
-//    }
-//        
-//    public synchronized void saveState(String command) {
-//        historyTaskManagers.push(new TaskManager(taskManager));
-//        historyCommands.push(command);
-//        historyPredicates.push(filteredTodos.getPredicate());
-//    }
-//    
-//    public synchronized void removeUnchangedState() {
-//        historyTaskManagers.pop();
-//        historyCommands.pop();
-//        historyPredicates.pop();
-//    }
-//    
-//    public synchronized String undo() throws NoPreviousValidCommandException {
-//        if (!hasPreviousValidCommand()) {            
-//            throw new NoPreviousValidCommandException(null);
-//        }
-//        assert !historyPredicates.isEmpty() && !historyTaskManagers.isEmpty();
-//        resetData(getPreviousTaskManager());   
-//        updateFilteredTaskList(getPreviousPredicate());
-//        return getPreviousValidCommand();
-//    }
+// * returns true is there is a previous valid command input by user
+// * and false otherwise
+// */
+// private boolean hasPreviousValidCommand() {
+// return !historyCommands.isEmpty();
+// }
+//
+//
+// /**
+// * returns the Task Manager from the previous state
+// */
+// private ReadOnlyTaskManager getPreviousTaskManager() {
+// return historyTaskManagers.pop();
+// }
+//
+// /**
+// * returns the Predicate from the previous state
+// */
+// private Predicate getPreviousPredicate() {
+// return historyPredicates.pop();
+// }
+//
+// /**
+// * returns the previous valid command input by the user
+// */
+// private String getPreviousValidCommand() {
+// return historyCommands.pop();
+// }
+//
+// public synchronized void saveState(String command) {
+// historyTaskManagers.push(new TaskManager(taskManager));
+// historyCommands.push(command);
+// historyPredicates.push(filteredTodos.getPredicate());
+// }
+//
+// public synchronized void removeUnchangedState() {
+// historyTaskManagers.pop();
+// historyCommands.pop();
+// historyPredicates.pop();
+// }
+//
+// public synchronized String undo() throws NoPreviousValidCommandException {
+// if (!hasPreviousValidCommand()) {
+// throw new NoPreviousValidCommandException(null);
+// }
+// assert !historyPredicates.isEmpty() && !historyTaskManagers.isEmpty();
+// resetData(getPreviousTaskManager());
+// updateFilteredTaskList(getPreviousPredicate());
+// return getPreviousValidCommand();
+// }

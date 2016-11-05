@@ -79,7 +79,6 @@ public class CommandHistoryManager {
         historyCommandTexts.clear();
         historyTasks.clear();
         historyListOfTasks.clear();
-        historyTaskManagers .clear();
+        historyTaskManagers.clear();
     }
-    
 }

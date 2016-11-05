@@ -32,7 +32,7 @@ public class UiPartLoader {
         controller.setStage(primaryStage);
         controller.setPlaceholder(placeholder);
         controller.setNode(mainNode);
-        return (T)controller;
+        return (T) controller;
     }
 
     /**

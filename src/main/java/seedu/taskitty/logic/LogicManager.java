@@ -25,7 +25,7 @@ public class LogicManager extends ComponentManager implements Logic {
         this.model = model;
         this.parser = new CommandParser();
     }
-    
+
     @Override
     public CommandResult execute(String commandText) {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
@@ -33,26 +33,26 @@ public class LogicManager extends ComponentManager implements Logic {
         command.setData(model);
         return command.execute();
     }
-    
-    //@@author A0139930B
+
+    // @@author A0139930B
     @Override
     public ObservableList<ReadOnlyTask> getFilteredTaskList() {
         return model.getFilteredTodoList();
     }
-    
+
     @Override
     public ObservableList<ReadOnlyTask> getFilteredDeadlineList() {
         return model.getFilteredDeadlineList();
     }
-    
+
     @Override
     public ObservableList<ReadOnlyTask> getFilteredEventList() {
         return model.getFilteredEventList();
     }
-    
-    //@@author A0130853L
+
+    // @@author A0130853L
     @Override
     public void initialiseList() {
-    	model.updateToDefaultList();
+        model.updateToDefaultList();
     }
 }

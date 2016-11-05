@@ -62,7 +62,7 @@ public class StatusBarFooter extends UiPart {
         setSyncStatus("Not updated yet in this session");
         addSaveLocation();
         addViewStatus();
-        setViewStatus("Viewing: "+ UPCOMING_TASKS);
+        setViewStatus("Viewing: " + UPCOMING_TASKS);
         setSaveLocation("./" + saveLocation);
         registerAsAnEventHandler(this);
     }
@@ -94,12 +94,12 @@ public class StatusBarFooter extends UiPart {
     }
     //@@author A0130853L
     private void setViewStatus(String status) {
-    	this.viewStatus.setText(status);
+        this.viewStatus.setText(status);
     }
    
     private void addViewStatus() {
-    	this.viewStatus = new StatusBar();
-    	FxViewUtil.applyAnchorBoundaryParameters(viewStatus, 0.0, 0.0, 0.0, 0.0);
+        this.viewStatus = new StatusBar();
+        FxViewUtil.applyAnchorBoundaryParameters(viewStatus, 0.0, 0.0, 0.0, 0.0);
         viewStatusBarPane.getChildren().add(viewStatus);
     }
     
@@ -122,25 +122,25 @@ public class StatusBarFooter extends UiPart {
     //@@author A0130853L
     @Subscribe
     public void handleViewTypeChangedEvent(ViewTypeChangedEvent vtce) {
-    	String newView = vtce.viewType.toString();
-    	String viewStatus = "Viewing: ";
-    	switch(newView) {
-    		case("date"):
-    			viewStatus += DateTimeUtil.createUISpecifiedDateString(vtce.getDate());
-    			break;
-    		case("done"):
-    			viewStatus += COMPLETED_TASKS;
-    			break;
-    		case("all"):
-    			viewStatus += ALL_TASKS;
-    			break;
-    		default:
-    			viewStatus += UPCOMING_TASKS;
-    	}
-    	
-    	logger.info(LogsCenter.getEventHandlingLogMessage(vtce, "Setting filtered view to " + newView));
-    	setViewStatus(viewStatus); 
-    	
+        String newView = vtce.viewType.toString();
+        String viewStatus = "Viewing: ";
+        switch(newView) {
+        case("date") :
+            viewStatus += DateTimeUtil.createUISpecifiedDateString(vtce.getDate());
+            break;
+        case("done") :
+            viewStatus += COMPLETED_TASKS;
+            break;
+        case("all") :
+            viewStatus += ALL_TASKS;
+            break;
+        default :
+            viewStatus += UPCOMING_TASKS;
+        }
+        
+        logger.info(LogsCenter.getEventHandlingLogMessage(vtce, "Setting filtered view to " + newView));
+        setViewStatus(viewStatus); 
+        
     }
     
     @Subscribe

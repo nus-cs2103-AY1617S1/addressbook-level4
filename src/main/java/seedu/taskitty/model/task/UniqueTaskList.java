@@ -34,14 +34,14 @@ public class UniqueTaskList implements Iterable<Task> {
      */
     public static class TaskNotFoundException extends Exception {}
     
-	//@@author A0130853L
+    //@@author A0130853L
     /**
-     * Signals that the done operation targeting a specified task in the list is a duplicate operation if the task has already been previously
-     * marked as done.
+     * Signals that the done operation targeting a specified task in the list is a duplicate
+     * operation if the task has already been previously marked as done.
      */
     public static class DuplicateMarkAsDoneException extends Exception {}
 
-	//@@author
+    //@@author
     private final ObservableList<Task> internalList = FXCollections.observableArrayList();
 
     /**
@@ -105,7 +105,7 @@ public class UniqueTaskList implements Iterable<Task> {
         try {
             addSorted(editableToUnmark);
         } catch (DuplicateTaskException e) {
-            assert false: "Should not have duplicate task";
+            assert false : "Should not have duplicate task";
         }
     }
     
@@ -116,21 +116,21 @@ public class UniqueTaskList implements Iterable<Task> {
      * @throws DuplicateMarkAsDoneException if specified task in list had already been marked as done previously.
      */
     public void mark(ReadOnlyTask toMark) throws TaskNotFoundException, DuplicateMarkAsDoneException {
-    	assert toMark != null;
-    	if (toMark.getIsDone()) {
-    		throw new DuplicateMarkAsDoneException();
-    	}
-    	final boolean taskFoundAndMarkedAsDone = internalList.remove(toMark);
-    	Task editableToMark = (Task) toMark;
-    	editableToMark.markAsDone();
-    	try {
+        assert toMark != null;
+        if (toMark.getIsDone()) {
+            throw new DuplicateMarkAsDoneException();
+        }
+        final boolean taskFoundAndMarkedAsDone = internalList.remove(toMark);
+        Task editableToMark = (Task) toMark;
+        editableToMark.markAsDone();
+        try {
             addSorted(editableToMark);
         } catch (DuplicateTaskException e) {
-            assert false: "Should not have duplicate task";
+            assert false : "Should not have duplicate task";
         }
-    	if (!taskFoundAndMarkedAsDone) {
-    		throw new TaskNotFoundException();
-    	}
+        if (!taskFoundAndMarkedAsDone) {
+            throw new TaskNotFoundException();
+        }
     }   
     
     //@@author
@@ -157,8 +157,8 @@ public class UniqueTaskList implements Iterable<Task> {
     //@@author A0130853L
 
     public ObservableList<Task> getInternalList() {
-    	checkAndSetOverdue();
-    	checkAndSetIsOverToday();
+        checkAndSetOverdue();
+        checkAndSetIsOverToday();
         return internalList;
     }
     
@@ -168,16 +168,16 @@ public class UniqueTaskList implements Iterable<Task> {
      * @param filter according to Task.
      */
     private void checkAndSetOverdue() {
-    	boolean hasOverdue = false;    	
-    	for (Task t: internalList) {
-    		if (t.isDeadline() && !t.getIsDone() && DateTimeUtil.isOverdue(t)) {
-    		    t.markAsOverdue();
-    		    hasOverdue = true;
-    		}
-    	}
-    	if (hasOverdue) {
-    		ResultDisplay.setOverdue();
-    	}
+        boolean hasOverdue = false;        
+        for (Task t: internalList) {
+            if (t.isDeadline() && !t.getIsDone() && DateTimeUtil.isOverdue(t)) {
+                t.markAsOverdue();
+                hasOverdue = true;
+            }
+        }
+        if (hasOverdue) {
+            ResultDisplay.setOverdue();
+        }
     }
     
     /**
@@ -185,20 +185,20 @@ public class UniqueTaskList implements Iterable<Task> {
      */
     private void checkAndSetIsOverToday() {
         final ArrayList<Task> eventsToSetOver = new ArrayList<Task>();
-    	for (Task t: internalList) {
-    	    if (t.isEvent() && DateTimeUtil.isOverdue(t)) {
-    	        eventsToSetOver.add(t);
-    	    }
-    	}
-    	for (Task overEvents: eventsToSetOver) {
-    	    try {
+        for (Task t: internalList) {
+            if (t.isEvent() && DateTimeUtil.isOverdue(t)) {
+                eventsToSetOver.add(t);
+            }
+        }
+        for (Task overEvents: eventsToSetOver) {
+            try {
                 mark(overEvents);
             } catch (TaskNotFoundException e) {
-                assert false: "Task should not be missing";
+                assert false : "Task should not be missing";
             } catch (DuplicateMarkAsDoneException e) {
-                assert false: "Task should not be marked done";
+                assert false : "Task should not be marked done";
             }
-    	}
+        }
     }
     
     

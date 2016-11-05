@@ -24,23 +24,23 @@ import seedu.taskitty.model.task.UniqueTaskList.TaskNotFoundException;
 
 //@@author A0135793W
 /**
- * Edits a task identified using it's last displayed index from the task manager.
+ * Edits a task identified using it's last displayed index from the task
+ * manager.
  */
 
-public class EditCommand extends Command{
-    
+public class EditCommand extends Command {
+
     public static final String COMMAND_WORD = "edit";
 
-    public static final String MESSAGE_PARAMETER = COMMAND_WORD
-            + " [index] [name] [#tag]...";
+    public static final String MESSAGE_PARAMETER = COMMAND_WORD + " [index] [name] [#tag]...";
     public static final String MESSAGE_USAGE = "This command edits a task in TasKitty, Meow!"
             + "\n[index] is the index eg. t1, d1, e1.";
 
     public static final String MESSAGE_SUCCESS = "Task edited: %1$s";
     public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the task manager";
-    
+
     public final int categoryIndex;
-    
+
     public final int targetIndex;
 
     private Task toEdit;
@@ -48,17 +48,18 @@ public class EditCommand extends Command{
     private String[] data;
     private Set<Tag> tagSet;
     private final String commandText;
-    
+
     /**
      * Convenience constructor using raw values.
      *
-     * @throws IllegalValueException if any of the raw values are invalid
+     * @throws IllegalValueException
+     *             if any of the raw values are invalid
      */
     public EditCommand(String[] data, Set<String> tags, int targetIndex, int categoryIndex, String commandText)
             throws IllegalValueException {
 
         assert categoryIndex >= 0 && categoryIndex < 3;
-        
+
         this.targetIndex = targetIndex;
         this.categoryIndex = categoryIndex;
         this.data = data;
@@ -68,19 +69,20 @@ public class EditCommand extends Command{
             tagSet.add(new Tag(tagName));
         }
     }
-    
+
     @Override
     public CommandResult execute() {
         assert categoryIndex >= 0 && categoryIndex < 3;
 
-        UnmodifiableObservableList<ReadOnlyTask> lastShownList = AppUtil.getCorrectListBasedOnCategoryIndex(model,categoryIndex);
+        UnmodifiableObservableList<ReadOnlyTask> lastShownList = AppUtil.getCorrectListBasedOnCategoryIndex(model,
+                categoryIndex);
         if (lastShownList.size() < targetIndex) {
             indicateAttemptToExecuteIncorrectCommand();
             return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
 
         taskToEdit = lastShownList.get(targetIndex - 1);
-        
+
         try {
             Optional<CommandResult> result = updateToEditVariable();
             if (result.isPresent()) {
@@ -95,12 +97,14 @@ public class EditCommand extends Command{
         } catch (IllegalValueException ive) {
             return new CommandResult(ive.getMessage());
         }
-        
+
         return new CommandResult(String.format(MESSAGE_SUCCESS, Task.CATEGORIES[categoryIndex] + targetIndex, toEdit));
     }
-    
+
     /**
-     * Ensure that toEdit variable has proper values before executing the command
+     * Ensure that toEdit variable has proper values before executing the
+     * command
+     * 
      * @return
      * @throws IllegalValueException
      */
@@ -109,17 +113,14 @@ public class EditCommand extends Command{
             tagSet = taskToEdit.getTags().toSet();
         }
         if (data.length == Task.TASK_COMPONENT_COUNT) {
-            this.toEdit = new Task(
-                new Name(data[Task.TASK_COMPONENT_INDEX_NAME]),
-                new TaskPeriod(),
-                new UniqueTagList(tagSet)
-            );
+            this.toEdit = new Task(new Name(data[Task.TASK_COMPONENT_INDEX_NAME]), new TaskPeriod(),
+                    new UniqueTagList(tagSet));
             if (taskToEdit.getIsDone()) {
                 this.toEdit.markAsDone();
             }
         } else if (data.length == Task.DEADLINE_COMPONENT_COUNT) {
             if (data[Task.DEADLINE_COMPONENT_INDEX_NAME].isEmpty()) {
-                data[Task.DEADLINE_COMPONENT_INDEX_NAME] = taskToEdit.getName().toString();   
+                data[Task.DEADLINE_COMPONENT_INDEX_NAME] = taskToEdit.getName().toString();
             }
             if (data[Task.DEADLINE_COMPONENT_INDEX_END_TIME] == null) {
                 if (categoryIndex != Task.DEADLINE_CATEGORY_INDEX) {
@@ -127,12 +128,10 @@ public class EditCommand extends Command{
                 }
                 data[Task.DEADLINE_COMPONENT_INDEX_END_TIME] = taskToEdit.getPeriod().getEndTime().toString();
             }
-            this.toEdit = new Task(
-                new Name(data[Task.DEADLINE_COMPONENT_INDEX_NAME]),
-                new TaskPeriod(new TaskDate(data[Task.DEADLINE_COMPONENT_INDEX_END_DATE]),
-                        new TaskTime(data[Task.DEADLINE_COMPONENT_INDEX_END_TIME])),
-                new UniqueTagList(tagSet)
-            );
+            this.toEdit = new Task(new Name(data[Task.DEADLINE_COMPONENT_INDEX_NAME]),
+                    new TaskPeriod(new TaskDate(data[Task.DEADLINE_COMPONENT_INDEX_END_DATE]),
+                            new TaskTime(data[Task.DEADLINE_COMPONENT_INDEX_END_TIME])),
+                    new UniqueTagList(tagSet));
             if (taskToEdit.getIsDone()) {
                 this.toEdit.markAsDone();
             } else if (DateTimeUtil.isOverdue(this.toEdit)) {
@@ -140,7 +139,7 @@ public class EditCommand extends Command{
             }
         } else if (data.length == Task.EVENT_COMPONENT_COUNT) {
             if (data[Task.EVENT_COMPONENT_INDEX_NAME].isEmpty()) {
-                data[Task.EVENT_COMPONENT_INDEX_NAME] = taskToEdit.getName().toString();   
+                data[Task.EVENT_COMPONENT_INDEX_NAME] = taskToEdit.getName().toString();
             }
             if (data[Task.EVENT_COMPONENT_INDEX_START_TIME] == null) {
                 if (categoryIndex != Task.EVENT_CATEGORY_INDEX) {
@@ -151,14 +150,12 @@ public class EditCommand extends Command{
             if (data[Task.EVENT_COMPONENT_INDEX_END_TIME] == null) {
                 data[Task.EVENT_COMPONENT_INDEX_END_TIME] = taskToEdit.getPeriod().getEndTime().toString();
             }
-            this.toEdit = new Task(
-                new Name(data[Task.EVENT_COMPONENT_INDEX_NAME]),
-                new TaskPeriod(new TaskDate(data[Task.EVENT_COMPONENT_INDEX_START_DATE]),
-                        new TaskTime(data[Task.EVENT_COMPONENT_INDEX_START_TIME]),
-                        new TaskDate(data[Task.EVENT_COMPONENT_INDEX_END_DATE]),
-                        new TaskTime(data[Task.EVENT_COMPONENT_INDEX_END_TIME])),
-                new UniqueTagList(tagSet)
-            );
+            this.toEdit = new Task(new Name(data[Task.EVENT_COMPONENT_INDEX_NAME]),
+                    new TaskPeriod(new TaskDate(data[Task.EVENT_COMPONENT_INDEX_START_DATE]),
+                            new TaskTime(data[Task.EVENT_COMPONENT_INDEX_START_TIME]),
+                            new TaskDate(data[Task.EVENT_COMPONENT_INDEX_END_DATE]),
+                            new TaskTime(data[Task.EVENT_COMPONENT_INDEX_END_TIME])),
+                    new UniqueTagList(tagSet));
             if (taskToEdit.getIsDone()) {
                 this.toEdit.markAsDone();
             }

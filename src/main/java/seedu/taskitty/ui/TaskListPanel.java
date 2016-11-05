@@ -68,7 +68,7 @@ public class TaskListPanel extends UiPart {
      * Initializes the list view header and ID depending on the type of list it is
      */
     private void initializeListView(int type) {
-        if(type == Task.TASK_COMPONENT_COUNT) {
+        if (type == Task.TASK_COMPONENT_COUNT) {
             header.setText(HEADER_TODO);
             taskListView.setId(ID_TODO);
         } else if (type == Task.DEADLINE_COMPONENT_COUNT) {

@@ -17,8 +17,8 @@ public interface ReadOnlyTask {
     boolean isDeadline();
     boolean isEvent();
     boolean isOverdue();
-	
-	//@@author A0139930B
+    
+    //@@author A0139930B
     /**
      * The returned TagList is a deep copy of the internal TagList,
      * changes on the returned list will not affect the task's internal tags.
@@ -61,5 +61,5 @@ public interface ReadOnlyTask {
             return buffer.substring(0, buffer.length() - separator.length());
         }
     }
-	
+    
 }
