@@ -44,7 +44,7 @@ Love typing? You will love sTask, as you only need to use the keyboard to type s
 
 ## 3. Features
 
-&nbsp;&nbsp;&nbsp;&nbsp; You can learn more about the different features of sTask: kjfkdsfjs
+&nbsp;&nbsp;&nbsp;&nbsp; You can learn more about the different features of sTask: kjfkdsfjs<br>
 
 &nbsp;&nbsp;&nbsp;&nbsp;<b>3.1 Looking for Help </b><br><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;You can type `help`to glance through the list of commands and its formats.<br><br>
@@ -83,7 +83,7 @@ Love typing? You will love sTask, as you only need to use the keyboard to type s
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; You can find your tasks by typing<br>
 >> `find [KEYWORD...]` <br>
 >> `find meeting` <br><br>
->>sTask searches through all the fields and returns all the tasks that contains your KEYWORD.<br><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sTask searches through all the fields and returns all the tasks that contains your KEYWORD.<br><br>
 
 
 &nbsp;&nbsp;&nbsp;&nbsp;<b>3.6 Viewing your tasks on a specific date </b><br><br>
@@ -92,77 +92,43 @@ Love typing? You will love sTask, as you only need to use the keyboard to type s
 >> `view today` <br>
 >> `view 22-10-2017` <br>
 >> `view valentine day`<br><br>
-
->>sTask searches through all the fields and returns all the tasks that contains your KEYWORD.<br>
   
-&nbsp;&nbsp;&nbsp;&nbsp;<b>3.8 View through Calendar: `view` </b><br>
->Populate the list of tasks happening on the selected DATE  <br>
-Format: `view DATE`
+&nbsp;&nbsp;&nbsp;&nbsp;<b>3.7 Deleting your Task </b><br><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; You can delete your task by typing<br>
+>> `delete INDEX` <br>
+>> `delete A1` <br><br>
 
-> The calendar panel of the application will list out all the deadlines on the day and events that start, ends or is on-going on the date. <br>
+&nbsp;&nbsp;&nbsp;&nbsp;<b>3.8 Undoing an action </b><br><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; You can undo your previous action by typing<br>
+>> `undo` <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;You can only undo the following commands: `add`, `edit`, `delete`, `done`.<br><br>
 
->Examples:
-* `view today` <br>
-* Output the full list of deadlines on the day and events that start, ends or is on-going today.
+&nbsp;&nbsp;&nbsp;&nbsp;<b>3.9 Redoing an action </b><br><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; You can redo your previous `undo` by typing<br>
+>> `redo` <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;You can only redo if you do not use the following commands: `add`, `edit`, `delete`, `done`.<br><br>
 
->* `view 5-10-2016` <br><br>
-Output the full list of deadlines on the day and events that start, ends or is on-going on 5th October 2016.
 
-&nbsp;&nbsp;&nbsp;&nbsp;<b>3.9 Deleting a task : `delete` </b><br>
->Deletes the specified task from sTask. <br>
-Format: `delete INDEX`
+&nbsp;&nbsp;&nbsp;&nbsp;<b>3.10 Completing a task </b><br><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; You can mark a task as complete by typing<br>
+>> `done INDEX`<br>
+>> `done B10`<br>
 
-> Deletes the task at the specified `INDEX`. 
-  The index refers to the index number shown in the most recent listing.<br>
-  The index **must be a positive integer** 1, 2, 3, ...
+&nbsp;&nbsp;&nbsp;&nbsp;<b>3.11 Selecting a task </b><br><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; You can select a task by typing<br>
+>> `select INDEX`<br>
+>> `select A11`<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;You can use this command to navigate through your list of tasks.<br><br>
 
->Examples: 
-* `list all`<br>
-*  `delete 2`<br><br>
-Deletes the 2nd floating task in all the listed. <br><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<b>3.12 Changing saved data location </b><br><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; You can change the location of your saved data by typing<br>
+>> `save FOLDERPATH`<br>
+>> `save C:\Users\Jim\Dropbox`<br><br>
 
->* `find Laundry`<br> 
-*  `delete 11`<br><br>
-Deletes the 1st event or deadline task in the result of the `find` command.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<b>3.13 Exiting sTask </b><br><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; You can exit the program by typing<br>
+>> `exit`<br><br>
   
-&nbsp;&nbsp;&nbsp;&nbsp;<b>3.10 Undoing a move: `undo` </b><br>
->Undo the previous command entered by user. (up to 10)<br>
-A message will be displayed to inform the user that the previous command has been undone. <br>
-Format: `undo`
-
-&nbsp;&nbsp;&nbsp;&nbsp;<b>3.11 Marking floating tasks and deadlines as done: `done` </b><br>
->Marking a completed a floating task and deadline as done. <br>
-Format: `done INDEX`
-
-> Marks the floating tasks or deadline as done at the specified `index` <br>
-  The index refers to the index number shown in the most recent listing. <br>
-  The index **must be a positive integer** 1,2,3, .. <br>
-  The completed task will be moved to the archive list <br>
-
->Examples: 
-* `list all` <br>
-  `done 2` <br>
-   Mark the 2nd task in sTask as completed.
-
-&nbsp;&nbsp;&nbsp;&nbsp;<b>3.12 Change location of the data storage file: `save` </b><br>
->Moves the data storage file to the specified location if possible. <br>
-Format: `save FOLDERPATH`
-
-
-> Moves the data storage location to the specified `FOLDERPATH` <br>
-  The folder path you specify must be able to be created in your device.<br>
-  The path you specify cannot be a file path eg. `C:\Users\Public\Desktop\data.txt`. <br>
-  The data storage file will only exist in the location you specified and the old copy will be deleted. <br>
-
->Examples: 
-* `save data\firstcopy` <br>
-   Moves the data storage file from its previous location to ../data/firstcopy/.
-  
-
-&nbsp;&nbsp;&nbsp;&nbsp; <b>3.13 Exiting the program : `exit` </b><br>
->Exits the program.<br>
-Format: `exit`  
-
 ## 4. FAQ
 **Q**: Do I need to save manually?
 **A**: Data is saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
