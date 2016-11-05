@@ -210,6 +210,9 @@ public class UniqueTaskList implements Iterable<Task> {
      */
     public boolean archive(TaskOccurrence target) {
         assert target != null;
+        if (target.isArchived() == true) {
+            return false;
+        }
         boolean taskFoundAndArchived = false;
         System.out.println(internalComponentList.contains(target));
         for (TaskOccurrence t : internalComponentList) {

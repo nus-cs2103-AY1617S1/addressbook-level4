@@ -321,8 +321,8 @@ public class RecurringTaskManager {
     
     public void updateRecurringTasks(TaskOccurrence target) {
         ReadOnlyTask taskDesc = target.getTaskReference();
-        if (taskDesc.getRecurringType().equals(RecurringType.NONE) ||
-                taskDesc.getRecurringPeriod() <= NO_MORE_RECURRING_PERIOD) {
+        if (taskDesc.getRecurringType().equals(RecurringType.NONE)
+                || taskDesc.getRecurringPeriod() == NO_MORE_RECURRING_PERIOD) {
             return;
         }
         Calendar startDate = new GregorianCalendar();
@@ -347,6 +347,9 @@ public class RecurringTaskManager {
                 break;
             default:
                 break;
+        }
+        if (taskDesc.getRecurringPeriod()  == Task.NO_RECURRING_PERIOD) {
+            return;
         }
         ((Task)taskDesc).decrementRecurringPeriod();
     }

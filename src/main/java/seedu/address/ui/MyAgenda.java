@@ -129,7 +129,7 @@ public class MyAgenda extends Agenda {
     private LocalDateTime getEndBoundary(TaskOccurrence taskOccurrence, AppointmentImplLocal appointment) {
         LocalDateTime endBoundary = null;
         int recurringCount = taskOccurrence.getTaskReference().getRecurringPeriod();
-        if(recurringCount > 0){
+        if(recurringCount >= 0){
             switch (taskOccurrence.getTaskReference().getRecurringType()) {
             case YEARLY:
                 endBoundary = appointment.getStartLocalDateTime().plusYears(recurringCount);
