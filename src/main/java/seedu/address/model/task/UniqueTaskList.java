@@ -18,14 +18,6 @@ import java.util.*;
  */
 public class UniqueTaskList implements Iterable<Task> {
 
-    /**
-     * Signals that an operation would have violated the 'no duplicates' property of the list.
-     */
-    public static class DuplicateTaskException extends DuplicateDataException {
-        protected DuplicateTaskException() {
-            super("Operation would result in duplicate persons");
-        }
-    }
 
     /**
      * Signals that an operation targeting a specified task in the list would fail because
@@ -51,7 +43,7 @@ public class UniqueTaskList implements Iterable<Task> {
     /**
      * Adds a task to the list.
      *
-     * @throws DuplicateTaskException if the task to add is a duplicate of an existing task in the list.
+     * 
      */
     public void add(Task toAdd)  {
         assert toAdd != null;

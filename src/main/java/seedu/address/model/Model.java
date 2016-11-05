@@ -29,7 +29,7 @@ public interface Model {
 	void editTask(ReadOnlyTask task, String type, String details) throws IllegalValueException;
 
     /** Adds the given task */
-    void addTask(Task task) throws UniqueTaskList.DuplicateTaskException;
+    void addTask(Task task);
 
     /** Marks the given task as done*/
     void markTask(ReadOnlyTask task);

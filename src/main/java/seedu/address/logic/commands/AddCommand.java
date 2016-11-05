@@ -79,14 +79,13 @@ public class AddCommand extends Command {
     @Override
     public CommandResult execute() {
         assert model != null;
-        try {
+  
             model.addTask(toAdd);
             String message = String.format(getSuccessMessage(toAdd), toAdd);
             model.saveState(message);
             return new CommandResult(message);
-        } catch (UniqueTaskList.DuplicateTaskException e) {
-            return new CommandResult(MESSAGE_DUPLICATE_TASK);
-        }
+        
+        
     }
 
     public static String getSuccessMessage(Task toAdd) {
