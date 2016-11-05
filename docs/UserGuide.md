@@ -56,7 +56,8 @@ If you are ever lost, you can bring up the help menu to display all possible com
 
 **Add a Task / Event:** `add`  
 
-* Add floating tasks  
+* Add floating tasks <br>
+
 > <img src="images/add get groceries.png" width="600">  
 Command format: `add <name>`  
 
@@ -66,7 +67,8 @@ If you don't have a due date in mind for your tasks, you can add a task with jus
 
 > Creates and keeps track of a floating task (a task without a deadline).
 
-* Add Task With Deadlines
+* Add Task With Deadlines<br>
+
 > <img src="images/add user guide.png" width="600">  
 Command format: `add <name> .due [<date><time>]`
 
@@ -78,7 +80,8 @@ You can use this command to add a task that has to be completed by a specified t
 > If no date is specified, date will be set to the current day, or the next day if set time has passed.  
 > If no time is specified, time will be set to 2359.
 
-* Add Events
+* Add Events<br>
+
 > <img src="images/add meeting with boss.png" width="600">  
 Command format: `add <name> .from [<date><time>] .to [<date><time>]`
 
@@ -90,7 +93,8 @@ Some of your tasks may take up specific time slots. Adding a task as an event al
 > If no date is specified, start date will be set to the current day, or the next day if set time has passed.  
 > If no time is specified, start time will be set to 0000 and end time to 2359.
 
-* Add Tasks with Category
+* Add Tasks with Category<br>
+
 > <img src="images/add category.png" width="600">  
 Command format: `add <name> #<cat>`
 
@@ -224,7 +228,8 @@ Command format: `find <keyword>`
 
 **Storage Location:** `loc`     
 
-* Change Storage Location
+* Change Storage Location <br>
+
 > <img src="images/save.png" width="600"> 
 
 Command format: `loc <new path>`
