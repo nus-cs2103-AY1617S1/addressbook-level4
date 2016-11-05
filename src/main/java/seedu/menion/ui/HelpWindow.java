@@ -24,7 +24,7 @@ public class HelpWindow extends UiPart {
     private static final String ICON = "/images/help_icon.png";
     private static final String FXML = "HelpWindow.fxml";
     private static final String TITLE = "Help";
-    private static final String USERGUIDE_FILEPATH = "/images/CheatSheet.png";
+    private static final String USERGUIDE_FILEPATH = "/images/help_sheet.png";
     
     private AnchorPane mainPane;
 
