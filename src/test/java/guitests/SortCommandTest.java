@@ -39,25 +39,25 @@ public class SortCommandTest extends TaskManagerGuiTest {
         assertSortOrderCorrect("c");
         assertSortOrderCorrect("n");
 
-        // Verify if taskmanager rejects invalid parameters
+        // Verify if taskmanager rejects invalid sortParameters
         assertInvalidParameterRejected("invalidParameter");
         assertInvalidParameterRejected("1");
         assertInvalidParameterRejected("X");
         assertInvalidParameterRejected("yz");
     }
 
-    private void assertSortOrderCorrect(String parameter) {
+    private void assertSortOrderCorrect(String sortParameter) {
         int size = td.getTypicalTasks().length;
 
         if (ThreadLocalRandom.current().nextBoolean()) {
-            commandBox.runCommand("sort " + parameter);
+            commandBox.runCommand("sort " + sortParameter);
         } else {
-            commandBox.runCommand("s " + parameter);
+            commandBox.runCommand("s " + sortParameter);
         }
 
-        parameter = parameter.toLowerCase();
+        String sortParameterLowerCased = sortParameter.toLowerCase();
         
-        if (parameter.equals("d") || parameter.equals("deadline") || parameter.equals("dead")) {
+        if ("d".equals(sortParameterLowerCased) || "deadline".equals(sortParameterLowerCased) || "dead".equals(sortParameterLowerCased)) {
             // deadline
             assertResultMessage(String.format(SortCommand.MESSAGE_SUCCESS, "Deadline"));
             for (int i = 0; i < size - 1; i++) {
@@ -66,7 +66,7 @@ public class SortCommandTest extends TaskManagerGuiTest {
                 logger.info("Comparing '" + taskListPanel.getTask(i).getName().toString() + "' to '"
                         + taskListPanel.getTask(i + 1).getName().toString() + "'");
             }
-        } else if (parameter.equals("s") || parameter.equals("starttime") || parameter.equals("start")) {
+        } else if ("s".equals(sortParameterLowerCased) || "starttime".equals(sortParameterLowerCased) || "start".equals(sortParameterLowerCased)) {
             // start time
             assertResultMessage(String.format(SortCommand.MESSAGE_SUCCESS, "Start Time"));
             for (int i = 0; i < size - 1; i++) {
@@ -75,7 +75,7 @@ public class SortCommandTest extends TaskManagerGuiTest {
                 logger.info("Comparing '" + taskListPanel.getTask(i).getName().toString() + "' to '"
                         + taskListPanel.getTask(i + 1).getName().toString() + "'");
             }
-        } else if (parameter.equals("e") || parameter.equals("endtime") || parameter.equals("end")) {
+        } else if ("e".equals(sortParameterLowerCased) || "endtime".equals(sortParameterLowerCased) || "end".equals(sortParameterLowerCased)) {
             // end time
             assertResultMessage(String.format(SortCommand.MESSAGE_SUCCESS, "End Time"));
             for (int i = 0; i < size - 1; i++) {
@@ -84,18 +84,18 @@ public class SortCommandTest extends TaskManagerGuiTest {
                 logger.info("Comparing '" + taskListPanel.getTask(i).getName().toString() + "' to '"
                         + taskListPanel.getTask(i + 1).getName().toString() + "'");
             }
-        } else if (parameter.equals("c") || parameter.equals("completed") || parameter.equals("done")) {
+        } else if ("c".equals(sortParameterLowerCased) || "completed".equals(sortParameterLowerCased) || "done".equals(sortParameterLowerCased)) {
             // done status
             assertResultMessage(String.format(SortCommand.MESSAGE_SUCCESS, "Completed"));
             for (int i = 0; i < size - 1; i++) {
                 assertTrue(taskListPanel.getTask(i).getStatus()
                         .getDoneStatus() == (taskListPanel.getTask(i + 1).getStatus().getDoneStatus())
-                        || (taskListPanel.getTask(i).getStatus().getDoneStatus() == false
-                                && taskListPanel.getTask(i + 1).getStatus().getDoneStatus() == true));
+                        || (!taskListPanel.getTask(i).getStatus().getDoneStatus()
+                                && taskListPanel.getTask(i + 1).getStatus().getDoneStatus()));
                 logger.info("Comparing '" + taskListPanel.getTask(i).getName().toString() + "' to '"
                         + taskListPanel.getTask(i + 1).getName().toString() + "'");
             }
-        } else if (parameter.equals("n") || parameter.equals("name")) {
+        } else if ("n".equals(sortParameterLowerCased) || "name".equals(sortParameterLowerCased)) {
             // name
             assertResultMessage(String.format(SortCommand.MESSAGE_SUCCESS, "Name"));
             for (int i = 0; i < size - 1; i++) {
@@ -103,7 +103,7 @@ public class SortCommandTest extends TaskManagerGuiTest {
                 logger.info("Comparing '" + taskListPanel.getTask(i).getName().toString() + "' to '"
                         + taskListPanel.getTask(i + 1).getName().toString() + "'");
             }
-        } else if (parameter.equals("default") || parameter.equals("")) {
+        } else if ("default".equals(sortParameterLowerCased) || "".equals(sortParameterLowerCased)) {
             // default sorting
             assertResultMessage(String.format(SortCommand.MESSAGE_SUCCESS_DEFAULT));
             return;
@@ -111,15 +111,14 @@ public class SortCommandTest extends TaskManagerGuiTest {
 
     }
 
-    private void assertInvalidParameterRejected(String parameter) {
+    private void assertInvalidParameterRejected(String sortParameter) {
 
         if (ThreadLocalRandom.current().nextBoolean()) {
-            commandBox.runCommand("sort " + parameter);
+            commandBox.runCommand("sort " + sortParameter);
         } else {
-            commandBox.runCommand("s " + parameter);
+            commandBox.runCommand("s " + sortParameter);
         }
-        parameter = parameter.toLowerCase();
-        assertResultMessage(String.format(SortCommand.MESSAGE_FAILURE, parameter));
+        assertResultMessage(String.format(SortCommand.MESSAGE_FAILURE, sortParameter.toLowerCase()));
     }
 
 }
