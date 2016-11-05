@@ -17,8 +17,6 @@ sTask manages the different types of tasks that you will encounter in your daily
 
 Love typing? You will love sTask, as you only need to use the keyboard to type simple commands to manage your tasks.
 
-#### 
-
 ## 2. Getting Started
 
 ### 2.1 Setting Up
@@ -153,7 +151,7 @@ sTask searches through all the fields and returns all the tasks that contains yo
   
 ## 4. FAQ
 
-###4.1 General:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<b>4.1 General:</b><br>
 
 **Q**: Do I need to save manually?<br>
 **A**: Data is saved in the hard disk automatically after any command that changes the data. There is no need to save manually.<br>
@@ -167,7 +165,7 @@ sTask searches through all the fields and returns all the tasks that contains yo
 **Q**: Will the status of my tasks get updated in real time?<br>
 **A**: Currently, sTask only updates the statuses of your tasks when an action is made.<br>
 
-###4.2 Commands:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<b>4.2 Commands:</b><br>
 
 **Q**: Can I convert a To Do task to a deadline without deleting and adding it again?<br>
 **A**: You can use the edit command to add a date to your To Do task and it will be accepted as a deadline.<br>
@@ -214,7 +212,7 @@ We would like to acknowledge the developers of Natty for their natural language 
 <br>
 ## 7. Appendix
 
-### 7.1 Possible Date Formats<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<b>7.1 Possible Date Formats</b><br>
 
 Format | Example
 -------- | :-------- 
@@ -222,7 +220,7 @@ DD-MM-YYYY  | 27-2-2101
 DD MMM YYYY | 15 MAY 2103
 Relative Date	| Today<br>Tmr<br>2 weeks later<br>Christmas<br>Valentines Day
 
-### 7.2 Rejected Date Formats<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<b>7.2 Rejected Date Formats</b><br>
 Format | Example
 -------- | :-------- 
 DD-MM  | 27-02
@@ -230,15 +228,14 @@ DD-MM-YY | 27-02-10
 DD.MM.YY | 27.02.10
 DD.MM.YYYY | 27.02.2010
 
-
-### 7.3 Possible Time Formats<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<b>7.3 Possible Time Formats</b><br>
 Format | Example
 -------- | :-------- 
 24HR | 2359
 AM/PM | 2.30pm
 Relative Time | 2 hours later <br> 30 mins later
 
-### 7.4 Rejected Time Formats<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<b>7.4 Rejected Time Formats</b><br>
 Format | Example
 -------- | :-------- 
 Time | 230pm 
