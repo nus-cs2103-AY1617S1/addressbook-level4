@@ -31,7 +31,7 @@ Love typing? You will love sTask, as you only need to use the keyboard to type s
 
 ### 2.2 The Beautiful User Interface
 <br>
-       <img src="images/Ui.png" width="1000"> <br>
+       <img src="images/Ui.png" width="800"> <br>
 
 &nbsp;&nbsp;&nbsp;&nbsp;Referring to Figure 1 above, you can see that,<br>
 * The Smart Command Input Bar is where you can type your commands. <br>
@@ -152,7 +152,7 @@ You can use this command to navigate through your list of tasks.<br><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;can exit the program by typing<br>
 >> `exit`<br><br>
 
-Now that you have all the commands on hand, go and try it out!
+Now that you have seen how fast, simple and smart sTask can be in managing your mundane tasks, start using it now and become a Champion of your life!<br> 
 
 ## 4. FAQ
 
@@ -205,7 +205,7 @@ Exit | `exit` | Exits sTask
 
 ## 6. Credits
 
-We are grateful to Professor Damith Chatura Rajapakse and his team of highly dedicated tutors and project mentors, for giving us this opportunity to develop this product and for guiding us along the way.
+&nbsp;&nbsp;&nbsp;&nbsp;We are grateful to Professor Damith Chatura Rajapakse and his team of highly dedicated tutors and project mentors, for giving us this opportunity to develop this product and for guiding us along the way.
 
 &nbsp;&nbsp;&nbsp;&nbsp;<b>6.1 Source Code</b>
 We would like to acknowledge the original source of our code, i.e., the sample Address Book project created by the se-edu initiative at  https://github.com/se-edu/ .
@@ -245,5 +245,4 @@ Format | Example
 -------- | :-------- 
 Time | 230pm 
 
-This is not an exhaustive list of formats, please visit the following website for more information
-http://natty.joestelmach.com/doc.jsp
+For more date and time formats, visit Natty's website for more information: http://natty.joestelmach.com/doc.jsp
