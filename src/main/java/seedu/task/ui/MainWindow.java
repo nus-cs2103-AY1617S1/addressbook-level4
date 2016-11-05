@@ -70,11 +70,11 @@ public class MainWindow extends UiPart {
     public static MainWindow load(Stage primaryStage, Config config, UserPrefs prefs, Logic logic) {
 
         MainWindow mainWindow = UiPartLoader.loadUiPart(primaryStage, new MainWindow());
-        mainWindow.configure(config.getAppTitle(), config.getTaskManagerName(), config, prefs, logic);
+        mainWindow.configure(config.getAppTitle(), config.getTaskManagerName(), config, logic);
         return mainWindow;
     }
 
-    private void configure(String appTitle, String taskManagerName, Config config, UserPrefs prefs, Logic logic) {
+    private void configure(String appTitle, String taskManagerName, Config config, Logic logic) {
 
         // Set dependencies
         this.logic = logic;

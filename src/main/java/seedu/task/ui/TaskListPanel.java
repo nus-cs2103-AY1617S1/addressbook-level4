@@ -52,10 +52,6 @@ public class TaskListPanel extends UiPart {
     @FXML
     private TableColumn<ReadOnlyTask, Status> statusColumn;
 
-    public TaskListPanel() {
-        super();
-    }
-
     @Override
     public void setNode(Node node) {
         panel = (VBox) node;
@@ -80,7 +76,7 @@ public class TaskListPanel extends UiPart {
     }
 
     // table initialization
-    private void initialize(ObservableList<ReadOnlyTask> taskList) {
+    private void initialize() {
 
         statusColumn.setCellValueFactory(cellData -> new SimpleObjectProperty(cellData.getValue().getStatus()));
         statusColumn.setCellFactory(column -> {
@@ -291,7 +287,7 @@ public class TaskListPanel extends UiPart {
 
         taskTable.setItems(taskList);
 
-        initialize(taskList);
+        initialize();
 
         disableTableColumnReordering();
 
