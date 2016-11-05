@@ -1,9 +1,14 @@
 package seedu.whatnow.model.task;
 
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertFalse;
+
+import java.text.ParseException;
 
 import org.junit.Test;
+
+import seedu.whatnow.commons.exceptions.IllegalValueException;
+
+import static org.junit.Assert.assertFalse;
 
 public class DateTest {
 
@@ -49,5 +54,15 @@ public class DateTest {
         assertFalse(TaskDate.isValidMonth("octi"));
         assertFalse(TaskDate.isValidMonth("novmember"));
         assertFalse(TaskDate.isValidMonth("decamber"));
+    }
+    
+    @Test
+    public void isValidDate_today_returnTrue() throws ParseException, IllegalValueException{
+        assertTrue(TaskDate.getIsValidDate("today"));
+    }
+    
+    @Test
+    public void isValidDate_tmr_returnTrue() throws ParseException, IllegalValueException{
+        assertTrue(TaskDate.getIsValidDate("tomorrow"));
     }
 }

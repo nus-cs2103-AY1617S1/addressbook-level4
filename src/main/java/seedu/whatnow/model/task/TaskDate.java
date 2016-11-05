@@ -52,9 +52,9 @@ public class TaskDate {
 
     private static final String TODAY = "today";
     private static final String TMR = "tomorrow";
-    private String fullDate;
-    private String startDate;
-    private String endDate;
+    private static String fullDate;
+    private static String startDate;
+    private static String endDate;
     
     private static final String JANUARY_FULL = "january";
     private static final String FEBRUARY_FULL = "february";
@@ -161,7 +161,7 @@ public class TaskDate {
      * @throws java.text.ParseException
      * @throws IllegalValueException
      */
-    private boolean isValidDate(String reqDate) throws java.text.ParseException, IllegalValueException {
+    private static boolean isValidDate(String reqDate) throws java.text.ParseException, IllegalValueException {
         if (reqDate.equals(TODAY) || reqDate.equals(TMR)) {
             return true;
         } else {
@@ -267,7 +267,7 @@ public class TaskDate {
      * @throws java.text.ParseException
      * @throws IllegalValueException
      */
-    private boolean isValidNumDate(String incDate, String format)
+    private static boolean isValidNumDate(String incDate, String format)
             throws java.text.ParseException, IllegalValueException {
         Date inputDate = null;
         try {
@@ -299,31 +299,32 @@ public class TaskDate {
         /**
          * The following will ensure the date format to be
          * DATE_NUM_SLASH_WITH_YEAR_FORMAT
-         */
-        if (format.equals(DATE_NUM_SLASH_WITHOUT_YEAR_FORMAT)) {
-            Calendar now = Calendar.getInstance();
-            int yearInt = now.get(Calendar.YEAR);
-            String year = String.valueOf(yearInt);
-            incDate.concat(year);
-            fullDate = incDate;
-            return true;
-        } else if (format.equals(DATE_NUM_SLASH_WITH_YEAR_SHORTENED_DAY_FORMAT)) {
-            fullDate = "0" + incDate;
-            return true;
-        } else if (format.equals(DATE_NUM_SLASH_WITH_YEAR_SHORTENED_MONTH_FORMAT)) {
-            String toReplaceFullDate = incDate;
-            String[] split = toReplaceFullDate.split("/");
-            fullDate = split[0] + "/0" + split[1] + "/" + split[2];
-            return true;
-        } else if (format.equals(DATE_NUM_SLASH_WITH_YEAR_SHORTENED_DAY_AND_MONTH_FORMAT)) {
-            String toReplaceFullDate = incDate;
-            String[] split = toReplaceFullDate.split("/");
-            fullDate = "0" + split[0] + "/0" + split[1] + "/" + split[2];
-            return true;
-        } else {
-            fullDate = incDate;
-            return true;
-        }
+//         */
+//        if (format.equals(DATE_NUM_SLASH_WITHOUT_YEAR_FORMAT)) {
+//            Calendar now = Calendar.getInstance();
+//            int yearInt = now.get(Calendar.YEAR);
+//            String year = String.valueOf(yearInt);
+//            incDate.concat(year);
+//            fullDate = incDate;
+//            return true;
+//        } else if (format.equals(DATE_NUM_SLASH_WITH_YEAR_SHORTENED_DAY_FORMAT)) {
+//            fullDate = "0" + incDate;
+//            return true;
+//        } else if (format.equals(DATE_NUM_SLASH_WITH_YEAR_SHORTENED_MONTH_FORMAT)) {
+//            String toReplaceFullDate = incDate;
+//            String[] split = toReplaceFullDate.split("/");
+//            fullDate = split[0] + "/0" + split[1] + "/" + split[2];
+//            return true;
+//        } else if (format.equals(DATE_NUM_SLASH_WITH_YEAR_SHORTENED_DAY_AND_MONTH_FORMAT)) {
+//            String toReplaceFullDate = incDate;
+//            String[] split = toReplaceFullDate.split("/");
+//            fullDate = "0" + split[0] + "/0" + split[1] + "/" + split[2];
+//            return true;
+//        } else {
+//            fullDate = incDate;
+//            return true;
+//        }
+        return true;
     }
     
     /**
@@ -365,7 +366,7 @@ public class TaskDate {
      * attached with a default time and there is a need to overwrite this timing
      * to the latest so that it can be compared with the current date
      */
-    private Calendar setGregorian(Calendar cal, Date reqDate) {
+    private static Calendar setGregorian(Calendar cal, Date reqDate) {
         cal.setTime(reqDate);
         cal.set(Calendar.HOUR_OF_DAY, 23);
         cal.set(Calendar.MINUTE, 59);
@@ -374,7 +375,7 @@ public class TaskDate {
     }
 
     /** Gets the current Date and set it to earliest */
-    private Calendar setGregorianCurrent(Calendar cal) {
+    private static Calendar setGregorianCurrent(Calendar cal) {
         cal.set(Calendar.HOUR_OF_DAY, 00);
         cal.set(Calendar.MINUTE, 00);
         cal.set(Calendar.SECOND, 00);
@@ -411,5 +412,9 @@ public class TaskDate {
     /** Returns the endDate */
     public String getEndDate() {
         return this.endDate;
+    }
+    
+    public static boolean getIsValidDate(String date) throws ParseException, IllegalValueException{
+        return isValidDate(date);
     }
 }
