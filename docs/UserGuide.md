@@ -100,12 +100,12 @@ sTask searches through all the fields and returns all the tasks that contains yo
 
 &nbsp;&nbsp;&nbsp;&nbsp;<b>3.8 Undoing an action </b><br><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; You can undo your previous action by typing<br>
->> `undo` <br>
+>> `undo` <br><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;You can only undo the following commands: `add`, `edit`, `delete`, `done`.<br><br>
 
 &nbsp;&nbsp;&nbsp;&nbsp;<b>3.9 Redoing an action </b><br><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; You can redo your previous `undo` by typing<br>
->> `redo` <br>
+>> `redo` <br><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;You can only redo if you do not use the following commands: `add`, `edit`, `delete`, `done`.<br><br>
 
 
@@ -130,12 +130,34 @@ sTask searches through all the fields and returns all the tasks that contains yo
 >> `exit`<br><br>
   
 ## 4. FAQ
-**Q**: Do I need to save manually?
-**A**: Data is saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
+
+###General:<br>
+
+**Q**: Do I need to save manually?<br>
+**A**: Data is saved in the hard disk automatically after any command that changes the data. There is no need to save manually.<br><br>
+
+**Q**: How do I transfer my data to another computer?<br>
+**A**: Install sTask in the other computer by following the steps in Getting Started, and replace the newly created data file with your existing one.<br><br>
+
+**Q**: Can sTask integrate with my Google Calendar?<br>
+**A**: Currently, sTask is not able to synchronise your data with Google Calendar, as our application is optimised to work without an internet connection. However, we will be looking at implementing this as an optional feature in the near future, so be sure to keep a lookout for our future updates!<br><br>
+
+**Q**: Will the status of my tasks get updated in real time?<br>
+**A**: Currently, sTask only updates the statuses of your tasks when an action is made.<br><br>
+
+###Commands:<br>
+
+**Q**: Can I convert a To Do task to a deadline without deleting and adding it again?<br>
+**A**: You can use the edit command to add a date to your To Do task and it will be accepted as a deadline.<br><br>
+
+**Q**: Can I remove any of the fields in a specific task?<br>
+**A**: You can use the edit command and just specify the field without any data and it will remove the corresponding the field. For example, to remove the description of the task at index A1, just type "edit A1 d/".<br><br>
 
 **Q**: How do I transfer my data to another Computer?<br>
 **A**: Install the app in the other computer and overwrite the empty data file it creates with 
-       the file that contains the data of your previous sTask.
+       the file that contains the data of your previous sTask.<br><br>
+
+If you have any further enquiries, drop us an email at sTask@sTask.com.sg!
        
 ## 5. Command Summary
 
