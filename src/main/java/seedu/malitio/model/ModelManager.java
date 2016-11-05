@@ -1,6 +1,7 @@
 package seedu.malitio.model;
 
 import javafx.collections.transformation.FilteredList;
+import seedu.malitio.commons.events.ui.JumpToListRequestEvent;
 import seedu.malitio.commons.core.ComponentManager;
 import seedu.malitio.commons.core.LogsCenter;
 import seedu.malitio.commons.core.UnmodifiableObservableList;
@@ -89,12 +90,12 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public void deleteTask(Object target) throws FloatingTaskNotFoundException, DeadlineNotFoundException, EventNotFoundException {
-        addCorrectInputDeleteHistory(target);
+        addInputDeleteHistory(target);
         malitio.removeTask(target);
         indicateMalitioChanged();        
     }
 
-    private void addCorrectInputDeleteHistory(Object target) {
+    private void addInputDeleteHistory(Object target) {
         if (target instanceof ReadOnlyFloatingTask) {
             history.add(new InputDeleteHistory(target, malitio.getUniqueFloatingTaskList().getInternalList()));
         } else {
@@ -111,7 +112,7 @@ public class ModelManager extends ComponentManager implements Model {
         history.add(new InputAddHistory(task));
         updateAllListToShowAll();
         indicateMalitioChanged();
-
+        indicateTaskListChanged(task);
     }
 
     @Override
@@ -120,6 +121,7 @@ public class ModelManager extends ComponentManager implements Model {
         history.add(new InputAddHistory(task));
         updateFilteredTaskListToShowAll();
         indicateMalitioChanged();
+        indicateTaskListChanged(task);
     }
 
     @Override
@@ -129,6 +131,7 @@ public class ModelManager extends ComponentManager implements Model {
         history.add(new InputEditHistory(edited, beforeEdit));
         updateAllListToShowAll();
         indicateMalitioChanged();
+        indicateTaskListChanged(edited);
     }
     
     //@@author A0122460W
@@ -138,6 +141,7 @@ public class ModelManager extends ComponentManager implements Model {
         history.add(new InputCompleteHistory(taskToComplete));
         updateAllListToShowAll();
         indicateMalitioChanged();
+        indicateTaskListChanged(taskToComplete);
     }
     
     @Override
@@ -146,6 +150,7 @@ public class ModelManager extends ComponentManager implements Model {
         history.add(new InputUncompleteHistory(taskToUncomplete));
         updateAllListToShowAll();
         indicateMalitioChanged();
+        indicateTaskListChanged(taskToUncomplete);
     }
 
     //@@author
@@ -155,6 +160,7 @@ public class ModelManager extends ComponentManager implements Model {
         malitio.markTask(taskToMark);
         history.add(new InputMarkHistory(taskToMark));
         updateAllListToShowAll();
+        indicateTaskListChanged(taskToMark);
     }
 
     @Override
@@ -163,6 +169,7 @@ public class ModelManager extends ComponentManager implements Model {
         malitio.unmarkTask(taskToUnmark);
         history.add(new InputUnmarkHistory(taskToUnmark));
         updateAllListToShowAll();
+        indicateTaskListChanged(taskToUnmark);
     }
 
     private void updateAllListToShowAll() {
@@ -254,6 +261,32 @@ public class ModelManager extends ComponentManager implements Model {
                 assert(false); //impossible
             }
         }    
+    }
+    //@@author
+    
+    //@@author A0129595N
+    private void indicateTaskListChanged(Object task) {
+        String taskType;
+        int positionOfTask;
+        if (isFloatingTask(task)) {
+            taskType = "floating task";
+            positionOfTask = filteredFloatingTasks.indexOf(task);
+        } else if (isDeadline(task)) {
+            taskType = "deadline";
+            positionOfTask = filteredDeadlines.indexOf(task);
+        } else {
+            taskType = "event";
+            positionOfTask =filteredEvents.indexOf(task);
+        }
+        raise(new JumpToListRequestEvent(positionOfTask, taskType));
+    }
+
+    private boolean isFloatingTask(Object task) {
+        return task instanceof FloatingTask;
+    }
+    
+    private boolean isDeadline(Object task) {
+        return task instanceof Deadline;
     }
     
     //@@author

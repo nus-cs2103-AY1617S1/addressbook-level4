@@ -15,6 +15,7 @@ import seedu.malitio.commons.events.ui.TaskPanelSelectionChangedEvent;
 import seedu.malitio.commons.events.ui.DeadlinePanelSelectionChangedEvent;
 import seedu.malitio.commons.events.ui.EventPanelSelectionChangedEvent;
 import seedu.malitio.commons.events.ui.ShowHelpRequestEvent;
+import seedu.malitio.commons.events.ui.JumpToListRequestEvent;
 import seedu.malitio.commons.util.StringUtil;
 import seedu.malitio.logic.Logic;
 import seedu.malitio.model.UserPrefs;
@@ -134,5 +135,17 @@ public class UiManager extends ComponentManager implements Ui {
         mainWindow.getTaskListPanel().getTaskListView().getSelectionModel().clearSelection();
         mainWindow.getDeadlineListPanel().getDeadlineListView().getSelectionModel().clearSelection();
     }
-
+    //@@author A0129595N
+    @Subscribe
+    private void handleJumpToTaskListRequestEvent(JumpToListRequestEvent event) {
+        String taskType = event.typeOfTask;
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        if (taskType.equals("floating task")) {
+            mainWindow.getTaskListPanel().scrollTo(event.targetIndex);
+        } else if (taskType.equals("deadline")) {
+            mainWindow.getDeadlineListPanel().scrollTo(event.targetIndex);
+        } else {
+            mainWindow.getEventListPanel().scrollTo(event.targetIndex);
+        }
+    }
 }
