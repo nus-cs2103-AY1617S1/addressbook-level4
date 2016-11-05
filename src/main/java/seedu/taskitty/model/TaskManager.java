@@ -190,10 +190,4 @@ public class TaskManager implements ReadOnlyTaskManager {
                 && this.tasks.equals(((TaskManager) other).tasks)
                 && this.tags.equals(((TaskManager) other).tags));
     }
-
-    @Override
-    public int hashCode() {
-        // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(tasks, tags);
-    }
 }
