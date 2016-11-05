@@ -41,31 +41,31 @@ public class EndTime {
 			hour = "10:";
 			break;
 		case "21":
-			hour = "09:";
+			hour = "9:";
 			break;
 		case "20":
-			hour = "08:";
+			hour = "8:";
 			break;
 		case "19":
-			hour = "07:";
+			hour = "7:";
 			break;
 		case "18":
-			hour = "06:";
+			hour = "6:";
 			break;
 		case "17":
-			hour = "05:";
+			hour = "5:";
 			break;
 		case "16":
-			hour = "04:";
+			hour = "4:";
 			break;
 		case "15":
-			hour = "03:";
+			hour = "3:";
 			break;
 		case "14":
-			hour = "02:";
+			hour = "2:";
 			break;
 		case "13":
-			hour = "01:";
+			hour = "1:";
 			break;
 		default:
 			hour = etimeArr[0] + ":";
