@@ -157,7 +157,8 @@ The `Model`,
 
 The `Storage` component,
 * can save `UserPref` objects in json format and read it back.
-* can save the Task Manager data in xml format and read it back.
+* can save ForgeMeNot's data in xml format and read it back.
+* can redirect the storage file path for the data in xml format and read it back.
 
 ### Common classes
 
