@@ -27,7 +27,7 @@
 2. Download the latest `DearJim.jar` from the [releases](../../../releases) tab.
 3. Copy the file to the folder you want to use as the home folder for DearJim.
 4. Double-click the file to start the app. The GUI should appear in a few seconds. <br>
-<img src="images/dearjim_initial.png" width="650">
+<img src="images/guiDearJim.PNG" width="650">
 
 <p align="center">
 Figure 1: GUI of DearJim
@@ -57,7 +57,7 @@ Figure 1: GUI of DearJim
 Opens the user guide with a new window.<br>
 Format: `help`<br>
 
- <img src="images/dearjim_help.png" width="650">
+ <img src="images/helpCmd.PNG" width="650">
 
 <p align="center">
 Figure 2: Help Command
@@ -361,14 +361,14 @@ If you have forgotten about the command formats, simply type any word and DearJi
 
 Examples:
 * Typing `add` in the command input generates the format for `add` in the result display
-<img src="images/dearjim_hint_add.png" width="550">
+<img src="images/addTooltip.PNG" width="550">
 <p align="center">
 Figure 4: Hints for add command
 </p>
 <br>
 
 * Typing `delete` in the command input generates the format for `delete` in the result display
-<img src="images/dearjim_hint_delete.png" width="550">
+<img src="images/deleteTooltip.PNG" width="550">
 <p align="center">
 Figure 5: Hints for delete command
 </p>
