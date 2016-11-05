@@ -3,14 +3,22 @@ package seedu.dailyplanner.logic.parser;
 import static seedu.dailyplanner.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.dailyplanner.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Optional;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.dailyplanner.commons.exceptions.IllegalValueException;
 import seedu.dailyplanner.commons.util.StringUtil;
 import seedu.dailyplanner.logic.commands.*;
+import seedu.dailyplanner.model.task.Date;
 import seedu.dailyplanner.model.task.DateTime;
+import seedu.dailyplanner.model.task.Time;
 
 /**
  * Parses user input.
@@ -167,10 +175,13 @@ public class Parser {
 	    // if start time is given
 	    if (startString.contains("am") || startString.contains("pm")) {
 		start = natty.parse(startString);
-		formattedStart = dt.parseDateAndTime(start);
+		Date startDate = new Date(start.split(" ")[0]);
+		Time startTime = new Time(start.split(" ")[1]);
+		formattedStart = new DateTime(startDate, startTime);
 	    } else {
 		start = natty.parseDate(startString);
-		formattedStart = dt.parseDate(start);
+		Date startDate = new Date(start);
+		formattedStart = new DateTime(startDate);
 	    }
 	}
 	if (mapArgs.containsKey("end")) {
@@ -179,18 +190,23 @@ public class Parser {
 	    if (endString.contains("am") || endString.contains("pm")) {
 		if (dt.containsDate(endString)) {
 		    end = natty.parse(endString);
+		    Date endDate = new Date(end.split(" ")[0]);
+		    Time endTime = new Time(end.split(" ")[1]);
+		    formattedEnd = new DateTime(endDate, endTime);
 		} else {
+		    Date endDate;
 		    if (!mapArgs.containsKey("start")) {
-			end = natty.parse("today") + " ";
+			endDate = new Date(natty.parse("today"));
 		    } else {
-			end = start.split(" ")[0] + " ";
+			endDate = new Date(start.split(" ")[0]);
 		    }
-		    end += natty.parseTime(endString);
-		    formattedStart = dt.parseDateAndTime(end);
+		    Time endTime = new Time(natty.parseTime(endString));
+		    formattedEnd = new DateTime(endDate, endTime);
 		}
 	    } else {
 		end = natty.parseDate(endString);
-		formattedEnd = dt.parseDate(end);
+		Date endDate = new Date(end);
+		formattedEnd = new DateTime(endDate);
 	    }
 	}
 	if (mapArgs.containsKey("tags")) {
@@ -243,10 +259,13 @@ public class Parser {
 	    // if start time is given
 	    if (startString.contains("am") || startString.contains("pm")) {
 		start = natty.parse(startString);
-		formattedStart = dt.parseDateAndTime(start);
+		Date startDate = new Date(start.split(" ")[0]);
+		Time startTime = new Time(start.split(" ")[1]);
+		formattedStart = new DateTime(startDate, startTime);
 	    } else {
 		start = natty.parseDate(startString);
-		formattedStart = dt.parseDate(start);
+		Date startDate = new Date(start);
+		formattedStart = new DateTime(startDate);
 	    }
 	}
 	if (mapArgs.containsKey("end")) {
@@ -255,25 +274,29 @@ public class Parser {
 	    if (endString.contains("am") || endString.contains("pm")) {
 		if (dt.containsDate(endString)) {
 		    end = natty.parse(endString);
+		    Date endDate = new Date(end.split(" ")[0]);
+		    Time endTime = new Time(end.split(" ")[1]);
+		    formattedEnd = new DateTime(endDate, endTime);
 		} else {
+		    Date endDate;
 		    if (!mapArgs.containsKey("start")) {
-			end = natty.parse("today") + " ";
+			endDate = new Date(natty.parse("today"));
 		    } else {
-			end = start.split(" ")[0] + " ";
+			endDate = new Date(start.split(" ")[0]);
 		    }
-		    end += natty.parseTime(endString);
-		    formattedStart = dt.parseDateAndTime(end);
+		    Time endTime = new Time(natty.parseTime(endString));
+		    formattedEnd = new DateTime(endDate, endTime);
 		}
 	    } else {
 		end = natty.parseDate(endString);
-		formattedEnd = dt.parseDate(end);
+		Date endDate = new Date(end);
+		formattedEnd = new DateTime(endDate);
 	    }
 	}
 	if (mapArgs.containsKey("tags")) {
 	    String[] tagArray = mapArgs.get("tags").split(" ");
 	    tags = new HashSet<String>(Arrays.asList(tagArray));
 	}
-
 	try {
 
 	    return new AddCommand(taskName, formattedStart, formattedEnd, tags);

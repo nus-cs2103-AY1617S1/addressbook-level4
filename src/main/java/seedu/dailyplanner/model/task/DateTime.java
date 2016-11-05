@@ -10,27 +10,28 @@ public class DateTime implements Comparable<DateTime>{
 	m_time = time;
     }
     
+    public DateTime(Date date) {
+	m_date = date;
+	m_time = null;
+    }
+
     @Override
     public String toString() {
-	return m_value;
+	return "";
     }
 
     @Override
     public boolean equals(Object other) {
-	return other == this // short circuit if same object
-		|| (other instanceof Time // instanceof handles nulls
-			&& m_value.equals(((Time) other).m_value)); // state
-								    // check
+	return false;
     }
 
     @Override
     public int hashCode() {
-	return m_value.hashCode();
+	return m_date.hashCode();
     }
 
-    @Override
     public int compareTo(Time o) {
-	if (!m_meridiem.equals(o.m_meridiem)) {
+	/*if (!m_meridiem.equals(o.m_meridiem)) {
 	    if (m_meridiem.equals("am") && o.m_meridiem.equals("pm")) {
 		return -1;
 	    } else {
@@ -42,7 +43,7 @@ public class DateTime implements Comparable<DateTime>{
 	}
 	if (m_minute != o.m_minute) {
 	    return m_minute - o.m_minute;
-	}
+	}*/
 	return 0;
     }
 
@@ -51,5 +52,4 @@ public class DateTime implements Comparable<DateTime>{
 	// TODO Auto-generated method stub
 	return 0;
     }
-}
 }

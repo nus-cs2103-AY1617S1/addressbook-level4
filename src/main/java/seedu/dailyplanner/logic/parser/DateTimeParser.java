@@ -9,13 +9,13 @@ import seedu.dailyplanner.model.task.Time;
 public class DateTimeParser {
 
   
-    /* Guarantees that there is both date and time */
+    /* Guarantees that there is both date and time 
     // Given in ddmmyyyy hh:mm
     public DateTime parseDateAndTime(String dateTime) {
 	String[] dateTimeArray = dateTime.split(" ");
 	String time = dateTimeArray[1];
 	Time formattedTime = new Time(time);
-	
+	/*
 	String date = dateTimeArray[0];
 	Date formattedDate;
 	int day = Integer.parseInt(date.substring(0, 2));
@@ -40,7 +40,7 @@ public class DateTimeParser {
 	    
 	}
 	return new DateTime(formattedDate, formattedTime);
-    }
+    }*/
 
     public DateTime parseDate(String start) {
 	// TODO Auto-generated method stub

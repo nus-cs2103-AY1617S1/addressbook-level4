@@ -7,9 +7,9 @@ package seedu.dailyplanner.model.task;
 public class Time implements Comparable<Time> {
 
     public final String m_value;
-    public final int m_hour;
-    public final int m_minute;
-    public final String m_meridiem;
+    //public final int m_hour;
+    //public final int m_minute;
+    //public final String m_meridiem;
 
     /**
      * Validates given address.
@@ -21,9 +21,9 @@ public class Time implements Comparable<Time> {
     public Time(String value) {
 	assert value != null;
 	m_value = value;
-	m_hour = hour;
-	m_minute = minute;
-	m_meridiem = meridiem;
+	//m_hour = hour;
+	//m_minute = minute;
+	//m_meridiem = meridiem;
     }
 
     @Override
@@ -46,7 +46,7 @@ public class Time implements Comparable<Time> {
 
     @Override
     public int compareTo(Time o) {
-	if (!m_meridiem.equals(o.m_meridiem)) {
+	/*if (!m_meridiem.equals(o.m_meridiem)) {
 	    if (m_meridiem.equals("am") && o.m_meridiem.equals("pm")) {
 		return -1;
 	    } else {
@@ -58,7 +58,7 @@ public class Time implements Comparable<Time> {
 	}
 	if (m_minute != o.m_minute) {
 	    return m_minute - o.m_minute;
-	}
+	}*/
 	return 0;
     }
 }

@@ -9,28 +9,42 @@ import java.text.SimpleDateFormat;
 public class Date implements Comparable<Date> {
 
     public final String m_value;
-    public final int m_day;
-    public final int m_month;
-    public final int m_year;
+   // public final int m_day;
+   // public final int m_month;
+   // public final int m_year;
     private java.util.Calendar cal = java.util.Calendar.getInstance();
 
     // @@author A0140124B
-    public Date(String value, int day, int month, int year) {
+    public Date(String value) {
 	assert value != null;
 	m_value = value;
-	m_day = day;
-	m_month = month;
-	m_year = year;
+	//m_day = day;
+	//m_month = month;
+	//m_year = year;
     }
 
     @Override
     public String toString() {
-	
-	return formattedString;
+	/*String formattedString = "";
+	cal.set(m_year + 1900, m_month, m_day);
+	java.util.Date formattedDate = cal.getTime();
+	java.util.Date dateToday = new java.util.Date();
+	SimpleDateFormat day = new SimpleDateFormat("EEEEE");
+	if (isSameDay(dateToday, formattedDate)) {
+	    formattedString += "Today, ";
+	} else if (isYesterday(dateToday, formattedDate)) {
+	    formattedString += "Yesterday, ";
+	} else if (isTomorrow(dateToday, formattedDate)) {
+	    formattedString += "Tomorrow, ";
+	} else if (isLastWeek(dateToday, formattedDate)) {
+	    formattedString += "Last " + day.format(formattedDate) + ", ";
+	} else if (isNextWeek(dateToday, formattedDate)) {
+	    formattedString += "Next " + day.format(formattedDate) + ", ";
+	}*/
+	return m_value;
     }
-
+/*
     private boolean isNextWeek(java.util.Date dateToday, java.util.Date formattedDate) {
-	cal.
     }
 
     private boolean isLastWeek(java.util.Date dateToday, java.util.Date formattedDate) {
@@ -51,9 +65,8 @@ public class Date implements Comparable<Date> {
     private boolean isSameDay(java.util.Date dateToday, java.util.Date formattedDate) {
 	// TODO Auto-generated method stub
 	return false;
-    }
+    }*/
 
-    }
 
     @Override
     public boolean equals(Object other) {
@@ -70,7 +83,7 @@ public class Date implements Comparable<Date> {
 
     @Override
     public int compareTo(Date o) {
-	if (m_year != o.m_year) {
+	/*if (m_year != o.m_year) {
 	    return m_year - o.m_year;
 	}
 	if (m_month != o.m_month) {
@@ -78,7 +91,7 @@ public class Date implements Comparable<Date> {
 	}
 	if (m_day != o.m_day) {
 	    return m_day - o.m_day;
-	}
+	}*/
 	return 0;
     }
 }
