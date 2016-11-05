@@ -154,7 +154,8 @@ public class Task implements ReadOnlyTask, Comparable<ReadOnlyTask> {
     public String toString() {
         return getAsText();
     }
-
+    
+    //@@author A0141019U
 	@Override
 	public int compareTo(ReadOnlyTask other) {
 		int statusCompare = this.getStatus().compareTo(other.getStatus());
