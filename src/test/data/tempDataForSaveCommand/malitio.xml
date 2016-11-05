@@ -33,26 +33,26 @@
         <name>Cut hair</name>
         <completed>false</completed>
         <marked>false</marked>
-        <due>10-12-2016 20:00</due>
+        <due>12-Oct-2016, 20:00 (Wed)</due>
     </deadlines>
     <deadlines>
         <name>Do some sit-up</name>
         <completed>false</completed>
         <marked>false</marked>
-        <due>10-31-2016 23:59</due>
+        <due>31-Oct-2016, 23:59 (Mon)</due>
     </deadlines>
     <deadlines>
         <name>Buy stuff</name>
         <completed>false</completed>
         <marked>false</marked>
-        <due>11-01-2016 17:45</due>
+        <due>01-Nov-2016, 17:45 (Tue)</due>
         <tagged>Pencil</tagged>
     </deadlines>
     <deadlines>
         <name>Practice singing</name>
         <completed>false</completed>
         <marked>false</marked>
-        <due>12-25-2016 00:00</due>
+        <due>25-Dec-2016, 00:00 (Sun)</due>
         <tagged>Christmas</tagged>
         <tagged>Carols</tagged>
     </deadlines>
@@ -60,43 +60,43 @@
         <name>Finish homework</name>
         <completed>false</completed>
         <marked>false</marked>
-        <due>12-31-2016 23:00</due>
+        <due>31-Dec-2016, 23:00 (Sat)</due>
         <tagged>help</tagged>
     </deadlines>
     <events>
         <name>Eat with mom</name>
-        <start>01-10-2017 18:00</start>
-        <end>01-10-2017 18:55</end>
+        <start>10-Jan-2017, 18:00 (Tue)</start>
+        <end>10-Jan-2017, 18:55 (Tue)</end>
         <tagged>yummy</tagged>
     </events>
     <events>
         <name>Forgive with forget</name>
-        <start>02-22-2017 10:00</start>
-        <end>02-23-2017 10:00</end>
+        <start>22-Feb-2017, 10:00 (Wed)</start>
+        <end>23-Feb-2017, 10:00 (Thu)</end>
         <tagged>peace</tagged>
     </events>
     <events>
         <name>Go shopping</name>
-        <start>03-30-2017 09:00</start>
-        <end>03-30-2017 20:00</end>
+        <start>30-Mar-2017, 09:00 (Thu)</start>
+        <end>30-Mar-2017, 20:00 (Thu)</end>
         <tagged>clothes</tagged>
     </events>
     <events>
         <name>Hopping</name>
-        <start>11-01-2017 04:00</start>
-        <end>11-01-2017 06:00</end>
+        <start>01-Nov-2017, 04:00 (Wed)</start>
+        <end>01-Nov-2017, 06:00 (Wed)</end>
         <tagged>hello</tagged>
     </events>
     <events>
         <name>Christmas party</name>
-        <start>12-25-2017 00:00</start>
-        <end>12-25-2017 23:59</end>
+        <start>25-Dec-2017, 00:00 (Mon)</start>
+        <end>25-Dec-2017, 23:59 (Mon)</end>
         <tagged>presents</tagged>
     </events>
     <events>
         <name>New year party</name>
-        <start>12-31-2017 00:00</start>
-        <end>12-31-2017 23:59</end>
+        <start>31-Dec-2017, 00:00 (Sun)</start>
+        <end>31-Dec-2017, 23:59 (Sun)</end>
     </events>
     <tags>
         <tagName>careful</tagName>
