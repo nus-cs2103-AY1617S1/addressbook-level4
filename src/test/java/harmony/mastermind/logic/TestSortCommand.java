@@ -26,11 +26,10 @@ public class TestSortCommand {
     //@@author A0143378Y
     private void testSplitMemory(ArrayList<GenericMemory> list) { 
         Sort.sort(list);
-
-        System.out.println(list.get(1));
-        System.out.println(list.get(2));
         
         test_Event(list);
+        test_Deadline(list);
+        test_Task(list);
     }
     
     //@@author A0143378Y
@@ -43,11 +42,39 @@ public class TestSortCommand {
         
         //Check the description
         assertEquals("Check description", list.get(0).getDescription(), "do this3");
+        
+        //Check status
+        assertEquals("Check if it is incomplete", list.get(0).getState(), 0);
     }
     
     //@@author A0143378Y
     private void test_Deadline(ArrayList<GenericMemory> list) { 
+        //Check if the type is Deadline
+        assertEquals("Check if it is Deadline", list.get(1).getType(), "Deadline");
         
+        //Check the name
+        assertEquals("Check the name", list.get(1).getName(), "test2");
+        
+        //Check description
+        assertEquals("Check description", list.get(1).getDescription(), "do this2");
+        
+        //Check status
+        assertEquals("Check status", list.get(1).getState(), 0);
+    }
+    
+    //@@author A0143378Y
+    private void test_Task(ArrayList<GenericMemory> list) { 
+        //Check if the type is Deadline
+        assertEquals("Check if it is Task", list.get(2).getType(), "Task");
+        
+        //Check if the type is Deadline
+        assertEquals("Check the name", list.get(2).getName(), "test1");
+        
+        //Check description
+        assertEquals("Check description", list.get(2).getDescription(), "do this");
+        
+        //Check status
+        assertEquals("Check status", list.get(2).getState(), 0);
     }
     
     //@@author A0143378Y
