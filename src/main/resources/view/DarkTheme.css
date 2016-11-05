@@ -134,6 +134,15 @@
     -fx-padding: 5.0 5.0 5.0 5.0;
 }
 
+.duenotif-label {
+	-fx-font-size: 14.0px;
+    -fx-text-fill: #ffffff;
+    -fx-alignment: CENTER;
+    -fx-background-color: rgba(247, 170, 69, 1);
+    -fx-background-radius: 5.0;
+    -fx-padding: 5.0 5.0 5.0 5.0;
+}
+
 .anchor-pane {
      -fx-background-color: derive(#1d1d1d, 20.0%);
 }
