@@ -239,24 +239,6 @@ public class TaskListPanel extends UiPart {
         taskTable.getColumns().addAll(columns);
     }
 
-    // autoscroll when we add new events
-    private void autoScroll() {
-        taskTable.getItems().addListener(
-
-                new ListChangeListener<ReadOnlyTask>() {
-
-                    @Override
-                    public void onChanged(
-
-                            javafx.collections.ListChangeListener.Change<? extends ReadOnlyTask> arg0) {
-                        taskTable.scrollTo(taskTable.getItems().size());
-                        statusColumn.setVisible(false);
-                        statusColumn.setVisible(true);
-                    }
-
-                });
-    }
-
     public <S> void addAutoScroll(final TableView<ReadOnlyTask> view) {
         if (view == null) {
             throw new NullPointerException();

@@ -8,7 +8,7 @@ import javafx.stage.FileChooser;
 public class FilePickerUtilTest {
 
     @Test
-    public void prepare_chooser_successfullyPrepares() {
+    public void prepareSuccessfullyPrepareChooser() {
         FileChooser chooser = FilePickerUtil.prepareFileChooser();
         chooser.setTitle("Open Data File"); // Set FileChooser window title
         assertEquals(new File("."), chooser.getInitialDirectory());

@@ -79,6 +79,7 @@ public class MainWindow extends UiPart {
         // Set dependencies
         this.logic = logic;
         this.config = config;
+        setTaskManagerName(taskManagerName);
         // Configure the UI
         setTitle(appTitle);
         setIcon(ICON);
@@ -127,6 +128,10 @@ public class MainWindow extends UiPart {
 
     private void setTitle(String appTitle) {
         primaryStage.setTitle(appTitle);
+    }
+    
+    private void setTaskManagerName(String taskManagerName) {
+        config.setTaskManagerName(taskManagerName);
     }
 
     /**
