@@ -195,7 +195,7 @@ public class RedoCommand extends Command {
         if (model.getStackOfMarkUndoneTaskRedo().isEmpty()) {
             return new CommandResult(RedoCommand.MESSAGE_FAIL);
         } else {
-            ReadOnlyTask taskToMark = model.getStackOfMarkDoneTaskRedo().pop();
+            ReadOnlyTask taskToMark = model.getStackOfMarkUndoneTaskRedo().pop();
             try {
                 model.unMarkTask(taskToMark);
                 model.getStackOfMarkUndoneTask().push(taskToMark);

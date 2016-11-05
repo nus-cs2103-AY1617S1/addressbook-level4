@@ -203,10 +203,10 @@ public class UndoCommand extends Command {
         } else {
             ReadOnlyTask taskToReAdd = model.getStackOfMarkUndoneTask().pop();
             try {
-                model.markTask(taskToReAdd);
-                model.getStackOfMarkUndoneTaskRedo().pop();
-            } catch (TaskNotFoundException tnfe) {
                 model.getStackOfMarkUndoneTaskRedo().push(taskToReAdd);
+                model.markTask(taskToReAdd);
+            } catch (TaskNotFoundException tnfe) {
+                model.getStackOfMarkUndoneTaskRedo().pop();
                 return new CommandResult(UndoCommand.MESSAGE_FAIL);
             }
             return new CommandResult(String.format(UndoCommand.MESSAGE_SUCCESS));
