@@ -134,7 +134,9 @@ public class Task implements ReadOnlyTask, Comparable<ReadOnlyTask> {
      * Replaces this task's tags with the tags in the argument tag list.
      */
     public void setTags(UniqueTagList replacement) {
-        tags.setTags(replacement);
+        System.out.println("presettag: " + tags.getInternalList());
+    	tags.setTags(replacement);
+    	System.out.println("postsettag: " + tags.getInternalList());
     }
     
     @Override

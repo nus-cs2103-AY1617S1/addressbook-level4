@@ -1,7 +1,9 @@
 package seedu.address.logic.commands;
 
 import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.Optional;
+import java.util.Set;
 
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.Messages;
@@ -9,6 +11,8 @@ import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.commons.events.ui.JumpToListRequestEvent;
 import seedu.address.commons.events.ui.DisplayTaskListEvent;
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.tag.Tag;
+import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.task.Name;
 import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.Task;
@@ -41,6 +45,7 @@ public class EditCommand extends Command {
     private final Optional<Name> newName;
     private final Optional<LocalDateTime> newStartDateTime;
     private final Optional<LocalDateTime> newEndDateTime;
+    private final UniqueTagList tags;
     private final boolean isRemoveStartDateTime;
     private final boolean isRemoveEndDateTime;
 
@@ -50,7 +55,8 @@ public class EditCommand extends Command {
      */
     public EditCommand(int targetIndex, Optional<String> name, 
     		Optional<LocalDateTime> newStartDate, Optional<LocalDateTime> newEndDate,
-    		boolean isRemoveStartDateTime, boolean isRemoveEndDateTime)
+    		Set<String> tags, boolean isRemoveStartDateTime, 
+    		boolean isRemoveEndDateTime)
     		throws IllegalValueException {
         this.targetIndex = targetIndex;
         if(name.isPresent()) {
@@ -58,10 +64,18 @@ public class EditCommand extends Command {
         } else {
         	newName = Optional.empty();
         }
+        
+        final Set<Tag> tagSet = new HashSet<>();
+        for (String tagName : tags) {
+        	tagSet.add(new Tag(tagName));
+        }
+        
+        this.tags = new UniqueTagList(tagSet);
         this.newStartDateTime = newStartDate;
         this.newEndDateTime = newEndDate;
         this.isRemoveStartDateTime = isRemoveStartDateTime;
         this.isRemoveEndDateTime = isRemoveEndDateTime;
+        
     }
     
     @Override
@@ -128,6 +142,10 @@ public class EditCommand extends Command {
             if(isRemoveEndDateTime) {
             	postEdit.removeEndDate();
             }
+            
+            UniqueTagList newTags = postEdit.getTags();
+            newTags.mergeFrom(tags);
+            postEdit.setTags(newTags);
         	
             if(lastShownList.contains(postEdit)) {
                 model.undoSaveState();

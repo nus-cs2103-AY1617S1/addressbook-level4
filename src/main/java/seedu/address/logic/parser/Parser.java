@@ -393,12 +393,10 @@ public class Parser {
 			return new IncorrectCommand(e.getMessage());
 		}
 		
-		Optional<String> taskName;
-		String args;
-		Pair<String,String> nameAndArgs = separateNameAndArgs(arguments);
-		taskName = Optional.ofNullable(nameAndArgs.getKey());
-		args = nameAndArgs.getValue();
-		String argsLowerCase = args.toLowerCase();
+		Pair<String,String> nameAndArgs = separateNameAndArgs(
+				arguments.split(" ", 2)[1]);
+		Optional<String> taskName = Optional.ofNullable(nameAndArgs.getKey());
+		String argsLowerCase = nameAndArgs.getValue().toLowerCase();
 		
 		ArgumentTokenizer argsTokenizer = new ArgumentTokenizer(
 				startDateTimePrefix, endDateTimePrefix, dlEndDateTimePrefix, tagsPrefix);
@@ -409,9 +407,7 @@ public class Parser {
 		if(!endDateTimeString.isPresent()) {
 			endDateTimeString = argsTokenizer.getValue(dlEndDateTimePrefix);
 		}
-		//TODO
-		Optional<List<String>> tagSet = argsTokenizer.getAllValues(tagsPrefix);
-		
+		Set<String> tagSet = toSet(argsTokenizer.getAllValues(tagsPrefix));
 		boolean isRemoveStartDateTime = isToRemoveDateTime(startDateTimeString);
 		boolean isRemoveEndDateTime = isToRemoveDateTime(endDateTimeString);
 		
@@ -428,7 +424,7 @@ public class Parser {
 		}
 		
 		try {
-			return new EditCommand(index, taskName, startDateTime, endDateTime,
+			return new EditCommand(index, taskName, startDateTime, endDateTime, tagSet,
 					isRemoveStartDateTime, isRemoveEndDateTime);
 		} catch (IllegalValueException e) {
 			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
@@ -452,6 +448,7 @@ public class Parser {
 		return new SetStorageCommand(folderFilePath, fileName);
 	}
 
+	//@@author A0139339W
 	private Optional<LocalDateTime> convertToLocalDateTime(Optional<String> dateTimeString) 
 		throws ParseException{
 		Optional<LocalDateTime> dateTime = Optional.empty();
@@ -470,7 +467,6 @@ public class Parser {
 		return false;
 	}
 
-	//@@author A0139339W
 	/**
 	 * parse the argument based on first occurrence of keyword "not" indices
 	 * before not are for tasks to be marked done indices after not are for
@@ -559,7 +555,7 @@ public class Parser {
 	}
 	
 	private Set<String> toSet(Optional<List<String>> tagsOptional) {
-        List<String> tags = tagsOptional.orElse(Collections.emptyList());
+		List<String> tags = tagsOptional.orElse(Collections.emptyList());
         return new HashSet<>(tags);
     }
 
