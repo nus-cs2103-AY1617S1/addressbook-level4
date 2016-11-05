@@ -22,8 +22,6 @@ public class RefreshCommand extends Command {
     public static final String MESSAGE_SUCCESS = "Task manager has been refreshed!";
     public static final String EMPTY_STRING = "";
 
-    public RefreshCommand() {}
-
     @Override
     public CommandResult execute(boolean isUndo) {
         assert model != null;
