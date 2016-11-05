@@ -135,6 +135,9 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
 		}
 	}
 
+	/**
+	 * Sets the time of the task to its next recurring time when marked as complete.
+	 */
 	public void setRecurringTime() {
 	    if (isRecurring && !this.recurringFrequency.equals("")) {
 	    	if (isComplete) {

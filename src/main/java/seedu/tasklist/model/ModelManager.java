@@ -444,7 +444,7 @@ public class ModelManager extends ComponentManager implements Model {
 		    }
 		    
 			return DateUtils.isSameDay(person.getStartTime().time, requestedTime)
-					|| (person.getStartTime().toCardString().equals("-")
+					|| (person.getStartTime().isMissing()
 							&& DateUtils.isSameDay(person.getEndTime().time, requestedTime));
 		}
 	}
