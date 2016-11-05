@@ -131,11 +131,11 @@ public class Task implements CalendarItem {
     }
     
     public static Predicate<Task> predBeforeDueDate(LocalDateTime date) {
-        return (Task task) -> task.getDueDate().isBefore(date);
+        return (Task task) -> task.getDueDate() != null && task.getDueDate().isBefore(date);
     }
     
     public static Predicate<Task> predAfterDueDate(LocalDateTime date) {
-        return (Task task) -> task.getDueDate().isAfter(date);
+        return (Task task) -> task.getDueDate() != null && task.getDueDate().isAfter(date);
     }
     
     public static Predicate<Task> predCompleted(boolean completed) {
