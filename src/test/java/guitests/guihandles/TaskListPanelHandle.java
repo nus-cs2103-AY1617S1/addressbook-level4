@@ -27,8 +27,8 @@ public class TaskListPanelHandle extends GuiHandle {
 
     public static final int NOT_FOUND = -1;
 
-    private static final String TASK_LIST_VIEW_ID = "#taskTableHome";
-    private static final String ARCHIVE_LIST_VIEW_ID = "#taskTableArchive";
+    private static final String TASK_LIST_VIEW_ID = "#homeTableView";
+    private static final String ARCHIVE_LIST_VIEW_ID = "#archivesTableView";
 
     public TaskListPanelHandle(GuiRobot guiRobot, Stage primaryStage) {
         super(guiRobot, primaryStage, TestApp.APP_TITLE);

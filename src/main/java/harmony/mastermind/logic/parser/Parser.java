@@ -78,7 +78,7 @@ public class Parser {
      *            full user input string
      * @return the command based on the user input
      */
-    public Command parseCommand(String userInput, String currentTab) {
+    public Command parseCommand(String userInput) {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
 
         if (!matcher.matches()) {
@@ -113,7 +113,7 @@ public class Parser {
                 return prepareUpcoming(arguments);
 
             case MarkCommand.COMMAND_WORD:
-                return prepareMark(arguments, currentTab);
+                return prepareMark(arguments);
 
             case EditCommand.COMMAND_KEYWORD_EDIT:
             case EditCommand.COMMAND_KEYWORD_UPDATE:
@@ -130,7 +130,7 @@ public class Parser {
                 return new RedoCommand();
                 
             case UnmarkCommand.COMMAND_WORD:
-                return prepareUnmark(arguments, currentTab);
+                return prepareUnmark(arguments);
 
             case ExitCommand.COMMAND_WORD:
                 return new ExitCommand();
@@ -404,11 +404,7 @@ public class Parser {
      * 
      * @return the prepared mark command
      */
-    private Command prepareMark(String args, String currentTab) {
-        if (currentTab.equals(TAB_ARCHIVES)) {
-            return new IncorrectCommand(MarkCommand.MESSAGE_MARK_FAILURE);
-        }
-
+    private Command prepareMark(String args) {
         Optional<Integer> index = parseIndex(args);
         if (!index.isPresent()) {
             if (args.trim().equals("due")) {
@@ -448,11 +444,7 @@ public class Parser {
      *            full command args string
      * @return the prepared command
      */
-    private Command prepareUnmark(String args, String currentTab) {
-        if (!currentTab.equals(TAB_ARCHIVES)) {
-            return new IncorrectCommand(UnmarkCommand.MESSAGE_UNMARK_FAILURE);
-        }
-
+    private Command prepareUnmark(String args) {
         Optional<Integer> index = parseIndex(args);
         if (!index.isPresent()) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, UnmarkCommand.MESSAGE_USAGE));

@@ -100,7 +100,7 @@
 .list-cell{
     -fx-cell-size: 50;
     -fx-padding: 10 5 10 15;
-    -fx-background-color: -x-quinary;
+    -fx-background-color: -fx-quinary;
     -fx-text-fill: white;
 }
 
@@ -120,7 +120,7 @@
     -fx-background-color: -fx-primary;
 }
 
-.action-history-item .title{
+.action-history-entry .title{
     -fx-text-fill: -fx-primary;
     -fx-font-weight: bold;
     -fx-font-size: 14px;
@@ -128,7 +128,7 @@
     -fx-padding: 0px;
 }
 
-.action-history-item .date{
+.action-history-entry .date{
     -fx-text-fill: -fx-primary;
     -fx-font-weight: normal;
     -fx-font-size: 10px;
@@ -136,7 +136,7 @@
     -fx-padding: 0px;
 }
 
-.action-history-item .description{
+.action-history-entry .description{
     -fx-text-fill: white;
     -fx-font-weight: normal;
     -fx-font-size: 12px;
@@ -236,4 +236,8 @@
 
 .titled-pane .title .arrow-button .arrow{
     -fx-background-color: -fx-primary;
+}
+
+.titled-pane .list-cell{
+    -fx-background-color: #1d1d1d;
 }

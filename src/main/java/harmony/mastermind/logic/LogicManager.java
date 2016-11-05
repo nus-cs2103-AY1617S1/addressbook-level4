@@ -14,6 +14,7 @@ import harmony.mastermind.logic.commands.ImportCommand;
 import harmony.mastermind.logic.parser.Parser;
 import harmony.mastermind.model.Model;
 import harmony.mastermind.model.task.ReadOnlyTask;
+import harmony.mastermind.model.task.TaskListComparator;
 import harmony.mastermind.storage.Storage;
 
 /**
@@ -37,12 +38,11 @@ public class LogicManager extends ComponentManager implements Logic {
 
     @Override
     //@@author A0124797R
-    public CommandResult execute(String commandText, String currentTab) {
-        logger.info("----------------[" + currentTab + "Tab][USER COMMAND][" + commandText + "]");
-        Command command = parser.parseCommand(commandText, currentTab);
-        model.updateCurrentTab(currentTab);
+    public CommandResult execute(String commandText) {
+        //logger.info("----------------[" + currentTab + "Tab][USER COMMAND][" + commandText + "]");
+        Command command = parser.parseCommand(commandText);
         command.setData(model, storage);
-        CommandResult cmdResult = parseResult(command, currentTab);
+        CommandResult cmdResult = parseResult(command);
         return cmdResult;
     }
 
@@ -74,10 +74,10 @@ public class LogicManager extends ComponentManager implements Logic {
     /**
      * parse the result of commands and handle ImportCommand separately
      */
-    private CommandResult parseResult(Command cmd, String currentTab) {
+    private CommandResult parseResult(Command cmd) {
         CommandResult result = cmd.execute();
         if (result.feedbackToUser.equals(ImportCommand.MESSAGE_READ_SUCCESS)) {
-            result = handleImport((ImportCommand) cmd, currentTab);
+            result = handleImport((ImportCommand) cmd);
         }
 
         return result;
@@ -87,7 +87,7 @@ public class LogicManager extends ComponentManager implements Logic {
     /**
      * handle the inputs from the reading of file from ImportCommand
      */
-    public CommandResult handleImport(ImportCommand command, String currentTab) {
+    public CommandResult handleImport(ImportCommand command) {
         ArrayList<String> lstOfCmd = command.getTaskToAdd();
         String errLines = "";
         int errCount = 0;
@@ -95,8 +95,7 @@ public class LogicManager extends ComponentManager implements Logic {
         
         for (String cmd: lstOfCmd) {
             lineCounter += 1;
-            System.out.println(cmd);
-            Command cmdResult = parser.parseCommand(cmd, currentTab);
+            Command cmdResult = parser.parseCommand(cmd);
             cmdResult.setData(model, storage);
             CommandResult addResult = cmdResult.execute();
             boolean isFailure = isAddFailure(addResult);

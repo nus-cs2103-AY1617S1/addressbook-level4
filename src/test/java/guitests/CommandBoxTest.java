@@ -13,10 +13,4 @@ public class CommandBoxTest extends TaskManagerGuiTest {
         assertEquals(commandBox.getCommandInput(), "");
     }
 
-    @Test
-    public void commandBox_commandFails_textStays(){
-        commandBox.runCommand("invalid command");
-        assertEquals(commandBox.getCommandInput(), "invalid command");
-    }
-
 }

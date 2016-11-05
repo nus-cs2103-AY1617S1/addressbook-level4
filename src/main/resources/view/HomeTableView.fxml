@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+
+<TableView
+	fx:id="homeTableView"
+	fx:controller="harmony.mastermind.ui.HomeTableView"
+	stylesheets="@MainWindow.css"
+	prefHeight="200.0"
+	prefWidth="200.0"
+	styleClass="table-view"
+	xmlns="http://javafx.com/javafx/8.0.101"
+	xmlns:fx="http://javafx.com/fxml">
+	<columns>
+		<TableColumn
+			fx:id="indexColumn"
+			resizable="false"
+			text="#" />
+		<TableColumn
+			fx:id="nameColumn"
+			text="Task Name" />
+		<TableColumn
+			fx:id="startDateColumn"
+			text="Start Date" />
+		<TableColumn
+			fx:id="endDateColumn"
+			text="End Date" />
+		<TableColumn
+			fx:id="tagsColumn"
+			text="Tags" />
+		<TableColumn fx:id="recurColumn" />
+	</columns>
+</TableView>

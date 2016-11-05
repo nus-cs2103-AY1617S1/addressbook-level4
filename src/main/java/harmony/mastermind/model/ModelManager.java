@@ -11,12 +11,15 @@ import java.util.Set;
 import java.util.Stack;
 import java.util.logging.Logger;
 
+import com.google.common.eventbus.Subscribe;
+
 import harmony.mastermind.commons.core.ComponentManager;
 import harmony.mastermind.commons.core.LogsCenter;
 import harmony.mastermind.commons.core.UnmodifiableObservableList;
 import harmony.mastermind.commons.events.model.ExpectingConfirmationEvent;
 import harmony.mastermind.commons.events.model.TaskManagerChangedEvent;
 import harmony.mastermind.commons.events.storage.RelocateFilePathEvent;
+import harmony.mastermind.commons.events.ui.TabChangedEvent;
 import harmony.mastermind.commons.exceptions.FolderDoesNotExistException;
 import harmony.mastermind.commons.exceptions.NotRecurringTaskException;
 import harmony.mastermind.commons.util.StringUtil;
@@ -102,6 +105,7 @@ public class ModelManager extends ComponentManager implements Model {
         redoHistory = new Stack<>();
         commandHistory = new Stack<String>();
         indicateTaskManagerChanged();
+        currentTab = TAB_HOME;
     }
 
     //@@author generated
@@ -233,6 +237,11 @@ public class ModelManager extends ComponentManager implements Model {
     public synchronized void unmarkTask(Task target) throws ArchiveTaskList.TaskNotFoundException, UniqueTaskList.DuplicateTaskException {
         taskManager.unmarkTask(target);
         indicateTaskManagerChanged();
+    }
+    
+    @Override
+    public String getCurrentTab(){
+        return this.currentTab;
     }
 
     
@@ -578,6 +587,11 @@ public class ModelManager extends ComponentManager implements Model {
     //@@author generated
     public void searchTask(String input) {
         // implementing next milestone
+    }
+    
+    @Subscribe
+    private void handleTabChangedEvent(TabChangedEvent event){
+        this.updateCurrentTab(event.toTabId);
     }
 
 }

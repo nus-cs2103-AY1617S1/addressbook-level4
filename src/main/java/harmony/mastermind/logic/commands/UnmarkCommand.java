@@ -2,6 +2,7 @@ package harmony.mastermind.logic.commands;
 
 import harmony.mastermind.commons.core.Messages;
 import harmony.mastermind.commons.core.UnmodifiableObservableList;
+import harmony.mastermind.model.ModelManager;
 import harmony.mastermind.model.task.ArchiveTaskList.TaskNotFoundException;
 import harmony.mastermind.model.task.ReadOnlyTask;
 import harmony.mastermind.model.task.Task;
@@ -39,6 +40,10 @@ public class UnmarkCommand extends Command implements Undoable, Redoable{
     @Override
     public CommandResult execute() {
         try {
+            if (!this.model.getCurrentTab().equals(ModelManager.TAB_ARCHIVES)) {
+                return new CommandResult(COMMAND_WORD, UnmarkCommand.MESSAGE_UNMARK_FAILURE);
+            }
+            
             executeUnmark();
             
             model.pushToUndoHistory(this);

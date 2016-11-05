@@ -113,7 +113,7 @@ public class LogicManagerTest {
                                        List<? extends ReadOnlyTask> expectedShownList) throws Exception {
 
         //Execute the command
-        CommandResult result = logic.execute(inputCommand, TAB_HOME);
+        CommandResult result = logic.execute(inputCommand);
 
         //Confirm the ui display elements should contain the right data
         assertEquals(expectedMessage, result.feedbackToUser);
@@ -177,7 +177,7 @@ public class LogicManagerTest {
         Task toBeAdded = helper.task();
         String timeCheckEnd = toBeAdded.parseForConsole(endDate);
         
-        logic.execute(helper.generateAddCommand(toBeAdded), TAB_HOME);
+        logic.execute(helper.generateAddCommand(toBeAdded));
         
         assertCommandBehavior("undo", "Undo successfully.\n"
                 + "=====Undo Details=====\n"
@@ -210,7 +210,7 @@ public class LogicManagerTest {
         
         helper.addToModel(model, oneTask);
 
-        logic.execute(helper.generateEditCommand(), TAB_HOME);
+        logic.execute(helper.generateEditCommand());
         
         assertCommandBehavior("undo",
                 "Undo successfully.\n"
@@ -245,7 +245,7 @@ public class LogicManagerTest {
         
         helper.addToModel(model, oneTask);
 
-        logic.execute("delete 1", TAB_HOME);
+        logic.execute("delete 1");
         
         assertCommandBehavior("undo",
                 "Undo successfully.\n"
@@ -280,7 +280,7 @@ public class LogicManagerTest {
         
         helper.addToModel(model, oneTask);
 
-        logic.execute("mark 1", TAB_HOME);
+        logic.execute("mark 1");
         
         assertCommandBehavior("undo",
                 "Undo successfully.\n"
@@ -315,9 +315,9 @@ public class LogicManagerTest {
         
         helper.addToModel(model, oneTask);
         
-        logic.execute("mark 1", TAB_HOME);
+        logic.execute("mark 1");
         
-        logic.execute("unmark 1", TAB_HOME);
+        logic.execute("unmark 1");
         
         assertCommandBehavior("undo",
                 "Undo successfully.\n"
@@ -346,7 +346,7 @@ public class LogicManagerTest {
         TestDataHelper helper = new TestDataHelper();
         Task toBeAdded = helper.task();
 
-        logic.execute(helper.generateAddCommand(toBeAdded), TAB_HOME);
+        logic.execute(helper.generateAddCommand(toBeAdded));
         
         model.deleteTask(toBeAdded);
         
@@ -366,7 +366,7 @@ public class LogicManagerTest {
         List<Task> oneTask = helper.generateTaskList(toBeEdited);
         helper.addToModel(model, oneTask);
 
-        logic.execute(helper.generateEditCommand(), TAB_HOME);
+        logic.execute(helper.generateEditCommand());
         
         model.deleteTask(toBeEdited);
         
@@ -391,7 +391,7 @@ public class LogicManagerTest {
         
         model.addTask(task1);
 
-        logic.execute(helper.generateEditCommand(), TAB_HOME);
+        logic.execute(helper.generateEditCommand());
 
         model.getTaskManager().getUniqueTaskList().getInternalList().add(task1);
         model.getTaskManager().getUniqueTaskList().getInternalList().add(task2);
@@ -415,7 +415,7 @@ public class LogicManagerTest {
         
         model.addTask(task1);
 
-        logic.execute("delete 1", TAB_HOME);
+        logic.execute("delete 1");
 
         model.getTaskManager().getUniqueTaskList().getInternalList().add(task1);
         model.getTaskManager().getUniqueTaskList().getInternalList().add(task2);
