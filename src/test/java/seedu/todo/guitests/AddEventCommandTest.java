@@ -9,6 +9,7 @@ import org.junit.Test;
 import seedu.todo.commons.util.DateUtil;
 import seedu.todo.models.Event;
 
+// @@author A0139812A
 public class AddEventCommandTest extends GuiTest {
 
     @Test
@@ -54,12 +55,26 @@ public class AddEventCommandTest extends GuiTest {
 
     @Test
     public void addEvent_missingEndDate_disambiguate() {
-        // TODO
+        String command = "add event Presentation that never ends from 2pm";
+        console.runCommand(command);
+        String expectedDisambiguation = "add event \"Presentation that never ends\" from \"2pm\" to \"<end time>\"";
+        assertEquals(console.getConsoleInputText(), expectedDisambiguation);
+    }
+    
+    @Test
+    public void addEvent_missingStartEndDate_disambiguate() {
+        String command = "add event Presentation that does not take place";
+        console.runCommand(command);
+        String expectedDisambiguation = "add event \"Presentation that does not take place\" from \"<start time>\" to \"<end time>\"";
+        assertEquals(console.getConsoleInputText(), expectedDisambiguation);
     }
 
     @Test
-    public void addEvent_missingStartEndDate_disambiguate() {
-        // TODO
+    public void addEvent_missingStartBeforeEnd_disambiguate() {
+        String command = "add event Presentation from 9pm to 2pm";
+        console.runCommand(command);
+        String expectedDisambiguation = "add event \"Presentation\" from \"9pm\" to \"2pm\"";
+        assertEquals(console.getConsoleInputText(), expectedDisambiguation);
     }
     
     @Test
