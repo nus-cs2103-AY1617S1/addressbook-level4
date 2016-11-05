@@ -18,6 +18,8 @@ import java.util.*;
  * @see CollectionUtil#elementsAreUnique(Collection)
  */
 public class UniqueTaskList implements Iterable<Task> {
+    
+    private ObservableList<Task> internalList = FXCollections.observableArrayList();
 
     /**
      * Signals that an operation would have violated the 'no duplicates'
@@ -41,8 +43,6 @@ public class UniqueTaskList implements Iterable<Task> {
             super("No previous Command was found");
         }
     }
-
-    private ObservableList<Task> internalList = FXCollections.observableArrayList();
 
     // private Stack<Task[]> reqStack = new Stack<>();
 

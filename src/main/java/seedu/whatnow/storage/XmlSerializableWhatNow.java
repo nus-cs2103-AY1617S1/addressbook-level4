@@ -24,14 +24,9 @@ import java.util.stream.Collectors;
 public class XmlSerializableWhatNow implements ReadOnlyWhatNow {
 
     @XmlElement
-    private List<XmlAdaptedTask> tasks;
+    private List<XmlAdaptedTask> tasks = new ArrayList<>();
     @XmlElement
-    private List<Tag> tags;
-
-    {
-        tasks = new ArrayList<>();
-        tags = new ArrayList<>();
-    }
+    private List<Tag> tags = new ArrayList<>();
 
     /**
      * Empty constructor required for marshalling
