@@ -147,42 +147,49 @@ Command format: `edit #<cat> <newcolour>`
 **Listing All Tasks:** ` list `  
 
 * List All Tasks
+
 > <img src="images/list.png" width="600">  
 Command format: `list`
 
 This command switches the task pane to the "all" view. Displays all your tasks sorted by due date.
 
 * List Float  
+
 > <img src="images/list_float.png" width="600">  
 Command format: `list float`
 
 This command switches the task pane to the "float" view. Displays all your floating tasks.
     
 * List Today  
+
 > <img src="images/list_day.png" width="600">  
 Command format: `list today`
 
 This command switches the task pane to the "daily" view. Displays all your tasks due today.
 
 * List Week  
+
 > <img src="images/list_week.png" width="600">  
 Command format: `list week`
 
 This command switches the task pane to the "weekly" view. Displays all your tasks due this week sorted by due date.
 
 * List Done  
+
 > <img src="images/list_done.png" width="600">  
 Command format: `list done`
 
 This command displays all tasks that have been completed in the past 7 days.
 
 * List Category  
+
 > <img src="images/list_cat.png" width="600">  
 Command format: `list #<cat>`
 
 This command displays all tasks tagged with the specified category "\<cat>".
     
 **Mark Task as Done:** ` done `  
+
 > <img src="images/done.png" width="600">  
 
 Command format: `done <index>`
@@ -192,6 +199,7 @@ Command format: `done <index>`
 //@@author A0121657H
 
 **Mark Task as Not Done:** `undone`
+
 > <img src="images/undone.png" width="600">  
 
 Command format: `undone <index>`
