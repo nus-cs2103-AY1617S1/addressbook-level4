@@ -449,7 +449,6 @@ public class TestActivity implements ReadOnlyActivity {
         build.append(EditCommand.EVENT_FROM_PARAM);
         build.append(" ");
         build.append(newDateTime);
-        System.out.println(build.toString());
         return build.toString();
     }
     
@@ -465,7 +464,6 @@ public class TestActivity implements ReadOnlyActivity {
         build.append(EditCommand.EVENT_TO_PARAM);
         build.append(" ");
         build.append(newDateTime);
-        System.out.println(build.toString());
         return build.toString();
     }
     
