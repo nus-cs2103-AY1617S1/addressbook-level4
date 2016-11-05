@@ -90,9 +90,6 @@ public class TaskListPanel extends UiPart {
 
     class TaskListViewCell extends ListCell<ReadOnlyTask> {
 
-        public TaskListViewCell() {
-        }
-
         @Override
         protected void updateItem(ReadOnlyTask task, boolean empty) {
             super.updateItem(task, empty);

@@ -190,14 +190,14 @@ public class RedoCommand extends Command {
         }
     }
 
-    // @@author A0139128A
+    //@@author A0139128A
     private CommandResult performRedoMarkUnDone() {
         if (model.getStackOfMarkUndoneTaskRedo().isEmpty()) {
             return new CommandResult(RedoCommand.MESSAGE_FAIL);
         } else {
-            ReadOnlyTask taskToMark = model.getStackOfMarkDoneTaskRedo().pop();
+            ReadOnlyTask taskToMark = model.getStackOfMarkUndoneTaskRedo().pop();
             try {
-                model.unMarkTask(taskToMark);
+                model.unMarkTask(taskToMark);   
                 model.getStackOfMarkUndoneTask().push(taskToMark);
             } catch (TaskNotFoundException tnfe) {
                 return new CommandResult(String.format(RedoCommand.MESSAGE_FAIL));
@@ -206,7 +206,7 @@ public class RedoCommand extends Command {
         }
     }
 
-    // @@author A0139128A
+    //@@author A0139128A
     private CommandResult performRedoUpdate() throws TaskNotFoundException {
         assert model != null;
         if (model.getOldNextTask().isEmpty() && model.getNewNextTask().isEmpty()) {
@@ -217,7 +217,6 @@ public class RedoCommand extends Command {
                 Task original = (Task) model.getNewNextTask().pop();
                 
                 model.updateTask(original, toChangeInto);
-                System.out.println("Redo, model.getNextTask() : " + toChangeInto + " currentTask() : " + original);
                 model.getOldTask().push(original);
                 model.getCurrentTask().push(toChangeInto);
             } catch (UniqueTaskList.DuplicateTaskException utle) {

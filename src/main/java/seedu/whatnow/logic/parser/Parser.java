@@ -33,7 +33,7 @@ public class Parser {
      * One or more keywords separated by whitespace
      */
     private static final Pattern KEYWORDS_ARGS_FORMAT = Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)");
-    
+
     //@@author A0126240W
     /**
      * Regular Expressions
@@ -197,7 +197,7 @@ public class Parser {
 
         case FreeTimeCommand.COMMAND_WORD:
             return prepareFreeTimeCommand(arguments);
-            
+
         case PinCommand.COMMAND_WORD:
             return preparePinCommand(arguments);
 
@@ -656,21 +656,6 @@ public class Parser {
         }
     }
 
-    //@@author A0139772U-reused
-    /**
-     * Extracts the new task's tags from the add command's tag arguments string.
-     * Merges duplicate tag strings.
-     */
-    private static Set<String> getTagsFromArgs(String tagArguments) throws IllegalValueException {
-        // no tags
-        if (tagArguments.isEmpty()) {
-            return Collections.emptySet();
-        }
-        // replace first delimiter prefix, then split
-        final Collection<String> tagStrings = Arrays.asList(tagArguments.replaceFirst(" t/", "").split(" t/"));
-        return new HashSet<>(tagStrings);
-    }
-
     //@@author A0141021H
     /**
      * Parses arguments in the context of the change data file location command.
@@ -1017,15 +1002,23 @@ public class Parser {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FreeTimeCommand.MESSAGE_USAGE));
         }
     }
-    
+
     private Command preparePinCommand(String args) {
         String[] argComponents = args.trim().split(DELIMITER_BLANK_SPACE);
-        if (argComponents.length != 2) {
+        if(argComponents.length == 1) {
+            if(argComponents[ZERO].equals(TASK_ARG_DATE)) {
+                return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, PinCommand.MESSAGE_MISSING_DATE));
+            } else if(argComponents[ZERO].equals(TASK_ARG_TAG)) {
+                return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, PinCommand.MESSAGE_MISSING_TAG));
+            } else {
+                return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, PinCommand.MESSAGE_USAGE));
+            }
+        } else if(argComponents.length <= 0) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, PinCommand.MESSAGE_USAGE));
+        } else {
+            String type = argComponents[ZERO];
+            String keyword = argComponents[ONE];
+            return new PinCommand(type, keyword);
         }
-        String type = argComponents[ZERO];
-        String keyword = argComponents[ONE];
-        return new PinCommand(type, keyword);
     }
-
 }

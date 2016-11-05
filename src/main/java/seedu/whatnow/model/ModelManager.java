@@ -445,9 +445,6 @@ public class ModelManager extends ComponentManager implements Model {
         while(!getNewNextTask().isEmpty()) {
             getNewNextTask().pop();
         }
-        while(!stackOfWhatNow.isEmpty()) {
-            stackOfWhatNow.pop();
-        }
         while(!getDeletedStackOfTasksRedo().isEmpty()) {
             getDeletedStackOfTasksRedo().pop();
         }

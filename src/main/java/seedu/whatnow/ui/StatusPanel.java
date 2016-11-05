@@ -54,7 +54,7 @@ public class StatusPanel extends UiPart {
         iv1.setFitWidth(350);
         iv1.setFitHeight(178);
         
-        statusDisplayArea = new TextArea();
+        TextArea statusDisplayArea = new TextArea();
         statusDisplayArea.setEditable(false);
         statusDisplayArea.setId(STATUS_DISPLAY_ID);
         statusDisplayArea.textProperty().bind(displayed);

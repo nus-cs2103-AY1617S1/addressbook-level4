@@ -26,6 +26,7 @@ public class FindCommand extends Command {
      */
     @Override
     public CommandResult execute() {
+        model.clearRedoAll();
         return new CommandResult(getMessageForTaskListShownSummary(
                 model.getFilteredTaskList(keywords).size() + model.getFilteredScheduleList(keywords).size()));
     }
