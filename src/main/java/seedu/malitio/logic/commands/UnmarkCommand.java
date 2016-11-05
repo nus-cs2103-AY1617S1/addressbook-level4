@@ -2,16 +2,10 @@ package seedu.malitio.logic.commands;
 
 import seedu.malitio.commons.core.Messages;
 import seedu.malitio.commons.core.UnmodifiableObservableList;
-import seedu.malitio.model.task.ReadOnlyDeadline;
-import seedu.malitio.model.task.ReadOnlyEvent;
-import seedu.malitio.model.task.ReadOnlyFloatingTask;
-import seedu.malitio.model.task.UniqueDeadlineList.DeadlineMarkedException;
 import seedu.malitio.model.task.UniqueDeadlineList.DeadlineNotFoundException;
 import seedu.malitio.model.task.UniqueDeadlineList.DeadlineUnmarkedException;
-import seedu.malitio.model.task.UniqueEventList.EventMarkedException;
 import seedu.malitio.model.task.UniqueEventList.EventNotFoundException;
 import seedu.malitio.model.task.UniqueEventList.EventUnmarkedException;
-import seedu.malitio.model.task.UniqueFloatingTaskList.FloatingTaskMarkedException;
 import seedu.malitio.model.task.UniqueFloatingTaskList.FloatingTaskNotFoundException;
 import seedu.malitio.model.task.UniqueFloatingTaskList.FloatingTaskUnmarkedException;
 
@@ -27,6 +21,7 @@ public class UnmarkCommand extends Command {
             "Parameters: INDEX\n" + "Example: " + COMMAND_WORD + " f1";
     
     public static final String MESSAGE_UNMARK_SUCCESS = "Task has been unmarked as priority";
+    public static final String MESSAGE_UNMARK_AGAIN = "Task has already been unmarked as priority";
     
     private final int targetIndex;
     private final char taskType;
@@ -60,15 +55,15 @@ public class UnmarkCommand extends Command {
         } catch (FloatingTaskNotFoundException e) {
             assert false : "The target floating task cannot be missing";
         } catch (FloatingTaskUnmarkedException e) {
-            return new CommandResult(MESSAGE_UNMARK_SUCCESS);
+            return new CommandResult(MESSAGE_UNMARK_AGAIN);
         } catch (DeadlineNotFoundException e) {
             assert false : "The target deadline cannot be missing";
         } catch (DeadlineUnmarkedException e) {
-            return new CommandResult(MESSAGE_UNMARK_SUCCESS);
+            return new CommandResult(MESSAGE_UNMARK_AGAIN);
         } catch (EventNotFoundException e) {
             assert false : "The target event cannot be missing";
         } catch (EventUnmarkedException e) {
-            return new CommandResult(MESSAGE_UNMARK_SUCCESS);
+            return new CommandResult(MESSAGE_UNMARK_AGAIN);
         }
         return new CommandResult(MESSAGE_UNMARK_SUCCESS);
     }

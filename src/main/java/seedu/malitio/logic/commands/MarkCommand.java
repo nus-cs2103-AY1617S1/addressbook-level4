@@ -4,13 +4,10 @@ import seedu.malitio.commons.core.Messages;
 import seedu.malitio.commons.core.UnmodifiableObservableList;
 import seedu.malitio.model.task.UniqueDeadlineList.DeadlineMarkedException;
 import seedu.malitio.model.task.UniqueDeadlineList.DeadlineNotFoundException;
-import seedu.malitio.model.task.UniqueDeadlineList.DeadlineUnmarkedException;
 import seedu.malitio.model.task.UniqueEventList.EventMarkedException;
 import seedu.malitio.model.task.UniqueEventList.EventNotFoundException;
-import seedu.malitio.model.task.UniqueEventList.EventUnmarkedException;
 import seedu.malitio.model.task.UniqueFloatingTaskList.FloatingTaskMarkedException;
 import seedu.malitio.model.task.UniqueFloatingTaskList.FloatingTaskNotFoundException;
-import seedu.malitio.model.task.UniqueFloatingTaskList.FloatingTaskUnmarkedException;
 
 /**
  * Marks a specified task or deadline as a priority in Malitio to the user.
@@ -24,6 +21,7 @@ public class MarkCommand extends Command {
             "Parameters: INDEX\n" + "Example: " + COMMAND_WORD + " f1";
 
     public static final String MESSAGE_MARK_SUCCESS = "Task has been marked as priority";
+    public static final String MESSAGE_MARK_AGAIN = "Task has already been marked as priority";
 
     private final int targetIndex;
     private final char taskType;
@@ -57,15 +55,15 @@ public class MarkCommand extends Command {
         } catch (FloatingTaskNotFoundException e) {
             assert false : "The target floating task cannot be missing";
         } catch (FloatingTaskMarkedException e) {
-            return new CommandResult(MESSAGE_MARK_SUCCESS);
+            return new CommandResult(MESSAGE_MARK_AGAIN);
         } catch (DeadlineNotFoundException e) {
             assert false : "The target deadline cannot be missing";
         } catch (DeadlineMarkedException e) {
-            return new CommandResult(MESSAGE_MARK_SUCCESS);
+            return new CommandResult(MESSAGE_MARK_AGAIN);
         } catch (EventNotFoundException e) {
             assert false : "The target event cannot be missing";
         } catch (EventMarkedException e) {
-            return new CommandResult(MESSAGE_MARK_SUCCESS);
+            return new CommandResult(MESSAGE_MARK_AGAIN);
         }
         return new CommandResult(MESSAGE_MARK_SUCCESS);
     }
