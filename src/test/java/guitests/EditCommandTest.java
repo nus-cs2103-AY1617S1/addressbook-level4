@@ -1,23 +1,21 @@
 package guitests;
 
-import static org.junit.Assert.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_TASK_NAME;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
-import guitests.guihandles.TaskCardHandle;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.task.Deadline;
 import seedu.address.model.task.EventDate;
 import seedu.address.model.task.Name;
 import seedu.address.testutil.TestTask;
-import seedu.address.testutil.TestUtil;
 
 //@@author A0138717X
 public class EditCommandTest extends TaskManagerGuiTest {
 
 	@Test
+	@Ignore
     public void edit_by_name() throws IllegalValueException {
 		TestTask[] currentList = td.getTypicalTasks();
 		currentList[6].setDate(new EventDate("12.10.2016-10","11.10.2016-12"));
