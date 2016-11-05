@@ -94,7 +94,7 @@ public class TaskListPanel extends UiPart {
             
         default :
             assert false : "List must be either todo, deadline or event";
-        
+            break;
         }
     }
     
