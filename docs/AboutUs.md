@@ -52,13 +52,24 @@ Responsibilities: UI
 	* Generating sample data
 	* Leading presentation preperation and execution
 	
-[comment]: # (@@author )
+[comment]: # (@@author A0065571A)
 -----
 
-#### [Patrick Cho](http://github.com/patrickcho168)
+#### [Patrick Cho @patrickcho168](http://github.com/patrickcho168)
 <img src="https://scontent-sin6-1.xx.fbcdn.net/v/t1.0-9/12036943_10153521706166893_6347077312098129311_n.jpg?oh=cf2b668dfc778ebd1977acb8f7b4f371&oe=58675868" width="150"><br>
 Role: Integration / Git Expert <br>
-Responsibilities: Model
+* Components in charge of: [Model](https://github.com/CS2103AUG2016-T14-C3/main/blob/master/docs/DeveloperGuide.md#model-component)
+* Aspects/tools in charge of: Integration, Git
+* Features implemented:
+	* Undo / Redo Commands [[bb2fb85](https://github.com/CS2103AUG2016-T14-C3/main/commit/bb2fb8573444398d098d3e3d1d204d755ebfce55)] [[8e3a8d1](https://github.com/CS2103AUG2016-T14-C3/main/commit/8e3a8d1ee158b8beea169d23635b411c77338b60)]
+	* Add Task, Deadline and Event Commands [[d4a9149](https://github.com/CS2103AUG2016-T14-C3/main/commit/d4a914922bc2cba6e78103161676b35146a636ca)]
+	* Done / Notdone Commands [[0b680c4](https://github.com/CS2103AUG2016-T14-C3/main/commit/0b680c44dee77a3536c022638f86cd2e48a98658)]
+	* UI Buttons for Done, Not Done and Delete [[0b680c4](https://github.com/CS2103AUG2016-T14-C3/main/commit/0b680c44dee77a3536c022638f86cd2e48a98658)]
+	* NLP for Datetime [[f83dacb](https://github.com/CS2103AUG2016-T14-C3/main/commit/f83dacbd408bc3d73aff91f3c1660d7d9f8010da8)]
+	* Left Hand Side for Summary and Right Hand Side for Details [[e1c57b6](https://github.com/CS2103AUG2016-T14-C3/main/commit/e1c57b6b00a0743743b28befdfebe0aef79648a1)]
+* Code written: [[functional code](https://github.com/CS2103AUG2016-T14-C3/main/blob/develop/collated/main/A0065571A.md)][[test code](https://github.com/CS2103AUG2016-T14-C3/main/blob/develop/collated/test/A0065571A.md)][[docs](https://github.com/CS2103AUG2016-T14-C3/main/blob/develop/collated/docs/A0065571A.md)]
+* Other major contributions:
+	* Refactor Addressbook to TaskManager [[c7a25dc](https://github.com/CS2103AUG2016-T14-C3/main/commit/c7a25dcae23ba1f9282584ab5a6f627195411172)]
 
 -----
 
