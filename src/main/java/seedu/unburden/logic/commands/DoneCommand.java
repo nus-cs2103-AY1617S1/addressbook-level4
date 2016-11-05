@@ -30,24 +30,32 @@ public class DoneCommand extends Command {
 
 	public final int targetIndex;
 
+	public DoneCommand() {
+		this.targetIndex = Integer.MIN_VALUE; // Dummy variable for the index
+	}
+
 	public DoneCommand(int targetIndex) {
 		this.targetIndex = targetIndex;
 	}
 
 	@Override
-	public CommandResult execute() throws DuplicateTagException, IllegalValueException {
-
+	public CommandResult execute() {
+		assert model != null;
 		UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
-
-		if (lastShownList.size() < targetIndex) {
-			indicateAttemptToExecuteIncorrectCommand();
-			return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
-		}
-
 		ReadOnlyTask taskToDone = lastShownList.get(targetIndex - 1);
-
-		model.saveToPrevLists();
-		model.doneTask(taskToDone, true);
+		if (targetIndex == Integer.MIN_VALUE) {
+			model.saveToPrevLists();
+			for(ReadOnlyTask task : lastShownList){
+				model.doneTask(task, true);
+			}
+		} else {
+			if (lastShownList.size() < targetIndex) {
+				indicateAttemptToExecuteIncorrectCommand();
+				return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
+			}
+			model.saveToPrevLists();
+			model.doneTask(taskToDone, true);
+		}
 		return new CommandResult(String.format(MESSAGE_DELETE_TASK_SUCCESS, taskToDone));
 	}
 
