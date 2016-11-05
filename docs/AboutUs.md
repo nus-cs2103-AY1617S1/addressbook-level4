@@ -34,7 +34,14 @@ Responsibilities: UI
  Role: Developer <br>  
  Responsibilities: Logic
  
- -----
+-----
+
+#### [Nyan Lin Cho](https://github.com/NachosNLC) 
+<img src="images/Nachos.jpg" width="150"><br>
+ Role: Developer <br>  
+ Responsibilities: Model
+ 
+-----
 
 # Acknoledgements
 
