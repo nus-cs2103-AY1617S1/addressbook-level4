@@ -28,5 +28,9 @@ public class MainGuiHandle extends GuiHandle {
     public MainMenuHandle getMainMenu() {
         return new MainMenuHandle(guiRobot, primaryStage);
     }
+    
+    public boolean isMainWindowOpen() {
+        return getNode("#commandTextField") != null;
+    }
 
 }

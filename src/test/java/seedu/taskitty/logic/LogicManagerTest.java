@@ -9,7 +9,6 @@ import org.junit.rules.TemporaryFolder;
 
 import seedu.taskitty.commons.core.EventsCenter;
 import seedu.taskitty.commons.events.model.TaskManagerChangedEvent;
-import seedu.taskitty.commons.events.ui.JumpToListRequestEvent;
 import seedu.taskitty.commons.events.ui.ShowHelpRequestEvent;
 import seedu.taskitty.logic.Logic;
 import seedu.taskitty.logic.LogicManager;
@@ -56,11 +55,6 @@ public class LogicManagerTest {
     @Subscribe
     private void handleShowHelpRequestEvent(ShowHelpRequestEvent she) {
         helpShown = true;
-    }
-
-    @Subscribe
-    private void handleJumpToListRequestEvent(JumpToListRequestEvent je) {
-        targetedJumpIndex = je.targetIndex;
     }
 
     @Before
