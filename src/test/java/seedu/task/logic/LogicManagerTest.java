@@ -123,24 +123,24 @@ public class LogicManagerTest {
     }
 
     @Test
-    public void execute_unknownCommandWord() throws Exception {
+    public void executeUnknownCommandWord() throws Exception {
         String unknownCommand = "uicfhmowqewca";
         assertCommandBehavior(unknownCommand, MESSAGE_UNKNOWN_COMMAND);
     }
 
     @Test
-    public void execute_help() throws Exception {
+    public void executeHelp() throws Exception {
         assertCommandBehavior("help", HelpCommand.SHOWING_HELP_MESSAGE);
         assertTrue(helpShown);
     }
 
     @Test
-    public void execute_exit() throws Exception {
+    public void executeExit() throws Exception {
         assertCommandBehavior("exit", ExitCommand.MESSAGE_EXIT_ACKNOWLEDGEMENT);
     }
 
     @Test
-    public void execute_clear() throws Exception {
+    public void executeClear() throws Exception {
         TestDataHelper helper = new TestDataHelper();
         model.addTask(helper.generateTask(1));
         model.addTask(helper.generateTask(2));
@@ -151,7 +151,7 @@ public class LogicManagerTest {
 
     // @@author A0147944U-reused
     @Test
-    public void execute_add_invalidArgsFormat() throws Exception {
+    public void executeAddInvalidArgsFormat() throws Exception {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE);
         assertCommandBehavior("add inval#id name", expectedMessage);
         assertCommandBehavior("add Invalid start time, from 3@0.00am to 11.11pm by 10.00pm #tagged", expectedMessage);
@@ -161,7 +161,7 @@ public class LogicManagerTest {
     }
 
     @Test
-    public void execute_add_invalidTaskData() throws Exception {
+    public void executeAddInvalidTaskData() throws Exception {
         assertCommandBehavior("add Inval/id name, from 10.00 to 11.11 by 10.00", Name.MESSAGE_NAME_CONSTRAINTS);
         /*assertCommandBehavior(
                 "add Invalid start time, from 20.00 to 11.11 by 10.00", StartTime.MESSAGE_STARTTIME_CONSTRAINTS);
@@ -229,10 +229,10 @@ public class LogicManagerTest {
      */
     private void assertIncorrectIndexFormatBehaviorForCommand(String commandWord, String expectedMessage)
             throws Exception {
-        assertCommandBehavior(commandWord , expectedMessage); //index missing
-        assertCommandBehavior(commandWord + " +1", expectedMessage); //index should be unsigned
-        assertCommandBehavior(commandWord + " -1", expectedMessage); //index should be unsigned
-        assertCommandBehavior(commandWord + " 0", expectedMessage); //index cannot be 0
+        assertCommandBehavior(commandWord , expectedMessage); // index missing
+        assertCommandBehavior(commandWord + " +1", expectedMessage); // index should be unsigned
+        assertCommandBehavior(commandWord + " -1", expectedMessage); // index should be unsigned
+        assertCommandBehavior(commandWord + " 0", expectedMessage); // index cannot be 0
         assertCommandBehavior(commandWord + " not_a_number", expectedMessage);
     }
 
