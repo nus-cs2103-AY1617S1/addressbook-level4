@@ -125,8 +125,8 @@ public abstract class GuiTest {
         assertSameDate(taskDate, dateItem);
         
         // Check TaskListDateItem if it contains the TaskListTaskItem with the same data.
-        TaskListTaskItemHandle taskItem = dateItem.getTaskListTaskItem(taskToAdd.getName());
-        assertSameTaskName(taskToAdd, taskItem);
+        TaskListTaskItemHandle taskItem = dateItem.getTaskListTaskItem(taskToAdd);
+        assertNotNull(taskItem);
     }
 
     /**
@@ -154,8 +154,8 @@ public abstract class GuiTest {
         assertSameDate(eventStartDate, dateItem);
         
         // Check TaskListDateItem if it contains the TaskListEventItem with the same data.
-        TaskListEventItemHandle eventItem = dateItem.getTaskListEventItem(eventToAdd.getName());
-        assertSameEventName(eventToAdd, eventItem);
+        TaskListEventItemHandle eventItem = dateItem.getTaskListEventItem(eventToAdd);
+        assertNotNull(eventItem);
     }
     
     /**
@@ -182,7 +182,7 @@ public abstract class GuiTest {
         }
         
         // If there's a date item, then we make sure that it isn't a task in the date item with the same name.
-        TaskListTaskItemHandle taskItem = dateItem.getTaskListTaskItem(taskToAdd.getName());
+        TaskListTaskItemHandle taskItem = dateItem.getTaskListTaskItem(taskToAdd);
         assertNull(taskItem);
     }
 
@@ -210,7 +210,7 @@ public abstract class GuiTest {
         }
         
         // If there's a date item, then we make sure that there isn't an event in the date item with the same name.
-        TaskListEventItemHandle eventItem = dateItem.getTaskListEventItem(eventToAdd.getName());
+        TaskListEventItemHandle eventItem = dateItem.getTaskListEventItem(eventToAdd);
         assertNull(eventItem);
     }
 }

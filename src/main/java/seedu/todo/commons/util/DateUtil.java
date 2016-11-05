@@ -2,6 +2,7 @@ package seedu.todo.commons.util;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.time.format.TextStyle;
@@ -174,6 +175,13 @@ public class DateUtil {
         }
         
         return dateTime.toLocalTime().format(DateTimeFormatter.ofPattern("HH:mm"));
+    }
+    
+    /**
+     * Parses a ISO-format time string ({@code HH:mm}) into a LocalTime.
+     */
+    public static LocalTime parseTime(String timeString) {
+        return LocalTime.parse(timeString, DateTimeFormatter.ofPattern("HH:mm"));
     }
     
     /**

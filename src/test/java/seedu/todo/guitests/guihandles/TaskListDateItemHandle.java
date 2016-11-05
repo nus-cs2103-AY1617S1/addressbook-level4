@@ -7,6 +7,8 @@ import javafx.scene.Node;
 import javafx.stage.Stage;
 import seedu.todo.commons.util.DateUtil;
 import seedu.todo.guitests.GuiRobot;
+import seedu.todo.models.Event;
+import seedu.todo.models.Task;
 
 /**
  * @@author A0139812A
@@ -14,7 +16,8 @@ import seedu.todo.guitests.GuiRobot;
 public class TaskListDateItemHandle extends GuiHandle {
 
     private static final String TASKLISTDATEITEM_DATE_ID = "#dateLabel";
-    private static final String TASKLISTITEMS_PANEL = "#dateCalendarItemsPlaceholder";
+    private static final String TASKLISTTASKITEM_ID = "#taskListTaskItem";
+    private static final String TASKLISTEVENTITEM_ID = "#taskListEventItem";
     private Node node;
 
     public TaskListDateItemHandle(GuiRobot guiRobot, Stage primaryStage, Node node){
@@ -40,12 +43,12 @@ public class TaskListDateItemHandle extends GuiHandle {
     }
     
     /**
-     * Returns a TaskListTaskItemHandle that corresponds to the name specified.
+     * Returns a TaskListTaskItemHandle that corresponds to the task's data.
      * If it doesn't exist, it returns null.
      */
-    public TaskListTaskItemHandle getTaskListTaskItem(String taskName) {
-        Optional<Node> taskItemNode = guiRobot.lookup(TASKLISTITEMS_PANEL).queryAll().stream()
-                .filter(node -> new TaskListTaskItemHandle(guiRobot, primaryStage, node).getName().equals(taskName))
+    public TaskListTaskItemHandle getTaskListTaskItem(Task taskToCompare) {
+        Optional<Node> taskItemNode = guiRobot.lookup(TASKLISTTASKITEM_ID).queryAll().stream()
+                .filter(node -> new TaskListTaskItemHandle(guiRobot, primaryStage, node).isEqualsToTask(taskToCompare))
                 .findFirst();
         
         if (taskItemNode.isPresent()) {
@@ -56,12 +59,12 @@ public class TaskListDateItemHandle extends GuiHandle {
     }
     
     /**
-     * Returns a TaskListEventItemHandle that corresponds to the name specified.
+     * Returns a TaskListEventItemHandle that corresponds to the event's data.
      * If it doesn't exist, it returns null.
      */
-    public TaskListEventItemHandle getTaskListEventItem(String eventName) {
-        Optional<Node> eventItemNode = guiRobot.lookup(TASKLISTITEMS_PANEL).queryAll().stream()
-                .filter(node -> new TaskListEventItemHandle(guiRobot, primaryStage, node).getName().equals(eventName))
+    public TaskListEventItemHandle getTaskListEventItem(Event eventToCompare) {
+        Optional<Node> eventItemNode = guiRobot.lookup(TASKLISTEVENTITEM_ID).queryAll().stream()
+                .filter(node -> new TaskListEventItemHandle(guiRobot, primaryStage, node).isEqualsToEvent(eventToCompare))
                 .findFirst();
         
         if (eventItemNode.isPresent()) {

@@ -36,10 +36,10 @@ public class UpdateCommandTest extends GuiTest {
         console.runCommand("add Buy milk by 2016-10-15 2pm");
         
         // Update the task
-        String command = "update 1 by today";
+        String command = "update 1 by today 5pm";
         Task task = new Task();
         task.setName("Buy milk");
-        task.setDueDate(LocalDateTime.now());
+        task.setDueDate(LocalDateTime.now().toLocalDate().atTime(17, 0));
         assertTaskVisibleAfterCmd(command, task);
     }
     
@@ -52,10 +52,10 @@ public class UpdateCommandTest extends GuiTest {
         console.runCommand("add Buy milk");
         
         // Update the task
-        String command = "update 1 by today";
+        String command = "update 1 by today 5pm";
         Task task = new Task();
         task.setName("Buy milk");
-        task.setDueDate(LocalDateTime.now());
+        task.setDueDate(LocalDateTime.now().toLocalDate().atTime(17, 0));
         assertTaskVisibleAfterCmd(command, task);
     }
 
