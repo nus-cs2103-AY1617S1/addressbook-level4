@@ -1,4 +1,4 @@
-package w15c2.tusk.model.task;
+package w15c2.tusk.model;
 
 import java.util.Set;
 import java.util.function.Predicate;
@@ -20,40 +20,28 @@ import w15c2.tusk.commons.events.model.TaskManagerChangedEvent;
 import w15c2.tusk.commons.events.ui.FilterLabelChangeEvent;
 import w15c2.tusk.commons.events.ui.FilterLabelChangeEvent.COMMANDTYPE;
 import w15c2.tusk.commons.util.StringUtil;
-import w15c2.tusk.logic.commands.taskcommands.AddAliasCommand;
-import w15c2.tusk.logic.commands.taskcommands.AddTaskCommand;
-import w15c2.tusk.logic.commands.taskcommands.ClearTaskCommand;
-import w15c2.tusk.logic.commands.taskcommands.CompleteTaskCommand;
-import w15c2.tusk.logic.commands.taskcommands.DeleteAliasCommand;
-import w15c2.tusk.logic.commands.taskcommands.FindTaskCommand;
-import w15c2.tusk.logic.commands.taskcommands.ListTaskCommand;
-import w15c2.tusk.logic.commands.taskcommands.PinTaskCommand;
-import w15c2.tusk.logic.commands.taskcommands.RedoTaskCommand;
-import w15c2.tusk.logic.commands.taskcommands.SetStorageCommand;
 import w15c2.tusk.logic.commands.taskcommands.TaskCommandList;
-import w15c2.tusk.logic.commands.taskcommands.UncompleteTaskCommand;
-import w15c2.tusk.logic.commands.taskcommands.UndoTaskCommand;
-import w15c2.tusk.logic.commands.taskcommands.UnpinTaskCommand;
 import w15c2.tusk.model.Alias;
 import w15c2.tusk.model.HelpGuide;
 import w15c2.tusk.model.ModelHistory;
 import w15c2.tusk.model.UserPrefs;
+import w15c2.tusk.model.task.Task;
 
 /**
  * Manages a list of tasks & aliases and acts as a gateway for Commands to perform CRUD operations on the list
  */
-public class TaskManager extends ComponentManager implements Model {
-	private static final Logger logger = LogsCenter.getLogger(TaskManager.class);
+public class ModelManager extends ComponentManager implements Model {
+	private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 	private UniqueItemCollection<Task> tasks;
 	private UniqueItemCollection<Alias> aliases;
 	private FilteredList<Task> filteredTasks;
 	private final ModelHistory modelHistory; // Stores tasks & aliases to support undo & redo commands
 
-	public TaskManager() {
+	public ModelManager() {
 		this(new UniqueItemCollection<Task>(), new UniqueItemCollection<Alias>(), null);		
 	}
 	
-	public TaskManager(UniqueItemCollection<Task> tasks, UniqueItemCollection<Alias> aliases, UserPrefs userPrefs) {
+	public ModelManager(UniqueItemCollection<Task> tasks, UniqueItemCollection<Alias> aliases, UserPrefs userPrefs) {
 		this.tasks = tasks;
 		this.aliases = aliases;
 		this.modelHistory = new ModelHistory();

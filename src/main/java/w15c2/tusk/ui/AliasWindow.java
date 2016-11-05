@@ -18,7 +18,6 @@ import java.util.logging.Logger;
 public class AliasWindow extends UiPart {
 
     private static final Logger logger = LogsCenter.getLogger(AliasWindow.class);
-    private static final String ICON = "/images/help_icon.png";
     private static final String FXML = "AliasWindow.fxml";
     private static final String TITLE = "Alias List";
     
@@ -54,9 +53,15 @@ public class AliasWindow extends UiPart {
         scene = new Scene(rootLayout);
         //Null passed as the parent stage to make it non-modal.
         dialogStage = createDialogStage(TITLE, null, scene);
-        setIcon(dialogStage, ICON);
-        aliasPanel = AliasListPanel.load(dialogStage, aliasListPanelPlaceholder,logic.getAlias() );        
+        setDimensions();
+        aliasPanel = AliasListPanel.load(dialogStage, aliasListPanelPlaceholder,logic.getAlias());        
         
+    }
+    
+    public void setDimensions() {
+        dialogStage.setMinHeight(400);
+        dialogStage.setMaxHeight(400);
+        dialogStage.setMinWidth(300);
     }
 
     public void show() {

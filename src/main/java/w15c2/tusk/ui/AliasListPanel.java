@@ -7,11 +7,16 @@ import com.google.common.eventbus.Subscribe;
 
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
+import javafx.event.Event;
+import javafx.event.EventHandler;
+import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
+import javafx.scene.control.ScrollToEvent;
 import javafx.scene.control.SplitPane;
+import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -57,9 +62,10 @@ public class AliasListPanel extends UiPart {
         aliasListPanel.configure(aliasList);
         return aliasListPanel;
     }
-
+    
     private void configure(ObservableList<Alias> aliasList) {
         setConnections(aliasList);
+        setSelectableCharacteristics();
         addToPlaceholder();
         registerAsAnEventHandler(this);
     }
@@ -67,6 +73,21 @@ public class AliasListPanel extends UiPart {
     private void setConnections(ObservableList<Alias> aliasList) {
         aliasListView.setItems(aliasList);
         aliasListView.setCellFactory(listView -> new AliasListViewCell());
+    }
+    
+    /*
+     * Consume all events except for scrolling and scrollevents from control up/down
+     */
+    private void setSelectableCharacteristics() {
+        aliasListView.addEventFilter(Event.ANY, new EventHandler<Event>() {
+            @Override
+            public void handle(Event event) {
+               EventType<?> type = event.getEventType().getSuperType();
+               if (type != ScrollEvent.ANY && type != ScrollToEvent.ANY) {
+                   event.consume();
+               } 
+            }
+        });
     }
 
     private void addToPlaceholder() {
@@ -83,7 +104,7 @@ public class AliasListPanel extends UiPart {
     
     @Subscribe
     public void handleAliasChangedEvent(AliasChangedEvent abce) {
-    	UniqueItemCollection<Alias> newAliases = abce.data;
+        UniqueItemCollection<Alias> newAliases = abce.data;
         setConnections(newAliases.getInternalList());
         logger.info(LogsCenter.getEventHandlingLogMessage(abce, "Refreshed alias list"));
     }

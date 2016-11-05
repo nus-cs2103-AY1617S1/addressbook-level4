@@ -14,9 +14,9 @@ import w15c2.tusk.logic.commands.taskcommands.TaskCommand;
 import w15c2.tusk.logic.parser.TaskCommandsParser;
 import w15c2.tusk.model.Alias;
 import w15c2.tusk.model.HelpGuide;
-import w15c2.tusk.model.task.Model;
+import w15c2.tusk.model.Model;
 import w15c2.tusk.model.task.Task;
-import w15c2.tusk.storage.task.TaskStorage;
+import w15c2.tusk.storage.Storage;
 
 /**
  * The main LogicManager_Task of the app.
@@ -30,7 +30,7 @@ public class LogicManager extends ComponentManager implements Logic {
     private final AutocompleteEngine autocompleteEngine;
     private AutocompleteResult currentAutocompleteResult;
 
-    public LogicManager(Model model, TaskStorage storage) {
+    public LogicManager(Model model, Storage storage) {
         this.model = model;
         this.parser = new TaskCommandsParser();
         this.commandHistory = new CommandHistory();

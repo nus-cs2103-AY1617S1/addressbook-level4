@@ -50,7 +50,7 @@ public class DeleteAliasCommand extends TaskCommand {
 	    }
 	    try {
 	        model.deleteAlias(aliasToDelete);   
-	        EventsCenter.getInstance().post(new HideHelpRequestEvent());
+	        closeHelpWindow();
 	        return new CommandResult(String.format(MESSAGE_DELETE_ALIAS_SUCCESS, aliasToDelete));
 	    } catch (ItemNotFoundException tnfe) {
         	return new CommandResult(MESSAGE_ALIAS_NOT_FOUND);

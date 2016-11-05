@@ -48,7 +48,7 @@ public class UnpinTaskCommand extends TaskCommand {
         if(taskToUnpin.isPinned()){
             
         	model.unpinTask(taskToUnpin);
-        	EventsCenter.getInstance().post(new HideHelpRequestEvent());
+        	closeHelpWindow();
         	return new CommandResult(String.format(MESSAGE_UNPIN_TASK_SUCCESS, taskToUnpin));
         }
         else{

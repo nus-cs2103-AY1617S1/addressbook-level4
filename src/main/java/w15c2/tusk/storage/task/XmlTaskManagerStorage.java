@@ -15,7 +15,7 @@ import w15c2.tusk.model.task.Task;
 /**
  * A class to access TaskManager data stored as an xml file on the hard disk.
  */
-public class XmlTaskManagerStorage implements TaskManagerStorage {
+public class XmlTaskManagerStorage implements TaskStorage {
 
     private static final Logger logger = LogsCenter.getLogger(XmlTaskManagerStorage.class);
 

@@ -1,4 +1,4 @@
-package w15c2.tusk.model.task;
+package w15c2.tusk.model;
 
 import java.util.Set;
 
@@ -9,6 +9,8 @@ import w15c2.tusk.commons.collections.UniqueItemCollection.ItemNotFoundException
 import w15c2.tusk.commons.core.UnmodifiableObservableList;
 import w15c2.tusk.model.Alias;
 import w15c2.tusk.model.HelpGuide;
+import w15c2.tusk.model.task.Task;
+
 
 /*
  * Represents an in-memory task list

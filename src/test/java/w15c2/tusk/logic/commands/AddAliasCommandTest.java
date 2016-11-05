@@ -8,8 +8,8 @@ import org.junit.Test;
 import w15c2.tusk.commons.exceptions.IllegalValueException;
 import w15c2.tusk.logic.commands.CommandResult;
 import w15c2.tusk.logic.commands.taskcommands.AddAliasCommand;
-import w15c2.tusk.model.task.Model;
-import w15c2.tusk.model.task.TaskManager;
+import w15c2.tusk.model.Model;
+import w15c2.tusk.model.ModelManager;
 
 //@@author A0143107U
 public class AddAliasCommandTest {
@@ -19,7 +19,7 @@ public class AddAliasCommandTest {
 
 	@Before
 	public void setup() {
-		model = new TaskManager();
+		model = new ModelManager();
 	}
 	
 	@Test

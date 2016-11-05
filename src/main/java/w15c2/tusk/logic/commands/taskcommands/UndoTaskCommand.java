@@ -29,7 +29,7 @@ public class UndoTaskCommand extends TaskCommand {
     	} catch (IllegalStateException ise) {
     		return new CommandResult(MESSAGE_UNDO_INVALID_STATE);
     	}
-    	EventsCenter.getInstance().post(new HideHelpRequestEvent());
+    	closeHelpWindow();
     	return new CommandResult(MESSAGE_UNDO_TASK_SUCCESS);
     }
     

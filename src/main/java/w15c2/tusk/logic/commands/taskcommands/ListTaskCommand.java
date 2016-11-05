@@ -46,7 +46,7 @@ public class ListTaskCommand extends TaskCommand {
     public CommandResult execute() {
         if(argument.equals("alias")) {
             EventsCenter.getInstance().post(new ShowAliasListEvent());
-            EventsCenter.getInstance().post(new HideHelpRequestEvent());
+            closeHelpWindow();
             return new CommandResult(MESSAGE_ALIAS_SUCCESS);
 
         }
@@ -55,6 +55,7 @@ public class ListTaskCommand extends TaskCommand {
         	if(model.getCurrentFilteredTasks().size() == 0) {
                 return new CommandResult(MESSAGE_NO_COMPLETED_TASKS);
             }
+        	closeHelpWindow();
         	return new CommandResult(MESSAGE_COMPLETED_SUCCESS);
         }
         else{
@@ -62,7 +63,7 @@ public class ListTaskCommand extends TaskCommand {
             if(model.getCurrentFilteredTasks().size() == 0) {
                 return new CommandResult(MESSAGE_NOTASKS);
             }
-            EventsCenter.getInstance().post(new HideHelpRequestEvent());
+            closeHelpWindow();
             return new CommandResult(MESSAGE_SUCCESS);
         }
 

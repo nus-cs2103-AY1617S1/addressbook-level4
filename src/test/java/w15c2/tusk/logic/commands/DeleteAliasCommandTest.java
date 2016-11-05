@@ -8,8 +8,8 @@ import w15c2.tusk.commons.exceptions.IllegalValueException;
 import w15c2.tusk.logic.commands.CommandResult;
 import w15c2.tusk.logic.commands.taskcommands.AddAliasCommand;
 import w15c2.tusk.logic.commands.taskcommands.DeleteAliasCommand;
-import w15c2.tusk.model.task.Model;
-import w15c2.tusk.model.task.TaskManager;
+import w15c2.tusk.model.Model;
+import w15c2.tusk.model.ModelManager;
 
 //@@author A0143107U
 public class DeleteAliasCommandTest {
@@ -63,12 +63,12 @@ public class DeleteAliasCommandTest {
 	 * Utility Functions
 	 */
 	public void setupEmptyAliasList() {
-		model = new TaskManager();
+		model = new ModelManager();
 	}
 	
 	// Setting up alias in the AliasList in order to delete them in the tests
 	public void setupSomeAliasInAliasList() throws IllegalValueException {
-		model = new TaskManager();
+		model = new ModelManager();
 		// Add 3 tasks into the alias list
 		AddAliasCommand command = new AddAliasCommand("am", "add meeting");	
 		command.setData(model);

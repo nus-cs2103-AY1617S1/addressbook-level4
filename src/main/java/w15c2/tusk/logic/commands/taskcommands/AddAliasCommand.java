@@ -57,7 +57,7 @@ public class AddAliasCommand extends TaskCommand {
         assert model != null;
         try {
             model.addAlias(toAdd);
-            EventsCenter.getInstance().post(new HideHelpRequestEvent());
+            closeHelpWindow();
             return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
         } catch (UniqueItemCollection.DuplicateItemException e) {
             return new CommandResult(MESSAGE_DUPLICATE_ALIAS);

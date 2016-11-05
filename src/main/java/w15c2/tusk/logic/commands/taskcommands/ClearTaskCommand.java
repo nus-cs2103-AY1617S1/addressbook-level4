@@ -1,5 +1,7 @@
 package w15c2.tusk.logic.commands.taskcommands;
 
+import w15c2.tusk.commons.core.EventsCenter;
+import w15c2.tusk.commons.events.ui.HideHelpRequestEvent;
 import w15c2.tusk.logic.commands.CommandResult;
 
 /**
@@ -24,6 +26,7 @@ public class ClearTaskCommand extends TaskCommand {
         @Override
         public CommandResult execute() {
             int deleted = model.clearTasks();
+            closeHelpWindow();
             return new CommandResult(String.format("%d tasks deleted!", deleted));
         }
 }

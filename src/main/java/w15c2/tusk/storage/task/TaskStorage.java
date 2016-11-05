@@ -4,59 +4,42 @@ import java.io.IOException;
 import java.util.Optional;
 
 import w15c2.tusk.commons.collections.UniqueItemCollection;
-import w15c2.tusk.commons.events.model.AliasChangedEvent;
-import w15c2.tusk.commons.events.model.TaskManagerChangedEvent;
-import w15c2.tusk.commons.events.storage.DataSavingExceptionEvent;
 import w15c2.tusk.commons.exceptions.DataConversionException;
-import w15c2.tusk.model.Alias;
-import w15c2.tusk.model.UserPrefs;
 import w15c2.tusk.model.task.Task;
-import w15c2.tusk.storage.*;
-import w15c2.tusk.storage.alias.AliasStorage;
 
 /**
- * API of the TaskStorage component
+ * Represents a storage for {@link w15c2.tusk.model.ModelManager}.
  */
-//@@author A0143107U
-public interface TaskStorage extends TaskManagerStorage, UserPrefsStorage, AliasStorage {
+public interface TaskStorage {
 
-    @Override
-    Optional<UserPrefs> readUserPrefs() throws DataConversionException, IOException;
-
-    @Override
-    void saveUserPrefs(UserPrefs userPrefs) throws IOException;
-
-    @Override
+    /**
+     * Returns the file path of the data file.
+     */
     String getTaskManagerFilePath();
 
-    @Override
+    /**
+     * Returns Task Manager data as a {@link UniqueItemCollection<Task>}.
+     *   Returns {@code Optional.empty()} if storage file is not found.
+     * @throws DataConversionException if the data in storage is not in the expected format.
+     * @throws IOException if there was any problem when reading from the storage.
+     */
     Optional<UniqueItemCollection<Task>> readTaskManager() throws DataConversionException, IOException;
 
-    @Override
-    void saveTaskManager(UniqueItemCollection<Task> taskManager) throws IOException;
-    
     /**
-     * Saves the current version of the Task Manager to the hard disk.
-     *   Creates the data file if it is missing.
-     * Raises {@link DataSavingExceptionEvent} if there was an error during saving.
+     * @see #getTaskManagerFilePath()
      */
-    void handleTaskManagerChangedEvent(TaskManagerChangedEvent tmce);
-    
-    @Override
-    String getAliasFilePath();
-    
-    @Override
-    Optional<UniqueItemCollection<Alias>> readAlias() throws DataConversionException, IOException;
+    Optional<UniqueItemCollection<Task>> readTaskManager(String filePath) throws DataConversionException, IOException;
 
-    @Override
-    void saveAlias(UniqueItemCollection<Alias> alias) throws IOException;
-    
     /**
-     * Saves the current version of the Alias to the hard disk.
-     *   Creates the data file if it is missing.
-     * Raises {@link DataSavingExceptionEvent} if there was an error during saving.
+     * Saves the given {@link UniqueItemCollection<Task>} to the storage.
+     * @param taskManager cannot be null.
+     * @throws IOException if there was any problem writing to the file.
      */
-    void handleAliasChangedEvent(AliasChangedEvent ace);
-    
+    void saveTaskManager(UniqueItemCollection<Task> taskManager) throws IOException;
+
+    /**
+     * @see #saveTaskManager(UniqueItemCollection<Task>)
+     */
+    void saveTaskManager(UniqueItemCollection<Task> taskManager, String filePath) throws IOException;
 
 }

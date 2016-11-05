@@ -12,8 +12,8 @@ import org.junit.Test;
 import w15c2.tusk.commons.exceptions.IllegalValueException;
 import w15c2.tusk.logic.commands.CommandResult;
 import w15c2.tusk.logic.commands.taskcommands.AddTaskCommand;
-import w15c2.tusk.model.task.Model;
-import w15c2.tusk.model.task.TaskManager;
+import w15c2.tusk.model.Model;
+import w15c2.tusk.model.ModelManager;
 
 //@@author A0139817U
 public class AddTaskCommandTest {
@@ -23,7 +23,7 @@ public class AddTaskCommandTest {
 
 	@Before
 	public void setup() {
-		model = new TaskManager();
+		model = new ModelManager();
 	}
 	
 	@Test

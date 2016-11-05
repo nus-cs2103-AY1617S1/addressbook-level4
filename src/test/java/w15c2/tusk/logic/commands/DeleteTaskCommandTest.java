@@ -8,7 +8,7 @@ import w15c2.tusk.commons.core.Messages;
 import w15c2.tusk.commons.exceptions.IllegalValueException;
 import w15c2.tusk.logic.commands.CommandResult;
 import w15c2.tusk.logic.commands.taskcommands.DeleteTaskCommand;
-import w15c2.tusk.model.task.Model;
+import w15c2.tusk.model.Model;
 import w15c2.tusk.testutil.TestUtil;
 
 //@@author A0139817U

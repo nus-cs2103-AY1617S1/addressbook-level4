@@ -105,7 +105,7 @@ public class AddTaskCommand extends TaskCommand {
         try {
             model.addTask(toAdd);
             model.clearTasksFilter();
-            EventsCenter.getInstance().post(new HideHelpRequestEvent());
+            closeHelpWindow();
             return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
         } catch (DuplicateItemException e) {
             return new CommandResult(MESSAGE_DUPLICATE_TASK);

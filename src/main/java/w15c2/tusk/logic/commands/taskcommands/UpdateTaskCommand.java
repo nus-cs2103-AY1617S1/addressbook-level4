@@ -6,7 +6,9 @@ import java.util.Date;
 import javafx.collections.ObservableList;
 import w15c2.tusk.commons.collections.UniqueItemCollection.DuplicateItemException;
 import w15c2.tusk.commons.collections.UniqueItemCollection.ItemNotFoundException;
+import w15c2.tusk.commons.core.EventsCenter;
 import w15c2.tusk.commons.core.Messages;
+import w15c2.tusk.commons.events.ui.HideHelpRequestEvent;
 import w15c2.tusk.commons.exceptions.IllegalValueException;
 import w15c2.tusk.commons.util.DateUtil;
 import w15c2.tusk.logic.commands.CommandResult;
@@ -222,6 +224,7 @@ public class UpdateTaskCommand extends TaskCommand {
             assert false : "The target item cannot be missing";
         } 
 
+        closeHelpWindow();
         return new CommandResult(String.format(MESSAGE_UPDATE_TASK_SUCCESS, updatedTask.getDescription().getContent()));
     }
 

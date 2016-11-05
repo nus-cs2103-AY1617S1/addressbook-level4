@@ -46,7 +46,7 @@ public class PinTaskCommand extends TaskCommand {
         Task taskToPin = lastShownList.get(targetIndex - 1);
 
         if(!taskToPin.isPinned()){
-            EventsCenter.getInstance().post(new HideHelpRequestEvent());
+            closeHelpWindow();
         	model.pinTask(taskToPin);
             return new CommandResult(String.format(MESSAGE_PIN_TASK_SUCCESS, taskToPin));
         }
