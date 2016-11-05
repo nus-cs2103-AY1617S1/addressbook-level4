@@ -29,7 +29,7 @@
    * **`update`**`1 name presentation ends tomorrow` : updates first task on the list to presentation having a deadline tomorrow while the number '1' is the index of task on the list
    * **`undo`** : undo previous one action
    * **`pin`**`1` : pin the first task in the list
-   * **'change-to'**`data/taskmanager.xml`: change the storage location
+   * **`change-to`**`data/taskmanager.xml`: change the storage location
    * **`unpin`**`1` : unpin the pinned first task in the list
    * **`exit`** :exit the program
 6. Refer to the [Features](#features) section below for details of each command.<br>
@@ -87,6 +87,8 @@ Format: `delete INDEX`
 
 > * INDEX refers to the number appears on the list in front the task name.
 
+<img src="images/IndexPicture.png" width="600"><br>
+
 Examples:
 * `delete 1`<br>
   Deletes the first task in the to-do list.
@@ -98,11 +100,13 @@ FormatL `complete INDEX`
 
 > * INDEX refers to the number appears on the list in front the task name.
 
+<img src="images/CompletedTaskImage.png" width="600"><br>
+
 Example:
 * `complete 2`<br>
    Marks the second task on the list as completed.
    
-#### Unarking a completed task as not completed: `uncomplete`
+#### Unmarking a completed task as not completed: `uncomplete`
 Unmarks a completed specific task as not completed by index from the to-do list.<br>
 FormatL `uncomplete INDEX`
 
@@ -112,17 +116,19 @@ Example:
 * `uncomplete 2`<br>
    Unmarks the completed second task on the list as not completed.
    
-#### Pin: `pin`
+#### Pin a task as important: `pin`
 Pin an important task.<br>
 Format: `pin INDEX`
 
 > * INDEX refers to the number appears on the list in front the task name.
 
+<img src="images/PinnedTaskImage.png" width="600"><br>
+
 Example:
 * `pin 1`<br>
 pin the first task to show that it is an important task.
 
-#### Unpin: `unpin`
+#### Unpin a pinned task: `unpin`
 Unpin a previously pinned task.<br>
 Format: `unpin INDEX`
 
@@ -165,8 +171,6 @@ Format: `searchbox`
 
 
 <!-- @@author A0144939R-->
-
-
 #### Update entries : `update`
 Update a specific task.<br>
 Format: `update INDEX [name TASKNAME starts STARTDATETIME ends ENDDATETIME tag TAG remove-tag TO_REMOVE_TAG]`
@@ -233,7 +237,7 @@ Example: 'change-to data/taskmanager.xml'
 
 > <img src="images/MESS_004.png" width="600"><br>
 
-In this example, you can see shopping is a floating task without a start time and deadline. 
+In this example, you can see shopping is a floating task without a start time and end time. 
 <!-- @@author -->  	
 
 ## Command Summary
@@ -242,11 +246,11 @@ Command | Format
 -------- | :--------
 Add | `add TASK_NAME [starts START_DATE_TIME ends CLOSE_DATE_TIME tag TAG]`
 Alias | `alias add a`
-Delete | `delete TASK_NAME` or `delete INDEX`
+Delete |`delete INDEX`
 Complete | `complete INDEX`
 Uncomplete | `uncomplete INDEX`
 List | `list`
-Find | `find KEYWORD` or `find t/TAG`
+Find | `find KEYWORD`
 Update | `update INDEX [name NAME starts START_DATE_TIME ends CLOSE_DATE_TIME tag TAG remove-tag TAG]`
 Undo | `undo`
 Pin | `pin`
