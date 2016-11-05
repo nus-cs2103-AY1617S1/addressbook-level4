@@ -391,24 +391,24 @@ Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (un
 ##### MSS
 
 1. User requests to find tasks based on a date
-2. Unburden will search through the existing tasks with the specified deadline and shows a list to the user
+2. _Unburden_ will search through the existing tasks with the specified deadline and shows a list to the user
 
    Use case ends
   
 ##### Extension
   
 1.1  User requests to find tasks based on a name <br>
-1.2  Unburden will search through the exisiting tasks with the specified task names and shows a list to the user <br>
+1.2  _Unburden_ will search through the existing tasks with the specified task names and shows a list to the user <br>
   
      Use case ends
   
 2.1  User requests to find tasks due today <br>
-2.2  Unburden will search through the exisiting tasks and shows a list of tasks due today <br>
+2.2  _Unburden_ will search through the existing tasks and shows a list of tasks due today <br>
   
      Use case ends
   
 3.1  User requests to find tasks that are due tomorrow <br>
-3.2  Unburden will search through the exisiting tasks and shows a list of tasks due tomorrow to the user <br>
+3.2  _Unburden_ will search through the existing tasks and shows a list of tasks due tomorrow to the user <br>
   
      Use case ends
      
@@ -421,14 +421,14 @@ Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (un
 ##### MSS
 
 1. User requests to edit a task based on the index of the tasks and the new updated fields
-2. Unburden updates the task to the given input fields and displays it to the user
+2. _Unburden_ updates the task to the given input fields and displays it to the user
 
    Use case: ends
   
 ##### Extension
   
 1.1  User requests to edit a task based on an invalid index of tasks and the new updated fields <br>
-1.2  Unburden shows an error message <br>
+1.2  _Unburden_ shows an error message <br>
   
      Use case ends
 
@@ -439,30 +439,30 @@ Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (un
 ##### MSS
 
 1. User requests to list all tasks 
-2. Unburden shows a list of all tasks that are undone
+2. _Unburden_ shows a list of all tasks that are undone
 
       Use case ends
       
 ###### Extension
 
 1.1 User reuqests to list of all tasks by a certain date <br>
-2.2 Unburden will show a list of all undone tasks that have deadlines before the specified date <br>
+2.2 _Unburden_ will show a list of all undone tasks that have deadlines before the specified date <br>
 
       Use case ends
       
 
 2.1 User requests to list all tasks that are due within within a period of time specified by a start time and an end time <br>
-2.2 Unburden will show the user a list of undone tasks that have deadline that fall within the specified time period <br>
+2.2 _Unburden_ will show the user a list of undone tasks that have deadline that fall within the specified time period <br>
 
       Use case ends
 
 3.1 User requests to list all tasks that are done <br>
-3.2 Unburden will show the user a list of tasks that have been marked "done" by the user <br>
+3.2 _Unburden_ will show the user a list of tasks that have been marked "done" by the user <br>
 
       Use case ends
       
 4.1 User requests to list all tasks that are overdue <br>
-4.2 Unburden will show the user a list of tasks that are overdue <br>
+4.2 _Unburden_ will show the user a list of tasks that are overdue <br>
 
      Use case ends
      
@@ -478,29 +478,29 @@ Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (un
 ##### MSS
 
 1. User requests to mark a task as done by specifying the index of the task
-2. Unburden marks the task as done and removes it from the current list of pending tasks
+2. _Unburden_ marks the task as done and removes it from the current list of pending tasks
 
      Use case ends
 
 ##### Extension 
 
 1.1 User attempts to mark a task as done but enters the an index that does not exist <br>
-1.2 Unburden will show an error message saying that the input index is unspecified <br>
+1.2 _Unburden_ will show an error message saying that the input index is unspecified <br>
 
      Use case ends
 
 
 ## **Appendix C : Non Functional Requirements**
 
- 1. The app should run smoothly 
- 2. The app should be able to run all on all operating systems 
- 3. The app should be able to store up to 1000 tasks per user 
- 4. The app should not take up a lot of space 
- 5. The app should be start up quickly 
- 6. The app should be able to process requests from the user in under 1ms 
- 7. The app should not crash 
- 8. The app should not do anything else other than what the user inputs 
- 9. The app should be able to recover from errors easily 
+ 1. _Unburden_ should run smoothly 
+ 2. _Unburden_ should be able to run all on all operating systems 
+ 3. _Unburden_ should be able to store up to 1000 tasks per user 
+ 4. _Unburden_ should not take up a lot of space 
+ 5. _Unburden_ should be start up quickly 
+ 6. _Unburden_ should be able to process requests from the user in under 1ms 
+ 7. _Unburden_ should not crash 
+ 8. _Unburden_ should not do anything else other than what the user inputs 
+ 9. _Unburden_ should be able to recover from errors easily 
 
 
 ## **Appendix D : Glossary**
