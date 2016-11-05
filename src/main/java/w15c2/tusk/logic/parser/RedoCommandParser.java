@@ -18,7 +18,7 @@ public class RedoCommandParser extends CommandParser{
     @Override
     public TaskCommand prepareCommand(String arguments) {
     	if(!arguments.equals("")){
-        	return new IncorrectTaskCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, RedoTaskCommand.HELP_MESSAGE_USAGE));
+        	return new IncorrectTaskCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, RedoTaskCommand.MESSAGE_USAGE));
         }
         return new RedoTaskCommand();
     }
