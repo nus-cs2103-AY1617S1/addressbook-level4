@@ -258,9 +258,9 @@ public class LogicManagerTest {
         // execute command and verify result
         assertCommandBehavior(helper.generateAddCommand(toBeAdded),
                 String.format(AddNonFloatingCommand.MESSAGE_SUCCESS, toBeAdded), expectedTM,
-                expectedTM.getTaskComponentList());
+                expectedTM.getTaskOccurrenceList());
         assertUndoRedoAble(String.format(AddNonFloatingCommand.MESSAGE_SUCCESS, toBeAdded), expectedTM,
-                expectedTM.getTaskComponentList());
+                expectedTM.getTaskOccurrenceList());
     }
     
     @Test
@@ -275,9 +275,9 @@ public class LogicManagerTest {
         // execute command and verify result
         assertCommandBehavior(helper.generateAddCommand(toBeAdded)+" t/same",
                 String.format(AddNonFloatingCommand.MESSAGE_SUCCESS, toBeAdded), expectedTM,
-                expectedTM.getTaskComponentList());
+                expectedTM.getTaskOccurrenceList());
         assertUndoRedoAble(String.format(AddNonFloatingCommand.MESSAGE_SUCCESS, toBeAdded), expectedTM,
-                expectedTM.getTaskComponentList());
+                expectedTM.getTaskOccurrenceList());
     }
 
     // @@author
@@ -293,9 +293,9 @@ public class LogicManagerTest {
         // execute command and verify result
         assertCommandBehavior(helper.generateAddCommand(toBeAdded),
                 String.format(AddNonFloatingCommand.MESSAGE_SUCCESS, toBeAdded), expectedTM,
-                expectedTM.getTaskComponentList());
+                expectedTM.getTaskOccurrenceList());
         assertUndoRedoAble(String.format(AddNonFloatingCommand.MESSAGE_SUCCESS, toBeAdded), expectedTM,
-                expectedTM.getTaskComponentList());
+                expectedTM.getTaskOccurrenceList());
     }
 
     @Test
@@ -309,9 +309,9 @@ public class LogicManagerTest {
         // execute command and verify result
         assertCommandBehavior(helper.generateAddCommand(toBeAdded),
                 String.format(AddNonFloatingCommand.MESSAGE_SUCCESS, toBeAdded), expectedTM,
-                expectedTM.getTaskComponentList());
+                expectedTM.getTaskOccurrenceList());
         assertUndoRedoAble(String.format(AddNonFloatingCommand.MESSAGE_SUCCESS, toBeAdded), expectedTM,
-                expectedTM.getTaskComponentList());
+                expectedTM.getTaskOccurrenceList());
     }
 
     // @@author A0147967J
@@ -328,7 +328,7 @@ public class LogicManagerTest {
 
         // execute command and verify result
         assertCommandBehavior(helper.generateAddCommand(toBeAdded), AddFloatingCommand.MESSAGE_DUPLICATE_TASK,
-                expectedTM, expectedTM.getTaskComponentList());
+                expectedTM, expectedTM.getTaskOccurrenceList());
     }
 
     @Test
@@ -349,7 +349,7 @@ public class LogicManagerTest {
         // execute command and verify result
         assertCommandBehavior(helper.generateAddCommand(toBeAddedAfter),
                 String.format(AddNonFloatingCommand.MESSAGE_SUCCESS, toBeAddedAfter), expectedTM,
-                expectedTM.getTaskComponentList());
+                expectedTM.getTaskOccurrenceList());
 
     }
 
@@ -371,9 +371,9 @@ public class LogicManagerTest {
         // execute command and verify result
         assertCommandBehavior(helper.generateAddCommand(toBeAddedAfter),
                 String.format(AddNonFloatingCommand.MESSAGE_SUCCESS, toBeAddedAfter), expectedTM,
-                expectedTM.getTaskComponentList());
+                expectedTM.getTaskOccurrenceList());
         assertUndoRedoAble(String.format(AddNonFloatingCommand.MESSAGE_SUCCESS, toBeAddedAfter), expectedTM,
-                expectedTM.getTaskComponentList());
+                expectedTM.getTaskOccurrenceList());
 
     }
 
@@ -387,7 +387,7 @@ public class LogicManagerTest {
 
         // execute command and verify result
         assertCommandBehavior(helper.generateAddCommand(toBeAdded), AddNonFloatingCommand.MESSAGE_ILLEGAL_TIME_SLOT,
-                expectedTM, expectedTM.getTaskComponentList());
+                expectedTM, expectedTM.getTaskOccurrenceList());
 
     }
     // @@author
@@ -397,7 +397,7 @@ public class LogicManagerTest {
         // prepare expectations
         TestDataHelper helper = new TestDataHelper();
         TaskMaster expectedTM = helper.generateTaskList(2);
-        List<? extends TaskOccurrence> expectedList = expectedTM.getTaskComponentList();
+        List<? extends TaskOccurrence> expectedList = expectedTM.getTaskOccurrenceList();
 
         // prepare task list state
         helper.addToModel(model, 2);
@@ -428,9 +428,9 @@ public class LogicManagerTest {
 
         // execute command and verify result
         assertCommandBehavior(helper.generateBlockCommand(toBeAdded),
-                String.format(BlockCommand.MESSAGE_SUCCESS, toBeAdded), expectedTM, expectedTM.getTaskComponentList());
+                String.format(BlockCommand.MESSAGE_SUCCESS, toBeAdded), expectedTM, expectedTM.getTaskOccurrenceList());
         assertUndoRedoAble(String.format(BlockCommand.MESSAGE_SUCCESS, toBeAdded), expectedTM,
-                expectedTM.getTaskComponentList());
+                expectedTM.getTaskOccurrenceList());
 
     }
 
@@ -450,7 +450,7 @@ public class LogicManagerTest {
 
         // execute command and verify result
         assertCommandBehavior(helper.generateAddCommand(toBeAddedAfter), BlockCommand.MESSAGE_TIMESLOT_OCCUPIED,
-                expectedTM, expectedTM.getTaskComponentList());
+                expectedTM, expectedTM.getTaskOccurrenceList());
 
     }
 
@@ -470,7 +470,7 @@ public class LogicManagerTest {
 
         // execute command and verify result
         assertCommandBehavior(helper.generateAddCommand(toBeAddedAfter), BlockCommand.MESSAGE_TIMESLOT_OCCUPIED,
-                expectedTM, expectedTM.getTaskComponentList());
+                expectedTM, expectedTM.getTaskOccurrenceList());
 
     }
 
@@ -484,7 +484,7 @@ public class LogicManagerTest {
 
         // execute command and verify result
         assertCommandBehavior(helper.generateBlockCommand(toBeBlocked), BlockCommand.MESSAGE_ILLEGAL_TIME_SLOT,
-                expectedTM, expectedTM.getTaskComponentList());
+                expectedTM, expectedTM.getTaskOccurrenceList());
 
     }
 
@@ -497,9 +497,9 @@ public class LogicManagerTest {
         TaskMaster expectedTM = new TaskMaster();
 
         // execute command and verify result
-        assertCommandBehavior("u", UndoCommand.MESSAGE_FAIL, expectedTM, expectedTM.getTaskComponentList());
+        assertCommandBehavior("u", UndoCommand.MESSAGE_FAIL, expectedTM, expectedTM.getTaskOccurrenceList());
 
-        assertCommandBehavior("r", RedoCommand.MESSAGE_FAIL, expectedTM, expectedTM.getTaskComponentList());
+        assertCommandBehavior("r", RedoCommand.MESSAGE_FAIL, expectedTM, expectedTM.getTaskOccurrenceList());
     }
 
     @Test
@@ -513,14 +513,14 @@ public class LogicManagerTest {
         // execute command and verify result
         assertCommandBehavior(helper.generateAddCommand(toBeAdded),
                 String.format(AddFloatingCommand.MESSAGE_SUCCESS, toBeAdded), expectedTM,
-                expectedTM.getTaskComponentList());
+                expectedTM.getTaskOccurrenceList());
 
         expectedTM = new TaskMaster();
-        assertCommandBehavior("u", UndoCommand.MESSAGE_SUCCESS, expectedTM, expectedTM.getTaskComponentList());
+        assertCommandBehavior("u", UndoCommand.MESSAGE_SUCCESS, expectedTM, expectedTM.getTaskOccurrenceList());
 
         expectedTM.addTask(toBeAdded);
         assertCommandBehavior("r", String.format(AddFloatingCommand.MESSAGE_SUCCESS, toBeAdded), expectedTM,
-                expectedTM.getTaskComponentList());
+                expectedTM.getTaskOccurrenceList());
     }
 
     @Test
@@ -536,14 +536,14 @@ public class LogicManagerTest {
         }
 
         expectedTM.addTask(helper.generateTask(1));
-        assertCommandBehavior("u", UndoCommand.MESSAGE_FAIL, expectedTM, expectedTM.getTaskComponentList());
+        assertCommandBehavior("u", UndoCommand.MESSAGE_FAIL, expectedTM, expectedTM.getTaskOccurrenceList());
 
         for (int i = 0; i < 3; i++) {
             logic.execute("r");
             expectedTM.addTask(helper.generateTask(2 + i));
         }
 
-        assertCommandBehavior("r", RedoCommand.MESSAGE_FAIL, expectedTM, expectedTM.getTaskComponentList());
+        assertCommandBehavior("r", RedoCommand.MESSAGE_FAIL, expectedTM, expectedTM.getTaskOccurrenceList());
     }
 
     @Test
@@ -551,7 +551,7 @@ public class LogicManagerTest {
 
         TaskMaster expectedTM = new TaskMaster();
         logic.execute("adds t");
-        assertCommandBehavior("u", UndoCommand.MESSAGE_FAIL, expectedTM, expectedTM.getTaskComponentList());
+        assertCommandBehavior("u", UndoCommand.MESSAGE_FAIL, expectedTM, expectedTM.getTaskOccurrenceList());
 
     }
 
@@ -567,7 +567,7 @@ public class LogicManagerTest {
 
         logic.execute(helper.generateAddCommand(toBeAdded));
 
-        assertCommandBehavior("u", UndoCommand.MESSAGE_FAIL, expectedTM, expectedTM.getTaskComponentList());
+        assertCommandBehavior("u", UndoCommand.MESSAGE_FAIL, expectedTM, expectedTM.getTaskOccurrenceList());
 
     }
 
@@ -579,7 +579,7 @@ public class LogicManagerTest {
 
         TaskMaster expectedTM = new TaskMaster();
         assertCommandBehavior("cd random path", ChangeDirectoryCommand.MESSAGE_CONVENSION_ERROR, expectedTM,
-                expectedTM.getTaskComponentList());
+                expectedTM.getTaskOccurrenceList());
     }
 
     @Test
@@ -587,7 +587,7 @@ public class LogicManagerTest {
 
         TaskMaster expectedTM = new TaskMaster();
         assertCommandBehavior("cd " + saveFolder.getRoot().getPath() + "cdtest.txt",
-                ChangeDirectoryCommand.MESSAGE_CONVENSION_ERROR, expectedTM, expectedTM.getTaskComponentList());
+                ChangeDirectoryCommand.MESSAGE_CONVENSION_ERROR, expectedTM, expectedTM.getTaskOccurrenceList());
     }
 
     @Test
@@ -597,10 +597,10 @@ public class LogicManagerTest {
         TaskMaster expectedTM = new TaskMaster();
         assertCommandBehavior("cd " + saveFolder.getRoot().getPath() + "cdtest.xml",
                 String.format(ChangeDirectoryCommand.MESSAGE_SUCCESS, saveFolder.getRoot().getPath() + "cdtest.xml"),
-                expectedTM, expectedTM.getTaskComponentList());
+                expectedTM, expectedTM.getTaskOccurrenceList());
 
         // CD is irreversible
-        assertCommandBehavior("u", UndoCommand.MESSAGE_FAIL, expectedTM, expectedTM.getTaskComponentList());
+        assertCommandBehavior("u", UndoCommand.MESSAGE_FAIL, expectedTM, expectedTM.getTaskOccurrenceList());
 
         // Ensure model writes to this file
         expectedTM.addTask(helper.adam());
@@ -681,9 +681,9 @@ public class LogicManagerTest {
         helper.addToModel(model, threeTasks);
 
         assertCommandBehavior("select 2", String.format(SelectCommand.MESSAGE_SELECT_TASK_SUCCESS, 2), expectedTM,
-                expectedTM.getTaskComponentList());
+                expectedTM.getTaskOccurrenceList());
         assertUndoRedoAble(String.format(SelectCommand.MESSAGE_SELECT_TASK_SUCCESS, 2), expectedTM,
-                expectedTM.getTaskComponentList());
+                expectedTM.getTaskOccurrenceList());
         assertEquals(1, targetedJumpIndex);
         assertEquals(model.getTaskList().get(1), threeTasks.get(1));
     }
@@ -709,9 +709,9 @@ public class LogicManagerTest {
         helper.addToModel(model, threeTasks);
 
         assertCommandBehavior("delete 2", String.format(DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS, threeTasks.get(1)),
-                expectedTM, expectedTM.getTaskComponentList());
+                expectedTM, expectedTM.getTaskOccurrenceList());
         assertUndoRedoAble(String.format(DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS, threeTasks.get(1)), expectedTM,
-                expectedTM.getTaskComponentList());
+                expectedTM.getTaskOccurrenceList());
 
     }
 
@@ -737,9 +737,9 @@ public class LogicManagerTest {
         model.addTask(toComplete);
 
         assertCommandBehavior("done 1", String.format(CompleteCommand.MESSAGE_COMPLETE_TASK_SUCCESS, toComplete),
-                expectedTM, new TaskMaster().getTaskComponentList());
+                expectedTM, new TaskMaster().getTaskOccurrenceList());
         assertUndoRedoAble(String.format(CompleteCommand.MESSAGE_COMPLETE_TASK_SUCCESS, toComplete), expectedTM,
-                new TaskMaster().getTaskComponentList());
+                new TaskMaster().getTaskOccurrenceList());
 
     }
     // @@author
@@ -849,7 +849,7 @@ public class LogicManagerTest {
                 expectedTM, componentList);
         // find by earlier time boundary lists nothing
         assertCommandBehavior("find by 20 oct 10.59am", Command.getMessageForTaskListShownSummary(0), expectedTM,
-                new TaskMaster().getTaskComponentList());
+                new TaskMaster().getTaskOccurrenceList());
         // find by later time boundary successful
         assertCommandBehavior("find by 20 oct 11.01pm", Command.getMessageForTaskListShownSummary(expectedList.size()),
                 expectedTM, componentList);
@@ -886,7 +886,7 @@ public class LogicManagerTest {
                 expectedTM, expectedComponentList);
 
         assertCommandBehavior("find from 19 oct 10pm to 20 oct 10.59am", Command.getMessageForTaskListShownSummary(0),
-                expectedTM, new TaskMaster().getTaskComponentList());
+                expectedTM, new TaskMaster().getTaskOccurrenceList());
         // find by lax boundary successful
         expectedComponentList.add(0, test.getLastAppendedComponent());
         assertCommandBehavior("find from 19 oct 9pm to 20 oct 1pm",
@@ -1005,8 +1005,8 @@ public class LogicManagerTest {
         assertCommandBehavior("view 23 oct 12am",
                 String.format(ViewCommand.MESSAGE_UPDATE_AGENDA_SUCCESS, formatter.format(testDate.getDate())));
         assertEquals(testDate, checkDate);
-        assertEquals(latestSavedTaskList.getTaskComponentList(), checkList);
-        assertEquals(model.getTaskMaster().getTaskComponentList(), checkList);
+        assertEquals(latestSavedTaskList.getTaskOccurrenceList(), checkList);
+        assertEquals(model.getTaskMaster().getTaskOccurrenceList(), checkList);
         
     }
     // @@author
@@ -1029,7 +1029,7 @@ public class LogicManagerTest {
         TaskMaster expectedTM = new TaskMaster();
         Task toAdd = helper.nonFloatingRecurringByDate(RecurringType.DAILY);
         expectedTM.addTask(toAdd);
-        RecurringTaskManager.getInstance().correctAddingOverdueTasks(toAdd);
+        RecurringTaskManager.getInstance().correctOverdueNonRepeatingTasks(toAdd);
         List<TaskOccurrence> expectedComponentList = helper.buildTaskComponentsFromTaskList(expectedTM.getTasks());
         assertCommandBehavior("add non floating task by XXXX by 20 oct 11am daily t/tag1 t/tag2",
                 String.format(AddNonFloatingCommand.MESSAGE_SUCCESS, toAdd), expectedTM, expectedComponentList);
@@ -1041,7 +1041,7 @@ public class LogicManagerTest {
         TaskMaster expectedTM = new TaskMaster();
         Task toAdd = helper.nonFloatingRecurringByDate(RecurringType.DAILY);
         expectedTM.addTask(toAdd);
-        RecurringTaskManager.getInstance().correctAddingOverdueTasks(toAdd);
+        RecurringTaskManager.getInstance().correctOverdueNonRepeatingTasks(toAdd);
         List<TaskOccurrence> expectedComponentList = helper.buildTaskComponentsFromTaskList(expectedTM.getTasks());
         assertCommandBehavior("add non floating task by XXXX by 20 oct 11am dAIly t/tag1 t/tag2",
                 String.format(AddNonFloatingCommand.MESSAGE_SUCCESS, toAdd), expectedTM, expectedComponentList);
@@ -1053,7 +1053,7 @@ public class LogicManagerTest {
         TaskMaster expectedTM = new TaskMaster();
         Task toAdd = helper.nonFloatingFromDateToDate();
         expectedTM.addTask(toAdd);
-        RecurringTaskManager.getInstance().correctAddingOverdueTasks(toAdd);
+        RecurringTaskManager.getInstance().correctOverdueNonRepeatingTasks(toAdd);
         List<TaskOccurrence> expectedComponentList = helper.buildTaskComponentsFromTaskList(expectedTM.getTasks());
         assertCommandBehavior(
                 "add non floating task from XXXX to XXXX from 19 oct 10pm to 20 oct 11am dai t/tag1 t/tag2",
@@ -1066,7 +1066,7 @@ public class LogicManagerTest {
         TaskMaster expectedTM = new TaskMaster();
         Task toAdd = helper.nonFloatingRecurringFromDateToDate(RecurringType.DAILY);
         expectedTM.addTask(toAdd);
-        RecurringTaskManager.getInstance().correctAddingOverdueTasks(toAdd);
+        RecurringTaskManager.getInstance().correctOverdueNonRepeatingTasks(toAdd);
         List<TaskOccurrence> expectedComponentList = helper.buildTaskComponentsFromTaskList(expectedTM.getTasks());
         assertCommandBehavior(
                 "add non floating task from XXXX to XXXX from 19 oct 10pm to 20 oct 11am daily t/tag1 t/tag2",
@@ -1079,7 +1079,7 @@ public class LogicManagerTest {
         TaskMaster expectedTM = new TaskMaster();
         Task toAdd = helper.nonFloatingRecurringFromDateToDate(RecurringType.DAILY);
         expectedTM.addTask(toAdd);
-        RecurringTaskManager.getInstance().correctAddingOverdueTasks(toAdd);
+        RecurringTaskManager.getInstance().correctOverdueNonRepeatingTasks(toAdd);
         List<TaskOccurrence> expectedComponentList = helper.buildTaskComponentsFromTaskList(expectedTM.getTasks());
         assertCommandBehavior(
                 "add non floating task from XXXX to XXXX from 19 oct 10pm to 20 oct 11am dAIly t/tag1 t/tag2",
@@ -1098,9 +1098,9 @@ public class LogicManagerTest {
         expectedTM.addTask(toBeAdded);
         model.addTask(toBeAdded);
         assertCommandBehavior("edit 1 []\\[;]", Name.MESSAGE_NAME_CONSTRAINTS, expectedTM,
-                expectedTM.getTaskComponentList());
+                expectedTM.getTaskOccurrenceList());
         assertCommandBehavior("edit 1 t/invalid_-[.tag", Tag.MESSAGE_TAG_CONSTRAINTS, expectedTM,
-                expectedTM.getTaskComponentList());
+                expectedTM.getTaskOccurrenceList());
     }
 
     @Test
@@ -1114,7 +1114,7 @@ public class LogicManagerTest {
 
         // execute command and verify result
         assertCommandBehavior("edit 1 from 2 oct 1pm to 2 oct 1am",
-                String.format(EditCommand.MESSAGE_ILLEGAL_TIME_SLOT), expectedTM, expectedTM.getTaskComponentList());
+                String.format(EditCommand.MESSAGE_ILLEGAL_TIME_SLOT), expectedTM, expectedTM.getTaskOccurrenceList());
 
     }
 
@@ -1134,7 +1134,7 @@ public class LogicManagerTest {
 
         // execute command and verify result
         assertCommandBehavior("edit 2 from 10 oct 1pm to 10 oct 6pm",
-                String.format(EditCommand.MESSAGE_TIMESLOT_OCCUPIED), expectedTM, expectedTM.getTaskComponentList());
+                String.format(EditCommand.MESSAGE_TIMESLOT_OCCUPIED), expectedTM, expectedTM.getTaskOccurrenceList());
     }
 
     @Test
@@ -1149,9 +1149,9 @@ public class LogicManagerTest {
 
         // execute command and verify result
         assertCommandBehavior("edit 1 changed", String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, afterModification),
-                expectedTM, expectedTM.getTaskComponentList());
+                expectedTM, expectedTM.getTaskOccurrenceList());
         assertUndoRedoAble(String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, afterModification), expectedTM,
-                expectedTM.getTaskComponentList());
+                expectedTM.getTaskOccurrenceList());
     }
 
     @Test
@@ -1169,9 +1169,9 @@ public class LogicManagerTest {
         // execute command and verify result
         assertCommandBehavior("edit 1 t/anytag",
                 String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, afterModification), expectedTM,
-                expectedTM.getTaskComponentList());
+                expectedTM.getTaskOccurrenceList());
         assertUndoRedoAble(String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, afterModification), expectedTM,
-                expectedTM.getTaskComponentList());
+                expectedTM.getTaskOccurrenceList());
     }
 
     @Test
@@ -1192,9 +1192,9 @@ public class LogicManagerTest {
         // execute command and verify result
         assertCommandBehavior("edit 1 t/anothertag",
                 String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, afterModification), expectedTM,
-                expectedTM.getTaskComponentList());
+                expectedTM.getTaskOccurrenceList());
         assertUndoRedoAble(String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, afterModification), expectedTM,
-                expectedTM.getTaskComponentList());
+                expectedTM.getTaskOccurrenceList());
     }
 
     @Test
@@ -1217,7 +1217,7 @@ public class LogicManagerTest {
                 String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, afterModification), expectedTM,
                 expectedComponentList);
         assertUndoRedoAble(String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, afterModification), expectedTM,
-                expectedTM.getTaskComponentList());
+                expectedTM.getTaskOccurrenceList());
     }
 
     @Test
@@ -1239,7 +1239,7 @@ public class LogicManagerTest {
                 String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, afterModification), expectedTM,
                 expectedComponentList);
         assertUndoRedoAble(String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, afterModification), expectedTM,
-                expectedTM.getTaskComponentList());
+                expectedTM.getTaskOccurrenceList());
     }
 
     @Test
@@ -1262,7 +1262,7 @@ public class LogicManagerTest {
                 String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, afterModification), expectedTM,
                 expectedComponentList);
         assertUndoRedoAble(String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, afterModification), expectedTM,
-                expectedTM.getTaskComponentList());
+                expectedTM.getTaskOccurrenceList());
     }
 
     @Test
@@ -1284,7 +1284,7 @@ public class LogicManagerTest {
                 String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, afterModification), expectedTM,
                 expectedComponentList);
         assertUndoRedoAble(String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, afterModification), expectedTM,
-                expectedTM.getTaskComponentList());
+                expectedTM.getTaskOccurrenceList());
     }
 
     @Test
@@ -1305,7 +1305,7 @@ public class LogicManagerTest {
                 String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, afterModification), expectedTM,
                 expectedComponentList);
         assertUndoRedoAble(String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, afterModification), expectedTM,
-                expectedTM.getTaskComponentList());
+                expectedTM.getTaskOccurrenceList());
     }
 
     @Test
@@ -1326,7 +1326,7 @@ public class LogicManagerTest {
                 String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, afterModification), expectedTM,
                 expectedComponentList);
         assertUndoRedoAble(String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, afterModification), expectedTM,
-                expectedTM.getTaskComponentList());
+                expectedTM.getTaskOccurrenceList());
     }
     
     @Test
@@ -1351,7 +1351,7 @@ public class LogicManagerTest {
                 String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, afterModification), expectedTM,
                 expectedComponentList);
         assertUndoRedoAble(String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, afterModification), expectedTM,
-                expectedTM.getTaskComponentList());
+                expectedTM.getTaskOccurrenceList());
     }
     // @@author
 

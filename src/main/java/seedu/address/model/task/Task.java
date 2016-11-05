@@ -105,6 +105,12 @@ public class Task implements ReadOnlyTask {
         this.taskType = type;
     }
 
+    /**
+     * Sets the recurring type for the Task.
+     * Floating Task cannot have a recurring type.
+     * 
+     * @param type The recurring type, cannot be null
+     */
     public void setRecurringType(RecurringType type) {
         if (taskType == TaskType.FLOATING) {
             assert (type.equals(RecurringType.NONE)) : "Floating Task cannot be a recurring task";
@@ -146,11 +152,14 @@ public class Task implements ReadOnlyTask {
     }
 
     // @@author A0135782Y
+    /**
+     * Mark a task completed if all of its TaskOccurrences are archived.
+     */
     @Override
-    public void completeTaskWhenAllComponentArchived() {
+    public void completeTaskWhenAllOccurrencesArchived() {
         for (TaskOccurrence c : recurringDates) {
-            if (c.isArchived() == false || 
-                    c.getTaskReference().getRecurringType() != RecurringType.NONE) {
+            if (c.isArchived() == false 
+                    || c.getTaskReference().getRecurringType() != RecurringType.NONE) {
                 return;
             }
         }
@@ -191,6 +200,10 @@ public class Task implements ReadOnlyTask {
         return recurringDates.get(recurringDates.size() - 1);
     }
 
+    /**
+     * Appends a recurring task with a task occurrence
+     * Non Recurring Task cannot be appended with task occurrence.
+     */
     @Override
     public void appendRecurringDate(TaskOccurrence componentToBeAdded) {
         assert !recurringType.equals(RecurringType.NONE) : "You cannot append new dates to non recurring tasks";
@@ -198,6 +211,10 @@ public class Task implements ReadOnlyTask {
         recurringDates.get(recurringDates.size() - 1).setTaskReferrence(this);
     }
     
+    /**
+     * Returns the recurring period of the task
+     * Non Recurring Task will not have a valid recurring period.
+     */
     @Override
     public int getRecurringPeriod() {
         if (recurringType.equals(RecurringType.NONE)) {

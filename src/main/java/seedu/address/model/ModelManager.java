@@ -58,7 +58,7 @@ public class ModelManager extends ComponentManager implements Model {
 
         taskMaster = new TaskMaster(src);
         tasks = taskMaster.getTasks();
-        filteredTaskComponents = new FilteredList<>(taskMaster.getTaskComponentList());
+        filteredTaskComponents = new FilteredList<>(taskMaster.getTaskOccurrenceList());
         initRecurringTaskManager();
         previousDate = new TaskDate(new Date(System.currentTimeMillis()));
         previousExpression = new PredicateExpression(new InitialQualifier());
@@ -75,12 +75,15 @@ public class ModelManager extends ComponentManager implements Model {
         taskMaster = new TaskMaster(initialData);
         tasks = taskMaster.getTasks();
 
-        filteredTaskComponents = new FilteredList<>(taskMaster.getTaskComponentList());
+        filteredTaskComponents = new FilteredList<>(taskMaster.getTaskOccurrenceList());
         initRecurringTaskManager();
         previousDate = new TaskDate(new Date(System.currentTimeMillis()));
         previousExpression = new PredicateExpression(new InitialQualifier());
     }
     
+    /**
+     * Initialises RecurringTaskManager with the uniqueTaskList from taskMaster
+     */
     private void initRecurringTaskManager() {
         RecurringTaskManager.getInstance().setTaskList(taskMaster.getUniqueTaskList());
         if (RecurringTaskManager.getInstance().appendAnyRecurringTasks()) {
@@ -122,10 +125,14 @@ public class ModelManager extends ComponentManager implements Model {
     //@@author
 
     //@@author A0135782Y
+    /**
+     * Adds any task into the taskMaster
+     * If it is a recurring task, it will be handled by RecurringTaskManager
+     */
     @Override
     public synchronized void addTask(Task task) throws UniqueTaskList.DuplicateTaskException, TimeslotOverlapException {
         taskMaster.addTask(task);
-        RecurringTaskManager.getInstance().correctAddingOverdueTasks(task);
+        RecurringTaskManager.getInstance().addTask(task);
         updateFilteredListToShowAll();
         indicateTaskListChanged();
     }

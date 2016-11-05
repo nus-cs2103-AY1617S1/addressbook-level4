@@ -1,15 +1,11 @@
 package seedu.address.model.task.stub;
 
-import java.util.HashSet;
-import java.util.Iterator;
 import java.util.Set;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
-import seedu.address.model.tag.UniqueTagList.DuplicateTagException;
 
+//@@author A0135782Y
 public class UniqueTagListStub extends UniqueTagList {
     /**
      * All tags in this list as a Set. This set is mutable and change-insulated against the internal list.

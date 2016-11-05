@@ -34,7 +34,7 @@ public class UndoCommand extends Command {
             
             if(contextToUndo.getCommand() instanceof ViewCommand) {
                 //resets the agenda if needed
-                EventsCenter.getInstance().post(new AgendaTimeRangeChangedEvent(contextToUndo.previousTime, model.getTaskMaster().getTaskComponentList()));
+                EventsCenter.getInstance().post(new AgendaTimeRangeChangedEvent(contextToUndo.previousTime, model.getTaskMaster().getTaskOccurrenceList()));
             }
             return new CommandResult(MESSAGE_SUCCESS);
         } catch (NoAvailableCommandException nace) {

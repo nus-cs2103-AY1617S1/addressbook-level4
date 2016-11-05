@@ -18,7 +18,7 @@ import seedu.address.model.task.TaskType;
 /**
  * JAXB-friendly version of the Task.
  */
-public class XmlAdaptedTaskComponent {
+public class XmlAdaptedTaskOccurrence {
 
     @XmlElement(required = true)
     private String name;
@@ -40,7 +40,7 @@ public class XmlAdaptedTaskComponent {
     /**
      * No-arg constructor for JAXB use.
      */
-    public XmlAdaptedTaskComponent() {}
+    public XmlAdaptedTaskOccurrence() {}
 
     //@@author A0135782Y
     /**
@@ -48,36 +48,49 @@ public class XmlAdaptedTaskComponent {
      *
      * @param source future changes to this will not affect the created XmlAdaptedTask
      */
-    public XmlAdaptedTaskComponent(TaskOccurrence source) {
+    public XmlAdaptedTaskOccurrence(TaskOccurrence source) {
         name = source.getTaskReference().getName().fullName;
         tagged = new ArrayList<>();
         for (Tag tag : source.getTaskReference().getTags()) {
             tagged.add(new XmlAdaptedTag(tag));
         }
 
-        if (source.getTaskReference().getTaskType() == TaskType.NON_FLOATING) {
-            startDate = source.getStartDate().getDateInLong();
-            endDate = source.getEndDate().getDateInLong();
-        } else if (source.getTaskReference().getTaskType() == TaskType.FLOATING) {
-            startDate = TaskDate.DATE_NOT_PRESENT;
-            endDate = TaskDate.DATE_NOT_PRESENT;
-        } else if(source.getTaskReference().getTaskType() == TaskType.COMPLETED){
-        	startDate = source.getStartDate().getDateInLong();
-            endDate = source.getEndDate().getDateInLong();
-        }
+        handleDatesByTaskType(source);
+        handleDatesByRecurringType(source);
+        
+        recurringType = source.getTaskReference().getRecurringType().name();
+        recurringPeriod = source.getTaskReference().getRecurringPeriod();
+        isArchived = source.isArchived();
+    }
+
+    /**
+     * Saves dates only if it has been archived.
+     */
+    private void handleDatesByRecurringType(TaskOccurrence source) {
         if (source.getTaskReference().getRecurringType() != RecurringType.NONE && source.isArchived()) {
             TaskDate startCopy = new TaskDate(source.getStartDate());
             TaskDate endCopy = new TaskDate(source.getEndDate());
             startDate = startCopy.getDateInLong();
             endDate = endCopy.getDateInLong();
         }
-        recurringType = source.getTaskReference().getRecurringType().name();
-        recurringPeriod = source.getTaskReference().getRecurringPeriod();
-        isArchived = source.isArchived();
+    }
+
+    /**
+     * Saves dates based on the task type of the task occurrence.
+     */
+    private void handleDatesByTaskType(TaskOccurrence source) {
+        if (source.getTaskReference().getTaskType() == TaskType.NON_FLOATING 
+                || source.getTaskReference().getTaskType() == TaskType.COMPLETED) {
+            startDate = source.getStartDate().getDateInLong();
+            endDate = source.getEndDate().getDateInLong();
+        } else {
+            startDate = TaskDate.DATE_NOT_PRESENT;
+            endDate = TaskDate.DATE_NOT_PRESENT;
+        }
     }
     
     /**
-     * Converts this jaxb-friendly adapted task object into the model's Task object.
+     * Converts this jaxb-friendly adapted task occurrence object into the model's TaskOccurrence object.
      *
      * @throws IllegalValueException if there were any data constraints violated in the adapted task
      */
@@ -95,6 +108,9 @@ public class XmlAdaptedTaskComponent {
         return toModelTypeFloating(name, tags);
     }
 
+    /**
+     * Converts this jaxb-friendly adapted task occurrence object into the model's TaskOccurrence object for floating tasks.
+     */
     private Task toModelTypeFloating(final Name name, final UniqueTagList tags) {
     	Task task = new Task(name, tags);
     	
@@ -108,6 +124,9 @@ public class XmlAdaptedTaskComponent {
         return task;
     }
 
+    /**
+     * Converts this jaxb-friendly adapted task occurrence object into the model's TaskOccurrence object for non floating tasks.
+     */
     private Task toModelTypeNonFloating(final Name name, final UniqueTagList tags) {
         final TaskDate taskStartDate = new TaskDate(startDate);
         final TaskDate taskEndDate = new TaskDate(endDate);

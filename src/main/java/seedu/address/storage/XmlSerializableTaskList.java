@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
 public class XmlSerializableTaskList implements ReadOnlyTaskMaster {
 
     @XmlElement
-    private List<XmlAdaptedTaskComponent> tasks;
+    private List<XmlAdaptedTaskOccurrence> tasks;
     @XmlElement
     private List<Tag> tags;
 
@@ -40,7 +40,7 @@ public class XmlSerializableTaskList implements ReadOnlyTaskMaster {
      */
     public XmlSerializableTaskList(ReadOnlyTaskMaster src) {
 
-        tasks.addAll(src.getTaskComponentList().stream().map(XmlAdaptedTaskComponent::new).collect(Collectors.toList()));
+        tasks.addAll(src.getTaskOccurrenceList().stream().map(XmlAdaptedTaskOccurrence::new).collect(Collectors.toList()));
         tags = src.getTagList();
     }
 
@@ -57,7 +57,7 @@ public class XmlSerializableTaskList implements ReadOnlyTaskMaster {
     @Override
     public UniqueTaskList getUniqueTaskList() {
         UniqueTaskList lists = new UniqueTaskList();
-        for (XmlAdaptedTaskComponent p : tasks) {
+        for (XmlAdaptedTaskOccurrence p : tasks) {
             try {
                 lists.add(p.toModelType());
             } catch (IllegalValueException e) {
@@ -86,7 +86,7 @@ public class XmlSerializableTaskList implements ReadOnlyTaskMaster {
 
 
     @Override
-    public List<TaskOccurrence> getTaskComponentList() {
+    public List<TaskOccurrence> getTaskOccurrenceList() {
         // TODO Auto-generated method stub
         return null;
     }

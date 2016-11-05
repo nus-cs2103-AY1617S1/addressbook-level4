@@ -50,7 +50,7 @@ public class TaskOccurrence {
     }
     
     /**
-     * Checks if TaskDateComponent is in a valid time slot
+     * Checks if TaskDateOccurrence is in a valid time slot
      * 
      * @return True if it is in a valid time slot
      */
@@ -62,13 +62,16 @@ public class TaskOccurrence {
         }
     }
     
+    /**
+     * Returns true if it is a valid time slot
+     */
     public boolean isSlot(){
         return startDate.getDateInLong() != TaskDate.DATE_NOT_PRESENT 
                 && endDate.getDateInLong() != TaskDate.DATE_NOT_PRESENT;
     }
     
     /**
-     * Returns True if it has only end date.
+     * Returns true if it has only end date.
      */
     public boolean hasOnlyEndDate() {
         if (startDate.getDateInLong() != TaskDate.DATE_NOT_PRESENT){
