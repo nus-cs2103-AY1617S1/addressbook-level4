@@ -76,7 +76,6 @@ public class BackupCommand extends Command {
             FileUtils.copyFile(source, newFile);
         } catch (IOException e) {
             logger.warning("Error copying current data to defined backup file.");
-            e.printStackTrace();
         }
     }
 

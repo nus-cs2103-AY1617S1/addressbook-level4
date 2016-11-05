@@ -32,7 +32,6 @@ public class MainWindow extends UiPart {
     // Independent Ui parts residing in this Ui container
 
     private TaskListPanel taskListPanel;
-    private ResultDisplay resultDisplay;
     private Config config;
     // Handles to elements of this Ui container
     private VBox rootLayout;
@@ -100,7 +99,7 @@ public class MainWindow extends UiPart {
         new Image(getClass().getResourceAsStream("/images/haha.png"));
 
         taskListPanel = TaskListPanel.load(primaryStage, getTaskListPlaceholder(), logic.getFilteredTaskList());
-        resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
+        ResultDisplay resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
         StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(),
                 config.getTaskManagerFilePath());
         CommandBox.load(primaryStage, getCommandBoxPlaceholder(), resultDisplay, logic);
