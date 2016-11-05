@@ -21,19 +21,15 @@ import java.util.stream.Collectors;
 public class XmlSerializableTaskManager implements ReadOnlyTaskManager {
 
     @XmlElement
-    private List<XmlAdaptedTask> tasks;
+    private List<XmlAdaptedTask> tasks = new ArrayList<>();
     @XmlElement
-    private List<Tag> tags;
-
-    {
-        tasks = new ArrayList<>();
-        tags = new ArrayList<>();
-    }
+    private List<Tag> tags = new ArrayList<>();
 
     /**
      * Empty constructor required for marshalling
      */
-    public XmlSerializableTaskManager() {}
+    public XmlSerializableTaskManager() {
+    }
 
     /**
      * Conversion
@@ -48,7 +44,7 @@ public class XmlSerializableTaskManager implements ReadOnlyTaskManager {
         try {
             return new UniqueTagList(tags);
         } catch (UniqueTagList.DuplicateTagException e) {
-            //TODO: better error handling
+            // TODO: better error handling
             e.printStackTrace();
             return null;
         }
@@ -61,7 +57,7 @@ public class XmlSerializableTaskManager implements ReadOnlyTaskManager {
             try {
                 lists.add(p.toModelType());
             } catch (IllegalValueException e) {
-                //TODO: better error handling
+                // TODO: better error handling
             }
         }
         return lists;
@@ -74,7 +70,7 @@ public class XmlSerializableTaskManager implements ReadOnlyTaskManager {
                 return p.toModelType();
             } catch (IllegalValueException e) {
                 e.printStackTrace();
-                //TODO: better error handling
+                // TODO: better error handling
                 return null;
             }
         }).collect(Collectors.toCollection(ArrayList::new));

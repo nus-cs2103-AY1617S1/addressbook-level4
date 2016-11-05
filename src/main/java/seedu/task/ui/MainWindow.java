@@ -1,21 +1,15 @@
 package seedu.task.ui;
 
-import java.io.File;
-import java.net.URL;
-import java.util.ResourceBundle;
-
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import seedu.task.MainApp;
 import seedu.task.commons.core.Config;
 import seedu.task.commons.core.GuiSettings;
 import seedu.task.commons.events.ui.ExitAppRequestEvent;
@@ -23,14 +17,14 @@ import seedu.task.logic.Logic;
 import seedu.task.model.UserPrefs;
 
 /**
- * The Main Window. Provides the basic application layout containing
- * a menu bar and space where other JavaFX elements can be placed.
+ * The Main Window. Provides the basic application layout containing a menu bar
+ * and space where other JavaFX elements can be placed.
  */
 public class MainWindow extends UiPart {
 
     private static final String ICON = "/images/task_manager_32.png";
     private static final String LOGO = "/images/task_manager_32.png";
-    
+
     private static final String FXML = "MainWindow.fxml";
     public static final int MIN_HEIGHT = 600;
     public static final int MIN_WIDTH = 450;
@@ -60,7 +54,7 @@ public class MainWindow extends UiPart {
 
     @FXML
     private MenuItem helpMenuItem;
-  
+
     @FXML
     private AnchorPane taskListPanelPlaceholder;
 
@@ -69,10 +63,9 @@ public class MainWindow extends UiPart {
 
     @FXML
     private AnchorPane statusbarPlaceholder;
-    
+
     @FXML
     private Label label;
-
 
     public MainWindow() {
         super();
@@ -95,23 +88,22 @@ public class MainWindow extends UiPart {
         return mainWindow;
     }
 
-    private void configure(String appTitle, String taskManagerName, Config config, UserPrefs prefs,
-                           Logic logic) {
+    private void configure(String appTitle, String taskManagerName, Config config, UserPrefs prefs, Logic logic) {
 
-        //Set dependencies
+        // Set dependencies
         this.logic = logic;
         this.taskManagerName = taskManagerName;
         this.config = config;
         this.userPrefs = prefs;
 
-        //Configure the UI
+        // Configure the UI
         setTitle(appTitle);
         setIcon(ICON);
         setWindowMinSize();
-        //setWindowDefaultSize(prefs);
+        // setWindowDefaultSize(prefs);
         scene = new Scene(rootLayout);
         primaryStage.setScene(scene);
-       
+
         setAccelerators();
     }
 
@@ -119,18 +111,18 @@ public class MainWindow extends UiPart {
         helpMenuItem.setAccelerator(KeyCombination.valueOf("F1"));
     }
 
-  //@@author A0133369B
+    // @@author A0133369B
     void fillInnerParts() {
-    	Image image = new Image(getClass().getResourceAsStream("/images/haha.png"));
-    	//label.setGraphic(new ImageView(image));
-    	    
+        Image image = new Image(getClass().getResourceAsStream("/images/haha.png"));
+        // label.setGraphic(new ImageView(image));
+
         taskListPanel = TaskListPanel.load(primaryStage, getTaskListPlaceholder(), logic.getFilteredTaskList());
         resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
-        statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getTaskManagerFilePath());
+        statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(),
+                config.getTaskManagerFilePath());
         commandBox = CommandBox.load(primaryStage, getCommandBoxPlaceholder(), resultDisplay, logic);
     }
-    
-    
+
     private AnchorPane getCommandBoxPlaceholder() {
         return commandBoxPlaceholder;
     }
@@ -169,16 +161,16 @@ public class MainWindow extends UiPart {
 
     private void setWindowMinSize() {
         primaryStage.setMaximized(true);
-        //primaryStage.setMinHeight(MIN_HEIGHT);
-        //primaryStage.setMinWidth(MIN_WIDTH);
+        // primaryStage.setMinHeight(MIN_HEIGHT);
+        // primaryStage.setMinWidth(MIN_WIDTH);
     }
 
     /**
      * Returns the current size and the position of the main Window.
      */
     public GuiSettings getCurrentGuiSetting() {
-        return new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
-                (int) primaryStage.getX(), (int) primaryStage.getY());
+        return new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(), (int) primaryStage.getX(),
+                (int) primaryStage.getY());
     }
 
     @FXML
@@ -203,5 +195,4 @@ public class MainWindow extends UiPart {
         return this.taskListPanel;
     }
 
-   
 }

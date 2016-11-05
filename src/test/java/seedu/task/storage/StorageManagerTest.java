@@ -1,6 +1,5 @@
 package seedu.task.storage;
 
-
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -31,22 +30,20 @@ public class StorageManagerTest {
     @Rule
     public TemporaryFolder testFolder = new TemporaryFolder();
 
-
     @Before
     public void setup() {
         storageManager = new StorageManager(getTempFilePath("ab"), getTempFilePath("prefs"));
     }
 
-
     private String getTempFilePath(String fileName) {
         return testFolder.getRoot().getPath() + fileName;
     }
 
-
     /*
-     * Note: This is an integration test that verifies the StorageManager is properly wired to the
-     * {@link JsonUserPrefsStorage} class.
-     * More extensive testing of UserPref saving/reading is done in {@link JsonUserPrefsStorageTest} class.
+     * Note: This is an integration test that verifies the StorageManager is
+     * properly wired to the {@link JsonUserPrefsStorage} class. More extensive
+     * testing of UserPref saving/reading is done in {@link
+     * JsonUserPrefsStorageTest} class.
      */
 
     @Test
@@ -64,28 +61,30 @@ public class StorageManagerTest {
         storageManager.saveTaskManager(original);
         ReadOnlyTaskManager retrieved = storageManager.readTaskManager().get();
         assertEquals(original, new TaskManager(retrieved));
-        //More extensive testing of TaskManager saving/reading is done in XmlTaskManagerStorageTest
+        // More extensive testing of TaskManager saving/reading is done in
+        // XmlTaskManagerStorageTest
     }
 
     @Test
-    public void getTaskManagerFilePath(){
+    public void getTaskManagerFilePath() {
         assertNotNull(storageManager.getTaskManagerFilePath());
     }
 
     @Test
-    public void handleTaskManagerChangedEvent_exceptionThrown_eventRaised() throws IOException {
-        //Create a StorageManager while injecting a stub that throws an exception when the save method is called
-        Storage storage = new StorageManager(new XmlTaskManagerStorageExceptionThrowingStub("dummy"), new JsonUserPrefsStorage("dummy"));
+    public void handleTaskManagerChangedEventExceptionThrownEventRaised() throws IOException {
+        // Create a StorageManager while injecting a stub that throws an
+        // exception when the save method is called
+        Storage storage = new StorageManager(new XmlTaskManagerStorageExceptionThrowingStub("dummy"),
+                new JsonUserPrefsStorage("dummy"));
         EventsCollector eventCollector = new EventsCollector();
         storage.handleTaskManagerChangedEvent(new TaskManagerChangedEvent(new TaskManager()));
         assertTrue(eventCollector.get(0) instanceof DataSavingExceptionEvent);
     }
 
-
     /**
      * A Stub class to throw an exception when the save method is called
      */
-    class XmlTaskManagerStorageExceptionThrowingStub extends XmlTaskManagerStorage{
+    class XmlTaskManagerStorageExceptionThrowingStub extends XmlTaskManagerStorage {
 
         public XmlTaskManagerStorageExceptionThrowingStub(String filePath) {
             super(filePath);
@@ -96,6 +95,5 @@ public class StorageManagerTest {
             throw new IOException("dummy exception");
         }
     }
-
 
 }

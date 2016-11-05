@@ -9,16 +9,16 @@ import static org.junit.Assert.assertEquals;
 public class CommandBoxTest extends TaskManagerGuiTest {
 
     @Test
-    public void commandBox_commandSucceeds_textCleared() {
+    public void commandBoxCommandSucceedsTextCleared() {
         commandBox.runCommand(TypicalTestTasks.taskB.getAddCommand());
         assertEquals(commandBox.getCommandInput(), "");
     }
 
     @Test
-    public void commandBox_commandFails_textStays(){
+    public void commandBoxCommandFailsTextStays() {
         commandBox.runCommand("invalid command");
         assertEquals(commandBox.getCommandInput(), "invalid command");
-        //TODO: confirm the text box color turns to red
+        // TODO: confirm the text box color turns to red
     }
 
 }

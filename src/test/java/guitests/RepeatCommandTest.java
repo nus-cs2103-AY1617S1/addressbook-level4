@@ -18,7 +18,7 @@ public class RepeatCommandTest extends TaskManagerGuiTest {
 
     @Test
     public void repeat() {
-        
+
         TestTask[] currentList = td.getTypicalTasks();
 
         // repeat a random task in the list daily
@@ -68,11 +68,11 @@ public class RepeatCommandTest extends TaskManagerGuiTest {
         assertRepeatSuccess(targetIndex, currentList, "end");
 
         // incorrect index
-        assertRepeatWrongIndexFailure(50, currentList, "daily");
+        assertRepeatWrongIndexFailure(50, "daily");
 
         // incorrect interval
         targetIndex = ThreadLocalRandom.current().nextInt(1, (currentList.length + 1));
-        assertRepeatWrongIntervalFailure(targetIndex, currentList, "incorrect interval");
+        assertRepeatWrongIntervalFailure(targetIndex, "incorrect interval");
     }
 
     /**
@@ -86,7 +86,12 @@ public class RepeatCommandTest extends TaskManagerGuiTest {
      *            A copy of the current list of tasks (before repeat command).
      */
     private void assertRepeatSuccess(int targetIndexOneIndexed, final TestTask[] currentList, String input) {
-        TestTask taskToRepeat = currentList[targetIndexOneIndexed - 1]; // -1 because array uses zero indexing
+        TestTask taskToRepeat = currentList[targetIndexOneIndexed - 1]; // -1
+                                                                        // because
+                                                                        // array
+                                                                        // uses
+                                                                        // zero
+                                                                        // indexing
 
         // confirm initial recurring parameter for task is different
         if (input.equals("stop") || input.equals("end")) {
@@ -120,7 +125,7 @@ public class RepeatCommandTest extends TaskManagerGuiTest {
         assertResultMessage(String.format(MESSAGE_REPEAT_TASK_SUCCESS, taskToRepeat.getName().toString(), input));
     }
 
-    private void assertRepeatWrongIndexFailure(int targetIndexOneIndexed, final TestTask[] currentList, String input) {
+    private void assertRepeatWrongIndexFailure(int targetIndexOneIndexed, String input) {
 
         commandBox.runCommand("repeat " + targetIndexOneIndexed + " " + input);
 
@@ -128,8 +133,7 @@ public class RepeatCommandTest extends TaskManagerGuiTest {
         assertResultMessage(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
     }
 
-    private void assertRepeatWrongIntervalFailure(int targetIndexOneIndexed, final TestTask[] currentList,
-            String input) {
+    private void assertRepeatWrongIntervalFailure(int targetIndexOneIndexed, String input) {
 
         commandBox.runCommand("repeat " + targetIndexOneIndexed + " " + input);
 

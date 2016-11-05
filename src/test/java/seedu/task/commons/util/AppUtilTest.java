@@ -13,19 +13,15 @@ public class AppUtilTest {
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
-
-
     @Test
-    public void getImage_exitingImage(){
+    public void getImageExitingImage() {
         assertNotNull(AppUtil.getImage("/images/task_manager_32.png"));
     }
 
-
     @Test
-    public void getImage_nullGiven_assertionError(){
+    public void getImageNullGivenAssertionError() {
         thrown.expect(AssertionError.class);
         AppUtil.getImage(null);
     }
-
 
 }

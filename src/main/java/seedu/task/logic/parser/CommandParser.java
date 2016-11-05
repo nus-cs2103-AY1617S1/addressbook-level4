@@ -68,9 +68,6 @@ public class CommandParser {
     public static final String EDIT_DEADLINE = "due";
     public static final String EDIT_TAG = "tag";
 
-    public CommandParser() {
-    }
-
     /**
      * Parses user input into command for execution.
      *
