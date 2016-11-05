@@ -42,8 +42,8 @@ public interface ReadOnlyTask {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName());
         builder.append(getPeriod());
-        builder.append("\nTags: ");
-        getTags().forEach(builder::append);
+        builder.append("\n");
+        builder.append(tagsString());
         return builder.toString();
     }
 
