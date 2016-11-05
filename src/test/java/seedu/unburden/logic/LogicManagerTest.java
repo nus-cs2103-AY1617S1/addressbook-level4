@@ -150,11 +150,14 @@ public class LogicManagerTest {
 	@Test
 	public void execute_clear() throws Exception {
 		TestDataHelper helper = new TestDataHelper();
-		model.addTask(helper.generateTask(1));
-		model.addTask(helper.generateTask(2));
-		model.addTask(helper.generateTask(3));
-
-		assertCommandBehavior("clear", ClearCommand.MESSAGE_SUCCESS, new ListOfTask(), Collections.emptyList());
+		ListOfTask expected = new ListOfTask();
+		expected.addTask(helper.generateTask(1));
+		expected.addTask(helper.generateTask(2));
+		expected.addTask(helper.generateTask(3));
+		for(ReadOnlyTask task : expected.getTaskList()){
+			expected.removeTask(task);
+		}
+		assertCommandBehavior("clear", ClearCommand.MESSAGE_SUCCESS, expected, expected.getTaskList());
 	}
 
 	@Test

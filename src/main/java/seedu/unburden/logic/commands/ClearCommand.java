@@ -12,6 +12,7 @@ public class ClearCommand extends Command {
 
 	public static final String COMMAND_WORD = "clear";
 	public static final String MESSAGE_SUCCESS = "Unburden has been cleared!";
+	public static final String MESSAGE_EMPTY = "The list is currently empty. Try Clear on another list instead.";
 	public static final String MESSAGE_USAGE = COMMAND_WORD + "Clears the current list. \n";
 
 	public ClearCommand() {
@@ -23,7 +24,7 @@ public class ClearCommand extends Command {
 		model.saveToPrevLists();
 		UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
 		if (lastShownList.size() == 0) {
-			return new CommandResult("The list is currently empty. Try Clear on another list instead.");
+			return new CommandResult(MESSAGE_EMPTY);
 		}
 		try {
 			while(lastShownList.size() != 0){
