@@ -19,6 +19,8 @@ public class ChangeCommandTest extends TaskManagerGuiTest {
 
     @Test
     public void change_invalidCommand_fail() {
+        commandBox.runCommand("change *");
+        assertResultMessage(ChangeCommand.MESSAGE_INVALID_FILE_PATH);
         commandBox.runCommand("change dummyfile");
         assertResultMessage(ChangeCommand.MESSAGE_INVALID_FILE_PATH);
         commandBox.runCommand("change " + sampleData + " clean");
