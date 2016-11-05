@@ -20,41 +20,4 @@
 		<nature>org.eclipse.buildship.core.gradleprojectnature</nature>
 		<nature>org.eclipse.jdt.core.javanature</nature>
 	</natures>
-	<linkedResources>
-		<link>
-			<name>docs/images/DeleteTaskSdForLogic_f.png</name>
-			<type>1</type>
-			<locationURI>PARENT-7-PROJECT_LOC/Users/Zhiyuan/Desktop/DeleteTaskSdForLogic_f.png</locationURI>
-		</link>
-		<link>
-			<name>docs/images/LogicClassDiagram_f.png</name>
-			<type>1</type>
-			<locationURI>PARENT-7-PROJECT_LOC/Users/Zhiyuan/Desktop/LogicClassDiagram_f.png</locationURI>
-		</link>
-		<link>
-			<name>docs/images/ModelClassDiagram_f.png</name>
-			<type>1</type>
-			<locationURI>PARENT-7-PROJECT_LOC/Users/Zhiyuan/Desktop/ModelClassDiagram_f.png</locationURI>
-		</link>
-		<link>
-			<name>docs/images/SDForDeleteTaskEventHandling_f.png</name>
-			<type>1</type>
-			<locationURI>PARENT-7-PROJECT_LOC/Users/Zhiyuan/Desktop/SDForDeleteTaskEventHandling_f.png</locationURI>
-		</link>
-		<link>
-			<name>docs/images/SDForDeleteTask_f.png</name>
-			<type>1</type>
-			<locationURI>PARENT-7-PROJECT_LOC/Users/Zhiyuan/Desktop/SDForDeleteTask_f.png</locationURI>
-		</link>
-		<link>
-			<name>docs/images/StorageClassDiagram_f.png</name>
-			<type>1</type>
-			<locationURI>PARENT-7-PROJECT_LOC/Users/Zhiyuan/Desktop/StorageClassDiagram_f.png</locationURI>
-		</link>
-		<link>
-			<name>docs/images/UIClassDiagram_f.png</name>
-			<type>1</type>
-			<locationURI>PARENT-7-PROJECT_LOC/Users/Zhiyuan/Desktop/UIClassDiagram_f.png</locationURI>
-		</link>
-	</linkedResources>
 </projectDescription>
