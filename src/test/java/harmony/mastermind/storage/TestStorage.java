@@ -2,7 +2,7 @@ package harmony.mastermind.storage;
 
 import harmony.mastermind.memory.GenericMemory;
 import harmony.mastermind.memory.Memory;
-import harmony.mastermind.storage.Storage;
+import harmony.mastermind.storage.StorageMemory;
 
 import org.junit.Test;
 import static org.junit.Assert.assertEquals;
@@ -21,7 +21,7 @@ public class TestStorage {
     //@@author A0143378Y
     private static void testReadFromFile_IO() { 
         Memory testMem = new Memory();
-        Storage.checkForFileExists(testMem);
+        StorageMemory.checkForFileExists(testMem);
         
         testMem_getTask(testMem);
         testMem_getDeadline(testMem);
