@@ -194,19 +194,25 @@ Given below is the Sequence Diagram for interactions within the `Logic` componen
  API call.<br>
 <img src="images/DeletePersonSdForLogic.png" width="800"><br>
 
+<!--- @@author A0093907W -->
 ### Model component
 
 <img src="images/ModelClassDiagram.png" width="800"><br>
 
-**API** : [`Model.java`](../src/main/java/seedu/todo/model/Model.java)
+**API** : [`CalendarItem.java`](../src/main/java/seedu/todo/models/CalendarItem.java)
 
-The `Model`,
-* stores a `UserPref` object that represents the user's preferences.
-* stores the Address Book data.
-* exposes a `UnmodifiableObservableList<ReadOnlyPerson>` that can be 'observed' e.g. the UI can be bound to this list
-  so that the UI automatically updates when the data in the list change.
-* does not depend on any of the other three components.
+`CalendarItem`
+* represents a single database record that is part of the persistent state of the TodoList app
+* is subclassed by two record types, namely `Event` and `Task`
 
+`TodoListDB`
+* is a class that holds the entire persistent database for the TodoList app
+* is a singleton class. For obvious reasons, the TodoList app should not be working with multiple DB instances simultaneously
+* is recursively serialized to disk - hence object-to-object dynamic references should not be expected to survive serialization/deserialization 
+<!--- @@author -->
+
+
+<!--- @@author A0093907W -->
 ### Storage component
 
 <img src="images/StorageClassDiagram.png" width="800"><br>
@@ -214,8 +220,16 @@ The `Model`,
 **API** : [`Storage.java`](../src/main/java/seedu/todo/storage/Storage.java)
 
 The `Storage` component,
-* can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in xml format and read it back.
+* holds the logic for saving and loading the TodoListDB from disk
+* maintains the required information to undo/redo the state of the TodoListDB in steps. One step represents the changes made in a single atomic transaction
+* will discard all redo information the moment a new operation (i.e. not `redo`) is committed
+
+*Some notes on the `JsonStorage` implementation of `Storage`*:
+* The undo/redo information is stored using a stack of memory-efficient diffs containing the required patches to the data. When we undo, we construct a diff in the opposite direction so that we can redo.
+* Average case time complexity for an undo/redo operation is constant with undo/redo history, linear with DB size.
+* The space complexity of the undo/redo operation is constant with the DB size (this is the reason we are able to support up to 1000 undo/redos even though Jim likely isn't that much of a keyboard warrior).
+<!--- @@author -->
+
 
 ### Common classes
 
@@ -588,23 +602,6 @@ Use case ends.
 3b. The given command is invalid.
 > 3b1. Application will show an error message.
 Use case ends.
-
-#### Use case: Change theme of the Application
-
-**MSS**
-
-1. User requests to change the theme of the application.
-2. Application shows a list of available themes.
-3. User request the specific theme in the list.
-4. Application change the theme. <br>
-Use case ends.  
-
-**Extensions**  
-
-3a. The given index is invalid.
-
-> 3a1. Application shows an error message.  
-  Use case ends.
 
 
 ## Appendix C : Non Functional Requirements
