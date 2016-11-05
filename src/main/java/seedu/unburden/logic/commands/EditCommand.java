@@ -1,12 +1,8 @@
 package seedu.unburden.logic.commands;
-
-import java.util.List;
-
 import seedu.unburden.commons.core.Messages;
 import seedu.unburden.commons.exceptions.*;
 import seedu.unburden.commons.core.UnmodifiableObservableList;
 import seedu.unburden.model.tag.UniqueTagList;
-import seedu.unburden.model.tag.UniqueTagList.DuplicateTagException;
 import seedu.unburden.model.task.Date;
 import seedu.unburden.model.task.Name;
 import seedu.unburden.model.task.ReadOnlyTask;
