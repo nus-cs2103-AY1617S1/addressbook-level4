@@ -122,7 +122,7 @@ public class UpdateCommandTest extends GuiTest {
     }
     
     @Test
-    public void updateCommand_missingIndex_disambiguate() {
+    public void updateTask_missingIndex_disambiguate() {
         console.runCommand("add Buy milk");
         console.runCommand("update");
         assertEquals("update <index> [name \"<name>\"] [by \"<deadline>\"]", console.getConsoleInputText());
@@ -130,7 +130,7 @@ public class UpdateCommandTest extends GuiTest {
     }
     
     @Test
-    public void updateCommand_missingUpdateParams_disambiguate() {
+    public void updateTask_missingUpdateParams_disambiguate() {
         console.runCommand("add Buy milk");
         console.runCommand("update 1");
         assertEquals("update 1 [name \"<name>\"] [by \"<deadline>\"]", console.getConsoleInputText());
@@ -138,7 +138,7 @@ public class UpdateCommandTest extends GuiTest {
     }
     
     @Test
-    public void updateCommand_missingParamType_disambiguate() {
+    public void updateTask_missingParamType_disambiguate() {
         console.runCommand("add Buy milk");
         console.runCommand("update 1 Buy bread");
         assertEquals("update <index> [name \"<name>\"] [by \"<deadline>\"]", console.getConsoleInputText());
@@ -146,7 +146,7 @@ public class UpdateCommandTest extends GuiTest {
     }
     
     @Test
-    public void updateCommand_missingParamValue_disambiguate() {
+    public void updateTask_missingParamValue_disambiguate() {
         console.runCommand("add Buy milk");
         console.runCommand("update 1 name");
         assertEquals("update 1 [name \"<name>\"] [by \"<deadline>\"]", console.getConsoleInputText());
@@ -154,7 +154,7 @@ public class UpdateCommandTest extends GuiTest {
     }
     
     @Test
-    public void updateCommand_invalidIndex_disambiguate() {
+    public void updateTask_invalidIndex_disambiguate() {
         console.runCommand("add Buy milk");
         console.runCommand("update 2 name Buy bread");
         assertEquals("update 2 [name \"Buy bread\"] [by \"<deadline>\"]", console.getConsoleInputText());
@@ -162,7 +162,7 @@ public class UpdateCommandTest extends GuiTest {
     }
     
     @Test
-    public void updateCommand_invalidDate_disambiguate() {
+    public void updateTask_invalidDate_disambiguate() {
         console.runCommand(String.format("add Buy milk by %s", twoDaysFromNowIsoString));
         console.runCommand("update 1 by invaliddate");
         assertEquals("update 1 [name \"<name>\"] [by \"invaliddate\"]", console.getConsoleInputText());
@@ -170,14 +170,37 @@ public class UpdateCommandTest extends GuiTest {
     }
     
     @Test
-    public void updateEvent_endBeforeStart_disambiguate() {
+    public void updateEvent_missingParamValue_disambiguate() {
         console.runCommand(String.format("add event Presentation from %s 2pm to %s 9pm", twoDaysFromNowIsoString, twoDaysFromNowIsoString));
-        console.runCommand("update 1 from today 9pm to today 2pm");
-        assertEquals("update 1 [name \"<name>\"] [from \"today 9pm\" to \"today 2pm\"]", console.getConsoleInputText());
+        console.runCommand("update 1 name");
+        assertEquals("update 1 [name \"<name>\"] [from \"<start time>\" to \"<end time>\"]", console.getConsoleInputText());
         assertSameDisambiguationMessage(null, console);
     }
     
     @Test
+    public void updateEvent_missingParamValueDate_disambiguate() {
+        console.runCommand(String.format("add event Presentation from %s 2pm to %s 9pm", twoDaysFromNowIsoString, twoDaysFromNowIsoString));
+        console.runCommand("update 1 name");
+        assertEquals("update 1 [name \"<name>\"] [from \"<start time>\" to \"<end time>\"]", console.getConsoleInputText());
+        assertSameDisambiguationMessage(null, console);
+    }
+    
+    @Test
+    public void updateEvent_invalidStartDate_disambiguate() {
+        console.runCommand(String.format("add event Presentation from %s 2pm to %s 9pm", twoDaysFromNowIsoString, twoDaysFromNowIsoString));
+        console.runCommand("update 1 from invaliddate to today 2pm");
+        assertEquals("update 1 [name \"<name>\"] [from \"invaliddate\" to \"today 2pm\"]", console.getConsoleInputText());
+        assertSameDisambiguationMessage(UpdateController.MESSAGE_CANNOT_PARSE_DATE, console);
+    }
+    
+    @Test
+    public void updateEvent_invalidEndDate_disambiguate() {
+        console.runCommand(String.format("add event Presentation from %s 2pm to %s 9pm", twoDaysFromNowIsoString, twoDaysFromNowIsoString));
+        console.runCommand("update 1 from today 2pm to invaliddate");
+        assertEquals("update 1 [name \"<name>\"] [from \"today 2pm\" to \"invaliddate\"]", console.getConsoleInputText());
+        assertSameDisambiguationMessage(UpdateController.MESSAGE_CANNOT_PARSE_DATE, console);
+    }
+    
     public void updateTask_withStartEndDate_disambiguate() {
         console.runCommand(String.format("add Buy milk", twoDaysFromNowIsoString, twoDaysFromNowIsoString));
         console.runCommand("update 1 from 2pm to today 9pm");
