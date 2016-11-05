@@ -181,11 +181,11 @@ public class LogicManagerTest {
 	public void execute_add_deadline() throws Exception {
 		TestDataHelper helper = new TestDataHelper();
 		Task t1 = helper.generateDeadlineTask("Hi hi", "bye bye", "11-10-2016", "bored");
-		ListOfTask expectedAB = new ListOfTask();
-		expectedAB.addTask(t1);
+		ListOfTask expected = new ListOfTask();
+		expected.addTask(t1);
 
-		assertCommandBehavior("add Hi hi i/bye bye d/11-10-2016 t/bored", String.format(AddCommand.MESSAGE_SUCCESS, t1), expectedAB,
-				expectedAB.getTaskList());
+		assertCommandBehavior("add Hi hi i/bye bye d/11-10-2016 t/bored", String.format(AddCommand.MESSAGE_SUCCESS, t1), expected,
+				expected.getTaskList());
 
 	}
 
@@ -194,13 +194,22 @@ public class LogicManagerTest {
 	public void execute_add_floatingTask() throws Exception {
 		TestDataHelper helper = new TestDataHelper();
 		Task t1 = helper.generateFloatingTask("I'm so tired", "I haven't sleep", "sleep");
-		ListOfTask expectedAB = new ListOfTask();
-		expectedAB.addTask(t1);
+		ListOfTask expected = new ListOfTask();
+		expected.addTask(t1);
 
-		assertCommandBehavior("Add I'm so tired i/I havent' sleep t/sleep", String.format(AddCommand.MESSAGE_SUCCESS, t1), expectedAB,
-				expectedAB.getTaskList());
+		assertCommandBehavior("Add I'm so tired i/I haven't sleep t/sleep", String.format(AddCommand.MESSAGE_SUCCESS, t1), expected,
+				expected.getTaskList());
 	}
-
+	
+	@Test
+	public void execute_add_floating_task_without_tags() throws Exception{
+		TestDataHelper helper = new TestDataHelper();
+		Task task = helper.generateFloatingTaskWithoutTag("Hello", "It's me");
+		ListOfTask expected = new ListOfTask();
+		expected.addTask(task);
+		
+		assertCommandBehavior("add Hello i/It's me", String.format(AddCommand.MESSAGE_SUCCESS, task), expected, expected.getTaskList());
+	}
 
     @Test
     public void execute_add_successful() throws Exception {
