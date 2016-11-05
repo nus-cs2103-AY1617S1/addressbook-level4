@@ -21,7 +21,6 @@ public class TaskDate implements Comparable<TaskDate> {
     //format: 'dd/mm/yyyy'
     public static final String DATE_VALIDATION_REGEX_1 = "((\\p{Digit}){1,2}/(\\p{Digit}){1,2}(/(\\p{Digit}){4})?)";
     //format: 'dd monthname yyyy'
-    //full monthname (october) and abbreviated monthname (oct) are accepted.
     public static final String DATE_VALIDATION_REGEX_2 = "((\\p{Digit}){1,2}\\s?(\\p{Alpha}){3,9}\\s?((\\p{Digit}){4})?)";
     public static final String DATE_VALIDATION_REGEX_FORMAT = DATE_VALIDATION_REGEX_1 + "|" + DATE_VALIDATION_REGEX_2;
     
@@ -52,10 +51,7 @@ public class TaskDate implements Comparable<TaskDate> {
      * Returns true if a given string is a valid task date.
      */
     private boolean isValidDate(String test) {
-        if (test.matches(DATE_VALIDATION_REGEX_FORMAT)) {
-            return true;
-        }
-        return false;
+        return test.matches(DATE_VALIDATION_REGEX_FORMAT);
     }
     
     /**
@@ -94,10 +90,4 @@ public class TaskDate implements Comparable<TaskDate> {
             return 1;
         }
     }
-
-    @Override
-    public int hashCode() {
-        return date.hashCode();
-    }
-
 }

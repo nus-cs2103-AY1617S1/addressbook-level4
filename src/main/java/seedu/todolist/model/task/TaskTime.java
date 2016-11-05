@@ -20,7 +20,6 @@ public class TaskTime implements Comparable<TaskTime> {
     //format: 24-hr
     public static final String TIME_VALIDATION_REGEX_2 = "(\\p{Digit}){1,2}:(\\p{Digit}){2}";
     //format: AM/PM
-    //minutes can be omitted and assumed to be 00
     public static final String TIME_VALIDATION_REGEX_1 = "(\\p{Digit}){1,2}(:(\\p{Digit}){2})?\\s?[AaPp][Mm]";
     public static final String TIME_VALIDATION_REGEX_FORMAT = TIME_VALIDATION_REGEX_1 + "|" + TIME_VALIDATION_REGEX_2;
 
@@ -51,10 +50,7 @@ public class TaskTime implements Comparable<TaskTime> {
      * Returns true if a given string is a valid task time.
      */
     public static boolean isValidTime(String test) {
-        if (test.matches(TIME_VALIDATION_REGEX_FORMAT)) {
-            return true;
-        }
-        return false;
+        return test.matches(TIME_VALIDATION_REGEX_FORMAT);
     }
     
     /**
@@ -94,10 +90,5 @@ public class TaskTime implements Comparable<TaskTime> {
         } else {
             return 1;
         }
-    }
-
-    @Override
-    public int hashCode() {
-        return time.hashCode();
     }
 }
