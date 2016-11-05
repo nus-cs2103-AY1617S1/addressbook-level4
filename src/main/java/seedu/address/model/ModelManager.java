@@ -58,7 +58,7 @@ public class ModelManager extends ComponentManager implements Model {
 
         taskMaster = new TaskMaster(src);
         tasks = taskMaster.getTasks();
-        filteredTaskComponents = new FilteredList<>(taskMaster.getTaskComponentList());
+        filteredTaskComponents = new FilteredList<>(taskMaster.getTaskOccurrenceList());
         initRecurringTaskManager();
         previousDate = new TaskDate(new Date(System.currentTimeMillis()));
         previousExpression = new PredicateExpression(new InitialQualifier());
@@ -75,7 +75,7 @@ public class ModelManager extends ComponentManager implements Model {
         taskMaster = new TaskMaster(initialData);
         tasks = taskMaster.getTasks();
 
-        filteredTaskComponents = new FilteredList<>(taskMaster.getTaskComponentList());
+        filteredTaskComponents = new FilteredList<>(taskMaster.getTaskOccurrenceList());
         initRecurringTaskManager();
         previousDate = new TaskDate(new Date(System.currentTimeMillis()));
         previousExpression = new PredicateExpression(new InitialQualifier());

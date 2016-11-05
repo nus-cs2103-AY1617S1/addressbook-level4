@@ -52,7 +52,7 @@ public class TaskMaster implements ReadOnlyTaskMaster {
      * Tasks and Tags are copied into this task list
      */
     public TaskMaster(UniqueTaskList tasks, UniqueTagList tags) {
-        resetData(tasks.getInternalTaskList(), tasks.getInternalComponentList(), tags.getInternalList());
+        resetData(tasks.getInternalTaskList(), tasks.getInternalOccurrenceList(), tags.getInternalList());
     }
 
     public static ReadOnlyTaskMaster getEmptyTaskList() {
@@ -66,8 +66,8 @@ public class TaskMaster implements ReadOnlyTaskMaster {
     }
 
     @Override
-    public ObservableList<TaskOccurrence> getTaskComponentList() {
-        return tasks.getInternalComponentList();
+    public ObservableList<TaskOccurrence> getTaskOccurrenceList() {
+        return tasks.getInternalOccurrenceList();
     }
 
     public void setTasks(List<Task> tasks) {
@@ -92,7 +92,7 @@ public class TaskMaster implements ReadOnlyTaskMaster {
      * of task component does not work.
      */
     public void rebuildComponentList() {
-        this.tasks.getInternalComponentList().clear();
+        this.tasks.getInternalOccurrenceList().clear();
         ArrayList<TaskOccurrence> fullList = new ArrayList<TaskOccurrence>();
         for (Task task : tasks.getInternalTaskList()) {
             ArrayList<TaskOccurrence> newList = new ArrayList<TaskOccurrence>();
@@ -108,12 +108,12 @@ public class TaskMaster implements ReadOnlyTaskMaster {
             }
             task.setRecurringDates(newList);
         }
-        this.tasks.getInternalComponentList().setAll(fullList);
+        this.tasks.getInternalOccurrenceList().setAll(fullList);
     }
 
     // @@author
     public void resetData(ReadOnlyTaskMaster newData) {
-        resetData(newData.getTaskList(), newData.getTaskComponentList(), newData.getTagList());
+        resetData(newData.getTaskList(), newData.getTaskOccurrenceList(), newData.getTagList());
     }
 
     //// task-level operations
@@ -225,7 +225,7 @@ public class TaskMaster implements ReadOnlyTaskMaster {
     // @@author A0147995H
     public boolean updateTask(TaskOccurrence target, Name name, UniqueTagList tags, TaskDate startDate, TaskDate endDate,
             RecurringType recurringType) throws TaskNotFoundException, TimeslotOverlapException {
-        int index = tasks.getInternalComponentList().indexOf(target);
+        int index = tasks.getInternalOccurrenceList().indexOf(target);
         if (tasks.updateTask(target, name, tags, startDate, endDate, recurringType)) {
             if (tags != null) {
                 this.tags.mergeFrom(tags);
@@ -243,7 +243,7 @@ public class TaskMaster implements ReadOnlyTaskMaster {
                 for (Tag tag : tags) {
                     commonTagReferences.add(masterTagObjects.get(tag));
                 }
-                ((Task)(tasks.getInternalComponentList().get(index).getTaskReference())).setTags(new UniqueTagList(commonTagReferences));
+                ((Task)(tasks.getInternalOccurrenceList().get(index).getTaskReference())).setTags(new UniqueTagList(commonTagReferences));
             }
             return true;
         } else {

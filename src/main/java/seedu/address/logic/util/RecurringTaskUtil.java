@@ -15,6 +15,7 @@ import seedu.address.model.task.UniqueTaskList;
  * Appends and corrects Recurring Tasks based on their recurring type.
  */
 public class RecurringTaskUtil {
+    private static final int INDEPTH_CHECK_REQUIRED = 0;
     private static final int APPEND_INCREMENT = 1;
     private static final double NUM_MONTHS_IN_YEAR = 12.0;
     private static final double NUM_WEEKS_IN_MONTH = 4.0;
@@ -51,7 +52,7 @@ public class RecurringTaskUtil {
         
         TaskOccurrence toAppend = new TaskOccurrence((Task) task, editedStartDate, editedEndDate);
         task.appendRecurringDate(toAppend);
-        repeatingTasks.appendTaskComponent(toAppend);
+        repeatingTasks.appendTaskOccurrence(toAppend);
     }
     
     /**
@@ -161,7 +162,7 @@ public class RecurringTaskUtil {
      * @return The elapsed time between two dates and based on the recurring type.
      */
     private static int getPeriodBetweenDates(LocalDate before, LocalDate after, RecurringType recurringType) {
-        final int elapsedPeriod;
+        int elapsedPeriod;
         switch (recurringType) {
             case DAILY:
                 elapsedPeriod = (int) ChronoUnit.DAYS.between(before, after);
@@ -170,10 +171,16 @@ public class RecurringTaskUtil {
                 elapsedPeriod = (int) Math.ceil(ChronoUnit.DAYS.between(before, after) / NUM_DAYS_IN_WEEK);
                 break;
             case MONTHLY:
-                elapsedPeriod = (int) Math.ceil(ChronoUnit.WEEKS.between(before, after) / NUM_WEEKS_IN_MONTH);                
+                elapsedPeriod = (int) Math.ceil(ChronoUnit.WEEKS.between(before, after) / NUM_WEEKS_IN_MONTH);
+                if (elapsedPeriod == INDEPTH_CHECK_REQUIRED) {
+                    elapsedPeriod = getPeriodBetweenDates(before,after,RecurringType.DAILY);
+                }
                 break;
             case YEARLY:
                 elapsedPeriod = (int) Math.ceil(ChronoUnit.MONTHS.between(before, after) / NUM_MONTHS_IN_YEAR);
+                if (elapsedPeriod == INDEPTH_CHECK_REQUIRED) {
+                    elapsedPeriod = getPeriodBetweenDates(before,after,RecurringType.DAILY);
+                }
                 break;
             default:
                 elapsedPeriod = -1;

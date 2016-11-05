@@ -31,7 +31,7 @@ public class ViewCommand extends Command {
     public CommandResult execute() {
 
         EventsCenter.getInstance()
-                .post(new AgendaTimeRangeChangedEvent(inputDate, model.getTaskMaster().getTaskComponentList()));
+                .post(new AgendaTimeRangeChangedEvent(inputDate, model.getTaskMaster().getTaskOccurrenceList()));
         return new CommandResult(String.format(MESSAGE_UPDATE_AGENDA_SUCCESS, formatter.format(inputDate.getDate())));
 
     }

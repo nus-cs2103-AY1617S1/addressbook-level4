@@ -12,18 +12,15 @@ import seedu.address.model.task.TaskDate;
 import seedu.address.model.task.TaskOccurrence;
 import seedu.address.model.task.TaskType;
 
+//@@author A0135782Y
 public class TaskStub extends Task {
     private NameStub name;
-    private RecurringType recurringType;
-    
-    private List<TaskOccurrenceStub> recurringDates;
-    
     public TaskStub(Name name, UniqueTagList tags) throws IllegalValueException {   
         super(name, tags);
     }
     public TaskStub() throws IllegalValueException {
         name = new NameStub("dummy");
-        recurringDates = new ArrayList<TaskOccurrenceStub>();
+        new ArrayList<TaskOccurrenceStub>();
     }
     @Override
     public Name getName() {

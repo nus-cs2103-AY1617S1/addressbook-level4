@@ -149,8 +149,8 @@ public class Task implements ReadOnlyTask {
     @Override
     public void completeTaskWhenAllComponentArchived() {
         for (TaskOccurrence c : recurringDates) {
-            if (c.isArchived() == false || 
-                    c.getTaskReference().getRecurringType() != RecurringType.NONE) {
+            if (c.isArchived() == false 
+                    || c.getTaskReference().getRecurringType() != RecurringType.NONE) {
                 return;
             }
         }

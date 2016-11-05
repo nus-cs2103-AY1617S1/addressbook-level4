@@ -40,7 +40,7 @@ public class XmlSerializableTaskList implements ReadOnlyTaskMaster {
      */
     public XmlSerializableTaskList(ReadOnlyTaskMaster src) {
 
-        tasks.addAll(src.getTaskComponentList().stream().map(XmlAdaptedTaskComponent::new).collect(Collectors.toList()));
+        tasks.addAll(src.getTaskOccurrenceList().stream().map(XmlAdaptedTaskComponent::new).collect(Collectors.toList()));
         tags = src.getTagList();
     }
 
@@ -86,7 +86,7 @@ public class XmlSerializableTaskList implements ReadOnlyTaskMaster {
 
 
     @Override
-    public List<TaskOccurrence> getTaskComponentList() {
+    public List<TaskOccurrence> getTaskOccurrenceList() {
         // TODO Auto-generated method stub
         return null;
     }

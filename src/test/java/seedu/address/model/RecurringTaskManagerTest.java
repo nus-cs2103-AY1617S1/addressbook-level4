@@ -1,6 +1,9 @@
 package seedu.address.model;
 
-import static org.junit.Assert.*;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.not;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThat;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -10,7 +13,6 @@ import java.util.Locale;
 
 import org.junit.Before;
 import org.junit.Test;
-import static org.hamcrest.CoreMatchers.*;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.RecurringTaskManager;
@@ -19,9 +21,6 @@ import seedu.address.model.task.RecurringType;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.TaskDate;
 import seedu.address.model.task.TaskOccurrence;
-import seedu.address.model.task.UniqueTaskList.DuplicateTaskException;
-import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
-import seedu.address.model.task.UniqueTaskList.TimeslotOverlapException;
 import seedu.address.testutil.TaskBuilder;
 import seedu.address.testutil.TestTask;
 
@@ -51,11 +50,6 @@ public class RecurringTaskManagerTest {
         recurringManager.correctOverdueNonRepeatingTasks(null);
     }
     
-//    @Test(expected = AssertionError.class)
-//    public void appendAnyRecurringTasks_nullTaskList_throwAssert() {
-//        recurringManager.appendAnyRecurringTasks();
-//    }
-    
     @Test
     public void updateRecurringTask_successful() throws Exception {
         TestTask testData = helper.buildRecurringTask(RecurringType.DAILY);
@@ -63,7 +57,7 @@ public class RecurringTaskManagerTest {
         taskMaster.addTask(tryUpdate);
         recurringManager.appendAnyRecurringTasks(helper.getLocalDateByString("2016-10-12"));
         
-        assertEquals("Recurring task should be updated to append 1 more task occurrence", taskMaster.getTaskComponentList().size(), 2);
+        assertEquals("Recurring task should be updated to append 1 more task occurrence", taskMaster.getTaskOccurrenceList().size(), 2);
         assertEquals("Recurring task should be have unique tasks", taskMaster.getTaskList().size(), 1);
     }
     
@@ -85,6 +79,33 @@ public class RecurringTaskManagerTest {
         correctAssignOverdueTasks(RecurringType.YEARLY);
     }
     
+    @Test
+    public void updateRecurringTask_noRecurringPeriod() throws Exception {
+        recurringManager.setTestMode(true);
+        updateRecurringTask(RecurringType.DAILY, "2016-10-12");
+        updateRecurringTask(RecurringType.WEEKLY, "2016-10-17");
+        updateRecurringTask(RecurringType.MONTHLY, "2016-11-12");
+        updateRecurringTask(RecurringType.YEARLY, "2017-10-11");
+    }
+    
+    @Test
+    public void updateRecurringTasks_withoutRepeatLimit() throws Exception {
+        recurringManager.setTestMode(true);
+        updateRecurringTask(RecurringType.DAILY, "12 oct 2016 11pm", "13 oct 2016 11pm");
+        updateRecurringTask(RecurringType.WEEKLY, "18 oct 2016 11pm", "19 oct 2016 11pm");
+        updateRecurringTask(RecurringType.MONTHLY, "11 nov 2016 11pm", "12 nov 2016 11pm");
+        updateRecurringTask(RecurringType.YEARLY, "11 oct 2017 11pm", "12 oct 2017 11pm");
+    }
+    
+    @Test
+    public void updateRecurringTask_withRecurringPeriod() throws Exception {
+        final int recurringPeriod = 3;
+        updateRecurringTask_withRecurringPeriod(RecurringType.DAILY, recurringPeriod, null, "14 oct 2016 11pm");
+        updateRecurringTask_withRecurringPeriod(RecurringType.WEEKLY, recurringPeriod, null, "26 oct 2016 11pm");
+        updateRecurringTask_withRecurringPeriod(RecurringType.MONTHLY, recurringPeriod, null, "12 dec 2016 11pm");
+        updateRecurringTask_withRecurringPeriod(RecurringType.YEARLY, recurringPeriod, null, "12 oct 2018 11pm");
+    }
+
     private void correctAssignOverdueTasks(RecurringType type) throws Exception {
         TestTask tryCorrect = helper.buildRecurringTask(type);
         TestTask expectedTask = helper.buildRecurringTask(type);
@@ -105,40 +126,22 @@ public class RecurringTaskManagerTest {
                 helper.getLastAppendedOccurrence(tryCorrect), helper.getLastAppendedOccurrence(expectedTask));
     }
     
-    @Test
-    public void updateRecurringTask_noRecurringPeriod() throws Exception {
-        recurringManager.setTestMode(true);
-        updateRecurringTask(RecurringType.DAILY, "2016-10-12");
-        updateRecurringTask(RecurringType.WEEKLY, "2016-10-17");
-        updateRecurringTask(RecurringType.MONTHLY, "2016-11-12");
-        updateRecurringTask(RecurringType.YEARLY, "2017-10-11");
-    }
-    
     public void updateRecurringTask(RecurringType type, String dateToAppendTask) throws Exception {
         TestTask tryAppend = helper.buildRecurringTask(type);
         assert_updateRecurringTask(tryAppend, dateToAppendTask);        
     }
     
     private void assert_updateRecurringTask(TestTask tryAppend, String dateToAppendTask) {
-        recurringManager.attemptAppendRecurringTasks(tryAppend, 
+        recurringManager.attemptAppendRecurringTask(tryAppend, 
                 helper.getLastAppendedStartDate(tryAppend), helper.getLastAppendedEndDate(tryAppend), 
                 helper.getLocalDateByString("2016-10-11"));
         assertEquals("Recurring tasks should not append until their date has been elapsed", tryAppend.getTaskDateComponent().size(), 1);
-        recurringManager.attemptAppendRecurringTasks(tryAppend, 
+        recurringManager.attemptAppendRecurringTask(tryAppend, 
                 helper.getLastAppendedStartDate(tryAppend), helper.getLastAppendedEndDate(tryAppend), 
                 helper.getLocalDateByString(dateToAppendTask));
         assertEquals("Recurring tasks should be appended when it is time", tryAppend.getTaskDateComponent().size(), 2);                
-    }    
-    
-    @Test
-    public void updateRecurringTasks_withoutRepeatLimit() throws Exception {
-        recurringManager.setTestMode(true);
-        updateRecurringTask(RecurringType.DAILY, "12 oct 2016 11pm", "13 oct 2016 11pm");
-        updateRecurringTask(RecurringType.WEEKLY, "18 oct 2016 11pm", "19 oct 2016 11pm");
-        updateRecurringTask(RecurringType.MONTHLY, "11 nov 2016 11pm", "12 nov 2016 11pm");
-        updateRecurringTask(RecurringType.YEARLY, "11 oct 2017 11pm", "12 oct 2017 11pm");
-    }
-    
+    }        
+
     private void updateRecurringTask(RecurringType type, String nextStartDate, String nextEndDate) throws Exception {
         TestTask testData = helper.buildRecurringTask(type);
         Task tryUpdate = new Task(testData);
@@ -156,18 +159,8 @@ public class RecurringTaskManagerTest {
     private void assert_updateRecurringTasks(Task tryUpdate, TaskOccurrence nextDayTaskOccurrence, final int numOfOccurrences) {
         assertEquals("The following daily task should have been created", tryUpdate.getTaskDateComponent().size(), numOfOccurrences);
         assertEquals("Daily task should match in task occurrence", tryUpdate.getLastAppendedComponent(), nextDayTaskOccurrence);
-    }
+    }    
     
-    @Test
-    public void updateRecurringTask_withRecurringPeriod() throws Exception {
-        final int recurringPeriod = 3;
-        updateRecurringTask_withRecurringPeriod(RecurringType.DAILY, recurringPeriod, null, "14 oct 2016 11pm");
-        updateRecurringTask_withRecurringPeriod(RecurringType.WEEKLY, recurringPeriod, null, "26 oct 2016 11pm");
-        updateRecurringTask_withRecurringPeriod(RecurringType.MONTHLY, recurringPeriod, null, "12 dec 2016 11pm");
-        updateRecurringTask_withRecurringPeriod(RecurringType.YEARLY, recurringPeriod, null, "12 oct 2018 11pm");
-    }
-
-
     private void updateRecurringTask_withRecurringPeriod(RecurringType type, int recurringPeriod,
             String nextStartDate, String nextEndDate) throws Exception {
         TestTask testData = helper.buildRecurringTask_withoutStartDate(type, recurringPeriod);
@@ -175,7 +168,7 @@ public class RecurringTaskManagerTest {
         execute_updatingOfRecurringTask(tryUpdate);
         TaskOccurrence nextDayTaskOccurrence = helper.buildTaskOccurrenceFromTask(tryUpdate, nextStartDate, nextEndDate);
         assert_updateRecurringTasks(tryUpdate, nextDayTaskOccurrence, recurringPeriod);
-    }
+    }    
 
 
     class RecurringTaskHelper {
