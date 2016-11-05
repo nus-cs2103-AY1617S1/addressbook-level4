@@ -18,6 +18,7 @@ public class TestParserMemory {
     public void test() { 
         test_set();
         test_setDate();
+        test_setTime();
     }
     
     private void test_set() { 
@@ -113,5 +114,63 @@ public class TestParserMemory {
         ParserMemoryMain.setProper(ParserMemoryMain.setDate("01/12/01", test));
         assertTrue(ParserMemoryMain.setProper);
         assertEquals("Month is 12", test.get(Calendar.MONTH), 11);
+    }
+    
+    //@@author A0143378Y
+    private void test_setTime() { 
+        test_Hour();
+        test_Minute();
+        test_setTimeIfHHMMSS();
+    }
+    
+    //@@author A0143378Y
+    private static void test_Hour() { 
+        Calendar test = new GregorianCalendar();
+        
+        //hour == 24
+        ParserMemoryMain.setProper(ParserMemoryMain.setDate("2400", test));
+        assertFalse(ParserMemoryMain.setProper);
+        
+        //hour == 0 
+        ParserMemoryMain.setProper(ParserMemoryMain.setTime("0000", test));
+        assertTrue(ParserMemoryMain.setProper);
+        assertEquals(0, test.get(Calendar.HOUR_OF_DAY));
+        
+        //hour == 23
+        ParserMemoryMain.setProper(ParserMemoryMain.setTime("2300", test));
+        assertTrue(ParserMemoryMain.setProper);
+        assertEquals(23, test.get(Calendar.HOUR_OF_DAY));
+    } 
+    
+    //@@author A0143378Y 
+    private static void test_Minute() { 
+        Calendar test = new GregorianCalendar();
+        
+        //Minute == 60 
+        ParserMemoryMain.setProper(ParserMemoryMain.setTime("2460", test));
+        assertFalse(ParserMemoryMain.setProper);
+        
+        //Minute == 0 
+        ParserMemoryMain.setProper(ParserMemoryMain.setTime("0000", test));
+        assertTrue(ParserMemoryMain.setProper);
+        assertEquals("Minute is 0", test.get(Calendar.MINUTE), 0);
+        
+        //Minute == 59 
+        ParserMemoryMain.setProper(ParserMemoryMain.setTime("2359", test));
+        assertTrue(ParserMemoryMain.setProper);
+        assertEquals("Minute is 59", test.get(Calendar.MINUTE), 59);
+    }
+    
+    //@@author A0143378Y
+    private static void test_setTimeIfHHMMSS() { 
+        Calendar test = new GregorianCalendar();
+        
+        //SS == 00 
+        ParserMemoryMain.setProper(ParserMemoryMain.setTime("2333", test));
+        assertEquals("Second", test.get(Calendar.SECOND), 0);
+        
+        //SS == 59 
+        ParserMemoryMain.setProper(ParserMemoryMain.setTime("2359", test));
+        assertEquals("Second", test.get(Calendar.SECOND), 59);
     }
 }

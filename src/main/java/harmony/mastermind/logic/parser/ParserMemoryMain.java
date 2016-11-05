@@ -129,7 +129,7 @@ public class ParserMemoryMain {
     }
     
     //@@author A0143378Y
-    protected static boolean setTime(String time, Calendar setEvent) { 
+    public static boolean setTime(String time, Calendar setEvent) { 
         int newTime = INT_INVALID;
         int hour = 23, minute = 59; 
         boolean isValid = false;
