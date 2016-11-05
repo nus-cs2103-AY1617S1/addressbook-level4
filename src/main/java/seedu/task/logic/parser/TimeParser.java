@@ -14,10 +14,8 @@ public class TimeParser {
     private static final int NO_DATE_TIME = 0;
     private static final int ONE_DATE_TIME = 1;
     private static final int TWO_DATE_TIME = 2;
-    //private static final int THREE_DATE_TIME = 3;
     private static final int FIRST_DATE_INDEX = 0;
     private static final int SECOND_DATE_INDEX = 1;
-    //private static final int THIRD_DATE_INDEX = 2;
 
     private static Parser timeParser = new Parser();
     private TimeParserResult timeParserResult = new TimeParserResult();
