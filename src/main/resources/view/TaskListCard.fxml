@@ -8,7 +8,6 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Circle?>
-<?import javafx.scene.shape.Ellipse?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
@@ -35,12 +34,8 @@
                <children>
                   <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                      <children>
-                              <Label fx:id="details" prefHeight="16.0" prefWidth="587.0" styleClass="cell_small_label" text="\$details" translateX="11.0" translateY="4.0" />
-                                <Label fx:id="tags" styleClass="cell_small_label" text="\$tags" translateX="-3.0" translateY="4.0">
-                           <graphic>
-                              <Ellipse fill="DODGERBLUE" radiusX="5.0" radiusY="5.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" visible="false" />
-                           </graphic>
-                        </Label>
+                        <Text fx:id="details" strokeType="OUTSIDE" strokeWidth="0.0" text="\$details" translateX="12.0" translateY="4.0" wrappingWidth="420.88677978515625" />
+                        <Text fx:id="tags" strokeType="OUTSIDE" strokeWidth="0.0" text="\$tags" translateX="12.0" translateY="4.0" wrappingWidth="422.5130615234375" />
                      </children>
                   </VBox>
                            <Label fx:id="id" styleClass="cell_big_label" text="id">
@@ -66,9 +61,9 @@
                   <Insets bottom="2.0" left="-20.0" right="2.0" top="2.0" />
                </padding>
                <children>
-                        <Label fx:id="onDate" contentDisplay="RIGHT" minWidth="150.0" prefHeight="17.0" prefWidth="168.0" styleClass="cell_small_label" text="\$onDate" translateX="-30.0" translateY="-20.0" />
-                        <Label fx:id="byDate" minWidth="150.0" prefHeight="17.0" prefWidth="150.0" styleClass="cell_small_label" text="\$byDate" translateX="-30.0" translateY="-18.0" />
-                  <Label fx:id="recurrence" prefHeight="17.0" prefWidth="174.0" styleClass="cell_small_label" text="\$recur" translateX="-30.0" translateY="-15.0" />
+                  <Text fx:id="onDate" strokeType="OUTSIDE" strokeWidth="0.0" text="\$onDate" translateX="-30.0" translateY="-20.0" wrappingWidth="138.86663818359375" />
+                  <Text fx:id="byDate" strokeType="OUTSIDE" strokeWidth="0.0" text="\$byDate" translateX="-30.0" translateY="-18.0" />
+                  <Text fx:id="recurrence" strokeType="OUTSIDE" strokeWidth="0.0" text="\$recurrence" translateX="-30.0" translateY="-15.0" />
                </children>
             </VBox>
             </children>

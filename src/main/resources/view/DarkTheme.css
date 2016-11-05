@@ -92,18 +92,18 @@
     -fx-padding: 0 0 0 0;
 }
 
-.list-cell .label {
-    -fx-text-fill: #010504;
-}
 
 .cell_big_label {
     -fx-font-size: 16px;
-    -fx-text-fill: #010504;
 }
 
 .cell_small_label {
     -fx-font-size: 11px;
-    -fx-text-fill: #010504;
+}
+
+.cell_small_label_completed {
+    -fx-font-size: 11px;
+    -fx-text-fill: RED;
 }
 
 .anchor-pane {

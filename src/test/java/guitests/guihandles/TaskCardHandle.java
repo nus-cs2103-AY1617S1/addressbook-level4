@@ -35,19 +35,19 @@ public class TaskCardHandle extends GuiHandle {
     }
 
     public String getDetail() {
-        return getTextFromLabel(DETAIL_FIELD_ID);
+        return getTextFromText(DETAIL_FIELD_ID);
     }
 
     public String getOnDate() {
-        return getTextFromLabel(ON_DATE_FIELD_ID);
+        return getTextFromText(ON_DATE_FIELD_ID);
     }
 
     public String getByDate() {
-        return getTextFromLabel(BY_DATE_FIELD_ID);
+        return getTextFromText(BY_DATE_FIELD_ID);
     }
     
     public String getTag() {
-        return getTextFromLabel(TAG_FIELD_ID);
+        return getTextFromText(TAG_FIELD_ID);
     }
 
     public boolean isSameTask(ReadOnlyTask task){

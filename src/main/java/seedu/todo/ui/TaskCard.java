@@ -21,15 +21,15 @@ public class TaskCard extends UiPart{
     @FXML
     private Label id;
     @FXML
-    private Label details;
+    private Text details;
     @FXML
-    private Label recurrence;
+    private Text recurrence;
     @FXML
-    private Label onDate;
+    private Text onDate;
     @FXML
-    private Label byDate;
+    private Text byDate;
     @FXML
-    private Label tags;
+    private Text tags;
     @FXML
     private Circle priorityLevel;
 
@@ -50,49 +50,21 @@ public class TaskCard extends UiPart{
     //@@author A0121643R
     @FXML
     public void initialize() {
-        name.setText(task.getName().fullName);
-        if (task.getCompletion().isCompleted()) {
-        	name.setFill(Color.LIGHTGREY);
-        	name.setStyle("-fx-strikethrough: true");
-        	name.setOpacity(50);
-        }
         
         id.setText(displayedIndex + ". ");
-        
+        name.setText(task.getName().fullName);
         details.setText(task.getDetail().value);
         
-        if (task.getOnDate().getDate() != null) {
-            onDate.setText("Start: " + PrettifyDate.prettifyDate(task.getOnDate().getDate()) 
-                            + " @ " + task.getOnDate().getTime());
-        } else {
-            onDate.setText("");
-        }
-        
-        if (task.getByDate().getDate() != null) {
-            byDate.setText("End: " + PrettifyDate.prettifyDate(task.getByDate().getDate()) 
-                            + " @ " + task.getByDate().getTime());
-        } else {
-            byDate.setText("");
-        }
-        
-        if (task.isRecurring()) {
-            recurrence.setText("Every: " + task.getRecurrence().toString());
-        } else {
-            recurrence.setText("");
-        }
-        
-    	if (task.getCompletion().isCompleted()) {
-    		priorityLevel.setFill(Color.WHITE);
-    		priorityLevel.setStroke(Color.WHITE);
-    	} else if (task.getPriority().toString().equals(Priority.LOW)) {
-        	priorityLevel.setFill(Color.LIMEGREEN);
-        } else if (task.getPriority().toString().equals(Priority.MID)) {
-        	priorityLevel.setFill(Color.YELLOW);
-        } else {
-        	priorityLevel.setFill(Color.RED);
-        }
-        
+        initOnDate();
+        initByDate();
+        initRecurrence();
+        initPriority();
         tags.setText(task.tagsString());
+        
+        if(task.getCompletion().isCompleted()) {
+            styleForCompletion();
+        }
+        
     }
 
     public HBox getLayout() {
@@ -107,5 +79,59 @@ public class TaskCard extends UiPart{
     @Override
     public String getFxmlPath() {
         return FXML;
+    }
+    
+    private void initOnDate() {
+        if (task.getOnDate().getDate() != null) {
+            onDate.setText("Start: " + PrettifyDate.prettifyDate(task.getOnDate().getDate()) 
+                            + " @ " + task.getOnDate().getTime());
+        } else {
+            onDate.setText("");
+        }
+    }
+    
+    private void initByDate() {
+        if (task.getByDate().getDate() != null) {
+            byDate.setText("End: " + PrettifyDate.prettifyDate(task.getByDate().getDate()) 
+                            + " @ " + task.getByDate().getTime());
+        } else {
+            byDate.setText("");
+        }
+    }
+    
+    
+    private void initPriority() {
+        if (task.getPriority().toString().equals(Priority.LOW)) {
+            priorityLevel.setFill(Color.LIMEGREEN);
+        } else if (task.getPriority().toString().equals(Priority.MID)) {
+            priorityLevel.setFill(Color.YELLOW);
+        } else {
+            priorityLevel.setFill(Color.RED);
+        }
+    }
+    
+    private void initRecurrence() {
+        if (task.isRecurring()) {
+            recurrence.setText("Every: " + task.getRecurrence().toString());
+        } else {
+            recurrence.setText("");
+        }
+    }
+    
+    
+    private void styleForCompletion() {
+        name.setFill(Color.LIGHTGREY);
+        name.setStyle("-fx-strikethrough: true");
+        name.setOpacity(50);
+        
+        details.setFill(Color.LIGHTGREY);
+        onDate.setFill(Color.LIGHTGREY);
+        byDate.setFill(Color.LIGHTGREY);
+        recurrence.setFill(Color.LIGHTGREY);
+        tags.setFill(Color.LIGHTGREY);
+
+        priorityLevel.setFill(Color.WHITE);
+        priorityLevel.setStroke(Color.WHITE);
+
     }
 }
