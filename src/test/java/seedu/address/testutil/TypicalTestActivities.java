@@ -22,7 +22,7 @@ public class TypicalTestActivities {
             findAlice =  new ActivityBuilder().withName("find Alice").withReminder("Sat, Dec 30, 2017 12:00 PM").withTags("lunch").build();
             findBenson = new TaskBuilder().withName("find Benson").withDueDate("Sat, Dec 30, 2017 12:00 PM").withPriority("1").withTags("lunch").build();
             findCarl = new TaskBuilder().withName("find Carl").withDueDate("Sat, Dec 30, 2017 12:00 PM").build();
-            findDaniel = new TaskBuilder().withName("find Daniel").withDueDate("Sat, Dec 30, 2017 12:00 PM").withReminder("Sat, Dec 30, 2017 11:59 AM").withTags("lunch").build();
+            findDaniel = new TaskBuilder().withName("find Daniel").withDueDate("Sat, Dec 30, 2017 12:00 PM").withPriority("2").withReminder("Sat, Dec 30, 2017 11:59 AM").withTags("lunch").build();
             findElle = new EventBuilder().withName("find Elle").withStartTime("Sat, Dec 30, 2017 12:00 PM").withEndTime("Sun, Dec 31, 2017 12:00 PM").withReminder("Sat, Dec 30, 2017 11:59 PM").build();
             findFiona = new EventBuilder().withName("find Fiona").withStartTime("Sat, Dec 30, 2017 12:00 PM").withEndTime("Sun, Dec 31, 2017 12:00 PM").withReminder("Fri, Dec 29, 2017 12:00 PM").build();
             findGeorge = new EventBuilder().withName("find George").withStartTime("Sat, Dec 30, 2017 12:00 PM").withEndTime("Sun, Dec 31, 2017 12:00 PM").withTags("dinner").build();

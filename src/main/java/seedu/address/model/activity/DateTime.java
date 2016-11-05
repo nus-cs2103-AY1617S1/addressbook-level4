@@ -94,8 +94,6 @@ public abstract class DateTime implements Comparable<DateTime>{
         return this.value;
     }
     
-    public abstract String forDisplay();
-
     @Override
     public String toString() {
         if (this.value == null) {
