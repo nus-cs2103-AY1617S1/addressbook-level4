@@ -8,6 +8,7 @@ import seedu.todo.model.task.ImmutableTask;
 
 import java.util.function.Consumer;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 //@@author A0135817B
@@ -34,6 +35,39 @@ public class UndoCommandTest extends CommandTest {
     }
 
     //@@author A0135805H
+    @Test
+    public void testUndo_undoAddTag() throws Exception {
+        String tagName = "pikachu";
+        model.add("Sample Task");
+        Thread.sleep(10);
+        model.addTagsToTask(1, tagName);
+
+        //Sanity check: The tag is really added.
+        assertTrue(model.getTask(1).getTags().contains(new Tag(tagName)));
+
+        model.undo();
+
+        //Check if the the tag is removed.
+        assertFalse(model.getTask(1).getTags().contains(new Tag(tagName)));
+    }
+
+    @Test
+    public void testUndo_undoDeleteTagFromATask() throws Exception {
+        String tagName = "pikachu";
+        model.add("Sample Task");
+        Thread.sleep(10);
+        model.addTagsToTask(1, tagName);
+        model.deleteTagsFromTask(1, tagName);
+
+        //Sanity check: The tag is really deleted.
+        assertFalse(model.getTask(1).getTags().contains(new Tag(tagName)));
+
+        model.undo();
+
+        //Check if the the tag is restored.
+        assertTrue(model.getTask(1).getTags().contains(new Tag(tagName)));
+    }
+
     @Test
     public void testUndo_undoTagRename_allTagNamesRestored() throws Exception {
         String oldTag = "pikachu";

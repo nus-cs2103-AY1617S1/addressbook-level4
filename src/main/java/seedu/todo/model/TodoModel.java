@@ -332,7 +332,7 @@ public class TodoModel implements Model {
 
         update(index, mutableTask -> {
             assert mutableTask.equals(task); //Just a sanity check.
-            addTagsToTask(mutableTask, tagNames);
+            addTagsToTaskHelper(mutableTask, tagNames);
         });
     }
 
@@ -387,7 +387,7 @@ public class TodoModel implements Model {
 
         todoList.updateAll(mutableTask -> {
             if (tasksWithTag.contains(mutableTask)) {
-                addTagsToTask(mutableTask, newName);
+                addTagsToTaskHelper(mutableTask, newName);
             }
         });
     }
