@@ -39,6 +39,12 @@ public class EditCommandTest extends AddressBookGuiTest {
         assertEditTaskResult(index,currentList);
     }
 
+    @Test
+    public void edit_taskWithActivityParameters(){
+        TestActivity[] currentList = td.getTypicalActivities();
+        int index = 4;
+        assertEditActivityResult(index,currentList);
+    }
 
 	@Test
     public void edit_eventParameters(){
@@ -52,6 +58,13 @@ public class EditCommandTest extends AddressBookGuiTest {
         TestActivity[] currentList = td.getTypicalActivities();
         int index = 1;
         assertEditEventResult(index,currentList);
+    }
+    
+    @Test
+    public void edit_eventWithActivityParameters(){
+        TestActivity[] currentList = td.getTypicalActivities();
+        int index = 5;
+        assertEditActivityResult(index,currentList);
     }
     
 
@@ -103,7 +116,7 @@ public class EditCommandTest extends AddressBookGuiTest {
         break;
         
         case "activity":
-        	activityAfterEdit = new TestActivity(currentList[index-1]);
+        	activityAfterEdit = currentList[index-1];
         }
         
         activityAfterEdit.setName(newName);
