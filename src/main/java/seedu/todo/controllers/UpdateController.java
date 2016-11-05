@@ -21,7 +21,7 @@ import seedu.todo.models.TodoListDB;
  * 
  *          Controller to update a CalendarItem.
  */
-public class UpdateController implements Controller {
+public class UpdateController extends Controller {
 
     private static final String NAME = "Update";
     private static final String DESCRIPTION = "Updates a task by listed index.";
@@ -42,7 +42,8 @@ public class UpdateController implements Controller {
 
     private static CommandDefinition commandDefinition = new CommandDefinition(NAME, DESCRIPTION, COMMAND_SYNTAX, COMMAND_KEYWORD);
 
-    public static CommandDefinition getCommandDefinition() {
+    @Override
+    public CommandDefinition getCommandDefinition() {
         return commandDefinition;
     }
 

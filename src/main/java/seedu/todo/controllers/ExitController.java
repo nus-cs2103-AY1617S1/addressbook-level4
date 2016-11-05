@@ -9,7 +9,7 @@ import seedu.todo.commons.events.ui.ExitAppRequestEvent;
  * @author louietyj
  *
  */
-public class ExitController implements Controller {
+public class ExitController extends Controller {
 
     private static final String NAME = "Exit";
     private static final String DESCRIPTION = "Exit from GetShitDone!";
@@ -19,7 +19,8 @@ public class ExitController implements Controller {
     private static CommandDefinition commandDefinition =
             new CommandDefinition(NAME, DESCRIPTION, COMMAND_SYNTAX, COMMAND_KEYWORD); 
 
-    public static CommandDefinition getCommandDefinition() {
+    @Override
+    public CommandDefinition getCommandDefinition() {
         return commandDefinition;
     }
 

@@ -15,7 +15,7 @@ import seedu.todo.models.TodoListDB;
  * 
  * Controller to declare aliases
  */
-public class AliasController implements Controller {
+public class AliasController extends Controller {
     
     private static final String NAME = "Alias";
     private static final String DESCRIPTION = "Shows current aliases or updates them.";
@@ -37,7 +37,8 @@ public class AliasController implements Controller {
     private static CommandDefinition commandDefinition =
             new CommandDefinition(NAME, DESCRIPTION, COMMAND_SYNTAX, COMMAND_KEYWORD); 
 
-    public static CommandDefinition getCommandDefinition() {
+    @Override
+    public CommandDefinition getCommandDefinition() {
         return commandDefinition;
     }
 

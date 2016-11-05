@@ -19,7 +19,7 @@ import seedu.todo.models.TodoListDB;
  * @@author A0093907W
  *
  */
-public class ClearController implements Controller {
+public class ClearController extends Controller {
     
     private static final String NAME = "Clear";
     private static final String DESCRIPTION = "Clear all tasks/events or by specify date.";
@@ -32,7 +32,8 @@ public class ClearController implements Controller {
     private static CommandDefinition commandDefinition =
             new CommandDefinition(NAME, DESCRIPTION, COMMAND_SYNTAX, COMMAND_KEYWORD); 
 
-    public static CommandDefinition getCommandDefinition() {
+    @Override
+    public CommandDefinition getCommandDefinition() {
         return commandDefinition;
     }
     

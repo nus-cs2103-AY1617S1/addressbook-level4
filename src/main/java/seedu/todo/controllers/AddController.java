@@ -24,7 +24,7 @@ import seedu.todo.models.TodoListDB;
  * 
  * Controller to add an event or task.
  */
-public class AddController implements Controller {
+public class AddController extends Controller {
     
     private static final String NAME = "Add";
     private static final String DESCRIPTION = "Adds a task / event to the to-do list.\n"
@@ -44,7 +44,8 @@ public class AddController implements Controller {
     private static CommandDefinition commandDefinition =
             new CommandDefinition(NAME, DESCRIPTION, COMMAND_SYNTAX, COMMAND_KEYWORD);
 
-    public static CommandDefinition getCommandDefinition() {
+    @Override
+    public CommandDefinition getCommandDefinition() {
         return commandDefinition;
     }
     

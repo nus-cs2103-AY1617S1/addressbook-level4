@@ -11,7 +11,7 @@ import seedu.todo.models.TodoListDB;
  * @@author Tiong YaoCong A0139922Y
  *
  */
-public class UntagController implements Controller {
+public class UntagController extends Controller {
     
     private static final String NAME = "Untag";
     private static final String DESCRIPTION = "Untag a task/event by listed index";
@@ -30,7 +30,8 @@ public class UntagController implements Controller {
     private static CommandDefinition commandDefinition =
             new CommandDefinition(NAME, DESCRIPTION, COMMAND_SYNTAX, COMMAND_KEYWORD); 
 
-    public static CommandDefinition getCommandDefinition() {
+    @Override
+    public CommandDefinition getCommandDefinition() {
         return commandDefinition;
     }
 

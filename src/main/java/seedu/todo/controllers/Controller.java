@@ -8,12 +8,9 @@ import seedu.todo.commons.exceptions.ParseException;
  * Contains the logic required to appropriately interpret and process user input
  * from the views.
  */
-public interface Controller {
+public abstract class Controller {
     
-    public static CommandDefinition getCommandDefinition() {
-        // Override with CommandDefinition.
-        return null;
-    }
+    public abstract CommandDefinition getCommandDefinition();
     
     /**
      * Given a command keyword, performs a case-insensitive match.
@@ -21,7 +18,7 @@ public interface Controller {
      * @param keyword       Keyword to match
      * @return confidence   True if the command keyword matches.
      */
-    public default boolean matchCommandKeyword(String keyword) {
+    public boolean matchCommandKeyword(String keyword) {
         return getCommandDefinition().getCommandKeyword().toLowerCase().equals(keyword.toLowerCase());
     }
     
@@ -31,6 +28,6 @@ public interface Controller {
      * @param input
      *            User input
      */
-    public void process(String input) throws ParseException;
+    public abstract void process(String input) throws ParseException;
 
 }

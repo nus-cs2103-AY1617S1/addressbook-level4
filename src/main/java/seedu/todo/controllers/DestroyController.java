@@ -13,7 +13,7 @@ import seedu.todo.models.TodoListDB;
  * @author louietyj
  *
  */
-public class DestroyController implements Controller {
+public class DestroyController extends Controller {
     
     private static final String NAME = "Destroy";
     private static final String DESCRIPTION = "Destroys a task/event by listed index";
@@ -28,7 +28,8 @@ public class DestroyController implements Controller {
     private static CommandDefinition commandDefinition =
             new CommandDefinition(NAME, DESCRIPTION, COMMAND_SYNTAX, COMMAND_KEYWORD); 
 
-    public static CommandDefinition getCommandDefinition() {
+    @Override
+    public CommandDefinition getCommandDefinition() {
         return commandDefinition;
     }
 

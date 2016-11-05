@@ -17,7 +17,7 @@ import seedu.todo.controllers.concerns.Renderer;
  *
  */
 
-public class UnaliasController implements Controller {
+public class UnaliasController extends Controller {
     
     private static final String NAME = "Unalias";
     private static final String DESCRIPTION = "Deletes an existing alias pair.";
@@ -33,7 +33,8 @@ public class UnaliasController implements Controller {
     private static CommandDefinition commandDefinition =
             new CommandDefinition(NAME, DESCRIPTION, COMMAND_SYNTAX, COMMAND_KEYWORD); 
 
-    public static CommandDefinition getCommandDefinition() {
+    @Override
+    public CommandDefinition getCommandDefinition() {
         return commandDefinition;
     }
 

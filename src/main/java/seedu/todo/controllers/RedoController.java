@@ -15,7 +15,7 @@ import seedu.todo.ui.UiManager;
  * 
  * Controller to redo a database commit.
  */
-public class RedoController implements Controller {
+public class RedoController extends Controller {
 
     private static final String NAME = "Redo";
     private static final String DESCRIPTION = "Redo your last undo(s).";
@@ -29,7 +29,8 @@ public class RedoController implements Controller {
     private static CommandDefinition commandDefinition =
             new CommandDefinition(NAME, DESCRIPTION, COMMAND_SYNTAX, COMMAND_KEYWORD); 
 
-    public static CommandDefinition getCommandDefinition() {
+    @Override
+    public CommandDefinition getCommandDefinition() {
         return commandDefinition;
     }
     

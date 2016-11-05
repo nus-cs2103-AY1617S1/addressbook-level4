@@ -25,7 +25,7 @@ import seedu.todo.models.TodoListDB;
  * @@author Tiong Yaocong A0139922Y
  *
  */
-public class ListController implements Controller {
+public class ListController extends Controller {
     
     private static final String NAME = "List";
     private static final String DESCRIPTION = "Lists all tasks and events.";
@@ -51,7 +51,8 @@ public class ListController implements Controller {
     private static CommandDefinition commandDefinition =
             new CommandDefinition(NAME, DESCRIPTION, COMMAND_SYNTAX, COMMAND_KEYWORD); 
 
-    public static CommandDefinition getCommandDefinition() {
+    @Override
+    public CommandDefinition getCommandDefinition() {
         return commandDefinition;
     }
     

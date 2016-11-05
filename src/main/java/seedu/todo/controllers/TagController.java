@@ -11,7 +11,7 @@ import seedu.todo.models.TodoListDB;
  * @@author Tiong YaoCong A0139922Y
  *
  */
-public class TagController implements Controller {
+public class TagController extends Controller {
     
     private static final String NAME = "Tag";
     private static final String DESCRIPTION = "Tag a task/event by listed index";
@@ -31,7 +31,8 @@ public class TagController implements Controller {
     private static CommandDefinition commandDefinition =
             new CommandDefinition(NAME, DESCRIPTION, COMMAND_SYNTAX, COMMAND_KEYWORD); 
 
-    public static CommandDefinition getCommandDefinition() {
+    @Override
+    public CommandDefinition getCommandDefinition() {
         return commandDefinition;
     }
 

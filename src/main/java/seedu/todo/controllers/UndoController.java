@@ -15,7 +15,7 @@ import seedu.todo.ui.UiManager;
  * 
  * Controller to undo a database commit.
  */
-public class UndoController implements Controller {
+public class UndoController extends Controller {
 
     private static final String NAME = "Undo";
     private static final String DESCRIPTION = "Undo your last action(s) to the list of tasks/events.";
@@ -29,7 +29,8 @@ public class UndoController implements Controller {
     private static CommandDefinition commandDefinition =
             new CommandDefinition(NAME, DESCRIPTION, COMMAND_SYNTAX, COMMAND_KEYWORD); 
 
-    public static CommandDefinition getCommandDefinition() {
+    @Override
+    public CommandDefinition getCommandDefinition() {
         return commandDefinition;
     }
     

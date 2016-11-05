@@ -18,7 +18,7 @@ import seedu.todo.ui.UiManager;
  * 
  * @@author A0139812A
  */
-public class ConfigController implements Controller {
+public class ConfigController extends Controller {
 
     private static final String NAME = "Configure";
     private static final String DESCRIPTION = "Shows current configuration settings or updates them.";
@@ -37,7 +37,8 @@ public class ConfigController implements Controller {
     private static CommandDefinition commandDefinition =
             new CommandDefinition(NAME, DESCRIPTION, COMMAND_SYNTAX, COMMAND_KEYWORD); 
 
-    public static CommandDefinition getCommandDefinition() {
+    @Override
+    public CommandDefinition getCommandDefinition() {
         return commandDefinition;
     }
 

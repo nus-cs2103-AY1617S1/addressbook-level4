@@ -11,7 +11,7 @@ import seedu.todo.models.TodoListDB;
  * 
  * @@author A0139812A
  */
-public class CompleteTaskController implements Controller {
+public class CompleteTaskController extends Controller {
     
     private static final String NAME = "Complete Task";
     private static final String DESCRIPTION = "Marks a task as completed, by listed index";
@@ -27,7 +27,8 @@ public class CompleteTaskController implements Controller {
     private static CommandDefinition commandDefinition =
             new CommandDefinition(NAME, DESCRIPTION, COMMAND_SYNTAX, COMMAND_KEYWORD); 
 
-    public static CommandDefinition getCommandDefinition() {
+    @Override
+    public CommandDefinition getCommandDefinition() {
         return commandDefinition;
     }
 

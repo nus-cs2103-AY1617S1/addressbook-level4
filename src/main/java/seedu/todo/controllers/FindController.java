@@ -27,7 +27,7 @@ import seedu.todo.models.TodoListDB;
  * @@author Tiong YaoCong A0139922Y
  *
  */
-public class FindController implements Controller {
+public class FindController extends Controller {
     
     private static final String NAME = "Find";
     private static final String DESCRIPTION = "Find all tasks and events based on the provided keywords.\n" + 
@@ -41,7 +41,8 @@ public class FindController implements Controller {
     private static CommandDefinition commandDefinition =
             new CommandDefinition(NAME, DESCRIPTION, COMMAND_SYNTAX, COMMAND_KEYWORD); 
 
-    public static CommandDefinition getCommandDefinition() {
+    @Override
+    public CommandDefinition getCommandDefinition() {
         return commandDefinition;
     }
     

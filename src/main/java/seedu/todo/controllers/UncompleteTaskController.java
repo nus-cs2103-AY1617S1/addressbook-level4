@@ -11,7 +11,7 @@ import seedu.todo.models.TodoListDB;
  * 
  * @@author A0139812A
  */
-public class UncompleteTaskController implements Controller {
+public class UncompleteTaskController extends Controller {
     
     private static final String NAME = "Uncomplete Task";
     private static final String DESCRIPTION = "Marks a task as incomplete, by listed index";
@@ -28,7 +28,8 @@ public class UncompleteTaskController implements Controller {
     private static CommandDefinition commandDefinition =
             new CommandDefinition(NAME, DESCRIPTION, COMMAND_SYNTAX, COMMAND_KEYWORD);
 
-    public static CommandDefinition getCommandDefinition() {
+    @Override
+    public CommandDefinition getCommandDefinition() {
         return commandDefinition;
     }
 
