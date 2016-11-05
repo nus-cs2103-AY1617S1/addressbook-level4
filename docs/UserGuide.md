@@ -223,7 +223,7 @@ We would like to acknowledge the original source of our code, i.e., the sample A
 
 
 &nbsp;&nbsp;&nbsp;&nbsp;<b>6.2 External Libaries</b>
-We would like to acknowledge the developers of Natty for their natural language date parser at http://natty.joestelmach.com/<br>
+We would like to acknowledge the developers of Natty for their natural language date parser at http://natty.joestelmach.com/<br><br>
 <!--@@author--> <!--@@author A0139528W-->
 ## 7. Appendix
 
