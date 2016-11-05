@@ -26,7 +26,7 @@ public class UntagLogicTest extends CommandLogicTest {
         
         // execute command and verify result
         assertCommandBehavior("untag 1 yay",
-                String.format(UntagCommand.MESSAGE_SUCCESS, toBeUntagged.getName()),
+                String.format(UntagCommand.MESSAGE_SUCCESS, 1, toBeUntagged),
                 expectedTDL,
                 expectedTDL.getTaskList());
 

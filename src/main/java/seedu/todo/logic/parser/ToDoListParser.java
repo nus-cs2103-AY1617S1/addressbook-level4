@@ -383,7 +383,8 @@ public class ToDoListParser {
                 ParserFormats.SEARCH_TASK_ARGS_FORMAT_FT, 
                 ParserFormats.SEARCH_KEYWORDS_ARGS_FORMAT,
                 ParserFormats.SEARCH_TASK_ARGS_FORMAT_TAG,
-                ParserFormats.SEARCH_PRIORITY };
+                ParserFormats.SEARCH_PRIORITY,
+                ParserFormats.SEARCH_TASK_ARGS_FORMAT_FLOATING};
         
         String tempArgs = args.trim(); 
        
@@ -425,7 +426,8 @@ public class ToDoListParser {
                 } else if (p.equals(ParserFormats.SEARCH_KEYWORDS_ARGS_FORMAT) 
                             && tempArgs.indexOf("tag") != ParserFormats.FIRST_INDEX
                             && tempArgs.indexOf("priority") != ParserFormats.FIRST_INDEX 
-                            && tempArgs.indexOf("all") != ParserFormats.FIRST_INDEX 
+                            && tempArgs.indexOf("all") != ParserFormats.FIRST_INDEX
+                            && tempArgs.indexOf("floating") != ParserFormats.FIRST_INDEX
                             && tempArgs.indexOf("done") != ParserFormats.FIRST_INDEX) {
                     return new SearchCommand(matcher.group("keywords"), 
                                              option,
@@ -438,13 +440,17 @@ public class ToDoListParser {
                     return new SearchCommand(matchTagsResult(matcher), 
                                              option,
                                              SearchCommand.SearchIndex.TAG);
+                } else if (p.equals(ParserFormats.SEARCH_TASK_ARGS_FORMAT_FLOATING)) {
+                    return new SearchCommand("", 
+                            option,
+                            SearchCommand.SearchIndex.FLOATING);
                 }
             }
         }
         
 
         if (tempArgs.indexOf("done") == ParserFormats.FIRST_INDEX) {
-            return new SearchCommand(tempArgs, SearchCompletedOption.ALL, SearchCommand.SearchIndex.DONE);
+            return new SearchCommand("", SearchCompletedOption.ALL, SearchCommand.SearchIndex.DONE);
         }
 
         if (tempArgs.indexOf("all") == ParserFormats.FIRST_INDEX) {

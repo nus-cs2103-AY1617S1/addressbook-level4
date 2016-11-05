@@ -189,8 +189,8 @@ public class ModelManager extends ComponentManager implements Model {
     }
     
     @Override
-    public void updateFilteredTaskListOnDate(LocalDateTime datetime, SearchCompletedOption option) {
-        updateFilteredTaskList(new PredicateExpression(new OnDateQualifier(datetime, option)));
+    public void updateFilteredTaskListOnDate(LocalDateTime datetime, boolean hasTimeField, SearchCompletedOption option) {
+        updateFilteredTaskList(new PredicateExpression(new OnDateQualifier(datetime, hasTimeField, option)));
     }
     
     @Override
@@ -207,6 +207,11 @@ public class ModelManager extends ComponentManager implements Model {
     public void updateFilteredTaskListFromTillDate(LocalDateTime fromDateTime, LocalDateTime tillDateTime, 
             SearchCompletedOption option){
         updateFilteredTaskList(new PredicateExpression(new FromTillDateQualifier(fromDateTime, tillDateTime, option)));
+    }
+    
+    @Override
+    public void updateFilteredListToShowAllFloating(SearchCompletedOption option) {
+        updateFilteredTaskList(new PredicateExpression(new FloatingQualifier(option)));
     }
 
     //@@author A0121643R

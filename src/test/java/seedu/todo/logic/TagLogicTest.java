@@ -31,7 +31,7 @@ public class TagLogicTest extends CommandLogicTest {
         model.addTask(toBeTaggedInModel);        
         
         assertCommandBehavior("tag 1 yay",
-                String.format(TagCommand.MESSAGE_SUCCESS, toBeTagged.getName()),
+                String.format(TagCommand.MESSAGE_SUCCESS, 1, toBeTagged),
                 expectedTDL,
                 expectedTDL.getTaskList());
     }

@@ -46,7 +46,7 @@ public class DeleteLogicTest extends CommandLogicTest {
         helper.addToModel(model, threeTasks);
 
         assertCommandBehavior("delete 2",
-                String.format(DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS, threeTasks.get(1).getName()),
+                String.format(DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS, 2, threeTasks.get(1)),
                 expectedAB,
                 expectedAB.getTaskList());
     }

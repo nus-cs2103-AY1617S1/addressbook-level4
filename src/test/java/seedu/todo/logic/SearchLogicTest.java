@@ -12,6 +12,7 @@ import org.junit.rules.ExpectedException;
 import seedu.todo.commons.exceptions.IllegalValueException;
 import seedu.todo.logic.commands.Command;
 import seedu.todo.logic.commands.SearchCommand;
+import seedu.todo.logic.commands.SearchCommand.SearchIndex;
 import seedu.todo.model.DoDoBird;
 import seedu.todo.model.tag.Tag;
 import seedu.todo.model.task.Completion;
@@ -43,18 +44,19 @@ public class SearchLogicTest extends CommandLogicTest {
         t2.setCompletion(new Completion(true));
         List<Task> expectedList = helper.generateReverseTaskList(t1);
         List<Task> expectedListDone = helper.generateReverseTaskList(t2);
-        List<Task> expectedListAll = helper.generateTaskList(t1, t2);
         
         helper.addToModel(model, fourTasks);
         expectedTDL = helper.generateToDoList(fourTasks);
         
         assertCommandBehavior("search KEY",
-                Command.getMessageForTaskListShownSummary(expectedList.size()),
+                String.format(SearchCommand.MESSAGE_SUCCESS, SearchIndex.KEYWORD, "KEY")
+                    + Command.getMessageForTaskListShownSummary(expectedList.size()),
                 expectedTDL,
                 expectedList);
         
         assertCommandBehavior("search KEY done",
-                Command.getMessageForTaskListShownSummary(expectedListDone.size()),
+                String.format(SearchCommand.MESSAGE_SUCCESS, SearchIndex.KEYWORD, "KEY")
+                    + Command.getMessageForTaskListShownSummary(expectedList.size()),
                 expectedTDL,
                 expectedListDone);
     }
@@ -66,7 +68,8 @@ public class SearchLogicTest extends CommandLogicTest {
         expectedTDL = helper.generateToDoList(fourTasks);
         
         assertCommandBehavior("search KEY",
-                Command.getMessageForTaskListShownSummary(expectedList.size()),
+                String.format(SearchCommand.MESSAGE_SUCCESS, SearchIndex.KEYWORD, "KEY")
+                    + Command.getMessageForTaskListShownSummary(expectedList.size()),
                 expectedTDL,
                 expectedList);
     }
@@ -80,18 +83,19 @@ public class SearchLogicTest extends CommandLogicTest {
         DoDoBird expectedTDL = helper.generateToDoList(twoTasks);
         List<Task> expectedList = helper.generateTaskList(t1);
         List<Task> expectedListDone = helper.generateTaskList(t2);
-        List<Task> expectedListAll = helper.generateTaskList(t1, t2);
         
         helper.addToModel(model, twoTasks);
         expectedTDL = helper.generateToDoList(twoTasks);
         
         assertCommandBehavior("search tag school",
-                Command.getMessageForTaskListShownSummary(expectedList.size()),
+                String.format(SearchCommand.MESSAGE_SUCCESS, SearchIndex.TAG, "school")
+                    + Command.getMessageForTaskListShownSummary(expectedList.size()),
                 expectedTDL,
                 expectedList);
         
         assertCommandBehavior("search tag school done",
-                Command.getMessageForTaskListShownSummary(expectedListDone.size()),
+                String.format(SearchCommand.MESSAGE_SUCCESS, SearchIndex.TAG, "school")
+                    + Command.getMessageForTaskListShownSummary(expectedList.size()),
                 expectedTDL,
                 expectedListDone);
         
@@ -107,7 +111,8 @@ public class SearchLogicTest extends CommandLogicTest {
         expectedTDL = helper.generateToDoList(twoTasks);
         
         assertCommandBehavior("search before 12/12/2019",
-                Command.getMessageForTaskListShownSummary(expectedList.size()),
+                String.format(SearchCommand.MESSAGE_SUCCESS, SearchIndex.BEFORE, "12/12/2019")
+                    + Command.getMessageForTaskListShownSummary(expectedList.size()),
                 expectedTDL,
                 expectedList);
     }
@@ -120,7 +125,8 @@ public class SearchLogicTest extends CommandLogicTest {
         helper.addToModel(model, twoTasks);
 
         assertCommandBehavior("search after 12/12/2013",
-                Command.getMessageForTaskListShownSummary(expectedList.size()),
+                String.format(SearchCommand.MESSAGE_SUCCESS, SearchIndex.AFTER, "12/12/2013")
+                    + Command.getMessageForTaskListShownSummary(expectedList.size()),
                 expectedTDL,
                 expectedList);
     }
@@ -133,7 +139,8 @@ public class SearchLogicTest extends CommandLogicTest {
         helper.addToModel(model, twoTasks);
 
         assertCommandBehavior("search from 12/12/2013 to 12/12/2019",
-                Command.getMessageForTaskListShownSummary(expectedList.size()),
+                String.format(SearchCommand.MESSAGE_SUCCESS, SearchIndex.FT, "12/12/2013@12/12/2019")
+                    + Command.getMessageForTaskListShownSummary(expectedList.size()),
                 expectedTDL,
                 expectedList);
     }
@@ -154,17 +161,20 @@ public class SearchLogicTest extends CommandLogicTest {
         helper.addToModel(model, twoTasks);
 
         assertCommandBehavior("search on today",
-                Command.getMessageForTaskListShownSummary(expectedList.size()),
+                String.format(SearchCommand.MESSAGE_SUCCESS, SearchIndex.ON, "today")
+                    + Command.getMessageForTaskListShownSummary(expectedList.size()),
                 expectedTDL,
                 expectedList);
         
         assertCommandBehavior("search on today done",
-                Command.getMessageForTaskListShownSummary(expectedListDone.size()),
+                String.format(SearchCommand.MESSAGE_SUCCESS, SearchIndex.ON, "today")
+                    + Command.getMessageForTaskListShownSummary(expectedListDone.size()),
                 expectedTDL,
                 expectedListDone);
         
         assertCommandBehavior("search on today all",
-                Command.getMessageForTaskListShownSummary(expectedListAll.size()),
+                String.format(SearchCommand.MESSAGE_SUCCESS, SearchIndex.ON, "today ")
+                    + Command.getMessageForTaskListShownSummary(expectedListAll.size()),
                 expectedTDL,
                 expectedListAll);
     }
@@ -179,7 +189,8 @@ public class SearchLogicTest extends CommandLogicTest {
         helper.addToModel(model, twoTasks);
 
         assertCommandBehavior("search done",
-                Command.getMessageForTaskListShownSummary(expectedList.size()),
+                String.format(SearchCommand.MESSAGE_SUCCESS, SearchIndex.DONE, "")
+                    + Command.getMessageForTaskListShownSummary(expectedList.size()),
                 expectedTDL,
                 expectedList);
     }
@@ -193,8 +204,9 @@ public class SearchLogicTest extends CommandLogicTest {
         
         helper.addToModel(model, twoTasks);
 
-        assertCommandBehavior("search undone",
-                Command.getMessageForTaskListShownSummary(expectedList.size()),
+        assertCommandBehavior("search",
+                String.format(SearchCommand.MESSAGE_SUCCESS, SearchIndex.UNDONE, "")
+                    + Command.getMessageForTaskListShownSummary(expectedList.size()),
                 expectedTDL,
                 expectedList);
     }

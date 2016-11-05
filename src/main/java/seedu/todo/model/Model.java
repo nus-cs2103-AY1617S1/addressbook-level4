@@ -81,6 +81,9 @@ public interface Model {
     /** Updates the filter of the filtered task list to show all not completed tasks */
     void updateFilteredListToShowAllNotCompleted();
     
+    /** Updates the filter of the filtered task list to show all floating tasks */
+    void updateFilteredListToShowAllFloating(SearchCompletedOption option);
+    
     /** Updates the filter of the filtered task list to filter by the given keywords*/
     void updateFilteredTaskListByKeywords(Set<String> keywords, SearchCompletedOption option);
     
@@ -88,7 +91,7 @@ public interface Model {
     void updateFilteredTaskListByTag(String tagName, SearchCompletedOption option);
 
     /** Updates the filter of the filtered task list to filter by the given date*/
-    void updateFilteredTaskListOnDate(LocalDateTime datetime, SearchCompletedOption option);
+    void updateFilteredTaskListOnDate(LocalDateTime datetime, boolean hasTimeField, SearchCompletedOption option);
     
     /** Updates the filter of the filtered task list to filter by the given before date*/
     void updateFilteredTaskListBeforeDate(LocalDateTime datetime, SearchCompletedOption option);

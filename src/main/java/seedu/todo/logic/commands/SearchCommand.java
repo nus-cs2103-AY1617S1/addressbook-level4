@@ -29,7 +29,8 @@ public class SearchCommand extends Command {
         UNDONE,
         FT,
         PRIORITY,
-        ALL
+        ALL,
+        FLOATING
     }
     
     public enum SearchCompletedOption {
@@ -67,37 +68,40 @@ public class SearchCommand extends Command {
     @Override
     public CommandResult execute() {
         switch (this.whichSearch) {
-        case ON : 
+        case ON: 
             return searchOn();
             
-        case BEFORE : 
+        case FLOATING:
+            return searchFloating();
+            
+        case BEFORE: 
             return searchBefore();
             
-        case AFTER : 
+        case AFTER: 
             return searchAfter();
             
-        case FT : 
+        case FT: 
             return searchFT();
             
-        case KEYWORD : 
+        case KEYWORD: 
             return searchKeyword();
             
-        case TAG : 
+        case TAG: 
             return searchTag();
             
-        case DONE :
+        case DONE:
             return searchDone();
                     
-        case UNDONE : 
+        case UNDONE: 
             return searchUndone();
     
-        case PRIORITY : 
+        case PRIORITY: 
             return searchPriority();
             
         case ALL:
             return searchAll();
             
-        default :
+        default:
             return new CommandResult(Messages.MESSAGE_INVALID_COMMAND_FORMAT);
         }        
     }
@@ -119,8 +123,10 @@ public class SearchCommand extends Command {
      */
     private CommandResult searchOn() {
         try {
+            boolean hasTimeField = DateTimeUtil.containsTimeField(data);
             LocalDateTime datetime = DateTimeUtil.parseDateTimeString(data, TaskDate.TASK_DATE_ON);
-            model.updateFilteredTaskListOnDate(datetime, this.option);
+            
+            model.updateFilteredTaskListOnDate(datetime, hasTimeField, this.option);
             int size = model.getFilteredTaskList().size();
             
             return new CommandResult(String.format(MESSAGE_SUCCESS, SearchIndex.ON, data) 
@@ -233,6 +239,17 @@ public class SearchCommand extends Command {
     }
     
     /**
+     * Search floating tasks
+     */
+    private CommandResult searchFloating() {
+        model.updateFilteredListToShowAllFloating(this.option);
+        
+        int size = model.getFilteredTaskList().size();
+        return new CommandResult(String.format(MESSAGE_SUCCESS, SearchIndex.UNDONE, "") 
+                + getMessageForTaskListShownSummary(size));
+    }
+    
+    /**
      * Search tasks that are completed
      */
     private CommandResult searchDone() {
@@ -242,6 +259,7 @@ public class SearchCommand extends Command {
         return new CommandResult(String.format(MESSAGE_SUCCESS, SearchIndex.DONE, "") 
                 + getMessageForTaskListShownSummary(size));
     }
+    
     
     /**
      * Search tasks that are not completed
@@ -253,5 +271,7 @@ public class SearchCommand extends Command {
         return new CommandResult(String.format(MESSAGE_SUCCESS, SearchIndex.UNDONE, "") 
                 + getMessageForTaskListShownSummary(size));
     }
+    
+    
      
 }

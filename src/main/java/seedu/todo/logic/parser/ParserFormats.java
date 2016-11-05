@@ -92,6 +92,9 @@ public class ParserFormats {
     public static final Pattern SEARCH_KEYWORDS_ARGS_FORMAT = Pattern
             .compile("(?<keywords>.+?)(?<comOpt> done|all|undone)?"); 
     
+    public static final Pattern SEARCH_TASK_ARGS_FORMAT_FLOATING = Pattern
+            .compile("floating(?<comOpt> done| all| git sundone)?", Pattern.CASE_INSENSITIVE); 
+    
     //@@author A0121643R   
     public static final Pattern SEARCH_PRIORITY = Pattern
             .compile("priority (?<priority>.+)(?<comOpt> done|all|undone)?", Pattern.CASE_INSENSITIVE);

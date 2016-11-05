@@ -37,7 +37,7 @@ public class OnDateQualifierTest {
         ddb.addTask(toAdd);
         
         filteredTasks.setPredicate((new PredicateExpression(
-                new OnDateQualifier(LocalDateTime.now(), SearchCompletedOption.ALL)))::satisfies);
+                new OnDateQualifier(LocalDateTime.now(), false, SearchCompletedOption.ALL)))::satisfies);
         assertEquals(filteredTasks.size(), 0);
         
         Task toAddToday = helper.generateTaskWithDates("today", "4 days later");
@@ -47,7 +47,7 @@ public class OnDateQualifierTest {
         ddb.addTask(toAddNoDate);
         
         filteredTasks.setPredicate((new PredicateExpression(
-                new OnDateQualifier(LocalDateTime.now(), SearchCompletedOption.ALL)))::satisfies);
+                new OnDateQualifier(LocalDateTime.now(), false, SearchCompletedOption.ALL)))::satisfies);
         assertEquals(filteredTasks.size(), 1);
     }
     

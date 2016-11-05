@@ -27,7 +27,7 @@ public class UnmarkLogicTest extends CommandLogicTest {
         logic.execute("search done"); //have to search for completed tasks first
         
         assertCommandBehavior("unmark 1",
-                String.format(UnmarkCommand.MESSAGE_SUCCESS, toBeMarked.getName()),
+                String.format(UnmarkCommand.MESSAGE_SUCCESS, 1, toBeMarked),
                 expectedTDL,
                 expectedTDL.getTaskList());
 

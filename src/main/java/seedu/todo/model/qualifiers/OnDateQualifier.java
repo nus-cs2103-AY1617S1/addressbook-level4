@@ -15,10 +15,12 @@ public class OnDateQualifier implements Qualifier {
     
     private LocalDateTime datetime;
     private SearchCompletedOption option;
+    private boolean hasTimeField;
     
-    public OnDateQualifier(LocalDateTime datetime, SearchCompletedOption option) {
+    public OnDateQualifier(LocalDateTime datetime, boolean hasTimeField, SearchCompletedOption option) {
         this.datetime = datetime;
         this.option = option;
+        this.hasTimeField = hasTimeField;
     }
 
     @Override
@@ -26,14 +28,19 @@ public class OnDateQualifier implements Qualifier {
         boolean taskIsOnDate;
         
         if (task.getOnDate().getDate() != null) {
-            LocalDateTime onDateTime = DateTimeUtil.combineLocalDateAndTime(task.getOnDate().getDate(), 
-                    task.getOnDate().getTime());
-            taskIsOnDate = onDateTime.toLocalDate().equals(datetime.toLocalDate());
+            if (this.hasTimeField) {
+                LocalDateTime onDateTime = DateTimeUtil.combineLocalDateAndTime(task.getOnDate().getDate(), 
+                        task.getOnDate().getTime());
+                taskIsOnDate = onDateTime.equals(datetime);            
+            } else {
+                LocalDateTime onDateTime = DateTimeUtil.combineLocalDateAndTime(task.getOnDate().getDate(), 
+                        task.getOnDate().getTime());
+                taskIsOnDate = onDateTime.toLocalDate().equals(datetime.toLocalDate());
+            }
         } else {
             taskIsOnDate = false;
         }
-        
-        
+
         if (option == SearchCompletedOption.ALL) {
             return taskIsOnDate;
         } else if (option == SearchCompletedOption.DONE) {

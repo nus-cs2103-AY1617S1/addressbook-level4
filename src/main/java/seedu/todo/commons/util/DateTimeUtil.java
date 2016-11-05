@@ -4,6 +4,7 @@ package seedu.todo.commons.util;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -45,9 +46,7 @@ public class DateTimeUtil {
         Parser nattyParser = new Parser();
         List<DateGroup> groups = nattyParser.parse(dateTimeString);
 
-        if (groups.size() == 0) {
-            return null;
-        } else {
+        if (groups.size() != 0) {
             Map<String, List<ParseLocation>> m = groups.get(0).getParseLocations();
             Date date = groups.get(0).getDates().get(0);
             
@@ -72,13 +71,14 @@ public class DateTimeUtil {
                     ldt = LocalDateTime.of(c.get(Calendar.YEAR), c.get(Calendar.MONTH) + 1, 
                             c.get(Calendar.DATE), c.get(Calendar.HOUR_OF_DAY), c.get(Calendar.MINUTE));
                 }
-                
             }
-            
             return ldt;
         }
+        
+        return null;
     }
 
+    
     /**
      * Checks whether date information is able to be parsed out 
      * from a String
@@ -150,8 +150,7 @@ public class DateTimeUtil {
             return LocalDateTime.of(date, time);
         }
     }
-    
-    
+      
     public static String prettyPrintDate(LocalDate date) {
         return date.format(DateTimeFormatter.ofPattern("dd MMM yyyy"));
     }
