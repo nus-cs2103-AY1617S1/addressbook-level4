@@ -30,13 +30,12 @@ import seedu.todo.models.TodoListDB;
 public class FindController implements Controller {
     
     private static final String NAME = "Find";
-    private static final String DESCRIPTION = "Find all tasks and events based on the provided keywords.\n" + 
-    "This command will be search with non-case sensitive keywords.";
-    private static final String COMMAND_SYNTAX = "find [name] or/and [on date]";
+    private static final String DESCRIPTION = "Find tasks and events based on the provided keyword.\n";
+    private static final String COMMAND_SYNTAX = "find <name>";
     private static final String COMMAND_WORD = "find";
     
     private static final String MESSAGE_LISTING_SUCCESS = "A total of %s found!";
-    private static final String MESSAGE_LISTING_FAILURE = "No task or event found!";
+    private static final String MESSAGE_LISTING_FAILURE = "No tasks or events found!";
     
     private static CommandDefinition commandDefinition =
             new CommandDefinition(NAME, DESCRIPTION, COMMAND_SYNTAX); 
