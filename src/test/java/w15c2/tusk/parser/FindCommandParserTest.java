@@ -11,6 +11,9 @@ import w15c2.tusk.logic.commands.taskcommands.FindTaskCommand;
 import w15c2.tusk.logic.commands.taskcommands.IncorrectTaskCommand;
 import w15c2.tusk.logic.parser.FindCommandParser;
 
+/**
+ * Tests Find Command Parser
+ */
 //@@author A0143107U
 public class FindCommandParserTest {
 	FindCommandParser parser = new FindCommandParser();

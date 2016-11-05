@@ -6,6 +6,9 @@ import org.junit.Test;
 
 import w15c2.tusk.logic.commands.taskcommands.ExitCommand;
 
+/**
+ * Tests Exit Command 
+ */
 //@@author A0143107U
 public class ExitCommandTest {
 	@Test

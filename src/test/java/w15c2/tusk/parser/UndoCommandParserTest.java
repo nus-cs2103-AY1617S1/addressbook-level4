@@ -9,6 +9,9 @@ import w15c2.tusk.logic.commands.taskcommands.IncorrectTaskCommand;
 import w15c2.tusk.logic.commands.taskcommands.UndoTaskCommand;
 import w15c2.tusk.logic.parser.UndoCommandParser;
 
+/**
+ * Tests Undo Command Parser
+ */
 //@@author A0143107U
 public class UndoCommandParserTest {
 	// Initialized to support the tests

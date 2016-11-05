@@ -11,6 +11,9 @@ import w15c2.tusk.logic.commands.taskcommands.AddAliasCommand;
 import w15c2.tusk.model.task.Model;
 import w15c2.tusk.model.task.TaskManager;
 
+/**
+ * Tests AddAlias Command 
+ */
 //@@author A0143107U
 public class AddAliasCommandTest {
 

@@ -9,6 +9,9 @@ import w15c2.tusk.logic.commands.taskcommands.ExitCommand;
 import w15c2.tusk.logic.commands.taskcommands.IncorrectTaskCommand;
 import w15c2.tusk.logic.parser.ExitCommandParser;
 
+/**
+ * Tests Exit Command Parser
+ */
 //@@author A0143107U
 public class ExitCommandParserTest {
 	// Initialized to support the tests

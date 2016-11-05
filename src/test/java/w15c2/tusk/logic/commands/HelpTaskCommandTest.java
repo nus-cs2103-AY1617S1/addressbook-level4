@@ -7,6 +7,9 @@ import org.junit.Test;
 import w15c2.tusk.logic.commands.CommandResult;
 import w15c2.tusk.logic.commands.taskcommands.HelpTaskCommand;
 
+/**
+ * Tests Help Command 
+ */
 //@@author A0143107U
 public class HelpTaskCommandTest {
 

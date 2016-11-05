@@ -9,6 +9,9 @@ import w15c2.tusk.logic.commands.taskcommands.IncorrectTaskCommand;
 import w15c2.tusk.logic.commands.taskcommands.ListTaskCommand;
 import w15c2.tusk.logic.parser.ListCommandParser;
 
+/**
+ * Tests List Command Parser
+ */
 //@@author A0143107U
 public class ListCommandParserTest {
 	// Initialized to support the tests

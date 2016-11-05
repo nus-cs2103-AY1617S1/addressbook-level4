@@ -1,6 +1,6 @@
 package w15c2.tusk.model;
 
-/*
+/**
  * A one-word alias for any sentence to be used as a command
  */
 //@@author A0143107U
