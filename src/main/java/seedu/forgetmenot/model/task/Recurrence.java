@@ -5,13 +5,14 @@ import java.util.regex.Pattern;
 
 import seedu.forgetmenot.commons.exceptions.IllegalValueException;
 
+//@@author A0139671X
 /**
  * Represents a Task's recurrence in the task manager.
- * @@author A0139671X
  */
 public class Recurrence {
 
     public static final int DEFAULT_OCCURENCE = 10;
+    public static final String INVALID_RECURRENCE_FORMAT = "Sorry! Your recurrence format was invalid! Please try again.";
     
     private static final Pattern RECURRENCE_DATA_ARGS_FORMAT = Pattern.compile("(?<freq>((\\d* )?(day|week|month|year)(s)?))"
             + "( (x|X)(?<occ>(\\d++)))?", Pattern.CASE_INSENSITIVE);
@@ -30,7 +31,7 @@ public class Recurrence {
         }
         
         else if (!matcher.matches()) {
-            throw new IllegalValueException("Sorry! Your recurrence format was invalid! Please try again.");
+            throw new IllegalValueException(INVALID_RECURRENCE_FORMAT);
         }
         
         else {
@@ -57,30 +58,48 @@ public class Recurrence {
     
     @Override
     public String toString() {
-        if (!value)
-            return "NIL";
-        if (days.toLowerCase().equals("day"))
-            return "Daily";
-        if (days.toLowerCase().equals("week"))
-            return "Weekly";
-        if (days.toLowerCase().equals("month"))
-            return "Monthly";
-        if (days.toLowerCase().equals("year"))
-            return "Yearly";
-        
-        return days;
+        return getAppropriateText();
     }
     
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof Recurrence // instanceof handles nulls
-                && this.days.equals(((Recurrence) other).days)); // state check
+                        && this.days.equals(((Recurrence) other).days)); // state check
     }
     
     @Override
     public int hashCode() {
         return days.hashCode();
+    }
+
+    /**
+     * Converts the recurrence duration to a more appropriate english word
+     * @return String in the appropriate display format
+     */
+    public String getAppropriateText() {
+        if (!value) {
+            return "NIL";
+        }
+        
+        else if (days.toLowerCase().equals("day")) {
+            return "Daily";
+        }
+        
+        else if (days.toLowerCase().equals("week")) {
+            return "Weekly";
+        }
+        
+        else if (days.toLowerCase().equals("month")) {
+            return "Monthly";
+        }
+        
+        else if (days.toLowerCase().equals("year")) {
+            return "Yearly";
+        }
+        else {
+            return days;
+        }
     }
     
     /**
@@ -88,9 +107,10 @@ public class Recurrence {
      */
     private void assignRecurrenceValues(String recurrenceString, final Matcher matcher) {
         
-        if(!recurrenceString.contains("x")) {
+        if (!recurrenceString.contains("x")) {
             this.occurences = DEFAULT_OCCURENCE;
         }
+        
         else {
             this.occurences = Integer.parseInt(matcher.group("occ").trim());
         }
