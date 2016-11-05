@@ -1,23 +1,11 @@
 package seedu.todo.controllers;
 
-import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.function.Predicate;
 
-import com.joestelmach.natty.DateGroup;
-import com.joestelmach.natty.Parser;
-
 import seedu.todo.commons.exceptions.ParseException;
-import seedu.todo.commons.util.DateUtil;
 import seedu.todo.commons.util.StringUtil;
-import seedu.todo.controllers.concerns.Tokenizer;
 import seedu.todo.controllers.concerns.Renderer;
 import seedu.todo.models.Event;
 import seedu.todo.models.Task;
