@@ -40,9 +40,10 @@ public class DoneCommandTest extends AddressBookGuiTest {
 
     /**
      * Runs the done command to archive the task at specified index and confirms the result is correct.
-     * @param targetIndexOneIndexed e.g. to archive the first task in the list, 1 should be given as the target index.
-     * @param currentList A copy of the current list of tasks (before archiving).
-     * @param currentDoneList A copy of the current list of done tasks (before archiving).
+     * 
+     * @param targetIndexOneIndexed To archive the first task in the list, 1 should be given as the target index.
+     * @param currentList           A copy of the current list of tasks (before archiving).
+     * @param currentDoneList       A copy of the current list of done tasks (before archiving).
      */
     private void assertDoneSuccess(int targetIndexOneIndexed, final TestTask[] currentList, final TestTask[] currentDoneList) {
         TestTask taskToDone = currentList[targetIndexOneIndexed-1]; //-1 because array uses zero indexing
@@ -54,7 +55,7 @@ public class DoneCommandTest extends AddressBookGuiTest {
         assertTrue(personListPanel.isListMatching(expectedRemainder));
         
         //confirm the result message is correct
-        assertResultMessage(String.format(MESSAGE_DONE_TASK_SUCCESS, taskToDone));
+        assertResultMessage(String.format(MESSAGE_DONE_TASK_SUCCESS, "\n" + taskToDone.toString()));
 
         //confirm the done list now contains all previous done tasks plus the new done task
         commandBox.runCommand("list done");

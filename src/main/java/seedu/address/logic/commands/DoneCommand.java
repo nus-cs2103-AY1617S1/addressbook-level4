@@ -9,7 +9,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.commons.exceptions.TaskNotRecurringException;
-import seedu.address.commons.util.StringUtil;
+import seedu.address.commons.util.ListUtil;
 import seedu.address.model.item.ReadOnlyTask;
 import seedu.address.model.item.Task;
 import seedu.address.model.item.UniqueTaskList.TaskNotFoundException;
@@ -120,12 +120,12 @@ public class DoneCommand extends UndoableCommand {
             indicateAttemptToExecuteIncorrectCommand();
             return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
-        String toDisplay = StringUtil.removeArrayBrackets(targetTasks.toString());
+        String toDisplay = ListUtil.generateDisplayString(targetTasks);
         return (targetTasks.size() == 1)
                 ? new CommandResult(String.format(MESSAGE_DONE_TASK_SUCCESS, toDisplay))
                 : new CommandResult(String.format(MESSAGE_DONE_TASKS_SUCCESS, toDisplay));
     }
-
+   
     /**
      * Adds the tasks referred to by the list of target indexes into a task list.
      * Invalid target indexes in the list will be ignored.
