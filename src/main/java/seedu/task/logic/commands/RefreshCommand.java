@@ -53,7 +53,7 @@ public class RefreshCommand extends Command {
                         EMPTY_STRING + taskList.get(index).getNewTask().getStartTime(),
                         EMPTY_STRING + taskList.get(index).getNewTask().getEndTime(),
                         EMPTY_STRING + taskList.get(index).getNewTask().getDeadline(),
-                        tagStringSet);
+                        tagStringSet, taskList.get(index).getNewTask().getStatus());
                 command.setData(model);
                 command.execute(0);
 

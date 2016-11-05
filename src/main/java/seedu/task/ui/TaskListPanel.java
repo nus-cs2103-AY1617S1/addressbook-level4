@@ -24,6 +24,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TablePosition;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TableCell;
 import javafx.scene.layout.AnchorPane;
@@ -165,7 +166,7 @@ public class TaskListPanel extends UiPart {
     	                setStyle("-fx-background-color");
     	            } else if(item.toString().equals("")) {
     	            	setText("-");
-    	            	setStyle("-fx-background-color: red");
+    	            	//setStyle("-fx-background-color: red");
     	            }
     	            else {
     	                setText(item.toString());
@@ -245,7 +246,20 @@ public class TaskListPanel extends UiPart {
     	    };
     	});
     	
-    		
+    	taskTable.setRowFactory(tv -> new TableRow<ReadOnlyTask>() {
+    	    @Override
+    	    public void updateItem(ReadOnlyTask item, boolean empty) {
+    	        super.updateItem(item, empty) ;
+    	        if (item == null) {
+    	            setStyle("");
+    	        } else if (item.getStatus().getDoneStatus()) {
+    	            setStyle("-fx-background-color: red;");
+    	        } else {
+    	            setStyle("");
+    	        }
+    	    }
+    	});
+    	
     }
     
    
@@ -304,8 +318,10 @@ public class TaskListPanel extends UiPart {
             if (size > 0) {
                 view.scrollTo(c.getFrom());
             }
+            
             statusColumn.setVisible(false);
         	statusColumn.setVisible(true);
+        	
         	taskTable.getSelectionModel().select(c.getFrom());
         }));
     }
@@ -330,7 +346,7 @@ public class TaskListPanel extends UiPart {
      	
     	addAutoScroll(taskTable);
     	
-    	setEventHandlerForSelectionChangeEvent();
+    	//setEventHandlerForSelectionChangeEvent();
     	
     	
         

@@ -26,6 +26,8 @@ public interface Model {
     // @@author A0147335E-reused
     /** Adds the given task on a specific index */
     void addTask(int index, Task task) throws UniqueTaskList.DuplicateTaskException;
+    
+    
     // @@author
     /** Returns the filtered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
     UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList();

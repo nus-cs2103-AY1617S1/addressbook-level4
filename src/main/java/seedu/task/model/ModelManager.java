@@ -145,7 +145,6 @@ public class ModelManager extends ComponentManager implements Model {
         }
 
         taskManager.addTask(index, task);
-        updateFilteredListToShowAll();
         indicateTaskManagerChanged();
     }
 
