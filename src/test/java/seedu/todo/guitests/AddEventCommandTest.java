@@ -13,6 +13,7 @@ import seedu.todo.guitests.guihandles.TaskListDateItemHandle;
 import seedu.todo.guitests.guihandles.TaskListEventItemHandle;
 import seedu.todo.models.Event;
 
+// @@author A0139812A
 public class AddEventCommandTest extends GuiTest {
 
     @Test
