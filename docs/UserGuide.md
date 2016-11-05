@@ -121,13 +121,12 @@ Love typing? You will love sTask, as you only need to use the keyboard to type s
 &nbsp;&nbsp;&nbsp;&nbsp;<b>3.8 Undoing an action </b><br><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; You can undo your previous action by typing<br>
 >> `undo` <br><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;You can only undo the following commands: `add`, `edit`, `delete`, `done`.<br><br>
+You can only undo the following commands: `add`, `edit`, `delete`, `done`.<br><br>
 
 &nbsp;&nbsp;&nbsp;&nbsp;<b>3.9 Redoing an action </b><br><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; You can redo your previous `undo` by typing<br>
 >> `redo` <br><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;You can only redo if you do not use the following commands: `add`, `edit`, `delete`, `done`.<br><br>
-
+You can only redo if you do not use the following commands: `add`, `edit`, `delete`, `done`.<br><br>
 
 &nbsp;&nbsp;&nbsp;&nbsp;<b>3.10 Completing a task </b><br><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; After you claimed your free Starbucks coffee,<br>
