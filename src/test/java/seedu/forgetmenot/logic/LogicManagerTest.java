@@ -433,18 +433,18 @@ public class LogicManagerTest {
                 expectedList);
     }
     
-//    //@@author A0139671X
-//    @Test
-//    public void execute_undoRecent_nothingToUndo() throws Exception {
-//        String expectedMessage = UndoCommand.MESSAGE_UNDO_INVALID;
-//        assertCommandBehavior("undo", expectedMessage);
-//    }
-//    
-//    public void execute_undoRecentAdd_recentAddUndone() throws Exception {
-//        String expectedMessage = UndoCommand.MESSAGE_UNDO_INVALID;
-//        assertCommandBehavior("undo", expectedMessage);
-//    }
-//    //@@author
+    //@@author A0139671X
+    @Test
+    public void execute_undoRecent_nothingToUndo() throws Exception {
+        String expectedMessage = UndoCommand.MESSAGE_UNDO_INVALID;
+        assertCommandBehavior("undo", expectedMessage);
+    }
+    
+    public void execute_undoRecentAdd_recentAddUndone() throws Exception {
+        String expectedMessage = UndoCommand.MESSAGE_UNDO_INVALID;
+        assertCommandBehavior("undo", expectedMessage);
+    }
+    //@@author
     
     /**
      * A utility class to generate test data.

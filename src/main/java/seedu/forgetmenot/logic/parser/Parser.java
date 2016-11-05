@@ -206,6 +206,7 @@ public class Parser {
         
         return new EditCommand(matcher.group("index"), matcher.group("name"), matcher.group("start"), matcher.group("end"));
     }
+    //@@author
 
     //@@author A0147619W
     /**
