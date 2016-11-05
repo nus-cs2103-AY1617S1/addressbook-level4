@@ -314,8 +314,8 @@ public class UndoCommand extends Command {
     }
 
     private int decrement(int index) {
-        int newIndex = index--;
-        return newIndex;
+        index--;
+        return index;
     }
 
     private void removePreviousCommand(int index) {
