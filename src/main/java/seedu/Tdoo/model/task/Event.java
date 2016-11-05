@@ -101,11 +101,11 @@ public class Event extends Task implements ReadOnlyTask {
         String endTaskTime = getEndTime().endTime;
         int getHour = 12, getMinute;
         // get hour
-        String hour = (getEndTime().endTime).substring(0, 2);
+        String hour = (getEndTime().endTime).substring(0, 1);
         // get min
-        String minute = (getEndTime().endTime).substring(3, 5);
+        String minute = (getEndTime().endTime).substring(2, 4);
         // get AM/PM
-        String AM_PM = (getEndTime().endTime).substring(5, 7);
+        String AM_PM = (getEndTime().endTime).substring(4, 6);
 
         // Date object-----------------------------------------
         DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
