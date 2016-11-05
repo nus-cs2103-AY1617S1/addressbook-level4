@@ -15,57 +15,58 @@
 11. [Appendix D: Glossary](#appendix-d--glossary)
 12. [Appendix E : Product Survey](#appendix-e--product-survey)
 
-## 0. Introduction 
+## 1. Introduction 
 
-&nbsp;&nbsp;&nbsp;&nbsp; Hello new developer! We are pleased to welcome you into our team and we hope that you will enjoy your time working with us. sTask is a reliable task management application that accepts 3 kinds of tasks, namely: floating tasks, deadlines and events. This application caters to users who prefer using the command-line interface. Our Developer Guide introduces you to our code base so that you can dive straight into code without much lead-time. The documents listed provide details about how to extend our application using Java's various APIs. 
+&nbsp;&nbsp;&nbsp;&nbsp; Hello new developers! We are pleased to welcome you into our team and we hope that you will enjoy your time working with us. sTask is a reliable task management application that accepts 3 kinds of tasks, namely: floating tasks, deadlines and events. This application caters to users who prefer using the command-line interface. Our Developer Guide introduces you to our code base so that you can dive straight into code without much lead-time. The documents listed provide details about how to extend our application using Java's various APIs. 
 
 Perfection is achieved not when there is nothing more to add, but rather when there is nothing more to take away
---Antoine de Saint-Exupery
+-Antoine de Saint-Exupery
 
-## 1. Setting up
+## 2. Setting up
 
-#### 1.1 Prerequisites
+Before you start to delve into the development of sTask, please ensure that you have set up the project correctly by following the procedures outlined below. 
 
-&nbsp;&nbsp;&nbsp;&nbsp; <b>1.1.1</b> **JDK `1.8.0_60`**  or later<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<b>2.1 Prerequisites</b>
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>2.1.1</b> First, ensure that you have **JDK `1.8.0_60`**  or later<br>
 
       Having any Java 8 version is not enough.
       This app will not work with earlier versions of Java 8.
     
-&nbsp;&nbsp;&nbsp;&nbsp; <b>1.1.2</b> **Eclipse** IDE <br>
-&nbsp;&nbsp;&nbsp;&nbsp; <b>1.1.3</b> **e(fx)clipse** plugin for Eclipse (Do the steps 2 onwards given in [this page](http://www.eclipse.org/efxclipse/install.html#for-the-ambitious)) <br>
-&nbsp;&nbsp;&nbsp;&nbsp; <b>1.1.4</b> **Buildship Gradle Integration** plugin from the Eclipse Marketplace <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>2.1.2</b> Next, install **Eclipse** IDE on your working computer<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>2.1.3</b> Subsequently, install the **e(fx)clipse** plugin for Eclipse (Start from step 2 onwards given in [this page](http://www.eclipse.org/efxclipse/install.html#for-the-ambitious)) <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>2.1.4</b> Finally, grab the **Buildship Gradle Integration** plugin from the Eclipse Marketplace.<br>
 
+&nbsp;&nbsp;&nbsp;&nbsp;<b>2.2 Importing the project into Eclipse</b>
 
-#### 1.2 Importing the project into Eclipse
-
-&nbsp;&nbsp;&nbsp;&nbsp; <b>1.2.1</b> Fork this repo, and clone the fork to your computer <br>
-&nbsp;&nbsp;&nbsp;&nbsp; <b>1.2.2</b> Open Eclipse (Note: Ensure you have installed the **e(fx)clipse** and **buildship** plugins as given 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>2.2.1</b> Fork this repo, and clone the fork to your computer <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>2.2.2</b> Open Eclipse (Note: Ensure you have installed the **e(fx)clipse** and **buildship** plugins as given 
    in the prerequisites above) <br>
-&nbsp;&nbsp;&nbsp;&nbsp; <b>1.2.3</b> Click `File` > `Import` <br>
-&nbsp;&nbsp;&nbsp;&nbsp; <b>1.2.4</b> Click `Gradle` > `Gradle Project` > `Next` > `Next` <br>
-&nbsp;&nbsp;&nbsp;&nbsp; <b>1.2.5</b> Click `Browse`, then locate the project's directory <br>
-&nbsp;&nbsp;&nbsp;&nbsp; <b>1.2.6</b> Click `Finish` <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>2.2.3</b> Click `File` > `Import` <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>2.2.4</b> Click `Gradle` > `Gradle Project` > `Next` > `Next` <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>2.2.5</b> Click `Browse`, then locate the project's directory <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>2.2.6</b> Click `Finish` <br>
 
       If you are asked whether to 'keep' or 'overwrite' config files, choose to 'keep'.
       Depending on your connection speed and server load, it can even take up to 30 minutes for the set up to finish
       (This is because Gradle downloads library files from servers during the project set up process)
       If Eclipse auto-changed any settings files during the import process, you can discard those changes.
 
-## 2. Design
+## 3. Design
 
 <img src="images/Architecture.png" width="600"><br><br>
 
 >The **Architecture Diagram** given above explains the high-level design of the App. <br>
  Given below is a quick overview of each component. <br>
  
-### 2.1 Main Component
+### 3.1 Main Component
  
  `Main` has only one class called [`MainApp`](../src/main/java/seedu/address/MainApp.java). It is responsible for
 
     At app launch: Initializes the components in the correct sequence, and connect them up with each other.
     At shut down: Shuts down the components and invoke clean up method where necessary.
 
-### 2.2 Common Component
+### 3.2 Common Component
 
 `Commons` represents a collection of classes used by multiple other components.
 Two of those classes play an important role at the architecture level.
