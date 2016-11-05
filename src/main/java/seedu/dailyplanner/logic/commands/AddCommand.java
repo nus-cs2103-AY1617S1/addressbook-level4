@@ -59,8 +59,8 @@ public class AddCommand extends Command {
             model.addPerson(toAdd);
             
             
-        	if (checkClash(toAdd) > -1)
-				return new CommandResult(String.format(MESSAGE_WARNING_CLASH, model.getAddressBook().getPersonList().get(checkClash(toAdd))));
+        	//if (checkClash(toAdd) > -1)
+				//return new CommandResult(String.format(MESSAGE_WARNING_CLASH, model.getAddressBook().getPersonList().get(checkClash(toAdd))));
         	
             return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
         } catch (UniqueTaskList.DuplicatePersonException e) {

@@ -91,7 +91,7 @@ public class PersonListPanel extends UiPart {
     }
     
     private void setEventHandlerForAdditionToListEvent(ObservableList<ReadOnlyTask> personList) {
-       logic.getLastTaskAddedIndexProperty().addListener(new ChangeListener() {
+       logic.getLastTaskAddedIndexProperty().addListener(new ChangeListener<Object>() {
       @Override
       public void changed(ObservableValue observableValue, Object oldValue,
           Object newValue) {
