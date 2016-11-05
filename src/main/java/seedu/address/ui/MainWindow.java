@@ -26,7 +26,7 @@ import seedu.address.model.UserPrefs;
 public class MainWindow extends UiPart {
 
 	//@@author A0142184L
-    private static final String ICON = "/images/address_book_32.png";
+    private static final String ICON = "/images/amethyst_task_manager.png";
     private static final String FXML = "MainWindow.fxml";
     public static final int MIN_HEIGHT = 750;
     public static final int MIN_WIDTH = 800;
