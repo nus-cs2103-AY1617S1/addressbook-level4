@@ -1,5 +1,6 @@
 package seedu.savvytasker.logic;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Stack;
 import java.util.logging.Logger;
@@ -7,7 +8,6 @@ import java.util.logging.Logger;
 import com.google.common.eventbus.Subscribe;
 
 import javafx.collections.ObservableList;
-import seedu.savvytasker.MainApp;
 import seedu.savvytasker.commons.core.ComponentManager;
 import seedu.savvytasker.commons.core.EventsCenter;
 import seedu.savvytasker.commons.core.LogsCenter;
@@ -37,7 +37,6 @@ import seedu.savvytasker.model.Model;
 import seedu.savvytasker.model.alias.AliasSymbol;
 import seedu.savvytasker.model.task.ReadOnlyTask;
 import seedu.savvytasker.storage.Storage;
-import seedu.savvytasker.ui.Ui;
 
 /**
  * The main LogicManager of the app.
@@ -96,16 +95,37 @@ public class LogicManager extends ComponentManager implements Logic {
         
         return result;
     }
-
+    
     //@@author A0139915W
     @Override
     public ObservableList<ReadOnlyTask> getFilteredTaskList() {
         return model.getFilteredTaskList();
     }
-
     @Override
     public ObservableList<AliasSymbol> getAliasSymbolList() {
         return parser.getAliasSymbolList();
+    }    
+    //@@author
+
+    //@@author A0138431L
+    @Override
+    public ObservableList<ReadOnlyTask> getFilteredOverdueTasks() {
+        return model.getFilteredOverdueTasks();
+    }
+
+    @Override
+    public ObservableList<ReadOnlyTask> getFilteredFloatingTasks() {
+        return model.getFilteredFloatingTasks();
+    }
+    
+    @Override
+    public ObservableList<ReadOnlyTask> getFilteredDailyTasks(int i, Date date) {
+        return model.getFilteredDailyTasks(i, date);
+    }
+    
+    @Override
+    public ObservableList<ReadOnlyTask> getFilteredUpcomingTasks(Date date) {
+        return model.getFilteredUpcomingTasks(date);
     }
     //@@author
     

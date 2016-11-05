@@ -13,9 +13,9 @@ public class CommandBoxTest extends SavvyTaskerGuiTest {
     }
 
     @Test
-    public void commandBox_commandFails_textStays(){
+    public void commandBox_commandFails_textClears(){
         commandBox.runCommand("invalid command");
-        assertEquals(commandBox.getCommandInput(), "invalid command");
+        assertEquals(commandBox.getCommandInput(), "");
         //TODO: confirm the text box color turns to red
     }
 

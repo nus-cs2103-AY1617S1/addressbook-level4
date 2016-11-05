@@ -92,7 +92,7 @@ public class StatusBarFooter extends UiPart {
         return FXML;
     }
 
-    //@@author A0139915W
+    //@@author A0138431L
     @Subscribe
     public void handleSavvyTaskerSaveLocationChangedEvent(DataSavingLocationChangedEvent dslce) {
         setSaveLocation(dslce.newPath);

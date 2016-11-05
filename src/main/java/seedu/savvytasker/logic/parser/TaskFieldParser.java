@@ -120,4 +120,19 @@ public abstract class TaskFieldParser<T extends Command> implements CommandParse
             return null;
         return descriptionText.trim();
     }
+    //@@author
+    
+    //@@author A0138431L
+    public String parsefilePath(String filePathText) throws ParseException {
+        if (filePathText == null)
+            return null;
+        return filePathText.trim();
+    }
+    
+    public String parsefileName(String fileNameText) throws ParseException {
+        if (fileNameText == null)
+            return null;
+        return fileNameText.trim();
+    }
+    //@@author
 }
