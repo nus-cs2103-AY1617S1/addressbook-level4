@@ -12,6 +12,7 @@ import seedu.taskitty.commons.events.model.TaskManagerChangedEvent;
 import seedu.taskitty.commons.events.storage.DataSavingExceptionEvent;
 import seedu.taskitty.commons.exceptions.DataConversionException;
 import seedu.taskitty.commons.util.FileUtil;
+import seedu.taskitty.commons.util.UiUtil;
 import seedu.taskitty.model.ReadOnlyTaskManager;
 import seedu.taskitty.model.UserPrefs;
 
@@ -95,7 +96,7 @@ public class StorageManager extends ComponentManager implements Storage {
             data = taskManagerStorage.readTaskManager();
             //current file exists and there is data present in the current task manager
             if (data.isPresent()) {
-                isOverwrite = createAlertToOverwriteExistingFile(); 
+                isOverwrite = UiUtil.createAlertToOverwriteExistingFile(); 
             }
             return isOverwrite;
         } catch (DataConversionException e) {
@@ -104,19 +105,6 @@ public class StorageManager extends ComponentManager implements Storage {
             throw new IOException(e);
         }
     }
-    
-    /**
-     * Creates an alert asking user whether to overwrite an existing file
-     * @return false if NO is selected and true otherwise
-     */
-    private boolean createAlertToOverwriteExistingFile() {
-        Alert alert = new Alert(AlertType.CONFIRMATION,
-                "Overwrite existing file?", ButtonType.YES, ButtonType.NO, ButtonType.CANCEL);
-        alert.showAndWait();
-
-        return alert.getResult() != ButtonType.NO;
-    }
-    
     //@@author
 
     // ================ UserPrefs methods ==============================
