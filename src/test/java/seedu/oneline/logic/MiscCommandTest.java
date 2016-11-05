@@ -49,22 +49,6 @@ public class MiscCommandTest extends LogicTestManager {
         assertCommandBehavior("clear", ClearCommand.MESSAGE_SUCCESS, new TaskBook(), Collections.emptyList());
     }
 
- 
-    @Test
-    public void listCommand_list_showsAllTasks() throws Exception {
-        TestDataHelper helper = new TestDataHelper();
-        TaskBook expectedTB = helper.generateTaskBook(2);
-        List<? extends ReadOnlyTask> expectedList = expectedTB.getTaskList();
-
-        // prepare task book state
-        helper.addToModel(model, 2);
-
-        assertCommandBehavior("list",
-                ListCommand.MESSAGE_SUCCESS,
-                expectedTB,
-                expectedList);
-    }
-
     @Test
     public void selectCommand_invalidArgsFormat_errorMessageShown() throws Exception {
         String expectedMessage = Messages.getInvalidCommandFormatMessage(SelectCommand.MESSAGE_USAGE);
