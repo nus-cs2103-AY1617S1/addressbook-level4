@@ -1,5 +1,5 @@
 # A0146123Rreused
-###### \java\seedu\address\commons\util\Stemmer.java
+###### /java/seedu/address/commons/util/Stemmer.java
 ``` java
 /**
  * Stemmer, implementing the Porter Stemming Algorithm

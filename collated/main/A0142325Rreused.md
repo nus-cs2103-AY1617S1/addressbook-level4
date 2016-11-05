@@ -1,50 +1,73 @@
 # A0142325Rreused
-###### \java\seedu\address\logic\commands\EditCommand.java
+###### /java/seedu/address/logic/commands/EditCommand.java
 ``` java
-			UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
-	        if (targetIndex != -1) {
-	            if (lastShownList.size() < targetIndex) {
-	                indicateAttemptToExecuteIncorrectCommand();
-	                return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
-	            }
+		ReadOnlyTask toEdit = null;
+		UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
+        if (targetIndex != -1) {
+            if (lastShownList.size() < targetIndex) {
+                indicateAttemptToExecuteIncorrectCommand();
+                return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
+            }
+            toEdit = prepareEditTaskbyIndex(lastShownList);
+        } else {
+            assert this.name != null;
+            return prepareEditTaskWithName();
+        } //end if statment to find the target task
 
-	            target = lastShownList.get(targetIndex - 1);
-	        } else {
-	            assert this.name != null;
-	            ArrayList<ReadOnlyTask> shownList=new ArrayList<ReadOnlyTask>();
-	            for (ReadOnlyTask e : lastShownList) {
-	                if (name.trim().equals(e.getName().taskName)) {
-	                    shownList.add(e);
-	                }
-	            }
-	            if(shownList.size()>1){
-	            	final Matcher matcher = KEYWORDS_ARGS_FORMAT.matcher(name.trim());
-	            	 if (!matcher.matches()) {
-	                     return new CommandResult(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-	                             EditCommand.MESSAGE_USAGE));
-	                 }
-	                 final String[] keywords = matcher.group("keywords").split("\\s+");
-	                 final Set<String> keywordSet = new HashSet<>(Arrays.asList(keywords));
-	            	model.updateFilteredTaskList(keywordSet);
-	            	return new CommandResult(MESSAGE_DELETE_SAME_NAME);
-	            }else if(shownList.size()==1){
-	            	target = shownList.get(0);
-	            }else{
-	            	return new CommandResult(Messages.MESSAGE_INVALID_TASK_NAME);
-	            }
-	        } //end if statment to find the target task
+        return editTask(toEdit);
+	}
 
-	        try {
-				model.editTask(target, type, details);
-				String message = String.format(getSuccessMessage(target), target);
-				model.updateFilteredListToShowAll();
-				model.saveState(message);
-				return new CommandResult(message);
-			} catch (IllegalValueException e) {
-				return new CommandResult(MESSAGE_TASK_NOT_IN_LIST);
-			}
 
+    /**
+     * return taskToBeEdit found by targetIndex
+     *
+     * @param lastShownList
+     * @return task to be deleted
+     */
+
+    private ReadOnlyTask prepareEditTaskbyIndex(UnmodifiableObservableList<ReadOnlyTask> lastShownList) {
+        return lastShownList.get(targetIndex - 1);
+    }
+
+    /**
+     * shown all task names with one or more occurrences of the input parameters
+     *
+     * @return commandResult
+     */
+
+    private CommandResult prepareEditTaskWithName() {
+        final Matcher matcher = KEYWORDS_ARGS_FORMAT.matcher(name.trim());
+        if (!matcher.matches()) {
+            return new CommandResult(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
+        }
+        final String[] keywords = matcher.group("keywords").split("\\s+");
+        final Set<String> keywordSet = new HashSet<>(Arrays.asList(keywords));
+        model.updateFilteredTaskList(keywordSet);
+        if (model.getFilteredTaskList().size() == 0) {
+            indicateAttemptToExecuteIncorrectCommand();
+            return new CommandResult(MESSAGE_TASK_NOT_IN_LIST);
+        } else {
+            return new CommandResult(MESSAGE_EDIT_SAME_NAME);
+        }
+    }
+
+    /**
+     * edit the task specified
+     *
+     * @param toEdit
+     * @return CommandResult
+     */
+
+    private CommandResult editTask(ReadOnlyTask toEdit) {
+        try {
+			model.editTask(toEdit, type, details);
+	        String message = String.format(getSuccessMessage(toEdit), toEdit);
+	        model.saveState(message);
+	        return new CommandResult(message);
+		} catch (IllegalValueException e) {
+			return new CommandResult(MESSAGE_TASK_NOT_IN_LIST);
 		}
+    }
 
 	public static String getSuccessMessage(ReadOnlyTask toEdit) {
         if (toEdit.isEvent()) {
@@ -56,7 +79,7 @@
 
 }
 ```
-###### \java\seedu\address\logic\parser\ArgumentTokenizer.java
+###### /java/seedu/address/logic/parser/ArgumentTokenizer.java
 ``` java
  import java.util.*;
  
@@ -270,9 +293,10 @@
          values.add(value);
          this.tokenizedArguments.put(prefix, values);
      }
-     //@@LiXiaowei
-     public int getNumMappings(){
-    	 return this.tokenizedArguments.size();
-     }
- }
+     
+     /**
+      * returns the total number of mappings in the map
+      * @return int representing the number of mapping in the map
+      */
+     
 ```
