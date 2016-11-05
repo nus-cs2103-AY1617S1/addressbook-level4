@@ -83,8 +83,8 @@ public class TaskCard extends UiPart {
         boolean isDone = task.getIsDone();
         if (isDone) {
             cardPane.setStyle("-fx-background-color: grey");
-            name.setStyle("-fx-text-fill: white");
-            id.setStyle("-fx-text-fill: white");
+            name.setStyle("-fx-text-fill: #555555");
+            id.setStyle("-fx-text-fill: #555555");
         }
     }
     
@@ -106,9 +106,10 @@ public class TaskCard extends UiPart {
         boolean isDone = task.getIsDone();
         if (isDone) {
             cardPane.setStyle("-fx-background-color: grey");
-            name.setStyle("-fx-text-fill: white");
-            id.setStyle("-fx-text-fill: white");
-            endDate.setStyle("-fx-text-fill: white");
+            name.setStyle("-fx-text-fill: #555555");
+            id.setStyle("-fx-text-fill: #555555");
+            endTime.setStyle("-fx-text-fill: #555555");
+            endDate.setStyle("-fx-text-fill: #555555");
             
         } else {
             
@@ -116,6 +117,7 @@ public class TaskCard extends UiPart {
             boolean isOverdue = task.isOverdue();
             if (isOverdue) {
                 cardPane.setStyle("-fx-background-color: #d9534f");
+                tags.setStyle("-fx-text-fill: #010504");
             }
         }
     }
@@ -136,10 +138,13 @@ public class TaskCard extends UiPart {
         boolean isDone = task.getIsDone();
         if (isDone) {
             cardPane.setStyle("-fx-background-color: grey");
-            name.setStyle("-fx-text-fill: white");
-            id.setStyle("-fx-text-fill: white");
-            startDate.setStyle("-fx-text-fill: white");
-            endDate.setStyle("-fx-text-fill: white");
+            name.setStyle("-fx-text-fill: #555555");
+            id.setStyle("-fx-text-fill: #555555");
+            startTime.setStyle("-fx-text-fill: #555555");
+            startDate.setStyle("-fx-text-fill: #555555");
+            toLabel.setStyle("-fx-text-fill: #555555");
+            endTime.setStyle("-fx-text-fill: #555555");
+            endDate.setStyle("-fx-text-fill: #555555");
         }
     }
     

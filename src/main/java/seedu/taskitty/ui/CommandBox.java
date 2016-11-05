@@ -64,6 +64,8 @@ public class CommandBox extends UiPart {
             
             if (tooltip.isUserInputValid()) {
                 setStyleToIndicateCorrectCommand();
+            } else {
+                setStyleToIndicateIncorrectCommand();
             }
         });
     }

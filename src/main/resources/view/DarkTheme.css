@@ -3,12 +3,8 @@
 }
 
 .label {
-    -fx-font-size: 11pt;
-    -fx-font-family: "Segoe UI Semibold";
-    -fx-text-fill: #555555;
-    -fx-opacity: 0.9;
+	-fx-font-family: "Helvetica";
 }
-
 .label-header {
     -fx-font-size: 32pt;
     -fx-font-family: "Segoe UI Light";
@@ -24,15 +20,13 @@
 
 .label-tooltip {
     -fx-font-size: 13pt;
-    -fx-font-family: "Helvetica";
     -fx-text-fill: black;
     -fx-opacity: 1;
 }
 
 .label-description {
     -fx-font-size: 11pt;
-    -fx-font-family: "Helvetica";
-    -fx-text-fill: #999999;
+    -fx-text-fill: #555555;
     -fx-opacity: 0.8;
 }
 
@@ -67,42 +61,39 @@
 .cell_big_label {
     -fx-font-size: 20px;
     -fx-text-fill: #010504;
-    -fx-font-family: "Helvetica";
 }
 
 .cell_small_label {
     -fx-font-size: 16px;
     -fx-text-fill: #010504;
-    -fx-font-family: "Helvetica";
 }
 
 .cell_tag_label {
     -fx-font-size: 14px;
-    -fx-font-family: "Helvetica";
+    -fx-text-fill: #555555;
 }
 
 .result-display {
     -fx-background-color: #ffffff;
     -fx-border-radius: 10 10 10 10;
-      -fx-background-radius: 10 10 10 10;
+    -fx-background-radius: 10 10 10 10;
+}
+
+#cardPane{
+    -fx-background-color: derive(grey, 80%);
+    -fx-padding: 10 10 10 10;
+    -fx-background-radius: 5;
+    -fx-border-color: #d6d6d6;
+    -fx-border-width: 0 0 0 0;
 }
 
 .error {
-    -fx-background-color: #d9534f;
+	-fx-background-color: #d9534f
 }
 
-.done {
-	-fx-background-color: grey;
-	
-}
 /* @@author */
 .label-done {
     -fx-text-fill: #ff0000;
-}
-
-#done {
-    -fx-text-fill: white;
-    -fx-background-color: grey;
 }
 
 #done-deadline {
@@ -271,16 +262,6 @@
     -fx-font-weight: bold;
 }
 
-/* @@author A0139930B */
-#cardPane {
-    -fx-background-color: derive(grey, 80%);
-    -fx-padding: 10 10 10 10;
-    -fx-background-radius: 5;
-    -fx-border-color: #d6d6d6;
-    -fx-border-width: 0 0 0 0;
-}
-
-/* @@author */
 #filterField, #taskListPanel, #taskWebpage {
     -fx-effect: innershadow(gaussian, black, 10, 0, 0, 0);
 }

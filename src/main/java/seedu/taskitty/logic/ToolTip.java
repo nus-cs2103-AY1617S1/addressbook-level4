@@ -87,8 +87,7 @@ public class ToolTip {
     /**
      * Finds the closest matching command and returns the appropriate tooltip
      * 
-     * @param command
-     *            to determine which command tooltip to show
+     * @param command to determine which command tooltip to show
      */
     private void getToolTipForCommand(String command) {
         for (int i = 0; i < Command.ALL_COMMAND_WORDS.length; i++) {
@@ -101,8 +100,8 @@ public class ToolTip {
     }
 
     /**
-     * Returns a string representing the matched input, delimitered by
-     * TOOLTIP_DELIMITER
+     * Returns a string representing the matched input,
+     * delimitered by TOOLTIP_DELIMITER
      */
     private void getToolTipForAllCommands() {
         assert commands.size() != COMMAND_WORD_COUNT_NO_MATCH && commands.size() != COMMAND_WORD_COUNT_SINGLE_MATCH;
