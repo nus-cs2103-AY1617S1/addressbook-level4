@@ -96,7 +96,7 @@ public class MainWindow extends UiPart {
     }
 
     // @@author A0133369B
-    void fillInnerParts() {
+    public void fillInnerParts() {
         new Image(getClass().getResourceAsStream("/images/haha.png"));
 
         taskListPanel = TaskListPanel.load(primaryStage, getTaskListPlaceholder(), logic.getFilteredTaskList());

@@ -45,14 +45,7 @@ public class TaskCardHandle extends GuiHandle {
     }
     
     public boolean getDoneStatus() {
-        if(getColorFromLabel(COLOR_FIELD_ID, node).equals("-fx-background-color: #ADDBAC")) {
-           
-            return true;
-        }
-                
-        else {
-            return false;
-        }
+        return getColorFromLabel(COLOR_FIELD_ID, node).equals("-fx-background-color: #ADDBAC");
     }
 
     public boolean isSameTask(ReadOnlyTask task){

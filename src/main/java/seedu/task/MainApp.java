@@ -170,7 +170,6 @@ public class MainApp extends Application {
             logger.severe("Failed to save preferences " + StringUtil.getDetails(e));
         }
         Platform.exit();
-        System.exit(0);
     }
 
     @Subscribe

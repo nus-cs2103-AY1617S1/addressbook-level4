@@ -88,37 +88,38 @@ public class RepeatCommandTest extends TaskManagerGuiTest {
     private void assertRepeatSuccess(int targetIndexOneIndexed, final TestTask[] currentList, String input) {
         // -1 because array uses zero indexing
         TestTask taskToRepeat = currentList[targetIndexOneIndexed - 1];
+        String parsedInput = input;
 
         // confirm initial recurring parameter for task is different
-        if ("stop".equals(input) || "end".equals(input)) {
+        if ("stop".equals(parsedInput) || "end".equals(parsedInput)) {
             assertFalse(taskListPanel.getTask(targetIndexOneIndexed - 1).getRecurring().toString().equals("false"));
         } else {
-            assertFalse(taskListPanel.getTask(targetIndexOneIndexed - 1).getRecurring().toString().equals(input));
+            assertFalse(taskListPanel.getTask(targetIndexOneIndexed - 1).getRecurring().toString().equals(parsedInput));
         }
 
-        commandBox.runCommand("repeat " + targetIndexOneIndexed + " " + input);
+        commandBox.runCommand("repeat " + targetIndexOneIndexed + " " + parsedInput);
 
         // change value of input as command may store data as different value
         // for "stop" input
-        if ("stop".equals(input) || "end".equals(input)) {
-            input = "false";
-        } else if ("d".equals(input)) {
-            input = "daily";
-        } else if ("w".equals(input)) {
-            input = "weekly";
-        } else if ("f".equals(input)) {
-            input = "fortnightly";
-        } else if ("m".equals(input)) {
-            input = "monthly";
-        } else if ("y".equals(input)) {
-            input = "yearly";
+        if ("stop".equals(parsedInput) || "end".equals(parsedInput)) {
+            parsedInput = "false";
+        } else if ("d".equals(parsedInput)) {
+            parsedInput = "daily";
+        } else if ("w".equals(parsedInput)) {
+            parsedInput = "weekly";
+        } else if ("f".equals(parsedInput)) {
+            parsedInput = "fortnightly";
+        } else if ("m".equals(parsedInput)) {
+            parsedInput = "monthly";
+        } else if ("y".equals(parsedInput)) {
+            parsedInput = "yearly";
         }
 
         // task
-        assertTrue(taskListPanel.getTask(targetIndexOneIndexed - 1).getRecurring().toString().equals(input));
+        assertTrue(taskListPanel.getTask(targetIndexOneIndexed - 1).getRecurring().toString().equals(parsedInput));
 
         // confirm the result message is correct
-        assertResultMessage(String.format(MESSAGE_REPEAT_TASK_SUCCESS, taskToRepeat.getName().toString(), input));
+        assertResultMessage(String.format(MESSAGE_REPEAT_TASK_SUCCESS, taskToRepeat.getName().toString(), parsedInput));
     }
 
     private void assertRepeatWrongIndexFailure(int targetIndexOneIndexed, String input) {

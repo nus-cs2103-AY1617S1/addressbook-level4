@@ -4,7 +4,6 @@ package guitests.guihandles;
 import guitests.GuiRobot;
 import javafx.geometry.Point2D;
 import javafx.scene.Node;
-import javafx.scene.control.ListView;
 import javafx.scene.control.TableView;
 import javafx.stage.Stage;
 import seedu.task.TestApp;
