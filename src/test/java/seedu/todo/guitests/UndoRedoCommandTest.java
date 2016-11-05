@@ -46,4 +46,21 @@ public class UndoRedoCommandTest extends GuiTest {
         db.destroyAllEvent();
         db.destroyAllTask();
     }
+    
+    @Test
+    public void undo_single() {
+        console.runCommand("clear");
+        assertTaskVisibleAfterCmd(commandAdd1, task1);
+        assertTaskVisibleAfterCmd(commandAdd2, task2);
+        assertTaskNotVisibleAfterCmd("undo", task2);
+    }
+    
+    @Test
+    public void undo_multiple() {
+        console.runCommand("clear");
+        assertTaskVisibleAfterCmd(commandAdd1, task1);
+        assertTaskVisibleAfterCmd(commandAdd2, task2);
+        assertTaskNotVisibleAfterCmd("undo 2", task1);
+        assertTaskNotVisibleAfterCmd("list", task2); // A li'l hacky but oh well
+    }
 }
