@@ -17,7 +17,7 @@
          <items>
             <VBox fx:id="taskList" prefHeight="0.0">
                 <padding>
-                    <Insets bottom="10.0" left="15.0" right="10.0" top="8.0" />
+                    <Insets bottom="10.0" left="15.0" right="10.0" top="2.0" />
                 </padding>
                <children>
                	<Label id="taskListLabel" styleClass="list-label" text="Tasks">
@@ -66,9 +66,13 @@
                 </Tab>
                 <Tab closable="false" text="Help">
                   <content>
-                    <AnchorPane fx:id="helpTabAnchorPane" prefHeight="171.0" prefWidth="315.0">
+                    <AnchorPane fx:id="helpTabAnchorPane">
                            <children>
-                              <AnchorPane fx:id="helpPanelPlaceholder" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                              <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" VBox.vgrow="ALWAYS">
+                                 <children>
+                                    <AnchorPane fx:id="helpPanelPlaceholder" VBox.vgrow="ALWAYS" />
+                                 </children>
+                              </VBox>
                            </children></AnchorPane>
                   </content>
                 </Tab>
