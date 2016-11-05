@@ -82,7 +82,8 @@ public class ChangeCommand extends Command {
                 model.getStackOfChangeFileLocationOld().push(config.getWhatNowFilePath());
                 config.setWhatNowFilePath(newPath);
                 model.changeLocation(path, config);
-                model.getUndoStack().push(COMMAND_WORD); 
+                model.getUndoStack().push(COMMAND_WORD);
+                model.clearRedoAll();
             } catch (DataConversionException e1) {
                 logger.warning("Config file at " + configFilePathUsed + " is not in the correct format. " +
                         "Using default config properties");

@@ -427,36 +427,36 @@ public class ModelManager extends ComponentManager implements Model {
     }
     //@@author A0139128A
     private void clearAllRedoStack() {
-        while(getRedoStack().isEmpty()) {
+        while(!getRedoStack().isEmpty()) {
             getRedoStack().pop();
         }
-        while(getNextTask().isEmpty()) {
+        while(!getNextTask().isEmpty()) {
             getNextTask().pop();
         }
-        while(stackOfWhatNow.isEmpty()) {
+        while(!stackOfWhatNow.isEmpty()) {
             stackOfWhatNow.pop();
         }
-        while(getDeletedStackOfTasksRedo().isEmpty()) {
+        while(!getDeletedStackOfTasksRedo().isEmpty()) {
             getDeletedStackOfTasksRedo().pop();
         }
-        while(getDeletedStackOfTasksIndexRedo().isEmpty()) {
+        while(!getDeletedStackOfTasksIndexRedo().isEmpty()) {
             getDeletedStackOfTasksIndexRedo().pop();
         }
-        while(getDeletedStackOfTasksAddRedo().isEmpty()) {
+        while(!getDeletedStackOfTasksAddRedo().isEmpty()) {
             getDeletedStackOfTasksAddRedo().pop();
         }
-        while(getStackOfMarkDoneTaskRedo().isEmpty()) {
+        while(!getStackOfMarkDoneTaskRedo().isEmpty()) {
             getStackOfMarkDoneTaskRedo().pop();
         }
-        while(getStackOfMarkUndoneTaskRedo().isEmpty()) {
+        while(!getStackOfMarkUndoneTaskRedo().isEmpty()) {
             getStackOfMarkUndoneTaskRedo().pop();
         }
-        while(getStackOfListTypesRedo().isEmpty()) {
+        while(!getStackOfListTypesRedo().isEmpty()) {
             getStackOfListTypesRedo().pop();
         }
-        while(getStackOfChangeFileLocationNew().isEmpty()) {
+        while(!getStackOfChangeFileLocationNew().isEmpty()) {
             getStackOfChangeFileLocationNew().pop();
-        }
+        } 
     }
 
     //@@author A0139772U

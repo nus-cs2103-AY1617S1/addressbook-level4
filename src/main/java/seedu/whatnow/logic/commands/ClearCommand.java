@@ -28,6 +28,7 @@ public class ClearCommand extends Command {
 
         model.resetData(WhatNow.getEmptyWhatNow());
         model.getUndoStack().push(COMMAND_WORD);
+        model.clearRedoAll();
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }

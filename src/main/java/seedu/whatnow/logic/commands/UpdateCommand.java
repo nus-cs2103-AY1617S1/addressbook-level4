@@ -250,7 +250,6 @@ public class UpdateCommand extends Command {
             model.getOldTask().push(taskToUpdate);
             model.getCurrentTask().push(toUpdate);
             model.getUndoStack().push(COMMAND_WORD);
-            
             model.clearRedoAll();
         } catch (TaskNotFoundException tnfe) {
             logger.warning("TaskNotFoundException at UpdateCommand: \n" + tnfe.getMessage());

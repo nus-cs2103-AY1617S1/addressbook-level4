@@ -63,6 +63,7 @@ public class DeleteCommand extends Command {
             model.getUndoStack().push(COMMAND_WORD);
             model.getDeletedStackOfTasks().push(taskToDelete);
             model.getDeletedStackOfTasksIndex().push(indexRemoved);
+            model.clearRedoAll();
         } catch (TaskNotFoundException tnfe) {
             logger.warning("Task not found: " + taskToDelete + "\n" + tnfe.getMessage());
         }
