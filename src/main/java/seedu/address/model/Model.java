@@ -10,6 +10,8 @@ import seedu.address.model.activity.task.Task;
 
 import java.util.Set;
 
+import javafx.collections.ObservableList;
+
 /**
  * The API of the Model component.
  */
@@ -45,6 +47,9 @@ public interface Model {
     
     /** Returns the filtered task list as an {@code UnmodifiableObservableList<Task>} */
     UnmodifiableObservableList<Activity> getFilteredTaskListForEditing();
+    
+    /** Returns the filtered list of Overdue Tasks, and Upcoming Tasks and Upcoming Events for the Dashboard*/
+    UnmodifiableObservableList<ReadOnlyActivity> getFilteredOverdueTaskList();
 
     /** Updates the filter of the filtered task list to show all tasks */
     void updateFilteredListToShowAll();

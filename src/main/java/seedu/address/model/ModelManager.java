@@ -128,11 +128,26 @@ public class ModelManager extends ComponentManager implements Model {
     public UnmodifiableObservableList<Activity> getFilteredTaskListForEditing() {
         return new UnmodifiableObservableList<>(filteredPersons);
     }
+    
+  //@@author A0125284H
+  	@Override
+  	public UnmodifiableObservableList<ReadOnlyActivity> getFilteredOverdueTaskList() {
+  		
+  		FilteredList<Activity> filteredOverdueTaskList = new FilteredList<>(addressBook.getAllEntries());
+  		System.out.println("Size before filtering :" + filteredOverdueTaskList.size());
+  		
+  		filteredOverdueTaskList.setPredicate(p->
+  		p.getClass().getSimpleName().equals("Task"));
+
+  		System.out.println("Size after filtering :" + filteredOverdueTaskList.size());
+  		
+  		return new UnmodifiableObservableList<>(filteredOverdueTaskList);
+  	}
+  	
   //@@author A0131813R
     @Override
     public void updateFilteredListToShowAll() {
-        filteredPersons.setPredicate(p->
-        p.getCompletionStatus() == false && p.getisOver() == false);
+    	
     }
     
     @Override
@@ -225,6 +240,7 @@ public class ModelManager extends ComponentManager implements Model {
             return "name=" + String.join(", ", nameKeyWords);
         }
     }
+
 
 
 
