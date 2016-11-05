@@ -5,6 +5,10 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.Alert.AlertType;
 
 //@@author A0135793W
+/**
+ * A class for handling Ui related commands
+ *
+ */
 public class UiUtil {
     
     /**

@@ -23,8 +23,7 @@ import seedu.taskitty.model.task.UniqueTaskList;
 
 //@@author A0135793W
 /**
- * Edits a task identified using it's last displayed index from the task
- * manager.
+ * Edits a task identified using it's last displayed index from the task manager.
  */
 
 public class EditCommand extends Command {
@@ -32,8 +31,8 @@ public class EditCommand extends Command {
     public static final String COMMAND_WORD = "edit";
 
     public static final String MESSAGE_PARAMETER = COMMAND_WORD + " [index] [name] [#tag]...";
-    public static final String MESSAGE_USAGE = "This command edits a task in TasKitty, Meow!"
-            + "\n[index] is the index eg. t1, d1, e1.";
+    public static final String MESSAGE_USAGE = "This command edits a task in TasKitty, Meow!" 
+                                                + "\n[index] is the index eg. t1, d1, e1.";
 
     public static final String MESSAGE_SUCCESS = "Task edited: %1$s";
     public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the task manager";
@@ -47,6 +46,8 @@ public class EditCommand extends Command {
     private String[] data;
     private Set<Tag> tagSet;
     private final String commandText;
+    
+    private final int NAME_INDEX = 0;
 
     /**
      * Convenience constructor using raw values.
@@ -54,8 +55,8 @@ public class EditCommand extends Command {
      * @throws IllegalValueException
      *             if any of the raw values are invalid
      */
-    public EditCommand(String[] data, Set<String> tags, int targetIndex, int categoryIndex, String commandText)
-            throws IllegalValueException {
+    public EditCommand(String[] data, Set<String> tags, int targetIndex, int categoryIndex, 
+                       String commandText) throws IllegalValueException {
 
         assert categoryIndex >= 0 && categoryIndex < 3;
 
@@ -73,8 +74,9 @@ public class EditCommand extends Command {
     public CommandResult execute() {
         assert categoryIndex >= 0 && categoryIndex < 3;
 
-        UnmodifiableObservableList<ReadOnlyTask> lastShownList = AppUtil.getCorrectListBasedOnCategoryIndex(model,
-                categoryIndex);
+        UnmodifiableObservableList<ReadOnlyTask> lastShownList = 
+                AppUtil.getCorrectListBasedOnCategoryIndex(model, categoryIndex);
+        
         if (lastShownList.size() < targetIndex) {
             indicateAttemptToExecuteIncorrectCommand();
             return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
@@ -95,69 +97,169 @@ public class EditCommand extends Command {
             return new CommandResult(ive.getMessage());
         }
 
-        return new CommandResult(String.format(MESSAGE_SUCCESS, Task.CATEGORIES[categoryIndex] + targetIndex, toEdit));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, Task.CATEGORIES[categoryIndex] + targetIndex,
+                                 toEdit));
     }
 
     /**
-     * Ensure that toEdit variable has proper values before executing the
-     * command
+     * Ensure that toEdit variable has proper values before executing the command.
      * 
      * @return
      * @throws IllegalValueException
      */
     private Optional<CommandResult> updateToEditVariable() throws IllegalValueException {
+        setTagsToExistingTagsIfTagsNotEdited();
+        
+        if (data.length == Task.TASK_COMPONENT_COUNT) {
+            createNewEditedTodo();
+        } else if (data.length == Task.DEADLINE_COMPONENT_COUNT) {
+            setTaskNameToExistingTaskNameIfTaskNameNotEdited();
+            Optional<CommandResult> invalidResult = setDeadlineEndTimeToExistingEndTimeIfEndTimeNotEdited();
+            if (invalidResult.isPresent()) {
+                return invalidResult;
+            };
+            createNewEditedDeadline();
+            markAsOverdueIfTaskToEditIsOverdue();
+        } else if (data.length == Task.EVENT_COMPONENT_COUNT) {
+            setTaskNameToExistingTaskNameIfTaskNameNotEdited();
+            Optional<CommandResult> invalidResult = setEventStartTimeToExistingStartTimeIfStartTimeNotEdited();
+            if (invalidResult.isPresent()) {
+                return invalidResult;
+            };
+            setEventEndTimeToExistingEndTimeIfEndTimeNotEdited();
+            createNewEditedEvent();
+        }
+        markAsDoneIfTaskToEditIsDone();
+        return emptyOptional();
+    }
+
+    // ================ Setter methods ==============================
+    
+    /**
+     * Sets event start time to the existing event start time if user did not input any start time.
+     * 
+     * @return emptyOptional() if task to be edited is a todo or a deadline. If users wish to change edit
+     * a todo or a deadline to an event, then users must specify the start time and end time.
+     * In this case, nothing will be edited.
+     */
+    private Optional<CommandResult> setEventStartTimeToExistingStartTimeIfStartTimeNotEdited() {
+        if (data[Task.EVENT_COMPONENT_INDEX_START_TIME] == null) {
+            if (categoryIndex != Task.EVENT_CATEGORY_INDEX) {
+                return Optional.of(new CommandResult(String.format(MESSAGE_INVALID_COMMAND_FORMAT, 
+                                                                   MESSAGE_USAGE)));
+            }
+            data[Task.EVENT_COMPONENT_INDEX_START_TIME] = taskToEdit.getPeriod().getStartTime().toString();
+        }
+        return emptyOptional();
+    }
+
+    /**
+     * Sets deadline end time to the existing deadline end time if user did not input any end time.
+     * 
+     * @return emptyOptional() if task to be edited is a todo or an event. If users wish to change edit
+     * a todo or an event to a deadline, then users must specify the end time. 
+     * In this case, nothing will be edited.
+     */
+    private Optional<CommandResult> setDeadlineEndTimeToExistingEndTimeIfEndTimeNotEdited() {
+        if (data[Task.DEADLINE_COMPONENT_INDEX_END_TIME] == null) {
+            if (categoryIndex != Task.DEADLINE_CATEGORY_INDEX) {
+                return Optional.of(new CommandResult(String.format(MESSAGE_INVALID_COMMAND_FORMAT, 
+                                                                   MESSAGE_USAGE)));
+            }
+            data[Task.DEADLINE_COMPONENT_INDEX_END_TIME] = taskToEdit.getPeriod().getEndTime().toString();
+        }
+        return emptyOptional();
+    }
+
+    /**
+     * Sets task name to existing task name if user did not input any task name to edit.
+     */
+    private void setTaskNameToExistingTaskNameIfTaskNameNotEdited() {
+        if (data[NAME_INDEX].isEmpty()) {
+            data[NAME_INDEX] = taskToEdit.getName().toString();
+        }
+    }
+    
+    /**
+     * Sets event end time to existing event end time if user did not input any end time.
+     */
+    private void setEventEndTimeToExistingEndTimeIfEndTimeNotEdited() {
+        if (data[Task.EVENT_COMPONENT_INDEX_END_TIME] == null) {
+            data[Task.EVENT_COMPONENT_INDEX_END_TIME] = taskToEdit.getPeriod().getEndTime().toString();
+        }
+    }
+
+    /**
+     * Sets tags to existing tags if user did not input any tags to edit.
+     */
+    private void setTagsToExistingTagsIfTagsNotEdited() {
         if (tagSet.isEmpty()) {
             tagSet = taskToEdit.getTags().toSet();
         }
-        if (data.length == Task.TASK_COMPONENT_COUNT) {
-            this.toEdit = new Task(new Name(data[Task.TASK_COMPONENT_INDEX_NAME]), new TaskPeriod(),
-                    new UniqueTagList(tagSet));
-            if (taskToEdit.getIsDone()) {
-                this.toEdit.markAsDone();
-            }
-        } else if (data.length == Task.DEADLINE_COMPONENT_COUNT) {
-            if (data[Task.DEADLINE_COMPONENT_INDEX_NAME].isEmpty()) {
-                data[Task.DEADLINE_COMPONENT_INDEX_NAME] = taskToEdit.getName().toString();
-            }
-            if (data[Task.DEADLINE_COMPONENT_INDEX_END_TIME] == null) {
-                if (categoryIndex != Task.DEADLINE_CATEGORY_INDEX) {
-                    return Optional.of(new CommandResult(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_USAGE)));
-                }
-                data[Task.DEADLINE_COMPONENT_INDEX_END_TIME] = taskToEdit.getPeriod().getEndTime().toString();
-            }
-            this.toEdit = new Task(new Name(data[Task.DEADLINE_COMPONENT_INDEX_NAME]),
-                    new TaskPeriod(new TaskDate(data[Task.DEADLINE_COMPONENT_INDEX_END_DATE]),
-                            new TaskTime(data[Task.DEADLINE_COMPONENT_INDEX_END_TIME])),
-                    new UniqueTagList(tagSet));
-            if (taskToEdit.getIsDone()) {
-                this.toEdit.markAsDone();
-            } else if (DateTimeUtil.isOverdue(this.toEdit)) {
-                this.toEdit.markAsOverdue();
-            }
-        } else if (data.length == Task.EVENT_COMPONENT_COUNT) {
-            if (data[Task.EVENT_COMPONENT_INDEX_NAME].isEmpty()) {
-                data[Task.EVENT_COMPONENT_INDEX_NAME] = taskToEdit.getName().toString();
-            }
-            if (data[Task.EVENT_COMPONENT_INDEX_START_TIME] == null) {
-                if (categoryIndex != Task.EVENT_CATEGORY_INDEX) {
-                    return Optional.of(new CommandResult(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_USAGE)));
-                }
-                data[Task.EVENT_COMPONENT_INDEX_START_TIME] = taskToEdit.getPeriod().getStartTime().toString();
-            }
-            if (data[Task.EVENT_COMPONENT_INDEX_END_TIME] == null) {
-                data[Task.EVENT_COMPONENT_INDEX_END_TIME] = taskToEdit.getPeriod().getEndTime().toString();
-            }
-            this.toEdit = new Task(new Name(data[Task.EVENT_COMPONENT_INDEX_NAME]),
-                    new TaskPeriod(new TaskDate(data[Task.EVENT_COMPONENT_INDEX_START_DATE]),
-                            new TaskTime(data[Task.EVENT_COMPONENT_INDEX_START_TIME]),
-                            new TaskDate(data[Task.EVENT_COMPONENT_INDEX_END_DATE]),
-                            new TaskTime(data[Task.EVENT_COMPONENT_INDEX_END_TIME])),
-                    new UniqueTagList(tagSet));
-            if (taskToEdit.getIsDone()) {
-                this.toEdit.markAsDone();
-            }
+    }
+    
+    // ================ Task creator methods ==============================
+    
+    /**
+     * Returns a new edited Todo Task
+     * 
+     * @throws IllegalValueException if any of the values are invalid
+     */
+    private void createNewEditedTodo() throws IllegalValueException {
+        assert data.length == Task.TASK_COMPONENT_COUNT;
+        
+        this.toEdit = new Task(new Name(data[Task.TASK_COMPONENT_INDEX_NAME]), new TaskPeriod(),
+                new UniqueTagList(tagSet));
+    }
+    
+    /**
+     * Returns a new edited Deadline Task
+     * 
+     * @throws IllegalValueException if any of the values are invalid
+     */
+    private void createNewEditedDeadline() throws IllegalValueException {
+        assert data.length == Task.DEADLINE_COMPONENT_COUNT;
+        
+        this.toEdit = new Task(new Name(data[Task.DEADLINE_COMPONENT_INDEX_NAME]),
+                new TaskPeriod(new TaskDate(data[Task.DEADLINE_COMPONENT_INDEX_END_DATE]),
+                        new TaskTime(data[Task.DEADLINE_COMPONENT_INDEX_END_TIME])),
+                new UniqueTagList(tagSet));
+    }
+    
+    /**
+     * Returns a new edited Event Task
+     * 
+     * @throws IllegalValueException if any of the values are invalid
+     */
+    private void createNewEditedEvent() throws IllegalValueException {
+        assert data.length == Task.EVENT_COMPONENT_COUNT;
+        
+        this.toEdit = new Task(new Name(data[Task.EVENT_COMPONENT_INDEX_NAME]),
+                new TaskPeriod(new TaskDate(data[Task.EVENT_COMPONENT_INDEX_START_DATE]),
+                        new TaskTime(data[Task.EVENT_COMPONENT_INDEX_START_TIME]),
+                        new TaskDate(data[Task.EVENT_COMPONENT_INDEX_END_DATE]),
+                        new TaskTime(data[Task.EVENT_COMPONENT_INDEX_END_TIME])),
+                new UniqueTagList(tagSet));
+    }
+
+    // ================ Marker methods ==============================
+    
+    /**
+     * Marks edited task as done if original task if already marked as done.
+     */
+    private void markAsDoneIfTaskToEditIsDone() {
+        if (taskToEdit.getIsDone()) {
+            this.toEdit.markAsDone();
         }
-        return emptyOptional();
+    }
+    
+    /**
+     * Marks edited task as overdue if original task if already marked as overdue.
+     */
+    private void markAsOverdueIfTaskToEditIsOverdue() {
+        if (DateTimeUtil.isOverdue(this.toEdit)) {
+            this.toEdit.markAsOverdue();
+        }
     }
 
     private Optional<CommandResult> emptyOptional() {
