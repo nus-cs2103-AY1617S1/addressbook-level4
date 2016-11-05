@@ -1,4 +1,4 @@
-<!--@@author A0139024M-->
+<!--@@author A0143884W-->
 
 # Developer Guide 
 
@@ -99,7 +99,7 @@ being saved to the hard disk and the status bar of the UI being updated to refle
   coupling between components.
 
 We will now go into further details about each component.
-
+<!--@@author--> <!--@@author A0139528W-->
 &nbsp;&nbsp;&nbsp;&nbsp;<b>3.3 UI component</b>
 
 <img src="images/UiClassDiagramTD.png" width="800"><br>
@@ -117,7 +117,7 @@ The `UI` component,
 * Executes user commands using the `Logic` component.
 * Binds itself to some data in the `Model` so that the UI can auto-update when data in the `Model` has changed.
 * Responds to events raises from various parts of sTask and updates the UI accordingly.
-
+<!--@@author--> <!--@@author A0139145E-->
 &nbsp;&nbsp;&nbsp;&nbsp;<b>3.4 Logic component</b>
 
 <img src="images/LogicClassDiagram.png" width="600"><br>
@@ -130,7 +130,7 @@ In this component, you can see from Figure BLAH that,
 2. This results in a `Command` object which is executed by the `LogicManager`.
 3. The command execution can affect the `Model` (e.g. adding a task) and/or raise events.
 4. The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`
-
+<!--@@author--> <!--@@author A0139024M-->
 &nbsp;&nbsp;&nbsp;&nbsp;<b>3.5 Model component</b>
 
 <img src="images/ModelClassDiagramTD.png" width="800"><br>
@@ -191,7 +191,7 @@ There are several different logging levels based on the severity that you have t
 &nbsp;&nbsp;&nbsp;&nbsp;<b>4.2 Configuration</b>
 
 You can control certain properties of sTask (e.g App name, logging level) through the configuration file (default: `config.json`)
-
+<!--@@author--> <!--@@author A0143884W-->
 
 ## 5. Testing
 
@@ -226,7 +226,8 @@ Thanks to the ([TestFX](https://github.com/TestFX/TestFX)) library we use,
  In this mode, GUI tests do not show up on the screen.
  That means that you can do other things on the Computer while the tests are running.<br> <br>
  See [UsingGradle.md](UsingGradle.md#running-tests) to learn how to run tests in headless mode.
-  
+
+<!--@@author-->
 ## 6. Continuous Integration
 
 We use [Travis CI](https://travis-ci.org/) to perform _Continuous Integration_ on our projects.
@@ -251,7 +252,7 @@ than these alternatives.<br>
 
     1. Include those libraries in the repo (this bloats the repo size)<br>
     2. Require developers to download those libraries manually (this creates extra work for developers)
-
+<!--@@author--> <!--@@author A0139024M-->
 ## Appendix A : User Stories
 
 Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (unlikely to have) - `*`
@@ -297,7 +298,7 @@ Priority | As a ... | I want to ... | So that I can...
 &nbsp;&nbsp;&nbsp;&nbsp;1a. The given date and time is invalid
 > 1a1. sTask shows an error message<br>
 > 1a2. Use case resumes at step 1
-
+<!--@@author--> <!--@@author A0139528W-->
 #### Use case: Delete task
 
 **MSS**
@@ -398,6 +399,7 @@ Priority | As a ... | I want to ... | So that I can...
 &nbsp;&nbsp;&nbsp;&nbsp;2a. User has no previous reversible command
 > 2a1. sTask shows an error message
 
+<!--@@author--> <!--@@author A0139145E-->
 #### Use case: Exit
 
 **MSS**
@@ -427,7 +429,7 @@ Priority | As a ... | I want to ... | So that I can...
 
 > Windows, Linux, Unix, OS-X
 
-
+<!--@@author-->
 ## Appendix E : Product Survey
 
 Product Name | Strengths | Weaknesss
@@ -436,17 +438,3 @@ Colour Note | <ol><li> User can add task quickly; within 2 button clicks</li> <l
 ToDoIst  | <ol><li>User can add any task easily using shortcut key ‘q’ </li> <li>User can choose not to include the date and time. </li> <li>User can attach labels (tags) to these entries to categorise them</li> <li>User can view a list of upcoming tasks, up to the next 7 days.</li> <li>User can view a list of completed tasks.</li></ol> |<ol><li> User cannot add in a task to the next earliest available slot </li><li>User cannot add a task that has two possible dates and confirm one of it at a later time</li> <li>User cannot navigate through the application using only the keyboard.</li></ol>
 Apple iOS Reminder | <ol><li>User can add task, both ad-hoc and events quickly; within 2 button press</li><li>User can include additional information anytime by accessing the task in the application easily</li><li>User can add tasks using external application </li><li>User is able to navigate through all the different tasks via touchscreen</li></ol> |<ol><li> User cannot add in task to the next available slot</li><li>User is unable to resolve conflict due to clashing events as the application is not able to detect similar date and time event</li><li>User is not able to undo any command he/she performed</li><li>No repeat option for recurring tasks, user has to repeatedly key in new task each time</li><li>User event and deadline tasks are not sync with any calendar application</li></ol>
 Google Tasks | <ol><li>User can add a new Task by clicking the '+' button. </li><li>User can add an email as a task through the more option after selecting a particular email. </li><li>User can add notes or deadline to the the task by clicking '>' button to the right of each task.</li><li>User can view or clear completed tasks but cannot view the uncompleted ones. </li><li>User can integrate their tasks with Google Calendar.</li></ol> | <ol><li>User has to click pop-up calendar to select date instead of typing a command to do so. </li><li>Does not indicate that a task is overdue.</li></ol>
-
-
-
-
-
-
-
-
-
- 
-
-
-
-
