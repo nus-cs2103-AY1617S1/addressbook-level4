@@ -44,8 +44,6 @@ public class TaskListPanel extends UiPart {
     
     @FXML
     private ListView<ReadOnlyTask> taskListView;
-    
-    public static final int CARD_ID = 0;
 
     @Override
     public void setNode(Node node) {
@@ -83,20 +81,17 @@ public class TaskListPanel extends UiPart {
     }
     
     //@@author A0130853L-reused
-    public int getTaskCardID() {
-        return CARD_ID;
-    }
     
-    public static <T extends TaskListPanel> T load(Stage primaryStage, AnchorPane taskListPlaceholder,
-                                       ObservableList<ReadOnlyTask> taskList, T listPanel, int type) {
-        T taskListPanel =  UiPartLoader.loadUiPart(primaryStage, taskListPlaceholder, listPanel);
+    public static TaskListPanel load(Stage primaryStage, AnchorPane taskListPlaceholder,
+                                       ObservableList<ReadOnlyTask> taskList, TaskListPanel listPanel, int type) {
+        TaskListPanel taskListPanel =  UiPartLoader.loadUiPart(primaryStage, taskListPlaceholder, listPanel);
         taskListPanel.configure(taskList, type);
         return taskListPanel;
     }    
     
     protected void setConnections(ListView<ReadOnlyTask> taskListView, ObservableList<ReadOnlyTask> taskList) {
         taskListView.setItems(taskList);
-        taskListView.setCellFactory(listView -> new TaskListViewCell(getTaskCardID()));
+        taskListView.setCellFactory(listView -> new TaskListViewCell());
         setEventHandlerForSelectionChangeEvent(taskListView);
     }
 
@@ -115,12 +110,6 @@ public class TaskListPanel extends UiPart {
     }
 
     class TaskListViewCell extends ListCell<ReadOnlyTask> {
-        
-        private final int taskCardID;
-        
-        public TaskListViewCell(int taskCardID) {
-            this.taskCardID = taskCardID;
-        }
 
         @Override
         protected void updateItem(ReadOnlyTask task, boolean empty) {
