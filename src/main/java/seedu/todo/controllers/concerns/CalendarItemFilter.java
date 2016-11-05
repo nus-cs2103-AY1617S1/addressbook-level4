@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.Predicate;
 
+import seedu.todo.commons.exceptions.AmbiguousEventTypeException;
 import seedu.todo.commons.exceptions.InvalidNaturalDateException;
 import seedu.todo.models.Event;
 import seedu.todo.models.Task;
@@ -44,18 +45,52 @@ public class CalendarItemFilter {
      * 
      * If there is no eventType specified, we will filter both.
      * 
+     * <ol>
+     * <li>If no "task"/"event" token, and no eventStatus/taskStatus token, then filter both</li>
+     * <li>If no "task"/"event" token, and exactly one of eventStatus/taskStatus present, then use it to guess</li>
+     * <li>If "task" token found, then assert no eventStatus token</li>
+     * <li>If "event" token found, then assert no taskStatus token</li>
+     * <li>Assert that eventStatus and taskStatus tokens cannot both be present</li>
+     * </ol>
+     * 
      * @param parsedResult
      * @return {isTask, isEvent}
      */
-    public static boolean[] parseIsTaskEvent(Map<String, String[]> parsedResult) {
+    public static boolean[] parseIsTaskEvent(Map<String, String[]> parsedResult) throws AmbiguousEventTypeException {
+        // Extract relevant params
+        String eventType = null;
         if (parsedResult.get("eventType") != null) {
-            return new boolean[] { true, true };
-        } else if (parsedResult.get("eventType")[0].equals("task")
-                || parsedResult.get("eventType")[0].equals("tasks")) {
-            return new boolean[] { true, false };
-        } else {
-            return new boolean[] { false, true };
+            eventType = parsedResult.get("eventType")[0];
+            // Singularize
+            eventType = eventType.equals("events") ? "event" : eventType;
+            eventType = eventType.equals("tasks") ? "task" : eventType;
         }
+        boolean taskStatusPresent = parsedResult.get("taskStatus") == null;
+        boolean eventStatusPresent = parsedResult.get("eventStatus") == null;
+
+        if (eventType == null) {
+            if (!taskStatusPresent && !eventStatusPresent) {
+                // Condition 1
+                return new boolean[] { true, true };
+            } else if (eventStatusPresent && !taskStatusPresent) {
+                // Condition 2 - Task
+                return new boolean[] { true, false };
+            } else if (taskStatusPresent && !eventStatusPresent) {
+                // Condition 2 - Event
+                return new boolean[] { false, true };
+            }
+        } else {
+            if (eventType.equals("task") && !eventStatusPresent) {
+                // Condition 3
+                return new boolean[] { true, false };
+            } else if (eventType.equals("event") && !taskStatusPresent) {
+                // Condition 4
+                return new boolean[] { false, true };
+            }
+        }
+        
+        // If we made it here, then at least one assertion was violated.
+        throw new AmbiguousEventTypeException("Couldn't determine if task or event!");
     }
     
     
