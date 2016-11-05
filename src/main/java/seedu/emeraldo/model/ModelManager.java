@@ -86,8 +86,6 @@ public class ModelManager extends ComponentManager implements Model {
     }
     
     public void undoChanges() throws EmptyStackException, UndoException{
-    	
-    	
     	if(savedStates.size() > 1){
     	    savedStates.pop();    	    
 	        emeraldo.resetData(savedStates.peek());
