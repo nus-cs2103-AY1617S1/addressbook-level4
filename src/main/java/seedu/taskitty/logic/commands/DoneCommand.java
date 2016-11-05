@@ -49,7 +49,7 @@ public class DoneCommand extends Command {
     private StringBuilder resultMessage;
 
     public DoneCommand(List<Pair<Integer, Integer>> listOfIndexes, String commandText) {
-        assert listOfIndexes != null && CollectionUtil.isAnyNull(listOfIndexes);
+        assert listOfIndexes != null && !CollectionUtil.isAnyNull(listOfIndexes);
         this.listOfIndexes = listOfIndexes;
         this.hasInvalidIndex = false;
         this.hasDuplicateMarkAsDoneTask = false;
