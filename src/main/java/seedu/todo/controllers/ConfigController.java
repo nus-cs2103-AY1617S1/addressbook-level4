@@ -42,12 +42,6 @@ public class ConfigController implements Controller {
     }
 
     @Override
-    public float inputConfidence(String input) {
-        // TODO
-        return input.startsWith("config") ? 1 : 0;
-    }
-
-    @Override
     public void process(String input) {
         String params = input.replaceFirst("config", "").trim();
 

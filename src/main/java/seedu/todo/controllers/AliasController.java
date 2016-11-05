@@ -40,12 +40,6 @@ public class AliasController implements Controller {
     public static CommandDefinition getCommandDefinition() {
         return commandDefinition;
     }
-    
-    @Override
-    public float inputConfidence(String input) {
-        // TODO
-        return input.toLowerCase().startsWith("alias") ? 1 : 0;
-    }
 
     @Override
     public void process(String input) {

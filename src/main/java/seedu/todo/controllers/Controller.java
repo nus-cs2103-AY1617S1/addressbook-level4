@@ -10,16 +10,20 @@ import seedu.todo.commons.exceptions.ParseException;
  */
 public interface Controller {
     
+    public static CommandDefinition getCommandDefinition() {
+        // Override with CommandDefinition.
+        return null;
+    }
+    
     /**
-     * Given a user input, returns a measure of confidence of whether the input
-     * should be processed by the controller.
+     * Given a command keyword, performs a case-insensitive match.
      * 
-     * @param input
-     *            User input
-     * @return confidence A float in the range [0, 1] where 1 means extremely
-     *         confident.
+     * @param keyword       Keyword to match
+     * @return confidence   True if the command keyword matches.
      */
-    public float inputConfidence(String input);
+    public default boolean matchCommandKeyword(String keyword) {
+        return getCommandDefinition().getCommandKeyword().toLowerCase().equals(keyword.toLowerCase());
+    }
     
     /**
      * Processes the user input.

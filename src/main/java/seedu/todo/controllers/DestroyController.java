@@ -33,12 +33,6 @@ public class DestroyController implements Controller {
     }
 
     @Override
-    public float inputConfidence(String input) {
-        // TODO
-        return (input.toLowerCase().startsWith("delete") || input.startsWith("destroy")) || input.startsWith("remove") ? 1 : 0;
-    }
-
-    @Override
     public void process(String args) {
         // TODO: Example of last minute work
         

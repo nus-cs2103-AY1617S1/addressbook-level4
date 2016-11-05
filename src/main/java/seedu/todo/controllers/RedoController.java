@@ -32,11 +32,6 @@ public class RedoController implements Controller {
     public static CommandDefinition getCommandDefinition() {
         return commandDefinition;
     }
-
-    @Override
-    public float inputConfidence(String input) {
-        return input.toLowerCase().startsWith("redo") ? 1 : 0;
-    }
     
     /**
      * Get the token definitions for use with <code>tokenizer</code>.<br>

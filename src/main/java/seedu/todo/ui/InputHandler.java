@@ -17,6 +17,8 @@ public class InputHandler {
     private static LinkedList<String> commandHistory = new LinkedList<String>();
     private static ListIterator<String> commandHistoryIterator = commandHistory.listIterator();
 
+    private static final String CHAR_SPACE = " ";
+    
     private Controller handlingController = null;
     
     protected InputHandler() {
@@ -100,19 +102,26 @@ public class InputHandler {
             selectedController = handlingController;
         } else {
             Controller[] controllers = instantiateAllControllers();
+            
+            // Extract keyword
+            String keyword = extractKeyword(aliasedInput);
 
             // Get controller which has the maximum confidence.
-            Controller maxController = getMaxController(aliasedInput, controllers);
+            Controller matchingController = getMatchingController(keyword, controllers);
 
-            // No controller exists with confidence > 0.
-            if (maxController == null) {
+            // Command keyword did not match any controllers.
+            // Console will show invalid command.
+            if (matchingController == null) {
                 return false;
             }
 
             // Select best-matched controller.
-            selectedController = maxController;
-
+            selectedController = matchingController;
         }
+        
+        // Patch input commands.
+        input = patchCommandKeyword(input);
+        aliasedInput = patchCommandKeyword(aliasedInput);
         
         // Process using best-matched controller.
         boolean isProcessSuccess = processWithController(input, aliasedInput, selectedController);
@@ -156,32 +165,50 @@ public class InputHandler {
     }
 
     /**
-     * Get controller which has the maximum confidence.
+     * Get controller which matches the command keyword.
      * 
-     * @param aliasedInput  Input with aliases replaced appropriately
+     * @param aliasedCommandKeyword  Input with aliases replaced appropriately
      * @param controllers   Array of instantiated controllers to test
-     * @return              Controller with maximum confidence, null if all non-positive.
+     * @return              Matching controller.
      */
-    private Controller getMaxController(String aliasedInput, Controller[] controllers) {
-        // Define the controller which returns the maximum confidence.
-        Controller maxController = null;
-        
-        float maxConfidence = Integer.MIN_VALUE;
-
+    private Controller getMatchingController(String aliasedCommandKeyword, Controller[] controllers) {
         for (int i = 0; i < controllers.length; i++) {
-            float confidence = controllers[i].inputConfidence(aliasedInput);
+            boolean isMatch = controllers[i].matchCommandKeyword(aliasedCommandKeyword);
 
-            // Don't consider controllers with non-positive confidence.
-            if (confidence <= 0) {
-                continue;
-            }
-
-            if (confidence > maxConfidence) {
-                maxConfidence = confidence;
-                maxController = controllers[i];
+            if (isMatch) {
+                return controllers[i];
             }
         }
-        return maxController;
+        
+        return null;
+    }
+    
+    /**
+     * Extracts the command keyword from the input command.
+     */
+    private String extractKeyword(String inputCommand) {
+        String[] commandWords = inputCommand.trim().split(CHAR_SPACE);
+        
+        if (commandWords.length < 1) {
+            return "";
+        }
+        
+        return commandWords[0].toLowerCase();
+    }
+    
+    /**
+     * Replaces the first word in a command input string to prepare it for parsing and/or disambiguating.
+     */
+    private String patchCommandKeyword(String inputCommand) {
+        String[] commandWords = inputCommand.trim().split(CHAR_SPACE);
+        
+        if (commandWords.length < 1) {
+            return "";
+        } else {
+            commandWords[0] = extractKeyword(inputCommand);
+        }
+        
+        return String.join(CHAR_SPACE, commandWords);
     }
     
     private Controller[] instantiateAllControllers() {

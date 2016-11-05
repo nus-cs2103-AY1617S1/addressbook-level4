@@ -22,11 +22,6 @@ public class ExitController implements Controller {
     public static CommandDefinition getCommandDefinition() {
         return commandDefinition;
     }
-    
-    @Override
-    public float inputConfidence(String input) {
-        return (input.toLowerCase().startsWith("exit")) ? 1 : 0;
-    }
 
     @Override
     public void process(String input) {

@@ -54,11 +54,6 @@ public class ListController implements Controller {
     public static CommandDefinition getCommandDefinition() {
         return commandDefinition;
     }
-
-    @Override
-    public float inputConfidence(String input) {
-        return (input.toLowerCase().startsWith("list")) ? 1 : 0;
-    }
     
     private static Map<String, String[]> getTokenDefinitions() {
         Map<String, String[]> tokenDefinitions = new HashMap<String, String[]>();

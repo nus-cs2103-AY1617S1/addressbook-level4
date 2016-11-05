@@ -46,12 +46,6 @@ public class UpdateController implements Controller {
         return commandDefinition;
     }
 
-    @Override
-    public float inputConfidence(String input) {
-        // TODO
-        return (input.toLowerCase().startsWith("update")) ? 1 : 0;
-    }
-
     /**
      * Get the token definitions for use with <code>tokenizer</code>.<br>
      * This method exists primarily because Java does not support HashMap

@@ -38,12 +38,6 @@ public class UnaliasController implements Controller {
     }
 
     @Override
-    public float inputConfidence(String input) {
-        // TODO
-        return input.toLowerCase().startsWith("unalias") ? 1 : 0;
-    }
-
-    @Override
     public void process(String input) throws ParseException {
         String aliasKey = input.replaceFirst("unalias", "").trim();
         

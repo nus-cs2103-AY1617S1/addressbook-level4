@@ -47,12 +47,6 @@ public class AddController implements Controller {
     public static CommandDefinition getCommandDefinition() {
         return commandDefinition;
     }
-
-    @Override
-    public float inputConfidence(String input) {
-        // TODO
-        return (input.toLowerCase().startsWith("add")) ? 1 : 0;
-    }
     
     /**
      * Get the token definitions for use with <code>tokenizer</code>.<br>

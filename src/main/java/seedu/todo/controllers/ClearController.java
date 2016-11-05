@@ -35,11 +35,6 @@ public class ClearController implements Controller {
     public static CommandDefinition getCommandDefinition() {
         return commandDefinition;
     }
-
-    @Override
-    public float inputConfidence(String input) {
-        return (input.toLowerCase().startsWith(COMMAND_KEYWORD)) ? 1 : 0;
-    }
     
     @Override
     public void process(String input) throws ParseException {

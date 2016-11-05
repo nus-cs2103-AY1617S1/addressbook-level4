@@ -28,11 +28,6 @@ public class HelpController implements Controller {
     }
 
     @Override
-    public float inputConfidence(String input) {
-        return (input.toLowerCase().startsWith("help")) ? 1 : 0;
-    }
-
-    @Override
     public void process(String input) {
         HelpView view = UiManager.loadView(HelpView.class);
         view.commandDefinitions = Arrays.asList(getAllCommandDefinitions());
