@@ -37,7 +37,6 @@ import seedu.jimi.logic.commands.ExitCommand;
 import seedu.jimi.logic.commands.FindCommand;
 import seedu.jimi.logic.commands.HelpCommand;
 import seedu.jimi.logic.commands.SaveAsCommand;
-import seedu.jimi.logic.commands.ShowCommand;
 import seedu.jimi.model.Model;
 import seedu.jimi.model.ModelManager;
 import seedu.jimi.model.ReadOnlyTaskBook;
@@ -498,6 +497,27 @@ public class LogicManagerTest {
         // execute command and verify result     
         assertCommandBehavior("delete t2",
                 String.format(DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS, threeFloatingTasks.get(1)),
+                expectedTB,
+                expectedList);
+    }
+    
+    public void execute_delete_removesCorrectRange() throws Exception {
+        // setup expectations
+        TestDataHelper helper = new TestDataHelper();
+        FloatingTask index0 = helper.generateFloatingTaskWithName("first");
+        FloatingTask index1 = helper.generateFloatingTaskWithName("second");
+        FloatingTask index2 = helper.generateFloatingTaskWithName("third");
+        
+        List<FloatingTask> threeFloatingTasks = helper.generateFloatingTaskList(index0, index1, index2);
+        List<FloatingTask> expectedList = helper.generateFloatingTaskList(index0);
+        TaskBook expectedTB = helper.generateFloatingTaskBook(expectedList);
+
+        helper.addToModel(model, threeFloatingTasks);
+        
+        // execute command and verify result     
+        assertCommandBehavior("delete t1 to t2",
+                String.format(DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS, "1. " + threeFloatingTasks.get(1),
+                        "2. " + threeFloatingTasks.get(2)),
                 expectedTB,
                 expectedList);
     }
