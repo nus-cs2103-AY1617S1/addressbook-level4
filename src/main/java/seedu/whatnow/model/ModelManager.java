@@ -72,7 +72,8 @@ public class ModelManager extends ComponentManager implements Model {
     private final Stack<String> stackOfRedo;
     private final Stack<ReadOnlyTask> stackOfOldTask;
     private final Stack<ReadOnlyTask> stackOfCurrentTask;
-    private final Stack<ReadOnlyTask> stackOfNextTask;
+    private final Stack<ReadOnlyTask> stackOfOldNextTask;
+    private final Stack<ReadOnlyTask> stackOfNewNextTask;
     private final Stack<ReadOnlyWhatNow> stackOfWhatNow;
     private final Stack<ReadOnlyTask> stackOfDeletedTasks;
     private final Stack<Integer> stackOfDeletedTaskIndex;
@@ -112,7 +113,8 @@ public class ModelManager extends ComponentManager implements Model {
         stackOfRedo = new Stack<>();
         stackOfOldTask = new Stack<>();
         stackOfCurrentTask = new Stack<>();
-        stackOfNextTask = new Stack<>();
+        stackOfOldNextTask = new Stack<>();
+        stackOfNewNextTask = new Stack<>();
         stackOfWhatNow = new Stack<>();
         stackOfDeletedTasks = new Stack<>();
         stackOfDeletedTaskIndex = new Stack<>();
@@ -149,7 +151,8 @@ public class ModelManager extends ComponentManager implements Model {
         stackOfRedo = new Stack<>();
         stackOfOldTask = new Stack<>();
         stackOfCurrentTask = new Stack<>();
-        stackOfNextTask = new Stack<>();
+        stackOfOldNextTask = new Stack<>();
+        stackOfNewNextTask = new Stack<>();
         stackOfWhatNow = new Stack<>();
         stackOfDeletedTasks = new Stack<>();
         stackOfDeletedTaskIndex = new Stack<>();
@@ -320,9 +323,15 @@ public class ModelManager extends ComponentManager implements Model {
 
     //@@author A0139128A
     @Override
-    public Stack<ReadOnlyTask> getNextTask() {
-        return stackOfNextTask;
+    public Stack<ReadOnlyTask> getOldNextTask() {
+        return stackOfOldNextTask;
     }
+    
+    //@@author A0139128A
+    public Stack<ReadOnlyTask> getNewNextTask() {
+        return stackOfNewNextTask;
+    }
+    
     //@@author A0139772U
     @Override
     public UnmodifiableObservableList<ReadOnlyTask> getAllTaskTypeList() {
@@ -430,8 +439,11 @@ public class ModelManager extends ComponentManager implements Model {
         while(!getRedoStack().isEmpty()) {
             getRedoStack().pop();
         }
-        while(!getNextTask().isEmpty()) {
-            getNextTask().pop();
+        while(!getOldNextTask().isEmpty()) {
+            getOldNextTask().pop();
+        }
+        while(!getNewNextTask().isEmpty()) {
+            getNewNextTask().pop();
         }
         while(!stackOfWhatNow.isEmpty()) {
             stackOfWhatNow.pop();

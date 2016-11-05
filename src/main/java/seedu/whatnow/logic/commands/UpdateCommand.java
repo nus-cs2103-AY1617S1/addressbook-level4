@@ -249,6 +249,7 @@ public class UpdateCommand extends Command {
             model.updateTask(taskToUpdate, toUpdate);
             model.getOldTask().push(taskToUpdate);
             model.getCurrentTask().push(toUpdate);
+            System.out.println("Update command, old task is : " + taskToUpdate + " current Task : " + toUpdate);
             model.getUndoStack().push(COMMAND_WORD);
             model.clearRedoAll();
         } catch (TaskNotFoundException tnfe) {

@@ -118,8 +118,11 @@ public interface Model {
     /** Gets the currentTask if possible */
     Stack<ReadOnlyTask> getCurrentTask();
 
-    /** Gets the nextTask if possible */
-    Stack<ReadOnlyTask> getNextTask();
+    /** Gets the OldnextTask if possible */
+    Stack<ReadOnlyTask> getOldNextTask();
+    
+    /** Gets the NewNextTask if possible */
+    Stack<ReadOnlyTask> getNewNextTask();
     
     /** Gets the deletedStackOfTask that corresponds to deleteCommand */
     Stack<ReadOnlyTask> getDeletedStackOfTasks();
