@@ -45,6 +45,8 @@ public class EditCommand extends Command{
     
     public static final String MESSAGE_EDIT_TASK_SUCCESS = "Successfully edited task.\nOld: %1$s\nNew: %2$s";
 
+    public static final String MESSAGE_CHANGING_TASK_TYPE_NOT_SUPPORTED = "Changing of task type not supported. Please do not use key words (by, start, end) in names.";
+    
     private final char taskType;
     
     private final int targetIndex;
@@ -97,6 +99,10 @@ public class EditCommand extends Command{
             indicateAttemptToExecuteIncorrectCommand();
             return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
+        
+        if (!detectWrongParameters()) {
+            return new CommandResult(MESSAGE_CHANGING_TASK_TYPE_NOT_SUPPORTED);
+        }
 
         taskToEdit = lastShownList.get(targetIndex - 1);
                 
@@ -118,6 +124,18 @@ public class EditCommand extends Command{
             assert false : "not possible";
         }
         return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, taskToEdit, editedTask));
+    }
+
+    private boolean detectWrongParameters() {
+        if ((taskType == 'f' && due == null && start == null && end == null)) {
+            return true;
+        } else if ((taskType == 'd' && start == null && end == null)) {
+            return true;
+        } else if ((taskType == 'e' && due == null)) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     /**
