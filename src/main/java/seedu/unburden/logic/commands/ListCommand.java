@@ -141,7 +141,9 @@ public class ListCommand extends Command {
 		if(lastShownList.size() == 0){
 			return new CommandResult(String.format(Messages.MESSAGE_NO_TASKS_FOUND, ListCommand.MESSAGE_USAGE));
 		}
-		return new CommandResult(getMessageForTaskListShownSummary(model.getFilteredTaskList().size()));
+		else{
+			return new CommandResult(getMessageForTaskListShownSummary(model.getFilteredTaskList().size()));
+		}
 	}
 
 }
