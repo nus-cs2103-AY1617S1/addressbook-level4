@@ -1,6 +1,5 @@
 package seedu.taskmanager.model.item;
 
-import java.text.ParseException;
 import java.util.Date;
 
 import seedu.taskmanager.model.tag.UniqueTagList;

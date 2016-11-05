@@ -10,8 +10,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Objects;
 
-import org.ocpsoft.prettytime.PrettyTime;
-
 /**
  * Represents a Item in the task manager.
  * Guarantees: details are present and not null, field values are validated.

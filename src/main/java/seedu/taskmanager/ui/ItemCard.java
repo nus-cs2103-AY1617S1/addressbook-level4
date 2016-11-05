@@ -14,9 +14,6 @@ import seedu.taskmanager.logic.commands.DeleteCommand;
 import seedu.taskmanager.model.item.ItemType;
 import seedu.taskmanager.model.item.ReadOnlyItem;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import org.ocpsoft.prettytime.PrettyTime;
