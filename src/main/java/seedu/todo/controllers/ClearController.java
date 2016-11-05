@@ -24,12 +24,13 @@ public class ClearController implements Controller {
     private static final String NAME = "Clear";
     private static final String DESCRIPTION = "Clear all tasks/events or by specify date.";
     private static final String COMMAND_SYNTAX = "clear [task/event] [on date]";
-    private static final String COMMAND_WORD = "clear";
+    private static final String COMMAND_KEYWORD = "clear";
+    
     private static final String MESSAGE_CLEAR_NO_ITEMS_FOUND = "No items found!";
     private static final String MESSAGE_CLEAR_SUCCESS = "A total of %s deleted!\n" + "To undo, type \"undo\".";
 
     private static CommandDefinition commandDefinition =
-            new CommandDefinition(NAME, DESCRIPTION, COMMAND_SYNTAX); 
+            new CommandDefinition(NAME, DESCRIPTION, COMMAND_SYNTAX, COMMAND_KEYWORD); 
 
     public static CommandDefinition getCommandDefinition() {
         return commandDefinition;
@@ -37,7 +38,7 @@ public class ClearController implements Controller {
 
     @Override
     public float inputConfidence(String input) {
-        return (input.toLowerCase().startsWith(COMMAND_WORD)) ? 1 : 0;
+        return (input.toLowerCase().startsWith(COMMAND_KEYWORD)) ? 1 : 0;
     }
     
     @Override

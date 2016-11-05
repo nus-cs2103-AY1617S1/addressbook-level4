@@ -33,13 +33,13 @@ public class FindController implements Controller {
     private static final String DESCRIPTION = "Find all tasks and events based on the provided keywords.\n" + 
     "This command will be search with non-case sensitive keywords.";
     private static final String COMMAND_SYNTAX = "find [name] or/and [on date]";
-    private static final String COMMAND_WORD = "find";
+    private static final String COMMAND_KEYWORD = "find";
     
     private static final String MESSAGE_LISTING_SUCCESS = "A total of %s found!";
     private static final String MESSAGE_LISTING_FAILURE = "No task or event found!";
     
     private static CommandDefinition commandDefinition =
-            new CommandDefinition(NAME, DESCRIPTION, COMMAND_SYNTAX); 
+            new CommandDefinition(NAME, DESCRIPTION, COMMAND_SYNTAX, COMMAND_KEYWORD); 
 
     public static CommandDefinition getCommandDefinition() {
         return commandDefinition;
@@ -47,7 +47,7 @@ public class FindController implements Controller {
 
     @Override
     public float inputConfidence(String input) {
-        return (input.toLowerCase().startsWith(COMMAND_WORD)) ? 1 : 0;
+        return (input.toLowerCase().startsWith(COMMAND_KEYWORD)) ? 1 : 0;
     }
     
     private static Map<String, String[]> getTokenDefinitions() {
@@ -97,7 +97,7 @@ public class FindController implements Controller {
         if (parsedDates == null && listAllStatus == true && listAll == true 
                 && itemNameList.size() == 0 && tagNameList.size() == 0) {
             //display error message, no keyword provided
-            String disambiguationString = String.format("%s %s %s %s %s", COMMAND_WORD, "<name>" , 
+            String disambiguationString = String.format("%s %s %s %s %s", COMMAND_KEYWORD, "<name>" , 
                     "<complete/incomplete>", "<task/event>", "<tag tagName>");  
             Renderer.renderDisambiguation(disambiguationString, input);
             return ;

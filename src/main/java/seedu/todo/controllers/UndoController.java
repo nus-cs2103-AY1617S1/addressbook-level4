@@ -16,10 +16,22 @@ import seedu.todo.ui.UiManager;
  * Controller to undo a database commit.
  */
 public class UndoController implements Controller {
+
+    private static final String NAME = "Undo";
+    private static final String DESCRIPTION = "Undo your last action(s) to the list of tasks/events.";
+    private static final String COMMAND_SYNTAX = "undo <times>";
+    private static final String COMMAND_KEYWORD = "undo";
     
     private static final String MESSAGE_SUCCESS = "Successfully undid %s %s!\nTo redo, type \"redo\".";
     private static final String MESSAGE_MULTIPLE_FAILURE = "We cannot undo %s %s! At most, you can undo %s %s.";
     private static final String MESSAGE_FAILURE = "There is no command to undo!";
+    
+    private static CommandDefinition commandDefinition =
+            new CommandDefinition(NAME, DESCRIPTION, COMMAND_SYNTAX, COMMAND_KEYWORD); 
+
+    public static CommandDefinition getCommandDefinition() {
+        return commandDefinition;
+    }
 
     @Override
     public float inputConfidence(String input) {

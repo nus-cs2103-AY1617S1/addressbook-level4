@@ -16,10 +16,22 @@ import seedu.todo.ui.UiManager;
  * Controller to redo a database commit.
  */
 public class RedoController implements Controller {
+
+    private static final String NAME = "Redo";
+    private static final String DESCRIPTION = "Redo your last undo(s).";
+    private static final String COMMAND_SYNTAX = "redo <times>";
+    private static final String COMMAND_KEYWORD = "redo";
     
     private static final String MESSAGE_SUCCESS = "Successfully redid %s %s!\nTo undo, type \"undo\".";
     private static final String MESSAGE_MULTIPLE_FAILURE = "We cannot redo %s %s! At most, you can redo %s %s.";
     private static final String MESSAGE_FAILURE = "There is no command to redo!";
+    
+    private static CommandDefinition commandDefinition =
+            new CommandDefinition(NAME, DESCRIPTION, COMMAND_SYNTAX, COMMAND_KEYWORD); 
+
+    public static CommandDefinition getCommandDefinition() {
+        return commandDefinition;
+    }
 
     @Override
     public float inputConfidence(String input) {

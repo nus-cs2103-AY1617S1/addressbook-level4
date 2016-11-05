@@ -30,7 +30,7 @@ public class ListController implements Controller {
     private static final String NAME = "List";
     private static final String DESCRIPTION = "Lists all tasks and events.";
     private static final String COMMAND_SYNTAX = "list [task/event] [complete/incomplete] [on date] or [from date to date]";
-    private static final String COMMAND_WORD = "list";
+    private static final String COMMAND_KEYWORD = "list";
     
     private static final String MESSAGE_LISTING_SUCCESS = "Listing a total of %s";
     private static final String MESSAGE_LISTING_FAILURE = "No task or event found!";
@@ -49,7 +49,7 @@ public class ListController implements Controller {
     private static final int INDEX_DATE_TO = 2;
     
     private static CommandDefinition commandDefinition =
-            new CommandDefinition(NAME, DESCRIPTION, COMMAND_SYNTAX); 
+            new CommandDefinition(NAME, DESCRIPTION, COMMAND_SYNTAX, COMMAND_KEYWORD); 
 
     public static CommandDefinition getCommandDefinition() {
         return commandDefinition;
@@ -153,7 +153,7 @@ public class ListController implements Controller {
     private void displayErrorMessage(String input, boolean listAll, boolean listAllStatus, boolean isCompleted,
             boolean isTask, String[] parsedDates) {
         String consoleDisplayMessage = String.format("You have entered : %s.",input);
-        String commandLineMessage = COMMAND_WORD;
+        String commandLineMessage = COMMAND_KEYWORD;
         
         //update command line message display according to the input
         if (!listAll) {
@@ -315,7 +315,7 @@ public class ListController implements Controller {
     private void displayErrorMessage(String input, boolean listAll, boolean listAllEventStatus, boolean isOver,
             boolean listAllTaskStatus, boolean isCompleted, boolean isTask, String[] parsedDates) {
         String consoleDisplayMessage = String.format("You have entered : %s.",input);
-        String commandLineMessage = COMMAND_WORD;
+        String commandLineMessage = COMMAND_KEYWORD;
         String commandLineCompleteSuggestMessage = "complete";
         String commandLineIncompleteSuggestMessage = "incomplete";
         String commandLineOngoingSuggestMessage = "ongoing";

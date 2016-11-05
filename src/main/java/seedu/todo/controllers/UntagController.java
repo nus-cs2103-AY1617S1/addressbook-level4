@@ -16,6 +16,7 @@ public class UntagController implements Controller {
     private static final String NAME = "Untag";
     private static final String DESCRIPTION = "Untag a task/event by listed index";
     private static final String COMMAND_SYNTAX = "untag <index> <tag name>";
+    private static final String COMMAND_KEYWORD = "untag";
     
     private static final String MESSAGE_UNTAG_SUCCESS = "Item has been untagged successfully.";
     private static final String MESSAGE_INDEX_OUT_OF_RANGE = "Could not untag task/event: Invalid index provided!";
@@ -27,7 +28,7 @@ public class UntagController implements Controller {
     private static final int ITEM_INDEX = 0;
     
     private static CommandDefinition commandDefinition =
-            new CommandDefinition(NAME, DESCRIPTION, COMMAND_SYNTAX); 
+            new CommandDefinition(NAME, DESCRIPTION, COMMAND_SYNTAX, COMMAND_KEYWORD); 
 
     public static CommandDefinition getCommandDefinition() {
         return commandDefinition;

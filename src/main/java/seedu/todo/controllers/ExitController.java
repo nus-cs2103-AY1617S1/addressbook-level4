@@ -14,9 +14,10 @@ public class ExitController implements Controller {
     private static final String NAME = "Exit";
     private static final String DESCRIPTION = "Exit from GetShitDone!";
     private static final String COMMAND_SYNTAX = "exit";
+    private static final String COMMAND_KEYWORD = "exit";
 
     private static CommandDefinition commandDefinition =
-            new CommandDefinition(NAME, DESCRIPTION, COMMAND_SYNTAX); 
+            new CommandDefinition(NAME, DESCRIPTION, COMMAND_SYNTAX, COMMAND_KEYWORD); 
 
     public static CommandDefinition getCommandDefinition() {
         return commandDefinition;

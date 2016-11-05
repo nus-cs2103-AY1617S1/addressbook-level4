@@ -20,6 +20,7 @@ public class AliasController implements Controller {
     private static final String NAME = "Alias";
     private static final String DESCRIPTION = "Shows current aliases or updates them.";
     private static final String COMMAND_SYNTAX = "alias [<alias key> <alias value>]";
+    private static final String COMMAND_KEYWORD = "alias";
     
     private static final String SPACE = " ";
     private static final int ARGS_LENGTH = 2;
@@ -34,7 +35,7 @@ public class AliasController implements Controller {
     private static final String ALIAS_KEY_FIELD = "<alias key>";
     
     private static CommandDefinition commandDefinition =
-            new CommandDefinition(NAME, DESCRIPTION, COMMAND_SYNTAX); 
+            new CommandDefinition(NAME, DESCRIPTION, COMMAND_SYNTAX, COMMAND_KEYWORD); 
 
     public static CommandDefinition getCommandDefinition() {
         return commandDefinition;

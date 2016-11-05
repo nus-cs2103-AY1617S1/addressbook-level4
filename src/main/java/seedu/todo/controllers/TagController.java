@@ -16,6 +16,7 @@ public class TagController implements Controller {
     private static final String NAME = "Tag";
     private static final String DESCRIPTION = "Tag a task/event by listed index";
     private static final String COMMAND_SYNTAX = "tag <index> <tag name>";
+    private static final String COMMAND_KEYWORD = "tag";
     
     private static final String MESSAGE_TAG_SUCCESS = "Item has been tagged successfully.";
     private static final String MESSAGE_INDEX_OUT_OF_RANGE = "Could not tag task/event: Invalid index provided!";
@@ -28,7 +29,7 @@ public class TagController implements Controller {
     private static final int ITEM_INDEX = 0;
     
     private static CommandDefinition commandDefinition =
-            new CommandDefinition(NAME, DESCRIPTION, COMMAND_SYNTAX); 
+            new CommandDefinition(NAME, DESCRIPTION, COMMAND_SYNTAX, COMMAND_KEYWORD); 
 
     public static CommandDefinition getCommandDefinition() {
         return commandDefinition;

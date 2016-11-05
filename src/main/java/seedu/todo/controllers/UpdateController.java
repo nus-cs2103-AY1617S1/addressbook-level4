@@ -26,6 +26,7 @@ public class UpdateController implements Controller {
     private static final String NAME = "Update";
     private static final String DESCRIPTION = "Updates a task by listed index.";
     private static final String COMMAND_SYNTAX = "update <index> <task> by <deadline>";
+    private static final String COMMAND_KEYWORD = "update";
 
     private static final String MESSAGE_UPDATE_SUCCESS = "Item successfully updated!";
     public static final String MESSAGE_INVALID_ITEM_OR_PARAM = "Please specify a valid index and parameter to update!";
@@ -39,7 +40,7 @@ public class UpdateController implements Controller {
     private static final String NAME_FIELD = "<name>";
     private static final String INDEX_FIELD = "<index>";
 
-    private static CommandDefinition commandDefinition = new CommandDefinition(NAME, DESCRIPTION, COMMAND_SYNTAX);
+    private static CommandDefinition commandDefinition = new CommandDefinition(NAME, DESCRIPTION, COMMAND_SYNTAX, COMMAND_KEYWORD);
 
     public static CommandDefinition getCommandDefinition() {
         return commandDefinition;

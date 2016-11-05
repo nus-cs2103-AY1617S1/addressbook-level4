@@ -22,6 +22,7 @@ public class UnaliasController implements Controller {
     private static final String NAME = "Unalias";
     private static final String DESCRIPTION = "Deletes an existing alias pair.";
     private static final String COMMAND_SYNTAX = "unalias <alias key>";
+    private static final String COMMAND_KEYWORD = "unalias";
     
     private static final String MESSAGE_DESTROY_SUCCESS = "Successfully destroyed alias!";
     private static final String MESSAGE_INVALID_INPUT = "Invalid alias parameters! Alias inputs must consist solely "
@@ -30,7 +31,7 @@ public class UnaliasController implements Controller {
     private static final String SAVE_ERROR = "There was an error saving your aliases. Please try again.";
     
     private static CommandDefinition commandDefinition =
-            new CommandDefinition(NAME, DESCRIPTION, COMMAND_SYNTAX); 
+            new CommandDefinition(NAME, DESCRIPTION, COMMAND_SYNTAX, COMMAND_KEYWORD); 
 
     public static CommandDefinition getCommandDefinition() {
         return commandDefinition;

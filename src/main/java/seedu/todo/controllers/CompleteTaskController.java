@@ -16,6 +16,7 @@ public class CompleteTaskController implements Controller {
     private static final String NAME = "Complete Task";
     private static final String DESCRIPTION = "Marks a task as completed, by listed index";
     private static final String COMMAND_SYNTAX = "complete <index>";
+    private static final String COMMAND_KEYWORD = "complete";
     
     private static final String MESSAGE_SUCCESS = "Task marked as complete!";
     private static final String MESSAGE_INVALID_ITEM = "Could not mark task as complete: Invalid index provided!";
@@ -24,7 +25,7 @@ public class CompleteTaskController implements Controller {
     private static final String MESSAGE_COULD_NOT_SAVE = "Could not mark task as complete: An error occured while saving the database file.";
     
     private static CommandDefinition commandDefinition =
-            new CommandDefinition(NAME, DESCRIPTION, COMMAND_SYNTAX);
+            new CommandDefinition(NAME, DESCRIPTION, COMMAND_SYNTAX, COMMAND_KEYWORD); 
 
     public static CommandDefinition getCommandDefinition() {
         return commandDefinition;

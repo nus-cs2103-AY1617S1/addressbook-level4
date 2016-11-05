@@ -16,11 +16,12 @@ public class HelpController implements Controller {
     private static final String NAME = "Help";
     private static final String DESCRIPTION = "Shows documentation for all valid commands.";
     private static final String COMMAND_SYNTAX = "help";
+    private static final String COMMAND_KEYWORD = "help";
     
     private static final String MESSAGE_HELP_SUCCESS = "Showing all commands.";
     
     private static CommandDefinition commandDefinition =
-            new CommandDefinition(NAME, DESCRIPTION, COMMAND_SYNTAX); 
+            new CommandDefinition(NAME, DESCRIPTION, COMMAND_SYNTAX, COMMAND_KEYWORD); 
 
     public static CommandDefinition getCommandDefinition() {
         return commandDefinition;
