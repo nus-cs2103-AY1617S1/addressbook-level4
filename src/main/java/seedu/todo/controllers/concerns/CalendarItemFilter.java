@@ -47,9 +47,9 @@ public class CalendarItemFilter {
      * 
      * <ol>
      * <li>If no "task"/"event" token, and no eventStatus/taskStatus token, then filter both</li>
+     * <li>If no "task"/"event" token, and exactly one of eventStatus/taskStatus present, then use it to guess</li>
      * <li>If "task" token found, then assert no eventStatus token</li>
      * <li>If "event" token found, then assert no taskStatus token</li>
-     * <li>If no token found, then use eventStatus and taskStatus tokens to guess</li>
      * <li>Assert that eventStatus and taskStatus tokens cannot both be present</li>
      * </ol>
      * 
@@ -69,25 +69,29 @@ public class CalendarItemFilter {
         eventType = eventType != null && eventType.equals("events") ? "event" : eventType;
         eventType = eventType != null && eventType.equals("tasks") ? "task" : eventType;
 
-        if (eventType == null && !taskStatusPresent && !eventStatusPresent) {
-            // Condition 1
-            return new boolean[] { true, true };
-        } else if (eventType.equals("task") && !eventStatusPresent) {
-            // Condition 2
-            return new boolean[] { true, false };
-        } else if (eventType.equals("event") && !taskStatusPresent) {
-            // Condition 3
-            return new boolean[] { false, true };
-        } else if (taskStatusPresent && !eventStatusPresent) {
-            // Condition 4 - Task
-            return new boolean[] { true, false };
-        } else if (eventStatusPresent && !taskStatusPresent) {
-            // Condition 4 - Event
-            return new boolean[] { false, true };
+        if (eventType == null) {
+            if (!taskStatusPresent && !eventStatusPresent) {
+                // Condition 1
+                return new boolean[] { true, true };
+            } else if (eventStatusPresent && !taskStatusPresent) {
+                // Condition 2 - Task
+                return new boolean[] { true, false };
+            } else if (taskStatusPresent && !eventStatusPresent) {
+                // Condition 2 - Event
+                return new boolean[] { false, true };
+            }
         } else {
-            // If we made it here, then Condition 5 was violated
-            throw new AmbiguousEventTypeException("taskStatus and eventStatus both present!");
+            if (eventType.equals("task") && !eventStatusPresent) {
+                // Condition 3
+                return new boolean[] { true, false };
+            } else if (eventType.equals("event") && !taskStatusPresent) {
+                // Condition 4
+                return new boolean[] { false, true };
+            }
         }
+        
+        // If we made it here, then at least one assertion was violated.
+        throw new AmbiguousEventTypeException("Couldn't determine if task or event!");
     }
     
     
