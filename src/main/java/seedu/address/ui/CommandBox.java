@@ -38,6 +38,7 @@ public class CommandBox extends UiPart {
     private static final String CARRIAGE_RETURN = "\r";
     private static final String NEW_LINE = "\n";
     private static final String STRING_EMPTY = "";
+    private static final String STRING_ONE_SPACE = " ";
 
     @FXML
     private TextField commandTextField;
@@ -68,12 +69,13 @@ public class CommandBox extends UiPart {
             @Override
             public void handle(KeyEvent keyEvent) {
                 switch (keyEvent.getCode()) {
-                case UP:
+                case UP :
                     // Fallthrough
-                case DOWN:
+                case DOWN :
                     keyEvent.consume();
                     handleUpDownArrow(keyEvent);
-                default:
+                    break;
+                default :
                     break;
                 }
             }
@@ -97,39 +99,32 @@ public class CommandBox extends UiPart {
     }
 
     /**
-     * Handles the event where the user presses a key in the command box.
+     * Handles the event where the user enters an input in the command box.
      */
     @FXML
     private void handleKeyInput(KeyEvent event) {
         String keyInputAsString = event.getCharacter();
 
-        boolean keyIsEnter = checkIfEnterPressed(keyInputAsString);
-
-        if (keyIsEnter) {
+        if (isKeyPressedEnter(keyInputAsString)) {
             return;
         }
 
-        // reset incorrect command style on command box
         setStyleToIndicateCorrectCommand();
-
         String userInput = getUserInputAfterKeyPressed(keyInputAsString);
         updateTooltipForUser(userInput);
 
     }
 
-    private boolean checkIfEnterPressed(String keyInputAsString) {
+    private boolean isKeyPressedEnter(String keyInputAsString) {
         // Enter is \r\n on windows, \n on unix
         return keyInputAsString.equals(CARRIAGE_RETURN) || keyInputAsString.equals(NEW_LINE);
     }
 
     private void handleUpDownArrow(KeyEvent event) {
-        KeyCode key = getKeyCodeFromEvent(event);
+        KeyCode key = event.getCode();
 
         setStyleToIndicateCorrectCommand();
         handleInputHistoryNavigation(key);
-        /*
-         * String userInput = getUserInputAfterKeyPressed(key);
-         */
         String userInput = commandTextField.getText();
         updateTooltipForUser(userInput);
     }
@@ -153,13 +148,13 @@ public class CommandBox extends UiPart {
         int caretPosition = commandTextField.getCaretPosition();
 
         switch (keyAsString) {
-        case BACKSPACE_UNICODE:
+        case BACKSPACE_UNICODE :
             // backspace action occurs before event triggers, just return the
             // user input
             return userInput;
-        case SPACE_UNICODE:
+        case SPACE_UNICODE :
             return applySpaceAtPosition(userInput, caretPosition);
-        default:
+        default :
             // is a normal letter/digit
             return applyKeyAtPosition(userInput, keyAsString, caretPosition);
         }
@@ -167,27 +162,32 @@ public class CommandBox extends UiPart {
     }
 
     /**
+     * Returns a string with a single whitespace character appended to the back
+     * of the given user input string
+     * 
+     * @param userInput
+     * @return
+     */
+    private String applySpaceAtPosition(String userInput, int position) {
+        String stringBeforeCaret = userInput.substring(0, position);
+        String stringAfterCaret = userInput.substring(position);
+        return String.join(STRING_ONE_SPACE, stringBeforeCaret, stringAfterCaret);
+    }
+
+    /**
      * Returns a string that is the result of adding the given key in the
      * specified position of the string.
      * 
      * @param userInput the user input
-     * @param keyString the key as a string
+     * @param keyAsString the key as a string
      * @param position the position to add the key
      * @return string with key at the specified position in the user input
      *         string
      */
-    private String applyKeyAtPosition(String userInput, String keyString, int position) {
-        return userInput.substring(0, position) + keyString + userInput.substring(position);
-    }
-
-    /**
-     * Returns the key code associated with the Key Event
-     * 
-     * @param event the KeyEvent
-     * @return the key code associated
-     */
-    private KeyCode getKeyCodeFromEvent(KeyEvent event) {
-        return event.getCode();
+    private String applyKeyAtPosition(String userInput, String keyAsString, int position) {
+        String stringBeforeCaret = userInput.substring(0, position);
+        String stringAfterCaret = userInput.substring(position);
+        return String.join(keyAsString, stringBeforeCaret, stringAfterCaret);
     }
 
     /**
@@ -199,37 +199,23 @@ public class CommandBox extends UiPart {
     }
 
     /**
-     * Returns a string with a single whitespace character appended to the back
-     * of the given user input string
-     * 
-     * @param userInput
-     * @return
-     */
-    private String applySpaceAtPosition(String userInput, int position) {
-        return userInput.substring(0, position) + " " + userInput.substring(position);
-    }
-
-    /**
      * Handles the event where the user is trying to navigate the input history.
      * keyCode must either be up or down arrow key.
      * 
      * @param keyCode the keycode associated with this event
      */
     private void handleInputHistoryNavigation(KeyCode keyCode) {
-        assert keyCode == KeyCode.UP || keyCode == KeyCode.DOWN;
-
-        boolean wantPrev = checkIfWantPrevInput(keyCode);
+        assert (keyCode == KeyCode.UP) || (keyCode == KeyCode.DOWN);
 
         // if attempt to get next command while at latest command input or prev
         // while at earliest, return
-        if (desiredInputHistoryUnavailable(wantPrev)) {
+        if (desiredInputHistoryUnavailable(keyCode)) {
             return;
         }
 
-        if (wantPrev) {
+        if (isAttemptingToGetPrevInput(keyCode)) {
             handleGetPreviousInput();
         } else {
-            // else the user wants next
             handleGetNextInput();
         }
 
@@ -239,17 +225,38 @@ public class CommandBox extends UiPart {
     /**
      * Returns whether the user is trying to access a previous or next input in
      * the input history but is already at the limit (either earliest history or
-     * latest history respectively).
+     * latest history respectively). The caller should ensure that the KeyCode
+     * passed into this method is either an UP or DOWN only.
      * 
-     * @param wantPrev boolean representing if the user wants the previous input
-     * @return
+     * @param keyCode the KeyCode pressed
+     * @return boolean representing the above
      */
-    private boolean desiredInputHistoryUnavailable(boolean wantPrev) {
-        boolean wantNext = !wantPrev;
-        boolean atEarliestHistoryButWantPrevInput = inputHistory.isEarliestInput() && wantPrev;
-        boolean atLatestHistoryButWantNextInput = inputHistory.isLatestInput() && wantNext;
+    private boolean desiredInputHistoryUnavailable(KeyCode keyCode) {
+        assert keyCode == KeyCode.UP || keyCode == KeyCode.DOWN;
 
-        return atEarliestHistoryButWantPrevInput || atLatestHistoryButWantNextInput;
+        return isAtEarliestHistoryButWantPrevInput(keyCode) || isAtLatestHistoryButWantNextInput(keyCode);
+    }
+
+    /**
+     * Returns whether the user is already at the latest input history state but
+     * wants to access a next input.
+     * 
+     * @param keyCode the KeyCode pressed
+     * @return boolean representing the above
+     */
+    private boolean isAtLatestHistoryButWantNextInput(KeyCode keyCode) {
+        return inputHistory.isLatestInput() && isAttemptingToGetNextInput(keyCode);
+    }
+
+    /**
+     * Returns whether the user is already at the earliest input history state
+     * but wants to access a previous input.
+     * 
+     * @param keyCode the KeyCode pressed
+     * @return boolean representing the above
+     */
+    private boolean isAtEarliestHistoryButWantPrevInput(KeyCode keyCode) {
+        return inputHistory.isEarliestInput() && isAttemptingToGetPrevInput(keyCode);
     }
 
     /**
@@ -295,8 +302,18 @@ public class CommandBox extends UiPart {
      * @param keyCode the key the user pressed to trigger the event
      * @return boolean representing the above
      */
-    private boolean checkIfWantPrevInput(KeyCode keyCode) {
+    private boolean isAttemptingToGetPrevInput(KeyCode keyCode) {
         return keyCode == KeyCode.UP;
+    }
+
+    /**
+     * Returns whether the user wants to get the next input from input history.
+     * 
+     * @param keyCode the key the user pressed to trigger the event
+     * @return boolean representing the above
+     */
+    private boolean isAttemptingToGetNextInput(KeyCode keyCode) {
+        return keyCode == KeyCode.DOWN;
     }
 
     @FXML

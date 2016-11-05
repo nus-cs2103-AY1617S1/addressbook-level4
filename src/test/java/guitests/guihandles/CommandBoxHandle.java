@@ -52,4 +52,10 @@ public class CommandBoxHandle extends GuiHandle{
         pressEnter();
         return new HelpWindowHandle(guiRobot, primaryStage);
     }
+    
+    public HelpWindowHandle runHelpCommandWithArgs(String args) {
+        enterCommand("help " + args);
+        pressEnter();
+        return new HelpWindowHandle(guiRobot, primaryStage);
+    }
 }

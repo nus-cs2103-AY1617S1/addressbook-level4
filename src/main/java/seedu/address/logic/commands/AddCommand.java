@@ -27,14 +27,17 @@ public class AddCommand extends UndoableCommand {
     public static final String COMMAND_WORD = "add";
     private static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds an item to To-Do List.\n"
             + "Parameters: [add] NAME [from/at/start DATE_TIME] [to/by/end DATE_TIME] [repeat every RECURRING_INTERVAL] [-PRIORITY]\n"
+            
             + "Example: " + COMMAND_WORD + " feed cat by today 11:30am repeat every day -high";
-    // @@author
+    
+    // @@author A0093960X
     public static final String MESSAGE_SUCCESS = "New item added: %1$s";
     public static final String MESSAGE_UNDO_SUCCESS = "Undid add item: %1$s";
     private static final String MESSAGE_UNDO_FAILURE = "Failed to undo last add command: add %1$s";
 
     public static final String TOOL_TIP = "[add] NAME [start DATE_TIME] [end DATE_TIME] [repeat every RECURRING_INTERVAL] [-PRIORITY]";
 
+    //@@author
     private Task toAdd;
 
     
@@ -64,34 +67,27 @@ public class AddCommand extends UndoableCommand {
         this.toAdd = new Task(new Name(taskName));
     }
 
-    // @@author
+    // @@author A0093960X
     @Override
     public CommandResult execute() {
         assert model != null && toAdd != null;
 
-        // check if viewing done list
-        // cannot add to done list, return an incorrect command msg
         if (model.isCurrentListDoneList()) {
             indicateAttemptToExecuteIncorrectCommand();
-            return new CommandResult(String.format(Messages.MESSAGE_DONE_LIST_RESTRICTION));
+            return new CommandResult(Messages.MESSAGE_DONE_LIST_RESTRICTION);
         }
 
-        // add this task to the model
         model.addTask(toAdd);
-
-        // update the history with this command
         updateHistory();
-
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 
-    // @@author A0093960X
     @Override
     public CommandResult undo() {
         assert model != null && toAdd != null;
 
         try {
-            model.deleteTask(toAdd);
+            model.deleteUndoneTask(toAdd);
         } catch (TaskNotFoundException e) {
             return new CommandResult(String.format(MESSAGE_UNDO_FAILURE, toAdd));
         }

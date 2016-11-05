@@ -5,7 +5,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertTrue;
 
-public class ListCommandTest extends AddressBookGuiTest {
+public class ListCommandTest extends DearJimGuiTest {
     
     
 }

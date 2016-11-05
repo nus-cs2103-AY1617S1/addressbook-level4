@@ -14,9 +14,9 @@ import seedu.address.commons.util.CollectionUtil;
  */
 public class Task implements ReadOnlyTask, Comparable<Task> {
 
-    private static final int CHRONOLOGICALLY_AFTER = 1;
-    private static final int CHRONOLOGICALLY_BEFORE = -1;
-    private static final int CHRONOLOGICALLY_EQUAL = 0;
+    private static final int THIS_CHRONOLOGICALLY_AFTER_OTHER = 1;
+    private static final int THIS_CHRONOLOGICALLY_BEFORE_OTHER = -1;
+    private static final int THIS_CHRONOLOGICALLY_EQUAL_TO_OTHER = 0;
 
     private static final String MESSAGE_RECURRING_TASK_CONSTRAINTS = "Unable to update recurring task as task "
             + "is not recurring or task does not have both start and end dates";
@@ -227,121 +227,236 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
      *         if this Task chronologically follows the argument Task
      */
     private int compareByDate(Task other) {
-
-        boolean hasStartDate = isStartDatePresent(this);
-        boolean hasEndDate = isEndDatePresent(this);
-        boolean hasStartDateOther = isStartDatePresent(other); 
-        boolean hasEndDateOther = isEndDatePresent(other);
         
-        boolean hasNoDates = !hasDate(this);
-        boolean hasNoDatesOther = !hasDate(other);
-        int compareByDateValue;
-        
-        if (hasNoDates && hasNoDatesOther) {
-            return CHRONOLOGICALLY_EQUAL;
-        } else if (hasNoDates) {
-            return CHRONOLOGICALLY_AFTER;
-        } else if (hasNoDatesOther) {
-            return CHRONOLOGICALLY_BEFORE;
+        if (hasNoDateForThisTaskOrOtherTask(other)) {
+            return compareTasksWhereOneHasNoDates(other);
+            
+        } else if (hasOnlyOneDateThisTaskAndOtherTask(other)) {
+            return compareTasksWhereBothHaveOneDate(other);
+            
+        } else if (hasOnlyOneDateForOneTaskAndBothDatesForAnotherTask(other)) {
+            return compareTasksWhereOneTaskHasOneDateAndAnotherTaskHasBothDates(other);
+            
+        } else {
+            return compareTasksWithBothStartAndEndDates(other);
         }
-
-        // Easy case 1
-        if (!hasStartDate && hasEndDate && !hasStartDateOther && hasEndDateOther) {
-            return endDate.compareTo(other.endDate);
-        }
-        
-        // Easy case 3
-        if (hasStartDate && !hasEndDate && !hasStartDateOther && hasEndDateOther) {
-            return startDate.compareTo(other.endDate);
-        }
-
-        // Easy case 4
-        if (hasStartDate && !hasEndDate && hasStartDateOther && !hasEndDateOther) {
-            return startDate.compareTo(other.startDate);
-        }
-
-        // Easy case 2
-        if (!hasStartDate && hasEndDate && hasStartDateOther && !hasEndDateOther) {
-            compareByDateValue = endDate.compareTo(other.startDate);
-            if (compareByDateValue == CHRONOLOGICALLY_EQUAL) {
-                return CHRONOLOGICALLY_AFTER;
-            }
-            return compareByDateValue;
-        }
-
-        // Medium case 1
-        if (!hasStartDate && hasEndDate && hasStartDateOther && hasEndDateOther) {
-            compareByDateValue = endDate.compareTo(other.startDate);
-            if (compareByDateValue != CHRONOLOGICALLY_EQUAL) {
-                return compareByDateValue;
-            }
-
-            compareByDateValue = endDate.compareTo(other.endDate);
-            if (compareByDateValue == CHRONOLOGICALLY_EQUAL) {
-                return CHRONOLOGICALLY_AFTER;
-            }
-            return compareByDateValue;
-        }
-
-        // Medium case 2
-        if (hasStartDate && !hasEndDate && hasStartDateOther && hasEndDateOther) {
-            compareByDateValue = startDate.compareTo(other.startDate);
-            if (compareByDateValue != CHRONOLOGICALLY_EQUAL) {
-                return compareByDateValue;
-            }
-
-            compareByDateValue = startDate.compareTo(other.endDate);
-            return compareByDateValue;
-        }
-
-        // Medium case 3
-        if (hasStartDate && hasEndDate && !hasStartDateOther && hasEndDateOther) {
-            compareByDateValue = startDate.compareTo(other.endDate);
-            if (compareByDateValue != CHRONOLOGICALLY_EQUAL) {
-                return compareByDateValue;
-            }
-
-            compareByDateValue = endDate.compareTo(other.endDate);
-            return compareByDateValue;
-        }
-
-        // Medium case 4
-        if (hasStartDate && hasEndDate && hasStartDateOther && !hasEndDateOther) {
-            compareByDateValue = startDate.compareTo(other.startDate);
-            if (compareByDateValue != CHRONOLOGICALLY_EQUAL) {
-                return compareByDateValue;
-            }
-
-            compareByDateValue = endDate.compareTo(other.startDate);
-            if (compareByDateValue == CHRONOLOGICALLY_EQUAL) {
-                return CHRONOLOGICALLY_AFTER;
-            }
-            return compareByDateValue;
-        }
-
-        // Final case
-        // compare start first
-        compareByDateValue = startDate.compareTo(other.startDate);
-        if (compareByDateValue != CHRONOLOGICALLY_EQUAL) {
-            return compareByDateValue;
-        }
-        // compare the end dates
-        return endDate.compareTo(other.endDate);
-
-    }
-
-    private boolean hasDate(Task task) {
-        return task.isStartDatePresent(task) || task.isEndDatePresent(task);
-    }
-
-    private boolean isEndDatePresent(Task task) {
-        return task.endDate != null;
-    }
-
+    } 
+    
     private boolean isStartDatePresent(Task task) {
         return task.startDate != null;
     }
     
+    private boolean isEndDatePresent(Task task) {
+        return task.endDate != null;
+    }
+    
+    private int getNumDatesForTask(Task task) {
+        int count = 0;
+        
+        if (isStartDatePresent(task)) {
+            count++;
+        }
+        
+        if (isEndDatePresent(task)) {
+            count++;
+        } 
+        
+        assert (count >= 0) && (count <= 2);
+        return count;
+    }
+    
+    private boolean hasNoDates(Task other) {
+        return getNumDatesForTask(other) == 0;
+    }
+    
+    private boolean hasOneDate(Task other) {
+        return getNumDatesForTask(other) == 1;
+    }
+
+    private boolean hasTwoDates(Task other) {
+        return getNumDatesForTask(other) == 2;
+    }
+    
+    private boolean hasNoDateForThisTaskOrOtherTask(Task other) {
+        return hasNoDates(this) 
+                || hasNoDates(other);
+    }
+    
+    private boolean hasNoDateForThisTaskAndOtherTask(Task other) {
+        return hasNoDates(this) && hasNoDates(other);
+    }
+    
+    private int compareTasksWhereOneHasNoDates(Task other) {
+        if (hasNoDateForThisTaskAndOtherTask(other)) {
+            return THIS_CHRONOLOGICALLY_EQUAL_TO_OTHER;
+            
+        } else if (hasNoDates(this)) {
+            return THIS_CHRONOLOGICALLY_AFTER_OTHER;
+            
+        } else {
+            return THIS_CHRONOLOGICALLY_BEFORE_OTHER;
+        }
+    }
+
+    private boolean hasOnlyOneDateThisTaskAndOtherTask(Task other) {
+        return hasOneDate(this) && hasOneDate(other);
+    }
+    
+    private boolean hasStartDateOnlyInThisTaskAndStartDateOnlyInOtherTask(Task other) {
+        return isStartDatePresent(this) 
+                && !isEndDatePresent(this) 
+                && isStartDatePresent(other)
+                && !isEndDatePresent(other);
+    }
+
+    private boolean hasStartDateOnlyInThisTaskAndEndDateOnlyInOtherTask(Task other) {
+        return isStartDatePresent(this) 
+                && !isEndDatePresent(this) 
+                && !isStartDatePresent(other)
+                && isEndDatePresent(other);
+    }
+
+    private boolean hasEndDateOnlyInThisTaskAndStartDateOnlyInOtherTask(Task other) {
+        return !isStartDatePresent(this) 
+                && isEndDatePresent(this) 
+                && isStartDatePresent(other)
+                && !isEndDatePresent(other);
+    }
+    
+    private int compareTasksWhereBothHaveOneDate(Task other) {
+        if (hasStartDateOnlyInThisTaskAndStartDateOnlyInOtherTask(other)) {
+            return compareThisTaskStartDateToOtherTaskStartDate(other);
+            
+        } else if (hasStartDateOnlyInThisTaskAndEndDateOnlyInOtherTask(other)) {
+            return compareThisTaskStartDateToOtherTaskEndDate(other);
+            
+        } else if (hasEndDateOnlyInThisTaskAndStartDateOnlyInOtherTask(other)) {
+            return compareThisTaskWithEndDateOnlyAndOtherTaskWithStartDateOnly(other);  
+            
+        } else {
+            return compareThisTaskEndDateToOtherTaskEndDate(other);
+        }
+    }
+
+    private int compareThisTaskStartDateToOtherTaskStartDate(Task other) {
+        return startDate.compareTo(other.startDate);
+    }
+    
+    private int compareThisTaskStartDateToOtherTaskEndDate(Task other) {
+        return startDate.compareTo(other.endDate);
+    }
+    
+    private int compareThisTaskEndDateToOtherTaskStartDate(Task other) {
+        return endDate.compareTo(other.startDate);
+    }
+
+    private int compareThisTaskEndDateToOtherTaskEndDate(Task other) {
+        return endDate.compareTo(other.endDate);
+    }
+    
+    private int compareThisTaskWithEndDateOnlyAndOtherTaskWithStartDateOnly(Task other) {
+        int compareByDateValue = compareThisTaskEndDateToOtherTaskStartDate(other);
+        if (compareByDateValue == THIS_CHRONOLOGICALLY_EQUAL_TO_OTHER) {
+            // if dates are equal, put the one with start date in front of one with end date
+            return THIS_CHRONOLOGICALLY_AFTER_OTHER;
+        }
+        return compareByDateValue;
+    }
+    
+    private boolean hasOnlyOneDateForOneTaskAndBothDatesForAnotherTask(Task other) {
+        return (hasOneDate(this) && hasTwoDates(other)) || (hasTwoDates(this) && hasOneDate(other));
+    }
+    
+    private boolean hasStartAndEndDateInThisTaskAndStartDateOnlyInOtherTask(Task other) {
+        return isStartDatePresent(this) 
+                && isEndDatePresent(this) 
+                && isStartDatePresent(other)
+                && !isEndDatePresent(other);
+    }
+
+    private boolean hasStartAndEndDateInThisTaskAndEndDateOnlyInOtherTask(Task other) {
+        return isStartDatePresent(this) 
+                && isEndDatePresent(this) 
+                && !isStartDatePresent(other)
+                && isEndDatePresent(other);
+    }
+
+    private boolean hasStartDateOnlyInThisTaskAndStartAndEndDateInOtherTask(Task other) {
+        return isStartDatePresent(this) 
+                && !isEndDatePresent(this) 
+                && isStartDatePresent(other)
+                && isEndDatePresent(other);
+    }
+
+    private int compareTasksWhereOneTaskHasOneDateAndAnotherTaskHasBothDates(Task other) {
+        if (hasStartAndEndDateInThisTaskAndStartDateOnlyInOtherTask(other)) {
+            return compareThisTaskWithStartAndEndDateAndOtherTaskWithStartDateOnly(other);
+            
+        } else if (hasStartAndEndDateInThisTaskAndEndDateOnlyInOtherTask(other)) {
+            return compareThisTaskWithStartAndEndDateAndOtherTaskWithEndDateOnly(other);
+            
+        } else if (hasStartDateOnlyInThisTaskAndStartAndEndDateInOtherTask(other)) {
+            return compareThisTaskWithStartDateOnlyAndOtherTaskWithStartAndEndDate(other);
+            
+        } else {
+            return compareThisTaskWithEndDateOnlyAndOtherTaskWithStartAndEndDate(other);
+        }
+    }
+    
+    private int compareThisTaskWithStartAndEndDateAndOtherTaskWithStartDateOnly(Task other) {
+        int compareByDateValue = compareThisTaskStartDateToOtherTaskStartDate(other);
+        if (compareByDateValue != THIS_CHRONOLOGICALLY_EQUAL_TO_OTHER) {
+            return compareByDateValue;
+        }
+        
+        compareByDateValue = compareThisTaskEndDateToOtherTaskStartDate(other);
+        if (compareByDateValue == THIS_CHRONOLOGICALLY_EQUAL_TO_OTHER) {
+            // if dates are equal, put the one with start date in front of one with end date
+            return THIS_CHRONOLOGICALLY_AFTER_OTHER;
+        }
+        return compareByDateValue;
+    }
+
+
+    private int compareThisTaskWithStartAndEndDateAndOtherTaskWithEndDateOnly(Task other) {
+        int compareByDateValue = compareThisTaskStartDateToOtherTaskEndDate(other);
+        if (compareByDateValue != THIS_CHRONOLOGICALLY_EQUAL_TO_OTHER) {
+            return compareByDateValue;
+        }
+        return compareThisTaskEndDateToOtherTaskEndDate(other);
+    }
+    
+    private int compareThisTaskWithStartDateOnlyAndOtherTaskWithStartAndEndDate(Task other) {
+        int compareByDateValue = compareThisTaskStartDateToOtherTaskStartDate(other);
+        if (compareByDateValue != THIS_CHRONOLOGICALLY_EQUAL_TO_OTHER) {
+            return compareByDateValue;
+        }
+
+        return compareThisTaskStartDateToOtherTaskEndDate(other);
+    }
+
+    private int compareThisTaskWithEndDateOnlyAndOtherTaskWithStartAndEndDate(Task other) {
+        int compareByDateValue = compareThisTaskEndDateToOtherTaskStartDate(other);
+        if (compareByDateValue != THIS_CHRONOLOGICALLY_EQUAL_TO_OTHER) {
+            return compareByDateValue;
+        }
+
+        compareByDateValue = compareThisTaskEndDateToOtherTaskEndDate(other);
+        if (compareByDateValue == THIS_CHRONOLOGICALLY_EQUAL_TO_OTHER) {
+            return THIS_CHRONOLOGICALLY_AFTER_OTHER;
+        }
+        return compareByDateValue;
+    }
+
+
+    private int compareTasksWithBothStartAndEndDates(Task other) {
+        int compareByDateValue = compareThisTaskStartDateToOtherTaskStartDate(other);
+        if (compareByDateValue != THIS_CHRONOLOGICALLY_EQUAL_TO_OTHER) {
+            return compareByDateValue;
+        }
+        return compareThisTaskEndDateToOtherTaskEndDate(other);
+    }
+
     // @@author
     private boolean haveDifferentPriority(Task other) {
         return !this.priority.equals(other.priority);

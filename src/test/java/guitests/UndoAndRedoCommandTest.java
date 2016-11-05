@@ -4,6 +4,7 @@ import guitests.guihandles.TaskCardHandle;
 import org.junit.Test;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.TaskManager;
 import seedu.address.model.item.DateTime;
 import seedu.address.model.item.Name;
 import seedu.address.model.item.Priority;
@@ -11,61 +12,124 @@ import seedu.address.model.item.RecurrenceRate;
 import seedu.address.model.item.TimePeriod;
 import seedu.address.testutil.TestTask;
 import seedu.address.testutil.TestUtil;
+import seedu.address.testutil.TypicalTestTasks;
 
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.DeleteCommand.MESSAGE_DELETE_ITEM_SUCCESS;
+import static seedu.address.logic.commands.DoneCommand.MESSAGE_DONE_ITEM_SUCCESS;
 
 //@@author A0093960X
-public class UndoAndRedoCommandTest extends AddressBookGuiTest {
+public class UndoAndRedoCommandTest extends DearJimGuiTest {
+    
+    @Override
+    protected TaskManager getInitialData() {
+        TaskManager ab = TestUtil.generateEmptyTaskManager();
+        TypicalTestTasks.loadTaskManagerUndoneListWithSampleData(ab);
+        TypicalTestTasks.loadTaskManagerDoneListWithSampleDate(ab);
+        return ab;
+    }
     
     @Test
-    public void undoAndRedo() {
-        // TODO: test delete more than one at once, done more than one at once
-        // This test seems pretty long...
-        
-        // add one person
-        TestTask[] currentList = td.getTypicalTasks();
+    public void undoCommand_noPreviousUndoableCommand_nothingToUndo() {
+        commandBox.runCommand("list");
+        assertUndoSuccess(td.getTypicalUndoneTasks());
+    }
+    
+    @Test
+    public void redoCommand_noUndoToRedo_nothingToRedo() {
+        commandBox.runCommand("list");
+        assertRedoSuccess(td.getTypicalUndoneTasks());
+    }
+    
+    @Test
+    public void undoAndRedoCommand_addTask_deleteForUndoReaddForRedo() {
+        TestTask[] originalUndoneList = td.getTypicalUndoneTasks();
+        TestTask[] originalDoneList = td.getTypicalDoneTasks();
         TestTask taskToAdd = td.hoon;
-        assertAddSuccess(taskToAdd, currentList);
+        assertAddSuccess(taskToAdd, originalUndoneList);
         
         // undo the add
-        assertUndoSuccess(currentList);
-        
-        // nothing to undo
-        //assertUndoSuccess(currentList);
+        assertUndoSuccess(originalUndoneList);
         
         // redo the add
-        TestTask[] withHoon = TestUtil.addFloatingTasksToList(currentList, taskToAdd);
+        TestTask[] withHoon = TestUtil.addFloatingTasksToList(originalUndoneList, taskToAdd);
         assertRedoSuccess(withHoon);
         
-        // delete hoon
+        // check if works on list done view
+        commandBox.runCommand("list done");
+        assertUndoSuccess(originalDoneList);
+        commandBox.runCommand("list");
+        assertTrue(personListPanel.isListMatching(originalUndoneList));
+        commandBox.runCommand("list done");
+        assertRedoSuccess(originalDoneList);
+        commandBox.runCommand("list");
+        assertTrue(personListPanel.isListMatching(withHoon));
+
+    }
+    
+    @Test
+    public void undoAndRedoCommand_deleteUndoneTask_readdForUndoDeleteForRedo() {
+        TestTask[] originalList = td.getTypicalUndoneTasks();
+        TestTask taskToAdd = td.hoon;
+        assertAddSuccess(taskToAdd, originalList);
+        TestTask[] withHoon = TestUtil.addFloatingTasksToList(originalList, taskToAdd);
         assertDeleteSuccess(8, withHoon);
         
         // undo the delete
         assertUndoSuccess(withHoon);
         
         // delete hoon again
-        assertRedoSuccess(currentList);
+        assertRedoSuccess(originalList);
+    }
+    
+    @Test
+    public void undoAndRedoCommand_deleteDoneTask_readdForUndoDeleteForRedo() {
+        TestTask[] currentUndoneList = td.getTypicalUndoneTasks();
+        TestTask[] currentDoneList = td.getTypicalDoneTasks();  
         
-        // type some non undoable command like "list"
-        commandBox.runCommand("list");
+        TestTask[] withGeorge = TestUtil.addFloatingTasksToList(currentDoneList, td.george);
         
-        // undo the delete again
-        assertUndoSuccess(withHoon);
-                
-        // redo the delete
-        assertRedoSuccess(currentList);
-        
-        // delete some random index at 4
-        assertDeleteSuccess(4, currentList);
-        
-        // undo the delete
-        assertUndoSuccess(currentList);
-        
-        // clear the list
-        assertClearCommandSuccess();
-        assertUndoSuccess(currentList);
+        assertDoneSuccess(7, currentUndoneList, currentDoneList);
+        assertUndoSuccess(currentUndoneList);
+        assertRedoSuccess(withGeorge);
+    }
+    
+    @Test
+    public void undoAndRedoCommand_clearUndoneTasks_unclearForUndoReclearForRedo() {
+        TestTask[] currentUndoneList = td.getTypicalUndoneTasks();
+        TestTask[] currentDoneList = td.getTypicalDoneTasks();
+        assertUndoneListClearCommandSuccess();
+        assertUndoSuccess(currentUndoneList);
         assertRedoSuccess();
+        
+        // check if targets undone tasks even on done view
+        commandBox.runCommand("list done");
+        assertUndoSuccess(currentDoneList);
+        commandBox.runCommand("list");
+        assertTrue(personListPanel.isListMatching(currentUndoneList));
+        commandBox.runCommand("list done");
+        assertRedoSuccess(currentDoneList);
+        commandBox.runCommand("list");
+        assertTrue(personListPanel.isListMatching());
+    }
+
+    
+    @Test
+    public void undoAndRedoCommand_clearDoneTasks_unclearForUndoReclearForRedo() {
+        TestTask[] currentUndoneList = td.getTypicalUndoneTasks();
+        TestTask[] currentDoneList = td.getTypicalDoneTasks();      
+        assertDoneSuccess(1, currentUndoneList, currentDoneList);
+        
+        
+    }
+    
+    
+    /*
+    @Test
+    public void undoAndRedo() {
+        // TODO: test delete more than one at once, done more than one at once
+  
+        
         
         // add alice
         TestTask aliceTask = new TestTask(td.alice);
@@ -130,6 +194,9 @@ public class UndoAndRedoCommandTest extends AddressBookGuiTest {
         assertRedoSuccess(aliceTaskBackup);
         
     }
+    */
+    
+    
     
     /**
      * Runs the undo command to undo the previous undoable command and confirms the result is correct.
@@ -186,12 +253,47 @@ public class UndoAndRedoCommandTest extends AddressBookGuiTest {
     }
         
     /**
-     * Runs the clear command to clear the current list and confirms the result is correct.
+     * Runs the clear command and confirms the result is correct (that undone list is cleared).
      */
-    private void assertClearCommandSuccess() {
+    private void assertUndoneListClearCommandSuccess() {
         commandBox.runCommand("clear");
         assertListSize(0);
-        assertResultMessage("Task Manager has been cleared!");
+        assertResultMessage("Task Manager undone list has been cleared!");
+    }
+
+    /**
+     * Runs the clear command and confirms the result is correct (that done list is cleared).
+     */
+    private void assertDoneListClearCommandSuccess() {
+        commandBox.runCommand("clear");
+        assertListSize(0);
+        assertResultMessage("Task Manager done list has been cleared!");
+    }
+    
+    /**
+     * Runs the done command to archive the task at specified index and confirms the result is correct.
+     * @param targetIndexOneIndexed e.g. to archive the first task in the list, 1 should be given as the target index.
+     * @param currentList A copy of the current list of tasks (before archiving).
+     * @param currentDoneList A copy of the current list of done tasks (before archiving).
+     */
+    private void assertDoneSuccess(int targetIndexOneIndexed, final TestTask[] currentList, final TestTask[] currentDoneList) {
+        TestTask taskToDone = currentList[targetIndexOneIndexed-1]; //-1 because array uses zero indexing
+        TestTask[] expectedRemainder = TestUtil.removeTaskFromList(currentList, targetIndexOneIndexed);
+        TestTask[] expectedDoneTaskList = TestUtil.addFloatingTasksToList(currentDoneList, taskToDone);
+        commandBox.runCommand("done " + targetIndexOneIndexed);
+
+        //confirm the list now contains all previous tasks except the archived task
+        assertTrue(personListPanel.isListMatching(expectedRemainder));
+        
+        //confirm the result message is correct
+        assertResultMessage(String.format(MESSAGE_DONE_ITEM_SUCCESS, taskToDone));
+
+        //confirm the done list now contains all previous done tasks plus the new done task
+        commandBox.runCommand("list done");
+        assertTrue(personListPanel.isListMatching(expectedDoneTaskList));
+        
+        //switch back to normal list view
+        commandBox.runCommand("list");
     }
 
 }
