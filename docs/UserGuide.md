@@ -177,11 +177,25 @@ Done | `done INDEX` | Marks a task as complete
 Select | `select INDEX` | Selects and scrolls to the task
 Save | `save FOLDERPATH` | Changes the location of the save file
 Exit | `exit` | Exits sTask
+<br>
 
 ## 6. Credits
 
+We are grateful to Professor Damith Chatura Rajapakse and his team of highly dedicated tutors and project mentors, for giving us this opportunity to develop this product and for guiding us along the way.
+
+&nbsp;&nbsp;&nbsp;&nbsp;<b>6.1 Source Code</b>
+We would like to acknowledge the original source of our code, i.e., the sample Address Book project created by the se-edu initiative at  https://github.com/se-edu/ .
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;<b>6.2 External Libaries</b>
+We would like to acknowledge the developers of Natty for their natural language date parser at http://natty.joestelmach.com/
+
+<br>
 ## 7. Appendix
 
+Command | Format | Description 
+-------- | :-------- | :--------
+Possible Date Format | `help` | Opens the help page in a new window
 Possible Date formats
 DD-MM-YY 	: 18-10-16 
 DD-MM-YYYY  : 27-2-2101
