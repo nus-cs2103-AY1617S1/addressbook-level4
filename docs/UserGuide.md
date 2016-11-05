@@ -224,7 +224,6 @@ Format: `edit INDEX [NAME] [start DATE_TIME] [end DATE_TIME] [repeat every RECUR
 Examples:
 * `Company meeting tonight at 7pm to 9pm`
 * `edit 2 Company meeting tomorrow morning at 7am to 9am -high`
-
 * `Buy coffee for boss by 8am repeat every day`
 * `edit 3 Buy coffee for boss by 7am repeat every 2 days`
 
@@ -252,7 +251,7 @@ Examples:
 
 
 ### Deleting a task: `delete`
-Deletes an existing task in DearJim. This will remove them from the storage. <br>
+Deletes an existing task in DearJim. This will remove it from the storage. <br>
 Format: `delete INDEX`
 > You can `delete` multiple tasks using a single command by entering the indexes of the tasks you want to delete, separating each index with a space.
 
@@ -311,17 +310,25 @@ Format: `redo`
 Switches the task list view to the undone list view, to show all undone tasks in DearJim.<br>
 Format: `list`
 
-Example:
-* `list`
 <br>
+
+**_Listing all undone tasks of a specific day_**
+
+Switches the task list view to the undone list view, to show all tasks on the day specified.<br>
+Format: `list DAY`
+
+Example:
+* `list today`
+* `list tmr`
+* `list monday`
+
+<br>
+
 
 **_Listing all done tasks_**
 
 Switches the task list view to the done list view, to show all done tasks in DearJim.<br>
 Format: `list done`
-
-Example:
-* `list done`
 
 > `add` and `edit` commands do not work in done list view. As such, you are not able to directly add tasks into the done list, or edit the details of done tasks. 
 <br/>
