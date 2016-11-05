@@ -112,6 +112,8 @@ public class EditCommand extends Command {
 		try {
 			model.editTask(taskToEdit, dataType, toEdit, targetIndex);
 			return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, toEdit));
+		} catch (UniqueTaskList.DuplicatetaskException e) {
+            return new CommandResult(MESSAGE_EDIT_DUPLICATE_TASK);
 		} catch (IllegalValueException ive) {
 			return new CommandResult(INVALID_VALUE);
 		} catch (TaskNotFoundException pnfe) {
