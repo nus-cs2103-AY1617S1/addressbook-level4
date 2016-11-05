@@ -86,12 +86,6 @@ public class AddController implements Controller {
         String naturalFrom = naturalDates[0];
         String naturalTo = naturalDates[1];
         
-        // Validate isTask, name and times.
-        if (validateParams(isTask, name, naturalFrom, naturalTo)) {
-            renderDisambiguation(isTask, name, naturalFrom, naturalTo);
-            return;
-        }
-        
         // Parse natural date using Natty.
         LocalDateTime dateFrom;
         LocalDateTime dateTo;
@@ -99,6 +93,12 @@ public class AddController implements Controller {
             dateFrom = naturalFrom == null ? null : DateParser.parseNatural(naturalFrom);
             dateTo = naturalTo == null ? null : DateParser.parseNatural(naturalTo);
         } catch (InvalidNaturalDateException e) {
+            renderDisambiguation(isTask, name, naturalFrom, naturalTo);
+            return;
+        }
+
+        // Validate isTask, name and times.
+        if (!validateParams(isTask, name, dateFrom, dateTo)) {
             renderDisambiguation(isTask, name, naturalFrom, naturalTo);
             return;
         }
@@ -145,24 +145,36 @@ public class AddController implements Controller {
      * Validates the parsed parameters.
      * 
      * <ul>
-     * <li>Fail if name is null.</li>
-     * <li>Fail if "to" exists without "from"</li>
-     * <li>Fail if task, but "from" and "to" exist</li>
+     * <li>Fail if name is invalid</li>
+     * </ul>
+     * 
+     * Tasks:
+     * <ul>
+     * <li>Fail if task has a dateTo</li>
+     * </ul>
+     * 
+     * Events:
+     * <ul>
+     * <li>Fail if event does not have both dateFrom and dateTo</li>
+     * <li>Fail if event has a dateTo that is before dateFrom</li>
      * </ul>
      * 
      * @param isTask
      *            true if CalendarItem should be a Task, false if Event
      * @param name
      *            Display name of CalendarItem object
-     * @param naturalFrom
-     *            Raw input for due date for Task or start date for Event
-     * @param naturalTo
-     *            Raw input for end date for Event
+     * @param dateFrom
+     *            Due date for Task or start date for Event
+     * @param dateTo
+     *            End date for Event
      * @return true if validation passed, false otherwise
      */
-    private boolean validateParams(boolean isTask, String name, String naturalFrom, String naturalTo) {
-        return (name == null ||
-                (naturalFrom == null && naturalTo != null) || (isTask && naturalTo != null));
+    private boolean validateParams(boolean isTask, String name, LocalDateTime dateFrom, LocalDateTime dateTo) {
+        return (!(name == null || name.length() == 0            // Invalid name
+                || (isTask && dateTo != null)                   // Task with dateTo
+                || (!isTask && dateFrom == null)                // Event without dateFrom
+                || (!isTask && dateTo == null)                  // Event without dateTo
+                || (!isTask && dateTo.isBefore(dateFrom))));    // Event with dateTo before dateFrom
     }
 
     /**
