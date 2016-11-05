@@ -277,7 +277,7 @@ Priority | As a ... | I want to ... | So that I can...
 -------- | :-------- | :--------- | :-----------
 `* * *` | new user | see usage instructions | refer to instructions when I forget how to use the App
 `* * *` | new user | view more information about a particular command | learn how to use various commands
-`* * *` | user | add a new floating task |
+`* * *` | user | add a new to-do |
 `* * *` | user | add a new event |
 `* * *` | user | add a new deadline |
 `* * *` | user | delete a floating task | remove an entry that I no longer need or have completed
@@ -290,11 +290,7 @@ Priority | As a ... | I want to ... | So that I can...
 `* * *` | user | view all tasks | plan ahead depending on availablity
 `* * *` | user | view all tasks on specified day(s) | plan ahead 
 `* * *` | user | undo my last action | rectify any mistakes I made
-`* *` | user | be notified of upcoming events | remember important events
-`* *` | user | be warned of clashing events | avoid a clash in my schedule
-`* *` | advanced user | use shorter version of a commands | type a command faster
-`*` | advanced user | switch between light/dark mode | Enhance visibility or save power
-`*` | user | know the weather forecast on days with events | be prepared in case of wet weather
+`* *` | user | redo my last undo action | rectify the undo in case i changed my mind
 
 
 ## Appendix B : Use Cases
