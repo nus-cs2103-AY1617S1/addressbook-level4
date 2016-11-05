@@ -56,7 +56,6 @@ public class MainApp extends Application {
 
         config = initConfig(getApplicationParameter("config"));
         storage = new StorageManager(config.getActivityManagerFilePath(), config.getUserPrefsFilePath());
-        System.out.println("This is managerfile path: " + config.getActivityManagerFilePath());
         userPrefs = initPrefs(config);
 
         initLogging(config);
