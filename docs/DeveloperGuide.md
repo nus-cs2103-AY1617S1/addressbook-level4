@@ -311,7 +311,7 @@ Use case ends. <br>
 
 1. User requests to show the list of tasks. <br>
 2. Task manager shows the list of tasks. <br>
-3. User requests to delete a specific task. <br>  
+3. User requests to delete a specific task. 
 4. Task manager deletes the task. <br>
 Use case ends. <br>
 
@@ -332,7 +332,7 @@ Use case ends. <br>
 
 **MSS**
 
-1. User requests to mark a task as completed. <br>  
+1. User requests to mark a task as completed.  
 2. Task manager marks the task as completed. <br>
 Use case ends. <br>
 
