@@ -3,8 +3,6 @@ package seedu.whatnow.model.task;
 import seedu.whatnow.commons.exceptions.IllegalValueException;
 import java.util.Date;
 import java.util.GregorianCalendar;
-import java.util.Locale;
-
 import java.text.ParseException;
 
 import java.text.DateFormat;
@@ -54,9 +52,34 @@ public class TaskDate {
 
     private static final String TODAY = "today";
     private static final String TMR = "tomorrow";
-    private String fullDate;
-    private String startDate;
-    private String endDate;
+    private static String fullDate;
+    private static String startDate;
+    private static String endDate;
+    
+    private static final String JANUARY_FULL = "january";
+    private static final String FEBRUARY_FULL = "february";
+    private static final String MARCH_FULL = "march";
+    private static final String APRIL_FULL = "april";
+    private static final String MAY_FULL = "may";
+    private static final String JUNE_FULL = "june";
+    private static final String JULY_FULL = "july";
+    private static final String AUGUST_FULL = "august";
+    private static final String SEPTEMBER_FULL = "september";
+    private static final String OCTOBER_FULL = "october";
+    private static final String NOVEMBER_FULL = "november";
+    private static final String DECEMBER_FULL = "december";
+    
+    private static final String JANUARY_SHORT = "jan";
+    private static final String FEBRUARY_SHORT = "feb";
+    private static final String MARCH_SHORT = "mar";
+    private static final String APRIL_SHORT = "apr";
+    private static final String JUNE_SHORT = "jun";
+    private static final String JULY_SHORT = "jul";
+    private static final String AUGUST_SHORT = "aug";
+    private static final String SEPTEMBER_SHORT = "sep";
+    private static final String OCTOBER_SHORT = "oct";
+    private static final String NOVEMBER_SHORT = "nov";
+    private static final String DECEMBER_SHORT = "dec";
 
     // @@author A0139128A
     /**
@@ -138,7 +161,7 @@ public class TaskDate {
      * @throws java.text.ParseException
      * @throws IllegalValueException
      */
-    private boolean isValidDate(String reqDate) throws java.text.ParseException, IllegalValueException {
+    private static boolean isValidDate(String reqDate) throws java.text.ParseException, IllegalValueException {
         if (reqDate.equals(TODAY) || reqDate.equals(TMR)) {
             return true;
         } else {
@@ -244,7 +267,7 @@ public class TaskDate {
      * @throws java.text.ParseException
      * @throws IllegalValueException
      */
-    private boolean isValidNumDate(String incDate, String format)
+    private static boolean isValidNumDate(String incDate, String format)
             throws java.text.ParseException, IllegalValueException {
         Date inputDate = null;
         try {
@@ -276,30 +299,65 @@ public class TaskDate {
         /**
          * The following will ensure the date format to be
          * DATE_NUM_SLASH_WITH_YEAR_FORMAT
-         */
-        if (format.equals(DATE_NUM_SLASH_WITHOUT_YEAR_FORMAT)) {
-            Calendar now = Calendar.getInstance();
-            int yearInt = now.get(Calendar.YEAR);
-            String year = String.valueOf(yearInt);
-            incDate.concat(year);
-            fullDate = incDate;
+//         */
+//        if (format.equals(DATE_NUM_SLASH_WITHOUT_YEAR_FORMAT)) {
+//            Calendar now = Calendar.getInstance();
+//            int yearInt = now.get(Calendar.YEAR);
+//            String year = String.valueOf(yearInt);
+//            incDate.concat(year);
+//            fullDate = incDate;
+//            return true;
+//        } else if (format.equals(DATE_NUM_SLASH_WITH_YEAR_SHORTENED_DAY_FORMAT)) {
+//            fullDate = "0" + incDate;
+//            return true;
+//        } else if (format.equals(DATE_NUM_SLASH_WITH_YEAR_SHORTENED_MONTH_FORMAT)) {
+//            String toReplaceFullDate = incDate;
+//            String[] split = toReplaceFullDate.split("/");
+//            fullDate = split[0] + "/0" + split[1] + "/" + split[2];
+//            return true;
+//        } else if (format.equals(DATE_NUM_SLASH_WITH_YEAR_SHORTENED_DAY_AND_MONTH_FORMAT)) {
+//            String toReplaceFullDate = incDate;
+//            String[] split = toReplaceFullDate.split("/");
+//            fullDate = "0" + split[0] + "/0" + split[1] + "/" + split[2];
+//            return true;
+//        } else {
+//            fullDate = incDate;
+//            return true;
+//        }
+        return true;
+    }
+    
+    /**
+     * This method checks the validity of the month entered by the user.
+     */
+    public static boolean isValidMonth(String mth){
+        String month = mth.toLowerCase();
+        if(month.equals(JANUARY_FULL) || month.equals(JANUARY_SHORT)){
             return true;
-        } else if (format.equals(DATE_NUM_SLASH_WITH_YEAR_SHORTENED_DAY_FORMAT)) {
-            fullDate = "0" + incDate;
+        } else if(month.equals(FEBRUARY_FULL)|| month.equals(FEBRUARY_SHORT)){
             return true;
-        } else if (format.equals(DATE_NUM_SLASH_WITH_YEAR_SHORTENED_MONTH_FORMAT)) {
-            String toReplaceFullDate = incDate;
-            String[] split = toReplaceFullDate.split("/");
-            fullDate = split[0] + "/0" + split[1] + "/" + split[2];
+        } else if(month.equals(MARCH_FULL)|| month.equals(MARCH_SHORT)){
             return true;
-        } else if (format.equals(DATE_NUM_SLASH_WITH_YEAR_SHORTENED_DAY_AND_MONTH_FORMAT)) {
-            String toReplaceFullDate = incDate;
-            String[] split = toReplaceFullDate.split("/");
-            fullDate = "0" + split[0] + "/0" + split[1] + "/" + split[2];
+        } else if(month.equals(APRIL_FULL)|| month.equals(APRIL_SHORT)){
             return true;
-        } else {
-            fullDate = incDate;
+        } else if(month.equals(MAY_FULL)){
             return true;
+        } else if(month.equals(JUNE_FULL)|| month.equals(JUNE_SHORT)){
+            return true;
+        } else if(month.equals(JULY_FULL)|| month.equals(JULY_SHORT)){
+            return true;
+        } else if(month.equals(AUGUST_FULL)|| month.equals(AUGUST_SHORT)){
+            return true;
+        } else if(month.equals(SEPTEMBER_FULL)|| month.equals(SEPTEMBER_SHORT)){
+            return true;
+        } else if(month.equals(OCTOBER_FULL)|| month.equals(OCTOBER_SHORT)){
+            return true;
+        } else if(month.equals(NOVEMBER_FULL)|| month.equals(NOVEMBER_SHORT)){
+            return true;
+        } else if(month.equals(DECEMBER_FULL)|| month.equals(DECEMBER_SHORT)){
+            return true;
+        } else { 
+            return false;
         }
     }
 
@@ -308,7 +366,7 @@ public class TaskDate {
      * attached with a default time and there is a need to overwrite this timing
      * to the latest so that it can be compared with the current date
      */
-    private Calendar setGregorian(Calendar cal, Date reqDate) {
+    private static Calendar setGregorian(Calendar cal, Date reqDate) {
         cal.setTime(reqDate);
         cal.set(Calendar.HOUR_OF_DAY, 23);
         cal.set(Calendar.MINUTE, 59);
@@ -317,7 +375,7 @@ public class TaskDate {
     }
 
     /** Gets the current Date and set it to earliest */
-    private Calendar setGregorianCurrent(Calendar cal) {
+    private static Calendar setGregorianCurrent(Calendar cal) {
         cal.set(Calendar.HOUR_OF_DAY, 00);
         cal.set(Calendar.MINUTE, 00);
         cal.set(Calendar.SECOND, 00);
@@ -354,5 +412,9 @@ public class TaskDate {
     /** Returns the endDate */
     public String getEndDate() {
         return this.endDate;
+    }
+    
+    public static boolean getIsValidDate(String date) throws ParseException, IllegalValueException{
+        return isValidDate(date);
     }
 }
