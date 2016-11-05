@@ -41,10 +41,6 @@ public class Undoer {
 		ec.registerHandler(this);
     }
 	
-	public ReadOnlyToDoList peekUndoList() {
-		return undoList.peek();
-	}
-	
 	/**
 	 * Creates a snapshot of the ToDoList and saves it to the stack.
 	 * 

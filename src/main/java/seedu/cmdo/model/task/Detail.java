@@ -9,9 +9,6 @@ import seedu.cmdo.commons.exceptions.IllegalValueException;
  */
 public class Detail {
 
-    public static final String MESSAGE_DETAIL_CONSTRAINTS = "You can type anything in details. It must not end with by, on, before or at.";
-    public static final String DETAIL_VALIDATION_REGEX = ".*";
-
     public final String details;
 
     /**
@@ -22,19 +19,8 @@ public class Detail {
     public Detail(String detail) throws IllegalValueException {
         assert detail != null;
         detail = detail.trim();
-        if (!isValidDetail(detail)) {
-            throw new IllegalValueException(MESSAGE_DETAIL_CONSTRAINTS);
-        }
         this.details = detail;
     }
-
-    /**
-     * Returns true if a given string is a valid detail.
-     */
-    public static boolean isValidDetail(String test) {
-        return test.matches(DETAIL_VALIDATION_REGEX);
-    }
-
 
     @Override
     public String toString() {

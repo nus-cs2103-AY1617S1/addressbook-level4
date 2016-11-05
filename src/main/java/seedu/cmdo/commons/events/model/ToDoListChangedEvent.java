@@ -16,11 +16,6 @@ public class ToDoListChangedEvent extends BaseEvent {
     	this.calling = ModelManager.class;
     }
     
-    public ToDoListChangedEvent(ReadOnlyToDoList data, Class calling){
-        this.data = data;
-        this.calling = calling;
-    }
-
     @Override
     public String toString() {
         return "details " + data.getTaskList().size() + ", number of tags " + data.getTagList().size();

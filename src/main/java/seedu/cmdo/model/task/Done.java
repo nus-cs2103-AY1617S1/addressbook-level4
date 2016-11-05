@@ -7,9 +7,6 @@ package seedu.cmdo.model.task;
  */
 public class Done {
 
-    public static final String MESSAGE_DONE_CONSTRAINTS = "";
-    public static final String DONE_VALIDATION_REGEX = "";
-
     public Boolean value;
 
     /**
@@ -32,22 +29,4 @@ public class Done {
     public void setDone(){
     	value = true;
     }
-
-    /**
-     * Returns true if a given string is a valid done.
-     */
-    public static boolean isValidDone(String test) {
-        return test.matches(DONE_VALIDATION_REGEX);
-    }
-
-    @Override
-    public String toString() {
-        return value.toString();
-    }
-    
-    @Override
-    public int hashCode() {
-        return value.hashCode();
-    }
-
 }
