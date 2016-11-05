@@ -29,11 +29,14 @@ public class RecurringTaskManager {
     private static final Logger logger = LogsCenter.getLogger(MainApp.class);
 
     private UniqueTaskList repeatingTasks;
+    
+    private boolean isTestMode;
 
     public void setTaskList(UniqueTaskList referenceList) {
         assert referenceList != null : "Reference Task list cannot be null";
         logger.fine("Initializing with RecurringTaskManager to manage: " + referenceList.toString());
         repeatingTasks = referenceList;
+        isTestMode = false;
     }
 
     public boolean appendAnyRecurringTasks() {
@@ -65,7 +68,7 @@ public class RecurringTaskManager {
      * 
      * @param task Added task that might have dates that are overdued at the start
      */
-    public void correctAddingOverdueTasks(Task task) {
+    public void correctOverdueNonRepeatingTasks(Task task) {
         assert task != null : "task that needs correcting cannot be null!";
         correctAddingOverdueTasks(task, LocalDate.now());
     }
@@ -103,7 +106,6 @@ public class RecurringTaskManager {
             attemptCorrectYearlyRecurringTask(task, localDateCurrently, startDateInLocalDate, endDateInLocalDate);
             break;
         default:
-            assert false : "Recurring Type must always be specified";
             break;
         }
     }
@@ -221,7 +223,6 @@ public class RecurringTaskManager {
                     startDateInLocalDate, endDateInLocalDate);
             break;
         default:
-            assert false : "Failed to set recurring type";
             break;
         }
     }
@@ -353,7 +354,57 @@ public class RecurringTaskManager {
         }
         ((Task)taskDesc).decrementRecurringPeriod();
     }
+    
+    private void appendRecurringTaskWithPeriod(Task task) {
+        TaskOccurrence occurrence = task.getLastAppendedComponent();
+        if (task.getRecurringType().equals(RecurringType.NONE)
+                || task.getRecurringPeriod() == Task.NO_RECURRING_PERIOD) {
+            return;
+        }
+        Calendar startDate = new GregorianCalendar();
+        Calendar endDate = new GregorianCalendar();
+        startDate.setTime(occurrence.getStartDate().getDate());
+        endDate.setTime(occurrence.getEndDate().getDate());
+        if (!occurrence.getStartDate().isValid()) {
+            startDate = null;
+        }
+        while( task.getRecurringPeriod() != NO_MORE_RECURRING_PERIOD) {
+            switch (task.getRecurringType()) {
+                case DAILY:
+                    appendDailyRecurringTask(task, startDate, endDate);
+                    break;
+                case WEEKLY:
+                    appendWeeklyRecurringTask(task, startDate, endDate);
+                    break;
+                case MONTHLY:
+                    appendMonthlyRecurringTask(task, startDate, endDate);
+                    break;
+                case YEARLY:
+                    appendYearlyRecurringTask(task, startDate, endDate);
+                    break;
+                default:
+                    break;
+            }
+            ((Task)task).decrementRecurringPeriod();
+            occurrence = task.getLastAppendedComponent();
+            if (startDate != null) {
+                startDate.setTime(occurrence.getStartDate().getDate());
+            }
+            endDate.setTime(occurrence.getEndDate().getDate());
+        }
+    }
 
+    public void addTask(Task task) {
+        if (!isTestMode) {
+            correctOverdueNonRepeatingTasks(task);
+        }
+        appendRecurringTaskWithPeriod(task);        
+    }
+    
+    public void setTestMode(boolean isTestMode) {
+        this.isTestMode = isTestMode;
+    }
+    
     public static RecurringTaskManager getInstance() {
         if (instance == null) {
             instance = new RecurringTaskManager();

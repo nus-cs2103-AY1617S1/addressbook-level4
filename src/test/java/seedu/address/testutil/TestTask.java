@@ -70,6 +70,10 @@ public class TestTask extends Task implements ReadOnlyTask {
     public void setRecurringType(RecurringType type) {
         this.recurringType = type;
     }
+    
+    public void setRecurringPeriod(int period) {
+        this.recurringPeriod = period;
+    }
 
     @Override
     public Name getName() {
