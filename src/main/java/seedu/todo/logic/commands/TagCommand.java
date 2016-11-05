@@ -51,6 +51,7 @@ public class TagCommand extends BaseCommand {
     private static final String DESCRIPTION_DELETE_TAGS_TASK = "Remove tags from a task";
     private static final String DESCRIPTION_DELETE_TAGS = "Remove tags from all tasks";
     private static final String DESCRIPTION_RENAME_TAGS = "Rename a tag";
+    private static final String DESCRIPTION_RENAME_TAG_TASK = "Rename a tag from a task";
 
     private static final int INDEX_OFFSET = 1;
     private static final String ARGUMENTS_SHOW_TAGS = "";
@@ -58,6 +59,7 @@ public class TagCommand extends BaseCommand {
     private static final String ARGUMENTS_DELETE_TAGS_TASK = "index /d tag1 [, tag2, ...]";
     private static final String ARGUMENTS_DELETE_TAGS = "/d tag1 [, tag2, ...]";
     private static final String ARGUMENTS_RENAME_TAGS = "/r old_tag_name new_tag_name";
+    private static final String ARGUMENTS_RENAME_TAG_TASK = "index /r old_tag_name new_tag_name";
 
     /* Variables */
     private Argument<Integer> index = new IntArgument("index");
@@ -130,6 +132,7 @@ public class TagCommand extends BaseCommand {
             new CommandSummary(DESCRIPTION_ADD_TAGS, getCommandName(), ARGUMENTS_ADD_TAGS),
             new CommandSummary(DESCRIPTION_DELETE_TAGS_TASK, getCommandName(), ARGUMENTS_DELETE_TAGS_TASK),
             new CommandSummary(DESCRIPTION_DELETE_TAGS, getCommandName(), ARGUMENTS_DELETE_TAGS),
+            new CommandSummary(DESCRIPTION_RENAME_TAG_TASK, getCommandName(), ARGUMENTS_RENAME_TAG_TASK),
             new CommandSummary(DESCRIPTION_RENAME_TAGS, getCommandName(), ARGUMENTS_RENAME_TAGS)
         );
     }
