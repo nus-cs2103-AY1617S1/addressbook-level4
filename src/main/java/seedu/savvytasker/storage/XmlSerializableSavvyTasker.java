@@ -28,20 +28,19 @@ public class XmlSerializableSavvyTasker implements ReadOnlySavvyTasker {
     @XmlElement
     private List<XmlAdaptedAliasSymbol> symbols;
 
-    {
+    /**
+     * Empty constructor required for marshalling
+     */
+    public XmlSerializableSavvyTasker() {
         tasks = new ArrayList<>();
         symbols = new ArrayList<>();
     }
 
     /**
-     * Empty constructor required for marshalling
-     */
-    public XmlSerializableSavvyTasker() {}
-
-    /**
      * Conversion
      */
     public XmlSerializableSavvyTasker(ReadOnlySavvyTasker src) {
+        this();
         tasks.addAll(src.getReadOnlyListOfTasks().stream().map(XmlAdaptedTask::new).collect(Collectors.toList()));
         symbols.addAll(src.getReadOnlyListOfAliasSymbols().stream().map(XmlAdaptedAliasSymbol::new).collect(Collectors.toList()));
     }

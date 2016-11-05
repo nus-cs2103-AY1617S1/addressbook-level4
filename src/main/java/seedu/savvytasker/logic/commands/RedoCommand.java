@@ -10,8 +10,6 @@ public class RedoCommand extends Command {
 
     public static final String MESSAGE_REDO_ACKNOWLEDGEMENT = "Last command redone";
 
-    public RedoCommand() {}
-
     @Override
     public CommandResult execute() {
         return new CommandResult(MESSAGE_REDO_ACKNOWLEDGEMENT);

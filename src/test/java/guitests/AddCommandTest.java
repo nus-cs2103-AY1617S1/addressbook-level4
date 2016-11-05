@@ -20,6 +20,9 @@ import java.util.Locale;
 //@@author A0139915W
 public class AddCommandTest extends SavvyTaskerGuiTest {
 
+    private DateFormat formatter = DateFormat.getDateInstance(DateFormat.MEDIUM, Locale.getDefault());
+    private SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+
     @Test
     public void add() {
         //add one task
@@ -61,8 +64,7 @@ public class AddCommandTest extends SavvyTaskerGuiTest {
         TestTask[] expectedList = TestUtil.addTasksToList(currentList, taskToAdd);
         assertTrue(taskListPanel.isListMatching(expectedList));
     }
-
-    private DateFormat formatter = DateFormat.getDateInstance(DateFormat.MEDIUM, Locale.getDefault());
+    
     private String getLocaleDateString(Date date) {
         try {
             return formatter.format(date);
@@ -72,7 +74,6 @@ public class AddCommandTest extends SavvyTaskerGuiTest {
         return null;
     }
 
-    private SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
     private Date getDate(String ddmmyyyy) {
         try {
             return format.parse(ddmmyyyy);

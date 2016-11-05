@@ -1,7 +1,5 @@
 package seedu.savvytasker.ui;
 
-import java.util.Date;
-
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
@@ -11,7 +9,6 @@ import seedu.savvytasker.model.task.ReadOnlyTask;
 public class TaskCard extends UiPart{
 
     private static final String FXML = "TaskListCard.fxml";
-    private static final String EMPTY_FIELD = " - ";
     
     public static final String LOW_PRIORITY_BACKGROUND = "-fx-background-color:#CEFFDC";
     public static final String MEDIUM_PRIORITY_BACKGROUND = "-fx-background-color:#FFFED8";
@@ -28,10 +25,6 @@ public class TaskCard extends UiPart{
 
     private ReadOnlyTask task;
     private int displayedIndex;
-
-    public TaskCard(){
-
-    }
 
     public static TaskCard load(ReadOnlyTask task, int displayedIndex){
         TaskCard card = new TaskCard();

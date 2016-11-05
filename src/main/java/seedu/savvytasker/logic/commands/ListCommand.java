@@ -24,7 +24,6 @@ public class ListCommand extends ModelRequiringCommand {
     //@@author A0139915W
     /**
      * Creates the List command to list the specified tasks
-     * @author A0139915W
      * @param commandModel Arguments for the List command, must not be null
      */
     public ListCommand(ListType listType) {
@@ -43,9 +42,6 @@ public class ListCommand extends ModelRequiringCommand {
         // specifies to show the alias
         switch (_listType)
         {
-        case DueDate:
-            model.updateFilteredListToShowActiveSortedByDueDate();
-            break;
         case PriorityLevel:
             model.updateFilteredListToShowActiveSortedByPriorityLevel();
             break;
@@ -55,10 +51,13 @@ public class ListCommand extends ModelRequiringCommand {
         case Alias:
             EventsCenter.getInstance().post(new ChangeListRequestEvent(DisplayedList.Alias));
             break;
-        default:
-            // nothing to do
+        case DueDate:
+            // fall through.
+        default: // shows lists sorted by due date by default
+            model.updateFilteredListToShowActiveSortedByDueDate();
             break;
         }
+        
         if (_listType != ListType.Alias) {
             EventsCenter.getInstance().post(new ChangeListRequestEvent(DisplayedList.Task));
             return new CommandResult(getMessageForTaskListShownSummary(model.getFilteredTaskList().size()));

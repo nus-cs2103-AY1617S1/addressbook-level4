@@ -134,10 +134,7 @@ public class Task implements ReadOnlyTask {
     }
     
     private void setStartDate(InferredDate inferredDate) {
-        if (inferredDate == null) {
-            // user didn't specify s/
-            // keep existing start date
-        } else {
+        if (inferredDate != null) {
             if (inferredDate.isDateInferred() && inferredDate.isTimeInferred()) {
                 // user specified s/ but with nothing tagged to it
                 // remove existing start date
@@ -152,10 +149,7 @@ public class Task implements ReadOnlyTask {
     }
     
     private void setEndDate(InferredDate inferredDate) {
-        if (inferredDate == null) {
-            // user didn't specify e/
-            // keep existing end date
-        } else {
+        if (inferredDate != null) {
             if (inferredDate.isDateInferred() && inferredDate.isTimeInferred()) {
                 // user specified e/ but with nothing tagged to it
                 // remove existing end date
@@ -279,8 +273,11 @@ public class Task implements ReadOnlyTask {
     }
     
     public void setArchived(boolean isArchived) {
-        if (isArchived) mark();
-        else unmark();
+        if (isArchived) {
+            mark();
+        } else {
+            unmark();
+        }
     }
     
     /**

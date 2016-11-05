@@ -12,9 +12,6 @@ public class ClearCommand extends ModelRequiringCommand {
     public static final String MESSAGE_SUCCESS = "Savvy Tasker has been cleared!";
     
     private ReadOnlySavvyTasker original;
-    
-    public ClearCommand() {}
-
 
     @Override
     public CommandResult execute() {

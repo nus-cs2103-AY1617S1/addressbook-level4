@@ -3,7 +3,6 @@ package seedu.savvytasker.logic;
 import com.google.common.eventbus.Subscribe;
 
 import seedu.savvytasker.commons.core.EventsCenter;
-import seedu.savvytasker.commons.core.Messages;
 import seedu.savvytasker.commons.core.UnmodifiableObservableList;
 import seedu.savvytasker.commons.events.model.SavvyTaskerChangedEvent;
 import seedu.savvytasker.commons.events.ui.JumpToListRequestEvent;
@@ -49,7 +48,7 @@ public class LogicManagerTest {
     //These are for checking the correctness of the events raised
     private ReadOnlySavvyTasker latestSavedSavvyTasker;
     private boolean helpShown;
-    private int targetedJumpIndex;
+    //private int targetedJumpIndex;
 
     @Subscribe
     private void handleLocalModelChangedEvent(SavvyTaskerChangedEvent stce) {
@@ -63,7 +62,7 @@ public class LogicManagerTest {
 
     @Subscribe
     private void handleJumpToListRequestEvent(JumpToListRequestEvent je) {
-        targetedJumpIndex = je.targetIndex;
+        //targetedJumpIndex = je.targetIndex;
     }
 
     @Before
@@ -76,7 +75,7 @@ public class LogicManagerTest {
 
         latestSavedSavvyTasker = new SavvyTasker(model.getSavvyTasker()); // last saved assumed to be up to date before.
         helpShown = false;
-        targetedJumpIndex = -1; // non yet
+        //targetedJumpIndex = -1; // non yet
     }
 
     @After
@@ -196,12 +195,12 @@ public class LogicManagerTest {
         
         // the following commands outputs a different expected message dealing with
         // invalid indices.
-        expectedMessage = "Input: delete -1\n" + String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.COMMAND_FORMAT) + ": " + IndexParser.INDEX_MUST_BE_POSITIVE;
-        assertCommandBehavior(commandWord + " -1", expectedMessage); //index should be unsigned
-        expectedMessage = "Input: delete 0\n" + String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.COMMAND_FORMAT) + ": " + IndexParser.INDEX_MUST_BE_POSITIVE;
-        assertCommandBehavior(commandWord + " 0", expectedMessage); //index cannot be 0
-        expectedMessage = "Input: delete not_a_number\n" + String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.COMMAND_FORMAT) + ": " + IndexParser.INDEX_MUST_BE_POSITIVE;
-        assertCommandBehavior(commandWord + " not_a_number", expectedMessage);
+        String newExpectedMessage = "Input: delete -1\n" + String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.COMMAND_FORMAT) + ": " + IndexParser.INDEX_MUST_BE_POSITIVE;
+        assertCommandBehavior(commandWord + " -1", newExpectedMessage); //index should be unsigned
+        newExpectedMessage = "Input: delete 0\n" + String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.COMMAND_FORMAT) + ": " + IndexParser.INDEX_MUST_BE_POSITIVE;
+        assertCommandBehavior(commandWord + " 0", newExpectedMessage); //index cannot be 0
+        newExpectedMessage = "Input: delete not_a_number\n" + String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.COMMAND_FORMAT) + ": " + IndexParser.INDEX_MUST_BE_POSITIVE;
+        assertCommandBehavior(commandWord + " not_a_number", newExpectedMessage);
     }
 
     /**
