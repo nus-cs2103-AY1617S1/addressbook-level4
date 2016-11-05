@@ -603,23 +603,6 @@ Use case ends.
 > 3b1. Application will show an error message.
 Use case ends.
 
-#### Use case: Change theme of the Application
-
-**MSS**
-
-1. User requests to change the theme of the application.
-2. Application shows a list of available themes.
-3. User request the specific theme in the list.
-4. Application change the theme. <br>
-Use case ends.  
-
-**Extensions**  
-
-3a. The given index is invalid.
-
-> 3a1. Application shows an error message.  
-  Use case ends.
-
 
 ## Appendix C : Non Functional Requirements
 
