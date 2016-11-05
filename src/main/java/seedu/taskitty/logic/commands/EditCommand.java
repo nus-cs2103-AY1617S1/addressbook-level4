@@ -153,8 +153,10 @@ public class EditCommand extends Command {
                             new TaskDate(data[Task.EVENT_COMPONENT_INDEX_END_DATE]),
                             new TaskTime(data[Task.EVENT_COMPONENT_INDEX_END_TIME])),
                     new UniqueTagList(tagSet));
-            if (taskToEdit.getIsDone()) {
+            if (taskToEdit.getIsDone() && !DateTimeUtil.isOverdue((Task)taskToEdit)) { // event was marked as done by user manually
                 this.toEdit.markAsDone();
+            } else if (DateTimeUtil.isOverdue(this.toEdit)) {
+                    this.toEdit.markAsDone();
             }
         }
         return emptyOptional();
