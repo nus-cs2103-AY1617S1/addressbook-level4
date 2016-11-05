@@ -53,7 +53,8 @@ public class SelectCommand extends Command {
         }
 
         EventsCenter.getInstance().post(new JumpToListRequestEvent(targetIndex - 1));
-        return new CommandResult(String.format(MESSAGE_SELECT_TASK_SUCCESS, targetIndex));
+        ReadOnlyTask selectedTask = lastShownList.get(targetIndex - 1);
+        return new CommandResult(String.format(MESSAGE_SELECT_TASK_SUCCESS, selectedTask.toString()));
 
     }
 

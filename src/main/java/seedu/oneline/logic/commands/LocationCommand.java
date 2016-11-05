@@ -58,12 +58,17 @@ public class LocationCommand extends Command {
             return new CommandResult(String.format(MESSAGE_SET_STORAGE_FAILURE_PATH_INVALID, storageLocation));
         } else {
             Path actualPath = path.get();
+            String message = null;
             if (!isDirectory(actualPath)) {
-                return new CommandResult(String.format(MESSAGE_SET_STORAGE_FAILURE_NOT_DIRECTORY, actualPath.toAbsolutePath()));
+                message = MESSAGE_SET_STORAGE_FAILURE_NOT_DIRECTORY;
             } else if (!isReadable(actualPath)) {
-                return new CommandResult(String.format(MESSAGE_SET_STORAGE_FAILURE_CANNOT_READ, actualPath.toAbsolutePath()));
+                message = MESSAGE_SET_STORAGE_FAILURE_CANNOT_READ;
             } else if (!isWritable(actualPath)) {
-                return new CommandResult(String.format(MESSAGE_SET_STORAGE_FAILURE_CANNOT_WRITE, actualPath.toAbsolutePath()));
+                message = MESSAGE_SET_STORAGE_FAILURE_CANNOT_WRITE;
+            }
+            if (message != null) {
+                return new CommandResult(
+                        String.format(message, actualPath.toAbsolutePath()));
             }
         }
         Path actualPath = path.get();

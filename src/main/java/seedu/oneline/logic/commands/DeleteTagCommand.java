@@ -21,7 +21,7 @@ public class DeleteTagCommand extends DeleteCommand {
     public static DeleteTagCommand createFromArgs(String args) throws IllegalValueException {
         String tagName = args.substring(1);
         if (!Tag.isValidTagName(tagName)) {
-            throw new IllegalValueException(Tag.MESSAGE_TAG_CONSTRAINTS + " : " + args);
+            throw new IllegalValueException(Tag.MESSAGE_TAG_CONSTRAINTS);
         } else {
             return new DeleteTagCommand(tagName);
         }

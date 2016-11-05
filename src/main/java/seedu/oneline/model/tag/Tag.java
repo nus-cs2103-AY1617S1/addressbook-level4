@@ -26,7 +26,7 @@ public class Tag {
 
     public static final Tag EMPTY_TAG = createEmptyTag();
     
-    public String tagName = "";
+    private String tagName = "";
 
     public static final Map<String, Tag> allTags = new HashMap<String, Tag>();
     
@@ -47,7 +47,7 @@ public class Tag {
         assert name != null;
         name = name.trim();
         if (!isValidTagName(name)) {
-            throw new IllegalValueException(MESSAGE_TAG_CONSTRAINTS + " : " + name);
+            throw new IllegalValueException(MESSAGE_TAG_CONSTRAINTS);
         }
         this.tagName = name;
     }

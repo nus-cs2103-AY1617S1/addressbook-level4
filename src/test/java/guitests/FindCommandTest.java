@@ -14,7 +14,7 @@ import static org.junit.Assert.assertTrue;
 public class FindCommandTest extends TaskBookGuiTest {
 
     @Test
-    public void find_nonEmptyList() {
+    public void findCommand_nonEmptyList_correctResults() {
         assertFindResult("find NotPartOfName"); //no results
         assertFindResult("find Consolidate", TypicalTestTasks.todo2, TypicalTestTasks.float1); //multiple results
 
@@ -29,13 +29,13 @@ public class FindCommandTest extends TaskBookGuiTest {
     }
 
     @Test
-    public void find_emptyList(){
+    public void findCommand_emptyList_correctResults(){
         commandBox.runCommand("clear");
         assertFindResult("find NotATask"); //no results
     }
 
     @Test
-    public void find_invalidCommand_fail() {
+    public void findCommand_invalidCommand_unknownMessage() {
         commandBox.runCommand("findtask");
         assertResultMessage(Messages.MESSAGE_UNKNOWN_COMMAND);
     }

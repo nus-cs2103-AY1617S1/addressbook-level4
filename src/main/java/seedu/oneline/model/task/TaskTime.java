@@ -30,13 +30,7 @@ public class TaskTime implements Comparable<TaskTime> {
     public TaskTime(String time) throws IllegalValueException {
         assert time != null;
         time = time.trim();
-
-        if (time.isEmpty()){
-            // represent an empty tasktime with a null value field
-            value = null;
-        } else {        
-            value = getDate(time);
-        }
+        value = time.isEmpty() ? null : getDate(time);
     }
     
     /**
@@ -142,7 +136,7 @@ public class TaskTime implements Comparable<TaskTime> {
     }
 
     /**
-     * compare task time by the date it represents
+     * Compares task time by the date it represents
      */
     @Override
     public int compareTo(TaskTime o) {
