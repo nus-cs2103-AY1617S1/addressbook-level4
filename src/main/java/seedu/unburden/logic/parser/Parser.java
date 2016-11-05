@@ -248,25 +248,12 @@ public class Parser {
 				return new AddCommand("deadline without task description and time", details,
 						getTagsFromArgs(matcher4.group("tagArguments")));
 
-			} /*else if (matcher5.matches()) {
-				details.add(matcher5.group("name"));
-				details.add(matcher5.group("endTimeArguments"));
-				return new AddCommand("deadline without task description and date", details,
-						getTagsFromArgs(matcher5.group("tagArguments")));
-
-			} else if (matcher6.matches()) {
-				details.add(matcher6.group("name"));
-				details.add(matcher6.group("taskDescriptions"));
-				details.add(matcher6.group("endTimeArguments"));
-				return new AddCommand("deadline without date", details,
-						getTagsFromArgs(matcher6.group("tagArguments")));
-
-			}*/ else if (matcher5.matches()) {
+			}else if (matcher5.matches()) { //Matcher for deadline with description and date
 				details.add(matcher5.group("name"));
 				details.add(matcher5.group("taskDescriptions"));
 				details.add(matcher5.group("date"));
 				return new AddCommand("deadline without time", details,
-						getTagsFromArgs(matcher7.group("tagArguments")));
+						getTagsFromArgs(matcher5.group("tagArguments")));
 
 			} else if (matcher6.matches()) { // Matcher for floating task with
 												// description

@@ -181,12 +181,10 @@ public class LogicManagerTest {
 	public void execute_add_deadline() throws Exception {
 		TestDataHelper helper = new TestDataHelper();
 		Task t1 = helper.generateDeadlineTask("Hi hi", "bye bye", "11-10-2016", "bored");
-		Task t2 = helper.generateDeadlineTask("Hello", "Hello1", "12-12-2016", "Words");
 		ListOfTask expectedAB = new ListOfTask();
 		expectedAB.addTask(t1);
-		expectedAB.addTask(t2);
 
-		assertCommandBehavior(helper.generateAddCommand(t2), String.format(AddCommand.MESSAGE_SUCCESS, t2), expectedAB,
+		assertCommandBehavior("add Hi hi i/bye bye d/11-10-2016 t/bored", String.format(AddCommand.MESSAGE_SUCCESS, t1), expectedAB,
 				expectedAB.getTaskList());
 
 	}
@@ -196,12 +194,10 @@ public class LogicManagerTest {
 	public void execute_add_floatingTask() throws Exception {
 		TestDataHelper helper = new TestDataHelper();
 		Task t1 = helper.generateFloatingTask("I'm so tired", "I haven't sleep", "sleep");
-		Task t2 = helper.generateFloatingTask("I need to study", "I want to find a job", "finals");
 		ListOfTask expectedAB = new ListOfTask();
 		expectedAB.addTask(t1);
-		expectedAB.addTask(t2);
 
-		assertCommandBehavior(helper.generateAddCommand(t2), String.format(AddCommand.MESSAGE_SUCCESS, t2), expectedAB,
+		assertCommandBehavior("Add I'm so tired i/I havent' sleep t/sleep", String.format(AddCommand.MESSAGE_SUCCESS, t1), expectedAB,
 				expectedAB.getTaskList());
 	}
 
