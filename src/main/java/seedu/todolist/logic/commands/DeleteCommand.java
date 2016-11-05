@@ -31,24 +31,12 @@ public class DeleteCommand extends Command {
     //@@author A0138601M
     @Override
     public CommandResult execute() {
-        UnmodifiableObservableList<ReadOnlyTask> lastShownList = null;
-        
-        if (model.getCurrentTab().equals(MainWindow.TAB_TASK_COMPLETE)) {
-            lastShownList = model.getFilteredCompleteTaskList();
-        }
-        else {
-            lastShownList = model.getFilteredIncompleteTaskList();
-        }
-        
+        UnmodifiableObservableList<ReadOnlyTask> lastShownList = getLastShownList();       
         if (!isValidIndexes(lastShownList, targetIndexes)) {
             return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }   
         
-        ReadOnlyTask[] tasksToDelete = new ReadOnlyTask[targetIndexes.length];
-        for (int i = 0; i < targetIndexes.length; i++) {
-            tasksToDelete[i] = lastShownList.get(targetIndexes[i] - 1);         
-        }
-        
+        ReadOnlyTask[] tasksToDelete = getAllTaskToDelete(lastShownList);        
         try {
             model.deleteTask(tasksToDelete);
         } catch (TaskNotFoundException tnfe) {
@@ -57,8 +45,30 @@ public class DeleteCommand extends Command {
         
         return new CommandResult(MESSAGE_DELETE_TASK_SUCCESS);
     }
-    //@@author
     
+    /**
+     * Get the last shown listing from the selected tab
+     */
+    private UnmodifiableObservableList<ReadOnlyTask> getLastShownList() {
+        if (model.getCurrentTab().equals(MainWindow.TAB_TASK_COMPLETE)) {
+            return model.getFilteredCompleteTaskList();
+        } else {
+            return model.getFilteredIncompleteTaskList();
+        }
+    }
+    
+    /**
+     * Returns an array of ReadOnlyTask selected using the indexes in the last shown list
+     */
+    private ReadOnlyTask[] getAllTaskToDelete(UnmodifiableObservableList<ReadOnlyTask> lastShownList) {
+        ReadOnlyTask[] tasksToDelete = new ReadOnlyTask[targetIndexes.length];
+        for (int i = 0; i < targetIndexes.length; i++) {
+            tasksToDelete[i] = lastShownList.get(targetIndexes[i] - 1);         
+        }
+        return tasksToDelete;
+    }
+    
+    //@@author
     private boolean isValidIndexes(UnmodifiableObservableList<ReadOnlyTask> lastShownList, int[] targetIndex) {
         for (int index : targetIndexes) {
             if (lastShownList.size() < index) {
@@ -68,5 +78,4 @@ public class DeleteCommand extends Command {
         }
         return true;
     }
-
 }
