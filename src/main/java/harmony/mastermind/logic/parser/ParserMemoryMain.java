@@ -29,7 +29,7 @@ public class ParserMemoryMain {
     protected static final int BY = 2;
     protected static final int DEADLINE = 1;
     
-    protected static String command; 
+    public static String command; 
     protected static String taskName; 
     protected static String description; 
     
@@ -38,8 +38,8 @@ public class ParserMemoryMain {
     protected static int type;
     protected static int length; 
     
-    protected static boolean containsDescription; 
-    protected static boolean setProper;
+    public static boolean containsDescription; 
+    public static boolean setProper;
     
     private static int day;
     private static int month; 
@@ -68,27 +68,47 @@ public class ParserMemoryMain {
     }
     
     //@@author A0143378Y
-    protected static void setDescription(String newDescription) { 
+    public static String getTaskName() { 
+        return taskName;
+    }
+    
+    //@@author A0143378Y
+    public static void setDescription(String newDescription) { 
         description = newDescription;
     }
     
+    //@@author A0143378Y
+    public static String getDescription() { 
+        return description;
+    }
+    
     //@@author A0143378Y 
-    protected static void setLength(int newLength) { 
+    public static void setLength(int newLength) { 
         length = newLength;
     }
     
     //@@author A0143378Y
-    protected static void setType(int newType) {
-        type = newType;
+    public static int getLength() { 
+        return length;
     }
     
     //@@author A0143378Y
-    protected static void setContainsDescription(boolean cd) { 
+    public static void setType(int newType) {
+        type = newType;
+    }
+    
+    //@@author A0143378Y 
+    public static int getType() { 
+        return type;
+    }
+    
+    //@@author A0143378Y
+    public static void setContainsDescription(boolean cd) { 
         containsDescription = cd;
     }
     
     //@@author A0143378Y
-    protected static void setProper(boolean sp) { 
+    public static void setProper(boolean sp) { 
         setProper = sp;
     }
     
@@ -97,7 +117,7 @@ public class ParserMemoryMain {
      * Set date to a calendar object setEvent
      * If set, return true.
      */
-    protected static boolean setDate(String date, Calendar setEvent) { 
+    public static boolean setDate(String date, Calendar setEvent) { 
         boolean isValid = false;
         
         initialiseDate();
@@ -109,7 +129,7 @@ public class ParserMemoryMain {
     }
     
     //@@author A0143378Y
-    protected static boolean setTime(String time, Calendar setEvent) { 
+    public static boolean setTime(String time, Calendar setEvent) { 
         int newTime = INT_INVALID;
         int hour = 23, minute = 59; 
         boolean isValid = false;
@@ -171,7 +191,7 @@ public class ParserMemoryMain {
     /*
      * Returns true if user command is an empty string or contains symbols only
      */
-    protected static Boolean isUselessCommand(String input){
+    public static Boolean isUselessCommand(String input){
 
         if(reduceToIntAndChar(input).length()==0){
             return true;
@@ -217,12 +237,12 @@ public class ParserMemoryMain {
     }
     
     //@@author A0143378Y
-    protected static String reduceToInt(String name){
+    public static String reduceToInt(String name){
         return name.replaceAll("[^0-9]", "");
     }
     
     //@@author A0143378Y
-    protected static String reduceToIntAndChar(String name){
+    public static String reduceToIntAndChar(String name){
         return name.replaceAll("[^a-zA-Z0-9]", "");
     }   
     

@@ -15,7 +15,7 @@ import harmony.mastermind.logic.commands.*;
 import harmony.mastermind.memory.GenericMemory;
 import harmony.mastermind.memory.Memory;
 
-public class ParserSearch extends Parser{
+public class ParserSearch extends ParserMemoryMain {
     
     private static final String SEARCHING_FOR_TERM = "Searching for term";
 
@@ -31,28 +31,12 @@ public class ParserSearch extends Parser{
 
     private static Calendar dateTime;
     
-    protected static String command;
-    protected static boolean setProper;
-    protected static int type;
-    protected static int length;
-    
-    protected static final int INVALID_INT = -1;
-    
-    private static int day;
-    private static int month;
-    private static int year;
-
-    
     //@author A0143378Y
     public static void run(String command, Memory memory){
         initVar();
         setCommand(command);
         search(memory);
         
-    }
-    
-    private static void setCommand(String newCommand) {
-        command = newCommand;       
     }
 
     //@author A0143378Y
@@ -64,24 +48,6 @@ public class ParserSearch extends Parser{
         setType(-1);
         setLength(-1);
         setProper(true);
-    }
-    
-    //@author A0143378Y
-    private static void setProper(boolean sp) {
-        setProper = sp;
-        
-    }
-    
-    //@author A0143378Y
-    private static void setLength(int newLength) {
-        length = newLength;
-        
-    }
-
-    //@author A0143378Y
-    private static void setType(int newType) {
-        type = newType;
-        
     }
     
     //@author A0143378Y
@@ -123,21 +89,6 @@ public class ParserSearch extends Parser{
         }
     }
 
-    /*
-     * Set date to a calendar object setEvent
-     * If set, returns true.
-     */
-    protected static boolean setDate(String date, Calendar setEvent){
-        boolean isValid = false;
-        
-        initialiseDate();
-        getDate(date);
-        
-        isValid = setDateIfContainDDMMYY(day, month, year, setEvent);
-    
-        return isValid;
-    }
-
     //@author A0143378Y
     /*
      * Takes in command and memory
@@ -173,25 +124,6 @@ public class ParserSearch extends Parser{
             System.out.println(ERROR_INVALID_COMMAND);
         }
     }
-
-    //@author A0143378Y
-    /*
-     * set dates
-     * If day and month are appropriate, returns true
-     */
-    private static boolean setDateIfContainDDMMYY(int day, int mth, int yr, Calendar setEvent){
-        int year = 2000 + yr;
-        int month = mth -1;
-        if(!(invalidMonth(month)||invalidDay(day))){
-            setEvent.set(Calendar.DATE, day);
-            setEvent.set(Calendar.MONTH, month);
-            setEvent.set(Calendar.YEAR, year);
-            return true;
-        }else{
-            return false;
-        }
-
-    }
     
     //@author A0143378Y
     /*
@@ -225,91 +157,6 @@ public class ParserSearch extends Parser{
     private static void searchDate(Memory memory) {
         ArrayList<GenericMemory> findResult = FindCommand.findDate(dateTime, memory);
         displayResult(findResult, ERROR_SEARCH_FOR_DATE, SEARCH_DATE_RESULT);
-        
-    }
-
-    //@author A0143378Y
-    /*
-     * returns true is day is 0 or greater than 31 
-     */
-    private static boolean invalidDay(int day){
-        return (day<=0||day>31);
-    }
-
-    private static boolean invalidMonth(int month){
-        return (month<0||month>11);
-    }
-
-    //@author A0143378Y
-    /*
-     * Check the format the date is in
-     * dd/mm/yy or dd-mm-yy and parse accordingly
-     */
-    protected static void getDate(String date){       
-        if(date.contains("/")){
-            getInt("/", date);
-            
-        }else if(date.contains("-")){
-            getInt("-", date);
-            
-        }
-    }
-    
-    //@author A0143378Y
-    /*
-     * Parse the date string with the symbol "/" or "-"
-     */
-    protected static void getInt(String symbol, String date){
-        
-        String[] details = date.split(symbol);
-        
-        boolean dateIsNumeric = true;
-        
-        //Check that date has all 3 component: day, month and year
-        if(details.length == 3){
-            dateIsNumeric = checkIfDateIsNumeric(details);
-        }
-            
-        if(dateIsNumeric){
-            setDDMMYY(details);
-        }
-    }
-
-    //@author A0143378Y
-    private static void setDDMMYY(String[] details){
-        day = Integer.parseInt(details[0]);
-        month = Integer.parseInt(details[1]);
-        year = Integer.parseInt(details[2]);
-    }
-
-    private static boolean checkIfDateIsNumeric(String[] details){
-        for(int i = 0; i < 3; i++ ){
-            if(!isNumeric(details[i])){
-                return false;
-            }
-        }
-        
-        return true;
-    }
-
-    //@author A0143378Y
-    /*
-     * Checks if string contains number only
-     * Returns true if it does
-     */
-    protected static boolean isNumeric(String temp){
-        try{
-            Integer.parseInt(temp);
-        }catch(NumberFormatException e){
-            return false;
-        }
-        return true;
-    }
-
-    private static void initialiseDate() {
-        day = INVALID_INT;
-        month = INVALID_INT;
-        year = INVALID_INT;
         
     }
 }
