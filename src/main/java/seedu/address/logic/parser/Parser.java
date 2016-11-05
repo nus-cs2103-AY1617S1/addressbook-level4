@@ -55,7 +55,7 @@ public class Parser {
 	private static final Pattern EDIT_ARGS_FORMAT = Pattern.compile(
 			"(?<index>\\d+)\\s+(?<editTaskArgs>.+)"); 
 	private static final Pattern ADD_ALIAS_COMMAND_FORMAT = Pattern
-			.compile("\\s*'(?<alias>(\\s*\\S+)+)\\s*'\\s*=\\s*'(?<originalPhrase>(\\s*\\S+)+)\\s*'\\s*");
+			.compile("\\s*(?<alias>(\\s*\\S+)+)\\s*=\\s*(?<originalPhrase>(\\s*\\S+)+)\\s*");
 	//@@author A0143756Y
 	private static final Pattern SET_STORAGE_ARGS_FORMAT = Pattern.compile
 			("(?<folderFilePath>(\\s*[^\\s+])+)\\s+save-as\\s+(?<fileName>(\\s*[^\\s+])+)");
@@ -75,6 +75,8 @@ public class Parser {
 	//@@author A0141019U-reused
 	public Command parseCommand(String userInput) {
 		String replacedInput = replaceAliases(userInput);
+		
+		System.out.println("replaced: " + replacedInput);
 		
 		final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(replacedInput.trim());
 		if (!matcher.matches()) {
@@ -144,7 +146,11 @@ public class Parser {
 	//@@author A0141019U	
 	private String replaceAliases(String userInput) {
 		Pair<String, String> separatedInput = separateNameAndArgs(userInput);
-		String textInQuotes = separatedInput.getKey();
+		String textInQuotes = separatedInput.getKey().trim();
+		if (!textInQuotes.equals("")) {
+			textInQuotes = "'" + textInQuotes + "'";
+		}
+		
 		String inputWithNameRemoved = separatedInput.getValue();
 		
 		List<ReadOnlyAlias> aliasList = this.model.getFilteredAliasList();
@@ -160,14 +166,14 @@ public class Parser {
 			String alias = aliases.get(i);
 			String original = originals.get(i);
 			
-			// Does not replace arguments in find command or within quotes			
+			// Does not replace arguments in find command, any alias commands or within quotes			
 			if (inputWithNameRemoved.contains(alias) 
-					&& !inputWithNameRemoved.contains("find")) {
+					&& !(inputWithNameRemoved.contains("find") || inputWithNameRemoved.contains("-alias"))) {
 				inputWithNameRemoved = inputWithNameRemoved.replace(alias, original);
 			}
 		}		
 		
-		return inputWithNameRemoved + "'" + textInQuotes + "'";
+		return inputWithNameRemoved + textInQuotes;
 	}
 	
 	

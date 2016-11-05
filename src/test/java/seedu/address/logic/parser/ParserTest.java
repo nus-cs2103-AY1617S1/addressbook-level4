@@ -496,8 +496,8 @@ public class ParserTest {
 	}
 	
 	@Test
-	public void parseCommand_addAliasNoQuotes_incorrectCommandReturned() {
-		String userInput = "add-alias ld=list done";
+	public void parseCommand_addAliasQuotes_incorrectCommandReturned() {
+		String userInput = "add-alias 'ld'='list done'";
 		Command command = parser.parseCommand(userInput);
 
 		assertEquals(incorrectCommand.getClass(), command.getClass());
@@ -505,7 +505,7 @@ public class ParserTest {
 	
 	@Test
 	public void parseCommand_addAliasValid_addAliasCommandReturned() {
-		String userInput = "add-alias 'ld'='list done'";
+		String userInput = "add-alias ld=list done";
 		Command command = parser.parseCommand(userInput);
 
 		assertEquals(addAliasCommand.getClass(), command.getClass());
