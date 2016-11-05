@@ -77,6 +77,7 @@ public class CommandUtil {
      * ==========================================================
      */
     
+    /** Creating near match dictionaries up to two edit distances, for command words. */
     private void populateCommandWordsNearMatches() {
         assert cmdStubList != null && allCmdWords != null;
         cmdWordNearMatches = new HashMap<String, Set<String>>();

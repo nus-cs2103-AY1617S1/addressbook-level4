@@ -120,6 +120,7 @@ public class StringUtil {
      * method that extracts the first word of a string.
      */
     public static String getFirstWord(String text) {
+        assert src != null;
         String trimmed = new String(text.trim());
         if (trimmed.indexOf(' ') > -1) { // Check if there is more than one word.
             return trimmed.substring(0, trimmed.indexOf(' ')); // Extract first word.
@@ -140,6 +141,7 @@ public class StringUtil {
         if (!(src.contains(query) || query.contains(src))) {
             return false;
         }
+        // Validating substring length percentage, returns true if above given allowance.
         return (double) Math.min(src.length(), query.length())
                 / (double) Math.max(src.length(), query.length()) >= SUBSTRING_ALLOWANCE;
     }
@@ -159,13 +161,16 @@ class Dictionary {
         return joined;
     }
     
+    /** Generates a one edit distance dictionary of {@code src}. */
     public static Set<String> generateOneEditDistanceDict(String src) {
+        assert src != null;
         return Dictionary.join(generateExtraChar(src), generateMissingChar(src), generateReplacedChar(src),
                 generateTransposedChar(src));
     }
     
     /** Generates a dictionary of strings that have two transposed characters from {@code src}. */
     public static Set<String> generateTransposedChar(String src) {
+        assert src != null;
         Set<String> dictionary = new HashSet<String>();
         StringBuilder sb = new StringBuilder(src);
         for (int i = 0; i < src.length() - 1; i++) {
@@ -182,6 +187,7 @@ class Dictionary {
     
     /** Generates a dictionary of strings that differ by one character from {@code src}. */
     public static Set<String> generateReplacedChar(String src) {
+        assert src != null;
         Set<String> dictionary = new HashSet<String>();
         StringBuilder sb = new StringBuilder(src);
         for (int i = 0; i < src.length(); i++) {
@@ -197,6 +203,7 @@ class Dictionary {
 
     /** Generates a dictionary of strings that are missing a letter from {@code src}. */
     public static Set<String> generateMissingChar(String src) {
+        assert src != null;
         return IntStream.range(0, src.length()) 
                 .mapToObj(i -> src.substring(0, i) + src.substring(i + 1)) // Removing character at idx i.
                 .collect(Collectors.toSet());
@@ -204,6 +211,7 @@ class Dictionary {
     
     /** Generates a dictionary of strings that have one extra character from {@code src}. */
     public static Set<String> generateExtraChar(String src) {
+        assert src != null;
         Set<String> dictionary = new HashSet<String>();
         StringBuilder sb = new StringBuilder(src);
         for (int i = 0; i <= src.length(); i++) {
