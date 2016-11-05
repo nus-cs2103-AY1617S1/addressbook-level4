@@ -21,4 +21,9 @@ public class ParserMemoryMain {
     public static String getCommand() { 
         return command;
     }
+    
+    //@@author A0143378Y
+    public static void setCommand(String newCommand) { 
+        command = newCommand;
+    }
 }
