@@ -158,19 +158,18 @@ public class Parser {
             
             String start = getStartFromArgs(StringUtil.removeTagsFromString(name));
             if (!start.isEmpty()) {
-                name = name.replaceAll("start " + start, "");
+                name = name.substring(0, name.lastIndexOf("start")).trim();
                 hasStart = true;
             }
             
-            String end = getEndFromArgs(StringUtil.removeTagsFromString(name));
+            String end = getEndFromArgs(StringUtil.removeTagsFromString(args));
             if (!end.isEmpty()) {
-                name = name.replaceAll("end " + end, "");
                 hasEnd = true;
             }
             
             String deadline = getDeadlineFromArgs(StringUtil.removeTagsFromString(name));
             if (!deadline.isEmpty()) {
-                name = name.replaceAll("by " + deadline, "");
+                name = name.substring(0, name.lastIndexOf("by")).trim();
             }
             if (!deadline.isEmpty() && !hasStart && !hasEnd) {
                 return new AddCommand(
