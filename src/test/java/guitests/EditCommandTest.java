@@ -5,6 +5,7 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
+import seedu.task.commons.core.Messages;
 import seedu.task.testutil.TestTask;
 import seedu.task.testutil.TypicalTestTasks;
 
@@ -27,6 +28,17 @@ public class EditCommandTest extends TaskManagerGuiTest {
         commandBox.runCommand("undo");
         
         assertEditSuccess(1, TypicalTestTasks.taskJ, currentList);
+        
+        //@@author A0152958R
+        commandBox.runCommand("clear");
+        commandBox.runCommand("add task");
+        
+        commandBox.runCommand("edit 2 name, new task");
+        assertResultMessage(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
+        
+        commandBox.runCommand("edit 1 start, i don't know what it is");
+        assertResultMessage(Messages.MESSAGE_INVALID_TIME_FORMAT);
+        
         
     }
 

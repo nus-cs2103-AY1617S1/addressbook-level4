@@ -205,7 +205,7 @@ public class LogicManagerTest {
         expectedAB.addTask(toBeAdded);
 
         // setup starting state
-        model.addTask(toBeAdded); // task already in internal address book
+        model.addTask(toBeAdded); // task already in internal task manager
 
         // execute command and verify result
         assertCommandBehavior(
@@ -278,7 +278,7 @@ public class LogicManagerTest {
     }
 
     @Test
-    public void execute_select_jumpsToCorrectPerson() throws Exception {
+    public void execute_select_jumpsToCorrectTask() throws Exception {
         TestDataHelper helper = new TestDataHelper();
         List<Task> threeTasks = helper.generateTaskList(3);
 
@@ -306,7 +306,7 @@ public class LogicManagerTest {
     }
 
     @Test
-    public void execute_delete_removesCorrectPerson() throws Exception {
+    public void execute_delete_removesCorrectTask() throws Exception {
         TestDataHelper helper = new TestDataHelper();
         List<Task> threeTasks = helper.generateTaskList(3);
 
@@ -406,7 +406,7 @@ public class LogicManagerTest {
 
         /**
          * Generates a valid task using the given seed.
-         * Running this function with the same parameter values guarantees the returned person will have the same state.
+         * Running this function with the same parameter values guarantees the returned task will have the same state.
          * Each unique seed will generate a unique Task object.
          *
          * @param seed used to generate the task data field values
