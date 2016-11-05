@@ -133,7 +133,7 @@ public class ModelManager extends ComponentManager implements Model {
     
   //@@author A0125284H A0131813R
   	@Override
-  	public UnmodifiableObservableList<ReadOnlyTask> getFilteredOverdueTaskList() {
+  	public UnmodifiableObservableList<ReadOnlyActivity> getFilteredOverdueTaskList() {
   		
   		FilteredList<Activity> filteredOverdueTaskList = new FilteredList<>(addressBook.getAllEntries());
   		System.out.println("Size before filtering :" + filteredOverdueTaskList.size());
@@ -144,11 +144,11 @@ public class ModelManager extends ComponentManager implements Model {
   		FilteredList<Task> anotherList = (FilteredList<Task>) new FilteredList<>((ObservableList<? extends ReadOnlyTask>) filteredOverdueTaskList);
   		
   		anotherList.setPredicate(p->
-  		p.hasPassedDueDate() == true);
+  		p.getCompletionStatus() == false && p.hasPassedDueDate() == true);
 
   		System.out.println("Size after filtering :" + anotherList.size());
   		
-  		return new UnmodifiableObservableList<ReadOnlyTask>((ObservableList<? extends ReadOnlyTask>) anotherList);
+  		return new UnmodifiableObservableList<ReadOnlyActivity>(anotherList);
   	}
   	
   //@@author A0131813R
