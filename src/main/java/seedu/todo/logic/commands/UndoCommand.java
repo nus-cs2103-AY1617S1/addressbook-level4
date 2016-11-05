@@ -8,7 +8,7 @@ public class UndoCommand extends Command {
 
     public static final String COMMAND_WORD = "undo";
 
-    public static final String MESSAGE_SUCCESS = "Undo the previous command";
+    public static final String MESSAGE_SUCCESS = "Undoes the previous command.";
     public static final String MESSAGE_NO_PREVIOUS_STATE = "There is no previous state to return to.";
 
     public UndoCommand() {}

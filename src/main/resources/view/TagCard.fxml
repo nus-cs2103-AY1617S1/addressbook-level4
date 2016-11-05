@@ -10,14 +10,14 @@
 
 <HBox fx:id="cardPane" maxWidth="143.0" minHeight="26.0" prefHeight="36.0" prefWidth="143.0" style="-fx-border-radius: 10;" stylesheets="@DarkTheme.css" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1">
     <children>
-      <Text fx:id="tags" strokeType="OUTSIDE" strokeWidth="0.0" text="\$tags" translateX="5.0">
+      <Text fx:id="tags" strokeType="OUTSIDE" strokeWidth="0.0" text="\$tags" translateX="5.0" wrappingWidth="101.71234130859375">
          <font>
             <Font size="20.0" />
          </font>
          <HBox.margin>
             <Insets left="5.0" />
          </HBox.margin></Text>
-      <Text fx:id="tasksCount" strokeType="OUTSIDE" strokeWidth="0.0" text="\$numtasks" textAlignment="RIGHT" translateX="65.0" translateY="3.0" wrappingWidth="37.27960205078125">
+      <Text fx:id="tasksCount" strokeType="OUTSIDE" strokeWidth="0.0" text="\$numtasks" textAlignment="RIGHT" translateY="3.0" wrappingWidth="37.27960205078125">
          <font>
             <Font size="20.0" />
          </font></Text>

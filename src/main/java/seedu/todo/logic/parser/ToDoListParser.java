@@ -390,7 +390,7 @@ public class ToDoListParser {
         String tempArgs = args.trim(); 
        
         if (tempArgs.isEmpty()) {
-            return new SearchCommand("", SearchCommand.SearchCompletedOption.ALL, SearchCommand.SearchIndex.ALL);
+            return new SearchCommand("", SearchCommand.SearchCompletedOption.ALL, SearchCommand.SearchIndex.UNDONE);
         }
         
         Matcher matcher;        
@@ -427,7 +427,7 @@ public class ToDoListParser {
                 } else if (p.equals(ParserFormats.SEARCH_KEYWORDS_ARGS_FORMAT) 
                             && tempArgs.indexOf("tag") != ParserFormats.FIRST_INDEX
                             && tempArgs.indexOf("priority") != ParserFormats.FIRST_INDEX 
-                            && tempArgs.indexOf("undone") != ParserFormats.FIRST_INDEX 
+                            && tempArgs.indexOf("all") != ParserFormats.FIRST_INDEX 
                             && tempArgs.indexOf("done") != ParserFormats.FIRST_INDEX) {
                     return new SearchCommand(matcher.group("keywords"), 
                                              option,
@@ -449,8 +449,8 @@ public class ToDoListParser {
             return new SearchCommand(tempArgs, SearchCompletedOption.ALL, SearchCommand.SearchIndex.DONE);
         }
 
-        if (tempArgs.indexOf("undone") == ParserFormats.FIRST_INDEX) {
-            return new SearchCommand(tempArgs, SearchCompletedOption.ALL, SearchCommand.SearchIndex.UNDONE);
+        if (tempArgs.indexOf("all") == ParserFormats.FIRST_INDEX) {
+            return new SearchCommand("", SearchCompletedOption.ALL, SearchCommand.SearchIndex.ALL);
         }
         
         return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SearchCommand.MESSAGE_USAGE));

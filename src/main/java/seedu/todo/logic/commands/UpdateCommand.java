@@ -28,8 +28,9 @@ public class UpdateCommand extends Command {
             + "Parameters: ID [NEW_NAME] [[-]on DATE [tTime]] [[-]by DATE [tTime]] [[-]; a line of new details]\n"
             + "Example: " + COMMAND_WORD + " 2 on 14/10/2017 by 18/10/2017 ";
 
-    public static final String MESSAGE_UPDATE_TASK_SUCCESS = "Update Task: %1$s";
-    public static final String MESSAGE_INVALID_DATE_RANGE = "Cannot have on date later than by date";
+    public static final String MESSAGE_UPDATE_TASK_SUCCESS = "Update Task at Index: %1$d\n%2$s";
+    public static final String MESSAGE_INVALID_DATE_RANGE = "You entered a starting date later than the ending date.\n"
+            + "Please ensure that the starting date is earlier than the ending date.";
     
     private final int targetIndex;
     
@@ -100,7 +101,7 @@ public class UpdateCommand extends Command {
             model.updateFilteredListToShowAllNotCompleted();
             model.updateTodayListToShowAll(); 
             model.updateWeekListToShowAll();
-            return new CommandResult(String.format(MESSAGE_UPDATE_TASK_SUCCESS, newTask));
+            return new CommandResult(String.format(MESSAGE_UPDATE_TASK_SUCCESS, targetIndex, newTask));
             
         } catch (TaskNotFoundException pnfe) {
             return new CommandResult(Messages.MESSAGE_TASK_NOT_FOUND);

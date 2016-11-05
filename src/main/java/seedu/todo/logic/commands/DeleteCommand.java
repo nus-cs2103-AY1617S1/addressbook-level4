@@ -17,7 +17,7 @@ public class DeleteCommand extends Command {
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_DELETE_TASK_SUCCESS = "Deleted Task: Name : %1$s";
+    public static final String MESSAGE_DELETE_TASK_SUCCESS = "Deleted Task at Index: %1$d\nName : %2$s";
 
     public final int targetIndex;
 
@@ -50,7 +50,7 @@ public class DeleteCommand extends Command {
             return new CommandResult(Messages.MESSAGE_TASK_NOT_FOUND);
         }
 
-        return new CommandResult(String.format(MESSAGE_DELETE_TASK_SUCCESS, taskToDelete.getName()));
+        return new CommandResult(String.format(MESSAGE_DELETE_TASK_SUCCESS, targetIndex, taskToDelete));
     }
 
 }

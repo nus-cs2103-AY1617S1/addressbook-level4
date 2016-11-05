@@ -17,7 +17,10 @@ import java.time.LocalDateTime;
  */
 public class TaskDate {
 
-    public static final String MESSAGE_DATETIME_CONSTRAINTS = "Tasks' dates and time need to follow predefined format.";
+    public static final String MESSAGE_DATETIME_CONSTRAINTS = "Do-Do Bird is unable to recognise the date and time you entered.\n"
+            + "Please try again! You can refer to our help manual for acceptable date and time formats.\n"
+            + "Type 'help' to launch the help manual.";
+    
     
     public static final String TASK_DATE_ON = "START";
     public static final String TASK_DATE_BY = "END";

@@ -15,14 +15,15 @@ public class AddCommand extends Command {
 
     public static final String COMMAND_WORD = "add";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task to the to do list. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task to the to do list.\n"
             + "Parameters: TASKNAME on STARTDATE by ENDDATE priority PRIORITY every RECURRENCE; DETAILS...\n"
             + "Example: " + COMMAND_WORD
             + " get groceries on 10/10/2016 by 11/10/2016 ; bread, fruits, cinnamon powder, red pepper";
 
-    public static final String MESSAGE_SUCCESS = "New task added! Name : %1$s";
+    public static final String MESSAGE_SUCCESS = "New task added!\n%1$s";
     public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the to do list";
-    public static final String MESSAGE_INVALID_DATE_RANGE = "Cannot have on date later than by date";
+    public static final String MESSAGE_INVALID_DATE_RANGE = "You entered a starting date later than the ending date.\n"
+            + "Please ensure that the starting date is earlier than the ending date.";
     
     private final Task toAdd;
     
@@ -47,6 +48,7 @@ public class AddCommand extends Command {
         if (!DateTimeUtil.beforeOther(onDate, byDate)) {
             throw new IllegalValueException(MESSAGE_INVALID_DATE_RANGE);
         }
+        
         this.toAdd = new Task(
                 new Name(name),
                 new Detail(detail),

@@ -96,7 +96,7 @@ public class ParserFormats {
     public static final Pattern SEARCH_PRIORITY = Pattern
             .compile("priority (?<priority>.+)(?<comOpt> done|all|undone)?", Pattern.CASE_INSENSITIVE);
     
-  //@@author A0093896H 
+    //@@author A0093896H 
     public static final Pattern UPDATE_TASK_ARGS_FORMAT = Pattern
             .compile("(?<name>[^/]*?)? "
                       + "?((^| )((on|from) (?<onDateTime>[^;]+?)?"
@@ -104,8 +104,5 @@ public class ParserFormats {
                       + "|priority (?<priority>[^;]+?)"
                       + "|every (?<rec>[^;]+?)))*?"
                       + "(?: ?;(?<detail>.+))?$", Pattern.CASE_INSENSITIVE);
-
-    public static final Pattern RECURRENCE_WEEK_DAY = Pattern
-            .compile("every (monday|tuesday|wednesday|thursday|friday|saturday|sunday|mon|tue|wed|thurs|fri|sat|sun)");
     
 }

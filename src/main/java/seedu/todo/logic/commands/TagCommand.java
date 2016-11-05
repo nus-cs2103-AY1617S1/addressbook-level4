@@ -19,11 +19,11 @@ public class TagCommand extends Command{
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Tags the task identified by the index number used in the last task listing. "
-            + "Tag name must be unique\n"
+            + "Tag names must be unique.\n"
             + "Parameters: INDEX TAGNAME [MORE TAGNAMES]\n"
             + "Example: " + COMMAND_WORD + " 1 birthday clique";
 
-    public static final String MESSAGE_SUCCESS = "Tagged Task: Name : %1$s";
+    public static final String MESSAGE_SUCCESS = "Tagged Task at Index: %1$d\n%2$s";
 
     public final int targetIndex;
     public final UniqueTagList tags;
@@ -31,11 +31,7 @@ public class TagCommand extends Command{
     public TagCommand(int targetIndex, String tagNames) throws IllegalValueException {
 
         this.targetIndex = targetIndex;
-        
-        if (tagNames.isEmpty()) {
-            throw new IllegalValueException("Tag Names cannot be empty");
-        }
-        
+       
         tags = new UniqueTagList();
         for (String tagName : tagNames.trim().split(" ")) {
             tags.add(new Tag(tagName));
@@ -70,7 +66,7 @@ public class TagCommand extends Command{
             return new CommandResult(Messages.MESSAGE_TASK_NOT_FOUND);
         }
         
-        return new CommandResult(String.format(MESSAGE_SUCCESS, taskToTag.getName()));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, targetIndex, taskToTag));
     }
     
     

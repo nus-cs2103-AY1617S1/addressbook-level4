@@ -20,7 +20,7 @@ public class MarkCommand extends Command {
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_SUCCESS = "Mark Task: Name : %1$s";
+    public static final String MESSAGE_SUCCESS = "Mark Task at Index: %1$d\n%2$s";
 
     public final int targetIndex;
 
@@ -64,6 +64,6 @@ public class MarkCommand extends Command {
             return new CommandResult(Messages.MESSAGE_TASK_NOT_FOUND);
         } 
 
-        return new CommandResult(String.format(MESSAGE_SUCCESS, taskToMark.getName()));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, targetIndex, taskToMark));
     }
 }

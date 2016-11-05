@@ -15,7 +15,7 @@ public class StoreCommand extends Command {
 
     public static final String COMMAND_WORD = "store";
 
-    public static final String MESSAGE_SUCCESS = "Change storage location !";
+    public static final String MESSAGE_SUCCESS = "Change storage location! New location is at: %1$s";
     
     public static final String MESSAGE_SAVE_ERROR = "Unable to save to new location.";
     
@@ -45,7 +45,7 @@ public class StoreCommand extends Command {
             try {
                 config.updateToDoListFilePath(tempLocation);
                 storage.updateToDoListFilePath(tempLocation, model.getToDoList());
-                return new CommandResult(MESSAGE_SUCCESS);
+                return new CommandResult(String.format(MESSAGE_SUCCESS, tempLocation));
                 
             } catch (IOException e){
                 config.setToDoListFilePath(defaultLocation);
