@@ -35,26 +35,30 @@
 > * Items with `...` after them can have multiple instances.
 > * The order of parameters is fixed.
 > * The following format of DATE/TIME is recognised: 2016-10-24 12pm, Oct 24th noon, day after tomorrow 3pm, next wed.
-> * If one of the field of year, month, day or time is not specified, the default is current date/time.
+> * If one of the field of year, month, day or time is not specified, the default is current year/month/day/time.
 
 #### Viewing help : `help`
 Format: `help`
 
 > Help is also shown if you enter an incorrect command e.g. `abcd`
- 
+
+ <!--- @@author A0129595N --->
 #### Adding a task: `add`
 Adds a task to the to-do list<br>
-There are three types of tasks that can be added in Malitio<br>
-Namely Floating Task, Deadline and Event. Floating Task are tasks which have no due dates.<br>
-Floating Task Format: `add TASK_NAME [t/TAG] [p/priority]`<br>
-Deadline Format: `add TASK_NAME by DATE/TIME [t/TAG] [p/priority]`<br>
-Event Format: `add TASK_NAME start DATE/TIME end DATE/TIME [t/TAG]`
+There are three types of tasks that can be added in Malitio: To-Do, Deadline and Event.<br>
+Alphanumeric (alphabets and/or numbers) tags can be added.<br>
 
+Floating Task Format: `add TASK_NAME [t/TAG]`<br>
+Deadline Format: `add TASK_NAME by DATE/TIME [t/TAG]`<br>
+Event Format: `add TASK_NAME start DATE/TIME end DATE/TIME [t/TAG]`<br>
+Note: TASK_NAME cannot contain any of the following key words: "by", "start" and "end".<br>
 
 Examples: 
-* `add drink water p/high`
-* `add CS2103 homework by 09-10 1100  p/high`
-* `add lunch with mom start 05-10 1400 end 05-10 1700 t/don’t be late`
+* `add drink water t/healthy`
+* `add CS2103 homework by 09-10 1100`
+* `add buy present for friend by tomorrow`
+* `add lunch with mom start 05-10 1400 end 05-10 1700 t/dontbelate t/restaurant`
+* `add wedding dinner start this sat 6pm end this sat 10pm t/buypresent`
 
 <!--- @@author A0153006W --->
 
@@ -130,7 +134,7 @@ Edits the specified task from the to-do list.<br>
 Edit Floating Task Format: `edit 'f'INDEX [TASK_NAME] [t/TAG]`<br>
 Edit Deadline Format: `edit 'd'INDEX [TASK_NAME] [by DATE/TIME] [t/TAG]` <br>
 Edit Event Format `edit 'e'INDEX [TASK_NAME] [start DATE/TIME] [end DATE/TIME]` <br>
-To remove all tags from a task without adding new ones, use the parameter: t/null <br>
+To remove all tags from a task, use the parameter: t/null <br>
 
 
 > Edits the task at the specified `INDEX` with the given one or more parameters.
@@ -140,13 +144,15 @@ To remove all tags from a task without adding new ones, use the parameter: t/nul
   The prefix is not case sensitive. <br>
   The edit function can only edit the details within the same type of task. <br>
   No changing of task type supported. <br>
+  Editting the tags will result in a replacement of all tags. <br>
 
 Examples: 
   `edit e1 end 12-21 2359` <br>
-  Edit the 1st event in the to-do list replacing its original end time with 12-21 2359. <br>
-  `edit 1 n/lunch with mom`<br>
+  Edits the 1st event in the to-do list replacing its original end time with 12-21 2359. <br>
+  `edit f1 lunch with mom`<br>
   Edits the 1st task in the results of the `find` or ‘ command.<br>
-  Need to put at least one field
+  `edit d2 t/wedding t/love`
+  Edits the 2nd deadline tags by replacing existing tags with 'wedding' and 'love'.<br>
 <!--- @@author --->
 
 <!--- @@author A0122460W--->
@@ -165,7 +171,7 @@ Examples:
 * `complete d1`<br>
   Complete the 1st deadline in Malitio.
   
-#### Uncompleting a floating task or deadline: `complete`
+#### Uncompleting a floating task or deadline: `uncomplete`
 complete the specified floating task or deadline from Malitio by unstriking out them.<br>
 Format: `uncomplete f/d+INDEX`
 
@@ -212,13 +218,13 @@ Examples:
 <!--- @@author A0129595N --->
 #### Undo the most recent action: `undo`
 Undo the most recent data-related command and reverts Malitio to previous state. <br>
-Data-related commands include add, delete, edit and clear. <br>
+Data-related commands include add, delete, edit, clear, mark, unmark, complete, uncomplete. <br>
 Format: `undo`
 
 #### Redo the most recent action: `redo`
 Redo the most recent data-related command and reverts Malitio to previous state before undo. <br>
 Redo will no longer be possible after a new data-related command is executed. <br>
-Data-related commands include add, delete, edit and clear. <br>
+Data-related commands include add, delete, edit, clear, mark, unmark, complete, uncomplete. <br>
 Format: `redo`
 
 <!--- @@author --->
