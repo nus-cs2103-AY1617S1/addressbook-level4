@@ -24,6 +24,7 @@ public class TagColor {
     public static final String MESSAGE_COLOR_CONSTRAINTS = "Valid colors: <white, red, orange, yellow, green, blue, purple>";
     
     public TagColor(String color) throws IllegalValueException {
+        color = color.trim().toLowerCase();
         if (!isValidColor(color)) {
             throw new IllegalValueException(MESSAGE_COLOR_CONSTRAINTS);
         }
@@ -31,7 +32,8 @@ public class TagColor {
     }
     
     public static boolean isValidColor(String color) {
-        return colorValues.containsKey(color);
+        color = color.trim().toLowerCase();
+        return colorValues.containsKey(color.toLowerCase());
     }
     
     public static TagColor getDefault() {

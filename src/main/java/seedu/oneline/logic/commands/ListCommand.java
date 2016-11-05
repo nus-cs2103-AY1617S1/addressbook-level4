@@ -43,21 +43,20 @@ public class ListCommand extends Command {
     }
 
     public static ListCommand createFromArgs(String args) throws IllegalValueException, IllegalCmdArgsException {
-        String listBy = " ";
         args = args.trim();
-        if(!args.isEmpty()){
-            if (args.startsWith(CommandConstants.TAG_PREFIX)){
-                return ListTagCommand.createFromArgs(args);
-            } else {
-                args.toLowerCase();
-                Set<String> keywords = Parser.getKeywordsFromArgs(args);
-                if (keywords == null) {
-                    throw new IllegalCmdArgsException(Messages.getInvalidCommandFormatMessage(MESSAGE_INVALID));
-                }
-                Iterator<String> iter = keywords.iterator();
-                listBy = iter.next();
-            }
+        if (args.isEmpty()) {
+            return new ListCommand(" ");
         }
+        if (args.startsWith(CommandConstants.TAG_PREFIX)){
+            return ListTagCommand.createFromArgs(args);
+        }
+        args.toLowerCase();
+        Set<String> keywords = Parser.getKeywordsFromArgs(args);
+        if (keywords == null) {
+            throw new IllegalCmdArgsException(Messages.getInvalidCommandFormatMessage(MESSAGE_INVALID));
+        }
+        Iterator<String> iter = keywords.iterator();
+        String listBy = iter.next();
         return new ListCommand(listBy);
     }
     

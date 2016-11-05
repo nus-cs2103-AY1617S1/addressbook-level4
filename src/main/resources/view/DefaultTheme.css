@@ -56,7 +56,7 @@
 }
 
 .text-field.error {
-    -fx-background-color: #ff6565;
+    -fx-background-color: #ffcccc;
     -fx-text-box-border: #f48687;
     -fx-focus-color: #f48687;
 }

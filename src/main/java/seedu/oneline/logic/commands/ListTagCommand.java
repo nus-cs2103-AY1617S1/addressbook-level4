@@ -24,7 +24,7 @@ public class ListTagCommand extends ListCommand {
     public static ListTagCommand createFromArgs(String tag) throws IllegalValueException {
         String tagName = tag.substring(1);
         if (!Tag.isValidTagName(tagName)) {
-            throw new IllegalValueException(Tag.MESSAGE_TAG_CONSTRAINTS + " : " + tag);
+            throw new IllegalValueException(Tag.MESSAGE_TAG_CONSTRAINTS);
         } else {
             return new ListTagCommand(tagName);
         }

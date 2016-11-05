@@ -26,9 +26,14 @@ public class ConfigTest {
     }
 
     @Test
-    public void equalsMethod(){
+    public void equalsMethod_nullObject_returnFalse(){
         Config defaultConfig = new Config();
         assertFalse(defaultConfig.equals(null));
+    }
+
+    @Test
+    public void equalsMethod_selfObject_returnTrue(){
+        Config defaultConfig = new Config();
         assertTrue(defaultConfig.equals(defaultConfig));
     }
 

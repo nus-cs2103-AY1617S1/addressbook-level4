@@ -50,7 +50,7 @@ public class StorageManagerTest {
      */
 
     @Test
-    public void prefsReadSave() throws Exception {
+    public void prefsReadSave_preferences_prefsSavedLoadedCorrectly() throws Exception {
         UserPrefs original = new UserPrefs();
         original.setGuiSettings(300, 600, 4, 6);
         storageManager.saveUserPrefs(original);
@@ -59,7 +59,7 @@ public class StorageManagerTest {
     }
 
     @Test
-    public void taskBookReadSave() throws Exception {
+    public void taskBookReadSave_taskbook_taskBookSavedLoadedCorrectly() throws Exception {
         TaskBook original = new TypicalTestTasks().getTypicalTaskBook();
         storageManager.saveTaskBook(original);
         ReadOnlyTaskBook retrieved = storageManager.readTaskBook().get();
@@ -68,7 +68,7 @@ public class StorageManagerTest {
     }
 
     @Test
-    public void getTaskBookFilePath(){
+    public void getTaskBookFilePath_storageManager_nonNullPath(){
         assertNotNull(storageManager.getTaskBookFilePath());
     }
 

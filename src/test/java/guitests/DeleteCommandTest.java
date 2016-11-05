@@ -13,27 +13,36 @@ import static seedu.oneline.logic.commands.DeleteCommand.MESSAGE_DELETE_TASK_SUC
 public class DeleteCommandTest extends TaskBookGuiTest {
 
     @Test
-    public void delete() {
-
-        //delete the first in the list
+    public void deleteCommand_deleteTaskAtStart_success() {
         TestTask[] currentList = td.getTypicalTasks();
+        Arrays.sort(currentList);
         int targetIndex = 1;
         assertDeleteSuccess(targetIndex, currentList);
-
+    }
+    
+    @Test
+    public void deleteCommand_deleteTaskAtEnd_success() {
         //delete the last in the list
-        currentList = TestUtil.removeTaskFromList(currentList, targetIndex);
-        targetIndex = currentList.length;
+        TestTask[] currentList = td.getTypicalTasks();
+        Arrays.sort(currentList);
+        int targetIndex = currentList.length;
         assertDeleteSuccess(targetIndex, currentList);
-
-        //delete from the middle of the list
-        currentList = TestUtil.removeTaskFromList(currentList, targetIndex);
-        targetIndex = currentList.length/2;
+    }
+    
+    @Test
+    public void deleteCommand_deleteTaskInMiddle_success() {
+        TestTask[] currentList = td.getTypicalTasks();
+        Arrays.sort(currentList);
+        int targetIndex = currentList.length / 2;
         assertDeleteSuccess(targetIndex, currentList);
-
-        //invalid index
+    }
+    
+    @Test
+    public void deleteCommand_invalidIndex_errorMessage() {
+        TestTask[] currentList = td.getTypicalTasks();
+        Arrays.sort(currentList);
         commandBox.runCommand("del " + currentList.length + 1);
         assertResultMessage(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
-
     }
 
     /**
