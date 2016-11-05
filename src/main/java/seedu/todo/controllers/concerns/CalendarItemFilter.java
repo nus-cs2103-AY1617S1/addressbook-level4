@@ -36,6 +36,27 @@ public class CalendarItemFilter {
         return tokenDefinitions;
     }
     
+    /**
+     * Returns a boolean array of {isTask, isEvent} which specifies if we should
+     * filter tasks, events or both.
+     * 
+     * If there is no eventType specified, we will filter both.
+     * 
+     * @param parsedResult
+     * @return {isTask, isEvent}
+     */
+    public static boolean[] parseIsTaskEvent(Map<String, String[]> parsedResult) {
+        if (parsedResult.get("eventType") != null) {
+            return new boolean[] { true, true };
+        } else if (parsedResult.get("eventType")[0].equals("task")
+                || parsedResult.get("eventType")[0].equals("tasks")) {
+            return new boolean[] { true, false };
+        } else {
+            return new boolean[] { false, true };
+        }
+    }
+    
+    
     public static List<Task> filterTasks(Map<String, String[]> parsedResult) throws InvalidNaturalDateException {
         List<Predicate<Task>> taskPredicates = new ArrayList<Predicate<Task>>();
         
