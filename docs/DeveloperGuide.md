@@ -161,8 +161,8 @@ of loggers and handlers (for output of log messages)
 
     - You can control the logging level by using the `logLevel` setting in the configuration file 
       (See [Configuration](#3-2-configuration))
-    - You can also obtain the `Logger` for a class by using `LogsCenter.getLogger(Class)` which logs messages according to 
-      the specified logging level
+    - You can also obtain the `Logger` for a class by using `LogsCenter.getLogger(Class)` which logs messages according
+      to the specified logging level
     - You can see the current log messages through: `Console` and `.log`
 
 **Logging Levels**
@@ -190,15 +190,16 @@ There are several different logging levels based on the severity that you have t
 
 &nbsp;&nbsp;&nbsp;&nbsp;<b>4.2 Configuration</b>
 
-You can control certain properties of sTask (e.g App name, logging level) through the configuration file 
-(default: `config.json`)
+You can control certain properties of sTask (e.g App name, logging level) through the configuration file (default: `config.json`)
 
 
 ## 5. Testing
 
+In this section, we will elaborate more about the test suite that we have used during development.
+
 **In Eclipse**: 
-> If you are not using a recent Eclipse version (i.e. _Neon_ or later), enable assertions in JUnit tests
-  as described [here](http://stackoverflow.com/questions/2522897/eclipse-junit-ea-vm-option).
+> If you are not using a recent Eclipse version (i.e. _Neon_ or later), please ensure that you enable assertions in 
+  JUnit tests as described [here](http://stackoverflow.com/questions/2522897/eclipse-junit-ea-vm-option).
 
 * To run all tests, right-click on the `src/test/java` folder and choose 
   `Run as` > `JUnit Test`
@@ -215,37 +216,38 @@ Tests can be found in the `./src/test/java` folder.
        
 > **Non-GUI Tests** - These are tests not involving the GUI. They include: <br>
 
-    1 Unit tests targeting the lowest level methods/classes. e.g. `seedu.address.commons.UrlUtilTest`
-    2 Integration tests that are checking the integration of multiple code units (those code units are assumed to be working). e.g. `seedu.address.storage.StorageManagerTest`
-    3 Hybrids of unit and integration tests. These test are checking multiple code units as well as  how the are connected together. e.g. `seedu.address.logic.LogicManagerTest`
+    1 Unit tests targeting the lowest level methods/classes. e.g. `seedu.stask.commons.UrlUtilTest`
+    2 Integration tests that are checking the integration of multiple code units (those code units are assumed to be working). e.g. `seedu.stask.storage.StorageManagerTest`
+    3 Hybrids of unit and integration tests. These test are checking multiple code units as well as  how the are connected together. e.g. `seedu.stask.logic.LogicManagerTest`
   
 **Headless GUI Testing** :
 Thanks to the ([TestFX](https://github.com/TestFX/TestFX)) library we use,
- our GUI tests can be run in the _headless_ mode. 
- In the headless mode, GUI tests do not show up on the screen.
- That means the developer can do other things on the Computer while the tests are running.<br> <br>
+ you can run the GUI tests in the _headless_ mode. 
+ In this mode, GUI tests do not show up on the screen.
+ That means that you can do other things on the Computer while the tests are running.<br> <br>
  See [UsingGradle.md](UsingGradle.md#running-tests) to learn how to run tests in headless mode.
   
-## 5. Continuous Integration
+## 6. Continuous Integration
 
 We use [Travis CI](https://travis-ci.org/) to perform _Continuous Integration_ on our projects.
 See [UsingTravis.md](UsingTravis.md) for more details.
 
-## 6. Making a Release
+## 7. Making a Release
 
-Here are the steps to create a new release.
+If you want to make a new release, follow the steps given below.
  
     1. Generate a JAR file [using Gradle](UsingGradle.md#creating-the-jar-file).
-    2. Tag the repo with the version number. e.g. `v0.1`
+    2. Tag the repository with the version number. e.g. `v0.1`
     3. [Crete a new release using GitHub](https://help.github.com/articles/creating-releases/) 
     and upload the JAR file your created.
    
-## 7. Managing Dependencies
+## 8. Managing Dependencies
 
-A project often depends on third party libraries. For example, sTask depends on the 
-[Jackson library](http://wiki.fasterxml.com/JacksonHome) for XML parsing. Managing these _dependencies_
-can be automated using Gradle. For example, Gradle can download the dependencies automatically, which
-is better than these alternatives.<br>
+As you may have noticed, a project often depends on third party libraries. sTask depends on the 
+[Jackson library](http://wiki.fasterxml.com/JacksonHome) for XML parsing. We also use Natty to
+process the date and time inputs from the users. Managing these _dependencies_ can be automated
+using Gradle. For example, Gradle can download the dependencies automatically, which is better
+than these alternatives.<br>
 
     1. Include those libraries in the repo (this bloats the repo size)<br>
     2. Require developers to download those libraries manually (this creates extra work for developers)
