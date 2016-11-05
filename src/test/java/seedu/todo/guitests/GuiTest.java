@@ -1,9 +1,7 @@
 package seedu.todo.guitests;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertNotNull;
-import static seedu.todo.testutil.AssertUtil.assertSameDate;
+import static org.junit.Assert.*;
+import static seedu.todo.testutil.AssertUtil.*;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -108,6 +106,8 @@ public abstract class GuiTest {
      * Utility method for testing if task has been successfully added to the GUI.
      * This runs a command and checks if TaskList contains TaskListTaskItem that matches
      * the task that was just added.
+     * 
+     * Assumption: No two events can have the same name in this test.
      */
     protected void assertTaskVisibleAfterCmd(String command, Task taskToAdd) {
         // Run the command in the console.
@@ -126,13 +126,15 @@ public abstract class GuiTest {
         
         // Check TaskListDateItem if it contains the TaskListTaskItem with the same data.
         TaskListTaskItemHandle taskItem = dateItem.getTaskListTaskItem(taskToAdd.getName());
-        assertEquals(taskItem.getName(), taskToAdd.getName());
+        assertSameTaskName(taskToAdd, taskItem);
     }
 
     /**
      * Utility method for testing if event has been successfully added to the GUI.
      * This runs a command and checks if TaskList contains TaskListEventItem that matches
      * the task that was just added.
+     * 
+     * Assumption: No two events can have the same name in this test.
      * 
      * TODO: Check event dates if they match.
      */
@@ -149,17 +151,16 @@ public abstract class GuiTest {
         
         // Check TaskList if it contains a TaskListDateItem with the date of the event start date.
         TaskListDateItemHandle dateItem = taskList.getTaskListDateItem(eventStartDate);
-        assertNotNull(dateItem);
         assertSameDate(eventStartDate, dateItem);
         
         // Check TaskListDateItem if it contains the TaskListEventItem with the same data.
         TaskListEventItemHandle eventItem = dateItem.getTaskListEventItem(eventToAdd.getName());
-        assertNotNull(eventItem);
-        assertEquals(eventItem.getName(), eventToAdd.getName());
+        assertSameEventName(eventToAdd, eventItem);
     }
 
     /**
      * Utility method for testing if event does not appear in the GUI after a command.
+     * Assumption: No two events can have the same name in this test.
      */
     protected void assertEventNotVisibleAfterCmd(String command, Event eventToAdd) {
         // Run the command in the console.
@@ -175,11 +176,12 @@ public abstract class GuiTest {
         // Gets the date item that might contain the event
         TaskListDateItemHandle dateItem = taskList.getTaskListDateItem(eventStartDate);
         
-        // It's fine if there's not date item, because it's not visible.
+        // It's fine if there's no date item, because it's not visible.
         if (dateItem == null) {
             return;
         }
         
+        // If there's a date item, then we make sure that there isn't an event in the date item with the same name.
         TaskListEventItemHandle eventItem = dateItem.getTaskListEventItem(eventToAdd.getName());
         assertNull(eventItem);
     }

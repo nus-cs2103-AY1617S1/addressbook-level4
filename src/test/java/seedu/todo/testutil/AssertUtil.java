@@ -17,19 +17,20 @@ public class AssertUtil {
     
     public static void assertSameDate(LocalDate dateToTest, TaskListDateItemHandle dateItemHandle) {
         assertNotNull(dateToTest);
+        assertNotNull(dateItemHandle);
         assertNotNull(dateItemHandle.getDate());
         assertTrue(dateItemHandle.getDate().isEqual(dateToTest));
     }
     
     public static void assertSameTaskName(Task taskToTest, TaskListTaskItemHandle taskItemHandle) {
         assertNotNull(taskToTest);
-        assertNotNull(taskItemHandle.getName());
+        assertNotNull(taskItemHandle);
         assertEquals(taskItemHandle.getName(), taskToTest.getName());
     }
 
     public static void assertSameEventName(Event eventToTest, TaskListEventItemHandle eventItemHandle) {
         assertNotNull(eventToTest);
-        assertNotNull(eventItemHandle.getName());
+        assertNotNull(eventItemHandle);
         assertEquals(eventItemHandle.getName(), eventToTest.getName());
     }
     
