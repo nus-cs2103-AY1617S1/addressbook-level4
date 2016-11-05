@@ -287,28 +287,12 @@ public class TaskListPanel extends UiPart {
 
         addAutoScroll(taskTable);
 
-        setEventHandlerForSelectionChangeEvent();
-
     }
 
     private void addToPlaceholder() {
         SplitPane.setResizableWithParent(placeHolderPane, false);
 
         placeHolderPane.getChildren().add(panel);
-
-    }
-
-    private void setEventHandlerForSelectionChangeEvent() {
-        taskTable.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue != null) {
-                TableViewSelectionModel selectionModel = taskTable.getSelectionModel();
-                ObservableList selectedCells = selectionModel.getSelectedCells();
-                TablePosition tablePosition = (TablePosition) selectedCells.get(0);
-                Object val = tablePosition.getTableColumn().getCellData(newValue);
-                System.out.println("Selected Value" + val);
-
-            }
-        });
 
     }
 
