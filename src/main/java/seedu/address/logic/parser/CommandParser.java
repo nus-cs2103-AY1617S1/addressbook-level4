@@ -228,7 +228,7 @@ public class CommandParser {
     private Command prepareDelete(String args) {
 
         Optional<List<Integer>> indexes = parseIndexes(args);
-        if(!indexes.isPresent()){
+        if (!indexes.isPresent()) {
             return new IncorrectCommand(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
         }
@@ -246,7 +246,7 @@ public class CommandParser {
     private Command prepareDone(String args) {
 
         Optional<List<Integer>> indexes = parseIndexes(args);
-        if(!indexes.isPresent()){
+        if (!indexes.isPresent()) {
             return new IncorrectCommand(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, DoneCommand.MESSAGE_USAGE));
         }

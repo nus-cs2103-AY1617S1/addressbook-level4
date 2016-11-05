@@ -2,7 +2,6 @@ package seedu.address.logic.commands;
 
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -10,14 +9,14 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.commons.exceptions.TaskNotRecurringException;
-import seedu.address.commons.util.StringUtil;
+import seedu.address.commons.util.ListUtil;
 import seedu.address.model.item.ReadOnlyTask;
 import seedu.address.model.item.Task;
 import seedu.address.model.item.UniqueTaskList.TaskNotFoundException;
 
 //@@author A0139498J
 /**
- * Archives a task identified using its last displayed index from the task manager.
+ * Archives task identified using its last displayed index from the task manager.
  */
 public class DoneCommand extends UndoableCommand {
     
@@ -31,10 +30,13 @@ public class DoneCommand extends UndoableCommand {
             + "Example: " + COMMAND_WORD + " 1";
     
     //@author A0093960X
+    public static final String MESSAGE_DONE_TASK_SUCCESS = "Archived Task: %1$s";
+    public static final String MESSAGE_DONE_TASKS_SUCCESS = "Archived Tasks: %1$s";
+    public static final String MESSAGE_FAILURE = "Failed to archive Task.";
+
+    //@author
     public static final String TOOL_TIP = "done INDEX [ANOTHER_INDEX ...]";
 
-    public static final String MESSAGE_DONE_ITEM_SUCCESS = "Archived Task: %1$s";
-    public static final String MESSAGE_DONE_ITEMS_SUCCESS = "Archived Tasks: %1$s";
     public static final String MESSAGE_DONE_UNDO_SUCCESS = "Undid archive tasks! Tasks restored to undone list!";
     public static final String MESSAGE_DONE_UNDO_SOME_FAILURE = "The following tasks were unable to be undone: %1$s";
     
@@ -43,11 +45,9 @@ public class DoneCommand extends UndoableCommand {
     
     //@@author A0139498J
     private final List<Integer> targetIndexes;
-    private List<Task> doneTasks;
-    private int adjustmentForRemovedTask;
+    private List<Task> targetTasks;
     private boolean isViewingDoneList;
 
-    
     public DoneCommand(List<Integer> targetIndexes) {
         assert targetIndexes != null;
         this.targetIndexes = targetIndexes;
@@ -55,80 +55,153 @@ public class DoneCommand extends UndoableCommand {
 
     @Override
     public CommandResult execute() {
-        
         assert model != null;
         prepareToArchiveTasks(); 
 
+        
+        prepareToArchiveTasks();
         if (attemptToExecuteDoneOnDoneList()) {
-            logger.warning("Invalid command, cannot do done command on done list.");
-            indicateAttemptToExecuteIncorrectCommand();
-            return new CommandResult(String.format(Messages.MESSAGE_DONE_LIST_RESTRICTION));
+            return generateCommandResultForDoneListRestriction();
         }
         
-        //TODO: Lin Han to do.
+        initialiseTargetTasksToArchiveFromTargetIndexes();
         try {
-            archiveTasksFromGivenTargetIndexes();
-        } catch (TaskNotRecurringException e) {
-            return new CommandResult(String.format(Messages.MESSAGE_DONE_LIST_RESTRICTION));
+            archiveTargetTasks();
+        } catch (TaskNotRecurringException tnre) {
+            assert false : "Error in code, tried to update recurrence of non-recurring task";
+            return generateCommandResultForFailureToArchiveTask();
+        } catch (TaskNotFoundException tnfe) {
+            assert false : "The target task cannot be missing";
+            return generateCommandResultForFailureToArchiveTask();
         }
-        updateHistory();
         
-        if (doneTasks.isEmpty()) {
+        updateHistory();
+        return generateCommandResultForEndOfExecution();
+    }
+
+    /**
+     * Prepares for the archiving of tasks by
+     * initialising the attributes of this done command class.
+     */
+    private void prepareToArchiveTasks() {
+        logger.fine("In prepareToArchiveTasks(). Setting up.");
+        if (!isRedoAction) {
+            setCurrentViewingList();
+        }
+        targetTasks = new ArrayList<Task>();
+        readdedRecurringTasks = new ArrayList<Task>();
+    }
+    
+    /**
+     * Generates command result for failing to archive task.
+     * 
+     * @return CommandResult Indicating that a task was unable to be archived.
+     */
+    private CommandResult generateCommandResultForFailureToArchiveTask() {
+        return new CommandResult(String.format(MESSAGE_FAILURE));
+    }
+
+    /**
+     * Generates command result for an attempt at running the done command on done list.
+     * 
+     * @return CommandResult Indicating that the user is unable to run done command on done list view.
+     */
+    private CommandResult generateCommandResultForDoneListRestriction() {
+        logger.warning("Invalid command, cannot do done command on done list.");
+        indicateAttemptToExecuteIncorrectCommand();
+        return new CommandResult(String.format(Messages.MESSAGE_DONE_LIST_RESTRICTION));
+    }
+
+    /**
+     * Generates the appropriate command result at the end of execution of done command
+     * based on the number of tasks inside archived tasks list.
+     * 
+     * @return CommandResult Indicating the result of the execution of this done command.
+     */
+    private CommandResult generateCommandResultForEndOfExecution() {
+        assert targetTasks != null;
+        if (targetTasks.isEmpty()) {
             logger.warning("No tasks archived. None of the given task indexes are valid.");
             indicateAttemptToExecuteIncorrectCommand();
             return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
-        String toDisplay = StringUtil.removeArrayBrackets(doneTasks.toString());
-        return (doneTasks.size() == 1)? 
-                new CommandResult(String.format(MESSAGE_DONE_ITEM_SUCCESS, toDisplay)):
-                new CommandResult(String.format(MESSAGE_DONE_ITEMS_SUCCESS, toDisplay));
+        String toDisplay = ListUtil.generateDisplayString(targetTasks);
+        return (targetTasks.size() == 1)
+                ? new CommandResult(String.format(MESSAGE_DONE_TASK_SUCCESS, toDisplay))
+                : new CommandResult(String.format(MESSAGE_DONE_TASKS_SUCCESS, toDisplay));
     }
+
 
     private boolean attemptToExecuteDoneOnDoneList() {
         return isViewingDoneList && !isRedoAction;
     }
 
+
     /**
-     * Archives the tasks denoted by the list of target indexes.
+     * Adds the tasks referred to by the list of target indexes into a task list.
      * Invalid target indexes in the list will be ignored.
      */
-    private void archiveTasksFromGivenTargetIndexes() throws TaskNotRecurringException {
-        for (int targetIndex: targetIndexes) {
-            UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredUndoneTaskList();
-            
-            boolean isTaskTargetIndexOutOfBounds = (lastShownList.size() < targetIndex - adjustmentForRemovedTask);
+    private void initialiseTargetTasksToArchiveFromTargetIndexes() {
+        assert targetIndexes != null;
+        assert targetTasks != null;
+        UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredUndoneTaskList();
+        for (int targetIndex : targetIndexes) {            
+            boolean isTaskTargetIndexOutOfBounds = (lastShownList.size() < targetIndex);
             if (isTaskTargetIndexOutOfBounds) {
-                logger.warning("Task target index out of bounds detected. Skipping task with current target index.");
                 continue;
             }
-            
-            int adjustedTaskIndex = targetIndex - adjustmentForRemovedTask - 1;
-            Task taskToArchive = new Task(lastShownList.get(adjustedTaskIndex));
-            assert isViewingDoneList == false;
-            
-            try {
-                model.deleteUndoneTask(taskToArchive);
-            } catch (TaskNotFoundException pnfe) {
-                assert false : "The target task cannot be missing";
-            }
-            
-            doneTasks.add(taskToArchive);
-            
-            if (taskToArchive.getRecurrenceRate().isPresent()) {
-                updateRecurrenceAndReAddTask(taskToArchive);
-            } else {
-                adjustmentForRemovedTask++;
-            }
-            
-            model.addDoneTask(taskToArchive);
+
+            int adjustedTaskIndex = targetIndex - 1;
+            Task task = new Task(lastShownList.get(adjustedTaskIndex));
+            targetTasks.add(task);
+        }
+    }
+    
+    /**
+     * Archives the target list of tasks.
+     * 
+     * @throws TaskNotRecurringException  If there is an attempt to update recurrence of a non-recurring task.
+     * @throws TaskNotFoundException      If the target task to be archived is not present in done task list.
+     */
+    private void archiveTargetTasks() throws TaskNotRecurringException, TaskNotFoundException {
+        assert isViewingDoneList == false;
+        assert targetTasks != null;
+        logger.fine("In archiveTargetTasks(), archiving Tasks");
+        for (Task taskToArchive : targetTasks) {                           
+            archiveTask(taskToArchive);
         }
     }
 
     /**
+     * Archives the target task by adding it into the done list.
+     * A task that is recurring will have its recurrence rates updated in the undone list.
+     * A task that is not recurring will be removed from the undone list.
+     * 
+     * @param taskToArchive The task to archive from undone task list.
+     * @throws TaskNotRecurringException  If there is an attempt to update recurrence of a non-recurring task.
+     * @throws TaskNotFoundException      If the target task to be archived is not present in done task list.
+     */
+    private void archiveTask(Task taskToArchive) throws TaskNotFoundException, TaskNotRecurringException {
+        assert taskToArchive != null;
+        model.deleteUndoneTask(taskToArchive);
+        boolean taskToArchiveIsRecurring = (taskToArchive.getRecurrenceRate().isPresent());
+        if (taskToArchiveIsRecurring) {
+            updateRecurrenceAndReAddTask(taskToArchive);
+        }
+        model.addDoneTask(taskToArchive);
+        logger.fine("Archived Task " + taskToArchive);
+    }
+    
+    /**
      * Adds the recurring task back into the undone task list
      * with their start and end dates updated, if present.
+     * 
+     * @param taskToArchive A recurring task that is being archived.
+     * @throws TaskNotRecurringException  If taskToArchive is not a recurring task.
      */
     private void updateRecurrenceAndReAddTask(Task taskToArchive) throws TaskNotRecurringException {
+        assert taskToArchive.getRecurrenceRate().isPresent();
+        assert readdedRecurringTasks != null;
         logger.fine("In updateRecurrenceAndReAddTask(). Task is recurring. Updating task details.");
         Task recurringTaskToReAdd = new Task(taskToArchive);
         recurringTaskToReAdd.updateRecurringTask();
@@ -146,28 +219,13 @@ public class DoneCommand extends UndoableCommand {
         isViewingDoneList = model.isCurrentListDoneList();
     }
     
-    /**
-     * Prepares for the archiving of tasks
-     * Initialises the attributes of this done command class
-     * Sorts the indexes to ensure the proper offset is used
-     */
-    private void prepareToArchiveTasks() {
-        logger.fine("In prepareToArchiveTasks(). Setting up.");
-        if (!isRedoAction) {
-            setCurrentViewingList();
-        }
-        doneTasks = new ArrayList<Task>();
-        readdedRecurringTasks = new ArrayList<Task>();
-        Collections.sort(targetIndexes);
-        adjustmentForRemovedTask = 0;
-    }
 
     //@@author A0093960X
     @Override
     public CommandResult undo() {
         doneTasksUndoFail = new ArrayList<Task>();
         
-        for (Task doneTask : doneTasks){
+        for (Task doneTask : targetTasks){
             attemptToDeleteDoneTaskFromDoneList(doneTask);
         }
         
@@ -186,7 +244,8 @@ public class DoneCommand extends UndoableCommand {
     }
 
     private void readdSuccessfullyUndoneTasks() {
-        model.addTasks(doneTasks);
+        model.addTasks(targetTasks);
+
     }
 
     private void attemptToDeleteReaddedRecurTaskFromUndoneList(Task readdedRecurTask) {

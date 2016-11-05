@@ -2,7 +2,9 @@ package seedu.address.logic.commands;
 
 import java.util.Date;
 import java.util.Optional;
+import java.util.logging.Logger;
 
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.commons.exceptions.IllegalValueException;
@@ -16,6 +18,8 @@ import seedu.address.model.item.RecurrenceRate;
 
 //@@author A0139552B
 public class EditCommand extends UndoableCommand {
+
+    private static final Logger logger = LogsCenter.getLogger(EditCommand.class);
 
     public static final String COMMAND_WORD = "edit";
 
@@ -34,6 +38,8 @@ public class EditCommand extends UndoableCommand {
 
     public static final String MESSAGE_RECUR_DATE_TIME_CONSTRAINTS = "For recurring tasks to be valid, "
             + "at least one DATE_TIME must be provided";
+    
+    public static final String MESSAGE_END_DATE_CONSTRAINTS = "End date should be later than start date.";
 
     public final int targetIndex;
     
@@ -190,13 +196,16 @@ public class EditCommand extends UndoableCommand {
 	@Override
 	public CommandResult execute() {	    
 	    assert model != null;
-		
+        
+	    // check if viewing done list
+        // cannot edit in done list, return an incorrect command msg
 	    if (attemptToEditDoneList()) {
 	        indicateAttemptToExecuteIncorrectCommand();
 	        return new CommandResult(String.format(Messages.MESSAGE_DONE_LIST_RESTRICTION));
 	    }
         UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredUndoneTaskList();
 
+        
         if (lastShownList.size() < targetIndex || targetIndex == 0) {
             indicateAttemptToExecuteIncorrectCommand();
             return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
@@ -213,30 +222,23 @@ public class EditCommand extends UndoableCommand {
             taskName = toEdit.getName();
         }
         
-        //assign previous start date to startDate if user never input one
-        if (startDate == null && toEdit.getStartDate().isPresent()) {
-            startDate = toEdit.getStartDate().get();
-        }
+        assignStartDate();
+        assignEndDate();
         
-        //assign startDate as null if user choose to reset start date
-        if (removeStartDate) {
-        	startDate = null;
-        }
-
-        //assign previous end date to endDate if user never input one
-        if (endDate == null && toEdit.getEndDate().isPresent()) {
-        	endDate = toEdit.getEndDate().get();
-        }
-        
-        //assign endDate as null if user choose to reset end date
-        if (removeEndDate) {
-        	endDate = null;
-        }
+        if(endDate != null && startDate != null && endDate.before(startDate)){
+            indicateAttemptToExecuteIncorrectCommand();
+            return new CommandResult(MESSAGE_END_DATE_CONSTRAINTS);
+        }      
 
         //assign previous priority to priority if user never input one
         if (priority == null) {
         	priority = toEdit.getPriorityValue();
-        }
+        }    
+        
+        //assign previous recurrence rate to recurrenceRate if user never input one
+        if (recurrenceRate == null && toEdit.getRecurrenceRate().isPresent()) {
+            recurrenceRate = toEdit.getRecurrenceRate().get();
+        }  
         
         /*
          * Set recurrenceRate as the previous one if it exist should the user not input any
@@ -246,8 +248,8 @@ public class EditCommand extends UndoableCommand {
         	recurrenceRate = toEdit.getRecurrenceRate().get();
         } else if (recurrenceRate != null && !beforeEdit.getStartDate().isPresent() && !beforeEdit.getEndDate().isPresent()
                 && startDate == null && endDate == null){
-            //return new CommandResult(MESSAGE_RECUR_DATE_TIME_CONSTRAINTS);
-            recurrenceRate = null;
+            indicateAttemptToExecuteIncorrectCommand();
+            return new CommandResult(MESSAGE_RECUR_DATE_TIME_CONSTRAINTS);
         }
         
         //remove recurrence if the start and end date are removed
@@ -255,16 +257,47 @@ public class EditCommand extends UndoableCommand {
             recurrenceRate = null;
         }
 
+        logger.fine("Details to be edited assigned");
+
         model.editTask(taskToEdit, taskName, startDate, endDate, priority, recurrenceRate);
         updateHistory();
         return new CommandResult(String.format(MESSAGE_SUCCESS, toEdit));      
 	}
-
+	
+    // @@author A0093960X
     private boolean attemptToEditDoneList() {
         return model.isCurrentListDoneList() && !isRedoAction;
     }
 
-    // @@author A0093960X
+	/**
+     * assign previous end date to endDate if user never input one
+     * assign endDate as null if user choose to reset end date
+     */
+    private void assignEndDate() {
+        if (endDate == null && toEdit.getEndDate().isPresent()) {
+        	endDate = toEdit.getEndDate().get();
+        }
+        
+        if (removeEndDate) {
+        	endDate = null;
+        }
+    }
+    
+    /**
+     * assign previous start date to startDate if user never input one
+     * assign startDate as null if user choose to reset end date
+     */
+    private void assignStartDate() {
+        if (startDate == null && toEdit.getStartDate().isPresent()) {
+            startDate = toEdit.getStartDate().get();
+        }
+        
+        if (removeStartDate) {
+        	startDate = null;
+        }
+    }
+
+    //@@author A0093960X
     @Override
     public CommandResult undo() {
 
