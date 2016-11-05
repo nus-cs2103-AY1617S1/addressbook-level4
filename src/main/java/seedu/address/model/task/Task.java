@@ -38,6 +38,7 @@ public class Task implements ReadOnlyTask {
      */
     public Task(ReadOnlyTask source) {
         this(source.getName(), source.getStartline(), source.getDeadline(), source.getPriority(), source.getTags());
+        this.setRepeating(source.getRepeating());
     }
 
     @Override
