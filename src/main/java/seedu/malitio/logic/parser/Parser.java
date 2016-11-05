@@ -153,9 +153,7 @@ public class Parser {
         try {
             String name = matcher.group("name");
             String deadline = getDeadlineFromArgs(StringUtil.removeTagsFromString(name));
-            if (!deadline.isEmpty()) {
-                name = name.replaceAll(" by " + deadline, "");
-            }         
+                   
             String start = getStartFromArgs(StringUtil.removeTagsFromString(name));
             if (!start.isEmpty()) {
                 name = name.substring(0, name.lastIndexOf("start")).trim();
