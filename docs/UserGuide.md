@@ -31,7 +31,7 @@ Love typing? You will love sTask, as you only need to use the keyboard to type s
 
 ### 2.2 The Beautiful User Interface
 <br>
-       <img src="images/Ui.png" width="800"> <br>
+       <img src="images/Ui.png" height="600" width="1000"> <br>
 
 &nbsp;&nbsp;&nbsp;&nbsp;Referring to Figure 1 above, you can see that,<br>
 * The Smart Command Input Bar is where you can type your commands. <br>
