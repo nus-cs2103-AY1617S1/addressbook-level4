@@ -57,7 +57,7 @@ public class Sort {
     
     //@@author A0143378Y
     //Split all items into their own list for sorting
-    private static void splitMemory(ArrayList<GenericMemory> list) { 
+    public static void splitMemory(ArrayList<GenericMemory> list) { 
         for (int i = 0; i < list.size(); i++) { 
             switch (list.get(i).getType()) { 
             case "Task":
