@@ -199,7 +199,7 @@ Tests can be found in the `./src/test/java` folder.
   as described [here](http://stackoverflow.com/questions/2522897/eclipse-junit-ea-vm-option).
 
 * To run all tests, right-click on the `src/test/java` folder and choose
-  `Run as` > `JUnit Test`
+  `Run As` > `JUnit Test`
 * To run a subset of tests, you can right-click on a test package, test class, or a test and choose
   to run as a JUnit test.
 
@@ -220,8 +220,18 @@ We have two types of tests:
    3. Hybrids of unit and integration tests. These test are checking multiple code units as well as 
       how the are connected together.<br>
       e.g. `seedu.address.logic.LogicManagerTest`
+
+<!-- @@author A0139671X-->
+**Measuring Coverage Locally using EclEmma**:
+ * Install the [EclEmma Eclipse Plugin](http://www.eclemma.org/) in your computer and use that to
+   find code that is not covered by the tests.
+ * To measure coverage after installing plugin, right-clck on the `src/test/java` folder and choose 
+   `Coverage As` > `JUnit Test`.
+ * To see the color code for EclEmma coverage. Refer to [this](http://www.eclemma.org/userdoc/
+   annotations.html).
+<!-- @@author -->
   
-**Headless GUI Testing** :
+**Headless GUI Testing**:
 Thanks to the [TestFX](https://github.com/TestFX/TestFX) library we use,
  our GUI tests can be run in the _headless_ mode. 
  In the headless mode, GUI tests do not show up on the screen.
