@@ -12,7 +12,7 @@ import seedu.task.model.tag.UniqueTagList;
  * Represents a Task in the task list.
  * Guarantees: field values are validated.
  */
-public class Task implements ReadOnlyTask {
+public class Task implements ReadOnlyTask, Comparable<Task> {
 
     private Name name;
     private DateTime openTime;
@@ -148,5 +148,27 @@ public class Task implements ReadOnlyTask {
     @Override
     public String toString() {
         return getAsText();
+    }
+    
+    //@@author A0141052Y
+    /**
+     * Uses Comparator.compareTo.
+     * The comparison is based on:<br/>
+     * - Starred tasks have higher priority<br/>
+     * - Completed tasks have lower priority<br/>
+     * - For tasks with same completion/starred status,
+     *   base comparison on endDate only
+     */
+    @Override
+    public int compareTo(Task o) {
+        if ((this.isCompleted || o.getComplete()) && !(this.isCompleted && o.getComplete())) {
+            return (this.isCompleted) ? 1 : -1;
+        } else if ((this.isImportant || o.getImportance()) && !(this.isImportant && o.getImportance())) {
+            return (this.isImportant) ? -1 : 1;
+        } else if (!this.closeTime.isEmpty() && !o.getCloseTime().isEmpty()) {
+            return this.closeTime.compareTo(o.getCloseTime());
+        } else {
+            return 0;
+        }
     }
 }
