@@ -1,6 +1,5 @@
 package guitests;
 
-import guitests.guihandles.TaskCardHandle;
 import org.junit.Test;
 
 import seedu.task.commons.core.Messages;

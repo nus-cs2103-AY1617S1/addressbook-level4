@@ -534,7 +534,7 @@ public class CommandParser {
         // Validate arg string format
         if (!matcher.matches()) {
             String directory = FilePickerUtil.openXMLFile();
-            if (directory.equals(null) || directory.equals("")) {
+            if (directory == null || "".equals(directory)) {
               return new IncorrectCommand("Aborted directory command");
             }
             return new DirectoryCommand(directory);
@@ -553,7 +553,7 @@ public class CommandParser {
         // Validate arg string format
         if (!matcher.matches()) {
             String directory = FilePickerUtil.saveXMLFile();
-            if (directory == null || directory == "") {
+            if (directory == null || directory.equals("")) {
               return new IncorrectCommand("Aborted backup command");
             }
             return new BackupCommand(directory);

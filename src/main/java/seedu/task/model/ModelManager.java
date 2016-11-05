@@ -89,62 +89,64 @@ public class ModelManager extends ComponentManager implements Model {
     // @@author A0147335E-reused
     @Override
     public synchronized void addTask(Task task) throws UniqueTaskList.DuplicateTaskException {
+        Task newTask = task;
         if (!isDeadlineExist(task)) {
-            String strDatewithTime = task.getDeadline().toString().replace(" ", "T");
+            String strDatewithTime = newTask.getDeadline().toString().replace(" ", "T");
             LocalDateTime taskDateTime = LocalDateTime.parse(strDatewithTime);
 
             Date currentDate = new Date();
             LocalDateTime localDateTime = LocalDateTime.ofInstant(currentDate.toInstant(), ZoneId.systemDefault());
 
             if (taskDateTime.isBefore(localDateTime)) {
-                task = new Task(task.getName(), task.getStartTime(), task.getEndTime(), task.getDeadline(),
-                        task.getTags(),
-                        new Status(task.getStatus().getDoneStatus(), true, task.getStatus().getFavoriteStatus()),
-                        task.getRecurring());
+                newTask = new Task(newTask.getName(), newTask.getStartTime(), newTask.getEndTime(), newTask.getDeadline(),
+                        newTask.getTags(),
+                        new Status(newTask.getStatus().getDoneStatus(), true, newTask.getStatus().getFavoriteStatus()),
+                        newTask.getRecurring());
             } else {
-                task = new Task(task.getName(), task.getStartTime(), task.getEndTime(), task.getDeadline(),
-                        task.getTags(),
-                        new Status(task.getStatus().getDoneStatus(), false, task.getStatus().getFavoriteStatus()),
-                        task.getRecurring());
+                newTask = new Task(newTask.getName(), newTask.getStartTime(), newTask.getEndTime(), newTask.getDeadline(),
+                        newTask.getTags(),
+                        new Status(newTask.getStatus().getDoneStatus(), false, newTask.getStatus().getFavoriteStatus()),
+                        newTask.getRecurring());
             }
         } else {
-            task = new Task(task.getName(), task.getStartTime(), task.getEndTime(), task.getDeadline(), task.getTags(),
-                    new Status(task.getStatus().getDoneStatus(), false, task.getStatus().getFavoriteStatus()),
-                    task.getRecurring());
+            newTask = new Task(newTask.getName(), newTask.getStartTime(), newTask.getEndTime(), newTask.getDeadline(), newTask.getTags(),
+                    new Status(newTask.getStatus().getDoneStatus(), false, newTask.getStatus().getFavoriteStatus()),
+                    newTask.getRecurring());
         }
-        taskManager.addTask(task);
+        taskManager.addTask(newTask);
         updateFilteredListToShowAll();
         indicateTaskManagerChanged();
     }
 
     @Override
     public synchronized void addTask(int index, Task task) throws UniqueTaskList.DuplicateTaskException {
-        if (!isDeadlineExist(task)) {
-            String strDatewithTime = task.getDeadline().toString().replace(" ", "T");
-            LocalDateTime taskDateTime = LocalDateTime.parse(strDatewithTime);
+        Task newTask = task;
+        if (!isDeadlineExist(newTask)) {
+            String strDatewithTime = newTask.getDeadline().toString().replace(" ", "T");
+            LocalDateTime newTaskDateTime = LocalDateTime.parse(strDatewithTime);
 
             Date currentDate = new Date();
             LocalDateTime localDateTime = LocalDateTime.ofInstant(currentDate.toInstant(), ZoneId.systemDefault());
 
-            if (taskDateTime.isBefore(localDateTime)) {
-                task = new Task(task.getName(), task.getStartTime(), task.getEndTime(), task.getDeadline(),
-                        task.getTags(),
-                        new Status(task.getStatus().getDoneStatus(), true, task.getStatus().getFavoriteStatus()),
-                        task.getRecurring());
+            if (newTaskDateTime.isBefore(localDateTime)) {
+                newTask = new Task(newTask.getName(), newTask.getStartTime(), newTask.getEndTime(), newTask.getDeadline(),
+                        newTask.getTags(),
+                        new Status(newTask.getStatus().getDoneStatus(), true, newTask.getStatus().getFavoriteStatus()),
+                        newTask.getRecurring());
             } else {
-                task = new Task(task.getName(), task.getStartTime(), task.getEndTime(), task.getDeadline(),
-                        task.getTags(),
-                        new Status(task.getStatus().getDoneStatus(), false, task.getStatus().getFavoriteStatus()),
-                        task.getRecurring());
+                newTask = new Task(newTask.getName(), newTask.getStartTime(), newTask.getEndTime(), newTask.getDeadline(),
+                        newTask.getTags(),
+                        new Status(newTask.getStatus().getDoneStatus(), false, newTask.getStatus().getFavoriteStatus()),
+                        newTask.getRecurring());
             }
 
         } else {
-            task = new Task(task.getName(), task.getStartTime(), task.getEndTime(), task.getDeadline(), task.getTags(),
-                    new Status(task.getStatus().getDoneStatus(), false, task.getStatus().getFavoriteStatus()),
-                    task.getRecurring());
+            newTask = new Task(newTask.getName(), newTask.getStartTime(), newTask.getEndTime(), newTask.getDeadline(), newTask.getTags(),
+                    new Status(newTask.getStatus().getDoneStatus(), false, newTask.getStatus().getFavoriteStatus()),
+                    newTask.getRecurring());
         }
 
-        taskManager.addTask(index, task);
+        taskManager.addTask(index, newTask);
         indicateTaskManagerChanged();
     }
 
