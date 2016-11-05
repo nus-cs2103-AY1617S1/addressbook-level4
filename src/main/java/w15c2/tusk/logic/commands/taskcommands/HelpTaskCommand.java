@@ -11,11 +11,13 @@ import w15c2.tusk.logic.commands.CommandResult;
 public class HelpTaskCommand extends TaskCommand {
     public static final String COMMAND_WORD = "help";
     public static final String ALTERNATE_COMMAND_WORD = null;
+    public static final String COMMAND_FORMAT = COMMAND_WORD;
+    public static final String COMMAND_DESCRIPTION = "Help"; 
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Shows program usage instructions.\n"
             + "Example: " + COMMAND_WORD;
 
-    public static final String SHOWING_HELP_MESSAGE = "Opened help window.";
+    public static final String SHOWING_HELP_MESSAGE = "Opened help panel.";
 
     public HelpTaskCommand() {}
 

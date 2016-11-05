@@ -11,6 +11,8 @@ public class ClearTaskCommand extends TaskCommand {
 
         public static final String COMMAND_WORD = "clear";
         public static final String ALTERNATE_COMMAND_WORD = null;
+        public static final String COMMAND_FORMAT = COMMAND_WORD;
+        public static final String COMMAND_DESCRIPTION = "Clear Current List"; 
 
         public static final String HELP_MESSAGE_USAGE = "Clear Tasks: \t clear";
         
