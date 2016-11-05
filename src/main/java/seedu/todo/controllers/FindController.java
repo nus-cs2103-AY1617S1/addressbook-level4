@@ -36,7 +36,7 @@ public class FindController implements Controller {
     private static final String COMMAND_SYNTAX = "find <name>";
     private static final String COMMAND_WORD = "find";
     
-    private static final String MESSAGE_LISTING_SUCCESS = "A total of %s found!";
+    private static final String MESSAGE_LISTING_SUCCESS = "A total of %s %s and %s %s found!";
     private static final String MESSAGE_LISTING_FAILURE = "No tasks or events found!";
     
     private static CommandDefinition commandDefinition =
@@ -63,6 +63,13 @@ public class FindController implements Controller {
         eventPredicates.add(Event.predByName(input));
         List<Event> events = Event.where(eventPredicates);
         
-        Renderer.renderSelected(TodoListDB.getInstance(), "Done!", tasks, events);
+        if (tasks.size() == 0 && events.size() == 0) {
+            Renderer.renderIndex(TodoListDB.getInstance(), MESSAGE_LISTING_FAILURE);
+        } else {
+            String consoleMessage = String.format(MESSAGE_LISTING_SUCCESS,
+                    tasks.size(), StringUtil.pluralizer(tasks.size(), "task", "tasks"),
+                    events.size(), StringUtil.pluralizer(events.size(), "event", "events"));
+            Renderer.renderSelected(TodoListDB.getInstance(), consoleMessage, tasks, events);
+        }
     }
 }
