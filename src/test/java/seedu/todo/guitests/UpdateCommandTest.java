@@ -168,5 +168,21 @@ public class UpdateCommandTest extends GuiTest {
         assertEquals("update 1 [name \"<name>\"] [by \"invaliddate\"]", console.getConsoleInputText());
         assertSameDisambiguationMessage(UpdateController.MESSAGE_CANNOT_PARSE_DATE, console);
     }
+    
+    @Test
+    public void updateEvent_endBeforeStart_disambiguate() {
+        console.runCommand(String.format("add event Presentation from %s 2pm to %s 9pm", twoDaysFromNowIsoString, twoDaysFromNowIsoString));
+        console.runCommand("update 1 from today 9pm to today 2pm");
+        assertEquals("update 1 [name \"<name>\"] [from \"today 9pm\" to \"today 2pm\"]", console.getConsoleInputText());
+        assertSameDisambiguationMessage(null, console);
+    }
+    
+    @Test
+    public void updateTask_withStartEndDate_disambiguate() {
+        console.runCommand(String.format("add Buy milk", twoDaysFromNowIsoString, twoDaysFromNowIsoString));
+        console.runCommand("update 1 from 2pm to today 9pm");
+        assertEquals("update 1 [name \"<name>\"] [by \"2pm\"]", console.getConsoleInputText());
+        assertSameDisambiguationMessage(null, console);
+    }
 
 }
