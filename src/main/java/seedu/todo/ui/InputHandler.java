@@ -20,8 +20,6 @@ public class InputHandler {
 
     private static final String CHAR_SPACE = " ";
     
-    private Controller handlingController = null;
-    
     protected InputHandler() {
         // Prevent instantiation.
     }
@@ -91,35 +89,26 @@ public class InputHandler {
         
         Map<String, String> aliases = MainApp.getConfig().getAliases();
         String aliasedInput = StringUtil.replaceAliases(input, aliases);
-        Controller selectedController = null;
         
-        if (this.handlingController != null) {
-            selectedController = handlingController;
-        } else {
-            Controller[] controllers = instantiateAllControllers();
-            
-            // Extract keyword
-            String keyword = extractKeyword(aliasedInput);
+        Controller[] controllers = instantiateAllControllers();
+        
+        // Extract keyword.
+        String keyword = extractKeyword(aliasedInput);
 
-            // Get controller which has the maximum confidence.
-            Controller matchingController = getMatchingController(keyword, controllers);
+        // Get controller which has the maximum confidence.
+        Controller matchingController = getMatchingController(keyword, controllers);
 
-            // Command keyword did not match any controllers.
-            // Console will show invalid command.
-            if (matchingController == null) {
-                return false;
-            }
-
-            // Select best-matched controller.
-            selectedController = matchingController;
+        // If command keyword did not match any controllers, console will show invalid command.
+        if (matchingController == null) {
+            return false;
         }
         
         // Patch input commands.
         input = patchCommandKeyword(input);
         aliasedInput = patchCommandKeyword(aliasedInput);
         
-        // Process using best-matched controller.
-        boolean isProcessSuccess = processWithController(input, aliasedInput, selectedController);
+        // Process using matched controller.
+        boolean isProcessSuccess = processWithController(input, aliasedInput, matchingController);
         
         // Catch commands which throw errors here.
         if (!isProcessSuccess) {
@@ -204,7 +193,7 @@ public class InputHandler {
         return String.join(CHAR_SPACE, commandWords);
     }
     
-    private Controller[] instantiateAllControllers() {
+    private static Controller[] instantiateAllControllers() {
         return new Controller[] { new AliasController(),
                                   new UnaliasController(),
                                   new HelpController(),
