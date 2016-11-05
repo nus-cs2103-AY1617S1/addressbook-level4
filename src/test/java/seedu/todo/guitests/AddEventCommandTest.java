@@ -24,7 +24,7 @@ public class AddEventCommandTest extends GuiTest {
         event.setName("Presentation in the Future");
         event.setStartDate(DateUtil.parseDateTime(String.format("%s 14:00:00", twoDaysFromNowIsoString)));
         event.setEndDate(DateUtil.parseDateTime(String.format("%s 19:00:00", twoDaysFromNowIsoString)));
-        assertEventNotVisibleAfterCmd(command, event);
+        assertEventVisibleAfterCmd(command, event);
     }
     
     @Test
