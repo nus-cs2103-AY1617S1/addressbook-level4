@@ -1,252 +1,258 @@
-//@@author A0139024M
+<!--@@author A0139024M-->
 # User Guide
 
 1. [Introduction](#1-introduction)
-2. [Quick Start](#2-quick-start)
+2. [Getting Started](#2-getting-started)
 3. [Features](#3-features)
 4. [FAQ](#4-faq)
 5. [Command Summary](#5-command-summary)
-6. [Appendix](#6-appendix)
+6. [Credits](#6-credits)
+7. [Appendix](#7-appendix)
 
 ## 1. Introduction 
 
-&nbsp;&nbsp;&nbsp;&nbsp; Have you ever felt like there are too many tasks to do, and you are unable to remember all of them? Or feel that your calendar is overflowing with sticky notes on the tasks to be done each day? Have no fear, as our all-in-one task management application, sTask, is here to save your day!
+&nbsp;&nbsp;&nbsp;&nbsp; Have you ever felt like there are too many tasks to do, and you are unable to remember all of them? Or feel that your calendar is overflowing with sticky notes on the tasks to be done each day? Have no fear, as our all-in-one task management application, sTask, is here to save your day! sTask is a revolutionary, state-of-the-art task management application engineered by a group of passionate software designers from the National University of Singapore. 
 
-sTask manages the different types of tasks that you will encounter in your daily life, be it a deadline for submission, or even a date with your significant other, this application can show you what all the tasks you have in a month in one glance, or even a list of tasks for a specific day. sTask also manages your list of ad-hoc tasks, which are non-dated tasks such as "Read the new Harry Potter book!", and displays them beautifully and neatly at the side of the application, so you can refer to them any time you have some free time.
+sTask manages the different types of tasks that you will encounter in your daily life, be it a deadline for submission, or even a date with your significant other, this application can show you what are all the tasks that you have in one glance, or even a list of tasks for a specific day. sTask also manages your list of To Do tasks, which are non-dated tasks such as "Read the new Harry Potter book!", and displays them beautifully and neatly at the left side, so that you can refer to them any time you are free.
 
 Love typing? You will love sTask, as you only need to use the keyboard to type simple commands to manage your tasks.
 
-#### 
+## 2. Getting Started
 
-## 2. Quick Start
+### 2.1 Setting Up sTask
 
-&nbsp;&nbsp;&nbsp;&nbsp; <b>2.1</b> Ensure you have Java version `1.8.0_60` or later installed in your Computer.<br>
- > Having any Java 8 version is not enough. <br>
+&nbsp;&nbsp;&nbsp;&nbsp; <b>2.1.1</b> Please ensure that you have Java version `1.8.0_60` or later installed in your Computer.<br>
+ >> Having any Java 8 version is not enough. <br>
    This app will not work with earlier versions of Java 8.
    
-&nbsp;&nbsp;&nbsp;&nbsp; <b>2.2</b> Download the latest `sTask.jar` from the 'releases' tab. <br>
-&nbsp;&nbsp;&nbsp;&nbsp; <b>2.3</b> Copy the file to the folder you want to use as the home folder for sTask. <br>
-&nbsp;&nbsp;&nbsp;&nbsp; <b>2.4</b> Double-click the file to start the app. The GUI should appear in a few seconds. <br>
-   <img src="images/Ui.png" width="600"> <br>
-&nbsp;&nbsp;&nbsp;&nbsp; <b>2.5</b> Type the command in the command box and press <kbd>Enter</kbd> to execute it. <br>
->   e.g. typing **`help`** and pressing <kbd>Enter</kbd> will open the help window.
+&nbsp;&nbsp;&nbsp;&nbsp; <b>2.1.2</b> You can download the latest `sTask.jar` from our 'releases' tab. <br>
+&nbsp;&nbsp;&nbsp;&nbsp; <b>2.1.3</b> You can then copy the file to the folder you want to use as the home folder for sTask. <br>
+&nbsp;&nbsp;&nbsp;&nbsp; <b>2.1.4</b> You can double-click the file to start the app. The User Interface should appear in a few seconds. <br>
 
-&nbsp;&nbsp;&nbsp;&nbsp; <b>2.6</b> Some example commands you can try:
->    `add Walk the dog d/Don't forget to pick up poo` : Add a floating task.
-    `list all` : List all the floating tasks, deadline and events in the application.
-    `delete 3` : Deletes the 3rd task shown in the current list.
-    `exit` : Exits the application.
-    
-&nbsp;&nbsp;&nbsp;&nbsp; <b>2.7</b> Refer to the [Features](#3-features) section below for details of each command.<br>
+### 2.2 The Beautiful User Interface
+<br>
+       <img src="images/Ui.png" height="600" width="1000"> <br>
 
+&nbsp;&nbsp;&nbsp;&nbsp;Referring to Figure 1 above, you can see that,<br>
+* The Smart Command Input Bar is where you can type your commands. <br>
+* The Interactive Message Display is where sTask gives you feedback and interacts with you. <br>
+* The To Do Task Panel is where all your tasks without date and time are displayed in alphabetical order. <br>
+* The Dated Task Panel is where all your events and deadlines are displayed in chronological order. <br>   
+
+>> Tasks are colour coded according to their status : blue for completed tasks, red for overdue deadlines, pink for expired events, and white for the rest.<br>   
+>> You can refer to the [Features](#3-features) section below for details of each command or you can refer to the [Command Summary](#5-command-summary).<br>
+<!--@@author-->
 
 ## 3. Features
 
-&nbsp;&nbsp;&nbsp;&nbsp; <b>3.1 Viewing help : `help` </b><br>
->Format: `help` <br>
- Help is also shown if you enter an incorrect command e.g. `abcd`
- 
-&nbsp;&nbsp;&nbsp;&nbsp; <b>3.2 Adding a task: `add` </b><br>
->Adds a floating task to sTask<br>
-Format: `add TASKNAME d/TASK_DESCRIPTION [t/TAG...]` 
+&nbsp;&nbsp;&nbsp;&nbsp; In the following section, we will guide you along on you can use sTask effectively so that you can manage your tasks efficiently, and become a Champion in your life. <br>
 
->Adds a deadline to sTask<br>
-Format: `add TASKNAME d/TASK_DESCRIPTION date/DATE TIME [t/TAG...]` 
+&nbsp;&nbsp;&nbsp;&nbsp;<b>3.1 Looking for Help </b><br><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;After downloading sTask, you are not sure how to operate it. You can<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;glance through the list of commands and their formats by typing<br>
+>> `help` <br><br>
 
->Adds an event to sTask<br>
-Format: `add TASKNAME d/TASK_DESCRIPTION date/DATE STARTTIME to ENDTIME [t/TAG...]` <br>
-Format: `add TASKNAME d/TASK_DESCRIPTION date/STARTDATE STARTTIME to ENDDATE ENDTIME [t/TAG...]` <br>
-
-\*\* <i>Refer to appendix for possible formats for DATE & TIME</i>
- 
-> Words in `UPPER_CASE` are the parameters, items in `SQUARE_BRACKETS` are optional, 
-> items with `...` after them can have multiple instances. Order of parameters is fixed. 
-> 
->
-> Tasks can have any number of tags (including none)
-
->Examples: 
-* `add Buy pencil d/Pencil to shade OAS sheet`
-* `add Wash Clothes d/Wash with detergent date/27-9-2016 9pm t/!!!`
-* `add Meeting d/Meet with Jim date/today 5pm to 6pm t/!!! t/jim`
-
-&nbsp;&nbsp;&nbsp;&nbsp; <b>3.3 Listing all tasks : `list all` </b><br>
->Shows a list of all uncompleted floating tasks, deadline and events in the application.<br>
-Format: `list all`
-
-&nbsp;&nbsp;&nbsp;&nbsp; <b>3.4 Listing all overdue deadlines: `list od` </b><br>
->Shows a list of all overdue deadlines. <br>
-Format: `list od`
-
-&nbsp;&nbsp;&nbsp;&nbsp; <b>3.5 Listing all completed tasks: `list done` </b><br>
->Shows a list of completed floating tasks, deadlines and events. <br>
-Format: `list done`
-
-&nbsp;&nbsp;&nbsp;&nbsp; <b>3.6 Edit task in the application: `edit` </b><br>
-
->Edit the details of the floating task, deadline and event. <br>
-Format: `edit INDEX [FIELDS]`
-
-> Edits the field of the task at the specified `INDEX`. 
-  The index refers to the index number shown in the most recent listing.<br>
-  The index **must be a positive integer** 1, 2, 3, ...
-
->Example:
-* `list all`<br>
-*  `edit 2 d/Pilot 2B`<br><br>
-Edits the description of the 2nd floating task in sTask.<br>
-Example Buy Pencil.<br>
-A message will be displayed to inform the user that the task is edited.<br>
-Example Edited Task: Buy Pencil Description: Pilot 2B<br>
-
-&nbsp;&nbsp;&nbsp;&nbsp; <b>3.7 Finding tasks containing any keyword in their name, description, date and tags: `find` </b><br>
->Finds all floating tasks, deadlines and events which names, descriptions, dates and tags contain any of the given keywords.<br>
-Format: `find KEYWORD [MORE_KEYWORDS]`
-
-> The search is case insensitive. <br>
-> Order of the keywords does not matter. <br>
-> Name, description, date, time and tag fields are searched, and tasks matching at least one keyword will be returned (i.e. `OR` search). <br>
-
->Examples: 
-* `find EE2020`<br>
-*  Returns “EE2020” and “ee2020” <br><br>
-
->* `find 2020`<br>
-*  Returns “EE2020” and “ee2020” <br><br>
-  
-&nbsp;&nbsp;&nbsp;&nbsp;<b>3.8 Navigating through Calendar: `view` </b><br>
->Populate the list of tasks happening on the selected DATE  <br>
-Format: `view DATE`
-
-> The calendar panel of the application will list out all the deadlines on the day and events that start, ends or is on-going on the date. <br>
-
->Examples:
-* `view today` <br>
-* Output the full list of deadlines on the day and events that start, ends or is on-going today.
-
->* `view 5-10-2016` <br><br>
-Output the full list of deadlines on the day and events that start, ends or is on-going on 5th October 2016.
-
-&nbsp;&nbsp;&nbsp;&nbsp;<b>3.9 Deleting a task : `delete` </b><br>
->Deletes the specified task from sTask. <br>
-Format: `delete INDEX`
-
-> Deletes the task at the specified `INDEX`. 
-  The index refers to the index number shown in the most recent listing.<br>
-  The index **must be a positive integer** 1, 2, 3, ...
-
->Examples: 
-* `list all`<br>
-*  `delete 2`<br><br>
-Deletes the 2nd floating task in all the listed. <br><br>
-
->* `find Laundry`<br> 
-*  `delete 11`<br><br>
-Deletes the 1st event or deadline task in the result of the `find` command.<br>
-  
-&nbsp;&nbsp;&nbsp;&nbsp;<b>3.10 Undoing a move: `undo` </b><br>
->Undo the previous command entered by user. (up to 10)<br>
-A message will be displayed to inform the user that the previous command has been undone. <br>
-Format: `undo`
-
-&nbsp;&nbsp;&nbsp;&nbsp;<b>3.11 Marking floating tasks and deadlines as done: `done` </b><br>
->Marking a completed a floating task and deadline as done. <br>
-Format: `done INDEX`
-
-> Marks the floating tasks or deadline as done at the specified `index` <br>
-  The index refers to the index number shown in the most recent listing. <br>
-  The index **must be a positive integer** 1,2,3, .. <br>
-  The completed task will be moved to the archive list <br>
-
->Examples: 
-* `list all` <br>
-  `done 2` <br>
-   Mark the 2nd task in sTask as completed.
-
-&nbsp;&nbsp;&nbsp;&nbsp;<b>3.12 Change location of the data storage file: `save` </b><br>
->Moves the data storage file to the specified location if possible. <br>
-Format: `save FOLDERPATH`
+<!--@@author A0143884W-->
+&nbsp;&nbsp;&nbsp;&nbsp;<b>3.2 Adding a Task </b><br><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;After receiving an email from Starbucks that you have won a free drink,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;but you are unsure of when you are free. You can remind yourself by adding<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a To Do by typing <br>
+>> `add TASKNAME d/TASK_DESCRIPTION [t/TAG...]` <br>
+* add Claim coffee d/Starbucks
 
 
-> Moves the data storage location to the specified `FOLDERPATH` <br>
-  The folder path you specify must be able to be created in your device.<br>
-  The path you specify cannot be a file path eg. `C:\Users\Public\Desktop\data.txt`. <br>
-  The data storage file will only exist in the location you specified and the old copy will be deleted. <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Your boss gives you until next friday 5pm to submit the project proposal.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;You can add it as a Deadline by typing<br>
+>> `add TASKNAME d/TASK_DESCRIPTION date/DATE_TIME [t/TAG...]` <br>
+* add Finish project proposal date/next friday 5pm t/important
 
->Examples: 
-* `save data\firstcopy` <br>
-   Moves the data storage file from its previous location to ../data/firstcopy/.
-  
 
-&nbsp;&nbsp;&nbsp;&nbsp; <b>3.13 Exiting the program : `exit` </b><br>
->Exits the program.<br>
-Format: `exit`  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Your client has arranged to meet you for 2 hours on 28th October 2016<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;and you can add it as an Event by typing<br>
+>> `add TASKNAME d/TASK_DESCRIPTION date/DATE_TIME to DATE_TIME[t/TAG...]` <br>
+* add Meeting with client d/Prepare documents date/28-10-2016 10am to 28-10-2016 12pm <br><br>
 
+>> Refer to [Appendix](#7-appendix) for more information on the possible Date and Time formats accepted by sTask. <br><br>
+<!--@@author--> <!--@@author A0139145E-->
+
+&nbsp;&nbsp;&nbsp;&nbsp; <b>3.3 Listing your Tasks </b><br><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; You can list all your uncompleted tasks by typing<br>
+>> `list all` <br>
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; You can list all your completed tasks by typing<br>
+>> `list done` <br>
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; You can list all your overdue and expired tasks by typing<br>
+>> `list od` <br><br>
+
+<!--@@author--> <!--@@author A0143884W-->
+
+&nbsp;&nbsp;&nbsp;&nbsp;<b>3.4 Editing your Task </b><br><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; You want to update some of the details of the tasks that you have.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; You can just edit them by typing<br>
+>> `edit INDEX TASKNAME d/TASK_DESCRIPTION date/DATE_TIME [t/TAG...]` <br>
+* edit A1 Buy iced tea during lunch d/add lemon date/today noon <br>
+* edit B1 date/next friday 8pm <br>
+* edit B2 t/urgent<br><br>
+
+>> Refer to [Appendix](#7-appendix) for more information on the possible Date and Time formats accepted by sTask. <br><br>
+<!--@@author--> <!--@@author A0139528W-->
+
+&nbsp;&nbsp;&nbsp;&nbsp;<b>3.5 Finding your Tasks </b><br><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Being overwhelmed by the large number of tasks you have,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; you can search for them by typing<br>
+>> `find [KEYWORD...]` <br>
+* find meeting <br><br>
+
+>> sTask searches through all the fields and returns all the tasks that contains your KEYWORD.<br><br>
+<!--@@author--> <!--@@author A0143884W-->
+
+&nbsp;&nbsp;&nbsp;&nbsp;<b>3.6 Viewing your tasks on a specific date </b><br><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; You have forgotten what task you were supposed to do today. <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; You can see all your tasks for today by typing<br>
+>> `view DATE` <br>
+* view today <br>
+* view 22-10-2017 <br>
+* view valentine day<br><br>
+
+>> Refer to [Appendix](#7-appendix) for more information on the possible Date formats accepted by sTask. <br><br>
+
+<!--@@author--> <!--@@author A0139024M-->
+
+&nbsp;&nbsp;&nbsp;&nbsp;<b>3.7 Deleting your Task </b><br><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Your client has called you to cancel the meeting, so <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; you can delete that event by typing<br>
+>> `delete INDEX` <br>
+* delete B1 <br><br>
+<!--@@author--> <!--@@author A0139145E-->
+
+&nbsp;&nbsp;&nbsp;&nbsp;<b>3.8 Undoing an action </b><br><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; You can undo your previous action by typing<br>
+>> `undo` <br><br>
+You can only undo the following commands: `add`, `edit`, `delete`, `done`.<br><br>
+
+&nbsp;&nbsp;&nbsp;&nbsp;<b>3.9 Redoing an action </b><br><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; You can redo your previous `undo` by typing<br>
+>> `redo` <br><br>
+You can only redo if you do not use the following commands: `add`, `edit`, `delete`, `done`.<br><br>
+
+&nbsp;&nbsp;&nbsp;&nbsp;<b>3.10 Completing a task </b><br><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; After you claimed your free Starbucks coffee,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; you can mark this task as complete by typing<br>
+>> `done INDEX`<br>
+* done A10 <br><br>
+<!--@@author--> <!--@@author A0143884W-->
+
+&nbsp;&nbsp;&nbsp;&nbsp;<b>3.11 Selecting a task </b><br><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; You can select a task by typing<br>
+>> `select INDEX`<br>
+* select A11 <br><br>
+You can use this command to navigate through your list of tasks.<br><br>
+<!--@@author--> <!--@@author A0139528W-->
+
+&nbsp;&nbsp;&nbsp;&nbsp;<b>3.12 Changing saved data location </b><br><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; You want to access all your tasks from multiple devices on Dropbox, so<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; you can change the location of your saved data by typing<br>
+>> `save FOLDERPATH`<br>
+* save C:\Users\Jim\Dropbox<br><br>
+<!--@@author-->
+
+&nbsp;&nbsp;&nbsp;&nbsp;<b>3.13 Exiting sTask </b><br><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;After a hectic long day, it is time to rest, so you <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;can exit the program by typing<br>
+>> `exit`<br><br>
+
+Now that you have seen how fast, simple and smart sTask can be in managing your mundane tasks, start using it now and become a Champion of your life!<br> 
+<!--@@author--> <!--@@author A0139145E-->
 ## 4. FAQ
-**Q**: Do I need to save manually?
-**A**: Data is saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
+
+&nbsp;&nbsp;&nbsp;&nbsp;<b>4.1 General:</b><br>
+
+**Q**: Do I need to save manually?<br>
+**A**: Data is saved in the hard disk automatically after any command that changes the data. There is no need to save manually.<br>
+
+**Q**: How do I transfer my data to another computer?<br>
+**A**: Install sTask in the other computer by following the steps in Getting Started, and replace the newly created data file with your existing one.<br>
+
+**Q**: Can sTask integrate with my Google Calendar?<br>
+**A**: Currently, sTask is not able to synchronise your data with Google Calendar, as our application is optimised to work without an internet connection. However, we will be looking at implementing this as an optional feature in the near future, so be sure to keep a lookout for our future updates!<br>
+
+**Q**: Will the status of my tasks get updated in real time?<br>
+**A**: Currently, sTask only updates the statuses of your tasks when an action is made.<br>
+
+&nbsp;&nbsp;&nbsp;&nbsp;<b>4.2 Commands:</b><br>
+
+**Q**: Can I convert a To Do task to a deadline without deleting and adding it again?<br>
+**A**: You can use the edit command to add a date to your To Do task and it will be accepted as a deadline.<br>
+
+**Q**: Can I remove any of the fields in a specific task?<br>
+**A**: You can use the edit command and just specify the field without any data and it will remove the corresponding the field. For example, to remove the description of the task at index A1, just type "edit A1 d/".<br>
 
 **Q**: How do I transfer my data to another Computer?<br>
 **A**: Install the app in the other computer and overwrite the empty data file it creates with 
-       the file that contains the data of your previous sTask.
-       
+       the file that contains the data of your previous sTask.<br>
+
+If you have any further enquiries, drop us an email at sTask@sTask.com.sg!<br><br>
+
+<!--@@author--> <!--@@author A0143884W-->
 ## 5. Command Summary
 
-Command | Format  
--------- | -------- 
+Command | Format | Description 
+-------- | :-------- | :--------
+Help | `help` | Opens the help page in a new window
+Add | `add TASK_NAME [d/DESCRIPTION] [date/DATE_TIME] [t/TAGS]` | Adds a task
+List | `list all/done/od`<br> `ls all/done/od` | Lists the desired tasks
+Edit | `edit INDEX [TASK_NAME] [d/DESCRIPTION] [date/DATE_TIME] [t/TAGS]` | Edits a task
+Find | `find KEYWORD[...]` | Finds and displays tasks with KEYWORD[...]
+View | `view DATE` | Views the tasks on a specific date
+Delete | `delete INDEX` <br> `del INDEX` | Deletes a task
+Undo | `undo` | Undoes the last action
+Redo | `redo` | Redoes the last undo
+Done | `done INDEX` | Marks a task as complete
+Select | `select INDEX` <br> `sel INDEX` | Selects and scrolls to the task
+Save | `save FOLDERPATH` | Changes the location of the save file
+Exit | `exit` | Exits sTask
+<br>
 
-Help | `help`
-- Shows a help file
+## 6. Credits
 
-Add | `add TASKNAME d/TASK_DESCRIPTION @/DATE TIME [t/TAG...]`
-- Inserts a task into sTask
+&nbsp;&nbsp;&nbsp;&nbsp;We are grateful to Professor Damith Chatura Rajapakse and his team of highly dedicated tutors and project mentors, for giving us this opportunity to develop this product and for guiding us along the way.
 
-Delete | `delete INDEX`
-- Deletes a task from sTask
+&nbsp;&nbsp;&nbsp;&nbsp;<b>6.1 Source Code</b>
+We would like to acknowledge the original source of our code, i.e., the sample Address Book project created by the se-edu initiative at  https://github.com/se-edu/ .
 
-Edit | `edit INDEX [FIELDS]`
-- Edits the field of the task at the specified `INDEX`
 
-Find | `find KEYWORD [MORE_KEYWORDS]`
-- Finds an existing task based on the TASK_NAME or TASK_TAG
+&nbsp;&nbsp;&nbsp;&nbsp;<b>6.2 External Libaries</b>
+We would like to acknowledge the developers of Natty for their natural language date parser at http://natty.joestelmach.com/<br><br>
+<!--@@author--> <!--@@author A0139528W-->
+## 7. Appendix
 
-List | `list all` , `list od`, `list done`
-- Lists all/overdue/completed tasks in sTask
+&nbsp;&nbsp;&nbsp;&nbsp;<b>7.1 Possible Date Formats</b><br>
 
-View | `view DATE`
-- Populates the list of deadlines and events of the selected DATE
+Format | Example
+-------- | :-------- 
+DD-MM-YYYY  | 27-2-2101
+DD MMM YYYY | 15 MAY 2103
+Relative Date	| Today<br>Tmr<br>2 weeks later<br>Christmas<br>Valentines Day
 
-Done | `done INDEX`
-- Marks the selected task as completed
+&nbsp;&nbsp;&nbsp;&nbsp;<b>7.2 Rejected Date Formats</b><br>
+Format | Example
+-------- | :-------- 
+DD-MM  | 27-02
+DD-MM-YY | 27-02-10
+DD.MM.YY | 27.02.10
+DD.MM.YYYY | 27.02.2010
 
-Save | `save FOLDERPATH`
-- Changes location of storage data to specified folder
+&nbsp;&nbsp;&nbsp;&nbsp;<b>7.3 Possible Time Formats</b><br>
+Format | Example
+-------- | :-------- 
+24HR | 2359
+AM/PM | 2.30pm
+Relative Time | 2 hours later <br> 30 mins later
 
-Undo | `undo`
-- Reverts the last reversible action (up to 10)
+&nbsp;&nbsp;&nbsp;&nbsp;<b>7.4 Rejected Time Formats</b><br>
+Format | Example
+-------- | :-------- 
+Time | 230pm 
 
-## 6. Appendix
-
-Possible Date formats
-DD-MM-YY 	: 18-10-16 
-DD-MM-YYYY  : 27-2-2101
-DD MMM YYYY : 15 MAY 2103
-relative 	: today || tmr || next tuesday
-
-Not accepted Date formats
-DD-MM
-DD.MM
-DD.MM.YY
-DD.MM.YYYY
-
-Possible Time formats
-24HR : 2359
-am/pm : 2.30pm
-relative : 2 hours later || 30 minutes later 
-
-Not accepted Time formats 
-2500
-230pm
-
-This is not an exhaustive list of formats, please visit the following website for more information
-http://natty.joestelmach.com/doc.jsp
+For more date and time formats, visit Natty's website for more information: http://natty.joestelmach.com/doc.jsp
