@@ -186,15 +186,15 @@ Command | Format | Description
 -------- | :-------- | :--------
 Help | `help` | Opens the help page in a new window
 Add | `add TASK_NAME [d/DESCRIPTION] [date/DATE_TIME] [t/TAGS]` | Adds a task
-List | `list all/done/od` | Lists the desired tasks
+List | `list all/done/od`<br> `ls all/done/od` | Lists the desired tasks
 Edit | `edit INDEX [TASK_NAME] [d/DESCRIPTION] [date/DATE_TIME] [t/TAGS]` | Edits a task
 Find | `find KEYWORD[...]` | Finds and displays tasks with KEYWORD[...]
 View | `view DATE` | Views the tasks on a specific date
-Delete | `delete INDEX` | Deletes a task
+Delete | `delete INDEX` <br> `del INDEX` | Deletes a task
 Undo | `undo` | Undoes the last action
 Redo | `redo` | Redoes the last undo
 Done | `done INDEX` | Marks a task as complete
-Select | `select INDEX` | Selects and scrolls to the task
+Select | `select INDEX` <br> `sel INDEX` | Selects and scrolls to the task
 Save | `save FOLDERPATH` | Changes the location of the save file
 Exit | `exit` | Exits sTask
 <br>
