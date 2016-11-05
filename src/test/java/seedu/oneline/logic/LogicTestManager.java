@@ -187,9 +187,9 @@ public class LogicTestManager {
             cmd.append("add ");
 
             cmd.append(p.getName().toString());
-            cmd.append(" .from ").append(p.getStartTime());
-            cmd.append(" .to ").append(p.getEndTime());
-            cmd.append(" .due ").append(p.getDeadline());
+            cmd.append(" .from ").append(p.getStartTime().toRawString());
+            cmd.append(" .to ").append(p.getEndTime().toRawString());
+            cmd.append(" .due ").append(p.getDeadline().toRawString());
             cmd.append(" #").append(p.getTag().getTagName());
 
             return cmd.toString();
