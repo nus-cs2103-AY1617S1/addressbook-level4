@@ -136,6 +136,7 @@ Given below is the Sequence Diagram for interactions within the `Logic` componen
 2. As the user wants to undo previous command, the command that is actually executed is the reverse action for previous command.
 3. As undo command is most useful for delete, add, clear, done, undone, edit commands as it uses the storage component.
 4. The result of the undo command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
+5. User can also undo multiple times and it is done by calling undo command with the number of times that the user set
 
 ### Model component
 
