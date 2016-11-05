@@ -30,7 +30,7 @@ import seedu.whatnow.model.task.UniqueTaskList.TaskNotFoundException;
 public class UpdateCommand extends Command {
 
     private static final Logger logger = LogsCenter.getLogger(UpdateCommand.class);
-    
+
     public static final String COMMAND_WORD = "update";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
@@ -59,7 +59,7 @@ public class UpdateCommand extends Command {
     public final String taskType;
     public final String arg_type;
     public final String arg;
-    private Task toUpdate;
+    private static Task toUpdate;
 
     public UpdateCommand(String taskType, int targetIndex, String arg_type, String arg)
             throws IllegalValueException, ParseException {
@@ -146,7 +146,7 @@ public class UpdateCommand extends Command {
                 endDate = validateDate.getEndDate();
             }
         }
-        
+
         toUpdate = new Task(new Name(newName), date, startDate, endDate, time, startTime, endTime, period, endPeriod, new UniqueTagList(tagSet), null, null);
     }
 
@@ -220,6 +220,9 @@ public class UpdateCommand extends Command {
         }
     }
 
+    public static Task getToUpdate()  {
+        return toUpdate;
+    }
     // @@author A0139772U
     /**
      * Executes the UpdateCommand to replace the task at targetIndex with updated information
@@ -245,8 +248,10 @@ public class UpdateCommand extends Command {
         try {
             model.updateTask(taskToUpdate, toUpdate);
             model.getOldTask().push(taskToUpdate);
-            model.getNewTask().push(toUpdate);
+            model.getCurrentTask().push(toUpdate);
             model.getUndoStack().push(COMMAND_WORD);
+            
+            model.clearRedoAll();
         } catch (TaskNotFoundException tnfe) {
             logger.warning("TaskNotFoundException at UpdateCommand: \n" + tnfe.getMessage());
         } catch (UniqueTaskList.DuplicateTaskException e) {

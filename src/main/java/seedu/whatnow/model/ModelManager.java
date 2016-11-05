@@ -71,7 +71,8 @@ public class ModelManager extends ComponentManager implements Model {
     private final Stack<String> stackOfUndo;
     private final Stack<String> stackOfRedo;
     private final Stack<ReadOnlyTask> stackOfOldTask;
-    private final Stack<ReadOnlyTask> stackOfNewTask;
+    private final Stack<ReadOnlyTask> stackOfCurrentTask;
+    private final Stack<ReadOnlyTask> stackOfNextTask;
     private final Stack<ReadOnlyWhatNow> stackOfWhatNow;
     private final Stack<ReadOnlyTask> stackOfDeletedTasks;
     private final Stack<Integer> stackOfDeletedTaskIndex;
@@ -89,7 +90,7 @@ public class ModelManager extends ComponentManager implements Model {
     private final Stack<String> stackOfChangeFileLocationNew;
     private final HashMap<String, FreePeriod> freeTimes;
 
-    //@@author A0139128A
+  
     /**
      * Initializes a ModelManager with the given WhatNow WhatNow and its
      * variables should not be null
@@ -110,7 +111,8 @@ public class ModelManager extends ComponentManager implements Model {
         stackOfUndo = new Stack<>();
         stackOfRedo = new Stack<>();
         stackOfOldTask = new Stack<>();
-        stackOfNewTask = new Stack<>();
+        stackOfCurrentTask = new Stack<>();
+        stackOfNextTask = new Stack<>();
         stackOfWhatNow = new Stack<>();
         stackOfDeletedTasks = new Stack<>();
         stackOfDeletedTaskIndex = new Stack<>();
@@ -135,7 +137,7 @@ public class ModelManager extends ComponentManager implements Model {
         this(new WhatNow(), new UserPrefs());
     }
 
-    //@@author A0139128A
+   
     public ModelManager(ReadOnlyWhatNow initialData, UserPrefs userPrefs) {
         whatNow = new WhatNow(initialData);
         new Config();
@@ -146,7 +148,8 @@ public class ModelManager extends ComponentManager implements Model {
         stackOfUndo = new Stack<>();
         stackOfRedo = new Stack<>();
         stackOfOldTask = new Stack<>();
-        stackOfNewTask = new Stack<>();
+        stackOfCurrentTask = new Stack<>();
+        stackOfNextTask = new Stack<>();
         stackOfWhatNow = new Stack<>();
         stackOfDeletedTasks = new Stack<>();
         stackOfDeletedTaskIndex = new Stack<>();
@@ -311,10 +314,15 @@ public class ModelManager extends ComponentManager implements Model {
 
     //@@author A0139128A
     @Override
-    public Stack<ReadOnlyTask> getNewTask() {
-        return stackOfNewTask;
+    public Stack<ReadOnlyTask> getCurrentTask() {
+        return stackOfCurrentTask;
     }
 
+    //@@author A0139128A
+    @Override
+    public Stack<ReadOnlyTask> getNextTask() {
+        return stackOfNextTask;
+    }
     //@@author A0139772U
     @Override
     public UnmodifiableObservableList<ReadOnlyTask> getAllTaskTypeList() {
@@ -411,6 +419,44 @@ public class ModelManager extends ComponentManager implements Model {
         }
         freeTimes.get(date).getList().sort(new Period());
         return freeTimes.get(date);
+    }
+    //@@author A0139128A
+    @Override
+    public void clearRedoAll() {
+        clearAllRedoStack();
+    }
+    //@@author A0139128A
+    private void clearAllRedoStack() {
+        while(getRedoStack().isEmpty()) {
+            getRedoStack().pop();
+        }
+        while(getNextTask().isEmpty()) {
+            getNextTask().pop();
+        }
+        while(stackOfWhatNow.isEmpty()) {
+            stackOfWhatNow.pop();
+        }
+        while(getDeletedStackOfTasksRedo().isEmpty()) {
+            getDeletedStackOfTasksRedo().pop();
+        }
+        while(getDeletedStackOfTasksIndexRedo().isEmpty()) {
+            getDeletedStackOfTasksIndexRedo().pop();
+        }
+        while(getDeletedStackOfTasksAddRedo().isEmpty()) {
+            getDeletedStackOfTasksAddRedo().pop();
+        }
+        while(getStackOfMarkDoneTaskRedo().isEmpty()) {
+            getStackOfMarkDoneTaskRedo().pop();
+        }
+        while(getStackOfMarkUndoneTaskRedo().isEmpty()) {
+            getStackOfMarkUndoneTaskRedo().pop();
+        }
+        while(getStackOfListTypesRedo().isEmpty()) {
+            getStackOfListTypesRedo().pop();
+        }
+        while(getStackOfChangeFileLocationNew().isEmpty()) {
+            getStackOfChangeFileLocationNew().pop();
+        }
     }
 
     //@@author A0139772U

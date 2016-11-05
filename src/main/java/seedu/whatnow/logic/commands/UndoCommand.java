@@ -215,18 +215,16 @@ public class UndoCommand extends Command {
 
     private CommandResult performUndoUpdate() throws TaskNotFoundException {
         assert model != null;
-        if (model.getOldTask().isEmpty() && model.getNewTask().isEmpty()) {
+        if (model.getOldTask().isEmpty()) {
             return new CommandResult(String.format(UndoCommand.MESSAGE_FAIL));
         } else {
-            ReadOnlyTask originalTask = model.getOldTask().pop();
-            ReadOnlyTask unwantedTask = model.getNewTask().pop();
             try {
-                model.getOldTask().push(unwantedTask);
-                model.getNewTask().push(originalTask);
-                model.updateTask(unwantedTask, (Task) originalTask);
+                Task toChangeInto = (Task) model.getOldTask().pop();
+                Task theOriginal = (Task) model.getCurrentTask().pop();
+                model.updateTask((Task)theOriginal, toChangeInto);
+                model.getNextTask().push(theOriginal);
+                model.getCurrentTask().push(toChangeInto);
             } catch (UniqueTaskList.DuplicateTaskException utle) {
-                model.getOldTask().pop();
-                model.getNewTask().pop();
                 return new CommandResult(UndoCommand.MESSAGE_FAIL);
             }
             return new CommandResult(UndoCommand.MESSAGE_SUCCESS);
