@@ -110,7 +110,21 @@ public class CalendarItemFilter {
                 eventPredicates.add(Event.predStartBefore(now));
             }
         }
-        return null;
+        
+        // Filter by time
+        String[] datePair = DateParser.extractDatePair(parsedResult);
+        String timeStartNatural = datePair[0];
+        String timeEndNatural = datePair[1];
+        if (timeStartNatural != null) {
+            LocalDateTime timeStart = DateParser.parseNatural(timeStartNatural);
+            eventPredicates.add(Event.predStartAfter(timeStart));
+        }
+        if (timeEndNatural != null) {
+            LocalDateTime timeEnd = DateParser.parseNatural(timeEndNatural);
+            eventPredicates.add(Event.predEndBefore(timeEnd));
+        }
+        
+        return Event.where(eventPredicates);
     }
 
 }
