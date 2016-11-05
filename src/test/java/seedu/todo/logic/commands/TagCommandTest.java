@@ -6,13 +6,12 @@ import org.junit.Ignore;
 import org.junit.Test;
 import seedu.todo.commons.exceptions.ValidationException;
 import seedu.todo.model.tag.Tag;
-import seedu.todo.model.tag.UniqueTagCollection;
 import seedu.todo.model.task.ImmutableTask;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.StringJoiner;
-import java.util.List;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 

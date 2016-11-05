@@ -4,9 +4,6 @@ import org.junit.Test;
 import seedu.todo.commons.exceptions.ValidationException;
 import seedu.todo.model.TodoModelTest;
 import seedu.todo.model.tag.Tag;
-import seedu.todo.model.task.ImmutableTask;
-
-import java.util.function.Consumer;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -53,7 +50,7 @@ public class UndoCommandTest extends CommandTest {
 
     @Test
     public void testUndo_undoDeleteTagFromATask() throws Exception {
-        String tagName = "pikachu";
+        String tagName = "apple123";
         model.add("Sample Task");
         Thread.sleep(10);
         model.addTagsToTask(1, tagName);
@@ -71,8 +68,8 @@ public class UndoCommandTest extends CommandTest {
     @Test
     public void testUndo_undoRenameTagFromTask() throws Exception {
 
-        String oldName = "pikachu";
-        String newName = "pichu";
+        String oldName = "farfetch";
+        String newName = "nearthrow";
         model.add("Sample Task");
         Thread.sleep(10);
         model.addTagsToTask(1, oldName);
@@ -90,8 +87,8 @@ public class UndoCommandTest extends CommandTest {
 
     @Test
     public void testUndo_undoTagRename_allTagNamesRestored() throws Exception {
-        String oldTag = "pikachu";
-        String newTag = "pichu";
+        String oldTag = "vertices";
+        String newTag = "edges";
 
         for (int i = 1; i <= 3; i ++) {
             model.add("Sample Task " + i);
@@ -120,7 +117,7 @@ public class UndoCommandTest extends CommandTest {
 
     @Test
     public void testUndo_undoTagDelete_allTagNamesRestored() throws Exception {
-        String oldTag = "pikachu";
+        String oldTag = "wonderful";
 
         for (int i = 1; i <= 3; i ++) {
             model.add("Sample Task " + i);
@@ -133,7 +130,7 @@ public class UndoCommandTest extends CommandTest {
         //Sanity check: The tags are really deleted.
         model.getObservableList().forEach(task -> {
             boolean hasOldTag = task.getTags().contains(new Tag(oldTag));
-            assertTrue(!hasOldTag);
+            assertFalse(hasOldTag);
         });
 
         model.undo();
