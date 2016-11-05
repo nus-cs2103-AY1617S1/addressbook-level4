@@ -17,31 +17,27 @@ import seedu.todo.models.TodoListDB;
  * @@author A0093907W
  *
  */
-public class FindController implements Controller {
+public class FindController extends Controller {
     
     private static final String NAME = "Find";
-    private static final String DESCRIPTION = "Find tasks and events based on the provided keyword.\n";
-    private static final String COMMAND_SYNTAX = "find <name>";
-    private static final String COMMAND_WORD = "find";
+    private static final String DESCRIPTION = "Find tasks and events based on the provided keyword.";
+    private static final String COMMAND_SYNTAX = "find [name]";
+    private static final String COMMAND_KEYWORD = "find";
     
     private static final String MESSAGE_LISTING_SUCCESS = "A total of %s %s and %s %s found!";
     private static final String MESSAGE_LISTING_FAILURE = "No tasks or events found!";
     
     private static CommandDefinition commandDefinition =
-            new CommandDefinition(NAME, DESCRIPTION, COMMAND_SYNTAX); 
+            new CommandDefinition(NAME, DESCRIPTION, COMMAND_SYNTAX, COMMAND_KEYWORD); 
 
-    public static CommandDefinition getCommandDefinition() {
+    @Override
+    public CommandDefinition getCommandDefinition() {
         return commandDefinition;
     }
 
     @Override
-    public float inputConfidence(String input) {
-        return (input.toLowerCase().startsWith(COMMAND_WORD)) ? 1 : 0;
-    }
-
-    @Override
     public void process(String input) throws ParseException {
-        input = input.replaceFirst(COMMAND_WORD, "").trim();
+        input = input.replaceFirst(COMMAND_KEYWORD, "").trim();
         
         List<Predicate<Task>> taskPredicates = new ArrayList<Predicate<Task>>();
         taskPredicates.add(Task.predByName(input));

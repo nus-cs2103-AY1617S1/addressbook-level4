@@ -24,12 +24,13 @@ import seedu.todo.models.TodoListDB;
  * 
  * Controller to add an event or task.
  */
-public class AddController implements Controller {
+public class AddController extends Controller {
     
     private static final String NAME = "Add";
     private static final String DESCRIPTION = "Adds a task / event to the to-do list.\n"
                                             + "Accepts natural date formats (e.g. \"Today 5pm\" is allowed).";
     private static final String COMMAND_SYNTAX = "add <task> by <deadline> || add <event> from <start_date> to <end_date>";
+    private static final String COMMAND_KEYWORD = "add";
 
     private static final String MESSAGE_ADD_SUCCESS = "Item successfully added!";
     private static final String STRING_WHITESPACE = "";
@@ -41,16 +42,11 @@ public class AddController implements Controller {
     private static final String NAME_FIELD = "<name>";
     
     private static CommandDefinition commandDefinition =
-            new CommandDefinition(NAME, DESCRIPTION, COMMAND_SYNTAX); 
-
-    public static CommandDefinition getCommandDefinition() {
-        return commandDefinition;
-    }
+            new CommandDefinition(NAME, DESCRIPTION, COMMAND_SYNTAX, COMMAND_KEYWORD);
 
     @Override
-    public float inputConfidence(String input) {
-        // TODO
-        return (input.toLowerCase().startsWith("add")) ? 1 : 0;
+    public CommandDefinition getCommandDefinition() {
+        return commandDefinition;
     }
     
     /**

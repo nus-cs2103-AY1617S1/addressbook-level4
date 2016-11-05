@@ -11,11 +11,12 @@ import seedu.todo.models.TodoListDB;
  * 
  * @@author A0139812A
  */
-public class UncompleteTaskController implements Controller {
+public class UncompleteTaskController extends Controller {
     
     private static final String NAME = "Uncomplete Task";
     private static final String DESCRIPTION = "Marks a task as incomplete, by listed index";
     private static final String COMMAND_SYNTAX = "uncomplete <index>";
+    private static final String COMMAND_KEYWORD = "uncomplete";
 
     private static final String MESSAGE_SUCCESS = "Task marked as incomplete!";
     private static final String MESSAGE_INVALID_ITEM = "Could not mark task as incomplete: Invalid index provided!";
@@ -25,16 +26,11 @@ public class UncompleteTaskController implements Controller {
     
     
     private static CommandDefinition commandDefinition =
-            new CommandDefinition(NAME, DESCRIPTION, COMMAND_SYNTAX);
-
-    public static CommandDefinition getCommandDefinition() {
-        return commandDefinition;
-    }
+            new CommandDefinition(NAME, DESCRIPTION, COMMAND_SYNTAX, COMMAND_KEYWORD);
 
     @Override
-    public float inputConfidence(String input) {
-        // TODO
-        return input.toLowerCase().startsWith("uncomplete") ? 1 : 0;
+    public CommandDefinition getCommandDefinition() {
+        return commandDefinition;
     }
 
     @Override

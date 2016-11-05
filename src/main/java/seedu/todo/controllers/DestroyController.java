@@ -13,11 +13,12 @@ import seedu.todo.models.TodoListDB;
  * @author louietyj
  *
  */
-public class DestroyController implements Controller {
+public class DestroyController extends Controller {
     
     private static final String NAME = "Destroy";
     private static final String DESCRIPTION = "Destroys a task/event by listed index";
     private static final String COMMAND_SYNTAX = "destroy <index>";
+    private static final String COMMAND_KEYWORD = "destroy";
     
     private static final String MESSAGE_DELETE_SUCCESS = "Item deleted successfully!\n" + "To undo, type \"undo\".";
     private static final String MESSAGE_INDEX_OUT_OF_RANGE = "Could not delete task/event: Invalid index provided!";
@@ -25,16 +26,11 @@ public class DestroyController implements Controller {
     private static final String MESSAGE_INDEX_NOT_NUMBER = "Index has to be a number!";
     
     private static CommandDefinition commandDefinition =
-            new CommandDefinition(NAME, DESCRIPTION, COMMAND_SYNTAX); 
-
-    public static CommandDefinition getCommandDefinition() {
-        return commandDefinition;
-    }
+            new CommandDefinition(NAME, DESCRIPTION, COMMAND_SYNTAX, COMMAND_KEYWORD); 
 
     @Override
-    public float inputConfidence(String input) {
-        // TODO
-        return (input.toLowerCase().startsWith("delete") || input.startsWith("destroy")) || input.startsWith("remove") ? 1 : 0;
+    public CommandDefinition getCommandDefinition() {
+        return commandDefinition;
     }
 
     @Override

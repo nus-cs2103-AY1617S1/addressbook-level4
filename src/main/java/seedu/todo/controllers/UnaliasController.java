@@ -17,11 +17,12 @@ import seedu.todo.controllers.concerns.Renderer;
  *
  */
 
-public class UnaliasController implements Controller {
+public class UnaliasController extends Controller {
     
     private static final String NAME = "Unalias";
     private static final String DESCRIPTION = "Deletes an existing alias pair.";
     private static final String COMMAND_SYNTAX = "unalias <alias key>";
+    private static final String COMMAND_KEYWORD = "unalias";
     
     private static final String MESSAGE_DESTROY_SUCCESS = "Successfully destroyed alias!";
     private static final String MESSAGE_INVALID_INPUT = "Invalid alias parameters! Alias inputs must consist solely "
@@ -30,16 +31,11 @@ public class UnaliasController implements Controller {
     private static final String SAVE_ERROR = "There was an error saving your aliases. Please try again.";
     
     private static CommandDefinition commandDefinition =
-            new CommandDefinition(NAME, DESCRIPTION, COMMAND_SYNTAX); 
-
-    public static CommandDefinition getCommandDefinition() {
-        return commandDefinition;
-    }
+            new CommandDefinition(NAME, DESCRIPTION, COMMAND_SYNTAX, COMMAND_KEYWORD); 
 
     @Override
-    public float inputConfidence(String input) {
-        // TODO
-        return input.toLowerCase().startsWith("unalias") ? 1 : 0;
+    public CommandDefinition getCommandDefinition() {
+        return commandDefinition;
     }
 
     @Override

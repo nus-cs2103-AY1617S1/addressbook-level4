@@ -9,6 +9,7 @@ import seedu.todo.commons.exceptions.ParseException;
 import seedu.todo.commons.util.StringUtil;
 import seedu.todo.controllers.*;
 
+// @@author A0139812A
 public class InputHandler {
     
     private static InputHandler instance;
@@ -17,7 +18,7 @@ public class InputHandler {
     private static LinkedList<String> commandHistory = new LinkedList<String>();
     private static ListIterator<String> commandHistoryIterator = commandHistory.listIterator();
 
-    private Controller handlingController = null;
+    private static final String CHAR_SPACE = " ";
     
     protected InputHandler() {
         // Prevent instantiation.
@@ -25,7 +26,6 @@ public class InputHandler {
     
     /**
      * Gets the current input handler instance.
-     * @@author A0139812A
      */
     public static InputHandler getInstance() {
         if (instance == null) {
@@ -41,7 +41,6 @@ public class InputHandler {
      * are at the start of the List and will be popped off first.
      * 
      * @param command   Command string
-     * @@author A0139812A
      */
     private void pushCommand(String command) {
         // Adds to the end of the LinkedList.
@@ -60,7 +59,6 @@ public class InputHandler {
      * Gets the previous command from the command history. Successive calls will return commands earlier in history.
      * 
      * @return  The input command earlier than what was previously retrieved
-     * @@author A0139812A
      */
     public String getPreviousCommandFromHistory() {
         if (!commandHistoryIterator.hasPrevious()) {
@@ -74,7 +72,6 @@ public class InputHandler {
      * Gets the next command from the command history. Successive calls will return commands later in history.
      * 
      * @return  The input command later than what was previously retrieved
-     * @@author A0139812A
      */
     public String getNextCommandFromHistory() {
         if (!commandHistoryIterator.hasNext()) {
@@ -85,8 +82,6 @@ public class InputHandler {
     }
 
     /**
-     * @@author A0093907W
-     * 
      * Processes the command. Returns true if the command was intercepted by a controller, false if otherwise.
      * If the command was not intercepted by a controller, it means that the command was not recognized.
      */
@@ -94,28 +89,26 @@ public class InputHandler {
         
         Map<String, String> aliases = MainApp.getConfig().getAliases();
         String aliasedInput = StringUtil.replaceAliases(input, aliases);
-        Controller selectedController = null;
         
-        if (this.handlingController != null) {
-            selectedController = handlingController;
-        } else {
-            Controller[] controllers = instantiateAllControllers();
+        Controller[] controllers = instantiateAllControllers();
+        
+        // Extract keyword.
+        String keyword = extractKeyword(aliasedInput);
 
-            // Get controller which has the maximum confidence.
-            Controller maxController = getMaxController(aliasedInput, controllers);
+        // Get controller which has the maximum confidence.
+        Controller matchingController = getMatchingController(keyword, controllers);
 
-            // No controller exists with confidence > 0.
-            if (maxController == null) {
-                return false;
-            }
-
-            // Select best-matched controller.
-            selectedController = maxController;
-
+        // If command keyword did not match any controllers, console will show invalid command.
+        if (matchingController == null) {
+            return false;
         }
         
-        // Process using best-matched controller.
-        boolean isProcessSuccess = processWithController(input, aliasedInput, selectedController);
+        // Patch input commands.
+        input = patchCommandKeyword(input);
+        aliasedInput = patchCommandKeyword(aliasedInput);
+        
+        // Process using matched controller.
+        boolean isProcessSuccess = processWithController(input, aliasedInput, matchingController);
         
         // Catch commands which throw errors here.
         if (!isProcessSuccess) {
@@ -156,35 +149,51 @@ public class InputHandler {
     }
 
     /**
-     * Get controller which has the maximum confidence.
+     * Get controller which matches the command keyword.
      * 
-     * @param aliasedInput  Input with aliases replaced appropriately
+     * @param aliasedCommandKeyword  Input with aliases replaced appropriately
      * @param controllers   Array of instantiated controllers to test
-     * @return              Controller with maximum confidence, null if all non-positive.
+     * @return              Matching controller.
      */
-    private Controller getMaxController(String aliasedInput, Controller[] controllers) {
-        // Define the controller which returns the maximum confidence.
-        Controller maxController = null;
-        
-        float maxConfidence = Integer.MIN_VALUE;
-
-        for (int i = 0; i < controllers.length; i++) {
-            float confidence = controllers[i].inputConfidence(aliasedInput);
-
-            // Don't consider controllers with non-positive confidence.
-            if (confidence <= 0) {
-                continue;
-            }
-
-            if (confidence > maxConfidence) {
-                maxConfidence = confidence;
-                maxController = controllers[i];
+    private Controller getMatchingController(String aliasedCommandKeyword, Controller[] controllers) {
+        for (Controller controller : controllers) {
+            if (controller.matchCommandKeyword(aliasedCommandKeyword)) {
+                return controller;
             }
         }
-        return maxController;
+        
+        return null;
     }
     
-    private Controller[] instantiateAllControllers() {
+    /**
+     * Extracts the command keyword from the input command.
+     */
+    private String extractKeyword(String inputCommand) {
+        String[] commandWords = inputCommand.trim().split(CHAR_SPACE);
+        
+        if (commandWords.length < 1) {
+            return "";
+        }
+        
+        return commandWords[0].toLowerCase();
+    }
+    
+    /**
+     * Replaces the first word in a command input string to prepare it for parsing and/or disambiguating.
+     */
+    private String patchCommandKeyword(String inputCommand) {
+        String[] commandWords = inputCommand.trim().split(CHAR_SPACE);
+        
+        if (commandWords.length < 1) {
+            return "";
+        } else {
+            commandWords[0] = extractKeyword(inputCommand);
+        }
+        
+        return String.join(CHAR_SPACE, commandWords);
+    }
+    
+    private static Controller[] instantiateAllControllers() {
         return new Controller[] { new AliasController(),
                                   new UnaliasController(),
                                   new HelpController(),

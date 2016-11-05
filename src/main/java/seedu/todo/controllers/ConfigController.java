@@ -18,11 +18,12 @@ import seedu.todo.ui.UiManager;
  * 
  * @@author A0139812A
  */
-public class ConfigController implements Controller {
+public class ConfigController extends Controller {
 
     private static final String NAME = "Configure";
     private static final String DESCRIPTION = "Shows current configuration settings or updates them.";
     private static final String COMMAND_SYNTAX = "config [<setting> <value>]";
+    private static final String COMMAND_KEYWORD = "config";
 
     private static final String MESSAGE_SHOWING = "Showing all settings.";
     private static final String MESSAGE_SUCCESS = "Successfully updated %s.";
@@ -34,16 +35,11 @@ public class ConfigController implements Controller {
     private static final String DB_FILE_EXTENSION = ".json";
 
     private static CommandDefinition commandDefinition =
-            new CommandDefinition(NAME, DESCRIPTION, COMMAND_SYNTAX);
-
-    public static CommandDefinition getCommandDefinition() {
-        return commandDefinition;
-    }
+            new CommandDefinition(NAME, DESCRIPTION, COMMAND_SYNTAX, COMMAND_KEYWORD); 
 
     @Override
-    public float inputConfidence(String input) {
-        // TODO
-        return input.startsWith("config") ? 1 : 0;
+    public CommandDefinition getCommandDefinition() {
+        return commandDefinition;
     }
 
     @Override

@@ -11,11 +11,12 @@ import seedu.todo.models.TodoListDB;
  * @@author Tiong YaoCong A0139922Y
  *
  */
-public class TagController implements Controller {
+public class TagController extends Controller {
     
     private static final String NAME = "Tag";
     private static final String DESCRIPTION = "Tag a task/event by listed index";
     private static final String COMMAND_SYNTAX = "tag <index> <tag name>";
+    private static final String COMMAND_KEYWORD = "tag";
     
     private static final String MESSAGE_TAG_SUCCESS = "Item has been tagged successfully.";
     private static final String MESSAGE_INDEX_OUT_OF_RANGE = "Could not tag task/event: Invalid index provided!";
@@ -28,16 +29,11 @@ public class TagController implements Controller {
     private static final int ITEM_INDEX = 0;
     
     private static CommandDefinition commandDefinition =
-            new CommandDefinition(NAME, DESCRIPTION, COMMAND_SYNTAX); 
-
-    public static CommandDefinition getCommandDefinition() {
-        return commandDefinition;
-    }
+            new CommandDefinition(NAME, DESCRIPTION, COMMAND_SYNTAX, COMMAND_KEYWORD); 
 
     @Override
-    public float inputConfidence(String input) {
-        // TODO
-        return (input.toLowerCase().startsWith("tag") || input.startsWith("tags")) ? 1 : 0;
+    public CommandDefinition getCommandDefinition() {
+        return commandDefinition;
     }
 
     @Override

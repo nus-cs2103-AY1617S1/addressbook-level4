@@ -9,22 +9,19 @@ import seedu.todo.commons.events.ui.ExitAppRequestEvent;
  * @author louietyj
  *
  */
-public class ExitController implements Controller {
+public class ExitController extends Controller {
 
     private static final String NAME = "Exit";
     private static final String DESCRIPTION = "Exit from GetShitDone!";
     private static final String COMMAND_SYNTAX = "exit";
+    private static final String COMMAND_KEYWORD = "exit";
 
     private static CommandDefinition commandDefinition =
-            new CommandDefinition(NAME, DESCRIPTION, COMMAND_SYNTAX); 
+            new CommandDefinition(NAME, DESCRIPTION, COMMAND_SYNTAX, COMMAND_KEYWORD); 
 
-    public static CommandDefinition getCommandDefinition() {
-        return commandDefinition;
-    }
-    
     @Override
-    public float inputConfidence(String input) {
-        return (input.toLowerCase().startsWith("exit")) ? 1 : 0;
+    public CommandDefinition getCommandDefinition() {
+        return commandDefinition;
     }
 
     @Override

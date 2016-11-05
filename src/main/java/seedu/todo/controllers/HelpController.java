@@ -11,24 +11,21 @@ import seedu.todo.ui.views.HelpView;
  * @author louietyj
  *
  */
-public class HelpController implements Controller {
+public class HelpController extends Controller {
 
     private static final String NAME = "Help";
     private static final String DESCRIPTION = "Shows documentation for all valid commands.";
     private static final String COMMAND_SYNTAX = "help";
+    private static final String COMMAND_KEYWORD = "help";
     
     private static final String MESSAGE_HELP_SUCCESS = "Showing all commands.";
     
     private static CommandDefinition commandDefinition =
-            new CommandDefinition(NAME, DESCRIPTION, COMMAND_SYNTAX); 
-
-    public static CommandDefinition getCommandDefinition() {
-        return commandDefinition;
-    }
+            new CommandDefinition(NAME, DESCRIPTION, COMMAND_SYNTAX, COMMAND_KEYWORD); 
 
     @Override
-    public float inputConfidence(String input) {
-        return (input.toLowerCase().startsWith("help")) ? 1 : 0;
+    public CommandDefinition getCommandDefinition() {
+        return commandDefinition;
     }
 
     @Override
@@ -41,19 +38,19 @@ public class HelpController implements Controller {
     }
     
     private CommandDefinition[] getAllCommandDefinitions() {
-        return new CommandDefinition[] { HelpController.getCommandDefinition(),
-                                         AddController.getCommandDefinition(),
-                                         ListController.getCommandDefinition(),
-                                         UpdateController.getCommandDefinition(),
-                                         CompleteTaskController.getCommandDefinition(),
-                                         UncompleteTaskController.getCommandDefinition(),
-                                         DestroyController.getCommandDefinition(),
-                                         ConfigController.getCommandDefinition(),
-                                         DestroyController.getCommandDefinition(),
-                                         ClearController.getCommandDefinition(),
-                                         FindController.getCommandDefinition(),
-                                         TagController.getCommandDefinition(),
-                                         UntagController.getCommandDefinition(),
-                                         ExitController.getCommandDefinition() };
+        return new CommandDefinition[] { new HelpController().getCommandDefinition(),
+                                         new AddController().getCommandDefinition(),
+                                         new ListController().getCommandDefinition(),
+                                         new UpdateController().getCommandDefinition(),
+                                         new CompleteTaskController().getCommandDefinition(),
+                                         new UncompleteTaskController().getCommandDefinition(),
+                                         new DestroyController().getCommandDefinition(),
+                                         new ConfigController().getCommandDefinition(),
+                                         new DestroyController().getCommandDefinition(),
+                                         new ClearController().getCommandDefinition(),
+                                         new FindController().getCommandDefinition(),
+                                         new TagController().getCommandDefinition(),
+                                         new UntagController().getCommandDefinition(),
+                                         new ExitController().getCommandDefinition() };
     }
 }

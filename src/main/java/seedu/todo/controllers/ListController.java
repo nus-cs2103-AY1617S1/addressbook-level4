@@ -20,12 +20,12 @@ import seedu.todo.models.TodoListDB;
 /**
  * Controller to list CalendarItems.
  */
-public class ListController implements Controller {
+public class ListController extends Controller {
     
     private static final String NAME = "List";
     private static final String DESCRIPTION = "Lists all tasks and events.";
     private static final String COMMAND_SYNTAX = "list [task/event] [complete/incomplete] [on date] or [from date to date]";
-    private static final String COMMAND_WORD = "list";
+    private static final String COMMAND_KEYWORD = "list";
     
     private static final String MESSAGE_LISTING_ALL = "Showing all tasks and events.\n\n"
                                                     + "You have a total of %d incomplete tasks, %d overdue tasks, "
@@ -33,15 +33,11 @@ public class ListController implements Controller {
     private static final String MESSAGE_LISTING_FILTERED = "Showing %s.\n\nYour query: %s";
     
     private static CommandDefinition commandDefinition =
-            new CommandDefinition(NAME, DESCRIPTION, COMMAND_SYNTAX); 
-
-    public static CommandDefinition getCommandDefinition() {
-        return commandDefinition;
-    }
+            new CommandDefinition(NAME, DESCRIPTION, COMMAND_SYNTAX, COMMAND_KEYWORD); 
 
     @Override
-    public float inputConfidence(String input) {
-        return (input.toLowerCase().startsWith("list")) ? 1 : 0;
+    public CommandDefinition getCommandDefinition() {
+        return commandDefinition;
     }
     
     @Override
@@ -50,7 +46,7 @@ public class ListController implements Controller {
         TodoListDB db = TodoListDB.getInstance();        
         
         // First, we check if it's a basic command, then don't bother filtering.
-        if (input.toLowerCase().trim().equals(COMMAND_WORD)) {
+        if (input.toLowerCase().trim().equals(COMMAND_KEYWORD)) {
             String consoleMessage = String.format(MESSAGE_LISTING_ALL, db.countIncompleteTasks(), 
                     db.countOverdueTasks(), db.countFutureEvents());
             Renderer.renderIndex(db, consoleMessage);
