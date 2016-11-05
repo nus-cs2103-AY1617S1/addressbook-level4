@@ -52,8 +52,8 @@ public interface Model {
      * Edits the Start Date & Time of the given Task/Event, given it's index. 
      * @throws IllegalValueException 
      */
+    void editTaskToFloating(ReadOnlyActivity taskToEdit) throws IllegalValueException, ActivityNotFoundException;
     void editTaskDateTime(ReadOnlyActivity taskToEdit, String newDate, String newTime) throws IllegalValueException, ActivityNotFoundException;
-    void editFloatingTaskDateTime(ReadOnlyActivity FloatingToEdit, String newDate, String newTime) throws IllegalValueException, ActivityNotFoundException;
     void editEventEndDateTime(ReadOnlyActivity eventToEdit, String newDate, String newTime) throws IllegalValueException, ActivityNotFoundException;
     void editEventStartDateTime(ReadOnlyActivity eventToEdit, String newDate, String newTime) throws IllegalValueException, ActivityNotFoundException;
     

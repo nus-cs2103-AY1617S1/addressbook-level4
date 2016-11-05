@@ -139,7 +139,6 @@ public class Activity implements ReadOnlyActivity {
             name = source.getActivityName();
             note = source.getNote();
             status = source.getActivityStatus();
-            
         } else if (source.getActivityType().equals(TASK_TYPE)) {
             activityType = source.getActivityType();;
             name = source.getActivityName();
@@ -164,32 +163,41 @@ public class Activity implements ReadOnlyActivity {
         }
         this.status = source.getActivityStatus();
         this.activityDetails = source.getActivityDetails();
-
-    }
-
-    @Override
-    public void setCompleted() {
-        this.status = new Completed(true);
-    }
-
-    @Override
-    public void setUncompleted() {
-        this.status = new Completed(false);
     }
     
+    // Creates a unique ArrayList of details for each activity.
     @Override
-    public Completed getActivityStatus() {
-        return this.status;
+    public void setActivityDetails() {
+        if (activityType.equals(FLOATING_TASK_TYPE)) {
+            activityDetails = new ArrayList<String>(FLOATING_TASK_LENGTH);
+            activityDetails.add(activityType);
+            activityDetails.add(name.toString());
+            activityDetails.add(note.toString());
+            activityDetails.add(status.toString());
+        } else if (activityType.equals(TASK_TYPE)) {
+            activityDetails = new ArrayList<String>(TASK_LENGTH);
+            activityDetails.add(activityType);
+            activityDetails.add(name.toString());
+            activityDetails.add(note.toString());
+            activityDetails.add(startDate.toString());
+            activityDetails.add(startTime.toString());
+            activityDetails.add(status.toString());
+        } else if (activityType.equals(EVENT_TYPE)) {
+            activityDetails = new ArrayList<String>(EVENT_LENGTH);
+            activityDetails.add(activityType);
+            activityDetails.add(name.toString());
+            activityDetails.add(note.toString());
+            activityDetails.add(startDate.toString());
+            activityDetails.add(startTime.toString());
+            activityDetails.add(endDate.toString());
+            activityDetails.add(endTime.toString());
+            activityDetails.add(status.toString());
+        }
     }
-    @Override
-    public ActivityName getActivityName() {
-        return this.name;
-    }
-    
+
     /**
      * @throws IllegalValueException 
-     * List of methods to set Activity's param : Type, Name, Note, startDate, startTime
-     * Exception handling to be editted ----------> ALERT! (Assumes User to pass in correct parameters)
+     * List of methods to set Activity's param : Type, Name, Note, startDate, startTime, completion status, emailSent status, timePassed status.
      */
 
     @Override
@@ -202,6 +210,7 @@ public class Activity implements ReadOnlyActivity {
             this.activityType = newType;
         }
     }
+    
     @Override
     public void setActivityName(String newName) throws IllegalValueException {
         assert (newName != null);
@@ -232,7 +241,6 @@ public class Activity implements ReadOnlyActivity {
             this.startDate = newDateObject;
             this.startTime = newTimeObject;
         }
-
     }
     
     @Override
@@ -245,6 +253,40 @@ public class Activity implements ReadOnlyActivity {
         check.validEventDate(this.startDate, this.startTime, newDateObject, newTimeObject);
         this.endDate = newDateObject;
         this.endTime = newTimeObject;
+    }
+
+    @Override
+    public void setCompleted() {
+        this.status = new Completed(true);
+    }
+
+    @Override
+    public void setUncompleted() {
+        this.status = new Completed(false);
+    }
+    
+    public void setTimePassed(Boolean timePassed){
+        this.activityTimePassed = timePassed;
+    }
+    
+    public void setEventOngoing(Boolean eventOngoing){
+        this.eventOngoing = eventOngoing;
+    }
+    
+    public void setEmailSent(Boolean sentStatus){
+        this.emailSent = sentStatus;
+    }
+    
+    /**
+     * Getter methods for Activity, returns all possible params of activity.
+     */
+    @Override
+    public Completed getActivityStatus() {
+        return this.status;
+    }
+    @Override
+    public ActivityName getActivityName() {
+        return this.name;
     }
     
     @Override
@@ -296,51 +338,10 @@ public class Activity implements ReadOnlyActivity {
     public Boolean isEventOngoing(){
     	return this.eventOngoing;
     }
-    
-    public void setEmailSent(Boolean sentStatus){
-    	this.emailSent = sentStatus;
-    }
-    
-    public void setTimePassed(Boolean timePassed){
-    	this.activityTimePassed = timePassed;
-    }
-    
-    public void setEventOngoing(Boolean eventOngoing){
-    	this.eventOngoing = eventOngoing;
-    }
-    
+
     @Override
     public Activity get() {
         return this;
-    }
-
-    @Override
-    public void setActivityDetails() {
-        if (activityType.equals(FLOATING_TASK_TYPE)) {
-            activityDetails = new ArrayList<String>(FLOATING_TASK_LENGTH);
-            activityDetails.add(activityType);
-            activityDetails.add(name.toString());
-            activityDetails.add(note.toString());
-            activityDetails.add(status.toString());
-        } else if (activityType.equals(TASK_TYPE)) {
-            activityDetails = new ArrayList<String>(TASK_LENGTH);
-            activityDetails.add(activityType);
-            activityDetails.add(name.toString());
-            activityDetails.add(note.toString());
-            activityDetails.add(startDate.toString());
-            activityDetails.add(startTime.toString());
-            activityDetails.add(status.toString());
-        } else if (activityType.equals(EVENT_TYPE)) {
-            activityDetails = new ArrayList<String>(EVENT_LENGTH);
-            activityDetails.add(activityType);
-            activityDetails.add(name.toString());
-            activityDetails.add(note.toString());
-            activityDetails.add(startDate.toString());
-            activityDetails.add(startTime.toString());
-            activityDetails.add(endDate.toString());
-            activityDetails.add(endTime.toString());
-            activityDetails.add(status.toString());
-        }
     }
 
     @Override

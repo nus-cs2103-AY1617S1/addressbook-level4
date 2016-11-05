@@ -27,7 +27,7 @@ public class EditCommand extends Command {
     public static final String SEPARATOR = "/ ";
     public static final String MESSAGE_INVALID_PARAMETER = "Menion detected an invalid parameter for the current type! \n" +
             "Please make sure it is, for: \n" + 
-            Activity.FLOATING_TASK_TYPE + ": "  + NAME_PARAM + SEPARATOR + NOTE_PARAM + "\n" +
+            Activity.FLOATING_TASK_TYPE + ": "  + NAME_PARAM + SEPARATOR + NOTE_PARAM + SEPARATOR + TASK_DEADLINE_PARAM + "\n" +
             Activity.TASK_TYPE + ": " + NAME_PARAM + SEPARATOR + NOTE_PARAM + SEPARATOR + TASK_DEADLINE_PARAM + "\n" +
             Activity.EVENT_TYPE + ": " + NAME_PARAM + SEPARATOR + NOTE_PARAM + SEPARATOR + EVENT_FROM_PARAM + SEPARATOR + EVENT_TO_PARAM;
 
@@ -108,7 +108,7 @@ public class EditCommand extends Command {
             break;
         case 2:
             NattyDateParser.parseDate(this.changes, fromNatty);
-            model.editFloatingTaskDateTime(floatingTaskToEdit, fromNatty.get(0), fromNatty.get(1));
+            model.editTaskDateTime(floatingTaskToEdit, fromNatty.get(0), fromNatty.get(1));
             break;
             
         }
@@ -134,6 +134,13 @@ public class EditCommand extends Command {
             NattyDateParser.parseDate(this.changes, fromNatty);
             model.editTaskDateTime(taskToEdit, fromNatty.get(0), fromNatty.get(1));
             break;
+        case 4:
+            if (this.changes.contains(Activity.FLOATING_TASK_TYPE)) {
+                   model.editTaskToFloating(taskToEdit);
+            }
+            else {
+                throw new IllegalValueException("Menion can only accept changing task to: " + Activity.FLOATING_TASK_TYPE);
+            }
         }
     }
     
@@ -181,7 +188,7 @@ public class EditCommand extends Command {
             return 2;
         } else if (paramToChange.equals(EVENT_FROM_PARAM) && this.targetType.equals(Activity.EVENT_TYPE)) {
             return 3;
-        } else if (paramToChange.equals(EVENT_TO_PARAM) && this.targetType.equals(Activity.EVENT_TYPE) ) {
+        } else if (paramToChange.equals(EVENT_TO_PARAM) && (this.targetType.equals(Activity.EVENT_TYPE) || this.targetType.equals(Activity.TASK_TYPE))) {
             return 4;
         }
 
