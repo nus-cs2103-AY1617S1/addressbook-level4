@@ -326,12 +326,14 @@ Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (un
 |`* * *` | user | delete a task | remove a completed task from the list |
 |`* * *` | user | delete all tasks | declutter my task manager |
 |`* * *` | user | delete all tasks with a certain name or tag | declutter my task manager |
+|`* * *` | user | delete all tasks within a certain date | declutter my task manager |
 |`* * *` | user | find a task by name/description | see what needs to be done |
 |`* * *` | user | find a task by tags | find a task that may be related to another task |
 |`* * *` | user | list all tasks | know what are the tasks I have entered |
 |`* * *` | user | list all tasks due by today | know what are the tasks I need to complete by today |
 |`* * *` | user | list all tasks that are undone | know which task to attend to first |
-|`* * *` | user | list all tags | know what tags I can search for |
+|`* * *` | user | list all tasks that are overdue | can attend to tasks that have  |
+|`* * *` | user | list all tasks that are done | so that I can revert back to undone if I ever need to |
 |`* * *` | user | edit any information of the task | make changes to the tasks that I have created |
 |`* *` | user | undo previous command | remove any task that is entered wrongly |
 |`* *` | user | keep my information safe | protect information that is private to me |
