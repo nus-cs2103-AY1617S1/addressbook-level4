@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.function.Predicate;
 
 import seedu.todo.commons.exceptions.InvalidNaturalDateException;
+import seedu.todo.models.Event;
 import seedu.todo.models.Task;
 
 /**
@@ -89,6 +90,16 @@ public class CalendarItemFilter {
         }
         
         return Task.where(taskPredicates);
+    }
+    
+    public static List<Event> filterEvents(Map<String, String[]> parsedResult) throws InvalidNaturalDateException {
+        List<Predicate<Event>> eventPredicates = new ArrayList<Predicate<Event>>();
+        
+        // Filter by name
+        if (parsedResult.get("name") != null) {
+            eventPredicates.add(Event.predByName(parsedResult.get("name")[1]));
+        }
+        return null;
     }
 
 }
