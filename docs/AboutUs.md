@@ -62,7 +62,7 @@ We are a team based in the [School of Computing, National University of Singapor
 * Code written: [[functional code](../collated/main/A0126649W.md)][[test code](../collated/test/A0126649W.md)][[docs](collated/docs/A0126649W.md)]
 * Other major contributions:
   * Did refactoring from Person to Task [[#20](https://github.com/CS2103AUG2016-W10-C3/main/pull/20)]
-  * Copy edited UserGuide for CS2101.
+  * Copy edited UserGuide for CS2101
   * Enhancement in task card UI [[#50](https://github.com/CS2103AUG2016-W10-C3/main/pull/50)][[#78](https://github.com/CS2103AUG2016-W10-C3/main/pull/78)]
 -----
 
