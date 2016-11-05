@@ -19,12 +19,8 @@ import java.util.stream.Collectors;
  */
 public class WhatNow implements ReadOnlyWhatNow {
 
-    private final UniqueTaskList tasks;
-    private final UniqueTagList tags;
-    {
-        tasks = new UniqueTaskList();
-        tags = new UniqueTagList();
-    }
+    private final UniqueTaskList tasks = new UniqueTaskList();
+    private final UniqueTagList tags = new UniqueTagList();
 
     public WhatNow() {
     }
