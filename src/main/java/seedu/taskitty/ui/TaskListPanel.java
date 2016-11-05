@@ -7,11 +7,13 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.SplitPane;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import seedu.taskitty.commons.core.LogsCenter;
 import seedu.taskitty.commons.events.ui.TaskPanelSelectionChangedEvent;
+import seedu.taskitty.commons.util.AppUtil;
 import seedu.taskitty.model.task.ReadOnlyTask;
 import seedu.taskitty.model.task.Task;
 
@@ -33,6 +35,10 @@ public class TaskListPanel extends UiPart {
     private static final String HEADER_DEADLINE = "DEADLINES";
     private static final String HEADER_EVENT = "EVENTS";
     
+    private static final String ICON_TODO = "/images/todo_icon.png";
+    private static final String ICON_DEADLINE = "/images/deadline_icon.png";
+    private static final String ICON_EVENT = "/images/event_icon.png";
+    
     //@@author A0130853L-reused
     protected VBox panel;
     protected AnchorPane placeHolderPane;
@@ -41,6 +47,9 @@ public class TaskListPanel extends UiPart {
 
     @FXML
     private Label header;
+    
+    @FXML
+    private ImageView listIcon;
     
     @FXML
     private ListView<ReadOnlyTask> taskListView;
@@ -68,18 +77,37 @@ public class TaskListPanel extends UiPart {
      * Initializes the list view header and ID depending on the type of list it is
      */
     private void initializeListView(int type) {
-        if (type == Task.TASK_COMPONENT_COUNT) {
-            header.setText(HEADER_TODO);
-            taskListView.setId(ID_TODO);
-        } else if (type == Task.DEADLINE_COMPONENT_COUNT) {
-            header.setText(HEADER_DEADLINE);
-            taskListView.setId(ID_DEADLINE);
-        } else if (type == Task.EVENT_COMPONENT_COUNT) {
-            header.setText(HEADER_EVENT);
-            taskListView.setId(ID_EVENT);
-        } else {
+        
+        switch (type) {
+        
+        case Task.TASK_COMPONENT_COUNT :
+            setListUIComponents(HEADER_TODO, ICON_TODO, ID_TODO);
+            break;
+            
+        case Task.DEADLINE_COMPONENT_COUNT :
+            setListUIComponents(HEADER_DEADLINE, ICON_DEADLINE, ID_DEADLINE);
+            break;
+            
+        case Task.EVENT_COMPONENT_COUNT :
+            setListUIComponents(HEADER_EVENT, ICON_EVENT, ID_EVENT);
+            break;
+            
+        default :
             assert false : "List must be either todo, deadline or event";
+        
         }
+    }
+    
+    /**
+     * Sets the relevant UI components of the TaskListPanel based on input Strings
+     * @param header title of the TaskListPanel
+     * @param icon filepath to the image for the TaskListPanel's icon
+     * @param id of the TaskListPanel
+     */
+    private void setListUIComponents(String header, String icon, String id) {
+        this.header.setText(header);
+        this.listIcon.setImage(AppUtil.getImage(icon));
+        this.taskListView.setId(id);
     }
     
     //@@author A0130853L-reused

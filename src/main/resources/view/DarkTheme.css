@@ -87,6 +87,12 @@
     -fx-border-width: 0 0 0 0;
 }
 
+.pane-title {
+    -fx-text-fill: #f9f9f9;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+}
+
 .error {
     -fx-background-color: #d9534f
 }
@@ -255,11 +261,6 @@
 
 .scroll-bar:horizontal .increment-arrow, .scroll-bar:horizontal .decrement-arrow {
     -fx-padding: 0 0 0 0;
-}
-
-.pane-title {
-    -fx-text-fill: #f9f9f9; 
-    -fx-font-weight: bold;
 }
 
 #filterField, #taskListPanel, #taskWebpage {
