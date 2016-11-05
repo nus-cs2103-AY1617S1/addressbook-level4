@@ -209,7 +209,9 @@ public class EditCommand extends UndoableCommand {
 	@Override
 	public CommandResult execute() {	    
 	    assert model != null;
-		
+        
+	    // check if viewing done list
+        // cannot edit in done list, return an incorrect command msg
 	    if (model.isCurrentListDoneList()) {
 	        indicateAttemptToExecuteIncorrectCommand();
 	        return new CommandResult(String.format(Messages.MESSAGE_DONE_LIST_RESTRICTION));
@@ -217,6 +219,7 @@ public class EditCommand extends UndoableCommand {
 	    
         UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredUndoneTaskList();
 
+        
         if (lastShownList.size() < targetIndex || targetIndex == 0) {
             indicateAttemptToExecuteIncorrectCommand();
             return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
@@ -248,7 +251,8 @@ public class EditCommand extends UndoableCommand {
         if (priority == null) {
         	priority = toEdit.getPriorityValue();
         }    
-
+        
+        //assign previous recurrence rate to recurrenceRate if user never input one
         if (recurrenceRate == null && toEdit.getRecurrenceRate().isPresent()) {
             recurrenceRate = toEdit.getRecurrenceRate().get();
         }  
@@ -266,31 +270,37 @@ public class EditCommand extends UndoableCommand {
         if (removeReccurence || (startDate == null && endDate == null)) {
             recurrenceRate = null;
         }
-        
+
+        logger.fine("Details to be edited assigned");
+
         model.editTask(taskToEdit, taskName, startDate, endDate, priority, recurrenceRate);
         updateHistory();
         return new CommandResult(String.format(MESSAGE_SUCCESS, toEdit));      
 	}
 
+	/**
+     * assign previous end date to endDate if user never input one
+     * assign endDate as null if user choose to reset end date
+     */
     private void assignEndDate() {
-        //assign previous end date to endDate if user never input one
         if (endDate == null && toEdit.getEndDate().isPresent()) {
         	endDate = toEdit.getEndDate().get();
         }
         
-        //assign endDate as null if user choose to reset end date
         if (removeEndDate) {
         	endDate = null;
         }
     }
-
+    
+    /**
+     * assign previous start date to startDate if user never input one
+     * assign startDate as null if user choose to reset end date
+     */
     private void assignStartDate() {
-        //assign previous start date to startDate if user never input one
         if (startDate == null && toEdit.getStartDate().isPresent()) {
             startDate = toEdit.getStartDate().get();
         }
         
-        //assign startDate as null if user choose to reset start date
         if (removeStartDate) {
         	startDate = null;
         }
