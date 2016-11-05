@@ -40,15 +40,15 @@ The main audience of this developer&#39;s guide is directed towards the students
 
 The entire application uses a huge range of APIs and requires a deep understanding of:
 
--  Java programming language
+-  **Java programming language**
 
 Since the entire piece of code is written in Java, prospective developers have to be adept with the Java programming language. In addition, APIs are used extensively throughout the entire code.
 
-- Eclipse IDE
+- **Eclipse IDE**
 
 The main code is very long and hence it requires an integrated development environment to help in the process of editing and testing.
 
-- JavaFX
+- **JavaFX**
 
 Being familiar with JavaFX will enable prospective developers to edit the user interface smoothly.
 
@@ -177,7 +177,7 @@ The API of the Logic component consists mainly of the following classes:
 
 These classes work together to categorize the different possible inputs from the user and sieves the important keywords out so that `Model` can continue executing the command entered by the user.
 
-The Logic component,
+The `Logic` component,
 
 - `Logic` takes in the user&#39;s input and passes it to the `Parser` class
 - `Parser` will decide which Command class is able to handle the request
@@ -196,8 +196,8 @@ The API of the `Model` component is in the `Model` class which consists of the m
 
 ModelManager is able to:
 
- 1)Store the user preference <br>
- 2)Store _Unburden&#39;s_ data <br>
+ - Store the user preference <br>
+ - Store _Unburden&#39;s_ data <br>
 
 ###**Storage component**
 
@@ -219,8 +219,8 @@ These classes are responsible for storing the data from the user and also works 
 
 `Storage` is able to:
 
- 1)Save the data entered in by the user and also read it back to `Model` when requested <br>
- 2)Save user preferences and read it back when needed <br>
+ - Save the data entered in by the user and also read it back to `Model` when requested <br>
+ - Save user preferences and read it back when needed <br>
 
 
 ## **Testing**
@@ -238,14 +238,14 @@ Using Gradle:
 
 We have two types of tests:
 
-1. GUI Tests - These are _System Tests_ that test the entire App by simulating user actions on the GUI. These are in the guitests package.
-2. Non-GUI Tests - These are tests not involving the GUI. They include,
-  1. _Unit tests_ targeting the lowest level methods/classes.
-  2. g. address.commons.UrlUtilTest
-  3. _Integration tests_ that are checking the integration of multiple code units (those code units are assumed to be working).
-  4. g. address.storage.StorageManagerTest
-  5. Hybrids of unit and integration tests. These test are checking multiple code units as well as how the are connected together.
-  6. g. address.logic.LogicManagerTest
+1. **GUI Tests** - These are _System Tests_ that test the entire App by simulating user actions on the GUI. These are in the guitests package.
+2. **Non-GUI Tests** - These are tests not involving the GUI. They include,
+	1. _Unit tests_ targeting the lowest level methods/classes. <br>
+	2. g. address.commons.UrlUtilTest <br>
+	3. _Integration tests_ that are checking the integration of multiple code units (those code units are assumed to be working). <br>
+	4. g. address.storage.StorageManagerTest <br>
+	5. Hybrids of unit and integration tests. These test are checking multiple code units as well as how the are connected together.<br>
+	6. g. address.logic.LogicManagerTest <br>
 
 
 
@@ -355,14 +355,14 @@ Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (un
 ##### MSS
 
 1. User requests to add a task 
-2. Unburden saves the task to the list of tasks and displays the existing list of tasks
+2. _Unburden_ saves the task to the list of tasks and displays the existing list of tasks
 
-   Use case ends
+	Use case ends
   
 ##### Extensions
 
 1.1  User requests to add a task with a wrong format <br>
-1.2  Unburden will give display a error message <br>  
+1.2  _Unburden_ will give display a error message <br>  
   
      Use case ends
 
@@ -373,9 +373,9 @@ Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (un
 ##### MSS
 
 1. User requests to delete a specific task by index
-2. Unburden will delete the task and show the existing list of tasks
+2. _Unburden_ will delete the task and show the existing list of tasks
 
-   Use case ends
+	Use case ends
     
 ##### Extensions
   
@@ -392,8 +392,8 @@ Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (un
 
 1. User requests to find tasks based on a date
 2. _Unburden_ will search through the existing tasks with the specified deadline and shows a list to the user
-
-   Use case ends
+	
+	Use case ends
   
 ##### Extension
   
@@ -421,16 +421,16 @@ Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (un
 ##### MSS
 
 1. User requests to edit a task based on the index of the tasks and the new updated fields
-2. _Unburden_ updates the task to the given input fields and displays it to the user
-
-   Use case: ends
+2. _Unburden_ updates the task to the given input fields and displays it to the user 
+	
+	Use case ends
   
 ##### Extension
   
 1.1  User requests to edit a task based on an invalid index of tasks and the new updated fields <br>
 1.2  _Unburden_ shows an error message <br>
   
-     Use case ends
+     Use case ends 
 
 
 
@@ -445,7 +445,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (un
       
 ###### Extension
 
-1.1 User reuqests to list of all tasks by a certain date <br>
+1.1 User requests to list of all tasks by a certain date <br>
 2.2 _Unburden_ will show a list of all undone tasks that have deadlines before the specified date <br>
 
       Use case ends
@@ -467,7 +467,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (un
      Use case ends
      
 5.1 User requests to list all tasks that are undone <br>
-5.2 Unburden will show the user a list of tasks that are undone <br>
+5.2 _Unburden_ will show the user a list of tasks that are undone <br>
 
      Use case ends
 
@@ -521,6 +521,6 @@ Based on research done, below is a table of some of the applicable features and 
 | **Easy to setup and manage** | _Yes_ | _Yes, easy to understand_ | _Yes but not as well as the Wunderlist_ | _Yes_ | _Yes, but can be more intuitive_ |
 | **Able to collaborate with other people** | _Yes, able to share with other people_ | _Yes, able to share with other people_ | _Yes, able to share with other people_ | _Yes, able to share with other people_ | _Yes, able to share with other people_  |
 | **Focuses on tasks with specific deadline** | _No_ | _No_ | _Yes_ | _No_ | _No_ |
-| **Using color tags to differentiate different tasks or lists** | _No_ | _No_ | _No_ | _No_ | _Yes, able to colour code tasks and lists so that it is easier to differentiate_ |
+| **Offline capabilities** | _Yes_ | _Yes, but some features are restricted_ | _Yes, but some features are restricted_ | _No_ | _No_ |
 | **Able to set certain tasks as &quot;recurring&quot;** | _No_ | _No_ | _Yes, &quot;recurring&quot; tasks will continue to remind the user_ | _No_ | _No_ |
 | **Able to navigate around using only command line** | _No_ | _No_ | _No_ | _No_ | _No_ |
