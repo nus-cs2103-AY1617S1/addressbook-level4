@@ -1,4 +1,5 @@
 package seedu.unburden.logic.commands;
+
 import java.util.Set;
 import seedu.unburden.commons.core.Messages;
 import seedu.unburden.commons.core.UnmodifiableObservableList;
@@ -10,10 +11,11 @@ import seedu.unburden.model.task.Task;
 /**
  * Finds and lists all persons in address book whose name contains any of the
  * argument keywords. Keyword matching is case sensitive.
+ * 
  * @@author A0139678J
  */
 
-//@@Nathanael Chan A0139678J
+// @@Nathanael Chan A0139678J
 public class FindCommand extends Command {
 
 	public static final String COMMAND_WORD = "find";
@@ -21,6 +23,8 @@ public class FindCommand extends Command {
 	public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all persons whose names contain any of "
 			+ "the specified keywords (case-sensitive) and displays them as a list with index numbers.\n"
 			+ "Parameters: KEYWORD [MORE_KEYWORDS]...\n" + "Example: " + COMMAND_WORD + " alice bob charlie";
+
+	public static final String NO_RESULTS_FOUND = "No matches found. Please try searching for something else";
 
 	private final Set<String> keywords;
 	private final String date;
@@ -57,8 +61,8 @@ public class FindCommand extends Command {
 
 	@Override
 	public CommandResult execute() {
-        UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
-        if(lastShownList.size() == 0){
+		UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
+		if (lastShownList.size() == 0) {
 			return new CommandResult(String.format(Messages.MESSAGE_NO_TASKS_FOUND, ListCommand.MESSAGE_USAGE));
 		}
 		switch (modeOfSearch) {
@@ -68,8 +72,11 @@ public class FindCommand extends Command {
 		case "name":
 			model.updateFilteredTaskList(getTasksWithSameNameOrTags(keywords));
 		}
-		
-		return new CommandResult(getMessageForTaskListShownSummary(model.getFilteredTaskList().size()));
+
+		if (model.getFilteredTaskList().size() == 0) {
+			return new CommandResult(NO_RESULTS_FOUND);
+		} else {
+			return new CommandResult(getMessageForTaskListShownSummary(model.getFilteredTaskList().size()));
+		}
 	}
-	
 }
