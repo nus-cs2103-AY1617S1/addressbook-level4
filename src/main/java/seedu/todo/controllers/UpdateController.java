@@ -1,16 +1,8 @@
 package seedu.todo.controllers;
 
 import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-import com.joestelmach.natty.DateGroup;
-import com.joestelmach.natty.Parser;
 
 import seedu.todo.commons.EphemeralDB;
 import seedu.todo.commons.exceptions.InvalidNaturalDateException;
@@ -27,26 +19,27 @@ import seedu.todo.models.TodoListDB;
 /**
  * @@author A0093907W
  * 
- * Controller to update a CalendarItem.
+ *          Controller to update a CalendarItem.
  */
 public class UpdateController implements Controller {
-    
+
     private static final String NAME = "Update";
     private static final String DESCRIPTION = "Updates a task by listed index.";
     private static final String COMMAND_SYNTAX = "update <index> <task> by <deadline>";
-    
+
     private static final String MESSAGE_UPDATE_SUCCESS = "Item successfully updated!";
-    private static final String STRING_WHITESPACE = "";
-    private static final String UPDATE_EVENT_TEMPLATE = "update \"%s\" [name \"%s\"] [from \"%s\" to \"%s\"]";
-    private static final String UPDATE_TASK_TEMPLATE = "update \"%s\" [name \"%s\"] [by \"%s\"]";
+    public static final String MESSAGE_INVALID_ITEM_OR_PARAM = "Please specify a valid index and parameter to update!";
+    public static final String MESSAGE_CANNOT_PARSE_DATE = "We could not parse the date in your previous command, please correct it.";
+    
+    private static final String UPDATE_EVENT_TEMPLATE = "update %s [name \"%s\"] [from \"%s\" to \"%s\"]";
+    private static final String UPDATE_TASK_TEMPLATE = "update %s [name \"%s\"] [by \"%s\"]";
     private static final String START_TIME_FIELD = "<start time>";
     private static final String END_TIME_FIELD = "<end time>";
     private static final String DEADLINE_FIELD = "<deadline>";
     private static final String NAME_FIELD = "<name>";
     private static final String INDEX_FIELD = "<index>";
-    
-    private static CommandDefinition commandDefinition =
-            new CommandDefinition(NAME, DESCRIPTION, COMMAND_SYNTAX); 
+
+    private static CommandDefinition commandDefinition = new CommandDefinition(NAME, DESCRIPTION, COMMAND_SYNTAX);
 
     public static CommandDefinition getCommandDefinition() {
         return commandDefinition;
@@ -57,7 +50,7 @@ public class UpdateController implements Controller {
         // TODO
         return (input.toLowerCase().startsWith("update")) ? 1 : 0;
     }
-    
+
     /**
      * Get the token definitions for use with <code>tokenizer</code>.<br>
      * This method exists primarily because Java does not support HashMap
@@ -67,8 +60,8 @@ public class UpdateController implements Controller {
      */
     private static Map<String, String[]> getTokenDefinitions() {
         Map<String, String[]> tokenDefinitions = new HashMap<String, String[]>();
-        tokenDefinitions.put("default", new String[] {"update"});
-        tokenDefinitions.put("name", new String[] {"name"});
+        tokenDefinitions.put("default", new String[] { "update" });
+        tokenDefinitions.put("name", new String[] { "name" });
         tokenDefinitions.put("time", new String[] { "at", "by", "on", "before", "time" });
         tokenDefinitions.put("timeFrom", new String[] { "from" });
         tokenDefinitions.put("timeTo", new String[] { "to" });
@@ -78,18 +71,18 @@ public class UpdateController implements Controller {
     @Override
     public void process(String input) throws ParseException {
         // TODO: Example of last minute work
-        
+
         Map<String, String[]> parsedResult;
         parsedResult = Tokenizer.tokenize(getTokenDefinitions(), input);
-        
+
         // Name
         String name = parseName(parsedResult);
-        
+
         // Time
         String[] naturalDates = DateParser.extractDatePair(parsedResult);
         String naturalFrom = naturalDates[0];
         String naturalTo = naturalDates[1];
-        
+
         // Record index
         Integer recordIndex = null;
         try {
@@ -97,7 +90,7 @@ public class UpdateController implements Controller {
         } catch (NumberFormatException e) {
             recordIndex = null; // Later then disambiguate
         }
-        
+
         // Parse natural date using Natty.
         LocalDateTime dateFrom;
         LocalDateTime dateTo;
@@ -105,10 +98,10 @@ public class UpdateController implements Controller {
             dateFrom = naturalFrom == null ? null : DateParser.parseNatural(naturalFrom);
             dateTo = naturalTo == null ? null : DateParser.parseNatural(naturalTo);
         } catch (InvalidNaturalDateException e) {
-            renderDisambiguation(true, recordIndex, name, naturalFrom, naturalTo);
+            renderDisambiguation(true, recordIndex, name, naturalFrom, naturalTo, MESSAGE_CANNOT_PARSE_DATE);
             return;
         }
-        
+
         // Retrieve record and check if task or event
         EphemeralDB edb = EphemeralDB.getInstance();
         CalendarItem calendarItem = null;
@@ -118,29 +111,29 @@ public class UpdateController implements Controller {
             isTask = calendarItem.getClass() == Task.class;
         } catch (NullPointerException e) {
             // Assume task for disambiguation purposes since we can't tell
-            renderDisambiguation(true, recordIndex, name, naturalFrom, naturalTo);
+            renderDisambiguation(true, recordIndex, name, naturalFrom, naturalTo, MESSAGE_INVALID_ITEM_OR_PARAM);
             return;
         }
-        
+
         // Validate isTask, name and times.
         if (!validateParams(isTask, calendarItem, name, dateFrom, dateTo)) {
-            renderDisambiguation(isTask, (int) recordIndex, name, naturalFrom, naturalTo);
+            renderDisambiguation(isTask, (int) recordIndex, name, naturalFrom, naturalTo, null);
             return;
         }
-        
+
         // Update and persist task / event.
         TodoListDB db = TodoListDB.getInstance();
         updateCalendarItem(db, calendarItem, isTask, name, dateFrom, dateTo);
-        
+
         // Re-render
         Renderer.renderIndex(db, MESSAGE_UPDATE_SUCCESS);
     }
-    
+
     /**
      * Extracts the record index from parsedResult.
      * 
      * @param parsedResult
-     * @return  Integer index if parse was successful, null otherwise.
+     * @return Integer index if parse was successful, null otherwise.
      */
     private Integer parseIndex(Map<String, String[]> parsedResult) {
         String indexStr = null;
@@ -151,12 +144,12 @@ public class UpdateController implements Controller {
             return null;
         }
     }
-    
+
     /**
      * Extracts the name to be updated from parsedResult.
      * 
      * @param parsedResult
-     * @return  String name if found, null otherwise.
+     * @return String name if found, null otherwise.
      */
     private String parseName(Map<String, String[]> parsedResult) {
         if (parsedResult.get("name") != null && parsedResult.get("name")[1] != null) {
@@ -164,7 +157,7 @@ public class UpdateController implements Controller {
         }
         return null;
     }
-    
+
     /**
      * Updates and persists a CalendarItem to the DB.
      * 
@@ -181,13 +174,13 @@ public class UpdateController implements Controller {
      * @param dateTo
      *            End date for Event
      */
-    private void updateCalendarItem(TodoListDB db, CalendarItem record,
-            boolean isTask, String name, LocalDateTime dateFrom, LocalDateTime dateTo) {
+    private void updateCalendarItem(TodoListDB db, CalendarItem record, boolean isTask, String name,
+            LocalDateTime dateFrom, LocalDateTime dateTo) {
         // Update name if not null
         if (name != null) {
             record.setName(name);
         }
-        
+
         // Update time
         if (isTask) {
             Task task = (Task) record;
@@ -203,13 +196,14 @@ public class UpdateController implements Controller {
                 event.setEndDate(dateTo);
             }
         }
-        
+
         // Persist
         db.save();
     }
-    
+
     /**
-     * Validate that applying the update changes to the record will not result in an inconsistency.
+     * Validate that applying the update changes to the record will not result
+     * in an inconsistency.
      * 
      * <ul>
      * <li>Fail if name is invalid</li>
@@ -233,15 +227,15 @@ public class UpdateController implements Controller {
      * @param dateTo
      * @return
      */
-    private boolean validateParams(boolean isTask, CalendarItem record, String name,
-            LocalDateTime dateFrom, LocalDateTime dateTo) {
+    private boolean validateParams(boolean isTask, CalendarItem record, String name, LocalDateTime dateFrom,
+            LocalDateTime dateTo) {
         // TODO: Not enough sleep
         // We really need proper ActiveRecord validation and rollback, sigh...
-        
+
         if (name == null && dateFrom == null && dateTo == null) {
             return false;
         }
-        
+
         if (isTask) {
             // Fail if task has a dateTo
             if (dateTo != null) {
@@ -249,22 +243,22 @@ public class UpdateController implements Controller {
             }
         } else {
             Event event = (Event) record;
-            
+
             // Take union of existing fields and update params
             LocalDateTime newDateFrom = (dateFrom == null) ? event.getStartDate() : dateFrom;
             LocalDateTime newDateTo = (dateTo == null) ? event.getEndDate() : dateTo;
-            
+
             if (newDateFrom == null || newDateTo == null) {
                 return false;
             }
-            
+
             if (newDateTo.isBefore(newDateFrom)) {
                 return false;
             }
         }
         return true;
     }
-    
+
     /**
      * Renders disambiguation with best-effort input matching to template.
      * 
@@ -272,14 +266,15 @@ public class UpdateController implements Controller {
      * @param name
      * @param naturalFrom
      * @param naturalTo
+     * @param errorMessage
      */
-    private void renderDisambiguation(boolean isTask, Integer recordIndex, String name, String naturalFrom, String naturalTo) {
+    private void renderDisambiguation(boolean isTask, Integer recordIndex, String name, String naturalFrom,
+            String naturalTo, String errorMessage) {
         name = StringUtil.replaceEmpty(name, NAME_FIELD);
 
         String disambiguationString;
-        String errorMessage = STRING_WHITESPACE; // TODO
         String indexStr = (recordIndex == null) ? INDEX_FIELD : recordIndex.toString();
-        
+
         if (isTask) {
             naturalFrom = StringUtil.replaceEmpty(naturalFrom, DEADLINE_FIELD);
             disambiguationString = String.format(UPDATE_TASK_TEMPLATE, indexStr, name, naturalFrom);
@@ -288,7 +283,7 @@ public class UpdateController implements Controller {
             naturalTo = StringUtil.replaceEmpty(naturalTo, END_TIME_FIELD);
             disambiguationString = String.format(UPDATE_EVENT_TEMPLATE, indexStr, name, naturalFrom, naturalTo);
         }
-        
+
         // Show an error in the console
         Renderer.renderDisambiguation(disambiguationString, errorMessage);
     }
