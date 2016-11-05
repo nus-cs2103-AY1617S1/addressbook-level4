@@ -45,14 +45,13 @@ Format: `help`
  <!--- @@author A0129595N --->
 #### Adding a task: `add`
 Adds a task to the to-do list<br>
-There are three types of tasks that can be added in Malitio<br>
-Namely To-Do, Deadline and Event.<br>
-Tags can be added, but must only consists of numbers and alphabets.<br>
+There are three types of tasks that can be added in Malitio: To-Do, Deadline and Event.<br>
+Alphanumeric (alphabets and/or numbers) tags can be added.<br>
 
 Floating Task Format: `add TASK_NAME [t/TAG]`<br>
 Deadline Format: `add TASK_NAME by DATE/TIME [t/TAG]`<br>
 Event Format: `add TASK_NAME start DATE/TIME end DATE/TIME [t/TAG]`<br>
-
+Note: TASK_NAME cannot contain any of the following key words: "by", "start" and "end".<br>
 
 Examples: 
 * `add drink water t/healthy`
