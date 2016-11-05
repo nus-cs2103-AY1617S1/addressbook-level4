@@ -4,5 +4,6 @@
   "userPrefsFilePath" : "C:\\preferences.json",
   "taskManagerFilePath" : "taskmanager.xml",
   "taskManagerName" : "TypicalTaskManagerName",
+  "sortPreference" : "Default",
   "extra" : "extra value"
 }

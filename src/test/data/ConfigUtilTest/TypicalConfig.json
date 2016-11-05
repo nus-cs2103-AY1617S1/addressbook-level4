@@ -3,5 +3,6 @@
   "logLevel" : "INFO",
   "userPrefsFilePath" : "C:\\preferences.json",
   "taskManagerFilePath" : "taskmanager.xml",
-  "taskManagerName" : "TypicalTaskManagerName"
+  "taskManagerName" : "TypicalTaskManagerName",
+  "sortPreference" : "Default"
 }
