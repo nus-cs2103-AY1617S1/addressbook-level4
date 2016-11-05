@@ -40,6 +40,8 @@ public class EditCommand extends UndoableCommand {
 
     public static final String MESSAGE_RECUR_DATE_TIME_CONSTRAINTS = "For recurring tasks to be valid, "
             + "at least one DATE_TIME must be provided";
+    
+    public static final String MESSAGE_END_DATE_CONSTRAINTS = "End date should be later than start date.";
 
     public final int targetIndex;
     
@@ -222,25 +224,13 @@ public class EditCommand extends UndoableCommand {
             taskName = toEdit.getName();
         }
         
-        //assign previous start date to startDate if user never input one
-        if (startDate == null && toEdit.getStartDate().isPresent()) {
-            startDate = toEdit.getStartDate().get();
-        }
+        assignStartDate();
+        assignEndDate();
         
-        //assign startDate as null if user choose to reset start date
-        if (removeStartDate) {
-        	startDate = null;
-        }
-
-        //assign previous end date to endDate if user never input one
-        if (endDate == null && toEdit.getEndDate().isPresent()) {
-        	endDate = toEdit.getEndDate().get();
-        }
-        
-        //assign endDate as null if user choose to reset end date
-        if (removeEndDate) {
-        	endDate = null;
-        }
+        if(endDate != null && startDate != null && endDate.before(startDate)){
+            indicateAttemptToExecuteIncorrectCommand();
+            return new CommandResult(MESSAGE_END_DATE_CONSTRAINTS);
+        }      
 
         //assign previous priority to priority if user never input one
         if (priority == null) {
@@ -260,8 +250,8 @@ public class EditCommand extends UndoableCommand {
         	recurrenceRate = toEdit.getRecurrenceRate().get();
         } else if (recurrenceRate != null && !beforeEdit.getStartDate().isPresent() && !beforeEdit.getEndDate().isPresent()
                 && startDate == null && endDate == null){
-            //return new CommandResult(MESSAGE_RECUR_DATE_TIME_CONSTRAINTS);
-            recurrenceRate = null;
+            indicateAttemptToExecuteIncorrectCommand();
+            return new CommandResult(MESSAGE_RECUR_DATE_TIME_CONSTRAINTS);
         }
         
         //remove recurrence if the start and end date are removed
