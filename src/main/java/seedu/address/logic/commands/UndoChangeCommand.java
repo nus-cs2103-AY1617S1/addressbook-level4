@@ -12,7 +12,7 @@ public class UndoChangeCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Change the default storage location back to the previous location"
-            + " and clear data saved in the new location if specified.\n" 
+            + " and clear data saved in the current location if specified.\n" 
             + "Parameters: [clear]\n"
             + "Example: " + COMMAND_WORD + " clear";
 
