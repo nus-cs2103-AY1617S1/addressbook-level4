@@ -1,7 +1,14 @@
 package guitests;
 
+import org.junit.Test;
+
+import guitests.guihandles.TaskCardHandle;
+import w15c2.tusk.commons.core.Messages;
+import w15c2.tusk.logic.commands.taskcommands.AddTaskCommand;
+import w15c2.tusk.testutil.TestUtil;
+
 public class AddCommandTest extends TaskManagerGuiTest {
-//
+
 //    @Test
 //    public void add() {
 //        //add one person
@@ -40,5 +47,5 @@ public class AddCommandTest extends TaskManagerGuiTest {
 //        TestPerson[] expectedList = TestUtil.addPersonsToList(currentList, personToAdd);
 //        assertTrue(taskListPanel.isListMatching(expectedList));
 //    }
-//
+
 }

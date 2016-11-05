@@ -3,6 +3,8 @@ package guitests;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.TimeoutException;
 
 import org.junit.After;
@@ -35,7 +37,7 @@ public abstract class TaskManagerGuiTest {
 
     TestApp testApp;
 
-    //protected TypicalTestPersons td = new TypicalTestPersons();
+    protected List<Task> testTasks = TestUtil.getDefaultTasks().getInternalList();
 
     /*
      *   Handles to GUI elements present at the start up are created in advance
@@ -79,14 +81,7 @@ public abstract class TaskManagerGuiTest {
      * @throws IllegalValueException 
      */
     protected UniqueItemCollection<Task> getInitialData()  {
-        UniqueItemCollection<Task> tasks = null;
-        try {
-            tasks = TestUtil.setupSomeTasksInTaskList(10).getTasks();
-        } catch (IllegalValueException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        return tasks;
+        return TestUtil.getInitialTasks();
     }
 
     /**
@@ -113,8 +108,8 @@ public abstract class TaskManagerGuiTest {
      * Asserts the size of the person list is equal to the given number.
      */
     protected void assertListSize(int size) {
-        int numberOfPeople = taskListPanel.getNumberOfPeople();
-        assertEquals(size, numberOfPeople);
+        int numberOfTasks = taskListPanel.getNumberOfTasks();
+        assertEquals(size, numberOfTasks);
     }
 
     /**

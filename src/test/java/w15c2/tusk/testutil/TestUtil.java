@@ -31,6 +31,7 @@ import javafx.scene.layout.AnchorPane;
 import junit.framework.AssertionFailedError;
 import w15c2.tusk.TestApp;
 import w15c2.tusk.commons.collections.UniqueItemCollection;
+import w15c2.tusk.commons.collections.UniqueItemCollection.DuplicateItemException;
 import w15c2.tusk.commons.core.UnmodifiableObservableList;
 import w15c2.tusk.commons.exceptions.IllegalValueException;
 import w15c2.tusk.commons.util.FileUtil;
@@ -54,9 +55,37 @@ public class TestUtil {
     * Folder used for temp files created during testing. Ignored by Git.
     */
     public static String SANDBOX_FOLDER = FileUtil.getPath("./src/test/data/sandbox/");
+    
+    private static UniqueItemCollection<Task> initialTasks = new UniqueItemCollection<Task>();
+    static {
+        
+        try {
+            initialTasks.add(new FloatingTask("get the milk"));
+            initialTasks.add(new FloatingTask("get shoes"));
+            initialTasks.add(new FloatingTask("go to work"));
+        } catch (DuplicateItemException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        
+    }
 
     public static InMemoryTaskList setupEmptyTaskList() {
         return new TaskManager();
+    }
+    
+    public static UniqueItemCollection<Task> getInitialTasks() {
+        return initialTasks;
+    }
+    
+    public static UniqueItemCollection<Task> getDefaultTasks() {
+        try {
+            return setupSomeTasksInTaskList(10).getTasks();
+        } catch (IllegalValueException ex) {
+            assert false;
+            return null;
+        }
+        
     }
 
     // Setting up tasks in the TaskList in order to find them in the tests

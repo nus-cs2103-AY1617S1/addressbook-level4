@@ -83,6 +83,42 @@ public abstract class Task implements PinnableTask, CompletableTask, Comparable<
 	// Return the specifics of the task (with or without details of time)
 	public abstract String getTaskDetails(boolean withTime);
 	
+	/*
+	 * Checks for equality between possible subclasses of Task
+	 * (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	@Override
+	public boolean equals(Object other) {
+	    
+	    // For now: this is very subclass dependant - assert these conditions
+        assert (this instanceof FloatingTask) || (this instanceof DeadlineTask) || (this instanceof EventTask);
+        
+	    boolean isDifferentType = !(other instanceof Task);
+	    boolean isDifferentSubclassType = this.getClass() != other.getClass();
+	    if (isDifferentType || isDifferentSubclassType) {
+	        return false;
+	    }
+	    
+	    // Both are tasks of the same subclass type
+	    Task otherTask = (Task)other;
+	    
+        // Checks basic info for equality
+        boolean areEqual = (this.isPinned() == otherTask.isPinned()) && (this.isCompleted() == otherTask.isCompleted())
+                && (this.getDescription().equals(otherTask.getDescription()));
+        
+        // Check for date equality
+        if (this instanceof DeadlineTask) {
+            areEqual &= ((DeadlineTask)this).getDeadline().equals(((DeadlineTask)otherTask).getDeadline());
+        } else if (this instanceof EventTask) {
+            areEqual &= ((EventTask)this).getStartDate().equals(((EventTask)otherTask).getStartDate());
+            areEqual &= ((EventTask)this).getEndDate().equals(((EventTask)otherTask).getEndDate());
+        }
+        
+        return areEqual;
+
+	}
+	
     /*
      * Defines an ordering of tasks in a list.
      * Ordering: 1. Pinned 2. Overdue 3. Floating 4. Date order

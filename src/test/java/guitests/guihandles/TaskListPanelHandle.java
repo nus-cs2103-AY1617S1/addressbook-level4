@@ -41,8 +41,8 @@ public class TaskListPanelHandle extends GuiHandle {
      * Returns true if the list is showing the person details correctly and in correct order.
      * @param persons A list of person in the correct order.
      */
-    public boolean isListMatching(Task... persons) {
-        return this.isListMatching(0, persons);
+    public boolean isListMatching(List<Task> tasks) {
+        return this.isListMatching(0, tasks);
     }
     
     /**
@@ -56,17 +56,17 @@ public class TaskListPanelHandle extends GuiHandle {
     /**
      * Returns true if the {@code tasks} appear as the sub list (in that order) at position {@code startPosition}.
      */
-    public boolean containsInOrder(int startPosition, Task... tasks) {
-        List<Task> personsInList = getListView().getItems();
+    public boolean containsInOrder(int startPosition, List<Task> tasks) {
+        List<Task> tasksInList = getListView().getItems();
 
         // Return false if the list in panel is too short to contain the given list
-        if (startPosition + tasks.length > personsInList.size()){
+        if (startPosition + tasks.size() > tasksInList.size()){
             return false;
         }
 
         // Return false if any of the tasks doesn't match
-        for (int i = 0; i < tasks.length; i++) {
-            if (!personsInList.get(startPosition + i).equals(tasks[i])){
+        for (int i = 0; i < tasks.size(); i++) {
+            if (!tasksInList.get(startPosition + i).equals(tasks.get(i))){
                 return false;
             }
         }
@@ -77,19 +77,19 @@ public class TaskListPanelHandle extends GuiHandle {
     /**
      * Returns true if the list is showing the person details correctly and in correct order.
      * @param startPosition The starting position of the sub list.
-     * @param persons A list of person in the correct order.
+     * @param tasks A list of person in the correct order.
      */
-    public boolean isListMatching(int startPosition, Task... persons) throws IllegalArgumentException {
-        if (persons.length + startPosition != getListView().getItems().size()) {
+    public boolean isListMatching(int startPosition, List<Task> tasks) throws IllegalArgumentException {
+        if (tasks.size() + startPosition != getListView().getItems().size()) {
             throw new IllegalArgumentException("List size mismatched\n" +
                     "Expected " + (getListView().getItems().size() - 1) + " persons");
         }
-        assertTrue(this.containsInOrder(startPosition, persons));
-        for (int i = 0; i < persons.length; i++) {
+        assertTrue(this.containsInOrder(startPosition, tasks));
+        for (int i = 0; i < tasks.size(); i++) {
             final int scrollTo = i + startPosition;
             guiRobot.interact(() -> getListView().scrollTo(scrollTo));
             guiRobot.sleep(200);
-            if (!TestUtil.compareCardAndTask(getTaskCardHandle(startPosition + i), persons[i])) {
+            if (!TestUtil.compareCardAndTask(getTaskCardHandle(startPosition + i), tasks.get(i))) {
                 return false;
             }
         }
@@ -148,13 +148,13 @@ public class TaskListPanelHandle extends GuiHandle {
         return getTaskCardHandle(getListView().getItems().get(index));
     }
 
-    public TaskCardHandle getTaskCardHandle(Task person) {
+    public TaskCardHandle getTaskCardHandle(Task task) {
         Set<Node> nodes = getAllCardNodes();
-        Optional<Node> personCardNode = nodes.stream()
-                .filter(n -> new TaskCardHandle(guiRobot, primaryStage, n).isSameTask(person))
+        Optional<Node> taskCardNode = nodes.stream()
+                .filter(n -> new TaskCardHandle(guiRobot, primaryStage, n).isSameTask(task))
                 .findFirst();
-        if (personCardNode.isPresent()) {
-            return new TaskCardHandle(guiRobot, primaryStage, personCardNode.get());
+        if (taskCardNode.isPresent()) {
+            return new TaskCardHandle(guiRobot, primaryStage, taskCardNode.get());
         } else {
             return null;
         }
@@ -164,7 +164,7 @@ public class TaskListPanelHandle extends GuiHandle {
         return guiRobot.lookup(CARD_PANE_ID).queryAll();
     }
 
-    public int getNumberOfPeople() {
+    public int getNumberOfTasks() {
         return getListView().getItems().size();
     }
 }
