@@ -187,15 +187,25 @@ public class ModelManager extends ComponentManager implements Model {
 	public synchronized void updateTask(Task taskToUpdate, TaskDetails taskDetails, String startTime,
 			String endTime, Priority priority, String frequency)
 					throws IllegalValueException {
-	    Task originalTask = new Task(taskToUpdate.getTaskDetails(), new StartTime(taskToUpdate.getStartTime().toString()), new EndTime (taskToUpdate.getEndTime().toString()), taskToUpdate.getPriority(), taskToUpdate.getRecurringFrequency());
-		System.out.println("Before updating:");
-        System.out.println("taskToUpdate: " + taskToUpdate.getTaskDetails() + taskToUpdate.getStartTime().toCardString());
-        System.out.println("originalTask: " + originalTask.getTaskDetails() + originalTask.getStartTime().toCardString());
+	    StartTime originalStartTime = new StartTime(taskToUpdate.getStartTime().toString());
+	    EndTime originalEndTime = new EndTime(taskToUpdate.getEndTime().toString());
+	    if (taskToUpdate.getStartTime().isMissing()) {
+	        originalStartTime = new StartTime("");
+	    }
+	    if (taskToUpdate.getEndTime().isMissing()) {
+            originalEndTime = new EndTime("");
+        }
+	    
+	    Task originalTask = new Task(taskToUpdate.getTaskDetails(), originalStartTime, originalEndTime, taskToUpdate.getPriority(), taskToUpdate.getRecurringFrequency());
+
+	    System.out.println("Before updating:");
+        System.out.println("taskToUpdate: " + taskToUpdate.getTaskDetails() + taskToUpdate.getStartTime().toCardString() + taskToUpdate.getEndTime().toCardString());
+        System.out.println("originalTask: " + originalTask.getTaskDetails() + originalTask.getStartTime().toCardString() + originalTask.getEndTime().toCardString());
 		
 		taskList.updateTask(taskToUpdate, taskDetails, startTime, endTime, priority, frequency);
         System.out.println("After updating:");
-        System.out.println("taskToUpdate: " + taskToUpdate.getTaskDetails() + taskToUpdate.getStartTime().toCardString());
-        System.out.println("originalTask: " + originalTask.getTaskDetails() + originalTask.getStartTime().toCardString());
+        System.out.println("taskToUpdate: " + taskToUpdate.getTaskDetails() + taskToUpdate.getStartTime().toCardString() + taskToUpdate.getEndTime().toCardString());
+        System.out.println("originalTask: " + originalTask.getTaskDetails() + originalTask.getStartTime().toCardString() + originalTask.getEndTime().toCardString());
 		
         updateFilteredListToShowIncomplete();
 		indicateTaskListChanged();
