@@ -20,9 +20,7 @@ import seedu.taskitty.model.tag.Tag;
 import seedu.taskitty.model.task.ReadOnlyTask;
 import seedu.taskitty.model.task.Task;
 import seedu.taskitty.model.task.UniqueTaskList;
-import seedu.taskitty.model.task.UniqueTaskList.DuplicateMarkAsDoneException;
 import seedu.taskitty.model.task.UniqueTaskList.DuplicateTaskException;
-import seedu.taskitty.model.task.UniqueTaskList.TaskNotFoundException;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -100,8 +98,8 @@ public class ModelManager extends ComponentManager implements Model {
 
     // @@author A0139052L
     @Override
-    public synchronized void deleteTasks(List<ReadOnlyTask> taskList) throws TaskNotFoundException {
-        for (ReadOnlyTask targetTask : taskList) {
+    public synchronized void deleteTasks(List<ReadOnlyTask> taskList) {
+        for (ReadOnlyTask targetTask: taskList) {
             taskManager.removeTask(targetTask);
         }
         indicateTaskManagerChanged();
@@ -115,9 +113,8 @@ public class ModelManager extends ComponentManager implements Model {
 
     // @@author A0130853L
     @Override
-    public synchronized void markTasksAsDone(List<ReadOnlyTask> taskList)
-            throws UniqueTaskList.TaskNotFoundException, DuplicateMarkAsDoneException {
-        for (ReadOnlyTask targetTask : taskList) {
+    public synchronized void markTasksAsDone(List<ReadOnlyTask> taskList) {
+        for (ReadOnlyTask targetTask: taskList) {
             taskManager.markTaskAsDoneTask(targetTask);
         }
         indicateTaskManagerChanged();
@@ -130,14 +127,14 @@ public class ModelManager extends ComponentManager implements Model {
      *            viewType object from the ViewCommand enum class ViewType.
      */
     private void indicateViewChanged(ViewCommand.ViewType viewType, LocalDate date) {
-        raise(new ViewTypeChangedEvent(viewType, date));
+    	raise(new ViewTypeChangedEvent(viewType, date));
     }
-
-    // @@author A0135793W
-    @Override
-    public synchronized void editTask(ReadOnlyTask target, Task task)
-            throws UniqueTaskList.TaskNotFoundException, UniqueTaskList.DuplicateTaskException {
-        taskManager.addTask(task);
+    
+    //@@author A0135793W
+   	@Override
+    public synchronized void editTask(ReadOnlyTask target, Task task) 
+            throws UniqueTaskList.DuplicateTaskException {   	    
+   	    taskManager.addTask(task);
         indicateTaskManagerChanged();
         taskManager.removeTask(target);
         indicateTaskManagerChanged();
@@ -468,7 +465,7 @@ public class ModelManager extends ComponentManager implements Model {
      * Reverts an AddCommand depending on whether is redo/undo calling it
      */
     private void revertAddCommand(CommandHistoryManager toGetInfo, CommandHistoryManager toStoreInfo, boolean isRedo)
-            throws DuplicateTaskException, TaskNotFoundException {
+            throws DuplicateTaskException {
         ReadOnlyTask taskAdded = toGetInfo.getTask();
         if (isRedo) {
             taskManager.addTask((Task) taskAdded);
@@ -480,9 +477,10 @@ public class ModelManager extends ComponentManager implements Model {
 
     /**
      * Reverts a DeleteCommand depending on whether is redo/undo calling it
+	 * @throws DuplicateTaskException if a duplicate task was found in the task manager list
      */
-    private void revertDeleteCommand(CommandHistoryManager toGetInfo, CommandHistoryManager toStoreInfo, boolean isRedo)
-            throws TaskNotFoundException, DuplicateTaskException {
+    private void revertDeleteCommand(CommandHistoryManager toGetInfo, CommandHistoryManager toStoreInfo, boolean isRedo) 
+            throws DuplicateTaskException {
         List<ReadOnlyTask> listOfDeletedTasks = toGetInfo.getListOfTasks();
         toStoreInfo.storeListOfTasks(listOfDeletedTasks);
         if (isRedo) {
@@ -498,9 +496,10 @@ public class ModelManager extends ComponentManager implements Model {
 
     /**
      * Reverts an EditCommand depending on whether is redo/undo calling it
+	 * @throws DuplicateTaskException if a duplicate task was found in the task manager list
      */
-    private void revertEditCommand(CommandHistoryManager toGetInfo, CommandHistoryManager toStoreInfo, boolean isRedo)
-            throws DuplicateTaskException, TaskNotFoundException {
+    private void revertEditCommand(CommandHistoryManager toGetInfo, CommandHistoryManager toStoreInfo, boolean isRedo) 
+            throws DuplicateTaskException {
         ReadOnlyTask taskBeforeEdit = toGetInfo.getTask();
         ReadOnlyTask taskAfterEdit = toGetInfo.getTask();
         if (isRedo) {
@@ -531,8 +530,7 @@ public class ModelManager extends ComponentManager implements Model {
     /**
      * Reverts a DoneCommand depending on whether is redo/undo calling it
      */
-    private void revertDoneCommand(CommandHistoryManager toGetInfo, CommandHistoryManager toStoreInfo, boolean isRedo)
-            throws DuplicateMarkAsDoneException, TaskNotFoundException {
+    private void revertDoneCommand(CommandHistoryManager toGetInfo, CommandHistoryManager toStoreInfo, boolean isRedo) {
         List<ReadOnlyTask> listOfTasksMarked = toGetInfo.getListOfTasks();
         toStoreInfo.storeListOfTasks(listOfTasksMarked);
         if (isRedo) {

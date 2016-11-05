@@ -466,12 +466,12 @@ public class CommandParser {
      */
     private Command prepareDelete(String args) {
         String dataArgs = args.trim();
-        String[] indexes = dataArgs.split(WHITE_SPACE_REGEX_STRING);
-        ArrayList<Pair<Integer, Integer>> listOfIndexes = getIndexes(indexes);
-
-        if (listOfIndexes == null) {
+        String[] indexes = dataArgs.split(WHITE_SPACE_REGEX_STRING);                
+        ArrayList<Pair<Integer, Integer>> listOfIndexes = getListOfIndexes(indexes);
+        
+        if (listOfIndexes.contains(null)) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    Command.MESSAGE_FORMAT + DeleteCommand.MESSAGE_PARAMETER));
+                            Command.MESSAGE_FORMAT + DeleteCommand.MESSAGE_PARAMETER));
         }
 
         return new DeleteCommand(listOfIndexes, args);
@@ -485,21 +485,21 @@ public class CommandParser {
      *            full command args string
      * @return the prepared command
      */
-    private Command prepareDone(String args) {
-        String dataArgs = args.trim();
-        String[] indexes = dataArgs.split(WHITE_SPACE_REGEX_STRING);
-        ArrayList<Pair<Integer, Integer>> listOfIndexes = getIndexes(indexes);
-
-        if (listOfIndexes == null) {
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    Command.MESSAGE_FORMAT + DoneCommand.MESSAGE_PARAMETER));
+    private Command prepareDone(String args) {        
+        String dataArgs = args.trim();                
+        String[] indexes = dataArgs.split(WHITE_SPACE_REGEX_STRING);        
+        ArrayList<Pair<Integer, Integer>> listOfIndexes = getListOfIndexes(indexes);
+        
+        if (listOfIndexes.contains(null)) { // if any of the index is null, there was an error in the indexes provided
+            return new IncorrectCommand(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                            Command.MESSAGE_FORMAT + DoneCommand.MESSAGE_PARAMETER));
         }
 
         return new DoneCommand(listOfIndexes, args);
     }
-    // @@author
-
-    // @@author A0139052L
+    
+    //@@author A0139052L
     /**
      * 
      * Parses each index string in the array and adds them to a list if valid
@@ -509,40 +509,75 @@ public class CommandParser {
      * @return a list of all valid indexes parsed or null if an invalid index
      *         was given
      */
-    private ArrayList<Pair<Integer, Integer>> getIndexes(String[] indexes) {
-        Pair<Integer, Integer> categoryAndIndex;
+    private ArrayList<Pair<Integer, Integer>> getListOfIndexes(String[] indexes) {        
         ArrayList<Pair<Integer, Integer>> listOfIndexes = new ArrayList<Pair<Integer, Integer>>();
-        for (String index : indexes) {
-            if (index.contains(INDEX_RANGE_SYMBOL)) {
-                String[] splitIndex = index.split(INDEX_RANGE_SYMBOL);
-                categoryAndIndex = getCategoryAndIndex(splitIndex[0]);
-                Optional<Integer> secondIndex = parseIndex(splitIndex[1]);
-
-                if (!secondIndex.isPresent() || categoryAndIndex == null) {
-                    return null;
-                }
-                int firstIndex = categoryAndIndex.getValue();
-                int categoryIndex = categoryAndIndex.getKey();
-
-                if (firstIndex >= secondIndex.get()) {
-                    return null;
-                }
-                for (; firstIndex <= secondIndex.get(); firstIndex++) {
-                    categoryAndIndex = new Pair<Integer, Integer>(categoryIndex, firstIndex);
-                    listOfIndexes.add(categoryAndIndex);
-                }
+        
+        for (String index: indexes) {
+            if (index.contains(INDEX_RANGE_SYMBOL)) {               
+                addMultipleIndexesToList(listOfIndexes, index);                
             } else {
-                categoryAndIndex = getCategoryAndIndex(index);
-                if (categoryAndIndex == null) {
-                    return null;
-                }
-                listOfIndexes.add(categoryAndIndex);
+                addSingleIndex(listOfIndexes, index);
             }
         }
         return listOfIndexes;
     }
 
-    // @@author A0135793W
+    /**
+     * Adds a single index to the listOfIndexes if a valid one is provided, else add a null object in
+     * @param listOfIndexes the list of indexes
+     * @param index the index string to be checked and added to list
+     */
+    private void addSingleIndex(ArrayList<Pair<Integer, Integer>> listOfIndexes, String index) {
+        Pair<Integer, Integer> categoryAndIndex = getCategoryAndIndex(index);               
+        if (categoryAndIndex == null) {
+            listOfIndexes.add(null);
+            return;
+        }               
+        listOfIndexes.add(categoryAndIndex);
+    }
+
+    /**
+     * Adds multiple indexes to the listOfIndexes if a valid one is provided, else add a null object in
+     * @param listOfIndexes the list of indexes
+     * @param index the index string to be checked and added to list
+     */
+    private void addMultipleIndexesToList(ArrayList<Pair<Integer, Integer>> listOfIndexes, String index) {
+        Pair<Integer, Integer> categoryAndIndex;
+        String[] splitIndex = index.split(INDEX_RANGE_SYMBOL);
+        categoryAndIndex = getCategoryAndIndex(splitIndex[0]);
+        Optional<Integer> secondIndex = parseIndex(splitIndex[1]);                               
+        
+        if (!secondIndex.isPresent() || categoryAndIndex == null) {
+            listOfIndexes.add(null);
+            return;
+        }    
+        
+        addRangeOfIndexesToList(listOfIndexes, categoryAndIndex.getValue(), secondIndex.get(), categoryAndIndex.getKey());
+    }
+
+    /**
+     * Adds the indexes into the listOfIndexes from the first to the second, if the second index is greater or equals to the first
+     * else adds a null object to the list
+     * @param listOfIndexes listOfIndexes the list of indexes
+     * @param firstIndex the index to start from
+     * @param secondIndex the index to end at
+     * @param categoryIndex the category index for these range of indexes
+     */
+    private void addRangeOfIndexesToList(ArrayList<Pair<Integer, Integer>> listOfIndexes, int firstIndex,
+            int secondIndex, int categoryIndex) {        
+        if (firstIndex >= secondIndex) {
+            listOfIndexes.add(null);
+            return;
+        }  
+        
+        Pair<Integer, Integer> categoryAndIndex;
+        for (int currentIndex = firstIndex; currentIndex <= secondIndex; currentIndex++) {
+            categoryAndIndex = new Pair<Integer, Integer>(categoryIndex, currentIndex);
+            listOfIndexes.add(categoryAndIndex);
+        }
+    }
+    
+    //@@author A0135793W
     /**
      * Parses arguments in the context of the edit task command.
      *

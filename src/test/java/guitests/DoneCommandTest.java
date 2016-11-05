@@ -5,7 +5,6 @@ import org.junit.Test;
 import guitests.guihandles.TaskCardHandle;
 import seedu.taskitty.commons.core.Messages;
 import seedu.taskitty.logic.commands.Command;
-import seedu.taskitty.logic.commands.DeleteCommand;
 import seedu.taskitty.logic.commands.DoneCommand;
 import seedu.taskitty.testutil.TestTask;
 import seedu.taskitty.testutil.TestTaskList;

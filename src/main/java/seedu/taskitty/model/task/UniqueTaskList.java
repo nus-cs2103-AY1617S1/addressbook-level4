@@ -28,20 +28,7 @@ public class UniqueTaskList implements Iterable<Task> {
         }
     }
 
-    /**
-     * Signals that an operation targeting a specified task in the list would fail because
-     * there is no such matching task in the list.
-     */
-    public static class TaskNotFoundException extends Exception {}
-    
-    //@@author A0130853L
-    /**
-     * Signals that the done operation targeting a specified task in the list is a duplicate
-     * operation if the task has already been previously marked as done.
-     */
-    public static class DuplicateMarkAsDoneException extends Exception {}
-
-    //@@author
+	//@@author
     private final ObservableList<Task> internalList = FXCollections.observableArrayList();
 
     /**
@@ -96,6 +83,7 @@ public class UniqueTaskList implements Iterable<Task> {
      */
     public void unmark(ReadOnlyTask toUnmark) {
         assert toUnmark != null && toUnmark.getIsDone();
+        
         final boolean taskFoundAndUnmarkedAsDone = internalList.remove(toUnmark);
         assert taskFoundAndUnmarkedAsDone;
         
@@ -112,24 +100,20 @@ public class UniqueTaskList implements Iterable<Task> {
     //@@author A0130853L
     /** Marks the given task as done from the list.
      * 
-     * @throws TaskNotFoundException if no such task could be found in the list.
-     * @throws DuplicateMarkAsDoneException if specified task in list had already been marked as done previously.
      */
-    public void mark(ReadOnlyTask toMark) throws TaskNotFoundException, DuplicateMarkAsDoneException {
-        assert toMark != null;
-        if (toMark.getIsDone()) {
-            throw new DuplicateMarkAsDoneException();
-        }
-        final boolean taskFoundAndMarkedAsDone = internalList.remove(toMark);
-        Task editableToMark = (Task) toMark;
-        editableToMark.markAsDone();
-        try {
+    public void mark(ReadOnlyTask toMark) {
+    	assert toMark != null && !toMark.getIsDone();
+
+    	final boolean taskFoundAndMarkedAsDone = internalList.remove(toMark);
+    	assert taskFoundAndMarkedAsDone;
+    	
+    	Task editableToMark = (Task) toMark;
+    	editableToMark.markAsDone();
+    	
+    	try {
             addSorted(editableToMark);
         } catch (DuplicateTaskException e) {
             assert false : "Should not have duplicate task";
-        }
-        if (!taskFoundAndMarkedAsDone) {
-            throw new TaskNotFoundException();
         }
     }   
     
@@ -143,17 +127,14 @@ public class UniqueTaskList implements Iterable<Task> {
 
     /**
      * Removes the equivalent task from the list.
-     *
-     * @throws TaskNotFoundException if no such task could be found in the list.
      */
-    public boolean remove(ReadOnlyTask toRemove) throws TaskNotFoundException {
+    public void remove(ReadOnlyTask toRemove){
         assert toRemove != null;
+        
         final boolean taskFoundAndDeleted = internalList.remove(toRemove);
-        if (!taskFoundAndDeleted) {
-            throw new TaskNotFoundException();
-        }
-        return taskFoundAndDeleted;
+        assert taskFoundAndDeleted;
     }
+    
     //@@author A0130853L
 
     public ObservableList<Task> getInternalList() {
@@ -185,20 +166,14 @@ public class UniqueTaskList implements Iterable<Task> {
      */
     private void checkAndSetIsOverToday() {
         final ArrayList<Task> eventsToSetOver = new ArrayList<Task>();
-        for (Task t: internalList) {
-            if (t.isEvent() && DateTimeUtil.isOverdue(t)) {
-                eventsToSetOver.add(t);
-            }
-        }
-        for (Task overEvents: eventsToSetOver) {
-            try {
-                mark(overEvents);
-            } catch (TaskNotFoundException e) {
-                assert false : "Task should not be missing";
-            } catch (DuplicateMarkAsDoneException e) {
-                assert false : "Task should not be marked done";
-            }
-        }
+    	for (Task t: internalList) {
+    	    if (t.isEvent() && DateTimeUtil.isOverdue(t)) {
+    	        eventsToSetOver.add(t);
+    	    }
+    	}
+    	for (Task overEvents: eventsToSetOver) {
+    	    mark(overEvents);     
+    	}
     }
     
     

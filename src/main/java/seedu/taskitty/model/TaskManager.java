@@ -105,7 +105,7 @@ public class TaskManager implements ReadOnlyTaskManager {
      * 
      * @throws UniqueTaskList.TaskNotFoundException if task is not found.
      */
-    public void unMarkTaskAsDoneTask(ReadOnlyTask key) throws UniqueTaskList.TaskNotFoundException {
+    public void unMarkTaskAsDoneTask(ReadOnlyTask key) {
         tasks.unmark(key);
     }
     
@@ -116,9 +116,8 @@ public class TaskManager implements ReadOnlyTaskManager {
      * @throws UniqueTaskList.TaskNotFoundException if task is not found.
      * @throws UniqueTaskList.DuplicateMarkAsDoneException if task has already been previously marked as done
      */
-    public void markTaskAsDoneTask(ReadOnlyTask key)
-            throws UniqueTaskList.DuplicateMarkAsDoneException, UniqueTaskList.TaskNotFoundException {
-        tasks.mark(key);
+    public void markTaskAsDoneTask(ReadOnlyTask key) {
+    	tasks.mark(key);
     }
     
     //@@author
@@ -145,12 +144,8 @@ public class TaskManager implements ReadOnlyTaskManager {
         task.setTags(new UniqueTagList(commonTagReferences));
     }
 
-    public boolean removeTask(ReadOnlyTask key) throws UniqueTaskList.TaskNotFoundException {
-        if (tasks.remove(key)) {
-            return true;
-        } else {
-            throw new UniqueTaskList.TaskNotFoundException();
-        }
+    public void removeTask(ReadOnlyTask key) {
+        tasks.remove(key);
     }
 
 //// tag-level operations
