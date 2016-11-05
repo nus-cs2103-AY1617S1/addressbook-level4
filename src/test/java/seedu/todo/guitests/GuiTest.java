@@ -2,6 +2,7 @@ package seedu.todo.guitests;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertNotNull;
 import static seedu.todo.testutil.AssertUtil.assertSameDate;
 
 import java.time.LocalDate;
@@ -148,10 +149,12 @@ public abstract class GuiTest {
         
         // Check TaskList if it contains a TaskListDateItem with the date of the event start date.
         TaskListDateItemHandle dateItem = taskList.getTaskListDateItem(eventStartDate);
+        assertNotNull(dateItem);
         assertSameDate(eventStartDate, dateItem);
         
         // Check TaskListDateItem if it contains the TaskListEventItem with the same data.
         TaskListEventItemHandle eventItem = dateItem.getTaskListEventItem(eventToAdd.getName());
+        assertNotNull(eventItem);
         assertEquals(eventItem.getName(), eventToAdd.getName());
     }
 

@@ -81,7 +81,6 @@ public class UpdateCommandTest extends GuiTest {
     @Test
     public void updateCommand_updateEventName_success() {
         // Clear first
-        
         console.runCommand("clear");
         
         // Get formatted string for two days from now, e.g. 17 Oct 2016
@@ -104,7 +103,6 @@ public class UpdateCommandTest extends GuiTest {
     @Test
     public void updateCommand_updateEventStartDate_success() {
         // Clear first
-        
         console.runCommand("clear");
         
         // Get formatted string for two days from now, e.g. 17 Oct 2016
@@ -118,7 +116,7 @@ public class UpdateCommandTest extends GuiTest {
         // Update the task
         String command = String.format("update 1 from %s 5pm", twoDaysFromNowString);
         Event event = new Event();
-        event.setName("Updated presentation");
+        event.setName("Presentation");
         event.setStartDate(DateUtil.parseDateTime(String.format("%s 17:00:00", twoDaysFromNowIsoString)));
         event.setEndDate(DateUtil.parseDateTime(String.format("%s 21:00:00", twoDaysFromNowIsoString)));
         assertEventVisibleAfterCmd(command, event);
@@ -140,7 +138,7 @@ public class UpdateCommandTest extends GuiTest {
         // Update the task
         String command = String.format("update 1 to %s 5pm", twoDaysFromNowString);
         Event event = new Event();
-        event.setName("Updated presentation");
+        event.setName("Presentation");
         event.setStartDate(DateUtil.parseDateTime(String.format("%s 14:00:00", twoDaysFromNowIsoString)));
         event.setEndDate(DateUtil.parseDateTime(String.format("%s 17:00:00", twoDaysFromNowIsoString)));
         assertEventVisibleAfterCmd(command, event);
