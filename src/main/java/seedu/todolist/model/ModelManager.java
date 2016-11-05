@@ -6,15 +6,16 @@ import seedu.todolist.commons.core.LogsCenter;
 import seedu.todolist.commons.core.UnmodifiableObservableList;
 import seedu.todolist.commons.events.model.ToDoListChangedEvent;
 import seedu.todolist.commons.util.StringUtil;
-import seedu.todolist.model.parser.DateParser;
 import seedu.todolist.model.task.ReadOnlyTask;
 import seedu.todolist.model.task.Task;
+import seedu.todolist.model.task.TaskDate;
 import seedu.todolist.model.task.UniqueTaskList;
 import seedu.todolist.model.task.UniqueTaskList.TaskNotFoundException;
 import seedu.todolist.ui.MainWindow;
 
 import java.time.DateTimeException;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.EmptyStackException;
 import java.util.Set;
 import java.util.Stack;
@@ -308,7 +309,7 @@ public class ModelManager extends ComponentManager implements Model {
                 	return (!taskEndDate.isBefore(currentMonthStart) && !taskEndDate.isAfter(currentMonthEnd));
                 } 
                 else {
-                    LocalDate date = DateParser.parseDate(dateFilter);
+                    LocalDate date = LocalDate.parse(dateFilter, DateTimeFormatter.ofPattern(TaskDate.DATE_DISPLAY_FORMAT));
                     return taskEndDate.equals(date);
                 }
         	}
@@ -325,7 +326,7 @@ public class ModelManager extends ComponentManager implements Model {
                 	return (!taskEndDate.isBefore(currentMonthStart) && !taskStartDate.isAfter(currentMonthEnd));
                 } 
                 else {
-                    LocalDate date = DateParser.parseDate(dateFilter);
+                    LocalDate date = LocalDate.parse(dateFilter, DateTimeFormatter.ofPattern(TaskDate.DATE_DISPLAY_FORMAT));
                 	return (!taskEndDate.isBefore(date) && !taskStartDate.isAfter(date));
                 }  	
         	}
