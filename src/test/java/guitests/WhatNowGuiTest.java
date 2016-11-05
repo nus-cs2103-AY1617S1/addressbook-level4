@@ -82,9 +82,9 @@ public abstract class WhatNowGuiTest {
      * to use the data in the file specified in {@link #getDataFileLocation()}
      */
     protected WhatNow getInitialData() {
-        WhatNow ab = TestUtil.generateEmptyWhatNow();
-        TypicalTestTasks.loadWhatNowWithSampleData(ab);
-        return ab;
+        WhatNow wn = TestUtil.generateEmptyWhatNow();
+        TypicalTestTasks.loadWhatNowWithSampleData(wn);
+        return wn;
     }
 
     /**
