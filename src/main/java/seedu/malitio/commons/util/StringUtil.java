@@ -62,12 +62,6 @@ public class StringUtil {
     }
     
     //@@author a0126633j
-    public static String removeSlashesAtBeginningOfString(String arg) {
-        while (arg.charAt(0) == '/') {
-            arg = arg.substring(1);
-        }
-        return arg;
-    }
     /**
      * Reformats a tag string into a string separated by white space.
      * e.g. "[cs2103], [cs1010e]"  into "cs2103 cs1010e".
