@@ -99,6 +99,17 @@ public class CalendarItemFilter {
         if (parsedResult.get("name") != null) {
             eventPredicates.add(Event.predByName(parsedResult.get("name")[1]));
         }
+        
+        // Filter by eventStatus
+        if (parsedResult.get("eventStatus") != null && parsedResult.get("eventStatus")[1] != null) {
+            String eventStatus = parsedResult.get("eventStatus")[1];
+            LocalDateTime now = LocalDateTime.now();
+            if (eventStatus.equals("over") || eventStatus.equals("past")) {
+                eventPredicates.add(Event.predEndBefore(now));
+            } else if (eventStatus.equals("future")) {
+                eventPredicates.add(Event.predStartBefore(now));
+            }
+        }
         return null;
     }
 
