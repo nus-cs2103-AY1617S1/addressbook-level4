@@ -6,8 +6,7 @@ import seedu.malitio.testutil.TestDeadline;
 import seedu.malitio.testutil.TestEvent;
 import seedu.malitio.testutil.TestFloatingTask;
 import seedu.malitio.testutil.TestUtil;
-import seedu.malitio.ui.DeadlineListPanel;
-
+import seedu.malitio.testutil.TypicalTestTasks;
 import org.junit.Test;
 
 import guitests.guihandles.DeadlineCardHandle;
@@ -24,20 +23,17 @@ public class EditCommandTest extends MalitioGuiTest {
 
         // Edit name of floating task
         TestFloatingTask[] currentList = td.getTypicalFloatingTasks();
-        TestFloatingTask toEdit = td.floatingTask1;
-        TestFloatingTask edited = td.editedFloatingTask1;
+        TestFloatingTask edited = TypicalTestTasks.editedFloatingTask1;
         commandBox.runCommand("edit f1 how are you");
         assertEditSuccess(edited, 0, currentList);
 
         // Edit tags of floating task
-        toEdit = td.floatingTask2;
-        edited = td.editedFloatingTask2;
+        edited = TypicalTestTasks.editedFloatingTask2;
         commandBox.runCommand("edit f2 t/omg");
         assertEditSuccess(edited, 1, currentList);
 
-        // Edit both name and tags of floatingtask
-        toEdit = td.floatingTask3;
-        edited = td.editedFloatingTask3;
+        // Edit both name and tags of floating task
+        edited = TypicalTestTasks.editedFloatingTask3;
         commandBox.runCommand("edit f3 Tell Nobody t/heello");
         assertEditSuccess(edited, 2, currentList);
 
@@ -55,29 +51,29 @@ public class EditCommandTest extends MalitioGuiTest {
 
         // Edit name (only) of deadline
         TestDeadline[] currentList = td.getTypicalDeadlines();
-        TestDeadline toEdit = td.deadline1;
-        TestDeadline edited = td.editedDeadline1;
+        TestDeadline toEdit = TypicalTestTasks.deadline1;
+        TestDeadline edited = TypicalTestTasks.editedDeadline1;
         commandBox.runCommand("edit d1 Cut more hair ");
         assertEditSuccess(edited, toEdit, currentList);
         commandBox.runCommand("undo"); // revert back to original state
 
         // Edit due date (only) of dateline
-        toEdit = td.deadline2;
-        edited = td.editedDeadline2;
+        toEdit = TypicalTestTasks.deadline2;
+        edited = TypicalTestTasks.editedDeadline2;
         commandBox.runCommand("edit d2 by 22 dec 12am");
         assertEditSuccess(edited, toEdit, currentList);
         commandBox.runCommand("undo");
 
         // Edit tag (only) of deadline
-        toEdit = td.deadline3;
-        edited = td.editedDeadline3;
+        toEdit = TypicalTestTasks.deadline3;
+        edited = TypicalTestTasks.editedDeadline3;
         commandBox.runCommand("edit d3 t/Pineapple t/Pen");
         assertEditSuccess(edited, toEdit, currentList);
         commandBox.runCommand("undo");
 
         // Edit name, duedate and tags of deadline
-        toEdit = td.deadline4;
-        edited = td.editedDeadline4;
+        toEdit = TypicalTestTasks.deadline4;
+        edited = TypicalTestTasks.editedDeadline4;
         commandBox.runCommand("edit d4 I want to sleep by 25 oct 11pm t/damntired");
         assertEditSuccess(edited, toEdit, currentList);
         commandBox.runCommand("undo");
@@ -96,36 +92,36 @@ public class EditCommandTest extends MalitioGuiTest {
         
         // Edit name (only) of event
         TestEvent[] currentList = td.getTypicalEvents();
-        TestEvent toEdit = td.event1;
-        TestEvent edited = td.editedEvent1;
+        TestEvent toEdit = TypicalTestTasks.event1;
+        TestEvent edited = TypicalTestTasks.editedEvent1;
         commandBox.runCommand("edit e1 Eat with dad");
         assertEditSuccess(edited, toEdit, currentList);
         commandBox.runCommand("undo"); // revert back to original state
 
         // Edit start (only) of event
-        toEdit = td.event2;
-        edited = td.editedEvent2;
+        toEdit = TypicalTestTasks.event2;
+        edited = TypicalTestTasks.editedEvent2;
         commandBox.runCommand("edit e2 start 22 feb 2017 1pm");
         assertEditSuccess(edited, toEdit, currentList);
         commandBox.runCommand("undo");
         
         // Edit end (only) of event
-        toEdit = td.event3;
-        edited = td.editedEvent3;
+        toEdit = TypicalTestTasks.event3;
+        edited = TypicalTestTasks.editedEvent3;
         commandBox.runCommand("edit e3 end 30 march 2017 9pm");
         assertEditSuccess(edited, toEdit, currentList);
         commandBox.runCommand("undo");
 
         // Edit tag (only) of event
-        toEdit = td.event4;
-        edited = td.editedEvent4;
+        toEdit = TypicalTestTasks.event4;
+        edited = TypicalTestTasks.editedEvent4;
         commandBox.runCommand("edit e4 t/fun t/yahoo");
         assertEditSuccess(edited, toEdit, currentList);
         commandBox.runCommand("undo");
 
         // Edit name, start, end and tags of deadline
-        toEdit = td.event5;
-        edited = td.editedEvent5;
+        toEdit = TypicalTestTasks.event5;
+        edited = TypicalTestTasks.editedEvent5;
         commandBox.runCommand("edit e5 Outing start 02-14-2017 10am end 02-14-2017 8pm t/dressup");
         assertEditSuccess(edited, toEdit, currentList);
         commandBox.runCommand("undo");

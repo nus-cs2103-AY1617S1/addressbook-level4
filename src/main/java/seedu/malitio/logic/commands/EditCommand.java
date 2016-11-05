@@ -98,21 +98,18 @@ public class EditCommand extends Command{
             assert model != null;
             fillInTheGaps(taskToEdit);
             constructEditedTask();
-            model.editTask(editedTask, taskToEdit);
-        } catch (FloatingTaskNotFoundException pnfe) {
-            assert false : "The target task cannot be missing";
+                model.editTask(editedTask, taskToEdit);
+                            
         } catch (UniqueFloatingTaskList.DuplicateFloatingTaskException e) {
             return new CommandResult(MESSAGE_DUPLICATE_TASK);
-        } catch (DeadlineNotFoundException pnfe) {
-            assert false : "The target deadline cannot be missing";
         } catch (UniqueDeadlineList.DuplicateDeadlineException e) {
             return new CommandResult(MESSAGE_DUPLICATE_DEADLINE);
-        } catch (EventNotFoundException pnfe) {
-            assert false : "The target event cannot be missing";
         } catch (DuplicateEventException e) {
             return new CommandResult(MESSAGE_DUPLICATE_EVENT);
         } catch (IllegalValueException e) {
             return new CommandResult(MESSAGE_INVALID_EVENT);
+        } catch (FloatingTaskNotFoundException | DeadlineNotFoundException | EventNotFoundException e) {
+            assert false : "not possible";
         }
         return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, taskToEdit, editedTask));
     }
@@ -169,9 +166,11 @@ public class EditCommand extends Command{
         if (taskType == 'f') {
             return (notEmptyString(name) || !newTags.isEmpty()) && start.equals("") && end.equals("") && due.equals("");
         } else if (taskType == 'd') {
-            return (notEmptyString(name) || notEmptyString(due) || !newTags.isEmpty()) && start.equals("") && end.equals("");
+            return (notEmptyString(name) || notEmptyString(due) || !newTags.isEmpty()) && start.equals("")
+                    && end.equals("");
         } else {
-            return (notEmptyString(name) || notEmptyString(start) || notEmptyString(end) || !newTags.isEmpty()) && due.equals("");
+            return (notEmptyString(name) || notEmptyString(start) || notEmptyString(end) || !newTags.isEmpty())
+                    && due.equals("");
         }
     }
     
