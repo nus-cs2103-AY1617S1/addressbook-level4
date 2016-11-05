@@ -16,7 +16,7 @@ import seedu.todo.models.TodoListDB;
 /**
  * Controller to clear task/event by type or status
  * 
- * @@author Tiong YaoCong A0139922Y
+ * @@author A0093907W
  *
  */
 public class ClearController implements Controller {
