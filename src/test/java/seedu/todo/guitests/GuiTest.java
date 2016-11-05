@@ -182,7 +182,7 @@ public abstract class GuiTest {
         }
         
         // If there's a date item, then we make sure that it isn't a task in the date item with the same name.
-        TaskListTaskItemHandle taskItem = dateItem.getTaskListTaskItem(taskToAdd.getName());
+        TaskListTaskItemHandle taskItem = dateItem.getTaskListTaskItem(taskToAdd);
         assertNull(taskItem);
     }
 
