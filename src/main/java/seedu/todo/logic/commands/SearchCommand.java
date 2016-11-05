@@ -29,6 +29,7 @@ public class SearchCommand extends Command {
         UNDONE,
         FT,
         PRIORITY,
+        ALL
     }
     
     public enum SearchCompletedOption {
@@ -90,11 +91,24 @@ public class SearchCommand extends Command {
     
         case PRIORITY : 
             return searchPriority();
-                    
+            
+        case ALL:
+            return searchAll();
         default :
             return new CommandResult(Messages.MESSAGE_INVALID_COMMAND_FORMAT);
         }        
     }
+    
+    /**
+     * List all the tasks
+     */
+    private CommandResult searchAll() {
+        model.updateFilteredListToShowAll();
+        int size = model.getFilteredTaskList().size();
+        
+        return new CommandResult(getMessageForTaskListShownSummary(size));
+    }
+    
 
     /**
      * Search tasks that falls on a certain date

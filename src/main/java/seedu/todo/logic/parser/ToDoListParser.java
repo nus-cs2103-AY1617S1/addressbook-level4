@@ -37,6 +37,7 @@ public class ToDoListParser {
 
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
+
         switch (commandWord) {
 
         case AddCommand.COMMAND_WORD:
@@ -60,9 +61,6 @@ public class ToDoListParser {
         case SearchCommand.COMMAND_WORD:
             return prepareSearch(arguments);
 
-        case SeeCommand.COMMAND_WORD:
-            return new SeeCommand();
-
         case TagCommand.COMMAND_WORD:
             return prepareTag(arguments);
 
@@ -83,7 +81,6 @@ public class ToDoListParser {
             
         case ResetCommand.COMMAND_WORD:
             return new ResetCommand();
-
 
         default:
             return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
@@ -392,6 +389,10 @@ public class ToDoListParser {
         
         String tempArgs = args.trim(); 
        
+        if (tempArgs.isEmpty()) {
+            return new SearchCommand("", SearchCommand.SearchCompletedOption.ALL, SearchCommand.SearchIndex.ALL);
+        }
+        
         Matcher matcher;        
         for (Pattern p : dataPatterns) {
             matcher = p.matcher(tempArgs);
@@ -399,7 +400,7 @@ public class ToDoListParser {
             if (matcher.matches()) {
                 SearchCompletedOption option = SearchCompletedOption.UNDONE;
                 if (matcher.group("comOpt") != null) {
-                    option = SearchCompletedOption.valueOf(matcher.group(2).trim().toUpperCase());
+                    option = SearchCompletedOption.valueOf(matcher.group("comOpt").trim().toUpperCase());
                 }                
                 
                 if (p.equals(ParserFormats.SEARCH_TASK_ARGS_FORMAT_ON)) {
