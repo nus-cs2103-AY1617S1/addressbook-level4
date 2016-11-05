@@ -148,7 +148,7 @@ public class CalendarItemFilter {
             if (eventStatus.equals("over") || eventStatus.equals("past")) {
                 eventPredicates.add(Event.predEndBefore(now));
             } else if (eventStatus.equals("future")) {
-                eventPredicates.add(Event.predStartBefore(now));
+                eventPredicates.add(Event.predStartAfter(now));
             }
         }
         
