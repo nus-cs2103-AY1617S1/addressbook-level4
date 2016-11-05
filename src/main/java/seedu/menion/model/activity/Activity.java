@@ -1,5 +1,6 @@
 package seedu.menion.model.activity;
 
+import seedu.menion.commons.core.Messages;
 import seedu.menion.commons.exceptions.IllegalValueException;
 import seedu.menion.commons.util.CollectionUtil;
 import seedu.menion.commons.util.DateChecker;
@@ -203,8 +204,7 @@ public class Activity implements ReadOnlyActivity {
     @Override
     public void setActivityType(String newType) throws IllegalValueException {
         if (!newType.equals(FLOATING_TASK_TYPE) && !newType.equals(TASK_TYPE) && !newType.equals(EVENT_TYPE)) {
-            throw new IllegalValueException("Activity type invalid! It should only be: " + FLOATING_TASK_TYPE + 
-                    ", " + TASK_TYPE + ", " + EVENT_TYPE);
+            throw new IllegalValueException(Messages.MESSAGE_INVALID_TYPE);
         }
         else {
             this.activityType = newType;
@@ -228,9 +228,7 @@ public class Activity implements ReadOnlyActivity {
     @Override
     public void setActivityStartDateTime(String newDate, String newTime) throws IllegalValueException {
 
-        boolean isTask = this.activityType.equals(Activity.TASK_TYPE);
         boolean isEvent = this.activityType.equals(Activity.EVENT_TYPE);
-        assert (isTask || isEvent);
         
         ActivityDate newDateObject = new ActivityDate(newDate);
         ActivityTime newTimeObject = new ActivityTime(newTime);

@@ -2,6 +2,7 @@ package seedu.menion.testutil;
 
 import java.util.ArrayList;
 
+import seedu.menion.commons.core.Messages;
 import seedu.menion.commons.exceptions.IllegalValueException;
 import seedu.menion.commons.util.DateChecker;
 import seedu.menion.logic.commands.CompleteCommand;
@@ -225,7 +226,23 @@ public class TestActivity implements ReadOnlyActivity {
         return activityDetails;
     }
 
-
+    //@@author A0139277U
+    /**
+     * This method changes the format of date from dd-mm-yyyy to mm-dd-yyyy
+     * @param dateToChange
+     * @return a date String in the format of mm-dd-yyyy
+     */
+    private static String changeDateFormat(String dateToChange){
+    
+    	String[] parts = dateToChange.split("-");
+    	return parts[1] + "-" + parts[0] + "-" + parts[2]; 
+    	
+    }
+    
+    //@@author A0139164A
+    /**
+     * @return a addCommand for the specific activity.
+     */
     public String getAddCommand() {
         StringBuilder build = new StringBuilder();
         
@@ -260,20 +277,7 @@ public class TestActivity implements ReadOnlyActivity {
         
         return build.toString();
     }
-    //@@author A0139277U
-    /**
-     * This method changes the format of date from dd-mm-yyyy to mm-dd-yyyy
-     * @param dateToChange
-     * @return a date String in the format of mm-dd-yyyy
-     */
-    private static String changeDateFormat(String dateToChange){
     
-    	String[] parts = dateToChange.split("-");
-    	return parts[1] + "-" + parts[0] + "-" + parts[2]; 
-    	
-    }
-    
-    //@@author
     /**
      * @param index of the Activity to complete
      * @return complete command for the given Activity.
@@ -465,15 +469,58 @@ public class TestActivity implements ReadOnlyActivity {
         return build.toString();
     }
     
-    @Override
-    public Activity get() {
-        return null;
+    /**
+     * e.g edit floating 1 by: 12-12-2016 1700
+     * @param index
+     * @param newDateTime
+     * @return
+     */
+    public String getFloatingTaskChangeCommand(int index, String newDateTime) {
+        StringBuilder build = new StringBuilder();
+        
+        build.append(EditCommand.COMMAND_WORD);
+        build.append(" ");
+        build.append(Activity.FLOATING_TASK_TYPE);
+        build.append(" ");
+        build.append(String.valueOf(index));
+        build.append(" ");
+        build.append(EditCommand.TASK_DEADLINE_PARAM);
+        build.append(" ");
+        build.append(newDateTime);
+        return build.toString();
     }
-
+    
+    /**
+     * e.d edit task 1 to: floating
+     * @param index
+     * @return a command to change Task --> FloatingTask
+     */
+    public String getTaskChangeCommand(int index) {
+        StringBuilder build = new StringBuilder();
+        
+        build.append(EditCommand.COMMAND_WORD);
+        build.append(" ");
+        build.append(Activity.TASK_TYPE);
+        build.append(" ");
+        build.append(String.valueOf(index));
+        build.append(" ");
+        build.append(EditCommand.EVENT_TO_PARAM);
+        build.append(" ");
+        build.append(Activity.FLOATING_TASK_TYPE);
+        return build.toString();
+    }
     /**
      * List of methods to set Activity's param : Name, Note, startDate, startTime
-     * Exception handling to be editted ----------> ALERT! (Assumes User to pass in correct parameters)
      */
+    @Override
+    public void setActivityType(String newType) throws IllegalValueException {
+        if (!newType.equals(Activity.FLOATING_TASK_TYPE) && !newType.equals(Activity.TASK_TYPE) && !newType.equals(Activity.EVENT_TYPE)) {
+            throw new IllegalValueException(Messages.MESSAGE_INVALID_TYPE);
+        }
+        else {
+            this.activityType = newType;
+        }
+    }
     @Override
     public void setActivityName(String newName) {
         assert (newName != null);
@@ -561,5 +608,11 @@ public class TestActivity implements ReadOnlyActivity {
 	public void setEventOngoing(Boolean eventOngoing) {
     	this.eventOngoing = eventOngoing;		
 	}
+    
+    @Override
+    public Activity get() {
+        return null;
+    }
+
 
 }

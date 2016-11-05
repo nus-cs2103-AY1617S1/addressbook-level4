@@ -157,8 +157,7 @@ public class BackgroundDateCheck extends ComponentManager{
 	 * @return true: the current time is later than the activity time. 
 	 */
 	public static boolean isActivityOver(Calendar currentTime, ReadOnlyActivity activityToCheck){
-			assert(activityToCheck != null && (activityToCheck.getActivityType().equals(Activity.EVENT_TYPE) ||
-				activityToCheck.getActivityType().equals(Activity.TASK_TYPE)));
+			assert(activityToCheck != null);
 		
 		String activityDateString;
 		String activityTimeString;
