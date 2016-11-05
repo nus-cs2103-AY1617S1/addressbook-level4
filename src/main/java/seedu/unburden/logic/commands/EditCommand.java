@@ -18,10 +18,10 @@ import seedu.unburden.model.task.UniqueTaskList.*;
 //@@author A0139714B=======
 
 /*
- * Edits any field of the task
+ * edit any field of the task\
+ * @@author A0139714B
  */
 
-//@@author A0139714B
 public class EditCommand extends Command {
     
     public static final String COMMAND_WORD = "edit";
@@ -171,7 +171,7 @@ public class EditCommand extends Command {
     	 }
     	 
     	 static void checkIfCanEditStartTime(Task targetTask, Task toEdit) throws CannotAddStartTimeWithoutEndTimeException {
-    		 if (targetTask.getEndTime().getFullTime() == "" && toEdit.getStartTime().getFullTime() != "" && toEdit.getEndTime().getFullTime() != "") {
+    		 if (targetTask.getEndTime().getFullTime() == "" && toEdit.getStartTime().getFullTime() != "") {
     			 throw new CannotAddStartTimeWithoutEndTimeException();
     		 }
     	 }
