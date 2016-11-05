@@ -141,46 +141,25 @@ public class ModelManager extends ComponentManager implements Model {
   		//System.out.println("Size before filtering :" + filteredOverdueTaskList.size());
   		
   		filteredList.setPredicate(p->
-  		p.getClass().getSimpleName().equalsIgnoreCase("Task"));
+  		p.getClass().getSimpleName().equalsIgnoreCase("Task")
+  		 && (p.getCompletionStatus() == false && p.hasPassedDueDate() == true));
   		
-  		FilteredList<Task> filteredOverdueTaskList = (FilteredList<Task>) new FilteredList<>((ObservableList<? extends ReadOnlyTask>) filteredList);
-  		
-  		filteredOverdueTaskList.setPredicate(p->
-  		p.getCompletionStatus() == false && p.hasPassedDueDate() == true);
-
   		//System.out.println("Size after filtering :" + anotherList.size());
   		
-  		return new UnmodifiableObservableList<ReadOnlyActivity>(filteredOverdueTaskList);
+  		return new UnmodifiableObservableList<ReadOnlyActivity>(filteredList);
   	}
   	
 	@Override
 	public UnmodifiableObservableList<ReadOnlyActivity> getFilteredUpcomingList() {
   		
 		//obtain a filtered list of upcoming events.
-		FilteredList<Activity> filteredList1 = new FilteredList<>(addressBook.getAllEntries());
+		FilteredList<Activity> filteredList = new FilteredList<>(addressBook.getAllEntries());
   
-		filteredList1.setPredicate(p->
-		p.getClass().getSimpleName().equalsIgnoreCase("Event"));
-		
-		FilteredList<Event> filteredEventList = (FilteredList<Event>) new FilteredList<>((ObservableList<? extends ReadOnlyEvent>) filteredList1);
-
-		
-		filteredEventList.setPredicate(p->
-		p.isStartTimeApproaching());
-		
-		//obtain a filtered list of upcoming tasks. Does not include overdue tasks.
-		FilteredList<Activity> filteredList2 = new FilteredList<>(addressBook.getAllEntries());
-		
-		filteredList2.setPredicate(p->
-		p.getClass().getSimpleName().equalsIgnoreCase("Task"));
-		
-  		FilteredList<Task> filteredUpcomingTaskList = (FilteredList<Task>) new FilteredList<>((ObservableList<? extends ReadOnlyTask>) filteredList2);
-  		
-  		filteredUpcomingTaskList.setPredicate(p->
-		p.isDueDateApproaching());
-  		
-		
-		return null;
+		filteredList.setPredicate(p->
+		(p.getClass().getSimpleName().equalsIgnoreCase("Event") && ((Event) p).isStartTimeApproaching())
+		|| ( p.getClass().getSimpleName().equalsIgnoreCase("Task") && ((Task) p).isDueDateApproaching()));
+				 		
+		return new UnmodifiableObservableList<ReadOnlyActivity>(filteredList);
 	}
 
   	
