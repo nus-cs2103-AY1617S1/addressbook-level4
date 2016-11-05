@@ -52,26 +52,26 @@ public class Status {
     /**
      * Compares the two Statuses based on DoneStatus.
      * 
-     * @param anotherStatus
-     *            Status of another Task to compare to
+     * @return zero if this done status represents the same boolean value as the
+     *         argument; a positive value if this done status represents true
+     *         and the argument represents false; and a negative value if this
+     *         done status represents false and the argument represents true
      */
     public int compareDoneStatusTo(Status anotherStatus) {
-        Boolean isThisDone = new Boolean(this.getDoneStatus());
-        Boolean isAnotherDone = new Boolean(anotherStatus.getDoneStatus());
-        return isThisDone.compareTo(isAnotherDone);
+        return (Boolean.valueOf(this.getDoneStatus()).compareTo(Boolean.valueOf(anotherStatus.getDoneStatus())));
     }
 
     /**
      * Compares the two Statuses based on OverdueStatus.
      * 
-     * @param anotherStatus
-     *            Status of another Task to compare to
+     * @return zero if this done status represents the same boolean value as the
+     *         argument; a positive value if this done status represents true
+     *         and the argument represents false; and a negative value if this
+     *         done status represents false and the argument represents true
      */
     public int compareOverdueStatusTo(Status anotherStatus) {
-        Boolean isThisOverdue = new Boolean(this.getOverdueStatus());
-        Boolean isAnotherOverdue = new Boolean(anotherStatus.getOverdueStatus());
-        return isThisOverdue.compareTo(isAnotherOverdue);
+        return (Boolean.valueOf(this.getOverdueStatus()).compareTo(Boolean.valueOf(anotherStatus.getOverdueStatus())));
     }
     // @@author
-    
+
 }

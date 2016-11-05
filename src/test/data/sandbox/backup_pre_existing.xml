@@ -1,21 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <taskmanager>
     <tasks>
-        <name>test</name>
-        <startTime>2016-11-05 18:00</startTime>
+        <name>Help Jim with his task</name>
+        <startTime>2016-10-25 09:00</startTime>
         <endTime></endTime>
         <deadline></deadline>
         <doneStatus>false</doneStatus>
         <favoriteStatus>false</favoriteStatus>
-        <recurring>weekly</recurring>
-    </tasks>
-    <tasks>
-        <name>test</name>
-        <startTime>2016-11-12 18:00</startTime>
-        <endTime></endTime>
-        <deadline></deadline>
-        <doneStatus>false</doneStatus>
-        <favoriteStatus>false</favoriteStatus>
-        <recurring>weekly</recurring>
+        <recurring>false</recurring>
     </tasks>
 </taskmanager>
