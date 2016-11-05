@@ -1,5 +1,8 @@
 package seedu.taskmanager.model.item;
 
+import java.text.ParseException;
+import java.util.Date;
+
 import seedu.taskmanager.model.tag.UniqueTagList;
 
 /**
@@ -18,6 +21,8 @@ public interface ReadOnlyItem {
     boolean getDone();
     void setDone();
     void setUndone();
+    boolean isPastDeadline();
+    Date getEndDateTime();
 
     /**
      * The returned TagList is a deep copy of the internal TagList,

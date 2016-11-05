@@ -4,7 +4,13 @@ import seedu.taskmanager.commons.exceptions.IllegalValueException;
 import seedu.taskmanager.commons.util.CollectionUtil;
 import seedu.taskmanager.model.tag.UniqueTagList;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Objects;
+
+import org.ocpsoft.prettytime.PrettyTime;
 
 /**
  * Represents a Item in the task manager.
@@ -202,5 +208,36 @@ public class Item implements ReadOnlyItem {
     @Override
     public String toString() {
         return getAsText();
+    }
+    
+    
+    /**
+     * Checks if current item is overdue.
+     * Assumes current item is either an event or a deadline.
+     * @return true if overdue
+     * @throws ParseException
+     */
+    public boolean isPastDeadline() {
+        assert !this.getItemType().equals(ItemType.TASK_WORD);
+        
+        Date endFromNowDate = getEndDateTime();
+        Date currentDate = new Date();
+        if (currentDate.before(endFromNowDate)) { // Future Deadline
+            return false;
+        } else { // Past Deadline
+            return true;
+        }
+    }
+    
+    public Date getEndDateTime() {
+        String endDateString = this.getEndDate().value + " " + this.getEndTime().value;
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd hh:mm");
+        Date endDateTime = null;
+        try {
+            endDateTime = df.parse(endDateString);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return endDateTime;
     }
 }
