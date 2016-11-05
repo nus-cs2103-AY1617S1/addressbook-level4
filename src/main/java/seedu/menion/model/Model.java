@@ -63,14 +63,23 @@ public interface Model {
      * 
      */
     
-    /** add an activity manager state into undo stack */
+    /** add an activity manager state into undo state stack */
     void addStateToUndoStack(ReadOnlyActivityManager activityManager);
     
-    /** retrieve previous activity manager from undo stack */
+    /** retrieve previous activity manager from undo state stack */
     ReadOnlyActivityManager retrievePreviousStateFromUndoStack();
     
-    /** check if there is any previous activity manager in undo stack */
+    /** check if there is any previous activity manager in undo state stack */
     boolean checkStatesInUndoStack();
+    
+    /** add a file path into undo stack */
+    void addStoragePathToUndoStack(String filePath);
+    
+    /** retrieve previous file path from undo file path stack */
+    String retrievePreviouStoragePathFromUndoStack();
+    
+    /** check if there is any previous file path in undo file path stack */
+    boolean checkStoragePathInUndoStack();
     
     /**
      * Methods for redo
@@ -78,14 +87,23 @@ public interface Model {
      */
     
 
-    /** add an activity manager state into redo stack */
+    /** add an activity manager state into redo state stack */
     void addStateToRedoStack(ReadOnlyActivityManager activityManager);
     
-    /** retrieve previous activity manager from redo stack */
+    /** retrieve previous activity manager from redo state stack */
     ReadOnlyActivityManager retrievePreviousStateFromRedoStack();
   
-    /** check if there is any previous activity manager in redo stack */
+    /** check if there is any previous activity manager in redo state stack */
     boolean checkStatesInRedoStack();
+    
+    /** add a file path into redo stack */
+    void addStoragePathToRedoStack(String filePath);
+    
+    /** retrieve previous file path from redo file path stack */
+    String retrievePreviouStoragePathFromRedoStack();
+    
+    /** check if there is any previous file path in redo file path stack */
+    boolean checkStoragePathInRedoStack();
     
     /**
      * Methods for recently changed activity

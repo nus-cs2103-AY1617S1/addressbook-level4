@@ -60,10 +60,10 @@ public class ActivityParser {
         	return prepareList(arguments);
             
         case UndoCommand.COMMAND_WORD:
-        	return new UndoCommand();
+        	return new UndoCommand(arguments);
         	
         case RedoCommand.COMMAND_WORD:
-        	return new RedoCommand();
+        	return new RedoCommand(arguments);
         	//@@author: A0139164A
         case CompleteCommand.COMMAND_WORD:
             return prepareComplete(arguments);
