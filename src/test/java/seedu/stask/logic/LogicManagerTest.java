@@ -286,18 +286,20 @@ public class LogicManagerTest {
         assertCommandBehavior(commandWord + " B3", expectedMessage, model.getTaskBook(), datedTaskList, undatedTaskList);
         assertCommandBehavior(commandWord + " B11", expectedMessage, model.getTaskBook(), datedTaskList, undatedTaskList);
     }
-
+    //@@author A0143884W
     @Test
     public void execute_selectInvalidArgsFormat_errorMessageShown() throws Exception {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, SelectCommand.MESSAGE_USAGE);
         assertIncorrectIndexFormatBehaviorForCommand("select", expectedMessage);
     }
-
+    //@@author 
+    //@@author A0139024M
     @Test
     public void execute_selectIndexNotFound_errorMessageShown() throws Exception {
         assertIndexNotFoundBehaviorForCommand("select");
     }
-
+    //@@author 
+    //@@author A0143884W
     @Test
     public void execute_select_jumpsToCorrectPerson() throws Exception {
         TestDataHelper helper = new TestDataHelper();
@@ -313,18 +315,21 @@ public class LogicManagerTest {
         assertEquals(1, targetedJumpIndex);
         assertEquals(model.getFilteredUndatedTaskList().get(1), threeUndatedTask.get(1));
     }
-
+    //@@author 
+    //@@author A0139024M
     @Test
     public void execute_deleteInvalidArgsFormat_errorMessageShown() throws Exception {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE);
         assertIncorrectIndexFormatBehaviorForCommand("delete", expectedMessage);
     }
-
+    //@@author 
+    //@@author A0139024M
     @Test
     public void execute_deleteIndexNotFound_errorMessageShown() throws Exception {
         assertIndexNotFoundBehaviorForCommand("delete");
     }
-
+    //@@author 
+    //@@author A0139024M
     @Test
     public void execute_delete_removesCorrectTask() throws Exception {
         TestDataHelper helper = new TestDataHelper();
@@ -349,7 +354,8 @@ public class LogicManagerTest {
                 expectedAB, expectedAB.getDatedTaskList(),
                 expectedAB.getUndatedTaskList());
     }
-
+    //@@author
+    
     //@@author A0139145E
     @Test 
     public void execute_done_invalidArgsFormat() throws Exception {
@@ -513,13 +519,13 @@ public class LogicManagerTest {
 
     }
     //@@author
-
+    //@@author A0143884W
     @Test
     public void execute_edit_invalidArgsFormat() throws Exception {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE);
         assertCommandBehavior("edit ", expectedMessage);
     }
-    
+    //@@author
     //@@author A0143884W
     @Test
     public void execute_editName_successful() throws Exception {

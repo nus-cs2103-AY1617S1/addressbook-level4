@@ -99,7 +99,8 @@ being saved to the hard disk and the status bar of the UI being updated to refle
   coupling between components.
 
 We will now go into further details about each component.
-<!--@@author--> <!--@@author A0139528W-->
+<!--@@author-->
+<!--@@author A0139528W-->
 &nbsp;&nbsp;&nbsp;&nbsp;<b>3.3 UI component</b>
 
 <img src="images/UiClassDiagramTD.png" width="800"><br>
@@ -117,7 +118,8 @@ The `UI` component,
 * Executes user commands using the `Logic` component.
 * Binds itself to some data in the `Model` so that the UI can auto-update when data in the `Model` has changed.
 * Responds to events raises from various parts of sTask and updates the UI accordingly.
-<!--@@author--> <!--@@author A0139145E-->
+<!--@@author-->
+<!--@@author A0139145E-->
 &nbsp;&nbsp;&nbsp;&nbsp;<b>3.4 Logic component</b>
 
 <img src="images/LogicClassDiagram.png" width="600"><br>
@@ -130,7 +132,8 @@ In this component, you can see from Figure BLAH that,
 2. This results in a `Command` object which is executed by the `LogicManager`.
 3. The command execution can affect the `Model` (e.g. adding a task) and/or raise events.
 4. The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`
-<!--@@author--> <!--@@author A0139024M-->
+<!--@@author-->
+<!--@@author A0139024M-->
 &nbsp;&nbsp;&nbsp;&nbsp;<b>3.5 Model component</b>
 
 <img src="images/ModelClassDiagramTD.png" width="800"><br>
@@ -191,7 +194,8 @@ There are several different logging levels based on the severity that you have t
 &nbsp;&nbsp;&nbsp;&nbsp;<b>4.2 Configuration</b>
 
 You can control certain properties of sTask (e.g App name, logging level) through the configuration file (default: `config.json`)
-<!--@@author--> <!--@@author A0143884W-->
+<!--@@author-->
+<!--@@author A0143884W-->
 
 ## 5. Testing
 
@@ -252,7 +256,9 @@ than these alternatives.<br>
 
     1. Include those libraries in the repo (this bloats the repo size)<br>
     2. Require developers to download those libraries manually (this creates extra work for developers)
-<!--@@author--> <!--@@author A0139024M-->
+    
+<!--@@author-->
+<!--@@author A0139024M-->
 ## Appendix A : User Stories
 
 Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (unlikely to have) - `*`
@@ -298,7 +304,8 @@ Priority | As a ... | I want to ... | So that I can...
 &nbsp;&nbsp;&nbsp;&nbsp;1a. The given date and time is invalid
 > 1a1. sTask shows an error message<br>
 > 1a2. Use case resumes at step 1
-<!--@@author--> <!--@@author A0139528W-->
+<!--@@author-->
+<!--@@author A0139528W-->
 #### Use case: Delete task
 
 **MSS**
@@ -399,7 +406,8 @@ Priority | As a ... | I want to ... | So that I can...
 &nbsp;&nbsp;&nbsp;&nbsp;2a. User has no previous reversible command
 > 2a1. sTask shows an error message
 
-<!--@@author--> <!--@@author A0139145E-->
+<!--@@author-->
+ <!--@@author A0139145E-->
 #### Use case: Exit
 
 **MSS**
@@ -429,7 +437,8 @@ Priority | As a ... | I want to ... | So that I can...
 
 > Windows, Linux, Unix, OS-X
 
-<!--@@author--> <!--@@author A0139024M-->
+<!--@@author-->
+ <!--@@author A0139024M-->
 ## Appendix E : Product Survey
 
 Product Name | Strengths | Weaknesss

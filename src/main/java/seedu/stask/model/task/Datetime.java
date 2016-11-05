@@ -11,7 +11,7 @@ import com.joestelmach.natty.Parser;
 
 import seedu.stask.commons.exceptions.IllegalValueException;
 
-//@@author A0143884W A0139145E
+//@@author A0143884W
 /**
  * Represents a Task's Date and Time in the to-do-list. Guarantees: immutable;
  * 
