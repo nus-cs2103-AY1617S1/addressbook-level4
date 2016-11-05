@@ -63,4 +63,23 @@ public class UndoRedoCommandTest extends GuiTest {
         assertTaskNotVisibleAfterCmd("undo 2", task1);
         assertTaskNotVisibleAfterCmd("list", task2); // A li'l hacky but oh well
     }
+    
+    @Test
+    public void redo_single() {
+        console.runCommand("clear");
+        assertTaskVisibleAfterCmd(commandAdd1, task1);
+        assertTaskNotVisibleAfterCmd("undo", task1);
+        assertTaskVisibleAfterCmd("redo", task1);
+    }
+    
+    @Test
+    public void redo_multiple() {
+        console.runCommand("clear");
+        assertTaskVisibleAfterCmd(commandAdd1, task1);
+        assertTaskVisibleAfterCmd(commandAdd2, task2);
+        assertTaskNotVisibleAfterCmd("undo 2", task1);
+        assertTaskNotVisibleAfterCmd("list", task2);
+        assertTaskVisibleAfterCmd("redo 2", task1);
+        assertTaskVisibleAfterCmd("list", task2);
+    }
 }
