@@ -119,7 +119,7 @@ public class MainWindow extends UiPart {
         return commandBoxPlaceholder;
     }
 
-    private AnchorPane getResultDisplayPlaceholder() {
+    AnchorPane getResultDisplayPlaceholder() {
         return resultDisplayPlaceholder;
     }
 
@@ -176,6 +176,10 @@ public class MainWindow extends UiPart {
     @FXML
     private void handleExit() {
         raise(new ExitAppRequestEvent());
+    }
+    
+    public void postResult(String s) {
+        resultDisplay.postMessage(s);
     }
     
     //@@author A0142605N 

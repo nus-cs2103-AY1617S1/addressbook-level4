@@ -62,7 +62,10 @@ public class SelectCommandTest extends TaskBookGuiTest {
 
     private void assertSelectionSuccess(int index) {
         commandBox.runCommand("select " + index);
-        assertResultMessage(String.format(SelectCommand.MESSAGE_SELECT_TASK_SUCCESS, index));
+        ReadOnlyTask task = taskPane.getTask(index - 1);
+        String expectedMessage = String.format(SelectCommand.MESSAGE_SELECT_TASK_SUCCESS,
+                task.toString());
+        assertResultMessage(expectedMessage);
         assertTaskSelected(index);
     }
 

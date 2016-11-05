@@ -21,6 +21,7 @@ import seedu.oneline.commons.events.ui.ShowWeekViewEvent;
 import seedu.oneline.commons.events.ui.ShowFloatViewEvent; 
 import seedu.oneline.commons.util.StringUtil;
 import seedu.oneline.logic.Logic;
+import seedu.oneline.logic.commands.SelectCommand;
 import seedu.oneline.model.UserPrefs;
 
 import java.util.logging.Logger;
@@ -124,6 +125,9 @@ public class UiManager extends ComponentManager implements Ui {
     @Subscribe
     private void handleTaskPanelSelectionChangedEvent(TaskPanelSelectionChangedEvent event){
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        String message = String.format(SelectCommand.MESSAGE_SELECT_TASK_SUCCESS,
+                event.getNewSelection().toString());
+        mainWindow.postResult(message);
     }
     
     @Subscribe
