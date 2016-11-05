@@ -142,8 +142,8 @@ public class CalendarItemFilter {
         }
         
         // Filter by eventStatus
-        if (parsedResult.get("eventStatus") != null && parsedResult.get("eventStatus")[1] != null) {
-            String eventStatus = parsedResult.get("eventStatus")[1];
+        if (parsedResult.get("eventStatus") != null && parsedResult.get("eventStatus")[0] != null) {
+            String eventStatus = parsedResult.get("eventStatus")[0];
             LocalDateTime now = LocalDateTime.now();
             if (eventStatus.equals("over") || eventStatus.equals("past")) {
                 eventPredicates.add(Event.predEndBefore(now));
