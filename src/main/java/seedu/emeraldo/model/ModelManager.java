@@ -153,6 +153,7 @@ public class ModelManager extends ComponentManager implements Model {
     public synchronized void addTag(Task target, Tag tag) throws TagExistException {
         try {
             emeraldo.taskAddTag(target, tag);
+            saveState();
         } catch (IllegalValueException e) {
             e.printStackTrace();
         }
@@ -162,6 +163,7 @@ public class ModelManager extends ComponentManager implements Model {
     public synchronized void deleteTag(Task target, Tag tag) throws TagNotFoundException {
         try {
             emeraldo.taskDeleteTag(target, tag);
+            saveState();
         } catch (IllegalValueException e) {
             e.printStackTrace();
         }
@@ -171,6 +173,7 @@ public class ModelManager extends ComponentManager implements Model {
     public synchronized void clearTag(Task target) throws TagListEmptyException {
         try {
             emeraldo.taskClearTag(target);
+            saveState();
         } catch (IllegalValueException e) {
             e.printStackTrace();
         }
