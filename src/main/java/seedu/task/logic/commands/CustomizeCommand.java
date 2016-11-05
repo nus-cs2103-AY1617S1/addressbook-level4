@@ -73,5 +73,10 @@ public class CustomizeCommand extends Command {
 	public boolean isReversible() {
 		return false;
 	}
+	
+	@Override
+	public String getCommand() {
+		return COMMAND_WORD; 
+	}
 
 }

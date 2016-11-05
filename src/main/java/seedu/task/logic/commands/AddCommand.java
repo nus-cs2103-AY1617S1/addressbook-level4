@@ -91,17 +91,11 @@ public class AddCommand extends Command {
 	@Override
 	public CommandResult execute() {
 		assert model != null;
-		
-		Title title;
-		Description description;
-		StartDate startDate;
-		DueDate dueDate;
-		Status status;
-		String feedback;
-		
+
 		try {
 			//For every task from list, add task to manager
 			for (Task task : tasksToAdd) {
+				task.setStatus(new Status("ONGOING"));
 				model.addTask(task);
 			}
 			//@@author A0148083A
@@ -145,5 +139,10 @@ public class AddCommand extends Command {
 	@Override
 	public boolean isReversible() {
 		return true;
+	}
+
+	@Override
+	public String getCommand() {
+		return COMMAND_WORD; 
 	}
 }

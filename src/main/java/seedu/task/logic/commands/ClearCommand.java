@@ -71,4 +71,9 @@ public class ClearCommand extends Command {
 	public boolean isReversible() {
 		return true;
 	}
+	
+	@Override
+	public String getCommand() {
+		return COMMAND_WORD; 
+	}
 }

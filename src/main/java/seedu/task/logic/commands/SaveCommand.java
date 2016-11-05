@@ -69,10 +69,14 @@ public static final String MESSAGE_USAGE = COMMAND_WORD + ": Change location of 
 		return null;
 	}
 
-
 	@Override
 	public boolean isReversible() {
 		return false;
+	}
+	
+	@Override
+	public String getCommand() {
+		return COMMAND_WORD; 
 	}
 
 }

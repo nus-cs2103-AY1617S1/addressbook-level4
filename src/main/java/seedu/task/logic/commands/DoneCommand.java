@@ -91,10 +91,8 @@ public class DoneCommand extends Command {
 		UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
 		int numberOfTasks = lastShownList.size();
 		ReadOnlyTask task = lastShownList.get(numberOfTasks - 1);
-		//@@author A0153751H
 		Task taskToAdd = new Task(task.getTitle(), task.getDescription(), task.getStartDate(), task.getDueDate(),
 		        task.getInterval(), task.getTimeInterval(), task.getStatus(), task.getTaskColor(), task.getTags());
-		//@@author
 		taskToAdd.setStatus(new Status(targetStatus));
 		try {
 			model.deleteTask(task);
@@ -107,12 +105,14 @@ public class DoneCommand extends Command {
 		return new CommandResult(String.format(MESSAGE_SUCCESS_UNDO));
 	}
 
-	/**
-	 * If the task is already COMPLETED, method is not reversible
-	 */
 	@Override
 	public boolean isReversible() {
 		return true;
 	}
-
+	
+	@Override
+	public String getCommand() {
+		return COMMAND_WORD; 
+	}
+    //@@author
 }

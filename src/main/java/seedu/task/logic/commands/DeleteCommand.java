@@ -95,5 +95,10 @@ public class DeleteCommand extends Command {
 	public boolean isReversible() {
 		return true;
 	}
+	
+	@Override
+	public String getCommand() {
+		return COMMAND_WORD; 
+	}
 
 }
