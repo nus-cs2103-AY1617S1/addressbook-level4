@@ -68,7 +68,7 @@ public class TaskTest {
     public void compareTo_overdueVsPin() {
        
         Task t1 = getOverdueTask();
-        Task t2 = getOverdueTask();
+        Task t2 = t1.copy();
         t2.setAsPin();
         
         assertEquals(t1.compareTo(t2), 1);
@@ -165,7 +165,7 @@ public class TaskTest {
     @Test
     public void equals_twoDeadlineTasks_sameDeadline() {
         Task t1 = getDeadlineTask();
-        Task t2 = getDeadlineTask();
+        Task t2 = t1.copy();
         
         assertEquals(t1, t2);
     }
@@ -181,7 +181,7 @@ public class TaskTest {
     @Test
     public void equals_twoEventTasks_sameDates() {
         Task t1 = getEventTask();
-        Task t2 = getEventTask();
+        Task t2 = t1.copy();
         
         assertEquals(t1, t2);
     }

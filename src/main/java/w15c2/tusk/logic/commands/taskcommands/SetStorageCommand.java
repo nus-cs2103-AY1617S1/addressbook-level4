@@ -8,6 +8,7 @@ import java.util.Optional;
 
 import w15c2.tusk.commons.core.EventsCenter;
 import w15c2.tusk.commons.events.storage.StorageChangedEvent;
+import w15c2.tusk.commons.events.ui.HideHelpRequestEvent;
 import w15c2.tusk.logic.commands.CommandResult;
 
 //@@author A0138978E
@@ -56,6 +57,7 @@ public class SetStorageCommand extends TaskCommand {
 		}
 		Path actualPath = path.get();
 		EventsCenter.getInstance().post(new StorageChangedEvent(storageLocation));
+		EventsCenter.getInstance().post(new HideHelpRequestEvent());
 		return new CommandResult(String.format(MESSAGE_SET_STORAGE_SUCCESS, actualPath.toAbsolutePath()));
 	}
 	
