@@ -271,7 +271,7 @@ public class UniqueTaskList implements Iterable<Task> {
         return toEdit;
     }
 
-    //@@author A0135722L Zhiyuan
+    //@@author A0135722L
     public boolean completed(ReadOnlyTask target) {
         int completeIndex = internalList.lastIndexOf(target);
         Task toComplete = new Task(internalList.get(completeIndex));

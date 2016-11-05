@@ -451,7 +451,7 @@ public class Parser {
         return new EditCommand(pass, args, category);
     }
 
-    //@@author A0135722L Zhiyuan
+    //@@author A0135722L
     private Command prepareComplete(String args) {
         final Matcher matcher = ARGS_FORMAT_COMPLETE.matcher(args.trim());
         if (!matcher.matches()) {

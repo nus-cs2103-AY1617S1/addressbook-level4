@@ -176,7 +176,7 @@ public class TaskBook implements ReadOnlyTaskBook {
         return false;
     }
     
-    //@@author A0135722L Zhiyuan
+    //@@author A0135722L
     public boolean completeTask(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException {
         int category = target.getTaskCategory();
         if(category == 1){
