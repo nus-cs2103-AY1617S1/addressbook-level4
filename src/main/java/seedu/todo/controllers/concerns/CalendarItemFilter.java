@@ -1,11 +1,13 @@
 package seedu.todo.controllers.concerns;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Predicate;
 
+import seedu.todo.commons.exceptions.InvalidNaturalDateException;
 import seedu.todo.models.Task;
 
 /**
@@ -27,7 +29,7 @@ public class CalendarItemFilter {
         return tokenDefinitions;
     }
     
-    public static List<Task> filterTasks(Map<String, String[]> parsedResult) {
+    public static List<Task> filterTasks(Map<String, String[]> parsedResult) throws InvalidNaturalDateException {
         List<Predicate<Task>> taskPredicates = new ArrayList<Predicate<Task>>();
         
         // Filter by name
@@ -45,7 +47,20 @@ public class CalendarItemFilter {
             }
         }
         
-        return null;
+        // Filter by dueDate
+        String[] datePair = DateParser.extractDatePair(parsedResult);
+        String timeStartNatural = datePair[0];
+        String timeEndNatural = datePair[1];
+        if (timeStartNatural != null) {
+            LocalDateTime timeStart = DateParser.parseNatural(timeStartNatural);
+            taskPredicates.add(Task.predAfterDueDate(timeStart));
+        }
+        if (timeEndNatural != null) {
+            LocalDateTime timeEnd = DateParser.parseNatural(timeEndNatural);
+            taskPredicates.add(Task.predBeforeDueDate(timeEnd));
+        }
+        
+        return Task.where(taskPredicates);
     }
 
 }
