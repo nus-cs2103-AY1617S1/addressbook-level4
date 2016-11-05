@@ -55,7 +55,7 @@ Before you start to delve into the development of sTask, please ensure that you 
 
 ## 3. Design
 
-<img src="images/Architecture.png" width="600"><br><br>
+<img src="images/Architecture.png" width="800"><br><br>
 
 >For you to get a better understanding of sTask's design architecture, we have compiled it into a diagram as seen above in Figure 1. This **Architecture Diagram** explains the high-level design of sTask, and we will proceed to guide you through each of the components. <br>
  
@@ -260,27 +260,29 @@ Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (un
 Priority | As a ... | I want to ... | So that I can...
 -------- | :-------- | :--------- | :-----------
 `* * *` | new user | see usage instructions | refer to instructions when I forget how to use sTask.
-`* * *` | user | add a new floating task | record the priority.
+`* * *` | user | add a new floating task | refer to them anytime.
 `* * *` | user | add a new deadline | record the date, time of the deadline.
-`* * *` | user | add a new event| record the date, time and duration of the event.
-`* * *` | user | find task(s) by name or tag | search for one or more tasks with either property.
-`* * *` | user | see a list of all my incomplete tasks | have an overview of what I need to do.
-`* * *` | user | see a list of all my completed tasks | have a sense of accomplishment.
-`* * *` | user | see a list of all my overdue tasks | have an overview of what is overdue.
-`* * *` | user | edit an existing task | modify or update entries that I have previously entered.
-`* * *` | user | delete an existing task | delete entries that I no longer need to do.
-`* * *` | user | undo a reversible action | quickly change any accidental actions. 
-`* * *` | user | mark a task as done | keep track of what I have not done. 
+`* * *` | user | add a new event| record the start and end of the event.
 `* * *` | user | change the data storage location | save it in a place I want to access easily. 
+`* * *` | user | clear all my tasks| turn over a new leaf.
+`* * *` | user | delete an existing task | remove those that I no longer need to do.
+`* * *` | user | edit an existing task | modify or update my tasks with the latest details.
 `* * *` | user | exit the application | close the application. 
-`* *` | user | convert between a floating task, deadline or event | efficiently modify or update entries that I have previously entered.
-`* *` | user | find task(s) by keyword, date, priority or tag | search for one or more tasks with certain properties. 
+`* * *` | user | find task(s) by keywords | see the tasks that matches the search terms.
+`* * *` | user | list all my incomplete tasks | have an overview of what I need to do.
+`* * *` | user | list all my completed tasks | have a sense of accomplishment.
+`* * *` | user | list all my overdue tasks and expired events | have an overview of what is overdue and expired.
+`* * *` | user | mark a task as done | keep track of what I have not done.
+`* * *` | user | redo a undone action | quickly redo any undone actions. 
+`* * *` | user | undo a reversible action | quickly change any accidental actions. 
+`* * *` | user | view tasks on a specific date | see what I have on that day.
+`* *` | keyboard user | select a task  | navigate through the app.
+`* *` | user | convert between a floating task, deadline or event | quickly modify or update entries that I have previously entered.
 `* *` | user | view task(s) of a specific day | see what task(s) I have on that day. 
-
 
 ## Appendix B : Use Cases
 
-(For all use cases below, the **System** is the `sTask` and the **Actor** is the `user`, unless specified otherwise)
+(For all use cases below, the **System** is `sTask` and the **Actor** is the `user`, unless specified otherwise)
 
 #### Use case: Add task
 
@@ -323,7 +325,7 @@ Priority | As a ... | I want to ... | So that I can...
 
 **MSS**
 
-1. User requests to list all Tasks
+1. User requests to list all tasks
 2. sTask shows a list of tasks
 3. User requests to edit certain FIELDS of the task at INDEX 
 4. sTask shows the result of edit 
@@ -417,8 +419,7 @@ Priority | As a ... | I want to ... | So that I can...
     8. Should be updated every month with new features and bug fixes.
     9. Should be free. 
     10. Should have welcome voices when you first start the application.
-
-{More to be added}
+    10. Should be able to change the save folder to a cloud drive.
 
 ## Appendix D : Glossary
 
