@@ -43,18 +43,18 @@
 
 ## Problem Domain
 
-With the use of Activity Diagrams, we can understand the context under which `Dowat` is used.
-Users of `Dowat` receive their task and event items mainly from their email inbox.
-By storing the task or event received immediately into `Dowat`, the user can archive the email immediately.
-By accessing `Dowat`, the user is able to determine the important tasks at hand and upcoming events for the day or week.
-This will help the user plan their use of time more effectively.
+With the use of Activity Diagrams, we can understand the context under which `Dowat` is used.<br>
+Users of `Dowat` receive their task and event items mainly from their email inbox.<br>
+By storing the task or event received immediately into `Dowat`, the user can archive the email immediately.<br>
+By accessing `Dowat`, the user is able to determine the important tasks at hand and upcoming events for the day or week.<br>
+This will help the user plan their use of time more effectively.<br>
 
 <img src="images/ADForEmailAndDowat.png" width="850" height="500"><br>
 
 ## Design
 
 <img src="images/Architecture.png" width="600"><br>
-The **_Architecture Diagram_** given above explains the high-level design of the App.
+The **_Architecture Diagram_** given above explains the high-level design of the App.<br>
 Given below is a quick overview of each component.
 
 `Main` has only one class called [`MainApp`](../src/main/java/seedu/task/MainApp.java). It is responsible for,
@@ -297,14 +297,14 @@ The SD for list events is similiar to task.
 
 #### Use case 4: Edit task details
 
-**MSS**
-1. User requests to list tasks
-2. `Dowat` displays a list of tasks
-3. User requests to edit task in the list with new specified parameters with the index of task in the list
-4. `Dowat` edits existing task in database according to new specified parameters
+**MSS**<br>
+1. User requests to list tasks<br>
+2. `Dowat` displays a list of tasks<br>
+3. User requests to edit task in the list with new specified parameters with the index of task in the list<br>
+4. `Dowat` edits existing task in database according to new specified parameters<br>
   Use case ends.
 
-**Extensions**
+**Extensions**<br>
 3a. The given index is invalid
   > 3a1. `Dowat` displays an error message that task cannot be found
   Use case resumes at step 2
@@ -313,14 +313,14 @@ The SD for list events is similiar to task.
 
 #### Use case 5: Edit event details
 
-**MSS**
-1. User requests to list events
-2. `Dowat` displays a list of events
-3. User requests to edit event in the list with new specified parameters with the index of event in the list
-4. `Dowat` edits existing event in database according to new specified parameters
+**MSS**<br>
+1. User requests to list events<br>
+2. `Dowat` displays a list of events<br>
+3. User requests to edit event in the list with new specified parameters with the index of event in the list<br>
+4. `Dowat` edits existing event in database according to new specified parameters<br>
   Use case ends.
 
-**Extensions**
+**Extensions**<br>
 3a. The given index is invalid
   > 3a1. `Dowat` displays an error message that the event cannot be found
   Use case resumes at step 2
@@ -330,16 +330,16 @@ The SD for list events is similiar to task.
 
 #### Use case 6: Mark task as completed
 
-**MSS**
-1. User requests to list tasks
-2. `Dowat` displays a list of tasks
-3. User requests to mark a task as completed with the index of task in the list
-4. `Dowat` marks the existing task as completed and archives the completed task
-5. `Dowat` displays the updated list of tasks
+**MSS**<br>
+1. User requests to list tasks<br>
+2. `Dowat` displays a list of tasks<br>
+3. User requests to mark a task as completed with the index of task in the list<br>
+4. `Dowat` marks the existing task as completed and archives the completed task<br>
+5. `Dowat` displays the updated list of tasks<br>
 
   Use case ends.
 
-**Extensions**
+**Extensions**<br>
 3a. The given index is invalid
   > 3a1. `Dowat` displays an error message that the task cannot be found
   Use case resumes at step 2
@@ -348,12 +348,62 @@ The SD for list events is similiar to task.
 
 #### Use case 7: Delete task or event
 
-**MSS**
-1. User requests to list tasks or events
-2. `Dowat` displays a list of tasks or events
-3. User requests to delete an existing task or event with the index in the list
-4. `Dowat` deletes the task or event
-5. `Dowat` displays the updated list of tasks or events
+**MSS**<br>
+1. User requests to list tasks or events<br>
+2. `Dowat` displays a list of tasks or events<br>
+3. User requests to delete an existing task or event with the index in the list<br>
+4. `Dowat` deletes the task or event<br>
+5. `Dowat` displays the updated list of tasks or events<br>
+
+  Use case ends.
+
+**Extensions**<br>
+3a. The given index is invalid
+  > 3a1. `Dowat` displays an error message that the task or event cannot be found
+  Use case resumes at step 2
+
+<br>
+<!-- @@author A125534L -->
+
+#### Use case 8: Specify storage location
+
+**MSS**<br>
+1. User request to save file at a specific directory<br>
+2. `Dowat` saves the file at the specified directory<br>
+
+  Use case ends.
+
+**Extensions**<br>
+1a. The selected directory is invalid
+  > 1a1. `Dowat` displays an error message that directory cannot be found
+  Use case resumes at step 1
+
+<br>
+<!-- @@author A125534L -->
+#### Use case 9: Help Command 
+
+
+**MSS**<br>
+1. User requests for Help<br>
+2. `Dowat` displays the Help list<br> 
+
+  Use case ends.
+
+**Extensions**<br>
+1a. The KEYWORD for Help Command is invalid
+  > 1a1. `Dowat` displays an error message that KEYWORD cannot be found
+  Use case resumes at step 1
+<br>
+
+<!-- @@author A125534L -->
+#### Use case 10: Select task or event
+
+**MSS**<br>
+1. User requests to list tasks or events<br>
+2. `Dowat` displays a list of tasks or events<br>
+3. User requests to select an existing task or event with the index in the list<br>
+4. `Dowat` select the task or event<br>
+5. `Dowat` displays the updated list of tasks or events<br>
 
   Use case ends.
 
@@ -363,48 +413,16 @@ The SD for list events is similiar to task.
   Use case resumes at step 2
 
 <br>
-<!-- @@author -->
-
-#### Use case 8: Specify storage location
-
-**MSS**
-1. User request to save file at a specific directory 
-2. `Dowat` saves the file at the specified directory
-
-  Use case ends.
-
-**Extensions**
-1a. The selected directory is invalid
-  > 1a1. `Dowat` displays an error message that directory cannot be found
-  Use case resumes at step 1
-
-<br>
-
-#### Use case 9: Help Command 
-
-
-**MSS**
-1. User requests for Help 
-2. `Dowat` displays the Help list 
-
-  Use case ends.
-
-**Extensions**
-1a. The KEYWORD for Help Command is invalid
-  > 1a1. `Dowat` displays an error message that KEYWORD cannot be found
-  Use case resumes at step 1
-
-<br>
 <!-- @@author A0144702N -->
-#### Use case 10: Simple find for tasks  
+#### Use case 11: Simple find for tasks  
 
-**MSS**
-1. User request to find for tasks containing a set of keywords in description
-2. `Dowat` displays zero or more tasks matching the find criteria
+**MSS**<br>
+1. User request to find for tasks containing a set of keywords in description<br>
+2. `Dowat` displays zero or more tasks matching the find criteria<br>
 
   Use case ends.
 
-**Extensions**
+**Extensions**<br>
 1a. No keywords entered after command word
   > 1a1. `Dowat` displays help message on the find command
   Use case resumes at step 1  
@@ -416,48 +434,50 @@ The SD for list events is similiar to task.
 <br>
 
 <!-- @@author A0144702N -->
-#### Use case 11: Undo modification
+#### Use case 12: Undo modification
 
-**MSS**
-1. User requests to undo the last modification. 
-2. `Dowat` shows the last command which modified the `Dowat` database
-3. `Dowat` undoes the the last modification
+**MSS**<br>
+1. User requests to undo the last modification.<br>
+2. `Dowat` shows the last command which modified the `Dowat` database<br>
+3. `Dowat` undoes the the last modification<br>
 
   Use case ends.
 
-**Extensions**
-Extensions
+**Extensions**<br>
 1a. There is no command which modified the `Dowat` during this session
   > 1a1. `Dowat` displays displays a message indicating no commands can be undone
   Use case ends
 
-Besides the abstract SD as shown in the section [Design](#design). A more detailed Sequence Diagram of undo a deletion of task is shown below. 
+Besides the abstract SD as shown in the section [Design](#design).<br>
+A more detailed Sequence Diagram of undo a deletion of task is shown below. 
 
 <img src="images/UndoOverall.png" width="800"><br>
 <img src="images/UndoRefSD.png" width="800"><br>
 
-#### Use case 12: Show calendar views
+#### Use case 13: Show calendar views
 
-**MSS**
-1. User requests to show a certain time period with a certain view.
-2. Calendar view is updated in the `Dowat`. 
+**MSS**<br>
+1. User requests to show a certain time period with a certain view.<br>
+2. Calendar view is updated in the `Dowat`.<br>
   
   Use Case ends
 
 
-**Extensions**
+**Extensions**<br>
 1a. User key in invalid time or date. 
   > 1a1. `Dowat` feedbacks time is not valid.
 
   Use Case ends
 
-Notice how this command does not involve the Model Component at all. Since it does not need to retrieve or modidfy data in the model. 
+Notice how this command does not involve the Model Component at all.<br>
+Since it does not need to retrieve or modidfy data in the model. 
 
-<img src="images/ShowSD.png" width="800"><br>
+<img src="images/ShowSD.png" width="800">
+<br>
 
-<!-- @@author --> 
 
 <!-- @@author A0121608N -->
+<!-- @@author A125534L -->
 ## Appendix C : Non Functional Requirements
 - Storage
   - Should not use relational databases. Data storage must be done using text, json, xml files you create yourself. 
