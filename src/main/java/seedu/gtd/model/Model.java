@@ -51,4 +51,6 @@ public interface Model {
 	
 	/** Clears all tasks */
 	void clearTaskList();
+
+	void updateFilteredListToShowUndone();
 }

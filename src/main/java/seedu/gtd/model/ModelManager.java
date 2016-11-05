@@ -96,14 +96,17 @@ public class ModelManager extends ComponentManager implements Model {
         indicateAddressBookChanged();
     }
     
+    //@@author A0130677A
+    
     @Override
     public synchronized void doneTask(int targetIndex, Task task) throws TaskNotFoundException {
     	savePreviousAddressBook();
-    	System.out.println("in model manager");
         addressBook.doneTask(targetIndex, task);
         updateFilteredListToShowAll();
         indicateAddressBookChanged();
     }
+    
+    //@@author addressbook-level4
     
     @Override
     public synchronized void addTask(Task task) throws UniqueTaskList.DuplicateTaskException {
@@ -117,7 +120,6 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public synchronized void editTask(int targetIndex, Task task) throws TaskNotFoundException {
     	savePreviousAddressBook();
-    	System.out.println("editing task..");
         addressBook.editTask(targetIndex, task);
         updateFilteredListToShowAll();
         indicateAddressBookChanged();
@@ -136,24 +138,29 @@ public class ModelManager extends ComponentManager implements Model {
     public UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList() {
         return new UnmodifiableObservableList<>(filteredTasks);
     }
+    
+    //@@author A0130677A
 
     @Override
     public void updateFilteredListToShowAll() {
-    	updateFilteredListToShowAll(new PredicateExpression(new RemoveDoneQualifier()));
-    	System.out.println("show all");
-    }
-    
-    private void updateFilteredListToShowAll(Expression expression) {
-        filteredTasks.setPredicate(expression::satisfies);
+        filteredTasks.setPredicate(null);
     }
     
     @Override
     public void updateFilteredListToShowRemoved() {
     	updateFilteredListToShowRemoved(new PredicateExpression(new DoneQualifier()));
-    	System.out.println("show done list");
     }
     
     private void updateFilteredListToShowRemoved(Expression expression) {
+        filteredTasks.setPredicate(expression::satisfies);
+    }
+    
+    @Override
+    public void updateFilteredListToShowUndone() {
+    	updateFilteredListToShowUndone(new PredicateExpression(new RemoveDoneQualifier()));
+    }
+    
+    private void updateFilteredListToShowUndone(Expression expression) {
         filteredTasks.setPredicate(expression::satisfies);
     }
     
@@ -177,7 +184,8 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     //========== Inner classes/interfaces used for filtering ==================================================
-
+    
+    //@@author addressbook-level4
     interface Expression {
         boolean satisfies(ReadOnlyTask task);
         String toString();
@@ -227,6 +235,8 @@ public class ModelManager extends ComponentManager implements Model {
             return "name=" + String.join(", ", keywordSet);
         }
     }
+    
+    //@@author A0130677A
     
     private class otherFieldsQualifier implements Qualifier {
         protected String nameKeyWords;

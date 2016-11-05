@@ -33,7 +33,6 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public AddressBook(ReadOnlyAddressBook toBeCopied) {
         this(toBeCopied.getUniqueTaskList(), toBeCopied.getUniqueTagList());
-        System.out.println("start with first method");
     }
 
     /**
@@ -41,7 +40,6 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public AddressBook(UniqueTaskList tasks, UniqueTagList tags) {
         resetData(tasks.getInternalList(), tags.getInternalList());
-        System.out.println("start with second method");
     }
 
     public static ReadOnlyAddressBook getEmptyAddressBook() {
@@ -131,7 +129,6 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
     
     public void doneTask(int index, Task target) throws TaskNotFoundException {
-		System.out.println("in addressbook");
 		tasks.done(index, target);
 	}
 
