@@ -12,7 +12,7 @@ import seedu.todolist.model.parser.TimeParser;
  * Represents a Task's time in the to do list.
  * Guarantees: immutable; is valid as declared in {@link #isValidTime(String)}
  */
-public class TaskTime {
+public class TaskTime implements Comparable<TaskTime> {
     
     public static final String MESSAGE_TIME_CONSTRAINTS = "Task time should be in 24-hr format or AM/PM format";
     public static final String MESSAGE_TIME_INVALID = "Task time provided is invalid!";
@@ -81,6 +81,19 @@ public class TaskTime {
         return other == this // short circuit if same object
                 || (other instanceof TaskTime // instanceof handles nulls
                 && this.time.equals(((TaskTime) other).time)); // state check
+    }
+    
+    @Override 
+    public int compareTo(TaskTime time) {
+        if (time == null) return -1;
+        
+        if (this.equals(time)) {
+            return 0;
+        } else if (this.isBefore(time)) {
+            return -1;
+        } else {
+            return 1;
+        }
     }
 
     @Override

@@ -12,7 +12,7 @@ import seedu.todolist.model.parser.DateParser;
  * Represents a Task's date in the to do list.
  * Guarantees: immutable; is valid as declared in {@link #isValidDate(String)}
  */
-public class TaskDate {
+public class TaskDate implements Comparable<TaskDate> {
     
     public static final String MESSAGE_DATE_CONSTRAINTS = "Task date should be in the format 'dd/mm/yyyy' "
                                                         + "or 'dd monthname yyyy'.";
@@ -82,6 +82,17 @@ public class TaskDate {
         return other == this // short circuit if same object
                 || (other instanceof TaskDate // instanceof handles nulls
                 && this.date.equals(((TaskDate) other).date)); // state check
+    }
+    
+    @Override
+    public int compareTo(TaskDate date) {
+        if (this.equals(date)) {
+            return 0;
+        } else if (this.isBefore(date)) {
+            return -1;
+        } else {
+            return 1;
+        }
     }
 
     @Override
