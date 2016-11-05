@@ -61,9 +61,9 @@
                   <Insets bottom="2.0" left="-20.0" right="2.0" top="2.0" />
                </padding>
                <children>
-                  <Text fx:id="onDate" strokeType="OUTSIDE" strokeWidth="0.0" text="\$onDate" translateX="-30.0" translateY="-20.0" wrappingWidth="138.86663818359375" />
-                  <Text fx:id="byDate" strokeType="OUTSIDE" strokeWidth="0.0" text="\$byDate" translateX="-30.0" translateY="-18.0" />
-                  <Text fx:id="recurrence" strokeType="OUTSIDE" strokeWidth="0.0" text="\$recurrence" translateX="-30.0" translateY="-15.0" />
+                  <Text fx:id="onDate" strokeType="OUTSIDE" strokeWidth="0.0" text="\$onDate" translateX="-70.0" translateY="-20.0" wrappingWidth="182.86663818359375" />
+                  <Text fx:id="byDate" strokeType="OUTSIDE" strokeWidth="0.0" text="\$byDate" translateX="-70.0" translateY="-18.0" />
+                  <Text fx:id="recurrence" strokeType="OUTSIDE" strokeWidth="0.0" text="\$recurrence" translateX="-70.0" translateY="-15.0" />
                </children>
             </VBox>
             </children>

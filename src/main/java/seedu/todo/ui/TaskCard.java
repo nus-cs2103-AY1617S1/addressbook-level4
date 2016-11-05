@@ -84,7 +84,7 @@ public class TaskCard extends UiPart{
     private void initOnDate() {
         if (task.getOnDate().getDate() != null) {
             onDate.setText("Start: " + PrettifyDate.prettifyDate(task.getOnDate().getDate()) 
-                            + " @ " + task.getOnDate().getTime());
+                            + " @ " + task.getOnDate().getTime() + " hrs");
         } else {
             onDate.setText("");
         }
@@ -93,7 +93,7 @@ public class TaskCard extends UiPart{
     private void initByDate() {
         if (task.getByDate().getDate() != null) {
             byDate.setText("End: " + PrettifyDate.prettifyDate(task.getByDate().getDate()) 
-                            + " @ " + task.getByDate().getTime());
+                            + " @ " + task.getByDate().getTime() + " hrs");
         } else {
             byDate.setText("");
         }
@@ -108,7 +108,7 @@ public class TaskCard extends UiPart{
             priorityLevel.setFill(Color.web("#fff59d"));
             priorityLevel.setStroke(Color.web("#ffff00"));
         } else {
-            priorityLevel.setFill(Color.RED);
+            priorityLevel.setFill(Color.web("#ef5350"));
             priorityLevel.setStroke(Color.web("#c62828"));
         }
     }

@@ -33,7 +33,7 @@ public class PrettifyDate {
             return diff + " days later";
         }
         
-        return date.format(DateTimeFormatter.ofPattern("dd-MMM-YY"));
+        return date.format(DateTimeFormatter.ofPattern("dd-MMM-YYYY"));
         
     }
      
