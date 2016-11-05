@@ -11,15 +11,15 @@
 
 ## 1. Introduction 
 
-&nbsp;&nbsp;&nbsp;&nbsp; Have you ever felt like there are too many tasks to do, and you are unable to remember all of them? Or feel that your calendar is overflowing with sticky notes on the tasks to be done each day? Have no fear, as our all-in-one task management application, sTask, is here to save your day!
+&nbsp;&nbsp;&nbsp;&nbsp; Have you ever felt like there are too many tasks to do, and you are unable to remember all of them? Or feel that your calendar is overflowing with sticky notes on the tasks to be done each day? Have no fear, as our all-in-one task management application, sTask, is here to save your day! sTask is a revolutionary, state-of-the-art task management application engineered by a group of passionate software designers from the National University of Singapore. 
 
-sTask manages the different types of tasks that you will encounter in your daily life, be it a deadline for submission, or even a date with your significant other, this application can show you what all the tasks you have in a month in one glance, or even a list of tasks for a specific day. sTask also manages your list of ad-hoc tasks, which are non-dated tasks such as "Read the new Harry Potter book!", and displays them beautifully and neatly at the side of the application, so you can refer to them any time you have some free time.
+sTask manages the different types of tasks that you will encounter in your daily life, be it a deadline for submission, or even a date with your significant other, this application can show you what are all the tasks that you have in one glance, or even a list of tasks for a specific day. sTask also manages your list of To Do tasks, which are non-dated tasks such as "Read the new Harry Potter book!", and displays them beautifully and neatly at the left side, so that you can refer to them any time you are free.
 
 Love typing? You will love sTask, as you only need to use the keyboard to type simple commands to manage your tasks.
 
 ## 2. Getting Started
 
-### 2.1 Setting Up
+### 2.1 Setting Up sTask
 
 &nbsp;&nbsp;&nbsp;&nbsp; <b>2.1.1</b> Please ensure that you have Java version `1.8.0_60` or later installed in your Computer.<br>
  >> Having any Java 8 version is not enough. <br>
@@ -27,29 +27,30 @@ Love typing? You will love sTask, as you only need to use the keyboard to type s
    
 &nbsp;&nbsp;&nbsp;&nbsp; <b>2.1.2</b> You can download the latest `sTask.jar` from our 'releases' tab. <br>
 &nbsp;&nbsp;&nbsp;&nbsp; <b>2.1.3</b> You can then copy the file to the folder you want to use as the home folder for sTask. <br>
-&nbsp;&nbsp;&nbsp;&nbsp; <b>2.1.4</b> You can double-click the file to start the app. The GUI should appear in a few seconds. <br>
+&nbsp;&nbsp;&nbsp;&nbsp; <b>2.1.4</b> You can double-click the file to start the app. The User Interface should appear in a few seconds. <br>
 
-### 2.2 The User Interface
+### 2.2 The Beautiful User Interface
 <br>
-       <img src="images/Ui.png" width="600"> <br>
+       <img src="images/Ui.png" width="1000"> <br>
 
-&nbsp;&nbsp;&nbsp;&nbsp;Looking at Figure 1 above, <br>
-&nbsp;&nbsp;&nbsp;&nbsp;<b>2.2.1</b> You can type your commands in the Smart Command Input Bar. <br>
-&nbsp;&nbsp;&nbsp;&nbsp;<b>2.2.2</b> This is place where sTask gives you feedback and interacts with you. <br>
-&nbsp;&nbsp;&nbsp;&nbsp;<b>2.2.3</b> This is the To Do Task Panel where all your tasks without date and time are displayed in alphabetical order. <br>
-&nbsp;&nbsp;&nbsp;&nbsp;<b>2.2.4</b> This is the Dated Task Panel where all your events and deadlines are displayed in chronological order. <br>   
+&nbsp;&nbsp;&nbsp;&nbsp;Referring to Figure 1 above, you can see that,<br>
+* The Smart Command Input Bar is where you can type your commands. <br>
+* The Interactive Message Display is where sTask gives you feedback and interacts with you. <br>
+* The To Do Task Panel is where all your tasks without date and time are displayed in alphabetical order. <br>
+* The Dated Task Panel is where all your events and deadlines are displayed in chronological order. <br>   
 
->> You can refer to the [Features](#3-features) section below for details of each command or you can refer to the [Command Summary](#5-command-summary) below<br>
+>> Tasks are colour coded according to their status : blue for completed tasks, red for overdue deadlines, pink for expired events, and white for the rest.<br>   
+>> You can refer to the [Features](#3-features) section below for details of each command or you can refer to the [Command Summary](#5-command-summary).<br>
 
 
 ## 3. Features
 
-&nbsp;&nbsp;&nbsp;&nbsp; You can learn more about the different features of sTask: kjfkdsfjs<br>
+&nbsp;&nbsp;&nbsp;&nbsp; In the following section, we will guide you along on you can use sTask effectively so that you can manage your tasks efficiently, and become a Champion in your life. <br>
 
 &nbsp;&nbsp;&nbsp;&nbsp;<b>3.1 Looking for Help </b><br><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;After downloading sTask, you are not sure how to operate it. You can<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;glance through the list of commands and their formats by typing.<br>
->> `help` <br>
+>> `help` <br><br>
 
 &nbsp;&nbsp;&nbsp;&nbsp;<b>3.2 Adding a Task </b><br><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;After receiving an email from Starbucks that you have won a free drink,<br>
@@ -68,7 +69,7 @@ Love typing? You will love sTask, as you only need to use the keyboard to type s
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Your client has arranged to meet you for 2 hours on 28th October 2016<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;and you can add it as an Event by typing<br>
 >> `add TASKNAME d/TASK_DESCRIPTION date/DATE_TIME to DATE_TIME[t/TAG...]` <br>
-* add Meeting with client d/Prepare docunments date/28-10-2016 10am to 28-10-2016 12pm <br><br>
+* add Meeting with client d/Prepare documents date/28-10-2016 10am to 28-10-2016 12pm <br><br>
 
 >> Refer to [Appendix](#7-appendix) for more information on the possible Date and Time formats accepted by sTask. <br><br>
 
@@ -84,7 +85,7 @@ Love typing? You will love sTask, as you only need to use the keyboard to type s
 
 &nbsp;&nbsp;&nbsp;&nbsp;<b>3.4 Editing your Task </b><br><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; You want to update some of the details of the tasks that you have.<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; You can just edit them by typing.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; You can just edit them by typing<br>
 >> `edit INDEX TASKNAME d/TASK_DESCRIPTION date/DATE_TIME [t/TAG...]` <br>
 * edit A1 Buy iced tea during lunch d/add lemon date/today noon <br>
 * edit B1 date/next friday 8pm <br>
@@ -131,13 +132,13 @@ sTask searches through all the fields and returns all the tasks that contains yo
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; After you claimed your free Starbucks coffee,<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; you can mark this task as complete by typing<br>
 >> `done INDEX`<br>
-* done A10 <br>
+* done A10 <br><br>
 
 &nbsp;&nbsp;&nbsp;&nbsp;<b>3.11 Selecting a task </b><br><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; You can select a task by typing<br>
 >> `select INDEX`<br>
-* select A11 <br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;You can use this command to navigate through your list of tasks.<br><br>
+* select A11 <br><br>
+You can use this command to navigate through your list of tasks.<br><br>
 
 &nbsp;&nbsp;&nbsp;&nbsp;<b>3.12 Changing saved data location </b><br><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; You want to access all your tasks from multiple devices on Dropbox, so<br>
