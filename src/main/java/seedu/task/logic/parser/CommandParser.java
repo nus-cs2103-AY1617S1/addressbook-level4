@@ -249,9 +249,7 @@ public class CommandParser {
         TimeParserResult time = parserTime.parseTime(startTime);
         StringBuilder startString = new StringBuilder();
         if (time.getRawDateTimeStatus() == DateTimeStatus.START_DATE_START_TIME) {
-            startString.append(time.getFirstDate().toString());
-            startString.append(" ");
-            startString.append(time.getFirstTime().toString().substring(0, 5));
+            buildFirstTime(time, startString);
         }
         if (startString.length() == 0) {
             return new IncorrectCommand(Messages.MESSAGE_INVALID_TIME_FORMAT);
@@ -277,14 +275,10 @@ public class CommandParser {
         StringBuilder end = new StringBuilder();
 
         if (time.getRawDateTimeStatus() == DateTimeStatus.START_DATE_START_TIME_END_DATE_END_TIME) {
-            start.append(time.getFirstDate().toString());
-            start.append(" ");
-            start.append(time.getFirstTime().toString().substring(0, 5));
-            end.append(time.getSecondDate().toString());
-            end.append(" ");
-            end.append(time.getSecondTime().toString().substring(0, 5));
+            buildFirstTime(time, start);
+            buildSecondTime(time, end);
         }
-        if (start.length() == 0 || end.length() == 0) {
+        if (isEmpty(start, end)) {
             return new IncorrectCommand(Messages.MESSAGE_INVALID_TIME_FORMAT);
         }
         try {
@@ -306,14 +300,10 @@ public class CommandParser {
         StringBuilder start = new StringBuilder();
         StringBuilder end = new StringBuilder();
         if (time.getRawDateTimeStatus() == DateTimeStatus.START_DATE_START_TIME_END_DATE_END_TIME) {
-            start.append(time.getFirstDate().toString());
-            start.append(" ");
-            start.append(time.getFirstTime().toString().substring(0, 5));
-            end.append(time.getSecondDate().toString());
-            end.append(" ");
-            end.append(time.getSecondTime().toString().substring(0, 5));
+            buildFirstTime(time, start);
+            buildSecondTime(time, end);
         }
-        if (start.length() == 0 || end.length() == 0) {
+        if (isEmpty(start, end)) {
             return new IncorrectCommand(Messages.MESSAGE_INVALID_TIME_FORMAT);
         }
         try {
@@ -322,6 +312,10 @@ public class CommandParser {
             return new IncorrectCommand(i.getMessage());
         }
     }
+
+	private boolean isEmpty(StringBuilder start, StringBuilder end) {
+		return start.length() == 0 || end.length() == 0;
+	}
 
     // @@ author A0152958R
     private Command createCommandStartEndDeadline(String name, String startTime, String endTime, String deadline,
@@ -338,19 +332,13 @@ public class CommandParser {
         StringBuilder end = new StringBuilder();
         StringBuilder deadString = new StringBuilder();
         if (deadlineTime.getRawDateTimeStatus() == DateTimeStatus.START_DATE_START_TIME) {
-            deadString.append(deadlineTime.getFirstDate().toString());
-            deadString.append(" ");
-            deadString.append(deadlineTime.getFirstTime().toString().substring(0, 5));
+            buildFirstTime(deadlineTime, deadString);
         }
         if (time.getRawDateTimeStatus() == DateTimeStatus.START_DATE_START_TIME_END_DATE_END_TIME) {
-            start.append(time.getFirstDate().toString());
-            start.append(" ");
-            start.append(time.getFirstTime().toString().substring(0, 5));
-            end.append(time.getSecondDate().toString());
-            end.append(" ");
-            end.append(time.getSecondTime().toString().substring(0, 5));
+            buildFirstTime(time, start);
+            buildSecondTime(time, end);
         }
-        if (start.length() == 0 || end.length() == 0 || deadString.length() == 0) {
+        if (isEmpty(start, end) || deadString.length() == 0) {
             return new IncorrectCommand(Messages.MESSAGE_INVALID_TIME_FORMAT);
         }
         try {
@@ -360,15 +348,25 @@ public class CommandParser {
         }
     }
 
+	private void buildSecondTime(TimeParserResult time, StringBuilder end) {
+		end.append(time.getSecondDate().toString());
+		end.append(" ");
+		end.append(time.getSecondTime().toString().substring(0, 5));
+	}
+
+	private void buildFirstTime(TimeParserResult time, StringBuilder start) {
+		start.append(time.getFirstDate().toString());
+		start.append(" ");
+		start.append(time.getFirstTime().toString().substring(0, 5));
+	}
+
     private Command createCommandDeadline(String name, String startTime, String endTime, String deadline,
             Set<String> tags) {
         TimeParser parserTime = new TimeParser();
         TimeParserResult time = parserTime.parseTime(deadline);
         StringBuilder deadlineString = new StringBuilder();
         if (time.getRawDateTimeStatus() == DateTimeStatus.START_DATE_START_TIME) {
-            deadlineString.append(time.getFirstDate().toString());
-            deadlineString.append(" ");
-            deadlineString.append(time.getFirstTime().toString().substring(0, 5));
+            buildFirstTime(time, deadlineString);
         }
         if (deadlineString.length() == 0) {
             return new IncorrectCommand(Messages.MESSAGE_INVALID_TIME_FORMAT);
@@ -420,9 +418,7 @@ public class CommandParser {
         case EDIT_END_TIME:
         case EDIT_DEADLINE:
             if (time.getRawDateTimeStatus() == DateTimeStatus.START_DATE_START_TIME) {
-                start.append(time.getFirstDate().toString());
-                start.append(" ");
-                start.append(time.getFirstTime().toString().substring(0, 5));
+                buildFirstTime(time, start);
             }
             if (start.length() == 0) {
                 return new IncorrectCommand(Messages.MESSAGE_INVALID_TIME_FORMAT);
