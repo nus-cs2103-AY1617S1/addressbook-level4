@@ -242,10 +242,12 @@ public class ActivityManager {
     //@@author A0125680H
     private static UniqueTagList updateTags(Activity oldTask, Activity newParams, String type) {
         UniqueTagList newTags = new UniqueTagList();
+        if (type.equals("edit")) {
+            newTags = new UniqueTagList(oldTask.getTags());
+        }
         
         for (Tag toAdd : newParams.getTags()) {
             if (type.equals("edit")) {
-                newTags = new UniqueTagList(oldTask.getTags());
                 try {
                     newTags.add(toAdd);
                 } catch (DuplicateTagException e) {
