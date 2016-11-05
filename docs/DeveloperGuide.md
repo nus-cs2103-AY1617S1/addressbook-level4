@@ -419,7 +419,7 @@ Priority | As a ... | I want to ... | So that I can...
     8. Should be updated every month with new features and bug fixes.
     9. Should be free. 
     10. Should have welcome voices when you first start the application.
-    10. Should be able to change the save folder to a cloud drive.
+    11. Should be able to change the save folder to a cloud drive.
 
 ## Appendix D : Glossary
 
