@@ -1,4 +1,4 @@
-package seedu.address.commons.util;
+package seedu.address.testutil;
 
 import java.awt.image.BufferedImage;
 
