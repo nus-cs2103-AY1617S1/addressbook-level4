@@ -157,6 +157,34 @@ public abstract class GuiTest {
         TaskListEventItemHandle eventItem = dateItem.getTaskListEventItem(eventToAdd.getName());
         assertSameEventName(eventToAdd, eventItem);
     }
+    
+    /**
+     * Utility method for testing if task does not appear in the GUI after a command.
+     * Assumption: No two events can have the same name in this test.
+     */
+    protected void assertTaskNotVisibleAfterCmd(String command, Task taskToAdd) {
+        // Run the command in the console.
+        console.runCommand(command);
+        
+        // Get the task date.
+        LocalDateTime taskDateTime = taskToAdd.getCalendarDateTime();
+        if (taskDateTime == null) {
+            taskDateTime = DateUtil.NO_DATETIME_VALUE;
+        }
+        LocalDate taskDate = taskDateTime.toLocalDate();
+        
+        // Check TaskList if it contains a TaskListDateItem with the date.
+        TaskListDateItemHandle dateItem = taskList.getTaskListDateItem(taskDate);
+        
+        // It's fine if there's no task item, because it's not visible
+        if (dateItem == null) {
+            return;
+        }
+        
+        // If there's a date item, then we make sure that it isn't a task in the date item with the same name.
+        TaskListTaskItemHandle taskItem = dateItem.getTaskListTaskItem(taskToAdd.getName());
+        assertNull(taskItem);
+    }
 
     /**
      * Utility method for testing if event does not appear in the GUI after a command.
