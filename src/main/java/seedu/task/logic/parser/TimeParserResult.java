@@ -20,12 +20,8 @@ public class TimeParserResult {
      *  enum to represent all possible recognized time type
      */
     public enum DateTimeStatus {
-        NONE, END_TIME, END_DATE, END_DATE_END_TIME,
-        
-        START_TIME, START_TIME_END_TIME, START_TIME_END_DATE, START_TIME_END_DATE_END_TIME,
-        START_DATE, START_DATE_END_TIME, START_DATE_END_DATE, START_DATE_END_DATE_END_TIME,
-        START_DATE_START_TIME, START_DATE_START_TIME_END_TIME,
-        START_DATE_START_TIME_END_DATE, START_DATE_START_TIME_END_DATE_END_TIME,
+        NONE, END_DATE_END_TIME, START_DATE_START_TIME
+        ,START_DATE_START_TIME_END_DATE_END_TIME,
     }
 
     /**
@@ -35,11 +31,6 @@ public class TimeParserResult {
         timeValid = true;
         DateTimeStatus status = getDateTimeStatus();
         switch (status) {
-            case START_DATE_END_DATE:
-                if (firstDate.isAfter(secondDate)) {
-                    timeValid = false;
-                }
-                break;
             case START_DATE_START_TIME_END_DATE_END_TIME:
                 if (firstDate.isAfter(secondDate)) {
                     timeValid = false;
@@ -67,62 +58,14 @@ public class TimeParserResult {
     public DateTimeStatus getDateTimeStatus() {
         DateTimeStatus dateTimeStatus = DateTimeStatus.NONE;
         if (secondTime != null) {
-            dateTimeStatus = DateTimeStatus.END_TIME;
-        }
-        if (secondDate != null) {
-            switch (dateTimeStatus) {
-                case NONE:
-                    dateTimeStatus = DateTimeStatus.END_DATE;
-                    break;
-                case END_TIME:
-                    dateTimeStatus = DateTimeStatus.END_DATE_END_TIME;
-                    break;
-                default:
-                    break;
-            }
-        }
-        if (firstTime != null) {
-            switch (dateTimeStatus) {
-                case NONE:
-                    dateTimeStatus = DateTimeStatus.START_TIME;
-                    break;
-                case END_TIME:
-                    dateTimeStatus = DateTimeStatus.START_TIME_END_TIME;
-                    break;
-                case END_DATE:
-                    dateTimeStatus = DateTimeStatus.START_TIME_END_DATE;
-                    break;
-                case END_DATE_END_TIME:
-                    dateTimeStatus = DateTimeStatus.START_TIME_END_DATE_END_TIME;
-                    break;
-                default:
-                    break;
-            }
+            dateTimeStatus = DateTimeStatus.END_DATE_END_TIME;
         }
         if (firstDate != null) {
             switch (dateTimeStatus) {
                 case NONE:
-                    dateTimeStatus = DateTimeStatus.START_DATE;
-                    break;
-                case END_TIME:
-                    dateTimeStatus = DateTimeStatus.START_DATE_END_TIME;
-                    break;
-                case END_DATE:
-                    dateTimeStatus = DateTimeStatus.START_DATE_END_DATE;
-                    break;
-                case END_DATE_END_TIME:
-                    dateTimeStatus = DateTimeStatus.START_DATE_END_DATE_END_TIME;
-                    break;
-                case START_TIME:
                     dateTimeStatus = DateTimeStatus.START_DATE_START_TIME;
                     break;
-                case START_TIME_END_TIME:
-                    dateTimeStatus = DateTimeStatus.START_DATE_START_TIME_END_TIME;
-                    break;
-                case START_TIME_END_DATE:
-                    dateTimeStatus = DateTimeStatus.START_DATE_START_TIME_END_DATE;
-                    break;
-                case START_TIME_END_DATE_END_TIME:
+                case END_DATE_END_TIME:
                     dateTimeStatus = DateTimeStatus.START_DATE_START_TIME_END_DATE_END_TIME;
                     break;
                 default:

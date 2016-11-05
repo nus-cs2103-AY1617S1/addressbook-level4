@@ -7,7 +7,7 @@ import javafx.stage.Stage;
 import seedu.task.model.task.ReadOnlyTask;
 
 /**
- * Provides a handle to a person card in the person list panel.
+ * Provides a handle to a task card in the task list panel.
  */
 public class TaskCardHandle extends GuiHandle {
     private static final String COLOR_FIELD_ID = "#id";

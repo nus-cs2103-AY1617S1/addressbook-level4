@@ -36,11 +36,20 @@ public class AddCommandTest extends TaskManagerGuiTest {
         commandBox.runCommand("clear");
         commandBox.runCommand("add Accompany mom to the doctor, from 2016-10-26 2pm to 2016-10-26 5pm #gwsMum");
         assertAddSuccess(TypicalTestTasks.taskA);
+        
+        commandBox.runCommand("clear");
+        commandBox.runCommand("add Accompany friend to the doctor");
+        assertAddSuccess(TypicalTestTasks.taskK);
+        
+        commandBox.runCommand("clear");
+        commandBox.runCommand("add Christmas party, at christmas 2pm");
+        assertAddSuccess(TypicalTestTasks.taskL);
 
         //invalid command
         commandBox.runCommand("adds Meet Jim");
         assertResultMessage(Messages.MESSAGE_UNKNOWN_COMMAND);
         
+        //@@author A0152958R
         commandBox.runCommand("add Meet Jim, at what time");
         assertResultMessage(Messages.MESSAGE_INVALID_TIME_FORMAT);
         

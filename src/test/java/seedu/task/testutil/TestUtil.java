@@ -279,32 +279,32 @@ public class TestUtil {
     }
 
     /**
-     * Removes a subset from the list of persons.
-     * @param persons The list of persons
-     * @param personsToRemove The subset of persons.
-     * @return The modified persons after removal of the subset from persons.
+     * Removes a subset from the list of tasks.
+     * @param tasks The list of tasks
+     * @param tasksToRemove The subset of tasks.
+     * @return The modified tasks after removal of the subset from tasks.
      */
-    public static TestTask[] removePersonsFromList(final TestTask[] persons, TestTask... personsToRemove) {
-        List<TestTask> listOfPersons = asList(persons);
-        listOfPersons.removeAll(asList(personsToRemove));
-        return listOfPersons.toArray(new TestTask[listOfPersons.size()]);
+    public static TestTask[] removeasksFromList(final TestTask[] tasks, TestTask... tasksToRemove) {
+        List<TestTask> listOfTasks = asList(tasks);
+        listOfTasks.removeAll(asList(tasksToRemove));
+        return listOfTasks.toArray(new TestTask[listOfTasks.size()]);
     }
 
 
     /**
-     * Returns a copy of the list with the person at specified index removed.
+     * Returns a copy of the list with the task at specified index removed.
      * @param list original list to copy from
      * @param targetIndexInOneIndexedFormat e.g. if the first element to be removed, 1 should be given as index.
      */
     public static TestTask[] removeTaskFromList(final TestTask[] list, int targetIndexInOneIndexedFormat) {
-        return removePersonsFromList(list, list[targetIndexInOneIndexedFormat-1]);
+        return removeasksFromList(list, list[targetIndexInOneIndexedFormat-1]);
     }
 
     /**
      * Replaces tasks[i] with a task.
      * @param tasks The array of tasks.
      * @param task The replacement task
-     * @param index The index of the person to be replaced.
+     * @param index The index of the task to be replaced.
      * @return
      */
     public static TestTask[] replaceTaskFromList(TestTask[] tasks, TestTask task, int index) {
