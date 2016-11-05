@@ -351,7 +351,6 @@ public class TaskDate {
         DateFormat yearFormat = new SimpleDateFormat("yyyy");
         String year = yearFormat.format(today.getTime());
         String[] dateComponent = new String[3];
-        DateFormat df = new SimpleDateFormat(DATE_NUM_SLASH_WITH_YEAR_FORMAT);
         if (date.contains("/")) {
             dateComponent = date.split("/");
         } else if (date.contains("-")) {

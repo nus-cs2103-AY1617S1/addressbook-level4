@@ -91,9 +91,6 @@ public class ScheduleListPanel extends UiPart {
 
     class ScheduleListViewCell extends ListCell<ReadOnlyTask> {
 
-        public ScheduleListViewCell() {
-        }
-
         @Override
         protected void updateItem(ReadOnlyTask task, boolean empty) {
             super.updateItem(task, empty);

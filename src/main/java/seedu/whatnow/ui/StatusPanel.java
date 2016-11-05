@@ -29,7 +29,7 @@ import seedu.whatnow.commons.util.FxViewUtil;
  */
 public class StatusPanel extends UiPart {
     public static final String STATUS_DISPLAY_ID = "statusPanel";
-    private static final String STATUS_BAR_STYLE_SHEET = "status-panel";
+    private TextArea statusDisplayArea;
     private final StringProperty displayed = new SimpleStringProperty("");
 
     private static final String FXML = "StatusPanel.fxml";

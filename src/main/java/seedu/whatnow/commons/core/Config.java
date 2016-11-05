@@ -20,9 +20,6 @@ public class Config {
     private String pinnedItemType ="tag";
     private String pinnedItemKeyword = "highPriority";
 
-    public Config() {
-    }
-
     public String getAppTitle() {
         return appTitle;
     }

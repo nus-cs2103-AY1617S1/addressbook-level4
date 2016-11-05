@@ -58,8 +58,6 @@ public class MainWindow extends UiPart {
     private VBox rootLayout;
     private Scene scene;
 
-    private String whatNowName;
-
     @FXML
     private AnchorPane scheduleListPlaceholder;
 
@@ -112,7 +110,6 @@ public class MainWindow extends UiPart {
 
         // Set dependencies
         this.logic = logic;
-        this.whatNowName = whatNowName;
         this.config = config;
         this.userPrefs = prefs;
         // Configure the UI
@@ -241,6 +238,10 @@ public class MainWindow extends UiPart {
     
     public StatusPanel getStatusPanel() {
         return this.statusPanel;
+    }
+    
+    public PinnedItemPanel getPinnedItemPanel() {
+        return this.pinnedItemPanel;
     }
 }
 

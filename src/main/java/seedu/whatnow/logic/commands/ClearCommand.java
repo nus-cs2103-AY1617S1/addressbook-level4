@@ -15,13 +15,12 @@ public class ClearCommand extends Command {
 
     public static Stack<WhatNow> reqStack;
 
+
+
+    // @@author A0139128A
     /**
      * Executes the ClearCommand to delete all task data on WhatNow
      */
-    public ClearCommand() {
-    }
-
-    // @@author A0139128A
     @Override
     public CommandResult execute() {
         assert model != null;

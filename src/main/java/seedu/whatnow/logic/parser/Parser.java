@@ -96,9 +96,6 @@ public class Parser {
     private static final int CHANGE_LOCATION_TO = 1;
     private static final int CHANGE_LOCATION_TO_PATH = 2;
 
-    private static final int INCREASE_DATE_BY_ONE_DAY = 1;
-    private static final int INCREASE_DATE_BY_SEVEN_DAYS = 7;
-
     /**
      * String Constants
      */
@@ -139,9 +136,6 @@ public class Parser {
     HashMap<String, Integer> MONTHS_IN_SHORT = new HashMap<String, Integer>();
 
     //@@author A0139772U
-    public Parser() {
-    }
-
     /**
      * Parses user input into command for execution.
      *
