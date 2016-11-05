@@ -24,7 +24,7 @@ public class CommandBox extends UiPart {
     private AnchorPane placeHolderPane;
     private AnchorPane commandPane;
     private ResultDisplay resultDisplay;
-    String previousCommandText;
+    private String previousCommandText;
 
     private Logic logic;
 
@@ -61,6 +61,12 @@ public class CommandBox extends UiPart {
         commandTextField.textProperty().addListener((observable, oldValue, newValue) -> {
             tooltip.createToolTip(newValue);
             resultDisplay.postMessage(tooltip.getMessage(), tooltip.getDecription());
+            
+            if (tooltip.isUserInputValid()) {
+                setStyleToIndicateCorrectCommand();
+            } else {
+                setStyleToIndicateIncorrectCommand();
+            }
         });
     }
     
@@ -94,9 +100,17 @@ public class CommandBox extends UiPart {
 
     public void handleCommands(String command) {
         setStyleToIndicateCorrectCommand();
-        mostRecentResult = logic.execute(command);
+        emptyCommandText(command);
         resultDisplay.postMessage(mostRecentResult.feedbackToUser);
         logger.info("Result: " + mostRecentResult.feedbackToUser);
+    }
+    
+    /**
+     * Save the most recent command and empty the command box text
+     */
+    private void emptyCommandText(String command) {
+        commandTextField.setText("");
+        mostRecentResult = logic.execute(command);
     }
     
     /**
@@ -104,14 +118,13 @@ public class CommandBox extends UiPart {
      */
     private void setStyleToIndicateCorrectCommand() {
         commandTextField.getStyleClass().remove("error");
-        commandTextField.setText("");
     }
 
     @Subscribe
     private void handleIncorrectCommandAttempted(IncorrectCommandAttemptedEvent event){
         logger.info(LogsCenter.getEventHandlingLogMessage(event, "Invalid command: " + previousCommandText));
-        setStyleToIndicateIncorrectCommand();
         restoreCommandText();
+        setStyleToIndicateIncorrectCommand();
     }
 
     /**

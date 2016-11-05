@@ -12,7 +12,9 @@ public class FindCommand extends Command {
 
     public static final String MESSAGE_PARAMETER = COMMAND_WORD
             + " [keyword] [more keywords]...";
-    public static final String MESSAGE_USAGE = "This command helps you find a task from TasKitty, Meow!";
+    public static final String MESSAGE_USAGE =
+            "This command helps you find a task from TasKitty, Meow!"
+            + "\nUse # to find tags!";
 
     private final Set<String> keywords;
 

@@ -22,7 +22,7 @@ public class AddCommand extends Command {
             + " [name] [start] to [end] [#tag]...";
     public static final String MESSAGE_USAGE = "This command adds a task to TasKitty, Meow!";
 
-    public static final String MESSAGE_SUCCESS = "New task added: %1$s";
+    public static final String MESSAGE_SUCCESS = "New task added:\n%1$s";
     public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the task manager";
 
     private final Task toAdd;

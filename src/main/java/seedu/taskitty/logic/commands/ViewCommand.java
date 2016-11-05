@@ -19,9 +19,9 @@ public class ViewCommand extends Command {
 
     public static final String COMMAND_WORD = "view";
 
-    public static final String MESSAGE_PARAMETER = COMMAND_WORD + " [DATE/done/all]";
-    public static final String MESSAGE_USAGE = "This command shows upcoming tasks, Meow!\n"
-            + " Use \"view [DATE]\" for dated tasks, \"view done\" for done tasks, \"view all\" for all tasks!";
+    public static final String MESSAGE_PARAMETER = COMMAND_WORD + " all | done | [date]";
+    public static final String MESSAGE_USAGE = "This command shows upcoming tasks, Meow!"
+            + "\nUse \"view [DATE]\" for dated tasks, \"view done\" for done tasks, \"view all\" for all tasks!";
     public static final String VIEW_ALL_MESSAGE_SUCCESS = "All tasks are listed, Meow!";
     private LocalDate date;
 

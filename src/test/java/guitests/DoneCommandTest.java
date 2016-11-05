@@ -66,7 +66,6 @@ public class DoneCommandTest extends TaskManagerGuiTest {
     }
     
     /**
-     * 
      * Runs the done command to mark the task at specified index as done and confirms the result is correct 
      * with todo as the default category.
      * @param targetIndexOneIndexed e.g. to mark the first task in the list as done, 1 should be given as the target index.
@@ -77,7 +76,6 @@ public class DoneCommandTest extends TaskManagerGuiTest {
     }
     
     /**
-     * 
      * Runs the done command to mark the task at specified index as done and confirms the result is correct 
      * @param targetIndexOneIndexed e.g. to mark the first task in the list as done, 1 should be given as the target index.
      * @param category the category in which to mark as done from.
@@ -104,7 +102,6 @@ public class DoneCommandTest extends TaskManagerGuiTest {
     
     //@@author A0139052L
     /**
-     * 
      * Runs the done command to mark the tasks at specified indexes as done and confirms the result is correct 
      * @param targetIndexes the indexes in order to which to mark as done from.
      * @param categories the categories in order in which to mark as done from.

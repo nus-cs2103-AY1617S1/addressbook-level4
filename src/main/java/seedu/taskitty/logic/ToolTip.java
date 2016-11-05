@@ -11,6 +11,7 @@ import static seedu.taskitty.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 public class ToolTip {
 
     public static final String TOOLTIP_DELIMITER = " | ";
+    
     private static final int COMMAND_WORD_POSITION = 0;
     private static final String COMMAND_WORD_DELIMITER = " ";
 
@@ -47,8 +48,7 @@ public class ToolTip {
     /**
      * Get the tooltip based on input
      * 
-     * @param input
-     *            to determine the tooltip to be shown
+     * @param input to determine the tooltip to be shown
      */
     public void createToolTip(String input) {
         clearToolTip();
@@ -86,8 +86,7 @@ public class ToolTip {
     /**
      * Finds the closest matching command and returns the appropriate tooltip
      * 
-     * @param command
-     *            to determine which command tooltip to show
+     * @param command to determine which command tooltip to show
      */
     private void getToolTipForCommand(String command) {
         for (int i = 0; i < Command.ALL_COMMAND_WORDS.length; i++) {
@@ -100,8 +99,8 @@ public class ToolTip {
     }
 
     /**
-     * Returns a string representing the matched input, delimitered by
-     * TOOLTIP_DELIMITER
+     * Returns a string representing the matched input,
+     * delimitered by TOOLTIP_DELIMITER
      */
     private void getToolTipForAllCommands() {
         assert commands.size() != COMMAND_WORD_COUNT_NO_MATCH && commands.size() != COMMAND_WORD_COUNT_SINGLE_MATCH;
@@ -130,6 +129,19 @@ public class ToolTip {
 
     public String getDecription() {
         return description;
+    }
+    
+    public boolean isUserInputValid() {
+        return !isMessageUnknownOrEmpty();
+    }
+    
+    /**
+     * Returns true if the message of tooltip is null, empty or MESSAGE_UNKNOWN_COMMAND
+     */
+    private boolean isMessageUnknownOrEmpty() {
+        return this.message == null
+                || this.message.isEmpty()
+                || this.message.equals(MESSAGE_UNKNOWN_COMMAND);
     }
 
     /**

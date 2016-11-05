@@ -14,18 +14,18 @@ public abstract class Command {
     public static final String[] ALL_COMMAND_WORDS = { AddCommand.COMMAND_WORD, ViewCommand.COMMAND_WORD,
             FindCommand.COMMAND_WORD, EditCommand.COMMAND_WORD, DeleteCommand.COMMAND_WORD, DoneCommand.COMMAND_WORD,
             PathCommand.COMMAND_WORD, UndoCommand.COMMAND_WORD, ClearCommand.COMMAND_WORD, RedoCommand.COMMAND_WORD,
-            HelpCommand.COMMAND_WORD, ExitCommand.COMMAND_WORD, };
+            HelpCommand.COMMAND_WORD, ExitCommand.COMMAND_WORD };
 
     public static final String[] ALL_COMMAND_MESSAGE_PARAMETER = { AddCommand.MESSAGE_PARAMETER,
             ViewCommand.MESSAGE_PARAMETER, FindCommand.MESSAGE_PARAMETER, EditCommand.MESSAGE_PARAMETER,
             DeleteCommand.MESSAGE_PARAMETER, DoneCommand.MESSAGE_PARAMETER, PathCommand.MESSAGE_PARAMETER,
             UndoCommand.MESSAGE_PARAMETER, ClearCommand.MESSAGE_PARAMETER, RedoCommand.MESSAGE_PARAMETER,
-            HelpCommand.MESSAGE_PARAMETER, ExitCommand.MESSAGE_PARAMETER, };
+            HelpCommand.MESSAGE_PARAMETER, ExitCommand.MESSAGE_PARAMETER };
 
     public static final String[] ALL_COMMAND_MESSAGE_USAGE = { AddCommand.MESSAGE_USAGE, ViewCommand.MESSAGE_USAGE,
             FindCommand.MESSAGE_USAGE, EditCommand.MESSAGE_USAGE, DeleteCommand.MESSAGE_USAGE,
             DoneCommand.MESSAGE_USAGE, PathCommand.MESSAGE_USAGE, UndoCommand.MESSAGE_USAGE, ClearCommand.MESSAGE_USAGE,
-            RedoCommand.MESSAGE_USAGE, HelpCommand.MESSAGE_USAGE, ExitCommand.MESSAGE_USAGE, };
+            RedoCommand.MESSAGE_USAGE, HelpCommand.MESSAGE_USAGE, ExitCommand.MESSAGE_USAGE };
 
     public static final String MESSAGE_FORMAT = "Format: ";
 

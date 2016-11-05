@@ -107,7 +107,7 @@ public abstract class TaskManagerGuiTest {
      * Asserts the task shown is marked as done by verifying that it has the "#done" CSS style.
      */
     public void assertMarkAsDone(TaskCardHandle card) {
-    	assertEquals("-fx-text-fill: white", card.getStyle());
+    	assertEquals("-fx-text-fill: #555555", card.getStyle());
     }
     //@@author
 

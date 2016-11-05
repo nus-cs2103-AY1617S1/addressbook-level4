@@ -225,7 +225,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public void updateFilteredDoneList() {
-        updateFilteredTaskList(new PredicateExpression(p -> p.getIsDone() == true));
+        updateFilteredTaskList(new PredicateExpression(p -> p.getIsDone()));
         indicateViewChanged(ViewCommand.ViewType.done, null);
     }
 

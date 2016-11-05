@@ -34,10 +34,10 @@ public class PathCommand extends Command {
     public static final String MESSAGE_INVALID_FILEPATH = "Filepath is invalid. \n%1$s";
     public static final String MESSAGE_INVALID_MISSING_FILEPATH = "Filepath is invalid. \n%1$s";
 
-    Config config = MainApp.getConfig();
-    Storage storage = MainApp.getStorage();
-    Model model = MainApp.getModel();
-    String configFile = Config.DEFAULT_CONFIG_FILE;
+    private Config config = MainApp.getConfig();
+    private Storage storage = MainApp.getStorage();
+    private Model model = MainApp.getModel();
+    private String configFile = Config.DEFAULT_CONFIG_FILE;
 
     public final String filepath;
 
