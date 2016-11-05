@@ -34,6 +34,7 @@ public class CalendarItemFilter {
         tokenDefinitions.put("eventStatus", new String[] { "over" , "past", "future" });
         tokenDefinitions.put("timeFrom", new String[] { "from", "after" });
         tokenDefinitions.put("timeTo", new String[] { "to", "before", "until", "by" });
+        tokenDefinitions.put("tag", new String[] { "tag" });
         return tokenDefinitions;
     }
     
@@ -89,6 +90,11 @@ public class CalendarItemFilter {
             taskPredicates.add(Task.predBeforeDueDate(timeEnd));
         }
         
+        // Filter by tag
+        if (parsedResult.get("tag") != null && parsedResult.get("tag")[1] != null) {
+            taskPredicates.add(Task.predTag(parsedResult.get("tag")[1]));
+        }
+        
         return Task.where(taskPredicates);
     }
     
@@ -122,6 +128,11 @@ public class CalendarItemFilter {
         if (timeEndNatural != null) {
             LocalDateTime timeEnd = DateParser.parseNatural(timeEndNatural);
             eventPredicates.add(Event.predEndBefore(timeEnd));
+        }
+        
+        // Filter by tag
+        if (parsedResult.get("tag") != null && parsedResult.get("tag")[1] != null) {
+            eventPredicates.add(Event.predTag(parsedResult.get("tag")[1]));
         }
         
         return Event.where(eventPredicates);
