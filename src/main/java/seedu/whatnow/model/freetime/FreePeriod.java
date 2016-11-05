@@ -64,6 +64,8 @@ public class FreePeriod {
                 } else if (isBiggerThanThisPeriod(reqStartTime, reqEndTime, freeSlotStartTime, freeSlotEndTime)) {
                     freePeriod.remove(i);
                 } else {
+                    logger.warning("FreePeriod.java: block method, entered else statement!\n" 
+                + "Input Arg(start): " + start + "\n" + "Input Arg(end): " + end + "\n");
                 }
             }
         } catch (ParseException e) {

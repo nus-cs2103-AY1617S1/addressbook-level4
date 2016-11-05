@@ -16,9 +16,6 @@ public class HelpCommand extends Command {
 
     public static final String SHOWING_HELP_MESSAGE = "Opened help window.";
 
-    public HelpCommand() {
-    }
-
     /**
      * Executes the FindCommand that launches the help page
      */
