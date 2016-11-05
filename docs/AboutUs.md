@@ -40,7 +40,7 @@ Responsibilities: Team Lead, Logic
    * Natural time input parsing using natty
    * <kbd>[Add](UserGuide.md#adding-a-task-add)</kbd> Command
    * <kbd>[Edit](UserGuide.md#editing-a-task-edit)</kbd> Command
-* Code written: <kbd>[Functional code](../collated/main/A0152958R.md)</kbd> <kbd>[Test code]</kbd> <kbd>[Docs]</kbd>
+* Code written: <kbd>[Functional code](../collated/main/A0152958R.md)</kbd> <kbd>[Test code](../collated/test/A0152958R.md)</kbd> <kbd>[Docs]</kbd>
 
 **Role**: Developer <br>
 Responsibilities: Code Quality, Parser
@@ -53,7 +53,7 @@ Responsibilities: Code Quality, Parser
 * Components in charge of: [GUI]
 * Features implemented:
    * <kbd>[Edit](UserGuide.md#editing-a-task-edit)</kbd> Command
-* Code written: <kbd>[Functional code]</kbd> <kbd>[Test code]</kbd> <kbd>[Docs]</kbd>
+* Code written: <kbd>[Functional code](../collated/main/A0133369B.md)</kbd> <kbd>[Test code]</kbd> <kbd>[Docs]</kbd>
 * Other major contributions:
   * {to be updated}
 
