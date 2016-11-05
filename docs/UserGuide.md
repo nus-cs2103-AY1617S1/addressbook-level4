@@ -48,18 +48,25 @@ Love typing? You will love sTask, as you only need to use the keyboard to type s
 &nbsp;&nbsp;&nbsp;&nbsp; You can learn more about the different features of sTask: kjfkdsfjs<br>
 
 &nbsp;&nbsp;&nbsp;&nbsp;<b>3.1 Looking for Help </b><br><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;You can type `help`to glance through the list of commands and its formats.<br><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;After downloading sTask, you are not sure how to operate it. You can<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;glance through the list of commands and their formats by typing.<br>
+>> `help` <br>
 
 &nbsp;&nbsp;&nbsp;&nbsp;<b>3.2 Adding a Task </b><br><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; You can add a To Do by typing<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;After receiving an email from Starbucks that you have won a free drink,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;but you are unsure of when you are free. You can remind yourself by adding<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a To Do by typing <br>
 >> `add TASKNAME d/TASK_DESCRIPTION [t/TAG...]` <br>
-* add Buy coffee d/Starbucks
+* add Claim coffee d/Starbucks
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; You can add a Deadline by typing<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Your boss gives you until next friday 5pm to submit the project proposal.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;You can add it as a Deadline by typing<br>
 >> `add TASKNAME d/TASK_DESCRIPTION date/DATE_TIME [t/TAG...]` <br>
 * add Finish project proposal date/next friday 5pm t/important
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; You can add an Event by typing<br>
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Your client has arranged to meet you for 2 hours on 28th October 2016<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;and you can add it as an Event by typing<br>
 >> `add TASKNAME d/TASK_DESCRIPTION date/DATE_TIME to DATE_TIME[t/TAG...]` <br>
 * add Meeting with client d/Prepare docunments date/28-10-2016 10am to 28-10-2016 12pm <br><br>
 
@@ -74,30 +81,34 @@ Love typing? You will love sTask, as you only need to use the keyboard to type s
 >> `list od` <br><br>
 
 &nbsp;&nbsp;&nbsp;&nbsp;<b>3.4 Editing your Task </b><br><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; You can edit one or more field(s) of an existing task by typing<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; You want to update some of the details of the tasks that you have.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; You can just edit them by typing.<br>
 >> `edit INDEX TASKNAME d/TASK_DESCRIPTION date/DATE_TIME [t/TAG...]` <br>
 * edit A1 Buy iced tea during lunch d/add lemon date/today noon <br>
 * edit B1 date/next friday 8pm <br>
 * edit B2 t/urgent<br><br>
 
 &nbsp;&nbsp;&nbsp;&nbsp;<b>3.5 Finding your Tasks </b><br><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; You can find your tasks by typing<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Being overwhelmed by the large number of tasks you have,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; you can search for them by typing<br>
 >> `find [KEYWORD...]` <br>
 * find meeting <br><br>
 sTask searches through all the fields and returns all the tasks that contains your KEYWORD.<br><br>
 
 
 &nbsp;&nbsp;&nbsp;&nbsp;<b>3.6 Viewing your tasks on a specific date </b><br><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; You can see all your tasks on a specific date by typing<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; You have forgotten what task you were supposed to do today. <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; You can see all your tasks for today by typing<br>
 >> `view DATE` <br>
 * view today <br>
 * view 22-10-2017 <br>
 * view valentine day<br><br>
   
 &nbsp;&nbsp;&nbsp;&nbsp;<b>3.7 Deleting your Task </b><br><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; You can delete your task by typing<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Your client has called you to cancel the meeting, so <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; you can delete that event by typing<br>
 >> `delete INDEX` <br>
-* delete A1 <br><br>
+* delete B1 <br><br>
 
 &nbsp;&nbsp;&nbsp;&nbsp;<b>3.8 Undoing an action </b><br><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; You can undo your previous action by typing<br>
@@ -111,9 +122,10 @@ sTask searches through all the fields and returns all the tasks that contains yo
 
 
 &nbsp;&nbsp;&nbsp;&nbsp;<b>3.10 Completing a task </b><br><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; You can mark a task as complete by typing<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; After you claimed your free Starbucks coffee,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; you can mark this task as complete by typing<br>
 >> `done INDEX`<br>
-* done B10 <br>
+* done A10 <br>
 
 &nbsp;&nbsp;&nbsp;&nbsp;<b>3.11 Selecting a task </b><br><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; You can select a task by typing<br>
@@ -122,12 +134,14 @@ sTask searches through all the fields and returns all the tasks that contains yo
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;You can use this command to navigate through your list of tasks.<br><br>
 
 &nbsp;&nbsp;&nbsp;&nbsp;<b>3.12 Changing saved data location </b><br><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; You can change the location of your saved data by typing<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; You want to access all your tasks from multiple devices on Dropbox, so<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; you can change the location of your saved data by typing<br>
 >> `save FOLDERPATH`<br>
 * save C:\Users\Jim\Dropbox<br><br>
 
 &nbsp;&nbsp;&nbsp;&nbsp;<b>3.13 Exiting sTask </b><br><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; You can exit the program by typing<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;After a hectic long day, it is time to rest, so you <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;can exit the program by typing<br>
 >> `exit`<br><br>
   
 ## 4. FAQ
