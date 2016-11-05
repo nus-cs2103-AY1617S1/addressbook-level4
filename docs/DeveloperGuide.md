@@ -539,7 +539,7 @@ Day:
 
 ## Appendix E: Product Survey
 
-## Fantastical
+### Fantastical
 #### Strengths
 
 1. It has a good and clean UI, really simple to use. <br>
@@ -560,7 +560,7 @@ Day:
 5. No alert when event is starting
 
 
-## Google Cal
+### Google Cal
 #### Strengths
 
 1. It has CRUD features. <br>
@@ -583,6 +583,7 @@ Day:
 5. Steep learning curve
 6. Does not support categaries
 7. Reorganising of task is not user friendly
+
 1. **Fantastical**
 
 1a. It has a good and clean UI, really simple to use. <br>
@@ -593,25 +594,6 @@ Day:
 1f. Has natural language processing, can add events using Siri. <br>
 1g. Locations added when creating events are automatically shown in google/apple map when clicked. <br>
 1h. Automatically syncs with apple calendar, updates and syncs on the go. <br>
-
-## Google Cal
-##### Strengths
-1. It has CRUD features. <br>
-2. It can link to external applications such as Gmail and Contacts. <br>
-3. It has cross-platform features.<br>
-4. It has a reminder function.<br>
-5. It can support multiple accounts in one device.<br>
-6. It can create Event, Reminder or Goal.<br>
-7. All task created are automatically grouped and colour coded.<br>
-8. Clean and simple UI.<br>
-9. It can be used online or offline.<br>
-10. It has different kind of viewing options such as Day, 3-day, Week and Month.<br>
-
-##### Weaknesses
-1. It is not keyboard friendly.<br>
-2. It requires user to have a google account to use it.<br>
-3. It does not have a done function.<br>
-4. It has a steep learning curve.<br>
 
 <!-- @@author A0139671X-->
 ### Any.do
