@@ -6,12 +6,14 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import java.util.logging.*;
 import seedu.taskmanager.commons.core.LogsCenter;
 import seedu.taskmanager.commons.core.Messages;
 import seedu.taskmanager.commons.core.UnmodifiableObservableList;
 import seedu.taskmanager.commons.exceptions.IllegalValueException;
 import seedu.taskmanager.model.item.Item;
+import seedu.taskmanager.model.item.Item.UnableToConvertFromTaskToDeadlineException;
 import seedu.taskmanager.model.item.ItemDate;
 import seedu.taskmanager.model.item.ItemTime;
 import seedu.taskmanager.model.item.ItemType;
@@ -22,6 +24,7 @@ import seedu.taskmanager.model.item.UniqueItemList.ItemNotFoundException;
 import seedu.taskmanager.model.tag.Tag;
 import seedu.taskmanager.model.tag.UniqueTagList;
 import seedu.taskmanager.model.tag.UniqueTagList.DuplicateTagException;
+import seedu.taskmanager.model.tag.UniqueTagList.TagNotFoundException;
 
 //@@author A0140060A
 
@@ -43,12 +46,11 @@ public class EditCommand extends Command {
                                                + "\n" + "                     " + "edt/[END_DATE_TIME]"
                                                + " ed/[END_DATE]"
                                                + " et/[END_TIME]"
-                                               + "\n" + "Editable parameters are restricted to those the item was created with."
                                                + "\n" + "At least one parameter must be specifed (sdt/edt favoured over sd/st/ed/et)"
                                                + "\n" + "Example: " + COMMAND_WORD + " 1" + " n/buy milk";
     
     public static final String MESSAGE_EDIT_ITEM_SUCCESS = "Edited %1$s";
-    public static final String MESSAGE_TAG_NOT_FOUND = "Tag [%1$s] does not exist! Tags must exist in order to be deletable";
+    public static final String MESSAGE_NOTHING_EDITED = "Nothing was changed!";
     
     private int targetIndex;
     private Name name;
@@ -64,46 +66,37 @@ public class EditCommand extends Command {
      *      
      * @throws IllegalValueException if any of the raw values are invalid
      */
-    public EditCommand(int targetIndex, String name, String startDate, String startTime, 
-                       String endDate, String endTime, List<String> tagsToAdd, List<String> tagsToRemove)
+    public EditCommand(int targetIndex, Optional<String> name, Optional<String> startDate, 
+                       Optional<String> startTime, Optional<String> endDate, Optional<String> endTime, 
+                       Optional<List<String>> tagsToAdd, Optional<List<String>> tagsToRemove)
             throws IllegalValueException {
         
-        //At least one parameter is being edited
-        assert (name != null || startDate != null || startTime!= null || endDate != null 
-                || endTime != null || tagsToAdd != null || tagsToRemove != null);
+        assert containsInputForAtLeastOneParameter(name, startDate, startTime, endDate, 
+                                                    endTime, tagsToAdd, tagsToRemove);
         
         this.targetIndex = targetIndex;
-        if (name != null) {
-            this.name = new Name(name);
+        if (name.isPresent()) {
+            this.name = new Name(name.get());
         }
-        if (startDate != null) {
-            this.startDate = new ItemDate(startDate);
+        if (startDate.isPresent()) {
+            this.startDate = new ItemDate(startDate.get());
         }
-        if (startTime != null) {
-            this.startTime = new ItemTime(startTime);
+        if (startTime.isPresent()) {
+            this.startTime = new ItemTime(startTime.get());
         }
-        if (endDate != null) {
-            this.endDate = new ItemDate(endDate);
+        if (endDate.isPresent()) {
+            this.endDate = new ItemDate(endDate.get());
         }
-        if (endTime != null) {
-            this.endTime = new ItemTime(endTime);
-        }
-        
-        if (tagsToAdd != null) {
-            this.tagsToAdd = new UniqueTagList();
-            for (String tag : tagsToAdd) {
-                try {
-                    this.tagsToAdd.add(new Tag(tag));
-                } catch (DuplicateTagException dte) {
-                }
-            }
+        if (endTime.isPresent()) {
+            this.endTime = new ItemTime(endTime.get());
         }
         
-        if (tagsToRemove!= null) {
-            this.tagsToRemove = new UniqueTagList();
-            for (String tag : tagsToRemove) {
-                this.tagsToRemove.add(new Tag(tag));
-            }
+        if (tagsToAdd.isPresent()) {
+            this.tagsToAdd = createUniqueTagList(tagsToAdd.get());
+        }
+        
+        if (tagsToRemove.isPresent()) {
+            this.tagsToRemove = createUniqueTagList(tagsToRemove.get());
         }
         
         logger.fine("EditCommand object successfully created!");
@@ -122,66 +115,38 @@ public class EditCommand extends Command {
         ReadOnlyItem itemToEdit = lastShownList.get(targetIndex - 1);
         Item itemToReplace = new Item(itemToEdit);
         
+        if (isAttemptToConvertTaskToDeadline(itemToReplace)) {
+            try {
+                itemToReplace.convertTaskToDeadline(endDate, endTime);
+            } catch (UnableToConvertFromTaskToDeadlineException utcfttde) {
+                indicateAttemptToExecuteIncorrectCommand();
+                return new CommandResult(utcfttde.getMessage());
+            }
+        }
+        
         if (isInvalidInputForItemType(itemToReplace)) {
             indicateAttemptToExecuteIncorrectCommand();
             return new CommandResult(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_USAGE));
         }
         
+        setNameIfAvailable(itemToReplace);
+        setStartDateIfAvailable(itemToReplace);
+        setStartTimeIfAvailable(itemToReplace);
+        if (!isAttemptToConvertTaskToDeadline(itemToEdit)) {
+            setEndDateIfAvailable(itemToReplace);
+            setEndTimeIfAvailable(itemToReplace);
+        }
+        addTagsIfAvailable(itemToEdit, itemToReplace);
         
-        if (this.name != null) {
-            itemToReplace.setName(this.name);
-        }
-        if (this.startDate != null) {
-            itemToReplace.setStartDate(this.startDate);
-        }
-        if (this.startTime != null) {
-            itemToReplace.setStartTime(this.startTime);
-        }
-        if (this.endDate != null) {
-            itemToReplace.setEndDate(this.endDate);
-        }
-        if (this.endTime != null) {
-            itemToReplace.setEndTime(this.endTime);
-        }
-        
-        if (this.tagsToAdd != null) {
-            UniqueTagList tagListToEdit = itemToEdit.getTags();
-            tagListToEdit.mergeFrom(this.tagsToAdd);
-            itemToReplace.setTags(tagListToEdit);
-        }
-        
-        if (tagsToRemove != null) {
-            UniqueTagList tagListToEdit = itemToEdit.getTags();
-
-            if (this.tagsToAdd != null) {
-                tagListToEdit = itemToReplace.getTags();
-            }
-            
-            UniqueTagList updatedTagList = new UniqueTagList();
-            
-            for (Tag tag : tagsToRemove) {
-                if (!tagListToEdit.contains(tag)) {
-                    indicateAttemptToExecuteIncorrectCommand();
-                    return new CommandResult(String.format(MESSAGE_INVALID_COMMAND_FORMAT, 
-                                             String.format(MESSAGE_TAG_NOT_FOUND, tag.toString())));
-                }
-            }
-            
-            for (Tag tag : tagListToEdit) {
-                if (!tagsToRemove.contains(tag)) {
-                    try {
-                        updatedTagList.add(tag);
-                    } catch (DuplicateTagException dte) {
-                    }
-                }
-            }
-            itemToReplace.setTags(updatedTagList);
+        try {
+            removeTagsIfApplicable(itemToEdit, itemToReplace);
+        } catch (TagNotFoundException tnfe) {
+            indicateAttemptToExecuteIncorrectCommand();
+            return new CommandResult(String.format(MESSAGE_INVALID_COMMAND_FORMAT, tnfe.getMessage()));
         }
 
-        if (itemToReplace.getItemType().isAnEvent() && isEndDateTimeBeforeStartDateTime(itemToReplace.getStartDate(), itemToReplace.getStartTime(), 
-                                                                                        itemToReplace.getEndDate(), itemToReplace.getEndTime())) {
+        if (isEventEndDateTimeBeforeStartDateTime(itemToReplace)) {
             logger.fine("detected event end datetime before start datetime");
-            
             indicateAttemptToExecuteIncorrectCommand();
             return new CommandResult(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_END_DATE_TIME_BEFORE_START_DATE_TIME));
         }
@@ -191,17 +156,113 @@ public class EditCommand extends Command {
         } catch (ItemNotFoundException pnfe) {
             assert false : "The target item cannot be missing";
         } catch (UniqueItemList.DuplicateItemException e) {
-            return new CommandResult(MESSAGE_DUPLICATE_ITEM);
+            indicateAttemptToExecuteIncorrectCommand();
+            return new CommandResult(MESSAGE_NOTHING_EDITED);
         }
         return new CommandResult(String.format(MESSAGE_EDIT_ITEM_SUCCESS, itemToReplace));
     }
 
+    
     /**
-     * @param startItemDate
-     * @param endItemDate
-     * @param startItemTime
-     * @param endItemTime
-     * @return true if end datetime comes before start datetime
+     * Checks if user is attempting to convert a task to a deadline by adding an end date 
+     * or time to task
+     */
+    private boolean isAttemptToConvertTaskToDeadline(ReadOnlyItem item) {
+        return item.getItemType().isTask() 
+               && (isToBeEdited(endDate) || isToBeEdited(endTime));
+    }
+
+    /**
+     * Creates a UniqueTagList from a List of Strings
+     */
+    private UniqueTagList createUniqueTagList(List<String> tags) throws IllegalValueException {
+        assert isToBeEdited(tags);
+        
+        UniqueTagList uniqueTagList = new UniqueTagList();
+        for (String tag : tags) {
+            try {
+                uniqueTagList.add(new Tag(tag));
+            } catch (DuplicateTagException dte) {
+            }
+        }
+        return uniqueTagList;
+    }
+    
+    /**
+     * Checks if itemToReplace is an event and if its end datetime comes before its start datetime 
+     */
+    private boolean isEventEndDateTimeBeforeStartDateTime(Item itemToReplace) {
+        return itemToReplace.getItemType().isEvent() 
+               && isEndDateTimeBeforeStartDateTime(itemToReplace.getStartDate(), itemToReplace.getStartTime(), 
+                                                   itemToReplace.getEndDate(), itemToReplace.getEndTime());
+    }
+
+    /**
+     * Removes tags from item being edited if possible 
+     * @return tag not found command result if an attempt to remove a non existent tag is made
+     */
+    private void removeTagsIfApplicable(ReadOnlyItem itemToEdit, Item itemToReplace) throws TagNotFoundException{
+        if (isToBeEdited(this.tagsToRemove)) {
+            UniqueTagList tagListToEdit = getTagListToEditForTagRemoval(itemToEdit, itemToReplace);
+            tagListToEdit.remove(tagsToRemove);
+            itemToReplace.setTags(tagListToEdit);
+        } 
+    }
+
+    /**
+     * Gets appropriate tag list to remove tags from (dependent on whether user is adding tags in same command)
+     */
+    private UniqueTagList getTagListToEditForTagRemoval(ReadOnlyItem itemToEdit, Item itemToReplace) {
+        if (isToBeEdited(this.tagsToAdd)) {
+            return itemToReplace.getTags();
+        } else {
+            return itemToEdit.getTags();
+        }
+    }
+
+    /**
+     * Adds tags to item being edited if possible 
+     */
+    private void addTagsIfAvailable(ReadOnlyItem itemToEdit, Item itemToReplace) {//throws DuplicateTagException {
+        if (isToBeEdited(this.tagsToAdd)) {
+            UniqueTagList tagListToEdit = itemToEdit.getTags();
+            tagListToEdit.mergeFrom(this.tagsToAdd);
+            itemToReplace.setTags(tagListToEdit);
+        }
+    }
+
+    private void setEndTimeIfAvailable(Item itemToReplace) {
+        if (isToBeEdited(this.endTime)) {
+            itemToReplace.setEndTime(this.endTime);
+        }
+    }
+
+    private void setEndDateIfAvailable(Item itemToReplace) {
+        if (isToBeEdited(this.endDate)) {
+            itemToReplace.setEndDate(this.endDate);
+        }
+    }
+
+    private void setStartTimeIfAvailable(Item itemToReplace) {
+        if (isToBeEdited(this.startTime)) {
+            itemToReplace.setStartTime(this.startTime);
+        }
+    }
+
+    private void setStartDateIfAvailable(Item itemToReplace) {
+        if (isToBeEdited(this.startDate)) {
+            itemToReplace.setStartDate(this.startDate);
+        }
+    }
+
+    private void setNameIfAvailable(Item itemToReplace) {
+        if (isToBeEdited(this.name)) {
+            itemToReplace.setName(this.name);
+        }
+    }
+
+    /**
+     * Checks if end datetime comes before start datetime
      */
     private boolean isEndDateTimeBeforeStartDateTime(ItemDate startItemDate, ItemTime startItemTime, ItemDate endItemDate, ItemTime endItemTime) {
         if (isEndDateEqualsStartDate(startItemDate, endItemDate)) {
@@ -212,21 +273,21 @@ public class EditCommand extends Command {
     }
     
     /**
-     * @param startItemDate
-     * @param endItemDate
-     * @return true if endItemDate comes before startItemDate, false otherwise
+     * Checks if endItemDate comes before startItemDate, false otherwise
      */
     private boolean isEndDateBeforeStartDate(ItemDate startItemDate, ItemDate endItemDate) {
         return compareStartDateToEndDate(startItemDate, endItemDate) < 0;
     }
     
+    /**
+     * Checks if endItemDate is equal to startItemDate, false otherwise
+     */
     private boolean isEndDateEqualsStartDate(ItemDate startItemDate, ItemDate endItemDate) {
         return compareStartDateToEndDate(startItemDate, endItemDate) == 0;
     }
     
     /**
-     * @param startItemDate
-     * @param endItemDate
+     * Compares start date to end date
      * @return -1 if endItemDate comes before startItemDate, 0 if endItemDate equals startItemDate, 1 otherwise
      */
     private int compareStartDateToEndDate(ItemDate startItemDate, ItemDate endItemDate) {
@@ -250,9 +311,7 @@ public class EditCommand extends Command {
     
     
     /**
-     * @param startItemTime
-     * @param endItemTime
-     * @return true if endItemTime comes before startItemTime, false otherwise
+     * Checks if endItemTime comes before startItemTime, false otherwise
      */
     private boolean isEndTimeBeforeStartTime(ItemTime startItemTime, ItemTime endItemTime) {
         boolean result = true;
@@ -270,28 +329,40 @@ public class EditCommand extends Command {
     }
 
     /**
-     * @param itemToReplace
-     * @return true if parameters input by user is not valid for the item that is being edited
+     * Detects if parameters input by user is not valid for the item being edited
      */
     private boolean isInvalidInputForItemType(ReadOnlyItem itemToReplace) { 
-        String itemType = itemToReplace.getItemType().toString();
-        assert itemType.equals(ItemType.TASK_WORD) 
-               || itemType.equals(ItemType.DEADLINE_WORD) 
-               || itemType.equals(ItemType.EVENT_WORD);
+        ItemType itemType = itemToReplace.getItemType();
+        assert itemType.isTask() || itemType.isDeadline() || itemType.isEvent();
         
         boolean result = true;
         
-        if (itemType.equals(ItemType.TASK_WORD)) {
-            result = startDate != null || startTime != null || endDate != null || endTime != null;
+        if (itemType.isTask() || itemType.isDeadline()) {
+            result = isToBeEdited(startDate) || isToBeEdited(startTime);
         }
-        if (itemType.equals(ItemType.DEADLINE_WORD)) {
-            result = startDate != null || startTime != null;
-        }
-        if (itemType.equals(ItemType.EVENT_WORD)) {
+        if (itemType.isEvent()) {
             result = false;
         }
         
         return result;
     }
 
+    /**
+     * Checks if at least one parameter contains input
+     */
+    private boolean containsInputForAtLeastOneParameter(Optional<String> name, Optional<String> startDate,
+                        Optional<String> startTime, Optional<String> endDate, Optional<String> endTime, 
+                        Optional<List<String>> tagsToAdd, Optional<List<String>> tagsToRemove) {
+        
+        return name.isPresent() || startDate.isPresent() || startTime.isPresent() || endDate.isPresent() 
+               || endTime.isPresent() || tagsToAdd.isPresent() || tagsToRemove.isPresent();
+    }
+
+    /**
+     * Checks if argument is to be edited
+     */
+    private boolean isToBeEdited(Object argument) {
+        return argument != null;
+    }
+    
 }

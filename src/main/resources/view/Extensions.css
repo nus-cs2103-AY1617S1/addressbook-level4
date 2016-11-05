@@ -13,4 +13,5 @@
 
 .tooltip-text {
     -fx-text-fill: white;
+    -fx-wrap-text: true;
 }

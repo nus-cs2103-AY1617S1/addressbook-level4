@@ -6,6 +6,7 @@ import seedu.taskmanager.commons.core.ComponentManager;
 import seedu.taskmanager.commons.core.LogsCenter;
 import seedu.taskmanager.commons.core.UnmodifiableObservableList;
 import seedu.taskmanager.commons.events.model.TaskManagerChangedEvent;
+import seedu.taskmanager.commons.events.storage.SaveLocationChangedEvent;
 import seedu.taskmanager.commons.events.ui.ChangeDoneEvent;
 import seedu.taskmanager.commons.events.ui.FilterEvent;
 import seedu.taskmanager.commons.util.StringUtil;
@@ -14,6 +15,7 @@ import seedu.taskmanager.model.item.ReadOnlyItem;
 import seedu.taskmanager.model.item.UniqueItemList;
 import seedu.taskmanager.model.item.UniqueItemList.ItemNotFoundException;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
@@ -147,6 +149,18 @@ public class ModelManager extends ComponentManager implements Model {
         taskManager.removeItem(target);
         indicateTaskManagerChanged(actionTaken);
     }
+    
+    //@@author A0143641M
+    public synchronized void deleteItems(ArrayList<ReadOnlyItem> targets, String actionTaken) throws ItemNotFoundException {
+        taskManager.removeItems(targets);
+        indicateTaskManagerChanged(actionTaken);
+    }
+    
+    public synchronized void saveAction(String location) {
+        raise(new SaveLocationChangedEvent(location));
+        raise(new TaskManagerChangedEvent(taskManager));
+    }
+    //@@author
 
     @Override
     public synchronized void addItem(Item item, String actionTaken) throws UniqueItemList.DuplicateItemException {
@@ -286,10 +300,11 @@ public class ModelManager extends ComponentManager implements Model {
 
         @Override
         public boolean run(ReadOnlyItem item) {
+            
             return itemType.stream()
                     .filter(keyword -> StringUtil.containsIgnoreCase(item.getItemType().value, keyword))
                     .findAny()
-                    .isPresent();
+                    .isPresent(); 
         }
 
         @Override
@@ -297,7 +312,7 @@ public class ModelManager extends ComponentManager implements Model {
             return "name=" + String.join(", ", itemType);
         }
     }
-
+  //@@author A0135792X
     private class NameQualifier implements Qualifier {
         private Set<String> nameKeyWords;
 
@@ -307,10 +322,13 @@ public class ModelManager extends ComponentManager implements Model {
 
         @Override
         public boolean run(ReadOnlyItem item) {
-            return nameKeyWords.stream()
-                    .filter(keyword -> StringUtil.containsIgnoreCase(item.getName().value, keyword))
-                    .findAny()
-                    .isPresent();
+            
+            for (String keyword : nameKeyWords ) {
+                if (!item.getName().value.toLowerCase().contains(keyword.toLowerCase())) {
+                    return false;
+                }
+            }
+            return true;
         }
 
         @Override

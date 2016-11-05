@@ -128,6 +128,14 @@ public class TaskManager implements ReadOnlyTaskManager {
             throw new UniqueItemList.ItemNotFoundException();
         }
     }
+
+    //@@author A0143641M
+    /**
+     * Deletes multiple items at once.
+     */
+    public boolean removeItems(ArrayList<ReadOnlyItem> keys) throws UniqueItemList.ItemNotFoundException {
+        return items.removeAll(keys.toArray(new ReadOnlyItem[0]));
+    }
     
     //@@author A0065571A
     /**

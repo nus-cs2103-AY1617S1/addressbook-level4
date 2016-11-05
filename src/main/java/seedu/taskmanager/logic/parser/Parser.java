@@ -73,8 +73,8 @@ public class Parser {
     private static final Prefix tagPrefix = new Prefix("#");
     private static final String removeTagPrefixString = "-";
     
-    private static final int PARSEDATETIME_ARRAY_DATE_INDEX = 0;
-    private static final int PARSEDATETIME_ARRAY_TIME_INDEX = 1;
+    private static final int PARSE_DATETIME_ARRAY_DATE_INDEX = 0;
+    private static final int PARSE_DATETIME_ARRAY_TIME_INDEX = 1;
     
     //@@author A0140060A-unused
     //Used in earlier version, functionality replaced by ArgumentTokenizer
@@ -272,12 +272,12 @@ public class Parser {
     	String name = eventNlpMatcher.group("name");
     	ArgumentTokenizer argsTokenizer = new ArgumentTokenizer(startDateTimePrefix, endDateTimePrefix, tagPrefix);
     	argsTokenizer.tokenize(addCommandArgs);
-        String startDateTime = getParsedArgumentFromArgumentTokenizer(argsTokenizer, startDateTimePrefix);
-        String endDateTime = getParsedArgumentFromArgumentTokenizer(argsTokenizer, endDateTimePrefix);
+        String startDateTime = getParsedArgumentFromArgumentTokenizerWithoutOptional(argsTokenizer, startDateTimePrefix);
+        String endDateTime = getParsedArgumentFromArgumentTokenizerWithoutOptional(argsTokenizer, endDateTimePrefix);
         if (name == null || startDateTime == null || endDateTime == null) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
-        List<String> tagsToAdd = getParsedTagsToAddFromArgumentTokenizer(argsTokenizer, tagPrefix);
+        List<String> tagsToAdd = getParsedTagsToAddFromArgumentTokenizerWithoutOptional(argsTokenizer, tagPrefix);
         if (tagsToAdd == null) {
             tagsToAdd = new ArrayList<String>();
         }
@@ -313,11 +313,11 @@ public class Parser {
     	String name = deadlineNlpMatcher.group("name");
     	ArgumentTokenizer argsTokenizer = new ArgumentTokenizer(endDateTimePrefix, tagPrefix);
         argsTokenizer.tokenize(addCommandArgs);
-        String endDateTime = getParsedArgumentFromArgumentTokenizer(argsTokenizer, endDateTimePrefix);
+        String endDateTime = getParsedArgumentFromArgumentTokenizerWithoutOptional(argsTokenizer, endDateTimePrefix);
         if (name == null || endDateTime == null) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
-        List<String> tagsToAdd = getParsedTagsToAddFromArgumentTokenizer(argsTokenizer, tagPrefix);
+        List<String> tagsToAdd = getParsedTagsToAddFromArgumentTokenizerWithoutOptional(argsTokenizer, tagPrefix);
         if (tagsToAdd == null) {
             tagsToAdd = new ArrayList<String>();
         }
@@ -348,17 +348,17 @@ public class Parser {
         argsTokenizer.tokenize(addCommandArgs);
         
         //Capture argument values into their respective variables if available
-        String endDate = getParsedArgumentFromArgumentTokenizer(argsTokenizer, endDatePrefix);
-        String endTime = getParsedArgumentFromArgumentTokenizer(argsTokenizer, endTimePrefix);
-        String endDateTime = getParsedArgumentFromArgumentTokenizer(argsTokenizer, endDateTimePrefix);
-        String startDate = getParsedArgumentFromArgumentTokenizer(argsTokenizer, startDatePrefix);
-        String startTime = getParsedArgumentFromArgumentTokenizer(argsTokenizer, startTimePrefix);
-        String startDateTime = getParsedArgumentFromArgumentTokenizer(argsTokenizer, startDateTimePrefix);
-        List<String> tagsToAdd = getParsedTagsToAddFromArgumentTokenizer(argsTokenizer, tagPrefix);
+        String endDate = getParsedArgumentFromArgumentTokenizerWithoutOptional(argsTokenizer, endDatePrefix);
+        String endTime = getParsedArgumentFromArgumentTokenizerWithoutOptional(argsTokenizer, endTimePrefix);
+        String endDateTime = getParsedArgumentFromArgumentTokenizerWithoutOptional(argsTokenizer, endDateTimePrefix);
+        String startDate = getParsedArgumentFromArgumentTokenizerWithoutOptional(argsTokenizer, startDatePrefix);
+        String startTime = getParsedArgumentFromArgumentTokenizerWithoutOptional(argsTokenizer, startTimePrefix);
+        String startDateTime = getParsedArgumentFromArgumentTokenizerWithoutOptional(argsTokenizer, startDateTimePrefix);
+        List<String> tagsToAdd = getParsedTagsToAddFromArgumentTokenizerWithoutOptional(argsTokenizer, tagPrefix);
         if (tagsToAdd == null) {
             tagsToAdd = new ArrayList<String>();
         }
-        if (endDateTime != null || startDateTime != null) {
+        if (containsInput(endDateTime) || containsInput(startDateTime)) {
         	return addNlpEvent(eventMatcher);
         } else {
         	if (name == null || startDate == null || endDate == null) {
@@ -425,17 +425,17 @@ public class Parser {
         argsTokenizer.tokenize(addCommandArgs);
         
         //Capture argument values into their respective variables if available
-        String endDate = getParsedArgumentFromArgumentTokenizer(argsTokenizer, endDatePrefix);
-        String endTime = getParsedArgumentFromArgumentTokenizer(argsTokenizer, endTimePrefix);
-        String endDateTime = getParsedArgumentFromArgumentTokenizer(argsTokenizer, endDateTimePrefix);
-        List<String> tagsToAdd = getParsedTagsToAddFromArgumentTokenizer(argsTokenizer, tagPrefix);
+        String endDate = getParsedArgumentFromArgumentTokenizerWithoutOptional(argsTokenizer, endDatePrefix);
+        String endTime = getParsedArgumentFromArgumentTokenizerWithoutOptional(argsTokenizer, endTimePrefix);
+        String endDateTime = getParsedArgumentFromArgumentTokenizerWithoutOptional(argsTokenizer, endDateTimePrefix);
+        List<String> tagsToAdd = getParsedTagsToAddFromArgumentTokenizerWithoutOptional(argsTokenizer, tagPrefix);
         if (tagsToAdd == null) {
             tagsToAdd = new ArrayList<String>();
         }
         
         try {
             //Handle case where user enters end date and time using natural language via edt/
-            if (endDateTime != null) {
+            if (containsInput(endDateTime)) {
                 return addNlpDeadline(deadlineMatcher);
             } else {
             	if (name == null || endDate == null) {
@@ -480,7 +480,7 @@ public class Parser {
         if (name == null) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
-        List<String> tagsToAdd = getParsedTagsToAddFromArgumentTokenizer(argsTokenizer, tagPrefix);
+        List<String> tagsToAdd = getParsedTagsToAddFromArgumentTokenizerWithoutOptional(argsTokenizer, tagPrefix);
         if (tagsToAdd == null) {
             tagsToAdd = new ArrayList<String>();
         }
@@ -488,7 +488,48 @@ public class Parser {
                               name,
                               tagsToAdd);
     }
-
+	//@@author
+	/**
+     * Gets the parsed argument if available, else returns null
+     */
+    private String getParsedArgumentFromArgumentTokenizerWithoutOptional(ArgumentTokenizer argsTokenizer,
+                                                                         Prefix argumentPrefix) {
+        try {
+            return argsTokenizer.getValue(argumentPrefix).get();
+        } catch (NoSuchElementException nsee) { 
+            return null;
+        } 
+    }
+	
+    /**
+     * Gets parsed tags if available, else returns null
+     */
+    private List<String> getParsedTagsToAddFromArgumentTokenizerWithoutOptional(ArgumentTokenizer argsTokenizer,
+                                                                                Prefix tagPrefix) {
+        Optional<List<String>> tags = argsTokenizer.getAllValues(tagPrefix);
+        
+        if (!tags.isPresent()) {
+            return null;
+        }
+        
+        List<String> tagsToAdd = new ArrayList<String>();
+        for (String tag : tags.get()) {
+            if (tag.length() > 0 && !isATagToBeRemoved(tag)) {                            
+                tagsToAdd.add(tag);
+            }
+        }
+        
+        return tagsToAdd;
+    }
+    
+    /**
+     * Checks if argument contains input from user
+     * @param argument argument to be checked for user input
+     */
+    private boolean containsInput(Object argument) {
+        return argument != null;
+    }
+    
     //@@author A0140060A	
     /**
      * Parses arguments in the context of the edit item command.
@@ -500,135 +541,144 @@ public class Parser {
         assert args != null;
         final Matcher matcher = EDIT_COMMAND_ARGS_FORMAT.matcher(args.trim());
         
-        if (matcher.matches()) {
-            Optional<Integer> index = parseIndex(matcher.group("targetIndex"));
-            if (index.isPresent()) {
-                String editCommandArgs = matcher.group("editCommandArguments");
-                ArgumentTokenizer argsTokenizer = new ArgumentTokenizer(namePrefix, startDatePrefix, startTimePrefix, 
-                                                                        startDateTimePrefix, endDatePrefix, endTimePrefix,
-                                                                        endDateTimePrefix, tagPrefix);
-                logger.fine("In prepareEdit, before tokenize");
-                argsTokenizer.tokenize(editCommandArgs);
-                
-                //Capture argument values into their respective variables if available
-                String name = getParsedArgumentFromArgumentTokenizer(argsTokenizer, namePrefix);
-                String startDate = getParsedArgumentFromArgumentTokenizer(argsTokenizer, startDatePrefix);
-                String startTime = getParsedArgumentFromArgumentTokenizer(argsTokenizer, startTimePrefix);
-                String endDate = getParsedArgumentFromArgumentTokenizer(argsTokenizer, endDatePrefix);
-                String endTime = getParsedArgumentFromArgumentTokenizer(argsTokenizer, endTimePrefix);
-                String startDateTime = getParsedArgumentFromArgumentTokenizer(argsTokenizer, startDateTimePrefix);
-                String endDateTime = getParsedArgumentFromArgumentTokenizer(argsTokenizer, endDateTimePrefix);
-                List<String> tagsToAdd = getParsedTagsToAddFromArgumentTokenizer(argsTokenizer, tagPrefix);
-                List<String> tagsToRemove = getParsedTagsToRemoveFromArgumentTokenizer(argsTokenizer, tagPrefix);
-                
-                try {
-                    //Handle case where user enters start date and time using natural language via sdt/
-                    if (startDateTime != null) {
-                        String[] startDateTimeArr = parseDateTime(startDateTime, ItemDate.DATE_FORMAT, ItemTime.TIME_FORMAT);
-                        startDate = startDateTimeArr[PARSEDATETIME_ARRAY_DATE_INDEX];
-                        startTime = startDateTimeArr[PARSEDATETIME_ARRAY_TIME_INDEX];
-                    }
+        if (matcher.matches() && hasParsableIndex(matcher.group("targetIndex"))) {
+            Integer index = parseIndex(matcher.group("targetIndex")).get();
+            
+            String editCommandArgs = matcher.group("editCommandArguments");
+            ArgumentTokenizer argsTokenizer = new ArgumentTokenizer(namePrefix, startDatePrefix, 
+                                                    startTimePrefix, startDateTimePrefix, endDatePrefix, 
+                                                    endTimePrefix, endDateTimePrefix, tagPrefix);
+            logger.fine("In prepareEdit, before tokenize");
+            argsTokenizer.tokenize(editCommandArgs);
+            
+            //Capture argument values into their respective variables if available
+            Optional<String> name = getParsedArgumentFromArgumentTokenizer(argsTokenizer, namePrefix);
+            Optional<String> startDate = getParsedArgumentFromArgumentTokenizer(argsTokenizer, startDatePrefix);
+            Optional<String> startTime = getParsedArgumentFromArgumentTokenizer(argsTokenizer, startTimePrefix);
+            Optional<String> endDate = getParsedArgumentFromArgumentTokenizer(argsTokenizer, endDatePrefix);
+            Optional<String> endTime = getParsedArgumentFromArgumentTokenizer(argsTokenizer, endTimePrefix);
+            Optional<String> startDateTime = getParsedArgumentFromArgumentTokenizer(argsTokenizer, startDateTimePrefix);
+            Optional<String> endDateTime = getParsedArgumentFromArgumentTokenizer(argsTokenizer, endDateTimePrefix);
+            Optional<List<String>> tagsToAdd = getParsedTagsToAddFromArgumentTokenizer(argsTokenizer, tagPrefix);
+            Optional<List<String>> tagsToRemove = getParsedTagsToRemoveFromArgumentTokenizer(argsTokenizer, tagPrefix);
+            
+            try {
+                if (startDateTime.isPresent()) {
+                    String[] startDateTimeArr = parseDateTime(startDateTime.get(), ItemDate.DATE_FORMAT, 
+                                                              ItemTime.TIME_FORMAT);
                     
-                    //Handle case where user enters end date and time using natural language via edt/
-                    if (endDateTime != null) {
-                        String[] endDateTimeArr = parseDateTime(endDateTime, ItemDate.DATE_FORMAT, ItemTime.TIME_FORMAT);
-                        endDate = endDateTimeArr[PARSEDATETIME_ARRAY_DATE_INDEX];
-                        endTime = endDateTimeArr[PARSEDATETIME_ARRAY_TIME_INDEX];
-                    }
+                    startDate = Optional.of(startDateTimeArr[PARSE_DATETIME_ARRAY_DATE_INDEX]);
+                    startTime = Optional.of(startDateTimeArr[PARSE_DATETIME_ARRAY_TIME_INDEX]);
+                }
+                
+                if (endDateTime.isPresent()) {
+                    String[] endDateTimeArr = parseDateTime(endDateTime.get(), ItemDate.DATE_FORMAT, 
+                                                            ItemTime.TIME_FORMAT);
                     
-                    //Ensure EditCommand is created with at least one non-null parameter other than targetIndex
-                    if (name != null || startDate != null || startTime!= null || endDate != null 
-                        || endTime != null || tagsToAdd != null || tagsToRemove != null) {
-                        return new EditCommand(index.get(), name, startDate, startTime, endDate, endTime, tagsToAdd, tagsToRemove);
-                    }
-                } catch (IllegalValueException ive) {
-                    return new IncorrectCommand(ive.getMessage());
-                }   
-            }
+                    endDate = Optional.of(endDateTimeArr[PARSE_DATETIME_ARRAY_DATE_INDEX]);
+                    endTime = Optional.of(endDateTimeArr[PARSE_DATETIME_ARRAY_TIME_INDEX]);
+                }
+                
+                if (containsInputForAtLeastOneParameter(name, startDate, startTime, endDate, 
+                                                        endTime, tagsToAdd, tagsToRemove)) {
+                    return new EditCommand(index, name, startDate, startTime, 
+                                           endDate, endTime, tagsToAdd, tagsToRemove);
+                }
+            } catch (IllegalValueException ive) {
+                return new IncorrectCommand(ive.getMessage());
+            }   
         }
         return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
     }
 
     /**
-     * @param argsTokenizer
-     * @param argumentPrefix
-     * @return parsed argument value
+     * Checks if index can be parsed
+     * @param indexToParse String containing user input for index parameter
+     * @return true if index can be successfully parsed
      */
-    private String getParsedArgumentFromArgumentTokenizer(ArgumentTokenizer argsTokenizer, Prefix argumentPrefix) {
-        try {
-            return argsTokenizer.getValue(argumentPrefix).get();
-        } catch (NoSuchElementException nsee) { 
-            return null;
-        } 
+    private boolean hasParsableIndex(final String indexToParse) {
+        return parseIndex(indexToParse).isPresent();
     }
 
     /**
-     * @param argsTokenizer
-     * @param tagPrefix
-     * @return list of parsed tags to be removed
+     * Checks if at least one parameter contains input
      */
-    private List<String> getParsedTagsToRemoveFromArgumentTokenizer(ArgumentTokenizer argsTokenizer, Prefix tagPrefix) {
-        try {
-            List<String> tags = argsTokenizer.getAllValues(tagPrefix).orElse(null);
-            
-            if (tags == null) {
-                return null;
+    private boolean containsInputForAtLeastOneParameter(Optional<String> name, Optional<String> startDate,
+                        Optional<String> startTime, Optional<String> endDate, Optional<String> endTime, 
+                        Optional<List<String>> tagsToAdd, Optional<List<String>> tagsToRemove) {
+        
+        return name.isPresent() || startDate.isPresent() || startTime.isPresent() || endDate.isPresent() 
+               || endTime.isPresent() || tagsToAdd.isPresent() || tagsToRemove.isPresent();
+    }
+
+    
+
+    /**
+     * Gets the parsed argument if available 
+     */
+    private Optional<String> getParsedArgumentFromArgumentTokenizer(ArgumentTokenizer argsTokenizer, Prefix argumentPrefix) {
+            return argsTokenizer.getValue(argumentPrefix); 
+    }
+
+    /**
+     * Gets the list of parsed tags to be removed if available 
+     */
+    private Optional<List<String>> getParsedTagsToRemoveFromArgumentTokenizer(ArgumentTokenizer argsTokenizer, Prefix tagPrefix) {
+        Optional<List<String>> tags = argsTokenizer.getAllValues(tagPrefix);
+        
+        if (!tags.isPresent()) {
+            return Optional.empty();
+        }
+        
+        logger.fine("Before remove tags check");
+        
+        List<String> tagsToRemove = new ArrayList<String>();
+        for (String tag : tags.get()) {
+            if (tag.length() > 0 && isATagToBeRemoved(tag)) {                            
+                tagsToRemove.add(extractTagToBeRemoved(tag));
             }
-            
-            logger.fine("Before remove tags check");
-            
-            List<String> tagsToRemove = new ArrayList<String>();
-            for (String tag : tags) {
-                if (tag.length() > 0 && isATagToBeRemoved(tag)) {                            
-                    tagsToRemove.add(processTagToBeRemoved(tag));
-                }
-            }
-            
-            return tagsToRemove;
-        } catch (NoSuchElementException nsee) {
-            return null;
+        }
+        if (!tagsToRemove.isEmpty()) {
+            return Optional.of(tagsToRemove);    
+        } else {
+            return Optional.empty();
         }
     }
     
     /**
-     * @param argsTokenizer
-     * @param tagPrefix
-     * @return list of parsed tags
+     * Gets the list of parsed tags to be added if available 
      */
-    private List<String> getParsedTagsToAddFromArgumentTokenizer(ArgumentTokenizer argsTokenizer, Prefix tagPrefix) {
-        try {
-            List<String> tags = argsTokenizer.getAllValues(tagPrefix).orElse(null);
-            
-            if (tags == null) {
-                return null;
+    private Optional<List<String>> getParsedTagsToAddFromArgumentTokenizer(ArgumentTokenizer argsTokenizer, Prefix tagPrefix) {
+        Optional<List<String>> tags = argsTokenizer.getAllValues(tagPrefix);
+        
+        if (!tags.isPresent()) {
+            return Optional.empty();
+        }
+        
+        List<String> tagsToAdd = new ArrayList<String>();
+        for (String tag : tags.get()) {
+            if (tag.length() > 0 && !isATagToBeRemoved(tag)) {                            
+                tagsToAdd.add(tag);
             }
-            
-            List<String> tagsToAdd = new ArrayList<String>();
-            for (String tag : tags) {
-                if (tag.length() > 0 && !isATagToBeRemoved(tag)) {                            
-                    tagsToAdd.add(tag);
-                }
-            }
-            
-            return tagsToAdd;
-        } catch (NoSuchElementException nsee) {
-            return null;
+        }
+        if (!tagsToAdd.isEmpty()) {
+            return Optional.of(tagsToAdd);    
+        } else {
+            return Optional.empty();
         }
     }
 
     /**
-     * @param tag
-     * @return tag without tag removal prefix
+     * Extracts tag from string containing tag and tag removal prefix
      */
-    private String processTagToBeRemoved(String tag) {
+    private String extractTagToBeRemoved(String tag) {
         assert isATagToBeRemoved(tag);
         logger.fine("In processTagToBeRemoved, before return");
         return tag.substring(removeTagPrefixString.length(), tag.length());
     }
 
     /**
-     * @param tag
-     * @return true if tag is to be removed from the item's current tag list.
+     * Checks if tag is to be removed from the item's current tag list.
      */
     private boolean isATagToBeRemoved(String tag) {
         return tag.substring(0, removeTagPrefixString.length()).equals(removeTagPrefixString);
@@ -636,17 +686,19 @@ public class Parser {
 
     /**
      * Parses date and time from argument acquired through NLP input 
-     * @param argument
+     * @param datetime datetime to be parsed
      * @param dateFormat the format the date should be returned in
      * @param timeFormat the format the time should be returned in
      * @return parsed argument as string or null if argument not parsed 
      */
-    private String[] parseDateTime(String argument, String dateFormat, String timeFormat) throws IllegalValueException {
-        assert dateFormat != null && !dateFormat.isEmpty();
-        assert timeFormat != null && !timeFormat.isEmpty();
-        assert argument != null;
-    
-        List<Date> dateTimes = new PrettyTimeParser().parse(argument);
+    private String[] parseDateTime(String datetime, String dateFormat, String timeFormat) throws IllegalValueException {
+        assert containsInput(dateFormat) && !dateFormat.isEmpty();
+        assert containsInput(timeFormat) && !timeFormat.isEmpty();
+        assert containsInput(datetime);
+        
+        String[] parsedDateTime = new String[2];
+        
+        List<Date> dateTimes = new PrettyTimeParser().parse(datetime);
         
         if (dateTimes.isEmpty()) {
             throw new IllegalValueException(MESSAGE_DATETIME_PARSE_FAILURE);
@@ -658,9 +710,9 @@ public class Parser {
         String parsedDate = simpleDateFormat.format(prettyParsedDateTime);
         String parsedTime = simpleTimeFormat.format(prettyParsedDateTime);
         
-        String[] parsedDateTime = new String[2];
-        parsedDateTime[PARSEDATETIME_ARRAY_DATE_INDEX] = parsedDate;
-        parsedDateTime[PARSEDATETIME_ARRAY_TIME_INDEX] = parsedTime;
+        
+        parsedDateTime[PARSE_DATETIME_ARRAY_DATE_INDEX] = parsedDate;
+        parsedDateTime[PARSE_DATETIME_ARRAY_TIME_INDEX] = parsedTime;
         
         return parsedDateTime;
     }
@@ -772,7 +824,7 @@ public class Parser {
         else if(itemIndexesMatcher.matches()) {
             // separate into the different indexes
             args = args.trim();
-            ArrayList<String> indexList = new ArrayList<String>(Arrays.asList(args.split("[^0-9]*")));
+            ArrayList<String> indexList = new ArrayList<String>(Arrays.asList(args.split("[^0-9]")));
             
             // remove empty strings from split
             for(Iterator<String> itr = indexList.iterator(); itr.hasNext(); ) {

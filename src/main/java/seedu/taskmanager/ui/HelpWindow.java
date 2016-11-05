@@ -57,6 +57,6 @@ public class HelpWindow extends UiPart {
     }
 
     public void show() {
-        dialogStage.showAndWait();
+        dialogStage.show();
     }
 }
