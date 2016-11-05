@@ -41,10 +41,4 @@ public class SelectCommand extends Command {
 
     }
 
-    @Override
-    public CommandResult execute(int index) {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
 }

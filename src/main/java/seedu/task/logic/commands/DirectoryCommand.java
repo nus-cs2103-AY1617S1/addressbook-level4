@@ -181,9 +181,4 @@ public class DirectoryCommand extends Command {
         }
     }*/
 
-    @Override
-    public CommandResult execute(int index) {
-        return null;
-    }
-
 }

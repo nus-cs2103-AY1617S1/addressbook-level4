@@ -18,10 +18,4 @@ public class ExitCommand extends Command {
         return new CommandResult(MESSAGE_EXIT_ACKNOWLEDGEMENT);
     }
 
-    @Override
-    public CommandResult execute(int index) {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
 }

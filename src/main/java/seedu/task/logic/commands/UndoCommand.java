@@ -215,7 +215,7 @@ public class UndoCommand extends Command {
         while (isLastIndexClearCommand(undoIndex)) {
             HashSet<String> getTags = getTags(undoIndex);
             try {
-                Command command = addCommand(undoIndex, getTags);
+                AddCommand command = addCommand(undoIndex, getTags);
                 setData(command);
                 command.execute(FIRST_INDEX_OF_LIST);
             } catch (IllegalValueException e) {
@@ -292,7 +292,7 @@ public class UndoCommand extends Command {
         HashSet<String> tagStringSet = getTags(size);
 
         try {
-            Command command = addCommand(size, tagStringSet);
+            AddCommand command = addCommand(size, tagStringSet);
             setData(command);
             command.execute(index);
 
@@ -331,8 +331,8 @@ public class UndoCommand extends Command {
         return getTags;
     }
 
-    private Command addCommand(int index, HashSet<String> tagStringSet) throws IllegalValueException {
-        Command command = new AddCommand(EMPTY_STRING + getUndoList().get(index).getNewTask().getName(),
+    private AddCommand addCommand(int index, HashSet<String> tagStringSet) throws IllegalValueException {
+        AddCommand command = new AddCommand(EMPTY_STRING + getUndoList().get(index).getNewTask().getName(),
                 EMPTY_STRING + getUndoList().get(index).getNewTask().getStartTime(),
                 EMPTY_STRING + getUndoList().get(index).getNewTask().getEndTime(),
                 EMPTY_STRING + getUndoList().get(index).getNewTask().getDeadline(), tagStringSet);
@@ -343,7 +343,6 @@ public class UndoCommand extends Command {
         return getPreviousCommandList().isEmpty();
     }
 
-    @Override
     public CommandResult execute(int index) {
         return null;
     }

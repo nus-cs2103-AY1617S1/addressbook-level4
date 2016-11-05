@@ -68,8 +68,4 @@ public class RepeatCommand extends Command {
         return new CommandResult(String.format(MESSAGE_REPEAT_TASK_SUCCESS, selectedTask.getName(), interval));
     }
 
-    @Override
-    public CommandResult execute(int index) {
-        return null;
-    }
 }

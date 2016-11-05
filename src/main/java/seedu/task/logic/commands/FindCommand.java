@@ -28,10 +28,4 @@ public class FindCommand extends Command {
         return new CommandResult(getMessageForTaskListShownSummary(model.getFilteredTaskList().size()));
     }
 
-    @Override
-    public CommandResult execute(int index) {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
 }

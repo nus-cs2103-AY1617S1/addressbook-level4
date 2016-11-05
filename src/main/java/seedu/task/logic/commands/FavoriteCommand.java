@@ -79,8 +79,4 @@ public class FavoriteCommand extends Command {
 		return history.getUndoList();
 	}
 
-    @Override
-    public CommandResult execute(int index) {
-        return null;
-    }
 }

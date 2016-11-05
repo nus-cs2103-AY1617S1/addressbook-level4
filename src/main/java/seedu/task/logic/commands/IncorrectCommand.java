@@ -18,11 +18,5 @@ public class IncorrectCommand extends Command {
         return new CommandResult(feedbackToUser);
     }
 
-    @Override
-    public CommandResult execute(int index) {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
 }
 

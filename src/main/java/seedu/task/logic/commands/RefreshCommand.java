@@ -46,7 +46,7 @@ public class RefreshCommand extends Command {
 
             try {
                 
-                Command command = new AddCommand(
+                AddCommand command = new AddCommand(
                         EMPTY_STRING + taskList.get(index).getNewTask().getName(),
                         EMPTY_STRING + taskList.get(index).getNewTask().getStartTime(),
                         EMPTY_STRING + taskList.get(index).getNewTask().getEndTime(),
@@ -75,12 +75,5 @@ public class RefreshCommand extends Command {
         model.autoSortBasedOnCurrentSortPreference();
         // @@author A0147335E
         return new CommandResult(MESSAGE_SUCCESS);
-    }
-
-    
-
-    @Override
-    public CommandResult execute(int index) {
-        return null;
     }
 }

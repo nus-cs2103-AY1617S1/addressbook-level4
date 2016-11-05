@@ -77,8 +77,4 @@ public class DoneCommand extends Command {
         return new CommandResult(String.format(MESSAGE_DONE_TASK_SUCCESS, newTask.getName()));
     }
 
-    @Override
-    public CommandResult execute(int index) {
-        return null;
-    }
 }

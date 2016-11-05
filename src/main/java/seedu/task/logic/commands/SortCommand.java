@@ -71,9 +71,4 @@ public class SortCommand extends Command {
         return new CommandResult(String.format(MESSAGE_SUCCESS, keyword));
     }
 
-    @Override
-    public CommandResult execute(int index) {
-        // TODO Auto-generated method stub
-        return null;
-    }
 }

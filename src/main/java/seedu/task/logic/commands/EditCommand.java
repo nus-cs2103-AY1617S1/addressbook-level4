@@ -163,14 +163,5 @@ public class EditCommand extends Command {
 	private ArrayList<RollBackCommand> getUndoList() {
 		return history.getUndoList();
 	}
-    
-    
-    
-    @Override
-    public CommandResult execute(int index) {
-        return null;
-        
-    }
-    
-    
+
 }

@@ -165,9 +165,4 @@ public class BackupCommand extends Command {
         return new CommandResult(String.format(MESSAGE_BACKUP_SUCCESS, _destination, _overwrite));
     }
 
-    @Override
-    public CommandResult execute(int index) {
-        return null;
-    }
-
 }

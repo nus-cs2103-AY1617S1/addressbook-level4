@@ -15,9 +15,4 @@ public class ListCommand extends Command {
         return new CommandResult(MESSAGE_SUCCESS);
     }
 
-    @Override
-    public CommandResult execute(int index) {
-        // TODO Auto-generated method stub
-        return null;
-    }
 }

@@ -22,9 +22,4 @@ public class HelpCommand extends Command {
         return new CommandResult(SHOWING_HELP_MESSAGE);
     }
 
-    @Override
-    public CommandResult execute(int index) {
-        // TODO Auto-generated method stub
-        return null;
-    }
 }
