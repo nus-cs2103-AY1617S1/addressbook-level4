@@ -148,12 +148,7 @@ public class UpdateCommandTest extends GuiTest {
     @Test
     public void updateCommand_missingParamValue_disambiguate() {
         console.runCommand("add Buy milk");
-        console.runCommand("update "
-                + ""
-                + ""
-                + ""
-                + ""
-                + "1 name");
+        console.runCommand("update 1 name");
         assertEquals("update 1 [name \"<name>\"] [by \"<deadline>\"]", console.getConsoleInputText());
         assertSameDisambiguationMessage(null, console);
     }
