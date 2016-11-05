@@ -13,7 +13,7 @@ import seedu.address.model.item.UniqueTaskList.TaskNotFoundException;
 
 //@@author A0139498J
 /**
- * Deletes a task identified using its last displayed index from the task manager.
+ * Deletes task identified using its last displayed index from the task manager.
  */
 public class DeleteCommand extends UndoableCommand {
 
@@ -49,7 +49,11 @@ public class DeleteCommand extends UndoableCommand {
         assert model != null;
         
         prepareToDeleteTasks();
-        deleteTasksFromGivenTargetIndexes();
+        try {
+            deleteTasksFromGivenTargetIndexes();
+        } catch (TaskNotFoundException pnfe) {
+            assert false : "The target task cannot be missing";
+        }
         updateHistory();
         
         if (deletedTasks.isEmpty()) {
@@ -68,10 +72,9 @@ public class DeleteCommand extends UndoableCommand {
      * Deletes the tasks denoted by the list of target indexes.
      * Invalid target indexes in the list will be ignored.
      */
-    private void deleteTasksFromGivenTargetIndexes() {
-        for (int targetIndex: targetIndexes) {
-            UnmodifiableObservableList<ReadOnlyTask> lastShownList;
-            lastShownList = (isViewingDoneList)? 
+    private void deleteTasksFromGivenTargetIndexes() throws TaskNotFoundException {
+        for (int targetIndex : targetIndexes) {
+            UnmodifiableObservableList<ReadOnlyTask> lastShownList = (isViewingDoneList)? 
                     model.getFilteredDoneTaskList():
                     model.getFilteredUndoneTaskList();
                     
@@ -84,15 +87,12 @@ public class DeleteCommand extends UndoableCommand {
             int adjustedTaskIndex = targetIndex - adjustmentForRemovedTask - 1;
             ReadOnlyTask taskToDelete = lastShownList.get(adjustedTaskIndex);
     
-            try {
-                if (isViewingDoneList) {
-                    model.deleteDoneTask(taskToDelete);
-                } else {
-                    model.deleteTask(taskToDelete);
-                }
-            } catch (TaskNotFoundException pnfe) {
-                assert false : "The target task cannot be missing";
+            if (isViewingDoneList) {
+                model.deleteDoneTask(taskToDelete);
+            } else {
+                model.deleteTask(taskToDelete);
             }
+            
             deletedTasks.add((Task) taskToDelete);
             adjustmentForRemovedTask++;
         }

@@ -434,7 +434,7 @@ public class LogicManagerTest {
         helper.addToModel(model, threePersons);
 
         assertDoneCommandBehavior("done 2",
-                String.format(DoneCommand.MESSAGE_DONE_ITEM_SUCCESS, threePersons.get(1)),
+                String.format(DoneCommand.MESSAGE_DONE_TASK_SUCCESS, threePersons.get(1)),
                 expectedAB,
                 expectedAB.getUndoneTaskList(),
                 expectedAB.getDoneTaskList());
@@ -470,7 +470,7 @@ public class LogicManagerTest {
         helper.addToModel(model, fourPersons);
 
         assertCommandBehavior("find KEY",
-                Command.getMessageForPersonListShownSummary(expectedList.size()),
+                Command.getMessageForTaskListShownSummary(expectedList.size()),
                 expectedAB,
                 expectedList);
     }
@@ -490,7 +490,7 @@ public class LogicManagerTest {
         helper.addToModel(model, fourPersons);
 
         assertCommandBehavior("find KEY",
-                Command.getMessageForPersonListShownSummary(expectedList.size()),
+                Command.getMessageForTaskListShownSummary(expectedList.size()),
                 expectedAB,
                 expectedList);
     }
@@ -509,7 +509,7 @@ public class LogicManagerTest {
         helper.addToModel(model, fourPersons);
 
         assertCommandBehavior("find key rAnDoM",
-                Command.getMessageForPersonListShownSummary(expectedList.size()),
+                Command.getMessageForTaskListShownSummary(expectedList.size()),
                 expectedAB,
                 expectedList);
     }

@@ -6,7 +6,7 @@ import seedu.address.testutil.TestTask;
 import seedu.address.testutil.TestUtil;
 
 import static org.junit.Assert.assertTrue;
-import static seedu.address.logic.commands.DoneCommand.MESSAGE_DONE_ITEM_SUCCESS;
+import static seedu.address.logic.commands.DoneCommand.MESSAGE_DONE_TASK_SUCCESS;
 
 //@@author A0139498J
 public class DoneCommandTest extends AddressBookGuiTest {
@@ -54,7 +54,7 @@ public class DoneCommandTest extends AddressBookGuiTest {
         assertTrue(personListPanel.isListMatching(expectedRemainder));
         
         //confirm the result message is correct
-        assertResultMessage(String.format(MESSAGE_DONE_ITEM_SUCCESS, taskToDone));
+        assertResultMessage(String.format(MESSAGE_DONE_TASK_SUCCESS, taskToDone));
 
         //confirm the done list now contains all previous done tasks plus the new done task
         commandBox.runCommand("list done");

@@ -30,10 +30,10 @@ public class FindCommand extends Command {
         assert model != null;
         if (model.isCurrentListDoneList()) {
             model.updateFilteredDoneTaskListNamePred(keywords);
-            return new CommandResult(getMessageForPersonListShownSummary(model.getFilteredDoneTaskList().size()));
+            return new CommandResult(getMessageForTaskListShownSummary(model.getFilteredDoneTaskList().size()));
         } else {
             model.updateFilteredUndoneTaskListNamePred(keywords);
-            return new CommandResult(getMessageForPersonListShownSummary(model.getFilteredUndoneTaskList().size()));
+            return new CommandResult(getMessageForTaskListShownSummary(model.getFilteredUndoneTaskList().size()));
         }
     }
 
