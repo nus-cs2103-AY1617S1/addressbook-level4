@@ -1,13 +1,6 @@
 package seedu.unburden.logic.commands;
-
-import java.util.List;
-
 import seedu.unburden.commons.core.EventsCenter;
 import seedu.unburden.commons.events.ui.ShowHelpRequestEvent;
-import seedu.unburden.commons.exceptions.IllegalValueException;
-import seedu.unburden.model.tag.UniqueTagList.DuplicateTagException;
-import seedu.unburden.model.task.ReadOnlyTask;
-import seedu.unburden.model.task.Task;
 
 /**
  * Format full help instructions for every command for display.
@@ -67,7 +60,7 @@ public class HelpCommand extends Command {
 	}
 
 	@Override
-	public CommandResult execute() throws DuplicateTagException, IllegalValueException {
+	public CommandResult execute() {
 		EventsCenter.getInstance().post(new ShowHelpRequestEvent());
 		switch (whichCommand) {
 		case AddCommand.COMMAND_WORD:
