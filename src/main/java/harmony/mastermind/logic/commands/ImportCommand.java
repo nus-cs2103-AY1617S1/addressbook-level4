@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Optional;
+import java.util.Set;
 import java.util.regex.Pattern;
 
 import javax.activation.MimetypesFileTypeMap;
@@ -19,7 +20,9 @@ import biweekly.ICalendar;
 import biweekly.component.VEvent;
 import harmony.mastermind.commons.exceptions.IllegalValueException;
 import harmony.mastermind.commons.exceptions.InvalidEventDateException;
+import harmony.mastermind.model.tag.Tag;
 import harmony.mastermind.model.tag.UniqueTagList;
+import harmony.mastermind.model.tag.UniqueTagList.DuplicateTagException;
 import harmony.mastermind.model.task.Task;
 import harmony.mastermind.model.task.TaskBuilder;
 import harmony.mastermind.model.task.UniqueTaskList.DuplicateTaskException;
@@ -143,7 +146,7 @@ public class ImportCommand extends Command {
                 }
             }
             
-        } catch (IOException e) {
+        } catch (IOException | IllegalValueException e) {
             return new CommandResult(COMMAND_WORD, String.format(MESSAGE_READ_FAILURE, fileToImport));
         }
 
@@ -182,7 +185,7 @@ public class ImportCommand extends Command {
         return taskArgs;
     }
     
-    private Optional<Task> parseCsvArgs(String[] args) {
+    private Optional<Task> parseCsvArgs(String[] args) throws DuplicateTagException, IllegalValueException {
         Optional<String> name = Optional.ofNullable(args[0]);
         Optional<String> startDate;
         Optional<String> endDate;
@@ -207,13 +210,13 @@ public class ImportCommand extends Command {
         if (startDate.isPresent() && !endDate.isPresent()) {
             return Optional.empty();
         } else if (startDate.isPresent() && endDate.isPresent()) {
-            task = new Task(name.get(), prettyTimeParser.parse(startDate.get()).get(0), prettyTimeParser.parse(endDate.get()).get(0), new UniqueTagList(), null, new Date());
+            task = new Task(name.get(), prettyTimeParser.parse(startDate.get()).get(0), prettyTimeParser.parse(endDate.get()).get(0), new UniqueTagList(new Tag("IMPORTED")), null, new Date());
             return Optional.ofNullable(task);
         } else if (endDate.isPresent()) {
-            task = new Task(name.get(), prettyTimeParser.parse(endDate.get()).get(0), new UniqueTagList(), null, new Date());
+            task = new Task(name.get(), prettyTimeParser.parse(endDate.get()).get(0), new UniqueTagList(new Tag("IMPORTED")), null, new Date());
             return Optional.ofNullable(task);
         } else if (!endDate.isPresent()) {
-            task = new Task(name.get(), new UniqueTagList(), new Date());
+            task = new Task(name.get(), new UniqueTagList(new Tag("IMPORTED")), new Date());
             return Optional.ofNullable(task);
         } else {
             return Optional.empty();
@@ -267,9 +270,13 @@ public class ImportCommand extends Command {
      * @throws IllegalValueException if tags contains non-alphanumeric characters
      */
     private Task parseTask(VEvent event) throws InvalidEventDateException, IllegalValueException {
+        Set<String> tags = new HashSet<String>();
+        tags.add("IMPORTED");
+        
         TaskBuilder taskBuilder = new TaskBuilder(event.getSummary().getValue());
         taskBuilder.asEvent(event.getDateStart().getValue(), event.getDateEnd().getValue());
-        taskBuilder.withTags(new HashSet<String>());
+        taskBuilder.withTags(tags);
+        
         return taskBuilder.build();
     }
     
