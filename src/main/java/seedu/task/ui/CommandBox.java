@@ -49,6 +49,7 @@ public class CommandBox extends UiPart {
         placeHolderPane.getChildren().add(commandTextField);
         FxViewUtil.applyAnchorBoundaryParameters(commandPane, 0.0, 0.0, 0.0, 0.0);
         FxViewUtil.applyAnchorBoundaryParameters(commandTextField, 0.0, 0.0, 0.0, 0.0);
+        commandPane.requestFocus(); // a hacky way to fix gui test
     }
 
     @Override

@@ -5,6 +5,7 @@ import guitests.GuiRobot;
 import javafx.geometry.Point2D;
 import javafx.scene.Node;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TableView;
 import javafx.stage.Stage;
 import seedu.task.TestApp;
 import seedu.task.model.task.ReadOnlyTask;
@@ -25,19 +26,19 @@ public class TaskListPanelHandle extends GuiHandle {
     public static final int NOT_FOUND = -1;
     public static final String CARD_PANE_ID = "#cardPane";
 
-    private static final String TASK_LIST_VIEW_ID = "#taskListView";
+    private static final String TASK_LIST_VIEW_ID = "#taskTable";
 
     public TaskListPanelHandle(GuiRobot guiRobot, Stage primaryStage) {
         super(guiRobot, primaryStage, TestApp.APP_TITLE);
     }
 
     public List<ReadOnlyTask> getSelectedTasks() {
-        ListView<ReadOnlyTask> taskList = getListView();
+    	TableView<ReadOnlyTask> taskList = getListView();
         return taskList.getSelectionModel().getSelectedItems();
     }
 
-    public ListView<ReadOnlyTask> getListView() {
-        return (ListView<ReadOnlyTask>) getNode(TASK_LIST_VIEW_ID);
+    public TableView<ReadOnlyTask> getListView() {
+        return (TableView<ReadOnlyTask>) getNode(TASK_LIST_VIEW_ID);
     }
 
     /**
@@ -83,7 +84,8 @@ public class TaskListPanelHandle extends GuiHandle {
      * @param tasks A list of task in the correct order.
      */
     public boolean isListMatching(int startPosition, ReadOnlyTask... tasks) throws IllegalArgumentException {
-        if (tasks.length + startPosition != getListView().getItems().size()) {
+    	List<ReadOnlyTask> tasksInList = getListView().getItems();
+    	if (tasks.length + startPosition != getListView().getItems().size()) {
             throw new IllegalArgumentException("List size mismatched\n" +
                     "Expected " + (getListView().getItems().size() - 1) + " tasks");
         }
@@ -92,14 +94,17 @@ public class TaskListPanelHandle extends GuiHandle {
             final int scrollTo = i + startPosition;
             guiRobot.interact(() -> getListView().scrollTo(scrollTo));
             guiRobot.sleep(100);
-            if (!TestUtil.compareCardAndTask(getTaskCardHandle(startPosition + i), tasks[i])) {
+            ReadOnlyTask checkingTask = tasks[i];
+            if(!(checkingTask.getName().equals(tasksInList.get(scrollTo).getName()) && checkingTask.getStartTime().equals(tasksInList.get(scrollTo).getStartTime())
+            		&& checkingTask.getEndTime().equals(tasksInList.get(scrollTo).getEndTime()) && checkingTask.getDeadline().equals(tasksInList.get(scrollTo).getDeadline()))) {
                 return false;
             }
         }
         return true;
     }
-
-
+    
+    
+    
     public TaskCardHandle navigateToTask(String name) {
         guiRobot.sleep(500); //Allow a bit of time for the list to be updated
         final Optional<ReadOnlyTask> task = getListView().getItems().stream().filter(p -> p.getName().fullName.equals(name)).findAny();
