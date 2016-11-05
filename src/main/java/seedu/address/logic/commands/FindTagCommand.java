@@ -5,8 +5,6 @@ import java.util.Set;
 public class FindTagCommand extends Command {
     public static final String COMMAND_WORD = "findtag";
 
-    public static final String MESSAGE_SUCCESS = "Listed all tasks with entered tag";
-
     private final String keywords;
 
     public FindTagCommand(String keywords) {
@@ -16,6 +14,6 @@ public class FindTagCommand extends Command {
     @Override
     public CommandResult execute() {
         model.updateFilteredByTagListToShowAll(keywords);
-        return new CommandResult(MESSAGE_SUCCESS);
+        return new CommandResult(getMessageForTaskListShownSummary(model.getFilteredTaskList().size()));
     }
 }

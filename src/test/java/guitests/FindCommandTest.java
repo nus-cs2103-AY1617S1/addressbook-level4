@@ -19,6 +19,8 @@ public class FindCommandTest extends AddressBookGuiTest {
         commandBox.runCommand("delete 2");
         assertFindResult("find Daniel",TypicalTestActivities.findDaniel);
     }
+    
+
 
     @Test
     public void find_emptyList(){
@@ -31,7 +33,16 @@ public class FindCommandTest extends AddressBookGuiTest {
         commandBox.runCommand("findgeorge");
         assertResultMessage(Messages.MESSAGE_UNKNOWN_COMMAND);
     }
-
+    
+    @Test
+    public void findtag_nonEmptyList(){
+        assertFindResult("findtag lunch",td.getTaggedActivitiesOnly("lunch"));
+        
+        assertFindResult("findtag nothing");//no results
+    
+        assertFindResult("findtag dinner",td.getTaggedActivitiesOnly("dinner"));
+    }
+    
     private void assertFindResult(String command, TestActivity... expectedHits ) {
         commandBox.runCommand(command);
         assertListSize(expectedHits.length);
