@@ -325,15 +325,6 @@ public class DateParser {
 	}
 	
 	public static void main(String[] args) {
-		try {
-			LocalDateTime date1 = DateParser.parse("12-12-12 05:00");
-			System.out.println(date1.toString());
-			LocalDateTime date2 = DateParser.parse("12-12-12 05:00");
-			System.out.println(date2.toString());
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 	}
 
 }

@@ -13,7 +13,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -153,13 +152,12 @@ public class Parser {
 			String alias = aliases.get(i);
 			String original = originals.get(i);
 			
-			System.out.println("alias: " + alias);
-			
 			// Does not replace arguments in find command or within quotes			
 			if (userInput.contains(alias) 
 					&& !userInput.matches(".*'.*(" + alias + ").*'.*") 
 					&& !userInput.contains("find")) {
-				System.out.println("match");
+				
+				logger.finer("Found alias " + alias + " in input string userInput");
 				userInput = userInput.replace(alias, original);
 			}
 		}
@@ -185,21 +183,21 @@ public class Parser {
 		if (argsLowerCase.contains(" on ")
 				&& argsLowerCase.contains(" from ") 
 				&& argsLowerCase.contains(" to ")) {
-			logger.log(Level.FINEST, "Calling prepareAddEventSameDay");
+			logger.finest("Calling prepareAddEventSameDay");
 			return prepareAddEventSameDay(taskName, "event", args);
 		}
 		else if (argsLowerCase.contains(" from ")
 				&& argsLowerCase.contains(" to ")) {
-			logger.log(Level.FINEST, "Calling prepareAddEventDifferentDays");
+			logger.finest("Calling prepareAddEventDifferentDays");
 			return prepareAddEventDifferentDays(taskName, "event", args);
 		}
 		else if (argsLowerCase.contains(" by ")) {
-			logger.log(Level.FINEST, "Calling prepareAddDeadline");
+			logger.finest("Calling prepareAddDeadline");
 			return prepareAddDeadline(taskName, "deadline", args);
 		}
 		// if args is either empty or contains only #tags
 		else if (args.matches("\\s*(#.+)*\\s*")) {
-			logger.log(Level.FINEST, "Calling prepareAddSomeday");
+			logger.finest("Calling prepareAddSomeday");
 			return prepareAddSomeday(taskName, "someday", args);
 		}
 		else {
@@ -379,7 +377,7 @@ public class Parser {
         final String[] keyphrases = args.trim().split("\\s*,\\s*");
         final Set<String> keyphraseSet = new HashSet<>(Arrays.asList(keyphrases));
         
-        logger.log(Level.FINEST, "Keyphrase set for find command: " + keyphraseSet.toString());
+        logger.finest("Keyphrase set for find command: " + keyphraseSet.toString());
         
         return new FindCommand(keyphraseSet);
     }
@@ -511,8 +509,8 @@ public class Parser {
 		final String folderFilePath = matcher.group("folderFilePath").trim();
 		final String fileName = matcher.group("fileName").trim();
 		
-		logger.log(Level.FINEST, "Parsed folder path: " + folderFilePath);
-		logger.log(Level.FINEST, "Parsed file Name: " + fileName);
+		logger.finest("Parsed folder path: " + folderFilePath);
+		logger.finest("Parsed file Name: " + fileName);
 		
 		return new SetStorageCommand(folderFilePath, fileName);
 	}
