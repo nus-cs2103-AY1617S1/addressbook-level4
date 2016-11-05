@@ -74,10 +74,10 @@ public class CalendarItemFilter {
                 return new boolean[] { true, true };
             } else if (eventStatusPresent && !taskStatusPresent) {
                 // Condition 2 - Task
-                return new boolean[] { true, false };
+                return new boolean[] { false, true };
             } else if (taskStatusPresent && !eventStatusPresent) {
                 // Condition 2 - Event
-                return new boolean[] { false, true };
+                return new boolean[] { true, false };
             }
         } else {
             if (eventType.equals("task") && !eventStatusPresent) {
