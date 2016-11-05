@@ -44,6 +44,12 @@ public class UndoCommandTest extends TaskManagerGuiTest {
         commandBox.runCommand("undone 6");
         assertUndoSuccess(currentList);
         
+        commandBox.runCommand("fav 2");
+        commandBox.runCommand("unfav 2");
+        commandBox.runCommand("undo");
+        commandBox.runCommand("unfav 2");
+        assertUndoSuccess(currentList);
+        
     }
 
     private void assertUndoSuccess(TestTask... currentList) {

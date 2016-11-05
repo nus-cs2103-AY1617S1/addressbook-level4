@@ -21,18 +21,6 @@ public class RollBackCommand {
         this.oldTask = oldTask;
     }
 
-    public void setCommandWord(String commandWord) {
-        this.commandWord = commandWord;
-    }
-
-    public void setNewTask(Task newTask) {
-        this.newTask = newTask;
-    }
-
-    public void setOldTask(Task oldTask) {
-        this.oldTask = oldTask;
-    }
-
     public String getCommandWord() {
         return commandWord;
     }
