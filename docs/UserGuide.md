@@ -135,23 +135,23 @@ Edit Floating Task Format: `edit 'f'INDEX [TASK_NAME] [t/TAG]`<br>
 Edit Deadline Format: `edit 'd'INDEX [TASK_NAME] [by DATE/TIME] [t/TAG]` <br>
 Edit Event Format `edit 'e'INDEX [TASK_NAME] [start DATE/TIME] [end DATE/TIME]` <br>
 To remove all tags from a task, use the parameter: t/null <br>
+Note: TASK_NAME cannot contain any of the following key words: "by", "start" and "end".<br>
 
 
-> Edits the task at the specified `INDEX` with the given one or more parameters.
-  The index refers to the index number shown in the most recent listing.<br>
-  The index **must have either 'f','d' or 'e' as a prefix and also a positive integer** f1, e2, d3, ...<br>
-  At least one of the optional parameters must be present <br>
-  The prefix is not case sensitive. <br>
-  The edit function can only edit the details within the same type of task. <br>
-  No changing of task type supported. <br>
-  Editting the tags will result in a replacement of all tags. <br>
+> * Edits the task at the specified `INDEX` with the given one or more parameters.
+> *  The index refers to the index number shown in the most recent listing.<br>
+> *  The index **must have either 'f','d' or 'e' as a prefix and also a positive integer** f1, e2, d3, ...<br>
+> *  At least one of the optional parameters must be present <br>
+> *  The prefix is not case sensitive. <br>
+> *  The edit function can only edit the details within the same type of task. <br>
+> *  Editting the tags will result in a replacement of all tags. <br>
 
 Examples: 
-  `edit e1 end 12-21 2359` <br>
+*  `edit e1 end 12-21 2359` <br>
   Edits the 1st event in the schedule list, replacing its original end time with 21 December. <br>
-  `edit f1 lunch with mom`<br>
+*  `edit f1 lunch with mom`<br>
   Edits the 1st task in the to-do list, replacing its original name with "lunch with mom".<br>
-  `edit d2 t/wedding t/love`<br>
+*  `edit d2 t/wedding t/love`<br>
   Edits the 2nd deadline in the deadline list, replacing its existing tags with the tags: 'wedding' and 'love'.<br>
 <!--- @@author --->
 
