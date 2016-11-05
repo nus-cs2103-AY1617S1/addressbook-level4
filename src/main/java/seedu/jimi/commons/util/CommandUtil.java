@@ -33,12 +33,13 @@ public class CommandUtil {
     
     private List<String> allCmdWords;
     
-    private HashMap<String, Set<String>> cmdWordNearMatches;
+    // Keys are near matches with an edit distance of two, values are command words.
+    private HashMap<String, Set<String>> cmdWordNearMatches; 
     
     private CommandUtil() {
-        populateCommandStubList();
-        populateCommandWords();
-        populateCommandWordsNearMatches();
+        initCommandStubList();
+        initCommandWords();
+        initCommandWordsNearMatches();
     }
     
     /** Returns a string of all command words in {@code cmdStubList} joined by a comma. */
@@ -62,6 +63,7 @@ public class CommandUtil {
     
     /** Returns a list of command words that nearly matches {@code target} */
     public List<String> getCommandWordMatches(String target) {
+        assert target != null;
         return cmdStubList.stream()
                 .filter(c -> c.isValidCommandWord(target) 
                         || StringUtil.isValidSubstrings(c.getCommandWord(), target)
@@ -78,7 +80,7 @@ public class CommandUtil {
      */
     
     /** Creating near match dictionaries up to two edit distances, for command words. */
-    private void populateCommandWordsNearMatches() {
+    private void initCommandWordsNearMatches() {
         assert cmdStubList != null && allCmdWords != null;
         cmdWordNearMatches = new HashMap<String, Set<String>>();
         allCmdWords.forEach(cmdWord -> {
@@ -97,7 +99,7 @@ public class CommandUtil {
     }
     
     /** Creating a list of commands available in Jimi. */
-    private void populateCommandStubList() {
+    private void initCommandStubList() {
         cmdStubList = Arrays.asList(
                 new AddCommand(), 
                 new EditCommand(), 
@@ -115,7 +117,7 @@ public class CommandUtil {
     }
 
     /** Creating a list of commands words from commands in {@code cmdStubList} */
-    private void populateCommandWords() {
+    private void initCommandWords() {
         assert cmdStubList != null;
         allCmdWords = cmdStubList.stream()
                 .map(c -> c.getCommandWord())

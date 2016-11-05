@@ -22,6 +22,10 @@ public class StringUtil {
     
     /** Returns true if any of the strings in {@code keywords} nearly matches {@code query}. */
     public static boolean isAnyNearMatch(String query, List<String> keywords) {
+        if (query == null || keywords == null) {
+            return false;
+        }
+        CollectionUtil.assertNoNullElements(keywords);
         return keywords.stream()
                 .filter(kw -> isNearMatch(kw, query))
                 .findAny()
@@ -29,11 +33,14 @@ public class StringUtil {
     }
 
     /** 
-     * Returns true if {@code query} is a near match of {@code source}. <br>
-     * This is a recursive driver method.
+     * Returns true if {@code query} is a near match of {@code source} or are valid substrings of each other. <br>
+     * This is also a recursive driver method.
      */
     public static boolean isNearMatch(String source, String query) {
-        return isNearMatch(source, query, DEFAULT_EDIT_DISTANCE);
+        if (source == null || query == null) {
+            return false;
+        }
+        return isValidSubstrings(source, query) || isNearMatch(source, query, DEFAULT_EDIT_DISTANCE);
     }
     
     /**
@@ -41,7 +48,6 @@ public class StringUtil {
      * <br>
      * For an edit distance of 1:
      * <ul>
-     * <li> {@code query} and {@code source} are valid substrings of each other.
      * <li> {@code query} is the same as {@code source} but missing a character.
      * <li> {@code query} is the same as {@code source} but differing by a character.
      * <li> {@code query} is the same as {@code source} but have two transposed characters.
@@ -62,9 +68,6 @@ public class StringUtil {
         String sourceNoSpaces = source.toLowerCase().replaceAll("\\s+", "");
         String queryNoSpaces = query.toLowerCase().replaceAll("\\s+", "");
         
-        if (isValidSubstrings(sourceNoSpaces, queryNoSpaces)) {
-            return true; // Strings are valid substrings of each other.
-        }
         Set<String> transposedDict = Dictionary.generateTransposedChar(sourceNoSpaces);
         if (transposedDict.contains(queryNoSpaces)) {
             return true; // Similar by two transposed characters.
@@ -147,6 +150,8 @@ public class StringUtil {
     }
 }
 
+
+/** Container class for dictionary related methods */
 class Dictionary {
     
     private static final char[] ALPHABET = "abcdefghijklmnopqrstuvwxyz".toCharArray();
