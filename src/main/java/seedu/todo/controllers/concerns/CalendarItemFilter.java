@@ -65,8 +65,8 @@ public class CalendarItemFilter {
             eventType = eventType.equals("events") ? "event" : eventType;
             eventType = eventType.equals("tasks") ? "task" : eventType;
         }
-        boolean taskStatusPresent = parsedResult.get("taskStatus") == null;
-        boolean eventStatusPresent = parsedResult.get("eventStatus") == null;
+        boolean taskStatusPresent = parsedResult.get("taskStatus") != null;
+        boolean eventStatusPresent = parsedResult.get("eventStatus") != null;
 
         if (eventType == null) {
             if (!taskStatusPresent && !eventStatusPresent) {
