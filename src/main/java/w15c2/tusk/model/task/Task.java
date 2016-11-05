@@ -91,8 +91,14 @@ public abstract class Task implements PinnableTask, CompletableTask, Comparable<
 	@Override
 	public boolean equals(Object other) {
 	    
+	    // Cannot be equal to null
+	    if (other == null) {
+	        return false;
+	    }
+	    
 	    // For now: this is very subclass dependant - assert these conditions
         assert (this instanceof FloatingTask) || (this instanceof DeadlineTask) || (this instanceof EventTask);
+        
         
 	    boolean isDifferentType = !(other instanceof Task);
 	    boolean isDifferentSubclassType = this.getClass() != other.getClass();

@@ -103,6 +103,14 @@ public class TaskTest {
     }
     
     @Test
+    public void equals_oneTaskoneNull() {
+        Task t1 = new FloatingTask("hello world");
+        Task t2 = null;
+        
+        assertNotEquals(t1, t2);
+    }
+    
+    @Test
     public void equals_twoFloatingTasks_sameDescription() {
         Task t1 = new FloatingTask("hello world");
         Task t2 = new FloatingTask("hello world");

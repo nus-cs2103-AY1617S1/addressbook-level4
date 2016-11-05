@@ -97,21 +97,12 @@ public class TaskListPanelHandle extends GuiHandle {
     }
 
 
-    public TaskCardHandle navigateToPerson(String name) {
-        guiRobot.sleep(500); //Allow a bit of time for the list to be updated
-        final Optional<Task> person = getListView().getItems().stream().filter(p -> p.equals(name)).findAny();
-        if (!person.isPresent()) {
-            throw new IllegalStateException("Name not found: " + name);
-        }
-
-        return navigateToPerson(person.get());
-    }
 
     /**
-     * Navigates the listview to display and select the person.
+     * Navigates the listview to display and select the task.
      */
-    public TaskCardHandle navigateToPerson(Task person) {
-        int index = getPersonIndex(person);
+    public TaskCardHandle navigateToTask(Task task) {
+        int index = getTaskIndex(task);
 
         guiRobot.interact(() -> {
             getListView().scrollTo(index);
@@ -119,14 +110,14 @@ public class TaskListPanelHandle extends GuiHandle {
             getListView().getSelectionModel().select(index);
         });
         guiRobot.sleep(100);
-        return getTaskCardHandle(person);
+        return getTaskCardHandle(task);
     }
 
 
     /**
      * Returns the position of the person given, {@code NOT_FOUND} if not found in the list.
      */
-    public int getPersonIndex(Task targetTask) {
+    public int getTaskIndex(Task targetTask) {
         List<Task> tasksInList = getListView().getItems();
         for (int i = 0; i < tasksInList.size(); i++) {
             if(tasksInList.get(i).equals(targetTask)){
