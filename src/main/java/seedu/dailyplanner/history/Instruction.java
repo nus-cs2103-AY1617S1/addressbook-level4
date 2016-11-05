@@ -13,13 +13,13 @@ public class Instruction {
 
 	private String reverseCommand;
 	private String name;
-	private Date start;
-	private Date end;
+	private DateTime start;
+	private DateTime end;
 	private boolean isComplete;
 	private boolean isPinned;
 	private UniqueTagList tags;
 
-	public Instruction(String cmd, String name, Date start, Date end, boolean complete, boolean pin,
+	public Instruction(String cmd, String name, DateTime start, DateTime end, boolean complete, boolean pin,
 			UniqueTagList tags) {
 		this.reverseCommand = cmd;
 		this.name = name;
@@ -46,19 +46,19 @@ public class Instruction {
 		this.name = name;
 	}
 
-	public Date getTaskStart() {
+	public DateTime getTaskStart() {
 		return start;
 	}
 
-	public void setTaskStart(Date start) {
+	public void setTaskStart(DateTime start) {
 		this.start = start;
 	}
 
-	public Date getTaskEnd() {
+	public DateTime getTaskEnd() {
 		return end;
 	}
 
-	public void setTaskEnd(Date end) {
+	public void setTaskEnd(DateTime end) {
 		this.end = end;
 	}
 

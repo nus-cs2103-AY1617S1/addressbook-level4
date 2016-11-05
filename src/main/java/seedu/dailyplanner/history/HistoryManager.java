@@ -30,8 +30,8 @@ public class HistoryManager {
 	public void stackAddInstruction(ReadOnlyTask toPush) {
 
 		String pushName = toPush.getName();
-		Date pushStart = toPush.getStart();
-		Date pushEnd = toPush.getEnd();
+		DateTime pushStart = toPush.getStart();
+		DateTime pushEnd = toPush.getEnd();
 		boolean isComplete = toPush.isComplete();
 		boolean isPinned = toPush.isPinned();
 		UniqueTagList pushTag = toPush.getTags();
@@ -42,8 +42,8 @@ public class HistoryManager {
 	public void stackDeleteInstruction(ReadOnlyTask toPush) {
 
 		String pushName = toPush.getName();
-		Date pushStart = toPush.getStart();
-		Date pushEnd = toPush.getEnd();
+		DateTime pushStart = toPush.getStart();
+		DateTime pushEnd = toPush.getEnd();
 		boolean isComplete = toPush.isComplete();
 		boolean isPinned = toPush.isPinned();
 		UniqueTagList pushTag = toPush.getTags();
@@ -54,8 +54,8 @@ public class HistoryManager {
 	public void stackEditInstruction(ReadOnlyTask originalTask, ReadOnlyTask editedTask) {
 
 		String pushAddName = originalTask.getName();
-		Date pushAddStart = originalTask.getStart();
-		Date pushAddEnd = originalTask.getEnd();
+		DateTime pushAddStart = originalTask.getStart();
+		DateTime pushAddEnd = originalTask.getEnd();
 		boolean pushAddComplete = originalTask.isComplete();
 		boolean pushAddPinned = originalTask.isPinned();
 		UniqueTagList pushAddTag = originalTask.getTags();
@@ -63,8 +63,8 @@ public class HistoryManager {
 		recordCommand.push(new Instruction("EA", pushAddName, pushAddStart, pushAddEnd, pushAddComplete, pushAddPinned, pushAddTag));
         
 		String pushDeleteName = originalTask.getName();
-		Date pushDeleteStart = originalTask.getStart();
-		Date pushDeleteEnd = originalTask.getEnd();
+		DateTime pushDeleteStart = originalTask.getStart();
+		DateTime pushDeleteEnd = originalTask.getEnd();
 		boolean pushDeleteComplete = originalTask.isComplete();
 		boolean pushDeletePinned = originalTask.isPinned();
 		UniqueTagList pushDeleteTag = originalTask.getTags();

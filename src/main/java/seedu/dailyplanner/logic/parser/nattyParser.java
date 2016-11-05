@@ -23,7 +23,7 @@ public class nattyParser {
 			break;
 
 		}
-		DateFormat df = new SimpleDateFormat("d MMMMMM yyyy, h.mma");
+		DateFormat df = new SimpleDateFormat("dd/MM/yyyy hh.mma");
 		return df.format(parsedDateAndTime);
 	}
 
@@ -34,7 +34,7 @@ public class nattyParser {
 			parsedDate = group.getDates().get(0);
 			break;
 		}
-		DateFormat df = new SimpleDateFormat("d MMMMMM yyyy");
+		DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
 		return df.format(parsedDate);
 	}
 
@@ -46,7 +46,7 @@ public class nattyParser {
 			break;
 
 		}
-		DateFormat df = new SimpleDateFormat("h.mma");
+		DateFormat df = new SimpleDateFormat("hh.mma");
 		return df.format(parsedTime);
 	}
 

@@ -8,88 +8,85 @@ import seedu.dailyplanner.model.task.ReadOnlyTask;
 
 public class PersonCard extends UiPart {
 
-	private static final String FXML = "PersonListCard.fxml";
+    private static final String FXML = "PersonListCard.fxml";
 
-	@FXML
-	private HBox cardPane;
-	@FXML
-	private Label name;
-	@FXML
-	private Label id;
-	@FXML
-	private Label phone;
-	@FXML
-	private Label endDate;
-	@FXML
-	private Label address;
-	@FXML
-	private Label email;
-	@FXML
-	private Label tags;
-	@FXML
-	private Label isComplete;
-	@FXML
-	private Label startAtLabel;
-	@FXML
-	private Label endAtLabel;
+    @FXML
+    private HBox cardPane;
+    @FXML
+    private Label name;
+    @FXML
+    private Label id;
+    @FXML
+    private Label startDate;
+    @FXML
+    private Label startTime;
+    @FXML
+    private Label endDate;
+    @FXML
+    private Label endTime;
+    @FXML
+    private Label tags;
+    @FXML
+    private Label isComplete;
+    @FXML
+    private Label startAtLabel;
+    @FXML
+    private Label endAtLabel;
 
-	private ReadOnlyTask person;
-	private int displayedIndex;
+    private ReadOnlyTask task;
+    private int displayedIndex;
 
-	public PersonCard() {
+    public PersonCard() {
+    }
 
+    public static PersonCard load(ReadOnlyTask task, int displayedIndex) {
+	PersonCard card = new PersonCard();
+	card.task = task;
+	card.displayedIndex = displayedIndex;
+	return UiPartLoader.loadUiPart(card);
+    }
+
+    @FXML
+    public void initialize() {
+	name.setText(task.getName());
+	id.setText(displayedIndex + ". ");
+	startDate.setText(task.getStart().getDate().toString());
+	startTime.setText(task.getStart().getTime().toString());
+	endDate.setText(task.getEnd().getDate().toString());
+	endTime.setText(task.getEnd().getTime().toString());
+	tags.setText(task.tagsString());
+	if (task.isComplete()) {
+	    isComplete.setText(task.getCompletion());
+	    isComplete.setVisible(true);
+	} else {
+	    isComplete.setText("");
+	    isComplete.setVisible(false);
+	}
+	if (task.getStart().getDate().toString().equals("")) {
+	    startAtLabel.setVisible(false);
+	} else {
+	    startAtLabel.setText("Starts at: ");
 	}
 
-	public static PersonCard load(ReadOnlyTask task, int displayedIndex) {
-		PersonCard card = new PersonCard();
-		card.person = task;
-		card.displayedIndex = displayedIndex;
-		return UiPartLoader.loadUiPart(card);
+	if (task.getEnd().getDate().toString().equals("")) {
+	    endAtLabel.setVisible(false);
+	} else {
+	    endAtLabel.setText("Ends at: ");
 	}
 
-	@FXML
-	public void initialize() {
-		name.setText(person.getName().fullName);
-		id.setText(displayedIndex + ". ");
-		phone.setText(person.getStart().value);
-		endDate.setText(person.getStart().getEndDate());
-		address.setText(person.getAddress().value);
-		email.setText(person.getEnd().value);
-		tags.setText(person.tagsString());
-		if (person.getCompletion().equals("COMPLETE")) {
-			isComplete.setText(person.getCompletion());
-			isComplete.setVisible(true);
-		} else {
-			isComplete.setText("");
-			isComplete.setVisible(false);
-		}
-		
-		if (person.getStart().value.equals("") && person.getEnd().value.equals("")) {
-		    startAtLabel.setVisible(false);
-		} else {
-		    startAtLabel.setText("Starts at: ");
-		}
-		
-		if (person.getStart().getEndDate().equals("") && person.getAddress().value.equals("")) {
-            endAtLabel.setVisible(false);
-        } else {
-            endAtLabel.setText("Ends at: ");
-        }
-		
-		
-	}
+    }
 
-	public HBox getLayout() {
-		return cardPane;
-	}
+    public HBox getLayout() {
+	return cardPane;
+    }
 
-	@Override
-	public void setNode(Node node) {
-		cardPane = (HBox) node;
-	}
+    @Override
+    public void setNode(Node node) {
+	cardPane = (HBox) node;
+    }
 
-	@Override
-	public String getFxmlPath() {
-		return FXML;
-	}
+    @Override
+    public String getFxmlPath() {
+	return FXML;
+    }
 }

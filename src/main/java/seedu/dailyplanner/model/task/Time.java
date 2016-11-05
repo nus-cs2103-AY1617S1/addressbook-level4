@@ -1,29 +1,29 @@
 package seedu.dailyplanner.model.task;
 
 /**
- * Represents time in the daily planner. Guarantees: immutable; is
- * valid as declared in {@link #isValidAddress(String)}
+ * Represents time in the daily planner. Guarantees: immutable; is valid as
+ * declared in {@link #isValidAddress(String)}
  */
 public class Time implements Comparable<Time> {
 
     public final String m_value;
-    //public final int m_hour;
-    //public final int m_minute;
-    //public final String m_meridiem;
+    public final int m_hour;
+    public final int m_minute;
+    public final String m_meridiem;
 
-    /**
-     * Validates given address.
-     *
-     * @throws IllegalValueException
-     *             if given address string is invalid.
-     */
     // @@author A0146749N
     public Time(String value) {
 	assert value != null;
 	m_value = value;
-	//m_hour = hour;
-	//m_minute = minute;
-	//m_meridiem = meridiem;
+	if (!value.equals("")) {
+	    m_hour = Integer.parseInt(value.substring(0, 2));
+	    m_minute = Integer.parseInt(value.substring(3, 5));
+	    m_meridiem = value.substring(5);
+	} else {
+	    m_hour = 13;
+	    m_minute = 0;
+	    m_meridiem = "pm";
+	}
     }
 
     @Override
@@ -46,7 +46,8 @@ public class Time implements Comparable<Time> {
 
     @Override
     public int compareTo(Time o) {
-	/*if (!m_meridiem.equals(o.m_meridiem)) {
+
+	if (!m_meridiem.equals(o.m_meridiem)) {
 	    if (m_meridiem.equals("am") && o.m_meridiem.equals("pm")) {
 		return -1;
 	    } else {
@@ -58,7 +59,8 @@ public class Time implements Comparable<Time> {
 	}
 	if (m_minute != o.m_minute) {
 	    return m_minute - o.m_minute;
-	}*/
+	}
+
 	return 0;
     }
 }

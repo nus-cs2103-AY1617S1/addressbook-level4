@@ -108,7 +108,7 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
     }
 
     /**
-     * Replaces this person's tags with the tags in the argument tag list.
+     * Replaces this task's tags with the tags in the argument tag list.
      */
     public void setTags(UniqueTagList replacement) {
 	tags.setTags(replacement);
@@ -123,8 +123,6 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
 
     @Override
     public int hashCode() {
-	// use this method for custom fields hashing instead of implementing
-	// your own
 	return Objects.hash(taskName, start, end, isComplete, isPinned, tags);
     }
 
@@ -135,6 +133,12 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
 
     @Override
     public int compareTo(Task o) {
-	return -1;
+	if (!start.equals(o.start)) {
+	    return start.compareTo(o.start);
+	} else if (!end.equals(o.end)) {
+	    return end.compareTo(o.end);
+	} else
+	    return taskName.compareTo(o.taskName);
     }
+
 }

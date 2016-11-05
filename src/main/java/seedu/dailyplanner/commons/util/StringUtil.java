@@ -6,7 +6,7 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
-import seedu.dailyplanner.model.task.Date1;
+import seedu.dailyplanner.model.task.DateTime;
 
 /**
  * Helper functions for handling strings.
@@ -40,11 +40,12 @@ public class StringUtil {
 	return s != null && s.matches("^0*[1-9]\\d*$");
     }
 
-    public static boolean withinDateRange(Date date, String keyword) {
-	int keyDate = Integer.parseInt(keyword.substring(0, 2));
+    public static boolean withinDateRange(DateTime date, String keyword) {
+	/*int keyDate = Integer.parseInt(keyword.substring(0, 2));
 	int keyMonth = Integer.parseInt(keyword.substring(3, 5));
 	int keyYear = Integer.parseInt(keyword.substring(6, 8));
 	return (date.startDay <= keyDate && date.startMonth <= keyMonth && date.startYear <= keyYear
-		&& date.endDay >= keyDate && date.endMonth >= keyMonth && date.endYear >= keyYear);
-    }
+		&& date.endDay >= keyDate && date.endMonth >= keyMonth && date.endYear >= keyYear);*/
+	return true;
+    } 
 }

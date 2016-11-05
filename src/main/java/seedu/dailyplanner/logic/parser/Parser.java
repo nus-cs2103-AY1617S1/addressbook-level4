@@ -150,10 +150,11 @@ public class Parser {
     private Command prepareEdit(String arguments) {
 
 	int index = 0;
-	String taskName = null;
-	String start = null, end = null;
-	DateTime formattedStart = null, formattedEnd = null;
-	Set<String> tags = null;
+	String taskName = "";
+	String start = "", end = "";
+	DateTime formattedStart = new DateTime(new Date(""), new Time(""));
+	DateTime formattedEnd = new DateTime(new Date(""), new Time(""));
+	Set<String> tags = new HashSet<String>();
 
 	HashMap<String, String> mapArgs = parseEdit(arguments.trim());
 
@@ -181,7 +182,7 @@ public class Parser {
 	    } else {
 		start = natty.parseDate(startString);
 		Date startDate = new Date(start);
-		formattedStart = new DateTime(startDate);
+		formattedStart = new DateTime(startDate, new Time(""));
 	    }
 	}
 	if (mapArgs.containsKey("end")) {
@@ -206,7 +207,7 @@ public class Parser {
 	    } else {
 		end = natty.parseDate(endString);
 		Date endDate = new Date(end);
-		formattedEnd = new DateTime(endDate);
+		formattedEnd = new DateTime(endDate, new Time(""));
 	    }
 	}
 	if (mapArgs.containsKey("tags")) {
@@ -231,10 +232,11 @@ public class Parser {
 
     // @@author A0140124B
     private Command prepareAdd(String args) {
-	String taskName = null;
-	String start = null, end = null;
-	DateTime formattedStart = null, formattedEnd = null;
-	Set<String> tags = null;
+	String taskName = "";
+	String start = "", end = "";
+	DateTime formattedStart = new DateTime(new Date(""), new Time(""));
+	DateTime formattedEnd = new DateTime(new Date(""), new Time(""));
+	Set<String> tags = new HashSet<String>();
 
 	String trimmedArgs = args.trim();
 
@@ -265,7 +267,7 @@ public class Parser {
 	    } else {
 		start = natty.parseDate(startString);
 		Date startDate = new Date(start);
-		formattedStart = new DateTime(startDate);
+		formattedStart = new DateTime(startDate, new Time(""));
 	    }
 	}
 	if (mapArgs.containsKey("end")) {
@@ -290,7 +292,7 @@ public class Parser {
 	    } else {
 		end = natty.parseDate(endString);
 		Date endDate = new Date(end);
-		formattedEnd = new DateTime(endDate);
+		formattedEnd = new DateTime(endDate, new Time(""));
 	    }
 	}
 	if (mapArgs.containsKey("tags")) {
@@ -298,7 +300,6 @@ public class Parser {
 	    tags = new HashSet<String>(Arrays.asList(tagArray));
 	}
 	try {
-
 	    return new AddCommand(taskName, formattedStart, formattedEnd, tags);
 	} catch (IllegalValueException ive) {
 	    return new IncorrectCommand(ive.getMessage());
