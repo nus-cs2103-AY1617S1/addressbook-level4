@@ -79,21 +79,22 @@ public class Time implements Comparable<Time> {
 						&& this.fullTime.equals(((Time) other).fullTime)); // state
 																			// check
 	}
-
+	
+	
+	/**
+	 * Returns the value of the difference between the two times 
+	 * 
+	 * @return the difference of the two time values
+	 */
 	@Override
 	public int compareTo(Time time) {
 
 		// entry check
 		if (this.equals(time)) { // check if same time or both dummy values
 			return 0;
-		} else if (this.getFullTime() == "" && time.getFullTime() == "") { // check if this Time
-												                           // object contains the
-											                               // dummy value
+		} else if (this.getFullTime() == "" && time.getFullTime() == "") { // check if this Time object contains the dummy value
 			return 0;
-		} else if (this.getFullTime() == "" && time.getFullTime() != "") { // check if the Time
-												                           // object compared to
-												                           // contains the dummy
-												                           // value
+		} else if (this.getFullTime() == "" && time.getFullTime() != "") { // check if the Time object compared to contains the dummy value
 			return -1;
 		} else if (this.getFullTime() != "" && time.getFullTime() == "") {
 			return 1;
