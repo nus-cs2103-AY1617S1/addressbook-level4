@@ -433,7 +433,7 @@ public class Parser {
 			if (!index.isPresent()) {
 				return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
 			}
-
+			
 			String[] newArgs = seperateIndex[1].split(" ");
 
 			String[] parameters = getNewArgs(newArgs);
@@ -443,6 +443,7 @@ public class Parser {
 			startTime = (parameters[3].length() == 0) ? null : parameters[3].substring(2);
 			endTime = (parameters[4].length() == 0) ? null : parameters[4].substring(2);
 
+            EditCommand.reset();
 			return new EditCommand(index.get(), name, taskDescription, date, startTime, endTime);
 
 		} catch (IllegalValueException ive) {

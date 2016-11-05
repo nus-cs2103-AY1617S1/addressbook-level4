@@ -111,10 +111,9 @@ public class UniqueTaskList implements Iterable<Task> {
     	updatedTask.setTags(oldTask.getTags());
     	internalList.set(taskIndex, updatedTask);
     	FXCollections.sort(internalList);
-    	EditCommand.reset();
-	
+    	
     	return true;
-      
+     
     }
     
 
