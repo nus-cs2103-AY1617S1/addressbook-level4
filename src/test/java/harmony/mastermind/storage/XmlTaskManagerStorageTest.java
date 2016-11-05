@@ -163,12 +163,15 @@ public class XmlTaskManagerStorageTest {
         
         xmlTaskManagerStorage.migrateIntoNewFolder(filePath, newFilePath);
         File toDelete = new File(filePath);
+        
+        //Checks if old file has been deleted
         assertFalse(toDelete.delete());
         
         //Checks if file has been copied over to new location
         File newFile = new File(newFilePath);
         assertEquals(true, newFile.exists());
         
+        //reset test folder
         clearTestFolder(xmlTaskManagerStorage, newFilePath);
     }
     
