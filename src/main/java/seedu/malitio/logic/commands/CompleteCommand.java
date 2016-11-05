@@ -27,9 +27,9 @@ public class CompleteCommand extends Command {
 			+ ": complete the task or deadline identified by the index number used in the last task listing.\n"
 			+ "Parameters: INDEX (must be either 'f'/'d' and a positive integer) " + "Example: " + COMMAND_WORD + " f1";
 
-	public static final String MESSAGE_COMPLETED_TASK = "The floating task is completed in Malitio";
+	public static final String MESSAGE_COMPLETED_TASK = "The floating task is already completed in Malitio";
 
-	public static final String MESSAGE_COMPLETED_DEADLINE = "The deadline is completed in Malitio";
+	public static final String MESSAGE_COMPLETED_DEADLINE = "The deadline is already completed in Malitio";
 
 	public static final String MESSAGE_COMPLETED_TASK_SUCCESS = "Successfully completed floating task.";
 

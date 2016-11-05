@@ -65,13 +65,18 @@ public class MainApp extends Application {
 
         initEventsCenter();
     }
-
+    
+    //@@author A0122460W
+    /**
+     * update to show relevant deadline and events past current time and date
+     */
 	private void updateModel() {
 		model.updateFilteredDeadlineListToShowAll();
         model.updateFilteredEventListToShowAll();
         model.updateFilteredTaskListToShowAll();
 	}
-
+	
+	//@@author
     private String getApplicationParameter(String parameterName){
         Map<String, String> applicationParameters = getParameters().getNamed();
         return applicationParameters.get(parameterName);
