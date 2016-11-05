@@ -61,7 +61,10 @@ public class CommandBox extends UiPart {
         commandTextField.textProperty().addListener((observable, oldValue, newValue) -> {
             tooltip.createToolTip(newValue);
             resultDisplay.postMessage(tooltip.getMessage(), tooltip.getDecription());
-            setStyleToIndicateCorrectCommand();
+            
+            if (tooltip.isUserInputValid()) {
+                setStyleToIndicateCorrectCommand();
+            }
         });
     }
     
