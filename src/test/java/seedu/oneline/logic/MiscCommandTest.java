@@ -68,8 +68,10 @@ public class MiscCommandTest extends LogicTestManager {
         TaskBook expectedAB = helper.generateTaskBook(threeTasks);
         helper.addToModel(model, threeTasks);
 
+        String expectedMessage = expectedAB.getTaskList().get(1).toString();
+        
         assertCommandBehavior("select 2",
-                String.format(SelectCommand.MESSAGE_SELECT_TASK_SUCCESS, 2),
+                String.format(SelectCommand.MESSAGE_SELECT_TASK_SUCCESS, expectedMessage),
                 expectedAB,
                 expectedAB.getTaskList());
         assertEquals(1, targetedJumpIndex);
