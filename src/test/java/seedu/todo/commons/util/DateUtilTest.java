@@ -2,6 +2,7 @@ package seedu.todo.commons.util;
 
 import java.time.Instant;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.time.format.TextStyle;
@@ -108,6 +109,17 @@ public class DateUtilTest {
 	@Test
 	public void parseShortDateTests() {
 	    // TODO
+	}
+	
+	@Test
+	public void parseTimeTests() {
+	    assertEquals(DateUtil.parseTime("00:00"), LocalTime.of(0, 0));
+	    assertEquals(DateUtil.parseTime("00:01"), LocalTime.of(0, 1));
+	    assertEquals(DateUtil.parseTime("01:23"), LocalTime.of(1, 23));
+	    assertEquals(DateUtil.parseTime("12:00"), LocalTime.of(12, 0));
+	    assertEquals(DateUtil.parseTime("13:00"), LocalTime.of(13, 0));
+	    assertEquals(DateUtil.parseTime("23:59"), LocalTime.of(23, 59));
+	    assertEquals(DateUtil.parseTime("24:00"), LocalTime.of(0, 0));
 	}
 	
 	@Test
