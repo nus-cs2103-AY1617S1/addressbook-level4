@@ -20,7 +20,7 @@ public class ChangeCommand extends Command {
     public static final String MESSAGE_INVALID_FILE_PATH = "The file path provided is invalid."
             + " It must end with the file type extension, .xml";
     public static final String MESSAGE_INVALID_CLEAR_DATA = "The clear data argument provided is invalid."
-            + " It must be abscent or \"clear\".";
+            + " It must be absent or \"clear\".";
 
     private static final String CLEAR = "clear";
     private static final String EMPTY = "";

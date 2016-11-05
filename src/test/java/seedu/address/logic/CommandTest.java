@@ -185,26 +185,9 @@ public class CommandTest {
 
 
     @Test
-    public void execute_list_showsAllTasks() throws Exception {
-        // prepare expectations
-        TestDataHelper helper = new TestDataHelper();
-        TaskManager expectedAB = helper.generateTaskManager(2);
-        List<? extends ReadOnlyTask> expectedList = expectedAB.getTaskList();
-
-        // prepare address book state
-        helper.addToModel(model, 2);
-
-        assertCommandBehavior("list",
-                ListCommand.MESSAGE_SUCCESS,
-                expectedAB,
-                expectedList);
-    }
-
-
-    @Test
     public void execute_selectInvalidArgsFormat_errorMessageShown() throws Exception {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, SelectCommand.MESSAGE_USAGE);
-       // assertIncorrectIndexFormatBehaviorForCommand("select", expectedMessage);
+        assertAbsenceKeywordFormatBehaviorForCommand("select", expectedMessage);
     }
 
     @Test

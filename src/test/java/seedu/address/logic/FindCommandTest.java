@@ -11,7 +11,7 @@ import seedu.address.logic.commands.FindCommand;
 import seedu.address.model.TaskManager;
 import seedu.address.model.task.Task;
 
-/*
+/**
  * Responsible for testing the correct execution of FindCommand
  */
 public class FindCommandTest extends CommandTest {

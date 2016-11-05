@@ -12,7 +12,6 @@ import seedu.address.model.tag.Tag;
 import seedu.address.model.task.EventDate;
 import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.Task;
-import seedu.address.model.task.UniqueTaskList;
 import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
 import seedu.address.commons.events.model.TaskManagerChangedEvent;
 import seedu.address.commons.events.ui.FilterPanelChangedEvent;

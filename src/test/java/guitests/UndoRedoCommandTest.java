@@ -78,7 +78,6 @@ public class UndoRedoCommandTest extends TaskManagerGuiTest {
         Date newDate = new Deadline("05.11.2016");
         currentList[3].setDate(newDate);
         commandBox.runCommand("edit Read book d/05.11.2016");
-        commandBox.runCommand("edit Read book d/05.11.2016 i/1");
         assertUndoRedoSuccess(currentList);
     }
 
