@@ -41,7 +41,7 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
 	public Task(Name name, TaskDescription taskD, Date date, Time startTime, Time endTime, Boolean done,
 			Boolean overdue, UniqueTagList tags) throws IllegalValueException {
 		assert !CollectionUtil.isAnyNull(name, taskD, date, startTime, endTime, tags);
-		if (startTime.compareTo(endTime) > 0) {
+		if (startTime.getFullTime() != "" && endTime.getFullTime() != "" && startTime.compareTo(endTime) > 0) {
 			throw new IllegalValueException(Messages.MESSAGE_STARTTIME_AFTER_ENDTIME);
 		}
 		this.name = name;
@@ -57,7 +57,7 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
 	public Task(Name name, TaskDescription taskD, Date date, Time startTime, Time endTime, Boolean done,
 			UniqueTagList tags) throws IllegalValueException {
 		assert !CollectionUtil.isAnyNull(name, taskD, date, startTime, endTime, tags);
-		if (startTime.compareTo(endTime) > 0) {
+		if (startTime.getFullTime() != "" && endTime.getFullTime() != "" && startTime.compareTo(endTime) > 0) {
 			throw new IllegalValueException(Messages.MESSAGE_STARTTIME_AFTER_ENDTIME);
 		}
 		this.name = name;
@@ -79,7 +79,7 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
 	public Task(Name name, TaskDescription taskD, Date date, Time startTime, Time endTime, UniqueTagList tags)
 			throws IllegalValueException {
 		assert !CollectionUtil.isAnyNull(name, taskD, date, startTime, endTime, tags);
-		if (startTime.compareTo(endTime) > 0) {
+		if (startTime.getFullTime() != "" && endTime.getFullTime() != "" && startTime.compareTo(endTime) > 0) {
 			throw new IllegalValueException(Messages.MESSAGE_STARTTIME_AFTER_ENDTIME);
 		}
 		this.name = name;
@@ -94,7 +94,7 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
 	// adds event without description
 	public Task(Name name, Date date, Time startTime, Time endTime, UniqueTagList tags) throws IllegalValueException {
 		assert !CollectionUtil.isAnyNull(name, date, startTime, endTime, tags);
-		if (startTime.compareTo(endTime) > 0) {
+		if (startTime.getFullTime() != "" && endTime.getFullTime() != "" && startTime.compareTo(endTime) > 0) {
 			throw new IllegalValueException(Messages.MESSAGE_STARTTIME_AFTER_ENDTIME);
 		}
 		this.name = name;
