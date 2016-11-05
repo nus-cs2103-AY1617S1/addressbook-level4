@@ -76,6 +76,13 @@ public class UndoRedoCommandTest extends GuiTest {
     }
     
     @Test
+    public void undo_multiple_notavailable() {
+        console.runCommand("clear");
+        console.runCommand("undo 2");
+        assertEquals(console.getConsoleTextArea(), "We cannot undo 2 commands! At most, you can undo 1 command.");
+    }
+    
+    @Test
     public void redo_single() {
         console.runCommand("clear");
         assertTaskVisibleAfterCmd(commandAdd1, task1);
@@ -99,5 +106,13 @@ public class UndoRedoCommandTest extends GuiTest {
         console.runCommand("clear");
         console.runCommand("redo");
         assertEquals(console.getConsoleTextArea(), "There is no command to redo!");
+    }
+    
+    @Test
+    public void redo_multiple_notavailable() {
+        console.runCommand("clear");
+        console.runCommand("undo");
+        console.runCommand("redo 2");
+        assertEquals(console.getConsoleTextArea(), "We cannot redo 2 commands! At most, you can redo 1 command.");
     }
 }
