@@ -249,7 +249,8 @@ We have two types of tests:
 
 
 
-Headless GUI Testing : Thanks to the [TestFX](https://github.com/TestFX/TestFX) library we use, our GUI tests can be run in the _headless_ mode. In the headless mode, GUI tests do not show up on the screen. That means the developer can do other things on the Computer while the tests are running.
+##Headless GUI Testing : 
+Thanks to the [TestFX](https://github.com/TestFX/TestFX) library we use, our GUI tests can be run in the _headless_ mode. In the headless mode, GUI tests do not show up on the screen. That means the developer can do other things on the Computer while the tests are running.
 
 See [UsingGradle.md](https://github.com/nus-cs2103-AY1617S1/addressbook-level4/blob/master/docs/UsingGradle.md#running-tests) to learn how to run tests in headless mode.
 
@@ -318,18 +319,18 @@ Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (un
 | `* * *` | new user | list all the commands | know how to use the program |
 |`* * *` | new user | view a command | know how to use that particular command |
 |`* * *` | user | add a task | keep track of all my tasks/to-dos |
-|`* * *` | user | add a task with a time and date | keep track of deadlines |
+|`* * *` | user | add a deadline task | keep track of deadlines |
 |`* * *` | user | add a floating task | remind myself on less important tasks |
-|`* * *` | user | add a recurring task | be constantly reminded/won't accidentally delete this task |
+|`* * *` | user | add a deadline task without the time | so that I can keep track of my less urgent deadlines|
 |`* * *` | user | add a task with tags | properly categorize my tasks |
 |`* * *` | user | delete a task | remove a completed task from the list |
 |`* * *` | user | delete all tasks | declutter my task manager |
-|`* * *` | user | delete all tasks with a certain tag | declutter my task manager |
+|`* * *` | user | delete all tasks with a certain name or tag | declutter my task manager |
 |`* * *` | user | find a task by name/description | see what needs to be done |
 |`* * *` | user | find a task by tags | find a task that may be related to another task |
 |`* * *` | user | list all tasks | know what are the tasks I have entered |
 |`* * *` | user | list all tasks due by today | know what are the tasks I need to complete by today |
-|`* * *` | user | list all tasks with a deadline | know what are the tasks I can plan my schedule |
+|`* * *` | user | list all tasks that are undone | know which task to attend to first |
 |`* * *` | user | list all tags | know what tags I can search for |
 |`* * *` | user | edit any information of the task | make changes to the tasks that I have created |
 |`* *` | user | undo previous command | remove any task that is entered wrongly |
