@@ -20,15 +20,6 @@ public class HistoryManager {
         previousCommandList = new ArrayList<String>();
     }
 
-    public void setUndoList(ArrayList<RollBackCommand> undoList) {
-        this.undoList = undoList;
-    }
-
-
-    public void setPreviousCommand(ArrayList<String> previousCommand) {
-        this.previousCommandList = previousCommand;
-    }
-
     public ArrayList<RollBackCommand> getUndoList() {
         return undoList;
     }
