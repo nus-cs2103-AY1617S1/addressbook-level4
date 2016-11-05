@@ -78,6 +78,10 @@ public class TaskList implements ReadOnlyTaskList {
 		UniqueTaskList backup = backupStack.pop();
 		tasks.setAll(backup);
 	}
+	
+	public void sortData() {
+		tasks.sort();
+	}
 	// @@author
 
 	//// task-level operations

@@ -4,6 +4,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.Tdoo.commons.exceptions.DuplicateDataException;
 import seedu.Tdoo.commons.util.CollectionUtil;
+import seedu.Tdoo.model.task.*;
 
 import java.util.*;
 
@@ -35,7 +36,7 @@ public class UniqueTaskList implements Iterable<Task> {
 	public static class TaskNotFoundException extends Exception {
 	}
 
-	private final ObservableList<Task> internalList = FXCollections.observableArrayList();
+	private ObservableList<Task> internalList = FXCollections.observableArrayList();
 
 	/**
 	 * Constructs empty taskList.
@@ -144,6 +145,21 @@ public class UniqueTaskList implements Iterable<Task> {
 	 */
 	public void setAll(UniqueTaskList taskList) {
 		internalList.setAll(taskList.getInternalList());
+	}
+	
+	/**
+	 * Sort all task in the internalList.
+	 */
+	public void sort() {
+		if(internalList.get(0) instanceof Todo) {
+			FXCollections.sort(internalList, new TodoComparator());
+		}
+		else if(internalList.get(0) instanceof Event) {
+			FXCollections.sort(internalList, new EventComparator());
+		}
+		else if(internalList.get(0) instanceof Deadline) {
+			FXCollections.sort(internalList, new DeadlineComparator());
+		}
 	}
 	// @@author
 

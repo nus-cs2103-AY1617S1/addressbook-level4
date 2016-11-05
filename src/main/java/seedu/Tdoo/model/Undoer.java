@@ -46,7 +46,6 @@ public class Undoer {
 	 */
 	//@@author A0139923X
 	public void prepareUndoEdit(ReadOnlyTask original, String dataType, ReadOnlyTask toEdit , int targetIndex , String type) {
-	    System.out.println("index undo = " + targetIndex);
 	    if(!type.equals("")){
 	        undoStack.push(new UndoEditCommand(type, original, toEdit, targetIndex));
 	        undoEdit = true;

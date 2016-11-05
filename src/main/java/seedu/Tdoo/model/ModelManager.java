@@ -237,12 +237,15 @@ public class ModelManager extends ComponentManager implements Model {
 			if (dataType.equals("todo")) {
 				todoList.addTaskWithIndex(task , targetIndex);
 				todoList.removeTask(target);
+				todoList.sortData();
 			} else if (dataType.equals("event")) {
 				todoList.addTask(task);
+				todoList.sortData();
                 type = "todo";
 				eventList.removeTask(target);
 			} else if (dataType.equals("deadline")) {
 				todoList.addTask(task);
+				todoList.sortData();
                 type = "todo";
 				deadlineList.removeTask(target);
 			}
@@ -251,13 +254,16 @@ public class ModelManager extends ComponentManager implements Model {
 		} else if (task instanceof Event) {
 			if (dataType.equals("todo")) {
 				eventList.addTask(task);
+				eventList.sortData();
                 type = "event";
 				todoList.removeTask(target);
 			} else if (dataType.equals("event")) {
 				eventList.addTaskWithIndex(task , targetIndex);
+				eventList.sortData();
 				eventList.removeTask(target);
 			} else if (dataType.equals("deadline")) {
 				eventList.addTask(task);
+				eventList.sortData();
                 type = "event";
 				deadlineList.removeTask(target);
 			}
@@ -266,14 +272,17 @@ public class ModelManager extends ComponentManager implements Model {
 		} else if (task instanceof Deadline) {
 			if (dataType.equals("todo")) {
 				deadlineList.addTask(task);
+				deadlineList.sortData();
 	            type = "deadline";
 				todoList.removeTask(target);
 			} else if (dataType.equals("event")) {
 				deadlineList.addTask(task);
+				deadlineList.sortData();
 	            type = "deadline";
 				eventList.removeTask(target);
 			} else if (dataType.equals("deadline")) {
 				deadlineList.addTaskWithIndex(task , targetIndex);
+				deadlineList.sortData();
 		        deadlineList.removeTask(target);
 			}
 			updateFilteredDeadlineListToShowAll();
@@ -342,16 +351,19 @@ public class ModelManager extends ComponentManager implements Model {
 	public synchronized void addTask(Task task) throws IllegalValueException, UniqueTaskList.DuplicatetaskException {
 		if (task instanceof Todo) {
 			todoList.addTask(task);
+			todoList.sortData();
 			updateFilteredTodoListToShowAll();
 			indicateTodoListChanged();
 			undoer.prepareUndoAdd(task, "todo");
 		} else if (task instanceof Event) {
 			eventList.addTask(task);
+			eventList.sortData();
 			updateFilteredEventListToShowAll();
 			indicateEventListChanged();
 			undoer.prepareUndoAdd(task, "event");
 		} else if (task instanceof Deadline) {
 			deadlineList.addTask(task);
+			deadlineList.sortData();
 			updateFilteredDeadlineListToShowAll();
 			indicateDeadlineListChanged();
 			undoer.prepareUndoAdd(task, "deadline");

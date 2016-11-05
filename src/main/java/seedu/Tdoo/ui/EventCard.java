@@ -47,8 +47,8 @@ public class EventCard extends UiPart {
 	public void initialize() throws ParseException {
 		name.setText(task.getName().name);
 		id.setText(displayedIndex + ". ");
-		startTime.setText("Start Time: " + task.getStartDate().date + " @" + task.getStartTime().startTime);
-		endTime.setText("End Time: " + task.getEndDate().endDate + " @" + task.getEndTime().endTime);
+		startTime.setText("Start Time: " + task.getStartDate().date + " " + task.getStartTime().startTime);
+		endTime.setText("End Time: " + task.getEndDate().endDate + " " + task.getEndTime().endTime);
 		countdown.setText(task.getCountdown());
 		if (task.checkEndDateTime() && this.task.getDone().equals("true")) {
 			done.setText("Completed");

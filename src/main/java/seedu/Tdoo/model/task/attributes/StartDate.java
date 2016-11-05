@@ -148,6 +148,10 @@ public class StartDate {
 			return false;
 		}
 	}
+	
+	public String getSaveDate() {
+		return this.saveDate;
+	}
 
 	@Override
 	public String toString() {

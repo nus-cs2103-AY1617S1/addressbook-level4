@@ -50,7 +50,7 @@ public class DeadlineCard extends UiPart {
 	public void initialize() throws ParseException {
 		name.setText(task.getName().name);
 		id.setText(displayedIndex + ". ");
-		endTime.setText("End Time: " + task.getStartDate().date + " @" + task.getEndTime().endTime);
+		endTime.setText("End Time: " + task.getStartDate().date + " " + task.getEndTime().endTime);
         countdown.setText(task.getCountdown());
 		if (task.checkEndDateTime() && this.task.getDone().equals("true")) {
 			done.setText("Completed");

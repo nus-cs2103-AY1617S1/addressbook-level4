@@ -3,6 +3,7 @@ package seedu.Tdoo.model.task;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Comparator;
 import java.util.Date;
 
 import seedu.Tdoo.commons.util.CollectionUtil;
@@ -17,7 +18,7 @@ import seedu.Tdoo.model.task.attributes.StartTime;
  * Represents a task in the TodoList. Guarantees: details are present and not
  * null, field values are validated.
  */
-public class Event extends Task implements ReadOnlyTask {
+public class Event extends Task implements ReadOnlyTask, Comparable<Event> {
 
 	private StartDate startDate;
 	private EndDate endDate;
@@ -279,4 +280,35 @@ public class Event extends Task implements ReadOnlyTask {
         String result = count.convertDateToMilli(this.endDate.toString(), this.endTime.toString());
         return result;
     }
+    
+    //@@author A0144061U
+  	@Override
+  	public int compareTo(Event other) {
+  		String thisDate = this.startDate.getSaveDate();
+  		Integer thisDay = Integer.parseInt(thisDate.substring(0, 2));
+  		Integer thisMonth = Integer.parseInt(thisDate.substring(3, 5));
+  		Integer thisYear = Integer.parseInt(thisDate.substring(6, 10));
+  		String otherDate = other.getStartDate().getSaveDate();
+  		Integer otherDay = Integer.parseInt(otherDate.substring(0, 2));
+  		Integer otherMonth = Integer.parseInt(otherDate.substring(3, 5));
+  		Integer otherYear = Integer.parseInt(otherDate.substring(6, 10));
+  		if(thisMonth.equals(otherMonth) && thisYear.equals(otherYear)) {
+  			return thisDay.compareTo(otherDay);
+  		}
+  		else if(thisYear.equals(otherYear)) {
+  			return thisMonth.compareTo(otherMonth);
+  		}
+  		else {
+  			return thisYear.compareTo(otherYear);
+  		}
+  	}
+}
+
+class EventComparator implements Comparator<Task> {
+	@Override
+	public int compare(Task first, Task second) {
+		Event f = (Event) first;
+		Event s = (Event) second;
+		return f.compareTo(s);
+	}
 }
