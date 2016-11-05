@@ -1,8 +1,8 @@
-//@@author A0139024M
+<!--@@author A0139024M-->
 # User Guide
 
 1. [Introduction](#1-introduction)
-2. [Quick Start](#2-quick-start)
+2. [Getting Started](#2-getting-started)
 3. [Features](#3-features)
 4. [FAQ](#4-faq)
 5. [Command Summary](#5-command-summary)
@@ -18,16 +18,27 @@ Love typing? You will love sTask, as you only need to use the keyboard to type s
 
 #### 
 
-## 2. Quick Start
+## 2. Getting Started
 
-&nbsp;&nbsp;&nbsp;&nbsp; <b>2.1</b> Ensure you have Java version `1.8.0_60` or later installed in your Computer.<br>
+### 2.1 Setting Up
+
+&nbsp;&nbsp;&nbsp;&nbsp; <b>2.1.1</b> Please ensure that you have Java version `1.8.0_60` or later installed in your Computer.<br>
  > Having any Java 8 version is not enough. <br>
    This app will not work with earlier versions of Java 8.
    
-&nbsp;&nbsp;&nbsp;&nbsp; <b>2.2</b> Download the latest `sTask.jar` from the 'releases' tab. <br>
-&nbsp;&nbsp;&nbsp;&nbsp; <b>2.3</b> Copy the file to the folder you want to use as the home folder for sTask. <br>
-&nbsp;&nbsp;&nbsp;&nbsp; <b>2.4</b> Double-click the file to start the app. The GUI should appear in a few seconds. <br>
-   <img src="images/Ui.png" width="600"> <br>
+&nbsp;&nbsp;&nbsp;&nbsp; <b>2.1.2</b> You can download the latest `sTask.jar` from our 'releases' tab. <br>
+&nbsp;&nbsp;&nbsp;&nbsp; <b>2.1.3</b> You can then copy the file to the folder you want to use as the home folder for sTask. <br>
+&nbsp;&nbsp;&nbsp;&nbsp; <b>2.1.4</b> You can double-click the file to start the app. The GUI should appear in a few seconds. <br>
+
+### 2.2 The User Interface
+<br>
+       <img src="images/Ui.png" width="600"> <br>
+
+&nbsp;&nbsp;&nbsp;&nbsp;<b>2.2.1</b> You can type your commands in the Smart Command Input Bar. <br>
+&nbsp;&nbsp;&nbsp;&nbsp;<b>2.2.2</b> This is place where sTask gives you feedback and interacts with you. <br>
+&nbsp;&nbsp;&nbsp;&nbsp;<b>2.2.3</b> This is the To Do Task Panel where all your tasks without date and time are displayed in alphabetical order. <br>
+&nbsp;&nbsp;&nbsp;&nbsp;<b>2.2.4</b> This is the Dated Task Panel where all your events and deadlines are displayed in chronological order. <br>
+
 &nbsp;&nbsp;&nbsp;&nbsp; <b>2.5</b> Type the command in the command box and press <kbd>Enter</kbd> to execute it. <br>
 >   e.g. typing **`help`** and pressing <kbd>Enter</kbd> will open the help window.
 
