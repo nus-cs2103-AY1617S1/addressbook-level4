@@ -65,7 +65,7 @@ public class FavoriteCommand extends Command {
             return new CommandResult(MESSAGE_ALREADY_FAVORITED);
         }
 
-        if (isUndo == false) {
+        if (!isUndo) {
             getUndoList().add(new RollBackCommand(COMMAND_WORD, taskToFavorite, null));
         }
         // @@author A0147944U

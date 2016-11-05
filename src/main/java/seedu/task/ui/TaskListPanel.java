@@ -192,7 +192,7 @@ public class TaskListPanel extends UiPart {
                         setStyle("-");
                     } else {
                         // Format date.
-                        setText(item.toString());
+                        setText(item);
                         setStyle("");
 
                     }

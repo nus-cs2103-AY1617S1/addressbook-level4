@@ -67,7 +67,7 @@ public class DoneCommand extends Command {
         }
         // @@author A0147335E
 
-        if (isUndo == false) {
+        if (!isUndo) {
             history.getUndoList().add(new RollBackCommand(COMMAND_WORD, newTask, null));
         }
         // @@author A0147944U

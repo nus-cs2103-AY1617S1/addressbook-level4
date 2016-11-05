@@ -62,7 +62,7 @@ public class UnfavoriteCommand extends Command {
         if (oldStatus == newTask.getStatus().getFavoriteStatus()) {
             return new CommandResult(MESSAGE_ALREADY_UNFAVORITED);
         }
-        if (isUndo == false) {
+        if (!isUndo ) {
             getUndoList().add(new RollBackCommand(COMMAND_WORD, newTask, null));
         }
         // @@author A0147944U

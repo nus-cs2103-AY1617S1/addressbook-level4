@@ -534,7 +534,7 @@ public class CommandParser {
         // Validate arg string format
         if (!matcher.matches()) {
             String directory = FilePickerUtil.openXMLFile();
-            if (directory == null || directory == "") {
+            if (directory.equals(null) || directory.equals("")) {
               return new IncorrectCommand("Aborted directory command");
             }
             return new DirectoryCommand(directory);
@@ -568,7 +568,7 @@ public class CommandParser {
      * @return the prepared command
      */
     private Command prepareSort(String args) {
-        if (args.equals("")) {
+        if ("".equals(args)) {
             return new SortCommand("default");
         } else {
             final Matcher matcher = KEYWORDS_ARGS_FORMAT.matcher(args.trim());

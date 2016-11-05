@@ -247,7 +247,7 @@ public class TaskManager implements ReadOnlyTaskManager {
                     timeResult = one.getDeadline().compareTo(other.getStartTime());
                 } else if (!one.getStartTime().toString().equals("") && !other.getDeadline().toString().equals("")) {
                     timeResult = one.getStartTime().compareTo(other.getDeadline());
-                } else if (!(deadlineResult == 0)) {
+                } else if (deadlineResult != 0) {
                     timeResult = deadlineResult;
                 } else {
                     timeResult = startTimeResult;

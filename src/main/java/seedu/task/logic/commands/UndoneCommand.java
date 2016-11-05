@@ -60,7 +60,7 @@ public class UndoneCommand extends Command {
         if (isEqual(previousDoneStatus, taskToUndone.getStatus().getDoneStatus())) {
             return new CommandResult(MESSAGE_ALREADY_UNDONE);
         }
-        if (isUndo == false) {
+        if (!isUndo) {
             getUndoList().add(new RollBackCommand(COMMAND_WORD, taskToUndone, null));
         }
         // @@author A0147944U

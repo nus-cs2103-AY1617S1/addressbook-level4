@@ -212,17 +212,13 @@ public class UndoCommand extends Command {
 
     private void prepareUndoClear() {
         int undoIndex = lastIndexOfUndoList();
-
         while (isLastIndexClearCommand(undoIndex)) {
             HashSet<String> getTags = getTags(undoIndex);
-
             try {
                 Command command = addCommand(undoIndex, getTags);
                 setData(command);
                 command.execute(FIRST_INDEX_OF_LIST);
-
             } catch (IllegalValueException e) {
-
             }
             removePreviousCommand(undoIndex);
             undoIndex = decrement(undoIndex);
@@ -233,7 +229,6 @@ public class UndoCommand extends Command {
                 break;
             }
         }
-
     }
 
     private int lastIndexOfUndoList() {
@@ -249,9 +244,7 @@ public class UndoCommand extends Command {
         int index = Integer.parseInt(commandParts[COMMAND_INDEX]);
         String toEditItem = commandParts[COMMAND_FIELD].replace(",", EMPTY_STRING);
         String toEdit = EMPTY_STRING;
-
         HashSet<String> tagStringSet = null;
-
         int undoIndex = lastIndexOfUndoList();
 
         switch (toEditItem) {
@@ -273,7 +266,6 @@ public class UndoCommand extends Command {
             tagStringSet = new HashSet<>(tagSet.size());
             break;
         }
-
         try {
             Command command = new EditCommand(index, toEditItem, toEdit, tagStringSet);
             setData(command);
@@ -285,13 +277,11 @@ public class UndoCommand extends Command {
     }
 
     private void prepareUndoAdd() {
-
         UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
         Command command = new DeleteCommand(lastShownList.size());
         setData(command);
         executeCommand(command);
         removePreviousCommand();
-
     }
 
     private void prepareUndoDelete(String[] previousCommandDetails) {
@@ -323,11 +313,9 @@ public class UndoCommand extends Command {
         getUndoList().remove(getUndoList().size() - 1);
     }
 
-    
-
     private int decrement(int index) {
-        index--;
-        return index;
+        int newIndex = index--;
+        return newIndex;
     }
 
     private void removePreviousCommand(int index) {

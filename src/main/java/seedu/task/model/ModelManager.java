@@ -161,15 +161,15 @@ public class ModelManager extends ComponentManager implements Model {
             String newEndTime = recurringTask.getEndTime().toString();
             String newDeadline = recurringTask.getDeadline().toString();
 
-            if (!newStartTime.equals("")) {
+            if (!"".equals(newStartTime)) {
                 newStartTime = addPeriodicTimeToTask(recurringTask.getStartTime().toString(),
                         recurringTask.getRecurring().toString());
             }
-            if (!newEndTime.equals("")) {
+            if (!"".equals(newEndTime)) {
                 newEndTime = addPeriodicTimeToTask(recurringTask.getEndTime().toString(),
                         recurringTask.getRecurring().toString());
             }
-            if (!newDeadline.equals("")) {
+            if (!"".equals(newDeadline)) {
                 newDeadline = addPeriodicTimeToTask(recurringTask.getDeadline().toString(),
                         recurringTask.getRecurring().toString());
             }
@@ -190,15 +190,15 @@ public class ModelManager extends ComponentManager implements Model {
 
     private String addPeriodicTimeToTask(String originalTime, String interval) {
         String newTime = "one week after " + originalTime;
-        if (interval.equals("daily")) {
+        if ("daily".equals(interval)) {
             newTime = "one day after " + originalTime;
-        } else if (interval.equals("weekly")) {
+        } else if ("weekly".equals(interval)) {
             newTime = "one week after " + originalTime;
-        } else if (interval.equals("fortnightly")) {
+        } else if ("fortnightly".equals(interval)) {
             newTime = "two weeks after " + originalTime;
-        } else if (interval.equals("monthly")) {
+        } else if ("monthly".equals(interval)) {
             newTime = "one month after " + originalTime;
-        } else if (interval.equals("yearly")) {
+        } else if ("yearly".equals(interval)) {
             newTime = "one year after " + originalTime;
         }
         TimeParser parserTime = new TimeParser();
@@ -243,15 +243,15 @@ public class ModelManager extends ComponentManager implements Model {
      *            keyword to sort tasks by
      */
     public void sortFilteredTaskList(String keyword) {
-        if (keyword.equals("Deadline")) {
+        if ("Deadline".equals(keyword)) {
             taskManager.sortByDeadline();
-        } else if (keyword.equals("Start Time")) {
+        } else if ("Start Time".equals(keyword)) {
             taskManager.sortByStartTime();
-        } else if (keyword.equals("End Time")) {
+        } else if ("End Time".equals(keyword)) {
             taskManager.sortByEndTime();
-        } else if (keyword.equals("Completed")) {
+        } else if ("Completed".equals(keyword)) {
             taskManager.sortByDoneStatus();
-        } else if (keyword.equals("Name")) {
+        } else if ("Name".equals(keyword)) {
             taskManager.sortByName();
         } else {
             taskManager.sortByDefaultRules();
@@ -296,7 +296,7 @@ public class ModelManager extends ComponentManager implements Model {
             logger.warning("Error reading from config file " + "config.json" + " : " + e);
         }
         String CurrentSortPreference = config.getsortPreference();
-        if (!CurrentSortPreference.equals("None")) {
+        if (!"None".equals(CurrentSortPreference)) {
             sortFilteredTaskList(CurrentSortPreference);
         }
     }

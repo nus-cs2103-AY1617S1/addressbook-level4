@@ -148,7 +148,7 @@ public class EditCommand extends Command {
             assert false : "The target task cannot be missing";
         }
         
-        if (isUndo == false) {
+        if (!isUndo) {
             getUndoList().add(new RollBackCommand(COMMAND_WORD, toAdd, (Task) currentTask));
         }
         // @@author A0147944U

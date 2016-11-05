@@ -37,17 +37,17 @@ public class SortCommand extends Command {
      *            keyword given by user to sort tasks by
      */
     public SortCommand(String keyword) {
-        if (keyword.equals("d") || keyword.equals("deadline") || keyword.equals("dead")) { // deadline
+        if ("d".equals(keyword) || "deadline".equals(keyword) || "dead".equals(keyword)) { // deadline
             this.keyword = "Deadline";
-        } else if (keyword.equals("s") || keyword.equals("starttime") || keyword.equals("start")) { // start time
+        } else if ("s".equals(keyword) || "starttime".equals(keyword) || "start".equals(keyword)) { // start time
             this.keyword = "Start Time";
-        } else if (keyword.equals("e") || keyword.equals("endtime") || keyword.equals("end")) { // end time
+        } else if ("e".equals(keyword) || "endtime".equals(keyword) || "end".equals(keyword)) { // end time
             this.keyword = "End Time";
-        } else if (keyword.equals("c") || keyword.equals("completed") || keyword.equals("done")) { // done status
+        } else if ("c".equals(keyword) || "completed".equals(keyword) || "done".equals(keyword)) { // done status
             this.keyword = "Completed";
-        } else if (keyword.equals("n") || keyword.equals("name")) { // name
+        } else if ("n".equals(keyword) || "name".equals(keyword)) { // name
             this.keyword = "Name";
-        } else if (keyword.equals("default") || keyword.equals("")) { // default sorting
+        } else if ("default".equals(keyword) || "".equals(keyword)) { // default sorting
             this.keyword = "Default";
         } else {
             this.keyword = keyword;
@@ -65,7 +65,7 @@ public class SortCommand extends Command {
         }
         model.sortFilteredTaskList(keyword);
         model.saveCurrentSortPreference(keyword);
-        if (keyword.equals("Default")) {
+        if ("Default".equals(keyword)) {
             return new CommandResult(String.format(MESSAGE_SUCCESS_DEFAULT));
         }
         return new CommandResult(String.format(MESSAGE_SUCCESS, keyword));
