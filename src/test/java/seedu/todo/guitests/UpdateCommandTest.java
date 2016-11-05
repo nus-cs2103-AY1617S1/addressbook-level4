@@ -170,5 +170,37 @@ public class UpdateCommandTest extends GuiTest {
         assertEquals("update 1 [name \"<name>\"] [by \"invaliddate\"]", console.getConsoleInputText());
         assertSameDisambiguationMessage(UpdateController.MESSAGE_CANNOT_PARSE_DATE, console);
     }
+    
+    @Test
+    public void updateEvent_missingParamValue_disambiguate() {
+        console.runCommand(String.format("add event Presentation from %s 2pm to %s 9pm", twoDaysFromNowIsoString, twoDaysFromNowIsoString));
+        console.runCommand("update 1 name");
+        assertEquals("update 1 [name \"<name>\"] [from \"<start time>\" to \"<end time>\"]", console.getConsoleInputText());
+        assertSameDisambiguationMessage(null, console);
+    }
+    
+    @Test
+    public void updateEvent_missingParamValueDate_disambiguate() {
+        console.runCommand(String.format("add event Presentation from %s 2pm to %s 9pm", twoDaysFromNowIsoString, twoDaysFromNowIsoString));
+        console.runCommand("update 1 name");
+        assertEquals("update 1 [name \"<name>\"] [from \"<start time>\" to \"<end time>\"]", console.getConsoleInputText());
+        assertSameDisambiguationMessage(null, console);
+    }
+    
+    @Test
+    public void updateEvent_invalidStartDate_disambiguate() {
+        console.runCommand(String.format("add event Presentation from %s 2pm to %s 9pm", twoDaysFromNowIsoString, twoDaysFromNowIsoString));
+        console.runCommand("update 1 from invaliddate to today 2pm");
+        assertEquals("update 1 [name \"<name>\"] [from \"invaliddate\" to \"today 2pm\"]", console.getConsoleInputText());
+        assertSameDisambiguationMessage(UpdateController.MESSAGE_CANNOT_PARSE_DATE, console);
+    }
+    
+    @Test
+    public void updateEvent_invalidEndDate_disambiguate() {
+        console.runCommand(String.format("add event Presentation from %s 2pm to %s 9pm", twoDaysFromNowIsoString, twoDaysFromNowIsoString));
+        console.runCommand("update 1 from today 2pm to invaliddate");
+        assertEquals("update 1 [name \"<name>\"] [from \"today 2pm\" to \"invaliddate\"]", console.getConsoleInputText());
+        assertSameDisambiguationMessage(UpdateController.MESSAGE_CANNOT_PARSE_DATE, console);
+    }
 
 }
