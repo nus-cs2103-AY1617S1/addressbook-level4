@@ -61,13 +61,12 @@ public class CalendarItemFilter {
         String eventType = null;
         if (parsedResult.get("eventType") != null) {
             eventType = parsedResult.get("eventType")[0];
+            // Singularize
+            eventType = eventType.equals("events") ? "event" : eventType;
+            eventType = eventType.equals("tasks") ? "task" : eventType;
         }
         boolean taskStatusPresent = parsedResult.get("taskStatus") == null;
         boolean eventStatusPresent = parsedResult.get("eventStatus") == null;
-
-        // Singularize eventType
-        eventType = eventType != null && eventType.equals("events") ? "event" : eventType;
-        eventType = eventType != null && eventType.equals("tasks") ? "task" : eventType;
 
         if (eventType == null) {
             if (!taskStatusPresent && !eventStatusPresent) {
