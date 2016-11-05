@@ -6,7 +6,6 @@ import java.util.Objects;
 
 import seedu.tasklist.commons.exceptions.IllegalValueException;
 import seedu.tasklist.commons.util.CollectionUtil;
-import seedu.tasklist.commons.util.RecurringUtil;
 
 
 /**
@@ -136,11 +135,14 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
 		}
 	}
 
+	/**
+	 * Sets the time of the task to its next recurring time when marked as complete.
+	 */
 	public void setRecurringTime() {
 	    if (isRecurring && !this.recurringFrequency.equals("")) {
 	    	if (isComplete) {
-	    		RecurringUtil.updateRecurringDate(startTime.time, recurringFrequency, 1);
-	    		RecurringUtil.updateRecurringDate(endTime.time, recurringFrequency, 1);
+	    		updateRecurringDate(startTime.time, recurringFrequency, 1);
+	    		updateRecurringDate(endTime.time, recurringFrequency, 1);
 	    	}
 
 	        if (this.hasStartTime() || this.hasEndTime()) {

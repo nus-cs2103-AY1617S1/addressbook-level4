@@ -4,8 +4,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.tasklist.commons.exceptions.DuplicateDataException;
 import seedu.tasklist.commons.util.CollectionUtil;
-import seedu.tasklist.commons.util.RecurringUtil;
-
 import java.util.*;
 
 /**
@@ -102,8 +100,8 @@ public class UniqueTaskList implements Iterable<Task> {
 		for (Task i: internalList){
 			if(i.getUniqueID()==task.getUniqueID()){
 				i.markAsIncomplete();
-				RecurringUtil.updateRecurringDate(i.getStartTime().time, i.getRecurringFrequency(), -1);
-				RecurringUtil.updateRecurringDate(i.getEndTime().time, i.getRecurringFrequency(), -1);
+				i.updateRecurringDate(i.getStartTime().time, i.getRecurringFrequency(), -1);
+				i.updateRecurringDate(i.getEndTime().time, i.getRecurringFrequency(), -1);
 				return true;
 			}
 		}
