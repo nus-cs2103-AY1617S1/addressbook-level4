@@ -76,28 +76,28 @@ public class StorageManager extends ComponentManager implements Storage {
     }
     
     /**
-     * Allows users to decide whether or not to overwrite or load an existing file. 
+     * Allows users to decide whether or not to overwrite an existing file. 
      * There are 2 cases:
-     * 1) Filepath input by user exists and there is new data on the current task manager.
+     * 1) There is new data on the current task manager.
      *    In this case, users will be prompted as to whether or not they want to overwrite
      *    the existing file with the new data on the current task manager.
      *    @return false if user chooses not to overwrite the existing file.
-     * 2) Filepath input by user exists but there is no data on the current task manager
-     *    (task manager is empty). 
-     *    @return true for this case. The data on the existing file will be loaded onto the 
-     *    task manager
+     * 2) There is no data on the current task manager (task manager is empty). 
+     *    In this case, since users are at no risk of losing existing data, users will not 
+     *    be alerted that there is an existing file
+     *    @return true by default ('overwriting empty content').
      */
-    public boolean toOverwriteOrLoad(String filepath) throws DataConversionException, IOException {
-        File file = new File(filepath);
+    public boolean isOverwrite(File file) throws DataConversionException, IOException {
+        assert file != null;
         Optional<ReadOnlyTaskManager> data;
-        boolean isAlertCreatedAndYes = true;
+        boolean isOverwrite = true;
         try {
             data = taskManagerStorage.readTaskManager();
             //current file exists and there is data present in the current task manager
-            if (FileUtil.isFileExists(file) && data.isPresent()) {
-                isAlertCreatedAndYes = createAlertToOverwriteExistingFile(); 
+            if (data.isPresent()) {
+                isOverwrite = createAlertToOverwriteExistingFile(); 
             }
-            return isAlertCreatedAndYes;
+            return isOverwrite;
         } catch (DataConversionException e) {
             throw new DataConversionException(e);
         } catch (IOException e) {

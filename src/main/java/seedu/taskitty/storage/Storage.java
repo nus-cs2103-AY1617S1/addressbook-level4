@@ -6,6 +6,7 @@ import seedu.taskitty.commons.exceptions.DataConversionException;
 import seedu.taskitty.model.ReadOnlyTaskManager;
 import seedu.taskitty.model.UserPrefs;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.Optional;
 
@@ -32,7 +33,7 @@ public interface Storage extends TaskManagerStorage, UserPrefsStorage {
     //@@author A0135793W
     void setFilePath(String taskManagerFilePath) throws DataConversionException, IOException;
     
-    boolean toOverwriteOrLoad(String filepath) throws DataConversionException, IOException;
+    boolean isOverwrite(File file) throws DataConversionException, IOException;
     //@@author
     
     /**
