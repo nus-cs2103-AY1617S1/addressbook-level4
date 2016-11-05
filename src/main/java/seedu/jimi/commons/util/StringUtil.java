@@ -120,7 +120,7 @@ public class StringUtil {
      * method that extracts the first word of a string.
      */
     public static String getFirstWord(String text) {
-        assert src != null;
+        assert text != null;
         String trimmed = new String(text.trim());
         if (trimmed.indexOf(' ') > -1) { // Check if there is more than one word.
             return trimmed.substring(0, trimmed.indexOf(' ')); // Extract first word.
