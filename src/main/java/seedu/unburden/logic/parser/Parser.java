@@ -266,9 +266,9 @@ public class Parser {
 						getTagsFromArgs(matcher6.group("tagArguments")));
 
 			}*/ else if (matcher5.matches()) {
-				details.add(matcher7.group("name"));
-				details.add(matcher7.group("taskDescriptions"));
-				details.add(matcher7.group("date"));
+				details.add(matcher5.group("name"));
+				details.add(matcher5.group("taskDescriptions"));
+				details.add(matcher5.group("date"));
 				return new AddCommand("deadline without time", details,
 						getTagsFromArgs(matcher7.group("tagArguments")));
 
@@ -623,6 +623,9 @@ public class Parser {
 		}
 	}
 	
+	/*
+	 * To retrieve, concatenate and split the arguments to the respective parameters
+	 */
     private String[] getNewArgs(String[] tokens) {
      	 String[] newArgs = new String[5];
           for (int i=0;i<5;i++)
