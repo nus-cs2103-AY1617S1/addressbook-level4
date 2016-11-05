@@ -575,13 +575,16 @@ public class Parser {
 	 */
 	// @@Gauri Joshi A0143095H
 	private Command prepareDone(String args) {
-		Optional<Integer> index = parseIndex(args);
-		if (!index.isPresent()) {
-			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SelectCommand.MESSAGE_USAGE));
-		} else if (args.toLowerCase().equals(ALL)) {
+		args = args.trim();
+		if (args.toLowerCase().equals(ALL)) {
 			return new DoneCommand();
 		} else {
-			return new DoneCommand(index.get());
+			Optional<Integer> index = parseIndex(args);
+			if (!index.isPresent()) {
+				return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SelectCommand.MESSAGE_USAGE));
+			} else {
+				return new DoneCommand(index.get());
+			}
 		}
 	}
 

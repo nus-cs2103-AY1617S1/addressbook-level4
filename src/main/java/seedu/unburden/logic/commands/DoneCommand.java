@@ -20,7 +20,7 @@ public class DoneCommand extends Command {
 			+ ": Marks the task identified by the index number used in the last task listing as done.\n"
 			+ "Parameters: INDEX (must be a positive integer)\n" + "Example: " + COMMAND_WORD + " 1";
 
-	public static final String MESSAGE_DELETE_TASK_SUCCESS = "Well done! Task Done!";
+	public static final String MESSAGE_DONE_TASK_SUCCESS = "Well done! Task Done!";
 
 	public final int targetIndex;
 
@@ -36,13 +36,15 @@ public class DoneCommand extends Command {
 	public CommandResult execute() {
 		assert model != null;
 		UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
-		ReadOnlyTask taskToDone = lastShownList.get(targetIndex - 1);
 		if (targetIndex == Integer.MIN_VALUE) {
 			model.saveToPrevLists();
-			for(ReadOnlyTask task : lastShownList){
+			while(lastShownList.size() != 0){
+				ReadOnlyTask task = lastShownList.get(0);
 				model.doneTask(task, true);
 			}
+			return new CommandResult(MESSAGE_DONE_TASK_SUCCESS);
 		} else {
+			ReadOnlyTask taskToDone = lastShownList.get(targetIndex - 1);
 			if (lastShownList.size() < targetIndex) {
 				indicateAttemptToExecuteIncorrectCommand();
 				return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
@@ -52,8 +54,7 @@ public class DoneCommand extends Command {
 			}
 			model.saveToPrevLists();
 			model.doneTask(taskToDone, true);
+			return new CommandResult(String.format(MESSAGE_DONE_TASK_SUCCESS, taskToDone));
 		}
-		return new CommandResult(String.format(MESSAGE_DELETE_TASK_SUCCESS, taskToDone));
 	}
-
 }
