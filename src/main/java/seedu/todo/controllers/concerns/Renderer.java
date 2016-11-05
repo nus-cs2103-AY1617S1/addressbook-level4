@@ -18,7 +18,7 @@ import seedu.todo.ui.views.IndexView;
  */
 public class Renderer {
 
-    private static final String MESSAGE_DISAMBIGUATE = "Your last command wasn't clear, please fix your command and try again.";
+    public static final String MESSAGE_DISAMBIGUATE = "Your last command wasn't clear, please fix your command and try again.";
     
     /**
      * Renders an error message in both the console and the input field, leave null or empty string if not needed.
