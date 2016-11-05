@@ -35,10 +35,10 @@ public class ActivityListPanelHandle extends GuiHandle {
         super(guiRobot, primaryStage, TestApp.APP_TITLE);
     }
 
-    /*public List<ReadOnlyActivity> getSelectedPersons() {
+    public List<ReadOnlyActivity> getSelectedPersons() {
         ListView<ReadOnlyActivity> personList = getTaskListView();
         return personList.getSelectionModel().getSelectedItems();
-    }*/
+    }
 
     public ListView<ReadOnlyActivity> getTaskListView() {
         return (ListView<ReadOnlyActivity>) getNode(TASK_LIST_VIEW_ID);

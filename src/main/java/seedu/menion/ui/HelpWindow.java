@@ -24,7 +24,7 @@ public class HelpWindow extends UiPart {
     private static final String ICON = "/images/help_icon.png";
     private static final String FXML = "HelpWindow.fxml";
     private static final String TITLE = "Help";
-    private static final String USERGUIDE_FILEPATH = "/images/CheatSheet.png";
+    private static final String USERGUIDE_FILEPATH = "/images/help_sheet.png";
     
     private AnchorPane mainPane;
 
@@ -47,8 +47,10 @@ public class HelpWindow extends UiPart {
         return FXML;
     }
 
+    //@@author A0139515A
     private void configure(){
         Scene scene = new Scene(mainPane);
+        
         Image image = AppUtil.getImage(USERGUIDE_FILEPATH);
         //Null passed as the parent stage to make it non-modal.
         dialogStage = createDialogStage(TITLE, null, scene);
@@ -61,6 +63,7 @@ public class HelpWindow extends UiPart {
         mainPane.getChildren().add(imageView);
 
     }
+    //@@author
 
     public void show() {
         dialogStage.showAndWait();
