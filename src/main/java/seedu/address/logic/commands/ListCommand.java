@@ -28,6 +28,9 @@ public class ListCommand extends Command {
     private Optional<String> doneStatus = Optional.of("default");
     private Optional<LocalDateTime> day = Optional.empty();
     
+    private Predicate<ReadOnlyTask> listPredicate = null;
+    private boolean isFirstPredicate = true;
+    
     public ListCommand() {}
     
     public ListCommand(String taskType, String doneStatus, LocalDateTime day) {
@@ -40,90 +43,62 @@ public class ListCommand extends Command {
     public CommandResult execute() {
     	EventsCenter.getInstance().post(new DisplayTaskListEvent(model.getFilteredTaskList()));
     	
-    	Predicate <ReadOnlyTask> listPredicate = null;
-    	Predicate <ReadOnlyTask> taskTypePredicate = null;
-    	Predicate <ReadOnlyTask> donePredicate = null;
-    	Predicate <ReadOnlyTask> dayPredicate = null;
-    	
-    	taskTypePredicate = getTaskTypePredicate(taskTypePredicate);
-    	donePredicate = getStatusPredicate(donePredicate);
-    	dayPredicate = getDayPredicate(dayPredicate);
-    	listPredicate = getListPredicate(listPredicate, taskTypePredicate,
-    			donePredicate, dayPredicate);
+    	getTaskTypePredicate();
+    	getStatusPredicate();
+    	getDayPredicate();
     	model.updateFilteredTaskList(listPredicate);
     	model.checkForOverdueTasks();
     	
         return new CommandResult(MESSAGE_SUCCESS);
     }
 
-	/**
-	 * Takes in the parameters
-	 * @param taskTypePredicate
-	 * @param donePredicate
-	 * @param dayPredicate
-	 * 
-	 * @return listPredicate which combines all the three Predicates 
-	 */
-    private Predicate<ReadOnlyTask> getListPredicate(Predicate<ReadOnlyTask> listPredicate,
-			Predicate<ReadOnlyTask> taskTypePredicate, Predicate<ReadOnlyTask> donePredicate,
-			Predicate<ReadOnlyTask> dayPredicate) {
-		boolean isFirstPredicate = true;
-		if(taskType.isPresent()) {
-    		listPredicate = taskTypePredicate;
-    		isFirstPredicate = false;
-    	}
-    	if(doneStatus.isPresent()) {
-    		listPredicate = isFirstPredicate ? 
-    				donePredicate : listPredicate.and(donePredicate);
-    		isFirstPredicate = false;
-    	}
-    	if(day.isPresent()) {
-    		listPredicate = isFirstPredicate ?
-    				dayPredicate : listPredicate.and(dayPredicate);
-    		isFirstPredicate = false;
-    	}
-		return listPredicate;
-	}
     
     /**
      * set the predicate for the day to be listed
      */
-    private Predicate<ReadOnlyTask> getDayPredicate(Predicate<ReadOnlyTask> dayPredicate) {
+    private void getDayPredicate() {
+    	Predicate<ReadOnlyTask> dayPredicate = null;
     	if(day.isPresent()) {
     		dayPredicate = ReadOnlyTaskFilter.isThisDate(day.get().toLocalDate());
+    		listPredicate = isFirstPredicate ?
+    				dayPredicate : listPredicate.and(dayPredicate);
+    		isFirstPredicate = false;
     	}
-    	return dayPredicate;
     }
 
 	/**
-	 * set the predicate based on the specified status to be listed if any
+	 * update the listPredicate based on the specified status to be listed if any
 	 */
-    private Predicate<ReadOnlyTask> getStatusPredicate(Predicate<ReadOnlyTask> donePredicate) {
-		if(doneStatus.isPresent()) {
+    private void getStatusPredicate() {
+    	Predicate<ReadOnlyTask> statusPredicate = null;
+    	if(doneStatus.isPresent()) {
 			assert doneStatus.get().equals("done") || doneStatus.get().equals("pending") || 
 				doneStatus.get().equals("overdue") || doneStatus.get().equals("default");
     		switch(doneStatus.get()) {
     		case "done":
-    			donePredicate = ReadOnlyTaskFilter.isDone();
+    			statusPredicate = ReadOnlyTaskFilter.isDone();
     			break;
     		case "pending":
-    			donePredicate = ReadOnlyTaskFilter.isPending();
+    			statusPredicate = ReadOnlyTaskFilter.isPending();
     			break;
     		case "overdue":
-    			donePredicate = ReadOnlyTaskFilter.isOverdue();
+    			statusPredicate = ReadOnlyTaskFilter.isOverdue();
     			break;
     		case "default":
-    			donePredicate = ReadOnlyTaskFilter.isDone().negate();
+    			statusPredicate = ReadOnlyTaskFilter.isDone().negate();
     		}
+    		listPredicate = isFirstPredicate ? 
+    				statusPredicate : listPredicate.and(statusPredicate);
+    		isFirstPredicate = false;
     	}
-		return donePredicate;
 	}
 
 	/**
-	 * Set the predicate for what kind of task list should display 
+	 * Update the listPredicate for what kind of task list should display 
 	 */
-    private Predicate<ReadOnlyTask> getTaskTypePredicate(Predicate<ReadOnlyTask> taskTypePredicate) {
-		if(taskType.isPresent()) {
+    private void getTaskTypePredicate() {
+		Predicate<ReadOnlyTask> taskTypePredicate = null;
+    	if(taskType.isPresent()) {
     		assert taskType.get().equals("someday") || taskType.get().equals("sd") ||
     				taskType.get().equals("deadline") || taskType.get().equals("dl") ||
     				taskType.get().equals("event") || taskType.get().equals("ev"); 
@@ -141,8 +116,11 @@ public class ListCommand extends Command {
     			taskTypePredicate = ReadOnlyTaskFilter.isEventTask();
     			break;
     		}
+        	listPredicate = isFirstPredicate ? 
+    				taskTypePredicate : listPredicate.and(taskTypePredicate);
+    		isFirstPredicate = false;
+
     	}
-		return taskTypePredicate;
 	}
 }
 

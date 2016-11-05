@@ -67,7 +67,6 @@ public class ReadOnlyTaskFilter {
 	
 	//@@author A0139339W
 	public static Predicate<ReadOnlyTask> isThisDate(LocalDate date) {
-		System.out.println("dateOnly: " + date);
 		return p -> (p.getTaskType().value.equals(TaskType.Type.EVENT) &&
 				p.getStartDate().get().toLocalDate().equals(date)) ||
 				(!p.getTaskType().value.equals(TaskType.Type.SOMEDAY) &&
