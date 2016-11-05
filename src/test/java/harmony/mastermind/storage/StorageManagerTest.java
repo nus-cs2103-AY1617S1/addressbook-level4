@@ -29,6 +29,7 @@ public class StorageManagerTest {
     //@@author A0139194X
     private final String FILEPATH_ENDING_WITH_SLASH = "TestFile/";
     private final String FILEPATH_NOT_ENDING_WITH_SLASH = "TestFile";
+    private final String ORIGINAL_FOLDER = "data/mastermind.xml";
     
     //@@author
     @Rule
@@ -133,6 +134,7 @@ public class StorageManagerTest {
         RelocateFilePathEvent event = new RelocateFilePathEvent("");
         storageManager.handleRelocateEvent(event);
         assertEquals(filePath, storageManager.getTaskManagerFilePath() + "/mastermind.xml");
+        reset();
     }
     
     //@@author A0139194X
@@ -140,6 +142,11 @@ public class StorageManagerTest {
     public void updateConfig_nullInput_assertionFailure() {
         thrown.expect(AssertionError.class);
         storageManager.updateConfig(null);
+    }
+    
+    //resets the config to the original 
+    public void reset() {
+        storageManager.updateConfig(ORIGINAL_FOLDER);
     }
     
     //@@author
