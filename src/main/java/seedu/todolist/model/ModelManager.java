@@ -167,7 +167,6 @@ public class ModelManager extends ComponentManager implements Model {
         return new UnmodifiableObservableList<>(filteredAllTasks);
     }
     
-    //@@author A0138601M
     @Override
     public UnmodifiableObservableList<ReadOnlyTask> getFilteredCompleteTaskList() {
         return new UnmodifiableObservableList<>(filteredCompleteTasks);
@@ -177,7 +176,6 @@ public class ModelManager extends ComponentManager implements Model {
     public UnmodifiableObservableList<ReadOnlyTask> getFilteredIncompleteTaskList() {
         return new UnmodifiableObservableList<>(filteredIncompleteTasks);
     }
-    //@@author
 
     @Override
     public void updateFilteredListToShowAll() {
