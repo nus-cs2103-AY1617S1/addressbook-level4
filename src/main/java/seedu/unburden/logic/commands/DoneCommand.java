@@ -53,6 +53,9 @@ public class DoneCommand extends Command {
 				indicateAttemptToExecuteIncorrectCommand();
 				return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
 			}
+			if(taskToDone.getDone()){
+				return new CommandResult(Messages.MESSAGE_TASK_IS_ALREADY_DONE);
+			}
 			model.saveToPrevLists();
 			model.doneTask(taskToDone, true);
 		}
