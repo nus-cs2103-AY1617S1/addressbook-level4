@@ -32,7 +32,7 @@ public class SelectCommand extends Command {
     }
 
     @Override
-    public CommandResult execute() throws DuplicateTagException, IllegalValueException {
+    public CommandResult execute() {
 
         UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
 

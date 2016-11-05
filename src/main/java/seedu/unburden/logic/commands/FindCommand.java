@@ -56,7 +56,7 @@ public class FindCommand extends Command {
 	}
 
 	@Override
-	public CommandResult execute() throws DuplicateTagException, IllegalValueException {
+	public CommandResult execute() {
         UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
         if(lastShownList.size() == 0){
 			return new CommandResult(String.format(Messages.MESSAGE_NO_TASKS_FOUND, ListCommand.MESSAGE_USAGE));

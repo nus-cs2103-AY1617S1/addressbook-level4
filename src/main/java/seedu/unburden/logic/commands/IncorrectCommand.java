@@ -19,7 +19,7 @@ public class IncorrectCommand extends Command {
     }
 
     @Override
-    public CommandResult execute() throws DuplicateTagException, IllegalValueException {
+    public CommandResult execute(){
         indicateAttemptToExecuteIncorrectCommand();
         return new CommandResult(feedbackToUser);
     }

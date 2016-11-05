@@ -67,7 +67,7 @@ public class HelpCommand extends Command {
 	}
 
 	@Override
-	public CommandResult execute() throws DuplicateTagException, IllegalValueException {
+	public CommandResult execute() {
 		EventsCenter.getInstance().post(new ShowHelpRequestEvent());
 		switch (whichCommand) {
 		case AddCommand.COMMAND_WORD:

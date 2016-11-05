@@ -27,7 +27,7 @@ public class UndoCommand extends Command {
 	public UndoCommand() {
 	}
 
-	public CommandResult execute() throws DuplicateTagException, IllegalValueException {
+	public CommandResult execute() {
 		try {
 			assert model != null;
 			model.loadFromPrevLists();

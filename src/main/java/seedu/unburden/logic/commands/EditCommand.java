@@ -116,7 +116,7 @@ public class EditCommand extends Command {
     }
     
     @Override
-    public CommandResult execute() throws IllegalValueException{
+    public CommandResult execute() {
         UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
         
         if (lastShownList.size() < targetIndex) {
