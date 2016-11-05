@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.Predicate;
 
+import seedu.todo.commons.exceptions.AmbiguousEventTypeException;
 import seedu.todo.commons.exceptions.InvalidNaturalDateException;
 import seedu.todo.models.Event;
 import seedu.todo.models.Task;
@@ -55,14 +56,37 @@ public class CalendarItemFilter {
      * @param parsedResult
      * @return {isTask, isEvent}
      */
-    public static boolean[] parseIsTaskEvent(Map<String, String[]> parsedResult) {
+    public static boolean[] parseIsTaskEvent(Map<String, String[]> parsedResult) throws AmbiguousEventTypeException {
+        // Extract relevant params
+        String eventType = null;
         if (parsedResult.get("eventType") != null) {
+            eventType = parsedResult.get("eventType")[0];
+        }
+        boolean taskStatusPresent = parsedResult.get("taskStatus") == null;
+        boolean eventStatusPresent = parsedResult.get("eventStatus") == null;
+
+        // Singularize eventType
+        eventType = eventType != null && eventType.equals("events") ? "event" : eventType;
+        eventType = eventType != null && eventType.equals("tasks") ? "task" : eventType;
+
+        if (eventType == null && !taskStatusPresent && !eventStatusPresent) {
+            // Condition 1
             return new boolean[] { true, true };
-        } else if (parsedResult.get("eventType")[0].equals("task")
-                || parsedResult.get("eventType")[0].equals("tasks")) {
+        } else if (eventType.equals("task") && !eventStatusPresent) {
+            // Condition 2
             return new boolean[] { true, false };
-        } else {
+        } else if (eventType.equals("event") && !taskStatusPresent) {
+            // Condition 3
             return new boolean[] { false, true };
+        } else if (taskStatusPresent && !eventStatusPresent) {
+            // Condition 4 - Task
+            return new boolean[] { true, false };
+        } else if (eventStatusPresent && !taskStatusPresent) {
+            // Condition 4 - Event
+            return new boolean[] { false, true };
+        } else {
+            // If we made it here, then Condition 5 was violated
+            throw new AmbiguousEventTypeException("taskStatus and eventStatus both present!");
         }
     }
     
