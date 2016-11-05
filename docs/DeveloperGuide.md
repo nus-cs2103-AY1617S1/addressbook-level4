@@ -347,7 +347,7 @@ Use case ends.
 1. User requests to list tasks
 2. MESS shows a list of tasks
 3. User requests to update a specific task by index in the list
-4. MESS updates the person <br>
+4. MESS updates the task <br>
 Use case ends.
  
 **Extensions**
@@ -361,7 +361,101 @@ Use case ends.
 >MESS shows an error message <br>
    User case ends.
 
- #### Use case: Undo previous action
+#### Use case: Pin task
+ 
+**MSS**
+
+1. User requests to list tasks
+2. MESS shows a list of tasks
+3. User requests to pin a specific task by index in the list
+4. MESS pins the task <br>
+Use case ends.
+ 
+**Extensions**
+ 
+1a. The list is empty
+ 
+> User case ends
+ 
+3a. The given index is invalid
+ 
+>MESS shows an error message <br>
+   User case ends.   
+
+#### Use case: Unpin task
+ 
+**MSS**
+
+1. User requests to list tasks
+2. MESS shows a list of tasks
+3. User requests to unpin a pinned task by index in the list
+4. MESS unpins the task <br>
+Use case ends.
+ 
+**Extensions**
+ 
+1a. The list is empty
+ 
+> User case ends
+ 
+3a. The given index is invalid
+ 
+> MESS shows an error message <br>
+   User case ends.
+   
+3b. The task is not pinned before
+ 
+> MESS shows an error message <br>
+  User case ends.   
+   
+#### Use case: Complete task
+ 
+**MSS**
+
+1. User requests to list tasks
+2. MESS shows a list of tasks
+3. User requests to mark a specific task as completed by index in the list
+4. MESS marks the task <br>
+Use case ends.
+ 
+**Extensions**
+ 
+1a. The list is empty
+ 
+> User case ends
+ 
+3a. The given index is invalid
+ 
+>MESS shows an error message <br>
+   User case ends.   
+   
+#### Use case: Uncomplete task
+ 
+**MSS**
+
+1. User requests to list tasks
+2. MESS shows a list of tasks
+3. User requests to mark a completed task as not completed by index in the list
+4. MESS marks the task back to not completed <br>
+Use case ends.
+ 
+**Extensions**
+ 
+1a. The list is empty
+ 
+> User case ends
+ 
+3a. The given index is invalid
+ 
+>MESS shows an error message <br>
+   User case ends.  
+
+3b. The task is not marked as completed before
+ 
+>MESS shows an error message <br>
+   User case ends. 
+   
+#### Use case: Undo previous action
 
 **MSS**
 
