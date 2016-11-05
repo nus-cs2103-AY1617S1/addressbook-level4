@@ -7,6 +7,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import seedu.todo.commons.core.LogsCenter;
+import seedu.todo.commons.events.model.SaveLocationChangedEvent;
 import seedu.todo.commons.events.model.ToDoListChangedEvent;
 import seedu.todo.commons.util.FxViewUtil;
 
@@ -96,4 +97,10 @@ public class StatusBarFooter extends UiPart {
         logger.info(LogsCenter.getEventHandlingLogMessage(abce, "Setting last updated status to " + lastUpdated));
         setSyncStatus("Last Updated: " + lastUpdated);
     }
+    
+    @Subscribe
+    public void handleSaveLocationChangedEvent(SaveLocationChangedEvent slce) {
+        setSaveLocation(slce.toString());
+    }
+    
 }

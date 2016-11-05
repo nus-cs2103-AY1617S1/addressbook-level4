@@ -3,8 +3,8 @@ package seedu.todo.logic.commands;
 
 import java.io.IOException;
 
-import seedu.todo.commons.core.Config;
-import seedu.todo.commons.util.ConfigUtil;
+import seedu.todo.commons.core.EventsCenter;
+import seedu.todo.commons.events.model.SaveLocationChangedEvent;
 import seedu.todo.commons.util.FileUtil;
 
 
@@ -43,11 +43,11 @@ public class StoreCommand extends Command {
         
         if (FileUtil.isFilenameValid(tempLocation)) {
             try {
-                config.setToDoListFilePath(tempLocation);
-                ConfigUtil.saveConfig(config, Config.USER_CONFIG_FILE);
-                storage.setToDoListFilePath(tempLocation);
-                storage.saveToDoList(model.getToDoList());
+                config.updateToDoListFilePath(tempLocation);
+                storage.updateToDoListFilePath(tempLocation, model.getToDoList());
+                EventsCenter.getInstance().post(new SaveLocationChangedEvent(tempLocation));
                 return new CommandResult(MESSAGE_SUCCESS);
+                
             } catch (IOException e){
                 config.setToDoListFilePath(defaultLocation);
                 storage.setToDoListFilePath(defaultLocation);

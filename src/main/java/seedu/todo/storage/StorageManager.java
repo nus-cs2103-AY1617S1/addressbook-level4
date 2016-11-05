@@ -59,6 +59,12 @@ public class StorageManager extends ComponentManager implements Storage {
         toDoListStorage.setToDoListFilePath(filepath);
     }
     
+    @Override
+    public void updateToDoListFilePath(String filepath, ReadOnlyToDoList toDoList) throws IOException {
+        toDoListStorage.setToDoListFilePath(filepath);
+        toDoListStorage.saveToDoList(toDoList);
+    }
+    
 
     @Override
     public Optional<ReadOnlyToDoList> readToDoList() throws DataConversionException, IOException {

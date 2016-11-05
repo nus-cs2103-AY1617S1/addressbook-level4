@@ -41,28 +41,28 @@ public class XmlToDoListStorage implements ToDoListStorage {
             throws DataConversionException, FileNotFoundException {
         assert filePath != null;
 
-        File addressBookFile = new File(filePath);
+        File toDoListOptional = new File(filePath);
 
-        if (!addressBookFile.exists()) {
-            logger.info("ToDoList file "  + addressBookFile + " not found");
+        if (!toDoListOptional.exists()) {
+            logger.info("ToDoList file "  + toDoListOptional + " not found");
             return Optional.empty();
         }
 
-        ReadOnlyToDoList addressBookOptional = XmlFileStorage.loadDataFromSaveFile(new File(filePath));
-        return Optional.of(addressBookOptional);
+        ReadOnlyToDoList toDoList = XmlFileStorage.loadDataFromSaveFile(new File(filePath));
+        return Optional.of(toDoList);
     }
 
     /**
      * Similar to {@link #saveToDoList(ReadOnlyToDoList)}
      * @param filePath location of the data. Cannot be null
      */
-    public void saveToDoList(ReadOnlyToDoList addressBook, String filePath) throws IOException {
-        assert addressBook != null;
+    public void saveToDoList(ReadOnlyToDoList toDoList, String filePath) throws IOException {
+        assert toDoList != null;
         assert filePath != null;
 
         File file = new File(filePath);
         FileUtil.createIfMissing(file);
-        XmlFileStorage.saveDataToFile(file, new XmlSerializableToDoList(addressBook));
+        XmlFileStorage.saveDataToFile(file, new XmlSerializableToDoList(toDoList));
     }
 
     @Override
@@ -71,7 +71,13 @@ public class XmlToDoListStorage implements ToDoListStorage {
     }
 
     @Override
-    public void saveToDoList(ReadOnlyToDoList addressBook) throws IOException {
-        saveToDoList(addressBook, filePath);
+    public void saveToDoList(ReadOnlyToDoList toDoList) throws IOException {
+        saveToDoList(toDoList, filePath);
+    }
+    
+    @Override
+    public void updateToDoListFilePath(String filepath, ReadOnlyToDoList toDoList) throws IOException {
+        this.setToDoListFilePath(filepath);
+        this.saveToDoList(toDoList);
     }
 }

@@ -1,7 +1,10 @@
 package seedu.todo.commons.core;
 
+import java.io.IOException;
 import java.util.Objects;
 import java.util.logging.Level;
+
+import seedu.todo.commons.util.ConfigUtil;
 
 /**
  * Config values used by the app
@@ -52,18 +55,23 @@ public class Config {
         return toDoListFilePath;
     }
 
-    public void setToDoListFilePath(String addressBookFilePath) {
-        this.toDoListFilePath = addressBookFilePath;
+    public void setToDoListFilePath(String toDoListFilePath) {
+        this.toDoListFilePath = toDoListFilePath;
     }
 
     public String getToDoListName() {
         return toDoListName;
     }
 
-    public void setToDoListName(String addressBookName) {
-        this.toDoListName = addressBookName;
+    public void setToDoListName(String toDoListName) {
+        this.toDoListName = toDoListName;
     }
 
+    public void updateToDoListFilePath(String toDoListFilePath) throws IOException {
+        this.setToDoListFilePath(toDoListFilePath);
+        ConfigUtil.saveConfig(this, Config.USER_CONFIG_FILE);
+    }
+    
 
     @Override
     public boolean equals(Object other) {
