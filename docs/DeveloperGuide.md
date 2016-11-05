@@ -25,7 +25,7 @@
 
 ###**Overview**
 
-_Unburden_ is an application which will help you to manage your tasks better. Unburden provides a simple command line interface which does not require any form of clicking. _Unburden_ is written in Java.
+_Unburden_ is an application which will help you to manage your tasks better. _Unburden_ provides a simple command line interface which does not require any form of clicking. _Unburden_ is written in Java.
 
 ###**Purpose**
 
@@ -71,13 +71,13 @@ In essence, having all of the skills above will definitely help to enhance the u
 
 ###**Importing the project into Eclipse**
 
-0. Fork this repo, and clone the fork to your computer
-1. Open Eclipse (Note: Ensure you have installed the **e(fx)clipse** and **buildship** plugins as given 
+1. Fork this repo, and clone the fork to your computer
+2. Open Eclipse (Note: Ensure you have installed the **e(fx)clipse** and **buildship** plugins as given 
    in the prerequisites above)
-2. Click `File` > `Import`
-3. Click `Gradle` > `Gradle Project` > `Next` > `Next`
-4. Click `Browse`, then locate the project's directory
-5. Click `Finish`
+3. Click `File` > `Import`
+4. Click `Gradle` > `Gradle Project` > `Next` > `Next`
+5. Click `Browse`, then locate the project's directory
+6. Click `Finish`
 
   > * If you are asked whether to 'keep' or 'overwrite' config files, choose to 'keep'.
   > * Depending on your connection speed and server load, it can even take up to 30 minutes for the set up to finish
@@ -100,17 +100,17 @@ In essence, having all of the skills above will definitely help to enhance the u
 
 > <img src="DeveloperGuideImages/Design_01.png" width="600">
 
-The architectural design shows how the various components work in tandem with each other. Main only has one class MainApp and it is responsible for:
+The architectural design shows how the various components work in tandem with each other. `Main` only has one class MainApp and it is responsible for:
 
  1. Starting up _Unburden_: Initializes all components in order and ensures that the app starts to run
  2. Exiting _Unburden_: Shuts down all components in order and clears the memory
 
-The rest of the app consists of 4 main components other than main. They are :
+The rest of the app consists of 4 main components other than `Main`. They are :
 
- 1. Logic : Decides what to output with the inputs and executes commands
- 2. Model : Holds the data during runtime
- 3. UI: Controls the UI of the app
- 4. Storage: Reads and writes data to the hard disk
+ 1. `Logic` : Decides what to output with the inputs and executes commands
+ 2. `Model` : Holds the data during runtime
+ 3. `UI`: Controls the UI of the app
+ 4. `Storage`: Reads and writes data to the hard disk
 
 Each component has a interface which all its classes implements and is named after the component itself.
 
@@ -119,42 +119,42 @@ Each component has a interface which all its classes implements and is named aft
 > <img src="DeveloperGuideImages/UI_01.png" width="600">
 
 
-The UI component focuses on interacting with the user by displaying the necessary information to the user when requested. It is also responsible for the outlook of the application. The UI component consists of the abstract UiPart class which is the base class for the UI parts and each &quot;UI part&quot; is represented by a distinct part of the UI such as the panels or status bars.
+The `UI` component focuses on interacting with the user by displaying the necessary information to the user when requested. It is also responsible for the outlook of the application. The `UI` component consists of the abstract `UiPart` class which is the base class for the `UI` parts and each &quot;UI part&quot; is represented by a distinct part of the `UI` such as the panels or status bars.
 
-In essence, the UI makes use of JavaFx UI framework and majority of the classes import javafx methods. The various layouts of each &quot;UI part&quot; are stores as .fxml files in the src/main/resources/viewfolder. These files are named according to the respective class names. For example, the layout of the HelpWindow.java is stored in src/main/resources/view/HelpWindow.fxml
+In essence, the `UI` component makes use of JavaFx framework and the majority of the classes in _Unburden_ import javafx methods. The various layouts of each &quot;UI part&quot; are stores as .fxml files in the src/main/resources/view folder. These files are named according to the respective class names. For example, the layout of the HelpWindow.java is stored in src/main/resources/view/HelpWindow.fxml
 
 
 
 ####**API**
 
-The UI component consists mainly of:
+The `UI` component consists mainly of the following classes:
 
- 1. UI class
- 2. UIManager class
- 3. UIPart class
- 4. UILoader class
- 5. BrowserPanel class
- 6. CommandBox class
- 7. MainWindow class
- 8. ResultDisplay class
- 9. HelpWindow class
- 10. TaskCard class
- 11. TaskListPanel class
+ 1. `UI` 
+ 2. `UIManager` 
+ 3. `UIPart` 
+ 4. `UILoader` 
+ 5. `SummaryPanel` 
+ 6. `CommandBox` 
+ 7. `MainWindow` 
+ 8. `ResultDisplay` 
+ 9. `HelpWindow` 
+ 10. `TaskCard` 
+ 11. `TaskListPanel` 
 
 These classes work together to form the interface which the user interacts with when using the app. Each of the class are meant to function solely on one part of the UI. For instance, the ResultDisplay class is responsible for displaying the results of a command from the user.
 
 
 
-The UI also consists of a MainWindow class which is made up of these &quot;UI parts&quot; such as CommandBox, ResultDisplay, TaskListPanel, StatusBarFooter, BrowserPanel.
+The UI also consists of a `MainWindow` class which is made up of these &quot;UI parts&quot; such as `CommandBox`, `ResultDisplay`, `TaskListPanel`, `StatusBarFooter`, `BrowserPanel`.
 
 All of these classes, including the MainWindow class inherit from the abstract UiPart class.
 
 The UI component,
 
-- Executes user commands using the Logic component.
-- Auto-updates when data in the Model change.
-- Responds to events raised from various parts of the App
-- Updates the UI accordingly.
+- Executes user commands using the `Logic` component.
+- Auto-updates when data in the `Model` change.
+- Responds to events raised from various parts of _Unburden_
+- Updates the `UI` accordingly.
 
 
 
@@ -162,65 +162,65 @@ The UI component,
 
 > <img src="DeveloperGuideImages/Logic_01.png" width="600">
 
-The Logic component consists of the Parser class which is responsible to taking in the inputs from the UI component, deciphering it, and then creating a Command class that can handle the user&#39;s input correctly. LogicManager will then execute the command.
+The `Logic` component consists of the Parser class which is responsible to taking in the inputs from the `UI` component, deciphering it, and then creating a Command class that can handle the user&#39;s input correctly. `LogicManager` will then execute the command.
 
 
 
 ####**API**
 
-The API of the Logic component consists mainly of:
+The API of the Logic component consists mainly of the following classes:
 
- 1. Logic class
- 2. LogicManager class
- 3. Parser class
- 4. All the command classes eg. AddCommand, EditCommand, DeleteCommand
+ 1. `Logic` 
+ 2. `LogicManager` 
+ 3. `Parser` 
+ 4. All the command classes eg. `AddCommand`, `EditCommand`, `DeleteCommand`
 
-These classes work together to categorize the different possible inputs from the user and sieves the important keywords out so that Model can continue executing the command entered by the user.
+These classes work together to categorize the different possible inputs from the user and sieves the important keywords out so that `Model` can continue executing the command entered by the user.
 
-TheLogiccomponent,
+The Logic component,
 
-- Logic takes in the user&#39;s input and passes it to the Parser class
-- Parser class will decide which Command class is able to handle the request
-- LogicManager class takes the command and executes it by calling Model
-- TaskResult class is created and returned to the UI to be displayed to the user
+- `Logic` takes in the user&#39;s input and passes it to the `Parser` class
+- `Parser` will decide which Command class is able to handle the request
+- `LogicManager`  takes the command and executes it by calling `Model`
+- `TaskResult` is created and returned to the `UI` to be displayed to the user
 
 ###**Model component**
 
 > <img src="DeveloperGuideImages/Model_01.png" width="600">
 
-The Model component is mainly responsible for executing the outputs from the Logic component. It is also responsible for storing all the in-app data such as the user&#39;s preferences anddata which is needed when executing commands.
+The `Model` component is mainly responsible for executing the outputs from the `Logic` component. It is also responsible for storing all the in-app data such as the user&#39;s preferences and data which is needed when executing commands.
 
 ####**API**
 
-The API of the Model component is in the Model class which consists of the main features of the task manager such as &#39;add&#39;, &#39;delete&#39; and updates the task manager accordingly. The ModelManager class, which represents the in-memory model of the task manager data, inherit from the Model interface.
+The API of the `Model` component is in the `Model` class which consists of the main features of the task manager such as &#39;add&#39;, &#39;delete&#39; and updates the task manager accordingly. The `ModelManager` class, which represents the in-memory model of the task manager data, inherit from the `Model` interface.
 
 ModelManager is able to:
 
- 1)Store the user preference
- 2)Store _Unburden&#39;s_ data
+ 1)Store the user preference <br>
+ 2)Store _Unburden&#39;s_ data <br>
 
 ###**Storage component**
 
 > <img src="DeveloperGuideImages/Storage_01.png" width="600">
 
-The Storage component primarily focuses on storing data. Any data related to the application will be saved within Storage and can be accessed later when requested. Storage works closely with Modelto read and write data from the app as and when the user requests to add or show existing data.
+The `Storage` component primarily focuses on storing data. Any data related to the application will be saved within `Storage` and can be accessed later when requested. `Storage` works closely with `Model` to read and write data from the app as and when the user requests to add or show existing data.
 
 ####**API**
 
-The API of the Model component consists mainly of:
+The API of the Model component consists mainly of the following classes:
 
- 1. Model class
- 2. ModelManager class
- 3. ListOfTask class
- 4. UserPref class
- 5. ReadOnlyListOfTask class
+ 1. `Model`
+ 2. `ModelManager` 
+ 3. `ListOfTask` 
+ 4. `UserPref` 
+ 5. `ReadOnlyListOfTask` 
 
 These classes are responsible for storing the data from the user and also works with the Model component to execute the commands given by the user.
 
-Storage is able to:
+`Storage` is able to:
 
- 1)Save the data entered in by the user and also read it back to Model when requested
- 2)Save user preferences and read it back when needed
+ 1)Save the data entered in by the user and also read it back to `Model` when requested <br>
+ 2)Save user preferences and read it back when needed <br>
 
 
 ## **Testing**
@@ -293,7 +293,7 @@ Here are the steps to create a new release.
  
  1. Generate a JAR file [using Gradle](UsingGradle.md#creating-the-jar-file).
  2. Tag the repo with the version number. e.g. `v0.1`
- 2. [Crete a new release using GitHub](https://help.github.com/articles/creating-releases/) 
+ 2. [Create a new release using GitHub](https://help.github.com/articles/creating-releases/) 
     and upload the JAR file your created.
    
 ###**Managing Dependencies**
