@@ -25,12 +25,15 @@ public class TaskListPanel extends UiPart {
     private static final String FXML = "TaskListPanel.fxml";
     private VBox panel;
     private AnchorPane placeHolderPane;
-
+    //@@author A0142184L
+    private boolean isShowingTaskList = true;
+    //@@author  
     @FXML
     private ListView<ReadOnlyTask> taskListView;
+    //@@author A0142184L
     @FXML
     private ListView<ReadOnlyAlias> aliasListView;
-
+    //@@author
     public TaskListPanel() {
         super();
     }
@@ -48,7 +51,17 @@ public class TaskListPanel extends UiPart {
     public AnchorPane getPlaceHolderPane() {
     	return placeHolderPane;
     }
-
+    
+    //@@author A0142184L
+    public boolean isShowingTaskList() {
+    	return isShowingTaskList;
+    }
+    
+    public void setIsShowingTaskList(boolean value) {
+    	this.isShowingTaskList = value;
+    }
+    
+    //@@author
     @Override
     public void setPlaceholder(AnchorPane pane) {
         this.placeHolderPane = pane;
