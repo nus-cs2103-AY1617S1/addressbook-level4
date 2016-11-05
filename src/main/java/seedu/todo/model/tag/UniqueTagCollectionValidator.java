@@ -106,9 +106,20 @@ public class UniqueTagCollectionValidator {
     }
 
     /**
-     * Validates the rename command.
+     * Validates the rename tag from task command.
      */
-    public void validateRenameCommand(UniqueTagCollectionModel tagCollection, String oldName, String newName) {
+    public void validateRenameCommand(ImmutableTask task, String oldName, String newName) {
+        validateTagNamesExist(task.getTags(), oldName);
+        validateTagNamesDoNotExist(task.getTags(), newName);
+        validateIllegalNameChar(newName);
+        validateNameCharLimit(newName);
+        validateTagNameMissing(oldName, newName);
+    }
+
+    /**
+     * Validates the global rename command.
+     */
+    public void validateGlobalRenameCommand(UniqueTagCollectionModel tagCollection, String oldName, String newName) {
         validateTagNamesExist(tagCollection.getUniqueTagList(), oldName);
         validateTagNamesDoNotExist(tagCollection.getUniqueTagList(), newName);
         validateIllegalNameChar(newName);

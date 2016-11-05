@@ -140,6 +140,7 @@ public class TagCommand extends BaseCommand {
             handleUnavailableInputParameters();
         }
         validateRenameParams();
+        validateRenameAllParams();
         super.validateArguments();
     }
 
@@ -153,6 +154,7 @@ public class TagCommand extends BaseCommand {
                 performAddTagToTaskWhenApplicable(),
                 performDeleteTagsFromTaskWhenApplicable(),
                 performDeleteTagsGloballyWhenApplicable(),
+                performRenameTagFromTaskWhenApplicable(),
                 performRenameTagWhenApplicable());
 
         guaranteeCommandResultExists(result); //Just a sanity check.
@@ -269,11 +271,44 @@ public class TagCommand extends BaseCommand {
         return null;
     }
 
-    /* Renaming Tags */
+    /* Rename Tag from a task */
+    /**
+     * Returns true if the command parameter matches the action of renaming a tag from a task.
+     */
+    private boolean isRenameTagFromTask() {
+        return index.hasBoundValue() && !addTags.hasBoundValue() && !deleteTags.hasBoundValue()
+                && renameTag.hasBoundValue();
+    }
+
+    /**
+     * Performs the following execution if the command indicates so:
+     *      Rename a specific tag from a task.
+     */
+    private CommandResult performRenameTagFromTaskWhenApplicable() throws ValidationException {
+        if (isRenameTagFromTask()) {
+            String[] renameTagsParam = StringUtil.split(renameTag.getValue());
+            String oldName = renameTagsParam[0];
+            String newName = renameTagsParam[1];
+            model.renameTag(index.getValue(), oldName, newName);
+            return new CommandResult(oldName + SUCCESS_RENAME_TAGS + newName);
+        }
+        return null;
+    }
+
+    /**
+     * Performs validation to rename params (check for sufficient parameters to rename).
+     */
+    private void validateRenameParams() {
+        if (isRenameTagFromTask()) {
+            validateParameterForTwoItems(renameTag.getName(), renameTag.getValue());
+        }
+    }
+
+    /* Renaming Tags From All Tasks*/
     /**
      * Returns true if the command parameters matches the action of renaming tags.
      */
-    private boolean isRenamingTag() {
+    private boolean isRenameTagFromAllTasks() {
         return !index.hasBoundValue() && !addTags.hasBoundValue() && !deleteTags.hasBoundValue()
                 && renameTag.hasBoundValue();
     }
@@ -281,23 +316,19 @@ public class TagCommand extends BaseCommand {
     /**
      * Performs validation to rename params (check for sufficient parameters to rename).
      */
-    private void validateRenameParams() {
-        if (isRenamingTag()) {
-            String[] params = StringUtil.split(renameTag.getValue());
-            if (params != null && params.length != 2) {
-                errors.put(renameTag.getName(), ERROR_TWO_PARAMS);
-            }
+    private void validateRenameAllParams() {
+        if (isRenameTagFromAllTasks()) {
+            validateParameterForTwoItems(renameTag.getName(), renameTag.getValue());
         }
     }
 
     /**
      * Performs the following execution if the command indicates so:
-     *      Rename a specific tag.
+     *      Rename a specific tag globally.
      */
     private CommandResult performRenameTagWhenApplicable() throws ValidationException {
-        String[] renameTagsParam = StringUtil.split(renameTag.getValue());
-
-        if (isRenamingTag()) {
+        if (isRenameTagFromAllTasks()) {
+            String[] renameTagsParam = StringUtil.split(renameTag.getValue());
             String oldName = renameTagsParam[0];
             String newName = renameTagsParam[1];
             model.renameTag(oldName, newName);
@@ -330,7 +361,17 @@ public class TagCommand extends BaseCommand {
      */
     private boolean isInputParameterSufficient() {
         return getNumberOfTruth(isShowTags(), isAddTagsToTask(), isDeleteTagsFromTask(),
-                isDeleteTagsFromAllTasks(), isRenamingTag()) == 1;
+                isDeleteTagsFromAllTasks(), isRenameTagFromAllTasks(), isRenameTagFromTask()) == 1;
+    }
+
+    /**
+     * Validates the given {@code param} if there is exactly 2 items.
+     */
+    private void validateParameterForTwoItems(String fieldName, String param) {
+        String[] params = StringUtil.split(param);
+        if (params == null || params.length != 2) {
+            errors.put(fieldName, ERROR_TWO_PARAMS);
+        }
     }
 
     /**
