@@ -142,7 +142,7 @@ public class Event implements CalendarItem {
     public static Predicate<Event> predTag(String tag) {
         return (Event event) -> {
             for (String currTag : event.getTagList()) {
-                if (currTag.equals(tag)) {
+                if (currTag.toLowerCase().equals(tag.toLowerCase())) {
                     return true;
                 }
             }

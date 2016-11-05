@@ -145,7 +145,7 @@ public class Task implements CalendarItem {
     public static Predicate<Task> predTag(String tag) {
         return (Task task) -> {
             for (String currTag : task.getTagList()) {
-                if (currTag.equals(tag)) {
+                if (currTag.toLowerCase().equals(tag.toLowerCase())) {
                     return true;
                 }
             }
