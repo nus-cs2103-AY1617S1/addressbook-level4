@@ -112,7 +112,6 @@ public class DeleteCommand extends Command {
             indicateAttemptToExecuteIncorrectCommand();
             return new CommandResult(MESSAGE_DELETE_NOT_FOUND);
         } else {
-            indicateAttemptToExecuteIncorrectCommand();
             return new CommandResult(MESSAGE_DELETE_SAME_NAME);
         }
     }
