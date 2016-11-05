@@ -43,7 +43,7 @@ Responsibilities: Team Lead, Logic
 * Code written: <kbd>[Functional code](../collated/main/A0152958R.md)</kbd> <kbd>[Test code](../collated/test/A0152958R.md)</kbd> <kbd>[Docs]</kbd>
 
 **Role**: Developer <br>
-Responsibilities: Code Quality, Parser
+Responsibilities: Parser
 
 -----
 
@@ -52,10 +52,9 @@ Responsibilities: Code Quality, Parser
 
 * Components in charge of: [GUI]
 * Features implemented:
+   * New GUI
    * <kbd>[Edit](UserGuide.md#editing-a-task-edit)</kbd> Command
 * Code written: <kbd>[Functional code](../collated/main/A0133369B.md)</kbd> <kbd>[Test code]</kbd> <kbd>[Docs]</kbd>
-* Other major contributions:
-  * {to be updated}
 
 **Role**: Developer <br>
 Responsibilities: Testing, GUI
@@ -76,10 +75,12 @@ Responsibilities: Testing, GUI
 * Code written: <kbd>[Functional code](../collated/main/A0147944U.md)</kbd> <kbd>[Test code](../collated/test/A0147944U.md)</kbd> <kbd>[Docs](../collated/docs/A0147944U.md)</kbd>
 * Other major contributions:
   * Organize and manage [GitHub repository](https://github.com/CS2103AUG2016-T17-C3/main)
+  * Ensure and improve code quality of code throughout the project
   * Improve Regex for CommandParser
   * Edit and ensure formatting of documentations
+
   
 **Role**: Developer <br>
-Responsibilities: Integration, Storage Commands, GitHub Project Manager
+Responsibilities: Integration, Code Quality, GitHub Project Manager, Storage related codes
 
 -----
