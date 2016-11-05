@@ -97,12 +97,12 @@ public class ItemCard extends UiPart{
         itemType.setText(item.getItemType().value);
         endTime.setText(item.getEndTime().value);
         endDate.setText(item.getEndDate().value);
-        Date endFromNowDate = item.getEndDateTime();
         String endFromNowText = "";
         if (item.getItemType().value.equals(ItemType.DEADLINE_WORD) || item.getItemType().value.equals(ItemType.EVENT_WORD)) {
+        	Date endFromNowDate = item.getEndDateTime();
             PrettyTime p = new PrettyTime();
             endFromNowText = p.format(endFromNowDate);
-            if (item.isPastDeadline()) { // Future Deadline
+            if (!item.isPastDeadline()) { // Future Deadline
                 endFromNow.setText("Ends " + endFromNowText);
             } else { // Past Deadline
                 endFromNow.setText("Ended " + endFromNowText);

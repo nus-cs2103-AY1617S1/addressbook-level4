@@ -94,6 +94,12 @@ public class ShortItemCard extends UiPart{
             id.setStyle("-fx-text-fill: #2E8B57");
             name.setStyle("-fx-text-fill: #2E8B57");
             tags.setStyle("-fx-text-fill: #2E8B57");
+        } else if (item.getItemType().value.equals(ItemType.DEADLINE_WORD) || item.getItemType().value.equals(ItemType.EVENT_WORD)) {
+            if (item.isPastDeadline()) { // Past End Date
+            	id.setStyle("-fx-text-fill: #FF0000");
+                name.setStyle("-fx-text-fill: #FF0000");
+                tags.setStyle("-fx-text-fill: #FF0000");
+            }
         }
     }
     //@@author

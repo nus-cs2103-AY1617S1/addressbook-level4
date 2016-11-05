@@ -1,5 +1,10 @@
 package seedu.taskmanager.testutil;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import seedu.taskmanager.logic.commands.AddCommand;
 import seedu.taskmanager.model.item.ItemDate;
 import seedu.taskmanager.model.item.ItemType;
@@ -152,4 +157,30 @@ public class TestItem implements ReadOnlyItem {
         this.getTags().getInternalList().stream().forEach(s -> sb.append("#" + s.tagName + " "));
         return sb.toString();
     }
+
+	@Override
+	public boolean isPastDeadline() {
+        assert !this.getItemType().equals(ItemType.TASK_WORD);
+        
+        Date endFromNowDate = getEndDateTime();
+        Date currentDate = new Date();
+        if (currentDate.before(endFromNowDate)) { // Future Deadline
+            return false;
+        } else { // Past Deadline
+            return true;
+        }
+	}
+
+	@Override
+	public Date getEndDateTime() {
+		String endDateString = this.getEndDate().value + " " + this.getEndTime().value;
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd hh:mm");
+        Date endDateTime = null;
+        try {
+            endDateTime = df.parse(endDateString);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return endDateTime;
+	}
 }

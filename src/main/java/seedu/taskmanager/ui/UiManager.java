@@ -128,7 +128,7 @@ public class UiManager extends ComponentManager implements Ui {
     
     @Subscribe
     private void handleChangeDoneEvent(ChangeDoneEvent event) {
-        // mainWindow.getShortItemListPanel().updateIndex();
+        mainWindow.getShortItemListPanel().updateIndex();
         // mainWindow.getItemListPanel().freeResources();
     }
     
