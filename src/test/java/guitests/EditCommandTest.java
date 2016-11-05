@@ -52,7 +52,7 @@ public class EditCommandTest extends TaskBookGuiTest {
         commandBox.runCommand("edits Task");
         assertResultMessage(Messages.MESSAGE_UNKNOWN_COMMAND);
     }
-// KEN TODO
+
     private void assertEditSuccess(int index, Map<TaskField, String> fields, TestTask... currentList) {
         Arrays.sort(currentList);
         TestTask[] expectedRemainder = currentList.clone();
@@ -177,4 +177,18 @@ public class EditCommandTest extends TaskBookGuiTest {
         assertResultMessage(message);
     }
 
+    private static class TestTaskUpdater {
+        
+        TestTask task;
+        
+        public TestTaskUpdater(TestTask task) {
+            this.task = task;
+        }
+        
+//        public TestTaskUpdater updateName() {
+//            
+//        }
+        
+    }
+    
 }

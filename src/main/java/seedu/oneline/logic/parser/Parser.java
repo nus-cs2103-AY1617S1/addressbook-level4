@@ -105,25 +105,23 @@ public class Parser {
         }
         return cmd;
     }
-
+    
     /**
-     * @param method
-     * @param arguments
-     * @throws InvocationTargetException 
+     * @param commandWord
+     * @return class corresponding to the command word
+     * @throws IncorrectCommandException 
      */
-    private Command createCommand(Method method, final String arguments) throws InvocationTargetException {
-        try {
-            return (Command) method.invoke(null, arguments);
-        } catch (IllegalAccessException | IllegalArgumentException e) {
-            assert false : e.getClass().toString() + " : " + e.getMessage();
-            assert false : "Command class " + e.getClass().toString() + " should implement \"createFromArgs(String)\".";
+    private Class<? extends Command> getCommandClass(final String commandWord) throws IncorrectCommandException {
+        if (!COMMAND_CLASSES.containsKey(commandWord)) {
+            throw new IncorrectCommandException(Messages.MESSAGE_UNKNOWN_COMMAND);
         }
-        return null;
+        Class<? extends Command> cmdClass = COMMAND_CLASSES.get(commandWord);
+        return cmdClass;
     }
 
     /**
      * @param cmdClass
-     * @return
+     * @return method that takes in command arguments and returns a command 
      */
     private Method getCommandCreator(Class<? extends Command> cmdClass) {
         Method method = null;
@@ -136,16 +134,19 @@ public class Parser {
     }
 
     /**
-     * @param commandWord
-     * @return
-     * @throws IncorrectCommandException 
+     * @param method that takes in command arguments and returns a command
+     * @param arguments for the command
+     * @return an instance of command class
+     * @throws InvocationTargetException 
      */
-    private Class<? extends Command> getCommandClass(final String commandWord) throws IncorrectCommandException {
-        if (!COMMAND_CLASSES.containsKey(commandWord)) {
-            throw new IncorrectCommandException(Messages.MESSAGE_UNKNOWN_COMMAND);
+    private Command createCommand(Method method, final String arguments) throws InvocationTargetException {
+        try {
+            return (Command) method.invoke(null, arguments);
+        } catch (IllegalAccessException | IllegalArgumentException e) {
+            assert false : e.getClass().toString() + " : " + e.getMessage();
+            assert false : "Command class " + e.getClass().toString() + " should implement \"createFromArgs(String)\".";
         }
-        Class<? extends Command> cmdClass = COMMAND_CLASSES.get(commandWord);
-        return cmdClass;
+        return null;
     }
 
     /**
@@ -168,17 +169,90 @@ public class Parser {
     }
 
     /**
-     * @param splitted
-     * @param fieldIndexes
-     * @return
+     * Returns a list of indexes of the field locations.
+     * 
+     * E.g.
+     * argsArr = ["My", "Task", "Name", ".from", "3pm", "today", ".to", "tomorrow", "8am", "#camp"]
+     * returns a list with the following elements:
+     * [[TaskField.START_TIME, 3], [TaskField.END_TIME, 6], [TaskField.TAG, 9]]
+     * 
+     * @param argsArr
+     * @return index of the fields in the argsArr
      * @throws IllegalCmdArgsException
      */
-    private static Map<TaskField, String> extractAllFields(String[] splitted,
+    private static List<Entry<TaskField, Integer>> extractFieldIndexes(String[] argsArr)
+            throws IllegalCmdArgsException {
+        List<Entry<TaskField, Integer>> fieldIndexes = new ArrayList<>();
+        TaskField[] fields = new TaskField[] { TaskField.START_TIME, TaskField.END_TIME,
+                                               TaskField.DEADLINE, TaskField.RECURRENCE, TaskField.IS_DONE };
+        for (TaskField tf : fields) {
+            Integer index = getIndexesOfKeyword(argsArr, tf.getKeyword());
+            if (index != null) {
+                fieldIndexes.add(new SimpleEntry<TaskField, Integer>(tf, index));
+            }
+        }
+        Optional<Integer> tagIndex = extractTagIndex(argsArr);
+        if (tagIndex.isPresent()) {
+            fieldIndexes.add(new SimpleEntry<TaskField, Integer>(TaskField.TAG, tagIndex.get()));
+        }
+        // Arrange the indexes of task fields in sorted order
+        Collections.sort(fieldIndexes, new Comparator<Entry<TaskField, Integer>>() {
+            @Override
+            public int compare(Entry<TaskField, Integer> a, Entry<TaskField, Integer> b) {
+                return a.getValue().compareTo(b.getValue());
+            } });
+        return fieldIndexes;
+    }
+
+    /**
+     * Finds the index of the tag field if it exists
+     * 
+     * @param argsArr
+     * @param fieldIndexes
+     * @throws IllegalCmdArgsException
+     */
+    private static Optional<Integer> extractTagIndex(String[] argsArr) throws IllegalCmdArgsException {
+        Optional<Integer> tagIndex = Optional.empty();
+        for (int i = 0; i < argsArr.length; i++) {
+            if (!argsArr[i].toLowerCase().startsWith(CommandConstants.TAG_PREFIX)) {
+                continue;
+            }
+            for (int j = i; j < argsArr.length; j++) {
+                if (!argsArr[j].startsWith(CommandConstants.TAG_PREFIX)) {
+                    throw new IllegalCmdArgsException("Categories should be the last fields in command");
+                }
+            }
+            if (tagIndex.isPresent()) {
+                throw new IllegalCmdArgsException("There should only be one category specified");
+            }
+            tagIndex = Optional.of(i);
+        }
+        return tagIndex;
+    }
+    
+    /**
+     * 
+     * Extracts argument segments into a map of fields to values.
+     * 
+     * Eg.
+     * argsArr = ["My", "Task", "Name", ".from", "3pm", "today", ".to", "tomorrow", "8am", "#camp"]
+     * fieldIndexes = [[TaskField.START_TIME, 3], [TaskField.END_TIME, 6], [TaskField.TAG, 9]]
+     * returns a map with the following entries:
+     * [[TaskField.NAME, "My Task Name"], [TaskField.START_TIME, "3pm today"],
+     * [TaskField.END_TIME, "tomorrow 8am"] [TaskField.TAG, "camp"]]
+     * 
+     * 
+     * @param argsArr - array of arguments
+     * @param fieldIndexes - indexes of their indexes
+     * @return map of the task fields and values
+     * @throws IllegalCmdArgsException
+     */
+    private static Map<TaskField, String> extractAllFields(String[] argsArr,
             List<Entry<TaskField, Integer>> fieldIndexes) throws IllegalCmdArgsException {
         Map<TaskField, String> result = new HashMap<TaskField, String>();
         Integer firstIndex = fieldIndexes.get(0).getValue();
         if (firstIndex > 0) {
-            String[] subArr = Arrays.copyOfRange(splitted, 0, firstIndex);
+            String[] subArr = Arrays.copyOfRange(argsArr, 0, firstIndex);
             result.put(TaskField.NAME, String.join(" ", subArr));
         }
         for (int i = 0; i < fieldIndexes.size(); i++) {
@@ -189,8 +263,8 @@ public class Parser {
                     fieldIndexes.get(i).getValue() :
                     fieldIndexes.get(i).getValue() + 1;
             int endIndex = (i == fieldIndexes.size() - 1) ?
-                    splitted.length : fieldIndexes.get(i + 1).getValue();
-            String[] subArr = Arrays.copyOfRange(splitted, startIndex, endIndex);
+                    argsArr.length : fieldIndexes.get(i + 1).getValue();
+            String[] subArr = Arrays.copyOfRange(argsArr, startIndex, endIndex);
             if (fieldIndexes.get(i).getKey() == TaskField.TAG) {
                 for (int j = 0; j < subArr.length; j++) {
                     subArr[j] = getTagFromArgs(subArr[j]);
@@ -202,54 +276,21 @@ public class Parser {
     }
 
     /**
-     * @param splitted
+     * Returns a map containing the entry [TaskField.NAME, name],
+     * where name the concatenated fields in argFields
+     * 
+     * @param argFields
      * @param result
      * @return
      * @throws IllegalCmdArgsException
      */
-    private static Map<TaskField, String> extractFieldName(String[] splitted) throws IllegalCmdArgsException {
+    private static Map<TaskField, String> extractFieldName(String[] argFields) throws IllegalCmdArgsException {
         Map<TaskField, String> result = new HashMap<TaskField, String>();
-        if (splitted[0].equals("")) { 
+        if (argFields[0].equals("")) { 
             throw new IllegalCmdArgsException("Task Name is a compulsory field.");
         }
-        result.put(TaskField.NAME, String.join(" ", splitted));
+        result.put(TaskField.NAME, String.join(" ", argFields));
         return result;
-    }
-
-    /**
-     * @param splitted
-     * @return
-     * @throws IllegalCmdArgsException
-     */
-    private static List<Entry<TaskField, Integer>> extractFieldIndexes(String[] splitted)
-            throws IllegalCmdArgsException {
-        List<Entry<TaskField, Integer>> fieldIndexes = new ArrayList<>();
-        TaskField[] fields = new TaskField[] { TaskField.START_TIME, TaskField.END_TIME,
-                                               TaskField.DEADLINE, TaskField.RECURRENCE, TaskField.IS_DONE };
-        for (TaskField tf : fields) {
-            Integer index = getIndexesOfKeyword(splitted, tf.getKeyword());
-            if (index != null) {
-                fieldIndexes.add(new SimpleEntry<TaskField, Integer>(tf, index));
-            }
-        }
-        for (int i = 0; i < splitted.length; i++) {
-            if (splitted[i].toLowerCase().startsWith(CommandConstants.TAG_PREFIX)) {
-                for (int j = i; j < splitted.length; j++) {
-                    if (!splitted[j].startsWith(CommandConstants.TAG_PREFIX)) {
-                        throw new IllegalCmdArgsException("Hashtags should be the last fields in command.");
-                    }
-                }
-                fieldIndexes.add(new SimpleEntry<TaskField, Integer>(TaskField.TAG, i));
-                break;
-            }
-        }
-        // Arrange the indexes of task fields in sorted order
-        Collections.sort(fieldIndexes, new Comparator<Entry<TaskField, Integer>>() {
-            @Override
-            public int compare(Entry<TaskField, Integer> a, Entry<TaskField, Integer> b) {
-                return a.getValue().compareTo(b.getValue());
-            } });
-        return fieldIndexes;
     }
     
     /**

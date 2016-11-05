@@ -5,7 +5,7 @@ import org.junit.Test;
 import seedu.oneline.commons.core.Messages;
 import seedu.oneline.logic.commands.DoneCommand;
 
-public class DoneCommandTest extends LogicTestManager{
+public class DoneCommandTest extends LogicTestManager {
     
     //---------------- Tests for DoneCommand --------------------------------------
     /*

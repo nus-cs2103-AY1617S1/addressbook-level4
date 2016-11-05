@@ -114,6 +114,7 @@ public class TestTask implements ReadOnlyTask, Comparable<TestTask> {
         return sb.toString();
     }
     
+    @Override
     public Task update(Map<TaskField, String> fields) throws IllegalValueException {
         ReadOnlyTask oldTask = this;
         
@@ -237,7 +238,13 @@ public class TestTask implements ReadOnlyTask, Comparable<TestTask> {
 
     @Override
     public Task updateTag(Tag newTag) {
-        // TODO Auto-generated method stub
+        TestTask newTask = new TestTask(this);
+        newTask.setTag(newTag);
+        try {
+            return new Task(newTask);
+        } catch (IllegalValueException e) {
+            assert false;
+        }
         return null;
     }
     

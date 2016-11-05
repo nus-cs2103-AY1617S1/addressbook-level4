@@ -47,6 +47,7 @@ public class ParserTest {
                 new SimpleEntry<TaskField, String>(TaskField.RECURRENCE, testRecurrence),
                 new SimpleEntry<TaskField, String>(TaskField.TAG, testTag));
     }
+    
     // KEN TODO EXPLAIN DIFF EQUIV CLASSES
     @Test
     public void parser_optionalArgs1_success() {
