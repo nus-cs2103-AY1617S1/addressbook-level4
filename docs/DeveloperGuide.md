@@ -75,9 +75,18 @@ interface and exposes its functionality using the `LogicManager.java` class.<br>
 <img src="images/LogicClassDiagram.png" width="800"><br>
 
 The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the
-command `delete 3`.
+command `delete 1`. This same _Sequence Diagram_ will be used to illustrace `undo` in the following _Sequence Diagram_.
 
-<img src="images\SDforDeleteTask.png" width="800">
+<img src="images\SDforDeleteTask.png" width="800"><br>
+
+>Note how the method saveToHistory() is called when delete is being executed. A copy of the `TaskManager` will be stored
+within `Model`. This is the same for task modifying commands such as `add`, `edit` and `clear`.
+
+The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the command `undo`.
+
+<img src="images\SDforUndo.png" width="800"><br>
+
+When `undo` is entered by the user, the method loadFromHistory() will be executed to replace the current `TaskManager` to the most recent `TaskManager` saved in `Model` when saveToHistory() was previously executed. When the user exits ForgetMeNot, this stored history will be cleared.
 
 >Note how the `Model` simply raises a `TaskManagerChangedEvent` when the Task Manager data are changed,
  instead of asking the `Storage` to save the updates to the hard disk.
@@ -139,6 +148,7 @@ The `Model`,
 * exposes a `UnmodifiableObservableList<ReadOnlyTask>` that can be 'observed' e.g. the UI can be bound to this list
   so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
+<!-- @@author A0139671X -->
 
 ### Storage component
 
@@ -148,7 +158,9 @@ The `Model`,
 
 The `Storage` component,
 * can save `UserPref` objects in json format and read it back.
-* can save the Task Manager data in xml format and read it back.
+* can save ForgeMeNot's data in xml format and read it back.
+* can redirect the storage file path for the data in xml format and read it back.
+<!-- @@author -->
 
 ### Common classes
 
@@ -190,7 +202,7 @@ Tests can be found in the `./src/test/java` folder.
   as described [here](http://stackoverflow.com/questions/2522897/eclipse-junit-ea-vm-option).
 
 * To run all tests, right-click on the `src/test/java` folder and choose
-  `Run as` > `JUnit Test`
+  `Run As` > `JUnit Test`
 * To run a subset of tests, you can right-click on a test package, test class, or a test and choose
   to run as a JUnit test.
 
@@ -211,8 +223,18 @@ We have two types of tests:
    3. Hybrids of unit and integration tests. These test are checking multiple code units as well as 
       how the are connected together.<br>
       e.g. `seedu.address.logic.LogicManagerTest`
+
+<!-- @@author A0139671X-->
+**Measuring Coverage Locally using EclEmma**:
+ * Install the [EclEmma Eclipse Plugin](http://www.eclemma.org/) in your computer and use that to
+   find code that is not covered by the tests.
+ * To measure coverage after installing plugin, right-clck on the `src/test/java` folder and choose 
+   `Coverage As` > `JUnit Test`.
+ * To see the color code for EclEmma coverage. Refer to [this](http://www.eclemma.org/userdoc/
+   annotations.html).
+<!-- @@author -->
   
-**Headless GUI Testing** :
+**Headless GUI Testing**:
 Thanks to the [TestFX](https://github.com/TestFX/TestFX) library we use,
  our GUI tests can be run in the _headless_ mode. 
  In the headless mode, GUI tests do not show up on the screen.
@@ -247,8 +269,8 @@ can be automated using Gradle. For example, Gradle can download the dependencies
 is better than these alternatives.<br>
 a. Include those libraries in the repo (this bloats the repo size)<br>
 b. Require developers to download those libraries manually (this creates extra work for developers)<br>
-
 <!-- @@author A0147619W -->
+
 ## Appendix A: User Stories
 
 Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (unlikely to have) - `*`
@@ -356,29 +378,35 @@ Priority | As a ... | I want to ... | So that I can...
 > 3a1. ForgetMeNot displays an error message
 > 2a2. Use case resumes at step 2
 
+<!-- @@author A0139671X -->
+
 #### Use case: Edit a task
 
 **MSS**
 
-1. User requests to edit a task.
-2. System prompts for confirmation.
-3. User confirms.
-4. System shows user that the task is edited.
+1. User requests to edit the various fields of a task.
+2. ForgetMeNot shows to the user that the task has been edited.
 	 Use case ends.
 
 **Extensions**
 
 	1a. Input command incorrect.
 	
-> 1a1. System shows help message
+> 1a1. ForgetMeNot shows error message.
 
 	1b. The task does not exist.
 	
-> 1b1. System suggests user to check the input or add a new task
+> 1b1. ForgetMeNot suggests user to check the input or add a new task.
 
-	2a. User changed his mind
+	1c. The new edit details are invalid.
+	
+> 1c1. ForgetMeNot shows error message of the wrong details.
+	
+	2a. User changed his/her mind.
 	
 > 2a1. Command is removed.
+
+<!-- @@author -->
 
 #### Use case: Mark task as done
 
@@ -404,7 +432,7 @@ Priority | As a ... | I want to ... | So that I can...
 	
 > 2a1. Command is removed.
 
-#### Use case: show task
+#### Use case: Show task
 
 **MSS**
 
@@ -423,12 +451,13 @@ Priority | As a ... | I want to ... | So that I can...
 > 1b1. System shows error message
 > 1b2. Prompt user to add tasks
 
+<!-- @@author A0139671X -->
 
 #### Use Case: Undo a task
 
 **MSS**
 
-1. User undoes a task
+1. User undo a task
 2. ForgetMeNot undo the most recent command executed
       Use case ends
       
@@ -440,7 +469,7 @@ Priority | As a ... | I want to ... | So that I can...
 
 	1b. User inputs an invalid input
 	
-> 1b1.ForgetMeNot shows help message
+> 1b1.ForgetMeNot shows error message
 
 #### Use Case: Redo a task
 
@@ -458,7 +487,9 @@ Priority | As a ... | I want to ... | So that I can...
 	
 	1b. User inputs an invalid input
 	
-> 1b1. ForgetMeNot shows help message
+> 1b1. ForgetMeNot shows error message
+
+<!-- @@author -->
 
 #### Use case: Set storage of the tasks in ForgetMeNot to a different folder
 
@@ -488,7 +519,7 @@ Priority | As a ... | I want to ... | So that I can...
 
 ## Appendix C: Non Functional Requirements
 
-1. Should be able to hold atleast 100 tasks.
+1. Should be able to hold at least 100 tasks.
 2. Should be able to display request under 0.5 seconds.
 3. Should work on any mainstream OS as long as it has Java 8 or higher installed.
 4. Should be able to operate without internet connection.
@@ -508,7 +539,7 @@ Day:
 
 ## Appendix E: Product Survey
 
-## Fantastical
+### Fantastical
 #### Strengths
 
 1. It has a good and clean UI, really simple to use. <br>
@@ -529,7 +560,7 @@ Day:
 5. No alert when event is starting
 
 
-## Google Cal
+### Google Cal
 #### Strengths
 
 1. It has CRUD features. <br>
@@ -552,6 +583,7 @@ Day:
 5. Steep learning curve
 6. Does not support categaries
 7. Reorganising of task is not user friendly
+
 1. **Fantastical**
 
 1a. It has a good and clean UI, really simple to use. <br>
@@ -563,25 +595,7 @@ Day:
 1g. Locations added when creating events are automatically shown in google/apple map when clicked. <br>
 1h. Automatically syncs with apple calendar, updates and syncs on the go. <br>
 
-## Google Cal
-##### Strengths
-1. It has CRUD features. <br>
-2. It can link to external applications such as Gmail and Contacts. <br>
-3. It has cross-platform features.<br>
-4. It has a reminder function.<br>
-5. It can support multiple accounts in one device.<br>
-6. It can create Event, Reminder or Goal.<br>
-7. All task created are automatically grouped and colour coded.<br>
-8. Clean and simple UI.<br>
-9. It can be used online or offline.<br>
-10. It has different kind of viewing options such as Day, 3-day, Week and Month.<br>
-
-##### Weaknesses
-1. It is not keyboard friendly.<br>
-2. It requires user to have a google account to use it.<br>
-3. It does not have a done function.<br>
-4. It has a steep learning curve.<br>
-
+<!-- @@author A0139671X-->
 ### Any.do
 ##### Strengths
 
@@ -596,8 +610,10 @@ Day:
 9. It has the option to make tasks recurring.<br>
 10. It has location reminder.<br>
 11. It has the option for Any.do to walk the user through his/her tasks to make tasks organization better<br>
-12. It can be synced across all devices such as computers, phones, tablets.<br>
-13. Easy to shift tasks between categories.<br>
+12. Portable as it available on mobile devices.<br>
+13. It can be synced across all devices such as computers, phones, tablets.<br>
+14. Easy to shift tasks between categories.<br>
+
 
 ##### Weaknesses
 
@@ -608,6 +624,8 @@ Day:
 5. Only one color scheme in the basic version. <br>
 6. Requires an account to start using.<br>
 7. Not keyboard friendly. Requires substantial mouse usage.<br>
+8. Frequently malfunctions and requres a restart.<br>
+<!-- @@author -->
 
 ### Reminders
 ##### Strengths

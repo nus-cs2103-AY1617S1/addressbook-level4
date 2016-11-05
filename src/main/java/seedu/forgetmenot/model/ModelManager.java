@@ -106,9 +106,7 @@ public class ModelManager extends ComponentManager implements Model {
      */
     @Override
     public void loadFromHistory() throws NoSuchElementException {
-        TaskManager oldManager = taskManagerHistory.pop();
-        undoHistory.push(new TaskManager(taskManager));
-        taskManager.setTasks(oldManager.getTasks());
+        loadFromStoredTaskManagers();
         taskManager.counter();
         indicateTaskManagerChanged();
     }
@@ -118,11 +116,21 @@ public class ModelManager extends ComponentManager implements Model {
      */
     @Override
     public void loadFromUndoHistory() throws NoSuchElementException {
+        loadFromUndoTaskManagers();
+        taskManager.counter();
+        indicateTaskManagerChanged();
+    }
+    
+    public void loadFromStoredTaskManagers() {
+        TaskManager oldManager = taskManagerHistory.pop();
+        undoHistory.push(new TaskManager(taskManager));
+        taskManager.setTasks(oldManager.getTasks());
+    }
+
+    public void loadFromUndoTaskManagers() {
         TaskManager oldManager = undoHistory.pop();
         taskManagerHistory.push(new TaskManager(taskManager));
         taskManager.setTasks(oldManager.getTasks());
-        taskManager.counter();
-        indicateTaskManagerChanged();
     }
     //@@author
 
@@ -164,8 +172,8 @@ public class ModelManager extends ComponentManager implements Model {
 
     //@@author A0139671X
     /**
-     * Adds a task to the task manager and auto jumps to the most recent add in
-     * ForgetMeNot UI
+     * Adds a task to the task manager and jumps to the most recent add in
+     * ForgetMeNot UI list
      */
     @Override
     public synchronized void addTask(Task task) {
@@ -200,7 +208,8 @@ public class ModelManager extends ComponentManager implements Model {
         updateFilteredTaskListToShowNotDone();
         indicateTaskManagerChanged();
     }
-
+    
+    
     public void addRecurringEvent(ReadOnlyTask task, String freq, int occur) throws IllegalValueException {
         StringBuilder recurStartTime = new StringBuilder(task.getStartTime().appearOnUIFormat());
         StringBuilder recurEndTime = new StringBuilder(task.getEndTime().appearOnUIFormat());
@@ -237,8 +246,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     /**
-     * Edits a tasks with the new details given and auto selects the editted
-     * task in ForgetMeNot UI
+     * Edits a tasks with the new details given in ForgetMeNot
      */
     @Override
     public synchronized void editTask(ReadOnlyTask task, String newName, String newStart, String newEnd)
@@ -255,7 +263,6 @@ public class ModelManager extends ComponentManager implements Model {
 
         updateFilteredListToShowAll();
         indicateTaskManagerChanged();
-        EventsCenter.getInstance().post(new JumpToListRequestEvent(filteredTasks.indexOf(task)));
     }
     //@@author
 
