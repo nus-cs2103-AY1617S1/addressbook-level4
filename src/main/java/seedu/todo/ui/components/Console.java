@@ -4,9 +4,11 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyEvent;
 import seedu.todo.commons.util.FxViewUtil;
 import seedu.todo.ui.InputHandler;
+import seedu.todo.ui.UiManager;
 
 /**
  * @@author A0139812A
@@ -66,6 +68,14 @@ public class Console extends Component {
         } else if (event.getCode() == KeyCode.DOWN) {
             String command = inputHandler.getNextCommandFromHistory();
             consoleInputTextField.setText(command);
+        } else if (!event.getCode().isModifierKey()) {
+            // Handle key accelerators in main scene if defined
+            Runnable r = UiManager.getInstance().getMainWindow().getScene()
+                    .getAccelerators().get(new KeyCodeCombination(event.getCode()));
+            
+            if (r != null) {
+                r.run();
+            }
         }
     }
     
