@@ -19,10 +19,6 @@ public class Config {
     private String taskManagerName = "MyTaskManager";
     private String sortPreference = "Default"; // Default sorting preset is applied on first startup
 
-
-    public Config() {
-    }
-
     public String getAppTitle() {
         return appTitle;
     }
