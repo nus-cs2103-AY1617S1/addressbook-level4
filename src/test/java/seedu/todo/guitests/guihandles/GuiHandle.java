@@ -1,6 +1,7 @@
 package seedu.todo.guitests.guihandles;
 
 import javafx.scene.Node;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.text.Text;
@@ -58,6 +59,10 @@ public class GuiHandle {
 
     protected String getTextFieldText(String filedName) {
         return ((TextField) getNode(filedName)).getText();
+    }
+    
+    protected String getTextAreaText(String filedName) {
+        return ((TextArea) getNode(filedName)).getText();
     }
 
     protected void setTextField(String textFieldId, String newText) {

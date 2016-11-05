@@ -9,6 +9,7 @@ import seedu.todo.guitests.GuiRobot;
 public class ConsoleHandle extends GuiHandle {
 
     private static final String CONSOLE_INPUT_ID = "#consoleInputTextField";
+    private static final String CONSOLE_TEXT_ID = "#consoleTextArea";
     private static final int COMMAND_WAIT_TIME = 500;
 
     public ConsoleHandle(GuiRobot guiRobot, Stage primaryStage, String stageTitle) {
@@ -19,6 +20,10 @@ public class ConsoleHandle extends GuiHandle {
         return getTextFieldText(CONSOLE_INPUT_ID);
     }
 
+    public String getConsoleTextArea() {
+        return getTextAreaText(CONSOLE_TEXT_ID);
+    }
+    
     public void enterCommand(String command) {
         setTextField(CONSOLE_INPUT_ID, command);
     }
