@@ -89,8 +89,4 @@ public class BackupCommandTest extends TaskManagerGuiTest {
         protectedFile.setExecutable(false);
         protectedFile.setWritable(false);
     }
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> 4c7d3660922efb24582133dc8fb10b2b39e87a07
