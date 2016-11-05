@@ -194,18 +194,22 @@ Given below is the Sequence Diagram for interactions within the `Logic` componen
  API call.<br>
 <img src="images/DeletePersonSdForLogic.png" width="800"><br>
 
+<!--- @@author A0093907W -->
 ### Model component
 
 <img src="images/ModelClassDiagram.png" width="800"><br>
 
-**API** : [`Model.java`](../src/main/java/seedu/todo/model/Model.java)
+**API** : [`CalendarItem.java`](../src/main/java/seedu/todo/models/CalendarItem.java)
 
-The `Model`,
-* stores a `UserPref` object that represents the user's preferences.
-* stores the Address Book data.
-* exposes a `UnmodifiableObservableList<ReadOnlyPerson>` that can be 'observed' e.g. the UI can be bound to this list
-  so that the UI automatically updates when the data in the list change.
-* does not depend on any of the other three components.
+`CalendarItem`
+* represents a single database record that is part of the persistent state of the TodoList app
+* is subclassed by two record types, namely `Event` and `Task`
+
+`TodoListDB`
+* is a class that holds the entire persistent database for the TodoList app
+* is a singleton class. For obvious reasons, the TodoList app should not be working with multiple DB instances simultaneously
+* is recursively serialized to disk - hence object-to-object dynamic references should not be expected to survive serialization/deserialization 
+<!--- @@author -->
 
 ### Storage component
 
