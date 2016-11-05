@@ -42,11 +42,12 @@ public class ShowCommand extends Command {
             + "Parameters: SECTION_TO_SHOW\n" 
             + "Example: " + COMMAND_WORD + " floating\n"
             + "Valid case-insensitive sections to show: \n"
-            + "> all, overdue, floating, complete, incomplete, today, tomorrow, {day of week displayed}";
+            + "> " + String.join(", ", VALID_KEYWORDS);
+    
     public static final String MESSAGE_INVALID_SECTION =
             "Invalid section to show!\n" 
             + "Valid case-insensitive sections to show: \n"
-            + "> all, overdue, floating, complete, incomplete, today, tomorrow, {day of week displayed}";
+            + "> " + String.join(", ", VALID_KEYWORDS);
     
     private final String userSelection; //section name from user input
     
