@@ -29,7 +29,7 @@ public class ParserMemoryMain {
     protected static final int BY = 2;
     protected static final int DEADLINE = 1;
     
-    protected static String command; 
+    public static String command; 
     protected static String taskName; 
     protected static String description; 
     
@@ -68,13 +68,28 @@ public class ParserMemoryMain {
     }
     
     //@@author A0143378Y
-    protected static void setDescription(String newDescription) { 
+    public static String getTaskName() { 
+        return taskName;
+    }
+    
+    //@@author A0143378Y
+    public static void setDescription(String newDescription) { 
         description = newDescription;
     }
     
+    //@@author A0143378Y
+    public static String getDescription() { 
+        return description;
+    }
+    
     //@@author A0143378Y 
-    protected static void setLength(int newLength) { 
+    public static void setLength(int newLength) { 
         length = newLength;
+    }
+    
+    //@@author A0143378Y
+    public static int getLength() { 
+        return length;
     }
     
     //@@author A0143378Y
@@ -88,7 +103,7 @@ public class ParserMemoryMain {
     }
     
     //@@author A0143378Y
-    protected static void setProper(boolean sp) { 
+    public static void setProper(boolean sp) { 
         setProper = sp;
     }
     
