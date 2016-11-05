@@ -44,6 +44,9 @@ public interface Model {
     
     /** Returns the filtered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
     UnmodifiableObservableList<ReadOnlyActivity> getFilteredTaskList();
+
+    /** Returns the filtered overdue task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
+    UnmodifiableObservableList<ReadOnlyActivity> getFilteredOverdueTaskList();
     
     /** Returns the filtered task list as an {@code UnmodifiableObservableList<Task>} */
     UnmodifiableObservableList<Activity> getFilteredTaskListForEditing();
@@ -69,6 +72,8 @@ public interface Model {
     void updateFilteredByTagListToShowAll(String tag);
 
     void updateFilteredDoneListToShowAll();
+
+	
 
 
 

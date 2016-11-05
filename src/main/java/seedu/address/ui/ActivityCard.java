@@ -42,9 +42,9 @@ public class ActivityCard extends UiPart {
 
     }
 
-    public static ActivityCard load(ReadOnlyActivity person2, int displayedIndex) {
+    public static ActivityCard load(ReadOnlyActivity activity, int displayedIndex) {
         ActivityCard card = new ActivityCard();
-        card.activity = person2;
+        card.activity = activity;
         card.displayedIndex = displayedIndex;
         return UiPartLoader.loadUiPart(card);
     }
