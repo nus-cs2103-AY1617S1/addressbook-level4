@@ -18,8 +18,6 @@ public class Time implements Comparable<Time> {
 	public static final String MESSAGE_TIME_CONSTRAINTS = "Task time should be in the format XXYY where X represents the number of hours and Y represents the number of minutes";
 	public static final String TIME_VALIDATION_REGEX = "([0-1][0-9][0-5][0-9])|([2][0-3][0-5][0-9])$";
 
-	// \\[0-9]{2}[0-9]{2}
-
 	private final String fullTime;
 	private int hours;
 	private int minutes;

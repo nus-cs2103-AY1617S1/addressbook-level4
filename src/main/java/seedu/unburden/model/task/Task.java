@@ -294,10 +294,8 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
 	public boolean checkOverDue() {
 		try {
 			Calendar calendar = Calendar.getInstance();
-			System.out.println("now " + DATEFORMATTER.format(calendar.getTime()));
 			if (this.getDate().getFullDate() != "") {
 				if (this.getDate().compareTo(new Date(DATEFORMATTER.format(calendar.getTime()))) < 0) {
-					System.out.println("date is true " + DATEFORMATTER.format(calendar.getTime()));
 					return true;
 
 				} else if (this.getDate().compareTo(new Date(DATEFORMATTER.format(calendar.getTime()))) == 0) {

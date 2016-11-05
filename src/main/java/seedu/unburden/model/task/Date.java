@@ -189,24 +189,17 @@ public class Date implements Comparable<Date> {
 		else if (this.getFullDate() == "" && date.getFullDate() != "") {
 			return 0;
 		}
-		System.out.println("this: " +this);
-		System.out.println("other : " + date);
 		// comparing the values(day, month, year)
 		if (this.getYear() == date.getYear() && this.getMonth() == date.getMonth() && this.getDay() == date.getDay()) { // same date
 			return 0;
 		}
 		else if (this.getYear() == date.getYear() && this.getMonth() == date.getMonth()) {
-			System.out.println("this is 1");
 			return this.getDay() - date.getDay();
 		}
 		else if (this.getYear() == date.getYear()) {
-			System.out.println("this is 2");
-			System.out.println(this.getMonth());
-			System.out.println(date.getMonth());
 			return this.getMonth() - date.getMonth();
 		}
 		else {
-			System.out.println("this is 3");
 			return this.getYear() - date.getYear();
 		}
 	}
