@@ -47,7 +47,7 @@ public class UnmarkCommand extends Command {
 
         UnmodifiableObservableList lastShownList;
         lastShownList = getCorrectList();        
-        if (lastShownList.size() < targetIndex) {
+        if (lastShownList.size() < targetIndex || targetIndex <= 0) {
             indicateAttemptToExecuteIncorrectCommand();
             return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }

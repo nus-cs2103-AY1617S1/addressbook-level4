@@ -61,7 +61,7 @@ public class CompleteCommand extends Command {
 
 	private CommandResult executeCompleteFloatingTask() {
 		UnmodifiableObservableList<ReadOnlyFloatingTask> lastShownList = model.getFilteredFloatingTaskList();
-		if (lastShownList.size() < targetIndex) {
+		if (lastShownList.size() < targetIndex || targetIndex <= 0) {
 			indicateAttemptToExecuteIncorrectCommand();
 			return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
 		}
@@ -83,7 +83,7 @@ public class CompleteCommand extends Command {
 
 	private CommandResult executeCompleteDeadline() {
 		UnmodifiableObservableList<ReadOnlyDeadline> lastShownList = model.getFilteredDeadlineList();
-		if (lastShownList.size() < targetIndex) {
+		if (lastShownList.size() < targetIndex || targetIndex <= 0) {
 			indicateAttemptToExecuteIncorrectCommand();
 			return new CommandResult(Messages.MESSAGE_INVALID_DEADLINE_DISPLAYED_INDEX);
 		}
