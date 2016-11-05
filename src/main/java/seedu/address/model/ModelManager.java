@@ -153,34 +153,18 @@ public class ModelManager extends ComponentManager implements Model {
   		return new UnmodifiableObservableList<ReadOnlyActivity>(filteredOverdueTaskList);
   	}
   	
+  	//@@Author A0125284H
 	@Override
 	public UnmodifiableObservableList<ReadOnlyActivity> getFilteredUpcomingList() {
   		
-		//obtain a filtered list of upcoming events.
-		FilteredList<Activity> filteredList1 = new FilteredList<>(addressBook.getAllEntries());
-  
-		filteredList1.setPredicate(p->
-		p.getClass().getSimpleName().equalsIgnoreCase("Event"));
+		FilteredList<Activity> filteredList = new FilteredList<>(addressBook.getAllEntries());
 		
-		FilteredList<Event> filteredEventList = (FilteredList<Event>) new FilteredList<>((ObservableList<? extends ReadOnlyEvent>) filteredList1);
-
+		//obtain a filtered list of all tasks and events.
+		filteredList.setPredicate(p->
+		p.getClass().getSimpleName().equalsIgnoreCase("Event") || p.getClass().getSimpleName().equalsIgnoreCase("Task"));
 		
-		filteredEventList.setPredicate(p->
-		p.isStartTimeApproaching());
-		
-		//obtain a filtered list of upcoming tasks. Does not include overdue tasks.
-		FilteredList<Activity> filteredList2 = new FilteredList<>(addressBook.getAllEntries());
-		
-		filteredList2.setPredicate(p->
-		p.getClass().getSimpleName().equalsIgnoreCase("Task"));
-		
-  		FilteredList<Task> filteredUpcomingTaskList = (FilteredList<Task>) new FilteredList<>((ObservableList<? extends ReadOnlyTask>) filteredList2);
-  		
-  		filteredUpcomingTaskList.setPredicate(p->
-		p.isDueDateApproaching());
-  		
-		
-		return null;
+		//filter out tasks/events that are over, or not yet upcoming.
+		return new UnmodifiableObservableList(createUpcomingList(filteredList));
 	}
 
   	
@@ -230,6 +214,39 @@ public class ModelManager extends ComponentManager implements Model {
     private void updateFilteredPersonList(Expression expression) {
         filteredPersons.setPredicate(expression::satisfies);
     }
+    /**
+     * Method to remove any Tasks and Events that are irrelevant for Upcoming Dashboard.
+     * @param filteredList
+     * @return filteredList
+     */
+    //@@ author A0125284H
+    private FilteredList<Activity> createUpcomingList(FilteredList<Activity> filteredList) {
+		for (int i=0; i<filteredList.size(); i++) {
+			
+			switch (filteredList.get(i).getClass().getSimpleName()) {
+			case "Event": {
+				Event listItem = (Event) filteredList.get(i);
+				if (!listItem.isUpcoming()) {
+					filteredList.remove(i);
+					i--;
+				}
+				break;
+			}
+			case "Task": {
+				Task listItem = (Task) filteredList.get(i);
+				if (listItem.isDueDateApproaching() && !(listItem.hasPassedDueDate())) {
+					filteredList.remove(i);
+					i--;
+				}
+				break;
+			}
+
+			default: break;
+			}
+		}
+		return filteredList;
+    }
+        
   //@@author
     //========== Inner classes/interfaces used for filtering ==================================================
 
@@ -282,7 +299,6 @@ public class ModelManager extends ComponentManager implements Model {
             return "name=" + String.join(", ", nameKeyWords);
         }
     }
-
 
 
 

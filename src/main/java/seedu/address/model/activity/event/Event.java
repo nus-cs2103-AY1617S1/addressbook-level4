@@ -145,7 +145,7 @@ public class Event extends Activity implements ReadOnlyEvent{
     }
     
     /**
-     * Checks if the due date is approaching and returns true if so.
+     * Checks if the start time is approaching and returns true if so.
      * @return true if the current time is a certain number of days before the due date (default 3).
      */
     public boolean isStartTimeApproaching() {
@@ -160,6 +160,25 @@ public class Event extends Activity implements ReadOnlyEvent{
             return warningDate.before(now)
                     && startTime.getCalendarValue().getTime().after(now);       
         }
+    }
+    /**
+     * Checks whether Event fulfills the criteria for being an upcoming event to be displayed on Upcoming Dashboard.
+     * @return true if Event is not Ongoing, not Over, and will start within (default 3) days of from today.
+     */
+    public boolean isUpcoming() {
+    	if (this.isOngoing()) {
+    		return false;
+    	}
+    	
+    	if (this.isOver()) {
+    		return false;
+    	}
+    	
+    	if (this.isStartTimeApproaching()) {
+    		return true;
+    	} else {
+    		return false;
+    	}
     }
     
 }

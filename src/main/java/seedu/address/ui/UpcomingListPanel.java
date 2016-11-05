@@ -33,7 +33,7 @@ public class UpcomingListPanel extends ListPanel {
      * 
      * @param primaryStage
      * @param personListPlaceholder
-     * @param upcomingActivitiesList - Logic will ensure only Upcoming Events, and Tasks with Upcoming Duedate is passed in.
+     * @param upcomingActivitiesList - Logic will ensure only Upcoming Events, and Upcoming Tasks is passed in.
      * @return
      */
 
