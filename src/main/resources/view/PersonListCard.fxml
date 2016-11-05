@@ -81,7 +81,7 @@
                   </HBox>
                </children>
                <padding>
-                  <Insets left="25.0" />
+                  <Insets left="55.0" />
                </padding>
             </VBox>
             </children>

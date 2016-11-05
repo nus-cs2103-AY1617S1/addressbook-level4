@@ -46,12 +46,7 @@
             </ImageView>
          </children>
       </HBox>
-      <AnchorPane fx:id="commandBoxPlaceholder" styleClass="anchor-pane-with-border" VBox.vgrow="NEVER">
-         <padding>
-            <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
-         </padding>
-      </AnchorPane>
-       <AnchorPane fx:id="resultDisplayPlaceholder" maxHeight="100" minHeight="100" prefHeight="100" styleClass="anchor-pane-with-border" VBox.vgrow="NEVER">
+       <AnchorPane fx:id="resultDisplayPlaceholder" maxHeight="100" minHeight="70.0" prefHeight="70.0" styleClass="anchor-pane-with-border" VBox.vgrow="NEVER">
            <padding>
                <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
            </padding>
@@ -65,7 +60,7 @@
                <children>
                   <AnchorPane fx:id="personListPanelPlaceholder" minWidth="280.0" prefHeight="0.0" prefWidth="400.0" VBox.vgrow="ALWAYS">
                      <children>
-                        <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Your Schedule" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="-25.0">
+                        <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Your Tasks" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="-25.0">
                            <font>
                               <Font name="Verdana" size="15.0" />
                            </font>
@@ -91,6 +86,11 @@
             </VBox>
          </items>
       </SplitPane>
+      <AnchorPane fx:id="commandBoxPlaceholder" styleClass="anchor-pane-with-border" VBox.vgrow="NEVER">
+         <padding>
+            <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
+         </padding>
+      </AnchorPane>
       <AnchorPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" />
    </children>
 </VBox>
