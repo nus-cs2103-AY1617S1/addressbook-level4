@@ -87,6 +87,16 @@ public class ModelManager extends ComponentManager implements Model {
     }
     
     @Override
+    public ObservableList<Task> getTaskManagerUndoneList() {
+        return taskManager.getUndoneTasks();
+    }
+    
+    @Override
+    public ObservableList<Task> getTaskManagerDoneList() {
+        return taskManager.getDoneTasks();
+    }
+    
+    @Override
     public void setTaskManagerUndoneList(ObservableList<Task> list) {
         taskManager.getUniqueUndoneTaskList().setInternalList(list);
         filteredUndoneTasks = new FilteredList<>(taskManager.getUndoneTasks());

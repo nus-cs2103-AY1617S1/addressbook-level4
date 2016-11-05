@@ -12,7 +12,7 @@ public class ClearCommand extends UndoableCommand {
     public static final String COMMAND_WORD = "clear";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ":\n" + "Clears the current view of the task manager.\n\t"
             + "Example: " + COMMAND_WORD;
-    
+
     public static final String TOOL_TIP = "clear";
     public static final String MESSAGE_SUCCESS = "Task Manager %1$s list has been cleared!";
     public static final String MESSAGE_UNDO_SUCCESS = "Undid the clear command! Cleared tasks from the %1$s list have been restored!";
@@ -28,19 +28,31 @@ public class ClearCommand extends UndoableCommand {
         assert model != null;
 
         if (!isRedoAction) {
-            isTargetDoneList = model.isCurrentListDoneList();
+            updateTargetList();
         }
 
         if (isTargetDoneList) {
-            clearedTasks = model.getTaskManager().getUniqueDoneTaskList().getInternalList();
-            model.clearTaskManagerDoneList();
+            saveAndClearDoneList();
         } else {
-            clearedTasks = model.getTaskManager().getUniqueUndoneTaskList().getInternalList();
-            model.clearTaskManagerUndoneList();
+            saveAndClearUndoneList();
         }
 
         updateHistory();
         return new CommandResult(String.format(MESSAGE_SUCCESS, getClearedListName()));
+    }
+
+    private void updateTargetList() {
+        isTargetDoneList = model.isCurrentListDoneList();
+    }
+
+    private void saveAndClearUndoneList() {
+        clearedTasks = model.getTaskManagerUndoneList();
+        model.clearTaskManagerUndoneList();
+    }
+
+    private void saveAndClearDoneList() {
+        clearedTasks = model.getTaskManagerDoneList();
+        model.clearTaskManagerDoneList();
     }
 
     @Override

@@ -27,7 +27,7 @@ public class DeleteCommand extends UndoableCommand {
     public static final String MESSAGE_DELETE_ITEM_SUCCESS = "Deleted Task: %1$s";
     public static final String MESSAGE_DELETE_ITEMS_SUCCESS = "Deleted Tasks: %1$s";
     
-    //@@author
+    //@@author A0093960X
     public static final String TOOL_TIP = "delete INDEX [ANOTHER_INDEX ...]";
 
     public static final String MESSAGE_UNDO_SUCCESS = "Undid delete on tasks! %1$s Tasks restored!";
@@ -127,17 +127,25 @@ public class DeleteCommand extends UndoableCommand {
     public CommandResult undo() {
         assert model != null && deletedTasks != null;    
         
-        // attempt to undo the delete by adding back the list of tasks that was deleted
-        // add back to the list the user was viewing when clear was executed
         if (isViewingDoneList) {
-            model.addDoneTasks(deletedTasks);
+            undoDeletedDoneTasks();
         }
         else {
-            model.addTasks(deletedTasks);
+            undoDeletedUndoneTasks();
         }
         
         return new CommandResult(String.format(MESSAGE_UNDO_SUCCESS, deletedTasks));
     }
     //@@author 
+
+
+    private void undoDeletedUndoneTasks() {
+        model.addTasks(deletedTasks);
+    }
+
+
+    private void undoDeletedDoneTasks() {
+        model.addDoneTasks(deletedTasks);
+    }
 
 }

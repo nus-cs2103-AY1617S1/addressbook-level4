@@ -84,6 +84,10 @@ public interface Model {
     void clearTaskManagerUndoneList();
     
     void clearTaskManagerDoneList();
+    
+    ObservableList<Task> getTaskManagerUndoneList();
+    
+    ObservableList<Task> getTaskManagerDoneList();
 
     void updateFilteredUndoneTaskListDatePred(Set<String> keywords);
 

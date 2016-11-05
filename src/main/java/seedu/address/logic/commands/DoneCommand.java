@@ -29,15 +29,18 @@ public class DoneCommand extends UndoableCommand {
             + ": Archives the task identified by the index number used in the last task listing.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
-    //@author
+    
+    //@author A0093960X
     public static final String TOOL_TIP = "done INDEX [ANOTHER_INDEX ...]";
 
     public static final String MESSAGE_DONE_ITEM_SUCCESS = "Archived Task: %1$s";
     public static final String MESSAGE_DONE_ITEMS_SUCCESS = "Archived Tasks: %1$s";
     public static final String MESSAGE_DONE_UNDO_SUCCESS = "Undid archive tasks! Tasks restored to undone list!";
+    public static final String MESSAGE_DONE_UNDO_SOME_FAILURE = "The following tasks were unable to be undone: %1$s";
     
     private List<Task> readdedRecurringTasks;
     private List<Task> doneTasksUndoFail;
+    
     //@@author A0139498J
     private final List<Integer> targetIndexes;
     private List<Task> doneTasks;
@@ -161,24 +164,47 @@ public class DoneCommand extends UndoableCommand {
         doneTasksUndoFail = new ArrayList<Task>();
         
         for (Task doneTask : doneTasks){
-            try {
-                model.deleteDoneTask(doneTask);
-            } catch (TaskNotFoundException e) {
-                doneTasksUndoFail.add(doneTask);
-            }
+            attemptToDeleteDoneTaskFromDoneList(doneTask);
         }
         
         for (Task readdedRecurTask : readdedRecurringTasks) { 
-            try {
-                model.deleteUndoneTask(readdedRecurTask);
-            } catch (TaskNotFoundException e) {
-                doneTasksUndoFail.add(readdedRecurTask);
-            }
+            attemptToDeleteReaddedRecurTaskFromUndoneList(readdedRecurTask);
         }
         
-        model.addTasks(doneTasks);
-        return new CommandResult(MESSAGE_DONE_UNDO_SUCCESS);
+        readdSuccessfullyUndoneTasks();
+        
+        if (isSuccessfulInUndoingAllDoneTasks()) {
+            return new CommandResult(MESSAGE_DONE_UNDO_SUCCESS);
+        }
+        else {
+            return new CommandResult(String.format(MESSAGE_DONE_UNDO_SOME_FAILURE, doneTasksUndoFail));
+        }
     }
 
-    //@@author 
+    private void readdSuccessfullyUndoneTasks() {
+        model.addTasks(doneTasks);
+    }
+
+    private void attemptToDeleteReaddedRecurTaskFromUndoneList(Task readdedRecurTask) {
+        try {
+            model.deleteUndoneTask(readdedRecurTask);
+        } catch (TaskNotFoundException e) {
+            logger.info("Cannot find task: " + readdedRecurTask + "; adding to list of done task failures to inform user.");
+            doneTasksUndoFail.add(readdedRecurTask);
+        }
+    }
+
+    private void attemptToDeleteDoneTaskFromDoneList(Task doneTask) {
+        try {
+            model.deleteDoneTask(doneTask);
+        } catch (TaskNotFoundException e) {
+            logger.info("Cannot find task: " + doneTask + "; adding to list of done task failures to inform user.");
+            doneTasksUndoFail.add(doneTask);
+        }
+    }
+    
+    private boolean isSuccessfulInUndoingAllDoneTasks() {
+        return doneTasksUndoFail.isEmpty();
+    }
+
 }
