@@ -23,7 +23,7 @@ Love typing? You will love sTask, as you only need to use the keyboard to type s
 ### 2.1 Setting Up
 
 &nbsp;&nbsp;&nbsp;&nbsp; <b>2.1.1</b> Please ensure that you have Java version `1.8.0_60` or later installed in your Computer.<br>
- > Having any Java 8 version is not enough. <br>
+ >> Having any Java 8 version is not enough. <br>
    This app will not work with earlier versions of Java 8.
    
 &nbsp;&nbsp;&nbsp;&nbsp; <b>2.1.2</b> You can download the latest `sTask.jar` from our 'releases' tab. <br>
@@ -52,15 +52,15 @@ Love typing? You will love sTask, as you only need to use the keyboard to type s
 &nbsp;&nbsp;&nbsp;&nbsp;<b>3.2 Adding a Task </b><br><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; You can add a To Do by typing<br>
 >> `add TASKNAME d/TASK_DESCRIPTION [t/TAG...]` <br>
->> `add Buy coffee d/Starbucks`
+* add Buy coffee d/Starbucks
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; You can add a Deadline by typing<br>
 >> `add TASKNAME d/TASK_DESCRIPTION date/DATE_TIME [t/TAG...]` <br>
->> `add Finish project proposal date/next friday 5pm t/important`
+* add Finish project proposal date/next friday 5pm t/important
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; You can add an Event by typing<br>
 >> `add TASKNAME d/TASK_DESCRIPTION date/DATE_TIME to DATE_TIME[t/TAG...]` <br>
->> `add Meeting with client d/Prepare docunments date/28-10-2016 10am to 28-10-2016 12pm`<br><br>
+* add Meeting with client d/Prepare docunments date/28-10-2016 10am to 28-10-2016 12pm <br><br>
 
 &nbsp;&nbsp;&nbsp;&nbsp; <b>3.3 Listing your Tasks </b><br><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; You can list all your uncompleted tasks by typing<br>
@@ -75,28 +75,28 @@ Love typing? You will love sTask, as you only need to use the keyboard to type s
 &nbsp;&nbsp;&nbsp;&nbsp;<b>3.4 Editing your Task </b><br><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; You can edit one or more field(s) of an existing task by typing<br>
 >> `edit INDEX TASKNAME d/TASK_DESCRIPTION date/DATE_TIME [t/TAG...]` <br>
->> `edit A1 Buy iced tea during lunch d/add lemon date/today noon` <br>
->> `edit B1 date/next friday 8pm` <br>
->> `edit B2 t/urgent`<br><br>
+* edit A1 Buy iced tea during lunch d/add lemon date/today noon <br>
+* edit B1 date/next friday 8pm <br>
+* edit B2 t/urgent<br><br>
 
 &nbsp;&nbsp;&nbsp;&nbsp;<b>3.5 Finding your Tasks </b><br><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; You can find your tasks by typing<br>
 >> `find [KEYWORD...]` <br>
->> `find meeting` <br><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sTask searches through all the fields and returns all the tasks that contains your KEYWORD.<br><br>
+* find meeting <br><br>
+sTask searches through all the fields and returns all the tasks that contains your KEYWORD.<br><br>
 
 
 &nbsp;&nbsp;&nbsp;&nbsp;<b>3.6 Viewing your tasks on a specific date </b><br><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; You can see all your tasks on a specific date by typing<br>
 >> `view DATE` <br>
->> `view today` <br>
->> `view 22-10-2017` <br>
->> `view valentine day`<br><br>
+* view today <br>
+* view 22-10-2017 <br>
+* view valentine day<br><br>
   
 &nbsp;&nbsp;&nbsp;&nbsp;<b>3.7 Deleting your Task </b><br><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; You can delete your task by typing<br>
 >> `delete INDEX` <br>
->> `delete A1` <br><br>
+* delete A1 <br><br>
 
 &nbsp;&nbsp;&nbsp;&nbsp;<b>3.8 Undoing an action </b><br><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; You can undo your previous action by typing<br>
@@ -112,18 +112,18 @@ Love typing? You will love sTask, as you only need to use the keyboard to type s
 &nbsp;&nbsp;&nbsp;&nbsp;<b>3.10 Completing a task </b><br><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; You can mark a task as complete by typing<br>
 >> `done INDEX`<br>
->> `done B10`<br>
+* done B10 <br>
 
 &nbsp;&nbsp;&nbsp;&nbsp;<b>3.11 Selecting a task </b><br><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; You can select a task by typing<br>
 >> `select INDEX`<br>
->> `select A11`<br>
+* select A11 <br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;You can use this command to navigate through your list of tasks.<br><br>
 
 &nbsp;&nbsp;&nbsp;&nbsp;<b>3.12 Changing saved data location </b><br><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; You can change the location of your saved data by typing<br>
 >> `save FOLDERPATH`<br>
->> `save C:\Users\Jim\Dropbox`<br><br>
+* save C:\Users\Jim\Dropbox<br><br>
 
 &nbsp;&nbsp;&nbsp;&nbsp;<b>3.13 Exiting sTask </b><br><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; You can exit the program by typing<br>
