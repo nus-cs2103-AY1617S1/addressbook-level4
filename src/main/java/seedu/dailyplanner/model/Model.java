@@ -2,6 +2,7 @@ package seedu.dailyplanner.model;
 
 import java.util.Set;
 
+import javafx.beans.property.IntegerProperty;
 import javafx.collections.ObservableList;
 import seedu.dailyplanner.commons.core.UnmodifiableObservableList;
 import seedu.dailyplanner.logic.commands.Command;
@@ -57,6 +58,15 @@ public interface Model {
 
     /** Updates the filter of the filtered person list to show only completed tasks*/
 	void updateFilteredPersonListByCompletion(Set<String> keywords);
+
+    /** Returns the index of the last task that was added to the task list */
+    public int getLastTaskAddedIndex();
+    
+    /** Sets the stored index of the last task added */
+    public void setLastTaskAddedIndex(int index);
+    
+    /** Returns the last task added index as the property itself */
+    public IntegerProperty getLastTaskAddedIndexProperty();
 
 
 }

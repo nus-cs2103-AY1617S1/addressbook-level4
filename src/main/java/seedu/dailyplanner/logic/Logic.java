@@ -1,5 +1,6 @@
 package seedu.dailyplanner.logic;
 
+import javafx.beans.property.IntegerProperty;
 import javafx.collections.ObservableList;
 import seedu.dailyplanner.logic.commands.CommandResult;
 import seedu.dailyplanner.model.task.ReadOnlyTask;
@@ -19,5 +20,8 @@ public interface Logic {
     ObservableList<ReadOnlyTask> getFilteredPersonList();
     
     ObservableList<ReadOnlyTask> getPinnedTaskList();
+
+    /** Returns the last task added index property held in model */
+    IntegerProperty getLastTaskAddedIndexProperty();
 
 }

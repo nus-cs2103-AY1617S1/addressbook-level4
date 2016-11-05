@@ -58,6 +58,7 @@ public class AddCommand extends Command {
         	model.getHistory().stackDeleteInstruction(toAdd);
             model.addPerson(toAdd);
             
+            
         	if (checkClash(toAdd) > -1)
 				return new CommandResult(String.format(MESSAGE_WARNING_CLASH, model.getAddressBook().getPersonList().get(checkClash(toAdd))));
         	

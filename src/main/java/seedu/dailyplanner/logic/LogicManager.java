@@ -1,5 +1,6 @@
 package seedu.dailyplanner.logic;
 
+import javafx.beans.property.IntegerProperty;
 import javafx.collections.ObservableList;
 import seedu.dailyplanner.commons.core.ComponentManager;
 import seedu.dailyplanner.commons.core.LogsCenter;
@@ -20,6 +21,7 @@ public class LogicManager extends ComponentManager implements Logic {
 
     private final Model model;
     private final Parser parser;
+    
 
     public LogicManager(Model model, Storage storage) {
         this.model = model;
@@ -43,4 +45,12 @@ public class LogicManager extends ComponentManager implements Logic {
     public ObservableList<ReadOnlyTask> getPinnedTaskList() {
 	return model.getPinnedTaskList();
     }
+    
+    @Override 
+    public IntegerProperty getLastTaskAddedIndexProperty() {
+        return model.getLastTaskAddedIndexProperty();
+    }
+    
+    
+   
 }

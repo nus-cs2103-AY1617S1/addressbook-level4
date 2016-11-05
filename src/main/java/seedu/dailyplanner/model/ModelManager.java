@@ -1,5 +1,7 @@
 package seedu.dailyplanner.model;
 
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.transformation.FilteredList;
 import seedu.dailyplanner.commons.core.ComponentManager;
 import seedu.dailyplanner.commons.core.LogsCenter;
@@ -29,6 +31,7 @@ public class ModelManager extends ComponentManager implements Model {
     private final FilteredList<Task> filteredPersons;
     private final FilteredList<Task> pinnedTasks;
     private final HistoryManager history;
+    private IntegerProperty lastTaskAddedIndex;
 
     /**
      * Initializes a ModelManager with the given AddressBook AddressBook and its
@@ -45,6 +48,7 @@ public class ModelManager extends ComponentManager implements Model {
 	filteredPersons = new FilteredList<>(addressBook.getPersons());
 	pinnedTasks = new FilteredList<>(addressBook.getPinnedTasks());
 	history = new HistoryManager();
+	lastTaskAddedIndex = new SimpleIntegerProperty(0);
     }
 
     public ModelManager() {
@@ -56,6 +60,7 @@ public class ModelManager extends ComponentManager implements Model {
 	filteredPersons = new FilteredList<>(addressBook.getPersons());
 	pinnedTasks = new FilteredList<>(addressBook.getPinnedTasks());
 	history = new HistoryManager();
+    lastTaskAddedIndex =  new SimpleIntegerProperty(0);
     }
 
     @Override
@@ -83,6 +88,7 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public synchronized void addPerson(Task person) throws UniqueTaskList.DuplicatePersonException {
 	addressBook.addPerson(person);
+	setLastTaskAddedIndex(addressBook.indexOf(person));
 	updateFilteredListToShowAll();
 	indicateAddressBookChanged();
     }
@@ -147,6 +153,20 @@ public class ModelManager extends ComponentManager implements Model {
 
     private void updateFilteredPersonListByCompletion(Expression expression) {
 	filteredPersons.setPredicate(expression::satisfies);
+    }
+    
+    @Override
+    public int getLastTaskAddedIndex() {
+        return lastTaskAddedIndex.get();
+    }
+    @Override
+    public void setLastTaskAddedIndex(int index) {
+        lastTaskAddedIndex.set(index);
+    }
+    
+    @Override 
+    public IntegerProperty getLastTaskAddedIndexProperty() {
+        return lastTaskAddedIndex;
     }
 
     // ========== Inner classes/interfaces used for filtering

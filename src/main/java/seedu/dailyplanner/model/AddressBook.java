@@ -129,6 +129,10 @@ public class AddressBook implements ReadOnlyAddressBook {
     	persons.unpin(targetIndex);
 		
 	}
+    
+    public int indexOf(Task task) {
+        return persons.getIndexOf(task);
+    }
 //// tag-level operations
 
     public void addTag(Tag t) throws UniqueTagList.DuplicateTagException {

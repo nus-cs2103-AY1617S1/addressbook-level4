@@ -121,7 +121,7 @@ public class MainWindow extends UiPart {
     void fillInnerParts() {
         //browserPanel = BrowserPanel.load(browserPlaceholder);
         pinnedTaskPanel = PinnedTaskPanel.load(primaryStage, getPinnedTaskPlaceholder(), logic.getPinnedTaskList());
-        personListPanel = PersonListPanel.load(primaryStage, getPersonListPlaceholder(), logic.getFilteredPersonList());
+        personListPanel = PersonListPanel.load(primaryStage, getPersonListPlaceholder(), logic.getFilteredPersonList(), logic);
         resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
         statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getAddressBookFilePath());
         commandBox = CommandBox.load(primaryStage, getCommandBoxPlaceholder(), resultDisplay, logic);
