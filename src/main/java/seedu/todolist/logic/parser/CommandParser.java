@@ -1,10 +1,13 @@
 package seedu.todolist.logic.parser;
 
+import com.google.common.base.Strings;
 import com.joestelmach.natty.*;
 
 import seedu.todolist.commons.exceptions.IllegalValueException;
 import seedu.todolist.commons.util.StringUtil;
 import seedu.todolist.logic.commands.*;
+import seedu.todolist.model.task.TaskDate;
+import seedu.todolist.model.task.TaskTime;
 
 import static seedu.todolist.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.todolist.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
@@ -27,8 +30,6 @@ public class CommandParser {
 	 */
 	private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
 
-	private static final Pattern TASK_INDEX_ARGS_FORMAT = Pattern.compile("(?<targetIndex>.+)");
-
 	private static final Pattern KEYWORDS_ARGS_FORMAT =
 			Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more keywords separated by whitespace
 
@@ -44,23 +45,27 @@ public class CommandParser {
 					+ "((\\bat\\b)(?<location>(.)+?))?" 
 					+ "((\\bremarks\\b)(?<remarks>(.)+?))?");
 
-	public static final int INTERVAL_COMPONENT_TOTAL = 2;
-	public static final int INTERVAL_COMPONENT_FROM = 0;
-	public static final int INTERVAL_COMPONENT_TO = 1;
-
-	public static final int DETAILED_INTERVAL_COMPONENT_TOTAL = 4;
-	public static final int INTERVAL_COMPONENT_STARTDATE = 0;
-	public static final int INTERVAL_COMPONENT_STARTTIME = 1;
-	public static final int INTERVAL_COMPONENT_ENDDATE = 2;
-	public static final int INTERVAL_COMPONENT_ENDTIME = 3;
-
-	public static final int DATETIME_COMPONENT_TOTAL = 2; 
-	public static final int DATETIME_COMPONENT_DATE = 0;
-	public static final int DATETIME_COMPONENT_TIME = 1;
+	public static final int INTERVAL_COMPONENT_COUNT = 2;
+	public static final int INDEX_FROM = 0;
+	public static final int INDEX_TO = 1;
 	
-	public static final String DATE_DISPLAY_FORMAT = "dd MMM yyyy";
-    public static final String TIME_DISPLAY_FORMAT = "hh:mma";
+	public static final int DATETIME_COMPONENT_COUNT = 2; 
+    public static final int INDEX_DATE = 0;
+    public static final int INDEX_TIME = 1;
 
+	public static final int DETAILED_INTERVAL_COMPONENT_COUNT = 4;
+	public static final int INDEX_STARTDATE = 0;
+	public static final int INDEX_STARTTIME = 1;
+	public static final int INDEX_ENDDATE = 2;
+	public static final int INDEX_ENDTIME = 3;
+
+	public static final String INTERVAL_SEPARATOR = " to ";
+	
+	public static final int NATTY_INDEX_FIRST = 0;
+	
+	public static final String INDEX_DELIMITER = ",";
+	public static final int DEFAULT_INDEX_SIZE = 1;
+	public static final int DEFAULT_INDEX_FIRST = 0;
 
 	/**
 	 * Parses user input into command for execution.
@@ -146,10 +151,10 @@ public class CommandParser {
 	private AddCommand parseAddCommand(String name, String[] interval, String location, String remarks) throws IllegalValueException {
 	    return new AddCommand(
 				name, 
-				interval[INTERVAL_COMPONENT_STARTDATE], 
-				interval[INTERVAL_COMPONENT_STARTTIME], 
-				interval[INTERVAL_COMPONENT_ENDDATE], 
-				interval[INTERVAL_COMPONENT_ENDTIME],
+				interval[INDEX_STARTDATE], 
+				interval[INDEX_STARTTIME], 
+				interval[INDEX_ENDDATE], 
+				interval[INDEX_ENDTIME],
 				location,
 				remarks);
 	}
@@ -157,75 +162,94 @@ public class CommandParser {
 	//@@author A0138601M
 	/**
 	 * Extracts the new task's start date and time, and end date and time from the add command's interval arguments string.
-	 * Returns String[startDate, startTime, endDate, endTime].
+	 * @return a string array that contains start date, start time, end date and end time.
 	 */
 	private String[] parseInterval(String interval) {
-		String startDate = null, startTime = null , endDate = null , endTime = null;
-
-		if (interval != null) {
-			String[] intervalComponents = interval.split(" to ");
-
-			//time component is a [by] type
-			if (intervalComponents.length < INTERVAL_COMPONENT_TOTAL) {
-				String[] endDateTime = parseDatetime(intervalComponents[INTERVAL_COMPONENT_FROM]);
-				endDate = endDateTime[DATETIME_COMPONENT_DATE];
-				endTime = endDateTime[DATETIME_COMPONENT_TIME];
-			} 
-			//time component is a [from.. to..] type
-			else {
-				String[] startDateTime = parseDatetime(intervalComponents[INTERVAL_COMPONENT_FROM]);
-				startDate = startDateTime[DATETIME_COMPONENT_DATE];
-				startTime = startDateTime[DATETIME_COMPONENT_TIME];
-
-				String[] endDateTime = parseDatetime(intervalComponents[INTERVAL_COMPONENT_TO]);
-				endDate = endDateTime[DATETIME_COMPONENT_DATE];
-				endTime = endDateTime[DATETIME_COMPONENT_TIME];
-
-				//if only one date is provided, both startDate and endDate will be the same
-				if (startDate == null) {
-					startDate = endDate;
-				}
-				if (endDate == null) {
-					endDate = startDate;
-				}
-			}
+	    String[] detailedIntervalComponents = new String[DETAILED_INTERVAL_COMPONENT_COUNT];
+		if (!Strings.isNullOrEmpty(interval)) {
+		    detailedIntervalComponents = parseTimedInterval(interval);
 		}
-
-		String[] detailedIntervalComponents = new String[DETAILED_INTERVAL_COMPONENT_TOTAL];
-		detailedIntervalComponents[INTERVAL_COMPONENT_STARTDATE] = startDate;
-		detailedIntervalComponents[INTERVAL_COMPONENT_STARTTIME] = startTime;
-		detailedIntervalComponents[INTERVAL_COMPONENT_ENDDATE] = endDate;
-		detailedIntervalComponents[INTERVAL_COMPONENT_ENDTIME] = endTime;
-
 		return detailedIntervalComponents;
 	}
+	
+	/**
+	 * Parses the interval that has date and time
+	 * @return a string array that contains start date, start time, end date and end time.
+	 */
+	private String[] parseTimedInterval(String interval) {
+	    System.out.println(interval);
+        if (interval.contains(INTERVAL_SEPARATOR)) {
+            return parseEventInterval(interval);
+        } else {
+            return parseDeadlineInterval(interval);
+        }
+	}
+	
+	/**
+     * Parses the interval for event type task
+     * @return a string array that contains start date, start time, end date and end time.
+     */
+	private String[] parseEventInterval(String interval) {
+	    String[] intervalComponents = parseDatetime(interval);
+        return new String[] {
+                intervalComponents[INDEX_STARTDATE], 
+                intervalComponents[INDEX_STARTTIME], 
+                intervalComponents[INDEX_ENDDATE], 
+                intervalComponents[INDEX_ENDTIME]};
+    }
+	
+	/**
+     * Parses the interval for deadline type task
+     * @return a string array that contains start date, start time, end date and end time.
+     */
+	private String[] parseDeadlineInterval(String interval) {
+	    String[] endDateTime = parseDatetime(interval);
+	    return new String[] {
+                null, 
+                null, 
+                endDateTime[INDEX_DATE], 
+                endDateTime[INDEX_TIME]};
+    }
 
 	/**
-	 * Extracts the new task's date and time from the add command's datetime arguments string.
-	 * Returns String[date, time];
+	 * Extracts the new task's date and time from the add command's datetime arguments string using Natty.
+	 * @return a string array that contains date and time
 	 */
 	private String[] parseDatetime(String datetime) {
-	    String[] dateAndTime = new String[DATETIME_COMPONENT_TOTAL];
-	    
-        Parser nattyParser = new Parser();
-	    //Only one datetime will be parsed
-	    DateGroup group = nattyParser.parse(datetime).get(0);
-	    
-	    //Get current datetime to compare with natty parsed datetime
-        Calendar currentDateTime = Calendar.getInstance();
-	    Date parsedDateTime = group.getDates().get(0);
-	    
-	    DateFormat dateFormat = new SimpleDateFormat(DATE_DISPLAY_FORMAT);
-	    DateFormat timeFormat = new SimpleDateFormat(TIME_DISPLAY_FORMAT);
-	   
-	    //ignore if it is a time generated by natty
-	    if (!timeFormat.format(currentDateTime.getTime()).equals(timeFormat.format(parsedDateTime))) {
-	        dateAndTime[DATETIME_COMPONENT_TIME] = timeFormat.format(parsedDateTime);
-	    }
-	    dateAndTime[DATETIME_COMPONENT_DATE] = dateFormat.format(parsedDateTime);
-	    
-		return dateAndTime;
+	    ArrayList<String> intervalComponents = new ArrayList<String>();
+    
+	    Parser nattyParser = new Parser();
+        DateGroup group = nattyParser.parse(datetime).get(NATTY_INDEX_FIRST); 
+        Calendar currentDateTime = Calendar.getInstance(); //Get current datetime to compare with natty datetime
+        
+        for (Date date : group.getDates()) {
+            intervalComponents.add(parseDate(date));
+            intervalComponents.add(parseTime(date, currentDateTime));
+            
+        }       
+        return intervalComponents.toArray(new String[intervalComponents.size()]);
 	}
+	
+	/**
+     * Extracts the date from Natty's dategroup
+     */
+	private String parseDate(Date date) {
+	    DateFormat dateFormat = new SimpleDateFormat(TaskDate.DATE_DISPLAY_FORMAT);
+	    return dateFormat.format(date);
+	}
+	
+	/**
+     * Extracts the time from Natty's dategroup
+     */
+	private String parseTime(Date date, Calendar currentDateTime) {
+	    DateFormat timeFormat = new SimpleDateFormat(TaskTime.TIME_DISPLAY_FORMAT);
+	    String parsedTime = timeFormat.format(date);
+	    //ignore if it is a time generated by natty
+        if (timeFormat.format(currentDateTime.getTime()).equals(parsedTime)) {
+            parsedTime = null;
+        }
+        return parsedTime;
+    }
 
 	/**
 	 * Parses arguments in the context of the done task command.
@@ -295,7 +319,6 @@ public class CommandParser {
 	 * @return the prepared command
 	 */
 	private Command prepareDelete(String args) {
-
 		int[] indexes;
 		try {
 			indexes = parseIndex(args);
@@ -308,30 +331,38 @@ public class CommandParser {
 	}
 	
 	/**
-	 * Returns an int[] if valid indexes are provided.
-	 * throws IllegalValueException indexes are invalid
+	 * Extract the indexes from a string of command
+	 * 
+	 * @throws IllegalValueException if indexes are invalid
+	 * @return an int array if valid indexes are provided.
 	 */
 	private int[] parseIndex(String command) throws IllegalValueException {
-		int[] indexes;
-		if (command.trim().contains(",")) {
+	    assert command != null;
+		int[] indexes = new int[DEFAULT_INDEX_SIZE];
+		
+		if (command.trim().contains(INDEX_DELIMITER)) {
 			indexes =  parseIndexSeparatedByComma(command);
-		}
-		else {
-			indexes = new int[1];
-			if(!StringUtil.isUnsignedInteger(command.trim())) {
+		} else {
+			if (!StringUtil.isUnsignedInteger(command.trim())) {
 				throw new IllegalValueException(MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
 			}
-			indexes[0] = Integer.parseInt(command.trim());
+			indexes[DEFAULT_INDEX_FIRST] = Integer.parseInt(command.trim());
 		}
 		Arrays.sort(indexes);
 		return indexes;
 	}
 
+	/**
+     * Extract the indexes from a string of command
+     * 
+     * @param command is guaranteed to contain commas
+     * @throws IllegalValueException if indexes are invalid
+     * @return an int array if valid indexes are provided.
+     */
 	private int[] parseIndexSeparatedByComma(String command) throws IllegalValueException {
-		assert command != null;
 		command = command.trim();
 
-		String[] indexesString = command.split(",");
+		String[] indexesString = command.split(INDEX_DELIMITER);
 		int[] indexes = new int[indexesString.length];
 		for (int i = 0; i < indexesString.length; i++) {
 			if (!StringUtil.isUnsignedInteger(indexesString[i].trim())) {
@@ -413,7 +444,7 @@ public class CommandParser {
 	 * @return the prepared command
 	 */
 	private Command prepareList(String args) {
-		final String dateFilter = args.trim();
+	    final String dateFilter = args.trim();	
 		return new ListCommand(dateFilter);
 	}
 	//@@author

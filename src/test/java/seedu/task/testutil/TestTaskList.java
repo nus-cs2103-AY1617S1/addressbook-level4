@@ -10,24 +10,32 @@ public class TestTaskList {
     private ArrayList<TestTask> testIncompleteTasks;
     private int numberOfTask;
     
+    /**
+     * Constructs an empty test task list
+     */
     public TestTaskList() {
         clear();
     }
     
+    /**
+     * Constructs a test task list from lists of incomplete list and complete list
+     */
     public TestTaskList(List<TestTask> incompleteList, List<TestTask> completeList) {
         testCompleteTasks = new ArrayList<TestTask>(completeList);
         testIncompleteTasks = new ArrayList<TestTask>(incompleteList);
         numberOfTask = incompleteList.size() + completeList.size();
     }
     
+    /**
+     * Constructs a test task list from an array of test tasks
+     */
     public TestTaskList(TestTask[] testTasks) {
         this();
         for (TestTask task : testTasks) {
             if (task.getStatus().isComplete()) {
                 testCompleteTasks.add(task);
                 Collections.sort(testCompleteTasks);
-            }
-            else {
+            } else {
                 testIncompleteTasks.add(task);
                 Collections.sort(testIncompleteTasks);
             }
@@ -57,7 +65,7 @@ public class TestTaskList {
     
     /**
      * Add tasks to the list of tasks.
-     * @param tasks A array of tasks.
+     * @param tasks an array of tasks.
      * @param tasksToAdd The tasks that are to be added into the original array.
      * @return The modified array of tasks.
      */
@@ -77,14 +85,25 @@ public class TestTaskList {
         for (int i = 0; i < tasksToDelete.length; i++) {
             if (isFromIncompleteList) {
                 testIncompleteTasks.remove(tasksToDelete[i]);
-            }
-            else {
+            } else {
                 testCompleteTasks.remove(tasksToDelete[i]);
             }
             numberOfTask--;
         }
     }
-    //@@author
+
+    /**
+     * Marks a subset from the list of incomplete tasks.
+     * @param tasksToMark The subset of tasks.
+     * @return The modified tasks after marking of the subset from tasks.
+     */
+    public void markTasksFromList(TestTask[] tasksToMark) {
+        for (int i = 0; i < tasksToMark.length; i++) {
+            testIncompleteTasks.remove(tasksToMark[i]);
+            testCompleteTasks.add(tasksToMark[i]);
+        }
+        Collections.sort(testCompleteTasks);
+    }
     
     //@@author A0146682X
     /**
@@ -100,21 +119,5 @@ public class TestTaskList {
     		testCompleteTasks.set(index-1, newTask);
     	}
     }
-    //@@author
-    
-    //@@author A0138601M
-    /**
-     * Marks a subset from the list of incomplete tasks.
-     * @param tasksToMark The subset of tasks.
-     * @return The modified tasks after marking of the subset from tasks.
-     */
-    public void markTasksFromList(TestTask[] tasksToMark) {
-        for (int i = 0; i < tasksToMark.length; i++) {
-            testIncompleteTasks.remove(tasksToMark[i]);
-            testCompleteTasks.add(tasksToMark[i]);
-        }
-        Collections.sort(testCompleteTasks);
-    }
-    //@@author
-    
+    //@@author  
 }
