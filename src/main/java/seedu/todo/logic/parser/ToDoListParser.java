@@ -15,8 +15,6 @@ import seedu.todo.logic.commands.SearchCommand.SearchCompletedOption;
 import seedu.todo.model.task.Priority;
 import seedu.todo.model.task.Recurrence.Frequency;
 
-
-
 /**
  * Parses user input.
  */

@@ -47,6 +47,8 @@ public class SearchCommand extends Command {
             + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
             + "Example: " + COMMAND_WORD + " birthday homework friday";
 
+    public static final String MESSAGE_SUCCESS = "Currently displaying search results for: %1$s %2$s\n";
+
     private final String data;
     private final SearchIndex whichSearch;
     private final SearchCompletedOption option;
@@ -94,6 +96,7 @@ public class SearchCommand extends Command {
             
         case ALL:
             return searchAll();
+            
         default :
             return new CommandResult(Messages.MESSAGE_INVALID_COMMAND_FORMAT);
         }        
@@ -106,7 +109,8 @@ public class SearchCommand extends Command {
         model.updateFilteredListToShowAll();
         int size = model.getFilteredTaskList().size();
         
-        return new CommandResult(getMessageForTaskListShownSummary(size));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, SearchIndex.ALL, "") 
+                + getMessageForTaskListShownSummary(size));
     }
     
 
@@ -118,7 +122,9 @@ public class SearchCommand extends Command {
             LocalDateTime datetime = DateTimeUtil.parseDateTimeString(data, TaskDate.TASK_DATE_ON);
             model.updateFilteredTaskListOnDate(datetime, this.option);
             int size = model.getFilteredTaskList().size();
-            return new CommandResult(getMessageForTaskListShownSummary(size));
+            
+            return new CommandResult(String.format(MESSAGE_SUCCESS, SearchIndex.ON, data) 
+                    + getMessageForTaskListShownSummary(size));
             
         } catch (DateTimeParseException e) {
             return new CommandResult(Messages.MESSAGE_INVALID_COMMAND_FORMAT);
@@ -134,7 +140,8 @@ public class SearchCommand extends Command {
             model.updateFilteredTaskListBeforeDate(datetime, this.option);
                 
             int size = model.getFilteredTaskList().size();
-            return new CommandResult(getMessageForTaskListShownSummary(size));
+            return new CommandResult(String.format(MESSAGE_SUCCESS, SearchIndex.BEFORE, data) 
+                    + getMessageForTaskListShownSummary(size));
                 
         } catch (DateTimeParseException e) {
             return new CommandResult(Messages.MESSAGE_INVALID_COMMAND_FORMAT);
@@ -150,7 +157,8 @@ public class SearchCommand extends Command {
             model.updateFilteredTaskListAfterDate(datetime, this.option);
                 
             int size = model.getFilteredTaskList().size();
-            return new CommandResult(getMessageForTaskListShownSummary(size));
+            return new CommandResult(String.format(MESSAGE_SUCCESS, SearchIndex.AFTER, data) 
+                    + getMessageForTaskListShownSummary(size));
                 
         } catch (DateTimeParseException e) {
             return new CommandResult(Messages.MESSAGE_INVALID_COMMAND_FORMAT);
@@ -171,7 +179,8 @@ public class SearchCommand extends Command {
             model.updateFilteredTaskListFromTillDate(fromDateTime, tillDateTime, this.option);
             
             int size = model.getFilteredTaskList().size();
-            return new CommandResult(getMessageForTaskListShownSummary(size));
+            return new CommandResult(String.format(MESSAGE_SUCCESS, SearchIndex.FT, data) 
+                    + getMessageForTaskListShownSummary(size));
                 
         } catch (DateTimeParseException e) {
             return new CommandResult(Messages.MESSAGE_INVALID_COMMAND_FORMAT);
@@ -189,7 +198,9 @@ public class SearchCommand extends Command {
         model.updateFilteredTaskListByKeywords(keywordSet, this.option);
         
         int size = model.getFilteredTaskList().size();
-        return new CommandResult(getMessageForTaskListShownSummary(size));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, SearchIndex.KEYWORD, data) 
+                + getMessageForTaskListShownSummary(size));
+        
     }
     
     /**
@@ -199,7 +210,8 @@ public class SearchCommand extends Command {
         model.updateFilteredTaskListByTag(data.trim(), this.option);
         
         int size = model.getFilteredTaskList().size();
-        return new CommandResult(getMessageForTaskListShownSummary(size));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, SearchIndex.TAG, data) 
+                + getMessageForTaskListShownSummary(size));
     }
     
     
@@ -212,7 +224,8 @@ public class SearchCommand extends Command {
             model.updateFilteredTaskListByPriority(new Priority(priority), this.option);
            
             int size = model.getFilteredTaskList().size();
-            return new CommandResult(getMessageForTaskListShownSummary(size));
+            return new CommandResult(String.format(MESSAGE_SUCCESS, SearchIndex.PRIORITY, data) 
+                    + getMessageForTaskListShownSummary(size));
                
         } catch (IllegalValueException e) {
             return new CommandResult(Messages.MESSAGE_INVALID_COMMAND_FORMAT);
@@ -226,7 +239,8 @@ public class SearchCommand extends Command {
         model.updateFilteredListToShowAllCompleted();
 
         int size = model.getFilteredTaskList().size();
-        return new CommandResult(getMessageForTaskListShownSummary(size));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, SearchIndex.DONE, "") 
+                + getMessageForTaskListShownSummary(size));
     }
     
     /**
@@ -236,7 +250,8 @@ public class SearchCommand extends Command {
         model.updateFilteredListToShowAllNotCompleted();
         
         int size = model.getFilteredTaskList().size();
-        return new CommandResult(getMessageForTaskListShownSummary(size));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, SearchIndex.UNDONE, "") 
+                + getMessageForTaskListShownSummary(size));
     }
      
 }
