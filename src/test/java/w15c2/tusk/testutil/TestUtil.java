@@ -84,7 +84,7 @@ public class TestUtil {
     }
     
     public static UniqueItemCollection<Task> getInitialTasks() {
-        return initialTasks;
+        return initialTasks.copyCollection();
     }
     
     public static UniqueItemCollection<Task> getDefaultTasks() {
