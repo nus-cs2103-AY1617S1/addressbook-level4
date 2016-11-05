@@ -190,7 +190,7 @@ public class MainApp extends Application {
         this.stop();
     }
     
-
+    //@@author A0125534L
     @Subscribe
     private void handleStorageLocationChangedEvent(StorageLocationChangedEvent event) {
         config = event.getConfig();
