@@ -241,7 +241,7 @@ Example: 'change-to data/taskmanager.xml'
 
 **A**: Yes, you can still add your task. You can create a floating task by only type in command `add TASK_NAME` if you don't know the deadline of your task.
 
-> <img src="images/MESS_004.png" width="600"><br>
+<img src="images/MESS_004.png" width="600"><br>
 
 In this example, you can see shopping is a floating task without a start time and end time. 
 <!-- @@author -->  	
