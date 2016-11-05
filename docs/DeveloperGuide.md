@@ -1,4 +1,4 @@
-<!--@@A0139678J	-->
+<!--@@author A0139678J	-->
 
 #
 # Developer Guide
@@ -523,5 +523,4 @@ Based on research done, below is a table of some of the applicable features and 
 | **Able to collaborate with other people** | _Yes, able to share with other people_ | _Yes, able to share with other people_ | _Yes, able to share with other people_ | _Yes, able to share with other people_ | _Yes, able to share with other people_  |
 | **Focuses on tasks with specific deadline** | _No_ | _No_ | _Yes_ | _No_ | _No_ |
 | **Offline capabilities** | _Yes_ | _Yes, but some features are restricted_ | _Yes, but some features are restricted_ | _No_ | _No_ |
-| **Able to set certain tasks as &quot;recurring&quot;** | _No_ | _No_ | _Yes, &quot;recurring&quot; tasks will continue to remind the user_ | _No_ | _No_ |
 | **Able to navigate around using only command line** | _No_ | _No_ | _No_ | _No_ | _No_ |
