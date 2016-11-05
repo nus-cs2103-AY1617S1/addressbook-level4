@@ -191,7 +191,7 @@ public class ParserMemoryMain {
     /*
      * Returns true if user command is an empty string or contains symbols only
      */
-    protected static Boolean isUselessCommand(String input){
+    public static Boolean isUselessCommand(String input){
 
         if(reduceToIntAndChar(input).length()==0){
             return true;
@@ -237,12 +237,12 @@ public class ParserMemoryMain {
     }
     
     //@@author A0143378Y
-    protected static String reduceToInt(String name){
+    public static String reduceToInt(String name){
         return name.replaceAll("[^0-9]", "");
     }
     
     //@@author A0143378Y
-    protected static String reduceToIntAndChar(String name){
+    public static String reduceToIntAndChar(String name){
         return name.replaceAll("[^a-zA-Z0-9]", "");
     }   
     

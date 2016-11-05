@@ -19,6 +19,8 @@ public class TestParserMemory {
         test_set();
         test_setDate();
         test_setTime();
+        test_reduce();
+        test_isUselessCommand();
     }
     
     private void test_set() { 
@@ -172,5 +174,21 @@ public class TestParserMemory {
         //SS == 59 
         ParserMemoryMain.setProper(ParserMemoryMain.setTime("2359", test));
         assertEquals("Second", test.get(Calendar.SECOND), 59);
+    }
+    
+    //@@author A0143378Y
+    private void test_reduce(){
+        String abc = ParserMemoryMain.reduceToInt("iw1j2h3b4nb5h6@@@7**8((90##");
+        assertEquals("A string of number!", abc, "1234567890");
+        
+        abc = ParserMemoryMain.reduceToIntAndChar("~~1122Angel&Demons8899~~");
+        assertEquals("A string of number and char!", abc, "1122AngelDemons8899");  
+    }
+    
+    //@@author A0143378Y
+    private void test_isUselessCommand(){
+        assertTrue(ParserMemoryMain.isUselessCommand("#(@("));
+        assertFalse(ParserMemoryMain.isUselessCommand("a#(@("));
+        assertFalse(ParserMemoryMain.isUselessCommand("0#(@("));
     }
 }
