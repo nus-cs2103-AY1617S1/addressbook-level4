@@ -120,7 +120,7 @@ public class TaskManager implements ReadOnlyTaskManager {
         counter();
     }
     //@@author
-
+    
     //@@author A0139671X
     public void editTaskName(ReadOnlyTask task, String newInfo)
             throws UniqueTaskList.TaskNotFoundException, IllegalValueException {
@@ -140,7 +140,6 @@ public class TaskManager implements ReadOnlyTaskManager {
         counter();
     }
     //@@author
-
     //// util methods
 
     @Override

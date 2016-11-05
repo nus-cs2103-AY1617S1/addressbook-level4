@@ -379,6 +379,7 @@ Priority | As a ... | I want to ... | So that I can...
 > 2a2. Use case resumes at step 2
 
 <!-- @@author A0139671X -->
+
 #### Use case: Edit a task
 
 **MSS**
@@ -406,6 +407,7 @@ Priority | As a ... | I want to ... | So that I can...
 > 2a1. Command is removed.
 
 <!-- @@author -->
+
 #### Use case: Mark task as done
 
 **MSS**
@@ -450,6 +452,7 @@ Priority | As a ... | I want to ... | So that I can...
 > 1b2. Prompt user to add tasks
 
 <!-- @@author A0139671X -->
+
 #### Use Case: Undo a task
 
 **MSS**
@@ -485,6 +488,7 @@ Priority | As a ... | I want to ... | So that I can...
 	1b. User inputs an invalid input
 	
 > 1b1. ForgetMeNot shows error message
+
 <!-- @@author -->
 
 #### Use case: Set storage of the tasks in ForgetMeNot to a different folder

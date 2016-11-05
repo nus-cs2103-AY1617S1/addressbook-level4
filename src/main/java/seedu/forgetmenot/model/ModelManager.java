@@ -106,9 +106,7 @@ public class ModelManager extends ComponentManager implements Model {
      */
     @Override
     public void loadFromHistory() throws NoSuchElementException {
-        TaskManager oldManager = taskManagerHistory.pop();
-        undoHistory.push(new TaskManager(taskManager));
-        taskManager.setTasks(oldManager.getTasks());
+        loadFromStoredTaskManagers();
         taskManager.counter();
         indicateTaskManagerChanged();
     }
@@ -118,11 +116,21 @@ public class ModelManager extends ComponentManager implements Model {
      */
     @Override
     public void loadFromUndoHistory() throws NoSuchElementException {
+        loadFromUndoTaskManagers();
+        taskManager.counter();
+        indicateTaskManagerChanged();
+    }
+    
+    public void loadFromStoredTaskManagers() {
+        TaskManager oldManager = taskManagerHistory.pop();
+        undoHistory.push(new TaskManager(taskManager));
+        taskManager.setTasks(oldManager.getTasks());
+    }
+
+    public void loadFromUndoTaskManagers() {
         TaskManager oldManager = undoHistory.pop();
         taskManagerHistory.push(new TaskManager(taskManager));
         taskManager.setTasks(oldManager.getTasks());
-        taskManager.counter();
-        indicateTaskManagerChanged();
     }
     //@@author
 
