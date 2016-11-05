@@ -1080,9 +1080,9 @@ public class LogicManagerTest {
     @Test
     public void execute_save_invalidFilePath() throws Exception {
         assertCommandBehavior(
-                "save /data", SaveCommand.MESSAGE_PATH_IS_NOT_A_DIRECTORY);
+                "save /data", SaveCommand.MESSAGE_INVALID_FILE_PATH);
         assertCommandBehavior(
-                "save \\data", SaveCommand.MESSAGE_PATH_IS_NOT_A_DIRECTORY);
+                "save \\data", SaveCommand.MESSAGE_INVALID_FILE_PATH);
     }
     //@@author
 
