@@ -12,9 +12,9 @@ import seedu.address.model.activity.task.*;
  */
 public class TypicalTestActivities {
 
-    public static TestActivity findAlice, findHoon;
+    public static TestActivity findAlice, findHoon, findKenny;
     public static TestTask findBenson, findCarl, findDaniel, findIda; 
-    public static TestEvent findElle, findFiona, findGeorge, findJodie;
+    public static TestEvent findElle, findFiona, findGeorge, findJodie, findLisa;
 
     public TypicalTestActivities() {
         try {
@@ -31,6 +31,10 @@ public class TypicalTestActivities {
             findHoon = new ActivityBuilder().withName("find Hoon").withReminder("Sat, Dec 30, 2017 12:00 PM").withTags("bringgift").build();
             findIda = new TaskBuilder().withName("find Ida").withDueDate("Sat, Dec 30, 2017 12:00 PM").withPriority("1").withReminder("Fri, Dec 29, 2017 12:00 PM").withTags("dinner").build();
             findJodie = new EventBuilder().withName("find Jodie").withStartTime("Sat, Dec 30, 2017 12:00 PM").withEndTime("Sun, Dec 31, 2017 12:00 PM").withReminder("Fri, Dec 29, 2017 12:00 PM").withTags("bringgifts").build();
+            
+            //To test activities and events with recurring parameters.
+            findKenny = new ActivityBuilder().withName("find Kenny").withReminder("every thu 1300").withTags("bringgift").build();
+            findLisa = new EventBuilder().withName("find Lisa").withStartTime("every fri 1400").withEndTime("every fri 1600").withReminder("Sat, Dec 30, 2017 11:59 PM").withTags("dinner").build();
         } catch (IllegalValueException e) {
             e.printStackTrace();
             assert false : "not possible";
