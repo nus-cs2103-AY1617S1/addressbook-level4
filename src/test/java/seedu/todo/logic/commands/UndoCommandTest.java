@@ -35,7 +35,7 @@ public class UndoCommandTest extends CommandTest {
 
     //@@author A0135805H
     @Test
-    public void testUndo_undoTagRename_allTagsUndone() throws Exception {
+    public void testUndo_undoTagRename_allTagNamesRestored() throws Exception {
         String oldTag = "pikachu";
         String newTag = "pichu";
 
@@ -47,6 +47,7 @@ public class UndoCommandTest extends CommandTest {
 
         model.renameTag(oldTag, newTag);
 
+        //Sanity check: The tags are really renamed.
         model.getObservableList().forEach(task -> {
             boolean hasOldTag = task.getTags().contains(new Tag(oldTag));
             boolean hasNewTag = task.getTags().contains(new Tag(newTag));
@@ -55,10 +56,38 @@ public class UndoCommandTest extends CommandTest {
 
         model.undo();
 
+        //Check if the old tag name is restored.
         model.getObservableList().forEach(task -> {
             boolean hasOldTag = task.getTags().contains(new Tag(oldTag));
             boolean hasNewTag = task.getTags().contains(new Tag(newTag));
             assertTrue(!hasNewTag && hasOldTag);
+        });
+    }
+
+    @Test
+    public void testUndo_undoTagDelete_allTagNamesRestored() throws Exception {
+        String oldTag = "pikachu";
+
+        for (int i = 1; i <= 3; i ++) {
+            model.add("Sample Task " + i);
+            Thread.sleep(10);
+            model.addTagsToTask(1, oldTag);
+        }
+
+        model.deleteTags(oldTag);
+
+        //Sanity check: The tags are really deleted.
+        model.getObservableList().forEach(task -> {
+            boolean hasOldTag = task.getTags().contains(new Tag(oldTag));
+            assertTrue(!hasOldTag);
+        });
+
+        model.undo();
+
+        //Checks if the tags are restored.
+        model.getObservableList().forEach(task -> {
+            boolean hasOldTag = task.getTags().contains(new Tag(oldTag));
+            assertTrue(hasOldTag);
         });
     }
 }
