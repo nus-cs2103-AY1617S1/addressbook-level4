@@ -139,6 +139,17 @@ public class Event implements CalendarItem {
         return (Event event) -> event.getEndDate().isAfter(date);
     }
     
+    public static Predicate<Event> predTag(String tag) {
+        return (Event event) -> {
+            for (String currTag : event.getTagList()) {
+                if (currTag.equals(tag)) {
+                    return true;
+                }
+            }
+            return false;
+        };
+    }
+    
     public static void filter(Predicate<Event> predicate, List<Event> eventList) {
         for (int i = eventList.size() - 1; i >= 0; i--) {
             if (!predicate.test(eventList.get(i))) {

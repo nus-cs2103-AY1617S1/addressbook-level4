@@ -142,6 +142,17 @@ public class Task implements CalendarItem {
         return (Task task) -> task.isCompleted() == completed;
     }
     
+    public static Predicate<Task> predTag(String tag) {
+        return (Task task) -> {
+            for (String currTag : task.getTagList()) {
+                if (currTag.equals(tag)) {
+                    return true;
+                }
+            }
+            return false;
+        };
+    }
+    
     public static void filter(Predicate<Task> predicate, List<Task> taskList) {
         for (int i = taskList.size() - 1; i >= 0; i--) {
             if (!predicate.test(taskList.get(i))) {
