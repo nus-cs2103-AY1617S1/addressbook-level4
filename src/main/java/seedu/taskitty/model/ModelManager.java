@@ -222,7 +222,10 @@ public class ModelManager extends ComponentManager implements Model {
         filteredEvents.setPredicate(null);
         indicateViewChanged(ViewCommand.ViewType.all, null);
     }
-
+    
+    /**
+     * Updates list to show all completed tasks only.
+     */
     @Override
     public void updateFilteredDoneList() {
         updateFilteredTaskList(new PredicateExpression(p -> p.getIsDone()));
@@ -242,14 +245,14 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     /**
-     * Updates list to show deadlines on and before the specified date and
+     * Updates list to show undone deadlines on and before the specified date and
      * events within the date.
      */
     @Override
     public void updateFilteredDateTaskList(LocalDate date) {
         allTasks.setPredicate(p -> isDateRelevantDeadlinesAndEvents(p, date));
         filteredTodos.setPredicate(null);
-        filteredDeadlines.setPredicate(p -> isDeadlineAndIsNotAfterDate(p, date));
+        filteredDeadlines.setPredicate(p -> isUndoneDeadlineAndIsNotAfterDate(p, date));
         filteredEvents.setPredicate(p -> isEventAndDateIsWithinEventPeriod(p, date));
         indicateViewChanged(ViewCommand.ViewType.date, date);
     }
@@ -344,8 +347,8 @@ public class ModelManager extends ComponentManager implements Model {
      * @param date
      * @return the evaluated boolean expression
      */
-    private boolean isDeadlineAndIsNotAfterDate(Task task, LocalDate date) {
-        return task.isDeadline() && !task.getPeriod().getEndDate().getDate().isAfter(date);
+    private boolean isUndoneDeadlineAndIsNotAfterDate(Task task, LocalDate date) {
+        return !task.getIsDone() && task.isDeadline() && !task.getPeriod().getEndDate().getDate().isAfter(date);
     }
 
     /**
@@ -406,7 +409,7 @@ public class ModelManager extends ComponentManager implements Model {
      */
     private boolean isDateRelevantDeadlinesAndEvents(Task p, LocalDate date) {
         boolean todos = p.isTodo();
-        boolean relDeadlines = isDeadlineAndIsNotAfterDate(p, date);
+        boolean relDeadlines = isUndoneDeadlineAndIsNotAfterDate(p, date);
         boolean relEvents = isEventAndDateIsWithinEventPeriod(p, date);
         return todos || relDeadlines || relEvents;
     }
