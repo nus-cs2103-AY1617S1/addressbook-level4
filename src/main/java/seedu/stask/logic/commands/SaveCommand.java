@@ -36,6 +36,7 @@ public class SaveCommand extends Command {
     public static final String MESSAGE_SUCCESS = "New file location saved.";
     public static final String MESSAGE_PATH_IS_NOT_A_DIRECTORY = "The path given does not refer to a folder.";
     public static final String MESSAGE_FOLDER_CANNOT_BE_CREATED = "A new folder cannot be created with the given path.";
+    public static final String MESSAGE_INVALID_FILE_PATH = "The file path specified is invalid.";
     public static final String MESSAGE_CONFIG_FILE_CANNOT_LOAD = "config.json file cannot be found.";
 	public static final String MESSAGE_LOCATION_SPECIFIED_SAME = "The current Data Storage is already in the given folder.";
 	public static final String MESSAGE_NO_PERMISSION_TO_SAVE = "No permission to save data in the specified path.";
@@ -62,7 +63,9 @@ public class SaveCommand extends Command {
     	if (dirPathArgs.charAt(dirPathArgs.length()-1) != '/') {
     		dirPathArgs = dirPathArgs + "/";
     	}
-		
+    	if (dirPathArgs.charAt(0) == '/') {
+    		return new CommandResult(MESSAGE_INVALID_FILE_PATH);
+    	}
 		File f = new File(dirPathArgs);
 		
 		// Creates the folder if the file does not exist
