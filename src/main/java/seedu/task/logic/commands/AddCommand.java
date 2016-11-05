@@ -62,15 +62,16 @@ public class AddCommand extends Command {
 		for (String tagName : tags) {
 			tagSet.add(new Tag(tagName));
 		}
-		
-		Task mainTask = new Task(new Title(title), new Description(description), new StartDate(startDate),
+		//@@author A0153411W
+		//Create based task for duplication
+		Task baseTask = new Task(new Title(title), new Description(description), new StartDate(startDate),
 				new DueDate(dueDate), new Interval(interval), new TimeInterval(timeInterval),
 				new Status("ONGOING"), new TaskColor(taskColor), new UniqueTagList(tagSet));
-		addTasksToList(mainTask);
+		addTasksToList(baseTask);
+		//@@author
 	}
 
 	//@@author A0153411W
-	//@@author A0153751H
 	/**
 	 * Add tasks to list based on main task, time and time interval.
 	 * @param mainTask
@@ -86,6 +87,7 @@ public class AddCommand extends Command {
 					mainTask.getTimeInterval(), new Status("ONGOING"), mainTask.getTaskColor(), mainTask.getTags()));
 		}
 	} 
+	//@@author
 	
 	@Override
 	public CommandResult execute() {
@@ -127,6 +129,7 @@ public class AddCommand extends Command {
 	public CommandResult executeUndo() {
 		try {
 			for (Task task : tasksToAdd) {
+				task.setStatus(new Status("ONGOING"));
 				model.deleteTask(task);
 			}
 		} catch (TaskNotFoundException e) {
@@ -144,4 +147,5 @@ public class AddCommand extends Command {
 	public boolean isReversible() {
 		return true;
 	}
+	//@@author
 }
