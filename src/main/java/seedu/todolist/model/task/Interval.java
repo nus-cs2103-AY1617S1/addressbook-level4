@@ -250,10 +250,16 @@ public class Interval implements Comparable<Interval> {
         return compareDateTime(firstDate, secondDate, firstTime, secondTime);
     }
     
+    /**
+     * Returns true if TaskDate is null
+     */
     private boolean isFloatTask(TaskDate date) {
         return date == null;
     }
     
+    /**
+     * Returns true is TaskTime is not null
+     */
     private boolean isTimedTask(TaskTime time) {
         return time != null;
     }
