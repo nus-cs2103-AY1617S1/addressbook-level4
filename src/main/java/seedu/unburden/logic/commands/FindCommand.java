@@ -1,10 +1,7 @@
 package seedu.unburden.logic.commands;
-
-import java.text.ParseException;
-import java.util.Date;
-import java.util.List;
 import java.util.Set;
-
+import seedu.unburden.commons.core.Messages;
+import seedu.unburden.commons.core.UnmodifiableObservableList;
 import seedu.unburden.commons.exceptions.IllegalValueException;
 import seedu.unburden.model.tag.UniqueTagList.DuplicateTagException;
 import seedu.unburden.model.task.ReadOnlyTask;
@@ -60,6 +57,10 @@ public class FindCommand extends Command {
 
 	@Override
 	public CommandResult execute() throws DuplicateTagException, IllegalValueException {
+        UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
+        if(lastShownList.size() == 0){
+			return new CommandResult(String.format(Messages.MESSAGE_NO_TASKS_FOUND, ListCommand.MESSAGE_USAGE));
+		}
 		switch (modeOfSearch) {
 		case "date":
 			model.updateFilteredTaskList(getDates(date));

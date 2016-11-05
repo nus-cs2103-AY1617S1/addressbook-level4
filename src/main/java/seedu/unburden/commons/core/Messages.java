@@ -9,6 +9,7 @@ public class Messages {
     public static final String MESSAGE_INVALID_COMMAND_FORMAT = "Invalid command format! \n%1$s";
     public static final String MESSAGE_INVALID_TASK_DISPLAYED_INDEX = "The task index provided is invalid";
     public static final String MESSAGE_TASK_IS_ALREADY_DONE = "The task at the specified index is already done!";
+	public static final String MESSAGE_NO_TASKS_FOUND = "There are currently no tasks found. Please add more tasks!";
     public static final String MESSAGE_TASKS_LISTED_OVERVIEW = "%1$d tasks listed!";
     public static final String MESSAGE_INVALID_DATE = "Invalid Date Entered";
     public static final String MESSAGE_INVALID_START_TIME = "Invalid Start Time Entered";

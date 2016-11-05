@@ -1,11 +1,8 @@
 package seedu.unburden.logic.commands;
-
-import static seedu.unburden.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
+import seedu.unburden.commons.core.Messages;
 import seedu.unburden.commons.core.UnmodifiableObservableList;
 import seedu.unburden.commons.exceptions.IllegalValueException;
 import seedu.unburden.model.tag.UniqueTagList.DuplicateTagException;
@@ -23,8 +20,6 @@ public class ListCommand extends Command {
 
 	public static final String COMMAND_WORD = "list";
 	
-	public static final String MESSAGE_NO_TASKS_FOUND = "There are currently no tasks found. Please add more tasks!";
-
 	public static final String MESSAGE_SUCCESS = "Listed all tasks";
 
 	public static final String MESSAGE_USAGE = "Type : \"" + COMMAND_WORD + "\" or type : \"" + COMMAND_WORD
@@ -144,7 +139,7 @@ public class ListCommand extends Command {
 			return new CommandResult(MESSAGE_SUCCESS);
 		}
 		if(lastShownList.size() == 0){
-			return new CommandResult(String.format(MESSAGE_NO_TASKS_FOUND, ListCommand.MESSAGE_USAGE));
+			return new CommandResult(String.format(Messages.MESSAGE_NO_TASKS_FOUND, ListCommand.MESSAGE_USAGE));
 		}
 		return new CommandResult(getMessageForTaskListShownSummary(model.getFilteredTaskList().size()));
 	}
