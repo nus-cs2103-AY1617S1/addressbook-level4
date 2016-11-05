@@ -39,6 +39,9 @@ public class DirectoryCommand extends Command {
 
     /* This is the path of the selected storage file. */
     private String _destination;
+    
+    /* This is the path of the selected storage file. */
+    private Boolean _isAbleToRestart;
 
     public DirectoryCommand(String newFilePath) {
         appendExtension(newFilePath);
@@ -113,9 +116,13 @@ public class DirectoryCommand extends Command {
             return new CommandResult(String.format(MESSAGE_UNSUPPORTED_OPERATING_SYSTEM));
         }
         restartTaskManager();
-        // Shut down current TaskManager
-        EventsCenter.getInstance().post(new ExitAppRequestEvent());
-        return new CommandResult(String.format(MESSAGE_NEW_DIRECTORY_SUCCESS, _destination));
+        if (_isAbleToRestart) {
+            // Shut down current TaskManager
+            EventsCenter.getInstance().post(new ExitAppRequestEvent());
+            return new CommandResult(String.format(MESSAGE_NEW_DIRECTORY_SUCCESS, _destination));
+        } else {
+            return new CommandResult(String.format(MESSAGE_UNSUPPORTED_OPERATING_SYSTEM));
+        }
     }
 
     private Boolean isOperatingSystemSupported() {
@@ -137,9 +144,13 @@ public class DirectoryCommand extends Command {
         if (Taskmanager.exists()) {
             try {
                 desktop.open(Taskmanager);
+                _isAbleToRestart = true;
             } catch (IOException e) {
                 e.printStackTrace();
+                _isAbleToRestart = false;
             }
+        } else {
+            _isAbleToRestart = false;
         }
     }
     

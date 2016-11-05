@@ -9,6 +9,7 @@ before_install:
           - "sh -e /etc/init.d/xvfb start"
 before_install:
  - chmod +x gradlew
+ - chmod =r-- src/test/data/sandbox/protected.xml
 addons:
   apt:
     packages:

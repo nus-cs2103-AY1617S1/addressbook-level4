@@ -81,6 +81,7 @@ public class ConfigUtilTest {
         config.setUserPrefsFilePath("C:\\preferences.json");
         config.setTaskManagerFilePath("taskmanager.xml");
         config.setTaskManagerName("TypicalTaskManagerName");
+        config.setsortPreference("Default");
         return config;
     }
 

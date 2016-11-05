@@ -17,7 +17,7 @@ public class Config {
     private String userPrefsFilePath = "preferences.json";
     private String taskManagerFilePath = "data/taskmanager.xml";
     private String taskManagerName = "MyTaskManager";
-    private String sortPreference = "Default";
+    private String sortPreference = "Default"; // Default sorting preset is applied on first startup
 
 
     public Config() {
