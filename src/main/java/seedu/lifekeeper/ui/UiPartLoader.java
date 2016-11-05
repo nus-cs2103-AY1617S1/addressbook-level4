@@ -27,6 +27,10 @@ public class UiPartLoader {
     public static <T extends UiPart> T loadUiPart(Stage primaryStage, AnchorPane placeholder, T sampleUiPart) {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(MainApp.class.getResource(FXML_FILE_FOLDER + sampleUiPart.getFxmlPath()));
+<<<<<<< HEAD:src/main/java/seedu/lifekeeper/ui/UiPartLoader.java
+=======
+        //System.out.println(FXML_FILE_FOLDER + sampleUiPart.getFxmlPath());
+>>>>>>> 937da6a... Added DueDate output for OverdueTaskCard:src/main/java/seedu/address/ui/UiPartLoader.java
         Node mainNode = loadLoader(loader, sampleUiPart.getFxmlPath());
         UiPart controller = loader.getController();
         controller.setStage(primaryStage);
@@ -56,6 +60,10 @@ public class UiPartLoader {
             return loader.load();
         } catch (Exception e) {
             String errorMessage = "FXML Load Error for " + fxmlFileName;
+<<<<<<< HEAD:src/main/java/seedu/lifekeeper/ui/UiPartLoader.java
+=======
+            //System.out.println(errorMessage);
+>>>>>>> 937da6a... Added DueDate output for OverdueTaskCard:src/main/java/seedu/address/ui/UiPartLoader.java
             throw new RuntimeException(errorMessage, e);
         }
     }
