@@ -48,8 +48,7 @@ public class ToolTip {
     /**
      * Get the tooltip based on input
      * 
-     * @param input
-     *            to determine the tooltip to be shown
+     * @param input to determine the tooltip to be shown
      */
     public void createToolTip(String input) {
         clearToolTip();
@@ -136,6 +135,9 @@ public class ToolTip {
         return !isMessageUnknownOrEmpty();
     }
     
+    /**
+     * Returns true if the message of tooltip is null, empty or MESSAGE_UNKNOWN_COMMAND
+     */
     private boolean isMessageUnknownOrEmpty() {
         return this.message == null
                 || this.message.isEmpty()
