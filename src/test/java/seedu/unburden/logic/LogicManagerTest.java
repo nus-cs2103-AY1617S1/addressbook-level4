@@ -218,23 +218,48 @@ public class LogicManagerTest {
 	}
 
 	@Test
-	public void execute_add_event_task_without_tags() throws Exception{
+	public void execute_add_event_task_without_tags() throws Exception {
 		TestDataHelper helper = new TestDataHelper();
 		Task task = helper.generateEventTaskWithAllWithoutTag("Hi", "there", "12-12-2016", "1400", "1500");
 		ListOfTask expected = new ListOfTask();
 		expected.addTask(task);
-		
-		assertCommandBehavior("add Hi i/there d/12-12-2016 s/1400 e/1500", String.format(AddCommand.MESSAGE_SUCCESS, task), expected, expected.getTaskList());
+
+		assertCommandBehavior("add Hi i/there d/12-12-2016 s/1400 e/1500",
+				String.format(AddCommand.MESSAGE_SUCCESS, task), expected, expected.getTaskList());
 	}
-	
+
 	@Test
-	public void execute_add_floating_task_without_description() throws Exception{
+	public void execute_add_floating_task_without_description() throws Exception {
 		TestDataHelper helper = new TestDataHelper();
 		Task task = helper.generateFloatingTaskWithoutTaskDescription("Joey", "Tribbiani");
 		ListOfTask expected = new ListOfTask();
 		expected.addTask(task);
-		
-		assertCommandBehavior("add Joey t/Tribbiani", String.format(AddCommand.MESSAGE_SUCCESS, task), expected, expected.getTaskList());
+
+		assertCommandBehavior("add Joey t/Tribbiani", String.format(AddCommand.MESSAGE_SUCCESS, task), expected,
+				expected.getTaskList());
+	}
+
+	@Test
+	public void execute_add_deadline_without_description_and_tags() throws Exception {
+		TestDataHelper helper = new TestDataHelper();
+		Task task = helper.generateDeadlineTaskWithEndTimeWithoutTaskDescriptionWithoutTag("Monica", "13-11-2017",
+				"0137");
+		ListOfTask expected = new ListOfTask();
+		expected.addTask(task);
+
+		assertCommandBehavior("add Monica d/13-11-2017 e/0137", String.format(AddCommand.MESSAGE_SUCCESS, task),
+				expected, expected.getTaskList());
+	}
+
+	@Test
+	public void execute_add_deadline_without_description() throws Exception {
+		TestDataHelper helper = new TestDataHelper();
+		Task task = helper.generateDeadlineTaskWithoutTaskDescription("Chandler", "22-12-2018", "Friends");
+		ListOfTask expected = new ListOfTask();
+		expected.addTask(task);
+
+		assertCommandBehavior("Add Chandler d/22-12-2018 t/Friends", String.format(AddCommand.MESSAGE_SUCCESS, task),
+				expected, expected.getTaskList());
 	}
 
 	@Test
