@@ -221,6 +221,18 @@ public class ModelManager extends ComponentManager implements Model {
      */
     //@@ author A0125284H
     private FilteredList<Activity> createUpcomingList(FilteredList<Activity> filteredList) {
+    	return filteredList;
+    	/*
+    	FilteredList<Activity> listOfEvents = new FilteredList<Activity> (filteredList);
+    	
+    	listOfEvents.setPredicate(p->
+		p.getClass().getSimpleName().equalsIgnoreCase("Event"));
+    	
+    	(FilteredList<Events>) listOfEvents.setPredicate(p.);
+    	
+  		FilteredList<Task> filteredOverdueTaskList = (FilteredList<Task>) new FilteredList<>( ervableList<? extends ReadOnlyTask>) filteredList);
+
+    	
 		for (int i=0; i<filteredList.size(); i++) {
 			
 			switch (filteredList.get(i).getClass().getSimpleName()) {
@@ -245,6 +257,7 @@ public class ModelManager extends ComponentManager implements Model {
 			}
 		}
 		return filteredList;
+		*/
     }
         
   //@@author
