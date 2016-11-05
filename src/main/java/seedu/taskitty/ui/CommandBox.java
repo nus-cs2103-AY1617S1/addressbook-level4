@@ -24,7 +24,7 @@ public class CommandBox extends UiPart {
     private AnchorPane placeHolderPane;
     private AnchorPane commandPane;
     private ResultDisplay resultDisplay;
-    String previousCommandText;
+    private String previousCommandText;
 
     private Logic logic;
 

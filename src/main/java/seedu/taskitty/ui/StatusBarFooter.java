@@ -135,6 +135,7 @@ public class StatusBarFooter extends UiPart {
             break;
         default :
             viewStatus += UPCOMING_TASKS;
+            break;
         }
         
         logger.info(LogsCenter.getEventHandlingLogMessage(vtce, "Setting filtered view to " + newView));

@@ -12,7 +12,7 @@ import seedu.taskitty.logic.commands.ViewCommand;
 public class ViewTypeChangedEvent extends BaseEvent {
 
     public final ViewCommand.ViewType viewType;
-    LocalDate date;
+    private LocalDate date;
 
     public ViewTypeChangedEvent(ViewCommand.ViewType viewType, LocalDate date) {
         this.viewType = viewType;

@@ -574,7 +574,6 @@ public class CommandParser {
             for (int i = 1; i < splitArgs.length; i++) {
                 arguments = arguments + splitArgs[i] + " ";
             }
-            arguments.substring(0, arguments.length() - 1);
             String taskDetailArguments = getTaskDetailArguments(arguments);
             String tagArguments = getTagArguments(arguments);
 
