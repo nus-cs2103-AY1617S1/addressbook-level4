@@ -122,13 +122,7 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
                 || (other instanceof ReadOnlyTask // instanceof handles nulls
                 && this.isSameStateAs((ReadOnlyTask) other));
     }
-
-    @Override
-    public int hashCode() {
-        // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, tags);
-    }
-
+    
     @Override
     public String toString() {
         return getAsText();

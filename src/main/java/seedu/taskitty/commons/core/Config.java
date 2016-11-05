@@ -75,11 +75,6 @@ public class Config {
     }
 
     @Override
-    public int hashCode() {
-        return Objects.hash(appTitle, logLevel, userPrefsFilePath, taskManagerFilePath, taskManagerName);
-    }
-
-    @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("App title : " + appTitle);

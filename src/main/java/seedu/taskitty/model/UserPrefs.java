@@ -42,11 +42,6 @@ public class UserPrefs {
     }
 
     @Override
-    public int hashCode() {
-        return Objects.hash(guiSettings);
-    }
-
-    @Override
     public String toString(){
         return guiSettings.toString();
     }
