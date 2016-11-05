@@ -223,13 +223,21 @@ public class DateUtil {
 		String day = Integer.toString(cal.get(Calendar.DAY_OF_MONTH));
 		
     	for (String token : tokens) {
-    		// Check if any token is a relative date word
+    		// Checks if any token is a relative date word
     		if (relativeWords.contains(token)) {
     			return true;
     		}
     		
-    		// Removes any 1st/2nd/3rd etc from the date input
-    		if (token.replaceAll("st|nd|rd|th", "").equals(day)) {
+    		// Retrieves the number in the date input and checks if the number correspond to the
+    		// day value of the date output
+    		token = token.replaceAll("st|nd|rd|th", "");
+    		if (token.equals(day)) {
+    			return true;
+    		}
+    		
+    		// Checks for cases where the number is "01" instead of "1"
+    		// Eg. "01 Jan" and "1 Jan" are sensible dates
+    		if (token.length() == 2 && token.equals("0" + day)) {
     			return true;
     		}
     	}
