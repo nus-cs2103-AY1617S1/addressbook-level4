@@ -8,7 +8,7 @@ import w15c2.tusk.commons.exceptions.DataConversionException;
 import w15c2.tusk.model.task.Task;
 
 /**
- * Represents a storage for {@link w15c2.tusk.model.task.TaskManager}.
+ * Represents a storage for {@link w15c2.tusk.model.ModelManager}.
  */
 public interface TaskStorage {
 

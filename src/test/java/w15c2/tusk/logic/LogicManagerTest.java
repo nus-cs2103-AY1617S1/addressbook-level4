@@ -10,9 +10,9 @@ import w15c2.tusk.commons.events.ui.ShowHelpRequestEvent;
 import w15c2.tusk.logic.Logic;
 import w15c2.tusk.logic.LogicManager;
 import w15c2.tusk.logic.commands.*;
-import w15c2.tusk.model.task.Model;
+import w15c2.tusk.model.Model;
+import w15c2.tusk.model.ModelManager;
 import w15c2.tusk.model.task.Task;
-import w15c2.tusk.model.task.TaskManager;
 import w15c2.tusk.storage.StorageManager;
 
 import org.junit.After;
@@ -59,7 +59,7 @@ public class LogicManagerTest {
 
     @Before
     public void setup() {
-        model = new TaskManager();
+        model = new ModelManager();
         String tempTaskManagerFile = saveFolder.getRoot().getPath() + "TempTaskManager.xml";
         String tempAliasesFile = saveFolder.getRoot().getPath() + "TempAliases.xml";
         String tempPreferencesFile = saveFolder.getRoot().getPath() + "TempPreferences.json";

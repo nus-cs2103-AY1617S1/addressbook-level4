@@ -15,9 +15,9 @@ import w15c2.tusk.commons.collections.UniqueItemCollection;
 import w15c2.tusk.commons.util.FileUtil;
 import w15c2.tusk.commons.util.XmlUtil;
 import w15c2.tusk.model.Alias;
+import w15c2.tusk.model.ModelManager;
 import w15c2.tusk.model.UserPrefs;
 import w15c2.tusk.model.task.Task;
-import w15c2.tusk.model.task.TaskManager;
 import w15c2.tusk.storage.task.XmlSerializableTaskManager;
 import w15c2.tusk.testutil.TestUtil;
 
@@ -36,7 +36,7 @@ public class XmlUtilTest {
     @Test
     public void getDataFromFile_nullFile_AssertionError() throws Exception {
         thrown.expect(AssertionError.class);
-        XmlUtil.getDataFromFile(null, TaskManager.class);
+        XmlUtil.getDataFromFile(null, ModelManager.class);
     }
 
     @Test
@@ -48,19 +48,19 @@ public class XmlUtilTest {
     @Test
     public void getDataFromFile_missingFile_FileNotFoundException() throws Exception {
         thrown.expect(FileNotFoundException.class);
-        XmlUtil.getDataFromFile(MISSING_FILE, TaskManager.class);
+        XmlUtil.getDataFromFile(MISSING_FILE, ModelManager.class);
     }
 
     @Test
     public void getDataFromFile_emptyFile_DataFormatMismatchException() throws Exception {
         thrown.expect(JAXBException.class);
-        XmlUtil.getDataFromFile(EMPTY_FILE, TaskManager.class);
+        XmlUtil.getDataFromFile(EMPTY_FILE, ModelManager.class);
     }
 
     @Test
     public void saveDataToFile_nullFile_AssertionError() throws Exception {
         thrown.expect(AssertionError.class);
-        XmlUtil.saveDataToFile(null, TaskManager.class);
+        XmlUtil.saveDataToFile(null, ModelManager.class);
     }
 
     @Test
@@ -72,7 +72,7 @@ public class XmlUtilTest {
     @Test
     public void saveDataToFile_missingFile_FileNotFoundException() throws Exception {
         thrown.expect(FileNotFoundException.class);
-        XmlUtil.saveDataToFile(MISSING_FILE, new TaskManager());
+        XmlUtil.saveDataToFile(MISSING_FILE, new ModelManager());
     }
     
     @Test

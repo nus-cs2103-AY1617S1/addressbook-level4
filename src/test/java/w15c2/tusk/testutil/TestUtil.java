@@ -14,12 +14,12 @@ import w15c2.tusk.commons.exceptions.IllegalValueException;
 import w15c2.tusk.commons.util.FileUtil;
 import w15c2.tusk.commons.util.XmlUtil;
 import w15c2.tusk.logic.commands.taskcommands.AddTaskCommand;
+import w15c2.tusk.model.Model;
+import w15c2.tusk.model.ModelManager;
 import w15c2.tusk.model.task.DeadlineTask;
 import w15c2.tusk.model.task.EventTask;
 import w15c2.tusk.model.task.FloatingTask;
-import w15c2.tusk.model.task.Model;
 import w15c2.tusk.model.task.Task;
-import w15c2.tusk.model.task.TaskManager;
 import w15c2.tusk.storage.task.XmlSerializableTaskManager;
 
 /**
@@ -34,12 +34,12 @@ public class TestUtil {
     public static String SANDBOX_FOLDER = FileUtil.getPath("./src/test/data/sandbox/");
 
     public static Model setupEmptyTaskList() {
-        return new TaskManager();
+        return new ModelManager();
     }
 
     // Setting up tasks in the TaskList in order to find them in the tests
     public static Model setupSomeTasksInTaskList(int n) throws IllegalValueException {
-        Model newTaskList = new TaskManager();
+        Model newTaskList = new ModelManager();
         // Add 3 tasks into the task manager
         for (int i = 0; i < n; i++) {
             AddTaskCommand command = new AddTaskCommand(String.format("Task %d", i));
@@ -53,7 +53,7 @@ public class TestUtil {
 	 * Setting up Floating tasks in the TaskList in order to find them in the tests
 	 */
 	public static Model setupFloatingTasks(int n) throws IllegalValueException {
-		Model newTaskList = new TaskManager();
+		Model newTaskList = new ModelManager();
 		// Add n tasks into the task manager
 		for (int i = 0; i < n; i++) {
 			newTaskList.addTask(new FloatingTask(String.format("Task %d", i)));
@@ -63,7 +63,7 @@ public class TestUtil {
 	
 	// Setting up tasks with more varied names
 	public static Model setupTasksWithVariedNames(int n) throws IllegalValueException {
-		Model newTaskList = new TaskManager();
+		Model newTaskList = new ModelManager();
 		// Add n tasks into the task manager
 		for (int i = 0; i < n; i++) {
 			if (i % 3 == 0) {
@@ -79,7 +79,7 @@ public class TestUtil {
 	
 	// Setting up completed tasks in the TaskList in order to find them in the tests
 	public static Model setupSomeCompletedTasksInTaskList(int n) throws IllegalValueException {
-		Model newTaskList = new TaskManager();
+		Model newTaskList = new ModelManager();
 		// Add 3 tasks into the task manager
 		for (int i = 0; i < n; i++) {
 			AddTaskCommand command = new AddTaskCommand(String.format("Task %d", i));
@@ -95,7 +95,7 @@ public class TestUtil {
 		
 	// Setting up pinned tasks in the TaskList in order to find them in the tests
 	public static Model setupSomePinnedTasksInTaskList(int n) throws IllegalValueException {
-		Model newTaskList = new TaskManager();
+		Model newTaskList = new ModelManager();
 		// Add 3 tasks into the task manager
 		for (int i = 0; i < n; i++) {
 			AddTaskCommand command = new AddTaskCommand(String.format("Task %d", i));
@@ -116,7 +116,7 @@ public class TestUtil {
 	 * NOTE: Do not change the descriptions and dates because other tests depend on it.
 	 */
 	public static Model setupMixedTasks(int n) throws IllegalValueException {
-		Model newTaskList = new TaskManager();
+		Model newTaskList = new ModelManager();
 		int counter = 0;
 		for (int i = 0; i < n; i++) {
 			int k = counter % 3;

@@ -24,10 +24,10 @@ import w15c2.tusk.commons.util.TaskConfigUtil;
 import w15c2.tusk.logic.Logic;
 import w15c2.tusk.logic.LogicManager;
 import w15c2.tusk.model.Alias;
+import w15c2.tusk.model.Model;
+import w15c2.tusk.model.ModelManager;
 import w15c2.tusk.model.UserPrefs;
-import w15c2.tusk.model.task.Model;
 import w15c2.tusk.model.task.Task;
-import w15c2.tusk.model.task.TaskManager;
 import w15c2.tusk.storage.Storage;
 import w15c2.tusk.storage.StorageManager;
 import w15c2.tusk.ui.Ui;
@@ -107,7 +107,7 @@ public class MainApp extends Application {
         }
 
         // TODO: Actually pass in data to use
-        return new TaskManager(initialData, initialAliasData, userPrefs);
+        return new ModelManager(initialData, initialAliasData, userPrefs);
     }
 
     private void initLogging(TaskConfig config) {

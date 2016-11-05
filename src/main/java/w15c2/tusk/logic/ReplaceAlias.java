@@ -2,7 +2,7 @@ package w15c2.tusk.logic;
 
 import javafx.collections.ObservableList;
 import w15c2.tusk.model.Alias;
-import w15c2.tusk.model.task.Model;
+import w15c2.tusk.model.Model;
 
 /**
  * Replaces the shortcut of an alias with its sentence.

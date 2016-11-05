@@ -4,7 +4,7 @@ import w15c2.tusk.commons.core.EventsCenter;
 import w15c2.tusk.commons.core.Messages;
 import w15c2.tusk.commons.events.ui.IncorrectTaskCommandAttemptedEvent;
 import w15c2.tusk.logic.commands.CommandResult;
-import w15c2.tusk.model.task.Model;
+import w15c2.tusk.model.Model;
 
 //@@author A0138978E
 /**

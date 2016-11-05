@@ -10,9 +10,9 @@ import w15c2.tusk.commons.collections.UniqueItemCollection.ItemNotFoundException
 import w15c2.tusk.commons.exceptions.IllegalValueException;
 import w15c2.tusk.logic.commands.CommandResult;
 import w15c2.tusk.logic.commands.taskcommands.UndoTaskCommand;
+import w15c2.tusk.model.Model;
+import w15c2.tusk.model.ModelManager;
 import w15c2.tusk.model.task.FloatingTask;
-import w15c2.tusk.model.task.Model;
-import w15c2.tusk.model.task.TaskManager;
 import w15c2.tusk.testutil.TestUtil;
 
 //@@author A0143107U
@@ -23,7 +23,7 @@ public class UndoTaskCommandTest {
 
 	@Before
 	public void setup() {
-		model = new TaskManager();
+		model = new ModelManager();
 	}
 	
 	@Test
