@@ -126,7 +126,7 @@ public class Task implements CalendarItem {
     }
     
     public static Predicate<Task> predByName(String name) {
-        return (Task task) -> Pattern.compile(String.format("\\b%s\\b", name), Pattern.CASE_INSENSITIVE)
+        return (Task task) -> Pattern.compile(String.format("\\b%s", name), Pattern.CASE_INSENSITIVE)
                 .matcher(task.getName()).find();
     }
     
