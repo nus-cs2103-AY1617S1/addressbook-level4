@@ -57,7 +57,9 @@ public class Recurrence {
      * Will mark the task as undone as well.
      */
     public void updateTaskDate(Task task){
+        
         task.getCompletion().setCompletion(false);
+        
         switch(this.freq) {
         case YEAR :
             if (task.getOnDate().getDate() != null) {

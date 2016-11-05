@@ -91,13 +91,7 @@ public class DoDoBird implements ReadOnlyToDoList {
         setTasks(newTasks.stream().map(Task::new).collect(Collectors.toList()));
         setTags(newTags);
         
-        for (Task t : this.getTasks()) {
-            if (t.isRecurring() 
-                    && (t.getOnDate().getDate().isBefore(LocalDate.now()) 
-                    || t.getByDate().getDate().isBefore(LocalDate.now()))) {
-                t.getRecurrence().updateTaskDate(t);
-            }
-        }
+        this.updateTasksRecurrence();
     }
 
     public void setTasks(List<Task> tasks) {
@@ -230,6 +224,16 @@ public class DoDoBird implements ReadOnlyToDoList {
         updateTagTopList();
     }
         
+    public void updateTasksRecurrence() {
+        for (Task t : this.getTasks()) {
+            if (t.isRecurring() 
+                    && (t.getOnDate().getDate().isBefore(LocalDate.now()) 
+                    || t.getByDate().getDate().isBefore(LocalDate.now()))) {
+                t.getRecurrence().updateTaskDate(t);
+            }
+        }
+    }
+    
     /**
      * Pop the top most UniqueTaskList and UniqueTagList
      * Does not pop if there is only one state in history 
