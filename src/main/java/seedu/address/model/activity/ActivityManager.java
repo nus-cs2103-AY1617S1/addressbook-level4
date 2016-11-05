@@ -1,7 +1,5 @@
 package seedu.address.model.activity;
 
-import java.util.Calendar;
-
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.activity.task.DueDate;
 import seedu.address.model.activity.task.Priority;
@@ -29,7 +27,7 @@ public class ActivityManager {
                             updateDueDate(oldTask, newParams, type),
                             updatePriority(oldTask, newParams, type),
                             updateReminder(oldTask, newParams, type),
-                            updateTags(oldTask, newParams)
+                            updateTags(oldTask, newParams, type)
                             );
                 } else if (newParamsType.equals("event")) { //change from activity to event
                     newActivity = new Event(
@@ -37,13 +35,13 @@ public class ActivityManager {
                             updateStartTime(oldTask, newParams, type),
                             updateEndTime(oldTask, newParams, type),
                             updateReminder(oldTask, newParams, type),
-                            updateTags(oldTask, newParams)
+                            updateTags(oldTask, newParams, type)
                             );
                 } else { //remain as activity
                     newActivity = new Activity(
                             updateTaskName(oldTask, newParams, type),
                             updateReminder(oldTask, newParams, type),
-                            updateTags(oldTask, newParams)
+                            updateTags(oldTask, newParams, type)
                             );
                 }
                 
@@ -56,7 +54,7 @@ public class ActivityManager {
                          updateDueDate((Task) oldTask, newParams, type),
                          updatePriority((Task) oldTask, newParams, type),
                          updateReminder(oldTask, newParams, type),
-                         updateTags(oldTask, newParams)
+                         updateTags(oldTask, newParams, type)
                          );
             	 } else if (newParamsType.equals("activity") && type.equals("edit")) {
             	     newActivity = new Task(
@@ -64,13 +62,13 @@ public class ActivityManager {
             	             new DueDate(((Task) oldTask).getDueDate().getCalendarValue()),
             	             new Priority(((Task) oldTask).getPriority().toString()),
                              updateReminder(oldTask, newParams, type),
-                             updateTags(oldTask, newParams)
+                             updateTags(oldTask, newParams, type)
             	             );
             	 } else if(type.equals("undo")) {
 					newActivity = new Activity(
 							updateTaskName(oldTask, newParams, type),
 							updateReminder(oldTask, newParams, type),
-							updateTags(oldTask, newParams)
+							updateTags(oldTask, newParams, type)
 					);
             		 
             	 }
@@ -84,7 +82,7 @@ public class ActivityManager {
                             updateStartTime((Event) oldTask, newParams, type),
                             updateEndTime((Event) oldTask, newParams, type),
                             updateReminder(oldTask, newParams, type),
-                            updateTags(oldTask, newParams)
+                            updateTags(oldTask, newParams, type)
                             );
                     } else if (newParamsType.equals("activity") && type.equals("edit")) {
                         newActivity = new Event(
@@ -92,14 +90,14 @@ public class ActivityManager {
                                 new StartTime(((Event) oldTask).getStartTime().getCalendarValue(), ((Event) oldTask).getStartTime().recurring, ((Event) oldTask).getStartTime().RecurringMessage),
                                 new EndTime(((Event) oldTask).getEndTime().getCalendarValue(), ((Event) oldTask).getStartTime().recurring, ((Event) oldTask).getStartTime().RecurringMessage),
                                 updateReminder(oldTask, newParams, type),
-                                updateTags(oldTask, newParams)
+                                updateTags(oldTask, newParams, type)
                                 );
                     }
             	if (newParamsType.equals("activity") && (type.equals("undo")) ) {
                     newActivity = new Activity(
                             updateTaskName(oldTask, newParams, type),
                             updateReminder(oldTask, newParams, type),
-                            updateTags(oldTask, newParams)
+                            updateTags(oldTask, newParams, type)
                                  ); 
             	}
                 break;
@@ -242,14 +240,23 @@ public class ActivityManager {
     }
    
     //@@author A0125680H
-    private static UniqueTagList updateTags(Activity oldTask, Activity newParams) {
-        UniqueTagList newTags = new UniqueTagList(oldTask.getTags());
-
+    private static UniqueTagList updateTags(Activity oldTask, Activity newParams, String type) {
+        UniqueTagList newTags = new UniqueTagList();
+        
         for (Tag toAdd : newParams.getTags()) {
-            try {
-                newTags.add(toAdd);
-            } catch (DuplicateTagException e) {
-                continue;
+            if (type.equals("edit")) {
+                newTags = new UniqueTagList(oldTask.getTags());
+                try {
+                    newTags.add(toAdd);
+                } catch (DuplicateTagException e) {
+                    continue;
+                }
+            } else {
+                try {
+                    newTags.add(toAdd);
+                } catch (DuplicateTagException e) {
+                    continue;
+                }
             }
         }
 
