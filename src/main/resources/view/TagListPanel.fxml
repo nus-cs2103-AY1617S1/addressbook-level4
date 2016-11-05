@@ -1,18 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
+
 <!-- @@author A0142421X -->
 
-<VBox style="-fx-background-color: #FFFFFF;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.todo.ui.TagListPanel">
+<VBox style="-fx-background-color: #FFFFFF;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.todo.ui.TagListPanel">
     <children>
-      <Text opacity="0.6" strokeType="OUTSIDE" strokeWidth="0.0" text="Tags" translateX="10.0">
+      <Text opacity="0.6" strokeType="OUTSIDE" strokeWidth="0.0" text="Tags" translateX="10.0" wrappingWidth="70.01953125">
          <font>
             <Font name="Arial Bold" size="30.0" />
          </font>
+         <VBox.margin>
+            <Insets bottom="10.0" />
+         </VBox.margin>
       </Text>
         <ListView fx:id="tagListView" style="-fx-background-color: #FFFFFF;" VBox.vgrow="ALWAYS" />
     </children>

@@ -120,8 +120,9 @@ public class CommandLogicTest {
         CommandResult result = logic.execute(inputCommand);
         
         assertEquals(expectedMessage, result.feedbackToUser);
-        System.out.println(model.getFilteredTaskList());
-        assertEquals(expectedShownList, model.getFilteredTaskList());
+        for (int i = 0; i < expectedShownList.size(); i++) {
+            assertEquals(expectedShownList.get(i), model.getFilteredTaskList().get(i));
+        }
 
         //Confirm the state of data (saved and in-memory) is as expected
         assertEquals(expectedToDoList, model.getToDoList());

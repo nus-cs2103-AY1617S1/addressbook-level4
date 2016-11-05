@@ -102,11 +102,14 @@ public class TaskCard extends UiPart{
     
     private void initPriority() {
         if (task.getPriority().toString().equals(Priority.LOW)) {
-            priorityLevel.setFill(Color.LIMEGREEN);
+            priorityLevel.setFill(Color.web("#b2ff59"));
+            priorityLevel.setStroke(Color.LIMEGREEN);
         } else if (task.getPriority().toString().equals(Priority.MID)) {
-            priorityLevel.setFill(Color.YELLOW);
+            priorityLevel.setFill(Color.web("#fff59d"));
+            priorityLevel.setStroke(Color.web("#ffff00"));
         } else {
             priorityLevel.setFill(Color.RED);
+            priorityLevel.setStroke(Color.web("#c62828"));
         }
     }
     

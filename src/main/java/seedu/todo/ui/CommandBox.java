@@ -10,6 +10,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import seedu.todo.commons.core.LogsCenter;
 import seedu.todo.commons.events.ui.IncorrectCommandAttemptedEvent;
+import seedu.todo.commons.events.ui.TagPanelSelectionEvent;
 import seedu.todo.commons.util.FxViewUtil;
 import seedu.todo.logic.Logic;
 import seedu.todo.logic.commands.*;
@@ -120,6 +121,12 @@ public class CommandBox extends UiPart {
         restoreCommandText();
     }
 
+    @Subscribe
+    private void handleTagPanelSelectionEvent(TagPanelSelectionEvent tpse){
+        resultDisplay.postMessage("Displaying list of tasks with tag: " + tpse.tag.getName());
+    }
+    
+    
     /**
      * Restores the command box text to the previously entered command
      */

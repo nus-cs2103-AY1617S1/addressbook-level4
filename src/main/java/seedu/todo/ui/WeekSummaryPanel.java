@@ -12,7 +12,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import seedu.todo.commons.core.LogsCenter;
-import seedu.todo.commons.events.ui.TaskPanelSelectionChangedEvent;
 import seedu.todo.model.task.ReadOnlyTask;
 
 import java.time.LocalDate;
@@ -65,20 +64,11 @@ public class WeekSummaryPanel extends UiPart {
     private void setConnections(ObservableList<ReadOnlyTask> taskList) {
         weekSummaryListView.setItems(taskList);
         weekSummaryListView.setCellFactory(listView -> new TaskListViewCell());
-        setEventHandlerForSelectionChangeEvent();
     }
 
     private void addToPlaceholder() {
         SplitPane.setResizableWithParent(placeHolderPane, false);
         placeHolderPane.getChildren().add(panel);
-    }
-    private void setEventHandlerForSelectionChangeEvent() {
-        weekSummaryListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue != null) {
-                logger.fine("Selection in week summary panel changed to : '" + newValue + "'");
-                raise(new TaskPanelSelectionChangedEvent(newValue));
-            }
-        });
     }
 
     public void scrollTo(int index) {

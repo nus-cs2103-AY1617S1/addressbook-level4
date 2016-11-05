@@ -37,12 +37,7 @@ public class SearchLogicTest extends CommandLogicTest {
         
     }
     
-    @Test
-    public void execute_search_invalidArgsFormat() throws IllegalValueException {
-        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, SearchCommand.MESSAGE_USAGE);
-        assertCommandBehavior("search ", expectedMessage);
-    }
-
+    
     @Test
     public void execute_search_onlyMatchesFullWordsInNames() throws IllegalValueException {
         t2.setCompletion(new Completion(true));

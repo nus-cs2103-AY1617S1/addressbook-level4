@@ -1,7 +1,3 @@
-.background {
-    -fx-background-color: derive(#1d1d1d, 20%);
-}
-
 .label {
     -fx-font-size: 11pt;
     -fx-font-family: "Segoe UI Semibold";
@@ -77,13 +73,11 @@
 
 .split-pane:horizontal .split-pane-divider {
     -fx-border-color: transparent #1d1d1d transparent #1d1d1d;
-    -fx-background-color: transparent, derive(#1d1d1d, 10%);
 }
 
 .split-pane {
     -fx-border-radius: 1;
     -fx-border-width: 1;
-    -fx-background-color: derive(#1d1d1d, 20%);
 }
 
 .list-cell {
@@ -143,15 +137,6 @@
     -fx-text-fill: white;
 }
 
-.grid-pane {
-    -fx-background-color: derive(#1d1d1d, 30%);
-    -fx-border-color: derive(#1d1d1d, 30%);
-    -fx-border-width: 1px;
-}
-
-.grid-pane .anchor-pane {
-    -fx-background-color: derive(#1d1d1d, 30%);
-}
 
 .context-menu {
     -fx-background-color: derive(#1d1d1d, 50%);
@@ -159,6 +144,10 @@
 
 .context-menu .label {
     -fx-text-fill: white;
+}
+
+.hbox {
+    -fx-background-color: RED;
 }
 
 .menu-bar {
@@ -272,12 +261,6 @@
     -fx-padding: 8 1 8 1;
 }
 
-#cardPane {
-    -fx-background-color: transparent;
-    -fx-border-color: #FFFFFF;
-    -fx-border-width: 1 1 1 1;
-}
-
 #commandTypeLabel {
     -fx-font-size: 11px;
     -fx-text-fill: #F70D1A;
@@ -286,3 +269,4 @@
 #filterField, #personListPanel, #personWebpage {
     -fx-effect: innershadow(gaussian, black, 10, 0, 0, 0);
 }
+

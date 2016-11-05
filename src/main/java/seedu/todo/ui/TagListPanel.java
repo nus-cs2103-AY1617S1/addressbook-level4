@@ -11,6 +11,7 @@ import javafx.scene.control.SplitPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import seedu.todo.commons.events.ui.TagPanelSelectionEvent;
 import seedu.todo.model.tag.Tag;
 
 public class TagListPanel extends UiPart {
@@ -59,6 +60,7 @@ public class TagListPanel extends UiPart {
 	private void setConnections(ObservableList<Tag> tagList) {
 		tagListView.setItems(tagList);
 		tagListView.setCellFactory(listView -> new TagListViewCell());
+		setEventHandlerForSelectionChangeEvent();
 	}
 
 	public void scrollTo(int index) {
@@ -67,6 +69,14 @@ public class TagListPanel extends UiPart {
 			tagListView.getSelectionModel().clearAndSelect(index);
 		});
 	}
+	
+	private void setEventHandlerForSelectionChangeEvent() {
+	    tagListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+	        if (newValue != null) {
+                raise(new TagPanelSelectionEvent(newValue));
+            }
+	    });
+    }
 
 	/**
 	 * Sets ListCells for ListView in TagListPanel

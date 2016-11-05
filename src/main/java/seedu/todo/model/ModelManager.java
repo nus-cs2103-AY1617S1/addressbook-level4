@@ -5,6 +5,7 @@ import seedu.todo.commons.core.ComponentManager;
 import seedu.todo.commons.core.LogsCenter;
 import seedu.todo.commons.core.UnmodifiableObservableList;
 import seedu.todo.commons.events.model.ToDoListChangedEvent;
+import seedu.todo.commons.events.ui.TagPanelSelectionEvent;
 import seedu.todo.logic.commands.SearchCommand.SearchCompletedOption;
 import seedu.todo.model.expressions.Expression;
 import seedu.todo.model.expressions.PredicateExpression;
@@ -20,6 +21,8 @@ import seedu.todo.model.task.UniqueTaskList.TaskNotFoundException;
 import java.time.LocalDateTime;
 import java.util.Set;
 import java.util.logging.Logger;
+
+import com.google.common.eventbus.Subscribe;
 
 /**
  * Represents the in-memory model of the to do list data.
@@ -222,5 +225,11 @@ public class ModelManager extends ComponentManager implements Model {
     private void updateFilteredTaskList(Expression expression) {
         filteredTasks.setPredicate(expression::satisfies);
     }
+    
+    @Subscribe
+    private void handleTagPanelSelectionEvent(TagPanelSelectionEvent tpse) {
+        this.updateFilteredTaskListByTag(tpse.tag.getName(), SearchCompletedOption.UNDONE);
+    }
+    
     
 }

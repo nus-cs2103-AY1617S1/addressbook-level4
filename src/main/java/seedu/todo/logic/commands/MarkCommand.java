@@ -48,14 +48,13 @@ public class MarkCommand extends Command {
         
         try {
             Task toMark = model.getTask(taskToMark);
-            toMark.setCompletion(new Completion(true));
-            toMark.getRecurrence().updateTaskDate(toMark);
-
+            toMark.setCompletion(new Completion(true));           
             model.updateTask(taskToMark, toMark);
             
             if (!toMark.isRecurring()) {
                 model.updateFilteredListToShowAllCompleted();
             } else {
+                toMark.getRecurrence().updateTaskDate(toMark);
                 model.updateFilteredListToShowAllNotCompleted();
             }
             model.updateTodayListToShowAll();

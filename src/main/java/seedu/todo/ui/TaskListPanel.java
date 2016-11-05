@@ -11,7 +11,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import seedu.todo.commons.core.LogsCenter;
-import seedu.todo.commons.events.ui.TaskPanelSelectionChangedEvent;
 import seedu.todo.model.task.ReadOnlyTask;
 
 import java.util.logging.Logger;
@@ -63,7 +62,6 @@ public class TaskListPanel extends UiPart {
     private void setConnections(ObservableList<ReadOnlyTask> taskList) {
         taskListView.setItems(taskList);
         taskListView.setCellFactory(listView -> new TaskListViewCell());
-        setEventHandlerForSelectionChangeEvent();
     }
 
     private void addToPlaceholder() {
@@ -71,14 +69,6 @@ public class TaskListPanel extends UiPart {
         placeHolderPane.getChildren().add(panel);
     }
 
-    private void setEventHandlerForSelectionChangeEvent() {
-        taskListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue != null) {
-                logger.fine("Selection in task list panel changed to : '" + newValue + "'");
-                raise(new TaskPanelSelectionChangedEvent(newValue));
-            }
-        });
-    }
 
     public void scrollTo(int index) {
         Platform.runLater(() -> {
