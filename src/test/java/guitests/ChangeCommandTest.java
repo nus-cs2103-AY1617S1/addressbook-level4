@@ -2,57 +2,63 @@ package guitests;
 
 import org.junit.Test;
 
-import seedu.address.commons.util.XmlUtil;
 import seedu.address.logic.commands.ChangeCommand;
-import seedu.address.storage.XmlSerializableTaskManager;
 import seedu.address.testutil.TestUtil;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 
 //@@author A0146123R
+/**
+ * gui tests for change command.
+ */
 public class ChangeCommandTest extends TaskManagerGuiTest {
     private static String newFile = "./src/test/data/XmlAddressBookStorageTest/newFile.xml";
-    private static String testData = TestUtil.getFilePathInSandboxFolder("sampleData.xml");
+    private static String sampleData = TestUtil.getFilePathInSandboxFolder("sampleData.xml");
 
-    @Test
-    public void change() throws Exception {
-        // verify that the storage location for a non-empty task list can be changed
-        assertTrue(taskListPanel.isListMatching(td.getTypicalTasks()));
-        assertChangeCommandSuccess();
-
-        // verify other commands can work after a change command
-        commandBox.runCommand(td.project.getAddCommand());
-        assertListSize(9);
-        assertStorageFileSame(new File(testData), 9);
-    }
-    
-    private void assertChangeCommandSuccess() throws Exception {
-        commandBox.runCommand("change " + newFile);
-        File file = new File(newFile);
-        assertTrue(taskListPanel.isListMatching(td.getTypicalTasks()));
-        assertStorageFileSame(file, 8);
-        assertResultMessage("Storage location has been changed!");
-        
-        commandBox.runCommand("change " + testData + " clear");
-        assertStorageFileSame(new File(testData), 8);
-        assert !file.exists();
-    }
-    
-    private void assertStorageFileSame(File file, int n) throws Exception {
-        XmlSerializableTaskManager dataFromFile = XmlUtil.getDataFromFile(file, XmlSerializableTaskManager.class);
-        assertEquals(n, dataFromFile.getTaskList().size());
-        assertEquals(2, dataFromFile.getTagList().size());
-    }
-    
     @Test
     public void change_invalidCommand_fail() {
         commandBox.runCommand("change dummyfile");
         assertResultMessage(ChangeCommand.MESSAGE_INVALID_FILE_PATH);
-        commandBox.runCommand("change " + testData + " clean");
+        commandBox.runCommand("change " + sampleData + " clean");
         assertResultMessage(ChangeCommand.MESSAGE_INVALID_CLEAR_DATA);
+    }
+
+    @Test
+    public void change_validCommand_success() throws Exception {
+        assertTrue(taskListPanel.isListMatching(td.getTypicalTasks()));
+
+        // verify that the storage location can be changed
+        assertChangeCommandSuccess(newFile);
+        assertChangeClearCommandSuccess(newFile, sampleData);
+
+        // verify other commands can work after a change command
+        commandBox.runCommand(td.project.getAddCommand());
+        assertListSize(9);
+        assertStorageFileSame(new File(sampleData));
+    }
+
+    /**
+     * Runs the change command to change the storage location and confirms the
+     * new storage location is correct.
+     */
+    private void assertChangeCommandSuccess(String newFilePath) throws Exception {
+        commandBox.runCommand("change " + newFilePath);
+        assertResultMessage("Storage location changed: " + newFilePath);
+        assertTrue(taskListPanel.isListMatching(td.getTypicalTasks()));
+        assertStorageFileSame(new File(newFilePath));
+    }
+
+    /**
+     * Runs the change command to change the storage location and clear data
+     * saved in the previous location and confirms the new storage location is
+     * correct.
+     */
+    private void assertChangeClearCommandSuccess(String previousFilePath, String newFilePath) throws Exception {
+        commandBox.runCommand("change " + newFilePath + " clear");
+        assertChangeCommandSuccess(newFilePath);
+        assert !new File(previousFilePath).exists();
     }
 
 }

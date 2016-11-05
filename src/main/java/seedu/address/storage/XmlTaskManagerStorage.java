@@ -18,13 +18,14 @@ import java.util.logging.Logger;
 public class XmlTaskManagerStorage implements TaskManagerStorage {
 
     private static final Logger logger = LogsCenter.getLogger(XmlTaskManagerStorage.class);
+    
+    private FilePathManager filePathManager;
 
     private String filePath;
-    private String previousFilePath;
 
     public XmlTaskManagerStorage(String filePath){
-        this.previousFilePath = filePath;
         this.filePath = filePath;
+        filePathManager = new FilePathManager(new FilePath(filePath, false));
     }
 
     @Override
@@ -32,16 +33,33 @@ public class XmlTaskManagerStorage implements TaskManagerStorage {
         return filePath;
     }
     
+    //@@author A0146123R
     @Override
-    public String getTaskManagerPreviousFilePath(){
-        return previousFilePath;
+    public FilePath getTaskManagerPreviousFilePath(){
+        return filePathManager.getPreviousFilePath();
     }
     
     @Override
-    public void setTaskManagerFilePath(String filePath) {
-        this.previousFilePath = this.filePath;
-        this.filePath = filePath;
+    public FilePath getTaskManagerNextFilePath(){
+        return filePathManager.getNextFilePath();
     }
+    
+    @Override
+    public void saveTaskManagerFilePath(FilePath filePath){
+        filePathManager.saveFilePath(filePath);
+    }
+    
+    @Override
+    public void setTaskManagerFilePath(FilePath newfilePath) throws IOException  {
+        if (newfilePath.isToClear()) {
+            logger.info("Attempting to delete the data file: " + this.filePath);
+            deleteTaskManager();
+        }
+        logger.info("Saving to new file: " + newfilePath.getPath());
+        this.filePath = newfilePath.getPath();
+        assert this.filePath != null;
+    }
+    //@@author
 
     /**
      * Similar to {@link #readTaskManager()}
@@ -78,16 +96,6 @@ public class XmlTaskManagerStorage implements TaskManagerStorage {
         XmlFileStorage.saveDataToFile(file, new XmlSerializableTaskManager(addressBook));
     }
     
-    /**
-     * Similar to {@link #deleteTaskManager()}
-     */
-    @Override
-    public void deleteTaskManager(String filePath) throws IOException {
-        assert filePath != null;
-
-        XmlFileStorage.deleteFile(Paths.get(filePath));
-    }
-
     @Override
     public Optional<ReadOnlyTaskManager> readTaskManager() throws DataConversionException, IOException {
         return readTaskManager(filePath);
@@ -99,9 +107,13 @@ public class XmlTaskManagerStorage implements TaskManagerStorage {
     }
     
     //@@author A0146123R
-    @Override
-    public void deleteTaskManager() throws IOException {
-        deleteTaskManager(filePath);
+    /**
+     * Delete the storage file.
+     * @throws IOException if there was any problem deleting the file.
+     */
+    private void deleteTaskManager() throws IOException {
+        assert filePath != null;
+        XmlFileStorage.deleteFile(Paths.get(filePath));
     }
     //@@author
     

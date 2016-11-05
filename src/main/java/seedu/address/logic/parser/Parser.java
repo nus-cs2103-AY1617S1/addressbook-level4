@@ -451,14 +451,14 @@ public class Parser {
      */
     private Command prepareChange(String arguments) {
         final String[] args = arguments.trim().split("\\s+");
-        if (args.length >= 0) {
-            String filePath = args[0];
-            if (args.length == 1) {
-                return new ChangeCommand(filePath);
-            } else if (args.length == 2) {
-                String clear = args[1];
-                return new ChangeCommand(filePath, clear);
-            }
+        final int defaulLtength = 1;
+        final int clearLength = 2;
+        final int filePath = 0;
+        final int clear = 1;
+        if (args.length == defaulLtength) {
+            return new ChangeCommand(args[filePath]);
+        } else if (args.length == clearLength) {
+            return new ChangeCommand(args[filePath], args[clear]);
         }
         return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ChangeCommand.MESSAGE_USAGE));
     }

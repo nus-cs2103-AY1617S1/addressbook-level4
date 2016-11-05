@@ -4,26 +4,19 @@ import seedu.address.commons.events.BaseEvent;
 
 //@@author A0146123R
 /**
- * Indicates that the path for the storage file should be changed to a new path.
+ * Indicates a change for the path for the storage file.
  */
-public class StoragePathChangedEvent extends BaseEvent {
+public class StoragePathEvent extends BaseEvent {
 
     private String newStorageFilePath;
-    private boolean isToClearOld;
 
-    public StoragePathChangedEvent(String newStorageFilePath, boolean isToClearOld) {
+    public StoragePathEvent(String newStorageFilePath) {
         assert newStorageFilePath != null;
-
         this.newStorageFilePath = newStorageFilePath;
-        this.isToClearOld = isToClearOld;
     }
 
     public String getNewStorageFilePath() {
         return newStorageFilePath;
-    }
-
-    public Boolean isToClearOld() {
-        return isToClearOld;
     }
 
     @Override
