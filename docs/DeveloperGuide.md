@@ -379,6 +379,11 @@ Use case ends. <br>
 2. Should be able to hold up to a maximum of 1000 tasks per day.
 3. Should come with automated unit tests and open source code.
 4. Should favor DOS style commands over Unix-style commands.
+5. Should load the command result within one second of execution.
+6. Should not corrupt data if an unexpected crash occurs.
+7. Should not require an installer to run the App.
+8. Should be free.
+9. Should be able to have functioning basic commands without the internet.
 
 You can also visit the following page for more information on Project Constraints 
 http://www.comp.nus.edu.sg/~cs2103/AY1617S1/
