@@ -22,5 +22,10 @@ public class ExitCommand extends TaskCommand {
         EventsCenter.getInstance().post(new ExitAppRequestEvent());
         return new CommandResult(MESSAGE_EXIT_ACKNOWLEDGEMENT);
     }
+    
+    @Override
+    public String toString(){
+        return MESSAGE_EXIT_ACKNOWLEDGEMENT;
+    }
 
 }

@@ -5,14 +5,14 @@ import static w15c2.tusk.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import org.junit.Test;
 
-import w15c2.tusk.logic.commands.taskcommands.HelpTaskCommand;
+import w15c2.tusk.logic.commands.taskcommands.ExitCommand;
 import w15c2.tusk.logic.commands.taskcommands.IncorrectTaskCommand;
-import w15c2.tusk.logic.parser.HelpCommandParser;
+import w15c2.tusk.logic.parser.ExitCommandParser;
 
 //@@author A0143107U
-public class HelpCommandParserTest {
+public class ExitCommandParserTest {
 	// Initialized to support the tests
-	HelpCommandParser parser = new HelpCommandParser();
+	ExitCommandParser parser = new ExitCommandParser();
 	
 	/**
 	 * Testing correct handling of invalid formats
@@ -24,25 +24,25 @@ public class HelpCommandParserTest {
 		 * Testing correct handling of non-empty strings
 		 * 
 		 */
-		String expected = String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpTaskCommand.MESSAGE_USAGE);
+		String expected = String.format(MESSAGE_INVALID_COMMAND_FORMAT, ExitCommand.MESSAGE_USAGE);
 		
-		IncorrectTaskCommand command = (IncorrectTaskCommand) parser.prepareCommand("listing");
+		IncorrectTaskCommand command = (IncorrectTaskCommand) parser.prepareCommand("tusk");
 		String feedback = command.feedbackToUser;
 		assertEquals(feedback, expected);
 		
-		command = (IncorrectTaskCommand) parser.prepareCommand("all");
+		command = (IncorrectTaskCommand) parser.prepareCommand("app");
 		feedback = command.feedbackToUser;
 		assertEquals(feedback, expected);
 	}
 	
 	/**
-	 * Testing valid help format
+	 * Testing valid exit format
 	 */
 	@Test
-	public void prepareCommand_validHelpFormat() {
-		String expected = HelpTaskCommand.SHOWING_HELP_MESSAGE;
+	public void prepareCommand_validExitFormat() {
+		String expected = ExitCommand.MESSAGE_EXIT_ACKNOWLEDGEMENT;
 		
-		HelpTaskCommand command = (HelpTaskCommand) parser.prepareCommand("");
+		ExitCommand command = (ExitCommand) parser.prepareCommand("");
 		String feedback = command.toString();
 		assertEquals(feedback, expected);
 		
