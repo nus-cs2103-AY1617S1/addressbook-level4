@@ -170,7 +170,9 @@ public class Parser {
             }
             
             // mandatory field                       
-            final String name = matcher.group("name");
+            // catch escaped name group if exists, otherwise use unescaped name group
+            final String nameEscaped = matcher.group("nameEscaped");
+            final String name = (nameEscaped != null)? nameEscaped: matcher.group("name");
             
             // at this point name variable should never be null because the regex only capture full match of mandatory components
             // check for bug in regex expression if the following throws assertion error
