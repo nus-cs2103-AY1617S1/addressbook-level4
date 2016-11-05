@@ -22,14 +22,14 @@ public class StartTime {
      */
     public StartTime(String startTime) throws IllegalValueException {
         assert startTime != null;
-        startTime = startTime.trim();
-        if (startTime.equals(NO_STARTTIME)) {
-            this.value = startTime;
+        String newStartTime = startTime.trim();
+        if (newStartTime.equals(NO_STARTTIME)) {
+            this.value = newStartTime;
             return;
-        } else if (!isValidStartTime(startTime)) {
+        } else if (!isValidStartTime(newStartTime)) {
             throw new IllegalValueException(MESSAGE_STARTTIME_CONSTRAINTS);
         }
-        this.value = startTime;
+        this.value = newStartTime;
     }
 
     /**

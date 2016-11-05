@@ -22,15 +22,15 @@ public class EndTime {
      */
     public EndTime(String endTime) throws IllegalValueException {
         assert endTime != null;
-        endTime = endTime.trim();
-        if (endTime.equals(NO_ENDTIME)) {
-            this.value = endTime;
+        String newEndTime = endTime.trim();
+        if (newEndTime.equals(NO_ENDTIME)) {
+            this.value = newEndTime;
             return;
         }
-        if (!isValidEndTime(endTime)) {
+        if (!isValidEndTime(newEndTime)) {
             throw new IllegalValueException(MESSAGE_ENDTIME_CONSTRAINTS);
         }
-        this.value = endTime;
+        this.value = newEndTime;
     }
 
     /**

@@ -21,15 +21,15 @@ public class Deadline {
      */
     public Deadline(String deadline) throws IllegalValueException {
         assert deadline != null;
-        deadline = deadline.trim();
-        if (deadline.equals(NO_DEADLINE)) {
-            this.value = deadline;
+        String newDeadline = deadline.trim();
+        if (newDeadline.equals(NO_DEADLINE)) {
+            this.value = newDeadline;
             return;
         }
-        if (!isValidDeadline(deadline)) {
+        if (!isValidDeadline(newDeadline)) {
             throw new IllegalValueException(MESSAGE_DEADLINE_CONSTRAINTS);
         }
-        this.value = deadline;
+        this.value = newDeadline;
     }
 
     /**
