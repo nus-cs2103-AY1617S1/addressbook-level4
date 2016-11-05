@@ -2,16 +2,11 @@ package seedu.taskitty.storage;
 
 import com.google.common.eventbus.Subscribe;
 
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.Alert.AlertType;
-import seedu.taskitty.MainApp;
 import seedu.taskitty.commons.core.ComponentManager;
 import seedu.taskitty.commons.core.LogsCenter;
 import seedu.taskitty.commons.events.model.TaskManagerChangedEvent;
 import seedu.taskitty.commons.events.storage.DataSavingExceptionEvent;
 import seedu.taskitty.commons.exceptions.DataConversionException;
-import seedu.taskitty.commons.util.FileUtil;
 import seedu.taskitty.commons.util.UiUtil;
 import seedu.taskitty.model.ReadOnlyTaskManager;
 import seedu.taskitty.model.UserPrefs;
