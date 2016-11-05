@@ -47,6 +47,7 @@ public class HelpWindow extends UiPart {
         return FXML;
     }
 
+    //@@author A0139515A
     private void configure(){
         Scene scene = new Scene(mainPane);
         
@@ -62,6 +63,7 @@ public class HelpWindow extends UiPart {
         mainPane.getChildren().add(imageView);
 
     }
+    //@@author
 
     public void show() {
         dialogStage.showAndWait();
