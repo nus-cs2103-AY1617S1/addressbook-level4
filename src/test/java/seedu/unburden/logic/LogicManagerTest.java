@@ -263,6 +263,39 @@ public class LogicManagerTest {
 	}
 
 	@Test
+	public void execute_add_deadline_without_tags() throws Exception {
+		TestDataHelper helper = new TestDataHelper();
+		Task task = helper.generateDeadlineTask("Chandler", "Bing", "13-12-2017");
+		ListOfTask expected = new ListOfTask();
+		expected.addTask(task);
+
+		assertCommandBehavior("add Chandler i/Bing d/13-12-2017", String.format(AddCommand.MESSAGE_SUCCESS, task),
+				expected, expected.getTaskList());
+	}
+
+	@Test
+	public void execute_add_deadline_with_everything() throws Exception {
+		TestDataHelper helper = new TestDataHelper();
+		Task task = helper.generateDeadlineTask("How you doin?", "Joey", "14-11-2100", "Friends");
+		ListOfTask expected = new ListOfTask();
+		expected.addTask(task);
+
+		assertCommandBehavior("add How you doin? i/Joey d/14-11-2100 t/Friends",
+				String.format(AddCommand.MESSAGE_SUCCESS, task), expected, expected.getTaskList());
+	}
+
+	@Test
+	public void execute_add_deadline_with_end_time() throws Exception {
+		TestDataHelper helper = new TestDataHelper();
+		Task task = helper.generateDeadlineTaskWithEndTime("Chandler", "Bing", "14-12-2019", "1800", "Friends");
+		ListOfTask expected = new ListOfTask();
+		expected.addTask(task);
+
+		assertCommandBehavior("add Chandler i/Bing d/14-12-2019 e/1800 t/Friends",
+				String.format(AddCommand.MESSAGE_SUCCESS, task), expected, expected.getTaskList());
+	}
+
+	@Test
 	public void execute_add_successful() throws Exception {
 		// setup expectations
 		TestDataHelper helper = new TestDataHelper();
