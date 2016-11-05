@@ -49,7 +49,7 @@ Love typing? You will love sTask, as you only need to use the keyboard to type s
 
 &nbsp;&nbsp;&nbsp;&nbsp;<b>3.1 Looking for Help </b><br><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;After downloading sTask, you are not sure how to operate it. You can<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;glance through the list of commands and their formats by typing.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;glance through the list of commands and their formats by typing<br>
 >> `help` <br><br>
 
 &nbsp;&nbsp;&nbsp;&nbsp;<b>3.2 Adding a Task </b><br><br>
@@ -98,7 +98,8 @@ Love typing? You will love sTask, as you only need to use the keyboard to type s
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; you can search for them by typing<br>
 >> `find [KEYWORD...]` <br>
 * find meeting <br><br>
-sTask searches through all the fields and returns all the tasks that contains your KEYWORD.<br><br>
+
+>> sTask searches through all the fields and returns all the tasks that contains your KEYWORD.<br><br>
 
 
 &nbsp;&nbsp;&nbsp;&nbsp;<b>3.6 Viewing your tasks on a specific date </b><br><br>
@@ -150,7 +151,9 @@ You can use this command to navigate through your list of tasks.<br><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;After a hectic long day, it is time to rest, so you <br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;can exit the program by typing<br>
 >> `exit`<br><br>
-  
+
+Now that you have all the commands on hand, go and try it out!
+
 ## 4. FAQ
 
 &nbsp;&nbsp;&nbsp;&nbsp;<b>4.1 General:</b><br>
