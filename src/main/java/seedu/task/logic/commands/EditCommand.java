@@ -1,5 +1,6 @@
 package seedu.task.logic.commands;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -20,7 +21,6 @@ import seedu.task.model.task.UniqueTaskList.TaskNotFoundException;
 
 /**
  * Edits a task from the task manager.
- * @@author A0147335E
  */
 public class EditCommand extends Command {
     public static final String COMMAND_WORD = "edit";
@@ -40,9 +40,19 @@ public class EditCommand extends Command {
     public static final String EDIT_DEADLINE = "due";
     public static final String EDIT_TAG = "tag";
     public final int targetIndex;
+    //private final Task toEdit;
     private final String toEdit;
     private final String toEditItem;
     private final Set<String> toEditTags;
+    
+    //    public EditCommand(int targetIndex, String name, String startTime, String endTime, String deadline, Set<String> tags) throws IllegalValueException {
+    //        final Set<Tag> tagSet = new HashSet<>();
+    //        for (String tagName : tags) {
+    //            tagSet.add(new Tag(tagName));
+    //        }
+    //        this.toEdit = new Task(new Name(name), new StartTime(startTime), new EndTime(endTime), new Deadline(deadline), new UniqueTagList(tagSet), new Status());
+    //        this.targetIndex = targetIndex;
+    //    }
     
     // @@author A0152958R
     public EditCommand(int targetIndex, String item, String editResult,  Set<String> tags) throws IllegalValueException {
@@ -110,7 +120,14 @@ public class EditCommand extends Command {
                 }
                 break;
             default:
-            	break;
+                try{
+                    for (String tagName : this.toEditTags) {
+                        tagSet.add(new Tag(tagName));
+                    }
+                    toAdd = new Task(currentTask.getName(), currentTask.getStartTime(), currentTask.getEndTime(), currentTask.getDeadline(), new UniqueTagList(tagSet), currentTask.getStatus(), currentTask.getRecurring());
+                }catch(IllegalValueException e){
+                    return new CommandResult(MESSAGE_DUPLICATE_TASK);
+                }
         }
         
         try {
@@ -132,7 +149,7 @@ public class EditCommand extends Command {
         }
         
         if (isUndo == false) {
-            history.getUndoList().add(new RollBackCommand(COMMAND_WORD, toAdd, (Task) currentTask));
+            getUndoList().add(new RollBackCommand(COMMAND_WORD, toAdd, (Task) currentTask));
         }
         // @author A0147944U-reused
         // Sorts updated list of tasks
@@ -140,6 +157,13 @@ public class EditCommand extends Command {
         // @@author A0152958R
         return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, toEdit));
     }
+
+
+    // @@author A0147335E
+	private ArrayList<RollBackCommand> getUndoList() {
+		return history.getUndoList();
+	}
+    
     
     
     @Override

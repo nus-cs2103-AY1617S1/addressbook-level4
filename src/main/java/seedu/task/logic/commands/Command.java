@@ -41,6 +41,7 @@ public abstract class Command {
         this.model = model;
     }
 
+    // @@author A0147335E
     public void setHistory(HistoryManager history) {
         this.history = history;
     }

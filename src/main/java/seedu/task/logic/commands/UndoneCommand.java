@@ -1,4 +1,7 @@
+// @@author A0147335E
 package seedu.task.logic.commands;
+
+import java.util.ArrayList;
 
 import seedu.task.commons.core.Messages;
 
@@ -9,7 +12,6 @@ import seedu.task.model.task.Task;
 import seedu.task.model.task.UniqueTaskList.DuplicateTaskException;
 import seedu.task.model.task.UniqueTaskList.TaskNotFoundException;
 
-// @@author A0147335E
 /**
  * Undone a task from the task manager.
  */
@@ -43,29 +45,37 @@ public class UndoneCommand extends Command {
         }
 
         ReadOnlyTask currentTask = lastShownList.get(targetIndex - 1);
-        boolean oldStatus = currentTask.getStatus().getDoneStatus();
+        boolean previousDoneStatus = currentTask.getStatus().getDoneStatus();
 
         try {
             model.deleteTask(currentTask);
         } catch (TaskNotFoundException e) {}
 
-        Task newTask = new Task(currentTask);
-        newTask.getStatus().setDoneStatus(false);
+        Task taskToUndone = new Task(currentTask);
+        taskToUndone.getStatus().setDoneStatus(false);
         try {
-            model.addTask(targetIndex - 1, newTask);
+            model.addTask(targetIndex - 1, taskToUndone);
         } catch (DuplicateTaskException e) {}
 
-        if (oldStatus == newTask.getStatus().getDoneStatus()) {
+        if (isEqual(previousDoneStatus, taskToUndone.getStatus().getDoneStatus())) {
             return new CommandResult(MESSAGE_ALREADY_UNDONE);
         }
         if (isUndo == false) {
-            history.getUndoList().add(new RollBackCommand(COMMAND_WORD, newTask, null));
+            getUndoList().add(new RollBackCommand(COMMAND_WORD, taskToUndone, null));
         }
         // @author A0147944U-reused
         // Sorts updated list of tasks
         model.autoSortBasedOnCurrentSortPreference();
         // @@author A0147335E
-        return new CommandResult(String.format(MESSAGE_DONE_TASK_SUCCESS, newTask.getName()));
+        return new CommandResult(String.format(MESSAGE_DONE_TASK_SUCCESS, taskToUndone.getName()));
+    }
+
+    private boolean isEqual(boolean previousDoneStatus, boolean currentDoneStatus) {
+        return previousDoneStatus == currentDoneStatus;
+    }
+
+    private ArrayList<RollBackCommand> getUndoList() {
+        return history.getUndoList();
     }
 
     @Override

@@ -9,7 +9,6 @@ import java.util.Set;
 
 /**
  * The API of the Model component.
- * @@author A0147335E-reused
  */
 public interface Model {
     /** Clears existing backing model and replaces with the provided new data. */
@@ -24,9 +23,10 @@ public interface Model {
     /** Adds the given task */
     void addTask(Task task) throws UniqueTaskList.DuplicateTaskException;
     
+    // @@author A0147335E-reused
     /** Adds the given task on a specific index */
     void addTask(int index, Task task) throws UniqueTaskList.DuplicateTaskException;
-
+    // @@author
     /** Returns the filtered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
     UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList();
 

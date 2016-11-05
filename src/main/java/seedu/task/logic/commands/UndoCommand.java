@@ -1,3 +1,4 @@
+//@@author A0147335E
 package seedu.task.logic.commands;
 
 import java.util.ArrayList;
@@ -12,7 +13,7 @@ import seedu.task.model.task.ReadOnlyTask;
 /**
  * Undo previous commands that was input by the user.
  * 
- * @@author A0147335E
+ * 
  */
 public class UndoCommand extends Command {
 

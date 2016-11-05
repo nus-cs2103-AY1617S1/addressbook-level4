@@ -1,5 +1,7 @@
 package seedu.task.logic.commands;
 
+import java.util.ArrayList;
+
 import seedu.task.commons.core.Messages;
 import seedu.task.commons.core.UnmodifiableObservableList;
 import seedu.task.logic.RollBackCommand;
@@ -9,7 +11,6 @@ import seedu.task.model.task.UniqueTaskList.TaskNotFoundException;
 
 /**
  * Deletes a task identified using it's last displayed index from the task manager.
- * @@author A0147335E-reused
  */
 public class DeleteCommand extends Command {
 
@@ -28,6 +29,7 @@ public class DeleteCommand extends Command {
         this.targetIndex = targetIndex;
     }
 
+    // @@author A0147335E-reused
     @Override
     public CommandResult execute(boolean isUndo) {
 
@@ -39,9 +41,8 @@ public class DeleteCommand extends Command {
         }
 
         ReadOnlyTask taskToDelete = lastShownList.get(targetIndex - 1);
-        if (isUndo == false) {
-            Task task = new Task(taskToDelete.getName(), taskToDelete.getStartTime(), taskToDelete.getEndTime(), taskToDelete.getDeadline(), taskToDelete.getTags(), taskToDelete.getStatus(), taskToDelete.getRecurring());
-            history.getUndoList().add(new RollBackCommand(COMMAND_WORD, task, null));
+        if (!isUndo) {
+            getUndoList().add(new RollBackCommand(COMMAND_WORD, (Task) taskToDelete, null));
         }
         try {
             model.deleteTask(taskToDelete);
@@ -51,6 +52,11 @@ public class DeleteCommand extends Command {
 
         return new CommandResult(String.format(MESSAGE_DELETE_TASK_SUCCESS, taskToDelete));
     }
+
+    // @@author A0147335E-reused
+	private ArrayList<RollBackCommand> getUndoList() {
+		return history.getUndoList();
+	}
 
 
     @Override

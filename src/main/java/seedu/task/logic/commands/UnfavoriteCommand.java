@@ -1,4 +1,7 @@
+// @@author A0147335E
 package seedu.task.logic.commands;
+
+import java.util.ArrayList;
 
 import seedu.task.commons.core.Messages;
 
@@ -9,7 +12,6 @@ import seedu.task.model.task.Task;
 import seedu.task.model.task.UniqueTaskList.DuplicateTaskException;
 import seedu.task.model.task.UniqueTaskList.TaskNotFoundException;
 
-// @@author A0147335E
 /**
  * Unfavorite a task from the task manager.
  */
@@ -47,7 +49,9 @@ public class UnfavoriteCommand extends Command {
 
         try {
             model.deleteTask(currentTask);
-        } catch (TaskNotFoundException e) {}
+        } catch (TaskNotFoundException e) {
+            
+        }
 
         Task newTask = new Task(currentTask);
         newTask.getStatus().setFavoriteStatus(false);
@@ -59,13 +63,17 @@ public class UnfavoriteCommand extends Command {
             return new CommandResult(MESSAGE_ALREADY_UNFAVORITED);
         }
         if (isUndo == false) {
-            history.getUndoList().add(new RollBackCommand(COMMAND_WORD, newTask, null));
+            getUndoList().add(new RollBackCommand(COMMAND_WORD, newTask, null));
         }
         // @author A0147944U-reused
         // Sorts updated list of tasks
         model.autoSortBasedOnCurrentSortPreference();
         // @@author A0147335E
         return new CommandResult(String.format(MESSAGE_UNFAVORITE_TASK_SUCCESS, newTask.getName()));
+    }
+
+    private ArrayList<RollBackCommand> getUndoList() {
+        return history.getUndoList();
     }
 
     @Override

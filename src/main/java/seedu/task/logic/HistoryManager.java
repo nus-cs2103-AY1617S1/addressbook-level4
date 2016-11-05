@@ -1,3 +1,4 @@
+//@@author A0147335E
 package seedu.task.logic;
 
 import java.util.ArrayList;
@@ -6,7 +7,6 @@ import java.util.ArrayList;
  * This class keeps track of the successful commands typed by users
  * to allow and support undo command.
  * 
- * @@author A0147335E
  *
  */
 public class HistoryManager {

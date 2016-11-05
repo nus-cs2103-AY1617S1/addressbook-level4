@@ -1,3 +1,4 @@
+//@@author A0147335E
 package seedu.task.logic;
 
 import seedu.task.model.task.Task;
@@ -6,7 +7,6 @@ import seedu.task.model.task.Task;
  * This class defines the the properties of a RollbackCommand object
  * to support undo command.
  * 
- * @@author A0147335E
  *
  */
 public class RollBackCommand {

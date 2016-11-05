@@ -1,4 +1,7 @@
+// @@author A0147335E
 package seedu.task.logic.commands;
+
+import java.util.ArrayList;
 
 import seedu.task.commons.core.Messages;
 import seedu.task.commons.core.UnmodifiableObservableList;
@@ -8,7 +11,7 @@ import seedu.task.model.task.Task;
 import seedu.task.model.task.UniqueTaskList;
 import seedu.task.model.task.UniqueTaskList.TaskNotFoundException;
 
-// @@author A0147335E
+
 /**
  * Favorite a task from the task manager.
  */
@@ -51,26 +54,30 @@ public class FavoriteCommand extends Command {
             assert false : "The target task cannot be missing";
         }
 
-        Task newTask = new Task(currentTask);
-        newTask.getStatus().setFavoriteStatus(true);
+        Task taskToFavorite = new Task(currentTask);
+        taskToFavorite.getStatus().setFavoriteStatus(true);
 
         try {
-            model.addTask(targetIndex - 1, newTask);
+            model.addTask(targetIndex - 1, taskToFavorite);
         } catch (UniqueTaskList.DuplicateTaskException e) {}
 
-        if (oldStatus == newTask.getStatus().getFavoriteStatus()) {
+        if (oldStatus == taskToFavorite.getStatus().getFavoriteStatus()) {
             return new CommandResult(MESSAGE_ALREADY_FAVORITED);
         }
 
         if (isUndo == false) {
-            history.getUndoList().add(new RollBackCommand(COMMAND_WORD, newTask, null));
+            getUndoList().add(new RollBackCommand(COMMAND_WORD, taskToFavorite, null));
         }
         // @@author A0147944U-reused
         // Sorts updated list of tasks
         model.autoSortBasedOnCurrentSortPreference();
         // @@author A0147335E
-        return new CommandResult(String.format(MESSAGE_FAVORITE_TASK_SUCCESS, newTask.getName()));
+        return new CommandResult(String.format(MESSAGE_FAVORITE_TASK_SUCCESS, taskToFavorite.getName()));
     }
+
+	private ArrayList<RollBackCommand> getUndoList() {
+		return history.getUndoList();
+	}
 
     @Override
     public CommandResult execute(int index) {

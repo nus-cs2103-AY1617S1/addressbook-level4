@@ -41,8 +41,8 @@ public class ModelManager extends ComponentManager implements Model {
     private final FilteredList<Task> filteredTasks;
 
     /**
-     * Initializes a ModelManager with the given TaskManager
-     * TaskManager and its variables should not be null
+     * Initializes a ModelManager with the given TaskManager TaskManager and its
+     * variables should not be null
      */
     public ModelManager(TaskManager src, UserPrefs userPrefs) {
         super();
@@ -86,67 +86,73 @@ public class ModelManager extends ComponentManager implements Model {
         indicateTaskManagerChanged();
     }
 
+    // @@author A0147335E-reused
     @Override
     public synchronized void addTask(Task task) throws UniqueTaskList.DuplicateTaskException {
-        if (!task.getDeadline().toString().isEmpty()) {
+        if (!isDeadlineExist(task)) {
             String strDatewithTime = task.getDeadline().toString().replace(" ", "T");
-            LocalDateTime aLDT = LocalDateTime.parse(strDatewithTime);
+            LocalDateTime taskDateTime = LocalDateTime.parse(strDatewithTime);
 
-            Date currentDate=new Date();
+            Date currentDate = new Date();
             LocalDateTime localDateTime = LocalDateTime.ofInstant(currentDate.toInstant(), ZoneId.systemDefault());
 
-            if (aLDT.isBefore(localDateTime)) {
-
-                task = new Task (task.getName(), task.getStartTime(), task.getEndTime(), task.getDeadline(), task.getTags(), new Status(task.getStatus().getDoneStatus(), true, task.getStatus().getFavoriteStatus()), task.getRecurring());
-
+            if (taskDateTime.isBefore(localDateTime)) {
+                task = new Task(task.getName(), task.getStartTime(), task.getEndTime(), task.getDeadline(),
+                        task.getTags(),
+                        new Status(task.getStatus().getDoneStatus(), true, task.getStatus().getFavoriteStatus()),
+                        task.getRecurring());
+            } else {
+                task = new Task(task.getName(), task.getStartTime(), task.getEndTime(), task.getDeadline(),
+                        task.getTags(),
+                        new Status(task.getStatus().getDoneStatus(), false, task.getStatus().getFavoriteStatus()),
+                        task.getRecurring());
             }
-            else{
-                task = new Task (task.getName(), task.getStartTime(), task.getEndTime(), task.getDeadline(), task.getTags(), new Status(task.getStatus().getDoneStatus(), false, task.getStatus().getFavoriteStatus()), task.getRecurring());
-
-            }
-
-        }
-        else {
-            task = new Task (task.getName(), task.getStartTime(), task.getEndTime(), task.getDeadline(), task.getTags(), new Status(task.getStatus().getDoneStatus(), false, task.getStatus().getFavoriteStatus()), task.getRecurring());
-
+        } else {
+            task = new Task(task.getName(), task.getStartTime(), task.getEndTime(), task.getDeadline(), task.getTags(),
+                    new Status(task.getStatus().getDoneStatus(), false, task.getStatus().getFavoriteStatus()),
+                    task.getRecurring());
         }
         taskManager.addTask(task);
         updateFilteredListToShowAll();
         indicateTaskManagerChanged();
-        
-       
     }
-    
-    // @@author A0147335E-reused
+
     @Override
     public synchronized void addTask(int index, Task task) throws UniqueTaskList.DuplicateTaskException {
-        if (!task.getDeadline().toString().isEmpty()) {
+        if (!isDeadlineExist(task)) {
             String strDatewithTime = task.getDeadline().toString().replace(" ", "T");
-            LocalDateTime aLDT = LocalDateTime.parse(strDatewithTime);
+            LocalDateTime taskDateTime = LocalDateTime.parse(strDatewithTime);
 
-            Date currentDate=new Date();
+            Date currentDate = new Date();
             LocalDateTime localDateTime = LocalDateTime.ofInstant(currentDate.toInstant(), ZoneId.systemDefault());
 
-            if (aLDT.isBefore(localDateTime)) {
-
-                task = new Task (task.getName(), task.getStartTime(), task.getEndTime(), task.getDeadline(), task.getTags(), new Status(task.getStatus().getDoneStatus(), true, task.getStatus().getFavoriteStatus()), task.getRecurring());
-
+            if (taskDateTime.isBefore(localDateTime)) {
+                task = new Task(task.getName(), task.getStartTime(), task.getEndTime(), task.getDeadline(),
+                        task.getTags(),
+                        new Status(task.getStatus().getDoneStatus(), true, task.getStatus().getFavoriteStatus()),
+                        task.getRecurring());
+            } else {
+                task = new Task(task.getName(), task.getStartTime(), task.getEndTime(), task.getDeadline(),
+                        task.getTags(),
+                        new Status(task.getStatus().getDoneStatus(), false, task.getStatus().getFavoriteStatus()),
+                        task.getRecurring());
             }
-            else{
-                task = new Task (task.getName(), task.getStartTime(), task.getEndTime(), task.getDeadline(), task.getTags(), new Status(task.getStatus().getDoneStatus(), false, task.getStatus().getFavoriteStatus()), task.getRecurring());
 
-            }
-
+        } else {
+            task = new Task(task.getName(), task.getStartTime(), task.getEndTime(), task.getDeadline(), task.getTags(),
+                    new Status(task.getStatus().getDoneStatus(), false, task.getStatus().getFavoriteStatus()),
+                    task.getRecurring());
         }
-        else {
-            task = new Task (task.getName(), task.getStartTime(), task.getEndTime(), task.getDeadline(), task.getTags(), new Status(task.getStatus().getDoneStatus(), false, task.getStatus().getFavoriteStatus()), task.getRecurring());
 
-        }
         taskManager.addTask(index, task);
         updateFilteredListToShowAll();
         indicateTaskManagerChanged();
     }
-    //@@author
+
+    private boolean isDeadlineExist(Task task) {
+        return task.getDeadline().toString().isEmpty();
+    }
+    // @@author
 
     // @@author A0147944U
     @Override
@@ -155,19 +161,25 @@ public class ModelManager extends ComponentManager implements Model {
             String newStartTime = recurringTask.getStartTime().toString();
             String newEndTime = recurringTask.getEndTime().toString();
             String newDeadline = recurringTask.getDeadline().toString();
-            
+
             if (!newStartTime.equals("")) {
-                newStartTime = addPeriodicTimeToTask(recurringTask.getStartTime().toString(), recurringTask.getRecurring().toString());
+                newStartTime = addPeriodicTimeToTask(recurringTask.getStartTime().toString(),
+                        recurringTask.getRecurring().toString());
             }
             if (!newEndTime.equals("")) {
-                newEndTime = addPeriodicTimeToTask(recurringTask.getEndTime().toString(), recurringTask.getRecurring().toString());
+                newEndTime = addPeriodicTimeToTask(recurringTask.getEndTime().toString(),
+                        recurringTask.getRecurring().toString());
             }
             if (!newDeadline.equals("")) {
-                newDeadline = addPeriodicTimeToTask(recurringTask.getDeadline().toString(), recurringTask.getRecurring().toString());
+                newDeadline = addPeriodicTimeToTask(recurringTask.getDeadline().toString(),
+                        recurringTask.getRecurring().toString());
             }
-            
+
             try {
-                Task newTask = new Task(recurringTask.getName(), new StartTime(newStartTime), new EndTime(newEndTime), new Deadline(newDeadline), recurringTask.getTags(), new Status(false, false, recurringTask.getStatus().getFavoriteStatus()), recurringTask.getRecurring());
+                Task newTask = new Task(recurringTask.getName(), new StartTime(newStartTime), new EndTime(newEndTime),
+                        new Deadline(newDeadline), recurringTask.getTags(),
+                        new Status(false, false, recurringTask.getStatus().getFavoriteStatus()),
+                        recurringTask.getRecurring());
                 taskManager.addTask(newTask);
             } catch (DuplicateTaskException e) {
                 logger.info("Next iteration of this recurring task already exists");
@@ -187,7 +199,7 @@ public class ModelManager extends ComponentManager implements Model {
             newTime = "two weeks after " + originalTime;
         } else if (interval.equals("monthly")) {
             newTime = "one month after " + originalTime;
-        }  else if (interval.equals("yearly")) {
+        } else if (interval.equals("yearly")) {
             newTime = "one year after " + originalTime;
         }
         TimeParser parserTime = new TimeParser();
@@ -201,8 +213,9 @@ public class ModelManager extends ComponentManager implements Model {
         return newTimeString.toString();
     }
     // @@author
-    
-    //=========== Filtered Task List Accessors ===============================================================
+
+    // =========== Filtered Task List Accessors
+    // ===============================================================
 
     @Override
     public UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList() {
@@ -215,19 +228,20 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public void updateFilteredTaskList(Set<String> keywords){
+    public void updateFilteredTaskList(Set<String> keywords) {
         updateFilteredTaskList(new PredicateExpression(new NameQualifier(keywords)));
     }
 
     private void updateFilteredTaskList(Expression expression) {
         filteredTasks.setPredicate(expression::satisfies);
     }
-    
+
     // @@author A0147944U
     /**
      * Select sorting method based on keyword
      * 
-     * @param keyword keyword to sort tasks by
+     * @param keyword
+     *            keyword to sort tasks by
      */
     public void sortFilteredTaskList(String keyword) {
         if (keyword.equals("Deadline")) {
@@ -246,11 +260,12 @@ public class ModelManager extends ComponentManager implements Model {
         // Save data in that order
         indicateTaskManagerChanged();
     }
-    
+
     /**
      * Updates sorting method in config based on keyword
      * 
-     * @param keyword keyword to sort tasks by
+     * @param keyword
+     *            keyword to sort tasks by
      */
     @Override
     public void saveCurrentSortPreference(String keyword) {
@@ -269,7 +284,7 @@ public class ModelManager extends ComponentManager implements Model {
             e.printStackTrace();
         }
     }
-    
+
     /**
      * Automatically sorts tasks based on current sort preferences in config
      */
@@ -287,11 +302,13 @@ public class ModelManager extends ComponentManager implements Model {
         }
     }
     // @@author
-    
-    //========== Inner classes/interfaces used for filtering ==================================================
+
+    // ========== Inner classes/interfaces used for filtering
+    // ==================================================
 
     interface Expression {
         boolean satisfies(ReadOnlyTask task);
+
         String toString();
     }
 
@@ -316,6 +333,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     interface Qualifier {
         boolean run(ReadOnlyTask task);
+
         String toString();
     }
 
@@ -328,12 +346,10 @@ public class ModelManager extends ComponentManager implements Model {
 
         @Override
         public boolean run(ReadOnlyTask task) {
-            
+
             String name = task.getAsText().toLowerCase();
-            
-            return nameKeyWords.stream()
-                    .filter(keyword -> name.indexOf(keyword.toLowerCase())>=0)
-                    .findAny()
+
+            return nameKeyWords.stream().filter(keyword -> name.indexOf(keyword.toLowerCase()) >= 0).findAny()
                     .isPresent();
         }
 
