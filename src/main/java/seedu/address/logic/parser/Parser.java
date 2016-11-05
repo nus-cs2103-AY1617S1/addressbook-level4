@@ -215,10 +215,14 @@ public class Parser {
 		argsTokenizer.tokenize(arguments);
 		
 		String preamble = argsTokenizer.getPreamble().orElse("");
+		String taskName = null;
+		String argsAfterName = arguments;
 		
-		List<String> stringsAfterQuotes = argsTokenizer.getAllValues(namePrefix).get();
-		String taskName = stringsAfterQuotes.get(0);
-		String argsAfterName = stringsAfterQuotes.get(1);
+		Optional<List<String>> stringsAfterQuotes = argsTokenizer.getAllValues(namePrefix);
+		if(stringsAfterQuotes.isPresent()) {
+		    taskName = stringsAfterQuotes.get().get(0);
+		    argsAfterName = stringsAfterQuotes.get().get(1);
+		}
 		
 		return new Pair<>(taskName, " " + preamble + " " + argsAfterName + " ");	
 	}
@@ -381,21 +385,19 @@ public class Parser {
 	 * @return the prepared EditCommand
 	 */
 	private Command prepareEdit(String arguments) {
-		String index = arguments.split(" ", 2)[0];
-		if (!StringUtil.isUnsignedInteger(index)) {
-			throw new IllegalArgumentException(MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
+		String indexString = arguments.split(" ", 2)[0];
+		int index = -1;
+		try{
+		    index = parseIndices(indexString)[0];
+		} catch (IllegalArgumentException e) {
+			return new IncorrectCommand(e.getMessage());
 		}
 		
 		Optional<String> taskName;
 		String args;
-		if(arguments.contains("\'")) {
-			Pair<String,String> nameAndArgs = separateNameAndArgs(arguments);
-			taskName = Optional.of(nameAndArgs.getKey());
-			args = nameAndArgs.getValue();
-		} else {
-			taskName = Optional.empty();
-			args = arguments;
-		}
+		Pair<String,String> nameAndArgs = separateNameAndArgs(arguments);
+		taskName = Optional.ofNullable(nameAndArgs.getKey());
+		args = nameAndArgs.getValue();
 		String argsLowerCase = args.toLowerCase();
 		
 		ArgumentTokenizer argsTokenizer = new ArgumentTokenizer(
@@ -426,7 +428,7 @@ public class Parser {
 		}
 		
 		try {
-			return new EditCommand(Integer.parseInt(index), taskName, startDateTime, endDateTime,
+			return new EditCommand(index, taskName, startDateTime, endDateTime,
 					isRemoveStartDateTime, isRemoveEndDateTime);
 		} catch (IllegalValueException e) {
 			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
