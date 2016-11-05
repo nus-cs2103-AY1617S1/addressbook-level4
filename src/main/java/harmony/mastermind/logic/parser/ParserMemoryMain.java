@@ -38,8 +38,8 @@ public class ParserMemoryMain {
     protected static int type;
     protected static int length; 
     
-    protected static boolean containsDescription; 
-    protected static boolean setProper;
+    public static boolean containsDescription; 
+    public static boolean setProper;
     
     private static int day;
     private static int month; 
@@ -93,12 +93,17 @@ public class ParserMemoryMain {
     }
     
     //@@author A0143378Y
-    protected static void setType(int newType) {
+    public static void setType(int newType) {
         type = newType;
     }
     
+    //@@author A0143378Y 
+    public static int getType() { 
+        return type;
+    }
+    
     //@@author A0143378Y
-    protected static void setContainsDescription(boolean cd) { 
+    public static void setContainsDescription(boolean cd) { 
         containsDescription = cd;
     }
     

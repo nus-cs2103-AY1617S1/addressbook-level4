@@ -2,6 +2,7 @@ package harmony.mastermind.logic;
 
 import org.junit.Test;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertFalse;
 
 import harmony.mastermind.logic.parser.ParserMemoryMain;;
@@ -26,5 +27,22 @@ public class TestParserMemory {
         
         ParserMemoryMain.setLength(4);
         assertEquals("Test set length", ParserMemoryMain.getLength(), 4);
+        
+        ParserMemoryMain.setType(5);
+        assertEquals("Test set type", ParserMemoryMain.getType(), 5);
+        
+        //Test if setContainsDescription works properly
+        ParserMemoryMain.setContainsDescription(true);
+        assertTrue(ParserMemoryMain.containsDescription);
+
+        ParserMemoryMain.setContainsDescription(false);
+        assertFalse(ParserMemoryMain.containsDescription);
+
+        //Test if setProper works properly
+        ParserMemoryMain.setProper(true);
+        assertTrue(ParserMemoryMain.setProper);
+
+        ParserMemoryMain.setProper(false);
+        assertFalse(ParserMemoryMain.setProper);
     }
 }
