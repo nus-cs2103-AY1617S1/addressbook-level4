@@ -71,7 +71,11 @@ public class ModifyStoragePathCommand extends Command {
     		else {
     			newPath = pathToChange;
     		}
-
+    		
+    		//deleting old files
+    		File oldStorage =  new File(initializedConfig.getActivityManagerFilePath());
+    		oldStorage.delete();
+    		
             // Saving configuration
         	initializedConfig.setActivityManagerFilePath(newPath);
         	try {
@@ -90,5 +94,16 @@ public class ModifyStoragePathCommand extends Command {
         	return new CommandResult(String.format(MESSAGE_SUCCESS, pathToChange));
         }
         return new CommandResult(MESSAGE_FAILURE);
+    }
+
+    private void deleteFileOrFolder(File file){
+	    try {
+	        for (File f : file.listFiles()) {
+	            f.delete();
+	            deleteFileOrFolder(f);
+	        }
+	    } catch (Exception e) {
+	        e.printStackTrace(System.err);
+	    }
     }
 }
