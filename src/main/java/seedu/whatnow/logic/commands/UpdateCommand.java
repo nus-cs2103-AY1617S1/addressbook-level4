@@ -162,7 +162,7 @@ public class UpdateCommand extends Command {
     }
 
     private void updateTheCorrectField(ReadOnlyTask taskToUpdate) {
-        if (arg_type.toUpperCase().compareToIgnoreCase(ARG_TYPE_DESCRIPTION) == ZERO) {
+        if (arg_type.compareToIgnoreCase(ARG_TYPE_DESCRIPTION) == ZERO) {
             toUpdate.setTags(taskToUpdate.getTags());
             toUpdate.setTaskDate(taskToUpdate.getTaskDate());
             toUpdate.setStartDate(taskToUpdate.getStartDate());
@@ -173,7 +173,7 @@ public class UpdateCommand extends Command {
             toUpdate.setStatus(taskToUpdate.getStatus());
             toUpdate.setTaskType(taskToUpdate.getTaskType());
         }
-        if (arg_type.toUpperCase().compareToIgnoreCase(ARG_TYPE_DATE) == ZERO) {
+        if (arg_type.compareToIgnoreCase(ARG_TYPE_DATE) == ZERO) {
             toUpdate.setName(taskToUpdate.getName());
             if (arg != null) {
                 toUpdate.setTaskTime(taskToUpdate.getTaskTime());
@@ -183,7 +183,7 @@ public class UpdateCommand extends Command {
             toUpdate.setTags(taskToUpdate.getTags());
             toUpdate.setStatus(taskToUpdate.getStatus());
         }
-        if (arg_type.toUpperCase().compareToIgnoreCase(ARG_TYPE_TIME) == ZERO) {
+        if (arg_type.compareToIgnoreCase(ARG_TYPE_TIME) == ZERO) {
             toUpdate.setName(taskToUpdate.getName());
             if (taskToUpdate.getTaskDate() != null) {
                 toUpdate.setTaskDate(taskToUpdate.getTaskDate());
@@ -200,7 +200,7 @@ public class UpdateCommand extends Command {
             toUpdate.setTags(taskToUpdate.getTags());
             toUpdate.setStatus(taskToUpdate.getStatus());
         }
-        if (arg_type.toUpperCase().compareToIgnoreCase(ARG_TYPE_TAG) == ZERO) {
+        if (arg_type.compareToIgnoreCase(ARG_TYPE_TAG) == ZERO) {
             toUpdate.setName(taskToUpdate.getName());
             toUpdate.setTaskDate(taskToUpdate.getTaskDate());
             toUpdate.setStartDate(taskToUpdate.getStartDate());

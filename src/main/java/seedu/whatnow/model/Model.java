@@ -1,18 +1,14 @@
 //@@author A0139772U
 package seedu.whatnow.model;
 
-import java.io.IOException;
 import java.nio.file.Path;
-import java.util.ArrayList;
 import java.util.Set;
 import java.util.Stack;
 
 import seedu.whatnow.commons.core.Config;
 import seedu.whatnow.commons.core.UnmodifiableObservableList;
 import seedu.whatnow.commons.exceptions.DataConversionException;
-import seedu.whatnow.logic.commands.Command;
 import seedu.whatnow.model.freetime.FreePeriod;
-import seedu.whatnow.model.freetime.Period;
 import seedu.whatnow.model.task.ReadOnlyTask;
 import seedu.whatnow.model.task.Task;
 import seedu.whatnow.model.task.UniqueTaskList.DuplicateTaskException;

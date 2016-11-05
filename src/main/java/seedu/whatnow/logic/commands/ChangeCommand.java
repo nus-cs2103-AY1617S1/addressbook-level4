@@ -10,7 +10,6 @@ import seedu.whatnow.commons.core.LogsCenter;
 import seedu.whatnow.commons.exceptions.DataConversionException;
 import seedu.whatnow.commons.util.ConfigUtil;
 import seedu.whatnow.commons.util.StringUtil;
-import seedu.whatnow.model.task.UniqueTaskList.TaskNotFoundException;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
