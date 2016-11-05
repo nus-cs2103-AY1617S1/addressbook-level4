@@ -1,5 +1,6 @@
 package seedu.address.model;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.LogsCenter;
@@ -100,6 +101,18 @@ public class ModelManager extends ComponentManager implements Model {
         indicateTaskManagerChanged();
         EventsCenter.getInstance().post(new SwapTaskListEvent(true));
     }
+    
+    @Override
+    public void clearTaskManagerUndoneList() {
+        ObservableList <Task> emptyList = FXCollections.observableArrayList();
+        setTaskManagerUndoneList(emptyList);
+    }
+
+    @Override
+    public void clearTaskManagerDoneList() {
+        ObservableList <Task> emptyList = FXCollections.observableArrayList();
+        setTaskManagerDoneList(emptyList);
+    }
 
     @Override
     public ReadOnlyTaskManager getTaskManager() {
@@ -112,8 +125,8 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public synchronized void deleteTask(ReadOnlyTask floatingTask) throws TaskNotFoundException {
-        taskManager.removeFloatingTask(floatingTask);
+    public synchronized void deleteUndoneTask(ReadOnlyTask undoneTask) throws TaskNotFoundException {
+        taskManager.deleteUndoneTask(undoneTask);
         indicateTaskManagerChanged();
     }
     
@@ -134,8 +147,8 @@ public class ModelManager extends ComponentManager implements Model {
     }
     
     @Override
-    public synchronized void deleteDoneTask(ReadOnlyTask task) throws TaskNotFoundException {
-        taskManager.removeDoneTask(task);
+    public synchronized void deleteDoneTask(ReadOnlyTask doneTask) throws TaskNotFoundException {
+        taskManager.deleteDoneTask(doneTask);
         indicateTaskManagerChanged();
     }
     
@@ -146,20 +159,6 @@ public class ModelManager extends ComponentManager implements Model {
             addTask(task);
         }
     }
-
-    @Override
-    public void deleteTasks(List<ReadOnlyTask> targets) {
-        for (ReadOnlyTask target : targets){
-            try {
-                deleteTask(target);
-            } catch (TaskNotFoundException e) {
-                // TODO Auto-generated catch block
-                // Do something here? Indicate to user ?
-                e.printStackTrace();
-            }
-        }
-        
-    }
     
     @Override
     public void addDoneTasks(List<Task> tasks) {
@@ -169,18 +168,6 @@ public class ModelManager extends ComponentManager implements Model {
         
     }
 
-    @Override
-    public void deleteDoneTasks(List<ReadOnlyTask> targets) {
-        for (ReadOnlyTask target : targets) {
-            try {
-                deleteDoneTask(target);
-            } catch (TaskNotFoundException e) {
-                // TODO Auto-generated catch block
-                // Do something here? Indicate to user ?
-                e.printStackTrace();
-            }
-        }
-    }
     //@@author A0139498J
     @Override
     public Boolean isCurrentListDoneList() {

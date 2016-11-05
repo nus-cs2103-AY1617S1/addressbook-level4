@@ -88,7 +88,7 @@ public class DeleteCommand extends UndoableCommand {
                 if (isViewingDoneList) {
                     model.deleteDoneTask(taskToDelete);
                 } else {
-                    model.deleteTask(taskToDelete);
+                    model.deleteUndoneTask(taskToDelete);
                 }
             } catch (TaskNotFoundException pnfe) {
                 assert false : "The target task cannot be missing";

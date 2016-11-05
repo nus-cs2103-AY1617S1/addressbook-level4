@@ -92,7 +92,7 @@ public class TaskManager implements ReadOnlyTaskManager {
         doneTasks.add(f);
     }
     
-    public boolean removeFloatingTask(ReadOnlyTask key) throws UniqueTaskList.TaskNotFoundException {
+    public boolean deleteUndoneTask(ReadOnlyTask key) throws UniqueTaskList.TaskNotFoundException {
         if (undoneTasks.remove(key)) {
             return true;
         } else {
@@ -100,7 +100,7 @@ public class TaskManager implements ReadOnlyTaskManager {
         }
     }
     
-    public boolean removeDoneTask(ReadOnlyTask key) throws UniqueTaskList.TaskNotFoundException {
+    public boolean deleteDoneTask(ReadOnlyTask key) throws UniqueTaskList.TaskNotFoundException {
         if (doneTasks.remove(key)){
             return true;
         } else {
@@ -139,8 +139,7 @@ public class TaskManager implements ReadOnlyTaskManager {
 
 	@Override
     public String toString() {
-        return undoneTasks.getInternalList().size() + " floating tasks";
-        // TODO: refine later
+        return undoneTasks.getInternalList().size() + " undone tasks, " + doneTasks.getInternalList().size() + " done tasks.";
     }
 
     @Override

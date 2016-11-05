@@ -7,7 +7,6 @@ import seedu.address.model.item.Priority;
 import seedu.address.model.item.ReadOnlyTask;
 import seedu.address.model.item.RecurrenceRate;
 import seedu.address.model.item.UniqueTaskList;
-import seedu.address.model.item.UniqueTaskList.DuplicateTaskException;
 import seedu.address.model.item.UniqueTaskList.TaskNotFoundException;
 
 import java.util.Date;
@@ -30,13 +29,10 @@ public interface Model {
     void addTask(Task task);
     
     /** Deletes the given floating task. */
-    void deleteTask(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException;
+    void deleteUndoneTask(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException;
 
     /** Add the given floating tasks */
     void addTasks(List<Task> tasks);
-    
-    /** Delete the given floating tasks. */
-    void deleteTasks(List<ReadOnlyTask> targets);
        
     /** Archives the task by adding it into DoneTaskList */
     void addDoneTask(Task task);
@@ -46,9 +42,6 @@ public interface Model {
     
     /** Archives the tasks by adding them into DoneTaskList */
     void addDoneTasks(List<Task> task);
-
-    /** Removes the tasks permanently from the archive DoneTaskList **/
-    void deleteDoneTasks(List<ReadOnlyTask> floatingTask);
     
     /** Returns the filtered undone task list as an {@code UnmodifiableObservableList<ReadOnlyPerson>} */
     UnmodifiableObservableList<ReadOnlyTask> getFilteredUndoneTaskList();
@@ -77,14 +70,20 @@ public interface Model {
     /** Edits the parameters of the given floating task*/
 	void editTask(ReadOnlyTask taskToEdit, Name taskName, Date startDate, Date endDate, Priority priority,
 			RecurrenceRate recurrenceRate);
-
 	
-    void resetDoneData(ReadOnlyTaskManager emptyTaskManager);
+    /** Clears existing backing model of the done task data and replaces with the provided new data. */
+    void resetDoneData(ReadOnlyTaskManager newData);
+    
+    /** Clears existing backing model if the undone task data and replaces with the provided new data. */
     void resetUndoneData(ReadOnlyTaskManager newData);
     
     void setTaskManagerUndoneList(ObservableList<Task> list);
 
     void setTaskManagerDoneList(ObservableList<Task> list);
+    
+    void clearTaskManagerUndoneList();
+    
+    void clearTaskManagerDoneList();
 
     void updateFilteredUndoneTaskListDatePred(Set<String> keywords);
 

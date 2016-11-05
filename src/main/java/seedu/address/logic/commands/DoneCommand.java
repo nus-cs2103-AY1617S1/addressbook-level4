@@ -100,7 +100,7 @@ public class DoneCommand extends UndoableCommand {
             assert isViewingDoneList == false;
             
             try {
-                model.deleteTask(taskToArchive);
+                model.deleteUndoneTask(taskToArchive);
             } catch (TaskNotFoundException pnfe) {
                 assert false : "The target task cannot be missing";
             }
@@ -170,7 +170,7 @@ public class DoneCommand extends UndoableCommand {
         
         for (Task readdedRecurTask : readdedRecurringTasks) { 
             try {
-                model.deleteTask(readdedRecurTask);
+                model.deleteUndoneTask(readdedRecurTask);
             } catch (TaskNotFoundException e) {
                 doneTasksUndoFail.add(readdedRecurTask);
             }

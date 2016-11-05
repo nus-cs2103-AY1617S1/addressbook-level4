@@ -8,7 +8,7 @@ import seedu.address.commons.exceptions.DuplicateDataException;
 import java.util.*;
 
 /**
- * A list of persons that enforces uniqueness between its elements and does not allow nulls.
+ * A list of tasks that enforces uniqueness between its elements and does not allow nulls.
  *
  * Supports a minimal set of list operations.
  *
@@ -18,29 +18,20 @@ import java.util.*;
 public class UniqueTaskList implements Iterable<Task> {
 
     /**
-     * Signals that an operation would have violated the 'no duplicates' property of the list.
-     */
-    public static class DuplicateTaskException extends DuplicateDataException {
-        protected DuplicateTaskException() {
-            super("Operation would result in duplicate floating tasks");
-        }
-    }
-
-    /**
-     * Signals that an operation targeting a specified person in the list would fail because
-     * there is no such matching person in the list.
+     * Signals that an operation targeting a specified task in the list would fail because
+     * there is no such matching task in the list.
      */
     public static class TaskNotFoundException extends Exception {}
 
     private ObservableList<Task> internalList = FXCollections.observableArrayList();
 
     /**
-     * Constructs empty PersonList.
+     * Constructs empty TaskList.
      */
     public UniqueTaskList() {}
 
     /**
-     * Returns true if the list contains an equivalent person as the given argument.
+     * Returns true if the list contains an equivalent task as the given argument.
      */
     public boolean contains(ReadOnlyTask toCheck) {
         assert toCheck != null;
@@ -48,29 +39,28 @@ public class UniqueTaskList implements Iterable<Task> {
     }
 
     /**
-     * Adds a person to the list.
+     * Adds a task to the list.
      */
     public void add(Task toAdd) {
         assert toAdd != null;
         
         internalList.add(toAdd);
         
-        // TODO: Disable sort until this is fixed, also update tests when sort is updated
         Collections.sort(internalList);
     }
 
     /**
-     * Removes the equivalent person from the list.
+     * Removes the equivalent task from the list.
      *
-     * @throws PersonNotFoundException if no such person could be found in the list.
+     * @throws TaskNotFoundException if no such task could be found in the list.
      */
     public boolean remove(ReadOnlyTask toRemove) throws TaskNotFoundException {
         assert toRemove != null;
-        final boolean personFoundAndDeleted = internalList.remove(toRemove);
-        if (!personFoundAndDeleted) {
+        final boolean taskFoundAndDeleted = internalList.remove(toRemove);
+        if (!taskFoundAndDeleted) {
             throw new TaskNotFoundException();
         }
-        return personFoundAndDeleted;
+        return taskFoundAndDeleted;
     }
     
     /**

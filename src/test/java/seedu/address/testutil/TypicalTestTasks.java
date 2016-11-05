@@ -3,7 +3,6 @@ package seedu.address.testutil;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.TaskManager;
 import seedu.address.model.item.*;
-import seedu.address.model.item.UniqueTaskList.DuplicateTaskException;
 
 /**
  *

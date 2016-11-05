@@ -72,7 +72,7 @@ public class XmlTaskManagerStorageTest {
 
         //Modify data, overwrite exiting file, and read back
         original.addTask(new Task(TypicalTestTasks.hoon));
-        original.removeFloatingTask(new Task(TypicalTestTasks.alice));
+        original.deleteUndoneTask(new Task(TypicalTestTasks.alice));
         xmlTaskManagerStorage.saveTaskManager(original, filePath);
         readBack = xmlTaskManagerStorage.readTaskManager(filePath).get();
         assertEquals(original, new TaskManager(readBack));

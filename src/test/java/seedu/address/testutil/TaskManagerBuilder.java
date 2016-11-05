@@ -17,7 +17,7 @@ public class TaskManagerBuilder {
         this.TaskManager = TaskManager;
     }
 
-    public TaskManagerBuilder withFloatingTask(Task person) throws UniqueTaskList.DuplicateTaskException {
+    public TaskManagerBuilder withFloatingTask(Task person) {
         TaskManager.addTask(person);
         return this;
     }

@@ -405,7 +405,7 @@ public class LogicManagerTest {
 
         TaskManager expectedAB = helper.generateTaskManager(threePersons);
         
-        expectedAB.removeFloatingTask(threePersons.get(1));
+        expectedAB.deleteUndoneTask(threePersons.get(1));
         helper.addToModel(model, threePersons);
 
         assertCommandBehavior("delete 2",
@@ -429,7 +429,7 @@ public class LogicManagerTest {
         
         TaskManager expectedAB = helper.generateTaskManager(threePersons);
         
-        expectedAB.removeFloatingTask(threePersons.get(1));
+        expectedAB.deleteUndoneTask(threePersons.get(1));
         expectedAB.addDoneTask(threePersons.get(1));
         helper.addToModel(model, threePersons);
 

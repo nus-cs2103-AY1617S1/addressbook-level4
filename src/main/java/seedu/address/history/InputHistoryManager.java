@@ -23,7 +23,7 @@ public class InputHistoryManager implements InputHistory {
     private InputHistoryManager() {
         prevInputs = new Stack<String>();
         nextInputs = new Stack<String>();
-        currentStoredInputShown = STRING_EMPTY;
+        resetCurrentStoredInputShown();
     }
 
     // Use Singleton Pattern here
@@ -44,6 +44,10 @@ public class InputHistoryManager implements InputHistory {
 
         resetInputHistoryToLatestState();
         pushToPrevInput(userInput);
+        resetCurrentStoredInputShown();
+    }
+
+    private void resetCurrentStoredInputShown() {
         currentStoredInputShown = STRING_EMPTY;
     }
 

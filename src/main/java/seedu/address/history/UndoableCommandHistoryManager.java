@@ -52,13 +52,17 @@ public class UndoableCommandHistoryManager implements UndoableCommandHistory {
     @Override
     public UndoableCommand undoStep() {
         assert redoableCommands != null && undoableCommands != null;
-        return redoableCommands.push(undoableCommands.pop());
+
+        UndoableCommand undoneCmd = undoableCommands.pop();
+        return redoableCommands.push(undoneCmd);
     }
 
     @Override
     public UndoableCommand redoStep() {
         assert redoableCommands != null && undoableCommands != null;
-        return undoableCommands.push(redoableCommands.pop());
+
+        UndoableCommand redoneCmd = redoableCommands.pop();
+        return undoableCommands.push(redoneCmd);
     }
 
     /**
