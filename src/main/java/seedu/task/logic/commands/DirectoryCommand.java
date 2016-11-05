@@ -119,8 +119,10 @@ public class DirectoryCommand extends Command {
         if (_isAbleToRestart) {
             // Shut down current TaskManager
             EventsCenter.getInstance().post(new ExitAppRequestEvent());
+            return new CommandResult(String.format(MESSAGE_NEW_DIRECTORY_SUCCESS, _destination));
+        } else {
+            return new CommandResult(String.format(MESSAGE_UNSUPPORTED_OPERATING_SYSTEM));
         }
-        return new CommandResult(String.format(MESSAGE_NEW_DIRECTORY_SUCCESS, _destination));
     }
 
     private Boolean isOperatingSystemSupported() {
