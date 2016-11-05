@@ -11,6 +11,7 @@ import seedu.address.model.activity.UniqueActivityList;
 import seedu.address.model.activity.UniqueActivityList.DuplicateTaskException;
 import seedu.address.model.activity.UniqueActivityList.TaskNotFoundException;
 import seedu.address.model.activity.event.Event;
+import seedu.address.model.activity.event.ReadOnlyEvent;
 import seedu.address.model.activity.task.ReadOnlyTask;
 import seedu.address.model.activity.task.Task;
 import seedu.address.model.tag.Tag;
@@ -161,11 +162,11 @@ public class ModelManager extends ComponentManager implements Model {
 		filteredList1.setPredicate(p->
 		p.getClass().getSimpleName().equalsIgnoreCase("Event"));
 		
-		FilteredList<Event> filteredEventList = (FilteredList<Event>) new FilteredList<>((ObservableList<? extends Event>) filteredList1);
+		FilteredList<Event> filteredEventList = (FilteredList<Event>) new FilteredList<>((ObservableList<? extends ReadOnlyEvent>) filteredList1);
 
 		
-		filteredList1.setPredicate(p->
-		p.g);
+		filteredEventList.setPredicate(p->
+		p.isStartTimeApproaching());
 		
 		//obtain a filtered list of upcoming tasks. Does not include overdue tasks.
 		FilteredList<Activity> filteredList2 = new FilteredList<>(addressBook.getAllEntries());
@@ -173,9 +174,9 @@ public class ModelManager extends ComponentManager implements Model {
 		filteredList2.setPredicate(p->
 		p.getClass().getSimpleName().equalsIgnoreCase("Task"));
 		
-  		FilteredList<Task> filteredOverdueTaskList = (FilteredList<Task>) new FilteredList<>((ObservableList<? extends ReadOnlyTask>) filteredList2);
+  		FilteredList<Task> filteredUpcomingTaskList = (FilteredList<Task>) new FilteredList<>((ObservableList<? extends ReadOnlyTask>) filteredList2);
   		
-  		filteredOverdueTaskList.setPredicate(p->
+  		filteredUpcomingTaskList.setPredicate(p->
 		p.isDueDateApproaching());
   		
 		
