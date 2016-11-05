@@ -43,9 +43,9 @@ public class ListCommand extends Command {
     public CommandResult execute() {
     	EventsCenter.getInstance().post(new DisplayTaskListEvent(model.getFilteredTaskList()));
     	
-    	getTaskTypePredicate();
-    	getStatusPredicate();
-    	getDayPredicate();
+    	listPredicateUpdateTaskType();
+    	listPredicateUpdateStatus();
+    	listPredicateUpdateDay();
     	model.updateFilteredTaskList(listPredicate);
     	model.checkForOverdueTasks();
     	
@@ -54,9 +54,9 @@ public class ListCommand extends Command {
 
     
     /**
-     * set the predicate for the day to be listed
+     * update the global listPredicate for the day to be listed
      */
-    private void getDayPredicate() {
+    private void listPredicateUpdateDay() {
     	Predicate<ReadOnlyTask> dayPredicate = null;
     	if(day.isPresent()) {
     		dayPredicate = ReadOnlyTaskFilter.isThisDate(day.get().toLocalDate());
@@ -67,9 +67,9 @@ public class ListCommand extends Command {
     }
 
 	/**
-	 * update the listPredicate based on the specified status to be listed if any
+	 * update the global listPredicate based on the specified status to be listed if any
 	 */
-    private void getStatusPredicate() {
+    private void listPredicateUpdateStatus() {
     	Predicate<ReadOnlyTask> statusPredicate = null;
     	if(doneStatus.isPresent()) {
 			assert doneStatus.get().equals("done") || doneStatus.get().equals("pending") || 
@@ -94,9 +94,9 @@ public class ListCommand extends Command {
 	}
 
 	/**
-	 * Update the listPredicate for what kind of task list should display 
+	 * Update the global listPredicate for what kind of task list should display 
 	 */
-    private void getTaskTypePredicate() {
+    private void listPredicateUpdateTaskType() {
 		Predicate<ReadOnlyTask> taskTypePredicate = null;
     	if(taskType.isPresent()) {
     		assert taskType.get().equals("someday") || taskType.get().equals("sd") ||
