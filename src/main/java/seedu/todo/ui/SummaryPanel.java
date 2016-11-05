@@ -11,17 +11,14 @@ import javafx.scene.control.SplitPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import seedu.todo.commons.core.LogsCenter;
 import seedu.todo.model.task.ReadOnlyTask;
 
 import java.time.LocalDate;
-import java.util.logging.Logger;
 
 /**
  * Panel containing the list of tasks.
  */
 public class SummaryPanel extends UiPart {
-    private final Logger logger = LogsCenter.getLogger(SummaryPanel.class);
     private static final String FXML = "SummaryPanel.fxml";
     private VBox panel;
     private AnchorPane placeHolderPane;
@@ -89,15 +86,18 @@ public class SummaryPanel extends UiPart {
             super.updateItem(task, empty);
             boolean dateCheck = false;
             try{
-                dateCheck = LocalDate.now().isAfter(task.getByDate().getDate()) || LocalDate.now().isBefore(task.getOnDate().getDate());
+                LocalDate taskByDate = task.getByDate().getDate();
+                LocalDate taskOnDate = task.getOnDate().getDate();
+                LocalDate todayDate = LocalDate.now();
+                dateCheck = todayDate.isAfter(taskByDate) || todayDate.isBefore(taskOnDate);
                 }
-            catch(Exception e){
+            catch(Exception e) {
                 dateCheck = false;
             }
             if (empty || task == null) {
                 setGraphic(null);
                 setText(null);
-            } else if(!dateCheck){
+            } else if(!dateCheck) {
                 setGraphic(SummaryCard.load(task).getLayout());
             } else {
                 setGraphic(null);
