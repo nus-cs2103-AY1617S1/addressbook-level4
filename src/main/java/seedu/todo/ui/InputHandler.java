@@ -172,11 +172,9 @@ public class InputHandler {
      * @return              Matching controller.
      */
     private Controller getMatchingController(String aliasedCommandKeyword, Controller[] controllers) {
-        for (int i = 0; i < controllers.length; i++) {
-            boolean isMatch = controllers[i].matchCommandKeyword(aliasedCommandKeyword);
-
-            if (isMatch) {
-                return controllers[i];
+        for (Controller controller : controllers) {
+            if (controller.matchCommandKeyword(aliasedCommandKeyword)) {
+                return controller;
             }
         }
         
