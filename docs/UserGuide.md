@@ -165,7 +165,7 @@ Examples:
 * `delete /t 1`  
   Deletes the 1st task in the most recent listing
 
-<!-- @@author -->
+<!-- @@author A0125534L -->
   
 #### Selecting a task/event
 Selects an existing task/event from the last shown task/event list.  
@@ -178,19 +178,37 @@ Examples:
 * `select /t 1`  
   Selects the 1st task in the most recent listing
 
-  
+<!-- @@author A0125534L -->
 #### Changing the save location
-dowat data are saved in a file called taskbook.txt in the project root folder. You can change the location by specifying the file path as a program argument.  
-
+dowat data will saved in a file called dowat.txt in the project root folder by dafault or the file path is not specified. 
+You can change the location by specifying the file path as a program argument.
+New folders with the file will be auto-created as long as given directory is valid.
+            
 Format: `save FILEPATH`
+FILEPATH (must be valid)
 
 Examples:
-* `save C:\Desktop`  
-  The filename must end in .txt for it to be acceptable to the program.
+* `save C:\`
+* `save C:\Users\Computing\Desktop\CS2103`  
+  
 
-
+<!-- @@author A0125534L -->
 #### Viewing help
 You can refer to the user guide via a pop-up window with the `help` command. Or you can specify a command which you need help for using `[KEY_WORD]` flag.  
+
+List of available [KEY_WORD] for help: 
+- add 
+- delete
+- find 
+- list 
+- select
+- mark
+- undo
+- show
+- save
+- clear
+- exit
+
 
 Format: `help [KEY_WORD]`
 
