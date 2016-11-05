@@ -11,6 +11,7 @@ import tars.commons.core.ComponentManager;
 import tars.commons.core.Config;
 import tars.commons.core.LogsCenter;
 import tars.commons.events.storage.DataSavingExceptionEvent;
+import tars.commons.events.ui.RsvTaskAddedEvent;
 import tars.commons.events.ui.ScrollToTopEvent;
 import tars.commons.events.ui.ShowHelpRequestEvent;
 import tars.commons.events.ui.TaskAddedEvent;
@@ -130,6 +131,13 @@ public class UiManager extends ComponentManager implements Ui {
     private void handleTaskAddedEvent(TaskAddedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event,
                 "Scrolling to newly added task"));
+        mainWindow.getTaskListPanel().scrollTo(event.targetIndex);
+    }
+
+    @Subscribe
+    private void handleRsvTaskAddedEvent(RsvTaskAddedEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event,
+                "Scrolling to newly added rsvtask"));
         mainWindow.getTaskListPanel().scrollTo(event.targetIndex);
     }
 
