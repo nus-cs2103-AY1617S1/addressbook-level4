@@ -12,6 +12,7 @@ public class Undoer {
 	private final Model model;
 	private static Undoer instance;
 	private boolean undoEdit = false;
+	private boolean undoCommand = false;
 	
 	private final String EMPTY_UNDOSTACK_MESSAGE = "There was no undoable command before.";
 
@@ -25,6 +26,10 @@ public class Undoer {
 	private Undoer(Model model) {
 		this.model = model;
 		undoStack = new Stack<Command>();
+	}
+	
+	public boolean undoCommand() {
+		return this.undoCommand;
 	}
 
 	/*
@@ -72,10 +77,12 @@ public class Undoer {
 		assert !undoStack.isEmpty();
 		Command undoCommand = undoStack.pop();
 		undoCommand.setData(model, null);
+		this.undoCommand = true;
 		undoCommand.execute();
 		if(undoEdit){
 		    undoStack.pop();
 		    undoStack.pop();
 		}
+		this.undoCommand = false;
 	}
 }

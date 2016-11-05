@@ -288,8 +288,9 @@ public class ModelManager extends ComponentManager implements Model {
 			updateFilteredDeadlineListToShowAll();
 			indicateDeadlineListChanged();
 		}
-		
-		undoer.prepareUndoEdit(target, dataType, task , targetIndex , type);
+		if(!undoer.undoCommand()) {
+			undoer.prepareUndoEdit(target, dataType, task , targetIndex , type);
+		}
 	}
 
 	// @@author A0139920A
@@ -327,7 +328,6 @@ public class ModelManager extends ComponentManager implements Model {
 			indicateDeadlineListChanged();
 		}
 	}
-
 	// @@author A0144061U
 	@Override
 	public synchronized void deleteTask(ReadOnlyTask target, String dataType) throws TaskNotFoundException {
@@ -335,15 +335,21 @@ public class ModelManager extends ComponentManager implements Model {
 		case "todo":
 			todoList.removeTask(target);
 			indicateTodoListChanged();
-			undoer.prepareUndoDelete(target);
+			if(!undoer.undoCommand()) {
+				undoer.prepareUndoDelete(target);
+			}
 		case "event":
 			eventList.removeTask(target);
 			indicateEventListChanged();
-			undoer.prepareUndoDelete(target);
+			if(!undoer.undoCommand()) {
+				undoer.prepareUndoDelete(target);
+			}
 		case "deadline":
 			deadlineList.removeTask(target);
 			indicateDeadlineListChanged();
-			undoer.prepareUndoDelete(target);
+			if(!undoer.undoCommand()) {
+				undoer.prepareUndoDelete(target);
+			}
 		}
 	}
 
@@ -354,19 +360,25 @@ public class ModelManager extends ComponentManager implements Model {
 			todoList.sortData();
 			updateFilteredTodoListToShowAll();
 			indicateTodoListChanged();
-			undoer.prepareUndoAdd(task, "todo");
+			if(!undoer.undoCommand()) {
+				undoer.prepareUndoAdd(task, "todo");
+			}
 		} else if (task instanceof Event) {
 			eventList.addTask(task);
 			eventList.sortData();
 			updateFilteredEventListToShowAll();
 			indicateEventListChanged();
-			undoer.prepareUndoAdd(task, "event");
+			if(!undoer.undoCommand()) {
+				undoer.prepareUndoAdd(task, "event");
+			}
 		} else if (task instanceof Deadline) {
 			deadlineList.addTask(task);
 			deadlineList.sortData();
 			updateFilteredDeadlineListToShowAll();
 			indicateDeadlineListChanged();
-			undoer.prepareUndoAdd(task, "deadline");
+			if(!undoer.undoCommand()) {
+				undoer.prepareUndoAdd(task, "deadline");
+			}
 		} else {
 			throw new IllegalValueException("Invalid data type for add");
 		}
@@ -379,17 +391,23 @@ public class ModelManager extends ComponentManager implements Model {
             todoList.addTaskWithIndex(task, targetIndex);
             updateFilteredTodoListToShowAll();
             indicateTodoListChanged();
-            undoer.prepareUndoAdd(task, "todo");
+            if(!undoer.undoCommand()) {
+            	undoer.prepareUndoAdd(task, "todo");
+			}
         } else if (task instanceof Event) {
             eventList.addTaskWithIndex(task, targetIndex);
             updateFilteredEventListToShowAll();
             indicateEventListChanged();
-            undoer.prepareUndoAdd(task, "event");
+            if(!undoer.undoCommand()) {
+            	undoer.prepareUndoAdd(task, "event");
+			}
         } else if (task instanceof Deadline) {
             deadlineList.addTaskWithIndex(task, targetIndex);
             updateFilteredDeadlineListToShowAll();
             indicateDeadlineListChanged();
-            undoer.prepareUndoAdd(task, "deadline");
+            if(!undoer.undoCommand()) {
+            	undoer.prepareUndoAdd(task, "deadline");
+			}
         } else {
             throw new IllegalValueException("Invalid data type for add");
         }
