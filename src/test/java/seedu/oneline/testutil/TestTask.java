@@ -18,7 +18,6 @@ public class TestTask implements ReadOnlyTask, Comparable<TestTask> {
     private TaskTime startTime = TaskTime.getDefault();
     private TaskTime endTime = TaskTime.getDefault();
     private TaskTime deadline = TaskTime.getDefault();
-    private TaskRecurrence recurrence = TaskRecurrence.getDefault();
     private Tag tag = Tag.getDefault();
     private boolean isCompleted = false; 
 
@@ -30,7 +29,6 @@ public class TestTask implements ReadOnlyTask, Comparable<TestTask> {
         this.startTime = task.getStartTime();
         this.endTime = task.getEndTime();
         this.deadline = task.getDeadline();
-        this.recurrence = task.getRecurrence();
         this.tag = task.getTag();
         this.isCompleted = task.isCompleted();
     }
@@ -49,10 +47,6 @@ public class TestTask implements ReadOnlyTask, Comparable<TestTask> {
     
     public void setDeadline(TaskTime deadline) {
         this.deadline = deadline;
-    }
-
-    public void setRecurrence(TaskRecurrence recurrence) {
-        this.recurrence = recurrence;
     }
     
     public void setTag(Tag tag) {
@@ -82,11 +76,6 @@ public class TestTask implements ReadOnlyTask, Comparable<TestTask> {
     public TaskTime getDeadline() {
         return deadline;
     }
-
-    @Override
-    public TaskRecurrence getRecurrence() {
-        return recurrence;
-    }
     
     @Override
     public Tag getTag() {
@@ -109,7 +98,6 @@ public class TestTask implements ReadOnlyTask, Comparable<TestTask> {
         sb.append(".from " + this.getStartTime().toString() + " ");
         sb.append(".to " + this.getEndTime().toString() + " ");
         sb.append(".due " + this.getDeadline().toString() + " ");
-        sb.append(".every " + this.getRecurrence().toString() + " ");
         sb.append("#" + this.getTag().getTagName());
         return sb.toString();
     }
@@ -122,7 +110,6 @@ public class TestTask implements ReadOnlyTask, Comparable<TestTask> {
         TaskTime newStartTime = oldTask.getStartTime();
         TaskTime newEndTime = oldTask.getEndTime();
         TaskTime newDeadline = oldTask.getDeadline();
-        TaskRecurrence newRecurrence = oldTask.getRecurrence();
         Tag newTag = oldTask.getTag();
 
         for (Entry<TaskField, String> entry : fields.entrySet()) {
@@ -139,15 +126,12 @@ public class TestTask implements ReadOnlyTask, Comparable<TestTask> {
             case DEADLINE:
                 newDeadline = new TaskTime(entry.getValue());
                 break;
-            case RECURRENCE:
-                newRecurrence = new TaskRecurrence(entry.getValue());
-                break;
             case TAG:
                 newTag = Tag.getTag(entry.getValue());
                 break;
             }
         }
-        Task newTask = new Task(newName, newStartTime, newEndTime, newDeadline, newRecurrence, newTag);
+        Task newTask = new Task(newName, newStartTime, newEndTime, newDeadline, newTag);
         return newTask;
     }
 
@@ -199,12 +183,11 @@ public class TestTask implements ReadOnlyTask, Comparable<TestTask> {
         TaskTime newStartTime = oldTask.getStartTime();
         TaskTime newEndTime = oldTask.getEndTime();
         TaskTime newDeadline = oldTask.getDeadline();
-        TaskRecurrence newRecurrence = oldTask.getRecurrence();
         Tag newTag = oldTask.getTag();
 
         Task newTask = null;
         try {
-            newTask = new Task(newName, newStartTime, newEndTime, newDeadline, newRecurrence, newTag, true);
+            newTask = new Task(newName, newStartTime, newEndTime, newDeadline, newTag, true);
         } catch (IllegalValueException e) {
             assert false;
         }
@@ -224,12 +207,11 @@ public class TestTask implements ReadOnlyTask, Comparable<TestTask> {
         TaskTime newStartTime = oldTask.getStartTime();
         TaskTime newEndTime = oldTask.getEndTime();
         TaskTime newDeadline = oldTask.getDeadline();
-        TaskRecurrence newRecurrence = oldTask.getRecurrence();
         Tag newTag = oldTask.getTag();
 
         Task newTask = null;
         try {
-            newTask = new Task(newName, newStartTime, newEndTime, newDeadline, newRecurrence, newTag, false);
+            newTask = new Task(newName, newStartTime, newEndTime, newDeadline, newTag, false);
         } catch (IllegalValueException e) {
             assert false;
         }

@@ -21,7 +21,6 @@ public class ParserTest {
     String testStartTime = "Sun Oct 16 21:35:45";
     String testEndTime = "Sun Oct 16 21:35:45";
     String testDeadline = "Sun Oct 16 21:35:45";
-    String testRecurrence = "Tuesday";
     String testTag = "Tag1";
     
     @Test
@@ -30,7 +29,6 @@ public class ParserTest {
                 CommandConstants.KEYWORD_PREFIX + CommandConstants.KEYWORD_START_TIME + " " + testStartTime + " " +
                 CommandConstants.KEYWORD_PREFIX + CommandConstants.KEYWORD_END_TIME + " " + testEndTime + " " +
                 CommandConstants.KEYWORD_PREFIX + CommandConstants.KEYWORD_DEADLINE + " " + testDeadline + " " +
-                CommandConstants.KEYWORD_PREFIX + CommandConstants.KEYWORD_RECURRENCE + " " + testRecurrence + " " +
                 CommandConstants.TAG_PREFIX + testTag;
         Map<TaskField, String> fields = null;
         try {
@@ -44,7 +42,6 @@ public class ParserTest {
                 new SimpleEntry<TaskField, String>(TaskField.START_TIME, testStartTime),
                 new SimpleEntry<TaskField, String>(TaskField.END_TIME, testEndTime),
                 new SimpleEntry<TaskField, String>(TaskField.DEADLINE, testDeadline),
-                new SimpleEntry<TaskField, String>(TaskField.RECURRENCE, testRecurrence),
                 new SimpleEntry<TaskField, String>(TaskField.TAG, testTag));
     }
     
@@ -71,8 +68,7 @@ public class ParserTest {
     
     @Test
     public void parser_optionalArgs2_success() {
-        String args = CommandConstants.KEYWORD_PREFIX + CommandConstants.KEYWORD_START_TIME + " " + testStartTime + " " +
-               CommandConstants.KEYWORD_PREFIX + CommandConstants.KEYWORD_RECURRENCE + " " + testRecurrence;
+        String args = CommandConstants.KEYWORD_PREFIX + CommandConstants.KEYWORD_START_TIME + " " + testStartTime;
         Map<TaskField, String> fields = null;
         try {
             fields = Parser.getTaskFieldsFromArgs(args);
@@ -81,8 +77,7 @@ public class ParserTest {
             assert false;
         }
         assertEqualFields(fields,
-                new SimpleEntry<TaskField, String>(TaskField.START_TIME, testStartTime),
-                new SimpleEntry<TaskField, String>(TaskField.RECURRENCE, testRecurrence));
+                new SimpleEntry<TaskField, String>(TaskField.START_TIME, testStartTime));
     }
     
     @SafeVarargs

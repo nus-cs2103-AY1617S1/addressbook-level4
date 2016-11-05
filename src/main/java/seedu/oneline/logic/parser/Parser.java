@@ -184,7 +184,7 @@ public class Parser {
             throws IllegalCmdArgsException {
         List<Entry<TaskField, Integer>> fieldIndexes = new ArrayList<>();
         TaskField[] fields = new TaskField[] { TaskField.START_TIME, TaskField.END_TIME,
-                                               TaskField.DEADLINE, TaskField.RECURRENCE, TaskField.IS_DONE };
+                                               TaskField.DEADLINE, TaskField.IS_DONE };
         for (TaskField tf : fields) {
             Integer index = getIndexesOfKeyword(argsArr, tf.getKeyword());
             if (index != null) {

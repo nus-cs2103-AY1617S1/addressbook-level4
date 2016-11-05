@@ -33,12 +33,4 @@ public class TaskCardParser {
         return task.getTag().toString();
     }
     
-    public String getRecurrence() {
-        String recurrence = task.getRecurrence().toString(); 
-        if (recurrence.equals("")) { 
-            return "";
-        } 
-        return "every " + task.getRecurrence().toString();
-    }
-    
 }
