@@ -169,6 +169,8 @@ public class TaskDate {
             performAddDateFormatRegex();
             for (int i = 0; i < ListOfDateFormat.size() && i < ListOfDateRegex.size(); i++) {
                 if (reqDate.matches(ListOfDateRegex.get(i))) {  
+                    System.out.println("get list format num: " + ListOfDateFormat.get(i));
+                    System.out.println("reqDate: " + reqDate);
                     return isValidNumDate(reqDate, ListOfDateFormat.get(i));
                 }
             }
@@ -301,32 +303,31 @@ public class TaskDate {
         /**
          * The following will ensure the date format to be
          * DATE_NUM_SLASH_WITH_YEAR_FORMAT
-//         */
-//        if (format.equals(DATE_NUM_SLASH_WITHOUT_YEAR_FORMAT)) {
-//            Calendar now = Calendar.getInstance();
-//            int yearInt = now.get(Calendar.YEAR);
-//            String year = String.valueOf(yearInt);
-//            incDate.concat(year);
-//            fullDate = incDate;
-//            return true;
-//        } else if (format.equals(DATE_NUM_SLASH_WITH_YEAR_SHORTENED_DAY_FORMAT)) {
-//            fullDate = "0" + incDate;
-//            return true;
-//        } else if (format.equals(DATE_NUM_SLASH_WITH_YEAR_SHORTENED_MONTH_FORMAT)) {
-//            String toReplaceFullDate = incDate;
-//            String[] split = toReplaceFullDate.split("/");
-//            fullDate = split[0] + "/0" + split[1] + "/" + split[2];
-//            return true;
-//        } else if (format.equals(DATE_NUM_SLASH_WITH_YEAR_SHORTENED_DAY_AND_MONTH_FORMAT)) {
-//            String toReplaceFullDate = incDate;
-//            String[] split = toReplaceFullDate.split("/");
-//            fullDate = "0" + split[0] + "/0" + split[1] + "/" + split[2];
-//            return true;
-//        } else {
-//            fullDate = incDate;
-//            return true;
-//        }
-        return true;
+         */
+        if (format.equals(DATE_NUM_SLASH_WITHOUT_YEAR_FORMAT)) {
+            Calendar now = Calendar.getInstance();
+            int yearInt = now.get(Calendar.YEAR);
+            String year = String.valueOf(yearInt);
+            incDate.concat(year);
+            fullDate = incDate;
+            return true;
+        } else if (format.equals(DATE_NUM_SLASH_WITH_YEAR_SHORTENED_DAY_FORMAT)) {
+            fullDate = "0" + incDate;
+            return true;
+        } else if (format.equals(DATE_NUM_SLASH_WITH_YEAR_SHORTENED_MONTH_FORMAT)) {
+            String toReplaceFullDate = incDate;
+            String[] split = toReplaceFullDate.split("/");
+            fullDate = split[0] + "/0" + split[1] + "/" + split[2];
+            return true;
+        } else if (format.equals(DATE_NUM_SLASH_WITH_YEAR_SHORTENED_DAY_AND_MONTH_FORMAT)) {
+            String toReplaceFullDate = incDate;
+            String[] split = toReplaceFullDate.split("/");
+            fullDate = "0" + split[0] + "/0" + split[1] + "/" + split[2];
+            return true;
+        } else {
+            fullDate = incDate;
+            return true;
+        }
     }
     
     /**
