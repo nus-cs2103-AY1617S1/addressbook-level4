@@ -40,6 +40,15 @@ public class AddCommand extends Command {
         String recurring = "false";
         this.toAdd = new Task(new Name(name), new StartTime(startTime), new EndTime(endTime), new Deadline(deadline), new UniqueTagList(tagSet), new Status(false, false, false), new Recurring(recurring));
     }
+    
+    public AddCommand(String name, String startTime, String endTime, String deadline, Set<String> tags, Status s) throws IllegalValueException {
+        final Set<Tag> tagSet = new HashSet<>();
+        for (String tagName : tags) {
+            tagSet.add(new Tag(tagName));
+        }
+        String recurring = "false";
+        this.toAdd = new Task(new Name(name), new StartTime(startTime), new EndTime(endTime), new Deadline(deadline), new UniqueTagList(tagSet), new Status(s.getDoneStatus(),s.getOverdueStatus(),s.getFavoriteStatus()), new Recurring(recurring));
+    }
 
     @Override
     public CommandResult execute(boolean isUndo) {

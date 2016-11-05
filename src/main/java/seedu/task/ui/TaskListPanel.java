@@ -6,6 +6,8 @@ import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ListChangeListener.Change;
 import javafx.event.ActionEvent;
@@ -107,8 +109,44 @@ public class TaskListPanel extends UiPart {
     
  
     //table initialization
-    private void initialize(){
+    private void initialize(ObservableList<ReadOnlyTask> taskList){
+    	
+    	statusColumn.setCellValueFactory(cellData -> new SimpleObjectProperty(cellData.getValue().getStatus()));
+    	statusColumn.setCellFactory(column -> {
+    	    return new TableCell<ReadOnlyTask, Status>() {
+    	    	@Override
+    	    	protected void updateItem(Status item, boolean empty) {
+    	            super.updateItem(item, empty);
+    	           
+    	           
+    	            if (item == null || empty) {
+    	                setText(null);
+    	                setStyle("-fx-background-color");
+    	            } else if(item.getFavoriteStatus()) {
+    	            	
+    	            	setStyle("-fx-background-color: yellow");
+    	            	
+    	            }
+    	            else {
+    	                setText(item.toString());
+    	                setStyle("");
+
+    	            }
+    	            
+    	        
+    	    	}
     	    	
+    	    }; 	    
+    	});
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	//statusColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<ReadOnlyTask, Status>, ObservableValue<Status>>());
+    	//taskTable.getItems().get(0)    	
     	idColumn.setCellValueFactory(column -> new ReadOnlyObjectWrapper<Number>(taskTable.getItems().indexOf(column.getValue()) + 1));
   	  	
     	
@@ -124,10 +162,10 @@ public class TaskListPanel extends UiPart {
 
     	            if (item == null || empty) {
     	                setText(null);
-    	                setStyle("");
-    	            } else if(item.toString().equals("now")) {
+    	                setStyle("-fx-background-color");
+    	            } else if(item.toString().equals("")) {
     	            	setText("-");
-    	            	
+    	            	setStyle("-fx-background-color: red");
     	            }
     	            else {
     	                setText(item.toString());
@@ -149,7 +187,7 @@ public class TaskListPanel extends UiPart {
     	            if (item == null || empty) {
     	                setText(null);
     	                setStyle("");
-    	            } else if(item.toString().equals("no endtime")) {
+    	            } else if(item.toString().equals("")) {
     	            	setText("-");
     	            	
     	            }else {
@@ -173,7 +211,7 @@ public class TaskListPanel extends UiPart {
     	            if (item == null || empty) {
     	                setText(null);
     	                setStyle("");
-    	            }  else if(item.toString().equals("no deadline")) {
+    	            }  else if(item.toString().equals("")) {
     	            	setText("-");
     	            	
     	            }  else {
@@ -210,38 +248,8 @@ public class TaskListPanel extends UiPart {
     		
     }
     
-//    private void setStatus(){
-//    	statusColumn.setCellFactory(column -> {
-//    	    return new TableCell<ReadOnlyTask, Status>() {
-//    	    	@Override
-//    	    	protected void updateItem(Status item, boolean empty) {
-//    	            super.updateItem(item, empty);
-//    	            
-//    	            Task task = (Task) getTableRow().getItem();
-//
-//    	            if(task.getStatus().getDoneStatus()==true) {
-//    	            	setText("1");
-//        	    		setStyle("-fx-background-color: yello");
-//        	    		System.out.print("0");
-//        	    	} else if (task.getStatus().getNewlyAddedStatus()==true){
-//    	                //setText(item.toString());
-//    	                setStyle("-fx-background-color: yello");
-//    	                System.out.print("1");
-//    	            } else if (task.getStatus().getOverdueStatus()==true){
-//    	            	setStyle("-fx-background-color: red");
-//    	            	System.out.print("2");
-//    	            } else{
-//    	            	setStyle("-fx-background-color: white");
-//    	            	System.out.print(taskTable.getItems().get(0).getStatus().getNewlyAddedStatus());
-//    	            	System.out.print("3");
-//    	            }
-//    	        }
-//    	    	
-//    	    }; 	    
-//    	});
-//    }
-//    
-//    
+   
+    
     
     
    // prenvent columns reordering
@@ -251,9 +259,11 @@ public class TaskListPanel extends UiPart {
     	
         taskTable.getColumns().addListener(new ListChangeListener<TableColumn>() {
             public boolean reordered = false;
-
+            
             @Override
             public void onChanged(Change change) {
+            	
+
                 change.next();
                 if (change.wasReplaced() && !reordered) {
                     reordered = true;
@@ -268,20 +278,41 @@ public class TaskListPanel extends UiPart {
     // autoscroll when we add new events
     private void autoScroll(){
     	taskTable.getItems().addListener(
+    			
                 new ListChangeListener<ReadOnlyTask>() {
+                	
                     @Override
                     public void onChanged(
-                            javafx.collections.ListChangeListener.Change<? extends ReadOnlyTask> arg0) {
+                    		
+                        javafx.collections.ListChangeListener.Change<? extends ReadOnlyTask> arg0) {
                     	taskTable.scrollTo(taskTable.getItems().size());
+                    	statusColumn.setVisible(false);
+                    	statusColumn.setVisible(true);
                     }
 
                 });
     }
-  
+   
+    public <S> void addAutoScroll(final TableView<ReadOnlyTask> view) {
+        if (view == null) {
+            throw new NullPointerException();
+        }
 
+        taskTable.getItems().addListener((ListChangeListener<ReadOnlyTask>) (c -> {
+            c.next();
+            final int size = view.getItems().size();
+            if (size > 0) {
+                view.scrollTo(c.getFrom());
+            }
+            statusColumn.setVisible(false);
+        	statusColumn.setVisible(true);
+        	taskTable.getSelectionModel().select(c.getFrom());
+        }));
+    }
     private void configure(ObservableList<ReadOnlyTask> taskList) {
         setConnections(taskList);
         addToPlaceholder();
+        
         
     }
 
@@ -291,11 +322,13 @@ public class TaskListPanel extends UiPart {
     	
     	taskTable.setItems(taskList);
     	    	
-    	initialize();
+    	initialize(taskList);
     	
-    	disableTableColumnReordering();    	
+    	disableTableColumnReordering();   
+    	
+    	//setStatus();
      	
-    	autoScroll();
+    	addAutoScroll(taskTable);
     	
     	setEventHandlerForSelectionChangeEvent();
     	
