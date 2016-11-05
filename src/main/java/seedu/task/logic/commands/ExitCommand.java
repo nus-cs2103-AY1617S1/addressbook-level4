@@ -29,10 +29,9 @@ public class ExitCommand extends Command {
         return null;
 	}
 
-
 	@Override
 	public boolean isReversible() {
 		return false;
 	}
-
+    //@@author
 }

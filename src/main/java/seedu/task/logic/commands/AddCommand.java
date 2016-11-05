@@ -42,8 +42,7 @@ public class AddCommand extends Command {
 	
 	public static final String MESSAGE_SUCCESS = "New task added: %1$s";
 	public static final String MESSAGE_SUCCESS_MANY_TASKS = "%1$s tasks added: %2$s";
-	public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the task manager";
-	public static final String MESSAGE_SUCCESS_UNDO = "Undo of add command";	
+	public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the task manager";	
 	
 	public final String MESSAGE_NOT_FOUND = "The task was not found.";
 
@@ -63,15 +62,16 @@ public class AddCommand extends Command {
 		for (String tagName : tags) {
 			tagSet.add(new Tag(tagName));
 		}
-		
-		Task mainTask = new Task(new Title(title), new Description(description), new StartDate(startDate),
+		//@@author A0153411W
+		//Create based task for duplication
+		Task baseTask = new Task(new Title(title), new Description(description), new StartDate(startDate),
 				new DueDate(dueDate), new Interval(interval), new TimeInterval(timeInterval),
 				new Status("ONGOING"), new TaskColor(taskColor), new UniqueTagList(tagSet));
-		addTasksToList(mainTask);
+		addTasksToList(baseTask);
+		//@@author
 	}
 
 	//@@author A0153411W
-	//@@author A0153751H
 	/**
 	 * Add tasks to list based on main task, time and time interval.
 	 * @param mainTask
@@ -87,21 +87,16 @@ public class AddCommand extends Command {
 					mainTask.getTimeInterval(), new Status("ONGOING"), mainTask.getTaskColor(), mainTask.getTags()));
 		}
 	} 
+	//@@author
 	
 	@Override
 	public CommandResult execute() {
 		assert model != null;
-		
-		Title title;
-		Description description;
-		StartDate startDate;
-		DueDate dueDate;
-		Status status;
-		String feedback;
-		
+
 		try {
 			//For every task from list, add task to manager
 			for (Task task : tasksToAdd) {
+				task.setStatus(new Status("ONGOING"));
 				model.addTask(task);
 			}
 			//@@author A0148083A
@@ -117,7 +112,7 @@ public class AddCommand extends Command {
 						tasksToAdd.get(0).getTitle()));
 		} catch (UniqueTaskList.DuplicateTaskException e) {
 			//remove this command from list for undo
-			model.getCommandForUndo();
+			model.removeCommandForUndo();
 			return new CommandResult(MESSAGE_DUPLICATE_TASK);
 		}
 	}
@@ -134,16 +129,23 @@ public class AddCommand extends Command {
 	public CommandResult executeUndo() {
 		try {
 			for (Task task : tasksToAdd) {
+				task.setStatus(new Status("ONGOING"));
 				model.deleteTask(task);
 			}
 		} catch (TaskNotFoundException e) {
 			return new CommandResult(MESSAGE_NOT_FOUND);
 		}
-		return new CommandResult(MESSAGE_SUCCESS_UNDO);
+		if (tasksToAdd.size() == 1) {
+			return new CommandResult(String.format(MESSAGE_SUCCESS, tasksToAdd.get(0)));
+		}
+		else
+			return new CommandResult(String.format(MESSAGE_SUCCESS_MANY_TASKS, tasksToAdd.get(0).getInterval(),
+					tasksToAdd.get(0).getTitle()));
 	}
 
 	@Override
 	public boolean isReversible() {
 		return true;
 	}
+	//@@author
 }

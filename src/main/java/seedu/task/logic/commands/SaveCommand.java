@@ -61,18 +61,14 @@ public static final String MESSAGE_USAGE = COMMAND_WORD + ": Change location of 
     //@@author
 
     //@@author A0153411W
-	/**
-	 * Save Command is not reversible.
-	 */
 	@Override
 	public CommandResult executeUndo() {
 		return null;
 	}
 
-
 	@Override
 	public boolean isReversible() {
 		return false;
 	}
-
+    //@@author
 }

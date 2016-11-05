@@ -36,5 +36,5 @@ public class HelpCommand extends Command {
 	public boolean isReversible() {
 		return false;
 	}
-
+    //@@author
 }

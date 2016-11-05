@@ -43,10 +43,12 @@ public class LogicManager extends ComponentManager implements Logic {
     }
     
     //@@author A0153411W
-    //Add command (if reversible) to UndoManager
+    /**
+     * Add executed command to command manager undo operation
+     * @param command
+     */
     private void addCommandForUndo(Command command){
-    	if(command.isReversible()){
-    		model.updateCommandsForUndo(command);
-    	}
+    		model.addCommandForUndo(command);
     }
+    //@@author
 }

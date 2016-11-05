@@ -24,7 +24,6 @@ public class DoneCommand extends Command {
             + "Example: " + COMMAND_WORD + " 1";
     
     public static final String MESSAGE_COMPLETED_TASK_SUCCESS = "Completed Task: %1$s";
-	public static final String MESSAGE_SUCCESS_UNDO = "Undo of done command";
 	public static final String MESSAGE_ALREADY_COMPLETED = "The task is already done.";
 	public final String MESSAGE_DUPLICATE = "The task is a duplicate of an existing task.";
 	public final String MESSAGE_NOT_FOUND = "The task was not found.";
@@ -63,7 +62,7 @@ public class DoneCommand extends Command {
             
         } catch (TaskNotFoundException pnfe) {
 			//remove this command from list for undo
-			model.getCommandForUndo();
+			model.removeCommandForUndo();
             assert false : MESSAGE_NOT_FOUND;
         }
         
@@ -87,14 +86,12 @@ public class DoneCommand extends Command {
 	@Override
 	public CommandResult executeUndo() {
 		if(targetStatus.equals("COMPLETED"))
-			return new CommandResult(String.format(MESSAGE_SUCCESS_UNDO));
+			return new CommandResult(String.format(MESSAGE_ALREADY_COMPLETED));
 		UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
 		int numberOfTasks = lastShownList.size();
 		ReadOnlyTask task = lastShownList.get(numberOfTasks - 1);
-		//@@author A0153751H
 		Task taskToAdd = new Task(task.getTitle(), task.getDescription(), task.getStartDate(), task.getDueDate(),
 		        task.getInterval(), task.getTimeInterval(), task.getStatus(), task.getTaskColor(), task.getTags());
-		//@@author
 		taskToAdd.setStatus(new Status(targetStatus));
 		try {
 			model.deleteTask(task);
@@ -104,15 +101,12 @@ public class DoneCommand extends Command {
 		} catch (TaskNotFoundException e) {
 			return new CommandResult(MESSAGE_NOT_FOUND);
 		}
-		return new CommandResult(String.format(MESSAGE_SUCCESS_UNDO));
+        return new CommandResult(String.format(MESSAGE_COMPLETED_TASK_SUCCESS, taskToAdd));
 	}
 
-	/**
-	 * If the task is already COMPLETED, method is not reversible
-	 */
 	@Override
 	public boolean isReversible() {
 		return true;
 	}
-
+    //@@author
 }

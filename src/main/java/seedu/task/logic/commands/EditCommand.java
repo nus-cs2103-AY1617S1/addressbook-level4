@@ -34,11 +34,10 @@ public class EditCommand extends Command {
             + " 1 t/newTaskName d/newDescription sd/11-11-2011 11:11 dd/11-11-2016 01:01 c/red ts/tag ts/tag2"
             + "\nNote: You must have at least one parameter other than the index of the task. Use multiple 'ts/' to list multiple tags.";
 	
-	public final String MESSAGE_SUCCESS = "The data has been successfully edited.";
-	public final String MESSAGE_NOT_FOUND = "The task was not found.";
-	public final String MESSAGE_DUPLICATE = "The edited task is a duplicate of an existing task.";
-	public static final String MESSAGE_SUCCESS_UNDO = "Undo of edit command";
-	public final String MESSAGE_PARAM = "Incorrect parameters.";
+	public static final String MESSAGE_SUCCESS = "The data has been successfully edited.";
+	public static final String MESSAGE_NOT_FOUND = "The task was not found.";
+	public static final String MESSAGE_DUPLICATE = "The edited task is a duplicate of an existing task.";
+	public static final String MESSAGE_PARAM = "Incorrect parameters.";
 	
 	private ReadOnlyTask selectedTask;
 	private Task copy, editedTask;
@@ -107,19 +106,19 @@ public class EditCommand extends Command {
             //@@author
 		} catch (TaskNotFoundException e) {
 			//remove this command from list for undo
-			model.getCommandForUndo();
+			model.removeCommandForUndo();
 			return new CommandResult(MESSAGE_NOT_FOUND);
 		} catch (DuplicateTaskException e) {
 			//remove this command from list for undo
-			model.getCommandForUndo();
+			model.removeCommandForUndo();
 			return new CommandResult(MESSAGE_DUPLICATE);
 		} catch (IllegalValueException e) {
 			//remove this command from list for undo
-			model.getCommandForUndo();
+			model.removeCommandForUndo();
 			return new CommandResult(MESSAGE_PARAM);
 		} catch (ParseException e) {
 			//remove this command from list for undo
-			model.getCommandForUndo();
+			model.removeCommandForUndo();
 			return new CommandResult(MESSAGE_PARAM);
 		}
 		return new CommandResult(MESSAGE_SUCCESS);
@@ -295,7 +294,7 @@ public class EditCommand extends Command {
 		} catch (DuplicateTaskException e) {
 			return new CommandResult(MESSAGE_DUPLICATE);
 		}
-		return new CommandResult(MESSAGE_SUCCESS_UNDO);
+		return new CommandResult(MESSAGE_SUCCESS);
 	}
 
 

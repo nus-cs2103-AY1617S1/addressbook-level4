@@ -39,11 +39,9 @@ public class CustomizeCommand extends Command {
 			return new CommandResult("Add customized format: " + userCommand + " for command: " + commandWord);
 		} catch (IOException e) {
 			// remove this command from list for undo
-			model.getCommandForUndo();
 			return new CommandResult(
 					"Failed to add customized format: " + userCommand + " for command: " + commandWord);
 		} catch (DublicatedValueCustomCommandsException e) {
-			model.getCommandForUndo();
 			return new CommandResult(
 					"Failed to add customized format: " + userCommand + " for command: " + commandWord);
 		}

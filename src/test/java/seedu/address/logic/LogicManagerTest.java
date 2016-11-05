@@ -221,7 +221,7 @@ public class LogicManagerTest {
         logic.execute(commadForAdd);
 
 		// execute undo command and verify result
-		assertCommandBehavior(helper.generateUndoCommand(), AddCommand.MESSAGE_SUCCESS_UNDO, expectedManager,
+		assertCommandBehavior(helper.generateUndoCommand(), AddCommand.MESSAGE_SUCCESS, expectedManager,
 				expectedManager.getTaskList());
 	}
 	
@@ -245,7 +245,7 @@ public class LogicManagerTest {
 			expectedManager.removeTask(taskToRemove);
 			
 			// execute undo command and verify result
-			assertCommandBehavior(helper.generateUndoCommand(), AddCommand.MESSAGE_SUCCESS_UNDO, expectedManager,
+			assertCommandBehavior(helper.generateUndoCommand(), AddCommand.MESSAGE_SUCCESS, expectedManager,
 					expectedManager.getTaskList());
 		}
 	}
@@ -267,7 +267,7 @@ public class LogicManagerTest {
         logic.execute(commadForEdit);
         
 		// execute undo command and verify result
-		assertCommandBehavior(helper.generateUndoCommand(), EditCommand.MESSAGE_SUCCESS_UNDO, expectedManager,
+		assertCommandBehavior(helper.generateUndoCommand(), EditCommand.MESSAGE_SUCCESS, expectedManager,
 				expectedManager.getTaskList());
 	}
 	
@@ -289,7 +289,7 @@ public class LogicManagerTest {
         logic.execute(commadForDone);
         
 		// execute undo command and verify result
-		assertCommandBehavior(helper.generateUndoCommand(), DoneCommand.MESSAGE_SUCCESS_UNDO, expectedManager,
+		assertCommandBehavior(helper.generateUndoCommand(), DoneCommand.MESSAGE_COMPLETED_TASK_SUCCESS, expectedManager,
 				expectedManager.getTaskList());
 	}
 	
@@ -310,7 +310,7 @@ public class LogicManagerTest {
         logic.execute(commadForClear);
         
 		// execute undo command and verify result
-		assertCommandBehavior(helper.generateUndoCommand(), ClearCommand.MESSAGE_SUCCESS_UNDO, expectedManager,
+		assertCommandBehavior(helper.generateUndoCommand(), ClearCommand.MESSAGE_SUCCESS, expectedManager,
 				expectedManager.getTaskList());
 	}
 	
@@ -331,7 +331,7 @@ public class LogicManagerTest {
         logic.execute(commadForDelete);
         
 		// execute undo command and verify result
-		assertCommandBehavior(helper.generateUndoCommand(), DeleteCommand.MESSAGE_SUCCESS_UNDO, expectedManager,
+		assertCommandBehavior(helper.generateUndoCommand(), DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS, expectedManager,
 				expectedManager.getTaskList());
 	}
 	

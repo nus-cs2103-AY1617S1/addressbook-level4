@@ -30,8 +30,10 @@ import seedu.task.logic.commands.EditCommand;
 import seedu.task.logic.commands.ExitCommand;
 import seedu.task.logic.commands.FindCommand;
 import seedu.task.logic.commands.HelpCommand;
+import seedu.task.logic.commands.HistoryCommand;
 import seedu.task.logic.commands.IncorrectCommand;
 import seedu.task.logic.commands.ListCommand;
+import seedu.task.logic.commands.RedoCommand;
 import seedu.task.logic.commands.SaveCommand;
 import seedu.task.logic.commands.SelectCommand;
 import seedu.task.logic.commands.UndoCommand;
@@ -59,17 +61,18 @@ public class Parser {
     
     public static final SimpleDateFormat DATE_FORMAT_WITHOUT_TIME = new SimpleDateFormat("dd-MM-yyyy");
     //@@author A0153411W
-    //@@author A0153751H
     public static final Prefix descriptionPrefix = new Prefix(" d/", "description");
     public static final Prefix startDatePrefix = new Prefix(" sd/","startDate", true);
     public static final Prefix dueDatePrefix = new Prefix(" dd/","due date", true);
     public static final Prefix intervalPrefix = new Prefix(" i/","interval", true);
     public static final Prefix timeIntervalPrefix = new Prefix(" ti/", "time interval",true);
     public static final Prefix tagArgumentsPrefix = new Prefix(" t/", "tag arguments");
-    public static final Prefix taskColorPrefix = new Prefix(" c/","task color", true);
 	public static final Prefix formatCustomCommandPrefix = new Prefix(" f/", "format custom command");
 	// @@author
-
+    //@@author A0153751H
+    public static final Prefix taskColorPrefix = new Prefix(" c/","task color", true);
+	// @@author
+	
 	// @@author A0153751H
 	private static final Pattern TASK_DATA_ARGS_FORMAT_EDIT = // '/' forward
 																// slashes are
@@ -103,7 +106,10 @@ public class Parser {
 			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
 		}
 
+	    //@@author A0153411W
+		//Prepare command word for execution
 		final String commandWord = getCommandWord(matcher);
+	    //@@author
 		final String arguments = matcher.group("arguments");
 		switch (commandWord) {
 
@@ -142,6 +148,12 @@ public class Parser {
 
 		case UndoCommand.COMMAND_WORD:
 			return new UndoCommand();
+			
+		case RedoCommand.COMMAND_WORD:
+			return new RedoCommand();
+			
+		case HistoryCommand.COMMAND_WORD:
+			return new HistoryCommand();
 
 		case CustomizeCommand.COMMAND_WORD:
 			return prepareCustomize(arguments);
@@ -152,6 +164,12 @@ public class Parser {
 	}
 
 	// @@author A0153411W
+	/**
+	 * Prepare command word for execution. Check, if there is used default command format
+	 * or custom command format.
+	 * @param matcher
+	 * @return
+	 */
 	private String getCommandWord(Matcher matcher) {
 		String command = matcher.group("commandWord");
 		if (Command.getAllCommands().contains(command))
@@ -161,7 +179,8 @@ public class Parser {
 			return command;
 		}
 	}
-    
+	// @@author
+	
     /**
      * Parses arguments in the context of the add task command.
      *
@@ -282,7 +301,6 @@ public class Parser {
 		return date;
 	}
 	// @@author
-
 	/**
 	 * Check if the input is present, hence having the attribute of task
 	 * optional

@@ -2,6 +2,7 @@ package seedu.task.logic.commands;
 
 import java.util.EmptyStackException;
 
+//@@author A0153411W
 public class UndoCommand extends Command {
 
 	public static final String COMMAND_WORD = "undo";
@@ -16,16 +17,14 @@ public class UndoCommand extends Command {
 	public CommandResult execute() {
 		try {
 			Command command = model.getCommandForUndo();
-			return command.executeUndo();
+			CommandResult result=  command.executeUndo();
+			result.preAppendToResult("UNDO: ");
+			return result;
 		} catch (EmptyStackException e) {
 			return new CommandResult(MESSAGE_NOTHING_TO_UNDO);
 		}
 	}
 
-    //@@author A0153411W
-	/**
-	 * Undo Command is not reversible.
-	 */
 	@Override
 	public CommandResult executeUndo() {
 		return null;
@@ -35,4 +34,5 @@ public class UndoCommand extends Command {
 	public boolean isReversible() {
 		return false;
 	}
+    //@@author
 }
