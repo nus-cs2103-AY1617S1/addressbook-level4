@@ -726,11 +726,9 @@ public class LogicManagerTest {
             cmd.append("Read a book ");     
             cmd.append("from 11am ");
             cmd.append("to 12pm ");
-            cmd.append("repeat every day ");
             cmd.append(" -").append("med ");
             cmd.append("-reset ");
             cmd.append("start ");
-            cmd.append("repeat ");
             cmd.append("end");
             
             return cmd.toString();
