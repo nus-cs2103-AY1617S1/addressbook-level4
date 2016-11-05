@@ -18,6 +18,13 @@ import seedu.todo.models.Task;
  */
 public class CalendarItemFilter {
     
+    /**
+     * Get the token definitions for use with <code>tokenizer</code>.<br>
+     * This method exists primarily because Java does not support HashMap
+     * literals...
+     * 
+     * @return tokenDefinitions
+     */
     public static Map<String, String[]> getFilterTokenDefinitions() {
         Map<String, String[]> tokenDefinitions = new HashMap<String, String[]>();
         tokenDefinitions.put("eventType", new String[] { "event", "events", "task", "tasks" });
