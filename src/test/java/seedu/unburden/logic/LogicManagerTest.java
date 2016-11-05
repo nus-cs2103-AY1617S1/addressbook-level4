@@ -175,6 +175,36 @@ public class LogicManagerTest {
         assertCommandBehavior(
                 "add Valid Name i/Valid Task Description d/12-12-2010 s/2300 e/2359 t/invalid_-[.tag", Tag.MESSAGE_TAG_CONSTRAINTS);
     }
+    
+	//@@author A0139678J
+	@Test
+	public void execute_add_deadline() throws Exception {
+		TestDataHelper helper = new TestDataHelper();
+		Task t1 = helper.generateDeadlineTask("Hi hi", "bye bye", "11-10-2016", "bored");
+		Task t2 = helper.generateDeadlineTask("Hello", "Hello1", "12-12-2016", "Words");
+		ListOfTask expectedAB = new ListOfTask();
+		expectedAB.addTask(t1);
+		expectedAB.addTask(t2);
+
+		assertCommandBehavior(helper.generateAddCommand(t2), String.format(AddCommand.MESSAGE_SUCCESS, t2), expectedAB,
+				expectedAB.getTaskList());
+
+	}
+
+	//@@author A0139678J
+	@Test
+	public void execute_add_floatingTask() throws Exception {
+		TestDataHelper helper = new TestDataHelper();
+		Task t1 = helper.generateFloatingTask("I'm so tired", "I haven't sleep", "sleep");
+		Task t2 = helper.generateFloatingTask("I need to study", "I want to find a job", "finals");
+		ListOfTask expectedAB = new ListOfTask();
+		expectedAB.addTask(t1);
+		expectedAB.addTask(t2);
+
+		assertCommandBehavior(helper.generateAddCommand(t2), String.format(AddCommand.MESSAGE_SUCCESS, t2), expectedAB,
+				expectedAB.getTaskList());
+	}
+
 
     @Test
     public void execute_add_successful() throws Exception {
@@ -385,6 +415,36 @@ public class LogicManagerTest {
     					expectedList);
     }
     
+	// @@author A0139714B
+	@Test
+	public void execute_edit_validEndTime() throws Exception {
+		TestDataHelper helper = new TestDataHelper();
+		Task p1 = helper.generateEventTaskWithAll("bla bla KEY bla", "blah blah blah", "11-10-2016", "1500", "1800",
+				"tag");
+		Task p2 = helper.generateEventTaskWithAll("bla KEY bla bceofeia", "hello world", "12-10-2016", "1500", "1800",
+				"blah");
+		Task p3 = helper.generateEventTaskWithAll("KE Y", "say goodbye", "13-10-2016", "1500", "1800", "hi");
+		Task p4 = helper.generateEventTaskWithAll("keyKEY sduauo", "move", "14-10-2016", "1500", "1800", "bye");
+		Task p5 = helper.generateEventTaskWithAll("K EY sduauo", "high kneel", "15-10-2016", "1500", "1800", "yo");
+		Task toEdit = helper.generateEventTaskWithAll("", "", "", "", "1900", "blah");
+		Task updatedTask = helper.generateEventTaskWithAll("bla KEY bla bceofeia", "hello world", "12-10-2016", "1500",
+				"1900", "blah");
+
+		List<Task> fiveTasks = helper.generateTaskList(p1, p2, p3, p4, p5);
+		ListOfTask expectedAB = helper.generateListOfTask(fiveTasks);
+		List<Task> expectedList = helper.generateTaskList(p1, updatedTask, p3, p4, p5);
+
+		model.resetData(new ListOfTask());
+		for (Task t : fiveTasks) {
+			model.addTask(t);
+		}
+
+		expectedAB.editTask((ReadOnlyTask) fiveTasks.get(2), toEdit);
+
+		assertCommandBehavior("edit 2 e/1900", String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, updatedTask),
+				expectedAB, expectedList);
+	}
+    
     //@@author A0139714B
     @Test
     public void execute_edit_fail_addEndTimeToATaskWithNoDate() throws Exception {
@@ -394,7 +454,6 @@ public class LogicManagerTest {
         Task p3 = helper.generateFloatingTask("KE Y", "say goodbye", "hi");
         Task p4 = helper.generateFloatingTask("keyKEY sduauo", "move", "bye");
         Task p5 = helper.generateFloatingTask("K EY sduauo", "high kneel", "yo");
-    	Task toEdit = helper.generateEventTaskWithAll("", "", "", "", "1900", "blah");
     	Task updatedTask = helper.generateFloatingTask("K EY sduauo", "high kneel", "yo");
     	
     	List<Task> fiveTasks = helper.generateTaskList(p1, p2, p3, p4, p5);
@@ -440,35 +499,6 @@ public class LogicManagerTest {
     						  );  
     }
     
-    //@@author A0139714B 
-    @Test
-    public void execute_edit_validEndTime() throws Exception {
-    	TestDataHelper helper = new TestDataHelper();
-    	Task p1 = helper.generateEventTaskWithAll("bla bla KEY bla", "blah blah blah", "11-10-2016", "1500" , "1800", "tag");
-        Task p2 = helper.generateEventTaskWithAll("bla KEY bla bceofeia", "hello world", "12-10-2016", "1500" , "1800", "blah");
-        Task p3 = helper.generateEventTaskWithAll("KE Y", "say goodbye", "13-10-2016", "1500" , "1800", "hi");
-        Task p4 = helper.generateEventTaskWithAll("keyKEY sduauo", "move", "14-10-2016", "1500" , "1800", "bye");
-        Task p5 = helper.generateEventTaskWithAll("K EY sduauo", "high kneel", "15-10-2016", "1500" , "1800", "yo");
-    	Task toEdit = helper.generateEventTaskWithAll("", "", "", "", "1900", "blah");
-    	Task updatedTask = helper.generateEventTaskWithAll("bla KEY bla bceofeia", "hello world", "12-10-2016", "1500" , "1900", "blah");
-    	
-    	List<Task> fiveTasks = helper.generateTaskList(p1, p2, p3, p4, p5);
-    	ListOfTask expectedAB = helper.generateListOfTask(fiveTasks);
-    	List<Task> expectedList = helper.generateTaskList(p1, updatedTask, p3, p4, p5);
-    	
-    	model.resetData(new ListOfTask());
-    	for (Task t : fiveTasks) {
-    		model.addTask(t);
-    	}
-    
-    	expectedAB.editTask((ReadOnlyTask)fiveTasks.get(2), toEdit);
-    	
-    	assertCommandBehavior("edit 2 e/1900",
-    			String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, updatedTask), 
-    					expectedAB,
-    					expectedList);
-    }
-  
     //@@author A0139714B 
     @Test
     public void execute_edit_fail_startTimeAfterEndTime() throws Exception {
@@ -629,75 +659,70 @@ public class LogicManagerTest {
     					expectedAB,
     					expectedList);
     }
-    
-    
-   
-    
 
-    @Test
-    public void execute_find_invalidArgsFormat() throws Exception {
-        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE);
-        assertCommandBehavior("find ", expectedMessage);
-    }
+	@Test
+	public void execute_find_invalidArgsFormat() throws Exception {
+		String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE);
+		assertCommandBehavior("find ", expectedMessage);
+	}
 
-    @Test
-    public void execute_find_onlyMatchesFullWordsInNames() throws Exception {
-        TestDataHelper helper = new TestDataHelper();
-        Task pTarget1 = helper.generateEventTaskWithAll("bla bla KEY bla", "blah blah blah", "11-10-2016", "1500" , "1800", "tag");
-        Task pTarget2 = helper.generateEventTaskWithAll("bla KEY bla bceofeia", "hello world", "11-10-2016", "1500" , "1800", "blah");
-        Task p1 = helper.generateEventTaskWithAll("KE Y", "say goodbye", "11-10-2016", "1500" , "1800", "hi");
-        Task pTarget3 = helper.generateEventTaskWithAll("keyKEY sduauo", "move", "11-10-2016", "1500" , "1800", "bye");
-        Task p2 = helper.generateEventTaskWithAll("K EY sduauo", "high kneel", "11-10-2016", "1500" , "1800", "yo");
+	@Test
+	public void execute_find_onlyMatchesFullWordsInNames() throws Exception {
+		TestDataHelper helper = new TestDataHelper();
+		Task pTarget1 = helper.generateEventTaskWithAll("bla bla KEY bla", "blah blah blah", "11-10-2016", "1500",
+				"1800", "tag");
+		Task pTarget2 = helper.generateEventTaskWithAll("bla KEY bla bceofeia", "hello world", "11-10-2016", "1500",
+				"1800", "blah");
+		Task p1 = helper.generateEventTaskWithAll("KE Y", "say goodbye", "11-10-2016", "1500", "1800", "hi");
+		Task pTarget3 = helper.generateEventTaskWithAll("keyKEY sduauo", "move", "11-10-2016", "1500", "1800", "bye");
+		Task p2 = helper.generateEventTaskWithAll("K EY sduauo", "high kneel", "11-10-2016", "1500", "1800", "yo");
 
-        List<Task> fiveTasks = helper.generateTaskList(p1, pTarget1, p2, pTarget2, pTarget3);
-        ListOfTask expectedAB = helper.generateListOfTask(fiveTasks);
-        List<Task> expectedList = helper.generateTaskList(pTarget1, pTarget2, pTarget3);
-        helper.addToModel(model, fiveTasks);
+		List<Task> fiveTasks = helper.generateTaskList(p1, pTarget1, p2, pTarget2, pTarget3);
+		ListOfTask expectedAB = helper.generateListOfTask(fiveTasks);
+		List<Task> expectedList = helper.generateTaskList(pTarget1, pTarget2, pTarget3);
+		helper.addToModel(model, fiveTasks);
 
-        assertCommandBehavior("find KEY",
-                Command.getMessageForTaskListShownSummary(expectedList.size()),
-                expectedAB,
-                expectedList);
-    }
+		assertCommandBehavior("find KEY", Command.getMessageForTaskListShownSummary(expectedList.size()), expectedAB,
+				expectedList);
+	}
 
-    @Test
-    public void execute_find_isNotCaseSensitive() throws Exception {
-        TestDataHelper helper = new TestDataHelper();
-        Task p1 = helper.generateEventTaskWithAll("bla bla KEY bla", "blah blah blah", "11-10-2016", "1500" , "1800", "tag");
-        Task p2 = helper.generateEventTaskWithAll("bla KEY bla bceofeia", "hello world","06-12-2016", "1800" , "1900", "blah");
-        Task p3 = helper.generateEventTaskWithAll("key key", "say goodbye", "03-10-2016", "1300" , "1400", "hi");
-        Task p4 = helper.generateEventTaskWithAll("KEy sduauo", "move", "10-09-2016", "1200" , "1800", "bye");
+	@Test
+	public void execute_find_isNotCaseSensitive() throws Exception {
+		TestDataHelper helper = new TestDataHelper();
+		Task p1 = helper.generateEventTaskWithAll("bla bla KEY bla", "blah blah blah", "11-10-2016", "1500", "1800",
+				"tag");
+		Task p2 = helper.generateEventTaskWithAll("bla KEY bla bceofeia", "hello world", "06-12-2016", "1800", "1900",
+				"blah");
+		Task p3 = helper.generateEventTaskWithAll("key key", "say goodbye", "03-10-2016", "1300", "1400", "hi");
+		Task p4 = helper.generateEventTaskWithAll("KEy sduauo", "move", "10-09-2016", "1200", "1800", "bye");
 
-        List<Task> fourTasks = helper.generateTaskList(p3, p1, p4, p2);
-        ListOfTask expectedAB = helper.generateListOfTask(fourTasks);
-        List<Task> expectedList = fourTasks;
-        helper.addToModel(model, fourTasks);
+		List<Task> fourTasks = helper.generateTaskList(p3, p1, p4, p2);
+		ListOfTask expectedAB = helper.generateListOfTask(fourTasks);
+		List<Task> expectedList = fourTasks;
+		helper.addToModel(model, fourTasks);
 
-        assertCommandBehavior("find KEY",
-                Command.getMessageForTaskListShownSummary(expectedList.size()),
-                expectedAB,
-                expectedList);
-    }
+		assertCommandBehavior("find KEY", Command.getMessageForTaskListShownSummary(expectedList.size()), expectedAB,
+				expectedList);
+	}
 
-    @Test
-    public void execute_find_matchesIfAnyKeywordPresent() throws Exception {
-        TestDataHelper helper = new TestDataHelper();
-        Task pTarget1 = helper.generateEventTaskWithAll("bla bla KEY bla", "blah blah blah", "11-10-2016", "1500" , "1800", "tag");
-        Task pTarget2 = helper.generateEventTaskWithAll("bla rAnDoM bla bceofeia", "hello world", "22-09-2016", "1100" , "1800", "blah");
-        Task pTarget3 = helper.generateEventTaskWithAll("key key", "move around", "06-10-2017", "1100" , "1200", "hi");
-        Task p1 = helper.generateEventTaskWithAll("sduauo", "jump", "02-03-2016", "1300" , "1400", "bye");
+	@Test
+	public void execute_find_matchesIfAnyKeywordPresent() throws Exception {
+		TestDataHelper helper = new TestDataHelper();
+		Task pTarget1 = helper.generateEventTaskWithAll("bla bla KEY bla", "blah blah blah", "11-10-2016", "1500",
+				"1800", "tag");
+		Task pTarget2 = helper.generateEventTaskWithAll("bla rAnDoM bla bceofeia", "hello world", "22-09-2016", "1100",
+				"1800", "blah");
+		Task pTarget3 = helper.generateEventTaskWithAll("key key", "move around", "06-10-2017", "1100", "1200", "hi");
+		Task p1 = helper.generateEventTaskWithAll("sduauo", "jump", "02-03-2016", "1300", "1400", "bye");
 
-        List<Task> fourTasks = helper.generateTaskList(pTarget1, p1, pTarget2, pTarget3);
-        ListOfTask expectedAB = helper.generateListOfTask(fourTasks);
-        List<Task> expectedList = helper.generateTaskList(pTarget1, pTarget2, pTarget3);
-        helper.addToModel(model, fourTasks);
+		List<Task> fourTasks = helper.generateTaskList(pTarget1, p1, pTarget2, pTarget3);
+		ListOfTask expectedAB = helper.generateListOfTask(fourTasks);
+		List<Task> expectedList = helper.generateTaskList(pTarget1, pTarget2, pTarget3);
+		helper.addToModel(model, fourTasks);
 
-        assertCommandBehavior("find key rAnDoM", 
-                Command.getMessageForTaskListShownSummary(expectedList.size()),
-                expectedAB,
-                expectedList);
-    }
-
+		assertCommandBehavior("find key rAnDoM", Command.getMessageForTaskListShownSummary(expectedList.size()),
+				expectedAB, expectedList);
+	}
 
     /**
      * A utility class to generate test data.
@@ -731,7 +756,7 @@ public class LogicManagerTest {
                     new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1)))
             );
         }
-
+        
         /** Generates the correct add command based on the person given */
         String generateAddCommand(Task p) {
             StringBuffer cmd = new StringBuffer();
@@ -963,7 +988,5 @@ public class LogicManagerTest {
                     new UniqueTagList()
             );
         }
-        
-        
-    }
+     }
 }
