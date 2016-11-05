@@ -429,7 +429,7 @@ Priority | As a ... | I want to ... | So that I can...
 
 > Windows, Linux, Unix, OS-X
 
-<!--@@author-->
+<!--@@author--> <!--@@author A0139024M-->
 ## Appendix E : Product Survey
 
 Product Name | Strengths | Weaknesss
