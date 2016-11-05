@@ -95,19 +95,12 @@ public interface ReadOnlyTask {
      * Checks if the date of the task matches user requested date based on its recurring frequency.
      */
     default boolean recurringMatchesRequestedDate(Calendar task, String frequency, Calendar requested) {
-        if (!task.getTime().equals(new Date(0)) && !requested.getTime().equals(new Date (0))) {
-            if (frequency.equals("daily")) {
+        if (!task.getTime().equals(new Date(0)) && !requested.getTime().equals(new Date (0))
+                && (frequency.equals("daily")
+                    || (frequency.equals("weekly") && task.get(Calendar.DAY_OF_WEEK) == requested.get(Calendar.DAY_OF_WEEK))
+                    || (frequency.equals("monthly") && task.get(Calendar.DAY_OF_MONTH) == requested.get(Calendar.DAY_OF_MONTH))
+                    || (frequency.equals("yearly") && task.get(Calendar.DAY_OF_YEAR) == requested.get(Calendar.DAY_OF_YEAR)))) {
                 return true;
-            }
-            else if (frequency.equals("weekly") && task.get(Calendar.DAY_OF_WEEK) == requested.get(Calendar.DAY_OF_WEEK)) {
-                return true;
-            }
-            else if (frequency.equals("monthly") && task.get(Calendar.DAY_OF_MONTH) == requested.get(Calendar.DAY_OF_MONTH)) {
-                return true;
-            }
-            else if (frequency.equals("yearly") && task.get(Calendar.DAY_OF_YEAR) == requested.get(Calendar.DAY_OF_YEAR)) {
-                return true;
-            }
         }
         return false;
     }
