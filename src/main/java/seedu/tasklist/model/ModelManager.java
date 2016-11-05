@@ -184,17 +184,10 @@ public class ModelManager extends ComponentManager implements Model {
 	}
 
 	@Override
-	public synchronized void updateTask(Task taskToUpdate, TaskDetails taskDetails, String startTime,
-			String endTime, Priority priority, String frequency)
+	public synchronized void updateTask(Task taskToUpdate, TaskDetails taskDetails, String startTime, String endTime, Priority priority, String frequency)
 					throws IllegalValueException {
-	    StartTime originalStartTime = new StartTime(taskToUpdate.getStartTime().toString());
-	    EndTime originalEndTime = new EndTime(taskToUpdate.getEndTime().toString());
-	    if (taskToUpdate.getStartTime().isMissing()) {
-	        originalStartTime = new StartTime("");
-	    }
-	    if (taskToUpdate.getEndTime().isMissing()) {
-            originalEndTime = new EndTime("");
-        }
+	    StartTime originalStartTime = (taskToUpdate.getStartTime().isMissing()) ? new StartTime("") : new StartTime(taskToUpdate.getStartTime().toString());
+	    EndTime originalEndTime = (taskToUpdate.getEndTime().isMissing()) ? new EndTime("") : new EndTime(taskToUpdate.getEndTime().toString());
 	    
 	    Task originalTask = new Task(taskToUpdate.getTaskDetails(), originalStartTime, originalEndTime, taskToUpdate.getPriority(), taskToUpdate.getRecurringFrequency());
 		taskList.updateTask(taskToUpdate, taskDetails, startTime, endTime, priority, frequency);		
