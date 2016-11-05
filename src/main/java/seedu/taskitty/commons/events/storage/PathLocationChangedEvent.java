@@ -7,7 +7,7 @@ import seedu.taskitty.commons.events.BaseEvent;
  * Indicates that storage path location has changed
  */
 public class PathLocationChangedEvent extends BaseEvent{
-    String pathLocation;
+    private String pathLocation;
     
     public PathLocationChangedEvent(String pathLocation) {
         this.pathLocation = pathLocation;

@@ -114,10 +114,7 @@ public class StorageManager extends ComponentManager implements Storage {
                 "Overwrite existing file?", ButtonType.YES, ButtonType.NO, ButtonType.CANCEL);
         alert.showAndWait();
 
-        if (alert.getResult() == ButtonType.NO) {
-            return false;
-        }
-        return true;
+        return alert.getResult() != ButtonType.NO;
     }
     
     //@@author

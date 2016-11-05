@@ -30,9 +30,6 @@ public class MainWindow extends UiPart {
 
     // Independent Ui parts residing in this Ui container
 
-    private TaskListPanel taskListPanel;
-    private TaskListPanel deadlineListPanel;
-    private TaskListPanel eventListPanel;
     private ResultDisplay resultDisplay;
     private static StatusBarFooter statusBarFooter;
     private CommandBox commandBox;
@@ -142,11 +139,11 @@ public class MainWindow extends UiPart {
     //@@author A0130853L
     public void fillInnerParts() {
 
-        taskListPanel = TaskListPanel.load(primaryStage, getTaskListPlaceholder(),
+        TaskListPanel.load(primaryStage, getTaskListPlaceholder(),
                 logic.getFilteredTaskList(), new TaskListPanel(), Task.TASK_COMPONENT_COUNT);
-        deadlineListPanel = TaskListPanel.load(primaryStage, getDeadlineListPlaceholder(),
+        TaskListPanel.load(primaryStage, getDeadlineListPlaceholder(),
                 logic.getFilteredDeadlineList(), new TaskListPanel(), Task.DEADLINE_COMPONENT_COUNT);
-        eventListPanel = TaskListPanel.load(primaryStage, getEventListPlaceholder(),
+        TaskListPanel.load(primaryStage, getEventListPlaceholder(),
                 logic.getFilteredEventList(), new TaskListPanel(), Task.EVENT_COMPONENT_COUNT);
         resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
         statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(),
