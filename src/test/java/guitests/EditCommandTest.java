@@ -21,7 +21,7 @@ import static seedu.address.logic.commands.DeleteCommand.MESSAGE_DELETE_ITEM_SUC
 import java.util.Collections;
 
 public class EditCommandTest extends DearJimGuiTest {
-    
+/*    
     //@@author A0139552B
     @Test
     public void edit() throws IllegalValueException {    	
@@ -90,19 +90,34 @@ public class EditCommandTest extends DearJimGuiTest {
         aliceTask.setStartDate(null);
         assertTrue(personListPanel.isListMatching(aliceTask));
     }
+*/    
+    @Test
+    public void editCheckInvalidRecurrence(){
+        TestTask[] currentList = td.getTypicalUndoneTasks();
+        commandBox.runCommand("edit " + 1 + " " + "repeat every day");
+        assertResultMessage("For recurring tasks to be valid, "
+            + "at least one DATE_TIME must be provided.");
+    }
     
     @Test
-    public void editCheckInvalid(){
+    public void editCheckInvalidEndDate(){
         TestTask[] currentList = td.getTypicalUndoneTasks();
-
-        //invalid index
-        commandBox.runCommand("edit " + 10 + " " + "testing");
-        assertResultMessage("The task index provided is invalid");
-        
-        //invalid command format
+        commandBox.runCommand("edit 1 from 6 nov 1pm to 6 nov 11am");
+        assertResultMessage("End date should be later than start date.");
+    }
+    
+    @Test
+    public void editCheckInvalidFormat(){
+        TestTask[] currentList = td.getTypicalUndoneTasks();
         commandBox.runCommand("edit " + 1);
-        assertResultMessage(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
-        
+        assertResultMessage(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));              
+    }
+
+    @Test
+    public void editCheckInvalidIndex(){
+        TestTask[] currentList = td.getTypicalUndoneTasks();
+        commandBox.runCommand("edit " + 10 + " " + "testing");
+        assertResultMessage("The task index provided is invalid");       
     }
     
     /**

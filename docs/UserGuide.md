@@ -324,7 +324,6 @@ Example:
 
 <br>
 
-
 **_Listing all done tasks_**
 
 Switches the task list view to the done list view, to show all done tasks in DearJim.<br>
