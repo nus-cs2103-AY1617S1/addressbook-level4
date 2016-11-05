@@ -218,7 +218,7 @@ public class Parser {
 
         case FreeTimeCommand.COMMAND_WORD:
             return prepareFreeTimeCommand(arguments);
-            
+
         case PinCommand.COMMAND_WORD:
             return preparePinCommand(arguments);
 
@@ -1038,15 +1038,23 @@ public class Parser {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FreeTimeCommand.MESSAGE_USAGE));
         }
     }
-    
+
     private Command preparePinCommand(String args) {
         String[] argComponents = args.trim().split(DELIMITER_BLANK_SPACE);
-        if (argComponents.length != 2) {
+        if(argComponents.length == 1) {
+            if(argComponents[ZERO].equals(TASK_ARG_DATE)) {
+                return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, PinCommand.MESSAGE_MISSING_DATE));
+            } else if(argComponents[ZERO].equals(TASK_ARG_TAG)) {
+                return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, PinCommand.MESSAGE_MISSING_TAG));
+            } else {
+                return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, PinCommand.MESSAGE_USAGE));
+            }
+        } else if(argComponents.length <= 0) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, PinCommand.MESSAGE_USAGE));
+        } else {
+            String type = argComponents[ZERO];
+            String keyword = argComponents[ONE];
+            return new PinCommand(type, keyword);
         }
-        String type = argComponents[ZERO];
-        String keyword = argComponents[ONE];
-        return new PinCommand(type, keyword);
     }
-
 }
