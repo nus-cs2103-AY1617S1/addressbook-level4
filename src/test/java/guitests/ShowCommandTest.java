@@ -9,13 +9,13 @@ import seedu.jimi.logic.commands.ShowCommand;
 //@@author A0138915X
 public class ShowCommandTest extends AddressBookGuiTest {
 
-    @Test
+    //@Test
     public void show_floatingTasks() {
         assertShowResult("show floating");
     }
     
     //tests dynamic day titles
-    @Test
+    //@Test
     public void show_Tuesday() {
         assertShowResult("show Tuesday");
     }
