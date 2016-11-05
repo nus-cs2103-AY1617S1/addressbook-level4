@@ -44,6 +44,14 @@ public class CalendarItemFilter {
      * 
      * If there is no eventType specified, we will filter both.
      * 
+     * <ol>
+     * <li>If no "task"/"event" token, and no eventStatus/taskStatus token, then filter both</li>
+     * <li>If "task" token found, then assert no eventStatus token</li>
+     * <li>If "event" token found, then assert no taskStatus token</li>
+     * <li>If no token found, then use eventStatus and taskStatus tokens to guess</li>
+     * <li>Assert that eventStatus and taskStatus tokens cannot both be present</li>
+     * </ol>
+     * 
      * @param parsedResult
      * @return {isTask, isEvent}
      */
