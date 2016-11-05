@@ -39,6 +39,7 @@ SmartyDo is a **to-do-list** application. With SmartyDo, forgetting upcoming dea
 **Visual Panel** is where you can see a comprehensive list of your tasks.<br>
 **Message Box** shows the result of your command.<br>
 
+<!-- @@author A0126649W -->
 ## 3. Getting Started
 In this section, you will be introduced to the various commands that you will need when using SmartyDo. These commands will be described to you in the format described below.
 **Command Format**<br>
@@ -60,6 +61,7 @@ If you wish to get help on using SmartyDo, you may enter `help` into the Command
 <img src="images/helpCommand.png" width="500" align="middle"><br>Figure 2. SmartyDo's Help Command<br>
 
 After entering the command, a new window will appear showing you a summary of all commands and keyboard shortcuts.
+<!-- @@author  -->
 
 ### 3.2. **Choosing Your Save Location**
 
@@ -120,6 +122,7 @@ Let's say you want to add task named "Presentation" which is scheduled for 18 Ju
 
 After entering the command, MessageBox will show you task is successfully added into SmartyDo and you will see the updated list of task in the VisualBox.
 
+<!-- @@author A0126649W -->
 ### 3.5. **Editing Task Details**
 
 You might want to edit details of a task for several reasons. For example, when deadline was extended you will need to update the SmartyDo for this change. Using `edit` command will solve this problem.
@@ -164,6 +167,7 @@ You have now completed the task named "Presentation" and now you want to mark th
 <img src="images/doneCommand.png" width="250" align="middle"><br>Figure 8. Example of done command<br>
 
 After entering the `done` command, you are now able to identify the completed task easily from the list.
+<!-- @@author  -->
 
 ### 3.8. **Undoing and Redoing**
 
@@ -268,6 +272,7 @@ SmartyDo will automatically save your data in the hard disk after any command th
 
 ## 5. Summary
 
+<!-- @@author A0126649W -->
 ### 5.1. **Command Summary**
 |**Command**|**Parameters**|**Format**|
 |:---------:|:--------:|-------|
@@ -287,6 +292,7 @@ SmartyDo will automatically save your data in the hard disk after any command th
 |Clear    ||`clear`|
 |Exit     ||`exit`|
 Table 5. Command Summary
+<!-- @@author  -->
 
 ### 5.2. **Keyboard Shortcuts**
 |**Command**|**Shortcut**|

@@ -293,6 +293,7 @@ Priority | As a ... | I want to ... | So that I can...
 `* *` | user | undo  1 previous operation | remove commands executed by accident   
 `* *` | user | specify a target folder as the data storage location | synchronise file with other applications
 
+<!-- @@author A0126649W -->
 ## 7.2 Appendix B : Use Cases
 
 (For all use cases below, the **System** is the `SmartyDo` and the **Actor** is the `user`, unless specified otherwise)
@@ -472,6 +473,7 @@ Use case ends.
 3. Should come with automated unit tests and open source code.
 4. Should favor DOS style commands over Unix-style commands.
 
+<!-- @@author -->
 ## 7.4 Appendix D : Glossary
 
 ##### Mainstream OS
