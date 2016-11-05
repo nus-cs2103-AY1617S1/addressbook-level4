@@ -7,7 +7,6 @@ package seedu.address.logic.commands;
  * For outdated recurring tasks, its date and time will be shown based on its next occurrence 
  * from today's date and time
  */
-
 public class RefreshCommand extends Command {
 
     public static final String COMMAND_WORD = "refresh";

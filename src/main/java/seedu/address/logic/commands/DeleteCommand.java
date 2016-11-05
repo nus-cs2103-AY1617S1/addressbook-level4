@@ -20,7 +20,6 @@ import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
  * Deletes a task identified using its last displayed index or name from the
  * toDoList.
  */
-
 public class DeleteCommand extends Command {
 
     public static final String COMMAND_WORD = "delete";
@@ -36,39 +35,34 @@ public class DeleteCommand extends Command {
 
     public static final String MESSAGE_DELETE_TASK_SUCCESS = "Deleted Task: %1$s";
     public static final String MESSAGE_DELETE_EVENT_SUCCESS = "Deleted Event: %1$s";
-    public static final String MESSAGE_DELETE_NOT_FOUND = "Task to delete is not found: %1$s";
-    public static final String MESSAGE_DELETE_INVALID_INDEX="The task index provided is invalid";
-
-    private static final Pattern KEYWORDS_ARGS_FORMAT = Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one
-                                                                                                           // or
-                                                                                                           // more
-                                                                                                           // keywords
-                                                                                                           // separated
-                                                                                                           // by
-                                                                                                           // whitespace
+    public static final String MESSAGE_DELETE_NOT_FOUND = "Task to delete is not found";
+    public static final String MESSAGE_DELETE_INVALID_INDEX = "The task index provided is invalid";
+    // one or more keywords separated by whitespace
+    private static final Pattern KEYWORDS_ARGS_FORMAT = Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)");
 
     public final int targetIndex;
     public final String name;
 
     /**
-     * construct DeleteCommand by index
+     * construct DeleteCommand by index. Precondition: targetIndex is a valid
+     * non-negative integer.
      * 
-     * @param targetIndex
+     * @param targetIndex.
      */
-
     public DeleteCommand(int targetIndex) {
+        assert targetIndex >= 0;
         this.targetIndex = targetIndex;
         this.name = null;
     }
 
     /**
-     * construct DeleteCommand by name
+     * construct DeleteCommand by name. Precondition: name is not null.
      * 
-     * @param name
-     * @param k
+     * @param name.
+     * @param k.
      */
-
     public DeleteCommand(String name) {
+        assert name != null;
         this.name = name;
         this.targetIndex = Integer.MIN_VALUE;
     }
@@ -91,25 +85,24 @@ public class DeleteCommand extends Command {
     }
 
     /**
-     * return taskToBeDeleted found by targetIndex
+     * return taskToBeDeleted found by targetIndex.
      * 
-     * @param lastShownList
-     * @return task to be deleted
+     * @param lastShownList.
+     * @return task to be deleted.
      */
-
     private ReadOnlyTask prepareDeleteTaskbyIndex(UnmodifiableObservableList<ReadOnlyTask> lastShownList) {
         return lastShownList.get(targetIndex - 1);
     }
 
     /**
-     * shown all task names with one or more occurrences of the input parameters
+     * shown all task names with one or more occurrences of the input
+     * parameters.
      * 
-     * @return commandResult
+     * @return commandResult.
      */
-
     private CommandResult prepareDeleteTaskWithName() {
         final Matcher matcher = KEYWORDS_ARGS_FORMAT.matcher(name.trim());
-        if (!matcher.matches()) {
+        if ( ! matcher.matches()) {
             return new CommandResult(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
         }
         final String[] keywords = matcher.group("keywords").split("\\s+");
@@ -119,6 +112,7 @@ public class DeleteCommand extends Command {
             indicateAttemptToExecuteIncorrectCommand();
             return new CommandResult(MESSAGE_DELETE_NOT_FOUND);
         } else {
+            indicateAttemptToExecuteIncorrectCommand();
             return new CommandResult(MESSAGE_DELETE_SAME_NAME);
         }
     }
@@ -129,7 +123,6 @@ public class DeleteCommand extends Command {
      * @param taskToDelete
      * @return commandResult
      */
-
     private CommandResult deleteTask(ReadOnlyTask taskToDelete) {
         try {
             model.deleteTask(taskToDelete);
@@ -148,7 +141,6 @@ public class DeleteCommand extends Command {
      * @param TaskToDelete
      * @return String
      */
-
     private static String getDeleteSuccessMessage(ReadOnlyTask TaskToDelete) {
         if (TaskToDelete.isEvent()) {
             return MESSAGE_DELETE_EVENT_SUCCESS;

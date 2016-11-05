@@ -11,7 +11,6 @@ import seedu.address.model.task.ReadOnlyTask;
 /**
  * Mark the specified task or event as done.
  */
-
 public class DoneCommand extends Command {
 
     public static final String COMMAND_WORD = "done";
@@ -26,35 +25,46 @@ public class DoneCommand extends Command {
 
     private final Set<String> keywords;
     public final int targetIndex;
-
+/**
+ * create a DoneCommand by a set of keywords
+ * Precon: keywords cannot be null
+ * @param keywords
+ */
     public DoneCommand(Set<String> keywords) {
+        assert keywords != null;
         this.keywords = keywords;
         targetIndex = -1;
     }
+    /**
+     * create a DoneCommand with index
+     * Precon: indexToMark should be non-negative integer
+     * @param indexToMark
+     */
 
     public DoneCommand(int indexToMark) {
+        assert indexToMark >= 0;
         keywords = null;
         targetIndex = indexToMark;
     }
 
     @Override
     public CommandResult execute() {
-        if (keywords != null && targetIndex == -1) {
+        if (isMarkedByName()) {
             return markAsDoneByName();
-        } else if (keywords == null && targetIndex != -1) {
+        } else if (isMarkedByIndex()) {
             return markAsDoneByIndex();
         } else {
             indicateAttemptToExecuteIncorrectCommand();
             return new CommandResult(DoneCommand.MESSAGE_USAGE);
         }
     }
+    
 
     /**
      * mark a task done by name
      * 
      * @return commandResult
      */
-
     private CommandResult markAsDoneByName() {
         model.updateFilteredTaskList(keywords);
         if (model.getFilteredTaskList().size() == 0) {
@@ -70,11 +80,8 @@ public class DoneCommand extends Command {
      * 
      * @return commandResult
      */
-
-    private CommandResult markAsDoneByIndex() {
-
+       private CommandResult markAsDoneByIndex() {
         ReadOnlyTask taskToMark = null;
-        ;
         UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
         if (lastShownList.size() < targetIndex) {
             indicateAttemptToExecuteIncorrectCommand();
@@ -86,16 +93,31 @@ public class DoneCommand extends Command {
 
     /**
      * mark a task in the parameter input as done
-     * 
+     * Precon: task to be marked as done should not be null
      * @param task
      * @return
      */
-
     private CommandResult markTaskDone(ReadOnlyTask task) {
+        assert task!=null;
         model.markTask(task);
         String message = String.format(MARK_DONE_SUCCESS, task);
         model.saveState(message);
         return new CommandResult(message);
     }
 
+    /**
+     * check if the mark command done by index request is issued
+     * @return true if the DoneCommand is to mark an item as done by index
+     */
+    private boolean isMarkedByIndex() {
+        return keywords == null && targetIndex != -1;
+    }
+    
+    /**
+     * check if the mark command done by name request is issued
+     * @return true if the DoneCommand is to mark an item as done by name
+     */
+    private boolean isMarkedByName() {
+        return keywords != null && targetIndex == -1;
+    }
 }

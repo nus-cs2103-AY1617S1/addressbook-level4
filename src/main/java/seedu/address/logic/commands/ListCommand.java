@@ -7,7 +7,7 @@ package seedu.address.logic.commands;
  */
 public class ListCommand extends Command {
     
-    public enum listType{
+    public enum ListType{
         TASKS,EVENTS,DONE,UNDONE,INVALID
     }
 
@@ -28,15 +28,15 @@ public class ListCommand extends Command {
     public static final String MESSAGE_INVALID_LIST_COMMAND = "The list command argument provided is invalid."
             + MESSAGE_USAGE;
     
-    private listType toList=null;
+    private ListType toList=null;
     
     public ListCommand() {}
     
     public ListCommand(String typeToList){
         try{
-        toList=Enum.valueOf(listType.class,typeToList.trim().toUpperCase());
+        toList=Enum.valueOf(ListType.class,typeToList.trim().toUpperCase());
         }catch(IllegalArgumentException e){
-            toList=listType.INVALID;
+            toList=ListType.INVALID;
         }
     }
 

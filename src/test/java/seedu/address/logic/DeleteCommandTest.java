@@ -15,7 +15,6 @@ import seedu.address.model.task.Task;
 /*
  * Responsible for testing the correct execution of DeleteCommand
  */
-
 public class DeleteCommandTest extends CommandTest{
     
     /*

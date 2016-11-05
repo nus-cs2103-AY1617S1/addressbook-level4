@@ -15,7 +15,7 @@ import java.util.Set;
 public class AddCommand extends Command {
 
     public static final String COMMAND_WORD = "add";
-    //@@author A0146123R
+    // @@author A0146123R
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Add an event with a starting and ending date or a task (with or without deadline) to the task manager.\n"
             + "Parameters: n/EVENT_NAME s/START_DATE e/END_DATE [p/PRIORITY_LEVEL] [t/TAG]... or n/TASK_NAME [d/DEADLINE] [p/PRIORITY_LEVEL] [t/TAG]...\n"
@@ -28,64 +28,55 @@ public class AddCommand extends Command {
 
     private final Task toAdd;
 
-    //@@author A0142325R
+    // @@author A0142325R
+
     /**
      * Convenience constructor using raw values.
-     *
+     * 
      * @throws IllegalValueException
      *             if any of the raw values are invalid
      */
-    public AddCommand(String name, String deadline, Set<String> tags, String freq, int priorityLevel) throws Exception{
+    public AddCommand(String name, String deadline, Set<String> tags, String freq, int priorityLevel) throws Exception {
         final Set<Tag> tagSet = new HashSet<>();
         for (String tagName : tags) {
             tagSet.add(new Tag(tagName));
         }
-        if (deadline != "" && freq != "") {
+        if (isRecurringDeadlineTask(deadline, freq)) {
             this.toAdd = new Task(new Name(name), new Deadline(deadline), new UniqueTagList(tagSet),
                     new Recurring(freq), new Priority(priorityLevel));
-        } else if (deadline != "") {
-            this.toAdd = new Task(new Name(name), new Deadline(deadline), new UniqueTagList(tagSet), new Priority(priorityLevel));
-        } else if(deadline==""&&freq==""){
+        } else if (isNonRecurringDeadlineTask(deadline, freq)) {
+            this.toAdd = new Task(new Name(name), new Deadline(deadline), new UniqueTagList(tagSet),
+                    new Priority(priorityLevel));
+        } else if (isFloatingTask(deadline, freq)) {
             this.toAdd = new Task(new Name(name), new UniqueTagList(tagSet), new Priority(priorityLevel));
-        }else{
-            this.toAdd=null;
-            MissingRecurringDateException();
+        } else {
+            this.toAdd = null;
+            assert false;
         }
     }
 
     /**
-     * Convenience constructor using raw values.
-     *
+     * Convenience constructor using raw values. Precondition: startDate and
+     * endDate cannot be empty
+     * 
      * @throws IllegalValueException
      *             if any of the raw values are invalid
      */
     public AddCommand(String name, String startDate, String endDate, Set<String> tags, String freq, int priorityLevel)
             throws Exception {
+        assert startDate != "" && endDate != "";
         final Set<Tag> tagSet = new HashSet<>();
         for (String tagName : tags) {
             tagSet.add(new Tag(tagName));
         }
-        if (!freq.equals("") && !startDate.equals("")) {
+        if ( ! freq.equals("")) {
             this.toAdd = new Task(new Name(name), new EventDate(startDate, endDate), new UniqueTagList(tagSet),
                     new Recurring(freq), new Priority(priorityLevel));
-        } else if (!startDate.equals("")&&freq.equals("")) {
-            this.toAdd = new Task(new Name(name), new EventDate(startDate, endDate), new UniqueTagList(tagSet), new Priority(priorityLevel));
-        } else{
-            MissingRecurringDateException();
-            this.toAdd=null;
+        } else {
+            this.toAdd = new Task(new Name(name), new EventDate(startDate, endDate), new UniqueTagList(tagSet),
+                    new Priority(priorityLevel));
         }
-    }
-
-    @Override
-    public CommandResult execute() {
-        assert model != null;
-  
-            model.addTask(toAdd);
-            String message = String.format(getSuccessMessage(toAdd), toAdd);
-            model.saveState(message);
-            return new CommandResult(message);
-        
-        
+       
     }
 
     public static String getSuccessMessage(Task toAdd) {
@@ -96,8 +87,49 @@ public class AddCommand extends Command {
         }
     }
 
-    private MissingRecurringDateException MissingRecurringDateException() throws MissingRecurringDateException{
-            return new MissingRecurringDateException("Recurring task must have a deadline");
+    @Override
+    public CommandResult execute() {
+        assert model != null;
+
+        model.addTask(toAdd);
+        String message = String.format(getSuccessMessage(toAdd), toAdd);
+        model.saveState(message);
+
+        return new CommandResult(message);
+
+    }
+
+    /**
+     * checks if the task to be added is non-recurring deadline task
+     * 
+     * @param deadline
+     * @param freq
+     * @return
+     */
+    private boolean isNonRecurringDeadlineTask(String deadline, String freq) {
+        return deadline != "" && freq == "";
+    }
+
+    /**
+     * checks if the task to be added is a floating task
+     * 
+     * @param deadline
+     * @param freq
+     * @return
+     */
+    private boolean isFloatingTask(String deadline, String freq) {
+        return deadline == "" && freq == "";
+    }
+
+    /**
+     * checks if the task to be added is a recurring deadline task
+     * 
+     * @param deadline
+     * @param freq
+     * @return
+     */
+    private boolean isRecurringDeadlineTask(String deadline, String freq) {
+        return deadline != "" && freq != "";
     }
 
 }

@@ -60,7 +60,7 @@ public class Parser {
      */
     public Command parseCommand(String userInput) {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
-        if (!matcher.matches()) {
+        if ( ! matcher.matches()) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
         }
 
@@ -154,12 +154,12 @@ public class Parser {
     private Command prepareMarkAsDone(String args) {
         Optional<Integer> index = parseIndex(args);
         String name = args;
-        if (!index.isPresent()) {
+        if ( ! index.isPresent()) {
             if (name == null || name.equals("")) {
                 return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
             }
             final Matcher matcher = KEYWORDS_ARGS_FORMAT.matcher(args.trim());
-            if (!matcher.matches()) {
+            if ( ! matcher.matches()) {
                 return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
             }
 
@@ -184,7 +184,7 @@ public class Parser {
         ArgumentTokenizer argsTokenizer = new ArgumentTokenizer(deadlinePrefix, namePrefix, tagPrefix, startDatePrefix,
                 endDatePrefix, recurringPrefix, priorityPrefix);
         argsTokenizer.tokenize(args);
-        if (!argsTokenizer.isPresent(namePrefix)) {
+        if ( ! argsTokenizer.isPresent(namePrefix)) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
         try {
@@ -231,7 +231,10 @@ public class Parser {
      */
 
     private Command prepareAddFloatingTaskCommand(ArgumentTokenizer argsTokenizer) throws Exception {
-        if (!argsTokenizer.isPresent(priorityPrefix)) {
+        if (argsTokenizer.isPresent(recurringPrefix)) {
+            throw new MissingRecurringDateException("Recurring task must have a deadline");
+        }
+        if ( ! argsTokenizer.isPresent(priorityPrefix)) {
             return new AddCommand(argsTokenizer.getValue(namePrefix).get(), "",
                     toSet(argsTokenizer.getAllValues(tagPrefix)), "", 0);
         } else {
@@ -250,7 +253,7 @@ public class Parser {
      */
 
     private Command prepareAddEventCommand(ArgumentTokenizer argsTokenizer) throws Exception {
-        if (!argsTokenizer.isPresent(recurringPrefix)) {
+        if ( ! argsTokenizer.isPresent(recurringPrefix)) {
             return prepareAddRecurringEvent(argsTokenizer);
         } else {
             return prepareAddNonRecurringEvent(argsTokenizer);
@@ -266,7 +269,7 @@ public class Parser {
      */
 
     private Command prepareAddRecurringDeadlineTask(ArgumentTokenizer argsTokenizer) throws Exception {
-        if (!argsTokenizer.isPresent(priorityPrefix)) {
+        if ( ! argsTokenizer.isPresent(priorityPrefix)) {
             return new AddCommand(argsTokenizer.getValue(namePrefix).get(),
                     argsTokenizer.getValue(deadlinePrefix).get(), toSet(argsTokenizer.getAllValues(tagPrefix)),
                     argsTokenizer.getValue(recurringPrefix).get(), 0);
@@ -287,7 +290,7 @@ public class Parser {
      */
 
     private Command prepareAddRecurringEvent(ArgumentTokenizer argsTokenizer) throws Exception {
-        if (!argsTokenizer.isPresent(priorityPrefix)) {
+        if ( ! argsTokenizer.isPresent(priorityPrefix)) {
             return new AddCommand(argsTokenizer.getValue(namePrefix).get(),
                     argsTokenizer.getValue(startDatePrefix).get(), argsTokenizer.getValue(endDatePrefix).get(),
                     toSet(argsTokenizer.getAllValues(tagPrefix)), "", 0);
@@ -308,7 +311,7 @@ public class Parser {
      */
 
     private Command prepareAddNonRecurringDeadlineTask(ArgumentTokenizer argsTokenizer) throws Exception {
-        if (!argsTokenizer.getTokenizedArguments().containsKey(priorityPrefix)) {
+        if ( ! argsTokenizer.getTokenizedArguments().containsKey(priorityPrefix)) {
             return new AddCommand(argsTokenizer.getValue(namePrefix).get(),
                     argsTokenizer.getValue(deadlinePrefix).get(), toSet(argsTokenizer.getAllValues(tagPrefix)), "", 0);
         } else {
@@ -327,7 +330,7 @@ public class Parser {
      */
 
     private Command prepareAddNonRecurringEvent(ArgumentTokenizer argsTokenizer) throws Exception {
-        if (!argsTokenizer.isPresent(priorityPrefix)) {
+        if ( ! argsTokenizer.isPresent(priorityPrefix)) {
             return new AddCommand(argsTokenizer.getValue(namePrefix).get(),
                     argsTokenizer.getValue(startDatePrefix).get(), argsTokenizer.getValue(endDatePrefix).get(),
                     toSet(argsTokenizer.getAllValues(tagPrefix)), argsTokenizer.getValue(recurringPrefix).get(), 0);
@@ -354,7 +357,7 @@ public class Parser {
     private Command prepareDelete(String args) {
         Optional<Integer> index = parseIndex(args);
         String name = args;
-        if (!index.isPresent()) {
+        if ( ! index.isPresent()) {
             if (name == null || name.equals("")) {
                 return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
             }
@@ -375,7 +378,7 @@ public class Parser {
      */
     private Command prepareSelect(String args) {
         Optional<Integer> index = parseIndex(args);
-        if (!index.isPresent()) {
+        if ( ! index.isPresent()) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SelectCommand.MESSAGE_USAGE));
         }
 
@@ -389,12 +392,12 @@ public class Parser {
      */
     private Optional<Integer> parseIndex(String command) {
         final Matcher matcher = TASK_INDEX_ARGS_FORMAT.matcher(command.trim());
-        if (!matcher.matches()) {
+        if ( ! matcher.matches()) {
             return Optional.empty();
         }
 
         String index = matcher.group("targetIndex");
-        if (!StringUtil.isUnsignedInteger(index)) {
+        if ( ! StringUtil.isUnsignedInteger(index)) {
             return Optional.empty();
         }
         return Optional.of(Integer.parseInt(index));
@@ -411,7 +414,7 @@ public class Parser {
     // @@author A0146123R
     private Command prepareFind(String args) {
         final Matcher matcher = KEYWORDS_ARGS_FORMAT.matcher(args.trim());
-        if (!matcher.matches()) {
+        if ( ! matcher.matches()) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
         }
 
@@ -429,6 +432,7 @@ public class Parser {
 
     /**
      * prepare to create list command
+     * 
      * @param args
      * @return
      */
@@ -497,10 +501,10 @@ public class Parser {
      */
     private Command prepareEdit(String args) {
         final Matcher matcher = EDIT_FORMAT.matcher(args.trim());
-        if (!matcher.matches()) {
+        if ( ! matcher.matches()) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
         }
-        if (!matcher.group("name").isEmpty() && !matcher.group("edit").isEmpty()) {
+        if ( ! matcher.group("name").isEmpty() && ! matcher.group("edit").isEmpty()) {
             String name = matcher.group("name");
             String type = matcher.group("edit");
             String index = matcher.group("index");
