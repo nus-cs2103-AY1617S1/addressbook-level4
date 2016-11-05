@@ -26,4 +26,9 @@ public class ParserMemoryMain {
     public static void setCommand(String newCommand) { 
         command = newCommand;
     }
+    
+    //@@author A0143378Y
+    public static void setTaskName(String newName) { 
+        taskName = newName;
+    }
 }
