@@ -120,7 +120,7 @@ The `UI` component,
 
 &nbsp;&nbsp;&nbsp;&nbsp;<b>3.4 Logic component</b>
 
-<img src="images/LogicClassDiagram.png" width="800"><br>
+<img src="images/LogicClassDiagram.png" width="600"><br>
 
 **API** : [`Logic.java`](../src/main/java/seedu/stask/logic/Logic.java)
 
