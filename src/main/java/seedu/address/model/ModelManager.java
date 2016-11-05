@@ -1,5 +1,6 @@
 package seedu.address.model;
 
+import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.UnmodifiableObservableList;
@@ -9,6 +10,7 @@ import seedu.address.model.activity.ReadOnlyActivity;
 import seedu.address.model.activity.UniqueActivityList;
 import seedu.address.model.activity.UniqueActivityList.DuplicateTaskException;
 import seedu.address.model.activity.UniqueActivityList.TaskNotFoundException;
+import seedu.address.model.activity.task.ReadOnlyTask;
 import seedu.address.model.activity.task.Task;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
@@ -129,24 +131,31 @@ public class ModelManager extends ComponentManager implements Model {
         return new UnmodifiableObservableList<>(filteredPersons);
     }
     
-  //@@author A0125284H
+  //@@author A0125284H A0131813R
   	@Override
-  	public UnmodifiableObservableList<ReadOnlyActivity> getFilteredOverdueTaskList() {
+  	public UnmodifiableObservableList<ReadOnlyTask> getFilteredOverdueTaskList() {
   		
   		FilteredList<Activity> filteredOverdueTaskList = new FilteredList<>(addressBook.getAllEntries());
   		System.out.println("Size before filtering :" + filteredOverdueTaskList.size());
   		
   		filteredOverdueTaskList.setPredicate(p->
   		p.getClass().getSimpleName().equals("Task"));
-
-  		System.out.println("Size after filtering :" + filteredOverdueTaskList.size());
   		
-  		return new UnmodifiableObservableList<>(filteredOverdueTaskList);
+  		FilteredList<Task> anotherList = (FilteredList<Task>) new FilteredList<>((ObservableList<? extends ReadOnlyTask>) filteredOverdueTaskList);
+  		
+  		anotherList.setPredicate(p->
+  		p.hasPassedDueDate() == true);
+
+  		System.out.println("Size after filtering :" + anotherList.size());
+  		
+  		return new UnmodifiableObservableList<ReadOnlyTask>((ObservableList<? extends ReadOnlyTask>) anotherList);
   	}
   	
   //@@author A0131813R
     @Override
     public void updateFilteredListToShowAll() {
+    	filteredPersons.setPredicate(p->
+    	p.getCompletionStatus() == false && p.getisOver() == false);
     	
     }
     

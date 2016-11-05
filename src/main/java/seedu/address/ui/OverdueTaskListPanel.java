@@ -11,6 +11,7 @@ import javafx.stage.Stage;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.PersonPanelSelectionChangedEvent;
 import seedu.address.model.activity.ReadOnlyActivity;
+import seedu.address.model.activity.task.ReadOnlyTask;
 
 /**
  * Panel containing the list of tasks that are already Overdue.
@@ -46,15 +47,15 @@ public class OverdueTaskListPanel extends ListPanel {
      * 
      * @param primaryStage
      * @param personListPlaceholder
-     * @param activityList - the function calling should make sure that an ActivityList consisting of only tasks are passed.
+     * @param taskList - the function calling should make sure that an ActivityList consisting of only tasks are passed.
      * @return
      */
 
 	public static OverdueTaskListPanel load(Stage primaryStage, AnchorPane personListPlaceholder,
-		                            	ObservableList<ReadOnlyActivity> activityList) {
+		                            	ObservableList<ReadOnlyActivity> taskList) {
 		OverdueTaskListPanel overdueActivitiesListPanel = 
 				UiPartLoader.loadUiPart(primaryStage, personListPlaceholder, new OverdueTaskListPanel());
-		overdueActivitiesListPanel.configure(activityList);
+		overdueActivitiesListPanel.configure(taskList);
 		return overdueActivitiesListPanel;
 	}
 	

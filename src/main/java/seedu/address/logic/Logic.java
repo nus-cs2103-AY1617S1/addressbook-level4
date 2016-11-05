@@ -3,6 +3,7 @@ package seedu.address.logic;
 import javafx.collections.ObservableList;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.model.activity.ReadOnlyActivity;
+import seedu.address.model.activity.task.ReadOnlyTask;
 
 /**
  * API of the Logic component
@@ -19,6 +20,6 @@ public interface Logic {
     ObservableList<ReadOnlyActivity> getFilteredPersonList();
     
     /** Returns the filtered list of overdue tasks */
-    ObservableList<ReadOnlyActivity> getFilteredOverdueTaskList();
+    ObservableList<ReadOnlyTask> getFilteredOverdueTaskList();
 
 }

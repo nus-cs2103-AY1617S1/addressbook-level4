@@ -6,6 +6,7 @@ import seedu.address.model.activity.ReadOnlyActivity;
 import seedu.address.model.activity.UniqueActivityList;
 import seedu.address.model.activity.UniqueActivityList.DuplicateTaskException;
 import seedu.address.model.activity.UniqueActivityList.TaskNotFoundException;
+import seedu.address.model.activity.task.ReadOnlyTask;
 import seedu.address.model.activity.task.Task;
 
 import java.util.Set;
@@ -46,13 +47,10 @@ public interface Model {
     UnmodifiableObservableList<ReadOnlyActivity> getFilteredTaskList();
 
     /** Returns the filtered overdue task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
-    UnmodifiableObservableList<ReadOnlyActivity> getFilteredOverdueTaskList();
+    UnmodifiableObservableList<ReadOnlyTask> getFilteredOverdueTaskList();
     
     /** Returns the filtered task list as an {@code UnmodifiableObservableList<Task>} */
     UnmodifiableObservableList<Activity> getFilteredTaskListForEditing();
-    
-    /** Returns the filtered list of Overdue Tasks, and Upcoming Tasks and Upcoming Events for the Dashboard*/
-    UnmodifiableObservableList<ReadOnlyActivity> getFilteredOverdueTaskList();
 
     /** Updates the filter of the filtered task list to show all tasks */
     void updateFilteredListToShowAll();
