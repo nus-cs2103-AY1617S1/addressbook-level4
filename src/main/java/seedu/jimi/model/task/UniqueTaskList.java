@@ -79,13 +79,19 @@ public class UniqueTaskList implements Iterable<ReadOnlyTask> {
     /**
      * Sets the selected task to be complete/incomplete.
      * @throws TaskNotFoundException 
+     * @throws DuplicateTaskException 
      */
-    public void complete(ReadOnlyTask toComplete, boolean isComplete) throws TaskNotFoundException {
+    public void complete(ReadOnlyTask toComplete, boolean isComplete)
+            throws TaskNotFoundException, DuplicateTaskException {
         assert toComplete != null;
         int targetIndex = internalList.indexOf(toComplete);
         
         if (targetIndex == -1) {
             throw new UniqueTaskList.TaskNotFoundException();
+        }
+        
+        if (toComplete.isCompleted() == isComplete) { // Trying to complete an already completed task.
+            throw new DuplicateTaskException();
         }
         
         if (toComplete instanceof DeadlineTask) {

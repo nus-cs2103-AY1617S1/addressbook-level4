@@ -121,10 +121,11 @@ public class ModelManager extends ComponentManager implements Model {
      * @param taskToComplete Task to set to complete/incomplete.
      * @param isComplete True, if task is to be set to completed.
      * @throws TaskNotFoundException 
+     * @throws DuplicateTaskException 
      */
     @Override
     public synchronized void completeTask(ReadOnlyTask taskToComplete, boolean isComplete)
-            throws TaskNotFoundException {
+            throws TaskNotFoundException, DuplicateTaskException {
         taskBook.completeTask(taskToComplete, isComplete);
         updateAllFilteredListsToNormalListing(); //refresh all filtered lists
         updateFilteredAgendaTaskList(ListId.COMPLETED); //show the completed tasks by default after execution
@@ -135,6 +136,16 @@ public class ModelManager extends ComponentManager implements Model {
     
     public Model clone() {
         return new ModelManager(new TaskBook(taskBook), new UserPrefs(userPrefs));
+    }
+    
+    @Override
+    public int getShownSize() {
+        return getFilteredAgendaEventList().size() + getFilteredAgendaTaskList().size();
+    }
+    
+    @Override
+    public UserPrefs getUserPrefs() {
+        return userPrefs;
     }
     
     /*
@@ -258,8 +269,7 @@ public class ModelManager extends ComponentManager implements Model {
         return this.filteredListManager.getSortedFilteredList(ListId.EVENTS_AGENDA);
     }
 
-    @Override
-    public UserPrefs getUserPrefs() {
-        return userPrefs;
-    }
+
+
+
 }

@@ -11,7 +11,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.junit.After;
 import org.junit.Before;
@@ -20,8 +19,6 @@ import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 
 import com.google.common.eventbus.Subscribe;
-import com.joestelmach.natty.DateGroup;
-import com.joestelmach.natty.Parser;
 
 import seedu.jimi.TestApp;
 import seedu.jimi.commons.core.Config;
@@ -34,7 +31,6 @@ import seedu.jimi.commons.util.ConfigUtil;
 
 import seedu.jimi.logic.Logic;
 import seedu.jimi.logic.LogicManager;
-import seedu.jimi.logic.commands.*;
 import seedu.jimi.model.TaskBook;
 import seedu.jimi.model.datetime.DateTime;
 import seedu.jimi.model.event.Event;
@@ -47,16 +43,11 @@ import seedu.jimi.logic.commands.DeleteCommand;
 import seedu.jimi.logic.commands.ExitCommand;
 import seedu.jimi.logic.commands.FindCommand;
 import seedu.jimi.logic.commands.HelpCommand;
-import seedu.jimi.logic.commands.ListCommand;
 import seedu.jimi.logic.commands.SaveAsCommand;
-import seedu.jimi.logic.commands.ShowCommand;
-import seedu.jimi.logic.commands.UndoCommand;
-
 
 import seedu.jimi.model.Model;
 import seedu.jimi.model.ModelManager;
 import seedu.jimi.model.ReadOnlyTaskBook;
-import seedu.jimi.model.TaskBook;
 import seedu.jimi.model.tag.Priority;
 import seedu.jimi.model.tag.Tag;
 import seedu.jimi.model.tag.UniqueTagList;
@@ -66,23 +57,6 @@ import seedu.jimi.model.task.Name;
 import seedu.jimi.model.task.ReadOnlyTask;
 import seedu.jimi.storage.StorageManager;
 import seedu.jimi.testutil.TestUtil;
-
-
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.TemporaryFolder;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Date;
-import java.util.List;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static seedu.jimi.commons.core.Messages.*;
 
 
 public class LogicManagerTest {
@@ -169,7 +143,7 @@ public class LogicManagerTest {
         assertEquals(expectedMessage, result.feedbackToUser);
         assertEquals(expectedShownTaskList, model.getFilteredAgendaTaskList());
         assertEquals(expectedShownEventList, model.getFilteredAgendaEventList());
-
+        
         //Confirm the state of data (saved and in-memory) is as expected
         assertEquals(expectedTaskBook, model.getTaskBook());
         assertEquals(expectedTaskBook, latestSavedTaskBook);
@@ -438,44 +412,8 @@ public class LogicManagerTest {
                 Collections.emptyList(),
                 expectedTB.getTaskList());
     }
-    
-    
-    
     // @@author
     
-//    @Test
-    public void execute_list_showsAllPersons() throws Exception {
-        // prepare expectations
-        TestDataHelper helper = new TestDataHelper();
-        TaskBook expectedAB = helper.generateTaskBook(2);
-        List<? extends ReadOnlyTask> expectedList = expectedAB.getTaskList();
-
-        // prepare address book state
-        helper.addToModel(model, 2);
-
-        assertCommandBehavior("list",
-                ListCommand.MESSAGE_SUCCESS,
-                expectedAB,
-                expectedList,
-                Collections.emptyList());
-        assertCommandBehavior("l",
-                ListCommand.MESSAGE_SUCCESS,
-                expectedAB,
-                expectedList,
-                Collections.emptyList());
-        assertCommandBehavior("li",
-                ListCommand.MESSAGE_SUCCESS,
-                expectedAB,
-                expectedList,
-                Collections.emptyList());
-        assertCommandBehavior("lis",
-                ListCommand.MESSAGE_SUCCESS,
-                expectedAB,
-                expectedList,
-                Collections.emptyList());
-    }
-
-
     /**
      * Confirms the 'invalid argument index number behaviour' for the given command
      * targeting a single person in the shown list, using visible index.
@@ -520,22 +458,22 @@ public class LogicManagerTest {
         helper.addToModel(model, 2);
 
         assertCommandBehavior("s all",
-                ShowCommand.MESSAGE_SUCCESS,
+                Command.getMessageForTaskListShownSummary(model.getShownSize()),
                 expectedAB,
                 expectedTaskList,
                 expectedEventList);
         assertCommandBehavior("sh all",
-                ShowCommand.MESSAGE_SUCCESS,
+                Command.getMessageForTaskListShownSummary(model.getShownSize()),
                 expectedAB,
                 expectedTaskList,
                 expectedEventList);
         assertCommandBehavior("sho all",
-                ShowCommand.MESSAGE_SUCCESS,
+                Command.getMessageForTaskListShownSummary(model.getShownSize()),
                 expectedAB,
                 expectedTaskList,
                 expectedEventList);
         assertCommandBehavior("show all",
-                ShowCommand.MESSAGE_SUCCESS,
+                Command.getMessageForTaskListShownSummary(model.getShownSize()),
                 expectedAB,
                 expectedTaskList,
                 expectedEventList);
@@ -666,7 +604,32 @@ public class LogicManagerTest {
                 expectedTB.getTaskList(),
                 Collections.emptyList());
     }
+    
+    // @@author A0140133B
+    @Test
+    public void execute_delete_removesCorrectRange() throws Exception {
+        // setup expectations
+        TestDataHelper helper = new TestDataHelper();
+        FloatingTask index0 = helper.generateFloatingTaskWithName("first");
+        FloatingTask index1 = helper.generateFloatingTaskWithName("second");
+        FloatingTask index2 = helper.generateFloatingTaskWithName("third");
+        
+        List<FloatingTask> threeFloatingTasks = helper.generateFloatingTaskList(index0, index1, index2);
+        String expectedMsg = String.format(DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS,
+                "1. " + threeFloatingTasks.get(0) + "\n" + "2. " + threeFloatingTasks.get(1));
+        List<FloatingTask> expectedList = helper.generateFloatingTaskList(index2);
+        TaskBook expectedTB = helper.generateFloatingTaskBook(expectedList);
 
+        helper.addToModel(model, threeFloatingTasks);
+        
+        // execute command and verify result     
+        assertCommandBehavior("delete t1 to t2",
+                expectedMsg,
+                expectedTB,
+                expectedList,
+                Collections.emptyList());
+    }
+    //@@ author
 
     @Test
     public void execute_find_invalidArgsFormat() throws Exception {
@@ -685,10 +648,10 @@ public class LogicManagerTest {
         FloatingTask p1 = helper.generateFloatingTaskWithName("KE Y");
         FloatingTask p2 = helper.generateFloatingTaskWithName("KEYKEYKEY sduauo");
 
-        List<FloatingTask> fourFloatingTasks = helper.generateFloatingTaskList(p1, pTarget1, p2, pTarget2);
-        TaskBook expectedAB = helper.generateFloatingTaskBook(fourFloatingTasks);
+        List<FloatingTask> testFloatingTasks = helper.generateFloatingTaskList(pTarget1, pTarget2, p1, p2);
+        TaskBook expectedAB = helper.generateFloatingTaskBook(testFloatingTasks);
         List<FloatingTask> expectedList = helper.generateFloatingTaskList(pTarget1, pTarget2, p1, p2);
-        helper.addToModel(model, fourFloatingTasks);
+        helper.addToModel(model, testFloatingTasks);
 
         assertCommandBehavior("find \"KEY\"",
                 Command.getMessageForTaskListShownSummary(expectedList.size()),

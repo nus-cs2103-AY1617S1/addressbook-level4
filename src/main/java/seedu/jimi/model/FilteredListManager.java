@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
@@ -17,6 +18,7 @@ import seedu.jimi.commons.core.UnmodifiableObservableList;
 import seedu.jimi.commons.util.StringUtil;
 import seedu.jimi.model.datetime.DateTime;
 import seedu.jimi.model.event.Event;
+import seedu.jimi.model.tag.Priority;
 import seedu.jimi.model.task.DeadlineTask;
 import seedu.jimi.model.task.FloatingTask;
 import seedu.jimi.model.task.ReadOnlyTask;
@@ -71,10 +73,10 @@ public class FilteredListManager {
             
             if (id.equals(ListId.TASKS_AGENDA)) {
                 listMap.get(id).setPredicate(
-                        new PredicateExpression(new TaskQualifier(true), new CompletedQualifier(false))::satisfies);
+                        new LogicalAndPredicate(new TaskQualifier(true), new CompletedQualifier(false))::satisfies);
             } else if (id.equals(ListId.EVENTS_AGENDA)) {
                 listMap.get(id).setPredicate(
-                        new PredicateExpression(new EventQualifier(true), new CompletedQualifier(false))::satisfies);
+                        new LogicalAndPredicate(new EventQualifier(true), new CompletedQualifier(false))::satisfies);
             } else {
                 listMap.get(id).setPredicate(defaultExpressions.get(id)::satisfies);
             }
@@ -87,9 +89,9 @@ public class FilteredListManager {
      * Wraps all the filteredLists with sortedLists.
      */
     private void initSortedLists() {
-        for(ListId id : ListId.values()) {
+        for (ListId id : ListId.values()) {
             SortedList<ReadOnlyTask> sortedList = new SortedList<ReadOnlyTask>(listMap.get(id));
-            sortedList.setComparator(new Comparator<ReadOnlyTask>() {
+            sortedList.comparatorProperty().setValue((new Comparator<ReadOnlyTask>() {
                 @Override
                 public int compare(ReadOnlyTask arg0, ReadOnlyTask arg1) {
                     if(arg0 instanceof Event) {
@@ -109,9 +111,9 @@ public class FilteredListManager {
                         return arg0.getName().fullName.compareToIgnoreCase(arg1.getName().fullName);
                     } 
                     
-                    return 0;
+                    return -1;
                 }
-            });
+            }));
             sortedListMap.put(id, sortedList);
         }
     }
@@ -124,41 +126,41 @@ public class FilteredListManager {
     private void initDefaultExpressions() {
         // Expression matches if it's an incomplete floating task.
         defaultExpressions.put(ListId.FLOATING_TASKS,
-                new PredicateExpression(new FloatingTaskQualifier(true), new CompletedQualifier(false)));
+                new LogicalAndPredicate(new FloatingTaskQualifier(true), new CompletedQualifier(false)));
         
         // Expression matches if it's a completed non-event.
         defaultExpressions.put(ListId.COMPLETED,
-                new PredicateExpression(new EventQualifier(false), new CompletedQualifier(true)));
+                new LogicalAndPredicate(new EventQualifier(false), new CompletedQualifier(true)));
         // Expression matches if it's an incomplete non-event.
         defaultExpressions.put(ListId.INCOMPLETE,
-                new PredicateExpression(new EventQualifier(false), new CompletedQualifier(false)));
+                new LogicalAndPredicate(new EventQualifier(false), new CompletedQualifier(false)));
         
         // Expressions match if they match the current relative day and are incomplete.
         defaultExpressions.put(ListId.DAY_AHEAD_0,
-                new PredicateExpression(new WeekQualifier(ListId.DAY_AHEAD_0), new CompletedQualifier(false)));
+                new LogicalAndPredicate(new WeekQualifier(ListId.DAY_AHEAD_0), new CompletedQualifier(false)));
         defaultExpressions.put(ListId.DAY_AHEAD_1,
-                new PredicateExpression(new WeekQualifier(ListId.DAY_AHEAD_1), new CompletedQualifier(false)));
+                new LogicalAndPredicate(new WeekQualifier(ListId.DAY_AHEAD_1), new CompletedQualifier(false)));
         defaultExpressions.put(ListId.DAY_AHEAD_2,
-                new PredicateExpression(new WeekQualifier(ListId.DAY_AHEAD_2), new CompletedQualifier(false)));
+                new LogicalAndPredicate(new WeekQualifier(ListId.DAY_AHEAD_2), new CompletedQualifier(false)));
         defaultExpressions.put(ListId.DAY_AHEAD_3,
-                new PredicateExpression(new WeekQualifier(ListId.DAY_AHEAD_3), new CompletedQualifier(false)));
+                new LogicalAndPredicate(new WeekQualifier(ListId.DAY_AHEAD_3), new CompletedQualifier(false)));
         defaultExpressions.put(ListId.DAY_AHEAD_4,
-                new PredicateExpression(new WeekQualifier(ListId.DAY_AHEAD_4), new CompletedQualifier(false)));
+                new LogicalAndPredicate(new WeekQualifier(ListId.DAY_AHEAD_4), new CompletedQualifier(false)));
         defaultExpressions.put(ListId.DAY_AHEAD_5,
-                new PredicateExpression(new WeekQualifier(ListId.DAY_AHEAD_5), new CompletedQualifier(false)));
+                new LogicalAndPredicate(new WeekQualifier(ListId.DAY_AHEAD_5), new CompletedQualifier(false)));
         defaultExpressions.put(ListId.DAY_AHEAD_6,
-                new PredicateExpression(new WeekQualifier(ListId.DAY_AHEAD_6), new CompletedQualifier(false)));
+                new LogicalAndPredicate(new WeekQualifier(ListId.DAY_AHEAD_6), new CompletedQualifier(false)));
         
         // Expression matches if it's a task.
         defaultExpressions.put(ListId.TASKS_AGENDA,
-                new PredicateExpression(new TaskQualifier(true)));
+                new LogicalAndPredicate(new TaskQualifier(true)));
         // Expression matches if it's an event.
         defaultExpressions.put(ListId.EVENTS_AGENDA,
-                new PredicateExpression(new EventQualifier(true)));
+                new LogicalAndPredicate(new EventQualifier(true)));
         
         // Expression matches if task is overdue.
         defaultExpressions.put(ListId.OVERDUE,
-                new PredicateExpression(new TaskQualifier(true), new OverdueQualifier()));
+                new LogicalAndPredicate(new TaskQualifier(true), new OverdueQualifier()));
     }
     //@@author
     
@@ -183,10 +185,10 @@ public class FilteredListManager {
         for (ListId id : ListId.values()) {
             if (id.equals(ListId.TASKS_AGENDA)) {
                 listMap.get(id).setPredicate(
-                        new PredicateExpression(new TaskQualifier(true), new CompletedQualifier(false))::satisfies);
+                        new LogicalAndPredicate(new TaskQualifier(true), new CompletedQualifier(false))::satisfies);
             } else if (id.equals(ListId.EVENTS_AGENDA)) {
                 listMap.get(id).setPredicate(
-                        new PredicateExpression(new EventQualifier(true), new CompletedQualifier(false))::satisfies);
+                        new LogicalAndPredicate(new EventQualifier(true), new CompletedQualifier(false))::satisfies);
             } else {
                 listMap.get(id).setPredicate(defaultExpressions.get(id)::satisfies);
             }
@@ -195,26 +197,34 @@ public class FilteredListManager {
     
     /** Updates filtered list identified by {@code id} with keyword filter along with its default filter. */
     public void updateFilteredList(ListId id, Set<String> keywords) {
-        updateFilteredList(id, defaultExpressions.get(id), new PredicateExpression(new NameQualifier(keywords)));
+        updateFilteredList(id, defaultExpressions.get(id),
+                new LogicalOrPredicate(
+                        new NameQualifier(keywords), 
+                        new TagNameQualifier(keywords), 
+                        new PriorityQualifier(keywords)));
     }
     
     // @@author A0138915X
     public void updateFilteredList(ListId id, DateTime fromDate, DateTime toDate) {
         if (toDate == null) {
-            updateFilteredList(id, defaultExpressions.get(id), new PredicateExpression(new DateQualifier(fromDate)));
+            updateFilteredList(id, defaultExpressions.get(id), new LogicalAndPredicate(new DateQualifier(fromDate)));
         } else {
             updateFilteredList(id, defaultExpressions.get(id),
-                    new PredicateExpression(new DateQualifier(fromDate, toDate)));
+                    new LogicalAndPredicate(new DateQualifier(fromDate, toDate)));
         }
     }
-
+    
     public void updateFilteredList(ListId id, Set<String> keywords, DateTime fromDate, DateTime toDate) {
         if (toDate == null) {
-            updateFilteredList(id, defaultExpressions.get(id), new PredicateExpression(new NameQualifier(keywords),
-                    new CompletedQualifier(false), new DateQualifier(fromDate)));
+            updateFilteredList(id, defaultExpressions.get(id),
+                    new LogicalAndPredicate(new CompletedQualifier(false), new DateQualifier(fromDate)),
+                    new LogicalOrPredicate(new PriorityQualifier(keywords), new NameQualifier(keywords),
+                            new TagNameQualifier(keywords)));
         } else {
-            updateFilteredList(id, defaultExpressions.get(id), new PredicateExpression(new NameQualifier(keywords),
-                    new CompletedQualifier(false), new DateQualifier(fromDate, toDate)));
+            updateFilteredList(id, defaultExpressions.get(id),
+                    new LogicalAndPredicate(new CompletedQualifier(false), new DateQualifier(fromDate, toDate)),
+                    new LogicalOrPredicate(new PriorityQualifier(keywords), new NameQualifier(keywords),
+                            new TagNameQualifier(keywords)));
         }
     }
     //@@author
@@ -226,6 +236,7 @@ public class FilteredListManager {
      */
     public void updateFilteredList(ListId id, ListId other) {
         updateFilteredList(id, defaultExpressions.get(id), defaultExpressions.get(other));
+        
     }
     
     /** 
@@ -257,11 +268,11 @@ public class FilteredListManager {
      * 
      * For this PredicateExpression to satisfy, all qualifiers must pass.
      */
-    private class PredicateExpression implements Expression {
+    private class LogicalAndPredicate implements Expression {
         
         private final List<Qualifier> qualifiers;
         
-        PredicateExpression(Qualifier... qualifiers) {
+        LogicalAndPredicate(Qualifier... qualifiers) {
             this.qualifiers = Arrays.asList(qualifiers);
         }
         
@@ -275,7 +286,30 @@ public class FilteredListManager {
             return qualifiers.toString();
         }
     }
-    // @@author
+    
+    /**
+     * Represents a predicate expression that allows for multiple {@code Qualifier} instances.
+     * 
+     * For this PredicateExpression to satisfy, a qualifier must pass.
+     */
+    private class LogicalOrPredicate implements Expression {
+        
+        private final List<Qualifier> qualifiers;
+        
+        LogicalOrPredicate(Qualifier... qualifiers) {
+            this.qualifiers = Arrays.asList(qualifiers);
+        }
+        
+        @Override
+        public boolean satisfies(ReadOnlyTask task) {
+            return qualifiers.stream().anyMatch(q -> q.run(task));
+        }
+        
+        @Override
+        public String toString() {
+            return qualifiers.toString();
+        }
+    }
     
     interface Qualifier {
         
@@ -293,8 +327,9 @@ public class FilteredListManager {
         
         @Override
         public boolean run(ReadOnlyTask task) {
+            List<String> splitTaskName = Arrays.asList(task.getName().fullName.split("\\s+"));
             return nameKeyWords.stream()
-                    .filter(keyword -> StringUtil.isNearMatch(task.getName().fullName, keyword))
+                    .filter(kw -> StringUtil.isAnyNearMatch(kw, splitTaskName))
                     .findAny()
                     .isPresent();
         }
@@ -304,6 +339,53 @@ public class FilteredListManager {
             return "name=" + String.join(", ", nameKeyWords);
         }
     }
+    
+    private class PriorityQualifier implements Qualifier {
+        private Set<String> nameKeyWords;
+        
+        public PriorityQualifier(Set<String> nameKeyWords) {
+            this.nameKeyWords = nameKeyWords;
+        }
+
+        @Override
+        public boolean run(ReadOnlyTask task) {
+            String priority = task.getPriority().tagName.toLowerCase();
+            return nameKeyWords.stream()
+                    .filter(kw -> !priority.equals(Priority.PRIO_NONE) && kw.toLowerCase().equals(priority))
+                    .findAny()
+                    .isPresent();
+        }
+        
+        @Override
+        public String toString() {
+            return "prio=" + String.join(", ", nameKeyWords);
+        }
+    }
+    
+    private class TagNameQualifier implements Qualifier {
+        private Set<String> nameKeyWords;
+        
+        public TagNameQualifier(Set<String> nameKeyWords) {
+            this.nameKeyWords = nameKeyWords;
+        }
+        
+        @Override
+        public boolean run(ReadOnlyTask task) {
+            List<String> tagNames = task.getTags().getInternalList().stream()
+                    .map(t -> t.tagName)
+                    .collect(Collectors.toList());
+            return nameKeyWords.stream()
+                    .filter(kw -> StringUtil.isAnyNearMatch(kw, tagNames))
+                    .findAny()
+                    .isPresent();
+        }
+        
+        @Override
+        public String toString() {
+            return "tagName=" + String.join(", ", nameKeyWords);
+        }
+    }
+    // @@author
     
     /**
      * Checks for tasks/events that fall within a specific date or a range of dates.
@@ -359,7 +441,7 @@ public class FilteredListManager {
 
         @Override
         public boolean run(ReadOnlyTask task) {
-            if(task instanceof Event) { //needed?
+            if(task instanceof Event) { 
             } else if(task instanceof DeadlineTask) {
                 return LocalDateTime.now().compareTo(((DeadlineTask) task).getDeadline().getLocalDateTime()) >= 0;
             }

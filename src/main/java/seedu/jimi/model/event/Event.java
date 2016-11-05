@@ -115,6 +115,8 @@ public class Event implements ReadOnlyTask {
                     && (other).isCompleted() == this.isCompleted()
                     && ((Event)other).getStart().equals(this.getStart())
                     && ((Event)other).getEnd().equals(this.getEnd())
+                    && (other).getTags().equals(this.getTags())
+                    && (other).getPriority().equals(this.getPriority())
                 );
     }
     

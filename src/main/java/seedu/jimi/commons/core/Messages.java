@@ -17,7 +17,7 @@ public class Messages {
             + "> Have you checked if your index exists? \n"
             + "> If you're specifying a range of indices, does the start index precede the end index?\n"
             + "> If you're specifying a range of indices, do both indices refer to the same list?";
-    public static final String MESSAGE_TASKS_LISTED_OVERVIEW = "%1$d task(s) listed!";
+    public static final String MESSAGE_TASKS_LISTED_OVERVIEW = "%1$d task(s) found!";
     public static final String MESSAGE_INVALID_DATE = 
             "Date and time are invalid!\n" 
             + "> Tip: try avoiding keywords like `on`, `to` and `due` in your dates and times.\n" 

@@ -1,7 +1,10 @@
 package seedu.jimi.commons.util;
 
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import seedu.jimi.logic.commands.AddCommand;
@@ -13,7 +16,6 @@ import seedu.jimi.logic.commands.EditCommand;
 import seedu.jimi.logic.commands.ExitCommand;
 import seedu.jimi.logic.commands.FindCommand;
 import seedu.jimi.logic.commands.HelpCommand;
-import seedu.jimi.logic.commands.ListCommand;
 import seedu.jimi.logic.commands.RedoCommand;
 import seedu.jimi.logic.commands.SaveAsCommand;
 import seedu.jimi.logic.commands.ShowCommand;
@@ -31,9 +33,12 @@ public class CommandUtil {
     
     private List<String> allCmdWords;
     
+    private HashMap<String, Set<String>> cmdWordNearMatches;
+    
     private CommandUtil() {
         populateCommandStubList();
         populateCommandWords();
+        populateCommandWordsNearMatches();
     }
     
     /** Returns a string of all command words in {@code cmdStubList} joined by a comma. */
@@ -58,8 +63,10 @@ public class CommandUtil {
     /** Returns a list of command words that nearly matches {@code target} */
     public List<String> getCommandWordMatches(String target) {
         return cmdStubList.stream()
-                .filter(c -> 
-                    c.isValidCommandWord(target) || StringUtil.isNearMatch(c.getCommandWord(), target))
+                .filter(c -> c.isValidCommandWord(target) 
+                        || StringUtil.isValidSubstrings(c.getCommandWord(), target)
+                        || (cmdWordNearMatches.containsKey(target)
+                                && cmdWordNearMatches.get(target).contains(c.getCommandWord())))
                 .map(c -> c.getCommandWord())
                 .collect(Collectors.toList());
     }
@@ -69,6 +76,24 @@ public class CommandUtil {
      *                  Initialization Methods
      * ==========================================================
      */
+    
+    private void populateCommandWordsNearMatches() {
+        assert cmdStubList != null && allCmdWords != null;
+        cmdWordNearMatches = new HashMap<String, Set<String>>();
+        allCmdWords.forEach(cmdWord -> {
+            Set<String> oneEditDistanceDict = Dictionary.generateOneEditDistanceDict(cmdWord);
+            
+            Set<String> twoEditDistanceDict = new HashSet<String>();
+            oneEditDistanceDict.forEach(w -> twoEditDistanceDict.addAll(Dictionary.generateOneEditDistanceDict(w)));
+            
+            for (String twoEditDistanceWord : twoEditDistanceDict) {
+                Set<String> toPut = cmdWordNearMatches.containsKey(twoEditDistanceWord)
+                        ? cmdWordNearMatches.get(twoEditDistanceWord) : new HashSet<String>();
+                toPut.add(cmdWord);
+                cmdWordNearMatches.put(twoEditDistanceWord, toPut);
+            }
+        });
+    }
     
     /** Creating a list of commands available in Jimi. */
     private void populateCommandStubList() {
@@ -90,6 +115,7 @@ public class CommandUtil {
 
     /** Creating a list of commands words from commands in {@code cmdStubList} */
     private void populateCommandWords() {
+        assert cmdStubList != null;
         allCmdWords = cmdStubList.stream()
                 .map(c -> c.getCommandWord())
                 .filter(s -> s != null && !s.isEmpty())

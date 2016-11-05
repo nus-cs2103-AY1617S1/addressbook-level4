@@ -457,7 +457,7 @@ public class JimiParser {
         Optional<String> optKeywords = Optional.ofNullable(matcher.group("keywords"));
         Set<String> keywordSet = null;
         // keywords delimited by whitespace
-        if(optKeywords.isPresent()) {
+        if (optKeywords.isPresent()) {
             final String[] keywords = optKeywords.get().split("\\s+");
             keywordSet = new HashSet<>(Arrays.asList(keywords));
         }

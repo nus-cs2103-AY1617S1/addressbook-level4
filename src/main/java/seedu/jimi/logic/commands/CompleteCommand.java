@@ -5,6 +5,7 @@ import java.util.Optional;
 import seedu.jimi.commons.core.Messages;
 import seedu.jimi.commons.core.UnmodifiableObservableList;
 import seedu.jimi.model.task.ReadOnlyTask;
+import seedu.jimi.model.task.UniqueTaskList.DuplicateTaskException;
 import seedu.jimi.model.task.UniqueTaskList.TaskNotFoundException;
 
 /**
@@ -23,7 +24,10 @@ public class CompleteCommand extends Command implements TaskBookEditor{
             + "Example: " + COMMAND_WORD + " t1";
 
     public static final String MESSAGE_COMPLETE_TASK_SUCCESS = "You have completed this task: %1$s";
-
+    
+    public static final String MESSAGE_INVALID_COMPLETION =
+            "You are trying to complete an already completed task! Try completing a different task instead.";
+    
     public final String targetIndex;
     
     public CompleteCommand() {
@@ -55,6 +59,9 @@ public class CompleteCommand extends Command implements TaskBookEditor{
             model.completeTask(taskToComplete, true);
         } catch (TaskNotFoundException tnfe) {
             assert false : "The target task cannot be missing";
+        } catch (DuplicateTaskException e) {
+            indicateAttemptToExecuteIncorrectCommand();
+            return new CommandResult(MESSAGE_INVALID_COMPLETION);
         }
         
         return new CommandResult(String.format(MESSAGE_COMPLETE_TASK_SUCCESS, taskToComplete));

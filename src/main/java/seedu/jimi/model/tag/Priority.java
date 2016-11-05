@@ -13,12 +13,13 @@ import seedu.jimi.commons.exceptions.IllegalValueException;
 
 public class Priority extends Tag {
     
-    public static final String MESSAGE_PRIORITY_CONSTRAINTS = "Priority names should only be: None, LOW, MED or HIGH. ";
+    public static final String MESSAGE_PRIORITY_CONSTRAINTS =
+            "Priority (case-insensitive) names should only be: high, med, low or none. ";
     
-    public final static String PRIO_LOW = "LOW";
-    public final static String PRIO_MED = "MED";
-    public final static String PRIO_HIGH = "HIGH";
-    public final static String PRIO_NONE = "None";
+    public final static String PRIO_LOW = "low";
+    public final static String PRIO_MED = "med";
+    public final static String PRIO_HIGH = "high";
+    public final static String PRIO_NONE = "none";
     
     /**
      * Instantiate with no priority tag.
@@ -45,6 +46,7 @@ public class Priority extends Tag {
      * Returns true if a given string is a valid priority name.
      */
     public static boolean isValidPriorityName(String test) {
-        return test.equals(PRIO_LOW) || test.equals(PRIO_MED) || test.equals(PRIO_HIGH) || test.equals(PRIO_NONE);
+        return test.toLowerCase().equals(PRIO_LOW) || test.toLowerCase().equals(PRIO_MED)
+                || test.toLowerCase().equals(PRIO_HIGH) || test.toLowerCase().equals(PRIO_NONE);
     }
 }
