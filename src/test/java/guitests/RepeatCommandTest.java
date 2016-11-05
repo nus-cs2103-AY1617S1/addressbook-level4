@@ -18,9 +18,10 @@ public class RepeatCommandTest extends TaskManagerGuiTest {
 
     @Test
     public void repeat() {
+        
+        TestTask[] currentList = td.getTypicalTasks();
 
         // repeat a random task in the list daily
-        TestTask[] currentList = td.getTypicalTasks();
         int targetIndex = ThreadLocalRandom.current().nextInt(1, (currentList.length + 1));
         assertRepeatSuccess(targetIndex, currentList, "daily");
 
