@@ -32,6 +32,8 @@ import java.util.logging.Logger;
  * All changes to any model should be synchronized.
  */
 public class ModelManager extends ComponentManager implements Model {
+    private static final boolean INCOMPLETE_STATUS = false;
+
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private final TaskBook taskBook;
@@ -141,28 +143,28 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public synchronized void addTask(Task task) throws UniqueTaskList.DuplicateTaskException {
         taskBook.addTask(task);
-        updateFilteredTaskListToShowWithStatus(false);
+        updateFilteredTaskListToShowWithStatus(INCOMPLETE_STATUS);
         indicateTaskBookChanged();
     }
     
     @Override
     public synchronized void addEvent(Event event) throws DuplicateEventException {
         taskBook.addEvent(event);
-        updateFilteredEventListToShowWithStatus(false);
+        updateFilteredEventListToShowWithStatus(INCOMPLETE_STATUS);
         indicateTaskBookChanged();
     }
    
     @Override
     public synchronized void editTask(Task editTask, ReadOnlyTask targetTask) throws UniqueTaskList.DuplicateTaskException {
         taskBook.editTask(editTask, targetTask);
-        updateFilteredTaskListToShowWithStatus(false);
+        updateFilteredTaskListToShowWithStatus(INCOMPLETE_STATUS);
         indicateTaskBookChanged();   
     }
     
     @Override
     public void editEvent(Event editEvent, ReadOnlyEvent targetEvent) throws UniqueEventList.DuplicateEventException {
         taskBook.editEvent(editEvent, targetEvent);
-        updateFilteredEventListToShowWithStatus(false);
+        updateFilteredEventListToShowWithStatus(INCOMPLETE_STATUS);
         indicateTaskBookChanged(); 
     }
     //@@author 

@@ -2,6 +2,7 @@ package seedu.task.logic.commands;
 
 import java.util.logging.Logger;
 
+import seedu.task.commons.events.ui.JumpToTaskListRequestEvent;
 import seedu.task.commons.exceptions.IllegalValueException;
 import seedu.task.model.item.Deadline;
 import seedu.task.model.item.Description;
@@ -11,6 +12,7 @@ import seedu.task.model.item.ReadOnlyTask;
 import seedu.task.model.item.Task;
 import seedu.task.model.item.UniqueTaskList;
 import seedu.task.model.item.UniqueTaskList.DuplicateTaskException;
+import seedu.taskcommons.core.EventsCenter;
 import seedu.taskcommons.core.LogsCenter;
 import seedu.taskcommons.core.Messages;
 import seedu.taskcommons.core.UnmodifiableObservableList;
@@ -68,6 +70,7 @@ public class EditTaskCommand extends EditCommand  {
 	/**
      * Gets the task to be edited based on the index.
      * Only fields to be edited will have values updated.
+     * Newly edited task is to be selected for easy viewing
      * @throws DuplicateTaskException 
      */
     @Override
@@ -79,6 +82,7 @@ public class EditTaskCommand extends EditCommand  {
 
             editTask = editTask(targetTask);
             model.editTask(editTask, targetTask);
+            EventsCenter.getInstance().post(new JumpToTaskListRequestEvent(editTask, getTargetIndex()));
             
             logger.info("-------[Executed EditTaskCommand]" + this.toString());
             

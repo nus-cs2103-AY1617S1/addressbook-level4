@@ -2,6 +2,7 @@ package seedu.task.logic.commands;
 
 import java.util.logging.Logger;
 
+import seedu.task.commons.events.ui.JumpToEventListRequestEvent;
 import seedu.task.commons.exceptions.IllegalValueException;
 import seedu.task.model.item.Description;
 import seedu.task.model.item.Event;
@@ -10,6 +11,7 @@ import seedu.task.model.item.Name;
 import seedu.task.model.item.ReadOnlyEvent;
 import seedu.task.model.item.UniqueEventList;
 import seedu.task.model.item.UniqueTaskList.DuplicateTaskException;
+import seedu.taskcommons.core.EventsCenter;
 import seedu.taskcommons.core.LogsCenter;
 import seedu.taskcommons.core.Messages;
 import seedu.taskcommons.core.UnmodifiableObservableList;
@@ -63,7 +65,7 @@ public class EditEventCommand extends EditCommand {
 
 	/**
 	 * Executes the editing of the event
-	 * 
+	 * Newly edited event is to be selected for easy viewing
 	 * @throws DuplicateTaskException
 	 * @throws IllegalValueException Fields edited do not abide by restrictions
 	 * @throws IndexOutOfBoundsException Index provided is not valid
@@ -77,6 +79,7 @@ public class EditEventCommand extends EditCommand {
 	        editEvent = editEvent(targetEvent); 		    
 		    model.editEvent(editEvent, targetEvent);
 		    
+		    EventsCenter.getInstance().post(new JumpToEventListRequestEvent(editEvent, getTargetIndex()));
 		    logger.info("-------[Executed EditEventCommand]" + this.toString());
 
 			return new CommandResult(String.format(MESSAGE_EDIT_EVENT_SUCCESS, editEvent));

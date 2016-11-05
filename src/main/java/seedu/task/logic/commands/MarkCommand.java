@@ -1,6 +1,8 @@
 package seedu.task.logic.commands;
 
+import seedu.task.commons.events.ui.JumpToTaskListRequestEvent;
 import seedu.task.model.item.ReadOnlyTask;
+import seedu.taskcommons.core.EventsCenter;
 import seedu.taskcommons.core.Messages;
 import seedu.taskcommons.core.UnmodifiableObservableList;
 
@@ -10,6 +12,7 @@ import seedu.taskcommons.core.UnmodifiableObservableList;
  */
 public class MarkCommand extends UndoableCommand {
 
+    private static final boolean INCOMPLETE_STATUS = false;
     public static final String COMMAND_WORD = "mark";
     public static final String MESSAGE_USAGE = COMMAND_WORD + "\n"
             + "Marks the task identified by the index number used in the last task listing.\n"
@@ -34,10 +37,12 @@ public class MarkCommand extends UndoableCommand {
             indicateAttemptToExecuteIncorrectCommand();
             return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
-
         
         taskToMark = lastShownList.get(targetIndex - 1);
         model.markTask(taskToMark); // list starts at zero
+        if (taskToMark.getTaskStatus() == INCOMPLETE_STATUS) {   //Task will be selected if being marked from completed to uncompleted
+            EventsCenter.getInstance().post(new JumpToTaskListRequestEvent(taskToMark, targetIndex - 1));
+        }
 
         return new CommandResult(String.format(MESSAGE_MARK_TASK_SUCCESS, targetIndex));
 

@@ -75,6 +75,7 @@ public class UniqueTaskList implements Iterable<Task> {
         int index = internalList.indexOf(targetTask);
         internalList.set(index, toEdit);
     }
+
     //@@author
     
     /**
