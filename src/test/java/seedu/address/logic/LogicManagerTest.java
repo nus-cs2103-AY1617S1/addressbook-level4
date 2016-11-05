@@ -698,13 +698,11 @@ public class LogicManagerTest {
             StringBuffer cmd = new StringBuffer();
 
             cmd.append("edit 1 ");
-            
             cmd.append("Do stuff later ");            
             cmd.append("from 10am ");
             cmd.append("to 12pm ");
             cmd.append("repeat every day ");
             cmd.append(" -").append("high");
-            
             return cmd.toString();
         }
         
@@ -719,7 +717,6 @@ public class LogicManagerTest {
             StringBuffer cmd = new StringBuffer();
 
             cmd.append("edit 1 ");
-            
             cmd.append("Read a book ");     
             cmd.append("from 11am ");
             cmd.append("to 12pm ");
@@ -727,7 +724,6 @@ public class LogicManagerTest {
             cmd.append("-reset ");
             cmd.append("start ");
             cmd.append("end");
-            
             return cmd.toString();
         }       
         //@@author

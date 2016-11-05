@@ -76,6 +76,14 @@ public class EditCommandTest extends DearJimGuiTest {
         TestTask aliceTask = new TestTask(td.alice);
         assertAddSuccess(aliceTask);
         
+        commandBox.runCommand("edit 1 Call Alice from 2pm to 3pm repeat every day -high");
+        aliceTask.setName(new Name("Call Alice"));
+        aliceTask.setStartDate(DateTime.convertStringToDate("2pm"));
+        aliceTask.setEndDate(DateTime.convertStringToDate("3pm"));
+        aliceTask.setRecurrence(new RecurrenceRate("1", "day"));
+        aliceTask.setPriority(Priority.HIGH);        
+        assertTrue(personListPanel.isListMatching(aliceTask));
+        
         //test to check reset function
         commandBox.runCommand("edit 1 -reset start end repeat");
         aliceTask.setStartDate(null);

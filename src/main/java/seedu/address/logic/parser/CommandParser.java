@@ -178,9 +178,8 @@ public class CommandParser {
         
         int index = ZERO;     
         String resetField = null;
-
-        args = args.trim();
-        String[] indexSplit = args.split(STRING_ONE_SPACE);
+        String argsTrimmed = args.trim();
+        String[] indexSplit = argsTrimmed.split(STRING_ONE_SPACE);
         String indexNum = indexSplit[ZERO];
 
         if(indexSplit.length == ONE){
@@ -193,25 +192,19 @@ public class CommandParser {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
         }
            
-        String[] resetSplit = args.substring(TWO).split("-reset");
-
-        String argsTrimmed = STRING_ONE_SPACE + resetSplit[ZERO];        
-
+        String[] resetSplit = argsTrimmed.substring(TWO).split("-reset");
+        String argsForEdit = STRING_ONE_SPACE + resetSplit[ZERO];        
         logger.finer("Entering CommandParser, prepareEdit()");
                        
         try {
-            HashMap<String, Optional<String>> extractedValues = new CommandParserHelper().prepareEdit(argsTrimmed);
-            
-            logger.finer("Exiting CommandParser, prepareEdit()");
-            
+            HashMap<String, Optional<String>> extractedValues = new CommandParserHelper().prepareEdit(argsForEdit);
+            logger.finer("Exiting CommandParser, prepareEdit()");    
             if(resetSplit.length == TWO){
                 resetField = resetSplit[ONE];
             }
-            
             return new EditCommand(index, extractedValues.get("taskName"), extractedValues.get("startDate"), 
                     extractedValues.get("endDate"), extractedValues.get("rate"), 
                     extractedValues.get("timePeriod"), extractedValues.get("priority"),resetField);
-            
         } catch (IllegalValueException ive) {
             logger.finer("IllegalValueException caught in CommandParser, prepareEdit()");
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, 

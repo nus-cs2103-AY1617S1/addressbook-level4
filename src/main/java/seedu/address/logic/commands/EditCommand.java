@@ -258,7 +258,6 @@ public class EditCommand extends UndoableCommand {
         }
 
         logger.fine("Details to be edited assigned");
-
         model.editTask(taskToEdit, taskName, startDate, endDate, priority, recurrenceRate);
         updateHistory();
         return new CommandResult(String.format(MESSAGE_SUCCESS, toEdit));      
