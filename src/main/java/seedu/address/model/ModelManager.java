@@ -1,5 +1,6 @@
 package seedu.address.model;
 
+import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.UnmodifiableObservableList;
@@ -124,6 +125,15 @@ public class ModelManager extends ComponentManager implements Model {
         return new UnmodifiableObservableList<>(filteredPersons);
     }
     
+	@Override
+	public UnmodifiableObservableList<ReadOnlyActivity> getFilteredOverdueTaskList() {
+		FilteredList<Activity> filteredOverdueList = new FilteredList<>(filteredPersons);
+		filteredOverdueList.setPredicate(p->
+        p.getClass().getSimpleName().equalsIgnoreCase("Task"));
+        filteredOverdueList.setPredicate(p-> p.getisOver() == true);
+		return new UnmodifiableObservableList<>(filteredOverdueList);
+	}
+    
     @Override
     public UnmodifiableObservableList<Activity> getFilteredTaskListForEditing() {
         return new UnmodifiableObservableList<>(filteredPersons);
@@ -225,6 +235,8 @@ public class ModelManager extends ComponentManager implements Model {
             return "name=" + String.join(", ", nameKeyWords);
         }
     }
+
+
 
 
 
