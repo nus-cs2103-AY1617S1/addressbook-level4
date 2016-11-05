@@ -184,22 +184,25 @@ public class ModelManager extends ComponentManager implements Model {
 	}
 
 	@Override
-	public synchronized void updateTask(Task taskToUpdate, TaskDetails taskDetails, String startTime,
-			String endTime, Priority priority, String frequency)
-					throws IllegalValueException {
-		Task originalTask = new Task(taskToUpdate);
-		taskList.updateTask(taskToUpdate, taskDetails, startTime, endTime, priority, frequency);
-		updateFilteredListToShowIncomplete();
-		indicateTaskListChanged();
-		addToUndoStack(UndoCommand.UPD_CMD_ID, null, taskToUpdate, originalTask);
-		clearRedoStack();
-		indicateTaskModified(taskToUpdate);
+	public synchronized void updateTask(Task taskToUpdate, TaskDetails taskDetails,
+	        String startTime, String endTime, Priority priority, String frequency)
+	                throws IllegalValueException {
+	    StartTime originalStartTime = (taskToUpdate.getStartTime().isMissing()) ? new StartTime("") : new StartTime(taskToUpdate.getStartTime().toString());
+	    EndTime originalEndTime = (taskToUpdate.getEndTime().isMissing()) ? new EndTime("") : new EndTime(taskToUpdate.getEndTime().toString());
+	    
+	    Task originalTask = new Task(taskToUpdate.getTaskDetails(), originalStartTime, originalEndTime, taskToUpdate.getPriority(), taskToUpdate.getRecurringFrequency());
+	    taskList.updateTask(taskToUpdate, taskDetails, startTime, endTime, priority, frequency);		
+	    updateFilteredListToShowIncomplete();
+	    indicateTaskListChanged();
+	    addToUndoStack(UndoCommand.UPD_CMD_ID, null, taskToUpdate, originalTask);
+	    clearRedoStack();
+	    indicateTaskModified(taskToUpdate);
 	}
 
 	@Override
 	public void updateTaskUndo(Task taskToUpdate, TaskDetails taskDetails, StartTime startTime, EndTime endTime,
-			Priority priority, String frequency) throws IllegalValueException {
-		taskList.updateTask(taskToUpdate, taskDetails, startTime, endTime, priority, frequency);
+			Priority priority, String frequency) throws IllegalValueException {	    
+	    taskList.updateTask(taskToUpdate, taskDetails, startTime, endTime, priority, frequency);	    
 		updateFilteredListToShowIncomplete();
 		indicateTaskListChanged();
 	}

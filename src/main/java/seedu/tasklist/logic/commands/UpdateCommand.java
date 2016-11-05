@@ -53,38 +53,40 @@ public class UpdateCommand extends Command {
 
 	@Override
 	public CommandResult execute() {
-		UnmodifiableObservableList<Task> lastShownList = model.getListOfTasks();
-		if (targetIndex >= lastShownList.size()) {
-			return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
-		} else {
-			Task taskToUpdate = lastShownList.get(targetIndex);
-			try {
-			    if (startTime!=null && endTime!=null)
-			       isNotChronoTime(new StartTime(startTime), new EndTime(endTime));
-			    else if (startTime!=null)
-			       isNotChronoTime(new StartTime(startTime), taskToUpdate.getEndTime());
-			    else if (endTime!=null)
-			       isNotChronoTime(taskToUpdate.getStartTime(), new EndTime(endTime));
-			}
-			catch (IllegalValueException e) {
-			    return new CommandResult(MESSAGE_NOT_CHRONO_TASK);
-			}
-			try {
-			    Task stubTask = new Task(new TaskDetails(taskToUpdate.getTaskDetails().taskDetails), new StartTime(taskToUpdate.getStartTime().toString()), new EndTime(taskToUpdate.getEndTime().toString()), new Priority(taskToUpdate.getPriority().priorityLevel), taskToUpdate.getRecurringFrequency());
-			    model.updateTaskUndo(stubTask, taskDetails, new StartTime(startTime), new EndTime(endTime), priority, recurringFrequency);
-			    if (model.isDuplicate(stubTask)){
+	    UnmodifiableObservableList<Task> lastShownList = model.getListOfTasks();
+	    if (targetIndex >= lastShownList.size()) {
+	        return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
+	    } else {
+	        Task taskToUpdate = lastShownList.get(targetIndex);
+	        try {
+	            if (startTime!=null && endTime!=null)
+	                isNotChronoTime(new StartTime(startTime), new EndTime(endTime));
+	            else if (startTime!=null)
+	                isNotChronoTime(new StartTime(startTime), taskToUpdate.getEndTime());
+	            else if (endTime!=null)
+	                isNotChronoTime(taskToUpdate.getStartTime(), new EndTime(endTime));
+	        }
+	        catch (IllegalValueException e) {
+	            return new CommandResult(MESSAGE_NOT_CHRONO_TASK);
+	        }
+	        try {			    
+	            Task stubTask = new Task(taskToUpdate.getTaskDetails(), taskToUpdate.getStartTime(), taskToUpdate.getEndTime(), taskToUpdate.getPriority(), taskToUpdate.getRecurringFrequency());
+	            model.updateTaskUndo(stubTask, taskDetails, new StartTime(startTime), new EndTime(endTime), priority, recurringFrequency);
+	            if (model.isDuplicate(stubTask)){
 	                return new CommandResult(MESSAGE_DUPLICATE_TASK);
 	            }
-			    model.updateTask(taskToUpdate, taskDetails, startTime, endTime, priority, recurringFrequency);
-			    if (model.isOverlapping(taskToUpdate)) {
+	            model.updateTask(taskToUpdate, taskDetails, startTime, endTime, priority, recurringFrequency);			    
+	            if (model.isOverlapping(taskToUpdate)) {
 	                model.updateFilteredListToShowOverlapping(taskToUpdate);
 	                return new CommandResult(String.format(MESSAGE_UPDATE_TASK_SUCCESS + ". " + MESSAGE_OVERLAP, taskToUpdate.getTaskDetails()));
 	            }
-			    else return new CommandResult(String.format(MESSAGE_UPDATE_TASK_SUCCESS, taskToUpdate.getTaskDetails()));
-			} catch (IllegalValueException e) {
-				return new CommandResult(MESSAGE_ILLEGAL_VALUE);
-			}
-		}
+	            else  {
+	                return new CommandResult(String.format(MESSAGE_UPDATE_TASK_SUCCESS, taskToUpdate.getTaskDetails()));
+	            }
+	        } catch (IllegalValueException e) {
+	            return new CommandResult(MESSAGE_ILLEGAL_VALUE);
+	        }
+	    }
 	}
 	//checks if start time is before end time
 	public boolean isNotChronoTime(StartTime starttime, EndTime endtime) throws IllegalValueException{
