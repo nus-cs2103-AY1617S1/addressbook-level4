@@ -1,6 +1,6 @@
 package seedu.address.model.alias;
 
-//@@author A0143756Y
+//@@author A0143756Y-reused
 /**
  * A read-only immutable interface for an Alias in the alias book.
  * Implementations should guarantee that 

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!-- @@author A0142184L -->
+
 <?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Menu?>
@@ -65,7 +66,7 @@
                   </SplitPane>
                </children>
             </VBox>
-            <TabPane fx:id="tabPane" onKeyPressed="#handleQuickView" tabClosingPolicy="UNAVAILABLE" tabMaxHeight="15.0" tabMaxWidth="70.0">
+            <TabPane fx:id="tabPane" tabClosingPolicy="UNAVAILABLE" tabMaxHeight="15.0" tabMaxWidth="70.0">
                <tabs>
                   <Tab text="Today">
                      <content>

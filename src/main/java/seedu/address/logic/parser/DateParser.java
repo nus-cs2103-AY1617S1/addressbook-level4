@@ -1,8 +1,10 @@
 package seedu.address.logic.parser;
 
 import java.text.ParseException;
+import java.time.DateTimeException;
 import java.time.DayOfWeek;
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
 import java.util.Optional;
@@ -37,7 +39,7 @@ public class DateParser {
 	 * @throws ParseException if unable to parse
 	 */
 	public static LocalDateTime parse(String dateString) throws ParseException {
-		dateString = dateString.trim();
+		dateString = dateString.trim().toLowerCase();
 		
 		System.out.println(dateString);
 		
@@ -54,6 +56,35 @@ public class DateParser {
 			return dateTime;
 		}
 	}
+	
+	
+	public static boolean containsDate(String dateString) {
+		dateString = dateString.trim().toLowerCase();
+		LocalDateTime dateTime;
+		
+		try {
+			dateTime = parse(dateString);
+		}
+		catch (ParseException e) {
+			return false;
+		}
+		
+		LocalDateTime nowWithHhmmReplaced = LocalDateTime.now()
+				.withHour(dateTime.getHour())
+				.withMinute(dateTime.getMinute())
+				.truncatedTo(ChronoUnit.MINUTES);
+		
+		// If date was inferred to be today and string does not contain explicit identifiers
+		// for today ("today" or standard date format symbol "-", date was inferred
+		if (dateTime.equals(nowWithHhmmReplaced)
+				&& !(dateString.contains("today") || dateString.contains("-"))) {
+			return false;
+		} 
+		else {
+			return true;
+		}
+	}
+	
 
 	private static LocalDateTime parseNaturalLanguage(String dateString) throws ParseException {
 		ArrayList<Matcher> matchers = new ArrayList<>();
@@ -100,8 +131,13 @@ public class DateParser {
 
 				Optional<String> minuteOpt = Optional.ofNullable(matcher.group("minute"));
 				int minute = parseMinute(minuteOpt.orElse("0"));
-
-				return LocalDateTime.of(year, month, day, hour, minute);
+				
+				try {
+					return LocalDateTime.of(year, month, day, hour, minute);
+				}
+				catch (DateTimeException e) {
+					throw new ParseException("Date '" + Integer.toString(day) + "' is invalid for month entered.", -1);
+				}
 			}
 		}
 
