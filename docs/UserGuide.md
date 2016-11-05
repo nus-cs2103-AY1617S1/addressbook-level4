@@ -33,6 +33,7 @@ Love typing? You will love sTask, as you only need to use the keyboard to type s
 <br>
        <img src="images/Ui.png" width="600"> <br>
 
+&nbsp;&nbsp;&nbsp;&nbsp;Looking at Figure 1 above, <br>
 &nbsp;&nbsp;&nbsp;&nbsp;<b>2.2.1</b> You can type your commands in the Smart Command Input Bar. <br>
 &nbsp;&nbsp;&nbsp;&nbsp;<b>2.2.2</b> This is place where sTask gives you feedback and interacts with you. <br>
 &nbsp;&nbsp;&nbsp;&nbsp;<b>2.2.3</b> This is the To Do Task Panel where all your tasks without date and time are displayed in alphabetical order. <br>
