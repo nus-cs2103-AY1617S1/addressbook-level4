@@ -15,6 +15,7 @@ import org.testfx.api.FxToolkit;
 import seedu.address.TestApp;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.FileUtil;
+import seedu.address.commons.util.StringUtil;
 import seedu.address.commons.util.XmlUtil;
 import seedu.address.model.item.Task;
 import seedu.address.model.TaskManager;
@@ -321,6 +322,14 @@ public class TestUtil {
         return list;
     }
 
+    public static String generateDisplayString(Object... items) {
+        String toDisplay = "";
+        for (Object item : items) {
+            toDisplay = StringUtil.appendOnNewLine(toDisplay, item.toString());
+        }
+        return toDisplay;
+    }
+    
     public static boolean compareCardAndPerson(TaskCardHandle card, ReadOnlyTask task) {
         assert card != null;
         return card.isSameFloatingTask(task);

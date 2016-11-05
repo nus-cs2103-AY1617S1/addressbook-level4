@@ -18,6 +18,7 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyTaskManager;
 import seedu.address.model.item.*;
 import seedu.address.storage.StorageManager;
+import seedu.address.testutil.TestUtil;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -409,7 +410,7 @@ public class LogicManagerTest {
         helper.addToModel(model, threePersons);
 
         assertCommandBehavior("delete 2",
-                String.format(DeleteCommand.MESSAGE_DELETE_ITEM_SUCCESS, threePersons.get(1)),
+                String.format(DeleteCommand.MESSAGE_DELETE_ITEM_SUCCESS, TestUtil.generateDisplayString(threePersons.get(1))),
                 expectedAB,
                 expectedAB.getUndoneTaskList());
     }
@@ -434,7 +435,7 @@ public class LogicManagerTest {
         helper.addToModel(model, threePersons);
 
         assertDoneCommandBehavior("done 2",
-                String.format(DoneCommand.MESSAGE_DONE_TASK_SUCCESS, threePersons.get(1)),
+                String.format(DoneCommand.MESSAGE_DONE_TASK_SUCCESS, TestUtil.generateDisplayString(threePersons.get(1))),
                 expectedAB,
                 expectedAB.getUndoneTaskList(),
                 expectedAB.getDoneTaskList());

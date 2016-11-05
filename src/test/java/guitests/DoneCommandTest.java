@@ -55,7 +55,7 @@ public class DoneCommandTest extends AddressBookGuiTest {
         assertTrue(personListPanel.isListMatching(expectedRemainder));
         
         //confirm the result message is correct
-        assertResultMessage(String.format(MESSAGE_DONE_TASK_SUCCESS, "\n" + taskToDone.toString()));
+        assertResultMessage(String.format(MESSAGE_DONE_TASK_SUCCESS, TestUtil.generateDisplayString(taskToDone)));
 
         //confirm the done list now contains all previous done tasks plus the new done task
         commandBox.runCommand("list done");

@@ -182,7 +182,7 @@ public class UndoAndRedoCommandTest extends AddressBookGuiTest {
         assertTrue(personListPanel.isListMatching(expectedRemainder));
 
         //confirm the result message is correct
-        assertResultMessage(String.format(MESSAGE_DELETE_ITEM_SUCCESS, personToDelete));
+        assertResultMessage(String.format(MESSAGE_DELETE_ITEM_SUCCESS, TestUtil.generateDisplayString(personToDelete)));
     }
         
     /**
