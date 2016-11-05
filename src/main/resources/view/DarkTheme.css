@@ -1,3 +1,9 @@
+/*@@author A0143641M */
+.root {
+	main-bg-color: #F5F5F5;
+}
+/*@@author */
+
 .background {
     -fx-background-color: black;
 }
@@ -78,7 +84,7 @@
 /*@@author A0143641M */ 
 .split-pane:horizontal .split-pane-divider {
     -fx-border-color: derive(#1d1d1d, 70%);
-    -fx-background-color: #FFF2CC;
+    -fx-background-color: main-bg-color;
 }
 /*@@author */
 
@@ -108,8 +114,8 @@
 }
 
 #itemsPane {
-	-fx-background-color: #FFF2CC;
-	-fx-border-color: white;
+	-fx-background-color: main-bg-color;
+	-fx-border-color: derive(#1d1d1d, 60%);
 	-fx-border-width: 1px;
 }
 
@@ -132,17 +138,10 @@
 }
 
 .anchor-pane-with-border {
-     -fx-background-color: #FFF2CC;
+     -fx-background-color: main-bg-color;
      -fx-border-color: derive(#1d1d1d, 100%);
      -fx-border-width: 1px;
 }
-
-/*@@author A0143641M */
-.status-bar {
-    -fx-background-color: derive(#FFF05F, 20%);
-    -fx-text-fill: black;
-}
-/*@@author */
 
 .result-display {
     -fx-background-color: #ffffff;
@@ -152,6 +151,13 @@
     -fx-text-fill: black !important;
 }
 
+/*@@author A0143641M */
+.status-bar {
+    -fx-background-color: main-bg-color;
+    -fx-text-fill: black;
+}
+
+/*@@author */
 .status-bar .label {
     -fx-text-fill: #1d1d1d;
 }
@@ -168,7 +174,7 @@
 
 .grid-pane {
     -fx-background-color: derive(#1d1d1d, 30%);
-    -fx-border-color: #F1C232;
+    -fx-border-color: derive(#1d1d1d, 60%);
     -fx-border-width: 1px;
 }
 
@@ -185,7 +191,7 @@
 }
 
 .menu-bar {
-    -fx-background-color: derive(#FFF2CC, 90%);
+    -fx-background-color: main-bg-color;
     -fx-border-color: derive(#1d1d1d, 100%);
     -fx-border-width: 1px;
 }
@@ -298,9 +304,10 @@
 }
 
 #cardPane {
-    -fx-background-color: transparent;
+    -fx-background-color: #FFF5EE;
     -fx-border-color: #d6d6d6;
     -fx-border-width: 1 1 1 1;
+    -fx-border-radius: 5px;
 }
 
 #commandTypeLabel {
