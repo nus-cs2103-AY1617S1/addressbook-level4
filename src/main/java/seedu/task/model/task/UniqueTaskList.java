@@ -44,12 +44,6 @@ public class UniqueTaskList implements Iterable<Task> {
     }
 
     /**
-     * Constructs empty TaskList.
-     */
-    public UniqueTaskList() {
-    }
-
-    /**
      * Returns true if the list contains an equivalent task as the given
      * argument.
      */

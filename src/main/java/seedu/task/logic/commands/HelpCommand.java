@@ -16,8 +16,6 @@ public class HelpCommand extends Command {
 
     public static final String SHOWING_HELP_MESSAGE = "Opened help window.";
 
-    public HelpCommand() {}
-
     @Override
     public CommandResult execute(boolean isUndo) {
         EventsCenter.getInstance().post(new ShowHelpRequestEvent());

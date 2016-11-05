@@ -40,8 +40,6 @@ public class MainApp extends Application {
     protected Config config;
     protected UserPrefs userPrefs;
 
-    public MainApp() {}
-
     @Override
     public void init() throws Exception {
         logger.info("=============================[ Initializing Task Manager ]===========================");
@@ -56,7 +54,7 @@ public class MainApp extends Application {
 
         model = initModelManager(storage);
 
-        logic = new LogicManager(model, storage);
+        logic = new LogicManager(model);
 
         ui = new UiManager(logic, config, userPrefs);
 

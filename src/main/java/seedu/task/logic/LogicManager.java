@@ -10,8 +10,6 @@ import seedu.task.logic.commands.UndoCommand;
 import seedu.task.logic.parser.CommandParser;
 import seedu.task.model.Model;
 import seedu.task.model.task.ReadOnlyTask;
-import seedu.task.storage.Storage;
-
 import java.util.ArrayList;
 import java.util.logging.Logger;
 
@@ -26,7 +24,7 @@ public class LogicManager extends ComponentManager implements Logic {
     private final HistoryManager historyManager;
 
     //@@author A0147335E-reused
-    public LogicManager(Model model, Storage storage) {
+    public LogicManager(Model model) {
         this.model = model;
         this.parser = new CommandParser();
         this.historyManager = new HistoryManager();

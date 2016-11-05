@@ -36,7 +36,6 @@ public class MainWindow extends UiPart {
     private Config config;
     // Handles to elements of this Ui container
     private VBox rootLayout;
-    private Scene scene;
 
     @FXML
     private AnchorPane browserPlaceholder;
@@ -86,7 +85,7 @@ public class MainWindow extends UiPart {
         setIcon(ICON);
         setWindowMinSize();
         // setWindowDefaultSize(prefs);
-        scene = new Scene(rootLayout);
+        Scene scene = new Scene(rootLayout);
         primaryStage.setScene(scene);
 
         setAccelerators();
