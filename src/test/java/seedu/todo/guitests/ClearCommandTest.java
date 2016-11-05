@@ -71,4 +71,23 @@ public class ClearCommandTest extends GuiTest {
         assertEventNotVisibleAfterCmd("list", event3);
         assertEventNotVisibleAfterCmd("list", event4);
     }
+    
+    @Test
+    public void clear_all_tasks() {
+        console.runCommand("clear tasks");
+        assertTaskNotVisibleAfterCmd("list", task1);
+        assertTaskNotVisibleAfterCmd("list", task2);
+        assertEventVisibleAfterCmd("list", event3);
+        assertEventVisibleAfterCmd("list", event4);
+    }
+    
+    @Test
+    public void clear_all_events() {
+        console.runCommand("clear events");
+        assertTaskVisibleAfterCmd("list", task1);
+        assertTaskVisibleAfterCmd("list", task2);
+        assertEventNotVisibleAfterCmd("list", event3);
+        assertEventNotVisibleAfterCmd("list", event4);
+    }
+    
 }
