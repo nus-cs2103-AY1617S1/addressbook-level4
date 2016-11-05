@@ -72,10 +72,21 @@ public class BackupCommandTest extends TaskManagerGuiTest {
         commandBox.runCommand("backup " + filepath_E);
         assertResultMessage(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, BackupCommand.MESSAGE_USAGE));
         */
-        
+
         // verify a TaskManager will detect if a file is protected
+        setProtectedFilePermissions();
         commandBox.runCommand("backup " + filepath_F);
         assertResultMessage(String.format(BackupCommand.MESSAGE_BACKUP_ERROR, filepath_F + ".xml"));
         // */
+    }
+
+    /**
+     * Ensure protected file is Read-Only at every run
+     */
+    private void setProtectedFilePermissions() {
+        File protectedFile = new File(filepath_F + ".xml");
+        protectedFile.setReadable(true);
+        protectedFile.setExecutable(false);
+        protectedFile.setWritable(false);
     }
 }
