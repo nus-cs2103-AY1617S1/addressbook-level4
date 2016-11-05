@@ -186,8 +186,8 @@ public class TodoListDB {
      * 
      * @param tasks Tasks to remove
      */
-    public void destroyTasks(List<Task> tasks) {
-        tasks.removeAll(tasks);
+    public void destroyTasks(List<Task> clearTasks) {
+        tasks.removeAll(clearTasks);
     }
     
     /**
@@ -252,8 +252,8 @@ public class TodoListDB {
      * 
      * @param tasks Tasks to remove
      */
-    public void destroyEvents(List<Event> events) {
-        events.removeAll(events);
+    public void destroyEvents(List<Event> clearEvents) {
+        events.removeAll(clearEvents);
     }
     
     /**
