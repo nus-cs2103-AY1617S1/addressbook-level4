@@ -187,9 +187,17 @@ public class ModelManager extends ComponentManager implements Model {
 	public synchronized void updateTask(Task taskToUpdate, TaskDetails taskDetails, String startTime,
 			String endTime, Priority priority, String frequency)
 					throws IllegalValueException {
-		Task originalTask = new Task(taskToUpdate);
+	    Task originalTask = new Task(taskToUpdate.getTaskDetails(), new StartTime(taskToUpdate.getStartTime().toString()), new EndTime (taskToUpdate.getEndTime().toString()), taskToUpdate.getPriority(), taskToUpdate.getRecurringFrequency());
+		System.out.println("Before updating:");
+        System.out.println("taskToUpdate: " + taskToUpdate.getTaskDetails() + taskToUpdate.getStartTime().toCardString());
+        System.out.println("originalTask: " + originalTask.getTaskDetails() + originalTask.getStartTime().toCardString());
+		
 		taskList.updateTask(taskToUpdate, taskDetails, startTime, endTime, priority, frequency);
-		updateFilteredListToShowIncomplete();
+        System.out.println("After updating:");
+        System.out.println("taskToUpdate: " + taskToUpdate.getTaskDetails() + taskToUpdate.getStartTime().toCardString());
+        System.out.println("originalTask: " + originalTask.getTaskDetails() + originalTask.getStartTime().toCardString());
+		
+        updateFilteredListToShowIncomplete();
 		indicateTaskListChanged();
 		addToUndoStack(UndoCommand.UPD_CMD_ID, null, taskToUpdate, originalTask);
 		clearRedoStack();
@@ -198,8 +206,8 @@ public class ModelManager extends ComponentManager implements Model {
 
 	@Override
 	public void updateTaskUndo(Task taskToUpdate, TaskDetails taskDetails, StartTime startTime, EndTime endTime,
-			Priority priority, String frequency) throws IllegalValueException {
-		taskList.updateTask(taskToUpdate, taskDetails, startTime, endTime, priority, frequency);
+			Priority priority, String frequency) throws IllegalValueException {	    
+	    taskList.updateTask(taskToUpdate, taskDetails, startTime, endTime, priority, frequency);	    
 		updateFilteredListToShowIncomplete();
 		indicateTaskListChanged();
 	}
