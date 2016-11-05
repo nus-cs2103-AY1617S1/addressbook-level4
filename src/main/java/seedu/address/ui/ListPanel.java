@@ -12,7 +12,6 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import seedu.address.model.alias.ReadOnlyAlias;
 import seedu.address.model.task.ReadOnlyTask;
-import seedu.address.model.task.TaskType;
 import seedu.address.commons.core.LogsCenter;
 
 import java.util.logging.Logger;
@@ -20,9 +19,9 @@ import java.util.logging.Logger;
 /**
  * Panel containing the list of tasks.
  */
-public class TaskListPanel extends UiPart {
-    private final Logger logger = LogsCenter.getLogger(TaskListPanel.class);
-    private static final String FXML = "TaskListPanel.fxml";
+public class ListPanel extends UiPart {
+    private final Logger logger = LogsCenter.getLogger(ListPanel.class);
+    private static final String FXML = "ListPanel.fxml";
     private VBox panel;
     private AnchorPane placeHolderPane;
     //@@author A0142184L
@@ -34,7 +33,7 @@ public class TaskListPanel extends UiPart {
     @FXML
     private ListView<ReadOnlyAlias> aliasListView;
     //@@author
-    public TaskListPanel() {
+    public ListPanel() {
         super();
     }
 
@@ -67,10 +66,10 @@ public class TaskListPanel extends UiPart {
         this.placeHolderPane = pane;
     }
 
-    public static TaskListPanel loadTaskList(Stage primaryStage, AnchorPane taskListPlaceholder,
+    public static ListPanel loadTaskList(Stage primaryStage, AnchorPane taskListPlaceholder,
                                        ObservableList<ReadOnlyTask> taskList) {
-        TaskListPanel taskListPanel =
-                UiPartLoader.loadUiPart(primaryStage, taskListPlaceholder, new TaskListPanel());
+        ListPanel taskListPanel =
+                UiPartLoader.loadUiPart(primaryStage, taskListPlaceholder, new ListPanel());
         taskListPanel.configureTask(taskList);
         taskListPanel.hideAliasListViewSize();
         return taskListPanel;
@@ -91,9 +90,9 @@ public class TaskListPanel extends UiPart {
     	aliasListView.setMaxHeight(0.0);
 	}
 
-	public static TaskListPanel loadAliasList(Stage primaryStage, AnchorPane taskListPlaceholder,
+	public static ListPanel loadAliasList(Stage primaryStage, AnchorPane taskListPlaceholder,
                                        ObservableList<ReadOnlyAlias> aliasList) {
-    	TaskListPanel taskListPanel = UiPartLoader.loadUiPart(primaryStage, taskListPlaceholder, new TaskListPanel());
+    	ListPanel taskListPanel = UiPartLoader.loadUiPart(primaryStage, taskListPlaceholder, new ListPanel());
         taskListPanel.configureAlias(aliasList);
         taskListPanel.hideTaskListViewSize();
         return taskListPanel;
@@ -139,13 +138,7 @@ public class TaskListPanel extends UiPart {
                 setGraphic(null);
                 setText(null);
             } else {
-            	if (task.getTaskType().value.equals(TaskType.Type.SOMEDAY)) {
-                    setGraphic(SomedayTaskCard.load(task, getIndex() + 1).getLayout());
-            	} else if (task.getTaskType().value.equals(TaskType.Type.DEADLINE)) {
-            		setGraphic(DeadlineTaskCard.load(task, getIndex() + 1).getLayout());
-            	} else {
-            		setGraphic(EventTaskCard.load(task, getIndex() + 1).getLayout());
-            	}
+            	setGraphic(TaskCard.load(task, getIndex() + 1).getLayout());
             }
         }
     }

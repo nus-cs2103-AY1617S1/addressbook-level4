@@ -122,20 +122,20 @@ public class UiManager extends ComponentManager implements Ui {
     @Subscribe
     private void handleDisplayTaskListEvent(DisplayTaskListEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
-		TaskListPanel listPanel = MainWindow.getTaskListPanel();
+		ListPanel listPanel = MainWindow.getTaskListPanel();
 		if (!listPanel.isShowingTaskList()) {
 		    listPanel.setIsShowingTaskList(true);
-			listPanel = TaskListPanel.loadTaskList(MainWindow.primaryStage, MainWindow.getTaskListLeftPlaceholder(), event.list);
+			listPanel = ListPanel.loadTaskList(MainWindow.primaryStage, MainWindow.getTaskListLeftPlaceholder(), event.list);
 		}
     }
     
     @Subscribe
     private void handleDisplayAliasListEvent(DisplayAliasListEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        TaskListPanel listPanel = MainWindow.getTaskListPanel();
+        ListPanel listPanel = MainWindow.getTaskListPanel();
 		if (listPanel.isShowingTaskList()) {
 		    listPanel.setIsShowingTaskList(false);
-			listPanel = TaskListPanel.loadAliasList(MainWindow.primaryStage, MainWindow.getTaskListLeftPlaceholder(), event.list);
+			listPanel = ListPanel.loadAliasList(MainWindow.primaryStage, MainWindow.getTaskListLeftPlaceholder(), event.list);
 		}
     }
     
