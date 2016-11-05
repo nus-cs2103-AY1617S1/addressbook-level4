@@ -7,12 +7,14 @@ import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import seedu.todolist.commons.core.Config;
 import seedu.todolist.commons.core.LogsCenter;
 import seedu.todolist.commons.events.ui.IncorrectCommandAttemptedEvent;
 import seedu.todolist.commons.util.FxViewUtil;
 import seedu.todolist.logic.Logic;
 import seedu.todolist.logic.commands.*;
 
+import java.util.Date;
 import java.util.logging.Logger;
 
 public class CommandBox extends UiPart {
@@ -25,22 +27,26 @@ public class CommandBox extends UiPart {
     String previousCommandTest;
 
     private Logic logic;
+    private Config config;
+    private StatusBarFooter statusBarFooter;
 
     @FXML
     private TextField commandTextField;
     private CommandResult mostRecentResult;
 
     public static CommandBox load(Stage primaryStage, AnchorPane commandBoxPlaceholder,
-            ResultDisplay resultDisplay, Logic logic) {
+            ResultDisplay resultDisplay, Logic logic, Config config, StatusBarFooter statusBarFooter) {
         CommandBox commandBox = UiPartLoader.loadUiPart(primaryStage, commandBoxPlaceholder, new CommandBox());
-        commandBox.configure(resultDisplay, logic);
+        commandBox.configure(resultDisplay, logic, config, statusBarFooter);
         commandBox.addToPlaceholder();
         return commandBox;
     }
 
-    public void configure(ResultDisplay resultDisplay, Logic logic) {
+    public void configure(ResultDisplay resultDisplay, Logic logic, Config config, StatusBarFooter statusBarFooter) {
         this.resultDisplay = resultDisplay;
         this.logic = logic;
+        this.config = config;
+        this.statusBarFooter = statusBarFooter;
         registerAsAnEventHandler(this);
     }
 
@@ -76,7 +82,18 @@ public class CommandBox extends UiPart {
          * in the event handling code {@link #handleIncorrectCommandAttempted}
          */
         setStyleToIndicateCorrectCommand();
+        
         mostRecentResult = logic.execute(previousCommandTest);
+        
+        //@@author A0158963M 
+        String[] CommandTestArray = previousCommandTest.split(" ");
+        String storageCommand = "setstorage";
+        if(CommandTestArray[0].equals(storageCommand)){
+        	statusBarFooter.setSaveLocation(config.getToDoListFilePath());
+            String lastUpdated = (new Date()).toString();
+            statusBarFooter.setSyncStatus("Last Updated: " + lastUpdated);
+        }
+        
         resultDisplay.postMessage(mostRecentResult.feedbackToUser);
         logger.info("Result: " + mostRecentResult.feedbackToUser);
     }

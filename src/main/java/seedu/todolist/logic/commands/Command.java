@@ -2,6 +2,7 @@ package seedu.todolist.logic.commands;
 
 import seedu.todolist.commons.core.EventsCenter;
 import seedu.todolist.commons.core.Messages;
+import seedu.todolist.commons.core.Config;
 import seedu.todolist.commons.events.ui.IncorrectCommandAttemptedEvent;
 import seedu.todolist.model.Model;
 import seedu.todolist.storage.Storage;
@@ -12,6 +13,7 @@ import seedu.todolist.storage.Storage;
 public abstract class Command {
     protected Model model;
     protected Storage storage;
+    protected Config config;
 
     /**
      * Constructs a feedback message to summarise an operation that displayed a listing of tasks.
@@ -42,6 +44,11 @@ public abstract class Command {
     //@@author A0158963M
     public void setStorage(Storage storage) {
         this.storage = storage;
+    }
+    
+  //@@author A0158963M
+    public void setConfig(Config config) {
+        this.config = config;
     }
 
     /**
