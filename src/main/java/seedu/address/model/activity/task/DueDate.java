@@ -19,6 +19,7 @@ public class DueDate extends DateTime {
 
     public static final String MESSAGE_DUEDATE_CONSTRAINTS = "Task's DueDate should only contain valid date";
     public static final String MESSAGE_DUEDATE_INVALID = "Deadline is over";
+    protected static final SimpleDateFormat DASHBOARD_DATE_FORMATTER = new SimpleDateFormat("EEE, MMM d");
 
     public DueDate(Calendar date) {
         super(date);
@@ -57,5 +58,18 @@ public class DueDate extends DateTime {
         } else {
             return "Due on ".concat(this.toString());
         }
+    }
+    
+    /**
+     * Function to output date in concise form for Dashboard.
+     * @return
+     */
+    //@@ author A0125284H
+    public String forDashboardDisplay() {
+    	if (this.value == null) {
+    		return "";
+    	} else {
+    		return (DASHBOARD_DATE_FORMATTER.format(this.getCalendarValue().getTime()));
+    	}
     }
 }

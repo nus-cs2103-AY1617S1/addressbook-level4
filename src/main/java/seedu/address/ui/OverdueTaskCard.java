@@ -15,7 +15,7 @@ public class OverdueTaskCard extends DashboardCard{
 		public void initialize() {
 
 			name.setText(activity.getName().fullName);
-			//datetime.setText(((ReadOnlyTask) activity).getDueDate().forDisplay());
+			datetime.setText(((ReadOnlyTask) activity).getDueDate().forDashboardDisplay());
 
 		}
 	 

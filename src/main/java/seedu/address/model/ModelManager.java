@@ -136,7 +136,7 @@ public class ModelManager extends ComponentManager implements Model {
   	public UnmodifiableObservableList<ReadOnlyActivity> getFilteredOverdueTaskList() {
   		
   		FilteredList<Activity> filteredOverdueTaskList = new FilteredList<>(addressBook.getAllEntries());
-  		System.out.println("Size before filtering :" + filteredOverdueTaskList.size());
+  		//System.out.println("Size before filtering :" + filteredOverdueTaskList.size());
   		
   		filteredOverdueTaskList.setPredicate(p->
   		p.getClass().getSimpleName().equals("Task"));
@@ -146,7 +146,7 @@ public class ModelManager extends ComponentManager implements Model {
   		anotherList.setPredicate(p->
   		p.getCompletionStatus() == false && p.hasPassedDueDate() == true);
 
-  		System.out.println("Size after filtering :" + anotherList.size());
+  		//System.out.println("Size after filtering :" + anotherList.size());
   		
   		return new UnmodifiableObservableList<ReadOnlyActivity>(anotherList);
   	}
