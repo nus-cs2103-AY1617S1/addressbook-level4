@@ -6,7 +6,8 @@
 3. [Features](#3-features)
 4. [FAQ](#4-faq)
 5. [Command Summary](#5-command-summary)
-6. [Appendix](#6-appendix)
+6. [Credits](#6-credits)
+7. [Appendix](#7-appendix)
 
 ## 1. Introduction 
 
@@ -161,40 +162,25 @@ If you have any further enquiries, drop us an email at sTask@sTask.com.sg!<br><b
        
 ## 5. Command Summary
 
-Command | Format  
--------- | -------- 
+Command | Format | Description 
+-------- | :-------- | :--------
+Help | `help` | Opens the help page in a new window
+Add | `add TASK_NAME [d/DESCRIPTION] [date/DATE_TIME] [t/TAGS]` | Adds a task
+List | `list all/done/od` | Lists the desired tasks
+Edit | `edit INDEX [TASK_NAME] [d/DESCRIPTION] [date/DATE_TIME] [t/TAGS]` | Edits a task
+Find | `find KEYWORD[...]` | Finds and displays tasks with KEYWORD[...]
+View | `view DATE` | Views the tasks on a specific date
+Delete | `delete INDEX` | Deletes a task
+Undo | `undo` | Undoes the last action
+Redo | `redo` | Redoes the last undo
+Done | `done INDEX` | Marks a task as complete
+Select | `select INDEX` | Selects and scrolls to the task
+Save | `save FOLDERPATH` | Changes the location of the save file
+Exit | `exit` | Exits sTask
 
-Help | `help`
-- Shows a help file
+## 6. Credits
 
-Add | `add TASKNAME d/TASK_DESCRIPTION @/DATE TIME [t/TAG...]`
-- Inserts a task into sTask
-
-Delete | `delete INDEX`
-- Deletes a task from sTask
-
-Edit | `edit INDEX [FIELDS]`
-- Edits the field of the task at the specified `INDEX`
-
-Find | `find KEYWORD [MORE_KEYWORDS]`
-- Finds an existing task based on the TASK_NAME or TASK_TAG
-
-List | `list all` , `list od`, `list done`
-- Lists all/overdue/completed tasks in sTask
-
-View | `view DATE`
-- Populates the list of deadlines and events of the selected DATE
-
-Done | `done INDEX`
-- Marks the selected task as completed
-
-Save | `save FOLDERPATH`
-- Changes location of storage data to specified folder
-
-Undo | `undo`
-- Reverts the last reversible action (up to 10)
-
-## 6. Appendix
+## 7. Appendix
 
 Possible Date formats
 DD-MM-YY 	: 18-10-16 
