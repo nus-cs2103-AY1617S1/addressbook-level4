@@ -32,10 +32,11 @@ public class AddCommand extends Command implements Undoable, Redoable {
     // Better regex, support better NLP:
     // general form: add some task name from tomorrow 8pm to next friday 8pm daily #recurring,awesome
     // https://regex101.com/r/M2A3tB/8
-    public static final String COMMAND_ARGUMENTS_REGEX = "(?=(?<name>(?:.(?!by|from|#))+))"
-                                                        + "(?:(?=.*(?:by|from)\\s(?<dates>(?:.(?!#))+)?))?"
+    public static final String COMMAND_ARGUMENTS_REGEX = "(?=(?<name>(?:'.+'|(?:.(?!by|from|#)))+))"
+                                                        + "(?:(?=.*(?:by|from)\\s(?<dates>(?:.(?!#|.*'))+)?))?"
                                                         + "(?:(?=.*(?<recur>daily|weekly|monthly|yearly)))?"
-                                                        + "(?:(?=.*#(?<tags>.+)))?.*";
+                                                        + "(?:(?=.*#(?<tags>.+)))?"
+                                                        + ".*";
 
     public static final Pattern COMMAND_ARGUMENTS_PATTERN = Pattern.compile(COMMAND_ARGUMENTS_REGEX);
     
