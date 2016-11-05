@@ -32,7 +32,8 @@ public class TaskCard extends UiPart {
         card.displayedIndex = displayedIndex;
         return UiPartLoader.loadUiPart(card);
     }
-
+    
+    //@@author A0147092E
     @FXML
     public void initialize() {
         String dateInfo;
@@ -62,6 +63,7 @@ public class TaskCard extends UiPart {
         title.setText(task.getName().toString());
         id.setText(displayedIndex + ". ");
     }
+    //@@author
 
     public HBox getLayout() {
         return cardPane;

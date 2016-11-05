@@ -55,15 +55,35 @@ Examples:
 * `a CS2103 Lecture from/ Friday 2pm to/ Friday 4pm `
 
 //@@author 
+
+//@@author A0147092E
 #### Adding an recurring task: `add`
 #### Shortcut : `a`
 Adds a task(recursive) to the FlexiTrack.<br>
-Format: `add [task title] fr/ [number of occurrence] ty/ [day | week | month] from/ [starting time] to/ [ending time]`
+Format: `add [task title] fr/ [number of occurrence]
+
+Examples: 
+* `add Plan meet-up for assignment fr/ 5
+* `add Watch DareDevil Season 1 EP fr/ 10
+
+#### Adding an recurring task (with deadline): `add`
+#### Shortcut : `a`
+Adds a task(recursive) to the FlexiTrack.<br>
+Format: `add [task title] fr/ [number of occurrence] ty/ [daily | weekly | monthly] from/ [starting time] to/ [ending time]`
 
 Examples: 
 * `add Submit PC1222 Labsheet fr/ 5 ty/ week by/ Tuesday 5pm`
 * `add complete CS2103 post-lecture quiz fr/ 10 ty/ week by/ Sunday 10pm`
 
+#### Adding an recurring event: `add`
+#### Shortcut : `a`
+Adds a event(recursive) to the FlexiTrack.<br>
+Format: `add [event title] fr/ [number of occurrence] ty/ [daily | weekly | monthly] from/ [starting time] to/ [ending time]`
+
+Examples: 
+* `add attend PC1222 tutorial fr/ 5 ty/ weekly from/ Tuesday 5pm to/ Tuesday 6pm`
+* `add attend CS2103 lecture fr/ 10 ty/ weekly from/ Fri 2pm to/ Fri 4pm`
+//@@author
 
 //@@author A0138455Y
 #### Block multiple time slot for an event : `block`

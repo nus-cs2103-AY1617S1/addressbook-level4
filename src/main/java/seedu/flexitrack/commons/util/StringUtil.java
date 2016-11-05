@@ -9,18 +9,21 @@ import java.util.List;
  * Helper functions for handling strings.
  */
 public class StringUtil {
+    //@@author A0147092E
     public static boolean equalsIgnoreCase(String source, String query) {
         String parsedQuery = query.replace("f/", "").trim();
         List<String> strings = Arrays.asList(source.toLowerCase());
         return strings.stream().filter(s -> s.contains(parsedQuery.toLowerCase())).count() > 0;
     }
-
+    //@@author
+    
     public static boolean containsIgnoreCase(String source, String query) {
         String[] split = source.toLowerCase().split("\\s+");
         List<String> strings = Arrays.asList(split);
         return strings.stream().filter(s -> s.equals(query.toLowerCase())).count() > 0;
     }
-
+    
+    
     /**
      * Returns a detailed message of the t, including the stack trace.
      */

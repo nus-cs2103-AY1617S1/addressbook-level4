@@ -28,14 +28,17 @@ Role: Tutor <br>
 
 -----
 
-#### [Eddie Tan Yong Sheng](https://github.com/e-tys) 
+#### [(Eddie) Tan Yong Sheng](https://github.com/e-tys) 
 <img src="images/EddieTan.jpg" width="150"><br>
 * Role: Developer <br>  
 * Responsibilities: Documentation, Command, UI
 * Features implemented:
 	* Find Command
-	* Add Command(Recurring task)
-* Code written: [functional code](A0147092E.md)
+	* Add Command(Recurring task and event)
+* Code written: [functional code]((https://github.com/CS2103AUG2016-F09-C3/main/blob/master/collated/main/A0147092E.md))][[test code]((https://github.com/CS2103AUG2016-F09-C3/main/blob/master/collated/test/A0147092E.md))][[docs]((https://github.com/CS2103AUG2016-F09-C3/main/blob/master/collated/docs/A0147092E.md))]
+* Other major contributions:
+	* Change the UI design (colors, sizing)
+	* Bug fixing
 -----
 
 #### [Antonia Devina](https://github.com/antoniadevina)
