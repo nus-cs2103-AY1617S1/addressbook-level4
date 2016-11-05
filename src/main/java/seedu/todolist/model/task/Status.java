@@ -3,46 +3,68 @@ package seedu.todolist.model.task;
 //@@author A0138601M
 /**
  * Represents a Task's status in the to do list.
- * Guarantees: is one of the two values 'complete' or 'incomplete'
+ * Guarantees: is one of the three values 'complete', 'incomplete' or 'overdue'
  */
 public class Status {
-    public static final String STATUS_COMPLETE = "complete";
-    public static final String STATUS_INCOMPLETE = "incomplete";
+    public enum Type {
+        Incomplete("incomplete"),
+        Complete("complete"),
+        Overdue("overdue");
+        
+        String statusType;
+        Type(String type) {
+            statusType = type;
+        }
+        
+        @Override
+        public String toString() {
+            return statusType;
+        }
+    }
 
-    private boolean status;
+    private Type status;
 
-    /**
-     * Set task's status. Default status is incomplete.
-     */
-    public Status(boolean status) {
+    public Status() {
+        setStatus(Status.Type.Incomplete);
+    }
+    
+    public Status(Type status) {
         setStatus(status);
     }
     
     public Status(String status) {
-        if (status.equals(STATUS_COMPLETE)) {
-            this.status = true;
-        }
-        else {
-            this.status = false;
+        assert status != null;
+        
+        if (status.equals(Type.Incomplete.toString())) {
+            setStatus(Type.Incomplete);
+        } else if (status.equals(Type.Complete.toString())) {
+            setStatus(Type.Complete);
+        } else if (status.equals(Type.Overdue.toString())) {
+            setStatus(Type.Overdue);
+        } else {
+            assert false : "Status must be either incomeplete, complete or overdue";
         }
     }
     
-    public void setStatus(boolean status) {
+    public void setStatus(Type status) {
         this.status = status;
     }
     
+    public boolean isIncomplete() {
+        return this.status.equals(Status.Type.Incomplete);
+    }
+    
     public boolean isComplete() {
-        return this.status;
+        return this.status.equals(Status.Type.Complete);
+    }
+    
+    public boolean isOverdue() {
+        return this.status.equals(Status.Type.Overdue);
     }
 
     @Override
     public String toString() {
-        if (this.status) {
-            return STATUS_COMPLETE;
-        }
-        else {
-            return STATUS_INCOMPLETE;
-        }
+        return status.toString();
     }
 
     @Override
