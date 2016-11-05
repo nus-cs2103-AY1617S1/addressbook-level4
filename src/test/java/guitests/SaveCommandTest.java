@@ -49,9 +49,9 @@ public class SaveCommandTest extends MalitioGuiTest {
     assertSaveSuccessful(TEST_FILE_PATH);
     assertFileDeletionSuccessful(DEFAULT_FILE_PATH);
     
-    //save default file location again
-    commandBox.runCommand("save " + DEFAULT_FILE_PATH);
-    assertSaveSuccessful(DEFAULT_FILE_PATH);
+    //save default file location again but with back slash
+    commandBox.runCommand("save " + "src\\test\\data\\tempDataForSaveCommand\\");
+    assertSaveSuccessful("src\\test\\data\\tempDataForSaveCommand\\");
     assertFileDeletionSuccessful(TEST_FILE_PATH);
     
     //invalid file path
