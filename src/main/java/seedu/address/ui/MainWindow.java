@@ -37,6 +37,7 @@ public class MainWindow extends UiPart {
     // Independent Ui parts residing in this Ui container
     private ActivityListPanel activityListPanel;
     private OverdueTaskListPanel overdueListPanel;
+    private UpcomingListPanel upcomingListPanel;
     private ResultDisplay resultDisplay;
     private StatusBarFooter statusBarFooter;
     private CommandBox commandBox;
@@ -67,8 +68,8 @@ public class MainWindow extends UiPart {
     @FXML
     private AnchorPane statusbarPlaceholder;
     
-//    @FXML
-//    private AnchorPane upcomingListPanelPlaceholder;
+    @FXML
+    private AnchorPane upcomingListPanelPlaceholder;
     
     @FXML
     private AnchorPane overdueListDisplayPlaceHolder;
@@ -124,7 +125,7 @@ public class MainWindow extends UiPart {
 
         //fill dash board
         overdueListPanel = OverdueTaskListPanel.load(primaryStage, getOverdueListPlaceholder(), logic.getFilteredOverdueTaskList());
-        
+        //upcomingListPanel = UpcomingListPanel.load(primaryStage, getPersonListPlaceholder(), logic.getFilteredUpcomingList())
         		
         resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
         statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), userPrefs.getDataFilePath());

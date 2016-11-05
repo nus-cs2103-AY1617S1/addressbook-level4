@@ -32,7 +32,7 @@ public class OverdueTaskListPanel extends ListPanel {
 	        super();
 	    }
 
-	// Function specific to OverdueListPanel
+	// Functions specific to OverdueListPanel ---------------------------------------------
 	
     private void setEventHandlerForSelectionChangeEvent() {
         this.activityListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {

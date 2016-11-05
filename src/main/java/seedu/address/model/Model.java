@@ -49,6 +49,9 @@ public interface Model {
     /** Returns the filtered overdue task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
     UnmodifiableObservableList<ReadOnlyActivity> getFilteredOverdueTaskList();
     
+    /** Returns the filtered overdue task list as an {@code UnmodifiableObservableList<ReadOnlyActivity>} */
+    UnmodifiableObservableList<ReadOnlyActivity> getFilteredUpcomingList();
+    
     /** Returns the filtered task list as an {@code UnmodifiableObservableList<Task>} */
     UnmodifiableObservableList<Activity> getFilteredTaskListForEditing();
 

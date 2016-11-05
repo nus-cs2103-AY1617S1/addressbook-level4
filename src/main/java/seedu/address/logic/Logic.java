@@ -16,10 +16,13 @@ public interface Logic {
      */
     CommandResult execute(String commandText);
 
-    /** Returns the filtered list of persons */
+    /** Returns the filtered list of activities */
     ObservableList<ReadOnlyActivity> getFilteredPersonList();
     
     /** Returns the filtered list of overdue tasks */
     ObservableList<ReadOnlyActivity> getFilteredOverdueTaskList();
+    
+    /** Returns the filtered list of upcoming tasks and events */
+    ObservableList<ReadOnlyActivity> getFilteredUpcomingList();
 
 }

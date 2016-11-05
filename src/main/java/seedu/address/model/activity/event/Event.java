@@ -13,7 +13,8 @@ import seedu.address.model.tag.UniqueTagList;
 //@@author A0131813R
 public class Event extends Activity implements ReadOnlyEvent{
 
-    private StartTime startTime;
+    private static final int DAYS_WARNING = -3;
+	private StartTime startTime;
     private EndTime endTime;
     
     public Event(Name name, StartTime start, EndTime end, Reminder reminder, UniqueTagList tags) {
@@ -141,6 +142,24 @@ public class Event extends Activity implements ReadOnlyEvent{
     @Override
     public String toString() {
         return getAsText();
+    }
+    
+    /**
+     * Checks if the due date is approaching and returns true if so.
+     * @return true if the current time is a certain number of days before the due date (default 3).
+     */
+    public boolean isStartTimeApproaching() {
+        if(startTime.getCalendarValue() == null) {
+            return false;           
+        } else {
+            Calendar cal = Calendar.getInstance();
+            Date now = cal.getTime();
+            cal.setTime(startTime.getCalendarValue().getTime());
+            cal.add(Calendar.DAY_OF_MONTH, DAYS_WARNING);
+            Date warningDate = cal.getTime();
+            return warningDate.before(now)
+                    && startTime.getCalendarValue().getTime().after(now);       
+        }
     }
     
 }
