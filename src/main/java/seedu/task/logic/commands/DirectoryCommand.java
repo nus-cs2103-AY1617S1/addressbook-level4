@@ -25,11 +25,11 @@ public class DirectoryCommand extends Command {
     public static final String COMMAND_WORD_ALT = "dir";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Load TaskManager with data in given directory. \n"
-            + "Parameters: directory/filename OR filename\n"
-            + "Example: " + COMMAND_WORD + " c:/Users/user/Desktop/TaskManagerBackup1 OR TaskManagerBackup2";
+            + "Parameters: directory/filename OR filename\n" + "Example: " + COMMAND_WORD
+            + " c:/Users/user/Desktop/TaskManagerBackup1 OR TaskManagerBackup2";
 
     public static final String MESSAGE_NEW_DIRECTORY_SUCCESS = "New data: %1$s";
-    
+
     public static final String MESSAGE_UNSUPPORTED_OPERATING_SYSTEM = "Unsupported operating system, please manually close application and start it again.";
 
     public static final String MESSAGE_FILE_NOT_FOUND_ERROR = "File does not exist: %1$s";
@@ -39,7 +39,7 @@ public class DirectoryCommand extends Command {
 
     /* This is the path of the selected storage file. */
     private String _destination;
-    
+
     /* This is the path of the selected storage file. */
     private Boolean _isAbleToRestart;
 
@@ -54,18 +54,20 @@ public class DirectoryCommand extends Command {
     }
 
     /**
-     * Change TaskManager file path in Config
+     * Change TaskManager file path in Config.
      * 
-     * @param config Config to update
+     * @param config
+     *            Config to update
      */
     private void updateConfigWithNewFilePath(Config config) {
         config.setTaskManagerFilePath(_destination);
     }
 
     /**
-     * Saves changes made to Config
+     * Saves changes made to Config.
      * 
-     * @param config Config file with updated data
+     * @param config
+     *            Config file with updated data
      */
     private void saveConfig(Config config) {
         try {
@@ -77,7 +79,7 @@ public class DirectoryCommand extends Command {
     }
 
     /**
-     * Retrieves Config file
+     * Retrieves Config file.
      * 
      * @return the deserialized config
      */
@@ -96,7 +98,8 @@ public class DirectoryCommand extends Command {
      * Appends FILE_EXTENSION to given destination.
      * This ensures user will not accidentally override non.xml files.
      * 
-     * @param destination path of new data file provided by user
+     * @param destination
+     *            path of new data file provided by user
      */
     private void appendExtension(String destination) {
         if (destination != null) {
@@ -112,12 +115,15 @@ public class DirectoryCommand extends Command {
         }
 
         assert model != null;
+
+        // Check if Desktop is supported by Platform as it is required to
+        // restart itself automatically
         if (!isOperatingSystemSupported()) {
             return new CommandResult(String.format(MESSAGE_UNSUPPORTED_OPERATING_SYSTEM));
         }
         restartTaskManager();
         if (_isAbleToRestart) {
-            // Shut down current TaskManager
+            // Shut down current instance of TaskManager
             EventsCenter.getInstance().post(new ExitAppRequestEvent());
             return new CommandResult(String.format(MESSAGE_NEW_DIRECTORY_SUCCESS, _destination));
         } else {
@@ -125,15 +131,19 @@ public class DirectoryCommand extends Command {
         }
     }
 
+    /**
+     * Checks if Operating System is supported by Desktop
+     * 
+     * @return true if Operating System is supported, false otherwise
+     */
     private Boolean isOperatingSystemSupported() {
-        //first check if Desktop is supported by Platform or not
-        if(Desktop.isDesktopSupported()){
+        if (Desktop.isDesktopSupported()) {
             return true;
         } else {
             return false;
         }
     }
-    
+
     /**
      * Run TaskManager.jar located at root directory
      */
@@ -153,11 +163,11 @@ public class DirectoryCommand extends Command {
             _isAbleToRestart = false;
         }
     }
-    
-    /* Older method to restart TaskManger, keeping for knowledge
-    /**
+
+    /* Alternative method to restart TaskManger on Windows,keeping for knowledge
+    //**
      * Locates TaskManager.jar file and silently run it via Windows Command Line
-     *
+     *//*
     private void restartTaskManagerOnWindows() {
         logger.info("============================ [ Restarting Task Manager ] =============================");
         String command = "";
@@ -169,8 +179,7 @@ public class DirectoryCommand extends Command {
         } catch (IOException e) {
             logger.warning("Error starting process. " + e);
         }
-    }
-    */
+    }*/
 
     @Override
     public CommandResult execute(int index) {

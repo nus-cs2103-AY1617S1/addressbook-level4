@@ -45,6 +45,14 @@ public class EndTime {
         return value;
     }
 
+    /**
+     * Checks if the two are the same and returns true if the EndTimes are equal
+     * to each other and false otherwise
+     * 
+     * @param other
+     *            The EndTime to check against.
+     * @return true if the EndTimes are equal to each other and false otherwise
+     */
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
@@ -53,6 +61,11 @@ public class EndTime {
                                                                         // check
     }
 
+    /**
+     * Generates a hash code for the EndTime parameter.
+     * 
+     * @return generated hash code
+     */
     @Override
     public int hashCode() {
         return value.hashCode();

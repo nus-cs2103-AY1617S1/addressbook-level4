@@ -156,6 +156,12 @@ public class ModelManager extends ComponentManager implements Model {
     // @@author
 
     // @@author A0147944U
+    /**
+     * Repeats a task with time added to it based on the interval it is set to
+     * 
+     * @param recurringTask
+     *            task to repeat
+     */
     @Override
     public void repeatRecurringTask(Task recurringTask) {
         if (!recurringTask.getRecurring().toString().equals("false")) {
@@ -190,6 +196,13 @@ public class ModelManager extends ComponentManager implements Model {
         }
     }
 
+    /**
+     * Adds time to the original time based on the interval
+     * 
+     * @param originalTime original time
+     * @param interval duration to add
+     * @return date and time with interval added
+     */
     private String addPeriodicTimeToTask(String originalTime, String interval) {
         String newTime = "one week after " + originalTime;
         if ("daily".equals(interval)) {

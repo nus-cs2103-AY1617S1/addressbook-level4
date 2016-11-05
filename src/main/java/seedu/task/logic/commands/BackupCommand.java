@@ -25,8 +25,8 @@ public class BackupCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Saves TaskManager in given directory. \n"
             + "If only filename is given, file is saved in root directory of TaskManager. \n"
-            + "Parameters: directory/filename OR filename\n"
-            + "Example: " + COMMAND_WORD + " c:/Users/user/Desktop/TaskManagerBackup1 OR TaskManagerBackup2";
+            + "Parameters: directory/filename OR filename\n" + "Example: " + COMMAND_WORD
+            + " c:/Users/user/Desktop/TaskManagerBackup1 OR TaskManagerBackup2";
 
     public static final String MESSAGE_BACKUP_SUCCESS = "Backup successful: %1$s %2$s";
 
@@ -67,8 +67,10 @@ public class BackupCommand extends Command {
     /**
      * Replaces data in Config file with the updated data
      * 
-     * @param newFile config file to update
-     * @param source config file to get data from
+     * @param newFile
+     *            config file to update
+     * @param source
+     *            config file to get data from
      */
     private void copyData(File newFile, File source) {
         // Copy current data to
@@ -82,7 +84,8 @@ public class BackupCommand extends Command {
     /**
      * Creates file on drive if it does not exist
      * 
-     * @param newFile data file to create
+     * @param newFile
+     *            data file to create
      */
     private void createFileIfNotExisting(File newFile) {
         if (!FileUtil.isFileExists(newFile)) {
@@ -101,10 +104,11 @@ public class BackupCommand extends Command {
     }
 
     /**
-     * Appends FILE_EXTENSION to given destination.
-     * This ensures user will not accidentally override non-xml files.
+     * Appends FILE_EXTENSION to given destination. This ensures user will not
+     * accidentally override non-xml files.
      * 
-     * @param destination path of backup data file provided by user
+     * @param destination
+     *            path of backup data file provided by user
      */
     private void appendExtension(String destination) {
         if (destination != null) {
@@ -130,10 +134,10 @@ public class BackupCommand extends Command {
     public CommandResult execute(boolean isUndo) {
 
         /**
-         * Check if new backup file was not created
-         * Possible scenario where file was not created:
-         * Given path is protected and thus inaccessible by TaskManager or Given path can not exist
-         * i.e. invalid drive letter, invalid characters
+         * Check if new backup file was not created. Possible scenario where file
+         * was not created: Given path is protected and thus inaccessible by
+         * TaskManager or Given path can not exist i.e. invalid drive letter,
+         * invalid characters
          */
         assert _destination != null;
         if (!FileUtil.isFileExists(new File(_destination))) {
@@ -141,9 +145,9 @@ public class BackupCommand extends Command {
         }
 
         /**
-         * Check if new backup file data matches the current data.
-         * Possible scenario where it doesn't match:
-         * If a file of same path as given already exists and is write-protected
+         * Check if new backup file data matches the current data. Possible
+         * scenario where it doesn't match: If a file of same path as given
+         * already exists and is write-protected
          */
         try {
             String destinationFileData = FileUtil.readFromFile(new File(_destination));

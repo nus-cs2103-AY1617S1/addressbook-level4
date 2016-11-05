@@ -72,6 +72,11 @@ public class Task implements ReadOnlyTask {
     }
     
     // @@author A0147944U
+    /**
+     * Retrieves Recurring of this task.
+     * 
+     * @return The Recurring parameter of this task.
+     */
     @Override
     public Recurring getRecurring() {
         return recurring;

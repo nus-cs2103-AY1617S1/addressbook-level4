@@ -63,7 +63,7 @@ public class DoneCommand extends Command {
         } else {
             // @@author A0147944U
             model.repeatRecurringTask(new Task(currentTask));
-            // @author
+            // @@author
         }
         // @@author A0147335E
 

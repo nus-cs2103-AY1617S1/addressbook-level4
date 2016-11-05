@@ -31,7 +31,7 @@ public class SortCommand extends Command {
     private Boolean invalidKeyword = false;
 
     /**
-     * Parse the keyword given by user based on first character of the input
+     * Parses the keyword given by user based on first character of the input
      * 
      * @param keyword
      *            keyword given by user to sort tasks by
@@ -56,7 +56,7 @@ public class SortCommand extends Command {
     }
 
     /**
-     * Executes 'sortFilteredTaskList' and returns success message
+     * Executes 'sortFilteredTaskList' and returns a message to inform if it was successful or has failed.
      */
     @Override
     public CommandResult execute(boolean isUndo) {
