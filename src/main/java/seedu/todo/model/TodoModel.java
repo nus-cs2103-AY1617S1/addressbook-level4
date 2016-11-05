@@ -193,7 +193,6 @@ public class TodoModel implements Model {
     @Override
     public void view(TaskViewFilter view) {
         viewFilteredTasks.setPredicate(view.filter);
-
         sortedTasks.setComparator((a, b) -> {
             int pin = Boolean.compare(b.isPinned(), a.isPinned());
             return pin != 0 || view.sort == null ? pin : view.sort.compare(a, b);

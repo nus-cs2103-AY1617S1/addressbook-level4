@@ -4,7 +4,6 @@ import static org.junit.Assert.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
-
 import com.google.common.collect.ImmutableList;
 import org.junit.Before;
 import org.junit.Test;
@@ -181,5 +180,14 @@ public class ViewCommandTest extends CommandTest {
         setParameter("a");
         execute(true);
         assertTasksVisible(all);
+    }
+    
+    @Test
+    public void testViewAfterFind() throws ValidationException {
+        model.find(t -> t.getTitle().contains("deadline"));
+        this.assertVisibleTaskCount(1);
+        setParameter("incomplete");
+        execute(true);
+        assertTasksVisible(incomplete);
     }
 }
