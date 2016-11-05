@@ -184,12 +184,11 @@ public class Date implements Comparable<Date> {
 			return 0;
 		}
 		else if (this.getFullDate() != "" && date.getFullDate() == "") { // check if the Date Object compared to contains the dummy variable
-			return 1;
+			return 0;
 		}
 		else if (this.getFullDate() == "" && date.getFullDate() != "") {
-			return -1;
+			return 0;
 		}
-		
 		// comparing the values(day, month, year)
 		if (this.getYear() == date.getYear() && this.getMonth() == date.getMonth() && this.getDay() == date.getDay()) { // same date
 			return 0;

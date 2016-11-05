@@ -344,7 +344,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (un
 ##### Extensions
 
 1.1  User requests to add a task with a wrong format <br>
-1.2  Unburden will give display a error message <br>
+1.2  Unburden will give display a error message <br>  
   
      Use case ends
 
@@ -384,8 +384,8 @@ Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (un
   
      Use case ends
   
-2.1  User requests to find tasks that are due today <br>
-2.2  Unburden will search through the exisiting tasks and shows a list of tasks due today to the user <br>
+2.1  User requests to find tasks due today <br>
+2.2  Unburden will search through the exisiting tasks and shows a list of tasks due today <br>
   
      Use case ends
   
@@ -393,6 +393,8 @@ Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (un
 3.2  Unburden will search through the exisiting tasks and shows a list of tasks due tomorrow to the user <br>
   
      Use case ends
+     
+
 
 
 
@@ -411,8 +413,63 @@ Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (un
 1.2  Unburden shows an error message <br>
   
      Use case ends
-  
 
+
+
+### Use case: List task
+
+##### MSS
+
+1. User requests to list all tasks 
+2. Unburden shows a list of all tasks that are undone
+
+      Use case ends
+      
+###### Extension
+
+1.1 User reuqests to list of all tasks by a certain date <br>
+2.2 Unburden will show a list of all undone tasks that have deadlines before the specified date <br>
+
+      Use case ends
+      
+
+2.1 User requests to list all tasks that are due within within a period of time specified by a start time and an end time <br>
+2.2 Unburden will show the user a list of undone tasks that have deadline that fall within the specified time period <br>
+
+      Use case ends
+
+3.1 User requests to list all tasks that are done <br>
+3.2 Unburden will show the user a list of tasks that have been marked "done" by the user <br>
+
+      Use case ends
+      
+4.1 User requests to list all tasks that are overdue <br>
+4.2 Unburden will show the user a list of tasks that are overdue <br>
+
+     Use case ends
+     
+5.1 User requests to list all tasks that are undone <br>
+5.2 Unburden will show the user a list of tasks that are undone <br>
+
+     Use case ends
+
+
+
+### Use case: Done task
+
+##### MSS
+
+1. User requests to mark a task as done by specifying the index of the task
+2. Unburden marks the task as done and removes it from the current list of pending tasks
+
+     Use case ends
+
+##### Extension 
+
+1.1 User attempts to mark a task as done but enters the an index that does not exist <br>
+1.2 Unburden will show an error message saying that the input index is unspecified <br>
+
+     Use case ends
 
 
 ## **Appendix C : Non Functional Requirements**

@@ -1,13 +1,8 @@
 package seedu.unburden.logic.commands;
-
-import java.util.List;
-
 import seedu.unburden.commons.core.UnmodifiableObservableList;
 import seedu.unburden.commons.exceptions.IllegalValueException;
-import seedu.unburden.model.ListOfTask;
 import seedu.unburden.model.tag.UniqueTagList.DuplicateTagException;
 import seedu.unburden.model.task.ReadOnlyTask;
-import seedu.unburden.model.task.Task;
 import seedu.unburden.model.task.UniqueTaskList.TaskNotFoundException;
 
 /**
@@ -23,7 +18,7 @@ public class ClearCommand extends Command {
 	}
 
 	@Override
-	public CommandResult execute() throws DuplicateTagException, IllegalValueException {
+	public CommandResult execute(){
 		assert model != null;
 		model.saveToPrevLists();
 		UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();

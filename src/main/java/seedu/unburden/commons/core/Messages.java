@@ -8,6 +8,8 @@ public class Messages {
     public static final String MESSAGE_UNKNOWN_COMMAND = "Unknown command";
     public static final String MESSAGE_INVALID_COMMAND_FORMAT = "Invalid command format! \n%1$s";
     public static final String MESSAGE_INVALID_TASK_DISPLAYED_INDEX = "The task index provided is invalid";
+    public static final String MESSAGE_TASK_IS_ALREADY_DONE = "The task at the specified index is already done!";
+	public static final String MESSAGE_NO_TASKS_FOUND = "There are currently no tasks stored. Please add more tasks!";
     public static final String MESSAGE_TASKS_LISTED_OVERVIEW = "%1$d tasks listed!";
     public static final String MESSAGE_INVALID_DATE = "Invalid Date Entered";
     public static final String MESSAGE_INVALID_START_TIME = "Invalid Start Time Entered";
@@ -16,6 +18,5 @@ public class Messages {
     public static final String MESSAGE_CANNOT_ADD_ENDTIME_WITH_NO_DATE = "Sorry! You cannot add end time to a task with no date!";
     public static final String MESSAGE_CANNOT_ADD_STARTTIME_WITH_NO_ENDTIME = "Sorry! You cannot add start time to a task with no end time!";
     public static final String MESSAGE_CANNOT_REMOVE_ENDTIME_WHEN_THERE_IS_STARTTIME = "Sorry! You cannot remove end time from a task with start time!";
-    public static final String MESSAGE_CANNOT_REMOVE_DATE_WHEN_THERE_IS_STARTTIME_AND_ENDTIME = "Sorry! You cannot remove date from a task with satrt time and end time!";
-    
+    public static final String MESSAGE_CANNOT_REMOVE_DATE_WHEN_THERE_IS_STARTTIME_AND_ENDTIME = "Sorry! You cannot remove date from a task with satrt time and end time!"; 
 }

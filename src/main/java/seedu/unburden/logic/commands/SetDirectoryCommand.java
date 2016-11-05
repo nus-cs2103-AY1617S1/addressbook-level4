@@ -38,7 +38,7 @@ public class SetDirectoryCommand extends Command{
 	}
 	
 	@Override
-	public CommandResult execute() throws DuplicateTagException, IllegalValueException {
+	public CommandResult execute() {
 		if (!FileUtil.isValidPath(newDirectory)) {
 			return new CommandResult(MESSAGE_INVALID_PATH);
 		}
