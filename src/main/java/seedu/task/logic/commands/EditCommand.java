@@ -151,7 +151,7 @@ public class EditCommand extends Command {
         if (isUndo == false) {
             getUndoList().add(new RollBackCommand(COMMAND_WORD, toAdd, (Task) currentTask));
         }
-        // @author A0147944U-reused
+        // @@author A0147944U
         // Sorts updated list of tasks
         model.autoSortBasedOnCurrentSortPreference();
         // @@author A0152958R

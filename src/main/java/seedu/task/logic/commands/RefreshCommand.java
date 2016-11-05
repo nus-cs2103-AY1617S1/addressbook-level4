@@ -70,7 +70,7 @@ public class RefreshCommand extends Command {
         if (!isUndo) {
             history.getUndoList().add(new RollBackCommand(COMMAND_WORD, null, null));
         }
-        // @author A0147944U-reused
+        // @@author A0147944U
         // Sorts updated list of tasks
         model.autoSortBasedOnCurrentSortPreference();
         // @@author A0147335E

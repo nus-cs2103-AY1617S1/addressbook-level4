@@ -65,7 +65,7 @@ public class TestUtil {
                 String.format("Expected %s to be thrown, but nothing was thrown.", expected.getName()));
     }
 
-    // @@author A0147944U-reused
+    // @@author A0147944U
     private static Task[] getSampleTaskData() {
         try {
             return new Task[] {

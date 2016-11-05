@@ -3,7 +3,7 @@ package seedu.task.commons.core;
 import java.util.Objects;
 import java.util.logging.Level;
 
-//@@author A0147944U
+// @@author A0147944U
 /**
  * Config values used by the app
  */

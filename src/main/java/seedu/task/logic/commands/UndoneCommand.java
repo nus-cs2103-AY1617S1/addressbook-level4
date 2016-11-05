@@ -63,7 +63,7 @@ public class UndoneCommand extends Command {
         if (isUndo == false) {
             getUndoList().add(new RollBackCommand(COMMAND_WORD, taskToUndone, null));
         }
-        // @author A0147944U-reused
+        // @@author A0147944U
         // Sorts updated list of tasks
         model.autoSortBasedOnCurrentSortPreference();
         // @@author A0147335E

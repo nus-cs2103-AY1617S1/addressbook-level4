@@ -59,7 +59,7 @@ public class AddCommand extends Command {
             if (!isUndo) {
                 getUndoList().add(new RollBackCommand(COMMAND_WORD, toAdd, null));
             }
-            // @author A0147944U-reused
+            // @@author A0147944U
             // Sorts updated list of tasks
             model.autoSortBasedOnCurrentSortPreference();
             // @@author A0147335E-reused

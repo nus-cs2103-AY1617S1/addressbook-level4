@@ -113,7 +113,7 @@ public class CommandParser {
         case UndoCommand.COMMAND_WORD:
             return prepareUndo(arguments);
 
-            // @@author A0147944U-reused
+            // @@author A0147944U
         case DirectoryCommand.COMMAND_WORD:
             return prepareDirectory(arguments);
 

@@ -61,7 +61,7 @@ public class DoneCommand extends Command {
         if (oldStatus == newTask.getStatus().getDoneStatus()) {
             return new CommandResult(MESSAGE_ALREADY_DONE);
         } else {
-            // @author A0147944U
+            // @@author A0147944U
             model.repeatRecurringTask(new Task(currentTask));
             // @author
         }
@@ -70,7 +70,7 @@ public class DoneCommand extends Command {
         if (isUndo == false) {
             history.getUndoList().add(new RollBackCommand(COMMAND_WORD, newTask, null));
         }
-        // @author A0147944U-reused
+        // @@author A0147944U
         // Sorts updated list of tasks
         model.autoSortBasedOnCurrentSortPreference();
         // @@author A0147335E

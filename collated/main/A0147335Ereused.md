@@ -1,48 +1,14 @@
 # A0147335Ereused
 ###### \java\seedu\task\logic\commands\AddCommand.java
 ``` java
-/**
- * Adds a task to the task manager.
- */
-public class AddCommand extends Command {
-
-    public static final String COMMAND_WORD = "add";
-
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task to the task manager. "
-            + "Parameters: TASK_NAME, from <time> to <time> by <time> #TAG...\n"
-            + "Example: " + COMMAND_WORD
-            + " do homework from 12.00pm to 01.00pm by 03.00pm #homework";
-
-    public static final String MESSAGE_SUCCESS = "New task added: %1$s";
-    public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the task manager";
-
-    private final Task toAdd;
-
-    /**
-     * Convenience constructor using raw values.
-     *
-     * @throws IllegalValueException if any of the raw values are invalid
-     */
-    public AddCommand(String name, String startTime, String endTime, String deadline, Set<String> tags) throws IllegalValueException {
-        final Set<Tag> tagSet = new HashSet<>();
-        for (String tagName : tags) {
-            tagSet.add(new Tag(tagName));
-        }
-        String recurring = "false";
-        this.toAdd = new Task(new Name(name), new StartTime(startTime), new EndTime(endTime), new Deadline(deadline), new UniqueTagList(tagSet), new Status(false, false, false), new Recurring(recurring));
-    }
-
     @Override
     public CommandResult execute(boolean isUndo) {
         assert model != null;
         try {
             model.addTask(toAdd);
-            if(isUndo == false){
-                history.getUndoList().add(new RollBackCommand(COMMAND_WORD, toAdd, null));
+            if (!isUndo) {
+                getUndoList().add(new RollBackCommand(COMMAND_WORD, toAdd, null));
             }
-            // @author A0147944U-reused
-            // Sorts updated list of tasks
-            model.autoSortBasedOnCurrentSortPreference();
 ```
 ###### \java\seedu\task\logic\commands\AddCommand.java
 ``` java
@@ -52,6 +18,11 @@ public class AddCommand extends Command {
         }
     }
 
+	private ArrayList<RollBackCommand> getUndoList() {
+		return history.getUndoList();
+	}
+	
+	// insert a task at a specific index
     public CommandResult execute(int index) {
         assert model != null;
         try {
@@ -67,33 +38,31 @@ public class AddCommand extends Command {
 ```
 ###### \java\seedu\task\logic\commands\ClearCommand.java
 ``` java
- */
-public class ClearCommand extends Command {
+	@Override
+	public CommandResult execute(boolean isUndo) {
+		assert model != null;
+		UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
+		for (int i = 0; i < lastShownList.size(); i++) {
+			ReadOnlyTask taskToDelete = lastShownList.get(i);
+			if (!isUndo) {
+				getUndoList().add(new RollBackCommand(COMMAND_WORD, (Task) taskToDelete, null));
+			}
+		}
+		model.resetData(TaskManager.getEmptyTaskManager());
+		return new CommandResult(MESSAGE_SUCCESS);
+	}
 
-    public static final String COMMAND_WORD = "clear";
-    public static final String MESSAGE_SUCCESS = "Task manager has been cleared!";
+```
+###### \java\seedu\task\logic\commands\ClearCommand.java
+``` java
+	private ArrayList<RollBackCommand> getUndoList() {
+		return history.getUndoList();
+	}
 
-    public ClearCommand() {}
-
-    @Override
-    public CommandResult execute(boolean isUndo) {
-        assert model != null;
-        UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
-        for(int i = 0; i < lastShownList.size(); i++) {
-            ReadOnlyTask taskToDelete = lastShownList.get(i);
-            if(isUndo == false) {
-                Task task = new Task(taskToDelete.getName(), taskToDelete.getStartTime(), taskToDelete.getEndTime(), taskToDelete.getDeadline(), taskToDelete.getTags(), taskToDelete.getStatus(), taskToDelete.getRecurring());
-                history.getUndoList().add(new RollBackCommand(COMMAND_WORD , task, null));
-            }
-        }
-        model.resetData(TaskManager.getEmptyTaskManager());
-        return new CommandResult(MESSAGE_SUCCESS);
-    }
-
-    @Override
-    public CommandResult execute(int index) {
-        return null;
-    }
+	@Override
+	public CommandResult execute(int index) {
+		return null;
+	}
 }
 ```
 ###### \java\seedu\task\logic\commands\Command.java
@@ -130,38 +99,9 @@ public abstract class Command {
         this.model = model;
     }
 
-    public void setHistory(HistoryManager history) {
-        this.history = history;
-    }
-
-    /**
-     * Raises an event to indicate an attempt to execute an incorrect command
-     */
-    protected void indicateAttemptToExecuteIncorrectCommand() {
-        EventsCenter.getInstance().post(new IncorrectCommandAttemptedEvent(this));
-    }
-}
 ```
 ###### \java\seedu\task\logic\commands\DeleteCommand.java
 ``` java
- */
-public class DeleteCommand extends Command {
-
-    public static final String COMMAND_WORD = "delete";
-
-    public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Deletes the task identified by the index number used in the last task listing.\n"
-            + "Parameters: INDEX (must be a positive integer)\n"
-            + "Example: " + COMMAND_WORD + " 1";
-
-    public static final String MESSAGE_DELETE_TASK_SUCCESS = "Deleted Task: %1$s";
-
-    public final int targetIndex;
-
-    public DeleteCommand(int targetIndex) {
-        this.targetIndex = targetIndex;
-    }
-
     @Override
     public CommandResult execute(boolean isUndo) {
 
@@ -173,9 +113,8 @@ public class DeleteCommand extends Command {
         }
 
         ReadOnlyTask taskToDelete = lastShownList.get(targetIndex - 1);
-        if (isUndo == false) {
-            Task task = new Task(taskToDelete.getName(), taskToDelete.getStartTime(), taskToDelete.getEndTime(), taskToDelete.getDeadline(), taskToDelete.getTags(), taskToDelete.getStatus(), taskToDelete.getRecurring());
-            history.getUndoList().add(new RollBackCommand(COMMAND_WORD, task, null));
+        if (!isUndo) {
+            getUndoList().add(new RollBackCommand(COMMAND_WORD, (Task) taskToDelete, null));
         }
         try {
             model.deleteTask(taskToDelete);
@@ -186,6 +125,13 @@ public class DeleteCommand extends Command {
         return new CommandResult(String.format(MESSAGE_DELETE_TASK_SUCCESS, taskToDelete));
     }
 
+```
+###### \java\seedu\task\logic\commands\DeleteCommand.java
+``` java
+	private ArrayList<RollBackCommand> getUndoList() {
+		return history.getUndoList();
+	}
+
 
     @Override
     public CommandResult execute(int index) {
@@ -193,148 +139,131 @@ public class DeleteCommand extends Command {
     }
 }
 ```
-###### \java\seedu\task\logic\Logic.java
-``` java
- */
-public interface Logic {
-    /**
-     * Executes the command and returns the result.
-     * @param commandText The command as entered by the user.
-     * @return the result of the command execution.
-     */
-    CommandResult execute(String commandText);
-
-    /** Returns the filtered list of persons */
-    ObservableList<ReadOnlyTask> getFilteredTaskList();
-
-    /** Returns the undo list of commands */
-    ArrayList<RollBackCommand> getUndoList();
-
-    /** Returns the list of previous commands */
-    ArrayList<String> getPreviousCommandList();
-}
-```
 ###### \java\seedu\task\logic\LogicManager.java
 ``` java
-/**
- * The main LogicManager of the app.
- */
-public class LogicManager extends ComponentManager implements Logic {
-    private final Logger logger = LogsCenter.getLogger(LogicManager.class);
-
-    private final Model model;
-    private final CommandParser parser;
-    private final HistoryManager historyManager;
-
     public LogicManager(Model model, Storage storage) {
         this.model = model;
         this.parser = new CommandParser();
         this.historyManager = new HistoryManager();
     }
-
+    
+```
+###### \java\seedu\task\logic\LogicManager.java
+``` java
     @Override
     public CommandResult execute(String commandText) {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
         Command command = parser.parseCommand(commandText);
-
         command.setData(model);
         command.setHistory(historyManager);
-```
-###### \java\seedu\task\logic\LogicManager.java
-``` java
+        
+        if (command instanceof IncorrectCommand) {
+            return command.execute(false);
+        }
+        
         logger.info("SUCCESS");
 
-        if (!commandText.toLowerCase().startsWith("undo")) {
-            historyManager.getPreviousCommandList().add(commandText);
+        if (!isUndo(commandText)) {
+            getPreviousCommandList().add(commandText);
             return command.execute(false);
         } else {
             return command.execute(true);
         }
     }
 
-    @Override
-    public ObservableList<ReadOnlyTask> getFilteredTaskList() {
-        return model.getFilteredTaskList();
-    }
-
-    @Override
-    public ArrayList<RollBackCommand> getUndoList() {
-        return historyManager.getUndoList();
-    }
-
-    @Override
-    public ArrayList<String> getPreviousCommandList() {
-        return historyManager.getPreviousCommandList();
-    }
-}
 ```
 ###### \java\seedu\task\model\Model.java
 ``` java
- */
-public interface Model {
-    /** Clears existing backing model and replaces with the provided new data. */
-    void resetData(ReadOnlyTaskManager newData);
-
-    /** Returns the TaskManager */
-    ReadOnlyTaskManager getTaskManager();
-
-    /** Deletes the given task. */
-    void deleteTask(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException;
-
-    /** Adds the given task */
-    void addTask(Task task) throws UniqueTaskList.DuplicateTaskException;
-    
     /** Adds the given task on a specific index */
     void addTask(int index, Task task) throws UniqueTaskList.DuplicateTaskException;
-
-    /** Returns the filtered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
-    UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList();
-
-    /** Updates the filter of the filtered task list to show all tasks */
-    void updateFilteredListToShowAll();
-
-    /** Updates the filter of the filtered task list to filter by the given keywords*/
-    void updateFilteredTaskList(Set<String> keywords);
+    
     
 ```
 ###### \java\seedu\task\model\ModelManager.java
 ``` java
     @Override
-    public synchronized void addTask(int index, Task task) throws UniqueTaskList.DuplicateTaskException {
-        if (!task.getDeadline().toString().isEmpty()) {
+    public synchronized void addTask(Task task) throws UniqueTaskList.DuplicateTaskException {
+        if (!isDeadlineExist(task)) {
             String strDatewithTime = task.getDeadline().toString().replace(" ", "T");
-            LocalDateTime aLDT = LocalDateTime.parse(strDatewithTime);
+            LocalDateTime taskDateTime = LocalDateTime.parse(strDatewithTime);
 
-            Date currentDate=new Date();
+            Date currentDate = new Date();
             LocalDateTime localDateTime = LocalDateTime.ofInstant(currentDate.toInstant(), ZoneId.systemDefault());
 
-            if (aLDT.isBefore(localDateTime)) {
-
-                task = new Task (task.getName(), task.getStartTime(), task.getEndTime(), task.getDeadline(), task.getTags(), new Status(task.getStatus().getDoneStatus(), true, task.getStatus().getFavoriteStatus()), task.getRecurring());
-
+            if (taskDateTime.isBefore(localDateTime)) {
+                task = new Task(task.getName(), task.getStartTime(), task.getEndTime(), task.getDeadline(),
+                        task.getTags(),
+                        new Status(task.getStatus().getDoneStatus(), true, task.getStatus().getFavoriteStatus()),
+                        task.getRecurring());
+            } else {
+                task = new Task(task.getName(), task.getStartTime(), task.getEndTime(), task.getDeadline(),
+                        task.getTags(),
+                        new Status(task.getStatus().getDoneStatus(), false, task.getStatus().getFavoriteStatus()),
+                        task.getRecurring());
             }
-            else{
-                task = new Task (task.getName(), task.getStartTime(), task.getEndTime(), task.getDeadline(), task.getTags(), new Status(task.getStatus().getDoneStatus(), false, task.getStatus().getFavoriteStatus()), task.getRecurring());
-
-            }
-
+        } else {
+            task = new Task(task.getName(), task.getStartTime(), task.getEndTime(), task.getDeadline(), task.getTags(),
+                    new Status(task.getStatus().getDoneStatus(), false, task.getStatus().getFavoriteStatus()),
+                    task.getRecurring());
         }
-        else {
-            task = new Task (task.getName(), task.getStartTime(), task.getEndTime(), task.getDeadline(), task.getTags(), new Status(task.getStatus().getDoneStatus(), false, task.getStatus().getFavoriteStatus()), task.getRecurring());
-
-        }
-        taskManager.addTask(index, task);
+        taskManager.addTask(task);
         updateFilteredListToShowAll();
         indicateTaskManagerChanged();
+    }
+
+    @Override
+    public synchronized void addTask(int index, Task task) throws UniqueTaskList.DuplicateTaskException {
+        if (!isDeadlineExist(task)) {
+            String strDatewithTime = task.getDeadline().toString().replace(" ", "T");
+            LocalDateTime taskDateTime = LocalDateTime.parse(strDatewithTime);
+
+            Date currentDate = new Date();
+            LocalDateTime localDateTime = LocalDateTime.ofInstant(currentDate.toInstant(), ZoneId.systemDefault());
+
+            if (taskDateTime.isBefore(localDateTime)) {
+                task = new Task(task.getName(), task.getStartTime(), task.getEndTime(), task.getDeadline(),
+                        task.getTags(),
+                        new Status(task.getStatus().getDoneStatus(), true, task.getStatus().getFavoriteStatus()),
+                        task.getRecurring());
+            } else {
+                task = new Task(task.getName(), task.getStartTime(), task.getEndTime(), task.getDeadline(),
+                        task.getTags(),
+                        new Status(task.getStatus().getDoneStatus(), false, task.getStatus().getFavoriteStatus()),
+                        task.getRecurring());
+            }
+
+        } else {
+            task = new Task(task.getName(), task.getStartTime(), task.getEndTime(), task.getDeadline(), task.getTags(),
+                    new Status(task.getStatus().getDoneStatus(), false, task.getStatus().getFavoriteStatus()),
+                    task.getRecurring());
+        }
+
+        taskManager.addTask(index, task);
+        indicateTaskManagerChanged();
+    }
+
+    private boolean isDeadlineExist(Task task) {
+        return task.getDeadline().toString().isEmpty();
     }
 ```
 ###### \java\seedu\task\model\task\UniqueTaskList.java
 ``` java
+/**
+ * A list of tasks that enforces uniqueness between its elements and does not
+ * allow nulls.
+ *
+ * Supports a minimal set of list operations.
+ *
+ * @see Task#equals(Object)
+ * @see CollectionUtil#elementsAreUnique(Collection)
  */
 public class UniqueTaskList implements Iterable<Task> {
 
+    private final ObservableList<Task> internalList = FXCollections.observableArrayList();
+
     /**
-     * Signals that an operation would have violated the 'no duplicates' property of the list.
+     * Signals that an operation would have violated the 'no duplicates'
+     * property of the list.
      */
     public static class DuplicateTaskException extends DuplicateDataException {
 
@@ -346,22 +275,17 @@ public class UniqueTaskList implements Iterable<Task> {
     }
 
     /**
-     * Signals that an operation targeting a specified task in the list would fail because
-     * there is no such matching task in the list.
+     * Signals that an operation targeting a specified task in the list would
+     * fail because there is no such matching task in the list.
      */
     public static class TaskNotFoundException extends Exception {
 
-        private static final long serialVersionUID = -4389890624748332382L;}
-
-    private final ObservableList<Task> internalList = FXCollections.observableArrayList();
-
-    /**
-     * Constructs empty TaskList.
-     */
-    public UniqueTaskList() {}
+        private static final long serialVersionUID = -4389890624748332382L;
+    }
 
     /**
-     * Returns true if the list contains an equivalent task as the given argument.
+     * Returns true if the list contains an equivalent task as the given
+     * argument.
      */
     public boolean contains(ReadOnlyTask toCheck) {
         assert toCheck != null;
@@ -371,7 +295,9 @@ public class UniqueTaskList implements Iterable<Task> {
     /**
      * Adds a task to the list.
      *
-     * @throws DuplicateTaskException if the task to add is a duplicate of an existing task in the list.
+     * @throws DuplicateTaskException
+     *             if the task to add is a duplicate of an existing task in the
+     *             list.
      */
     public void add(Task toAdd) throws DuplicateTaskException {
         assert toAdd != null;
@@ -380,71 +306,13 @@ public class UniqueTaskList implements Iterable<Task> {
         }
         internalList.add(toAdd);
     }
-    
+
 ```
 ###### \java\seedu\task\model\TaskManager.java
 ``` java
     public void addTask(int index, Task p) throws UniqueTaskList.DuplicateTaskException {
         syncTagsWithMasterList(p);
         tasks.add(index, p);
-    }
-
-```
-###### \java\seedu\task\ui\TaskCard.java
-``` java
-public class TaskCard extends UiPart{
-    private static final String FXML = "TaskListCard.fxml";
-
-    @FXML
-    private HBox cardPane;
-    @FXML
-    private Label name;
-    @FXML
-    private Label id;
-    @FXML
-    private Label startTimeLabel;
-    @FXML
-    private Label endTimeLabel;
-    @FXML
-    private Label deadlineLabel;
-    @FXML
-    private Label tags;
-
-    private static ReadOnlyTask task;
-    private int displayedIndex;
-
-    public TaskCard(){
-
-    }
-
-    public static TaskCard load(ReadOnlyTask task, int displayedIndex){
-        TaskCard card = new TaskCard();
-        TaskCard.task = task;
-        card.displayedIndex = displayedIndex;
-
-        return UiPartLoader.loadUiPart(card);
-    }
-
-    @FXML
-    public void initialize() {
-        name.setText(task.getName().fullName);
-        id.setText(displayedIndex + ". ");
-        if (!task.getStartTime().toString().isEmpty()) {
-            startTimeLabel.setText(" Starts: " + task.getStartTime().value);
-        }else{
-            startTimeLabel.setText("");
-        }
-        if(!task.getEndTime().toString().isEmpty()){
-            endTimeLabel.setText(" Ends: " + task.getEndTime().value);
-        }else{
-            endTimeLabel.setText("");
-        }
-        if(!task.getDeadline().toString().isEmpty()){
-            deadlineLabel.setText(" Due: " + task.getDeadline().value);
-        }else{
-            deadlineLabel.setText("");
-        }
-        tags.setText(task.tagsString());
     }
 
 ```

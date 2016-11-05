@@ -68,7 +68,7 @@ public class FavoriteCommand extends Command {
         if (isUndo == false) {
             getUndoList().add(new RollBackCommand(COMMAND_WORD, taskToFavorite, null));
         }
-        // @@author A0147944U-reused
+        // @@author A0147944U
         // Sorts updated list of tasks
         model.autoSortBasedOnCurrentSortPreference();
         // @@author A0147335E

@@ -12,7 +12,7 @@ public class TypicalTestTasks {
     public static TestTask taskA, taskB, taskC, taskD, taskE, taskF, taskG, taskH, taskI, taskJ, taskK, taskL;
 
     public TypicalTestTasks() {
-      //@@author A0147944U-reused
+      // @@author A0147944U
         try {
             taskA =  new TaskBuilder().withName("Accompany mom to the doctor").withStartTime("2016-10-26 14:00").withEndTime("2016-10-26 17:00")
             		.withDeadline("").withTags("gwsMum").withStatus(false, false, false).withRecurring("false").build();

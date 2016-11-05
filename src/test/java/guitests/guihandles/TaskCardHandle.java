@@ -1,4 +1,3 @@
-//@@author A0147944U-reused
 package guitests.guihandles;
 
 import guitests.GuiRobot;
@@ -6,6 +5,7 @@ import javafx.scene.Node;
 import javafx.stage.Stage;
 import seedu.task.model.task.ReadOnlyTask;
 
+// @@author A0147944U
 /**
  * Provides a handle to a task card in the task list panel.
  */

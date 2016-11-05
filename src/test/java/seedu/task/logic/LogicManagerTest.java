@@ -149,7 +149,7 @@ public class LogicManagerTest {
         assertCommandBehavior("clear", ClearCommand.MESSAGE_SUCCESS, new TaskManager(), Collections.emptyList());
     }
 
-    // @@author A0147944U-reused
+    // @@author A0147944U
     @Test
     public void executeAddInvalidArgsFormat() throws Exception {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE);
@@ -313,7 +313,7 @@ public class LogicManagerTest {
         assertCommandBehavior("find ", expectedMessage);
     }
 
-    // @@author A0147944U-reused
+    // @@author A0147944U
     @Test
     public void executeFindMatchesPartialWordsInNames() throws Exception {
         TestDataHelper helper = new TestDataHelper();
@@ -370,7 +370,7 @@ public class LogicManagerTest {
      * A utility class to generate test data.
      */
     class TestDataHelper {
-        // @@author A0147944U-reused
+        // @@author A0147944U
         Task revise() throws Exception {
             Name name = new Name("Revise CS2103");
             StartTime startTime = new StartTime("2016-10-25 15:00");
@@ -493,7 +493,7 @@ public class LogicManagerTest {
          * Generates a Task object with given name. Other fields will have some
          * dummy values.
          */
-        // @@author A0147944U-reused
+        // @@author A0147944U
         Task generateTaskWithName(String name) throws Exception {
             return new Task(new Name(name), new StartTime("2016-11-26 11:11"), new EndTime("2016-11-26 12:44"),
                     new Deadline("2016-11-26 12:40"), new UniqueTagList(new Tag("tag")), new Status(),
