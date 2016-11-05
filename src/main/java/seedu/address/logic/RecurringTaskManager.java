@@ -87,7 +87,7 @@ public class RecurringTaskManager {
     private void attemptAppendRecurringTask(Task task, Calendar startDate, Calendar endDate, LocalDate localDateCurrently) {
         LocalDate startDateInLocalDate = RecurringTaskUtil.getStartLocalDate(task.getLastAppendedComponent());
         LocalDate endDateInLocalDate = RecurringTaskUtil.getEndLocalDate(task.getLastAppendedComponent());
-        final int elapsedPeriod = RecurringTaskUtil.getNumElapsedTaskToAppend(localDateCurrently, startDateInLocalDate, endDateInLocalDate, task.getRecurringType());
+        final int elapsedPeriod = RecurringTaskUtil.getElapsedPeriodToAppend(localDateCurrently, startDateInLocalDate, endDateInLocalDate, task.getRecurringType());
         for (int i = 0; i < elapsedPeriod; i++) {
             if (handleRecurringPeriod(task)) {
                 break;
@@ -150,7 +150,7 @@ public class RecurringTaskManager {
      */
     private void attemptCorrectRecurringTask(Task task, LocalDate localDateCurrently,
             LocalDate startDateInLocalDate, LocalDate endDateInLocalDate) {
-        final int elapsedPeriod = RecurringTaskUtil.getElapsedPeriod(localDateCurrently, startDateInLocalDate, 
+        final int elapsedPeriod = RecurringTaskUtil.getElapsedPeriodToCorrect(localDateCurrently, startDateInLocalDate, 
                 endDateInLocalDate, task.getRecurringType());
         if (elapsedPeriod > 0) {
             RecurringTaskUtil.correctRecurringTask(task, elapsedPeriod, task.getRecurringType());

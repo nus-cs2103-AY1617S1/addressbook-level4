@@ -11,10 +11,10 @@ import com.joestelmach.natty.DateGroup;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.task.RecurringType;
 
-//@@A0135782Y
+//@@author A0135782Y
 /**
- * Parses the recurring info to determine the recurring type of the input
- * 
+ * Parses the recurring info to determine the recurring type of the input.
+ * DateParser is a singleton, use getInstance() to gain access to this class.
  */
 public class DateParser {
     private static DateParser instance;
@@ -26,6 +26,9 @@ public class DateParser {
         populateSupportedRecurringTypes();
     }
 
+    /**
+     * Populate the recurringTypes with what is in RecurringType enum.
+     */
     private void populateSupportedRecurringTypes() {
         recurringTypes = new HashSet<RecurringType>();
         for(RecurringType t : RecurringType.values()) {
@@ -34,6 +37,13 @@ public class DateParser {
         recurringTypes.remove(RecurringType.IGNORED);
     }
     
+    /**
+     * Obtain the recurring type using a string
+     * 
+     * @param input The recurring type in formatted String form.
+     * @return The recurring type in enum form.
+     * @throws IllegalArgumentException If the string is not the same as the RecurringType value
+     */
     private RecurringType getRecurringType(String input) throws IllegalArgumentException {
         if (recurringTypes.contains(RecurringType.valueOf(input))) {
             return RecurringType.valueOf(input);
@@ -41,6 +51,14 @@ public class DateParser {
         return RecurringType.IGNORED;
     }
     
+    /**
+     * Extracts the recurring type from a unformatted string.
+     * Formats the string to extract out the recurring type.
+     * 
+     * @param recurringInfo The recurring type in unformatted string String form.
+     * @return The recurring type in enum form.
+     * @throws IllegalArgumentException If the string is not the same as the RecurringType value
+     */
     public RecurringType extractRecurringInfo(String recurringInfo) throws IllegalArgumentException {
         recurringInfo = recurringInfo.toUpperCase().trim();
         return getRecurringType(recurringInfo);
@@ -63,6 +81,14 @@ public class DateParser {
         }
     }
     
+    /**
+     * Obtains date group list for add XXXX from XXXX to XXXX
+     * Helps to allow greater flexibility in the command.
+     * 
+     * @param dateInput The command for adding non floating task.
+     * @return The date group list using natty.
+     * @throws IllegalValueException If the input does not yield any date group.
+     */
     public List<Date> getFromToDatesFromString(String dateInput) throws IllegalValueException {
         List<DateGroup> dateGroups = nattyParser.parse(dateInput);
         try {
@@ -72,13 +98,20 @@ public class DateParser {
         }
     }
     
+    /**
+     * Helper method to obtain the recurring period in integer
+     * 
+     * @param input The recurring period in string 
+     * @return The recurring period in integer.
+     * @throws NumberFormatException If the Stirng cannot be converted to integer properly.
+     */
+    public int extractRecurringPeriod(String input) throws NumberFormatException {
+        return Integer.parseInt(input);
+    }
+    
     public static DateParser getInstance() {
         if (instance == null )
             instance = new DateParser();
         return instance;
-    }
-
-    public int extractRecurringPeriod(String group) throws NumberFormatException {
-        return Integer.parseInt(group);
     }
 }

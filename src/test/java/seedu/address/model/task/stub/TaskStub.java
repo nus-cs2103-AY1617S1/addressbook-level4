@@ -59,7 +59,7 @@ public class TaskStub extends Task {
         return "";
     }
     @Override
-    public void completeTaskWhenAllComponentArchived() {
+    public void completeTaskWhenAllOccurrencesArchived() {
     }
     @Override
     public void updateTask(Name name, UniqueTagList tags, TaskDate startDate, TaskDate endDate, RecurringType recurringType) {

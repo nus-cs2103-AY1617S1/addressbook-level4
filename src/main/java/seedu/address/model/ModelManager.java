@@ -81,6 +81,9 @@ public class ModelManager extends ComponentManager implements Model {
         previousExpression = new PredicateExpression(new InitialQualifier());
     }
     
+    /**
+     * Initialises RecurringTaskManager with the uniqueTaskList from taskMaster
+     */
     private void initRecurringTaskManager() {
         RecurringTaskManager.getInstance().setTaskList(taskMaster.getUniqueTaskList());
         if (RecurringTaskManager.getInstance().appendAnyRecurringTasks()) {
@@ -122,6 +125,10 @@ public class ModelManager extends ComponentManager implements Model {
     //@@author
 
     //@@author A0135782Y
+    /**
+     * Adds any task into the taskMaster
+     * If it is a recurring task, it will be handled by RecurringTaskManager
+     */
     @Override
     public synchronized void addTask(Task task) throws UniqueTaskList.DuplicateTaskException, TimeslotOverlapException {
         taskMaster.addTask(task);

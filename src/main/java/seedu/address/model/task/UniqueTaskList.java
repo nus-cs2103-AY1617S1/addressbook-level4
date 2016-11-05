@@ -151,6 +151,11 @@ public class UniqueTaskList implements Iterable<Task> {
         internalOccurrenceList.addAll(toAdd.getTaskDateComponent());
     }
 
+    /**
+     * Append duplicate recurring task together into a single unique task
+     * 
+     * @param toAdd Task to be appended into a single unique task.
+     */
     private void appendDuplicateRecurringDatesToTask(Task toAdd) {
         int idx = internalList.indexOf(toAdd);
         Task toBeAppendedOn = internalList.get(idx);
@@ -219,7 +224,7 @@ public class UniqueTaskList implements Iterable<Task> {
             if (t.equals(target)) {
                 t.archive();
                 taskFoundAndArchived = true;
-                t.getTaskReference().completeTaskWhenAllComponentArchived();
+                t.getTaskReference().completeTaskWhenAllOccurrencesArchived();
             }
         }
         return taskFoundAndArchived;

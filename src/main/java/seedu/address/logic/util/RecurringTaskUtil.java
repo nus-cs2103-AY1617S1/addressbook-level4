@@ -12,6 +12,7 @@ import seedu.address.model.task.TaskDate;
 import seedu.address.model.task.TaskOccurrence;
 import seedu.address.model.task.UniqueTaskList;
 
+//@@author A0135782Y
 /**
  * General utility class for recurring task manager
  */
@@ -123,14 +124,10 @@ public class RecurringTaskUtil {
      * @param recurringType Recurring type of the task.
      * @return The number of elapsed time.
      */
-    public static int getNumElapsedTaskToAppend(LocalDate localDateCurrently, LocalDate startDateInLocalDate,
+    public static int getElapsedPeriodToAppend(LocalDate localDateCurrently, LocalDate startDateInLocalDate,
             LocalDate endDateInLocalDate, RecurringType recurringType) {
         final int elapsed;
-        if (startDateInLocalDate != null) {
-            elapsed = getNumElapsedByRecurringType(localDateCurrently, startDateInLocalDate, endDateInLocalDate, recurringType);
-        } else {
-            elapsed = getNumElapsedByRecurringType(localDateCurrently, startDateInLocalDate, endDateInLocalDate, recurringType);
-        }
+        elapsed = getElapsedPeriodByRecurringType(localDateCurrently, startDateInLocalDate, endDateInLocalDate, recurringType);
         return elapsed;
     }
     
@@ -144,24 +141,24 @@ public class RecurringTaskUtil {
      * @param recurringType The recurring type of the task
      * @return The elapsed period based on the recurring type and based on start or end date.
      */
-    public static int getElapsedPeriod(LocalDate localDateCurrently,
+    public static int getElapsedPeriodToCorrect(LocalDate localDateCurrently,
             LocalDate startDateInLocalDate, LocalDate endDateInLocalDate, RecurringType recurringType) {
         final int elapsedPeriod;
         if (startDateInLocalDate != null) {
-            elapsedPeriod = getPeriodBetweenDates(startDateInLocalDate, localDateCurrently, recurringType);
+            elapsedPeriod = getPeriodBetweenDatesToCorrect(startDateInLocalDate, localDateCurrently, recurringType);
         } else {
-            elapsedPeriod = getPeriodBetweenDates(endDateInLocalDate, localDateCurrently, recurringType);
+            elapsedPeriod = getPeriodBetweenDatesToCorrect(endDateInLocalDate, localDateCurrently, recurringType);
         }
         return elapsedPeriod;
     }
     
     /**
-     * Helper method to get the elapsed time between two dates.
+     * Return the elapsed time between two dates.
      * Elapsed time calculated is based on the recurring type.
      * 
      * @return The elapsed time between two dates and based on the recurring type.
      */
-    private static int getPeriodBetweenDates(LocalDate before, LocalDate after, RecurringType recurringType) {
+    private static int getPeriodBetweenDatesToCorrect(LocalDate before, LocalDate after, RecurringType recurringType) {
         int elapsedPeriod;
         switch (recurringType) {
             case DAILY:
@@ -173,13 +170,13 @@ public class RecurringTaskUtil {
             case MONTHLY:
                 elapsedPeriod = (int) Math.ceil(ChronoUnit.WEEKS.between(before, after) / NUM_WEEKS_IN_MONTH);
                 if (elapsedPeriod == INDEPTH_CHECK_REQUIRED) {
-                    elapsedPeriod = getPeriodBetweenDates(before,after,RecurringType.DAILY);
+                    elapsedPeriod = getPeriodBetweenDatesToCorrect(before,after,RecurringType.DAILY);
                 }
                 break;
             case YEARLY:
                 elapsedPeriod = (int) Math.ceil(ChronoUnit.MONTHS.between(before, after) / NUM_MONTHS_IN_YEAR);
                 if (elapsedPeriod == INDEPTH_CHECK_REQUIRED) {
-                    elapsedPeriod = getPeriodBetweenDates(before,after,RecurringType.DAILY);
+                    elapsedPeriod = getPeriodBetweenDatesToCorrect(before,after,RecurringType.DAILY);
                 }
                 break;
             default:
@@ -227,7 +224,7 @@ public class RecurringTaskUtil {
      * @param recurringType Recurring type of the task.
      * @return The number of elapsed unit.
      */
-    private static int getNumElapsedByRecurringType(LocalDate localDateCurrently,
+    private static int getElapsedPeriodByRecurringType(LocalDate localDateCurrently,
             LocalDate startDateInLocalDate, LocalDate endDateInLocalDate, RecurringType recurringType) {
         final int elapsed;
         switch (recurringType) {
