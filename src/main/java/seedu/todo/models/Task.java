@@ -2,6 +2,9 @@ package seedu.todo.models;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.function.Predicate;
+import java.util.regex.Pattern;
 
 /**
  * @@author A0093907W
@@ -105,6 +108,46 @@ public class Task implements CalendarItem {
     //@@author Tiong YaoCong A0139922Y
     public boolean removeTag(String tagName) {
         return tagList.remove(tagName);
+    }
+    
+    
+    /**
+     * @@author A0093907W
+     * 
+     * Filtering methods intended to replace hacky one-filter-method-per-permutation from Yaocong.
+     * Seriously, why??!!
+     */
+    public static List<Task> where(List<Predicate<Task>> predicates) {
+        List<Task> result = TodoListDB.getInstance().getAllTasks();
+        for (Predicate<Task> predicate : predicates) {
+            filter(predicate, result);
+        }
+        return result;
+    }
+    
+    public static Predicate<Task> predByName(String name) {
+        return (Task task) -> Pattern.compile(String.format("\\b%s", name), Pattern.CASE_INSENSITIVE)
+                .matcher(task.getName()).find();
+    }
+    
+    public static Predicate<Task> predBeforeDueDate(LocalDateTime date) {
+        return (Task task) -> task.getDueDate().isBefore(date);
+    }
+    
+    public static Predicate<Task> predAfterDueDate(LocalDateTime date) {
+        return (Task task) -> task.getDueDate().isAfter(date);
+    }
+    
+    public static Predicate<Task> predCompleted(boolean completed) {
+        return (Task task) -> task.isCompleted() == completed;
+    }
+    
+    public static void filter(Predicate<Task> predicate, List<Task> taskList) {
+        for (int i = taskList.size() - 1; i >= 0; i--) {
+            if (!predicate.test(taskList.get(i))) {
+                taskList.remove(i);
+            }
+        }
     }
 
 }
