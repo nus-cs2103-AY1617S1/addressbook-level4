@@ -5,6 +5,7 @@ import java.util.Date;
 import w15c2.tusk.commons.collections.UniqueItemCollection.DuplicateItemException;
 import w15c2.tusk.commons.core.EventsCenter;
 import w15c2.tusk.commons.events.ui.HideHelpRequestEvent;
+import w15c2.tusk.commons.events.ui.JumpToListRequestEvent;
 import w15c2.tusk.commons.exceptions.IllegalValueException;
 import w15c2.tusk.logic.commands.CommandResult;
 import w15c2.tusk.model.task.DeadlineTask;
@@ -105,12 +106,22 @@ public class AddTaskCommand extends TaskCommand {
         try {
             model.addTask(toAdd);
             model.clearTasksFilter();
+            
+            int indexToScrollTo = model.getCurrentFilteredTasks().lastIndexOf(toAdd);
+            raiseScrollTo(indexToScrollTo);
+            
             closeHelpWindow();
             return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
         } catch (DuplicateItemException e) {
             return new CommandResult(MESSAGE_DUPLICATE_TASK);
         }
 
+    }
+    
+    
+    //@@author A0138978E
+    private void raiseScrollTo(int index) {
+        EventsCenter.getInstance().post(new JumpToListRequestEvent(index));
     }
 
 }
