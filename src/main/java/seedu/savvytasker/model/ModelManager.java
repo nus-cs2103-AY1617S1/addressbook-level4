@@ -27,7 +27,6 @@ import seedu.savvytasker.model.alias.SymbolKeywordNotFoundException;
 import seedu.savvytasker.model.task.FindType;
 import seedu.savvytasker.model.task.ReadOnlyTask;
 import seedu.savvytasker.model.task.Task;
-import seedu.savvytasker.model.task.TaskList.DuplicateTaskException;
 import seedu.savvytasker.model.task.TaskList.InvalidDateException;
 import seedu.savvytasker.model.task.TaskList.TaskNotFoundException;
 
@@ -40,7 +39,7 @@ public class ModelManager extends ComponentManager implements Model {
 	Date onDate = new Date();
 	Date firstDayOfSelectedWeek = new Date();
 
-	//@@author A0139915W
+	//@@author A0138431L
 	private final SavvyTasker savvyTasker;
 	private final FilteredList<Task> filteredTasks;
 	private final SortedList<Task> sortedAndFilteredTasks;
@@ -466,7 +465,6 @@ public class ModelManager extends ComponentManager implements Model {
     //@@author A0139915W
     /**
      * Qualifier matching a partial word from the set of keywords
-     * @author A0139915W
      */
     private class CategoryPartialMatchQualifier implements Qualifier {
         private Set<String> keyWordsToMatch;
@@ -491,7 +489,6 @@ public class ModelManager extends ComponentManager implements Model {
 
     /**
      * Qualifier matching a partial word from the set of keywords
-     * @author A0139915W
      */
     private class TaskNamePartialMatchQualifier implements Qualifier {
         private Set<String> keyWordsToMatch;
@@ -516,7 +513,6 @@ public class ModelManager extends ComponentManager implements Model {
 
     /**
      * Qualifier matching a full word from the set of keywords
-     * @author A0139915W
      */
     private class TaskNameFullMatchQualifier implements Qualifier {
         private Set<String> keyWordsToMatch;
@@ -541,7 +537,6 @@ public class ModelManager extends ComponentManager implements Model {
 
     /**
      * Qualifier matching a exactly from the set of keywords
-     * @author A0139915W
      */
     private class TaskNameExactMatchQualifier implements Qualifier {
         private Set<String> keyWordsToMatch;
@@ -585,7 +580,6 @@ public class ModelManager extends ComponentManager implements Model {
 
     /**
      * Qualifier for checking if {@link Task} is active. Tasks that are not archived are active.
-     * @author A0139915W
      *
      */
     private class TaskIsActiveQualifier implements Qualifier {
@@ -603,7 +597,6 @@ public class ModelManager extends ComponentManager implements Model {
     
     /**
      * Qualifier for checking if {@link Task} is archived
-     * @author A0139915W
      *
      */
     private class TaskIsArchivedQualifier implements Qualifier {
@@ -622,7 +615,6 @@ public class ModelManager extends ComponentManager implements Model {
 	//@@author A0138431L
 	/**
 	 * Qualifier for checking if {@link Task} is an overdue task
-	 * @author A0138431L
 	 *
 	 * A overdue task is a deadline or event task with end dateTime after current dateTime
 	 * 
@@ -661,7 +653,6 @@ public class ModelManager extends ComponentManager implements Model {
 
 	/**
 	 * Qualifier for checking if {@link Task} is a floating task
-	 * @author A0138431L
 	 *
 	 * A floating task do not have start or end time
 	 * 
@@ -693,7 +684,6 @@ public class ModelManager extends ComponentManager implements Model {
 
 	/**
 	 * Qualifier for checking if {@link Task} falls on the selected date
-	 * @author A0138431L
 	 *
 	 * Check whether the task is on the date specified (for deadline tasks)
 	 * Check whether the date specified is within the range of date the task (for event tasks)
@@ -761,7 +751,6 @@ public class ModelManager extends ComponentManager implements Model {
 
 	/**
 	 * Qualifier for checking if {@link Task} task is upcoming
-	 * @author A0138431L
 	 *
 	 * A upcoming task is a task that will happen after the last day, 2359 of selected week
 	 * 
@@ -838,8 +827,6 @@ public class ModelManager extends ComponentManager implements Model {
     
     /**
      * Compares {@link Task} by their default field, id
-     * @author A0139915W
-     *
      */
     private class TaskSortedByDefault implements Comparator<Task> {
         
@@ -855,8 +842,6 @@ public class ModelManager extends ComponentManager implements Model {
     
     /**
      * Compares {@link Task} by their DueDate
-     * @author A0139915W
-     *
      */
     private class TaskSortedByDueDate implements Comparator<Task> {
 
@@ -885,8 +870,6 @@ public class ModelManager extends ComponentManager implements Model {
     
     /**
      * Compares {@link Task} by their PriorityLevel
-     * @author A0139915W
-     *
      */
     private class TaskSortedByPriorityLevel implements Comparator<Task> {
 

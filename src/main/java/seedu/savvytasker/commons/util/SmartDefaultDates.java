@@ -8,7 +8,6 @@ import seedu.savvytasker.logic.parser.DateParser.InferredDate;
 //@@author A0139915W
 /**
  * Helper functions for handling dates.
- * @author A0139915W
  */
 
 public class SmartDefaultDates {
@@ -42,27 +41,25 @@ public class SmartDefaultDates {
     }
     
     /**
-     * Gets the smart default for end date
+     * Gets the smart defaults for end date.
+     * 
+     * If the date is not supplied, the date will default to today.
+     * If the time is not supplied, the time will default to 2359:59 on the specified date.
+     * If both date and time are not supplied, the date returned will be null.
      * @param today the time now
      * @param endDateTime the end time to parse
-     * @return
      */
     public Date getEnd(InferredDate endDateTime) {
         if (endDateTime == null) return null;
         calendar.setTime(endDateTime.getInferredDateTime());
         if (endDateTime.isDateInferred() && endDateTime.isTimeInferred()) {
-            // user didn't specify anything
             // remove date field
             return null;
         } else if (endDateTime.isDateInferred()) {
-            // date not supplied
-            // defaults to today
             calendar.set(Calendar.DATE, today.get(Calendar.DATE));
             calendar.set(Calendar.MONTH, today.get(Calendar.MONTH));
             calendar.set(Calendar.YEAR, today.get(Calendar.YEAR));
         } else if (endDateTime.isTimeInferred()) {
-            // time not supplied
-            // defaults to 2359
             calendar.set(Calendar.HOUR_OF_DAY, 23);
             calendar.set(Calendar.MINUTE, 59);
             calendar.set(Calendar.SECOND, 59);
@@ -97,7 +94,11 @@ public class SmartDefaultDates {
 
     
     /**
-     * Gets the smart default for start date
+     * Gets the smart default for start date.
+     * 
+     * If the date is not supplied, the date will default to today.
+     * If the time is not supplied, the time will default to 0000:00 on the specified date.
+     * If both date and time are not supplied, the date returned will be null.
      * @param today the time now
      * @param startDateTime the start time to parse
      * @return
@@ -110,14 +111,10 @@ public class SmartDefaultDates {
             // remove date field
             return null;
         } else if (startDateTime.isDateInferred()) {
-            // date not supplied
-            // defaults to today
             calendar.set(Calendar.DATE, today.get(Calendar.DATE));
             calendar.set(Calendar.MONTH, today.get(Calendar.MONTH));
             calendar.set(Calendar.YEAR, today.get(Calendar.YEAR));
         } else if (startDateTime.isTimeInferred()) {
-            // time not supplied
-            // defaults to 0000
             calendar.set(Calendar.HOUR_OF_DAY, 0);
             calendar.set(Calendar.MINUTE, 0);
             calendar.set(Calendar.SECOND, 0);
@@ -148,8 +145,12 @@ public class SmartDefaultDates {
 
     /**
      * Sets the starting and ending date/time based on defaults for providing both
-     * start and end times
+     * start and end times.
+     * 
+     * Note that this method has no restrictions on the starting and ending date/time.
+     * i.e. the starting time is later than the ending time.
      * @param startDateTime start time supplied
+     * @param endDateTime end time supplied
      */
     private void parseStartAndEnd(InferredDate startDateTime, InferredDate endDateTime) {
         assert endDateTime.getInferredDateTime() != null;

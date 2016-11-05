@@ -61,8 +61,10 @@ public interface ReadOnlyTask {
         }
         if (getDescription() != null && !getDescription().isEmpty()) {
             builder.append(" Description: ")
-            .       append(getDescription());
+                    .append(getDescription());
         }
+        builder.append(" Archived: ")
+        .append(isArchived());
         return builder.toString();
     }
 
@@ -100,8 +102,6 @@ public interface ReadOnlyTask {
                     .append(getDescription())
                     .append("\n");
         }
-        builder.append(" Archived: ")
-                .append(isArchived());
         return builder.toString();
     }
 
