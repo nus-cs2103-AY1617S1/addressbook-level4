@@ -27,7 +27,9 @@
 2. Download the latest `DearJim.jar` from the [releases](../../../releases) tab.
 3. Copy the file to the folder you want to use as the home folder for DearJim.
 4. Double-click the file to start the app. The GUI should appear in a few seconds. <br>
-<img src="images/dearjim_initial.png" width="650">
+<p align="center">
+<img src="images/guiDearJim.PNG" width="650">
+</p>
 
 <p align="center">
 Figure 1: GUI of DearJim
@@ -56,8 +58,9 @@ Figure 1: GUI of DearJim
 ### Viewing help: `help`
 Opens the user guide with a new window.<br>
 Format: `help`<br>
-
- <img src="images/dearjim_help.png" width="650">
+<p align="center">
+ <img src="images/helpCmd.PNG" width="650">
+</p>
 
 <p align="center">
 Figure 2: Help Command
@@ -221,7 +224,6 @@ Format: `edit INDEX [NAME] [start DATE_TIME] [end DATE_TIME] [repeat every RECUR
 Examples:
 * `Company meeting tonight at 7pm to 9pm`
 * `edit 2 Company meeting tomorrow morning at 7am to 9am -high`
-
 * `Buy coffee for boss by 8am repeat every day`
 * `edit 3 Buy coffee for boss by 7am repeat every 2 days`
 
@@ -249,7 +251,7 @@ Examples:
 
 
 ### Deleting a task: `delete`
-Deletes an existing task in DearJim. This will remove them from the storage. <br>
+Deletes an existing task in DearJim. This will remove it from the storage. <br>
 Format: `delete INDEX`
 > You can `delete` multiple tasks using a single command by entering the indexes of the tasks you want to delete, separating each index with a space.
 
@@ -308,17 +310,24 @@ Format: `redo`
 Switches the task list view to the undone list view, to show all undone tasks in DearJim.<br>
 Format: `list`
 
+<br>
+
+**_Listing all undone tasks of a specific day_**
+
+Switches the task list view to the undone list view, to show all tasks on the day specified.<br>
+Format: `list DAY`
+
 Example:
-* `list`
+* `list today`
+* `list tmr`
+* `list monday`
+
 <br>
 
 **_Listing all done tasks_**
 
 Switches the task list view to the done list view, to show all done tasks in DearJim.<br>
 Format: `list done`
-
-Example:
-* `list done`
 
 > `add` and `edit` commands do not work in done list view. As such, you are not able to directly add tasks into the done list, or edit the details of done tasks. 
 <br/>
@@ -361,14 +370,19 @@ If you have forgotten about the command formats, simply type any word and DearJi
 
 Examples:
 * Typing `add` in the command input generates the format for `add` in the result display
-<img src="images/dearjim_hint_add.png" width="550">
+<p align="center">
+<img src="images/addTooltip.PNG" width="550">
+</p>
 <p align="center">
 Figure 4: Hints for add command
 </p>
 <br>
 
 * Typing `delete` in the command input generates the format for `delete` in the result display
-<img src="images/dearjim_hint_delete.png" width="550">
+<p align="center">
+<img src="images/deleteTooltip.PNG" width="550">
+</p>
+
 <p align="center">
 Figure 5: Hints for delete command
 </p>
