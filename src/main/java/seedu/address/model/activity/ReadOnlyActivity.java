@@ -40,7 +40,8 @@ public interface ReadOnlyActivity {
             return other == this // short circuit if same object
                     || (other != null // this is first to avoid NPE below
                     && other.getName().equals(this.getName()) // state checks here onwards
-                    && other.getReminder().equals(this.getReminder()));
+                    && other.getReminder().equals(this.getReminder())
+                    && other.getTags().equals(this.getTags()));
         }
     }
 
