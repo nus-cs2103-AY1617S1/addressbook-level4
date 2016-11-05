@@ -21,13 +21,13 @@ public class DoneCommandTest extends DearJimGuiTest {
         assertDoneSuccess(targetIndex, currentList, currentDoneList);
 
         //archive from the middle of the list
-        currentDoneList = TestUtil.addFloatingTasksToList(currentDoneList, currentList[targetIndex-1]);
+        currentDoneList = TestUtil.addTasksToList(currentDoneList, currentList[targetIndex-1]);
         currentList = TestUtil.removeTaskFromList(currentList, targetIndex);
         targetIndex = currentList.length/2;
         assertDoneSuccess(targetIndex, currentList, currentDoneList);
         
         //archive the last in the list
-        currentDoneList = TestUtil.addFloatingTasksToList(currentDoneList, currentList[targetIndex-1]);
+        currentDoneList = TestUtil.addTasksToList(currentDoneList, currentList[targetIndex-1]);
         currentList = TestUtil.removeTaskFromList(currentList, targetIndex);
         targetIndex = currentList.length;
         assertDoneSuccess(targetIndex, currentList, currentDoneList);
@@ -47,7 +47,7 @@ public class DoneCommandTest extends DearJimGuiTest {
     private void assertDoneSuccess(int targetIndexOneIndexed, final TestTask[] currentList, final TestTask[] currentDoneList) {
         TestTask taskToDone = currentList[targetIndexOneIndexed-1]; //-1 because array uses zero indexing
         TestTask[] expectedRemainder = TestUtil.removeTaskFromList(currentList, targetIndexOneIndexed);
-        TestTask[] expectedDoneTaskList = TestUtil.addFloatingTasksToList(currentDoneList, taskToDone);
+        TestTask[] expectedDoneTaskList = TestUtil.addTasksToList(currentDoneList, taskToDone);
         commandBox.runCommand("done " + targetIndexOneIndexed);
 
         //confirm the list now contains all previous tasks except the archived task

@@ -191,7 +191,7 @@ public class EditCommand extends UndoableCommand {
 	public CommandResult execute() {	    
 	    assert model != null;
 		
-	    if (model.isCurrentListDoneList()) {
+	    if (attemptToEditDoneList()) {
 	        indicateAttemptToExecuteIncorrectCommand();
 	        return new CommandResult(String.format(Messages.MESSAGE_DONE_LIST_RESTRICTION));
 	    }
@@ -259,6 +259,10 @@ public class EditCommand extends UndoableCommand {
         updateHistory();
         return new CommandResult(String.format(MESSAGE_SUCCESS, toEdit));      
 	}
+
+    private boolean attemptToEditDoneList() {
+        return model.isCurrentListDoneList() && !isRedoAction;
+    }
 
     // @@author A0093960X
     @Override

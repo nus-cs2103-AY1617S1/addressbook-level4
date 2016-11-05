@@ -59,7 +59,7 @@ public class DoneCommand extends UndoableCommand {
         assert model != null;
         prepareToArchiveTasks(); 
 
-        if (isViewingDoneList) {
+        if (attemptToExecuteDoneOnDoneList()) {
             logger.warning("Invalid command, cannot do done command on done list.");
             indicateAttemptToExecuteIncorrectCommand();
             return new CommandResult(String.format(Messages.MESSAGE_DONE_LIST_RESTRICTION));
@@ -82,6 +82,10 @@ public class DoneCommand extends UndoableCommand {
         return (doneTasks.size() == 1)? 
                 new CommandResult(String.format(MESSAGE_DONE_ITEM_SUCCESS, toDisplay)):
                 new CommandResult(String.format(MESSAGE_DONE_ITEMS_SUCCESS, toDisplay));
+    }
+
+    private boolean attemptToExecuteDoneOnDoneList() {
+        return isViewingDoneList && !isRedoAction;
     }
 
     /**

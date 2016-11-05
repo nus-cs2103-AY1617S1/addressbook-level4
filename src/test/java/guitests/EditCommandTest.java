@@ -27,7 +27,7 @@ public class EditCommandTest extends DearJimGuiTest {
     public void edit() throws IllegalValueException {    	
     	
         TestTask[] currentList = td.getTypicalUndoneTasks();
-        assertClearCommandSuccess();
+        assertUndoneListClearCommandSuccess();
 
         TestTask aliceTask = new TestTask(td.alice);
         assertAddSuccess(aliceTask);
@@ -72,7 +72,7 @@ public class EditCommandTest extends DearJimGuiTest {
     public void editCheckReset() throws IllegalValueException{
         
         TestTask[] currentList = td.getTypicalUndoneTasks();
-        assertClearCommandSuccess();
+        assertUndoneListClearCommandSuccess();
 
         TestTask aliceTask = new TestTask(td.alice);
         assertAddSuccess(aliceTask);
@@ -118,17 +118,17 @@ public class EditCommandTest extends DearJimGuiTest {
         assertMatching(personToAdd, addedCard);
 
         //confirm the list now contains all previous persons plus the new person
-        TestTask[] expectedList = TestUtil.addFloatingTasksToList(currentList, personToAdd);
+        TestTask[] expectedList = TestUtil.addTasksToList(currentList, personToAdd);
         assertTrue(personListPanel.isListMatching(expectedList));
     }
     
     /**
      * Runs the clear command to clear the current list and confirms the result is correct.
      */
-    private void assertClearCommandSuccess() {
-    	commandBox.runCommand("clear");
-    	assertListSize(0);
-    	assertResultMessage("Task Manager has been cleared!");
+    private void assertUndoneListClearCommandSuccess() {
+        commandBox.runCommand("clear");
+        assertListSize(0);
+        assertResultMessage("Task Manager undone list has been cleared!");
     }
 
 }

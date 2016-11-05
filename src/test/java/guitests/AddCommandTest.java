@@ -17,12 +17,12 @@ public class AddCommandTest extends DearJimGuiTest {
         TestTask[] currentList = td.getTypicalUndoneTasks();
         TestTask personToAdd = td.hoon;
         assertAddSuccess(personToAdd, currentList);
-        currentList = TestUtil.addFloatingTasksToList(currentList, personToAdd);
+        currentList = TestUtil.addTasksToList(currentList, personToAdd);
 
         //add another person
         personToAdd = td.ida;
         assertAddSuccess(personToAdd, currentList);
-        currentList = TestUtil.addFloatingTasksToList(currentList, personToAdd);
+        currentList = TestUtil.addTasksToList(currentList, personToAdd);
 
         //add duplicate person
         //commandBox.runCommand(td.hoon.getAddCommand());
@@ -48,7 +48,7 @@ public class AddCommandTest extends DearJimGuiTest {
         assertMatching(personToAdd, addedCard);
 
         //confirm the list now contains all previous persons plus the new person
-        TestTask[] expectedList = TestUtil.addFloatingTasksToList(currentList, personToAdd);
+        TestTask[] expectedList = TestUtil.addTasksToList(currentList, personToAdd);
         assertTrue(personListPanel.isListMatching(expectedList));
     }
 

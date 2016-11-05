@@ -72,7 +72,7 @@ public class AddCommand extends UndoableCommand {
     public CommandResult execute() {
         assert model != null && toAdd != null;
 
-        if (model.isCurrentListDoneList()) {
+        if (attemptToExecuteAddOnDoneList()) {
             indicateAttemptToExecuteIncorrectCommand();
             return new CommandResult(Messages.MESSAGE_DONE_LIST_RESTRICTION);
         }
@@ -80,6 +80,10 @@ public class AddCommand extends UndoableCommand {
         model.addTask(toAdd);
         updateHistory();
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+    }
+
+    private boolean attemptToExecuteAddOnDoneList() {
+        return model.isCurrentListDoneList() && !isRedoAction;
     }
 
     @Override
