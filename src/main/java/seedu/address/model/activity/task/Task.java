@@ -123,8 +123,7 @@ public class Task extends Activity implements ReadOnlyTask {
                     && ((Task) other).getName().equals(this.getName()) // state checks here onwards
                     && ((Task) other).getDueDate().equals(this.getDueDate())
                     && ((Task) other).getPriority().equals(this.getPriority())
-                    && ((Task) other).getReminder().equals(this.getReminder())
-                    && ((Task) other).getTags().equals(this.getTags()));
+                    && ((Task) other).getReminder().equals(this.getReminder()));
         }
     }
     

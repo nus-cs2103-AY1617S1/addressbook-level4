@@ -19,8 +19,7 @@ public interface ReadOnlyTask extends ReadOnlyActivity {
                 && other.getName().equals(this.getName()) // state checks here onwards
                 && other.getDueDate().equals(this.getDueDate())
                 && other.getPriority().equals(this.getPriority())
-                && other.getReminder().equals(this.getReminder())
-                && other.getTags().equals(this.getTags()));
+                && other.getReminder().equals(this.getReminder()));
     }
     
     /**

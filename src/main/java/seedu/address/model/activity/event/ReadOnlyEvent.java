@@ -28,8 +28,7 @@ public interface ReadOnlyEvent extends ReadOnlyActivity {
                 && other.getName().equals(this.getName()) // state checks here onwards
                 && other.getStartTime().equals(this.getStartTime())
                 && other.getEndTime().equals(this.getEndTime())
-                && other.getReminder().equals(this.getReminder())
-                && other.getTags().equals(this.getTags()));
+                && other.getReminder().equals(this.getReminder()));
     }
     
     /**

@@ -136,8 +136,7 @@ public class Event extends Activity implements ReadOnlyEvent{
                     && ((Event) other).getName().equals(this.getName()) // state checks here onwards
                     && ((Event) other).getStartTime().equals(this.getStartTime())
                     && ((Event) other).getEndTime().equals(this.getEndTime())
-                    && ((Event) other).getReminder().equals(this.getReminder())
-                    && ((Event) other).getTags().equals(this.getTags()));
+                    && ((Event) other).getReminder().equals(this.getReminder()));
         }
     }
     
