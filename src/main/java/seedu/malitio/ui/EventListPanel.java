@@ -86,7 +86,6 @@ public class EventListPanel extends UiPart {
     public void scrollTo(int index) {
         Platform.runLater(() -> {
             eventListView.scrollTo(index);
-            eventListView.getSelectionModel().clearAndSelect(index);
         });
     }
 

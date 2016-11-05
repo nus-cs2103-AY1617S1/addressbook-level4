@@ -85,7 +85,6 @@ public class DeadlineListPanel extends UiPart {
     public void scrollTo(int index) {
         Platform.runLater(() -> {
             deadlineListView.scrollTo(index);
-            deadlineListView.getSelectionModel().clearAndSelect(index);
         });
     }
     
