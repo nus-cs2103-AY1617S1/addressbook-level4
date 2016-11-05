@@ -1,3 +1,4 @@
+//@@author A0141021H
 package seedu.whatnow.model.task;
 
 import static org.junit.Assert.assertTrue;
@@ -62,7 +63,39 @@ public class DateTest {
     }
     
     @Test
+    public void isValidDate_today_returnFalse() throws ParseException, IllegalValueException{
+        assertFalse(TaskDate.getIsValidDate("tdy"));
+        assertFalse(TaskDate.getIsValidDate("TDY"));
+    }
+    
+    @Test
     public void isValidDate_tmr_returnTrue() throws ParseException, IllegalValueException{
         assertTrue(TaskDate.getIsValidDate("tomorrow"));
+    }
+    
+    @Test
+    public void isValidDate_tmr_returnFalse() throws ParseException, IllegalValueException{
+        assertFalse(TaskDate.getIsValidDate("tmr"));
+        assertFalse(TaskDate.getIsValidDate("TMR"));
+    }
+    
+    @Test
+    public void isValidDate_variousDateFormat_returnTrue() throws ParseException, IllegalValueException{
+        assertTrue(TaskDate.getIsValidDate("03/12/2017"));
+        assertTrue(TaskDate.getIsValidDate("5/11/2017"));
+        assertTrue(TaskDate.getIsValidDate("7/8/2017"));
+        assertTrue(TaskDate.getIsValidDate("8/5/2017"));
+    }
+    
+    @Test
+    public void isValidDate_PastDateFormat_returnTrue() throws ParseException, IllegalValueException{
+      boolean checkPastDate = false;
+        try {
+           TaskDate.getIsValidDate("14/10/2015");
+       }
+       catch(IllegalValueException e){
+           checkPastDate = true;
+       }
+        assertTrue(checkPastDate);
     }
 }
