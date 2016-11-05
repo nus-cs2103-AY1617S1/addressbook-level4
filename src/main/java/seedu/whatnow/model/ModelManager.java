@@ -3,7 +3,6 @@ package seedu.whatnow.model;
 
 import javafx.collections.FXCollections;
 import javafx.collections.transformation.FilteredList;
-import javafx.collections.transformation.SortedList;
 import seedu.whatnow.commons.core.ComponentManager;
 import seedu.whatnow.commons.core.Config;
 import seedu.whatnow.commons.core.LogsCenter;
@@ -17,7 +16,6 @@ import seedu.whatnow.commons.exceptions.DataConversionException;
 import seedu.whatnow.commons.exceptions.IllegalValueException;
 import seedu.whatnow.commons.util.ConfigUtil;
 import seedu.whatnow.commons.util.StringUtil;
-import seedu.whatnow.logic.commands.Command;
 import seedu.whatnow.model.freetime.FreePeriod;
 import seedu.whatnow.model.freetime.Period;
 import seedu.whatnow.model.tag.Tag;
@@ -26,14 +24,10 @@ import seedu.whatnow.model.task.Task;
 import seedu.whatnow.model.task.UniqueTaskList;
 import seedu.whatnow.model.task.UniqueTaskList.DuplicateTaskException;
 import seedu.whatnow.model.task.UniqueTaskList.TaskNotFoundException;
-
-import java.io.IOException;
-import java.nio.file.FileSystems;
 import java.nio.file.Path;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
@@ -783,11 +777,11 @@ public class ModelManager extends ComponentManager implements Model {
         pinnedItems.setPredicate(p -> {
             try {
                 String newKeyword = keyword;
-                if (newKeyword.equals("today")) {
+                if (("today").equals(newKeyword)) {
                     newKeyword = df.format(cal.getTime());
                 }
-                if ((type.equals("tag") && p.getTags().contains(new Tag(newKeyword))) 
-                        || (type.equals("date") && (newKeyword.equals(p.getTaskDate()) 
+                if ((("tag").equals(type) && p.getTags().contains(new Tag(newKeyword))) 
+                        || (("date").equals(type) && (newKeyword.equals(p.getTaskDate()) 
                                 || (newKeyword.equals(p.getStartDate()))))) {
                     return true;
                 } else {

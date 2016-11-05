@@ -8,9 +8,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
-import java.util.regex.Pattern;
-
-import seedu.whatnow.commons.exceptions.IllegalValueException;
 
 public class Recurrence {
     private static final String DATE_WITH_SLASH_FORMAT= "dd/MM/yyyy";
@@ -199,12 +196,12 @@ public class Recurrence {
         splitDate[DATE_DAY] = (day < 10) ? "0" + day : EMPTY_STRING + day;
         splitDate[DATE_MONTH] = (month < 10) ? "0" + month : EMPTY_STRING + month;
         splitDate[DATE_YEAR] = EMPTY_STRING + year;
-        date = formatDate(splitDate);
         
-        return date;
+        return formatDate(splitDate);
     }
     
     public String getNextWeek(String date) {
+        String formattedDate;
         String[] splitDate = date.split(FORWARD_SLASH);      
         int day = Integer.parseInt(splitDate[DATE_DAY]) + 7;
         int month = Integer.parseInt(splitDate[DATE_MONTH]);
@@ -246,9 +243,9 @@ public class Recurrence {
         splitDate[DATE_DAY] = (day < 10) ? "0" + day : EMPTY_STRING + day;
         splitDate[DATE_MONTH] = (month < 10) ? "0" + month : EMPTY_STRING + month;
         splitDate[DATE_YEAR] = EMPTY_STRING + year;
-        date = formatDate(splitDate);
+        formattedDate = formatDate(splitDate);
         
-        return date;
+        return formattedDate;
     }
     
     public String getNextMonth(String date) {
@@ -283,9 +280,8 @@ public class Recurrence {
         splitDate[DATE_DAY] = (day < 10) ? "0" + day : EMPTY_STRING + day;
         splitDate[DATE_MONTH] = (month < 10) ? "0" + month : EMPTY_STRING + month;
         splitDate[DATE_YEAR] = EMPTY_STRING + year;
-        date = formatDate(splitDate);
-        
-        return date;
+
+        return formatDate(splitDate);
     }
     
     public String getNextYear(String date) {
@@ -308,9 +304,8 @@ public class Recurrence {
         splitDate[DATE_DAY] = (day < 10) ? "0" + day : EMPTY_STRING + day;
         splitDate[DATE_MONTH] = (month < 10) ? "0" + month : EMPTY_STRING + month;
         splitDate[DATE_YEAR] = EMPTY_STRING + year;
-        date = formatDate(splitDate);
         
-        return date;
+        return formatDate(splitDate);
     }
     
     public Task getNextTask(Task currentTask) {

@@ -17,13 +17,10 @@ import seedu.whatnow.commons.events.model.WhatNowChangedEvent;
 import seedu.whatnow.commons.events.storage.DataSavingExceptionEvent;
 import seedu.whatnow.commons.events.ui.JumpToListRequestEvent;
 import seedu.whatnow.commons.events.ui.ShowHelpRequestEvent;
-import seedu.whatnow.commons.events.ui.TaskPanelSelectionChangedEvent;
 import seedu.whatnow.commons.util.StringUtil;
 import seedu.whatnow.logic.Logic;
 import seedu.whatnow.model.UserPrefs;
 import seedu.whatnow.model.task.Task;
-
-import java.util.Date;
 import java.util.logging.Logger;
 
 /**

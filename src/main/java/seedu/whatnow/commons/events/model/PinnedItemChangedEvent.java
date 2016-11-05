@@ -1,7 +1,5 @@
 package seedu.whatnow.commons.events.model;
 
-import java.nio.file.Path;
-
 import seedu.whatnow.commons.core.Config;
 import seedu.whatnow.commons.events.BaseEvent;
 
