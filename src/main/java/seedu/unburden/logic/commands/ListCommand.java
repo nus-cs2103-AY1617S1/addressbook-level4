@@ -21,6 +21,11 @@ public class ListCommand extends Command {
 	public static final String COMMAND_WORD = "list";
 	
 	public static final String MESSAGE_SUCCESS = "Listed all tasks";
+	
+	public static final String MESSAGE_NO_MATCHES_DONE = "There are currently no tasks that are marked as done. \n Do try again after marking some task.";
+	public static final String MESSAGE_NO_MATCHES_UNDONE = "There are currently no tasks that are marked as undone. \n Do try again after adding more tasks.";
+	public static final String MESSAGE_NO_MATCHES_OVERDUE = "There are currently no tasks that are marked as overdue. \n Keep it up!";
+	public static final String MESSAGE_NO_MATCHES_DATE = "There are currently no tasks found within the dates you specified";
 
 	public static final String MESSAGE_USAGE = "Type : \"" + COMMAND_WORD + "\" or type : \"" + COMMAND_WORD
 			+ "\" your specified date ";
