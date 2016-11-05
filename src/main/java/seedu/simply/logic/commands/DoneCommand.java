@@ -13,7 +13,7 @@ import seedu.simply.model.task.UniqueTaskList.TaskNotFoundException;
  * Mark a completed task as done and hides it from the main display window.
  */
 
-//@@author A0135722L
+//@@author A0135722L Zhiyuan
 public class DoneCommand extends Command {
     
     public static final String COMMAND_WORD = "done";
