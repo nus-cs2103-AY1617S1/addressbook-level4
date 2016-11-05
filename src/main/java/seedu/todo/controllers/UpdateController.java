@@ -91,17 +91,6 @@ public class UpdateController implements Controller {
             recordIndex = null; // Later then disambiguate
         }
 
-        // Parse natural date using Natty.
-        LocalDateTime dateFrom;
-        LocalDateTime dateTo;
-        try {
-            dateFrom = naturalFrom == null ? null : DateParser.parseNatural(naturalFrom);
-            dateTo = naturalTo == null ? null : DateParser.parseNatural(naturalTo);
-        } catch (InvalidNaturalDateException e) {
-            renderDisambiguation(true, recordIndex, name, naturalFrom, naturalTo, MESSAGE_CANNOT_PARSE_DATE);
-            return;
-        }
-
         // Retrieve record and check if task or event
         EphemeralDB edb = EphemeralDB.getInstance();
         CalendarItem calendarItem = null;
@@ -112,6 +101,17 @@ public class UpdateController implements Controller {
         } catch (NullPointerException e) {
             // Assume task for disambiguation purposes since we can't tell
             renderDisambiguation(true, recordIndex, name, naturalFrom, naturalTo, MESSAGE_INVALID_ITEM_OR_PARAM);
+            return;
+        }
+
+        // Parse natural date using Natty.
+        LocalDateTime dateFrom;
+        LocalDateTime dateTo;
+        try {
+            dateFrom = naturalFrom == null ? null : DateParser.parseNatural(naturalFrom);
+            dateTo = naturalTo == null ? null : DateParser.parseNatural(naturalTo);
+        } catch (InvalidNaturalDateException e) {
+            renderDisambiguation(isTask, recordIndex, name, naturalFrom, naturalTo, MESSAGE_CANNOT_PARSE_DATE);
             return;
         }
 
