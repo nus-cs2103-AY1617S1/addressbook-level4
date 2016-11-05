@@ -10,6 +10,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import seedu.todo.commons.util.DateUtil;
+import seedu.todo.guitests.guihandles.ConsoleHandle;
 import seedu.todo.guitests.guihandles.TaskListDateItemHandle;
 import seedu.todo.guitests.guihandles.TaskListEventItemHandle;
 import seedu.todo.guitests.guihandles.TaskListTaskItemHandle;
@@ -65,6 +66,16 @@ public class UndoRedoCommandTest extends GuiTest {
     }
     
     @Test
+    public void undo_notavailable() {
+        console.runCommand("clear");
+        assertTaskVisibleAfterCmd(commandAdd1, task1);
+        assertTaskNotVisibleAfterCmd("undo", task1);
+        console.runCommand("undo");
+        console.runCommand("undo");
+        assertEquals(console.getConsoleTextArea(), "There is no command to undo!");
+    }
+    
+    @Test
     public void redo_single() {
         console.runCommand("clear");
         assertTaskVisibleAfterCmd(commandAdd1, task1);
@@ -81,5 +92,12 @@ public class UndoRedoCommandTest extends GuiTest {
         assertTaskNotVisibleAfterCmd("list", task2);
         assertTaskVisibleAfterCmd("redo 2", task1);
         assertTaskVisibleAfterCmd("list", task2);
+    }
+    
+    @Test
+    public void redo_notavailable() {
+        console.runCommand("clear");
+        console.runCommand("redo");
+        assertEquals(console.getConsoleTextArea(), "There is no command to redo!");
     }
 }
