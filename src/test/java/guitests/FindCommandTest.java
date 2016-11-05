@@ -26,7 +26,7 @@ public class FindCommandTest extends MalitioGuiTest {
       //  assertFindResult("find peN HOMEWORK");
         assertResultMessage("3 tasks found!");
         
-        assertFindResult("find 12-25", td.deadline4, td.event5); //find dates
+        assertFindResult("find 25-dec", td.deadline4, td.event5); //find dates
        // assertFindResult("find 12-25");
         assertResultMessage("2 tasks found!");
         
