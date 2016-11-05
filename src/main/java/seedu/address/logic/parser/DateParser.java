@@ -58,10 +58,17 @@ public class DateParser {
 	}
 	
 	
-	public static boolean containsDate(String dateString) throws ParseException {
+	public static boolean containsDate(String dateString) {
 		dateString = dateString.trim().toLowerCase();
+		LocalDateTime dateTime;
 		
-		LocalDateTime dateTime = parse(dateString);
+		try {
+			dateTime = parse(dateString);
+		}
+		catch (ParseException e) {
+			return false;
+		}
+		
 		LocalDateTime nowWithHhmmReplaced = LocalDateTime.now()
 				.withHour(dateTime.getHour())
 				.withMinute(dateTime.getMinute())
