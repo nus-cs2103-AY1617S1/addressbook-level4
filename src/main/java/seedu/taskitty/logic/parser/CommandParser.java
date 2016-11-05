@@ -354,8 +354,7 @@ public class CommandParser {
     /**
      * Get the separator between day month and year in a date
      * 
-     * @param localDateString
-     *            the string representing the date
+     * @param localDateString the string representing the date
      * @return the separator character used in localDateString
      */
     private String getDateSeparator(String localDateString) {
@@ -371,10 +370,8 @@ public class CommandParser {
     /**
      * Swaps the day and month component of the date
      * 
-     * @param localDate
-     *            the local date String to convert
-     * @param dateSeparator
-     *            the Separator used in the date string
+     * @param localDate the local date String to convert
+     * @param dateSeparator the Separator used in the date string
      * @return the date string with its day and month component swapped
      */
     private String swapDayAndMonth(String localDate, String dateSeparator) {
@@ -391,8 +388,7 @@ public class CommandParser {
      * Takes in a date from Natty and converts it into a string representing
      * date Format of date returned is according to TaskDate
      * 
-     * @param date
-     *            retrieved using Natty
+     * @param date retrieved using Natty
      */
     private String extractLocalDate(Date date) {
         SimpleDateFormat dateFormat = new SimpleDateFormat(TaskDate.DATE_FORMAT_STRING);
@@ -403,8 +399,7 @@ public class CommandParser {
      * Takes in a date from Natty and converts it into a string representing
      * time Format of time returned is according to TaskTime
      * 
-     * @param date
-     *            retrieved using Natty
+     * @param date retrieved using Natty
      */
     private String extractLocalTime(Date date) {
         SimpleDateFormat timeFormat = new SimpleDateFormat(TaskTime.TIME_FORMAT_STRING);
@@ -440,8 +435,7 @@ public class CommandParser {
     /**
      * Parses arguments in the context of the delete person command.
      *
-     * @param args
-     *            full command args string
+     * @param args full command args string
      * @return the prepared command
      */
     private Command prepareDelete(String args) {
@@ -461,8 +455,7 @@ public class CommandParser {
     /**
      * Parses arguments in the context of the mark as done command.
      * 
-     * @param args
-     *            full command args string
+     * @param args full command args string
      * @return the prepared command
      */
     private Command prepareDone(String args) {        
@@ -484,10 +477,8 @@ public class CommandParser {
      * 
      * Parses each index string in the array and adds them to a list if valid
      * 
-     * @param indexes
-     *            the string array of indexes separated
-     * @return a list of all valid indexes parsed or null if an invalid index
-     *         was given
+     * @param indexes the string array of indexes separated
+     * @return a list of all valid indexes parsed or null if an invalid index was given
      */
     private ArrayList<Pair<Integer, Integer>> getListOfIndexes(String[] indexes) {        
         ArrayList<Pair<Integer, Integer>> listOfIndexes = new ArrayList<Pair<Integer, Integer>>();
@@ -561,8 +552,7 @@ public class CommandParser {
     /**
      * Parses arguments in the context of the edit task command.
      *
-     * @param args
-     *            full command args string
+     * @param args full command args string
      * @return the prepared command
      */
     private Command prepareEdit(String args) {
@@ -601,9 +591,7 @@ public class CommandParser {
      * Parses the string and returns the categoryIndex and the index if a valid
      * one was given
      * 
-     * @param args
-     * @return an int array with categoryIndex and index in 0 and 1 index
-     *         respectively
+     * @return an int array with categoryIndex and index in 0 and 1 index respectively
      */
     private Pair<Integer, Integer> getCategoryAndIndex(String args) {
 
@@ -657,8 +645,7 @@ public class CommandParser {
     /**
      * Parses arguments in the context of the find person command.
      *
-     * @param args
-     *            full command args string
+     * @param args full command args string
      * @return the prepared command
      */
     private Command prepareFind(String args) {
