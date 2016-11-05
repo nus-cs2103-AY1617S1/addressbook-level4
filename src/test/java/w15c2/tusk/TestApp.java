@@ -1,5 +1,8 @@
 package w15c2.tusk;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.function.Supplier;
 
 import javafx.stage.Screen;
@@ -45,6 +48,14 @@ public class TestApp extends MainApp {
                     new XmlSerializableTaskManager(this.initialDataSupplier.get()),
                     this.saveFileLocation);
                     
+        }
+
+        // Delete the list of alias on every run
+        try {
+            Files.deleteIfExists(Paths.get(SAVE_LOCATION_FOR_TESTING_ALIAS));
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
         }
     }
 
