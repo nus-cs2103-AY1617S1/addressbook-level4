@@ -171,7 +171,7 @@ public class EditCommand extends Command {
     	 }
     	 
     	 static void checkIfCanEditStartTime(Task targetTask, Task toEdit) throws CannotAddStartTimeWithoutEndTimeException {
-    		 if (targetTask.getEndTime().getFullTime() == "" && toEdit.getStartTime().getFullTime() != "" && toEdit.getEndTime().getFullTime() != "") {
+    		 if (targetTask.getEndTime().getFullTime() == "" && toEdit.getStartTime().getFullTime() != "" && toEdit.getEndTime().getFullTime() == "") {
     			 throw new CannotAddStartTimeWithoutEndTimeException();
     		 }
     	 }
