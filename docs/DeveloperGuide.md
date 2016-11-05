@@ -74,14 +74,13 @@ Two of these classes play an important role at the architecture level.
 * Classes used by multiple components are in the `seedu.stask.commons` package. 
 
 The rest of sTask consists of four components:
-* [**`UI`**](#2-3-ui-component), which is in charge of the User Interface of sTask.
-* [**`Logic`**](#2-4-logic-component), which is in charge of executing the logic.
-* [**`Model`**](2-5-model-component), which holds the data of sTask in-memory.
-* [**`Storage`**](2-6storage-component), which reads data from, and writes data to, the hard disk.
+* [**`UI`**](3-3-ui-component), which is in charge of the User Interface of sTask.
+* [**`Logic`**](3-4-logic-component), which is in charge of executing the logic.
+* [**`Model`**](3-5-model-component), which holds the data of sTask in-memory.
+* [**`Storage`**](3-6storage-component), which reads data from, and writes data to, the hard disk.
 
-Each of the four components
-* Defines its _API_ an interface with the same name as the Component. `Logic.java`
-* Exposes its functionality using a `{Component Name}Manager` class e.g. `LogicManager.java`
+Each of these four components defines its _API_ as an interface with the same name as the Component. `Logic.java`
+Its functionality is also exposed using a `{Component Name}Manager` class e.g. `LogicManager.java`
 
 The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the
 command `delete A3`.
@@ -92,7 +91,7 @@ command `delete A3`.
  instead of asking the `Storage` to save the updates to the hard disk.
 
 The diagram below shows how the `EventsCenter` reacts to that event, which eventually results in the updates
-being saved to the hard disk and the status bar of the UI being updated to reflect the 'Last Updated' time. <br>
+being saved to the hard disk and the status bar of the UI being updated to reflect the 'Last Updated' time. <br><br>
 <img src="images\SDforDeletePersonEventHandling.png" width="800">
 
 > You should take note of how the event is propagated through the `EventsCenter` to the `Storage` and `UI` without `Model` having
@@ -101,7 +100,7 @@ being saved to the hard disk and the status bar of the UI being updated to refle
 
 We will now go into further details about each component.
 
-### 2.3 UI component
+&nbsp;&nbsp;&nbsp;&nbsp;<b>3.3 UI component</b>
 
 <img src="images/UiClassDiagramTD.png" width="800"><br>
 
@@ -119,81 +118,83 @@ The `UI` component,
 * Binds itself to some data in the `Model` so that the UI can auto-update when data in the `Model` has changed.
 * Responds to events raises from various parts of sTask and updates the UI accordingly.
 
-### 2.4 Logic component
+&nbsp;&nbsp;&nbsp;&nbsp;<b>3.4 Logic component</b>
 
 <img src="images/LogicClassDiagram.png" width="800"><br>
 
 **API** : [`Logic.java`](../src/main/java/seedu/stask/logic/Logic.java)
+
+In this component, you can see from Figure BLAH that,
 
 1. `Logic` uses the `Parser` class to parse the user command.
 2. This results in a `Command` object which is executed by the `LogicManager`.
 3. The command execution can affect the `Model` (e.g. adding a task) and/or raise events.
 4. The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`
 
-### 2.5 Model component
+&nbsp;&nbsp;&nbsp;&nbsp;<b>3.5 Model component</b>
 
 <img src="images/ModelClassDiagramTD.png" width="800"><br>
 
-**API** : [`Model.java`](../src/main/java/seedu/address/model/Model.java)
+**API** : [`Model.java`](../src/main/java/seedu/stask/model/Model.java)
 
-The `Model`,
+Based on Figure BLAH above, the `Model`,
 * Stores a `UserPref` object that represents the user's preferences
 * Stores sTask data
-* Exposes a `UnmodifiableObservableList<ReadOnlyPerson>` that can be 'observed' e.g. the UI can be bound to this list
+* Exposes a `UnmodifiableObservableList<ReadOnlyTask>` that can be 'observed' e.g. the UI can be bound to this list
   so that the UI automatically updates when the data in the list change.
 * Does not depend on any of the other three components.
 
-### 2.6 Storage component
+&nbsp;&nbsp;&nbsp;&nbsp;<b>3.6 Storage component</b>
 
 <img src="images/StorageClassDiagramTD.png" width="800"><br>
 
-**API** : [`Storage.java`](../src/main/java/seedu/address/storage/Storage.java)
+**API** : [`Storage.java`](../src/main/java/seedu/stask/storage/Storage.java)
 
-The `Storage` component,
-* can save `UserPref` objects in json format and read it back.
-* can save the sTask data in xml format and read it back.
+As you can see, the `Storage` component can save and read `UserPref` objects in json format as well as sTask data in xml format.
 
-## 3. Implementation
+## 4. Implementation
 
-### 3.1 Logging
+&nbsp;&nbsp;&nbsp;&nbsp;<b>4.1 Logging</b>
 
 We are using `java.util.logging.Logger` as our logger, and `LogsCenter` is used to manage the logging levels 
 of loggers and handlers (for output of log messages)
 
-    - The logging level can be controlled using the `logLevel` setting in the configuration file 
+    - You can control the logging level by using the `logLevel` setting in the configuration file 
       (See [Configuration](#3-2-configuration))
-    - The `Logger` for a class can be obtained using `LogsCenter.getLogger(Class)` which will log messages according to 
+    - You can also obtain the `Logger` for a class by using `LogsCenter.getLogger(Class)` which logs messages according to 
       the specified logging level
-    - Currently log messages are output through: `Console` and `.log`
+    - You can see the current log messages through: `Console` and `.log`
 
 **Logging Levels**
 
+There are several different logging levels based on the severity that you have to take note of when developing sTask.
+
 * SEVERE 
  
-     Critical use case affected, which may possibly cause the termination of the application
+    The critical use case is affected, and this may possibly cause the termination of sTask
 
 * WARNING
 
-    Can continue, but with caution
+    sTask can continue to run, but you have to take caution
 
 * INFO
 
-    Information important for the application's purpose e.g. update to local model/request sent to cloud
-    Information that the layman user can understand
+    This logs information that is important for sTask's purpose e.g. updating to the local model or sending a request to cloud
+    This logging level provides information that the layman user can understand
 
 * FINE
 
-    Used for superficial debugging purposes to pinpoint components that the fault/bug is likely to arise from
-    Should include more detailed information as compared to `INFO` i.e. log useful information!
-    e.g. print the actual list instead of just its size
-
-### 3.2 Configuration
-
-Certain properties of the application can be controlled (e.g App name, logging level) through the configuration file 
-(default: `config.json`):
+    Logs of this level are used for superficial debugging purposes to pinpoint components that the fault/bug is likely to arise from
+    They should include more detailed information as compared to `INFO`, e.g. printing the actual list of tasks instead of just its size
 
 
-## 4. Testing
+&nbsp;&nbsp;&nbsp;&nbsp;<b>4.2 Configuration</b>
+
+You can control certain properties of sTask (e.g App name, logging level) through the configuration file 
+(default: `config.json`)
+
+
+## 5. Testing
 
 **In Eclipse**: 
 > If you are not using a recent Eclipse version (i.e. _Neon_ or later), enable assertions in JUnit tests
