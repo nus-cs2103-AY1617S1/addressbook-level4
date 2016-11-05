@@ -12,6 +12,11 @@ import seedu.todo.MainApp;
 import seedu.todo.commons.core.Config;
 import seedu.todo.commons.core.GuiSettings;
 import seedu.todo.commons.events.ui.ExitAppRequestEvent;
+import seedu.todo.commons.exceptions.ParseException;
+import seedu.todo.controllers.AliasController;
+import seedu.todo.controllers.ConfigController;
+import seedu.todo.controllers.HelpController;
+import seedu.todo.controllers.ListController;
 import seedu.todo.ui.components.Component;
 import seedu.todo.ui.components.Console;
 import seedu.todo.ui.components.Header;
@@ -27,9 +32,17 @@ public class MainWindow extends Component {
 
     private static final String FXML_PATH = "MainWindow.fxml";
     private static final String ICON_PATH = "/images/logo-512x512.png";
-    private static final String OPEN_HELP_KEY_COMBINATION = "F1";
     public static final int MIN_HEIGHT = 600;
     public static final int MIN_WIDTH = 600;
+    
+    private static final String COMMAND_HELP = "help";
+    private static final String COMMAND_LIST = "list";
+    private static final String COMMAND_CONFIG = "config";
+    private static final String COMMAND_ALIAS = "alias";
+
+    private static final String KEY_OPEN_HELP = "F1";
+    private static final String KEY_OPEN_LIST = "F5";
+    private static final String KEY_OPEN_CONFIG = "F12";
 
     // Handles to elements of this Ui container
     private VBox rootLayout;
@@ -37,13 +50,17 @@ public class MainWindow extends Component {
 
     // FXML Components
     @FXML
-    private MenuItem helpMenuItem;
-    @FXML
     private AnchorPane childrenPlaceholder;
     @FXML
     private AnchorPane consoleInputPlaceholder;
     @FXML
     private AnchorPane headerPlaceholder;
+    @FXML
+    private MenuItem homeMenuItem;
+    @FXML
+    private MenuItem configMenuItem;
+    @FXML
+    private MenuItem helpMenuItem;
 
     public void configure(Config config) {
         String appTitle = config.getAppTitle();
@@ -114,6 +131,10 @@ public class MainWindow extends Component {
     protected <T extends View> T loadView(Class<T> viewClass) {
         return load(primaryStage, getChildrenPlaceholder(), viewClass);
     }
+    
+    public Scene getScene() {
+        return scene;
+    }
 
     /** ================ FXML COMPONENTS ================== **/
 
@@ -132,14 +153,39 @@ public class MainWindow extends Component {
     /** ================ ACCELERATORS ================== **/
 
     private void setAccelerators() {
-        helpMenuItem.setAccelerator(KeyCombination.valueOf(OPEN_HELP_KEY_COMBINATION));
+        helpMenuItem.setAccelerator(KeyCombination.valueOf(KEY_OPEN_HELP));
+        homeMenuItem.setAccelerator(KeyCombination.valueOf(KEY_OPEN_LIST));
+        configMenuItem.setAccelerator(KeyCombination.valueOf(KEY_OPEN_CONFIG));
     }
 
     /** ================ ACTION HANDLERS ================== **/
-
+    
     @FXML
     public void handleHelp() {
-        // TODO: Auto-generated method stub
+        // Pass directly to HelpController.
+        new HelpController().process(COMMAND_HELP);
+    }
+
+    @FXML
+    public void handleHome() {
+        // Pass directly to ListController.
+        try {
+            new ListController().process(COMMAND_LIST);
+        } catch (ParseException e) {
+            return;
+        }
+    }
+    
+    @FXML
+    public void handleConfig() {
+        // Pass directly to HelpController.
+        new ConfigController().process(COMMAND_CONFIG);
+    }
+    
+    @FXML
+    public void handleAlias() {
+        // Pass directly to HelpController.
+        new AliasController().process(COMMAND_ALIAS);
     }
 
     @FXML
