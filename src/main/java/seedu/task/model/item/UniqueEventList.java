@@ -21,7 +21,8 @@ public class UniqueEventList implements Iterable<Event> {
     /**
      * Signals that an operation would have violated the 'no duplicates' property of the list.
      */
-    public static class DuplicateEventException extends DuplicateDataException {
+    @SuppressWarnings("serial")
+	public static class DuplicateEventException extends DuplicateDataException {
         protected DuplicateEventException() {
             super("Operation would result in duplicate tasks");
         }
@@ -31,7 +32,8 @@ public class UniqueEventList implements Iterable<Event> {
      * Signals that an operation targeting a specified task in the list would fail because
      * there is no such matching task in the list.
      */
-    public static class EventNotFoundException extends Exception {}
+    @SuppressWarnings("serial")
+	public static class EventNotFoundException extends Exception {}
 
     private final ObservableList<Event> internalList = FXCollections.observableArrayList();
 

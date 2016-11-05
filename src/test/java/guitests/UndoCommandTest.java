@@ -43,7 +43,7 @@ public class UndoCommandTest extends TaskBookGuiTest {
 		TestTask[] currentList = td.getTypicalTasks();
 
 		// add one task
-		TestTask taskToAdd = td.arts;
+		TestTask taskToAdd = TypicalTestTasks.arts;
 		commandBox.runCommand(taskToAdd.getAddCommand());
 		assertTaskListSize(currentList.length + 1);
 		// undo
@@ -57,7 +57,7 @@ public class UndoCommandTest extends TaskBookGuiTest {
 		currentList = TestUtil.removeTaskFromList(currentList, 1);
 		// undo
 		commandBox.runCommand("undo");
-		currentList = TestUtil.addTasksToListAtIndex(currentList, 0, td.cs1010);
+		currentList = TestUtil.addTasksToListAtIndex(currentList, 0, TypicalTestTasks.cs1010);
 		assertTaskListSize(currentList.length);
 		assertTrue(taskListPanel.isListMatching(currentList));
 
@@ -118,7 +118,7 @@ public class UndoCommandTest extends TaskBookGuiTest {
 		TestEvent[] currentList = te.getTypicalNotCompletedEvents();
 
 		// add one event
-		TestEvent eventToAdd = te.addedEvent;
+		TestEvent eventToAdd = TypicalTestEvents.addedEvent;
 		commandBox.runCommand(eventToAdd.getAddCommand());
 		assertEventListSize(currentList.length + 1);
 		// undo
@@ -132,7 +132,7 @@ public class UndoCommandTest extends TaskBookGuiTest {
 		currentList = TestUtil.removeEventFromList(currentList, 1);
 		// undo
 		commandBox.runCommand("undo");
-		currentList = TestUtil.addEventsToListAtIndex(currentList, 0, te.meeting2);
+		currentList = TestUtil.addEventsToListAtIndex(currentList, 0, TypicalTestEvents.meeting2);
 		assertEventListSize(currentList.length);
 		assertTrue(eventListPanel.isListMatching(currentList));
 	}
@@ -229,7 +229,7 @@ public class UndoCommandTest extends TaskBookGuiTest {
 		TestTask[] oldTaskList = td.getTypicalTasks();
 		
 		//edit a task
-		TestTask taskToEdit = td.arts;
+		TestTask taskToEdit = TypicalTestTasks.arts;
 		TestTask[] modifiedTaskList = TestUtil.editTasksToList(oldTaskList, 0, taskToEdit);
 		commandBox.runCommand(taskToEdit.getEditFloatTaskCommand(1));
 		assertTrue(taskListPanel.isListMatching(modifiedTaskList));
@@ -256,7 +256,7 @@ public class UndoCommandTest extends TaskBookGuiTest {
 	    String MESSAGE_DUPLICATE_EVENT = "This event already exists in the task book";
 	    
 	    //edit a task
-	    TestTask taskToEdit = td.cs1010;
+	    TestTask taskToEdit = TypicalTestTasks.cs1010;
 	    TestTask[] modifiedTaskList = TestUtil.editTasksToList(oldTaskList, 0, taskToEdit);
 	    commandBox.runCommand(taskToEdit.getEditFloatTaskCommand(1));
 	    assertTrue(taskListPanel.isListMatching(modifiedTaskList));

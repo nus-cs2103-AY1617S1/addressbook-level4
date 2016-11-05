@@ -32,7 +32,7 @@
 	-fx-font-family: 'Roboto Bold', Arial, sans-serif;
 	-fx-font-size:20px;
 	-fx-text-fill: #ecf0f1;
-	-fx-background-color:#c0392b;
+	-fx-background-color:#d35400;
 }
 
 .task-panel-header {
@@ -55,14 +55,53 @@
 }
 
 .status-complete {
-    -fx-background-color: #2ecc71;
+    -fx-border-color: #2ecc71 !important;
+  	-fx-border-width:2px;
     -fx-background-image: url('/images/checked.png');
     -fx-background-position: right center;
   	-fx-background-repeat: no-repeat;
   	-fx-background-size: 25px;
-  	-fx-right-padding: 10px;
+  	-fx-right-padding: 15px;
 }
 
+
+/* For today */
+.status-today {
+    -fx-background-image: url('/images/notice.png');
+    -fx-background-position: right center;
+  	-fx-background-repeat: no-repeat;
+  	-fx-background-size: 25px;
+  	-fx-right-padding: 15px;
+}
+
+.status-overdue {
+	-fx-background-image: url('/images/overdue.png');
+    -fx-background-position: right center;
+  	-fx-background-repeat: no-repeat;
+  	-fx-background-size: 25px;
+  	-fx-right-padding: 10px;
+  	-fx-border-color: #c0392b !important;
+  	-fx-border-width:2px;
+}
+
+.status-overdue .cell_big_label, .status-overdue .cell_index_label {
+    -fx-text-fill: #c0392b;
+}
+
+/*
+ * 
+.status-overdue .cell_big_label, .status-overdue .cell_index_label {
+    -fx-text-fill:  #34495e;
+}
+
+.status-overdue .cell_desc_label {
+	  -fx-text-fill:  #bdc3c7;
+}
+
+.status-overdue .cell_ddl_label {
+	  -fx-text-fill: #ecf0f1;
+}
+*  */
 
 .tag-selector {
     -fx-border-width: 1;

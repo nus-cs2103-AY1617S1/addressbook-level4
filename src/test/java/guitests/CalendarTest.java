@@ -6,7 +6,6 @@ import static seedu.taskcommons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import java.time.LocalDateTime;
 
-import org.junit.Before;
 import org.junit.Test;
 import org.testfx.api.FxToolkit;
 
@@ -20,8 +19,6 @@ import seedu.task.testutil.TestEvent;
 import seedu.task.testutil.TestTask;
 import seedu.task.testutil.TestUtil;
 import seedu.task.testutil.TypicalTestEvents;
-import seedu.task.testutil.TypicalTestTasks;
-import seedu.task.ui.CalendarHelper;
 
 //@@author A0144702N
 public class CalendarTest extends TaskBookGuiTest {
@@ -95,7 +92,6 @@ public class CalendarTest extends TaskBookGuiTest {
 		//set up 
 		TestEvent[] currentEventList = te.getTypicalAllEvents();
 		TestTask[] currentTaskList = td.getTypicalTasks();
-		Agenda agenda = calendar.getAgenda();
 		calendarListMatch(currentEventList, currentTaskList);
 		
 		

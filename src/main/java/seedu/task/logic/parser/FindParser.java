@@ -3,13 +3,10 @@ package seedu.task.logic.parser;
 import static seedu.taskcommons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import seedu.task.commons.exceptions.EmptyValueException;
 import seedu.task.logic.commands.Command;
@@ -24,10 +21,7 @@ import seedu.task.logic.commands.IncorrectCommand;
  *
  */
 public class FindParser implements Parser {
-	private static final Pattern KEYWORDS_ARGS_FORMAT =
-            Pattern.compile("(?<keywords>[^/]+(?:/+[^/]+)*)"); // one or more keywords separated by '/'
-
-    /**
+	/**
      * Parses arguments in the context of the find person command.
      *
      * @param args full command args string

@@ -25,8 +25,8 @@ public class SortTaskTest {
         Task lateTask = new Task(name, null, lateDeadline, false);
 
         assertEquals(floatTask.sortDesc(floatTask), 0);
-        assertEquals(floatTask.sortDesc(earlyTask), -1);
-        assertEquals(earlyTask.sortDesc(floatTask), 1);
+        assertEquals(floatTask.sortDesc(earlyTask), 1);
+        assertEquals(earlyTask.sortDesc(floatTask), -1);
         assertEquals(earlyTask.sortDesc(lateTask), -1);
                
     }

@@ -5,6 +5,7 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 
 import javafx.scene.input.KeyCode;
+import seedu.task.testutil.TypicalTestTasks;
 
 /*
  * GUI test for CommandBox
@@ -15,7 +16,7 @@ public class CommandBoxTest extends TaskBookGuiTest {
     // test input for valid command
     @Test
     public void commandBox_commandSucceeds_textCleared() {
-        commandBox.runCommand(td.cs1020.getAddCommand());
+        commandBox.runCommand(TypicalTestTasks.cs1020.getAddCommand());
         assertEquals(commandBox.getCommandInput(), "");
     }
 
@@ -39,27 +40,27 @@ public class CommandBoxTest extends TaskBookGuiTest {
     // test for UP key press
     @Test
     public void commandBox_UP_keyPress(){
-        commandBox.runCommand(td.cs1020.getAddCommand());
+        commandBox.runCommand(TypicalTestTasks.cs1020.getAddCommand());
         assertEquals(commandBox.getCommandInput(), "");
         commandBox.keyPress(KeyCode.UP);
-        assertEquals(commandBox.getCommandInput(), td.cs1020.getAddCommand());
+        assertEquals(commandBox.getCommandInput(), TypicalTestTasks.cs1020.getAddCommand());
     }
     
     // test for DOWN key press
     @Test
     public void commandBox_DOWN_keyPress(){
-        commandBox.runCommand(td.cs1020.getAddCommand());
-        commandBox.runCommand(td.engine.getAddCommand());
+        commandBox.runCommand(TypicalTestTasks.cs1020.getAddCommand());
+        commandBox.runCommand(TypicalTestTasks.engine.getAddCommand());
         assertEquals(commandBox.getCommandInput(), "");
         commandBox.keyPress(KeyCode.UP);
         commandBox.keyPress(KeyCode.UP);
-        assertEquals(commandBox.getCommandInput(), td.cs1020.getAddCommand());
+        assertEquals(commandBox.getCommandInput(), TypicalTestTasks.cs1020.getAddCommand());
         commandBox.keyPress(KeyCode.DOWN);
-        assertEquals(commandBox.getCommandInput(), td.engine.getAddCommand());
+        assertEquals(commandBox.getCommandInput(), TypicalTestTasks.engine.getAddCommand());
         commandBox.keyPress(KeyCode.DOWN);
         commandBox.keyPress(KeyCode.DOWN);
         commandBox.keyPress(KeyCode.DOWN);
-        assertEquals(commandBox.getCommandInput(), td.engine.getAddCommand());
+        assertEquals(commandBox.getCommandInput(), TypicalTestTasks.engine.getAddCommand());
     }
     //@@author
 }

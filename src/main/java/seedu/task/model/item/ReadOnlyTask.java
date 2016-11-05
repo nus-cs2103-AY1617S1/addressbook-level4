@@ -32,9 +32,10 @@ public interface ReadOnlyTask {
      */
     default String getAsText() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(getTask())
-                .append(getDescriptionToString())
-                .append(getDeadlineToString())
+        builder.append(" Name: ")
+                .append(getTask())
+                .append(getFormalDescriptionToString())
+                .append(getFormalDeadlineToString())
                 .append(getTaskStatusToString());
         
         return builder.toString();
@@ -45,6 +46,14 @@ public interface ReadOnlyTask {
      * If null, empty string is returned
      */
     default String getDescriptionToString() {
+        return getDescription().isPresent()? getDescription().get().toString() : "";
+    }
+    
+    /**
+     * Formats the description as formal text.
+     * If null, empty string is returned
+     */
+    default String getFormalDescriptionToString() {
         return getDescription().isPresent()? " Desc: " + getDescription().get().toString() : "";
     }
     
@@ -54,6 +63,14 @@ public interface ReadOnlyTask {
      */
     default String getDeadlineToString() {
         return getDeadline().isPresent()? getDeadline().get().toString() : "";
+    }
+    
+    /**
+     * Formats the deadline as formal text.
+     * If null, empty string is returned
+     */
+    default String getFormalDeadlineToString() {
+        return getDeadline().isPresent()? " By: " + getDeadline().get().toString() : "";
     }
     
     /**

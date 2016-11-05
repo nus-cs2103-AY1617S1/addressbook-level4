@@ -15,6 +15,7 @@
 	-fx-faint-focus-color: SaddleBrown;
 }
 
+/* Default for name */
 .cell_big_label {
     -fx-font-size: 16px;
     -fx-text-fill: #010504;
@@ -22,13 +23,16 @@
 
 .cell_desc_label {
     -fx-font-size: 11px !important;
-    -fx-text-fill: #bdc3c7;
-    
+    -fx-text-fill: #2c3e50;
+    -fx-background-image: url('/images/desc.png');
+    -fx-background-position: left center;
+  	-fx-background-repeat: no-repeat;
+  	 -fx-background-size: 15px;
 }
 
 .cell_ddl_label {
     -fx-font-size: 11px !important;
-    -fx-text-fill: #c0392b;
+    -fx-text-fill: #2980b9;
     -fx-background-image: url('/images/calendar.png');
     -fx-background-position: left center;
   	-fx-background-repeat: no-repeat;
@@ -298,7 +302,9 @@
 
 #cardPane {
     -fx-border-color: #d6d6d6;
-    
+    -fx-padding: 1px 2px;
+    -fx-border-insets: 1px 0px;
+    -fx-background-insets: 1px 0px;
     
 }
 

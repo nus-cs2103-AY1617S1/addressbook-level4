@@ -2,7 +2,6 @@ package seedu.task.logic;
 
 import static seedu.taskcommons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
 import seedu.task.logic.commands.EditCommand;

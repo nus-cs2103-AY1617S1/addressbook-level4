@@ -11,6 +11,8 @@ import seedu.task.logic.commands.AddTaskCommand;
 import seedu.task.testutil.TestEvent;
 import seedu.task.testutil.TestTask;
 import seedu.task.testutil.TestUtil;
+import seedu.task.testutil.TypicalTestEvents;
+import seedu.task.testutil.TypicalTestTasks;
 import seedu.taskcommons.core.Messages;
 
 //@@author A0127570H
@@ -23,17 +25,17 @@ public class AddCommandTest extends TaskBookGuiTest {
     public void addTask() {
         //add one task
         TestTask[] currentList = td.getTypicalTasks();
-        TestTask taskToAdd = td.arts;
+        TestTask taskToAdd = TypicalTestTasks.arts;
         currentList = TestUtil.addTasksToListAtIndex(currentList, 0,taskToAdd);
         assertAddTaskSuccess(taskToAdd, currentList);
 
         //add another task
-        taskToAdd = td.socSciences;
+        taskToAdd = TypicalTestTasks.socSciences;
         currentList = TestUtil.addTasksToList(currentList, taskToAdd);
         assertAddTaskSuccess(taskToAdd, currentList);
 
         //add duplicate task
-        commandBox.runCommand(td.arts.getFullAddCommand());
+        commandBox.runCommand(TypicalTestTasks.arts.getFullAddCommand());
         assertResultMessage(AddTaskCommand.MESSAGE_DUPLICATE_TASK);
         assertTrue(taskListPanel.isListMatching(currentList));
 
@@ -46,13 +48,13 @@ public class AddCommandTest extends TaskBookGuiTest {
     public void addEvent() {
         //add one event
         TestEvent[] currentList = te.getTypicalNotCompletedEvents();
-        TestEvent eventToAdd = te.addedEvent;
+        TestEvent eventToAdd = TypicalTestEvents.addedEvent;
         currentList = TestUtil.addEventsToListAtIndex(currentList, 0,eventToAdd);
 
         assertAddEventSuccess(eventToAdd, currentList);        
 
         //add duplicate event
-        commandBox.runCommand(te.addedEvent.getAddCommand());
+        commandBox.runCommand(TypicalTestEvents.addedEvent.getAddCommand());
         assertResultMessage(AddEventCommand.MESSAGE_DUPLICATE_EVENT);
         assertTrue(eventListPanel.isListMatching(currentList));
 

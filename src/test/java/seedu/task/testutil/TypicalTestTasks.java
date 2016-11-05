@@ -50,7 +50,7 @@ public class TypicalTestTasks {
     }
     
     public TestTask[] getTypicalAllTasks() {
-    	return new TestTask[] {slack, cs1010, cs1020,engine, music};
+    	return new TestTask[] {cs1010, cs1020,engine, music, slack};
     }
     
 

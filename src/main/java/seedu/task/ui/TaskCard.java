@@ -1,12 +1,12 @@
 package seedu.task.ui;
 
-import javafx.fxml.FXML;
+import java.time.LocalDateTime;
 
+import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import seedu.task.model.item.ReadOnlyTask;
-import com.guigarage.flatterfx.emoji.EmojiFactory;
 
 
 public class TaskCard extends UiPart{
@@ -46,10 +46,11 @@ public class TaskCard extends UiPart{
         index.setText(displayedIndex + ". ");
         initialiseDescription();
         initialiseDeadline();   
-        setCompletionBackgroundText();
+        setStyleClass();
     }
 
-    private void initialiseDeadline() {
+
+	private void initialiseDeadline() {
         deadline.setText(task.getDeadlineToString().trim());
         if (task.getDeadline().isPresent()) {
             deadline.setManaged(true);
@@ -68,14 +69,32 @@ public class TaskCard extends UiPart{
     }
 
     //Adds the lavender colour to the background if the task status is completed
-    private void setCompletionBackgroundText() {
+    private void setStyleClass() {
+    	//if status-complete
         if (task.getTaskStatus()) {
             cardPane.getStyleClass().add("status-complete");
+        } else if(isDueToday(task)) {
+        	cardPane.getStyleClass().add("status-today");
+        } else if (isOverdue(task)) {
+        	cardPane.getStyleClass().add("status-overdue");
         }
+
     }
     //@@author
+    private boolean isOverdue(ReadOnlyTask task) {
+		return task.getDeadline().isPresent() 
+				&& task.getDeadline().get().getTime().isBefore(LocalDateTime.now());
+	}
 
-    public HBox getLayout() {
+	private boolean isDueToday(ReadOnlyTask task) {
+		if(task.getTaskStatus() || !task.getDeadline().isPresent()) {
+			return false;
+		}
+		LocalDateTime taskDeadline = task.getDeadline().get().getTime();
+		return taskDeadline.getDayOfYear() == LocalDateTime.now().getDayOfYear();
+	}
+
+	public HBox getLayout() {
         return cardPane;
     }
 

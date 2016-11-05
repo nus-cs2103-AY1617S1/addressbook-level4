@@ -6,6 +6,7 @@ package seedu.task.commons.exceptions;
  *
  */
 //@@author A0144702N
+@SuppressWarnings("serial")
 public class UndoableException extends Exception {
 	
 	public UndoableException() {

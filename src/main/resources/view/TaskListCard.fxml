@@ -43,7 +43,10 @@
                                 </HBox>
                             </children>
                         </HBox>
-                        <Label fx:id="description" styleClass="cell_desc_label" text="\\$desc" textFill="#685252" wrapText="true" />
+                        <Label fx:id="description" styleClass="cell_desc_label" text="\\$desc" textFill="#685252" wrapText="true">
+                     <padding>
+                        <Insets left="20.0" />
+                     </padding></Label>
                         <Label fx:id="deadline" styleClass="cell_ddl_label" text="\\$deadline">
                      <padding>
                         <Insets left="20.0" />

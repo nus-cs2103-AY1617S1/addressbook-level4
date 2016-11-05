@@ -19,7 +19,7 @@ public class EventDuration implements Comparable<EventDuration> {
 			+ "Possible event duration could be:"
 			+ "today 4pm /to tomorrow 4pm";
 	
-	private static final String MESSAGE_DURATION_FORMAT = "From: %1$s to %2$s";
+	private static final String MESSAGE_DURATION_FORMAT = "%1$s to %2$s";
 	private static final long DEFAULT_DURATION = 1;
 	
 	

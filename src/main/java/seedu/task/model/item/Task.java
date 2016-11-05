@@ -98,9 +98,9 @@ public class Task implements ReadOnlyTask {
 				return 0;
 			// if this is a floating task, it will be on the top
 			if(!t1.getDeadline().isPresent())
-				return -1;
-			if(!t2.getDeadline().isPresent()) 
 				return 1;
+			if(!t2.getDeadline().isPresent()) 
+				return -1;
 			
 			//if both are not floating tasks 
 			return t1.getDeadline().get().compareTo(t2.getDeadline().get());
@@ -122,10 +122,10 @@ public class Task implements ReadOnlyTask {
 			return 0;
 		// if this is a floating task, it will be on the top
 		if(!this.getDeadline().isPresent())
-			return -1;
+			return 1;
 		// if this is 
 		if(!o.getDeadline().isPresent()) 
-			return 1;
+			return -1;
 		return this.getDeadline().get().compareTo(o.getDeadline().get())*(-1);
 		
 	}

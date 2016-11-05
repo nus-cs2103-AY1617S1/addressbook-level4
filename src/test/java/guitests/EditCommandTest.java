@@ -13,6 +13,8 @@ import seedu.task.logic.commands.EditTaskCommand;
 import seedu.task.testutil.TestEvent;
 import seedu.task.testutil.TestTask;
 import seedu.task.testutil.TestUtil;
+import seedu.task.testutil.TypicalTestEvents;
+import seedu.task.testutil.TypicalTestTasks;
 import seedu.taskcommons.core.Messages;
 
 //@@author A0127570H
@@ -25,17 +27,17 @@ public class EditCommandTest extends TaskBookGuiTest{
     public void editTask() {
         //edit one task
         TestTask[] currentList = td.getTypicalTasks();
-        TestTask taskToEdit = td.arts;
+        TestTask taskToEdit = TypicalTestTasks.arts;
         currentList = TestUtil.editTasksToList(currentList, 0 , taskToEdit);
         assertEditTaskSuccess(taskToEdit, 1, currentList);
         
         //edit another task
-        taskToEdit = td.socSciences;
+        taskToEdit = TypicalTestTasks.socSciences;
         currentList = TestUtil.editTasksToList(currentList, 3, taskToEdit);
         assertEditTaskSuccess(taskToEdit, 4 ,currentList);
 
         //edit to a duplicate task
-        commandBox.runCommand(td.arts.getEditFloatTaskCommand(3));
+        commandBox.runCommand(TypicalTestTasks.arts.getEditFloatTaskCommand(3));
         assertResultMessage(EditTaskCommand.MESSAGE_DUPLICATE_TASK);
         assertTrue(taskListPanel.isListMatching(currentList));
 
@@ -52,17 +54,17 @@ public class EditCommandTest extends TaskBookGuiTest{
     public void editEvent() {
         //edit one event
         TestEvent[] currentList = te.getTypicalNotCompletedEvents();
-        TestEvent taskToEdit = te.addedEvent;
+        TestEvent taskToEdit = TypicalTestEvents.addedEvent;
         currentList = TestUtil.editEventsToList(currentList, 0 , taskToEdit);
         assertEditEventSuccess(taskToEdit, 1, currentList);
         
         //edit another event
-        taskToEdit = te.addedEvent2;
+        taskToEdit = TypicalTestEvents.addedEvent2;
         currentList = TestUtil.editEventsToList(currentList, 1, taskToEdit);
         assertEditEventSuccess(taskToEdit, 2 ,currentList);
 
         //edit to a duplicate event
-        commandBox.runCommand(te.addedEvent.getEditCommand(2));
+        commandBox.runCommand(TypicalTestEvents.addedEvent.getEditCommand(2));
         assertResultMessage(EditEventCommand.MESSAGE_DUPLICATE_EVENT);
         assertTrue(eventListPanel.isListMatching(currentList));
 

@@ -6,6 +6,7 @@ package seedu.task.commons.exceptions;
  * Signals that some given data is empty.
  */
 
+@SuppressWarnings("serial")
 public class EmptyValueException extends Exception{
 
     /**

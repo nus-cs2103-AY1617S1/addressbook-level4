@@ -32,11 +32,6 @@ public class ParserManager {
      */
     private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
 
-    private static final Pattern ITEM_INDEX_ARGS_FORMAT = Pattern.compile("(?<targetIndex>.+)");
-
-    
-
-    public ParserManager() {}
     
     /**
      * Parses user input into command for execution.
