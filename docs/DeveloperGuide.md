@@ -363,7 +363,7 @@ The SD for list events is similiar to task.
   Use case resumes at step 2
 
 <br>
-<!-- @@author A125534L -->
+<!-- @@author A0125534L -->
 
 #### Use case 8: Specify storage location
 
@@ -379,7 +379,8 @@ The SD for list events is similiar to task.
   Use case resumes at step 1
 
 <br>
-<!-- @@author A125534L -->
+<!-- @@author A0125534L -->
+
 #### Use case 9: Help Command 
 
 
@@ -393,9 +394,10 @@ The SD for list events is similiar to task.
 1a. The KEYWORD for Help Command is invalid
   > 1a1. `Dowat` displays an error message that KEYWORD cannot be found
   Use case resumes at step 1
-<br>
 
-<!-- @@author A125534L -->
+<br>
+<!-- @@author A0125534L -->
+
 #### Use case 10: Select task or event
 
 **MSS**<br>
