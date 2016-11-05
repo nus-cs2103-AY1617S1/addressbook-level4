@@ -50,7 +50,7 @@ We are a group of highly motivated and hardworking students working on our CS210
 
 #### Fionna Tong [@fionnatong](https://github.com/fionnatong)
 
-<img src="images/FionnaTong.jpeg" width="150">
+<img src="images/FionnaTong.jpg" width="150">
 
 * Components incharge of: [Model](https://github.com/CS2103AUG2016-T11-C1/main/blob/ui_changes/docs/DeveloperGuide.md#model-component)
 * Aspects/tools incharge of: GitHub and SourceTree
