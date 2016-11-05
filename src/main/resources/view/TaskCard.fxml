@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!-- @@author A0142184L -->
+
 <?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
@@ -11,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
+<VBox id="cardPane" fx:id="cardPane" prefWidth="500.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <GridPane prefHeight="42.0" prefWidth="600.0">
          <columnConstraints>
@@ -20,9 +21,9 @@
             <ColumnConstraints hgrow="NEVER" maxWidth="80.0" minWidth="80.0" />
          </columnConstraints>
          <children>
-            <Label fx:id="taskType" style="-fx-background-color: #ffd13d; -fx-font-weight: bold; -fx-font-size: 15;" text="\$taskType" textAlignment="RIGHT" textOverrun="CLIP" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+            <Label fx:id="taskType" styleClass="cell_medium_label_bold" text="\$taskType" textAlignment="RIGHT" textOverrun="CLIP" translateY="-4.0" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                <font>
-                  <Font name="System Bold" size="16.0" />
+                  <Font size="16.0" />
                </font>
                <GridPane.margin>
                   <Insets />
@@ -30,8 +31,12 @@
                <padding>
                   <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
                </padding>
+               <stylesheets>
+                  <URL value="@DarkTheme.css" />
+                  <URL value="@Extensions.css" />
+               </stylesheets>
             </Label>
-            <Label fx:id="taskStatus" style="-fx-font-size: 12;" textAlignment="JUSTIFY" textOverrun="CLIP" underline="true" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.valignment="CENTER">
+            <Label fx:id="taskStatus" textAlignment="JUSTIFY" textOverrun="CLIP" underline="true" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.valignment="CENTER">
                <font>
                   <Font size="14.0" />
                </font>
@@ -39,7 +44,7 @@
                   <Insets />
                </GridPane.margin>
             </Label>
-            <HBox alignment="CENTER_LEFT" prefHeight="34.0" prefWidth="510.0" translateX="10.0">
+            <HBox alignment="CENTER_LEFT" prefHeight="50.0" translateX="10.0" translateY="-4.0">
                <children>
                   <Label fx:id="id" minWidth="10.0" styleClass="cell_big_label" />
                   <Label fx:id="taskName" styleClass="cell_big_label" text="\$taskName" HBox.hgrow="ALWAYS">
@@ -56,7 +61,7 @@
                   <URL value="@Extensions.css" />
                </stylesheets>
             </HBox>
-            <Label fx:id="taskStatus" alignment="CENTER" style="-fx-font-size: 14;" GridPane.columnIndex="1">
+            <Label fx:id="taskStatus" style="-fx-font-size: 14;" translateY="-4.0" GridPane.columnIndex="1">
                <padding>
                   <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
                </padding>
@@ -83,12 +88,8 @@
          <children>
             <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" translateY="-8.0" GridPane.rowIndex="1">
                <children>
-                  <Label style="-fx-text-fill: #3c3838; -fx-font-size: 13;" text="Tags: ">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Label>
-                  <Label fx:id="tags" prefWidth="500.0" style="-fx-font-size: 13; -fx-text-fill: #3c3838;" text="\$tags" />
+                  <Label fx:id="tagHeader" style="-fx-text-fill: #3c3838; -fx-font-size: 13;" text="Tags: " />
+                  <Label fx:id="tags" style="-fx-text-fill: #3c3838; -fx-font-size: 13;" text="\$tags" textFill="#514545" />
                </children>
                <GridPane.margin>
                   <Insets left="20.0" />
@@ -96,7 +97,9 @@
             </HBox>
             <HBox alignment="CENTER_LEFT" translateY="-9.0">
                <children>
-                  <Label fx:id="dueDateAndTime" style="-fx-text-fill: #3c3838; -fx-font-size: 13;" text="\$dueDateAndTime" textFill="#615b5b" />
+                  <Label fx:id="startDateAndTime" style="-fx-font-size: 13; -fx-text-fill: #3c3838;" text="\$startDateAndTime" textFill="#615b5b" />
+                  <Label fx:id="connector" style="-fx-font-size: 10; -fx-text-fill: #3c3838;" text="\$connector" textFill="#615b5b" />
+                  <Label fx:id="endDateAndTime" style="-fx-text-fill: #3c3838; -fx-font-size: 13;" text="\$endDateAndTime" textFill="#615b5b" />
                </children>
                <GridPane.margin>
                   <Insets left="20.0" />

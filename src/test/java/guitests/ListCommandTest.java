@@ -82,7 +82,7 @@ public class ListCommandTest extends TaskManagerGuiTest {
 	
 	private void assertListResult(String command, TestTask... expectedList) {
 		commandBox.runCommand(command);
-		assertTrue(taskListPanel.isListMatching(expectedList));
+		assertTrue(listPanel.isListMatching(expectedList));
 	}
 
 }
