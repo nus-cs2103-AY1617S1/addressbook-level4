@@ -104,6 +104,8 @@
 	-fx-background-color: derive(#F0E68E, 10%);
 }
 .list-cell .label {
+	-fx-font-family: Palatino;
+	-fx-font-size: 16px;
     -fx-text-fill: #010504;
     -fx-text-overrun: word-ellipsis ;
 }

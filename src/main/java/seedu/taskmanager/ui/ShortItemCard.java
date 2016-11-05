@@ -84,7 +84,19 @@ public class ShortItemCard extends UiPart{
         name.setText(item.getName().value);
         id.setText(displayedIndex + ". ");
         tags.setText(item.tagsString());
+        
+        setColour();
     }
+    
+    //@@author A0143641M
+    private void setColour() {
+        if (item.getDone()) {
+            id.setStyle("-fx-text-fill: #2E8B57");
+            name.setStyle("-fx-text-fill: #2E8B57");
+            tags.setStyle("-fx-text-fill: #2E8B57");
+        }
+    }
+    //@@author
 
     public HBox getLayout() {
         return cardPane;
