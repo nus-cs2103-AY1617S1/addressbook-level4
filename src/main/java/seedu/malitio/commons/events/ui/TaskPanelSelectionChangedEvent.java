@@ -1,12 +1,11 @@
 package seedu.malitio.commons.events.ui;
 
 import seedu.malitio.commons.events.BaseEvent;
-import seedu.malitio.model.task.ReadOnlyDeadline;
-import seedu.malitio.model.task.ReadOnlyEvent;
 import seedu.malitio.model.task.ReadOnlyFloatingTask;
 
+//@@author A0129595N
 /**
- * Represents a selection change in the Task List Panel
+ * Represents a selection change in the FloatingTask List Panel
  */
 public class TaskPanelSelectionChangedEvent extends BaseEvent {
 

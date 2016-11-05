@@ -171,6 +171,10 @@ public class UndoCommand extends Command {
         model.updateFilteredEventListToShowAll();
     }
     
+    /**
+     * Updates the redo stack with InputHistory of the action undone.
+     * @param history
+     */
     private void updateRedoStack(Stack<InputHistory> history) {
         model.getFuture().push(history.pop());
     }

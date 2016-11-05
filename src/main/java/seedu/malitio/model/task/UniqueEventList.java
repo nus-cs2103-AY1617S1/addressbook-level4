@@ -4,9 +4,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.malitio.commons.exceptions.DuplicateDataException;
 import seedu.malitio.commons.util.CollectionUtil;
-import seedu.malitio.model.task.UniqueDeadlineList.DeadlineMarkedException;
-import seedu.malitio.model.task.UniqueDeadlineList.DeadlineNotFoundException;
-import seedu.malitio.model.task.UniqueDeadlineList.DeadlineUnmarkedException;
 import seedu.malitio.model.task.UniqueFloatingTaskList.FloatingTaskNotFoundException;
 
 import java.util.*;
@@ -57,10 +54,11 @@ public class UniqueEventList implements Iterable<Event> {
     }
     //@@author A0129595N
     /**
-     * Returns true if the list contains an equivalent event as the given argument as well as identical tag(s).
+     * Returns true if the list contains an equivalent event as the given
+     * argument as well as identical tag(s).
      */
     public boolean containsWithTags(ReadOnlyEvent toCheck) {
-        assert toCheck!=null;
+        assert toCheck != null;
         if (!internalList.contains(toCheck)) {
             return false;
         } else {
@@ -73,11 +71,13 @@ public class UniqueEventList implements Iterable<Event> {
             }
         }
     }
-    
+
     /**
      * Adds a task to the list.
      *
-     * @throws DuplicateEventException if the event to add is a duplicate of an existing event in the list.
+     * @throws DuplicateEventException
+     *             if the event to add is a duplicate of an existing event in
+     *             the list.
      */
     public void add(Event toAdd) throws DuplicateEventException {
         assert toAdd != null;
@@ -86,18 +86,29 @@ public class UniqueEventList implements Iterable<Event> {
         }
         internalList.add(toAdd);
     }
-    
+
+    /**
+     * Edits the specified event by deleting and re-adding of the edited
+     * (changed) event.
+     * 
+     * @param edited
+     *            the edited event
+     * @param beforeEdit
+     *            the original event
+     * @throws DuplicateEventException
+     * @throws EventNotFoundException
+     */
     public void edit(Event edited, ReadOnlyEvent beforeEdit) throws DuplicateEventException, EventNotFoundException {
-        assert edited!=null;
-        assert beforeEdit!=null;
+        assert edited != null;
+        assert beforeEdit != null;
         if (containsWithTags(edited)) {
             throw new DuplicateEventException();
         }
-        
+
         if (!contains(beforeEdit)) {
             throw new EventNotFoundException();
         }
-        
+
         internalList.remove(beforeEdit);
         internalList.add(edited);
     }

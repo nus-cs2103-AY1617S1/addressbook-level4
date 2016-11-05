@@ -57,10 +57,11 @@ public class UniqueFloatingTaskList implements Iterable<FloatingTask> {
     }
     //@@author A0129595N    
     /**
-     * Returns true if the list contains an equivalent task as the given argument as well as identical tag(s).
+     * Returns true if the list contains an equivalent task as the given
+     * argument as well as identical tag(s).
      */
     public boolean containsWithTags(ReadOnlyFloatingTask toCheck) {
-        assert toCheck!=null;
+        assert toCheck != null;
         if (!internalList.contains(toCheck)) {
             return false;
         } else {
@@ -76,8 +77,10 @@ public class UniqueFloatingTaskList implements Iterable<FloatingTask> {
 
     /**
      * Adds a floating task to the list.
-     *
-     * @throws DuplicateFloatingTaskException if the task to add is a duplicate of an existing task in the list.
+     * 
+     * @throws DuplicateFloatingTaskException
+     *             if the task to add is a duplicate of an existing task in the
+     *             list.
      */
     public void add(FloatingTask toAdd) throws DuplicateFloatingTaskException {
         assert toAdd != null;
@@ -86,35 +89,48 @@ public class UniqueFloatingTaskList implements Iterable<FloatingTask> {
         }
         internalList.add(toAdd);
     }
-    
-    
+
     /**
      * Adds a floating task to the list at the given index
      * 
      * @param toAdd
      * @param index
-     * @throws DuplicateFloatingTaskException if the task to add is a duplicate of an existing task in the list.
+     * @throws DuplicateFloatingTaskException
+     *             if the task to add is a duplicate of an existing task in the
+     *             list.
      */
-    public void add(FloatingTask toAdd, int index) throws DuplicateFloatingTaskException{
+    public void add(FloatingTask toAdd, int index) throws DuplicateFloatingTaskException {
         assert toAdd != null;
-        assert index>=0;
+        assert index >= 0;
         if (contains(toAdd)) {
             throw new DuplicateFloatingTaskException();
         }
-        internalList.add(index, toAdd);        
+        internalList.add(index, toAdd);
     }
-    
-    public void edit(FloatingTask edited, ReadOnlyFloatingTask beforeEdit) throws DuplicateFloatingTaskException, FloatingTaskNotFoundException {
-        assert edited!=null;
-        assert beforeEdit!=null;
+
+    /**
+     * Edits the specified floating task by deleting and re-adding of the edited
+     * (changed) floating task
+     * 
+     * @param edited
+     *            the edited floating task
+     * @param beforeEdit
+     *            the original floating task
+     * @throws DuplicateFloatingTaskException
+     * @throws FloatingTaskNotFoundException
+     */
+    public void edit(FloatingTask edited, ReadOnlyFloatingTask beforeEdit)
+            throws DuplicateFloatingTaskException, FloatingTaskNotFoundException {
+        assert edited != null;
+        assert beforeEdit != null;
         if (containsWithTags(edited)) {
             throw new DuplicateFloatingTaskException();
         }
-        
+
         if (!contains(beforeEdit)) {
             throw new FloatingTaskNotFoundException();
         }
-        
+
         int indexToReplace = internalList.indexOf(beforeEdit);
         internalList.remove(beforeEdit);
         internalList.add(indexToReplace, edited);

@@ -153,6 +153,9 @@ public class RedoCommand extends Command {
         return MESSAGE_REDO_COMPLETE_SUCCESS;
     }
     
+    /**
+     * Method to check if the task is a floating task
+     */
     private boolean isFloatingTask(InputDeleteHistory previous) {
         return previous.getPositionOfFloatingTask() != -1;
     }
