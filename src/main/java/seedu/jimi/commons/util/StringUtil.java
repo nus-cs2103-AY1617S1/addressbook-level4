@@ -22,6 +22,10 @@ public class StringUtil {
     
     /** Returns true if any of the strings in {@code keywords} nearly matches {@code query}. */
     public static boolean isAnyNearMatch(String query, List<String> keywords) {
+        if (query == null || keywords == null) {
+            return false;
+        }
+        CollectionUtil.assertNoNullElements(keywords);
         return keywords.stream()
                 .filter(kw -> isNearMatch(kw, query))
                 .findAny()
@@ -29,11 +33,14 @@ public class StringUtil {
     }
 
     /** 
-     * Returns true if {@code query} is a near match of {@code source}. <br>
-     * This is a recursive driver method.
+     * Returns true if {@code query} is a near match of {@code source} or are valid substrings of each other. <br>
+     * This is also a recursive driver method.
      */
     public static boolean isNearMatch(String source, String query) {
-        return isNearMatch(source, query, DEFAULT_EDIT_DISTANCE);
+        if (source == null || query == null) {
+            return false;
+        }
+        return isValidSubstrings(source, query) || isNearMatch(source, query, DEFAULT_EDIT_DISTANCE);
     }
     
     /**
@@ -41,7 +48,6 @@ public class StringUtil {
      * <br>
      * For an edit distance of 1:
      * <ul>
-     * <li> {@code query} and {@code source} are valid substrings of each other.
      * <li> {@code query} is the same as {@code source} but missing a character.
      * <li> {@code query} is the same as {@code source} but differing by a character.
      * <li> {@code query} is the same as {@code source} but have two transposed characters.
@@ -62,9 +68,6 @@ public class StringUtil {
         String sourceNoSpaces = source.toLowerCase().replaceAll("\\s+", "");
         String queryNoSpaces = query.toLowerCase().replaceAll("\\s+", "");
         
-        if (isValidSubstrings(sourceNoSpaces, queryNoSpaces)) {
-            return true; // Strings are valid substrings of each other.
-        }
         Set<String> transposedDict = Dictionary.generateTransposedChar(sourceNoSpaces);
         if (transposedDict.contains(queryNoSpaces)) {
             return true; // Similar by two transposed characters.
@@ -120,6 +123,7 @@ public class StringUtil {
      * method that extracts the first word of a string.
      */
     public static String getFirstWord(String text) {
+        assert text != null;
         String trimmed = new String(text.trim());
         if (trimmed.indexOf(' ') > -1) { // Check if there is more than one word.
             return trimmed.substring(0, trimmed.indexOf(' ')); // Extract first word.
@@ -140,11 +144,14 @@ public class StringUtil {
         if (!(src.contains(query) || query.contains(src))) {
             return false;
         }
+        // Validating substring length percentage, returns true if above given allowance.
         return (double) Math.min(src.length(), query.length())
                 / (double) Math.max(src.length(), query.length()) >= SUBSTRING_ALLOWANCE;
     }
 }
 
+
+/** Container class for dictionary related methods */
 class Dictionary {
     
     private static final char[] ALPHABET = "abcdefghijklmnopqrstuvwxyz".toCharArray();
@@ -159,13 +166,16 @@ class Dictionary {
         return joined;
     }
     
+    /** Generates a one edit distance dictionary of {@code src}. */
     public static Set<String> generateOneEditDistanceDict(String src) {
+        assert src != null;
         return Dictionary.join(generateExtraChar(src), generateMissingChar(src), generateReplacedChar(src),
                 generateTransposedChar(src));
     }
     
     /** Generates a dictionary of strings that have two transposed characters from {@code src}. */
     public static Set<String> generateTransposedChar(String src) {
+        assert src != null;
         Set<String> dictionary = new HashSet<String>();
         StringBuilder sb = new StringBuilder(src);
         for (int i = 0; i < src.length() - 1; i++) {
@@ -182,6 +192,7 @@ class Dictionary {
     
     /** Generates a dictionary of strings that differ by one character from {@code src}. */
     public static Set<String> generateReplacedChar(String src) {
+        assert src != null;
         Set<String> dictionary = new HashSet<String>();
         StringBuilder sb = new StringBuilder(src);
         for (int i = 0; i < src.length(); i++) {
@@ -197,6 +208,7 @@ class Dictionary {
 
     /** Generates a dictionary of strings that are missing a letter from {@code src}. */
     public static Set<String> generateMissingChar(String src) {
+        assert src != null;
         return IntStream.range(0, src.length()) 
                 .mapToObj(i -> src.substring(0, i) + src.substring(i + 1)) // Removing character at idx i.
                 .collect(Collectors.toSet());
@@ -204,6 +216,7 @@ class Dictionary {
     
     /** Generates a dictionary of strings that have one extra character from {@code src}. */
     public static Set<String> generateExtraChar(String src) {
+        assert src != null;
         Set<String> dictionary = new HashSet<String>();
         StringBuilder sb = new StringBuilder(src);
         for (int i = 0; i <= src.length(); i++) {
