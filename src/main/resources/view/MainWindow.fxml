@@ -2,6 +2,7 @@
 
 <?import java.net.URL?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
@@ -38,7 +39,7 @@
          <children>
             <ImageView fitHeight="50.0" fitWidth="500.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../images/daily_planner_logo.png" />
+                  <Image url="/images/daily_planner_logo.png" />
                </image>
                <HBox.margin>
                   <Insets bottom="3.0" />
@@ -65,6 +66,7 @@
                               <Font name="Verdana" size="15.0" />
                            </font>
                         </Text>
+                        <Label fx:id="forDate" styleClass="fordate-label" text="\$forDate" textFill="WHITE" AnchorPane.leftAnchor="98.0" AnchorPane.topAnchor="-25.0" />
                      </children></AnchorPane>
                </children>
             </VBox>

@@ -3,6 +3,7 @@ package seedu.dailyplanner.model;
 import java.util.Set;
 
 import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.StringProperty;
 import javafx.collections.ObservableList;
 import seedu.dailyplanner.commons.core.UnmodifiableObservableList;
 import seedu.dailyplanner.logic.commands.Command;
@@ -67,6 +68,15 @@ public interface Model {
     
     /** Returns the last task added index as the property itself */
     public IntegerProperty getLastTaskAddedIndexProperty();
+    
+    /** Returns last shown date command */
+    public String getLastShowDate();
+    
+    /** Sets last shown date given by show command*/
+    public void setLastShowDate(String showInput);
+    
+    /** Returns the StringProperty holding the last shown date command */
+    public StringProperty getLastShowDateProperty();
 
 
 }

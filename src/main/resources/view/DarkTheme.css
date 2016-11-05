@@ -22,6 +22,15 @@
     -fx-opacity: 1.0;
 }
 
+.fordate-label {
+	-fx-font-family: Verdana;
+  -fx-font-size: 15px;
+  -fx-highlight-fill: #00ff00;
+  -fx-highlight-text-fill: #000000;
+  -fx-text-fill: #00ff00;
+	
+}
+
 .text-field {
     -fx-font-family: Consolas;
   -fx-font-size: 15px;

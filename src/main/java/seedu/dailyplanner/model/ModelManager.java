@@ -2,6 +2,8 @@ package seedu.dailyplanner.model;
 
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.collections.transformation.FilteredList;
 import seedu.dailyplanner.commons.core.ComponentManager;
 import seedu.dailyplanner.commons.core.LogsCenter;
@@ -32,6 +34,7 @@ public class ModelManager extends ComponentManager implements Model {
     private final FilteredList<Task> pinnedTasks;
     private final HistoryManager history;
     private IntegerProperty lastTaskAddedIndex;
+    private StringProperty lastShowDate;
 
     /**
      * Initializes a ModelManager with the given AddressBook AddressBook and its
@@ -49,6 +52,7 @@ public class ModelManager extends ComponentManager implements Model {
 	pinnedTasks = new FilteredList<>(addressBook.getPinnedTasks());
 	history = new HistoryManager();
 	lastTaskAddedIndex = new SimpleIntegerProperty(0);
+	lastShowDate = new SimpleStringProperty();
     }
 
     public ModelManager() {
@@ -61,6 +65,7 @@ public class ModelManager extends ComponentManager implements Model {
 	pinnedTasks = new FilteredList<>(addressBook.getPinnedTasks());
 	history = new HistoryManager();
     lastTaskAddedIndex =  new SimpleIntegerProperty(0);
+    lastShowDate = new SimpleStringProperty();
     }
 
     @Override
@@ -91,6 +96,7 @@ public class ModelManager extends ComponentManager implements Model {
 	setLastTaskAddedIndex(addressBook.indexOf(person));
 	updateFilteredListToShowAll();
 	indicateAddressBookChanged();
+	setLastShowDate(person.getPhone().value);
     }
 
     public synchronized void markTaskAsComplete(int targetIndex) throws PersonNotFoundException {
@@ -167,6 +173,21 @@ public class ModelManager extends ComponentManager implements Model {
     @Override 
     public IntegerProperty getLastTaskAddedIndexProperty() {
         return lastTaskAddedIndex;
+    }
+    
+    @Override
+    public String getLastShowDate() {
+        return lastShowDate.get();
+    }
+
+    @Override
+    public void setLastShowDate(String showInput) {
+        lastShowDate.set(showInput);
+    }
+
+    @Override
+    public StringProperty getLastShowDateProperty() {
+        return lastShowDate;
     }
 
     // ========== Inner classes/interfaces used for filtering
@@ -265,5 +286,7 @@ public class ModelManager extends ComponentManager implements Model {
 
 	return history;
     }
+
+   
 
 }

@@ -1,6 +1,7 @@
 package seedu.dailyplanner.logic;
 
 import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.StringProperty;
 import javafx.collections.ObservableList;
 import seedu.dailyplanner.commons.core.ComponentManager;
 import seedu.dailyplanner.commons.core.LogsCenter;
@@ -49,6 +50,11 @@ public class LogicManager extends ComponentManager implements Logic {
     @Override 
     public IntegerProperty getLastTaskAddedIndexProperty() {
         return model.getLastTaskAddedIndexProperty();
+    }
+
+    @Override
+    public StringProperty getLastShowDateProperty() {
+        return model.getLastShowDateProperty();
     }
     
     

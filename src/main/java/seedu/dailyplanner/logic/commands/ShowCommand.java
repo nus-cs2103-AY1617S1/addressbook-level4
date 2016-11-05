@@ -12,6 +12,8 @@ public class ShowCommand extends Command {
 
 	public static final String MESSAGE_SUCCESS = "Showing %1$s tasks";
 
+    private static final String EMPTY_STRING = "";
+
 	private final Set<String> keywords;
 
 	public ShowCommand() {
@@ -26,12 +28,18 @@ public class ShowCommand extends Command {
 	public CommandResult execute() {
 		if (keywords == null) {
 			model.updateFilteredListToShowAll();
+			model.setLastShowDate(EMPTY_STRING);
 			return new CommandResult(String.format(MESSAGE_SUCCESS, "all"));
 		} else {
-			if (keywords.contains("complete") || keywords.contains("not complete")) {
+			if (keywords.contains("complete")) {
 				model.updateFilteredPersonListByCompletion(keywords);
+				model.setLastShowDate("completed");
+			} else if(keywords.contains("not complete")) {
+			    model.updateFilteredPersonListByCompletion(keywords);
+			    model.setLastShowDate("not completed");
 			} else {
 				model.updateFilteredPersonListByDate(keywords);
+				model.setLastShowDate((String) keywords.toArray()[0]);
 			}
 			return new CommandResult(String.format(MESSAGE_SUCCESS, model.getFilteredPersonList().size()));
 		}
