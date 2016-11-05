@@ -91,8 +91,7 @@ public class CommandBox extends UiPart {
             cycleAheadInput();
             return;
         case ENTER :
-            handleCommandInputChanged();
-            return;
+            return; // Do nothing since handleCommandInputChanged already handles this.
         default :
             handleTextFieldKeyTyped();
             return;
@@ -100,6 +99,7 @@ public class CommandBox extends UiPart {
     }
     
     /** Handles event when command input has changed */
+    @FXML
     private void handleCommandInputChanged() {
         if (commandTextField.getText().trim().isEmpty()) {
             return; // Do nothing for empty input.
