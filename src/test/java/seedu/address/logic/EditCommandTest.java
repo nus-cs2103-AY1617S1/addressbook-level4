@@ -14,7 +14,7 @@ import seedu.address.model.task.Task;
 
 //@@author A0138717X
 
-/*
+/**
  * Responsible for testing the correct execution of editCommand
  */
 

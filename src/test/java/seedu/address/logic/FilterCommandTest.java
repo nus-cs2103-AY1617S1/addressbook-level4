@@ -14,7 +14,7 @@ import seedu.address.model.task.Priority;
 import seedu.address.model.task.Recurring;
 import seedu.address.model.task.Task;
 
-/*
+/**
  * Responsible for testing the correct execution of FindCommand
  */
 public class FilterCommandTest extends CommandTest {
@@ -49,7 +49,7 @@ public class FilterCommandTest extends CommandTest {
      * Expected: filter s/11 Nov should return all events whose start date is in the day 11.11.2016
      */
     @Test
-    public void execute_filter_matchesStartDate() throws Exception {
+    public void execute_filteStartDate_matchesStartDate() throws Exception {
         TestDataHelper helper = new TestDataHelper();
         Task pTarget1 = helper.generateUndoneEventWithStartDate("11.11.2016");
         Task pTarget2 = helper.generateUndoneEventWithStartDate("11.11.2016-12");
@@ -69,7 +69,7 @@ public class FilterCommandTest extends CommandTest {
      * Expected: filter e/12 Nov should return all events whose start date is in the day 12.11.2016
      */
     @Test
-    public void execute_filter_matchesEndDate() throws Exception {
+    public void execute_filterEndDate_matchesEndDate() throws Exception {
         TestDataHelper helper = new TestDataHelper();
         Task pTarget1 = helper.generateUndoneEventWithEndDate("12.11.2016");
         Task pTarget2 = helper.generateUndoneEventWithEndDate("12.11.2016-12");
@@ -89,7 +89,7 @@ public class FilterCommandTest extends CommandTest {
      * Expected: filter d/11 Nov should return all events whose deadline is in the day 11.11.2016
      */
     @Test
-    public void execute_filter_matchesDeadline() throws Exception {
+    public void execute_filterDeadline_matchesDeadline() throws Exception {
         TestDataHelper helper = new TestDataHelper();
         Task pTarget1 = helper.generateUndoneTaskWithDeadline("11.11.2016");
         Task pTarget2 = helper.generateUndoneTaskWithDeadline("11.11.2016-12");
@@ -108,7 +108,7 @@ public class FilterCommandTest extends CommandTest {
      * Filter by recurring
      */
     @Test
-    public void execute_filter_matchesRecurring() throws Exception {
+    public void execute_filterRecurring_matchesRecurring() throws Exception {
         TestDataHelper helper = new TestDataHelper();
         Task pTarget1 = helper.generateUndoneTaskWithDeadline("11.11.2016");
         pTarget1.setRecurring(new Recurring("daily"));
@@ -129,7 +129,7 @@ public class FilterCommandTest extends CommandTest {
      * Filter by priority
      */
     @Test
-    public void execute_filter_matchesPriority() throws Exception {
+    public void execute_filterPriority_matchesPriority() throws Exception {
         TestDataHelper helper = new TestDataHelper();
         Task pTarget1 = helper.generateUndoneTaskWithDeadline("11.11.2016");
         pTarget1.setPriorityLevel(new Priority(3));
@@ -150,7 +150,7 @@ public class FilterCommandTest extends CommandTest {
      * Filter by tags
      */
     @Test
-    public void execute_filter_matchesTags() throws Exception {
+    public void execute_filterTags_matchesTags() throws Exception {
         TestDataHelper helper = new TestDataHelper();
         Task pTarget1 = helper.generateUndoneTaskWithTag("cs2103");
         Task pTarget2 = helper.generateUndoneTaskWithTag("project");
@@ -169,7 +169,7 @@ public class FilterCommandTest extends CommandTest {
      * Filter by multiple parameters
      */
     @Test
-    public void execute_filter_matchesMultipleParameters() throws Exception {
+    public void execute_filterMultiple_matchesMultipleParameters() throws Exception {
         TestDataHelper helper = new TestDataHelper();
         Task pTarget1 = helper.generateUndoneTaskWithTag("cs2103");
         pTarget1.setDate(new Deadline("03.12.2016"));
