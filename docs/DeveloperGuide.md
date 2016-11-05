@@ -309,10 +309,10 @@ Use case ends. <br>
 
 **MSS**
 
-1.User requests to show the list of tasks. <br>
-2.Task manager shows the list of tasks. <br>
-3.User requests to delete a specific task. <br>  
-4.Task manager deletes the task. <br>
+1. User requests to show the list of tasks. <br>
+2. Task manager shows the list of tasks. <br>
+3. User requests to delete a specific task. <br>  
+4. Task manager deletes the task. <br>
 Use case ends. <br>
 
 
@@ -332,14 +332,14 @@ Use case ends. <br>
 
 **MSS**
 
-1.User requests to mark a task as completed. <br>  
-2.Task manager marks the task as completed. <br>
+1. User requests to mark a task as completed. <br>  
+2. Task manager marks the task as completed. <br>
 Use case ends. <br>
 
 **Extensions**
 2a. The given task does not exist. <br> 
 
->2a1.Task manager shows an error message. <br>
+>2a1. Task manager shows an error message. <br>
  Use case ends. <br>
 
 
@@ -347,14 +347,14 @@ Use case ends. <br>
 
 **MSS**
 
-1.User requests to undo previous operations. <br>
-2.Task manager performs the request. <br>
+1. User requests to undo previous operations. <br>
+2. Task manager performs the request. <br>
 Use case ends. <br>
 
 **Extensions**
 2a. There are no previous operations. <br>
 
-> 2a1.Task manager shows a warning message. <br>
+> 2a1. Task manager shows a warning message. <br>
   Use case ends. <br>
 
 
@@ -362,15 +362,15 @@ Use case ends. <br>
 
 **MSS**
 
-1.User requests to search for an task by keyword. <br>
-2.Task Manager shows a list of tasks containing the keyword. <br>
+1. User requests to search for an task by keyword. <br>
+2. Task Manager shows a list of tasks containing the keyword. <br>
 Use case ends. <br>
 
 **Extensions**
 
 1a. The matching keyword is not found. <br>
 
->1a1.Task manager shows an error message. <br>
+>1a1. Task manager shows an error message. <br>
  Use case ends. <br>
 
 ## Appendix C : Non Functional Requirements
