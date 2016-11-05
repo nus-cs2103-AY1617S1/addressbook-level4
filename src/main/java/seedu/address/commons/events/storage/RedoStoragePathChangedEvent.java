@@ -4,15 +4,9 @@ import seedu.address.commons.events.BaseEvent;
 
 //@@author A0146123R
 /**
- * Indicates should redo the change for the path for the storage file
+ * Indicates that the change for the path for the storage file should be redone.
  */
 public class RedoStoragePathChangedEvent extends BaseEvent {
-    
-    public boolean isToClearOld;
-    
-    public RedoStoragePathChangedEvent(boolean isToClearOld) {
-        this.isToClearOld = isToClearOld;
-    }
 
     @Override
     public String toString() {

@@ -85,24 +85,42 @@ public interface Model {
     /** Update the task manager to the new file path */
     void updateTaskManager(String filePath, boolean isToClearOld);
 
-    /** Change the task manager back to the old file path */
-    void changeBackTaskManager(boolean isToClearNew);
+    /**
+     * Change the task manager back to the old file path
+     * 
+     * @throws StateLimitException
+     */
+    void changeBackTaskManager(boolean isToClearNew) throws StateLimitException;
 
-    /** Redo update the task manager back to the new file path */
-    void redoUpdateTaskManager(boolean isToClearOld);
+    /**
+     * Redo update the task manager to the new file path
+     * 
+     * @throws StateLimitException
+     */
+    void redoUpdateTaskManager() throws StateLimitException;
 
     /** Saves the current state of the task manager. */
     public void saveState(String message);
 
-    /** Update the task manager to the previous state. */
+    /**
+     * Update the task manager to the previous state.
+     * 
+     * @return String message
+     * @throws StateLimitException
+     */
     String getPreviousState() throws StateLimitException;
 
-    /** Update the task manager to the next state. */
-    String getNextState() throws StateLimitException;
-    
     /**
-     * Redo saves the current version of the Task Manager to the new file in hard disk.
-     *   Delete the new data file if it was previously specified.
+     * Update the task manager to the next state.
+     * 
+     * @return String message
+     * @throws StateLimitException
+     */
+    String getNextState() throws StateLimitException;
+
+    /**
+     * Redo saves the current version of the Task Manager to the new file in
+     * hard disk. Delete the new data file if it was previously specified.
      */
     void handleFilterPanelChangedEvent(FilterPanelChangedEvent abce);
 

@@ -15,14 +15,10 @@ import seedu.address.model.task.Task;
 import seedu.address.model.task.UniqueTaskList;
 import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
 import seedu.address.commons.events.model.TaskManagerChangedEvent;
-import seedu.address.commons.events.storage.RedoStoragePathChangedEvent;
-import seedu.address.commons.events.storage.StoragePathChangedBackEvent;
-import seedu.address.commons.events.storage.StoragePathChangedEvent;
 import seedu.address.commons.events.ui.FilterPanelChangedEvent;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.exceptions.StateLimitException;
 import seedu.address.commons.core.ComponentManager;
-import seedu.address.commons.core.EventsCenter;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -127,19 +123,19 @@ public class ModelManager extends ComponentManager implements Model {
     //@@author A0146123R
     @Override
     public void updateTaskManager(String filePath, boolean isToClearOld) {
-        EventsCenter.getInstance().post(new StoragePathChangedEvent(filePath, isToClearOld));
+        stateManager.saveFilePath(filePath, isToClearOld);
         indicateTaskManagerChanged();
     }
 
     @Override
-    public void changeBackTaskManager(boolean isToClearNew) {
-        EventsCenter.getInstance().post(new StoragePathChangedBackEvent(isToClearNew));
+    public void changeBackTaskManager(boolean isToClearNew) throws StateLimitException {
+        stateManager.getPreviousFilePath(isToClearNew);
         indicateTaskManagerChanged();
     }
 
     @Override
-    public void redoUpdateTaskManager(boolean isToClearOld) {
-        EventsCenter.getInstance().post(new RedoStoragePathChangedEvent(isToClearOld));
+    public void redoUpdateTaskManager() throws StateLimitException {
+        stateManager.getNextFilePath();
         indicateTaskManagerChanged();
     }
 
