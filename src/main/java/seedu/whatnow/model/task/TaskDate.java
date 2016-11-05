@@ -112,7 +112,7 @@ public class TaskDate {
      * Adds all the relevant Date format and regex that is neeeded to find the
      * corresponding user input
      */
-    private void performAddDateFormatRegex() {
+    private static void performAddDateFormatRegex() {
         ListOfDateRegex = new ArrayList<String>();
         ListOfDateFormat = new ArrayList<String>();
         ListOfDateRegex.add(DATE_NUM_SLASH_WITH_YEAR_VALIDATION_REGEX);
@@ -162,11 +162,13 @@ public class TaskDate {
      * @throws IllegalValueException
      */
     private static boolean isValidDate(String reqDate) throws java.text.ParseException, IllegalValueException {
+        
         if (reqDate.equals(TODAY) || reqDate.equals(TMR)) {
             return true;
         } else {
+            performAddDateFormatRegex();
             for (int i = 0; i < ListOfDateFormat.size() && i < ListOfDateRegex.size(); i++) {
-                if (reqDate.matches(ListOfDateRegex.get(i))) {
+                if (reqDate.matches(ListOfDateRegex.get(i))) {  
                     return isValidNumDate(reqDate, ListOfDateFormat.get(i));
                 }
             }
