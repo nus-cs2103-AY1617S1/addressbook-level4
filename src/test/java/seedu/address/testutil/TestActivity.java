@@ -41,9 +41,15 @@ public class TestActivity implements ReadOnlyActivity {
         this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
     }
 */
-    public TestActivity() throws IllegalValueException {
-    	this.name = new Name("");
-    	this.reminder = new Reminder("");
+    public TestActivity()  {
+    	try {
+			this.name = new Name("");
+	    	this.reminder = new Reminder("");
+		} catch (IllegalValueException e) {
+			 assert false;
+			e.printStackTrace();
+		}
+
     	this.tags = new UniqueTagList();
     }
     

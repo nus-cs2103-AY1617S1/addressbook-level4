@@ -7,7 +7,12 @@ import java.awt.List;
 import org.junit.Test;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.activity.Activity;
 import seedu.address.model.activity.Reminder;
+import seedu.address.model.activity.event.Event;
+import seedu.address.model.activity.event.ReadOnlyEvent;
+import seedu.address.model.activity.task.ReadOnlyTask;
+import seedu.address.model.activity.task.Task;
 import seedu.address.testutil.*;
 
 //@@author A0125097A
@@ -27,6 +32,12 @@ public class EditCommandTest extends AddressBookGuiTest {
         assertEditTaskResult(index,currentList);
     }
     
+    @Test
+    public void edit_activityWithTaskParameters(){
+        TestActivity[] currentList = td.getTypicalActivities();
+        int index = 1;
+        assertEditTaskResult(index,currentList);
+    }
 
 
 	@Test
@@ -34,6 +45,13 @@ public class EditCommandTest extends AddressBookGuiTest {
         TestActivity[] currentList = td.getTypicalActivities();
         int index = 5;
         assertEditEventResult(index,currentList);        
+    }
+	
+    @Test
+    public void edit_activityWithEventParameters(){
+        TestActivity[] currentList = td.getTypicalActivities();
+        int index = 1;
+        assertEditEventResult(index,currentList);
     }
     
 
@@ -59,19 +77,17 @@ public class EditCommandTest extends AddressBookGuiTest {
     	String newEndTime = "10-10-2020 1010";
         String editCommand = "edit " + index;
     	
-        String activityText= currentList[index-1].getAsText();
+        TestActivity activityBeforeEdit;
+			activityBeforeEdit = produceNewActivityObject(currentList[index-1]);
+
     	TestActivity activityAfterEdit = null;
 
         editCommand += " n/" + newName ;
         switch (type) {
         case "task":
         {
-        	try {
 				activityAfterEdit = new TestTask(currentList[index-1]);
-			} catch (IllegalValueException e) {
-				e.printStackTrace();
-			}
-        ((TestTask) activityAfterEdit).setDuedate(newDuedate);
+        ((TestTask) activityAfterEdit).setDueDate(newDuedate);
         ((TestTask) activityAfterEdit).setPriority(newPriority);
         editCommand += " d/" + newDuedate  + " p/" + newPriority;
         }
@@ -79,11 +95,7 @@ public class EditCommandTest extends AddressBookGuiTest {
         
         case "event":
         {
-        	try {
 				activityAfterEdit = new TestEvent(currentList[index-1]);
-			} catch (IllegalValueException e) {
-				e.printStackTrace();
-			}
         ((TestEvent) activityAfterEdit).setStartTime(newStartTime);
         ((TestEvent) activityAfterEdit).setEndTime(newEndTime);
         editCommand += " s/" + newStartTime  + " e/" + newEndTime;
@@ -100,10 +112,24 @@ public class EditCommandTest extends AddressBookGuiTest {
         commandBox.runCommand(editCommand);
         
         assertResultMessage(String.format("Edited Task from: %1$s\nto: %2$s",
-        		activityText,activityAfterEdit.getAsText()));
+        		activityBeforeEdit.getAsText(),activityAfterEdit.getAsText()));
         
         assertTrue(activityListPanel.isListMatching(currentList));
  
     }
+    	
+    	
+        private TestActivity produceNewActivityObject(TestActivity original){
+            String type = original.getClass().getSimpleName().toLowerCase();
+            
+            switch(type){
+            case "testactivity":
+            	return new TestActivity(original);
+            case "testtask":
+            	return new TestTask((TestTask) original);
+            default: //case "event":
+            	return new TestEvent((TestEvent) original);	
+            }
+        }
         
 }

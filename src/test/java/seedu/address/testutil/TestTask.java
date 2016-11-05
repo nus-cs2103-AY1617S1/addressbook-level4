@@ -39,11 +39,24 @@ public class TestTask extends TestActivity implements ReadOnlyTask{
     	this.priority = new Priority("");
     }
     
-	public TestTask(TestActivity testActivity) throws IllegalValueException {
-		this.name = new Name(testActivity.getName().toString());
-		this.reminder = new Reminder(testActivity.getReminder().toString());
-		this.duedate = new DueDate("");
-		this.priority = new Priority("");
+	public TestTask(TestTask source) {
+		this.name = source.getName();
+		this.reminder = source.getReminder();
+        this.tags = new UniqueTagList(source.getTags());
+        this.isCompleted = source.getCompletionStatus();
+		this.duedate = source.getDueDate();
+		this.priority = source.getPriority();
+		
+	}
+	
+	public TestTask(TestActivity source) {
+		this.name = source.getName();
+		this.reminder = source.getReminder();
+        this.tags = new UniqueTagList(source.getTags());
+        this.isCompleted = source.getCompletionStatus();
+		setDueDate("");
+		setPriority("");
+		
 	}
 
 	@Override
@@ -55,7 +68,7 @@ public class TestTask extends TestActivity implements ReadOnlyTask{
         this.duedate = duedate;
     }
     
-    public void setDuedate(String duedate) {
+    public void setDueDate(String duedate) {
         try {
             this.duedate = new DueDate(duedate);
         } catch (IllegalValueException e) {

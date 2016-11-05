@@ -33,14 +33,25 @@ public class TestEvent extends TestActivity implements ReadOnlyEvent {
 	}
 
 
-	public TestEvent(TestActivity testActivity) throws IllegalValueException {
-		this.name = new Name(testActivity.getName().toString());
-		this.reminder = new Reminder(testActivity.getReminder().toString());
-		this.startTime = new StartTime("");
-		this.endTime = new EndTime("");
+	public TestEvent(TestActivity testActivity) {
+		this.name = testActivity.getName();
+		this.reminder = testActivity.getReminder();
+        this.tags = new UniqueTagList(testActivity.getTags());
+        this.isCompleted = testActivity.getCompletionStatus();
+		setStartTime("");
+		setEndTime("");
 	}
 
-
+	public TestEvent(TestEvent testEvent) {
+		this.name = testEvent.getName();
+		this.reminder = testEvent.getReminder();
+        this.tags = new UniqueTagList(testEvent.getTags());
+        this.isCompleted = testEvent.getCompletionStatus();
+		this.startTime = testEvent.getStartTime();
+		this.endTime = testEvent.getEndTime();
+	}
+	
+	
 	@Override
 	public StartTime getStartTime() {
         return startTime;
