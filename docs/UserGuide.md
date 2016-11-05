@@ -59,6 +59,7 @@ Love typing? You will love sTask, as you only need to use the keyboard to type s
 >> `add TASKNAME d/TASK_DESCRIPTION [t/TAG...]` <br>
 * add Claim coffee d/Starbucks
 
+
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Your boss gives you until next friday 5pm to submit the project proposal.<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;You can add it as a Deadline by typing<br>
 >> `add TASKNAME d/TASK_DESCRIPTION date/DATE_TIME [t/TAG...]` <br>
@@ -69,6 +70,8 @@ Love typing? You will love sTask, as you only need to use the keyboard to type s
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;and you can add it as an Event by typing<br>
 >> `add TASKNAME d/TASK_DESCRIPTION date/DATE_TIME to DATE_TIME[t/TAG...]` <br>
 * add Meeting with client d/Prepare docunments date/28-10-2016 10am to 28-10-2016 12pm <br><br>
+
+>> Refer to [Appendix](#7-appendix) for more information on the possible Date and Time formats accepted by sTask. <br><br>
 
 &nbsp;&nbsp;&nbsp;&nbsp; <b>3.3 Listing your Tasks </b><br><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; You can list all your uncompleted tasks by typing<br>
@@ -88,6 +91,8 @@ Love typing? You will love sTask, as you only need to use the keyboard to type s
 * edit B1 date/next friday 8pm <br>
 * edit B2 t/urgent<br><br>
 
+>> Refer to [Appendix](#7-appendix) for more information on the possible Date and Time formats accepted by sTask. <br><br>
+
 &nbsp;&nbsp;&nbsp;&nbsp;<b>3.5 Finding your Tasks </b><br><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Being overwhelmed by the large number of tasks you have,<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; you can search for them by typing<br>
@@ -103,6 +108,8 @@ sTask searches through all the fields and returns all the tasks that contains yo
 * view today <br>
 * view 22-10-2017 <br>
 * view valentine day<br><br>
+
+>> Refer to [Appendix](#7-appendix) for more information on the possible Date formats accepted by sTask. <br><br>
   
 &nbsp;&nbsp;&nbsp;&nbsp;<b>3.7 Deleting your Task </b><br><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Your client has called you to cancel the meeting, so <br>
