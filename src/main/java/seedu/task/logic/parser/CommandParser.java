@@ -582,7 +582,7 @@ public class CommandParser {
             if (!matcher.matches()) {
                 return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SortCommand.MESSAGE_USAGE));
             }
-            final String keyword = matcher.group("keywords");
+            final String keyword = matcher.group("keywords").toLowerCase();
             return new SortCommand(keyword);
         }
     }
