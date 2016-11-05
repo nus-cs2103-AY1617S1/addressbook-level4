@@ -146,7 +146,7 @@ public class Parser {
 
     /**
      * prepare to mark a task as done
-     * 
+     *
      * @param args
      * @return
      */
@@ -208,7 +208,7 @@ public class Parser {
 
     /**
      * prepare to add a deadline task
-     * 
+     *
      * @param argsTokenizer
      * @return the addCommand
      * @throws Exception
@@ -224,7 +224,7 @@ public class Parser {
 
     /**
      * prepare to add a floating task
-     * 
+     *
      * @param argsTokenizer
      * @return the addCommand
      * @throws Exception
@@ -243,7 +243,7 @@ public class Parser {
 
     /**
      * prepare to add an event
-     * 
+     *
      * @param argsTokenizer
      * @return the addCommand
      * @throws Exception
@@ -259,7 +259,7 @@ public class Parser {
 
     /**
      * prepare to add a recurring deadline task
-     * 
+     *
      * @param argsTokenizer
      * @return the addCommand
      * @throws Exception
@@ -280,7 +280,7 @@ public class Parser {
 
     /**
      * prepare to add a recurring event
-     * 
+     *
      * @param argsTokenizer
      * @return the addCommand
      * @throws Exception
@@ -301,7 +301,7 @@ public class Parser {
 
     /**
      * prepare to add a non recurring deadline task
-     * 
+     *
      * @param argsTokenizer
      * @return the addCommand
      * @throws Exception
@@ -320,7 +320,7 @@ public class Parser {
 
     /**
      * prepare to add a non-recurring event
-     * 
+     *
      * @param argsTokenizer
      * @return the addCommand
      * @throws Exception
@@ -426,13 +426,13 @@ public class Parser {
     }
 
     // @@author A0142325R
-    
+
     /**
      * prepare to create list command
      * @param args
      * @return
      */
-    
+
     private Command prepareList(String args) {
         if (args.equals("")) {
             return new ListCommand();
@@ -488,6 +488,13 @@ public class Parser {
     }
 
     // @@author A0138717X
+    /**
+     * Parses arguments in the context of the edit attributes command.
+     *
+     * @param args
+     *            full command args string
+     * @return the editCommand
+     */
     private Command prepareEdit(String args) {
         final Matcher matcher = EDIT_FORMAT.matcher(args.trim());
         if (!matcher.matches()) {
