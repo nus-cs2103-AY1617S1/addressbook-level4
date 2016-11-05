@@ -217,9 +217,51 @@ public class LogicManagerTest {
                 expectedAB.getTodoList());
 
     }
-    //@@author A0139430L
+  //@@author A0139430L
     @Test
     public void execute_add_Todo_successful() throws Exception {
+        // setup expectations
+        TestDataHelper helper = new TestDataHelper();
+        Task toBeAdded = helper.charlie();
+        TaskBook expectedAB = helper.generateAddressBook(1, 1, 1);
+        TaskBook undolist = new TaskBook(expectedAB);
+        helper.addToModel(model, 1, 1, 1);
+        expectedAB.addTask(toBeAdded);
+
+        assertCommandBehavior(helper.generateAddTodoCommand(toBeAdded),
+                String.format(AddCommand.TODO_SUCCESS, toBeAdded),
+                expectedAB,
+                expectedAB.getEventList(),
+                expectedAB.getDeadlineList(),
+                expectedAB.getTodoList());
+    }
+    //@@author A0147890U
+    @Test
+    public void execute_undo_successful() throws Exception {
+        // setup expectations
+        TestDataHelper helper = new TestDataHelper();
+        Task toBeAdded = helper.charlie();
+        TaskBook expectedAB = helper.generateAddressBook(1, 1, 1);
+        TaskBook undolist = new TaskBook(expectedAB);
+        helper.addToModel(model, 1, 1, 1);
+        expectedAB.addTask(toBeAdded);
+
+        assertCommandBehavior(helper.generateAddTodoCommand(toBeAdded),
+                String.format(AddCommand.TODO_SUCCESS, toBeAdded),
+                expectedAB,
+                expectedAB.getEventList(),
+                expectedAB.getDeadlineList(),
+                expectedAB.getTodoList());
+
+        assertCommandBehavior("undo 1", UndoCommand.MESSAGE_UNDO_TASK_SUCCESS,
+                undolist,
+                undolist.getEventList(),
+                undolist.getDeadlineList(),
+                undolist.getTodoList());
+    }
+    //@@author A0147890U
+    @Test
+    public void execute_redo_successful() throws Exception {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
         Task toBeAdded = helper.charlie();
@@ -245,7 +287,7 @@ public class LogicManagerTest {
                 expectedAB.getEventList(),
                 expectedAB.getDeadlineList(),
                 expectedAB.getTodoList());
-    }   
+    }
 
     //@@author A0139430L
     @Test
