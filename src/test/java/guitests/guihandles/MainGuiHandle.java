@@ -24,6 +24,10 @@ public class MainGuiHandle extends GuiHandle {
     public CommandBoxHandle getCommandBox() {
         return new CommandBoxHandle(guiRobot, primaryStage, TestApp.APP_TITLE);
     }
+    
+    public AliasWindowHandle getAliasWindow() {
+        return new AliasWindowHandle(guiRobot, primaryStage);
+    }
 
 
 }
