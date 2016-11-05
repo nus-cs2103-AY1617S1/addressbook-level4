@@ -1,6 +1,7 @@
 package seedu.unburden.ui;
 
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 import com.google.common.eventbus.Subscribe;
@@ -59,6 +60,7 @@ public class SummaryPanel extends UiPart{
     private AnchorPane placeHolderPane;    
 
     private Calendar calendar = Calendar.getInstance();
+    private static final SimpleDateFormat DATEFORMATTER = new SimpleDateFormat("dd-MM-yyyy");
 
     public SummaryPanel(){
 
@@ -90,7 +92,7 @@ public class SummaryPanel extends UiPart{
         done.setText(Integer.toString(ListOfTask.doneCounter));
         undone.setText(Integer.toString(ListOfTask.undoneCounter));
         overdue.setText(Integer.toString(ListOfTask.overdueCounter));
-        todayDate.setText("Today's Date : " + calendar.getTime());
+        todayDate.setText("    Today's Date : " + DATEFORMATTER.format(calendar.getTime()));
        
     }
              

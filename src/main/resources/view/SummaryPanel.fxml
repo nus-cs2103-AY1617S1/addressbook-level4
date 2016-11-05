@@ -18,18 +18,18 @@
    <children>
       <GridPane layoutX="12.0" layoutY="32.0" prefHeight="285.0" prefWidth="300.0" style="-fx-background-color: #fcfeff;">
         <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="160.0" minWidth="10.0" prefWidth="51.33331298828125" />
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="237.3333740234375" minWidth="10.0" prefWidth="206.66668701171875" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="160.0" minWidth="10.0" prefWidth="24.33331298828125" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="237.3333740234375" minWidth="10.0" prefWidth="232.66668701171875" />
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="199.0" minWidth="10.0" prefWidth="43.33331298828125" />
         </columnConstraints>
         <rowConstraints>
-            <RowConstraints maxHeight="50.0" minHeight="10.0" prefHeight="20.0" vgrow="SOMETIMES" />
-          <RowConstraints maxHeight="63.333343505859375" minHeight="0.0" prefHeight="63.333343505859375" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="50.0" minHeight="8.333343505859375" prefHeight="8.333343505859375" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="69.66665649414062" minHeight="0.0" prefHeight="69.66665649414062" vgrow="SOMETIMES" />
             <RowConstraints maxHeight="50.0" minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
           <RowConstraints maxHeight="50.0" minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
           <RowConstraints maxHeight="50.0" minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="50.0" minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="50.0" minHeight="10.0" prefHeight="20.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="56.0" minHeight="10.0" prefHeight="56.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="50.0" minHeight="10.0" prefHeight="10.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
             <Label fx:id="today" style="-fx-font-size: 18; -fx-text-fill: black;" text="#Today" GridPane.columnIndex="2" GridPane.rowIndex="1">
