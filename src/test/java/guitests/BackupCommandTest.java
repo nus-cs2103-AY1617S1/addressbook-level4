@@ -72,10 +72,10 @@ public class BackupCommandTest extends TaskManagerGuiTest {
         assertResultMessage(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, BackupCommand.MESSAGE_USAGE));
         */
         
-        /* Disabled as Travis does not respect read-only protection
+        ///* Disabled as Travis does not respect read-only protection
         //verify a TaskManager will detect if a file is protected
         commandBox.runCommand("backup " + filepath_F);
         assertResultMessage(String.format(BackupCommand.MESSAGE_BACKUP_ERROR, filepath_F + ".xml"));
-        */
+        //*/
     }
 }
