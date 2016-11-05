@@ -46,8 +46,6 @@ public class TaskCard extends UiPart {
     private Label endDate;
     @FXML
     private Label recurrenceRate;
-    @FXML
-    private Label tags;
 
     private ReadOnlyTask task;
     private int displayedIndex;
@@ -124,16 +122,16 @@ public class TaskCard extends UiPart {
         Paint taskPriorityColour = PAINT_YELLOW;
 
         switch (taskPriority) {
-        case LOW:
+        case LOW :
             taskPriorityColour = PAINT_GREEN;
             break;
-        case MEDIUM:
+        case MEDIUM :
             taskPriorityColour = PAINT_YELLOW;
             break;
-        case HIGH:
+        case HIGH :
             taskPriorityColour = PAINT_RED;
             break;
-        default:
+        default :
             assert false : "priority should only be LOW, MEDIUM, or HIGH";
         }
 
@@ -229,26 +227,6 @@ public class TaskCard extends UiPart {
 
         String recurrenceRateText = task.getRecurrenceRate().get().toString();
         return recurrenceRateText;
-    }
-
-    /**
-     * Get the recurrence rate string for display, given the recurrence rate
-     * integer and the time period associated with the recurrence rate.
-     * 
-     * @param recurrenceRateInteger the integer associated with the recurrence
-     *            rate
-     * @param timePeriod the time period associated with the recurrence rate
-     * @return the String representation of the recurrence rate for display on
-     *         the task card
-     */
-    private String getRecurrenceRateString(Integer recurrenceRateInteger, TimePeriod timePeriod) {
-        boolean isRecurrenceRateOne = (recurrenceRateInteger == ONE);
-
-        return RECURRENCE_RATE_DISPLAY_PREFIX
-                + ((isRecurrenceRateOne) ? STRING_EMPTY : recurrenceRateInteger.toString() + STRING_ONE_SPACE)
-                + timePeriod.toString().substring(ZERO, ONE).toUpperCase()
-                + timePeriod.toString().substring(ONE).toLowerCase()
-                + (recurrenceRateInteger.intValue() > ONE ? STRING_PLURAL_POSTFIX : STRING_EMPTY);
     }
 
 }

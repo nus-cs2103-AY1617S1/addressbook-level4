@@ -1,7 +1,11 @@
 package guitests.guihandles;
 
 import guitests.GuiRobot;
+import javafx.fxml.FXML;
 import javafx.scene.Node;
+import javafx.scene.control.Label;
+import javafx.scene.layout.HBox;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import seedu.address.model.item.ReadOnlyTask;
 
@@ -11,7 +15,10 @@ import seedu.address.model.item.ReadOnlyTask;
 public class TaskCardHandle extends GuiHandle {
     private static final String NAME_FIELD_ID = "#name";
     private static final String PRIORITY_FIELD_ID = "#priority";
-
+    private static final String INDEX_FIELD_ID = "#id";
+    private static final String START_DATE_FIELD_ID = "#startDate";
+    private static final String END_DATE_FIELD_ID = "#startDate";
+    private static final String RECURRENCE_RATE_FIELD_ID = "#startDate";
 
     private Node node;
 
@@ -32,30 +39,54 @@ public class TaskCardHandle extends GuiHandle {
         return getTextFromLabel(NAME_FIELD_ID);
     }
 
+    //@@author A0093960X
     public String getPriority() {
-        // Priority is no longer a Label
-        // return getTextFromLabel(PRIORITY_FIELD_ID);
-        
-        
         return getTextFromPriorityRectangle(PRIORITY_FIELD_ID);
         
     }
+    
+    public String getIndex() {
+        return getTextFromLabel(INDEX_FIELD_ID);
+        
+    }
+    
+    public String getStartDate() {
+        return getTextFromLabel(START_DATE_FIELD_ID);
+        
+    }
+    
+    public String getEndDate() {
+        return getTextFromLabel(END_DATE_FIELD_ID);
+        
+    }
+    
+    public String getRecurrenceRate() {
+        return getTextFromLabel(RECURRENCE_RATE_FIELD_ID);
+        
+    }
+    
 
-
+    //@@author
     public boolean isSameFloatingTask(ReadOnlyTask task){
         return getName().equals(task.getName().getTaskName()) && getPriority().equals(task.getPriorityValue().toString());
     }
 
+    //@@author A0093960X
     @Override
     public boolean equals(Object obj) {
         if(obj instanceof TaskCardHandle) {
             TaskCardHandle handle = (TaskCardHandle) obj;
             return getName().equals(handle.getName())
-                    && getPriority().equals(handle.getPriority()); //TODO: compare the rest
+                    && getPriority().equals(handle.getPriority())
+                    && getIndex().equals(handle.getIndex())
+                    && getStartDate().equals(handle.getStartDate())
+                    && getEndDate().equals(handle.getEndDate())
+                    && getRecurrenceRate().equals(handle.getRecurrenceRate());
         }
         return super.equals(obj);
     }
 
+    //@@author
     @Override
     public String toString() {
         return getName() + " " + getPriority();

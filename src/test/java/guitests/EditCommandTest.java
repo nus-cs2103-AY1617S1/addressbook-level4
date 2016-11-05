@@ -20,14 +20,14 @@ import static seedu.address.logic.commands.DeleteCommand.MESSAGE_DELETE_ITEM_SUC
 
 import java.util.Collections;
 
-public class EditCommandTest extends AddressBookGuiTest {
+public class EditCommandTest extends DearJimGuiTest {
     
     //@@author A0139552B
     @Test
     public void edit() throws IllegalValueException {    	
     	
-        TestTask[] currentList = td.getTypicalTasks();
-        assertClearCommandSuccess();
+        TestTask[] currentList = td.getTypicalUndoneTasks();
+        assertUndoneListClearCommandSuccess();
 
         TestTask aliceTask = new TestTask(td.alice);
         assertAddSuccess(aliceTask);
@@ -71,8 +71,8 @@ public class EditCommandTest extends AddressBookGuiTest {
     @Test
     public void editCheckReset() throws IllegalValueException{
         
-        TestTask[] currentList = td.getTypicalTasks();
-        assertClearCommandSuccess();
+        TestTask[] currentList = td.getTypicalUndoneTasks();
+        assertUndoneListClearCommandSuccess();
 
         TestTask aliceTask = new TestTask(td.alice);
         assertAddSuccess(aliceTask);
@@ -93,7 +93,7 @@ public class EditCommandTest extends AddressBookGuiTest {
     
     @Test
     public void editCheckInvalid(){
-        TestTask[] currentList = td.getTypicalTasks();
+        TestTask[] currentList = td.getTypicalUndoneTasks();
 
         //invalid index
         commandBox.runCommand("edit " + 10 + " " + "testing");
@@ -118,17 +118,17 @@ public class EditCommandTest extends AddressBookGuiTest {
         assertMatching(personToAdd, addedCard);
 
         //confirm the list now contains all previous persons plus the new person
-        TestTask[] expectedList = TestUtil.addFloatingTasksToList(currentList, personToAdd);
+        TestTask[] expectedList = TestUtil.addTasksToList(currentList, personToAdd);
         assertTrue(personListPanel.isListMatching(expectedList));
     }
     
     /**
      * Runs the clear command to clear the current list and confirms the result is correct.
      */
-    private void assertClearCommandSuccess() {
-    	commandBox.runCommand("clear");
-    	assertListSize(0);
-    	assertResultMessage("Task Manager has been cleared!");
+    private void assertUndoneListClearCommandSuccess() {
+        commandBox.runCommand("clear");
+        assertListSize(0);
+        assertResultMessage("Task Manager undone list has been cleared!");
     }
 
 }

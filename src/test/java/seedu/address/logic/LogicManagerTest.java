@@ -175,7 +175,7 @@ public class LogicManagerTest {
         model.addTask(helper.generateFloatingTask(2));
         model.addTask(helper.generateFloatingTask(3));
 
-        assertCommandBehavior("clear", ClearCommand.MESSAGE_SUCCESS, new TaskManager(), Collections.emptyList());
+        assertCommandBehavior("clear", ClearCommand.MESSAGE_SUCCESS_UNDONE_LIST, new TaskManager(), Collections.emptyList());
     }
 
     /*
@@ -406,7 +406,7 @@ public class LogicManagerTest {
 
         TaskManager expectedAB = helper.generateTaskManager(threePersons);
         
-        expectedAB.removeFloatingTask(threePersons.get(1));
+        expectedAB.deleteUndoneTask(threePersons.get(1));
         helper.addToModel(model, threePersons);
 
         assertCommandBehavior("delete 2",
@@ -430,7 +430,7 @@ public class LogicManagerTest {
         
         TaskManager expectedAB = helper.generateTaskManager(threePersons);
         
-        expectedAB.removeFloatingTask(threePersons.get(1));
+        expectedAB.deleteUndoneTask(threePersons.get(1));
         expectedAB.addDoneTask(threePersons.get(1));
         helper.addToModel(model, threePersons);
 

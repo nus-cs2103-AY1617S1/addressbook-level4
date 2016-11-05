@@ -29,6 +29,7 @@ public class DoneCommand extends UndoableCommand {
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
     
+    //@author A0093960X
     public static final String MESSAGE_DONE_TASK_SUCCESS = "Archived Task: %1$s";
     public static final String MESSAGE_DONE_TASKS_SUCCESS = "Archived Tasks: %1$s";
     public static final String MESSAGE_FAILURE = "Failed to archive Task.";
@@ -37,9 +38,11 @@ public class DoneCommand extends UndoableCommand {
     public static final String TOOL_TIP = "done INDEX [ANOTHER_INDEX ...]";
 
     public static final String MESSAGE_DONE_UNDO_SUCCESS = "Undid archive tasks! Tasks restored to undone list!";
+    public static final String MESSAGE_DONE_UNDO_SOME_FAILURE = "The following tasks were unable to be undone: %1$s";
     
     private List<Task> readdedRecurringTasks;
     private List<Task> doneTasksUndoFail;
+    
     //@@author A0139498J
     private final List<Integer> targetIndexes;
     private List<Task> targetTasks;
@@ -53,9 +56,11 @@ public class DoneCommand extends UndoableCommand {
     @Override
     public CommandResult execute() {
         assert model != null;
+        prepareToArchiveTasks(); 
+
         
         prepareToArchiveTasks();
-        if (isViewingDoneList) {
+        if (attemptToExecuteDoneOnDoneList()) {
             return generateCommandResultForDoneListRestriction();
         }
         
@@ -125,7 +130,13 @@ public class DoneCommand extends UndoableCommand {
                 ? new CommandResult(String.format(MESSAGE_DONE_TASK_SUCCESS, toDisplay))
                 : new CommandResult(String.format(MESSAGE_DONE_TASKS_SUCCESS, toDisplay));
     }
-   
+
+
+    private boolean attemptToExecuteDoneOnDoneList() {
+        return isViewingDoneList && !isRedoAction;
+    }
+
+
     /**
      * Adds the tasks referred to by the list of target indexes into a task list.
      * Invalid target indexes in the list will be ignored.
@@ -139,6 +150,7 @@ public class DoneCommand extends UndoableCommand {
             if (isTaskTargetIndexOutOfBounds) {
                 continue;
             }
+
             int adjustedTaskIndex = targetIndex - 1;
             Task task = new Task(lastShownList.get(adjustedTaskIndex));
             targetTasks.add(task);
@@ -171,7 +183,7 @@ public class DoneCommand extends UndoableCommand {
      */
     private void archiveTask(Task taskToArchive) throws TaskNotFoundException, TaskNotRecurringException {
         assert taskToArchive != null;
-        model.deleteTask(taskToArchive);
+        model.deleteUndoneTask(taskToArchive);
         boolean taskToArchiveIsRecurring = (taskToArchive.getRecurrenceRate().isPresent());
         if (taskToArchiveIsRecurring) {
             updateRecurrenceAndReAddTask(taskToArchive);
@@ -214,24 +226,48 @@ public class DoneCommand extends UndoableCommand {
         doneTasksUndoFail = new ArrayList<Task>();
         
         for (Task doneTask : targetTasks){
-            try {
-                model.deleteDoneTask(doneTask);
-            } catch (TaskNotFoundException e) {
-                doneTasksUndoFail.add(doneTask);
-            }
+            attemptToDeleteDoneTaskFromDoneList(doneTask);
         }
         
         for (Task readdedRecurTask : readdedRecurringTasks) { 
-            try {
-                model.deleteTask(readdedRecurTask);
-            } catch (TaskNotFoundException e) {
-                doneTasksUndoFail.add(readdedRecurTask);
-            }
+            attemptToDeleteReaddedRecurTaskFromUndoneList(readdedRecurTask);
         }
         
-        model.addTasks(targetTasks);
-        return new CommandResult(MESSAGE_DONE_UNDO_SUCCESS);
+        readdSuccessfullyUndoneTasks();
+        
+        if (isSuccessfulInUndoingAllDoneTasks()) {
+            return new CommandResult(MESSAGE_DONE_UNDO_SUCCESS);
+        }
+        else {
+            return new CommandResult(String.format(MESSAGE_DONE_UNDO_SOME_FAILURE, doneTasksUndoFail));
+        }
     }
 
-    //@@author 
+    private void readdSuccessfullyUndoneTasks() {
+        model.addTasks(targetTasks);
+
+    }
+
+    private void attemptToDeleteReaddedRecurTaskFromUndoneList(Task readdedRecurTask) {
+        try {
+            model.deleteUndoneTask(readdedRecurTask);
+        } catch (TaskNotFoundException e) {
+            logger.info("Cannot find task: " + readdedRecurTask + "; adding to list of done task failures to inform user.");
+            doneTasksUndoFail.add(readdedRecurTask);
+        }
+    }
+
+    private void attemptToDeleteDoneTaskFromDoneList(Task doneTask) {
+        try {
+            model.deleteDoneTask(doneTask);
+        } catch (TaskNotFoundException e) {
+            logger.info("Cannot find task: " + doneTask + "; adding to list of done task failures to inform user.");
+            doneTasksUndoFail.add(doneTask);
+        }
+    }
+    
+    private boolean isSuccessfulInUndoingAllDoneTasks() {
+        return doneTasksUndoFail.isEmpty();
+    }
+
 }
