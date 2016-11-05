@@ -146,7 +146,7 @@ Format: `NAME end DATE_TIME [repeat every RECURRING_INTERVAL] [-PRIORITY]`
 
 |Time| Format| Interpreted Time|
 |-------- | :-------- |---|
-|24Hr| `20.50`, `20:50`, `2050`| 8.50pm|
+|24Hr| `20.50`, `20:50`| 8.50pm|
 |AM/PM| `8.50pm`, `8:50pm`, `0850pm`| 8.50pm|
 |Preset|`midnight`<br> `noon`|12am<br>12pm|
 <br>
@@ -156,8 +156,9 @@ Examples:
 * `eat lunch by 1pm today -high`
 * `Buy coffee for boss by 7:00`
 * `finish CS2101 assignment by 13th Sep`
+<br>
 
-Inputs with numbers from 0000 to 2359 may be wrongly interpreted as time. If you need to add a task with these numbers, you can enclose the task name with double inverted commas to denote the task name explicitly.
+`NAME` with numbers from 0000 to 2359 may be wrongly interpreted as time. If you need to add a `NAME` with these numbers, you can enclose the `NAME` with double inverted commas to denote the `NAME` explicitly.<br>
 
 Example:
 
