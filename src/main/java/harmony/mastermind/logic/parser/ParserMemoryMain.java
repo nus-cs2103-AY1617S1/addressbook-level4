@@ -117,7 +117,7 @@ public class ParserMemoryMain {
      * Set date to a calendar object setEvent
      * If set, return true.
      */
-    protected static boolean setDate(String date, Calendar setEvent) { 
+    public static boolean setDate(String date, Calendar setEvent) { 
         boolean isValid = false;
         
         initialiseDate();
