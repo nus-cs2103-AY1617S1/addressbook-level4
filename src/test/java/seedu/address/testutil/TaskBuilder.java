@@ -9,6 +9,7 @@ import seedu.address.model.task.*;
  */
 public class TaskBuilder {
 
+    private static final int RECURRING_PERIOD_OFFSET = 1;
     private TestTask task;
 
     public TaskBuilder() {
@@ -46,6 +47,11 @@ public class TaskBuilder {
     
     public TaskBuilder withRecurringType(RecurringType type) throws IllegalValueException {
         this.task.setRecurringType(type);
+        return this;
+    }
+    
+    public TaskBuilder withRecurringPeriod(int period) throws IllegalValueException {
+        this.task.setRecurringPeriod(period);
         return this;
     }
 

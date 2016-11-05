@@ -46,7 +46,7 @@ public class BlockCommand extends Command {
             tagSet.add(new Tag(tagName));
         }
         this.toBlock = new Task(new Name(DUMMY_NAME), new UniqueTagList(tagSet), new TaskDate(startDate),
-                new TaskDate(endDate), RecurringType.NONE);
+                new TaskDate(endDate), RecurringType.NONE, Task.NO_RECURRING_PERIOD);
         if (!this.toBlock.getLastAppendedComponent().isValidTimeSlot()) {
             indicateAttemptToExecuteIncorrectCommand();
             throw new IllegalValueException(MESSAGE_ILLEGAL_TIME_SLOT);

@@ -11,7 +11,7 @@ import seedu.address.model.task.UniqueTaskList.TimeslotOverlapException;
 import java.util.HashSet;
 import java.util.Set;
 
-//@@A0135782Y
+//@@author A0135782Y
 /**
  * Adds a floating task to the task list.
  */
@@ -56,7 +56,6 @@ public class AddFloatingCommand extends AddCommand {
         	urManager.popFromUndoQueue();
             return new CommandResult(MESSAGE_DUPLICATE_TASK);
         } catch (TimeslotOverlapException e) {
-			// TODO Auto-generated catch block
 			assert false: "not possible";
         	return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
 		}

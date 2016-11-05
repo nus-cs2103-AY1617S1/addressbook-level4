@@ -24,7 +24,7 @@ import seedu.address.model.tag.UniqueTagList;
 public class UniqueTaskList implements Iterable<Task> {
 
     private final List<Task> internalList = new ArrayList<Task>();
-    private final ObservableList<TaskOccurrence> internalComponentList = FXCollections.observableArrayList();
+    private final ObservableList<TaskOccurrence> internalOccurrenceList = FXCollections.observableArrayList();
 
     /**
      * Signals that an operation would have violated the 'no duplicates'
@@ -148,13 +148,18 @@ public class UniqueTaskList implements Iterable<Task> {
             throw new TimeslotOverlapException();
         }
         internalList.add(toAdd);
-        internalComponentList.addAll(toAdd.getTaskDateComponent());
+        internalOccurrenceList.addAll(toAdd.getTaskDateComponent());
     }
 
+    /**
+     * Append duplicate recurring task together into a single unique task
+     * 
+     * @param toAdd Task to be appended into a single unique task.
+     */
     private void appendDuplicateRecurringDatesToTask(Task toAdd) {
         int idx = internalList.indexOf(toAdd);
         Task toBeAppendedOn = internalList.get(idx);
-        internalComponentList.add(toAdd.getLastAppendedComponent());
+        internalOccurrenceList.add(toAdd.getLastAppendedComponent());
         toBeAppendedOn.appendRecurringDate(toAdd.getLastAppendedComponent());
     }
     // @@author
@@ -168,7 +173,7 @@ public class UniqueTaskList implements Iterable<Task> {
     public boolean remove(ReadOnlyTask toRemove) throws TaskNotFoundException {
         assert toRemove != null;
         final boolean taskFoundAndDeleted = internalList.remove(toRemove);
-        internalComponentList.removeAll(toRemove.getTaskDateComponent());
+        internalOccurrenceList.removeAll(toRemove.getTaskDateComponent());
         if (!taskFoundAndDeleted) {
             throw new TaskNotFoundException();
         }
@@ -179,12 +184,12 @@ public class UniqueTaskList implements Iterable<Task> {
         return internalList;
     }
 
-    public ObservableList<TaskOccurrence> getInternalComponentList() {
-        return internalComponentList;
+    public ObservableList<TaskOccurrence> getInternalOccurrenceList() {
+        return internalOccurrenceList;
     }
 
-    public void appendTaskComponent(TaskOccurrence component) {
-        internalComponentList.add(component);
+    public void appendTaskOccurrence(TaskOccurrence component) {
+        internalOccurrenceList.add(component);
     }
 
     @Override
@@ -210,43 +215,56 @@ public class UniqueTaskList implements Iterable<Task> {
      */
     public boolean archive(TaskOccurrence target) {
         assert target != null;
+        if (target.isArchived() == true) {
+            return false;
+        }
         boolean taskFoundAndArchived = false;
-        System.out.println(internalComponentList.contains(target));
-        for (TaskOccurrence t : internalComponentList) {
+        System.out.println(internalOccurrenceList.contains(target));
+        for (TaskOccurrence t : internalOccurrenceList) {
             if (t.equals(target)) {
                 t.archive();
                 taskFoundAndArchived = true;
-                t.getTaskReference().completeTaskWhenAllComponentArchived();
+                t.getTaskReference().completeTaskWhenAllOccurrencesArchived();
             }
         }
         return taskFoundAndArchived;
     }
-
+    
+    //Bad SLAP, needs improvement
+    public boolean overlapsForEdit(TaskOccurrence original, TaskOccurrence toCheck){
+        for(TaskOccurrence t: internalOccurrenceList){
+            if(!t.equals(original) && t.getTaskReference().getName().fullName.equals(BlockCommand.DUMMY_NAME)){
+                if(!(!t.getEndDate().getDate()
+                        .after(toCheck.getStartDate().getDate())
+                        || !t.getStartDate().getDate()
+                                .before(toCheck.getEndDate().getDate()))) return true;
+            }
+        }
+        return false;
+    }
+    
     // @@author
     // @@author A0147995H
-    public boolean updateTask(Task target, Name name, UniqueTagList tags, TaskDate startDate, TaskDate endDate,
+    public boolean updateTask(TaskOccurrence target, Name name, UniqueTagList tags, TaskDate startDate, TaskDate endDate,
             RecurringType recurringType) throws TimeslotOverlapException {
         assert target != null;
 
         boolean taskFoundAndUpdated = false;
-        for (Task t : internalList) {
+        for (TaskOccurrence t : internalOccurrenceList) {
             if (t.equals(target)) {
                 TaskDate realStartDate = startDate == null ? new TaskDate(TaskDate.DATE_NOT_PRESENT) : startDate;
                 TaskDate realEndDate = endDate == null ? new TaskDate(TaskDate.DATE_NOT_PRESENT) : endDate;
-                Task checkTask = new Task(target.getName(), target.getTags(), realStartDate, realEndDate,
-                        recurringType);
-                if (overlaps(checkTask))
+                Task checkTask = new Task(target.getTaskReference().getName(), target.getTaskReference().getTags(), realStartDate, realEndDate,
+                        recurringType, target.getTaskReference().getRecurringPeriod());
+                if (overlapsForEdit(t, checkTask.getLastAppendedComponent()))
                     throw new TimeslotOverlapException();
-
-                t.updateTask(name, tags, startDate, endDate, recurringType);
-                internalComponentList.clear();
+                t.getTaskReference().updateTask(name, tags, startDate, endDate, recurringType);
+                internalOccurrenceList.clear();
                 for (Task h : internalList) {
-                    System.out.println(h.getName().fullName);
-                    System.out.println(h.getTaskDateComponent().get(0).getTaskReference().getName().fullName);
-                    internalComponentList.addAll(h.getTaskDateComponent());
+                    internalOccurrenceList.addAll(h.getTaskDateComponent());
                 }
-
                 taskFoundAndUpdated = true;
+                break;
             }
         }
         return taskFoundAndUpdated;

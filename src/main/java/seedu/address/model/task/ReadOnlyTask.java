@@ -67,9 +67,11 @@ public interface ReadOnlyTask {
         }
     }
 
-    void completeTaskWhenAllComponentArchived();
+    void completeTaskWhenAllOccurrencesArchived();
     
     void appendRecurringDate(TaskOccurrence componentToBeAppended);
 
     TaskOccurrence getLastAppendedComponent();
+
+    int getRecurringPeriod();
 }

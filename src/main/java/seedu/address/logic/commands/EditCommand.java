@@ -88,10 +88,10 @@ public class EditCommand extends Command {
         }
 
         TaskOccurrence taskToEdit = lastShownList.get(targetIndex - 1);
-        Task targetTask = (Task) taskToEdit.getTaskReference();
+        //Task targetTask = (Task) taskToEdit.getTaskReference();
         try {
-            model.editTask(targetTask, taskName, tags, startDate, endDate, recurringType);
-            CommandResult result = new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, targetTask));
+            model.editTask(taskToEdit, taskName, tags, startDate, endDate, recurringType);
+            CommandResult result = new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, taskToEdit.getTaskReference()));
             EventsCenter.getInstance().post(new JumpToListRequestEvent(targetIndex - 1));
             return result;
         } catch (TaskNotFoundException e) {

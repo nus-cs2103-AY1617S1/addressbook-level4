@@ -19,11 +19,10 @@ public class TaskTester {
     private Task task;
     
     @Test
-    public void create_floatingTask() throws Exception {
+    public void create_task() throws Exception {
         TaskTesterHelper helper = new TaskTesterHelper();
         task = helper.createFloatingTask();
         assertEquals(task.getTaskType(), TaskType.FLOATING);
-        
         task = helper.createNonFloatingTask(RecurringType.NONE);
         assertEquals(task.getTaskType(), TaskType.NON_FLOATING);
     }
@@ -76,7 +75,7 @@ public class TaskTester {
         }
         
         public Task createNonFloatingTask(RecurringType type) throws IllegalValueException {
-            return new Task(new NameStub("dummy"), new UniqueTagListStub(), new TaskDateStub(), new TaskDateStub(), type);
+            return new Task(new NameStub("dummy"), new UniqueTagListStub(), new TaskDateStub(), new TaskDateStub(), type, Task.NO_RECURRING_PERIOD);
         }
         
         public TaskOccurrenceStub createTaskOccurenceStub(Task task) {
