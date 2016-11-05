@@ -5,6 +5,7 @@ import w15c2.tusk.commons.core.EventsCenter;
 import w15c2.tusk.commons.events.ui.HideHelpRequestEvent;
 import w15c2.tusk.commons.exceptions.IllegalValueException;
 import w15c2.tusk.logic.commands.CommandResult;
+import w15c2.tusk.logic.parser.ParserSelector;
 import w15c2.tusk.model.Alias;
 
 /**
@@ -41,6 +42,10 @@ public class AddAliasCommand extends TaskCommand {
     	if (sentence == null || sentence.isEmpty()) {
     		throw new IllegalValueException("Sentence to AliasCommand constructor is empty.\n" + MESSAGE_USAGE);
     	}
+        boolean isCommandWord =  ParserSelector.getIsCommandWord(shortcut);
+        if(isCommandWord){
+    		throw new IllegalValueException("Shortcut " + shortcut + " cannot be an alias as it is a command word.\n" + MESSAGE_USAGE);
+        }
         this.toAdd = new Alias(shortcut, sentence);
     }
     

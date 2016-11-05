@@ -23,7 +23,7 @@ public class AddAliasCommandTest {
 	}
 	
 	@Test
-	public void addAlias_validShortcut_validSentence() throws IllegalValueException {
+	public void addAlias_successful() throws IllegalValueException {
 		/* CommandResult should return a string that denotes success in execution if description 
 		 * given to AddAliasCommand constructor is a string with size > 0
 		 */
