@@ -44,7 +44,7 @@ public class ChangeCommandTest extends TaskManagerGuiTest {
      * new storage location is correct.
      */
     private void assertChangeCommandSuccess(String newFilePath) throws Exception {
-        commandBox.runCommand("change " + newFile);
+        commandBox.runCommand("change " + newFilePath);
         assertResultMessage("Storage location changed: " + newFilePath);
         assertTrue(taskListPanel.isListMatching(td.getTypicalTasks()));
         assertStorageFileSame(new File(newFilePath));
