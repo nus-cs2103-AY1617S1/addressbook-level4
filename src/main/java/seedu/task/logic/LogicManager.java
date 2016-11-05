@@ -44,7 +44,7 @@ public class LogicManager extends ComponentManager implements Logic {
     
     //@@author A0153411W
     /**
-     * Add executed command to command manager for history and undo operation
+     * Add executed command to command manager undo operation
      * @param command
      */
     private void addCommandForUndo(Command command){

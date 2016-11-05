@@ -42,8 +42,7 @@ public class AddCommand extends Command {
 	
 	public static final String MESSAGE_SUCCESS = "New task added: %1$s";
 	public static final String MESSAGE_SUCCESS_MANY_TASKS = "%1$s tasks added: %2$s";
-	public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the task manager";
-	public static final String MESSAGE_SUCCESS_UNDO = "Undo of add command";	
+	public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the task manager";	
 	
 	public final String MESSAGE_NOT_FOUND = "The task was not found.";
 
@@ -111,7 +110,7 @@ public class AddCommand extends Command {
 						tasksToAdd.get(0).getTitle()));
 		} catch (UniqueTaskList.DuplicateTaskException e) {
 			//remove this command from list for undo
-			model.getCommandForUndo();
+			model.removeCommandForUndo();
 			return new CommandResult(MESSAGE_DUPLICATE_TASK);
 		}
 	}
@@ -133,16 +132,16 @@ public class AddCommand extends Command {
 		} catch (TaskNotFoundException e) {
 			return new CommandResult(MESSAGE_NOT_FOUND);
 		}
-		return new CommandResult(MESSAGE_SUCCESS_UNDO);
+		if (tasksToAdd.size() == 1) {
+			return new CommandResult(String.format(MESSAGE_SUCCESS, tasksToAdd.get(0)));
+		}
+		else
+			return new CommandResult(String.format(MESSAGE_SUCCESS_MANY_TASKS, tasksToAdd.get(0).getInterval(),
+					tasksToAdd.get(0).getTitle()));
 	}
 
 	@Override
 	public boolean isReversible() {
 		return true;
-	}
-
-	@Override
-	public String getCommand() {
-		return COMMAND_WORD; 
 	}
 }

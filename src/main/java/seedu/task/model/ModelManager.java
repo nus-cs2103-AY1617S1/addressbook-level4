@@ -215,6 +215,16 @@ public class ModelManager extends ComponentManager implements Model {
 		commandManager.addCommandForRedo(undoCommand);
 		return undoCommand;
 	}
+	
+	/**
+	 * Remove command from undo manager
+	 */
+	@Override
+	public void removeCommandForUndo() {
+		updateFilteredListToShowAll();
+		commandManager.getCommandForUndo();
+	}
+
 
 	/**
 	 * Get last undo command for redo operation

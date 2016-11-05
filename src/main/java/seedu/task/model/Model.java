@@ -66,6 +66,12 @@ public interface Model {
 	 * return Command
 	 */
 	Command getCommandForUndo();
+	
+	/**
+	 * Remove command from undo stack
+	 * return Command
+	 */
+	void removeCommandForUndo();
 
 	/**
 	 * Get last undo command for redo operation

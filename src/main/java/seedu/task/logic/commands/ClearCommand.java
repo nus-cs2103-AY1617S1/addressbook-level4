@@ -16,7 +16,6 @@ public class ClearCommand extends Command {
 	public static final String MESSAGE_SUCCESS = "Task Manager has been cleared!";
 	public final String MESSAGE_DUPLICATE = "The edited task is a duplicate of an existing task.";
     //@@author A0153411W
-	public static final String MESSAGE_SUCCESS_UNDO = "Undo of clear command";
 	private ArrayList<Task> savedTasksForUndo;
     //@@author 
 	
@@ -41,11 +40,9 @@ public class ClearCommand extends Command {
 	private void saveModelForUndo() {
 		savedTasksForUndo = new ArrayList<Task>();
 		for (ReadOnlyTask task : model.getFilteredTaskList()) {
-		    //@@author A0153751H
 			savedTasksForUndo.add(new Task(task.getTitle(), task.getDescription(), task.getStartDate(),
 			        task.getDueDate(), task.getInterval(), task.getTimeInterval(), task.getStatus(), 
 			        task.getTaskColor(), task.getTags()));
-			//@@author
 		}
 	}
 
@@ -64,16 +61,12 @@ public class ClearCommand extends Command {
 				return new CommandResult(MESSAGE_DUPLICATE);
 			}
 		}
-		return new CommandResult(MESSAGE_SUCCESS_UNDO);
+		return new CommandResult(MESSAGE_SUCCESS);
 	}
 
 	@Override
 	public boolean isReversible() {
 		return true;
 	}
-	
-	@Override
-	public String getCommand() {
-		return COMMAND_WORD; 
-	}
+    //@@author
 }

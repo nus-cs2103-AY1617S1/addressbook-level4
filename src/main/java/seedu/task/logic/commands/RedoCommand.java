@@ -17,7 +17,9 @@ public class RedoCommand extends Command {
 	public CommandResult execute() {
 		try {
 			Command command = model.getCommandForRedo();
-			return command.execute();
+			CommandResult result=  command.execute();
+			result.preAppendToResult("REDO COMMAND: ");
+			return result;
 		} catch (EmptyStackException e) {
 			return new CommandResult(MESSAGE_NOTHING_TO_REDO);
 		}
@@ -32,9 +34,5 @@ public class RedoCommand extends Command {
 	public boolean isReversible() {
 		return false;
 	}
-	
-	@Override
-	public String getCommand() {
-		return COMMAND_WORD; 
-	}
+    //@@author
 }

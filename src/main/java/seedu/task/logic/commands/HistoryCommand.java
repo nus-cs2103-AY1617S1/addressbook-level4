@@ -30,9 +30,5 @@ public class HistoryCommand extends Command {
 		return false;
 	}
 	
-	@Override
-	public String getCommand() {
-		return COMMAND_WORD; 
-	}
 }
 //@@author

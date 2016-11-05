@@ -17,7 +17,9 @@ public class UndoCommand extends Command {
 	public CommandResult execute() {
 		try {
 			Command command = model.getCommandForUndo();
-			return command.executeUndo();
+			CommandResult result=  command.executeUndo();
+			result.preAppendToResult("UNDO: ");
+			return result;
 		} catch (EmptyStackException e) {
 			return new CommandResult(MESSAGE_NOTHING_TO_UNDO);
 		}
@@ -32,9 +34,5 @@ public class UndoCommand extends Command {
 	public boolean isReversible() {
 		return false;
 	}
-	
-	@Override
-	public String getCommand() {
-		return COMMAND_WORD; 
-	}
+    //@@author
 }

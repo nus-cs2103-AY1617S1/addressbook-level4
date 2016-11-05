@@ -29,15 +29,9 @@ public class ExitCommand extends Command {
         return null;
 	}
 
-
 	@Override
 	public boolean isReversible() {
 		return false;
 	}
-	
-	@Override
-	public String getCommand() {
-		return COMMAND_WORD; 
-	}
-
+    //@@author
 }

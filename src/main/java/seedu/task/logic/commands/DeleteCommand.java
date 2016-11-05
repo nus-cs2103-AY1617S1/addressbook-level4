@@ -20,7 +20,6 @@ public class DeleteCommand extends Command {
             + "Example: " + COMMAND_WORD + " 1";
 
     public static final String MESSAGE_DELETE_TASK_SUCCESS = "Deleted Task: %1$s";
-	public static final String MESSAGE_SUCCESS_UNDO = "Undo of delete command";
 	public final String MESSAGE_DUPLICATE = "The edited task is a duplicate of an existing task.";
 	
     //@@author A0153411W
@@ -51,7 +50,7 @@ public class DeleteCommand extends Command {
             model.deleteTask(taskToDelete);
         } catch (TaskNotFoundException pnfe) {
 			//remove this command from list for undo
-			model.getCommandForUndo();
+			model.removeCommandForUndo();
             assert false : "The target task cannot be missing";
         }
 
@@ -63,11 +62,9 @@ public class DeleteCommand extends Command {
      * Save task for undo command before it is deleted.
      */
 	private void saveTaskForUndo(ReadOnlyTask task){
-	    //@@author A0153751H
 	    this.savedTaskForUndo = new Task(task.getTitle(), task.getDescription(), 
 	            task.getStartDate(), task.getDueDate(), task.getInterval(), 
 	            task.getTimeInterval(), task.getStatus(), task.getTaskColor(), task.getTags());
-	  //@@author
 	}
 	
 	
@@ -86,8 +83,7 @@ public class DeleteCommand extends Command {
 		} catch (DuplicateTaskException e) {
 			return new CommandResult(MESSAGE_DUPLICATE);
 		}
-
-		return new CommandResult(MESSAGE_SUCCESS_UNDO);
+        return new CommandResult(String.format(MESSAGE_DELETE_TASK_SUCCESS, savedTaskForUndo));
 	}
 
 
@@ -95,10 +91,5 @@ public class DeleteCommand extends Command {
 	public boolean isReversible() {
 		return true;
 	}
-	
-	@Override
-	public String getCommand() {
-		return COMMAND_WORD; 
-	}
-
+    //@@author
 }

@@ -31,10 +31,6 @@ public class IncorrectCommand extends Command {
 	public boolean isReversible() {
 		return false;
 	}
-
-	@Override
-	public String getCommand() {
-		return null; 
-	}
+    //@@author
 }
 

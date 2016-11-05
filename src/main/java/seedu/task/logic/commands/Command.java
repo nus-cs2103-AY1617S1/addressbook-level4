@@ -35,11 +35,6 @@ public abstract class Command {
 	public abstract CommandResult execute();
 
 	/**
-	 * Return command word
-	 */
-	public abstract String getCommand();
-
-	/**
 	 * Raises an event to indicate an attempt to execute an incorrect command
 	 */
 	protected void indicateAttemptToExecuteIncorrectCommand() {
@@ -73,7 +68,7 @@ public abstract class Command {
 	 * @return boolean value
 	 */
 	public abstract boolean isReversible();
-
+	// @@author
 	/**
 	 * Provides any needed dependencies to the command. Commands making use of
 	 * any of these should override this method to gain access to the
@@ -82,5 +77,4 @@ public abstract class Command {
 	public void setData(Model model) {
 		this.model = model;
 	}
-	// @@author
 }
