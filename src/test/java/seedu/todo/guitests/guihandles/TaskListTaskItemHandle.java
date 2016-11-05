@@ -54,7 +54,7 @@ public class TaskListTaskItemHandle extends GuiHandle {
         if (isFloating) {
             return getTime() == null;
         } else {
-            return getTime().equals(taskToCompare.getDueDate().toLocalTime());
+            return getTime() != null && getTime().equals(taskToCompare.getDueDate().toLocalTime());
         }
     }
     
