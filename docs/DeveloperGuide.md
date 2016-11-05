@@ -1,5 +1,3 @@
-//@@author A0135722L Zhiyuan
-
 
 # Developer Guide 
 
@@ -438,9 +436,9 @@ http://www.comp.nus.edu.sg/~cs2103/AY1617S1/
 8. Able to exploit templates for other projects
 9. Lots of filters to choose from 
 10. Add labels/ tags
-11. Premium acc – add files to task. Supports third party integration eg link to dropbox/ integrates with other services like Zapier, Google Drive, Cloud Magic, Sunrise Calendar, and others
+11. Premium acc Â– add files to task. Supports third party integration eg link to dropbox/ integrates with other services like Zapier, Google Drive, Cloud Magic, Sunrise Calendar, and others
 12. Uses drag and drop to shift tasks
-13. Karma system> trend>> shows productivity over time > graph> bar(shows type for task done) / sets goals for the week / enable/ disable for vacations etc… a karma level eg grandmaster 5000+ to make user feel good
+13. Karma system> trend>> shows productivity over time > graph> bar(shows type for task done) / sets goals for the week / enable/ disable for vacations etcÂ… a karma level eg grandmaster 5000+ to make user feel good
 14. History : no limit
 15. Bold italic control i control b
 
@@ -448,7 +446,7 @@ http://www.comp.nus.edu.sg/~cs2103/AY1617S1/
 
 1. not jim friendly, involves clicking form filling style eg. Click add> type task>click schedule>click to choose date or for recurring dates > type every day or every week. Edit>click and change
 2. Able to link schedules with other people. Eg assign task to others(jim do not need it?)
-3. Most of Jim’s todo items arrive as emails. 
+3. Most of JimÂ’s todo items arrive as emails. 
 4. Divides into too many catagories too messy for jim.
 
 
