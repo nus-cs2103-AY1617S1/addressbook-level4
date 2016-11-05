@@ -32,12 +32,12 @@
 SmartyDo is a **to-do-list** application. With SmartyDo, forgetting upcoming deadlines and sleepless nights over incomplete tasks are a thing of the past. SmartyDo **increases your efficiency** by showing the lists of tasks that can be completed simultaneously. Treat SmartyDo like your personal assistant and just focus on **completing your tasks**!
 
 ## 2. Quick Start
-**Launch SmartyDo**: Simply double-click on the `SmartyDo.jar` file to start SmartyDo. You will be greeted with a simple interface that has three components: a **Visual Panel**, a **Message Box** and a **Command Bar**.
+**Launch SmartyDo**: Simply double-click on the `SmartyDo.jar` file to start SmartyDo. You will be greeted with a simple interface that has three components: a **Visual Box**, a **Message Box** and a **Command Bar**.
 
 <img src="images/mainScreen.png" width="250"><br>Figure 1. Welcome Screen<br>
 
 **Command Bar** is where you enter short commands to tell SmartyDo what to do.<br>
-**Visual Panel** is where you can see a comprehensive list of your tasks.<br>
+**Visual Box** is where you can see a comprehensive list of your tasks.<br>
 **Message Box** shows the result of your command.<br>
 <!-- @@author -->
 
@@ -125,7 +125,7 @@ Let's say you want to add task named "Presentation" which is scheduled for 18 Ju
 
 <img src="images/addCommand.png" width="250" align="middle"><br>Figure 5. Example of add command<br>
 
-After entering the command, MessageBox will show you task is successfully added into SmartyDo and you will see the updated list of task in the VisualBox.
+After entering the command, MessageBox will show you task is successfully added into SmartyDo and you will see the updated list of task in the Visual Box.
 <!-- @@author -->
 
 <!-- @@author A0126649W -->
@@ -136,8 +136,8 @@ You might want to edit details of a task for several reasons. For example, when 
 Format: `edit INDEX PARAMETER_TYPE NEW_VALUE`
 
 PARAMETER_TYPE the type of the parameter we want to change and NEW_VALUE is the new value for that parameter. <br>
-`edit` command edits the task at the specified INDEX. You can easily identify the INDEX of the task by looking at the Visual Panel. <br>
-If the task you want to edit is not shown in the Visual Panel, you can use `view` or `find` command to find the required task. <br>
+`edit` command edits the task at the specified INDEX. You can easily identify the INDEX of the task by looking at the Visual Box. <br>
+If the task you want to edit is not shown in the Visual Box, you can use `view` or `find` command to find the required task. <br>
 
 **Example:**<br>
 Let's say you want to add deadline time for task named "Presentation". Then, you must first check the INDEX of that task. In this case, the INDEX of the task is 1. So to add deadline for this task, enter `edit 1 t; DEADLINE`. This will update the deadline of the task. A demonstration of this functionality shown below.
@@ -150,14 +150,14 @@ Sometimes, you may also want to delete tasks due to unexpected circumstances. To
 
 Format: `delete INDEX`
 
-Similar to `edit` command, `delete` command also uses INDEX. INDEX can be found in Visual Panel by using `view` command and `find` command.
+Similar to `edit` command, `delete` command also uses INDEX. INDEX can be found in Visual Box by using `view` command and `find` command.
 
 **Example:**<br>
 If you want to delete specfic task, find the INDEX of that task. Let's say the INDEX is 1. Then, enter `delete 1` in the command bar.
 
 <img src="images/adddeleteCommand.png" width="500" align="middle"><br>Figure 7. Example of delete command<br>
 
-After entering `delete` command, SmartyDo will delete the task specified by the INDEX and will show the updated list in the Visual Panel. In the screenshot above, you can see that the "Presentation" task has been deleted from SmartyDo.
+After entering `delete` command, SmartyDo will delete the task specified by the INDEX and will show the updated list in the Visual Box. In the screenshot above, you can see that the "Presentation" task has been deleted from SmartyDo.
 
 ### 3.7. **Marking Completed Tasks**
 
@@ -213,7 +213,7 @@ Select the task identified by the parameter. A full detailed description will ap
 Format: `select PARAM`
 
 **Example:**<br>
-Let's say you want to know detailed information about the third task in the Visual Panel. All you need to do is enter `select 3` into command bar, just as shown below.
+Let's say you want to know detailed information about the third task in the Visual Box. All you need to do is enter `select 3` into command bar, just as shown below.
 
 <img src="images/selectCommand.png" width="500" align="middle"><br>Figure 10. Example of select command<br>
 
@@ -231,11 +231,11 @@ Format: `find KEYWORD [MORE_KEYWORDS]`
 
 ### 3.11. **Filtering the Task List**
 
-You can filter the list of tasks that you are viewing on the Visual Panel.
+You can filter the list of tasks that you are viewing on the Visual Box.
 
 Format: `view KEYWORD` where KEYWORD in this case are any of the following: ALL/OVERDUE/UPCOMING/COMPLETED/INCOMPLETE
 
-For example, after finding specific tasks, to return the Visual Panel back to where it lists all the tasks, simply input `view ALL` just as shown below.
+For example, after finding specific tasks, to return the Visual Box back to where it lists all the tasks, simply input `view ALL` just as shown below.
 
 <img src="images/viewAllCommand.png" width="250" align="middle"><br>Figure 12. Example of view command<br>
 
