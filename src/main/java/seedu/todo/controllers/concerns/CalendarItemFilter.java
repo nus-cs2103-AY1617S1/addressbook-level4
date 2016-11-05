@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.function.Predicate;
 
 import seedu.todo.commons.exceptions.InvalidNaturalDateException;
+import seedu.todo.models.Event;
 import seedu.todo.models.Task;
 
 /**
@@ -33,6 +34,7 @@ public class CalendarItemFilter {
         tokenDefinitions.put("eventStatus", new String[] { "over" , "past", "future" });
         tokenDefinitions.put("timeFrom", new String[] { "from", "after" });
         tokenDefinitions.put("timeTo", new String[] { "to", "before", "until", "by" });
+        tokenDefinitions.put("tag", new String[] { "tag" });
         return tokenDefinitions;
     }
     
@@ -88,7 +90,52 @@ public class CalendarItemFilter {
             taskPredicates.add(Task.predBeforeDueDate(timeEnd));
         }
         
+        // Filter by tag
+        if (parsedResult.get("tag") != null && parsedResult.get("tag")[1] != null) {
+            taskPredicates.add(Task.predTag(parsedResult.get("tag")[1]));
+        }
+        
         return Task.where(taskPredicates);
+    }
+    
+    public static List<Event> filterEvents(Map<String, String[]> parsedResult) throws InvalidNaturalDateException {
+        List<Predicate<Event>> eventPredicates = new ArrayList<Predicate<Event>>();
+        
+        // Filter by name
+        if (parsedResult.get("name") != null) {
+            eventPredicates.add(Event.predByName(parsedResult.get("name")[1]));
+        }
+        
+        // Filter by eventStatus
+        if (parsedResult.get("eventStatus") != null && parsedResult.get("eventStatus")[1] != null) {
+            String eventStatus = parsedResult.get("eventStatus")[1];
+            LocalDateTime now = LocalDateTime.now();
+            if (eventStatus.equals("over") || eventStatus.equals("past")) {
+                eventPredicates.add(Event.predEndBefore(now));
+            } else if (eventStatus.equals("future")) {
+                eventPredicates.add(Event.predStartBefore(now));
+            }
+        }
+        
+        // Filter by time
+        String[] datePair = DateParser.extractDatePair(parsedResult);
+        String timeStartNatural = datePair[0];
+        String timeEndNatural = datePair[1];
+        if (timeStartNatural != null) {
+            LocalDateTime timeStart = DateParser.parseNatural(timeStartNatural);
+            eventPredicates.add(Event.predStartAfter(timeStart));
+        }
+        if (timeEndNatural != null) {
+            LocalDateTime timeEnd = DateParser.parseNatural(timeEndNatural);
+            eventPredicates.add(Event.predEndBefore(timeEnd));
+        }
+        
+        // Filter by tag
+        if (parsedResult.get("tag") != null && parsedResult.get("tag")[1] != null) {
+            eventPredicates.add(Event.predTag(parsedResult.get("tag")[1]));
+        }
+        
+        return Event.where(eventPredicates);
     }
 
 }
