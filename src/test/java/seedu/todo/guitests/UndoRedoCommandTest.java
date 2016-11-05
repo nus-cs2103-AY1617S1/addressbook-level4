@@ -1,19 +1,13 @@
 package seedu.todo.guitests;
 
 import static org.junit.Assert.*;
-import static seedu.todo.testutil.AssertUtil.assertSameDate;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import org.junit.Before;
 import org.junit.Test;
 
 import seedu.todo.commons.util.DateUtil;
-import seedu.todo.guitests.guihandles.ConsoleHandle;
-import seedu.todo.guitests.guihandles.TaskListDateItemHandle;
-import seedu.todo.guitests.guihandles.TaskListEventItemHandle;
-import seedu.todo.guitests.guihandles.TaskListTaskItemHandle;
 import seedu.todo.models.Task;
 import seedu.todo.models.TodoListDB;
 
