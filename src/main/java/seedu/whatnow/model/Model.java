@@ -115,9 +115,15 @@ public interface Model {
     /** Gets the oldTask if possible */
     Stack<ReadOnlyTask> getOldTask();
 
-    /** Gets the newTask if possible */
-    Stack<ReadOnlyTask> getNewTask();
+    /** Gets the currentTask if possible */
+    Stack<ReadOnlyTask> getCurrentTask();
 
+    /** Gets the OldnextTask if possible */
+    Stack<ReadOnlyTask> getOldNextTask();
+    
+    /** Gets the NewNextTask if possible */
+    Stack<ReadOnlyTask> getNewNextTask();
+    
     /** Gets the deletedStackOfTask that corresponds to deleteCommand */
     Stack<ReadOnlyTask> getDeletedStackOfTasks();
 
@@ -162,13 +168,15 @@ public interface Model {
      */
     Stack<String> getStackOfListTypesRedo();
     
+    /**Clears All relevant Redo Stacks when a new Command has been executed */
+    void clearRedoAll();
+    
     //@@author A0141021H
     /**Gets a stack of String that corresponds to the list of previous file path */
     Stack<String> getStackOfChangeFileLocationOld();
     
     /**Gets a stack of String that corresponds to the list of new file path */
     Stack<String> getStackOfChangeFileLocationNew();
-
     //@@author A0139772U
     // =========== Methods for Schedule List
     // ===============================================================
@@ -243,4 +251,5 @@ public interface Model {
 
     //@@author A0141021H
     void changeLocation(Path destination, Config config) throws DataConversionException;
+
 }

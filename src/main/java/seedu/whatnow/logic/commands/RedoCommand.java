@@ -208,18 +208,18 @@ public class RedoCommand extends Command {
     // @@author A0139128A
     private CommandResult performRedoUpdate() throws TaskNotFoundException {
         assert model != null;
-        if (model.getOldTask().isEmpty() && model.getNewTask().isEmpty()) {
+        if (model.getOldNextTask().isEmpty() && model.getNewNextTask().isEmpty()) {
             return new CommandResult(String.format(RedoCommand.MESSAGE_FAIL));
         } else {
-            ReadOnlyTask originalTask = model.getNewTask().pop();
-            ReadOnlyTask wantedTask = model.getOldTask().pop();
-            model.getOldTask().push(originalTask);
-            model.getNewTask().push(wantedTask);
             try {
-                model.updateTask(originalTask, (Task) wantedTask);
+                Task toChangeInto = (Task) model.getOldNextTask().pop();
+                Task original = (Task) model.getNewNextTask().pop();
+                
+                model.updateTask(original, toChangeInto);
+                System.out.println("Redo, model.getNextTask() : " + toChangeInto + " currentTask() : " + original);
+                model.getOldTask().push(original);
+                model.getCurrentTask().push(toChangeInto);
             } catch (UniqueTaskList.DuplicateTaskException utle) {
-                model.getOldTask().pop();
-                model.getNewTask().pop();
                 return new CommandResult(RedoCommand.MESSAGE_FAIL);
             }
             return new CommandResult(RedoCommand.MESSAGE_SUCCESS);

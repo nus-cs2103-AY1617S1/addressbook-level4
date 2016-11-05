@@ -101,6 +101,7 @@ public class AddCommand extends Command {
 			model.getUndoStack().push(COMMAND_WORD);
 			model.getDeletedStackOfTasksAdd().push(toAdd);
 			Recurrence recurring = new Recurrence(toAdd.getPeriod(), toAdd.getTaskDate(), toAdd.getStartDate(), toAdd.getEndDate(), toAdd.getEndPeriod());
+			model.clearRedoAll();
 			if (recurring.hasRecurring()) {
 			    addRecurring(recurring);
 			}
