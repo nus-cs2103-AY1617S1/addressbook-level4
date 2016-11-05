@@ -22,7 +22,7 @@ public class DeleteCommand extends Command {
     public static final String MESSAGE_DELETE_TASK_SUCCESS = "Task deleted!";
     public static final int MULTIPLE_DELETE_OFFSET = 1;
 
-    public final int[] targetIndexes;
+    private int[] targetIndexes;
 
     public DeleteCommand(int[] targetIndexes) {
         this.targetIndexes = targetIndexes;
@@ -63,12 +63,16 @@ public class DeleteCommand extends Command {
     private ReadOnlyTask[] getAllTaskToDelete(UnmodifiableObservableList<ReadOnlyTask> lastShownList) {
         ReadOnlyTask[] tasksToDelete = new ReadOnlyTask[targetIndexes.length];
         for (int i = 0; i < targetIndexes.length; i++) {
-            tasksToDelete[i] = lastShownList.get(targetIndexes[i] - 1);         
+            tasksToDelete[i] = lastShownList.get(targetIndexes[i] - MULTIPLE_DELETE_OFFSET);         
         }
         return tasksToDelete;
     }
     
-    //@@author
+    /**
+     * Check if a particular index can be deleted
+     * @param targetIndex an array of indexes to be delete from lastShownList
+     * @return true if all indexes are valid
+     */
     private boolean isValidIndexes(UnmodifiableObservableList<ReadOnlyTask> lastShownList, int[] targetIndex) {
         for (int index : targetIndexes) {
             if (lastShownList.size() < index) {

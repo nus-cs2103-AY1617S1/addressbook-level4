@@ -23,7 +23,7 @@ public class DoneCommand extends Command {
     
     public static final int MULTIPLE_MARK_OFFSET = 1;
 
-    public final int[] targetIndexes;
+    private int[] targetIndexes;
 
     public DoneCommand(int[] targetIndexes) {
         this.targetIndexes = targetIndexes;
@@ -33,23 +33,13 @@ public class DoneCommand extends Command {
     @Override
     public CommandResult execute() {
 
-        UnmodifiableObservableList<ReadOnlyTask> lastShownList = null;
-        
-        if (model.getCurrentTab().equals(MainWindow.TAB_TASK_COMPLETE)) {
-            return new CommandResult(MESSAGE_MARK_COMPLETED_TASK);
-        }
-        else {
-            lastShownList = model.getFilteredIncompleteTaskList();
-        }
+        UnmodifiableObservableList<ReadOnlyTask> lastShownList = getLastShownList();
 
         if (!isValidIndexes(lastShownList, targetIndexes)) {
             return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
         
-        ReadOnlyTask[] tasksToMark = new ReadOnlyTask[targetIndexes.length];        
-        for (int i = 0; i < targetIndexes.length; i++) {
-            tasksToMark[i] = lastShownList.get(targetIndexes[i] - MULTIPLE_MARK_OFFSET);
-        }
+        ReadOnlyTask[] tasksToMark = getAllTaskToMark(lastShownList);        
         
         try {
             model.markTask(tasksToMark);
@@ -60,6 +50,33 @@ public class DoneCommand extends Command {
         return new CommandResult(MESSAGE_MARK_TASK_SUCCESS);
     }
     
+    /**
+     * Get the last shown listing from the selected tab
+     */
+    private UnmodifiableObservableList<ReadOnlyTask> getLastShownList() {
+        if (model.getCurrentTab().equals(MainWindow.TAB_TASK_COMPLETE)) {
+            return model.getFilteredCompleteTaskList();
+        } else {
+            return model.getFilteredIncompleteTaskList();
+        }
+    }
+    
+    /**
+     * Returns an array of ReadOnlyTask selected using the indexes in the last shown list
+     */
+    private ReadOnlyTask[] getAllTaskToMark(UnmodifiableObservableList<ReadOnlyTask> lastShownList) {
+        ReadOnlyTask[] tasksToMark = new ReadOnlyTask[targetIndexes.length];
+        for (int i = 0; i < targetIndexes.length; i++) {
+            tasksToMark[i] = lastShownList.get(targetIndexes[i] - MULTIPLE_MARK_OFFSET);         
+        }
+        return tasksToMark;
+    }
+
+    /**
+     * Check if a particular index can be marked as completed
+     * @param targetIndex an array of indexes to be marked from lastShownList
+     * @return true if all indexes are valid
+     */
     private boolean isValidIndexes(UnmodifiableObservableList<ReadOnlyTask> lastShownList, int[] targetIndex) {
         for (int index : targetIndexes) {
             if (lastShownList.size() < index) {
