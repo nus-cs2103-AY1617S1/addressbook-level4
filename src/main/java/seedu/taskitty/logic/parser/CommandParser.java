@@ -45,19 +45,11 @@ public class CommandParser {
     // Used for checking for number date formats in arguments
     private static final Pattern LOCAL_DATE_FORMAT = Pattern.compile("\\d{1,2}[/-]\\d{1,2}[/-]?(\\d{2}|\\d{4})?");
 
-    private static final Pattern KEYWORDS_ARGS_FORMAT = Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one
-                                                                                                           // or
-                                                                                                           // more
-                                                                                                           // keywords
-                                                                                                           // separated
-                                                                                                           // by
-                                                                                                           // whitespace
+    // One or more keywords separated by whitespace
+    private static final Pattern KEYWORDS_ARGS_FORMAT = Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); 
 
-    private static final Pattern TASK_DATA_ARGS_FORMAT = // Tags must be at the
-                                                         // end
-            Pattern.compile("(?<arguments>[\\p{Graph} ]+)"); // \p{Graph} is
-                                                             // \p{Alnum} or
-                                                             // \p{Punct}
+    private static final Pattern TASK_DATA_ARGS_FORMAT = // Tags must be at the end
+            Pattern.compile("(?<arguments>[\\p{Graph} ]+)"); // \p{Graph} is \p{Alnum} or \p{Punct}
 
     /**
      * Parses user input into command for execution.
@@ -144,8 +136,7 @@ public class CommandParser {
     /**
      * Checks if input argument has a valid xml file extension
      * 
-     * @param argument
-     *            full command args string
+     * @param argument full command args string
      * @return true if argument ends with .xml and false otherwise
      */
     private boolean isValidFileXmlExtension(String argument) {
@@ -162,8 +153,7 @@ public class CommandParser {
     /**
      * Gets file extension of an argument Assume file extension has .___ format
      * 
-     * @param argument
-     *            full command args string
+     * @param argument full command args string
      * @return an optional depending on whether it is a valid file extension
      */
     private Optional<String> getFileExtension(String argument) {
@@ -174,20 +164,17 @@ public class CommandParser {
         }
         return Optional.of(extension);
     }
-    // @@author
 
     // @@author A0130853L
     /**
      * Parses arguments in the context of the view command.
      *
-     * @param args
-     *            full command args string
+     * @param args full command args string
      * @return the prepared command
      */
     private Command prepareView(String arguments) {
         if (arguments.trim().isEmpty()) {
-            return new ViewCommand(); // view all upcoming uncompleted tasks,
-                                      // events and deadlines
+            return new ViewCommand(); // view all upcoming uncompleted tasks, events and deadlines
         }
         if (arguments.trim().equals("done")) {
             return new ViewCommand("done"); // view done command
@@ -209,8 +196,7 @@ public class CommandParser {
     /**
      * Parses arguments in the context of the add task command.
      *
-     * @param args
-     *            full command args string
+     * @param args full command args string
      * @return the prepared command
      */
     private Command prepareAdd(String args) {
@@ -233,11 +219,9 @@ public class CommandParser {
     }
 
     /**
-     * Parses the argument to get a string of all the relevant details of the
-     * task
+     * Parses the argument to get a string of all the relevant details of the task
      * 
-     * @param arguments
-     *            command args string without command word
+     * @param arguments command args string without command word
      */
     private String getTaskDetailArguments(String arguments) {
         int detailLastIndex = arguments.indexOf(Tag.TAG_PREFIX);
@@ -251,8 +235,7 @@ public class CommandParser {
     /**
      * Parses the argument to get a string of all tags, including the Tag prefix
      * 
-     * @param arguments
-     *            command args string without command word
+     * @param arguments command args string without command word
      */
     private String getTagArguments(String arguments) {
         int tagStartIndex = arguments.indexOf(Tag.TAG_PREFIX);
@@ -264,11 +247,10 @@ public class CommandParser {
     }
 
     /**
-     * Extracts the task details into a String array representing the name,
-     * date, time. Details are arranged according to index shown in Task
+     * Extracts the task details into a String array representing the name, date, time.
+     * Details are arranged according to index shown in Task
      * 
-     * @param dataArguments
-     *            command args string with only name, date, time arguments
+     * @param dataArguments command args string with only name, date, time arguments
      */
     private String[] extractTaskDetailsUsingNatty(String dataArguments) {
         String nattyDataArguments = convertToNattyDateFormat(dataArguments);
@@ -277,8 +259,7 @@ public class CommandParser {
 
         String dataArgumentsNameExtracted = extractNameInQuotes(nattyDataArguments, details);
 
-        // if list is not empty at this point, it means that name was
-        // successfully extracted
+        // if list is not empty at this point, it means that name was successfully extracted
         boolean isNameExtracted = !details.isEmpty();
 
         nameEndIndex = extractDateTimeUsingNatty(dataArgumentsNameExtracted, details);
@@ -351,7 +332,6 @@ public class CommandParser {
      * Converts any number formats of date from the local format to one which
      * can be parsed by natty
      * 
-     * @param arguments
      * @return arguments with converted dates if any
      */
     private String convertToNattyDateFormat(String arguments) {
