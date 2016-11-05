@@ -16,7 +16,8 @@ import seedu.todo.models.Task;
 public class TaskListDateItemHandle extends GuiHandle {
 
     private static final String TASKLISTDATEITEM_DATE_ID = "#dateLabel";
-    private static final String TASKLISTITEMS_PANEL = "#dateCalendarItemsPlaceholder";
+    private static final String TASKLISTTASKITEM_ID = "#taskListTaskItem";
+    private static final String TASKLISTEVENTITEM_ID = "#taskListEventItem";
     private Node node;
 
     public TaskListDateItemHandle(GuiRobot guiRobot, Stage primaryStage, Node node){
@@ -46,7 +47,7 @@ public class TaskListDateItemHandle extends GuiHandle {
      * If it doesn't exist, it returns null.
      */
     public TaskListTaskItemHandle getTaskListTaskItem(Task taskToCompare) {
-        Optional<Node> taskItemNode = guiRobot.lookup(TASKLISTITEMS_PANEL).queryAll().stream()
+        Optional<Node> taskItemNode = guiRobot.lookup(TASKLISTTASKITEM_ID).queryAll().stream()
                 .filter(node -> new TaskListTaskItemHandle(guiRobot, primaryStage, node).isEqualsToTask(taskToCompare))
                 .findFirst();
         
@@ -62,7 +63,7 @@ public class TaskListDateItemHandle extends GuiHandle {
      * If it doesn't exist, it returns null.
      */
     public TaskListEventItemHandle getTaskListEventItem(Event eventToCompare) {
-        Optional<Node> eventItemNode = guiRobot.lookup(TASKLISTITEMS_PANEL).queryAll().stream()
+        Optional<Node> eventItemNode = guiRobot.lookup(TASKLISTEVENTITEM_ID).queryAll().stream()
                 .filter(node -> new TaskListEventItemHandle(guiRobot, primaryStage, node).isEqualsToEvent(eventToCompare))
                 .findFirst();
         
