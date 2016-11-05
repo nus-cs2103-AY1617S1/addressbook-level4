@@ -520,10 +520,10 @@ public class LogicManagerTest {
         FloatingTask p1 = helper.generateFloatingTaskWithName("KE Y");
         FloatingTask p2 = helper.generateFloatingTaskWithName("KEYKEYKEY sduauo");
 
-        List<FloatingTask> fourFloatingTasks = helper.generateFloatingTaskList(p1, pTarget1, p2, pTarget2);
-        TaskBook expectedAB = helper.generateFloatingTaskBook(fourFloatingTasks);
+        List<FloatingTask> testFloatingTasks = helper.generateFloatingTaskList(pTarget1, pTarget2, p1, p2);
+        TaskBook expectedAB = helper.generateFloatingTaskBook(testFloatingTasks);
         List<FloatingTask> expectedList = helper.generateFloatingTaskList(pTarget1, pTarget2, p1, p2);
-        helper.addToModel(model, fourFloatingTasks);
+        helper.addToModel(model, testFloatingTasks);
 
         assertCommandBehavior("find \"KEY\"",
                 Command.getMessageForTaskListShownSummary(expectedList.size()),

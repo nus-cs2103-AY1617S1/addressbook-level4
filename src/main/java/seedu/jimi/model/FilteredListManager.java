@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
@@ -326,7 +327,7 @@ public class FilteredListManager {
         
         @Override
         public boolean run(ReadOnlyTask task) {
-            String[] splitTaskName = task.getName().fullName.split("\\s+");
+            List<String> splitTaskName = Arrays.asList(task.getName().fullName.split("\\s+"));
             return nameKeyWords.stream()
                     .filter(kw -> StringUtil.isAnyNearMatch(kw, splitTaskName))
                     .findAny()
@@ -348,9 +349,9 @@ public class FilteredListManager {
 
         @Override
         public boolean run(ReadOnlyTask task) {
-            String priority = task.getPriority().tagName;
+            String priority = task.getPriority().tagName.toLowerCase();
             return nameKeyWords.stream()
-                    .filter(kw -> !priority.equals(Priority.PRIO_NONE) && StringUtil.isNearMatch(kw, priority))
+                    .filter(kw -> !priority.equals(Priority.PRIO_NONE) && kw.toLowerCase().equals(priority))
                     .findAny()
                     .isPresent();
         }
@@ -370,9 +371,9 @@ public class FilteredListManager {
         
         @Override
         public boolean run(ReadOnlyTask task) {
-            String[] tagNames = task.getTags().getInternalList().stream()
+            List<String> tagNames = task.getTags().getInternalList().stream()
                     .map(t -> t.tagName)
-                    .toArray(String[]::new);
+                    .collect(Collectors.toList());
             return nameKeyWords.stream()
                     .filter(kw -> StringUtil.isAnyNearMatch(kw, tagNames))
                     .findAny()
@@ -440,7 +441,7 @@ public class FilteredListManager {
 
         @Override
         public boolean run(ReadOnlyTask task) {
-            if(task instanceof Event) { //needed?
+            if(task instanceof Event) { 
             } else if(task instanceof DeadlineTask) {
                 return LocalDateTime.now().compareTo(((DeadlineTask) task).getDeadline().getLocalDateTime()) >= 0;
             }
