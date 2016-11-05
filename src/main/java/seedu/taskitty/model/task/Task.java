@@ -99,19 +99,19 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
      * Marks task as done or event as over.
      */
     public void markAsDone() {
-    	if (!isDone) {
-    		this.isDone = true;
-    		this.isOverdue = false;
-    	}
+        if (!isDone) {
+            this.isDone = true;
+            this.isOverdue = false;
+        }
     }
     
     /**
      * Marks a deadline as overdue.
      */
     public void markAsOverdue() {
-    	if (!isDone && !isOverdue) {
-    		this.isOverdue = true;
-    	}
+        if (!isDone && !isOverdue) {
+            this.isOverdue = true;
+        }
     }
     
     
@@ -134,39 +134,39 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
         return getAsText();
     }
 
-	@Override
-	public TaskPeriod getPeriod() {
-	    return period;
-	}
-	//@@author A0130853L
-	@Override
-	public boolean getIsDone() {
-		return isDone;
-	}
-	
-	@Override
-	public boolean isTodo() {
-		return period.isTodo();
-	}
-	
-	@Override
-	public boolean isDeadline() {
-		return period.isDeadline();
-	}
-	
-	@Override
-	public boolean isEvent() {
-		return period.isEvent();
-	}
-	
-	// only for deadlines
-	@Override
-	public boolean isOverdue() {
-		return isOverdue;
-	}
-	
-	
-	//@@author A0139052L
+    @Override
+    public TaskPeriod getPeriod() {
+        return period;
+    }
+    //@@author A0130853L
+    @Override
+    public boolean getIsDone() {
+        return isDone;
+    }
+    
+    @Override
+    public boolean isTodo() {
+        return period.isTodo();
+    }
+    
+    @Override
+    public boolean isDeadline() {
+        return period.isDeadline();
+    }
+    
+    @Override
+    public boolean isEvent() {
+        return period.isEvent();
+    }
+    
+    // only for deadlines
+    @Override
+    public boolean isOverdue() {
+        return isOverdue;
+    }
+    
+    
+    //@@author A0139052L
     @Override
     public int compareTo(Task taskToCompare) {
         assert taskToCompare != null;
@@ -189,5 +189,4 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
            }
        }       
     }
-	
 }

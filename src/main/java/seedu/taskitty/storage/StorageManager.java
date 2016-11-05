@@ -37,12 +37,14 @@ public class StorageManager extends ComponentManager implements Storage {
     }
 
     public StorageManager(String taskManagerFilePath, String userPrefsFilePath) {
-        this(new XmlTaskManagerStorage(taskManagerFilePath), new JsonUserPrefsStorage(userPrefsFilePath));
+        this(new XmlTaskManagerStorage(taskManagerFilePath),
+                new JsonUserPrefsStorage(userPrefsFilePath));
     }
     
     //@@author A0135793W
     /**
-     * Sets appropriate filepath in TaskManagerStorage using an internal method ({@link #changeTaskManager(String, Optional)})
+     * Sets appropriate filepath in TaskManagerStorage using an internal method
+     * ({@link #changeTaskManager(String, Optional)})
      */
     public void setFilePath(String taskManagerFilePath) throws DataConversionException, IOException {
         Optional<ReadOnlyTaskManager> data;
@@ -69,7 +71,7 @@ public class StorageManager extends ComponentManager implements Storage {
     private void changeTaskManager(String taskManagerFilePath, Optional<ReadOnlyTaskManager> data)
             throws IOException, DataConversionException {
         //copy current data into new file path
-        taskManagerStorage.saveTaskManager(data.get(),taskManagerFilePath); 
+        taskManagerStorage.saveTaskManager(data.get(), taskManagerFilePath); 
         handleTaskManagerChangedEvent(new TaskManagerChangedEvent(data.get()));
     }
     
@@ -108,7 +110,8 @@ public class StorageManager extends ComponentManager implements Storage {
      * @return false if NO is selected and true otherwise
      */
     private boolean createAlertToOverwriteExistingFile() {
-        Alert alert = new Alert(AlertType.CONFIRMATION, "Overwrite existing file?", ButtonType.YES, ButtonType.NO, ButtonType.CANCEL);
+        Alert alert = new Alert(AlertType.CONFIRMATION,
+                "Overwrite existing file?", ButtonType.YES, ButtonType.NO, ButtonType.CANCEL);
         alert.showAndWait();
 
         if (alert.getResult() == ButtonType.NO) {

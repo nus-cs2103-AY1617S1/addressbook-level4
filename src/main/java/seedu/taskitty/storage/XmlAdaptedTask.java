@@ -103,9 +103,9 @@ public class XmlAdaptedTask {
         
         Task task = new Task(name, new TaskPeriod(startDate, startTime, endDate, endTime), tags);
         
-       if (isDone) {
-    	   task.markAsDone();
-       }
+        if (isDone) {
+            task.markAsDone();
+        }
         
         return task;
     }

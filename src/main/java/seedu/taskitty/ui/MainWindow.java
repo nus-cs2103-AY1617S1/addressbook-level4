@@ -149,7 +149,8 @@ public class MainWindow extends UiPart {
         eventListPanel = TaskListPanel.load(primaryStage, getEventListPlaceholder(),
                 logic.getFilteredEventList(), new TaskListPanel(), Task.EVENT_COMPONENT_COUNT);
         resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
-        statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getTaskManagerFilePath());
+        statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(),
+                config.getTaskManagerFilePath());
         commandBox = CommandBox.load(primaryStage, getCommandBoxPlaceholder(), resultDisplay, logic);
     }
     
@@ -264,7 +265,7 @@ public class MainWindow extends UiPart {
      *  Initialises the list to show today's events upon UI initialisation
      * */
     public void initialiseList() {
-    	logic.initialiseList();
+        logic.initialiseList();
     }
     
     //@@author

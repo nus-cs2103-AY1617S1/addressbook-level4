@@ -99,6 +99,6 @@ public class LogsCenter {
      * @see #getEventHandlingLogMessage(BaseEvent, String)
      */
     public static String getEventHandlingLogMessage(BaseEvent e) {
-        return getEventHandlingLogMessage(e,"");
+        return getEventHandlingLogMessage(e, "");
     }
 }

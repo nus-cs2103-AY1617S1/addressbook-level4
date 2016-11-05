@@ -10,11 +10,11 @@
 }
 
 .label-date {
-	-fx-font-size: 11pt;
+    -fx-font-size: 11pt;
     -fx-font-family: "Segoe UI Semibold";
     -fx-opacity: 0.9;
-	-fx-text-fill: white;
-	-fx-padding: 0 0 0 1;
+    -fx-text-fill: white;
+    -fx-padding: 0 0 0 1;
 }
 
 
@@ -70,6 +70,7 @@
     -fx-padding: 5;
 }
 
+/* @@author A0139930B */
 .table-view .column-header-background {
     -fx-background-color: transparent;
 }
@@ -110,9 +111,9 @@
 }
 
 .list-view {
-	-fx-background-color: transparent;
-	-fx-border-width: 3 0 0 0;
-	-fx-border-color: grey;
+    -fx-background-color: transparent;
+    -fx-border-width: 3 0 0 0;
+    -fx-border-color: grey;
 }
 
 .list-cell:filled:selected:focused, .list-cell:filled:selected {
@@ -120,24 +121,25 @@
 }
 
 .list-cell {
-	-fx-background-color: transparent;
+    -fx-background-color: transparent;
     -fx-label-padding: 0 0 0 0;
     -fx-graphic-text-gap : 0;
     -fx-padding: 1 0 0 0;
 }
 
+/* @@author */
 .label-done {
-	-fx-text-fill: #ff0000;
+    -fx-text-fill: #ff0000;
 }
 
 #done {
-	-fx-text-fill: white;
-	-fx-background-color: grey;
+    -fx-text-fill: white;
+    -fx-background-color: grey;
 }
 
 #done-deadline {
-	-fx-background-color: grey;
-	-fx-text-fill: #FFFFFF;
+    -fx-background-color: grey;
+    -fx-text-fill: #FFFFFF;
 }
 
 .cell_id_label {
@@ -190,13 +192,14 @@
     -fx-text-fill: black;
 }
 
+/* @@author A0139930B */
 .result-display {
     -fx-background-color: #ffffff;
     -fx-border-radius: 10 10 10 10;
-  	-fx-background-radius: 10 10 10 10;
+      -fx-background-radius: 10 10 10 10;
 }
 
-
+/* @@author */
 .status-bar .label {
     -fx-text-fill: white;
 }
@@ -319,7 +322,7 @@
 }
 
 .scroll-bar {
-	-fx-background-color: transparent;
+    -fx-background-color: transparent;
 }
 
 .scroll-bar .thumb {
@@ -345,10 +348,11 @@
 }
 
 .pane-title {
-	-fx-text-fill: #f9f9f9; 
-	-fx-font-weight: bold;
+    -fx-text-fill: #f9f9f9; 
+    -fx-font-weight: bold;
 }
 
+/* @@author A0139930B */
 #cardPane {
     -fx-background-color: derive(grey, 80%);
     -fx-padding: 10 10 10 10;
@@ -357,6 +361,7 @@
     -fx-border-width: 0 0 0 0;
 }
 
+/* @@author */
 #filterField, #taskListPanel, #taskWebpage {
     -fx-effect: innershadow(gaussian, black, 10, 0, 0, 0);
 }

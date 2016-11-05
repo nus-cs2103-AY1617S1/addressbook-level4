@@ -45,7 +45,7 @@ public class StringUtil {
     
     public static int findNextOccuranceOfInteger(String s, int indexFrom) {
         for (int i = indexFrom; i < s.length(); i++) {
-            if (isUnsignedInteger(s.substring(i, i+1))) {
+            if (isUnsignedInteger(s.substring(i, i + 1))) {
                 return i;
             }
         }

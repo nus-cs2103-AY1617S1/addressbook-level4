@@ -77,10 +77,10 @@ public class TaskPeriod implements Comparable<TaskPeriod>{
         boolean isValid = false;
         if (startDate == null || endDate == null) {
             isValid = true;
-        }else if (startDate.isBefore(endDate)) {
+        } else if (startDate.isBefore(endDate)) {
             isValid = true;
         } else if (startDate.equals(endDate) && startTime.isBefore(endTime)) {
-                isValid = true;
+            isValid = true;
         }
         return isValid;
     }
@@ -111,10 +111,10 @@ public class TaskPeriod implements Comparable<TaskPeriod>{
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof TaskPeriod // instanceof handles nulls
-                && TaskDate.isEquals(((TaskPeriod)other).getStartDate(), this.getStartDate())
-                && TaskTime.isEquals(((TaskPeriod)other).getStartTime(), this.getStartTime())
-                && TaskDate.isEquals(((TaskPeriod)other).getEndDate(), this.getEndDate())
-                && TaskTime.isEquals(((TaskPeriod)other).getEndTime(), this.getEndTime()));
+                && TaskDate.isEquals(((TaskPeriod) other).getStartDate(), this.getStartDate())
+                && TaskTime.isEquals(((TaskPeriod) other).getStartTime(), this.getStartTime())
+                && TaskDate.isEquals(((TaskPeriod) other).getEndDate(), this.getEndDate())
+                && TaskTime.isEquals(((TaskPeriod) other).getEndTime(), this.getEndTime()));
     }
     
     public TaskDate getStartDate() {
@@ -160,17 +160,22 @@ public class TaskPeriod implements Comparable<TaskPeriod>{
         // sort events according to their start date or time
         if (this.isEvent()) {
             if (!this.getStartDate().equals(periodToCompare.getStartDate())) {
-                return this.getStartDate().getDate().compareTo(periodToCompare.getStartDate().getDate());
+                return this.getStartDate().getDate()
+                        .compareTo(periodToCompare.getStartDate().getDate());
             } else if (!this.getStartTime().equals(periodToCompare.getStartTime())) {
-                return this.getStartTime().getTime().compareTo(periodToCompare.getStartTime().getTime());                    
+                return this.getStartTime().getTime()
+                        .compareTo(periodToCompare.getStartTime().getTime());                    
             }
         }
-        // if event has same start date and start time, sort it by its end date or end time like deadline
+        // if event has same start date and start time,
+        // sort it by its end date or end time like deadline
         if (this.isEvent() || this.isDeadline()) {
             if (!this.getEndDate().equals(periodToCompare.getEndDate())) {
-                return this.getEndDate().getDate().compareTo(periodToCompare.getEndDate().getDate());
+                return this.getEndDate().getDate()
+                        .compareTo(periodToCompare.getEndDate().getDate());
             } else if (!this.getEndTime().equals(periodToCompare.getEndTime())) {
-                return this.getEndTime().getTime().compareTo(periodToCompare.getEndTime().getTime());                    
+                return this.getEndTime().getTime()
+                        .compareTo(periodToCompare.getEndTime().getTime());                    
             } 
         }
         return 0; //no difference found

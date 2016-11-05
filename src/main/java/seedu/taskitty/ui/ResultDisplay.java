@@ -40,7 +40,7 @@ public class ResultDisplay extends UiPart {
     }
     //@@author A0130853L
     public void configure() {
-    	postCorrectWelcomeMessage();
+        postCorrectWelcomeMessage();
         FxViewUtil.applyAnchorBoundaryParameters(mainPane, 0.0, 0.0, 0.0, 0.0);
         placeHolder.getChildren().add(mainPane);
         FxViewUtil.applyAnchorBoundaryParameters(resultDisplayArea, 0.0, 0.0, 0.0, 0.0);
@@ -75,18 +75,18 @@ public class ResultDisplay extends UiPart {
     
     //@@author A0130853L
     private void displayOverdueWelcomeMessage() {
-    	postMessage(WELCOME_MESSAGE_WITH_OVERDUE_DEADLINES);
+        postMessage(WELCOME_MESSAGE_WITH_OVERDUE_DEADLINES);
     }
     
     public static void setOverdue() {
-    	hasOverdue = true;
+        hasOverdue = true;
     }
     
     private void postCorrectWelcomeMessage() {
-    	if (!hasOverdue) {
-        	postMessage(WELCOME_MESSAGE);
+        if (!hasOverdue) {
+            postMessage(WELCOME_MESSAGE);
         } else {
-        	displayOverdueWelcomeMessage();
+            displayOverdueWelcomeMessage();
         }
     }
 

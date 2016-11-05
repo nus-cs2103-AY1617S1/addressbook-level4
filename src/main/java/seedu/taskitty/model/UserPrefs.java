@@ -36,7 +36,7 @@ public class UserPrefs {
             return false;
         }
 
-        UserPrefs o = (UserPrefs)other;
+        UserPrefs o = (UserPrefs) other;
 
         return Objects.equals(guiSettings, o.guiSettings);
     }

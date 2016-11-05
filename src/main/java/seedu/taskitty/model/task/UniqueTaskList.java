@@ -93,7 +93,7 @@ public class UniqueTaskList implements Iterable<Task> {
         try {
             addSorted(editableToUnmark);
         } catch (DuplicateTaskException e) {
-            assert false: "Should not have duplicate task";
+            assert false : "Should not have duplicate task";
         }
     }
     
@@ -113,9 +113,8 @@ public class UniqueTaskList implements Iterable<Task> {
     	try {
             addSorted(editableToMark);
         } catch (DuplicateTaskException e) {
-            assert false: "Should not have duplicate task";
+            assert false : "Should not have duplicate task";
         }
-
     }   
     
     //@@author
@@ -139,8 +138,8 @@ public class UniqueTaskList implements Iterable<Task> {
     //@@author A0130853L
 
     public ObservableList<Task> getInternalList() {
-    	checkAndSetOverdue();
-    	checkAndSetIsOverToday();
+        checkAndSetOverdue();
+        checkAndSetIsOverToday();
         return internalList;
     }
     
@@ -150,16 +149,16 @@ public class UniqueTaskList implements Iterable<Task> {
      * @param filter according to Task.
      */
     private void checkAndSetOverdue() {
-    	boolean hasOverdue = false;    	
-    	for (Task t: internalList) {
-    		if (t.isDeadline() && !t.getIsDone() && DateTimeUtil.isOverdue(t)) {
-    		    t.markAsOverdue();
-    		    hasOverdue = true;
-    		}
-    	}
-    	if (hasOverdue) {
-    		ResultDisplay.setOverdue();
-    	}
+        boolean hasOverdue = false;        
+        for (Task t: internalList) {
+            if (t.isDeadline() && !t.getIsDone() && DateTimeUtil.isOverdue(t)) {
+                t.markAsOverdue();
+                hasOverdue = true;
+            }
+        }
+        if (hasOverdue) {
+            ResultDisplay.setOverdue();
+        }
     }
     
     /**

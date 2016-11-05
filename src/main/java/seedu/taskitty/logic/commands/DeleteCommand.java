@@ -13,7 +13,8 @@ import seedu.taskitty.model.task.Task;
 
 //@@author A0139052L
 /**
- * Deletes a task identified using it's last displayed index from the task manager.
+ * Deletes a task identified using it's last displayed index from the task
+ * manager.
  */
 public class DeleteCommand extends Command {
 
@@ -24,15 +25,15 @@ public class DeleteCommand extends Command {
             + "\n[index] is the index eg. t1, d1, e1-3.";
 
     public static final String MESSAGE_DELETE_TASK_SUCCESS_HEADER = " %1$s Tasks Deleted: ";
-    
+
     private boolean hasInvalidIndex;
-    
+
     private boolean hasDuplicateIndexesProvided;
-    
+
     private final List<Pair<Integer, Integer>> listOfIndexes;
-    
+
     private final String commandText;
-    
+
     private int targetIndex;
     private String currentTaskIndex;
     private Optional<String> errorMessage;
