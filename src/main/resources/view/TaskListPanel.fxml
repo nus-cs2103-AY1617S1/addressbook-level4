@@ -17,9 +17,10 @@
     <children>
       <TableView fx:id="taskTable" minWidth="840.0" prefHeight="540.0" prefWidth="840.0">
         <columns>
-            <TableColumn fx:id="statusColumn" editable="false" minWidth="14.0" prefWidth="14.0" resizable="false" text="STATUS" />
           <TableColumn fx:id="idColumn" minWidth="50.0" prefWidth="52.0" resizable="false" text="ID" />
             <TableColumn fx:id="taskNameColumn" minWidth="275.0" prefWidth="325.0" resizable="false" text="TASK" />
+                        <TableColumn fx:id="statusColumn" editable="false" minWidth="14.0" prefWidth="14.0" resizable="false" text="STATUS" />
+            
             <TableColumn fx:id="startTimeColumn" minWidth="78.0" prefWidth="159.0" resizable="false" text="START" />
             <TableColumn fx:id="endTimeColumn" minWidth="82.0" prefWidth="149.0" resizable="false" text="END" />
             <TableColumn fx:id="dueTimeColumn" minWidth="77.0" prefWidth="147.0" resizable="false" text="DUE" />
