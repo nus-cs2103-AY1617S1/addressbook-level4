@@ -58,12 +58,16 @@ In essence, having all of the skills above will definitely help to enhance the u
 
 ###**Prerequisites**
 
-1. JDK 8.0\_60 or later
-   >Having any Java 8 version is not enough. <br>
-   This app will not work with earlier versions of Java 8.
-2. Eclipse IDE
-3. e(fx)clipse plugin for Eclipse (Do the steps 2 onwards given in [this page](http://www.eclipse.org/efxclipse/install.html#for-the-ambitious))
-4. Buildship Gradle Integration plugin from the Eclipse Marketplace
+1. **JDK `1.8.0_60`**  or later<br>
+
+    > Having any Java 8 version is not enough. <br>
+    This app will not work with earlier versions of Java 8.
+    
+2. **Eclipse** IDE
+3. **e(fx)clipse** plugin for Eclipse (Do the steps 2 onwards given in
+   [this page](http://www.eclipse.org/efxclipse/install.html#for-the-ambitious))
+4. **Buildship Gradle Integration** plugin from the Eclipse Marketplace
+
 
 ###**Importing the project into Eclipse**
 
