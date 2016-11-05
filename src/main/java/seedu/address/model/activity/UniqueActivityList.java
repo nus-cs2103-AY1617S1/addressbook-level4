@@ -109,7 +109,7 @@ public class UniqueActivityList implements Iterable<Activity> {
         assert task != null;
         assert newTask != null;
         
-        if (contains(newTask)) {
+        if (contains(newTask) && (task.getTags().equals(newTask.getTags()))) {
             throw new DuplicateTaskException();
         }
         
