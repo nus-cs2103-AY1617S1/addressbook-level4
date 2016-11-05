@@ -21,7 +21,16 @@ public class Config {
     		new File(ModifyStoragePathCommand.class.getProtectionDomain().getCodeSource().getLocation().getPath()).getParent() + File.separator + "data/menion.xml";
     private String activityManagerName = "Menion";
 
+    private static Config instance;
+    
     public Config() {
+    }
+    
+    public static Config getInstance() {
+        if (instance == null) {
+            instance = new Config();
+        }
+        return instance;
     }
 
     public String getAppTitle() {
