@@ -45,7 +45,6 @@ public class StoreCommand extends Command {
             try {
                 config.updateToDoListFilePath(tempLocation);
                 storage.updateToDoListFilePath(tempLocation, model.getToDoList());
-                EventsCenter.getInstance().post(new SaveLocationChangedEvent(tempLocation));
                 return new CommandResult(MESSAGE_SUCCESS);
                 
             } catch (IOException e){

@@ -45,15 +45,8 @@ public class ResetCommand extends Command {
         } 
         
         try {
-            ConfigUtil.saveConfig(initializedConfig, Config.USER_CONFIG_FILE);
-            config.setAppTitle(initializedConfig.getAppTitle());
-            config.setLogLevel(initializedConfig.getLogLevel());
-            config.setToDoListFilePath(initializedConfig.getToDoListFilePath());
-            config.setToDoListName(initializedConfig.getToDoListName());
-            config.setUserPrefsFilePath(initializedConfig.getUserPrefsFilePath());
-
-            storage.setToDoListFilePath(config.getToDoListFilePath());
-            storage.saveToDoList(model.getToDoList());
+            config.resetConfig(initializedConfig);
+            storage.updateToDoListFilePath(config.getToDoListFilePath(), model.getToDoList());
             return new CommandResult(MESSAGE_SUCCESS);
         } catch (IOException e) {
             return new CommandResult(MESSAGE_SAVE_ERROR);

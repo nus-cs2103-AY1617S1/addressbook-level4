@@ -26,6 +26,16 @@ public class Config {
 
     public Config() {
     }
+    
+    public void resetConfig(Config initializedConfig) throws IOException {
+        ConfigUtil.saveConfig(initializedConfig, USER_CONFIG_FILE);
+        
+        this.setAppTitle(initializedConfig.getAppTitle());
+        this.setLogLevel(initializedConfig.getLogLevel());
+        this.setToDoListFilePath(initializedConfig.getToDoListFilePath());
+        this.setToDoListName(initializedConfig.getToDoListName());
+        this.setUserPrefsFilePath(initializedConfig.getUserPrefsFilePath());
+    }
 
     public String getAppTitle() {
         return appTitle;

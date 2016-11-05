@@ -3,7 +3,9 @@ package seedu.todo.storage;
 import com.google.common.eventbus.Subscribe;
 
 import seedu.todo.commons.core.ComponentManager;
+import seedu.todo.commons.core.EventsCenter;
 import seedu.todo.commons.core.LogsCenter;
+import seedu.todo.commons.events.model.SaveLocationChangedEvent;
 import seedu.todo.commons.events.model.ToDoListChangedEvent;
 import seedu.todo.commons.events.storage.DataSavingExceptionEvent;
 import seedu.todo.commons.exceptions.DataConversionException;
@@ -63,6 +65,7 @@ public class StorageManager extends ComponentManager implements Storage {
     public void updateToDoListFilePath(String filepath, ReadOnlyToDoList toDoList) throws IOException {
         toDoListStorage.setToDoListFilePath(filepath);
         toDoListStorage.saveToDoList(toDoList);
+        raise (new SaveLocationChangedEvent(filepath));
     }
     
 
