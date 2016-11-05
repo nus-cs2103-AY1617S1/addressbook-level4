@@ -26,6 +26,7 @@ public class RedoCommand extends Command {
             + "Parameters: No parameters" + "Example: " + COMMAND_WORD;
 
     public static final String MESSAGE_SUCCESS = "Redo Successfully";
+    
     public static final String MESSAGE_FAIL = "Redo failure due to unexisting undo commands";
 
     public static final String UNKNOWN_COMMAND_FOUND = "Unknown Command found";
@@ -161,15 +162,15 @@ public class RedoCommand extends Command {
         if (prevCommandListType.equals(ListCommand.TASK_STATUS_ALL)) {
             model.updateFilteredListToShowAll();
             model.updateFilteredScheduleListToShowAll();
-            return new CommandResult(UndoCommand.MESSAGE_SUCCESS);
+            return new CommandResult(RedoCommand.MESSAGE_SUCCESS);
         } else if (prevCommandListType.equals(ListCommand.TASK_STATUS_INCOMPLETE)) {
             model.updateFilteredListToShowAllIncomplete();
             model.updateFilteredScheduleListToShowAllIncomplete();
-            return new CommandResult(UndoCommand.MESSAGE_SUCCESS);
+            return new CommandResult(RedoCommand.MESSAGE_SUCCESS);
         } else {
             model.updateFilteredListToShowAllCompleted();
             model.updateFilteredScheduleListToShowAllCompleted();
-            return new CommandResult(UndoCommand.MESSAGE_SUCCESS);
+            return new CommandResult(RedoCommand.MESSAGE_SUCCESS);
         }
     }
 

@@ -16,6 +16,7 @@ import seedu.whatnow.commons.exceptions.IllegalValueException;
 import seedu.whatnow.commons.util.StringUtil;
 import seedu.whatnow.logic.commands.*;
 import seedu.whatnow.model.tag.Tag;
+import seedu.whatnow.model.task.TaskDate;
 
 /**
  * Parses user input.
@@ -915,8 +916,7 @@ public class Parser {
     /**
      * Parses arguments in the context of the markUndone task command.
      *
-     * @param args
-     *            full command args string
+     * @param args full command args string
      * @return the prepared command
      */
     private Command prepareMarkUndone(String args) {
@@ -941,9 +941,8 @@ public class Parser {
     /**
      * Checks that the command format is valid
      * 
-     * @param type
-     *            is todo/schedule, index is the index of item on the list,
-     *            argType is description/tag/date/time
+     * @param type is todo/schedule, index is the index of item on the list,
+     * argType is description/tag/date/time
      */
     private boolean isValidUpdateCommandFormat(String type, int index, String argType) {
         if (!(type.compareToIgnoreCase(TASK_TYPE_FLOATING) == 0
@@ -1021,69 +1020,23 @@ public class Parser {
     /**
      * Parses arguments in the context of the free time command.
      * 
-     * @param args
-     *            full command args string
+     * @param args full command args string
      * @return the prepared command
      */
     private Command prepareFreeTimeCommand(String args) {
         String date = args.trim();
-        DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
-        Calendar cal = Calendar.getInstance();
-        Calendar today = Calendar.getInstance();
-        if (!(DATE_WITH_SLASH_FORMAT.matcher(date).find() || TODAY_OR_TOMORROW.matcher(date).find()
-                || DAYS_IN_FULL.matcher(date).find() || DAYS_IN_SHORT.matcher(date).find())) {
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FreeTimeCommand.MESSAGE_USAGE));
-        } else if (TODAY_OR_TOMORROW.matcher(date).find()) {
-            if (date.equalsIgnoreCase("today")) {
-                date = df.format(cal.getTime());
-            } else {
-                cal.add(Calendar.DATE, INCREASE_DATE_BY_ONE_DAY);
-                date = df.format(cal.getTime());
-            }
-        } else if (DAYS_IN_FULL.matcher(date).find() || DAYS_IN_SHORT.matcher(date).find()) {
-            switch (date) {
-            case "mon":
-                // fallthrough
-            case "monday":
-                cal.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
-                break;
-            case "tue":
-                // fallthrough
-            case "tuesday":
-                cal.set(Calendar.DAY_OF_WEEK, Calendar.TUESDAY);
-                break;
-            case "wed":
-                // fallthrough
-            case "wednesday":
-                cal.set(Calendar.DAY_OF_WEEK, Calendar.WEDNESDAY);
-                break;
-            case "thur":
-                // fallthrough
-            case "thursday":
-                cal.set(Calendar.DAY_OF_WEEK, Calendar.THURSDAY);
-                break;
-            case "fri":
-                // fallthrough
-            case "friday":
-                cal.set(Calendar.DAY_OF_WEEK, Calendar.FRIDAY);
-                break;
-            case "sat":
-                // fallthrough
-            case "saturday":
-                cal.set(Calendar.DAY_OF_WEEK, Calendar.SATURDAY);
-                break;
-            case "sun":
-                // fallthrough
-            case "sunday":
-                cal.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
-                break;
-            }
-            if (cal.getTime().before(today.getTime())) {
-                cal.add(Calendar.DATE, INCREASE_DATE_BY_SEVEN_DAYS);
-            }
-            date = df.format(cal.getTime());
+        try {
+        if (TODAY_OR_TOMORROW.matcher(date).find() || DAYS_IN_FULL.matcher(date).find() || DAYS_IN_SHORT.matcher(date).find()) {
+            date = TaskDate.formatDayToDate(date);
+        } else {
+            date = TaskDate.formatDatetoStandardDate(date);
         }
         return new FreeTimeCommand(date);
+        } catch (ParseException e) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FreeTimeCommand.MESSAGE_USAGE));
+        } catch (IllegalValueException ie) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FreeTimeCommand.MESSAGE_USAGE));
+        }
     }
 
     private Command preparePinCommand(String args) {

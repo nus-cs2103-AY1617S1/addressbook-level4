@@ -162,8 +162,7 @@ public class TaskTime {
      * corresponding format and passes to the method isValidTimeSeq upon finding
      * a match
      * 
-     * @param reqTime
-     *            is the user inputTime
+     * @param reqTime is the user inputTime
      * @return true if the userInput time is valid, else false
      */
     public boolean isValidTime(String reqTime) {
@@ -183,10 +182,8 @@ public class TaskTime {
     /**
      * Checks if given time given by the user is valid
      * 
-     * @param reqTime
-     *            is the time input by the user
-     * @param format
-     *            is the format that matches the reqTime's format
+     * @param reqTime is the time input by the user
+     * @param format    is the format that matches the reqTime's format
      * @return true if the format is valid, else false
      */
     public boolean isValidTimeSeq(String reqTime, String format) {

@@ -138,7 +138,6 @@ public class ModelManager extends ComponentManager implements Model {
     public ModelManager() {
         this(new WhatNow(), new UserPrefs());
     }
-
    
     public ModelManager(ReadOnlyWhatNow initialData, UserPrefs userPrefs) {
         whatNow = new WhatNow(initialData);
@@ -204,6 +203,7 @@ public class ModelManager extends ComponentManager implements Model {
     //@@author A0139772U-reused
     /** Raises an event to indicate the model has changed */
     private void indicateWhatNowChanged() {
+        updateFilteredScheduleListToShowAllOverdue();
         raise(new WhatNowChangedEvent(whatNow));
     }
 
@@ -445,9 +445,6 @@ public class ModelManager extends ComponentManager implements Model {
         while(!getNewNextTask().isEmpty()) {
             getNewNextTask().pop();
         }
-//        while(!stackOfWhatNow.isEmpty()) {
-//            stackOfWhatNow.pop();
-//        }
         while(!getDeletedStackOfTasksRedo().isEmpty()) {
             getDeletedStackOfTasksRedo().pop();
         }
@@ -726,10 +723,10 @@ public class ModelManager extends ComponentManager implements Model {
                 String dateString = getDate(p);
                 String timeString = getTime(p);
                 Date date = df.parse(dateString);
-                Date time = df.parse(timeString);
+                Date time = tf.parse(timeString);
                 if ((p.getTaskType().equals((TASK_TYPE_NOT_FLOATING)) && (p.getStatus().equals(TASK_STATUS_INCOMPLETE)
                         && date.before(today)
-                        && time.before(currentTime)))) {
+                        ||(date.equals(today) && time.before(currentTime))))) {
                     return true;
                 } else {
                     return false;
