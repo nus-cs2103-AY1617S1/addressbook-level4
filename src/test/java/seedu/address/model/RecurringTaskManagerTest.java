@@ -132,13 +132,9 @@ public class RecurringTaskManagerTest {
     }
     
     private void assert_updateRecurringTask(TestTask tryAppend, String dateToAppendTask) {
-        recurringManager.attemptAppendRecurringTask(tryAppend, 
-                helper.getLastAppendedStartDate(tryAppend), helper.getLastAppendedEndDate(tryAppend), 
-                helper.getLocalDateByString("2016-10-11"));
+        recurringManager.attemptAppendRecurringTask(tryAppend, helper.getLocalDateByString("2016-10-11"));
         assertEquals("Recurring tasks should not append until their date has been elapsed", tryAppend.getTaskDateComponent().size(), 1);
-        recurringManager.attemptAppendRecurringTask(tryAppend, 
-                helper.getLastAppendedStartDate(tryAppend), helper.getLastAppendedEndDate(tryAppend), 
-                helper.getLocalDateByString(dateToAppendTask));
+        recurringManager.attemptAppendRecurringTask(tryAppend, helper.getLocalDateByString(dateToAppendTask));
         assertEquals("Recurring tasks should be appended when it is time", tryAppend.getTaskDateComponent().size(), 2);                
     }        
 

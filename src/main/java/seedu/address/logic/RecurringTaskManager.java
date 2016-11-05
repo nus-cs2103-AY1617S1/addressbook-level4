@@ -2,14 +2,11 @@ package seedu.address.logic;
 
 import java.time.LocalDate;
 import java.util.Calendar;
-import java.util.GregorianCalendar;
-import java.util.List;
 import java.util.logging.Logger;
 
 import seedu.address.MainApp;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.util.CollectionUtil;
-import seedu.address.logic.util.DateFormatterUtil;
 import seedu.address.logic.util.RecurringTaskUtil;
 import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.RecurringType;
@@ -19,7 +16,7 @@ import seedu.address.model.task.UniqueTaskList;
 
 //@@author A0135782Y
 /**
- * Handles the behaviour of recurring tasks Dictates when should the recurring
+ * Handles the behavior of recurring tasks Dictates when should the recurring
  * tasks be shown.
  * This class is using a singleton pattern. 
  * Use RecurringTaskManager.getInstance() to get the instance of the class
@@ -68,23 +65,47 @@ public class RecurringTaskManager {
     }    
     
     /**
-     * Attempts to append a recurring task occurrence if 
+     * Attempts to append a recurring task occurrence to the task if it is possible
      * 
-     * @param task
-     * @param currentDate
+     * @param task Recurring Task to be considered, cannot be null
+     * @param currentDate The current date as aLocalDate object.
      */
     public void attemptAppendRecurringTask(ReadOnlyTask task, LocalDate currentDate) {
-        Calendar startDate = new GregorianCalendar();
-        Calendar endDate = new GregorianCalendar();
-
         TaskOccurrence lastAddedComponent = task.getLastAppendedComponent();
-        startDate.setTime(lastAddedComponent.getStartDate().getDate());
-        endDate.setTime(lastAddedComponent.getEndDate().getDate());
+        Calendar startDate = RecurringTaskUtil.getStartCalendar(lastAddedComponent);
+        Calendar endDate = RecurringTaskUtil.getEndCalendar(lastAddedComponent);        
+        attemptAppendRecurringTask((Task) task, startDate, endDate, currentDate);        
+    }
 
-        if (!lastAddedComponent.getStartDate().isValid()) {
-            startDate = null;
-        }
-        attemptAppendRecurringTask(task, startDate, endDate, currentDate);        
+    /**
+     * Helper method to append a recurring task occurrence to the task if it is possible
+     * Appends a recurring task if there is an elapsed period.
+     * 
+     * @param task Recurring Task to be considered, cannot be null
+     * @param currentDate The current date as aLocalDate object.
+     */    
+    private void attemptAppendRecurringTask(Task task, Calendar startDate, Calendar endDate, LocalDate localDateCurrently) {
+        LocalDate startDateInLocalDate = RecurringTaskUtil.getStartLocalDate(task.getLastAppendedComponent());
+        LocalDate endDateInLocalDate = RecurringTaskUtil.getEndLocalDate(task.getLastAppendedComponent());
+        final int elapsedPeriod = RecurringTaskUtil.getNumElapsedTaskToAppend(localDateCurrently, startDateInLocalDate, endDateInLocalDate, task.getRecurringType());
+        for (int i = 0; i < elapsedPeriod; i++) {
+            if (handleRecurringPeriod(task)) {
+                break;
+            }
+            appendRecurringTask(task, startDate, endDate);
+        }        
+    }    
+    
+    /**
+     * Appends the recurring task with a recurring task occurrence.
+     * Mutates the repeatingTasks list with the new task occurrence that is appended.
+     * 
+     * @param task Task which we are appending a new task occurrence to.
+     * @param startDate Start date of the last appended task occurrence
+     * @param endDate End date of the last appended task occurence
+     */
+    private void appendRecurringTask(Task task, Calendar startDate, Calendar endDate) {
+        RecurringTaskUtil.appendRecurringTask(task, startDate, endDate, repeatingTasks, task.getRecurringType());
     }
     
     /**
@@ -112,11 +133,8 @@ public class RecurringTaskManager {
             return;
         }
         LocalDate localDateCurrently = currentDate;
-        LocalDate startDateInLocalDate = null;
-        if (!task.getLastAppendedComponent().hasOnlyEndDate()) {
-            startDateInLocalDate = DateFormatterUtil.dateToLocalDate(task.getLastAppendedComponent().getStartDate().getDate());
-        }
-        LocalDate endDateInLocalDate = DateFormatterUtil.dateToLocalDate(task.getLastAppendedComponent().getEndDate().getDate());
+        LocalDate startDateInLocalDate = RecurringTaskUtil.getStartLocalDate(task.getLastAppendedComponent());
+        LocalDate endDateInLocalDate = RecurringTaskUtil.getEndLocalDate(task.getLastAppendedComponent());
         attemptCorrectRecurringTask(task, localDateCurrently, startDateInLocalDate, endDateInLocalDate);
     }
     
@@ -140,22 +158,11 @@ public class RecurringTaskManager {
     }
 
     /**
-     * Appends new task when the it is time to add the recurring task. Recurring
-     * tasks that pass their recurring dates will be appended to show the next
-     * task date.
+     * Helper method to handle the recurring period of a recurring task.
+     * 
+     * @param task Recurring task with or without a recurring period.
+     * @return True if there is no longer any recurring period left
      */
-    public void attemptAppendRecurringTask(ReadOnlyTask task, Calendar startDate, Calendar endDate, LocalDate currentDate) {
-        assert !CollectionUtil.isAnyNull(task, endDate, currentDate);
-        LocalDate localDateCurrently = currentDate;
-        LocalDate startDateInLocalDate = null;
-        if (startDate != null) {
-            startDateInLocalDate = DateFormatterUtil.dateToLocalDate(startDate.getTime());
-        }
-        LocalDate endDateInLocalDate = DateFormatterUtil.dateToLocalDate(endDate.getTime());
-        attemptAppendRecurringTask((Task) task, startDate, endDate, localDateCurrently,
-                startDateInLocalDate, endDateInLocalDate);
-    }
-
     private boolean handleRecurringPeriod(Task task) {
         if (task.getRecurringPeriod() == NO_MORE_RECURRING_PERIOD) {
             return true;   
@@ -163,48 +170,49 @@ public class RecurringTaskManager {
         task.decrementRecurringPeriod();
         return false;
     }
-
-    private void attemptAppendRecurringTask(Task task, Calendar startDate, Calendar endDate,
-            LocalDate localDateCurrently, LocalDate startDateInLocalDate, LocalDate endDateInLocalDate) {
-        final int elapsedPeriod = RecurringTaskUtil.getNumElapsedTaskToAppend(localDateCurrently, startDateInLocalDate, endDateInLocalDate, task.getRecurringType());
-        for (int i = 0; i < elapsedPeriod; i++) {
-            if (handleRecurringPeriod(task)) {
-                break;
-            }
-            appendRecurringTask(task, startDate, endDate);
-        }        
-    }
     
-    private void appendRecurringTask(Task task, Calendar startDate, Calendar endDate) {
-        RecurringTaskUtil.appendRecurringTask(task, startDate, endDate, repeatingTasks, task.getRecurringType());
-    }
-    
+    /**
+     * Update recurring tasks after it has been updated.
+     * Recurring tasks with recurring period decremented to zero will be ignored.
+     * Recurring tasks without recurring period will be updated to the next available slot.
+     * 
+     * @param target Task Occurrence of the task that we have just archived
+     */
     public void updateRecurringTasks(TaskOccurrence target) {
         Task taskDesc = (Task) target.getTaskReference();
         if (taskDesc.getRecurringType().equals(RecurringType.NONE)
                 || taskDesc.getRecurringPeriod() == NO_MORE_RECURRING_PERIOD) {
             return;
         }
-        appendRecurringTask(target, taskDesc);
+        Calendar startDate = RecurringTaskUtil.getStartCalendar(target);
+        Calendar endDate = RecurringTaskUtil.getEndCalendar(target);
+        appendRecurringTask(taskDesc, startDate, endDate);
     }
     
+    /**
+     * Appends recurring tasks based on its recurring period.
+     * A recurring tasks with x recurring period will be appended with x-1 additional task occurrences.
+     * 
+     * @param task Recurring task with recurring period.
+     */
     private void appendRecurringTaskWithPeriod(Task task) {
         TaskOccurrence occurrence = task.getLastAppendedComponent();
         if (task.getRecurringType().equals(RecurringType.NONE)
                 || task.getRecurringPeriod() == Task.NO_RECURRING_PERIOD) {
             return;
         }
-        appendRecurringTask(occurrence, task);
+        appendMultipleTaskOccurences(task);
     }
 
-    private void appendRecurringTask(TaskOccurrence target, Task taskDesc) {
-        Calendar startDate = new GregorianCalendar();
-        Calendar endDate = new GregorianCalendar();
-        startDate.setTime(target.getStartDate().getDate());
-        endDate.setTime(target.getEndDate().getDate());
-        if (!target.getStartDate().isValid()) {
-            startDate = null;
-        }
+    /**
+     * Appends multiple task occurrences for recurring task with recurrinc period.
+     * 
+     * @param taskDesc Recurring tasks with recurring period.
+     */
+    private void appendMultipleTaskOccurences(Task taskDesc) {
+        TaskOccurrence target = taskDesc.getLastAppendedComponent();
+        Calendar startDate = RecurringTaskUtil.getStartCalendar(target);
+        Calendar endDate = RecurringTaskUtil.getEndCalendar(target );
         while(taskDesc.getRecurringPeriod() != NO_MORE_RECURRING_PERIOD) {
             appendRecurringTask((Task) taskDesc, startDate, endDate);
             if (taskDesc.getRecurringPeriod()  == Task.NO_RECURRING_PERIOD) {
@@ -219,6 +227,11 @@ public class RecurringTaskManager {
         } 
     }
 
+    /**
+     * Handles the adding of a task in ModelManager
+     * 
+     * @param task A Task does not need to be recurring
+     */
     public void addTask(Task task) {
         if (!isTestMode) {
             correctOverdueNonRepeatingTasks(task);
@@ -226,6 +239,12 @@ public class RecurringTaskManager {
         appendRecurringTaskWithPeriod(task);        
     }
     
+    /**
+     * Set the mode of recurring manager. 
+     * If isTestMode set to true, recurring manager will not correct recurring tasks for testing purpose.
+     * 
+     * @param isTestMode If recurring task manager is being tested
+     */
     public void setTestMode(boolean isTestMode) {
         this.isTestMode = isTestMode;
     }

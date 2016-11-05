@@ -3,6 +3,7 @@ package seedu.address.logic.util;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.RecurringType;
@@ -12,7 +13,7 @@ import seedu.address.model.task.TaskOccurrence;
 import seedu.address.model.task.UniqueTaskList;
 
 /**
- * Appends and corrects Recurring Tasks based on their recurring type.
+ * General utility class for recurring task manager
  */
 public class RecurringTaskUtil {
     private static final int INDEPTH_CHECK_REQUIRED = 0;
@@ -74,9 +75,8 @@ public class RecurringTaskUtil {
             correctCalendarByElapsed(calendar, elapsedPeriod, recurringType);
             correctedStartDate.setDateInLong(calendar.getTime().getTime());
         } else {
-            correctedStartDate.setDateInLong((new TaskDate()).getDateInLong());
+            correctedStartDate.setDateInLong(TaskDate.DATE_NOT_PRESENT);
         }
-
         calendar.setTime(endDate.getDate());
         correctCalendarByElapsed(calendar, elapsedPeriod, recurringType);
         correctedEndDate.setDateInLong(calendar.getTime().getTime());
@@ -227,7 +227,8 @@ public class RecurringTaskUtil {
      * @param recurringType Recurring type of the task.
      * @return The number of elapsed unit.
      */
-    private static int getNumElapsedByRecurringType(LocalDate localDateCurrently, LocalDate startDateInLocalDate, LocalDate endDateInLocalDate, RecurringType recurringType) {
+    private static int getNumElapsedByRecurringType(LocalDate localDateCurrently,
+            LocalDate startDateInLocalDate, LocalDate endDateInLocalDate, RecurringType recurringType) {
         final int elapsed;
         switch (recurringType) {
             case DAILY:
@@ -263,5 +264,55 @@ public class RecurringTaskUtil {
                 assert false : "Recurring Type must not be NONE";
         }
         return elapsed;
+    }
+
+    /**
+     * Gets the start date as a Calendar object.
+     * 
+     * @param target Cannot be null
+     * @return null if there is no start date in target
+     */
+    public static Calendar getStartCalendar(TaskOccurrence target) {
+        if (!target.getStartDate().isValid()) {
+            return null;
+        }
+        Calendar startDate = new GregorianCalendar();
+        startDate.setTime(target.getStartDate().getDate());
+        return startDate;
+    }
+
+    /**
+     * Gets the end date as a Calendar object.
+     * 
+     * @param target Cannot be null
+     * @return end date of target as Calendar object.
+     */    
+    public static Calendar getEndCalendar(TaskOccurrence target) {
+        Calendar endDate = new GregorianCalendar();
+        endDate.setTime(target.getEndDate().getDate());
+        return endDate;
+    }
+
+    /**
+     * Gets the start date as a LocalDate object.
+     * 
+     * @param target Cannot be null
+     * @return null if there is no start date in target
+     */
+    public static LocalDate getStartLocalDate(TaskOccurrence target) {
+        if (target.hasOnlyEndDate()) {
+            return null;
+        }
+        return DateFormatterUtil.dateToLocalDate(target.getStartDate().getDate());
+    }
+
+    /**
+     * Gets the end date as a LocalDate object.
+     * 
+     * @param target Cannot be null
+     * @return end date of target as LocalDate object.
+     */        
+    public static LocalDate getEndLocalDate(TaskOccurrence target) {
+        return DateFormatterUtil.dateToLocalDate(target.getEndDate().getDate());
     }
 }
