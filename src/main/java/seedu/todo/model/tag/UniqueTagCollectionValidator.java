@@ -113,6 +113,7 @@ public class UniqueTagCollectionValidator {
         validateTagNamesDoNotExist(tagCollection.getUniqueTagList(), newName);
         validateIllegalNameChar(newName);
         validateNameCharLimit(newName);
+        validateTagNameMissing(oldName, newName);
     }
 
     /* Parameter Validation Helper */
@@ -213,12 +214,6 @@ public class UniqueTagCollectionValidator {
             errorBag.put(parameterName, ERROR_TAGS_EMPTY);
         }
     }
-    
-    private List<String> toLowerCaseList(String... tagNames) {
-        return Arrays.stream(tagNames)
-            .map(String::toLowerCase)
-            .collect(Collectors.toCollection(ArrayList::new));
-    }
 
     /* Private Helper Methods */
     /**
@@ -229,9 +224,18 @@ public class UniqueTagCollectionValidator {
         return TAG_VALIDATION_REGEX.matcher(test).matches();
     }
 
+    /**
+     * Returns a list of tag names in lower case.
+     */
+    private static List<String> toLowerCaseList(String... tagNames) {
+        return Arrays.stream(tagNames)
+                .map(String::toLowerCase)
+                .collect(Collectors.toCollection(ArrayList::new));
+    }
+
     /* Public Helper Methods */
     /**
-     * Abstracts the series of steps for performing data validation.
+     * Automates the process for performing data validation.
      *
      * @param actionName Name of the Command action
      * @param consumer The method call that performs the actual validation.
