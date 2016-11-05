@@ -211,6 +211,8 @@ Given below is the Sequence Diagram for interactions within the `Logic` componen
 * is recursively serialized to disk - hence object-to-object dynamic references should not be expected to survive serialization/deserialization 
 <!--- @@author -->
 
+
+<!--- @@author A0093907W -->
 ### Storage component
 
 <img src="images/StorageClassDiagram.png" width="800"><br>
@@ -218,8 +220,16 @@ Given below is the Sequence Diagram for interactions within the `Logic` componen
 **API** : [`Storage.java`](../src/main/java/seedu/todo/storage/Storage.java)
 
 The `Storage` component,
-* can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in xml format and read it back.
+* holds the logic for saving and loading the TodoListDB from disk
+* maintains the required information to undo/redo the state of the TodoListDB in steps. One step represents the changes made in a single atomic transaction
+* will discard all redo information the moment a new operation (i.e. not `redo`) is committed
+
+*Some notes on the `JsonStorage` implementation of `Storage`*:
+* The undo/redo information is stored using a stack of memory-efficient diffs containing the required patches to the data. When we undo, we construct a diff in the opposite direction so that we can redo.
+* Average case time complexity for an undo/redo operation is constant with undo/redo history, linear with DB size.
+* The space complexity of the undo/redo operation is constant with the DB size (this is the reason we are able to support up to 1000 undo/redos even though Jim likely isn't that much of a keyboard warrior).
+<!--- @@author -->
+
 
 ### Common classes
 
