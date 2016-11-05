@@ -13,7 +13,6 @@ import seedu.taskitty.commons.events.model.TaskManagerChangedEvent;
 import seedu.taskitty.commons.events.model.ViewTypeChangedEvent;
 import seedu.taskitty.commons.util.DateTimeUtil;
 import seedu.taskitty.commons.util.FxViewUtil;
-import seedu.taskitty.logic.commands.ViewCommand;
 
 import java.util.Date;
 import java.util.logging.Logger;
