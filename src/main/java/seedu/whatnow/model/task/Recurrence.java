@@ -317,14 +317,10 @@ public class Recurrence {
         if (this.period.equals(DAILY)) {
             if (this.taskDate != null) {
                 this.taskDate = getNextDay(this.taskDate);
-            } else if (this.startDate != null) {
-                //What to do when there is a start and end date and it is recurring daily?
             }
         } else if (this.period.equals(WEEKLY)) {
             if (this.taskDate != null) {
                 this.taskDate = getNextWeek(this.taskDate);
-            } else if (this.startDate != null) {
-                //What to do when there is a start and end date and it is recurring daily?
             }
         } else if (this.period.equals(MONTHLY)) {
             if (this.taskDate != null) {

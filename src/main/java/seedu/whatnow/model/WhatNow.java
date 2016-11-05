@@ -21,8 +21,6 @@ public class WhatNow implements ReadOnlyWhatNow {
 
     private final UniqueTaskList tasks;
     private final UniqueTagList tags;
-    private UniqueTaskList backUpTasks;
-    private UniqueTagList backUpTags;
     {
         tasks = new UniqueTaskList();
         tags = new UniqueTagList();

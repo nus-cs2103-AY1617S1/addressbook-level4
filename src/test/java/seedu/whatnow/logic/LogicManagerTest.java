@@ -52,18 +52,8 @@ public class LogicManagerTest {
     private int targetedJumpIndex;
 
     @Subscribe
-    private void handleLocalModelChangedEvent(WhatNowChangedEvent abce) {
-        latestSavedWhatNow = new WhatNow(abce.data);
-    }
-
-    @Subscribe
     private void handleShowHelpRequestEvent(ShowHelpRequestEvent she) {
         helpShown = true;
-    }
-
-    @Subscribe
-    private void handleJumpToListRequestEvent(JumpToListRequestEvent je) {
-        targetedJumpIndex = je.targetIndex;
     }
 
     @Before
