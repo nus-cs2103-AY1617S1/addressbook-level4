@@ -11,7 +11,6 @@ import seedu.tasklist.commons.events.model.TaskCountersChangedEvent;
 import seedu.tasklist.commons.events.model.TaskListChangedEvent;
 import seedu.tasklist.commons.events.model.TaskModifiedEvent;
 import seedu.tasklist.commons.exceptions.IllegalValueException;
-import seedu.tasklist.commons.util.RecurringUtil;
 import seedu.tasklist.logic.commands.UndoCommand;
 import seedu.tasklist.model.task.EndTime;
 import seedu.tasklist.model.task.Priority;
@@ -439,9 +438,9 @@ public class ModelManager extends ComponentManager implements Model {
 		public boolean run(ReadOnlyTask person) {
 		    
 		    if (person.isRecurring()) {
-		        return (RecurringUtil.recurringMatchesRequestedDate(person.getStartTime().time, person.getRecurringFrequency(), requestedTime)
+		        return (person.recurringMatchesRequestedDate(person.getStartTime().time, person.getRecurringFrequency(), requestedTime)
 		                || (person.getStartTime().isMissing()
-		                        && RecurringUtil.recurringMatchesRequestedDate(person.getEndTime().time, person.getRecurringFrequency(), requestedTime)));
+		                        && person.recurringMatchesRequestedDate(person.getEndTime().time, person.getRecurringFrequency(), requestedTime)));
 		    }
 		    
 			return DateUtils.isSameDay(person.getStartTime().time, requestedTime)
