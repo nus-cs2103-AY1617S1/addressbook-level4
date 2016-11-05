@@ -46,7 +46,7 @@ public class DeleteTaskCommand extends TaskCommand {
 
 	        try {
 	            model.deleteTask(taskToDelete);
-	            EventsCenter.getInstance().post(new HideHelpRequestEvent());
+	            closeHelpWindow();
 	            if(lastShownList.size() == 0) {
 	                model.clearTasksFilter();
 	            }

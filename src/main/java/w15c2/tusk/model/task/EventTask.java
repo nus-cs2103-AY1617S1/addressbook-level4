@@ -8,7 +8,7 @@ import w15c2.tusk.commons.util.DateUtil;
  * An EventTask is a task that holds a start date and an end date
  */
 //@@author A0139817U
-public class EventTask extends Task implements PinnableTask, CompletableTask {
+public class EventTask extends Task {
 
 	private Date startDate;
 	private Date endDate;

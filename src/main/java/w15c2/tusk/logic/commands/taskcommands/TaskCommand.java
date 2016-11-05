@@ -2,6 +2,7 @@ package w15c2.tusk.logic.commands.taskcommands;
 
 import w15c2.tusk.commons.core.EventsCenter;
 import w15c2.tusk.commons.core.Messages;
+import w15c2.tusk.commons.events.ui.HideHelpRequestEvent;
 import w15c2.tusk.commons.events.ui.IncorrectTaskCommandAttemptedEvent;
 import w15c2.tusk.logic.commands.CommandResult;
 import w15c2.tusk.model.Model;
@@ -37,6 +38,13 @@ public abstract class TaskCommand {
      */
     public void setData(Model model) {
         this.model = model;
+    }
+    
+    /*
+     * Raises an event to close the help window
+     */
+    protected void closeHelpWindow() {
+        EventsCenter.getInstance().post(new HideHelpRequestEvent());
     }
 
     /**

@@ -20,6 +20,11 @@ public class Description {
 	}
 	
 	@Override
+	public boolean equals(Object other) {
+	    return this.toString().equals(other.toString());
+	}
+	
+	@Override
 	public String toString() {
 		return getContent();
 	}

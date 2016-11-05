@@ -1,5 +1,7 @@
 package w15c2.tusk.logic.commands.taskcommands;
 
+import w15c2.tusk.commons.core.EventsCenter;
+import w15c2.tusk.commons.events.ui.HideHelpRequestEvent;
 import w15c2.tusk.logic.commands.CommandResult;
 
 /**
@@ -25,6 +27,7 @@ public class RedoTaskCommand extends TaskCommand {
     	} catch (IllegalStateException ise) {
     		return new CommandResult(MESSAGE_REDO_INVALID_STATE);
     	}
+    	closeHelpWindow();
     	return new CommandResult(MESSAGE_REDO_TASK_SUCCESS);
     }
     

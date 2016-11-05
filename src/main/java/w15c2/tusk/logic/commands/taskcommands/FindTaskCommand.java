@@ -32,7 +32,7 @@ public class FindTaskCommand extends TaskCommand {
         @Override
         public CommandResult execute() {
             model.filterTasks(keywords);
-            EventsCenter.getInstance().post(new HideHelpRequestEvent());
+            closeHelpWindow();
             return new CommandResult(getMessageForTaskListShownSummary(model.getCurrentFilteredTasks().size()));
         }
         

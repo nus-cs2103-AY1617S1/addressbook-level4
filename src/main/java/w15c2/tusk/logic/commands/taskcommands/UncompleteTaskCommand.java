@@ -46,7 +46,7 @@ public class UncompleteTaskCommand extends TaskCommand {
 
         Task taskToUncomplete = lastShownList.get(targetIndex - 1);
         if(taskToUncomplete.isCompleted()){
-            EventsCenter.getInstance().post(new HideHelpRequestEvent());
+            closeHelpWindow();
         	model.uncompleteTask(taskToUncomplete);
         	model.refreshTasksFilter();
         	return new CommandResult(String.format(MESSAGE_UNCOMPLETE_TASK_SUCCESS, taskToUncomplete));

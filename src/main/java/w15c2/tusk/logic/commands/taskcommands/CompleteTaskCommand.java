@@ -46,7 +46,7 @@ public class CompleteTaskCommand extends TaskCommand {
 
         Task taskToComplete = lastShownList.get(targetIndex - 1);
         if(!taskToComplete.isCompleted()){
-            EventsCenter.getInstance().post(new HideHelpRequestEvent());
+            closeHelpWindow();
         	model.completeTask(taskToComplete);
         	model.refreshTasksFilter();
         	return new CommandResult(String.format(MESSAGE_COMPLETE_TASK_SUCCESS, taskToComplete));
