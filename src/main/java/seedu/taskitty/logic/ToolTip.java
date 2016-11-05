@@ -13,7 +13,7 @@ public class ToolTip {
     public static final String TOOLTIP_DELIMITER = " | ";
     
     private static final int COMMAND_WORD_POSITION = 0;
-    private static final String COMMAND_WORD_DELIMITER = " ";
+    private static final String COMMAND_WORD_DELIMITER = "\\s+";
 
     private static final int COMMAND_WORD_COUNT_NO_MATCH = 0;
     private static final int COMMAND_WORD_COUNT_SINGLE_MATCH = 1;
@@ -52,8 +52,8 @@ public class ToolTip {
      */
     public void createToolTip(String input) {
         clearToolTip();
-        String[] splitedInput = input.split(COMMAND_WORD_DELIMITER);
-
+        String[] splitedInput = input.trim().split(COMMAND_WORD_DELIMITER);
+        
         // only interested in the first word, which is the command word
         String command = splitedInput[COMMAND_WORD_POSITION];
 
