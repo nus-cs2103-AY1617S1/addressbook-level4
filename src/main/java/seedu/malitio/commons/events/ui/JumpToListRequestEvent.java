@@ -1,7 +1,7 @@
 package seedu.malitio.commons.events.ui;
 
 import seedu.malitio.commons.events.BaseEvent;
-
+//@@author A0129595N
 public class JumpToListRequestEvent extends BaseEvent{
 
     public final int targetIndex;

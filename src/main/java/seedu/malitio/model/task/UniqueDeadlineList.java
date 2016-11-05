@@ -99,6 +99,17 @@ public class UniqueDeadlineList implements Iterable<Deadline> {
         internalList.add(toAdd);
     }
 
+    /**
+     * Edits the specified deadline by deleting and re-adding of the edited
+     * (changed) deadline
+     * 
+     * @param edited
+     *            the edited deadline
+     * @param beforeEdit
+     *            the original deadline
+     * @throws DuplicateDeadlineException
+     * @throws DeadlineNotFoundException
+     */
     public void edit(Deadline edited, ReadOnlyDeadline beforeEdit)
             throws DuplicateDeadlineException, DeadlineNotFoundException {
         assert edited != null;

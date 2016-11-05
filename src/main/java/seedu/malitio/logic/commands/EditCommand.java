@@ -63,26 +63,32 @@ public class EditCommand extends Command{
     
     private UniqueTagList tags;
     
+    /**
+     * Process arguments by extracting out relevant details to change
+     */
     public EditCommand(char taskType, int targetIndex, String name, String due, String start, String end, Set<String> newTags) 
             throws IllegalValueException {
         assert validArgTask(taskType, name, due, start, end, newTags) ;
         this.taskType = taskType;
         this.targetIndex = targetIndex;
-        if (notEmptyString(name)) {
+        if (!name.equals("")) {
             this.name = new Name(name);
         }
-        if (notEmptyString(due)) {
+        if (!due.equals("")) {
             this.due = new DateTime(due);
         }
-        if (notEmptyString(start)) {
+        if (!start.equals("")) {
             this.start = new DateTime(start);
         }
-        if (notEmptyString(end)) {
+        if (!end.equals("")) {
             this.end = new DateTime(end);
         }
         this.tags = processTags(newTags);
     }
     
+    /**
+     * Executes the command. It will clear the future stack so that no redo can be done after execution.
+     */
     @Override
     public CommandResult execute() {
         UnmodifiableObservableList lastShownList;
@@ -99,20 +105,17 @@ public class EditCommand extends Command{
             fillInTheGaps(taskToEdit);
             constructEditedTask();
             model.editTask(editedTask, taskToEdit);
-        } catch (FloatingTaskNotFoundException pnfe) {
-            assert false : "The target task cannot be missing";
+            model.getFuture().clear();
         } catch (UniqueFloatingTaskList.DuplicateFloatingTaskException e) {
             return new CommandResult(MESSAGE_DUPLICATE_TASK);
-        } catch (DeadlineNotFoundException pnfe) {
-            assert false : "The target deadline cannot be missing";
         } catch (UniqueDeadlineList.DuplicateDeadlineException e) {
             return new CommandResult(MESSAGE_DUPLICATE_DEADLINE);
-        } catch (EventNotFoundException pnfe) {
-            assert false : "The target event cannot be missing";
         } catch (DuplicateEventException e) {
             return new CommandResult(MESSAGE_DUPLICATE_EVENT);
         } catch (IllegalValueException e) {
             return new CommandResult(MESSAGE_INVALID_EVENT);
+        } catch (FloatingTaskNotFoundException | DeadlineNotFoundException | EventNotFoundException e) {
+            assert false : "not possible";
         }
         return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, taskToEdit, editedTask));
     }
@@ -167,11 +170,13 @@ public class EditCommand extends Command{
     private boolean validArgTask(char taskType, String name, String due, String start, String end,
             Set<String> newTags) {
         if (taskType == 'f') {
-            return (notEmptyString(name) || !newTags.isEmpty()) && start.equals("") && end.equals("") && due.equals("");
+            return (!name.equals("") || !newTags.isEmpty()) && start.equals("") && end.equals("") && due.equals("");
         } else if (taskType == 'd') {
-            return (notEmptyString(name) || notEmptyString(due) || !newTags.isEmpty()) && start.equals("") && end.equals("");
+            return (!name.equals("") || !due.equals("") || !newTags.isEmpty()) && start.equals("")
+                    && end.equals("");
         } else {
-            return (notEmptyString(name) || notEmptyString(start) || notEmptyString(end) || !newTags.isEmpty()) && due.equals("");
+            return (!name.equals("") || !start.equals("") || !end.equals("") || !newTags.isEmpty())
+                    && due.equals("");
         }
     }
     
@@ -183,10 +188,6 @@ public class EditCommand extends Command{
         return taskToEdit instanceof ReadOnlyFloatingTask;
     }
     
-    private boolean notEmptyString(String name) {
-        return !name.equals("");
-    }
-        
     /**
      * processTags return a UniqueTagList of tags or returns null if no tags were entered.
      * @param newTags

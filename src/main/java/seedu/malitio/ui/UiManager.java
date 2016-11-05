@@ -112,6 +112,7 @@ public class UiManager extends ComponentManager implements Ui {
         mainWindow.handleHelp();
     }
 
+    //@@author A0129595N
     @Subscribe
     private void handleTaskPanelSelectionChangedEvent(TaskPanelSelectionChangedEvent event){
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
@@ -135,7 +136,7 @@ public class UiManager extends ComponentManager implements Ui {
         mainWindow.getTaskListPanel().getTaskListView().getSelectionModel().clearSelection();
         mainWindow.getDeadlineListPanel().getDeadlineListView().getSelectionModel().clearSelection();
     }
-    //@@author A0129595N
+
     @Subscribe
     private void handleJumpToTaskListRequestEvent(JumpToListRequestEvent event) {
         String taskType = event.typeOfTask;

@@ -24,13 +24,13 @@ public class Deadline implements ReadOnlyDeadline{
 		this.marked = false;
 	}
 	
-	public Deadline(Name name, DateTime due, boolean completed, boolean marked, UniqueTagList tags) {
-		this.name = name;
-		this.due = due;
-		this.completed = completed;
-		this.marked = marked;
-		this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
-	}
+    public Deadline(Name name, DateTime due, boolean completed, boolean marked, UniqueTagList tags) {
+        this.name = name;
+        this.due = due;
+        this.completed = completed;
+        this.marked = marked;
+        this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
+    }
 	
     /**
      * Copy constructor.

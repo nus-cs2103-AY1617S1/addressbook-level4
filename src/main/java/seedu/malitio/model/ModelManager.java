@@ -265,6 +265,10 @@ public class ModelManager extends ComponentManager implements Model {
     //@@author
     
     //@@author A0129595N
+    /**
+     * This method will post an event to indicate that a task has been added/modified.
+     * @param task the task which an action has been performed on it i.e. add/edit/mark/unmark/complete/uncomplete
+     */
     private void indicateTaskListChanged(Object task) {
         String taskType;
         int positionOfTask;

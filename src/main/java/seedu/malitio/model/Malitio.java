@@ -108,7 +108,7 @@ public class Malitio implements ReadOnlyMalitio {
     }
 
     //// task-level operations
-
+    //@@author A0129595N
     /**
      * Adds a task to Malitio. Also checks the new task's tags and updates
      * {@link #tags} with any new tags found, and updates the Tag objects in the
@@ -201,7 +201,7 @@ public class Malitio implements ReadOnlyMalitio {
     }
 
     /**
-     * Check for the correct task type andget tag list from it.
+     * Check for the correct task type and get tag list from it.
      * 
      * @param task
      *            task can be either FloatingTask, Deadline or Event

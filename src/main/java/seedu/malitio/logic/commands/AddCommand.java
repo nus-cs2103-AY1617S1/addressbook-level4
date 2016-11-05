@@ -87,7 +87,7 @@ public class AddCommand extends Command {
     }
     
     /**
-     * Executes the command. It will clear the future stack so that no redo can be done.
+     * Executes the command. It will clear the future stack so that no redo can be done after execution.
      */
     @Override
     public CommandResult execute() {

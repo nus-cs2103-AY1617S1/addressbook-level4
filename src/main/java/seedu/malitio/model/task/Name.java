@@ -1,7 +1,5 @@
 package seedu.malitio.model.task;
 
-import seedu.malitio.commons.exceptions.IllegalValueException;
-
 /**
  * Represents a Task's name in the Malitio.
  * Guarantees: immutable; is valid as declared in {@link #isValidName(String)}
