@@ -116,7 +116,7 @@ public class UpdateCommand extends Command {
 	}
 	
 	private String mutateToDate(Calendar cal){
-		SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yy HH:MM");
+		SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yy HH:mm");
 		return sdf.format(cal.getTime());
 	}
 	
