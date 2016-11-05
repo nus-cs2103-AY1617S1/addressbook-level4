@@ -11,8 +11,6 @@ import seedu.unburden.model.task.TaskDescription;
 import seedu.unburden.model.task.Time;
 import seedu.unburden.model.task.UniqueTaskList.*;
 
-//@@author A0139714B=======
-
 /*
  * Edits any field of the task
  */
@@ -190,8 +188,6 @@ public class EditCommand extends Command {
     			 throw new CannotHaveStartTimeLaterThanEndTimeException();
     		 }
     	 }
-    	 
     }
-    
 }
  
