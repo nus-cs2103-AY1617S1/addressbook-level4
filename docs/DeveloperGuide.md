@@ -50,7 +50,7 @@
 The **_Architecture Diagram_** given above explains the high-level design of the App.
 Given below is a quick overview of each component.
 
-`Main` has only one class called [`MainApp`](../src/main/java/seedu/address/MainApp.java). It is responsible for,
+`Main` has only one class called [`MainApp`](../src/main/java/seedu/todo/MainApp.java). It is responsible for,
 * At app launch: Initializes the components in the correct sequence, and connect them up with each other.
 * At shut down: Shuts down the components and invoke cleanup method where necessary.
 
@@ -106,7 +106,7 @@ The sections below give more details of each component.
 
 <img src="images/UiClassDiagram.png" width="800"><br>
 
-**API** : [`Ui.java`](../src/main/java/seedu/address/ui/Ui.java)
+**API** : [`Ui.java`](../src/main/java/seedu/todo/ui/Ui.java)
 
 The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `TaskListPanel`,
 `StatusBarFooter`, `BrowserPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class
@@ -114,7 +114,7 @@ and they can be loaded using the `UiPartLoader`.
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files
  that are in the `src/main/resources/view` folder.<br>
- For example, the layout of the [`MainWindow`](../src/main/java/seedu/address/ui/MainWindow.java) is specified in
+ For example, the layout of the [`MainWindow`](../src/main/java/seedu/todo/ui/MainWindow.java) is specified in
  [`MainWindow.fxml`](../src/main/resources/view/MainWindow.fxml)
 
 The `UI` component,
@@ -126,7 +126,7 @@ The `UI` component,
 
 <img src="images/LogicClassDiagram.png" width="800"><br>
 
-**API** : [`Logic.java`](../src/main/java/seedu/address/logic/Logic.java)
+**API** : [`Logic.java`](../src/main/java/seedu/todo/logic/Logic.java)
 
 1. `Logic` uses the `Parser` class to parse the user command.
 2. This results in a `Command` object which is executed by the `LogicManager`.
@@ -141,7 +141,7 @@ Given below is the Sequence Diagram for interactions within the `Logic` componen
 
 <img src="images/ModelClassDiagram.png" width="800"><br>
 
-**API** : [`Model.java`](../src/main/java/seedu/address/model/Model.java)
+**API** : [`Model.java`](../src/main/java/seedu/todo/model/Model.java)
 
 The `Model`,
 * stores a `UserPref` object that represents the user's preferences.
@@ -154,7 +154,7 @@ The `Model`,
 
 <img src="images/StorageClassDiagram.png" width="800"><br>
 
-**API** : [`Storage.java`](../src/main/java/seedu/address/storage/Storage.java)
+**API** : [`Storage.java`](../src/main/java/seedu/todo/storage/Storage.java)
 
 The `Storage` component,
 * can save `UserPref` objects in json format and read it back.
@@ -162,7 +162,7 @@ The `Storage` component,
 
 ### Common classes
 
-Classes used by multiple components are in the `seedu.addressbook.commons` package.
+Classes used by multiple components are in the `seedu.todo.commons` package.
 
 ## Implementation
 
@@ -287,65 +287,88 @@ Priority | As a ... | I want to ... | So that I can...
 
 (For all use cases below, the **System** is the `DoDo-Bird` and the **Actor** is the `user`, unless specified otherwise)
 
-#### Use case: Add a task
+#### Use case: UC01 - Add a task
 
 **MSS**
 
-1. User enter command to add a task
-2. DoDo-Bird displays information of the task and all empty fields
+1. User enter command to add a task with specified parameters
+2. System parses the command and adds the task with the specified parameters
+3. System saves the current data into storage
+4. System updates the GUI to indicate the newest task added and the latest saved time.
+
 Use case ends.
 
 **Extensions**
 
-2a. User adds a task with same name as an existing task
+1a. User adds a task with same parameters
 
-> DoDo-Bird shows an error message <br>
-  User case ends
+> 1a1. System shows an message that informs the user that a similar task already exist in the list.  <br>
+Use case resumes at step 1
 
-#### Use case: Delete task
+1b. User adds a task with invalid parameters
+
+> 1b1. System shows an message that informs the user which parameters are invalid <br>
+Use case resumes at step 1
+
+#### Use case: UC02 - Delete task
 
 **MSS**
 
 1. User requests to list tasks
-2. DoDo-Bird shows a list of tasks
+2. System shows a list of tasks
 3. User requests to delete a specific task in the list
-4. DoDo-Bird asks the user to confirm
-5. User confirms the deletion
-6. DoDo-Bird deletes the task <br>
+4. System deletes the task <br>
+
 Use case ends.
 
 **Extensions**
-
-2a. User does not confirm
-
-> Use case ends
-
-2b. The list is empty
+2a. The list is empty
 
 > Use case ends
 
 3a. The given index is invalid
 
-> 3a1. DoDo-Bird shows an error message <br>
+> 3a1. System shows an error message informing the user that the index selected is invalid <br>
   Use case resumes at step 2
 
-#### Use case: Search tasks by keyword
+#### Use case: UC03 - Search tasks by keyword
 
 **MSS**
 
-1. User enter command to search tasks by keywords such as name, details, starting date, end date, tags or priority level.
-2. DoDo-Bird displays a list of tasks which contain those keywords.
+1. User enter command to search tasks by keywords
+2. System displays a list of tasks which contain those keywords.
+
 Use case ends.
+
+#### Use case: UC04 - Mark a task as completed
+
+**MSS**
+
+1. User requests to list tasks
+2. System shows a list of tasks
+3. User requests to mark a specific task in the list as completed
+4. System marks the task as completed
+5. System updates UI to show all tasks that are completed<br>
+
+Use case ends.
+
+**Extensions**
+2a. The list is empty
+
+> Use case ends
+
+3a. The given index is invalid
+
+> 3a1. System shows an error message informing the user that the index selected is invalid <br>
+  Use case resumes at step 2
 
 <!-- @@author A0093896H -->
 ## Appendix C : Non Functional Requirements
 
-1. (Availability/Interoperability) Should work on any [mainstream OS](#mainstream-os) as long as it has Java 8 or higher installed.
-2. (Capacity) Should be able to hold up to 1000 Tasks and Events.
-3. (Maintainability) Should come with automated unit tests and open source code.
-4. (Performance) Should be able to respond any command within 3 seconds.
-5. (Security/Data Integrity) Should encrypt data.
-6. (Reliability/Recoverability) Should be able to attempt to recover data for corrupted data files.
+1. Should work on any [mainstream OS](#mainstream-os) as long as it has Java 8 or higher installed. (Availability/Interoperability)
+2. Should be able to hold up to 1000 Tasks.
+3. Should come with automated unit tests and open source code. (Maintainability)
+4. Should be able to respond any command within 3 seconds. (Performance)
 
 <!-- @@author A0138967J -->
 ## Appendix D : Glossary
@@ -356,23 +379,23 @@ Use case ends.
 
 ## Appendix E : Product Survey
 
-Google Keep : SWOT
+Google Keep : Strength and Weaknesses
 > Google Keep is an easy to use note taking application. It allows users to create different kinds of notes for different purposes. It also has some sort of a checklist which mimics the basic function of a to-do application. The user can also set reminders for a list but not for a specific task.
 
 > A noticeable point about Google Keep is that there is no other way than a list to view the to-dos. Probably this is because Google has other forms of to-dos tracking application and Keep is just meant to be a lightweight option for users who do not need that much functionality.
 
-Wunderlist : SWOT
+Wunderlist : Strength and Weaknesses
 
 > Wunderlist is a web and mobile application that allows user to keep track of their tasks. It has a very nice UI where user can change the background image of the application. Wunderlist also allows users to categorise their tasks into different groups which helps with organisation. Furthermore the application will hide all completed tasks by default from the users so the users will only see those that remain to be done.
 
 > Wunderlist is a great application but one issue is that it does not allot tasks to belong to more than one categories. Another problem is that wunderlist as the name suggest, only allows users to view their tasks in a linear list format.
 
-Todoist : SWOT
+Todoist : Strength and Weaknesses
 > Todoist is a cross platform task management application, with access to over 10 different platforms and the ability to collaborate on tasks. There are also multiple categories to choose from to tag tasks for, and with a daily streak, it encourages people to keep up the habit of clearing existing tasks that have been taken down. With Karma Mode, it allows also for users to rack up enough tasks during the week and have 'off days' where they do not have to continuously do tasks to keep their streak up.
 
 > One flaw with Todoist is that the projects, while doing a great job of categorising tasks, do not possess subproject hierarchy and thus would make complex projects hard to split downwards in an orderly fashion.
 
-Priority Matrix : SWOT
+Priority Matrix : Strength and Weaknesses
 
 > Priority Matrix is a powerful software application that helps individuals be more effective at managing their priorities. It is supported on a number of platforms, including Microsoft Windows, Mac OS X, Android, and iOS. A unique feature of Priority Matrix is that it separates its UI into 4 quadrants (Critical and Immediate, Critical but not Immediate, Not Critical but Immediate, and Uncategorised) which organize tasks based on importance and urgency so that users can have better time management.
 
@@ -380,7 +403,7 @@ Priority Matrix : SWOT
 
 > One improvement for Priority Matrix is that it could make its UI more aesthetically pleasing.
 
-Any.Do : SWOT
+Any.Do : Strength and Weaknesses
 
 >Any.Do is a cross platform task managment application that categorises the tasks in terms of when they need to be done. The tasks can also be further categorised into custom categories that can also be shared with friends and family. The application has a very simple and intuitive UI with words of encouragement when tasks are cleared.
 

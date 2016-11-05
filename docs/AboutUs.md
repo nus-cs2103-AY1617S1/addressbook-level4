@@ -71,7 +71,10 @@ We are a team based in the [School of Computing, National University of Singapor
 * Other major contributions
     * Conceptualisation of UI
 
- -----
+-----
+
+#### Project Mentor: [Akshay Narayan](https://github.com/okkhoy)
+<img src="images/Akshay.jpg" width="150"><br>
 
 # Contributors
 
