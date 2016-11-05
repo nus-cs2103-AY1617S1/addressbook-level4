@@ -94,7 +94,7 @@ public class TagListPanel extends UiPart {
 				setGraphic(null);
 				setText(null);
 			} else {
-				setGraphic(TagCard.load(tag).getLayout());
+				setGraphic(TagCard.load(tag, getIndex() + 1).getLayout());
 			}
 		}
 	}

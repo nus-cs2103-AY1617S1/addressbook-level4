@@ -18,6 +18,11 @@ import seedu.todo.model.tag.Tag;
 public class TagCard extends UiPart{
 	private static final String FXML = "TagCard.fxml";
 	
+	private final Color[] colors = {Color.web("#ef9a9a"), Color.web("#ffe082"), 
+	        Color.web("#fff59d"), Color.web("#c5e1a5"), Color.web("#81d4fa"), 
+	        Color.web("#b39ddb"), Color.web("#b39ddb")};
+	
+	
     @FXML
     private HBox cardPane;
     
@@ -32,7 +37,7 @@ public class TagCard extends UiPart{
     
     public TagCard() {}
     
-    public static TagCard load(Tag tag){
+    public static TagCard load(Tag tag, int displayedIndex){
     	TagCard card = new TagCard();
         card.tag = tag;
         card.displayedIndex = displayedIndex;
@@ -51,11 +56,7 @@ public class TagCard extends UiPart{
     }
     
     private Color randomiseCardPaneColor() {
-        Color[] colors = {Color.MEDIUMPURPLE, Color.BEIGE, Color.PALEGREEN, Color.BLANCHEDALMOND, Color.HONEYDEW, Color.TOMATO};
-        
-        Random rand = new Random();
-        int n = rand.nextInt(colors.length);
-        return colors[n];
+        return colors[displayedIndex % colors.length];
         
     }
     
