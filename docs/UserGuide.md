@@ -193,29 +193,34 @@ We would like to acknowledge the developers of Natty for their natural language 
 <br>
 ## 7. Appendix
 
-Command | Format | Description 
--------- | :-------- | :--------
-Possible Date Format | `help` | Opens the help page in a new window
-Possible Date formats
-DD-MM-YY 	: 18-10-16 
-DD-MM-YYYY  : 27-2-2101
-DD MMM YYYY : 15 MAY 2103
-relative 	: today || tmr || next tuesday
+### 7.1 Possible Date Formats<br>
 
-Not accepted Date formats
-DD-MM
-DD.MM
-DD.MM.YY
-DD.MM.YYYY
+Format | Example
+-------- | :-------- 
+DD-MM-YYYY  | 27-2-2101
+DD MMM YYYY | 15 MAY 2103
+Relative Date	| Today<br>Tmr<br>2 weeks later<br>Christmas<br>Valentines Day
 
-Possible Time formats
-24HR : 2359
-am/pm : 2.30pm
-relative : 2 hours later || 30 minutes later 
+### 7.2 Rejected Date Formats<br>
+Format | Example
+-------- | :-------- 
+DD-MM  | 27-02
+DD-MM-YY | 27-02-10
+DD.MM.YY | 27.02.10
+DD.MM.YYYY | 27.02.2010
 
-Not accepted Time formats 
-2500
-230pm
+
+### 7.3 Possible Time Formats<br>
+Format | Example
+-------- | :-------- 
+24HR | 2359
+AM/PM | 2.30pm
+Relative Time | 2 hours later <br> 30 mins later
+
+### 7.4 Rejected Time Formats<br>
+Format | Example
+-------- | :-------- 
+Time | 230pm 
 
 This is not an exhaustive list of formats, please visit the following website for more information
 http://natty.joestelmach.com/doc.jsp
