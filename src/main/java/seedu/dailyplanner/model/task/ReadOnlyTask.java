@@ -11,15 +11,15 @@ import seedu.dailyplanner.model.tag.UniqueTagList;
 public interface ReadOnlyTask {
 
     String getName();
-    Date getStart();
-    Date getEnd();
+    DateTime getStart();
+    DateTime getEnd();
     String getCompletion();
     boolean isPinned();
     boolean isComplete();
     
     void setName(String name);
-    void setStart(Date date);
-    void setEnd(Date date);
+    void setStart(DateTime start);
+    void setEnd(DateTime end);
     void markAsComplete();
     void markAsNotComplete();
     void pin();

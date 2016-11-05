@@ -15,27 +15,30 @@ public class nattyParser {
 		nattyParserPackage = new com.joestelmach.natty.Parser();
 	}
 
-	public Date parse(String dateAndTime) {
+	public String parse(String dateAndTime) {
 		List<DateGroup> groups = nattyParserPackage.parse(dateAndTime);
 		Date parsedDateAndTime = new Date();
 		for (DateGroup group : groups) {
 			parsedDateAndTime = group.getDates().get(0);
 			break;
+
 		}
-		return parsedDateAndTime;
+		DateFormat df = new SimpleDateFormat("ddMMyyyy hh.mma");
+		return df.format(parsedDateAndTime);
 	}
 
-	public Date parseDate(String date) {
+	public String parseDate(String date) {
 		List<DateGroup> groups = nattyParserPackage.parse(date);
 		Date parsedDate = new Date();
 		for (DateGroup group : groups) {
 			parsedDate = group.getDates().get(0);
 			break;
 		}
-		return parsedDate;
+		DateFormat df = new SimpleDateFormat("ddMMyyyy");
+		return df.format(parsedDate);
 	}
 
-	public Date parseTime(String time) {
+	public String parseTime(String time) {
 		List<DateGroup> groups = nattyParserPackage.parse(time);
 		Date parsedTime = new Date();
 		for (DateGroup group : groups) {
@@ -43,7 +46,8 @@ public class nattyParser {
 			break;
 
 		}
-		return parsedTime;
+		DateFormat df = new SimpleDateFormat("hh.mma");
+		return df.format(parsedTime);
 	}
 
 }

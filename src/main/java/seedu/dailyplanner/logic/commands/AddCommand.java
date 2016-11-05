@@ -33,7 +33,7 @@ public class AddCommand extends Command {
      *
      * @throws IllegalValueException if any of the raw values are invalid
      */
-    public AddCommand(String taskName, Date start, Date end, Set<String> tags)
+    public AddCommand(String taskName, DateTime start, DateTime end, Set<String> tags)
             throws IllegalValueException {
         final Set<Tag> tagSet = new HashSet<>();
         for (String tagName : tags) {
