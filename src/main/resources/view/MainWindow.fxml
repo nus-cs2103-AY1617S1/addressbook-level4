@@ -102,6 +102,9 @@
                           <image>
                               <Image url="@../images/specsCat.png" />
                           </image>
+                     <HBox.margin>
+                        <Insets left="10.0" />
+                     </HBox.margin>
                       </ImageView>
                     <AnchorPane fx:id="resultDisplayPlaceholder" maxHeight="110.0" minHeight="110.0" prefHeight="110.0" styleClass="anchor-pane" HBox.hgrow="ALWAYS">
                         <padding>
