@@ -1,5 +1,7 @@
 package seedu.task.testutil;
 
+import java.time.LocalDate;
+
 import seedu.todolist.commons.exceptions.IllegalValueException;
 import seedu.todolist.model.ToDoList;
 import seedu.todolist.model.task.*;
@@ -18,32 +20,32 @@ public class TypicalTestTasks {
     public TypicalTestTasks() {
         try {
             eventWithoutParameter = new TaskBuilder().withName("Event without parameter")
-                    .withInterval("1/11/2016", "9:30am", "1/11/2016", "12:00pm")
+                    .withInterval(getTodayDate(), "9:30am", getTodayDate(), "12:00pm")
                     .withLocation(null)
                     .withRemarks(null)
                     .withStatus(false).build();
             eventWithLocation = new TaskBuilder().withName("Event with location")
-                    .withInterval("2 nov 2016", "13:00", "2 nov 2016", "23:59")
+                    .withInterval(getTodayDate(), "13:00", getTodayDate(), "23:59")
                     .withLocation("Office")
                     .withRemarks(null)
                     .withStatus(false).build();
             eventWithLocationAndRemarks = new TaskBuilder().withName("Event with locationAndRemarks")
-                    .withInterval("2 dec 2016", "7pm", "3 dec 2016", "8pm")
+                    .withInterval("2 jan 2017", "7pm", "3 jan 2017", "8pm")
                     .withLocation("East Coast")
                     .withRemarks("buy present")
                     .withStatus(false).build();
             deadlineWithoutParameter = new TaskBuilder().withName("Deadline without parameter")
-                    .withInterval(null, null, "28 dec 2016", "23:59")
+                    .withInterval(null, null, "28 jan 2017", "23:59")
                     .withLocation(null)
                     .withRemarks(null)
                     .withStatus(false).build();
             deadlineWithLocation = new TaskBuilder().withName("Deadline with location")
-                    .withInterval(null, null, "28 dec 2016", "12:00pm")
+                    .withInterval(null, null, "28 jan 2017", "12:00pm")
                     .withLocation("Fairprice")
                     .withRemarks(null)
                     .withStatus(false).build();
             deadlineWithoutTime = new TaskBuilder().withName("Deadline without time")
-                    .withInterval(null, null, "29 dec 2016", null)
+                    .withInterval(null, null, "29 jan 2017", null)
                     .withLocation(null)
                     .withRemarks("graded assignment")
                     .withStatus(false).build();
@@ -60,31 +62,31 @@ public class TypicalTestTasks {
           
             //Manually added
             event = new TaskBuilder().withName("ABC project meeting")
-                    .withInterval("1/12/2016", "10am", "1 dec 2016", "11:30am")
+                    .withInterval("1/1/2017", "10am", "1 jan 2017", "11:30am")
                     .withLocation("Orchard")
                     .withRemarks("prepare agenda")
                     .withStatus(false).build();
             deadline = new TaskBuilder().withName("Go gym")
-                    .withInterval(null, null, "2 dec 2016", null)
+                    .withInterval(null, null, "2 jan 2017", null)
                     .withLocation(null)
                     .withRemarks("bring towel")
                     .withStatus(false).build();
             
             //Task for testing FindCommand
             taskOneToTestFind = new TaskBuilder().withName("One two Three")
-                    .withInterval(null, null, "24 dec 2016", null)
+                    .withInterval(null, null, "24 jan 2017", null)
                     .withLocation(null)
                     .withRemarks("testing")
                     .withStatus(false).build();
             
             taskTwoToTestFind = new TaskBuilder().withName("one Three Two four")
-                    .withInterval(null, null, "27 dec 2016", null)
+                    .withInterval(null, null, "27 jan 2017", null)
                     .withLocation("NUS")
                     .withRemarks(null)
                     .withStatus(false).build();
             
             taskThreeToTestFind = new TaskBuilder().withName("Four One three two")
-                    .withInterval(null, null, "30 dec 2016", null)
+                    .withInterval(null, null, "30 jan 2017", null)
                     .withLocation("home")
                     .withRemarks(null)
                     .withStatus(false).build();
@@ -96,6 +98,17 @@ public class TypicalTestTasks {
     }
     //@@author
 
+    //@@author A0153736B
+    private String getTodayDate() {
+        LocalDate currentDate = LocalDate.now();
+        final StringBuilder sb = new StringBuilder();
+        sb.append(currentDate.getDayOfMonth() + "/")
+        	.append(currentDate.getMonthValue() + "/")
+        	.append(currentDate.getYear());
+        return sb.toString();
+    }
+    //@@author
+    
     public static void loadToDoListWithSampleData(ToDoList ab) {
 
         try {
