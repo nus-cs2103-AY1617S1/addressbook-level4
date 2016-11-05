@@ -3,8 +3,8 @@ package seedu.malitio.logic.commands;
 import java.util.Set;
 
 /**
- * Finds and lists all tasks in Malitio whose name contains any of the argument keywords.
- * Keyword matching is case sensitive.
+ * Finds and lists tasks from the last shown list whose name or tags or date/time contains any of the argument keywords.
+ * Keyword matching is case insensitive.
  */
 public class FindCommand extends Command {
   //@@author a0126633j

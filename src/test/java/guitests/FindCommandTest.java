@@ -22,12 +22,12 @@ public class FindCommandTest extends MalitioGuiTest {
         assertFindResult("find with", td.event1, td.event2); //multiple results
         assertResultMessage("2 tasks found!");
         
+        commandBox.runCommand("list");
         assertFindResult("find peN HOMEWORK", td.floatingTask2, td.deadline3, td.deadline5);
-      //  assertFindResult("find peN HOMEWORK");
         assertResultMessage("3 tasks found!");
         
+        commandBox.runCommand("list");
         assertFindResult("find 25-dec", td.deadline4, td.event5); //find dates
-       // assertFindResult("find 12-25");
         assertResultMessage("2 tasks found!");
         
         assertFindResult("find wedding"); //no result
@@ -64,6 +64,26 @@ public class FindCommandTest extends MalitioGuiTest {
      commandBox.runCommand("find e");
      assertResultMessage(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
              FindCommand.MESSAGE_USAGE)); // recognise as finding in event but no keywords
+    }
+    
+    @Test
+    public void find_multipleFinds() throws IllegalArgumentException, IllegalValueException {
+        assertFindResult("find party with pen song", td.floatingTask2, td.floatingTask4, td.deadline3,
+                                                     td.event1, td.event2, td.event5, td.event6);
+        assertResultMessage("7 tasks found!");
+        
+        assertFindResult("find buy for mom", td.deadline3, td.event1, td.event2);
+        assertResultMessage("3 tasks found!");
+        
+        assertFindResult("find 01-nov", td.deadline3);
+        assertResultMessage("1 tasks found!");
+
+        assertFindResult("find party");
+        assertResultMessage("0 tasks found!");
+
+        commandBox.runCommand("list");
+        assertFindResult("find party", td.event5, td.event6);
+        assertResultMessage("2 tasks found!");
     }
     
     /**

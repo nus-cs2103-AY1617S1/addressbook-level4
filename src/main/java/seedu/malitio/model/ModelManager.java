@@ -21,6 +21,8 @@ import java.util.Set;
 import java.util.Stack;
 import java.util.logging.Logger;
 
+import edu.emory.mathcs.backport.java.util.Arrays;
+
 /**
  * Represents the in-memory model of the malitio data.
  * All changes to any model should be synchronized.
@@ -336,8 +338,8 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public void updateFilteredTaskList(Set<String> keywords){
-        updateFilteredTaskList(new PredicateExpression(new NameQualifier(keywords)));
+    public void updateFilteredTaskList(Set<String> keywords) {
+        updateFilteredTaskList(new PredicateExpression(new FindCommandQualifier(keywords, filteredFloatingTasks)));
     }
 
     private void updateFilteredTaskList(Expression expression) {
@@ -345,8 +347,8 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public void updateFilteredDeadlineList(Set<String> keywords){
-        updateFilteredDeadlines(new PredicateExpression(new NameQualifier(keywords)));
+    public void updateFilteredDeadlineList(Set<String> keywords) {
+        updateFilteredDeadlines(new PredicateExpression(new FindCommandQualifier(keywords, filteredDeadlines)));
     }
 
     @Override
@@ -359,8 +361,8 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public void updateFilteredEventList(Set<String> keywords){
-        updateFilteredEvents(new PredicateExpression(new NameQualifier(keywords)));
+    public void updateFilteredEventList(Set<String> keywords) {
+        updateFilteredEvents(new PredicateExpression(new FindCommandQualifier(keywords, filteredEvents)));
     }
 
     @Override
@@ -375,9 +377,8 @@ public class ModelManager extends ComponentManager implements Model {
     //========== Inner classes/interfaces used for filtering ==================================================
 
     interface Expression {
-        boolean satisfies(ReadOnlyFloatingTask task);
-        boolean satisfies(ReadOnlyDeadline deadline);
-        boolean satisfies(ReadOnlyEvent event);
+        boolean satisfies(Object task);
+
         String toString();
     }
 
@@ -390,18 +391,8 @@ public class ModelManager extends ComponentManager implements Model {
         }
 
         @Override
-        public boolean satisfies(ReadOnlyFloatingTask task) {
+        public boolean satisfies(Object task) {
             return qualifier.run(task);
-        }
-
-        @Override
-        public boolean satisfies(ReadOnlyDeadline deadline) {
-            return qualifier.run(deadline);
-        }
-
-        @Override
-        public boolean satisfies(ReadOnlyEvent event) {
-            return qualifier.run(event);
         }
 
         @Override
@@ -411,60 +402,87 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     interface Qualifier {
+        boolean run(Object task);
         boolean run(ReadOnlyFloatingTask task);
-        boolean run(ReadOnlyDeadline schedule);
-        boolean run(ReadOnlyEvent event);
+        boolean run(ReadOnlyDeadline task);
+        boolean run(ReadOnlyEvent task);
         String toString();
     }
-
-    private class NameQualifier implements Qualifier {
-        private Set<String> nameKeyWords;
-
-        NameQualifier(Set<String> nameKeyWords) {
-            this.nameKeyWords = nameKeyWords;
-        }
         
-        //@@author a0126633j
+    //@@author a0126633j
+    /**
+     * A qualifier that checks if a task's name/tags/date/time is qualified. Only tasks in the current shown UI list is qualified.
+     * 
+     */
+    private class FindCommandQualifier implements Qualifier {
+        private Set<String> nameKeyWords;
+        private List<Object> currentShownList;
+        
+        FindCommandQualifier(Set<String> nameKeyWords, FilteredList<?> listInput) {
+            this.nameKeyWords = nameKeyWords;
+            currentShownList = Arrays.asList(listInput.toArray());
+        }
+
+        @Override
+        public boolean run(Object task) {
+          if(isFloatingTask(task)) {
+            return nameKeyWords.stream()
+                    .filter(keyword -> StringUtil.containsIgnoreCase(((ReadOnlyFloatingTask) task).getName().fullName 
+                            + " " + StringUtil.reformatTagString(((ReadOnlyFloatingTask) task).tagsString()), keyword))
+                    .findAny()
+                    .isPresent()
+                    && 
+                    currentShownList.contains(task);
+          } else if (isDeadline(task)) {
+          
+               return nameKeyWords.stream()
+                    .filter(keyword -> StringUtil.containsIgnoreCase(((ReadOnlyDeadline) task).getName().fullName
+                            + " " + StringUtil.reformatTagString(((ReadOnlyDeadline) task).tagsString()) 
+                            + " " + ((ReadOnlyDeadline) task).getDue().toString(), 
+                            keyword))
+                    .findAny() 
+                    .isPresent() 
+                    && 
+                    currentShownList.contains(task);
+          } else {
+            return nameKeyWords.stream()
+                    .filter(keyword -> StringUtil.containsIgnoreCase(((ReadOnlyEvent) task).getName().fullName
+                            + " " + StringUtil.reformatTagString(((ReadOnlyEvent) task).tagsString()) 
+                            + " " + ((ReadOnlyEvent) task).getStart().toString()
+                            + " " + ((ReadOnlyEvent) task).getEnd().toString(), 
+                            keyword))
+                    .findAny() 
+                    .isPresent()
+                    && 
+                    currentShownList.contains(task);
+            }
+               
+           }
+        //@@author
+
         @Override
         public boolean run(ReadOnlyFloatingTask task) {
-            return nameKeyWords.stream()
-                    .filter(keyword -> StringUtil.containsIgnoreCase(task.getName().fullName 
-                            + " " + StringUtil.reformatTagString(task.tagsString()), keyword))
-                    .findAny()
-                    .isPresent();
+            return false;
         }
 
         @Override
-        public boolean run(ReadOnlyDeadline deadline) {
-            return nameKeyWords.stream()
-                    .filter(keyword -> StringUtil.containsIgnoreCase(deadline.getName().fullName
-                            + " " + StringUtil.reformatTagString(deadline.tagsString()) 
-                            + " " + deadline.getDue().toString(), 
-                            keyword))
-                    .findAny() 
-                    .isPresent();
+        public boolean run(ReadOnlyDeadline task) {
+            return false;
         }
 
         @Override
-        public boolean run(ReadOnlyEvent event) {
-            return nameKeyWords.stream()
-                    .filter(keyword -> StringUtil.containsIgnoreCase(event.getName().fullName
-                            + " " + StringUtil.reformatTagString(event.tagsString()) 
-                            + " " + event.getStart().toString()
-                            + " " + event.getEnd().toString(), 
-                            keyword))
-                    .findAny() 
-                    .isPresent();
+        public boolean run(ReadOnlyEvent task) {
+            return false;
         }
-
+        
 
         @Override
         public String toString() {
             return "name=" + String.join(", ", nameKeyWords);
         }
+
     }
 
-    //@@author
     private class TimeQualifier implements Qualifier {
         private DateTime timeKeyWord;
 
@@ -498,6 +516,11 @@ public class ModelManager extends ComponentManager implements Model {
         @Override
         public String toString() {
             return timeKeyWord.toString();
+        }
+
+        @Override
+        public boolean run(Object task) {
+            return false;
         }
     }
 
