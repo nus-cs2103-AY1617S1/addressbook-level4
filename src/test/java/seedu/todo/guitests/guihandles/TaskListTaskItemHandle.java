@@ -49,7 +49,7 @@ public class TaskListTaskItemHandle extends GuiHandle {
      * @return                  True if the time of the task is equal.
      */
     public boolean isTimeEqual(Task taskToCompare) {
-        boolean isFloating = taskToCompare.getDueDate().equals(DateUtil.NO_DATETIME_VALUE);
+        boolean isFloating = taskToCompare.getDueDate() == null;
         
         if (isFloating) {
             return getTime() == null;
