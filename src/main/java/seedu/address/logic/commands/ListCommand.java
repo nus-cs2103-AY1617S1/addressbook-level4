@@ -59,15 +59,15 @@ public class ListCommand extends Command {
             if (keywords.size() > 1) {
                 model.updateFilteredDoneTaskListDatePred(keywords);
             }
-            return new CommandResult(getMessageForPersonListShownSummary(model.getFilteredDoneTaskList().size()));
+            return new CommandResult(getMessageForTaskListShownSummary(model.getFilteredDoneTaskList().size()));
         }
         
         if (model.isCurrentListDoneList()) {
             model.updateFilteredDoneTaskListDatePred(keywords);
-            return new CommandResult(getMessageForPersonListShownSummary(model.getFilteredDoneTaskList().size()));
+            return new CommandResult(getMessageForTaskListShownSummary(model.getFilteredDoneTaskList().size()));
         } else {
             model.updateFilteredUndoneTaskListDatePred(keywords);
-            return new CommandResult(getMessageForPersonListShownSummary(model.getFilteredUndoneTaskList().size()));
+            return new CommandResult(getMessageForTaskListShownSummary(model.getFilteredUndoneTaskList().size()));
         }
     }
     

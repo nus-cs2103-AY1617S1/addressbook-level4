@@ -10,11 +10,12 @@ import java.util.List;
  */
 public class StringUtil {
            
+    
     /**
-     * Removes array brackets from a target String.
+     * Appends an additional string to the initial string after a new line.
      */
-    public static String removeArrayBrackets(String target) {
-        return target.replace("[", "").replace("]", "");
+    public static String appendOnNewLine(String initial, String additional) {
+        return initial += "\n" + additional;
     }
     
     public static boolean containsIgnoreCase(String source, String query) {
