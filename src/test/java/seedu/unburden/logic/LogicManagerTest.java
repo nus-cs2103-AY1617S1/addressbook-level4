@@ -196,12 +196,12 @@ public class LogicManagerTest {
 		Task t1 = helper.generateFloatingTask("I'm so tired", "I haven't sleep", "sleep");
 		ListOfTask expectedAB = new ListOfTask();
 		expectedAB.addTask(t1);
-
-		assertCommandBehavior("Add I'm so tired i/I havent' sleep t/sleep", String.format(AddCommand.MESSAGE_SUCCESS, t1), expectedAB,
+		
+		assertCommandBehavior("Add I'm so tired i/I haven't sleep t/sleep", String.format(AddCommand.MESSAGE_SUCCESS, t1), expectedAB,
 				expectedAB.getTaskList());
 	}
-
-
+	
+	
     @Test
     public void execute_add_successful() throws Exception {
         // setup expectations
@@ -353,6 +353,93 @@ public class LogicManagerTest {
         assertIndexNotFoundBehaviorForCommand("edit");
     }
     
+    //@@author A0139714B 
+    @Test
+    public void execute_edit_validAllFields() throws Exception {
+    	TestDataHelper helper = new TestDataHelper();
+    	Task p1 = helper.generateEventTaskWithAll("bla bla KEY bla", "blah blah blah", "11-10-2016", "1500" , "1800", "tag");
+        Task p2 = helper.generateEventTaskWithAll("bla KEY bla bceofeia", "hello world", "12-10-2016", "1500" , "1800", "blah");
+        Task p3 = helper.generateEventTaskWithAll("KE Y", "say goodbye", "13-10-2016", "1500" , "1800", "hi");
+        Task p4 = helper.generateEventTaskWithAll("keyKEY sduauo", "move", "14-10-2016", "1500" , "1800", "bye");
+        Task p5 = helper.generateEventTaskWithAll("K EY sduauo", "high kneel", "15-10-2016", "1500" , "1800", "yo");
+    	Task toEdit = helper.generateEventTaskWithAll("blahblahblah", "hi", "16-11-2016", "1200", "1900", "yo");
+    	Task updatedTask = helper.generateEventTaskWithAll("blahblahblah", "hi", "16-11-2016", "1200", "1900", "yo");
+   
+    	List<Task> fiveTasks = helper.generateTaskList(p1, p2, p3, p4, p5);
+    	ListOfTask expectedAB = helper.generateListOfTask(fiveTasks);
+    	List<Task> expectedList = helper.generateTaskList(p1, p2, p3, p4, updatedTask);
+    
+    	model.resetData(new ListOfTask());
+    	for (Task t : fiveTasks) {
+    		model.addTask(t);
+    	}
+
+    	expectedAB.editTask((ReadOnlyTask)fiveTasks.get(4), toEdit);
+    	
+    	assertCommandBehavior("edit 5 blahblahblah i/hi d/16-11-2016 s/1200 e/1900",
+    			String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, updatedTask), 
+    					expectedAB,
+    					expectedList);
+    }
+    
+    //@@author A0139714B 
+    @Test
+    public void execute_edit_validName() throws Exception {
+    	TestDataHelper helper = new TestDataHelper();
+    	Task p1 = helper.generateEventTaskWithAll("bla bla KEY bla", "blah blah blah", "11-10-2016", "1500" , "1800", "tag");
+        Task p2 = helper.generateEventTaskWithAll("bla KEY bla bceofeia", "hello world", "12-10-2016", "1500" , "1800", "blah");
+        Task p3 = helper.generateEventTaskWithAll("KE Y", "say goodbye", "13-10-2016", "1500" , "1800", "hi");
+        Task p4 = helper.generateEventTaskWithAll("keyKEY sduauo", "move", "14-10-2016", "1500" , "1800", "bye");
+        Task p5 = helper.generateEventTaskWithAll("K EY sduauo", "high kneel", "15-10-2016", "1500" , "1800", "yo");
+    	Task toEdit = helper.generateEventTaskWithAll("blahblahblah", "", "", "", "", "yo");
+    	Task updatedTask = helper.generateEventTaskWithAll("blahblahblah", "move", "14-10-2016", "1500" , "1800", "bye");
+   
+    	List<Task> fiveTasks = helper.generateTaskList(p1, p2, p3, p4, p5);
+    	ListOfTask expectedAB = helper.generateListOfTask(fiveTasks);
+    	List<Task> expectedList = helper.generateTaskList(p1, p2, p3, updatedTask, p5);
+    
+    	model.resetData(new ListOfTask());
+    	for (Task t : fiveTasks) {
+    		model.addTask(t);
+    	}
+
+    	expectedAB.editTask((ReadOnlyTask)fiveTasks.get(3), toEdit);
+    	
+    	assertCommandBehavior("edit 4 blahblahblah",
+    			String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, updatedTask), 
+    					expectedAB,
+    					expectedList);
+    }
+
+    //@@author A0139714B 
+    @Test
+    public void execute_edit_validTaskDescription() throws Exception {
+    	TestDataHelper helper = new TestDataHelper();
+    	Task p1 = helper.generateEventTaskWithAll("bla bla KEY bla", "blah blah blah", "11-10-2016", "1500" , "1800", "tag");
+        Task p2 = helper.generateEventTaskWithAll("bla KEY bla bceofeia", "hello world", "12-10-2016", "1500" , "1800", "blah");
+        Task p3 = helper.generateEventTaskWithAll("KE Y", "say goodbye", "13-10-2016", "1500" , "1800", "hi");
+        Task p4 = helper.generateEventTaskWithAll("keyKEY sduauo", "move", "14-10-2016", "1500" , "1800", "bye");
+        Task p5 = helper.generateEventTaskWithAll("K EY sduauo", "high kneel", "15-10-2016", "1500" , "1800", "yo");
+    	Task toEdit = helper.generateEventTaskWithAll("", "blahblahblah", "", "", "", "yo");
+    	Task updatedTask = helper.generateEventTaskWithAll("KE Y", "blahblahblah", "13-10-2016", "1500" , "1800", "hi");
+    
+    	List<Task> fiveTasks = helper.generateTaskList(p1, p2, p3, p4, p5);
+    	ListOfTask expectedAB = helper.generateListOfTask(fiveTasks);
+    	List<Task> expectedList = helper.generateTaskList(p1, p2, updatedTask, p4, p5);
+    
+    	model.resetData(new ListOfTask());
+    	for (Task t : fiveTasks) {
+    		model.addTask(t);
+    	}
+  
+    	expectedAB.editTask((ReadOnlyTask)fiveTasks.get(3), toEdit);
+    	
+    	assertCommandBehavior("edit 3 i/blahblahblah",
+    			String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, updatedTask), 
+    					expectedAB,
+    					expectedList);
+    }
+
     //@@author A0139714B 
     @Test
     public void execute_edit_validDate() throws Exception {
@@ -520,7 +607,35 @@ public class LogicManagerTest {
     					expectedList);
     }
   
-  	//@@author A0139714B 
+    //@@author A0139714B 
+    @Test
+    public void execute_edit_removeTaskDescription() throws Exception {
+    	TestDataHelper helper = new TestDataHelper();
+    	Task p1 = helper.generateEventTaskWithAll("bla bla KEY bla", "blah blah blah", "11-10-2016", "1800", "1900", "tag");
+        Task p2 = helper.generateEventTaskWithAll("bla KEY bla bceofeia", "hello world", "12-10-2016", "1500","1800", "blah");
+        Task p3 = helper.generateEventTaskWithAll("KE Y", "say goodbye", "13-10-2016", "1600", "1900", "hi");
+        Task p4 = helper.generateEventTaskWithAll("keyKEY sduauo", "move", "14-10-2016", "1500", "1900", "bye");
+        Task p5 = helper.generateEventTaskWithAll("K EY sduauo", "high kneel", "15-10-2016", "1000", "1500",  "yo");
+    	Task updatedTask = helper.generateEventTaskWithoutTaskDescription("bla bla KEY bla", "11-10-2016", "1800", "1900", "tag");
+    	
+    	List<Task> fiveTasks = helper.generateTaskList(p1, p2, p3, p4, p5);
+    	ListOfTask expectedAB = helper.generateListOfTask(fiveTasks);
+    	List<Task> expectedList = helper.generateTaskList(updatedTask, p2, p3, p4, p5);
+
+    
+    	//EditCommand.reset();
+    	model.resetData(new ListOfTask());
+    	for (Task t : fiveTasks) {
+    		model.addTask(t);
+    	}
+   
+    	assertCommandBehavior("edit 1 i/rm",
+    					String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, updatedTask), 
+    					expectedAB,
+    					expectedList);
+    }
+
+    //@@author A0139714B 
     @Test
     public void execute_edit_removeDate() throws Exception {
     	TestDataHelper helper = new TestDataHelper();
@@ -541,6 +656,33 @@ public class LogicManagerTest {
     	}
     	
     	assertCommandBehavior("edit 5 d/rm",
+    			String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, updatedTask), 
+    					expectedAB,
+    					expectedList);
+    }
+    
+    //@@author A0139714B 
+    @Test
+    public void execute_edit_removeStartTime() throws Exception {
+    	TestDataHelper helper = new TestDataHelper();
+    	Task p1 = helper.generateEventTaskWithAll("bla bla KEY bla", "blah blah blah", "11-10-2016", "1800", "1900", "tag");
+        Task p2 = helper.generateEventTaskWithAll("bla KEY bla bceofeia", "hello world", "12-10-2016", "1500","1800", "blah");
+        Task p3 = helper.generateEventTaskWithAll("KE Y", "say goodbye", "13-10-2016", "1600", "1900", "hi");
+        Task p4 = helper.generateEventTaskWithAll("keyKEY sduauo", "move", "14-10-2016", "1500", "1900", "bye");
+        Task p5 = helper.generateEventTaskWithAll("K EY sduauo", "high kneel", "15-10-2016", "1000", "1500",  "yo");
+    	Task updatedTask = helper.generateDeadlineTaskWithEndTime("bla bla KEY bla", "blah blah blah", "11-10-2016", "1900", "tag");
+    	
+    	List<Task> fiveTasks = helper.generateTaskList(p1, p2, p3, p4, p5);
+    	ListOfTask expectedAB = helper.generateListOfTask(fiveTasks);
+    	List<Task> expectedList = helper.generateTaskList(updatedTask, p2, p3, p4, p5);
+
+    	//EditCommand.reset();
+    	model.resetData(new ListOfTask());
+    	for (Task t : fiveTasks) {
+    		model.addTask(t);
+    	}
+    	
+    	assertCommandBehavior("edit 1 s/rm",
     			String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, updatedTask), 
     					expectedAB,
     					expectedList);
@@ -573,21 +715,19 @@ public class LogicManagerTest {
     					expectedList);
     }
     
-
     //@@author A0139714B 
     @Test
-    public void execute_edit_removeTaskDescription() throws Exception {
+    public void execute_edit_fail_removeEndTimeOnTaskWithStartTime() throws Exception {
     	TestDataHelper helper = new TestDataHelper();
     	Task p1 = helper.generateEventTaskWithAll("bla bla KEY bla", "blah blah blah", "11-10-2016", "1800", "1900", "tag");
         Task p2 = helper.generateEventTaskWithAll("bla KEY bla bceofeia", "hello world", "12-10-2016", "1500","1800", "blah");
         Task p3 = helper.generateEventTaskWithAll("KE Y", "say goodbye", "13-10-2016", "1600", "1900", "hi");
         Task p4 = helper.generateEventTaskWithAll("keyKEY sduauo", "move", "14-10-2016", "1500", "1900", "bye");
         Task p5 = helper.generateEventTaskWithAll("K EY sduauo", "high kneel", "15-10-2016", "1000", "1500",  "yo");
-    	Task updatedTask = helper.generateEventTaskWithoutTaskDescription("bla bla KEY bla", "11-10-2016", "1800", "1900", "tag");
-    	
+    
     	List<Task> fiveTasks = helper.generateTaskList(p1, p2, p3, p4, p5);
     	ListOfTask expectedAB = helper.generateListOfTask(fiveTasks);
-    	List<Task> expectedList = helper.generateTaskList(updatedTask, p2, p3, p4, p5);
+    	List<Task> expectedList = helper.generateTaskList(p1, p2, p3, p4, p5);
 
     
     	model.resetData(new ListOfTask());
@@ -595,26 +735,25 @@ public class LogicManagerTest {
     		model.addTask(t);
     	}
    
-    	assertCommandBehavior("edit 1 i/rm",
-    			String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, updatedTask), 
+    	assertCommandBehavior("edit 1 e/rm",
+    			String.format(Messages.MESSAGE_CANNOT_REMOVE_ENDTIME_WHEN_THERE_IS_STARTTIME), 
     					expectedAB,
     					expectedList);
     }
     
     //@@author A0139714B 
     @Test
-    public void execute_edit_removeStartTime() throws Exception {
+    public void execute_edit_fail_removeDateOnTaskWithEndTime() throws Exception {
     	TestDataHelper helper = new TestDataHelper();
     	Task p1 = helper.generateEventTaskWithAll("bla bla KEY bla", "blah blah blah", "11-10-2016", "1800", "1900", "tag");
         Task p2 = helper.generateEventTaskWithAll("bla KEY bla bceofeia", "hello world", "12-10-2016", "1500","1800", "blah");
         Task p3 = helper.generateEventTaskWithAll("KE Y", "say goodbye", "13-10-2016", "1600", "1900", "hi");
         Task p4 = helper.generateEventTaskWithAll("keyKEY sduauo", "move", "14-10-2016", "1500", "1900", "bye");
         Task p5 = helper.generateEventTaskWithAll("K EY sduauo", "high kneel", "15-10-2016", "1000", "1500",  "yo");
-    	Task updatedTask = helper.generateDeadlineTaskWithEndTime("bla bla KEY bla", "blah blah blah", "11-10-2016", "1900", "tag");
-    	
+   
     	List<Task> fiveTasks = helper.generateTaskList(p1, p2, p3, p4, p5);
     	ListOfTask expectedAB = helper.generateListOfTask(fiveTasks);
-    	List<Task> expectedList = helper.generateTaskList(updatedTask, p2, p3, p4, p5);
+    	List<Task> expectedList = helper.generateTaskList(p1, p2, p3, p4, p5);
 
     
     	model.resetData(new ListOfTask());
@@ -622,14 +761,11 @@ public class LogicManagerTest {
     		model.addTask(t);
     	}
     	
-   
-    	assertCommandBehavior("edit 1 s/rm",
-    			String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, updatedTask), 
+    	assertCommandBehavior("edit 1 d/rm",
+    			String.format(Messages.MESSAGE_CANNOT_REMOVE_DATE_WHEN_THERE_IS_STARTTIME_AND_ENDTIME), 
     					expectedAB,
     					expectedList);
     }
-    
-    
     
     //@@author A0139714B 
     @Test
