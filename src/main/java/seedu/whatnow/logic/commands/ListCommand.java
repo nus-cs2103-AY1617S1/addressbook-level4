@@ -9,7 +9,11 @@ public class ListCommand extends Command {
     public static final String COMMAND_WORD = "list";
 
     public static final String MESSAGE_SUCCESS = "Listed all tasks";
+    
+    public static final String COMPLETE_MESSAGE_SUCCESS = "Listed all completed tasks";
 
+    public static final String INCOMPLETE_MESSAGE_SUCCESS = "Listed all incomplete tasks";
+    
     public static final String TASK_STATUS_DONE = "done";
 
     public static final String TASK_STATUS_COMPLETED = "completed";
@@ -48,17 +52,19 @@ public class ListCommand extends Command {
             model.updateFilteredScheduleListToShowAll();
             model.getUndoStack().push(COMMAND_WORD);
             model.getStackOfListTypes().push(TASK_STATUS_ALL);
+            return new CommandResult(MESSAGE_SUCCESS);
         } else if (type.equals(TASK_STATUS_INCOMPLETE)) {
             model.updateFilteredListToShowAllIncomplete();
             model.updateFilteredScheduleListToShowAllIncomplete();
             model.getUndoStack().push(COMMAND_WORD);
             model.getStackOfListTypes().push(TASK_STATUS_INCOMPLETE);
+            return new CommandResult(INCOMPLETE_MESSAGE_SUCCESS);
         } else {
             model.updateFilteredListToShowAllCompleted();
             model.updateFilteredScheduleListToShowAllCompleted();
             model.getUndoStack().push(COMMAND_WORD);
             model.getStackOfListTypes().push(TASK_STATUS_COMPLETED);
+            return new CommandResult(COMPLETE_MESSAGE_SUCCESS);
         }
-        return new CommandResult(MESSAGE_SUCCESS);
     }
 }

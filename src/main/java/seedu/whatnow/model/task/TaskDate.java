@@ -169,6 +169,8 @@ public class TaskDate {
             performAddDateFormatRegex();
             for (int i = 0; i < ListOfDateFormat.size() && i < ListOfDateRegex.size(); i++) {
                 if (reqDate.matches(ListOfDateRegex.get(i))) {  
+                    System.out.println("get list format num: " + ListOfDateFormat.get(i));
+                    System.out.println("reqDate: " + reqDate);
                     return isValidNumDate(reqDate, ListOfDateFormat.get(i));
                 }
             }
