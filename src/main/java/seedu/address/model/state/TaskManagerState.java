@@ -5,7 +5,7 @@ import seedu.address.model.TaskManager;
 
 //@@author A0146123R
 /**
- * Represent the state of task manager.
+ * Represents the state of the task manager.
  */
 public class TaskManagerState {
     

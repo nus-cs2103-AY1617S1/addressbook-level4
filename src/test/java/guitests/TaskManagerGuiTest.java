@@ -10,11 +10,14 @@ import org.junit.rules.TestName;
 import org.testfx.api.FxToolkit;
 import seedu.address.TestApp;
 import seedu.address.commons.core.EventsCenter;
+import seedu.address.commons.util.XmlUtil;
 import seedu.address.model.TaskManager;
 import seedu.address.model.task.ReadOnlyTask;
+import seedu.address.storage.XmlSerializableTaskManager;
 import seedu.address.testutil.TestUtil;
 import seedu.address.testutil.TypicalTestTasks;
 
+import java.io.File;
 import java.util.concurrent.TimeoutException;
 
 import static org.junit.Assert.assertEquals;
@@ -115,5 +118,14 @@ public abstract class TaskManagerGuiTest {
      */
     protected void assertResultMessage(String expected) {
         assertEquals(expected, resultDisplay.getText());
+    }
+    
+    //@@author A0146123R
+    /**
+     * Asserts the size of the storage file is equal to the task list.
+     */
+    protected void assertStorageFileSame(File file) throws Exception {
+        XmlSerializableTaskManager dataFromFile = XmlUtil.getDataFromFile(file, XmlSerializableTaskManager.class);
+        assertEquals(taskListPanel.getNumberOfTasks(), dataFromFile.getTaskList().size());
     }
 }

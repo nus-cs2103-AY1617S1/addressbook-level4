@@ -1,31 +1,32 @@
 package seedu.address.logic.commands;
 
+import seedu.address.commons.exceptions.StateLimitException;
+
 //@@author A0146123R
 /**
- * Undo change the storage location of the task manager.
+ * Undoes change the storage location of the task manager.
  */
 public class UndoChangeCommand extends Command {
-    
+
     public static final String COMMAND_WORD = "undochange";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Change the default storage location back to the previous location"
-            + " and clear data saved in the new location if specified.\n" 
+            + " and clear data saved in the current location if specified.\n" 
             + "Parameters: [clear]\n"
-            + "Example: " + COMMAND_WORD
-            + " clear";
+            + "Example: " + COMMAND_WORD + " clear";
 
-    public static final String MESSAGE_CHANGE_SUCCESS = "Storage location has been changed back!";
+    public static final String MESSAGE_CHANGE_SUCCESS = "Storage location changed back.";
     public static final String MESSAGE_UNDO_FAILED = "No change command to undo.";
-    public static final String MESSAGE_INVALID_CLEAR_DATA = "The clear data argument provided is invalid.";
-    public static boolean undoable = false;
-    
+    public static final String MESSAGE_INVALID_CLEAR_DATA = "The clear data argument provided is invalid."
+            + " It must be abscent or \"clear\".";
+
     private static final String CLEAR = "clear";
     private static final String EMPTY = "";
-    
+
     private final String clear;
     private final boolean isToClearNew;
-    
+
     /**
      * Convenience constructor using raw values.
      */
@@ -33,27 +34,29 @@ public class UndoChangeCommand extends Command {
         this.clear = clear.trim();
         this.isToClearNew = !this.clear.equals(EMPTY);
     }
-    
+
     @Override
     public CommandResult execute() {
         assert clear != null;
-        
-        if (!undoable) {
-            indicateAttemptToExecuteIncorrectCommand();
-            return new CommandResult(MESSAGE_UNDO_FAILED);
-        }
-        if (isToClearNew && !isValidClear()) {
+
+        if (!isValidClear(clear)) {
             indicateAttemptToExecuteIncorrectCommand();
             return new CommandResult(MESSAGE_INVALID_CLEAR_DATA);
         }
-        model.changeBackTaskManager(isToClearNew);
-        undoable = false;
-        RedoChangeCommand.redoable = true;
-        return new CommandResult(MESSAGE_CHANGE_SUCCESS);
+        try {
+            model.changeBackTaskManager(isToClearNew);
+            return new CommandResult(MESSAGE_CHANGE_SUCCESS);
+        } catch (StateLimitException e) {
+            indicateAttemptToExecuteIncorrectCommand();
+            return new CommandResult(MESSAGE_UNDO_FAILED);
+        }
     }
-    
-    private boolean isValidClear() {
-        return clear.equals(CLEAR);
+
+    /**
+     * Returns true if the given clear data argument is valid.
+     */
+    private static boolean isValidClear(String clear) {
+        return clear.equals(EMPTY) || clear.equals(CLEAR);
     }
 
 }

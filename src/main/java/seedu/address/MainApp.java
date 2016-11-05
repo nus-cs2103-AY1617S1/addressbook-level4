@@ -9,7 +9,7 @@ import seedu.address.commons.core.Config;
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.Version;
-import seedu.address.commons.events.storage.StoragePathChangedEvent;
+import seedu.address.commons.events.storage.StoragePathEvent;
 import seedu.address.commons.events.ui.ExitAppRequestEvent;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.util.StringUtil;
@@ -187,11 +187,11 @@ public class MainApp extends Application {
 
     //@@author A0146123R
     @Subscribe
-    public void handleStoragePathChangedEvent(StoragePathChangedEvent event) {
+    public void handleStoragePathChangedEvent(StoragePathEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
 
         //Update config file
-        this.config.setTaskManagerFilePath(event.newStorageFilePath);
+        this.config.setTaskManagerFilePath(event.getNewStorageFilePath());
         try {
             ConfigUtil.saveConfig(config, configFilePathUsed);
         } catch (IOException e) {

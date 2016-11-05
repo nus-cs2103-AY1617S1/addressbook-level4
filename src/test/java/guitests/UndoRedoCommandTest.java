@@ -2,84 +2,116 @@ package guitests;
 
 import org.junit.Test;
 
+import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.UndoCommand;
+import seedu.address.model.task.Date;
+import seedu.address.model.task.Deadline;
 import seedu.address.testutil.TestTask;
 import seedu.address.testutil.TestUtil;
+import seedu.address.testutil.TypicalTestTasks;
 
 import static org.junit.Assert.assertTrue;
 
 //@@author A0146123R
+/**
+ * gui tests for undo and redo commands
+ */
 public class UndoRedoCommandTest extends TaskManagerGuiTest {
 
     @Test
-    public void undoRedo() {
-        // Action: mark as done
-        TestTask[] secondState = td.getTypicalTasks();
-        secondState[1].markAsDone();
-        commandBox.runCommand("done 2");
-        
-        secondState[0].markAsDone();
-        commandBox.runCommand("done 1");
-        
-        // Action: delete task <- later change to edit
-        TestTask[] thirdState = TestUtil.removeTaskFromList(secondState, 2);
-        commandBox.runCommand("delete 2");
-         
-        // Action: add task
-        TestTask taskToAdd = td.project;
-        TestTask[] fourthState = TestUtil.addTasksToList(thirdState, taskToAdd);
-        commandBox.runCommand(taskToAdd.getAddCommand());;
-        
-        // Action: delete task
-        TestTask[] fifthState = TestUtil.removeTaskFromList(fourthState, 3);
-        commandBox.runCommand("delete 3");
-        
-        // Action: Clear task manager
-        commandBox.runCommand("clear");
-        
-        // Undo up to 5 times
-        assertUndoRedoSuccess("undo", 4, new TestTask[][] {fifthState, fourthState, thirdState, secondState});
-        assertUndoDoneSuccess(0);
+    public void undoRedo_invalidCommand_fail() {
         assertUndoFailed();
-        
-        assertRedoDoneSuccess(0);
-        assertUndoRedoSuccess("redo", 3, new TestTask[][] {thirdState, fourthState, fifthState});
-        assertRedoClearSuccess();
         assertRedoFailed();
     }
-    
-    private void assertUndoRedoSuccess(String command, int n, TestTask[]... states) {
-        for (int i = 0; i < n; i++) {
-            commandBox.runCommand(command);
-            assertTrue(taskListPanel.isListMatching(states[i]));
+
+    @Test
+    public void undo_exceedMaxTimes_fail() {
+        for (int i = 0; i < 11; i++) {
+            commandBox.runCommand("add n/dummy");
         }
+        for (int i = 0; i < 10; i++) { // Undo up to 10 times
+            commandBox.runCommand("undo");
+        }
+        assertListSize(9);
+        assertUndoFailed();
+        for (int i = 0; i < 10; i++) {
+            commandBox.runCommand("redo");
+        }
+        assertListSize(19);
+        assertRedoFailed();
     }
-    
-    private void assertUndoDoneSuccess(int n) {
+
+    @Test
+    public void undoRedo_add_success() {
+        TestTask taskToAdd = td.project;
+        TestTask[] currentList = TestUtil.addTasksToList(td.getTypicalTasks(), taskToAdd);
+        commandBox.runCommand(taskToAdd.getAddCommand());
+        assertUndoRedoSuccess(currentList);
+    }
+
+    @Test
+    public void undoRedo_clear_success() {
+        commandBox.runCommand("clear");
         commandBox.runCommand("undo");
-        assertTrue(!taskListPanel.getTask(n).isDone());
+        assertUndoRedoClearSuccess();
     }
-    
-    private void assertRedoDoneSuccess(int n) {
-        commandBox.runCommand("redo");
-        assertTrue(taskListPanel.getTask(n).isDone());
+
+    @Test
+    public void undoRedo_delete_success() {
+        TestTask[] currentList = TestUtil.removeTaskFromList(td.getTypicalTasks(), 2);
+        commandBox.runCommand("delete 2");
+        assertUndoRedoSuccess(currentList);
     }
-    
-    
-    private void assertRedoClearSuccess() {
-        commandBox.runCommand("redo");
-        assertListSize(0);
+
+    @Test
+    public void undoRedo_done_success() {
+        TestTask[] currentList = td.getTypicalTasks();
+        currentList[0].markAsDone();
+        commandBox.runCommand("done 1");
+        assertUndoRedoSuccess(currentList);
     }
-    
+
+    @Test
+    public void undoRedo_edit_success() throws IllegalValueException {
+        TestTask[] currentList = td.getTypicalTasks();
+        Date newDate = new Deadline("05.11.2016");
+        currentList[3].setDate(newDate);
+        commandBox.runCommand("edit Read book d/05.11.2016");
+        commandBox.runCommand("edit Read book d/05.11.2016 i/1");
+        assertUndoRedoSuccess(currentList);
+    }
+
     private void assertUndoFailed() {
         commandBox.runCommand("undo");
         assertResultMessage(UndoCommand.MESSAGE_UNDO_FAILED);
     }
-    
+
     private void assertRedoFailed() {
         commandBox.runCommand("redo");
         assertResultMessage(RedoCommand.MESSAGE_REDO_FAILED);
     }
-    
+
+    /**
+     * Runs the undo and redo command and confirms the result is correct.
+     */
+    private void assertUndoRedoSuccess(TestTask[] currentList) {
+        commandBox.runCommand("undo");
+        TestTask[] initialList = new TypicalTestTasks().getTypicalTasks();
+        assertTrue(taskListPanel.isListMatching(initialList));
+        commandBox.runCommand("redo");
+        assertTrue(taskListPanel.isListMatching(currentList));
+    }
+
+    /**
+     * Runs the undo and redo command for clear command and confirms the result
+     * is correct.
+     */
+    private void assertUndoRedoClearSuccess() {
+        commandBox.runCommand("undo");
+        assertTrue(taskListPanel.isListMatching(td.getTypicalTasks()));
+        commandBox.runCommand("redo");
+        assertListSize(0);
+    }
+
 }

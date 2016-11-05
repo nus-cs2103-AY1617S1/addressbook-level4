@@ -16,15 +16,28 @@ public interface TaskManagerStorage {
      */
     String getTaskManagerFilePath();
     
+    //@@author A0146123R
     /**
      * Returns the previous file path of the data file.
      */
-    String getTaskManagerPreviousFilePath();
+    FilePath getTaskManagerPreviousFilePath();
+    
+    /**
+     * Returns the next file path of the data file.
+     */
+    FilePath getTaskManagerNextFilePath();
+    
+    /**
+     * Saves the file path of the data file.
+     */
+    void saveTaskManagerFilePath(FilePath filePath);
     
     /**
      * Sets the file path of the data file.
+     * @throws IOException 
      */
-    void setTaskManagerFilePath(String filePath);
+    void setTaskManagerFilePath(FilePath filePath) throws IOException;
+    //@@author
 
     /**
      * Returns TaskManager data as a {@link ReadOnlyTaskManager}.
@@ -51,13 +64,4 @@ public interface TaskManagerStorage {
      */
     void saveTaskManager(ReadOnlyTaskManager addressBook, String filePath) throws IOException;
     
-    //@@author A0146123R
-    /**
-     * Delete the storage file.
-     * @throws IOException if there was any problem deleting the file.
-     */
-    void deleteTaskManager() throws IOException;
-    
-    void deleteTaskManager(String filePath) throws IOException;
-
 }

@@ -4,16 +4,12 @@ import javafx.stage.Screen;
 import javafx.stage.Stage;
 import seedu.address.commons.core.Config;
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.commons.core.LogsCenter;
-import seedu.address.commons.events.storage.StoragePathChangedEvent;
-import seedu.address.commons.util.ConfigUtil;
-import seedu.address.commons.util.StringUtil;
+import seedu.address.commons.events.storage.StoragePathEvent;
 import seedu.address.model.ReadOnlyTaskManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.storage.XmlSerializableTaskManager;
 import seedu.address.testutil.TestUtil;
 
-import java.io.IOException;
 import java.util.function.Supplier;
 
 import com.google.common.eventbus.Subscribe;
@@ -74,8 +70,8 @@ public class TestApp extends MainApp {
     
     @Override
     @Subscribe
-    public void handleStoragePathChangedEvent(StoragePathChangedEvent event) {
-        this.config.setTaskManagerFilePath(event.newStorageFilePath);
+    public void handleStoragePathChangedEvent(StoragePathEvent event) {
+        this.config.setTaskManagerFilePath(event.getNewStorageFilePath());
     }
 
     public static void main(String[] args) {

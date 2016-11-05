@@ -2,13 +2,13 @@ package seedu.address.storage;
 
 import com.google.common.eventbus.Subscribe;
 import seedu.address.commons.core.ComponentManager;
-import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.TaskManagerChangedEvent;
 import seedu.address.commons.events.storage.DataSavingExceptionEvent;
 import seedu.address.commons.events.storage.RedoStoragePathChangedEvent;
-import seedu.address.commons.events.storage.StoragePathChangedBackEvent;
+import seedu.address.commons.events.storage.UndoStoragePathChangedEvent;
 import seedu.address.commons.events.storage.StoragePathChangedEvent;
+import seedu.address.commons.events.storage.StoragePathEvent;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.ReadOnlyTaskManager;
 import seedu.address.model.UserPrefs;
@@ -58,13 +58,22 @@ public class StorageManager extends ComponentManager implements Storage {
     
     //@@author A0146123R
     @Override
-    public String getTaskManagerPreviousFilePath() {
+    public FilePath getTaskManagerPreviousFilePath() {
         return taskManagerStorage.getTaskManagerPreviousFilePath();
     }
     
+    @Override
+    public FilePath getTaskManagerNextFilePath() {
+        return taskManagerStorage.getTaskManagerNextFilePath();
+    }
     
     @Override
-    public void setTaskManagerFilePath(String filePath) {
+    public void saveTaskManagerFilePath(FilePath filePath) {
+        taskManagerStorage.saveTaskManagerFilePath(filePath);
+    }
+    
+    @Override
+    public void setTaskManagerFilePath(FilePath filePath) throws IOException {
         taskManagerStorage.setTaskManagerFilePath(filePath);
     }
     //@@author
@@ -91,18 +100,6 @@ public class StorageManager extends ComponentManager implements Storage {
         taskManagerStorage.saveTaskManager(taskManager, filePath);
     }
     
-    //@@author A0146123R
-    @Override
-    public void deleteTaskManager() throws IOException {
-        deleteTaskManager(taskManagerStorage.getTaskManagerFilePath());
-    }
-    
-    @Override
-    public void deleteTaskManager(String filePath) throws IOException {
-        logger.fine("Attempting to delete the data file: " + filePath);
-        taskManagerStorage.deleteTaskManager(filePath);
-    }
-
     @Override
     @Subscribe
     public void handleTaskManagerChangedEvent(TaskManagerChangedEvent event) {
@@ -114,32 +111,37 @@ public class StorageManager extends ComponentManager implements Storage {
         }
     }
     
+    //@@author A0146123R
     @Override
     @Subscribe
     public void handleStoragePathChangedEvent(StoragePathChangedEvent event) {
-        logger.info(LogsCenter.getEventHandlingLogMessage(event, "Storage file path changed, saving to new file"));
-        try {
-            if (event.isToClearOld) {
-                deleteTaskManager(getTaskManagerFilePath());
-            }
-            setTaskManagerFilePath(event.newStorageFilePath);
-        } catch (IOException e) {
-            raise(new DataSavingExceptionEvent(e));
-        }
+        logger.info(LogsCenter.getEventHandlingLogMessage(event, "Storage file path changed"));
+        FilePath filePath = new FilePath(event.getNewStorageFilePath(), event.isToClearOld());
+        changeFilePath(filePath);
+        saveTaskManagerFilePath(filePath);
     }
-    
+
     @Override
     @Subscribe
-    public void handleStoragePathChangedBackEvent(StoragePathChangedBackEvent event) {
-        logger.info(LogsCenter.getEventHandlingLogMessage(event, "Storage file path changed back"));
-        EventsCenter.getInstance().post(new StoragePathChangedEvent(getTaskManagerPreviousFilePath(), event.isToClearNew));
+    public void handleUndoStoragePathChangedEvent(UndoStoragePathChangedEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event, "Undo storage file path changed"));
+        changeFilePath(new FilePath(getTaskManagerPreviousFilePath().getPath(), event.isToClearNew()));
     }
-    
+
     @Override
     @Subscribe
     public void handleRedoStoragePathChangedEvent(RedoStoragePathChangedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event, "Redo storage file path changed"));
-        EventsCenter.getInstance().post(new StoragePathChangedEvent(getTaskManagerPreviousFilePath(), event.isToClearOld));
+        changeFilePath(getTaskManagerNextFilePath());
+    }
+
+    private void changeFilePath(FilePath filePath) {
+        try {
+            setTaskManagerFilePath(filePath);
+            raise(new StoragePathEvent(filePath.getPath()));
+        } catch (IOException e) {
+            raise(new DataSavingExceptionEvent(e));
+        }
     }
 
 }
