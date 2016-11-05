@@ -174,7 +174,7 @@ public class LogicManagerTest {
         model.addTask(helper.generateFloatingTask(2));
         model.addTask(helper.generateFloatingTask(3));
 
-        assertCommandBehavior("clear", ClearCommand.MESSAGE_SUCCESS, new TaskManager(), Collections.emptyList());
+        assertCommandBehavior("clear", ClearCommand.MESSAGE_SUCCESS_UNDONE_LIST, new TaskManager(), Collections.emptyList());
     }
 
     /*

@@ -10,6 +10,7 @@ import org.junit.rules.TestName;
 import org.testfx.api.FxToolkit;
 import seedu.address.TestApp;
 import seedu.address.commons.core.EventsCenter;
+import seedu.address.logic.commands.AddCommand;
 import seedu.address.model.TaskManager;
 import seedu.address.model.item.ReadOnlyTask;
 import seedu.address.testutil.TestUtil;
@@ -21,9 +22,9 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 /**
- * A GUI Test class for AddressBook.
+ * A GUI Test class for DearJim.
  */
-public abstract class AddressBookGuiTest {
+public abstract class DearJimGuiTest {
 
     /* The TestName Rule makes the current test name available inside test methods */
     @Rule
@@ -77,7 +78,7 @@ public abstract class AddressBookGuiTest {
      */
     protected TaskManager getInitialData() {
         TaskManager ab = TestUtil.generateEmptyTaskManager();
-        TypicalTestTasks.loadTaskManagerWithSampleData(ab);
+        TypicalTestTasks.loadTaskManagerUndoneListWithSampleData(ab);
         return ab;
     }
 
@@ -109,9 +110,11 @@ public abstract class AddressBookGuiTest {
         assertEquals(size, numberOfPeople);
     }
 
+    //@@author A0093960X
     /**
      * Asserts the message shown in the Result Display area is same as the given string.
-     * @param expected
+     * 
+     * @param expected the expected result message in the result display area
      */
     protected void assertResultMessage(String expected) {
         assertEquals(expected, resultDisplay.getText());
@@ -119,9 +122,41 @@ public abstract class AddressBookGuiTest {
     
     /**
      * Asserts the command input displayed in the command box area is same as the given string.
-     * @param expected
+     * 
+     * @param expected the expected command input string
      */
     protected void assertCommandInput(String expected) {
         assertEquals(expected, commandBox.getCommandInput());
+    }
+    
+    
+    /**
+     * Asserts the add detailed tooltip displayed in the result displayed area matches the expected fields.
+     * 
+     * @param expectedName the expected name in the add detailed tooltip
+     * @param expectedPriority the expected priority in the add detailed tooltip
+     * @param expectedStartDate the expected start date in the add detailed tooltip
+     * @param expectedEndDate the expected end date in the add detailed tooltip
+     * @param expectedRecurrence the expected recurrence rate in the add detailed tooltip
+     */
+    protected void assertAddDetailedToolTip(String expectedName, String expectedPriority, 
+            String expectedStartDate, String expectedEndDate, String expectedRecurrence) {
+        
+    }
+    
+    /**
+     * Asserts the add detailed tooltip displayed in the result displayed area matches the expected fields.
+     * 
+     * @param expectedIndex the expected index in the edit detailed tooltip
+     * @param expectedName the expected name in the edit detailed tooltip
+     * @param expectedPriority the expected priority in the edit detailed tooltip
+     * @param expectedStartDate the expected start date in the edit detailed tooltip
+     * @param expectedEndDate the expected end date in the edit detailed tooltip
+     * @param expectedRecurrence the expected recurrence rate in the edit detailed tooltip
+     */
+    protected void assertEditDetailedToolTip(String expectedIndex, String expectedName, String expectedPriority, 
+            String expectedStartDate, String expectedEndDate, String expectedRecurrence) {
+        
+        
     }
 }

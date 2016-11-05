@@ -20,13 +20,13 @@ import static seedu.address.logic.commands.DeleteCommand.MESSAGE_DELETE_ITEM_SUC
 
 import java.util.Collections;
 
-public class EditCommandTest extends AddressBookGuiTest {
+public class EditCommandTest extends DearJimGuiTest {
     
     //@@author A0139552B
     @Test
     public void edit() throws IllegalValueException {    	
     	
-        TestTask[] currentList = td.getTypicalTasks();
+        TestTask[] currentList = td.getTypicalUndoneTasks();
         assertClearCommandSuccess();
 
         TestTask aliceTask = new TestTask(td.alice);
@@ -71,7 +71,7 @@ public class EditCommandTest extends AddressBookGuiTest {
     @Test
     public void editCheckReset() throws IllegalValueException{
         
-        TestTask[] currentList = td.getTypicalTasks();
+        TestTask[] currentList = td.getTypicalUndoneTasks();
         assertClearCommandSuccess();
 
         TestTask aliceTask = new TestTask(td.alice);
@@ -93,7 +93,7 @@ public class EditCommandTest extends AddressBookGuiTest {
     
     @Test
     public void editCheckInvalid(){
-        TestTask[] currentList = td.getTypicalTasks();
+        TestTask[] currentList = td.getTypicalUndoneTasks();
 
         //invalid index
         commandBox.runCommand("edit " + 10 + " " + "testing");

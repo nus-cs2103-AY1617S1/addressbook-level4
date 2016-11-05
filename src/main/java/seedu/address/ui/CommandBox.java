@@ -69,13 +69,13 @@ public class CommandBox extends UiPart {
             @Override
             public void handle(KeyEvent keyEvent) {
                 switch (keyEvent.getCode()) {
-                case UP:
+                case UP :
                     // Fallthrough
-                case DOWN:
+                case DOWN :
                     keyEvent.consume();
                     handleUpDownArrow(keyEvent);
                     break;
-                default:
+                default :
                     break;
                 }
             }
@@ -148,13 +148,13 @@ public class CommandBox extends UiPart {
         int caretPosition = commandTextField.getCaretPosition();
 
         switch (keyAsString) {
-        case BACKSPACE_UNICODE:
+        case BACKSPACE_UNICODE :
             // backspace action occurs before event triggers, just return the
             // user input
             return userInput;
-        case SPACE_UNICODE:
+        case SPACE_UNICODE :
             return applySpaceAtPosition(userInput, caretPosition);
-        default:
+        default :
             // is a normal letter/digit
             return applyKeyAtPosition(userInput, keyAsString, caretPosition);
         }

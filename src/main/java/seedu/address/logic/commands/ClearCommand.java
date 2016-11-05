@@ -14,7 +14,8 @@ public class ClearCommand extends UndoableCommand {
             + "Example: " + COMMAND_WORD;
 
     public static final String TOOL_TIP = "clear";
-    public static final String MESSAGE_SUCCESS = "Task Manager %1$s list has been cleared!";
+    public static final String MESSAGE_SUCCESS_UNDONE_LIST = "Task Manager undone list has been cleared!";
+    public static final String MESSAGE_SUCCESS_DONE_LIST = "Task Manager done list has been cleared!";
     public static final String MESSAGE_UNDO_SUCCESS = "Undid the clear command! Cleared tasks from the %1$s list have been restored!";
 
     private ObservableList<Task> clearedTasks;
@@ -31,14 +32,15 @@ public class ClearCommand extends UndoableCommand {
             updateTargetList();
         }
 
+        updateHistory();
         if (isTargetDoneList) {
             saveAndClearDoneList();
+            return new CommandResult(MESSAGE_SUCCESS_DONE_LIST);
         } else {
             saveAndClearUndoneList();
+            return new CommandResult(MESSAGE_SUCCESS_UNDONE_LIST);
         }
 
-        updateHistory();
-        return new CommandResult(String.format(MESSAGE_SUCCESS, getClearedListName()));
     }
 
     private void updateTargetList() {
@@ -61,21 +63,12 @@ public class ClearCommand extends UndoableCommand {
 
         if (isTargetDoneList) {
             model.setTaskManagerDoneList(clearedTasks);
+            return new CommandResult(MESSAGE_SUCCESS_DONE_LIST);
         } else {
             model.setTaskManagerUndoneList(clearedTasks);
+            return new CommandResult(MESSAGE_SUCCESS_UNDONE_LIST);
         }
 
-        return new CommandResult(String.format(MESSAGE_UNDO_SUCCESS, getClearedListName()));
-    }
-
-    /**
-     * Returns the list that are restored as part of the clear command.
-     * 
-     * @return "done" if tasks are restored from the done list, "undone" if
-     *         tasks are restored from the undone list.
-     */
-    private String getClearedListName() {
-        return (isTargetDoneList) ? "done" : "undone";
     }
 
 }

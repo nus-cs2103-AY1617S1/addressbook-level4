@@ -6,7 +6,7 @@ import seedu.address.model.item.ReadOnlyTask;
 
 import static org.junit.Assert.assertEquals;
 
-public class SelectCommandTest extends AddressBookGuiTest {
+public class SelectCommandTest extends DearJimGuiTest {
 
 
     @Test
@@ -16,7 +16,7 @@ public class SelectCommandTest extends AddressBookGuiTest {
         assertNoPersonSelected();
 
         assertSelectionSuccess(1); //first person in the list
-        int personCount = td.getTypicalTasks().length;
+        int personCount = td.getTypicalUndoneTasks().length;
         assertSelectionSuccess(personCount); //last person in the list
         int middleIndex = personCount / 2;
         assertSelectionSuccess(middleIndex); //a person in the middle of the list

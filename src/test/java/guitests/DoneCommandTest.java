@@ -9,13 +9,13 @@ import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.DoneCommand.MESSAGE_DONE_ITEM_SUCCESS;
 
 //@@author A0139498J
-public class DoneCommandTest extends AddressBookGuiTest {
+public class DoneCommandTest extends DearJimGuiTest {
 
     @Test
     public void done() {
 
         //archive the first in the list
-        TestTask[] currentList = td.getTypicalTasks();
+        TestTask[] currentList = td.getTypicalUndoneTasks();
         TestTask[] currentDoneList = new TestTask[]{};
         int targetIndex = 1;
         assertDoneSuccess(targetIndex, currentList, currentDoneList);
