@@ -37,95 +37,65 @@ Love typing? You will love sTask, as you only need to use the keyboard to type s
 &nbsp;&nbsp;&nbsp;&nbsp;<b>2.2.1</b> You can type your commands in the Smart Command Input Bar. <br>
 &nbsp;&nbsp;&nbsp;&nbsp;<b>2.2.2</b> This is place where sTask gives you feedback and interacts with you. <br>
 &nbsp;&nbsp;&nbsp;&nbsp;<b>2.2.3</b> This is the To Do Task Panel where all your tasks without date and time are displayed in alphabetical order. <br>
-&nbsp;&nbsp;&nbsp;&nbsp;<b>2.2.4</b> This is the Dated Task Panel where all your events and deadlines are displayed in chronological order. <br>
+&nbsp;&nbsp;&nbsp;&nbsp;<b>2.2.4</b> This is the Dated Task Panel where all your events and deadlines are displayed in chronological order. <br>   
 
-&nbsp;&nbsp;&nbsp;&nbsp; <b>2.5</b> Type the command in the command box and press <kbd>Enter</kbd> to execute it. <br>
->   e.g. typing **`help`** and pressing <kbd>Enter</kbd> will open the help window.
-
-&nbsp;&nbsp;&nbsp;&nbsp; <b>2.6</b> Some example commands you can try:
->    `add Walk the dog d/Don't forget to pick up poo` : Add a floating task.
-    `list all` : List all the floating tasks, deadline and events in the application.
-    `delete 3` : Deletes the 3rd task shown in the current list.
-    `exit` : Exits the application.
-    
-&nbsp;&nbsp;&nbsp;&nbsp; <b>2.7</b> Refer to the [Features](#3-features) section below for details of each command.<br>
+>> You can refer to the [Features](#3-features) section below for details of each command or you can refer to the [Command Summary](#5-command-summary) below<br>
 
 
 ## 3. Features
 
-&nbsp;&nbsp;&nbsp;&nbsp; <b>3.1 Viewing help : `help` </b><br>
->Format: `help` <br>
- Help is also shown if you enter an incorrect command e.g. `abcd`
- 
-&nbsp;&nbsp;&nbsp;&nbsp; <b>3.2 Adding a task: `add` </b><br>
->Adds a floating task to sTask<br>
-Format: `add TASKNAME d/TASK_DESCRIPTION [t/TAG...]` 
+&nbsp;&nbsp;&nbsp;&nbsp; You can learn more about the different features of sTask: kjfkdsfjs
 
->Adds a deadline to sTask<br>
-Format: `add TASKNAME d/TASK_DESCRIPTION date/DATE TIME [t/TAG...]` 
+&nbsp;&nbsp;&nbsp;&nbsp;<b>3.1 Looking for Help </b><br><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;You can type `help`to glance through the list of commands and its formats.<br><br>
 
->Adds an event to sTask<br>
-Format: `add TASKNAME d/TASK_DESCRIPTION date/DATE STARTTIME to ENDTIME [t/TAG...]` <br>
-Format: `add TASKNAME d/TASK_DESCRIPTION date/STARTDATE STARTTIME to ENDDATE ENDTIME [t/TAG...]` <br>
+&nbsp;&nbsp;&nbsp;&nbsp;<b>3.2 Adding a Task </b><br><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; You can add a To Do by typing<br>
+>> `add TASKNAME d/TASK_DESCRIPTION [t/TAG...]` <br>
+>> `add Buy coffee d/Starbucks`
 
-\*\* <i>Refer to appendix for possible formats for DATE & TIME</i>
- 
-> Words in `UPPER_CASE` are the parameters, items in `SQUARE_BRACKETS` are optional, 
-> items with `...` after them can have multiple instances. Order of parameters is fixed. 
-> 
->
-> Tasks can have any number of tags (including none)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; You can add a Deadline by typing<br>
+>> `add TASKNAME d/TASK_DESCRIPTION date/DATE_TIME [t/TAG...]` <br>
+>> `add Finish project proposal date/next friday 5pm t/important`
 
->Examples: 
-* `add Buy pencil d/Pencil to shade OAS sheet`
-* `add Wash Clothes d/Wash with detergent date/27-9-2016 9pm t/!!!`
-* `add Meeting d/Meet with Jim date/today 5pm to 6pm t/!!! t/jim`
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; You can add an Event by typing<br>
+>> `add TASKNAME d/TASK_DESCRIPTION date/DATE_TIME to DATE_TIME[t/TAG...]` <br>
+>> `add Meeting with client d/Prepare docunments date/28-10-2016 10am to 28-10-2016 12pm`<br><br>
 
-&nbsp;&nbsp;&nbsp;&nbsp; <b>3.3 Listing all tasks : `list all` </b><br>
->Shows a list of all uncompleted floating tasks, deadline and events in the application.<br>
-Format: `list all`
+&nbsp;&nbsp;&nbsp;&nbsp; <b>3.3 Listing your Tasks </b><br><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; You can list all your uncompleted tasks by typing<br>
+>> `list all` <br>
 
-&nbsp;&nbsp;&nbsp;&nbsp; <b>3.4 Listing all overdue deadlines: `list od` </b><br>
->Shows a list of all overdue deadlines. <br>
-Format: `list od`
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; You can list all your completed tasks by typing<br>
+>> `list done` <br>
 
-&nbsp;&nbsp;&nbsp;&nbsp; <b>3.5 Listing all completed tasks: `list done` </b><br>
->Shows a list of completed floating tasks, deadlines and events. <br>
-Format: `list done`
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; You can list all your overdue and expired tasks by typing<br>
+>> `list od` <br><br>
 
-&nbsp;&nbsp;&nbsp;&nbsp; <b>3.6 Edit task in the application: `edit` </b><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<b>3.4 Editing your Task </b><br><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; You can edit one or more field(s) of an existing task by typing<br>
+>> `edit INDEX TASKNAME d/TASK_DESCRIPTION date/DATE_TIME [t/TAG...]` <br>
+>> `edit A1 Buy iced tea during lunch d/add lemon date/today noon` <br>
+>> `edit B1 date/next friday 8pm` <br>
+>> `edit B2 t/urgent`<br><br>
 
->Edit the details of the floating task, deadline and event. <br>
-Format: `edit INDEX [FIELDS]`
+&nbsp;&nbsp;&nbsp;&nbsp;<b>3.5 Finding your Tasks </b><br><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; You can find your tasks by typing<br>
+>> `find [KEYWORD...]` <br>
+>> `find meeting` <br><br>
+>>sTask searches through all the fields and returns all the tasks that contains your KEYWORD.<br><br>
 
-> Edits the field of the task at the specified `INDEX`. 
-  The index refers to the index number shown in the most recent listing.<br>
-  The index **must be a positive integer** 1, 2, 3, ...
 
->Example:
-* `list all`<br>
-*  `edit 2 d/Pilot 2B`<br><br>
-Edits the description of the 2nd floating task in sTask.<br>
-Example Buy Pencil.<br>
-A message will be displayed to inform the user that the task is edited.<br>
-Example Edited Task: Buy Pencil Description: Pilot 2B<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<b>3.6 Viewing your tasks on a specific date </b><br><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; You can see all your tasks on a specific date by typing<br>
+>> `view DATE` <br>
+>> `view today` <br>
+>> `view 22-10-2017` <br>
+>> `view valentine day`<br><br>
 
-&nbsp;&nbsp;&nbsp;&nbsp; <b>3.7 Finding tasks containing any keyword in their name, description, date and tags: `find` </b><br>
->Finds all floating tasks, deadlines and events which names, descriptions, dates and tags contain any of the given keywords.<br>
-Format: `find KEYWORD [MORE_KEYWORDS]`
-
-> The search is case insensitive. <br>
-> Order of the keywords does not matter. <br>
-> Name, description, date, time and tag fields are searched, and tasks matching at least one keyword will be returned (i.e. `OR` search). <br>
-
->Examples: 
-* `find EE2020`<br>
-*  Returns “EE2020” and “ee2020” <br><br>
-
->* `find 2020`<br>
-*  Returns “EE2020” and “ee2020” <br><br>
+>>sTask searches through all the fields and returns all the tasks that contains your KEYWORD.<br>
   
-&nbsp;&nbsp;&nbsp;&nbsp;<b>3.8 Navigating through Calendar: `view` </b><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<b>3.8 View through Calendar: `view` </b><br>
 >Populate the list of tasks happening on the selected DATE  <br>
 Format: `view DATE`
 
