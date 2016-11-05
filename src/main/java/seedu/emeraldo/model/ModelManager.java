@@ -68,12 +68,14 @@ public class ModelManager extends ComponentManager implements Model {
         saveState();
     }
     
+    //@@author A0139342H
     //Saves the new state of emeraldo into the stack, after changes has been made
 	private void saveState() {
 		Emeraldo temp = new Emeraldo(emeraldo);
         savedStates.push(temp);
 	}
-
+	//@@author
+	
     public ModelManager() {
         this(new Emeraldo(), new UserPrefs());
     }
@@ -88,6 +90,7 @@ public class ModelManager extends ComponentManager implements Model {
         saveState();
     }
     
+    //@@author A0139342H
     public void undoChanges() throws EmptyStackException, UndoException{
     	if(savedStates.size() > 1){
     	    savedStates.pop();    	    
@@ -98,6 +101,7 @@ public class ModelManager extends ComponentManager implements Model {
     	    throw new UndoException();
     	}
     }
+    //@@author
     
     public void clearEmeraldo(){
     	emeraldo.resetData(Emeraldo.getEmptyEmeraldo());
