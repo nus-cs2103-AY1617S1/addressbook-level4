@@ -27,7 +27,7 @@ public class EditCommand extends Command {
     public static final String SEPARATOR = "/ ";
     public static final String MESSAGE_INVALID_PARAMETER = "Menion detected an invalid parameter for the current type! \n" +
             "Please make sure it is, for: \n" + 
-            Activity.FLOATING_TASK_TYPE + ": "  + NAME_PARAM + SEPARATOR + NOTE_PARAM + "\n" +
+            Activity.FLOATING_TASK_TYPE + ": "  + NAME_PARAM + SEPARATOR + NOTE_PARAM + SEPARATOR + TASK_DEADLINE_PARAM + "\n" +
             Activity.TASK_TYPE + ": " + NAME_PARAM + SEPARATOR + NOTE_PARAM + SEPARATOR + TASK_DEADLINE_PARAM + "\n" +
             Activity.EVENT_TYPE + ": " + NAME_PARAM + SEPARATOR + NOTE_PARAM + SEPARATOR + EVENT_FROM_PARAM + SEPARATOR + EVENT_TO_PARAM;
 
@@ -91,6 +91,7 @@ public class EditCommand extends Command {
         
         return new CommandResult(String.format(MESSAGE_EDITTED_ACTIVITY_SUCCESS, activityToEdit));
     }
+    
 
     private void floatingTaskEdit(ReadOnlyActivity floatingTaskToEdit, String paramToChange) throws IllegalValueException, ActivityNotFoundException{
         int indexOfParam;
@@ -105,6 +106,11 @@ public class EditCommand extends Command {
             String newNote = this.changes;
             model.editFloatingTaskNote(floatingTaskToEdit, newNote);
             break;
+        case 2:
+            NattyDateParser.parseDate(this.changes, fromNatty);
+            model.editTaskDateTime(floatingTaskToEdit, fromNatty.get(0), fromNatty.get(1));
+            break;
+            
         }
 
     }
@@ -128,9 +134,16 @@ public class EditCommand extends Command {
             NattyDateParser.parseDate(this.changes, fromNatty);
             model.editTaskDateTime(taskToEdit, fromNatty.get(0), fromNatty.get(1));
             break;
+        case 4:
+            if (this.changes.contains(Activity.FLOATING_TASK_TYPE)) {
+                   model.editTaskToFloating(taskToEdit);
+            }
+            else {
+                throw new IllegalValueException("Menion can only accept changing task to: " + Activity.FLOATING_TASK_TYPE);
+            }
         }
     }
-
+    
     private void eventEdit(ReadOnlyActivity eventToEdit, String paramToChange) throws IllegalValueException , ActivityNotFoundException{
         int indexOfParam;
         indexOfParam = checkParam(paramToChange);
@@ -161,7 +174,7 @@ public class EditCommand extends Command {
      * @return an integer to match with the param to change, refer below for index:
      *         0 = name (For all) 
      *         1 = note (For all) 
-     *         2 = by (For Tasks only) 
+     *         2 = by (For Tasks only, and floating Task) 
      *         3 = from (For Event's Start Date & Time)
      *         4 = to (For Event's End Date & Time)
      */
@@ -171,11 +184,11 @@ public class EditCommand extends Command {
             return 0;
         } else if (paramToChange.equals(NOTE_PARAM)) {
             return 1;
-        } else if (paramToChange.equals(TASK_DEADLINE_PARAM) && this.targetType.equals(Activity.TASK_TYPE)) {
+        } else if (paramToChange.equals(TASK_DEADLINE_PARAM) && (this.targetType.equals(Activity.TASK_TYPE) || (this.targetType.equals(Activity.FLOATING_TASK_TYPE)))) {
             return 2;
         } else if (paramToChange.equals(EVENT_FROM_PARAM) && this.targetType.equals(Activity.EVENT_TYPE)) {
             return 3;
-        } else if (paramToChange.equals(EVENT_TO_PARAM) && this.targetType.equals(Activity.EVENT_TYPE) ) {
+        } else if (paramToChange.equals(EVENT_TO_PARAM) && (this.targetType.equals(Activity.EVENT_TYPE) || this.targetType.equals(Activity.TASK_TYPE))) {
             return 4;
         }
 
@@ -191,6 +204,7 @@ public class EditCommand extends Command {
         }
         return build.toString();
     }
+    
     //@@author A0139515A
     /**
      * Edit command will store previous activity manager to support undo command
