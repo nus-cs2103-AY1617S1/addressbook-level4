@@ -9,7 +9,7 @@ import java.util.Map;
 import static org.junit.Assert.*;
 import static org.hamcrest.Matchers.*;
 
-//@@author A0135817B
+//@@author A0139021U
 public class TodoDispatcherTest {
     private Dispatcher d = new TodoDispatcher();
     
@@ -24,9 +24,11 @@ public class TodoDispatcherTest {
     public void firstLetterOfCommand() throws Exception {
         for (Map.Entry<String, Class<? extends BaseCommand>> entry : CommandMap.getCommandMap().entrySet()) {
             String firstLetter = entry.getKey().substring(0, 1);
-            boolean isBelongToMultipleCommands = firstLetter.equals("e") || firstLetter.equals("s");
+            boolean isBelongToMultipleCommands = firstLetter.equals("e")
+                    || firstLetter.equals("s")
+                    || firstLetter.equals("c");
             if (!isBelongToMultipleCommands) {
-                assertThat(d.dispatch(entry.getKey()), instanceOf(entry.getValue()));
+                assertThat(d.dispatch(firstLetter), instanceOf(entry.getValue()));
             }
         }
     }
@@ -40,6 +42,7 @@ public class TodoDispatcherTest {
     public void partialCommand() throws Exception {
         assertThat(d.dispatch("ad"), instanceOf(AddCommand.class));
         assertThat(d.dispatch("co"), instanceOf(CompleteCommand.class));
+        assertThat(d.dispatch("cl"), instanceOf(ClearCommand.class));
         assertThat(d.dispatch("dit"), instanceOf(EditCommand.class));
         assertThat(d.dispatch("ed"), instanceOf(EditCommand.class));
         assertThat(d.dispatch("un"), instanceOf(UndoCommand.class));
@@ -52,13 +55,18 @@ public class TodoDispatcherTest {
     }
     
     @Test(expected = IllegalValueException.class)
-    public void ambiguousCommands() throws Exception {
+    public void ambiguousCommand_letterE() throws Exception {
         d.dispatch("e");
     }
 
     @Test(expected = IllegalValueException.class)
     public void ambiguousCommand_letterS() throws Exception {
         d.dispatch("s");
+    }
+
+    @Test(expected = IllegalValueException.class)
+    public void ambiguousCommand_letterC() throws Exception {
+        d.dispatch("c");
     }
 
     @Test(expected = IllegalValueException.class)
@@ -72,8 +80,8 @@ public class TodoDispatcherTest {
     }
 
     @Test(expected = IllegalValueException.class)
-    public void testNonExistentCommand() throws Exception {
-        d.dispatch("applejack");
+    public void emptyStringCommand() throws Exception {
+        d.dispatch("");
     }
     
     @Test(expected = IllegalValueException.class)

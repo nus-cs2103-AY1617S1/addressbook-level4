@@ -6,7 +6,10 @@ import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Lists;
 import seedu.todo.commons.util.StringUtil;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 //@@author A0139021U
@@ -18,22 +21,22 @@ public class CommandMap {
     // List of command classes. Remember to register new commands here so that the
     // dispatcher can recognize them
     private static List<Class<? extends BaseCommand>> commandClasses = ImmutableList.of(
-        AddCommand.class,
-        ClearCommand.class,
-        CompleteCommand.class,
-        DeleteCommand.class,
-        EditCommand.class,
-        ExitCommand.class,
-        HelpCommand.class,
-        PinCommand.class,
-        UndoCommand.class,
-        RedoCommand.class,
-        SaveCommand.class,
-        LoadCommand.class,
-        ShowCommand.class,
-        FindCommand.class,
-        ViewCommand.class,
-        TagCommand.class
+            AddCommand.class,
+            ClearCommand.class,
+            CompleteCommand.class,
+            DeleteCommand.class,
+            EditCommand.class,
+            ExitCommand.class,
+            HelpCommand.class,
+            PinCommand.class,
+            UndoCommand.class,
+            RedoCommand.class,
+            SaveCommand.class,
+            LoadCommand.class,
+            ShowCommand.class,
+            FindCommand.class,
+            ViewCommand.class,
+            TagCommand.class
     );
 
     private static Map<String, Class<? extends BaseCommand>> commandMap;
