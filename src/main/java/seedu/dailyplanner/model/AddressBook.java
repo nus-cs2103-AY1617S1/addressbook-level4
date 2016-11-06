@@ -12,8 +12,8 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 /**
- * Wraps all data at the address-book level
- * Duplicates are not allowed (by .equals comparison)
+ * Wraps all data at the address-book level Duplicates are not allowed (by
+ * .equals comparison)
  */
 public class AddressBook implements ReadOnlyAddressBook {
 
@@ -117,8 +117,8 @@ public class AddressBook implements ReadOnlyAddressBook {
         }
     }
     
-    public void markTaskAsComplete(int targetIndex) throws UniqueTaskList.PersonNotFoundException {
-	persons.complete(targetIndex);
+    public void markTaskAsComplete(ReadOnlyTask key) throws UniqueTaskList.PersonNotFoundException {
+        persons.complete(key);
     }
 
     public void pinTask(int targetIndex) throws PersonNotFoundException {

@@ -11,91 +11,95 @@ import seedu.dailyplanner.model.tag.UniqueTagList;
  */
 public class Task implements ReadOnlyTask, Comparable<Task> {
 
-	private Name name;
-	private Date phone;
-	private StartTime email;
-	private EndTime address;
-	private String isComplete;
+	private String taskName;
+	private DateTime start;
+	private DateTime end;
+	private boolean isComplete;
 	private boolean isPinned;
 	private UniqueTagList tags;
 
 	/**
 	 * Every field must be present and not null.
 	 */
-	public Task(Name name, Date phone, StartTime email, EndTime address, UniqueTagList tags, String isComplete) {
-		assert !CollectionUtil.isAnyNull(name, phone, email, address, tags);
-		this.name = name;
-		this.phone = phone;
-		this.email = email;
-		this.address = address;
+	public Task(String name, DateTime start, DateTime end, boolean isComplete, boolean isPinned, UniqueTagList tags) {
+		assert !CollectionUtil.isAnyNull(name, start, end, isComplete, isPinned, tags);
+		this.taskName = name;
+		this.start = start;
+		this.end = end;
 		this.tags = new UniqueTagList(tags); // protect internal tags from
-												// changes in the arg list
+		// changes in the arg list
 		this.isComplete = isComplete;
-		this.isPinned = false;
+		this.isPinned = isPinned;
 	}
 
 	/**
 	 * Copy constructor.
 	 */
 	public Task(ReadOnlyTask source) {
-		this(source.getName(), source.getPhone(), source.getEmail(), source.getAddress(), source.getTags(), source.getCompletion());
+		this(source.getName(), source.getStart(), source.getEnd(), source.isComplete(), source.isPinned(),
+				source.getTags());
 	}
 
 	@Override
-	public void setName(Name name) {
-		this.name = name;
+	public void setName(String name) {
+		this.taskName = name;
 	}
 
 	@Override
-	public void setDate(Date date) {
-		this.phone = date;
+	public void setStart(DateTime startDate) {
+		this.start = startDate;
 	}
 
 	@Override
-	public void setStartTime(StartTime time) {
-		this.email = time;
+	public void setEnd(DateTime endDate) {
+		this.end = endDate;
 	}
 
-	@Override
-	public void setEndTime(EndTime time) {
-		this.address = time;
-	}
-	
-	@Override
-	public String getCompletion() {
-        return isComplete;
-    }
-	@Override
-	public void setCompletion(String completion) {
-		this.isComplete = completion;
-	}
 	@Override
 	public void markAsComplete() {
-		this.isComplete = "COMPLETE";
+		this.isComplete = true;
 	}
 
 	@Override
-	public Name getName() {
-		return name;
+	public void markAsNotComplete() {
+		this.isComplete = false;
+	}
+
+	public void pin() {
+		this.isPinned = true;
+	}
+
+	public void unpin() {
+		this.isPinned = false;
 	}
 
 	@Override
-	public Date getPhone() {
-		return phone;
+	public String getName() {
+		return taskName;
 	}
 
 	@Override
-	public StartTime getEmail() {
-		return email;
+	public DateTime getStart() {
+		return start;
 	}
 
 	@Override
-	public EndTime getAddress() {
-		return address;
+	public DateTime getEnd() {
+		return end;
 	}
-	
+
+	@Override
+	public String getCompletion() {
+		return (isComplete) ? "COMPLETE" : "NOT COMPLETE";
+	}
+
+	@Override
+	public boolean isComplete() {
+		return isComplete;
+	}
+
 	public boolean isPinned() {
-	    return isPinned;
+		return isPinned;
 	}
 
 	@Override
@@ -104,7 +108,7 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
 	}
 
 	/**
-	 * Replaces this person's tags with the tags in the argument tag list.
+	 * Replaces this task's tags with the tags in the argument tag list.
 	 */
 	public void setTags(UniqueTagList replacement) {
 		tags.setTags(replacement);
@@ -119,9 +123,7 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
 
 	@Override
 	public int hashCode() {
-		// use this method for custom fields hashing instead of implementing
-		// your own
-		return Objects.hash(name, phone, email, address, tags, isComplete);
+		return Objects.hash(taskName, start, end, isComplete, isPinned, tags);
 	}
 
 	@Override
@@ -129,25 +131,14 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
 		return getAsText();
 	}
 
-
 	@Override
 	public int compareTo(Task o) {
-		if (this.getPhone().compareTo(o.getPhone()) != 0) {
-			return this.getPhone().compareTo(o.getPhone());
-		}
-		else if (this.getEmail().compareTo(o.getEmail()) != 0) {
-			return this.getEmail().compareTo(o.getEmail());
-		}
-		return this.getAddress().compareTo(o.getAddress());
+		if (!start.equals(o.start)) {
+			return start.compareTo(o.start);
+		} else if (!end.equals(o.end)) {
+			return end.compareTo(o.end);
+		} else
+			return taskName.compareTo(o.taskName);
 	}
-
-	public void pin() {
-	    this.isPinned = true;
-	}
-	
-	public void unpin() {
-	    this.isPinned = false;
-	}
-
 
 }

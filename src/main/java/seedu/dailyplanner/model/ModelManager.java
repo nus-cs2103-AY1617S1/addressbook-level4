@@ -96,12 +96,12 @@ public class ModelManager extends ComponentManager implements Model {
 	setLastTaskAddedIndex(addressBook.indexOf(person));
 	updateFilteredListToShowAll();
 	indicateAddressBookChanged();
-	setLastShowDate(person.getPhone().value);
+	setLastShowDate(person.getStart().getDate().toString());
     }
 
-    public synchronized void markTaskAsComplete(int targetIndex) throws PersonNotFoundException {
-	addressBook.markTaskAsComplete(targetIndex);
-	indicateAddressBookChanged();
+    public synchronized void markTaskAsComplete(ReadOnlyTask taskToComplete) throws PersonNotFoundException {
+        addressBook.markTaskAsComplete(taskToComplete);
+        indicateAddressBookChanged();
     }
     
     @Override
@@ -205,87 +205,87 @@ public class ModelManager extends ComponentManager implements Model {
 
 	PredicateExpression(Qualifier qualifier) {
 	    this.qualifier = qualifier;
+		}
+
+		@Override
+		public boolean satisfies(ReadOnlyTask person) {
+			return qualifier.run(person);
+		}
+
+		@Override
+		public String toString() {
+			return qualifier.toString();
+		}
+	}
+
+	interface Qualifier {
+		boolean run(ReadOnlyTask person);
+
+		String toString();
+	}
+
+	private class CompletionQualifier implements Qualifier {
+		private Set<String> completionKeywords;
+
+		CompletionQualifier(Set<String> completionKeyword) {
+			this.completionKeywords = completionKeyword;
+		}
+
+		@Override
+		public boolean run(ReadOnlyTask person) {
+			System.out.println("HELLO" + person.getCompletion());
+			return completionKeywords.contains(person.getCompletion().toLowerCase());
+		}
+
+		@Override
+		public String toString() {
+			return "completion=" + String.join(", ", completionKeywords);
+		}
+	}
+
+	private class DateQualifier implements Qualifier {
+		private Set<String> dateKeyWords;
+
+		DateQualifier(Set<String> dateKeyWords) {
+			this.dateKeyWords = dateKeyWords;
+		}
+
+		@Override
+		public boolean run(ReadOnlyTask task) {
+			return dateKeyWords.stream().filter(keyword -> StringUtil.withinDateRange(task, keyword))
+					.findAny().isPresent();
+		}
+
+		@Override
+		public String toString() {
+			return "date=" + String.join(", ", dateKeyWords);
+		}
+	}
+
+	private class NameQualifier implements Qualifier {
+		private Set<String> nameKeyWords;
+
+		NameQualifier(Set<String> nameKeyWords) {
+			this.nameKeyWords = nameKeyWords;
+		}
+
+		@Override
+		public boolean run(ReadOnlyTask person) {
+			return nameKeyWords.stream().filter(keyword -> StringUtil.containsIgnoreCase(person.getName(), keyword))
+					.findAny().isPresent();
+		}
+
+		@Override
+		public String toString() {
+			return "name=" + String.join(", ", nameKeyWords);
+		}
 	}
 
 	@Override
-	public boolean satisfies(ReadOnlyTask person) {
-	    return qualifier.run(person);
+	public HistoryManager getHistory() {
+
+		return history;
 	}
-
-	@Override
-	public String toString() {
-	    return qualifier.toString();
-	}
-    }
-
-    interface Qualifier {
-	boolean run(ReadOnlyTask person);
-
-	String toString();
-    }
-
-    private class CompletionQualifier implements Qualifier {
-	private Set<String> completionKeywords;
-
-	CompletionQualifier(Set<String> completionKeyword) {
-	    this.completionKeywords = completionKeyword;
-	}
-
-	@Override
-	public boolean run(ReadOnlyTask person) {
-	    return completionKeywords.contains(person.getCompletion().toLowerCase());
-	}
-
-	@Override
-	public String toString() {
-	    return "completion=" + String.join(", ", completionKeywords);
-	}
-    }
-
-    private class DateQualifier implements Qualifier {
-	private Set<String> dateKeyWords;
-
-	DateQualifier(Set<String> dateKeyWords) {
-	    this.dateKeyWords = dateKeyWords;
-	}
-
-	@Override
-	public boolean run(ReadOnlyTask person) {
-	    return dateKeyWords.stream().filter(keyword -> StringUtil.withinDateRange(person.getPhone(), keyword))
-		    .findAny().isPresent();
-	}
-
-	@Override
-	public String toString() {
-	    return "date=" + String.join(", ", dateKeyWords);
-	}
-    }
-
-    private class NameQualifier implements Qualifier {
-	private Set<String> nameKeyWords;
-
-	NameQualifier(Set<String> nameKeyWords) {
-	    this.nameKeyWords = nameKeyWords;
-	}
-
-	@Override
-	public boolean run(ReadOnlyTask person) {
-	    return nameKeyWords.stream()
-		    .filter(keyword -> StringUtil.containsIgnoreCase(person.getName().fullName, keyword)).findAny()
-		    .isPresent();
-	}
-
-	@Override
-	public String toString() {
-	    return "name=" + String.join(", ", nameKeyWords);
-	}
-    }
-
-    @Override
-    public HistoryManager getHistory() {
-
-	return history;
-    }
 
    
 

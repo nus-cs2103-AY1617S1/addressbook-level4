@@ -3,13 +3,22 @@ package seedu.dailyplanner.logic.parser;
 import static seedu.dailyplanner.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.dailyplanner.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Optional;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.dailyplanner.commons.exceptions.IllegalValueException;
 import seedu.dailyplanner.commons.util.StringUtil;
 import seedu.dailyplanner.logic.commands.*;
+import seedu.dailyplanner.model.task.Date;
+import seedu.dailyplanner.model.task.DateTime;
+import seedu.dailyplanner.model.task.Time;
 
 /**
  * Parses user input.
@@ -38,8 +47,8 @@ public class Parser {
 	Pattern.compile(
 			"(?<name>[^/]+)" + " (?<isPhonePrivate>p?)d/(?<date>[^/]+)" + " (?<isEmailPrivate>p?)st/(?<starttime>[^/]+)"
 					+ " (?<isAddressPrivate>p?)et/(?<endtime>[^/]+)" + "(?<tagArguments>(?: c/[^/]+)*)"); // variable
-																											// number
-																											// of
+	// number
+	// of
 	// tags
 
 	public Parser() {
@@ -117,7 +126,6 @@ public class Parser {
 		if (!index.isPresent()) {
 			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, CompleteCommand.MESSAGE_USAGE));
 		}
-
 		return new UnpinCommand(index.get());
 	}
 
@@ -126,7 +134,6 @@ public class Parser {
 		if (!index.isPresent()) {
 			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, CompleteCommand.MESSAGE_USAGE));
 		}
-
 		return new PinCommand(index.get());
 	}
 
@@ -135,7 +142,6 @@ public class Parser {
 		if (!index.isPresent()) {
 			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, CompleteCommand.MESSAGE_USAGE));
 		}
-
 		return new CompleteCommand(index.get());
 	}
 
@@ -144,13 +150,17 @@ public class Parser {
 	private Command prepareEdit(String arguments) {
 
 		int index = 0;
-		String taskName = "", startDate = "", startTime = "", endTime = "", isRecurring = "", endDate = "";
+		String taskName = null;
+		String start = null, end = null;
+		DateTime formattedStart = null, formattedEnd = null;
+		Set<String> tags = new HashSet<String>();
+
 		HashMap<String, String> mapArgs = parseEdit(arguments.trim());
 
 		// If arguments are in hashmap, pass them to addCommand, if not pass
 		// them as empty string
-
 		// Change date to "dd/mm/yy/", time to "hh:mm"
+
 		nattyParser natty = new nattyParser();
 
 		if (mapArgs.containsKey("index")) {
@@ -160,40 +170,51 @@ public class Parser {
 			taskName = mapArgs.get("taskName");
 		}
 		if (mapArgs.containsKey("start")) {
-			String start = mapArgs.get("start");
-			if (start.contains("am") || start.contains("pm")) {
-				start = natty.parse(start);
-				String[] dateAndTime = start.split(" ");
-				startDate = dateAndTime[0];
-				startTime = dateAndTime[1];
+			String startString = mapArgs.get("start");
+			// if start time is given
+			if (startString.contains("am") || startString.contains("pm")) {
+				start = natty.parse(startString);
+				Date startDate = new Date(start.split(" ")[0]);
+				Time startTime = new Time(start.split(" ")[1]);
+				formattedStart = new DateTime(startDate, startTime);
 			} else {
-				startDate = natty.parseDate(start);
+				start = natty.parseDate(startString);
+				Date startDate = new Date(start);
+				formattedStart = new DateTime(startDate, new Time(""));
 			}
-
 		}
 		if (mapArgs.containsKey("end")) {
-			String end = mapArgs.get("end");
-			if (end.contains("am") || end.contains("pm")) {
-				end = natty.parse(end);
-				String[] dateAndTime = end.split(" ");
-				endDate = dateAndTime[0];
-				endTime = dateAndTime[1];
-				if (!endDate.equals(startDate) && endDate.equals(natty.parseDate("today"))) {
-					endDate = startDate;
+			String endString = mapArgs.get("end");
+			// if end time is given
+			if (endString.contains("am") || endString.contains("pm")) {
+				if (endString.length() >= 7 && !Character.isDigit(endString.charAt(0))) {
+					end = natty.parse(endString);
+					Date endDate = new Date(end.split(" ")[0]);
+					Time endTime = new Time(end.split(" ")[1]);
+					formattedEnd = new DateTime(endDate, endTime);
+				} else {
+					Date endDate;
+					if (!mapArgs.containsKey("start")) {
+						endDate = new Date(natty.parse("today"));
+					} else {
+						endDate = new Date(start.split(" ")[0]);
+					}
+					Time endTime = new Time(natty.parseTime(endString));
+					formattedEnd = new DateTime(endDate, endTime);
 				}
 			} else {
-				endDate = natty.parseDate(end);
+				end = natty.parseDate(endString);
+				Date endDate = new Date(end);
+				formattedEnd = new DateTime(endDate, new Time(""));
 			}
 		}
-		if (mapArgs.containsKey("isRecurring")) {
-			isRecurring = mapArgs.get("isRecurring");
+		if (mapArgs.containsKey("tags")) {
+			String[] tagArray = mapArgs.get("tags").split(" ");
+			tags = new HashSet<String>(Arrays.asList(tagArray));
 		}
 
-		Set<String> emptySet = new HashSet<String>();
-
 		try {
-
-			return new EditCommand(index, taskName, startDate, endDate, startTime, endTime, emptySet);
+			return new EditCommand(index, taskName, formattedStart, formattedEnd, tags);
 		} catch (IllegalValueException ive) {
 			return new IncorrectCommand(ive.getMessage());
 		}
@@ -209,8 +230,12 @@ public class Parser {
 
 	// @@author A0140124B
 	private Command prepareAdd(String args) {
-		String taskName = "", startDate = "", startTime = "", endTime = "", endDate = "", isRecurring = "";
-		Set<String> tagSet = Collections.emptySet();
+		String taskName = "";
+		String start = "", end = "";
+		DateTime formattedStart = new DateTime(new Date(""), new Time(""));
+		DateTime formattedEnd = new DateTime(new Date(""), new Time(""));
+		Set<String> tags = new HashSet<String>();
+
 		String trimmedArgs = args.trim();
 
 		if (!(isValidAddArgumentFormat(trimmedArgs))) {
@@ -224,47 +249,57 @@ public class Parser {
 
 		// Change date to "dd/mm/yy/", time to "hh:mm"
 		nattyParser natty = new nattyParser();
+		DateTimeParser dt = new DateTimeParser();
 
 		if (mapArgs.containsKey("taskName")) {
 			taskName = mapArgs.get("taskName");
 		}
 		if (mapArgs.containsKey("start")) {
-			String start = mapArgs.get("start");
-			if (start.contains("am") || start.contains("pm")) {
-				start = natty.parse(start);
-				String[] dateAndTime = start.split(" ");
-				startDate = dateAndTime[0];
-				startTime = dateAndTime[1];
+			String startString = mapArgs.get("start");
+			// if start time is given
+			if (startString.contains("am") || startString.contains("pm")) {
+				start = natty.parse(startString);
+				Date startDate = new Date(start.split(" ")[0]);
+				Time startTime = new Time(start.split(" ")[1]);
+				formattedStart = new DateTime(startDate, startTime);
 			} else {
-				startDate = natty.parseDate(start);
+				start = natty.parseDate(startString);
+				Date startDate = new Date(start);
+				formattedStart = new DateTime(startDate, new Time(""));
 			}
-
 		}
 		if (mapArgs.containsKey("end")) {
-			String end = mapArgs.get("end");
-			if (end.contains("am") || end.contains("pm")) {
-				end = natty.parse(end);
-				String[] dateAndTime = end.split(" ");
-				endDate = dateAndTime[0];
-				endTime = dateAndTime[1];
-				if (!endDate.equals(startDate) && endDate.equals(natty.parseDate("today"))) {
-					endDate = startDate;
+			String endString = mapArgs.get("end");
+			// if end time is given
+			if (endString.contains("am") || endString.contains("pm")) {
+				// if end date is given
+				if (endString.length() >= 7 && !Character.isDigit(endString.charAt(0))) {
+					end = natty.parse(endString);
+					Date endDate = new Date(end.split(" ")[0]);
+					Time endTime = new Time(end.split(" ")[1]);
+					formattedEnd = new DateTime(endDate, endTime);
+				} else {
+					Date endDate;
+					if (!mapArgs.containsKey("start")) {
+						endDate = new Date(natty.parse("today"));
+					} else {
+						endDate = new Date(start.split(" ")[0]);
+					}
+					Time endTime = new Time(natty.parseTime(endString));
+					formattedEnd = new DateTime(endDate, endTime);
 				}
 			} else {
-				endDate = natty.parseDate(end);
+				end = natty.parseDate(endString);
+				Date endDate = new Date(end);
+				formattedEnd = new DateTime(endDate, new Time(""));
 			}
-		}
-		if (mapArgs.containsKey("isRecurring")) {
-			isRecurring = mapArgs.get("isRecurring");
 		}
 		if (mapArgs.containsKey("tags")) {
 			String[] tagArray = mapArgs.get("tags").split(" ");
-			tagSet = new HashSet<String>(Arrays.asList(tagArray));
+			tags = new HashSet<String>(Arrays.asList(tagArray));
 		}
-
 		try {
-
-			return new AddCommand(taskName, startDate, endDate, startTime, endTime, tagSet);
+			return new AddCommand(taskName, formattedStart, formattedEnd, tags);
 		} catch (IllegalValueException ive) {
 			return new IncorrectCommand(ive.getMessage());
 		}
@@ -322,14 +357,13 @@ public class Parser {
 		mapArgs.put("index", index);
 
 		arguments = arguments.substring(indexStringLength + 1);
-		String taskName = "";
 		if (hasTaskName(arguments)) {
-			taskName = getTaskNameFromArguments(arguments);
-		}
-		mapArgs.put("taskName", taskName);
-		if (hasTaskName(arguments) && arguments.contains("/")) {
-			String[] splitArgs = arguments.substring(taskName.length() + 1).split(" ");
-			argumentArrayToHashMap(mapArgs, splitArgs);
+			String taskName = getTaskNameFromArguments(arguments);
+			mapArgs.put("taskName", taskName);
+			if (arguments.contains("/")) {
+				String[] splitArgs = arguments.substring(taskName.length() + 1).split(" ");
+				argumentArrayToHashMap(mapArgs, splitArgs);
+			}
 		} else if (arguments.contains("/")) {
 			String[] splitArgs = arguments.split(" ");
 			argumentArrayToHashMap(mapArgs, splitArgs);
@@ -364,15 +398,6 @@ public class Parser {
 				mapArgs.put("end", arg);
 			}
 
-			if (splitArgs[i].substring(0, 2).equals("r/")) {
-				int j = i + 1;
-				String arg = splitArgs[i].substring(2);
-				while (j < splitArgs.length && !splitArgs[j].contains("/")) {
-					arg += " " + splitArgs[j];
-					j++;
-				}
-				mapArgs.put("isRecurring", arg);
-			}
 			if (splitArgs[i].substring(0, 2).equals("c/")) {
 				int j = i + 1;
 				String arg = splitArgs[i].substring(2);
@@ -390,6 +415,7 @@ public class Parser {
 	// @@author A0146749N
 	private boolean hasTaskName(String arguments) {
 		if (arguments.substring(0, 3).contains("/")) {
+			System.out.println("HAS NO TASK NAME");
 			return false;
 		} else {
 			return true;
@@ -452,8 +478,12 @@ public class Parser {
 
 		String[] keywords = new String[1];
 
-		if (keyword.equals("complete") || keyword.equals("not complete")) {
-			keywords[0] = keyword;
+		if (keyword.contains("complete")) {
+			if (keyword.contains("not")) {
+				keywords[0] = "not complete";
+			} else {
+				keywords[0] = "complete";
+			}
 		} else {
 			nattyParser natty = new nattyParser();
 			keywords[0] = natty.parseDate(keyword);

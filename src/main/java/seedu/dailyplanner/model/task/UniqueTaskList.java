@@ -93,16 +93,17 @@ public class UniqueTaskList implements Iterable<Task> {
 
 	/**
 	 * Marks the task indicated by taskIndex as complete
+	 * @return 
 	 * 
 	 * @throws PersonNotFoundException
 	 *             if the task index is invalid.
 	 */
-	public void complete(int taskIndex) throws PersonNotFoundException {
+	public void complete(ReadOnlyTask key) throws PersonNotFoundException {
 
-		final Task completedTask = internalList.get(taskIndex);
+		final int completedTaskIndex = internalList.indexOf(key);
+		final Task completedTask = internalList.get(completedTaskIndex);
 		completedTask.markAsComplete();
-		internalList.set(taskIndex, completedTask);
-		FXCollections.sort(internalList);
+		internalList.set(completedTaskIndex, completedTask);
 	}
 
 	/**

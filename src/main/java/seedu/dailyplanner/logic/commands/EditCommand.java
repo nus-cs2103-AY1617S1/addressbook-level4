@@ -2,6 +2,7 @@
 package seedu.dailyplanner.logic.commands;
 
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 import seedu.dailyplanner.commons.core.Messages;
@@ -9,11 +10,8 @@ import seedu.dailyplanner.commons.core.UnmodifiableObservableList;
 import seedu.dailyplanner.commons.exceptions.IllegalValueException;
 import seedu.dailyplanner.model.tag.Tag;
 import seedu.dailyplanner.model.tag.UniqueTagList;
-import seedu.dailyplanner.model.task.Date;
-import seedu.dailyplanner.model.task.EndTime;
-import seedu.dailyplanner.model.task.Name;
+import seedu.dailyplanner.model.task.DateTime;
 import seedu.dailyplanner.model.task.ReadOnlyTask;
-import seedu.dailyplanner.model.task.StartTime;
 import seedu.dailyplanner.model.task.Task;
 import seedu.dailyplanner.model.task.UniqueTaskList;
 import seedu.dailyplanner.model.task.UniqueTaskList.PersonNotFoundException;
@@ -36,17 +34,27 @@ public class EditCommand extends Command {
     public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Task: %1$s";
 
     public final int targetIndex;
-    private final Task toAdd;
+    private final Optional<String> taskName;
+    private final Optional<DateTime> start;
+    private final Optional<DateTime> end;
+    private final Optional<Set<String>> tags;
+    private Optional<UniqueTagList> tagSet;
 
-    public EditCommand(int targetIndex, String taskName, String date, String endDate, String startTime, String endTime,
-	    Set<String> tags) throws IllegalValueException {
+    public EditCommand(int targetIndex, String taskName, DateTime start, DateTime end, Set<String> tags)
+	    throws IllegalValueException {
 	this.targetIndex = targetIndex;
-	final Set<Tag> tagSet = new HashSet<>();
-	for (String tagName : tags) {
-	    tagSet.add(new Tag(tagName));
+	this.taskName = Optional.ofNullable(taskName);
+	this.start = Optional.ofNullable(start);
+	this.end = Optional.ofNullable(end);
+	this.tags = Optional.ofNullable(tags);
+	this.tagSet = Optional.empty();
+	if (this.tags.isPresent()) {
+	    final Set<Tag> tagSet = new HashSet<>();
+	    for (String tagName : tags) {
+		tagSet.add(new Tag(tagName));
+	    }
+	    this.tagSet = Optional.of(new UniqueTagList(tagSet));
 	}
-	this.toAdd = new Task(new Name(taskName), new Date(date, endDate), new StartTime(startTime),
-		new EndTime(endTime), new UniqueTagList(tagSet), "NOT COMPLETE");
     }
 
     @Override
@@ -61,54 +69,35 @@ public class EditCommand extends Command {
 
 	ReadOnlyTask taskToEdit = lastShownList.get(targetIndex - 1);
 
-	Name taskToEditName = taskToEdit.getName();
-	Date taskToEditDate = taskToEdit.getPhone();
-	StartTime taskToEditStartTime = taskToEdit.getEmail();
-	EndTime taskToEditEndTime = taskToEdit.getAddress();
-
-	Name toAddName = toAdd.getName();
-	Date toAddDate = toAdd.getPhone();
-	StartTime toAddStartTime = toAdd.getEmail();
-	EndTime toAddEndTime = toAdd.getAddress();
-
-	if (toAddName.toString().equals("")) {
-	    toAdd.setName(taskToEditName);
+	String toAddName = taskToEdit.getName();
+	if (taskName.isPresent()) {
+	    toAddName = taskName.get();
+	}
+	DateTime toAddStart = taskToEdit.getStart();
+	if (start.isPresent()) {
+	    toAddStart = start.get();
+	}
+	DateTime toAddEnd = taskToEdit.getEnd();
+	if (end.isPresent()) {
+	    toAddEnd = end.get();
+	}
+	UniqueTagList toAddTags = taskToEdit.getTags();
+	if (tagSet.isPresent()) {
+	    toAddTags = tagSet.get();
 	}
 
-	if (toAddDate.toString().equals("") && toAddDate.getEndDate().equals("")) {
-	    toAdd.setDate(taskToEditDate);
-	} else if (toAddDate.toString().equals("")) {
-	    try {
-		toAdd.setDate(new Date(taskToEditDate.value, toAddDate.getEndDate()));
-	    } catch (IllegalValueException e) {
-		e.printStackTrace();
-	    }
-	} else if (toAddEndTime.toString().equals("")) {
-	    
-	    try {
-		toAdd.setDate(new Date(toAddDate.value, taskToEditDate.getEndDate()));
-	    } catch (IllegalValueException e) {
-	    }
-	}
-
-	if (toAddStartTime.toString().equals("")) {
-	    toAdd.setStartTime(taskToEditStartTime);
-	}
-	if (toAddEndTime.toString().equals("")) {
-	    toAdd.setEndTime(taskToEditEndTime);
-	}
+	Task toAdd = new Task(toAddName, toAddStart, toAddEnd, taskToEdit.isComplete(), taskToEdit.isPinned(),
+		toAddTags);
 
 	try {
 	    model.getHistory().stackEditInstruction(taskToEdit, toAdd);
 	    model.deletePerson(taskToEdit);
 	    model.addPerson(toAdd);
-
 	} catch (PersonNotFoundException pnfe) {
 	    assert false : "The target task cannot be missing";
 	} catch (UniqueTaskList.DuplicatePersonException e) {
 	    return new CommandResult(MESSAGE_DUPLICATE_PERSON);
 	}
-
 	return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, taskToEdit));
     }
 

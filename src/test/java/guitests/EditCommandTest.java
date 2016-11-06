@@ -46,7 +46,7 @@ public class EditCommandTest extends AddressBookGuiTest {
 	
 	case 'd':
 	    String newDateString = np.parse(newField);
-	    Date newDate = new Date(newDateString);
+	    Date1 newDate = new Date1(newDateString);
 	    personToEdit.setDate(newDate);
 	    
 	case 's':

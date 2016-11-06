@@ -11,7 +11,7 @@ public class TestPerson implements ReadOnlyTask {
     private Name name;
     private EndTime address;
     private StartTime email;
-    private Date phone;
+    private Date1 phone;
     private boolean isCompleted;
     private UniqueTagList tags;
     private String isComplete;
@@ -32,7 +32,7 @@ public class TestPerson implements ReadOnlyTask {
         this.email = email;
     }
 
-    public void setDate(Date phone) {
+    public void setDate(Date1 phone) {
         this.phone = phone;
     }
 
@@ -42,12 +42,12 @@ public class TestPerson implements ReadOnlyTask {
     }
 
     @Override
-    public Date getPhone() {
+    public Date1 getStart() {
         return phone;
     }
 
     @Override
-    public StartTime getEmail() {
+    public StartTime getEnd() {
         return email;
     }
 
@@ -69,8 +69,8 @@ public class TestPerson implements ReadOnlyTask {
     public String getAddCommand() {
         StringBuilder sb = new StringBuilder();
         sb.append("add " + this.getName().fullName + " ");
-        sb.append("d/" + this.getPhone().value + " ");
-        sb.append("s/" + this.getEmail().value + " ");
+        sb.append("d/" + this.getStart().value + " ");
+        sb.append("s/" + this.getEnd().value + " ");
         sb.append("e/" + this.getAddress().value + " ");
         this.getTags().getInternalList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));
         return sb.toString();

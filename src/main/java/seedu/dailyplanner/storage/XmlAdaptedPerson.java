@@ -15,70 +15,76 @@ import java.util.List;
  */
 public class XmlAdaptedPerson {
 
-    @XmlElement(required = true)
-    private String name;
-    @XmlElement(required = true)
-    private String phone;
-    @XmlElement(required = true)
-    private String endDate;
-    @XmlElement(required = true)
-    private String email;
-    @XmlElement(required = true)
-    private String address;
-    @XmlElement(required = true)
-    private String isComplete;
-    @XmlElement(required = true)
-    private boolean isPinned;
+	@XmlElement(required = true)
+	private String name;
+	@XmlElement(required = true)
+	private String startDate;
+	@XmlElement(required = true)
+	private String startTime;
+	@XmlElement(required = true)
+	private String endDate;
+	@XmlElement(required = true)
+	private String endTime;
+	@XmlElement(required = true)
+	private boolean isComplete;
+	@XmlElement(required = true)
+	private boolean isPinned;
 
-    @XmlElement
-    private List<XmlAdaptedTag> tagged = new ArrayList<>();
+	@XmlElement
+	private List<XmlAdaptedTag> tagged = new ArrayList<>();
 
-    /**
-     * No-arg constructor for JAXB use.
-     */
-    public XmlAdaptedPerson() {
-    }
-
-    /**
-     * Converts a given Person into this class for JAXB use.
-     *
-     * @param source
-     *            future changes to this will not affect the created
-     *            XmlAdaptedPerson
-     */
-    public XmlAdaptedPerson(ReadOnlyTask source) {
-	name = source.getName().fullName;
-	phone = source.getPhone().value;
-	endDate = source.getPhone().endDate;
-	email = source.getEmail().value;
-	address = source.getAddress().value;
-	isComplete = source.getCompletion();
-	isPinned = source.isPinned();
-	tagged = new ArrayList<>();
-	for (Tag tag : source.getTags()) {
-	    tagged.add(new XmlAdaptedTag(tag));
+	/**
+	 * No-arg constructor for JAXB use.
+	 */
+	public XmlAdaptedPerson() {
 	}
-    }
 
-    /**
-     * Converts this jaxb-friendly adapted person object into the model's Person
-     * object.
-     *
-     * @throws IllegalValueException
-     *             if there were any data constraints violated in the adapted
-     *             person
-     */
-    public Task toModelType() throws IllegalValueException {
-	final List<Tag> personTags = new ArrayList<>();
-	for (XmlAdaptedTag tag : tagged) {
-	    personTags.add(tag.toModelType());
+	/**
+	 * Converts a given Person into this class for JAXB use.
+	 *
+	 * @param source
+	 *            future changes to this will not affect the created
+	 *            XmlAdaptedPerson
+	 */
+	public XmlAdaptedPerson(ReadOnlyTask source) {
+		name = source.getName();
+		startDate = source.getStart().getDate().toString();
+		startTime = source.getStart().getTime().toString();
+		endDate = source.getEnd().getDate().toString();
+		endTime = source.getEnd().getTime().toString();
+		isComplete = source.isComplete();
+		isPinned = source.isPinned();
+		tagged = new ArrayList<>();
+		for (Tag tag : source.getTags()) {
+			tagged.add(new XmlAdaptedTag(tag));
+		}
 	}
-	final Name name = new Name(this.name);
-	final Date phone = new Date(this.phone, this.endDate);
-	final StartTime email = new StartTime(this.email);
-	final EndTime address = new EndTime(this.address);
-	final UniqueTagList tags = new UniqueTagList(personTags);
-	Task newTask = new Task(name, phone, email, address, tags, isComplete);
-	return newTask;
-    }
+
+	/**
+	 * Converts this jaxb-friendly adapted person object into the model's Person
+	 * object.
+	 *
+	 * @throws IllegalValueException
+	 *             if there were any data constraints violated in the adapted
+	 *             person
+	 */
+	public Task toModelType() throws IllegalValueException {
+
+		final String taskName = this.name;
+		final Date dateStart = new Date(startDate);
+		final Time timeStart = new Time(startTime);
+		final DateTime start = new DateTime(dateStart, timeStart);
+		final Date dateEnd = new Date(endDate);
+		final Time timeEnd = new Time(endTime);
+		final DateTime end = new DateTime(dateEnd, timeEnd);
+		final List<Tag> personTags = new ArrayList<>();
+		for (XmlAdaptedTag tag : tagged) {
+			personTags.add(tag.toModelType());
+		}
+		final UniqueTagList tags = new UniqueTagList(personTags);
+
+		Task newTask = new Task(taskName, start, end, isComplete, isPinned, tags);
+		return newTask;
+
+	}
 }
