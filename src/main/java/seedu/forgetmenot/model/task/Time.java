@@ -87,12 +87,13 @@ public class Time {
     	}
     }
     //@@author
+    //@@author A0139671X
     /**
-     * @return a String for a date and time thats easy to read. Example, "Thu, Feb 17, 2016, 10:11 AM"
-     * @@author A0139671X
+     * @return a String for a date and time thats easy to read. 
+     * Example, "Thu, Feb 17, 2016, 10:11 AM"
      */
     public String easyReadDateFormatForUI() {
-        if(time.getTime().equals(new Date(0))) {
+        if (time.getTime().equals(new Date(0))) {
             return "-";
         }
         
@@ -100,8 +101,8 @@ public class Time {
             SimpleDateFormat dateFormatter = new SimpleDateFormat("E, MMM d, yyyy, hh:mm a");
             return dateFormatter.format(time.getTime());
         }
-        
     }
+    //@@author
     
     //@@author A0139198N
     public String appearOnUIFormatForDate() {

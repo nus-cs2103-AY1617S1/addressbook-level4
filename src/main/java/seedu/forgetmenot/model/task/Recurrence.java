@@ -97,6 +97,7 @@ public class Recurrence {
         else if (days.toLowerCase().equals("year")) {
             return "Yearly";
         }
+        
         else {
             return days;
         }

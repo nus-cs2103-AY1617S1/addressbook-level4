@@ -35,22 +35,24 @@ public interface ReadOnlyTask {
     }
     //@@author A0139671X
     /**
-     * Formats the task as text, showing all contact details.
+     * Formats the task as text, showing all task details.
      */
     default String getAsText() {
         final StringBuilder builder = new StringBuilder();
-        
         builder.append(getName());
         builder.append(System.lineSeparator());
         
-        if (!getStartTime().isMissing())
+        if (!getStartTime().isMissing()) {
             builder.append("Start: " + getStartTime().easyReadDateFormatForUI());
+        }
         
-        if (!getEndTime().isMissing())
+        if (!getEndTime().isMissing()) {
             builder.append(" End: " + getEndTime().easyReadDateFormatForUI());
+        }
         
-        if (getRecurrence().getValue())
+        if (getRecurrence().getValue()) {
             builder.append(" Recurrence: " + getRecurrence());
+        }
         
         return builder.toString();
     }

@@ -131,8 +131,10 @@ public class UniqueTaskList implements Iterable<Task> {
     //@@author A0139671X
     public void editName(ReadOnlyTask toEdit, Name newName) throws TaskNotFoundException {
         assert toEdit != null;
-        if(!internalList.contains(toEdit))
+        if(!internalList.contains(toEdit)) {
             throw new TaskNotFoundException();
+        }
+        
         int taskIndex = internalList.indexOf(toEdit);
         Task taskFound = internalList.get(taskIndex);
         taskFound.setName(newName);
@@ -142,8 +144,10 @@ public class UniqueTaskList implements Iterable<Task> {
     //@@author A0139671X
     public void editStartTime(ReadOnlyTask toEdit, Time newTiming) throws TaskNotFoundException {
         assert toEdit != null;
-        if(!internalList.contains(toEdit))
+        if(!internalList.contains(toEdit)) {
             throw new TaskNotFoundException();
+        }
+        
         int taskIndex = internalList.indexOf(toEdit);
         Task taskFound = internalList.get(taskIndex);
         taskFound.setStartTime(newTiming);
@@ -153,8 +157,10 @@ public class UniqueTaskList implements Iterable<Task> {
     //@@author A0139671X
     public void editEndTime(ReadOnlyTask toEdit, Time newTiming) throws TaskNotFoundException {
         assert toEdit != null;
-        if(!internalList.contains(toEdit))
+        if(!internalList.contains(toEdit)) {
             throw new TaskNotFoundException();
+        }
+        
         int taskIndex = internalList.indexOf(toEdit);
         Task taskFound = internalList.get(taskIndex);
         taskFound.setEndTime(newTiming);
