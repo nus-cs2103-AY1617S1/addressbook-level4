@@ -135,18 +135,57 @@ public class Task implements ReadOnlyTask {
             return TaskType.FLOATING;
         }
     }
-
-    public Task cloneWithChangedFields(HashMap<Field, Object> changes) throws IllegalArgumentException, IllegalAccessException, NoSuchFieldException, SecurityException {
+    
+    //@@author A0135812L
+    public Task cloneWithChangedFields(HashMap<Field, Object> changes) {
         Task newTask = new Task(this);
         for(Entry<Field, Object> entry : changes.entrySet()){
             Field field = entry.getKey();
             Object new_value = entry.getValue();
-            if(new_value instanceof Time){
-                new_value = Optional.of(new_value);
-            }
-            Task.class.getDeclaredField(field.getName()).set(newTask, new_value);
+            newTask.set(field.getName(), new_value);
         }
         return newTask;
-    }    
+    }  
+    
+    private void set(String fieldName, Object newValue) {
+        if(fieldName.equalsIgnoreCase("time")){
+            assert (Time.class.isInstance(newValue));
+            Time newTime = (Time) newValue;
+            setTime(newTime);
+        }else if(fieldName.equalsIgnoreCase("name")){
+            assert (Name.class.isInstance(newValue));
+            Name newName = (Name) newValue;
+            setName(newName);
+        }else if(fieldName.equalsIgnoreCase("description")){
+            assert (Description.class.isInstance(newValue));
+            Description newDes = (Description) newValue;
+            setDescription(newDes);
+        }else if(fieldName.equalsIgnoreCase("tags")){
+            assert (UniqueTagList.class.isInstance(newValue));
+            UniqueTagList newTags = (UniqueTagList) newValue;
+            setTags(newTags);
+        }else if(fieldName.equalsIgnoreCase("location")){
+            assert (Location.class.isInstance(newValue));
+            Location newLoc = (Location) newValue;
+            setLocation(newLoc);
+        }
+    }
+
+    public void setTime(Time time){
+        this.time = Optional.of(time);
+    }
+    
+    public void setDescription(Description des){
+        this.description = des;
+    }
+    
+    public void setName(Name name){
+        this.name = name;
+    }
+    
+    public void setLocation(Location loc){
+        this.location = loc;
+    }
+    //@@author
     
 }

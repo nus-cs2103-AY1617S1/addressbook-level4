@@ -99,8 +99,7 @@ public class ModelManager extends ComponentManager implements Model {
     //@@author A0135812L
     @Override
     public synchronized ReadOnlyTask editTask(ReadOnlyTask task, HashMap<Field, Object> changes) 
-            throws TaskNotFoundException, IllegalArgumentException, IllegalAccessException, 
-            NoSuchFieldException, SecurityException, DuplicateTaskException{
+            throws TaskNotFoundException, DuplicateTaskException{
         ReadOnlyTask editedTask = toDo.editTask(task, changes);
         int index = filteredTasks.indexOf(editedTask);
         indicateTaskEdited(index, filteredTasks.get(index));

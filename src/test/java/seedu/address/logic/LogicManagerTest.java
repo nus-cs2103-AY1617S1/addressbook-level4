@@ -7,6 +7,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 import seedu.address.commons.core.EventsCenter;
+import seedu.address.commons.core.Messages;
 import seedu.address.logic.commands.*;
 import seedu.address.logic.parser.Parser;
 import seedu.address.commons.events.ui.JumpToListRequestEvent;
@@ -444,7 +445,7 @@ public class LogicManagerTest {
 
         //@@author A0135812L
         /** Generates the correct edit command based on the index given */
-        String generateEditCommand(int i, Task p) {
+        private String generateEditCommand(int i, Task p) {
             StringJoiner cmd = new StringJoiner(" ");
 
             cmd.add("edit");
@@ -465,7 +466,7 @@ public class LogicManagerTest {
 
         /** Generates the correct partial edit command based on the index given */
         // TODO: Note from Filbert, Always Ensure this command is in sync.
-        String generatePartialEditCommand(int i, Task p) {
+        private String generatePartialEditCommand(int i, Task p) {
             StringJoiner cmd = new StringJoiner(" ");
 
             cmd.add("edit");
@@ -478,7 +479,7 @@ public class LogicManagerTest {
             return cmd.toString();
         }
 
-        String generateEditNameCommand(int i, String name) {
+        private String generateEditNameCommand(int i, String name) {
             StringJoiner cmd = new StringJoiner(" ");
 
             cmd.add("edit");
@@ -650,6 +651,33 @@ public class LogicManagerTest {
                 String.format(EditCommand.MESSAGE_SUCCESS, editedAdam, adam),
                 expectedAB,
                 expectedList);
+    }
+    
+    @Test
+    public void execute_editCausingDuplicate() throws Exception{
+        TestDataHelper helper = new TestDataHelper();
+        Task adam = helper.adam();
+
+        Task editedAdam = helper.generateTaskWithName("Adam Brown");
+
+        List<Task> expectedList = helper.generateTaskList(adam, editedAdam);
+        ToDo expectedAB = helper.generateToDo(0);
+        expectedAB.addTask(adam);
+        expectedAB.addTask(editedAdam);
+        expectedList.sort(null);
+        model.addTask(adam);
+        model.addTask(editedAdam);
+
+        assertCommandBehavior(helper.generateEditCommand(1,editedAdam),
+                EditCommand.MESSAGE_DUPLICATE_TASK,
+                expectedAB,
+                expectedList);
+    }
+    
+    @Test
+    public void execute_editInvalidIndex_errorMessageShown() throws Exception{
+        assertCommandBehavior("edit 1 something", Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
+
     }
     //@@author
 

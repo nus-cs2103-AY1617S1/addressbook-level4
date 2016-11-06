@@ -76,7 +76,7 @@ public class EditCommand extends Command implements Undoable {
 
                 String fieldString = entry.getKey();
                 List<String> valueString = entry.getValue();
-
+                
                 Field field = taskClazz.getDeclaredField(fieldString);
                 Object new_value = getObject(valueString, field);
                 assert new_value !=null;
@@ -86,15 +86,15 @@ public class EditCommand extends Command implements Undoable {
             isExecutedBefore = pushCmdToUndo(isExecutedBefore);
         } catch (TaskNotFoundException e) {
             assert false : "The target task cannot be missing";
-        } catch (NoSuchFieldException e){
-            e.printStackTrace();
-            assert false : "Checking of inputs'validity should be done in parser.";
         } catch (DuplicateTaskException e){
             indicateAttemptToExecuteIncorrectCommand();
             return new CommandResult(MESSAGE_DUPLICATE_TASK);
+        } catch (NoSuchFieldException e) {
+            e.printStackTrace();
+            assert false : "Field should be assigned in parser";
         } catch (Exception e) {
             e.printStackTrace();
-            assert false : e.getMessage();
+            assert false;
         }
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, editedTask, taskToEdit));
@@ -132,12 +132,13 @@ public class EditCommand extends Command implements Undoable {
     //@@author
 
  // Modified from http://stackoverflow.com/a/13872171/7068957
-    private Object getObject(List<String> valueString, Field field) throws InstantiationException,
-        IllegalAccessException, InvocationTargetException, IllegalValueException, NoSuchMethodException, SecurityException {
+    private Object getObject(List<String> valueString, Field field) 
+            throws InstantiationException, IllegalValueException, NoSuchMethodException, 
+            SecurityException, IllegalAccessException, InvocationTargetException{
         Class type;
-        if(field.getName() == "time"){
+        if(field.getName().equalsIgnoreCase("time")){
             type = Time.class;
-        }else if(field.getName()== "tags"){
+        }else if(field.getName().equalsIgnoreCase("tags")){
             HashSet<Tag> tags = new HashSet<>();
             for(String str : valueString){
                 tags.add(new Tag(str));
@@ -157,7 +158,7 @@ public class EditCommand extends Command implements Undoable {
         return newInstance(valueString, suitableConstructor);
     }
 
-    private Object newInstance(List<String> valueString, Constructor<?> ctor)
+    private Object newInstance(List<String> valueString, Constructor<?> ctor) 
             throws InstantiationException, IllegalAccessException, InvocationTargetException {
         try{
             return ctor.newInstance(valueString);

@@ -175,8 +175,7 @@ public class ToDo implements ReadOnlyToDo {
     }
 
     public Task editTask(ReadOnlyTask task, HashMap<Field, Object> changes) 
-            throws TaskNotFoundException, IllegalArgumentException, 
-            IllegalAccessException, NoSuchFieldException, SecurityException, DuplicateTaskException {
+            throws DuplicateTaskException, TaskNotFoundException {
         Task editedTask = tasks.edit(task, changes);
         syncTagsWithMasterList(editedTask);
         return editedTask;
