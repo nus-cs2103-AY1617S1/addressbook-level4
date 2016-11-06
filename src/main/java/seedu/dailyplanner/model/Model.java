@@ -37,7 +37,7 @@ public interface Model {
     void markTaskAsComplete(ReadOnlyTask taskToComplete) throws PersonNotFoundException;
     
     /** Pins the given task. */
-    void pinTask(int targetIndex) throws PersonNotFoundException;
+    void pinTask(ReadOnlyTask taskToPin) throws PersonNotFoundException;
 
     /** Unpins the given task. */
 	void unpinTask(int i) throws PersonNotFoundException;
@@ -84,4 +84,7 @@ public interface Model {
 	/** Uncompletes task with given index in taskList */
     public void uncompleteTask(int indexInTaskList);
 	
+	/** Refreshes the pin board after a command is carried out */
+	public void updatePinBoard();
+
 }

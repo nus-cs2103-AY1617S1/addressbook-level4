@@ -93,6 +93,7 @@ public class EditCommand extends Command {
 	    model.getHistory().stackEditInstruction(taskToEdit, toAdd);
 	    model.deletePerson(taskToEdit);
 	    model.addPerson(toAdd);
+	    model.updatePinBoard();
 	} catch (PersonNotFoundException pnfe) {
 	    assert false : "The target task cannot be missing";
 	} catch (UniqueTaskList.DuplicatePersonException e) {

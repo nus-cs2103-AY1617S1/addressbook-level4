@@ -115,12 +115,12 @@ public class UniqueTaskList implements Iterable<Task> {
 	 * 
 	 * @return
 	 */
-	public void pin(int taskIndex) throws PersonNotFoundException {
-
-		final Task taskToPin = internalList.get(taskIndex);
-		taskToPin.pin();
-		internalList.set(taskIndex, taskToPin);
-		pinnedList.add(taskToPin);
+	public void pin(ReadOnlyTask taskToPin) throws PersonNotFoundException {
+		final int pinnedTaskIndex = internalList.indexOf(taskToPin);
+		final Task pinnedTask = internalList.get(pinnedTaskIndex);
+		pinnedTask.pin();
+		internalList.set(pinnedTaskIndex, pinnedTask);
+		pinnedList.add(pinnedTask);
 	}
 
 	public void unpin(int targetIndex) {
@@ -129,7 +129,15 @@ public class UniqueTaskList implements Iterable<Task> {
 		int internalListIndex = internalList.indexOf(taskToUnpin);
 		internalList.set(internalListIndex, taskToUnpin);
 		pinnedList.remove(taskToUnpin);
-
+	}
+	
+	public void updatePinBoard() {
+		pinnedList.clear();
+		for (Task t : internalList) {
+			if (t.isPinned()) {
+				pinnedList.add(t);
+			}
+		}
 	}
 	
 	 public void uncomplete(int targetIndex) {
@@ -143,11 +151,7 @@ public class UniqueTaskList implements Iterable<Task> {
 	}
 
 	public ObservableList<Task> getInternalPinnedList() {
-		for (Task t : internalList) {
-			if (t.isPinned()) {
-				pinnedList.add(t);
-			}
-		}
+		updatePinBoard();
 		return pinnedList;
 	}
 
@@ -167,7 +171,5 @@ public class UniqueTaskList implements Iterable<Task> {
 	public int hashCode() {
 		return internalList.hashCode();
 	}
-
-   
 
 }

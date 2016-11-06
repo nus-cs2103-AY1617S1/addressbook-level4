@@ -121,8 +121,8 @@ public class AddressBook implements ReadOnlyAddressBook {
         persons.complete(key);
     }
 
-    public void pinTask(int targetIndex) throws PersonNotFoundException {
-	persons.pin(targetIndex);
+    public void pinTask(ReadOnlyTask taskToPin) throws PersonNotFoundException {
+        persons.pin(taskToPin);
     }
     
     public void unpinTask(int targetIndex) {
@@ -140,6 +140,10 @@ public class AddressBook implements ReadOnlyAddressBook {
     
     public int indexOf(Task task) {
         return persons.getIndexOf(task);
+    }
+    
+    public void updatePinBoard() {
+        persons.updatePinBoard();
     }
 //// tag-level operations
 
@@ -189,5 +193,6 @@ public class AddressBook implements ReadOnlyAddressBook {
         // use this method for custom fields hashing instead of implementing your own
         return Objects.hash(persons, tags);
     }
+
 
 }
