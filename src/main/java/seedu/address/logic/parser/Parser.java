@@ -379,7 +379,7 @@ public class Parser {
         return new FindCommand(keyphraseSet);
     }
 
-	//@@author A0141019U
+	//@@author A0139339W
     /**
      * Parse the arguments into taskType, status and date
      */
@@ -387,17 +387,22 @@ public class Parser {
 		if (arguments.trim().equals("")) {
 			return new ListCommand();
 		}
-
+		
 		String[] args = arguments.split(" ");
+		if(!isValidListArguments(args)) {
+			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, 
+					ListCommand.MESSAGE_USAGE));
+		}
+
 		String taskType;
 		String status;
 		String dateString;
 		LocalDateTime date;
 
 		try {
-			taskType = setTaskTypeList(args);
-			status = setStatusList(args);
-			dateString = setDateList(args);
+			taskType = getTaskTypeForPrepareList(args);
+			status = getStatusForPrepareList(args);
+			dateString = getDateForPrepareList(args);
 			date = convertOptionalToLocalDateTime(
 					Optional.ofNullable(dateString)).orElse(null);
 		} catch(IllegalArgumentException iae) {
@@ -406,11 +411,39 @@ public class Parser {
 			return new IncorrectCommand(pe.getMessage());
 		}
 		
-		//return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ListCommand.MESSAGE_USAGE));
 		return new ListCommand(taskType, status, date);
 	}
-	
-	private String setDateList(String[] args) throws IllegalArgumentException {
+    /**
+     * To check if the list argument is valid
+     * @return true if valid, false otherwise
+     */
+    private boolean isValidListArguments(String[] args) {
+    	for(int i = 0; i < args.length; i++) {
+    		if(!DateParser.containsDate(args[i] + " 00:00")) {
+    			switch(args[i].trim()) {
+    			case "event":
+    			case "ev":
+    			case "deadline":
+    			case "dl":
+    			case "someday":
+    			case "sd":
+    			case "done":
+    			case "pending":
+    			case "overdue":
+    			case "all":
+    				break;
+    			default:
+    				return false;
+    			}
+    		}
+    	}
+    	return true;
+    }
+	/**
+	 * Get the string for the dates for prepareList
+	 * @throws IllegalArgumentException when multiple dates declared
+	 */
+	private String getDateForPrepareList(String[] args) throws IllegalArgumentException {
 		int numDates = 0;
 		String date = null;
 		for(int i = 0; i < args.length; i++) {
@@ -424,8 +457,11 @@ public class Parser {
 		}
 		return date;
 	}
-	
-	private String setTaskTypeList(String[] args) throws IllegalArgumentException {
+	/**
+	 * Get the string for the task type for prepareList
+	 * @throws IllegalArgumentException when multiple task type declared
+	 */
+	private String getTaskTypeForPrepareList(String[] args) throws IllegalArgumentException {
 		int numTaskType = 0;
 		String taskType = null;
 		for(int i = 0; i < args.length; i++) {
@@ -444,8 +480,11 @@ public class Parser {
 			throw new IllegalArgumentException("More than one task type entered");
 		return taskType;
 	}
-	
-	private String setStatusList(String[] args) throws IllegalArgumentException {
+	/**
+	 * Get the string for the status of the task for prepareList
+	 * @throws IllegalArgumentException when multiple status declared
+	 */
+	private String getStatusForPrepareList(String[] args) throws IllegalArgumentException {
 		int numStatus = 0;
 		String status = null;
 		for(int i = 0; i < args.length; i++) {
@@ -581,10 +620,7 @@ public class Parser {
 	}
 	
 	/**
-	 * parse the argument based on first occurrence of keyword "not" indices
-	 * before not are for tasks to be marked done indices after not are for
-	 * tasks to be marked not done missing keyword "not" means all indices are
-	 * for tasks to be marked done
+	 * parse the arguments into indices for ChangeStatusCommand
 	 */
 	private Command prepareChangeStatus(String arguments, String newStatus) {
 		int[] doneIndices;
