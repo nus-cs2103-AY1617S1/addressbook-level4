@@ -27,7 +27,7 @@ public class EditCommand extends Command {
     public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the task manager.";
 
     public final int targetIndex;
-    public final Name name;
+    public Name name;
     public Startline startline;
     public Deadline deadline;
     public Priority priority;
@@ -66,13 +66,21 @@ public class EditCommand extends Command {
         } catch (TaskNotFoundException pnfe) {
             assert false : "The target task cannot be missing";
         }
+        
+        if (this.name.toString() == "0"){
+        	String nameEdit = taskToDelete.getName().toString();
+        	try {
+        		this.name = new Name(nameEdit);
+		    } catch (IllegalValueException e1) {
+		    	e1.printStackTrace();
+		    }
+        }
 
         if (this.startline.toString() == ""){
         	String startlineEdit = taskToDelete.getStartline().toString();
         	try {
         		this.startline = new Startline(startlineEdit);
 		    } catch (IllegalValueException e1) {
-		    	// TODO Auto-generated catch block
 		    	e1.printStackTrace();
 		    }
         }
@@ -83,7 +91,6 @@ public class EditCommand extends Command {
         	try {
         		this.deadline = new Deadline(deadlineEdit);
         	} catch (IllegalValueException e1) {
-        		// TODO Auto-generated catch block
         		e1.printStackTrace();
         	}
         }
@@ -94,7 +101,6 @@ public class EditCommand extends Command {
         	try {
         		this.priority = new Priority(priorityEdit);
         	} catch (IllegalValueException e1) {
-        		// TODO Auto-generated catch block
         		e1.printStackTrace();
         	}
         }
