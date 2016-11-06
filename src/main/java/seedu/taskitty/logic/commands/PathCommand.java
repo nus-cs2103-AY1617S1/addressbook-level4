@@ -1,8 +1,10 @@
 package seedu.taskitty.logic.commands;
 
+import java.io.File;
 import java.io.IOException;
 
 import seedu.taskitty.commons.util.ConfigUtil;
+import seedu.taskitty.commons.util.FileUtil;
 import seedu.taskitty.commons.util.StringUtil;
 import seedu.taskitty.model.Model;
 import seedu.taskitty.storage.Storage;
@@ -49,10 +51,17 @@ public class PathCommand extends Command {
     public CommandResult execute() {
 
         try {
-            if (!storage.toOverwriteOrLoad(filepath)) {
-                return new CommandResult(MESSAGE_CANCELLED);
+            File file = new File(filepath);
+            boolean isFileExist = FileUtil.isFileExists(file);
+            
+            if (isFileExist) {
+                boolean userResponse = isUserChooseToOverwrite(file);
+                
+                if (!userResponse) {
+                    return new CommandResult(MESSAGE_CANCELLED);
+                }
             }
-
+            
             config.setTaskManagerFilePath(filepath);
             ConfigUtil.saveConfig(config, configFile);
 
@@ -62,7 +71,7 @@ public class PathCommand extends Command {
                 model.resetData(storage.readTaskManager().get());
             }
 
-            MainWindow.getStatusBarFooter().setSaveLocation("./" + config.getTaskManagerFilePath());
+            MainWindow.getStatusBarFooter().setSaveLocation(config.getTaskManagerFilePath());
 
             EventsCenter.getInstance().post(new PathLocationChangedEvent(config.getTaskManagerFilePath()));
 
@@ -74,5 +83,9 @@ public class PathCommand extends Command {
         } catch (Exception e) {
             return new CommandResult(MESSAGE_FAILED + StringUtil.getDetails(e));
         }
+    }
+
+    private boolean isUserChooseToOverwrite(File file) throws DataConversionException, IOException {
+        return !storage.isOverwrite(file);
     }
 }
