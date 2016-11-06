@@ -17,9 +17,9 @@
 
 
 ## Introduction
-Welcome talented programmers, we are glad that you are willing to be part of the team and help us in the development and improvement of GGist. To get you started, we have created this developer guide to aid new members like you to get familiar with overall coding design of GGist and clarify your doubts if any.
+Welcome talented programmers, we are glad that you are willing to be part of the team and help us in the development and improvement of GGist. To get you started, we have created this developer guide to aid new members like you to get familiar with the overall coding design of GGist and clarify your doubts if any.
 
-In this guide, we will walk you through different components of GGist and how they interact with one another when a command is issued. To aid your understanding, component diagrams of GGist will be included to give you a clear overview of the program. We welcome you to create new commands or modify the existing commands that you think are necessary and you can use Gradle Testing to examine if they are working the way you intended. 
+In this guide, we will walk you through different components of GGist and how they interact with one another when a command is issued. To aid your understanding, component diagrams of GGist will be included to give you a clear overview of the program. We welcome you to create new commands or modify the existing ones that you think are necessary. Also, you are encouraged to use Gradle Testing to examine if the new or modified commands are working the way you intended. 
 
 Are you ready to begin this exciting and challenging journey? Let's go!
 
@@ -77,8 +77,8 @@ Are you ready to begin this exciting and challenging journey? Let's go!
 ###An overview of each component.
 
 **`Main`** has only one class called [`MainApp`](../src/main/java/seedu/ggist/MainApp.java). It is responsible for,
-* At app launch: Initializes the components in the correct sequence, and connects them up with each other.
-* At shut down: Shuts down the components and invokes cleanup method where necessary.
+* At app launch: Initializing the components in the correct sequence, and connects them up with each other.
+* At shut down: Shuting down the components and invokes cleanup method where necessary.
 
 [**`Commons`**](#common-classes) represents a collection of classes used by other components.
 Two of these classes play important roles at the architecture level.
@@ -87,8 +87,8 @@ Two of these classes play important roles at the architecture level.
 * `LogsCenter` : This class is used by other classes to write log messages to the application's log file.
 
 The remaining four components of the application are:
-* [**`UI`**](#ui-component) : The UI of the application.
-* [**`Logic`**](#logic-component) : The command executor.
+* [**`UI`**](#ui-component) : Makes up the user interface of the application.
+* [**`Logic`**](#logic-component) : Executes the issued commands.
 * [**`Model`**](#model-component) : Holds the data of the application in-memory.
 * [**`Storage`**](#storage-component) : Reads data from, and writes data to the hard disk.
 
@@ -102,7 +102,7 @@ interface, and it exposes its functionality using the `LogicManager.java` class 
 ###An overview of interactions between components
 
 Figure 2 shows how components interact with each other when the user issues the
-command `delete 3` (refer to Figure 2).
+command `delete 3`.
 
 <img src="images\SDforDeleteTask.png" width="800">
 >**_Figure 2_**: Sequence Diagram - shows the interaction between components when issued the command `delete 3`
@@ -110,7 +110,7 @@ command `delete 3` (refer to Figure 2).
 >Note how the `Model` simply raises a `TaskMangerChangedEvent` when the GGist data are changed,
  instead of asking the `Storage` to save the updates to the hard disk.
 
-Figure 3 shows how the `EventsCenter` reacts to the event (`delete 3`). This process eventually results in saving the updates to the hard disk, and updating the status bar of the UI to reflect the 'Last Updated' time (refer to Figure 3).<br>
+Figure 3 shows how the `EventsCenter` reacts to the event (`delete 3`). This process eventually results in saving the updates to the hard disk, and updating the status bar of the UI to reflect the 'Last Updated' time.<br>
 
 <img src="images\SDforDeleteTaskEventHandling.png" width="800">
 >**_Figure 3_**: EventsCentre Diagram - shows how EventsCentre reacts to the event (`delete 3`)
@@ -148,7 +148,7 @@ The `UI` component,
 
 The `Logic` component uses the `Parser` class to parse the user command. This results in a `Command` object being executed by the `LogicManager`. The command execution can affect the `Model` (e.g. adding a task) and/or raise events. The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 
-Figure 6 displays the interactions within the `Logic` component for the `execute("delete 1")` API call(refer to Figure 6).<br>
+Figure 6 displays the interactions within the `Logic` component for the `execute("delete 1")` API call.<br>
  
 <img src="images/DeleteTaskSdForLogic.png" width="800"><br>
 >**_Figure 6_**: Sequence Diagram - shows interactions within the `Logic` component for the `execute("delete 1")` API call
@@ -186,14 +186,7 @@ Classes used by multiple components are in the `seedu.ggist.commons` package.
 
 ### Logging
 
-`java.util.logging` package is used for logging. The `LogsCenter` class is used to manage the logging levels
-and logging destinations.
-
-* The logging levels can be controlled using the `logLevel` setting in the configuration file
-  (See [Configuration](#configuration)).
-* The `Logger` for a class can be obtained using `LogsCenter.getLogger(Class)` which will log messages according to
-  the specified logging level.
-* Current log messages are output through: `Console` and to a `.log` file.
+`java.util.logging` package is used for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations. The logging levels can be controlled using the `logLevel` setting in the configuration file (See [Configuration](#configuration)). The `Logger` for a class can be obtained using `LogsCenter.getLogger(Class)` which will log messages according to the specified logging level. Current log messages are output through: `Console` and to a `.log` file.
 
 **Logging Levels**
 
