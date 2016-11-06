@@ -42,7 +42,6 @@ Responsibilities: Code quality,integration,logic
 	* Unpin Task
 	* Complete Task
 	* Uncomplete Task
-	* Recurring Task weekly (Cooperate with Syed and mainly implemented by Syed)
 * Code written: [[functional code](https://github.com/CS2103AUG2016-T14-C4/main/blob/master/collated/main/A0153467Y.md)][[test code](https://github.com/CS2103AUG2016-T14-C4/main/blob/master/collated/test/A0153467Y.md)][[docs](https://github.com/CS2103AUG2016-T14-C4/main/blob/master/collated/docs/A0153467Y.md)]
 * Other major contributions:
     * Make diagrams in Developer Guide
