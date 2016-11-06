@@ -8,7 +8,7 @@ public class ScrollCommand extends Command {
 	
 	public static final String COMMAND_WORD = "scroll";
 	public static final String MESSAGE_USAGE = "Scrolls to selected position "
-			+ "Keywords: up, down or index";
+			+ "Keywords: top, bottom or index";
 	public static final String MESSAGE_SUCCESS = "Scrolled to ";
 	
 	private final String direction;
