@@ -6,7 +6,6 @@ import static seedu.todo.testutil.AssertUtil.*;
 import java.time.LocalDateTime;
 
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import seedu.todo.commons.util.DateUtil;
