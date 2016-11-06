@@ -117,7 +117,7 @@ public class Interval implements Comparable<Interval> {
         Interval now = new Interval();
         now.endDate = TaskDate.now();
         now.endTime = TaskTime.now();
-        return this.compareTo(now) > 0;
+        return this.compareTo(now) < 0;
     }
     
     /**

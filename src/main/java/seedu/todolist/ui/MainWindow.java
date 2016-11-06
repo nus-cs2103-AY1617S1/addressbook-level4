@@ -34,6 +34,7 @@ public class MainWindow extends UiPart {
     // Independent Ui parts residing in this Ui container
     private TaskListPanel taskListPanel;
     private CompleteTaskListPanel completeTaskListPanel;
+    private OverdueTaskListPanel overdueTaskListPanel;
     private ResultDisplay resultDisplay;
     private StatusBarFooter statusBarFooter;
     private CommandBox commandBox;
@@ -60,6 +61,9 @@ public class MainWindow extends UiPart {
     
     @FXML
     private AnchorPane completeTaskListPanelPlaceholder;
+    
+    @FXML
+    private AnchorPane overdueTaskListPanelPlaceholder;
 
     @FXML
     private AnchorPane resultDisplayPlaceholder;
@@ -119,6 +123,7 @@ public class MainWindow extends UiPart {
     void fillInnerParts() {
         taskListPanel = TaskListPanel.load(primaryStage, getTaskListPlaceholder(), logic.getFilteredIncompleteTaskList());
         completeTaskListPanel = CompleteTaskListPanel.load(primaryStage, getCompleteTaskListPlaceholder(), logic.getFilteredCompleteTaskList());
+        overdueTaskListPanel = OverdueTaskListPanel.load(primaryStage, getOverdueTaskListPlaceholder(), logic.getFilteredOverdueTaskList());
         resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
         statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getToDoListFilePath());
         commandBox = CommandBox.load(primaryStage, getCommandBoxPlaceholder(), resultDisplay, logic);
@@ -142,6 +147,10 @@ public class MainWindow extends UiPart {
     
     public AnchorPane getCompleteTaskListPlaceholder() {
         return completeTaskListPanelPlaceholder;
+    }
+    
+    public AnchorPane getOverdueTaskListPlaceholder() {
+        return overdueTaskListPanelPlaceholder;
     }
 
     public void hide() {
