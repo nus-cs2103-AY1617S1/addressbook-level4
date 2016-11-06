@@ -1,6 +1,5 @@
 package guitests;
 
-import guitests.guihandles.HelpViewHandle;
 import org.junit.Test;
 import seedu.todo.logic.commands.CommandMap;
 
@@ -30,8 +29,7 @@ public class HelpCommandTest extends TodoListGuiTest {
      * Helper method to check if the help view is shown, and the content is correctly displayed.
      */
     private void assertHelpViewDisplayed() {
-        HelpViewHandle handle = mainGui.getHelpView();
-        assertTrue(handle.isVisible());
-        assertTrue(handle.isHelpItemsDisplayedCorrectly(CommandMap.getAllCommandSummaryArray()));
+        assertTrue(helpView.isVisible());
+        assertTrue(helpView.isHelpItemsDisplayedCorrectly(CommandMap.getAllCommandSummaryArray()));
     }
 }

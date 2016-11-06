@@ -42,4 +42,8 @@ public class MainGuiHandle extends GuiHandle {
     public GlobalTagViewHandle getGlobalTagView() {
         return new GlobalTagViewHandle(guiRobot, primaryStage);
     }
+
+    public FilterBarViewHandle getFilterBarView() {
+        return new FilterBarViewHandle(guiRobot, primaryStage);
+    }
 }

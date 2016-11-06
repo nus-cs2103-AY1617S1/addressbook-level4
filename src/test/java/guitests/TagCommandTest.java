@@ -48,7 +48,7 @@ public class TagCommandTest extends TodoListGuiTest {
     public void tags_displayGlobalTagList() {
         //Check that all the tags are displayed, and they are unique.
         runCommand("tag");
-        List<String> displayedTagNames = mainGui.getGlobalTagView().getDisplayedTags();
+        List<String> displayedTagNames = globalTagView.getDisplayedTags();
         assertNoDuplicate(displayedTagNames);
         assertEqualTagNames(getTagList(todoListView.getImmutableTaskList()),
                 Sets.newHashSet(displayedTagNames));

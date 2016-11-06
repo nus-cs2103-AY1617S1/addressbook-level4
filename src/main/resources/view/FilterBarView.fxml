@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <!--@@author generated-->
 
 <?import javafx.scene.layout.FlowPane?>
 
-<FlowPane alignment="CENTER_LEFT" maxWidth="-Infinity" minWidth="-Infinity" styleClass="viewFilter" 
-          xmlns="http://javafx.com/javafx/8.0.102" xmlns:fx="http://javafx.com/fxml/1" 
-          fx:controller="seedu.todo.ui.view.FilterBarView">
+
+<FlowPane fx:id="filterBarView" alignment="CENTER_LEFT" maxWidth="-Infinity" minWidth="-Infinity" styleClass="viewFilter" xmlns="http://javafx.com/javafx/8.0.102" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.todo.ui.view.FilterBarView">
 </FlowPane>

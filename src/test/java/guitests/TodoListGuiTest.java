@@ -17,6 +17,7 @@ import seedu.todo.testutil.TestUtil;
 import seedu.todo.ui.view.CommandErrorView;
 import seedu.todo.ui.view.CommandFeedbackView;
 import seedu.todo.ui.view.CommandInputView;
+import seedu.todo.ui.view.FilterBarView;
 import seedu.todo.ui.view.HelpView;
 import seedu.todo.ui.view.TodoListView;
 
@@ -58,6 +59,7 @@ public abstract class TodoListGuiTest {
     protected CommandErrorViewHandle commandErrorView;
     protected HelpViewHandle helpView;
     protected GlobalTagViewHandle globalTagView;
+    protected FilterBarViewHandle filterBarView;
 
     private Stage stage;
 
@@ -84,6 +86,7 @@ public abstract class TodoListGuiTest {
             commandErrorView = mainGui.getCommandErrorView();
             helpView = mainGui.getHelpView();
             globalTagView = mainGui.getGlobalTagView();
+            filterBarView = mainGui.getFilterBarView();
         });
         // EventsCenter.clearSubscribers();
         /*
