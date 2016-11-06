@@ -22,10 +22,12 @@ public class ListCommand extends Command {
     
     public static final String COMMAND_WORD = "list";
     
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Shows a list of undone tasks accordingly \n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Shows a list of tasks. "
+            + "Entering list without a parameter brings up a list of all tasks. \n"
+            + " === List Tasks === \n"
             + "Parameters: [<today> / <week> / <float> / <done> / #<category>] \n"
             + "Example: " + COMMAND_WORD
-            + "today";
+            + " today";
 
     public static final String MESSAGE_SUCCESS = "Listed all tasks";
 
