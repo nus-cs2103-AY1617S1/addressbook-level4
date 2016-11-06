@@ -12,7 +12,7 @@ import tars.logic.commands.RedoCommand;
  * @@author A0139924W
  */
 public class RedoLogicCommandTest extends LogicCommandTest {
-    
+
     @Test
     public void execute_redo_emptyCmdHistStack() throws Exception {
         assertCommandBehavior(RedoCommand.COMMAND_WORD,

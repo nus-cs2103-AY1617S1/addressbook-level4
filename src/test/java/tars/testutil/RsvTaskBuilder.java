@@ -4,10 +4,15 @@ import tars.commons.exceptions.IllegalValueException;
 import tars.model.task.DateTime;
 import tars.model.task.Name;
 
+/**
+ * @@author A0124333U
+ *
+ * A utility class to help with building reserve task objects.
+ */
 public class RsvTaskBuilder {
-    
+
     private TestRsvTask rsvTask;
-    
+
     public RsvTaskBuilder() {
         this.rsvTask = new TestRsvTask();
     }
@@ -17,11 +22,11 @@ public class RsvTaskBuilder {
         return this;
     }
 
-    public RsvTaskBuilder withDateTime(String dateTime1, String dateTime2) throws IllegalValueException {
+    public RsvTaskBuilder withDateTime(String dateTime1, String dateTime2)
+            throws IllegalValueException {
         this.rsvTask.setDateTimeList(new DateTime(dateTime1, dateTime2));
         return this;
     }
-
 
     public TestRsvTask build() {
         return this.rsvTask;

@@ -75,7 +75,7 @@ public class EditLogicCommandTest extends LogicCommandTest {
                         expectedTars.getTaskList().get(0)),
                 expectedTars, expectedTars.getTaskList());
     }
-    
+
     @Test
     public void execute_edit_editedDuplicateTask() throws Exception {
         // setup expectations
@@ -128,7 +128,7 @@ public class EditLogicCommandTest extends LogicCommandTest {
                 String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS,
                         expectedTars.getTaskList().get(0)),
                 expectedTars, expectedTars.getTaskList());
-        
+
         expectedTars.replaceTask(editedTask, taskToAdd);
 
         // execute undo and verify result
