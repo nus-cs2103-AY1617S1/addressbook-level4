@@ -80,6 +80,8 @@ public interface Model {
 
     /** Resets the pinboard to an empty pinboard */
 	public void resetPinBoard();
-
-
+	
+	/** Uncompletes task with given index in taskList */
+    public void uncompleteTask(int indexInTaskList);
+	
 }

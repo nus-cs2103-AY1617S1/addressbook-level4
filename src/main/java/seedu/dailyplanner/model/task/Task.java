@@ -132,6 +132,13 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
 	public boolean isComplete() {
 		return isComplete;
 	}
+	
+	@Override
+    public void setCompletion(boolean completion) {
+        isComplete = completion;
+    }
+	
+	
 
 	public boolean isPinned() {
 		return isPinned;

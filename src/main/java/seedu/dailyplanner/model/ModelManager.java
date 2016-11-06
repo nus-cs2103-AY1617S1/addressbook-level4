@@ -118,6 +118,12 @@ public class ModelManager extends ComponentManager implements Model {
 		addressBook.unpinTask(targetIndex);
 		indicateAddressBookChanged();
 	}
+	
+    @Override
+    public void uncompleteTask(int targetIndex) {
+        addressBook.uncompleteTask(targetIndex);
+        indicateAddressBookChanged();
+    }
 
 	// =========== Filtered Person List Accessors
 	// ===============================================================
@@ -289,5 +295,6 @@ public class ModelManager extends ComponentManager implements Model {
 
 		return history;
 	}
+
 
 }

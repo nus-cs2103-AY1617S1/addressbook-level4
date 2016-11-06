@@ -129,6 +129,11 @@ public class AddressBook implements ReadOnlyAddressBook {
     	persons.unpin(targetIndex);
 	}
     
+    public void uncompleteTask(int targetIndex) {
+        persons.uncomplete(targetIndex);
+        
+    }
+    
 	public void resetPinBoard() {
 		persons.resetPinBoard();
 	}
@@ -184,4 +189,5 @@ public class AddressBook implements ReadOnlyAddressBook {
         // use this method for custom fields hashing instead of implementing your own
         return Objects.hash(persons, tags);
     }
+
 }

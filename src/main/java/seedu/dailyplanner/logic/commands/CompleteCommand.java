@@ -40,6 +40,7 @@ public class CompleteCommand extends Command {
         ReadOnlyTask taskToComplete = lastShownList.get(targetIndex - 1);
 
         try {
+            model.getHistory().stackUncompleteInstruction(taskToComplete);
             model.markTaskAsComplete(taskToComplete);
         } catch (PersonNotFoundException pnfe) {
             assert false : "The target task cannot be missing";

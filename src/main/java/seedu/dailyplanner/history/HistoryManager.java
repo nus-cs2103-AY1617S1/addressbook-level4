@@ -43,4 +43,8 @@ public class HistoryManager {
 	public void stackPinInstruction(ReadOnlyTask taskToUnpin) {
 		recordCommand.push(new Instruction("P", taskToUnpin));
 	}
+	
+	public void stackUncompleteInstruction(ReadOnlyTask taskToUnpin) {
+        recordCommand.push(new Instruction("UC", taskToUnpin));
+    }
 }

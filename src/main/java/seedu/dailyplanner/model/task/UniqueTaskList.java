@@ -131,6 +131,12 @@ public class UniqueTaskList implements Iterable<Task> {
 		pinnedList.remove(taskToUnpin);
 
 	}
+	
+	 public void uncomplete(int targetIndex) {
+	     final Task taskToUncomplete = internalList.get(targetIndex);
+	     taskToUncomplete.setCompletion(false);
+	     internalList.set(targetIndex, taskToUncomplete);
+	    }
 
 	public ObservableList<Task> getInternalList() {
 		return internalList;
@@ -161,5 +167,7 @@ public class UniqueTaskList implements Iterable<Task> {
 	public int hashCode() {
 		return internalList.hashCode();
 	}
+
+   
 
 }
