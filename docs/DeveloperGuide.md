@@ -166,6 +166,13 @@ The `Storage` component,
 
 Classes used by multiple components are in the `seedu.forgetmenot.commons` package.
 
+They are further separated into sub-packages - namely `core`, `events`, `exceptions` and `util`.
+
+* Core - This package consists of the essential classes that are required by multiple components.
+* Events -This package consists of the different type of events that can occur; these are used mainly by EventManager and EventBus.
+* Exceptions - This package consists of exceptions that may occur with the use of ForgetMeNot.
+* Util - This package consists of additional utilities for the different components.
+
 ## Implementation
 
 ### Logging
