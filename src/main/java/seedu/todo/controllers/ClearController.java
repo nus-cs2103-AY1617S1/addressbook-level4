@@ -65,6 +65,12 @@ public class ClearController extends Controller {
         
         // Clear them all!
         TodoListDB db = TodoListDB.getInstance();
+        
+        if (clearTasks.size() == 0 && clearEvents.size() == 0) {
+            Renderer.renderIndex(db, MESSAGE_CLEAR_NO_ITEMS_FOUND);
+            return;
+        }
+        
         db.destroyTasks(clearTasks);
         db.destroyEvents(clearEvents);
         db.save();
