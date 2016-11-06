@@ -29,7 +29,7 @@ Gone are the repetitive mouse clicks other task managers require of you. With a 
 3. Copy the file to the folder you want to use as the home folder for Simply.
 4. Double-click the file to start the app. The GUI should appear as below in a few seconds. 
   
-<img src="images/simplySSwithArrows.PNG" width="600"><br>
+<img src="/images/simplySSwithArrows.PNG" width="600"><br>
 
 5. Type the command in the command box and press <kbd>Enter</kbd> to execute it. <br>
    e.g. typing **`help`** and pressing <kbd>Enter</kbd> will open the help window. 
