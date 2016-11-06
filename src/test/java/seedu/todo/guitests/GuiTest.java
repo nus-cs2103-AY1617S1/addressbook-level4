@@ -20,6 +20,7 @@ import seedu.todo.TestApp;
 import seedu.todo.commons.core.EventsCenter;
 import seedu.todo.commons.events.BaseEvent;
 import seedu.todo.commons.util.DateUtil;
+import seedu.todo.guitests.guihandles.AliasViewHandle;
 import seedu.todo.guitests.guihandles.ConsoleHandle;
 import seedu.todo.guitests.guihandles.MainGuiHandle;
 import seedu.todo.guitests.guihandles.TaskListDateItemHandle;
@@ -30,9 +31,7 @@ import seedu.todo.models.Event;
 import seedu.todo.models.Task;
 import seedu.todo.models.TodoListDB;
 
-/**
- * @@author A0139812A
- */
+// @@author A0139812A
 public abstract class GuiTest {
 
     // The TestName Rule makes the current test name available inside test methods.
@@ -45,6 +44,7 @@ public abstract class GuiTest {
     protected MainGuiHandle mainGui;
     protected ConsoleHandle console;
     protected TaskListHandle taskList;
+    protected AliasViewHandle aliasView;
     
     private Stage stage;
     
@@ -64,6 +64,7 @@ public abstract class GuiTest {
             mainGui = new MainGuiHandle(new GuiRobot(), stage);
             console = mainGui.getConsole();
             taskList = mainGui.getTaskList();
+            aliasView = mainGui.getAliasView();
             // TODO: create handles for other components
             this.stage = stage;
         });
@@ -101,6 +102,16 @@ public abstract class GuiTest {
     }
     
     /* ========= COMMON TEST METHODS ============= */
+    
+    protected void assertInvalidCommand(String command) {
+        assertEquals(command, console.getConsoleInputText());
+        assertEquals("Invalid command!", console.getConsoleTextArea());
+    }
+    
+    protected void assertValidCommand(String command) {
+        assertEquals("", console.getConsoleInputText());
+        assertNotEquals("Invalid command!", console.getConsoleTextArea());
+    }
     
     /**
      * Utility method for testing if task has been successfully added to the GUI.
