@@ -1,7 +1,6 @@
 package seedu.task.logic.parser;
 
 import seedu.task.logic.commands.*;
-import seedu.task.commons.util.FilePickerUtil;
 import seedu.task.commons.util.StringUtil;
 import seedu.task.commons.core.Messages;
 import seedu.task.commons.exceptions.IllegalValueException;
@@ -11,6 +10,7 @@ import java.util.regex.Pattern;
 import static seedu.task.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.task.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import seedu.task.logic.parser.TimeParserResult.DateTimeStatus;
+import seedu.task.logic.parser.commands.*;
 
 /**
  * Parses user input.
@@ -57,12 +57,6 @@ public class CommandParser {
 
     public static final Pattern EDIT_TASK_DATA_ARGS_FORMAT_NATURAL =
             Pattern.compile("(?<targetIndex>[0-9]+)" + " (?<item>[^,]+)" + ", (?<content>.+)");
-
-    public static final Pattern DIRECTORY_ARGS_FORMAT =
-            Pattern.compile("(?<directory>[^<>|]+)");
-    
-    public static final Pattern REPEAT_ARGS_FORMAT =
-            Pattern.compile("(?<targetIndex>[0-9]+)" + " (?<interval>[^,]+)");
     //@@author
 
     /**
@@ -85,8 +79,6 @@ public class CommandParser {
 
         // @@author A0147944U
         case EditCommand.COMMAND_WORD:
-            return prepareEdit(arguments);
-            
         case EditCommand.COMMAND_WORD_ALT:
             return prepareEdit(arguments);
         // @@author
@@ -117,25 +109,19 @@ public class CommandParser {
 
         // @@author A0147944U
         case DirectoryCommand.COMMAND_WORD:
-            return prepareDirectory(arguments);
-
         case DirectoryCommand.COMMAND_WORD_ALT:
-            return prepareDirectory(arguments);
+            return DirectoryCommandParser.prepareDirectory(arguments);
 
         case BackupCommand.COMMAND_WORD:
-            return prepareBackup(arguments);
-
         case BackupCommand.COMMAND_WORD_ALT:
-            return prepareBackup(arguments);
+            return BackupCommandParser.prepareBackup(arguments);
 
         case SortCommand.COMMAND_WORD:
-            return prepareSort(arguments);
-            
         case SortCommand.COMMAND_WORD_ALT:
-            return prepareSort(arguments);
+            return SortCommandParser.prepareSort(arguments);
 
         case RepeatCommand.COMMAND_WORD:
-            return prepareRepeat(arguments);
+            return RepeatCommandParser.prepareRepeat(arguments);
         // @@author
 
         case DoneCommand.COMMAND_WORD:
@@ -575,81 +561,6 @@ public class CommandParser {
         final Set<String> keywordSet = new HashSet<>(Arrays.asList(keywords));
         return new FindCommand(keywordSet);
     }
-
-    // @@author A0147944U
-    /**
-     * Parses arguments in the context of the directory command.
-     * 
-     * @param args full command args string
-     * @return the prepared command
-     */
-    private Command prepareDirectory(String args) {
-        final Matcher matcher = DIRECTORY_ARGS_FORMAT.matcher(args.trim());
-        // Validate arg string format
-        if (!matcher.matches()) {
-            String directory = FilePickerUtil.openXMLFile();
-            if (directory == null || "".equals(directory)) {
-              return new IncorrectCommand("Aborted directory command");
-            }
-            return new DirectoryCommand(directory);
-        }
-        return new DirectoryCommand(matcher.group("directory"));
-    }
-
-    /**
-     * Parses arguments in the context of the backup command.
-     *
-     * @param args full command args string
-     * @return the prepared command
-     */
-    private Command prepareBackup(String args) {
-        final Matcher matcher = DIRECTORY_ARGS_FORMAT.matcher(args.trim());
-        // Validate arg string format
-        if (!matcher.matches()) {
-            String directory = FilePickerUtil.saveXMLFile();
-            if (directory == null || directory.equals("")) {
-              return new IncorrectCommand("Aborted backup command");
-            }
-            return new BackupCommand(directory);
-        }
-        return new BackupCommand(matcher.group("directory"));
-    }
-
-    /**
-     * Parses arguments in the context of the sort tasks command.
-     *
-     * @param args full command args string
-     * @return the prepared command
-     */
-    private Command prepareSort(String args) {
-        if ("".equals(args)) {
-            return new SortCommand("default");
-        } else {
-            final Matcher matcher = KEYWORDS_ARGS_FORMAT.matcher(args.trim());
-            if (!matcher.matches()) {
-                return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SortCommand.MESSAGE_USAGE));
-            }
-            final String keyword = matcher.group("keywords").toLowerCase();
-            return new SortCommand(keyword);
-        }
-    }
-    
-    /**
-     * Parses arguments in the context of the repeat task command.
-     *
-     * @param args full command args string
-     * @return the prepared command
-     */
-    private Command prepareRepeat(String args) {
-            final Matcher matcher = REPEAT_ARGS_FORMAT.matcher(args.trim());
-            if (!matcher.matches()) {
-                return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, RepeatCommand.MESSAGE_USAGE));
-            }
-            int index = Integer.parseInt(matcher.group("targetIndex"));
-            String interval = matcher.group("interval");
-            return new RepeatCommand(index, interval);
-    }
-    // @@author
 
     private Command prepareDone(String args) {
 
