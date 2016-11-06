@@ -111,7 +111,8 @@ public class DeleteCommandTest extends TaskManagerGuiTest {
         commandBox.runViewAllCommand();
         
         StringBuilder commandText = new StringBuilder("delete ");
-        StringBuilder resultMessage = new StringBuilder(String.format(DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS_HEADER, targetIndexes.length));
+        StringBuilder resultMessage = new StringBuilder(String.format(DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS_HEADER, 
+                                                                targetIndexes.length));
         
         for (int i = 0; i < targetIndexes.length; i++) {
             TestTask taskToRemove = currentList.getTaskFromList(targetIndexes[i] - 1, categories[i]);

@@ -70,8 +70,8 @@ public class DeleteCommand extends Command {
     }
 
     /**
-     * This method evaluates each entered index for 3 types of errors: invalid index, duplicate mark as done,
-     * and duplicate indexes entered, and then sets the relevant boolean variables as true accordingly.
+     * This method evaluates each entered index for 2 types of errors: invalid index, and duplicate indexes entered, 
+     * and then sets the relevant boolean variables as true accordingly.
      */
     private void evaluatePresenceOfErrors() {
         
@@ -111,7 +111,6 @@ public class DeleteCommand extends Command {
     
     /**
      * This method calls the model to mark the specified tasks as done and stores the command for usage during undo/redo.
-     * @throws TaskNotFoundException
      */
     private void executeDeleteTasks() {
         model.deleteTasks(listOfTaskToDelete);
@@ -128,7 +127,8 @@ public class DeleteCommand extends Command {
     }
     
     /** 
-     * Returns an error message if an error was detected, else an empty Optional is returned
+     * Returns an error message representing all the problematic indexes provided
+     * if an error was detected, else an empty Optional is returned
      */
     private void generateErrorMessage() {
         if (hasInvalidIndex) {

@@ -74,6 +74,12 @@ public class TaskCardHandle extends GuiHandle {
         return getTextFromLabel(TAG_FIELD_ID);
     }
     
+    /**
+     * Checks that both the TaskCardHandle and task is of the same format and then
+     * checks that the relevant fields are all the same to determine that they
+     * are the same task, else returns false
+     * @param task the task to check against this TaskCardHandle
+     */
     public boolean isSameTask(ReadOnlyTask task){
         if (isTodo() && task.isTodo()) {
             return isSameTodo(task);
@@ -85,14 +91,21 @@ public class TaskCardHandle extends GuiHandle {
         return false;
     }
 
+    /**
+     * Checks that the EndDate of TaskCardHandle is null to determine it is of a Todo Task format
+     * else returns false
+     */
     private boolean isTodo() {
         return getEndDate().equals(NULL_END_DATE_FIELD);
     }
     
+    /**
+     * Checks that the StartDate of TaskCardHandle is null to determine it is of a Deadline Task format
+     * else returns false
+     */
     private boolean isDeadline() {
         return getStartDate().equals(NULL_START_DATE_FIELD);
     }
-    
     
     private boolean isSameEvent(ReadOnlyTask task) {
         return hasSameNameAndTags(task)

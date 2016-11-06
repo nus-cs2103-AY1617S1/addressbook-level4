@@ -65,6 +65,7 @@ public class UniqueTaskList implements Iterable<Task> {
         internalList.add(toAdd);
     }
     
+    //@@author
     /**
      * Adds tasks to the list in an unsorted fashion. Used in initialization of TaskManager
      *
@@ -78,6 +79,7 @@ public class UniqueTaskList implements Iterable<Task> {
         internalList.add(toAdd);
     }
     
+    //@@author A0139052L
     /** 
      * Unmarks the given task as done from the list. Used only in redo function 
      */
