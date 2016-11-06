@@ -2,7 +2,7 @@ package seedu.emeraldo.logic.commands;
 
 //@@author A0139749L
 /**
- * Lists all tasks in Emeraldo to the user.
+ * Lists uncompleted tasks in Emeraldo to the user base on the keyword specified.
  */
 public class ListCommand extends Command {
 

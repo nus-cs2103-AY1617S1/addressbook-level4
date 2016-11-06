@@ -136,7 +136,6 @@ public class DateTime {
     }
 
     public DateTime(String dateTime, String completedDateTime) throws IllegalValueException, DateTimeException{
-    	//Calls the other constructor to initialise the values less completedValueDate and completedValueTime
     	this(dateTime);
     	setCompletedDateTime(completedDateTime);
     }
@@ -180,13 +179,14 @@ public class DateTime {
     		LocalDate endDate, LocalTime endTime){
     	
     	//Condition returns true if startDate > endDate
-    	if(startDate.isAfter(endDate))	
+    	if(startDate.isAfter(endDate)){
     		return false;
     	//Condition returns true if startDate == endDate and startTime >= endTime
-    	else if(startDate.isEqual(endDate) && (startTime.equals(endTime) || startTime.isAfter(endTime))) 
+    	}else if(startDate.isEqual(endDate) && (startTime.equals(endTime) || startTime.isAfter(endTime))){ 
     		return false;
-    	else
+    	}else{
     		return true;
+    	}
     }
     
 
