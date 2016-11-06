@@ -44,7 +44,7 @@ public class AddCommand extends Command {
 	    if (time != null || startTime != null || endTime != null) {
 	        validateTime = new TaskTime(time, startTime, endTime, date, startDate, endDate);
 	        if (date == null && startDate == null && endDate == null)
-	            validatedTime = validateTime.getDate();
+	            validatedDate = validateTime.getDate();
 	    }
 	    
 	    if (date != null || startDate != null || endDate != null) {
@@ -101,6 +101,7 @@ public class AddCommand extends Command {
 	public CommandResult execute() {
 		assert model != null;
 		try {
+		    System.out.println("At AddCommand Execute, Time: " + toAdd.getTaskTime());
 			model.addTask(toAdd);
 			model.getUndoStack().push(COMMAND_WORD);
 			model.getDeletedStackOfTasksAdd().push(toAdd);
