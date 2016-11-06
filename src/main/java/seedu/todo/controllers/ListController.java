@@ -30,7 +30,7 @@ public class ListController extends Controller {
     private static final String MESSAGE_LISTING_ALL = "Showing all tasks and events.\n\n"
                                                     + "You have a total of %d incomplete tasks, %d overdue tasks, "
                                                     + "and %d upcoming events.";
-    private static final String MESSAGE_LISTING_FILTERED = "Showing %s.\n\nYour query: %s";
+    private static final String MESSAGE_LISTING_FILTERED = "Showing %s %s and %s %s.\n\nYour query: %s";
     private static final String MESSAGE_UNKNOWN_TOKENS = "Could not parse your query as it contained unknown tokens: %s";
     private static final String MESSAGE_AMBIGUOUS_TYPE = "We could not tell if you wanted to clear events or tasks. \n"
             + "Note that only tasks can be \"complete\"/\"incomplete\", "
@@ -102,7 +102,8 @@ public class ListController extends Controller {
         
         // Render the new view with filtered tasks.
         String consoleMessage = String.format(MESSAGE_LISTING_FILTERED, 
-                StringUtil.formatNumberOfTaskAndEventWithPuralizer(filteredTasks.size(), filteredEvents.size()), input);
+                filteredTasks.size(), StringUtil.pluralizer(filteredTasks.size(), "task", "tasks"),
+                filteredEvents.size(), StringUtil.pluralizer(filteredEvents.size(), "event", "events"), input);
         Renderer.renderSelected(TodoListDB.getInstance(), consoleMessage, filteredTasks, filteredEvents);
     }
     
