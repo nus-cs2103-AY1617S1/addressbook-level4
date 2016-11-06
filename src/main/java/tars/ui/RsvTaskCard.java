@@ -22,6 +22,7 @@ import tars.ui.formatter.Formatter;
  */
 public class RsvTaskCard extends UiPart {
 
+    private static final String DATE_TIME_LIST_AREA = "dateTimeListArea";
     private static final String FXML = "RsvTaskListCard.fxml";
     private static final String DATETIMELIST_ID = "dateTimeList";
 
@@ -66,8 +67,8 @@ public class RsvTaskCard extends UiPart {
         dateTimeListArea = new TextArea();
         dateTimeListArea.setEditable(false);
         dateTimeListArea.setId(DATETIMELIST_ID);
-
         dateTimeListArea.getStyleClass().removeAll();
+        dateTimeListArea.getStyleClass().add(DATE_TIME_LIST_AREA);
         dateTimeListArea.setWrapText(true);
         dateTimeListArea.setPrefSize(200, 75);
         dateTimeListArea.textProperty().bind(dateTimeListdisplayed);

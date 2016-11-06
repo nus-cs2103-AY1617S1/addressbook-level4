@@ -17,7 +17,6 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import tars.commons.core.LogsCenter;
 import tars.commons.events.ui.RsvTaskAddedEvent;
-import tars.commons.events.ui.TaskAddedEvent;
 import tars.model.task.rsv.RsvTask;
 
 /**
