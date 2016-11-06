@@ -40,7 +40,7 @@ At this point, we know you are just as excited as we are [about Jimi](https://gi
 ## Command Summary
 Command | Format  
 -------- | :-------- 
-[Help](#help) | `help`
+[Help](#help) | `help [COMMAND_WORD]`
 [Add](#add) | `add "TASK_DETAILS" [t/TAG] [p/PRIORITY]`
 &nbsp;| `add "TASK_DETAILS" due DATE_TIME [t/TAG] [p/PRIORITY]`
 &nbsp;| `add "EVENT_DETAILS" on|from START_DATE_TIME [to END_DATE_TIME] [t/TAG] [p/PRIORITY]`
@@ -129,11 +129,17 @@ Command | Default Command Word | Shortcuts
 
 #### <a id="help"></a> Viewing help : `help`
 Teaches you how to use Jimi. <br>
-Format: `help`
+Format: `help [COMMAND_WORD]`
 
-The user guide will open in another window.
+Typing `help` will open this user guide in another window
 
 > <img src="images/Help.png" width="800">
+
+Typing `help COMMAND_WORD` e.g. `help add`, will show help for that specific command in the console box.
+
+> You can also type `help a`, equivalent of `help add` as all shortcuts mentioned above applies too.
+
+
 
 <br><br>
 
