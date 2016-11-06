@@ -4,7 +4,7 @@
 * [Getting Started](#getting-started)
 * [Features](#features)
    * [Adding tasks](#add-command)
-* [FAQ](#faq)
+* [FAQ](#how-do-I-transfer-my-data-to-another-computer)
 * [Command Summary](#command-summary)
 
 <br>
