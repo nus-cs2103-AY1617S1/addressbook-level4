@@ -80,7 +80,6 @@ public class TaskOccurrence {
         return true;
     }
     
-
     public ReadOnlyTask getTaskReference() {
         return taskReference;
     }

@@ -35,7 +35,7 @@ public class UniqueTaskListTest {
     
     @Test
     public void addToTaskList_integrationTest() throws Exception {
-        Task toAdd = new Task(new NameStub("dummy"), new UniqueTagListStub());
+        Task toAdd = new Task(new NameStub(), new UniqueTagListStub());
         taskList.add(toAdd);
         assert_taskList_contentMatch(1, 1);
     }

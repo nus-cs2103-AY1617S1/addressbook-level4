@@ -2,6 +2,7 @@ package seedu.address.model.task;
 
 import static org.junit.Assert.assertEquals;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import seedu.address.commons.exceptions.IllegalValueException;
@@ -17,10 +18,15 @@ import seedu.address.model.task.stub.UniqueTagListStub;
  */
 public class TaskTester {
     private Task task;
+    private TaskTesterHelper helper;
+    
+    @Before
+    public void setup() {
+        helper = new TaskTesterHelper();
+    }
     
     @Test
     public void create_task() throws Exception {
-        TaskTesterHelper helper = new TaskTesterHelper();
         task = helper.createFloatingTask();
         assertEquals(task.getTaskType(), TaskType.FLOATING);
         task = helper.createNonFloatingTask(RecurringType.NONE);
@@ -29,14 +35,12 @@ public class TaskTester {
     
     @Test(expected=AssertionError.class)
     public void setRecurringType_floatingTask_throwAssert() throws Exception {
-        TaskTesterHelper helper = new TaskTesterHelper();
         task = helper.createFloatingTask();
         task.setRecurringType(RecurringType.DAILY);
     }
 
     @Test
     public void setRecurringType_successful() throws Exception {
-        TaskTesterHelper helper = new TaskTesterHelper();
         task = helper.createNonFloatingTask(RecurringType.NONE);
         task.setRecurringType(RecurringType.DAILY);
         assertEquals(task.getRecurringType(), RecurringType.DAILY);
@@ -44,7 +48,6 @@ public class TaskTester {
 
     @Test
     public void setTaskType_successful() throws Exception {
-        TaskTesterHelper helper = new TaskTesterHelper();
         task = helper.createNonFloatingTask(RecurringType.NONE);
         task.setTaskType(TaskType.COMPLETED);
         assertEquals("Task type should be mutated", task.getTaskType(), TaskType.COMPLETED);
@@ -52,7 +55,6 @@ public class TaskTester {
 
     @Test(expected=AssertionError.class)
     public void appendTaskComponent_toNonRecurringTask_notAllowed() throws Exception {
-        TaskTesterHelper helper = new TaskTesterHelper();
         task = helper.createNonFloatingTask(RecurringType.NONE);
         TaskOccurrenceStub toAppend = helper.createTaskOccurenceStub(task);
         task.appendRecurringDate(toAppend);
@@ -60,7 +62,6 @@ public class TaskTester {
 
     @Test
     public void getLastAppendedComponent_success() throws Exception {
-        TaskTesterHelper helper = new TaskTesterHelper();
         task = helper.createNonFloatingTask(RecurringType.DAILY);
         TaskOccurrenceStub toAppend = helper.createTaskOccurenceStub(task);
         task.appendRecurringDate(toAppend);
@@ -75,7 +76,8 @@ public class TaskTester {
         }
         
         public Task createNonFloatingTask(RecurringType type) throws IllegalValueException {
-            return new Task(new NameStub("dummy"), new UniqueTagListStub(), new TaskDateStub(), new TaskDateStub(), type, Task.NO_RECURRING_PERIOD);
+            return new Task(new NameStub("dummy"), new UniqueTagListStub(),
+                    new TaskDateStub(), new TaskDateStub(), type, Task.NO_RECURRING_PERIOD);
         }
         
         public TaskOccurrenceStub createTaskOccurenceStub(Task task) {
