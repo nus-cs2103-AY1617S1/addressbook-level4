@@ -224,7 +224,7 @@ public class Task implements ReadOnlyTask {
     }
     
     public int decrementRecurringPeriod() {
-         recurringPeriod -= 1;
+        recurringPeriod -= 1;
         return recurringPeriod;
     }
     // @@author
