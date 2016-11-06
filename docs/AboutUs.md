@@ -1,4 +1,3 @@
-//@@author A0147890U
 
 # About Us
 
