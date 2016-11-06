@@ -198,15 +198,6 @@ public class ModelManager extends ComponentManager implements Model {
     	indicateEmeraldoChanged();
     }
     
-    private void updateFilteredTaskListWithCompleted(){
-    	if(keywords instanceof Set<?>)
-    		updateFilteredTaskListWithCompleted((Set<String>)keywords);
-    	else if(keywords instanceof String)
-    		updateFilteredTaskListWithCompleted((String)keywords);
-    	else if(keywords instanceof TimePeriod)
-    		updateFilteredTaskListWithCompleted((TimePeriod)keywords);
-    }
-    
     //@@author A0139749L
     private void updateFilteredTaskListWhenCompletedIsUsed(){
     	if(keywords == null || keywords.equals("show all")){
