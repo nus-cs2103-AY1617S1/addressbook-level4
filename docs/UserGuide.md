@@ -57,7 +57,7 @@ Format: `add "TASK_DESCRIPTION" [on DATE] [by DEADLINE_DATE_AND_TIME] [from STAR
 
 
 Type of task to be added | Examples
--------------------------|----------
+:------------------------|:----------
 For a task with no date or time specified, only the task description is required to be specified.|`add "Do laundry"`
 For a task with date but no time specified, it would be taken be as an all day event.|`add "Gyming with Jim" on 23 May 2016`
 For a task with a deadline, the date and time must be specified.|`add "Do tutorial for EE module" by 5 May, 2pm`
@@ -70,9 +70,9 @@ For any tasks with tags, specify the tags as the last parameter.|`add "James wed
 <br>
 
 Accepted entry formats | Examples
------------------------|----------
-Date formats | 4/03/2016  4/03/16  4-03-16  4.03.16  4 March 16  4/03  4 Mar
-Time formats | 14:20  14.20  1420  2.20pm  2:20pm 
+:----------------------|:----------
+Date formats | 4/03/2016 , 4/03/16 , 4-03-16 , 4.03.16 , 4 March 16 , 4/03 , 4 Mar
+Time formats | 14:20 , 14.20 , 1420 , 2.20pm , 2:20pm 
 
 
 <br>
