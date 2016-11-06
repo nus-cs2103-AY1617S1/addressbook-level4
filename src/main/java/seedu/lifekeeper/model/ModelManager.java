@@ -138,30 +138,19 @@ public class ModelManager extends ComponentManager implements Model {
     public UnmodifiableObservableList<Activity> getFilteredTaskListForEditing() {
         return new UnmodifiableObservableList<>(filteredActivities);
     }
-<<<<<<< HEAD:src/main/java/seedu/lifekeeper/model/ModelManager.java
-=======
     
   //@@author A0125284H A0131813R
   	@Override
   	public UnmodifiableObservableList<ReadOnlyActivity> getFilteredOverdueTaskList() {
   		
-  		FilteredList<Activity> filteredOverdueTaskList = new FilteredList<>(addressBook.getAllEntries());
-  		//System.out.println("Size before filtering :" + filteredOverdueTaskList.size());
-  		
-  		filteredOverdueTaskList.setPredicate(p->
-  		p.getClass().getSimpleName().equals("Task"));
-  		
-  		FilteredList<Task> anotherList = (FilteredList<Task>) new FilteredList<>((ObservableList<? extends ReadOnlyTask>) filteredOverdueTaskList);
-  		
-  		anotherList.setPredicate(p->
-  		p.getCompletionStatus() == false && p.hasPassedDueDate() == true);
+  		FilteredList<Activity> filteredOverdueTaskList = new FilteredList<>(lifeKeeper.getAllEntries());
 
-  		//System.out.println("Size after filtering :" + anotherList.size());
+  		filteredOverdueTaskList.setPredicate(p->
+  		p.getClass().getSimpleName().equals("Task") && p.getCompletionStatus() == false && p.hasPassedDueDate() == true);
   		
-  		return new UnmodifiableObservableList<ReadOnlyActivity>(anotherList);
+  		return new UnmodifiableObservableList<ReadOnlyActivity>(filteredOverdueTaskList);
   	}
   	
->>>>>>> 937da6a... Added DueDate output for OverdueTaskCard:src/main/java/seedu/address/model/ModelManager.java
   //@@author A0131813R
     @Override
     public void updateFilteredListToShowAll() {
