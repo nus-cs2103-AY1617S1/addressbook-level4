@@ -5,6 +5,7 @@ import static seedu.simply.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 //@@author A0147890U
 /**
  * Lists all tasks in the task book to the user.
+ * Either lists all tasks or lists all completed tasks.
  */
 public class ListCommand extends Command {
 
