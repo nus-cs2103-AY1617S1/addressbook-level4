@@ -40,6 +40,7 @@ public class PinCommand extends Command {
         ReadOnlyTask taskToPin = lastShownList.get(targetIndex - 1);
 
         try {
+        	 model.getHistory().stackUnpinInstruction(taskToPin);
             model.pinTask(targetIndex-1);
         } catch (PersonNotFoundException pnfe) {
             assert false : "The target task cannot be missing";
