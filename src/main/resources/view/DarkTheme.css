@@ -102,6 +102,13 @@
     -fx-text-fill: #010504;
 }
 
+/* @@author A0142184L */
+.cell_medium_label_bold {
+    -fx-font-size: 15px;
+    -fx-text-fill: #010504;
+    -fx-font-weight: bold;
+}
+/* @@author */
 .cell_small_label {
     -fx-font-size: 14px;
     -fx-text-fill: #010504;
