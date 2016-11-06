@@ -172,7 +172,7 @@ Remember that report that we added at the start? Once you have done it, simply t
 Example: Done D1
 
 This will hide that report that you have completed from the main screen.
-
+<br><br>
 You can also complete multiple tasks at once by following the format below.
 
 > Format: Done &lt;index&gt;-&lt;index&gt;
