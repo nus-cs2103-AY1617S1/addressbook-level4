@@ -9,6 +9,7 @@ import java.util.List;
 
 import org.junit.Test;
 
+import tars.commons.exceptions.InvalidRangeException;
 import tars.logic.commands.DeleteCommand;
 import tars.logic.commands.RedoCommand;
 import tars.logic.commands.UndoCommand;
@@ -22,7 +23,7 @@ import tars.ui.formatter.Formatter;
  */
 public class DeleteLogicCommandTest extends LogicCommandTest {
     @Test
-    public void execute_delete_InvalidArgsFormatErrorMessageShown()
+    public void execute_delete_invalidArgsFormatErrorMessageShown()
             throws Exception {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                 DeleteCommand.MESSAGE_USAGE);
@@ -30,10 +31,18 @@ public class DeleteLogicCommandTest extends LogicCommandTest {
     }
 
     @Test
-    public void execute_delete_IndexNotFoundErrorMessageShown()
+    public void execute_delete_indexNotFoundErrorMessageShown()
             throws Exception {
         assertIndexNotFoundBehaviorForCommand("del");
     }
+
+    // @@author A0139924W
+    @Test
+    public void execute_delete_invalidRange() throws Exception {
+        String expectedMessage = InvalidRangeException.MESSAGE_INVALID_RANGE;
+        assertCommandBehavior("del 2..1", expectedMessage);
+    }
+    // @@author
 
     @Test
     public void execute_delete_removesCorrectTask() throws Exception {
@@ -94,7 +103,7 @@ public class DeleteLogicCommandTest extends LogicCommandTest {
                 expectedTars, expectedTars.getTaskList());
 
         expectedTars.addTask(toBeRemoved);
-        
+
         // execute undo and verify result
         assertCommandBehavior(UndoCommand.COMMAND_WORD,
                 String.format(UndoCommand.MESSAGE_SUCCESS,

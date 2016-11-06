@@ -10,7 +10,9 @@ import java.util.List;
 
 import org.junit.Test;
 
+import tars.commons.exceptions.InvalidRangeException;
 import tars.logic.commands.ConfirmCommand;
+import tars.logic.commands.DeleteCommand;
 import tars.logic.commands.RedoCommand;
 import tars.logic.commands.UndoCommand;
 import tars.model.Tars;
@@ -26,7 +28,6 @@ public class ConfirmLogicCommandTest extends LogicCommandTest {
     @Test
     public void execute_confirm_invalidArgsFormatErrorMessageShown()
             throws Exception {
-
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                 ConfirmCommand.MESSAGE_USAGE);
         assertCommandBehavior("confirm ", expectedMessage);
@@ -41,6 +42,14 @@ public class ConfirmLogicCommandTest extends LogicCommandTest {
         assertCommandBehavior("confirm 2 3",
                 MESSAGE_INVALID_RSV_TASK_DISPLAYED_INDEX);
     }
+    
+ // @@author A0139924W
+    @Test
+    public void execute_confirm_invalidRange() throws Exception {
+        String expectedMessage = InvalidRangeException.MESSAGE_INVALID_RANGE;
+        assertCommandBehavior("confirm 2..1", expectedMessage);
+    }
+    // @@author
 
     @Test
     public void execute_confirm_success() throws Exception {

@@ -1,22 +1,23 @@
 package tars.ui;
 
-import com.google.common.eventbus.Subscribe;
-import javafx.fxml.FXML;
-import javafx.scene.Node;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Text;
-import javafx.stage.Stage;
+import java.util.Date;
+import java.util.logging.Logger;
+
 import org.controlsfx.control.StatusBar;
 
+import com.google.common.eventbus.Subscribe;
+
+import javafx.fxml.FXML;
+import javafx.scene.Node;
+import javafx.scene.control.Label;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
+import javafx.stage.Stage;
 import tars.commons.core.LogsCenter;
 import tars.commons.events.model.TarsChangedEvent;
 import tars.commons.events.storage.TarsStorageDirectoryChangedEvent;
 import tars.commons.util.FxViewUtil;
-
-import java.util.Date;
-import java.util.logging.Logger;
+import tars.commons.util.StringUtil;
 
 /**
  * A ui for the status bar that is displayed at the footer of the application.
@@ -37,9 +38,8 @@ public class StatusBarFooter extends UiPart {
 
     private AnchorPane placeHolder;
 
-    private Text locationText = new Text();
-
-
+    private Label saveLocationLabel;
+    private Label syncStatusLabel;
 
     private static final String FXML = "StatusBarFooter.fxml";
 
@@ -56,7 +56,7 @@ public class StatusBarFooter extends UiPart {
         addSyncStatus();
         setSyncStatus("Not updated yet in this session");
         addSaveLocation();
-        setSaveLocation("Storage Directory: ./" + saveLocation);
+        setSaveLocation("Storage Directory: " + saveLocation);
         registerAsAnEventHandler(this);
     }
 
@@ -65,32 +65,36 @@ public class StatusBarFooter extends UiPart {
         placeHolder.getChildren().add(mainPane);
     }
 
+    // @@author A0139924W
     private void setSaveLocation(String location) {
-        locationText.setText(location);
-        locationText.setFill(Color.WHITE);
-        this.saveLocationStatus.setText("");
-
-
+        this.saveLocationLabel.setText(location);
     }
 
     private void addSaveLocation() {
         this.saveLocationStatus = new StatusBar();
-        this.saveLocationStatus.getRightItems().add(locationText);
+        this.saveLocationLabel = new Label();
+        this.saveLocationStatus.setText(StringUtil.EMPTY_STRING);
+        this.saveLocationStatus.getRightItems().add(saveLocationLabel);
         FxViewUtil.applyAnchorBoundaryParameters(saveLocationStatus, 0.0, 0.0,
                 0.0, 0.0);
         saveLocStatusBarPane.getChildren().add(saveLocationStatus);
     }
 
     private void setSyncStatus(String status) {
-        this.syncStatus.setText(status);
+        this.syncStatusLabel.setText(status);
     }
 
     private void addSyncStatus() {
         this.syncStatus = new StatusBar();
+        this.syncStatusLabel = new Label();
+        this.syncStatus.setText(StringUtil.EMPTY_STRING);
+        this.syncStatus.getLeftItems().add(syncStatusLabel);
         FxViewUtil.applyAnchorBoundaryParameters(syncStatus, 0.0, 0.0, 0.0,
                 0.0);
         syncStatusBarPane.getChildren().add(syncStatus);
     }
+    
+    //@@author
 
     @Override
     public void setNode(Node node) {

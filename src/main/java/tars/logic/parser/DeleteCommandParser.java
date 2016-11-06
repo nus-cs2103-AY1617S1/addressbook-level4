@@ -26,18 +26,19 @@ public class DeleteCommandParser extends CommandParser {
 
         if (StringUtil.EMPTY_STRING.equals(args)) {
             return new IncorrectCommand(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                            DeleteCommand.MESSAGE_USAGE));
         }
 
         try {
             String rangeIndex = StringUtil.indexString(args);
             args = rangeIndex;
         } catch (InvalidRangeException ire) {
-            return new IncorrectCommand(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
+            return new IncorrectCommand(ire.getMessage());
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                            DeleteCommand.MESSAGE_USAGE));
         }
 
         return new DeleteCommand(args);
