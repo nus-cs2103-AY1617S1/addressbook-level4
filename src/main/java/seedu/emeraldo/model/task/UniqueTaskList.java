@@ -104,7 +104,7 @@ public class UniqueTaskList implements Iterable<Task> {
     	
     	else {
     		
-    		DateTime newDateTime = new DateTime();
+    		DateTime newDateTime = new DateTime(toCompleteObj.getDateTime().value);
     		newDateTime.setCompletedDateTime();
     		
     		toCompleteObj.setDateTime(newDateTime);

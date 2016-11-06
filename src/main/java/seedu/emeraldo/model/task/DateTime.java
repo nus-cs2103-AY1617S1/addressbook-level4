@@ -140,10 +140,6 @@ public class DateTime {
     	setCompletedDateTime(completedDateTime);
     }
     
-    public DateTime() throws DateTimeException, IllegalValueException{
-    	this("");
-    }
-    
     /*
      * Converts completedDateTime from a String into LocalDate and LocalTime
      */
