@@ -1,11 +1,14 @@
 package seedu.todo.guitests;
 
+import static org.junit.Assert.assertEquals;
+
 import java.time.LocalDateTime;
 
 import org.junit.Before;
 import org.junit.Test;
 
 import seedu.todo.commons.util.DateUtil;
+import seedu.todo.controllers.FindController;
 import seedu.todo.models.Event;
 import seedu.todo.models.Task;
 
@@ -67,5 +70,20 @@ public class FindCommandTest extends GuiTest {
         assertTaskVisible(task1);
         assertTaskNotVisible(task2);
     }
-
+    
+    @Test
+    public void find_uniquePartialMatch_success() {
+        console.runCommand("find KO");
+        assertTaskVisible(task1);
+        assertTaskNotVisible(task2);
+    }
+    
+    @Test
+    public void find_uniqueEndingMatch_fail() {
+        console.runCommand("find OI");
+        assertEquals(FindController.MESSAGE_LISTING_FAILURE, console.getConsoleTextArea());
+        assertTaskVisible(task1);
+        assertTaskVisible(task2);
+        assertEventVisible(event3);
+    }
 }
