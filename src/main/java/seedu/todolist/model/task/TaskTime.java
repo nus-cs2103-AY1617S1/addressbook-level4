@@ -12,7 +12,7 @@ import seedu.todolist.model.parser.TimeParser;
  * Represents a Task's time in the to do list.
  * Guarantees: immutable; is valid as declared in {@link #isValidTime(String)}
  */
-public class TaskTime implements Comparable<TaskTime> {
+public class TaskTime {
     
     public static final String MESSAGE_TIME_CONSTRAINTS = "Task time should be in 24-hr format or AM/PM format";
     public static final String MESSAGE_TIME_INVALID = "Task time provided is invalid!";
@@ -20,6 +20,7 @@ public class TaskTime implements Comparable<TaskTime> {
     //format: 24-hr
     public static final String TIME_VALIDATION_REGEX_2 = "(\\p{Digit}){1,2}:(\\p{Digit}){2}";
     //format: AM/PM
+    //minutes can be omitted and assumed to be 00
     public static final String TIME_VALIDATION_REGEX_1 = "(\\p{Digit}){1,2}(:(\\p{Digit}){2})?\\s?[AaPp][Mm]";
     public static final String TIME_VALIDATION_REGEX_FORMAT = TIME_VALIDATION_REGEX_1 + "|" + TIME_VALIDATION_REGEX_2;
 
@@ -50,7 +51,10 @@ public class TaskTime implements Comparable<TaskTime> {
      * Returns true if a given string is a valid task time.
      */
     public static boolean isValidTime(String test) {
-        return test.matches(TIME_VALIDATION_REGEX_FORMAT);
+        if (test.matches(TIME_VALIDATION_REGEX_FORMAT)) {
+            return true;
+        }
+        return false;
     }
     
     /**
@@ -78,17 +82,9 @@ public class TaskTime implements Comparable<TaskTime> {
                 || (other instanceof TaskTime // instanceof handles nulls
                 && this.time.equals(((TaskTime) other).time)); // state check
     }
-    
-    @Override 
-    public int compareTo(TaskTime time) {
-        if (time == null) return -1;
-        
-        if (this.equals(time)) {
-            return 0;
-        } else if (this.isBefore(time)) {
-            return -1;
-        } else {
-            return 1;
-        }
+
+    @Override
+    public int hashCode() {
+        return time.hashCode();
     }
 }

@@ -14,9 +14,6 @@ import seedu.todolist.model.task.ReadOnlyTask;
 public class TaskCard extends UiPart{
 
     private static final String FXML = "TaskListCard.fxml";
-    
-    private static final String ICON_ALARM_CLOCK = "/images/alarm_clock.png";
-    private static final String ICON_HOURGLASS = "/images/hourglass.png";
 
     @FXML
     private HBox cardPane;
@@ -67,16 +64,22 @@ public class TaskCard extends UiPart{
             intervalIcon.setVisible(false);
             startDate.setText(""); 
             endDate.setText("");  
-        } else if (task.getInterval().isDeadlineWithTime()) {
-            intervalIcon.setImage(AppUtil.getImage(ICON_ALARM_CLOCK));
+        }
+        else if (task.getInterval().isDeadlineWithTime()) {
+            Image img = AppUtil.getImage("/images/alarm_clock.png");
+            intervalIcon.setImage(img);
             startDate.setManaged(false);
             endDate.setText(task.getInterval().formatEndDateTime());
-        } else if (task.getInterval().isDeadlineWithoutTime()) {
-            intervalIcon.setImage(AppUtil.getImage(ICON_ALARM_CLOCK));
+        }
+        else if (task.getInterval().isDeadlineWithoutTime()) {
+            Image img = AppUtil.getImage("/images/alarm_clock.png");
+            intervalIcon.setImage(img);
             startDate.setManaged(false);
             endDate.setText(task.getInterval().formatEndDate());    
-        } else {
-            intervalIcon.setImage(AppUtil.getImage(ICON_HOURGLASS));
+        }
+        else {
+            Image img = AppUtil.getImage("/images/hourglass.png");
+            intervalIcon.setImage(img);
             startDate.setText(task.getInterval().formatStartDateTime()); 
             endDate.setText(task.getInterval().formatEndDateTime());   
         }

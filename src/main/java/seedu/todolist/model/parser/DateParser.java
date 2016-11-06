@@ -3,19 +3,20 @@ package seedu.todolist.model.parser;
 import java.time.DateTimeException;
 import java.time.LocalDate;
 
-//@@author A0138601M-unused
+//@@author A0138601M
 /**
  * Converts a String to Date and vice versa.
  */
 public class DateParser {
     
-    private static final int DATE_COMPONENT_TOTAL = 3;   
+    private static final int DATE_COMPONENT_TOTAL = 3;
+    
     private static final int DATE_COMPONENT_INDEX_YEAR = 2;
     private static final int DATE_COMPONENT_INDEX_MONTH = 1;
     private static final int DATE_COMPONENT_INDEX_DAY = 0;
     
-    private static final String[] MONTH_LIST = {"JANUARY", "FEBRUARY", "MARCH", "APRIL", "MAY", "JUNE", "JULY", 
-                                                "AUGUST", "SEPTEMBER", "OCTOBER", "NOVEMBER", "DECEMBER"};
+    private static final String[] MONTH_LIST = {"JANUARY", "FEBRUARY", "MARCH", "APRIL" , 
+            "MAY", "JUNE", "JULY", "AUGUST", "SEPTEMBER", "OCTOBER", "NOVEMBER", "DECEMBER"};
     private static final int MONTH_OFFSET_INDEX = 1;
     
     /**
@@ -104,9 +105,6 @@ public class DateParser {
         }
     }
     
-    /**
-     * Returns true if year in date component is missing
-     */
     private static boolean isYearMissing(String[] dateComponents) {
         if (dateComponents.length < DATE_COMPONENT_TOTAL) {
             return true;
@@ -114,9 +112,6 @@ public class DateParser {
         return false;
     }
     
-    /**
-     * Get the current year based on the system time
-     */
     private static int getCurrentYear() {
         LocalDate now = LocalDate.now();
         return now.getYear();

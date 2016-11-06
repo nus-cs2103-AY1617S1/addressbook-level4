@@ -67,7 +67,8 @@ public class DeleteCommandTest extends ToDoListGuiTest {
         for (int i = 0; i < targetIndexes.length; i++) {
             if (i == targetIndexes.length - 1) {
                 builder.append(targetIndexes[i]);
-            } else {
+            }
+            else {
                 builder.append(targetIndexes[i] + ", ");
             }
         }
@@ -82,7 +83,8 @@ public class DeleteCommandTest extends ToDoListGuiTest {
         for (int i = 0; i < targetIndexes.length; i++) {
             if (isFromIncompleteList) {
                 tasksToDelete[i] = currentList.getIncompleteList()[targetIndexes[i] - 1]; //-1 because array uses zero indexing
-            } else {
+            }
+            else {
                 tasksToDelete[i] = currentList.getCompleteList()[targetIndexes[i] - 1];
             }
         }

@@ -55,7 +55,7 @@ public class StatusBarFooter extends UiPart {
         placeHolder.getChildren().add(mainPane);
     }
 
-    private void setSaveLocation(String location) {
+    void setSaveLocation(String location) {
         this.saveLocationStatus.setText(location);
     }
 
@@ -65,7 +65,7 @@ public class StatusBarFooter extends UiPart {
         saveLocStatusBarPane.getChildren().add(saveLocationStatus);
     }
 
-    private void setSyncStatus(String status) {
+    void setSyncStatus(String status) {
         this.syncStatus.setText(status);
     }
 

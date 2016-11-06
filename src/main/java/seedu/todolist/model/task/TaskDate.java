@@ -12,7 +12,7 @@ import seedu.todolist.model.parser.DateParser;
  * Represents a Task's date in the to do list.
  * Guarantees: immutable; is valid as declared in {@link #isValidDate(String)}
  */
-public class TaskDate implements Comparable<TaskDate> {
+public class TaskDate {
     
     public static final String MESSAGE_DATE_CONSTRAINTS = "Task date should be in the format 'dd/mm/yyyy' "
                                                         + "or 'dd monthname yyyy'.";
@@ -21,6 +21,7 @@ public class TaskDate implements Comparable<TaskDate> {
     //format: 'dd/mm/yyyy'
     public static final String DATE_VALIDATION_REGEX_1 = "((\\p{Digit}){1,2}/(\\p{Digit}){1,2}(/(\\p{Digit}){4})?)";
     //format: 'dd monthname yyyy'
+    //full monthname (october) and abbreviated monthname (oct) are accepted.
     public static final String DATE_VALIDATION_REGEX_2 = "((\\p{Digit}){1,2}\\s?(\\p{Alpha}){3,9}\\s?((\\p{Digit}){4})?)";
     public static final String DATE_VALIDATION_REGEX_FORMAT = DATE_VALIDATION_REGEX_1 + "|" + DATE_VALIDATION_REGEX_2;
     
@@ -51,7 +52,10 @@ public class TaskDate implements Comparable<TaskDate> {
      * Returns true if a given string is a valid task date.
      */
     private boolean isValidDate(String test) {
-        return test.matches(DATE_VALIDATION_REGEX_FORMAT);
+        if (test.matches(DATE_VALIDATION_REGEX_FORMAT)) {
+            return true;
+        }
+        return false;
     }
     
     /**
@@ -79,15 +83,10 @@ public class TaskDate implements Comparable<TaskDate> {
                 || (other instanceof TaskDate // instanceof handles nulls
                 && this.date.equals(((TaskDate) other).date)); // state check
     }
-    
+
     @Override
-    public int compareTo(TaskDate date) {
-        if (this.equals(date)) {
-            return 0;
-        } else if (this.isBefore(date)) {
-            return -1;
-        } else {
-            return 1;
-        }
+    public int hashCode() {
+        return date.hashCode();
     }
+
 }

@@ -67,7 +67,8 @@ public class DoneCommandTest extends ToDoListGuiTest {
         for (int i = 0; i < targetIndexes.length; i++) {
             if (i == targetIndexes.length - 1) {
                 builder.append(targetIndexes[i]);
-            } else {
+            }
+            else {
                 builder.append(targetIndexes[i] + ", ");
             }
         }
@@ -80,6 +81,7 @@ public class DoneCommandTest extends ToDoListGuiTest {
     private TestTask[] getTasks(int[] targetIndexes, TestTaskList currentList) {
         TestTask[] tasksToMark = new TestTask[targetIndexes.length];
         for (int i = 0; i < targetIndexes.length; i++) {
+
             tasksToMark[i] = currentList.getIncompleteList()[targetIndexes[i] - 1]; //-1 because array uses zero indexing
         }
         return tasksToMark;

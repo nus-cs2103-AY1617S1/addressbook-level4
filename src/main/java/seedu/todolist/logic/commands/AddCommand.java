@@ -28,6 +28,7 @@ public class AddCommand extends Command {
      *
      * @throws IllegalValueException if any of the raw values are invalid
      */
+    //@@author A0138601M
     public AddCommand(String name, String startDate, String startTime, String endDate, String endTime,
             String location, String remarks)  throws IllegalValueException {
         this.toAdd = new Task(
@@ -38,6 +39,7 @@ public class AddCommand extends Command {
                 new Status(false)
         );
     }
+    //@@author
     
     @Override
     public CommandResult execute() {
