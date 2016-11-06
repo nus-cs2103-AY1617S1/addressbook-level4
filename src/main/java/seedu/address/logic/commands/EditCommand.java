@@ -145,6 +145,9 @@ public class EditCommand extends Command {
         } catch (TaskNotFoundException tnfe) {
             model.undoSaveState();
             assert false : "The target task cannot be missing";
+        } catch (IllegalArgumentException iae) {
+        	model.undoSaveState();
+        	return new CommandResult(iae.getMessage());
         }
         
         
