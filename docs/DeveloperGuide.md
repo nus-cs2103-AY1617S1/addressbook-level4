@@ -138,10 +138,9 @@ The sections below give more details of each component.
 
 **API** : [`Ui.java`](../src/main/java/seedu/taskitty/ui/Ui.java)<br>
 Figure 5 shows the UI class diagram.<br>
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `TodoListPanel`,
-`StatusBarFooter`, `EventsListPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `TaskListPanel`,
+`StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class
 and they can be loaded using the `UiPartLoader`.<br>
-The MainWindow also depends on the abstract class `TaskListPanel` to load the 3 inherited classes: `TodoListPanel`, `DeadlineListPanel`, and `EventListPanel`.<br>
 The `UI` component uses JavaFx UI framework. The layouts of these UI parts are defined in matching `.fxml` files
  that are in the `src/main/resources/view` folder.<br>
  For example, the layout of the [`MainWindow`](../src/main/java/seedu/taskitty/ui/MainWindow.java) is specified in
@@ -178,17 +177,26 @@ The result of the command execution is encapsulated as a `CommandResult` object 
 </p>
 <br></br>
 
-Figure 7 above shows the Sequence Diagram for interactions within the `Logic` component and with the Model for the `execute("delete d1")` API call.<br>
-> Note that commands that affects the `TaskManager` inside of `Model` will store the command information after successful execution (before execution for ClearCommand) , while other commands does not need to store any command information.<br>
+Figure 7 above shows the general Sequence Diagram for interactions within the `Logic` component and with the `Model` for general commands such as `execute("delete d1")` API call shown.<br>
+> Note that commands that affects the `TaskManager` inside of `Model` will store the command information after successful execution (before execution for `ClearCommand`) , while other commands does not need to store any command information (e.g `ViewCommand`).<br>
 
 <p align="center">
 <img src="images/DeleteTaskSDforLogicHelp.png" width="800"><br>
 
-<em>Fig. 8 Delete Task Sequence Diagram for Logic HelpCommand</em>
+<em>Fig. 8 Show Help Window Sequence Diagram for Logic HelpCommand</em>
 </p>
 <br></br>
 
-Figure 7 above shows the Sequence Diagram for interactions within the `Logic` component, where the Command directly posts an Event to the `EventsCenter` for the `execute("help")` API call.<br>
+Figure 8 above shows the Sequence Diagram for interactions within the `Logic` component, where the Command directly posts an Event to the `EventsCenter` for the `execute("help")` API call.<br>
+
+<p align="center">
+<img src="images/DeleteTaskSDforLogicPath.png" width="800"><br>
+
+<em>Fig. 9 Set new File Path Sequence Diagram for Logic PathCommand</em>
+</p>
+<br></br>
+
+Figure 9 above shows the Sequence Diagram for interactions within the `Logic` component and with the `Storage`, and directly posts an Event to the `EventsCenter` for the `execute("path temp.xml")` API call.<br>
 <!-- @@author -->
 
 ### Model component
@@ -196,12 +204,12 @@ Figure 7 above shows the Sequence Diagram for interactions within the `Logic` co
 <p align="center">
 <img src="images/ModelClassDiagram.png" width="800"><br>
 
-<em>Fig. 8 Model Class Diagram</em>
+<em>Fig. 10 Model Class Diagram</em>
 </p>
 <br></br>
 
 **API** : [`Model.java`](../src/main/java/seedu/taskitty/model/Model.java)<br>
-Figure 8 above shows the Model class diagram.<br>
+Figure 10 above shows the Model class diagram.<br>
 The `Model`component:
 * stores a `UserPref` object that represents the user's preferences.
 * stores the Task Manager data.
@@ -216,12 +224,12 @@ The `Model`component:
 <p align="center">
 <img src="images/StorageClassDiagram.png" width="800"><br>
 
-<em>Fig. 9 Storage Class Diagram</em>
+<em>Fig. 11 Storage Class Diagram</em>
 </p>
 <br></br>
 
 **API** : [`Storage.java`](../src/main/java/seedu/taskitty/storage/Storage.java)<br>
-Figure 9 above shows the Storage class diagram.<br>
+Figure 11 above shows the Storage class diagram.<br>
 The `Storage` component:
 * saves `UserPrefs` objects in json format and reads it back.
 * saves the Task Manager data in xml format and reads it back.
@@ -557,6 +565,11 @@ Use case ends
 > Use case ends.
 <!-- @@author A0139052L -->
 
+* First number is greater than second number provided for a range of index
+
+> * Program returns an error message, stating that an invalid format was given<br>
+  Use case resumes at step 2
+  
 * The given index of any provided is invalid
 
 > * Program returns an error message, stating all invalid indexes that were provided<br>
@@ -597,6 +610,11 @@ Use case ends
 
 <!-- @@author A0139052L -->
 
+* First number is greater than second number provided for a range of index
+
+> * Program returns an error message, stating that an invalid format was given<br>
+  Use case resumes at step 2
+  
 * The given index of any provided is invalid
 
 > * Program returns an error message, stating all invalid indexes that were provided<br>
