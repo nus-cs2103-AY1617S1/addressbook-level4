@@ -10,7 +10,7 @@ import seedu.address.testutil.TypicalTestTasks;
 import static org.junit.Assert.assertTrue;
 
 //@@author A0093960X
-public class ClearCommandTest extends DearJimGuiTest {
+public class ClearCommandGuiTest extends DearJimGuiTest {
 
     @Override
     protected TaskManager getInitialData() {

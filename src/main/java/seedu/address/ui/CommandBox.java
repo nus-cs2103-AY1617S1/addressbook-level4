@@ -15,6 +15,7 @@ import seedu.address.commons.events.ui.IncorrectCommandAttemptedEvent;
 import seedu.address.logic.Logic;
 import seedu.address.logic.commands.*;
 import seedu.address.commons.util.FxViewUtil;
+import seedu.address.commons.util.StringUtil;
 import seedu.address.history.InputHistory;
 import seedu.address.commons.core.LogsCenter;
 
@@ -39,6 +40,7 @@ public class CommandBox extends UiPart {
     private static final String NEW_LINE = "\n";
     private static final String STRING_EMPTY = "";
     private static final String STRING_ONE_SPACE = " ";
+
 
     @FXML
     private TextField commandTextField;
@@ -153,41 +155,12 @@ public class CommandBox extends UiPart {
             // user input
             return userInput;
         case SPACE_UNICODE :
-            return applySpaceAtPosition(userInput, caretPosition);
+            return StringUtil.applyStringAtPosition(userInput, STRING_ONE_SPACE, caretPosition);
         default :
             // is a normal letter/digit
-            return applyKeyAtPosition(userInput, keyAsString, caretPosition);
+            return StringUtil.applyStringAtPosition(userInput, keyAsString, caretPosition);
         }
 
-    }
-
-    /**
-     * Returns a string with a single whitespace character appended to the back
-     * of the given user input string
-     * 
-     * @param userInput
-     * @return
-     */
-    private String applySpaceAtPosition(String userInput, int position) {
-        String stringBeforeCaret = userInput.substring(0, position);
-        String stringAfterCaret = userInput.substring(position);
-        return String.join(STRING_ONE_SPACE, stringBeforeCaret, stringAfterCaret);
-    }
-
-    /**
-     * Returns a string that is the result of adding the given key in the
-     * specified position of the string.
-     * 
-     * @param userInput the user input
-     * @param keyAsString the key as a string
-     * @param position the position to add the key
-     * @return string with key at the specified position in the user input
-     *         string
-     */
-    private String applyKeyAtPosition(String userInput, String keyAsString, int position) {
-        String stringBeforeCaret = userInput.substring(0, position);
-        String stringAfterCaret = userInput.substring(position);
-        return String.join(keyAsString, stringBeforeCaret, stringAfterCaret);
     }
 
     /**

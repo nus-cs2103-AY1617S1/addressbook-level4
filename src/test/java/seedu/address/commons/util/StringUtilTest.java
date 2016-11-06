@@ -8,6 +8,7 @@ import java.io.FileNotFoundException;
 
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
@@ -45,6 +46,50 @@ public class StringUtilTest {
     public void getDetails_nullGiven_assertionError(){
         thrown.expect(AssertionError.class);
         StringUtil.getDetails(null);
+    }
+    
+    
+    //@@author A0093960X
+    @Test
+    public void applyStringAtPosition_nullInput_assertionError() {
+        thrown.expect(AssertionError.class);
+        StringUtil.applyStringAtPosition(null, "valid string", 0);
+    }
+    
+    @Test
+    public void applyStringAtPosition_nullExtraString_assertionError() {
+        thrown.expect(AssertionError.class);
+        StringUtil.applyStringAtPosition("valid string", null, 0);
+    }
+    
+    @Test
+    public void applyStringAtPosition_ValidStringsLessThanZeroPosition_extraInFrontOfInput() {
+        // boundary value -1
+        assertEquals(StringUtil.applyStringAtPosition("input", "extrastring", -1), "extrastringinput");
+    }
+    
+    @Test
+    public void applyStringAtPosition_ValidStringsGreaterThanInputLengthPosition_extraBehindInput() {
+        // boundary value 6 (input length 5)
+        assertEquals(StringUtil.applyStringAtPosition("input", "extrastring", 6), "inputextrastring");
+    }
+
+    @Test
+    public void applyStringAtPosition_ValidStringsValidPositionZero_extraStringInPosition() {
+        // boundary value 0
+        assertEquals(StringUtil.applyStringAtPosition("input", "extrastring", 0), "extrastringinput");
+    }
+    
+    @Test
+    public void applyStringAtPosition_ValidStringsValidPosition_extraStringInPosition() {
+        // between boundaries
+        assertEquals(StringUtil.applyStringAtPosition("input", "extrastring", 3), "inpextrastringut");
+    }
+    
+    @Test
+    public void applyStringAtPosition_ValidStringsValidPositionInputStringLength_extraStringInPosition() {
+        // boundary value 5 (input length 5)
+        assertEquals(StringUtil.applyStringAtPosition("input", "extrastring", 5), "inputextrastring");
     }
 
 }

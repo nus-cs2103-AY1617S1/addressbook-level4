@@ -23,7 +23,6 @@ import seedu.address.testutil.StorageStub;
 import seedu.address.testutil.TestUtil;
 import seedu.address.testutil.UndoableCommandHistoryStub;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -31,7 +30,6 @@ import java.util.Date;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 import static seedu.address.commons.core.Messages.*;
 
 public class LogicManagerTest {
