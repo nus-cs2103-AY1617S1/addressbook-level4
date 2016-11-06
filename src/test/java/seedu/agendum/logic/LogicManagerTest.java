@@ -2,10 +2,7 @@ package seedu.agendum.logic;
 
 import com.google.common.eventbus.Subscribe;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
+import org.junit.*;
 import org.junit.rules.TemporaryFolder;
 
 import seedu.agendum.commons.core.Config;
@@ -415,6 +412,7 @@ public class LogicManagerTest {
     }
     //@author
 
+    @Ignore
     @Test
     public void execute_syncOn_successfull() throws Exception {
         SyncProviderGoogleTests.copyTestCredentials();
