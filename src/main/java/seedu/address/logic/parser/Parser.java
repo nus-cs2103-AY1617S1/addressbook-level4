@@ -360,8 +360,8 @@ public class Parser {
             String startInput = matcher.group("startTime");
             List<Date> datesToAdd = DateParser.getInstance().getFromToDatesFromString(startInput);
             return new BlockCommand(getTagsFromArgs(matcher.group("tagArguments")),
-                    new TaskDate(datesToAdd.get(0)),
-                    new TaskDate(datesToAdd.get(1)));
+                    new TaskDate(datesToAdd.get(START_TIME_INDEX)),
+                    new TaskDate(datesToAdd.get(END_TIME_INDEX)));
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
         }
