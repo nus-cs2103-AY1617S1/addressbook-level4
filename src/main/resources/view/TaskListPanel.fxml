@@ -20,7 +20,7 @@
          <TableColumn fx:id="statusColumn" editable="false" minWidth="14.0" prefWidth="14.0" resizable="false" text="STATUS" />
         
           <TableColumn fx:id="idColumn" minWidth="50.0" prefWidth="52.0" resizable="false" text="ID" />
-            <TableColumn fx:id="taskNameColumn" minWidth="275.0" prefWidth="300.0" resizable="false" text="TASK" />
+            <TableColumn fx:id="taskNameColumn" minWidth="275.0" maxWidth="800.0" prefWidth="300.0" resizable="true" text="TASK" />
             
             <TableColumn fx:id="startTimeColumn" minWidth="100.0" prefWidth="210.0" resizable="false" text="START" />
             <TableColumn fx:id="endTimeColumn" minWidth="82.0" prefWidth="210.0" resizable="false" text="END" />
