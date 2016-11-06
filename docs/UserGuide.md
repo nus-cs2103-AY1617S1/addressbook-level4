@@ -13,9 +13,9 @@
 1. Ensure you have Java version `1.8.0_60` or later installed in your Computer.<br>
 	> Having any Java 8 version is not enough. This app will not work with earlier versions of Java 8.
 
-2. Download the latest `taskmanager.jar` from the [releases](../../../releases) tab.<br>
+2. Download the latest `IvoryTasks.jar` from the [releases](../../../releases) tab.<br>
 
-3. Copy the file to the folder you want to use as the home folder for your Task Manager.<br>
+3. Copy the file to the folder you want to use as the home folder for your task manager.<br>
 
 4. Double-click the file to start the app. The GUI should appear in a few seconds.
 
@@ -96,7 +96,7 @@
 
 ### When you need to find a deadline, task or event
 
-1. Type `f[ind] KEYWORD` where `KEYWORD` is part of the item's name and press `Enter`. App does a "fuzzy search" with gives results maximum 2 characters away from searched query
+1. Type `f[ind] KEYWORD` where `KEYWORD` is part of the item's name and press `Enter`.
 
 2. App will display a list of items with names containing the keyword in the bottom left panel.
 
@@ -196,8 +196,6 @@ For events, you can edit all optional parameters.
 
 [comment]: # (@@author )
 
-[comment]: # (@@author A0135792X)
-
 ### When you need to view your deadlines, tasks and events
 
 #### View all deadlines, tasks and events
@@ -217,8 +215,6 @@ For events, you can edit all optional parameters.
 	> Example Command: `listnotdone`
 
 [comment]: # (@@author )
-
-[comment]: # (@@author A0135792X)
 
 #### View all tasks
 
@@ -306,10 +302,9 @@ For events, you can edit all optional parameters.
 
 [comment]: # (@@author A0143641M)
 
-### When you want to specify a custom save location and file name for your data
+### When you want to specify a custom save location for your data
 
 > * File to save in is limited to .xml format.
-> * Current data is ported over to the new file. Any changes made after running save command will save to new file.
 
 1. Type `save VALID_FILE_PATH`.
 2. Press `Enter`.
@@ -324,12 +319,13 @@ For events, you can edit all optional parameters.
 2. What if I would like to edit a huge number of tasks, deadlines, events at once?
  > IvoryTasks uses a human editable xml file to store its data. You may edit it directly or write a script to do so.
 
+
 # Command Summary
 
 Command | Format  | Example
 -----: | ----- | :------------------
-Add Task | `a[dd] t[ask] [n/]NAME [#TAG_TO_ADD]` | `add task tutorial`
-Add Deadline | `a[dd] d[eadline] [n/]NAME ed/DATE et/TIME` or `a[dd] d[eadline] [n/]NAME edt/DATE_TIME_TEXT [#TAG_TO_ADD]` | `add deadline reach v0.4 edt/thursday 2pm`
+Add Task | `a[dd] t[ask] n/NAME [#TAG_TO_ADD]` | `add task tutorial`
+Add Deadline | `a[dd] d[eadline] n/NAME ed/DATE et/TIME` or `a[dd] d[eadline] [n/]NAME edt/DATE_TIME_TEXT [#TAG_TO_ADD]` | `add deadline reach v0.4 edt/thursday 2pm`
 Add Event | `a[dd] e[vent] [n/]NAME sd/START_DATE st/START_TIME  ed/END_DATE et/END_TIME [#TAG_TO_ADD]` or `a[dd] e[vent] [n/]NAME sdt/START_DATE_TIME_TEXT edt/END_DATE_TIME_TEXT [#TAG_TO_ADD]` | `add event 2103 lecture sdt/friday 2pm edt/friday 4pm`
 Clear | `cl[ear]` | `clear`
 Delete | `del[ete] INDEX ...` | `delete 1`
@@ -356,4 +352,3 @@ This application makes use of the [addressbook-level4](https://github.com/se-edu
 
 Libraries used: <br>
 [prettytime](https://github.com/ocpsoft/prettytime)
-[commons-lang](http://commons.apache.org/proper/commons-lang/download_lang.cgi)

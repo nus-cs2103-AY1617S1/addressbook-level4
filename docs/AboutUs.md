@@ -32,7 +32,11 @@ Role: Team Lead / Scheduling & Tracking / Deliverables & Deadlines / SourceTree 
 		* [Logic Component](https://github.com/CS2103AUG2016-T14-C3/main/blob/master/docs/DeveloperGuide.md#logic-component)
 		* [User Stories](https://github.com/CS2103AUG2016-T14-C3/main/blob/master/docs/DeveloperGuide.md#appendix-a--user-stories)
 		* Use cases for [find](https://github.com/CS2103AUG2016-T14-C3/main/blob/master/docs/DeveloperGuide.md#use-case-find-an-item)/[edit](https://github.com/CS2103AUG2016-T14-C3/main/blob/master/docs/DeveloperGuide.md#use-case-edit-a-taskdeadlineevent) commands
+		* Usage instructions for [find](https://github.com/CS2103AUG2016-T14-C3/main/blob/master/docs/UserGuide.md#when-you-need-to-find-a-deadline-task-or-event)/[edit](https://github.com/CS2103AUG2016-T14-C3/main/blob/master/docs/UserGuide.md#when-you-need-to-edit-a-deadline-task-or-event)/[select](https://github.com/CS2103AUG2016-T14-C3/main/blob/master/docs/UserGuide.md#when-you-need-to-view-the-details-of-your-deadlines-tasks-and-events)/[listnotdone](https://github.com/CS2103AUG2016-T14-C3/main/blob/master/docs/UserGuide.md#view-all-uncompleted-deadlines-tasks-and-events)/[done](https://github.com/CS2103AUG2016-T14-C3/main/blob/master/docs/UserGuide.md#when-you-are-done-with-a-deadline-task-or-event)/[notdone](https://github.com/CS2103AUG2016-T14-C3/main/blob/master/docs/UserGuide.md#when-you-are-not-done-with-a-deadline-task-or-event)/[undo](https://github.com/CS2103AUG2016-T14-C3/main/blob/master/docs/UserGuide.md#when-you-want-to-undo-your-last-action-that-caused-a-changed-in-your-todo-list)/[redo](https://github.com/CS2103AUG2016-T14-C3/main/blob/master/docs/UserGuide.md#when-you-want-to-redo-your-last-undone-action) commands
 		* Morphing of documentation  [[3daaa72](https://github.com/CS2103AUG2016-T14-C3/main/commit/3daaa7253532cff0cf6f8c379cc7ac482c94e56d)]
+		* [FAQ](https://github.com/CS2103AUG2016-T14-C3/main/blob/master/docs/UserGuide.md#faq)
+		* [Command Summary](https://github.com/CS2103AUG2016-T14-C3/main/blob/master/docs/UserGuide.md#command-summary)
+	* Artistic direction for UI [[4a3d400](https://github.com/CS2103AUG2016-T14-C3/main/commit/4a3d4003b99de9e9507b4ecbb78c8b2158ea0a88)] [[8e6248c](https://github.com/CS2103AUG2016-T14-C3/main/commit/8e6248cc23d8b9a42b31bb1ce253cb8c53b4a994)] [[12d7c8b](https://github.com/CS2103AUG2016-T14-C3/main/commit/12d7c8b759e285860185b16d4040522dde76766e)] [[3e8e60d](https://github.com/CS2103AUG2016-T14-C3/main/commit/3e8e60d2843f62351f8a4841da21d9cd330814e5)]
 
 -----
 [comment]: # (@@author )
@@ -51,7 +55,7 @@ Responsibilities: UI
 	* Maintaining and updating documentation
 	* Generating sample data
 	* Leading presentation preperation and execution
-	
+
 [comment]: # (@@author A0065571A)
 -----
 

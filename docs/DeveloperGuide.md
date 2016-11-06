@@ -288,16 +288,16 @@ Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (un
 Priority | As a ... | I want to ...           | So that I can...
 -------- | :------- | :---------------------- | :---------------
 `* * *`  | new user | see usage instructions  | learn how to use the app
-`* * *`  | user     | add a new task | add something to my task manager without a time restrictions
+`* * *`  | user     | add a new task | add something to my task manager without a time restriction
 `* * *`  | user     | add a new deadline      | add something to my task manager with a deadline
-`* * *`  | user     | add a new event         | add something to my task manager with a start and end date time
-`* * *`  | user     | view all tasks/deadlines/events   | view my entire task manager
+`* * *`  | user     | add a new event         | add something to my task manager with a start and end datetime
+`* * *`  | user     | view all tasks/deadlines/events   | view my entire todo list
 `* *`    | user     | view all tasks   | view only my tasks
 `* *`    | user     | view all deadlines   | view only my deadlines
 `* *`    | user     | view all events   | view only my events
 `* * *`  | user     | edit a task/deadline/event       | change the details of a task/deadline/event
 `* *`    | user     | to enter a command in natural language as much as possible | be flexible about how I enter a command
-`* *`    | user     | have multiple keywords/shortcuts for a command | be flexible about how I enter a command
+`* *`    | seasoned user     | have multiple keywords/shortcuts for a command | be able to enter command quickly
 `* * *`  | user     | mark a task/deadline/event as done| know that a task/deadline/event is completed
 `* *`    | user     | mark a done task/deadline/event as not done| know that a task/deadline/event is not completed yet
 `* * *`  | user     | delete a task/deadline/event     | remove an item that is no longer necessary

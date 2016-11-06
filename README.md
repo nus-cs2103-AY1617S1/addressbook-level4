@@ -9,11 +9,11 @@ develop:
 [![Build Status](https://travis-ci.org/CS2103AUG2016-T14-C3/main.svg?branch=develop)](https://travis-ci.org/CS2103AUG2016-T14-C3/main)
 [![Coverage Status](https://coveralls.io/repos/github/CS2103AUG2016-T14-C3/main/badge.svg?branch=develop)](https://coveralls.io/github/CS2103AUG2016-T14-C3/main?branch=develop)
 
-# Task Manager
+# Ivory Tasks
 
 <img src="docs/images/Ui.png" width="600"><br>
 
-* This is a desktop Task manager application. It has a GUI but most of the user interactions happen using a CLI (Command Line Interface). It has been refactored from a Address Book Application (Level 4)
+* This is a desktop task manager application. It has a GUI but most of the user interactions happen using a CLI (Command Line Interface). 
 
 
 
