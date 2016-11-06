@@ -63,8 +63,8 @@ public class CalendarItemFilter {
         if (parsedResult.get("eventType") != null) {
             eventType = parsedResult.get("eventType")[0];
             // Singularize
-            eventType = eventType.equals("events") ? "event" : eventType;
-            eventType = eventType.equals("tasks") ? "task" : eventType;
+            eventType = "events".equals(eventType) ? "event" : eventType;
+            eventType = "tasks".equals(eventType) ? "task" : eventType;
         }
         boolean taskStatusPresent = parsedResult.get("taskStatus") != null;
         boolean eventStatusPresent = parsedResult.get("eventStatus") != null;
@@ -81,10 +81,10 @@ public class CalendarItemFilter {
                 return new boolean[] { true, false };
             }
         } else {
-            if (eventType.equals("task") && !eventStatusPresent) {
+            if ("task".equals(eventType) && !eventStatusPresent) {
                 // Condition 3
                 return new boolean[] { true, false };
-            } else if (eventType.equals("event") && !taskStatusPresent) {
+            } else if ("event".equals(eventType) && !taskStatusPresent) {
                 // Condition 4
                 return new boolean[] { false, true };
             }
@@ -106,7 +106,7 @@ public class CalendarItemFilter {
         // Filter by taskStatus
         if (parsedResult.get("taskStatus") != null) {
             String taskStatus = parsedResult.get("taskStatus")[0];
-            if (taskStatus.equals("complete") || taskStatus.equals("completed")) {
+            if ("complete".equals(taskStatus) || "completed".equals(taskStatus)) {
                 taskPredicates.add(Task.predCompleted(true));
             } else {
                 taskPredicates.add(Task.predCompleted(false));
@@ -146,9 +146,9 @@ public class CalendarItemFilter {
         if (parsedResult.get("eventStatus") != null && parsedResult.get("eventStatus")[0] != null) {
             String eventStatus = parsedResult.get("eventStatus")[0];
             LocalDateTime now = LocalDateTime.now();
-            if (eventStatus.equals("over") || eventStatus.equals("past")) {
+            if ("over".equals(eventStatus) || "past".equals(eventStatus)) {
                 eventPredicates.add(Event.predEndBefore(now));
-            } else if (eventStatus.equals("future")) {
+            } else if ("future".equals(eventStatus)) {
                 eventPredicates.add(Event.predStartAfter(now));
             }
         }
