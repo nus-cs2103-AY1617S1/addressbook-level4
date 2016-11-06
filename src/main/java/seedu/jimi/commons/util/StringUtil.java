@@ -2,12 +2,8 @@ package seedu.jimi.commons.util;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
-import java.util.Arrays;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 //@@author A0140133B
 /**
@@ -18,7 +14,7 @@ public class StringUtil {
     private static final int DEFAULT_EDIT_DISTANCE = 2; // Edit distance to quantify string similarity.
     
     // Percentage of containing string for the contained string to be a valid substring.
-    private static final double SUBSTRING_ALLOWANCE = 0.25; 
+    private static final double SUBSTRING_ALLOWANCE = 1.0 / 3.0; // = a third 
     
     /** Returns true if any of the strings in {@code keywords} nearly matches {@code query}. */
     public static boolean isAnyNearMatch(String query, List<String> keywords) {
@@ -49,7 +45,7 @@ public class StringUtil {
      * Edit distance is a way of quantifying string similarity. It is simply the minimum number of operations <br>
      * to transform a string to another. These operations include: deleting a character, inserting a character, <br>
      * replacing a character and transposing two characters. This method approximates string similarity to an <br>
-     * edit distance of 2. <br>
+     * edit distance of {@code editDistance}. <br>
      * <br>
      * For an edit distance of 1:
      * <ul>
