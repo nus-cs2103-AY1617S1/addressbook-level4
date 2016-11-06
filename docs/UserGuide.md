@@ -95,7 +95,7 @@ Command | Default Command Word | Shortcuts
 **Input of Tags and Priorities**
 * For tags, you can only type single words made up of numbers and letters. E.g. `t/IMPT`.
 * For priorities, you can only type the following: `low`, `med`, `high`, `none`. E.g. `p/low`.
-* Priorities are also case-insensitive i.e. `p/LoW`.
+* Priorities are also case-insensitive i.e. `p/low` works just as well as `p/LOW` or `p/lOw`.
 * A priority of `low` highlights your item in green; `med`, in yellow; and `high` in red.
 * If you fail to specify a priority when adding an item, Jimi defaults it to `none`.
 * For both, you cannot leave out the prefixes i.e. `t/` and `p/`. 
@@ -115,6 +115,8 @@ Command | Default Command Word | Shortcuts
     * If no date is given, the current date will be used instead.
 * However, you cannot input none of them.
 * The start-date & time of the events cannot be earlier prior to the end-date & time.
+
+<!--- @@author A0140133B -->
 
 > * Given the nature of natural language processing, Jimi can't gurantee that it will interpret your specified date/time with 100% certainty. If it ever happens that Jimi misinterprets your dates/times, you can either [`undo`](#undo) or [`edit`](#edit) to make changes. 
 > * A failsafe option, however, is to simply type proper calender dates i.e. `27 oct` or `1 feb 2pm`.
