@@ -37,12 +37,11 @@ We are a team based in the [School of Computing, National University of Singapor
 * Responsibilities: Integration <br>
 * Components in charge of: [Model](https://github.com/CS2103AUG2016-W13-C4/main/blob/master/docs/DeveloperGuide.md#model-component) <br>
 * Features implemented: <br>
-   * Archive tasks
-   * List done tasks
-   * Delete tasks
-   * Help command
-   * Store command
-* Code written: [[functional code](../collated/main/A0139498J.md)][[test code](../collated/test/A0139498J.md)][docs] <br>
+   * [Delete tasks](https://github.com/CS2103AUG2016-W13-C4/main/blob/master/docs/UserGuide.md#deleting-a-task-delete)
+   * [Archive tasks](https://github.com/CS2103AUG2016-W13-C4/main/blob/master/docs/UserGuide.md#archiving-a-task-done)
+   * [List tasks](https://github.com/CS2103AUG2016-W13-C4/main/blob/master/docs/UserGuide.md#listing-tasks-list)
+   * [Store command](https://github.com/CS2103AUG2016-W13-C4/main/blob/master/docs/UserGuide.md#changing-storage-location-store)
+* Code written: [[functional code](../collated/main/A0139498J.md)][[test code](../collated/test/A0139498J.md)][[docs](../collated/docs/A0139498J.md)] <br>
 
 
 -----
