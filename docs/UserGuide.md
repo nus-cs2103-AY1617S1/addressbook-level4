@@ -64,14 +64,21 @@ Need to unburden? Let's get started!
 
 
 
-
 ## 1. Help Command
+
+### 1.1  help <br>
 
 If you wish to know what kinds of commands the software have and what 
 are the formats. <br>
 #### Format: `help`
    
 > Help is also shown if you enter an incorrect command e.g. `abcd`
+
+ Examples : <br>
+   help <br>
+   Help <br>
+   
+    > <img src="UserGuideImages/Help_1.JPG" width="400">
 
 <br>
 <br>
