@@ -153,8 +153,7 @@ public class ModelManager extends ComponentManager implements Model {
 	@Override
 	public UnmodifiableObservableList<ReadOnlyActivity> getFilteredUpcomingList() {
   		
-<<<<<<< HEAD
-		FilteredList<Activity> filteredList = new FilteredList<>(addressBook.getAllEntries());
+		/*FilteredList<Activity> filteredList = new FilteredList<>(addressBook.getAllEntries());
 		
 		//obtain a filtered list of all tasks and events.
 		filteredList.setPredicate(p->
@@ -162,16 +161,16 @@ public class ModelManager extends ComponentManager implements Model {
 		
 		//filter out tasks/events that are over, or not yet upcoming.
 		return new UnmodifiableObservableList(createUpcomingList(filteredList));
-=======
+		
+		*/
 		//obtain a filtered list of upcoming events.
 		FilteredList<Activity> filteredList = new FilteredList<>(addressBook.getAllEntries());
   
 		filteredList.setPredicate(p->
-		(p.getClass().getSimpleName().equalsIgnoreCase("Event") && ((Event) p).isStartTimeApproaching())
+		(p.getClass().getSimpleName().equalsIgnoreCase("Event") && ((Event) p).isUpcoming())
 		|| ( p.getClass().getSimpleName().equalsIgnoreCase("Task") && ((Task) p).isDueDateApproaching()));
 				 		
 		return new UnmodifiableObservableList<ReadOnlyActivity>(filteredList);
->>>>>>> c99e86d55c822c4f699c178a47bdca296397e5ba
 	}
 
   	
