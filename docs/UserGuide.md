@@ -96,7 +96,7 @@
 
 ### When you need to find a deadline, task or event
 
-1. Type `f[ind] KEYWORD` where `KEYWORD` is part of the item's name and press `Enter`.
+1. Type `f[ind] KEYWORD` where `KEYWORD` is part of the item's name and press `Enter`. App does a "fuzzy search" with gives results maximum 2 characters away from searched query
 
 2. App will display a list of items with names containing the keyword in the bottom left panel.
 
