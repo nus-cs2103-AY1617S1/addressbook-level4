@@ -97,24 +97,4 @@ public class UiManager extends ComponentManager implements Ui {
         mainWindow.getActionHistoryPane().pushToActionHistory(event.title, event.description);
     }
     //@@author
-    
-    // @@author A0138862W
-    @Subscribe
-    private void handleHighlightLastActionedRowRequestEvent(HighlightLastActionedRowRequestEvent event){
-        //mainWindow.highlightLastActionedRow(event.task);
-    }
-    //@@author
-    
-    // @@author A0138862W
-    @Subscribe
-    private void handleToggleActionHistoryRequest(ToggleActionHistoryEvent event){
-        //mainWindow.toggleActionHistory();
-    }
-    // @@author
-
-    // @@author A0124797R
-    @Subscribe
-    private void handleTaskManagerChanged(TaskManagerChangedEvent event) {
-        //mainWindow.updateTabTitle();
-    }
 }
