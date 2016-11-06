@@ -298,9 +298,12 @@
 
 #cardPane {
     -fx-background-color: transparent;
-    -fx-border-color: #633914
-;
+    -fx-border-color: #633914;
     -fx-border-width: 1 1 1 1;
+}
+
+#aliasWindow {
+    -fx-border-color: #633914;
 }
 
 #commandTypeLabel {
