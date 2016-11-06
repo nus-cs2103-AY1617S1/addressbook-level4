@@ -20,7 +20,7 @@ Want to know how to use MESS? Let's get started!
 1. Download the latest `MESS.jar` from the [releases](../../../releases) tab.
 2. Copy the file to the folder you want to use as the home folder for your to-do list.
 3. Double-click the file to start the app. The GUI should appear in a few seconds.
-<img src="images/MESS_003.png" width="600"><br>
+<img src="images/MESS.PNG" width="600"><br>
 
 4. Type the command in the command box and press <kbd>Enter</kbd> to execute it. <br>
    e.g. typing **`help`** and pressing <kbd>Enter</kbd> will open the help window.
@@ -259,9 +259,9 @@ List | `list`
 Find | `find KEYWORD`
 Update | `update INDEX [name NAME starts START_DATE_TIME ends CLOSE_DATE_TIME tag TAG remove-tag TAG]`
 Undo | `undo`
-Pin | `pin`
-Unpin | `unpin`
+Pin | `pin INDEX`
+Unpin | `unpin INDEX`
 Live Search | `searchbox`
-Change Storage | `change-to`
+Change Storage | `change-to NEW_PATH`
 Help | `help`
 Exit | `exit`
