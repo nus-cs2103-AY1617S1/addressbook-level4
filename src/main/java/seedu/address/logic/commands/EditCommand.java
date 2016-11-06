@@ -48,32 +48,26 @@ public class EditCommand extends UndoableCommand {
     // saved state of task before edit for undo purposes
     private Task beforeEdit;
     
-    Name taskName;
-    Date startDate;
-    Date endDate;
-    RecurrenceRate recurrenceRate;
-    Priority priority;
-    boolean removeReccurence, removeStartDate, removeEndDate;
-
-	public EditCommand(int targetIndex, Optional<String> taskNameString, Optional<String> startDateString,
+    private Name taskName;
+    private Date startDate;
+    private Date endDate;
+    private RecurrenceRate recurrenceRate;
+    private Priority priority;
+    private boolean removeReccurence, removeStartDate, removeEndDate;
+    
+    public EditCommand(int targetIndex, Optional<String> taskNameString, Optional<String> startDateString,
 			Optional<String> endDateString, Optional<String> rateString, Optional<String> timePeriodString,
 			Optional<String> priorityString, String resetFieldString) throws IllegalValueException {       
 		
-		this.targetIndex = targetIndex;
-		initializeForEdit();
+        this.targetIndex = targetIndex;
+        initializeForEdit();
         
         assignTaskNameIfPresent(taskNameString); 
         assignStartDateIfPresent(startDateString);
         assignEndDateIfPresent(endDateString);
         assignRecurrenceRateIfPresent(rateString, timePeriodString); 
-        
-        if(priorityString != null){
-            assignPriority(priorityString);                                     
-        }
-        
-        if(resetFieldString != null){
-            fieldsToReset(resetFieldString); 
-        }
+        assignPriorityIfPresent(priorityString);
+        assignResetFieldIfPresent(resetFieldString);
 
         if (recurrenceRate != null && recurrenceRate.getTimePeriod() != TimePeriod.DAY && 
                 recurrenceRate.getTimePeriod().toString().toLowerCase().contains("day") && 
@@ -81,7 +75,7 @@ public class EditCommand extends UndoableCommand {
             startDate = DateTime.assignStartDateToSpecifiedWeekday(recurrenceRate.getTimePeriod().toString());
         }
     }
-
+	
     private void initializeForEdit() {
         taskName = null;
         startDate = null;
@@ -161,36 +155,49 @@ public class EditCommand extends UndoableCommand {
      * 
      * @param priorityString user's input of priority
      */
-    private void assignPriority(Optional<String> priorityString) {
-        switch (priorityString.get()) {
-        case ("low"):
-        case ("l"):
-            priority = Priority.LOW; break; 
-        case ("high"):
-        case ("h"):
-            priority = Priority.HIGH; break;
-        case ("medium"):
-        case ("m"):
-        case ("med"):
-            priority = Priority.MEDIUM; break;
+    private void assignPriorityIfPresent(Optional<String> priorityString) {
+        if(priorityString != null){
+            switch (priorityString.get()) {
+            case ("low"):
+            case ("l"):
+                priority = Priority.LOW;
+                break; 
+            case ("high"):
+            case ("h"):
+                priority = Priority.HIGH;
+                break;
+            case ("medium"):
+            case ("m"):
+            case ("med"):
+                priority = Priority.MEDIUM; 
+                break;
+            }
         }
     }
-	
+
     /**
      * Check which field is to be reset
      * 
      * @param resetFieldString user's input of fields to be reset
      * set the remove fields as true if present
      */
-    private void fieldsToReset(String resetFieldString) {
-        String[] resetField = resetFieldString.trim().split(" ");
-        for(int i = 0; i < resetField.length; i++){
-            switch (resetField[i].trim()) {
-                case ("repeat"):  removeReccurence = true; break; 
-                case ("start"): removeStartDate = true; break;
-                case ("end"): removeEndDate = true; break;
-            }
-        }        
+    private void assignResetFieldIfPresent(String resetFieldString) {
+        if(resetFieldString != null){               
+            String[] resetField = resetFieldString.trim().split(" ");
+            for(int i = 0; i < resetField.length; i++){
+                switch (resetField[i].trim()) {
+                    case ("repeat"):
+                        removeReccurence = true;
+                        break; 
+                    case ("start"):
+                        removeStartDate = true;
+                        break;
+                    case ("end"):
+                        removeEndDate = true;
+                        break;
+                }
+            }        
+        }
     }
 
     @Override
