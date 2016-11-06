@@ -1,5 +1,5 @@
 package seedu.address.logic.commands;
-//@@author A0138717X
+
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import java.util.ArrayList;
@@ -13,6 +13,12 @@ import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.task.ReadOnlyTask;
+
+//@@author A0138717X
+
+/**
+ * Edit a task identified using its last displayed index or name from the toDoList.
+ */
 
 public class EditCommand extends Command {
 
@@ -40,14 +46,26 @@ public class EditCommand extends Command {
     private String details;
     private int targetIndex;
 
+    /**
+     * construct EditCommand by name. Precondition: name is not null
+     *
+     * @param name, type, details.
+     */
     public EditCommand(String name, String type, String details) {
+    	assert name != null;
     	this.name = name;
     	this.type = type;
     	this.details = details;
     	this.targetIndex = -1;
     }
 
+    /**
+     * construct EditCommand by index. Precondition: index is a valid non-negative integer.
+     *
+     * @param name, type, details, index.
+     */
     public EditCommand(String name, String type, String details, int index) {
+    	assert targetIndex >= 0;
     	this.name = name;
     	this.type = type;
     	this.details = details;
@@ -70,11 +88,10 @@ public class EditCommand extends Command {
             if(toEdit == null) {
             	return prepareEditTaskWithName();
             }
-        } //end if statment to find the target task
+        }
 
         return editTask(toEdit);
 	}
-
 
     /**
      * return the task to be edited found by targetIndex
@@ -82,7 +99,6 @@ public class EditCommand extends Command {
      * @param lastShownList
      * @return task to be edited
      */
-
     private ReadOnlyTask prepareEditTaskbyIndex(UnmodifiableObservableList<ReadOnlyTask> lastShownList) {
         return lastShownList.get(targetIndex - 1);
     }
@@ -93,7 +109,6 @@ public class EditCommand extends Command {
      * @param lastShownList
      * @return task to be edited
      */
-
     private ReadOnlyTask prepareEditTaskByName(UnmodifiableObservableList<ReadOnlyTask> lastShownList) {
     	final ArrayList<ReadOnlyTask> shownList = new ArrayList<ReadOnlyTask>();
     	for(ReadOnlyTask task : lastShownList) {
@@ -134,7 +149,6 @@ public class EditCommand extends Command {
      * @param toEdit
      * @return CommandResult
      */
-
     private CommandResult editTask(ReadOnlyTask toEdit) {
         try {
 			model.editTask(toEdit, type, details);
@@ -146,6 +160,13 @@ public class EditCommand extends Command {
 		}
     }
 
+    /**
+     * return the correct edit success message depending on the whether it is
+     * task or event
+     *
+     * @param toEdit
+     * @return String
+     */
 	public static String getSuccessMessage(ReadOnlyTask toEdit) {
         if (toEdit.isEvent()) {
             return MESSAGE_EVENT_SUCCESS;
