@@ -217,7 +217,6 @@ public class RedoCommand extends Command {
                 Task original = (Task) model.getNewNextTask().pop();
                 
                 model.updateTask(original, toChangeInto);
-                System.out.println("Redo, model.getNextTask() : " + toChangeInto + " currentTask() : " + original);
                 model.getOldTask().push(original);
                 model.getCurrentTask().push(toChangeInto);
             } catch (UniqueTaskList.DuplicateTaskException utle) {

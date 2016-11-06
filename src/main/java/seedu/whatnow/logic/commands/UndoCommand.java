@@ -221,7 +221,6 @@ public class UndoCommand extends Command {
             try {
                 Task toChangeInto = (Task) model.getOldTask().pop();
                 Task theOriginal = (Task) model.getCurrentTask().pop();
-                System.out.println("Undo update, oldTask : " + toChangeInto + "currentTask : " + theOriginal);
                 model.updateTask((Task)theOriginal, toChangeInto);
                 model.getOldNextTask().push(theOriginal);
                 model.getNewNextTask().push(toChangeInto);

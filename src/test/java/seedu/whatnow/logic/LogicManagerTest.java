@@ -472,7 +472,6 @@ public class LogicManagerTest {
     @Test
     public void execute_markUndoneInvalidIndexFormat_ErrorMessageShown() throws Exception {
         String expectedMessage = String.format(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
-        System.out.println(expectedMessage);
         assertIncorrectIndexFormatBehaviorForCommand("undone", "todo 2", expectedMessage);
     }
     //@@author A0139128A

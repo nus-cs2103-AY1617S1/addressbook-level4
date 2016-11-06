@@ -923,7 +923,6 @@ public class Parser {
         String[] argComponents = args.trim().split(DELIMITER_BLANK_SPACE);
         if(argComponents.length > 1) {
             Optional<Integer> index = parseIndex(argComponents[INDEX]);
-            System.out.println(argComponents[INDEX]);
             if (!index.isPresent()) {
                 return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MarkUndoneCommand.MESSAGE_MISSING_INDEX));
             }
