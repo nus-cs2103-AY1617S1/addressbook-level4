@@ -304,19 +304,19 @@ The task manager shifts your data file from the current storage folder to the ne
 
  No. | Command | Format 
  -------- | :-------- | :--------- | :-----------
-1| Add event| add [event_description; date; start_time; end_time] 
-2| Add deadline | add deadline_description; date; end_time  
-3| Add to-do | add to-do_description 
-4| Add with tags | add [event_description, date, start_time, end_time] #tag 
-5| Edit | edit &lt;index&gt; &lt;new_event_description&gt; 
-6| Find | find &lt;keywords&gt; 
-7| Done | done &lt;index&gt;, &lt;index&gt;
-8| List done| list done
-9| List | list
-10| Delete | delete &lt;index&gt;, &lt;index&gt; 
-11| Undo | undo &lt;number of times to undo&gt;
-12| Redo | redo &lt;number of times to redo&gt;
-13| Clear | clear
-14| Exit | exit 
-15| Help | help 
-16| Storage| storage &lt;valid file path&gt; 
+1| Add event| add [event_description; date; start_time; end_time] | 
+2| Add deadline | add deadline_description; date; end_time |  
+3| Add to-do | add to-do_description |
+4| Add with tags | add [event_description, date, start_time, end_time] #tag |
+5| Edit | edit &lt;index&gt; &lt;new_event_description&gt; |
+6| Find | find &lt;keywords&gt; |
+7| Done | done &lt;index&gt;, &lt;index&gt; |
+8| List done| list done |
+9| List | list |
+10| Delete | delete &lt;index&gt;, &lt;index&gt; | 
+11| Undo | undo &lt;number of times to undo&gt; |
+12| Redo | redo &lt;number of times to redo&gt; |
+13| Clear | clear |
+14| Exit | exit |
+15| Help | help |
+16| Storage| storage &lt;valid file path&gt; | 
