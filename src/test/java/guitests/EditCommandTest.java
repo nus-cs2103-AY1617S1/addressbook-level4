@@ -11,6 +11,7 @@ import edu.emory.mathcs.backport.java.util.Arrays;
 import guitests.guihandles.FloatingTaskCardHandle;
 import seedu.jimi.commons.core.Messages;
 import seedu.jimi.commons.exceptions.IllegalValueException;
+import seedu.jimi.model.tag.Priority;
 import seedu.jimi.model.tag.Tag;
 import seedu.jimi.model.tag.UniqueTagList;
 import seedu.jimi.model.task.Name;
@@ -22,8 +23,8 @@ import seedu.jimi.testutil.TestUtil;
 public class EditCommandTest extends AddressBookGuiTest{
 
     @Test
-    public void edit() throws IllegalValueException {
-        TestFloatingTask[] currentList = td.getTypicalTasks();
+    public void edit_floatingTaskNameChanges() throws IllegalValueException {
+        ReadOnlyTask[] currentList = td.getTypicalTasks();
         Arrays.sort(currentList, 0, currentList.length, NameComparator);
 
         // edit the first task in list with all details
@@ -43,16 +44,31 @@ public class EditCommandTest extends AddressBookGuiTest{
         // invalid index
         commandBox.runCommand("edit t" + currentList.length + 1 + " \"Change invalid stuff\"");
         assertResultMessage(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
+    }
+    // @@author
+    
+    // @@author A0143471L
+    @Test
+    public void edit_floatingTaskOtherChanges() throws IllegalValueException {
+        ReadOnlyTask[] currentList = td.getTypicalTasks();
+        Arrays.sort(currentList, 0, currentList.length, NameComparator);
         
         // edit the second task in list with tag changes
         String newTag = "impt";
-        targetIndex = 2;
-        assertEditSuccess_Tag(currentList,targetIndex, newTag);
+        int targetIndex = 2;
+        assertEditSuccess_Tag(currentList, targetIndex, newTag);
+        
+        // edit the third task in list with priority changes
+        String newPriority = "med";
+        targetIndex = 3;
+        assertEditSuccess_Priority(currentList, targetIndex, newPriority);
         
         
         //TODO: edit the first event in the list with all details
     }
+    // @@author 
     
+    // @@author A0138915X
     /**
      * Runs the edit command on the targetTask and checks if the edited task matches with changedTask.
      * Only the name of the task will be changed
@@ -61,7 +77,7 @@ public class EditCommandTest extends AddressBookGuiTest{
      * @param currentList List of tasks to be edited.
      * @throws IllegalValueException 
      */
-    private void assertEditTaskSuccess_Name(TestFloatingTask[] currentList, int targetIndex, String newName ) throws IllegalValueException{
+    private void assertEditTaskSuccess_Name(ReadOnlyTask[] currentList, int targetIndex, String newName ) throws IllegalValueException{
 
         //task to be replaced with
         TestFloatingTask expectedTask = new TestFloatingTask();
@@ -80,13 +96,14 @@ public class EditCommandTest extends AddressBookGuiTest{
         assertMatching(expectedTask, addedCard);
 
         //confirm the list now contains all previous tasks plus the edited task
-        TestFloatingTask[] expectedList = TestUtil.replaceTaskFromList(currentList, expectedTask, targetIndex - 1);
+        ReadOnlyTask[] expectedList = TestUtil.replaceTaskFromList(currentList, expectedTask, targetIndex - 1);
         Arrays.sort(expectedList, 0, expectedList.length, NameComparator);
         assertTrue(taskListPanel.isListMatching(expectedList));
         
         //confirm the result message is correct
         assertResultMessage(String.format(MESSAGE_EDIT_SUCCESS, expectedTask));
     }
+    // @@author 
     
     // @@author A0143471L
     /**
@@ -99,7 +116,7 @@ public class EditCommandTest extends AddressBookGuiTest{
      * @param currentList List of tasks to be edited.
      * @throws IllegalValueException
      ***/
-    private void assertEditSuccess_Tag(TestFloatingTask[] currentList, int targetIndex, String newTag ) throws IllegalValueException{
+    private void assertEditSuccess_Tag(ReadOnlyTask[] currentList, int targetIndex, String newTag) throws IllegalValueException {
         // Set expected task
         TestFloatingTask expectedTask = new TestFloatingTask();
         if (targetIndex <= currentList.length && targetIndex > 0) {
@@ -117,14 +134,35 @@ public class EditCommandTest extends AddressBookGuiTest{
         assertTrue(addedCard.getTag().equals("[" + newTag + "]"));
         
         //confirm the list now contains all previous tasks plus the edited task
-        TestFloatingTask[] expectedList = TestUtil.replaceTaskFromList(currentList, expectedTask, targetIndex - 1);
+        ReadOnlyTask[] expectedList = TestUtil.replaceTaskFromList(currentList, expectedTask, targetIndex - 1);
         Arrays.sort(expectedList, 0, expectedList.length, NameComparator);
         assertTrue(taskListPanel.isListMatching(expectedList));
         
         //confirm the result message is correct
         assertResultMessage(String.format(MESSAGE_EDIT_SUCCESS, expectedTask));
     }
+    
+    private void assertEditSuccess_Priority(ReadOnlyTask[] currentList, int targetIndex, String newPriority) throws IllegalValueException {
+        // Set expected task
+        TestFloatingTask expectedTask = new TestFloatingTask();
+        if (targetIndex <= currentList.length && targetIndex > 0) {
+            expectedTask.setName(currentList[targetIndex - 1].getName());
+            expectedTask.setTags(currentList[targetIndex - 1].getTags());
+        }
+        expectedTask.setPriority(new Priority(newPriority));
         
+        // Run command to edit the priority of the task
+        commandBox.runCommand("edit " + "t" + targetIndex + " p/" + newPriority);
+        
+        //confirm the list now contains all previous tasks plus the edited task
+        ReadOnlyTask[] expectedList = TestUtil.replaceTaskFromList(currentList, expectedTask, targetIndex - 1);
+        Arrays.sort(expectedList, 0, expectedList.length, NameComparator);
+        assertTrue(taskListPanel.isListMatching(expectedList));
+        
+        //confirm the result message is correct
+        assertResultMessage(String.format(MESSAGE_EDIT_SUCCESS, expectedTask));
+        
+    }
     
     /**
      * Sorts expected floatingTaskListPanel in alphabetical order
