@@ -3,7 +3,7 @@
 # User Guide
 
 <br><br>
-<img src="images/UI_MainPage.JPG" width="700"><br>
+<img src="images/Main.JPG" width="700"><br>
    <br><br>
 
 
@@ -13,14 +13,14 @@
     * [Help Command](#1-help-command)
     * [Add Command](#2-add-command-add)
     * [Delete Command](#3-delete-command-delete)
-    * [List Command](#4-list-command)
-    * [Find Command](#5-find-command)
-    * [Done Command](#6-done-command)
-    * [Undone Command](#7-undone-command)
-    * [Undo Command](#8-undo-command)
-    * [Redo Command](#9-redo-command)
-    * [Clear Command](#10-clear-command)
-    * [Edit Command](#11-edit-command)
+    * [Edit Command](#4-edit-command)
+    * [Done Command](#5-done-command)
+    * [Undone Command](#6-undone-command)
+    * [List Command](#7-list-command)
+    * [Find Command](#8-find-command)
+    * [Clear Command](#9-clear-command)
+    * [Undo Command](#10-undo-command)
+    * [Redo Command](#11-redo-command)
     * [Exit Command](#12-exiting-the-program-exit)
 * [FAQ](#faq)
 * [Command Summary](#command-summary)
@@ -63,6 +63,12 @@ Need to unburden? Let's get started!
 3. Time should be entered in the 24 hour clock format such as "2330" to represent 11:30pm or "0520" to represent 05:20am.
 
 
+### Layout of Unburden 
+
+   > <img src="UserGuideImages/Layout.JPG" width="400">
+
+<br>
+<br>
 
 ## 1. Help Command
 
@@ -190,7 +196,7 @@ Upon entering your command, you will be able to view the updated task in the tas
 <br>
 <br>
 
-## 6. Done Command
+## 5. Done Command
 
 If you have completed a task and you wish to remove it from your list in the task list panel, you can simply mark the task as done. The index shown below refers to the index of the task you wish to mark as done. Once you have marked a task as done, it will disappear from the task list panel.  <br>
 #### Format: ` done <INDEX> `
@@ -203,7 +209,7 @@ You can then view the color change in the task that you have marked as done.
 <br><br>
 
 
-## 7. UnDone Command
+## 6. UnDone Command
 
 If you have marked a task as done but you realise that you have yet to complete it, you can mark the task as undone once again. The format for the undone command is similar to that of the done command as shown below.  <br>
 #### Format: ` undone <INDEX> `
@@ -216,11 +222,11 @@ You can then view the color change in the task that you have marked as undone.
 <br><br>
 
 
-## 4. List Command
+## 7. List Command
 
 Since the task list panel inherently displays the list of undone tasks, the list command is able to modify the task list panel to show different lists depending on the command entered. <br>
 
-### 5.1 List Date<br>
+### 7.1 List Date<br>
 
 If you wish to view all tasks that you have entered which have a deadline from today to a certain date, you may simply enter "list DATE" and the task list panel will be updated. You may type the command as shown below where the date refers to the date you wish to limit the list to. 
 
@@ -237,7 +243,7 @@ For example, if you type `List 09-11-2016`,  the task list panel would display t
    <br>
 
 
-### 5.2 List Date to date<br>
+### 7.2 List Date to date<br>
 
 If you wish to view all tasks that you have entered which have a deadline from a specific date to another date, you may make use of the `list date to date` command. The task list panel will be updated to show only the tasks which have a deadline within the range of dates you have entered. <br>
 
@@ -255,7 +261,7 @@ For example, if you type `List 08-11-2016 to 13-11-2016 `,  the task list panel 
    
    <br>
 
-### 5.3 List done<br>
+### 7.3 List done<br>
 
 If you wish to list all the tasks completed,  you may make use of the list done command as shown below. <br>
 
@@ -263,7 +269,7 @@ If you wish to list all the tasks completed,  you may make use of the list done 
 
 <br>
 
-### 5.4 List overdue<br>
+### 7.4 List overdue<br>
 
 If you wish to list all the tasks you have overdue,  you may make use of the list overdue command as shown below.  <br>
 
@@ -271,7 +277,7 @@ If you wish to list all the tasks you have overdue,  you may make use of the lis
 
 <br>
 
-### 5.5 List<br>
+### 7.5 List<br>
 
 If you wish to list all the undone tasks in unburden, you may make use of the list command as shown below.   <br>
 
@@ -279,7 +285,7 @@ If you wish to list all the undone tasks in unburden, you may make use of the li
 
 <br>
 
-### 5.6 List all<br>
+### 7.6 List all<br>
 
 If you wish to list all the tasks in unburden, you may make use of the list all command as shown below. <br>
 
@@ -288,11 +294,11 @@ If you wish to list all the tasks in unburden, you may make use of the list all 
 <br>
 <br>
 
-## 5. Find Command
+## 8. Find Command
 
 If you wish to search for specific dates, names or tags, you can simply use the find command to do so. 
 
-### 5.1 Find name and tags<br>
+### 8.1 Find name and tags<br>
 
 If you wish to find tasks with specific names or tags, you may simply enter any keyword in the task name and the task would appear in the task list panel. You may use the command as shown below. <br>
 
@@ -303,7 +309,7 @@ If you wish to find tasks with specific names or tags, you may simply enter any 
    find gym <br>
 				
 
-### 5.2 Find date<br>
+### 8.2 Find date<br>
 
 If you wish to find tasks with a specific date, you may simply enter the date and the task with that deadline would appear in the task list panel. You may use the command as shown below. <br>
 
@@ -317,7 +323,7 @@ If you wish to find tasks with a specific date, you may simply enter the date an
 You can then see all of the tasks with that date in the application's display window.   
 <br><br>
 
-## 10. Clear Command
+## 9. Clear Command
 
 If you wish to delete all tasks in the current list displayed, you may simply use the clear command to do so. You may use the command as shown below. 
 <br>
@@ -327,7 +333,7 @@ If you wish to delete all tasks in the current list displayed, you may simply us
 <br>
 
 
-## 8. Undo Command
+## 10. Undo Command
 
 If you regret entering a command or wish to undo an action you have done, you may simply make use of the undo command to do so. You may use the command as shown below. <br>
 Note! : The undo command works on the clear command as well.  <br>
@@ -337,7 +343,7 @@ Note! : The undo command works on the clear command as well.  <br>
 <br>
 <br>   
    
-## 9. Redo Command
+## 11. Redo Command
 If you accidentally used the undo command and you wish to redo your changes, you may simply make use of the redo command. You may use the command as shown below. <br>
 #### Format: ` redo  `
    
