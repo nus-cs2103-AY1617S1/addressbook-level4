@@ -20,6 +20,7 @@ import seedu.address.model.item.*;
 import seedu.address.storage.StorageManager;
 import seedu.address.testutil.TestUtil;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -306,15 +307,15 @@ public class LogicManagerTest {
     }
     */
 
-
+    //@@author A0139498J
     @Test
-    public void execute_list_showsAllPersons() throws Exception {
+    public void execute_list_showsAllUndoneTasks() throws Exception {
         // prepare expectations
         TestDataHelper helper = new TestDataHelper();
         TaskManager expectedAB = helper.generateTaskManager(2);
         List<? extends ReadOnlyTask> expectedList = expectedAB.getUndoneTaskList();
 
-        // prepare address book state
+        // prepare task manager state
         helper.addToModel(model, 2);
 
         assertCommandBehavior("list",
@@ -323,6 +324,25 @@ public class LogicManagerTest {
                 expectedList);
     }
 
+    @Test
+    public void execute_listDone_showsAllDoneTasks() throws Exception {
+        // prepare expectations
+        TestDataHelper helper = new TestDataHelper();
+        TaskManager expectedAB = helper.generateTaskManager(2);
+        List<? extends ReadOnlyTask> expectedUndoneList = expectedAB.getUndoneTaskList();
+        List<? extends ReadOnlyTask> expectedDoneList = expectedAB.getDoneTaskList();
+
+        // prepare task manager state
+        helper.addToModel(model, 2);
+
+        assertDoneCommandBehavior("list done",
+                ListCommand.DONE_MESSAGE_SUCCESS,
+                expectedAB,
+                expectedUndoneList, 
+                expectedDoneList);
+    }
+    //@@author
+    
 
     /**
      * Confirms the 'invalid argument index number behaviour' for the given command
@@ -401,7 +421,6 @@ public class LogicManagerTest {
     public void execute_delete_removesCorrectPerson() throws Exception {
         TestDataHelper helper = new TestDataHelper();
         List<Task> threePersons = helper.generateFloatingTaskList(3);
-        // TODO: check if this is ok
         Collections.sort(threePersons);
 
         TaskManager expectedAB = helper.generateTaskManager(threePersons);
@@ -423,30 +442,75 @@ public class LogicManagerTest {
     }
     
     @Test
-    public void execute_done_archivesCorrectPerson() throws Exception {
+    public void execute_done_archivesCorrectTask() throws Exception {
         TestDataHelper helper = new TestDataHelper();
-        List<Task> threePersons = helper.generateFloatingTaskList(3);
-        Collections.sort(threePersons);
+        List<Task> threeTasks = helper.generateFloatingTaskList(3);
+        Collections.sort(threeTasks);
         
-        TaskManager expectedAB = helper.generateTaskManager(threePersons);
+        TaskManager expectedAB = helper.generateTaskManager(threeTasks);
         
-        expectedAB.deleteUndoneTask(threePersons.get(1));
-        expectedAB.addDoneTask(threePersons.get(1));
-        helper.addToModel(model, threePersons);
+        expectedAB.deleteUndoneTask(threeTasks.get(1));
+        expectedAB.addDoneTask(threeTasks.get(1));
+        helper.addToModel(model, threeTasks);
 
         assertDoneCommandBehavior("done 2",
-                String.format(DoneCommand.MESSAGE_DONE_TASK_SUCCESS, TestUtil.generateDisplayString(threePersons.get(1))),
+                String.format(DoneCommand.MESSAGE_DONE_TASK_SUCCESS, TestUtil.generateDisplayString(threeTasks.get(1))),
                 expectedAB,
                 expectedAB.getUndoneTaskList(),
-                expectedAB.getDoneTaskList());
+                expectedAB.getDoneTaskList());       
+    }
+    
+    @Test
+    public void execute_doneMultipleIndexes_ArchivesCorrectTasks() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        List<Task> threeTasks = helper.generateFloatingTaskList(3);
+        Collections.sort(threeTasks);
         
+        TaskManager expectedAB = helper.generateTaskManager(threeTasks);
+        
+        expectedAB.deleteUndoneTask(threeTasks.get(0));
+        expectedAB.addDoneTask(threeTasks.get(0));
+        expectedAB.deleteUndoneTask(threeTasks.get(1));
+        expectedAB.addDoneTask(threeTasks.get(1));
+        expectedAB.deleteUndoneTask(threeTasks.get(2));
+        expectedAB.addDoneTask(threeTasks.get(2));
+        helper.addToModel(model, threeTasks);
+
+        assertDoneCommandBehavior("done 1 2 3",
+                String.format(DoneCommand.MESSAGE_DONE_TASKS_SUCCESS, 
+                        TestUtil.generateDisplayString(threeTasks.get(0), threeTasks.get(1), threeTasks.get(2))),
+                expectedAB,
+                expectedAB.getUndoneTaskList(),
+                expectedAB.getDoneTaskList()); 
+    }
+    
+    @Test
+    public void execute_doneIndexWithRecurringTask_archivesTaskAndUpdatesRecurrence() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        List<Task> threeTasks = helper.generateFloatingTaskList(2);
+        Task recurringTask = helper.generateTaskWithRecurrence("recurring", "day");
+        threeTasks.add(recurringTask);
+        Task updatedRecurringTask = new Task(recurringTask);
+
+        updatedRecurringTask.updateRecurringTask();
+        TaskManager expectedAB = helper.generateTaskManager(threeTasks);
+        
+        expectedAB.deleteUndoneTask(recurringTask);
+        expectedAB.addTask(updatedRecurringTask);
+        expectedAB.addDoneTask(recurringTask);
+        helper.addToModel(model, threeTasks);
+
+        assertDoneCommandBehavior("done 1",
+                String.format(DoneCommand.MESSAGE_DONE_TASK_SUCCESS, TestUtil.generateDisplayString(recurringTask)),
+                expectedAB,
+                expectedAB.getUndoneTaskList(),
+                expectedAB.getDoneTaskList()); 
     }
     
     @Test
     public void execute_doneIndexNotFound_errorMessageShown() throws Exception {
         assertIndexNotFoundBehaviorForCommand("done");
     }
-    
     
     //@@author
     @Test
@@ -801,6 +865,19 @@ public class LogicManagerTest {
         Task generateFloatingTaskWithName(String name) throws Exception {
             return new Task(
                     new Name(name),
+                    Priority.LOW
+            );
+        }
+        
+        /**
+         * Generates a Task object with recurrence. Other fields will have some dummy values.
+         */
+        Task generateTaskWithRecurrence(String name, String recurrence) throws Exception {
+            return new Task(
+                    new Name(name),
+                    new Date(),
+                    new Date(),
+                    new RecurrenceRate(recurrence),
                     Priority.LOW
             );
         }

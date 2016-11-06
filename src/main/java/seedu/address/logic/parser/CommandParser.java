@@ -276,13 +276,12 @@ public class CommandParser {
         if (!matcher.matches()) {
             // no arguments
             
-            return new ListCommand(new HashSet<String>());
+            return new ListCommand("");
         }
 
         // keywords delimited by whitespace
-        final String[] keywords = matcher.group("keywords").split(STRING_REGEX_ONE_OR_MORE_WHITESPACE);
-        final Set<String> keywordSet = new HashSet<>(Arrays.asList(keywords));
-        return new ListCommand(keywordSet);
+        final String keyword = matcher.group("keywords");
+        return new ListCommand(keyword);
     }
     
     /**

@@ -236,8 +236,8 @@ public class ModelManager extends ComponentManager implements Model {
     }
     
     @Override
-    public void updateFilteredUndoneTaskListDatePred(Set<String> keywords){
-        updateFilteredUndoneTaskList(new PredicateExpression(new DateQualifier(keywords)));
+    public void updateFilteredUndoneTaskListDatePred(String keyword) throws IllegalValueException {
+        updateFilteredUndoneTaskList(new PredicateExpression(new DateQualifier(keyword)));
     }
 
     private void updateFilteredUndoneTaskList(Expression expression) {
@@ -250,8 +250,8 @@ public class ModelManager extends ComponentManager implements Model {
     }
     
     @Override
-    public void updateFilteredDoneTaskListDatePred(Set<String> keywords){
-        updateFilteredDoneTaskList(new PredicateExpression(new DateQualifier(keywords)));
+    public void updateFilteredDoneTaskListDatePred(String keyword) throws IllegalValueException {
+        updateFilteredDoneTaskList(new PredicateExpression(new DateQualifier(keyword)));
     }
 
     private void updateFilteredDoneTaskList(Expression expression) {
@@ -313,16 +313,9 @@ public class ModelManager extends ComponentManager implements Model {
     private class DateQualifier implements Qualifier {
         private Set<Date> dates;
 
-        DateQualifier(Set<String> dateKeyWords) {
+        DateQualifier(String dateKeyWord) throws IllegalValueException {
             dates = new HashSet<Date>();
-            for (String dateKeyword : dateKeyWords) {
-                try {
-                    dates.add(DateTime.convertStringToDate(dateKeyword));
-                } catch (IllegalValueException e) {
-                    // Do something here.
-                    return;
-                }
-            }
+            dates.add(DateTime.convertStringToDate(dateKeyWord));
         }
 
         @Override
