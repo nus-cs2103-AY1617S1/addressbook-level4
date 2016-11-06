@@ -37,6 +37,7 @@ import seedu.forgetmenot.logic.commands.HelpCommand;
 import seedu.forgetmenot.logic.commands.SelectCommand;
 import seedu.forgetmenot.logic.commands.ShowCommand;
 import seedu.forgetmenot.logic.commands.UndoCommand;
+import seedu.forgetmenot.logic.commands.UndoneCommand;
 import seedu.forgetmenot.model.Model;
 import seedu.forgetmenot.model.ModelManager;
 import seedu.forgetmenot.model.ReadOnlyTaskManager;
@@ -165,7 +166,6 @@ public class LogicManagerTest {
         assertCommandBehavior("clear", ClearCommand.MESSAGE_SUCCESS, new TaskManager(), Collections.emptyList());
     }
 
-// incorrect test case name please change soon
     @Test
     public void execute_add_invalidArgsFormat() throws Exception {
         String expectedMessage = Messages.MESSAGE_UNKNOWN_COMMAND;
@@ -184,8 +184,6 @@ public class LogicManagerTest {
                 "add Valid Name from next week to e/5:00pm", Time.MESSAGE_INCORRECT_DATE_FORMAT);
         assertCommandBehavior(
                 "add Valid Name at e/5:00pm", Time.MESSAGE_INCORRECT_DATE_FORMAT);
-//        assertCommandBehavior(
-//                "add Valid Name d/01/01/10 s/5:00pm a/5:00am e/invalid_-);
     }
 
     @Test
@@ -203,7 +201,7 @@ public class LogicManagerTest {
                 expectedAB.getTaskList());
 
     }
-
+    
     //@@author A0139198N
     @Test
     public void execute_list_showsAllTasks() throws Exception {
@@ -354,21 +352,18 @@ public class LogicManagerTest {
         assertIndexNotFoundBehaviorForCommand("done");
     }
     
-//    @Test
-//    public void execute_done_doneCorrectTask() throws Exception {
-//        TestDataHelper helper = new TestDataHelper();
-//        List<Task> threeTasks = helper.generateTaskList(3);
-//
-//        TaskManager expectedAB = helper.generateTaskManager(threeTasks);
-//        expectedAB.doneTask(threeTasks.get(1));
-//        helper.addToModel(model, threeTasks);
-//
-//        assertCommandBehavior("done 2",
-//                String.format(DoneCommand.MESSAGE_DONE_TASK_SUCCESS, threeTasks.get(1)),
-//                expectedAB,
-//                expectedAB.getTaskList());
-//    }
+    //@@author A0139198N
+    @Test
+    public void execute_undoneInvalidArgsFormat_errorMessageShown() throws Exception {
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, UndoneCommand.MESSAGE_USAGE);
+        assertIncorrectIndexFormatBehaviorForCommand("undone", expectedMessage);
+    }
 
+    //@@author A0139198N
+    @Test
+    public void execute_undoneIndexNotFound_errorMessageShown() throws Exception {
+        assertIndexNotFoundBehaviorForCommand("undone");
+    }
 
     @Test
     public void execute_find_invalidArgsFormat() throws Exception {
