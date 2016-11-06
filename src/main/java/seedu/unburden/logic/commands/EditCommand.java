@@ -11,8 +11,6 @@ import seedu.unburden.model.task.TaskDescription;
 import seedu.unburden.model.task.Time;
 import seedu.unburden.model.task.UniqueTaskList.*;
 
-//@@author A0139714B=======
-
 /*
  * Edits any field of the task
  */
@@ -124,7 +122,6 @@ public class EditCommand extends Command {
         
         Task targetTask = (Task) taskToEdit;
         
-        
         try {
 
         	model.saveToPrevLists();
@@ -135,7 +132,6 @@ public class EditCommand extends Command {
         	EditValidation.checkIfStartTimeLaterThanEndTime(targetTask, toEdit);
         	
             model.editTask(taskToEdit, toEdit);
-            
             return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, toEdit));
         } catch (TaskNotFoundException ee) {
             return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
@@ -190,8 +186,6 @@ public class EditCommand extends Command {
     			 throw new CannotHaveStartTimeLaterThanEndTimeException();
     		 }
     	 }
-    	 
     }
-    
 }
  
