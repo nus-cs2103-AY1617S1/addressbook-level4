@@ -63,11 +63,17 @@ public class ResultDisplay extends UiPart {
     }
 
     //@@author A0139930B
+    /**
+     * Prints the given message onto the Result Display without description
+     */
     public void postMessage(String message) {
         toolTipLabel.setText(message);
         descriptionLabel.setText("");
     }
     
+    /**
+     * Prints the given message onto the Result Display with description
+     */
     public void postMessage(String message, String description) {
         toolTipLabel.setText(message);
         descriptionLabel.setText(description);
