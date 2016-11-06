@@ -47,17 +47,23 @@
 
 <!-- @@author A0139198N -->
 **Date Format**
-> ForgetMeNot implements [Natty](http://natty.joestelmach.com/). Thus, it accepts a wide range of date format. Formats that are accept in ForgetMeNot is listed here:<br>
-> * dd/mm/yy
-	eg. 12/11/16
+> ForgetMeNot uses [Natty](http://natty.joestelmach.com/) date parser. Thus, it accepts a wide range of date format. Formats that are accept in ForgetMeNot is listed here:<br>
+
+> * dd/mm/yy <br>
+	* Eg: 12/11/16 <br>
+	
 > * next day/week/month/year<br>
-	eg. next week, next month
+	* Eg: next week, next month <br>
+	
 > * days later<br>
-	eg. 2 days later<br>
+	* Eg: 2 days later<br>
+	
 > * next `day`<br>
-	eg. next wednesday, next friday<br>
+	* Eg: next wednesday, next friday<br>
+	
 > * days after<br>
-	eg. 2 days after 10/11/16, 5 days after next monday<br>
+	* Eg: 2 days after 10/11/16, 5 days after next monday<br>
+	
 > * a range of holidays is also accepted. You can check the entire list of accepted holidays [here](https://github.com/joestelmach/natty/blob/master/src/main/java/com/joestelmach/natty/Holiday.java)
 <!-- @@author -->
 
