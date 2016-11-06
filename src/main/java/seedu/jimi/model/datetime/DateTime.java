@@ -52,9 +52,9 @@ public class DateTime implements Comparable<DateTime> {
         DateTime oneHourLater = new DateTime(now.dtInstance.withSecond(0).withNano(0).plusHours(1).toString().replace("T", " "));
         return oneHourLater;
     }
-    // @@ author 
+    // @@author 
     
-    // @@ author A0148040R
+    // @@author A0148040R
     public String getDate() {
         DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(DATE_FORMAT);
         return dtInstance.format(dateFormatter).toString();
@@ -112,5 +112,5 @@ public class DateTime implements Comparable<DateTime> {
         DateTimeFormatter dtFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         return dtInstance.format(dtFormatter);
     }
-    // @@ author
+    // @@author
 }

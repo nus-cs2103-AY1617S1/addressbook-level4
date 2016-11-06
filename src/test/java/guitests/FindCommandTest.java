@@ -9,7 +9,7 @@ import seedu.jimi.testutil.TypicalTestFloatingTasks;
 
 import static org.junit.Assert.assertTrue;
 
-// @@ author A0143471L
+// @@author A0143471L
 public class FindCommandTest extends AddressBookGuiTest {
 
     @Test
