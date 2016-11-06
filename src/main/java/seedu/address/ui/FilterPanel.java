@@ -21,6 +21,7 @@ import javafx.stage.Stage;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.FilterPanelChangedEvent;
 import seedu.address.commons.events.ui.JumpToFilterPanelEvent;
+import seedu.address.commons.events.ui.UpdateFilterPanelEvent;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.FxViewUtil;
 import seedu.address.commons.util.Types;
@@ -82,7 +83,7 @@ public class FilterPanel extends UiPart {
 
     @FXML
     private ChoiceBox<String> priorityChoiceBox;
-
+    
     public static FilterPanel load(Stage stage, AnchorPane placeHolder, ResultDisplay resultDisplay) {
         FilterPanel filterPanel = UiPartLoader.loadUiPart(stage, placeHolder, new FilterPanel());
         filterPanel.configure(resultDisplay);
@@ -120,11 +121,28 @@ public class FilterPanel extends UiPart {
         return FXML;
     }
 
-    @Subscribe
     /**
-     * Handles jump to filter panel event. Sets the corresponding text filed or
-     * choice box to be focused.
+     * Handles changes in the filter panel.
      */
+    @FXML
+    private void handleFilterChanged() {
+        Set<Types> types = handleTypesChanged();
+        Map<Types, String> qualifications;
+        try {
+            qualifications = handleQualificationsChanged();
+        } catch (IllegalValueException e) {
+            indicateInvalidFilter(e);
+            return;
+        }
+        Set<String> tagSet = handleTagsChanged();
+        raise(new FilterPanelChangedEvent(types, qualifications, tagSet));
+        indicateFilterSuccess();
+    }
+    
+    /**
+     * Sets the corresponding text filed or choice box to be focused.
+     */
+    @Subscribe
     private void handleJumpFilterPanelEvent(JumpToFilterPanelEvent event) {
         Types qualification = event.getQualification();
         switch (qualification) {
@@ -148,26 +166,17 @@ public class FilterPanel extends UiPart {
             tagsTextField.requestFocus();
             return;
         default:
-            break;
+            assert false;
         }
     }
-
-    @FXML
+    
     /**
-     * Handles changes in the filter panel.
+     * Update filter panel correspondingly to changes in the filtered task list
      */
-    private void handleFilterChanged() {
-        Set<Types> types = handleTypesChanged();
-        Map<Types, String> qualifications;
-        try {
-            qualifications = handleQualificationsChanged();
-        } catch (IllegalValueException e) {
-            indicateInvalidFilter(e);
-            return;
-        }
-        Set<String> tagSet = handleTagsChanged();
-        raise(new FilterPanelChangedEvent(types, qualifications, tagSet));
-        indicateFilterSuccess();
+    @Subscribe
+    private void handleUpdateFilterPanelEvent(UpdateFilterPanelEvent event) {
+        reset();
+        updateFilterPanel(event.getTypes(), event.getQualifications(), event.getTags());
     }
 
     /**
@@ -360,6 +369,91 @@ public class FilterPanel extends UiPart {
             tagSet = new HashSet<>(Arrays.asList(tags.split(SPACE)));
         }
         return tagSet;
+    }
+
+    private void reset() {
+        resetToggleButtons();
+        resetTextFields();
+        resetChoiceBox();
+    }
+
+    private void resetToggleButtons() {
+        eventsToggleButton.setSelected(false);
+        tasksToggleButton.setSelected(false);
+        doneToggleButton.setSelected(false);
+        undoneToggleButton.setSelected(false);
+    }
+
+    private void resetTextFields() {
+        resetTextFields(deadlineTextField);
+        resetTextFields(startDateTextField);
+        resetTextFields(endDateTextField);
+        resetTextFields(recurringTextField);
+        resetTextFields(tagsTextField);
+    }
+    
+    private void resetTextFields(TextField textField) {
+        textField.setStyle(DEFAULT_BACKGROUND);
+        textField.setText("");
+    }
+
+    private void resetChoiceBox() {
+        priorityChoiceBox.getSelectionModel().selectFirst();
+    }
+
+    private void updateFilterPanel(Set<Types> types, Map<Types, String> qualifications, Set<String> tags) {
+        types.forEach(type -> updateType(type));
+        qualifications.forEach((attribute, keyword) -> updateQualification(attribute, keyword));
+        updateTags(tags);
+    }
+
+    private void updateType(Types type) {
+        switch (type) {
+        case EVENTS:
+            eventsToggleButton.setSelected(true);
+            return;
+        case TASKS:
+            tasksToggleButton.setSelected(true);
+            return;
+        case DONE:
+            doneToggleButton.setSelected(true);
+            return;
+        case UNDONE:
+            undoneToggleButton.setSelected(true);
+            return;
+        default:
+            assert false;
+        }
+    }
+
+    private void updateQualification(Types attribute, String keyword) {
+        switch (attribute) {
+        case DEADLINE:
+            deadlineTextField.setText(keyword);
+            return;
+        case START_DATE:
+            startDateTextField.setText(keyword);
+            return;
+        case END_DATE:
+            endDateTextField.setText(keyword);
+            return;
+        case RECURRING:
+            recurringTextField.setText(keyword);
+            return;
+        case PRIORITY_LEVEL:
+            priorityChoiceBox.getSelectionModel().select(Integer.parseInt(keyword));
+            return;
+        default:
+            assert false;
+        }
+    }
+
+    private void updateTags(Set<String> tags) {
+        String tagString = "";
+        for (String tag : tags) {
+            tagString += tag + " ";
+        }
+        tagsTextField.setText(tagString);
     }
 
 }
