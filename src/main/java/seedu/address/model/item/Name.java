@@ -23,7 +23,7 @@ public class Name {
     }
     
     /** 
-     * @return the key in map that maps to the task name of task
+     * @return  The key in map that maps to the task name of task.
      */
     public static String getMapNameKey() {
         return MAP_TASK_NAME_KEY;
