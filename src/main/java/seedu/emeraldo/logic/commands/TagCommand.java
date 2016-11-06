@@ -2,14 +2,15 @@ package seedu.emeraldo.logic.commands;
 
 import static seedu.emeraldo.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.Arrays;
+import java.util.List;
 
 import seedu.emeraldo.commons.core.Messages;
 import seedu.emeraldo.commons.core.UnmodifiableObservableList;
 import seedu.emeraldo.commons.exceptions.IllegalValueException;
 import seedu.emeraldo.commons.exceptions.TagExistException;
 import seedu.emeraldo.commons.exceptions.TagListEmptyException;
+import seedu.emeraldo.commons.exceptions.TagMatchReservedException;
 import seedu.emeraldo.commons.exceptions.TagNotFoundException;
 import seedu.emeraldo.model.tag.Tag;
 import seedu.emeraldo.model.tag.UniqueTagList;
@@ -32,7 +33,13 @@ public class TagCommand extends Command {
     public static final String MESSAGE_TAG_EDIT_SUCCESS = "Edited task: %1$s";
     public static final String MESSAGE_TAG_DUPLICATE = "Tag already exists in the indicated task!";
     public static final String MESSAGE_TAG_NOT_FOUND = "Tag does not exist in the indicated task!";
-    private static final String MESSAGE_TAG_LIST_EMPTY = "Tags are empty!";    
+    private static final String MESSAGE_TAG_LIST_EMPTY = "Tags are empty!";
+    private static final String MESSAGE_TAG_FORBIDDEN = "The tag you have entered is one of our reserved words and is not allowed." 
+            + " Please use another word.\n"
+            + "Our list of reserved words are: %1$s";
+    
+    private String [] reservedWords = {"today", "tomorrow", "thisweek", "nextweek", "thismonth", "nextmonth", "completed"};
+    private List<String> reservedWordsList = (List<String>) Arrays.asList(reservedWords);
     
     private String action;
     private int targetIndex;
@@ -42,7 +49,7 @@ public class TagCommand extends Command {
     public TagCommand(String action, String targetIndex, String tag) throws IllegalValueException {
         this.action = action.trim();
         this.targetIndex = Integer.parseInt(targetIndex);
-        this.tag = new Tag(tag.replaceFirst(" #", ""));
+        this.tag = new Tag(tag.replaceFirst(" #", "").toLowerCase());
     }
     
     public TagCommand(String action, String targetIndex) throws IllegalValueException {
@@ -64,9 +71,12 @@ public class TagCommand extends Command {
         
         if (action.equalsIgnoreCase("add")){
             try {
+                tagMatchesReservedWords();
                 model.addTag(taskTagToEdit, tag);
             } catch (TagExistException tee) {
                 return new CommandResult(MESSAGE_TAG_DUPLICATE);
+            } catch (TagMatchReservedException tmre) {
+                return new CommandResult(String.format(MESSAGE_TAG_FORBIDDEN, reservedWordsList));
             }
         }
         else if (action.equalsIgnoreCase("delete")){
@@ -89,5 +99,12 @@ public class TagCommand extends Command {
        
         return new CommandResult(String.format(MESSAGE_TAG_EDIT_SUCCESS, targetIndex));
     }
-
+    
+    // Throw exception if user enters a word that matches one of the reserved words.
+    private void tagMatchesReservedWords () throws TagMatchReservedException {
+        
+        if (reservedWordsList.contains(this.tag.tagName.toLowerCase())){
+            throw new TagMatchReservedException();
+        }
+    }
 }
