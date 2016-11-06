@@ -34,16 +34,17 @@ We are a team based in the [School of Computing, National University of Singapor
 * Components in charge of: [Logic](https://github.com/CS2103AUG2016-W10-C3/main/blob/master/docs/DeveloperGuide.md#33-logic-component)
 * Aspects/tools in charge of: Testing, Parsing
 * Features implemented:
+   * [Adding Tasks - Floating, Untimed etc.](https://github.com/CS2103AUG2016-W10-C3/main/blob/master/docs/UserGuide.md#34-adding-tasks)
+   * [Some Flexibility in commands(Date Parsing)](https://github.com/CS2103AUG2016-W10-C3/main/pull/55)
    * [Undo and Redo](https://github.com/CS2103AUG2016-W10-C3/main/blob/master/docs/UserGuide.md#38-undoing-and-redoing)
    * [Mark Completed Tasks](https://github.com/CS2103AUG2016-W10-C3/main/blob/master/docs/UserGuide.md#37-marking-completed-tasks)
 * Code written: [[functional code](../collated/main/A0121261Y.md)][[test code](../collated/test/A0121261Y.md)][[docs](../collated/docs/A0121261Y.md)]
 * Other major contributions:
-  * Did blah blah
-  * Did smth
+  * Contributed to initial copy-editing of docs for CS2101[[link to commit](https://github.com/CS2103AUG2016-W10-C3/main/commit/9cb82502adbe3948cf17f94f98700f8d8fa39831)]
 
 -----
 
-#### [Matthew Chan](https://github.com/MCHowl) 
+#### [Matthew Chan](https://github.com/MCHowl)
 <img src="images/Matthew.jpg" width="150"><br>
 * Components in charge of: [UI](https://github.com/CS2103AUG2016-W10-C3/main/blob/master/docs/DeveloperGuide.md#32-ui-component)
 * Aspects/tools in charge of: UI, UX, Documentation
