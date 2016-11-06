@@ -16,13 +16,12 @@ import seedu.stask.model.task.Status.State;
  */
 public class Task implements ReadOnlyTask, Comparable<Task> {
 
-	private static final Logger logger = LogsCenter.getLogger(Task.class);
-	
+    private static final Logger logger = LogsCenter.getLogger(Task.class);
+
     private Name name;
     private Description description;
     private Datetime datetime;
     private Status status;
-
     private UniqueTagList tags;
 
     /**
@@ -36,7 +35,6 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
         this.status = status;
         this.tags = new UniqueTagList(tags); // protect internal tags from
         // changes in the arg list
-        
         logger.fine("Task successfully created: " + this.toString());
     }
 
@@ -117,7 +115,7 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
         this.setStatus(new Status(State.EXPIRE));
         return true;
     }
-    
+
     private void setStatus(Status status) {
         this.status = status;
     }
@@ -144,27 +142,36 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
      * Compares between tasks
      */
     public static class Comparators {
-
-    	/**
-    	 * Compares tasks by alphabetical order of NAME
-    	 */
+        /**
+         * Compares tasks by alphabetical order of NAME
+         */
         public static Comparator<Task> NAME = new Comparator<Task>() {
             @Override
             public int compare(Task t1, Task t2) {
-                return t1.getName().toString().toLowerCase().compareTo(t2.getName().toString().toLowerCase());
+                String task1name = t1.getName().toString().toLowerCase();
+                String task2name = t2.getName().toString().toLowerCase();
+                return task1name.compareTo(task2name);
             }
         };
-        
+
         /**
          * Compares tasks by chronological order of DATE
+         * Compares start time first before comparing end time
          */
         public static Comparator<Task> DATE = new Comparator<Task>() {
             @Override
             public int compare(Task t1, Task t2) {
                 Datetime d1 = t1.getDatetime();
                 Datetime d2 = t2.getDatetime();
-
-                return d1.getStart().compareTo(d2.getStart());
+                if (d1.getStart().compareTo(d2.getStart()) == 0) {
+                    if (d1.getEnd() != null && d2.getEnd() != null) {
+                        return d1.getEnd().compareTo(d2.getEnd());
+                    } else {
+                        return 0;
+                    }
+                } else {
+                    return d1.getStart().compareTo(d2.getStart());
+                }
             }
         };
     }

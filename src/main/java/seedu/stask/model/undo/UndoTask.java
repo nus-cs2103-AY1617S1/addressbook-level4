@@ -18,28 +18,27 @@ public class UndoTask {
      * Initializes a UndoTask with the given variables
      * command, postData should not be null
      */
-    public UndoTask(String command, ReadOnlyTask initData, ReadOnlyTask finalData){
+    public UndoTask(String command, ReadOnlyTask after, ReadOnlyTask before) {
         this.command = command;
-        this.postData = new Task(initData);
-        if (finalData == null) {
+        this.postData = new Task(after);
+        if (before == null) {
             this.preData = null;
-        }
-        else {
-            this.preData = new Task(finalData);
+        } else {
+            this.preData = new Task(before);
         }
     }
     
     /*
      * Returns the command stored
      */
-    public String getCommand(){
+    public String getCommand() {
         return command;
     }
     
     /*
      * Returns the initial Task stored
      */
-    public Task getPostData(){
+    public Task getPostData() {
         return postData;
     }
     
@@ -47,19 +46,18 @@ public class UndoTask {
      * Returns the final Task stored
      * Not null only when stored command is Edit 
      */
-    public Task getPreData(){
+    public Task getPreData() {
         return preData;
     }
     
     @Override
-    public String toString(){
+    public String toString() {
         StringBuffer value = new StringBuffer();
         value.append(command).append(":").append(postData);
-        if (preData != null){
+        if (preData != null) {
             value.append(" to ").append(preData);
         }
         return value.toString();
     }
-    
 }
 //@@author
