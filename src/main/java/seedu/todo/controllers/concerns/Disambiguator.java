@@ -63,4 +63,17 @@ public class Disambiguator {
         
         return extracted;
     }
+    
+    /**
+     * Extracts any unknown token strings from the parsed result.
+     */
+    public static String getUnknownTokenString(Map<String, String[]> parsedResult) {
+        String[] defaultToken = parsedResult.get("default");
+        
+        if (defaultToken == null || defaultToken.length < 2 || defaultToken[1].length() <= 0) {
+            return null;
+        }
+        
+        return defaultToken[1];
+    }
 }
