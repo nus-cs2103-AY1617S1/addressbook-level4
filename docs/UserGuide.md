@@ -190,7 +190,7 @@ Example: edit E1 #rememberToBuyPresent`>`#AbsolutelyRememberToBuyPresent
  
 ###3 Find Task by Keyword
 
-The find by keyword command enables you to search for any events, deadlines and to-dos that have been added to Simply by partial keyword. If the searched task is not found, an error message will be shown.
+Should you need to find any task based on details which you only partially remember, the find by keyword command can help you in finding them. Partial keywords are allowed and you can search for tasks by date, time or description. 
 
 > Format: **Find** &lt;keyword&gt;
 
