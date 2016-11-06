@@ -17,6 +17,12 @@ import seedu.savvytasker.commons.exceptions.IllegalValueException;
  */
 public class TaskList implements Iterable<Task> {
 
+    private final ObservableList<Task> internalList = FXCollections.observableArrayList();
+    private int nextId = 0;
+    private boolean isNextIdInitialized = false;
+    private int nextGroupId = 0;
+    private boolean isNextGroupIdInitialized = false;
+
     /**
      * Signals that an operation would have violated the 'end time earlier than start time' property of the list.
      */
@@ -58,17 +64,6 @@ public class TaskList implements Iterable<Task> {
          */
         private static final long serialVersionUID = -7591982407764643511L;
     }
-
-    private final ObservableList<Task> internalList = FXCollections.observableArrayList();
-    private int nextId = 0;
-    private boolean isNextIdInitialized = false;
-    private int nextGroupId = 0;
-    private boolean isNextGroupIdInitialized = false;
-    
-    /**
-     * Constructs empty TaskList.
-     */
-    public TaskList() {}
     
     /**
      * Gets the next available id for uniquely identifying a task in
@@ -129,11 +124,8 @@ public class TaskList implements Iterable<Task> {
      */
     public boolean isValidStartEnd(ReadOnlyTask toCheck) {
         assert toCheck != null;
-        if (toCheck.getStartDateTime() != null && toCheck.getEndDateTime() != null &&
-                toCheck.getStartDateTime().compareTo(toCheck.getEndDateTime()) >= 0) {
-            return false;
-        }
-        return true;
+        return toCheck.getStartDateTime() == null || toCheck.getEndDateTime() == null ||
+               toCheck.getStartDateTime().compareTo(toCheck.getEndDateTime()) < 0;
     }
 
     /**

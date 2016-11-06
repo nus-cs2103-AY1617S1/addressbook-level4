@@ -10,8 +10,6 @@ public class UndoCommand extends Command {
 
     public static final String MESSAGE_UNDO_ACKNOWLEDGEMENT = "Last command undone";
 
-    public UndoCommand() {}
-
     @Override
     public CommandResult execute() {
         return new CommandResult(MESSAGE_UNDO_ACKNOWLEDGEMENT);

@@ -5,7 +5,6 @@ import seedu.savvytasker.model.task.FindType;
 /**
  * Finds and lists all persons in address book whose name contains any of the argument keywords.
  * Keyword matching is case sensitive.
- * @author A0139915W
  */
 public class FindCommand extends ModelRequiringCommand {
 

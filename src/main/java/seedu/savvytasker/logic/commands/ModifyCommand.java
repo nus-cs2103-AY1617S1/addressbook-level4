@@ -29,7 +29,6 @@ public class ModifyCommand extends ModelRequiringCommand {
     public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the task list";
 
     private Task originalTask;
-    private Task replacement;
     private final int index;
     private final String taskName;
     private final InferredDate startDateTime;
@@ -73,7 +72,7 @@ public class ModifyCommand extends ModelRequiringCommand {
         }
 
         ReadOnlyTask taskToModify = lastShownList.get(index - 1);
-        replacement = new Task(taskToModify, taskName, startDateTime, 
+        Task replacement = new Task(taskToModify, taskName, startDateTime, 
                                     endDateTime, location, priority, 
                                     recurringType, numberOfRecurrence, 
                                     category, description);
@@ -81,11 +80,11 @@ public class ModifyCommand extends ModelRequiringCommand {
         try {
             originalTask = (Task)taskToModify;
             Task taskModified = model.modifyTask(taskToModify, replacement);
+            
+            // GUI will always get index >= 0;
             int targetIndex = getIndexOfTask(taskModified);
             if (targetIndex >= 0) {
                 EventsCenter.getInstance().post(new JumpToListRequestEvent(targetIndex));
-            } else {
-                // GUI should never ever get here
             }
         } catch (TaskNotFoundException e) {
             assert false : "The target task cannot be missing";

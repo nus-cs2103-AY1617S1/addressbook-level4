@@ -27,10 +27,6 @@ public class AliasSymbolListPanel extends UiPart {
     @FXML
     private ListView<AliasSymbol> aliasSymbolListView;
 
-    public AliasSymbolListPanel() {
-        super();
-    }
-
     @Override
     public void setNode(Node node) {
         panel = (VBox) node;
@@ -91,9 +87,6 @@ public class AliasSymbolListPanel extends UiPart {
     }
 
     class AliasSymbolListViewCell extends ListCell<AliasSymbol> {
-
-        public AliasSymbolListViewCell() {
-        }
 
         @Override
         protected void updateItem(AliasSymbol symbol, boolean empty) {
