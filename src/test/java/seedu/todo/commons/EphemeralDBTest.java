@@ -13,14 +13,14 @@ import seedu.todo.models.Task;
 public class EphemeralDBTest {
     
     @Test
-    public void check_singleton() {
+    public void ephemeral_testSingleton_match() {
         EphemeralDB one = EphemeralDB.getInstance();
         EphemeralDB two = EphemeralDB.getInstance();
         assertEquals(one, two);
     }
     
     @Test
-    public void test_calendar_items() {
+    public void ephemeral_testCalendarItems_found() {
         CalendarItem task = new Task();
         CalendarItem event = new Event();
         EphemeralDB db = EphemeralDB.getInstance();
@@ -31,14 +31,14 @@ public class EphemeralDBTest {
     }
     
     @Test
-    public void test_missing_calendar_item() {
+    public void ephemeral_missingCalendarItem_notFound() {
         EphemeralDB db = EphemeralDB.getInstance();
         assertEquals(db.getCalendarItemsByDisplayedId(0), null);
         assertEquals(db.getCalendarItemsByDisplayedId(3), null);
     }
     
     @Test
-    public void test_clear_calendar_items() {
+    public void ephemeral_clearCalendarItems_notFound() {
         CalendarItem task = new Task();
         CalendarItem event = new Event();
         EphemeralDB db = EphemeralDB.getInstance();
