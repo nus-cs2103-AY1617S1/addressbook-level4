@@ -16,16 +16,16 @@ public enum Priority {
         assert priorityString != null;
         
         switch (priorityString) {
-        case ("low"):
-        case ("l"):
+        case ("low") :
+        case ("l") :
             return Priority.LOW;
-        case ("high"):
-        case ("h"):
+        case ("high") :
+        case ("h") :
             return Priority.HIGH;
-        case ("medium"):
-        case ("med"):
-        case ("m"):
-        default:
+        case ("medium") :
+        case ("med") :
+        case ("m") :
+        default :
             return Priority.MEDIUM;
         }
     }

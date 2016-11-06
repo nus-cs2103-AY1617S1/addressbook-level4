@@ -33,7 +33,7 @@ public class RecurrenceRate {
      * Constructor for RecurrenceRate. 
      * Checks for validity of rate and timePeriod.
      *
-     * @throws IllegalValueException if either values are invalid.
+     * @throws IllegalValueException    If either values are invalid.
      */
     public RecurrenceRate(String rateString, String timePeriodString) throws IllegalValueException {
         assert rateString != null && timePeriodString != null;
@@ -50,9 +50,9 @@ public class RecurrenceRate {
     /**
      * Converts rate from String to Integer.
      *
-     * @param rateString  user input of rate of recurrence.
-     * @return Integer value of rate.
-     * @throws IllegalValueException if rate cannot be converted into an Integer
+     * @param rateString    User input of rate of recurrence.
+     * @return              Integer value of rate.
+     * @throws IllegalValueException    If rate cannot be converted into an Integer
      * or rate <= 0.
      */
     private Integer convertStringToRateInteger(String rateString) throws IllegalValueException {
@@ -105,14 +105,14 @@ public class RecurrenceRate {
     }
     
     /** 
-     * @return the key in map that maps to the recurrence rate of task
+     * @return The key in map that maps to the recurrence rate of task.
      */
     public static String getMapRecurrenceRateKey() {
         return MAP_RECURRENCE_RATE_KEY;
     }
     
     /** 
-     * @return the key in map that maps to the rate of recurrence rate
+     * @return The key in map that maps to the rate of recurrence rate.
      */
     public static String getMapRateKey() {
         return MAP_RATE_KEY;

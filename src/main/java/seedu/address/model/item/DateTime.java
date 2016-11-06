@@ -3,10 +3,13 @@ package seedu.address.model.item;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import com.joestelmach.natty.DateGroup;
 import com.joestelmach.natty.Parser;
 
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.IllegalValueException;
 
 //@@author A0139655U
@@ -14,6 +17,8 @@ import seedu.address.commons.exceptions.IllegalValueException;
  * Contains methods that works with Date objects in addition to what is given in Java Date API.
  */
 public abstract class DateTime {
+    
+    private final static Logger logger = LogsCenter.getLogger(DateTime.class);
     
     /** Name of key in map that maps to the start date of task */
     private static final String MAP_START_DATE_KEY = "startDate";
@@ -45,11 +50,11 @@ public abstract class DateTime {
             + "\"7:30am\", \"19:30\"";
 
     /**
-     * Converts given String into a valid Date object
+     * Converts given String into a valid Date object.
      * 
-     * @param dateString    user's input for date
-     * @return Date representation converted from given String
-     * @throws  IllegalValueException if dateString cannot be converted into a Date object.
+     * @param dateString    User's input for date.
+     * @return              Date representation converted from given String.
+     * @throws IllegalValueException    If dateString cannot be converted into a Date object.
      */
     public static Date convertStringToDate(String dateString) throws IllegalValueException {
         assert dateString != null;
@@ -59,6 +64,8 @@ public abstract class DateTime {
             Date date = dates.get(BASE_INDEX).getDates().get(BASE_INDEX);
             return date;
         } else {
+            logger.log(Level.FINE, "IllegalValueException thrown in DateTime, convertStringToDate, "
+                    + "date is invalid");
             throw new IllegalValueException(MESSAGE_VALUE_CONSTRAINTS);
         }
     }
@@ -66,9 +73,9 @@ public abstract class DateTime {
     /**
      * Returns true if given string contains date value (e.g, "30th Dec 2015").
      * 
-     * @param dateString    user's input for date
-     * @return  true if given string contains date value. Else, return false.
-     * @throws IllegalValueException    if dateString cannot be converted into a Date object.
+     * @param dateString    User's input for date.
+     * @return  true        If given string contains date value. Else, return false.
+     * @throws IllegalValueException    If dateString cannot be converted into a Date object.
      */
     public static boolean hasDateValue(String dateString) throws IllegalValueException {
         assert dateString != null;
@@ -83,6 +90,8 @@ public abstract class DateTime {
                 return false;
             }
         } else {
+            logger.log(Level.FINE, "IllegalValueException thrown in DateTime, hasDateValue, "
+                    + "date is invalid");
             throw new IllegalValueException(MESSAGE_VALUE_CONSTRAINTS);
         }
     }
@@ -90,9 +99,9 @@ public abstract class DateTime {
     /**
      * Returns true if given string contains time value (e.g, "11:30am").
      * 
-     * @param dateString    user's input for date
-     * @return  true if given string contains time value. Else, return false.
-     * @throws IllegalValueException    if dateString cannot be converted into a Date object.
+     * @param dateString    User's input for date.
+     * @return              True if given string contains time value. Else, return false.
+     * @throws IllegalValueException    If dateString cannot be converted into a Date object.
      */
     public static boolean hasTimeValue(String dateString) throws IllegalValueException {
         assert dateString != null;
@@ -107,6 +116,8 @@ public abstract class DateTime {
                 return false;
             }
         } else {
+            logger.log(Level.FINE, "IllegalValueException thrown in DateTime, hasTimeValue, "
+                    + "date is invalid");
             throw new IllegalValueException(MESSAGE_VALUE_CONSTRAINTS);
         }
     }
@@ -116,9 +127,9 @@ public abstract class DateTime {
      * If upon setting and endDate is of earlier time than startDate, 
      * then set endDate to be startDate + 1.
      * 
-     * @param startDate start date of Task
-     * @param endDate   end date of Task
-     * @return  updated value of endDate
+     * @param startDate Start date of Task.
+     * @param endDate   End date of Task.
+     * @return          Updated value of endDate.
      */
     public static Date setEndDateToStartDate(Date startDate, Date endDate) {
         assert startDate != null && endDate != null;
@@ -145,8 +156,8 @@ public abstract class DateTime {
      * Returns true if given String conforms to what was specified in User Guide e.g 
      * "5pm tomorrow", "02/10/2016", "13 Sep 10pm".
      * 
-     * @param dateString    user's input for date
-     * @return  true if given String conforms to what was specified in User Guide. Else, return false.
+     * @param dateString    User's input for date.
+     * @return              True if given String conforms to what was specified in User Guide. Else, return false.
      */
     public static boolean isValidDate(String dateString) {
         assert dateString != null;
@@ -166,16 +177,18 @@ public abstract class DateTime {
     /**
      * Assigns start date to a specified weekday according to the given dateString.
      * 
-     * @param dateString    user's input for date
-     * @throws IllegalValueException    if dateString is not a weekday
+     * @param dateString    User's input for date.
+     * @throws IllegalValueException    If dateString is not a weekday.
      */
     public static Date assignStartDateToSpecifiedWeekday(String dateString) throws IllegalValueException {
         assert dateString != null; 
                 
-        if (dateString.toLowerCase().equals(MONDAY) || dateString.toLowerCase().equals(TUESDAY) ||
-        dateString.toLowerCase().equals(WEDNESDAY) || dateString.toLowerCase().equals(THURSDAY) || 
-        dateString.toLowerCase().equals(FRIDAY) || dateString.toLowerCase().equals(SATURDAY) || 
-        dateString.toLowerCase().equals(SUNDAY)) {
+        String lowerCaseDateString = dateString.toLowerCase();
+        
+        if (lowerCaseDateString.equals(MONDAY) || lowerCaseDateString.equals(TUESDAY) || 
+                lowerCaseDateString.equals(WEDNESDAY) || lowerCaseDateString.equals(THURSDAY) || 
+                lowerCaseDateString.equals(FRIDAY) || lowerCaseDateString.equals(SATURDAY) || 
+                lowerCaseDateString.equals(SUNDAY)) {
         
             List<DateGroup> dates = new Parser().parse(dateString);
             Date date = dates.get(BASE_INDEX).getDates().get(BASE_INDEX);
@@ -184,6 +197,8 @@ public abstract class DateTime {
         
             return date;
         } else {
+            logger.log(Level.FINE, "IllegalValueException thrown in DateTime, assignStartDateToSpecifiedWeekday, "
+                    + "dateString is not a week day");
             throw new IllegalValueException(MESSAGE_VALUE_CONSTRAINTS);
         }
     }
@@ -192,8 +207,8 @@ public abstract class DateTime {
      * Corrects date if it is same day as today. For e.g, if today is Tuesday, and user input "foo repeat every Tuesday",
      * the starting date will be set to next Tuesday which is false. This method corrects the date to today.
      * 
-     * @param date  date value of Task
-     * @return same date if date not equals today's date. Else, return date minus 7 days
+     * @param date  Date value of Task.
+     * @return      Same date if date not equals today's date. Else, return date minus 7 days.
      */
     private static Date correctDateIfSameDay(Date date) {
         assert date != null;
@@ -213,8 +228,8 @@ public abstract class DateTime {
     /**
      * Sets time of Date object to start of the day i.e "00:00:00" and returns it.
      * 
-     * @param date  date value of Task
-     * @return date with time values set to start of the day
+     * @param date  Date value of Task.
+     * @return date With time values set to start of the day.
      */
     public static Date setTimeToStartOfDay(Date date) {
         assert date != null;
@@ -231,8 +246,8 @@ public abstract class DateTime {
     /**
      * Sets time of Date object to end of the day i.e "23:59:59"
      * 
-     * @param date  date value of Task
-     * @return date with time values set to end of the day
+     * @param date  Date value of Task.
+     * @return date With time values set to end of the day.
      */
     public static Date setTimeToEndOfDay(Date date) {
         assert date != null;
@@ -249,9 +264,9 @@ public abstract class DateTime {
     /**
      * Updates date according to recurrence rate.
      * 
-     * @param date  date value of Task
-     * @param recurrenceRate    recurrence rate of Task
-     * @return date with updated values according to recurrence rate
+     * @param date              Date value of Task.
+     * @param recurrenceRate    Recurrence rate of Task.
+     * @return                  Date with updated values according to recurrence rate.
      */
     public static Date updateDateByRecurrenceRate(Date date, RecurrenceRate recurrenceRate) {
         assert date != null && recurrenceRate != null;
@@ -261,40 +276,40 @@ public abstract class DateTime {
         int rate = recurrenceRate.getRate();
         
         switch (recurrenceRate.getTimePeriod()) {
-        case HOUR:
+        case HOUR :
             calendar.add(Calendar.HOUR_OF_DAY, rate);
             break;
-        case DAY:
+        case DAY :
             calendar.add(Calendar.DAY_OF_YEAR, rate);
             break;
-        case WEEK:
+        case WEEK :
             calendar.add(Calendar.WEEK_OF_YEAR, rate);
             break;
-        case MONTH:
+        case MONTH :
             calendar.add(Calendar.MONTH, rate);
             break;
-        case YEAR:
+        case YEAR :
             calendar.add(Calendar.YEAR, rate);
             break;
-        case MONDAY:
+        case MONDAY :
             DateTime.updateCalendarToComingMondays(calendar, rate);
             break;
-        case TUESDAY:
+        case TUESDAY :
             DateTime.updateDateToComingTuesdays(calendar, rate);
             break;
-        case WEDNESDAY:
+        case WEDNESDAY :
             DateTime.updateDateToComingWednesdays(calendar, rate);
             break;
-        case THURSDAY:
+        case THURSDAY :
             DateTime.updateDateToComingThursdays(calendar, rate);
             break;
-        case FRIDAY:
+        case FRIDAY :
             DateTime.updateDateToComingFridays(calendar, rate);
             break;
-        case SATURDAY:
+        case SATURDAY :
             DateTime.updateDateToComingSaturdays(calendar, rate);
             break;
-        case SUNDAY:
+        case SUNDAY :
             DateTime.updateDateToComingSundays(calendar, rate);
             break;
         }
@@ -306,8 +321,8 @@ public abstract class DateTime {
     /**
      * Updates calendar to coming Mondays depending on value of rate.
      * 
-     * @param calendar  calendar representation of the date value of Task
-     * @param rate  amount of Mondays to jump over
+     * @param calendar  Calendar representation of the date value of Task.
+     * @param rate      Amount of Mondays to jump over.
      */
     private static void updateCalendarToComingMondays(Calendar calendar, int rate) {
         assert calendar != null;
@@ -322,8 +337,8 @@ public abstract class DateTime {
     /**
      * Updates calendar to coming Tuesdays depending on value of rate.
      * 
-     * @param calendar  calendar representation of the date value of Task
-     * @param rate  amount of Tuesdays to jump over
+     * @param calendar  Calendar representation of the date value of Task.
+     * @param rate      Amount of Tuesdays to jump over.
      */
     private static void updateDateToComingTuesdays(Calendar calendar, int rate) {
         assert calendar != null;
@@ -338,8 +353,8 @@ public abstract class DateTime {
     /**
      * Updates calendar to coming Wednesdays depending on value of rate.
      * 
-     * @param calendar  calendar representation of the date value of Task
-     * @param rate  amount of Wednesdays to jump over
+     * @param calendar  Calendar representation of the date value of Task.
+     * @param rate      Amount of Wednesdays to jump over.
      */
     private static void updateDateToComingWednesdays(Calendar calendar, int rate) {
         assert calendar != null;
@@ -354,8 +369,8 @@ public abstract class DateTime {
     /**
      * Updates calendar to coming Thursdays depending on value of rate.
      * 
-     * @param calendar  calendar representation of the date value of Task
-     * @param rate  amount of Thursdays to jump over
+     * @param calendar  Calendar representation of the date value of Task.
+     * @param rate      Amount of Thursdays to jump over.
      */
     private static void updateDateToComingThursdays(Calendar calendar, int rate) {
         assert calendar != null;
@@ -370,8 +385,8 @@ public abstract class DateTime {
     /**
      * Updates calendar to coming Fridays depending on value of rate.
      * 
-     * @param calendar  calendar representation of the date value of Task
-     * @param rate  amount of Fridays to jump over
+     * @param calendar  Calendar representation of the date value of Task.
+     * @param rate      Amount of Fridays to jump over.
      */
     private static void updateDateToComingFridays(Calendar calendar, int rate) {
         assert calendar != null;
@@ -386,8 +401,8 @@ public abstract class DateTime {
     /**
      * Updates calendar to coming Saturdays depending on value of rate.
      * 
-     * @param calendar  calendar representation of the date value of Task
-     * @param rate  amount of Saturdays to jump over
+     * @param calendar  Calendar representation of the date value of Task.
+     * @param rate      Amount of Saturdays to jump over.
      */
     private static void updateDateToComingSaturdays(Calendar calendar, int rate) {
         assert calendar != null;
@@ -402,8 +417,8 @@ public abstract class DateTime {
     /**
      * Updates calendar to coming Sundays depending on value of rate.
      * 
-     * @param calendar  calendar representation of the date value of Task
-     * @param rate  amount of Sundays to jump over
+     * @param calendar  Calendar representation of the date value of Task.
+     * @param rate      Amount of Sundays to jump over.
      */
     private static void updateDateToComingSundays(Calendar calendar, int rate) {
         assert calendar != null;
@@ -418,8 +433,8 @@ public abstract class DateTime {
     /**
      * Updates calendar by (rate - 1) * 7 days.
      * 
-     * @param calendar  calendar representation of the date value of Task
-     * @param rate  amount of weeks to jump over
+     * @param calendar  Calendar representation of the date value of Task.
+     * @param rate      Amount of weeks to jump over.
      */
     private static void updateDateRateMinusOneTimes(Calendar calendar, int rate) {
         assert calendar != null;
@@ -433,14 +448,14 @@ public abstract class DateTime {
     }
     
     /** 
-     * @return the key in map that maps to the start date of task
+     * @return The key in map that maps to the start date of task.
      */
     public static String getMapStartDateKey() {
         return MAP_START_DATE_KEY;
     }
     
     /** 
-     * @return the key in map that maps to the end date of task
+     * @return The key in map that maps to the end date of task.
      */
     public static String getMapEndDateKey() {
         return MAP_END_DATE_KEY;

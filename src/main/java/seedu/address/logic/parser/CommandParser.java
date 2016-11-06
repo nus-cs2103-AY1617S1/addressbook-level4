@@ -7,6 +7,7 @@ import seedu.address.commons.core.Messages;
 import seedu.address.commons.exceptions.IllegalValueException;
 
 import java.util.*;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -135,8 +136,8 @@ public class CommandParser {
     /**
      * Parses arguments in the context of the add task command.
      *
-     * @param args full command args string
-     * @return the prepared command
+     * @param args  Full command args string.
+     * @return      The prepared command.
      */
     private Command prepareAdd(String args){
         assert args != null;
@@ -144,18 +145,17 @@ public class CommandParser {
         logger.finer("Entering CommandParser, prepareAdd()");
         String argsTrimmed = args.trim();
         if(argsTrimmed.isEmpty()) {
-            logger.finer("Trimmed argument is empty, returning IncorrectCommand");
+            logger.log(Level.FINE, "Trimmed argument is empty, returning IncorrectCommand");
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.getMessageUsage()));
         }
         
         try {  
             HashMap<String, Optional<String>> extractedValues = retrieveAddFieldsFromArgs(argsTrimmed);
-            logger.finer("Exiting CommandParser, prepareAdd()");
+            logger.log(Level.FINE, "Exiting CommandParser, prepareAdd()");
             return new AddCommand(extractedValues);
         } catch (IllegalValueException ive) {
-            logger.finer("IllegalValueException caught in CommandParser, prepareAdd(), returning IncorrectCommand");
-            //TODO ive auto new line?
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ive.getMessage() + "\n" + 
+            logger.log(Level.FINE, "IllegalValueException caught in CommandParser, prepareAdd(), returning IncorrectCommand");
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ive.getMessage() + NEWLINE_STRING + 
                     AddCommand.getMessageUsage()));
         }
     }
@@ -875,5 +875,10 @@ public class CommandParser {
             throws IllegalValueException {
         CommandParserHelper cmdParserHelper = new CommandParserHelper();
         return cmdParserHelper.prepareAdd(trimmedArgs);
+    }
+    
+    //@@author
+    public static String getNewLineString() {
+        return NEWLINE_STRING;
     }
 }

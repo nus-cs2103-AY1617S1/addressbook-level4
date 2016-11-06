@@ -79,8 +79,8 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
     /**
      * Updates the startDate and/or endDate of the completed recurring task.
      * 
-     * @throws TaskNotRecurringException if task does not have recurrence rate
-     *             or does not have both start and end dates.
+     * @throws TaskNotRecurringException    If task does not have recurrence rate
+     *                                      or does not have both start and end dates.
      */
     public void updateRecurringTask() throws TaskNotRecurringException {
         if (recurrenceRate == null || (startDate == null && endDate == null)) {
@@ -101,8 +101,8 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
     /**
      * Updates endDate using the timeDifference between startDate and endDate.
      * 
-     * @param timeDifference    the difference in milliseconds between end date and start date
-     * @return updated value of endDate
+     * @param timeDifference    The difference in milliseconds between end date and start date.
+     * @return                  Updated value of endDate.
      */
     private Date updateEndDate(int timeDifference) {
         assert timeDifference >= 0;

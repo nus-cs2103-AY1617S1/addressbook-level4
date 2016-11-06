@@ -32,6 +32,20 @@ public class CommandParserHelper {
     private static final int ZERO = 0;
     private static final int ONE = 1;
     private static final int TWO = 2;
+    
+    private static final String TASK_NAME = "taskName";
+    private static final String START_DATE_FORMAT_ONE = "startDateFormatOne";
+    private static final String START_DATE_FORMAT_TWO = "startDateFormatTwo";
+    private static final String START_DATE_FORMAT_THREE = "startDateFormatThree";
+    private static final String END_DATE_FORMAT_ONE = "endDateFormatOne";
+    private static final String END_DATE_FORMAT_TWO = "endDateFormatTwo";
+    private static final String END_DATE_FORMAT_THREE = "endDateFormatThree";
+    private static final String END_DATE_FORMAT_FOUR = "endDateFormatFour";
+    private static final String END_DATE_FORMAT_FIVE = "endDateFormatFive";
+    private static final String END_DATE_FORMAT_SIX = "endDateFormatSix";
+    private static final String RATE = "rate";
+    private static final String TIME_PERIOD = "timePeriod";
+    private static final String PRIORITY = "priority";
 
     private static final String REGEX_OPEN_BRACE = "(";
     private static final String REGEX_CASE_IGNORE = "?i:";
@@ -50,10 +64,10 @@ public class CommandParserHelper {
      * greedily captures everything after the keyword (from, at, start, by, to, end), 
      * until it reaches the next regex expression or end of input
      */
-    private static final String REGEX_FIRST_DATE = "(?:" + "(?: from (?<startDateFormatOne>.*?))"
-            + "|(?: at (?<startDateFormatTwo>.*?))" + "|(?: start (?<startDateFormatThree>.*?))"
-            + "|(?: by (?<endDateFormatOne>.*?))" + "|(?: to (?<endDateFormatTwo>.*?))"
-            + "|(?: end (?<endDateFormatThree>.*?))" + ")";
+    private static final String REGEX_FIRST_DATE = "(?:" + "(?: from (?<" + START_DATE_FORMAT_ONE + ">.*?))"
+            + "|(?: at (?<" + START_DATE_FORMAT_TWO + ">.*?))" + "|(?: start (?<" + START_DATE_FORMAT_THREE + ">.*?))"
+            + "|(?: by (?<" + END_DATE_FORMAT_ONE + ">.*?))" + "|(?: to (?<" + END_DATE_FORMAT_TWO + ">.*?))"
+            + "|(?: end (?<" + END_DATE_FORMAT_THREE + ">.*?))" + ")";
     
     /** 
      * greedily captures everything after the keyword (from, at, start, by, to, end), 
@@ -61,8 +75,8 @@ public class CommandParserHelper {
      */
     private static final String REGEX_SECOND_DATE = "(?:" + "(?: from (?:.*?))"
             + "|(?: at (?:.*?))" + "|(?: start (?:.*?))"
-            + "|(?: by (?<endDateFormatFour>.*?))" + "|(?: to (?<endDateFormatFive>.*?))"
-            + "|(?: end (?<endDateFormatSix>.*?))" + ")";
+            + "|(?: by (?<" + END_DATE_FORMAT_FOUR + ">.*?))" + "|(?: to (?<" + END_DATE_FORMAT_FIVE + ">.*?))"
+            + "|(?: end (?<" + END_DATE_FORMAT_SIX + ">.*?))" + ")";
     
     /** 
      * greedily captures everything after the keyword (repeat every, -), 
@@ -93,17 +107,19 @@ public class CommandParserHelper {
      * Returns a HashMap containing Optional<String> values of
      * taskName, startDate, endDate, rate, timePeriod and priority.
      *
-     * @param args  user input of task to add.
-     * @return     values of taskName, startDate, endDate, rate, timePeriod and priority.
-     * @throws IllegalValueException  if args does not match the matcher.
+     * @param args  User input of task to add.
+     * @return      Values of taskName, startDate, endDate, rate, timePeriod and priority.
+     * @throws IllegalValueException    If args does not match the matcher.
      */
     public HashMap<String, Optional<String>> prepareAdd(String args) throws IllegalValueException {
         assert args != null;
         OptionalStringTask task = new OptionalStringTask();
         
         if (args.contains(REGEX_ESCAPE_CHARACTER)) {
+            logger.log(Level.FINEST, "In prepareAdd, args contains escape character");
             generateMatcherForEscapeInput(args, task);
         } else {
+            logger.log(Level.FINEST, "In prepareAdd, args does not contain escape character");
             generateMatcherForNonEscapeInput(args, task);
         }
         
@@ -139,9 +155,9 @@ public class CommandParserHelper {
     /**
      * Generates the matcher for the escaped input args.
      *
-     * @param args  user input of task to add.
-     * @param task  object to store values for startDate and endDate.
-     * @throws IllegalValueException  if args does not match the matcher.
+     * @param args  User input of task to add.
+     * @param task  Object to store values for startDate and endDate.
+     * @throws IllegalValueException  If args does not match the matcher.
      */
     private void generateMatcherForEscapeInput(String args, OptionalStringTask task) throws IllegalValueException {
         assert args != null && task != null;
@@ -166,9 +182,9 @@ public class CommandParserHelper {
     /**
      * Generates the matcher for the input args.
      *
-     * @param args  user input of task to add.
-     * @param task  object to store values for startDate and endDate.
-     * @throws IllegalValueException  if args does not match the matcher.
+     * @param args  User input of task to add.
+     * @param task  Object to store values for startDate and endDate.
+     * @throws IllegalValueException  If args does not match the matcher.
      */
     private void generateMatcherForNonEscapeInput(String args, OptionalStringTask task) throws IllegalValueException {
         assert args != null && task != null;
@@ -199,10 +215,10 @@ public class CommandParserHelper {
     /**
      * Checks whether matcher for one keyword or zero keyword matches the input args.
      *
-     * @param args  user input of task to add.
-     * @param task  object to store values for startDate and endDate.
-     * @param regex used to generate matcher
-     * @throws IllegalValueException  if args does not match the matcher.
+     * @param args  User input of task to add.
+     * @param task  Object to store values for startDate and endDate.
+     * @param regex Used to generate matcher
+     * @throws IllegalValueException  If args does not match the matcher.
      */
     private void tryGenerateMatcherForOneOrNoKeyword(String args, OptionalStringTask task, String regex)
             throws IllegalValueException {
@@ -217,10 +233,10 @@ public class CommandParserHelper {
     /**
      * Checks whether matcher for one keyword matches the input args.
      *
-     * @param args  user input of task to add.
-     * @param task  object to store values for startDate and endDate.
-     * @param regex used to generate matcher.
-     * @throws IllegalValueException  if args does not match the matcher.
+     * @param args  User input of task to add.
+     * @param task  Object to store values for startDate and endDate.
+     * @param regex Used to generate matcher.
+     * @throws IllegalValueException  If args does not match the matcher.
      */
     private void tryMatcherForOneKeyword(String args, OptionalStringTask task, String regex)
             throws IllegalValueException {
@@ -232,10 +248,10 @@ public class CommandParserHelper {
     /**
      * Checks whether matcher for zero keyword matches the input args.
      *
-     * @param args  user input of task to add.
-     * @param task  object to store values for startDate and endDate.
-     * @param regex used to generate matcher.
-     * @throws IllegalValueException  if args does not match the matcher.
+     * @param args  User input of task to add.
+     * @param task  Object to store values for startDate and endDate.
+     * @param regex Used to generate matcher.
+     * @throws IllegalValueException  If args does not match the matcher.
      */
     private void tryGenerateMatcherForNoKeyword(String args, OptionalStringTask task, String regex)
             throws IllegalValueException {
@@ -247,8 +263,8 @@ public class CommandParserHelper {
     /**
      * Returns a string containing args minus the escaped string.
      *
-     * @param args  user input of task to add.
-     * @return      args minus escaped string.
+     * @param args  User input of task to add.
+     * @return      Args minus escaped string.
      */
     private String generateArgsMinusTaskName(String args) {
         assert args != null;
@@ -261,8 +277,8 @@ public class CommandParserHelper {
      * Returns the number of occurrences of "from", "at", "start", "by", "to", "end" in args.
      * The value returned will be >= 0.
      *
-     * @param args  user input of task to add.
-     * @return      number of occurrences of "from", "at", "start", "by", "to", "end".
+     * @param args  User input of task to add.
+     * @return      Number of occurrences of "from", "at", "start", "by", "to", "end".
      */
     private int generateNumberOfKeywords(String args) {    
         assert args != null;
@@ -281,8 +297,8 @@ public class CommandParserHelper {
     /**
      * Generates the start of the regex that captures the taskName.
      *
-     * @param numberOfKeywords  number of occurrences of "from", "at", "start", "by", "to", "end".
-     * @return      the start of the regex.
+     * @param numberOfKeywords  Number of occurrences of "from", "at", "start", "by", "to", "end".
+     * @return                  The start of the regex.
      */
     private String generateStartOfRegex(int numberOfKeywords) {
         assert numberOfKeywords >= ZERO;
@@ -301,8 +317,8 @@ public class CommandParserHelper {
     /**
      * Validates the matcher for the given args, where args has no keywords.
      *
-     * @param args  user input of task to add.
-     * @param regex used to generate matcher.
+     * @param args  User input of task to add.
+     * @param regex Used to generate matcher.
      * @throws IllegalValueException  If args does not match the matcher.
      */
     private void generateMatcherForNoKeyword(String args, String regex) throws IllegalValueException {
@@ -314,8 +330,8 @@ public class CommandParserHelper {
     /**
      * Generates and validates a matcher from the given args and regex.
      *
-     * @param args  user input of task to add.
-     * @param regex used to generate matcher.
+     * @param args  User input of task to add.
+     * @param regex Used to generate matcher.
      * @throws IllegalValueException  If args does not match the matcher.
      */
     private void generateAndValidateMatcher(String args, String regex) throws IllegalValueException {
@@ -323,6 +339,8 @@ public class CommandParserHelper {
         pattern = Pattern.compile(regex);
         matcher = pattern.matcher(args);
         if (!matcher.matches()) {
+            logger.log(Level.FINE, "IllegalValueException thrown in CommandParserHelper, generateAndValidateMatcher, "
+                    + "matcher does not match");
             throw new IllegalValueException(MESSAGE_INVALID_MATCHER);
         }
     }
@@ -330,8 +348,8 @@ public class CommandParserHelper {
     /**
      * Generates the matcher for the given escaped args, where args has no keyword.
      *
-     * @param args  user input of task to add.
-     * @param regex used to generate matcher.
+     * @param args  User input of task to add.
+     * @param regex Used to generate matcher.
      * @throws IllegalValueException  If args does not match the matcher.
      */
     private void generateMatcherForNoKeywordEscape(String args, String regex) throws IllegalValueException {
@@ -343,8 +361,8 @@ public class CommandParserHelper {
     /**
      * Generates the matcher for the given escaped args, where args has one keyword.
      *
-     * @param args  user input of task to add.
-     * @param regex used to generate matcher.
+     * @param args  User input of task to add.
+     * @param regex Used to generate matcher.
      * @throws IllegalValueException  If args does not match the matcher.
      */
     private void generateMatcherForOneKeywordEscape(String args, String regex) throws IllegalValueException {
@@ -356,8 +374,8 @@ public class CommandParserHelper {
     /**
      * Generates the matcher for the given args, where args has one keyword.
      *
-     * @param args  user input of task to add.
-     * @param regex used to generate matcher.
+     * @param args  User input of task to add.
+     * @param regex Used to generate matcher.
      * @throws IllegalValueException  If args does not match the matcher.
      */
     private void generateMatcherForOneKeyword(String args, String regex) throws IllegalValueException {
@@ -371,8 +389,8 @@ public class CommandParserHelper {
      * by concatenating the given regex generated by generateStartOfRegex() 
      * with the regex for matching one keyword.
      *
-     * @param regex used to generate matcher.
-     * @return regex that matches an escaped string with one keyword.
+     * @param regex     Used to generate matcher.
+     * @return regex    That matches an escaped string with one keyword.
      */
     private String generateRegexForOneKeywordEscape(String regex) {
         assert regex != null;
@@ -384,8 +402,8 @@ public class CommandParserHelper {
      * by concatenating the given regex generated by generateStartOfRegex() 
      * with the regex for matching one keyword.
      *
-     * @param regex used to generate matcher.
-     * @return regex that matches a string with one keyword.
+     * @param regex     Used to generate matcher.
+     * @return regex    That matches a string with one keyword.
      */
     private String generateRegexForOneKeyword(String regex) {
         assert regex != null;
@@ -394,7 +412,7 @@ public class CommandParserHelper {
     
     /**
      * Sets start date or end date depending on which matcher group was matched
-     * @param regex  used to generate matcher.
+     * @param regex  Used to generate matcher.
      */
     private void matcherSetStartOrEndDate(OptionalStringTask task) {
         assert task != null && matcher != null;
@@ -406,7 +424,7 @@ public class CommandParserHelper {
     /**
      * Reinitialises both start date and end date to be empty.
      *
-     * @param task  object to store values for startDate and endDate.
+     * @param task  Object to store values for startDate and endDate.
      */
     private void reinitialiseStartAndEndDatesToEmpty(OptionalStringTask task) {
         assert task != null;
@@ -418,11 +436,10 @@ public class CommandParserHelper {
      * Verifies if either startDate or endDate is present, and if either dates are present,
      * then verifies whether the date is valid.
      *
-     * @param startDate 
-     * @param endDate   
-     * @return true if the date that is present is valid.
+     * @param startDate User input of start date. May not exist if user did not input start date.
+     * @param endDate   User input of end date. May not exist if user did not input end date.
+     * @return          True if the date that is present is valid.
      */
-    //TODO: Dependency on DateTime?
     private boolean startOrEndDateIsInvalid(Optional<String> startDate, Optional<String> endDate) {
         return startDate.isPresent() && !DateTime.isValidDate(startDate.get())
                 || endDate.isPresent() && !DateTime.isValidDate(endDate.get());
@@ -433,19 +450,19 @@ public class CommandParserHelper {
      * Either none of the matcher groups are present, or only one matcher group is present. 
      * Return the value stored in the matcher group if it is present, else return Optional.empty().
      *
-     * @return the value of the matcher group if it is present, else return Optional.empty().
+     * @return  The value of the matcher group if it is present, else return Optional.empty().
      */
     private Optional<String> matchesStartDateFormatsOneToThree() {
         assert matcher != null;
 
         Optional<String> startDate = Optional.empty();
 
-        if (matcher.group("startDateFormatOne") != null) {
-            startDate = Optional.of(matcher.group("startDateFormatOne").trim());
-        } else if (matcher.group("startDateFormatTwo") != null) {
-            startDate = Optional.of(matcher.group("startDateFormatTwo").trim());
-        } else if (matcher.group("startDateFormatThree") != null) {
-            startDate = Optional.of(matcher.group("startDateFormatThree").trim());
+        if (matcher.group(START_DATE_FORMAT_ONE) != null) {
+            startDate = Optional.of(matcher.group(START_DATE_FORMAT_ONE).trim());
+        } else if (matcher.group(START_DATE_FORMAT_TWO) != null) {
+            startDate = Optional.of(matcher.group(START_DATE_FORMAT_TWO).trim());
+        } else if (matcher.group(START_DATE_FORMAT_THREE) != null) {
+            startDate = Optional.of(matcher.group(START_DATE_FORMAT_THREE).trim());
         }
 
         return startDate;
@@ -456,19 +473,19 @@ public class CommandParserHelper {
      * Either none of the matcher groups are present, or only one matcher group is present. 
      * Return the value of the matcher group if it is present, else return Optional.empty().
      *
-     * @return the value of the matcher group if it is present, else return Optional.empty().
+     * @return  The value of the matcher group if it is present, else return Optional.empty().
      */
     private Optional<String> matchesEndDateFormatsOneToThree() {
         assert matcher != null;
 
         Optional<String> endDate = Optional.empty();
 
-        if (matcher.group("endDateFormatOne") != null) {
-            endDate = Optional.of(matcher.group("endDateFormatOne").trim());
-        } else if (matcher.group("endDateFormatTwo") != null) {
-            endDate = Optional.of(matcher.group("endDateFormatTwo").trim());
-        } else if (matcher.group("endDateFormatThree") != null) {
-            endDate = Optional.of(matcher.group("endDateFormatThree").trim());
+        if (matcher.group(END_DATE_FORMAT_ONE) != null) {
+            endDate = Optional.of(matcher.group(END_DATE_FORMAT_ONE).trim());
+        } else if (matcher.group(END_DATE_FORMAT_TWO) != null) {
+            endDate = Optional.of(matcher.group(END_DATE_FORMAT_TWO).trim());
+        } else if (matcher.group(END_DATE_FORMAT_THREE) != null) {
+            endDate = Optional.of(matcher.group(END_DATE_FORMAT_THREE).trim());
         }
 
         return endDate;
@@ -477,8 +494,8 @@ public class CommandParserHelper {
     /**
      * Generates the matcher for the given escaped args, where args has two keywords.
      *
-     * @param args  user input of task to add.
-     * @param regex used to generate matcher.
+     * @param args  User input of task to add.
+     * @param regex Used to generate matcher.
      * @throws IllegalValueException  If args does not match the matcher.
      */
     private void generateMatcherForTwoKeywordsEscape(String args, String regex) throws IllegalValueException {
@@ -490,8 +507,8 @@ public class CommandParserHelper {
     /**
      * Generates the matcher for the given args, where args has two keywords.
      *
-     * @param args  user input of task to add.
-     * @param regex used to generate matcher.
+     * @param args  User input of task to add.
+     * @param regex Used to generate matcher.
      * @throws IllegalValueException  If args does not match the matcher.
      */
     private void generateMatcherForTwoKeywords(String args, String regex) throws IllegalValueException {
@@ -505,8 +522,8 @@ public class CommandParserHelper {
      * by concatenating the given regex generated by generateStartOfRegex() 
      * with the regex for matching two keywords.
      *
-     * @param regex used to generate matcher.
-     * @return regex that matches an escaped string with two keywords.
+     * @param regex     Used to generate matcher.
+     * @return regex    That matches an escaped string with two keywords.
      */
     private String generateRegexForTwoKeywordsEscape(String regex) {
         assert regex != null;
@@ -519,8 +536,8 @@ public class CommandParserHelper {
      * by concatenating the given regex generated by generateStartOfRegex() 
      * with the regex for matching two keywords.
      *
-     * @param regex used to generate matcher.
-     * @return regex that matches a string with two keywords.
+     * @param regex     Used to generate matcher.
+     * @return regex    That matches a string with two keywords.
      */
     private String generateRegexForTwoKeywords(String regex) {
         assert regex != null;
@@ -531,16 +548,18 @@ public class CommandParserHelper {
     /**
      * Sets the Task's end date if user input is valid.
      *
-     * @param task  object to store values for startDate and endDate.
-     * @throws IllegalValueException    if user input contains repeated end date or repeated start date
+     * @param task  Object to store values for startDate and endDate.
+     * @throws IllegalValueException    If user input contains repeated end date or repeated start date.
      */
     private void matcherSetEndDate(OptionalStringTask task) throws IllegalValueException {
         assert task != null;
         if (isRepeatedEndDate(task)) { 
+            logger.log(Level.FINE, "IllegalValueException thrown in CommandParserHelper, matcherSetEndDate, repeated end time");
             throw new IllegalValueException(MESSAGE_REPEATED_END_TIME);
         } else {
             task.endDate = matchesEndDateFormatsFourToSix();
             if (isEndDateUnmatched(task)) {
+                logger.log(Level.FINE, "IllegalValueException thrown in CommandParserHelper, matcherSetEndDate, repeated start time");
                 throw new IllegalValueException(MESSAGE_REPEATED_START_TIME);
             }
         }
@@ -552,8 +571,8 @@ public class CommandParserHelper {
      * Since setStartOrEndDate(OptionalStringTask) would have set a start or end date,
      * thus if end date is present (i.e was set previously), it implies that end date is repeated.
      *
-     * @param task  object to store values for startDate and endDate.
-     * @return  true if endDate is present, else returns false.
+     * @param task  Object to store values for startDate and endDate.
+     * @return      True if endDate is present, else returns false.
      */
     private boolean isRepeatedEndDate(OptionalStringTask task) {
         assert task != null;
@@ -565,8 +584,8 @@ public class CommandParserHelper {
      * This may happen in cases like "from 1030pm from 1050pm", which is not allowed.
      * Thus if end date is still absent, it implies that start date is repeated.
      *
-     * @param task  object to store values for startDate and endDate.
-     * @return  true if endDate is present, else returns false.
+     * @param task  Object to store values for startDate and endDate.
+     * @return      True if endDate is present, else returns false.
      */
     private boolean isEndDateUnmatched(OptionalStringTask task) {
         assert task != null;
@@ -576,9 +595,9 @@ public class CommandParserHelper {
     /**
      * Put all the values of parameters in task into a HashMap, and returns the HashMap.
      * 
-     * @param   task  OptionalStringTask object that contains String values to be converted to 
-     * an actual Task object.
-     * @return  map containing the values of parameters in task.
+     * @param task  OptionalStringTask object that contains String values to be converted to 
+     *              an actual Task object.
+     * @return      Map containing the values of parameters in task.
      */
     private HashMap<String, Optional<String>> mapContainingVariables(OptionalStringTask task) {
         assert task != null;
@@ -598,7 +617,7 @@ public class CommandParserHelper {
      * Returns a HashMap containing user's input of rate and timePeriod.
      * 
      * @return  HashMap containing user's input of rate and timePeriod.
-     * If user did not input, return Optional.empty() for both parameters in HashMap.
+     *          If user did not input any fields, return Optional.empty() for the field in HashMap.
      */
     private HashMap<String, Optional<String>> matchesRateAndTimePeriod() throws IllegalValueException {
         HashMap<String, Optional<String>> map = new HashMap<String, Optional<String>>();
@@ -606,16 +625,16 @@ public class CommandParserHelper {
         Optional<String> rate = Optional.empty();
         Optional<String> timePeriod = Optional.empty();
 
-        if (matcher.group("rate") != null) {
-            rate = Optional.of(matcher.group("rate").trim());
+        if (matcher.group(RATE) != null) {
+            rate = Optional.of(matcher.group(RATE).trim());
         }
 
-        if (matcher.group("timePeriod") != null) {
-            timePeriod = Optional.of(matcher.group("timePeriod").trim());
+        if (matcher.group(TIME_PERIOD) != null) {
+            timePeriod = Optional.of(matcher.group(TIME_PERIOD).trim());
         }
             
-        map.put("rate", rate);
-        map.put("timePeriod", timePeriod);
+        map.put(RATE, rate);
+        map.put(TIME_PERIOD, timePeriod);
 
         return map;
     }
@@ -625,19 +644,19 @@ public class CommandParserHelper {
      * Either none of the matcher groups are present, or only one matcher group is present. 
      * Return the value of the matcher group if it is present, else return Optional.empty().
      *
-     * @return the value of the matcher group if it is present, else return Optional.empty().
+     * @return  The value of the matcher group if it is present, else return Optional.empty().
      */
     private Optional<String> matchesEndDateFormatsFourToSix() {
         assert matcher != null;
 
         Optional<String> endDate = Optional.empty();
 
-        if (matcher.group("endDateFormatFour") != null) {
-            endDate = Optional.of(matcher.group("endDateFormatFour").trim());
-        } else if (matcher.group("endDateFormatFive") != null) {
-            endDate = Optional.of(matcher.group("endDateFormatFive").trim());
-        } else if (matcher.group("endDateFormatSix") != null) {
-            endDate = Optional.of(matcher.group("endDateFormatSix").trim());
+        if (matcher.group(END_DATE_FORMAT_FOUR) != null) {
+            endDate = Optional.of(matcher.group(END_DATE_FORMAT_FOUR).trim());
+        } else if (matcher.group(END_DATE_FORMAT_FIVE) != null) {
+            endDate = Optional.of(matcher.group(END_DATE_FORMAT_FIVE).trim());
+        } else if (matcher.group(END_DATE_FORMAT_SIX) != null) {
+            endDate = Optional.of(matcher.group(END_DATE_FORMAT_SIX).trim());
         }
 
         return endDate;
@@ -646,13 +665,13 @@ public class CommandParserHelper {
     /**
      * Returns user's trimmed input of priority.
      * 
-     * @return  user's trimmed input of priority. If user did not specify a priority,
-     * by default, return "medium".
+     * @return  User's trimmed input of priority. If user did not specify a priority,
+     *          by default, return "medium".
      */
     private String matchesPriority() {
         String priority;
-        if (matcher.group("priority") != null) {
-            priority = matcher.group("priority").trim();
+        if (matcher.group(PRIORITY) != null) {
+            priority = matcher.group(PRIORITY).trim();
         } else {
             priority = "medium";
         }
@@ -668,8 +687,8 @@ public class CommandParserHelper {
      */
     private String generatePriorityEdit(Matcher matcher) {
         String priority;
-        if (matcher.group("priority") != null) {
-            priority = matcher.group("priority").trim();
+        if (matcher.group(PRIORITY) != null) {
+            priority = matcher.group(PRIORITY).trim();
         } else {
             priority = "null";
         }
@@ -680,16 +699,24 @@ public class CommandParserHelper {
     /**
      * Assigns values into Task's parameters.
      * 
-     * @param   task  OptionalStringTask object that contains String values to be converted to 
-     * an actual Task object.
+     * @param task  OptionalStringTask object that contains String values to be converted to 
+     *              an actual Task object.
      */
     private void assignTaskParameters(OptionalStringTask task) throws IllegalValueException {
-        assert matcher.group("taskName") != null && task != null;
-        task.taskName = Optional.of(matcher.group("taskName").trim());
+        assert matcher.group(TASK_NAME) != null && task != null;
+        task.taskName = Optional.of(matcher.group(TASK_NAME).trim());
         HashMap<String, Optional<String>> recurrenceRateMap = matchesRateAndTimePeriod();
-        task.rate = recurrenceRateMap.get("rate");
-        task.timePeriod = recurrenceRateMap.get("timePeriod");
+        task.rate = recurrenceRateMap.get(RATE);
+        task.timePeriod = recurrenceRateMap.get(TIME_PERIOD);
         task.priority = Optional.of(matchesPriority());
+    }
+    
+    public static String getMessageRepeatedStartTime() {
+        return MESSAGE_REPEATED_START_TIME;
+    }
+    
+    public static String getMessageRepeatedEndTime() {
+        return MESSAGE_REPEATED_END_TIME;
     }
 
     //@@author A0139552B
@@ -701,10 +728,10 @@ public class CommandParserHelper {
      */
     private void assignTaskParametersEdit(OptionalStringTask task) throws IllegalValueException {
         assert task != null;
-        task.taskName = Optional.of(matcher.group("taskName").trim());
+        task.taskName = Optional.of(matcher.group(TASK_NAME).trim());
         HashMap<String, Optional<String>> recurrenceRateMap = matchesRateAndTimePeriod();
-        task.rate = recurrenceRateMap.get("rate");
-        task.timePeriod = recurrenceRateMap.get("timePeriod");
+        task.rate = recurrenceRateMap.get(RATE);
+        task.timePeriod = recurrenceRateMap.get(TIME_PERIOD);
         task.priority = Optional.of(generatePriorityEdit(matcher));
     }
     
