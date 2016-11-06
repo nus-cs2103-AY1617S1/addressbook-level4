@@ -23,7 +23,8 @@ public class DeleteCommand extends Command {
 
 	public static final String MESSAGE_DELETE_TASK_SUCCESS = "Deleted Task: %1$s";
 	public static final String MESSAGE_DELETE_TASK_FAILURE = "No such task was found.";
-	public static final String MESSAGE_DELETE_IN_NEXT_STEP = "Multiple tasks were found containing the entered keywords. Please check below and delete by index.";
+	public static final String MESSAGE_DELETE_IN_NEXT_STEP = "Multiple tasks were found containing the entered keywords."
+			+ " Please check below and delete by index.";
 
 	public final boolean deleteByIndex;
 
