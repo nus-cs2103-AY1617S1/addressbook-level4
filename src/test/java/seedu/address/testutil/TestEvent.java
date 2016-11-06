@@ -1,5 +1,6 @@
 package seedu.address.testutil;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Objects;
@@ -117,10 +118,45 @@ public class TestEvent extends TestActivity implements ReadOnlyEvent {
             return ""; 
 	}
 	
-	@Override
-    public String displayTiming() {
-        return "From " + startTime.toString() + " to " + endTime.toString();
-    }
+	   @Override
+	    public String displayTiming() {
+	        String message = "";
+	        SimpleDateFormat sdf;
+	        
+	        if (this.getStartTime().recurring) {
+	            checkrecurring();
+	            message = message.concat("Every ");
+	            sdf = new SimpleDateFormat("EEEE, h:mm aa");
+	        } else {
+	            message = message.concat("From ");
+	            sdf = new SimpleDateFormat("EEE, MMM d, yyyy h:mm a");
+	        }
+	        
+	        if (isStartAndEndOnSameDate()) {
+	            SimpleDateFormat timeOnly = new SimpleDateFormat("h:mm aa");
+	            message = message.concat(sdf.format(startTime.getCalendarValue().getTime()) + " to " + timeOnly.format(endTime.getCalendarValue().getTime()));
+	        } else {
+	            message =  message.concat(sdf.format(startTime.getCalendarValue().getTime()) + " to " + sdf.format(endTime.getCalendarValue().getTime()));
+	        }
+	        return message;
+	    }
+	    
+	    private void checkrecurring() {
+	        if(this.getStartTime().value.before(Calendar.getInstance())){
+	        if(this.getStartTime().RecurringMessage.contains("sun")||this.getStartTime().RecurringMessage.contains("mon")||this.getStartTime().RecurringMessage.contains("tue")||this.getStartTime().RecurringMessage.contains("wed")||this.getStartTime().RecurringMessage.contains("thu")||this.getStartTime().RecurringMessage.contains("fri")||this.getStartTime().RecurringMessage.contains("sat")){
+	            this.getStartTime().value.add(Calendar.DAY_OF_WEEK, 7);
+	            this.getEndTime().value.add(Calendar.DAY_OF_WEEK, 7);
+	        }
+	        else{
+	            this.getEndTime().value.add(Calendar.DAY_OF_MONTH, 1);
+	            this.getStartTime().value.add(Calendar.DAY_OF_MONTH, 1);}}
+	        
+	    }
+
+	    private boolean isStartAndEndOnSameDate() {
+	        return startTime.getCalendarValue().get(Calendar.YEAR) == endTime.getCalendarValue().get(Calendar.YEAR)
+	                && startTime.getCalendarValue().get(Calendar.DAY_OF_YEAR) == endTime.getCalendarValue().get(Calendar.DAY_OF_YEAR);
+	    }
 	
     //methods specific to TestEvent
     
@@ -130,6 +166,8 @@ public class TestEvent extends TestActivity implements ReadOnlyEvent {
         String dateFormat = "EEE, MMM d, yyyy h:mm a";
         
         sb.append("add " + this.getName().fullName + " ");
+        
+        
         
         if (!getStartTime().value.equals(null)) {
         sb.append("s/" + dUtil.outputDateTimeAsString(this.getStartTime().getCalendarValue(), dateFormat) + " ");     
@@ -146,6 +184,26 @@ public class TestEvent extends TestActivity implements ReadOnlyEvent {
         this.getTags().getInternalList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));
         return sb.toString().trim();
     }
+    
+    public String getAddCommandWithNoEndTime() {
+        StringBuilder sb = new StringBuilder();
+        DateUtil dUtil = new DateUtil();
+        String dateFormat = "EEE, MMM d, yyyy h:mm a";
+        
+        sb.append("add " + this.getName().fullName + " ");
+        
+        if (!getStartTime().value.equals(null)) {
+        sb.append("s/" + dUtil.outputDateTimeAsString(this.getStartTime().getCalendarValue(), dateFormat) + " ");     
+        }
+               
+        if (!getReminder().value.equals(null)) {
+            sb.append("r/" + dUtil.outputDateTimeAsString(this.getReminder().getCalendarValue(), dateFormat) + " ");
+        }
+        
+        this.getTags().getInternalList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));
+        return sb.toString().trim();
+    }
+    
     
     @Override
     public String getAsText() {

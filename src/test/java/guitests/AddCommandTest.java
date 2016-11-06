@@ -5,6 +5,7 @@ import org.junit.Test;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.commons.core.Messages;
 import seedu.address.testutil.TestActivity;
+import seedu.address.testutil.TestEvent;
 import seedu.address.testutil.TestUtil;
 
 import static org.junit.Assert.assertTrue;
@@ -20,20 +21,25 @@ public class AddCommandTest extends AddressBookGuiTest {
         TestActivity[] currentList = td.getTypicalActivities();
         TestActivity activityToAdd = td.findHoon;
 
-        assertAddSuccess(activityToAdd, currentList);
+        assertAddSuccess(activityToAdd.getAddCommand(),activityToAdd, currentList);
         currentList = TestUtil.addPersonsToList(currentList, activityToAdd);
 
         //add a task
         activityToAdd = td.findIda;
-        assertAddSuccess(activityToAdd, currentList);
+        assertAddSuccess(activityToAdd.getAddCommand(),activityToAdd, currentList);
         currentList = TestUtil.addPersonsToList(currentList, activityToAdd);
         assertTrue(activityListPanel.isListMatching(currentList));
  
         //add an event
         activityToAdd = td.findJodie;
-        assertAddSuccess(activityToAdd, currentList);
+        assertAddSuccess(activityToAdd.getAddCommand(),activityToAdd, currentList);
         currentList = TestUtil.addPersonsToList(currentList, activityToAdd);
-    
+
+        //add an event without specifying end time
+        activityToAdd = td.findKenny;
+        assertAddSuccess(((TestEvent) activityToAdd).getAddCommandWithNoEndTime(),activityToAdd, currentList);
+        currentList = TestUtil.addPersonsToList(currentList, activityToAdd);
+               
         //section 2: test for adding duplicates of activities, tasks and events/
         
         //add duplicate activity
@@ -54,7 +60,7 @@ public class AddCommandTest extends AddressBookGuiTest {
  
         //add to empty list
         commandBox.runCommand("clear");
-        assertAddSuccess(td.findAlice);
+        assertAddSuccess(td.findAlice.getAddCommand(),td.findAlice);
 
         //invalid command
         commandBox.runCommand("adds Johnny");
@@ -65,10 +71,8 @@ public class AddCommandTest extends AddressBookGuiTest {
         
     }
 
-    private void assertAddSuccess(TestActivity activityToAdd, TestActivity... currentList) {
-
-
-    	commandBox.runCommand(activityToAdd.getAddCommand());
+    private void assertAddSuccess(String command, TestActivity activityToAdd, TestActivity... currentList) {
+    	commandBox.runCommand(command);
         //confirm the new card contains the right data
         ActivityCardHandle addedCard = activityListPanel.navigateToActivity(activityToAdd.getName().fullName);
         assertMatching(activityToAdd, addedCard);
