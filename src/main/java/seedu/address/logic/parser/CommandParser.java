@@ -749,8 +749,8 @@ public class CommandParser {
             String trimmedArgs = arguments.trim();
             return generateAddDetailedTooltip(trimmedArgs);
         } catch (IllegalValueException e) {
-            logger.info("Illegal add arguments passed for detailed tooltip, showing regular add tooltip instead");
-            return AddCommand.TOOL_TIP;
+            logger.info("Illegal add arguments passed for detailed tooltip, showing regular add tooltip with warning instead");
+            return String.join(NEWLINE_STRING, AddCommand.TOOL_TIP, "Instant parser is unable to determine your current input as it does not match a valid command input.");
         }
 
     }
@@ -766,8 +766,8 @@ public class CommandParser {
             String trimmedArgs = arguments.trim();
             return generateEditDetailedTooltip(trimmedArgs);       
         } catch (IllegalValueException e) {
-            logger.info("Illegal edit arguments passed for detailed tooltip, showing regular edit tooltip instead");
-            return EditCommand.TOOL_TIP;
+            logger.info("Illegal edit arguments passed for detailed tooltip, showing regular edit tooltip with warning instead");
+            return String.join(NEWLINE_STRING, EditCommand.TOOL_TIP, "Instant parser is unable to determine your current input as it does not match a valid command input.");
         }
     }
 
