@@ -3,6 +3,7 @@
 
 * [Getting Started](#getting-started)
 * [Features](#features)
+   * [Adding tasks](#add-command)
 * [FAQ](#faq)
 * [Command Summary](#command-summary)
 
