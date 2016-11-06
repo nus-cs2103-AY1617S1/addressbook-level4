@@ -121,6 +121,59 @@ public class AutocompleteTextField extends TextField {
     }
 }
 ```
+###### \java\seedu\address\ui\BrowserPanel.java
+``` java
+/**
+ * The Browser Panel of the App modified to display the agenda.
+ */
+public class BrowserPanel extends UiPart {
+
+    private static Logger logger = LogsCenter.getLogger(BrowserPanel.class);
+    private static final String FXML = "BrowserPanel.fxml";
+    private VBox panel;
+    private AnchorPane placeHolderPane;
+
+    @FXML
+    private MyAgenda agenda;
+
+    /**
+     * Constructor is kept private as {@link #load(AnchorPane)} is the only way
+     * to create a BrowserPanel.
+     */
+    @Override
+    public void setNode(Node node) {
+        panel = (VBox) node;
+    }
+
+    @Override
+    public String getFxmlPath() {
+        return FXML;
+        // not applicable
+    }
+
+    @Override
+    public void setPlaceholder(AnchorPane pane) {
+        this.placeHolderPane = pane;
+    }
+
+    /**
+     * Factory method for creating a Browser Panel. This method should be called
+     * after the FX runtime is initialized and in FX application thread.
+     * 
+     * @param placeholder
+     *            The AnchorPane where the BrowserPanel must be inserted
+     */
+    public static BrowserPanel load(Stage primaryStage, AnchorPane browserPanelPlaceholder,
+            ObservableList<TaskOccurrence> taskList) {
+        logger.info("Initializing Agenda");
+        BrowserPanel browserPanel = UiPartLoader.loadUiPart(primaryStage, browserPanelPlaceholder, new BrowserPanel());
+        browserPanel.initialize(taskList);
+        FxViewUtil.applyAnchorBoundaryParameters(browserPanel.agenda, 0.0, 0.0, 0.0, 0.0);
+        browserPanel.placeHolderPane.getChildren().add(browserPanel.panel);
+        return browserPanel;
+    }
+
+```
 ###### \java\seedu\address\ui\CommandBox.java
 ``` java
     public void handleNavigationChanged(String command) {
