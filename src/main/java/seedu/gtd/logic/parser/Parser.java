@@ -226,13 +226,12 @@ public class Parser {
      */
     private Command prepareEdit(String args) {
         
+        Optional<Integer> index = parseIndex(args, EDIT_DATA_ARGS_FORMAT);
         final Matcher matcher = EDIT_DATA_ARGS_FORMAT.matcher(args.trim());
-        // Validate arg string format
         if (!matcher.matches()) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
         }
         
-        Optional<Integer> index = Optional.of(Integer.parseInt(matcher.group("targetIndex")));
         final String[] splitNewDetails = matcher.group("newDetails").split("\\s+");
         ArrayList<String> combinedDetails = combineSameDetails(splitNewDetails);
         
@@ -406,7 +405,23 @@ public class Parser {
         return Optional.of(Integer.parseInt(index));
 
     }
+    
+    //@@author A0146130W
+    private Optional<Integer> parseIndex(String command, Pattern matcherFormat) {
+        final Matcher matcher = matcherFormat.matcher(command.trim());
+        if (!matcher.matches()) {
+            return Optional.empty();
+        }
 
+        String index = matcher.group("targetIndex");
+        if(!StringUtil.isUnsignedInteger(index)){
+            return Optional.empty();
+        }
+        return Optional.of(Integer.parseInt(index));
+
+    }
+    
+    //@@author addressbook-level4
     /**
      * Parses arguments in the context of the find task command.
      *
