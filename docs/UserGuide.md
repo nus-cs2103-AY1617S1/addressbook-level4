@@ -23,7 +23,7 @@
 1. Ensure you have Java version `1.8.0_60` or later installed in your computer.<br>
    > Having any Java 8 version is not enough. <br>
    This app will not work with earlier versions of Java 8.
-   
+
 2. Download the latest `DearJim.jar` from the [releases](../../../releases) tab.
 3. Copy the file to the folder you want to use as the home folder for DearJim.
 4. Double-click the file to start the app. The GUI should appear in a few seconds. <br>
@@ -36,10 +36,10 @@ Figure 1: GUI of DearJim
 </p>
 
 5. Type the command in the command box and press <kbd>Enter</kbd> to execute it. <br>
-   e.g. typing **`help`** and pressing <kbd>Enter</kbd> will open the help window. 
+   e.g. typing **`help`** and pressing <kbd>Enter</kbd> will open the help window.
 6. Some example commands you can try:
    * **`list`** : lists all tasks. This is the default view.
-   * **`add`**` Learn how to use DearJim` : 
+   * **`add`**` Learn how to use DearJim` :
      adds a task to DearJim.
    * **`delete`**` 1` : deletes the first task shown in the current list.
    * **`exit`** : exits the app.
@@ -55,9 +55,18 @@ Figure 1: GUI of DearJim
 > * The order of parameters is fixed.
 
 <br>
+
+<!-- @@author A0093960X -->
+
 ### Viewing help: `help`
-Opens the user guide with a new window.<br>
+Opens a help window that contains a cheat sheet of all the commands of DearJim.<br>
+You can leave the help window open while using DearJim if you need to refer to the cheat sheet.
+
+
 Format: `help`<br>
+
+> While the help window is selected, you may close it by simply pressing any key on your keyboard!
+
 <p align="center">
  <img src="images/helpCmd.PNG" width="650">
 </p>
@@ -70,17 +79,19 @@ Figure 2: Help Command
 Adds a task into DearJim.<br>
 Format: `[add] NAME [start DATE_TIME] [end DATE_TIME] [repeat every RECURRING_INTERVAL] [-PRIORITY]`
 
->You may also substitute `start` with `from/at`, `end` with `to/by`.
+>You may also substitute `start` with `from`/`at`, `end` with `to`/`by`.
 
 By default, if no valid command is specified, the input will be treated as an `add` command. This means typing in `add` is optional. <br>
 If you would like to add a task with a name that begins with other command words, just include the `add` to override the other command words. <br>
 
 Example:
 
-|Input|Interpreted Command| Intepreted Parameters | Result|
+|Input|Interpreted Command| Result|
 |---|---|---|---|
-|`help my mum to buy cooking ingredients`| `help`|`my mum to buy cooking ingredients`| Execute `help` command|
-|`add help my mum to buy cooking ingredients`| `add`| `help my mum to buy cooking ingredients`| `add` a task with name `help my mum to buy cooking ingredients`|
+|`help my mum to buy cooking ingredients`| `help`| Execute `help` command|
+|`add help my mum to buy cooking ingredients`| `add`| `add` a task with name `help my mum to buy cooking ingredients`|
+
+<!-- @@author -->
 
 **_Adding a task_**
 
@@ -129,7 +140,7 @@ Format: `NAME end DATE_TIME [repeat every RECURRING_INTERVAL] [-PRIORITY]`
 
 `DATE_TIME` is flexible!<br>
 * If no `DATE` is specified, `DATE` will be assumed to be today.<br>
-* If no `TIME` is specified, `TIME` will be assumed to be 11:59pm. 
+* If no `TIME` is specified, `TIME` will be assumed to be 11:59pm.
 
 <br>
 
@@ -175,14 +186,14 @@ Example:
 
 **_Adding a task with time interval_**
 
-Having a company meeting? Planning to have lunch with a friend next week? <br> 
+Having a company meeting? Planning to have lunch with a friend next week? <br>
 Add a task with a time interval so you will know what time your task starts and ends!<br>
 If you are unsure about the end time for the task, you can leave it blank.<br>  
 Format:
-`NAME start DATE_TIME [end DATE_TIME] [repeat every RECURRING_INTERVAL] [-PRIORITY]` 
+`NAME start DATE_TIME [end DATE_TIME] [repeat every RECURRING_INTERVAL] [-PRIORITY]`
 > Note: You may use `from` or `at` to indicate the start time, and `to` or `by` to indicate the end time.<br>
 
-Example: 
+Example:
 * `Company meeting tonight at 7pm to 9pm`
 * `Family dinner at noon`
 * `Meet Akshay from 1pm -h`
@@ -200,14 +211,14 @@ Keyword: `repeat every RECURRING_INTERVAL`
 `RECURRING_INTERVAL` can be specified in a few formats, with some examples listed below.
 
 Recurring Interval | Format  
--------- | :-------- 
+-------- | :--------
 Hour | `hour`, `3 hours`
 Day | `day`, `3 days`, `monday`, `mon`
 Week | `week`, `5 weeks`
 Month | `month`, `2 months`
 Year | `year`, `6 years`
 
-Examples: 
+Examples:
 * `Run at track at 7am repeat every 3 days`
 * `Visit mum repeat every sun`
 
@@ -280,16 +291,18 @@ Example:
 
 <br/>
 
-
+<!-- @@author A0093960X -->
 ### Undoing a command: `undo`
-Reverses the effects of the previous command if the command is reversible. Helps you to undo any accidental mistakes that you have made! <br>
+Reverses the effects of the previous undoable command. <br>
+Helps you to undo any accidental mistakes that you have made! <br>
 Format: `undo`
-> Commands that you can `undo`
-> * `add`
-> * `edit`
-> * `delete`
-> * `clear`
-> * `done`
+
+Commands that you can `undo` (Undoable commands):
+* `add`
+* `edit`
+* `delete`
+* `clear`
+* `done`
 
 <br/>
 
@@ -297,12 +310,14 @@ Format: `undo`
 
 ### Redoing a command: `redo`
 Reverses a previous `undo` command. <br>
+Not satisfied with your last `undo`? `redo` will reverse the `undo` for you!
+
 Format: `redo`
-> `redo` allows your to reverse your previous `undo` to get back your data!
->
-> Note: `redo` only works if no `add`, `edit`, `delete`, `clear` or `done` commands have been entered after the last `undo`.
+> Note: `redo` can only reverse your last `undo` if no undoable commands have been entered after that `undo`.
 
 <br/>
+
+<!-- @@author -->
 
 ### Listing tasks: `list`
 **_Listing all undone tasks_**
@@ -329,7 +344,7 @@ Example:
 Switches the task list view to the done list view, to show all done tasks in DearJim.<br>
 Format: `list done`
 
-> `add` and `edit` commands do not work in done list view. As such, you are not able to directly add tasks into the done list, or edit the details of done tasks. 
+> `add` and `edit` commands do not work in done list view. As such, you are not able to directly add tasks into the done list, or edit the details of done tasks.
 <br/>
 
 ### Finding a task: `find`
@@ -349,7 +364,7 @@ Examples:
 
 ### Changing storage location: `store`
 Need to look at your task on the move? Simply store the data at another location and bring it along with you.<br>
-In addition to changing the storage file location, `store` handles your existing data in two different ways, depending if the filepath you specify is an existing storage file.<br> 
+In addition to changing the storage file location, `store` handles your existing data in two different ways, depending if the filepath you specify is an existing storage file.<br>
 If the storage file specified is not present, DearJim will create this new file and store your current data in it.<br>
 If the storage file specified is present, data will be loaded from this storage file into DearJim.<br>
 Format: `store FILEPATH`
@@ -369,7 +384,7 @@ Format: `exit`
 
 <br/>
 
-
+<!-- @@author A0093960X -->
 ### Getting hints for command format
 If you have forgotten about the command formats, simply type any word and DearJim will provide you hints on the command format that you might want to use!
 
@@ -391,12 +406,33 @@ Figure 4: Hints for add command
 <p align="center">
 Figure 5: Hints for delete command
 </p>
-<br>
 
-### Saving the data 
+### Instant `add` and `edit` task preview
+DearJim features an instant `add` and `edit` command task preview, allowing you to preview the task details as your type your input!<br>
+Now you can be sure of how your input will be interpreted as a task to be added or edited!
+
+Examples:
+
+* Typing `add do my homework from 3pm to 4pm repeat every day -high` generates an instant `add` preview
+
+<p align="center">
+<img src="images/addInstantParse.PNG" width="550">
+</p>
+
+* Typing `edit 1 by 10pm -low -reset repeat` generates an instant `edit` preview
+
+<p align="center">
+<img src="images/editInstantParser.PNG" width="550">
+</p>
+
+
+
+### Saving the data
 Data in DearJim is automatically saved on the hard disk after any command that changes the data is executed.<br>
-There is no need to save manually.
+There is no need to save manually.<br>
+You will never have to worry about forgetting to save your data while using DearJim! Hurray!
 
+<!-- @@author -->
 ## FAQ
 
 **Q**: How do I transfer my data to another computer?<br>
@@ -404,11 +440,11 @@ There is no need to save manually.
 
 **Q**: How do I install the program?<br>
 **A**: Double-click the DearJim.jar file.
-       
+
 ## Command Summary
 
 Command | Format  
--------- | :-------- 
+-------- | :--------
 Help | `help`
 Add | `[add] NAME [start DATE_TIME] [end DATE_TIME] [repeat every RECURRING_INTERVAL] [-PRIORITY]`
 Edit | `edit INDEX [NAME] [start DATE_TIME] [end DATE_TIME] [repeat every RECURRING_INTERVAL] [-PRIORITY] [-reset parameter]`
