@@ -10,7 +10,7 @@ We are a team based in the [School of Computing, National University of Singapor
 <img src="images/JingHe.jpg" width="150"><br>
 
 
-* Components in charge of: [Model] (https://github.com/CS2103AUG2016-T10-C3/main/blob/master/docs/DeveloperGuide.md#section-b---understanding-the-component)
+* Components in charge of: [Model] (https://github.com/CS2103AUG2016-T10-C3/main/blob/master/docs/DeveloperGuide.md)
 * Aspects/tools in charge of:
 * Features implemented:
 	* List categories or tags
@@ -32,7 +32,7 @@ We are a team based in the [School of Computing, National University of Singapor
 <img src="images/KhongYew.jpg" width="150"><br>
 
 
-* Components in charge of: [Storage] (https://github.com/CS2103AUG2016-T10-C3/main/blob/master/docs/DeveloperGuide.md#storage-component)
+* Components in charge of: [Storage] (https://github.com/CS2103AUG2016-T10-C3/main/blob/master/docs/DeveloperGuide.md)
 * Aspects/tools in charge of: Testing, Git
 * Features implemented:
 	* List persons
@@ -53,7 +53,7 @@ We are a team based in the [School of Computing, National University of Singapor
 <img src="images/Zhiming.jpg" width="150"><br>
 
 
-* Components in charge of: [Logic] (https://github.com/CS2103AUG2016-T10-C3/main/blob/master/docs/DeveloperGuide.md#logic-component)
+* Components in charge of: [Logic] (https://github.com/CS2103AUG2016-T10-C3/main/blob/master/docs/DeveloperGuide.md)
 * Aspects/tools in charge of: Git
 * Features implemented:
 	* Edit tasks’ description, date & time and tags
@@ -72,7 +72,7 @@ We are a team based in the [School of Computing, National University of Singapor
 #### Ng Kai Sing
 <img src="images/KaiSing.jpg" width="150"><br>
 
-* Components in charge of: [UI] (https://github.com/CS2103AUG2016-T10-C3/main/blob/master/docs/DeveloperGuide.md#ui-component)
+* Components in charge of: [UI] (https://github.com/CS2103AUG2016-T10-C3/main/blob/master/docs/DeveloperGuide.md)
 * Aspects/tools in charge of: Git
 * Features implemented:
 	* Complete Command
