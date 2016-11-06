@@ -2,11 +2,13 @@ package seedu.menion.logic.commands;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Optional;
 
 import seedu.menion.commons.core.Config;
 import seedu.menion.commons.core.EventsCenter;
 import seedu.menion.commons.events.storage.StoragePathChangedEvent;
 import seedu.menion.commons.events.ui.ModifyStorageEvent;
+import seedu.menion.commons.exceptions.DataConversionException;
 import seedu.menion.commons.util.ConfigUtil;
 import seedu.menion.model.ActivityManager;
 import seedu.menion.storage.XmlActivityManagerStorage;
@@ -82,23 +84,31 @@ public class UndoCommand extends Command {
 			return false;
 		}
 		
-		model.addStoragePathToRedoStack(Config.getInstance().getActivityManagerFilePath());
+		// Initialising Config file
+        Config initializedConfig;
+    	try {
+            Optional<Config> configOptional = ConfigUtil.readConfig(Config.DEFAULT_CONFIG_FILE);
+            initializedConfig = configOptional.orElse(Config.getInstance());
+        } catch (DataConversionException e) {
+            initializedConfig = Config.getInstance();
+        }
+    	
+		model.addStoragePathToRedoStack(initializedConfig.getActivityManagerFilePath());
 		
 		String storagePathToUndo = model.retrievePreviouStoragePathFromUndoStack();
-		
+    	
 		// Deleting old files
-		File oldStorage =  new File(Config.getInstance().getActivityManagerFilePath());
+		File oldStorage =  new File(initializedConfig.getActivityManagerFilePath());
 		oldStorage.delete();
 		
 		// Saving configuration
-		Config.getInstance().setActivityManagerFilePath(storagePathToUndo);
+		initializedConfig.setActivityManagerFilePath(storagePathToUndo);
 		try {
-			ConfigUtil.saveConfig(Config.getInstance(), Config.getInstance().DEFAULT_CONFIG_FILE);
+			ConfigUtil.saveConfig(initializedConfig, initializedConfig.DEFAULT_CONFIG_FILE);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 
-		
     	// Setting up new storage location
 		XmlActivityManagerStorage newStorage = new XmlActivityManagerStorage(storagePathToUndo);
 		EventsCenter.getInstance().post(new StoragePathChangedEvent(newStorage, model.getActivityManager()));		

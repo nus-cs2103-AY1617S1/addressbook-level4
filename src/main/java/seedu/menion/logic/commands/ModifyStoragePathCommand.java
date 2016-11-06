@@ -67,11 +67,23 @@ public class ModifyStoragePathCommand extends Command {
     	
         if (pathToChange != null) {
         
-        	model.addStoragePathToUndoStack(Config.getInstance().getActivityManagerFilePath());
-        	// Add old file path to undo stack
+    		// Initialising Config file
+            Config initializedConfig;
+        	try {
+                Optional<Config> configOptional = ConfigUtil.readConfig(Config.DEFAULT_CONFIG_FILE);
+                initializedConfig = configOptional.orElse(Config.getInstance());
+            } catch (DataConversionException e) {
+                initializedConfig = Config.getInstance();
+            }
+        	
+        	//for test
         	if (pathToChange.equals(TEST_STORAGE_PATH)) {
-    			//for test
+        		model.addStoragePathToUndoStack(initializedConfig.getActivityManagerFilePath());
     			model.addStoragePathToUndoStack(ORIGINAL_TEST_STORAGE_PATH);
+        	}
+        	else {
+            	// Add old file path to undo stack
+            	model.addStoragePathToUndoStack(initializedConfig.getActivityManagerFilePath());            	
         	}
     		
     		if (!pathToChange.equals(DEFAULT_STORAGE_PATH) && !pathToChange.equals(TEST_STORAGE_PATH)) {
@@ -83,13 +95,13 @@ public class ModifyStoragePathCommand extends Command {
     		}
     		
     		// Deleting old files
-    		File oldStorage =  new File(Config.getInstance().getActivityManagerFilePath());
+    		File oldStorage =  new File(initializedConfig.getActivityManagerFilePath());
     		oldStorage.delete();
     		
             // Saving configuration
-    		Config.getInstance().setActivityManagerFilePath(newPath);
+    		initializedConfig.setActivityManagerFilePath(newPath);
         	try {
-				ConfigUtil.saveConfig(Config.getInstance(), Config.getInstance().DEFAULT_CONFIG_FILE);
+				ConfigUtil.saveConfig(initializedConfig, initializedConfig.DEFAULT_CONFIG_FILE);
 			} catch (IOException e) {
 				return new CommandResult("Unable to save configuration");
 			}

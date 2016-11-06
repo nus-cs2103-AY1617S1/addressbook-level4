@@ -69,7 +69,6 @@ public class StorageManager extends ComponentManager implements Storage {
     @Subscribe
     public void handleStoragePathChangedEventEvent(StoragePathChangedEvent event) {
 		this.activityManagerStorage = event.getUpdatedXmlActivityManagerStorage();
-		System.out.println(activityManagerStorage.getActivityManagerFilePath());
 		try {
 			this.saveActivityManager(event.getUpdatedReadOnlyActivityManager());
 		} catch (IOException e) {
