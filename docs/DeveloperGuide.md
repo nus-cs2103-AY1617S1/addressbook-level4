@@ -599,25 +599,32 @@ Day:
 
 ## Appendix E: Product Survey
 
+<!-- @@author A0139211R -->
 ### Fantastical
 #### Strengths
 
-1. It has a good and clean UI, really simple to use. <br>
-2. It has integration with all iOS products, i.e. mac, iphone, ipad etc. <br>
-3. Includes all CRUD features. <br>
-4. It has a reminder function. <br>
-5. Has a list of all upcoming tasks for the week at the left hand side. <br>
-6. Has natural language processing, can add events using Siri. <br>
-7. Locations added when creating events are automatically shown in google/apple map when clicked. <br>
-8. Automatically syncs with apple calendar, updates and syncs on the go. <br>
+1. It has integration with all iOS products, i.e. mac, iphone, ipad etc. <br>
+2. Includes all CRUD features. <br>
+3. It has a reminder function. <br>
+4. Has a list of all upcoming tasks for the week at the left hand side. <br>
+5. Has natural language processing, can add events using Siri. <br>
+6. Locations added when creating events are automatically shown in google/apple map when clicked. <br>
+7. Automatically syncs with apple calendar, updates and syncs on the go. <br>
+8. Can scroll according to tasks for by the first alphabet of the task, which makes it easier to find the tasks you want <br>
 
 #### Weakness
 
 1. Limited features for free users. <br>
 2. Hard to categorise tasks. <br> 
 3. Can be difficult to use for first time users <br>
-4. No support for ipad.
-5. No alert when event is starting
+4. No support for ipad. <br>
+5. No alert when event is starting <br>
+6. Default color scheme is black background with white words. May be quite distracting and hinders reading of words.
+7. UI is not really user friendly with a whole lot of words
+8. Little color code for users to categorize
+9. Only available for apple products i.e. Mac, Iphone, Ipad etc.
+10. Requires quite a bit of point and clicking
+<!-- @@author A0139211R -->
 
 
 ### Google Cal
@@ -641,7 +648,7 @@ Day:
 3. Requires a google account.<br>
 4. Does not support floating task.<br>
 5. Steep learning curve.<br>
-6. Does not support categaries.<br>
+6. Does not support categories.<br>
 
 
 <!-- @@author A0139671X-->
