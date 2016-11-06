@@ -201,7 +201,7 @@ public class LogicManagerTest {
 
     }
 
-
+    //@@author A0135767U
     @Test
     public void execute_view_showsAllTask() throws Exception {
         // prepare expectations
@@ -217,7 +217,13 @@ public class LogicManagerTest {
                 expectedAB,
                 expectedList);
     }
-
+    
+    @Test
+    public void execute_view_invalidArgsFormat() throws Exception {
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, ViewCommand.MESSAGE_USAGE);
+        assertCommandBehavior("view ", expectedMessage);
+    }
+   //@@author
 
     /**
      * Confirms the 'invalid argument index number behaviour' for the given command
@@ -278,7 +284,6 @@ public class LogicManagerTest {
         assertEquals(model.getFilteredTaskList().get(1), threeTasks.get(1));
     }
 
-
     @Test
     public void execute_deleteInvalidArgsFormat_errorMessageShown() throws Exception {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE);
@@ -331,6 +336,7 @@ public class LogicManagerTest {
                 expectedList);
     }
 
+  //@@author A0135767U
     @Test
     public void execute_find_isNotCaseSensitive() throws Exception {
         TestDataHelper helper = new TestDataHelper();
@@ -349,6 +355,7 @@ public class LogicManagerTest {
                 expectedAB,
                 expectedList);
     }
+  //@@author
 
     @Test
     public void execute_find_matchesIfAnyKeywordPresent() throws Exception {

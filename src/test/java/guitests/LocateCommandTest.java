@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
+//@@author A0135767U
 public class LocateCommandTest extends AddressBookGuiTest{
 	  @Test
 	    public void viewPerson_nonEmptyList() {
