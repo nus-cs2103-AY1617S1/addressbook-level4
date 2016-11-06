@@ -4,9 +4,7 @@ import javafx.stage.Stage;
 import seedu.todo.TestApp;
 import seedu.todo.guitests.GuiRobot;
 
-/**
- * @@author A0139812A
- */
+// @@author A0139812A
 public class MainGuiHandle extends GuiHandle {
     
     public MainGuiHandle(GuiRobot guiRobot, Stage primaryStage) {
@@ -15,6 +13,10 @@ public class MainGuiHandle extends GuiHandle {
     
     public ConsoleHandle getConsole() {
         return new ConsoleHandle(guiRobot, primaryStage, TestApp.APP_TITLE);
+    }
+    
+    public AliasViewHandle getAliasView() {
+        return new AliasViewHandle(guiRobot, primaryStage, TestApp.APP_TITLE);
     }
     
     public TaskListHandle getTaskList() {
