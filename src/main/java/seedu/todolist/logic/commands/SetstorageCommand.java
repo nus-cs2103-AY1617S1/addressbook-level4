@@ -1,5 +1,6 @@
 package seedu.todolist.logic.commands;
-import java.io.*;
+
+import java.io.File;
 
 //@@author A0158963M 
 /**
@@ -29,6 +30,7 @@ public class SetstorageCommand extends Command{
     		file.delete();
     	}
     	storage.setFilePath(filepath);
+
     	return new CommandResult(MESSAGE_SUCCESS);
 	}
 	

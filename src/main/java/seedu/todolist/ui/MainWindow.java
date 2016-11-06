@@ -125,7 +125,6 @@ public class MainWindow extends UiPart {
         statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getToDoListFilePath());
         commandBox = CommandBox.load(primaryStage, getCommandBoxPlaceholder(), resultDisplay, logic, storage, statusBarFooter);
     }
-    
 
     private AnchorPane getCommandBoxPlaceholder() {
         return commandBoxPlaceholder;

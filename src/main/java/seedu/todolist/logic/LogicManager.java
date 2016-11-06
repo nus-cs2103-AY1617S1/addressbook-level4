@@ -3,13 +3,13 @@ package seedu.todolist.logic;
 import javafx.collections.ObservableList;
 import seedu.todolist.commons.core.ComponentManager;
 import seedu.todolist.commons.core.LogsCenter;
-import seedu.todolist.commons.core.Config;
 import seedu.todolist.logic.commands.Command;
 import seedu.todolist.logic.commands.CommandResult;
 import seedu.todolist.logic.parser.CommandParser;
 import seedu.todolist.model.Model;
 import seedu.todolist.model.task.ReadOnlyTask;
 import seedu.todolist.storage.Storage;
+
 import java.util.logging.Logger;
 
 /**
@@ -21,7 +21,7 @@ public class LogicManager extends ComponentManager implements Logic {
     private final Model model;
     private final CommandParser parser;
     private final Storage storage;
-  
+
     //@@author A0158963M
     public LogicManager(Model model, Storage storage) {
         this.model = model;

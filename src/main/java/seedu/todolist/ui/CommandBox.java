@@ -7,7 +7,6 @@ import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import seedu.todolist.commons.core.Config;
 import seedu.todolist.commons.core.LogsCenter;
 import seedu.todolist.commons.events.ui.IncorrectCommandAttemptedEvent;
 import seedu.todolist.commons.util.FxViewUtil;
