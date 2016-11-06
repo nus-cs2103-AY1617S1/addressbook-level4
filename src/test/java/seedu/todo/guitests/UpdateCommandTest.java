@@ -69,18 +69,15 @@ public class UpdateCommandTest extends GuiTest {
         assertTaskVisible(testTask);
     }
 
-    @Ignore
     @Test
     public void updateCommand_updateTaskWithDeadlineToFloatingTask() {
-        // TODO: Make this pass
-        
         // Add a task
         console.runCommand("add Buy milk by today");
         
         // Update the task
-        String command = "update 1 nodeadline";
+        String command = "update 1 by null";
         testTask.setName("Buy milk");
-        testTask.setDueDate(DateUtil.NO_DATETIME_VALUE);
+        testTask.setDueDate(null);
         console.runCommand(command);
         assertTaskVisible(testTask);
     }
