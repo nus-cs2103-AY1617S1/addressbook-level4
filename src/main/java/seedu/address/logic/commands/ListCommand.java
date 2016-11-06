@@ -3,8 +3,11 @@ package seedu.address.logic.commands;
 import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.function.Predicate;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import seedu.address.commons.core.EventsCenter;
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.DisplayTaskListEvent;
 import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.ReadOnlyTaskFilter;
@@ -15,7 +18,8 @@ import seedu.address.model.task.ReadOnlyTaskFilter;
  */
 public class ListCommand extends Command {
 
-    public static final String COMMAND_WORD = "list";
+	private static final Logger logger = LogsCenter.getLogger(ListCommand.class.getName());
+	public static final String COMMAND_WORD = "list";
     
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Lists all tasks filtered by specified parameters\n"
             + "Event Parameters: [TASK_TYPE] [STATUS] [DAY]\n"
@@ -46,6 +50,7 @@ public class ListCommand extends Command {
     	listPredicateUpdateTaskType();
     	listPredicateUpdateStatus();
     	listPredicateUpdateDay();
+    	logger.log(Level.INFO, "Updating filteredTaskList with listPredicate");
     	model.updateFilteredTaskList(listPredicate);
     	model.checkForOverdueTasks();
     	
@@ -60,6 +65,7 @@ public class ListCommand extends Command {
     	Predicate<ReadOnlyTask> dayPredicate = null;
     	if(day.isPresent()) {
     		dayPredicate = ReadOnlyTaskFilter.isThisDate(day.get().toLocalDate());
+    		logger.log(Level.FINE, "dayPredicate is set");
     		listPredicate = isFirstPredicate ?
     				dayPredicate : listPredicate.and(dayPredicate);
     		isFirstPredicate = false;
@@ -87,6 +93,7 @@ public class ListCommand extends Command {
     		case "default":
     			statusPredicate = ReadOnlyTaskFilter.isDone().negate();
     		}
+    		logger.log(Level.FINE, "statusPredicate is set");
     		listPredicate = isFirstPredicate ? 
     				statusPredicate : listPredicate.and(statusPredicate);
     		isFirstPredicate = false;
@@ -116,6 +123,7 @@ public class ListCommand extends Command {
     			taskTypePredicate = ReadOnlyTaskFilter.isEventTask();
     			break;
     		}
+    		logger.log(Level.FINE, "taskTypePredicate is set");
         	listPredicate = isFirstPredicate ? 
     				taskTypePredicate : listPredicate.and(taskTypePredicate);
     		isFirstPredicate = false;
