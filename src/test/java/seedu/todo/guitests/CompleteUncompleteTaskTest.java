@@ -1,11 +1,16 @@
 package seedu.todo.guitests;
 
+import static org.junit.Assert.assertEquals;
+
 import java.time.LocalDateTime;
 
 import org.junit.Before;
 import org.junit.Test;
 
 import seedu.todo.commons.util.DateUtil;
+import seedu.todo.controllers.CompleteTaskController;
+import seedu.todo.controllers.UncompleteTaskController;
+import seedu.todo.models.Event;
 import seedu.todo.models.Task;
 
 /**
@@ -74,6 +79,20 @@ public class CompleteUncompleteTaskTest extends GuiTest {
         console.runCommand("complete 1");
         console.runCommand("list completed");
         assertTaskVisibleAfterCmd("uncomplete 1", task1);
+    }
+    
+    @Test
+    public void complete_event_error() {
+        console.runCommand("complete 3");
+        String consoleMessage = CompleteTaskController.MESSAGE_CANNOT_COMPLETE_EVENT;
+        assertEquals(consoleMessage, console.getConsoleTextArea());
+    }
+    
+    @Test
+    public void uncomplete_event_error() {
+        console.runCommand("uncomplete 3");
+        String consoleMessage = UncompleteTaskController.MESSAGE_CANNOT_UNCOMPLETE_EVENT;
+        assertEquals(consoleMessage, console.getConsoleTextArea());
     }
 
 }
