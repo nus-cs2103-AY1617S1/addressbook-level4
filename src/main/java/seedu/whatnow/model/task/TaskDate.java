@@ -23,7 +23,10 @@ public class TaskDate {
     public static final String INVALID_TASK_DATE_RANGE_FORMAT = "The task date range is invalid!";
 
     public static final String DATE_NUM_SLASH_WITH_YEAR_FORMAT = "dd/MM/yyyy";
-
+    
+    public static final String TODAY_ARG = "today";
+    public static final String TMR_ARG = "tomorrow";
+    
     private static final Pattern DAYS_MONDAY = Pattern.compile("((?:monday|mon))", Pattern.CASE_INSENSITIVE);
     private static final Pattern DAYS_TUESDAY = Pattern.compile("((?:tuesday|tue|tues))", Pattern.CASE_INSENSITIVE);
     private static final Pattern DAYS_WEDNESDAY = Pattern.compile("((?:wednesday|wed))", Pattern.CASE_INSENSITIVE);
@@ -72,7 +75,6 @@ public class TaskDate {
     private static final int INCREASE_DATE_BY_ONE_DAY = 1;
     private static final int INCREASE_DATE_BY_SEVEN_DAYS = 7;
 
-
     // @@author A0139128A
     /**
      * Validates given date
@@ -83,6 +85,15 @@ public class TaskDate {
             throws IllegalValueException, ParseException {
 
         if (taskDate == null && startDate != null && endDate != null) {
+            if (!isValidDate(startDate) || !isValidDate(endDate)) {
+                throw new IllegalValueException(INVALID_TASK_DATE_RANGE_FORMAT);
+            }
+            if(TODAY.matcher(startDate).find() || TOMORROW.matcher(startDate).find()) {
+                startDate = performStartDate(startDate);
+            }
+            if(TODAY.matcher(endDate).find() || TOMORROW.matcher(endDate).find()) {
+                endDate = performEndDate(endDate);
+            }
             if (!isValidDateRange(startDate, endDate)) {
                 throw new IllegalValueException(INVALID_TASK_DATE_RANGE_FORMAT);
             }
@@ -91,34 +102,56 @@ public class TaskDate {
                 throw new IllegalValueException(MESSAGE_NAME_CONSTRAINTS);
             }
             if (TODAY.matcher(taskDate).find()) {
-                assignTodayDate();
+                fullDate = assignTodayDate();
             } else if (TOMORROW.matcher(taskDate).find()) {
                 assignTmrDate();
             }
         }
     }
-
-    // @@author A0139128A
+    //@@author A0139128A
+    /** Assigns the appropriate today's or tomorrow date to startDate */
+    private String performStartDate(String startDate) {
+        if(TODAY.matcher(startDate).find()) {
+            return assignTodayDate();
+        } else {
+            return assignTmrDate();
+        }
+    }
+    //@@author A0139128A
+    /** Assigns the appropriate today's or tomorrow date to endDate */
+    private String performEndDate(String endDate) {
+        if(TODAY.matcher(endDate).find()) {
+            return assignTodayDate();
+        } else {
+            return assignTmrDate();
+        }
+    }
+    
+    //@@author A0139128A
     /** Assigns today's date to fullDate */
-    private void assignTodayDate() {
+    private String assignTodayDate() {
+        String todayDate;
         DateFormat dateFormat = new SimpleDateFormat(DATE_NUM_SLASH_WITH_YEAR_FORMAT);
         Calendar cal = Calendar.getInstance();
 
-        fullDate = dateFormat.format(cal.getTime());
+        todayDate = dateFormat.format(cal.getTime());
+        return todayDate;
     }
 
-    // @@author A0139128A
+    //@@author A0139128A
     /** Assigns tmr's date to fullDate */
-    private void assignTmrDate() {
+    private String assignTmrDate() {
+        String tmrDate;
         DateFormat dateFormat2 = new SimpleDateFormat(DATE_NUM_SLASH_WITH_YEAR_FORMAT);
         Calendar cal2 = Calendar.getInstance();
 
         cal2.add(Calendar.DATE, 1);
 
-        fullDate = dateFormat2.format(cal2.getTime());
+        tmrDate = dateFormat2.format(cal2.getTime());
+        return tmrDate;
     }
 
-    // @@author A0139128A
+    //@@author A0139128A
     /**
      * @param test
      *            is a given user date input
@@ -127,7 +160,6 @@ public class TaskDate {
      * @throws ParseException
      * @throws IllegalValueException
      */
-
     private static boolean isValidDate(String reqDate) throws ParseException, IllegalValueException {
 
         if (TODAY.matcher(reqDate).find() || TOMORROW.matcher(reqDate).find()) {
@@ -148,16 +180,27 @@ public class TaskDate {
      * @return true is valid date range, else false
      * @throws ParseException
      */
-    // @@author A0139128A
+    //@@author A0139128A
     private boolean isValidDateRange(String startDate, String endDate) throws ParseException {
         return isValidDateRangeValidator(startDate, endDate);
     }
-
+    
+//    // @@author A0139128A
+//    private String assignTodayDate(String beforeDate) {
+//        
+//    }
     // @@author A0139128A
     private boolean isValidDateRangeValidator(String beforeDate, String afterDate) {
         if (beforeDate == null && afterDate == null) {
             return true;
         }
+        /** if the user has keyed in today and tomorrow as the 2 dates */
+    //    if(TODAY.matcher(beforeDate).find() && TOMORROW.matcher(afterDate).find()) {
+     //       
+      //  }
+        /** If the user has keyed in today as beforeDate only */
+        
+        System.out.println("Entered here: beforeDate is:" + beforeDate + " afterDate : " + afterDate);
         boolean validDateRange = false;
         boolean sameDate = false;
         SimpleDateFormat sdf = new SimpleDateFormat(DATE_NUM_SLASH_WITH_YEAR_FORMAT);
