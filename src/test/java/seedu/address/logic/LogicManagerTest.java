@@ -421,7 +421,7 @@ public class LogicManagerTest {
     public void execute_block_successful() throws Exception {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
-        Task toBeAdded = new Task(new Name(BlockCommand.DUMMY_NAME), new UniqueTagList(), new TaskDate("2 oct 2am"),
+        Task toBeAdded = new Task(new Name(Name.DUMMY_NAME), new UniqueTagList(), new TaskDate("2 oct 2am"),
                 new TaskDate("2 oct 1pm"), RecurringType.NONE, Task.NO_RECURRING_PERIOD);
         TaskMaster expectedTM = new TaskMaster();
         expectedTM.addTask(toBeAdded);
@@ -438,9 +438,9 @@ public class LogicManagerTest {
     public void execute_blockOverlapSlot_notAllowed() throws Exception {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
-        Task toBeBlocked = new Task(new Name(BlockCommand.DUMMY_NAME), new UniqueTagList(), new TaskDate("2 oct 2am"),
+        Task toBeBlocked = new Task(new Name(Name.DUMMY_NAME), new UniqueTagList(), new TaskDate("2 oct 2am"),
                 new TaskDate("2 oct 1pm"), RecurringType.NONE, Task.NO_RECURRING_PERIOD);
-        Task toBeAddedAfter = new Task(new Name(BlockCommand.DUMMY_NAME), new UniqueTagList(),
+        Task toBeAddedAfter = new Task(new Name(Name.DUMMY_NAME), new UniqueTagList(),
                 new TaskDate("2 oct 10am"), new TaskDate("2 oct 11am"), RecurringType.NONE, Task.NO_RECURRING_PERIOD);
         TaskMaster expectedTM = new TaskMaster();
         expectedTM.addTask(toBeBlocked);
@@ -460,7 +460,7 @@ public class LogicManagerTest {
         TestDataHelper helper = new TestDataHelper();
         Task toBeBlocked = new Task(new Name("Test Task"), new UniqueTagList(), new TaskDate("2 oct 2am"),
                 new TaskDate("2 oct 1pm"), RecurringType.NONE, Task.NO_RECURRING_PERIOD);
-        Task toBeAddedAfter = new Task(new Name(BlockCommand.DUMMY_NAME), new UniqueTagList(),
+        Task toBeAddedAfter = new Task(new Name(Name.DUMMY_NAME), new UniqueTagList(),
                 new TaskDate("2 oct 10am"), new TaskDate("2 oct 11am"), RecurringType.NONE, Task.NO_RECURRING_PERIOD);
         TaskMaster expectedTM = new TaskMaster();
         expectedTM.addTask(toBeBlocked);
@@ -478,7 +478,7 @@ public class LogicManagerTest {
     public void execute_blockIllegalSlot_notAllowed() throws Exception {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
-        Task toBeBlocked = new Task(new Name(BlockCommand.DUMMY_NAME), new UniqueTagList(), new TaskDate("2 oct 6am"),
+        Task toBeBlocked = new Task(new Name(Name.DUMMY_NAME), new UniqueTagList(), new TaskDate("2 oct 6am"),
                 new TaskDate("2 oct 5am"), RecurringType.NONE, Task.NO_RECURRING_PERIOD);
         TaskMaster expectedTM = new TaskMaster();
 
@@ -1331,9 +1331,9 @@ public class LogicManagerTest {
     
     @Test
     public void execute_editBlockedSlotNameAndTiming_Successful() throws Exception {
-        Task placebo = new Task(new Name(BlockCommand.DUMMY_NAME),new UniqueTagList(),
+        Task placebo = new Task(new Name(Name.DUMMY_NAME),new UniqueTagList(),
                 new TaskDate("2am"), new TaskDate("3am"), RecurringType.NONE, Task.NO_RECURRING_PERIOD);
-        Task beforeModification = new Task(new Name(BlockCommand.DUMMY_NAME),new UniqueTagList(),
+        Task beforeModification = new Task(new Name(Name.DUMMY_NAME),new UniqueTagList(),
                 new TaskDate("3am"), new TaskDate("6am"), RecurringType.NONE, Task.NO_RECURRING_PERIOD);
         Task afterModification = new Task(new Name("Confirmed"),new UniqueTagList(),
                 new TaskDate("4am"), new TaskDate("5am"), RecurringType.NONE, Task.NO_RECURRING_PERIOD);
@@ -1461,7 +1461,7 @@ public class LogicManagerTest {
 
         private void generateAddNonFloatingCommand(Task p, StringBuffer cmd) {
             assert p.getRecurringType() == RecurringType.NONE : "generatingAddNonFloatingCommand does not support recurring tasks";
-            if (p.getLastAppendedComponent().hasOnlyEndDate()) {
+            if (p.getLastAppendedComponent().isDeadline()) {
                 generateAddNonFloatingCommandByDate(p, cmd);
             } else {
                 generateCommandComponentFromDateToDate(p, cmd);

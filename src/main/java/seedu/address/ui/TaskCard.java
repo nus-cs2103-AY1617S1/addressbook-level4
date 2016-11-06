@@ -85,7 +85,7 @@ public class TaskCard extends UiPart {
         // normal non-floating task
         cardPane.setStyle("-fx-background-color : rgba(110, 196, 219, 0.3);");
         // Deadline
-        if (dateComponent.hasOnlyEndDate())
+        if (dateComponent.isDeadline())
             cardPane.setStyle("-fx-background-color : rgba(250, 124, 146, 0.3);");
         // Floating task
         if (task.getTaskType() == TaskType.FLOATING)

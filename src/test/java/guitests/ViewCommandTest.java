@@ -11,6 +11,7 @@ import seedu.address.model.task.TaskOccurrence;
 import seedu.address.model.task.TaskDate;
 import seedu.address.testutil.TestTask;
 import seedu.address.testutil.TestUtil;
+import seedu.address.ui.util.MyAgendaUtil;
 
 //@@author A0147967J
 /**
@@ -68,7 +69,7 @@ public class ViewCommandTest extends TaskMasterGuiTest {
         //Verifies undo/redo
         expectedList.add(toBeAdded.getLastAppendedComponent());
         commandBox.runCommand("u");
-        assertEquals(TestUtil.getConvertedTime(new TaskDate("today")).truncatedTo(ChronoUnit.DAYS),
+        assertEquals(MyAgendaUtil.getConvertedTime(new TaskDate("today")).truncatedTo(ChronoUnit.DAYS),
                 browser.getMyAgenda().getDisplayedLocalDateTime());
         assertIsAgendaMatching(expectedList);
         assertTrue(taskListPanel.isListMatching(td.labDeadline.getLastAppendedComponent(),
@@ -76,7 +77,7 @@ public class ViewCommandTest extends TaskMasterGuiTest {
         
         expectedList.clear();
         commandBox.runCommand("r");
-        assertEquals(TestUtil.getConvertedTime(new TaskDate("next week today")).truncatedTo(ChronoUnit.DAYS),
+        assertEquals(MyAgendaUtil.getConvertedTime(new TaskDate("next week today")).truncatedTo(ChronoUnit.DAYS),
                 browser.getMyAgenda().getDisplayedLocalDateTime());
         assertIsAgendaMatching(expectedList);
         assertTrue(taskListPanel.isListMatching(td.labDeadline.getLastAppendedComponent(),
@@ -89,7 +90,7 @@ public class ViewCommandTest extends TaskMasterGuiTest {
     public void assertViewSuccess(String date, ArrayList<TaskOccurrence> expectedList) {
 
         commandBox.runCommand("view " + date);
-        assertEquals(TestUtil.getConvertedTime(new TaskDate(date)).truncatedTo(ChronoUnit.DAYS),
+        assertEquals(MyAgendaUtil.getConvertedTime(new TaskDate(date)).truncatedTo(ChronoUnit.DAYS),
                 browser.getMyAgenda().getDisplayedLocalDateTime());
         assertIsAgendaMatching(expectedList);
 

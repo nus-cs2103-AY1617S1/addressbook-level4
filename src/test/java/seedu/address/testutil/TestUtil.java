@@ -367,37 +367,4 @@ public class TestUtil {
         return collect.toArray(new Tag[split.length]);
     }
     
-    //@@author A0147967J
-    /** Returns a LocalDateTime object converted from TaskDate. */
-	public static LocalDateTime getConvertedTime(TaskDate t){
-		return LocalDateTime.ofInstant(new Date(t.getDateInLong()).toInstant(), ZoneId.systemDefault());    	
-    }
-	
-	/** Returns an AppointmentImplLocal object from a task component */
-	public static AppointmentImplLocal getAppointment(TaskOccurrence taskComponent){
-		
-		AppointmentImplLocal appointment = new AppointmentImplLocal();
-		appointment.setSummary(taskComponent.getTaskReference().getName().fullName);
-		appointment.setDescription(taskComponent.getTaskReference().tagsString());
-		appointment.setStartLocalDateTime(getConvertedTime(taskComponent.getStartDate()));			
-		appointment.setEndLocalDateTime(getConvertedTime(taskComponent.getEndDate()));
-		if(taskComponent.isArchived()){
-			appointment.setAppointmentGroup(new Agenda.AppointmentGroupImpl().withStyleClass("archive"));			
-		}else if(taskComponent.getTaskReference().getName().fullName.equals(BlockCommand.DUMMY_NAME)){
-			appointment.setAppointmentGroup(new Agenda.AppointmentGroupImpl().withStyleClass("block"));
-		}else{
-			appointment.setAppointmentGroup(new Agenda.AppointmentGroupImpl().withStyleClass("normal"));
-		}	
-		return appointment;
-			
-	}
-	
-	public static boolean isSameAppointment(Appointment a, AppointmentImplLocal a2){
-		return a.getAppointmentGroup().getStyleClass().equals(a2.getAppointmentGroup().getStyleClass()) 
-				&& a.getStartLocalDateTime().equals(a2.getStartLocalDateTime())
-				&& a.getEndLocalDateTime().equals(a2.getEndLocalDateTime())
-				&& a.getDescription().equals(a2.getDescription())
-				&& a.getSummary().equals(a2.getSummary());
-	}
-
 }

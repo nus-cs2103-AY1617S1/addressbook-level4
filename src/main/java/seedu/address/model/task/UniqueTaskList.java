@@ -69,59 +69,70 @@ public class UniqueTaskList implements Iterable<Task> {
      */
     public boolean contains(ReadOnlyTask toCheck) {
         assert toCheck != null;
-        return !toCheck.getName().fullName.equals(BlockCommand.DUMMY_NAME) // Ignore
-                                                                           // blocked
-                                                                           // slot
-                                                                           // case
+        return !toCheck.getLastAppendedComponent().isBlockedSlot() // Ignore blocked case
                 && internalList.contains(toCheck);
     }
 
     // @@author A0147967J
     /**
-     * Returns true if the given task requests to use a blocked time slot.
+     * Returns true if the given task requests to use an occupied time slot.
      */
     public boolean overlaps(ReadOnlyTask toCheck) {
         assert toCheck != null;
+        
+        TaskOccurrence taskOccurrence = toCheck.getLastAppendedComponent();
         // ignore floating and deadline tasks
-        if (toCheck.getLastAppendedComponent().getStartDate().getDateInLong() == TaskDate.DATE_NOT_PRESENT)
+        if (!taskOccurrence.isSlot()){
             return false;
-
+        }
         // Only compare tasks with blocked time slots.
         // Or if it is block command, check with existing tasks
-        return isOverlappingWithBlock(toCheck) || isBlockOverlappingWithTask(toCheck);
+        return isOverlappingWithBlock(taskOccurrence) || isBlockOverlappingWithTask(taskOccurrence);
 
     }
-
-    public boolean isBlockOverlappingWithTask(ReadOnlyTask toCheck) {
-        if (!toCheck.getName().fullName.equals(BlockCommand.DUMMY_NAME)) {
+    
+    /**
+     * Returns true if the edited task requests to use a blocked time slot.
+     */
+    public boolean overlapsForEdit(TaskOccurrence original, TaskOccurrence toCheck){
+        for(TaskOccurrence t: internalOccurrenceList){
+            if(!t.equals(original) && t.isBlockedSlot() && t.isOverlappedWith(toCheck)){
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    /**
+     * Returns true if the given blocked slot requests to 
+     * use a time slot that is occupied by other tasks.
+     */
+    public boolean isBlockOverlappingWithTask(TaskOccurrence toCheck) {
+        if (!toCheck.isBlockedSlot()) {
             return false;
         }
-        for (Task t : internalList) {
-            if (t.getTaskType() == TaskType.NON_FLOATING && !t.getLastAppendedComponent().hasOnlyEndDate()
-                    && isWithinSlot(toCheck, t)) {
+        for (TaskOccurrence t : internalOccurrenceList) {
+            if (!t.isArchived() && t.isSlot() && toCheck.isOverlappedWith(t)) {
                 return true;
             }
         }
 
         return false;
     }
-
-    public boolean isOverlappingWithBlock(ReadOnlyTask toCheck) {
-        for (Task t : internalList) {
-            if (t.getName().fullName.equals(BlockCommand.DUMMY_NAME) && isWithinSlot(toCheck, t)) {
+    
+    /**
+     * Returns true if the given task requests to use a blocked time slot.
+     */
+    public boolean isOverlappingWithBlock(TaskOccurrence toCheck) {
+        for (TaskOccurrence t : internalOccurrenceList) {
+            if (t.isBlockedSlot() && toCheck.isOverlappedWith(t)) {
                 return true;
             }
         }
         return false;
     }
 
-    /** Returns true if the toCheck slot overlaps with the given one. */
-    public boolean isWithinSlot(ReadOnlyTask toCheck, ReadOnlyTask given) {
-        return !(!given.getLastAppendedComponent().getEndDate().getDate()
-                .after(toCheck.getLastAppendedComponent().getStartDate().getDate())
-                || !given.getLastAppendedComponent().getStartDate().getDate()
-                        .before(toCheck.getLastAppendedComponent().getEndDate().getDate()));
-    }
+    
     // @@author
 
     // @@author A0135782Y
@@ -215,11 +226,10 @@ public class UniqueTaskList implements Iterable<Task> {
      */
     public boolean archive(TaskOccurrence target) {
         assert target != null;
-        if (target.isArchived() == true) {
+        if (target.isArchived()) {
             return false;
         }
         boolean taskFoundAndArchived = false;
-        System.out.println(internalOccurrenceList.contains(target));
         for (TaskOccurrence t : internalOccurrenceList) {
             if (t.equals(target)) {
                 t.archive();
@@ -229,21 +239,8 @@ public class UniqueTaskList implements Iterable<Task> {
         }
         return taskFoundAndArchived;
     }
-    
-    //Bad SLAP, needs improvement
-    public boolean overlapsForEdit(TaskOccurrence original, TaskOccurrence toCheck){
-        for(TaskOccurrence t: internalOccurrenceList){
-            if(!t.equals(original) && t.getTaskReference().getName().fullName.equals(BlockCommand.DUMMY_NAME)){
-                if(!(!t.getEndDate().getDate()
-                        .after(toCheck.getStartDate().getDate())
-                        || !t.getStartDate().getDate()
-                                .before(toCheck.getEndDate().getDate()))) return true;
-            }
-        }
-        return false;
-    }
-    
     // @@author
+    
     // @@author A0147995H
     public boolean updateTask(TaskOccurrence target, Name name, UniqueTagList tags, TaskDate startDate, TaskDate endDate,
             RecurringType recurringType) throws TimeslotOverlapException {

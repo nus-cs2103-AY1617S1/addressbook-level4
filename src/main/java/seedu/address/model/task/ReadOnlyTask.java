@@ -74,4 +74,5 @@ public interface ReadOnlyTask {
     TaskOccurrence getLastAppendedComponent();
 
     int getRecurringPeriod();
+    
 }
