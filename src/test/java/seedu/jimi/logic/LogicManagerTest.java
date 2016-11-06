@@ -644,14 +644,14 @@ public class LogicManagerTest {
         assertIncorrectIndexFormatBehaviorForCommand("del", expectedMessage);
         assertIncorrectIndexFormatBehaviorForCommand("dele", expectedMessage);
         assertIncorrectIndexFormatBehaviorForCommand("delet", expectedMessage);
-        
-        expectedMessage = MESSAGE_INVALID_TASK_DISPLAYED_INDEX;
-        assertCommandBehavior("delete t3 to t1", MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
-        assertCommandBehavior("delete e1 to t1", MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
     }
 
     @Test
     public void execute_deleteIndexNotFound_errorMessageShown() throws Exception {
+        String expectedMsg = MESSAGE_INVALID_TASK_DISPLAYED_INDEX;
+        assertCommandBehavior("delete t3 to t1", expectedMsg);
+        assertCommandBehavior("delete e1 to t1", expectedMsg);
+        
         assertIndexNotFoundBehaviorForCommand("delete");
         assertIndexNotFoundBehaviorForCommand("d");
         assertIndexNotFoundBehaviorForCommand("de");
