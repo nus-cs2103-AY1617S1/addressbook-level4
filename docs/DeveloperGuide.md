@@ -59,7 +59,7 @@ Two of those classes play important roles at the architecture level.
 * `LogsCenter` : Used by many classes to write log messages to the App's log file.
 
 The rest of the App consists four components.
-* [**`UI`**](#ui-component) : The UI of tha App.
+* [**`UI`**](#ui-component) : The UI of the App.
 * [**`Logic`**](#logic-component) : The command executor.
 * [**`Model`**](#model-component) : Holds the data of the App in-memory.
 * [**`Storage`**](#storage-component) : Reads data from, and writes data to, the hard disk.
@@ -243,9 +243,10 @@ Here are the steps to create a new release.
 A project often depends on third-party libraries. Managing these _dependencies_
 can be automated using Gradle. For example, Gradle can download the dependencies automatically, which
 is better than these alternatives.<br>
+PrettyTime is another library which is used for time formatting.
 a. Include those libraries in the repo (this bloats the repo size)<br>
 b. Require developers to download those libraries manually (this creates extra work for developers)<br>
-PrettyTime is also used for time formatting.
+
 
 <!-- @@author A0153467Y-->
 ## Appendix A : User Stories
@@ -265,12 +266,14 @@ Priority | As a ... | I want to ... | So that I can...
 `* * *` | user | find a task from to-do list| find details of tasks without having to go through the entire list
 `* * *` | user | update a task | change the specifications of a specific task
 `* * *` | user | see the entire to-do list | know the number of task/ event that I have
-`* * *` | user | specify the file location of the task list | store the list in a more convenient location (such as Dropbox)
+`* * *` | user | specify the file location of the task list | store the list in a more convenient location
 `* *` | user | mark a task as completed | distinguish between completed and pending tasks
 `* *` |user | be able to mark certain tasks as important | easily distinguish tasks that require attention/action to be taken
 `* *` | user | alias commands to symbols
 `* *` | user | do a live search for commands
- 
+`*` | user | unmark a completed task| change my mind if that task is actullay not completed
+`*` | user | unpin a pinned task| change my mind if that task is not important anymore
+
 ## Appendix B : Use Cases
  
 (For all use cases below, the **System** is the `MESS` and the **Actor** is the `user`, unless specified otherwise)
@@ -528,13 +531,13 @@ Use case ends.
 ## Appendix C : Non Functional Requirements
  
 1. Should work on any mainstream OS as long as it has Java `1.8.0_60` or higher installed
-2. Should be able to process user’s request and show result in 2 seconds.
-3. Should be user-friendly for both beginners and advanced users.
-4. Should be able to hold up to 1000 tasks.
+2. Should be able to process user’s request and show result in 3 seconds
+3. Should be user-friendly for both beginners and advanced users
+4. Should be able to hold up to 1000 tasks
 5. Should be able to work offline
-6. Should only input by keyboard
+6. Should only input by keyboard for command line
 7. Should be able to change the storage location of data file
-8. Should come with automated unit tests and open source code.
+8. Should come with automated unit tests and open source code
 
 ## Appendix D : Glossary
  
