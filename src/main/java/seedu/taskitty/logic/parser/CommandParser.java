@@ -116,8 +116,7 @@ public class CommandParser {
     /**
      * Parses arguments in the context of path command
      * 
-     * @param argument
-     *            full command args string
+     * @param argument full command args string
      * @return the prepared command
      */
     private Command preparePath(String argument) {
