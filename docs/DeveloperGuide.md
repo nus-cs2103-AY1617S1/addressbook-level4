@@ -17,9 +17,9 @@
 
 
 ## Introduction
-Welcome talented programmers, we are glad that you are willing to be part of the team and help us in the development and improvement of GGist. To get you started, we have created this developer guide to aid new members like you to get familiar with overall coding design of GGist and clarify your doubts if any.
+Welcome talented programmers, we are glad that you are willing to be part of the team and help us in the development and improvement of GGist. To get you started, we have created this developer guide to aid new members like you to get familiar with the overall coding design of GGist and clarify your doubts if any.
 
-In this guide, we will walk you through different components of GGist and how they interact with one another when a command is issued. To aid your understanding, component diagrams of GGist will be included to give you a clear overview of the program. We welcome you to create new commands or modify the existing commands that you think are necessary and you can use Gradle Testing to examine if they are working the way you intended. 
+In this guide, we will walk you through different components of GGist and how they interact with one another when a command is issued. To aid your understanding, component diagrams of GGist will be included to give you a clear overview of the program. We welcome you to create new commands or modify the existing ones that you think are necessary. Also, you are encouraged to use Gradle Testing to examine if the new or modified commands are working the way you intended. 
 
 Are you ready to begin this exciting and challenging journey? Let's go!
 
@@ -77,8 +77,8 @@ Are you ready to begin this exciting and challenging journey? Let's go!
 ###An overview of each component.
 
 **`Main`** has only one class called [`MainApp`](../src/main/java/seedu/ggist/MainApp.java). It is responsible for,
-* At app launch: Initializes the components in the correct sequence, and connects them up with each other.
-* At shut down: Shuts down the components and invokes cleanup method where necessary.
+* At app launch: Initializing the components in the correct sequence, and connects them up with each other.
+* At shut down: Shuting down the components and invokes cleanup method where necessary.
 
 [**`Commons`**](#common-classes) represents a collection of classes used by other components.
 Two of these classes play important roles at the architecture level.
@@ -87,8 +87,8 @@ Two of these classes play important roles at the architecture level.
 * `LogsCenter` : This class is used by other classes to write log messages to the application's log file.
 
 The remaining four components of the application are:
-* [**`UI`**](#ui-component) : The UI of the application.
-* [**`Logic`**](#logic-component) : The command executor.
+* [**`UI`**](#ui-component) : Makes up the user interface of the application.
+* [**`Logic`**](#logic-component) : Executes the issued commands.
 * [**`Model`**](#model-component) : Holds the data of the application in-memory.
 * [**`Storage`**](#storage-component) : Reads data from, and writes data to the hard disk.
 
@@ -99,33 +99,33 @@ Each of the four components
 For example, the `Logic` component  defines its API in the `Logic.java`
 interface, and it exposes its functionality using the `LogicManager.java` class (refer to Figure 2).<br>
 
-###An overview of interactions between components
+<!-- @@author A0138411N --> 
+###An overview of interactions between components when a command is entered
 
-Figure 2 shows how components interact with each other when the user issues the
-command `delete 3` (refer to Figure 2).
+Figure 2 shows how components interact with each other when the user enters the
+command `add floating task`.
 
-<img src="images\SDforDeleteTask.png" width="800">
->**_Figure 2_**: Sequence Diagram - shows the interaction between components when issued the command `delete 3`
+<img src="images\SDforAddTask.png" width="800">
+>**_Figure 2_**: Sequence Diagram - shows the interaction between components when issued the command `add floating task`
 
->Note how the `Model` simply raises a `TaskMangerChangedEvent` when the GGist data are changed,
+>Note how the `Model` simply raises a `TaskMangerChangedEvent` when GGist data is changed,
  instead of asking the `Storage` to save the updates to the hard disk.
 
-Figure 3 shows how the `EventsCenter` reacts to the event (`delete 3`). This process eventually results in saving the updates to the hard disk, and updating the status bar of the UI to reflect the 'Last Updated' time (refer to Figure 3).<br>
+Figure 3 shows how the `EventsCenter` reacts to the event (`add floating task`). This process eventually results in saving the updates to the hard disk, and updating the status bar of the UI to reflect the 'Last Updated' time.<br>
 
-<img src="images\SDforDeleteTaskEventHandling.png" width="800">
->**_Figure 3_**: EventsCentre Diagram - shows how EventsCentre reacts to the event (`delete 3`)
+<img src="images\SDforAddTaskEventHandling.png" width="800">
+>**_Figure 3_**: EventsCentre Diagram - shows how EventsCentre reacts to the event (`add floating task`)
 
 > Note how the event passes through the `EventsCenter` to the `Storage` and `UI`. This process is done without `Model` being coupled to other components. Thus, this Event-Driven approach helps us to reduce direct coupling between components.
 
 ###Additional details of each component.
-
+<!-- @@author--> 
 ### UI component
 
 <img src="images/UiClassDiagram.png" width="800"><br>
 >**_Figure 4_**: UI Diagram
 
 **API** : [`Ui.java`](../src/main/java/seedu/ggist/ui/Ui.java)
-
 
 The `UI` consists of a `MainWindow` that is made up of parts such as `CommandBox`, `ResultDisplay`,`TaskListPanel`,
 `StatusBarFooter` and `BrowserPanel`.These UI parts inherit from the abstract `UiPart` class ,and they can be loaded using the `UiPartLoader`.
@@ -148,7 +148,7 @@ The `UI` component,
 
 The `Logic` component uses the `Parser` class to parse the user command. This results in a `Command` object being executed by the `LogicManager`. The command execution can affect the `Model` (e.g. adding a task) and/or raise events. The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 
-Figure 6 displays the interactions within the `Logic` component for the `execute("delete 1")` API call(refer to Figure 6).<br>
+Figure 6 displays the interactions within the `Logic` component for the `execute("delete 1")` API call.<br>
  
 <img src="images/DeleteTaskSdForLogic.png" width="800"><br>
 >**_Figure 6_**: Sequence Diagram - shows interactions within the `Logic` component for the `execute("delete 1")` API call
@@ -186,19 +186,12 @@ Classes used by multiple components are in the `seedu.ggist.commons` package.
 
 ### Logging
 
-`java.util.logging` package is used for logging. The `LogsCenter` class is used to manage the logging levels
-and logging destinations.
-
-* The logging levels can be controlled using the `logLevel` setting in the configuration file
-  (See [Configuration](#configuration)).
-* The `Logger` for a class can be obtained using `LogsCenter.getLogger(Class)` which will log messages according to
-  the specified logging level.
-* Current log messages are output through: `Console` and to a `.log` file.
+`java.util.logging` package is used for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations. The logging levels can be controlled using the `logLevel` setting in the configuration file (See [Configuration](#configuration)). The `Logger` for a class can be obtained using `LogsCenter.getLogger(Class)` which will log messages according to the specified logging level. Current log messages are output through: `Console` and to a `.log` file.
 
 **Logging Levels**
 
 * `SEVERE` : Critical problem detected which may possibly cause the termination of the application
-* `WARNING` : Can continue, but with caution
+* `WARNING` : Prompt message to advise developers to continue with caution
 * `INFO` : Information showing the noteworthy actions by the application
 * `FINE` : Details that is not usually noteworthy but may be useful in debugging
   e.g. print the actual list instead of just its size
@@ -207,7 +200,6 @@ and logging destinations.
 
 Certain properties of the application can be controlled (e.g application name, logging level) through the configuration file 
 (default: `config.json`):
-
 
 ## Testing
 
@@ -219,7 +211,7 @@ Tests can be found in the `./src/test/java` folder.
 * To run a subset of tests, right-click on a test package, test class, or a test and choose to run as a JUnit test.
 
 **Using Gradle**:
-* See [UsingGradle.md](UsingGradle.md) for how to run tests using Gradle.
+* To run tests using Gradle, see [UsingGradle.md](UsingGradle.md) for detailed instructions.
 
 There are two types of tests:
 
@@ -227,14 +219,14 @@ There are two types of tests:
    These are in the `guitests` package.
   
 2. **Non-GUI Tests** - These are tests not involving the GUI. They include: 
-   1. _Unit tests_ targeting the lowest level methods/classes. <br>
+   * _Unit tests_ targeting the lowest level methods/classes. <br>
       e.g. `seedu.ggist.commons.UrlUtilTest`
-   2. _Integration tests_ that are checking the integration of multiple code units 
+   * _Integration tests_ that are checking the integration of multiple code units 
      (those code units are assumed to be working).<br>
       e.g. `seedu.ggist.storage.StorageManagerTest`
-   3. Hybrids of unit and integration tests. These test are checking multiple code units as well as 
-      how they are connected together.<br>
-      e.g. `seedu.ggist.logic.LogicManagerTest`
+   * Hybrids of unit and integration tests. These test are checking multiple code units as well as 
+     how they are connected together.<br>
+     e.g. `seedu.ggist.logic.LogicManagerTest`
   
 **Headless GUI Testing** :
 The [TestFX](https://github.com/TestFX/TestFX) library allows
@@ -247,7 +239,7 @@ The [TestFX](https://github.com/TestFX/TestFX) library allows
  **Problem: Tests fail because NullPointException when AssertionError is expected**
  * Reason: Assertions are not enabled for JUnit tests. 
    This can happen if you are not using a recent Eclipse version (i.e. _Neon_ or later)
- * Solution: Enable assertions in JUnit tests as described 
+ * Solution: Assertions is enabled in JUnit tests as described 
    [here](http://stackoverflow.com/questions/2522897/eclipse-junit-ea-vm-option). <br>
    Delete run configurations created when you ran tests earlier.
   
@@ -268,7 +260,7 @@ Here are the steps to create a new release.
  
  1. Generate a JAR file [using Gradle](UsingGradle.md#creating-the-jar-file).
  2. Tag the repo with the version number. e.g. `v0.1`
- 3. [Crete a new release using GitHub](https://help.github.com/articles/creating-releases/) 
+ 3. [Create a new release using GitHub](https://help.github.com/articles/creating-releases/) 
     and upload the JAR file your created.
    
 ### Managing Dependencies
@@ -287,8 +279,8 @@ Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (un
 
 Priority | As a ... | I want to ... | So that I can...
 -------- | :-------- | :--------- | :-----------
-`* * *` | new user | see usage instructions | refer to instructions when I forget how to use the App
-`* * *` | user | add a task without deadline | keep track of my tasks
+`* * *` | new user | See usage instructions | refer to instructions when I forget how to use the App
+`* * *` | user | Add a task without deadline | keep track of my tasks
 `* * *` | user | Set a start and end time for a task | Have a clearer idea of my schedule
 `* * *` | user | Set a deadline for a task | Be reminded of impending deadline
 `* * *` | user | Delete a task | Totally remove task that I no longer care about
@@ -364,9 +356,7 @@ Use case ends.
 4. Should be user friendly
 5. Should respond command within 1 second
 6. Should be able to work offline
-7. Should be able to launch with keyboard shortcut
-8. Should have enough capacity to store all the information and tasks
-9. Should sync with calendars such as Google calendar
+7. Should have enough capacity to store all the information and tasks
 10. Should look pleasant and easy on the eyes
 11. Should be stable and reliable with as few breakdowns as possible
 
@@ -379,73 +369,74 @@ Use case ends.
 ##### Private contact detail
 
 > A contact detail that is not meant to be shared with others
+<!-- @@author --> 
 
 
 ## Appendix E : Product Survey
-
+<!-- @@author A0138411N --> 
 #### iOS Calendar
 
 **Strengths**
 
-*Set task using the “one-shot” approach
-*Syncs with Google Calendar
-*All tasks are set in calendar view
-*Alerts and prompts appear as notifications
-*Search for Keywords
+* Set tasks using one line entry
+* Sync with Google Calendar
+* All tasks are set in calendar view
+* Alerts and prompts appear as notifications
+* Search for Keywords
 
 **Weakness**
 
-*Unable to colour code for events
-*Unable to strike off completed task
-*Able to set recurring task, but unable to set using one “one-shot” approach
-*Does not carry forwards uncompleted task 
+* Unable to colour code for events
+* Unable to strike off completed task
+* Able to set recurring task, but unable to set using one “one-shot” approach
+* Does not carry forwards uncompleted task 
 
 #### Errands
 
 **Strengths**
 
-*Set priority for tasks
-*Sort tasks based on priority level, due date and alphabetical order
-*Strike off finished tasks
-*Notification function
-*View tasks in a particular day
+* Set priority for tasks
+* Sort tasks based on priority level, due date and alphabetical order
+* Strike off finished tasks
+* Notification function
+* View tasks in a particular day
 
 **Weakness**
 
-*Cannot search for a particular task
-*Unable carry forward the incomplete tasks
-*Cannot set recurring task
-*Can only see a maximum of 10 tasks at the one time
+* Cannot search for a particular task
+* Unable carry forward the incomplete tasks
+* Cannot set recurring task
+* Can only see a maximum of 10 tasks at the one time
 
 #### Fantastical
 
 **Strengths**
 
-*Natural language processing
-*Able to view tasks in day, week, month, year views
-*Syncs with calendars
-*Use shading to intensity of tasks
-*Supports fixed and floating time zones for events
+* Natural language processing
+* Able to view tasks in day, week, month, year views
+* Sync with calendars
+* Use shading to intensity of tasks
+* Support fixed and floating time zones for events
 
 **Weakness**
 
-*Cannot set recurring tasks
-*Cannot transfer data to another computer
-*Unable to sync account information with other computer
+* Cannot set recurring tasks
+* Cannot transfer data to another computer
+* Unable to sync account information with other computer
 
 #### Google Calendar
 
 **Strengths**
 
-*Easy to choose a time slot and set task
-*Can have multiple calendars
-*Invite people to events
-*Set reminders for events
+* Easy to choose a time slot and set task
+* Can have multiple calendars
+* Invite people to events
+* Set reminders for events
 
 **Weakness**
 
-*Difficult to read if too many appointments 
-*Must use with internet
+* Difficult to read if too many appointments 
+* Internet access is required
 
 <!-- @@author --> 
 
