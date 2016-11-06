@@ -179,6 +179,10 @@ Format: `help [COMMAND_WORD]`
 
 > Help is also shown if you enter an incorrect command e.g. `abcd`.
 
+Examples:
+* `help add`
+* `help summary`
+
 [comment]: # (@@author A0140022H)
 #### Listing tasks : `ls`
 Lists all tasks. 
@@ -382,7 +386,7 @@ Command | Format
 [Find [Quick Search]](#finding-tasks--find) | `find <KEYWORD> [KEYWORD ...]`
 [Find [Filter Search]](#finding-tasks--find) | `find [/n NAME_KEYWORD ...] [/dt DATETIME] [/p PRIORITY] [/do] [/ud] [/t TAG_KEYWORD ...]`
 [Free](#suggesting-free-timeslots--free) | `free <DATETIME>`
-[Help](#displaying-a-list-of-available-commands--help) | `help`
+[Help](#displaying-a-list-of-available-commands--help) | `help [COMMAND_WORD]`
 [List](#listing-tasks--ls) | `ls`
 [List [Date]](#listing-tasks--ls) | `ls /dt`
 [List [Priority]](#listing-tasks--ls) | `ls /p`
