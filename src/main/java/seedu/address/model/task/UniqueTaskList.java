@@ -9,7 +9,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.commons.exceptions.DuplicateDataException;
 import seedu.address.commons.util.CollectionUtil;
-import seedu.address.logic.commands.BlockCommand;
 import seedu.address.model.tag.UniqueTagList;
 
 /**

@@ -70,8 +70,7 @@ public class AddCommandTest extends TaskMasterGuiTest {
         commandBox.runCommand("adds Johnny");
         assertResultMessage(Messages.MESSAGE_UNKNOWN_COMMAND);
 
-        // ======Cases for handling recurring
-        // tasks==================================================
+        // ======Cases for handling recurring tasks==================================================
 
         // Out dated Recurring task got updated
         taskToAdd = td.daily;
@@ -81,7 +80,7 @@ public class AddCommandTest extends TaskMasterGuiTest {
         // Up to date remain stayed
         taskToAdd = td.weekly;
         assertAddCommandSuccess(taskToAdd.getAddRecurringCommand(), taskToAdd, currentList);
-
+        
     }
 
     private void assertAddSuccess(TestTask taskToAdd, TestTask... currentList) {

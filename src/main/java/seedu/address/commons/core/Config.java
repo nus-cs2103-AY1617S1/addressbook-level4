@@ -14,7 +14,7 @@ public class Config {
     private String appTitle = "Task Manager App";
     private Level logLevel = Level.INFO;
     private String userPrefsFilePath = "preferences.json";
-    private String taskListFilePath = "data/tasklist.xml";
+    private String taskListFilePath = "data/SampleData.xml";
     private String taskListName = "MyTaskList";
 
 
