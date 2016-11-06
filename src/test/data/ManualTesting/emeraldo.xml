@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<emeraldo>
+    <tasks>
+        <description>Try salted egg yolk croissant</description>
+        <dateTime></dateTime>
+    </tasks>
+    <tasks>
+        <description>Pay electricity bills</description>
+        <dateTime>by 25/10/2016, 6pm</dateTime>
+        <tagged>Home</tagged>
+	</tasks>	
+	<tasks>
+        <description>Google internship interview</description>
+        <dateTime>from 01 Nov, 10am to 01 Nov, 11am</dateTime>
+    </tasks>
+    <tasks>
+        <description>Kai Sing's Birthday Party</description>
+        <dateTime>on 10 Dec 2016</dateTime>
+    </tasks>
+    <tasks>
+        <description>Lunch with Tom</description>
+        <dateTime>on 1 Nov</dateTime>
+        <tagged>Friends</tagged>
+    </tasks>
+    <tasks>
+        <description>Lunch with Boss</description>
+        <dateTime>on 30 Oct</dateTime>
+        <tagged>Work</tagged>
+    </tasks>
+    <tasks>
+        <description>Lunch with Tim</description>
+        <dateTime>from 4 nov 16, 12pm to 4 nov 16, 1pm</dateTime>
+        <tagged>Friends</tagged>
+    </tasks>
+    <tags>
+        <tagName>Home</tagName>
+    </tags>
+    <tags>
+        <tagName>Friends</tagName>
+    </tags>
+    <tags>
+        <tagName>Work</tagName>
+    </tags>
+</emeraldo>
