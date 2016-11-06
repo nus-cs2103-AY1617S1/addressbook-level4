@@ -94,7 +94,7 @@ public class EditCommandParser {
         case "tag":
         case "t":
             try {
-                return new EditCommand(index, item, item, getTagsFromArgs(" " + content));
+                return new EditCommand(index, "tag", item, getTagsFromArgs(" " + content));
             } catch (IllegalValueException ive) {
                 return new IncorrectCommand(ive.getMessage());
             }
