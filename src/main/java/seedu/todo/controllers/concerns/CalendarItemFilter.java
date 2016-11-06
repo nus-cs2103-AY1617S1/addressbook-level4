@@ -81,7 +81,7 @@ public class CalendarItemFilter {
                 return new boolean[] { true, false };
             }
         } else {
-            if (eventType.equals("task") && !eventStatusPresent) {
+            if ("task".equals(eventType) && !eventStatusPresent) {
                 // Condition 3
                 return new boolean[] { true, false };
             } else if (eventType.equals("event") && !taskStatusPresent) {
@@ -148,7 +148,7 @@ public class CalendarItemFilter {
             LocalDateTime now = LocalDateTime.now();
             if ("over".equals(eventStatus) || "past".equals(eventStatus)) {
                 eventPredicates.add(Event.predEndBefore(now));
-            } else if (eventStatus.equals("future")) {
+            } else if ("future".equals(eventStatus)) {
                 eventPredicates.add(Event.predStartAfter(now));
             }
         }
