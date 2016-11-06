@@ -22,13 +22,11 @@
 Emeraldo is a simple app for users to manage their daily tasks, such as keeping track of deadlines and scheduling of events.
 This app is catered for folks who can type fast and prefer typing over mouse/voice commands.
 It is also a Java desktop application that has a GUI.
-
 <br>
-
 This guide describes the design and implementation of Emeraldo.
 Through this guide, you will gain an understanding how Emeraldo works and how you can further contribute to its development.
 
-[]<@@author>
+[](@@author)
 
 <br>
 ## Setting up
@@ -482,12 +480,10 @@ Use case resumes from step 2.
 
 2a. The list is empty
 
-
 > Use case ends
 
 
 3a. Emeraldo detects an error in the user input
-
 
 > 3a1. Emeraldo shows an error message and requests for correct data <br>
   Use case resumes from step 2.
@@ -510,17 +506,15 @@ Use case resumes from step 2.
 
 3a. Emeraldo detects an error in the user input
 
-
 > 3a1. Emeraldo shows an error message and requests for correct data<br>
   Use case resumes from step 2.
 
-
 <br>
+
 #### Use case: UC04 - Delete task
 
 
 **MSS**
-
 
 1. User requests to list task (UC05)
 2. Emeraldo shows a list of tasks
@@ -529,27 +523,21 @@ Use case resumes from step 2.
 <br>  Use case ends.
 
 
-<br>
-
-
 **Extensions**
 
 
 2a. The list is empty
-
 
 > Use case ends
 
 
 3a. Emeraldo detects an error in the user input
 
-
 > 3a1. Emeraldo shows an error message and requests for correct data <br>
   Use case resumes from step 2.
 
-
-
 <br>
+
 [](@@author A0139342H)
 #### Use case: UC05 - List [category] or List [tag]
 	
@@ -596,10 +584,6 @@ Use case resumes from step 2.
 3. Emeraldo shows the tasks as completed with date and time of completion
 <br>  Use case ends
 
-
-<br>
-
-
 **Extensions**
 	
 2a. Emeraldo could not find the specified task
@@ -638,7 +622,7 @@ Use case resumes from step 4.
 [](@@author A0139196U)
 
 
-#### Wunderlist
+### Wunderlist
  **Strengths**
   * Able to add items to any list and assign deadlines and reminders
   * Requires few taps/interaction to create a simple to-do item
@@ -651,7 +635,7 @@ Use case resumes from step 4.
 
 
 [](@@author A0139342H)
-#### Todoist
+### Todoist
  **Strengths**
   * Able to identify dates in tasks statements e.g 18oct, mon. Useful for Jim's command line habits
   * Has smartphone and desktop applications. Useful for Jim's requirement for portability
@@ -667,7 +651,7 @@ Use case resumes from step 4.
 
 
 [](@@author A0139749L)
-#### Centrallo
+### Centrallo
  **Strengths**
   * Supports email forwarding from your personal mail into Centrallo
   * Allows the creation of list, notes and checklist, where the notes and checklist can be filed under a particular list
@@ -686,7 +670,7 @@ Use case resumes from step 4.
 
 
 [](@@author A0142290N)
-#### Trello
+### Trello
  **Strengths**
   * Able to create various lists, allows good organisation
   * Able to add friends into the lists which allows communication between colleagues

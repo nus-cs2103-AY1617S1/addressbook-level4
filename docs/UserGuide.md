@@ -297,6 +297,7 @@ Examples:
 * `saveto default`<br>
   Changes the save location to the default location which is ./data/.
 
+<br>
 [](@@author A0139196U)
 #### MotivateMe command: `motivateme`
 Generates and display a motivational quote for the user. <br>
