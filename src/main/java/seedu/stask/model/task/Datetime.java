@@ -4,11 +4,13 @@ import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 import java.util.TimeZone;
+import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import com.joestelmach.natty.Parser;
 
+import seedu.stask.commons.core.LogsCenter;
 import seedu.stask.commons.exceptions.IllegalValueException;
 
 //@@author A0143884W
@@ -29,6 +31,8 @@ public class Datetime {
     public static final Pattern DATE_CORRECT_REGEX = Pattern.compile("(?<day>(0?[1-9]|[12][0-9]|3[01]))" + "-" 
             + "(?<month>(0?[1-9]|1[012]))" + "-" + "(?<year>\\d{2}(\\{2}){0,1})" + "(?<time>.*)");
 
+    private static final Logger logger = LogsCenter.getLogger(Datetime.class);
+    
     private Date start;
     private Date end;
 
@@ -39,6 +43,8 @@ public class Datetime {
         List<Date> listOfDate = validateInput(input, natty);
      
         populateStartEndDates(listOfDate);
+        
+        logger.fine("Datetime successfully validated: " + this.toString());
     }
 
     /**

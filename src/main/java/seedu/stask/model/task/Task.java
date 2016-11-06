@@ -2,7 +2,9 @@ package seedu.stask.model.task;
 
 import java.util.Comparator;
 import java.util.Objects;
+import java.util.logging.Logger;
 
+import seedu.stask.commons.core.LogsCenter;
 import seedu.stask.commons.util.CollectionUtil;
 import seedu.stask.model.tag.UniqueTagList;
 import seedu.stask.model.task.Status.State;
@@ -14,6 +16,8 @@ import seedu.stask.model.task.Status.State;
  */
 public class Task implements ReadOnlyTask, Comparable<Task> {
 
+	private static final Logger logger = LogsCenter.getLogger(Task.class);
+	
     private Name name;
     private Description description;
     private Datetime datetime;
@@ -32,6 +36,8 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
         this.status = status;
         this.tags = new UniqueTagList(tags); // protect internal tags from
         // changes in the arg list
+        
+        logger.fine("Task successfully created: " + this.toString());
     }
 
     /**
