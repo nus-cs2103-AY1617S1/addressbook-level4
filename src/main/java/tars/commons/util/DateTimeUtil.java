@@ -22,6 +22,12 @@ public class DateTimeUtil {
     private static final String DATETIME_WEEK = "week";
     private static final String DATETIME_MONTH = "month";
     private static final String DATETIME_YEAR = "year";
+    public static final int DATETIME_FIRST_HOUR_OF_DAY = 0;
+    public static final int DATETIME_FIRST_MINUTE_OF_DAY = 0;
+    public static final int DATETIME_FIRST_SECOND_OF_DAY = 0;
+    public static final int DATETIME_LAST_HOUR_OF_DAY = 23;
+    public static final int DATETIME_LAST_MINUTE_OF_DAY = 59;
+    public static final int DATETIME_LAST_SECOND_OF_DAY = 59;
     private static final int DATETIME_INCREMENT = 1;
 
     private static final DateTimeFormatter formatter =

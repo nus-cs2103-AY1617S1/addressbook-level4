@@ -19,13 +19,14 @@ import java.util.logging.Level;
  */
 public class JsonUtil {
     
+    private static final String REGISTER_SIMPLE_MODULE = "SimpleModule";
     private static ObjectMapper objectMapper = new ObjectMapper()
             .findAndRegisterModules()
             .configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false)
             .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
             .setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.NONE)
             .setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY)
-            .registerModule(new SimpleModule("SimpleModule")
+            .registerModule(new SimpleModule(REGISTER_SIMPLE_MODULE)
                     .addSerializer(Level.class, new ToStringSerializer())
                     .addDeserializer(Level.class,
                             new LevelDeserializer(Level.class)));

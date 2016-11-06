@@ -8,7 +8,10 @@ import java.nio.file.Files;
  * Writes and reads file
  */
 public class FileUtil {
+
     private static final String CHARSET = "UTF-8";
+    private static String MESSAGE_DIRECTORY_CREATE_FAILURE =
+            "Failed to make directories of %s";
 
     public static boolean isFileExists(File file) {
         return file.exists() && file.isFile();
@@ -43,8 +46,8 @@ public class FileUtil {
      */
     public static void createDirs(File dir) throws IOException {
         if (!dir.exists() && !dir.mkdirs()) {
-            throw new IOException(
-                    "Failed to make directories of " + dir.getName());
+            throw new IOException(String
+                    .format(MESSAGE_DIRECTORY_CREATE_FAILURE, dir.getName()));
         }
     }
 
@@ -83,7 +86,8 @@ public class FileUtil {
     public static String getPath(String pathWithForwardSlash) {
         assert pathWithForwardSlash != null;
         assert pathWithForwardSlash.contains(StringUtil.STRING_FORWARD_SLASH);
-        return pathWithForwardSlash.replace(StringUtil.STRING_FORWARD_SLASH, File.separator);
+        return pathWithForwardSlash.replace(StringUtil.STRING_FORWARD_SLASH,
+                File.separator);
     }
 
     public static <T> void serializeObjectToJsonFile(File jsonFile,

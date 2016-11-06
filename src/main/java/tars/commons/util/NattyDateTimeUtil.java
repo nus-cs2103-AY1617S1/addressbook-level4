@@ -51,7 +51,7 @@ public class NattyDateTimeUtil {
             throw new DateTimeException(Messages.MESSAGE_INVALID_DATE);
         }
 
-        if (groups.size() > 0) {
+        if (groups.size() > EMPTY_GROUP_SIZE) {
             DateGroup group = groups.get(FIRST_GROUP);
             if (group.getDates().size() == START_DATE_SIZE) {
                 return extractStartDate(group);
@@ -113,7 +113,10 @@ public class NattyDateTimeUtil {
         treeString = group.getSyntaxTree().getChild(FIRST_CHILD).toStringTree();
         date = group.getDates().get(FIRST_GROUP);
         if (!isTimePresent(treeString)) {
-            date = DateTimeUtil.setDateTime(date, 23, 59, 0);
+            date = DateTimeUtil.setDateTime(date,
+                    DateTimeUtil.DATETIME_LAST_HOUR_OF_DAY,
+                    DateTimeUtil.DATETIME_LAST_MINUTE_OF_DAY,
+                    DateTimeUtil.DATETIME_FIRST_SECOND_OF_DAY);
         }
 
         endDateTime = convertToAsiaDateFormat(date);
@@ -142,11 +145,17 @@ public class NattyDateTimeUtil {
         secondDate = group.getDates().get(SECOND_GROUP);
 
         if (!isTimePresent(firstTreeString)) {
-            firstDate = DateTimeUtil.setDateTime(firstDate, 0, 0, 0);
+            firstDate = DateTimeUtil.setDateTime(firstDate,
+                    DateTimeUtil.DATETIME_FIRST_HOUR_OF_DAY,
+                    DateTimeUtil.DATETIME_FIRST_MINUTE_OF_DAY,
+                    DateTimeUtil.DATETIME_FIRST_SECOND_OF_DAY);
         }
 
         if (!isTimePresent(secondTreeString)) {
-            secondDate = DateTimeUtil.setDateTime(secondDate, 23, 59, 0);
+            secondDate = DateTimeUtil.setDateTime(secondDate,
+                    DateTimeUtil.DATETIME_LAST_HOUR_OF_DAY,
+                    DateTimeUtil.DATETIME_LAST_MINUTE_OF_DAY,
+                    DateTimeUtil.DATETIME_FIRST_SECOND_OF_DAY);
         }
 
         startDateTime = CONVERT_NATTY_TIME_FORMAT.format(firstDate);

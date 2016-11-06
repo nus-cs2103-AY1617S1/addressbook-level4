@@ -13,10 +13,11 @@ import tars.commons.exceptions.InvalidRangeException;
  */
 public class StringUtil {
 
+    private static final String REGEX_WHITESPACE = "\\s+";
+    private static final String REGEX_UNSIGNED_INTEGER = "^0*[1-9]\\d*$";
     private static final String INVALID_INDEX_ENTERED = "Invalid index entered";
     private static final String UNEXPECTED_ERROR_IN_GETING_INDEX_FROM_STRING =
             "Unexpected error in geting index from String.";
-
     public static final String STRING_NEWLINE = "\n";
     public static final String STRING_COLON = ": ";
     public static final String STRING_COMMA = ", ";
@@ -26,6 +27,7 @@ public class StringUtil {
     public static final String STRING_SQUARE_BRACKET_CLOSE = "]";
     public static final String EMPTY_STRING = "";
     public static final String STRING_WHITESPACE = " ";
+    private static final int EMPTY_STREAM_LIST = 0;
     public static final int EMPTY_STRING_LENGTH = 0;
     public static final int START_INDEX = 0;
     public static final int LAST_INDEX = 1;
@@ -34,10 +36,10 @@ public class StringUtil {
     private static final String RANGE_SEPARATOR = "..";
 
     public static boolean containsIgnoreCase(String source, String query) {
-        String[] split = source.toLowerCase().split("\\s+");
+        String[] split = source.toLowerCase().split(REGEX_WHITESPACE);
         List<String> strings = Arrays.asList(split);
         return strings.stream().filter(s -> s.equals(query.toLowerCase()))
-                .count() > 0;
+                .count() > EMPTY_STREAM_LIST;
     }
 
     /**
@@ -57,7 +59,7 @@ public class StringUtil {
      * @param s should be trimmed.
      */
     public static boolean isUnsignedInteger(String s) {
-        return s != null && s.matches("^0*[1-9]\\d*$");
+        return s != null && s.matches(REGEX_UNSIGNED_INTEGER);
     }
 
     /**

@@ -30,9 +30,43 @@ import java.util.logging.Logger;
  * The main entry point to the application.
  */
 public class MainApp extends Application {
+    private static final String INITIALIZING_HEADER =
+            "=============================[ Initializing Tars ]===========================";
+    private static final String PARAMETER_CONFIG = "config";
+    private static final String LOG_MESSAGE_PREFS_SAVE_FAILURE =
+            "Failed to save preferences ";
+    private static final String DAY_STRING_TODAY = "today";
+    private static String LOG_MESSAGE_PREFS_FILE_INCORRECT_FORMAT =
+            "UserPrefs file at %s is not in the correct format. Using default user prefs";
+    private static String LOG_MESSAGE_CONFIG_FILE_INCORRECT_FORMAT =
+            "Config file at %s is not in the correct format. Using default config properties";
+    private static final String LOG_MESSAGE_DATA_FILE_NOT_FOUND =
+            "Data file not found. Will be starting with an empty Tars";
+    private static final String LOG_MESSAGE_DATA_FILE_INCORRECT_FORMAT =
+            "Data file not in the correct format. Will be starting with an empty Tars";
+    private static final String LOG_MESSAGE_DATA_FILE_CORRUPTED =
+            "Problem while reading from the file. Will be starting with an empty Tars";
+    private static final String LOG_MESSAGE_CUSTOM_CONFIG_FILE =
+            "Custom Config file specified ";
+    private static final String LOG_MESSAGE_USING_CONFIG_FILE =
+            "Using config file : ";
+    private static final String LOG_MESSAGE_CONFIG_FILE_SAVE_FAILURE =
+            "Failed to save config file : ";
+    private static final String LOG_MESSAGE_USING_PREFS_FILE =
+            "Using prefs file : ";
+    private static final String LOG_MESSAGE_PROBLEM_READING_FROM_FILE =
+            "Problem while reading from the file. . Will be starting with an empty Tars";
+    private static final String LOG_MESSAGE_STARTING_TARS = "Starting Tars ";
+    private static final String STOPPING_TARS_HEADER =
+            "============================ [ Stopping TARS ] =============================";
+    private static final int SYSTEM_EXIT_NO_ERROR = 0;
+
+
     private static final Logger logger = LogsCenter.getLogger(MainApp.class);
 
     public static final Version VERSION = new Version(1, 0, 0, true);
+
+
 
     protected Ui ui;
     protected Logic logic;
@@ -43,11 +77,12 @@ public class MainApp extends Application {
 
     @Override
     public void init() throws Exception {
-        logger.info("=============================[ Initializing Tars ]===========================");
+        logger.info(INITIALIZING_HEADER);
         super.init();
 
-        config = initConfig(getApplicationParameter("config"));
-        storage = new StorageManager(config.getTarsFilePath(), config.getUserPrefsFilePath());
+        config = initConfig(getApplicationParameter(PARAMETER_CONFIG));
+        storage = new StorageManager(config.getTarsFilePath(),
+                config.getUserPrefsFilePath());
 
         userPrefs = initPrefs(config);
 
@@ -58,14 +93,15 @@ public class MainApp extends Application {
         logic = new LogicManager(model, storage);
 
         ui = new UiManager(logic, config, userPrefs);
-        
+
         // to improve the natty parser runtime for the first query
-        new Thread(() -> DateTimeUtil.parseStringToDateTime("today")).start();
+        new Thread(() -> DateTimeUtil.parseStringToDateTime(DAY_STRING_TODAY))
+                .start();
 
         initEventsCenter();
     }
 
-    private String getApplicationParameter(String parameterName){
+    private String getApplicationParameter(String parameterName) {
         Map<String, String> applicationParameters = getParameters().getNamed();
         return applicationParameters.get(parameterName);
     }
@@ -75,15 +111,15 @@ public class MainApp extends Application {
         ReadOnlyTars initialData;
         try {
             tarsOptional = storage.readTars();
-            if(!tarsOptional.isPresent()){
-                logger.info("Data file not found. Will be starting with an empty Tars");
+            if (!tarsOptional.isPresent()) {
+                logger.info(LOG_MESSAGE_DATA_FILE_NOT_FOUND);
             }
             initialData = tarsOptional.orElse(new Tars());
         } catch (DataConversionException e) {
-            logger.warning("Data file not in the correct format. Will be starting with an empty Tars");
+            logger.warning(LOG_MESSAGE_DATA_FILE_INCORRECT_FORMAT);
             initialData = new Tars();
         } catch (FileNotFoundException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty Tars");
+            logger.warning(LOG_MESSAGE_DATA_FILE_CORRUPTED);
             initialData = new Tars();
         }
 
@@ -100,27 +136,29 @@ public class MainApp extends Application {
 
         configFilePathUsed = Config.DEFAULT_CONFIG_FILE;
 
-        if(configFilePath != null) {
-            logger.info("Custom Config file specified " + configFilePath);
+        if (configFilePath != null) {
+            logger.info(LOG_MESSAGE_CUSTOM_CONFIG_FILE + configFilePath);
             configFilePathUsed = configFilePath;
         }
 
-        logger.info("Using config file : " + configFilePathUsed);
+        logger.info(LOG_MESSAGE_USING_CONFIG_FILE + configFilePathUsed);
 
         try {
-            Optional<Config> configOptional = ConfigUtil.readConfig(configFilePathUsed);
+            Optional<Config> configOptional =
+                    ConfigUtil.readConfig(configFilePathUsed);
             initializedConfig = configOptional.orElse(new Config());
         } catch (DataConversionException e) {
-            logger.warning("Config file at " + configFilePathUsed + " is not in the correct format. " +
-                    "Using default config properties");
+            logger.warning(String.format(
+                    LOG_MESSAGE_CONFIG_FILE_INCORRECT_FORMAT, configFilePath));
             initializedConfig = new Config();
         }
 
-        //Update config file in case it was missing to begin with or there are new/unused fields
+        // Update config file in case it was missing to begin with or there are new/unused fields
         try {
             ConfigUtil.saveConfig(initializedConfig, configFilePathUsed);
         } catch (IOException e) {
-            logger.warning("Failed to save config file : " + StringUtil.getDetails(e));
+            logger.warning(LOG_MESSAGE_CONFIG_FILE_SAVE_FAILURE
+                    + StringUtil.getDetails(e));
         }
         return initializedConfig;
     }
@@ -129,26 +167,27 @@ public class MainApp extends Application {
         assert config != null;
 
         String prefsFilePath = config.getUserPrefsFilePath();
-        logger.info("Using prefs file : " + prefsFilePath);
+        logger.info(LOG_MESSAGE_USING_PREFS_FILE + prefsFilePath);
 
         UserPrefs initializedPrefs;
         try {
             Optional<UserPrefs> prefsOptional = storage.readUserPrefs();
             initializedPrefs = prefsOptional.orElse(new UserPrefs());
         } catch (DataConversionException e) {
-            logger.warning("UserPrefs file at " + prefsFilePath + " is not in the correct format. " +
-                    "Using default user prefs");
+            logger.warning(String.format(
+                    LOG_MESSAGE_PREFS_FILE_INCORRECT_FORMAT, prefsFilePath));
             initializedPrefs = new UserPrefs();
         } catch (IOException e) {
-            logger.warning("Problem while reading from the file. . Will be starting with an empty Tars");
+            logger.warning(LOG_MESSAGE_PROBLEM_READING_FROM_FILE);
             initializedPrefs = new UserPrefs();
         }
 
-        //Update prefs file in case it was missing to begin with or there are new/unused fields
+        // Update prefs file in case it was missing to begin with or there are new/unused fields
         try {
             storage.saveUserPrefs(initializedPrefs);
         } catch (IOException e) {
-            logger.warning("Failed to save config file : " + StringUtil.getDetails(e));
+            logger.warning(LOG_MESSAGE_CONFIG_FILE_SAVE_FAILURE
+                    + StringUtil.getDetails(e));
         }
 
         return initializedPrefs;
@@ -160,21 +199,22 @@ public class MainApp extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        logger.info("Starting Tars " + MainApp.VERSION);
+        logger.info(LOG_MESSAGE_STARTING_TARS + MainApp.VERSION);
         ui.start(primaryStage);
     }
 
     @Override
     public void stop() {
-        logger.info("============================ [ Stopping TARS ] =============================");
+        logger.info(STOPPING_TARS_HEADER);
         ui.stop();
         try {
             storage.saveUserPrefs(userPrefs);
         } catch (IOException e) {
-            logger.severe("Failed to save preferences " + StringUtil.getDetails(e));
+            logger.severe(
+                    LOG_MESSAGE_PREFS_SAVE_FAILURE + StringUtil.getDetails(e));
         }
         Platform.exit();
-        System.exit(0);
+        System.exit(SYSTEM_EXIT_NO_ERROR);
     }
 
     @Subscribe

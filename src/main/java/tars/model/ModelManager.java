@@ -492,15 +492,24 @@ public class ModelManager extends ComponentManager implements Model {
 
         DateQualifier(DateTime dateTime) {
             if (dateTime.getStartDate() != null) {
-                startDateTime = DateTimeUtil
-                        .setLocalTime(dateTime.getStartDate(), 0, 0, 0);
+                startDateTime =
+                        DateTimeUtil.setLocalTime(dateTime.getStartDate(),
+                                DateTimeUtil.DATETIME_FIRST_HOUR_OF_DAY,
+                                DateTimeUtil.DATETIME_FIRST_MINUTE_OF_DAY,
+                                DateTimeUtil.DATETIME_FIRST_SECOND_OF_DAY);
                 endDateTime = DateTimeUtil.setLocalTime(dateTime.getEndDate(),
-                        23, 59, 59);
+                        DateTimeUtil.DATETIME_LAST_HOUR_OF_DAY,
+                        DateTimeUtil.DATETIME_LAST_MINUTE_OF_DAY,
+                        DateTimeUtil.DATETIME_LAST_SECOND_OF_DAY);
             } else {
                 startDateTime = DateTimeUtil.setLocalTime(dateTime.getEndDate(),
-                        0, 0, 0);
+                        DateTimeUtil.DATETIME_FIRST_HOUR_OF_DAY,
+                        DateTimeUtil.DATETIME_FIRST_HOUR_OF_DAY,
+                        DateTimeUtil.DATETIME_FIRST_HOUR_OF_DAY);
                 endDateTime = DateTimeUtil.setLocalTime(dateTime.getEndDate(),
-                        23, 59, 59);
+                        DateTimeUtil.DATETIME_LAST_HOUR_OF_DAY,
+                        DateTimeUtil.DATETIME_LAST_MINUTE_OF_DAY,
+                        DateTimeUtil.DATETIME_LAST_SECOND_OF_DAY);
             }
 
             dateTimeQuery = new DateTime();
