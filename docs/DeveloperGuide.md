@@ -294,16 +294,21 @@ Use case ends.
 
 **MSS**
 
-1. User requests to view tasks for a particular day/week/month/date
+1. User requests to view tasks for today/this week/this month/a particular date
 2. Task!t display the list of tasks for that date sorted by date and/or time<br>
 Use case ends.
 
 **Extensions**
 
-2a. The list is empty
-> 2a1. Task!t shows a 'no task found' message.<br>
+2a. The filter provided is invalid
+> 2a1. Task!t shows a 'Filter provided is invalid!' message. <br>
 > Use case ends
 
+2b. The date provided is invalid
+> 2b1. Task!t shows a 'Task date provided is invalid!' message. <br>
+> Use case ends
+
+<!-- @@author A0153736B -->
 #### Use case: Find task
 
 **MSS**
@@ -314,15 +319,19 @@ Use case ends.
 
 **Extensions**
 
-1a. No parameter entered after command word
-> Task!t shows a 'no parameter entered' message.<br>
-> Use case resumes at step 1
-
-
-2a. The list is empty
-> 2a1. Task!t shows a 'no task found' message.<br>
+2a. No parameter entered after command word
+> 2a1. Task!t shows a 'invalid command' message and display the expected format.<br>
 > Use case ends
 
+2b. Findtype entered after command word is invalid
+> 2b1. Task!t shows a 'The findtype provided is invalid.' message.<br>
+> Use case ends
+
+2c. No keywords entered after findtype
+> 2c1. Task!t shows a 'Keywords are not provided.' message.<br>
+> Use case ends
+
+<!-- @@author A0138601M -->
 #### Use case: Edit task
 
 **MSS**
@@ -330,7 +339,7 @@ Use case ends.
 1. User requests to **view** tasks for a particular date/week/month/date
 2. Task!t displays the list of tasks for that date sorted by date and/or time
 3. User request to edit a specific task in the list based on task’s index with certain details
-6. Task!t updates the task details<br>
+4. Task!t updates the task details<br>
 Use case ends.
 
 **Extensions**
