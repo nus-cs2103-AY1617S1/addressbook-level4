@@ -717,45 +717,6 @@ public class Parser {
         return parsedDateTime;
     }
     
-    //@@author A0140060A-unused
-    //Used in earlier version, functionality replaced due to ArgumentTokenizer
-    /**
-     * Extracts argument from a string containing command arguments
-     * @param argumentPattern the pattern used to extract the argument from commandArgs
-     * @param argumentGroupName the matcher group name of the argument used in argumentPattern
-     * @param commandArgs string containing command arguments
-     * @return parsed argument as string or null if argument not parsed 
-     */
-    private String parseArgument(Pattern argumentPattern, String argumentGroupName, String commandArgs) {
-        String argument = null;
-        final Matcher argumentMatcher = argumentPattern.matcher(commandArgs);
-        if (argumentMatcher.find()) {
-            argument = argumentMatcher.group(argumentGroupName);
-            argument = removeTrailingCommandChars(argument, commandArgs);
-        }
-        return argument;
-    }
-
-    /**
-     * Removes unwanted trailing command characters from argument
-     * @param argument
-     * @param commandArgs
-     * @return cleaned argument string
-     */
-    private String removeTrailingCommandChars(String argument, String commandArgs) {
-        //maximum size of trailing command characters is 3, including the space before them
-        if (argument.length() >= 3 && argument.length() < commandArgs.trim().length()-3) {
-            //size of trailing name command characters is 2, including the space before it
-            if (argument.substring(argument.length()-2, argument.length()).matches(" n")) {
-                argument = argument.substring(0, argument.length()-2);
-            } else if (argument.substring(argument.length()-3, argument.length()).matches(" (sd|st|ed|et)")) {
-            //size of trailing command characters is 3, including the space before them
-                argument = argument.substring(0, argument.length()-3);
-            }
-        }
-        return argument;
-    }
-    
     //@@author A0143641M
     /**
      * Parses argument in the context of the saveAs specified file command.
