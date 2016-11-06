@@ -163,7 +163,7 @@ public class ArgumentTokenizer {
     public static class Prefix {
         final String prefix;
 
-        Prefix(String prefix) {
+        public Prefix(String prefix) {
             this.prefix = prefix;
         }
 

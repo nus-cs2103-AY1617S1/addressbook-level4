@@ -6,19 +6,18 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_TASK_DISPLAYED
 
 import java.text.ParseException;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import javafx.util.Pair;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.StringUtil;
@@ -55,7 +54,7 @@ public class Parser {
 	private static final Pattern EDIT_ARGS_FORMAT = Pattern.compile(
 			"(?<index>\\d+)\\s+(?<editTaskArgs>.+)"); 
 	private static final Pattern ADD_ALIAS_COMMAND_FORMAT = Pattern
-			.compile("\\s*'(?<alias>(\\s*\\S+)+)\\s*'\\s*=\\s*'(?<originalPhrase>(\\s*\\S+)+)\\s*'\\s*");
+			.compile("\\s*(?<alias>(\\s*\\S+)+)\\s*=\\s*(?<originalPhrase>(\\s*\\S+)+)\\s*");
 	//@@author A0143756Y
 	private static final Pattern SET_STORAGE_ARGS_FORMAT = Pattern.compile
 			("(?<folderFilePath>(\\s*[^\\s+])+)\\s+save-as\\s+(?<fileName>(\\s*[^\\s+])+)");
@@ -76,6 +75,9 @@ public class Parser {
 	public Command parseCommand(String userInput) {
 		String replacedInput = replaceAliases(userInput);
 		
+		System.out.println("original: " + userInput);
+		System.out.println("replaced: " + replacedInput);
+		
 		final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(replacedInput.trim());
 		if (!matcher.matches()) {
 			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
@@ -83,9 +85,6 @@ public class Parser {
 
 		final String commandWord = matcher.group("commandWord").trim();
 		final String arguments = matcher.group("arguments").trim();
-
-		System.out.println("command: " + commandWord);
-		System.out.println("arguments: " + arguments);
 
 		switch (commandWord) {
 		case AddCommand.COMMAND_WORD:
@@ -140,93 +139,98 @@ public class Parser {
 			return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
 		}
 	}
-
+	
+	
 	//@@author A0141019U	
-	private String replaceAliases(String userInput) {
-		List<ReadOnlyAlias> aliasList = this.model.getFilteredAliasList();
-		List<String> aliases = new ArrayList<>(); 
-		List<String> originals = new ArrayList<>(); 
+	private String replaceAliases(String userInput) {	
+		String quotedText = StringUtil.getQuotedText(userInput);
+		String inputWithNameRemoved = StringUtil.getNonQuotedText(userInput);
 		
-		for (ReadOnlyAlias aliasObj : aliasList) {
-			aliases.add(aliasObj.getAlias());
-			originals.add(aliasObj.getOriginalPhrase());
-		}
+		Map<String, String> aliasMap = getAliasMap();
 		
-		for (int i=0; i<aliases.size(); i++) {
-			String alias = aliases.get(i);
-			String original = originals.get(i);
-			
-			System.out.println("alias: " + alias);
-			
-			// Does not replace arguments in find command or within quotes			
-			if (userInput.contains(alias) 
-					&& !userInput.matches(".*'.*(" + alias + ").*'.*") 
-					&& !userInput.contains("find")) {
-				System.out.println("match");
-				userInput = userInput.replace(alias, original);
+		for (String alias : aliasMap.keySet()) {			
+			// Does not replace arguments in find command, any alias commands or within quotes			
+			if (inputWithNameRemoved.contains(alias) 
+					&& !(inputWithNameRemoved.contains("find") || inputWithNameRemoved.contains("-alias"))) {
+				
+				String original = aliasMap.get(alias);
+				inputWithNameRemoved = inputWithNameRemoved.replace(alias, original);
 			}
+		}		
+		
+		return inputWithNameRemoved + " " + quotedText;
+	}
+	
+	//@@author A0141019U	
+	private Map<String, String> getAliasMap() {
+		List<ReadOnlyAlias> aliasList = this.model.getFilteredAliasList();
+		Map<String, String> aliases = new HashMap<>();
+
+		for (ReadOnlyAlias aliasObj : aliasList) {
+			aliases.put(aliasObj.getAlias(), aliasObj.getOriginalPhrase());
 		}
-		
-		System.out.println("userInput: " + userInput);
-		
-		return userInput;
+
+		return aliases;
 	}
 	
 	
+
 	private Command prepareAdd(String arguments) {
 		if (StringUtil.countOccurrences('\'', arguments) != 2) {
 			// TODO better error msg?
 			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 		}
 		
-		Pair<String, String> nameAndArgs = separateNameAndArgs(arguments);
-		String taskName = nameAndArgs.getKey();
-		String args = nameAndArgs.getValue();
+		String taskNameWithQuotes = StringUtil.getQuotedText(arguments);
+		String taskNameWithoutQuotes = StringUtil.removeFirstAndLastChars(taskNameWithQuotes);
+		String args = StringUtil.getNonQuotedText(arguments);
 
-		System.out.println("name: " + taskName);
+		System.out.println("name: " + taskNameWithoutQuotes);
 		System.out.println("args: " + args);
 		
 		String argsLowerCase = args.toLowerCase();	
 		
-		if (argsLowerCase.contains(" on ")
-				&& argsLowerCase.contains(" from ") 
-				&& argsLowerCase.contains(" to ")) {
-			logger.log(Level.FINEST, "Calling prepareAddEventSameDay");
-			return prepareAddEventSameDay(taskName, "event", args);
+		if (argsLowerCase.contains("on")
+				&& argsLowerCase.contains("from") 
+				&& argsLowerCase.contains("to")) {
+			logger.finest("Calling prepareAddEventSameDay");
+			return prepareAddEventSameDay(taskNameWithoutQuotes, "event", args);
 		}
-		else if (argsLowerCase.contains(" from ")
-				&& argsLowerCase.contains(" to ")) {
-			logger.log(Level.FINEST, "Calling prepareAddEventDifferentDays");
-			return prepareAddEventDifferentDays(taskName, "event", args);
+		else if (argsLowerCase.contains("from")
+				&& argsLowerCase.contains("to")) {
+			logger.finest("Calling prepareAddEventDifferentDays");
+			return prepareAddEventDifferentDays(taskNameWithoutQuotes, "event", args);
 		}
-		else if (argsLowerCase.contains(" by ")) {
-			logger.log(Level.FINEST, "Calling prepareAddDeadline");
-			return prepareAddDeadline(taskName, "deadline", args);
+		else if (argsLowerCase.contains("by")) {
+			logger.finest("Calling prepareAddDeadline");
+			return prepareAddDeadline(taskNameWithoutQuotes, "deadline", args);
 		}
+		// if args is either empty or contains only #tags
 		else if (args.matches("\\s*(#.+)*\\s*")) {
-			logger.log(Level.FINEST, "Calling prepareAddSomeday");
-			return prepareAddSomeday(taskName, "someday", args);
+			logger.finest("Calling prepareAddSomeday");
+			return prepareAddSomeday(taskNameWithoutQuotes, "someday", args);
 		}
 		else {
 			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 		}
 	}
 	
-	
-	private Pair<String, String> separateNameAndArgs(String arguments) {
-		ArgumentTokenizer argsTokenizer = new ArgumentTokenizer(namePrefix);
-		argsTokenizer.tokenize(arguments);
-		
-		String preamble = argsTokenizer.getPreamble().orElse("");
-		
-		List<String> stringsAfterQuotes = argsTokenizer.getAllValues(namePrefix).get();
-		String taskName = stringsAfterQuotes.get(0);
-		String argsAfterName = stringsAfterQuotes.get(1);
-		
-		return new Pair<>(taskName, " " + preamble + " " + argsAfterName + " ");	
-	}
-	
-	
+
+	/**
+	 * 
+	 * @param taskName
+	 *            name of the task to be added.
+	 * @param taskType
+	 *            type of the task to be added.
+	 * @param arguments
+	 *            the user input string corresponding to adding an event, after
+	 *            the command word 'add' and the task name have been removed.
+	 *            'on' cannot be a part of the command string. Both times
+	 *            supplied must contain the date as well. 
+	 *            eg. `from 9:00am today to 10pm tomorrow #happy` is valid 
+	 *            but `from 9:00am today to 10pm #happy is not.
+	 * @return an AddCommand for an event task
+	 */
 	private Command prepareAddEventDifferentDays(String taskName, String taskType, String arguments) {
 		ArgumentTokenizer argsTokenizer = new ArgumentTokenizer(startDateTimePrefix, endDateTimePrefix, tagsPrefix);
 		argsTokenizer.tokenize(arguments);
@@ -238,7 +242,20 @@ public class Parser {
 		return getAddCommand(taskName, taskType, startDateTimeString, endDateTimeString, tagSet);
 	}
 	
-	
+	/**
+	 * 
+	 * @param taskName
+	 *            name of the task to be added.
+	 * @param taskType
+	 *            type of the task to be added.
+	 * @param arguments
+	 *            the user input string corresponding to adding an event, after
+	 *            the command word 'add' and the task name have been removed.
+	 *            'on' should be a part of the command string to signify both
+	 *            times are on the same date. 
+	 *            eg. `from 9:00am to 10pm on 30-10-16 #happy` is valid.
+	 * @return an AddCommand for an event task
+	 */
 	private Command prepareAddEventSameDay(String taskName, String taskType, String arguments) {
 		ArgumentTokenizer argsTokenizer = new ArgumentTokenizer(startDateTimePrefix, endDateTimePrefix, datePrefix, tagsPrefix);
 		argsTokenizer.tokenize(arguments);
@@ -251,7 +268,19 @@ public class Parser {
 		return getAddCommand(taskName, taskType, startDateTimeString, endDateTimeString, tagSet);
 	}
 
-	
+	/**
+	 * 
+	 * @param taskName
+	 *            name of the task to be added.
+	 * @param taskType
+	 *            type of the task to be added.
+	 * @param arguments
+	 *            the user input string corresponding to adding a deadline,
+	 *            after the command word 'add' and the task name have been
+	 *            removed. The string must contain 'by' for the tokeniser to
+	 *            find the due by date. eg. `by 600`
+	 * @return
+	 */
 	private Command prepareAddDeadline(String taskName, String taskType, String arguments) {
 		ArgumentTokenizer argsTokenizer = new ArgumentTokenizer(dlEndDateTimePrefix, tagsPrefix);
 		argsTokenizer.tokenize(arguments);
@@ -262,6 +291,19 @@ public class Parser {
 		return getAddCommand(taskName, taskType, null, endDateTimeString, tagSet);
 	}
 	
+	/**
+	 * 
+	 * @param taskName
+	 *            name of the task to be added.
+	 * @param taskType
+	 *            type of the task to be added.
+	 * @param arguments
+	 *            the user input string corresponding to adding a someday,
+	 *            after the command word 'add' and the task name have been
+	 *            removed. It can either be empty or contain one or more tags.
+	 *            eg. `#bob #gg` and `` are valid inputs.
+	 * @return
+	 */
 	private Command prepareAddSomeday(String taskName, String taskType, String arguments) {
 		ArgumentTokenizer argsTokenizer = new ArgumentTokenizer(dlEndDateTimePrefix, tagsPrefix);
 		argsTokenizer.tokenize(arguments);
@@ -272,7 +314,23 @@ public class Parser {
 		return getAddCommand(taskName, taskType, null, null, tagSet);
 	}
 	
-	
+	/**
+	 * 
+	 * @param taskName
+	 *            name of the task to be added.
+	 * @param taskType
+	 *            type of the task to be added.
+	 * @param startDateTimeString
+	 *            start date of the task to be added. If null, start date parsed
+	 *            is Optional.empty()
+	 * @param endDateTimeString
+	 *            end date of the task to be added. If null, end date parsed is
+	 *            Optional.empty()
+	 * @param tagSet
+	 *            tags of the task to be added.
+	 * @return an AddCommand if all inputs are valid, IncorrectCommand
+	 *         otherwise.
+	 */
 	private Command getAddCommand(String taskName, String taskType, String startDateTimeString, String endDateTimeString, Set<String> tagSet) {
 		Optional<LocalDateTime> startDateTimeOpt, endDateTimeOpt;
 
@@ -296,6 +354,8 @@ public class Parser {
 			return new IncorrectCommand(e.getMessage());
 		} catch (IllegalValueException e) {
 			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+		} catch (IllegalArgumentException e) {
+			return new IncorrectCommand(String.format(e.getMessage()));
 		}
 	}
 	
@@ -312,11 +372,11 @@ public class Parser {
         	return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
         }
     	
-    	// keyphrases delimited by commas
+    	// Keyphrases delimited by commas
         final String[] keyphrases = args.trim().split("\\s*,\\s*");
         final Set<String> keyphraseSet = new HashSet<>(Arrays.asList(keyphrases));
         
-        System.out.println("keyphrase set: " + keyphraseSet.toString());
+        logger.finest("Keyphrase set for find command: " + keyphraseSet.toString());
         
         return new FindCommand(keyphraseSet);
     }
@@ -357,11 +417,9 @@ public class Parser {
 	
 	//@@author A0141019U
 	/**
-	 * Parses arguments in the context of the delete task command.
-	 *
-	 * @param args
-	 *            full command args string
-	 * @return the prepared command
+	 * @param a valid argument is one or more integers separated by spaces, corresponding to tasks
+	 * displayed on the screen.
+	 * @return a DeleteCommand if the argument string is valid, IncorrectCommand otherwise.
 	 */
 	private Command prepareDelete(String arguments) {
 		int[] indices;
@@ -394,11 +452,11 @@ public class Parser {
 		
 		Optional<String> taskName;
 		String args;
-		if(editTaskArgs.contains("\'")) {
-			Pair<String,String> nameAndArgs = separateNameAndArgs(editTaskArgs);
-			taskName = Optional.of(nameAndArgs.getKey());
-			args = nameAndArgs.getValue();
-		} else {
+		if (editTaskArgs.contains("\'")) {
+			taskName = Optional.of(StringUtil.removeFirstAndLastChars(StringUtil.getQuotedText(editTaskArgs)));
+			args = StringUtil.getNonQuotedText(editTaskArgs);
+		} 
+		else {
 			taskName = Optional.empty();
 			args = editTaskArgs;
 		}
@@ -424,9 +482,9 @@ public class Parser {
 		
 		try {
 			startDateTime = isRemoveStartDateTime ? Optional.empty() : 
-				convertToLocalDateTime(startDateTimeString);
+				convertOptionalToLocalDateTime(startDateTimeString);
 			endDateTime = isRemoveEndDateTime ? Optional.empty() : 
-				convertToLocalDateTime(endDateTimeString);
+				convertOptionalToLocalDateTime(endDateTimeString);
 		} catch (ParseException e) {
 			return new IncorrectCommand(e.getMessage());
 		}
@@ -450,14 +508,15 @@ public class Parser {
 		final String folderFilePath = matcher.group("folderFilePath").trim();
 		final String fileName = matcher.group("fileName").trim();
 		
-		System.out.println("Folder File Path: " + folderFilePath);
-		System.out.println("File Name: " + fileName);
+		logger.finest("Parsed folder path: " + folderFilePath);
+		logger.finest("Parsed file Name: " + fileName);
 		
 		return new SetStorageCommand(folderFilePath, fileName);
 	}
-
-	private Optional<LocalDateTime> convertToLocalDateTime(Optional<String> dateTimeString) 
-		throws ParseException{
+	//@@author
+	
+	private Optional<LocalDateTime> convertOptionalToLocalDateTime(Optional<String> dateTimeString) 
+		throws ParseException {
 		Optional<LocalDateTime> dateTime = Optional.empty();
 		if(dateTimeString.isPresent()) {
 			dateTime = Optional.of(DateParser.parse(dateTimeString.get()));
@@ -518,7 +577,7 @@ public class Parser {
     /**
      * @return a TabCommand with argument corresponding to the name 
      * of the tab to switch to.
-     * @throws IllegalArgumentException for inputs other than
+     * An IncorrectCommand is returned for inputs other than
      * today, tomorrow, week, month, someday (case-insensitive)
      */
     private Command prepareTabCommand(String arguments) {
@@ -570,6 +629,6 @@ public class Parser {
 	public static void main(String[] args) {
 		Parser p = new Parser(new ModelManager());
 //		p.parseCommand("add 'dd' by 5pm today");
-		p.replaceAliases("find k");
+//		System.out.println(p.getQuotedText("ad 'a' ddk d"));
 	}
 }

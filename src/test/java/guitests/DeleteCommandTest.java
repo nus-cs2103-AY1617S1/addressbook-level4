@@ -76,7 +76,7 @@ public class DeleteCommandTest extends TaskManagerGuiTest {
         commandBox.runCommand("del " + sbIndices.toString());
 
         //confirm the list now contains all previous tasks except the deleted tasks
-        assertTrue(taskListPanel.isListMatching(expectedRemainder));
+        assertTrue(listPanel.isListMatching(expectedRemainder));
 
         //confirm the result message is correct
         // TODO figure out why square brackets are needed

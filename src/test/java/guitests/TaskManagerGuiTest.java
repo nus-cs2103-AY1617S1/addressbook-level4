@@ -39,12 +39,12 @@ public abstract class TaskManagerGuiTest {
      */
     protected MainGuiHandle mainGui;
     protected MainMenuHandle mainMenu;
-    protected TaskListPanelHandle taskListPanel;
-    protected TaskListPanelHandle todayTaskListTabPanel;
-    protected TaskListPanelHandle tomorrowTaskListTabPanel;
-    protected TaskListPanelHandle in7DaysTaskListTabPanel;
-    protected TaskListPanelHandle in30DaysTaskListTabPanel;
-    protected TaskListPanelHandle somedayTaskListTabPanel;
+    protected ListPanelHandle listPanel;
+    protected ListPanelHandle todayTaskListTabPanel;
+    protected ListPanelHandle tomorrowTaskListTabPanel;
+    protected ListPanelHandle in7DaysTaskListTabPanel;
+    protected ListPanelHandle in30DaysTaskListTabPanel;
+    protected ListPanelHandle somedayTaskListTabPanel;
     protected ResultDisplayHandle resultDisplay;
     protected CommandBoxHandle commandBox;
     private Stage stage;
@@ -64,14 +64,12 @@ public abstract class TaskManagerGuiTest {
     	FxToolkit.setupStage((stage) -> {
             mainGui = new MainGuiHandle(new GuiRobot(), stage);
             mainMenu = mainGui.getMainMenu();
-            taskListPanel = mainGui.getTaskListPanel();
-            //@@author A0142184L
+            listPanel = mainGui.getListPanel();
             todayTaskListTabPanel = mainGui.getTodayTaskListTabPanel();
             tomorrowTaskListTabPanel = mainGui.getTomorrowTaskListTabPanel();
             in7DaysTaskListTabPanel = mainGui.getIn7DaysTaskListTabPanel();
             in30DaysTaskListTabPanel = mainGui.getIn30DaysTaskListTabPanel();
             somedayTaskListTabPanel = mainGui.getSomedayTaskListTabPanel();
-            //@@author
             resultDisplay = mainGui.getResultDisplay();
             commandBox = mainGui.getCommandBox();
             this.stage = stage;
@@ -108,31 +106,17 @@ public abstract class TaskManagerGuiTest {
     
     //@@author A0142184L
     /**
-     * Asserts the someday task shown in the card is same as the given someday task
-     */
-    public void assertSomedayTaskMatching(ReadOnlyTask task, SomedayTaskCardHandle card) {
-        assertTrue(TestUtil.compareSomedayCardAndTask(card, task));
-    }
-    
-    /**
-     * Asserts the deadline task shown in the card is same as the given deadline task
-     */
-    public void assertDeadlineTaskMatching(ReadOnlyTask task, DeadlineTaskCardHandle card) {
-        assertTrue(TestUtil.compareDeadlineCardAndTask(card, task));
-    }
-    
-    /**
      * Asserts the event task shown in the card is same as the given event task
      */
-    public void assertEventTaskMatching(ReadOnlyTask task, EventTaskCardHandle card) {
-        assertTrue(TestUtil.compareEventCardAndTask(card, task));
+    public void assertTaskMatching(ReadOnlyTask task, TaskCardHandle card) {
+        assertTrue(TestUtil.compareCardAndTask(card, task));
     }
     //@@author
     /**
      * Asserts the size of the task list is equal to the given number.
      */
     protected void assertListSize(int size) {
-        int numberOfTasks = taskListPanel.getNumberOfTasks();
+        int numberOfTasks = listPanel.getNumberOfTasks();
         assertEquals(size, numberOfTasks);
     }
     //@@author A0142184L

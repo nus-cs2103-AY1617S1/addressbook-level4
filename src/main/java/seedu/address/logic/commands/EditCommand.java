@@ -28,14 +28,7 @@ public class EditCommand extends Command {
             + "Example: " + COMMAND_WORD + " 1 'chill for the day' from 12am today by 11pm today";
  
     public static final String MESSAGE_EDIT_TASK_SUCCESS = "Edited Task: %1$s";
-    public static final String MESSAGE_DUPLICATE_TASK = "Edit will result in duplicate tasks in task manager";   
-    
-    //@@author A0143756Y
-    public static final String MESSAGE_START_DATE_TIME_AFTER_END_DATE_TIME = 
-    		"Start of event is scheduled after end of event. Please re-enter correct start and end dates/times.\n";
-    public static final String MESSAGE_START_DATE_TIME_EQUALS_END_DATE_TIME =
-    		"Start of event equals end of event. Please re-enter correct start and end dates/times.\n";
-    //@@author A0139339W
+    public static final String MESSAGE_DUPLICATE_TASK = "Edit will result in duplicate tasks in task manager";  
 
     public final int targetIndex;
     private final Optional<Name> newName;
@@ -89,29 +82,8 @@ public class EditCommand extends Command {
         	    postEdit.setName(newName.get());
             }
             
-            if(newStartDateTime.isPresent() && !newEndDateTime.isPresent()){
-            	LocalDateTime startDateTime = newStartDateTime.get();
-            	
-            	if(taskToEdit.getEndDate().isPresent()){
-            		LocalDateTime endDateTime = taskToEdit.getEndDate().get();
-            		
-                	if(startDateTime.isAfter(endDateTime)){
-                    	return new CommandResult(MESSAGE_START_DATE_TIME_AFTER_END_DATE_TIME);
-                	}  
-            	}
-            }
+            validateEndDateTimeAfterStartDateTime(taskToEdit);
             
-            if(!newStartDateTime.isPresent() && newEndDateTime.isPresent()){
-            	LocalDateTime endDateTime = newEndDateTime.get();
-            	
-            	if(taskToEdit.getStartDate().isPresent()){
-            		LocalDateTime startDateTime = taskToEdit.getStartDate().get();
-            		
-                	if(!endDateTime.isAfter(startDateTime)){
-                		return new CommandResult(MESSAGE_START_DATE_TIME_AFTER_END_DATE_TIME);
-                	}      
-            	}
-            }
             
             if(newEndDateTime.isPresent()) {
             	postEdit.setEndDate(newEndDateTime.get());
@@ -136,7 +108,6 @@ public class EditCommand extends Command {
         	
             model.editTask(index, postEdit);
             
-           
             raiseJumpToTaskEvent(postEdit);
 
             
@@ -146,6 +117,9 @@ public class EditCommand extends Command {
         } catch (TaskNotFoundException tnfe) {
             model.undoSaveState();
             assert false : "The target task cannot be missing";
+        } catch (IllegalArgumentException iae) {
+        	model.undoSaveState();
+        	return new CommandResult(iae.getMessage());
         }
         
         
@@ -160,4 +134,39 @@ public class EditCommand extends Command {
 		int indexToScrollTo = listAfterEdit.indexOf(postEdit);
 		EventsCenter.getInstance().post(new JumpToListRequestEvent(indexToScrollTo));
 	}    
+	
+	//@@author A0143756Y
+	private void validateEndDateTimeAfterStartDateTime(ReadOnlyTask taskToEdit){
+		
+		if(newStartDateTime.isPresent() && newEndDateTime.isPresent()){
+        	LocalDateTime startDateTime = newStartDateTime.get();
+        	LocalDateTime endDateTime = newEndDateTime.get();
+        	
+        	Task.validateEndDateTimeAfterStartDateTime(startDateTime, endDateTime);
+        }
+        
+        if(newStartDateTime.isPresent() && !newEndDateTime.isPresent()){
+        	if(isRemoveEndDateTime){
+        		throw new IllegalArgumentException(Task.MESSAGE_START_DATE_TIME_CANNOT_BE_SET_WITH_END_DATE_TIME_REMOVED);
+        	}
+        	
+        	if(!taskToEdit.getEndDate().isPresent()){
+        		throw new IllegalArgumentException(Task.MESSAGE_START_DATE_TIME_CANNOT_BE_SET_WITH_END_DATE_TIME_MISSING);
+        	}
+        	
+        	LocalDateTime startDateTime = newStartDateTime.get();
+    		LocalDateTime endDateTime = taskToEdit.getEndDate().get();
+    		
+    		Task.validateEndDateTimeAfterStartDateTime(startDateTime, endDateTime);
+        }
+        
+        if(!newStartDateTime.isPresent() && newEndDateTime.isPresent()){           	
+        	if((!isRemoveStartDateTime) && taskToEdit.getStartDate().isPresent()){
+        		LocalDateTime endDateTime = newEndDateTime.get();
+        		LocalDateTime startDateTime = taskToEdit.getStartDate().get();
+        		
+        		Task.validateEndDateTimeAfterStartDateTime(startDateTime, endDateTime);
+        	}
+        }
+	}
 }
