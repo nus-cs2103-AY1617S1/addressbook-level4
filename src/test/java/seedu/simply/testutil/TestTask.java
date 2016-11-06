@@ -26,8 +26,8 @@ public class TestTask implements ReadOnlyTask {
         this.name = name;
     }
 
-    public void setEnd(End address) {
-        this.end = address;
+    public void setEnd(End task) {
+        this.end = task;
     }
 
     public void setStart(Start email) {

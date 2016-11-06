@@ -27,8 +27,8 @@ public class TodoBuilder {
         return this;
     }
 
-    public TodoBuilder withEnd(String address) throws IllegalValueException {
-        this.person.setEnd(new End(address));
+    public TodoBuilder withEnd(String task) throws IllegalValueException {
+        this.person.setEnd(new End(task));
         return this;
     }
 

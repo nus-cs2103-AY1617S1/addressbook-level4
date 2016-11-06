@@ -8,29 +8,29 @@ import seedu.simply.model.task.UniqueTaskList;
 import seedu.simply.model.task.UniqueTaskList.DuplicateTaskException;
 
 /**
- * A utility class to help with building Addressbook objects.
+ * A utility class to help with building Taskbook objects.
  * Example usage: <br>
- *     {@code AddressBook ab = new AddressBookBuilder().withPerson("John", "Doe").withTag("Friend").build();}
+ *     {@code TaskBook ab = new TaskBookBuilder().withPerson("John", "Doe").withTag("Friend").build();}
  */
 public class TaskBookBuilder {
 
-    private TaskBook addressBook;
+    private TaskBook taskBook;
 
-    public TaskBookBuilder(TaskBook addressBook){
-        this.addressBook = addressBook;
+    public TaskBookBuilder(TaskBook taskBook){
+        this.taskBook = taskBook;
     }
 
     public TaskBookBuilder withPerson(Task person) throws DuplicateTaskException {
-        addressBook.addTask(person);
+        taskBook.addTask(person);
         return this;
     }
 
     public TaskBookBuilder withTag(String tagName) throws IllegalValueException {
-        addressBook.addTag(new Tag(tagName));
+        taskBook.addTag(new Tag(tagName));
         return this;
     }
 
     public TaskBook build(){
-        return addressBook;
+        return taskBook;
     }
 }

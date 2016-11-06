@@ -29,7 +29,7 @@ public class PersonCardHandle extends GuiHandle {
         return getTextFromLabel(NAME_FIELD_ID);
     }
 
-    public String getAddress() {
+    public String getTask() {
         return getTextFromLabel(END_FIELD_ID);
     }
 
@@ -50,7 +50,7 @@ public class PersonCardHandle extends GuiHandle {
         if(obj instanceof PersonCardHandle) {
             PersonCardHandle handle = (PersonCardHandle) obj;
             return getFullName().equals(handle.getFullName())
-                    && getAddress().equals(handle.getAddress())
+                    && getTask().equals(handle.getTask())
                     && getPhone().equals(handle.getPhone())
                     && getEmail().equals(handle.getEmail()); 
         }
@@ -59,6 +59,6 @@ public class PersonCardHandle extends GuiHandle {
 
     @Override
     public String toString() {
-        return getFullName() + " " + getAddress();
+        return getFullName() + " " + getTask();
     }
 }
