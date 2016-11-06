@@ -108,8 +108,8 @@ public class ModelManager extends ComponentManager implements Model {
 	}
 
 	@Override
-	public void pinTask(int targetIndex) throws PersonNotFoundException {
-		addressBook.pinTask(targetIndex);
+	public void pinTask(ReadOnlyTask taskToPin) throws PersonNotFoundException {
+		addressBook.pinTask(taskToPin);
 		indicateAddressBookChanged();
 	}
 

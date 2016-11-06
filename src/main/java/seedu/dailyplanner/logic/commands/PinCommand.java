@@ -41,7 +41,7 @@ public class PinCommand extends Command {
 
         try {
         	 model.getHistory().stackUnpinInstruction(taskToPin);
-            model.pinTask(targetIndex-1);
+            model.pinTask(taskToPin);
         } catch (PersonNotFoundException pnfe) {
             assert false : "The target task cannot be missing";
         }

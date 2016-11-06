@@ -115,12 +115,12 @@ public class UniqueTaskList implements Iterable<Task> {
 	 * 
 	 * @return
 	 */
-	public void pin(int taskIndex) throws PersonNotFoundException {
+	public void pin(ReadOnlyTask taskToPin) throws PersonNotFoundException {
 
-		final Task taskToPin = internalList.get(taskIndex);
-		taskToPin.pin();
-		internalList.set(taskIndex, taskToPin);
-		pinnedList.add(taskToPin);
+		final int pinnedTaskIndex = internalList.indexOf(taskToPin);
+		final Task pinnedTask = internalList.get(pinnedTaskIndex);
+		pinnedTask.pin();
+		internalList.set(pinnedTaskIndex, pinnedTask);
 	}
 
 	public void unpin(int targetIndex) {

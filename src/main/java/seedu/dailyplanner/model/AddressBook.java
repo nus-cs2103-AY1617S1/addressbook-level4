@@ -121,8 +121,8 @@ public class AddressBook implements ReadOnlyAddressBook {
         persons.complete(key);
     }
 
-    public void pinTask(int targetIndex) throws PersonNotFoundException {
-	persons.pin(targetIndex);
+    public void pinTask(ReadOnlyTask taskToPin) throws PersonNotFoundException {
+    	persons.pin(taskToPin);
     }
     
     public void unpinTask(int targetIndex) {
