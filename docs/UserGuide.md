@@ -133,7 +133,7 @@ Example: edit E1 start 5pm
 
 >Note: Adding a start time to a to-do will automatically convert your to-do into an event with a default day of today and start time as entered. 
 
-<br><br>
+<br>
 ####2.4 Edit task end time 
 
 Samantha has also informed her friends that the party is scheduled to end at 11pm, so that they know when to get their parents to pick them up. To update the end time, type the following.
@@ -144,10 +144,12 @@ Example: edit E1 end 2300
 
 >Note: Adding a end time to a to-do will automatically convert your to-do into a deadline with a default date of today and end time as entered. 
 
-<br><br>
+<br>
 ####2.5 Edit a specific tag
 
-You have been very busy and forgot to buy Samantha's present so you want to remind yourself that you absolutely have to buy that present tomorrow for her. You can do so by changing the existing rememberToBuyPresent tag to AbsolutelyRememberToBuyPresent tag.
+You have been very busy and forgot to buy Samantha's present so you want to remind yourself that you absolutely have to buy that present tomorrow for her. 
+
+You can do so by changing the existing rememberToBuyPresent tag to AbsolutelyRememberToBuyPresent tag.
 
 >Format: **Edit** &lt;index&gt; **tag** &lt;old_tag&gt; ***>*** &lt;new_tag&gt;
 
@@ -156,48 +158,45 @@ Example: edit E1 #rememberToBuyPresent > #AbsolutelyRememberToBuyPresent
  
 ###3 Find Task by Keyword
 
-The find by keyword command enables you to search for any events, deadlines, to-dos that have been added to Simply. If the searched task is not found, an error message will be shown.
+The find by keyword command enables you to search for any events, deadlines, to-dos that have been added to Simply by partial keyword. If the searched task is not found, an error message will be shown.
 
 > Format: **Find** &lt;keyword&gt;
 
 
 Example: 
 
-Find **siloso**
-
-Find 050316
-
-Find 2359
-
-Find #CS2103
-
+Find report
 
 Only the tasks with the keyword are displayed. Keywords are NOT case sensitive.
 
 
-###4 Mark done tasks 
+###4 Marking tasks as done 
 
-When you are done with tasks, enter this command to mark them as done and hide them away.
+Remember that report that we added at the start? Once you have done it, simply type the command following the format below and you will never have to see it again. Unless of course you want to, then we will show you how in the later part of this user guide. 
 
 > Format: Done &lt;index&gt;
 
-> Format: Done &lt;index&gt;-&lt;index&gt;
-
-> Format: Done &lt;index&gt;, &lt;index&gt;
-    
-    
 Example: 
 
-Done T1
+Done D1
 
-Done T1-T3
+This will hide that report that you have completed from the main screen.
 
-Done T1, T3
+You can also complete multiple tasks as once by following the format below.
 
+> Format: Done &lt;index&gt;-&lt;index&gt;
 
->Note: if you want to select more than one task to complete, you can separated the task by a hyphen (-) to complete all tasks that are within the range. In addition, you also need to separate the task by a comma (,) to individually delete them.
+Example : Done T1-T3
 
+This marks the range of tasks between the first index and the second index as done while this,
 
+> Format: Done &lt;index&gt;, &lt;index&gt;
+
+Example: Done T1, E2, D4
+
+marks the specified indexes as done.
+
+<br>
 ###5 Display tasks
 
 ####5.1 Display completed tasks
