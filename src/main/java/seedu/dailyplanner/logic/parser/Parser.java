@@ -249,7 +249,6 @@ public class Parser {
 
 		// Change date to "dd/mm/yy/", time to "hh:mm"
 		nattyParser natty = new nattyParser();
-		DateTimeParser dt = new DateTimeParser();
 
 		if (mapArgs.containsKey("taskName")) {
 			taskName = mapArgs.get("taskName");
@@ -307,7 +306,7 @@ public class Parser {
 	}
 
 	private boolean isValidAddArgumentFormat(String trimmedArgs) {
-		if (trimmedArgs.charAt(1) == '/') {
+		if (trimmedArgs.length() != 1 && trimmedArgs.charAt(1) == '/') {
 			return false;
 		}
 		for (int k = 0; k < trimmedArgs.length(); k++) {
@@ -414,8 +413,9 @@ public class Parser {
 
 	// @@author A0146749N
 	private boolean hasTaskName(String arguments) {
-		if (arguments.substring(0, 3).contains("/")) {
-			System.out.println("HAS NO TASK NAME");
+		if (arguments.length() == 1) {
+			return true;
+		} else if (arguments.length() >= 2 && arguments.charAt(1) == '/') {
 			return false;
 		} else {
 			return true;

@@ -47,7 +47,6 @@ public class StringUtil {
 		int keyDate = Integer.parseInt(keyword.substring(0, 2));
 		int keyMonth = Integer.parseInt(keyword.substring(3, 5));
 		int keyYear = Integer.parseInt(keyword.substring(6));
-		System.out.println("SEARCHKEY " + keyword);
 		Date taskStart = task.getStart().m_date;
 		Date taskEnd = task.getEnd().m_date;
 		if (taskStart.m_value.equals("") && taskEnd.m_value.equals("")) {
