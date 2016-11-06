@@ -15,123 +15,176 @@ public class Interval implements Comparable<Interval> {
 
     
     public Interval() {
-        this.startDate = null; 
+        
+    }
+    
+    /**
+     * Constructs and validates the Interval based on which parameters given is not null.
+     * 
+     * Constructs an event type interval if all parameters are not null.
+     * Constructs an deadline with time type interval if only endDate and endTime are not null.
+     * Constructs an deadline without time type interval if only endDate is not null.
+     * Constructs an float type interval if all parameters are null. 
+     *
+     * @throws IllegalValueException if given date or time is invalid or set of date and time is an invalid interval.
+     */
+    public Interval(String startDate, String startTime, String endDate, String endTime) throws IllegalValueException {       
+        if (isEvent(startDate, startTime, endDate, endTime)) {
+            initEvent(startDate, startTime, endDate, endTime);
+        } else if (isDeadlineWithTime(startDate, startTime, endDate, endTime)) {
+            initDeadlineWithTime(endDate, endTime);
+        } else if (isDeadlineWithoutTime(startDate, startTime, endDate, endTime)) {
+            initDeadlineWithoutTime(endDate);
+        } else if (isFloat(startDate, startTime, endDate, endTime)) {
+            initFloat();
+        } else {
+            assert false : "A given interval must represent an event, deadline, or float";
+        }     
+    }
+    
+    /**
+     * Initialises an event type interval.
+     * 
+     * @throws IllegalValueException if given date or time is invalid or set of date and time is an invalid event interval. 
+     * For example, endDate earlier than startDate or endTime earlier than startTime.
+     */
+    private void initEvent(String startDate, String startTime, String endDate, String endTime) throws IllegalValueException {
+        this.startDate = new TaskDate(startDate);
+        this.startTime = new TaskTime(startTime);
+        this.endDate = new TaskDate(endDate);
+        this.endTime = new TaskTime(endTime);
+        
+        if (!isValidDateInterval(this.startDate, this.endDate)) {
+            throw new IllegalValueException(MESSAGE_INTERVAL_CONSTRAINTS_DATE);
+        }
+
+        if (!isValidTimeInterval(this.startDate, this.startTime, this.endDate, this.endTime)) {
+            throw new IllegalValueException(MESSAGE_INTERVAL_CONSTRAINTS_TIME);
+        }
+    }
+    
+    /**
+     * Initialises a deadline with time type interval.
+     * 
+     * @throws IllegalValueException if given date or time is invalid
+     */
+    private void initDeadlineWithTime(String endDate, String endTime) throws IllegalValueException {
+        this.endDate = new TaskDate(endDate);
+        this.endTime = new TaskTime(endTime);
+    }
+    
+    /**
+     * Initialises a deadline without time type interval.
+     * 
+     * @throws IllegalValueException if given date is invalid
+     */
+    private void initDeadlineWithoutTime(String endDate) throws IllegalValueException {
+        this.endDate = new TaskDate(endDate);
+    }
+    
+    /**
+     * Initialises a float type interval.
+     */
+    private void initFloat() {
+        this.startDate = null;
         this.startTime = null;
         this.endDate = null;
         this.endTime = null;
     }
-    /**
-     * Validates given interval.
-     *
-     * @throws IllegalValueException if given set of date is an invalid interval.
-     */
-    public Interval(String startDate, String startTime, String endDate, String endTime) throws IllegalValueException {
-        this();
-        if (!isFloat(startDate, startTime, endDate, endTime)) {
-            if (isDeadlineWithTime(startDate, startTime, endDate, endTime)) {
-                this.endDate = new TaskDate(endDate);
-                this.endTime = new TaskTime(endTime);
-            }
-            else if (isDeadlineWithoutTime(startDate, startTime, endDate, endTime)) {
-                this.endDate = new TaskDate(endDate);
-            }
-            else {
-                this.startDate = new TaskDate(startDate);
-                this.startTime = new TaskTime(startTime);
-                this.endDate = new TaskDate(endDate);
-                this.endTime = new TaskTime(endTime);
-                
-                if (!isValidDateInterval(this.startDate, this.endDate)) {
-                    throw new IllegalValueException(MESSAGE_INTERVAL_CONSTRAINTS_DATE);
-                }
-                
-                if (!isValidTimeInterval(this.startDate, this.startTime, this.endDate, this.endTime)) {
-                    throw new IllegalValueException(MESSAGE_INTERVAL_CONSTRAINTS_TIME);
-                }
-            } 
-        }
-    }
 
     /**
-     * Returns true if a given interval has a valid task date interval.
+     * Returns true if a given interval has a valid task date interval. (i.e. startDate is earlier than endDate)
      */
     private boolean isValidDateInterval(TaskDate startDate, TaskDate endDate) {
-        if (endDate.isBefore(startDate)) {
-            return false;
-        }
-        return true;
+        return !endDate.isBefore(startDate);
     }
     
     /**
-     * Returns true if a given interval has a valid task time interval.
+     * Returns true if a given interval has a valid task time interval. 
+     * if startDate and endDate are not equal, it is assume to be a valid interval. (i.e. startDate is earlier than endDate)
      */
     private boolean isValidTimeInterval(TaskDate startDate, TaskTime startTime, TaskDate endDate, TaskTime endTime) {
-        if (startDate.equals(endDate)) {
-            if (endTime.isBefore(startTime)) {
-                return false;
-            }
-        }
-        return true;
+        return !startDate.equals(endDate) || !endTime.isBefore(startTime);
+    }
+    
+    /**
+     * Returns true if a given set of datetime is an event.
+     */
+    private boolean isEvent(String startDate, String startTime, String endDate, String endTime) {
+        return startDate != null 
+                && startTime != null 
+                && endDate != null 
+                && endTime != null;
+    }
+    
+    /**
+     * Returns true if the interval object is an event.
+     */
+    public boolean isEvent() {
+        return this.startDate != null 
+                && this.startTime != null 
+                && this.endDate != null 
+                && this.endTime != null;
+    } 
+    
+    /**
+     * Returns true if a given set of datetime is a deadline with time.
+     */
+    private boolean isDeadlineWithTime(String startDate, String startTime, String endDate, String endTime) {
+        return startDate == null 
+                && startTime == null 
+                && endDate != null 
+                && endTime != null;
     }
     
     /**
      * Returns true if the interval object is a deadline with time.
      */
     public boolean isDeadlineWithTime() {
-        if (this.startDate == null && this.startTime == null && this.endDate != null && this.endTime != null) {
-            return true;
-        }
-        return false;
-    }
-    
-    /**
-     * Returns true if a given set of datetime is a deadline with time.
-     */
-    private boolean isDeadlineWithTime(String startDate, String startTime, String endDate, String endTime) {
-        if (startDate == null && startTime == null && endDate != null && endTime != null) {
-            return true;
-        }
-        return false;
-    }
-    
-    /**
-     * Returns true if the interval object is a deadline without time.
-     */
-    public boolean isDeadlineWithoutTime() {
-        if (this.startDate == null && this.startTime == null && this.endDate != null && this.endTime == null) {
-            return true;
-        }
-        return false;
+        return this.startDate == null 
+                && this.startTime == null 
+                && this.endDate != null 
+                && this.endTime != null;
     } 
     
     /**
      * Returns true if a given set of datetime is a deadline without time.
      */
     private boolean isDeadlineWithoutTime(String startDate, String startTime, String endDate, String endTime) {
-        if (startDate == null && startTime == null && endDate != null && endTime == null) {
-            return true;
-        }
-        return false;
+        return startDate == null 
+                && startTime == null
+                && endDate != null 
+                && endTime == null;
     }
     
     /**
-     * Returns true if the interval object is a floating task
+     * Returns true if the interval object is a deadline without time.
      */
-    public boolean isFloat() {
-        if (this.startDate == null && this.startTime == null && this.endDate == null && this.endTime == null) {
-            return true;
-        }
-        return false;
+    public boolean isDeadlineWithoutTime() {
+        return this.startDate == null 
+                && this.startTime == null 
+                && this.endDate != null 
+                && this.endTime == null;
     }
     
     /**
      * Returns true if a given interval is a floating task
      */
     private boolean isFloat(String startDate, String startTime, String endDate, String endTime) {
-        if (startDate == null && startTime == null && endDate == null && endTime == null) {
-            return true;
-        }
-        return false;
+        return startDate == null 
+                && startTime == null 
+                && endDate == null 
+                && endTime == null;
+    }  
+    
+    /**
+     * Returns true if the interval object is a floating task
+     */
+    public boolean isFloat() {
+        return this.startDate == null 
+                && this.startTime == null 
+                && this.endDate == null 
+                && this.endTime == null;
     }
     
     public TaskDate getStartDate() {
@@ -150,28 +203,32 @@ public class Interval implements Comparable<Interval> {
         return this.endTime;
     }
     
+    /**
+     * Returns a formatted string based on the interval type.
+     * 
+     * Examples:
+     * Event type - 20 Nov 2016, 3:00PM to 21 Nov 2016, 4:00PM
+     * Deadline with time type - 20 Nov 2016, 3:00PM
+     * Deadline without time type - 20 Nov 2016
+     */
     public String toString() {
-        if (!this.isFloat()) {
-            if (this.isDeadlineWithTime()) {
-                return formatEndDateTime();
-            }
-            else if (this.isDeadlineWithoutTime()) {
-                return formatEndDate();
-            }
-            else {
-                return formatStartDateTime() + " to " + formatEndDateTime();
-            }
+        if (this.isEvent()) {
+            return formatStartDateTime() + " to " + formatEndDateTime();
+        } else if (this.isDeadlineWithTime()) {
+            return formatEndDateTime();
+        } else if (this.isDeadlineWithoutTime()) {
+            return formatEndDate();
+        } else {
+            return null;    
         }
-        return null;
     }
     
-    //Ian: quite retarded right? You try to .toString a field that can be null.
     public String formatStartDateTime() {
-        return startDate + ", " + startTime;//.toString().replace("AM", "am").replace("PM","pm");
+        return startDate + ", " + startTime;
     }
     
     public String formatEndDateTime() {
-        return endDate + ", " + endTime;//.toString().replace("AM", "am").replace("PM","pm");
+        return endDate + ", " + endTime;
     }
     
     public String formatEndDate() {
@@ -185,66 +242,102 @@ public class Interval implements Comparable<Interval> {
         TaskTime firstTime = this.getTimeToCompare();
         TaskTime secondTime = interval.getTimeToCompare();
         
-        if (firstDate == null) { //first task is float
-            if (secondDate == null) { //both are floating task
-                return 0;
-            }
-            else { //floating tasks always later than timed task
-                return 1;
-            }
+        //If both are float task, they are equal
+        if (isFloatTask(firstDate) && isFloatTask(secondDate)) {
+            return 0;
         }
-        else { //first task is timed
-            if (secondDate == null) { //timed tasks always earlier than floating task
-                return -1;
+        
+        return compareDateTime(firstDate, secondDate, firstTime, secondTime);
+    }
+    
+    /**
+     * Returns true if TaskDate is null
+     */
+    private boolean isFloatTask(TaskDate date) {
+        return date == null;
+    }
+    
+    /**
+     * Returns true is TaskTime is not null
+     */
+    private boolean isTimedTask(TaskTime time) {
+        return time != null;
+    }
+    
+    /**
+     * Compares the 2 date-times and determines the ordering
+     * firstDate and secondDate cannot both be Float Tasks
+     */
+    private int compareDateTime(TaskDate firstDate, TaskDate secondDate, TaskTime firstTime, TaskTime secondTime) {
+        assert !isFloatTask(firstDate) || !isFloatTask(secondDate);
+        
+        int compare;
+        if (!isFloatTask(firstDate)) {
+            compare = compareSecondDate(firstDate, secondDate, firstTime, secondTime);
+        } else {
+            compare = 1;
+        }
+        return compare;
+    }
+    
+    /**
+     * Compare the secondDate. firstDate must not be null
+     * Returns 1 if first date-time is later than second date-time
+     * Returns 0 if both date-times are equal
+     * Returns -1 otherwise
+     */
+    private int compareSecondDate(TaskDate firstDate, TaskDate secondDate,
+            TaskTime firstTime, TaskTime secondTime) {
+        assert firstDate != null;
+        
+        if (isFloatTask(secondDate)) {
+            return -1;
+        } else {
+            if (firstDate.equals(secondDate)) { //if date are the same, determine order with time
+                return compareTime(firstTime, secondTime);
             }
-            else { //both are dated tasks
-                if (firstDate.equals(secondDate)) { //if date are the same, determine order with time
-                    if (firstTime == null) { //untimed task always later than timed task
-                        return 1;
-                    }
-                    else if (secondTime == null) { //timed task always earlier than untimed task
-                        return -1;
-                    }
-                    else if (firstTime.equals(secondTime)) { //both datetime are equal
-                        return 0;
-                    }
-                    else if (firstTime.isBefore(secondTime)) { //first task is earlier
-                        return -1;
-                    }
-                    else { //first task is later
-                        return 1;
-                    }
-                }
-                else if (firstDate.isBefore(secondDate)) { //first task is earlier
-                    return -1;
-                }
-                else { //first task is later
-                    return 1;
-                }
-            }
+            return firstDate.compareTo(secondDate);
         }
     }
     
+    /**
+     * Compares the firstTime and secondTime
+     * Returns 1 if first time is later than second time
+     * Returns 0 if both times are equal
+     * Returns -1 otherwise
+     */
+    private int compareTime(TaskTime firstTime, TaskTime secondTime) {
+        if (isTimedTask(firstTime)) {
+            return firstTime.compareTo(secondTime);
+        } else if (isTimedTask(secondTime)) {
+            return -secondTime.compareTo(firstTime); //flip comparison
+        } else {
+            return 0;
+        }
+    }
+    
+    /**
+     * Returns the date to be used for comparison.
+     */
     private TaskDate getDateToCompare() {
         if (this.startDate != null) {
             return this.startDate;
-        }
-        else if (this.endDate != null) {
+        } else if (this.endDate != null) {
             return this.endDate;
-        }
-        else {
+        } else {
             return null;
         }
     }
     
+    /**
+     * Returns the time to be used for comparison.
+     */
     private TaskTime getTimeToCompare() {
         if (this.startTime != null) {
             return this.startTime;
-        }
-        else if (this.endTime != null) {
+        } else if (this.endTime != null) {
             return this.endTime;
-        }
-        else {
+        } else {
             return null;
         }
     }

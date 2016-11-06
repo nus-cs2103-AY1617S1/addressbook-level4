@@ -36,6 +36,11 @@ public class AddCommandTest extends ToDoListGuiTest {
         assertResultMessage(Messages.MESSAGE_UNKNOWN_COMMAND);
     }
 
+    /**
+     * Runs the add command to add new tasks and confirms the result is correct.
+     * @param taskToAdd a new task to be added
+     * @param currentList A copy of the current list of tasks (before addition).
+     */
     private void assertAddSuccess(TestTask taskToAdd, TestTaskList currentList) {
         commandBox.runCommand(taskToAdd.getAddCommand());
 

@@ -115,7 +115,7 @@ The `UI` component,
 
 1. `Logic` uses the `Parser` class to parse the user command.
 2. This results in a `Command` object which is executed by the `LogicManager`.
-3. The command execution can affect the `Model` (e.g. adding a person) and/or raise events.
+3. The command execution can affect the `Model` (e.g. adding a task) and/or raise events.
 4. The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`
 
 <!-- @@author A0138601M -->
@@ -145,7 +145,7 @@ The `Storage` component,
 
 ### Common classes
 
-Classes used by multiple components are in the `seedu.addressbook.commans` package. 
+Classes used by multiple components are in the `seedu.todolist.commons` package. 
 
 ## Implementation
 
@@ -259,7 +259,8 @@ Priority | As a ... | I want to ... | So that I can...
 `* * *` | user | view task list sorted by date and time | keep track of tasks that have to be done on a specific day
 `* * *` | user | find an existing task by name using keywords | locate an existing task without having to go through the entire task list
 `* * *` | user | modify the information of a task | update the details, requirements and deadline of a task if they are changed
-`* * *` | user | undo the most recent operation done by the user | revert the previous state of tasks in case if a mistake is made
+`* * *` | user | undo the most recent operation done by the user | revert the previous state of ToDoList in case if a mistake is made
+`* * *` | user | redo the most recent undo operation by the user | revert the state of ToDoList before applying an undo operation
 `* * *` | user | mark the completed tasks as done | keep track of which items are done and which are yet to be done
 `* * *` | user | delete a task | discard cancelled tasks
 `* * *` | user | specify a specific folder as the data storage location | choose a folder that is more convenient for me to access the data
@@ -444,8 +445,27 @@ Use case ends.
 2a. The given path is invalid
 > 2a1. Task!t shows a 'invalid path' message<br>
 > Use case ends
-<!-- @@author -->
 
+<!-- @@author A0153736B -->
+#### Use case: Redo operation
+
+**MSS**
+
+1. User requests to redo the last undo operation performed
+2. Task!t redo the last undo operation <br>
+Use case ends.
+
+**Extensions**
+
+2a. There is no last undo operation
+> 2a1. Task!t shows a 'There is no previous undo operation.' message.<br>
+> Use case ends
+
+2b. The previous operation is not an undo operation
+> 2b1. Task!t shows a 'There is no previous undo operation.' message.<br>
+> Use case ends
+
+<!-- @@author -->
 ## Appendix C : Non Functional Requirements
 
 1. Should work on any [mainstream OS](#mainstream-os) as long as it has Java `1.8.0_60` or higher installed.
@@ -540,7 +560,7 @@ Cons:
 * Does not display a calendar
 * Does not allow the addition of venue to a task
 
-<!-- @@author -->
+<!-- @@author A0153736B -->
 #### Cal
 Pros:
 * With a very convenient interface for setting events’ date and time quickly

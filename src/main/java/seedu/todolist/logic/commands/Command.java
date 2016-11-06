@@ -44,7 +44,6 @@ public abstract class Command {
         this.storage = storage;
     }
 
-
     /**
      * Raises an event to indicate an attempt to execute an incorrect command
      */

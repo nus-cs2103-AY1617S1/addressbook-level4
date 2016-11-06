@@ -203,12 +203,20 @@ Examples:
   **`edit`**` 1 `**`at`**<br>
   Deletes the location parameter of the 1st task in the results of the **`find`** command.
   
-<!-- @@author A0138601M-->
+<!-- @@author A0153736B-->
 ### Undoing last action performed : `undo`
-Undo the last action performed in Task!t. Irreversible.<br>
-Memory supports up to five historical actions. <br>
+Undo the last action performed in Task!t. Reversible by `redo`<br>
 Format: **`undo`**
 
+>Supports until no historical action.
+
+### Redoing last undo action performed : `redo`
+Redo the most recent undo operation done by the user in Task!t.<br>
+Format: **`redo`**
+
+>If the undo operation is overwritten by other operations, the to-do-list can't be redone.
+
+<!-- @@author A0138601M-->
 ### Setting the storage location : `setstorage`
 Sets the location of the storage file. <br>
 Format: **`setstorage`**` [filepath]`
@@ -251,3 +259,4 @@ List | **`list`**` [filter]`
 Help | **`help`**
 Set storage | **`setstorage`**` [filepath]`
 Undo | **`undo`**
+Redo | **`redo`**
