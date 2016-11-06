@@ -15,18 +15,18 @@ import harmony.mastermind.memory.Memory;
 /**
  * API of the Storage component
  */
-public interface StorageMemory extends Storage {
+public abstract class StorageMemory implements Storage {
 
     //initializing variables 
-    static String SAVE_FILE = "data.txt";
-    static final String ERROR_READ = "Unable to read from file!\nTry checking " + SAVE_FILE + " or continue using to start over.\n\n";
-    static final String ERROR_CREATE = "Problem creating file!";
-    static final String ERROR_NOT_FOUND = "File not found";
-    static final String NULL = "-";
-    static final String SPACE = " ";
+    private static String SAVE_FILE = "data.txt";
+    private static final String ERROR_READ = "Unable to read from file!\nTry checking " + SAVE_FILE + " or continue using to start over.\n\n";
+    private static final String ERROR_CREATE = "Problem creating file!";
+    private static final String ERROR_NOT_FOUND = "File not found";
+    private static final String NULL = "-";
+    private static final String SPACE = " ";
     
     //@@author A0143378Y
-    static void saveToStorage(Memory memory) { 
+    public static void saveToStorage(Memory memory) { 
         try {
             PrintWriter pw = new PrintWriter(SAVE_FILE);
             for (int i=0; i<memory.getSize(); i++) {
@@ -47,7 +47,7 @@ public interface StorageMemory extends Storage {
     }
 
     //@@author A0143378Y
-    static void printEnd(Memory memory, PrintWriter pw, int i) { 
+    private static void printEnd(Memory memory, PrintWriter pw, int i) { 
         if (memory.get(i).getEnd() != null) {
             pw.println(calendarToString(memory.get(i).getEnd()));
         } else {
@@ -56,7 +56,7 @@ public interface StorageMemory extends Storage {
     }
 
     //@@author A0143378Y
-    static void printStart(Memory memory, PrintWriter pw, int i) { 
+    private static void printStart(Memory memory, PrintWriter pw, int i) { 
         if (memory.get(i).getStart() != null) {
             pw.println(calendarToString(memory.get(i).getStart()));
         } else {
@@ -64,7 +64,7 @@ public interface StorageMemory extends Storage {
         }
     }
 
-    static String calendarToString(Calendar a) { 
+    private static String calendarToString(Calendar a) { 
         String dateTime = "";
         dateTime = a.get(Calendar.YEAR) + SPACE + a.get(Calendar.MONTH) + SPACE + a.get(Calendar.DATE);
         if(a.isSet(Calendar.HOUR_OF_DAY)){
@@ -74,7 +74,7 @@ public interface StorageMemory extends Storage {
     }
 
     //@@author A0143378Y
-    static void printDescription(Memory memory, PrintWriter pw, int i) {
+    private static void printDescription(Memory memory, PrintWriter pw, int i) {
         if (memory.get(i).getDescription() != null) {
             pw.println(memory.get(i).getDescription());
         } else {
@@ -97,7 +97,7 @@ public interface StorageMemory extends Storage {
     }
 
     //@@author A0143378Y
-    static void readFromFile(Memory memory) { 
+    private static void readFromFile(Memory memory) { 
         try {
             BufferedReader br = new BufferedReader(new FileReader(SAVE_FILE));
             String line = br.readLine();
@@ -130,7 +130,7 @@ public interface StorageMemory extends Storage {
 
     //@@author A0143378Y
     // Read line for integer for state
-    static int readState(BufferedReader br) throws IOException {
+    private static int readState(BufferedReader br) throws IOException {
         int state;
         String stateString = br.readLine();
         state=Integer.parseInt(reduceToInt(stateString));
@@ -138,13 +138,13 @@ public interface StorageMemory extends Storage {
     }
     
     //@@author A0143378Y
-    static String reduceToInt(String stateString) { 
+    private static String reduceToInt(String stateString) { 
         return stateString.replaceAll("[^0-9]", "");
     }
 
     //@@author A0143378Y
     // Read line for calendar for start and end dates
-    static Calendar readCalendar(BufferedReader br, Calendar startCal) throws IOException {
+    private static Calendar readCalendar(BufferedReader br, Calendar startCal) throws IOException {
         String start = br.readLine();
         if (start.equals(NULL)) {
             start = null;
@@ -156,7 +156,7 @@ public interface StorageMemory extends Storage {
 
     //@@author A0143378Y
     // Converts string representation of date and time back into Calendar object
-    static Calendar stringToCalendar(String b){
+    private static Calendar stringToCalendar(String b){
         Calendar setNew = new GregorianCalendar();
 
         String[] details = b.split(SPACE);
@@ -177,12 +177,17 @@ public interface StorageMemory extends Storage {
     }
 
     //@@author A0143378Y
-    static String readDescription(BufferedReader br) throws IOException {
+    private static String readDescription(BufferedReader br) throws IOException {
         String description;
         description = br.readLine();
         if (description.equals(NULL)) {
             description = null;
         }
         return description;
+    }
+
+    // To change file name of save file
+    public static void setSaveFileAddress(String add){
+        SAVE_FILE = add;
     }
 }
