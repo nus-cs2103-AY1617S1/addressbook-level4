@@ -25,207 +25,260 @@
 ## Tests for Add command
 
 #### Adding a floating task
-Command: ` `
+Command: ` ` <br>
 Expected Output: ` `
 
 #### Adding an event
-Command: ` `
+Command: ` ` <br>
 Expected Output: ` `
 
 #### Adding a deadline
-Command: ` `
+Command: ` ` <br>
 Expected Output: ` `
 
 #### Adding a task with start time only
-Command: ` `
+Command: ` ` <br>
 Expected Output: ` `
 
 #### Adding an overlapping task
-Command: ` `
+Command: ` ` <br>
 Expected Output: ` `
 
 #### Adding a duplicate task
-Command: ` `
+Command: ` ` <br>
 Expected Output: ` `
 
 #### Adding in an invalid manner (Example 1)
-Command: ` `
+Command: ` ` <br>
 Expected Output: ` `
 
 #### Adding in an invalid manner (Example 2)
-Command: ` `
+Command: ` ` <br>
 Expected Output: ` `
 
 ## Tests for Show command
 
 #### Show all
-Command: `show all`
+Command: `show all` <br>
 Expected Output: ` `
 
 #### Show overdue
-Command: `show overdue` or `overdue`
+Command: `show overdue` or `overdue` <br>
 Expected Output: ` `
 
 #### Show done/complete
-Command: `show done` or `show complete`
+Command: `show done` or `show complete` <br>
 Expected Output: ` `
 
 #### Show today
-Command: `show today` or `today`
+Command: `show today` or `today` <br>
 Expected Output: ` `
 
 #### Show tomorrow
-Command: `show tomorrow` or `tomorrow`
+Command: `show tomorrow` or `tomorrow` <br>
 Expected Output: ` `
 
 #### Show floating
-Command: `show floating` or `floating`
+Command: `show floating` or `floating` <br>
 Expected Output: ` `
 
 #### Show for any random date
-Command: `show 25/12/2016` or `show xmas`
+Command: `show 25/12/2016` or `show xmas` <br>
 Expected Output: ` `
 
 #### Show high priority tasks
-Command: `show p/high`
+Command: `show p/high` <br>
 Expected Output: ` `
 
 #### Show medium priority tasks
-Command: `show p/med`
+Command: `show p/med` <br>
 Expected Output: ` `
 
 #### Show low priority tasks
-Command: `show p/low`
+Command: `show p/low` <br>
 Expected Output: ` `
 
 #### Show upcoming/incomplete tasks
-Command: `show upcoming` or `show incomplete` or `show`
+Command: `show upcoming` or `show incomplete` or `show` <br>
 Expected Output: ` `
 
 ## Tests for Find command
 
 #### Find non-existing task
-Command: `find `
+Command: `find ` <br>
 Expected Output: ` `
 
 #### Find task with one matching result
-Command: `find `
+Command: `find ` <br>
 Expected Output: ` `
 
 #### Find task with more than one matching result
-Command: `find `
+Command: `find ` <br>
 Expected Output: ` `
 
 #### Find all tasks
-Command: `find *`
+Command: `find *` <br>
 Expected Output: ` `
 
 #### Find task with wildcard character *
-Command: `find B*y*`
+Command: `find B*y*` <br>
 Expected Output: ` `
 
 ## Tests for Delete command
 
-#### Delete task by index
-Command: `delete `
+#### Delete task by index 
+Command: `delete ` <br>
 Expected Output: ` `
 
 #### Delete task by name with only one matching result
-Command: `delete `
+Command: `delete ` <br>
 Expected Output: ` `
 
 #### Delete task by name with multiple matching results
-Command: `delete `
+Command: `delete ` <br>
 Expected Output: ` `
 
 #### Delete task by name with zero matching results
-Command: `delete `
+Command: `delete ` <br>
 Expected Output: ` `
 
 ## Tests for Update command
 
 #### Update start time for a task
-Command: `update `
+Command: `update ` <br>
 Expected Output: ` `
 
 #### Update end time for a task
-Command: `update `
+Command: `update ` <br>
 Expected Output: ` `
 
 #### Update priority for a task
-Command: `update `
+Command: `update ` <br>
 Expected Output: ` `
 
 #### Update recurring frequency for a task
-Command: `update `
+Command: `update ` <br>
 Expected Output: ` `
 
 #### Update task details for a task
-Command: `update `
+Command: `update ` <br>
 Expected Output: ` `
 
 #### Update floating task to a task with start time and end time
-Command: `update `
+Command: `update ` <br>
 Expected Output: ` `
 
 #### Invalid attempt at update (Example 1)
-Command: `update `
+Command: `update ` <br>
 Expected Output: ` `
 
 #### Invalid attempt at update (Example 2)
-Command: `update `
+Command: `update ` <br>
 Expected Output: ` `
 
 ## Tests for Done command
 
 #### Complete task by index
-Command: `done `
+Command: `done ` <br>
 Expected Output: ` `
 
 #### Complete task by name with only one matching result
-Command: `done `
+Command: `done ` <br>
 Expected Output: ` `
 
 #### Complete task by name with multiple matching results
-Command: `done `
+Command: `done ` <br>
 Expected Output: ` `
 
 #### Complete task by name with zero matching results
-Command: `done `
+Command: `done ` <br>
 Expected Output: ` `
 
 ## Tests for Setstorage command
 
 #### Set storage file path to random file location
-Command: `setstorage `
+Command: `setstorage ` <br>
 Expected Output: ` `
 
 #### Set storage file path to default file location
-Command: `setstorage default`
+Command: `setstorage default` <br>
 Expected Output: ` `
 
 ## Tests for Undo command
 
+#### Undo one change
+Command 1: ` ` <br>
+Command 2: `undo` <br>
+Expected Output: `Your previous action has been undone.`
 
+#### Undo two changes
+Command 1: ` ` <br>
+Command 2: ` ` <br>
+Command 3: `undo` <br>
+Expected Output: `Your previous action has been undone.`
+Command 4: `undo` <br>
+Expected Output: `Your previous action has been undone.`
+
+#### Undo three changes
+
+Command 1: ` ` <br>
+Command 2: ` ` <br>
+Command 3: ` ` <br>
+Command 4: `undo` <br>
+Expected Output: `Your previous action has been undone.`
+Command 5: `undo` <br>
+Expected Output: `Your previous action has been undone.`
+Command 6: `undo` <br>
+Expected Output: `Your previous action has been undone.`
 
 ## Tests for Redo command
 
+#### Redo one change
+Command 1: ` ` <br>
+Command 2: `undo` <br>
+Command 3: `redo` <br>
+Expected Output: `Your previous undo action has been redone.`
 
+#### Redo two changes
+Command 1: ` ` <br>
+Command 2: ` ` <br>
+Command 3: `undo` <br>
+Command 4: `undo` <br>
+Command 5: `redo` <br>
+Expected Output: `Your previous undo action has been redone.`
+Command 6: `redo` <br>
+Expected Output: `Your previous undo action has been redone.`
+
+#### Redo three changes
+
+Command 1: ` ` <br>
+Command 2: ` ` <br>
+Command 3: ` ` <br>
+Command 4: `undo` <br>
+Command 5: `undo` <br>
+Command 6: `undo` <br>
+Command 7: `redo` <br>
+Expected Output: `Your previous undo action has been redone.`
+Command 8: `redo` <br>
+Expected Output: `Your previous undo action has been redone.`
+Command 9: `redo` <br>
+Expected Output: `Your previous undo action has been redone.`
 
 ## Tests for Help command
 
 #### Attempt opening help window
-Command: `help`
+Command: `help` <br>
 Expected Output: `Opened help window.`
 
 ## Tests for Clear command
 
 #### Clear all tasks
-Command: `clear`
+Command: `clear` <br>
 Expected Output: `Your task list has been cleared!`
 
-#### Undo clear (this test is just to restore the cleared task list)
-Command: `undo`
+#### Undo clear 
+N.B.: This test is just to restore the cleared task list; should be performed immediately after clear command.
+Command: `undo` <br>
 Expected Output: `Your previous action has been undone.`
 
 ## Tests for Autocomplete feature
