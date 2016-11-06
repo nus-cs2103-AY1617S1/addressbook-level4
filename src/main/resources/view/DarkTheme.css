@@ -107,9 +107,7 @@
 .list-cell:focused:selected {
 	-fx-background-color: derive(#FFBF00 , 70%);
 }
-.list-cell:focused:selected .label {
-	-fx-font-size: 16px;
-}
+
 .list-cell .label {
 	-fx-font-family: Palatino;
 	-fx-font-size: 16px;
