@@ -220,7 +220,7 @@ There are two types of tests:
   
 2. **Non-GUI Tests** - These are tests not involving the GUI. They include: 
    * _Unit tests_ targeting the lowest level methods/classes. <br>
-      e.g. `seedu.ggist.commons.UrlUtilTest`
+      e.g. `seedu.ggist.commons.AppUtilTest`
    * _Integration tests_ that are checking the integration of multiple code units 
      (those code units are assumed to be working).<br>
       e.g. `seedu.ggist.storage.StorageManagerTest`

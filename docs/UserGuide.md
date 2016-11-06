@@ -5,25 +5,26 @@
 * [About GGist](#about-ggist)
 * [Quick Start](#quick-start)
 * [Features](#features)
-   * [Adding a task](#adding-a-task-add)
-   * [List tasks](#listing-tasks--list)
-   * [Search for a task](#searching-tasks-by-keywords-search)
-   * [Delete a task](#deleting-a-task--delete)
+   * [Adding tasks](#adding-a-task-add)
+   * [Listing tasks](#listing-tasks--list)
+   * [Searching for tasks](#searching-tasks-by-keywords-search)
+   * [Deleting tasks](#deleting-a-task--delete)
    * [Undo & Redo](#undo--undo)
-   * [Edit a task](#editing-a-task--edit)
-   * [Mark a task complete](#marking-a-task-as-complete--done)
-   * [Save GGist data](#saving-the-data-to-a-specified-location--save)
+   * [Editing tasks](#editing-a-task--edit)
+   * [Marking tasks as done](#marking-a-task-as-done--done)
+   * [Marking completed tasks as undone](#marking-a-completed-task-as-undone--continue)
+   * [Saving GGist data](#saving-the-data-to-a-specified-location--save)
 * [Command Cheatsheet](#command-cheatsheet)
 
 <!-- @@author A0138420N --> 
 
 ## About GGist
 
-Are you constantly overwhelmed by the number of things you have to do everyday or do you have a really hard time managing them? If you answer is yes, GGist is the perfect solution to your daily struggle. GGist is a one-stop user friendly desktop organiser designed to aid working professionals like you to better organize and prioritise your everyday tasks.
+Are you constantly overwhelmed by the number of things you have to do everyday? Do you have a hard time managing your time? If your answer is yes, GGist is the perfect solution for you. GGist is a one-stop, user-friendly desktop application designed to aid busy individuals like you in better managing and prioritising your everyday tasks.
 
-Unlike most of the organisers in the market, GGist can be launched with a keyboard shortcut and accepts flexible natural language commands via keyboard. This makes it convenient for working professionals like you who can type fast, spend most of the time near a computer and prefer typing commands. 
+Unlike most of the other task managers in the market, GGist accepts straightforward, one-liner keyboard commands that incorporate flexible natural language. This makes it extremely convenient for working professionals like you who spend most of your time near a computer and prefer typing instead of using the mouse. 
 
-Are you ready to embrace a new way of living and have your life better organized? Let’s begin!
+Are you ready to embrace a new style of organised living? Let's begin!
 
 
 ## Quick Start
@@ -32,162 +33,183 @@ Are you ready to embrace a new way of living and have your life better organized
    > Having any Java 8 version is not enough. <br>
    This application may not work with earlier versions of Java 8.
    
-1. Download the latest `GGist.jar` from the [releases](../../../releases) tab.
+1. Download the latest `GGist.jar` from the [releases](https://github.com/CS2103AUG2016-W13-C2/main/releases) tab.
 2. Copy the file to the folder you want to use as the home folder for your GGist application.
 3. Double-click on the .jar file. The GUI should appear in a few seconds. 
-   > <img src="images/ggistInterfaceUI.png" width="800">
+   > <img src="images/StartUI.png" width="800">
 
 4. Type the command in the command box and press <kbd>Enter</kbd> to execute it. <br>
    e.g. typing **`help`** and pressing <kbd>Enter</kbd> will open the help window. 
 5. Some example commands you can try:
-   * **`list`**` 31 oct` : 
-     lists all the tasks on 31 oct in GGist.
-   * **`add`**` water the plants, jul 10, 1400` : 
-     adds a task `water the plants` with deadline 2pm on the 10th of July to GGist.
-   * **`delete`**` 3` : deletes the 3rd task shown in the current list
-   * **`exit`** : exits the app
+   * **`list`**` today` : 
+     lists all today's undone tasks.
+   * **`add`**` water the plants, 13 dec, 1400` : 
+     adds a task `water the plants` with the deadline 2pm on the 13th of July to GGist.
+   * **`delete`**` 3` : deletes the 3rd task shown in the current list.
+   * **`exit`** : exits the application
 6. Refer to the [Features](#features) section below for details of each command.<br>
 
 
 ## Features
 
 > **Command Format**
-> * Words in `UPPER_CASE` are the parameters.
-> * Items in `SQUARE_BRACKETS` are optional.
-> * Items with `...` after them can have multiple instances.
-> * The order of parameters is fixed.
+> * Words in `UPPER_CASE` are the details of a task.
+> * Details are usually separated by commas.
+> * The space before or after a comma is optional.
+> * Commas may be replaced with prepositions like from, to, on, by.
+> * Details in `SQUARE_BRACKETS` are optional.
+> * Details with `...` after them can have multiple instances.
+> * The order of details is fixed.
 
 #### Viewing help : `help`
+
 Format: `help`
 
-> Help is also shown if you enter an incorrect command e.g. `abcd`
+<!-- @@author A0144727B --> 
 
-<!-- @@author A0144727B -->
- 
-#### Adding a task: `add`
+#### Adding a task: `add` 
+
 Adds a task to GGist<br>
-General format: `add TASK,[DATE] [TIME], [PRIORITY]`
+
+General format: `add TASK, [DATE] [TIME], [PRIORITY]`
 
 > * `[DATE]` and `[TIME]` has to separated by a space.
+> * If a time without a date is given, the current date will be used by default.
 
->**`Date` Format**
-> * `10 Oct` , `tuesday`, `tomorrow` , `next fri` works.
+>**`DATE` Format**
+> * `10 dec` ,`dec 10`, `tuesday`, `tomorrow` , `next friday`, `next thurs` or their equivalent will work.
 
 >**`PRIORITY` Format**
 > * Prefix with a dash `-`
-> * `-low` , `-med` , `-high`
+> * Three available levels: `-low` , `-med` , `-high`
 
 
 ##### Without any deadline
-Format: `add TASK, [DATE] [TIME] [PRIORITY]`
+
+Format: `add TASK, [PRIORITY]`
 
 Examples: 
-* `add buy milk, low`
-* `add buy present for brother's birthday`
+* `add buy milk, -low`
+* `add buy brother's present`
 
 
 ##### With deadline
+
 Format: `add TASK, DATE TIME [PRIORITY]`
 
 Examples: 
 * `add write diary, tomorrow 1300`
 * `add prepare presentation slides by monday 2pm -high`
+* `add movie night on 9pm`
 
 > * The comma after `[TASK]` can be replaced with `by` or `on`.<br>
-> * `[DATE]` and `[TIME]` has to separated by a space or an 'at'.<br>
+> * `[DATE]` and `[TIME]` has to separated by a space or an ' at '.<br>
 
 
 ##### With start and end time within the same day
-Format: `add TASK, DATE, START TIME, END TIME [PRIORITY]`
+
+Format: `add TASK, DATE, STARTTIME, ENDTIME [PRIORITY]`
 
 Examples: 
-* `add tennis, 21 nov, 1pm to 3pm -high`
+* `add tennis practice, 21 nov, 1pm, 3pm`
+* `add dad's birthday dinner, tomorrow, 7pm to 9pm -high`
 * `add lunch with parents on friday from 12pm to 1pm`
-<!--- @@author A0138411N --->
+
 > * The comma after `[TASK]` can be replaced with `on`.<br>
 > * The comma after `[DATE]` can be replaced with a space. <br>
-> * The comma after `[START TIME]` can be replaced with `to`.<br>
-
+> * The comma after `[STARTTIME]` can be replaced with `to`.<br>
+<!-- @@author A0138411N --> 
 
 ##### With start and end time on different days
-Format: `add TASK, START DATE TIME, END DATE TIME [PRIORITY]`
+
+Format: `add TASK, STARTDATE TIME, ENDDATE TIME [PRIORITY]`
 
 Examples: 
-* `add dad's birthday celebration, next thurs 1900, next thurs 2100 -high`
-* `add going overseas from fri at 1pm to next fri at 10pm`
+* `add neurology conference, next thurs 10am, next sunday 7pm -high`
+* `add korea holiday from fri 1300 to next fri 2200`
 
 > * The comma after `[TASK]` can be replaced with `from`.<br>
-> * `[DATE]` and `[TIME]` has to separated by a space. <br>
-> * The comma after `[START DATE TIME]` can be replaced with a `to`.
+> * `[STARTDATE]` or `[ENDDATE]` and `[TIME]` has to separated by a space or an ' at '. <br>
+> * The comma after `[STARTDATE] [TIME]` can be replaced with a `to`.
 
 
-#### Listing tasks : `list`
-Shows a list of task of your preferred choice.<br>
-Format: `list [PARAMETERS]`
+#### Listing tasks : `list` Shows a list of task of your preferred choice.<br>
+
+Format: `list [TYPE]`
 
 >**Available Listing**
-> * `list` shows all incomplete tasks
+> * `list` shows all undone tasks
+> <img src="images/ListUI.png" width="800">
+> * `list today ` shows today's undone tasks
 > * `list all` shows all tasks
+> <img src="images/ListAllUI.png" width="800">
 > * `list done` shows all completed tasks
-> * `list [PRIORITY]` shows tasks of your specified priority level
-> * `list [DATE]` shows remaining tasks starting or ending on a particular date
+> <img src="images/ListDoneUI.png" width="800">
+> * `list [PRIORITY]` shows all tasks with the specified priority level  (low, med, high)
+> * `list [DATE]` shows all undone tasks with start date or end date as the specified date
 <!--- @@author --->
-
 <!-- @@author A0138420N --> 
-#### Searching tasks by keywords: `search`
-Searches and lists all tasks that contain the specified keyword, inclusive of `DAY`, `DATE`, `TIME`, `PRIORITY` and `FREQUENCY`.<br>
+
+#### Searching tasks by keywords: `search` 
+
+Searches and shows all tasks with details that contain the specified keyword. `DAY`, `DATE`, `TIME`, `PRIORITY` and `FREQUENCY` details are considered.<br>
+
 Format: `search KEYWORD`<br>
 
 > * The search is not case sensitive.
 > * The order of the keywords does not matter. e.g. `buy milk oct 21` will match `oct 21 buy milk`
-> * Only full words will be matched e.g. `buy milk` will not match `buy cow`
-> * Tasks matching keywords will be returned
+> * Partial words can be matched e.g. `parallel` will match `parallelogram`
 
 Examples: 
 * `search oct 1`<br>
-  Lists all tasks that have the date `oct 1`.
+  Lists all tasks with the date `oct 1`.
 * `search milk`<br>
   Lists the all the tasks with names containing the word `milk` if any can be found. 
  <!-- @@author --> 
 
 #### Deleting a task : `delete`
-Deletes the specified task from the list. Irreversible.<br>
+
+Deletes the specified task from the viewed listing.<br>
+
 Format: `delete INDEX...`
 
-> Deletes the task at the specified `INDEX`. 
-  The index refers to the index number shown in the most recent listing.<br>
-  The index **must be a positive integer** 1, 2, 3, ...
+> Deletes the task at the specified `INDEX` in the viewed listing. 
+  The index must be a positive integer (1, 2, 3, ...)
 
 Examples: 
 * `delete 2`<br>
-  Deletes the task indexed number second in the current seen list.
+  Deletes the second task in the list.
 * `search buy milk`<br> 
   `delete 1`<br>
-  Deletes the task indexed first in the results of the `search` command.
+  Deletes the first task in the result listing of the `search` command.
 
-> To delete more than one task, simply add in the other indexes separated with a comma. <br>
+> To delete more than one task, simply add in indexes separated by a comma. <br>
 
-Example:<br>
+Examples:<br>
 * `delete 1, 2, 3`
 * `search oct 1`
-  `done 2, 3` 
-
-<!-- @@author A0138420N -->    
+  `delete 2, 3` 
+<!-- @@author A0138420N -->   
+ 
 #### Undo : `undo`
-Reverts the most recent action. This action can be done multiple times.<br>
+
+Reverts the most recent action. Undo can be called multiple times.<br>
 Format: `undo`
 <!-- @@author -->  
-
 <!--- @@author A0138411N --->
+
 #### Redo : `redo`
-Reverts the most recent undo action. You can redo multiple times one after the other.<br>
+
+Reverts the most recent undo action. You can consecutively redo as many times as you have consecutively undid.<br>
 Format: `redo`
 
 #### Editing a task : `edit`
-Edits task on the display list.<br>
-Format: `edit [INDEX] [FIELD TO EDIT] [NEW INFORMATION], [FIELD TO EDIT] [NEW INFORMATION] `
 
-> More than 1 parameter can be edited at the same input, simply separate the different fields with a comma.
+Edits task on the display list.<br>
+
+Format: `edit [INDEX] [DETAILTOEDIT] [NEWINFORMATION]`
+
+> More than 1 task detail can be edited at the same time. Simply separate the different details with a comma.
 
 Examples: 
 * `edit 1 date oct 11, start time 1800`
@@ -195,39 +217,60 @@ Examples:
   `edit 5 task buy coconut, end date today, priority low`
 
 <!-- @@author A0138420N -->
-#### Marking a task as complete : `done`
-Marks task on display list as complete. Does not remove completely from GGist.<br>
-Format: `done INDEX`
 
-Example:<br>
+#### Marking a task as done : `done`
+
+Marks a task on the viewed listing as done. The task marked as done will disappear from the viewed listing of undone tasks, but can be retrieved using `list done` to view all completed tasks.<br>
+
+Format: `done INDEX...`
+
+Examples:<br>
 * `done 1`
 * `search oct 1`<br>
   `done 2`
  
-To mark more than one task as complete, simply type in the other indexes separated by a comma. <br>
-Format: `done INDEX, ...`
+To mark more than one task as complete, simply type in indexes separated by a comma. <br>
 
-Example:<br>
+Examples:<br>
 * `done 1, 2, 3`
 
-> To view all completed tasks, simply type  `list done`.
+<!-- @@author A0144727B -->
+
+#### Marking a completed task as undone : `continue`
+
+Marks a completed task on the done listing as undone.<br>
+Format: `continue INDEX...`
+
+Example:<br>
+* `list done`<br>
+  `continue 2`
+ 
+To mark more than one completed task as undone, simply type in indexes separated by a comma. <br>
+
+Example:<br>
+* `list done`<br>
+  `continue 1, 2, 3`
+
 
 <!--- @@author A0138411N -->
 
 #### Saving the data to a specified location : `save` 
-All GGist data is saved in the hard disk automatically after any command that changes the data.<br>
-There is no need to save manually. The save data file is located in  the`./data` folder together with the `.jar` folder by default.<br>
-You can change the location and port the data file over easily.<br>
-Format: `save FILE_LOCATION`
+
+There is no need to save your data manually. GGist automatically saves all data in the hard disk after receiving any command that changes the data.<br>
+The save data file is located in  the`./data` folder together with the `.jar` folder by default.<br>
+You can change the location and port the data file over easily with this command.<br>
+
+Format: `save FILELOCATION`
 
 Example:<br>
 `save /Users/Documents/OneDrive/data`
 
 > * The new folder has to be a valid, existing folder <br>
 > * To switch back to the default save folder, type `save data` <br>
-> * By default, filename will be  ggist.xml
+> * By default, the filename will be ggist.xml
 
 You can change the file name to your preference too.<br>
+
 Format: `save FILE_NAME.xml`
 
 > The file format has to be .xml
@@ -240,9 +283,11 @@ Format: `exit`
 <!-- @@author A0138420N --> 
 ## Command Cheatsheet
 
-Command | Format  
---------| -------- 
-Add     | `add TASK, DATE TIME -PRIORITY`
+Command | Format  | Example
+--------| --------| ------------------------
+Add     | `add TASK`  | add buy fruits from ntuc
+        | `add TASK, [DATE] [TIME] -[PRORITY]` |  add buy milk by tomorrow morning -low
+        | `add TASK, [DATE] [TIME], [DATE] [TIME] -[PRIORITY]` | add go overseas from 20 Dec 10pm to 2 Jab 2017 3pm -high
 List    | `list DATE`
 Search  | `search KEYWORD`
 Delete  | `delete INDEX`
