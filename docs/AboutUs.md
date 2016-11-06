@@ -17,9 +17,9 @@ We are a team based in the [School of Computing, National University of Singapor
 	* ListAll categories or tags
 	* Flexible command inputs for date and time
 * Code written: 
-\[[functional code]\] (https://github.com/CS2103AUG2016-T10-C3/main/blob/master/collated/main/A0139749L.md)
-\[[test code]\] (https://github.com/CS2103AUG2016-T10-C3/main/blob/master/collated/test/A0139749L.md)
-\[[docs]\] (https://github.com/CS2103AUG2016-T10-C3/main/blob/master/collated/docs/A0139749L.md)
+[[functional code] (https://github.com/CS2103AUG2016-T10-C3/main/blob/master/collated/main/A0139749L.md)]
+[[test code] (https://github.com/CS2103AUG2016-T10-C3/main/blob/master/collated/test/A0139749L.md)]
+[[docs] (https://github.com/CS2103AUG2016-T10-C3/main/blob/master/collated/docs/A0139749L.md)]
 * Other major contributions:
 	* Did the initial refactoring from AddressBook to Emeraldo
 	* Set up Travis and Coveralls
@@ -39,14 +39,12 @@ We are a team based in the [School of Computing, National University of Singapor
 	* Delete person
 	* Undo command
 * Code written: 
-[functional code] (https://github.com/CS2103AUG2016-T10-C3/main/blob/master/collated/main/A0139342H.md)
-[test code] (https://github.com/CS2103AUG2016-T10-C3/main/blob/master/collated/test/A0139342H.md)
-[docs] (https://github.com/CS2103AUG2016-T10-C3/main/blob/master/collated/docs/A0139342H.md)
+[[functional code] (https://github.com/CS2103AUG2016-T10-C3/main/blob/master/collated/main/A0139342H.md)]
+[[test code] (https://github.com/CS2103AUG2016-T10-C3/main/blob/master/collated/test/A0139342H.md)]
+[[docs] (https://github.com/CS2103AUG2016-T10-C3/main/blob/master/collated/docs/A0139342H.md)]
 
 
 * Other major contributions:
-	* Did the initial refactoring from AddressBook to ToDoList [#133 ]
-	* Set up Travis and Coveralls
 
 
 -----
@@ -62,14 +60,13 @@ We are a team based in the [School of Computing, National University of Singapor
 * Features implemented:
 	* Edit tasks’ description, date & time and tags
 * Code written: 
-[functional code]
-(https://github.com/CS2103AUG2016-T10-C3/main/blob/master/collated/main/A0139196U.md)
-[test code]
-(https://github.com/CS2103AUG2016-T10-C3/main/blob/master/collated/test/A0139196U.md)
-[docs]
-(https://github.com/CS2103AUG2016-T10-C3/main/blob/master/collated/docs/A0139196U.md)
-* Other major contributions:
-	* 
+[[functional code]
+(https://github.com/CS2103AUG2016-T10-C3/main/blob/master/collated/main/A0139196U.md)]
+[[test code]
+(https://github.com/CS2103AUG2016-T10-C3/main/blob/master/collated/test/A0139196U.md)]
+[[docs]
+(https://github.com/CS2103AUG2016-T10-C3/main/blob/master/collated/docs/A0139196U.md)]
+* Other major contributions: 
 
 
 -----
@@ -77,7 +74,7 @@ We are a team based in the [School of Computing, National University of Singapor
 
 [](@@author A0142290N)
 #### Ng Kai Sing
-<img src="images/Kaising.jpg" width="150"><br>
+<img src="images/KaiSing.jpg" width="150"><br>
 
 
 * Components in charge of: [UI] (https://github.com/CS2103AUG2016-T10-C3/main/blob/master/docs/DeveloperGuide.md)
@@ -87,14 +84,13 @@ We are a team based in the [School of Computing, National University of Singapor
 	* FindAll Task
 	* Overdue/Event Context for DateTime Class
 * Code written:
-[functional code]
-(https://github.com/CS2103AUG2016-T10-C3/main/blob/master/collated/main/A0142290N.md)
-[test code]
-(https://github.com/CS2103AUG2016-T10-C3/main/blob/master/collated/test/A0142290N.md)
-[docs]
-(https://github.com/CS2103AUG2016-T10-C3/main/blob/master/collated/docs/A0142290N.md)
+[[functional code]
+(https://github.com/CS2103AUG2016-T10-C3/main/blob/master/collated/main/A0142290N.md)]
+[[test code]
+(https://github.com/CS2103AUG2016-T10-C3/main/blob/master/collated/test/A0142290N.md)]
+[[docs]
+(https://github.com/CS2103AUG2016-T10-C3/main/blob/master/collated/docs/A0142290N.md)]
 * Other major contributions:
-	* 
 
 
 -----
