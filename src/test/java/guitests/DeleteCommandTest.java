@@ -48,7 +48,7 @@ public class DeleteCommandTest extends TaskManagerGuiTest {
     }
     
     @Test 
-    public void deleteContinous() {
+    public void deleteRange() {
         
         TestTaskList currentList = new TestTaskList(td.getTypicalTasks());
         

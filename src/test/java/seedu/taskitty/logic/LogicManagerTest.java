@@ -194,9 +194,6 @@ public class LogicManagerTest {
      */
     private void assertIncorrectIndexFormatBehaviorForCommand(String commandWord, String expectedMessage) throws Exception {
         assertCommandBehavior(commandWord , expectedMessage); //index missing
-        // since we accept default index if user does not give or is wrong, this 2 should be a valid format
-        //assertCommandBehavior(commandWord + " +1", expectedMessage); //index should be unsigned
-        //assertCommandBehavior(commandWord + " -1", expectedMessage); //index should be unsigned
         assertCommandBehavior(commandWord + " 0", expectedMessage); //index cannot be 0
         assertCommandBehavior(commandWord + " not_a_number", expectedMessage);
     }

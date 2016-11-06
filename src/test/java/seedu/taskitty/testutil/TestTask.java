@@ -108,29 +108,24 @@ public class TestTask implements ReadOnlyTask, Comparable<TestTask> {
 	//@@author A0139052L
 	@Override
     public int compareTo(TestTask taskToCompare) {
-	    // sort all tasks that are done to the back of the list
+        assert taskToCompare != null;
+        // sort all tasks that are done to the back of the list
         if (this.getIsDone() && !taskToCompare.getIsDone()) {
             return 1;
         } else if (!this.getIsDone() && taskToCompare.getIsDone()) {
             return -1;
-        } else if (!this.getIsDone() &&!taskToCompare.getIsDone()) {
-        	 int periodCompare = this.period.compareTo(taskToCompare.getPeriod());
-             //If no difference is found in period, compare using name
-             if (periodCompare == 0) {
-                 return this.getName().fullName.compareTo(taskToCompare.getName().fullName);
-             } else {
-                 return periodCompare;
-             }
-        
         } else {
-        	int periodCompare = taskToCompare.getPeriod().compareTo(this.period);
-            //If no difference is found in period, compare using name
-            if (periodCompare == 0) {
-                return this.getName().fullName.compareTo(taskToCompare.getName().fullName);
-            } else {
-                return periodCompare;
-            }
-        }
-        
-	}
+           assert this.getPeriod() != null && taskToCompare.getPeriod() != null;
+           int periodCompare = this.getPeriod().compareTo(taskToCompare.period);
+           if (this.getIsDone()) {
+               periodCompare = -periodCompare; // sort done tasks in the opposite order
+           }
+           //If no difference in date and time is found in period, compare using name
+           if (periodCompare == 0) {
+               return this.getName().fullName.toLowerCase().compareTo(taskToCompare.getName().fullName.toLowerCase());
+           } else {
+               return periodCompare;
+           }
+       }       
+    }
 }

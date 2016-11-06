@@ -3,8 +3,6 @@ package seedu.taskitty.model.task;
 import seedu.taskitty.commons.util.CollectionUtil;
 import seedu.taskitty.model.tag.UniqueTagList;
 
-import java.util.Objects;
-
 //@@author A0139930B
 /**
  * Represents a Task in the taskManager.

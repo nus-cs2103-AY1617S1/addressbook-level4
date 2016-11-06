@@ -53,8 +53,7 @@ public class TaskListPanelHandle extends GuiHandle {
                 || type == Task.DEADLINE_COMPONENT_COUNT
                 || type == Task.EVENT_COMPONENT_COUNT;
         
-        ListView<ReadOnlyTask> listView;
-        
+        ListView<ReadOnlyTask> listView;       
         if (type == Task.TASK_COMPONENT_COUNT) {
             listView = (ListView<ReadOnlyTask>) getNode(TODO_LIST_VIEW_ID);
         } else if (type == Task.DEADLINE_COMPONENT_COUNT) {
@@ -185,17 +184,18 @@ public class TaskListPanelHandle extends GuiHandle {
      * Gets a person from the list by index
      */
     public ReadOnlyTask getTask(int index, int type) {
+        
         return getListView(type).getItems().get(index);
     }
 
-    public TaskCardHandle getTaskCardHandle(int index, int type) {
+    public TaskCardHandle getTaskCardHandle(int index, int type) {       
         return getTaskCardHandle(new Task(getListView(type).getItems().get(index)));
     }
 
     public TaskCardHandle getTaskCardHandle(ReadOnlyTask person) {
         Set<Node> nodes = getAllCardNodes();
         Optional<Node> taskCardNode = nodes.stream()
-                .filter(n -> new TaskCardHandle(guiRobot, primaryStage, n).isSamePerson(person))
+                .filter(n -> new TaskCardHandle(guiRobot, primaryStage, n).isSameTask(person))
                 .findFirst();
         if (taskCardNode.isPresent()) {
             return new TaskCardHandle(guiRobot, primaryStage, taskCardNode.get());

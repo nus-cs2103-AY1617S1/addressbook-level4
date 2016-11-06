@@ -7,6 +7,7 @@ import javafx.util.Pair;
 import seedu.taskitty.commons.core.Messages;
 import seedu.taskitty.commons.core.UnmodifiableObservableList;
 import seedu.taskitty.commons.util.AppUtil;
+import seedu.taskitty.commons.util.CollectionUtil;
 import seedu.taskitty.model.task.ReadOnlyTask;
 import seedu.taskitty.model.task.Task;
 
@@ -48,7 +49,7 @@ public class DoneCommand extends Command {
     private StringBuilder resultMessage;
 
     public DoneCommand(List<Pair<Integer, Integer>> listOfIndexes, String commandText) {
-        assert listOfIndexes != null;
+        assert listOfIndexes != null && !CollectionUtil.isAnyNull(listOfIndexes);
         this.listOfIndexes = listOfIndexes;
         this.hasInvalidIndex = false;
         this.hasDuplicateMarkAsDoneTask = false;
