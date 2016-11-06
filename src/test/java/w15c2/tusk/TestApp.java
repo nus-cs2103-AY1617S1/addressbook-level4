@@ -42,8 +42,6 @@ public class TestApp extends MainApp {
 
         // If some initial local data has been provided, write those to the file
         if (initialDataSupplier.get() != null) {
-        	// TODO: Commented out some testutil stuff
-        	
             TestUtil.createDataFileWithData(
                     new XmlSerializableTaskManager(this.initialDataSupplier.get()),
                     this.saveFileLocation);

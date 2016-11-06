@@ -106,7 +106,6 @@ public class MainApp extends Application {
             initialAliasData = new UniqueItemCollection<Alias>();
         }
 
-        // TODO: Actually pass in data to use
         return new ModelManager(initialData, initialAliasData, userPrefs);
     }
 
