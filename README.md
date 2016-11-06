@@ -21,7 +21,9 @@ Introducing *DearJim* - a revolutionary task manager designed to help you organi
 #### Acknowledgements
 
 * The code base behind this project was forked from 
-  [addressbook-level4](https://github.com/nus-cs2103-AY1617S1/addressbook-level4)
+  [addressbook-level4](https://github.com/nus-cs2103-AY1617S1/addressbook-level4).
+  
+* To allow for natural date inputs, we use the excellent natural language date parser library [natty](http://natty.joestelmach.com/).
 
 * Some parts of this sample application were inspired by the excellent 
   [Java FX tutorial](http://code.makery.ch/library/javafx-8-tutorial/) by *Marco Jakob*. 
