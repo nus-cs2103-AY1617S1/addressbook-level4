@@ -30,7 +30,7 @@ public class MainWindow extends UiPart {
     private static final String ICON = "/images/TuskLogo.png";
     private static final String FXML = "MainWindow_Task.fxml";
     public static final int MIN_HEIGHT = 700;
-    public static final int MIN_WIDTH = 700;
+    public static final int MIN_WIDTH = 1000;
 
     private Logic logic;
 
