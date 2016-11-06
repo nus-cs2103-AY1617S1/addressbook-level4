@@ -10,12 +10,11 @@ import seedu.todo.controllers.concerns.Renderer;
 import seedu.todo.models.TodoListDB;
 import seedu.todo.ui.UiManager;
 
+// @@author A0139812A
 /**
  * Controller to configure app settings.
  * Has side effects, since it has to perform
  * updates on the UI or file sources on update.
- * 
- * @@author A0139812A
  */
 public class ConfigController extends Controller {
 
@@ -29,6 +28,7 @@ public class ConfigController extends Controller {
     private static final String MESSAGE_FAILURE = "Could not update settings: %s";
     private static final String MESSAGE_INVALID_INPUT = "Invalid config setting provided!";
     private static final String MESSAGE_WRONG_EXTENSION = "Could not change storage path: File must end with %s";
+    private static final String TEMPLATE_SET_CONFIG = "config <setting> <value>";
     private static final String SPACE = " ";
     private static final int ARGS_LENGTH = 2;
     private static final String DB_FILE_EXTENSION = ".json";
@@ -45,58 +45,55 @@ public class ConfigController extends Controller {
     public void process(String input) {
         String params = input.replaceFirst("config", "").trim();
 
+        // Check for basic command.
         if (params.length() <= 0) {
-
-            // Showing all configs
             Renderer.renderConfig(MESSAGE_SHOWING);
-
-        } else {
-
-            String[] args = params.split(SPACE, ARGS_LENGTH);
-
-            // Check args length
-            if (args.length != ARGS_LENGTH) {
-                Renderer.renderConfig(MESSAGE_INVALID_INPUT);
-                return;
-            }
-
-            assert args.length == ARGS_LENGTH;
-
-            // Split by args
-            String configName = args[0];
-            String configValue = args[1];
-
-            // Get current config
-            Config config = ConfigCenter.getInstance().getConfig();
-
-            // Check name
-            List<String> validConfigDefinitions = config.getDefinitionsNames();
-            if (!validConfigDefinitions.contains(configName)) {
-                Renderer.renderConfig(MESSAGE_INVALID_INPUT);
-                return;
-            }
-
-            assert validConfigDefinitions.contains(configName);
-
-            // Update config value
-            try {
-                config = updateConfigByName(config, configName, configValue);
-            } catch (CannotConfigureException e) {
-                Renderer.renderConfig(e.getMessage());
-                return;
-            }
-
-            // Save config to file
-            try {
-                ConfigCenter.getInstance().saveConfig(config);
-            } catch (IOException e) {
-                Renderer.renderConfig(String.format(MESSAGE_FAILURE, e.getMessage()));
-                return;
-            }
-
-            // Update console for success
-            Renderer.renderConfig(String.format(MESSAGE_SUCCESS, configName));
+            return;
         }
+        
+        // Check args length
+        String[] args = params.split(SPACE, ARGS_LENGTH);
+        if (args.length != ARGS_LENGTH) {
+            Renderer.renderDisambiguation(TEMPLATE_SET_CONFIG, MESSAGE_INVALID_INPUT);
+            return;
+        }
+        
+        assert args.length == ARGS_LENGTH;
+        
+        // Split by args
+        String configName = args[0];
+        String configValue = args[1];
+
+        // Get current config
+        Config config = ConfigCenter.getInstance().getConfig();
+
+        // Check name
+        List<String> validConfigDefinitions = config.getDefinitionsNames();
+        if (!validConfigDefinitions.contains(configName)) {
+            Renderer.renderDisambiguation(TEMPLATE_SET_CONFIG, MESSAGE_INVALID_INPUT);
+            return;
+        }
+
+        assert validConfigDefinitions.contains(configName);
+
+        // Update config value
+        try {
+            config = updateConfigByName(config, configName, configValue);
+        } catch (CannotConfigureException e) {
+            Renderer.renderConfig(e.getMessage());
+            return;
+        }
+
+        // Save config to file
+        try {
+            ConfigCenter.getInstance().saveConfig(config);
+        } catch (IOException e) {
+            Renderer.renderConfig(String.format(MESSAGE_FAILURE, e.getMessage()));
+            return;
+        }
+
+        // Update console for success
+        Renderer.renderConfig(String.format(MESSAGE_SUCCESS, configName));
     }
 
     /**
