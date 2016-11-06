@@ -320,7 +320,7 @@ Examples:
 
 #### <a id="undo"></a>Undoing previous action: `undo`
 Undoes the previous action done in Jimi. <br>
-Format: `undo`
+Format: `undo` <br>
 Only actions that make changes to the data of Jimi are undo-able. i.e. `add`, `delete`, `edit`, `clear`
 
 <br><br>
@@ -328,7 +328,7 @@ Only actions that make changes to the data of Jimi are undo-able. i.e. `add`, `d
 
 #### <a id="redo"></a>Redoing previously undone action: `redo`
 Redoes the previously undone action done in the task manager. <br>
-Format: `redo`
+Format: `redo` <br>
 Only actions that make changes to the data of Jimi are redo-able. i.e. `add`, `delete`, `edit`, `clear`
 
 <br><br>
