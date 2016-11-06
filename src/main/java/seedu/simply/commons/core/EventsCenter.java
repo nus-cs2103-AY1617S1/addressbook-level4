@@ -40,7 +40,6 @@ public class EventsCenter {
     public <E extends BaseEvent> EventsCenter post(E event) {
         logger.info("------[Event Posted] " + event.getClass().getCanonicalName() + ": " + event.toString());
         eventBus.post(event);
-        System.out.println(event.toString());
         return this;
     }
 

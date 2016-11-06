@@ -1,14 +1,16 @@
 package seedu.simply.ui;
 
+import java.util.logging.Logger;
+
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
 import seedu.simply.commons.core.LogsCenter;
 import seedu.simply.commons.util.FxViewUtil;
-
-import java.util.logging.Logger;
 
 /**
  * Controller for a help page
@@ -49,11 +51,11 @@ public class HelpWindow extends UiPart {
         dialogStage = createDialogStage(TITLE, null, scene);
         dialogStage.setMaximized(true); //TODO: set a more appropriate initial size
         setIcon(dialogStage, ICON);
-
-        WebView browser = new WebView();
-        browser.getEngine().load(USERGUIDE_URL);
-        FxViewUtil.applyAnchorBoundaryParameters(browser, 0.0, 0.0, 0.0, 0.0);
-        mainPane.getChildren().add(browser);
+        
+        ImageView summary = new ImageView( new Image ("/images/command.PNG")); 
+        
+        FxViewUtil.applyAnchorBoundaryParameters(summary, 0.0, 0.0, 0.0, 0.0);
+        mainPane.getChildren().add(summary);
     }
 
     public void show() {
