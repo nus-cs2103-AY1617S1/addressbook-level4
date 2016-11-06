@@ -18,9 +18,9 @@ public class ListCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "Listed all tasks";
     public static final String MESSAGE_SUCCESS_DATETIME =
-            "Listed all tasks by datetime earliest endDate first";
+            "Listed all tasks by earliest datetime first";
     public static final String MESSAGE_SUCCESS_DATETIME_DESCENDING =
-            "Listed all tasks by latest endDate first";
+            "Listed all tasks by latest datetime first";
     public static final String MESSAGE_SUCCESS_PRIORITY =
             "Listed all tasks by priority from low to high";
     public static final String MESSAGE_SUCCESS_PRIORITY_DESCENDING =
