@@ -14,8 +14,11 @@ import seedu.todo.model.TodoList;
 import seedu.todo.model.task.ImmutableTask;
 import seedu.todo.testutil.TaskFactory;
 import seedu.todo.testutil.TestUtil;
+import seedu.todo.ui.view.CommandErrorView;
 import seedu.todo.ui.view.CommandFeedbackView;
 import seedu.todo.ui.view.CommandInputView;
+import seedu.todo.ui.view.FilterBarView;
+import seedu.todo.ui.view.HelpView;
 import seedu.todo.ui.view.TodoListView;
 
 import java.util.ArrayList;
@@ -23,6 +26,8 @@ import java.util.List;
 import java.util.concurrent.TimeoutException;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 //@@author reused
 /**
@@ -51,6 +56,11 @@ public abstract class TodoListGuiTest {
     protected CommandInputViewHandle commandInputView;
     protected CommandPreviewViewHandle commandPreviewView;
     protected CommandFeedbackViewHandle commandFeedbackView;
+    protected CommandErrorViewHandle commandErrorView;
+    protected HelpViewHandle helpView;
+    protected GlobalTagViewHandle globalTagView;
+    protected FilterBarViewHandle filterBarView;
+    protected SearchStatusViewHandle searchStatusView;
 
     private Stage stage;
 
@@ -74,6 +84,11 @@ public abstract class TodoListGuiTest {
             commandInputView = mainGui.getCommandInputView();
             commandFeedbackView = mainGui.getCommandFeedbackView();
             commandPreviewView = mainGui.getCommandPreviewView();
+            commandErrorView = mainGui.getCommandErrorView();
+            helpView = mainGui.getHelpView();
+            globalTagView = mainGui.getGlobalTagView();
+            filterBarView = mainGui.getFilterBarView();
+            searchStatusView = mainGui.getSearchStatusView();
         });
         // EventsCenter.clearSubscribers();
         /*
@@ -97,6 +112,7 @@ public abstract class TodoListGuiTest {
         return todoList;
     }
 
+    //@@author A0135805H
     /**
      * Override {@link #getInitialData()} and use this method to set a variable initial
      * task size between {@code lowerBound} and {@code upperBound} inclusive.
@@ -109,6 +125,17 @@ public abstract class TodoListGuiTest {
     }
 
     /**
+     * Override {@link #getInitialData()} and use this method to set a custom list of tasks.
+     */
+    protected TodoList getInitialDataHelper(List<ImmutableTask> tasks) {
+        TodoList todoList = TestUtil.generateEmptyTodoList(getDataFileLocation());
+        initialTaskData = tasks;
+        TestUtil.loadTodoListWithData(todoList, initialTaskData);
+        return todoList;
+    }
+
+    //@@author reused
+    /**
      * Override this in child classes to set the data file location.
      */
     protected String getDataFileLocation() {
@@ -120,6 +147,15 @@ public abstract class TodoListGuiTest {
         FxToolkit.cleanupStages();
     }
 
+    /**
+     * Copies the list of ImmutableTask stored inside the {@link TodoListView}
+     * into {@link #previousTasksFromView}, for history taking.
+     */
+    protected void updatePreviousTaskListFromView() {
+        previousTasksFromView = new ArrayList<>(todoListView.getImmutableTaskList());
+    }
+
+    //@@author A0135805H
     /**
      * Enters the command via the {@link CommandInputView} but does not execute.
      */
@@ -144,10 +180,12 @@ public abstract class TodoListGuiTest {
     }
 
     /**
-     * Copies the list of ImmutableTask stored inside the {@link TodoListView}
-     * into {@link #previousTasksFromView}, for history taking.
+     * Executes the incorrect command, and asserts that error view is shown to the user.
      */
-    protected void updatePreviousTaskListFromView() {
-        previousTasksFromView = new ArrayList<>(todoListView.getImmutableTaskList());
+    protected void assertErrorViewDisplayed(String commandInput) {
+        runCommand(commandInput);
+        assertTrue(mainGui.getCommandErrorView().isErrorMessagesDisplayed());
+        enterCommand(" ");
+        assertFalse(mainGui.getCommandErrorView().isVisible());
     }
 }

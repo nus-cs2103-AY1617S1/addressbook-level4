@@ -120,6 +120,7 @@ public class UiManager extends ComponentManager implements Ui {
     private void handleCommandInputEnterEvent(CommandInputEnterEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         mainWindow.getHelpView().hideHelpPanel();
+        mainWindow.getGlobalTagView().hideGlobalTagViewPanel();
         mainWindow.getCommandFeedbackView().clearMessage();
     }
 
@@ -135,6 +136,12 @@ public class UiManager extends ComponentManager implements Ui {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         showAlertDialogAndWait(AlertType.ERROR, "File Operation Error", 
             "There was a problem when saving/loading your data", event.message);
+    }
+    
+    @Subscribe
+    private void handleShowTagsEvent(ShowTagsEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        mainWindow.getGlobalTagView().displayGlobalTags(event.getListOfTags());;
     }
 
 }

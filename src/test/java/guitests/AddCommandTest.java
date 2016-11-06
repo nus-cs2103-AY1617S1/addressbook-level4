@@ -4,10 +4,12 @@ import guitests.guihandles.TaskCardViewHandle;
 import org.junit.Test;
 import seedu.todo.model.task.ImmutableTask;
 import seedu.todo.testutil.CommandGeneratorUtil;
+import seedu.todo.testutil.TaskBuilder;
 import seedu.todo.testutil.TaskFactory;
 import seedu.todo.testutil.TestUtil;
 import seedu.todo.testutil.UiTestUtil;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import static org.junit.Assert.assertTrue;
@@ -39,6 +41,12 @@ public class AddCommandTest extends TodoListGuiTest {
 
         //Add duplicated task
         executeAddTestHelper(task2);
+
+        //Add an overdue task
+        ImmutableTask task3 = TaskBuilder.name("Overdue Task")
+                .due(LocalDateTime.now().minusHours(3))
+                .build();
+        executeAddTestHelper(task3);
     }
 
     @Test
@@ -47,11 +55,23 @@ public class AddCommandTest extends TodoListGuiTest {
         ImmutableTask event1 = TaskFactory.event();
         executeAddTestHelper(event1);
 
-        //Add another event
-        ImmutableTask event2 = TaskFactory.event();
+        //Add an overdue event.
+        ImmutableTask event2 = TaskBuilder.name("Overdue Event")
+                .event(LocalDateTime.now().minusHours(3), LocalDateTime.now().minusHours(2))
+                .build();
         executeAddTestHelper(event2);
 
-        //Add duplicated task
+        //Add an ongoing event.
+        ImmutableTask event3 = TaskBuilder.name("Ongoing Event")
+                .event(LocalDateTime.now().minusHours(3), LocalDateTime.now().plusHours(2))
+                .build();
+        executeAddTestHelper(event3);
+
+        //Add another event
+        ImmutableTask event4 = TaskFactory.event();
+        executeAddTestHelper(event4);
+
+        //Add duplicated event
         executeAddTestHelper(event1);
     }
 
@@ -60,6 +80,18 @@ public class AddCommandTest extends TodoListGuiTest {
         //Add a long list of random task, which in the end spans at least 2 pages.
         List<ImmutableTask> randomTaskList = TaskFactory.list(15, 25);
         randomTaskList.forEach(this::executeAddTestHelper);
+    }
+
+    @Test
+    public void add_invalidParameters() {
+        //No title
+        assertErrorViewDisplayed("add /d tomorrow");
+
+        //Wrong date
+        assertErrorViewDisplayed("add some task /d hehe");
+
+        //Invalid tag
+        assertErrorViewDisplayed("add invalid tag /t oops!");
     }
 
     /* Helper Methods */
@@ -87,6 +119,9 @@ public class AddCommandTest extends TodoListGuiTest {
         runCommand(commandText);
     }
 
+    /**
+     * Asserts that specific view scenarios are displayed correctly.
+     */
     private void assertCorrectnessHelper(ImmutableTask newTask) {
         int addedIndex = getNewlyAddedTaskIndex();
         TaskCardViewHandle taskCardHandle = todoListView.getTaskCardViewHandle(addedIndex);

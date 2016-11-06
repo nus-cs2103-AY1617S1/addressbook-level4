@@ -35,7 +35,6 @@ public class PinCommandTest extends CommandTest {
         setParameter("3");
         EventsCollector eventsCollector = new EventsCollector();
         execute(true);
-
         assertEquals(2, getPinnedCount());
         assertThat(eventsCollector.get(0), instanceOf(HighlightTaskEvent.class));
     }
@@ -44,7 +43,6 @@ public class PinCommandTest extends CommandTest {
     public void testUnpinFirst() throws Exception {
         setParameter("1");
         execute(true);
-            
         assertEquals(0, getPinnedCount());
     }
 }

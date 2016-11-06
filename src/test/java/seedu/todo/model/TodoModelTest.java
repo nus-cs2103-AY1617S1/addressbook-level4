@@ -101,7 +101,7 @@ public class TodoModelTest {
         model.delete(1);
         assertEquals("First", getTask(0).getTitle());
     }
-
+    
     @Test
     public void testFilteredUpdate() throws Exception {
         model.add("First");
@@ -110,7 +110,31 @@ public class TodoModelTest {
         model.update(1, t -> t.setTitle("New Title"));
         assertEquals("New Title", getTask(1).getTitle());
     }
-
+    
+    //@@author A0092382A
+    @Test
+    public void testFilteredDeleteAll() throws Exception {
+        model.add("First NUS", t -> t.setCompleted(true));
+        model.add("Second NUS", t -> t.setCompleted(true));
+        model.add("Third NTU");
+        model.find(t -> t.getTitle().contains("NUS"));
+        model.deleteAll();
+        assertEquals("Third NTU", getTask(0).getTitle());
+    }
+    
+    @Test
+    public void testFilteredUpdateAll() throws Exception {
+        model.add("First NUS");
+        model.add("Second NUS");
+        model.add("Third NTU");
+        model.find(t -> t.getTitle().contains("NUS"));
+        model.updateAll(t -> t.setCompleted(true));
+        assertTrue(getTask(0).isCompleted());
+        assertTrue(getTask(1).isCompleted());
+        assertFalse(getTask(2).isCompleted());
+    }
+    
+  //@@author  A0135817B
     @Test
     public void testSorting() throws Exception {
         model.add("Task 3", p -> p.setEndTime(TimeUtil.now));

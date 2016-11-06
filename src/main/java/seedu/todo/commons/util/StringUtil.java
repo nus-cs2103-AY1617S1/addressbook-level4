@@ -1,6 +1,8 @@
 package seedu.todo.commons.util;
 
 import com.google.common.base.CharMatcher;
+import com.google.common.base.Splitter;
+import com.google.common.collect.Iterables;
 import org.apache.commons.lang3.StringUtils;
 
 import java.io.PrintWriter;
@@ -13,6 +15,8 @@ import java.util.StringJoiner;
  * Helper functions for handling strings.
  */
 public class StringUtil {
+    private static final CharMatcher DELIMITER = CharMatcher.BREAKING_WHITESPACE.or(CharMatcher.anyOf(","));
+    
     /**
      * Returns a detailed message of the t, including the stack trace.
      */
@@ -67,11 +71,14 @@ public class StringUtil {
      * Splits string at only space and comma.
      * @return Returns a String array with all the split components of the string.
      */
-    public static String[] splitString(String string) {
-        if (string == null || string.isEmpty()) {
+    public static String[] split(String string) {
+        if (isEmpty(string)) {
             return new String[0];
         } else {
-            return string.trim().split("([, ])+");
+            return Iterables.toArray(Splitter.on(DELIMITER)
+                .trimResults()
+                .omitEmptyStrings()
+                .split(string), String.class);
         }
     }
 

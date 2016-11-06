@@ -1,6 +1,7 @@
 package seedu.todo.model.tag;
 
 import java.util.Collection;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 //@@author A0135805H
@@ -32,14 +33,13 @@ public class Tag {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof Tag && this.tagName.equals(((Tag) other).tagName)) // if is tag
-                || (other instanceof String && this.tagName.equals(other)); // if is string
-                //Enables string comparison for hashing.
+            // if is tag
+            || (other instanceof Tag && this.tagName.toLowerCase().equals(((Tag) other).tagName.toLowerCase())); 
     }
 
     @Override
     public int hashCode() {
-        return tagName.hashCode();
+        return tagName.toLowerCase().hashCode();
     }
 
     /**
@@ -58,7 +58,10 @@ public class Tag {
     /**
      * Converts tags to a collection of tag names
      */
-    public static Collection<String> getTagNames(Collection<Tag> tags) {
-        return tags.stream().map(Tag::getTagName).collect(Collectors.toList());
+    public static Set<String> getLowerCaseNames(Collection<Tag> tags) {
+        return tags.stream()
+            .map(Tag::getTagName)
+            .map(String::toLowerCase)
+            .collect(Collectors.toSet());
     }
 }

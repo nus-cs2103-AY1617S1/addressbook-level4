@@ -1,8 +1,8 @@
 package seedu.todo.logic.commands;
 
 import com.google.common.collect.ImmutableList;
-import seedu.todo.commons.core.EventsCenter;
 import seedu.todo.commons.events.ui.ExpandCollapseTaskEvent;
+import seedu.todo.commons.events.ui.HighlightTaskEvent;
 import seedu.todo.commons.exceptions.ValidationException;
 import seedu.todo.logic.arguments.Argument;
 import seedu.todo.logic.arguments.IntArgument;
@@ -33,7 +33,8 @@ public class ShowCommand extends BaseCommand {
     @Override
     public CommandResult execute() throws ValidationException {
         ImmutableTask task = this.model.getObservableList().get(index.getValue() - INDEX_OFFSET);
-        EventsCenter.getInstance().post(new ExpandCollapseTaskEvent(task)); 
+        eventBus.post(new ExpandCollapseTaskEvent(task)); 
+        eventBus.post(new HighlightTaskEvent(task));
         return new CommandResult("Command executed");
     }
 

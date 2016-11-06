@@ -1,18 +1,12 @@
 package seedu.todo.model.tag;
 
-import com.google.common.collect.Sets;
 import seedu.todo.commons.exceptions.ValidationException;
 import seedu.todo.commons.util.CollectionUtil;
 import seedu.todo.commons.util.StringUtil;
 import seedu.todo.model.ErrorBag;
 import seedu.todo.model.task.ImmutableTask;
 
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.function.Consumer;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -112,13 +106,25 @@ public class UniqueTagCollectionValidator {
     }
 
     /**
-     * Validates the rename command.
+     * Validates the rename tag from task command.
      */
-    public void validateRenameCommand(UniqueTagCollectionModel tagCollection, String oldName, String newName) {
+    public void validateRenameCommand(ImmutableTask task, String oldName, String newName) {
+        validateTagNamesExist(task.getTags(), oldName);
+        validateTagNamesDoNotExist(task.getTags(), newName);
+        validateIllegalNameChar(newName);
+        validateNameCharLimit(newName);
+        validateTagNameMissing(oldName, newName);
+    }
+
+    /**
+     * Validates the global rename command.
+     */
+    public void validateGlobalRenameCommand(UniqueTagCollectionModel tagCollection, String oldName, String newName) {
         validateTagNamesExist(tagCollection.getUniqueTagList(), oldName);
         validateTagNamesDoNotExist(tagCollection.getUniqueTagList(), newName);
         validateIllegalNameChar(newName);
         validateNameCharLimit(newName);
+        validateTagNameMissing(oldName, newName);
     }
 
     /* Parameter Validation Helper */
@@ -126,12 +132,12 @@ public class UniqueTagCollectionValidator {
      * Checks if the total number of tags after adding is within {@link #MAX_ALLOWED_TAGS}.
      */
     private void validateNumberOfTags(ImmutableTask task, String[] tagNames) {
-        Set<String> totalTagNames = new HashSet<>();
-        Collections.addAll(totalTagNames, tagNames);
+        Set<String> tags = new HashSet<>(toLowerCaseList(tagNames));
         if (task != null) {
-            task.getTags().forEach(tag -> totalTagNames.add(tag.getTagName()));
+            tags.addAll(Tag.getLowerCaseNames(task.getTags()));
         }
-        if (totalTagNames.size() > MAX_ALLOWED_TAGS) {
+        
+        if (tags.size() > MAX_ALLOWED_TAGS) {
             errorBag.put(parameterName, ERROR_MAX_TAGS_ALLOWED);
         }
     }
@@ -166,7 +172,7 @@ public class UniqueTagCollectionValidator {
      * Checks to ensure that given tag names have no duplicated entries.
      */
     private void validateDuplicatedNameTag(String... tagNames) {
-        if (!CollectionUtil.elementsAreUnique(Arrays.asList(tagNames))) {
+        if (!CollectionUtil.elementsAreUnique(toLowerCaseList(tagNames))) {
             errorBag.put(parameterName, ERROR_TAGS_DUPLICATED);
         }
     }
@@ -175,9 +181,8 @@ public class UniqueTagCollectionValidator {
      * Checks to ensure that tag names exist in the {@code tagPool}.
      */
     private void validateTagNamesExist(Collection<Tag> tagPool, String... tagNames) {
-        Collection<String> tagPoolNames = Tag.getTagNames(tagPool);
-        Set<String> missingTags = Sets.newHashSet(tagNames);
-        missingTags.removeAll(tagPoolNames);
+        List<String> missingTags = toLowerCaseList(tagNames);
+        missingTags.removeAll(Tag.getLowerCaseNames(tagPool));
 
         if (!missingTags.isEmpty()) {
             errorBag.put(parameterName, ERROR_TAGS_DO_NOT_EXIST + YOU_SUPPLIED
@@ -198,13 +203,8 @@ public class UniqueTagCollectionValidator {
      * Checks to ensure that tag names do not exist in the {@code tagPool}.
      */
     private void validateTagNamesDoNotExist(Collection<Tag> tagPool, String... tagNames) {
-        Collection<String> tagPoolNames = Tag.getTagNames(tagPool);
-        Set<String> existingTags = Sets.newHashSet(tagNames);
-        existingTags.retainAll(tagPoolNames);
-
-        if (!existingTags.isEmpty()) {
-            errorBag.put(parameterName, ERROR_TAGS_EXIST + YOU_SUPPLIED
-                    + StringUtil.convertIterableToString(existingTags));
+        if (!Collections.disjoint(Tag.getLowerCaseNames(tagPool), toLowerCaseList(tagNames))) {
+            errorBag.put(parameterName, ERROR_TAGS_EXIST + YOU_SUPPLIED + Arrays.toString(tagNames));
         }
     }
 
@@ -235,9 +235,18 @@ public class UniqueTagCollectionValidator {
         return TAG_VALIDATION_REGEX.matcher(test).matches();
     }
 
+    /**
+     * Returns a list of tag names in lower case.
+     */
+    private static List<String> toLowerCaseList(String... tagNames) {
+        return Arrays.stream(tagNames)
+                .map(String::toLowerCase)
+                .collect(Collectors.toCollection(ArrayList::new));
+    }
+
     /* Public Helper Methods */
     /**
-     * Abstracts the series of steps for performing data validation.
+     * Automates the process for performing data validation.
      *
      * @param actionName Name of the Command action
      * @param consumer The method call that performs the actual validation.

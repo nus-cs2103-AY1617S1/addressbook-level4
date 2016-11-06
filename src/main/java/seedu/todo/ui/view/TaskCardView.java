@@ -24,6 +24,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 //@@author A0135805H
 /**
@@ -48,20 +49,13 @@ public class TaskCardView extends UiPart {
 
     //@@author A0135805H-reused
     /*Layout Declarations*/
-    @FXML
-    private VBox taskCard;
-    @FXML
-    private ImageView pinImage;
-    @FXML
-    private Label titleLabel;
-    @FXML
-    private Label typeLabel, moreInfoLabel;
-    @FXML
-    private Label descriptionLabel, dateLabel, locationLabel;
-    @FXML
-    private HBox descriptionBox, dateBox, locationBox;
-    @FXML
-    private FlowPane titleFlowPane;
+    @FXML private VBox taskCard;
+    @FXML private ImageView pinImage;
+    @FXML private Label titleLabel;
+    @FXML private Label typeLabel, moreInfoLabel;
+    @FXML private Label descriptionLabel, dateLabel, locationLabel;
+    @FXML private HBox descriptionBox, dateBox, locationBox;
+    @FXML private FlowPane titleFlowPane;
     
     /* Variables */
     private ImmutableTask task;
@@ -116,12 +110,13 @@ public class TaskCardView extends UiPart {
      * Displays the tags in lexicographical order, ignoring case.
      */
     private void displayTags(){
-        List<String> tagList = new ArrayList<>(Tag.getTagNames(task.getTags()));
-        if (!tagList.isEmpty()) {
-            tagList.sort(Comparator.reverseOrder());
-            tagList.forEach(tagName -> titleFlowPane.getChildren()
-                    .add(INSERT_TAG_INDEX, constructTagLabel(tagName)));
-        }
+        task.getTags()
+            .stream()
+            .map(Tag::getTagName)
+            .sorted(Comparator.reverseOrder())
+            .forEach(tagName -> {
+                titleFlowPane.getChildren().add(INSERT_TAG_INDEX, constructTagLabel(tagName));
+            });
     }
 
     /**
@@ -133,25 +128,23 @@ public class TaskCardView extends UiPart {
         return tagLabel;
     }
     
+    //@@author A0135817B
     /**
      * Sets style according to the status (e.g. completed, overdue, etc) of the task.
      */
     private void setStyle() {
-        boolean isCompleted = task.isCompleted();
-        boolean isOverdue = task.getEndTime().isPresent()
-                && timeUtil.isOverdue(task.getEndTime().get()) && !task.isEvent();
-        boolean isOngoing = task.isEvent()
-                && timeUtil.isOngoing(task.getStartTime().get(), task.getEndTime().get());
-        
-        if (isCompleted) {
+        ViewStyleUtil.addClassStyles(taskCard, task.isEvent() ? "event" : "task");
+
+        if (task.isCompleted()) {
             ViewStyleUtil.addClassStyles(taskCard, ViewStyleUtil.STYLE_COMPLETED);
-        } else if (isOverdue) {
+        } else if (task.getEndTime().isPresent() && timeUtil.isOverdue(task.getEndTime().get())) {
             ViewStyleUtil.addClassStyles(taskCard, ViewStyleUtil.STYLE_OVERDUE);
-        } else if (isOngoing){
+        } else if (task.isEvent() && timeUtil.isOngoing(task.getStartTime().get(), task.getEndTime().get())) {
             ViewStyleUtil.addClassStyles(taskCard, ViewStyleUtil.STYLE_ONGOING);
         }
     }
 
+    //@@author A0135805H
     /**
      * Initialise the view to show collapsed state if it can be collapsed,
      * else hide the {@link #moreInfoLabel} otherwise.

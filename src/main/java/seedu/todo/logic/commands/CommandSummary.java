@@ -27,4 +27,13 @@ public class CommandSummary {
         this.command = command.toLowerCase().trim();
         this.arguments = arguments.trim();
     }
+
+    //@@author A0135805H
+    /**
+     * Re-represents this {@link CommandSummary} as an array of strings in the following format:
+     *      [Scenario, Command, Arguments]
+     */
+    public String[] toArray() {
+        return new String[] {scenario, command, arguments};
+    }
 }

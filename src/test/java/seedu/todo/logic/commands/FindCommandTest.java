@@ -1,11 +1,13 @@
 package seedu.todo.logic.commands;
 
 
+import com.google.common.collect.ImmutableList;
 import org.junit.Before;
 import org.junit.Test;
 
 import seedu.todo.model.property.TaskViewFilter;
 import seedu.todo.commons.exceptions.ValidationException;
+import seedu.todo.testutil.TaskBuilder;
 
 import static org.junit.Assert.*;
 
@@ -19,10 +21,18 @@ public class FindCommandTest extends CommandTest {
     
     @Before
     public void setUp() throws Exception {
-        model.add("CS2101 Project Task");
-        model.add("CS2103T project");
-        model.add("Unrelated task");
-        model.add("Unrelated CS2101 that expands");
+        todolist.setTasks(ImmutableList.of(
+            TaskBuilder.name("CS2101 Project Task")
+                .tagged("Alpha", "Beta")
+                .build(),
+            TaskBuilder.name("CS2103T project")
+                .tagged("Beta")
+                .build(),
+            TaskBuilder.name("Unrelated task")
+                .tagged("Gamma")
+                .build(),
+            TaskBuilder.name("Unrelated CS2101 that expands").build()
+        ));
     }
     
     @Test
@@ -65,6 +75,35 @@ public class FindCommandTest extends CommandTest {
         setParameter("Task");
         execute(true);
         assertVisibleTaskCount(1);
+    }
+    
+    @Test
+    public void testFindTag() throws ValidationException {
+        setParameter("t", "Gamma");
+        execute(true);
+        assertVisibleTaskCount(1);
+    }
+
+    @Test
+    public void testFindMultipleTag() throws ValidationException {
+        setParameter("t", "Gamma, Beta");
+        execute(true);
+        assertVisibleTaskCount(3);
+    }
+
+    @Test
+    public void testPartialFindTag() throws ValidationException {
+        setParameter("t", "Ga");
+        execute(true);
+        assertVisibleTaskCount(0);
+    }
+
+    @Test
+    public void testKeywordAndTag() throws ValidationException {
+        setParameter("t", "Gamma");
+        setParameter("CS2101");
+        execute(true);
+        assertVisibleTaskCount(3);
     }
 
     @Test

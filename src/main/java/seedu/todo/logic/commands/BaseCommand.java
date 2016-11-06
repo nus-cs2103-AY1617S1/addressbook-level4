@@ -3,6 +3,8 @@ package seedu.todo.logic.commands;
 import seedu.todo.commons.core.EventsCenter;
 import seedu.todo.commons.exceptions.IllegalValueException;
 import seedu.todo.commons.exceptions.ValidationException;
+import seedu.todo.commons.util.StringUtil;
+import seedu.todo.logic.arguments.Argument;
 import seedu.todo.logic.arguments.Parameter;
 import seedu.todo.logic.parser.ParseResult;
 import seedu.todo.model.ErrorBag;
@@ -152,5 +154,12 @@ public abstract class BaseCommand {
             sj.add(p.toString());
         }
         return sj.toString();
+    }
+
+    /**
+     * Checks whether a string argument is empty
+     */
+    protected boolean isEmpty(Argument<String> argument) {
+        return !argument.hasBoundValue() || StringUtil.isEmpty(argument.getValue());
     }
 }

@@ -46,10 +46,19 @@ public interface Model {
      * @throws ValidationException if the task does not exist
      */
     ImmutableTask delete(int index) throws ValidationException;
-
+    
+    /**
+     * Deletes all currently visible tasks from the todo list. This change is also propagated to the 
+     * underlying persistence layer.  
+     *
+     * @return the list of tasks that were just deleted
+     * @throws ValidationException if any of the tasks do not exist
+     */
+    List<ImmutableTask> deleteAll() throws ValidationException;
+    
     /**
      * Replaces certain fields in the task. Mutation of the {@link Task} object should 
-     * only be done in the <code>update</code> lambda. The lambda takes in one parameter, 
+     * only be done in the {@code update} lambda. The lambda takes in one parameter, 
      * a {@link MutableTask}, and does not expect any return value. For example: 
      *
      * <pre><code>todo.update(task, t -> {
@@ -66,19 +75,23 @@ public interface Model {
     
     /**
      * Carries out the specified update in the fields of all visible tasks. Mutation of all {@link Task}
-     * objects should only be done in the <code>update</code> lambda. The lambda takes in a single parameter,
-     * a {@link MutableTask}, and does not expect any return value, as per the {@link update} command. Since
+     * objects should only be done in the {@code update} lambda. The lambda takes in a single parameter,
+     * a {@link MutableTask}, and does not expect any return value, as per the {@link #update} command. Since
      * this represents the observable layer, the changes required to be done to the underlying layer TodoList
-     * is set via getting a list of their indices in the underlying layer using a UUID map.  
+     * is set via getting a list of their indices in the underlying layer using a UUID map. 
+     * 
+     * Note that no change is carried out if <em>any</em> of the tasks fail, the entire operation will 
+     * fail, and none of the tasks will be updated. 
      * 
      * <pre><code>todo.updateAll (t -> {
      *     t.setEndTime(t.getEndTime.get().plusHours(2)); // Push deadline of all Observable tasks back by 2h
      *     t.setPin(true); // Pin all tasks in Observable view
      * });</code></pre>
+     * @return the list of tasks which were just updated
      * 
      * @throws ValidationException if any updates on any of the task objects are considered invalid
      */
-    void updateAll(Consumer <MutableTask> update) throws ValidationException;
+    List<ImmutableTask> updateAll(Consumer <MutableTask> update) throws ValidationException;
 
     /**
      * Sets the model to the provided TaskViewFilter object. TaskViewFilters represents the
@@ -168,7 +181,7 @@ public interface Model {
     /**
      * Adds the supplied list of tags (using tag names) to the specified task.
      * Does not throw any validation error. Assumes that validation has been done at the command level.
-     *  @param task The mutable task.
+     * @param task The mutable task.
      * @param tagNames The list of tag names to be added.
      */
     void addTagsToTask(MutableTask task, String... tagNames);
@@ -197,4 +210,13 @@ public interface Model {
      * @throws ValidationException when the tag is not found, or the new name clashes with existing names.
      */
     void renameTag(String oldName, String newName) throws ValidationException;
+
+    /**
+     * Renames a tag for a particular task.
+     * @param index The task displayed index to be renamed.
+     * @param oldName Name of the tag to be renamed.
+     * @param newName New name that the tag will assume.
+     * @throws ValidationException when the tag is not found, or the new name clashes with existing names.
+     */
+    void renameTag(int index, String oldName, String newName) throws ValidationException;
 }
