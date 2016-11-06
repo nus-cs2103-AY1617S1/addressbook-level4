@@ -34,7 +34,7 @@ Code written: [[functional code](A0147890U.md)][[docs](A0147890U.md)]
 -----
 
 #### Zavier Ong 
-<img src = "images/IMG_5660.jpg" width="100"><br>
+<img src = "images/IMG_5660.JPG" width="100"><br>
 Role: Developer <br>  
 Responsibilities: Code Integration
 
