@@ -234,18 +234,24 @@ public class Parser {
     
     private ArrayList<String> combineNameWords(String[] details) {
     	ArrayList<String> alDetails = new ArrayList<String>(Arrays.asList(details));
+    	System.out.println(alDetails.toString());
     	String name = new String();
     	
-    	for (String detail : alDetails) {
+    	if(alDetails.size() == 1) {
+    		return alDetails;
+    	}
+    	
+    	for (String detail: alDetails) {
+    		System.out.println("detail: " + detail);
     		if(extractDetailType(detail).equals("name")) {
     			System.out.println("detected name " + detail);
-    			alDetails.remove(detail);
-    			if(name.equals(new String())) name = detail;
+    			if(name.isEmpty()) name = detail;
     			else name = name + " " + detail;
     		}
     	}
     	
-    	alDetails.add(name);
+    	//does not remove the separate name-words from the list, they will be overwritten by the final combined string
+    	if(!name.isEmpty()) alDetails.add(name);
     	return alDetails;
     }
     
