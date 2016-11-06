@@ -79,7 +79,7 @@ Example: add [Sam's birthday party; 20/12/16 ; 9pm] #birthday #rememberToBuyPres
 <br>
 ####1.4 Add a tag / multiple tags to existing tasks
 
-Now, that report due on Monday has become a very important task that you absolutely have to do. Simply type add followed by the index of the report and the tags to be added.
+Now, that report due on Monday has become a very important task that you absolutely have to do. Simply type add followed by the index of the report and the tags to be added and <kbd>Enter</kbd>.
 
 >Format: **add** &lt;index&gt; #tag1 #tag2
 
@@ -89,7 +89,7 @@ Example: Add D1 #VeryImportant #omg
 
 ###2 Edit a task
 
-When you accidentally enter the wrong details on any of your tasks, worry not. The multiple edit task functions listed below allow you to update specific task details.
+When you accidentally enter the wrong details on any of your tasks, worry not. The multiple edit task methods listed below allow you to update specific task details.
 
 >Note: Adding a start time and end time to a to-do will automatically convert your to-do into and event.
 
@@ -117,7 +117,7 @@ Example: edit E1 des Sam's birthday party
 <br>
 ####2.2 Edit task date
 
-Now, maybe the date of the birthday party you previously entered is also wrong and should be one day later instead. 
+Now, maybe the date of the birthday party you previously entered is also wrong and should be one day later instead. To change the date, use the following command. 
 
 >Format: **edit** &lt;index&gt; **date** &lt;date&gt;
 
@@ -128,7 +128,7 @@ Example: Edit E1 date 21/12/16
 <br>
 ####2.3 Edit task start time 
 
-Samantha's birthday party is tomorrow and she has called to inform you that her party is starting two hours earlier at 5pm instead. To change the start time, simply type the following command.
+Samantha's birthday party is tomorrow and she has called to inform you that her party is starting two hours earlier at 5pm instead. To change the start time, simply use the following command.
 
 >Format: **edit** &lt;index&gt; **start** &lt;start time&gt;
 
@@ -139,7 +139,7 @@ Example: edit E1 start 5pm
 <br>
 ####2.4 Edit task end time 
 
-Samantha has also informed her friends that the party is scheduled to end at 11pm, so that they know when to get their parents to pick them up. To update the end time, type the following.
+Samantha has also informed her friends that the party is scheduled to end at 11pm, so that they know when to get their parents to pick them up. To update the end time, type the following and <kbd>Enter</kbd>.
 
 >Format: **edit** &lt;index&gt; **end** &lt;end time&gt;
 
@@ -152,7 +152,7 @@ Example: edit E1 end 2300
 
 You have been very busy and forgot to buy Samantha's present so you want to remind yourself that you absolutely have to buy that present tomorrow for her. 
 
-You can do so by changing the existing rememberToBuyPresent tag to AbsolutelyRememberToBuyPresent tag.
+You can do so by changing the existing rememberToBuyPresent tag to AbsolutelyRememberToBuyPresent tag with the following command.
 
 >Format: **Edit** &lt;index&gt; **tag** &lt;old_tag&gt; ***>*** &lt;new_tag&gt;
 
@@ -173,7 +173,7 @@ Only tasks with the keyword are displayed. Keywords are NOT case sensitive.
 <br>
 ###4 Marking tasks as done 
 
-Remember that report that we added at the start? Once you have done it, simply type the command following the format below and you will never have to see it again. Unless of course you want to, then we will show you how in the later part of this user guide. 
+Remember that report that we added at the start? Once you have done it, simply type the command following the format below <kbd>Enter</kbd> and you will never have to see it again. Unless of course you want to, then we will show you how in the later part of this user guide. 
 
 > Format: Done &lt;index&gt;
 
@@ -209,7 +209,7 @@ From here, you can choose to delete these tasks. Deleting will be covered in the
 <br>
 ####5.2 Display all tasks
 
-Now that you have seen all the tasks that you have done, to return to the main default screen, simply type the following command.
+Now that you have seen all the tasks that you have done, to return to the main default screen, simply type the following command and <kbd>Enter</kbd>.
 
 > Format: list
 
@@ -241,7 +241,7 @@ Delete T1, T3
 <br>
 ####6.2 Deleting a tag / multiple tags
 
-If you find that any of the tags that you added to previously created tasks are no longer useful, you can delete them by typing the following command.
+If you find that any of the tags that you added to previously created tasks are no longer useful, you can delete them by using following command.
 
 >Format: **Delete** &lt;index&gt; #tag1 #tag2
 
@@ -274,7 +274,7 @@ Example: Redo 2
 <br>
 ###9 Exiting the program
 
-When you are done and wish to exit the program, simply type exit and press enter. This saves all your data and exits the program.
+When you are done and wish to exit the program, simply type exit and <kbd>Enter</kbd>. This saves all your data and exits the program.
 
 > Format: **Exit**
 
@@ -283,7 +283,7 @@ Example: Exit
 <br>
 ###10 Help
 
-Should you forget how to do any of the commands, you can simply type help in the command box and press enter.
+Should you forget how to do any of the commands, you can simply type help in the command box and <kbd>Enter</kbd>.
 This opens a window to the user guide where you can read more in depth into each command or just refer to the command summary for quick use.
 
 > Format: **Help**
@@ -293,13 +293,13 @@ Example : Help
 <br>
 ###11 Setting Storage Folder
 
-If for any reason, you wish to change where your data file is being stored. Maybe so that you can synchronise that folder with online cloud storage services, you can change the folder by typing the following command.
+If for any reason, you wish to change where your data file is being stored. Maybe so that you can synchronise that folder with online cloud storage services, you can change the folder by using the following command.
 
 >Format: **storage** &lt;valid file path&gt;
 
 Example: storage C:\Users\Ronald\Documents\DummyFolder
 
-The task manager shifts your file from the current storage folder to the newly specified one on exit.
+The task manager shifts your data file from the current storage folder to the newly specified one on exit.
 
 <br>
 ## How do I transfer my data to another Computer?
