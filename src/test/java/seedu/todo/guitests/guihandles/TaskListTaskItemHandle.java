@@ -1,10 +1,13 @@
 package seedu.todo.guitests.guihandles;
 
 import java.time.LocalTime;
+import java.util.List;
 
+import java.util.Arrays;
 import javafx.scene.Node;
 import javafx.stage.Stage;
 import seedu.todo.commons.util.DateUtil;
+import seedu.todo.commons.util.ListUtil;
 import seedu.todo.guitests.GuiRobot;
 import seedu.todo.models.Task;
 
@@ -15,6 +18,7 @@ public class TaskListTaskItemHandle extends GuiHandle {
 
     private static final String TASKLISTTASKITEM_NAME_ID = "#taskText";
     private static final String TASKLISTTASKITEM_TIME_ID = "#taskTime";
+    private static final String TASKLISTTASKITEM_TAGS_ID = "#taskTagListText";
     private Node node;
 
     public TaskListTaskItemHandle(GuiRobot guiRobot, Stage primaryStage, Node node){
@@ -40,6 +44,24 @@ public class TaskListTaskItemHandle extends GuiHandle {
         }
         
         return DateUtil.parseTime(timeText);
+    }
+    
+    /**
+     * Gets the list of tags for this task item.
+     */
+    public List<String> getTags() {
+        String tagsText = getStringFromText(TASKLISTTASKITEM_TAGS_ID, node);
+        
+        // Strip square brackets off
+        tagsText = tagsText.replaceAll("\\[|\\]", "");
+        
+        // Check for empty string... because Java returns an array of size 1
+        // when you split an empty string.
+        if (tagsText.length() <= 0) {
+            return Arrays.asList(new String[] {});
+        }
+        
+        return Arrays.asList(tagsText.split(", "));
     }
     
     /**
@@ -69,7 +91,8 @@ public class TaskListTaskItemHandle extends GuiHandle {
             return false;
         }
         
-        return getName().equals(taskToCompare.getName()) && isTimeEqual(taskToCompare);
+        return getName().equals(taskToCompare.getName()) && isTimeEqual(taskToCompare) 
+                && ListUtil.unorderedListEquals(taskToCompare.getTagList(), getTags());
     }
 
 }
