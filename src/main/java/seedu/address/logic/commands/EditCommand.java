@@ -13,7 +13,7 @@ import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
 
 import java.util.HashSet;
 import java.util.Set;
-//@@author A0139097U
+//@@author A0139097U @@author A0144202Y
 public class EditCommand extends Command {
 
 	public static final String COMMAND_WORD = "edit";
