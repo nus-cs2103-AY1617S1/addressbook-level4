@@ -213,7 +213,7 @@ public class LogicManagerTest {
         // prepare WhatNow state
         helper.addToModel(model, 2);
 
-        assertCommandBehavior("list", ListCommand.MESSAGE_SUCCESS, expectedAB, expectedList);
+        assertCommandBehavior("list", ListCommand.INCOMPLETE_MESSAGE_SUCCESS, expectedAB, expectedList);
     }
     //@@author A0139128A
     @Test
@@ -228,7 +228,7 @@ public class LogicManagerTest {
         helper.addToModel(model, 1);
         helper.doneToModel(model, 1);
         
-        assertCommandBehavior("list done", ListCommand.MESSAGE_SUCCESS, expectedA, expectedList);
+        assertCommandBehavior("list done", ListCommand.COMPLETE_MESSAGE_SUCCESS, expectedA, expectedList);
     }
     //@@author A0139128A
     @Test
