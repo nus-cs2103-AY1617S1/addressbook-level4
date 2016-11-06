@@ -120,9 +120,10 @@ public class UniqueTaskList implements Iterable<Task> {
 	}
 
 	public void unpin(int targetIndex) {
-		final Task taskToUnpin = internalList.get(targetIndex);
+		final Task taskToUnpin = pinnedList.get(targetIndex);
 		taskToUnpin.unpin();
-		internalList.set(targetIndex, taskToUnpin);
+		int internalListIndex = internalList.indexOf(taskToUnpin);
+		internalList.set(internalListIndex, taskToUnpin);
 		pinnedList.remove(taskToUnpin);
 
 	}

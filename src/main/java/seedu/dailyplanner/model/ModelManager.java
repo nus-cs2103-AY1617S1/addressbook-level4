@@ -10,8 +10,6 @@ import seedu.dailyplanner.commons.core.LogsCenter;
 import seedu.dailyplanner.commons.core.UnmodifiableObservableList;
 import seedu.dailyplanner.commons.events.model.AddressBookChangedEvent;
 import seedu.dailyplanner.commons.util.StringUtil;
-import seedu.dailyplanner.logic.commands.Command;
-import seedu.dailyplanner.logic.commands.DeleteCommand;
 import seedu.dailyplanner.history.HistoryManager;
 import seedu.dailyplanner.model.task.ReadOnlyTask;
 import seedu.dailyplanner.model.task.Task;
@@ -233,7 +231,6 @@ public class ModelManager extends ComponentManager implements Model {
 
 		@Override
 		public boolean run(ReadOnlyTask person) {
-			System.out.println("HELLO" + person.getCompletion());
 			return completionKeywords.contains(person.getCompletion().toLowerCase());
 		}
 
