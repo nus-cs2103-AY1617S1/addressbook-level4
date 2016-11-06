@@ -1,12 +1,14 @@
 # User Guide
 
 * [Introduction](#introduction)
+* [Overview](#overview)
 * [Quick Start](#quick-start)
 * [Features](#features)
 * [FAQ](#faq)
 * [Command Summary](#command-summary)
 
 <!-- @@author A0130853L -->
+
 <br>
 ## Introduction
 
@@ -19,10 +21,28 @@ If you are a keyboard lover and dislike clicking, then TasKitty is the right tas
 To get started, proceed to the Quick Start section below.
 
 <br>
+
+<!-- @@author A0139930B -->
+
+##Overview
+<img src="images/Overview.png" width="900">
+
+1. This is the `Command Box` for you to type your commands.
+2. TasKitty provdes `Feedback` for your actions here.
+3. `Events Panel`, where you can view all your events
+4. `Deadlines Panel`, where you can view all your deadlines.
+5. `Todos Panel`, where you can view all your todos
+6. This shows the `Current View` of the application. Here, it is showing the Upcoming Tasks.
+7. This shows the `Current Path` to the file where the data of TasKitty is stored. There are two types of file paths:
+  * Absolute: The filepath from the root folder. eg. `C:/TasKitty/data/taskmanager.xml`<br>
+  * Relative: The filepath from TasKitty. eg. `./data/taskmanager.xml`
+
 <!-- @@author -->
+
 ## Quick Start
 
 0. Ensure you have Java version `1.8.0_60` or later installed in your Computer.<br>
+
 >   Having any Java 8 version is not enough. <br>
    This app will not work with earlier versions of Java 8.  
    
