@@ -36,13 +36,13 @@ Responsibilities: Code quality,integration,logic
 #### [Tsang Cheuk Ling](https://github.com/SukiTsang)
 <img src="images/SukiTsang.jpg" width="150"><br>
 * Components in charge of: [Logic](https://github.com/CS2103AUG2016-T14-C4/main/blob/master/docs/DeveloperGuide.md#logic-component) 
-Aspects in charge of: Documentation, deliverables and deadlines
+* Aspects in charge of: Documentation, deliverables and deadlines
 * Features implemented: 
 	* Pin Task
 	* Unpin Task
 	* Complete Task
 	* Uncomplete Task
-	* Recurring Task weekly
+	* Recurring Task weekly (Cooperate with Syed and mainly implemented by Syed)
 * Code written: [[functional code](https://github.com/CS2103AUG2016-T14-C4/main/blob/master/collated/main/A0153467Y.md)][[test code](https://github.com/CS2103AUG2016-T14-C4/main/blob/master/collated/test/A0153467Y.md)][[docs](https://github.com/CS2103AUG2016-T14-C4/main/blob/master/collated/docs/A0153467Y.md)]
 * Other major contributions:
     * Make diagrams in Developer Guide
