@@ -3,19 +3,13 @@ package seedu.whatnow.logic.parser;
 
 import static seedu.whatnow.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.whatnow.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-
-import java.text.DateFormat;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import seedu.whatnow.commons.core.Messages;
 import seedu.whatnow.commons.exceptions.IllegalValueException;
 import seedu.whatnow.commons.util.StringUtil;
 import seedu.whatnow.logic.commands.*;
-import seedu.whatnow.model.tag.Tag;
 import seedu.whatnow.model.task.TaskDate;
 
 /**
@@ -132,8 +126,13 @@ public class Parser {
     private static final String TASK_ARG_DATE = "date";
     private static final String TASK_ARG_TIME = "time";
 
-    HashMap<String, Integer> MONTHS_IN_FULL = new HashMap<String, Integer>();
-    HashMap<String, Integer> MONTHS_IN_SHORT = new HashMap<String, Integer>();
+    private static HashMap<String, Integer> MONTHS_IN_FULL = new HashMap<String, Integer>();
+    private static HashMap<String, Integer> MONTHS_IN_SHORT = new HashMap<String, Integer>();
+    
+    public Parser() {
+        mapFullMonthsToMonthsInNumFormat();
+        mapShortMonthsToMonthsInNumFormat();
+    }
 
     //@@author A0139772U
     /**
@@ -239,12 +238,12 @@ public class Parser {
      */
     private static String formatDate(String date) {
         String[] splitDate = date.split(FORWARD_SLASH);
-        date = EMPTY_STRING;
+        String formattedDate = EMPTY_STRING;
 
         for (int i = 0; i < splitDate.length; i++) {
-            date += splitDate[i].replaceAll(SINGLE_DIGIT, ZERO + splitDate[i]);
+            formattedDate += splitDate[i].replaceAll(SINGLE_DIGIT, ZERO + splitDate[i]);
             if (i < splitDate.length - ONE) {
-                date += FORWARD_SLASH;
+                formattedDate += FORWARD_SLASH;
             }
         }
 
@@ -263,6 +262,7 @@ public class Parser {
     private static String formatTime(String time, String period) {
         String[] splitTimePeriod = null;
         String[] splitTime = null;
+        String formattedTime;
 
         splitTimePeriod = time.toLowerCase().split(period);
         if (splitTimePeriod[TIME_WITHOUT_PERIOD].contains(TIME_COLON)) {
@@ -273,12 +273,12 @@ public class Parser {
             splitTime = splitTimePeriod[TIME_WITHOUT_PERIOD].split(BACK_SLASH + TIME_DOT);
         }
 
-        time = (splitTime != null) ? splitTime[TIME_HOUR] : splitTimePeriod[TIME_WITHOUT_PERIOD];
-        time += TIME_COLON;
-        time += (splitTime != null) ? splitTime[TIME_MINUTES] : TIME_DEFAULT_MINUTES;
-        time += period;
+        formattedTime = (splitTime != null) ? splitTime[TIME_HOUR] : splitTimePeriod[TIME_WITHOUT_PERIOD];
+        formattedTime += TIME_COLON;
+        formattedTime += (splitTime != null) ? splitTime[TIME_MINUTES] : TIME_DEFAULT_MINUTES;
+        formattedTime += period;
 
-        return time;
+        return formattedTime;
     }
 
     /**
@@ -289,45 +289,44 @@ public class Parser {
      * @return the formatted time
      */
     private static String formatTime(String time) {
+        String formattedTime;
         if (time.contains(TIME_AM)) {
-            time = formatTime(time, TIME_AM);
+            formattedTime = formatTime(time, TIME_AM);
         } else {
-            time = formatTime(time, TIME_PM);
+            formattedTime = formatTime(time, TIME_PM);
         }
 
-        return time;
+        return formattedTime;
     }
 
-    private static HashMap<String, Integer> storeFullMonths(HashMap<String, Integer> months) {
-        months.put("january", 1);
-        months.put("february", 2);
-        months.put("march", 3);
-        months.put("april", 4);
-        months.put("may", 5);
-        months.put("june", 6);
-        months.put("july", 7);
-        months.put("august", 8);
-        months.put("september", 9);
-        months.put("october", 10);
-        months.put("november", 11);
-        months.put("december", 12);
-        return months;
+    private static void mapFullMonthsToMonthsInNumFormat() {
+        MONTHS_IN_FULL.put("january", 1);
+        MONTHS_IN_FULL.put("february", 2);
+        MONTHS_IN_FULL.put("march", 3);
+        MONTHS_IN_FULL.put("april", 4);
+        MONTHS_IN_FULL.put("may", 5);
+        MONTHS_IN_FULL.put("june", 6);
+        MONTHS_IN_FULL.put("july", 7);
+        MONTHS_IN_FULL.put("august", 8);
+        MONTHS_IN_FULL.put("september", 9);
+        MONTHS_IN_FULL.put("october", 10);
+        MONTHS_IN_FULL.put("november", 11);
+        MONTHS_IN_FULL.put("december", 12);
     }
 
-    private static HashMap<String, Integer> storeShortMonths(HashMap<String, Integer> months) {
-        months.put("jan", 1);
-        months.put("feb", 2);
-        months.put("mar", 3);
-        months.put("apr", 4);
-        months.put("may", 5);
-        months.put("jun", 6);
-        months.put("jul", 7);
-        months.put("aug", 8);
-        months.put("sep", 9);
-        months.put("oct", 10);
-        months.put("nov", 11);
-        months.put("dec", 12);
-        return months;
+    private static void mapShortMonthsToMonthsInNumFormat() {
+        MONTHS_IN_SHORT.put("jan", 1);
+        MONTHS_IN_SHORT.put("feb", 2);
+        MONTHS_IN_SHORT.put("mar", 3);
+        MONTHS_IN_SHORT.put("apr", 4);
+        MONTHS_IN_SHORT.put("may", 5);
+        MONTHS_IN_SHORT.put("jun", 6);
+        MONTHS_IN_SHORT.put("jul", 7);
+        MONTHS_IN_SHORT.put("aug", 8);
+        MONTHS_IN_SHORT.put("sep", 9);
+        MONTHS_IN_SHORT.put("oct", 10);
+        MONTHS_IN_SHORT.put("nov", 11);
+        MONTHS_IN_SHORT.put("dec", 12);
     }
 
     public String getDate(String argument) {
@@ -394,9 +393,6 @@ public class Parser {
 
         //Temporary variables
         String tempDate;
-
-        MONTHS_IN_FULL = storeFullMonths(MONTHS_IN_FULL);
-        MONTHS_IN_SHORT = storeShortMonths(MONTHS_IN_SHORT);    
 
         args = args.trim();
 
@@ -719,7 +715,7 @@ public class Parser {
      * @throws ParseException
      */
     private Command prepareUpdate(String args) {
-        if (args.equals(null))
+        if (args == null)
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, UpdateCommand.MESSAGE_USAGE));
 
         if (!UPDATE_FORMAT.matcher(args.trim().toLowerCase()).find()) {
@@ -735,12 +731,6 @@ public class Parser {
         Optional<Integer> index = parseIndex(argComponents[INDEX]);
         String argType = argComponents[ARG_TYPE];
         String arg = "";
-
-        HashMap<String, Integer> fullMonths = new HashMap<String, Integer>();
-        HashMap<String, Integer> shortMonths = new HashMap<String, Integer>();
-
-        fullMonths = storeFullMonths(fullMonths);
-        shortMonths = storeShortMonths(shortMonths);
 
         int numOfDate = 0;
         int numOfTime = 0;
@@ -785,15 +775,15 @@ public class Parser {
                         }
                     } else if (MONTH_IN_FULL.matcher(argComponents[i].toLowerCase()).find()) {
                         if (numOfDate == ONE) {
-                            arg += fullMonths.get(argComponents[i].toLowerCase());
+                            arg += MONTHS_IN_FULL.get(argComponents[i].toLowerCase());
                         } else if (numOfDate == TWO) {
-                            arg += fullMonths.get(argComponents[i].toLowerCase());
+                            arg += MONTHS_IN_FULL.get(argComponents[i].toLowerCase());
                         }
                     } else if (MONTH_IN_SHORT.matcher(argComponents[i].toLowerCase()).find()) {
                         if (numOfDate == ONE) {
-                            arg += shortMonths.get(argComponents[i].toLowerCase());
+                            arg += MONTHS_IN_SHORT.get(argComponents[i].toLowerCase());
                         } else if (numOfDate == TWO) {
-                            arg += shortMonths.get(argComponents[i].toLowerCase());
+                            arg += MONTHS_IN_FULL.get(argComponents[i].toLowerCase());
                         }
                     } else if (YEAR.matcher(argComponents[i].toLowerCase()).find()) {
                         if (numOfDate == ONE) {

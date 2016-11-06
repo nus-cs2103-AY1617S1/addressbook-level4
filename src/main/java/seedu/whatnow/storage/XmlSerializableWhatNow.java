@@ -3,14 +3,12 @@ package seedu.whatnow.storage;
 //@@author A0126240W-reused
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
-
 import seedu.whatnow.commons.exceptions.IllegalValueException;
 import seedu.whatnow.model.ReadOnlyWhatNow;
 import seedu.whatnow.model.tag.Tag;
 import seedu.whatnow.model.tag.UniqueTagList;
 import seedu.whatnow.model.task.ReadOnlyTask;
 import seedu.whatnow.model.task.UniqueTaskList;
-
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Collections;

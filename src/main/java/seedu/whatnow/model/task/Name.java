@@ -22,11 +22,11 @@ public class Name {
      */
     public Name(String name) throws IllegalValueException {
         assert name != null;
-        name = name.trim();
-        if (!isValidName(name)) {
+        String nameRemovedTrailSpace = name.trim();
+        if (!isValidName(nameRemovedTrailSpace)) {
             throw new IllegalValueException(MESSAGE_NAME_CONSTRAINTS);
         }
-        this.fullName = name;
+        this.fullName = nameRemovedTrailSpace;
     }
 
     /**

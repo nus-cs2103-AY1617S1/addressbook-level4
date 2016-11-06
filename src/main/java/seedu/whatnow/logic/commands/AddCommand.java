@@ -38,17 +38,19 @@ public class AddCommand extends Command {
 	public AddCommand(String name, String date, String startDate, String endDate, String time, String startTime, String endTime, String period, String endPeriod, Set<String> tags) throws IllegalValueException, ParseException {
 	    TaskTime validateTime = null;
 	    TaskDate validateDate = null;
+	    String validatedTime = time;
+	    String validatedDate = date;
 	    
 	    if (time != null || startTime != null || endTime != null) {
 	        validateTime = new TaskTime(time, startTime, endTime, date, startDate, endDate);
 	        if (date == null && startDate == null && endDate == null)
-	            date = validateTime.getDate();
+	            validatedTime = validateTime.getDate();
 	    }
 	    
 	    if (date != null || startDate != null || endDate != null) {
 	        validateDate = new TaskDate(date, startDate, endDate);
 	        if (date != null) {
-	            date = validateDate.getDate();
+	            validatedDate = validateDate.getDate();
 	        } else if (startDate != null) {
 	            startDate = validateDate.getStartDate();
 	            endDate = validateDate.getEndDate();
@@ -60,7 +62,9 @@ public class AddCommand extends Command {
             tagSet.add(new Tag(tagName));
         }    
         
-        this.toAdd = new Task(new Name(name), date, startDate, endDate, time, startTime, endTime, period, endPeriod, new UniqueTagList(tagSet), STATUS_INCOMPLETE, null);
+        this.toAdd = new Task(new Name(name), validatedDate, startDate, endDate, 
+                validatedTime, startTime, endTime, period, endPeriod, 
+                new UniqueTagList(tagSet), STATUS_INCOMPLETE, null);
 	}
 	
 	public void addRecurring(Recurrence recurring) throws DuplicateTaskException {
