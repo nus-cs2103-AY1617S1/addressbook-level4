@@ -8,6 +8,15 @@
 * [FAQ](#faq)
 * [Command Summary](#command-summary)
 
+# Introduction
+
+Frustrated with the repetitive number of mouse clicks when using task managers? Tired of cluttered windows? Need the ability to 
+easily categorise tasks? 
+
+Welcome to Simply.
+
+Gone are the repetitive mouse clicks other task managers require of you. With a single line command entry, you can create a task and categorize it as you desire. With its simple interface, gone are the cluttered windows of other task managers and you can also easily categorize your tasks!
+
 ## Getting Started
 
 1. Ensure you have Java version `1.8.0_60` or later installed in your Computer.<br>
@@ -31,7 +40,26 @@
 ###1 Add Command
 There are three variations to the add command. You are able to choose a task to be categorized under events, deadlines or to-dos. To differentiate the formatting for these commands, refer to the section below.
 
-####1.1 Add an event
+####1.1 Add a to-do
+
+>Format: **Add** &lt;to-do description&gt; &lt;#tag&gt; &lt;priority&gt;
+
+Example: Add go swimming #YOLO !
+
+>Note: To do tasks do not have a date or time.
+
+>***Note: To add a tag, simply add a # followed by the tag name at the back of the command 
+To add a priority, simply add a ! at the back of the command.***
+
+####1.2 Add a deadline
+
+>Format: **Add** &lt;deadline description&gt;; &lt;date(DDMMYY)&gt;; &lt;end time&gt; &lt;#tag&gt; &lt;priority&gt;
+
+Example: Add complete report; 120916; 1900 #YOLO ! 
+
+>Important: The date and end time are compulsory when adding an deadline
+
+####1.3 Add an event
 
 >Format : **Add** [&lt;event description&gt;; &lt;date(DDMMYY)&gt;; &lt;start time&gt;; &lt;end time&gt;] &lt;#tag&gt; &lt;priority&gt;
 
@@ -44,25 +72,6 @@ Example: Add [Sam's birthday party; 20/12/16 ; 9pm] #YOLO !
 >Note: Date format accepted: 20/12/2016, 20/12/16, 201216
 
 >Important: The square brackets are compulsory when adding an event.
-
-####1.2 Add a deadline
-
->Format: **Add** &lt;deadline description&gt;; &lt;date(DDMMYY)&gt;; &lt;end time&gt; &lt;#tag&gt; &lt;priority&gt;
-
-Example: Add complete report; 120916; 1900 #YOLO ! 
-
->Important: The date and end time are compulsory when adding an deadline
-
-####1.3 Add a to-do
-
->Format: **Add** &lt;to-do description&gt; &lt;#tag&gt; &lt;priority&gt;
-
-Example: Add go swimming #YOLO !
-
->Note: To do tasks do not have a date or time.
-
->***Note: To add a tag, simply add a # followed by the tag name at the back of the command 
-To add a priority, simply add a ! at the back of the command.***
 
 ####1.4 Add a tag / multiple tags
 
