@@ -12,11 +12,7 @@ public class OverdueTaskCard extends DashboardCard{
 		public void initialize() {
 
 			name.setText(activity.getName().fullName);
-<<<<<<< HEAD:src/main/java/seedu/lifekeeper/ui/OverdueTaskCard.java
-			datetime.setText(((ReadOnlyTask) activity).getDueDate().forDisplay());
-=======
 			datetime.setText(((ReadOnlyTask) activity).getDueDate().forDashboardDisplay());
->>>>>>> 937da6a... Added DueDate output for OverdueTaskCard:src/main/java/seedu/address/ui/OverdueTaskCard.java
 
 		}
 	 
