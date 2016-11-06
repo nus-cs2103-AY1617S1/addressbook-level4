@@ -47,7 +47,7 @@ public class TestDataHelper {
      *
      * @param seed used to generate the task data field values
      */
-    public Task generateFullTaskToday(int seed) throws Exception {
+    public Task generateFullTaskToday(int seed) throws IllegalValueException {
         return new Task(
                 new Name("Task " + seed),
                 new Detail("House of " + seed),
@@ -64,7 +64,7 @@ public class TestDataHelper {
      *
      * @param seed used to generate the task data field values
      */
-    public Task generateFullTaskTmr(int seed) throws Exception {
+    public Task generateFullTaskTmr(int seed) throws IllegalValueException {
         return new Task(
                 new Name("Task " + seed),
                 new Detail("House of " + seed),
