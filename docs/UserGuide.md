@@ -276,6 +276,10 @@ Format: `completed INDEX`
 Clears all entries from the Emeraldo in the save data.<br>
 Format: `clear`  
 
+<br>
+#### Motivate Me: `motivateme`
+Generates random quote to motivate a stressed user <br>
+Format: `motivateme`
 
 <br>
 [](@@author A0139342H)
