@@ -37,7 +37,7 @@ public class HelpController extends Controller {
         UiManager.updateConsoleMessage(MESSAGE_HELP_SUCCESS);
     }
     
-    private CommandDefinition[] getAllCommandDefinitions() {
+    public CommandDefinition[] getAllCommandDefinitions() {
         return new CommandDefinition[] { new HelpController().getCommandDefinition(),
                                          new AddController().getCommandDefinition(),
                                          new ListController().getCommandDefinition(),
