@@ -36,6 +36,7 @@ We are the team in charge of developing Jimi, a command-line based task manager 
     * Update indexed commands to work with new indices
     * Refactoring/Morphing AddressBook -> Jimi
     * UI beautifying with Ze Xuan
+    * Nag about code quality/style/admin issues
 
 
 -----
