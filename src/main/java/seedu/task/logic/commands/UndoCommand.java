@@ -1,15 +1,13 @@
-//@@author A0147335E
 package seedu.task.logic.commands;
 
 import java.util.ArrayList;
 import java.util.HashSet;
 
-import seedu.task.commons.core.UnmodifiableObservableList;
 import seedu.task.commons.exceptions.IllegalValueException;
 import seedu.task.logic.RollBackCommand;
 import seedu.task.model.tag.Tag;
-import seedu.task.model.task.ReadOnlyTask;
 
+// @@author A0147335E
 /**
  * Undo previous commands that was input by the user.
  * 

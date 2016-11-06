@@ -1,4 +1,3 @@
-// @@author A0147335E
 package seedu.task.logic.commands;
 
 import java.util.ArrayList;
@@ -12,6 +11,7 @@ import seedu.task.model.task.Task;
 import seedu.task.model.task.UniqueTaskList.DuplicateTaskException;
 import seedu.task.model.task.UniqueTaskList.TaskNotFoundException;
 
+// @@author A0147335E
 /**
  * Unfavorite a task from the task manager.
  */
@@ -20,9 +20,7 @@ public class UnfavoriteCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Unfavorite the task identified by the index number used in the last task listing.\n"
-            + "Parameters: INDEX TASKNAME\n"
-            + "Example: " + COMMAND_WORD
-            + " 4";
+            + "Parameters: INDEX TASKNAME\n" + "Example: " + COMMAND_WORD + " 4";
 
     public static final String MESSAGE_UNFAVORITE_TASK_SUCCESS = "Unfavorite Task: %1$s";
 
@@ -30,8 +28,7 @@ public class UnfavoriteCommand extends Command {
 
     public final int targetIndex;
 
-    public UnfavoriteCommand(int targetIndex)
-    {
+    public UnfavoriteCommand(int targetIndex) {
         this.targetIndex = targetIndex;
     }
 
@@ -50,19 +47,20 @@ public class UnfavoriteCommand extends Command {
         try {
             model.deleteTask(currentTask);
         } catch (TaskNotFoundException e) {
-            
+
         }
 
         Task newTask = new Task(currentTask);
         newTask.getStatus().setFavoriteStatus(false);
         try {
             model.addTask(targetIndex - 1, newTask);
-        } catch (DuplicateTaskException e) {}
+        } catch (DuplicateTaskException e) {
+        }
 
         if (oldStatus == newTask.getStatus().getFavoriteStatus()) {
             return new CommandResult(MESSAGE_ALREADY_UNFAVORITED);
         }
-        if (!isUndo ) {
+        if (!isUndo) {
             getUndoList().add(new RollBackCommand(COMMAND_WORD, newTask, null));
         }
         // @@author A0147944U

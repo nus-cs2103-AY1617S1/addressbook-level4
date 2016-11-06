@@ -1,4 +1,4 @@
-// @@author A0147335E
+
 package seedu.task.logic.commands;
 
 import java.util.ArrayList;
@@ -12,6 +12,7 @@ import seedu.task.model.task.Task;
 import seedu.task.model.task.UniqueTaskList.DuplicateTaskException;
 import seedu.task.model.task.UniqueTaskList.TaskNotFoundException;
 
+// @@author A0147335E
 /**
  * Undone a task from the task manager.
  */
@@ -20,9 +21,7 @@ public class UndoneCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Undone the task identified by the index number used in the last task listing.\n"
-            + "Parameters: INDEX TASKNAME\n"
-            + "Example: " + COMMAND_WORD
-            + " 4";
+            + "Parameters: INDEX TASKNAME\n" + "Example: " + COMMAND_WORD + " 4";
 
     public static final String MESSAGE_DONE_TASK_SUCCESS = "Undone Task: %1$s";
 
@@ -31,15 +30,12 @@ public class UndoneCommand extends Command {
     public int targetIndex;
     public int currentIndex;
 
-
-    public UndoneCommand(int targetIndex)
-    {
+    public UndoneCommand(int targetIndex) {
         this.targetIndex = targetIndex;
         currentIndex = targetIndex;
     }
-    
-    public UndoneCommand(int targetIndex, int currentIndex)
-    {
+
+    public UndoneCommand(int targetIndex, int currentIndex) {
         this.targetIndex = targetIndex;
         this.currentIndex = currentIndex;
     }
@@ -58,18 +54,20 @@ public class UndoneCommand extends Command {
 
         try {
             model.deleteTask(currentTask);
-        } catch (TaskNotFoundException e) {}
+        } catch (TaskNotFoundException e) {
+        }
 
         Task taskToUndone = new Task(currentTask);
         taskToUndone.getStatus().setDoneStatus(false);
         try {
             model.addTask(targetIndex - 1, taskToUndone);
-        } catch (DuplicateTaskException e) {}
+        } catch (DuplicateTaskException e) {
+        }
 
         if (isEqual(previousDoneStatus, taskToUndone.getStatus().getDoneStatus())) {
             return new CommandResult(MESSAGE_ALREADY_UNDONE);
         }
-        
+
         // @@author A0147944U
         // Sorts updated list of tasks
         model.autoSortBasedOnCurrentSortPreference();
