@@ -56,9 +56,8 @@ public class EndTime extends DateTime {
         } else if (date.equals("")) {
             this.value = DateUtil.EndDateTime(startdate);
         } else if(date.split(" ").length==1){
-            Calendar startcal = starttime.value;
-            SimpleDateFormat format1 = new SimpleDateFormat("d-MM-yyyy");
-            date = format1.format(startcal) + " " + date;
+            String[] startt = startstring.split(" ");
+            date =  startt[0]+ " " + date;
             this.value= DateUtil.setDate(date);
         } else {
             if (!DateUtil.isValidDate(date)) {
@@ -67,20 +66,15 @@ public class EndTime extends DateTime {
             this.value= DateUtil.setDate(date);
         }
 
-        while ((this.value.before(Calendar.getInstance()))) {
-            if (date.contains("mon") || date.contains("tue") || date.contains("wed")
-                    || date.contains("thu") || date.contains("fri") || date.contains("sat")
-                    || date.contains("sun"))
-                this.value.add(Calendar.DAY_OF_WEEK, 7);                
-                this.value.add(Calendar.DAY_OF_MONTH, 1);
-        }
+
         if (this.value.before(starttime.value)) {
             while (this.value.before(starttime.value)) {
                 if ((date.contains("mon") || date.contains("tue") || date.contains("wed") || date.contains("thu")
                         || date.contains("fri") || date.contains("sat") || date.contains("sun")))
                     this.value.add(Calendar.DAY_OF_WEEK, 7);
-                else 
+                else if((date.contains("day"))&&recurring)
                     this.value.add(Calendar.DAY_OF_MONTH, 1);
+                throw new IllegalValueException(MESSAGE_ENDTIME_NOTVALID);
             }
         }
     }
