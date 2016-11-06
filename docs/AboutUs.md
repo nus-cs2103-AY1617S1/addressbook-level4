@@ -12,7 +12,7 @@ Features implemented:
 - [List today/week/float command](https://github.com/CS2103AUG2016-W09-C1/main/blob/master/docs/UserGuide.md#4)
 - Sort tasks by date
 
-Code written: [[functional code](../collated/main/A0138848M.md)], [[test code](../collated/test/A0138848M.md)][[docs](../collated/docs/A0138848M.md)]<br>
+Code written: [[functional code](../collated/main/A0138848M.md)][[test code](../collated/test/A0138848M.md)][[docs](../collated/docs/A0138848M.md)]<br>
 Other major contributions:
 - Set up Travis and Coveralls
 
@@ -24,7 +24,7 @@ Features implemented:
 - UI Design
 - Help Command
 
-Code written: [[functional code](../collated/main/A0142605N.md)], [[test code](../collated/test/A0142605N.md)][[docs](../collated/docs/A0142605N.md)]<br>
+Code written: [[functional code](../collated/main/A0142605N.md)][[test code](../collated/test/A0142605N.md)][[docs](../collated/docs/A0142605N.md)]<br>
 Other major contributions:
 - Collating User Guide & Developer Guide with Deshun 
 
@@ -38,7 +38,7 @@ Features implemented:
 - Redo Command
 - Categories
 
-Code written: [[functional code](../collated/main/A0140156R.md)], [[test code](../collated/test/A0140156R.md)][[docs](../collated/docs/A0140156R.md)]<br>
+Code written: [[functional code](../collated/main/A0140156R.md)][[test code](../collated/test/A0140156R.md)][[docs](../collated/docs/A0140156R.md)]<br>
 Other major contributions:
 - Final refactoring from AddressBook to OneLine
 
@@ -53,7 +53,7 @@ Features implemented:
 - [Undone task](https://github.com/CS2103AUG2016-W09-C1/main/blob/master/docs/UserGuide.md)
 - [[Save saveLocation](https://github.com/CS2103AUG2016-W09-C1/main/blob/master/docs/UserGuide)]
 
-Code written: [[functional code](../collated/main/A0121657H.md)], [[test code](../collated/test/A0121657H.md)][[docs](../collated/docs/A0121657H.md)]<br>
+Code written: [[functional code](../collated/main/A0121657H.md)][[test code](../collated/test/A0121657H.md)][[docs](../collated/docs/A0121657H.md)]<br>
 Other major contributions:
 - Did the initial refactoring from AddressBook to ToDoList 
 - Copy-editing the bulk of the Developer's Guide 
