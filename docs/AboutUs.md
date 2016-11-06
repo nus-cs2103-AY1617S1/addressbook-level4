@@ -24,9 +24,8 @@ We are a team based in the [School of Computing, National University of Singapor
 	* Did the initial refactoring from AddressBook to Emeraldo
 	* Set up Travis and Coveralls
 	* Formatting for markdown documents
-<br>
------
 
+<br>
 
 [](@@author A0139342H)
 #### Lim Khong Yew
@@ -46,9 +45,8 @@ We are a team based in the [School of Computing, National University of Singapor
 
 
 * Other major contributions:
-<br>
------
 
+<br>
 
 [](@@author A0139196U)
 #### Lim Zhiming
@@ -67,9 +65,8 @@ We are a team based in the [School of Computing, National University of Singapor
 [[docs]
 (https://github.com/CS2103AUG2016-T10-C3/main/blob/master/collated/docs/A0139196U.md)]
 * Other major contributions: 
-<br>
------
 
+<br>
 
 [](@@author A0142290N)
 #### Ng Kai Sing
@@ -89,19 +86,11 @@ We are a team based in the [School of Computing, National University of Singapor
 [[docs]
 (https://github.com/CS2103AUG2016-T10-C3/main/blob/master/collated/docs/A0142290N.md)]
 * Other major contributions:
-<br>
------
 
+<br>
 
 ## Project Mentor
 
 
 #### Sam Yong
 <img src="images/SamYong.jpg" width="150"><br>
-
-
- 
-
-
-
-

@@ -67,12 +67,12 @@ For any tasks with tags, specify the tags as the last parameter.|`add "James wed
 
 >Tasks can have any number of tags or none at all
 
-
 <br>
+
 Accepted entry formats | Examples
 -----------------------|----------
-Date formats | 4/03/2016 | 4/03/16  4-03-16  4.03.16  4 March 16  4/03  4 Mar 
-Time formats | 14:20 | 14.20  1420  2.20pm  2:20pm 
+Date formats | 4/03/2016  4/03/16  4-03-16  4.03.16  4 March 16  4/03  4 Mar
+Time formats | 14:20  14.20  1420  2.20pm  2:20pm 
 
 
 <br>
