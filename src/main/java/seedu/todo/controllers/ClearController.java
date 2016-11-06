@@ -6,6 +6,7 @@ import java.util.Map;
 
 import seedu.todo.commons.exceptions.InvalidNaturalDateException;
 import seedu.todo.commons.exceptions.ParseException;
+import seedu.todo.commons.util.StringUtil;
 import seedu.todo.controllers.concerns.CalendarItemFilter;
 import seedu.todo.controllers.concerns.Renderer;
 import seedu.todo.controllers.concerns.Tokenizer;
@@ -27,7 +28,7 @@ public class ClearController extends Controller {
     private static final String COMMAND_KEYWORD = "clear";
     
     private static final String MESSAGE_CLEAR_NO_ITEMS_FOUND = "No items found!";
-    private static final String MESSAGE_CLEAR_SUCCESS = "A total of %s deleted!\n" + "To undo, type \"undo\".";
+    private static final String MESSAGE_CLEAR_SUCCESS = "A total of %s %s and %s %s deleted!\n" + "To undo, type \"undo\".";
 
     private static CommandDefinition commandDefinition =
             new CommandDefinition(NAME, DESCRIPTION, COMMAND_SYNTAX, COMMAND_KEYWORD); 
@@ -68,7 +69,11 @@ public class ClearController extends Controller {
         db.destroyEvents(clearEvents);
         db.save();
         
-        Renderer.renderIndex(db, "Done!");
+        String consoleMessage = String.format(MESSAGE_CLEAR_SUCCESS,
+                clearTasks.size(), StringUtil.pluralizer(clearTasks.size(), "task", "tasks"),
+                clearEvents.size(), StringUtil.pluralizer(clearEvents.size(), "event", "events"));
+        
+        Renderer.renderIndex(db, consoleMessage);
     }
     
     private void renderDisambiguation(Map<String, String[]> parsedResult) {
