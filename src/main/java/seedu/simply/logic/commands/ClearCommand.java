@@ -3,7 +3,7 @@ package seedu.simply.logic.commands;
 import seedu.simply.model.TaskBook;
 
 /**
- * Clears the address book.
+ * Clears the task book.
  */
 public class ClearCommand extends Command {
 
@@ -17,7 +17,7 @@ public class ClearCommand extends Command {
     public CommandResult execute() {
         assert model != null;
         model.addToUndoStack();
-        model.resetData(TaskBook.getEmptyAddressBook());
+        model.resetData(TaskBook.getEmptyTaskBook());
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }

@@ -257,7 +257,7 @@ public class Parser {
         if (new File(args.trim()).exists() == false) {
             return new IncorrectCommand("Please enter a valid file path");
         }
-        args = args + "/addressbook.xml";
+        args = args + "/taskbook.xml";
 
         return new SpecifyStorageCommand(args);
     }

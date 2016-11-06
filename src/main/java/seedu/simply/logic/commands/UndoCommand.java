@@ -44,7 +44,7 @@ public class UndoCommand extends Command {
         }
         
         for (int i = 0; i < numTimes; i++) {
-            TaskBook currentTaskBook = new TaskBook(model.getAddressBook());
+            TaskBook currentTaskBook = new TaskBook(model.getTaskBook());
             
             SaveState saveToResetTo = model.getUndoStack().pop();
             TaskBook taskToResetTo = saveToResetTo.getSaveStateTaskBook();

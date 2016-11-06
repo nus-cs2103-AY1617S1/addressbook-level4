@@ -22,18 +22,18 @@ public interface Storage extends TaskBookStorage, UserPrefsStorage {
     void saveUserPrefs(UserPrefs userPrefs) throws IOException;
 
     @Override
-    String getAddressBookFilePath();
+    String getTaskBookFilePath();
 
     @Override
-    Optional<ReadOnlyTaskBook> readAddressBook() throws DataConversionException, IOException;
+    Optional<ReadOnlyTaskBook> readTaskBook() throws DataConversionException, IOException;
 
     @Override
-    void saveAddressBook(ReadOnlyTaskBook addressBook) throws IOException;
+    void saveTaskBook(ReadOnlyTaskBook taskBook) throws IOException;
 
     /**
-     * Saves the current version of the Address Book to the hard disk.
+     * Saves the current version of the Task Book to the hard disk.
      *   Creates the data file if it is missing.
      * Raises {@link DataSavingExceptionEvent} if there was an error during saving.
      */
-    void handleAddressBookChangedEvent(TaskBookChangedEvent abce);
+    void handleTaskBookChangedEvent(TaskBookChangedEvent abce);
 }

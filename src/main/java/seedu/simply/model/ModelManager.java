@@ -30,7 +30,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.function.Predicate;
 
 /**
- * Represents the in-memory model of the address book data.
+ * Represents the in-memory model of the task book data.
  * All changes to any model should be synchronized.
  */
 public class ModelManager extends ComponentManager implements Model {
@@ -47,15 +47,15 @@ public class ModelManager extends ComponentManager implements Model {
     private FilteredList<Task> filteredTodos;
 
     /**
-     * Initializes a ModelManager with the given AddressBook
-     * AddressBook and its variables should not be null
+     * Initializes a ModelManager with the given TaskBook
+     * TaskBook and its variables should not be null
      */
     public ModelManager(TaskBook src, UserPrefs userPrefs, Config config) {
         super();
         assert src != null;
         assert userPrefs != null;
 
-        logger.fine("Initializing with address book: " + src + " and user prefs " + userPrefs);
+        logger.fine("Initializing with task book: " + src + " and user prefs " + userPrefs);
 
         taskBook = new TaskBook(src);
         filteredEvents = new FilteredList<>(taskBook.getEvents());
@@ -127,16 +127,16 @@ public class ModelManager extends ComponentManager implements Model {
     public void resetData(ReadOnlyTaskBook newData) {
         taskBook.resetData(newData);
         updateFilteredListToShowAllUncompleted();
-        indicateAddressBookChanged();
+        indicateTaskBookChanged();
     }
 
     @Override
-    public ReadOnlyTaskBook getAddressBook() {
+    public ReadOnlyTaskBook getTaskBook() {
         return taskBook;
     }
 
     /** Raises an event to indicate the model has changed */
-    private void indicateAddressBookChanged() {
+    private void indicateTaskBookChanged() {
         raise(new TaskBookChangedEvent(taskBook));
     }
 
@@ -150,7 +150,7 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public synchronized void deleteTask(ReadOnlyTask target) {
         taskBook.removeTask(target);
-        indicateAddressBookChanged();
+        indicateTaskBookChanged();
     }
     
     //@@author A0139430L
@@ -163,7 +163,7 @@ public class ModelManager extends ComponentManager implements Model {
     public synchronized Task editTask(ReadOnlyTask target, String args, char category) throws TaskNotFoundException, IllegalValueException {
         Task temp = taskBook.changeTask(target, args, category);
         updateFilteredListToShowAllUncompleted();
-        indicateAddressBookChanged();
+        indicateTaskBookChanged();
         return temp;
     }
 
@@ -171,14 +171,14 @@ public class ModelManager extends ComponentManager implements Model {
     public synchronized void addTask(Task task) throws UniqueTaskList.DuplicateTaskException {
         taskBook.addTask(task);
         updateFilteredListToShowAllUncompleted();
-        indicateAddressBookChanged();
+        indicateTaskBookChanged();
     }
 
     //@@author A0135722L Zhiyuan
     public synchronized void markDone(ReadOnlyTask target) throws TaskNotFoundException {
         taskBook.completeTask(target);
         updateFilteredListToShowAllUncompleted();
-        indicateAddressBookChanged();
+        indicateTaskBookChanged();
     }
 
     //@@author A0138993L
@@ -188,7 +188,7 @@ public class ModelManager extends ComponentManager implements Model {
             public void run() {
                 taskBook.overdueTask();
                 indicateTaskOverdueChanged();
-                indicateAddressBookChanged();
+                indicateTaskBookChanged();
             };
         };
         scheduler.scheduleAtFixedRate(overdue, 0, 1, TimeUnit.SECONDS); 
@@ -203,7 +203,7 @@ public class ModelManager extends ComponentManager implements Model {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        indicateAddressBookChanged();
+        indicateTaskBookChanged();
     }
 
     //=========== Filtered Task List Accessors ===============================================================

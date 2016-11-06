@@ -28,7 +28,7 @@ public class End implements Comparable<End> {
      *
      * Validates given end time.
      * @@author A0138993L
-     * @throws IllegalValueException if given address string is invalid.
+     * @throws IllegalValueException if given task string is invalid.
      */
     public End(String end) throws IllegalValueException {
         if (end == null) {

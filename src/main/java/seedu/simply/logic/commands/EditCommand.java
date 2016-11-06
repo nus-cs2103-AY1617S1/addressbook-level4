@@ -15,7 +15,7 @@ import seedu.simply.model.task.UniqueTaskList.TaskNotFoundException;
 
 /** 
  * Edits a task identified using its last displayed index in the task manager.
- * @@author Ronald
+ * 
  * 
  */
 

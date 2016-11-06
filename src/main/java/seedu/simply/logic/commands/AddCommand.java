@@ -14,7 +14,7 @@ import java.util.Set;
 
 /**
  * @@author A0138993L
- * Adds a task to the address book.
+ * Adds a task to the task book.
  */
 public class AddCommand extends Command {
 
