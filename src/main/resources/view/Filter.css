@@ -20,7 +20,7 @@
 
 .toggle-button {
     -fx-border-color: #b1b1b1;
-    -fx-background-color: #e2e2e2;
+    -fx-background-color: #f1f1f1;
 }
 
 .toggle-button:selected {
