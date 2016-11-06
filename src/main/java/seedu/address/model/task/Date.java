@@ -1,5 +1,8 @@
 package seedu.address.model.task;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
+
 import seedu.address.commons.util.DateUtil;
 
 //@@author A0146123R
@@ -9,13 +12,21 @@ import seedu.address.commons.util.DateUtil;
  */
 public interface Date {
     
+    int hashCode();
+    
     String getValue();
     
     String toString();
   
-    int hashCode();
+    
+    ArrayList<LocalDate> getLocalDate();
+    
+    void updateDate(String... dateString);
+    
+    void updateRecurringDate(long numOfDays);
     
     default boolean isEmptyDate() {
         return DateUtil.isEmptyDate(getValue());
     }
+
 }

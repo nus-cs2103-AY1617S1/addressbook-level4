@@ -4,6 +4,7 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 
 import org.junit.Test;
 
+import seedu.address.commons.exceptions.MissingRecurringDateException;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.model.TaskManager;
 import seedu.address.model.tag.Tag;
@@ -57,6 +58,13 @@ public class AddCommandTest extends CommandTest{
         assertCommandBehavior(
                 "add n/Valid Name d/11.12.2016-14 t/invalid_-[.tag", Tag.MESSAGE_TAG_CONSTRAINTS);
         
+    }
+    
+    //test for missing recurring date exception
+    @Test
+    public void execute_add_invalidRecurringToFloatingTask() throws Exception{
+        assertCommandBehavior(
+                "add n/Valid Name r/daily",Recurring.RECURRING_MISSING_DATE);
     }
     
     /*

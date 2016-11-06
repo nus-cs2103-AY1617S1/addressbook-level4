@@ -13,9 +13,10 @@ import seedu.address.commons.exceptions.IllegalValueException;
 public class Recurring {
 
     public static final String MESSAGE_RECURRING_CONSTRAINTS = "Recurring frequency should be 'daily/weekly/monthly/yearly' ";
-    public static final String[] FREQUENCY_VALUES = new String[] {"daily", "weekly", "monthly", "yearly"};
+    public static final String[] FREQUENCY_VALUES = new String[] {"daily", "weekly", "monthly" };
     public static final Set<String> FREQUENCY_SET = new HashSet<String>(Arrays.asList(FREQUENCY_VALUES));
-
+    public static final String RECURRING_MISSING_DATE = "Recurring task must have a deadline";
+    
     public String recurringFrequency;
 
     /**

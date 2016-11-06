@@ -54,5 +54,6 @@ public class DateTest {
         thrown.expect(IllegalValueException.class);
         new EventDate("04.11.2016-10", "hi");
     }
+     
     
 }
