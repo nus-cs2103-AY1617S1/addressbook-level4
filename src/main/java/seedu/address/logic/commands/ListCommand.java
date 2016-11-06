@@ -20,6 +20,8 @@ public class ListCommand extends Command {
     
     public static final String MESSAGE_SUCCESS_EVENT = "Listed events only";
     
+    public static final String MESSAGE_SUCCESS_DONE = "Listed completed events and tasks only";
+    
     public static final String MESSAGE_INVALID_LIST_TYPE = "List Command should be followed by (optional) either 'activity', 'event' or 'task' only ";   
     
     public ListCommand(String typeOfList) {
@@ -47,7 +49,8 @@ public class ListCommand extends Command {
 
       case "done":
           model.updateFilteredDoneListToShowAll();
-          return new CommandResult(MESSAGE_SUCCESS_EVENT);
+          return new CommandResult(MESSAGE_SUCCESS_DONE);
+          
           default: //typeOfList equals ""
 			model.updateFilteredListToShowAll();
 			return new CommandResult(MESSAGE_SUCCESS);
