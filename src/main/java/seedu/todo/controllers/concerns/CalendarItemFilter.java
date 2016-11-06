@@ -29,6 +29,7 @@ public class CalendarItemFilter {
      */
     public static Map<String, String[]> getFilterTokenDefinitions() {
         Map<String, String[]> tokenDefinitions = new HashMap<String, String[]>();
+        tokenDefinitions.put("default", new String[] { "clear", "list" });
         tokenDefinitions.put("eventType", new String[] { "event", "events", "task", "tasks" });
         tokenDefinitions.put("name", new String[] { "name" });
         tokenDefinitions.put("taskStatus", new String[] { "complete" , "completed", "incomplete", "incompleted" });
