@@ -9,9 +9,9 @@
 * [Appendix B: Use Cases](#appendix-b--use-cases)
 * [Appendix C: Non Functional Requirements](#appendix-c--non-functional-requirements)
 * [Appendix D: Glossary](#appendix-d--glossary)
-* [Appendix E : Product Survey](#appendix-e-product-survey)
+* [Appendix E : Product Survey](#appendix-e--product-survey)
 
-
+[//]: # "@@author A0147944U"
 ## Setting up
 
 #### Prerequisites
@@ -24,6 +24,7 @@
 2. **Eclipse** IDE - [Official Download](https://eclipse.org/) <br>
 3. **e(fx)clipse** plugin for Eclipse (Do the steps 2 onwards given in [this page](http://www.eclipse.org/efxclipse/install.html#for-the-ambitious)) <br>
 4. **Buildship Gradle Integration** plugin from the Eclipse Marketplace
+5. **EclEmma** plugin from the Eclipse Marketplace
 
 
 #### Importing the project into Eclipse
@@ -34,16 +35,14 @@
 2. Click `File` > `Import`
 3. Click `Gradle` > `Gradle Project` > `Next` > `Next`
 4. Click `Browse`, then locate the project's directory
-5. Click `Finish`
+5. Click > `Next` > `Next`
+6. Click `Finish`
 
   > * If you are asked whether to 'keep' or 'overwrite' config files, choose to 'keep'.
-  > * Depending on your connection speed and server load, it can even take up to 30 minutes for the set up to finish
-      (This is because Gradle downloads library files from servers during the project set up process)
-  > * If Eclipse auto-changed any settings files during the import process, you can discard those changes.
-
-#### Generate .jar file
-
-Run `Generate Jar build.bat` located in root folder
+  > * If unable to successfully import (i.e. errors showing up), reimport it and select 'overwrite'
+  > * If Eclipse auto-changed any settings files during the import process, you may discard those changes. Remember not to push these changed files if settings are local.
+  > * Depending on your connection speed and server load, it can even take up to 30 minutes for the set up to finish. (This is because Gradle downloads library files from servers during the project set up process) You may check on its progress via the progress bar at the bottom right corner of Eclipse.
+[//]: # "@@author"
 
 ## Design
 
@@ -81,6 +80,7 @@ The _Sequence Diagram_ below shows how the components interact for the scenario 
 command `delete 3`.
 [//]: # "@@author A0152958R"
 <img src="images\build.png" width="800">
+[//]: # "@@author"
 
 >Note how the `Model` simply raises a `TaskManagerChangedEvent` when the TaskManager data are changed,
  instead of asking the `Storage` to save the updates to the hard disk.
@@ -98,6 +98,7 @@ The sections below give more details of each component.
 ### UI component
 [//]: # "@@author A0152958R"
 <img src="images/Ui.png" width="800"><br>
+[//]: # "@@author"
 
 **API** : [`Ui.java`](../src/main/java/seedu/task/ui/Ui.java)
 
@@ -128,8 +129,9 @@ The `UI` component,
 
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")`
  API call.<br>
- [//]: # "@@author A0152958R"
+ [//]: # "@@ A0152958R"
 <img src="images/logic.png" width="800"><br>
+[//]: # "@@author"
 
 **Undo Command** : [`UndoCommand.java`](../src/main/java/seedu/task/logic/commands/UndoCommand.java)
 
@@ -142,6 +144,7 @@ Given below is the Sequence Diagram for interactions within the `Logic` componen
 ### Model component
 [//]: # "@@author A0152958R"
 <img src="images/model.png" width="800"><br>
+[//]: # "@@author"
 
 **API** : [`Model.java`](../src/main/java/seedu/task/model/Model.java)
 
@@ -155,6 +158,7 @@ The `Model`,
 ### Storage component
 [//]: # "@@author A0152958R"
 <img src="images/storageClass.png" width="800"><br>
+[//]: # "@@author"
 
 **API** : [`Storage.java`](../src/main/java/seedu/task/storage/Storage.java)
 
@@ -192,7 +196,6 @@ and logging destinations.
 Certain properties of the application can be controlled (e.g App name, logging level) through the configuration file 
 (default: `config.json`):
 
-
 ## Testing
 
 Tests can be found in the `./src/test/java` folder.
@@ -205,6 +208,10 @@ Tests can be found in the `./src/test/java` folder.
   `Run as` > `JUnit Test`
 * To run a subset of tests, you can right-click on a test package, test class, or a test and choose
   to run as a JUnit test.
+  [//]: # "@@author A0147944U"
+* To check for code coverage by JUnit tests or manually using the TaskManager, right-click on the `src/test/java` folder and choose
+  `Coverage as` > either `JUnit Test` or `Java Application`, depending on which is needed
+  [//]: # "@@author"
 
 **Using Gradle**:
 * See [UsingGradle.md](UsingGradle.md) for how to run tests using Gradle.
@@ -242,15 +249,33 @@ See [UsingGradle.md](UsingGradle.md) to learn how to use Gradle for build automa
 We use [Travis CI](https://travis-ci.org/) to perform _Continuous Integration_ on our projects.
 See [UsingTravis.md](UsingTravis.md) for more details.
 
+[//]: # "@@author A0147944U"
+### Review code quality
+
+We use [CODACY](https://travis-ci.org/) to perform code review of common security concerns, code style violations, best practices, code coverage and other metrics to Codacy on our projects.
+
+### Automated coverage reports
+
+We use [COVERALLS](https://travis-ci.org/) on top of EclEmma to generate JUnit tests coverage reports as the development progresses.
+
 ### Making a Release
 
 Here are the steps to create a new release.
  
- 1. Generate a JAR file [using Gradle](UsingGradle.md#creating-the-jar-file).
+ 1. Generate a JAR file [using Gradle](UsingGradle.md#creating-the-jar-file) or via [provided batch file](#Generate-.jar-file) for windows.
  2. Tag the repo with the version number. e.g. `v0.1`
  2. [Crete a new release using GitHub](https://help.github.com/articles/creating-releases/) 
     and upload the JAR file your created.
-   
+
+#### Generate .jar file
+
+Run `Generate Jar build.bat` located in root folder. Alternatively, run `gradlew shadowJar` via terminal in the project root folder. More info on [using Gradle](UsingGradle.md#creating-the-jar-file). TaskManager.jar generated will be found in `build/jar`.
+
+#### Prepare for gitpush/Clean files
+
+Run`Clean_and_prepare_for_gitpush.bat` located in root folder. This will clean up files created by running the application via Eclipse, collate files using [Collate-TUI.jar](https://github.com/collate/collate) and then generating a new .jar file.
+[//]: # "@@author"
+
 ### Managing Dependencies
 
 A project often depends on third-party libraries. For example, TaskManager depends on the
@@ -260,6 +285,7 @@ is better than these alternatives.<br>
 a. Include those libraries in the repo (this bloats the repo size)<br>
 b. Require developers to download those libraries manually (this creates extra work for developers)<br>
 
+[//]: # "@@author A0147944U"
 ## Appendix A : User Stories
 
 Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (unlikely to have) - `*`
@@ -270,17 +296,19 @@ Priority | As a ... | I want to ... | So that I can...
 `* * *` | new user | see usage instructions | refer to instructions when I forget how to use the App
 `* * *` | user | add a new task |
 `* * *` | user | delete a task | remove task that I have done
+`* * *` | user | edit a task | make changes to task parameters
 `* * *` | user | list all tasks | view all tasks in the TaskManager
-`* * *` | user | find a task by name | locate details of tasks without having to go through the entire list
+`* * *` | user | find a task by name | filter out tasks without having to go manually through the entire list
+`* *` | new user | not follow a strict format for inputs | freely call commands without having to memorize all the formats
+`* *` | user | set a task to be recurring | automate task creation process for tasks that I will constantly add
 `* *` | user | undo last action | remove changes made by the last command
 `* *` | user | be flexible in command inputs | easily key in commands without remembering specific formats
-`* *` | user | backup my data elsewhere | save the current data into another location
-`* *` | user | select the data to be accessed | can have different users using this application, access an older backup
-`*` | user with many tasks in the task manager | sort tasks by deadline | locate upcoming tasks easily
-`*` | user | list done/undone tasks | Keep track of which items are done and which are yet to be done
+`* *` | user | backup my data elsewhere | save the current data into another data file for future use
+`* *` | power user | access another data file | have mutiple users/profiles or access an older backup file
+`* *` | user with many tasks in the task manager | sort tasks by a given parameter | view tasks in a way more benefical for planning
+`*` | user | seperate completed and incomplete tasks | Keep track of which items are done and which are yet to be done
 `*` | user | have auto-fill | easily key in commands without remembering the formats
 
-[//]: # "@@author A0147944U"
 ## Appendix B : Use Cases
 
 (For all use cases below, the **System** is the `TaskManager` and the **Actor** is the `user`, unless specified otherwise)
@@ -555,14 +583,14 @@ Use case ends
 2. Should be able to hold at least to 1000 tasks.
 3. Should come with automated unit tests and open source code.
 4. Should function fully offline.
-5. Should process a command within 3 seconds.
-[//]: # "@@author"
+5. Should process a command within 2 seconds on a modern computer.
 
 ## Appendix D : Glossary
 
 ##### Mainstream OS
 
-> Windows, Linux, Unix, OS-X
+> Windows, OS-X. Should be working on Linux and Unix too.
+[//]: # "@@author"
 
 ##### Private task detail
 
