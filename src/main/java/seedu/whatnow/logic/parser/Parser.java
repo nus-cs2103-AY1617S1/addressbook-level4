@@ -332,6 +332,10 @@ public class Parser {
     public String getDate(String argument) {
         if (TODAY_OR_TOMORROW.matcher(argument).find()) {
             return argument;
+        } else if (DAYS_IN_FULL.matcher(argument).find()) {
+            return argument;
+        } else if (DAYS_IN_SHORT.matcher(argument).find()) {
+            return argument;
         } else if (DATE_WITH_SLASH_FORMAT.matcher(argument).find()) {
             return argument;
         } else {
