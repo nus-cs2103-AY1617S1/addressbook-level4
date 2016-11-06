@@ -28,7 +28,7 @@ public class ViewCommandTest extends TaskManagerGuiTest {
         assertViewAllResult("view all", expectedTodos, expectedDeadlines, expectedEvents); // shows original list
 
         //add a todo task and then view all
-        commandBox.runCommand("add todo");
+        commandBox.runCommand(td.todo.getAddCommand());
         TestTask[] expectedTodosAfterAddCommand = {td.read, td.todo};
     	TestTask[] expectedDeadlinesAfterAddCommand = {td.spring};
     	TestTask[] expectedEventsAfterAddCommand = {td.shop, td.dinner};
