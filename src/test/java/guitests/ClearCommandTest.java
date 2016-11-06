@@ -11,6 +11,7 @@ import w15c2.tusk.model.task.Task;
 import w15c2.tusk.testutil.TaskTesterUtil;
 import w15c2.tusk.testutil.TestUtil;
 
+//@@author A0138978E
 public class ClearCommandTest extends TaskManagerGuiTest {
 
     @Test
