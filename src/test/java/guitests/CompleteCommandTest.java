@@ -71,7 +71,7 @@ public class CompleteCommandTest extends TaskMasterGuiTest {
         assertTrue(taskListPanel.isListMatching(TestUtil.convertTasksToDateComponents(expectedRemainder)));
 
         // confirm the result message is correct
-        assertResultMessage(String.format(MESSAGE_COMPLETE_TASK_SUCCESS, taskToComplete));
+        assertResultMessage(String.format(MESSAGE_COMPLETE_TASK_SUCCESS, taskToComplete.getLastAppendedComponent()));
     }
 
 }

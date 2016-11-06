@@ -680,9 +680,9 @@ public class LogicManagerTest {
         TaskMaster expectedTM = helper.generateTaskList(threeTasks);
         helper.addToModel(model, threeTasks);
 
-        assertCommandBehavior("select 2", String.format(SelectCommand.MESSAGE_SELECT_TASK_SUCCESS, 2), expectedTM,
+        assertCommandBehavior("select 2", String.format(SelectCommand.MESSAGE_SELECT_TASK_SUCCESS, threeTasks.get(1).getLastAppendedComponent()), expectedTM,
                 expectedTM.getTaskOccurrenceList());
-        assertUndoRedoAble(String.format(SelectCommand.MESSAGE_SELECT_TASK_SUCCESS, 2), expectedTM,
+        assertUndoRedoAble(String.format(SelectCommand.MESSAGE_SELECT_TASK_SUCCESS, threeTasks.get(1).getLastAppendedComponent()), expectedTM,
                 expectedTM.getTaskOccurrenceList());
         assertEquals(1, targetedJumpIndex);
         assertEquals(model.getTaskList().get(1), threeTasks.get(1));
@@ -1214,9 +1214,9 @@ public class LogicManagerTest {
                 .buildReadOnlyTaskComponentsFromTaskList(expectedTM.getTaskList());
         // execute command and verify result
         assertCommandBehavior("edit 1 from 2 oct 2am to 2 oct 1pm",
-                String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, afterModification), expectedTM,
+                String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, afterModification.getLastAppendedComponent()), expectedTM,
                 expectedComponentList);
-        assertUndoRedoAble(String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, afterModification), expectedTM,
+        assertUndoRedoAble(String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, afterModification.getLastAppendedComponent()), expectedTM,
                 expectedTM.getTaskOccurrenceList());
     }
 
@@ -1236,9 +1236,9 @@ public class LogicManagerTest {
                 .buildReadOnlyTaskComponentsFromTaskList(expectedTM.getTaskList());
         // execute command and verify result
         assertCommandBehavior("edit 1 by 2 oct 1pm",
-                String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, afterModification), expectedTM,
+                String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, afterModification.getLastAppendedComponent()), expectedTM,
                 expectedComponentList);
-        assertUndoRedoAble(String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, afterModification), expectedTM,
+        assertUndoRedoAble(String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, afterModification.getLastAppendedComponent()), expectedTM,
                 expectedTM.getTaskOccurrenceList());
     }
 
@@ -1259,9 +1259,9 @@ public class LogicManagerTest {
                 .buildReadOnlyTaskComponentsFromTaskList(expectedTM.getTaskList());
         // execute command and verify result
         assertCommandBehavior("edit 1 by 2 oct 1pm",
-                String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, afterModification), expectedTM,
+                String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, afterModification.getLastAppendedComponent()), expectedTM,
                 expectedComponentList);
-        assertUndoRedoAble(String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, afterModification), expectedTM,
+        assertUndoRedoAble(String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, afterModification.getLastAppendedComponent()), expectedTM,
                 expectedTM.getTaskOccurrenceList());
     }
 
@@ -1281,9 +1281,9 @@ public class LogicManagerTest {
                 .buildReadOnlyTaskComponentsFromTaskList(expectedTM.getTaskList());
         // execute command and verify result
         assertCommandBehavior("edit 1 from 2 oct 2am to 2 oct 1pm",
-                String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, afterModification), expectedTM,
+                String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, afterModification.getLastAppendedComponent()), expectedTM,
                 expectedComponentList);
-        assertUndoRedoAble(String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, afterModification), expectedTM,
+        assertUndoRedoAble(String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, afterModification.getLastAppendedComponent()), expectedTM,
                 expectedTM.getTaskOccurrenceList());
     }
 
@@ -1302,9 +1302,9 @@ public class LogicManagerTest {
                 .buildReadOnlyTaskComponentsFromTaskList(expectedTM.getTaskList());
         // execute command and verify result
         assertCommandBehavior("edit 1 by 2 oct 1pm",
-                String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, afterModification), expectedTM,
+                String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, afterModification.getLastAppendedComponent()), expectedTM,
                 expectedComponentList);
-        assertUndoRedoAble(String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, afterModification), expectedTM,
+        assertUndoRedoAble(String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, afterModification.getLastAppendedComponent()), expectedTM,
                 expectedTM.getTaskOccurrenceList());
     }
 
@@ -1323,9 +1323,9 @@ public class LogicManagerTest {
                 .buildReadOnlyTaskComponentsFromTaskList(expectedTM.getTaskList());
         // execute command and verify result
         assertCommandBehavior("edit 1 by 2 oct 1pm daily",
-                String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, afterModification), expectedTM,
+                String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, afterModification.getLastAppendedComponent()), expectedTM,
                 expectedComponentList);
-        assertUndoRedoAble(String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, afterModification), expectedTM,
+        assertUndoRedoAble(String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, afterModification.getLastAppendedComponent()), expectedTM,
                 expectedTM.getTaskOccurrenceList());
     }
     
@@ -1348,9 +1348,9 @@ public class LogicManagerTest {
                 .buildReadOnlyTaskComponentsFromTaskList(expectedTM.getTaskList());
         // execute command and verify result
         assertCommandBehavior("edit 2 Confirmed from 4am to 5am",
-                String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, afterModification), expectedTM,
+                String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, afterModification.getLastAppendedComponent()), expectedTM,
                 expectedComponentList);
-        assertUndoRedoAble(String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, afterModification), expectedTM,
+        assertUndoRedoAble(String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, afterModification.getLastAppendedComponent()), expectedTM,
                 expectedTM.getTaskOccurrenceList());
     }
     // @@author

@@ -91,6 +91,21 @@ public class TaskOccurrence {
         return !(!given.getEndDate().getDate().after(startDate.getDate())
                 || !given.getStartDate().getDate().before(endDate.getDate()));
     }
+    
+    @Override
+    public String toString(){
+        final StringBuilder builder = new StringBuilder();
+        builder.append(taskReference.getAsText());
+        if(isSlot()){
+            builder.append("\nFrom: "+startDate.getFormattedDate());
+            builder.append(" To: "+endDate.getFormattedDate());
+        }else if(isDeadline()){
+            builder.append("\nBy: "+endDate.getFormattedDate());
+        }else{
+            
+        }
+        return builder.toString();
+    }
     //@@author
     
     public ReadOnlyTask getTaskReference() {

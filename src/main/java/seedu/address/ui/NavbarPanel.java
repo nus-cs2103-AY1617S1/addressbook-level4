@@ -19,6 +19,7 @@ import seedu.address.commons.events.ui.NavigationSelectionChangedEvent;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.ListCommand;
 
+//@@author A0147967J
 public class NavbarPanel extends UiPart {
 
     private final Logger logger = LogsCenter.getLogger(NavbarPanel.class);
@@ -84,7 +85,6 @@ public class NavbarPanel extends UiPart {
         setEventHandlerForSelectionChangeEvent();
     }
 
-    // @@author A0147967J
     private void setEventHandlerForSelectionChangeEvent() {
         navbarView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
@@ -93,9 +93,7 @@ public class NavbarPanel extends UiPart {
             }
         });
     }
-    // @@author
-
-    // @@author A0147967J
+    
     public String getNavigationCommand(String navigation) {
         switch (navigation) {
 

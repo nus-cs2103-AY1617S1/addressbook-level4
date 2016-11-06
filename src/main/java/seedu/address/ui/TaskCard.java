@@ -6,6 +6,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.RecurringType;
+import seedu.address.model.task.Task;
 import seedu.address.model.task.TaskDate;
 import seedu.address.model.task.TaskOccurrence;
 import seedu.address.model.task.TaskType;
@@ -28,6 +29,8 @@ public class TaskCard extends UiPart {
     private Label endDate;
     @FXML
     private Label recurringType;
+    @FXML
+    private Label period;
 
     private ReadOnlyTask task;
     private int displayedIndex;
@@ -51,6 +54,7 @@ public class TaskCard extends UiPart {
         tags.setText(task.tagsString());
         initializeDate();
         initializeRecurringType();
+        initializaRecurringPeriod();
         setCellColor();
     }
 
@@ -61,16 +65,24 @@ public class TaskCard extends UiPart {
         }
         recurringType.setText(recurringTypeToShow);
     }
+    
+    //@@author A0147967J
+    private void initializaRecurringPeriod() {
+        if(task.getRecurringPeriod() == Task.NO_RECURRING_PERIOD){
+            period.setText("Always");
+        } else {
+            period.setText("");
+        }
+    }
 
-    // @@author A0147967J
+    
     private void initializeDate() {
-        if (dateComponent.getStartDate().getDateInLong() == TaskDate.DATE_NOT_PRESENT) {
+        if (!dateComponent.getStartDate().isValid()) {
             startDate.setText("");
         } else {
             startDate.setText(dateComponent.getStartDate().getFormattedDate());
         }
-
-        if (dateComponent.getEndDate().getDateInLong() == TaskDate.DATE_NOT_PRESENT) {
+        if (!dateComponent.getEndDate().isValid()) {
             endDate.setText("");
         } else {
             endDate.setText(dateComponent.getEndDate().getFormattedDate());
@@ -91,7 +103,7 @@ public class TaskCard extends UiPart {
         if (task.getTaskType() == TaskType.FLOATING)
             cardPane.setStyle("-fx-background-color : rgba(255, 247, 192, 0.3);");
         // Blocked Slot
-        if (task.getName().fullName.equals("BLOCKED SLOT"))
+        if (dateComponent.isBlockedSlot())
             cardPane.setStyle("-fx-background-color : rgba(148, 93, 96, 0.3);");
         // Completed
         if (dateComponent.isArchived()) {

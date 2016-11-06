@@ -41,7 +41,8 @@ public interface ReadOnlyTask {
                 && other.getName().equals(this.getName()) // state checks here onwards
                 && ((other.getTaskType().equals(this.getTaskType())) || !other.getRecurringType().equals(RecurringType.NONE)));
     }
-
+    
+    //@@author A0147967J
     /**
      * Formats the task as text, showing all contact details.
      */
@@ -50,9 +51,16 @@ public interface ReadOnlyTask {
         builder.append(getName());
         builder.append(" Tags: ");
         getTags().forEach(builder::append);
+        builder.append("\nRecurring: " + getRecurringType());
+        if(getRecurringPeriod() >= 0){
+            builder.append(" repeat " + getTaskDateComponent().size() + " times");
+        } else if(getRecurringType()!=RecurringType.NONE) {
+            builder.append(" always");
+        }
         return builder.toString();
     }
-
+    //@@author
+    
     /**
      * Returns a string representation of this Task's tags
      */

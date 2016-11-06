@@ -28,15 +28,6 @@ public class TestTask extends Task implements ReadOnlyTask {
         recurringDates.add(new TaskOccurrence(this ,new TaskDate(), new TaskDate()));
         recurringPeriod = Task.NO_RECURRING_PERIOD;
     }
-    
-    public TestTask(TestTask copy) {
-        tags = new UniqueTagList(copy.tags);
-        recurringType = RecurringType.NONE;
-        recurringDates = new ArrayList<TaskOccurrence>();
-        for(TaskOccurrence taskComponent: copy.recurringDates){
-        	recurringDates.add(new TaskOccurrence(this, taskComponent.getStartDate(), taskComponent.getEndDate()));
-        }
-    }
 
     public void setName(Name name) {
         this.name = name;
