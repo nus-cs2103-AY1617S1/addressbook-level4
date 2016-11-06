@@ -4,7 +4,7 @@ package guitests.guihandles;
 
 import guitests.GuiRobot;
 import javafx.scene.Node;
-import javafx.scene.control.Label;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import seedu.todo.TestApp;
 import seedu.todo.testutil.UiTestUtil;
@@ -41,16 +41,16 @@ public class SearchStatusViewHandle extends GuiHandle {
      * Returns the search terms displayed in the view, separated by comma.
      */
     public String getSearchTermText() {
-        Label label = (Label) getNode(SEARCH_TERM_LABEL_ID);
-        return label.getText();
+        Text text = (Text) getNode(SEARCH_TERM_LABEL_ID);
+        return text.getText();
     }
 
     /**
      * Returns true if the number of items found matches the count displayed in this view.
      */
     public boolean doesSearchCountMatch(int count) {
-        Label label = (Label) getNode(SEARCH_COUNT_LABEL_ID);
-        String actual = label.getText();
+        Text text = (Text) getNode(SEARCH_COUNT_LABEL_ID);
+        String actual = text.getText();
         String expected;
         if (count == 1) {
             expected = "1 task found";

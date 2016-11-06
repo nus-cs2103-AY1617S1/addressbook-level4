@@ -46,4 +46,8 @@ public class MainGuiHandle extends GuiHandle {
     public FilterBarViewHandle getFilterBarView() {
         return new FilterBarViewHandle(guiRobot, primaryStage);
     }
+
+    public SearchStatusViewHandle getSearchStatusView() {
+        return new SearchStatusViewHandle(guiRobot, primaryStage);
+    }
 }

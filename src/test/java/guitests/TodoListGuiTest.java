@@ -60,6 +60,7 @@ public abstract class TodoListGuiTest {
     protected HelpViewHandle helpView;
     protected GlobalTagViewHandle globalTagView;
     protected FilterBarViewHandle filterBarView;
+    protected SearchStatusViewHandle searchStatusView;
 
     private Stage stage;
 
@@ -87,6 +88,7 @@ public abstract class TodoListGuiTest {
             helpView = mainGui.getHelpView();
             globalTagView = mainGui.getGlobalTagView();
             filterBarView = mainGui.getFilterBarView();
+            searchStatusView = mainGui.getSearchStatusView();
         });
         // EventsCenter.clearSubscribers();
         /*
