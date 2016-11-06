@@ -125,6 +125,7 @@ public class CommandParserHelper {
         OptionalStringTask task = new OptionalStringTask();
         
         if (args.contains(REGEX_ESCAPE_CHARACTER)) {
+            args = args.substring(ONE);
             generateMatcherForEscapeInput(args, task);
         } else {
             generateMatcherForNonEscapeInput(args, task);
