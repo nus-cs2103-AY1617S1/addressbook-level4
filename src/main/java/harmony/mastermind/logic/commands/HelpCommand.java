@@ -114,8 +114,13 @@ public class HelpCommand extends Command {
     //@@author A0139194X
     @Override
     public CommandResult execute() {
-        EventsCenter.getInstance().post(new ShowHelpRequestEvent(helpEntries));
+        EventsCenter.getInstance().post(new ShowHelpRequestEvent(getEntries()));
         return new CommandResult(COMMAND_WORD, SUCCESSFULLY_SHOWN);
+    }
+    
+    //@@author A0139194X
+    public ArrayList<HelpPopupEntry> getEntries() {
+        return helpEntries;
     }
 
 }
