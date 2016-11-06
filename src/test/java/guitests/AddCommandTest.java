@@ -62,7 +62,7 @@ public class AddCommandTest extends FlexiTrackGuiTest {
         assertResultMessage(Messages.MESSAGE_UNKNOWN_COMMAND);
     }
 
-    // @@ author
+    //@@author A0147092E
     @Test
     public void assertAddRecursiveEventSuccess() throws IllegalValueException {
         commandBox.runCommand("add Attend PC1222 lecture fr/3 ty/weekly from/4 Nov 3pm to/4 Nov 5pm");
@@ -92,6 +92,7 @@ public class AddCommandTest extends FlexiTrackGuiTest {
         }
         assertTrue(taskListPanel.isListMatching(0, currentList));
     }
+    //@@author
 
     // @@author A0127686R
     private void assertAddSuccess(TestTask taskToAdd, TestTask... currentList) {
