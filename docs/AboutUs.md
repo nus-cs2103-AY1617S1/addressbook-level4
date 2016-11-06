@@ -1,3 +1,5 @@
+<img src="images/JimiLogo.png" width="800"><br>
+
 # About Us
 
 We are the team in charge of developing Jimi, a command-line based task manager that is designed for fast typers. <br>
@@ -25,6 +27,7 @@ We are the team in charge of developing Jimi, a command-line based task manager 
     * [Set new save directory](https://github.com/CS2103AUG2016-T09-C2/main/blob/master/docs/UserGuide.md#saveas)
     * Near match search
     * Real time command suggestions in console
+    * Up/down arrow keys to cycle input history
 * Code written:[[functional code](https://github.com/CS2103AUG2016-T09-C2/main/blob/master/collated/main/A0140133B.md)][[test code](https://github.com/CS2103AUG2016-T09-C2/main/blob/master/collated/test/A0140133B.md)][[docs](https://github.com/CS2103AUG2016-T09-C2/main/blob/master/collated/docs/A0140133B.md)]
 *  Other major contributions:
     * Set up JimiParser
@@ -34,6 +37,7 @@ We are the team in charge of developing Jimi, a command-line based task manager 
     * Update indexed commands to work with new indices
     * Refactoring/Morphing AddressBook -> Jimi
     * UI beautifying with Ze Xuan
+    * Nag about code quality/style/admin issues
 
 
 -----

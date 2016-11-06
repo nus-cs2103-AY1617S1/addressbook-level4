@@ -73,9 +73,9 @@ public abstract class Command {
     // @@author A0140133B
     /** Determines the list type according to the index prefix. */
     protected Optional<UnmodifiableObservableList<ReadOnlyTask>> determineListFromIndexPrefix(String idx) {
-        if (idx.trim().startsWith(INDEX_TASK_LIST_PREFIX)) {
+        if (idx.trim().toLowerCase().startsWith(INDEX_TASK_LIST_PREFIX)) {
             return Optional.of(model.getFilteredAgendaTaskList());
-        } else if (idx.trim().startsWith(INDEX_EVENT_LIST_PREFIX)) {
+        } else if (idx.trim().toLowerCase().startsWith(INDEX_EVENT_LIST_PREFIX)) {
             return Optional.of(model.getFilteredAgendaEventList());
         }
         return Optional.empty();

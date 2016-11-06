@@ -84,7 +84,7 @@ public class EditCommand extends Command implements TaskBookEditor {
     /** Constructor for removal of tags/dates at {@code taskIndex}. */
     public EditCommand(String taskIndex, EditType removeType) {
         assert removeType == EditType.REMOVE_DATES || removeType == EditType.REMOVE_TAGS;
-        this.taskIndex = taskIndex;
+        this.taskIndex = taskIndex.toLowerCase().trim();
         if (removeType == EditType.REMOVE_TAGS) {
             newTagList = new UniqueTagList();
         }
@@ -99,7 +99,7 @@ public class EditCommand extends Command implements TaskBookEditor {
             tagSet.add(new Tag(tagName));
         }
         
-        this.taskIndex = taskIndex;
+        this.taskIndex = taskIndex.toLowerCase().trim();
         
         if (name != null) {
             this.newName = new Name(name);

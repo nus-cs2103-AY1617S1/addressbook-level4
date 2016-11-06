@@ -1,8 +1,9 @@
 [![Build Status](https://travis-ci.org/CS2103AUG2016-T09-C2/main.svg?branch=master)](https://travis-ci.org/CS2103AUG2016-T09-C2/main)
-[![Coverage Status](https://coveralls.io/repos/github/CS2103AUG2016-T09-C2/main/badge.png?branch=master)](https://coveralls.io/github/CS2103AUG2016-T09-C2/main?branch=master)
+[![Coverage Status](https://coveralls.io/repos/github/CS2103AUG2016-T09-C2/main/badge.svg?branch=master)](https://coveralls.io/github/CS2103AUG2016-T09-C2/main?branch=master)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/9846ba89981f417591e097873b6eef63)](https://www.codacy.com/app/syltaris/main?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=CS2103AUG2016-T09-C2/main&amp;utm_campaign=Badge_Grade)
 
-
-# Jimi, the task manager for people like Jim.
+<center><img src="https://github.com/CS2103AUG2016-T09-C2/main/blob/documentation/docs/images/JimiLogo.png" width="800">
+</center>
 
 In our daily lives, we often find ourselves striving to be as successful as we can in whatever we do - be it in our academic pursuits or in our career choices. So naturally, this begs the question, how does one achieve success? Quite a tough question that many ask themselves. We can, however, attempt to answer a question like this by drawing parallels between our lives and the lives of successful individuals. Interestingly enough, all these success stories tend to share a common theme. They all seem to gravitate towards one key secret to success: **to always have a plan, be on track and be organized.**
 

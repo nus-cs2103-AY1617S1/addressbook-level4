@@ -52,7 +52,7 @@ public class JimiParser {
      */
     private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
 
-    private static final Pattern TASK_INDEX_ARGS_FORMAT = Pattern.compile("[te](?<targetIndex>.+)");
+    private static final Pattern TASK_INDEX_ARGS_FORMAT = Pattern.compile("[te](?<targetIndex>.+)", Pattern.CASE_INSENSITIVE);
 
     private static final Pattern KEYWORDS_WITH_DATES_ARGS_FORMAT =
             Pattern.compile("((\"(?<keywords>\\S+(?:\\s+\\S+)*)\")?(((on|from) (?<specificDateTime>.+))?)|(from (?<startDateTime>((?!to ).)*))?(to (?<endDateTime>.+))?)");

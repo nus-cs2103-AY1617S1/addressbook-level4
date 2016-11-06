@@ -395,8 +395,8 @@ public class FilteredListManager {
     //@@author A0138915X
     private class DateQualifier implements Qualifier {
 
-        DateTime startDate;
-        DateTime endDate;
+        private DateTime startDate;
+        private DateTime endDate;
         
         public DateQualifier(DateTime specificDate) {
             this.startDate = specificDate;
@@ -547,7 +547,7 @@ public class FilteredListManager {
     
     private class CompletedQualifier implements Qualifier {
         
-        boolean isCheckCompleted;
+        private boolean isCheckCompleted;
         
         public CompletedQualifier(boolean isCheckCompleted) {
             this.isCheckCompleted = isCheckCompleted;
