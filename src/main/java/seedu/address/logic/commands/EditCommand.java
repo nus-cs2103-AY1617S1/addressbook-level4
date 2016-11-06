@@ -6,6 +6,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.task.*;
+import seedu.address.model.task.UniqueTaskList.DuplicateTaskException;
 import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
 
 import java.lang.reflect.Constructor;
@@ -29,8 +30,10 @@ public class EditCommand extends Command implements Undoable {
             + "Example: " + COMMAND_WORD
             + " CS2103 t;10-12-2016 10:00AM 11:00AM d;description a;Nus Computing t/sadLife";
 
-    public static final String MESSAGE_SUCCESS = "Task edited: %1$s";
+    public static final String MESSAGE_SUCCESS = "Task edited: %1$s \nOriginally: %2$s";
 
+    public static final String MESSAGE_DUPLICATE_TASK = "Editing this task will result in a task that "
+            + "already exists in the SmartyDo";
 
     public final int targetIndex;
     private ReadOnlyTask taskToEdit;
@@ -60,8 +63,11 @@ public class EditCommand extends Command implements Undoable {
             indicateAttemptToExecuteIncorrectCommand();
             return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
-
-        taskToEdit = lastShownList.get(targetIndex - 1);
+        if(taskToEdit==null){ 
+            // this condition is necessary as after undo and redo the index might change
+            taskToEdit = lastShownList.get(targetIndex - 1);
+        }
+        
         Class<? extends ReadOnlyTask> taskClazz = Task.class;
         HashMap<Field, Object> changesToBeMade = new HashMap<>();
         editedTask = null;
@@ -83,12 +89,15 @@ public class EditCommand extends Command implements Undoable {
         } catch (NoSuchFieldException e){
             e.printStackTrace();
             assert false : "Checking of inputs'validity should be done in parser.";
+        } catch (DuplicateTaskException e){
+            indicateAttemptToExecuteIncorrectCommand();
+            return new CommandResult(MESSAGE_DUPLICATE_TASK);
         } catch (Exception e) {
             e.printStackTrace();
             assert false : e.getMessage();
         }
 
-        return new CommandResult(String.format(MESSAGE_SUCCESS, editedTask));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, editedTask, taskToEdit));
     }
 
     //@@author A0121261Y

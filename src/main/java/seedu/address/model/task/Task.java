@@ -136,16 +136,17 @@ public class Task implements ReadOnlyTask {
         }
     }
 
-    public Task setFields(HashMap<Field, Object> changes) throws IllegalArgumentException, IllegalAccessException, NoSuchFieldException, SecurityException {
+    public Task cloneWithChangedFields(HashMap<Field, Object> changes) throws IllegalArgumentException, IllegalAccessException, NoSuchFieldException, SecurityException {
+        Task newTask = new Task(this);
         for(Entry<Field, Object> entry : changes.entrySet()){
             Field field = entry.getKey();
             Object new_value = entry.getValue();
             if(new_value instanceof Time){
                 new_value = Optional.of(new_value);
             }
-            Task.class.getDeclaredField(field.getName()).set(this, new_value);
+            Task.class.getDeclaredField(field.getName()).set(newTask, new_value);
         }
-        return this;
+        return newTask;
     }    
     
 }

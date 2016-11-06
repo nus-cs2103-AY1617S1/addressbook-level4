@@ -601,7 +601,7 @@ public class LogicManagerTest {
         helper.addToModel(model, adamList);
 
         assertCommandBehavior(helper.generateEditCommand(1,editedAdam),
-                String.format(EditCommand.MESSAGE_SUCCESS, editedAdam),
+                String.format(EditCommand.MESSAGE_SUCCESS, editedAdam, adam),
                 expectedAB,
                 expectedList);
     }
@@ -627,7 +627,7 @@ public class LogicManagerTest {
         helper.addToModel(model, adamList);
 
         assertCommandBehavior(helper.generatePartialEditCommand(1,editedAdam),
-                String.format(EditCommand.MESSAGE_SUCCESS, editedAdam),
+                String.format(EditCommand.MESSAGE_SUCCESS, editedAdam, adam),
                 expectedAB,
                 expectedList);
     }
@@ -647,7 +647,7 @@ public class LogicManagerTest {
         helper.addToModel(model, adamList);
 
         assertCommandBehavior(helper.generateEditNameCommand(1,"Adam Brown"),
-                String.format(EditCommand.MESSAGE_SUCCESS, editedAdam),
+                String.format(EditCommand.MESSAGE_SUCCESS, editedAdam, adam),
                 expectedAB,
                 expectedList);
     }
