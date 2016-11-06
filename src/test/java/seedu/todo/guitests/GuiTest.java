@@ -21,6 +21,7 @@ import seedu.todo.commons.core.EventsCenter;
 import seedu.todo.commons.events.BaseEvent;
 import seedu.todo.commons.util.DateUtil;
 import seedu.todo.guitests.guihandles.AliasViewHandle;
+import seedu.todo.guitests.guihandles.ConfigViewHandle;
 import seedu.todo.guitests.guihandles.ConsoleHandle;
 import seedu.todo.guitests.guihandles.HelpViewHandle;
 import seedu.todo.guitests.guihandles.MainGuiHandle;
@@ -48,6 +49,7 @@ public abstract class GuiTest {
     protected TaskListHandle taskList;
     protected TagListHandle tagList;
     protected AliasViewHandle aliasView;
+    protected ConfigViewHandle configView;
     protected HelpViewHandle helpView;
     
     private Stage stage;
@@ -70,6 +72,7 @@ public abstract class GuiTest {
             taskList = mainGui.getTaskList();
             tagList = mainGui.getTagList();
             aliasView = mainGui.getAliasView();
+            configView = mainGui.getConfigView();
             helpView = mainGui.getHelpView();
             // TODO: create handles for other components
             this.stage = stage;
