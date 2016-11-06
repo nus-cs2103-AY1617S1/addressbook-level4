@@ -25,10 +25,9 @@ import w15c2.tusk.model.UserPrefs;
  */
 public class MainWindow extends UiPart {
 
-    private static final String INACTIVE_CSS = "-fx-background-color: derive(#1d1d1d, 20%);";
-    private static final String ACTIVE_CSS = "-fx-background-color: #9999; -fx-border-radius:  10 10 10 10; "
-            + "-fx-background-radius:  10 10 10 10;";
-    private static final String ICON = "/images/address_book_32.png";
+    private static final String INACTIVE_CSS = "-fx-background-color: #633914;";
+    private static final String ACTIVE_CSS = "-fx-background-color: #9999; -fx-border-radius: 10 10 10 10; -fx-background-radius: 10 10 10 10;";
+    private static final String ICON = "/images/TuskLogo.png";
     private static final String FXML = "MainWindow_Task.fxml";
     public static final int MIN_HEIGHT = 600;
     public static final int MIN_WIDTH = 450;

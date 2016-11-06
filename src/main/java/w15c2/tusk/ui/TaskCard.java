@@ -6,6 +6,8 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import w15c2.tusk.model.task.DeadlineTask;
 import w15c2.tusk.model.task.EventTask;
 import w15c2.tusk.model.task.Task;
@@ -19,24 +21,42 @@ public class TaskCard extends UiPart{
     @FXML
     private Label id;
     @FXML
-    private Label first_date;
+    private Label firstDate;
     @FXML
-    private Label second_date;
+    private Label secondDate;
+    @FXML
+    private Rectangle colorTag;
 
     private Task task;
     private int displayedIndex;
     
-    private static final String OVERDUE_CARDPANE_CSS = "-fx-background-color: rgba(214, 14, 14, 0.85);";//"-fx-background-color: #d60e0e; -fx-background-opacity: 0.85;";
-    private static final String OVERDUE_SECONDDATE_CSS = "-fx-text-fill: rgba(225, 242, 225, 1.0);";//"-fx-text-fill: #e1f2e1;";
+    private static final String OVERDUE_CARDPANE_CSS = "-fx-background-color: rgba(214, 14, 14, 0.85);";
+    private static final String OVERDUE_SECONDDATE_CSS = "-fx-text-fill: rgba(247, 246, 239, 0.7);";
     private static final String OVERDUE_FIRSTDATE_CSS = OVERDUE_SECONDDATE_CSS;
-    private static final String OVERDUE_ID_CSS = "-fx-text-fill: white;";
+    private static final String OVERDUE_ID_CSS = "-fx-text-fill: rgba(244, 244, 244, 1.0);";
     private static final String OVERDUE_DESCRIPTION_CSS = OVERDUE_ID_CSS;
+    private static final Color  OVERDUE_COLORTAG_CSS = Color.CRIMSON;
     
-    private static final String FAVORITE_CARDPANE_CSS = "-fx-background-color: rgba(255, 255, 9, 0.75);";//"-fx-background-color: rgba(9, 198, 9, 0.85);";//"-fx-background-color: #09c609; -fx-background-opacity: 0.85;";
-    private static final String FAVORITE_SECONDDATE_CSS = "-fx-text-fill: rgba(0, 0, 0, 1.0);";
+    private static final String FAVORITE_CARDPANE_CSS = "-fx-background-color: rgba(255, 255, 9, 0.75);";
+    private static final String FAVORITE_SECONDDATE_CSS = "-fx-text-fill: rgba(0, 0, 0, 0.7);";
     private static final String FAVORITE_FIRSTDATE_CSS = FAVORITE_SECONDDATE_CSS;
-    private static final String FAVORITE_ID_CSS = "-fx-text-fill: rgba(0, 102, 0, 1.0);";//"-fx-text-fill: #006600;";
+    private static final String FAVORITE_ID_CSS = "-fx-text-fill: rgba(0, 102, 0, 1.0);";
     private static final String FAVORITE_DESCRIPTION_CSS = FAVORITE_ID_CSS;
+    private static final Color  FAVORITE_COLORTAG_CSS = Color.rgb(242, 232, 121);
+    
+    private static final String COMPLETED_CARDPANE_CSS = "-fx-background-color: rgba(129, 224, 74, 1.0);";
+    private static final String COMPLETED_SECONDDATE_CSS = "-fx-text-fill: white;";
+    private static final String COMPLETED_FIRSTDATE_CSS = COMPLETED_SECONDDATE_CSS;
+    private static final String COMPLETED_ID_CSS = "-fx-text-fill: white;";
+    private static final String COMPLETED_DESCRIPTION_CSS = COMPLETED_ID_CSS;
+    private static final Color  COMPLETED_COLORTAG_CSS = Color.rgb(153, 247, 98);
+    
+    private static final String NORMAL_CARDPANE_CSS = "-fx-background-color: rgba(211, 174, 141, 0.5);";
+    private static final String NORMAL_SECONDDATE_CSS = "-fx-text-fill: rgba(247, 246, 239, 0.7);";
+    private static final String NORMAL_FIRSTDATE_CSS = NORMAL_SECONDDATE_CSS;
+    private static final String NORMAL_ID_CSS = "-fx-text-fill: rgba(244, 244, 244, 1.0);";
+    private static final String NORMAL_DESCRIPTION_CSS = NORMAL_ID_CSS;
+    private static final Color  NORMAL_COLORTAG_CSS = Color.rgb(186, 143, 106);
     
     private static final String FXML = "TaskListCard.fxml";
     
@@ -53,31 +73,34 @@ public class TaskCard extends UiPart{
     @FXML
     public void initialize() {
         description.setText(task.getDescription().getContent());
-        if(task.isCompleted()){
-        	id.setText(displayedIndex + ". [Completed] ");
-        }
-        else{
-        	id.setText(displayedIndex + ". ");
-        }
+        id.setText(displayedIndex + ". ");
         
         // Format to display the dates
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMM yyyy, h.mm a");
-        first_date.setStyle("-fx-text-fill: gray;");
-        second_date.setStyle("-fx-text-fill: gray;");
         
         // Assigning Date labels only if task is DeadlineTask or EventTask
         if (task instanceof DeadlineTask) {
         	DeadlineTask curr = (DeadlineTask) task;
-        	first_date.setText("by " + dateFormat.format(curr.getDeadline()));
-        	second_date.setText("");
+        	firstDate.setText(dateFormat.format(curr.getDeadline()));
+        	secondDate.setText("");
         } else if (task instanceof EventTask) {
         	EventTask curr = (EventTask) task;
-        	first_date.setText("from " + dateFormat.format(curr.getStartDate()));
-        	second_date.setText(" to  " + dateFormat.format(curr.getEndDate()));
+        	firstDate.setText(dateFormat.format(curr.getStartDate()));
+        	secondDate.setText(dateFormat.format(curr.getEndDate()));
         } else {
-        	first_date.setText("");
-        	second_date.setText("");
+        	firstDate.setText("");
+        	secondDate.setText("");
         }
+    }
+    
+    // Set the colors for completed tasks
+    public void setCompletedStyle() {
+        cardPane.setStyle(COMPLETED_CARDPANE_CSS);
+    	description.setStyle(COMPLETED_DESCRIPTION_CSS);
+    	id.setStyle(COMPLETED_ID_CSS);
+    	firstDate.setStyle(COMPLETED_FIRSTDATE_CSS);
+    	secondDate.setStyle(COMPLETED_SECONDDATE_CSS);
+    	colorTag.setFill(COMPLETED_COLORTAG_CSS);
     }
     
     // Set the colors for overdue tasks
@@ -85,8 +108,9 @@ public class TaskCard extends UiPart{
         cardPane.setStyle(OVERDUE_CARDPANE_CSS);
     	description.setStyle(OVERDUE_DESCRIPTION_CSS);
     	id.setStyle(OVERDUE_ID_CSS);
-    	first_date.setStyle(OVERDUE_FIRSTDATE_CSS);
-    	second_date.setStyle(OVERDUE_SECONDDATE_CSS);
+    	firstDate.setStyle(OVERDUE_FIRSTDATE_CSS);
+    	secondDate.setStyle(OVERDUE_SECONDDATE_CSS);
+    	colorTag.setFill(OVERDUE_COLORTAG_CSS);
     }
     
     // Set the colors for pinned tasks
@@ -94,8 +118,19 @@ public class TaskCard extends UiPart{
         cardPane.setStyle(FAVORITE_CARDPANE_CSS);
     	description.setStyle(FAVORITE_DESCRIPTION_CSS);
     	id.setStyle(FAVORITE_ID_CSS);
-    	first_date.setStyle(FAVORITE_FIRSTDATE_CSS);
-    	second_date.setStyle(FAVORITE_SECONDDATE_CSS);
+    	firstDate.setStyle(FAVORITE_FIRSTDATE_CSS);
+    	secondDate.setStyle(FAVORITE_SECONDDATE_CSS);
+    	colorTag.setFill(FAVORITE_COLORTAG_CSS);
+    }
+    
+    // Set the colors for normal tasks
+    public void setNormalStyle() {
+        cardPane.setStyle(NORMAL_CARDPANE_CSS);
+    	description.setStyle(NORMAL_DESCRIPTION_CSS);
+    	id.setStyle(NORMAL_ID_CSS);
+    	firstDate.setStyle(NORMAL_FIRSTDATE_CSS);
+    	secondDate.setStyle(NORMAL_SECONDDATE_CSS);
+    	colorTag.setFill(NORMAL_COLORTAG_CSS);
     }
 
     public HBox getLayout() {
