@@ -6,14 +6,9 @@ import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.commons.events.ui.DisplayAliasListEvent;
-import seedu.address.commons.events.ui.DisplayTaskListEvent;
 import seedu.address.model.alias.Alias;
 import seedu.address.model.alias.ReadOnlyAlias;
 import seedu.address.model.alias.UniqueAliasList.AliasNotFoundException;
-import seedu.address.model.task.ReadOnlyTask;
-import seedu.address.model.task.Task;
-import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
-
 
 //@@author A0143756Y-reused
 /**

@@ -28,7 +28,7 @@ public interface ReadOnlyAlias extends Comparable<ReadOnlyAlias> {
     	final StringBuilder builder = new StringBuilder();
     	
     	builder.append("Alias: " + getAlias() + ", ");
-    	builder.append("Original phrase: " + getOriginalPhrase() + ".\n");
+    	builder.append("Original phrase: " + getOriginalPhrase() + ".");
 
         return builder.toString();
     }
