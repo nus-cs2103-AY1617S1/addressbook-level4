@@ -79,4 +79,9 @@ public abstract class Command {
         
     }
     
+    public static void emptyCommandStack() {
+        while (!PreviousCommandsStack.isEmpty()) {
+            PreviousCommandsStack.pop();
+        }
+    }
 }
