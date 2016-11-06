@@ -19,7 +19,7 @@ import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
  */
 public class Parser {
 
-    
+
 
     /**
      * Used for initial separation of command word and args.
@@ -41,6 +41,16 @@ public class Parser {
             .compile("(?<name>[^/]+)" + "(?<edit>(?: [dsenrp]/[^/]+)?)" + "((i/(?<index>([0-9])+)*)?)");
 
     private static final String MESSAGE_INVALID_DATE = "Date format entered is invalid";
+
+    public static final String EDIT_TYPE_NAME = "name";
+    public static final String EDIT_TYPE_PRIORITY = "priority";
+    public static final String EDIT_TYPE_RECURRING = "recurring";
+    public static final String EDIT_TYPE_START_DATE = "startDate";
+    public static final String EDIT_TYPE_END_DATE = "endDate";
+    public static final String EDIT_TYPE_DEADLINE = "deadline";
+
+    public static final Prefix priorityPrefix = new Prefix("p/");
+
     // @@author A0142325R
     public static final Prefix deadlinePrefix = new Prefix("d/");
     public static final Prefix tagPrefix = new Prefix("t/");
@@ -49,7 +59,7 @@ public class Parser {
     public static final Prefix namePrefix = new Prefix("n/");
     public static final Prefix recurringPrefix = new Prefix("r/");
     // @@author
-    public static final Prefix priorityPrefix = new Prefix("p/");
+
 
     public Parser() {
     }
@@ -435,7 +445,7 @@ public class Parser {
 
     /**
      * prepare to create list command
-     * 
+     *
      * @param args
      * @return
      */
@@ -513,39 +523,70 @@ public class Parser {
             String name = matcher.group("name");
             String type = matcher.group("edit");
             String index = matcher.group("index");
-            String detailsType = null;
-            String details;
+
             ArgumentTokenizer argsTokenizer = new ArgumentTokenizer(deadlinePrefix, namePrefix, tagPrefix,
                     startDatePrefix, endDatePrefix, recurringPrefix, priorityPrefix);
             argsTokenizer.tokenize(type);
-            if (argsTokenizer.getTokenizedArguments().containsKey(namePrefix)) {
-                detailsType = "name";
-                details = argsTokenizer.getValue(namePrefix).get();
-            } else if (argsTokenizer.getTokenizedArguments().containsKey(recurringPrefix)) {
-                detailsType = "recurring";
-                details = argsTokenizer.getValue(recurringPrefix).get();
-            } else if (argsTokenizer.getTokenizedArguments().containsKey(startDatePrefix)) {
-                detailsType = "startDate";
-                details = argsTokenizer.getValue(startDatePrefix).get();
-            } else if (argsTokenizer.getTokenizedArguments().containsKey(endDatePrefix)) {
-                detailsType = "endDate";
-                details = argsTokenizer.getValue(endDatePrefix).get();
-            } else if (argsTokenizer.getTokenizedArguments().containsKey(deadlinePrefix)) {
-                detailsType = "deadline";
-                details = argsTokenizer.getValue(deadlinePrefix).get();
-            } else if (argsTokenizer.getTokenizedArguments().containsKey(priorityPrefix)) {
-                detailsType = "priority";
-                details = argsTokenizer.getValue(priorityPrefix).get();
-            } else {
-                return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
-            }
 
+            String detailsType = getEditCommandDetailsType(argsTokenizer);
+            String details = getEditCommandDetails(argsTokenizer);
+            if(detailsType == null || details == null) {
+            	return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+            }
             if (index == null) {
                 return new EditCommand(name, detailsType, details);
             }
             return new EditCommand(name, detailsType, details, Integer.parseInt(index));
         } else
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+    }
+
+    /**
+     * prepare to get the details type(field that is to be edited) of the edit command
+     *
+     * @param argsTokenizer
+     * @return String
+     */
+    private String getEditCommandDetailsType(ArgumentTokenizer argsTokenizer) {
+    	if (argsTokenizer.getTokenizedArguments().containsKey(namePrefix)) {
+            return EDIT_TYPE_NAME;
+        } else if (argsTokenizer.getTokenizedArguments().containsKey(recurringPrefix)) {
+        	return EDIT_TYPE_RECURRING;
+        } else if (argsTokenizer.getTokenizedArguments().containsKey(startDatePrefix)) {
+        	return EDIT_TYPE_START_DATE;
+        } else if (argsTokenizer.getTokenizedArguments().containsKey(endDatePrefix)) {
+        	return EDIT_TYPE_END_DATE;
+        } else if (argsTokenizer.getTokenizedArguments().containsKey(deadlinePrefix)) {
+        	return EDIT_TYPE_DEADLINE;
+        } else if (argsTokenizer.getTokenizedArguments().containsKey(priorityPrefix)) {
+        	return EDIT_TYPE_PRIORITY;
+        } else {
+            return null;
+        }
+    }
+
+    /**
+     * prepare to get the values of the field that is to be edited
+     *
+     * @param argsTokenizer
+     * @return String
+     */
+    private String getEditCommandDetails(ArgumentTokenizer argsTokenizer) {
+    	if (argsTokenizer.getTokenizedArguments().containsKey(namePrefix)) {
+    		return argsTokenizer.getValue(namePrefix).get();
+        } else if (argsTokenizer.getTokenizedArguments().containsKey(recurringPrefix)) {
+        	return argsTokenizer.getValue(recurringPrefix).get();
+        } else if (argsTokenizer.getTokenizedArguments().containsKey(startDatePrefix)) {
+        	return argsTokenizer.getValue(startDatePrefix).get();
+        } else if (argsTokenizer.getTokenizedArguments().containsKey(endDatePrefix)) {
+        	return argsTokenizer.getValue(endDatePrefix).get();
+        } else if (argsTokenizer.getTokenizedArguments().containsKey(deadlinePrefix)) {
+        	return argsTokenizer.getValue(deadlinePrefix).get();
+        } else if (argsTokenizer.getTokenizedArguments().containsKey(priorityPrefix)) {
+        	return argsTokenizer.getValue(priorityPrefix).get();
+        } else {
+            return null;
+        }
     }
 
 }

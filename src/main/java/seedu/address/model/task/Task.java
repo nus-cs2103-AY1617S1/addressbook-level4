@@ -35,6 +35,14 @@ public class Task implements ReadOnlyTask {
     public static final int DAYS_OF_MONTH = 28;
     public static final int DAYS_OF_WEEK = 7;
     public static final int RECURRING_UPDATE_THRESHOLD = 1;
+
+    public static final String EDIT_TYPE_NAME = "name";
+    public static final String EDIT_TYPE_PRIORITY = "priority";
+    public static final String EDIT_TYPE_RECURRING = "recurring";
+    public static final String EDIT_TYPE_START_DATE = "startDate";
+    public static final String EDIT_TYPE_END_DATE = "endDate";
+    public static final String EDIT_TYPE_DEADLINE = "deadline";
+
     private Name name;
     private Date date;
     private Recurring recurring;
@@ -209,6 +217,7 @@ public class Task implements ReadOnlyTask {
         return priorityLevel;
     }
 
+    // @@author
     /**
      * Replaces this task's tags with the tags in the argument tag list.
      */
@@ -290,24 +299,31 @@ public class Task implements ReadOnlyTask {
     }
 
     // @@author A0138717X
+    /**
+     * edit details according by the given type.
+     *
+     * @param type, details.
+     * @throws IllegalValueException
+     *             if any of the details values are invalid
+     */
     public boolean editDetail(String type, String details) throws IllegalValueException {
         switch (type) {
-        case "name":
+        case EDIT_TYPE_NAME:
             setName(new Name(details));
             break;
-        case "priority":
+        case EDIT_TYPE_PRIORITY:
             setPriorityLevel(new Priority(Integer.parseInt(details)));
             break;
-        case "recurring":
+        case EDIT_TYPE_RECURRING:
             setRecurring(new Recurring(details));
             break;
-        case "startDate":
+        case EDIT_TYPE_START_DATE:
             setDate(new EventDate(details, ( (EventDate) date ).getEndDate()));
             break;
-        case "endDate":
+        case EDIT_TYPE_END_DATE:
             setDate(new EventDate(( (EventDate) date ).getStartDate(), details));
             break;
-        case "deadline":
+        case EDIT_TYPE_DEADLINE:
             setDate(new Deadline(details));
             break;
         default:
@@ -316,6 +332,9 @@ public class Task implements ReadOnlyTask {
         return true;
     }
 
+    /**
+     * Returns Observable wrappers of the task
+     */
     public IntegerProperty getPriorityInteger() {
         return priorityInteger;
     }
