@@ -34,6 +34,7 @@
 7. Refer to the [Features](#features) section below for details of each command.<br>
 
 ## Features
+##### Refer to [Ivory Task components](https://github.com/CS2103AUG2016-T14-C3/main/blob/develop/docs/DeveloperGuide.md#appendix-d-glossary) for the component names used in this document. 
 
 [comment]: # (@@author A0140060A)
 
@@ -61,17 +62,17 @@
 
 1. Open the Application.
 
-2. You will see a welcome message and a list of commands that you can use.
+2. Visit [Features](#features) section below to see a list of commands you can use.
 
-3. At any time, you can view the list of commands again by typing ‘h[elp]’.
+3. At any time, you can view the list of commands again by typing ‘h[elp]’ into the command box.
 
-4. If you type an incorrect command, help-screen will automatically pop up.
+4. If you type an incorrect command, the command box will turn red to inform you.
 
 ### When you need help (To see a list of all commands)
 
 1. Type ‘h[elp]’ and press `Enter`.
 
-2. The list of commands, their format and their function will be shown.
+2. The list of commands, their format and their function will pop up.
 
 ### When you have a new deadline, task or event
 
@@ -79,21 +80,21 @@
 
 #### Add a deadline
 
-1. Type `a[dd] d[eadline] [n/]NAME ed/DATE et/TIME` or `a[dd] d[eadline] n/NAME edt/DATE_TIME_TEXT(e.g. next wed 3pm)`.
+1. Type `a[dd] d[eadline] [n/]NAME ed/DATE et/TIME` or `a[dd] d[eadline] n/NAME edt/DATE_TIME_TEXT(e.g. next wed 3pm)`. Press `Enter`.
 
 2. `add` can be replaced by `a`. `deadline` can be replaced by `d`.
 
-3. If et is not specified, et is assumed to be 23:59. Press `Enter`.
+3. If et is not specified, et is assumed to be 23:59.
 
-4. The deadline will be added to your to do list and message "Added deadline" is displayed on console.
+4. The deadline will be added to your to do list in the item list panel and message "Added deadline" is displayed in the results panel.
 
 #### Add a task
 
-1. Type `a[dd] t[ask] [n/]NAME`.
+1. Type `a[dd] t[ask] [n/]NAME`. Press `Enter`.
 
-2. `add` can be replaced by `a`. `task` can be replaced by `t`. Press `Enter`.
+2. `add` can be replaced by `a`. `task` can be replaced by `t`.
 
-3. The task will be added to your to do list and message "Added task" is displayed on console.
+3. The task will be added to your to do list in the item list panel and message "Added task" is displayed in the results panel.
 
   >  Example Command: `add task Finish Notes` <br>
 
@@ -102,23 +103,23 @@
 
 #### Add an event
 
-1. Type `a[dd] e[vent] [n/]NAME sd/START_DATE st/START_TIME ed/END_DATE et/END_TIME` or `a[dd] e[vent] [n/]NAME sdt/START_DATE_TIME_TEXT(e.g. two hours later) edt/END_DATE_TIME_TEXT(e.g. next wed 3pm)`.
+1. Type `a[dd] e[vent] [n/]NAME sd/START_DATE st/START_TIME ed/END_DATE et/END_TIME` or `a[dd] e[vent] [n/]NAME sdt/START_DATE_TIME_TEXT(e.g. two hours later) edt/END_DATE_TIME_TEXT(e.g. next wed 3pm)`. Press `Enter`.
 
 2. `add` can be replaced by `a`. `event` can be replaced by `e`.
 
 3. If st is empty, st is assumed to be 00:00.
 
-4. If et is empty, et is assumed to be 23:59. Press `Enter`.
+4. If et is empty, et is assumed to be 23:59.
 
-5. The event will be added to your to do list and message "Added event" is displayed on console.
+5. The event will be added to your to do list in the item list panel and message "Added event" is displayed in the results panel.
 
 [comment]: # (@@author A0140060A)
 
 ### When you need to find a deadline, task or event
 
-1. Type `f[ind] KEYWORD` where `KEYWORD` is part of the item's name and press `Enter`.
+1. Type `f[ind] KEYWORD`, where `KEYWORD` is part of the item's name and press `Enter`.
 
-2. App will display a list of items with names containing the keyword in the bottom left panel.
+2. A list of items with names containing the keyword will be displayed in the item list panel.
 
 3. App takes into account possible user typos and search results are up to 2 characters away from query.
 
@@ -142,7 +143,7 @@ For tasks, you can only edit the name, its tags and the end date and time. Note:
 
 2. Type `e[dit] INDEX [n/NEW_NAME] [edt/NEW_END_DATE_TIME] [ed/NEW_END_DATE et/NEW_END_TIME] [#TAG_TO_ADD] [#-TAG_TO_DELETE]`. Press `Enter`.
 
-3. App will display edited item's details in the results panel (below the command box).
+3. The edited item's details will be displayed in the results panel.
 
   > Example Command:
   > 1. `find random module`
@@ -152,7 +153,7 @@ For tasks, you can only edit the name, its tags and the end date and time. Note:
 
 1. Type `e[dit] INDEX [n/NEW_NAME] [edt/NEW_END_DATE_TIME] [ed/NEW_END_DATE et/NEW_END_TIME] [#TAG_TO_ADD] [#-TAG_TO_DELETE]`. Press `Enter`.
 
-2. App will display edited item's details in the results panel.
+2. The edited item's details will be displayed in the results panel.
 
   > Example Command: `edit 1 #wife` <br>
   > <div style="text-align:center"><img src="images/appResponses/edit_command_response.png" width="300"><br>
@@ -168,7 +169,7 @@ For deadlines, you can only edit the name, end date and time and its tags.
 
 2. Type `e[dit] INDEX [n/NEW_NAME] [edt/NEW_END_DATE_TIME] [ed/NEW_END_DATE] [et/NEW_END_TIME] [#TAG_TO_ADD] [#-TAG_TO_DELETE]`. Press `Enter`.
 
-3. App will display edited item's details in the results panel.
+3. The edited item's details will be displayed in the results panel.
 
 	> Example Command:
 	> 1. `find random module`
@@ -178,7 +179,7 @@ For deadlines, you can only edit the name, end date and time and its tags.
 
 1. Type `e[dit] INDEX [n/NEW_NAME] [edt/NEW_END_DATE_TIME] [ed/NEW_END_DATE] [et/NEW_END_TIME] [#TAG_TO_ADD] [#-TAG_TO_DELETE]`. Press `Enter`.
 
-2. App will display edited item's details in the results panel.
+2. The edited item's details will be displayed in the results panel.
 
 	> Example Command: `edit 1 n/CS2103 edt/next thursday 2 pm #work #-play`
 
@@ -193,7 +194,7 @@ For events, you can edit all optional parameters.
 
 2. Type `e[dit] INDEX [n/NEW_NAME] [sdt/NEW_START_DATE_TIME] [sd/NEW_START_DATE] [st/NEW_START_TIME] [edt/NEW_END_DATE_TIME]  [ed/NEW_END_DATE] [et/NEW_END_TIME] [#TAG_TO_ADD] [#-TAG_TO_DELETE]`. Press `Enter`.
 
-3. App will display edited item's details in the results panel.
+3. The edited item's details will be displayed in the results panel.
 
 	> Example Command:
 	> 1. `find random module`
@@ -203,14 +204,15 @@ For events, you can edit all optional parameters.
 
 1. Type `e[dit] INDEX [n/NEW_NAME] [sdt/NEW_START_DATE_TIME] [sd/NEW_START_DATE] [st/NEW_START_TIME] [edt/NEW_END_DATE_TIME] [ed/NEW_END_DATE] [et/NEW_END_TIME] [#TAG_TO_ADD] [#-TAG_TO_DELETE]`. Press `Enter`.
 
-2. App will display edited item's details in the results panel.
+2. The edited item's details will be displayed in the results panel.
+
 	> Example Command: `edit 1 n/CS2103 sdt/next friday 2 pm edt/next friday 4 pm #work #-play`
 
 ### When you need to view the details of your deadlines, tasks and events
 
-1. Type `s[elect] INDEX` and press `Enter`. Alternatively, click on the item in the list in the bottom left panel.
+1. Type `s[elect] INDEX` and press `Enter`. Alternatively, click on the item in the item list panel.
 
-2. App will display the item's details in the panel on the right.
+2. The selected item's details will be displayed in the item details panel.
 
 	> Example Command: `select 1`
 	> <div style="text-align:center"><img src="images/appResponses/select_command_response.png" width="300"><br>
@@ -224,7 +226,7 @@ For events, you can edit all optional parameters.
 
 1. Type `l[ist]`. Press `Enter`.
 
-2. Console refreshes with all deadlines, tasks, and events displayed.
+2. The item list panel refreshes with all deadlines, tasks, and events displayed.
 
   > Example Command: `list`
   > <div style="text-align:center"><img src="images/appResponses/list_command_response.png" width="300"><br>
@@ -236,7 +238,7 @@ For events, you can edit all optional parameters.
 
 1. Type `l[ist]n[ot]d[one]`. Press `Enter`.
 
-2. App will display all uncompleted items in the bottom left panel.
+2. All uncompleted items will be displayed in the item list panel.
 
 	> Example Command: `listnotdone`
 
@@ -246,31 +248,31 @@ For events, you can edit all optional parameters.
 
 1. Type `l[ist]t[ask]`. Press `Enter`.
 
-2. Console refreshes with all tasks displayed.
+2. The item List panel refreshes with all tasks displayed.
 
 #### View all deadlines
 
 1. Type `l[ist]d[eadline]`. Press `Enter`.
 
-2. Console refreshes with all deadlines displayed.
+2. The item List panel refreshes with all deadlines displayed.
 
 #### View all events
 
 1. Type `l[ist]e[vent]`. Press `Enter`.
 
-2. Console refreshes with all events displayed.
+2. The item List panel refreshes with all events displayed.
 
 [comment]: # (@@author A0143641M)
 
 ### When you want to delete a deadline, task or event
-* The index(es) specified refers to the index number(s) shown in the most recent listing.
+* The index(es) specified refer(s) to the index number(s) shown in the most recent listing.
 * The index(es) must be positive integers 1, 2, 3...
 
 #### Delete one deadline, task or event
 
 1. Type `del[ete] INDEX`. Press `Enter`.
 
-2. Console displays deleted item in second box and refreshes list of items.
+2. Deleted item details are displayed in the results panel. The item list panel refreshes the list of items.
 
   >  Example Command: `delete 1` <br>
 
@@ -281,7 +283,8 @@ For events, you can edit all optional parameters.
 
 1. Type `del[ete] INDEX ...`. Press `Enter`.
 
-2. Console displays deleted item in second box and refreshes list of items.
+2. The list of deleted items and their details are listed in the results panel in ascending index order from the last listing. The item list panel refreshes the list of items.
+
 
 [comment]: # (@@author A0065571A)
 
@@ -289,7 +292,7 @@ For events, you can edit all optional parameters.
 
 1. Type `d[one] INDEX`. Press `Enter`.
 
-2. Console refreshes list of items, with updated status for the updated item.
+2. The item List panel refreshes the list of items, with updated status for the done item.
 
 	> Example Command: `done 1` <br>
 	> <div style="text-align:center"><img src="images/appResponses/done_command_response.png" width="300"><br>
@@ -299,7 +302,7 @@ For events, you can edit all optional parameters.
 
 1. Type `n[ot]d[one] INDEX`. Press `Enter`.
 
-2. Console refreshes list of items, with updated status for the updated item.
+2. The item List panel refreshes list of items, with updated status for the not done item.
 
 	> Example Command: `notdone 1` <br>
 	> <div style="text-align:center"><img src="images/appResponses/notdone_command_response.png" width="300"><br>
@@ -309,7 +312,7 @@ For events, you can edit all optional parameters.
 
 1. Type `u[ndo]`. Press `Enter`. <br>
 
-2. Bottom left panel displays items as per previous state.
+2. The item List panel displays items as per previous state. Details of the undone action will be displayed in the results panel.
 
 	> Example Command:
 	> 1. `undo`
@@ -320,7 +323,7 @@ For events, you can edit all optional parameters.
 
 1. Type `r[edo]`. Press `Enter`. <br>
 
-2. App's bottom left panel reverts items to before the latest undo action.
+2. The item List panel reverts the list of items to before the latest undo action. Details of the latest undo action will be displayed in the results panel.
 
 	> Example Command: `redo`
 	> <div style="text-align:center"><img src="images/appResponses/redo_command_response.png" width="300"><br>
@@ -329,12 +332,15 @@ For events, you can edit all optional parameters.
 
 [comment]: # (@@author A0143641M)
 
-### When you want to specify a custom save location for your data
+### When you want to specify a custom save location for your data file
 
-> * File to save in is limited to .xml format.
+> * You must specify the name of the file to save in .xml format.
+> * You can only save within the home folder that your task manager is in.
+> * Use only forward slashes '/' to specify the directory to save the data file in.
+> * Note: This command cannot be undone.
+> * Note: Current data will overwrite any existing data in the specified custom data file location if it already exists.
 
-1. Type `save VALID_FILE_PATH`.
-2. Press `Enter`.
+1. Type `save VALID_FILE_PATH_NAME`. Press `Enter`.
 
   > Example Command: `save Sample.xml` <br>
   > <div style="text-align:center"><img src="images/appResponses/save_command_response.png" width="300"><br>
@@ -373,7 +379,7 @@ List Events | `l[ist]e[vent]` | `le`
 List all uncompleted items | `l[ist]n[ot]d[one]` | `lnd`
 Notdone | `n[ot]d[one] INDEX` | `nd 1`
 Redo | `r[edo]` | `redo`
-Specify custom save location | `save VALID_FILE_PATH` | `save C:\Users\Jim\data.xml`
+Specify custom save location | `save VALID_FILE_PATH_NAME` | `save Users/Jim/data.xml`
 Select | `s[elect] INDEX` | `select 1`
 Undo | `u[ndo]` | `undo`
 

@@ -26,7 +26,7 @@
                     </padding>
 
                     <children>
-                        <HBox alignment="CENTER_LEFT" spacing="5" VBox.vgrow="ALWAYS">
+                        <HBox alignment="CENTER_LEFT" spacing="5" VBox.vgrow="NEVER">
                             <children>
                                 <HBox HBox.hgrow="NEVER">
                                     <Label fx:id="id" minWidth="30" maxWidth="100.0" />
