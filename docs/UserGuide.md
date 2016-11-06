@@ -15,9 +15,8 @@
    * [Exiting the program](#10-exiting-the-program) 
    * [Help](#11-help)
    * [Setting Storage Folder](#12-setting-storage-folder)
-   
-* [How do I transfer my data to another computer?](#how-do-I-transfer-my-data-to-another-computer)
-* [Date & Time Formats](#date-time-formats-accepted)
+* [How do I transfer my data to another computer?](#how-do-I-transfer-my-data-to-another-computer?)
+* [Date & Time Formats](#date&-time-formats-accepted)
 * [Command Summary](#command-summary)
 
 <br>
