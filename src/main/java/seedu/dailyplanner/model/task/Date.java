@@ -14,6 +14,7 @@ public class Date implements Comparable<Date> {
     // @@author A0140124B
     /** Guarantees that value is in the format: DD/MM/YYYY */
     public Date(String value) {
+    	System.out.println("HI");
 	assert value != null;
 	m_value = value;
 	if (!value.equals("")) {

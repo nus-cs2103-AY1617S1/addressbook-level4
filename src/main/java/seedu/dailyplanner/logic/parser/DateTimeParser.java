@@ -49,7 +49,7 @@ public class DateTimeParser {
 
     public boolean containsDate(String endString) {
 	// TODO Auto-generated method stub
-	return false;
+	return true;
     }
 
     public String retrieveStart(String start) {
