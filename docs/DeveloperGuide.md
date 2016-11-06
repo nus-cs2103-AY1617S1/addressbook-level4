@@ -23,6 +23,7 @@ Emeraldo is a simple app for users to manage their daily tasks, such as keeping 
 This app is catered for folks who can type fast and prefer typing over mouse/voice commands.
 It is also a Java desktop application that has a GUI.
 <br>
+<br>
 This guide describes the design and implementation of Emeraldo.
 Through this guide, you will gain an understanding how Emeraldo works and how you can further contribute to its development.
 
@@ -578,7 +579,6 @@ Use case resumes from step 2.
 	
 **MSS**
 
-
 1. User requests to list by a certain category (UC05)
 2. User marks a task as completed
 3. Emeraldo shows the tasks as completed with date and time of completion
@@ -632,7 +632,7 @@ Use case resumes from step 4.
   * Able to share lists with others for collaboration
   * Able to sort list
   * Able to connect to a printer and print the list
-
+<br>
 
 [](@@author A0139342H)
 ### Todoist
@@ -648,7 +648,7 @@ Use case resumes from step 4.
 
 **Weaknesses**
   * Synced to the cloud. Users may have problems when there is no internet connection
-
+<br>
 
 [](@@author A0139749L)
 ### Centrallo
@@ -667,7 +667,7 @@ Use case resumes from step 4.
   * Requires internet connection to access (no offline version)
   * No calendar view for a quick overview of all notes by dates
   * No quick overview of all notes in general (GUI highly resembles that of an email inbox - the notes occupy a narrow column on the screen with the rest of the screen occupied by the content of the notes)
-
+<br>
 
 [](@@author A0142290N)
 ### Trello
