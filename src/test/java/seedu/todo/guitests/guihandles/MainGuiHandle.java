@@ -19,6 +19,10 @@ public class MainGuiHandle extends GuiHandle {
         return new AliasViewHandle(guiRobot, primaryStage, TestApp.APP_TITLE);
     }
     
+    public HelpViewHandle getHelpView() {
+        return new HelpViewHandle(guiRobot, primaryStage, TestApp.APP_TITLE);
+    }
+    
     public TaskListHandle getTaskList() {
         return new TaskListHandle(guiRobot, primaryStage, TestApp.APP_TITLE);
     }
