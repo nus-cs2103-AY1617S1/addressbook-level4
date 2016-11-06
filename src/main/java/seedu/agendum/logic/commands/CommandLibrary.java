@@ -45,6 +45,8 @@ public class CommandLibrary {
                 .collect(Collectors.toList());
     }
 
+    //@author
+
     public static CommandLibrary getInstance() {
         return commandLibrary;
     }

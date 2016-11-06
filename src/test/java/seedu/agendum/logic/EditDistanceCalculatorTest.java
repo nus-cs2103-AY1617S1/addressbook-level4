@@ -11,7 +11,7 @@ import static org.junit.Assert.assertEquals;
 public class EditDistanceCalculatorTest {
 
     @Test
-    public void closestCommandMatchTest() throws Exception {
+    public void closestCommandMatch_incorrectCommand_correctCommand() throws Exception {
         assertEquals(EditDistanceCalculator.closestCommandMatch("adr").get(), "add");
         assertEquals(EditDistanceCalculator.closestCommandMatch("marc").get(), "mark");
         assertEquals(EditDistanceCalculator.closestCommandMatch("markk").get(), "mark");
@@ -23,10 +23,16 @@ public class EditDistanceCalculatorTest {
     }
 
     @Test
-    public void commandCompletion() throws Exception {
+    public void closestCommandMatch_incorrectCommand_invalidCommand() throws Exception {
+        assertEquals(EditDistanceCalculator.closestCommandMatch("asdfohasdf"),  Optional.empty());
+        assertEquals(EditDistanceCalculator.closestCommandMatch("poasdf"),  Optional.empty());
+        assertEquals(EditDistanceCalculator.closestCommandMatch("teyu6578"),  Optional.empty());
+    }
+
+    @Test
+    public void closestCommandMatch_incompleteCommand_fullCommand() throws Exception {
         assertEquals(EditDistanceCalculator.findCommandCompletion("ad").get(), "add");
         assertEquals(EditDistanceCalculator.findCommandCompletion("ma").get(), "mark");
-        assertEquals(EditDistanceCalculator.findCommandCompletion("un"), Optional.empty()); // ambiguous returns nothing. Can be undo or unmark
         assertEquals(EditDistanceCalculator.findCommandCompletion("unm").get(), "unmark");
         assertEquals(EditDistanceCalculator.findCommandCompletion("und").get(), "undo");
         assertEquals(EditDistanceCalculator.findCommandCompletion("st").get(), "store");
@@ -34,6 +40,12 @@ public class EditDistanceCalculatorTest {
         assertEquals(EditDistanceCalculator.findCommandCompletion("he").get(), "help");
         assertEquals(EditDistanceCalculator.findCommandCompletion("sc").get(), "schedule");
         assertEquals(EditDistanceCalculator.findCommandCompletion("r").get(), "rename");
+    }
+
+    @Test
+    public void closestCommandMatch_incompleteCommand_invalidCommand() throws Exception {
+        assertEquals(EditDistanceCalculator.findCommandCompletion("un"), Optional.empty());
+        assertEquals(EditDistanceCalculator.findCommandCompletion("iasdugfiasd"), Optional.empty());
     }
 
 }
