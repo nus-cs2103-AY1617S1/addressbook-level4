@@ -1,3 +1,4 @@
+[//]: # "@@author A0147944U"
 # User Guide
 
 * [Getting Started](#getting-started)
@@ -12,15 +13,15 @@
    This app will not work with earlier versions of Java 8.
    
 1. Download the latest `TaskManager.jar` from the [releases](../../../releases) tab.
-2. Copy the file to the folder you want to use as the home folder for your Task Manager.
+2. Copy the file to the folder you want to use as the home folder for your Task Manager. It is advised to create a folder and place `TaskManager.jar` in it before running the application as it creates configuration and data files in the folder it is in.
 3. Double-click the file to start the app. The GUI should appear in a few seconds. 
 4. Type the command in the command box and press <kbd>Enter</kbd> to execute it. <br>
    e.g. typing **`help`** and pressing <kbd>Enter</kbd> will open the help window. 
 5. Refer to the [Features](#features) section below for details of each command.<br>
 6. Some example commands you can try:
-   * **`add do homework, from noon to 1pm by 3pm #homework`** : adds a task `do homework` for today from 12pm to 1pm with deadline set at 3pm tagged `homework`
-   * **`edit 2 morning class at 08.00am to 10.00am`** :  updates information stored
-   * **`delete`** : deletes the 1st indexed task
+   * **`add do homework, from noon to 1pm #homework`** : adds a task `do homework` for today from 12pm to 1pm tagged `homework`
+   * **`edit 1 starttime, 11 in the morning`** :  updates information stored
+   * **`delete 1`** : deletes the 1st indexed task
    * **`exit`** : exits the app
 
 ## Features
@@ -36,29 +37,31 @@ Format: `help`
 
 #### Adding a task: `add`
 Adds a task to the TaskManager.<br>
-Format: `add TASKNAME, [from START_TIME] [to END_TIME] [by DEADLINE] [#TAG...]` 
+Format: `add TASKNAME[, from START_TIME [to END_TIME]] [#TAG...]` 
+`add TASKNAME[, by DEADLINE] [#TAG...]` 
 
 > All additional information after `TASK_NAME` are optional
 > Each task can have unlimited number of tags
-> The time can be exact time or relative time
+> The time can be an exact time, a relative time i.e. `next monday 9am` or even a special date i.e. `this xmas 7pm`
 
 Examples: 
 * `add project team meeting, from 01.00pm to 03.00pm #CS2103`
 * `add cs2103 assignment, by 11.59pm #CS2103`
 * `add do homework, at today 3pm`
 
-#### Editing a task: `edit`
+#### Editing a task: `edit` `e`
 Edit task information in the TaskManager<br>
-Format: `INDEX TASK_PROPERTY, NEW_VALUE`
+Format: `edit INDEX TASK_PROPERTY, NEW_VALUE`
 
 > Edit the task at the specific `INDEX` and `TASK_PROPERTY`
      The index refers to the index number shown in the most recent listing.<br>
      The index **must be a positive integer** 1, 2, 3, …
-     `TASK_PROPERTY` can be "name", "start", "end", "due" and "tag"
+     `TASK_PROPERTY` can be "name", "starttime", "endtime", "deadline" and "tag". Other valid forms of the said `TASK_PROPERTY` are "n", "start" "s", "end" "e", "due" "d" and "t" respectively.
 
 Examples: 
 * `edit 2 start, 08.00am` 
 * `edit 4 tag, school`
+* `e 5 n, meet Jack for lunch`
 
 #### Deleting a task : `delete`
 Deletes the specified task from the TaskManager.<br>
@@ -85,8 +88,9 @@ Format: `find KEYWORD [MORE_KEYWORDS]`
 
 Examples: 
 * `find  tennis`<br>
-* `find submit report`<br>
-  Lists any tasks having `practice` or `3pm` in names or time
+  Lists any tasks having `tennis` in task name, time or tags
+* `find 15.00 golf`
+  Lists any tasks having `15.00` or `golf` in task name, time or tags
 
 #### Listing all tasks : `list`
 Shows a list of all tasks in the TaskManager with last used sorting order.<br>
@@ -97,12 +101,14 @@ Sorts tasks in the TaskManager in order of name, start time, end time, deadline,
 Format: `sort [PARAMETER]`
 
 Examples:
-* `s`, `sort` or `sort default` Sorts tasks in the TaskManager by a default preset: Incomplete tasks first, then floating tasks first, then older tasks first, then by name in ascending order
+* `s`, `sort`, `s original`, `s standard` or `s default` Sorts tasks in the TaskManager by a default preset: Incomplete tasks first, then floating tasks first, then older tasks first, then by name in ascending order
 * `s name` or `s n` Sorts tasks in the TaskManager in order of their names
 * `s starttime`, `s start` or `s s` Sorts tasks in the TaskManager in order of their start times
 * `s endtime`, `s end` or `s e` Sorts tasks in the TaskManager in order of their end times
 * `s deadline`, `s dead` or `s d` Sorts tasks in the TaskManager in order of their deadlines
 * `s completed`, `s done` or `s c` Sorts tasks in the TaskManager in order of their completion statuses
+* `s favorite`, `s favourite`, `s fav` or `s f` Sorts tasks in the TaskManager with favourited tasks first
+* `s overdue`, `s over` or `s o` Sorts tasks in the TaskManager with overdue tasks first
 
 #### Undo the modification : `undo`
 Undo the modification in the last step. Only includes add, delete, edit, clear, done and undone commands.<br>
@@ -117,11 +123,11 @@ Undone a task. Reverse action of done command. Green marker will disappear.<br>
 Format: `undone INDEX` 
 
 #### Favorite a specific task : `fav`
-Favorite a task to show that it is favorited with a yellow marker.<br>
+Favorite a task. A yellow marker on the task will indicate this.<br>
 Format: `fav INDEX` 
 
 #### Unfavorite a specific task : `unfav`
-Unfavorite a task. Reverse action of favorite command. Yellow marker will disappear.<br>
+Unfavorite a task. Reverse action of favorite command, removing the yellow marker.<br>
 Format: `unfav INDEX` 
 
 #### Repeat a specific task at a given interval : `repeat`
@@ -182,18 +188,18 @@ Default: data/taskmanager.xml
 Command | Format  
 -------- | :-------- 
 Help | `help`
-Add | `add TASKNAME, [from START_TIME] [to END_TIME] [by DEADLINE] [#TAG...]` 
-Edit | `edit INDEX TASKNAME at START_TIME to END_TIME [by DEADLINE] [#TAG...]`
+Add | `add TASKNAME[, from START_TIME [to END_TIME]] [#TAG...]`  `add TASKNAME[, by DEADLINE] [#TAG...]` 
+Edit | `edit INDEX TASK_PROPERTY, NEW_VALUE`
 Delete | `delete INDEX`
 Find | `find KEYWORD`
 List | `list`
-Sort | `sort [PARAMETER]` `s [PARAMETER]`
+Sort | `sort [PARAMETER]`  `s [PARAMETER]`
 Undo | `undo`
-Done | `done` `undone`
-Favorite | `fav` `unfav`
+Done | `done`  `undone`
+Favorite | `fav`  `unfav`
 Repeat | `repeat INDEX INTERVAL`
-Backup | `backup [PATH]` `b [PATH]`
-Change Directory | `directory [PATH]` `dir [PATH]`
+Backup | `backup [PATH]`  `b [PATH]`
+Change Directory | `directory [PATH]`  `dir [PATH]`
 Clear | `clear`
 Refresh | `refresh`
 Exit | `exit`
