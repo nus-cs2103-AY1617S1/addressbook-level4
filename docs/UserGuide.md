@@ -38,52 +38,49 @@ Gone are the repetitive mouse clicks other task managers require of you. With a 
 ###1 Add Command
 There are three variations to the add command. You are able to choose a task to be categorized under events, deadlines or to-dos. To differentiate the formatting for these commands, refer to the secStion below.
 
+
 ####1.1 Add a to-do
 
 To start things off, let us add a simple task with no date or time, just a simple task to be done sometime and someday.
 
->Format: **Add** &lt;to-do description&gt; &lt;#tag&gt;
+>Format: **add** &lt;to-do description&gt; &lt;#tag&gt;
 
-Example: Add go swimming #YOLO
+Example: add go swimming #YOLO
 
->***Note: To add a tag, simply add a # followed by the tag name at the back of the command ***
+>Note: tags are optional and multiple tags can be added to all tasks.
 
-####1.2 Add a deadline
+####1.2 add a deadline
 
-Perhaps after adding a todo, now you want to add a task with a deadline.
+Perhaps after adding a todo, now you want to add a task with a deadline. Let's say you have to do a report by next Monday, 7pm.
 
->Format: **Add** &lt;deadline description&gt;; &lt;date(DDMMYY)&gt;; &lt;end time&gt; &lt;#tag&gt;
+>Format: **add** &lt;deadline description&gt;; &lt;date(DDMMYY)&gt;; &lt;end time&gt; &lt;#tag&gt;
 
-Example: Add complete report; 120916; 1900 #YOLO 
+Example: add complete report; 120916; 1900 #YOLO 
 
->Important: The date and end time are compulsory when adding an deadline
+>Important: The date is compulsory when adding an deadline. If end time is not specified, a default of 11.59pm on the entered date is set.
+
 
 ####1.3 Add an event
 
->Format : **Add** [&lt;event description&gt;; &lt;date(DDMMYY)&gt;; &lt;start time&gt;; &lt;end time&gt;] &lt;#tag&gt; &lt;
+Let's say you have to attend a friend's birthday party on the weekend. You know the date, the time it starts as well as the time it ends.
 
-Example: Add [Sam's birthday party; 20/12/16 ; 9pm] #YOLO !
+>Format : **add** [&lt;event description&gt;; &lt;date(DDMMYY)&gt;; &lt;start time&gt;; &lt;end time&gt;] &lt;#tag&gt;
+
+Example: add [Sam's birthday party; 20/12/16 ; 9pm] #YOLO 
 
 >Note: The start time and end time is optional when adding an event.
->Note: ALL tags are optional and Multiple tags can be added
 >Note: Time format accepted: 9pm, 9.45pm, 13:59
 >Note: Date format accepted: 20/12/2016, 20/12/16, 201216
 
 >Important: The square brackets are compulsory when adding an event.
 
-####1.4 Add a tag / multiple tags
+####1.4 Add a tag / multiple tags to existing tasks
 
-You can add tag by adding a # at the end of the command for event, deadline or to-do.
+Now, that report due on Monday has become a very important task that you absolutely have to do. Simply type add followed by the index of the report and the tags to be added.
 
-Example: Add [Sam's birthday party; 20/12/16; 9pm] #dontbelate  
-Example: Add complete report; 120916; 1900 #prayforuserguide    
-Example: Add go swimming #yolo #summerishere #waterforlife
+>Format: **add** &lt;index&gt; #tag1 #tag2
 
-You can also add tag to an existing task.
-
->Format: **Add** &lt;index&gt; #tag1 #tag2
-
-Example: Add E1 #win #victor #finally  
+Example: Add D1 #VeryImportant #omg  
 
 
 ###2 Edit a task
