@@ -1,9 +1,10 @@
 package guitests;
 
 import org.junit.Test;
-import seedu.address.commons.core.Messages;
-import seedu.address.testutil.TestActivity;
-import seedu.address.testutil.TypicalTestActivities;
+
+import seedu.lifekeeper.commons.core.Messages;
+import seedu.lifekeeper.testutil.TestActivity;
+import seedu.lifekeeper.testutil.TypicalTestActivities;
 
 import static org.junit.Assert.assertTrue;
 

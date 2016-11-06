@@ -2,11 +2,12 @@ package guitests;
 
 import guitests.guihandles.ActivityCardHandle;
 import org.junit.Test;
-import seedu.address.logic.commands.AddCommand;
-import seedu.address.commons.core.Messages;
-import seedu.address.testutil.TestActivity;
-import seedu.address.testutil.TestEvent;
-import seedu.address.testutil.TestUtil;
+
+import seedu.lifekeeper.commons.core.Messages;
+import seedu.lifekeeper.logic.commands.AddCommand;
+import seedu.lifekeeper.testutil.TestActivity;
+import seedu.lifekeeper.testutil.TestEvent;
+import seedu.lifekeeper.testutil.TestUtil;
 
 import static org.junit.Assert.assertTrue;
 
@@ -88,7 +89,7 @@ public class AddCommandTest extends AddressBookGuiTest {
         ActivityCardHandle addedCard = activityListPanel.navigateToActivity(activityToAdd.getName().fullName);
         assertMatching(activityToAdd, addedCard);
 
-        //confirm the list now contains all previous persons plus the new person
+        //confirm the list now contains all previous persons plus the new activity
         TestActivity[] expectedList = TestUtil.addPersonsToList(currentList, activityToAdd);
         assertTrue(activityListPanel.isListMatching(expectedList));
     }
