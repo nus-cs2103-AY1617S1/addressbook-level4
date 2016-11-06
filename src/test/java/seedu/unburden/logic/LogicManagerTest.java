@@ -324,8 +324,9 @@ public class LogicManagerTest {
 		assertCommandBehavior("add Chandler by today t/friends", String.format(AddCommand.MESSAGE_SUCCESS, task),
 				expected, expected.getTaskList());
 	}
-	
-	@Test public void execute_add_deadline_by_tomorrow() throws Exception{
+
+	@Test
+	public void execute_add_deadline_by_tomorrow() throws Exception {
 		TestDataHelper helper = new TestDataHelper();
 		Calendar calendar = Calendar.getInstance();
 		calendar.setTime(calendar.getTime());
@@ -339,8 +340,9 @@ public class LogicManagerTest {
 		assertCommandBehavior("add Rachel by tomorrow t/friends", String.format(AddCommand.MESSAGE_SUCCESS, task),
 				expected, expected.getTaskList());
 	}
-	
-	@Test public void execute_add_deadline_by_next_week() throws Exception{
+
+	@Test
+	public void execute_add_deadline_by_next_week() throws Exception {
 		TestDataHelper helper = new TestDataHelper();
 		Calendar calendar = Calendar.getInstance();
 		calendar.setTime(calendar.getTime());
@@ -351,11 +353,12 @@ public class LogicManagerTest {
 		ListOfTask expected = new ListOfTask();
 		expected.addTask(task);
 
-		assertCommandBehavior("add Somebody ate my sandwich by next week t/friends", String.format(AddCommand.MESSAGE_SUCCESS, task),
-				expected, expected.getTaskList());
+		assertCommandBehavior("add Somebody ate my sandwich by next week t/friends",
+				String.format(AddCommand.MESSAGE_SUCCESS, task), expected, expected.getTaskList());
 	}
-	
-	@Test public void execute_add_deadline_by_next_month() throws Exception{
+
+	@Test
+	public void execute_add_deadline_by_next_month() throws Exception {
 		TestDataHelper helper = new TestDataHelper();
 		Calendar calendar = Calendar.getInstance();
 		calendar.setTime(calendar.getTime());
@@ -369,7 +372,7 @@ public class LogicManagerTest {
 		assertCommandBehavior("add Pheobe by next month t/friends", String.format(AddCommand.MESSAGE_SUCCESS, task),
 				expected, expected.getTaskList());
 	}
-	
+
 	@Test
 	public void execute_add_successful() throws Exception {
 		// setup expectations
@@ -408,10 +411,79 @@ public class LogicManagerTest {
 		ListOfTask expectedAB = helper.generateListOfTask(2);
 		List<? extends ReadOnlyTask> expectedList = expectedAB.getTaskList();
 
-		// prepare address book state
+		// prepare Unburden state
 		helper.addToModel(model, 2);
 
 		assertCommandBehavior("list all", ListCommand.MESSAGE_SUCCESS, expectedAB, expectedList);
+	}
+
+	@Test
+	public void execute_List_Shows_Undone() throws Exception {
+		// prepare expectations
+		TestDataHelper helper = new TestDataHelper();
+		ListOfTask expected = helper.generateListOfTask(3);
+		List<? extends ReadOnlyTask> expectedList = expected.getTaskList();
+
+		// prepare Unburden state
+		helper.addToModel(model, 3);
+
+		assertCommandBehavior("list", "3 tasks listed!", expected, expectedList);
+	}
+
+	@Test
+	public void execute_List_Shows_Undone_Empty() throws Exception {
+		TestDataHelper helper = new TestDataHelper();
+		ListOfTask expected = helper.generateListOfTask(0);
+		List<? extends ReadOnlyTask> expectedList = expected.getTaskList();
+
+		helper.addToModel(model, 0);
+
+		assertCommandBehavior("list", ListCommand.MESSAGE_NO_MATCHES_UNDONE, expected, expectedList);
+	}
+
+	@Test
+	public void execute_List_Shows_Done_Empty() throws Exception {
+		TestDataHelper helper = new TestDataHelper();
+		ListOfTask expected = helper.generateListOfTask(0);
+		List<? extends ReadOnlyTask> expectedList = expected.getTaskList();
+
+		helper.addToModel(model, 0);
+
+		assertCommandBehavior("list done", ListCommand.MESSAGE_NO_MATCHES_DONE, expected, expectedList);
+	}
+
+	@Test
+	public void execute_List_Shows_Overdue_Empty() throws Exception {
+		TestDataHelper helper = new TestDataHelper();
+		ListOfTask expected = helper.generateListOfTask(0);
+		List<? extends ReadOnlyTask> expectedList = expected.getTaskList();
+
+		helper.addToModel(model, 0);
+
+		assertCommandBehavior("list overdue", ListCommand.MESSAGE_NO_MATCHES_OVERDUE, expected, expectedList);
+	}
+
+	@Test
+	public void execute_List_Shows_Date_Empty() throws Exception {
+		TestDataHelper helper = new TestDataHelper();
+		ListOfTask expected = helper.generateListOfTask(0);
+		List<? extends ReadOnlyTask> expectedList = expected.getTaskList();
+
+		helper.addToModel(model, 0);
+
+		assertCommandBehavior("list 13-12-2022", ListCommand.MESSAGE_NO_MATCHES_DATE, expected, expectedList);
+	}
+
+	@Test
+	public void execute_List_Shows_All_Empty() throws Exception {
+		TestDataHelper helper = new TestDataHelper();
+		ListOfTask expected = helper.generateListOfTask(0);
+		List<? extends ReadOnlyTask> expectedList = expected.getTaskList();
+
+		helper.addToModel(model, 0);
+
+		assertCommandBehavior("List all", String.format(Messages.MESSAGE_NO_TASKS_FOUND, ListCommand.MESSAGE_USAGE),
+				expected, expectedList);
 	}
 
 	/**
