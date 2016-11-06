@@ -66,10 +66,9 @@ Need to unburden? Let's get started!
 
 ## 1. Help Command
 
-### 1.1  help <br>
+### 1.1  Help <br>
 
-If you wish to know what kinds of commands the software have and what 
-are the formats. <br>
+If you wish to know all of the commands and their formats, you may type in the command format as shown below.  <br>
 #### Format: `help`
    
 > Help is also shown if you enter an incorrect command e.g. `abcd`
@@ -81,7 +80,7 @@ are the formats. <br>
 
 <br>
 
-### 1.1  help "Command" <br>
+### 1.2  Help "Command" <br>
 
 If you wish to know the specific formats of each individual command or require assistance for a specific command, you may enter the command format as shown below. . <br>
 #### Format: `help "COMMAND" `
@@ -94,111 +93,106 @@ If you wish to know the specific formats of each individual command or require a
    Help  find <br>   
     > <img src="UserGuideImages/Help_1.JPG" width="400">
     
-    This command will show you the command format of the specific command you have entered in the result display panel. For example, if     i type “help add,” the result display panel will show the specific format of the add command. 
+This command will show you the command format of the specific command you have entered in the result display panel. For example, if     i type “help add,” the result display panel will show the specific format of the add command. 
 
 <br>
 <br>
 
 ## 2. Add Command: `add`
 
-### 2.1  Adding a task with a deadline, start time and end time <br>
-#### Format: `add <Task Name> d/<Deadline> s/<Start Time> e/<End Time>`
-   
-   Examples : <br>
-   add CS2103 project d/09-07-2016 s/1700 e/1900 t/CS2103 <br>
-   add FC2020 tutorial d/03-05-2008 s/1800 e/2000 <br>
-   add Dance rehearsal d/19-09-2015 s/1300 e/1500 <br>
-   
-You may type the command as shown below
-   > <img src="UserGuideImages/UG_3.JPG" width="400">
-   
-Upon pressing <kbd>Enter</kbd>, you will see the task you have added as shown below.
-   > <img src="UserGuideImages/UG_4.JPG" width="500">
+The add command enables you to add 4 different type of tasks : Floating, deadline, deadline with end time and an event.  You may also enter in a task description for longer task names and tags which can help you identify similar tasks. For all task types, adding task description and tags are optional. <br>
 
-<br>
 
-### 2.2  Adding a task with only a deadline <br>
-#### Format: `add <Task Name> d/<Deadline>`
+Upon entering your command, the task will be displayed in the task list panel and the entry will also be shown in the result display panel as shown below. <br>
+
+   > <img src="UserGuideImages/AddMain.JPG" width="400">
    
-   Examples : <br>
-   add Orbital Splashdown d/18-06-2016 t/Orbital <br>
-   add Music Talent show d/28-04-2008 t/Show <br>
-   add Complete Workout d/13-03-2009 <br>
    
-Upon pressing <kbd>Enter</kbd>, you will see the task you have added as shown below.
-   > <img src="UserGuideImages/UG_6.JPG" width="500">
-
-<br>
-
-### 2.3 Adding a task without a deadline<br>
-#### Format: `add <Task Name>`
+### 2.1 Add a floating task<br>
+If you are unsure of the date or time of your task and wish to add floating tasks, you may simply enter the command format as shown below. <br>
+#### Format: `add <Task Name> i/<Task Description> t/<Tags>`
    
    Examples : <br>
    add Complete Joke book t/Jokes <br>
    add Plan Trip to Germany <br>
    add Book train tickets <br>
+
+<br>
+
+### 2.2	Add a deadline Task  <br>
+
+
+If you wish to add tasks with only a deadline for tasks that are supposed to be due by a specific date, you may enter the command as shown below. <br>
+#### Format: `add <Task Name> i/<Task Description> d/<Deadline> t/<Tags>`
    
-Upon pressing <kbd>Enter</kbd>, you will see the task you have added as shown below.
-   > <img src="UserGuideImages/UG_8.JPG" width="500">
+   Examples : <br>
+   add Orbital Splashdown i/ Create the userguide d/18-06-2016 t/Orbital <br>
+   add Music Talent show d/28-04-2008 t/Show <br>
+   add Complete Workout d/13-03-2009 <br>
+
+<br>
+
+### 2.3	Add a deadline Task with end time  <br>
+If you wish to add tasks with a deadline and end time for tasks that are supposed to be due by a specific time on a certain date, you may enter the command as shown below. <br>
+#### Format: `add <Task Name> i/<Task Description> d/<Deadline> e/<End time> t/<Tags>`
+   
+   Examples : <br>
+   add Orbital Splashdown i/ Create the userguide d/18-06-2016 t/Orbital <br>
+   add Music Talent show d/28-04-2008 t/Show <br>
+   add Complete Workout d/13-03-2009 <br>
+
+<br>
+
+
+### 2.4	Add an event  <br>
+If you wish to add events which have a specific date, start time and end time, you may enter the command as shown below. <br>
+#### Format: `add <Task Name> i/<Task Description> d/<Deadline> s/<Start Time> e/<End time> t/<Tags>`
+   
+  Examples : 
+  Add Janice Birthday  i/At Science centre d/15-11-2016 s/1400 e/1800 <br>
+  Add USS Halloween d/13-11-2016 s/2100 e/2300 <br>
+  Add Work dinner party d/21-11-2016 s/1900 e/2100 <br>
 
 <br>
 <br>
 
 ## 3. Delete Command : `delete`
 
-Deletes the specific task from the address book. Irreversible.<br>
+If your task or event has been cancelled, you can simply delete the task or event by typing the command as shown below. The index refers to the index of the task you wish to delete.<br>
 #### Format: `delete <Task Index>`
    
    Examples : <br>
-   delete Dance Rehearsal <br>
-   delete Go to the Gym <br>
+   delete 1 <br>
+   delete 4 <br>
    
-Once done, the updated list of tasks will be displayed as shown below
-   > <img src="UserGuideImages/UG_10.JPG" width="500">
+Upon entering the command, the task list panel will be automatically updated and the task would be deleted from the list. 
 
 <br>
 <br>
 
-## 4. List Command
 
-Shows a list of all tasks in the list of tasks.<br>
-#### Format: `list`
+## 4. Edit Command
 
-You can then see all of the tasks in the application in the display as shown below.
-   > <img src="UserGuideImages/UG_12.JPG" width="500">
-
-<br>
-<br>
-
-## 5. Find Command
-
-### 5.1 If you wish to find certain tasks, enter the keywords in the task or the task name<br>
-#### Format: `find`
+If you have entered an entry wrongly or if the date of your event has changed, Unburden can easily allow you to edit your task without deleting it and adding it again. You are required to type the index of the task you wish to edit and you can edit any of the parameters of the task as shown below. <br>
+#### Format: `edit <Task Index> i/<Task Description> d/<Deadline> s/<start Time> e/<End Time>`
    
-   Examples : <br>
-   find workout <br>
-   find gym <br>
-				
-You can then see all of the tasks with that keyword or name  in the application's display window. 
-For example, i keyed in "find workout" in the command line and the task with the keyword "workout" is displayed as shown below. 
-   > <img src="UserGuideImages/UG_14.JPG" width="500">
-
-
-### 5.2 If you wish to find the tasks with a specific date, enter the date in the format DD-MM-YYYY or you can use words limited to "today" and "tomorrow." <br>
-#### Format: `find <Date>`
-
-   Examples : <br>
-   find 07-09-2008 <br>
-   find today <br>
-   find tomorrow <br>
+   Examples : <br>	
+   Edit 1 CS2101 UserGuide <br>
+   Edit 5 Plan trip to Vegas <br>
+   Edit 3 i/Oranges,apples and pears <br> 
+   Edit 2 d/12-11-2016 <br>
+   Edit 4 s/1300 e/1900 <br>
+   Edit 2 Buy vegetables i/oranges d/12-11-2016 s/1800 e/1900 <br>
+		
+Upon entering your command, you will be able to view the updated task in the task list panel. 
    
-You can then see all of the tasks with that date in the application's display window.   
-<br><br>
 
+<br>
+<br>
 
 ## 6. Done Command
 
-If you wish to enter certain tasks as done, you may key them in the format as shown below. <br>
+If you have completed a task and you wish to remove it from your list in the task list panel, you can simply mark the task as done. The index shown below refers to the index of the task you wish to mark as done. Once you have marked a task as done, it will disappear from the task list panel.  <br>
 #### Format: ` done <INDEX> `
    
    Examples : <br>
@@ -208,9 +202,10 @@ If you wish to enter certain tasks as done, you may key them in the format as sh
 You can then view the color change in the task that you have marked as done.
 <br><br>
 
+
 ## 7. UnDone Command
 
-If you wish to enter certain tasks as undone, you may key them in the format as shown below. <br>
+If you have marked a task as done but you realise that you have yet to complete it, you can mark the task as undone once again. The format for the undone command is similar to that of the done command as shown below.  <br>
 #### Format: ` undone <INDEX> `
    
    Examples : <br>
@@ -221,87 +216,138 @@ You can then view the color change in the task that you have marked as undone.
 <br><br>
 
 
-## 8. Undo Command
+## 4. List Command
 
-If you happen to have entered a command wrongly or wish to undo your previous action, you can make use of the "undo" command. <br>
-#### Format: ` undo  `
+Since the task list panel inherently displays the list of undone tasks, the list command is able to modify the task list panel to show different lists depending on the command entered. <br>
+
+### 5.1 List Date<br>
+
+If you wish to view all tasks that you have entered which have a deadline from today to a certain date, you may simply enter "list DATE" and the task list panel will be updated. You may type the command as shown below where the date refers to the date you wish to limit the list to. 
+
+#### Format: `list <DATE>`
    
    Examples : <br>
-   undo <br>
-				
-The task manager would then 'undo' its previous action and revert back to original.
-<br><br>
-   
-## 9. Redo Command
+   list 08-11-2016 <br>
+   list 13-11-2016 <br>
 
-If you happen to have keyed in the "undo" command but you wish to "redo" the action, you can make use of the "redo" command. <br>
-#### Format: ` redo  `
+For example, if you type `List 09-11-2016`,  the task list panel would display the list of tasks entered which have a deadline before and including 09-11-2016 as shown below. <br>
+
+   > <img src="UserGuideImages/List_1.JPG" width="500">
+   
+   <br>
+
+
+### 5.2 List Date to date<br>
+
+If you wish to view all tasks that you have entered which have a deadline from a specific date to another date, you may make use of the `list date to date` command. The task list panel will be updated to show only the tasks which have a deadline within the range of dates you have entered. <br>
+
+Note : This range includes the dates you have entered as well. <br>
+
+#### Format: `list <DATE> to <DATE>`
    
    Examples : <br>
-   redo <br>
+   List 06-11-2016 to 09-11-2016 <br>
+   List 08-11-2016 to 13-11-2016  <br>
+
+For example, if you type `List 08-11-2016 to 13-11-2016 `,  the task list panel would display the list of tasks entered which have a deadline within the range 08-11-2016 and 13-11-2016 as shown below. . <br>
+
+   > <img src="UserGuideImages/List_2.JPG" width="500">
+   
+   <br>
+
+### 5.3 List done<br>
+
+If you wish to list all the tasks completed,  you may make use of the list done command as shown below. <br>
+
+#### Format: `list done`
+
+<br>
+
+### 5.4 List overdue<br>
+
+If you wish to list all the tasks you have overdue,  you may make use of the list overdue command as shown below.  <br>
+
+#### Format: `list overdue`
+
+<br>
+
+### 5.5 List<br>
+
+If you wish to list all the undone tasks in unburden, you may make use of the list command as shown below.   <br>
+
+#### Format: `list`
+
+<br>
+
+### 5.6 List all<br>
+
+If you wish to list all the tasks in unburden, you may make use of the list all command as shown below. <br>
+
+#### Format: `list all`
+
+<br>
+<br>
+
+## 5. Find Command
+
+If you wish to search for specific dates, names or tags, you can simply use the find command to do so. 
+
+### 5.1 Find name and tags<br>
+
+If you wish to find tasks with specific names or tags, you may simply enter any keyword in the task name and the task would appear in the task list panel. You may use the command as shown below. <br>
+
+#### Format: `find <KEYWORD>`
+   
+   Examples : <br>
+   find workout <br>
+   find gym <br>
 				
-The task manager would then 'redo' its previous action and revert back to original.
+
+### 5.2 Find date<br>
+
+If you wish to find tasks with a specific date, you may simply enter the date and the task with that deadline would appear in the task list panel. You may use the command as shown below. <br>
+
+#### Format: `find <Date>`
+
+   Examples : <br>
+   find 07-09-2008 <br>
+   find today <br>
+   find tomorrow <br>
+   
+You can then see all of the tasks with that date in the application's display window.   
 <br><br>
 
 ## 10. Clear Command
 
-If you wish to clear all the tasks in the task manager in one go, without having to delete each one by one, you can make use of the "clear" command. 
+If you wish to delete all tasks in the current list displayed, you may simply use the clear command to do so. You may use the command as shown below. 
 <br>
 #### Format: `clear`
-				
-Simple type the command "clear" as shown above and all tasks will be automatically deleted and the message that "Unburden has been cleared!" would appear as shown below. 
-   > <img src="UserGuideImages/UG_16.JPG" width="500">
    
 <br>
 <br>
 
-## 11. Edit Command
 
-### 11.1 If you wish to edit the deadline, start time and end time of certain tasks
-<br>
-#### Format: `edit <Task Index> d/<Deadline> s/<start Time> e/<End Time>`
-   
-   Examples : <br>	
-   edit 1 d/09-07-2016 s/1700 e/1900 t/CS2103 <br>
-   edit 3 d/06-03-2009 s/1800 e/1900 <br>
-		
-By doing so, the date, start time and end time will be updated and the updated list will be displayed as shown below. 
-   > <img src="UserGuideImages/UG_18.JPG" width="500">
-   
-<br>
+## 8. Undo Command
 
-### 11.2 If you wish to edit the deadline certain tasks
-<br>
-#### Format: `edit <Task Index> d/<Deadline>`
-   
-   Examples : <br>
-   edit 3  d/09-07-2016 <br>
-   edit 2  d/03-05-2008 <br>
-		
-By doing so, the date, start time and end time will be updated and the updated list will be displayed as shown below. 
-   > <img src="UserGuideImages/UG_20.JPG" width="500">
+If you regret entering a command or wish to undo an action you have done, you may simply make use of the undo command to do so. You may use the command as shown below. <br>
+Note! : The undo command works on the clear command as well.  <br>
 
+#### Format: ` undo  `
+   
 <br>
+<br>   
+   
+## 9. Redo Command
+If you accidentally used the undo command and you wish to redo your changes, you may simply make use of the redo command. You may use the command as shown below. <br>
+#### Format: ` redo  `
+   
+<br><br>
 
-### 11.3 If you wish to edit the start time and end time of certain tasks
-<br>
-#### Format: `edit <Task Index> s/<Start Time> e/<End time>`
-   
-   Examples : <br>
-   edit 2  s/1700 e/1900 t/CS2103 <br>
-   edit 3 s/1800 e/2000 <br>
-		
-By doing so, the date, start time and end time will be updated and the updated list will be displayed as shown below. 
-   > <img src="UserGuideImages/UG_22.JPG" width="400">
-   
-<br>
-<br>
+
 
 ## 12. Exiting the program : `exit`
-Exits the program.<br>
+To exit Unburden, you may use the command as shown below. <br>
 #### Format: `exit`
-Simply type `exit` in the command line as shown below
-   > <img src="UserGuideImages/UG_26.JPG" width="400">
 
 The application will be closed.
 
@@ -325,13 +371,13 @@ Command | Format
 Help | `help <command word>`
 Add | `add <Task description> <Date if applicable> <Start time if applicable> <End Time if applicable>`
 Delete | `delete <task name>`
-List | `list`
-Find | `find <Task Name if applicable> or find <Date> or find <Tags>`
+Edit | `edit <Task Index> <Date if applicable> <Start Time if applicable> <End Time if applicable>`
 Done | `done <Task Index>`
 undone | `undone <Task index> `
+List | `list`
+Find | `find <Task Name if applicable> or find <Date> or find <Tags>`
+clear| `clear`
 undo | `undo`
 redo | `redo`
-clear| `clear`
-Edit | `edit <Task Index> <Date if applicable> <Start Time if applicable> <End Time if applicable>`
 Exit | `exit`
 
