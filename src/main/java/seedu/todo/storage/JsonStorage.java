@@ -12,7 +12,7 @@ import org.bitbucket.cowwoc.diffmatchpatch.DiffMatchPatch.Patch;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 
-import seedu.todo.MainApp;
+import seedu.todo.commons.core.ConfigCenter;
 import seedu.todo.commons.exceptions.CannotRedoException;
 import seedu.todo.commons.exceptions.CannotUndoException;
 import seedu.todo.commons.util.FileUtil;
@@ -35,7 +35,7 @@ public class JsonStorage implements Storage {
     private final DiffMatchPatch dmp = new DiffMatchPatch();
 
     private File getStorageFile() {
-        String filePath = MainApp.getConfig().getDatabaseFilePath();
+        String filePath = ConfigCenter.getInstance().getConfig().getDatabaseFilePath();
         return new File(filePath);
     }
     

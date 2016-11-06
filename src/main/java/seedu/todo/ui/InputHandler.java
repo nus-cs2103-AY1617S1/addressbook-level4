@@ -4,7 +4,7 @@ import java.util.LinkedList;
 import java.util.ListIterator;
 import java.util.Map;
 
-import seedu.todo.MainApp;
+import seedu.todo.commons.core.ConfigCenter;
 import seedu.todo.commons.exceptions.ParseException;
 import seedu.todo.commons.util.StringUtil;
 import seedu.todo.controllers.*;
@@ -87,7 +87,7 @@ public class InputHandler {
      */
     public boolean processInput(String input) {
         
-        Map<String, String> aliases = MainApp.getConfig().getAliases();
+        Map<String, String> aliases = ConfigCenter.getInstance().getConfig().getAliases();
         String aliasedInput = StringUtil.replaceAliases(input, aliases);
         
         Controller[] controllers = instantiateAllControllers();

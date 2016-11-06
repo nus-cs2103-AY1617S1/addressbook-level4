@@ -3,12 +3,10 @@ package seedu.todo.controllers;
 import java.io.IOException;
 import java.util.Map;
 
-import seedu.todo.MainApp;
 import seedu.todo.commons.core.Config;
-import seedu.todo.commons.util.ConfigUtil;
+import seedu.todo.commons.core.ConfigCenter;
 import seedu.todo.commons.util.StringUtil;
 import seedu.todo.controllers.concerns.Renderer;
-import seedu.todo.models.TodoListDB;
 
 /**
  * @@author A0093907W
@@ -102,10 +100,10 @@ public class AliasController extends Controller {
      * @throws IOException 
      */
     private static void saveAlias(String aliasKey, String aliasValue) throws IOException {
-        Config config = MainApp.getConfig();
+        Config config = ConfigCenter.getInstance().getConfig();
         Map<String, String> aliases = config.getAliases();
         aliases.put(aliasKey, aliasValue);
-        ConfigUtil.saveConfig(config, MainApp.getConfigFilePath());
+        ConfigCenter.getInstance().saveConfig(config);
         
     }
     

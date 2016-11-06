@@ -7,7 +7,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
-import seedu.todo.MainApp;
+import seedu.todo.commons.core.ConfigCenter;
 import seedu.todo.commons.core.ConfigDefinition;
 import seedu.todo.commons.util.FxViewUtil;
 import seedu.todo.ui.components.ConfigItem;
@@ -49,7 +49,7 @@ public class ConfigView extends View {
         configImageView.setImage(new Image(ICON_PATH));
         
         // Get definitions
-        List<ConfigDefinition> configDefinitions = MainApp.getConfig().getDefinitions();
+        List<ConfigDefinition> configDefinitions = ConfigCenter.getInstance().getConfig().getDefinitions();
 
         // Clear items
         ConfigItem.reset(configsPlaceholder);
