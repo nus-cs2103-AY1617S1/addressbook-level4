@@ -326,8 +326,11 @@ We have two types of tests:
    
    **Integration tests**. Below are some snippets, <br>
 
-   _XmlTaskListStorageTest.java_<br>
-   <img src="images/test_snipper_XmlTaskListStorage.PNG" width="600"><br>
+   _RecurringTaskManagerTest.java_<br>
+   <img src="images/integration_test_RecurringTaskManager.png" width="600"><br>
+   
+   > Note recurring manager is being tested if it is correctly wired to it dependency.
+   > In this case the dependency is UniqueTaskList.
    
    _UniqueTaskListTest.java_<br>
    <img src="images/integration_test_UniqueTaskList.png" width="600"><br>

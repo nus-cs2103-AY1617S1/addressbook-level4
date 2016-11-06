@@ -34,6 +34,13 @@ public class RecurringTaskManager {
         repeatingTasks = referenceList;
         isTestMode = false;
     }
+    
+    /**
+     * Test method to check if UniqueTaskList is wired properly to recurringTaskManger
+     */
+    public UniqueTaskList getTaskList() {
+        return repeatingTasks;
+    }
 
     /**
      * Appends any recurring tasks with task occurrences based on their recurring type.
