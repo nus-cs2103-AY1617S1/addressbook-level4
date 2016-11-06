@@ -1,6 +1,7 @@
 # Developer Guide 
 
 * [Setting Up](#setting-up)
+* [Problem Domain](#problem-domain)
 * [Design](#design)
 * [Implementation](#implementation)
 * [Managing Dependencies](#managing-dependencies)
@@ -43,10 +44,10 @@
 
 ## Problem Domain
 
-With the use of Activity Diagrams, we can understand the context under which `Dowat` is used.<br>
-Users of `Dowat` receive their task and event items mainly from their email inbox.<br>
-By storing the task or event received immediately into `Dowat`, the user can archive the email immediately.<br>
-By accessing `Dowat`, the user is able to determine the important tasks at hand and upcoming events for the day or week.<br>
+With the use of Activity Diagrams, we can understand the context under which `Dowat` is used. <br>
+Users of `Dowat` receive their task and event items mainly from their email inbox. <br>
+By storing the task or event received immediately into `Dowat`, the user can archive the email immediately. <br> 
+By accessing `Dowat`, the user is able to keep track of the important tasks at hand and upcoming events for the day or week. <br>
 This will help the user plan their use of time more effectively.<br>
 
 <img src="images/ADForEmailAndDowat.png" width="850" height="500"><br>
@@ -125,12 +126,13 @@ The `UI` component,
 
 **API** : [`Logic.java`](../src/main/java/seedu/task/logic/Logic.java)
 
-1. `Logic` uses the `Parser` class to parse the user command.
-2. This results in a `Command` object which is executed by the `LogicManager`.
-3. The command execution can affect the `Model` (e.g. adding a task) and/or raise events.
-4. The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`
-5. The UndoableCommandHistory applies the Singleton pattern which holds the sole copy of the modifications done to the `Dowat`. 
-6. We did not choose to store a list of events/tasks, or copies of `Dowat` as a history. Instead, we chose to store a stack of commands which are more lightweighted, and occupy less storage. 
+The `Logic` component,
+* Uses the `Parser` class to parse the user command.
+* Results in a `Command` object which is executed by the `LogicManager`.
+* Command execution can affect the `Model` (e.g. adding a task) and/or raise events.
+* Result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `UI`.
+* `UndoableCommandHistory` applies the Singleton pattern which holds the sole copy of the modifications done to the `Dowat`. 
+* `UndoableCommandHistory` does not store a list of events/tasks, or copies of `Dowat` as a history. Instead, it stores a stack of commands which are more lightweighted, and occupy less storage. 
 <!-- @@author  -->
 <!-- @@author A0127570H -->
 
@@ -142,7 +144,7 @@ The `UI` component,
 
 The `Model`,
 * Stores a `UserPref` object that represents the user's preferences
-* Stores the dowat data
+* Stores the `Dowat` data
 * Exposes a `UnmodifiableObservableList<ReadOnlyTask>` as well as `UnmodifiableObservableList<ReadOnlyEvent>` that can be 'observed' e.g. the UI can be bound to this list
   so that the UI automatically updates when the data in the list change.
 * Does not depend on any of the other three components.
@@ -155,12 +157,12 @@ The `Model`,
 
 The `Storage` component,
 * can save `UserPref` objects in json format and read it back.
-* can save dowat data in xml format and read it back.
+* can save `Dowat` data in xml format and read it back.
 <!-- @@author  -->
 
 ### Common classes
 
-Classes used by multiple components are in the `seedu.taskbook.commans` package. 
+Classes used by multiple components are in the `seedu.taskbook.commans` package.
 
 ## Implementation
 
@@ -222,20 +224,23 @@ The dependencies are bound into the jar release and will not require extra depen
 
 Priority | As a ... | I want to ... | So that I can...
 ---------|----------|---------------|-----------------
-`* * *` | user | be able to add a task into the program | enter it into the database
-`* * *` | user | be able to list all the tasks in the database | keep track of all my tasks that I have to do 
-`* * *` | user | be able to list the tasks undone or done | keep track of tasks which are done which are not
-`* * *` | user | be able to edit the description of an existing task in the program | keep my tasks updated
+`* * *` | user | be able to add a task into the program | maintain a list of tasks to do
+`* * *` | user | be able to add a task with a deadline into the program | set a deadline for myself to complete the task
+`* * *` | user | be able to add an event into the program | maintain a schedule of upcoming events
+`* * *` | user | be able to list all the uncompleted tasks in the database | keep track of all my tasks that I have to do 
+`* * *` | user | be able to list all the upcoming events | keep track of my upcoming schedule 
+`* * *` | user | be able to list all completed and uncompleted tasks | keep track of tasks which are not completed and otherwise
+`* * *` | user | be able to edit the name or description of an existing task in the program | keep my tasks updated
 `* * *` | user | be able to edit the deadline of an existing task in the program | keep the deadlines for my tasks updated
 `* * *` | user | be able to edit the occurrence and duration of an event in the program | keep my events updated
 `* * *` | user | be able to mark the completion of an existing task in the program | keep update list of uncompleted tasks 
 `* * *` | user | be able to delete an existing task or event in the program | keep my tasks and events updated
-`* * *` | user | be able to specify my storage location to save my files | keep my files saved in different responsories
-`* * *` | user | be able to seek help with the operations and commands of the program | keep the program user friendly
+`* * *` | user | be able to specify my storage location to save my files | keep my files saved in different repositories
+`* * *` | user | be able to seek help with the operations and commands of the program | get command specific assistance
 `* * *` | user | be able to exit the program | keep a proper shutdown of the program
 `* * *` | user | be able to simple search for tasks using keywords that are in the name and description | retrieve tasks easily
 `* * *` | user | be able undo the most recent modification | revert from unintended modifications
-`* * *` | user | be able to use flexible commands when adding tasks | have greater flexibility in adding tasks
+`* *` | user | be able to have flexibility in order of fields in commands | have greater flexibility in keying in commands
 `* *` | user | be able to search any words related to a task | retrieve tasks more easily
 `* *` | user | see a snapshot of events in the calendar view | retrieve informaiton in a graphical way.
 
@@ -567,7 +572,7 @@ Since it does not need to retrieve or modidfy data in the model.
 > 1. No freemium reminder features
 
 **Feedback**
-> Highly recommended for all memebrs to use it. 
+> Highly recommended for all members to use it. 
 
 <!-- @@author -->
 <!-- @@author A0127570H -->
@@ -614,7 +619,7 @@ Since it does not need to retrieve or modidfy data in the model.
 
 
 <!-- @@author A0144702N -->
-## Appendix F : Pull Request
+## Appendix F : Pull Request Format
 
 None of the parts below are compulsory for a PR, but a good template to follow in general. Developers are free to add in or remove sections as stated below. 
 
