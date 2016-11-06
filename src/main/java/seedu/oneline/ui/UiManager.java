@@ -17,7 +17,8 @@ import seedu.oneline.commons.events.ui.ShowHelpRequestEvent;
 import seedu.oneline.commons.events.ui.ShowHelpRequestEvent;
 import seedu.oneline.commons.events.ui.ShowAllViewEvent; 
 import seedu.oneline.commons.events.ui.ShowDayViewEvent; 
-import seedu.oneline.commons.events.ui.ShowWeekViewEvent; 
+import seedu.oneline.commons.events.ui.ShowWeekViewEvent;
+import seedu.oneline.commons.events.ui.TagPanelSelectionChangedEvent;
 import seedu.oneline.commons.events.ui.ShowFloatViewEvent; 
 import seedu.oneline.commons.util.StringUtil;
 import seedu.oneline.logic.Logic;
@@ -128,6 +129,13 @@ public class UiManager extends ComponentManager implements Ui {
         String message = String.format(SelectCommand.MESSAGE_SELECT_TASK_SUCCESS,
                 event.getNewSelection().toString());
         mainWindow.postResult(message);
+    }
+    
+    //@@author A0142605N
+    @Subscribe 
+    private void handleTagPanelSelectionChangedEvent(TagPanelSelectionChangedEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        logic.execute("list " + event.getNewSelection().toString());
     }
     
     @Subscribe
