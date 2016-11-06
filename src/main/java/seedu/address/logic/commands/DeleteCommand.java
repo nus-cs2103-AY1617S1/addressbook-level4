@@ -46,7 +46,7 @@ public class DeleteCommand extends Command {
         for (int i=0; i<targetIndices.length; i++) {
         	if (lastShownList.size() < targetIndices[i]) {
                 indicateAttemptToExecuteIncorrectCommand();
-                return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
+                return new CommandResult(Messages.MESSAGE_INVALID_DISPLAYED_INDEX);
             }
 
             tasksToDelete.add(lastShownList.get(targetIndices[i] - 1));

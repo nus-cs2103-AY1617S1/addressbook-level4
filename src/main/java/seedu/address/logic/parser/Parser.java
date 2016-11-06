@@ -2,7 +2,7 @@ package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_DISPLAYED_INDEX;
 
 import java.text.ParseException;
 import java.time.LocalDateTime;
@@ -608,7 +608,7 @@ public class Parser {
 			String index = indexStrings[i].trim();
 			
 			if (!StringUtil.isUnsignedInteger(index)) {
-				throw new IllegalArgumentException(MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
+				throw new IllegalArgumentException(MESSAGE_INVALID_DISPLAYED_INDEX);
 			}
 			else {
 				indices[i] = Integer.parseInt(index);

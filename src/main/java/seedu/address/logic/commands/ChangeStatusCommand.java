@@ -83,7 +83,7 @@ public class ChangeStatusCommand extends Command {
 				// since redo stack will have an element. possibly create model.undoSaveState()
 				model.undoSaveState();
 				indicateAttemptToExecuteIncorrectCommand();
-				throw new IndexOutOfBoundsException(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
+				throw new IndexOutOfBoundsException(Messages.MESSAGE_INVALID_DISPLAYED_INDEX);
 			}
 
 			Task taskChanged = new Task(lastShownList.get(indices[i] - 1));
