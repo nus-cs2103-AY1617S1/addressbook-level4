@@ -21,6 +21,7 @@ import org.junit.rules.TemporaryFolder;
 import com.google.common.eventbus.Subscribe;
 
 import seedu.task.commons.core.Config;
+import seedu.task.commons.core.Config.DublicatedValueCustomCommandsException;
 import seedu.task.commons.core.EventsCenter;
 import seedu.task.commons.events.model.TaskManagerChangedEvent;
 import seedu.task.commons.events.ui.JumpToListRequestEvent;
@@ -218,6 +219,7 @@ public class LogicManagerTest {
 	// @@author
 
 	// @@author A0153411W
+		
 	@Test
 	public void execute_add_successful() throws Exception {
 		// setup expectations
@@ -285,7 +287,6 @@ public class LogicManagerTest {
 
 	@Test
 	public void execute_undo_done_successful() throws Exception {
-		TestDataHelper helper = new TestDataHelper();
 		TaskManager expectedManager = new TaskManager();
 
 		Task task= helper.homework();
@@ -295,7 +296,6 @@ public class LogicManagerTest {
 	
 	@Test
 	public void execute_undo_delete_successful() throws Exception {
-		TestDataHelper helper = new TestDataHelper();
 		TaskManager expectedManager = new TaskManager();
 
 		Task task= helper.homework();
@@ -305,7 +305,6 @@ public class LogicManagerTest {
 	
 	@Test
 	public void execute_undo_clear_successful() throws Exception {
-		TestDataHelper helper = new TestDataHelper();
 		TaskManager expectedManager = new TaskManager();
 
 		// Add tasks to delete them later
@@ -319,13 +318,61 @@ public class LogicManagerTest {
 	
 	@Test
 	public void execute_undo_redo_success() throws Exception {
+		//Init task and task manager
 		TaskManager expectedManager = new TaskManager();
 		Task task= helper.homework();
 		
 		//Add task to task manager
 		addTaskToManagerHelper(task, expectedManager);
+		
 		//Undo, redo and verify that state of task manager is the same
 		assertUndoAndRedoCommandBehavior(expectedManager, expectedManager.getTaskList());		
+	}
+	
+	@Test
+	public void execute_custom_add_successful() throws Exception {
+		//Init custom command for add
+		final String CUSTOM_ADD_WORD_COMMAND = "a";
+		helper.setCustomCommandHelper(AddCommand.COMMAND_WORD, CUSTOM_ADD_WORD_COMMAND);
+		
+		//Init task and task manager
+		Task toBeAdded = helper.homework();
+		TaskManager expectedAB = new TaskManager();
+		
+		//Add task to manager
+		expectedAB.addTask(toBeAdded);
+		
+		String expectedMessage = String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded.getAsText());
+
+		// execute command and verify result
+		assertCommandBehavior(helper.generateAddCommand(CUSTOM_ADD_WORD_COMMAND, toBeAdded), expectedMessage, expectedAB,
+				expectedAB.getTaskList());
+	}
+	
+	@Test
+	public void execute_custom_done_successful() throws Exception {
+		//Set custom command for done
+		final String CUSTOM_DONE_WORD_COMMAND = "D";
+		helper.setCustomCommandHelper(DoneCommand.COMMAND_WORD, CUSTOM_DONE_WORD_COMMAND);
+		
+		//Init task and task manager
+		Task toBeAdded = helper.homework();
+		TaskManager manager = new TaskManager();
+		
+		//Add task to manager
+		manager.addTask(toBeAdded);
+		logic.execute(helper.generateAddCommand(toBeAdded));
+		
+		//Init expected Manager and task
+		TaskManager expectedManager = new TaskManager(manager);
+		ReadOnlyTask expectedTask=expectedManager.getTaskList().get(0);
+		expectedTask.setStatus(new Status("COMPLETED"));
+		
+		String expectedMessage = String.format(DoneCommand.MESSAGE_COMPLETED_TASK_SUCCESS, expectedTask.getAsText());
+		
+		// execute command and verify result
+		assertCommandBehavior(helper.generateDoneCommand(CUSTOM_DONE_WORD_COMMAND, 1), expectedMessage, expectedManager,
+				expectedManager.getTaskList());
 	}
 	// @@author
 
@@ -701,14 +748,48 @@ public class LogicManagerTest {
 			return cmd.toString();
 		}
 		
+		String generateAddCommand(String customWord, Task t) {
+			StringBuffer cmd = new StringBuffer();
+
+			cmd.append(customWord+" ");
+
+			cmd.append(t.getTitle().toString());
+			cmd.append(" d/").append(t.getDescription());
+			cmd.append(" sd/").append(t.getStartDate());
+			cmd.append(" dd/").append(t.getDueDate());
+			cmd.append(" i/").append(t.getInterval());
+			cmd.append(" ti/").append(t.getTimeInterval());
+			UniqueTagList tags = t.getTags();
+			for (Tag tag : tags) {
+				cmd.append(" t/").append(tag.tagName);
+			}
+			return cmd.toString();
+		}
+		
+		/** Sets custom word command */
+		void setCustomCommandHelper(String commandWord, String userCommand) throws DublicatedValueCustomCommandsException{ 
+			Config.getInstance().setCustomCommandFormat(commandWord, userCommand);
+		}
+		
+	
 		/** Generates the correct done command based on the index given */
 		String generateDoneCommand(int index) {
+			return "done "+index;
+		}
+		
+		/** Generates the correct done command based on the index given */
+		String generateDoneCommand(String customWord, int index) {
 			return "done "+index;
 		}
 		
 		/** Generates the correct delete command based on the index given */
 		String generateDeleteCommand(int index) {
 			return "delete "+index;
+		}
+		
+		/** Generates the correct delete command based on the index given */
+		String generateDeleteCommand(String customWord, int index) {
+			return customWord+" "+index;
 		}
 		
 		/** Generates the correct delete command based on the index given */
