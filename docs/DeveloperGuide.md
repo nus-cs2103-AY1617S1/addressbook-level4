@@ -337,6 +337,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (un
 |`* * *` | user | list all tasks that are done | so that I can revert back to undone if I ever need to |
 |`* * *` | user | list all tasks that are within a stipulated time frame | plan my holidays |
 |`* * *` | user | edit any information of the task | make changes to the tasks that I have created |
+|`* *` | user | see what today's date is | I can properly allocate tasks with the correct date in mind |
 |`* *` | user | undo previous command | remove any task that is entered wrongly |
 |`* *` | user | keep my information safe | protect information that is private to me |
 |`* *` | user | be reminded of my deadlines | meet my deadlines |
@@ -354,7 +355,6 @@ Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (un
 |`*` | user | automatically delete old tasks periodically | so I do not have to do it myself |
 |`*` | user | find history of tasks of certain past periods of time | recall what I've done |
 |`*` | user | predict and auto correct my typos | be lazy and not retype everything again |
-|`*` | user | see what today's date is | I can properly allocate tasks with the correct date in mind |
 
 
 
