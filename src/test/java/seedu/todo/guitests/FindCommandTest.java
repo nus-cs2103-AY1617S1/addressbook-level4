@@ -3,6 +3,7 @@ package seedu.todo.guitests;
 import java.time.LocalDateTime;
 
 import org.junit.Before;
+import org.junit.Test;
 
 import seedu.todo.commons.util.DateUtil;
 import seedu.todo.models.Event;
@@ -51,6 +52,20 @@ public class FindCommandTest extends GuiTest {
         console.runCommand(commandAdd1);
         console.runCommand(commandAdd2);
         console.runCommand(commandAdd3);
+    }
+    
+    @Test
+    public void find_unique_success() {
+        console.runCommand("find KOI");
+        assertTaskVisible(task1);
+        assertTaskNotVisible(task2);
+    }
+    
+    @Test
+    public void find_uniqueCaseInsensitive_success() {
+        console.runCommand("find koi");
+        assertTaskVisible(task1);
+        assertTaskNotVisible(task2);
     }
 
 }
