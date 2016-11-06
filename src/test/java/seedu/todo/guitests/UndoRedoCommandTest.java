@@ -43,7 +43,7 @@ public class UndoRedoCommandTest extends GuiTest {
     }
     
     @Test
-    public void undo_single() {
+    public void undo_single_success() {
         console.runCommand(commandAdd1);
         assertTaskVisible(task1);
         console.runCommand(commandAdd2);
@@ -53,7 +53,7 @@ public class UndoRedoCommandTest extends GuiTest {
     }
     
     @Test
-    public void undo_multiple() {
+    public void undo_multiple_success() {
         console.runCommand(commandAdd1);
         assertTaskVisible(task1);
         console.runCommand(commandAdd2);
@@ -64,7 +64,7 @@ public class UndoRedoCommandTest extends GuiTest {
     }
     
     @Test
-    public void undo_notavailable() {
+    public void undo_notAvailable_fail() {
         console.runCommand(commandAdd1);
         assertTaskVisible(task1);
         console.runCommand("undo");
@@ -76,13 +76,13 @@ public class UndoRedoCommandTest extends GuiTest {
     }
     
     @Test
-    public void undo_multiple_notavailable() {
+    public void undo_multipleNotAvailable_fail() {
         console.runCommand("undo 3");
         assertEquals(console.getConsoleTextArea(), "We cannot undo 3 commands! At most, you can undo 2 commands.");
     }
     
     @Test
-    public void redo_single() {
+    public void redo_single_success() {
         console.runCommand(commandAdd1);
         assertTaskVisible(task1);
         console.runCommand("undo");
@@ -92,7 +92,7 @@ public class UndoRedoCommandTest extends GuiTest {
     }
     
     @Test
-    public void redo_multiple() {
+    public void redo_multiple_success() {
         console.runCommand(commandAdd1);
         assertTaskVisible(task1);
         console.runCommand(commandAdd2);
@@ -106,13 +106,13 @@ public class UndoRedoCommandTest extends GuiTest {
     }
     
     @Test
-    public void redo_notavailable() {
+    public void redo_notAvailable_fail() {
         console.runCommand("redo");
         assertEquals(console.getConsoleTextArea(), "There is no command to redo!");
     }
     
     @Test
-    public void redo_multiple_notavailable() {
+    public void redo_multipleNotavailable_fail() {
         console.runCommand("undo");
         console.runCommand("redo 2");
         assertEquals(console.getConsoleTextArea(), "We cannot redo 2 commands! At most, you can redo 1 command.");

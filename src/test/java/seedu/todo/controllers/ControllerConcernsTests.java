@@ -23,21 +23,21 @@ public class ControllerConcernsTests {
     }
     
     @Test
-    public void tokenizer_no_matches() throws Exception {
+    public void tokenizer_noMatch_notFound() throws Exception {
         String input = "abcdefg hijklmnop";
         Map<String, String[]> output = Tokenizer.tokenize(getTokenDefinitions(), input);
         assertTrue(output.isEmpty());
     }
     
     @Test
-    public void tokenizer_empty_string() throws Exception {
+    public void tokenizer_emptyString_notFound() throws Exception {
         String input = "";
         Map<String, String[]> output = Tokenizer.tokenize(getTokenDefinitions(), input);
         assertTrue(output == null);
     }
     
     @Test
-    public void tokenizer_single_match() throws Exception {
+    public void tokenizer_singleMatch_found() throws Exception {
         String input = "token11 answer";
         Map<String, String[]> output = Tokenizer.tokenize(getTokenDefinitions(), input);
         assertEquals(output.get("tokenType1")[0], "token11");
@@ -45,7 +45,7 @@ public class ControllerConcernsTests {
     }
     
     @Test
-    public void tokenizer_empty_match() throws Exception {
+    public void tokenizer_emptyMatch_found() throws Exception {
         String input = "alamak token11 token21";
         Map<String, String[]> output = Tokenizer.tokenize(getTokenDefinitions(), input);
         assertEquals(output.get("tokenType1")[0], "token11");
@@ -55,14 +55,14 @@ public class ControllerConcernsTests {
     }
     
     @Test
-    public void tokenizer_match_quotes() throws Exception {
+    public void tokenizer_matchQuotes_found() throws Exception {
         String input = "\"token11\" answer";
         Map<String, String[]> output = Tokenizer.tokenize(getTokenDefinitions(), input);
         assertTrue(output.isEmpty());
     }
     
     @Test(expected=UnmatchedQuotesException.class)
-    public void tokenizer_unmatched_quotes() throws Exception {
+    public void tokenizer_unmatchedQuotes_error() throws Exception {
         String input = "\"\"\"";
         Tokenizer.tokenize(getTokenDefinitions(), input);
     }
