@@ -4,7 +4,7 @@
 
 # WhatNow (V0.5rc)
 
-<img src="docs/images/UI_Prototype/WhatNowUI-Welcome-Colour.png" width="600"><br>
+<img src="C:\Users\lim\Documents\main\docs\images\UI_Actual\initialDisplay.PNG" width="600"><br>
 
 Have you ever missed a deadline because you did not write it down?
 
