@@ -20,12 +20,13 @@
 * [FAQ](#faq)
 * [Command Summary](#command-summary)
 
+<!-- @@author A0153467Y -->
 ## Introduction
 
 Nowadays, everyone got so many tasks to do. Have you ever miss your deadlines or forget your schedule? MESS are here to help you! MESS is a to-do list application which reminds you of your tasks or events by showing your list of tasks on the application. No need to afraid about forgetting your tasks anymore! You can easily use MESS by typing in one line of command. MESS can be used offline and even in your office computer. It helps you manage and organise your tasks and so as your time. 
 
 Want to know how to use MESS? Let's get started!
-
+<!-- @@author -->
 ## Quick Start
 
 0. Ensure you have Java version `1.8.0_60` or later installed in your Computer.<br>
@@ -64,7 +65,7 @@ Want to know how to use MESS? Let's get started!
 * The order of parameters is fixed.
 * Words in `UPPER_CASE` are the parameters.
 * Words in `SQUARE_BRACKET` are optional.
-<!--@@author A0144939R -->
+<!-- @@author A0144939R -->
  
 #### Adding a task or event: `add`
 Adds a task to the to-do list<br>
@@ -101,7 +102,7 @@ Examples:
 * `alias add +` <br> Aliases the add command to the symbol +
 * `alias alias q`<br> Aliases the alias command to the symbol q
 
-<!--@@author -->
+<!-- @@author -->
 
 #### Deleting a task : `delete`
 Deletes a specific task by task index from the to-do list.<br>
