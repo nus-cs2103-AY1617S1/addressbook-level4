@@ -70,10 +70,10 @@ public class Disambiguator {
     public static String getUnknownTokenString(Map<String, String[]> parsedResult) {
         String[] defaultToken = parsedResult.get("default");
         
-        if (defaultToken == null || defaultToken.length < 2 || defaultToken[1].length() <= 0) {
+        if (defaultToken != null && defaultToken[1] != null && defaultToken[1].length() > 0) {
+            return defaultToken[1];
+        } else {
             return null;
         }
-        
-        return defaultToken[1];
     }
 }
