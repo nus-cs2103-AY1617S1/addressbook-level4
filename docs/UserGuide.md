@@ -237,21 +237,20 @@ For events, you can edit all optional parameters.
 [comment]: # (@@author A0143641M)
 
 ### When you want to delete a deadline, task or event
-* The index(es) specified refers to the index number(s) shown in the most recent listing.
+* The index(es) specified refer(s) to the index number(s) shown in the most recent listing.
 * The index(es) must be positive integers 1, 2, 3...
-* This action is irreversible.
 
 #### Delete one deadline, task or event
 
 1. Type `del[ete] INDEX`. Press `Enter`.
 
-2. Console displays deleted item in second box and refreshes list of items.
+2. Console displays deleted item in results panel and refreshes list of items.
 
 #### Delete multiple deadlines, tasks or events
 
 1. Type `del[ete] INDEX ...`. Press `Enter`.
 
-2. Console displays deleted item in second box and refreshes list of items.
+2. Console displays in the results panel the list of deleted items in ascending index order from the last listing and refreshes list of items.
 
 [comment]: # (@@author A0065571A)
 
@@ -307,10 +306,10 @@ For events, you can edit all optional parameters.
 > * You must specify the name of the file to save in .xml format.
 > * You can only save within the home folder that your task manager is in.
 > * Use only forward slashes '/' to specify the directory to save the data file in.
-> * Note: this command cannot be undone.
+> * Note: This command cannot be undone.
+< * Note: Current data will overwrite the specified file to save to if the specified file already exists.
 
-1. Type `save VALID_FILE_PATH_NAME`.
-2. Press `Enter`.
+1. Type `save VALID_FILE_PATH_NAME`. Press `Enter`.
 
 [comment]: # (@@author A0140060A)
 
