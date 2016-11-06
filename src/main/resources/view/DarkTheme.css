@@ -10,28 +10,28 @@
 
 .label {
     -fx-font-size: 11pt;
-    -fx-font-family: "Segoe UI Semibold";
+    -fx-font-family: Palatino;
     -fx-text-fill: #555555;
     -fx-opacity: 0.9;
 }
 
 .label-bright {
     -fx-font-size: 11pt;
-    -fx-font-family: "Segoe UI Semibold";
+    -fx-font-family: Palatino;
     -fx-text-fill: white;
     -fx-opacity: 1;
 }
 
 .label-header {
     -fx-font-size: 32pt;
-    -fx-font-family: "Segoe UI Light";
+    -fx-font-family: Palatino;
     -fx-text-fill: white;
     -fx-opacity: 1;
 }
 
 .text-field {
     -fx-font-size: 20pt;
-    -fx-font-family: "Segoe UI Semibold";
+    -fx-font-family: Palatino;
 }
 
 .tab-pane {
@@ -71,7 +71,7 @@
 
 .table-view .column-header .label {
     -fx-font-size: 20pt;
-    -fx-font-family: "Segoe UI Light";
+    -fx-font-family: Palatino;
     -fx-text-fill: white;
     -fx-alignment: center-left;
     -fx-opacity: 1;
@@ -123,17 +123,19 @@
 
 /*@@author A0140060A*/
 .cell_big_label {
+	-fx-font-family: Palatino;
     -fx-font-size: 16px;
     -fx-text-fill: #010504;
-    -fx-max-width:300;
+    -fx-max-width: 300;
     -fx-wrap-text: true;
 }
+/*@@author */
 
 .cell_small_label {
     -fx-font-size: 11px;
     -fx-text-fill: #010504;
 }
-/*@@author */
+
 
 .anchor-pane {
      -fx-background-color: derive(#1d1d1d, 20%);
@@ -200,7 +202,7 @@
 /*@@author */
 .menu-bar .label {
     -fx-font-size: 14pt;
-    -fx-font-family: "Segoe UI Light";
+    -fx-font-family: Palatino;
     -fx-text-fill: black;
     -fx-opacity: 0.9;
 }
@@ -220,7 +222,7 @@
     -fx-border-width: 2;
     -fx-background-radius: 0;
     -fx-background-color: #1d1d1d;
-    -fx-font-family: "Segoe UI", Helvetica, Arial, sans-serif;
+    -fx-font-family: Palatino;
     -fx-font-size: 11pt;
     -fx-text-fill: #d8d8d8;
     -fx-background-insets: 0 0 0 0, 0, 1, 2;

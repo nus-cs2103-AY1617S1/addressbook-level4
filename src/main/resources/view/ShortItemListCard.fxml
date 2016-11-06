@@ -30,8 +30,8 @@
                         <HBox alignment="CENTER_LEFT" spacing="5">
                             <children>
                                 <HBox>
-                                    <Label fx:id="id" />
-                                    <Label fx:id="name" text="\$first" />
+                                    <Label fx:id="id" maxWidth="100.0"/>
+                                    <Label fx:id="name" text="\$first" maxWidth="300.0"/>
                                 </HBox>
                                 <Label fx:id="tags" text="\$tags" />
                             </children>

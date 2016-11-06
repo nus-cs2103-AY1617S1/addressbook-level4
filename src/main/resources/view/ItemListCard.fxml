@@ -34,8 +34,10 @@
                                 </HBox>
                             </children>
                         </HBox>
-						<Label fx:id="tags" styleClass="cell_small_label" text="\$tags" />
-                        <Label fx:id="itemType" styleClass="cell_small_label" text="\$itemType" />
+                        <HBox spacing="5" alignment="CENTER_LEFT">
+                        	<Label fx:id="itemType" styleClass="cell_small_label" text="\$itemType" />
+                        	<Label fx:id="tags" styleClass="cell_small_label" text="\$tags" />
+                        </HBox>
                         <HBox>
                             <Label fx:id="startDate" styleClass="cell_small_label" text="\$startDate" />
                             <Label fx:id="startDateSpace" styleClass="cell_small_label" text=" " />
