@@ -13,6 +13,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
+import javafx.scene.control.Labeled;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TableColumn;
@@ -122,6 +123,7 @@ public class TaskListPanel extends UiPart {
 
         taskNameColumn.setCellValueFactory(cellData -> new SimpleObjectProperty(cellData.getValue().getName()));
 
+        
         startTimeColumn.setCellValueFactory(cellData -> new SimpleObjectProperty(cellData.getValue().getStartTime()));
         startTimeColumn.setCellFactory(column -> {
             return new TableCell<ReadOnlyTask, StartTime>() {
@@ -249,14 +251,18 @@ public class TaskListPanel extends UiPart {
                     setStyle("");
                 } 
                 else if (item.getStatus().getDoneStatus()) {
-                    setStyle("-fx-background-color: #ADDBAC");
+                    setStyle("-fx-background-color: #ADDBAC; -fx-border-color: #006400");
+                    
                 }
                 
                 else if (item.getStatus().getOverdueStatus()) {
-                    setStyle("-fx-background-color: #FFCCCB");
+                    setStyle("-fx-background-color: #FFCCCB;  -fx-border-color: #FF0000;");
                 }
+                
+                
                 else { 
                     setStyle("");
+                    
                 }
             }
         });
