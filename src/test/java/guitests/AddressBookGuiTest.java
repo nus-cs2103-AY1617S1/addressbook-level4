@@ -14,6 +14,8 @@ import seedu.jimi.commons.core.EventsCenter;
 import seedu.jimi.model.TaskBook;
 import seedu.jimi.model.task.ReadOnlyTask;
 import seedu.jimi.testutil.TestUtil;
+import seedu.jimi.testutil.TypicalTestDeadlineTasks;
+import seedu.jimi.testutil.TypicalTestEvents;
 import seedu.jimi.testutil.TypicalTestFloatingTasks;
 
 import java.util.concurrent.TimeoutException;
@@ -33,7 +35,9 @@ public abstract class AddressBookGuiTest {
     TestApp testApp;
 
     protected TypicalTestFloatingTasks td = new TypicalTestFloatingTasks();
-
+    protected TypicalTestDeadlineTasks dt = new TypicalTestDeadlineTasks();
+    protected TypicalTestEvents e = new TypicalTestEvents();
+    
     /*
      *   Handles to GUI elements present at the start up are created in advance
      *   for easy access from child classes.
@@ -41,6 +45,7 @@ public abstract class AddressBookGuiTest {
     protected MainGuiHandle mainGui;
     protected MainMenuHandle mainMenu;
     protected FloatingTaskListPanelHandle taskListPanel;
+    protected TodayTaskListPanelHandle todayTaskListPanel;
     protected ResultDisplayHandle resultDisplay;
     protected CommandBoxHandle commandBox;
     private Stage stage;
@@ -61,6 +66,7 @@ public abstract class AddressBookGuiTest {
             mainGui = new MainGuiHandle(new GuiRobot(), stage);
             mainMenu = mainGui.getMainMenu();
             taskListPanel = mainGui.getFloatingTaskListPanel();
+            todayTaskListPanel = mainGui.getTodayTaskListPanel();
             resultDisplay = mainGui.getResultDisplay();
             commandBox = mainGui.getCommandBox();
             this.stage = stage;
@@ -79,6 +85,8 @@ public abstract class AddressBookGuiTest {
     protected TaskBook getInitialData() {
         TaskBook ab = TestUtil.generateEmptyTaskBook();
         TypicalTestFloatingTasks.loadTaskBookWithSampleData(ab);
+        TypicalTestDeadlineTasks.loadTaskBookWithSampleData(ab);
+        TypicalTestEvents.loadTaskBookWithSampleData(ab);
         return ab;
     }
 

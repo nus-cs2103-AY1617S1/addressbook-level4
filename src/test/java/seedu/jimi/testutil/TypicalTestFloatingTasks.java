@@ -16,7 +16,7 @@ public class TypicalTestFloatingTasks {
         try {
             water =  new TaskBuilder().withName("add water").withTags("noturgent").withPriority("LOW").build();
             ideas = new TaskBuilder().withName("brainstorm ideas").withTags("project").withPriority("LOW").build();
-            car = new TaskBuilder().withName("catch a car").withPriority("LOW").build();
+            car = new TaskBuilder().withName("catch a car to school").withPriority("LOW").build();
             airport = new TaskBuilder().withName("drive to airport").withPriority("MED").build();
             lunch = new TaskBuilder().withName("eat lunch").withPriority("LOW").build();
             flight = new TaskBuilder().withName("fly to spain").withPriority("LOW").build();
