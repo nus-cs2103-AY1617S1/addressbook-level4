@@ -27,4 +27,8 @@ public class MainGuiHandle extends GuiHandle {
         return new TaskListHandle(guiRobot, primaryStage, TestApp.APP_TITLE);
     }
     
+    public TagListHandle getTagList() {
+        return new TagListHandle(guiRobot, primaryStage, TestApp.APP_TITLE);
+    }
+    
 }

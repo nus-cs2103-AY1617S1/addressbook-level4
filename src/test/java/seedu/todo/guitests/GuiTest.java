@@ -24,6 +24,7 @@ import seedu.todo.guitests.guihandles.AliasViewHandle;
 import seedu.todo.guitests.guihandles.ConsoleHandle;
 import seedu.todo.guitests.guihandles.HelpViewHandle;
 import seedu.todo.guitests.guihandles.MainGuiHandle;
+import seedu.todo.guitests.guihandles.TagListHandle;
 import seedu.todo.guitests.guihandles.TaskListDateItemHandle;
 import seedu.todo.guitests.guihandles.TaskListEventItemHandle;
 import seedu.todo.guitests.guihandles.TaskListHandle;
@@ -45,6 +46,7 @@ public abstract class GuiTest {
     protected MainGuiHandle mainGui;
     protected ConsoleHandle console;
     protected TaskListHandle taskList;
+    protected TagListHandle tagList;
     protected AliasViewHandle aliasView;
     protected HelpViewHandle helpView;
     
@@ -66,6 +68,7 @@ public abstract class GuiTest {
             mainGui = new MainGuiHandle(new GuiRobot(), stage);
             console = mainGui.getConsole();
             taskList = mainGui.getTaskList();
+            tagList = mainGui.getTagList();
             aliasView = mainGui.getAliasView();
             helpView = mainGui.getHelpView();
             // TODO: create handles for other components
