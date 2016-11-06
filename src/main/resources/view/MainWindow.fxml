@@ -20,7 +20,7 @@
                <children>
                	<Label id="taskListLabel" styleClass="list-label" text="Tasks">
                      <padding>
-                        <Insets bottom="10.0" left="10.0" />
+                        <Insets bottom="5.0" left="10.0" />
                      </padding></Label>
                   <AnchorPane fx:id="taskListPanelPlaceholder" prefWidth="342.0" styleClass="taskList" VBox.vgrow="ALWAYS">
                      <opaqueInsets>
@@ -44,7 +44,7 @@
                                  <children>
                                     <AnchorPane fx:id="thisWeekPanelPlaceholder" styleClass="taskList" VBox.vgrow="ALWAYS">
                                        <VBox.margin>
-                                          <Insets top="10.3" />
+                                          <Insets top="6.5" />
                                        </VBox.margin></AnchorPane>
                                  </children>
                               </VBox>
@@ -60,7 +60,7 @@
                                  <children>
                                     <AnchorPane fx:id="rsvTaskListPanelPlaceholder" styleClass="taskList" VBox.vgrow="ALWAYS">
                                        <VBox.margin>
-                                          <Insets top="10.3" />
+                                          <Insets top="6.5" />
                                        </VBox.margin></AnchorPane>
                                  </children>
                               </VBox>
@@ -76,7 +76,7 @@
                                  <children>
                                     <AnchorPane fx:id="helpPanelPlaceholder" styleClass="taskList" VBox.vgrow="ALWAYS">
                                        <VBox.margin>
-                                          <Insets top="10.3" />
+                                          <Insets top="6.5" />
                                        </VBox.margin></AnchorPane>
                                  </children>
                               </VBox>
