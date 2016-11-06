@@ -38,7 +38,7 @@ Gone are the repetitive mouse clicks other task managers require of you. With a 
 ## Features
 
 ###1 Add Command
-There are three variations to the add command. You are able to choose a task to be categorized under events, deadlines or to-dos. To differentiate the formatting for these commands, refer to the secStion below.
+There are three variations to the add command. You are able to choose a task to be categorized under events, deadlines or to-dos. To differentiate the formatting for these commands, refer to the section below.
 <br><br>
 ####1.1 Add a to-do
 
@@ -58,7 +58,7 @@ Perhaps after adding a todo, now you want to add a task with a deadline. Let's s
 >Format: **add** &lt;deadline description&gt;; &lt;date(DDMMYY)&gt;; &lt;end time&gt; &lt;#tag&gt;
 
 Example: add complete report; 120916; 1900 #YOLO 
-<br>
+<br><br>
 >Important: The date is compulsory when adding an deadline. If end time is not specified, a default of 11.59pm on the entered date is set.
 
 <br>
@@ -122,7 +122,7 @@ Now, maybe the date of the birthday party you previously entered is also wrong a
 >Format: **edit** &lt;index&gt; **date** &lt;date&gt;
 
 Example: Edit E1 date 21/12/16
-<br>
+<br><br>
 >Note: If you add a date to a to-do, this will automatically convert your to-do into a deadline with a default end time of 2359 on that date.
 
 <br>
@@ -133,7 +133,7 @@ Samantha's birthday party is tomorrow and she has called to inform you that her 
 >Format: **edit** &lt;index&gt; **start** &lt;start time&gt;
 
 Example: edit E1 start 5pm
-<br>
+<br><br>
 >Note: Adding a start time to a to-do will automatically convert your to-do into an event with a default day of today and start time as entered. 
 
 <br>
@@ -144,7 +144,7 @@ Samantha has also informed her friends that the party is scheduled to end at 11p
 >Format: **edit** &lt;index&gt; **end** &lt;end time&gt;
 
 Example: edit E1 end 2300
-<br>
+<br><br>
 >Note: Adding a end time to a to-do will automatically convert your to-do into a deadline with a default date of today and end time as entered. 
 
 <br>
@@ -168,7 +168,7 @@ The find by keyword command enables you to search for any events, deadlines, to-
 
 Example: Find report
 
-Only the tasks with the keyword are displayed. Keywords are NOT case sensitive.
+Only tasks with the keyword are displayed. Keywords are NOT case sensitive.
 
 <br>
 ###4 Marking tasks as done 
@@ -259,8 +259,10 @@ Example:
 Undo
 
 Undo 2
-
+<br><br>
 >Note: If no number is entered, the default number of times the command will undo is 1.
+<br>
+>Note: If you perform a add command to add a task after undoing another command, you will no longer be able to redo your undone command.
 
 <br>
 ###8 Redo the Most Recent Undone Commands
@@ -274,7 +276,7 @@ Example:
 Redo
 
 Redo 2
-
+<br><br>
 >Note: If no number is entered, the default number of times the command will redo is 1.
 
 <br>
@@ -327,8 +329,8 @@ The task manager shifts your file from the current storage folder to the newly s
 5| Edit | edit &lt;index&gt; &lt;new_event_description&gt; 
 6| Find | find &lt;keywords&gt; 
 7| Done | done &lt;index&gt;, &lt;index&gt;
-8| Undo | undo &lt;number of times to undo, up to 5&gt;
-9| Redo | redo &lt;number of times to redo, up to 5&gt;
+8| Undo | undo &lt;number of times to undo&gt;
+9| Redo | redo &lt;number of times to redo&gt;
 10| Delete | delete &lt;index&gt;, &lt;index&gt; 
 11| Exit | exit 
 12| help | help 
