@@ -22,11 +22,11 @@ public class HelpPopup extends UiPart {
 
     private final String COMMAND_COL_HEADER = "Command";
     private final String FORMAT_COL_HEADER = "Format";
-    private final String USAGE_COL_HEADER = "Usage";
+    private final String DESCRIPTION_COL_HEADER = "Description";
     
-    private final int COMMAND_COL_MIN_WIDTH = 100;
-    private final int FORMAT_COL_MIN_WIDTH = 200;
-    private final int USAGE_COL_MIN_WIDTH = 200;
+    private final int COMMAND_COL_MIN_WIDTH = 150;
+    private final int FORMAT_COL_MIN_WIDTH = 300;
+    private final int DESCRIPTION_COL_MIN_WIDTH = 400;
     
     private final int DEFAULT_X_POS = 200;
     private final int DEFAULT_Y_POS = 100;
@@ -39,7 +39,7 @@ public class HelpPopup extends UiPart {
     
     TableColumn<HelpPopupEntry, String> commandCol;
     TableColumn<HelpPopupEntry, String> formatCol;
-    TableColumn<HelpPopupEntry, String> usageCol;
+    TableColumn<HelpPopupEntry, String> descriptionCol;
     
     ObservableList<HelpPopupEntry> entries;
     
@@ -91,7 +91,7 @@ public class HelpPopup extends UiPart {
         initFormatCol();
         initUsageCol();
         
-        table.getColumns().addAll(commandCol, formatCol, usageCol);
+        table.getColumns().addAll(commandCol, formatCol, descriptionCol);
     }
     
     //@@author A0139194X
@@ -110,9 +110,9 @@ public class HelpPopup extends UiPart {
     
     //@@author A0139194X
     private void initUsageCol() {
-        usageCol = new TableColumn<HelpPopupEntry, String>(USAGE_COL_HEADER);
-        usageCol.setMinWidth(USAGE_COL_MIN_WIDTH);
-        usageCol.setCellValueFactory(entry -> new ReadOnlyStringWrapper(entry.getValue().getDescription()));
+        descriptionCol = new TableColumn<HelpPopupEntry, String>(DESCRIPTION_COL_HEADER);
+        descriptionCol.setMinWidth(DESCRIPTION_COL_MIN_WIDTH);
+        descriptionCol.setCellValueFactory(entry -> new ReadOnlyStringWrapper(entry.getValue().getDescription()));
     }
     
     //@@author A0139194X
