@@ -275,7 +275,10 @@ Priority | As a ... | I want to ... | So that I can...
 `*` | user | unpin a pinned task| change my mind if that task is not important anymore
 
 ## Appendix B : Use Cases
- 
+
+The activity diagram below shows the simple flow of getting command from user<br>
+<img src="images/ActivityDiagram.jpg" width="600"><br>
+
 (For all use cases below, the **System** is the `MESS` and the **Actor** is the `user`, unless specified otherwise)
  
 #### Use case: Add task
