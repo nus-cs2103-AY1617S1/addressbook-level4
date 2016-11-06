@@ -82,8 +82,8 @@
 
   >  Example Command: `add task Finish Notes` <br>
 
-  > <div style="text-align:center"><img src="images/appResponses/add_command_response.png" width="300"><br>
-  > App Response for `add task Finish Notes`
+	> <div style="text-align:center"><img src="images/appResponses/add_command_response.png" width="300"><br>
+	> App Response for `add task Finish Notes`
 
 #### Add an event
 
