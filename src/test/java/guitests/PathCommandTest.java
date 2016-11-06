@@ -1,5 +1,7 @@
 package guitests;
 
+import static org.junit.Assert.assertTrue;
+
 import java.io.File;
 
 import org.junit.Test;
@@ -14,9 +16,10 @@ public class PathCommandTest extends TaskManagerGuiTest {
         commandBox.runCommand("path temp.xml");
         assertResultMessage(String.format(PathCommand.MESSAGE_SUCCESS, "temp.xml"));
         
-        // delete temp file after testing is complete
+        // check that the temp file is successfully created
+        // and delete temp file after testing is complete
         File tempFile = new File("temp.xml");
-        tempFile.delete();
+        assertTrue(tempFile.delete());
         
         //no filepath
         commandBox.runCommand("path");
