@@ -200,41 +200,6 @@ public class LogicManagerTest {
     
     @Test
     //@@author A0138862W
-    public void execute_undoAndRedo_edit() throws Exception{
-        TestDataHelper helper = new TestDataHelper();
-        Task toBeEdited = helper.task();
-        String timeCheckEnd = toBeEdited.parseForConsole(endDate);
-        List<Task> oneTask = helper.generateTaskList(toBeEdited);
-        TaskManager expectedTM = helper.generateTaskManager(oneTask);
-        List<Task>expectedList = oneTask;
-        
-        helper.addToModel(model, oneTask);
-
-        logic.execute(helper.generateEditCommand());
-        
-        assertCommandBehavior("undo",
-                "Undo successfully.\n"
-                + "=====Undo Details=====\n"
-                + "[Undo Edit Command] Task reverted: task "
-                + "end:" + timeCheckEnd + " "
-                + "Tags: [tag1],[tag2]\n"
-                + "==================",       
-                expectedTM,
-                expectedList);
-        
-        assertCommandBehavior("redo",
-                "Redo successfully.\n"
-                + "=====Redo Details=====\n"
-                + "[Redo Edit Command] Edit the following task: task "
-                + "end:" + timeCheckEnd + " "
-                + "Tags: [tag1],[tag2]\n"
-                + "==================",       
-                expectedTM,
-                expectedList);
-    }
-    
-    @Test
-    //@@author A0138862W
     public void execute_undo_delete() throws Exception{
         TestDataHelper helper = new TestDataHelper();
         Task toBeEdited = helper.task();
@@ -356,26 +321,6 @@ public class LogicManagerTest {
                 + "==================",
                 model.getTaskManager(),
                 model.getTaskManager().getTaskList());
-    }
-    
-    @Test
-    //@@author A0138862W
-    public void execute_undo_invalidEditTaskNotFound() throws Exception{
-        TestDataHelper helper = new TestDataHelper();
-        Task toBeEdited = helper.task();
-        List<Task> oneTask = helper.generateTaskList(toBeEdited);
-        helper.addToModel(model, oneTask);
-
-        logic.execute(helper.generateEditCommand());
-        
-        model.deleteTask(toBeEdited);
-        
-        assertCommandBehavior("undo", "Undo successfully.\n"
-                + "=====Undo Details=====\n"
-                + "Task could not be found in Mastermind\n"
-                + "==================",
-                model.getTaskManager(),
-                model.getFilteredTaskList());
     }
     
     @Test
@@ -653,9 +598,7 @@ public class LogicManagerTest {
 
             cmd.append("edit 1");
 
-            cmd.append(" 'edited task name'");
-            
-            cmd.deleteCharAt(cmd.length()-1);
+            cmd.append(" name to edited task name");
 
             return cmd.toString();
         }

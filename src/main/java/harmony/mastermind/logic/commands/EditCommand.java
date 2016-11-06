@@ -33,23 +33,23 @@ public class EditCommand extends Command implements Undoable, Redoable {
     
     //@@author A0138862W
     public static final String COMMAND_ARGUMENTS_REGEX = "(?=(?<index>\\d+))"
-                                                        + "(?:(?=.*name to (?:(?<name>.+?)(?:;|$))?))?"
-                                                        + "(?:(?=.*start date to (?:(?<startDate>.+?)(?:;|$))?))?"
-                                                        + "(?:(?=.*end date to (?:(?<endDate>.+?)(?:;|$))?))?"
-                                                        + "(?:(?=.*tags to #(?:(?<tags>.+?)(?:;|$))?))?"
-                                                        + "(?:(?=.*recur (?<recur>daily|weekly|monthly|yearly)(?:;|$)))?"
+                                                        + "(?:(?=.*name to (?:(?<name>.+?)(?:,|$|\\R))?))?"
+                                                        + "(?:(?=.*start date to (?:(?<startDate>.+?)(?:,|$|\\R))?))?"
+                                                        + "(?:(?=.*end date to (?:(?<endDate>.+?)(?:,|$|\\R))?))?"
+                                                        + "(?:(?=.*tags to #(?:(?<tags>.+?)(?:\\s|,\\s|$|,$|\\R))?))?"
+                                                        + "(?:(?=.*recur (?<recur>daily|weekly|monthly|yearly)(?:,|$|\\R)))?"
                                                         + ".+";
 
 
     public static final Pattern COMMAND_ARGUMENTS_PATTERN = Pattern.compile(COMMAND_ARGUMENTS_REGEX);
 
-    public static final String COMMAND_FORMAT = "(edit|update|change) <index> [name to <name>;] [start date to <start_date>;] [end date to <end_date>;] [recur (daily|weekly|monthly|yearly);] [tags to #<comma_separated_tags>;]";
+    public static final String COMMAND_FORMAT = "(edit|update|change) <index> [name to <name>,] [start date to <start_date>,] [end date to <end_date>,] [recur (daily|weekly|monthly|yearly),] [tags to #<comma_separated_tags>,]";
 
     public static final String MESSAGE_USAGE = COMMAND_FORMAT
                                                + "\n"
                                                + "Edits the task identified by the index number used in the last task listing.\n"
                                                + "Example: \n"
-                                               + "edit 2 name to parents with dinner; end date to tomorrow 7pm; recur daily; tags to #meal,family";
+                                               + "edit 2 name to parents with dinner, end date to tomorrow 7pm, recur daily, tags to #meal,family";
 
     public static final String MESSAGE_EDIT_TASK_PROMPT = "Edit the following task: %1$s";
     public static final String MESSAGE_EDIT_TASK_SUCCESS = "Task successfully edited: %1$s";
