@@ -146,7 +146,7 @@ Examples:
   <img src="images/UItodo.png" width="900">
 
 * `add submit proposal 17 Nov 2pm #work`<br>
-  Adds a `deadline` task with `<name>` as `submit proposal`, `<end datetime>` as `02:00pm, 17 Nov 2016`, `<#tag>` as `work`<br>
+  Adds a `deadline` task with `<name>` as `submit proposal`, `<end datetime>` as `02:00pm, 17 Nov 2016`, `<#tag>` as `work`.<br>
   <img src="images/UIdeadline.png" width="900">
 
 * `add walk dog 5 Nov 2016 17:00 to 18:00`<br>
@@ -191,6 +191,10 @@ Example:
   Edits the 2nd task under the deadline tasks section. Changes the `<date>` to `15 Nov 2016`.<br>
   <img src="images/UIedit.png" width="900">
 
+* `view`<br>
+  `edit t1 buy blue tie`<br>
+  Edits the 1st task under the todo tasks section. Changes the `<name>` to `buy blue tie`.<br>
+  <img src="images/UIeditTodo.png" width="900">
 <br>
 
 #### Delete task: `delete`
