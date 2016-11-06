@@ -11,14 +11,14 @@ public class UndoCommand extends Command {
 			+ COMMAND_WORD;
 	
 	public static final String MESSAGE_NOTHING_TO_UNDO = COMMAND_WORD + ": There is nothing to undo.";
-	
+	public static final String PRE_MESSAGE = COMMAND_WORD + ": ";
 
 	@Override
 	public CommandResult execute() {
 		try {
 			Command command = model.getCommandForUndo();
 			CommandResult result=  command.executeUndo();
-			result.preAppendToResult("UNDO: ");
+			result.preAppendToResult(PRE_MESSAGE);
 			return result;
 		} catch (EmptyStackException e) {
 			return new CommandResult(MESSAGE_NOTHING_TO_UNDO);
