@@ -35,29 +35,30 @@ public class XmlTaskManagerStorage implements TaskManagerStorage {
     
     //@@author A0146123R
     @Override
-    public FilePath getTaskManagerPreviousFilePath(){
+    public FilePath getTaskManagerPreviousFilePath() {
         return filePathManager.getPreviousFilePath();
     }
-    
+
     @Override
-    public FilePath getTaskManagerNextFilePath(){
+    public FilePath getTaskManagerNextFilePath() {
         return filePathManager.getNextFilePath();
     }
-    
+
     @Override
-    public void saveTaskManagerFilePath(FilePath filePath){
+    public void saveTaskManagerFilePath(FilePath filePath) {
         filePathManager.saveFilePath(filePath);
     }
-    
+
     @Override
-    public void setTaskManagerFilePath(FilePath newfilePath) throws IOException  {
-        if (newfilePath.isToClear()) {
+    public void setTaskManagerFilePath(FilePath newFilePath) throws IOException {
+        assert newFilePath != null;
+        if (newFilePath.isToClear()) {
             logger.info("Attempting to delete the data file: " + this.filePath);
             deleteTaskManager();
         }
-        logger.info("Saving to new file: " + newfilePath.getPath());
-        this.filePath = newfilePath.getPath();
-        assert this.filePath != null;
+        logger.info("Saving to new file: " + newFilePath.getPath());
+        assert newFilePath.getPath() != null;
+        this.filePath = newFilePath.getPath();
     }
     //@@author
 

@@ -5,14 +5,13 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.commons.util.Stemmer;
 import seedu.address.commons.util.StringUtil;
-import seedu.address.commons.util.TypesUtil;
+import seedu.address.commons.util.Types;
 import seedu.address.model.state.StateManager;
 import seedu.address.model.state.TaskManagerState;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.task.EventDate;
 import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.Task;
-import seedu.address.model.task.UniqueTaskList;
 import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
 import seedu.address.commons.events.model.TaskManagerChangedEvent;
 import seedu.address.commons.events.ui.FilterPanelChangedEvent;
@@ -181,18 +180,18 @@ public class ModelManager extends ComponentManager implements Model {
 
     //@@author A0142325R
     @Override
-    public void updateFilteredTaskList(String type) {
+    public void updateFilteredTaskList(Types type) {
         updateFilteredTaskList(getPredicateForType(type));
     }
 
-    private Expression getPredicateForType(String type) {
+    private Expression getPredicateForType(Types type) {
         switch (type) {
-        case TypesUtil.EVENTS:
+        case EVENTS:
             return new PredicateExpression(new EventQualifier());
-        case TypesUtil.TASKS:
+        case TASKS:
             return new PredicateExpression(new TaskQualifier());
-        case TypesUtil.DONE:
-        case TypesUtil.UNDONE:
+        case DONE:
+        case UNDONE:
             return new PredicateExpression(new DoneQualifier(type));
         default:
             return null;
@@ -201,19 +200,19 @@ public class ModelManager extends ComponentManager implements Model {
 
     //@@author A0146123R
     @Override
-    public void updateFilteredTaskList(String keyword, String type) {
+    public void updateFilteredTaskList(String keyword, Types type) {
         updateFilteredTaskList(getPredicateForKeywordType(type, keyword));
     }
 
-    private Expression getPredicateForKeywordType(String type, String keyword) {
+    private Expression getPredicateForKeywordType(Types type, String keyword) {
     	switch (type) {
-        case TypesUtil.START_DATE:
-        case TypesUtil.DEADLINE:
-        case TypesUtil.END_DATE:
+        case START_DATE:
+        case DEADLINE:
+        case END_DATE:
             return new PredicateExpression(new DateQualifier(keyword, type));
-        case TypesUtil.RECURRING:
+        case RECURRING:
             return new PredicateExpression(new RecurringQualifier(keyword));
-        case TypesUtil.PRIORITY:
+        case PRIORITY_LEVEL:
         	return new PredicateExpression(new PriorityQualifier(Integer.parseInt(keyword)));
         default:
             return null;
@@ -221,11 +220,11 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public void updateFilteredTaskList(Map<String, String> qualifications, Set<String> tags) {
+    public void updateFilteredTaskList(Map<Types, String> qualifications, Set<String> tags) {
         updateFilteredTaskListAndOperation(getPredicateForMultipleQualifications(qualifications, tags));
     }
 
-    private ArrayList<Expression> getPredicateForMultipleQualifications(Map<String, String> qualifications,
+    private ArrayList<Expression> getPredicateForMultipleQualifications(Map<Types, String> qualifications,
             Set<String> tags) {
         ArrayList<Expression> predicate = new ArrayList<>();
         qualifications.forEach((type, keyword) -> predicate.add(getPredicateForKeywordType(type, keyword)));
@@ -236,7 +235,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public void updateFilteredTaskList(Set<String> types, Map<String, String> qualifications, Set<String> tags) {
+    public void updateFilteredTaskList(Set<Types> types, Map<Types, String> qualifications, Set<String> tags) {
         ArrayList<Expression> predicate = getPredicateForMultipleQualifications(qualifications, tags);
         types.forEach(type -> predicate.add(getPredicateForType(type)));
         updateFilteredTaskListAndOperation(predicate);
@@ -405,8 +404,8 @@ public class ModelManager extends ComponentManager implements Model {
     private class DoneQualifier implements Qualifier{
         private boolean isDone;
 
-        DoneQualifier(String isDone){
-            this.isDone = isDone.equals(TypesUtil.DONE);
+        DoneQualifier(Types isDone){
+            this.isDone = isDone.equals(Types.DONE);
         }
 
         @Override
@@ -427,15 +426,15 @@ public class ModelManager extends ComponentManager implements Model {
         private final int DAY = 0;
 
         private String dateValue;
-        private String dateType;
+        private Types dateType;
         private boolean isEvent;
         private boolean isDay;
 
-        DateQualifier(String dateValue, String dateType) {
+        DateQualifier(String dateValue, Types dateType) {
             assert dateValue != null;
             this.dateValue = dateValue.trim();
             this.dateType = dateType;
-            this.isEvent = dateType.equals(TypesUtil.DEADLINE) ? false : true;
+            this.isEvent = dateType.equals(Types.DEADLINE) ? false : true;
             this.isDay = isDay(this.dateValue);
         }
 
@@ -443,15 +442,17 @@ public class ModelManager extends ComponentManager implements Model {
         public boolean run(ReadOnlyTask task) {
             if (task.isEvent() == isEvent) {
                 switch (dateType) {
-                case TypesUtil.START_DATE:
+                case START_DATE:
                     return isDay ? getDay(((EventDate) task.getDate()).getStartDate()).equals(dateValue)
                             : ((EventDate) task.getDate()).getStartDate().equals(dateValue);
-                case TypesUtil.END_DATE:
+                case END_DATE:
                     return isDay ? getDay(((EventDate) task.getDate()).getEndDate()).equals(dateValue)
                             : ((EventDate) task.getDate()).getEndDate().equals(dateValue);
-                case TypesUtil.DEADLINE:
+                case DEADLINE:
                     return isDay ? getDay(task.getDate().getValue()).equals(dateValue)
                             : task.getDate().getValue().equals(dateValue);
+                default:
+                    break;
                 }
             }
             return false;

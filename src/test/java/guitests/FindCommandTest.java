@@ -34,9 +34,10 @@ public class FindCommandTest extends TaskManagerGuiTest {
     // @@author A0146123R
     @Test
     public void find_advancedCommand() {
-        assertFindResult("find friend", td.friend, td.friendEvent, td.lunch); // near match search
-        assertFindResult("find lunch AND friend", td.lunch); // AND operator
-        assertFindResult("find lunch AND friend exact!"); // AND operator and exact! parameter
+        assertFindResult("find project meeting", td.friend, td.friendEvent, td.meeting); // OR operator
+                                                                                         //near match search
+        assertFindResult("find meet AND friend", td.friend, td.friendEvent); // AND operator
+        assertFindResult("find meet AND friend exact!"); // AND operator and exact! parameter
         assertFindResult("find exact! meet", td.friend, td.friendEvent); // exact! parameter
     }
 
