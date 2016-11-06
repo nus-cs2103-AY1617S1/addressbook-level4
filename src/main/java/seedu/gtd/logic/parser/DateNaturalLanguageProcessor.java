@@ -29,6 +29,20 @@ public class DateNaturalLanguageProcessor implements NaturalLanguageProcessor {
 		return formatDateToString(parsedDate);
 	}
 	
+	//@@author A0130677A
+	public Date getDate(String naturalLanguageDate) {
+		List<DateGroup> dateGroups = parser.parse(naturalLanguageDate);
+		Date parsedDate;
+		try {
+			parsedDate = refineDateGroupList(dateGroups);
+			return parsedDate;
+		} catch (NaturalLanguageException e) {
+			return null;
+		}
+	}
+	
+	//@@author A0146130W
+	
 	/** 
 	 * Chooses the first date from a list of dates that Natty has parsed from the natural language string
 	 * @throws NaturalLanguageException 

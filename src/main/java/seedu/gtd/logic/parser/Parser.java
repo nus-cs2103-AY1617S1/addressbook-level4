@@ -1,6 +1,7 @@
 package seedu.gtd.logic.parser;
 
 import static seedu.gtd.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.gtd.commons.core.Messages.START_END_DATE_INVALID_COMMAND_FORMAT;
 import static seedu.gtd.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
 import java.util.*;
@@ -143,11 +144,26 @@ public class Parser {
         String priorityToAdd = checkEmptyAndAddDefault(priorityMatcher, "priority", "1");
         
         // format date if due date or start date is specified
+        
+        Date dueDateInDateFormat = null;
+        Date startDateInDateFormat = null;
+        
         if (dueDateMatcher.matches()) {
+        	dueDateInDateFormat = getDateInDateFormat(dueDateToAdd);
         	dueDateToAdd = parseDueDate(dueDateToAdd);
+        	System.out.println(dueDateInDateFormat);
         }
+        
         if (startDateMatcher.matches()) {
+        	startDateInDateFormat = getDateInDateFormat(startDateToAdd);
         	startDateToAdd = parseDueDate(startDateToAdd);
+        }
+        
+        // check that end date is strictly later than start date
+        
+        if (dueDateInDateFormat != null && startDateInDateFormat != null 
+        		&& dueDateInDateFormat.compareTo(startDateInDateFormat) < 0) {
+        	return new IncorrectCommand(START_END_DATE_INVALID_COMMAND_FORMAT);
         }
         
         Set<String> tagsProcessed = Collections.emptySet();
@@ -174,8 +190,8 @@ public class Parser {
             return new IncorrectCommand(ive.getMessage());
         }
     }
-    
-    private String appendEnd(String args) {
+
+	private String appendEnd(String args) {
     	return args + " z/";
     }
     
@@ -195,6 +211,11 @@ public class Parser {
     }
     
     //@@author A0130677A
+    
+    private Date getDateInDateFormat(String dueDateRaw) {
+    	NaturalLanguageProcessor nlp = new DateNaturalLanguageProcessor();
+    	return nlp.getDate(dueDateRaw);
+    }
     
     // remove time on date parsed to improve search results
     private String removeTimeOnDate(String dueDateRaw) {
@@ -371,6 +392,8 @@ public class Parser {
 
         return new DoneCommand(index.get());
     }
+    
+  //@@author addressbook-level4
 
     /**
      * Parses arguments in the context of the select task command.
