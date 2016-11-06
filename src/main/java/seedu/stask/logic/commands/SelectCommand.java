@@ -20,7 +20,7 @@ public class SelectCommand extends Command {
     public static final String COMMAND_ALIAS = "sel";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Selects the task identified by the index number used in the last task listing.\n"
+            + ": Selects a task identified using it's last displayed index from the task book.\n"
             + "Parameters: INDEX\n"
             + "Example: " + COMMAND_WORD + " A1";
 
@@ -32,7 +32,8 @@ public class SelectCommand extends Command {
 
     @Override
     public CommandResult execute() {
-
+    	assert model != null;
+    	
         UnmodifiableObservableList<ReadOnlyTask> lastDatedTaskList = model.getFilteredDatedTaskList();
         UnmodifiableObservableList<ReadOnlyTask> lastUndatedTaskList = model.getFilteredUndatedTaskList();
 
@@ -48,7 +49,7 @@ public class SelectCommand extends Command {
     }
 
     /**
-     * post an event to scroll to targetIndex
+     * post an event to scroll to targetIndex in the correct list
      */
 	private void indicateScrollToTargetIndex() {
 		TaskType type = CommandUtil.getTaskType(targetIndex);

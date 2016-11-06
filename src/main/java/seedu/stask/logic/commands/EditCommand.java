@@ -19,16 +19,16 @@ import seedu.stask.model.task.UniqueTaskList.TaskNotFoundException;
 
 //@@author A0143884W
 /**
- * Deletes a task identified using it's last displayed index from the task book.
+ * Edits a task identified using it's last displayed index from the task book.
  */
 public class EditCommand extends Command implements Undoable{
 
     public static final String COMMAND_WORD = "edit";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Edits the task identified by the index number given in the most recent listing.\n"
-            + "Parameters: INDEX\n"
-            + "Example: " + COMMAND_WORD + " A1 do that instead date/13-10-16";
+            + ": Edits a task identified using it's last displayed index from the task book.\n"
+            + "Parameters: INDEX FIELDS_TO_EDIT\n"
+            + "Example: " + COMMAND_WORD + " A1 Do that instead d/new description date/13-10-2016";
 
     public static final String MESSAGE_EDIT_TASK_SUCCESS = "Edited Task: %1$s";
 
@@ -41,6 +41,11 @@ public class EditCommand extends Command implements Undoable{
     private Datetime datetime;
     private UniqueTagList tags;
 
+    /**
+     * Convenience constructor using raw values.
+     *
+     * @throws IllegalValueException if any of the raw values are invalid
+     */
     public EditCommand(String targetIndex, String name, String description, String datetime, Set<String> tagsList)
             throws IllegalValueException {
         Set<Tag> tagSet = new HashSet<>();
@@ -70,19 +75,16 @@ public class EditCommand extends Command implements Undoable{
 
         populateEditedTaskFields();
         
-        int duplicateTaskResult = 0;
         try {
-        	model.deleteTask(toEdit);  
-        	duplicateTaskResult = model.addTask(toAdd);                
-
-            populateUndo();
-        }  catch (TaskNotFoundException tnfe) {
-            assert false : "The target task cannot be missing";
-        }
+        	model.deleteTask(toEdit);          	
+        } catch (TaskNotFoundException tnfe) {
+        	assert false : "The target task cannot be missing";
+        }      
         
-        CommandResult temporary = new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, toAdd));
-        return CommandUtil.generateCommandResult(temporary,duplicateTaskResult);
-
+        int checkForDuplicateOrClash = model.addTask(toAdd);                
+        populateUndo();
+        return CommandUtil.generateCommandResult(new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, toAdd)),
+        										checkForDuplicateOrClash);
     }
 
     /**
@@ -135,11 +137,10 @@ public class EditCommand extends Command implements Undoable{
         }
         //tags == null when no t/ is typed
         if (tags != null){
-            //tags is empty when t/ is typed (to clear tags)
+            //tags is empty when 't/'  is typed (to clear tags)
             if (tags.isEmpty()){
                 toAdd.setTags(new UniqueTagList());
             } else {
-                //set tags
                 toAdd.setTags(tags);
             }
         }

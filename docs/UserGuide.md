@@ -109,7 +109,7 @@ Love typing? You will love sTask, as you only need to use the keyboard to type s
 
 >> sTask searches through all the fields and returns all the tasks that contains your KEYWORD.<br><br>
 <!--@@author-->
- <!--@@author A0143884W-->
+<!--@@author A0143884W-->
 
 &nbsp;&nbsp;&nbsp;&nbsp;<b>3.6 Viewing your tasks on a specific date </b><br><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; You have forgotten what task you were supposed to do today. <br>
