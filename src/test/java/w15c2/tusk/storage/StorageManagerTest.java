@@ -19,6 +19,9 @@ import w15c2.tusk.storage.task.XmlTaskManagerStorage;
 import w15c2.tusk.testutil.EventsCollector;
 import w15c2.tusk.testutil.TypicalTestTasks;
 
+/**
+ * Tests StorageManager
+ */
 public class StorageManagerTest {
     private StorageManager storageManager;
 

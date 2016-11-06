@@ -65,7 +65,7 @@ public class UniqueItemCollection<T> implements Iterable<T>{
         }
         
         // Force no reference equality in the internal list
-        return internalList.stream().anyMatch(obj -> obj == toCheck);
+        return internalList.stream().anyMatch(obj -> obj.equals(toCheck));
     }
 
     /**
@@ -75,6 +75,7 @@ public class UniqueItemCollection<T> implements Iterable<T>{
      */
     public void add(T toAdd) throws DuplicateItemException {
         assert toAdd != null;
+        
         if (contains(toAdd)) {
             throw new DuplicateItemException();
         }

@@ -6,7 +6,7 @@ import w15c2.tusk.model.Alias;
 import w15c2.tusk.model.ModelManager;
 
 /**
- *
+ * Creates a model manager with sample tasks loaded for testing purposes
  */
 public class TypicalTestTasks {
 

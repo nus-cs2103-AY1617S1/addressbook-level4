@@ -54,5 +54,43 @@ public class AddAliasCommandTest {
 		// Construction of the AddAliasCommand with valid shortcut but null sentence should lead to an error
 		new AddAliasCommand("am", null);
 	}
+	
+	@Test(expected=IllegalValueException.class)
+	public void addAlias_invalidShortcut_commandWord() throws IllegalValueException {
+		// Construction of the AddAliasCommand with a shortcut that is a command word should lead to an error
+		new AddAliasCommand("add", "add meeting");
+	}
+	
+	@Test
+	public void addAlias_repeated_alias() throws IllegalValueException {
+		/* CommandResult should return a string that denotes the alias is a duplicate
+		 * 
+		 */
+		setupSomeAliasInAliasList();
+
+		AddAliasCommand command = new AddAliasCommand("am", "add meeting boss");
+		command.setData(model);
+		CommandResult result = command.execute();
+		String feedback = result.feedbackToUser;
+		assertTrue(feedback.equals(String.format(AddAliasCommand.MESSAGE_DUPLICATE_ALIAS)));
+	}
+	
+	
+	// Setting up alias in the AliasList for testing
+		public void setupSomeAliasInAliasList() throws IllegalValueException {
+			model = new ModelManager();
+			// Add 3 tasks into the alias list
+			AddAliasCommand command = new AddAliasCommand("am", "add meeting");	
+			command.setData(model);
+			command.execute();
+			
+			command = new AddAliasCommand("ae", "add event");
+			command.setData(model);
+			command.execute();
+			
+			command = new AddAliasCommand("at", "add task");
+			command.setData(model);
+			command.execute();
+		}
 
 }

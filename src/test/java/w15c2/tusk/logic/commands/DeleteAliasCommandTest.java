@@ -49,7 +49,7 @@ public class DeleteAliasCommandTest {
 	}
 	
 	@Test
-	public void deleteTask_validIndex() throws IllegalValueException {
+	public void deleteTask_validAlias() throws IllegalValueException {
 		/* 
 		 * CommandResult should return a string that denotes success in execution if shortcut given 
 		 * to DeleteAliasCommand constructor is in alias list.

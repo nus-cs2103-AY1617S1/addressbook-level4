@@ -431,7 +431,6 @@ public class ModelManager extends ComponentManager implements Model {
 			while(itr2.hasNext()){
 				Task task2 = itr2.next();
 				if(task2.getDescription().toString().equals(task.getDescription().toString())){
-				TODO: //if(task2.equals(task)){
 					contains = true;
 					break;
 				}

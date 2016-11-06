@@ -4,8 +4,9 @@ import w15c2.tusk.commons.exceptions.IllegalValueException;
 import w15c2.tusk.model.task.Description;
 
 /**
- *
+ * Builds a task for testing
  */
+//@@author A0143107U
 public class TaskBuilder {
 
     private TestTask task;

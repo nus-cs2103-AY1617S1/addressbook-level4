@@ -6,6 +6,8 @@ import w15c2.tusk.model.task.Task;
 /**
  * A mutable task object. For testing only.
  */
+//@@author A0143107U
+
 public class TestTask extends Task {
 
 	private Description description;
@@ -98,24 +100,8 @@ public class TestTask extends Task {
 	    }
 	    else{
 	    	return 1;
+	    	
 	    }
-//		//checks if description are equal
-//		if(this.getDescription().equals(other.getDescription())){
-//			return -1;
-//		}
-//		//checks if both have the same pinned or unpinned status
-//		else if (this.isPinned() && !other.isPinned()) {
-//			return -1;
-//		} else if (!this.isPinned() && other.isPinned()) {
-//			return 1;
-//		} 
-//		//checks if both have the same completed or uncompleted status
-//		else if (this.isCompleted() && !other.isCompleted()) {
-//			return -1;
-//		} else if (!this.isCompleted() && other.isCompleted()) {
-//			return 1;
-//		}
-//		return 0;
 	}
 	
 	@Override
