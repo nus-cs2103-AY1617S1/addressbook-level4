@@ -56,8 +56,8 @@ The **_Architecture Diagram_** given above explains the high-level design of the
 Given below is a quick overview of each component.
 
 `Main` has only one class called [`MainApp`](../src/main/java/w15c2/tusk/MainApp.java). It is responsible for,
-* At app launch: Initializes the components in the correct sequence, and connect them up with each other.
-* At shut down: Shuts down the components and invoke cleanup method where necessary.
+* At app launch: Initializing the components in the correct sequence, and connecting them up with each other.
+* At shut down: Shutting down the components and invoking cleanup methods where necessary.
 
 [**`Commons`**](#common-classes) represents a collection of classes used by multiple other components.
 Three of those classes play important roles at the architecture level.
@@ -65,7 +65,7 @@ Three of those classes play important roles at the architecture level.
 * `LogsCenter` : Used by many classes to write log messages to the App's log file.
 * `UniqueItemCollection<T>` : Used to store unique lists of Tasks and Aliases.
 
-The rest of the App consists four components, where each components defines its API in an interface and implements its functionality in one main class.
+The rest of the App consists of four components, where each components defines its API in an interface and implements its functionality in one main class.
 
 Component Name | Purpose | Interface | Implementation |
 -------- | :----------- | :----------- |:-----------
@@ -122,11 +122,12 @@ The `UI` component,
 
 **API** : [`Logic.java`](../src/main/java/w15c2/tusk/logic/Logic.java)
 
-1. `Logic` uses the `TaskCommandsParser` class calls the `ParserSelector` class to select the appropriate parser.
-2. After the appropriate parser is selected, the parser prepares the `Command` object.
-2. This results in a `Command` object which is executed by the `LogicManager`.
-3. The command execution can affect the `Model` (e.g. adding a task) and/or raise events.
-4. The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
+The `Logic` component,
+* Uses the `TaskCommandsParser` class to call the `ParserSelector` class to select the appropriate parser.
+* After the appropriate parser is selected, the parser prepares the `Command` object.
+* This results in a `Command` object which is executed by the `LogicManager`.
+* The command execution can affect the `Model` (e.g. adding a task) and/or raise events.
+* The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")`
  API call.<br>
@@ -168,7 +169,7 @@ Classes used by multiple components are in the `w15c2.tusk.commons` package.
 ### Logging
 
 We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels
-and logging destinations.
+and logging destinations. Take note that:
 
 * The logging level can be controlled using the `logLevel` setting in the configuration file
   (See [Configuration](#configuration))
@@ -179,9 +180,9 @@ and logging destinations.
 **Logging Levels**
 
 * `SEVERE` : Critical problem detected which may possibly cause the termination of the application
-* `WARNING` : Can continue, but with caution
+* `WARNING` : Warnings that indicate events that are somewhat serious but do not represent critical errors
 * `INFO` : Information showing the noteworthy actions by the App
-* `FINE` : Details that is not usually noteworthy but may be useful in debugging
+* `FINE` : Details that are not usually noteworthy but may be useful in debugging
   e.g. print the actual list instead of just its size
 
 ### Configuration
@@ -222,7 +223,7 @@ Tests can be found in the `./src/test/java` folder.
 
 * To run all tests, right-click on the `src/test/java` folder and choose
   `Run as` > `JUnit Test`
-* To run a subset of tests, you can right-click on a test package, test class, or a test and choose
+* To run a subset of tests, right-click on a test package, test class, or a test and choose
   to run as a JUnit test.
 
 **Using Gradle**:
@@ -245,9 +246,9 @@ We have two types of tests:
 
 **Headless GUI Testing**:
 Thanks to the [TestFX](https://github.com/TestFX/TestFX) library we use,
- our GUI tests can be run in the _headless_ mode.
+ our GUI tests can be run in the headless mode.
  In the headless mode, GUI tests do not show up on the screen.
- That means the developer can do other things on the Computer while the tests are running.<br>
+ That means that developers may do other things on their computers while the tests are running.<br>
  See [UsingGradle.md](UsingGradle.md#running-tests) to learn how to run tests in headless mode.
 
 <br>
@@ -277,7 +278,7 @@ A project often depends on third-party libraries. For example, Task Manager depe
 [Jackson library](http://wiki.fasterxml.com/JacksonHome) for XML parsing. Managing these _dependencies_
 can be automated using Gradle. For example, Gradle can download the dependencies automatically, which
 is better than these alternatives.<br>
-a. Include those libraries in the repo (this bloats the repo size)<br>
+a. Include those libraries in the repository (this bloats the repository size)<br>
 b. Require developers to download those libraries manually (this creates extra work for developers)<br>
 
 <br>
