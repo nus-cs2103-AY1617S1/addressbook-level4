@@ -72,13 +72,13 @@ Each of the four components
 
 For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java`
 interface and exposes its functionality using the `LogicManager.java` class.<br>
-<img src="images/Logic.png" width="800"><br>
+<img src="images/Logic.png" width="600"><br>
 
 The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the
 command `delete 1`.
 
 <!-- @@author A0135782Y-->
-<img src="images/SD_Delete_Floating_Task.png" width="800">
+<img src="images/SD_Delete_Floating_Task.png" width="600">
 <!--@@author-->
 
 >Note how the `Model` simply raises a `taskListChangedEvent` when the Task Master data are changed,
@@ -88,7 +88,7 @@ The diagram below shows how the `EventsCenter` reacts to that event, which event
 being saved to the hard disk and the status bar of the UI being updated to reflect the 'Last Updated' time. <br>
 
 <!-- @@author A0135782Y-->
-<img src="images/SD_Update_Task.png" width="800">
+<img src="images/SD_Update_Task.png" width="600">
 <!-- @@author-->
 
 > Note how the event is propagated through the `EventsCenter` to the `Storage` and `UI` without `Model` having
@@ -98,31 +98,31 @@ being saved to the hard disk and the status bar of the UI being updated to refle
 <!-- @@author A0135782Y-->
 The _Sequence Diagram_ below show how recurring tasks are handled when they are first added by the user into Happy Jim Task Master. 
 
-<img src="images/SD_add_recurring_tasks.png" width="800"><br>
+<img src="images/SD_add_recurring_tasks.png" width="600"><br>
 
 > Note task is a Task reference from the Model and thus any changes made in the RecurringTaskManager will mutate the values of the task.
 
 The _Sequence Diagram_ below show how recurring tasks have dates appended to them every startup of Happy Jim Task Master
 
-<img src="images/SD_update_recurring_tasks.png" width="800"><br>
+<img src="images/SD_update_recurring_tasks.png" width="600"><br>
 
 > Note that repeatingTasks is a reference to the UniqueTaskList from the TaskMaster. Any changes made to repeatingTasks in RecurringTaskManager will affect TaskMaster's version of UniqueTaskList.
 
 The _Activity Diagram_ below shows the flow when a Task is being added in TaskMaster.
 
-<img src="images/AD_add_task.png" width="800">
+<img src="images/AD_add_task.png" width="600">
 
 <!--@@author-->
 <!--@@author A0147967J-->
 The _Sequence Diagram_ below shows how Happy Jim Task Master handles undo request from user.
 
-<img src="images/UndoSequenceDiagram.jpg" width="800"><br>
+<img src="images/UndoSequenceDiagram.jpg" width="600"><br>
 
 > Note that the context is a class that stores previous task master in the previous model before the target command executes.
 
 The _Class Diagram_ below shows the structure of how Happy Jim Task Master implements undo and redo operations.
 
-<img src="images/URManager.jpg" width="800"><br>
+<img src="images/URManager.jpg" width="600"><br>
 
 > Note that LogicManager maintains an URManager. UR manager contains two ArrayDeque, one for undo and the other for redo,  
 > to store the command and its context, specifically, the model before the command executes. 
@@ -138,7 +138,7 @@ The sections below give more details of each component.
 ### UI component
 
 <!-- @@author A0135782Y-->
-<img src="images/UI Component.png" width="800"><br>
+<img src="images/UI Component.png" width="600"><br>
 <!-- @@author-->
 
 **API** : [`Ui.java`](../src/main/java/seedu/address/ui/Ui.java)
@@ -159,7 +159,7 @@ The `UI` component,
 
 ### Logic component
 
-<img src="images/Logic.png" width="800"><br>
+<img src="images/Logic.png" width="600"><br>
 
 **API** : [`Logic.java`](../src/main/java/seedu/address/logic/Logic.java)
 
@@ -170,11 +170,11 @@ The `UI` component,
 
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")`
  API call.<br>
-<img src="images/SD_Delete_Floating_Interaction.png" width="800"><br>
+<img src="images/SD_Delete_Floating_Interaction.png" width="600"><br>
 
 ### Model component
 
-<img src="images/Model.png" width="800"><br>
+<img src="images/Model.png" width="600"><br>
 
 **API** : [`Model.java`](../src/main/java/seedu/address/model/Model.java)
 
@@ -187,7 +187,7 @@ The `Model`,
 
 ### Storage component
 
-<img src="images/Storage.png" width="800"><br>
+<img src="images/Storage.png" width="600"><br>
 
 **API** : [`Storage.java`](../src/main/java/seedu/address/storage/Storage.java)
 
@@ -310,17 +310,20 @@ We have two types of tests:
    <!-- @@author A0135782Y-->
    _Unit tests_ targeting the lowest level methods/classes. Below are some snippets, <br>
    
-   _Task.java_<br>
-   <img src="images/test_snippet_Task.PNG" width="800"><br>
+   _TaskTester.java_<br>
+   <img src="images/unit_test_TaskTester_A.png" width="600"><br>
    
-   _RecurringTaskManager.java_<br>
-   <img src="images/test_snippet_RecurringTaskManager.PNG" width="800"><br>
+   _TaskTesterHelper.java_<br>
+   <img src="images/unit_test_TaskTester_B.png" width="600"><br>
    
    _Integration tests_ that are checking the integration of multiple code units 
      (those code units are assumed to be working). Below are some snippets, <br>
 
-   _XmlTaskListStorage.java_<br>
-   <img src="images/test_snipper_XmlTaskListStorage.PNG" width="800"><br>
+   _XmlTaskListStorageTest.java_<br>
+   <img src="images/test_snipper_XmlTaskListStorage.PNG" width="600"><br>
+   
+   _UniqueTaskListTest.java_<br>
+   <img src="images/integration_test_UniqueTaskList.png" width="600"><br>
    <!-- @@author A0147967J-->
       Hybrids of unit and integration tests. These test are checking multiple code units as well as 
       how the are connected together. Below are some snippets,<br>
@@ -333,7 +336,7 @@ We have two types of tests:
       *`find by 20 oct 10.59am` --> smaller boundary, lists nothing;<br>
       *`find by 20 oct 11.01am` --> lax boundary, task found.<br>
       > Note that this is a test not merely for `logic`, but also `parser` and `model`.<br>
-    <!-- @@author A0135782Y-->
+	_
 	_LogicManagerTest.java_
 	<img src="images/test_snippet_LogicManagerTest.PNG" width="800"><br>
     <!-- @@author-->  
