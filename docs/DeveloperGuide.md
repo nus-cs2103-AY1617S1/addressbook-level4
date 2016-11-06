@@ -293,14 +293,14 @@ Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (un
 Priority | As a ... | I want to ... | So that I can...
 -------- | :-------- | :--------- | :-----------
 `* * *` | new user | see usage instructions | refer to instructions when I forget how to use the App
-`* * *` | user | add a new task with a deadline and priority level | determine what I should accomplish first based on the tasks urgency and importance
+`* * *` | user | add a new task | determine what I should accomplish 
 `* * *` | user | know if any events clash | reschedule
 `* * *` | user | see all current tasks on the calendar | determine what I have to do over a longer period of time
 `* * *` | user | delete a task | remove entries that I no longer need
-`* * *` | user | modify a task’s deadline or priority level | account for changes in deadlines and importance
+`* * *` | user | modify a task’s startdate, deadline, priority level or tag | account for changes in startdates, deadlines, priorities and tags
 `* * *` | user | find a task by name | locate details of persons without having to go through the entire list
 `* * *` | user | know the most urgent and important task | do it first
-`* *` | user | be told when a deadline is approaching for a task | remember to complete the task on time
+`* *` | user | be visually informed when a deadline is approaching for a task | remember to complete the task on time
 `* *` | user | be notified of free periods in the day | allocate tasks more efficiently
 `* *` | user | set tasks to autorepeat | not have to reschedule repeating tasks
 `* *` | user | see a weekly view of tasks | know what is ahead of me
