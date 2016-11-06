@@ -200,7 +200,7 @@ marks the specified indexes as done.
 
 ####5.1 Display completed tasks
 
-Remember how we have hidden away your completed report? If you want to see it again, the following display command will display all completed tasks in their respective categories.
+Remember how we have hidden away your completed report? If you wish to see it again, the following display command will display all completed tasks in their respective categories.
 
 > Format: list done
 
@@ -209,7 +209,7 @@ From here, you can choose to delete these tasks. Deleting will be covered in the
 <br>
 ####5.2 Display all tasks
 
-Now that you have seen, all the tasks that you have done, to return to the main default screen, simply type the following command.
+Now that you have seen all the tasks that you have done, to return to the main default screen, simply type the following command.
 
 > Format: list
 
@@ -313,7 +313,7 @@ The task manager shifts your file from the current storage folder to the newly s
 **A**: Install the app in the other computer and overwrite the empty data file it creates with 
        the file that contains the data of your previous Task Book folder.
        
-       >Note: Search for the default taskbook.xml file that is stored in the data folder and overwrite it.
+>Note: Search for the default taskbook.xml file that is stored in the data folder and overwrite it.
 
 <br>
 ###Command Summary
