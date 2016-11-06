@@ -29,16 +29,7 @@ public class UpcomingReminders {
         });
     }
 
-    public UpcomingReminders() {
-    }
-
-    public UpcomingReminders(Collection<ReadOnlyActivity> activities) {
-        for (ReadOnlyActivity activity : activities) {
-            if (activity.getReminder().getCalendarValue() != null && !activity.hasReminderPassed()) {
-                reminderQueue.add(activity);
-            }
-        }
-    }
+    public UpcomingReminders() {}
     
     /**
      * Empties the current event queue and adds the specified activities into the queue. 

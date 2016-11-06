@@ -3,6 +3,8 @@ package guitests;
 import static org.junit.Assert.assertTrue;
 
 import java.awt.List;
+import java.util.Arrays;
+import java.util.HashSet;
 
 import org.junit.Test;
 
@@ -13,6 +15,7 @@ import seedu.address.model.activity.event.Event;
 import seedu.address.model.activity.event.ReadOnlyEvent;
 import seedu.address.model.activity.task.ReadOnlyTask;
 import seedu.address.model.activity.task.Task;
+import seedu.address.model.tag.Tag;
 import seedu.address.testutil.*;
 
 //@@author A0125097A
@@ -82,6 +85,20 @@ public class EditCommandTest extends AddressBookGuiTest {
         TestActivity[] currentList = td.getTypicalActivities();
         int index = 5;
         assertEditRecurEventResult(index, currentList);
+    }
+    
+    @Test
+    public void edit_activity_addTags() {
+        TestActivity[] currentList = td.getTypicalActivities();
+        int index = 1;
+        assertAddTagsResult(index, false, currentList);
+    }
+    
+    @Test
+    public void edit_activity_addTags_withDuplicates() {
+        TestActivity[] currentList = td.getTypicalActivities();
+        int index = 1;
+        assertAddTagsResult(index, true, currentList);
     }
 
     private void assertEditActivityResult(int index, TestActivity... currentList) {
@@ -169,6 +186,38 @@ public class EditCommandTest extends AddressBookGuiTest {
 
         assertTrue(activityListPanel.isListMatching(currentList));
 
+    }
+    
+    private void assertAddTagsResult(int index, boolean isAddingDuplicateTags, TestActivity... currentList) {
+        String editCommand = "edit " + index;
+        String newTag1 = "newtag1";
+        String newTag2 = "newtag2";
+        
+        TestActivity activityBeforeEdit = produceNewActivityObject(currentList[index - 1]);
+        TestActivity activityAfterEdit = currentList[index - 1];
+        
+        try {
+            if (isAddingDuplicateTags) {
+                editCommand += " t/" + newTag1 + " t/" + newTag1;
+                activityAfterEdit.addTags(new Tag(newTag1));
+            } else {
+                editCommand += " t/" + newTag1 + " t/" + newTag2;
+                HashSet<Tag> newTags = new HashSet<>(Arrays.asList(new Tag(newTag1), new Tag(newTag2)));
+                
+                for (Tag newTag : newTags) {
+                    activityAfterEdit.addTags(newTag);
+                }
+            }
+        } catch (Exception e) {
+            assert false : "Not possible";
+        }
+        
+        commandBox.runCommand(editCommand);
+
+        assertResultMessage(String.format("Edited Task from: %1$s\nto: %2$s", activityBeforeEdit.getAsText(),
+                activityAfterEdit.getAsText()));
+        
+        assertTrue(activityListPanel.isListMatching(currentList));
     }
 
     private TestActivity produceNewActivityObject(TestActivity original) {
