@@ -136,8 +136,6 @@ public class ImportCommand extends Command {
                             errLines += Integer.toString(currLine) + ","; 
                         }
                     } catch (IllegalValueException | InvalidEventDateException e) {
-                        System.out.println(e.getMessage());
-                        System.out.println("exception");
                         errCount++;
                         errLines += Integer.toString(currLine) + ","; 
                     }
@@ -196,13 +194,11 @@ public class ImportCommand extends Command {
         if (record.get(HEADER_START_DATE).equals(EMPTY_ARG)) {
             startDate = Optional.empty();
         } else {
-            System.out.println("with start");
             startDate = Optional.ofNullable(record.get(HEADER_START_DATE) + " " + record.get(HEADER_START_TIME));
         }
         if (record.get(HEADER_END_DATE).equals(EMPTY_ARG)) {
             endDate = Optional.empty();
         } else {
-            System.out.println("with end");
             endDate = Optional.ofNullable(record.get(HEADER_END_DATE) + " " + record.get(HEADER_END_TIME));
         }
         if (startDate.isPresent() && !endDate.isPresent()) {
