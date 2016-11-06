@@ -15,12 +15,14 @@ import seedu.address.model.task.Task;
 import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
 import seedu.address.commons.events.model.TaskManagerChangedEvent;
 import seedu.address.commons.events.ui.FilterPanelChangedEvent;
+import seedu.address.commons.events.ui.UpdateFilterPanelEvent;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.exceptions.StateLimitException;
 import seedu.address.commons.core.ComponentManager;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
@@ -168,10 +170,13 @@ public class ModelManager extends ComponentManager implements Model {
         return new UnmodifiableObservableList<>(filteredTasks);
     }
 
+    //@@author A016123R
     @Override
     public void updateFilteredListToShowAll() {
         filteredTasks.setPredicate(null);
+        raise(new UpdateFilterPanelEvent(new HashSet<Types>(), new HashMap<Types, String>(), new HashSet<String>()));
     }
+    //@@author
 
     @Override
     public void updateFilteredTaskList(Set<String> keywords){
@@ -182,6 +187,9 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void updateFilteredTaskList(Types type) {
         updateFilteredTaskList(getPredicateForType(type));
+        Set<Types> types = new HashSet<>();
+        types.add(type);
+        raise(new UpdateFilterPanelEvent(types, new HashMap<Types, String>(), new HashSet<String>()));
     }
 
     private Expression getPredicateForType(Types type) {
@@ -200,38 +208,34 @@ public class ModelManager extends ComponentManager implements Model {
 
     //@@author A0146123R
     @Override
-    public void updateFilteredTaskList(String keyword, Types type) {
-        updateFilteredTaskList(getPredicateForKeywordType(type, keyword));
-    }
-
-    private Expression getPredicateForKeywordType(Types type, String keyword) {
-    	switch (type) {
-        case START_DATE:
-        case DEADLINE:
-        case END_DATE:
-            return new PredicateExpression(new DateQualifier(keyword, type));
-        case RECURRING:
-            return new PredicateExpression(new RecurringQualifier(keyword));
-        case PRIORITY_LEVEL:
-        	return new PredicateExpression(new PriorityQualifier(Integer.parseInt(keyword)));
-        default:
-            return null;
-        }
-    }
-
-    @Override
     public void updateFilteredTaskList(Map<Types, String> qualifications, Set<String> tags) {
         updateFilteredTaskListAndOperation(getPredicateForMultipleQualifications(qualifications, tags));
+        raise(new UpdateFilterPanelEvent(new HashSet<Types>(), qualifications, tags));
     }
 
     private ArrayList<Expression> getPredicateForMultipleQualifications(Map<Types, String> qualifications,
             Set<String> tags) {
         ArrayList<Expression> predicate = new ArrayList<>();
-        qualifications.forEach((type, keyword) -> predicate.add(getPredicateForKeywordType(type, keyword)));
+        qualifications.forEach((attribute, keyword) -> predicate.add(getPredicateForKeywordType(attribute, keyword)));
         if (!tags.isEmpty()) {
             predicate.add(getPredicateForTags(tags));
         }
         return predicate;
+    }
+    
+    private Expression getPredicateForKeywordType(Types attribute, String keyword) {
+        switch (attribute) {
+        case START_DATE:
+        case DEADLINE:
+        case END_DATE:
+            return new PredicateExpression(new DateQualifier(keyword, attribute));
+        case RECURRING:
+            return new PredicateExpression(new RecurringQualifier(keyword));
+        case PRIORITY_LEVEL:
+            return new PredicateExpression(new PriorityQualifier(Integer.parseInt(keyword)));
+        default:
+            return null;
+        }
     }
 
     @Override
@@ -240,7 +244,7 @@ public class ModelManager extends ComponentManager implements Model {
         types.forEach(type -> predicate.add(getPredicateForType(type)));
         updateFilteredTaskListAndOperation(predicate);
     }
-
+    
     @Override
     public void updateFilteredTaskListWithKeywords(Set<Set<String>> keywordsGroups) {
         ArrayList<Expression> predicate = new ArrayList<>();
@@ -284,8 +288,8 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Subscribe
     @Override
-    public void handleFilterPanelChangedEvent(FilterPanelChangedEvent abce) {
-        updateFilteredTaskList(abce.getTypes(), abce.getQualifications(), abce.getTags());
+    public void handleFilterPanelChangedEvent(FilterPanelChangedEvent event) {
+        updateFilteredTaskList(event.getTypes(), event.getQualifications(), event.getTags());
     }
     //@@author
 
@@ -441,19 +445,21 @@ public class ModelManager extends ComponentManager implements Model {
         @Override
         public boolean run(ReadOnlyTask task) {
             if (task.isEvent() == isEvent) {
+                String date;
                 switch (dateType) {
                 case START_DATE:
-                    return isDay ? getDay(((EventDate) task.getDate()).getStartDate()).equals(dateValue)
-                            : ((EventDate) task.getDate()).getStartDate().equals(dateValue);
-                case END_DATE:
-                    return isDay ? getDay(((EventDate) task.getDate()).getEndDate()).equals(dateValue)
-                            : ((EventDate) task.getDate()).getEndDate().equals(dateValue);
-                case DEADLINE:
-                    return isDay ? getDay(task.getDate().getValue()).equals(dateValue)
-                            : task.getDate().getValue().equals(dateValue);
-                default:
+                    date = ((EventDate) task.getDate()).getStartDate();
                     break;
+                case END_DATE:
+                    date = ((EventDate) task.getDate()).getEndDate();
+                    break;
+                case DEADLINE:
+                    date = task.getDate().getValue();
+                    break;
+                default:
+                    return false;
                 }
+                return isDay ? dateValue.equals(getDay(date)) : dateValue.equals(date);
             }
             return false;
         }

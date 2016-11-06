@@ -51,12 +51,6 @@ public interface Model {
     void updateFilteredTaskList(Types type);
 
     /**
-     * Updates the filter of the filtered task list to filter by the given
-     * keywords of the given type
-     */
-    void updateFilteredTaskList(String keyword, Types type);
-
-    /**
      * Updates the filter of the filtered task list to filter by multiple
      * qualifications
      */

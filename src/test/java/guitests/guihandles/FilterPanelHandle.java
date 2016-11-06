@@ -4,6 +4,7 @@ import guitests.GuiRobot;
 import javafx.stage.Stage;
 import seedu.address.TestApp;
 
+//@@author A0146123R
 /**
  * A handle to the Filter Panel in the GUI.
  */
@@ -31,8 +32,36 @@ public class FilterPanelHandle extends GuiHandle{
         return getToggleButtonInput(EVENT_INPUT_FIELD_ID);
     }
     
+    public boolean getTaskInput() {
+        return getToggleButtonInput(TASKS_INPUT_FIELD_ID);
+    }
+    
+    public boolean getDoneInput() {
+        return getToggleButtonInput(DONE_INPUT_FIELD_ID);
+    }
+    
+    public boolean getUndoneInput() {
+        return getToggleButtonInput(UNDONE_INPUT_FIELD_ID);
+    }
+     
     public String getDeadlineInput() {
         return getTextFieldText(DEADLINE_INPUT_FIELD_ID);
+    }
+    
+    public String getStartDateInput() {
+        return getTextFieldText(START_DATE_INPUT_FIELD_ID); 
+    }
+    
+    public String getEndDateInput() {
+        return getTextFieldText(END_DATE_INPUT_FIELD_ID); 
+    }
+    
+    public String getRecurringInput() {
+        return getTextFieldText(RECURRING_INPUT_FIELD_ID); 
+    }
+    
+    public String getTagInput() {
+        return getTextFieldText(TAG_INPUT_FIELD_ID).trim();
     }
     
     public String getPriorityInput() {

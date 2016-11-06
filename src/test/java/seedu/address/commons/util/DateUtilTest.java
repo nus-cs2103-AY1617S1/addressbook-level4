@@ -48,6 +48,7 @@ public class DateUtilTest {
         assertEquals("04.11.2016-10", DateUtil.parseDate("4.11.2016-10"));
         assertEquals("04.11.2016", DateUtil.parseDate("4 Nov"));
         assertEquals("04.11.2016-10", DateUtil.parseDate("4 Nov 10am"));
+        assertEquals("04.11.2016-10", DateUtil.parseDate("2016-11-04 10am"));
     }
 
     @Test

@@ -9,13 +9,15 @@ import static org.junit.Assert.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 //@@author A0146123R
+/**
+ * gui tests for filter command.
+ */
 public class FilterCommandTest extends TaskManagerGuiTest {
 
     @Test
-    public void filterNonEmptyList() {
+    public void filter_nonEmptyList_success() {
         assertFilterResult("filter d/12.10.2016"); // no results
-        assertFilterResult("filter d/11.10.2016", td.friendEvent, td.lunch, td.work, td.movie); // multiple
-                                                                                                // results
+        assertFilterResult("filter d/11.10.2016", td.friendEvent, td.lunch, td.work, td.movie); 
         assertFilterResult("filter s/11.10.2016", td.meeting, td.travel);
         assertFilterResult("filter e/11.10.2016-12", td.meeting);
         assertFilterResult("filter t/friends", td.friend, td.friendEvent, td.lunch);
@@ -29,7 +31,7 @@ public class FilterCommandTest extends TaskManagerGuiTest {
     }
 
     @Test
-    public void filterEmptyList() {
+    public void filter_emptyList_success() {
         commandBox.runCommand("clear");
         assertFilterResult("filter d/11.10.2016"); // no results
     }
@@ -42,6 +44,10 @@ public class FilterCommandTest extends TaskManagerGuiTest {
         assertResultMessage(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FilterCommand.MESSAGE_USAGE));
     }
 
+    /**
+     * Runs the filter command to filter the list and confirms the filtered list
+     * is correct.
+     */
     private void assertFilterResult(String command, TestTask... expectedHits) {
         commandBox.runCommand(command);
         assertListSize(expectedHits.length);
