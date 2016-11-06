@@ -15,7 +15,7 @@ import seedu.dailyplanner.model.task.UniqueTaskList.PersonNotFoundException;
 public class UndoCommand extends Command {
 
 	public static final String COMMAND_WORD = "undo";
-	public static final String MESSAGE_SUCCESS = "Undone";
+	public static final String MESSAGE_SUCCESS = "Undo success!";
 
 	@Override
 	public CommandResult execute() {
