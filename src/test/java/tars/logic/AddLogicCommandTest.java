@@ -129,8 +129,8 @@ public class AddLogicCommandTest extends LogicCommandTest {
         assertCommandBehavior(
                 helper.generateAddCommand(toBeAdded).concat(" /r 2 every week"),
                 expectedMessage, expectedTars, expectedTars.getTaskList());
-
     }
+    // @@author
 
     @Test
     public void execute_add_duplicateNotAllowed() throws Exception {

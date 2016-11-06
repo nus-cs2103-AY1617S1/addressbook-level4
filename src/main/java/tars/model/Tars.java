@@ -197,9 +197,9 @@ public class Tars implements ReadOnlyTars {
     }
 
     /** 
-     * Sorts internal list by priority from low to high
-     * 
      * @@author A0140022H 
+     * 
+     * Sorts internal list by priority from low to high
      */
     public void sortByPriority() {
         this.tasks.getInternalList().sort(new Comparator<Task>() {
@@ -209,11 +209,12 @@ public class Tars implements ReadOnlyTars {
             }
         });
     }
+    // @@author A0140022H
 
     /** 
-     * Sorts internal list by priority from high to low
-     * 
      * @@author A0140022H 
+     * 
+     * Sorts internal list by priority from high to low
      */
     public void sortByPriorityDescending() {
         this.tasks.getInternalList().sort(new Comparator<Task>() {
@@ -223,11 +224,12 @@ public class Tars implements ReadOnlyTars {
             }
         });
     }
+    // @@author
 
     /** 
-     * Sorts internal list by earliest end dateTime first
-     * 
      * @@author A0140022H 
+     * 
+     * Sorts internal list by earliest end dateTime first
      */
     public void sortByDatetime() {
         this.tasks.getInternalList().sort(new Comparator<Task>() {
@@ -237,11 +239,12 @@ public class Tars implements ReadOnlyTars {
             }
         });
     }
+    // @@author
 
     /** 
-     * Sorts internal list by latest end dateTime first
-     * 
      * @@author A0140022H 
+     * 
+     * Sorts internal list by latest end dateTime first
      */
     public void sortByDatetimeDescending() {
         this.tasks.getInternalList().sort(new Comparator<Task>() {
@@ -251,6 +254,7 @@ public class Tars implements ReadOnlyTars {
             }
         });
     }
+    // @@author
 
     //// tag-level operations
 

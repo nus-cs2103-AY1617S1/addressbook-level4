@@ -57,7 +57,7 @@ public interface Model {
     void addRsvTask(RsvTask rsvTask) throws DuplicateTaskException;
     
     /** Checks for tasks with conflicting datetime and returns a string of all conflicting tasks */
-    public String getTaskConflictingDateTimeWarningMessage(DateTime dateTimeToCheck);
+    String getTaskConflictingDateTimeWarningMessage(DateTime dateTimeToCheck);
 
     /** Rename all task with the old tag with new tag name */
     void renameTasksWithNewTag(ReadOnlyTag toBeRenamed, Tag newTag)
@@ -82,10 +82,7 @@ public interface Model {
 
     /** Updates the filter of the filtered task list to show all tasks */
     void updateFilteredListToShowAll();
-
-    /** Updates the filter of the filtered task list to filter by the given keywords*/
-    void updateFilteredTaskList(Set<String> keywords);
-    
+   
     /**
      * Updates the filter of the filtered task list to filter by the given keywords of each given
      * task attribute
@@ -115,13 +112,19 @@ public interface Model {
     public ArrayList<DateTime> getListOfFilledTimeSlotsInDate(DateTime dateToCheck);
 
     /**
-     * Sorts the filtered task list by the given keywords
-     * 
      * @@author A0140022H
+     * 
+     * Sorts the filtered task list by the given keywords
      */
 	void sortFilteredTaskList(Set<String> keywords);
+	// @@author A0140022H
 
-	//@@author A0140022H
+	/**
+	 * @@author A0140022H
+	 * 
+	 * Updates the filtered task list by the given dateTime
+	 */
 	void updateFilteredTaskListUsingDate(DateTime dateTime);
-
+	// @@author
+	
 }

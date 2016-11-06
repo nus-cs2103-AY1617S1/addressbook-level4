@@ -152,6 +152,7 @@ public class LogicCommandTest {
         // Confirm the state of data (saved and in-memory) is as expected
         assertEquals(expectedTars, latestSavedTars);
     }
+    // @@author
 
     protected void assertCommandBehaviorWithRsvTaskList(String inputCommand,
             String expectedMessage, ReadOnlyTars expectedTars,
