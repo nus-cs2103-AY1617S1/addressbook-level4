@@ -336,17 +336,16 @@ Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (un
 Priority | As a ... | I want to ... | So that I can...
 -------- | :-------- | :--------- | :-----------
 `* * *` | new user | see usage instructions | refer to instructions when I forget how to use the App
-`* * *` | user | add a new task/event |
-`* * *` | user | delete an item | remove tasks/events that I no longer need
-`* * *` | user | edit an item | edit tasks/events that need to be updated
-`* * *` | user | list all items | list all the tasks/events that are created
+`* * *` | user | add a new task/event | remind myself on the incomplete tasks and upcoming events
 `* * *` | user | find items by name | search for tasks/events without looking through the entire list
+`* * *` | user | list all items | list all the tasks/events that are created
+`* * *` | user | delete an item | remove tasks/events that I no longer need
+`* * *` | user | update an item | update tasks/events that need to be updated
 `* * *` | user | exit | save and quit the application
 `* * ` | user | mark a task as complete | keep track of what I have already completed
 `* * ` | user | mark a task as incomplete | reset marking of task as complete
 `* * ` | user | add tag to item | organise my tasks/events
 `* * ` | user | untag from item | organise my tasks/events
-`* * ` | user | delete a tag | organise my tasks/events
 `* * ` | user | undo | undo the previous command
 `* * ` | user | redo | redo the previous undo
 `* * ` | user | clear the list | quickly clear all my items
@@ -387,27 +386,68 @@ Use case ends.
 > 1b1. User specify invalid date deadline format.
    Application shows an error message.
    Use case ends.
+   
+<!--@@author A0139922Y -->
+#### Use case : Add Event
 
-#### Use case : Find tasks with specific keyword
+**MSS**
+
+1. User request to add new events with its details.
+2. Application add the events with specified details.  
+3. Application display successful message.
+Use case ends.  
+
+**Extensions**  
+1a. User specify with start date and end date.
+
+> 1a1. User specify invalid date format.
+  Application shows an error message.
+  Use case ends.
+  
+1b. User specify with a single date. 
+
+>   Application shows an error message.
+   Use case ends.
+
+#### Use case : Find with specific keyword
 
 **MSS**
 
 1. User request to find task with specific keyword.
-2. Application show the list of task that its names & tag contain the keyword.
+2. Application show the list of task that its names & tag containing the specific keyword.
 Use case ends.  
 
 **Extensions**  
 2a. The list is empty.
-
 > 2a1. Application show an error message.
    Use case ends.
 
-#### Use case : List all task
+2b. User did not provided any keyword
+> 2b1. Application show an error message.
+   Use case ends.
+
+2c. User specify with start date and end date
+> 2c1. User specify invalid date format for either start or end date.
+  Application shows an error message.
+  Use case ends.
+
+2d. User specify with a single date
+> 2d1. User specify invalid date format.
+  Application shows an error message.
+  Use case ends.
+  
+2e. User did not follow command syntax
+> 2e1. .Application shows an error message.
+  Use case ends.
+  
+  <!-- @@author -->
+
+#### Use case : List all task and events
 
 **MSS**
 
-1. User request to list all the tasks.
-2. Application show the list of task with respective details.  
+1. User request to list all the tasks and events.
+2. Application show the list of task and events with respective details.  
 Use case ends.  
 
 **Extensions**  
@@ -415,58 +455,133 @@ Use case ends.
 
 > 2a1. Application show error message.
    Use case ends.
+ 
+ <!-- @@author A0139922Y -->
    
-#### Use case: Delete task
+#### Use case : List by date
 
 **MSS**
 
-1. User requests a list of tasks or find task with keyword.
-2. Application shows a list of tasks.
-3. User requests to delete a specific task in the list.
-4. Application request confirmation from the user.
-5. User confirm the confirmation.
-4. Application deletes the task. <br>
+1. User request to list all the tasks and events by date.
+2. Application show the list of task and events by the date with respective details.  
+Use case ends.  
+
+**Extensions**  
+2a. The list is empty.
+
+> 2a1. Application show error message.
+   Use case ends.
+
+2b. User did not provide any date.
+> Use case ends.
+
+2c. User provide a single date.
+> 2c1. User specify invalid date format.
+> Application show error message.
+> User case ends.
+
+2d. User provide a start date and date.
+> 2c1. User specify invalid date format for either start or end date.
+> Application show error message.
+> User case ends.
+   
+#### Use case : List by status
+
+**MSS**
+
+1. User request to list all the tasks and events by status.
+2. Application show the list of task or events by status with respective details.  
+Use case ends.  
+
+**Extensions**  
+2a. The list is empty.
+
+> 2a1. Application show error message.
+   Use case ends.
+
+2b. User specify status
+>2b1. User specify invalid task/event status.
+  Use case ends.
+
+#### Use case: Delete task/event
+
+**MSS**
+
+1. Application shows a list of tasks and events.
+2. User requests to delete a specific task or event in the list by its respective index.
+3. Application deletes the task or event.  
+4. Application show a updated list of task and events.
 Use case ends.  
 
 **Extensions**  
 
 2a. The list is empty.
-
 > Use case ends.
 
 3a. The given index is invalid.
-
 > 3a1. Application shows an error message.  
   Use case ends.
 
-#### Use case: edit task
+#### Use case: Update task
 
 **MSS**
 
-1. User requests a list of tasks or find task with keyword.
-2. Application shows a list of tasks.
-3. User requests to edit a specific task in the list.
-4. Application edit the task. <br>
+1. Application shows a list of tasks and events.
+2. User requests to update a specific task in the list by respective index.
+3. Application edit the task.  
+4. Application shows a updated list of tasks and events.
 Use case ends.  
 
 **Extensions**  
 
 2a. The list is empty.
-
 > Use case ends.
 
 3a. The given index is invalid.
-
 > 3a1. Application shows an error message.  
   Use case ends.
+
+3b. The given details are invalid.
+> 3b1. User specify invalid date format.
+> Application shows an error message.
+Use case ends.
+
+> 3b2. User specify more than one date.
+> Application shows an error message.
+Use case ends.
+
+#### Use case: Update Events
+
+**MSS**
+
+1. Application shows a list of tasks and events.
+2. User requests to update a specific event in the list by respective index.
+3. Application edit the event.  
+4. Application shows a updated list of tasks and events.
+Use case ends.  
+
+**Extensions**  
+
+2a. The list is empty.
+> Use case ends.
+
+3a. The given index is invalid.
+> 3a1. Application shows an error message.  
+  Use case ends.
+
+3b. The given details are invalid.
+> 3b1. User specify invalid date format.
+> Application shows an error message.
+Use case ends.
+
+<!--@@author-->
 
 #### Use case : Undo command
 
-**MSS**
+**MSS**  
+
 1. User request to undo command by a specific number.
-2. Application request confirmation from the user.
-3. User confirm the confirmation.
-2. Application undo the command repeatedly based on the given number.
+2. Application undo the command repeatedly based on the given number
 Use case ends.
 
 **Extensions**
@@ -476,11 +591,10 @@ Use case ends.
 
 #### Use case : Redo command
 
-**MSS**
+**MSS**  
+
 1. User request to redo command by a specific number.
-2. Application request confirmation from the user.
-3. User confirm the confirmation.
-4. Application redo the command repeatedly based on the given number.
+2. Application redo the command repeatedly based on the given number.
 Use case ends.
 
 **Extensions**
@@ -488,14 +602,16 @@ Use case ends.
 > Application will show an error message.
 Use case ends.
 
+<!-- @@author A0139922Y -->
+
 #### Use case: Complete task
 
 **MSS**
 
-1. User requests a list of tasks or find task with keyword.
-2. Application shows a list of tasks.
-3. User requests to complete a task.
-4. Application complete the task and remove it from the current task list and add into the completed task list.<br>
+1. Application shows a list of tasks and events.
+2. User requests to complete a specific task in the list by respective index.
+3. Application complete the task. 
+4. Application shows a updated list of tasks and events.
 Use case ends.  
 
 **Extensions**  
@@ -504,21 +620,30 @@ Use case ends.
 
 > Use case ends.
 
-3a. The given index is invalid.
+2a. The given index is invalid.
 
-> 3a1. Application shows an error message.  
-  Use case ends.
+> 2a1. The given index is out of range.
+> Application shows an error message.  
+  Use case ends. 
+  
+>2a2. The given index belongs to an event.
+> Application shows an error message.
+Use case ends.
+
+2b. Index is not specified.
+
+> 3b1. Application shows an error message.
+> Use case ends.
   
 #### Use case: Uncomplete task
 
 **MSS**
 
-1. User requests a list of completed tasks or find compelted task with keyword.
+1. User requests a list of completed tasks or find completed task with keyword.
 2. Application shows a list of completed tasks.
-3.  User requests to uncomplete a task.
-4. Application request confirmation from the user.
-5. User confirm the confirmation.
-6. Application uncomplete the task and remove it from the completed task list and add it back to the current task list. <br>
+3.  User requests to uncomplete a task by respective index.
+4. Application uncomplete the task.
+5. Application show the updated list of tasks and events.
 Use case ends.  
 
 **Extensions**  
@@ -529,19 +654,23 @@ Use case ends.
 
 3a. The given index is invalid.
 
-> 3a1. Application shows an error message.
-  Use case ends.
+> 3a1. The given index is out of range.
+> Application shows an error message.  
+  Use case ends. 
 
-#### Use case: Remove tag from a task
+3b. Index is not specified.
+
+> 3b1. Application shows an error message.
+> Use case ends.
+
+#### Use case: Add tag to a task/event
 
 **MSS**
 
-1. User requests a list of tasks or find task with keyword.
-2. Application shows a list of tasks.
-3. User requests to remove the tag of a specific task in the list.
-4. Application request confirmation from the user.
-5. User confirm the confirmation.
-6. Application deletes the tag that is associated to the task. <br>
+1. Application shows a list of tasks and events.
+2. User requests to tag a specific task/event in the list by respective index.
+3. Application add the tag and associated it with the task/event.
+4. Application shows a updated list of tasks and events.
 Use case ends.  
 
 **Extensions**  
@@ -550,18 +679,70 @@ Use case ends.
 
 > Use case ends
 
-3a. The given index is invalid.
+2a. The given index is invalid.
 
-> 3a1. Application shows an error message  
-  Use case ends.
+> 2a1. The given index is out of range.
+> Application shows an error message.  
+  Use case ends. 
 
-#### Use case: Sorting of tasks
+2b. Index is not specified.
+
+> 2b1. Application shows an error message.
+> Use case ends.
+
+2c. Invalid tag name
+> 2c1. Tag name is not specified
+> Application shows an error message.
+> Use case ends.
+
+>2c2. Tag name specified is already associated to the task/event.
+> Application shows an error message.
+> Use case ends.
+
+2d. Tag list size is full
+>2d1. Application shows an error message.
+> Use case ends.
+
+#### Use case: Untag tag from a task/event
 
 **MSS**
 
-1. User request to sort the list of tasks based on either start date, end date, deadline or alphabetical order.
-2. Application sort the tasks according to the user preference. <br>
-Use case ends.
+1. Application shows a list of tasks and events.
+2. User requests to untag the tag of a specific task/event in the list by respective index.
+3. Application deletes the tag that is associated to the task/event.
+Use case ends.  
+4. Application shows a updated list of tasks and events.
+
+**Extensions**  
+
+2a. The list is empty.
+
+> Use case ends
+
+2a. The given index is invalid.
+
+> 2a1. The given index is out of range.
+> Application shows an error message.  
+  Use case ends. 
+
+2b. Index is not specified.
+
+> 2b1. Application shows an error message.
+> Use case ends.
+
+2c. Invalid tag name
+> 2c1. Tag name is not specified
+> Application shows an error message.
+> Use case ends.
+
+>2c2. Tag name specified does not belong to the task/event.
+> Application shows and error message.
+> Use case ends.
+
+<!--@@author -->
+
+#### Use case : Config
+*To be filled*
 
 #### Use case : Alias
 
@@ -607,7 +788,7 @@ Use case ends.
 ## Appendix C : Non Functional Requirements
 
 1. Should work on any [mainstream OS](#mainstream-os) as long as it has Java `1.8.0_60` or higher installed.
-2. Should be able to hold up to 1000 persons.
+2. Should be able to hold up to 1000 tasks and events.
 3. Should come with automated unit tests and open source code.
 4. Should favor DOS style commands over Unix-style commands.
 5. User-friendly interface
