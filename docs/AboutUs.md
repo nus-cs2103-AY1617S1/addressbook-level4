@@ -91,7 +91,7 @@ Role: Code Quality / Eclipse Expert <br>
 	* Maintaining consistent format of documentation in Developer Guide and User Guide
 	* UI restructuring and changes from AddressBook
 	* Documentation of
-		* Non-Functional Requirements (extension)
-		* Glossary
+		* [Non-Functional Requirements (extension)](https://github.com/CS2103AUG2016-T14-C3/main/blob/develop/docs/DeveloperGuide.md#appendix-c--non-functional-requirements)
+		* [Glossary](https://github.com/CS2103AUG2016-T14-C3/main/blob/develop/docs/DeveloperGuide.md#appendix-d--glossary)
 
 -----
