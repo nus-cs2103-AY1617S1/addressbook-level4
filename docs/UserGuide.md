@@ -93,7 +93,7 @@ Example: add [Sam's birthday party; 20/12/16 ; 9pm] #birthday #rememberToBuyPres
 <br>
 ####1.4 Add a tag / multiple tags to existing tasks
 
-You suddenly heard from your friend that if you submit the report due on Monday late, your teacher would have a very "nice" surprise waiting for these students. Now that the report due on Monday has become a very important task to do, simply type add followed by the index of the report and the tags to be added and <kbd>Enter</kbd>.
+Your friend suddenly informs you that he has heard that your teacher has prepared a 'nice' surprise for students who submit the report due on Monday late. Now that the report due on Monday has become a very important task to do, simply type add followed by the index of the report and the tags to be added and <kbd>Enter</kbd>.
 
 >Format: **add** &lt;index&gt; #tag1 #tag2
 
@@ -291,7 +291,7 @@ This opens a window showing the command summary for your quick reference. If you
 <br>
 ###12 Setting Storage Folder
 
-If for any reason, you wish to change where your data file is being stored. Maybe so that you can synchronise that folder with online cloud storage services, you can change the folder by using the following command.
+If for any reason, you wish to change the location of the stored data file. Maybe so that you can synchronise that folder with online cloud storage services, you can change the folder by using the following command.
 
 >Format: **storage** &lt;valid file path&gt;
 
