@@ -36,23 +36,25 @@ This developer guide focuses primarily on the APIs used, the different component
 
 The main audience of this developer&#39;s guide is directed towards the students who may be interested to further develop this application or even prospective team members. This developer guide may also interest developers who are interested to join the team.
 
-###**Level of Difficulty**
+###**Good skills to have**
 
 The entire application uses a huge range of APIs and requires a deep understanding of:
 
 -  **Java programming language**
 
-Since the entire piece of code is written in Java, prospective developers have to be adept with the Java programming language. In addition, APIs are used extensively throughout the entire code.
+We have used Java and its APIs to write the main code hence it would be beneficial if you have a good grasp of Java. 
+
 
 - **Eclipse IDE**
 
-The main code is very long and hence it requires an integrated development environment to help in the process of editing and testing.
+The main code is very long and using an IDE to help you in the process of writing, editing and testing would be very beneficial to you.
+
 
 - **JavaFX**
 
-Being familiar with JavaFX will enable prospective developers to edit the user interface smoothly.
+Being familiar with JavaFX will enable you to edit the user interface smoothly since we use the JavaFX framework quite intensively throughout the project.
 
-In essence, having all of the skills above will definitely help to enhance the understanding of the code and hence allow future developers to add on to the existing code easily and efficiently.
+In essence, having all of the skills mentioned above will definitely help you to understand the code and hence allow you to add on to the existing code easily and efficiently. As such, we strongly recommend that you familiarise yourself with aforementioned skills. 
 
 ## **Setting up**
 
@@ -107,8 +109,8 @@ The architectural design shows how the various components work in tandem with ea
 
 The rest of the app consists of 4 main components other than `Main`. They are :
 
- 1. Controls the UI of the app. This is the component that the user interacts with and is responsible for how the application looks to the user. 
- 2. Logic` : Parses the input and executes the command. Logic updates the Model and Storage according to the commands given by the user.
+ 1. `UI` : Controls the UI of the app. This is the component that the user interacts with and is responsible for how the application looks to the user. 
+ 2. `Logic` : Parses the input and executes the command. Logic updates the Model and Storage according to the commands given by the user.
  3. `Model` : Holds the data during runtime. Works with UI to display the results of the commands to the user.
  4. `Storage`: Reads and writes data to the hard disk. Ensures that the data is stored properly even after Unburden has been closed.
 
@@ -142,7 +144,10 @@ The `UI` component consists mainly of the following classes:
  10. `TaskCard` 
  11. `TaskListPanel` 
 
-These classes work together to form the interface which the user interacts with when using the app. Each of the class are meant to function solely on one part of the UI. For instance, the ResultDisplay class is responsible for displaying the results of a command from the user.
+These classes work together to form the interface which the user interacts with when using the app. Each of the class are meant to function solely on one part of the UI. For instance, the ResultDisplay class is responsible for displaying the results of a command from the user and the SummaryPanel class is responsible for displaying an up-to-date count of the the tasks that are overdue, undone and even tasks that are due tomorrow.
+
+
+
 
 
 
@@ -150,9 +155,9 @@ The UI also consists of a `MainWindow` class which is made up of these &quot;UI 
 
 All of these classes, including the MainWindow class inherit from the abstract UiPart class.
 
-The UI component,
+The `UI` component
 
-- Executes user commands using the `Logic` component.
+- Takes in user commands and passes it to Logic.
 - Auto-updates when data in the `Model` change.
 - Responds to events raised from various parts of _Unburden_
 - Updates the `UI` accordingly.
@@ -167,21 +172,22 @@ The `Logic` component consists of the Parser class which is responsible to takin
 
 
 
-####**API**
+####**Main API Classes**
 
 The API of the Logic component consists mainly of the following classes:
 
  1. `Logic` 
  2. `LogicManager` 
  3. `Parser` 
- 4. All the command classes eg. `AddCommand`, `EditCommand`, `DeleteCommand`
+ 4. All the command classes eg. `AddCommand`, `EditCommand`, `ListCommand`
 
 These classes work together to categorize the different possible inputs from the user and sieves the important keywords out so that `Model` can continue executing the command entered by the user.
 
-The `Logic` component,
+The `Logic` component
 
-- `Logic` takes in the user&#39;s input and passes it to the `Parser` class
-- `Parser` will decide which Command class is able to handle the request
+- `Logic` takes in the user&#39;s input and passes it to the `Parser` class to check for validity
+-  Returns an error message for invalid inputs back to the user 
+-  Parses the input in `Parser` and decides which Command class is able to handle the input
 - `LogicManager`  takes the command and executes it by calling `Model`
 - `TaskResult` is created and returned to the `UI` to be displayed to the user
 
@@ -191,15 +197,25 @@ The `Logic` component,
 
 The `Model` component is mainly responsible for executing the outputs from the `Logic` component. It is also responsible for storing all the in-app data such as the user&#39;s preferences and data which is needed when executing commands.
 
-####**API**
+####**Main API Classes**
+
+The API of `Model` consists of the following classes:
+
+ 1. `Model`
+ 2. `ModelManager` 
+ 3. `ListOfTask` 
+ 4. `UserPref` 
+ 5. `ReadOnlyListOfTask` 
 
 The API of the `Model` component is in the `Model` class which consists of the main features of the task manager such as &#39;add&#39;, &#39;delete&#39; and updates the task manager accordingly. The `ModelManager` class, which represents the in-memory model of the task manager data, inherit from the `Model` interface.
 
-ModelManager is able to:
+The `Model` component
 
- - Store the user preference <br>
- - Store _Unburden&#39;s_ data <br>
-
+ - Stores the user&#39;s preference <br>
+ - Stores _Unburden&#39;s_ data <br>
+ - Updates according to the command class called by `Logic`
+ - Returns the result of each command back to the `UI` for feedback
+ 
 ###**Storage component**
 
 > <img src="DeveloperGuideImages/Storage_01.png" width="600">
@@ -208,20 +224,33 @@ The `Storage` component primarily focuses on storing data. Any data related to t
 
 ####**API**
 
-The API of the Model component consists mainly of the following classes:
-
- 1. `Model`
- 2. `ModelManager` 
- 3. `ListOfTask` 
- 4. `UserPref` 
- 5. `ReadOnlyListOfTask` 
-
 These classes are responsible for storing the data from the user and also works with the Model component to execute the commands given by the user.
 
-`Storage` is able to:
+The `Storage` component
 
- - Save the data entered in by the user and also read it back to `Model` when requested <br>
- - Save user preferences and read it back when needed <br>
+ - Saves the data entered in by the user and also read it back to `Model` when requested <br>
+ - Saves user preferences and read it back when needed <br>
+
+
+## **Implementation**
+
+We are using java.util.logging package for logging. The LogsCenter class is used to manage the logging leveles and logging destinations.
+
+Some things to note when using the java.util.logging package for logging:
+
+- The logging level can be adjust by toggling the logLevel setting in the configuration file.
+- Use the LogCenter.getLogger() to get the Logger for each class. This will also log messages according to the specified logging level.
+- The console will display the current log messages. Alternatively, you may open the .log file to see the log messages.
+
+####**Logging Levels**
+
+The following are some of the logging levels which you might encounter when doing logging:
+
+- SEVERE : This means that there is a critical problem which may cause the termination of _Unburden_.
+- WARNING : Continue with caution.
+- INFO : Information showing the noteworthy actions by _Unburden_.
+- FINE : Details that are not usually noteworthy but may be useful in debugging. E.g Print the actual list instead of just its size.
+
 
 
 ## **Testing**
@@ -253,7 +282,7 @@ We have two types of tests:
 ##Headless GUI Testing : 
 Thanks to the [TestFX](https://github.com/TestFX/TestFX) library we use, our GUI tests can be run in the _headless_ mode. In the headless mode, GUI tests do not show up on the screen. That means the developer can do other things on the Computer while the tests are running.
 
-See [UsingGradle.md](https://github.com/nus-cs2103-AY1617S1/addressbook-level4/blob/master/docs/UsingGradle.md#running-tests) to learn how to run tests in headless mode.
+Look up the UsingGradle.md file to learn how to run tests in headless mode.
 
 ###**Troubleshooting tests**
 
@@ -282,30 +311,31 @@ Some possible additions to be made:
 
 ###**Build Automation**
 
-See [UsingGradle.md](UsingGradle.md) to learn how to use Gradle for build automation.
+We use Gradle to build automation. Do take a look at [UsingGradle.md](UsingGradle.md) to learn how to use Gradle for build automation.
 
 ###**Continuous Integration**
 
 We use [Travis CI](https://travis-ci.org/) to perform _Continuous Integration_ on our projects.
-See [UsingTravis.md](UsingTravis.md) for more details.
+Do take a look at [UsingTravis.md](UsingTravis.md) for more details.
 
-###**Making a Release**
+###**Creating a new Release**
 
 Here are the steps to create a new release.
  
  1. Generate a JAR file [using Gradle](UsingGradle.md#creating-the-jar-file).
- 2. Tag the repo with the version number. e.g. `v0.1`
+ 2. Tag the repo with the version number. e.g. `v0.6`.
  2. [Create a new release using GitHub](https://help.github.com/articles/creating-releases/) 
-    and upload the JAR file your created.
+    and upload the .JAR file which you generated from Gradle in step 1.
    
 ###**Managing Dependencies**
 
-A project often depends on third-party libraries. For example, Address Book depends on the
-[Jackson library](http://wiki.fasterxml.com/JacksonHome) for XML parsing. Managing these _dependencies_
+A project often depends on third-party libraries. For example, _Unburden_ depends on the
+[Jackson library](http://wiki.fasterxml.com/JacksonHome) for XML parsing. Managing these dependencies
 can be automated using Gradle. For example, Gradle can download the dependencies automatically, which
 is better than these alternatives.<br>
-a. Include those libraries in the repo (this bloats the repo size)<br>
-b. Require developers to download those libraries manually (this creates extra work for developers)<br>
+
+- Import those libraries in the repo but this is not recommended as it significantly increases the repo size<br>
+- Require developers to download those libraries manually but this is not recommended because other developers have to do extra work<br>
 
 
 ## **Appendix A : User Stories**
@@ -536,15 +566,16 @@ Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (un
 
 ## **Appendix C : Non Functional Requirements**
 
- 1. _Unburden_ should run smoothly 
- 2. _Unburden_ should be able to run all on all operating systems 
- 3. _Unburden_ should be able to store up to 1000 tasks per user 
- 4. _Unburden_ should not take up a lot of space 
- 5. _Unburden_ should be start up quickly 
- 6. _Unburden_ should be able to process requests from the user in under 1ms 
- 7. _Unburden_ should not crash 
- 8. _Unburden_ should not do anything else other than what the user inputs 
- 9. _Unburden_ should be able to recover from errors easily 
+ 1. _Unburden_ should run smoothly.
+ 2. _Unburden_ should be able to run all on all operating systems.
+ 3. _Unburden_ should be able to store up to 1000 tasks per user. 
+ 4. _Unburden_ should not take up a lot of space.
+ 5. _Unburden_ should be start up quickly.
+ 6. _Unburden_ should be able to process requests from the user in under 1ms.
+ 7. _Unburden_ should not crash.
+ 8. _Unburden_ should not do anything else other than what the user inputs.
+ 9. _Unburden_ should be able to recover from errors easily.
+ 10. _Unburden_ should be able to store the data safely when the application closes.
 
 
 ## **Appendix D : Glossary**
@@ -553,6 +584,8 @@ Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (un
  2. API - Application Programming Interface 
  3. App - Application 
  4. IDE - Integrated Development environment 
+ 5. Repo - Repository
+ 6. CI - Continuous Integration
 
 
 
