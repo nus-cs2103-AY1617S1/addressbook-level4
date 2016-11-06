@@ -4,15 +4,18 @@ package seedu.whatnow.storage;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import seedu.whatnow.commons.exceptions.IllegalValueException;
+import seedu.whatnow.commons.util.CollectionUtil;
 import seedu.whatnow.model.ReadOnlyWhatNow;
 import seedu.whatnow.model.tag.Tag;
 import seedu.whatnow.model.tag.UniqueTagList;
+import seedu.whatnow.model.tag.UniqueTagList.DuplicateTagException;
 import seedu.whatnow.model.task.ReadOnlyTask;
 import seedu.whatnow.model.task.UniqueTaskList;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
@@ -40,14 +43,13 @@ public class XmlSerializableWhatNow implements ReadOnlyWhatNow {
         tags = src.getTagList();
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public UniqueTagList getUniqueTagList() {
         try {
             return new UniqueTagList(tags);
-        } catch (UniqueTagList.DuplicateTagException e) {
-            // TODO: better error handling
-            e.printStackTrace();
-            return null;
+        } catch (DuplicateTagException e) {
+            return new UniqueTagList((Set<Tag>)CollectionUtil.getUniqueElements(tags));
         }
     }
 

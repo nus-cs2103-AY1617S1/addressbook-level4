@@ -50,7 +50,7 @@ public class Parser {
             .compile("^(([1][0-2])|([0-9]))((:|\\.)([0-5][0-9]))??((am)|(pm))$");
     private static final Pattern TAG_FORMAT = Pattern.compile("^(t/)");
 
-    private static final Pattern TODAY_OR_TOMORROW = Pattern.compile("^(today|tomorrow)$");
+    private static final Pattern TODAY_OR_TOMORROW = Pattern.compile("^(today|tomorrow|tdy|tmr)$");
     private static final Pattern DAYS_IN_FULL = Pattern
             .compile("^(monday|tuesday|wednesday|thursday|friday|saturday|sunday)$");
     private static final Pattern DAYS_IN_SHORT = Pattern.compile("^(mon|tue|tues|wed|thu|thur|fri|sat|sun)$");

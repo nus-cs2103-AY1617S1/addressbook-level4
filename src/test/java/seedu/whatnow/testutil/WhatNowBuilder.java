@@ -8,7 +8,7 @@ import seedu.whatnow.model.task.UniqueTaskList;
 
 /**
  * A utility class to help with building Whatnow objects. Example usage: <br>
- * {@code WhatNow ab = new WhatNowBuilder().withTask("John", "Doe").withTag("Friend").build();}
+ * {@code WhatNow wn = new WhatNowBuilder().withTask("John", "Doe").withTag("Friend").build();}
  */
 public class WhatNowBuilder {
 

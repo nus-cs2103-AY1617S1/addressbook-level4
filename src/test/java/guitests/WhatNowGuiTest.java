@@ -82,9 +82,9 @@ public abstract class WhatNowGuiTest {
      * to use the data in the file specified in {@link #getDataFileLocation()}
      */
     protected WhatNow getInitialData() {
-        WhatNow ab = TestUtil.generateEmptyWhatNow();
-        TypicalTestTasks.loadWhatNowWithSampleData(ab);
-        return ab;
+        WhatNow wn = TestUtil.generateEmptyWhatNow();
+        TypicalTestTasks.loadWhatNowWithSampleData(wn);
+        return wn;
     }
 
     /**
@@ -112,8 +112,8 @@ public abstract class WhatNowGuiTest {
      * Asserts the size of the task list is equal to the given number.
      */
     protected void assertListSize(int size) {
-        int numberOfPeople = taskListPanel.getNumberOfPeople();
-        assertEquals(size, numberOfPeople);
+        int numberOfTasks = taskListPanel.getNumberOfTasks();
+        assertEquals(size, numberOfTasks);
     }
 
     /**
