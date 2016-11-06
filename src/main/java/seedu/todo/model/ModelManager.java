@@ -242,7 +242,7 @@ public class ModelManager extends ComponentManager implements Model {
     
     @Subscribe
     private void handleSummaryPanelSelectionEvent(SummaryPanelSelectionEvent spse) {
-        this.updateFilteredTaskListOnDate(LocalDateTime.now(), false, SearchCompletedOption.ALL);
+        filteredTasks.setPredicate((new PredicateExpression(new TodayDateQualifier(LocalDateTime.now())))::satisfies);
     }
     
     @Subscribe
