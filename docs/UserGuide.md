@@ -37,7 +37,7 @@
 
 [comment]: # (@@author A0140060A)
 
-> **Colour Legend**
+**Colour Legend**
 > * Item List (Left Pane)
 > 	* `green` : Completed Item
 > 	* `orange` : Approaching Deadline
@@ -50,7 +50,7 @@
 
 [comment]: # (@@author A0135792X)
 
-> **Command Format**
+**Command Format**
 > * Words in `UPPER_CASE` are the parameters.
 > * Items in `SQUARE_BRACKETS` are optional.
 > * Items with `...` after them can have multiple instances.
@@ -265,7 +265,6 @@ For events, you can edit all optional parameters.
 ### When you want to delete a deadline, task or event
 * The index(es) specified refers to the index number(s) shown in the most recent listing.
 * The index(es) must be positive integers 1, 2, 3...
-* This action is irreversible.
 
 #### Delete one deadline, task or event
 

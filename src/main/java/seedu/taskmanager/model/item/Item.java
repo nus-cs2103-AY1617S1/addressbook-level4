@@ -280,7 +280,7 @@ public class Item implements ReadOnlyItem {
         try {
             endDateTime = df.parse(endDateString);
         } catch (ParseException e) {
-            e.printStackTrace();
+            assert false : "Date and Time Formats are incorrect.";
         }
         return endDateTime;
     }

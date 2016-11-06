@@ -300,10 +300,10 @@ Priority | As a ... | I want to ...           | So that I can...
 `* *`    | seasoned user     | have multiple keywords/shortcuts for a command | be able to enter command quickly
 `* * *`  | user     | mark a task/deadline/event as done| know that a task/deadline/event is completed
 `* *`    | user     | mark a done task/deadline/event as not done| know that a task/deadline/event is not completed yet
-`* * *`  | user     | delete a task/deadline/event     | remove an item that is no longer necessary
+`* * *`  | user     | delete a task/deadline/event     | remove an item that is no longer on my to-do list
 `* * *`  | user     | search tasks by name    | find the task that I need to do
 `* * *`  | user     | undo the last command   | undo an unintentional operation
-`* * *`  | user     | specify the data storage location | back up my data
+`* * *`  | user     | specify the data storage location | back up my data in my desired location
 `* *`    | user     | view all undone tasks/deadlines/events | view items I need to work on
 `* *`    | user     | set a deadline for task | know when to finish the task by
 `*`      | user     | sort uncompleted deadlines by deadline | know which deadline I should finish first
@@ -315,11 +315,11 @@ Priority | As a ... | I want to ...           | So that I can...
 
 (For all use cases below, the **System** is the `taskmanager` and the **Actor** is the `user`, unless specified otherwise)
 
-#### Use case: Add a task/deadline/event
+#### Use case: Add an item
 **Main Success Scenario (MSS)**
 
-1. User requests to add task/deadline/event (TDE).
-2. TaskManager adds TDE and displays result. <br>
+1. User requests to add an item.
+2. TaskManager adds item and displays result. <br>
 Use case ends.
 
 **Extensions**
@@ -332,22 +332,22 @@ Use case ends.
 #### Use case: Find an item
 **MSS**
 
-1. User requests to find an item by searching for a keyword
-2. TaskManager lists the items containing the keyword. <br>
+1. User requests to find an item by searching for a keyword.
+2. TaskManager lists all items containing the keyword. <br>
 Use case ends.
 
-#### Use case: Edit a task/deadline/event
+#### Use case: Edit an item
 **MSS**
 
-1. User requests to list task/deadline/event (TDE).
-2. TaskManager shows a list of TDEs.
-3. User requests to edit specific details of a specific TDE in the list.
-4. TaskManager edits the TDE. <br>
+1. User requests to list item.
+2. TaskManager shows a list of items.
+3. User requests to edit specific details of a specific item in the list.
+4. TaskManager edits the item. <br>
 Use case ends.
 
 **Extensions**
 
->2a. The TDE list is empty. <br>
+>2a. The item list is empty. <br>
 >Use case ends.
 
 
@@ -363,21 +363,21 @@ Use case ends.
 #### Use case: List all uncompleted tasks / deadlines / events
 **MSS**
 
-1. User requests to list all uncompleted tasks / deadlines / events
-2. TaskManager shows a list of uncompleted tasks / deadlines / events
+1. User requests to list all uncompleted items.
+2. TaskManager shows a list of uncompleted item.
 
 #### Use case: View details of a task/deadline/event
 **MSS**
 
-1. User requests to list task/deadline/event (TDE).
-2. TaskManager shows a list of TDEs.
-3. User requests to view details of a specific TDE in the list.
-4. TaskManager displays details of the TDE. <br>
+1. User requests to list items.
+2. TaskManager shows a list of items.
+3. User requests to view details of a specific item in the list.
+4. TaskManager displays details of the item. <br>
 Use case ends.
 
 **Extensions**
 
->2a. The TDE list is empty. <br>
+>2a. The item list is empty. <br>
 >Use case ends.
 
 
@@ -390,30 +390,29 @@ Use case ends.
 [comment]: # (@@author A0135792X)
 
 #### Use case: List all tasks
-1.User requests to list all tasks
-2.TaskManager shows a list of tasks
+1. User requests to list all tasks.
+2. TaskManager shows a list of tasks.
 
 #### Use case: List all deadlines
-1.User requests to list all deadlines
-2.TaskManager shows a list of deadlines
+1. User requests to list all deadlines.
+2. TaskManager shows a list of deadlines.
 
 #### Use case: List all events
-1.User requests to list all events
-2.TaskManager shows a list of events
+1. User requests to list all events.
+2. TaskManager shows a list of events.
 
-#### Use case: Delete an task/deadline/event
-
+#### Use case: Delete an item
 **MSS**
 
-1. User requests to list task/deadline/event (TDE).
-2. TaskManager shows a list of TDEs.
-3. User requests to delete a specific TDE in the list.
-4. TaskManager deletes the TDE. <br>
+1. User requests to list items.
+2. TaskManager shows a list of items.
+3. User requests to delete a specific item in the list.
+4. TaskManager deletes the item. <br>
 Use case ends.
 
 **Extensions**
 
->2a. The TDE list is empty. <br>
+>2a. The item list is empty. <br>
 >Use case ends.
 
 
@@ -422,18 +421,17 @@ Use case ends.
 > Use case resumes at step 2.
 
 
->3b. User requests to delete two TDEs.
->3b1. TaskManager deletes the TDEs. <br>
+>3b. User requests to delete multiple items.
+>3b1. TaskManager deletes the specified items. <br>
 >Use case ends.
 
 [comment]: # (@@author A0143641M)
 
 #### Use case: Save data to a specific location
-
 **MSS**
 
-1. User requests to save data in a specified location.
-2. TaskManager saves data to file in the specified location. <br>
+1. User requests to save data in a specified location with a specified name.
+2. TaskManager saves data to specified file in the specified location. <br>
 Use case ends.
 
 **Extensions**
@@ -471,6 +469,10 @@ More non functional requirements and project constraints can be found [here](htt
 
 > What you need to attend to that has a start time and an end time (e.g lecture)
 
+##### Item:
+
+> A task, deadline, or event in TaskManager
+
 ##### Date:
 
 > Date is given in format `YYYY-MM-DD`
@@ -481,7 +483,7 @@ More non functional requirements and project constraints can be found [here](htt
 
 ##### Keyword:
 
-> Keyword in name of deadline, task, or event
+> A word that is in the name of a deadline, task, or event
 
 ##### Mainstream OS
 
