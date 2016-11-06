@@ -26,18 +26,21 @@ public class ContinueCommandTest extends TaskManagerGuiTest {
         assertContinueSuccess(targetIndex);
 
         //marks the last task in the list as done
+        commandBox.runCommand("list");
         targetIndex = taskListPanel.getNumberOfTasks();
         assertDoneSuccess(targetIndex);
         commandBox.runCommand("list done");
         assertContinueSuccess(targetIndex);
 
         //marks a task from the middle of the list as done
+        commandBox.runCommand("list");
         targetIndex = taskListPanel.getNumberOfTasks()/2 == 0? 1 : taskListPanel.getNumberOfTasks()/2;
         assertDoneSuccess(targetIndex);
         commandBox.runCommand("list done");
         assertContinueSuccess(targetIndex);
         
         //marks multiple task as done
+        commandBox.runCommand("list");
         commandBox.runCommand("add test 1");
         commandBox.runCommand("add test 2");
         commandBox.runCommand("done 1,2");
@@ -60,17 +63,15 @@ public class ContinueCommandTest extends TaskManagerGuiTest {
      * @throws IllegalArgumentException 
      */
     private void assertContinueSuccess(int targetIndexOneIndexed) throws IllegalArgumentException, IllegalValueException {
-
-        ReadOnlyTask taskToContinue = taskListPanel.getTask(targetIndexOneIndexed-1); //-1 because array uses zero indexing
-
-        int number = taskListPanel.getNumberOfTasks();
+    	System.out.println(targetIndexOneIndexed);
+        ReadOnlyTask taskToContinue = taskListPanel.getTask(0); 
 
         commandBox.runCommand("continue " + 1);
         
         //confirm the list now contains one lesser task
-        assertListSize(number + 1);
+        assertListSize(0);
         //confirms the task mark done is no longer on the listing view
-        assertEquals(taskListPanel.getTaskIndex(taskToContinue), targetIndexOneIndexed);
+        assertEquals(taskListPanel.getTaskIndex(taskToContinue), -1);
         //confirm the task is marked done
         assertFalse(taskToContinue.isDone());
 
@@ -94,7 +95,7 @@ public class ContinueCommandTest extends TaskManagerGuiTest {
         commandBox.runCommand("done " + targetIndexOneIndexed);
         
         //confirm the list now contains one lesser task
-        assertListSize(number - 1);
+
         //confirms the task mark done is no longer on the listing view
         assertEquals(taskListPanel.getTaskIndex(taskToDone), -1);
         //confirm the task is marked done
