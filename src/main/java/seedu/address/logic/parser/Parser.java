@@ -340,8 +340,8 @@ public class Parser {
         try {
             List<Date> datesToAdd = DateParser.getInstance().getFromToDatesFromString(startInput);
             return new AddNonFloatingCommand(matcher.group("name"), getTagsFromArgs(matcher.group("tagArguments")),
-                    new TaskDate(datesToAdd.get(0)),
-                    new TaskDate(datesToAdd.get(1)), 
+                    new TaskDate(datesToAdd.get(START_TIME_INDEX)),
+                    new TaskDate(datesToAdd.get(END_TIME_INDEX)), 
                     recurringType, repeatCount);
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
@@ -755,8 +755,8 @@ public class Parser {
         try {
             List<Date> datesToAdd = DateParser.getInstance().getFromToDatesFromString(m.group("startTime"));
             resultSet.clear();
-            resultSet.add(datesToAdd.get(0));
-            resultSet.add(datesToAdd.get(1));
+            resultSet.add(datesToAdd.get(START_TIME_INDEX));
+            resultSet.add(datesToAdd.get(END_TIME_INDEX));
         } catch (Exception ise) {
             resultSet.clear();
             try {
