@@ -49,7 +49,7 @@ public class EditCommand extends UndoableCommand {
     private Task beforeEdit;
     
     Name taskName;
-	Date startDate;
+    Date startDate;
     Date endDate;
     RecurrenceRate recurrenceRate;
     Priority priority;
@@ -80,7 +80,7 @@ public class EditCommand extends UndoableCommand {
                 startDate == null && endDate == null) {
             startDate = DateTime.assignStartDateToSpecifiedWeekday(recurrenceRate.getTimePeriod().toString());
         }
-	}
+    }
 
     private void initializeForEdit() {
         taskName = null;
@@ -267,12 +267,7 @@ public class EditCommand extends UndoableCommand {
         return new CommandResult(String.format(MESSAGE_SUCCESS, toEdit));      
 	}
 	
-    // @@author A0093960X
-    private boolean attemptToEditDoneList() {
-        return model.isCurrentListDoneList() && !isRedoAction;
-    }
-
-	/**
+     /**
      * assign previous end date to endDate if user never input one
      * assign endDate as null if user choose to reset end date
      */
@@ -300,6 +295,11 @@ public class EditCommand extends UndoableCommand {
         }
     }
 
+    // @@author A0093960X
+    private boolean attemptToEditDoneList() {
+        return model.isCurrentListDoneList() && !isRedoAction;
+    }
+    
     //@@author A0093960X
     @Override
     public CommandResult undo() {
