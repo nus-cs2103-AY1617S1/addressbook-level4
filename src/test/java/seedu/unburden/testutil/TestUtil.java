@@ -352,4 +352,9 @@ public class TestUtil {
         return collect.toArray(new Tag[split.length]);
     }
 
+	public static TestTask[] doneTaskFromList(TestTask[] currentList, int index) {
+		currentList[index].setDone(true);
+		return currentList;
+	}
+
 }
