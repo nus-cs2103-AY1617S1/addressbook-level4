@@ -34,9 +34,9 @@ public class TodoDispatcherTest {
     public void firstLetterOfCommand() throws Exception {
         for (Map.Entry<String, Class<? extends BaseCommand>> entry : CommandMap.getCommandMap().entrySet()) {
             String firstLetter = entry.getKey().substring(0, 1);
-            boolean isBelongToMultipleCommands = firstLetter.equals("e")
-                    || firstLetter.equals("s")
-                    || firstLetter.equals("c");
+            boolean isBelongToMultipleCommands = "e".equals(firstLetter)
+                    || "s".equals(firstLetter)
+                    || "c".equals(firstLetter);
             if (!isBelongToMultipleCommands) {
                 assertThat(d.dispatch(firstLetter), instanceOf(entry.getValue()));
             }

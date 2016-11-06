@@ -46,7 +46,7 @@ public class CommandMap {
         // Use immutable map so commands are presented to user in the same order every time
         ImmutableMap.Builder<String, Class<? extends BaseCommand>> commandMapBuilder = ImmutableMap.builder();
 
-        for (Class<? extends BaseCommand> command : CommandMap.commandClasses) {
+        for (Class<? extends BaseCommand> command : commandClasses) {
             String commandName = getCommand(command).getCommandName().toLowerCase();
             commandMapBuilder.put(commandName, command);
         }

@@ -24,8 +24,7 @@ public class TodoDispatcher implements Dispatcher {
         List<String> commands = CommandMap.filterCommandKeys(input);
 
         // Return immediately when there's one match left. This allow the user to
-        // type as little as possible, and is also good for autocomplete if that's
-        // on the radar
+        // type as little as possible
         if (commands.size() == 1) {
             String key = commands.iterator().next();
             return CommandMap.getCommand(key);
