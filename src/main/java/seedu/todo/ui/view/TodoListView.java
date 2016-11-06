@@ -90,9 +90,7 @@ public class TodoListView extends UiPart {
             taskCardView.toggleCardCollapsing();
         }
         else if (taskCardView != null && toCollapse != null) {
-            //unbox boolean
-            boolean isCollapsing = toCollapse;
-            taskCardView.setCardCollapsing(isCollapsing);
+            taskCardView.setCardCollapsing(toCollapse);
         }
     }
 
@@ -102,10 +100,7 @@ public class TodoListView extends UiPart {
     public void scrollAndSelect(int listIndex) {
         Platform.runLater(() -> {
             todoListView.scrollTo(listIndex);
-            System.out.println("Scrolled to selected Index");
             todoListView.getSelectionModel().clearAndSelect(listIndex);
-            System.out.println("We have selected the current Index provided");
-            
         });
     }
 
