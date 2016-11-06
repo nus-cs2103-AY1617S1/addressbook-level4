@@ -10,7 +10,6 @@ import harmony.mastermind.model.task.ReadOnlyTask;
 import javafx.beans.DefaultProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleObjectProperty;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.Node;

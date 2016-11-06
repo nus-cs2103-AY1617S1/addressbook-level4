@@ -1,21 +1,16 @@
 package harmony.mastermind.logic;
 
-import javafx.collections.ObservableList;
-
-import java.util.ArrayList;
 import java.util.logging.Logger;
 
 import harmony.mastermind.commons.core.ComponentManager;
 import harmony.mastermind.commons.core.LogsCenter;
-import harmony.mastermind.logic.commands.AddCommand;
 import harmony.mastermind.logic.commands.Command;
 import harmony.mastermind.logic.commands.CommandResult;
-import harmony.mastermind.logic.commands.ImportCommand;
 import harmony.mastermind.logic.parser.Parser;
 import harmony.mastermind.model.Model;
 import harmony.mastermind.model.task.ReadOnlyTask;
-import harmony.mastermind.model.task.TaskListComparator;
 import harmony.mastermind.storage.Storage;
+import javafx.collections.ObservableList;
 
 /**
  * The main LogicManager of the app.
@@ -27,9 +22,6 @@ public class LogicManager extends ComponentManager implements Logic {
     private final Storage storage;
     private final Parser parser;
 
-    private static final int MESSAGE_END_INDEX = 15;
-    private static final int MESSAGE_START_INDEX = 0;
-
     public LogicManager(Model model, Storage storage) {
         this.model = model;
         this.storage = storage;
@@ -39,11 +31,11 @@ public class LogicManager extends ComponentManager implements Logic {
     @Override
     //@@author A0124797R
     public CommandResult execute(String commandText) {
-        //logger.info("----------------[" + currentTab + "Tab][USER COMMAND][" + commandText + "]");
+        logger.info("----------------[USER COMMAND][" + commandText + "]");
         Command command = parser.parseCommand(commandText);
         command.setData(model, storage);
-        CommandResult cmdResult = parseResult(command);
-        return cmdResult;
+        CommandResult commandResult = command.execute();
+        return commandResult;
     }
 
     @Override
@@ -71,9 +63,14 @@ public class LogicManager extends ComponentManager implements Logic {
         return model.getFilteredArchiveList();
     }
     
+
+    //@@author A0124797R-unused
+    // find it not useful to include as a feature as user can type the commands
+    // directly into the commandline
     /**
      * parse the result of commands and handle ImportCommand separately
      */
+    /*
     private CommandResult parseResult(Command cmd) {
         CommandResult result = cmd.execute();
         if (result.feedbackToUser.equals(ImportCommand.MESSAGE_READ_SUCCESS)) {
@@ -82,11 +79,13 @@ public class LogicManager extends ComponentManager implements Logic {
 
         return result;
     }
+    */
     
-    //@@author A0124797R
+
     /**
      * handle the inputs from the reading of file from ImportCommand
      */
+    /*
     public CommandResult handleImport(ImportCommand command) {
         ArrayList<String> lstOfCmd = command.getTaskToAdd();
         String errLines = "";
@@ -116,10 +115,11 @@ public class LogicManager extends ComponentManager implements Logic {
         
     }
     
-    
+    */
     /**
      * Checks if adding of tasks from ImportCommand is valid
      */
+    /*
     private boolean isAddFailure(CommandResult cmdResult) {
         if (cmdResult.toString().substring(MESSAGE_START_INDEX, MESSAGE_END_INDEX).equals(AddCommand.MESSAGE_SUCCESS.substring(MESSAGE_START_INDEX, MESSAGE_END_INDEX))) {
             return false;
@@ -127,4 +127,5 @@ public class LogicManager extends ComponentManager implements Logic {
         
         return true;
     }
+    */
 }

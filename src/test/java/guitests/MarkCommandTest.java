@@ -1,8 +1,8 @@
 package guitests;
 
 import static harmony.mastermind.commons.core.Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX;
-import static harmony.mastermind.logic.commands.MarkCommand.MESSAGE_MARK_SUCCESS;
 import static harmony.mastermind.logic.commands.MarkCommand.MESSAGE_MARK_FAILURE;
+import static harmony.mastermind.logic.commands.MarkCommand.MESSAGE_MARK_SUCCESS;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;

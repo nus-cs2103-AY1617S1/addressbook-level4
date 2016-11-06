@@ -2,10 +2,8 @@ package harmony.mastermind.logic.commands;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
 import java.util.Set;
 
-import harmony.mastermind.logic.parser.ParserSearch;
 import harmony.mastermind.memory.GenericMemory;
 import harmony.mastermind.memory.Memory;
 

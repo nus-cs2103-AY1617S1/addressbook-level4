@@ -8,13 +8,10 @@ import harmony.mastermind.MainApp;
 import harmony.mastermind.commons.core.ComponentManager;
 import harmony.mastermind.commons.core.Config;
 import harmony.mastermind.commons.core.LogsCenter;
-import harmony.mastermind.commons.events.model.TaskManagerChangedEvent;
 import harmony.mastermind.commons.events.storage.DataSavingExceptionEvent;
 import harmony.mastermind.commons.events.ui.ExecuteCommandEvent;
-import harmony.mastermind.commons.events.ui.HighlightLastActionedRowRequestEvent;
 import harmony.mastermind.commons.events.ui.JumpToListRequestEvent;
 import harmony.mastermind.commons.events.ui.ShowHelpRequestEvent;
-import harmony.mastermind.commons.events.ui.ToggleActionHistoryEvent;
 import harmony.mastermind.commons.util.StringUtil;
 import harmony.mastermind.logic.Logic;
 import harmony.mastermind.model.UserPrefs;
@@ -96,5 +93,4 @@ public class UiManager extends ComponentManager implements Ui {
     private void handleExecuteCommandEvent(ExecuteCommandEvent event){
         mainWindow.getActionHistoryPane().pushToActionHistory(event.title, event.description);
     }
-    //@@author
 }
