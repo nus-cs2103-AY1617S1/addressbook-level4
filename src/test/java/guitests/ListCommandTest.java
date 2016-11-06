@@ -1,7 +1,6 @@
 package guitests;
 
 import static org.junit.Assert.assertTrue;
-import static seedu.taskcommons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -45,31 +44,40 @@ public class ListCommandTest extends TaskBookGuiTest {
 	}
 	
 	@Test
-	public void listTest_valid() {
+	public void list_upcomingItems_showOnlyIncompleted() {
 		
 		// list events
 		commandBox.runCommand("list /e");
 		assertListEventSuccess(OPTION_NOT_SHOW_ALL, incompletedEventList);
 
-		// list all events
-		commandBox.runCommand("list /e /a");
-		assertListEventSuccess(OPTION_SHOW_ALL, allEventList);
-
 		// list tasks
 		commandBox.runCommand("list /t");
 		assertListTaskSuccess(OPTION_NOT_SHOW_ALL, incompletedTaskList);
+
+		
+		// list both upcoming tasks and events
+		commandBox.runCommand("list /e /t");
+		assertBothListSuccess(OPTION_NOT_SHOW_ALL, incompletedTaskList, incompletedEventList);
+	}
+	
+	@Test 
+	public void list_allItems_showAll() {
+		// list all events
+		commandBox.runCommand("list /e /a");
+		assertListEventSuccess(OPTION_SHOW_ALL, allEventList);
 
 		// list all tasks
 		commandBox.runCommand("list /t /a");
 		assertListTaskSuccess(OPTION_SHOW_ALL, allTaskList);
 		
-		// list both upcoming tasks and events
-		commandBox.runCommand("list /e /t");
-		assertBothListSuccess(OPTION_NOT_SHOW_ALL, incompletedTaskList, incompletedEventList);
-		
+		// both lists
 		commandBox.runCommand("list /t /e /a");
 		assertBothListSuccess(OPTION_SHOW_ALL, allTaskList, allEventList);
-		
+
+	}
+	
+	@Test 
+	public void list_flexibleFlags_valid() {
 		//flexible sequence of flags
 		commandBox.runCommand("list /e /t /a");
 		assertBothListSuccess(OPTION_SHOW_ALL, allTaskList, allEventList);

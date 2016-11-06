@@ -65,7 +65,6 @@ public class FindCommandTest extends TaskBookGuiTest {
         assertFindResultTask("find cs1010", 0, 0); //no results
     }
 
-
     @Test
     public void find_invalidCommand_fail() {
         commandBox.runCommand("findcs1010");
@@ -88,7 +87,6 @@ public class FindCommandTest extends TaskBookGuiTest {
     }
     
     private void assertFindResultEvent(String command, int tasksSize, int eventsSize, TestEvent...expectedEvents) {
-
     	commandBox.runCommand(command);
         
         assertResultMessage(String.format(Messages.MESSAGE_TASKS_LISTED_OVERVIEW, tasksSize) + "\n" 

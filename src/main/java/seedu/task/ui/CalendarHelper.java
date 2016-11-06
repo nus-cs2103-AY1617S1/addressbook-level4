@@ -60,14 +60,20 @@ public class CalendarHelper extends AppointmentImplBase implements Appointment {
 		return instance;
 	}
 
+	/**
+	 * Compare the equality of a task with an item in the calendar.
+	 * @param targetTask
+	 * @param taskInCalendar
+	 * @return
+	 */
 	public static boolean compareWithTask(ReadOnlyTask targetTask, Appointment taskInCalendar) {
 		assert targetTask.getDeadline().isPresent();
-		return taskInCalendar.getSummary().equals(targetTask.getTask().fullName)
+		return taskInCalendar.getSummary().equals(targetTask.getTask().getNameValue())
 				&& taskInCalendar.getStartLocalDateTime().equals(targetTask.getDeadline().get().getTime());
 	}
 
 	public static boolean compareWithEvent(ReadOnlyEvent targetEvent, Appointment eventInCalendar) {
-		return eventInCalendar.getSummary().equals(targetEvent.getEvent().fullName)
+		return eventInCalendar.getSummary().equals(targetEvent.getEvent().getNameValue())
 				&& eventInCalendar.getStartLocalDateTime().equals(targetEvent.getDuration().getStartTime())
 				&& eventInCalendar.getEndLocalDateTime().equals(targetEvent.getDuration().getEndTime());
 	}
@@ -80,5 +86,6 @@ public class CalendarHelper extends AppointmentImplBase implements Appointment {
 
 	public boolean isEvent(Appointment appointment) {
 		return !isTask(appointment);
+		
 	}
 }
