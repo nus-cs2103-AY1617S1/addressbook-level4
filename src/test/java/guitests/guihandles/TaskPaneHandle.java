@@ -126,6 +126,7 @@ public class TaskPaneHandle extends GuiHandle {
         }
         return found;
     }
+    // @@author
 
     /**
      * Returns true if the list is showing the task details correctly and in correct order.
@@ -186,6 +187,7 @@ public class TaskPaneHandle extends GuiHandle {
         }
         return -1;
     }
+    // @@author
 
     public TaskCardHandle navigateToTask(String name) {
         guiRobot.sleep(500); //Allow a bit of time for the list to be updated

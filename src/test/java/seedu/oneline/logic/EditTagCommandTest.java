@@ -1,5 +1,3 @@
-// @@author A0140156R
-
 package seedu.oneline.logic;
 
 import org.junit.Test;
@@ -14,6 +12,7 @@ import seedu.oneline.model.task.Task;
 import seedu.oneline.model.task.TaskName;
 import seedu.oneline.model.task.TaskTime;
 
+//@@author A0140156R
 public class EditTagCommandTest extends LogicTestManager {
     
     Tag tag;

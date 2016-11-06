@@ -1,3 +1,7 @@
+// @@author A0140156R
+// Refactored individual command tests from LogicManagerTest into individual classes
+// @@author
+
 package seedu.oneline.logic;
 
 import static seedu.oneline.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
@@ -56,7 +60,7 @@ public class DeleteCommandTest extends LogicTestManager {
         helper.addToModel(model, 2);
 
         assertCommandBehavior("del #fruit",
-                String.format(Tag.MESSAGE_INVALID_TAG, "fruit"),
+                String.format(Tag.MESSAGE_INVALID_TAG, "#fruit"),
                 expectedTB,
                 expectedList); 
     }
@@ -86,7 +90,7 @@ public class DeleteCommandTest extends LogicTestManager {
         expectedAB.addTask(p6);
         
         assertCommandBehavior("del #fruit",
-                String.format(DeleteCommand.MESSAGE_DELETE_CAT_SUCCESS, "fruit"),
+                String.format(DeleteCommand.MESSAGE_DELETE_CAT_SUCCESS, "#fruit"),
                 expectedAB,
                 expectedList);
     }

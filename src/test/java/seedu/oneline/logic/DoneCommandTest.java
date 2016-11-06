@@ -1,3 +1,5 @@
+// @@author A0140156R
+// Refactored individual command tests from LogicManagerTest into individual classes
 // @@author A0121657H
 
 package seedu.oneline.logic;

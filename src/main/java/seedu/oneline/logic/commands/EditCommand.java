@@ -1,5 +1,3 @@
-//@@author A0140156R
-
 package seedu.oneline.logic.commands;
 
 import java.util.Map;
@@ -14,6 +12,7 @@ import seedu.oneline.model.tag.Tag;
 import seedu.oneline.model.tag.UniqueTagList;
 import seedu.oneline.model.task.*;
 
+//@@author A0140156R
 /**
  * Edits a task to the task book.
  */

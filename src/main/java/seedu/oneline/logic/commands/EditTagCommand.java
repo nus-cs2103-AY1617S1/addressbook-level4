@@ -1,5 +1,3 @@
-//@@author A0140156R
-
 package seedu.oneline.logic.commands;
 
 import java.util.ArrayList;
@@ -18,8 +16,9 @@ import seedu.oneline.model.tag.TagField;
 import seedu.oneline.model.task.*;
 import seedu.oneline.model.task.UniqueTaskList.TaskNotFoundException;
 
+//@@author A0140156R
 /**
- * Edits a task to the task book.
+ * Edits a tag in the task book.
  */
 public class EditTagCommand extends EditCommand {
 

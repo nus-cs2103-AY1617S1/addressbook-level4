@@ -1,3 +1,7 @@
+// @@author A0140156R
+// Refactored individual command tests from LogicManagerTest into individual classes
+// @@author
+
 package seedu.oneline.logic;
 
 import static org.junit.Assert.assertEquals;

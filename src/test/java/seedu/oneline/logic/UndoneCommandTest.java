@@ -48,7 +48,9 @@ public class UndoneCommandTest extends LogicTestManager {
 
         List<Task> originalTasks = helper.generateTaskList(p3, p1, p4, p2);
         Collections.sort(originalTasks); 
-        TaskBook expectedAB = helper.generateTaskBook(originalTasks);
+        List<Task> expectedTasks = helper.generateTaskList(p3, p1, p4.markUndone(), p2);
+        Collections.sort(expectedTasks); 
+        TaskBook expectedAB = helper.generateTaskBook(expectedTasks);
         List<Task> expectedList = helper.generateTaskList(p2, p1, p3);
         helper.addToModel(model, originalTasks);
         model.updateFilteredListToShowAllDone();

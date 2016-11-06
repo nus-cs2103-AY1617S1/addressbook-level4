@@ -1,11 +1,10 @@
-//@@author A0140156R
-
 package seedu.oneline.logic.commands;
 
 import seedu.oneline.commons.core.EventsCenter;
 import seedu.oneline.commons.events.ui.ExitAppRequestEvent;
 import seedu.oneline.commons.exceptions.StateNonExistentException;
 
+//@@author A0140156R
 public class UndoCommand extends Command {
 
     public static final String COMMAND_WORD = "undo";

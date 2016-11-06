@@ -64,17 +64,16 @@ public class UndoneCommand extends Command {
 
         if(!taskToUndone.isCompleted()) {
             return new CommandResult(String.format(MESSAGE_TASK_ALR_NOT_DONE, taskToUndone));
-        } else {
-            try {
-                model.replaceUndoneTask(taskToUndone, undoneTask);
-            } catch (TaskNotFoundException pnfe) {
-                assert false : "The target task cannot be missing";
-            } catch (UniqueTaskList.DuplicateTaskException e) {
-                assert false : "The task should not have the same completed status as before";
-            }
-
-            return new CommandResult(String.format(MESSAGE_DONE_TASK_SUCCESS, taskToUndone));
         }
+        try {
+            model.replaceUndoneTask(taskToUndone, undoneTask);
+        } catch (TaskNotFoundException pnfe) {
+            assert false : "The target task cannot be missing";
+        } catch (UniqueTaskList.DuplicateTaskException e) {
+            assert false : "The task should not have the same completed status as before";
+        }
+
+        return new CommandResult(String.format(MESSAGE_DONE_TASK_SUCCESS, taskToUndone));
     }
 
     @Override

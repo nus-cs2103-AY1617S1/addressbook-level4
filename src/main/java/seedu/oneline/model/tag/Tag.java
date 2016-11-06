@@ -1,4 +1,3 @@
-//@@author A0140156R
 package seedu.oneline.model.tag;
 
 
@@ -8,6 +7,7 @@ import java.util.Map;
 import seedu.oneline.commons.exceptions.IllegalCmdArgsException;
 import seedu.oneline.commons.exceptions.IllegalValueException;
 
+//@@author A0140156R
 /**
  * Represents a Tag in the Task book.
  * Guarantees: immutable; name is valid as declared in {@link #isValidTagName(String)}

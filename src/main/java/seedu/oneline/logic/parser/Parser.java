@@ -83,15 +83,14 @@ public class Parser {
         if (!matcher.matches()) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
         }
-
-        final String commandWord = matcher.group("commandWord").toLowerCase();
+        final String commandWord = getGroup(matcher, "commandWord").toLowerCase();
         Class<? extends Command> cmdClass;
         try {
             cmdClass = getCommandClass(commandWord);
         } catch (IncorrectCommandException e) {
             return new IncorrectCommand(e.getMessage());
         }
-        final String arguments = matcher.group("arguments");
+        final String arguments = getGroup(matcher, "arguments");
         Method method = getCommandCreator(cmdClass);
         Command cmd;
         try {
@@ -104,6 +103,18 @@ public class Parser {
             return new IncorrectCommand(e.getCause().getMessage());
         }
         return cmd;
+    }
+
+    /**
+     * Returns the group extracted from the string as specified
+     * by the regex
+     * 
+     * @param matcher
+     * @param group
+     * @return
+     */
+    private String getGroup(final Matcher matcher, String group) {
+        return matcher.group(group);
     }
     
     /**
@@ -287,7 +298,7 @@ public class Parser {
     private static Map<TaskField, String> extractFieldName(String[] argFields) throws IllegalCmdArgsException {
         Map<TaskField, String> result = new HashMap<TaskField, String>();
         if (argFields[0].equals("")) { 
-            throw new IllegalCmdArgsException("Task Name is a compulsory field.");
+            throw new IllegalCmdArgsException("No fields specified.");
         }
         result.put(TaskField.NAME, String.join(" ", argFields));
         return result;

@@ -67,17 +67,16 @@ public class DoneCommand extends Command {
         
         if(taskToDone.isCompleted()) {
             return new CommandResult(String.format(MESSAGE_TASK_ALR_DONE, taskToDone));
-        } else {
-            try {
-                model.replaceTask(taskToDone, doneTask);
-            } catch (TaskNotFoundException pnfe) {
-                assert false : "The target task cannot be missing";
-            } catch (UniqueTaskList.DuplicateTaskException e) {
-                assert false : "The task should not have the same completed status as before";
-            }
-
-            return new CommandResult(String.format(MESSAGE_DONE_TASK_SUCCESS, taskToDone));
         }
+        try {
+            model.replaceTask(taskToDone, doneTask);
+        } catch (TaskNotFoundException pnfe) {
+            assert false : "The target task cannot be missing";
+        } catch (UniqueTaskList.DuplicateTaskException e) {
+            assert false : "The task should not have the same completed status as before";
+        }
+
+        return new CommandResult(String.format(MESSAGE_DONE_TASK_SUCCESS, taskToDone));
     }
     
     @Override
