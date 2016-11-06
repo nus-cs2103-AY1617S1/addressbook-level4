@@ -5,8 +5,10 @@ import static seedu.emeraldo.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMA
 import java.util.Arrays;
 import java.util.List;
 
+import seedu.emeraldo.commons.core.EventsCenter;
 import seedu.emeraldo.commons.core.Messages;
 import seedu.emeraldo.commons.core.UnmodifiableObservableList;
+import seedu.emeraldo.commons.events.ui.JumpToListRequestEvent;
 import seedu.emeraldo.commons.exceptions.IllegalValueException;
 import seedu.emeraldo.commons.exceptions.TagExistException;
 import seedu.emeraldo.commons.exceptions.TagListEmptyException;
@@ -73,6 +75,7 @@ public class TagCommand extends Command {
             try {
                 tagMatchesReservedWords();
                 model.addTag(taskTagToEdit, tag);
+                EventsCenter.getInstance().post(new JumpToListRequestEvent(targetIndex - 1));
             } catch (TagExistException tee) {
                 return new CommandResult(MESSAGE_TAG_DUPLICATE);
             } catch (TagMatchReservedException tmre) {
@@ -82,6 +85,7 @@ public class TagCommand extends Command {
         else if (action.equalsIgnoreCase("delete")){
             try {
                 model.deleteTag(taskTagToEdit, tag);
+                EventsCenter.getInstance().post(new JumpToListRequestEvent(targetIndex - 1));
             } catch (TagNotFoundException tnfe) {
                 return new CommandResult(MESSAGE_TAG_NOT_FOUND);
             }
@@ -89,6 +93,7 @@ public class TagCommand extends Command {
         else if (action.equalsIgnoreCase("clear")){
             try{
                 model.clearTag(taskTagToEdit);
+                EventsCenter.getInstance().post(new JumpToListRequestEvent(targetIndex - 1));
             } catch (TagListEmptyException tlee) {
                 return new CommandResult(MESSAGE_TAG_LIST_EMPTY);
             }
