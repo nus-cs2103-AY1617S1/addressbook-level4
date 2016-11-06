@@ -122,6 +122,10 @@ public class Parser {
         case LoadCommand.COMMAND_WORD :
             return new LoadCommand(arguments);
 
+        case SyncCommand.COMMAND_WORD: {
+            return prepareSync(arguments);
+        }
+
         default:
             //@@author A0003878Y
             Optional<String> alternativeCommand = EditDistanceCalculator.closestCommandMatch(commandWord);
@@ -413,7 +417,8 @@ public class Parser {
         }
 
         return taskIds;
-    }    
+    }
+
     //@@author
 
     /**
@@ -435,4 +440,20 @@ public class Parser {
         return new FindCommand(keywordSet);
     }
 
+    //@@author A0003878Y
+    /**
+     * Parses arugments in the context of the sync command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     */
+    private Command prepareSync(String args) {
+        try {
+            return new SyncCommand(args);
+        } catch (IllegalValueException ive) {
+            return new IncorrectCommand(ive.getMessage());
+        }
+    }
+
+    //@@author
 }

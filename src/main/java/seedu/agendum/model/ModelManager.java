@@ -22,6 +22,9 @@ import java.util.Stack;
 import java.util.logging.Logger;
 
 import com.google.common.eventbus.Subscribe;
+import seedu.agendum.sync.Sync;
+import seedu.agendum.sync.SyncManager;
+import seedu.agendum.sync.SyncProviderGoogle;
 
 /**
  * Represents the in-memory model of the to do list data.
@@ -34,6 +37,8 @@ public class ModelManager extends ComponentManager implements Model {
     private final Stack<ToDoList> previousLists;
     private final FilteredList<Task> filteredTasks;
     private final SortedList<Task> sortedTasks;
+
+    private final SyncManager syncManager;
 
     //@@author A0133367E
     /**
@@ -59,6 +64,8 @@ public class ModelManager extends ComponentManager implements Model {
         sortedTasks = filteredTasks.sorted();
         previousLists = new Stack<ToDoList>();
         backupCurrentToDoList();
+
+        syncManager = new SyncManager(new SyncProviderGoogle());
     }
 
     public ModelManager() {
@@ -71,6 +78,8 @@ public class ModelManager extends ComponentManager implements Model {
         sortedTasks = filteredTasks.sorted();
         previousLists = new Stack<ToDoList>();
         backupCurrentToDoList();
+
+        syncManager = new SyncManager(new SyncProviderGoogle());
     }
 
     //@@author A0133367E
@@ -111,6 +120,9 @@ public class ModelManager extends ComponentManager implements Model {
     public synchronized void deleteTasks(List<ReadOnlyTask> targets) throws TaskNotFoundException {
         for (ReadOnlyTask target: targets) {
             toDoList.removeTask(target);
+
+            // Delete tasks in sync manager
+            syncManager.deleteEvent((Task) target);
         }
 
         logger.fine("[MODEL] --- successfully deleted all specified targets from the to-do list");
@@ -126,6 +138,8 @@ public class ModelManager extends ComponentManager implements Model {
         backupCurrentToDoList();
         updateFilteredListToShowAll();
         indicateToDoListChanged();
+
+        syncManager.addNewEvent(task);
     }
     
     @Override
@@ -137,6 +151,10 @@ public class ModelManager extends ComponentManager implements Model {
         backupCurrentToDoList();
         updateFilteredListToShowAll();
         indicateToDoListChanged();
+
+        // Delete old task and add new task
+        syncManager.deleteEvent((Task) target);
+        syncManager.addNewEvent(updatedTask);
     }
 
     @Override
@@ -226,8 +244,28 @@ public class ModelManager extends ComponentManager implements Model {
         indicateChangeSaveLocation(location);
         indicateLoadDataRequest(location);
     }
+    //@@author A0003878Y
+
+    //=========== Sync Methods ===============================================================================
+
+    @Override
+    public void activateModelSyncing() {
+        if (syncManager.getSyncStatus() != Sync.SyncStatus.RUNNING) {
+            syncManager.startSyncing();
+
+            // Add all current events into sync provider
+            toDoList.getTasks().forEach(syncManager::addNewEvent);
+        }
+    }
+
+    @Override
+    public void deactivateModelSyncing() {
+        if (syncManager.getSyncStatus() != Sync.SyncStatus.NOTRUNNING) {
+            syncManager.stopSyncing();
+        }
+    }
+
     //@@author
-    
     //=========== Filtered Task List Accessors ===============================================================
 
     @Override

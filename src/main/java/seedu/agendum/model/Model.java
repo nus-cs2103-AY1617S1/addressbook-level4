@@ -66,4 +66,10 @@ public interface Model {
     /** Updates the current todolist to the loaded data**/
     void handleLoadDataCompleteEvent(LoadDataCompleteEvent event);
 
+    /** Turns on model syncing using to a thirds party syncing provider **/
+    void activateModelSyncing();
+
+    /** Turns off model syncing **/
+    void deactivateModelSyncing();
+
 }

@@ -11,6 +11,7 @@ import org.junit.rules.TemporaryFolder;
 import seedu.agendum.commons.core.Config;
 import seedu.agendum.commons.core.EventsCenter;
 import seedu.agendum.commons.core.UnmodifiableObservableList;
+import seedu.agendum.commons.exceptions.IllegalValueException;
 import seedu.agendum.logic.commands.*;
 import seedu.agendum.commons.events.ui.ShowHelpRequestEvent;
 import seedu.agendum.commons.util.FileUtil;
@@ -22,6 +23,7 @@ import seedu.agendum.model.ModelManager;
 import seedu.agendum.model.ReadOnlyToDoList;
 import seedu.agendum.model.task.*;
 import seedu.agendum.storage.XmlToDoListStorage;
+import seedu.agendum.sync.SyncProviderGoogleTests;
 import seedu.agendum.testutil.EventsCollector;
 
 import java.io.File;
@@ -412,6 +414,24 @@ public class LogicManagerTest {
                 expectedTDL.getTaskList());
     }
     //@author
+
+    @Test
+    public void execute_syncOn_successfull() throws Exception {
+        SyncProviderGoogleTests.copyTestCredentials();
+        assertCommandBehavior("sync on",
+                SyncCommand.SYNC_ON_MESSAGE);
+    }
+
+    @Test
+    public void execute_syncOff_successfull() throws Exception {
+        assertCommandBehavior("sync off",
+                SyncCommand.SYNC_OFF_MESSAGE);
+    }
+
+    @Test
+    public void execute_syncUnknown_exception() throws Exception {
+        assertCommandBehavior("sync something", SyncCommand.MESSAGE_WRONG_OPTION, new ToDoList(), Collections.emptyList());
+    }
 
 
     //@@author A0148095X
