@@ -1,5 +1,6 @@
 package seedu.dailyplanner.model.task;
 
+
 public class DateTime implements Comparable<DateTime> {
 
 	public final Date m_date;
@@ -43,5 +44,6 @@ public class DateTime implements Comparable<DateTime> {
 		} else {
 			return m_time.compareTo(o.m_time);
 		}
+
 	}
 }
