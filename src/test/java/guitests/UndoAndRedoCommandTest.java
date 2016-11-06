@@ -149,7 +149,7 @@ public class UndoAndRedoCommandTest extends TaskManagerGuiTest {
         }
         assertTrue(expectedList.isListMatching(taskListPanel));
         
-        assertResultMessage(UndoCommand.MESSAGE_UNDO_SUCCESS + commandText.trim());
+        assertResultMessage(String.format(UndoCommand.MESSAGE_UNDO_SUCCESS, commandText.trim()));
     }   
     
     /**
@@ -167,7 +167,7 @@ public class UndoAndRedoCommandTest extends TaskManagerGuiTest {
         }
         assertTrue(expectedList.isListMatching(taskListPanel));
         
-        assertResultMessage(RedoCommand.MESSAGE_REDO_SUCCESS + commandText.trim());
+        assertResultMessage(String.format(RedoCommand.MESSAGE_REDO_SUCCESS, commandText.trim()));
     }
     
     /**
@@ -175,7 +175,7 @@ public class UndoAndRedoCommandTest extends TaskManagerGuiTest {
      * the error message is displayed
      */
     private void assertNoMoreUndos() {
-        commandBox.runCommand("undo");        
+        commandBox.runCommand("undo");
         assertResultMessage(UndoCommand.MESSAGE_NO_PREVIOUS_VALID_COMMANDS);
     }
     
@@ -184,7 +184,7 @@ public class UndoAndRedoCommandTest extends TaskManagerGuiTest {
      * the error message is displayed
      */
     private void assertNoMoreRedos() {
-        commandBox.runCommand("redo");        
+        commandBox.runCommand("redo");
         assertResultMessage(RedoCommand.MESSAGE_NO_RECENT_UNDO_COMMANDS);
     }
 }

@@ -13,12 +13,17 @@ public class PathCommandTest extends TaskManagerGuiTest {
 
     @Test
     public void path() {
+        
+        //delete the temp file to ensure test runs successfully on 
+        // a non existent file
+        File tempFile = new File("temp.xml");
+        tempFile.delete();
+        
         commandBox.runCommand("path temp.xml");
         assertResultMessage(String.format(PathCommand.MESSAGE_SUCCESS, "temp.xml"));
         
         // check that the temp file is successfully created
         // and delete temp file after testing is complete
-        File tempFile = new File("temp.xml");
         assertTrue(tempFile.delete());
         
         //no filepath
