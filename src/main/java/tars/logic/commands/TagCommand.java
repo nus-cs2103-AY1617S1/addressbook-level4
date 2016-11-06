@@ -94,7 +94,7 @@ public class TagCommand extends UndoableCommand {
         }
 
         toBeRenamed = model.getUniqueTagList()
-                .get(targetedIndex - Formatter.DISPLAYED_INDEX_OFFSET);
+                .get(targetedIndex - StringUtil.DISPLAYED_INDEX_OFFSET);
         newTag = new Tag(newTagName);
         model.renameTasksWithNewTag(toBeRenamed, newTag);
 
@@ -114,7 +114,7 @@ public class TagCommand extends UndoableCommand {
         }
 
         toBeDeleted = model.getUniqueTagList()
-                .get(targetedIndex - Formatter.DISPLAYED_INDEX_OFFSET);
+                .get(targetedIndex - StringUtil.DISPLAYED_INDEX_OFFSET);
         editedTaskList = model.removeTagFromAllTasks(toBeDeleted);
 
         model.getUndoableCmdHist().push(this);

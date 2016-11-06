@@ -25,6 +25,24 @@ import java.util.logging.Logger;
  * The manager of the UI component.
  */
 public class UiManager extends ComponentManager implements Ui {
+
+
+
+    private static final String LOG_MESSAGE_STARTING_UI = "Starting UI...";
+    private static final String LOG_MESSAGE_INITIALIZING_FATAL_ERROR =
+            "Fatal error during initializing";
+    private static final String LOG_MESSAGE_SCROLL_TO_RSVTASK =
+            "Scrolling to newly added rsvtask";
+    private static final String LOG_MESSAGE_SCROLL_TO_TASK =
+            "Scrolling to newly added task";
+    private static final String LOG_MESSAGE_SCROLL_TO_TOP = "Scrolling to top";
+    private static final String STYLESHEETS_VIEW_TARS_THEME_CSS =
+            "view/TarsTheme.css";
+    private static final String ALERT_SAVE_DATA_TO_FILE_FAILURE =
+            "Could not save data to file";
+    private static final String ALERT_SAVE_DATA_FAILURE = "Could not save data";
+    private static final String ALERT_FILE_OP_ERROR = "File Op Error";
+
     private static final Logger logger = LogsCenter.getLogger(UiManager.class);
     private static final String ICON_APPLICATION = "/images/tars_icon_32.png";
     private static final int TOP_OF_LIST = 0;
@@ -43,7 +61,7 @@ public class UiManager extends ComponentManager implements Ui {
 
     @Override
     public void start(Stage primaryStage) {
-        logger.info("Starting UI...");
+        logger.info(LOG_MESSAGE_STARTING_UI);
         primaryStage.setTitle(config.getAppTitle());
 
         // Set the application icon.
@@ -56,8 +74,8 @@ public class UiManager extends ComponentManager implements Ui {
 
         } catch (Throwable e) {
             logger.severe(StringUtil.getDetails(e));
-            showFatalErrorDialogAndShutdown("Fatal error during initializing",
-                    e);
+            showFatalErrorDialogAndShutdown(
+                    LOG_MESSAGE_INITIALIZING_FATAL_ERROR, e);
         }
     }
 
@@ -72,8 +90,8 @@ public class UiManager extends ComponentManager implements Ui {
         // final String content = details + ":\n" + cause.toString();
         final String content = details + StringUtil.STRING_COLON
                 + StringUtil.STRING_NEWLINE + cause.toString();
-        showAlertDialogAndWait(AlertType.ERROR, "File Op Error", description,
-                content);
+        showAlertDialogAndWait(AlertType.ERROR, ALERT_FILE_OP_ERROR,
+                description, content);
     }
 
     private Image getImage(String imagePath) {
@@ -89,7 +107,8 @@ public class UiManager extends ComponentManager implements Ui {
     private static void showAlertDialogAndWait(Stage owner, AlertType type,
             String title, String headerText, String contentText) {
         final Alert alert = new Alert(type);
-        alert.getDialogPane().getStylesheets().add("view/TarsTheme.css");
+        alert.getDialogPane().getStylesheets()
+                .add(STYLESHEETS_VIEW_TARS_THEME_CSS);
         alert.initOwner(owner);
         alert.setTitle(title);
         alert.setHeaderText(headerText);
@@ -113,8 +132,8 @@ public class UiManager extends ComponentManager implements Ui {
     private void handleDataSavingExceptionEvent(
             DataSavingExceptionEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        showFileOperationAlertAndWait("Could not save data",
-                "Could not save data to file", event.exception);
+        showFileOperationAlertAndWait(ALERT_SAVE_DATA_FAILURE,
+                ALERT_SAVE_DATA_TO_FILE_FAILURE, event.exception);
     }
 
     /**
@@ -131,21 +150,21 @@ public class UiManager extends ComponentManager implements Ui {
     @Subscribe
     private void handleTaskAddedEvent(TaskAddedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event,
-                "Scrolling to newly added task"));
+                LOG_MESSAGE_SCROLL_TO_TASK));
         mainWindow.getTaskListPanel().scrollTo(event.targetIndex);
     }
 
     @Subscribe
     private void handleRsvTaskAddedEvent(RsvTaskAddedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event,
-                "Scrolling to newly added rsvtask"));
+                LOG_MESSAGE_SCROLL_TO_RSVTASK));
         mainWindow.getTaskListPanel().scrollTo(event.targetIndex);
     }
 
     @Subscribe
     private void handleScrollToTopEvent(ScrollToTopEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event,
-                "Scrolling to top"));
+                LOG_MESSAGE_SCROLL_TO_TOP));
         mainWindow.getTaskListPanel().scrollTo(TOP_OF_LIST);
     }
 

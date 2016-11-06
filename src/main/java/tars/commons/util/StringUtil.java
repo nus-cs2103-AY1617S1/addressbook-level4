@@ -33,6 +33,9 @@ public class StringUtil {
     public static final int LAST_INDEX = 1;
     public static final int INVALID_POSITION = -1;
 
+    /** Offset required to convert between 1-indexing and 0-indexing. */
+    public static final int DISPLAYED_INDEX_OFFSET = 1;
+
     private static final String RANGE_SEPARATOR = "..";
 
     public static boolean containsIgnoreCase(String source, String query) {

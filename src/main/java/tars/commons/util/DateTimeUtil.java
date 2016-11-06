@@ -63,17 +63,14 @@ public class DateTimeUtil {
         if (endDateTime == null) {
             return false;
         } else {
-            LocalDateTime today =
-                    LocalDateTime.now().withHour(0).withMinute(0).withSecond(0);
-            LocalDateTime startThisWeek =
-                    today.with(TemporalAdjusters.previous(DayOfWeek.SUNDAY));
+            LocalDateTime now = LocalDateTime.now();
             LocalDateTime endThisWeek =
-                    today.with(TemporalAdjusters.next(DayOfWeek.MONDAY));
-            return endDateTime.isAfter(startThisWeek)
+                    now.with(TemporalAdjusters.next(DayOfWeek.MONDAY))
+                            .withHour(0).withMinute(0).withSecond(0);
+            return endDateTime.isAfter(now)
                     && endDateTime.isBefore(endThisWeek);
         }
     }
-    // @@author
 
     /**
      * @@author A0121533W
@@ -273,7 +270,7 @@ public class DateTimeUtil {
         dateToModify = date.format(stringFormatter);
         return dateToModify;
     }
-    
+
     public static LocalDateTime setLocalTime(LocalDateTime dateTime, int hour,
             int min, int sec) {
         return LocalDateTime.of(dateTime.getYear(), dateTime.getMonth(),

@@ -25,6 +25,8 @@ import tars.model.task.rsv.RsvTask;
  * @@author A0121533W
  */
 public class RsvTaskListPanel extends UiPart {
+    private static String LOG_MESSAGE_LAYOUT_UPDATING =
+            "Updating layout for %s";
     private static final Logger logger = LogsCenter.getLogger(UiManager.class);
     private static final String FXML = "RsvTaskListPanel.fxml";
     private VBox panel;
@@ -114,7 +116,8 @@ public class RsvTaskListPanel extends UiPart {
         @Subscribe
         private void handleRsvTaskAddedEvent(RsvTaskAddedEvent event) {
             logger.info(LogsCenter.getEventHandlingLogMessage(event,
-                    "Updating layout for " + event.task.toString()));
+                    String.format(LOG_MESSAGE_LAYOUT_UPDATING,
+                            event.task.toString())));
             this.newlyAddedRsvTask = event.task;
         }
     }

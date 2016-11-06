@@ -30,6 +30,8 @@ import tars.ui.formatter.Formatter;
  * @@author A0121533W
  */
 public class ThisWeekPanel extends UiPart {
+    private static final String LOG_MESSAGE_UPDATE_THIS_WEEK_PANEL =
+            "Update this week panel";
     private static final String TasksListEllipsis = "\n...\n";
     private static final Logger logger =
             LogsCenter.getLogger(ThisWeekPanel.class);
@@ -165,7 +167,7 @@ public class ThisWeekPanel extends UiPart {
     @Subscribe
     private void handleTarsChangedEvent(TarsChangedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event,
-                "Update this week panel"));
+                LOG_MESSAGE_UPDATE_THIS_WEEK_PANEL));
         updateThisWeekPanel();
     }
 
@@ -173,7 +175,7 @@ public class ThisWeekPanel extends UiPart {
     private void handleTarsStorageChangeDirectoryEvent(
             TarsStorageDirectoryChangedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event,
-                "Update this week panel"));
+                LOG_MESSAGE_UPDATE_THIS_WEEK_PANEL));
         updateThisWeekPanel();
     }
 }
