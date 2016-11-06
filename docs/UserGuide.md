@@ -3,9 +3,9 @@
 
 * [Getting Started](#getting-started)
 * [Features](#features)
-   * [Add command](#add-command)
+   * [Add command](#1-add-command)
    
-* [FAQ](#how-do-I-transfer-my-data-to-another-computer)
+* [How do I transfer my data to another computer?](#how-do-I-transfer-my-data-to-another-computer)
 * [Command Summary](#command-summary)
 
 <br>
