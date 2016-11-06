@@ -129,12 +129,12 @@ public interface ReadOnlyTask {
      */
     default String getAsText() {
         final StringBuilder builder = new StringBuilder();
-        builder.append("\n" + getName());
+        builder.append(getName());
         
         if (getTaskDate() != null) {
             builder.append(" on " + getTaskDate());
             if(getTaskTime() != null ){
-                builder.append(" at " + getTaskTime());
+                builder.append(" " + getTaskTime());
             } else { 
                 if (getStartTime() != null) {
                     builder.append(" from " + getStartTime());
@@ -145,31 +145,32 @@ public interface ReadOnlyTask {
             }
         } else { 
             if (getStartDate() != null) {
-                builder.append("\nfrom " + getStartDate());
+                builder.append(" from " + getStartDate());
             } 
             if (getStartTime() != null) {
                 builder.append(" " + getStartTime());
             }
             if (getEndDate() != null) {
-                builder.append("\nto " + getEndDate());
+                builder.append(" to " + getEndDate());
             }
             if (getEndTime() != null) {
                 builder.append(" " + getEndTime());
             }
         }
+        
         if (getPeriod() != null) {
-            builder.append("\nevery " + getPeriod());
+            builder.append(" every " + getPeriod());
         }
+        
         if (getEndPeriod() != null) {
             builder.append(" till " + getEndPeriod());
         }
+        
         if (getTags().size() > 0) {
-            builder.append("\nTags: ");
+            builder.append(" ");
             getTags().forEach(builder::append);
         }
-        if (getStatus() != null) {
-            builder.append("\nStatus: " + getStatus());
-        }
+        
         return builder.toString();
     }
 
