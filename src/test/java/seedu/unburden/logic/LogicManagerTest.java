@@ -600,12 +600,14 @@ public class LogicManagerTest {
 	@Test
 	public void execute_List_wrongly2() throws Exception{
 		TestDataHelper helper = new TestDataHelper();
-		ListOfTask expected = helper.generateListOfTask(1);
-		List<? extends ReadOnlyTask> expectedList = expected.getTaskList();
+		Task task = helper.generateDeadlineTask("Chandler", "is funny", "12-12-2022");
+		ListOfTask expected = new ListOfTask();
+		expected.addTask(task);
+		List<? extends ReadOnlyTask> expectedList = expected.getTaskList(); 
 		
-		helper.addToModel(model, 1);
+		helper.addToModel_ReadOnlyTask(model, expectedList);
 		
-		assertCommandBehavior("List ", String.format(MESSAGE_INVALID_COMMAND_FORMAT, ListCommand.MESSAGE_USAGE), expected, expectedList);
+		assertCommandBehavior("List <><)(_*", String.format(MESSAGE_INVALID_COMMAND_FORMAT, ListCommand.MESSAGE_USAGE), expected, expectedList);
 	}
 	
 	

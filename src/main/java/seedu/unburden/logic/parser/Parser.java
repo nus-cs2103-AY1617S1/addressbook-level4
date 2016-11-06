@@ -24,7 +24,7 @@ public class Parser {
 
 	private static final Pattern TASK_INDEX_ARGS_FORMAT = Pattern.compile("(?<targetIndex>.+)");
 
-	private static final Pattern KEYWORDS_NAME_FORMAT = Pattern.compile("(?<keywords>[^/]+)");
+	private static final Pattern KEYWORDS_NAME_FORMAT = Pattern.compile("(?<keywords>[A-Za-z0-9 \\-,.?!\'\"]+)");
 
 	// @@author A0143095H
 	private static final Pattern KEYWORDS_DATE_FORMAT = Pattern
@@ -395,7 +395,7 @@ public class Parser {
 		case ALL:
 			return new ListCommand(ALL);
 		}
-		if (args.toLowerCase().contains("to")) {
+		if (args.toLowerCase().contains(" to ")) {
 			String[] dates = args.toLowerCase().split("to");
 			return new ListCommand(dates[0], dates[1], "date");
 		}
