@@ -22,7 +22,12 @@
 Emeraldo is a simple app for users to manage their daily tasks, such as keeping track of deadlines and scheduling of events.
 This app is catered for folks who can type fast and prefer typing over mouse/voice commands.
 It is also a Java desktop application that has a GUI.
+
+
 <br>
+<br>
+
+
 This guide describes the design and implementation of Emeraldo.
 Through this guide, you will gain an understanding how Emeraldo works and how you can further contribute to its development.
 []<@@author>
@@ -41,6 +46,8 @@ Through this guide, you will gain an understanding how Emeraldo works and how yo
     > Having any Java 8 version is not enough <br>
     This app will not work with earlier versions of Java 8
     
+
+
 2. **Eclipse** IDE
 3. **e(fx)clipse** plugin for Eclipse from the Eclipse Marketplace
 4. **Buildship Gradle Integration** plugin from the Eclipse Marketplace
@@ -57,6 +64,9 @@ Through this guide, you will gain an understanding how Emeraldo works and how yo
 4. Click `Gradle` > `Gradle Project` > `Next` > `Next`
 5. Click `Browse`, then locate the project's directory
 6. Click `Finish`
+
+
+<br>
 
 
   > * If you are asked whether to 'keep' or 'overwrite' config files, choose to 'keep'
@@ -397,7 +407,7 @@ user | delete a task | I can remove entries that I no longer need.<br>
 user | see all my tasks | I can easily know what I need to do at a glance.<br>
 user | edit the task descriptions, date or time | I can update the details of my tasks.<br>
 user | add tags to my tasks | I can categorise my tasks.<br>
-user | edit tags of my tasks | I can manage my tasks’ tags.<br>
+user | edit tags of my tasks | I can manage my tasks\’ tags.<br>
 
 
 <br>
@@ -455,8 +465,8 @@ busy user | reserve time slots for one or more tasks that may not be confirmed |
 1a. Emeraldo detects task to have the exact same details as an existing task
 
 
-> 1a1. Emeraldo shows error message: “This task already exists in the task manager.”.
-> 1a2. User changes the details of the task to be added
+> 1a1. Emeraldo shows error message: \“This task already exists in the task manager\”.<br>
+> 1a2. User changes the details of the task to be added<br>	
 Steps 1a1-1a2 are repeated until the data entered are correct.<br>
 Use case resumes from step 2.
 	
@@ -488,7 +498,7 @@ Use case resumes from step 2.
 3a. Emeraldo detects an error in the user input
 
 
-> 3a1. Emeraldo shows an error message and requests for correct data
+> 3a1. Emeraldo shows an error message and requests for correct data<br>
   Use case resumes from step 2.
 
 
@@ -501,7 +511,7 @@ Use case resumes from step 2.
 
 <br>
 [](@@author A0139196U)
-#### Use case: UC03 - Edit task’s tag
+#### Use case: UC03 - Edit task\’s tag
 
 
 **MSS**
@@ -509,8 +519,8 @@ Use case resumes from step 2.
 
 1. User requests to list task (UC05)
 2. Emeraldo shows a list of tasks
-3. User requests to edit a task’s tag
-4. Emeraldo edits the task’s tag
+3. User requests to edit a task\’s tag
+4. Emeraldo edits the task\’s tag
 5. Emeraldo displays the edited task
 <br>  Use case ends.
 
@@ -518,7 +528,7 @@ Use case resumes from step 2.
 3a. Emeraldo detects an error in the user input
 
 
-> 3a1. Emeraldo shows an error message and requests for correct data
+> 3a1. Emeraldo shows an error message and requests for correct data<br>
   Use case resumes from step 2.
 
 
@@ -551,7 +561,7 @@ Use case resumes from step 2.
 3a. Emeraldo detects an error in the user input
 
 
-> 3a1. Emeraldo shows an error message and requests for correct data
+> 3a1. Emeraldo shows an error message and requests for correct data <br>
   Use case resumes from step 2.
 
 
@@ -574,21 +584,21 @@ Use case resumes from step 2.
 2a. Emeraldo list all tasks
 
 
-> 2a1. Emeraldo shows list of tasks when no category or tag is specified
+> 2a1. Emeraldo shows list of tasks when no category or tag is specified <br>
   Use case ends
 
 
 2b. Emeraldo list by category specified
 
 
-> 2b1. Emeraldo shows list of tasks by date, using start and end time of EVENTS and end time of DEADLINES
+> 2b1. Emeraldo shows list of tasks by date, using start and end time of EVENTS and end time of DEADLINES <br>
   Use case ends
 
 
 2c. Emeraldo list by tag specified
 
 
-> 2c1. Emeraldo shows list of tasks by the particular tag
+> 2c1. Emeraldo shows list of tasks by the particular tag <br>
   Use case ends
 
 
@@ -610,8 +620,8 @@ Use case resumes from step 2.
 **Extensions**
 	
 2a. Emeraldo could not find the specified task
-> 2a1. Emeraldo requests for new inputs 
-> 2a2. User specifies a new task
+> 2a1. Emeraldo requests for new inputs  <br>
+> 2a2. User specifies a new task <br>
 Steps 2a1 - 2a2 are repeated until the data entered are correct.<br>
 Use case resumes from step 4.
 
