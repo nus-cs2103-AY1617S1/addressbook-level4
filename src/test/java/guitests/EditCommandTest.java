@@ -18,7 +18,7 @@ public class EditCommandTest extends TaskManagerGuiTest {
         TestTask[] currentList = td.getTypicalTasks();
         
         commandBox.runCommand("edit 1 name, Accompany dad to the doctor");
-        commandBox.runCommand("edit 1 tag, gwsDad");
+        commandBox.runCommand("e 1 tag, gwsDad");
         
         commandBox.runCommand("edit 1 start, 3pm");
         commandBox.runCommand("undo");
@@ -30,6 +30,7 @@ public class EditCommandTest extends TaskManagerGuiTest {
         commandBox.runCommand("undo");
         
         assertEditSuccess(1, TypicalTestTasks.taskJ, currentList);
+        commandBox.runCommand("undo 2");
         
         //@@author A0152958R
         commandBox.runCommand("clear");

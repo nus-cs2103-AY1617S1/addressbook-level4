@@ -25,6 +25,7 @@ import seedu.task.model.task.UniqueTaskList.TaskNotFoundException;
  */
 public class EditCommand extends Command {
     public static final String COMMAND_WORD = "edit";
+    public static final String COMMAND_WORD_ALT = "e";
     
     public static final String MESSAGE_USAGE = COMMAND_WORD
     + ": Edits the task identified by the index number used in the last task listing.\n"
@@ -36,9 +37,9 @@ public class EditCommand extends Command {
     
     public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the task manager";
     public static final String EDIT_NAME = "name";
-    public static final String EDIT_START_TIME = "start";
-    public static final String EDIT_END_TIME = "end";
-    public static final String EDIT_DEADLINE = "due";
+    public static final String EDIT_START_TIME = "starttime";
+    public static final String EDIT_END_TIME = "endtime";
+    public static final String EDIT_DEADLINE = "deadline";
     public static final String EDIT_TAG = "tag";
     public final int targetIndex;
     //private final Task toEdit;
