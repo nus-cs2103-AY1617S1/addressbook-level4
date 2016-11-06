@@ -128,7 +128,7 @@ Figure 3 shows how the `EventsCenter` reacts to the event (`add floating task`).
 **API** : [`Ui.java`](../src/main/java/seedu/ggist/ui/Ui.java)
 
 The `UI` consists of a `MainWindow` that is made up of parts such as `CommandBox`, `ResultDisplay`,`TaskListPanel`,
-`StatusBarFooter` and `BrowserPanel`.These UI parts inherit from the abstract `UiPart` class ,and they can be loaded using the `UiPartLoader`.
+`StatusBarFooter` and `Listingheader`.These UI parts inherit from the abstract `UiPart` class ,and they can be loaded using the `UiPartLoader`.
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files which are in the `src/main/resources/view` folder.<br>
 
@@ -285,18 +285,16 @@ Priority | As a ... | I want to ... | So that I can...
 `* * *` | user | Set a deadline for a task | Be reminded of impending deadline
 `* * *` | user | Delete a task | Totally remove task that I no longer care about
 `* * *` | user | Strike off a task | View my completed task if I want to
+`* * *` | user | Mark a completed task incomplete | Unmark done task if I want to
 `* * *` | user | Edit a task | Make changes to a task as necessary
 `* * *` | user | Undo an action | Recover unwanted changes
+`* * *` | user | Redo an action | Recover unwanted undo
 `* * *` | user | View all tasks in specific day | Easily identify my remaining tasks for the day
 `* * *` | user | Search for tasks using keywords | Find all relevant tasks with ease
 `* * *` | user | Backup my data on local storage | Ensure my recorded tasks will not be lost
 `* * *` | user | Have some flexibility in my inputs | Use some variations while entering a task
-`* *` | user | Set a recurring task | Avoid constantly entering the same task for different days 
-`* *` | user | Block off time slots | Avoid scheduling conflicts tasks with unconfirmed timings
 `* *` | user | Set priority level for a task | Easily identify a task that require immediate attention
-`* *` | user | Launch the application with a keyboard shortcut | Access the application without using the mouse
 `* *` | user | View the day’s tasks when the application is launched | Know which tasks to complete for the day without any additional input
-`*` | user | Sync my data to Google Calendar | Sync my data across multiple desktops
 `*` | user | Carry forward incomplete tasks to the following day | Be reminded to complete the task the following day without any input
 
 ## Appendix B : Use Cases
