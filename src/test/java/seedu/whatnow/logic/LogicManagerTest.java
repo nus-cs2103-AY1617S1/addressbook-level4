@@ -402,6 +402,7 @@ public class LogicManagerTest {
                 String.format(DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS, threeTasks.get(1)), expectedAB,
                 expectedAB.getTaskList());
     }
+    
     //@@author A0139128A
     @Test
     public void execute_markDoneInvalidIndexFormat_errorMessageShown() throws
@@ -410,18 +411,38 @@ public class LogicManagerTest {
         assertIncorrectIndexFormatBehaviorForCommand("done", "todo 2",
                 expectedMessage);
     }
+    
     //@@author A0139128A
     @Test
     public void execute_markUndoneInvalidIndexFormat_ErrorMessageShown() throws Exception {
         String expectedMessage = String.format(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         assertIncorrectIndexFormatBehaviorForCommand("undone", "todo 2", expectedMessage);
     }
+    
     //@@author A0139128A
     @Test
     public void execute_markUndoneMissingIndexFormat_errorMessageShown() throws Exception {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, MarkUndoneCommand.MESSAGE_MISSING_INDEX);
         assertIncorrectIndexFormatBehaviorForCommand("undone", "todo", expectedMessage);
     }
+    
+    //@@author A0141021H
+    @Test
+    public void execute_markUndone_markCorrectTask() throws Exception { 
+        TestDataHelper helper = new TestDataHelper();
+        List<Task> threeTasks = helper.generateCompletedTaskList(3);
+        
+        WhatNow expectedAB = helper.generateWhatNow(threeTasks);
+        expectedAB.markTask(threeTasks.get(1));
+        helper.addToModel(model, threeTasks);
+       
+        assertCommandBehavior("undone schedule 2",
+        String.format(MarkUndoneCommand.MESSAGE_MARK_TASK_SUCCESS,
+        threeTasks.get(1)),
+        expectedAB,
+        expectedAB.getTaskList());
+    }
+    
     //@@author A0139128A
     @Test
     public void execute_markDoneIndexNotFound_errorMessageShown() throws
@@ -429,21 +450,21 @@ public class LogicManagerTest {
         assertIndexNotFoundBehaviorForCommand("done", "todo");
     }
      
-    // @Test
-    // public void execute_markDone_marksCorrectTask() throws Exception {
-    // TestDataHelper helper = new TestDataHelper();
-    // List<Task> threeTasks = helper.generateTaskList(3);
-    //
-    // WhatNow expectedAB = helper.generateWhatNow(threeTasks);
-    // expectedAB.markTask(threeTasks.get(1));
-    // helper.addToModel(model, threeTasks);
-    //
-    // assertCommandBehavior("done schedule 2",
-    // String.format(MarkDoneCommand.MESSAGE_MARK_TASK_SUCCESS,
-    // threeTasks.get(1)),
-    // expectedAB,
-    // expectedAB.getTaskList());
-    // }
+//     @Test
+//     public void execute_markDone_marksCorrectTask() throws Exception {
+//     TestDataHelper helper = new TestDataHelper();
+//     List<Task> threeTasks = helper.generateTaskList(3);
+//    
+//     WhatNow expectedAB = helper.generateWhatNow(threeTasks);
+//     expectedAB.markTask(threeTasks.get(1));
+//     helper.addToModel(model, threeTasks);
+//    
+//     assertCommandBehavior("done schedule 2",
+//     String.format(MarkDoneCommand.MESSAGE_MARK_TASK_SUCCESS,
+//     threeTasks.get(1)),
+//     expectedAB,
+//     expectedAB.getTaskList());
+//     }
     /**
      * Confirms the 'invalid argument behaviour' for the given command
      * 
@@ -670,6 +691,20 @@ public class LogicManagerTest {
         }
 
         /**
+         * Generates a valid completed task using the given seed. Running this function
+         * with the same parameter values guarantees the returned task will have
+         * the same state. Each unique seed will generate a unique Task object.
+         *
+         * @param seed
+         *            used to generate the task data field values
+         */
+        Task generateCompletedTask(int seed) throws Exception {
+            return new Task(new Name("Task " + seed), "23/02/2017", null, null, null, null, null, null, null,
+                    new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1))),
+                    "completed", null);
+        }
+
+        /**
          * Generates a valid task using the given seed. Running this function
          * with the same parameter values guarantees the returned task will have
          * the same state. Each unique seed will generate a unique Task object.
@@ -815,6 +850,7 @@ public class LogicManagerTest {
                 model.markTask(p);
             }
         }
+        
         /**
          * Generates a list of Tasks based on the flags.
          */
@@ -822,6 +858,17 @@ public class LogicManagerTest {
             List<Task> tasks = new ArrayList<>();
             for (int i = 1; i <= numGenerated; i++) {
                 tasks.add(generateTask(i));
+            }
+            return tasks;
+        }
+        
+        /**
+         * Generates a list of completed Tasks based on the flags.
+         */
+        List<Task> generateCompletedTaskList(int numGenerated) throws Exception {
+            List<Task> tasks = new ArrayList<>();
+            for (int i = 1; i <= numGenerated; i++) {
+                tasks.add(generateCompletedTask(i));
             }
             return tasks;
         }
