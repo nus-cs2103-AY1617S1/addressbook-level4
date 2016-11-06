@@ -22,16 +22,11 @@ public class TaskDate {
     public static final String EXPIRED_TASK_DATE = "Task Date cannot be in the past!";
     public static final String INVALID_TASK_DATE_RANGE_FORMAT = "The task date range is invalid!";
 
-    public static final String DATE_ALPHA_WITH_YEAR_VALIDATION_REGEX = "([0-9]{2}+[\\w\\.])+([0-9]{4})"; // To
-    // be
-    // updated
+    public static final String DATE_ALPHA_WITH_YEAR_VALIDATION_REGEX = "([0-9]{2}+[\\w\\.])+([0-9]{4})";
     public static final String DATE_ALPHA_WITHOUT_YEAR_VALIDATION_REGEX = "([0-9]{2}+[\\w\\.])";
 
-    public static final String DATE_NUM_SLASH_WITH_YEAR_VALIDATION_REGEX = "([0-9]{2}+)/([0-9]{2}+)/([0-9]{4})"; // "\\d{2}/\\d{2}/\\d{4}";
-    // //To
-    // be
-    // updated
-    public static final String DATE_NUM_SLASH_WITHOUT_YEAR_VALIDATION_REGEX = "([0-9]{2})/([0-9]{2})";// "\\d{2}/\\d{2}";
+    public static final String DATE_NUM_SLASH_WITH_YEAR_VALIDATION_REGEX = "([0-9]{2}+)/([0-9]{2}+)/([0-9]{4})"; 
+    public static final String DATE_NUM_SLASH_WITHOUT_YEAR_VALIDATION_REGEX = "([0-9]{2})/([0-9]{2})";
     public static final String DATE_NUM_SLASH_WITH_YEAR_VALIDATION_SHORTENED_DAY_REGEX = "([0-9]{1}+)/([0-9]{2}+)/([0-9]{4})";
     public static final String DATE_NUM_SLASH_WITH_YEAR_VALIDATION_SHORTENED_MONTH_REGEX = "([0-9]{2}+)/([1-9]{1}+)/([0-9]{4})";
     public static final String DATE_NUM_SLASH_WITH_YEAR_VALIDATION_SHORTENED_DAY_AND_MONTH_REGEX = "([0-9]{1}+)/([0-9]{1}+)/([0-9]{4})";
@@ -54,7 +49,8 @@ public class TaskDate {
     private static String fullDate;
     private static String startDate;
     private static String endDate;
-
+    
+    //author@@ A0141021H
     private static final String JANUARY_FULL = "january";
     private static final String FEBRUARY_FULL = "february";
     private static final String MARCH_FULL = "march";
@@ -82,6 +78,7 @@ public class TaskDate {
 
     private static final String forwardSlash = "/";
     
+  //@@author A0139772U
     private static final int DATE_COMPONENT_DAY = 0;
     private static final int DATE_COMPONENT_MONTH = 1;
     private static final int DATE_COMPONENT_YEAR = 2;
@@ -203,7 +200,6 @@ public class TaskDate {
         if (beforeDate == null && afterDate == null) {
             return true;
         }
-        System.out.println("Entered here: beforeDate is:" + beforeDate + " afterDate : " + afterDate);
         boolean validDateRange = false;
         boolean sameDate = false;
         SimpleDateFormat sdf = new SimpleDateFormat(DATE_NUM_SLASH_WITH_YEAR_FORMAT);
@@ -252,6 +248,7 @@ public class TaskDate {
         }
     }
 
+  //@@author A0139772U
     /**
      * @param test
      *            is the date input by the user
@@ -294,7 +291,8 @@ public class TaskDate {
         fullDate = formatDatetoStandardDate(incDate);
         return true;
     }
-
+    
+    //@@author A0141021H
     /**
      * This method checks the validity of the month entered by the user.
      */
@@ -386,7 +384,8 @@ public class TaskDate {
 
         return formattedDate;
     }
-
+    
+  //@@author A0139772U
     public static String formatDayToDate(String date) {
         assert (DAYS_IN_FULL.matcher(date).find() || DAYS_IN_SHORT.matcher(date).find());
         DateFormat df = new SimpleDateFormat(DATE_NUM_SLASH_WITH_YEAR_FORMAT);
@@ -449,7 +448,8 @@ public class TaskDate {
     public String getEndDate() {
         return this.endDate;
     }
-
+    
+  //@@author A0141021H
     public static boolean getIsValidDate(String date) throws ParseException, IllegalValueException{
         return isValidDate(date);
     }
