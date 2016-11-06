@@ -5,6 +5,7 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 import seedu.todo.guitests.guihandles.AliasItemHandle;
+import seedu.todo.models.Task;
 
 // @@author A0139812A
 public class AliasCommandTest extends GuiTest {
@@ -18,8 +19,12 @@ public class AliasCommandTest extends GuiTest {
     @Test
     public void alias_toList_success() {
         console.runCommand("alias list ls");
-        System.out.println("hello");
         assertAliasItemVisible("list", "ls");
+        
+        console.runCommand("add Buy milk");
+        Task testTask = new Task();
+        testTask.setName("Buy milk");
+        assertTaskVisibleAfterCmd("ls", testTask);
     }
     
     /**
