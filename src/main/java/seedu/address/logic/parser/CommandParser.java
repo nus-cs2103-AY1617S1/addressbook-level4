@@ -167,7 +167,8 @@ public class CommandParser {
      * @return the prepared command
      */
     private Command prepareEdit(String args) {
-        
+        assert args != null;
+
         int index = ZERO;     
         String resetField = null;
         String argsTrimmed = args.trim();
@@ -185,11 +186,11 @@ public class CommandParser {
         }
            
         String[] resetSplit = argsTrimmed.substring(TWO).split("-reset");
-        String argsForEdit = STRING_ONE_SPACE + resetSplit[ZERO];        
+        String argumentsWithoutIndexAndReset = STRING_ONE_SPACE + resetSplit[ZERO];        
         logger.finer("Entering CommandParser, prepareEdit()");
                        
         try {
-            HashMap<String, Optional<String>> extractedValues = new CommandParserHelper().prepareEdit(argsForEdit);
+            HashMap<String, Optional<String>> extractedValues = new CommandParserHelper().prepareEdit(argumentsWithoutIndexAndReset);
             logger.finer("Exiting CommandParser, prepareEdit()");    
             if(resetSplit.length == TWO){
                 resetField = resetSplit[ONE];

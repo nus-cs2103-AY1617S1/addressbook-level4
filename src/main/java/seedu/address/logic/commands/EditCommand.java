@@ -49,7 +49,7 @@ public class EditCommand extends UndoableCommand {
     private Task beforeEdit;
     
     Name taskName;
-	Date startDate;
+    Date startDate;
     Date endDate;
     RecurrenceRate recurrenceRate;
     Priority priority;
@@ -80,7 +80,7 @@ public class EditCommand extends UndoableCommand {
                 startDate == null && endDate == null) {
             startDate = DateTime.assignStartDateToSpecifiedWeekday(recurrenceRate.getTimePeriod().toString());
         }
-	}
+    }
 
     private void initializeForEdit() {
         taskName = null;
@@ -193,18 +193,17 @@ public class EditCommand extends UndoableCommand {
         }        
     }
 
-	@Override
-	public CommandResult execute() {	    
-	    assert model != null;
+    @Override
+    public CommandResult execute() {
+        assert model != null;
         
-	    // check if viewing done list
-        // cannot edit in done list, return an incorrect command msg
-	    if (attemptToEditDoneList()) {
-	        indicateAttemptToExecuteIncorrectCommand();
-	        return new CommandResult(String.format(Messages.MESSAGE_DONE_LIST_RESTRICTION));
-	    }
+        // check if viewing done list
+        // cannot edit in done list, return an incorrect command message
+        if (attemptToEditDoneList()) {
+            indicateAttemptToExecuteIncorrectCommand();
+            return new CommandResult(String.format(Messages.MESSAGE_DONE_LIST_RESTRICTION));
+        }
         UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredUndoneTaskList();
-
         
         if (lastShownList.size() < targetIndex || targetIndex == 0) {
             indicateAttemptToExecuteIncorrectCommand();
@@ -225,6 +224,9 @@ public class EditCommand extends UndoableCommand {
         assignStartDate();
         assignEndDate();
         
+        /*
+         * return incorrect date message if end date is before start date
+         */
         if(endDate != null && startDate != null && endDate.before(startDate)){
             indicateAttemptToExecuteIncorrectCommand();
             return new CommandResult(MESSAGE_END_DATE_CONSTRAINTS);
@@ -243,6 +245,7 @@ public class EditCommand extends UndoableCommand {
         /*
          * Set recurrenceRate as the previous one if it exist should the user not input any
          * Ensure that start date or end date exist, otherwise set recurrence as null even if user input one
+         * Return incorrect recurrence message if no date present
          */
         if (recurrenceRate == null && toEdit.getRecurrenceRate().isPresent()) {
         	recurrenceRate = toEdit.getRecurrenceRate().get();
@@ -263,12 +266,7 @@ public class EditCommand extends UndoableCommand {
         return new CommandResult(String.format(MESSAGE_SUCCESS, toEdit));      
 	}
 	
-    // @@author A0093960X
-    private boolean attemptToEditDoneList() {
-        return model.isCurrentListDoneList() && !isRedoAction;
-    }
-
-	/**
+     /**
      * assign previous end date to endDate if user never input one
      * assign endDate as null if user choose to reset end date
      */
@@ -296,6 +294,11 @@ public class EditCommand extends UndoableCommand {
         }
     }
 
+    // @@author A0093960X
+    private boolean attemptToEditDoneList() {
+        return model.isCurrentListDoneList() && !isRedoAction;
+    }
+    
     //@@author A0093960X
     @Override
     public CommandResult undo() {

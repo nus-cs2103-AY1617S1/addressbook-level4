@@ -117,8 +117,8 @@ public class CommandParserHelper {
      * taskName, startDate, endDate, rate, timePeriod and priority.
      *
      * @param args user input of task to add.
-     * @return values of taskName, startDate, endDate, rate, timePeriod and priority.
-     * @throws IllegalValueException if args does not match the matcher.
+     * @return     values of taskName, startDate, endDate, rate, timePeriod and priority.
+     * @throws IllegalValueException  if args does not match the matcher.
      */
     public HashMap<String, Optional<String>> prepareEdit(String args) throws IllegalValueException {
         assert args != null;
@@ -694,6 +694,9 @@ public class CommandParserHelper {
     //@@author A0139552B
     /**
      * Assigns values into Task's parameters.
+     * 
+     *@param   task  OptionalStringTask object that contains String values to be converted to 
+     * an actual Task object.
      */
     private void assignTaskParametersEdit(OptionalStringTask task) throws IllegalValueException {
         assert task != null;
