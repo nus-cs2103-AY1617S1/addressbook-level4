@@ -2,12 +2,22 @@ package seedu.todo.logic;
 
 import org.junit.Test;
 import seedu.todo.commons.exceptions.IllegalValueException;
-import seedu.todo.logic.commands.*;
+import seedu.todo.logic.commands.AddCommand;
+import seedu.todo.logic.commands.BaseCommand;
+import seedu.todo.logic.commands.ClearCommand;
+import seedu.todo.logic.commands.CommandMap;
+import seedu.todo.logic.commands.CompleteCommand;
+import seedu.todo.logic.commands.EditCommand;
+import seedu.todo.logic.commands.RedoCommand;
+import seedu.todo.logic.commands.SaveCommand;
+import seedu.todo.logic.commands.ShowCommand;
+import seedu.todo.logic.commands.UndoCommand;
+import seedu.todo.logic.commands.ViewCommand;
 
 import java.util.Map;
 
-import static org.junit.Assert.*;
-import static org.hamcrest.Matchers.*;
+import static org.hamcrest.Matchers.instanceOf;
+import static org.junit.Assert.assertThat;
 
 //@@author A0139021U
 public class TodoDispatcherTest {
