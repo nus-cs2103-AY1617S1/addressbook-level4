@@ -36,8 +36,8 @@ public class Parser {
                     + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
     
     private static final Pattern EDIT_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
-            Pattern.compile("(?<targetIndex>.+)"
-            		+ " (?<name>[^/]+)" //only name is compulsory
+            Pattern.compile("(?<targetIndex>[^/]+)"
+            		+ "(?<name>(?: n/[^/]+)*)" //only name is compulsory
             		+ "(?<startline>(?: s/[^/]+)*)"
             		+ "(?<deadline>(?: d/[^/]+)*)"
                     + "(?<priority>(?: p/[^/]+)*)"
@@ -335,6 +335,7 @@ public class Parser {
      * @throws ParseException
      */
     private Command prepareEdit(String args) throws ParseException{
+    	System.out.println(args.trim());
     	final Matcher matcher = EDIT_DATA_ARGS_FORMAT.matcher(args.trim());
         // Validate arg string format
         if (!matcher.matches()) {
@@ -345,7 +346,7 @@ public class Parser {
         try {
             return new EditCommand(
             		matcher.group("targetIndex"),
-                    matcher.group("name"),
+                    getNameFromArgs(matcher.group("name")),
                     getStartlineFromArgs(matcher.group("startline")),
                     getDeadlinesFromArgs(matcher.group("deadline")),
                     getPriorityFromArgs(matcher.group("priority")),
@@ -354,6 +355,15 @@ public class Parser {
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
         }
+    }
+    
+    private String getNameFromArgs(String args) {
+    	if (args.isEmpty()) {
+            return "0";
+        }
+        args = args.replaceFirst(" n/", "");
+
+        return args;
     }
     
     /**
