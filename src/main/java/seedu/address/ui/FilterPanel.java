@@ -28,6 +28,10 @@ import seedu.address.model.task.Deadline;
 import seedu.address.model.task.EventDate;
 import seedu.address.model.task.Recurring;
 
+//@@author A0146123R
+/**
+ * A ui for the filter panel that is displayed at the left of the application.
+ */
 public class FilterPanel extends UiPart {
 
     public static final String SUCCESS_FILTER = "Filter the todoList";
@@ -42,6 +46,8 @@ public class FilterPanel extends UiPart {
     private static final String ONE = "1";
     private static final String TWO = "2";
     private static final String THREE = "3";
+    private static final String DEFAULT_BACKGROUND = "-fx-background-color: white";
+    private static final String ERROR_BACKGROUND = "-fx-background-color: #d9534f";
 
     private GridPane mainPane;
     private AnchorPane placeHolder;
@@ -115,6 +121,10 @@ public class FilterPanel extends UiPart {
     }
 
     @Subscribe
+    /**
+     * Handles jump to filter panel event. Sets the corresponding text filed or
+     * choice box to be focused.
+     */
     private void handleJumpFilterPanelEvent(JumpToFilterPanelEvent event) {
         Types qualification = event.getQualification();
         switch (qualification) {
@@ -143,24 +153,49 @@ public class FilterPanel extends UiPart {
     }
 
     @FXML
+    /**
+     * Handles changes in the filter panel.
+     */
     private void handleFilterChanged() {
         Set<Types> types = handleTypesChanged();
         Map<Types, String> qualifications;
         try {
             qualifications = handleQualificationsChanged();
         } catch (IllegalValueException e) {
-            logger.info(INVALID_FILTER + e.getMessage());
-            resultDisplay.setStyleToIndicateIncorrectCommand();
-            resultDisplay.postMessage(INVALID_FILTER + e.getMessage());
+            indicateInvalidFilter(e);
             return;
         }
         Set<String> tagSet = handleTagsChanged();
+        raise(new FilterPanelChangedEvent(types, qualifications, tagSet));
+        indicateFilterSuccess();
+    }
+
+    /**
+     * Indicates an invalid filter command caused by a parameter with illegal
+     * value.
+     * 
+     * @param illegalValueException
+     */
+    private void indicateInvalidFilter(IllegalValueException illegalValueException) {
+        logger.info(INVALID_FILTER + illegalValueException.getMessage());
+        resultDisplay.setStyleToIndicateIncorrectCommand();
+        resultDisplay.postMessage(INVALID_FILTER + illegalValueException.getMessage());
+    }
+
+    /**
+     * Indicates filter successfully.
+     */
+    private void indicateFilterSuccess() {
         logger.info("Input in filter panel changed");
         resultDisplay.setStyleToIndicateCorrectCommand();
         resultDisplay.postMessage(SUCCESS_FILTER);
-        raise(new FilterPanelChangedEvent(types, qualifications, tagSet));
     }
 
+    /**
+     * Handles changes in the selection of types.
+     * 
+     * @return a set of selected types.
+     */
     private Set<Types> handleTypesChanged() {
         Set<Types> types = new HashSet<>();
         if (eventsToggleButton.isSelected()) {
@@ -178,46 +213,144 @@ public class FilterPanel extends UiPart {
         return types;
     }
 
+    /**
+     * Handles changes in the inputs for qualification
+     * 
+     * @return a map of qualifications
+     * @throws IllegalValueException
+     *             if any input is invalid
+     */
     private Map<Types, String> handleQualificationsChanged() throws IllegalValueException {
-        HashMap<Types, String> qualifications = new HashMap<>();
-        String deadline = deadlineTextField.getText().trim();
-        if (!deadline.equals(EMPTY)) {
-            if (deadline.equals(NIL)) {
-                qualifications.put(Types.DEADLINE, EMPTY);
-            } else {
-                deadlineTextField.requestFocus();
+        Map<Types, String> qualifications = new HashMap<>();
+        handleDeadlineChanged(qualifications);
+        handleStartDateChanged(qualifications);
+        handleEndDateChanged(qualifications);
+        handleRecurringChanged(qualifications);
+        handlePriorityChanged(qualifications);
+        return qualifications;
+    }
+
+    /*
+     * For the following inputs, we assume that they are correct. If the input
+     * is invalid, the corresponding text field will be changed accordingly to
+     * indicate the error.
+     */
+
+    /**
+     * Handles changes in the deadline text field.
+     * 
+     * @throws IllegalValueException
+     *             if the given deadline is invalid.
+     */
+    private void handleDeadlineChanged(Map<Types, String> qualifications) throws IllegalValueException {
+        String deadline = parseTextFieldInput(deadlineTextField);
+        if (deadline.equals(EMPTY)) {
+            return;
+        }
+        if (deadline.equals(NIL)) {
+            qualifications.put(Types.DEADLINE, EMPTY);
+        } else {
+            try {
                 deadline = Deadline.getValidDate(deadline);
                 qualifications.put(Types.DEADLINE, deadline);
+            } catch (IllegalValueException e) {
+                indicateInvalidTextFieldInput(deadlineTextField);
+                throw e;
             }
         }
-        String startDate = startDateTextField.getText().trim();
-        if (!startDate.equals(EMPTY)) {
-            startDateTextField.requestFocus();
+    }
+
+    /**
+     * Handles changes in the start date text field.
+     * 
+     * @throws IllegalValueException
+     *             if the given start date is invalid.
+     */
+    private void handleStartDateChanged(Map<Types, String> qualifications) throws IllegalValueException {
+        String startDate = parseTextFieldInput(startDateTextField);
+        if (startDate.equals(EMPTY)) {
+            return;
+        }
+        try {
             startDate = EventDate.getValidDate(startDate);
             qualifications.put(Types.START_DATE, startDate);
+        } catch (IllegalValueException e) {
+            indicateInvalidTextFieldInput(startDateTextField);
+            throw e;
         }
-        String endDate = endDateTextField.getText().trim();
-        if (!endDate.equals(EMPTY)) {
-            endDateTextField.requestFocus();
+    }
+
+    /**
+     * Handles changes in the end date text filed.
+     * 
+     * @throws IllegalValueException
+     *             if the given end date is invalid.
+     */
+    private void handleEndDateChanged(Map<Types, String> qualifications) throws IllegalValueException {
+        String endDate = parseTextFieldInput(endDateTextField);
+        if (endDate.equals(EMPTY)) {
+            return;
+        }
+        try {
             endDate = EventDate.getValidDate(endDate);
             qualifications.put(Types.END_DATE, endDate);
+        } catch (IllegalValueException e) {
+            indicateInvalidTextFieldInput(endDateTextField);
+            throw e;
         }
-        String recurring = recurringTextField.getText().trim();
-        if (!recurring.equals(EMPTY)) {
-            if (Recurring.isValidFrequency(recurring)) {
-                qualifications.put(Types.RECURRING, recurring);
-            } else {
-                recurringTextField.requestFocus();
-                throw new IllegalValueException(Recurring.MESSAGE_RECURRING_CONSTRAINTS);
-            }
+    }
+
+    /**
+     * Handles changes in the recurring text field.
+     * 
+     * @throws IllegalValueException
+     *             if the given recurring frequency is invalid.
+     */
+    private void handleRecurringChanged(Map<Types, String> qualifications) throws IllegalValueException {
+        String recurring = parseTextFieldInput(recurringTextField);
+        if (recurring.equals(EMPTY)) {
+            return;
         }
+        if (Recurring.isValidFrequency(recurring)) {
+            qualifications.put(Types.RECURRING, recurring);
+        } else {
+            indicateInvalidTextFieldInput(recurringTextField);
+            throw new IllegalValueException(Recurring.MESSAGE_RECURRING_CONSTRAINTS);
+        }
+    }
+
+    /**
+     * Parses the input in the given text field and reset its background color
+     * to default.
+     */
+    private String parseTextFieldInput(TextField textField) {
+        textField.setStyle(DEFAULT_BACKGROUND);
+        return textField.getText().trim();
+    }
+
+    /**
+     * Indicates the input in the given text field is invalid.
+     */
+    private void indicateInvalidTextFieldInput(TextField textField) {
+        textField.requestFocus();
+        textField.setStyle(ERROR_BACKGROUND);
+    }
+
+    /**
+     * Handles changes in the priority level choice box.
+     */
+    private void handlePriorityChanged(Map<Types, String> qualifications) {
         String priority = priorityChoiceBox.getSelectionModel().getSelectedItem().toString();
         if (!priority.equals(EMPTY)) {
             qualifications.put(Types.PRIORITY_LEVEL, priority);
         }
-        return qualifications;
     }
 
+    /**
+     * Handles changes in the tags text field.
+     * 
+     * @return a set of tags
+     */
     private Set<String> handleTagsChanged() {
         String tags = tagsTextField.getText().trim();
         Set<String> tagSet;
