@@ -626,16 +626,6 @@ Day:
 5. Steep learning curve.<br>
 6. Does not support categaries.<br>
 
-### Fantastical
-
-1a. It has a good and clean UI, really simple to use. <br>
-1b. It has integration with all iOS products, i.e. mac, iphone, ipad etc. <br>
-1c. Includes all CRUD features. <br>
-1d. It has a reminder function. <br>
-1e. Has a list of all upcoming tasks for the week at the left hand side. <br>
-1f. Has natural language processing, can add events using Siri. <br>
-1g. Locations added when creating events are automatically shown in google/apple map when clicked. <br>
-1h. Automatically syncs with apple calendar, updates and syncs on the go. <br>
 
 <!-- @@author A0139671X-->
 ### Any.do
@@ -669,6 +659,7 @@ Day:
 8. Frequently malfunctions and requres a restart.<br>
 <!-- @@author -->
 
+<!-- @@author A0147619W -->
 ### Wunderlist
 ##### Strengths
 
