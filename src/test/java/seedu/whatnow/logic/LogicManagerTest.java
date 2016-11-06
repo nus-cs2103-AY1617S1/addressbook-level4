@@ -239,17 +239,24 @@ public class LogicManagerTest {
         List<Task> expectedList = null;
         assertCommandBehavior("undo", UndoCommand.MESSAGE_FAIL, new WhatNow(), expectedList);
     }
+    
     //@@author A0139128A
+    @Test
     public void execute_undoAddCommand_ErrorMessageShown() throws Exception {
-        List<Task> expectedList = null;
         TestDataHelper helper = new TestDataHelper();
+        List<Task> expectedList = helper.generateTaskList(1);
+        WhatNow expectedAB = helper.generateWhatNow(expectedList);
         Task toBeAdded = helper.grapes();
-        WhatNow expectedAB = new WhatNow();
-        expectedAB.addTask(toBeAdded);
+        expectedList.add(toBeAdded);
         
+        //expectedAB.addTask(toBeAdded);
+
+        helper.addToModel(model, expectedList);
+        model.getUndoStack().push("add");
         
-        assertCommandBehavior("undo", UndoCommand.MESSAGE_SUCCESS,)
+        assertCommandBehavior("undo", UndoCommand.MESSAGE_SUCCESS, expectedAB, expectedAB.getTaskList());
     }
+    
     /**
      * Confirms the 'invalid argument index number behaviour' for the given
      * command targeting a single task in the shown list, using visible index.

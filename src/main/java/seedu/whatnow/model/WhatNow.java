@@ -180,9 +180,7 @@ public class WhatNow implements ReadOnlyWhatNow {
         }
     }
     
-    public void undo() {
-        
-    }
+    
     //// tag-level operations
 
     public void addTag(Tag t) throws UniqueTagList.DuplicateTagException {
