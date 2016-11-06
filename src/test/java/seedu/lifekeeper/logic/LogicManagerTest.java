@@ -208,7 +208,7 @@ public class LogicManagerTest {
         expectedAB.addPerson(toBeAdded);
 
         // setup starting state
-        model.addTask(toBeAdded); // person already in internal address book
+        model.addTask(toBeAdded); // activity already in internal address book
 
         // execute command and verify result
         assertCommandBehavior(
@@ -239,8 +239,8 @@ public class LogicManagerTest {
 
     /**
      * Confirms the 'invalid argument index number behaviour' for the given command
-     * targeting a single person in the shown list, using visible index.
-     * @param commandWord to test assuming it targets a single person in the last shown list based on visible index.
+     * targeting a single activity in the shown list, using visible index.
+     * @param commandWord to test assuming it targets a single activity in the last shown list based on visible index.
      */
     private void assertIncorrectIndexFormatBehaviorForCommand(String commandWord, String expectedMessage) throws Exception {
         assertCommandBehavior(commandWord , expectedMessage); //index missing
@@ -252,8 +252,8 @@ public class LogicManagerTest {
 
     /**
      * Confirms the 'invalid argument index number behaviour' for the given command
-     * targeting a single person in the shown list, using visible index.
-     * @param commandWord to test assuming it targets a single person in the last shown list based on visible index.
+     * targeting a single activity in the shown list, using visible index.
+     * @param commandWord to test assuming it targets a single activity in the last shown list based on visible index.
      */
     private void assertIndexNotFoundBehaviorForCommand(String commandWord) throws Exception {
         String expectedMessage = MESSAGE_INVALID_TASK_DISPLAYED_INDEX;
@@ -408,7 +408,7 @@ public class LogicManagerTest {
          * Running this function with the same parameter values guarantees the returned activity will have the same state.
          * Each unique seed will generate a unique Person object.
          *
-         * @param seed used to generate the person data field values
+         * @param seed used to generate the activity data field values
          */
         Activity generatePerson(int seed) throws Exception {
             return new Activity(
@@ -418,7 +418,7 @@ public class LogicManagerTest {
             );
         }
 
-        /** Generates the correct add command based on the person given */
+        /** Generates the correct add command based on the activity given */
         String generateAddCommand(Activity p) {
             StringBuffer cmd = new StringBuffer();
 
@@ -438,34 +438,34 @@ public class LogicManagerTest {
          * Generates an AddressBook with auto-generated persons.
          */
         LifeKeeper generateAddressBook(int numGenerated) throws Exception{
-            LifeKeeper addressBook = new LifeKeeper();
-            addToAddressBook(addressBook, numGenerated);
-            return addressBook;
+            LifeKeeper lifeKeeper = new LifeKeeper();
+            addToAddressBook(lifeKeeper, numGenerated);
+            return lifeKeeper;
         }
 
         /**
          * Generates an AddressBook based on the list of Persons given.
          */
         LifeKeeper generateAddressBook(List<Activity> persons) throws Exception{
-            LifeKeeper addressBook = new LifeKeeper();
-            addToAddressBook(addressBook, persons);
-            return addressBook;
+            LifeKeeper lifeKeeper = new LifeKeeper();
+            addToAddressBook(lifeKeeper, persons);
+            return lifeKeeper;
         }
 
         /**
          * Adds auto-generated Person objects to the given AddressBook
-         * @param addressBook The AddressBook to which the Persons will be added
+         * @param lifeKeeper The AddressBook to which the Persons will be added
          */
-        void addToAddressBook(LifeKeeper addressBook, int numGenerated) throws Exception{
-            addToAddressBook(addressBook, generatePersonList(numGenerated));
+        void addToAddressBook(LifeKeeper lifeKeeper, int numGenerated) throws Exception{
+            addToAddressBook(lifeKeeper, generatePersonList(numGenerated));
         }
 
         /**
          * Adds the given list of Persons to the given AddressBook
          */
-        void addToAddressBook(LifeKeeper addressBook, List<Activity> personsToAdd) throws Exception{
+        void addToAddressBook(LifeKeeper lifeKeeper, List<Activity> personsToAdd) throws Exception{
             for(Activity p: personsToAdd){
-                addressBook.addPerson(p);
+                lifeKeeper.addPerson(p);
             }
         }
 

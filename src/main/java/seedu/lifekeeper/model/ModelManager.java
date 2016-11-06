@@ -28,7 +28,7 @@ import com.google.common.eventbus.Subscribe;
 public class ModelManager extends ComponentManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final LifeKeeper addressBook;
+    private final LifeKeeper lifeKeeper;
     private final FilteredList<Activity> filteredPersons;
     private final FilteredList<Tag> filteredTags;
 
@@ -43,9 +43,9 @@ public class ModelManager extends ComponentManager implements Model {
 
         logger.fine("Initializing with address book: " + src + " and user prefs " + userPrefs);
 
-        addressBook = new LifeKeeper(src);
-        filteredPersons = new FilteredList<>(addressBook.getAllEntries());
-        filteredTags = new FilteredList<>(addressBook.getTag());
+        lifeKeeper = new LifeKeeper(src);
+        filteredPersons = new FilteredList<>(lifeKeeper.getAllEntries());
+        filteredTags = new FilteredList<>(lifeKeeper.getTag());
         updateFilteredListToShowAll();
     }
 
@@ -54,44 +54,44 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     public ModelManager(ReadOnlyLifeKeeper initialData, UserPrefs userPrefs) {
-        addressBook = new LifeKeeper(initialData);
-        filteredPersons = new FilteredList<>(addressBook.getAllEntries());
-        filteredTags = new FilteredList<>(addressBook.getTag());
+        lifeKeeper = new LifeKeeper(initialData);
+        filteredPersons = new FilteredList<>(lifeKeeper.getAllEntries());
+        filteredTags = new FilteredList<>(lifeKeeper.getTag());
         updateFilteredListToShowAll();
     }
 
     @Override
     public void resetData(ReadOnlyLifeKeeper newData) {
-        addressBook.resetData(newData);
+        lifeKeeper.resetData(newData);
         indicateAddressBookChanged();
     }
 
     @Override
     public ReadOnlyLifeKeeper getLifekeeper() {
-        return addressBook;
+        return lifeKeeper;
     }
 
     /** Raises an event to indicate the model has changed */
     private void indicateAddressBookChanged() {
-        raise(new AddressBookChangedEvent(addressBook));
+        raise(new AddressBookChangedEvent(lifeKeeper));
     }
 
     @Override
     public synchronized void deleteTask(ReadOnlyActivity target) throws TaskNotFoundException {
-        addressBook.removePerson(target);
+        lifeKeeper.removePerson(target);
         indicateAddressBookChanged();
     }
 
     @Override
-    public synchronized void addTask(Activity person) throws UniqueActivityList.DuplicateTaskException {
-        addressBook.addPerson(person);
+    public synchronized void addTask(Activity activity) throws UniqueActivityList.DuplicateTaskException {
+        lifeKeeper.addPerson(activity);
         updateFilteredListToShowAll();
         indicateAddressBookChanged();
     }       
 
 	@Override
 	public void undoDelete(int index, Activity taskToAdd) throws UniqueActivityList.DuplicateTaskException {
-		addressBook.addPerson(index, taskToAdd);
+		lifeKeeper.addPerson(index, taskToAdd);
 		updateFilteredListToShowAll();
 		indicateAddressBookChanged();
 
@@ -100,7 +100,7 @@ public class ModelManager extends ComponentManager implements Model {
     //@@author A0125680H
     @Override
     public synchronized Activity editTask(Activity oldTask, Activity newParams) throws TaskNotFoundException, DuplicateTaskException {
-        Activity editedTask = addressBook.editTask(oldTask, newParams, "edit");
+        Activity editedTask = lifeKeeper.editTask(oldTask, newParams, "edit");
         indicateAddressBookChanged();
         
         return editedTask;
@@ -108,7 +108,7 @@ public class ModelManager extends ComponentManager implements Model {
     
     @Override
     public synchronized Activity undoEditTask(Activity oldTask, Activity newParams) throws TaskNotFoundException, DuplicateTaskException {
-        Activity editedTask = addressBook.editTask(oldTask, newParams, "undo");
+        Activity editedTask = lifeKeeper.editTask(oldTask, newParams, "undo");
         indicateAddressBookChanged();
         
         return editedTask;
@@ -116,7 +116,7 @@ public class ModelManager extends ComponentManager implements Model {
 
 	@Override
 	public synchronized void markTask(Activity taskToMark, boolean isComplete) throws TaskNotFoundException {
-		addressBook.markTask(taskToMark, isComplete);
+		lifeKeeper.markTask(taskToMark, isComplete);
         updateFilteredListToShowAll();
         indicateAddressBookChanged();
 		
@@ -192,7 +192,7 @@ public class ModelManager extends ComponentManager implements Model {
     //========== Inner classes/interfaces used for filtering ==================================================
 
     interface Expression {
-        boolean satisfies(ReadOnlyActivity person);
+        boolean satisfies(ReadOnlyActivity activity);
         String toString();
     }
 
@@ -205,8 +205,8 @@ public class ModelManager extends ComponentManager implements Model {
         }
 
         @Override
-        public boolean satisfies(ReadOnlyActivity person) {
-            return qualifier.run(person);
+        public boolean satisfies(ReadOnlyActivity activity) {
+            return qualifier.run(activity);
         }
 
         @Override
@@ -216,7 +216,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     interface Qualifier {
-        boolean run(ReadOnlyActivity person);
+        boolean run(ReadOnlyActivity activity);
         String toString();
     }
 
@@ -228,9 +228,9 @@ public class ModelManager extends ComponentManager implements Model {
         }
 
         @Override
-        public boolean run(ReadOnlyActivity person) {
+        public boolean run(ReadOnlyActivity activity) {
             return nameKeyWords.stream()
-                    .filter(keyword -> StringUtil.containsIgnoreCase(person.getName().fullName, keyword))
+                    .filter(keyword -> StringUtil.containsIgnoreCase(activity.getName().fullName, keyword))
                     .findAny()
                     .isPresent();
         }

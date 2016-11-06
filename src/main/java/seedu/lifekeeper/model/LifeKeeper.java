@@ -83,14 +83,14 @@ public class LifeKeeper implements ReadOnlyLifeKeeper {
         resetData(newData.getPersonList(), newData.getTagList());
     }
 
-//// person-level operations
+//// activity-level operations
 
     /**
-     * Adds a person to the address book.
-     * Also checks the new person's tags and updates {@link #tags} with any new tags found,
-     * and updates the Tag objects in the person to point to those in {@link #tags}.
+     * Adds a activity to the address book.
+     * Also checks the new activity's tags and updates {@link #tags} with any new tags found,
+     * and updates the Tag objects in the activity to point to those in {@link #tags}.
      *
-     * @throws UniqueActivityList.DuplicateTaskException if an equivalent person already exists.
+     * @throws UniqueActivityList.DuplicateTaskException if an equivalent activity already exists.
      */
     public void addPerson(Activity p) throws UniqueActivityList.DuplicateTaskException {
         syncTagsWithMasterList(p);
@@ -106,12 +106,12 @@ public class LifeKeeper implements ReadOnlyLifeKeeper {
 	}
 
     /**
-     * Ensures that every tag in this person:
+     * Ensures that every tag in this activity:
      *  - exists in the master list {@link #tags}
      *  - points to a Tag object in the master list
      */
-    private void syncTagsWithMasterList(Activity person) {
-        final UniqueTagList personTags = person.getTags();
+    private void syncTagsWithMasterList(Activity activity) {
+        final UniqueTagList personTags = activity.getTags();
         tags.mergeFrom(personTags);
 
         // Create map with values = tag object references in the master list
@@ -120,12 +120,12 @@ public class LifeKeeper implements ReadOnlyLifeKeeper {
             masterTagObjects.put(tag, tag);
         }
 
-        // Rebuild the list of person tags using references from the master list
+        // Rebuild the list of activity tags using references from the master list
         final Set<Tag> commonTagReferences = new HashSet<>();
         for (Tag tag : personTags) {
             commonTagReferences.add(masterTagObjects.get(tag));
         }
-        person.setTags(new UniqueTagList(commonTagReferences));
+        activity.setTags(new UniqueTagList(commonTagReferences));
     }
 
     public boolean removePerson(ReadOnlyActivity key) throws UniqueActivityList.TaskNotFoundException {

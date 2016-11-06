@@ -23,7 +23,7 @@ public interface ReadOnlyTask extends ReadOnlyActivity {
     }
     
     /**
-     * Formats the person as text, showing all contact details.
+     * Formats the activity as text, showing all contact details.
      */
     default String getAsText() {
         final StringBuilder builder = new StringBuilder();

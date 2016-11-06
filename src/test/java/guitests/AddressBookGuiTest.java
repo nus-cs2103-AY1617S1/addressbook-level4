@@ -97,14 +97,14 @@ public abstract class AddressBookGuiTest {
     }
 
     /**
-     * Asserts the person shown in the card is same as the given person
+     * Asserts the activity shown in the card is same as the given activity
      */
-    public void assertMatching(ReadOnlyActivity person, ActivityCardHandle card) {
-        assertTrue(TestUtil.compareCardAndPerson(card, person));
+    public void assertMatching(ReadOnlyActivity activity, ActivityCardHandle card) {
+        assertTrue(TestUtil.compareCardAndPerson(card, activity));
     }
 
     /**
-     * Asserts the size of the person list is equal to the given number.
+     * Asserts the size of the activity list is equal to the given number.
      */
     protected void assertListSize(int size) {
         int numberOfPeople = activityListPanel.getNumberOfPeople();

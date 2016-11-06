@@ -7,7 +7,7 @@ import seedu.lifekeeper.commons.events.ui.JumpToListRequestEvent;
 import seedu.lifekeeper.model.activity.ReadOnlyActivity;
 
 /**
- * Selects a person identified using it's last displayed index from the address book.
+ * Selects a activity identified using it's last displayed index from the address book.
  */
 public class SelectCommand extends Command {
 
@@ -16,7 +16,7 @@ public class SelectCommand extends Command {
     public static final String COMMAND_WORD = "select";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Selects the person identified by the index number used in the last person listing.\n"
+            + ": Selects the activity identified by the index number used in the last activity listing.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 

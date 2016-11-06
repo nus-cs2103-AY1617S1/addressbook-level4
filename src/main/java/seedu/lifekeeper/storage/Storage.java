@@ -31,7 +31,7 @@ public interface Storage extends AddressBookStorage, UserPrefsStorage {
     Optional<ReadOnlyLifeKeeper> readAddressBook() throws DataConversionException, IOException;
 
     @Override
-    void saveAddressBook(ReadOnlyLifeKeeper addressBook) throws IOException;
+    void saveAddressBook(ReadOnlyLifeKeeper lifeKeeper) throws IOException;
 
     /**
      * Saves the current version of the Address Book to the hard disk.

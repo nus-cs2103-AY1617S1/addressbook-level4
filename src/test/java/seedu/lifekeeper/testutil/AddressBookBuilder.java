@@ -13,23 +13,23 @@ import seedu.lifekeeper.model.tag.Tag;
  */
 public class AddressBookBuilder {
 
-    private LifeKeeper addressBook;
+    private LifeKeeper lifeKeeper;
 
-    public AddressBookBuilder(LifeKeeper addressBook){
-        this.addressBook = addressBook;
+    public AddressBookBuilder(LifeKeeper lifeKeeper){
+        this.lifeKeeper = lifeKeeper;
     }
 
-    public AddressBookBuilder withPerson(Activity person) throws UniqueActivityList.DuplicateTaskException {
-        addressBook.addPerson(person);
+    public AddressBookBuilder withPerson(Activity activity) throws UniqueActivityList.DuplicateTaskException {
+        lifeKeeper.addPerson(activity);
         return this;
     }
 
     public AddressBookBuilder withTag(String tagName) throws IllegalValueException {
-        addressBook.addTag(new Tag(tagName));
+        lifeKeeper.addTag(new Tag(tagName));
         return this;
     }
 
     public LifeKeeper build(){
-        return addressBook;
+        return lifeKeeper;
     }
 }

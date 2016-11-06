@@ -70,13 +70,13 @@ public class XmlAddressBookStorage implements AddressBookStorage {
      * Similar to {@link #saveAddressBook(ReadOnlyLifeKeeper)}
      * @param filePath location of the data. Cannot be null
      */
-    public void saveAddressBook(ReadOnlyLifeKeeper addressBook, String filePath) throws IOException {
-        assert addressBook != null;
+    public void saveAddressBook(ReadOnlyLifeKeeper lifeKeeper, String filePath) throws IOException {
+        assert lifeKeeper != null;
         assert filePath != null;
 
         File file = new File(filePath);
         FileUtil.createIfMissing(file);
-        XmlFileStorage.saveDataToFile(file, new XmlSerializableAddressBook(addressBook));
+        XmlFileStorage.saveDataToFile(file, new XmlSerializableAddressBook(lifeKeeper));
     }
 
     @Override
@@ -85,8 +85,8 @@ public class XmlAddressBookStorage implements AddressBookStorage {
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyLifeKeeper addressBook) throws IOException {
-        saveAddressBook(addressBook, filePath);
+    public void saveAddressBook(ReadOnlyLifeKeeper lifeKeeper) throws IOException {
+        saveAddressBook(lifeKeeper, filePath);
     }
     
     public static boolean checkIfDataFileExists(String filePath) {

@@ -293,7 +293,7 @@ public class TestUtil {
 
 
     /**
-     * Returns a copy of the list with the person at specified index removed.
+     * Returns a copy of the list with the activity at specified index removed.
      * @param list original list to copy from
      * @param targetIndexInOneIndexedFormat e.g. if the first element to be removed, 1 should be given as index.
      */
@@ -302,14 +302,14 @@ public class TestUtil {
     }
 
     /**
-     * Replaces persons[i] with a person.
+     * Replaces persons[i] with a activity.
      * @param persons The array of persons.
-     * @param person The replacement person
-     * @param index The index of the person to be replaced.
+     * @param activity The replacement activity
+     * @param index The index of the activity to be replaced.
      * @return
      */
-    public static TestActivity[] replacePersonFromList(TestActivity[] persons, TestActivity person, int index) {
-        persons[index] = person;
+    public static TestActivity[] replacePersonFromList(TestActivity[] persons, TestActivity activity, int index) {
+        persons[index] = activity;
         return persons;
     }
 

@@ -31,7 +31,7 @@ public class ActivityListPanel extends ListPanel {
     private void setEventHandlerForSelectionChangeEvent() {
         this.activityListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
-                logger.fine("Selection in person list panel changed to : '" + newValue + "'");
+                logger.fine("Selection in activity list panel changed to : '" + newValue + "'");
                 }
         });
     }

@@ -31,14 +31,14 @@ public interface AddressBookStorage {
 
     /**
      * Saves the given {@link ReadOnlyLifeKeeper} to the storage.
-     * @param addressBook cannot be null.
+     * @param lifeKeeper cannot be null.
      * @throws IOException if there was any problem writing to the file.
      */
-    void saveAddressBook(ReadOnlyLifeKeeper addressBook) throws IOException;
+    void saveAddressBook(ReadOnlyLifeKeeper lifeKeeper) throws IOException;
 
     /**
      * @see #saveAddressBook(ReadOnlyLifeKeeper)
      */
-    void saveAddressBook(ReadOnlyLifeKeeper addressBook, String filePath) throws IOException;
+    void saveAddressBook(ReadOnlyLifeKeeper lifeKeeper, String filePath) throws IOException;
 
 }

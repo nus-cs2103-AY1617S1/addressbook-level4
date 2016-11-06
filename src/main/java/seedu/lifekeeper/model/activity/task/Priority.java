@@ -30,7 +30,7 @@ public class Priority {
     }
 
     /**
-     * Returns if a given string is a valid person email.
+     * Returns if a given string is a valid activity email.
      */
     public static boolean isValidPriority(String test) {
         return test.matches(PRIORITY_VALIDATION_REGEX) || test.equals("");

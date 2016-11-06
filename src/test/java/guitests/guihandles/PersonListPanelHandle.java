@@ -18,7 +18,7 @@ import java.util.Set;
 import static org.junit.Assert.assertTrue;
 
 /**
- * Provides a handle for the panel containing the person list.
+ * Provides a handle for the panel containing the activity list.
  */
 public class PersonListPanelHandle extends GuiHandle {
 
@@ -41,8 +41,8 @@ public class PersonListPanelHandle extends GuiHandle {
     }
 
     /**
-     * Returns true if the list is showing the person details correctly and in correct order.
-     * @param persons A list of person in the correct order.
+     * Returns true if the list is showing the activity details correctly and in correct order.
+     * @param persons A list of activity in the correct order.
      */
     public boolean isListMatching(ReadOnlyActivity... persons) {
         return this.isListMatching(0, persons);
@@ -78,9 +78,9 @@ public class PersonListPanelHandle extends GuiHandle {
     }
 
     /**
-     * Returns true if the list is showing the person details correctly and in correct order.
+     * Returns true if the list is showing the activity details correctly and in correct order.
      * @param startPosition The starting position of the sub list.
-     * @param persons A list of person in the correct order.
+     * @param persons A list of activity in the correct order.
      */
     public boolean isListMatching(int startPosition, ReadOnlyActivity... persons) throws IllegalArgumentException {
         if(startPosition!= 0 && persons.length!=0){
@@ -113,10 +113,10 @@ public class PersonListPanelHandle extends GuiHandle {
     }
     
     /**
-     * Navigates the listview to display and select the person.
+     * Navigates the listview to display and select the activity.
      */
-    public ActivityCardHandle navigateToPerson(ReadOnlyActivity person) {
-        int index = getPersonIndex(person);
+    public ActivityCardHandle navigateToPerson(ReadOnlyActivity activity) {
+        int index = getPersonIndex(activity);
 
         guiRobot.interact(() -> {
             getListView().scrollTo(index);
@@ -124,12 +124,12 @@ public class PersonListPanelHandle extends GuiHandle {
             getListView().getSelectionModel().select(index); 
         });
         guiRobot.sleep(100);
-        return getPersonCardHandle(person);
+        return getPersonCardHandle(activity);
     }
 
 
     /**
-     * Returns the position of the person given, {@code NOT_FOUND} if not found in the list.
+     * Returns the position of the activity given, {@code NOT_FOUND} if not found in the list.
      */
     public int getPersonIndex(ReadOnlyActivity targetPerson) {
         List<ReadOnlyActivity> personsInList = getListView().getItems();
@@ -143,7 +143,7 @@ public class PersonListPanelHandle extends GuiHandle {
     }
 
     /**
-     * Gets a person from the list by index
+     * Gets a activity from the list by index
      */
     public ReadOnlyActivity getPerson(int index) {
         return getListView().getItems().get(index);
@@ -153,10 +153,10 @@ public class PersonListPanelHandle extends GuiHandle {
         return getPersonCardHandle(new Activity(getListView().getItems().get(index)));
     }
 
-    public ActivityCardHandle getPersonCardHandle(ReadOnlyActivity person) {
+    public ActivityCardHandle getPersonCardHandle(ReadOnlyActivity activity) {
         Set<Node> nodes = getAllCardNodes();
         Optional<Node> personCardNode = nodes.stream()
-                .filter(n -> new ActivityCardHandle(guiRobot, primaryStage, n).isSameActivity(person))
+                .filter(n -> new ActivityCardHandle(guiRobot, primaryStage, n).isSameActivity(activity))
                 .findFirst();
         if (personCardNode.isPresent()) {
             return new ActivityCardHandle(guiRobot, primaryStage, personCardNode.get());

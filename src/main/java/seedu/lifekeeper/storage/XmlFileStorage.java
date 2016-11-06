@@ -14,10 +14,10 @@ public class XmlFileStorage {
     /**
      * Saves the given addressbook data to the specified file.
      */
-    public static void saveDataToFile(File file, XmlSerializableAddressBook addressBook)
+    public static void saveDataToFile(File file, XmlSerializableAddressBook lifeKeeper)
             throws FileNotFoundException {
         try {
-            XmlUtil.saveDataToFile(file, addressBook);
+            XmlUtil.saveDataToFile(file, lifeKeeper);
         } catch (JAXBException e) {
             assert false : "Unexpected exception " + e.getMessage();
         }

@@ -15,11 +15,11 @@ public class SelectCommandTest extends AddressBookGuiTest {
         assertSelectionInvalid(10); //invalid index
         assertNoPersonSelected();
 
-        assertSelectionSuccess(1); //first person in the list
+        assertSelectionSuccess(1); //first activity in the list
         int personCount = td.getTypicalActivities().length;
-        assertSelectionSuccess(personCount); //last person in the list
+        assertSelectionSuccess(personCount); //last activity in the list
         int middleIndex = personCount / 2;
-        assertSelectionSuccess(middleIndex); //a person in the middle of the list
+        assertSelectionSuccess(middleIndex); //a activity in the middle of the list
 
         assertSelectionInvalid(personCount + 1); //invalid index
         assertPersonSelected(middleIndex); //assert previous selection remains

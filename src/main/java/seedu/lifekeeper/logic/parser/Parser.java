@@ -201,7 +201,7 @@ public class Parser {
     
     //@@author A0125680H
     /**
-     * Parses arguments in the context of the edit person command.
+     * Parses arguments in the context of the edit activity command.
      *
      * @param args full command args string
      * @return the prepared command

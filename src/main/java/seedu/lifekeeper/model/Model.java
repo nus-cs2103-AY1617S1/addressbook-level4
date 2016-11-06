@@ -24,7 +24,7 @@ public interface Model {
     void deleteTask(ReadOnlyActivity target) throws UniqueActivityList.TaskNotFoundException;
 
     /** Adds the given task */
-    void addTask(Activity person) throws UniqueActivityList.DuplicateTaskException;
+    void addTask(Activity activity) throws UniqueActivityList.DuplicateTaskException;
     
     /** Undo delete of the given task at the specific index
      * @throws DuplicateTaskException */

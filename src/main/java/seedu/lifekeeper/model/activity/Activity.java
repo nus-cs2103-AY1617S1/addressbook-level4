@@ -75,7 +75,7 @@ public class Activity implements ReadOnlyActivity {
     }
 
     /**
-     * Replaces this person's tags with the tags in the argument tag list.
+     * Replaces this activity's tags with the tags in the argument tag list.
      */
     public void setTags(UniqueTagList replacement) {
         tags.setTags(replacement);

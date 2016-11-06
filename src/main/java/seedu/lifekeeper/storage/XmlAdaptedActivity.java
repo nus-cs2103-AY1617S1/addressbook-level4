@@ -125,7 +125,7 @@ public class XmlAdaptedActivity {
      *
      * @throws IllegalValueException
      *             if there were any data constraints violated in the adapted
-     *             person
+     *             activity
      */
     //@@author A0131813R
     public Activity toModelType() throws IllegalValueException {
