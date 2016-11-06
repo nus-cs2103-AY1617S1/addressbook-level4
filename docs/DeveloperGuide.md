@@ -1,5 +1,6 @@
 # Developer Guide 
 
+* [Introduction](#introduction)
 * [Setting Up](#setting-up)
 * [Design](#design)
 * [Implementation](#implementation)
@@ -11,6 +12,22 @@
 * [Appendix D: Glossary](#appendix-d-glossary)
 * [Appendix E: Product Survey](#appendix-e-product-survey)
 
+
+## Introduction
+
+Welcome to the ForgetMeNot development team!
+
+ForgetMeNot is a task manager application that keeps track of your tasks, events and
+deadlines. It allows you to manage them efficiently with a keyboard-oriented
+command line interface.
+
+This development guide aims to quickly familiarise you with the ForgetMeNot
+code base. It will give you an overview of the code architecture, as well as
+its various components and how they all interact with each other. By the end of this document, you will
+be ready to make your first awesome change to the code. The guide is organized from a top-down perspective to allow an overall idea to be grasped before moving on to the specifics. 
+
+
+Ready to dive in? Let's get started!
 
 ## Setting up
 
