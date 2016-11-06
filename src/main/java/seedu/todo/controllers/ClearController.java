@@ -29,8 +29,12 @@ public class ClearController extends Controller {
     private static final String COMMAND_SYNTAX = "clear [task/event] [on date]";
     private static final String COMMAND_KEYWORD = "clear";
     
-    private static final String MESSAGE_CLEAR_NO_ITEMS_FOUND = "No items found!";
+    private static final String MESSAGE_CLEAR_NO_ITEMS_FOUND = "No items matched your query!";
     private static final String MESSAGE_CLEAR_SUCCESS = "A total of %s %s and %s %s deleted!\n" + "To undo, type \"undo\".";
+    private static final String MESSAGE_AMBIGUOUS_TYPE = "We could not tell if you wanted to clear events or tasks. \n"
+            + "Note that only tasks can be \"complete\"/\"incomplete\", "
+            + "while only events can be \"past\", \"over\" or \"future\".";
+    private static final String MESSAGE_INVALID_DATE = "We could not parse the date in your query, please try again.";
     
     private static final String CLEAR_TEMPLATE = "clear [name \"%s\"] [from \"%s\"] [to \"%s\"] [tag \"%s\"]";
     private static final String CLEAR_TASKS_TEMPLATE = "clear tasks [name \"%s\"] [\"%s\"] [from \"%s\"] [to \"%s\"] [tag \"%s\"]";
@@ -56,7 +60,7 @@ public class ClearController extends Controller {
         try {
             isTaskEvent = CalendarItemFilter.parseIsTaskEvent(parsedResult);
         } catch (AmbiguousEventTypeException e) {
-            renderDisambiguation(parsedResult, true, true);
+            renderDisambiguation(parsedResult, true, true, MESSAGE_AMBIGUOUS_TYPE);
             return;
         }
         
@@ -73,7 +77,7 @@ public class ClearController extends Controller {
                 clearEvents = CalendarItemFilter.filterEvents(parsedResult);
             }
         } catch (InvalidNaturalDateException e) {
-            renderDisambiguation(parsedResult, filterTask, filterEvent);
+            renderDisambiguation(parsedResult, filterTask, filterEvent, MESSAGE_INVALID_DATE);
             return;
         }
         
@@ -96,10 +100,10 @@ public class ClearController extends Controller {
         Renderer.renderIndex(db, consoleMessage);
     }
     
-    private void renderDisambiguation(Map<String, String[]> parsedResult, boolean filterTask, boolean filterEvent) {
+    private void renderDisambiguation(Map<String, String[]> parsedResult, boolean filterTask, boolean filterEvent, String errorMessage) {
         Map<String, String> extractedTokens = Disambiguator.extractParsedTokens(parsedResult);
+        String consoleCommand;
         
-        String consoleCommand = null;
         if ((filterTask && filterEvent) || (!filterTask && !filterEvent)) {
             consoleCommand = String.format(CLEAR_TEMPLATE, extractedTokens.get("name"), extractedTokens.get("startTime"), 
                     extractedTokens.get("endTime"), extractedTokens.get("tag"));
@@ -111,6 +115,6 @@ public class ClearController extends Controller {
                     extractedTokens.get("startTime"), extractedTokens.get("endTime"), extractedTokens.get("tag"));
         }
         
-        Renderer.renderDisambiguation(consoleCommand, "");
+        Renderer.renderDisambiguation(consoleCommand, errorMessage);
     }
 }
