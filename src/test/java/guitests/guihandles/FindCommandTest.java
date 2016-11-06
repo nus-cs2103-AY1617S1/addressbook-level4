@@ -5,7 +5,6 @@ import org.junit.Test;
 import seedu.todo.model.TodoList;
 import seedu.todo.model.task.ImmutableTask;
 import seedu.todo.testutil.TaskBuilder;
-import seedu.todo.testutil.TaskFactory;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
