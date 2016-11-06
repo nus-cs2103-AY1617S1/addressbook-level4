@@ -206,11 +206,15 @@ public class TaskListPanel extends UiPart {
                 super.updateItem(item, empty);
                 if (item == null) {
                     setStyle("");
-                } else if (item.getStatus().getDoneStatus()) {
-                    setStyle("-fx-background-color: red;");
-                } else {
-                    setStyle("");
+                } 
+                else if (item.getStatus().getDoneStatus()) {
+                    setStyle("-fx-background-color: #ADDBAC");
                 }
+                
+                else if (item.getStatus().getOverdueStatus()) {
+                    setStyle("-fx-background-color: #FF0000");
+                }
+                
             }
         });
 
