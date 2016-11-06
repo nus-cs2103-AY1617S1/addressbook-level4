@@ -49,20 +49,13 @@ public class TaskCardView extends UiPart {
 
     //@@author A0135805H-reused
     /*Layout Declarations*/
-    @FXML
-    private VBox taskCard;
-    @FXML
-    private ImageView pinImage;
-    @FXML
-    private Label titleLabel;
-    @FXML
-    private Label typeLabel, moreInfoLabel;
-    @FXML
-    private Label descriptionLabel, dateLabel, locationLabel;
-    @FXML
-    private HBox descriptionBox, dateBox, locationBox;
-    @FXML
-    private FlowPane titleFlowPane;
+    @FXML private VBox taskCard;
+    @FXML private ImageView pinImage;
+    @FXML private Label titleLabel;
+    @FXML private Label typeLabel, moreInfoLabel;
+    @FXML private Label descriptionLabel, dateLabel, locationLabel;
+    @FXML private HBox descriptionBox, dateBox, locationBox;
+    @FXML private FlowPane titleFlowPane;
     
     /* Variables */
     private ImmutableTask task;

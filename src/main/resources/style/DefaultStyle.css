@@ -125,6 +125,7 @@
 .roundLabel.white {
     -fx-text-fill: #2D2D2D;
     -fx-background-color: #f3f3f3;
+    -fx-font-size: 12pt;
 }
 
 /***View Filter Styles Start***/
@@ -215,6 +216,10 @@
 
 .taskCard .highlightedBackground {
     -fx-background-color: #00A4FF;
+}
+
+.taskCard.event .highlightedBackground {
+    -fx-background-color: #689f38;
 }
 
 .taskCard .lightBackground {

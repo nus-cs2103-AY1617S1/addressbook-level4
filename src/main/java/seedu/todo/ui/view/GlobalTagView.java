@@ -50,7 +50,7 @@ public class GlobalTagView extends UiPart {
     }
 
     /**
-     * Configure the UI layout of {@link globalTagView}
+     * Configure the UI layout of {@link GlobalTagView}
      */
     private void configureLayout() {
         FxViewUtil.applyAnchorBoundaryParameters(globalTagViewPanel, 0.0, 0.0, 0.0, 0.0);
@@ -75,9 +75,7 @@ public class GlobalTagView extends UiPart {
     public void displayGlobalTags(Collection<Tag> globalTags) {
         this.showGlobalTagViewPanel();
         tagFlowPane.getChildren().clear();
-        for (Tag tag : globalTags){
-            appendTag(tag);
-        }
+        globalTags.forEach(this::appendTag);
     }
 
     /* Ui Methods */

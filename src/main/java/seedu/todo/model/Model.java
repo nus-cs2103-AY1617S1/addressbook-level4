@@ -210,4 +210,13 @@ public interface Model {
      * @throws ValidationException when the tag is not found, or the new name clashes with existing names.
      */
     void renameTag(String oldName, String newName) throws ValidationException;
+
+    /**
+     * Renames a tag for a particular task.
+     * @param index The task displayed index to be renamed.
+     * @param oldName Name of the tag to be renamed.
+     * @param newName New name that the tag will assume.
+     * @throws ValidationException when the tag is not found, or the new name clashes with existing names.
+     */
+    void renameTag(int index, String oldName, String newName) throws ValidationException;
 }
