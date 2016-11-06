@@ -3,6 +3,7 @@ package guitests;
 import org.junit.Test;
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.commands.FilterCommand;
+import seedu.address.model.task.Deadline;
 import seedu.address.testutil.TestTask;
 
 import static org.junit.Assert.assertTrue;
@@ -42,6 +43,8 @@ public class FilterCommandTest extends TaskManagerGuiTest {
         assertResultMessage(Messages.MESSAGE_UNKNOWN_COMMAND);
         commandBox.runCommand("filter");
         assertResultMessage(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FilterCommand.MESSAGE_USAGE));
+        commandBox.runCommand("filter d/ddd");
+        assertResultMessage(Deadline.MESSAGE_DEADLINE_CONSTRAINTS);
     }
 
     /**

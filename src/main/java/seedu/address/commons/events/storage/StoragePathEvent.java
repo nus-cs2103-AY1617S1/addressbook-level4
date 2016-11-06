@@ -4,7 +4,8 @@ import seedu.address.commons.events.BaseEvent;
 
 //@@author A0146123R
 /**
- * Indicates a change for the path for the storage file.
+ * Indicates a change for the storage file path. It could be changed to a new
+ * path or undone or redone the change.
  */
 public class StoragePathEvent extends BaseEvent {
 

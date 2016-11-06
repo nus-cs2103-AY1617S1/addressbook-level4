@@ -4,7 +4,7 @@ import seedu.address.commons.events.BaseEvent;
 
 //@@author A0146123R
 /**
- * Indicates that the change for the path for the storage file should be redone.
+ * Indicates the change for the storage file path should be redone.
  */
 public class RedoStoragePathChangedEvent extends BaseEvent {
 

@@ -74,9 +74,6 @@ public interface Model {
      */
     void updateFilteredTaskListWithStemmedKeywords(Set<Set<String>> keywordsGroups);
 
-    /** Updates the filter of the filtered task list to filter by the given tags */
-    void updateFilteredTaskListByTags(Set<String> keywords);
-
     /** Update the task manager to the new file path */
     void updateTaskManager(String filePath, boolean isToClearOld);
 

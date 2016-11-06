@@ -37,7 +37,7 @@ public class ChangeCommandTest extends CommandTest{
     @Test
     public void change_invalidFilePath_errorMessageShown() throws Exception{
         String expectedMessage = ChangeCommand.MESSAGE_INVALID_FILE_PATH;
-        assertCommandBehavior("change *", expectedMessage); 
+        assertCommandBehavior("change !@#$%^&*", expectedMessage); 
         assertCommandBehavior("change a.txt", expectedMessage);
     }
 

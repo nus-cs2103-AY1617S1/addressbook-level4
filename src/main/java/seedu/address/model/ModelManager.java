@@ -263,11 +263,6 @@ public class ModelManager extends ComponentManager implements Model {
         updateFilteredTaskListAndOperation(predicate);
     }
 
-    @Override
-    public void updateFilteredTaskListByTags(Set<String> keyword) {
-        updateFilteredTaskList(getPredicateForTags(keyword));
-    }
-
     private Expression getPredicateForTags(Set<String> keyword) {
         return new PredicateExpression(new TagQualifier(keyword));
     }

@@ -19,7 +19,6 @@ import seedu.address.model.*;
 import seedu.address.commons.util.ConfigUtil;
 import seedu.address.storage.Storage;
 import seedu.address.storage.StorageManager;
-import seedu.address.ui.MainWindow;
 import seedu.address.ui.Ui;
 import seedu.address.ui.UiManager;
 
@@ -49,7 +48,7 @@ public class MainApp extends Application {
 
     @Override
     public void init() throws Exception {
-        logger.info("=============================[ Initializing TaskManager ]===========================");
+        logger.info("=============================[ Initializing toDoList ]===========================");
         super.init();
 
         config = initConfig(getApplicationParameter("config"));
@@ -79,14 +78,14 @@ public class MainApp extends Application {
         try {
             addressBookOptional = storage.readTaskManager();
             if(!addressBookOptional.isPresent()){
-                logger.info("Data file not found. Will be starting with an empty TaskManager");
+                logger.info("Data file not found. Will be starting with an empty toDoList");
             }
             initialData = addressBookOptional.orElse(new TaskManager());
         } catch (DataConversionException e) {
-            logger.warning("Data file not in the correct format. Will be starting with an empty TaskManager");
+            logger.warning("Data file not in the correct format. Will be starting with an empty toDoList");
             initialData = new TaskManager();
         } catch (IOException e) {
-            logger.warning("Problem while reading from the file. . Will be starting with an empty TaskManager");
+            logger.warning("Problem while reading from the file. . Will be starting with an empty toDoList");
             initialData = new TaskManager();
         }
 
@@ -142,7 +141,7 @@ public class MainApp extends Application {
                     "Using default user prefs");
             initializedPrefs = new UserPrefs();
         } catch (IOException e) {
-            logger.warning("Problem while reading from the file. . Will be starting with an empty TaskManager");
+            logger.warning("Problem while reading from the file. . Will be starting with an empty toDoList");
             initializedPrefs = new UserPrefs();
         }
 
@@ -162,13 +161,13 @@ public class MainApp extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        logger.info("Starting TaskManager " + MainApp.VERSION);
+        logger.info("Starting toDoList " + MainApp.VERSION);
         ui.start(primaryStage);
     }
 
     @Override
     public void stop() {
-        logger.info("============================ [ Stopping Address Book ] =============================");
+        logger.info("============================ [ Stopping toDoList ] =============================");
         ui.stop();
         try {
             storage.saveUserPrefs(userPrefs);
@@ -186,11 +185,13 @@ public class MainApp extends Application {
     }
 
     //@@author A0146123R
+    /**
+     * Updates config file when storage file path is changed.
+     */
     @Subscribe
     public void handleStoragePathChangedEvent(StoragePathEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
 
-        //Update config file
         this.config.setTaskManagerFilePath(event.getNewStorageFilePath());
         try {
             ConfigUtil.saveConfig(config, configFilePathUsed);

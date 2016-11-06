@@ -4,7 +4,7 @@ import seedu.address.commons.events.BaseEvent;
 
 //@@author A0146123R
 /**
- * Indicates that the path for the storage file should be changed back.
+ * Indicates the storage file path should be changed back.
  */
 public class UndoStoragePathChangedEvent extends BaseEvent {
 

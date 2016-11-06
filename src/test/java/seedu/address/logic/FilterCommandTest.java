@@ -10,6 +10,7 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.FilterCommand;
 import seedu.address.model.TaskManager;
 import seedu.address.model.task.Deadline;
+import seedu.address.model.task.EventDate;
 import seedu.address.model.task.Priority;
 import seedu.address.model.task.Recurring;
 import seedu.address.model.task.Task;
@@ -38,8 +39,12 @@ public class FilterCommandTest extends CommandTest {
 
     @Test
     public void execute_filterInvalidParameter_errorMessageShown() throws Exception {
-        String expectedMessage = String.format(Deadline.MESSAGE_DEADLINE_CONSTRAINTS);
-        assertAbsenceKeywordFormatBehaviorForCommand("filter d/ddd", expectedMessage);
+        assertCommandBehavior("filter d/ddd", Deadline.MESSAGE_DEADLINE_CONSTRAINTS);
+        assertCommandBehavior("filter s/sss", EventDate.MESSAGE_EVENT_DATE_CONSTRAINTS);
+        assertCommandBehavior("filter e/eee", EventDate.MESSAGE_EVENT_DATE_CONSTRAINTS);
+        assertCommandBehavior("filter r/rrr", Recurring.MESSAGE_RECURRING_CONSTRAINTS);
+        assertCommandBehavior("filter p/-1", Priority.MESSAGE_INVALID_PRIORITY_LEVEL);
+        assertCommandBehavior("filter p/4", Priority.MESSAGE_INVALID_PRIORITY_LEVEL);
     }
 
     // ------------------------------test for valid cases------------------------------------------------
