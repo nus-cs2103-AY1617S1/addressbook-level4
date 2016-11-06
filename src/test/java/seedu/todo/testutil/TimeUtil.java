@@ -30,6 +30,16 @@ public class TimeUtil {
     }
 
     /**
+     * Checks against system time if the provided time period is ongoing.
+     * @param startTime start time of the event
+     * @param endTime end time of the event
+     * @return Returns true if the provided time period surrounds the current time.
+     */
+    public static boolean isOngoing(LocalDateTime startTime, LocalDateTime endTime) {
+        return startTime.isBefore(LocalDateTime.now()) && endTime.isAfter(LocalDateTime.now());
+    }
+
+    /**
      * Gets the complete date time text in the following format:
      *      12 August 2015, 12:34 PM
      */
