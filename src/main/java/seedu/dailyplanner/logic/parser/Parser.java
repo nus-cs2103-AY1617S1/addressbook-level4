@@ -14,6 +14,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.dailyplanner.commons.exceptions.IllegalValueException;
+import seedu.dailyplanner.commons.util.ArgumentFormatUtil;
 import seedu.dailyplanner.commons.util.StringUtil;
 import seedu.dailyplanner.logic.commands.*;
 import seedu.dailyplanner.model.task.Date;
@@ -130,6 +131,10 @@ public class Parser {
 	}
 
 	private Command preparePin(String arguments) {
+		if(!(ArgumentFormatUtil.isValidPinOrCompleteFormat(arguments))){
+			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, PinCommand.MESSAGE_USAGE));
+		}
+		
 		Optional<Integer> index = parseIndex(arguments);
 		if (!index.isPresent()) {
 			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, CompleteCommand.MESSAGE_USAGE));
@@ -138,6 +143,10 @@ public class Parser {
 	}
 
 	private Command prepareComplete(String arguments) {
+		if(!(ArgumentFormatUtil.isValidPinOrCompleteFormat(arguments))){
+			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, PinCommand.MESSAGE_USAGE));
+		}
+		
 		Optional<Integer> index = parseIndex(arguments);
 		if (!index.isPresent()) {
 			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, CompleteCommand.MESSAGE_USAGE));
@@ -154,8 +163,14 @@ public class Parser {
 		String start = null, end = null;
 		DateTime formattedStart = null, formattedEnd = null;
 		Set<String> tags = new HashSet<String>();
+		
+		String trimmedArgs = arguments.trim();
+		
+		if(!(ArgumentFormatUtil.isValidEditArgumentFormat(trimmedArgs))){
+			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+		}
 
-		HashMap<String, String> mapArgs = parseEdit(arguments.trim());
+		HashMap<String, String> mapArgs = parseEdit(trimmedArgs);
 
 		// If arguments are in hashmap, pass them to addCommand, if not pass
 		// them as empty string
@@ -252,7 +267,7 @@ public class Parser {
 
 		String trimmedArgs = args.trim();
 
-		if (!(isValidAddArgumentFormat(trimmedArgs))) {
+		if (!(ArgumentFormatUtil.isValidAddArgumentFormat(trimmedArgs))) {
 			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 		}
 
@@ -319,25 +334,7 @@ public class Parser {
 
 	}
 
-	private boolean isValidAddArgumentFormat(String trimmedArgs) {
-		if (trimmedArgs.length() != 1 && trimmedArgs.charAt(1) == '/') {
-			return false;
-		}
-		for (int k = 0; k < trimmedArgs.length(); k++) {
-			if (trimmedArgs.charAt(k) == '/') {
-				if (!(k + 1 == trimmedArgs.length())) {
-					if (trimmedArgs.charAt(k + 1) == ' ') {
-						return false;
-					}
-				} else {
-					if (trimmedArgs.charAt(k) == '/')
-						return false;
-				}
-
-			}
-		}
-		return true;
-	}
+	
 
 	/**
 	 * Parses the arguments given by the user in the add command and returns it
@@ -467,7 +464,10 @@ public class Parser {
 	 * @return the prepared command
 	 */
 	private Command prepareDelete(String args) {
-
+		
+		if(!ArgumentFormatUtil.isValidDeleteFormat(args)){
+			
+		}
 		if (args.contains("complete")) {
 			return new DeleteCompletedCommand();
 		} else {

@@ -18,7 +18,7 @@ public class PinCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Pins the task identified by the index number used in the last task listing on the pin board.\n"
-            + "Parameters: INDEX (must be a positive integer)\n"
+            + "Format: [INDEX] (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
     public static final String MESSAGE_COMPLETED_TASK_SUCCESS = "Pinned Task: %1$s";
@@ -40,6 +40,7 @@ public class PinCommand extends Command {
         ReadOnlyTask taskToPin = lastShownList.get(targetIndex - 1);
 
         try {
+        	 model.getHistory().stackUnpinInstruction(taskToPin);
             model.pinTask(targetIndex-1);
         } catch (PersonNotFoundException pnfe) {
             assert false : "The target task cannot be missing";

@@ -24,50 +24,19 @@ public class HistoryManager {
 	}
 
 	public void stackAddInstruction(ReadOnlyTask toPush) {
-
-		String pushName = toPush.getName();
-		DateTime pushStart = toPush.getStart();
-		DateTime pushEnd = toPush.getEnd();
-		boolean isComplete = toPush.isComplete();
-		boolean isPinned = toPush.isPinned();
-		UniqueTagList pushTag = toPush.getTags();
-		
-		recordCommand.push(new Instruction("A", pushName, pushStart, pushEnd, isComplete, isPinned, pushTag));
+		recordCommand.push(new Instruction("A", toPush));
 	}
 	
 	public void stackDeleteInstruction(ReadOnlyTask toPush) {
-
-		String pushName = toPush.getName();
-		DateTime pushStart = toPush.getStart();
-		DateTime pushEnd = toPush.getEnd();
-		boolean isComplete = toPush.isComplete();
-		boolean isPinned = toPush.isPinned();
-		UniqueTagList pushTag = toPush.getTags();
-		
-		recordCommand.push(new Instruction("D", pushName, pushStart, pushEnd, isComplete, isPinned, pushTag));
+		recordCommand.push(new Instruction("D", toPush));
 	}
 	
 	public void stackEditInstruction(ReadOnlyTask originalTask, ReadOnlyTask editedTask) {
-
-		String pushAddName = originalTask.getName();
-		DateTime pushAddStart = originalTask.getStart();
-		DateTime pushAddEnd = originalTask.getEnd();
-		boolean pushAddComplete = originalTask.isComplete();
-		boolean pushAddPinned = originalTask.isPinned();
-		UniqueTagList pushAddTag = originalTask.getTags();
-		
-		recordCommand.push(new Instruction("EA", pushAddName, pushAddStart, pushAddEnd, pushAddComplete, pushAddPinned, pushAddTag));
-        
-		String pushDeleteName = editedTask.getName();
-		DateTime pushDeleteStart = editedTask.getStart();
-		DateTime pushDeleteEnd = editedTask.getEnd();
-		boolean pushDeleteComplete = editedTask.isComplete();
-		boolean pushDeletePinned = editedTask.isPinned();
-		UniqueTagList pushDeleteTag = editedTask.getTags();
-		
-		recordCommand.push(new Instruction("ED", pushDeleteName, pushDeleteStart, pushDeleteEnd, pushDeleteComplete, pushDeletePinned, pushDeleteTag));
+		recordCommand.push(new Instruction("EA", originalTask));
+		recordCommand.push(new Instruction("ED", editedTask));
     }
-	
-	
 
+	public void stackUnpinInstruction(ReadOnlyTask taskToUnpin) {
+		recordCommand.push(new Instruction("UP", taskToUnpin));
+	}
 }
