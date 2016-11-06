@@ -25,6 +25,6 @@ Introducing *DearJim* - a revolutionary task manager designed to help you organi
   
 * To allow for natural date inputs, we use the excellent natural language date parser library [natty](http://natty.joestelmach.com/).
 
-* Some parts of this sample application were inspired by the excellent 
+* Some parts of this application were inspired by the excellent 
   [Java FX tutorial](http://code.makery.ch/library/javafx-8-tutorial/) by *Marco Jakob*. 
 
