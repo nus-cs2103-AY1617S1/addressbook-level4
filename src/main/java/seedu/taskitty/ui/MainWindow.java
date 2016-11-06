@@ -151,7 +151,7 @@ public class MainWindow extends UiPart {
         resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
         statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(),
                 config.getTaskManagerFilePath());
-        commandBox = CommandBox.load(primaryStage, getCommandBoxPlaceholder(), resultDisplay, logic);
+        commandBox = CommandBox.load(primaryStage, getCommandBoxPlaceholder(), resultDisplay, this, logic);
     }
     
     //@@author A0135793W
@@ -170,6 +170,10 @@ public class MainWindow extends UiPart {
 
     private AnchorPane getResultDisplayPlaceholder() {
         return resultDisplayPlaceholder;
+    }
+    
+    public ImageView getCatImage() {
+        return catImage;
     }
 
     //@@author A0130853L

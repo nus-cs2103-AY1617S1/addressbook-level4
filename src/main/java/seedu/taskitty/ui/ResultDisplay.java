@@ -38,6 +38,7 @@ public class ResultDisplay extends UiPart {
         statusBar.configure();
         return statusBar;
     }
+    
     //@@author A0130853L
     public void configure() {
         postCorrectWelcomeMessage();
