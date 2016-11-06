@@ -131,9 +131,9 @@ public class Parser {
 	}
 
 	private Command preparePin(String arguments) {
-		if(!(ArgumentFormatUtil.isValidPinOrCompleteFormat(arguments))){
-			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, PinCommand.MESSAGE_USAGE));
-		}
+		//if(!(ArgumentFormatUtil.isValidPinOrCompleteFormat(arguments))){
+			//return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, PinCommand.MESSAGE_USAGE));
+		//}
 		
 		Optional<Integer> index = parseIndex(arguments);
 		if (!index.isPresent()) {
@@ -143,9 +143,9 @@ public class Parser {
 	}
 
 	private Command prepareComplete(String arguments) {
-		if(!(ArgumentFormatUtil.isValidPinOrCompleteFormat(arguments))){
-			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, PinCommand.MESSAGE_USAGE));
-		}
+		//if(!(ArgumentFormatUtil.isValidPinOrCompleteFormat(arguments))){
+			//return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, PinCommand.MESSAGE_USAGE));
+		//}
 		
 		Optional<Integer> index = parseIndex(arguments);
 		if (!index.isPresent()) {
