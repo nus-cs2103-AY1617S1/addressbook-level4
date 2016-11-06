@@ -26,10 +26,10 @@
                               <Label fx:id="name" styleClass="card-title" stylesheets="@DefaultTheme.css" text="\$name" HBox.hgrow="ALWAYS" />
                            </children>
                         </HBox>
-                        <Label fx:id="recurrence" styleClass="card-text" stylesheets="@DefaultTheme.css" text="\$recurrence" HBox.hgrow="ALWAYS" />
+                        <Label fx:id="tag" styleClass="card-text" stylesheets="@DefaultTheme.css" text="\$tag" HBox.hgrow="ALWAYS" />
                      </children>
                   </HBox>
-                  <Label fx:id="line1" styleClass="card-text" stylesheets="@DefaultTheme.css" text="\$time" VBox.vgrow="ALWAYS" />
+                  <Label fx:id="time" styleClass="card-text" stylesheets="@DefaultTheme.css" text="\$time" VBox.vgrow="ALWAYS" />
               </children>
             </VBox>
          </children>

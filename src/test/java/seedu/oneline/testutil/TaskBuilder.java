@@ -35,11 +35,6 @@ public class TaskBuilder {
         return this;
     }
 
-    public TaskBuilder withRecurrence(String recurrence) throws IllegalValueException {
-        this.task.setRecurrence(new TaskRecurrence(recurrence));
-        return this;
-    }
-
     public TaskBuilder withTag(String tag) throws IllegalValueException {
         this.task.setTag(Tag.getTag(tag));
         return this;

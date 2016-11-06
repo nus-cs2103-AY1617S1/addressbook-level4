@@ -14,6 +14,9 @@ import seedu.oneline.testutil.TypicalTestTasks;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class AddCommandTest extends TaskBookGuiTest {
     
     @Test
@@ -22,7 +25,6 @@ public class AddCommandTest extends TaskBookGuiTest {
         Arrays.sort(currentList);
         TestTask taskToAdd = TypicalTestTasks.eventExtra;
         assertAddSuccess(taskToAdd, currentList);
-        currentList = TestUtil.addTasksToList(currentList, taskToAdd);
     }
     
     @Test
@@ -38,7 +40,7 @@ public class AddCommandTest extends TaskBookGuiTest {
         //add duplicate task
         commandBox.runCommand(TypicalTestTasks.eventExtra.getAddCommand());
         assertResultMessage(AddCommand.MESSAGE_DUPLICATE_TASK);
-        assertTrue(taskPane.isListMatching(currentList));
+        assertTrue(taskPane.isListMatching(false, currentList));
     }
     
     @Test
@@ -63,8 +65,7 @@ public class AddCommandTest extends TaskBookGuiTest {
         //confirm the list now contains all previous tasks plus the new task
         TestTask[] expectedList = TestUtil.addTasksToList(currentList, taskToAdd);
         Arrays.sort(expectedList);
-        
-        assertTrue(taskPane.isListMatching(expectedList));
+        assertTrue(taskPane.isListMatching(false, expectedList));
     }
 
 }

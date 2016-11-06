@@ -16,7 +16,6 @@ public interface ReadOnlyTask {
     public TaskTime getStartTime();
     public TaskTime getEndTime();
     public TaskTime getDeadline();
-    public TaskRecurrence getRecurrence();
     public boolean isCompleted();
     public boolean isFloating();
     public boolean isEvent();
@@ -37,7 +36,7 @@ public interface ReadOnlyTask {
                 && other.getStartTime().equals(this.getStartTime())
                 && other.getEndTime().equals(this.getEndTime())
                 && other.getDeadline().equals(this.getDeadline())
-                && other.getRecurrence().equals(this.getRecurrence()));
+                && other.isCompleted() == this.isCompleted());
     }
 
     /**
@@ -57,10 +56,8 @@ public interface ReadOnlyTask {
             builder.append(" due ")
                 .append(getDeadline());
         }
-        if (getRecurrence() != null) {
-            builder.append(getRecurrence());
-        }
-        builder.append(" " + getTag());
+        builder.append(" ").append(getTag());
+        builder.append(" ").append(isCompleted() ? "done" : "undone");
         return builder.toString();
     }
     //@@author 

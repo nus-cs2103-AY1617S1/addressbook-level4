@@ -5,62 +5,53 @@
         <starttime>Sun Oct 16 21:35:45</starttime>
         <endtime>Mon Oct 17 21:35:45</endtime>
 		<deadline></deadline>
-		<recurrence></recurrence>
     </tasks>
     <tasks>
         <name>Date with Girlfriend</name>
         <starttime>Sun Oct 16 21:35:45</starttime>
         <endtime>Mon Oct 17 21:35:45</endtime>
 		<deadline></deadline>
-		<recurrence></recurrence>
     </tasks>
     <tasks>
         <name>Meeting with Ben</name>
         <starttime>Sun Oct 16 21:35:45</starttime>
         <endtime>Mon Oct 17 21:35:45</endtime>
 		<deadline></deadline>
-		<recurrence></recurrence>
     </tasks>
     <tasks>
         <name>Clear emails</name>
         <starttime></starttime>
         <endtime></endtime>
 		<deadline></deadline>
-		<recurrence></recurrence>
     </tasks>
     <tasks>
         <name>Gym</name>
         <starttime></starttime>
         <endtime></endtime>
 		<deadline></deadline>
-		<recurrence></recurrence>
     </tasks>
     <tasks>
         <name>Consolidate financial reports</name>
         <starttime></starttime>
         <endtime></endtime>
 		<deadline></deadline>
-		<recurrence></recurrence>
     </tasks>
     <tasks>
         <name>Check schedule with Ruth</name>
         <starttime>Sun Oct 16 21:35:45</starttime>
         <endtime>Mon Oct 17 21:35:45</endtime>
 		<deadline></deadline>
-		<recurrence></recurrence>
     </tasks>
     <tasks>
         <name>Plan meeting with project team</name>
         <starttime></starttime>
         <endtime></endtime>
         <deadline>Tue Oct 18 21:35:45</deadline>
-		<recurrence></recurrence>
     </tasks>
     <tasks>
         <name>Buy new socks</name>
         <starttime></starttime>
         <endtime></endtime>
         <deadline>Tue Oct 18 21:35:45</deadline>
-		<recurrence></recurrence>
     </tasks>
 </taskbook>
