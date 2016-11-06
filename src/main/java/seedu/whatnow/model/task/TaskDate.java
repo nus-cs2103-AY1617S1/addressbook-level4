@@ -300,7 +300,7 @@ public class TaskDate {
         try {
             DateFormat df = new SimpleDateFormat(DATE_NUM_SLASH_WITH_YEAR_FORMAT);
             df.setLenient(false);
-            
+
             inputDate = df.parse(incDate);
         } catch (ParseException ex) {
             ex.printStackTrace();
@@ -410,7 +410,7 @@ public class TaskDate {
             dateComponent[DATE_COMPONENT_MONTH] = date.substring(2, 4);
             dateComponent[DATE_COMPONENT_YEAR] = date.substring(4);
         }
-        
+
         if (dateComponent[DATE_COMPONENT_DAY].length() < 2) {
             dateComponent[DATE_COMPONENT_DAY] = 0 + dateComponent[DATE_COMPONENT_DAY];
         }

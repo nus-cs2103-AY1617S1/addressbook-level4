@@ -94,14 +94,14 @@ public class DateTest {
         assertTrue(TaskDate.getIsValidDate(TaskDate.formatDatetoStandardDate("19 12 2019")));
         assertTrue(TaskDate.getIsValidDate(TaskDate.formatDatetoStandardDate("05072018")));
     }
-    
+
     @Test
     public void isValidDate_wrongDate_returnFalse() throws ParseException, IllegalValueException { 
         assertFalse(TaskDate.getIsValidDate("34/12/2018"));
         assertFalse(TaskDate.getIsValidDate("11/18/2016"));
         assertFalse(TaskDate.getIsValidDate("44/20/2018"));
     }
-    
+
     @Test
     public void isValidDate_PastDateFormat_returnTrue() throws ParseException, IllegalValueException{
         boolean checkPastDate = false;
@@ -126,7 +126,7 @@ public class DateTest {
         assertTrue(TaskDate.getIsValidDateRange("12/12/2017", "23/11/2018"));
         assertTrue(TaskDate.getIsValidDateRange("12/12/2016", "12/12/2016"));
     }
-    
+
     @Test
     public void isValidDate_invalidDateRange_returnFalse() throws ParseException {
         assertFalse(TaskDate.getIsValidDateRange("12/12/2016", "23/11/2015"));
