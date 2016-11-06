@@ -86,4 +86,12 @@ public class FindCommandTest extends GuiTest {
         assertTaskVisible(task2);
         assertEventVisible(event3);
     }
+    
+    @Test
+    public void find_multiple_success() {
+        console.runCommand("find Milk");
+        assertTaskNotVisible(task1);
+        assertTaskVisible(task2);
+        assertEventVisible(event3);
+    }
 }
