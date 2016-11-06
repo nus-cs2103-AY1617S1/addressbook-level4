@@ -130,6 +130,17 @@ public class Task implements CalendarItem {
                 .matcher(task.getName()).find();
     }
     
+    public static Predicate<Task> predByNameAny(List<String> names) {
+        return (Task task) -> {
+            for (String name : names) {
+                if (predByName(name).test(task)) {
+                    return true;
+                }
+            }
+            return false;
+        };
+    }
+    
     public static Predicate<Task> predBeforeDueDate(LocalDateTime date) {
         return (Task task) -> task.getDueDate() != null && task.getDueDate().isBefore(date);
     }
