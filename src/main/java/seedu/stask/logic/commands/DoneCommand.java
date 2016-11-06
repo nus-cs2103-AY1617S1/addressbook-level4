@@ -11,7 +11,7 @@ import seedu.stask.model.task.UniqueTaskList.TaskNotFoundException;
 /**
  * Sets as completed a task identified using it's last displayed index from the task book.
  */
-public class DoneCommand extends Command implements Undoable{
+public class DoneCommand extends Command implements Undoable {
 
     public final String targetIndex;
     public ReadOnlyTask toComplete;
@@ -26,7 +26,7 @@ public class DoneCommand extends Command implements Undoable{
     public static final String MESSAGE_DONE_TASK_SUCCESS = "Completed Task: %1$s";
     public static final String MESSAGE_TASK_ALREADY_DONE = "Task is already completed.";
 
-    public DoneCommand(String targetIndex) {
+    public DoneCommand (String targetIndex) {
         this.targetIndex = targetIndex;
     }
 
@@ -35,40 +35,36 @@ public class DoneCommand extends Command implements Undoable{
 
         UnmodifiableObservableList<ReadOnlyTask> lastDatedTaskList = model.getFilteredDatedTaskList();
         UnmodifiableObservableList<ReadOnlyTask> lastUndatedTaskList = model.getFilteredUndatedTaskList();
-        
-        
+
         if (!CommandUtil.isValidIndex(targetIndex, lastUndatedTaskList.size(), 
-                lastDatedTaskList.size())){
+                                lastDatedTaskList.size())) {
             indicateAttemptToExecuteIncorrectCommand();
             return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
-        
-        toComplete = CommandUtil.getTaskFromCorrectList(targetIndex, lastDatedTaskList, lastUndatedTaskList);
 
-        // Task already completed
-        if (toComplete.getStatus().equals(new Status(Status.State.DONE))){
+        toComplete = CommandUtil.getTaskFromCorrectList(targetIndex,
+                                lastDatedTaskList, lastUndatedTaskList);
+        if (toComplete.getStatus().equals(new Status(Status.State.DONE))) {
+            // Task already completed
             return new CommandResult(String.format(MESSAGE_TASK_ALREADY_DONE));
-        }
-        else {
+        } else {
             try {
                 model.completeTask(toComplete);
                 populateUndo();
             } catch (TaskNotFoundException tnfe) {
                 assert false : "The target task cannot be found";
             }
-            return new CommandResult(String.format(MESSAGE_DONE_TASK_SUCCESS, toComplete));
-            
+            return new CommandResult(String.format(MESSAGE_DONE_TASK_SUCCESS,
+                                    toComplete));
         }
-
     }
 
     @Override
-    public void populateUndo(){
+    public void populateUndo() {
         assert COMMAND_WORD != null;
         assert toComplete != null;
         model.addUndo(COMMAND_WORD, toComplete);
         model.clearRedo();
     } 
-    
 }
 //@@author
