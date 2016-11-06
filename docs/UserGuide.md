@@ -141,6 +141,7 @@ Format: `list [TYPE]`
 > * `list` shows all undone tasks
 > <img src="images/ListUI.png" width="800">
 > * `list today ` shows today's undone tasks
+> <img src="images/ListTodayUI.png" width="800">
 > * `list all` shows all tasks
 > <img src="images/ListAllUI.png" width="800">
 > * `list done` shows all completed tasks
