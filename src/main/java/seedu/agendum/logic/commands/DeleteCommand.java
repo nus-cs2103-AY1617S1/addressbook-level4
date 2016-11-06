@@ -9,32 +9,30 @@ import seedu.agendum.commons.core.UnmodifiableObservableList;
 import seedu.agendum.model.task.ReadOnlyTask;
 import seedu.agendum.model.task.UniqueTaskList.TaskNotFoundException;
 
+//@@author A0133367E
 /**
  * Deletes task(s) identified using their last displayed indices from the task listing.
  */
 public class DeleteCommand extends Command {
 
-    // COMMAND_WORD, COMMAND_FORMAT, COMMAND_DESCRIPTION are for display in help window
     public static final String COMMAND_WORD = "delete";
     public static final String COMMAND_FORMAT = "delete <id> <more-ids>";
     public static final String COMMAND_DESCRIPTION = "delete task(s) from Agendum";
+    public static final String MESSAGE_DELETE_TASK_SUCCESS = "Deleted Task(s): %1$s";
     public static final String MESSAGE_USAGE = COMMAND_WORD + " - "
             + COMMAND_DESCRIPTION + "\n"
             + COMMAND_FORMAT + "\n"
             + "(The id must be a positive number)\n"
             + "Example: " + COMMAND_WORD + " 7 10-11";
 
-    public static final String MESSAGE_DELETE_TASK_SUCCESS = "Deleted Task(s): %1$s";
+    private ArrayList<Integer> targetIndexes;
+    private ArrayList<ReadOnlyTask> tasksToDelete;
 
-    public ArrayList<Integer> targetIndexes;
 
-    public ArrayList<ReadOnlyTask> tasksToDelete;
-
-    //@@author A0133367E
     public DeleteCommand(Set<Integer> targetIndexes) {
-        this.targetIndexes = new ArrayList<>(targetIndexes);
+        this.targetIndexes = new ArrayList<Integer>(targetIndexes);
         Collections.sort(this.targetIndexes);
-        this.tasksToDelete = new ArrayList<>();
+        this.tasksToDelete = new ArrayList<ReadOnlyTask>();
     }
 
     @Override
@@ -66,7 +64,6 @@ public class DeleteCommand extends Command {
         return targetIndexes.stream().anyMatch(index -> index > lastShownList.size());
     }
 
-  //@@author
     public static String getName() {
         return COMMAND_WORD;
     }

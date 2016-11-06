@@ -1,14 +1,13 @@
-//@@author A0133367E
 package seedu.agendum.logic.commands;
 
 import seedu.agendum.model.Model;
 
+//@@author A0133367E
 /**
- * Create an alias for a reserved command keyword
+ * Creates an alias for a reserved command keyword
  */
 public class AliasCommand extends Command {
 
-    // COMMAND_WORD, COMMAND_FORMAT, COMMAND_DESCRIPTION are for display in help window
     public static final String COMMAND_WORD = "alias";
     public static final String COMMAND_FORMAT = "alias <original-command> <your-command>";
     public static final String COMMAND_DESCRIPTION = "create your shorthand command";
@@ -38,9 +37,9 @@ public class AliasCommand extends Command {
 
     @Override
     public CommandResult execute() {
-        if (!commandLibrary.isReservedCommandKeyword(aliasValue)) {
+        if (commandLibrary.isReservedCommandKeyword(aliasKey)) {
             return new CommandResult(String.format(
-                    MESSAGE_FAILURE_NON_ORIGINAL_COMMAND, aliasValue));
+                    MESSAGE_FAILURE_UNAVAILABLE_ALIAS, aliasKey));
         }
 
         if (commandLibrary.isExistingAliasKey(aliasKey)) {
@@ -49,9 +48,9 @@ public class AliasCommand extends Command {
                     MESSAGE_FAILURE_ALIAS_IN_USE, aliasKey, associatedValue));
         }
 
-        if (commandLibrary.isReservedCommandKeyword(aliasKey)) {
+        if (!commandLibrary.isReservedCommandKeyword(aliasValue)) {
             return new CommandResult(String.format(
-                    MESSAGE_FAILURE_UNAVAILABLE_ALIAS, aliasKey));
+                    MESSAGE_FAILURE_NON_ORIGINAL_COMMAND, aliasValue));
         }
         
         commandLibrary.addNewAlias(aliasKey, aliasValue);

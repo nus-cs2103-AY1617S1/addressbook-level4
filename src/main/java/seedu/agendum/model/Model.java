@@ -2,6 +2,7 @@ package seedu.agendum.model;
 
 import seedu.agendum.commons.core.UnmodifiableObservableList;
 import seedu.agendum.commons.events.storage.LoadDataCompleteEvent;
+import seedu.agendum.model.ModelManager.NoPreviousListFoundException;
 import seedu.agendum.model.task.ReadOnlyTask;
 import seedu.agendum.model.task.Task;
 import seedu.agendum.model.task.UniqueTaskList;
@@ -38,15 +39,14 @@ public interface Model {
             throws UniqueTaskList.TaskNotFoundException, UniqueTaskList.DuplicateTaskException;
 
     /** 
-     * Restores the previous (second latest) to do list saved in the event of an undo operation
-     * Returns true if successful; false if there are no earlier lists
+     * Restores the previous to-do list saved in the stack of previous lists.
      */
-    boolean restorePreviousToDoListClone();
+    void restorePreviousToDoList() throws NoPreviousListFoundException;
 
     /** 
-     * Restores the current (latest) to do list saved in the event of exceptions
+     * Resets the to-do list data to match the top list in the stack of previous lists
      */
-    void restoreCurrentToDoListClone();
+    void resetDataToLastSavedList();
     
     /** Returns the filtered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
     UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList();

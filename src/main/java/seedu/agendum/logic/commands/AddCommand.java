@@ -18,19 +18,17 @@ public class AddCommand extends Command {
                                               + "add <name> by <deadline> \n"
                                               + "add <name> from <start-time> to <end-time>";
     public static final String COMMAND_DESCRIPTION = "adds a task to Agendum";
-
+    public static final String MESSAGE_SUCCESS = "Task added: %1$s";
+    public static final String MESSAGE_DUPLICATE_TASK = "Hey, the task already exists";
     public static final String MESSAGE_USAGE = COMMAND_WORD + " - "
             + COMMAND_DESCRIPTION + "\n"
             + COMMAND_FORMAT + "\n"
             + "Example: " + COMMAND_WORD + " Watch Star Wars\n"
             + "from 7pm to 9pm";
 
-    public static final String MESSAGE_SUCCESS = "Task added: %1$s";
-    public static final String MESSAGE_DUPLICATE_TASK = "Hey, the task already exists";
-
     private Task toAdd = null;
 
-	//@@author A0003878Y
+    //@@author A0003878Y
     /**
      * Convenience constructor using name
      *

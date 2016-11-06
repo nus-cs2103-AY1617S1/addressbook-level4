@@ -29,10 +29,13 @@ public class UniqueTaskListTest {
     @Before
     public void setUp() throws IllegalValueException {
         uniqueTaskList = new UniqueTaskList();
+
         originalTask = new Task(new Name("task"));
         duplicateOfOriginalTask = new Task(originalTask);
         newTask = new Task(new Name("new task"));
+
         uniqueTaskList.add(originalTask);
+        
         internalList = FXCollections.observableArrayList();
         internalList.add(originalTask);
     }

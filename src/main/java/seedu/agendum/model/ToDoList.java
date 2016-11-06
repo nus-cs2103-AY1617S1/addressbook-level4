@@ -78,34 +78,34 @@ public class ToDoList implements ReadOnlyToDoList {
     //@@author A0133367E
     /**
      * Updates an existing task in the to-do list.
+     * 
      * @throws DuplicateTaskException if an equivalent task (to updatedTask) already exists.
      * @throws TaskNotFoundException if no such task (key) could be found in the list.
      */
     public boolean updateTask(ReadOnlyTask key, Task updatedTask)
-            throws TaskNotFoundException,
-            DuplicateTaskException {
+            throws UniqueTaskList.TaskNotFoundException, UniqueTaskList.DuplicateTaskException {
         return tasks.update(key, updatedTask);
     }
 
     /**
      * Marks an existing task in the to-do list.
+     * 
      * @throws DuplicateTaskException if a duplicate task would result after marking key.
      * @throws TaskNotFoundException if no such task (key) could be found in the list.
      */
     public boolean markTask(ReadOnlyTask key) 
-            throws TaskNotFoundException, 
-            DuplicateTaskException {
+            throws UniqueTaskList.TaskNotFoundException, UniqueTaskList.DuplicateTaskException {
         return tasks.mark(key);
     }
 
     /**
      * Unmarks an existing task in the to-do list.
+     * 
      * @throws DuplicateTaskException if a duplicate task would result after unmarking key.
      * @throws TaskNotFoundException if no such task (key) could be found in the list.
      */
-    public boolean unmarkTask(ReadOnlyTask key) 
-            throws TaskNotFoundException,
-            DuplicateTaskException {
+    public boolean unmarkTask(ReadOnlyTask key)
+            throws UniqueTaskList.TaskNotFoundException, UniqueTaskList.DuplicateTaskException {
         return tasks.unmark(key);
     }
     //@@author

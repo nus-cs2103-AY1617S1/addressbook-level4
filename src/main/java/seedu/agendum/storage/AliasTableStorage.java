@@ -12,7 +12,7 @@ import java.util.Optional;
 public interface AliasTableStorage {
 
     /**
-     * Returns the alias table (map of alias key to original command) from storage.
+     * Returns the alias table (map of alias key to reserved command word) from storage.
      *   Returns {@code Optional.empty()} if storage file is not found.
      * @throws DataConversionException if the data in storage is not in the expected format.
      * @throws IOException if there was any problem when reading from the storage.
@@ -21,7 +21,7 @@ public interface AliasTableStorage {
             throws DataConversionException, IOException;
 
     /**
-     * Saves the alias table in {{@link seedu.agendum.logic.commands.CommandLibrary} to the storage.
+     * Saves the alias table from {@link seedu.agendum.logic.commands.CommandLibrary} to the storage.
      * @param table cannot be null.
      * @throws IOException if there was any problem writing to the file.
      */

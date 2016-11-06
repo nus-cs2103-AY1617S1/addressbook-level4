@@ -22,6 +22,10 @@ public class CommandResult {
      * Pre-condition: tasks and originalIndices must be of the same size.
      * Returns a string containing each task in tasks
      * with the corresponding number in originalIndices prepended
+     * 
+     * @param tasks             List of tasks where each task is be prepended by an index
+     * @param originalIndices   List of corresponding index for each task
+     * @return                  String containing all tasks labeled with their corresponding index
      */
     public static String tasksToString(List<ReadOnlyTask> tasks, List<Integer> originalIndices) {
         final StringBuilder builder = new StringBuilder();

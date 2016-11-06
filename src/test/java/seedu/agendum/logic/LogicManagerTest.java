@@ -288,9 +288,8 @@ public class LogicManagerTest {
 
         // set AB state to 2 tasks
         model.resetData(new ToDoList());
-        for (Task p : taskList) {
-            model.addTask(p);
-        }
+        helper.addToModel(model, taskList);
+
         // test boundary value (one-based index is 3 when list is of size 2)
         assertCommandBehavior(commandWord + " 3 " + wordsAfterIndex, MESSAGE_INVALID_TASK_DISPLAYED_INDEX, model.getToDoList(), taskList);
     }
@@ -312,9 +311,8 @@ public class LogicManagerTest {
 
         // set AB state to 5 tasks
         model.resetData(new ToDoList());
-        for (Task p : taskList) {
-            model.addTask(p);
-        }
+        helper.addToModel(model, taskList);
+
         // test boundary value (one-based index is 6 when list is of size 5)
         //invalid index is the last index given
         assertCommandBehavior(commandWord + " 1 6", expectedMessage, model.getToDoList(), taskList);
@@ -350,7 +348,7 @@ public class LogicManagerTest {
         // prepare model
         helper.addToModel(model, threeTasks);
 
-        // prepare for message
+        // prepare message
         List<Integer> deletedTaskVisibleIndices = helper.generateNumberList(3);
         List<ReadOnlyTask> deletedTasks = helper.generateReadOnlyTaskList(threeTasks.get(2));
         String tasksAsString = CommandResult.tasksToString(deletedTasks, deletedTaskVisibleIndices);
@@ -375,7 +373,7 @@ public class LogicManagerTest {
         // prepare model
         helper.addToModel(model, fourTasks);
 
-        //prepare for message
+        //prepare message
         List<Integer> deletedTaskVisibleIndices = helper.generateNumberList(2, 3);
         List<ReadOnlyTask> deletedTasks = helper.generateReadOnlyTaskList(fourTasks.get(1), fourTasks.get(2));
         String tasksAsString = CommandResult.tasksToString(deletedTasks, deletedTaskVisibleIndices);
@@ -402,7 +400,7 @@ public class LogicManagerTest {
         // prepare model
         helper.addToModel(model, fourTasks);
 
-        // prepare for message
+        // prepare message
         List<Integer> deletedTaskVisibleIndices = helper.generateNumberList(2, 3, 4);
         List<ReadOnlyTask> deletedTasks = helper.generateReadOnlyTaskList(
                 fourTasks.get(1), fourTasks.get(2), fourTasks.get(3));
@@ -656,7 +654,7 @@ public class LogicManagerTest {
         // invalid index format
         // a valid name is provided since invalid input values must be tested one at a time
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, RenameCommand.MESSAGE_USAGE);
-        assertIncorrectIndexFormatBehaviorForCommand("rename", expectedMessage, "new task name");
+        assertIncorrectIndexFormatBehaviorForCommand("rename", expectedMessage, " new task name");
         
         // invalid new task name format e.g. task name is not provided
         TestDataHelper helper = new TestDataHelper();
@@ -672,7 +670,7 @@ public class LogicManagerTest {
     @Test
     public void execute_renameIndexNotFound_errorMessageShown() throws Exception {
         // a valid name is provided to only test for invalid index
-        assertIndexNotFoundBehaviorForCommand("rename", "new task name");
+        assertIndexNotFoundBehaviorForCommand("rename", " new task name");
     }
 
     @Test
@@ -711,7 +709,7 @@ public class LogicManagerTest {
         // prepare model
         helper.addToModel(model, threeTasks);
 
-        //boundary value: use the last task
+        // boundary value: use the last task
         assertCommandBehavior("rename 3 " + newTaskName,
                 String.format(RenameCommand.MESSAGE_SUCCESS, newTaskName),
                 expectedTDL,
@@ -788,7 +786,7 @@ public class LogicManagerTest {
         ToDoList expectedTDL = helper.generateToDoList(threeTasks);
         expectedTDL.updateTask(floatingTask, eventTask);
 
-        //prepare model
+        // prepare model
         helper.addToModel(model, threeTasks);
 
         assertCommandBehavior("schedule 3 from Sep 9 9:10 to Oct 10 10:10",
@@ -802,7 +800,7 @@ public class LogicManagerTest {
     public void execute_aliasInvalidArgsFormat_errorMessageShown() throws Exception {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AliasCommand.MESSAGE_USAGE);
         assertCommandBehavior("alias", expectedMessage, new ToDoList(), Collections.emptyList());
-        //alias should not contain symbols
+        // alias should not contain symbols
         assertCommandBehavior("alias add +", expectedMessage, new ToDoList(), Collections.emptyList());
         // new alias key has space
         assertCommandBehavior("alias add a 1", expectedMessage, new ToDoList(), Collections.emptyList());
@@ -818,8 +816,8 @@ public class LogicManagerTest {
     public void execute_aliasKeyIsReservedCommandWord_errorMessageShown() throws Exception {
         String expectedMessage = String.format(AliasCommand.MESSAGE_FAILURE_UNAVAILABLE_ALIAS,
                                     RenameCommand.COMMAND_WORD);
-        assertCommandBehavior("alias " + AddCommand.COMMAND_WORD + " " + RenameCommand.COMMAND_WORD,
-                expectedMessage, new ToDoList(), Collections.emptyList());
+        String userCommand = "alias " + AddCommand.COMMAND_WORD + " " + RenameCommand.COMMAND_WORD;
+        assertCommandBehavior(userCommand, expectedMessage, new ToDoList(), Collections.emptyList());
     }
 
     @Test
@@ -827,16 +825,19 @@ public class LogicManagerTest {
         String expectedMessage = String.format(AliasCommand.MESSAGE_FAILURE_ALIAS_IN_USE,
                                     "r", RenameCommand.COMMAND_WORD);
         CommandLibrary.getInstance().addNewAlias("r", RenameCommand.COMMAND_WORD);
-        assertCommandBehavior("alias " + AddCommand.COMMAND_WORD + " r",
-                expectedMessage, new ToDoList(), Collections.emptyList());
+        String userCommand = "alias " + AddCommand.COMMAND_WORD + " r";
+        assertCommandBehavior(userCommand, expectedMessage, new ToDoList(), Collections.emptyList());
     }
 
     @Test
-    public void execute_aliasValidKey_successfullyAdded() throws Exception {
+    public void execute_aliasValidCaseInsensitiveKey_successfullyAdded() throws Exception {
+        // successfully add alias
         String expectedMessage = String.format(AliasCommand.MESSAGE_SUCCESS, "a", AddCommand.COMMAND_WORD);
-        //should be case insensitive
+
         assertCommandBehavior("alias " + AddCommand.COMMAND_WORD + " A",
                 expectedMessage, new ToDoList(), Collections.emptyList());
+ 
+        // alias can be used
         TestDataHelper helper = new TestDataHelper();
  
         Task addedTask = helper.generateTaskWithName("new task");
@@ -864,9 +865,12 @@ public class LogicManagerTest {
 
     @Test
     public void execute_unaliasExistingAliasKey_successfullyRemoved() throws Exception {
+        // successfully remove alias
         String expectedMessage = String.format(UnaliasCommand.MESSAGE_SUCCESS, "wow");
         CommandLibrary.getInstance().addNewAlias("wow", AddCommand.COMMAND_WORD);
         assertCommandBehavior("unalias wow", expectedMessage, new ToDoList(), Collections.emptyList());
+
+        // previous alias key cannot be used
         expectedMessage = MESSAGE_UNKNOWN_COMMAND;
         assertCommandBehavior("wow new task", expectedMessage, new ToDoList(), Collections.emptyList());
     }
@@ -937,42 +941,42 @@ public class LogicManagerTest {
 
     //@@author A0133367E
     @Test
-    public void execute_undo_identifiesNoPreviousCommand() throws Exception {
+    public void execute_undo_identifiesNoPreviousChanges() throws Exception {
         assertCommandBehavior("undo", UndoCommand.MESSAGE_FAILURE, new ToDoList(), Collections.emptyList());
     }
 
     @Test
-    public void execute_undo_reversePreviousMutatingCommand() throws Exception {
+    public void execute_undo_reversePreviousChangeToTaskList() throws Exception {
         TestDataHelper helper = new TestDataHelper();
         Task p1 = helper.generateTaskWithName("old name");
         List<Task> listWithOneTask = helper.generateTaskList(p1);
         ToDoList expectedTDL = helper.generateToDoList(listWithOneTask);
         List<ReadOnlyTask> readOnlyTaskList = helper.generateReadOnlyTaskList(p1);
 
-        //Undo add command
+        // Undo add command
         model.addTask(p1);
         assertCommandBehavior("undo", UndoCommand.MESSAGE_SUCCESS, new ToDoList(), Collections.emptyList());
 
-        //Undo delete command
+        // Undo delete command
         model.addTask(p1);
         model.deleteTasks(readOnlyTaskList);
         assertCommandBehavior("undo", UndoCommand.MESSAGE_SUCCESS, expectedTDL, listWithOneTask);
 
-        //Undo clear command
+        // Undo clear command
         model.resetData(new ToDoList());
         assertCommandBehavior("undo", UndoCommand.MESSAGE_SUCCESS, expectedTDL, listWithOneTask);
 
-        //Undo rename command
+        // Undo rename command
         Task p2 = new Task(p1);
         p2.setName(new Name("new name"));
         model.updateTask(p1, p2);
         assertCommandBehavior("undo", UndoCommand.MESSAGE_SUCCESS, expectedTDL, listWithOneTask);
 
-        //Undo mark command
+        // Undo mark command
         model.markTasks(readOnlyTaskList);
         assertCommandBehavior("undo", UndoCommand.MESSAGE_SUCCESS, expectedTDL, listWithOneTask);
 
-        //Undo unmark command
+        // Undo unmark command
         model.markTasks(readOnlyTaskList);
         Task p3 = new Task(p1); //p1 clone
         p3.markAsCompleted();

@@ -35,6 +35,14 @@ public class ModelManager extends ComponentManager implements Model {
     private final FilteredList<Task> filteredTasks;
     private final SortedList<Task> sortedTasks;
 
+    //@@author A0133367E
+    /**
+     * Signals that an operation to remove a list from the stack of previous lists would fail
+     * as the stack must contain at least one list.
+     */
+    public static class NoPreviousListFoundException extends Exception {}
+    //@@author
+
     /**
      * Initializes a ModelManager with the given ToDoList
      * ToDoList and its variables should not be null
@@ -49,7 +57,7 @@ public class ModelManager extends ComponentManager implements Model {
         toDoList = new ToDoList(src);
         filteredTasks = new FilteredList<>(toDoList.getTasks());
         sortedTasks = filteredTasks.sorted();
-        previousLists = new Stack<>();
+        previousLists = new Stack<ToDoList>();
         backupCurrentToDoList();
     }
 
@@ -59,9 +67,9 @@ public class ModelManager extends ComponentManager implements Model {
 
     public ModelManager(ReadOnlyToDoList initialData) {
         toDoList = new ToDoList(initialData);
-        filteredTasks = new FilteredList<>(toDoList.getTasks());
+        filteredTasks = new FilteredList<Task>(toDoList.getTasks());
         sortedTasks = filteredTasks.sorted();
-        previousLists = new Stack<>();
+        previousLists = new Stack<ToDoList>();
         backupCurrentToDoList();
     }
 
@@ -73,8 +81,8 @@ public class ModelManager extends ComponentManager implements Model {
         backupCurrentToDoList();
         indicateToDoListChanged();
     }
-  
     //@@author
+
     @Override
     public ReadOnlyToDoList getToDoList() {
         return toDoList;
@@ -104,14 +112,16 @@ public class ModelManager extends ComponentManager implements Model {
         for (ReadOnlyTask target: targets) {
             toDoList.removeTask(target);
         }
-        backupCurrentToDoList();
+
         logger.fine("[MODEL] --- successfully deleted all specified targets from the to-do list");
+        backupCurrentToDoList();
         indicateToDoListChanged();
     }
 
     @Override
     public synchronized void addTask(Task task) throws UniqueTaskList.DuplicateTaskException {
-        toDoList.addTask(task);      
+        toDoList.addTask(task);    
+
         logger.fine("[MODEL] --- successfully added the new task to the to-do list");
         backupCurrentToDoList();
         updateFilteredListToShowAll();
@@ -122,6 +132,7 @@ public class ModelManager extends ComponentManager implements Model {
     public synchronized void updateTask(ReadOnlyTask target, Task updatedTask)
             throws UniqueTaskList.TaskNotFoundException, UniqueTaskList.DuplicateTaskException {
         toDoList.updateTask(target, updatedTask);
+
         logger.fine("[MODEL] --- successfully updated the target task in the to-do list");
         backupCurrentToDoList();
         updateFilteredListToShowAll();
@@ -134,6 +145,7 @@ public class ModelManager extends ComponentManager implements Model {
         for (ReadOnlyTask target: targets) {
             toDoList.markTask(target);
         } 
+
         logger.fine("[MODEL] --- successfully marked all specified targets from the to-do list");
         backupCurrentToDoList();
         indicateToDoListChanged();
@@ -145,42 +157,31 @@ public class ModelManager extends ComponentManager implements Model {
         for (ReadOnlyTask target: targets) {
             toDoList.unmarkTask(target);
         }
+
         logger.fine("[MODEL] --- successfully unmarked all specified targets from the to-do list");
         backupCurrentToDoList();
         indicateToDoListChanged();
     }
 
     /**
-     * This is to restore the previous (second latest) list saved 
-     * in the event of an "undo" operation
+     * Restores the previous (second latest) list saved in the stack of previous lists.
      */
     @Override
-    public synchronized boolean restorePreviousToDoListClone() {
-        assert !previousLists.empty();
-
-        if (previousLists.size() == 1) {
-            return false;
-        } else {
-            previousLists.pop();
-            toDoList.resetData(previousLists.peek());
-            logger.fine("[MODEL] --- successfully restored the previous the to-do list from this session");
-            indicateToDoListChanged();
-            return true;
-        }
+    public synchronized void restorePreviousToDoList() throws NoPreviousListFoundException {            
+        removeLastSavedToDoList();
+        resetDataToLastSavedList();
+        logger.fine("[MODEL] --- successfully restored the previous the to-do list from this session");
+        indicateToDoListChanged();
     }
 
     /**
-     * This is to reverse any temporary changes to the to-do list
-     * that have not been saved to storage or stack of previous lists (in the event of exceptions)
+     * Resets the to-do list data to match the top list in the stack of previous lists
      */
     @Override
-    public synchronized void restoreCurrentToDoListClone() {
+    public void resetDataToLastSavedList() {
         assert !previousLists.empty();
-
-        logger.fine("[MODEL] --- successfully restored the current to-do list"
-                + " before exceptions/temporary changes");
-
-        toDoList.resetData(previousLists.peek());
+        ToDoList lastSavedListFromHistory = previousLists.peek();
+        toDoList.resetData(lastSavedListFromHistory);
     }
  
     private void backupCurrentToDoList() {
@@ -192,10 +193,24 @@ public class ModelManager extends ComponentManager implements Model {
         previousLists.clear();
     }
 
+    /**
+     * Pops the top list from the stack of previous lists if there are more than 1 list in the stack
+     * @throws NoPreviousListFoundException if there is only 1 list in the stack
+     */
+    private void removeLastSavedToDoList() throws NoPreviousListFoundException {
+        assert !previousLists.empty();
 
-    //=========== Storage Methods ==========================================================================
-    
+        if (previousLists.size() == 1) {
+            throw new NoPreviousListFoundException();
+        }
+
+        previousLists.pop();
+    }
+
+
     //@@author A0148095X
+    //=========== Storage Methods ==========================================================================
+
     @Override
     public synchronized void changeSaveLocation(String location){
         assert StringUtil.isValidPathToFile(location);

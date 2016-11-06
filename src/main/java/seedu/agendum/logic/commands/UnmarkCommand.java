@@ -10,27 +10,26 @@ import seedu.agendum.model.task.ReadOnlyTask;
 import seedu.agendum.model.task.UniqueTaskList.DuplicateTaskException;
 import seedu.agendum.model.task.UniqueTaskList.TaskNotFoundException;
 
+//@@author A0133367E
 /**
  * Unmark task(s) identified using their last displayed indices in the task listing.
  */
 public class UnmarkCommand extends Command {
 
- // COMMAND_WORD, COMMAND_FORMAT, COMMAND_DESCRIPTION are for display in help window
     public static final String COMMAND_WORD = "unmark";    
     public static final String COMMAND_FORMAT = "unmark <id> <more-ids>";
     public static final String COMMAND_DESCRIPTION = "unmark task(s) from completed";
+
+    public static final String MESSAGE_UNMARK_TASK_SUCCESS = "Unmarked Task(s)!";
+    public static final String MESSAGE_DUPLICATE = "Hey, the task already exists";
     public static final String MESSAGE_USAGE = COMMAND_WORD + " - "
             + COMMAND_DESCRIPTION + "\n"
             + COMMAND_FORMAT + "\n"
             + "(The id must be a positive number)\n"
             + "Example: " + COMMAND_WORD + " 11-13 15";
 
-    public static final String MESSAGE_UNMARK_TASK_SUCCESS = "Unmarked Task(s)!";
-    public static final String MESSAGE_DUPLICATE = "Hey, the task already exists";
-
-    public ArrayList<Integer> targetIndexes;
-
-    public ArrayList<ReadOnlyTask> tasksToUnmark;
+    private ArrayList<Integer> targetIndexes;
+    private ArrayList<ReadOnlyTask> tasksToUnmark;
 
     //@@author A0133367E    
     public UnmarkCommand(Set<Integer> targetIndexes) {
@@ -59,7 +58,7 @@ public class UnmarkCommand extends Command {
         } catch (TaskNotFoundException pnfe) {
             assert false : "The target task cannot be missing";
         } catch (DuplicateTaskException pnfe) {
-            model.restoreCurrentToDoListClone();
+            model.resetDataToLastSavedList();
             return new CommandResult(MESSAGE_DUPLICATE);
         }
 
@@ -70,7 +69,6 @@ public class UnmarkCommand extends Command {
         return targetIndexes.stream().anyMatch(index -> index > lastShownList.size());
     }
 
-    //@@author
     public static String getName() {
         return COMMAND_WORD;
     }

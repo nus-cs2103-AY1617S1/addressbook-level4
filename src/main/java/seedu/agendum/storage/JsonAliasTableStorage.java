@@ -3,7 +3,6 @@ package seedu.agendum.storage;
 import seedu.agendum.commons.core.LogsCenter;
 import seedu.agendum.commons.exceptions.DataConversionException;
 import seedu.agendum.commons.util.FileUtil;
-import seedu.agendum.model.UserPrefs;
 
 import java.io.File;
 import java.io.IOException;
@@ -63,7 +62,7 @@ public class JsonAliasTableStorage implements AliasTableStorage {
     }
 
     /**
-     * Similar to {@link #saveAliasTable(Hashtable<String, String> table)}
+     * Similar to {@link #saveAliasTable(Hashtable)}
      * @param aliasTableFilePath location of the command library's alias table data. Cannot be null.
      */
     public void saveAliasTable(Hashtable<String, String> table, String aliasTableFilePath)

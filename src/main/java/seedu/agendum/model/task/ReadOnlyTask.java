@@ -36,29 +36,34 @@ public interface ReadOnlyTask {
      * Formats the task as text, showing task name only.
      */
     default String getAsText() {
-        return String.valueOf(getName()) +
-                "\n";
+        return String.valueOf(getName()) + "\n";
     }
 
     //@@author A0133367E
     /**
-     * Format the tasks as text, showing all details including name, 
-     * completion status, start and end time if any
+     * Format the tasks as text, showing all fine details including name, 
+     * completion status, start and end time if any and last updated time
      */
     default String getDetailedText() {
-        String completionStatus = isCompleted() ? "Completed" : "Incomplete";
-        String startTime = getStartDateTime().isPresent() ? getStartDateTime().get().toString() : "None";
-        String endTime = getEndDateTime().isPresent() ? getEndDateTime().get().toString() : "None";
+        String completionStatus = (isCompleted()) ? "Completed" : "Incomplete";
+        String startTime = (getStartDateTime().isPresent()) ? getStartDateTime().get().toString()
+                                                            : "None";
+        String endTime = (getEndDateTime().isPresent()) ? getEndDateTime().get().toString()
+                                                        : "None";
+        String lastUpdatedTime = getLastUpdatedTime().toString();
 
-        return "Task name: " +
-                getName() +
-                " Status: " +
-                completionStatus +
-                " Start Time: " +
-                startTime +
-                " End Time: " +
-                endTime +
-                " Last Updated Time: " +
-                getLastUpdatedTime().toString();
+        final StringBuilder builder = new StringBuilder();
+        builder.append("Task name: ")
+               .append(getName())
+               .append(" Completion Status: ")
+               .append(completionStatus)
+               .append(" Start Time: ")
+               .append(startTime)
+               .append(" End Time: ")
+               .append(endTime)
+               .append(" Last Updated Time: ")
+               .append(lastUpdatedTime);
+         return builder.toString();      
     }
+
 }

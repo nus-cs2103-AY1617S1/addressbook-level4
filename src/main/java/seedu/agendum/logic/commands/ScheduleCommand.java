@@ -9,7 +9,7 @@ import seedu.agendum.logic.parser.DateTimeUtils;
 import seedu.agendum.model.task.*;
 import seedu.agendum.model.task.UniqueTaskList.TaskNotFoundException;
 
-
+//@@author A0003878Y
 /**
  * Reschedules a task in the to do list.
  */
@@ -31,10 +31,9 @@ public class ScheduleCommand extends Command {
     public static final String MESSAGE_DUPLICATE_TASK = "This task already exists!";
 
     public int targetIndex = -1;
-    private Optional<LocalDateTime> newStartDateTime = Optional.empty();
-    private Optional<LocalDateTime> newEndDateTime = Optional.empty();
+    public Optional<LocalDateTime> newStartDateTime = Optional.empty();
+    public Optional<LocalDateTime> newEndDateTime = Optional.empty();
 
-    //@@author A0133367E
     public ScheduleCommand(int targetIndex, Optional<LocalDateTime> startTime,
             Optional<LocalDateTime> endTime) {
         Optional<LocalDateTime> balancedEndTime = endTime;
@@ -74,7 +73,6 @@ public class ScheduleCommand extends Command {
         return new CommandResult(String.format(MESSAGE_SUCCESS, updatedTask));
     }
 
-    //@author
     public static String getName() {
         return COMMAND_WORD;
     }

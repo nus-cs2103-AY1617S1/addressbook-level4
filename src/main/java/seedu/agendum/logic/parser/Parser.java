@@ -77,49 +77,49 @@ public class Parser {
 
         switch (commandWord) {
 
-        case AddCommand.COMMAND_WORD:
+        case AddCommand.COMMAND_WORD :
             return prepareAdd(arguments);
 
-        case DeleteCommand.COMMAND_WORD:
+        case DeleteCommand.COMMAND_WORD :
             return prepareDelete(arguments);
 
-        case FindCommand.COMMAND_WORD:
+        case FindCommand.COMMAND_WORD :
             return prepareFind(arguments);
 
-        case ListCommand.COMMAND_WORD:
+        case ListCommand.COMMAND_WORD :
             return new ListCommand();
 
-        case RenameCommand.COMMAND_WORD:
+        case RenameCommand.COMMAND_WORD :
             return prepareRename(arguments);
 
-        case MarkCommand.COMMAND_WORD:
+        case MarkCommand.COMMAND_WORD :
             return prepareMark(arguments);
 
-        case ScheduleCommand.COMMAND_WORD:
+        case ScheduleCommand.COMMAND_WORD :
             return prepareSchedule(arguments);
 
-        case UnmarkCommand.COMMAND_WORD:
+        case UnmarkCommand.COMMAND_WORD :
             return prepareUnmark(arguments);
 
-        case UndoCommand.COMMAND_WORD:
+        case UndoCommand.COMMAND_WORD :
             return new UndoCommand();
 
-        case AliasCommand.COMMAND_WORD:
+        case AliasCommand.COMMAND_WORD :
             return prepareAlias(arguments);
 
-        case UnaliasCommand.COMMAND_WORD:
+        case UnaliasCommand.COMMAND_WORD :
             return prepareUnalias(arguments);
 
-        case ExitCommand.COMMAND_WORD:
+        case ExitCommand.COMMAND_WORD :
             return new ExitCommand();
 
-        case HelpCommand.COMMAND_WORD:
+        case HelpCommand.COMMAND_WORD :
             return new HelpCommand();
-            
-        case StoreCommand.COMMAND_WORD:
+
+        case StoreCommand.COMMAND_WORD :
             return new StoreCommand(arguments);
-            
-        case LoadCommand.COMMAND_WORD:
+
+        case LoadCommand.COMMAND_WORD :
             return new LoadCommand(arguments);
 
         default:
@@ -247,7 +247,7 @@ public class Parser {
 
     //@@author A0133367E
     /**
-     * Parses arguments in the context of the delete task command.
+     * Parses arguments in the context of the delete task(s) command.
      *
      * @param args full command args string
      * @return the prepared command
@@ -263,7 +263,7 @@ public class Parser {
     }
 
     /**
-     * Parses arguments in the context of the mark task command.
+     * Parses arguments in the context of the mark task(s) command.
      *
      * @param args full command args string
      * @return the prepared command
@@ -279,7 +279,7 @@ public class Parser {
     }
  
     /**
-     * Parses arguments in the context of the unmark task command.
+     * Parses arguments in the context of the unmark task(s) command.
      *
      * @param args full command args string
      * @return the prepared command
@@ -303,7 +303,8 @@ public class Parser {
     private Command prepareRename(String args) {
         final Matcher matcher = RENAME_ARGS_FORMAT.matcher(args.trim());
         if (!matcher.matches()) {
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, RenameCommand.MESSAGE_USAGE));
+            return new IncorrectCommand(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, RenameCommand.MESSAGE_USAGE));
         }
 
         final String givenName = matcher.group("name").trim();
@@ -311,7 +312,8 @@ public class Parser {
         Optional<Integer> index = parseIndex(givenIndex);
 
         if (!index.isPresent()) {
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, RenameCommand.MESSAGE_USAGE));
+            return new IncorrectCommand(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, RenameCommand.MESSAGE_USAGE));
         }
 
         try {
@@ -361,7 +363,7 @@ public class Parser {
     //@@author
     /**
      * Returns the specified index in the {@code command} IF a positive unsigned integer is given as the index.
-     *   Returns an {@code Optional.empty()} otherwise.
+     * Returns an {@code Optional.empty()} otherwise.
      */
     private Optional<Integer> parseIndex(String command) {
         final Matcher matcher = TASK_INDEX_ARGS_FORMAT.matcher(command.trim());
@@ -380,14 +382,15 @@ public class Parser {
     //@@author A0133367E
     /**
      * Returns the specified indices in the {@code command} if positive unsigned integer(s) are given.
-     *   Returns an empty set otherwise.
+     * Returns an empty set otherwise.
      */
     private Set<Integer> parseIndexes(String args) {
         final Matcher matcher = TASK_INDEXES_ARGS_FORMAT.matcher(args.trim());
-        Set<Integer> taskIds = new HashSet<>();
+        Set<Integer> emptySet = new HashSet<Integer>();
+        Set<Integer> taskIds = new HashSet<Integer>();
 
         if (!matcher.matches()) {
-            return taskIds;
+            return emptySet;
         }
 
         String replacedArgs = args.replaceAll("[ ]+", ",").replaceAll(",+", ",");
@@ -401,18 +404,18 @@ public class Parser {
                 int startIndex = Integer.parseInt(startAndEndIndexes[0]);
                 int endIndex = Integer.parseInt(startAndEndIndexes[1]);
                 taskIds.addAll(IntStream.rangeClosed(startIndex, endIndex)
-                        .boxed().collect(Collectors.toList()));
+                       .boxed().collect(Collectors.toList()));
             }
         }
 
         if (taskIds.remove(0)) {
-            return new HashSet<>();
+            return emptySet;
         }
 
         return taskIds;
-    }
-    
+    }    
     //@@author
+
     /**
      * Parses arguments in the context of the find task command.
      *

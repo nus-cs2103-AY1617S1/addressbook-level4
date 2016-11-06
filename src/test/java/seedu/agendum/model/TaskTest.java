@@ -89,7 +89,7 @@ public class TaskTest {
     }
 
     @Test
-    public void isUpcoming_uncompletedTaskFromNextYear_returnsFalse() {
+    public void isUpcoming_uncompletedTaskFromNextMonth_returnsFalse() {
         LocalDateTime nextMonth = LocalDateTime.now().plusMonths(1);
         floatingTask.setEndDateTime(Optional.ofNullable(nextMonth));
         assertFalse(floatingTask.isUpcoming());
@@ -201,7 +201,7 @@ public class TaskTest {
     }
 
     @Test
-    public void equals_tasksWithOnlyDifferentUpdatedTme_returnsTrue() throws Exception {
+    public void equals_tasksWithOnlyDifferentUpdatedTime_returnsTrue() throws Exception {
         Task copiedTask = new Task(floatingTask);
         copiedTask.setLastUpdatedTimeToNow();
         assertEquals(floatingTask, copiedTask);
@@ -233,11 +233,12 @@ public class TaskTest {
      * (Regardless of the start and end time associated with the task)
      */
     @Test
-    public void compareTo_completedTasks_earlierUpdatedTimeFirst() {
+    public void compareTo_completedTasks_laterUpdatedTimeFirst() {
 
         deadlineTaskDueTomorrow.markAsCompleted();
         deadlineTaskDueTomorrow.setLastUpdatedTime(yesterday.get());
 
+        // have later updated time
         deadlineTaskDueYesterday.markAsCompleted();
         deadlineTaskDueYesterday.setLastUpdatedTime(tomorrow.get());
 

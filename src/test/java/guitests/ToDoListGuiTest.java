@@ -130,10 +130,10 @@ public abstract class ToDoListGuiTest {
     protected void assertShowingMessage(String expected) {
         assertEquals(expected, messageDisplay.getText());
     }
-    
+
+    //@@author A0133367E
     /**
-     * expectedList is a sorted list of all tasks.
-     * Asserts the task shown in each panel will match
+     * Asserts the tasks shown in each panel will match
      */
     protected void assertAllPanelsMatch(TestTask[] expectedList) {
         TestUtil.sortTasks(expectedList);

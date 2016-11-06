@@ -1,25 +1,25 @@
 //@@author A0133367E
 package seedu.agendum.commons.events.logic;
 
+import java.util.Hashtable;
+
 import seedu.agendum.commons.events.BaseEvent;
 
-import java.util.*;
-
 /**
- * Indicate the alias table in Logic's command library has changed
+ * Indicate the alias table in {@link seedu.agendum.logic.commands.CommandLibrary} has changed
  */
 public class AliasTableChangedEvent extends BaseEvent {
 
-    public final String aliasedKeyChanged;
     public final Hashtable<String, String> aliasTable;
+    private String message_;
 
-    public AliasTableChangedEvent(String aliasedKeyChanged, Hashtable<String, String> aliasTable) {
-        this.aliasedKeyChanged = aliasedKeyChanged;
+    public AliasTableChangedEvent(String message, Hashtable<String, String> aliasTable) {
         this.aliasTable = aliasTable;
+        this.message_ = message;
     }
 
     @Override
     public String toString() {
-        return aliasedKeyChanged;
+        return message_;
     }
 }
