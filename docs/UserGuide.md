@@ -141,17 +141,17 @@ Note that overdue tasks will be listed at the top in all kinds of listings.
 Format: `list [TYPE]`
 
 Examples:
-* `list` shows all undone tasks
+* `list` shows all undone tasks<br>
 > <img src="images/ListUI.png" width="800">
-* `list today ` shows today's undone tasks
+* `list today ` shows today's undone tasks<br>
 > <img src="images/ListTodayUI.png" width="800">
-* `list all` shows all tasks
+* `list all` shows all tasks<br>
 > <img src="images/ListAllUI.png" width="800">
-* `list done` shows all completed tasks
+* `list done` shows all completed tasks<br>
 > <img src="images/ListDoneUI.png" width="800">
-* `list [PRIORITY]` shows all tasks with the specified priority level  (low, med, high)
+* `list [PRIORITY]` shows all tasks with the specified priority level  (low, med, high)<br>
 > <img src="images/ListHighUI.png" width="800">
-* `list [DATE]` shows all undone tasks with start date or end date as the specified date
+* `list [DATE]` shows all undone tasks with start date or end date as the specified date<br>
 > <img src="images/ListDateUI.png" width="800">
 
 
