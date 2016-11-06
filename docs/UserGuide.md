@@ -43,7 +43,7 @@ Format: `help`
 
 ### Adding a task: `add`
 Adds a task to the task management<br>
-Format: `add TITLE d/DESCRIPTION [sd/START_DATE] [dd/DUE_DATE] [i/INTERVAL] [ti/TIME_INTERVAL] [-t TAG 1, TAG 2...] ...` 
+Format: `add TITLE d/DESCRIPTION [sd/START_DATE] [dd/DUE_DATE] [i/INTERVAL] [ti/TIME_INTERVAL] [ts/TAG 1, TAG 2...] ...` 
 
 > Tasks can have any number of tags (including 0)
 
@@ -54,8 +54,8 @@ Examples:
 #### Adding an Event
 Adds a task which has a start time and end time. 
 User has to specify TITLE, DESCRIPTION, START_DATE and DUE_DATE.
-* `add Birthday Party d/Edwin's birthday party sd/08-01-2012 10:00 dd/08-01-2012 23:00`
-* `add Soccer match d/Champion League sd/08-01-2012 18:00 dd/08-01-2012 20:00 i/8 ti/7`
+* `add Birthday Party d/Edwin's birthday party sd/08-01-2012 10:00 dd/08-01-2012 23:00 ts/Party`
+* `add Soccer match d/Champion League sd/08-01-2012 18:00 dd/08-01-2012 20:00 i/8 ti/7 ts/Soccer`
 	
 #### Adding a Deadline
 Adds a task that have to be done before a specific deadline. 
@@ -142,11 +142,13 @@ Example:
 * `undo`.
 <!-- @@author -->
 
+<!-- @@author A0148083A -->
 #### Complete a task: `done`
 Set Task as completed
 Format: `done TASKID`
 
 Example: `done 1`
+<!-- @@author -->
 
 <a id="edit_task" class="anchor" aria-hidden="true">
 #### Edit a task: `edit`

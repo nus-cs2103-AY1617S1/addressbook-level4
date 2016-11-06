@@ -66,7 +66,7 @@ public class Parser {
     public static final Prefix dueDatePrefix = new Prefix(" dd/","due date", true);
     public static final Prefix intervalPrefix = new Prefix(" i/","interval", true);
     public static final Prefix timeIntervalPrefix = new Prefix(" ti/", "time interval",true);
-    public static final Prefix tagArgumentsPrefix = new Prefix(" t/", "tag arguments");
+    public static final Prefix tagArgumentsPrefix = new Prefix(" ts/", "tag arguments");
 	public static final Prefix formatCustomCommandPrefix = new Prefix(" f/", "format custom command");
 	// @@author
     //@@author A0153751H

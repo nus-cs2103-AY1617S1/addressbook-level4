@@ -509,6 +509,7 @@ Use Case end.
 <!-- @@author -->
 
 <!-- @@author A0139932X -->
+
 #### Use case: UC10 Change save file path command
    Actor:User
    
@@ -558,6 +559,7 @@ Use Case end.
 <!-- @@author -->
 
 <!-- @@author A0153411W -->
+
 #### Use case: UC11 Customize commands' format
    Actor:User
    
@@ -575,6 +577,37 @@ Use Case end.
 	1b. Inputed value for command already exists
 	>1a1. System shows an error message
 	Use case ends.
+	
+<!-- @@author -->
+
+<!-- @@author A0148083A -->
+
+#### Use case: UC12 Set a Task as Completed
+   Actor:User
+   
+**MSS**
+
+1. User requests to list all tasks.
+2. System displays a list of all created tasks.
+3. User selects a task to set as completed.
+4. System update the selected task's status as COMPLETED.
+
+**Extension**
+
+	1a. User entered invalid command
+	>1a1. System shows an error message
+	Use case ends.
+	
+	2a. The task list is empty
+	>2a1. Use case ends
+	
+	3a. User entered invalid index of task
+	>3a1. System shows an error message
+	Use case resume at step 2
+	
+	3b. User entered index of a completed task
+	>3b1. System display task is already completed message
+	Use case resume at step 2
 	
 <!-- @@author -->
 
