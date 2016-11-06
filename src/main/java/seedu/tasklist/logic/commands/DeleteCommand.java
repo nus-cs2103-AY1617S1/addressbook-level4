@@ -10,7 +10,7 @@ import seedu.tasklist.model.task.ReadOnlyTask;
 import seedu.tasklist.model.task.UniqueTaskList.TaskNotFoundException;
 
 /**
- * Deletes a person identified using its last displayed index from the address
+ * Deletes a person identified using its last displayed index or name from the address
  * book.
  */
 public class DeleteCommand extends Command {
@@ -30,17 +30,31 @@ public class DeleteCommand extends Command {
 	public int targetIndex;
 	public String taskName;
 
+
+    /**
+     * Constructor using targetIndex.
+     * 
+     * @param	targetIndex index of task to be deleted
+     */
 	public DeleteCommand(int targetIndex) {
 		deleteByIndex = true;
 		this.targetIndex = targetIndex-1;
 	}
-
+	
+    /**
+     * Constructor using taskName.
+     * 
+     * @param	taskName name of task to be deleted
+     */
 	public DeleteCommand(String taskName) {
 		deleteByIndex = false;
 		taskName = taskName.trim();
 		this.taskName = taskName;
 	}
 
+	/**
+     * Executes the command
+     */
 	@Override
 	public CommandResult execute(){
 		if(deleteByIndex){
@@ -51,56 +65,71 @@ public class DeleteCommand extends Command {
 		}	
 	}
 
+	/**
+     * Processes the deletion of tasks by string
+     * 
+     * @return CommandResult containing task deletion outcome
+     */
 	private CommandResult deleteUsingString(){
+		UnmodifiableObservableList<ReadOnlyTask> matchingTasks = getFilteredTaskList();
+		String returnValue;
+		switch(matchingTasks.size()){
+		case 0:
+			model.updateFilteredListToShowIncomplete();
+			returnValue = String.format(MESSAGE_DELETE_TASK_FAILURE);
+			break;
+		case 1:
+			String details = deleteTask(matchingTasks.get(0));
+			returnValue = String.format(MESSAGE_DELETE_TASK_SUCCESS, details);
+			break;
+		default:
+			returnValue = String.format(MESSAGE_DELETE_IN_NEXT_STEP);
+		}
+		return new CommandResult(returnValue);
+	}
+
+    /**
+     * Gets filtered tasklist for deletion by string
+     * 
+     * @return UnmodifiableObservableList containing tasks whose name contain the given string
+     */
+	private UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList(){
 		Set<String> taskNameSet = new HashSet<String>();
 		taskNameSet.add(taskName);
 		model.updateFilteredTaskList(taskNameSet);
-		UnmodifiableObservableList<ReadOnlyTask> matchingTasks = model.getFilteredTaskList();
-
-		// No tasks match string
-		if (matchingTasks.isEmpty()){
-			model.updateFilteredListToShowIncomplete();
-			return new CommandResult(String.format(MESSAGE_DELETE_TASK_FAILURE));
-		}
-
-		// Only 1 task matches string
-		else if (matchingTasks.size() == 1) {
-			ReadOnlyTask taskToDelete = matchingTasks.get(0);
-			try {
-				model.deleteTask(taskToDelete);
-			}
-			catch (TaskNotFoundException e) {
-				assert false: "The target task cannot be missing";
-			}
-			model.updateFilteredListToShowIncomplete();
-			return new CommandResult(String.format(MESSAGE_DELETE_TASK_SUCCESS, taskToDelete.getTaskDetails()));
-		} 
-
-		//More than 1 task matches string
-		else {
-			Set<String> keywords = new HashSet<String>();
-			keywords.add(taskName);
-			model.updateFilteredTaskList(keywords);
-			return new CommandResult(String.format(MESSAGE_DELETE_IN_NEXT_STEP));
-		}
+		return model.getFilteredTaskList();
 	}
 
 
+    /**
+     * Processes the deletion of tasks by index
+     * 
+     * @return CommandResult containing task deletion outcome
+     */
 	private CommandResult deleteUsingIndex(){
 		UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
 		if(targetIndex >= lastShownList.size()){
 			return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
 		}
 		else{
-			ReadOnlyTask taskToDelete = lastShownList.get(targetIndex);
-			try{
-				model.deleteTask(taskToDelete);
-			}
-			catch (TaskNotFoundException e){
-				assert false: "The target task cannot be missing";
-			}
-            model.updateFilteredListToShowIncomplete();
-			return new CommandResult(String.format(MESSAGE_DELETE_TASK_SUCCESS, taskToDelete.getTaskDetails()));
+			String details = deleteTask(lastShownList.get(targetIndex));
+			return new CommandResult(String.format(MESSAGE_DELETE_TASK_SUCCESS, details));
 		}
+	}
+	
+    /**
+     * Deletes task from model
+     * 
+     * @param taskToDelete the task to be deleted
+     * @return String containing details of the deleted task
+     */
+	private String deleteTask(ReadOnlyTask taskToDelete){
+		try {
+			model.deleteTask(taskToDelete);
+		}
+		catch (TaskNotFoundException e) {
+			assert false: "The target task cannot be missing";
+		}
+		return taskToDelete.getTaskDetails().toString();
 	}
 }
