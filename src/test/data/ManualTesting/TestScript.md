@@ -6,7 +6,7 @@
 
 1. Download the emeraldo.jar from the latest [release] (https://github.com/CS2103AUG2016-T10-C3/main/releases) in github.
 2. Place emeraldo.jar in your desired folder for testing.
-3. In the same folder where emeraldo.jar is placed, create a folder called ‘data’.
+3. In the same folder where emeraldo.jar is placed, create a folder called 'data'.
 4. Place the sample data (SampleData.xml) into the folder you have just created.
 5. Rename SampleData.xml to emeraldo.xml.
 6. You can now launch emeraldo.jar with all the sample data loaded.
@@ -21,7 +21,7 @@
 ## Add Command
 
 
-Type `add “buy cheezels” ` into the command box
+Type `add "buy cheezels" ` into the command box
 > * Output console will display `New task added: buy cheezels  |  Date and Time: anytime  |  Tags: ` <br>
 > * New task added in the task view with index 51.<br>
 > * Task view jumps to the task that has just been added.
@@ -30,7 +30,7 @@ Type `add “buy cheezels” ` into the command box
 <br>
 
 
-Type `add “Sam’s wedding” on 23 dec` into the command box
+Type `add "Sam's wedding" on 23 dec` into the command box
 > * Output console will display `New task added: Sam's wedding  |  Date and Time: on 23 Dec 2016  |  Tags: `<br>
 > * New task added in the task view with index 52.<br>
 > * Task view jumps to the task that has just been added.
@@ -39,8 +39,8 @@ Type `add “Sam’s wedding” on 23 dec` into the command box
 <br>
 
 
-Type `add “buy christmas present for christmas party” by 25/12/2016, 3pm #present` into the command box
-> * Output console will display `New task added: buy christmas present for christmas party  |  Date and Time: by 25 Dec 2016, 3.00pm  |  Tags: [present] `<br>
+Type `add "buy christmas present for christmas party" by 25/12/2016, 3pm #present` into the command box
+> * Output console will display `New task added: buy christmas present for christmas party  |  Date and Time: by 25 Dec 2016, 3.00pm  |  Tags: `<br>
 > * New task added in the task view with index 53. <br>
 > * Task view jumps to the task that has just been added.
 
@@ -48,7 +48,7 @@ Type `add “buy christmas present for christmas party” by 25/12/2016, 3pm #presen
 <br>
 
 
-Type `add “Christmas wonderland @ gardens by the bay” from 13-12, 1600 to 13-12, 1900` into the command box
+Type `add "Christmas wonderland @ gardens by the bay" from 13-12, 1600 to 13-12, 1900` into the command box
 > * Output console will display `New task added: Christmas wonderland @ gardens by the bay  |  Date and Time: from 13 Dec 2016, 4.00pm to 13 Dec 2016, 7.00pm  |  Tags: ` <br>
 > * New task added in the task view with index 54 <br>
 > * Task view jumps to the task that has just been added
@@ -57,7 +57,7 @@ Type `add “Christmas wonderland @ gardens by the bay” from 13-12, 1600 to 13-12,
 <br>
 
 
-Type `add “Christmas wonderland @ gardens by the bay” from 13 Dec 16, 4:00pm to 13 Dec 16, 7:00pm` into the command box
+Type `add "Christmas wonderland @ gardens by the bay" from 13 Dec 16, 4:00pm to 13 Dec 16, 7:00pm` into the command box
 > * Output console will display `This task already exists in the task manager`<br>
 > * Task will not be added
 
@@ -69,7 +69,7 @@ Type `add “Christmas wonderland @ gardens by the bay” from 13 Dec 16, 4:00pm to 
 ## Edit Command
 
 
-Type `edit 2 “Surprise Anniversary date with darling”`
+Type `edit 2 "Surprise Anniversary date with darling"`
 > * Output console will display `Edited task: Surprise Anniversary date with darling  |  Date and Time: on 15 Nov 2016  |  Tags: ` <br>
 > * Task with index 2 edited with new description <br>
 > * Task view jumps to the task that has been edited
@@ -163,7 +163,7 @@ Type `delete 5` into the command box
 
 
 Type `delete 55` into the command box
-> * Output console will display “The task index provided is invalid”
+> * Output console will display "The task index provided is invalid"
 
 
 <br>
@@ -219,7 +219,7 @@ Type `undo` into the command box
 <br>
 
 
-Type `add “undo this add”` into the command box <br>
+Type `add "undo this add"` into the command box <br>
 Type `undo` into the command box
 > * Output console will display `Undo successful!` <br>
 > * The add command will be reversed
@@ -228,7 +228,7 @@ Type `undo` into the command box
 <br>
 
 
-Type `edit 3 “undo this edit”` into the command box <br>
+Type `edit 3 "undo this edit"` into the command box <br>
 Type `undo` into the command box
 > * Output console will display `Undo successful!` <br>
 > * The edit command will be reversed
@@ -268,15 +268,16 @@ Type `undo` into the command box
 ## List Command
 
 
-Task to be added with a date to be defined by the tester.
-1. Type `add “today’s task” on (Today’s date)`
-2. Type `add “tomorrow’s task” on (Tomorrow’s date) #friends`3. Type `add “nextweek’s task” on (Any date next week)`
-4. Type `add “nextmonth’s task” on (Any date next month)`
-5. Type `add “uncompleted task” on 5 nov`
-6. Type `Completed 54`
-7. Type `Completed 55`
-8. Type `Completed 56`
-9. Type `Completed 57`
+Task to be added with a date to be defined by the tester
+> 1. Type `add "today's task" on (Today's date)`
+> 2. Type `add "tomorrow's task" on (Tomorrow's date) #friends`
+> 3. Type `add "nextweek's task" on (Any date next week)`
+> 4. Type `add "nextmonth's task" on (Any date next month)`
+> 5. Type `add "uncompleted task" on 5 nov`
+> 6. Type `Completed 54`
+> 7. Type `Completed 55`
+> 8. Type `Completed 56`
+> 9. Type `Completed 57`
 
 
 <br>
@@ -285,7 +286,7 @@ Task to be added with a date to be defined by the tester.
 Type `list` into the command box
 > * Output console will display `Tasks that are uncompleted are successfully listed!`<br>
 > * All uncompleted tasks will be listed<br>
-> * There will be 53 tasks listed in total
+> * There will be 52 tasks listed in total
 
 
 <br>
@@ -294,7 +295,7 @@ Type `list` into the command box
 Type `list friends` into the command box
 > * Output console will display `Uncompleted tasks with tag 'friends' successfully listed!
 7 tasks listed!`<br>
-> * All uncompleted tasks with tag ‘friends’ will be listed<br>
+> * All uncompleted tasks with tag 'friends' will be listed<br>
 > * The tasks you created would not appear.
 
 
@@ -362,7 +363,7 @@ Type `list nextmonth` into the command box
 Type `listall` into the command box
 > * Output console will display `All tasks are successfully listed!`<br>
 > * All tasks (both completed and uncompleted) will be listed.<br>
-> * There will be 58 tasks listed in total
+> * There will be 57 tasks listed in total
 
 
 <br>
@@ -371,8 +372,8 @@ Type `listall` into the command box
 Type `listall friends` into the command box
 > * Output console will display `All tasks with tag 'friends' successfully listed!
 8 tasks listed!`<br>
-> * All tasks (both completed and uncompleted) that are tagged as “friends” will be listed.<br>
-> * The task with description “tomorrow’s task” will appear.
+> * All tasks (both completed and uncompleted) that are tagged as "friends" will be listed.<br>
+> * The task with description "tomorrow's task" will appear.
 
 
 <br>
@@ -381,7 +382,7 @@ Type `listall friends` into the command box
 Type `listall today` into the command box
 > * Output console will display `All tasks happening today successfully listed!`<br>
 > * All tasks (both completed and uncompleted) occurring today will be listed.<br>
-> * The task with description “today’s task” will appear.
+> * The task with description "today's task" will appear.
 
 
 <br>
@@ -390,7 +391,7 @@ Type `listall today` into the command box
 Type `listall tomorrow` into the command box
 > * Output console will display `All tasks happening tomorrow successfully listed!`<br>
 > * All tasks (both completed and uncompleted) occurring tomorrow will be listed.<br>
-> * The task with description “tomorrow’s task” will appear.
+> * The task with description "tomorrow's task" will appear.
 
 
 <br>
@@ -399,8 +400,8 @@ Type `listall tomorrow` into the command box
 Type `listall thisweek` into the command box
 > * Output console will display `All tasks happening this week successfully listed!<br>
 > * All tasks (both completed and uncompleted) occurring this week will be listed.<br>
-> * The task with description “today’s task” will appear.<br>
-> * The task with description “nextweek’s task” will **not** appear.<br>
+> * The task with description "today's task" will appear.<br>
+> * The task with description "nextweek's task" will **not** appear.<br>
 > * Whether the other 2 tasks you created will appear, depends on what is the date you have input.
 
 
@@ -410,8 +411,8 @@ Type `listall thisweek` into the command box
 Type `listall nextweek` into the command box
 > * Output console will display `All tasks happening next week successfully listed!`<br>
 > * All tasks (both completed and uncompleted) occurring next week will be listed.<br>
-> * The task with description “nextweek’s task” will appear.<br>
-> * The task with description “today’s task” will **not** appear.<br>
+> * The task with description "nextweek's task" will appear.<br>
+> * The task with description "today's task" will **not** appear.<br>
 > * Whether the other 2 tasks you created will appear, depends on what is the date you have input.
 
 
@@ -421,8 +422,8 @@ Type `listall nextweek` into the command box
 Type `listall thismonth` into the command box
 > * Output console will display `All tasks happening this month successfully listed!` <br>
 > * All tasks (both completed and uncompleted) occurring this month will be listed.<br>
-> * The task with description “today’s task” will appear.<br>
-> * The task with description “nextmonth’s task” will **not** appear.<br>
+> * The task with description "today's task" will appear.<br>
+> * The task with description "nextmonth's task" will **not** appear.<br>
 > * Whether the other 2 tasks you created will appear, depends on what is the date you have input.
 
 
@@ -432,8 +433,8 @@ Type `listall thismonth` into the command box
 Type `listall nextmonth` into the command box
 > * Output console will display `All tasks happening next month successfully listed!` <br>
 > * All tasks (both completed and uncompleted) occurring next month will be listed. <br>
-> * The task with description “nextmonth’s task” will appear. <br>
-> * The task with description “today’s task” will **not** appear. <br>
+> * The task with description "nextmonth's task" will appear. <br>
+> * The task with description "today's task" will **not** appear. <br>
 > * Whether the other 2 tasks you created will appear, depends on what is the date you have input.
 
 
@@ -463,6 +464,7 @@ Type `find interview` into the command box
 Type `find task interview` into the command box
 > * Output console will display `5 tasks listed!` <br>
 > * All uncompleted tasks with `interview` or `task` in its description will be listed.
+
 <br>
 <br>
 
@@ -501,7 +503,7 @@ Type `help` into the command box
 Press <kbd>alt</kbd> + <kbd>F4</kbd>
 
 
-> * Output console will display ‘Opened help window.’ <br>
+> * Output console will display 'Opened help window.' <br>
 > * The help window will be closed
 
 
@@ -520,7 +522,7 @@ Type `saveto ./newFolder/` into the command box
 <br>
 
 
-Type `add “test data”` into the command box
+Type `add "test data"` into the command box
 > * New emeraldo.xml will be created at `./newFolder/` when a change is made <br>
 > * Confirm the creation of a folder named `newFolder` and the presence of a file named `emeraldo.xml` by going to the folder where emeraldo.jar was placed.
 
@@ -538,7 +540,7 @@ Type `saveto default` into the command box
 
 Close the program and relaunch emeraldo.jar <br>
 > * Task data stored in `./data/emeraldo` will be loaded <br>
-> * The task with description “test data” will not be in the task view as it is saved in `./newFolder/emeraldo.xml`
+> * The task with description "test data" will not be in the task view as it is saved in `./newFolder/emeraldo.xml`
 
 
 <br>
