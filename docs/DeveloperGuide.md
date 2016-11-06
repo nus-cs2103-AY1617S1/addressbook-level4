@@ -38,9 +38,9 @@ This guide describes the design and implementation of Jimi. Here, we share the i
     This app will not work with earlier versions of Java 8.
     
 2. **Eclipse** IDE
-3. **e(fx)clipse** plugin for Eclipse (Do the steps from step 2 onwards given in
+3. **e(fx)clipse** plugin for Eclipse (Follow the steps from starting from step 2 in 
    [this page](http://www.eclipse.org/efxclipse/install.html#for-the-ambitious)).
-4. **Buildship Gradle Integration** plugin from the Eclipse Marketplace
+4. **Buildship Gradle Integration** plugin from the Eclipse Marketplace.
 
 <br>
 
@@ -81,7 +81,7 @@ This guide describes the design and implementation of Jimi. Here, we share the i
 ### Architecture
 
 <img src="images/Architecture.png" width="600"><br><br>
-The **_Architecture Diagram_** given above explains the high-level design of the App.
+The **_Architecture Diagram_** shown in fig 1.1 explains the high-level design of the App.
 Given below is a quick overview of each component.
 
 `Main` has only one class called [`MainApp`](../src/main/java/seedu/jimi/MainApp.java). It is responsible for:
@@ -95,8 +95,8 @@ Two of those classes play important roles at the architecture level.
 <br>* `LogsCenter` : Used by many classes to write log messages to the App's log file.
 <br><br>
 The rest of the App consists four components.
-* [**`UI`**](#ui-component) : Displays interactions with the user
-* [**`Logic`**](#logic-component) : Executes the commands
+* [**`UI`**](#ui-component) : Displays interactions with the user.
+* [**`Logic`**](#logic-component) : Executes the commands.
 * [**`Model`**](#model-component) : Holds the data of the App in-memory.
 * [**`Storage`**](#storage-component) : Reads data from, and writes data to, the hard disk.
 
@@ -130,7 +130,7 @@ The sections below give more details of each component.
 
 <br><br>
 
-<!--- @@author A0140133B -->
+<!--- @@author A0138915X -->
 
 ### UI component
 <br>
@@ -140,8 +140,8 @@ The sections below give more details of each component.
 **API** : [`Ui.java`](../src/main/java/seedu/jimi/ui/Ui.java)
 
 The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `TaskListPanel`,
-`StatusBarFooter`, `BrowserPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class
-and they can be loaded using the `UiPartLoader`.
+`StatusBarFooter`, `AgendarPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class
+and they can be loaded using the `UiPartLoader`. 
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files
  that are in the `src/main/resources/view` folder.<br>
@@ -154,6 +154,7 @@ The `UI` component:
 * Responds to events raised from various parts of the App and updates the UI accordingly.
 
 <br>
+<!--- @@author -->
 
 <!--- @@author A0140133B -->
 
@@ -164,7 +165,7 @@ The `UI` component:
 **API** : [`Logic.java`](../src/main/java/seedu/jimi/logic/Logic.java)
 
 The `Logic` component:
-* uses the `Parser` class to parse the user command.
+* uses the `JimiParser` class to parse the user command.
 * Creates a `Command` object which is executed by the `LogicManager`.
 * Changes the model (e.g. when adding a task) and/or raise events along with the command execution.
 * Encapsulates the result of the command execution as a `CommandResult` object and passes it back to the `Ui`.
@@ -325,12 +326,13 @@ Here are the steps to create a new release.
 A project often depends on third-party libraries. For example, Jimi depends on the
 [Jackson library](http://wiki.fasterxml.com/JacksonHome) for XML parsing.
 
-These _dependencies_ can be manually managed by:
-a. Including those libraries in the repo (this bloats the repo size)
+You can automate the managing of these _dependencies_ using Gradle. Gradle can download the dependencies automatically, which can remove the hassle of manually downloading and updating the libraries yourself.<br>
+
+It is recommended to use Gradle to manage the dependencies for you, however, if you choose not to use Gradle for whatever reason you can also manually manage these _dependencies_ by:<br>
+a. Including those libraries in the repo (this bloats the repo size)<br>
 b. Requiring developers to download those libraries manually (this creates extra work for developers)<br>
 
-On the other hand, you can automate the managing of these _dependencies_ using Gradle. For example, Gradle can download the dependencies automatically, which
-is better than the above alternatives.<br>
+
 
 
 <br>
