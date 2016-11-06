@@ -28,6 +28,7 @@ import javax.xml.bind.JAXBException;
 
 //@@author A0139515A
 public class UndoRedoCommandTest extends ActivityManagerGuiTest {
+	
 	Config originalConfig;
 	File originalFile;
 	XmlSerializableActivityManager originalData;
@@ -145,6 +146,7 @@ public class UndoRedoCommandTest extends ActivityManagerGuiTest {
         TestActivity[] expectedList = TestUtil.addActivitiesToList(currentList, activityToAdd);
         assertTrue(activityListPanel.isTaskListMatching(expectedList));
     }
+    
 	private void restoreOriginalConfig() throws IOException, FileNotFoundException, JAXBException {
 		FileUtil.createIfMissing(originalFile);
         XmlUtil.saveDataToFile(originalFile, originalData);
