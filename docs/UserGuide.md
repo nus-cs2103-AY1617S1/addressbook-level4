@@ -50,8 +50,8 @@ Want to know how to use MESS? Let's get started!
    * **`update`**`1 name presentation ends tomorrow` : updates first task on the list to presentation having a deadline tomorrow while the number '1' is the index of task on the list
    * **`undo`** : undo previous one action
    * **`pin`**`1` : pin the first task in the list
-   * **`change-to`**`data/taskmanager.xml`: change the storage location
    * **`unpin`**`1` : unpin the pinned first task in the list
+   * **`change-to`**`data/taskmanager.xml`: change the storage location
    * **`exit`** :exit the program
 6. Refer to the [Features](#features) section below for details of each command.<br>
 7. Our UI contains different parts. The following picture introduce the UI:
@@ -75,7 +75,7 @@ Format: `add TASK_NAME [starts START_DATETIME ends CLOSE_DATETIME tag TAG recurs
 * `TASK_NAME` need not be unique.
 * If there is no argument, the task will become floating.
 * `START_DATE` refer to the starting date and time of an event. For a task, the timestamp will be automatically saved as start date and time when the task is created. User can input start date and time for events.
-* `TAG` is for users to write tags for different tasks. Mulitple tags are available by typing `tag TAG tag TAG`.
+* `TAG` is for users to write tags for different tasks. Multiple tags are available by typing `tag TAG tag TAG`.
 * `NUMBER_OF_RECURRING TASK` is for users to create weekly recurring task. For example, when NUMBER_OF_WEEKLY_RECURRING_TASK is 1 which    means one more tasks will be created with the openTime and endTime one weekly later.
 
 Examples:
@@ -121,8 +121,8 @@ Update a specific task.<br>
 Format: `update INDEX [name TASKNAME starts STARTDATETIME ends ENDDATETIME tag TAG remove-tag TO_REMOVE_TAG]`
 
 > * INDEX refers to the number appears on the list in front the task name.
-> * THE task name is optional, but needs to be preceeded by name
-> * The TAG here will be added to the referred task and the orginial tag remains. If you want to delete a tag, use `remove-tag TO_REMOVE_TAG` to delete tag by name.
+> * The task name is optional, but needs to be preceded by name
+> * The TAG here will be added to the referred task and the original tag remains. If you want to delete a tag, use `remove-tag TO_REMOVE_TAG` to delete tag by name.
 > * TO_REMOVE_TAG refers to the tag (or tags) that you want to be removed by typing the tags' name that you want to delete.
 > * You can choose what to update. It depends on you whether you want to update only one information or update multiple information. 
 
@@ -144,7 +144,7 @@ Examples:
 <!-- @@author A0153467Y-->
 #### Marking a task as completed: `complete`
 Marks a specific task by index from the to-do list.<br>
-FormatL `complete INDEX`
+Format: `complete INDEX`
 
 > * INDEX refers to the number appears on the list in front the task name.
 
@@ -156,7 +156,7 @@ Example:
    
 #### Unmarking a completed task as not completed: `uncomplete`
 Unmarks a completed specific task as not completed by index from the to-do list.<br>
-FormatL `uncomplete INDEX`
+Format: `uncomplete INDEX`
 
 > * INDEX refers to the number appears on the list in front the task name.
 
@@ -238,7 +238,8 @@ There is no need to save manually.
 #### Change storage location : `change-to`
 Shows a list of tasks and events in the todo list.<br>
 Format: `change-to NEWFILEPATH`
-Example: 'change-to data/taskmanager.xml'
+Example: 
+* `change-to data/taskmanager.xml`
 
 <!-- @@author -->
 #### Exiting the program : `exit`
