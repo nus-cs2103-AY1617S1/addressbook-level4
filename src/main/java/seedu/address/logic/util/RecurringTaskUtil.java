@@ -71,7 +71,7 @@ public class RecurringTaskUtil {
         TaskDate startDate = task.getLastAppendedComponent().getStartDate();
         TaskDate endDate = task.getLastAppendedComponent().getEndDate();
 
-        if (!task.getLastAppendedComponent().hasOnlyEndDate()) {
+        if (task.getLastAppendedComponent().isSlot()) {
             calendar.setTime(startDate.getDate());
             correctCalendarByElapsed(calendar, elapsedPeriod, recurringType);
             correctedStartDate.setDateInLong(calendar.getTime().getTime());
@@ -270,7 +270,7 @@ public class RecurringTaskUtil {
      * @return null if there is no start date in target
      */
     public static Calendar getStartCalendar(TaskOccurrence target) {
-        if (!target.getStartDate().isValid()) {
+        if (!target.getStartDate().isPresent()) {
             return null;
         }
         Calendar startDate = new GregorianCalendar();
@@ -297,7 +297,7 @@ public class RecurringTaskUtil {
      * @return null if there is no start date in target
      */
     public static LocalDate getStartLocalDate(TaskOccurrence target) {
-        if (target.hasOnlyEndDate()) {
+        if (!target.isSlot()) {
             return null;
         }
         return DateFormatterUtil.dateToLocalDate(target.getStartDate().getDate());

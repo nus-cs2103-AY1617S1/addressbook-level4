@@ -10,6 +10,7 @@ import seedu.address.model.task.TaskOccurrence;
 import seedu.address.model.task.TaskDate;
 import seedu.address.testutil.TestTask;
 import seedu.address.testutil.TestUtil;
+import seedu.address.ui.util.MyAgendaUtil;
 
 //@@author A0147967J
 /**
@@ -83,7 +84,7 @@ public class BrowserPanelTest extends TaskMasterGuiTest {
         TestTask toBeAdded = td.daily;
         ArrayList<TaskOccurrence> expectedList = new ArrayList<TaskOccurrence>();
         expectedList.add(toBeAdded.getLastAppendedComponent());
-        int recurringCount = 7 - TestUtil.getConvertedTime(toBeAdded.getLastAppendedComponent().getStartDate()).getDayOfWeek().getValue() % 7;
+        int recurringCount = 7 - MyAgendaUtil.getConvertedTime(toBeAdded.getLastAppendedComponent().getStartDate()).getDayOfWeek().getValue() % 7;
         expectedList.addAll(getCopies(toBeAdded.getLastAppendedComponent()));
         commandBox.runCommand(toBeAdded.getAddRecurringCommand() + " repeat " + recurringCount);
         assertIsAgendaMatching(expectedList);
@@ -96,7 +97,7 @@ public class BrowserPanelTest extends TaskMasterGuiTest {
 
     private ArrayList<TaskOccurrence> getCopies(TaskOccurrence t) {
         ArrayList<TaskOccurrence> list = new ArrayList<TaskOccurrence>();
-        int dayOfWeek = TestUtil.getConvertedTime(t.getStartDate()).getDayOfWeek().getValue() % 7;
+        int dayOfWeek = MyAgendaUtil.getConvertedTime(t.getStartDate()).getDayOfWeek().getValue() % 7;
         for (int i = 1; i <= 6 - dayOfWeek; i++) {
             TaskOccurrence copy = new TaskOccurrence(t);
             copy.setStartDate(new TaskDate(t.getStartDate().getDateInLong() + DAY * i));

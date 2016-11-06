@@ -35,7 +35,7 @@ public class TaskDateStub extends TaskDate {
     }
 
     @Override
-    public boolean isValid() {
+    public boolean isPresent() {
         return true;
     }
     

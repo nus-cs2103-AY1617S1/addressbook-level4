@@ -16,6 +16,7 @@ import seedu.address.model.task.UniqueTaskList.TimeslotOverlapException;
 import seedu.address.testutil.TestUtil;
 import seedu.address.testutil.TypicalTestTasks;
 import seedu.address.ui.MyAgenda;
+import seedu.address.ui.util.MyAgendaUtil;
 
 import java.util.ArrayList;
 import java.util.concurrent.TimeoutException;
@@ -145,7 +146,7 @@ public abstract class TaskMasterGuiTest {
 		assertEquals(expectedShown.size(), toBeChecked.appointments().size());
 		//Checks one-to-one match
 		for(TaskOccurrence t: expectedShown){
-			assertTrue(browser.isContained(TestUtil.getAppointment(t)));
+			assertTrue(browser.isContained(MyAgendaUtil.getAppointment(t)));
 		}
 	}
 

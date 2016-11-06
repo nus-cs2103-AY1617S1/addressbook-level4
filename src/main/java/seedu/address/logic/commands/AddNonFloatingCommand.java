@@ -54,7 +54,7 @@ public class AddNonFloatingCommand extends AddCommand {
                 recurringType,
                 recurringPeriod
         );
-        if(!this.toAdd.getLastAppendedComponent().isValidTimeSlot()){
+        if(!this.toAdd.getLastAppendedComponent().isValidNonFloatingTime()){
         	indicateAttemptToExecuteIncorrectCommand();
         	throw new IllegalValueException(MESSAGE_ILLEGAL_TIME_SLOT);
         }

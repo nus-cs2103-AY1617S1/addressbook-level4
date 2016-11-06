@@ -52,6 +52,7 @@
 					<children>
 						<Label fx:id="startDate" text="\$startDate" />
 						<Label fx:id="endDate" text="\$endDate" />
+                        <Label fx:id="period" text="\$period" translateY="35.0" />
 					</children>
 					<stylesheets>
 						<URL value="@DarkTheme.css" />

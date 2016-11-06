@@ -7,6 +7,7 @@ import jfxtras.scene.control.agenda.Agenda.AppointmentImplLocal;
 import seedu.address.TestApp;
 import seedu.address.testutil.TestUtil;
 import seedu.address.ui.MyAgenda;
+import seedu.address.ui.util.MyAgendaUtil;
 
 //@@author A0147967J
 /**
@@ -28,7 +29,7 @@ public class BrowserPanelHandle extends GuiHandle {
 
     public boolean isContained(AppointmentImplLocal target) {
         for (Appointment a : getMyAgenda().appointments())
-            if (TestUtil.isSameAppointment(a, target))
+            if (MyAgendaUtil.isSameAppointment(a, target))
                 return true;
         return false;
     }

@@ -10,10 +10,12 @@ import seedu.address.model.task.RecurringType;
 import seedu.address.model.task.TaskOccurrence;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.logic.commands.EditCommand;
 import seedu.address.testutil.TestTask;
 import seedu.address.testutil.TestUtil;
 
 import static org.junit.Assert.assertTrue;
+import static seedu.address.logic.commands.DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS;
 
 //@@author A0147967J
 public class EditCommandTest extends TaskMasterGuiTest {
@@ -33,7 +35,7 @@ public class EditCommandTest extends TaskMasterGuiTest {
 
         // edit it to time slot
         toBeEdited = currentList[index - 1];
-        toBeEdited.setEndDate("2 oct 9am");
+        toBeEdited.setStartDate("2 oct 9am");
         toBeEdited.setEndDate("2 oct 11am");
         currentList[index - 1] = toBeEdited;
         assertEditSuccess(toBeEdited, "edit 4 from 2 oct 9am to 2 oct 11am", currentList);
@@ -46,9 +48,9 @@ public class EditCommandTest extends TaskMasterGuiTest {
 
         // add tags
         toBeEdited = currentList[index - 1];
-        toBeEdited.setTag(new UniqueTagList(new Tag("testTag"), new Tag("testTag1")));
+        toBeEdited.setTag(new UniqueTagList(new Tag("testTag1"), new Tag("testTag2")));
         currentList[index - 1] = toBeEdited;
-        assertEditSuccess(toBeEdited, "edit 4 t/testTag t/testTag1", currentList);
+        assertEditSuccess(toBeEdited, "edit 4 t/testTag1 t/testTag2", currentList);
 
         // change name
         toBeEdited = currentList[index - 1];
@@ -91,6 +93,7 @@ public class EditCommandTest extends TaskMasterGuiTest {
         TaskOccurrence[] taskComponents = TestUtil.convertTasksToDateComponents(modifiedList);
 
         assertTrue(taskListPanel.isListMatching(taskComponents));
+        assertResultMessage(String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, editedCopy.getLastAppendedComponent()));
     }
 
 }

@@ -28,15 +28,6 @@ public class TestTask extends Task implements ReadOnlyTask {
         recurringDates.add(new TaskOccurrence(this ,new TaskDate(), new TaskDate()));
         recurringPeriod = Task.NO_RECURRING_PERIOD;
     }
-    
-    public TestTask(TestTask copy) {
-        tags = new UniqueTagList(copy.tags);
-        recurringType = RecurringType.NONE;
-        recurringDates = new ArrayList<TaskOccurrence>();
-        for(TaskOccurrence taskComponent: copy.recurringDates){
-        	recurringDates.add(new TaskOccurrence(this, taskComponent.getStartDate(), taskComponent.getEndDate()));
-        }
-    }
 
     public void setName(Name name) {
         this.name = name;
@@ -154,7 +145,7 @@ public class TestTask extends Task implements ReadOnlyTask {
     	StringBuilder sb = new StringBuilder();
         sb.append("add " + this.getName().fullName + " ");
         if(this.type != TaskType.FLOATING){
-        	if(this.getLastAppendedComponent().hasOnlyEndDate()){
+        	if(this.getLastAppendedComponent().isDeadline()){
             	sb.append("by "+ this.getLastAppendedComponent().getEndDate().getInputDate() + " ");
             }else{
             	sb.append("from "+ this.getLastAppendedComponent().getStartDate().getInputDate() + " ");

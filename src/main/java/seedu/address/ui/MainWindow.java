@@ -219,7 +219,8 @@ public class MainWindow extends UiPart {
     public void releaseResources() {
         browserPanel.freeResources();
     }
-
+    
+    //@@author A0147967J
     public void switchToInitialTab() {
         logic.execute("view today");
     }
