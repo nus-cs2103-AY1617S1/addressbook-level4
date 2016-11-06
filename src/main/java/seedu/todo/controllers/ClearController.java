@@ -31,6 +31,7 @@ public class ClearController extends Controller {
     
     private static final String MESSAGE_CLEAR_NO_ITEMS_FOUND = "No items matched your query!";
     private static final String MESSAGE_CLEAR_SUCCESS = "A total of %s %s and %s %s deleted!\n" + "To undo, type \"undo\".";
+    private static final String MESSAGE_UNKNOWN_TOKENS = "Could not parse your query as it contained unknown tokens: %s";
     private static final String MESSAGE_AMBIGUOUS_TYPE = "We could not tell if you wanted to clear events or tasks. \n"
             + "Note that only tasks can be \"complete\"/\"incomplete\", "
             + "while only events can be \"past\", \"over\" or \"future\".";
@@ -54,6 +55,13 @@ public class ClearController extends Controller {
         // Tokenize input
         Map<String, String[]> parsedResult =
                 Tokenizer.tokenize(CalendarItemFilter.getFilterTokenDefinitions(), input);
+        
+        // Check if there are any unknown tokens.
+        if (Disambiguator.getUnknownTokenString(parsedResult) != null) {
+            String errorMessage = String.format(MESSAGE_UNKNOWN_TOKENS, Disambiguator.getUnknownTokenString(parsedResult));
+            renderDisambiguation(parsedResult, true, true, errorMessage);
+            return;
+        }
         
         // Decide if task/event/both
         boolean[] isTaskEvent = null;
