@@ -59,7 +59,7 @@
               </AnchorPane>
             <HBox styleClass="anchor-pane">
                <children>
-                      <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" x="5.0">
+                      <ImageView fx:id="catImage" fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" x="5.0">
                           <image>
                               <Image url="@../images/cat_normal.png" />
                           </image>
