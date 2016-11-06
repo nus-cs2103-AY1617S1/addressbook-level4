@@ -22,6 +22,10 @@ import w15c2.tusk.storage.task.XmlSerializableTaskManager;
 import w15c2.tusk.testutil.TestUtil;
 
 //@@author A0139708W
+/**
+ * Tests for XMLUtil class
+ *
+ */
 public class XmlUtilTest {
 
     private static final String TEST_DATA_FOLDER = FileUtil.getPath("src/test/data/XmlUtilTest/");
@@ -34,43 +38,43 @@ public class XmlUtilTest {
     public ExpectedException thrown = ExpectedException.none();
 
     @Test
-    public void getDataFromFile_nullFile_AssertionError() throws Exception {
+    public void getDataFromFile_nullFile_assertionError() throws Exception {
         thrown.expect(AssertionError.class);
         XmlUtil.getDataFromFile(null, ModelManager.class);
     }
 
     @Test
-    public void getDataFromFile_nullClass_AssertionError() throws Exception {
+    public void getDataFromFile_nullClass_assertionError() throws Exception {
         thrown.expect(AssertionError.class);
         XmlUtil.getDataFromFile(VALID_FILE, null);
     }
 
     @Test
-    public void getDataFromFile_missingFile_FileNotFoundException() throws Exception {
+    public void getDataFromFile_missingFile_exceptionThrown() throws Exception {
         thrown.expect(FileNotFoundException.class);
         XmlUtil.getDataFromFile(MISSING_FILE, ModelManager.class);
     }
 
     @Test
-    public void getDataFromFile_emptyFile_DataFormatMismatchException() throws Exception {
+    public void getDataFromFile_emptyFile_exceptionThrown() throws Exception {
         thrown.expect(JAXBException.class);
         XmlUtil.getDataFromFile(EMPTY_FILE, ModelManager.class);
     }
 
     @Test
-    public void saveDataToFile_nullFile_AssertionError() throws Exception {
+    public void saveDataToFile_nullFile_assertionError() throws Exception {
         thrown.expect(AssertionError.class);
         XmlUtil.saveDataToFile(null, ModelManager.class);
     }
 
     @Test
-    public void saveDataToFile_nullClass_AssertionError() throws Exception {
+    public void saveDataToFile_nullClass_assertionError() throws Exception {
         thrown.expect(AssertionError.class);
         XmlUtil.saveDataToFile(VALID_FILE, null);
     }
 
     @Test
-    public void saveDataToFile_missingFile_FileNotFoundException() throws Exception {
+    public void saveDataToFile_missingFile_exceptionThrown() throws Exception {
         thrown.expect(FileNotFoundException.class);
         XmlUtil.saveDataToFile(MISSING_FILE, new ModelManager());
     }
