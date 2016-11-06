@@ -84,11 +84,11 @@ public class CommandUtil {
         assert cmdStubList != null && allCmdWords != null;
         cmdWordNearMatches = new HashMap<String, Set<String>>();
         allCmdWords.forEach(cmdWord -> {
-            Set<String> oneEditDistanceDict = Dictionary.generateOneEditDistanceDict(cmdWord);
+            Set<String> oneEditDistanceDict = DictionaryUtil.generateOneEditDistanceDict(cmdWord);
             
             Set<String> twoEditDistanceDict = new HashSet<String>();
             // Generating a two edit distance dictionary from each word of the one edit distance dictionary.
-            oneEditDistanceDict.forEach(w -> twoEditDistanceDict.addAll(Dictionary.generateOneEditDistanceDict(w)));
+            oneEditDistanceDict.forEach(w -> twoEditDistanceDict.addAll(DictionaryUtil.generateOneEditDistanceDict(w)));
             
             // Storing the words in the cmdWordNearMatches dictionary.
             // There can be multiple command word matches for the same typo, hence the value of the map is a set.

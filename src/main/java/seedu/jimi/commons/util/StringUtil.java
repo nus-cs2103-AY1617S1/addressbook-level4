@@ -73,19 +73,19 @@ public class StringUtil {
         String sourceNoSpaces = source.toLowerCase().replaceAll("\\s+", "");
         String queryNoSpaces = query.toLowerCase().replaceAll("\\s+", "");
         
-        Set<String> transposedDict = Dictionary.generateTransposedChar(sourceNoSpaces);
+        Set<String> transposedDict = DictionaryUtil.generateTransposedChar(sourceNoSpaces);
         if (transposedDict.contains(queryNoSpaces)) {
             return true; // Similar by two transposed characters.
         }
-        Set<String> missingCharDict = Dictionary.generateMissingChar(sourceNoSpaces);
+        Set<String> missingCharDict = DictionaryUtil.generateMissingChar(sourceNoSpaces);
         if (missingCharDict.contains(queryNoSpaces)) {
             return true; // Similar by a missing character.
         }
-        Set<String> oneCharDiffDict = Dictionary.generateReplacedChar(sourceNoSpaces);
+        Set<String> oneCharDiffDict = DictionaryUtil.generateReplacedChar(sourceNoSpaces);
         if (oneCharDiffDict.contains(queryNoSpaces)) {
             return true; // Similar by a differing character.
         }
-        Set<String> oneExtraCharDict = Dictionary.generateExtraChar(sourceNoSpaces);
+        Set<String> oneExtraCharDict = DictionaryUtil.generateExtraChar(sourceNoSpaces);
         if (oneExtraCharDict.contains(queryNoSpaces)) {
             return true; // Similar by an extra character.
         }
@@ -94,7 +94,7 @@ public class StringUtil {
         }
         
         // Combining all dictionaries.
-        Set<String> combined = Dictionary.join(transposedDict, missingCharDict, oneCharDiffDict, oneExtraCharDict);
+        Set<String> combined = DictionaryUtil.join(transposedDict, missingCharDict, oneCharDiffDict, oneExtraCharDict);
         
         // Perform string approximation methods again.
         return combined.stream()
@@ -152,84 +152,5 @@ public class StringUtil {
         // Validating substring length percentage, returns true if above given allowance.
         return (double) Math.min(src.length(), query.length())
                 / (double) Math.max(src.length(), query.length()) >= SUBSTRING_ALLOWANCE;
-    }
-}
-
-
-/** Container class for dictionary related methods */
-class Dictionary {
-    
-    private static final char[] ALPHABET = "abcdefghijklmnopqrstuvwxyz".toCharArray();
-
-    /** Combines multiple dictionaries to one */
-    @SafeVarargs
-    public static Set<String> join(Set<String>... sets) {
-        assert sets != null;
-        CollectionUtil.assertNoNullElements(Arrays.asList(sets));
-        Set<String> joined = new HashSet<String>();
-        Arrays.stream(sets).forEach(s -> joined.addAll(s));
-        return joined;
-    }
-    
-    /** Generates a one edit distance dictionary of {@code src}. */
-    public static Set<String> generateOneEditDistanceDict(String src) {
-        assert src != null;
-        return Dictionary.join(generateExtraChar(src), generateMissingChar(src), generateReplacedChar(src),
-                generateTransposedChar(src));
-    }
-    
-    /** Generates a dictionary of strings that have two transposed characters from {@code src}. */
-    public static Set<String> generateTransposedChar(String src) {
-        assert src != null;
-        Set<String> dictionary = new HashSet<String>();
-        StringBuilder sb = new StringBuilder(src);
-        for (int i = 0; i < src.length() - 1; i++) {
-            char c = sb.charAt(i); // Transposing two characters.
-            sb.setCharAt(i, sb.charAt(i + 1));
-            sb.setCharAt(i + 1, c);
-            dictionary.add(sb.toString());
-            c = sb.charAt(i); // Reverting the transposition.
-            sb.setCharAt(i, sb.charAt(i + 1));
-            sb.setCharAt(i + 1, c);
-        }
-        return dictionary;
-    }
-    
-    /** Generates a dictionary of strings that differ by one character from {@code src}. */
-    public static Set<String> generateReplacedChar(String src) {
-        assert src != null;
-        Set<String> dictionary = new HashSet<String>();
-        StringBuilder sb = new StringBuilder(src);
-        for (int i = 0; i < src.length(); i++) {
-            for (Character c : ALPHABET) {
-                char old = sb.charAt(i);
-                sb.setCharAt(i, c); // Replacing the char at idx i. with character c.
-                dictionary.add(sb.toString());
-                sb.setCharAt(i, old); // Placing back the char after adding to dictionary.
-            }
-        }
-        return dictionary;
-    }
-
-    /** Generates a dictionary of strings that are missing a letter from {@code src}. */
-    public static Set<String> generateMissingChar(String src) {
-        assert src != null;
-        return IntStream.range(0, src.length()) 
-                .mapToObj(i -> src.substring(0, i) + src.substring(i + 1)) // Removing character at idx i.
-                .collect(Collectors.toSet());
-    }
-    
-    /** Generates a dictionary of strings that have one extra character from {@code src}. */
-    public static Set<String> generateExtraChar(String src) {
-        assert src != null;
-        Set<String> dictionary = new HashSet<String>();
-        StringBuilder sb = new StringBuilder(src);
-        for (int i = 0; i <= src.length(); i++) {
-            for (Character c : ALPHABET) {
-                dictionary.add(sb.insert(i, c.toString()).toString()); // Inserting character c at idx i.
-                sb.deleteCharAt(i); // Deleting inserted character.
-            }
-        }
-        return dictionary;
     }
 }
