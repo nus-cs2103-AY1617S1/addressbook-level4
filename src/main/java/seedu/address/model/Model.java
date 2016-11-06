@@ -4,6 +4,7 @@ import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.UniqueTaskList;
+import seedu.address.model.task.UniqueTaskList.DuplicateTaskException;
 import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
 
 import java.io.IOException;
@@ -62,7 +63,8 @@ public interface Model {
      * @throws NoSuchFieldException 
      * @throws IllegalAccessException 
      * @throws IllegalArgumentException 
-     * @throws TaskNotFoundException */
-    ReadOnlyTask editTask(ReadOnlyTask task, HashMap<Field, Object> changesToBeMade) throws TaskNotFoundException, IllegalArgumentException, IllegalAccessException, NoSuchFieldException, SecurityException;
+     * @throws TaskNotFoundException 
+     * @throws DuplicateTaskException */
+    ReadOnlyTask editTask(ReadOnlyTask task, HashMap<Field, Object> changesToBeMade) throws TaskNotFoundException, IllegalArgumentException, IllegalAccessException, NoSuchFieldException, SecurityException, DuplicateTaskException;
 
 }

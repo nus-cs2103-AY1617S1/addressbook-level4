@@ -8,6 +8,7 @@ import seedu.address.model.task.Task;
 import seedu.address.model.task.Time;
 import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.UniqueTaskList;
+import seedu.address.model.task.UniqueTaskList.DuplicateTaskException;
 import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
 import seedu.address.storage.Storage;
 import seedu.address.commons.events.model.TaskAddedEvent;
@@ -97,7 +98,9 @@ public class ModelManager extends ComponentManager implements Model {
     
     //@@author A0135812L
     @Override
-    public synchronized ReadOnlyTask editTask(ReadOnlyTask task, HashMap<Field, Object> changes) throws TaskNotFoundException, IllegalArgumentException, IllegalAccessException, NoSuchFieldException, SecurityException{
+    public synchronized ReadOnlyTask editTask(ReadOnlyTask task, HashMap<Field, Object> changes) 
+            throws TaskNotFoundException, IllegalArgumentException, IllegalAccessException, 
+            NoSuchFieldException, SecurityException, DuplicateTaskException{
         ReadOnlyTask editedTask = toDo.editTask(task, changes);
         int index = filteredTasks.indexOf(editedTask);
         indicateTaskEdited(index, filteredTasks.get(index));

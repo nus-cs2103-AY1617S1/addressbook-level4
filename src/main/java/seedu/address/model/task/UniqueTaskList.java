@@ -83,8 +83,11 @@ public class UniqueTaskList implements Iterable<Task> {
      * @throws NoSuchFieldException 
      * @throws IllegalAccessException 
      * @throws IllegalArgumentException 
+     * @throws DuplicateTaskException 
      */
-    public Task edit(ReadOnlyTask toEdit, HashMap<Field, Object> changes) throws TaskNotFoundException, IllegalArgumentException, IllegalAccessException, NoSuchFieldException, SecurityException {
+    public Task edit(ReadOnlyTask toEdit, HashMap<Field, Object> changes) 
+            throws TaskNotFoundException, IllegalArgumentException, IllegalAccessException, 
+            NoSuchFieldException, SecurityException, DuplicateTaskException {
         assert toEdit != null;
         final boolean taskFound = internalList.contains(toEdit);
         if (!taskFound) {
@@ -92,8 +95,14 @@ public class UniqueTaskList implements Iterable<Task> {
         }else{
             final int taskFoundAt = internalList.indexOf(toEdit);
             Task original = internalList.get(taskFoundAt);
-            Task edited = original.setFields(changes);
-            internalList.set(taskFoundAt, edited);
+            Task edited = original.cloneWithChangedFields(changes);
+            
+            if(contains(edited)){
+                throw new DuplicateTaskException();
+            }
+            remove(original);
+            add(edited);
+            
             return edited;
         }
     }
