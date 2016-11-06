@@ -6,23 +6,25 @@
         assert model != null;
         try {
             model.addTask(toAdd);
-            if (!isUndo) {
-                getUndoList().add(new RollBackCommand(COMMAND_WORD, toAdd, null));
-            }
+            
 ```
 ###### \java\seedu\task\logic\commands\AddCommand.java
 ``` java
+            int currentIndex = model.getTaskManager().getTaskList().indexOf(toAdd);
+            if (!isUndo) {
+                getUndoList().add(new RollBackCommand(COMMAND_WORD, toAdd, null, currentIndex));
+            }
             return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
         } catch (UniqueTaskList.DuplicateTaskException e) {
             return new CommandResult(MESSAGE_DUPLICATE_TASK);
         }
     }
 
-	private ArrayList<RollBackCommand> getUndoList() {
-		return history.getUndoList();
-	}
-	
-	// insert a task at a specific index
+    private ArrayList<RollBackCommand> getUndoList() {
+        return history.getUndoList();
+    }
+    
+    // insert a task at a specific index
     public CommandResult execute(int index) {
         assert model != null;
         try {
@@ -182,18 +184,19 @@ public abstract class Command {
             LocalDateTime localDateTime = LocalDateTime.ofInstant(currentDate.toInstant(), ZoneId.systemDefault());
 
             if (taskDateTime.isBefore(localDateTime)) {
-                newTask = new Task(newTask.getName(), newTask.getStartTime(), newTask.getEndTime(), newTask.getDeadline(),
-                        newTask.getTags(),
+                newTask = new Task(newTask.getName(), newTask.getStartTime(), newTask.getEndTime(),
+                        newTask.getDeadline(), newTask.getTags(),
                         new Status(newTask.getStatus().getDoneStatus(), true, newTask.getStatus().getFavoriteStatus()),
                         newTask.getRecurring());
             } else {
-                newTask = new Task(newTask.getName(), newTask.getStartTime(), newTask.getEndTime(), newTask.getDeadline(),
-                        newTask.getTags(),
+                newTask = new Task(newTask.getName(), newTask.getStartTime(), newTask.getEndTime(),
+                        newTask.getDeadline(), newTask.getTags(),
                         new Status(newTask.getStatus().getDoneStatus(), false, newTask.getStatus().getFavoriteStatus()),
                         newTask.getRecurring());
             }
         } else {
-            newTask = new Task(newTask.getName(), newTask.getStartTime(), newTask.getEndTime(), newTask.getDeadline(), newTask.getTags(),
+            newTask = new Task(newTask.getName(), newTask.getStartTime(), newTask.getEndTime(), newTask.getDeadline(),
+                    newTask.getTags(),
                     new Status(newTask.getStatus().getDoneStatus(), false, newTask.getStatus().getFavoriteStatus()),
                     newTask.getRecurring());
         }
@@ -213,19 +216,20 @@ public abstract class Command {
             LocalDateTime localDateTime = LocalDateTime.ofInstant(currentDate.toInstant(), ZoneId.systemDefault());
 
             if (newTaskDateTime.isBefore(localDateTime)) {
-                newTask = new Task(newTask.getName(), newTask.getStartTime(), newTask.getEndTime(), newTask.getDeadline(),
-                        newTask.getTags(),
+                newTask = new Task(newTask.getName(), newTask.getStartTime(), newTask.getEndTime(),
+                        newTask.getDeadline(), newTask.getTags(),
                         new Status(newTask.getStatus().getDoneStatus(), true, newTask.getStatus().getFavoriteStatus()),
                         newTask.getRecurring());
             } else {
-                newTask = new Task(newTask.getName(), newTask.getStartTime(), newTask.getEndTime(), newTask.getDeadline(),
-                        newTask.getTags(),
+                newTask = new Task(newTask.getName(), newTask.getStartTime(), newTask.getEndTime(),
+                        newTask.getDeadline(), newTask.getTags(),
                         new Status(newTask.getStatus().getDoneStatus(), false, newTask.getStatus().getFavoriteStatus()),
                         newTask.getRecurring());
             }
 
         } else {
-            newTask = new Task(newTask.getName(), newTask.getStartTime(), newTask.getEndTime(), newTask.getDeadline(), newTask.getTags(),
+            newTask = new Task(newTask.getName(), newTask.getStartTime(), newTask.getEndTime(), newTask.getDeadline(),
+                    newTask.getTags(),
                     new Status(newTask.getStatus().getDoneStatus(), false, newTask.getStatus().getFavoriteStatus()),
                     newTask.getRecurring());
         }
