@@ -17,6 +17,8 @@ public class TaskCardHandle extends GuiHandle {
     private static final String END_TIME_FIELD_ID = "#endTime";
     private static final String TAG_FIELD_ID = "#tags";
     private static final String CARDPANE_FIELD_ID = "#cardPane";
+    private static final String NULL_END_DATE_FIELD = "$endDate";
+    private static final String NULL_START_DATE_FIELD = "$startDate";
 
     private Node node;
 
@@ -73,34 +75,53 @@ public class TaskCardHandle extends GuiHandle {
     }
     
     public boolean isSameTask(ReadOnlyTask task){
-        if (task.isTodo()) {
+        if (isTodo() && task.isTodo()) {
             return isSameTodo(task);
-        } else if (task.isDeadline()) {
+        } else if (isDeadline() && task.isDeadline()) {
             return isSameDeadline(task);
-        } else {
+        } else if (task.isEvent()) {
             return isSameEvent(task);
         }
+        return false;
     }
 
+    private boolean isTodo() {
+        return getEndDate().equals(NULL_END_DATE_FIELD);
+    }
+    
+    private boolean isDeadline() {
+        return getStartDate().equals(NULL_START_DATE_FIELD);
+    }
+    
+    
     private boolean isSameEvent(ReadOnlyTask task) {
-        return getFullName().equals(task.getName().fullName)
-                && getTags().equals(task.tagsString())
-                && getStartTime().equals(DateTimeUtil.formatTimeForUI(task.getPeriod().getStartTime()))
-                && getStartDate().equals(DateTimeUtil.formatDateForUI(task.getPeriod().getStartDate()))
-                && getEndTime().equals(DateTimeUtil.formatTimeForUI(task.getPeriod().getEndTime()))
-                && getEndDate().equals(DateTimeUtil.formatDateForUI(task.getPeriod().getEndDate()));
+        return hasSameNameAndTags(task)
+                && hasSameEndDateAndTime(task)
+                && hasSameStartDateAndTime(task);              
     }
 
     private boolean isSameDeadline(ReadOnlyTask task) {
-        return getFullName().equals(task.getName().fullName)
-                && getTags().equals(task.tagsString())
-                && getEndTime().equals(DateTimeUtil.formatTimeForUI(task.getPeriod().getEndTime()))
-                && getEndDate().equals(DateTimeUtil.formatDateForUI(task.getPeriod().getEndDate()));
+        return hasSameNameAndTags(task)
+                && hasSameEndDateAndTime(task);
     }
 
     private boolean isSameTodo(ReadOnlyTask task) {
+        return hasSameNameAndTags(task);
+    }
+    
+    private boolean hasSameNameAndTags(ReadOnlyTask task) {
         return getFullName().equals(task.getName().fullName)
-                && getTags().equals(task.tagsString());
+        && getTags().equals(task.tagsString());
+    }
+    
+    private boolean hasSameEndDateAndTime(ReadOnlyTask task) {
+        return getEndTime().equals(DateTimeUtil.formatTimeForUI(task.getPeriod().getEndTime()))
+                && getEndDate().equals(DateTimeUtil.formatDateForUI(task.getPeriod().getEndDate()));
+    }
+    
+    private boolean hasSameStartDateAndTime(ReadOnlyTask task) {
+        return getStartTime().equals(DateTimeUtil.formatTimeForUI(task.getPeriod().getStartTime()))
+                && getStartDate().equals(DateTimeUtil.formatDateForUI(task.getPeriod().getStartDate()));
     }
 
     @Override
