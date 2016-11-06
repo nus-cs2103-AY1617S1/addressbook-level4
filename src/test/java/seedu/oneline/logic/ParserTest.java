@@ -14,6 +14,7 @@ import seedu.oneline.logic.parser.Parser;
 import seedu.oneline.model.task.TaskField;
 
 //@@author A0140156R
+// Collaborated with A0142605N for full coverage of Parser tests
 public class ParserTest {
 
     String testName = "Test name";
@@ -149,7 +150,7 @@ public class ParserTest {
     }    
     
     //@@author A0142605N
-    // Collaborated with A0140156R for full coverage of parser
+    // Collaborated with A0140156R for full coverage of Parser tests
     
     @Test
     public void parser_allArgsReordered_success() {
