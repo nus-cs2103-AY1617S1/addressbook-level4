@@ -13,6 +13,7 @@ import tars.commons.core.ComponentManager;
 import tars.commons.core.LogsCenter;
 import tars.commons.core.UnmodifiableObservableList;
 import tars.commons.events.model.TarsChangedEvent;
+import tars.commons.events.ui.RsvTaskAddedEvent;
 import tars.commons.events.ui.TaskAddedEvent;
 import tars.commons.exceptions.DuplicateTaskException;
 import tars.commons.exceptions.IllegalValueException;
@@ -171,6 +172,7 @@ public class ModelManager extends ComponentManager implements Model {
   @Override
   public synchronized void addRsvTask(RsvTask rsvTask) throws DuplicateTaskException {
     tars.addRsvTask(rsvTask);
+    raise(new RsvTaskAddedEvent(tars.getRsvTaskList().size(), rsvTask));
     indicateTarsChanged();
   }
 

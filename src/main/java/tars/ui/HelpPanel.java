@@ -1,11 +1,12 @@
 package tars.ui;
 
+import javafx.fxml.FXML;
 import javafx.scene.Node;
+import javafx.scene.control.SplitPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
-import tars.commons.util.FxViewUtil;
 
 /**
  * UI Controller for a help page
@@ -18,7 +19,9 @@ public class HelpPanel extends UiPart {
 
     private VBox panel;
     private AnchorPane placeHolderPane;
-    private WebView browser;
+    
+    @FXML
+    private WebView browser = new WebView();
 
     public static HelpPanel load(Stage primaryStage,
             AnchorPane helpPanelPlaceHolder) {
@@ -44,15 +47,14 @@ public class HelpPanel extends UiPart {
     }
 
     private void addToPlaceholder() {
+        SplitPane.setResizableWithParent(placeHolderPane, false);
         placeHolderPane.getChildren().add(panel);
     }
 
     private void configure() {
-        browser = new WebView();
-        browser.getEngine().load(configureURL(UserGuide.DEFAULT));
-        FxViewUtil.applyAnchorBoundaryParameters(browser, 0.0, 0.0, 0.0, 0.0);
-        panel.getChildren().add(browser);
         addToPlaceholder();
+        browser.getEngine().load(configureURL(UserGuide.DEFAULT));
+        
     }
 
     /**

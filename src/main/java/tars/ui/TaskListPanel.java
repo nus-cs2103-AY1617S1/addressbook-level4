@@ -28,6 +28,7 @@ public class TaskListPanel extends UiPart {
     private static final Logger logger = LogsCenter.getLogger(UiManager.class);
     private static final String FXML = "TaskListPanel.fxml";
     private AnchorPane placeHolderPane;
+    private static final int START_INDEX = 1;
 
     @FXML
     private ListView<ReadOnlyTask> taskListView;
@@ -94,13 +95,13 @@ public class TaskListPanel extends UiPart {
                 setGraphic(null);
                 setText(null);
             } else {
-                TaskCard card = TaskCard.load(task, getIndex() + 1);
+                TaskCard card = TaskCard.load(task, getIndex() + START_INDEX);
                 HBox layout = card.getLayout();
                 if (this.newlyAddedTask != null
                         && this.newlyAddedTask.isSameStateAs(task)) {
-                    layout.setStyle("-fx-border-color: #607D8B");
+                    layout.setStyle(UiColor.TASK_CARD_NEWLY_ADDED_BORDER);
                 } else {
-                    layout.setStyle("-fx-border-color: #9E9E9E");
+                    layout.setStyle(UiColor.TASK_CARD_DEFAULT_BORDER);
                 }
                 setGraphic(layout);
             }
