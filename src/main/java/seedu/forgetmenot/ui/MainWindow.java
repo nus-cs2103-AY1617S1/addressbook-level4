@@ -6,9 +6,7 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.MenuItem;
-import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCombination;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -36,18 +34,13 @@ public class MainWindow extends UiPart {
     private ContentBox contentBox;
     private TaskListPanel taskListPanel;
     private ResultDisplay resultDisplay;
-    private StatusBarFooter statusBarFooter;
-    private CommandBox commandBox;
     private Config config;
-    private UserPrefs userPrefs;
     private FloatingPanel floatingPanel;
 
     // Handles to elements of this Ui container
     private VBox rootLayout;
     private Scene scene;
 
-    private String taskManagerName;
-    
     @FXML
     private AnchorPane contentBoxPlaceholder;
 
@@ -96,10 +89,7 @@ public class MainWindow extends UiPart {
 
         //Set dependencies
         this.logic = logic;
-        this.taskManagerName = taskManagerName;
         this.config = config;
-        this.userPrefs = prefs;
-
         //Configure the UI
         setTitle(appTitle);
         setIcon(ICON);
@@ -121,8 +111,8 @@ public class MainWindow extends UiPart {
     	contentBox = ContentBox.load(primaryStage, getContentBoxPlaceholder(), logic.getFilteredTaskList());
         taskListPanel = TaskListPanel.load(primaryStage, getTaskListPlaceholder(), logic.getFilteredTaskList());
         resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
-        statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getTaskManagerFilePath());
-        commandBox = CommandBox.load(primaryStage, getCommandBoxPlaceholder(), resultDisplay, logic);
+        StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getTaskManagerFilePath());
+        CommandBox.load(primaryStage, getCommandBoxPlaceholder(), resultDisplay, logic);
     }
     
     private AnchorPane getFloatingPanelPlaceholder() {
@@ -220,7 +210,7 @@ public class MainWindow extends UiPart {
      * Render Status Bar Footer again, used when storage location in config changes
      */
     public void rerenderStatusBarFooter() {
-    	statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getTaskManagerFilePath());
+    	StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getTaskManagerFilePath());
     }
 
     //@@author A0139198N

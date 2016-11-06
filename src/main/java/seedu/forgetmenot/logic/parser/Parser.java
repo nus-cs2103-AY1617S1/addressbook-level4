@@ -143,9 +143,7 @@ public class Parser {
     		return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ClearCommand.MESSAGE_USAGE));
     }
     
-    //@@author A0139198N
     private Command prepareShow(String args) {
-//    	final Matcher matcher = DATE_ARGS_FORMAT.matcher(args.trim());
     	
     	args = args.trim();
     	
@@ -186,6 +184,12 @@ public class Parser {
     //@@author
     
     //@@author A0147619W
+    /**
+     * Trims the argument and sends it to SetStorageCommand
+     * 
+     * @param args
+     * @return the prepared command
+     */
     private Command prepareSetStorage(String args) {
     	if(args != null) {
     		args = args.trim();
@@ -223,14 +227,16 @@ public class Parser {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
         
+        String name = matcher.group("name").replace('\\', '\0');
+        String done = "false";
     	String startTime = (matcher.group("start") == null) ? "" : matcher.group("start");
         String endTime = (matcher.group("end") == null) ? "" : matcher.group("end");
         String recurFreq = (matcher.group("recurring") == null)? "": matcher.group("recurring");
         
         try {
 	            return new AddCommand(
-	                    matcher.group("name").replace('\\', '\0'),
-	                    "false",
+	                    name,
+	                    done,
 	                    startTime,
 	                    endTime,
 	                    recurFreq

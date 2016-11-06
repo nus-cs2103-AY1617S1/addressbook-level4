@@ -170,7 +170,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
     //@@author
 
-    //@@author A0139671X
+  //@@author A0147619W
     /**
      * Adds a task to the task manager and jumps to the most recent add in
      * ForgetMeNot UI list
@@ -183,6 +183,7 @@ public class ModelManager extends ComponentManager implements Model {
         EventsCenter.getInstance().post(new JumpToListRequestEvent(filteredTasks.indexOf(task)));
     }
 
+  //@@author A0139671X
     /**
      * Adds a recurring task with either the default occurence or the specified
      * occurence with a specified frequency
@@ -269,6 +270,10 @@ public class ModelManager extends ComponentManager implements Model {
     //@@author
 
     //@@author A0147619W
+    /**
+     * Checks whether the task to be added clashes with any other task in the task manager or not
+     * @param toAdd
+     */
     @Override
     public synchronized boolean isClashing(Task toAdd) {
         Time start = toAdd.getStartTime();
