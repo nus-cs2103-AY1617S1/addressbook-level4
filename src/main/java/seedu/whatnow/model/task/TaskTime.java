@@ -5,8 +5,12 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar; 
+import java.util.GregorianCalendar;
+import java.util.logging.Logger;
+
+import seedu.whatnow.commons.core.LogsCenter;
 import seedu.whatnow.commons.exceptions.IllegalValueException;
+import seedu.whatnow.model.ModelManager;
 
 /**
  * This class checks if the user input date and time are of a valid one by
@@ -15,15 +19,17 @@ import seedu.whatnow.commons.exceptions.IllegalValueException;
  */
 public class TaskTime {
     //@@author A0139128A
+    private static final Logger logger = LogsCenter.getLogger(TaskTime.class);
+    
     public static final String TWELVE_HOUR_WITH_MINUTES_COLON_REGEX = "(((\\d|\\d\\d):\\d\\d)(am|pm))";
     public static final String TWELVE_HOUR_WITH_MINUTES_COLON_FORMAT = "h:mma"; //E.g. 1:50pm
 
     public static final String DATE_NUM_SLASH_WITH_YEAR_FORMAT = "dd/MM/yyyy";
 
-    public final String INVALID_TIME_MESSAGE = "Entered an invalid time format";
-    public final String INVALID_TIME_RANGE_MESSAGE = "Entered an invalid time range format";
-    public final String INVALID_DATE_MESSAGE = "Entered an invalid date format";
-    public final String INVALID_DATE_RANGE_MESSAGE = "Entered an invalid date range format";
+    public static final String INVALID_TIME_MESSAGE = "Entered an invalid time format";
+    public static final String INVALID_TIME_RANGE_MESSAGE = "Entered an invalid time range format";
+    public static final String INVALID_DATE_MESSAGE = "Entered an invalid date format";
+    public static final String INVALID_DATE_RANGE_MESSAGE = "Entered an invalid date range format";
 
     private String time = null;
     private String startTime = null;
@@ -93,7 +99,7 @@ public class TaskTime {
      * @param reqTime is the user inputTime
      * @return true if the userInput time is valid, else false
      */
-    public boolean isValidTime(String reqTime) {
+    private boolean isValidTime(String reqTime) {
         if (reqTime == null) {
             return true;
         } else {
@@ -108,7 +114,7 @@ public class TaskTime {
      * @param format    is the format that matches the reqTime's format
      * @return true if the format is valid, else false
      */
-    public boolean isValidTimeSeq(String reqTime) {
+    private boolean isValidTimeSeq(String reqTime) {
         /** First checks if it is indeed valid */
         boolean currEarlierThanInput = false;
         Date inputTime = null;
@@ -124,7 +130,7 @@ public class TaskTime {
                 currEarlierThanInput = true;
             }
         } catch (ParseException ex) {
-            ex.printStackTrace();
+            logger.warning("At TaskTime.java\n" + ex.getMessage());
             return false;
         }
         /**
@@ -169,7 +175,7 @@ public class TaskTime {
      * @return true regardless as a single inputTime by the user is treated by a
      *         valid
      */
-    public boolean appendTodayOrTmr(boolean currEarlierThanInput, String reqTime) {
+    private boolean appendTodayOrTmr(boolean currEarlierThanInput, String reqTime) {
         if (currEarlierThanInput) {
             DateFormat dateFormat = new SimpleDateFormat(DATE_NUM_SLASH_WITH_YEAR_FORMAT);
             Calendar cal = Calendar.getInstance();
@@ -187,7 +193,6 @@ public class TaskTime {
         }
         
     }
-
     /**
      * This function checks if the givenTimeRange is valid by finding the
      * corresponding regex and passes its corresponding format to a method
@@ -199,7 +204,7 @@ public class TaskTime {
      *            is the endTime input by the user
      * @return true if the timeRangeIsValid, else false
      */
-    public boolean isValidTimeRange(String beforeTime, String afterTime) {
+    private boolean isValidTimeRange(String beforeTime, String afterTime) {
         if (beforeTime == null && afterTime == null && time != null) {
             return true;
         } else {
@@ -216,8 +221,8 @@ public class TaskTime {
      *            is the user input ending time
      * @return true if valid timeFormat range, else return false
      */
-    public boolean isValidNumTime(String beforeTime, String afterTime) {
-        boolean currEarlierThanInput = false;
+    private boolean isValidNumTime(String beforeTime, String afterTime) {
+        boolean inputEarlierThanCurrent = false;
         boolean beforeEarlierThanAfter = false;
         Date inputBeforeTime = null;
         Date inputAfterTime = null;
@@ -226,23 +231,22 @@ public class TaskTime {
             String currentTime = new SimpleDateFormat(TWELVE_HOUR_WITH_MINUTES_COLON_FORMAT).format(new Date());
             DateFormat tf = new SimpleDateFormat(TWELVE_HOUR_WITH_MINUTES_COLON_FORMAT);
             tf.setLenient(false);
-
             inputBeforeTime = tf.parse(beforeTime);
             inputAfterTime = tf.parse(afterTime);
             todayTime = tf.parse(currentTime);
             if (inputBeforeTime.before(todayTime) || inputAfterTime.before(todayTime)) {
-                currEarlierThanInput = true;
+                inputEarlierThanCurrent = true;
             }
             if (inputBeforeTime.before(inputAfterTime)) {
                 beforeEarlierThanAfter = true;
             }
         } catch (ParseException ex) {
-            ex.printStackTrace();
+            logger.warning("At TaskTime.java, isValidNumTime:\n" + ex.getMessage());
             return false;
         }
 
         if (beforeEarlierThanAfter) {
-            return performBeforeEarlierThanAfter(currEarlierThanInput, beforeTime, afterTime);
+            return performBeforeEarlierThanAfter(inputEarlierThanCurrent, beforeTime, afterTime);
         } else {
             if (startDate != null && endDate != null) {
                 if (!startDate.equals(endDate)) {
@@ -263,9 +267,9 @@ public class TaskTime {
      * 
      * @return true if Time range is indeed valid , else false
      */
-    private boolean performBeforeEarlierThanAfter(boolean currEarlierThanInput, String beforeTime, String afterTime) {
+    private boolean performBeforeEarlierThanAfter(boolean inputEarlierThanCurrent, String beforeTime, String afterTime) {
         if (startDate == null && endDate == null && date == null) {
-            if (!currEarlierThanInput) {
+            if (!inputEarlierThanCurrent) {
                 DateFormat dateFormat = new SimpleDateFormat(DATE_NUM_SLASH_WITH_YEAR_FORMAT);
                 Calendar cal = Calendar.getInstance();
                 String taskDate = dateFormat.format(cal.getTime());
@@ -284,7 +288,7 @@ public class TaskTime {
             }
         } else if (date != null) {
             if (date.equals(TODAY)) {
-                if (!currEarlierThanInput) {
+                if (!inputEarlierThanCurrent) {
                     DateFormat dateFormat = new SimpleDateFormat(DATE_NUM_SLASH_WITH_YEAR_FORMAT);
                     Calendar cal = Calendar.getInstance();
                     String taskDate = dateFormat.format(cal.getTime());
@@ -323,7 +327,7 @@ public class TaskTime {
      * 
      * @return true if valid, else return false
      */
-    public boolean isValidDate(String reqDate) {
+    private boolean isValidDate(String reqDate) {
         if (reqDate == null) {
             date = null;
             return true;
@@ -349,7 +353,7 @@ public class TaskTime {
      * @return true if the time is valid, else false
      */
     // @@author A0139128A-reused
-    public boolean isValidNumDate(String reqDate) {
+    private boolean isValidNumDate(String reqDate) {
         /** First check: whether if this date is of a valid format */
         Date inputDate = null;
         try {
@@ -358,7 +362,7 @@ public class TaskTime {
 
             inputDate = df.parse(reqDate);
         } catch (ParseException ex) {
-            ex.printStackTrace();
+            logger.warning("TaskTime.java:\n" + ex.getMessage());
             return false;
         }
         Calendar input = new GregorianCalendar();
@@ -386,7 +390,7 @@ public class TaskTime {
      * @return true if range is valid, false if range is invalid
      */
     // @@author A0139128A-reused
-    public boolean isValidDateRange(String beforeDate, String afterDate) {
+    private boolean isValidDateRange(String beforeDate, String afterDate) {
         if (beforeDate == null && afterDate == null) {
             return true;
         }
