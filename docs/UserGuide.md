@@ -27,7 +27,7 @@
    * **`del`**` 3` : deletes the 3rd task shown in TARS.
    * **`exit`** : exits the app
 7. Refer to the [Features](#features) section below for details of each command. 
-8. NOTE
+8. Note
 	- All text in `< >` are required fields whereas those in `[ ]` are optional.
 	- `<INDEX>` refers to the index number of a task shown in the task list.
 	- The index **must be a positive integer** 1, 2, 3, ... 
@@ -208,6 +208,8 @@ Redo a previous command
 Format: `redo` 
 
 > Able to redo all `add`, `delete`, `edit`, `tag`, `rsv`, `confirm` and `del` commands from the time the app starts running.
+>
+> Keyboard shortcut: CTRL-Y
 
 [comment]: # (@@author A0124333U)
 #### Reserving timeslots for a task : `rsv` 
@@ -278,6 +280,8 @@ Undo a command executed by the user.
 Format: `undo` 
 
 > Able to undo all `add`, `delete`, `edit`, `tag`, `rsv`, `confirm` and `del` commands from the time the app starts running.
+>
+> Keyboard shortcut: CTRL-Z
 
 
 
