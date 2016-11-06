@@ -322,27 +322,55 @@ public class Parser {
     }
 
 	//@@author A0141019U
-	// Only supports task type and status type options.
-	private Command prepareList(String arguments) {
+    /**
+     * Parse the arguments into taskType, status and date
+     */
+    private Command prepareList(String arguments) {
 		if (arguments.trim().equals("")) {
 			return new ListCommand();
 		}
 
 		String[] args = arguments.split(" ");
+		String taskType;
+		String status;
+		String dateString;
+		LocalDateTime date;
 
-		String taskType = null;
-		String status = null;
-		LocalDateTime day = null;
-		for (int i = 0; i < args.length; i++) {
-			//TODO: fit in parser for days properly
+		try {
+			taskType = setTaskTypeList(args);
+			status = setStatusList(args);
+			dateString = setDateList(args);
+			date = convertToLocalDateTime(
+					Optional.ofNullable(dateString)).orElse(null);
+		} catch(IllegalArgumentException iae) {
+			return new IncorrectCommand(iae.getMessage());
+		} catch (ParseException pe) {
+			return new IncorrectCommand(pe.getMessage());
+		}
+		
+		//return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ListCommand.MESSAGE_USAGE));
+		return new ListCommand(taskType, status, date);
+	}
+	
+	private String setDateList(String[] args) throws IllegalArgumentException {
+		int numDates = 0;
+		String date = null;
+		for(int i = 0; i < args.length; i++) {
 			if(DateParser.containsDate(args[i] + " 00:00")) {
-				try {
-					day = DateParser.parse(args[i] + " 00:00");
-				} catch (ParseException e) {
-					return new IncorrectCommand(e.getMessage());
-				}
-				continue;
+				date = args[i] + " 00:00";
+				numDates++;
 			}
+		}
+		if(numDates > 1) {
+			throw new IllegalArgumentException("More than one date entered");
+		}
+		return date;
+	}
+	
+	private String setTaskTypeList(String[] args) throws IllegalArgumentException {
+		int numTaskType = 0;
+		String taskType = null;
+		for(int i = 0; i < args.length; i++) {
 			switch (args[i].trim()) {
 			case "event":
 			case "ev":
@@ -351,20 +379,29 @@ public class Parser {
 			case "someday":
 			case "sd":
 				taskType = args[i];
-				break;
+				numTaskType++;
+			}
+		}
+		if(numTaskType > 1)
+			throw new IllegalArgumentException("More than one task type entered");
+		return taskType;
+	}
+	
+	private String setStatusList(String[] args) throws IllegalArgumentException {
+		int numStatus = 0;
+		String status = null;
+		for(int i = 0; i < args.length; i++) {
+			switch (args[i].trim()) {
 			case "done":
 			case "pending":
 			case "overdue":
 				status = args[i];
-				break;
-			case "all":
-				break;
-			default:
-				return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ListCommand.MESSAGE_USAGE));
+				numStatus++;
 			}
 		}
-
-		return new ListCommand(taskType, status, day);
+		if(numStatus > 1)
+			throw new IllegalArgumentException("More than one status entered");
+		return status;
 	}
 	
 	//@@author A0141019U
