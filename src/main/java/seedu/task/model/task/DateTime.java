@@ -34,6 +34,13 @@ public class DateTime implements Comparable<DateTime> {
     
     //@@author A0141052Y
     /**
+     * Constructs an empty DateTime
+     */
+    public DateTime() {
+        this.value = Optional.empty();
+    }
+    
+    /**
      * Constructs a DateTime from an Instant
      * @param dateTime the Instant of the time and date to be represented
      */
@@ -134,12 +141,26 @@ public class DateTime implements Comparable<DateTime> {
     //@@author A0141052Y
     /**
      * Gets a display friendly representation of the DateTime
+     * @return A String containing the display friendly version
      */
     public String toDisplayString() {
         if (this.toString().isEmpty()) {
             return "";
         } else {
             return String.format(DATE_TIME_DISPLAY_FORMAT, this.toString(), this.toPrettyString());
+        }
+    }
+    
+    /**
+     * Retrieves an ISO 8601 representation of the DateTime.
+     * @return A String containing the ISO-8601 representation or empty, if there's
+     * no DateTime value
+     */
+    public String toISOString() {
+        if (this.value.isPresent()) {
+            return this.value.get().toString();
+        } else {
+            return "";
         }
     }
 
