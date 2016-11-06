@@ -325,6 +325,11 @@ For events, you can edit all optional parameters.
 1. Type `save VALID_FILE_PATH`.
 2. Press `Enter`.
 
+  > Example Command:
+  > 1. `save Sample.xml`
+  > <div style="text-align:center"><img src="images/appResponses/save_command_response.png" width="300"><br>
+  > App Response for `Save Sample.xml`
+
 [comment]: # (@@author A0140060A)
 
 # FAQ
