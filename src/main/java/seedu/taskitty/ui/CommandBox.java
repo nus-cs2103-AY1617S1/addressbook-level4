@@ -56,6 +56,10 @@ public class CommandBox extends UiPart {
     }
     
     //@@author A0139930B
+    /**
+     * Creates a text listener to listen on user input into textbox
+     * and give appropriate feedback using the ToolTip class.
+     */
     private void setTooltipListener() {
         ToolTip tooltip = ToolTip.getInstance();
         commandTextField.textProperty().addListener((observable, oldValue, newValue) -> {
