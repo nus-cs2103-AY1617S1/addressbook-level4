@@ -120,7 +120,7 @@ The sections below give more details of each component.
 <!-- @@author A0093960X -->
 ### UI component
 
-<img src="images/UiClassDiagram.png" width="800"><br>
+<img src="images/UiClassDiagramFinal.png" width="800"><br>
 > _The class diagram for the UI component of DearJim_
 
 **API** : [`Ui.java`](../src/main/java/seedu/address/ui/Ui.java)
