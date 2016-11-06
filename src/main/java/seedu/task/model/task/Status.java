@@ -64,13 +64,25 @@ public class Status {
     /**
      * Compares the two Statuses based on OverdueStatus.
      * 
-     * @return zero if this done status represents the same boolean value as the
-     *         argument; a positive value if this done status represents true
+     * @return zero if this overdue status represents the same boolean value as the
+     *         argument; a positive value if this overdue status represents true
      *         and the argument represents false; and a negative value if this
-     *         done status represents false and the argument represents true
+     *         overdue status represents false and the argument represents true
      */
     public int compareOverdueStatusTo(Status anotherStatus) {
         return (Boolean.valueOf(this.getOverdueStatus()).compareTo(Boolean.valueOf(anotherStatus.getOverdueStatus())));
+    }
+    
+    /**
+     * Compares the two Statuses based on FavoriteStatus.
+     * 
+     * @return zero if this favorite status represents the same boolean value as the
+     *         argument; a positive value if this favorite status represents true
+     *         and the argument represents false; and a negative value if this
+     *         favorite status represents false and the argument represents true
+     */
+    public int compareFavoriteStatusTo(Status anotherStatus) {
+        return (Boolean.valueOf(this.getFavoriteStatus()).compareTo(Boolean.valueOf(anotherStatus.getFavoriteStatus())));
     }
     // @@author
 

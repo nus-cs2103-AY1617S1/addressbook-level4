@@ -216,6 +216,30 @@ public class TaskManager implements ReadOnlyTaskManager {
     }
 
     /**
+     * Tasks are sorted according to FavoriteStatus, starting with favorited tasks
+     */
+    public void sortByFavoriteStatus() {
+        this.tasks.getInternalList().sort(new Comparator<Task>() {
+            @Override
+            public int compare(Task one, Task other) {
+                return other.getStatus().compareFavoriteStatusTo(one.getStatus());
+            }
+        });
+    }
+    
+    /**
+     * Tasks are sorted according to OverdueStatus, starting with overdue tasks
+     */
+    public void sortByOverdueStatus() {
+        this.tasks.getInternalList().sort(new Comparator<Task>() {
+            @Override
+            public int compare(Task one, Task other) {
+                return other.getStatus().compareOverdueStatusTo(one.getStatus());
+            }
+        });
+    }
+    
+    /**
      * Tasks are sorted according to Name in ascending order
      */
     public void sortByName() {

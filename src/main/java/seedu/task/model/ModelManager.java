@@ -266,6 +266,10 @@ public class ModelManager extends ComponentManager implements Model {
             taskManager.sortByEndTime();
         } else if ("Completed".equals(keyword)) {
             taskManager.sortByDoneStatus();
+        } else if ("Favorite".equals(keyword)) {
+            taskManager.sortByFavoriteStatus();
+        } else if ("Overdue".equals(keyword)) {
+            taskManager.sortByOverdueStatus();
         } else if ("Name".equals(keyword)) {
             taskManager.sortByName();
         } else {

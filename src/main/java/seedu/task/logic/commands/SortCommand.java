@@ -45,6 +45,10 @@ public class SortCommand extends Command {
             this.keyword = "End Time";
         } else if ("c".equals(keyword) || "completed".equals(keyword) || "done".equals(keyword)) { // done status
             this.keyword = "Completed";
+        } else if ("f".equals(keyword) || "favorite".equals(keyword) || "favourite".equals(keyword)) { // favorite status
+            this.keyword = "Favorite";
+        } else if ("o".equals(keyword) || "overdue".equals(keyword)) { // overdue status
+            this.keyword = "Overdue";
         } else if ("n".equals(keyword) || "name".equals(keyword)) { // name
             this.keyword = "Name";
         } else if ("default".equals(keyword) || "".equals(keyword)) { // default sorting
