@@ -114,7 +114,6 @@ public class Task implements ReadOnlyTask {
     }
     
     @Override
-    ///@@author A0124797R
     public boolean isRecur() {
         return recur != null;
     }
@@ -151,7 +150,6 @@ public class Task implements ReadOnlyTask {
         
     }
 
-    //@@author A0124797R
     /** checks if task is marked */
     @Override
     public boolean isMarked() {
@@ -165,14 +163,12 @@ public class Task implements ReadOnlyTask {
         return this;
     }
     
-    //@@author A0124797R
     /** set task as not mark */
     public Task unmark() {
         this.isMarked = false;
         return this;
     }
     
-    //@@author A0124797R
     @Override
     public String toString() {
         return getAsText();

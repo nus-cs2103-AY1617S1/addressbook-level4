@@ -29,12 +29,12 @@ import javafx.stage.Stage;
 
 //@@author A0138862W
 public class ArchivesTableView extends UiPart {
-    
-    private static final double WIDTH_MULTIPLIER_INDEX = 0.042;
-    private static final double WIDTH_MULTIPLIER_NAME = 0.285;
-    private static final double WIDTH_MULTIPLIER_STARTDATE = 0.18;
-    private static final double WIDTH_MULTIPLIER_ENDDATE = 0.18;
-    private static final double WIDTH_MULTIPLIER_TAGS = 0.18;
+
+    private static final double WIDTH_MULTIPLIER_INDEX = 0.049;
+    private static final double WIDTH_MULTIPLIER_NAME = 0.28;
+    private static final double WIDTH_MULTIPLIER_STARTDATE = 0.19;
+    private static final double WIDTH_MULTIPLIER_ENDDATE = 0.19;
+    private static final double WIDTH_MULTIPLIER_TAGS = 0.175;
     private static final double WIDTH_MULTIPLIER_RECUR = 0.1;
     
     private static final String FXML = "ArchivesTableView.fxml";
@@ -169,15 +169,6 @@ public class ArchivesTableView extends UiPart {
                     HBox hBox = new HBox(5);
 
                     Button status = new Button();
-                    if (readOnlyTask.isHappening()) {
-                        status.setText("HAPPENING");
-                        status.getStyleClass().add("tag-happening");
-                        hBox.getChildren().add(status);
-                    } else if (readOnlyTask.isDue()) {
-                        status.setText("DUE");
-                        status.getStyleClass().add("tag-overdue");
-                        hBox.getChildren().add(status);
-                    }
 
                     if (readOnlyTask.isEvent()) {
                         Button eventDuration = new Button();
@@ -185,15 +176,8 @@ public class ArchivesTableView extends UiPart {
                                               + DurationFormatUtils.formatDurationWords(readOnlyTask.getEventDuration().toMillis(), true, true).toUpperCase());
                         eventDuration.getStyleClass().add("tag-event-duration");
                         hBox.getChildren().add(eventDuration);
-                    } else if (readOnlyTask.isDeadline()
-                               && !readOnlyTask.isDue()) {
-                        Button dueDuration = new Button();
-                        dueDuration.setText("DUE IN "
-                                            + DurationFormatUtils.formatDurationWords(readOnlyTask.getDueDuration().toMillis(), true, true));
-                        dueDuration.getStyleClass().add("tag-due-duration");
-                        hBox.getChildren().add(dueDuration);
                     }
-
+                    
                     vBox.getChildren().add(hBox);
 
                     this.setGraphic(vBox);
@@ -365,14 +349,8 @@ public class ArchivesTableView extends UiPart {
     // @@author A0138862W
     private Text generateStyledText(ReadOnlyTask readOnlyTask, String text) {
         Text taskName = new Text(text);
-
-        if (readOnlyTask.isHappening()) {
-            taskName.getStyleClass().add("happening");
-        } else if (readOnlyTask.isDue()) {
-            taskName.getStyleClass().add("overdue");
-        } else {
-            taskName.getStyleClass().add("normal");
-        }
+        taskName.getStyleClass().add("completed");
+        
         return taskName;
     }
 }

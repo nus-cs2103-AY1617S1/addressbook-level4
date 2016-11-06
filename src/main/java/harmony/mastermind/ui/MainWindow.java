@@ -1,16 +1,9 @@
 package harmony.mastermind.ui;
 
-import java.util.Collections;
 import java.util.Comparator;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.Stack;
 import java.util.logging.Logger;
 
-import org.controlsfx.control.textfield.AutoCompletionBinding;
-import org.controlsfx.control.textfield.TextFields;
 import org.ocpsoft.prettytime.PrettyTime;
-import org.ocpsoft.prettytime.shade.org.apache.commons.lang.time.DurationFormatUtils;
 
 import com.google.common.eventbus.Subscribe;
 
@@ -18,7 +11,6 @@ import harmony.mastermind.commons.core.Config;
 import harmony.mastermind.commons.core.GuiSettings;
 import harmony.mastermind.commons.core.LogsCenter;
 import harmony.mastermind.commons.events.model.TaskManagerChangedEvent;
-import harmony.mastermind.commons.events.ui.IncorrectCommandAttemptedEvent;
 import harmony.mastermind.commons.events.ui.NewResultAvailableEvent;
 import harmony.mastermind.commons.events.ui.TabChangedEvent;
 import harmony.mastermind.logic.Logic;
@@ -26,46 +18,23 @@ import harmony.mastermind.logic.commands.CommandResult;
 import harmony.mastermind.logic.commands.ListCommand;
 import harmony.mastermind.logic.commands.UpcomingCommand;
 import harmony.mastermind.model.UserPrefs;
-import harmony.mastermind.model.tag.Tag;
 import harmony.mastermind.model.task.ReadOnlyTask;
 import harmony.mastermind.model.task.Task;
 import harmony.mastermind.model.task.TaskListComparator;
-
-import javafx.application.Platform;
-import javafx.beans.property.SimpleBooleanProperty;
-import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.Label;
-import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
-import javafx.scene.control.TableCell;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
-import javafx.scene.control.TitledPane;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyCodeCombination;
-import javafx.scene.input.KeyCombination;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
-import javafx.scene.text.TextFlow;
 import javafx.stage.Stage;
 
 /**
@@ -321,13 +290,6 @@ public class MainWindow extends UiPart {
     }
 
     // @@author A0124797R
-    private void updateTab(CommandResult result) {
-        String tab = result.toString();
-        updateTab(tab);
-    }
-    // @@author
-
-    // @@author A0124797R
     /**
      * update the number of task in each tab in the tab title
      */
@@ -364,6 +326,8 @@ public class MainWindow extends UiPart {
                 tabPane.getSelectionModel().select(INDEX_HOME);
                 break;
             case UpcomingCommand.MESSAGE_SUCCESS_UPCOMING:
+            case UpcomingCommand.MESSAGE_SUCCESS_UPCOMING_DEADLINE:
+            case UpcomingCommand.MESSAGE_SUCCESS_UPCOMING_EVENT:
                 tabPane.getSelectionModel().select(INDEX_HOME);
                 break;
             case ListCommand.MESSAGE_SUCCESS_TASKS:
