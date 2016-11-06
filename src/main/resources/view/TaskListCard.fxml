@@ -21,7 +21,7 @@
                 <ColumnConstraints hgrow="ALWAYS" maxWidth="1.7976931348623157E308" />
             </columnConstraints>
             <children>
-                <VBox alignment="CENTER_LEFT" maxHeight="150.0" prefWidth="76.0" GridPane.columnIndex="0" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
+                <VBox alignment="CENTER_LEFT" maxHeight="150.0" GridPane.columnIndex="0" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
                     <stylesheets>
                         <URL value="@DarkTheme.css" />
                         <URL value="@Extensions.css" />
