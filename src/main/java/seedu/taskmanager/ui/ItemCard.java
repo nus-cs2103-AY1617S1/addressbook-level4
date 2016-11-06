@@ -92,7 +92,7 @@ public class ItemCard extends UiPart{
     @FXML
     public void initialize() {
         name.setText(item.getName().value);
-        name.setFill(Color.web("#424242"));
+        name.setFill(Color.web("#4f4f4f"));
         itemType.setText(item.getItemType().value);
         itemType.setStyle("-fx-text-fill: #007fff");
         endTime.setText(item.getEndTime().value);
@@ -100,21 +100,30 @@ public class ItemCard extends UiPart{
         endDate.setText(item.getEndDate().value);
         endDate.setStyle("-fx-text-fill: #a00000");
         String endFromNowText = "";
-        if (item.getItemType().value.equals(ItemType.DEADLINE_WORD) || item.getItemType().value.equals(ItemType.EVENT_WORD)) {
-        	Date endFromNowDate = item.getEndDateTime();
-            PrettyTime p = new PrettyTime();
+        Date endFromNowDate;
+        PrettyTime p = new PrettyTime();
+        if (item.getItemType().value.equals(ItemType.EVENT_WORD)) {
+            endFromNowDate = item.getEndDateTime();
             endFromNowText = p.format(endFromNowDate);
-            if (item.isPastDeadline()) { // Future Deadline
+            if (item.isInProgress()) {
+                endFromNow.setText("Ends " + endFromNowText);
+                endFromNow.setStyle("-fx-text-fill: #0083ff");
+            } else if (item.isPastDeadline()) {
+                endFromNow.setText("Ended " + endFromNowText);
+                endFromNow.setStyle("-fx-text-fill: #898989");
+            }
+        } else if (item.getItemType().value.equals(ItemType.DEADLINE_WORD)) {
+            endFromNowDate = item.getEndDateTime();
+            endFromNowText = p.format(endFromNowDate);
+            if (item.isPastDeadline()) { // Past Deadline
                 endFromNow.setText("Ended " + endFromNowText);
                 endFromNow.setStyle("-fx-text-fill: #FF0000");
             } else if (item.isNearDeadline()) { // 24 Hours Before End Date
                 endFromNow.setText("Ends " + endFromNowText);
                 endFromNow.setStyle("-fx-text-fill: #ff8300");
-            } else { // Past Deadline
-                endFromNow.setText("Ends " + endFromNowText);
-            }
-        } else {
-        	endFromNow.setText(endFromNowText);
+            } 
+        } else { 
+            endFromNow.setText(endFromNowText);
         }
         startTime.setText(item.getStartTime().value);
         startTime.setStyle("-fx-text-fill: #048200");

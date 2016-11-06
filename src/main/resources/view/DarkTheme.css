@@ -125,27 +125,34 @@
 
 /*@@author A0140060A*/
 .cell_big_label {
-	-fx-text-fill: derive(black, 35%);
+    -fx-text-fill: derive(black, 35%);
     -fx-font-size: 24px;
     -fx-max-width: 300;
     -fx-wrap-text: true;
 }
+/*@@author */
 
 .cell_small_label {
 	-fx-text-fill: derive(black, 35%);
     -fx-font-size: 16px;
 }
-/*@@author */
+
 
 .anchor-pane {
-     -fx-background-color: derive(white, 20%);
+    -fx-text-fill: derive(black, 35%);
+    -fx-background-color: derive(white, 20%);
 }
 
+/*@@author A0140060A*/
 .anchor-pane-with-border {
-     -fx-background-color: main-bg-color;
-     -fx-border-color: derive(white, 100%);
-     -fx-border-width: 1px;
+	-fx-font-family: Palatino;
+    -fx-text-fill: derive(black, 35%);
+    -fx-background-color: main-bg-color;
+    -fx-border-color: derive(white, 100%);
+    -fx-border-width: 1px;
 }
+
+/*@@author */
 
 .result-display {
     -fx-background-color: #ffffff;
@@ -207,8 +214,8 @@
 }
 
 .menu-item:focused {
-     -fx-background-color: "#2daeff";
-     -fx-text-fill: white;
+    -fx-background-color: "#2daeff";
+    -fx-text-fill: white;
 }
 /*@@author */
 

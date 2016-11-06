@@ -101,7 +101,17 @@ public class ShortItemCard extends UiPart{
             id.setStyle("-fx-text-fill: #009309");
             name.setStyle("-fx-text-fill: #009309");
             tags.setStyle("-fx-text-fill: #009309");
-        } else if (item.getItemType().value.equals(ItemType.DEADLINE_WORD) || item.getItemType().value.equals(ItemType.EVENT_WORD)) {
+        } else if (item.getItemType().value.equals(ItemType.EVENT_WORD)) {
+            if (item.isInProgress()) {
+                id.setStyle("-fx-text-fill: #0083ff");
+                name.setStyle("-fx-text-fill: #0083ff");
+                tags.setStyle("-fx-text-fill: #0083ff");
+            } else if (item.isPastDeadline()) {
+                id.setStyle("-fx-text-fill: #898989");
+                name.setStyle("-fx-text-fill: #898989");
+                tags.setStyle("-fx-text-fill: #898989");
+            }
+        } else if (item.getItemType().value.equals(ItemType.DEADLINE_WORD)) {
             if (item.isNearDeadline()) { // 24 Hours Before End Date
                 id.setStyle("-fx-text-fill: #E65C00");
                 name.setStyle("-fx-text-fill: #E65C00");

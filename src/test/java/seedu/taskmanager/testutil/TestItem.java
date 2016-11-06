@@ -159,6 +159,34 @@ public class TestItem implements ReadOnlyItem {
         return sb.toString();
     }
 
+    @Override
+    public boolean isInProgress() {
+        assert this.getItemType().isEvent();
+        return isPastStartDateTime() && !isPastDeadline();
+    }
+    
+    @Override
+    public boolean isPastStartDateTime() {
+        assert this.getItemType().isEvent();
+        Date startFromNowDate = getStartDateTime();
+        Date currentDate = new Date();
+        return currentDate.after(startFromNowDate);
+    }
+    
+    @Override
+    public Date getStartDateTime() {
+        assert this.getItemType().isEvent();
+        String startDateString = this.getStartDate().value + " " + this.getStartTime().value;
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd hh:mm");
+        Date startDateTime = null;
+        try {
+            startDateTime = df.parse(startDateString);
+        } catch (ParseException e) {
+            assert false : "Date and Time Formats are incorrect.";
+        }
+        return startDateTime;
+    }
+    
     //@@author A0143641M
 	@Override
 	public boolean isPastDeadline() {
