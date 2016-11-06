@@ -1,6 +1,6 @@
 
 .error {
-    -fx-background-color: red;
+    -fx-background-color: derive(#ff3333, 20%);
 }
 
 
