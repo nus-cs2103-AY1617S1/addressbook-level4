@@ -262,22 +262,31 @@ public class ModelManager extends ComponentManager implements Model {
      *            keyword to sort tasks by
      */
     public void sortFilteredTaskList(String keyword) {
-        if ("Deadline".equals(keyword)) {
+        switch (keyword) {
+        case "Deadline":
             taskManager.sortByDeadline();
-        } else if ("Start Time".equals(keyword)) {
+            break;
+        case "Start Time":
             taskManager.sortByStartTime();
-        } else if ("End Time".equals(keyword)) {
+            break;
+        case "End Time":
             taskManager.sortByEndTime();
-        } else if ("Completed".equals(keyword)) {
+            break;
+        case "Completed":
             taskManager.sortByDoneStatus();
-        } else if ("Favorite".equals(keyword)) {
+            break;
+        case "Favorite":
             taskManager.sortByFavoriteStatus();
-        } else if ("Overdue".equals(keyword)) {
+            break;
+        case "Overdue":
             taskManager.sortByOverdueStatus();
-        } else if ("Name".equals(keyword)) {
+            break;
+        case "Name":
             taskManager.sortByName();
-        } else {
+            break;
+        default:
             taskManager.sortByDefaultRules();
+            break;
         }
         // Save data in that order
         indicateTaskManagerChanged();
