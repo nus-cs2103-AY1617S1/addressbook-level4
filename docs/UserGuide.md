@@ -1,4 +1,6 @@
+
 # User Guide
+<img src="images/JimiLogo.png" width="800"><br>
 
 At this point, we know you are just as excited as we are [about Jimi](https://github.com/CS2103AUG2016-T09-C2/main/blob/master/README.md). But before you start throwing your money at us (even though Jimi is entirely free), you should first learn **how to use Jimi properly**. What follows should guide you on how to setup, install and use Jimi easily. 
 
