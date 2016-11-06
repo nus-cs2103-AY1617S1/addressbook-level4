@@ -1,7 +1,5 @@
 package seedu.todolist.logic.commands;
 
-import java.io.File;
-
 //@@author A0158963M 
 /**
  * Sets the location of the storage file. 
@@ -25,12 +23,7 @@ public class SetstorageCommand extends Command{
 	
     @Override
 	public CommandResult execute() {
-    	File file = new File(storage.getToDoListFilePath());
-    	if(file.exists()){
-    		file.delete();
-    	}
-    	storage.setFilePath(filepath);
-
+		storage.setFilePath(filepath);
     	return new CommandResult(MESSAGE_SUCCESS);
 	}
 	

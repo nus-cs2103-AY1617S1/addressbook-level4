@@ -15,7 +15,6 @@ import seedu.todolist.commons.events.ui.ExitAppRequestEvent;
 import seedu.todolist.logic.Logic;
 import seedu.todolist.model.UserPrefs;
 import seedu.todolist.model.task.ReadOnlyTask;
-import seedu.todolist.storage.Storage;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -40,7 +39,7 @@ public class MainWindow extends UiPart {
     private CommandBox commandBox;
     private Config config;
     private UserPrefs userPrefs;
-    private Storage storage;
+
     // Handles to elements of this Ui container
     private VBox rootLayout;
     private Scene scene;
@@ -86,22 +85,21 @@ public class MainWindow extends UiPart {
         return FXML;
     }
 
-    public static MainWindow load(Stage primaryStage, Config config, UserPrefs prefs, Logic logic, Storage storage) {
+    public static MainWindow load(Stage primaryStage, Config config, UserPrefs prefs, Logic logic) {
 
         MainWindow mainWindow = UiPartLoader.loadUiPart(primaryStage, new MainWindow());
-        mainWindow.configure(config.getAppTitle(), config.getToDoListName(), config, prefs, logic, storage);
+        mainWindow.configure(config.getAppTitle(), config.getToDoListName(), config, prefs, logic);
         return mainWindow;
     }
 
     private void configure(String appTitle, String ToDoListName, Config config, UserPrefs prefs,
-                           Logic logic, Storage storage) {
+                           Logic logic) {
 
         //Set dependencies
         this.logic = logic;
         this.ToDoListName = ToDoListName;
         this.config = config;
         this.userPrefs = prefs;
-        this.storage = storage;
 
         //Configure the UI
         setTitle(appTitle);
@@ -123,7 +121,7 @@ public class MainWindow extends UiPart {
         completeTaskListPanel = CompleteTaskListPanel.load(primaryStage, getCompleteTaskListPlaceholder(), logic.getFilteredCompleteTaskList());
         resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
         statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getToDoListFilePath());
-        commandBox = CommandBox.load(primaryStage, getCommandBoxPlaceholder(), resultDisplay, logic, storage, statusBarFooter);
+        commandBox = CommandBox.load(primaryStage, getCommandBoxPlaceholder(), resultDisplay, logic);
     }
 
     private AnchorPane getCommandBoxPlaceholder() {

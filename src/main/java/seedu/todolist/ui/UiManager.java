@@ -17,7 +17,6 @@ import seedu.todolist.commons.events.ui.TaskPanelSelectionChangedEvent;
 import seedu.todolist.commons.util.StringUtil;
 import seedu.todolist.logic.Logic;
 import seedu.todolist.model.UserPrefs;
-import seedu.todolist.storage.Storage;
 
 import java.util.logging.Logger;
 
@@ -32,14 +31,12 @@ public class UiManager extends ComponentManager implements Ui {
     private Config config;
     private UserPrefs prefs;
     private MainWindow mainWindow;
-    private Storage storage;
 
-    public UiManager(Logic logic, Config config, UserPrefs prefs, Storage storage) {
+    public UiManager(Logic logic, Config config, UserPrefs prefs) {
         super();
         this.logic = logic;
         this.config = config;
         this.prefs = prefs;
-        this.storage = storage;
     }
 
     @Override
@@ -51,7 +48,7 @@ public class UiManager extends ComponentManager implements Ui {
         primaryStage.getIcons().add(getImage(ICON_APPLICATION));
 
         try {
-            mainWindow = MainWindow.load(primaryStage, config, prefs, logic, storage);
+            mainWindow = MainWindow.load(primaryStage, config, prefs, logic);
             mainWindow.show(); //This should be called before creating other UI parts
             mainWindow.fillInnerParts();
 
