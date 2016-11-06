@@ -91,11 +91,11 @@ public class EditCommand extends Command {
             
             if(newStartDateTime.isPresent() && !newEndDateTime.isPresent()){
             	if(isRemoveEndDateTime){
-            		throw new UnsupportedOperationException(Task.MESSAGE_START_DATE_TIME_CANNOT_BE_SET_WITH_END_DATE_TIME_REMOVED);
+            		throw new IllegalArgumentException(Task.MESSAGE_START_DATE_TIME_CANNOT_BE_SET_WITH_END_DATE_TIME_REMOVED);
             	}
             	
             	if(!taskToEdit.getEndDate().isPresent()){
-            		throw new UnsupportedOperationException(Task.MESSAGE_START_DATE_TIME_CANNOT_BE_SET_WITH_END_DATE_TIME_MISSING);
+            		throw new IllegalArgumentException(Task.MESSAGE_START_DATE_TIME_CANNOT_BE_SET_WITH_END_DATE_TIME_MISSING);
             	}
             	
             	LocalDateTime startDateTime = newStartDateTime.get();

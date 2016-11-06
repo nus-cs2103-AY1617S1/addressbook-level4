@@ -114,7 +114,7 @@ public class Task implements ReadOnlyTask, Comparable<ReadOnlyTask> {
     
     public void setStartDate(LocalDateTime date) throws UnsupportedOperationException {
         if (!endDate.isPresent()) {
-            throw new UnsupportedOperationException(MESSAGE_START_DATE_TIME_CANNOT_BE_SET_WITH_END_DATE_TIME_MISSING);
+            throw new IllegalArgumentException(MESSAGE_START_DATE_TIME_CANNOT_BE_SET_WITH_END_DATE_TIME_MISSING);
         }
         	
         this.setTaskType(new TaskType("event"));
@@ -143,7 +143,7 @@ public class Task implements ReadOnlyTask, Comparable<ReadOnlyTask> {
     //@@author A0143756Y
     public static void validateEndDateTimeAfterStartDateTime(LocalDateTime startDateTime, LocalDateTime endDateTime){
     	if(!endDateTime.isAfter(startDateTime)){
-    		throw new UnsupportedOperationException(MESSAGE_END_DATE_TIME_NOT_AFTER_START_DATE_TIME);
+    		throw new IllegalArgumentException(MESSAGE_END_DATE_TIME_NOT_AFTER_START_DATE_TIME);
     	}
     }
     //@@author
