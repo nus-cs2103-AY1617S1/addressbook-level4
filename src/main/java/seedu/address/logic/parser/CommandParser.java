@@ -612,7 +612,7 @@ public class CommandParser {
     private String generateEditDetailedTooltip(String trimmedArgs) throws IllegalValueException {
         assert trimmedArgs != null;
         
-        String[] splitIndexFromOtherArgs = trimmedArgs.split(STRING_REGEX_ONE_OR_MORE_WHITESPACE);
+        String[] splitIndexFromOtherArgs = trimmedArgs.split(STRING_REGEX_ONE_OR_MORE_WHITESPACE, 2);
         String indexToEdit = splitIndexFromOtherArgs[ZERO];
         
         try {
@@ -621,6 +621,7 @@ public class CommandParser {
             return EditCommand.TOOL_TIP + "\n" + "Please enter a number for the index.\n";
         }
         
+
         String argumentsWithoutIndex;
         if (splitIndexFromOtherArgs.length == 1) {
             argumentsWithoutIndex = splitIndexFromOtherArgs[ZERO];
@@ -629,13 +630,24 @@ public class CommandParser {
 
         }
         
+        logger.info(argumentsWithoutIndex);
+        
         String resetField = null;
         String[] resetSplit = argumentsWithoutIndex.split(RESET_KEYWORD);
+        
+        logger.info(Arrays.asList(resetSplit).toString());
+ 
         
         boolean isResettingStartDate = false, isResettingEndDate = false, isResettingRecurrence = false, 
                 isResettingPriority = false;
                     
-        HashMap<String, Optional<String>> fieldMap = retrieveEditFieldsFromArgs(resetSplit);
+        
+        String beforeResetSplit = "";
+        if (resetSplit.length != 0) {
+            beforeResetSplit = resetSplit[0];
+        }
+        
+        HashMap<String, Optional<String>> fieldMap = retrieveEditFieldsFromArgs(beforeResetSplit);
         
         Optional<String> name = fieldMap.get(MAP_NAME);
         Optional<String> startDate = fieldMap.get(MAP_START_DATE);
@@ -713,6 +725,7 @@ public class CommandParser {
         }
         
         return sb.toString();
+        
     }
 
     /**
@@ -720,9 +733,9 @@ public class CommandParser {
      * @return
      * @throws IllegalValueException
      */
-    private HashMap<String, Optional<String>> retrieveEditFieldsFromArgs(String[] resetSplit)
+    private HashMap<String, Optional<String>> retrieveEditFieldsFromArgs(String beforeResetSplit)
             throws IllegalValueException {
-        return new CommandParserHelper().prepareEdit(STRING_ONE_SPACE + resetSplit[ZERO]);
+        return new CommandParserHelper().prepareEdit(beforeResetSplit);
     }
 
     private String prepareAddDetailedTooltip(final String arguments) {
