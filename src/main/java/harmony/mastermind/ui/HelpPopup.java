@@ -1,7 +1,9 @@
 package harmony.mastermind.ui;
 
 import java.util.ArrayList;
+import java.util.logging.Logger;
 
+import harmony.mastermind.commons.core.LogsCenter;
 import harmony.mastermind.logic.HelpPopupEntry;
 import javafx.scene.Node;
 import javafx.scene.control.TextArea;
@@ -19,6 +21,7 @@ import javafx.scene.control.TableView;
 public class HelpPopup extends UiPart {
 
     private static final String FXML = "HelpPopup.fxml";
+    private static final Logger logger = LogsCenter.getLogger(HelpPopup.class);
 
     private final String COMMAND_COL_HEADER = "Command";
     private final String FORMAT_COL_HEADER = "Format";
@@ -54,7 +57,7 @@ public class HelpPopup extends UiPart {
     public void show(Node node) {
         assert node != null;
         table.setItems(entries);
-
+        logger.fine("Displaying help Popup");
         popup.show(node, DEFAULT_X_POS, DEFAULT_Y_POS);
         popup.centerOnScreen();
     }
@@ -84,6 +87,7 @@ public class HelpPopup extends UiPart {
     //@@author A0139194X
     @FXML
     private void initTable() {
+        logger.info("Initialising help popup's table");
         table = new TableView<HelpPopupEntry>();
         table.setEditable(false);
         
@@ -116,6 +120,7 @@ public class HelpPopup extends UiPart {
     }
     
     //@@author A0139194X
+    //Handles the closing of the popup
     @FXML
     EventHandler<KeyEvent> keyEventHandler = new EventHandler<KeyEvent>() {
         public void handle(KeyEvent event) {
@@ -147,10 +152,12 @@ public class HelpPopup extends UiPart {
 //    }
 
     //@@author A0139194X
+    //Sets the data to display
     public void injectData(ArrayList<HelpPopupEntry> helpEntries) {
         entries = FXCollections.observableArrayList();
         for (int i = 0; i < helpEntries.size(); i++) {
             entries.add(helpEntries.get(i));
         }
+        logger.fine("Help Popup table entries injected and initialised succesfully");
     }
 }
