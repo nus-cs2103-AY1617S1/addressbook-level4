@@ -165,7 +165,7 @@ Only tasks with the keyword are displayed. Keywords are NOT case sensitive.
 <br>
 ###4 Marking tasks as done 
 
-Remember that report that we added at the start? Once you have done it, simply type the command following the format below <kbd>Enter</kbd> and you will never have to see it again. Unless of course you want to, then we will show you how in the later part of this user guide. 
+Remember that report that we added at the start? Once you have done it, simply type the following command below and <kbd>Enter</kbd> and you will never have to see it again. Unless of course you want to, then we will show you how in the later part of this user guide. 
 
 > Format: Done &lt;index&gt;
 
@@ -173,7 +173,7 @@ Example: Done D1
 
 This will hide that report that you have completed from the main screen.
 <br><br>
-You can also complete multiple tasks at once by following the format below.
+You can also complete multiple tasks at once by following the formats below.
 
 > Format: Done &lt;index&gt;-&lt;index&gt;
 
@@ -210,7 +210,7 @@ Now that you have seen all the tasks that you have done, to return to the main d
 
 ####6.1 Deleting a task
 
-The delete command enables you to delete the tasks that you no longer need and it is available in the following formats.
+If you no longer need any tasks, simply delete them by using the delete command availabe in the following formats. 
 
 > Format: Delete &lt;index&gt;
 
@@ -219,16 +219,13 @@ The delete command enables you to delete the tasks that you no longer need and i
 > Format: Delete &lt;index&gt;, &lt;index&gt; 
 
 
-Example: 
+Example: Delete T3
 
-Delete T3
+Example: Delete T1-T3
 
-Delete T1-T3
+Example: Delete T1, T3
 
-Delete T1, T3
-
-
->Note: The delete command is flexible and allows you to delete more than 1 task at a time. If the indexes entered are separated by a hyphen (-), Simply will delete all tasks between the numbers including the numbers enter. If the indexes are separated by a comma (,) Simply will delete the tasks entered individually. 
+The delete command is flexible and allows you to delete more than 1 task at a time. If the indexes entered are separated by a hyphen (-), Simply will delete all tasks between the numbers including the numbers enter. If the indexes are separated by a comma (,) Simply will delete the tasks entered individually. 
 
 <br>
 ####6.2 Deleting a tag / multiple tags
