@@ -98,7 +98,7 @@ public class Tag {
      */
     public String toString() {
         if (this.equals(EMPTY_TAG)) {
-            return "[uncategorised]";
+            return " ";
         }
         return '#' + tagName;
     }
