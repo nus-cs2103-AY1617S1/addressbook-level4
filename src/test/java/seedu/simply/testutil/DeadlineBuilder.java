@@ -27,8 +27,8 @@ public class DeadlineBuilder {
         return this;
     }
 
-    public DeadlineBuilder withEnd(String address) throws IllegalValueException {
-        this.person.setEnd(new End(address));
+    public DeadlineBuilder withEnd(String task) throws IllegalValueException {
+        this.person.setEnd(new End(task));
         return this;
     }
 

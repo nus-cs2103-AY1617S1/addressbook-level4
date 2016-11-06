@@ -25,7 +25,7 @@ import seedu.simply.model.task.UniqueTaskList.TaskNotFoundException;
 
 /**
  * @@author A0138993L
- * Wraps all data at the address-book level
+ * Wraps all data at the task-book level
  * Duplicates are not allowed (by .equals comparison)
  */
 public class TaskBook implements ReadOnlyTaskBook {
@@ -45,20 +45,20 @@ public class TaskBook implements ReadOnlyTaskBook {
     public TaskBook() {}
 
     /**
-     * Tasks and Tags are copied into this addressbook
+     * Tasks and Tags are copied into this taskbook
      */
     public TaskBook(ReadOnlyTaskBook toBeCopied) {
         this(toBeCopied.getUniqueEventList(), toBeCopied.getUniqueDeadlineList(), toBeCopied.getUniqueTodoList(), toBeCopied.getUniqueTagList());
     }
 
     /**
-     * Tasks and Tags are copied into this addressbook
+     * Tasks and Tags are copied into this taskbook
      */
     public TaskBook(UniqueTaskList events, UniqueTaskList deadlines, UniqueTaskList todo, UniqueTagList tags) {
         resetData(events.getInternalList(), deadlines.getInternalList(), todo.getInternalList(), tags.getInternalList());
     }
 
-    public static ReadOnlyTaskBook getEmptyAddressBook() {
+    public static ReadOnlyTaskBook getEmptyTaskBook() {
         return new TaskBook();
     }
 
@@ -115,7 +115,7 @@ public class TaskBook implements ReadOnlyTaskBook {
     //// task-level operations
 
     /**
-     * Adds a task to the address book.
+     * Adds a task to the task book.
      * Also checks the new task's tags and updates {@link #tags} with any new tags found,
      * and updates the Tag objects in the task to point to those in {@link #tags}.
      *

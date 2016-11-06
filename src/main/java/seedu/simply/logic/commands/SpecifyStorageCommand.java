@@ -36,7 +36,7 @@ public class SpecifyStorageCommand extends Command {
         
         try {
             Config config = model.getConfig();
-            config.setAddressBookFilePath(folderPath);
+            config.setTaskBookFilePath(folderPath);
             ConfigUtil.saveConfig(config, Config.DEFAULT_CONFIG_FILE);
         } catch (IOException e) {
             logger.warning("config file could not be saved to");

@@ -27,8 +27,8 @@ public class TaskBuilder {
         return this;
     }
 
-    public TaskBuilder withEnd(String address) throws IllegalValueException {
-        this.person.setEnd(new End(address));
+    public TaskBuilder withEnd(String task) throws IllegalValueException {
+        this.person.setEnd(new End(task));
         return this;
     }
 

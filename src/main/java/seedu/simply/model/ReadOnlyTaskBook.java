@@ -9,7 +9,7 @@ import seedu.simply.model.task.UniqueTaskList;
 import java.util.List;
 
 /**
- * Unmodifiable view of an address book
+ * Unmodifiable view of an task book
  */
 public interface ReadOnlyTaskBook {
 

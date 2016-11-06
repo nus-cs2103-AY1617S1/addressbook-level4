@@ -11,7 +11,7 @@ import seedu.simply.model.task.ReadOnlyTask;
 import seedu.simply.model.task.UniqueTaskList.TaskNotFoundException;
 
 /**
- * Deletes a task identified using it's last displayed index from the address book.
+ * Deletes a task identified using it's last displayed index from the task book.
  */
 public class DeleteCommand extends Command {
 

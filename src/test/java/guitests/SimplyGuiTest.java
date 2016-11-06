@@ -22,7 +22,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 /**
- * A GUI Test class for AddressBook.
+ * A GUI Test class for TaskBook.
  */
 public abstract class SimplyGuiTest {
 
@@ -81,8 +81,8 @@ public abstract class SimplyGuiTest {
      * Return null to use the data in the file specified in {@link #getDataFileLocation()}
      */
     protected TaskBook getInitialData() {
-        TaskBook ab = TestUtil.generateEmptyAddressBook();
-        TypicalTestTasks.loadAddressBookWithSampleData(ab);
+        TaskBook ab = TestUtil.generateEmptyTaskBook();
+        TypicalTestTasks.loadTaskBookWithSampleData(ab);
         return ab;
     }
 

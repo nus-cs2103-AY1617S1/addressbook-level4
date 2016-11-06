@@ -48,13 +48,13 @@ public class LogicManagerTest {
     private Logic logic;
 
     //These are for checking the correctness of the events raised
-    private ReadOnlyTaskBook latestSavedAddressBook;
+    private ReadOnlyTaskBook latestSavedTaskBook;
     private boolean helpShown;
     private int targetedJumpIndex;
 
     @Subscribe
     private void handleLocalModelChangedEvent(TaskBookChangedEvent abce) {
-        latestSavedAddressBook = new TaskBook(abce.data);
+        latestSavedTaskBook = new TaskBook(abce.data);
     }
 
     @Subscribe
@@ -70,12 +70,12 @@ public class LogicManagerTest {
     @Before
     public void setup() {
         model = new ModelManager();
-        String tempAddressBookFile = saveFolder.getRoot().getPath() + "TempAddressBook.xml";
+        String tempTaskBookFile = saveFolder.getRoot().getPath() + "TempTaskBook.xml";
         String tempPreferencesFile = saveFolder.getRoot().getPath() + "TempPreferences.json";
         logic = new LogicManager(model);
         EventsCenter.getInstance().registerHandler(this);
 
-        latestSavedAddressBook = new TaskBook(model.getAddressBook()); // last saved assumed to be up to date before.
+        latestSavedTaskBook = new TaskBook(model.getTaskBook()); // last saved assumed to be up to date before.
         helpShown = false;
         targetedJumpIndex = -1; // non yet
     }
@@ -94,7 +94,7 @@ public class LogicManagerTest {
 
     /**
      * Executes the command and confirms that the result message is correct.
-     * Both the 'address book' and the 'last shown list' are expected to be empty.
+     * Both the 'Task book' and the 'last shown list' are expected to be empty.
      * @see #assertCommandBehavior(String, String, ReadOnlyTaskBook, List)
      */
     private void assertCommandBehavior(String inputCommand, String expectedMessage) throws Exception {
@@ -104,13 +104,13 @@ public class LogicManagerTest {
     /**
      * Executes the command and confirms that the result message is correct and
      * also confirms that the following three parts of the LogicManager object's state are as expected:<br>
-     *      - the internal address book data are same as those in the {@code expectedAddressBook} <br>
+     *      - the internal Task book data are same as those in the {@code expectedTaskBook} <br>
      *      - the backing list shown by UI matches the {@code shownList} <br>
-     *      - {@code expectedAddressBook} was saved to the storage file. <br>
+     *      - {@code expectedTaskBook} was saved to the storage file. <br>
      */
     //@@author A0138993L
     private void assertCommandBehavior(String inputCommand, String expectedMessage,
-            ReadOnlyTaskBook expectedAddressBook,
+            ReadOnlyTaskBook expectedTaskBook,
             List<? extends ReadOnlyTask> expectedShownList,
             List<? extends ReadOnlyTask> expectedDeadlineShownList,
             List<? extends ReadOnlyTask> expectedTodoShownList) throws Exception {
@@ -125,8 +125,8 @@ public class LogicManagerTest {
         assertEquals(expectedTodoShownList, model.getFilteredTodoList());
 
         //Confirm the state of data (saved and in-memory) is as expected
-        assertEquals(expectedAddressBook, model.getAddressBook());
-        assertEquals(expectedAddressBook, latestSavedAddressBook);
+        assertEquals(expectedTaskBook, model.getTaskBook());
+        assertEquals(expectedTaskBook, latestSavedTaskBook);
     }
 
 
@@ -154,8 +154,8 @@ public class LogicManagerTest {
         List<Task> threeDeadlines = helper.generateDeadlineList(3);
         List<Task> threeTodos = helper.generateTodoList(3);
 
-        TaskBook expectedAB = helper.generateAddressBook(threePersons, threeDeadlines, threeTodos);
-        expectedAB.resetData(TaskBook.getEmptyAddressBook());
+        TaskBook expectedAB = helper.generateTaskBook(threePersons, threeDeadlines, threeTodos);
+        expectedAB.resetData(TaskBook.getEmptyTaskBook());
         assertCommandBehavior("clear", ClearCommand.MESSAGE_SUCCESS, expectedAB, 
                 expectedAB.getEventList(), expectedAB.getDeadlineList(), expectedAB.getTodoList());
     }
@@ -181,7 +181,7 @@ public class LogicManagerTest {
                 "add deadlines; 121212; 12.30am #..", Tag.MESSAGE_TAG_CONSTRAINTS);
 
     }
-
+    
     //@@author A0139430L
     @Test
     public void execute_add_Event_successful() throws Exception {
@@ -217,13 +217,13 @@ public class LogicManagerTest {
                 expectedAB.getTodoList());
 
     }
-    //@@author A0139430L
+  //@@author A0139430L
     @Test
     public void execute_add_Todo_successful() throws Exception {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
         Task toBeAdded = helper.charlie();
-        TaskBook expectedAB = helper.generateAddressBook(1, 1, 1);
+        TaskBook expectedAB = helper.generateTaskBook(1, 1, 1);
         TaskBook undolist = new TaskBook(expectedAB);
         helper.addToModel(model, 1, 1, 1);
         expectedAB.addTask(toBeAdded);
@@ -241,7 +241,7 @@ public class LogicManagerTest {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
         Task toBeAdded = helper.charlie();
-        TaskBook expectedAB = helper.generateAddressBook(1, 1, 1);
+        TaskBook expectedAB = helper.generateTaskBook(1, 1, 1);
         TaskBook undolist = new TaskBook(expectedAB);
         helper.addToModel(model, 1, 1, 1);
         expectedAB.addTask(toBeAdded);
@@ -265,7 +265,7 @@ public class LogicManagerTest {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
         Task toBeAdded = helper.charlie();
-        TaskBook expectedAB = helper.generateAddressBook(1, 1, 1);
+        TaskBook expectedAB = helper.generateTaskBook(1, 1, 1);
         TaskBook undolist = new TaskBook(expectedAB);
         helper.addToModel(model, 1, 1, 1);
         expectedAB.addTask(toBeAdded);
@@ -276,7 +276,7 @@ public class LogicManagerTest {
                 expectedAB.getEventList(),
                 expectedAB.getDeadlineList(),
                 expectedAB.getTodoList());
-
+        
         assertCommandBehavior("undo 1", UndoCommand.MESSAGE_UNDO_TASK_SUCCESS,
                 undolist,
                 undolist.getEventList(),
@@ -299,7 +299,7 @@ public class LogicManagerTest {
         expectedAB.addTask(toBeAdded);
 
         // setup starting state
-        model.addTask(toBeAdded); // person already in internal address book
+        model.addTask(toBeAdded); // person already in internal Task book
 
         // execute command and verify result
         assertCommandBehavior(
@@ -320,7 +320,7 @@ public class LogicManagerTest {
         expectedAB.addTask(toBeAdded);
 
         // setup starting state
-        model.addTask(toBeAdded); // person already in internal address book
+        model.addTask(toBeAdded); // person already in internal Task book
 
         // execute command and verify result
         assertCommandBehavior(
@@ -341,7 +341,7 @@ public class LogicManagerTest {
         expectedAB.addTask(toBeAdded);
 
         // setup starting state
-        model.addTask(toBeAdded); // person already in internal address book
+        model.addTask(toBeAdded); // person already in internal Task book
 
         // execute command and verify result
         assertCommandBehavior(
@@ -352,7 +352,7 @@ public class LogicManagerTest {
                 Collections.emptyList(),
                 expectedAB.getTodoList());
     }
-
+    
     @Test
     public void execute_invalidListFormat() throws Exception {
         assertCommandBehavior("list asdasd",
@@ -364,11 +364,11 @@ public class LogicManagerTest {
     public void execute_list_showsAllPersons() throws Exception {
         // prepare expectations
         TestDataHelper helper = new TestDataHelper();
-        TaskBook expectedAB = helper.generateAddressBook(2, 2, 2);
+        TaskBook expectedAB = helper.generateTaskBook(2, 2, 2);
         List<? extends ReadOnlyTask> expectedList = expectedAB.getEventList();
         List<? extends ReadOnlyTask> expectedDeadlineList = expectedAB.getDeadlineList();
         List<? extends ReadOnlyTask> expectedTodoList = expectedAB.getTodoList();
-        // prepare address book state
+        // prepare Task book state
         helper.addToModel(model, 2, 2, 2);
 
         assertCommandBehavior("list",
@@ -389,7 +389,7 @@ public class LogicManagerTest {
         List<Task> eventList = helper.generateEventList(done);
         List<Task> deadlineList = helper.generateDeadlineList(undone1);
         List<Task> todoList = helper.generateTodoList(undone2);
-        TaskBook expectedAB = helper.generateAddressBook(eventList, deadlineList, todoList);
+        TaskBook expectedAB = helper.generateTaskBook(eventList, deadlineList, todoList);
         expectedAB.completeTask(done);
         helper.addToModel(model, eventList, deadlineList, todoList);
         model.markDone(done);
@@ -412,7 +412,7 @@ public class LogicManagerTest {
         List<Task> eventList = helper.generateEventList(undone1);
         List<Task> deadlineList = helper.generateDeadlineList(done);
         List<Task> todoList = helper.generateTodoList(undone2);
-        TaskBook expectedAB = helper.generateAddressBook(eventList, deadlineList, todoList);
+        TaskBook expectedAB = helper.generateTaskBook(eventList, deadlineList, todoList);
         expectedAB.completeTask(done);
         helper.addToModel(model, eventList, deadlineList, todoList);
         model.markDone(done);
@@ -435,7 +435,7 @@ public class LogicManagerTest {
         List<Task> eventList = helper.generateEventList(undone1);
         List<Task> deadlineList = helper.generateDeadlineList(undone2);
         List<Task> todoList = helper.generateTodoList(done);
-        TaskBook expectedAB = helper.generateAddressBook(eventList, deadlineList, todoList);
+        TaskBook expectedAB = helper.generateTaskBook(eventList, deadlineList, todoList);
         expectedAB.completeTask(done);
         helper.addToModel(model, eventList, deadlineList, todoList);
         model.markDone(done);
@@ -447,14 +447,36 @@ public class LogicManagerTest {
                 Collections.emptyList(),
                 todoList);
     }
+    /*
+    @Test
+    public void execute_one_undo() throws Exception {
+    	TestDataHelper helper = new TestDataHelper();
+    	Task toBeAdded = helper.adam();
+    	Task toBeAdded1 = helper.beta();
+    	Task toBeAdded2 = helper.charlie();
+    	List<Task> eventList = helper.generateEventList(toBeAdded);
+    	List<Task> deadlineList = helper.generateEventList(toBeAdded1);
+    	List<Task> todoList = helper.generateEventList(toBeAdded2);
+    	TaskBook expectedAB = helper.generateTaskBook(eventList, deadlineList, todoList);
+    	helper.addToModel(model, eventList, deadlineList, todoList);
+    	model.addToUndoStack();
+    	expectedAB.addTask(helper.generateDeadline(1));
 
+
+    	assertCommandBehavior("undo 1", UndoCommand.MESSAGE_UNDO_TASK_SUCCESS,
+    			expectedAB,
+    			expectedAB.getEventList(),
+    			expectedAB.getDeadlineList(),
+    			expectedAB.getTodoList());
+    }
+     */
     //@@author A0138993L
     @Test
     public void execute_done_markCorrectEvent() throws Exception {
         TestDataHelper helper = new TestDataHelper();
         Task toBeMarked = helper.adam();
         List<Task> eventList = helper.generateEventList(toBeMarked);
-        TaskBook expectedAB = helper.generateAddressBook(eventList, Collections.emptyList(), Collections.emptyList());
+        TaskBook expectedAB = helper.generateTaskBook(eventList, Collections.emptyList(), Collections.emptyList());
         expectedAB.completeTask(toBeMarked);
         helper.addToModel(model, eventList, Collections.emptyList(),  Collections.emptyList());
 
@@ -471,7 +493,7 @@ public class LogicManagerTest {
     public void execute_done_markCorrectEventRange() throws Exception {
         TestDataHelper helper = new TestDataHelper();
         List<Task> eventList = helper.generateUncompleteList(3, 'E');
-        TaskBook expectedAB = helper.generateAddressBook(eventList, Collections.emptyList(), Collections.emptyList());
+        TaskBook expectedAB = helper.generateTaskBook(eventList, Collections.emptyList(), Collections.emptyList());
         expectedAB = this.completeList(expectedAB, eventList, 0, 1, 2);
         helper.addToModel(model, eventList, Collections.emptyList(),  Collections.emptyList());
 
@@ -489,7 +511,7 @@ public class LogicManagerTest {
         TestDataHelper helper = new TestDataHelper();
         List<Task> eventList = helper.generateUncompleteList(3, 'E');
         List<Task> unmarkedList = helper.generateEventList(eventList.get(1));
-        TaskBook expectedAB = helper.generateAddressBook(eventList, Collections.emptyList(), Collections.emptyList());
+        TaskBook expectedAB = helper.generateTaskBook(eventList, Collections.emptyList(), Collections.emptyList());
         expectedAB = this.completeList(expectedAB, eventList, 0, 2);
         helper.addToModel(model, eventList, Collections.emptyList(),  Collections.emptyList());
 
@@ -507,7 +529,7 @@ public class LogicManagerTest {
         TestDataHelper helper = new TestDataHelper();
         Task toBeMarked = helper.beta();
         List<Task> deadlineList = helper.generateDeadlineList(toBeMarked);
-        TaskBook expectedAB = helper.generateAddressBook(Collections.emptyList(), deadlineList, Collections.emptyList());
+        TaskBook expectedAB = helper.generateTaskBook(Collections.emptyList(), deadlineList, Collections.emptyList());
         expectedAB.completeTask(toBeMarked);
         helper.addToModel(model, Collections.emptyList(), deadlineList, Collections.emptyList());
 
@@ -524,7 +546,7 @@ public class LogicManagerTest {
     public void execute_done_markCorrectDeadlineRange() throws Exception {
         TestDataHelper helper = new TestDataHelper();
         List<Task> deadlineList = helper.generateUncompleteList(3, 'D');
-        TaskBook expectedAB = helper.generateAddressBook(Collections.emptyList(), deadlineList, Collections.emptyList());
+        TaskBook expectedAB = helper.generateTaskBook(Collections.emptyList(), deadlineList, Collections.emptyList());
         expectedAB = this.completeList(expectedAB, deadlineList, 0, 1, 2);
         helper.addToModel(model, Collections.emptyList(), deadlineList, Collections.emptyList());
 
@@ -542,7 +564,7 @@ public class LogicManagerTest {
         TestDataHelper helper = new TestDataHelper();
         List<Task> deadlineList = helper.generateUncompleteList(3, 'D');
         List<Task> unmarkedList = helper.generateDeadlineList(deadlineList.get(2-1));
-        TaskBook expectedAB = helper.generateAddressBook(Collections.emptyList(), deadlineList, Collections.emptyList());
+        TaskBook expectedAB = helper.generateTaskBook(Collections.emptyList(), deadlineList, Collections.emptyList());
         expectedAB = this.completeList(expectedAB, deadlineList, 0, 2);
         helper.addToModel(model, Collections.emptyList(), deadlineList, Collections.emptyList());
 
@@ -560,7 +582,7 @@ public class LogicManagerTest {
         TestDataHelper helper = new TestDataHelper();
         Task toBeMarked = helper.charlie();
         List<Task> todoList = helper.generateTodoList(toBeMarked);
-        TaskBook expectedAB = helper.generateAddressBook(Collections.emptyList(), Collections.emptyList(), todoList);
+        TaskBook expectedAB = helper.generateTaskBook(Collections.emptyList(), Collections.emptyList(), todoList);
         expectedAB.completeTask(toBeMarked);
         helper.addToModel(model, Collections.emptyList(),  Collections.emptyList(), todoList);
 
@@ -577,7 +599,7 @@ public class LogicManagerTest {
     public void execute_done_markCorrectTodoRange() throws Exception {
         TestDataHelper helper = new TestDataHelper();
         List<Task> todoList = helper.generateUncompleteList(3, 'T');
-        TaskBook expectedAB = helper.generateAddressBook(Collections.emptyList(), Collections.emptyList(), todoList);
+        TaskBook expectedAB = helper.generateTaskBook(Collections.emptyList(), Collections.emptyList(), todoList);
         expectedAB = this.completeList(expectedAB, todoList, 0, 1, 2);
         helper.addToModel(model, Collections.emptyList(),  Collections.emptyList(), todoList);
 
@@ -604,7 +626,7 @@ public class LogicManagerTest {
         TestDataHelper helper = new TestDataHelper();
         List<Task> todoList = helper.generateUncompleteList(3, 'T');
         List<Task> unmarkedList = helper.generateTodoList(todoList.get(1));
-        TaskBook expectedAB = helper.generateAddressBook(Collections.emptyList(), Collections.emptyList(), todoList);
+        TaskBook expectedAB = helper.generateTaskBook(Collections.emptyList(), Collections.emptyList(), todoList);
         expectedAB = this.completeList(expectedAB, todoList, 0, 2);
         helper.addToModel(model, Collections.emptyList(),  Collections.emptyList(), todoList);
 
@@ -622,7 +644,7 @@ public class LogicManagerTest {
         TestDataHelper helper = new TestDataHelper();
         Task toBeMarked = helper.adam();
         List<Task> eventList = helper.generateEventList(toBeMarked);
-        TaskBook expectedAB = helper.generateAddressBook(eventList, Collections.emptyList(), Collections.emptyList());
+        TaskBook expectedAB = helper.generateTaskBook(eventList, Collections.emptyList(), Collections.emptyList());
         expectedAB.completeTask(toBeMarked);
         helper.addToModel(model, eventList, Collections.emptyList(), Collections.emptyList());
 
@@ -640,7 +662,7 @@ public class LogicManagerTest {
         TestDataHelper helper = new TestDataHelper();
         Task toBeMarked = helper.beta();
         List<Task> deadlineList = helper.generateDeadlineList(toBeMarked);
-        TaskBook expectedAB = helper.generateAddressBook(Collections.emptyList(), deadlineList, Collections.emptyList());
+        TaskBook expectedAB = helper.generateTaskBook(Collections.emptyList(), deadlineList, Collections.emptyList());
         expectedAB.completeTask(toBeMarked);
         helper.addToModel(model, Collections.emptyList(), deadlineList, Collections.emptyList());
 
@@ -658,7 +680,7 @@ public class LogicManagerTest {
         TestDataHelper helper = new TestDataHelper();
         Task toBeMarked = helper.charlie();
         List<Task> todoList = helper.generateTodoList(toBeMarked);
-        TaskBook expectedAB = helper.generateAddressBook(Collections.emptyList(), Collections.emptyList(), todoList);
+        TaskBook expectedAB = helper.generateTaskBook(Collections.emptyList(), Collections.emptyList(), todoList);
         expectedAB.completeTask(toBeMarked);
         helper.addToModel(model, Collections.emptyList(), Collections.emptyList(), todoList);
 
@@ -707,7 +729,7 @@ public class LogicManagerTest {
             model.addTask(p);
         }
 
-        assertCommandBehavior(commandWord , expectedMessage, model.getAddressBook(), eventList, deadlineList, todoList);
+        assertCommandBehavior(commandWord , expectedMessage, model.getTaskBook(), eventList, deadlineList, todoList);
     }
     //@@author A0138993L
     @Test
@@ -736,7 +758,7 @@ public class LogicManagerTest {
         TestDataHelper helper = new TestDataHelper();
         List<Task> threeEvents = helper.generateEventsList(3);
 
-        TaskBook expectedAB = helper.generateAddressBook(threeEvents, Collections.emptyList(), Collections.emptyList());
+        TaskBook expectedAB = helper.generateTaskBook(threeEvents, Collections.emptyList(), Collections.emptyList());
         helper.addToModel(model, threeEvents, Collections.emptyList(), Collections.emptyList());
 
         assertCommandBehavior("select E2",
@@ -756,7 +778,7 @@ public class LogicManagerTest {
         List<Task> threeDeadlines = helper.generateDeadlineList(3);
         List<Task> threeTodos = helper.generateTodoList(3);
 
-        TaskBook expectedAB = helper.generateAddressBook(threeEvents, threeDeadlines, threeTodos);
+        TaskBook expectedAB = helper.generateTaskBook(threeEvents, threeDeadlines, threeTodos);
         helper.addToModel(model, threeEvents, threeDeadlines, threeTodos);
 
         assertCommandBehavior("select D2",
@@ -776,7 +798,7 @@ public class LogicManagerTest {
         List<Task> threeDeadlines = helper.generateDeadlineList(3);
         List<Task> threeTodos = helper.generateTodoList(3);
 
-        TaskBook expectedAB = helper.generateAddressBook(threeEvents, threeDeadlines, threeTodos);
+        TaskBook expectedAB = helper.generateTaskBook(threeEvents, threeDeadlines, threeTodos);
         helper.addToModel(model, threeEvents, threeDeadlines, threeTodos);
 
         assertCommandBehavior("select T2",
@@ -810,7 +832,7 @@ public class LogicManagerTest {
         List<Task> threeDeadlines = helper.generateDeadlineList(3);
         List<Task> threeTodos = helper.generateTodoList(3);
 
-        TaskBook expectedAB = helper.generateAddressBook(threePersons, threeDeadlines, threeTodos);
+        TaskBook expectedAB = helper.generateTaskBook(threePersons, threeDeadlines, threeTodos);
         expectedAB.removeTask(threePersons.get(2));
 
         helper.addToModel(model, threePersons, threeDeadlines, threeTodos);
@@ -830,7 +852,7 @@ public class LogicManagerTest {
         List<Task> threeDeadlines = helper.generateDeadlineList(3);
         List<Task> threeTodos = helper.generateTodoList(3);
 
-        TaskBook expectedAB = helper.generateAddressBook(threePersons, threeDeadlines, threeTodos);
+        TaskBook expectedAB = helper.generateTaskBook(threePersons, threeDeadlines, threeTodos);
         expectedAB.removeTask(threeDeadlines.get(1));
 
         helper.addToModel(model, threePersons, threeDeadlines, threeTodos);
@@ -850,7 +872,7 @@ public class LogicManagerTest {
         List<Task> threeDeadlines = helper.generateDeadlineList(3);
         List<Task> threeTodos = helper.generateTodoList(3);
 
-        TaskBook expectedAB = helper.generateAddressBook(threePersons, threeDeadlines, threeTodos);
+        TaskBook expectedAB = helper.generateTaskBook(threePersons, threeDeadlines, threeTodos);
         expectedAB.removeTask(threeTodos.get(1));
 
         helper.addToModel(model, threePersons, threeDeadlines, threeTodos);
@@ -870,7 +892,7 @@ public class LogicManagerTest {
         List<Task> threeDeadlines = helper.generateDeadlineList(3);
         List<Task> threeTodos = helper.generateTodoList(3);
 
-        TaskBook expectedAB = helper.generateAddressBook(threePersons, threeDeadlines, threeTodos);
+        TaskBook expectedAB = helper.generateTaskBook(threePersons, threeDeadlines, threeTodos);
         expectedAB.removeTask(threePersons.get(0));
         expectedAB.removeTask(threePersons.get(1));
         expectedAB.removeTask(threePersons.get(2));
@@ -891,7 +913,7 @@ public class LogicManagerTest {
         List<Task> threeDeadlines = helper.generateDeadlineList(3);
         List<Task> threeTodos = helper.generateTodoList(3);
 
-        TaskBook expectedAB = helper.generateAddressBook(threePersons, threeDeadlines, threeTodos);
+        TaskBook expectedAB = helper.generateTaskBook(threePersons, threeDeadlines, threeTodos);
         expectedAB.removeTask(threePersons.get(0));
         expectedAB.removeTask(threePersons.get(1));
         expectedAB.removeTask(threePersons.get(2));
@@ -912,7 +934,7 @@ public class LogicManagerTest {
         List<Task> threeDeadlines = helper.generateDeadlineList(3);
         List<Task> threeTodos = helper.generateTodoList(3);
 
-        TaskBook expectedAB = helper.generateAddressBook(threePersons, threeDeadlines, threeTodos);
+        TaskBook expectedAB = helper.generateTaskBook(threePersons, threeDeadlines, threeTodos);
         expectedAB.removeTask(threeDeadlines.get(0));
         expectedAB.removeTask(threeDeadlines.get(1));
         expectedAB.removeTask(threeDeadlines.get(2));
@@ -933,7 +955,7 @@ public class LogicManagerTest {
         List<Task> threeDeadlines = helper.generateDeadlineList(3);
         List<Task> threeTodos = helper.generateTodoList(3);
 
-        TaskBook expectedAB = helper.generateAddressBook(threePersons, threeDeadlines, threeTodos);
+        TaskBook expectedAB = helper.generateTaskBook(threePersons, threeDeadlines, threeTodos);
         expectedAB.removeTask(threeDeadlines.get(0));
         expectedAB.removeTask(threeDeadlines.get(1));
         expectedAB.removeTask(threeDeadlines.get(2));
@@ -954,7 +976,7 @@ public class LogicManagerTest {
         List<Task> threeDeadlines = helper.generateDeadlineList(3);
         List<Task> threeTodos = helper.generateTodoList(3);
 
-        TaskBook expectedAB = helper.generateAddressBook(threePersons, threeDeadlines, threeTodos);
+        TaskBook expectedAB = helper.generateTaskBook(threePersons, threeDeadlines, threeTodos);
         expectedAB.removeTask(threeTodos.get(0));
         expectedAB.removeTask(threeTodos.get(1));
         expectedAB.removeTask(threeTodos.get(2));
@@ -975,7 +997,7 @@ public class LogicManagerTest {
         List<Task> threeDeadlines = helper.generateDeadlineList(3);
         List<Task> threeTodos = helper.generateTodoList(3);
 
-        TaskBook expectedAB = helper.generateAddressBook(threePersons, threeDeadlines, threeTodos);
+        TaskBook expectedAB = helper.generateTaskBook(threePersons, threeDeadlines, threeTodos);
         expectedAB.removeTask(threeTodos.get(0));
         expectedAB.removeTask(threeTodos.get(1));
         expectedAB.removeTask(threeTodos.get(2));
@@ -1026,7 +1048,7 @@ public class LogicManagerTest {
         List<Task> threeDeadlines = helper.generateDeadlineList(3);
         List<Task> threeTodos = helper.generateTodoList(3);
 
-        TaskBook expectedAB = helper.generateAddressBook(threePersons, threeDeadlines, threeTodos);
+        TaskBook expectedAB = helper.generateTaskBook(threePersons, threeDeadlines, threeTodos);
         helper.addToModel(model, threePersons, threeDeadlines, threeTodos);
 
         UnmodifiableObservableList<ReadOnlyTask> lastShownEventList = model.getFilteredEventList();
@@ -1048,7 +1070,7 @@ public class LogicManagerTest {
         List<Task> threeDeadlines = helper.generateDeadlineList(3);
         List<Task> threeTodos = helper.generateTodoList(3);
 
-        TaskBook expectedAB = helper.generateAddressBook(threePersons, threeDeadlines, threeTodos);
+        TaskBook expectedAB = helper.generateTaskBook(threePersons, threeDeadlines, threeTodos);
         helper.addToModel(model, threePersons, threeDeadlines, threeTodos);
 
         UnmodifiableObservableList<ReadOnlyTask> lastShownEventList = model.getFilteredEventList();
@@ -1062,79 +1084,79 @@ public class LogicManagerTest {
                 expectedAB.getDeadlineList(),
                 expectedAB.getTodoList());
     }
-
+  
     //@@author A0138993L
     @Test
     public void execute_edit_eventToTodo() throws Exception {
-        TestDataHelper helper = new TestDataHelper();
-        Task p1 = helper.generateEventWithName("lala");
-        Task p2 = helper.generateEventWithName("lalala");
+    	 TestDataHelper helper = new TestDataHelper();
+    	 Task p1 = helper.generateEventWithName("lala");
+         Task p2 = helper.generateEventWithName("lalala");
 
-        Task d1 = helper.generateDeadlineWithName("deadline");
-        Task d2 = helper.generateDeadlineWithName("deadline1");
+         Task d1 = helper.generateDeadlineWithName("deadline");
+         Task d2 = helper.generateDeadlineWithName("deadline1");
 
-        Task t1 = helper.generateTodoWithName("todo");
-        Task t2 = helper.generateTodoWithName("todo1");
-        Task t3 = helper.generateTodoWithName("lala");
-
-        List<Task> twoEvents = helper.generateEventList(p1, p2);
-        List<Task> twoDeadlines = helper.generateDeadlineList(d1, d2);
-        List<Task> twoTodos = helper.generateTodoList(t1, t2);
-
-        List<Task> expectedEventList = helper.generateEventList(p2);
-        List<Task> expectedDeadlinesList = helper.generateDeadlineList(d1, d2);
-        List<Task> expectedTodosList = helper.generateTodoList(t1, t2, t3);
-
-        TaskBook expectedAB = helper.generateAddressBook(twoEvents, twoDeadlines, twoTodos);
-        helper.addToModel(model, twoEvents, twoDeadlines, twoTodos);
-        expectedAB.changeTask(p1, "date no date", 'E');
-        expectedAB.changeTaskCategory();
-
-        assertCommandBehavior("edit E1 date no date",
-                String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, "E", "1", "date no date"),
-                expectedAB,
-                expectedEventList,
-                expectedDeadlinesList,
-                expectedTodosList);
-
+         Task t1 = helper.generateTodoWithName("todo");
+         Task t2 = helper.generateTodoWithName("todo1");
+         Task t3 = helper.generateTodoWithName("lala");
+         
+         List<Task> twoEvents = helper.generateEventList(p1, p2);
+         List<Task> twoDeadlines = helper.generateDeadlineList(d1, d2);
+         List<Task> twoTodos = helper.generateTodoList(t1, t2);
+         
+         List<Task> expectedEventList = helper.generateEventList(p2);
+         List<Task> expectedDeadlinesList = helper.generateDeadlineList(d1, d2);
+         List<Task> expectedTodosList = helper.generateTodoList(t1, t2, t3);
+         
+         TaskBook expectedAB = helper.generateTaskBook(twoEvents, twoDeadlines, twoTodos);
+         helper.addToModel(model, twoEvents, twoDeadlines, twoTodos);
+         expectedAB.changeTask(p1, "date no date", 'E');
+         expectedAB.changeTaskCategory();
+         
+         assertCommandBehavior("edit E1 date no date",
+        		 String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, "E", "1", "date no date"),
+        		 expectedAB,
+        		 expectedEventList,
+        		 expectedDeadlinesList,
+        		 expectedTodosList);
+         
     }
-
+    
     //@@author A0138993L
     @Test
     public void execute_edit_deadlineToTodo() throws Exception {
-        TestDataHelper helper = new TestDataHelper();
-        Task p1 = helper.generateEventWithName("lala");
-        Task p2 = helper.generateEventWithName("lalala");
+    	 TestDataHelper helper = new TestDataHelper();
+    	 Task p1 = helper.generateEventWithName("lala");
+         Task p2 = helper.generateEventWithName("lalala");
 
-        Task d1 = helper.generateDeadlineWithName("deadline");
-        Task d2 = helper.generateDeadlineWithName("deadline1");
+         Task d1 = helper.generateDeadlineWithName("deadline");
+         Task d2 = helper.generateDeadlineWithName("deadline1");
 
-        Task t1 = helper.generateTodoWithName("todo");
-        Task t2 = helper.generateTodoWithName("todo1");
-        Task t3 = helper.generateTodoWithName("deadline");
-
-        List<Task> twoEvents = helper.generateEventList(p1, p2);
-        List<Task> twoDeadlines = helper.generateDeadlineList(d1, d2);
-        List<Task> twoTodos = helper.generateTodoList(t1, t2);
-
-        List<Task> expectedEventList = helper.generateEventList(p1, p2);
-        List<Task> expectedDeadlinesList = helper.generateDeadlineList(d2);
-        List<Task> expectedTodosList = helper.generateTodoList(t1, t2, t3);
-
-        TaskBook expectedAB = helper.generateAddressBook(twoEvents, twoDeadlines, twoTodos);
-        helper.addToModel(model, twoEvents, twoDeadlines, twoTodos);
-        expectedAB.changeTask(d1, "date no date", 'D');
-        expectedAB.changeTaskCategory();
-
-        assertCommandBehavior("edit D1 date no date",
-                String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, "D", "1", "date no date"),
-                expectedAB,
-                expectedEventList,
-                expectedDeadlinesList,
-                expectedTodosList);
-
+         Task t1 = helper.generateTodoWithName("todo");
+         Task t2 = helper.generateTodoWithName("todo1");
+         Task t3 = helper.generateTodoWithName("deadline");
+         
+         List<Task> twoEvents = helper.generateEventList(p1, p2);
+         List<Task> twoDeadlines = helper.generateDeadlineList(d1, d2);
+         List<Task> twoTodos = helper.generateTodoList(t1, t2);
+         
+         List<Task> expectedEventList = helper.generateEventList(p1, p2);
+         List<Task> expectedDeadlinesList = helper.generateDeadlineList(d2);
+         List<Task> expectedTodosList = helper.generateTodoList(t1, t2, t3);
+         
+         TaskBook expectedAB = helper.generateTaskBook(twoEvents, twoDeadlines, twoTodos);
+         helper.addToModel(model, twoEvents, twoDeadlines, twoTodos);
+         expectedAB.changeTask(d1, "date no date", 'D');
+         expectedAB.changeTaskCategory();
+         
+         assertCommandBehavior("edit D1 date no date",
+        		 String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, "D", "1", "date no date"),
+        		 expectedAB,
+        		 expectedEventList,
+        		 expectedDeadlinesList,
+        		 expectedTodosList);
+         
     }
-
+    
     //@@author A0139430L
     @Test
     public void execute_edit_editCorrectEventStart() throws Exception {      
@@ -1143,7 +1165,7 @@ public class LogicManagerTest {
         List<Task> threeDeadlines = helper.generateDeadlineList(3);
         List<Task> threeTodos = helper.generateTodoList(3);
 
-        TaskBook expectedAB = helper.generateAddressBook(threePersons, threeDeadlines, threeTodos);
+        TaskBook expectedAB = helper.generateTaskBook(threePersons, threeDeadlines, threeTodos);
         helper.addToModel(model, threePersons, threeDeadlines, threeTodos);
 
         UnmodifiableObservableList<ReadOnlyTask> lastShownEventList = model.getFilteredEventList();
@@ -1165,7 +1187,7 @@ public class LogicManagerTest {
         List<Task> threeDeadlines = helper.generateDeadlineList(3);
         List<Task> threeTodos = helper.generateTodoList(3);
 
-        TaskBook expectedAB = helper.generateAddressBook(threePersons, threeDeadlines, threeTodos);
+        TaskBook expectedAB = helper.generateTaskBook(threePersons, threeDeadlines, threeTodos);
         helper.addToModel(model, threePersons, threeDeadlines, threeTodos);
 
         UnmodifiableObservableList<ReadOnlyTask> lastShownEventList = model.getFilteredEventList();
@@ -1187,7 +1209,7 @@ public class LogicManagerTest {
         List<Task> threeDeadlines = helper.generateDeadlineList(3);
         List<Task> threeTodos = helper.generateTodoList(3);
 
-        TaskBook expectedAB = helper.generateAddressBook(threePersons, threeDeadlines, threeTodos);
+        TaskBook expectedAB = helper.generateTaskBook(threePersons, threeDeadlines, threeTodos);
         helper.addToModel(model, threePersons, threeDeadlines, threeTodos);
 
         UnmodifiableObservableList<ReadOnlyTask> lastShownEventList = model.getFilteredEventList();
@@ -1209,7 +1231,7 @@ public class LogicManagerTest {
         List<Task> threeDeadlines = helper.generateDeadlineList(3);
         List<Task> threeTodos = helper.generateTodoList(3);
 
-        TaskBook expectedAB = helper.generateAddressBook(threePersons, threeDeadlines, threeTodos);
+        TaskBook expectedAB = helper.generateTaskBook(threePersons, threeDeadlines, threeTodos);
         helper.addToModel(model, threePersons, threeDeadlines, threeTodos);
 
         UnmodifiableObservableList<ReadOnlyTask> lastShownEventList = model.getFilteredEventList();
@@ -1231,7 +1253,7 @@ public class LogicManagerTest {
         List<Task> threeDeadlines = helper.generateDeadlineList(3);
         List<Task> threeTodos = helper.generateTodoList(3);
 
-        TaskBook expectedAB = helper.generateAddressBook(threePersons, threeDeadlines, threeTodos);
+        TaskBook expectedAB = helper.generateTaskBook(threePersons, threeDeadlines, threeTodos);
         helper.addToModel(model, threePersons, threeDeadlines, threeTodos);
 
         assertCommandBehavior("add T1 #.", Tag.MESSAGE_TAG_CONSTRAINTS,
@@ -1249,7 +1271,7 @@ public class LogicManagerTest {
         List<Task> threeDeadlines = helper.generateDeadlineList(3);
         List<Task> threeTodos = helper.generateTodoList(3);
 
-        TaskBook expectedAB = helper.generateAddressBook(threePersons, threeDeadlines, threeTodos);
+        TaskBook expectedAB = helper.generateTaskBook(threePersons, threeDeadlines, threeTodos);
         helper.addToModel(model, threePersons, threeDeadlines, threeTodos);
 
         UnmodifiableObservableList<ReadOnlyTask> lastShownEventList = model.getFilteredEventList();
@@ -1271,7 +1293,7 @@ public class LogicManagerTest {
         List<Task> threeDeadlines = helper.generateDeadlineList(3);
         List<Task> threeTodos = helper.generateTodoList(3);
 
-        TaskBook expectedAB = helper.generateAddressBook(threePersons, threeDeadlines, threeTodos);
+        TaskBook expectedAB = helper.generateTaskBook(threePersons, threeDeadlines, threeTodos);
         helper.addToModel(model, threePersons, threeDeadlines, threeTodos);
 
         UnmodifiableObservableList<ReadOnlyTask> lastShownEventList = model.getFilteredEventList();
@@ -1293,7 +1315,7 @@ public class LogicManagerTest {
         List<Task> threeDeadlines = helper.generateDeadlineList(3);
         List<Task> threeTodos = helper.generateTodoList(3);
 
-        TaskBook expectedAB = helper.generateAddressBook(threePersons, threeDeadlines, threeTodos);
+        TaskBook expectedAB = helper.generateTaskBook(threePersons, threeDeadlines, threeTodos);
         helper.addToModel(model, threePersons, threeDeadlines, threeTodos);
 
         UnmodifiableObservableList<ReadOnlyTask> lastShownEventList = model.getFilteredDeadlineList();
@@ -1315,7 +1337,7 @@ public class LogicManagerTest {
         List<Task> threeDeadlines = helper.generateDeadlineList(3);
         List<Task> threeTodos = helper.generateTodoList(3);
 
-        TaskBook expectedAB = helper.generateAddressBook(threePersons, threeDeadlines, threeTodos);
+        TaskBook expectedAB = helper.generateTaskBook(threePersons, threeDeadlines, threeTodos);
         helper.addToModel(model, threePersons, threeDeadlines, threeTodos);
 
         UnmodifiableObservableList<ReadOnlyTask> lastShownEventList = model.getFilteredTodoList();
@@ -1365,7 +1387,7 @@ public class LogicManagerTest {
         List<Task> expectedTodoList = helper.generateTodoList(TTarget1, TTarget2);
         helper.addToModel(model, fourPersons, fourDeadlines, fourTodos);
 
-        TaskBook expectedAB = helper.generateAddressBook(fourPersons, fourDeadlines, fourTodos);
+        TaskBook expectedAB = helper.generateTaskBook(fourPersons, fourDeadlines, fourTodos);
 
         assertCommandBehavior("find KEY",
                 Command.getMessageForTaskListShownSummary(expectedList.size(), expectedDeadlineList.size(), expectedTodoList.size()),
@@ -1396,7 +1418,7 @@ public class LogicManagerTest {
         List<Task> fourEvents = helper.generateEventList(p3, p1, p4, p2);
         List<Task> fourDeadlines = helper.generateDeadlineList(d3, d1, d4, d2);
         List<Task> fourTodos = helper.generateTodoList(t3, t1, t4, t2);
-        TaskBook expectedAB = helper.generateAddressBook(fourEvents, fourDeadlines, fourTodos);
+        TaskBook expectedAB = helper.generateTaskBook(fourEvents, fourDeadlines, fourTodos);
         List<Task> expectedList = fourEvents;
         List<Task> expectedDeadlineList = fourDeadlines;
         List<Task> expectedTodoList = fourTodos;
@@ -1589,44 +1611,44 @@ public class LogicManagerTest {
 
         /**
          * @@author A0138993L
-         * Generates an AddressBook with auto-generated persons.
+         * Generates an TaskBook with auto-generated persons.
          */
-        TaskBook generateAddressBook(int numGenerated, int numGenerated2, int numGenerated3) throws Exception{
-            TaskBook addressBook = new TaskBook();
-            addToAddressBook(addressBook, numGenerated, numGenerated2, numGenerated3);
-            return addressBook;
+        TaskBook generateTaskBook(int numGenerated, int numGenerated2, int numGenerated3) throws Exception{
+            TaskBook TaskBook = new TaskBook();
+            addToTaskBook(TaskBook, numGenerated, numGenerated2, numGenerated3);
+            return TaskBook;
         }
 
         /**
          * @@author A0138993L
-         * Generates an AddressBook based on the list of Persons given.
+         * Generates an TaskBook based on the list of Persons given.
          */
-        TaskBook generateAddressBook(List<Task> persons, List<Task> deadlines, List<Task> todos) throws Exception{
-            TaskBook addressBook = new TaskBook();
-            addToAddressBook(addressBook, persons, deadlines, todos);
-            return addressBook;
+        TaskBook generateTaskBook(List<Task> persons, List<Task> deadlines, List<Task> todos) throws Exception{
+            TaskBook TaskBook = new TaskBook();
+            addToTaskBook(TaskBook, persons, deadlines, todos);
+            return TaskBook;
         }
 
         /**
-         * Adds auto-generated Task objects to the given AddressBook
-         * @param addressBook The AddressBook to which the Persons will be added
+         * Adds auto-generated Task objects to the given TaskBook
+         * @param TaskBook The TaskBook to which the Persons will be added
          */
-        void addToAddressBook(TaskBook addressBook, int numGenerated, int numGenerated2, int numGenerated3) throws Exception{
-            addToAddressBook(addressBook, generateEventsList(numGenerated), generateDeadlineList(numGenerated2), generateTodoList(numGenerated3));
+        void addToTaskBook(TaskBook TaskBook, int numGenerated, int numGenerated2, int numGenerated3) throws Exception{
+            addToTaskBook(TaskBook, generateEventsList(numGenerated), generateDeadlineList(numGenerated2), generateTodoList(numGenerated3));
         }
 
         /**
-         * Adds the given list of Persons to the given AddressBook
+         * Adds the given list of Persons to the given TaskBook
          */
-        void addToAddressBook(TaskBook addressBook, List<Task> personsToAdd, List<Task> deadlinesToAdd, List<Task> todoToAdd) throws Exception{
+        void addToTaskBook(TaskBook TaskBook, List<Task> personsToAdd, List<Task> deadlinesToAdd, List<Task> todoToAdd) throws Exception{
             for(Task p: personsToAdd){
-                addressBook.addTask(p);
+                TaskBook.addTask(p);
             }
             for(Task p: deadlinesToAdd){
-                addressBook.addTask(p);
+                TaskBook.addTask(p);
             }
             for(Task p: todoToAdd){
-                addressBook.addTask(p);
+                TaskBook.addTask(p);
             }
         }
 

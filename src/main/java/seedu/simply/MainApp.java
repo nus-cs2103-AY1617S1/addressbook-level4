@@ -79,19 +79,19 @@ public class MainApp extends Application {
     }
 
     private Model initModelManager(Storage storage, UserPrefs userPrefs, Config config) {
-        Optional<ReadOnlyTaskBook> addressBookOptional;
+        Optional<ReadOnlyTaskBook> taskBookOptional;
         ReadOnlyTaskBook initialData;
         try {
-            addressBookOptional = storage.readAddressBook();
-            if(!addressBookOptional.isPresent()){
-                logger.info("Data file not found. Will be starting with an empty AddressBook");
+            taskBookOptional = storage.readTaskBook();
+            if(!taskBookOptional.isPresent()){
+                logger.info("Data file not found. Will be starting with an empty TaskBook");
             }
-            initialData = addressBookOptional.orElse(new TaskBook());
+            initialData = taskBookOptional.orElse(new TaskBook());
         } catch (DataConversionException e) {
-            logger.warning("Data file not in the correct format. Will be starting with an empty AddressBook");
+            logger.warning("Data file not in the correct format. Will be starting with an empty TaskBook");
             initialData = new TaskBook();
         } catch (IOException e) {
-            logger.warning("Problem while reading from the file. . Will be starting with an empty AddressBook");
+            logger.warning("Problem while reading from the file. . Will be starting with an empty TaskBook");
             initialData = new TaskBook();
         }
 
@@ -135,11 +135,11 @@ public class MainApp extends Application {
 
     protected String getTaskBookFilePath(String configFilePath) {
         Config currentConfig;
-        String currentAddressBookFilePath;
+        String currentTaskBookFilePath;
 
         currentConfig = initConfig(configFilePath);
-        currentAddressBookFilePath = currentConfig.getTaskBookFilePath();
-        return currentAddressBookFilePath;
+        currentTaskBookFilePath = currentConfig.getTaskBookFilePath();
+        return currentTaskBookFilePath;
     }
 
     protected UserPrefs initPrefs(Config config) {
@@ -157,7 +157,7 @@ public class MainApp extends Application {
                     "Using default user prefs");
             initializedPrefs = new UserPrefs();
         } catch (IOException e) {
-            logger.warning("Problem while reading from the file. . Will be starting with an empty AddressBook");
+            logger.warning("Problem while reading from the file. . Will be starting with an empty TaskBook");
             initializedPrefs = new UserPrefs();
         }
 
@@ -177,14 +177,14 @@ public class MainApp extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        logger.info("Starting AddressBook " + MainApp.VERSION);
+        logger.info("Starting TaskBook " + MainApp.VERSION);
         ui.start(primaryStage);
     }
 
     //@@author A0147890U
     @Override
     public void stop() {
-        logger.info("============================ [ Stopping Address Book ] =============================");
+        logger.info("============================ [ Stopping Task Book ] =============================");
         ui.stop();
         
         saveUserPreferences();
@@ -221,7 +221,7 @@ public class MainApp extends Application {
 
     //@@author A0147890U
     private Path getSourceFilePath() {
-        String sourceFile = storage.getAddressBookFilePath();
+        String sourceFile = storage.getTaskBookFilePath();
         Path sourceFilePath = Paths.get(sourceFile);
         return sourceFilePath;
     }

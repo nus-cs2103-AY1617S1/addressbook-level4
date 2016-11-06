@@ -9,7 +9,7 @@ import seedu.simply.commons.events.ui.JumpToListRequestEvent;
 import seedu.simply.model.task.ReadOnlyTask;
 
 /**
- * Selects a task identified using it's last displayed index from the address book.
+ * Selects a task identified using it's last displayed index from the task book.
  */
 public class SelectCommand extends Command {
 
