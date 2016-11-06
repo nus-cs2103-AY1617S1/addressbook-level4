@@ -404,12 +404,13 @@ public class TaskDate {
         } else if (date.contains(" ")) {
             dateComponent = date.split(" ");
         } else if (date.contains(".")) {
-            dateComponent = date.split(".");
+            dateComponent = date.split("\\.");
         } else {
             dateComponent[DATE_COMPONENT_DAY] = date.substring(0, 2);
             dateComponent[DATE_COMPONENT_MONTH] = date.substring(2, 4);
             dateComponent[DATE_COMPONENT_YEAR] = date.substring(4);
         }
+
         if (dateComponent[DATE_COMPONENT_DAY].length() < 2) {
             dateComponent[DATE_COMPONENT_DAY] = 0 + dateComponent[DATE_COMPONENT_DAY];
         }
@@ -421,7 +422,6 @@ public class TaskDate {
         }
         String formattedDate = dateComponent[DATE_COMPONENT_DAY] + "/" + dateComponent[DATE_COMPONENT_MONTH] + "/"
                 + dateComponent[DATE_COMPONENT_YEAR];
-
         return formattedDate;
     }
 
