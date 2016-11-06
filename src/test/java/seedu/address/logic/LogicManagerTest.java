@@ -445,7 +445,7 @@ public class LogicManagerTest {
 
         //@@author A0135812L
         /** Generates the correct edit command based on the index given */
-        String generateEditCommand(int i, Task p) {
+        private String generateEditCommand(int i, Task p) {
             StringJoiner cmd = new StringJoiner(" ");
 
             cmd.add("edit");
@@ -466,7 +466,7 @@ public class LogicManagerTest {
 
         /** Generates the correct partial edit command based on the index given */
         // TODO: Note from Filbert, Always Ensure this command is in sync.
-        String generatePartialEditCommand(int i, Task p) {
+        private String generatePartialEditCommand(int i, Task p) {
             StringJoiner cmd = new StringJoiner(" ");
 
             cmd.add("edit");
@@ -479,7 +479,7 @@ public class LogicManagerTest {
             return cmd.toString();
         }
 
-        String generateEditNameCommand(int i, String name) {
+        private String generateEditNameCommand(int i, String name) {
             StringJoiner cmd = new StringJoiner(" ");
 
             cmd.add("edit");

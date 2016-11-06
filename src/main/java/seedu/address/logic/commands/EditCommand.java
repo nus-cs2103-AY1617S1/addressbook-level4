@@ -136,9 +136,9 @@ public class EditCommand extends Command implements Undoable {
             throws InstantiationException, IllegalValueException, NoSuchMethodException, 
             SecurityException, IllegalAccessException, InvocationTargetException{
         Class type;
-        if(field.getName() == "time"){
+        if(field.getName().equalsIgnoreCase("time")){
             type = Time.class;
-        }else if(field.getName()== "tags"){
+        }else if(field.getName().equalsIgnoreCase("tags")){
             HashSet<Tag> tags = new HashSet<>();
             for(String str : valueString){
                 tags.add(new Tag(str));
