@@ -20,6 +20,8 @@ public class AliasWindow extends UiPart {
     private static final Logger logger = LogsCenter.getLogger(AliasWindow.class);
     private static final String FXML = "AliasWindow.fxml";
     private static final String TITLE = "Alias List";
+    private static final int WINDOW_HEIGHT = 400;
+    private static final int WINDOW_WIDTH = 300;
     
     private VBox rootLayout;
     private Scene scene;
@@ -29,8 +31,6 @@ public class AliasWindow extends UiPart {
     
     @FXML
     private AnchorPane aliasListPanelPlaceholder;
-    
-
 
     public static AliasWindow load(Stage primaryStage, Logic logic) {
         logger.fine("Showing list of aliases.");
@@ -58,10 +58,11 @@ public class AliasWindow extends UiPart {
         
     }
     
+    // Set appropriate dimensions
     public void setDimensions() {
-        dialogStage.setMinHeight(400);
-        dialogStage.setMaxHeight(400);
-        dialogStage.setMinWidth(300);
+        dialogStage.setMinHeight(WINDOW_HEIGHT);
+        dialogStage.setMaxHeight(WINDOW_HEIGHT);
+        dialogStage.setMinWidth(WINDOW_WIDTH);
     }
 
     public void show() {

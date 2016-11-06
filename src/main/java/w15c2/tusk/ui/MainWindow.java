@@ -175,23 +175,23 @@ public class MainWindow extends UiPart {
             primaryStage.setY(prefs.getGuiSettings().getWindowCoordinates().getY());
         }
     }
-
+  //@@author A0139708W
     private void setWindowMinSize() {
         primaryStage.setMinHeight(MIN_HEIGHT);
         primaryStage.setMinWidth(MIN_WIDTH);
     }
-  //@@author A0139708W
-    void hideHelp() {
+  
+    public void hideHelp() {
         helpListPanelPlaceholder.getParent().toBack();
         helpListPanelPlaceholder.getParent().setOpacity(0);
     }
     
-    void showHelp() {
+    public void showHelp() {
         helpListPanelPlaceholder.getParent().toFront();
         helpListPanelPlaceholder.getParent().setOpacity(100);
     }
 
-    /**
+    /*
      * Returns the current size and the position of the main Window.
      */
     public GuiSettings getCurrentGuiSetting() {
@@ -199,6 +199,7 @@ public class MainWindow extends UiPart {
                 (int) primaryStage.getX(), (int) primaryStage.getY());
     }
     
+    //Choose appropriate CSS to enable depending on list shown
     public void handleFilterLabelChange(COMMANDTYPE commandType) {
         if (commandType == COMMANDTYPE.List) {
             setListLabelActive();
@@ -247,7 +248,7 @@ public class MainWindow extends UiPart {
     public void TaskListPanelScroll(int targetIndex) {
         taskListPanel.scrollTo(targetIndex);
     }
-
+    //@@author
     public void show() {
         primaryStage.show();
     }

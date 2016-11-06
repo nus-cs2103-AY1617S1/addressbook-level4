@@ -7,6 +7,9 @@ import javafx.scene.layout.HBox;
 import w15c2.tusk.model.Alias;
 
 //@@author A0139708W
+/*
+ * Card for alias list panel
+*/
 public class AliasCard extends UiPart{
         private static final String FXML = "AliasListCard.fxml";
 
@@ -23,16 +26,15 @@ public class AliasCard extends UiPart{
         private int displayedIndex;
 
         public AliasCard(){
-
         }
-
+        
         public static AliasCard load(Alias alias, int displayedIndex){
             AliasCard card = new AliasCard();
             card.alias = alias;
             card.displayedIndex = displayedIndex;
             return UiPartLoader.loadUiPart(card);
         }
-
+        
         @FXML
         public void initialize() {
             cardAlias.setText(alias.getShortcut());

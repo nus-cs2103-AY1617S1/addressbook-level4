@@ -291,7 +291,8 @@ public class ModelManager extends ComponentManager implements Model {
         ObservableList<HelpGuide> helpItems = FXCollections.observableArrayList (TaskCommandList.getHelpList());
         return helpItems;
     }
-	
+    
+	//@@author
     /** Keeps the internal ObservableList sorted.
      * Raises an event to indicate the model has changed.
      */
@@ -357,7 +358,7 @@ public class ModelManager extends ComponentManager implements Model {
 	}
     
    
-  //@@author A0139708W
+  //@@author A0139708W-reused
 	interface Expression {
         boolean satisfies(Task task);
         String toString();

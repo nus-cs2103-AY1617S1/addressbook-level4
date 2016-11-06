@@ -17,9 +17,14 @@ import w15c2.tusk.commons.core.LogsCenter;
 import w15c2.tusk.model.HelpGuide;
 
 //@@author A0139708W
+/*
+ * Help Overlay Display
+*/
 public class HelpPanel extends UiPart {
     private final Logger logger = LogsCenter.getLogger(HelpPanel.class);
     private static final String FXML = "HelpListPanel.fxml";
+    private static final String COMMAND_COL_TITLE = "Command";
+    private static final String FORMAT_COL_TITLE = "Format";
     private VBox panel;
     private AnchorPane placeHolderPane;
 
@@ -63,21 +68,34 @@ public class HelpPanel extends UiPart {
 
     private void setConnections(ObservableList<HelpGuide> helpList) {
         helpListView.setItems(helpList);
-        TableColumn commandCol = new TableColumn("Command");
-        TableColumn formatCol = new TableColumn("Format");
-        commandCol.setCellValueFactory(new PropertyValueFactory<HelpGuide, String>("name"));
-        formatCol.setCellValueFactory(new PropertyValueFactory<HelpGuide, String>("args"));
-        commandCol.setSortable(false);
-        formatCol.setSortable(false);
-        helpListView.getColumns().addAll(commandCol, formatCol);
+        TableColumn<HelpGuide,String> commandCol = createCommandCol();
+        TableColumn<HelpGuide,String> formatCol = createFormatCol();
+        helpListView.getColumns().add(commandCol);
+        helpListView.getColumns().add(formatCol);
+        
+        //Prevent selection of cells
         helpListView.setSelectionModel(null);
         helpLabel.setText("Help");
+    }
+    
+    // Create Command Column without sorting
+    private TableColumn<HelpGuide,String> createCommandCol() {
+        TableColumn<HelpGuide,String> commandCol = new TableColumn<HelpGuide,String>(COMMAND_COL_TITLE);
+        commandCol.setCellValueFactory(new PropertyValueFactory<HelpGuide, String>("name"));
+        commandCol.setSortable(false);
+        return commandCol;
+    }
+    
+    // Create Format column without sorting
+    private TableColumn<HelpGuide,String> createFormatCol() {
+        TableColumn<HelpGuide,String> formatCol = new TableColumn<HelpGuide,String>(FORMAT_COL_TITLE);
+        formatCol.setCellValueFactory(new PropertyValueFactory<HelpGuide, String>("format"));
+        formatCol.setSortable(false);
+        return formatCol;
     }
     private void addToPlaceholder() {
         placeHolderPane.getChildren().add(panel);
 
     }
-
-
 
 }
