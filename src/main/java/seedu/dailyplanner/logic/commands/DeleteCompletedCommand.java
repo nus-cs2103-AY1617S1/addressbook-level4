@@ -40,6 +40,7 @@ public class DeleteCompletedCommand extends Command {
 			try {
 				model.getHistory().stackAddInstruction(taskToDelete);
 				model.deletePerson(taskToDelete);
+				model.updatePinBoard();
 
 			} catch (PersonNotFoundException pnfe) {
 				assert false : "The target task cannot be missing";

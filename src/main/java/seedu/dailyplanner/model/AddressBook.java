@@ -17,171 +17,176 @@ import java.util.stream.Collectors;
  */
 public class AddressBook implements ReadOnlyAddressBook {
 
-    private final UniqueTaskList persons;
-    private final UniqueTagList tags;
+	private final UniqueTaskList persons;
+	private final UniqueTagList tags;
 
-    {
-        persons = new UniqueTaskList();
-        tags = new UniqueTagList();
-    }
-
-    public AddressBook() {}
-
-    /**
-     * Persons and Tags are copied into this addressbook
-     */
-    public AddressBook(ReadOnlyAddressBook toBeCopied) {
-        this(toBeCopied.getUniquePersonList(), toBeCopied.getUniqueTagList());
-    }
-
-    /**
-     * Persons and Tags are copied into this addressbook
-     */
-    public AddressBook(UniqueTaskList persons, UniqueTagList tags) {
-        resetData(persons.getInternalList(), tags.getInternalList());
-    }
-
-    public static ReadOnlyAddressBook getEmptyAddressBook() {
-        return new AddressBook();
-    }
-
-//// list overwrite operations
-
-    public ObservableList<Task> getPersons() {
-        return persons.getInternalList();
-    }
-    
-    public ObservableList<Task> getPinnedTasks() {
-   	return persons.getInternalPinnedList();
-       }
-
-    public void setPersons(List<Task> persons) {
-        this.persons.getInternalList().setAll(persons);
-    }
-
-    public void setTags(Collection<Tag> tags) {
-        this.tags.getInternalList().setAll(tags);
-    }
-
-    public void resetData(Collection<? extends ReadOnlyTask> newPersons, Collection<Tag> newTags) {
-        setPersons(newPersons.stream().map(Task::new).collect(Collectors.toList()));
-        setTags(newTags);
-    }
-
-    public void resetData(ReadOnlyAddressBook newData) {
-        resetData(newData.getPersonList(), newData.getTagList());
-    }
-
-//// person-level operations
-
-    /**
-     * Adds a person to the address book.
-     * Also checks the new person's tags and updates {@link #tags} with any new tags found,
-     * and updates the Tag objects in the person to point to those in {@link #tags}.
-     *
-     * @throws UniqueTaskList.DuplicatePersonException if an equivalent person already exists.
-     */
-    public void addPerson(Task p) throws UniqueTaskList.DuplicatePersonException {
-        syncTagsWithMasterList(p);
-        persons.add(p);
-    }
-
-    /**
-     * Ensures that every tag in this person:
-     *  - exists in the master list {@link #tags}
-     *  - points to a Tag object in the master list
-     */
-    private void syncTagsWithMasterList(Task person) {
-        final UniqueTagList personTags = person.getTags();
-        tags.mergeFrom(personTags);
-
-        // Create map with values = tag object references in the master list
-        final Map<Tag, Tag> masterTagObjects = new HashMap<>();
-        for (Tag tag : tags) {
-            masterTagObjects.put(tag, tag);
-        }
-
-        // Rebuild the list of person tags using references from the master list
-        final Set<Tag> commonTagReferences = new HashSet<>();
-        for (Tag tag : personTags) {
-            commonTagReferences.add(masterTagObjects.get(tag));
-        }
-        person.setTags(new UniqueTagList(commonTagReferences));
-    }
-
-    public boolean removePerson(ReadOnlyTask key) throws UniqueTaskList.PersonNotFoundException {
-        if (persons.remove(key)) {
-            return true;
-        } else {
-            throw new UniqueTaskList.PersonNotFoundException();
-        }
-    }
-    
-    public void markTaskAsComplete(ReadOnlyTask key) throws UniqueTaskList.PersonNotFoundException {
-        persons.complete(key);
-    }
-
-    public void pinTask(ReadOnlyTask taskToPin) throws PersonNotFoundException {
-    	persons.pin(taskToPin);
-    }
-    
-    public void unpinTask(int targetIndex) {
-    	persons.unpin(targetIndex);
+	{
+		persons = new UniqueTaskList();
+		tags = new UniqueTagList();
 	}
-    
+
+	public AddressBook() {
+	}
+
+	/**
+	 * Persons and Tags are copied into this addressbook
+	 */
+	public AddressBook(ReadOnlyAddressBook toBeCopied) {
+		this(toBeCopied.getUniquePersonList(), toBeCopied.getUniqueTagList());
+	}
+
+	/**
+	 * Persons and Tags are copied into this addressbook
+	 */
+	public AddressBook(UniqueTaskList persons, UniqueTagList tags) {
+		resetData(persons.getInternalList(), tags.getInternalList());
+	}
+
+	public static ReadOnlyAddressBook getEmptyAddressBook() {
+		return new AddressBook();
+	}
+
+	//// list overwrite operations
+
+	public ObservableList<Task> getPersons() {
+		return persons.getInternalList();
+	}
+
+	public ObservableList<Task> getPinnedTasks() {
+		return persons.getInternalPinnedList();
+	}
+
+	public void setPersons(List<Task> persons) {
+		this.persons.getInternalList().setAll(persons);
+	}
+
+	public void setTags(Collection<Tag> tags) {
+		this.tags.getInternalList().setAll(tags);
+	}
+
+	public void resetData(Collection<? extends ReadOnlyTask> newPersons, Collection<Tag> newTags) {
+		setPersons(newPersons.stream().map(Task::new).collect(Collectors.toList()));
+		setTags(newTags);
+	}
+
+	public void resetData(ReadOnlyAddressBook newData) {
+		resetData(newData.getPersonList(), newData.getTagList());
+	}
+
+	public void updatePinBoard() {
+		persons.updatePinBoard();
+	}
+
+	//// person-level operations
+
+	/**
+	 * Adds a person to the address book. Also checks the new person's tags and
+	 * updates {@link #tags} with any new tags found, and updates the Tag
+	 * objects in the person to point to those in {@link #tags}.
+	 *
+	 * @throws UniqueTaskList.DuplicatePersonException
+	 *             if an equivalent person already exists.
+	 */
+	public void addPerson(Task p) throws UniqueTaskList.DuplicatePersonException {
+		syncTagsWithMasterList(p);
+		persons.add(p);
+	}
+
+	/**
+	 * Ensures that every tag in this person: - exists in the master list
+	 * {@link #tags} - points to a Tag object in the master list
+	 */
+	private void syncTagsWithMasterList(Task person) {
+		final UniqueTagList personTags = person.getTags();
+		tags.mergeFrom(personTags);
+
+		// Create map with values = tag object references in the master list
+		final Map<Tag, Tag> masterTagObjects = new HashMap<>();
+		for (Tag tag : tags) {
+			masterTagObjects.put(tag, tag);
+		}
+
+		// Rebuild the list of person tags using references from the master list
+		final Set<Tag> commonTagReferences = new HashSet<>();
+		for (Tag tag : personTags) {
+			commonTagReferences.add(masterTagObjects.get(tag));
+		}
+		person.setTags(new UniqueTagList(commonTagReferences));
+	}
+
+	public boolean removePerson(ReadOnlyTask key) throws UniqueTaskList.PersonNotFoundException {
+		if (persons.remove(key)) {
+			return true;
+		} else {
+			throw new UniqueTaskList.PersonNotFoundException();
+		}
+	}
+
+	public void markTaskAsComplete(ReadOnlyTask key) throws UniqueTaskList.PersonNotFoundException {
+		persons.complete(key);
+	}
+
+	public void pinTask(ReadOnlyTask taskToPin) throws PersonNotFoundException {
+		persons.pin(taskToPin);
+	}
+
+	public void unpinTask(int targetIndex) {
+		persons.unpin(targetIndex);
+	}
+
 	public void resetPinBoard() {
 		persons.resetPinBoard();
 	}
-    
-    public int indexOf(Task task) {
-        return persons.getIndexOf(task);
-    }
-//// tag-level operations
 
-    public void addTag(Tag t) throws UniqueTagList.DuplicateTagException {
-        tags.add(t);
-    }
+	public int indexOf(Task task) {
+		return persons.getIndexOf(task);
+	}
+	//// tag-level operations
 
-//// util methods
+	public void addTag(Tag t) throws UniqueTagList.DuplicateTagException {
+		tags.add(t);
+	}
 
-    @Override
-    public String toString() {
-        return persons.getInternalList().size() + " persons, " + tags.getInternalList().size() +  " tags";
-        // TODO: refine later
-    }
+	//// util methods
 
-    @Override
-    public List<ReadOnlyTask> getPersonList() {
-        return Collections.unmodifiableList(persons.getInternalList());
-    }
+	@Override
+	public String toString() {
+		return persons.getInternalList().size() + " persons, " + tags.getInternalList().size() + " tags";
+		// TODO: refine later
+	}
 
-    @Override
-    public List<Tag> getTagList() {
-        return Collections.unmodifiableList(tags.getInternalList());
-    }
+	@Override
+	public List<ReadOnlyTask> getPersonList() {
+		return Collections.unmodifiableList(persons.getInternalList());
+	}
 
-    @Override
-    public UniqueTaskList getUniquePersonList() {
-        return this.persons;
-    }
+	@Override
+	public List<Tag> getTagList() {
+		return Collections.unmodifiableList(tags.getInternalList());
+	}
 
-    @Override
-    public UniqueTagList getUniqueTagList() {
-        return this.tags;
-    }
+	@Override
+	public UniqueTaskList getUniquePersonList() {
+		return this.persons;
+	}
 
+	@Override
+	public UniqueTagList getUniqueTagList() {
+		return this.tags;
+	}
 
-    @Override
-    public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof AddressBook // instanceof handles nulls
-                && this.persons.equals(((AddressBook) other).persons)
-                && this.tags.equals(((AddressBook) other).tags));
-    }
+	@Override
+	public boolean equals(Object other) {
+		return other == this // short circuit if same object
+				|| (other instanceof AddressBook // instanceof handles nulls
+						&& this.persons.equals(((AddressBook) other).persons)
+						&& this.tags.equals(((AddressBook) other).tags));
+	}
 
-    @Override
-    public int hashCode() {
-        // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(persons, tags);
-    }
+	@Override
+	public int hashCode() {
+		// use this method for custom fields hashing instead of implementing
+		// your own
+		return Objects.hash(persons, tags);
+	}
 }

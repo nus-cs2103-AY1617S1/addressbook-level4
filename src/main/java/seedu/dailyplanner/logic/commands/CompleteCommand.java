@@ -41,6 +41,7 @@ public class CompleteCommand extends Command {
 
         try {
             model.markTaskAsComplete(taskToComplete);
+            model.updatePinBoard();
         } catch (PersonNotFoundException pnfe) {
             assert false : "The target task cannot be missing";
         }

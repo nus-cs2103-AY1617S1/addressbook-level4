@@ -55,7 +55,7 @@ public class AddCommand extends Command {
         	personList =  model.getAddressBook().getPersonList();
         	model.getHistory().stackDeleteInstruction(toAdd);
             model.addPerson(toAdd);
-            
+            model.updatePinBoard();
             
         	if (checkClash(toAdd) > -1)
 				return new CommandResult(String.format(MESSAGE_WARNING_CLASH, personList.get(checkClash(toAdd))));

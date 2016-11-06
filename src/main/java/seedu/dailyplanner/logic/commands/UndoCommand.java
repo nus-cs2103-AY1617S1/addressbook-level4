@@ -79,7 +79,7 @@ public class UndoCommand extends Command {
 				e.printStackTrace();
 			}
 		}
-
+		model.updatePinBoard();
 		return new CommandResult(String.format(MESSAGE_SUCCESS));
 
 	}

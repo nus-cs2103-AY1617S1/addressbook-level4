@@ -5,6 +5,7 @@ import seedu.dailyplanner.commons.core.Messages;
 import seedu.dailyplanner.commons.core.UnmodifiableObservableList;
 import seedu.dailyplanner.commons.events.ui.JumpToListRequestEvent;
 import seedu.dailyplanner.model.task.ReadOnlyTask;
+import seedu.dailyplanner.model.task.UniqueTaskList.DuplicatePersonException;
 import seedu.dailyplanner.model.task.UniqueTaskList.PersonNotFoundException;
 
 /**
@@ -21,7 +22,8 @@ public class PinCommand extends Command {
 			+ ": Pins the task identified by the index number used in the last task listing on the pin board.\n"
 			+ "Format: [INDEX] (must be a positive integer)\n" + "Example: " + COMMAND_WORD + " 1";
 
-	public static final String MESSAGE_COMPLETED_TASK_SUCCESS = "Pinned Task: %1$s";
+	public static final String MESSAGE_PINNED_TASK_SUCCESS = "Pinned Task: %1$s";
+	public static final String MESSAGE_DUPLICATE_PINNED_TASK = "Task is already pinned.";
 
 	public PinCommand(int targetIndex) {
 		this.targetIndex = targetIndex;
@@ -36,16 +38,21 @@ public class PinCommand extends Command {
 			indicateAttemptToExecuteIncorrectCommand();
 			return new CommandResult(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
 		}
-
+		
 		ReadOnlyTask taskToPin = lastShownList.get(targetIndex - 1);
 
+		if (model.getPinnedTaskList().contains(taskToPin)) {
+			indicateAttemptToExecuteIncorrectCommand();
+			return new CommandResult(MESSAGE_DUPLICATE_PINNED_TASK);
+		}
+		
 		try {
 			model.getHistory().stackUnpinInstruction(taskToPin);
 			model.pinTask(taskToPin);
 		} catch (PersonNotFoundException pnfe) {
 			assert false : "The target task cannot be missing";
 		}
-		return new CommandResult(String.format(MESSAGE_COMPLETED_TASK_SUCCESS, taskToPin));
+		return new CommandResult(String.format(MESSAGE_PINNED_TASK_SUCCESS, taskToPin));
 	}
 
 }

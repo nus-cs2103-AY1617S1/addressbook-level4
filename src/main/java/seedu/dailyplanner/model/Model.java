@@ -80,6 +80,9 @@ public interface Model {
 
     /** Resets the pinboard to an empty pinboard */
 	public void resetPinBoard();
+	
+	/** Refreshes the pin board after a command is carried out */
+	public void updatePinBoard();
 
 
 }

@@ -118,6 +118,11 @@ public class ModelManager extends ComponentManager implements Model {
 		addressBook.unpinTask(targetIndex);
 		indicateAddressBookChanged();
 	}
+	
+	@Override
+	public void updatePinBoard() {
+		addressBook.updatePinBoard();
+	}
 
 	// =========== Filtered Person List Accessors
 	// ===============================================================

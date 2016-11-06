@@ -129,7 +129,15 @@ public class UniqueTaskList implements Iterable<Task> {
 		int internalListIndex = internalList.indexOf(taskToUnpin);
 		internalList.set(internalListIndex, taskToUnpin);
 		pinnedList.remove(taskToUnpin);
-
+	}
+	
+	public void updatePinBoard() {
+		pinnedList.clear();
+		for (Task t : internalList) {
+			if (t.isPinned()) {
+				pinnedList.add(t);
+			}
+		}
 	}
 
 	public ObservableList<Task> getInternalList() {
@@ -137,11 +145,7 @@ public class UniqueTaskList implements Iterable<Task> {
 	}
 
 	public ObservableList<Task> getInternalPinnedList() {
-		for (Task t : internalList) {
-			if (t.isPinned()) {
-				pinnedList.add(t);
-			}
-		}
+		updatePinBoard();
 		return pinnedList;
 	}
 
@@ -161,5 +165,4 @@ public class UniqueTaskList implements Iterable<Task> {
 	public int hashCode() {
 		return internalList.hashCode();
 	}
-
 }
