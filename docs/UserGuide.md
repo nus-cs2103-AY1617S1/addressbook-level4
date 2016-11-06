@@ -4,8 +4,19 @@
 * [Getting Started](#getting-started)
 * [Features](#features)
    * [Add command](#1-add-command)
-   
+   * [Edit a task](#2-edit-a-task)
+   * [Find task by Keyword](#3-find-task-by-keyword)
+   * [Marking tasks as done](#4-marking-tasks-as-done)
+   * [Display tasks](#5-display-tasks)
+   * [Delete task](#6-delete-task)
+   * [Undo the Most Recent Commands](#7-undo-the-most-recent-commands)
+   * [Redo the Most Recent Undone Commands](#8-redo-the-most-recent-undone-commands)
+   * [Clearing the program](#9-clearing-the-program)
+   * [Exiting the program](#10-exiting-the-program) 
+   * [Help](#11-help)
+   * [Setting Storage Folder](#12-setting-storage-folder)
 * [How do I transfer my data to another computer?](#how-do-I-transfer-my-data-to-another-computer)
+* [Date & Time Formats](#date-time-formats-accepted)
 * [Command Summary](#command-summary)
 
 <br>
