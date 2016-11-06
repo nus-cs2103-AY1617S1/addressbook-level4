@@ -4,7 +4,7 @@
 
 # WhatNow (V0.5rc)
 
-<img src="images\initialDisplay.PNG" width="600"><br>
+<img src="images\initial.PNG" width="600"><br>
 
 Have you ever missed a deadline because you did not write it down?
 
