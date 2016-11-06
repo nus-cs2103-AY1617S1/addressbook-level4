@@ -217,6 +217,10 @@
     -fx-background-color: #00A4FF;
 }
 
+.taskCard.event .highlightedBackground {
+    -fx-background-color: #689f38;
+}
+
 .taskCard .lightBackground {
     -fx-background-color: #777777;
 }
