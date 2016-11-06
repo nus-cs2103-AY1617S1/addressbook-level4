@@ -120,8 +120,8 @@ public class StringUtil {
     
     /** 
      * Returns the first word separated by spaces in {@code text}. 
-     * Adapted from StackOverflow because I'm too lazy to create my own 
-     * method that extracts the first word of a string.
+     * Adapted from stackoverflow.com/questions/5067942/what-is-the-best-way-to-extract-the-first-word-from-a-string-in-java <br> 
+     * because I'm too lazy to create my own method.
      */
     public static String getFirstWord(String text) {
         assert text != null;
