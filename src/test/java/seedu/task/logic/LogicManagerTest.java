@@ -2,6 +2,7 @@ package seedu.task.logic;
 
 import com.google.common.eventbus.Subscribe;
 
+
 import seedu.task.commons.core.EventsCenter;
 import seedu.task.commons.events.model.TaskManagerChangedEvent;
 import seedu.task.commons.events.ui.JumpToListRequestEvent;
@@ -17,7 +18,6 @@ import seedu.task.model.ReadOnlyTaskManager;
 import seedu.task.model.tag.Tag;
 import seedu.task.model.tag.UniqueTagList;
 import seedu.task.model.task.*;
-import seedu.task.storage.StorageManager;
 
 import org.junit.After;
 import org.junit.Before;
@@ -77,9 +77,7 @@ public class LogicManagerTest {
     @Before
     public void setup() {
         model = new ModelManager();
-        String tempTaskManagerFile = saveFolder.getRoot().getPath() + "TempTaskManager.xml";
-        String tempPreferencesFile = saveFolder.getRoot().getPath() + "TempPreferences.json";
-        logic = new LogicManager(model, new StorageManager(tempTaskManagerFile, tempPreferencesFile)); 
+        logic = new LogicManager(model); 
         EventsCenter.getInstance().registerHandler(this);
 
         latestSavedTaskManager = new TaskManager(model.getTaskManager()); // last saved assumed to be up to date before.
@@ -641,7 +639,7 @@ public class LogicManagerTest {
         /**
          * Generates a Task object with given name. Other fields will have some dummy values.
          */
-        Task generateTaskWithName(String name) throws Exception {
+        public Task generateTaskWithName(String name) throws Exception {
             return new Task(
                     new Name(name),
                     DateTime.fromUserInput("tomorrow"),

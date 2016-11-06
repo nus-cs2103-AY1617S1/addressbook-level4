@@ -8,11 +8,11 @@ import org.junit.Test;
 
 import seedu.task.commons.core.Messages;
 import seedu.task.commons.exceptions.IllegalValueException;
-import seedu.task.logic.commands.UpdateCommand;
 import seedu.task.model.tag.Tag;
 import seedu.task.model.task.*;
 import seedu.task.testutil.TestTask;
 import seedu.task.testutil.TestUtil;
+import seedu.task.testutil.TypicalTestTasks;
 
 public class UpdateCommandTest extends TaskManagerGuiTest {
 	@Test
@@ -21,15 +21,15 @@ public class UpdateCommandTest extends TaskManagerGuiTest {
         int targetIndex = 1;
         
         // update first task
-        assertUpdateSuccess(targetIndex, td.hoon, currentList);
+        assertUpdateSuccess(targetIndex, TypicalTestTasks.hoon, currentList);
 
-        currentList = TestUtil.replaceTaskFromList(currentList, td.hoon, targetIndex - 1);
+        currentList = TestUtil.replaceTaskFromList(currentList, TypicalTestTasks.hoon, targetIndex - 1);
         targetIndex = currentList.length;
         
         // update last task
-        assertUpdateSuccess(targetIndex, td.ida, currentList);
+        assertUpdateSuccess(targetIndex, TypicalTestTasks.ida, currentList);
         
-        currentList = TestUtil.replaceTaskFromList(currentList, td.ida, targetIndex - 1);
+        currentList = TestUtil.replaceTaskFromList(currentList, TypicalTestTasks.ida, targetIndex - 1);
         targetIndex = 1;
 
         // add new tags
@@ -61,15 +61,15 @@ public class UpdateCommandTest extends TaskManagerGuiTest {
         targetIndex = 1;
         commandBox.runCommand("update " + targetIndex);
         updatedCard = taskListPanel.navigateToTask(targetIndex - 1);
-        assertMatching(td.hoon, updatedCard);
+        assertMatching(TypicalTestTasks.hoon, updatedCard);
         
         // update own task without changing name
         targetIndex = 3;
-        commandBox.runCommand("update " + targetIndex + " name"+ td.carl.getArgs());
+        commandBox.runCommand("update " + targetIndex + " name"+ TypicalTestTasks.carl.getArgs());
         assertTrue(taskListPanel.isListMatching(currentList));
         
         // invalid index
-        commandBox.runCommand("update " + (currentList.length+1) + " name"+ td.ida.getArgs());
+        commandBox.runCommand("update " + (currentList.length+1) + " name"+ TypicalTestTasks.ida.getArgs());
         assertResultMessage(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         assertTrue(taskListPanel.isListMatching(currentList));
         

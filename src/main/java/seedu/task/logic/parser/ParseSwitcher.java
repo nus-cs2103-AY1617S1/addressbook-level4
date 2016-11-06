@@ -20,11 +20,9 @@ import seedu.task.logic.commands.IncorrectCommand;
  */
 public class ParseSwitcher {
     private final ParserMapping parserMappings;
-    private final HashMap<String, Commands> aliasMappings;
         
     public ParseSwitcher(HashMap<String, Commands> aliasMappings) { 
          parserMappings = new ParserMapping(aliasMappings);
-         this.aliasMappings = aliasMappings;
 
     }
 

@@ -19,8 +19,6 @@ import seedu.task.storage.Storage;
 import seedu.task.storage.StorageManager;
 import seedu.task.ui.Ui;
 import seedu.task.ui.UiManager;
-
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Map;
 import java.util.Optional;
@@ -56,7 +54,7 @@ public class MainApp extends Application {
 
         model = initModelManager(storage, userPrefs);
 
-        logic = new LogicManager(model, storage);
+        logic = new LogicManager(model);
 
         ui = new UiManager(logic, config, userPrefs);
 

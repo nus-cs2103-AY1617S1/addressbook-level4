@@ -14,26 +14,27 @@ import seedu.task.logic.commands.AddCommand;
 import seedu.task.model.task.DateTime;
 import seedu.task.testutil.TestTask;
 import seedu.task.testutil.TestUtil;
+import seedu.task.testutil.TypicalTestTasks;
 
 public class AddCommandTest extends TaskManagerGuiTest {
     @Test
     public void add() {
         //add one task
         TestTask[] currentList = td.getTypicalTasks();
-        TestTask taskToAdd = td.hoon;
+        TestTask taskToAdd = TypicalTestTasks.hoon;
         assertAddSuccess(taskToAdd, currentList);
         currentList = TestUtil.addTasksToList(currentList, taskToAdd);
         assertResultMessage(String.format(AddCommand.MESSAGE_SUCCESS, taskToAdd));
         
         //add another task
-        taskToAdd = td.ida;
+        taskToAdd = TypicalTestTasks.ida;
         assertAddSuccess(taskToAdd, currentList);
         currentList = TestUtil.addTasksToList(currentList, taskToAdd);
         assertResultMessage(String.format(AddCommand.MESSAGE_SUCCESS, taskToAdd));
         
         //add to empty list
         commandBox.runCommand("clear");
-        assertAddSuccess(td.cs2103);
+        assertAddSuccess(TypicalTestTasks.cs2103);
        
         //add a task which has endTime < openTime 
         commandBox.runCommand("add testEvent starts tomorrow ends today");
@@ -46,14 +47,14 @@ public class AddCommandTest extends TaskManagerGuiTest {
     public void add_same_task_name() {
         //add a task
         TestTask[] currentList = td.getTypicalTasks();
-        TestTask taskToAdd = td.ida;
+        TestTask taskToAdd = TypicalTestTasks.ida;
         assertAddSuccess(taskToAdd, currentList);
         currentList = TestUtil.addTasksToList(currentList, taskToAdd);
         assertResultMessage(String.format(AddCommand.MESSAGE_SUCCESS, taskToAdd));
 
         
         //add task with same task name as previous task but different openTime and endTime
-        taskToAdd = td.same;
+        taskToAdd = TypicalTestTasks.same;
         assertAddSuccess(taskToAdd, currentList);
         currentList = TestUtil.addTasksToList(currentList, taskToAdd);
         assertResultMessage(String.format(AddCommand.MESSAGE_SUCCESS, taskToAdd));
@@ -76,12 +77,12 @@ public class AddCommandTest extends TaskManagerGuiTest {
         TestTask[] currentList = td.getTypicalTasks();
         
         //recur a task zero times (i.e. no recurrence at all)
-        TestTask taskToAdd = td.recur;
+        TestTask taskToAdd = TypicalTestTasks.recur;
         currentList = assertAddRecurringSuccess(0, taskToAdd, currentList);
         assertResultMessage(String.format(AddCommand.MESSAGE_SUCCESS, taskToAdd));
         
         //recur a task twenty times (maximum amount)
-        taskToAdd = td.recur2;
+        taskToAdd = TypicalTestTasks.recur2;
         currentList = assertAddRecurringSuccess(20, taskToAdd, currentList);
         assertResultMessage(String.format(AddCommand.MESSAGE_SUCCESS, taskToAdd));
         
