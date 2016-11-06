@@ -84,7 +84,7 @@ public class CalendarItemFilter {
             if ("task".equals(eventType) && !eventStatusPresent) {
                 // Condition 3
                 return new boolean[] { true, false };
-            } else if (eventType.equals("event") && !taskStatusPresent) {
+            } else if ("event".equals(eventType) && !taskStatusPresent) {
                 // Condition 4
                 return new boolean[] { false, true };
             }
@@ -106,7 +106,7 @@ public class CalendarItemFilter {
         // Filter by taskStatus
         if (parsedResult.get("taskStatus") != null) {
             String taskStatus = parsedResult.get("taskStatus")[0];
-            if (taskStatus.equals("complete") || taskStatus.equals("completed")) {
+            if ("complete".equals(taskStatus) || "completed".equals(taskStatus)) {
                 taskPredicates.add(Task.predCompleted(true));
             } else {
                 taskPredicates.add(Task.predCompleted(false));
