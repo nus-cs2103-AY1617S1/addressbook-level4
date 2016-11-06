@@ -147,7 +147,7 @@ Example: edit E1 start 5pm
 <br>
 ####2.4 Edit task end time 
 
-Samantha has also you that the party is scheduled to end at 11pm, so that they know when to get their parents to pick them up. To update the end time, type the following and <kbd>Enter</kbd>.
+Samantha has also informed you that the party is scheduled to end at 11pm, so that you can tell your parents when to pick you up. To update the end time, type the following and <kbd>Enter</kbd>.
 
 >Format: **edit** &lt;index&gt; **end** &lt;end time&gt;
 
