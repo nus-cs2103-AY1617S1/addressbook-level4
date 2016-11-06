@@ -6,6 +6,7 @@
     -fx-quaternary: #F92672; /* pink */
     -fx-quinary: #272822; /* black */
     -fx-quinary-alt: #1f201b;
+    -fx-senary: #AE81FF; /* purple */
 }
  
 .table-view {
@@ -211,6 +212,10 @@
 
 .happening{
     -fx-fill: -fx-secondary;
+}
+
+.completed{
+	-fx-fill: -fx-senary;
 }
 
 .titled-pane,

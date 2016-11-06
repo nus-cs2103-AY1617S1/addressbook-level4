@@ -365,14 +365,8 @@ public class ArchivesTableView extends UiPart {
     // @@author A0138862W
     private Text generateStyledText(ReadOnlyTask readOnlyTask, String text) {
         Text taskName = new Text(text);
-
-        if (readOnlyTask.isHappening()) {
-            taskName.getStyleClass().add("happening");
-        } else if (readOnlyTask.isDue()) {
-            taskName.getStyleClass().add("overdue");
-        } else {
-            taskName.getStyleClass().add("normal");
-        }
+        taskName.getStyleClass().add("completed");
+        
         return taskName;
     }
 }
