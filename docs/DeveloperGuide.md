@@ -90,10 +90,10 @@ Each of the four components
 <!-- @@author A0147619W -->
 For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java`
 interface and exposes its functionality using the `LogicManager.java` class.<br>
-<img src="images/LogicClassDiagram.png" width="800"><br>
+<img src="images/LogicDiagram.png" width="800"><br>
 
 The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the
-command `delete 1`. This same _Sequence Diagram_ will be used to illustrace `undo` in the following _Sequence Diagram_.
+command `delete 1`. This same _Sequence Diagram_ will be used to illustrate `undo` in the following _Sequence Diagram_.
 
 <img src="images\SDforDeleteTask.png" width="800"><br>
 
@@ -142,7 +142,7 @@ The `UI` component,
 <!-- @@author A0147619W -->
 ### Logic component
 
-<img src="images/LogicClassDiagram.png" width="800"><br>
+<img src="images/LogicDiagram.png" width="800"><br>
 
 **API** : [`Logic.java`](../src/main/java/seedu/forgetmenot/logic/Logic.java)
 
@@ -157,7 +157,7 @@ Given below is the Sequence Diagram for interactions within the `Logic` componen
 
 ### Model component
 
-<img src="images/ModelClassDiagram.png" width="800"><br>
+<img src="images/ModelDiagram.png" width="800"><br>
 
 **API** : [`Model.java`](../src/main/java/seedu/forgetmenot/model/Model.java)
 
