@@ -500,6 +500,7 @@ public class LogicManagerTest {
                 expectedList);
     }
     
+    // @@author A0140133B
     @Test
     public void execute_delete_removesCorrectRange() throws Exception {
         // setup expectations
@@ -522,7 +523,7 @@ public class LogicManagerTest {
                 expectedTB,
                 expectedList);
     }
-
+    // @@author
 
     @Test
     public void execute_find_invalidArgsFormat() throws Exception {
