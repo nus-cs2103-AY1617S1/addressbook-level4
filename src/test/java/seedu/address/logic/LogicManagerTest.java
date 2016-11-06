@@ -152,6 +152,22 @@ public class LogicManagerTest {
 		assertEquals(expectedTaskManager, model.getTaskManager());
 		assertEquals(expectedTaskManager, latestSavedTaskManager);
 	}
+	
+	/**
+	 * Execute undo and redo command and confirms that the state of taskmanager
+	 * is the same. 
+	 */
+	private void assertUndoAndRedoCommandBehavior(ReadOnlyTaskManager expectedTaskManager, List<? extends ReadOnlyTask> expectedShownList) throws ParseException{
+		logic.execute("undo");
+		logic.execute("redo");
+		
+		// Confirm the ui display elements should contain the right data
+		assertEquals(expectedShownList, model.getFilteredTaskList());
+
+		// Confirm the state of data (saved and in-memory) is as expected
+		assertEquals(expectedTaskManager, model.getTaskManager());
+		assertEquals(expectedTaskManager, latestSavedTaskManager);
+	}
 
 	@Test
 	public void execute_unknownCommandWord() throws Exception {
@@ -226,6 +242,17 @@ public class LogicManagerTest {
 		addTaskToManagerHelper(toBeAdded, expectedManager);
 		assertAddAndUndoBehaviour(toBeAdded, expectedManager);
 	}
+	
+	@Test
+	public void execute_redo_add_successful() throws Exception {
+		TaskManager expectedManager = new TaskManager();
+
+		// Generate one task for add and undo commands
+		Task toBeAdded = helper.homework();
+
+		addTaskToManagerHelper(toBeAdded, expectedManager);
+		assertAddAndUndoBehaviour(toBeAdded, expectedManager);
+	}
 
 	@Test
 	public void execute_undo_manyAdds_successful() throws Exception {
@@ -265,9 +292,42 @@ public class LogicManagerTest {
 		addTaskToManagerHelper(task, expectedManager);
 		assertDoneAndUndoTaskInManager(1, task, expectedManager); 
 	}
-	// @@author
-
 	
+	@Test
+	public void execute_undo_delete_successful() throws Exception {
+		TestDataHelper helper = new TestDataHelper();
+		TaskManager expectedManager = new TaskManager();
+
+		Task task= helper.homework();
+		addTaskToManagerHelper(task, expectedManager);
+		assertDeleteAndUndoTaskInManager(1, task, expectedManager); 
+	}
+	
+	@Test
+	public void execute_undo_clear_successful() throws Exception {
+		TestDataHelper helper = new TestDataHelper();
+		TaskManager expectedManager = new TaskManager();
+
+		// Add tasks to delete them later
+		List<Task> toBeAdded = helper.generateTaskList(10);
+		for (Task toAdd : toBeAdded) {
+			addTaskToManagerHelper(toAdd, expectedManager);
+		}
+		
+		assertClearAndUndoTaskInManager(expectedManager); 
+	}
+	
+	@Test
+	public void execute_undo_redo_success() throws Exception {
+		TaskManager expectedManager = new TaskManager();
+		Task task= helper.homework();
+		
+		//Add task to task manager
+		addTaskToManagerHelper(task, expectedManager);
+		//Undo, redo and verify that state of task manager is the same
+		assertUndoAndRedoCommandBehavior(expectedManager, expectedManager.getTaskList());		
+	}
+	// @@author
 
 	/**
 	 * Confirms the 'invalid argument index number behaviour' for the given
@@ -444,12 +504,12 @@ public class LogicManagerTest {
 
 	@Test
 	public void execute_doneOnCompletedTask() throws Exception {
-		List<Task> oneTasks = helper.generateTaskList(1);
-		helper.addToModel(model, oneTasks);
+		List<Task> oneTask = helper.generateTaskList(1);
+		helper.addToModel(model, oneTask);
 		String expectedMessage = DoneCommand.MESSAGE_ALREADY_COMPLETED;
 		CommandResult result = logic.execute("done 1");
 
-		TaskManager expectedAB = helper.generateTaskManager(oneTasks);
+		TaskManager expectedAB = helper.generateTaskManager(oneTask);
 
 		assertCommandBehavior("done 1", expectedMessage, expectedAB, expectedAB.getTaskList());
 
@@ -467,6 +527,33 @@ public class LogicManagerTest {
 	// @@author
 	
 	// @@author A0153411W
+	/**
+	 * Executes the undo command for delete and confirms that the result undo
+	 * message and state of task manager are correct
+	 */
+	private void assertDeleteAndUndoTaskInManager(int taskId, Task task,TaskManager expectedManager)
+			throws Exception {
+		String commadForDelete= helper.generateDeleteCommand(taskId);
+		logic.execute(commadForDelete);
+		String expectedMessage = UndoCommand.PRE_MESSAGE + String.format(DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS, task);
+		// execute undo command and verify result
+		assertCommandBehavior(helper.generateUndoCommand(), expectedMessage, expectedManager,
+				expectedManager.getTaskList());
+	}
+
+	/**
+	 * Executes the undo command for clear and confirms that the result undo
+	 * message and state of task manager are correct
+	 */
+	private void assertClearAndUndoTaskInManager(TaskManager expectedManager)
+			throws Exception {
+		String commadForClear= helper.generateClearCommand();
+		logic.execute(commadForClear);
+		String expectedMessage = UndoCommand.PRE_MESSAGE + ClearCommand.MESSAGE_SUCCESS;
+		// execute undo command and verify result
+		assertCommandBehavior(helper.generateUndoCommand(), expectedMessage, expectedManager,
+				expectedManager.getTaskList());
+	}
 	
 	/**
 	 * Executes the undo command for done and confirms that the result undo
@@ -497,8 +584,7 @@ public class LogicManagerTest {
 		assertCommandBehavior(helper.generateUndoCommand(), expectedMessage, expectedManager,
 				expectedManager.getTaskList());
 	}
-
-
+	
 	/**
 	 * Executes the undo command for edit and confirms that the result undo
 	 * message and state of task manager are correct
@@ -551,9 +637,7 @@ public class LogicManagerTest {
 			// @@author A0153751H
 			TaskColor taskColor = new TaskColor("none");
 			// @@author
-			Tag tag1 = new Tag("tag1");
-			Tag tag2 = new Tag("tag2");
-			UniqueTagList tags = new UniqueTagList(tag1, tag2);
+			UniqueTagList tags = new UniqueTagList();
 			return new Task(title, description, startDate, dueDate, interval, timeInterval, status, taskColor, tags);
 		}
 
@@ -570,7 +654,7 @@ public class LogicManagerTest {
 			return new Task(new Title("Task " + seed), new Description("Description " + seed),
 					new StartDate("01-01-2016 00:00"), new DueDate("01-01-2016 23:59"), new Interval("1"),
 					new TimeInterval("" + seed), new Status("ONGOING"), new TaskColor("none"),
-					new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1))));
+					new UniqueTagList());
 		}
 		// @@author
 
@@ -603,6 +687,7 @@ public class LogicManagerTest {
 			cmd.append("edit ");
 
 			cmd.append(index);
+			cmd.append(" t/").append(t.getTitle());
 			cmd.append(" d/").append(t.getDescription());
 			cmd.append(" sd/").append(t.getStartDate());
 			cmd.append(" dd/").append(t.getDueDate());
@@ -610,9 +695,9 @@ public class LogicManagerTest {
 			cmd.append(" ti/").append(t.getTimeInterval());
 			UniqueTagList tags = t.getTags();
 			for (Tag tag : tags) {
-				cmd.append(" t/").append(tag.tagName);
+				cmd.append(" ts/").append(tag.tagName);
 			}
-
+			
 			return cmd.toString();
 		}
 		
@@ -620,13 +705,26 @@ public class LogicManagerTest {
 		String generateDoneCommand(int index) {
 			return "done "+index;
 		}
+		
+		/** Generates the correct delete command based on the index given */
+		String generateDeleteCommand(int index) {
+			return "delete "+index;
+		}
+		
+		/** Generates the correct delete command based on the index given */
+		String generateClearCommand() {
+			return "clear";
+		}
 		// @@author
 
 		/** Generates the correct undo command */
 		String generateUndoCommand() {
-			StringBuffer cmd = new StringBuffer();
-			cmd.append("undo ");
-			return cmd.toString();
+			return "undo";
+		}
+
+		/** Generates the correct undo command */
+		String generateRedoCommand() {
+			return "redo";
 		}
 
 		/**
@@ -718,7 +816,7 @@ public class LogicManagerTest {
 		Task generateTaskWithName(String name) throws Exception {
 			return new Task(new Title(name), new Description("Description"), new StartDate("11-01-2012 00:00"),
 					new DueDate("11-01-2012 23:59"), new Interval("7"), new TimeInterval("1"), new Status("ONGOING"),
-					new TaskColor("none"), new UniqueTagList(new Tag("tag")));
+					new TaskColor("none"), new UniqueTagList());
 		}
 	}
 }
