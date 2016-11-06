@@ -46,7 +46,7 @@ public class SearchStatusViewHandle extends GuiHandle {
     }
 
     /**
-     * Returns true if the number of items found matches the count displayed in this view.
+     * Returns true if the number of items {@code count} found is displayed correctly in this view.
      */
     public boolean doesSearchCountMatch(int count) {
         Text text = (Text) getNode(SEARCH_COUNT_LABEL_ID);

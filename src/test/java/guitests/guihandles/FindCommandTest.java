@@ -42,7 +42,7 @@ public class FindCommandTest extends TodoListGuiTest {
     }
 
     @Test
-    public void find_NoResults() {
+    public void find_noResults() {
         runCommand("find happy birthday to you");
 
         assertEquals("happy, birthday, to, you", searchStatusView.getSearchTermText());

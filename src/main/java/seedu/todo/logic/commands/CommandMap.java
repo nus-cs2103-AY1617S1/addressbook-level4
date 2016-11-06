@@ -87,16 +87,4 @@ public class CommandMap {
         getCommandSummaryMap().values().forEach(commandSummariesList::addAll);
         return commandSummariesList;
     }
-
-    //@@author A0135805H
-    /**
-     * Get a representation of the command summary by a list of array strings, with each array string
-     * with the format:
-     *      [Scenario, Command, Arguments]
-     */
-    public static List<String[]> getAllCommandSummaryArray() {
-        return CommandMap.getAllCommandSummary().stream()
-                .map(CommandSummary::toArray)
-                .collect(Collectors.toList());
-    }
 }

@@ -2,6 +2,10 @@ package guitests;
 
 import org.junit.Test;
 import seedu.todo.logic.commands.CommandMap;
+import seedu.todo.logic.commands.CommandSummary;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 import static org.junit.Assert.assertTrue;
 
@@ -30,6 +34,18 @@ public class HelpCommandTest extends TodoListGuiTest {
      */
     private void assertHelpViewDisplayed() {
         assertTrue(helpView.isVisible());
-        assertTrue(helpView.isHelpItemsDisplayedCorrectly(CommandMap.getAllCommandSummaryArray()));
+        assertTrue(helpView.isHelpItemsDisplayedCorrectly(getAllCommandSummaryArray()));
+    }
+
+    /* Helper Methods */
+    /**
+     * Get a representation of the command summary by a list of array strings, where each item has the
+     * following format:
+     *      [Scenario, Command, Arguments]
+     */
+    private List<String[]> getAllCommandSummaryArray() {
+        return CommandMap.getAllCommandSummary().stream()
+                .map(CommandSummary::toArray)
+                .collect(Collectors.toList());
     }
 }
