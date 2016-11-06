@@ -37,7 +37,6 @@ public class MainWindow extends UiPart {
     // Independent Ui parts residing in this Ui container
     private ActivityListPanel activityListPanel;
     private OverdueTaskListPanel overdueListPanel;
-    private UpcomingListPanel upcomingListPanel;
     private ResultDisplay resultDisplay;
     private StatusBarFooter statusBarFooter;
     private CommandBox commandBox;
