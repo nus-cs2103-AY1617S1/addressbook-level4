@@ -47,6 +47,7 @@ public class FilterPanel extends UiPart {
     private static final String ONE = "1";
     private static final String TWO = "2";
     private static final String THREE = "3";
+    
     private static final String DEFAULT_BACKGROUND = "-fx-background-color: white";
     private static final String ERROR_BACKGROUND = "-fx-background-color: #d9534f";
 
@@ -83,7 +84,7 @@ public class FilterPanel extends UiPart {
 
     @FXML
     private ChoiceBox<String> priorityChoiceBox;
-    
+
     public static FilterPanel load(Stage stage, AnchorPane placeHolder, ResultDisplay resultDisplay) {
         FilterPanel filterPanel = UiPartLoader.loadUiPart(stage, placeHolder, new FilterPanel());
         filterPanel.configure(resultDisplay);
@@ -122,24 +123,6 @@ public class FilterPanel extends UiPart {
     }
 
     /**
-     * Handles changes in the filter panel.
-     */
-    @FXML
-    private void handleFilterChanged() {
-        Set<Types> types = handleTypesChanged();
-        Map<Types, String> qualifications;
-        try {
-            qualifications = handleQualificationsChanged();
-        } catch (IllegalValueException e) {
-            indicateInvalidFilter(e);
-            return;
-        }
-        Set<String> tagSet = handleTagsChanged();
-        raise(new FilterPanelChangedEvent(types, qualifications, tagSet));
-        indicateFilterSuccess();
-    }
-    
-    /**
      * Sets the corresponding text filed or choice box to be focused.
      */
     @Subscribe
@@ -169,14 +152,37 @@ public class FilterPanel extends UiPart {
             assert false;
         }
     }
-    
+
     /**
-     * Update filter panel correspondingly to changes in the filtered task list
+     * Handles changes in the filter panel.
+     */
+    @FXML
+    private void handleFilterChanged() {
+        Set<Types> types = handleTypesChanged();
+        Map<Types, String> qualifications;
+        try {
+            qualifications = handleQualificationsChanged();
+        } catch (IllegalValueException e) {
+            indicateInvalidFilter(e);
+            return;
+        }
+        Set<String> tagSet = handleTagsChanged();
+        
+        raise(new FilterPanelChangedEvent(types, qualifications, tagSet));
+        indicateFilterSuccess();
+    }
+
+    /**
+     * Updates filter panel so it will correspond to changes in the filtered
+     * task list.
      */
     @Subscribe
     private void handleUpdateFilterPanelEvent(UpdateFilterPanelEvent event) {
         reset();
-        updateFilterPanel(event.getTypes(), event.getQualifications(), event.getTags());
+        
+        event.getTypes().forEach(type -> updateType(type));
+        event.getQualifications().forEach((attribute, keyword) -> updateQualification(attribute, keyword));
+        updateTags(event.getTags());
     }
 
     /**
@@ -371,12 +377,18 @@ public class FilterPanel extends UiPart {
         return tagSet;
     }
 
+    /**
+     * Resets the filter panel.
+     */
     private void reset() {
         resetToggleButtons();
         resetTextFields();
         resetChoiceBox();
     }
 
+    /**
+     * Resets toggle buttons.
+     */
     private void resetToggleButtons() {
         eventsToggleButton.setSelected(false);
         tasksToggleButton.setSelected(false);
@@ -384,6 +396,9 @@ public class FilterPanel extends UiPart {
         undoneToggleButton.setSelected(false);
     }
 
+    /**
+     * Resets text fields.
+     */
     private void resetTextFields() {
         resetTextFields(deadlineTextField);
         resetTextFields(startDateTextField);
@@ -391,22 +406,22 @@ public class FilterPanel extends UiPart {
         resetTextFields(recurringTextField);
         resetTextFields(tagsTextField);
     }
-    
+
     private void resetTextFields(TextField textField) {
         textField.setStyle(DEFAULT_BACKGROUND);
         textField.setText("");
     }
 
+    /**
+     * Resets choice box.
+     */
     private void resetChoiceBox() {
         priorityChoiceBox.getSelectionModel().selectFirst();
     }
 
-    private void updateFilterPanel(Set<Types> types, Map<Types, String> qualifications, Set<String> tags) {
-        types.forEach(type -> updateType(type));
-        qualifications.forEach((attribute, keyword) -> updateQualification(attribute, keyword));
-        updateTags(tags);
-    }
-
+    /**
+     * Updates selected types in the filter panel.
+     */
     private void updateType(Types type) {
         switch (type) {
         case EVENTS:
@@ -426,6 +441,9 @@ public class FilterPanel extends UiPart {
         }
     }
 
+    /**
+     * Updates qualifications inputs in the filter panel.
+     */
     private void updateQualification(Types attribute, String keyword) {
         switch (attribute) {
         case DEADLINE:
@@ -448,8 +466,11 @@ public class FilterPanel extends UiPart {
         }
     }
 
+    /**
+     * Updates tags inputs in the filter panel.
+     */
     private void updateTags(Set<String> tags) {
-        String tagString = "";
+        String tagString = EMPTY;
         for (String tag : tags) {
             tagString += tag + " ";
         }
