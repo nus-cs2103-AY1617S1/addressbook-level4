@@ -208,7 +208,7 @@ Remember the report that we added at the start? Once you have done it, simply ty
 
 Example: Done D1
 
-This will hide that report that you have completed from the main screen.
+This will hide the report that you have completed from the main screen.
 
 <br>
 You can also complete multiple tasks at once by following the formats below.
