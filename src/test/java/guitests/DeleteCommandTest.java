@@ -45,6 +45,15 @@ public class DeleteCommandTest extends TodoListGuiTest {
         }
     }
 
+    @Test
+    public void delete_invalidCommands() {
+        //Missing Index
+        assertErrorViewDisplayed("delete ");
+
+        //Invalid Index
+        assertErrorViewDisplayed("delete a");
+    }
+
     /**
      * A helper method to run the entire delete command process and testing.
      */

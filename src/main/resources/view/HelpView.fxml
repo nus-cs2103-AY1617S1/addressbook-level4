@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <!--@@author generated-->
 
 <?import javafx.geometry.Insets?>
@@ -9,28 +10,25 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minWidth="-Infinity"
-      styleClass="spacing, grey" stylesheets="@../style/DefaultStyle.css" xmlns="http://javafx.com/javafx/8.0.102"
-      xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.todo.ui.view.HelpView">
+<VBox fx:id="helpPanelView" maxHeight="-Infinity" maxWidth="-Infinity" minWidth="-Infinity" styleClass="spacing, grey" stylesheets="@../style/DefaultStyle.css" xmlns="http://javafx.com/javafx/8.0.102" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.todo.ui.view.HelpView">
    <padding>
-      <Insets bottom="8.0" left="8.0" right="8.0" top="8.0"/>
+      <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
    </padding>
    <HBox alignment="CENTER_LEFT" styleClass="spacing">
-      <Label styleClass="text2" text="Help"/>
-      <Label styleClass="text4" text="Need help? Try these commands out to get started."/>
+      <Label styleClass="text2" text="Help" />
+      <Label styleClass="text4" text="Need help? Try these commands out to get started." />
    </HBox>
    <GridPane fx:id="helpGrid" styleClass="gridPanel">
       <columnConstraints>
-         <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity"/>
-         <ColumnConstraints hgrow="SOMETIMES" minWidth="-Infinity"/>
+         <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" />
+         <ColumnConstraints hgrow="SOMETIMES" minWidth="-Infinity" />
       </columnConstraints>
       <rowConstraints>
-         <RowConstraints vgrow="SOMETIMES"/>
+         <RowConstraints vgrow="SOMETIMES" />
       </rowConstraints>
       <VBox.margin>
-         <Insets/>
+         <Insets />
       </VBox.margin>
    </GridPane>
-   <Label alignment="CENTER_RIGHT" contentDisplay="TEXT_ONLY" styleClass="text4"
-          text="Start typing in the command to dismiss."/>
+   <Label alignment="CENTER_RIGHT" contentDisplay="TEXT_ONLY" styleClass="text4" text="Start typing in the command to dismiss." />
 </VBox>

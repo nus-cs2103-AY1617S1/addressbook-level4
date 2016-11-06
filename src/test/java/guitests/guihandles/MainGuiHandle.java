@@ -30,4 +30,24 @@ public class MainGuiHandle extends GuiHandle {
     public CommandPreviewViewHandle getCommandPreviewView() {
         return new CommandPreviewViewHandle(guiRobot, primaryStage);
     }
+
+    public CommandErrorViewHandle getCommandErrorView() {
+        return new CommandErrorViewHandle(guiRobot, primaryStage);
+    }
+
+    public HelpViewHandle getHelpView() {
+        return new HelpViewHandle(guiRobot, primaryStage);
+    }
+
+    public GlobalTagViewHandle getGlobalTagView() {
+        return new GlobalTagViewHandle(guiRobot, primaryStage);
+    }
+
+    public FilterBarViewHandle getFilterBarView() {
+        return new FilterBarViewHandle(guiRobot, primaryStage);
+    }
+
+    public SearchStatusViewHandle getSearchStatusView() {
+        return new SearchStatusViewHandle(guiRobot, primaryStage);
+    }
 }

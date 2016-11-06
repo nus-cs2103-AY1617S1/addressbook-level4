@@ -2,23 +2,29 @@
 
 <!--@@author generated-->
 
+<?import java.lang.String?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox minWidth="-Infinity" style="-fx-background-color: #2D2D2D;" styleClass="spacing grey" stylesheets="@../style/DefaultStyle.css" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.todo.ui.view.GlobalTagView">
+<VBox fx:id="globalTagViewPanel" minHeight="-Infinity" minWidth="-Infinity" style="-fx-background-color: #2D2D2D;" styleClass="spacing grey" stylesheets="@../style/DefaultStyle.css" xmlns="http://javafx.com/javafx/8.0.102" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.todo.ui.view.GlobalTagView">
    <HBox alignment="CENTER_LEFT" minHeight="-Infinity" minWidth="-Infinity" styleClass="spacing">
-      <Label alignment="TOP_LEFT" prefHeight="30.0" prefWidth="196.0" styleClass="text2" text="Tags" />
-      <padding>
-         <Insets bottom="16.0" />
-      </padding>
+      <Label alignment="TOP_LEFT" styleClass="text2" text="Tags" />
+      <Label styleClass="text4" text="All your tags in one place." />
       <VBox.margin>
-         <Insets bottom="8.0" />
+         <Insets />
       </VBox.margin>
    </HBox>
-   <FlowPane fx:id="tagFlowPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minWidth="-Infinity" styleClass="spacing" />
+   <FlowPane fx:id="tagFlowPane" minWidth="-Infinity">
+      <VBox.margin>
+         <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
+      </VBox.margin>
+      <styleClass>
+         <String fx:value="spacing" />
+         <String fx:value="gridPanel" />
+      </styleClass></FlowPane>
    <padding>
       <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
    </padding>
