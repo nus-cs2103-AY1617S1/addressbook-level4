@@ -23,7 +23,7 @@ import static org.junit.Assert.assertTrue;
 public class ShortTaskListPanelHandle extends GuiHandle {
 
     public static final int NOT_FOUND = -1;
-    public static final String CARD_PANE_ID = "#cardPane";
+    public static final String CARD_PANE_ID = "#leftCardPane";
 
     private static final String TASK_LIST_VIEW_ID = "#shortItemListView";
 
