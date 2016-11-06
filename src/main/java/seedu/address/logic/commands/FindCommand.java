@@ -23,6 +23,9 @@ public class FindCommand extends Command {
     private final Set<Set<String>> keywordsGroups;
     private final boolean isExactSearch;
 
+    /**
+     * Convenience constructor using raw values.
+     */
     public FindCommand(Set<Set<String>> keywordsGroups, boolean isExactSearch) {
         this.keywordsGroups = keywordsGroups;
         this.isExactSearch = isExactSearch;
