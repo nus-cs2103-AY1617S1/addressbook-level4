@@ -1,5 +1,6 @@
 package seedu.taskitty.logic.parser;
 
+import seedu.taskitty.commons.core.LogsCenter;
 import seedu.taskitty.commons.exceptions.IllegalValueException;
 import seedu.taskitty.commons.util.StringUtil;
 import seedu.taskitty.commons.util.TaskUtil;
@@ -8,12 +9,14 @@ import seedu.taskitty.model.tag.Tag;
 import seedu.taskitty.model.task.Task;
 import seedu.taskitty.model.task.TaskDate;
 import seedu.taskitty.model.task.TaskTime;
+import seedu.taskitty.ui.UiManager;
 
 import static seedu.taskitty.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.taskitty.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -26,7 +29,8 @@ import javafx.util.Pair;
  * Parses user input.
  */
 public class CommandParser {
-
+    private static final Logger logger = LogsCenter.getLogger(CommandParser.class);
+    
     public static final String COMMAND_QUOTE_SYMBOL = "\"";
     public static final String INDEX_RANGE_SYMBOL = "-";
     public static final String WHITE_SPACE_REGEX_STRING = "\\s+";
@@ -211,8 +215,9 @@ public class CommandParser {
             String taskDetailArguments = getTaskDetailArguments(arguments);
             String tagArguments = getTagArguments(arguments);
 
-            return new AddCommand(extractTaskDetailsUsingNatty(taskDetailArguments), getTagsFromArgs(tagArguments),
-                    args);
+            return new AddCommand(extractTaskDetailsUsingNatty(taskDetailArguments),
+                    getTagsFromArgs(tagArguments), args);
+            
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
         }
@@ -320,8 +325,11 @@ public class CommandParser {
             // -1 because we want the 0 based position
             nameEndIndex = Math.min(nameEndIndex, group.getPosition() - 1);
             for (Date date : dates) {
-                details.add(extractLocalDate(date));
-                details.add(extractLocalTime(date));
+                String nattyDate = extractLocalDate(date);
+                String nattyTime = extractLocalTime(date);
+                logger.info("Date Time extracted from natty: " + nattyDate + ", " + nattyTime);
+                details.add(nattyDate);
+                details.add(nattyTime);
             }
         }
         return nameEndIndex;
