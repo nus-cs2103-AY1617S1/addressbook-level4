@@ -54,13 +54,13 @@ public class EditCommand extends UndoableCommand {
     private RecurrenceRate recurrenceRate;
     private Priority priority;
     private boolean removeReccurence, removeStartDate, removeEndDate;
-
-	public EditCommand(int targetIndex, Optional<String> taskNameString, Optional<String> startDateString,
+    
+    public EditCommand(int targetIndex, Optional<String> taskNameString, Optional<String> startDateString,
 			Optional<String> endDateString, Optional<String> rateString, Optional<String> timePeriodString,
 			Optional<String> priorityString, String resetFieldString) throws IllegalValueException {       
 		
-		this.targetIndex = targetIndex;
-		initializeForEdit();
+        this.targetIndex = targetIndex;
+        initializeForEdit();
         
         assignTaskNameIfPresent(taskNameString); 
         assignStartDateIfPresent(startDateString);
