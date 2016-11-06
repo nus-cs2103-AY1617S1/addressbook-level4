@@ -126,11 +126,11 @@ public class CommandParser {
             return new IncorrectCommand(String.format(PathCommand.MESSAGE_INVALID_MISSING_FILEPATH,
                     PathCommand.MESSAGE_VALID_FILEPATH_USAGE));
         } else if (args.length() < FILE_EXTENSION_LENGTH) {
-            return new IncorrectCommand(
-                    String.format(PathCommand.MESSAGE_INVALID_FILEPATH, PathCommand.MESSAGE_VALID_FILEPATH_USAGE));
+            return new IncorrectCommand(String.format(PathCommand.MESSAGE_INVALID_FILEPATH, 
+                    PathCommand.MESSAGE_VALID_FILEPATH_USAGE));
         } else if (!isValidFileXmlExtension(args)) {
-            return new IncorrectCommand(
-                    String.format(PathCommand.MESSAGE_INVALID_FILEPATH, PathCommand.MESSAGE_VALID_FILEPATH_USAGE));
+            return new IncorrectCommand(String.format(PathCommand.MESSAGE_INVALID_FILEPATH, 
+                    PathCommand.MESSAGE_VALID_FILEPATH_USAGE));
         }
         return new PathCommand(args);
     }
@@ -471,7 +471,8 @@ public class CommandParser {
         String[] indexes = dataArgs.split(WHITE_SPACE_REGEX_STRING);        
         ArrayList<Pair<Integer, Integer>> listOfIndexes = getListOfIndexes(indexes);
         
-        if (listOfIndexes.contains(null)) { // if any of the index is null, there was an error in the indexes provided
+        // if any of the index is null, there was an error in the indexes provided
+        if (listOfIndexes.contains(null)) { 
             return createNewIncorrectCommand(messageParameter);
         }
 
@@ -619,6 +620,7 @@ public class CommandParser {
      */
     private EditCommand createNewEditCommand(String args, Pair<Integer, Integer> categoryAndIndexPair,
             String taskDetailArguments, String tagArguments) throws IllegalValueException {
+        
         return new EditCommand(extractTaskDetailsUsingNatty(taskDetailArguments), getTagsFromArgs(tagArguments),
                 categoryAndIndexPair.getValue(), categoryAndIndexPair.getKey(), args);
     }

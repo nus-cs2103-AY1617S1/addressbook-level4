@@ -144,7 +144,7 @@ public class EditCommandTest extends TaskManagerGuiTest {
 
         //confirm the new card contains the right data
         TaskCardHandle editedCard = taskListPanel.navigateToTask(taskToEdit.getName().fullName, 
-                                                                 taskToEdit.getPeriod().getNumArgs());
+                taskToEdit.getPeriod().getNumArgs());
         assertMatching(taskToEdit, editedCard);
        
         //confirm the list now contains all previous tasks plus the new edited task
