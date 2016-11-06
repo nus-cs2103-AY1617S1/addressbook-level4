@@ -73,6 +73,11 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
     public Name getName() {
         return name;
     }
+    
+    @Override
+    public TaskPeriod getPeriod() {
+        return period;
+    }
 
     //@@author
     @Override
@@ -96,6 +101,13 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
         }
     }
     
+    /**
+     * Returns true if numArgs matches the number of arguments period has
+     */
+    public boolean isNumArgsMatch(int numArgs) {
+        return this.period.getNumArgs() == numArgs;
+    }
+    
     //@@author A0130853L
     /** 
      * Marks task as done or event as over.
@@ -114,8 +126,7 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
         if (!isDone && !isOverdue) {
             this.isOverdue = true;
         }
-    }
-    
+    }    
     
     //@@author
     @Override
@@ -128,11 +139,6 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
     @Override
     public String toString() {
         return getAsText();
-    }
-
-    @Override
-    public TaskPeriod getPeriod() {
-        return period;
     }
     
     //@@author A0130853L
