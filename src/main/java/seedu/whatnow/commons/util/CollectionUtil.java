@@ -37,12 +37,23 @@ public class CollectionUtil {
     public static boolean elementsAreUnique(Collection<?> items) {
         final Set<Object> testSet = new HashSet<>();
         for (Object item : items) {
-            final boolean itemAlreadyExists = !testSet.add(item); // see Set
-                                                                  // documentation
+            final boolean itemAlreadyExists = !testSet.add(item); // see Set documentation
             if (itemAlreadyExists) {
                 return false;
             }
         }
         return true;
+    }
+    
+    /**
+     * Get only the unique elements in a collection
+     */
+    public static Set<?> getUniqueElements(Collection<?> items) {
+        Set<Object> uniqueSet = new HashSet<>();
+        for (Object item : items) {
+            uniqueSet.add(item);
+        }
+        
+        return uniqueSet;
     }
 }

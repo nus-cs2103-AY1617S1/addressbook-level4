@@ -16,11 +16,20 @@ import java.util.Calendar;
  * message if the input is invalid
  */
 public class TaskDate {
-    //@@author A0139128A
+    // @@author A0139128A
     public static final String MESSAGE_NAME_CONSTRAINTS = "Task Date should be represented as one of the followings:\n"
             + "dd/mm/yyyy\n" + "day month year\n" + "today\n" + "tomorrow\n";
     public static final String EXPIRED_TASK_DATE = "Task Date cannot be in the past!";
     public static final String INVALID_TASK_DATE_RANGE_FORMAT = "The task date range is invalid!";
+
+    public static final String DATE_ALPHA_WITH_YEAR_VALIDATION_REGEX = "([0-9]{2}+[\\w\\.])+([0-9]{4})";
+    public static final String DATE_ALPHA_WITHOUT_YEAR_VALIDATION_REGEX = "([0-9]{2}+[\\w\\.])";
+
+    public static final String DATE_NUM_SLASH_WITH_YEAR_VALIDATION_REGEX = "([0-9]{2}+)/([0-9]{2}+)/([0-9]{4})"; 
+    public static final String DATE_NUM_SLASH_WITHOUT_YEAR_VALIDATION_REGEX = "([0-9]{2})/([0-9]{2})";
+    public static final String DATE_NUM_SLASH_WITH_YEAR_VALIDATION_SHORTENED_DAY_REGEX = "([0-9]{1}+)/([0-9]{2}+)/([0-9]{4})";
+    public static final String DATE_NUM_SLASH_WITH_YEAR_VALIDATION_SHORTENED_MONTH_REGEX = "([0-9]{2}+)/([1-9]{1}+)/([0-9]{4})";
+    public static final String DATE_NUM_SLASH_WITH_YEAR_VALIDATION_SHORTENED_DAY_AND_MONTH_REGEX = "([0-9]{1}+)/([0-9]{1}+)/([0-9]{4})";
 
     public static final String DATE_NUM_SLASH_WITH_YEAR_FORMAT = "dd/MM/yyyy";
 
@@ -30,17 +39,20 @@ public class TaskDate {
     private static final Pattern DAYS_THURSDAY = Pattern.compile("((?:thursday|thur|thu))", Pattern.CASE_INSENSITIVE);
     private static final Pattern DAYS_FRIDAY = Pattern.compile("((?:friday|fri))", Pattern.CASE_INSENSITIVE);
     private static final Pattern DAYS_SATURDAY = Pattern.compile("((?:saturday|sat))", Pattern.CASE_INSENSITIVE);
-    private static final Pattern TODAY = Pattern.compile("((?:today|2day))", Pattern.CASE_INSENSITIVE);
+    private static final Pattern DAYS_SUNDAY = Pattern.compile("((?:sunday|sun))", Pattern.CASE_INSENSITIVE);
+    private static final Pattern TODAY = Pattern.compile("((?:today|tdy))", Pattern.CASE_INSENSITIVE);
     private static final Pattern TOMORROW = Pattern.compile("((?:tomorrow|tmr))", Pattern.CASE_INSENSITIVE);
 
     private static final Pattern DAYS_IN_FULL = Pattern
             .compile("^(monday|tuesday|wednesday|thursday|friday|saturday|sunday)$", Pattern.CASE_INSENSITIVE);
-    private static final Pattern DAYS_IN_SHORT = Pattern.compile("^(mon|tue|tues|wed|thu|thur|fri|sat|sun)$", Pattern.CASE_INSENSITIVE);
+    private static final Pattern DAYS_IN_SHORT = Pattern.compile("^(mon|tue|tues|wed|thu|thur|fri|sat|sun)$",
+            Pattern.CASE_INSENSITIVE);
 
     private static String fullDate;
     private static String startDate;
     private static String endDate;
 
+    //author@@ A0141021H
     private static final String JANUARY_FULL = "january";
     private static final String FEBRUARY_FULL = "february";
     private static final String MARCH_FULL = "march";
@@ -66,12 +78,14 @@ public class TaskDate {
     private static final String NOVEMBER_SHORT = "nov";
     private static final String DECEMBER_SHORT = "dec";
 
+    private static final String forwardSlash = "/";
+
+    //@@author A0139772U
     private static final int DATE_COMPONENT_DAY = 0;
     private static final int DATE_COMPONENT_MONTH = 1;
     private static final int DATE_COMPONENT_YEAR = 2;
     private static final int INCREASE_DATE_BY_ONE_DAY = 1;
     private static final int INCREASE_DATE_BY_SEVEN_DAYS = 7;
-
 
     // @@author A0139128A
     /**
@@ -79,10 +93,14 @@ public class TaskDate {
      *
      * @throw IllegalValueException if given date is invalid
      */
-    public TaskDate(String taskDate, String startDate, String endDate)
-            throws IllegalValueException, ParseException {
-
+    public TaskDate(String taskDate, String startDate, String endDate) throws IllegalValueException, ParseException {
         if (taskDate == null && startDate != null && endDate != null) {
+            if (TODAY.matcher(startDate).find() || TOMORROW.matcher(startDate).find()) {
+                startDate = performStartDate(startDate);
+            }
+            if (TODAY.matcher(endDate).find() || TOMORROW.matcher(endDate).find()) {
+                endDate = performEndDate(endDate);
+            }
             if (!isValidDateRange(startDate, endDate)) {
                 throw new IllegalValueException(INVALID_TASK_DATE_RANGE_FORMAT);
             }
@@ -91,7 +109,7 @@ public class TaskDate {
                 throw new IllegalValueException(MESSAGE_NAME_CONSTRAINTS);
             }
             if (TODAY.matcher(taskDate).find()) {
-                assignTodayDate();
+                fullDate = assignTodayDate();
             } else if (TOMORROW.matcher(taskDate).find()) {
                 assignTmrDate();
             }
@@ -99,23 +117,47 @@ public class TaskDate {
     }
 
     // @@author A0139128A
+    /** Assigns the appropriate today's or tomorrow date to startDate */
+    private String performStartDate(String startDate) {
+        if (TODAY.matcher(startDate).find()) {
+            return assignTodayDate();
+        } else {
+            return assignTmrDate();
+        }
+    }
+
+    // @@author A0139128A
+    /** Assigns the appropriate today's or tomorrow date to endDate */
+    private String performEndDate(String endDate) {
+        if (TODAY.matcher(endDate).find()) {
+            return assignTodayDate();
+        } else {
+            return assignTmrDate();
+        }
+    }
+
+    // @@author A0139128A
     /** Assigns today's date to fullDate */
-    private void assignTodayDate() {
+    private String assignTodayDate() {
+        String todayDate;
         DateFormat dateFormat = new SimpleDateFormat(DATE_NUM_SLASH_WITH_YEAR_FORMAT);
         Calendar cal = Calendar.getInstance();
 
-        fullDate = dateFormat.format(cal.getTime());
+        todayDate = dateFormat.format(cal.getTime());
+        return todayDate;
     }
 
     // @@author A0139128A
     /** Assigns tmr's date to fullDate */
-    private void assignTmrDate() {
+    private String assignTmrDate() {
+        String tmrDate;
         DateFormat dateFormat2 = new SimpleDateFormat(DATE_NUM_SLASH_WITH_YEAR_FORMAT);
         Calendar cal2 = Calendar.getInstance();
 
         cal2.add(Calendar.DATE, 1);
 
-        fullDate = dateFormat2.format(cal2.getTime());
+        tmrDate = dateFormat2.format(cal2.getTime());
+        return tmrDate;
     }
 
     // @@author A0139128A
@@ -127,7 +169,6 @@ public class TaskDate {
      * @throws ParseException
      * @throws IllegalValueException
      */
-
     private static boolean isValidDate(String reqDate) throws ParseException, IllegalValueException {
 
         if (TODAY.matcher(reqDate).find() || TOMORROW.matcher(reqDate).find()) {
@@ -141,6 +182,7 @@ public class TaskDate {
      * This function finds the respective regex that matches the user input and
      * sends to isValidDateRangeValidator to check if the two dates are really
      * valid
+     * 
      * @param startDate
      *            is the user input startingDate
      * @param endDate
@@ -149,14 +191,26 @@ public class TaskDate {
      * @throws ParseException
      */
     // @@author A0139128A
-    private boolean isValidDateRange(String startDate, String endDate) throws ParseException {
+    private static boolean isValidDateRange(String startDate, String endDate) throws ParseException {
         return isValidDateRangeValidator(startDate, endDate);
     }
 
     // @@author A0139128A
-    private boolean isValidDateRangeValidator(String beforeDate, String afterDate) {
+    private static boolean isValidDateRangeValidator(String beforeDate, String afterDate) {
         if (beforeDate == null && afterDate == null) {
             return true;
+        }
+        boolean convertedFromDay = false;
+        if (isDay(beforeDate) && isDay(afterDate)) {
+            beforeDate = formatDayToDate(beforeDate);
+            afterDate = formatDayToDate(afterDate);
+            convertedFromDay = true;
+        } else if (isDay(beforeDate)) {
+            beforeDate = formatDayToDate(beforeDate);
+            convertedFromDay = true;
+        } else if (isDay(afterDate)) {
+            afterDate = formatDayToDate(afterDate);
+            convertedFromDay = true;
         }
         boolean validDateRange = false;
         boolean sameDate = false;
@@ -168,8 +222,16 @@ public class TaskDate {
             finishDate = sdf.parse(afterDate);
             if (beginDate.before(finishDate)) {
                 validDateRange = true;
+            } else {
+                if (convertedFromDay) {
+                    afterDate = isBeforeEarlierThanAfter(finishDate);
+                    finishDate = sdf.parse(afterDate);
+                    if (beginDate.before(finishDate)) {
+                        validDateRange = true;
+                    }
+                }
             }
-            if (beginDate.equals(finishDate)) { 
+            if (beginDate.equals(finishDate)) {
                 sameDate = true;
             }
         } catch (ParseException e) {
@@ -206,6 +268,20 @@ public class TaskDate {
         }
     }
 
+    // @@author A0139128A
+    /**
+     * returns a week ahead of the input date when a day is entered
+     */
+    private static String isBeforeEarlierThanAfter(Date finishDate) {
+
+        SimpleDateFormat sdf = new SimpleDateFormat(DATE_NUM_SLASH_WITH_YEAR_FORMAT);
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(finishDate);
+        cal.add(Calendar.DATE, 7);
+
+        return sdf.format(cal.getTime());
+    }
+
     /**
      * @param test
      *            is the date input by the user
@@ -216,9 +292,11 @@ public class TaskDate {
      * @throws ParseException
      * @throws IllegalValueException
      */
-    private static boolean isValidNumDate(String incDate)
-            throws ParseException, IllegalValueException {
+    private static boolean isValidNumDate(String incDate) throws ParseException, IllegalValueException {
         Date inputDate = null;
+        if (isDay(incDate)) {
+            incDate = formatDayToDate(incDate);
+        }
         try {
             DateFormat df = new SimpleDateFormat(DATE_NUM_SLASH_WITH_YEAR_FORMAT);
             df.setLenient(false);
@@ -248,36 +326,44 @@ public class TaskDate {
         return true;
     }
 
+    // @@author A0139128A
+    private static boolean isDay(String inputDay) {
+        return (DAYS_MONDAY.matcher(inputDay).find() || DAYS_TUESDAY.matcher(inputDay).find()
+                || DAYS_WEDNESDAY.matcher(inputDay).find() || DAYS_THURSDAY.matcher(inputDay).find()
+                || DAYS_FRIDAY.matcher(inputDay).find() || DAYS_SATURDAY.matcher(inputDay).find()
+                || DAYS_SUNDAY.matcher(inputDay).find());
+    }
+
     /**
      * This method checks the validity of the month entered by the user.
      */
-    public static boolean isValidMonth(String mth){
+    public static boolean isValidMonth(String mth) {
         String month = mth.toLowerCase();
-        if(month.equals(JANUARY_FULL) || month.equals(JANUARY_SHORT)){
+        if (month.equals(JANUARY_FULL) || month.equals(JANUARY_SHORT)) {
             return true;
-        } else if(month.equals(FEBRUARY_FULL)|| month.equals(FEBRUARY_SHORT)){
+        } else if (month.equals(FEBRUARY_FULL) || month.equals(FEBRUARY_SHORT)) {
             return true;
-        } else if(month.equals(MARCH_FULL)|| month.equals(MARCH_SHORT)){
+        } else if (month.equals(MARCH_FULL) || month.equals(MARCH_SHORT)) {
             return true;
-        } else if(month.equals(APRIL_FULL)|| month.equals(APRIL_SHORT)){
+        } else if (month.equals(APRIL_FULL) || month.equals(APRIL_SHORT)) {
             return true;
-        } else if(month.equals(MAY_FULL)){
+        } else if (month.equals(MAY_FULL)) {
             return true;
-        } else if(month.equals(JUNE_FULL)|| month.equals(JUNE_SHORT)){
+        } else if (month.equals(JUNE_FULL) || month.equals(JUNE_SHORT)) {
             return true;
-        } else if(month.equals(JULY_FULL)|| month.equals(JULY_SHORT)){
+        } else if (month.equals(JULY_FULL) || month.equals(JULY_SHORT)) {
             return true;
-        } else if(month.equals(AUGUST_FULL)|| month.equals(AUGUST_SHORT)){
+        } else if (month.equals(AUGUST_FULL) || month.equals(AUGUST_SHORT)) {
             return true;
-        } else if(month.equals(SEPTEMBER_FULL)|| month.equals(SEPTEMBER_SHORT)){
+        } else if (month.equals(SEPTEMBER_FULL) || month.equals(SEPTEMBER_SHORT)) {
             return true;
-        } else if(month.equals(OCTOBER_FULL)|| month.equals(OCTOBER_SHORT)){
+        } else if (month.equals(OCTOBER_FULL) || month.equals(OCTOBER_SHORT)) {
             return true;
-        } else if(month.equals(NOVEMBER_FULL)|| month.equals(NOVEMBER_SHORT)){
+        } else if (month.equals(NOVEMBER_FULL) || month.equals(NOVEMBER_SHORT)) {
             return true;
-        } else if(month.equals(DECEMBER_FULL)|| month.equals(DECEMBER_SHORT)){
+        } else if (month.equals(DECEMBER_FULL) || month.equals(DECEMBER_SHORT)) {
             return true;
-        } else { 
+        } else {
             return false;
         }
     }
@@ -287,7 +373,7 @@ public class TaskDate {
      * attached with a default time and there is a need to overwrite this timing
      * to the latest so that it can be compared with the current date
      */
-    //@@author A0139128A
+    // @@author A0139128A
     private static Calendar setGregorian(Calendar cal, Date reqDate) {
         cal.setTime(reqDate);
         cal.set(Calendar.HOUR_OF_DAY, 23);
@@ -297,7 +383,7 @@ public class TaskDate {
     }
 
     /** Gets the current Date and set it to earliest */
-    //@@author A0139128A
+    // @@author A0139128A
     private static Calendar setGregorianCurrent(Calendar cal) {
         cal.set(Calendar.HOUR_OF_DAY, 00);
         cal.set(Calendar.MINUTE, 00);
@@ -305,7 +391,7 @@ public class TaskDate {
         return cal;
     }
 
-    //@@author A0139772U
+    // @@author A0139772U
     public static String formatDatetoStandardDate(String date) throws IllegalValueException, ParseException {
         Calendar today = Calendar.getInstance();
         DateFormat yearFormat = new SimpleDateFormat("yyyy");
@@ -329,17 +415,17 @@ public class TaskDate {
         }
         if (dateComponent[DATE_COMPONENT_MONTH].length() < 2) {
             dateComponent[DATE_COMPONENT_MONTH] = 0 + dateComponent[DATE_COMPONENT_MONTH];
-        } 
+        }
         if (dateComponent[DATE_COMPONENT_YEAR].length() < 4) {
             dateComponent[DATE_COMPONENT_YEAR].replace(dateComponent[DATE_COMPONENT_YEAR], year);
-        } 
-        String formattedDate = dateComponent[DATE_COMPONENT_DAY] + "/" 
-                + dateComponent[DATE_COMPONENT_MONTH] + "/"
+        }
+        String formattedDate = dateComponent[DATE_COMPONENT_DAY] + "/" + dateComponent[DATE_COMPONENT_MONTH] + "/"
                 + dateComponent[DATE_COMPONENT_YEAR];
 
         return formattedDate;
     }
 
+    //@@author A0139772U
     public static String formatDayToDate(String date) {
         assert (DAYS_IN_FULL.matcher(date).find() || DAYS_IN_SHORT.matcher(date).find());
         DateFormat df = new SimpleDateFormat(DATE_NUM_SLASH_WITH_YEAR_FORMAT);
@@ -363,14 +449,14 @@ public class TaskDate {
             cal.set(Calendar.DAY_OF_WEEK, Calendar.SATURDAY);
         } else {
             cal.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
-        } 
+        }
         if (cal.getTime().before(today.getTime())) {
             cal.add(Calendar.DATE, INCREASE_DATE_BY_SEVEN_DAYS);
         }
         return df.format(cal.getTime());
     }
 
-    //@@author A0139128A
+    // @@author A0139128A
     @Override
     public String toString() {
         if (fullDate == null) {
@@ -403,7 +489,12 @@ public class TaskDate {
         return this.endDate;
     }
 
+    //@@author A0141021H
     public static boolean getIsValidDate(String date) throws ParseException, IllegalValueException{
         return isValidDate(date);
+    }
+
+    public static boolean getIsValidDateRange(String start, String end) throws ParseException {
+        return isValidDateRange(start, end);
     }
 }

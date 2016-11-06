@@ -23,9 +23,9 @@ public interface ReadOnlyTask {
     String getStartTime();
 
     String getEndTime();
-    
+
     String getPeriod();
-    
+
     String getEndPeriod();
 
     /**
@@ -39,13 +39,13 @@ public interface ReadOnlyTask {
      * @return
      */
     String getStatus();
-    
+
     /**
      * Return the task type of the task.
      * @return
      */
     String getTaskType();
-    
+
     /**
      * Returns true if both have the same state. (interfaces cannot override .equals)
      */
@@ -53,39 +53,39 @@ public interface ReadOnlyTask {
         if (isBothNoDateNoTime(other)) {
             return other == this // short circuit if same object
                     || (other != null // this is first to avoid NPE below
-                            && other.getName().equals(this.getName()) && other.getTags().equals(this.getTags()));
+                    && other.getName().equals(this.getName()) && other.getTags().equals(this.getTags()));
         } else if (isBothOneDateNoTime(other)) {
             return other == this // short circuit if same object
                     || (other != null // this is first to avoid NPE below
-                            && other.getName().equals(this.getName()) && other.getTags().equals(this.getTags()))
-                            && other.getTaskDate().equals(this.getTaskDate());
+                    && other.getName().equals(this.getName()) && other.getTags().equals(this.getTags()))
+                    && other.getTaskDate().equals(this.getTaskDate());
         } else if (isBothOneDateOneTime(other)) {
             return other == this // short circuit if same object
                     || (other != null // this is first to avoid NPE below
-                            && other.getName().equals(this.getName()) && other.getTags().equals(this.getTags()))
-                            && other.getTaskDate().equals(this.getTaskDate())
-                            && other.getTaskTime().equals(this.getTaskTime());
+                    && other.getName().equals(this.getName()) && other.getTags().equals(this.getTags()))
+                    && other.getTaskDate().equals(this.getTaskDate())
+                    && other.getTaskTime().equals(this.getTaskTime());
         } else if (isBothOneDateTwoTime(other)) {
             return other == this // short circuit if same object
                     || (other != null // this is first to avoid NPE below
-                            && other.getName().equals(this.getName()) && other.getTags().equals(this.getTags()))
-                            && other.getTaskDate().equals(this.getTaskDate())
-                            && other.getStartTime().equals(this.getStartTime())
-                            && other.getEndTime().equals(this.getEndTime());
+                    && other.getName().equals(this.getName()) && other.getTags().equals(this.getTags()))
+                    && other.getTaskDate().equals(this.getTaskDate())
+                    && other.getStartTime().equals(this.getStartTime())
+                    && other.getEndTime().equals(this.getEndTime());
         } else if (isBothTwoDateNoTime(other)) {
             return other == this // short circuit if same object
                     || (other != null // this is first to avoid NPE below
-                            && other.getName().equals(this.getName()) && other.getTags().equals(this.getTags()))
-                            && other.getStartDate().equals(this.getStartDate())
-                            && other.getEndDate().equals(this.getEndDate());
+                    && other.getName().equals(this.getName()) && other.getTags().equals(this.getTags()))
+                    && other.getStartDate().equals(this.getStartDate())
+                    && other.getEndDate().equals(this.getEndDate());
         } else if (isBothTwoDateTwoTime(other)) {
             return other == this // short circuit if same object
                     || (other != null // this is first to avoid NPE below
-                            && other.getName().equals(this.getName()) && other.getTags().equals(this.getTags()))
-                            && other.getStartDate().equals(this.getStartDate())
-                            && other.getEndDate().equals(this.getEndDate())
-                            && other.getStartTime().equals(this.getStartTime())
-                            && other.getEndTime().equals(this.getEndTime());
+                    && other.getName().equals(this.getName()) && other.getTags().equals(this.getTags()))
+                    && other.getStartDate().equals(this.getStartDate())
+                    && other.getEndDate().equals(this.getEndDate())
+                    && other.getStartTime().equals(this.getStartTime())
+                    && other.getEndTime().equals(this.getEndTime());
         } else {
             return false;
         }
@@ -122,7 +122,7 @@ public interface ReadOnlyTask {
         return this.getStartDate() != null && task.getStartDate() != null && this.getStartTime() != null
                 && task.getStartDate() != null;
     }
-    
+
     //@@author A0126240W
     /**
      * Formats the task as text, showing all details.
@@ -130,35 +130,47 @@ public interface ReadOnlyTask {
     default String getAsText() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName());
+        
         if (getTaskDate() != null) {
             builder.append(" on " + getTaskDate());
+            if(getTaskTime() != null ){
+                builder.append(" " + getTaskTime());
+            } else { 
+                if (getStartTime() != null) {
+                    builder.append(" from " + getStartTime());
+                }
+                if (getEndTime() != null) {
+                    builder.append(" to " + getEndTime());
+                }
+            }
+        } else { 
+            if (getStartDate() != null) {
+                builder.append(" from " + getStartDate());
+            } 
+            if (getStartTime() != null) {
+                builder.append(" " + getStartTime());
+            }
+            if (getEndDate() != null) {
+                builder.append(" to " + getEndDate());
+            }
+            if (getEndTime() != null) {
+                builder.append(" " + getEndTime());
+            }
         }
-        if (getStartDate() != null) {
-            builder.append(" from " + getStartDate());
-        }
-        if (getEndDate() != null) {
-            builder.append(" to " + getEndDate());
-        }
-        if (getTaskTime() != null) {
-            builder.append(" at " + getTaskTime());
-        }
-        if (getStartTime() != null) {
-            builder.append(" from " + getStartTime());
-        }
-        if (getEndTime() != null) {
-            builder.append(" to " + getEndTime());
-        }
+        
         if (getPeriod() != null) {
             builder.append(" every " + getPeriod());
         }
+        
         if (getEndPeriod() != null) {
             builder.append(" till " + getEndPeriod());
         }
-        if (getStatus() != null) {
-            builder.append(" " + getStatus());
+        
+        if (getTags().size() > 0) {
+            builder.append(" ");
+            getTags().forEach(builder::append);
         }
-        builder.append(" Tags: ");
-        getTags().forEach(builder::append);
+        
         return builder.toString();
     }
 

@@ -46,11 +46,15 @@ public class Parser {
 
     private static final Pattern DATE_WITH_SLASH_FORMAT = Pattern
             .compile("^(([3][0-1])|([1-2][0-9])|([0]??[1-9]))[/](([1][0-2])|([0]??[1-9]))[/]([0-9]{4})$");
+    private static final Pattern DATE_WITH_HYPHEN_FORMAT = Pattern
+            .compile("^(([3][0-1])|([1-2][0-9])|([0]??[1-9]))[-](([1][0-2])|([0]??[1-9]))[-]([0-9]{4})$");
+    private static final Pattern DATE_WITH_DOT_FORMAT = Pattern
+            .compile("^(([3][0-1])|([1-2][0-9])|([0]??[1-9]))[.](([1][0-2])|([0]??[1-9]))[.]([0-9]{4})$");
     private static final Pattern TIME_FORMAT = Pattern
-            .compile("^(([1][0-2])|([0-9]))((:|\\.)([0-5][0-9]))??((am)|(pm))$");
+            .compile("^(([1][0-2])|([0-9])|([0][1-9]))((:|\\.)([0-5][0-9]))??((am)|(pm))$");
     private static final Pattern TAG_FORMAT = Pattern.compile("^(t/)");
 
-    private static final Pattern TODAY_OR_TOMORROW = Pattern.compile("^(today|tomorrow)$");
+    private static final Pattern TODAY_OR_TOMORROW = Pattern.compile("^(today|tomorrow|tdy|tmr)$");
     private static final Pattern DAYS_IN_FULL = Pattern
             .compile("^(monday|tuesday|wednesday|thursday|friday|saturday|sunday)$");
     private static final Pattern DAYS_IN_SHORT = Pattern.compile("^(mon|tue|tues|wed|thu|thur|fri|sat|sun)$");
@@ -98,9 +102,13 @@ public class Parser {
     private static final String DELIMITER_BLANK_SPACE = " ";
     private static final String DELIMITER_DOUBLE_QUOTATION_MARK = "\"";
     private static final String DELIMITER_FORWARD_SLASH = "/";
+    private static final String DELIMITER_HYPHEN = "-";
+    private static final String DELIMITER_DOT = "\\.";
 
     private static final String BACK_SLASH = "\\";
     private static final String FORWARD_SLASH = "/";
+    private static final String HYPHEN = "-";
+    private static final String DOT = ".";
     private static final String EMPTY_STRING = "";
 
     private static final String DATE_SUFFIX_REGEX = "(st|nd|rd|th)$";
@@ -234,7 +242,17 @@ public class Parser {
      * @return the formatted date with a zero padded in front of single digits in DD and MM
      */
     private static String formatDate(String date) {
-        String[] splitDate = date.split(FORWARD_SLASH);
+        String[] splitDate = null;
+        if (date.contains(FORWARD_SLASH)) {
+            splitDate = date.split(DELIMITER_FORWARD_SLASH);
+        } else if (date.contains(HYPHEN)) {
+            splitDate = date.split(DELIMITER_HYPHEN);
+        } else if (date.contains(DOT)) {
+            splitDate = date.split(DELIMITER_DOT);
+        } else {
+            return null;
+        }
+        
         String formattedDate = EMPTY_STRING;
 
         for (int i = 0; i < splitDate.length; i++) {
@@ -243,8 +261,8 @@ public class Parser {
                 formattedDate += FORWARD_SLASH;
             }
         }
-
-        return date;
+        
+        return formattedDate;
     }
 
     /**
@@ -269,8 +287,8 @@ public class Parser {
         if (splitTimePeriod[TIME_WITHOUT_PERIOD].contains(TIME_DOT)) {
             splitTime = splitTimePeriod[TIME_WITHOUT_PERIOD].split(BACK_SLASH + TIME_DOT);
         }
-
-        formattedTime = (splitTime != null) ? splitTime[TIME_HOUR] : splitTimePeriod[TIME_WITHOUT_PERIOD];
+                
+        formattedTime = (splitTime != null) ? splitTime[TIME_HOUR].replaceAll(SINGLE_DIGIT, ZERO + splitTime[TIME_HOUR]) : splitTimePeriod[TIME_WITHOUT_PERIOD];
         formattedTime += TIME_COLON;
         formattedTime += (splitTime != null) ? splitTime[TIME_MINUTES] : TIME_DEFAULT_MINUTES;
         formattedTime += period;
@@ -329,7 +347,15 @@ public class Parser {
     public String getDate(String argument) {
         if (TODAY_OR_TOMORROW.matcher(argument).find()) {
             return argument;
+        } else if (DAYS_IN_FULL.matcher(argument).find()) {
+            return argument;
+        } else if (DAYS_IN_SHORT.matcher(argument).find()) {
+            return argument;
         } else if (DATE_WITH_SLASH_FORMAT.matcher(argument).find()) {
+            return argument;
+        } else if (DATE_WITH_HYPHEN_FORMAT.matcher(argument).find()) {
+            return argument;
+        } else if (DATE_WITH_DOT_FORMAT.matcher(argument).find()) {
             return argument;
         } else {
             return null;
@@ -874,7 +900,6 @@ public class Parser {
         String[] argComponents = args.trim().split(DELIMITER_BLANK_SPACE);
         if(argComponents.length > 1) {
             Optional<Integer> index = parseIndex(argComponents[INDEX]);
-            System.out.println(argComponents[INDEX]);
             if (!index.isPresent()) {
                 return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MarkUndoneCommand.MESSAGE_MISSING_INDEX));
             }

@@ -13,7 +13,7 @@ public class TypicalTestTasks {
 
     public TypicalTestTasks() {
         try {
-            a = new TaskBuilder().withName("Apricot & Vanilla Shake").withDate("23/2/2017").withTaskType("schedule")
+            a = new TaskBuilder().withName("Apricot & Vanilla Shake").withDate("23/02/2017").withTaskType("schedule")
                     .withTags("low").build();
             b = new TaskBuilder().withName("Business meeting").withDate("24/12/2016").withTaskType("schedule")
                     .withTags("high").build();
@@ -25,42 +25,42 @@ public class TypicalTestTasks {
                     .withTags("").build();
             f = new TaskBuilder().withName("Family Day Outing").withDate("10/08/2017").withTaskType("schedule")
                     .withTags("medium").build();
-            g = new TaskBuilder().withName("Grape juice").withDate("24/2/2017").withTime("4.45pm")
+            g = new TaskBuilder().withName("Grape juice").withDate("24/02/2017").withTime("4:45pm")
                     .withTaskType("schedule").withTags("low").build();
-            j = new TaskBuilder().withName("Jam sanwich").withDate("today").withTime("3pm").withTaskType("schedule")
+            j = new TaskBuilder().withName("Jam sanwich").withDate("25/02/2017").withTime("3:00pm").withTaskType("schedule")
                     .withTags("low").build();
-            k = new TaskBuilder().withName("Kimono Party").withDate("tommorrow").withStartTime("1:00pm")
+            k = new TaskBuilder().withName("Kimono Party").withDate("12/02/2017").withStartTime("1:00pm")
                     .withEndTime("6:00pm").withTaskType("schedule").withTags("high").build();
             l = new TaskBuilder().withName("Lemon Meringue Pie Baking Contest").withStartDate("02/01/2017")
-                    .withEndDate("05/01/2017").withStartTime("9am").withEndTime("12pm").withTaskType("schedule")
+                    .withEndDate("05/01/2017").withStartTime("9:00am").withEndTime("12:00pm").withTaskType("schedule")
                     .withTags("high").build();
-            m = new TaskBuilder().withName("Mardi Gras").withStartDate("28/02/2017").withEndTime("01/03/2017")
+            m = new TaskBuilder().withName("Mardi Gras").withStartDate("28/02/2017").withEndDate("01/03/2017")
                     .withTaskType("schedule").withTags("medium").build();
             n = new TaskBuilder().withName("National Young Mathletes Competition").withStartDate("22/11/2016")
-                    .withEndDate("30/11/2016").withTime("4.15pm").withTaskType("schedule").withTags("").build();
+                    .withEndDate("30/11/2016").withStartTime("4:15pm").withEndTime("9:15pm").withTaskType("schedule").withTags("").build();
             o = new TaskBuilder().withName("Overseas School Trip").withTaskType("schedule").withStartDate("02/01/2020")
                     .withEndDate("05/01/2020").withTaskType("schedule").withTags("").build();
-            p = new TaskBuilder().withName("Pool Party").withDate("23/2/2017").withStartTime("5.30pm")
-                    .withEndTime("6.45pm").withTaskType("schedule").withTags("low").build();
+            p = new TaskBuilder().withName("Pool Party").withDate("23/02/2017").withStartTime("5:30pm")
+                    .withEndTime("6:45pm").withTaskType("schedule").withTags("low").build();
             q = new TaskBuilder().withName("Quartet Performance at Esplanade").withStartDate("12/02/2017")
-                    .withEndDate("24/02/2017").withStartTime("8am").withTaskType("schedule").withTags("low").build();
+                    .withEndDate("24/02/2017").withStartTime("8:00am").withEndTime("8:00am").withTaskType("schedule").withTags("low").build();
             r = new TaskBuilder().withName("Rationing Exercise").withStartDate("25/04/2018").withEndDate("31/05/2018")
-                    .withStartTime("7.30pm").withEndTime("9.30pm").withTaskType("schedule").withTags("high").build();
+                    .withStartTime("7:30pm").withEndTime("9:30pm").withTaskType("schedule").withTags("high").build();
 
             // Manually added
             h = new TaskBuilder().withName("Homemade avacado toast").withDate("24/2/2017").withTaskType("schedule")
                     .build();
-            i = new TaskBuilder().withName("International Finance Forum").withDate("13/12/2016").withTime("10am")
+            i = new TaskBuilder().withName("International Finance Forum").withDate("13/12/2017").withTime("10:00am")
                     .withTaskType("schedule").withTags("high").build();
-            s = new TaskBuilder().withName("Strawberry Crumble Baking Showdown").withDate("today")
+            s = new TaskBuilder().withName("Strawberry Crumble Baking Showdown").withDate("14/02/2017")
                     .withTaskType("schedule").build();
             t = new TaskBuilder().withName("Theatre Arts Major Camp").withStartDate("17/06/2019")
                     .withEndDate("29/07/2019").withTaskType("schedule").withTags("medium").build();
-            u = new TaskBuilder().withName("University of Nevada, Las Vegas Open Day").withStartDate("tomorrow")
-                    .withEndDate("13/12/2016").withStartTime("6pm").withEndTime("10pm").withTaskType("schedule")
+            u = new TaskBuilder().withName("University of Nevada, Las Vegas Open Day").withStartDate("24/02/2018")
+                    .withEndDate("13/12/2018").withStartTime("6:00pm").withEndTime("10:00pm").withTaskType("schedule")
                     .withTags("low").build();
-            v = new TaskBuilder().withName("Victorian Museum Opening").withDate("today").withStartTime("8am")
-                    .withEndTime("10.45am").withTaskType("schedule").build();
+            v = new TaskBuilder().withName("Victorian Museum Opening").withDate("04/12/2017").withStartTime("8:00am")
+                    .withEndTime("10:45am").withTaskType("schedule").build();
 
         } catch (IllegalValueException ive) {
             ive.printStackTrace();
@@ -68,25 +68,25 @@ public class TypicalTestTasks {
         }
     }
 
-    public static void loadWhatNowWithSampleData(WhatNow ab) {
+    public static void loadWhatNowWithSampleData(WhatNow wn) {
 
         try {
-            ab.addTask(new Task(a));
-            ab.addTask(new Task(b));
-            ab.addTask(new Task(c));
-            ab.addTask(new Task(d));
-            ab.addTask(new Task(e));
-            ab.addTask(new Task(f));
-            ab.addTask(new Task(g));
-            ab.addTask(new Task(j));
-            ab.addTask(new Task(k));
-            ab.addTask(new Task(l));
-            ab.addTask(new Task(m));
-            ab.addTask(new Task(n));
-            ab.addTask(new Task(o));
-            ab.addTask(new Task(p));
-            ab.addTask(new Task(q));
-            ab.addTask(new Task(r));
+            wn.addTask(new Task(a));
+            wn.addTask(new Task(b));
+            wn.addTask(new Task(c));
+            wn.addTask(new Task(d));
+            wn.addTask(new Task(e));
+            wn.addTask(new Task(f));
+            wn.addTask(new Task(g));
+            wn.addTask(new Task(j));
+            wn.addTask(new Task(k));
+            wn.addTask(new Task(l));
+            wn.addTask(new Task(m));
+            wn.addTask(new Task(n));
+            wn.addTask(new Task(o));
+            wn.addTask(new Task(p));
+            wn.addTask(new Task(q));
+            wn.addTask(new Task(r));
 
         } catch (UniqueTaskList.DuplicateTaskException e) {
             assert false : "not possible";
@@ -98,8 +98,8 @@ public class TypicalTestTasks {
     }
 
     public WhatNow getTypicalWhatNow() {
-        WhatNow ab = new WhatNow();
-        loadWhatNowWithSampleData(ab);
-        return ab;
+        WhatNow wn = new WhatNow();
+        loadWhatNowWithSampleData(wn);
+        return wn;
     }
 }

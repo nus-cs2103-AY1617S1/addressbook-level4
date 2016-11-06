@@ -40,7 +40,7 @@ public class DateTest {
         assertTrue(TaskDate.isValidMonth("dEc"));
         assertTrue(TaskDate.isValidMonth("deCEMbeR"));
     }
-    
+
     @Test
     public void isValidDate_month_returnFalse(){
         assertFalse(TaskDate.isValidMonth("month"));
@@ -56,47 +56,75 @@ public class DateTest {
         assertFalse(TaskDate.isValidMonth("novmember"));
         assertFalse(TaskDate.isValidMonth("decamber"));
     }
-    
+
     @Test
     public void isValidDate_today_returnTrue() throws ParseException, IllegalValueException{
         assertTrue(TaskDate.getIsValidDate("today"));
+        assertTrue(TaskDate.getIsValidDate("tdy"));
+        assertTrue(TaskDate.getIsValidDate("TDY"));
     }
-    
+
     @Test
     public void isValidDate_today_returnFalse() throws ParseException, IllegalValueException{
-        assertFalse(TaskDate.getIsValidDate("tdy"));
-        assertFalse(TaskDate.getIsValidDate("TDY"));
+        assertFalse(TaskDate.getIsValidDate("2day"));
     }
-    
+
     @Test
     public void isValidDate_tmr_returnTrue() throws ParseException, IllegalValueException{
         assertTrue(TaskDate.getIsValidDate("tomorrow"));
+        assertTrue(TaskDate.getIsValidDate("tmr"));
+        assertTrue(TaskDate.getIsValidDate("TMR"));
     }
-    
+
     @Test
     public void isValidDate_tmr_returnFalse() throws ParseException, IllegalValueException{
-        assertFalse(TaskDate.getIsValidDate("tmr"));
-        assertFalse(TaskDate.getIsValidDate("TMR"));
+        assertFalse(TaskDate.getIsValidDate("tmmr"));
+    }
+
+    @Test
+    public void isValidDate_variousDateFormat_returnTrue() throws ParseException, IllegalValueException{
+        assertTrue(TaskDate.getIsValidDate("03/12/2019"));
+        assertTrue(TaskDate.getIsValidDate("5/11/2017"));
+        assertTrue(TaskDate.getIsValidDate("7/8/2018"));
+        assertTrue(TaskDate.getIsValidDate("8/5/2017"));
+        assertTrue(TaskDate.getIsValidDate("30/12/2018"));
     }
     
     @Test
-    public void isValidDate_variousDateFormat_returnTrue() throws ParseException, IllegalValueException{
-        assertTrue(TaskDate.getIsValidDate("03/12/2017"));
-        assertTrue(TaskDate.getIsValidDate("5/11/2017"));
-        assertTrue(TaskDate.getIsValidDate("7/8/2017"));
-        assertTrue(TaskDate.getIsValidDate("8/5/2017"));
-        assertTrue(TaskDate.getIsValidDate("30/12"));
+    public void isValidDate_wrongDate_returnFalse() throws ParseException, IllegalValueException { 
+        assertFalse(TaskDate.getIsValidDate("34/12/2018"));
+        assertFalse(TaskDate.getIsValidDate("11/18/2016"));
+        assertFalse(TaskDate.getIsValidDate("44/20/2018"));
     }
     
     @Test
     public void isValidDate_PastDateFormat_returnTrue() throws ParseException, IllegalValueException{
-      boolean checkPastDate = false;
+        boolean checkPastDate = false;
         try {
-           TaskDate.getIsValidDate("14/10/2015");
-       }
-       catch(IllegalValueException e){
-           checkPastDate = true;
-       }
+            TaskDate.getIsValidDate("14/10/2015");
+        }
+        catch(IllegalValueException e){
+            checkPastDate = true;
+        }
         assertTrue(checkPastDate);
+    }
+
+    @Test
+    public void isValidDate_checkDateValidity_returnFalse() throws ParseException, IllegalValueException{
+        assertFalse(TaskDate.getIsValidDate("32/09/2018"));
+        assertFalse(TaskDate.getIsValidDate("31/02/2020"));
+        assertFalse(TaskDate.getIsValidDate("10/16/2020"));
+    }
+    @Test
+    public void isValidDate_dateRange_returnTrue() throws ParseException {
+        assertTrue(TaskDate.getIsValidDateRange(null, null));
+        assertTrue(TaskDate.getIsValidDateRange("12/12/2017", "23/11/2018"));
+        assertTrue(TaskDate.getIsValidDateRange("12/12/2016", "12/12/2016"));
+        
+    }
+    
+    @Test
+    public void isValidDate_invalidDateRange_returnFalse() throws ParseException {
+        assertFalse(TaskDate.getIsValidDateRange("12/12/2016", "23/11/2015"));
     }
 }

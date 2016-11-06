@@ -3,7 +3,6 @@ package seedu.whatnow.model.task;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -194,7 +193,6 @@ public class TaskTime {
         }
         
     }
-
     /**
      * This function checks if the givenTimeRange is valid by finding the
      * corresponding regex and passes its corresponding format to a method
