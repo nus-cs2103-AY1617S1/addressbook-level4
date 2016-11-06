@@ -9,8 +9,10 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 import java.util.logging.Level;
@@ -142,52 +144,53 @@ public class Parser {
 			return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
 		}
 	}
-
+	
+	
 	//@@author A0141019U	
-	private String replaceAliases(String userInput) {
-		Pair<String, String> separatedInput = separateNameAndArgs(userInput);
-		String textInQuotes = separatedInput.getKey().trim();
-		if (!textInQuotes.equals("")) {
-			textInQuotes = "'" + textInQuotes + "'";
-		}
+	private String replaceAliases(String userInput) {	
+		String quotedText = StringUtil.getQuotedText(userInput);
+		String inputWithNameRemoved = StringUtil.getNonQuotedText(userInput);
 		
-		String inputWithNameRemoved = separatedInput.getValue();
+		Map<String, String> aliasMap = getAliasMap();
 		
-		List<ReadOnlyAlias> aliasList = this.model.getFilteredAliasList();
-		List<String> aliases = new ArrayList<>(); 
-		List<String> originals = new ArrayList<>(); 
-		
-		for (ReadOnlyAlias aliasObj : aliasList) {
-			aliases.add(aliasObj.getAlias());
-			originals.add(aliasObj.getOriginalPhrase());
-		}
-		
-		for (int i=0; i<aliases.size(); i++) {
-			String alias = aliases.get(i);
-			String original = originals.get(i);
-			
+		for (String alias : aliasMap.keySet()) {			
 			// Does not replace arguments in find command, any alias commands or within quotes			
 			if (inputWithNameRemoved.contains(alias) 
 					&& !(inputWithNameRemoved.contains("find") || inputWithNameRemoved.contains("-alias"))) {
+				
+				String original = aliasMap.get(alias);
 				inputWithNameRemoved = inputWithNameRemoved.replace(alias, original);
 			}
 		}		
 		
-		return inputWithNameRemoved + textInQuotes;
+		return inputWithNameRemoved + quotedText;
+	}
+	
+	//@@author A0141019U	
+	private Map<String, String> getAliasMap() {
+		List<ReadOnlyAlias> aliasList = this.model.getFilteredAliasList();
+		Map<String, String> aliases = new HashMap<>();
+
+		for (ReadOnlyAlias aliasObj : aliasList) {
+			aliases.put(aliasObj.getAlias(), aliasObj.getOriginalPhrase());
+		}
+
+		return aliases;
 	}
 	
 	
+
 	private Command prepareAdd(String arguments) {
 		if (StringUtil.countOccurrences('\'', arguments) != 2) {
 			// TODO better error msg?
 			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 		}
 		
-		Pair<String, String> nameAndArgs = separateNameAndArgs(arguments);
-		String taskName = nameAndArgs.getKey();
-		String args = nameAndArgs.getValue();
+		String taskNameWithQuotes = getQuotedText(arguments);
+		String taskNameWithoutQuotes = taskNameWithQuotes.substring(1, taskNameWithQuotes.length()-1);
+		String args = getNonQuotedText(arguments);
 
-		System.out.println("name: " + taskName);
+		System.out.println("name: " + taskNameWithoutQuotes);
 		System.out.println("args: " + args);
 		
 		String argsLowerCase = args.toLowerCase();	
@@ -196,50 +199,24 @@ public class Parser {
 				&& argsLowerCase.contains(" from ") 
 				&& argsLowerCase.contains(" to ")) {
 			logger.log(Level.FINEST, "Calling prepareAddEventSameDay");
-			return prepareAddEventSameDay(taskName, "event", args);
+			return prepareAddEventSameDay(taskNameWithoutQuotes, "event", args);
 		}
 		else if (argsLowerCase.contains(" from ")
 				&& argsLowerCase.contains(" to ")) {
 			logger.log(Level.FINEST, "Calling prepareAddEventDifferentDays");
-			return prepareAddEventDifferentDays(taskName, "event", args);
+			return prepareAddEventDifferentDays(taskNameWithoutQuotes, "event", args);
 		}
 		else if (argsLowerCase.contains(" by ")) {
 			logger.log(Level.FINEST, "Calling prepareAddDeadline");
-			return prepareAddDeadline(taskName, "deadline", args);
+			return prepareAddDeadline(taskNameWithoutQuotes, "deadline", args);
 		}
 		else if (args.matches("\\s*(#.+)*\\s*")) {
 			logger.log(Level.FINEST, "Calling prepareAddSomeday");
-			return prepareAddSomeday(taskName, "someday", args);
+			return prepareAddSomeday(taskNameWithoutQuotes, "someday", args);
 		}
 		else {
 			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 		}
-	}
-	
-	
-	/**
-	 * 
-	 * @param an input command string that may contain 0 or 2 single quotes
-	 * @return a Pair of strings. If there are 2 quotes, the first value in the pair is the 
-	 * text enclosed by the quotes and the second is a concatenation of the text outside them.
-	 * If there are no quotes, the first argument is an empty string and the second is the argument
-	 * string that was supplied to the method.
-	 */
-	private Pair<String, String> separateNameAndArgs(String arguments) {
-		ArgumentTokenizer argsTokenizer = new ArgumentTokenizer(namePrefix);
-		argsTokenizer.tokenize(arguments);
-		
-		String preamble = argsTokenizer.getPreamble().orElse("");
-		
-		List<String> listEmptyString = new ArrayList<>();
-		listEmptyString.add("");
-		listEmptyString.add("");
-		
-		List<String> stringsAfterQuotes = argsTokenizer.getAllValues(namePrefix).orElse(listEmptyString);
-		String taskName = stringsAfterQuotes.get(0);
-		String argsAfterName = stringsAfterQuotes.get(1);
-		
-		return new Pair<>(taskName, " " + preamble + " " + argsAfterName + " ");	
 	}
 	
 	
@@ -410,11 +387,12 @@ public class Parser {
 		
 		Optional<String> taskName;
 		String args;
-		if(editTaskArgs.contains("\'")) {
+		if (editTaskArgs.contains("\'")) {
 			Pair<String,String> nameAndArgs = separateNameAndArgs(editTaskArgs);
 			taskName = Optional.of(nameAndArgs.getKey());
 			args = nameAndArgs.getValue();
-		} else {
+		} 
+		else {
 			taskName = Optional.empty();
 			args = editTaskArgs;
 		}
@@ -586,6 +564,6 @@ public class Parser {
 	public static void main(String[] args) {
 		Parser p = new Parser(new ModelManager());
 //		p.parseCommand("add 'dd' by 5pm today");
-		p.replaceAliases("a 'a' k");
+//		System.out.println(p.getQuotedText("ad 'a' ddk d"));
 	}
 }
