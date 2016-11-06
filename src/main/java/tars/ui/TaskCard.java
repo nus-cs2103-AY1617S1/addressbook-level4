@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import tars.commons.events.model.TarsChangedEvent;
 import tars.commons.util.StringUtil;
@@ -21,11 +22,18 @@ import tars.ui.formatter.DateFormatter;
 public class TaskCard extends UiPart {
 
     private static final String FXML = "TaskListCard.fxml";
-    private static final String PRIORITY_HIGH = "high";
-    private static final String PRIORITY_MEDIUM = "medium";
-    private static final String PRIORITY_LOW = "low";
+
     private static final String STATUS_UNDONE = "Undone";
-    private static final Object STATUS_DONE = "Done";
+    private static final String STATUS_DONE = "Done";
+
+    private static final String PRIORITY_HIGH = "h";
+    private static final String PRIORITY_MEDIUM = "m";
+    private static final String PRIORITY_LOW = "l";
+
+    private static final String LABEL_HIGH = "H";
+    private static final String LABEL_MEDIUM = "M";
+    private static final String LABEL_LOW = "L";
+    private static final String LABEL_DONE = "✔";
 
     @FXML
     private HBox cardPane;
@@ -36,7 +44,7 @@ public class TaskCard extends UiPart {
     @FXML
     private Label date;
     @FXML
-    private Label statusTick;
+    private Label circleLabel;
     @FXML
     private Label tags;
     @FXML
@@ -62,10 +70,9 @@ public class TaskCard extends UiPart {
         setName();
         setIndex();
         setDate();
-        setPriority();
-        setTickColorByStatus();
         setTags();
-        setTextFillByStatus();
+        setCircle();
+        setCardTextColorByStatus();
     }
 
     private void setName() {
@@ -81,65 +88,98 @@ public class TaskCard extends UiPart {
     }
 
     /**
-     * Sets tick priority color based on the status of a task
+     * Sets UI for Task Card Circle
      */
-    private void setTickColorByStatus() {
-        if (task.getStatus().toString().equals(STATUS_UNDONE)) {
-            statusTick.setStyle("-fx-text-fill: transparent");
+    private void setCircle() {
+        String priority = task.getPriority().priorityLevel;
+        String status = task.getStatus().toString();
+
+        Color circleColor = getColorBasedOnPriorityAndStatus(priority, status);
+        String label = getLabelBasedOnPriorityAndStatus(priority, status);
+
+        priorityCircle.setFill(circleColor);
+
+        circleLabel.setText(label);
+        circleLabel.setStyle(UiColor.CIRCLE_LABEL_COLOR);
+    }
+
+    /**
+     * Gets color for circle based on task's priority and status
+     * 
+     * @@author A0121533W
+     */
+    private Color getColorBasedOnPriorityAndStatus(String priority,
+            String status) {
+        if (status.equals(STATUS_DONE)) {
+            return UiColor.CircleColor.DONE.getCircleColor();
         } else {
-            statusTick.setStyle(UiColor.STATUS_DONE_TICK_COLOR);
+            switch (priority) {
+                case PRIORITY_HIGH:
+                    return UiColor.CircleColor.HIGH.getCircleColor();
+                case PRIORITY_MEDIUM:
+                    return UiColor.CircleColor.MEDIUM.getCircleColor();
+                case PRIORITY_LOW:
+                    return UiColor.CircleColor.LOW.getCircleColor();
+                default:
+                    return UiColor.CircleColor.NONE.getCircleColor();
+            }
+        }
+    }
+
+    /**
+     * Gets label for circle based on task's priority and status
+     * 
+     * @@author A0121533W
+     */
+    private String getLabelBasedOnPriorityAndStatus(String priority,
+            String status) {
+        if (status.equals(STATUS_DONE)) {
+            return LABEL_DONE;
+        } else {
+            switch (priority) {
+                case PRIORITY_HIGH:
+                    return LABEL_HIGH;
+                case PRIORITY_MEDIUM:
+                    return LABEL_MEDIUM;
+                case PRIORITY_LOW:
+                    return LABEL_LOW;
+                default:
+                    return StringUtil.EMPTY_STRING;
+            }
         }
     }
 
     /**
      * Sets text to different color based on the status of a task
      */
-    private void setTextFillByStatus() {
+    private void setCardTextColorByStatus() {
         String taskStatus = task.getStatus().toString();
         String color = StringUtil.EMPTY_STRING;
-        if (taskStatus.equals(STATUS_UNDONE)) {
-            color = UiColor.STATUS_UNDONE_TEXT_FILL;
-        } else if (taskStatus.equals(STATUS_DONE)) {
-            color = UiColor.STATUS_DONE_TEXT_FILL;
-        } else {
-            // default case
-            color = UiColor.STATUS_UNDONE_TEXT_FILL;
+        switch (taskStatus) {
+            case STATUS_UNDONE:
+                color = UiColor.STATUS_UNDONE_TEXT_FILL_DARK;
+                break;
+            case STATUS_DONE:
+                color = UiColor.STATUS_DONE_TEXT_FILL;
+                break;
         }
         id.setStyle(color);
         name.setStyle(color);
         date.setStyle(color);
         tags.setStyle(color);
+
+        if (taskStatus.equals(STATUS_UNDONE)) {
+            date.setStyle(UiColor.STATUS_UNDONE_TEXT_FILL_LIGHT);
+            tags.setStyle(UiColor.STATUS_UNDONE_TEXT_FILL_LIGHT);
+        }
     }
 
     @Subscribe
     private void handleTarsChangeEvent(TarsChangedEvent event) {
-        setTextFillByStatus();
-        setTickColorByStatus();
+        setCircle();
+        setCardTextColorByStatus();
     }
 
-    /**
-     * Sets colors to priority label based on task's priority
-     * 
-     * @@author A0121533W
-     */
-    private void setPriority() {
-        switch (task.priorityString()) {
-            case PRIORITY_HIGH:
-                priorityCircle.setFill(UiColor.Priority.HIGH.getCircleColor());
-                break;
-            case PRIORITY_MEDIUM:
-                priorityCircle
-                        .setFill(UiColor.Priority.MEDIUM.getCircleColor());
-                break;
-            case PRIORITY_LOW:
-                priorityCircle.setFill(UiColor.Priority.LOW.getCircleColor());
-                break;
-            default:
-                priorityCircle
-                        .setFill(UiColor.Priority.DEFAULT.getCircleColor());
-                break;
-        }
-    }
 
     private void setTags() {
         tags.setText(task.tagsString());

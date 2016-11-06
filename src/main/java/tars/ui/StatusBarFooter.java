@@ -93,8 +93,8 @@ public class StatusBarFooter extends UiPart {
                 0.0);
         syncStatusBarPane.getChildren().add(syncStatus);
     }
-    
-    //@@author
+
+    // @@author
 
     @Override
     public void setNode(Node node) {
@@ -124,7 +124,6 @@ public class StatusBarFooter extends UiPart {
     private void handleTarsStorageChangeDirectoryEvent(
             TarsStorageDirectoryChangedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        setSaveLocation(
-                "Storage Location Changed: " + event.getNewFilePath());
+        setSaveLocation("Storage Location Changed: " + event.getNewFilePath());
     }
 }

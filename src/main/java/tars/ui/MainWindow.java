@@ -31,7 +31,6 @@ public class MainWindow extends UiPart {
     private MainWindowEventsHandler mainWindowEventsHandler;
 
     // Independent Ui parts residing in this Ui container
-    private Header header;
     private TaskListPanel taskListPanel;
     private RsvTaskListPanel rsvTaskListPanel;
     private ResultDisplay resultDisplay;
@@ -90,13 +89,12 @@ public class MainWindow extends UiPart {
 
         MainWindow mainWindow =
                 UiPartLoader.loadUiPart(primaryStage, new MainWindow());
-        mainWindow.configure(config.getAppTitle(), config,
-                prefs, logic);
+        mainWindow.configure(config.getAppTitle(), config, prefs, logic);
         return mainWindow;
     }
 
-    private void configure(String appTitle, Config config,
-            UserPrefs prefs, Logic logic) {
+    private void configure(String appTitle, Config config, UserPrefs prefs,
+            Logic logic) {
 
 
         // Set dependencies
@@ -111,8 +109,8 @@ public class MainWindow extends UiPart {
         setWindowDefaultSize(userPrefs);
 
         // Configure event handling
-        this.mainWindowEventsHandler = new MainWindowEventsHandler(primaryStage,
-                rootLayout, tabPane);
+        this.mainWindowEventsHandler =
+                new MainWindowEventsHandler(primaryStage, rootLayout, tabPane);
 
         scene = new Scene(rootLayout);
         primaryStage.setScene(scene);
@@ -121,7 +119,6 @@ public class MainWindow extends UiPart {
     }
 
     protected void fillInnerParts() {
-        header = Header.load(primaryStage, headerPlaceholder);
         taskListPanel = TaskListPanel.load(primaryStage,
                 getTaskListPlaceholder(), logic.getFilteredTaskList());
         rsvTaskListPanel = RsvTaskListPanel.load(primaryStage,
@@ -136,8 +133,8 @@ public class MainWindow extends UiPart {
         thisWeekPanel = ThisWeekPanel.load(primaryStage,
                 getThisWeekPanelPlaceholder(), logic.getTaskList());
     }
-    
-  //@@author
+
+    // @@author
 
     private AnchorPane getCommandBoxPlaceholder() {
         return commandBoxPlaceholder;
@@ -166,11 +163,11 @@ public class MainWindow extends UiPart {
     private AnchorPane getThisWeekPanelPlaceholder() {
         return thisWeekPanelPlaceholder;
     }
-    
+
     public TaskListPanel getTaskListPanel() {
         return this.taskListPanel;
     }
-    
+
     public HelpPanel getHelpPanel() {
         return this.helpPanel;
     }
@@ -178,7 +175,7 @@ public class MainWindow extends UiPart {
     public MainWindowEventsHandler getEventsHandler() {
         return this.mainWindowEventsHandler;
     }
-    
+
     public void hide() {
         primaryStage.hide();
     }

@@ -65,7 +65,7 @@ public class RsvTask {
                         && this.isSameStateAs((RsvTask) other));
     }
 
-    private boolean isSameStateAs(RsvTask other) {
+    public boolean isSameStateAs(RsvTask other) {
         return other == this // short circuit if same object
                 || (other != null // this is first to avoid NPE below
                         && other.getName().equals(this.getName())
