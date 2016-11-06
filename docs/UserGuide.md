@@ -17,7 +17,7 @@
   * [Help](#viewing-help--help)
   * [Change-to](#change-storage-location--change-to)
   * [Exit](#exiting-the-program--exit)
-* [FAQ](#FAQ)
+* [FAQ](#faq)
 * [Command Summary](#command-summary)
 
 ## Introduction
