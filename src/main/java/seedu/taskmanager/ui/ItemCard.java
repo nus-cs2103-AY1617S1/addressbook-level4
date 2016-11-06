@@ -6,6 +6,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import seedu.taskmanager.logic.commands.DoneCommand;
 import seedu.taskmanager.logic.commands.NotDoneCommand;
@@ -14,9 +15,6 @@ import seedu.taskmanager.logic.commands.DeleteCommand;
 import seedu.taskmanager.model.item.ItemType;
 import seedu.taskmanager.model.item.ReadOnlyItem;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import org.ocpsoft.prettytime.PrettyTime;
@@ -94,39 +92,42 @@ public class ItemCard extends UiPart{
     @FXML
     public void initialize() {
         name.setText(item.getName().value);
+        name.setFill(Color.web("#424242"));
         itemType.setText(item.getItemType().value);
+        itemType.setStyle("-fx-text-fill: #007fff");
         endTime.setText(item.getEndTime().value);
+        endTime.setStyle("-fx-text-fill: #a00000");
         endDate.setText(item.getEndDate().value);
-        String endDateString = item.getEndDate().value + " " + item.getEndTime().value;
-        DateFormat df = new SimpleDateFormat("yyyy-MM-dd hh:mm"); 
-        Date endFromNowDate;
-        Date currentDate = new Date();
+        endDate.setStyle("-fx-text-fill: #a00000");
         String endFromNowText = "";
         if (item.getItemType().value.equals(ItemType.DEADLINE_WORD) || item.getItemType().value.equals(ItemType.EVENT_WORD)) {
-            try {
-                endFromNowDate = df.parse(endDateString);
-                PrettyTime p = new PrettyTime();
-                endFromNowText = p.format(endFromNowDate);
-                if (currentDate.before(endFromNowDate)) { // Future Deadline
-                    endFromNow.setText("Ends " + endFromNowText);
-                } else { // Past Deadline
-            	    endFromNow.setText("Ended " + endFromNowText);
-                }
-            } catch (ParseException e) {
-                endFromNow.setText(endFromNowText);
-                e.printStackTrace();
+        	Date endFromNowDate = item.getEndDateTime();
+            PrettyTime p = new PrettyTime();
+            endFromNowText = p.format(endFromNowDate);
+            if (item.isPastDeadline()) { // Future Deadline
+                endFromNow.setText("Ended " + endFromNowText);
+                endFromNow.setStyle("-fx-text-fill: #FF0000");
+            } else if (item.isNearDeadline()) { // 24 Hours Before End Date
+                endFromNow.setText("Ends " + endFromNowText);
+                endFromNow.setStyle("-fx-text-fill: #ff8300");
+            } else { // Past Deadline
+                endFromNow.setText("Ends " + endFromNowText);
             }
         } else {
         	endFromNow.setText(endFromNowText);
         }
         startTime.setText(item.getStartTime().value);
+        startTime.setStyle("-fx-text-fill: #048200");
         startDate.setText(item.getStartDate().value);
+        startDate.setStyle("-fx-text-fill: #048200");
         tags.setText(item.tagsString());
         if (item.getDone()) {
+            doneButton.setStyle("-fx-background-color: #28A428");
             doneButton.setText(DONE_TEXT);
         } else {
         	doneButton.setText(UNDONE_TEXT);
         }
+        deleteButton.setStyle("-fx-background-color: c10000");
         tags.setText(item.tagsString());
     }
 
