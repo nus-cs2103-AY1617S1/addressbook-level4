@@ -288,7 +288,12 @@ public class ModelManager extends ComponentManager implements Model {
 
 		String toString();
 	}
-
+	
+	// @@author A0144202Y
+		/**
+		 * Allows user to find Name case insensitively, with partial keyword 
+		 *
+		 */
 	private class NameQualifier implements Qualifier {
 		private Set<String> nameKeyWords;
 
@@ -332,6 +337,12 @@ public class ModelManager extends ComponentManager implements Model {
 		}
 	}
 	
+	// @@author A0144202Y
+	/**
+	 * Allows user to find tagName case insensitively 
+	 *
+	 */
+	
 	private class TagQualifier implements Qualifier {
 		private String keyWords;
 
@@ -341,13 +352,15 @@ public class ModelManager extends ComponentManager implements Model {
 
 		@Override // for loop embedded
 		public boolean run(ReadOnlyTask person) {
-			try {
-				return person.getTags().contains(new Tag(keyWords));
-			} catch (IllegalValueException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+			
+			boolean isContains = false;
+			for (Tag temp:person.getTags()){
+			    if (temp.getTagName().equalsIgnoreCase(keyWords)) 	
+				    isContains = true;
 			}
-			return true;
+			
+			return isContains;
+	
 		}
 
 		@Override
