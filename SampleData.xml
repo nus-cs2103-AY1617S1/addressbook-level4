@@ -1,0 +1,518 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<tasklist>
+    <tasks>
+        <name>cs2101 ca6</name>
+        <startDate>1478745000000</startDate>
+        <endDate>1478746800000</endDate>
+        <recurringType>NONE</recurringType>
+        <recurringPeriod>-1</recurringPeriod>
+        <isArchived>false</isArchived>
+    </tasks>
+    <tasks>
+        <name>read kojin</name>
+        <startDate>-1</startDate>
+        <endDate>-1</endDate>
+        <recurringType>NONE</recurringType>
+        <recurringPeriod>-1</recurringPeriod>
+        <isArchived>false</isArchived>
+    </tasks>
+    <tasks>
+        <name>read jerusalem atlas</name>
+        <tagged>western</tagged>
+        <startDate>-1</startDate>
+        <endDate>-1</endDate>
+        <recurringType>NONE</recurringType>
+        <recurringPeriod>-1</recurringPeriod>
+        <isArchived>true</isArchived>
+    </tasks>
+    <tasks>
+        <name>pay hostel fee</name>
+        <startDate>-1</startDate>
+        <endDate>1478851200000</endDate>
+        <recurringType>NONE</recurringType>
+        <recurringPeriod>-1</recurringPeriod>
+        <isArchived>false</isArchived>
+    </tasks>
+    <tasks>
+        <name>geh1036 exam</name>
+        <tagged>exam</tagged>
+        <startDate>1479787200000</startDate>
+        <endDate>1479794400000</endDate>
+        <recurringType>NONE</recurringType>
+        <recurringPeriod>-1</recurringPeriod>
+        <isArchived>false</isArchived>
+    </tasks>
+    <tasks>
+        <name>cs2106 exam</name>
+        <tagged>exam</tagged>
+        <startDate>1480032000000</startDate>
+        <endDate>1480039200000</endDate>
+        <recurringType>NONE</recurringType>
+        <recurringPeriod>-1</recurringPeriod>
+        <isArchived>false</isArchived>
+    </tasks>
+    <tasks>
+        <name>cs2103t exam</name>
+        <tagged>exam</tagged>
+        <startDate>1480132800000</startDate>
+        <endDate>1480140000000</endDate>
+        <recurringType>NONE</recurringType>
+        <recurringPeriod>-1</recurringPeriod>
+        <isArchived>false</isArchived>
+    </tasks>
+    <tasks>
+        <name>cs3241 exam</name>
+        <tagged>exam</tagged>
+        <startDate>1480291200000</startDate>
+        <endDate>1480298400000</endDate>
+        <recurringType>NONE</recurringType>
+        <recurringPeriod>-1</recurringPeriod>
+        <isArchived>false</isArchived>
+    </tasks>
+    <tasks>
+        <name>cs2105 exam</name>
+        <tagged>exam</tagged>
+        <startDate>1480478400000</startDate>
+        <endDate>1480485600000</endDate>
+        <recurringType>NONE</recurringType>
+        <recurringPeriod>-1</recurringPeriod>
+        <isArchived>false</isArchived>
+    </tasks>
+    <tasks>
+        <name>read japanese mythology history</name>
+        <tagged>reading</tagged>
+        <startDate>-1</startDate>
+        <endDate>-1</endDate>
+        <recurringType>NONE</recurringType>
+        <recurringPeriod>-1</recurringPeriod>
+        <isArchived>false</isArchived>
+    </tasks>
+    <tasks>
+        <name>cs3241 lab</name>
+        <tagged>assignment</tagged>
+        <startDate>-1</startDate>
+        <endDate>1479218400000</endDate>
+        <recurringType>NONE</recurringType>
+        <recurringPeriod>-1</recurringPeriod>
+        <isArchived>false</isArchived>
+    </tasks>
+    <tasks>
+        <name>clean house</name>
+        <startDate>1478383200000</startDate>
+        <endDate>1478386800000</endDate>
+        <recurringType>DAILY</recurringType>
+        <recurringPeriod>-1</recurringPeriod>
+        <isArchived>true</isArchived>
+    </tasks>
+    <tasks>
+        <name>clean house</name>
+        <startDate>1478469600000</startDate>
+        <endDate>1478473200000</endDate>
+        <recurringType>DAILY</recurringType>
+        <recurringPeriod>-1</recurringPeriod>
+        <isArchived>true</isArchived>
+    </tasks>
+    <tasks>
+        <name>clean house</name>
+        <startDate>1478556000000</startDate>
+        <endDate>1478559600000</endDate>
+        <recurringType>DAILY</recurringType>
+        <recurringPeriod>-1</recurringPeriod>
+        <isArchived>false</isArchived>
+    </tasks>
+    <tasks>
+        <name>visit elderly</name>
+        <startDate>1478912400000</startDate>
+        <endDate>1478919600000</endDate>
+        <recurringType>WEEKLY</recurringType>
+        <recurringPeriod>-1</recurringPeriod>
+        <isArchived>false</isArchived>
+    </tasks>
+    <tasks>
+        <name>skype with parents</name>
+        <startDate>1478412000000</startDate>
+        <endDate>1478419200000</endDate>
+        <recurringType>WEEKLY</recurringType>
+        <recurringPeriod>-1</recurringPeriod>
+        <isArchived>true</isArchived>
+    </tasks>
+    <tasks>
+        <name>skype with parents</name>
+        <startDate>1479016800000</startDate>
+        <endDate>1479024000000</endDate>
+        <recurringType>WEEKLY</recurringType>
+        <recurringPeriod>-1</recurringPeriod>
+        <isArchived>false</isArchived>
+    </tasks>
+    <tasks>
+        <name>cs2106 lab5</name>
+        <tagged>assignment</tagged>
+        <startDate>-1</startDate>
+        <endDate>1478851200000</endDate>
+        <recurringType>NONE</recurringType>
+        <recurringPeriod>-1</recurringPeriod>
+        <isArchived>false</isArchived>
+    </tasks>
+    <tasks>
+        <name>revise geh1036</name>
+        <startDate>1478422800000</startDate>
+        <endDate>1478426400000</endDate>
+        <recurringType>DAILY</recurringType>
+        <recurringPeriod>0</recurringPeriod>
+        <isArchived>true</isArchived>
+    </tasks>
+    <tasks>
+        <name>revise geh1036</name>
+        <startDate>1478509200000</startDate>
+        <endDate>1478512800000</endDate>
+        <recurringType>DAILY</recurringType>
+        <recurringPeriod>0</recurringPeriod>
+        <isArchived>false</isArchived>
+    </tasks>
+    <tasks>
+        <name>revise geh1036</name>
+        <startDate>1478595600000</startDate>
+        <endDate>1478599200000</endDate>
+        <recurringType>DAILY</recurringType>
+        <recurringPeriod>0</recurringPeriod>
+        <isArchived>false</isArchived>
+    </tasks>
+    <tasks>
+        <name>revise geh1036</name>
+        <startDate>1478682000000</startDate>
+        <endDate>1478685600000</endDate>
+        <recurringType>DAILY</recurringType>
+        <recurringPeriod>0</recurringPeriod>
+        <isArchived>false</isArchived>
+    </tasks>
+    <tasks>
+        <name>revise geh1036</name>
+        <startDate>1478768400000</startDate>
+        <endDate>1478772000000</endDate>
+        <recurringType>DAILY</recurringType>
+        <recurringPeriod>0</recurringPeriod>
+        <isArchived>false</isArchived>
+    </tasks>
+    <tasks>
+        <name>revise geh1036</name>
+        <startDate>1478854800000</startDate>
+        <endDate>1478858400000</endDate>
+        <recurringType>DAILY</recurringType>
+        <recurringPeriod>0</recurringPeriod>
+        <isArchived>false</isArchived>
+    </tasks>
+    <tasks>
+        <name>cs2103t demo</name>
+        <tagged>assignment</tagged>
+        <startDate>1478649600000</startDate>
+        <endDate>1478653200000</endDate>
+        <recurringType>NONE</recurringType>
+        <recurringPeriod>-1</recurringPeriod>
+        <isArchived>false</isArchived>
+    </tasks>
+    <tasks>
+        <name>watch new HP movie</name>
+        <tagged>western</tagged>
+        <startDate>-1</startDate>
+        <endDate>-1</endDate>
+        <recurringType>NONE</recurringType>
+        <recurringPeriod>-1</recurringPeriod>
+        <isArchived>false</isArchived>
+    </tasks>
+    <tasks>
+        <name>buy high school teacher tea</name>
+        <startDate>-1</startDate>
+        <endDate>-1</endDate>
+        <recurringType>NONE</recurringType>
+        <recurringPeriod>-1</recurringPeriod>
+        <isArchived>false</isArchived>
+    </tasks>
+    <tasks>
+        <name>call friend and celebrate her birthday</name>
+        <startDate>-1</startDate>
+        <endDate>1478617140000</endDate>
+        <recurringType>YEARLY</recurringType>
+        <recurringPeriod>-1</recurringPeriod>
+        <isArchived>false</isArchived>
+    </tasks>
+    <tasks>
+        <name>cs3241 extra lab</name>
+        <tagged>urgent</tagged>
+        <startDate>1478487600000</startDate>
+        <endDate>1478491200000</endDate>
+        <recurringType>NONE</recurringType>
+        <recurringPeriod>-1</recurringPeriod>
+        <isArchived>true</isArchived>
+    </tasks>
+    <tasks>
+        <name>buy new keyboard</name>
+        <startDate>-1</startDate>
+        <endDate>-1</endDate>
+        <recurringType>NONE</recurringType>
+        <recurringPeriod>-1</recurringPeriod>
+        <isArchived>false</isArchived>
+    </tasks>
+    <tasks>
+        <name>fix printer</name>
+        <startDate>-1</startDate>
+        <endDate>-1</endDate>
+        <recurringType>NONE</recurringType>
+        <recurringPeriod>-1</recurringPeriod>
+        <isArchived>false</isArchived>
+    </tasks>
+    <tasks>
+        <name>buy air ticket</name>
+        <startDate>-1</startDate>
+        <endDate>1478660400000</endDate>
+        <recurringType>NONE</recurringType>
+        <recurringPeriod>-1</recurringPeriod>
+        <isArchived>false</isArchived>
+    </tasks>
+    <tasks>
+        <name>watch webcasts</name>
+        <startDate>1478404800000</startDate>
+        <endDate>1478410200000</endDate>
+        <recurringType>DAILY</recurringType>
+        <recurringPeriod>-1</recurringPeriod>
+        <isArchived>true</isArchived>
+    </tasks>
+    <tasks>
+        <name>watch webcasts</name>
+        <startDate>1478491200000</startDate>
+        <endDate>1478496600000</endDate>
+        <recurringType>DAILY</recurringType>
+        <recurringPeriod>-1</recurringPeriod>
+        <isArchived>false</isArchived>
+    </tasks>
+    <tasks>
+        <name>go simlim and fetch hard disk</name>
+        <tagged>repair</tagged>
+        <tagged>urgent</tagged>
+        <startDate>1478653200000</startDate>
+        <endDate>1478674800000</endDate>
+        <recurringType>NONE</recurringType>
+        <recurringPeriod>-1</recurringPeriod>
+        <isArchived>false</isArchived>
+    </tasks>
+    <tasks>
+        <name>cs2101 essay</name>
+        <tagged>assignment</tagged>
+        <startDate>1478480400000</startDate>
+        <endDate>1478487600000</endDate>
+        <recurringType>NONE</recurringType>
+        <recurringPeriod>-1</recurringPeriod>
+        <isArchived>false</isArchived>
+    </tasks>
+    <tasks>
+        <name>watch dr x</name>
+        <startDate>1478869200000</startDate>
+        <endDate>1478872800000</endDate>
+        <recurringType>WEEKLY</recurringType>
+        <recurringPeriod>0</recurringPeriod>
+        <isArchived>false</isArchived>
+    </tasks>
+    <tasks>
+        <name>watch dr x</name>
+        <startDate>1479474000000</startDate>
+        <endDate>1479477600000</endDate>
+        <recurringType>WEEKLY</recurringType>
+        <recurringPeriod>0</recurringPeriod>
+        <isArchived>false</isArchived>
+    </tasks>
+    <tasks>
+        <name>watch dr x</name>
+        <startDate>1480078800000</startDate>
+        <endDate>1480082400000</endDate>
+        <recurringType>WEEKLY</recurringType>
+        <recurringPeriod>0</recurringPeriod>
+        <isArchived>false</isArchived>
+    </tasks>
+    <tasks>
+        <name>watch dr x</name>
+        <startDate>1480683600000</startDate>
+        <endDate>1480687200000</endDate>
+        <recurringType>WEEKLY</recurringType>
+        <recurringPeriod>0</recurringPeriod>
+        <isArchived>false</isArchived>
+    </tasks>
+    <tasks>
+        <name>watch dr x</name>
+        <startDate>1481288400000</startDate>
+        <endDate>1481292000000</endDate>
+        <recurringType>WEEKLY</recurringType>
+        <recurringPeriod>0</recurringPeriod>
+        <isArchived>false</isArchived>
+    </tasks>
+    <tasks>
+        <name>watch dr x</name>
+        <startDate>1481893200000</startDate>
+        <endDate>1481896800000</endDate>
+        <recurringType>WEEKLY</recurringType>
+        <recurringPeriod>0</recurringPeriod>
+        <isArchived>false</isArchived>
+    </tasks>
+    <tasks>
+        <name>write testscript</name>
+        <tagged>assignment</tagged>
+        <startDate>-1</startDate>
+        <endDate>1478444340000</endDate>
+        <recurringType>NONE</recurringType>
+        <recurringPeriod>-1</recurringPeriod>
+        <isArchived>false</isArchived>
+    </tasks>
+    <tasks>
+        <name>final product cs2103t</name>
+        <startDate>-1</startDate>
+        <endDate>1478530740000</endDate>
+        <recurringType>NONE</recurringType>
+        <recurringPeriod>-1</recurringPeriod>
+        <isArchived>false</isArchived>
+    </tasks>
+    <tasks>
+        <name>check flight info</name>
+        <startDate>-1</startDate>
+        <endDate>1488423600000</endDate>
+        <recurringType>MONTHLY</recurringType>
+        <recurringPeriod>-1</recurringPeriod>
+        <isArchived>false</isArchived>
+    </tasks>
+    <tasks>
+        <name>read civ encyclopedia</name>
+        <startDate>1478181600000</startDate>
+        <endDate>1478183400000</endDate>
+        <recurringType>DAILY</recurringType>
+        <recurringPeriod>0</recurringPeriod>
+        <isArchived>true</isArchived>
+    </tasks>
+    <tasks>
+        <name>read civ encyclopedia</name>
+        <startDate>1478268000000</startDate>
+        <endDate>1478269800000</endDate>
+        <recurringType>DAILY</recurringType>
+        <recurringPeriod>0</recurringPeriod>
+        <isArchived>true</isArchived>
+    </tasks>
+    <tasks>
+        <name>read civ encyclopedia</name>
+        <startDate>1478354400000</startDate>
+        <endDate>1478356200000</endDate>
+        <recurringType>DAILY</recurringType>
+        <recurringPeriod>0</recurringPeriod>
+        <isArchived>true</isArchived>
+    </tasks>
+    <tasks>
+        <name>read civ encyclopedia</name>
+        <startDate>1478440800000</startDate>
+        <endDate>1478442600000</endDate>
+        <recurringType>DAILY</recurringType>
+        <recurringPeriod>0</recurringPeriod>
+        <isArchived>true</isArchived>
+    </tasks>
+    <tasks>
+        <name>read civ encyclopedia</name>
+        <startDate>1478527200000</startDate>
+        <endDate>1478529000000</endDate>
+        <recurringType>DAILY</recurringType>
+        <recurringPeriod>0</recurringPeriod>
+        <isArchived>false</isArchived>
+    </tasks>
+    <tasks>
+        <name>read civ encyclopedia</name>
+        <startDate>1478613600000</startDate>
+        <endDate>1478615400000</endDate>
+        <recurringType>DAILY</recurringType>
+        <recurringPeriod>0</recurringPeriod>
+        <isArchived>false</isArchived>
+    </tasks>
+    <tasks>
+        <name>read civ encyclopedia</name>
+        <startDate>1478700000000</startDate>
+        <endDate>1478701800000</endDate>
+        <recurringType>DAILY</recurringType>
+        <recurringPeriod>0</recurringPeriod>
+        <isArchived>false</isArchived>
+    </tasks>
+    <tasks>
+        <name>read civ encyclopedia</name>
+        <startDate>1478786400000</startDate>
+        <endDate>1478788200000</endDate>
+        <recurringType>DAILY</recurringType>
+        <recurringPeriod>0</recurringPeriod>
+        <isArchived>false</isArchived>
+    </tasks>
+    <tasks>
+        <name>read civ encyclopedia</name>
+        <startDate>1478872800000</startDate>
+        <endDate>1478874600000</endDate>
+        <recurringType>DAILY</recurringType>
+        <recurringPeriod>0</recurringPeriod>
+        <isArchived>false</isArchived>
+    </tasks>
+    <tasks>
+        <name>watch cs2106 webcast</name>
+        <tagged>revision</tagged>
+        <startDate>1478512800000</startDate>
+        <endDate>1478516400000</endDate>
+        <recurringType>NONE</recurringType>
+        <recurringPeriod>-1</recurringPeriod>
+        <isArchived>false</isArchived>
+    </tasks>
+    <tasks>
+        <name>BLOCKED SLOT</name>
+        <tagged>nannySkype</tagged>
+        <startDate>1478930400000</startDate>
+        <endDate>1478941200000</endDate>
+        <recurringType>NONE</recurringType>
+        <recurringPeriod>-1</recurringPeriod>
+        <isArchived>false</isArchived>
+    </tasks>
+    <tasks>
+        <name>read computer networks</name>
+        <tagged>reading</tagged>
+        <startDate>-1</startDate>
+        <endDate>-1</endDate>
+        <recurringType>NONE</recurringType>
+        <recurringPeriod>-1</recurringPeriod>
+        <isArchived>false</isArchived>
+    </tasks>
+    <tasks>
+        <name>buy cushion</name>
+        <startDate>-1</startDate>
+        <endDate>-1</endDate>
+        <recurringType>NONE</recurringType>
+        <recurringPeriod>-1</recurringPeriod>
+        <isArchived>false</isArchived>
+    </tasks>
+    <tasks>
+        <name>consultation</name>
+        <startDate>1479168000000</startDate>
+        <endDate>1479178800000</endDate>
+        <recurringType>NONE</recurringType>
+        <recurringPeriod>-1</recurringPeriod>
+        <isArchived>false</isArchived>
+    </tasks>
+    <tags>
+        <tagName>western</tagName>
+    </tags>
+    <tags>
+        <tagName>exam</tagName>
+    </tags>
+    <tags>
+        <tagName>reading</tagName>
+    </tags>
+    <tags>
+        <tagName>assignment</tagName>
+    </tags>
+    <tags>
+        <tagName>urgent</tagName>
+    </tags>
+    <tags>
+        <tagName>repair</tagName>
+    </tags>
+    <tags>
+        <tagName>revision</tagName>
+    </tags>
+    <tags>
+        <tagName>nannySkype</tagName>
+    </tags>
+</tasklist>

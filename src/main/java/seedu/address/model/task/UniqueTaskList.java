@@ -95,6 +95,9 @@ public class UniqueTaskList implements Iterable<Task> {
      * Returns true if the edited task requests to use a blocked time slot.
      */
     public boolean overlapsForEdit(TaskOccurrence original, TaskOccurrence toCheck){
+        if (!toCheck.isSlot()){
+            return false;
+        }
         for(TaskOccurrence t: internalOccurrenceList){
             if(!t.equals(original) && t.isBlockedSlot() && t.isOverlappedWith(toCheck)){
                 return true;
