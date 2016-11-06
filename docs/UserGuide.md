@@ -65,7 +65,6 @@ Are you ready to embrace a new style of organised living? Let's begin!
 
 Format: `help`
 
-> Help is also shown if you enter an incorrect command e.g. `abcd`
 <!-- @@author A0144727B --> 
 
 #### Adding a task: `add` 
@@ -140,8 +139,10 @@ Format: `list [TYPE]`
 
 >**Available Listing**
 > * `list` shows all undone tasks
+> <img src="images/ListUI.png" width="800">
 > * `list today ` shows today's undone tasks
 > * `list all` shows all tasks
+> <img src="images/ListAllUI.png" width="800">
 > * `list done` shows all completed tasks
 > <img src="images/ListDoneUI.png" width="800">
 > * `list [PRIORITY]` shows all tasks with the specified priority level  (low, med, high)
