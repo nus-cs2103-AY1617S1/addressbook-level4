@@ -32,23 +32,24 @@
             </GridPane.margin>
           </Label>
   				
-          <Label fx:id="description" prefWidth="670.0" styleClass="cell_big_label" text="\$description" wrapText="true" GridPane.columnIndex="2" GridPane.hgrow="NEVER" GridPane.vgrow="SOMETIMES" />
-          <GridPane prefWidth="171.0" GridPane.columnIndex="3" GridPane.hgrow="NEVER">
-            <rowConstraints>
-              <RowConstraints vgrow="SOMETIMES" />
-              <RowConstraints vgrow="SOMETIMES" />
-            </rowConstraints>
-            <children>
-          		<Label fx:id="firstDate" maxHeight="10.0" prefHeight="10.0" prefWidth="200.0" styleClass="cell_medium_label" text="\$firstDate" GridPane.columnIndex="1" GridPane.hgrow="NEVER" />
-            	<Label fx:id="secondDate" maxHeight="10.0" prefHeight="10.0" prefWidth="200.0" styleClass="cell_medium_label" text="\$secondDate" GridPane.columnIndex="1" GridPane.hgrow="NEVER" GridPane.rowIndex="1" />
-            </children>
-            <columnConstraints>
-              <ColumnConstraints />
-              <ColumnConstraints halignment="RIGHT" maxWidth="200.0" minWidth="200.0" prefWidth="200.0" />
-              <ColumnConstraints maxWidth="0.0" minWidth="0.0" prefWidth="0.0" />
-            </columnConstraints>
-          </GridPane>
-            <VBox fx:id="colorTag" maxWidth="15.0" prefWidth="15.0" style="-fx-background-color: black;" GridPane.hgrow="NEVER" />
+          <Label fx:id="description" prefWidth="670.0" styleClass="cell_big_label" text="\$description" wrapText="true" GridPane.columnIndex="2" GridPane.hgrow="NEVER" GridPane.vgrow="SOMETIMES">
+               <padding>
+                  <Insets bottom="7.0" top="7.0" />
+               </padding></Label>
+            <VBox alignment="CENTER" GridPane.columnIndex="3">
+               <children>
+          		<Label fx:id="firstDate" alignment="CENTER" contentDisplay="CENTER" maxHeight="10.0" prefHeight="10.0" prefWidth="200.0" styleClass="cell_medium_label" text="\$firstDate">
+                     <padding>
+                        <Insets top="7.0" />
+                     </padding></Label>
+            	<Label fx:id="secondDate" alignment="CENTER" contentDisplay="CENTER" maxHeight="10.0" prefHeight="10.0" prefWidth="200.0" styleClass="cell_medium_label" text="\$secondDate">
+                     <padding>
+                        <Insets bottom="7.0" />
+                     </padding>
+                  </Label>
+               </children>
+            </VBox>
+            <VBox fx:id="colorTag" maxWidth="15.0" prefWidth="15.0" GridPane.hgrow="NEVER" />
   			</children>
         
   		</GridPane>
