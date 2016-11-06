@@ -1,12 +1,15 @@
 # User Guide
 
+
 * [Quick Start](#quick-start)
 * [Features](#features)
 * [FAQ](#faq)
 * [Command Summary](#command-summary)
 
+
 <br>
 ## Quick Start
+
 
 0. Ensure you have Java version `1.8.0_60` or later installed in your Computer.<br>
    > Having any Java 8 version is not enough. <br>
@@ -17,13 +20,16 @@
 3. Double-click the file to start the app. The GUI should appear in a few seconds. 
    > <img src="../assets/UIstartup.png" width="1000"><br>
 
+
 4. Type the command in the command box and press <kbd>Enter</kbd> to execute it. <br>
    e.g. typing **`help`** and pressing <kbd>Enter</kbd> will open the help window. 
    
 5. Refer to the [Features](#features) section below for details of each command.<br>
 
+
 <br>
 ## Features
+
 
 > **Command Format**
 > * Words in `UPPER_CASE` are the parameters.
@@ -31,9 +37,11 @@
 > * Items with `...` after them can have multiple instances.
 > * The order of parameters is fixed.
 
+
 <br>
 #### Viewing help: `help`
 Format: `help`
+
 
 > Help is also shown if you enter an incorrect command e.g. `abcd`
  
@@ -43,64 +51,112 @@ Format: `help`
 Adds a task to the Emeraldo <br>
 Format: `add "TASK_DESCRIPTION" [on DATE] [by DEADLINE_DATE_AND_TIME] [from START_DATE START_TIME] [to END_DATE AND_TIME] [#TAGS]...`
 
+
 <br>
+
 
 Type of task to be added | Examples
 -------------------------|----------
 For a task with no date or time specified, only the task description is required to be specified.|`add "Do laundry"`
 For a task with date but no time specified, it would be taken be as an all day event.|`add "Gyming with Jim" on 23 May 2016`
 For a task with a deadline, the date and time must be specified.|`add "Do tutorial for EE module" by 5 May, 2pm`
-For a scheduled task occurring over a period of time, the start and end date and time must be specified.|`add "Leadership workship" from 3 Jun, 2pm to 3 Jun, 4pm`
+For a scheduled task occurring over a period of time, the start and end date and time must be specified.|`add "Leadership workshop" from 3 Jun, 2pm to 3 Jun, 4pm`
 For any tasks with tags, specify the tags as the last parameter.|`add "James wedding" on 30 Jun #Important`
+
 
 >Tasks can have any number of tags (including 0)
 
+
+Accepted entry formats | Examples
+---------------------|---------------
+Date formats | 4/03/2016  |  4/03/16  |  4-03-16  | 4.03.16 | 4 March 16  |  4/03  |  4 Mar
+Time formats | 14:20  |  14.20  |  1420  |  2.20pm  |  2:20pm
+
+
 <br>
 
-<img src="../assets/add_1.png" width="1000"><br>
+
 First, type a command.
+<img src="../assets/add_1.png" width="1000"><br>
+
+
 <br>
 <br>
-<img src="../assets/add_2.png" width="1000"><br>
 Command will be added.
+<img src="../assets/add_2.png" width="1000"><br>
+
 
 <br>
 [](@@author A0139342H)
-#### Listing all tasks: `list`
+
+
+#### Listing all tasks: `listall`
 Shows a list of all tasks in the Emeraldo.<br>
+Format: `listall`
+
+
+<br>
+
+
+#### Listing all tasks by categories or tags: `listall`
+Shows a list of all tasks in the Emeraldo according to a stated category or by tag. <br>
+Format: `listall CATEGORIES or `listall TAG`
+
+
+> Categories include: today, tomorrow, completed, thisweek, nextweek, thismonth, nextmonth
+> Tags can be anything the user has input when adding a task
+
+
+Examples (categories):
+* `list today`
+* `list tomorrow`
+* `list completed`
+
+
+Examples (tags):
+* `list family`
+* `list work`
+* `list school`
+
+
+<br>
+
+
+#### Listing all uncompleted tasks: `list`
+Shows a list of all uncompleted tasks in the Emeraldo.<br>
 Format: `list`
 
 
 <br>
-#### Listing all tasks by categories: `list`
-Shows a list of all tasks in the Emeraldo according to a stated category. <br>
-Format: `list [CATEGORIES]`
+#### Listing all uncompleted tasks by categories or tags: `list`
+Shows a list of all uncompleted tasks in the Emeraldo according to a stated category or by tag. <br>
+Format: `list CATEGORIES` or `list TAG`
 
-> By default, tasks will be sorted in order of task, floating, event, and then by index
-> Alternatively, list will be sorted by the category requested on top first, then by index.
->
-> Categories can be either **Pre-defined categories** or **User-defined tags**: 
-> Pre-defined categories include: today, tomorrow, priority, completed
-> User-defined tags
 
-Examples:
+> Categories include: today, tomorrow, completed, thisweek, nextweek, thismonth, nextmonth
+> Tags can be anything the user has input when adding a task
+
+
+Examples (categories):
 * `list today`
 * `list tomorrow`
-* `list priority`
 * `list completed`
-* `list USER-DEFINED TAGS`
+
+
+Examples (tags):
+* `list family`
+* `list work`
+* `list school`
+
 
 <br>
 [](@@author A0139196U)
-#### Finding all tasks containing any keyword in their title: `find`
-Finds tasks whose titles contain any of the given keywords.<br>
+#### Finding all uncompleted tasks containing any keyword in their title: `find`
+Finds uncompleted tasks whose titles contain any of the given keywords.<br>
 Format: `find KEYWORD [MORE_KEYWORDS]`
 
-> * Finds all tasks that has the keyword in the task title, and shows in the list sorted in the one of the following order:
-> * By default it will be sorted by the most keyword matches first, but the sorting can be changed
-> * 1. Show the task with the most keyword matches first
-> 2. Sorted in index order
->
+
+> * Finds all uncompleted tasks that has the keyword in the task title, and shows in the list sorted in index order
 > * The search is not case sensitive. e.g `homework` will match `Homework`
 > * The order of the keywords does not matter. e.g. `to do homework` will match `homework to do`
 
@@ -111,14 +167,39 @@ Examples:
 * `find dinner meeting project`<br>
   Returns any task having names `dinner`, `meeting`, or `project`
 
+
+<br>
+#### Finding all tasks containing any keyword in their title: `findall`
+Finds all tasks whose titles contain any of the given keywords.<br>
+Format: `findall KEYWORD [MORE_KEYWORDS]`
+
+
+> * Finds all tasks that has the keyword in the task title, and shows in the list sorted in index order
+> * The search is not case sensitive. e.g `homework` will match `Homework`
+> * The order of the keywords does not matter. e.g. `to do homework` will match `homework to do`
+
+
+
+
+Examples: 
+* `findall homework`<br>
+  Returns `homework/Homework/HomeWoRk`
+* `findall dinner meeting project`<br>
+  Returns any task having names `dinner`, `meeting`, or `project`
+
+
+
+
 <br>
 [](@@author A0142290N)
 #### Editing a task: `edit`
 Edits the specified task from Emeraldo.<br>
-Format: `edit INDEX ["TASK_DESCRIPTION"] [on DATE] [by DEADLINE_DATE_AND_TIME] [from [START_DATE] START_TIME] [to [END_DATE] AND_TIME] [#TAGS]...`
+Format: `edit INDEX ["TASK_DESCRIPTION"] [on DATE] [by DEADLINE_DATE_AND_TIME] [from [START_DATE] START_TIME] [to [END_DATE] AND_TIME]`
+
 
 > Task will be edited given the new parameter(s), and updated instantly<br>
 > Requires at least 1 type of parameter to be passed in
+
 
 Examples:
 * `list`<br>
@@ -126,7 +207,32 @@ Examples:
   Edits task description with index 3 in the list
 * `find KEYWORDS`<br>
   `edit 1 by 10/11/2016` <br>
-  Edits task dateline with index 1 in the list
+  Edits task deadline with index 1 in the list
+
+
+<br>
+[](@@author A0139196U)
+#### Editing a task’s tag: ‘tag add/delete/clear`
+Edits the specified task’s tag in Emeraldo.<br>
+Format: `tag add/delete/clear INDEX [#TAGS]`
+
+
+> Task’s tags will be edited given the new parameter, and updated instantly.<br>
+> For add/delete, requires one parameter to be passed in as tag.
+> For clear, parameter to be passed in is not required.
+
+
+Examples:
+* `list`<br>
+  `tag add 5 #friends`<br>
+  Adds the tag (#friends) to the task with index 5 in the list
+* `list work`<br>
+  `tag delete 3 #work`<br>
+  Deletes the tag (#work) from the task with index 3 in the list
+* `list`<br>
+  `tag clear 2`<br>
+  Clears all tags from the task with index 2 in the list
+
 
 <br>
 [](@@author A0139749L)
@@ -134,7 +240,9 @@ Examples:
 Deletes the specified task from Emeraldo.<br>
 Format: `delete INDEX`
 
+
 > Task will be removed from the list
+
 
 Examples: 
 * `list`<br>
@@ -144,13 +252,16 @@ Examples:
   `delete 459`<br>
   Delete task with index 459 in the list
 
+
 <br>
 [](@@author A0139342H)
 #### Undo a command: `undo`
 Undo the previous action. <br>
 Format: `undo`
 
+
 > Emeraldo will revert the last action done
+
 
 Examples: 
 * `delete 2`<br>
@@ -160,13 +271,16 @@ Examples:
   `undo`<br>
   Deletes task of "add do housework"
 
+
 <br>
 [](@@author A0139196U)
 #### Mark task as complete: `completed`
-Marks a task as completed as a normal tag. <br>
+Marks a task as completed.<br>
 Format: `completed INDEX`
 
-> Emeraldo will mark task as completed with a predefined tag "completed" 
+
+> Emeraldo will mark task as completed and the date of completion will be shown instead of the due date set earlier
+
 
 <br>
 [](@@author A0142290N)
@@ -174,31 +288,71 @@ Format: `completed INDEX`
 Clears all entries from the Emeraldo in the save data.<br>
 Format: `clear`  
 
+
+<br>
+[](@@author A0139342H)
+#### Change save location command: `saveto`
+Changes the save location of the emeraldo.xml file. <br>
+Format: `saveto FILEPATH`
+
+
+> Emeraldo change the save location according to FILEPATH
+
+
+Examples:
+* `saveto ./`<br>
+  Changes the save location to the folder where Emeraldo.jar is. 
+* `saveto ./newFolder/`<br>
+  Changes the save location to newFolder which is in the location where Emeraldo.jar is.
+* `saveto c:/newFolder/`<br>
+  Changes the save location to newFolder which is in C drive.
+* `saveto default`<br>
+  Changes the save location to the default location which is ./data/.
+
+
 <br>
 #### Exiting the program: `exit`
 Exits the program.<br>
 Format: `exit`
 [](@@author)
 
+
 <br>
 #### Saving the data 
 Emeraldo data are saved in the hard disk automatically after any command that changes the data.<br>
 There is no need to save manually.
 
+
 > The file name must end in `.txt` for it to be acceptable to the program.
 >
 > When running the program inside Eclipse, you can set command line parameters before running the program.
 
+
 <br>
 ## FAQ
+
 
 **Q**: How do I transfer my data to another Computer?<br>
 **A**: Install the app in the other computer and overwrite the empty data file it creates with 
        the file that contains the data of your previous Task Manager folder.
 
+
+**Q**: How do I upload Emeraldo to the latest version?
+**A**: Download the latest ‘.jar’ file from the [releases](../../../releases) tab and replace your current ‘.jar’ file with it.
+
+
+**Q**: I cannot access the Help document.
+**A**: Check your internet access. Internet connection is required to access the help document.
+
+
+**Q**: How do I scroll through tasks without using the mouse?
+**A**: Use alt + Tab to navigate the various fields to the box containing the tasks, then use the up and down arrow keys to scroll through the tasks.
+
+
 <br>
 [](@@author A0139196U)      
 ## Command Summary (listed in alphabetical order)
+
 
 Command | Format  
 -------- | :-------- 
@@ -206,13 +360,13 @@ Add | `add "TASK_DESCRIPTION" [on DATE] [by DEADLINE_DATE, DEADLINE_TIME] [from 
 Clear | `clear`
 Completed | `completed INDEX`
 Delete | `delete INDEX`
-Edit | `edit INDEX ["TASK_DESCRIPTION"] [on DATE] [by DEADLINE_DATE, DEADLINE_TIME] [from START_DATE, START_TIME] [to END_DATE, END_TIME] [#TAGS]...`
+Edit | `edit INDEX ["TASK_DESCRIPTION"] [on DATE] [by DEADLINE_DATE, DEADLINE_TIME] [from START_DATE, START_TIME] [to END_DATE, END_TIME]`
 Exit | `exit`
 Find | `find KEYWORD [MORE_KEYWORDS]`
+FindAll | `findall KEYWORD [MORE_KEYWORDS]`
 Help | `help`
-List | `list [CATEGORIES]`
+List | `list [CATEGORIES]` or ‘list [TAGS]’
+ListAll | `listall [CATEGORIES]` or ‘listall [TAGS]’
+Saveto | ‘saveto FILEPATH’
+Tag | `tag add/delete/clear INDEX [#TAGS]`
 Undo | `undo`
-
-
-
-
