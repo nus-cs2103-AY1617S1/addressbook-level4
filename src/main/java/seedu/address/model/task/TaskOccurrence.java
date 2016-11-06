@@ -108,6 +108,7 @@ public class TaskOccurrence {
     }
     //@@author
     
+
     public ReadOnlyTask getTaskReference() {
         return taskReference;
     }

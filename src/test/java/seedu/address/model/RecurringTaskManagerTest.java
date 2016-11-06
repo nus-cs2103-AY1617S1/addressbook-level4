@@ -21,6 +21,7 @@ import seedu.address.model.task.RecurringType;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.TaskDate;
 import seedu.address.model.task.TaskOccurrence;
+import seedu.address.model.task.UniqueTaskList;
 import seedu.address.testutil.TaskBuilder;
 import seedu.address.testutil.TestTask;
 
@@ -44,6 +45,13 @@ public class RecurringTaskManagerTest {
     public void setTasklist_nullTaskList_throwAssert() {
         recurringManager.setTaskList(null);
     }
+    
+    @Test
+    public void setTaskList_successful() {
+        recurringManager.setTaskList(taskMaster.getUniqueTaskList());
+        UniqueTaskList toCompare = recurringManager.getTaskList();
+        assertEquals(toCompare, taskMaster.getUniqueTaskList());
+    }    
     
     @Test(expected = AssertionError.class)
     public void correctAddingOverdueTasks_nullTaskList_throwAssert() {

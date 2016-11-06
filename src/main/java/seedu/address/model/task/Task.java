@@ -8,14 +8,13 @@ import seedu.address.commons.util.CollectionUtil;
 import seedu.address.model.tag.UniqueTagList;
 
 /**
- * Represents a Task in the task list. A Floating task is created by using the
- * constructor with only the (Name and UniqueTagList) E.g. Task floating = new
- * Task(name, uniqueTagList) A Non Floating task is created by using the
- * constructor with (Name, UniqueTagList, TaskDate, TaskDate) E.g. TaskDate
- * startDate, endDate; startDate = new TaskDate(...); endDate = new
- * TaskDate(...); Task nonFloating = new Task(name, uniqueTagList, startDate,
- * endDate); Guarantees: details are present and not null, field values are
- * validated.
+ * Represents a Task in the task list. 
+ * A Floating task is created by using the constructor with only the (Name and UniqueTagList) 
+ * E.g. Task floating = new Task(name, uniqueTagList) 
+ * A Non Floating task is created by using the constructor with (Name, UniqueTagList, TaskDate, TaskDate) 
+ * E.g. TaskDate startDate, endDate; startDate = new TaskDate(...); 
+ * endDate = new TaskDate(...); Task nonFloating = new Task(name, uniqueTagList, startDate, endDate); 
+ * Guarantees: details are present and not null, field values are validated.
  */
 public class Task implements ReadOnlyTask {
 
