@@ -260,11 +260,11 @@ Format: `edit INDEX NEW_DETAILS`
 * Although all fields are optional, they can't all be empty!
 * Below is the format of `NEW_DETAILS` that Jimi recognizes when editting: <br>
 
-Editting a | What to Type for `NEW_DETAILS` | Examples | What Jimi Will Do
--------- | :-------- | :-------- | :--------
-Dateless Task | ["NEW_TASK_DETAILS"] [t/NEW_TAG] [p/NEW_PRIORITY] | edit t1 "finish this user guide" | Edit just the name of task t1.
-Deadine Task | ["NEW_TASK_DETAILS"] [due NEW_DATETIME] [t/NEW_TAG] [p/NEW_PRIORITY] | edit t4 t/bobz | Edit just the tag of task t4.
-Event | ["NEW_TASK_DETAILS"] [on NEW_START_DATETIME] [to NEW_END_DATETIME] [t/NEW_TAG] [p/NEW_PRIORITY] | edit e2 "go to concert" to monday p/LOW | Edit name, end date and priority of event e2.
+`NEW_DETAILS` | Examples | What Jimi Will Do
+-------- | :-------- | :--------
+["NEW_TASK_DETAILS"] [due NEW_DATETIME]|[[on NEW_START_DATETIME][to NEW_END_DATETIME]] [t/NEW_TAG] [p/NEW_PRIORITY] | edit t1 "finish this user guide" | Edit just the name of task t1.
+&nbsp; | edit t4 t/bobz | Edit just the tag of task t4.
+&nbsp; | edit e2 "go to concert" to monday p/LOW | Edit name, end date and priority of event e2.
 
 <br>
 
@@ -273,7 +273,7 @@ Event | ["NEW_TASK_DETAILS"] [on NEW_START_DATETIME] [to NEW_END_DATETIME] [t/NE
 
 Converting to | What to Type for `NEW_DETAILS`| Examples
 -------- | :-------- | :--------
-Dateless Task | float | `edit e1 float`
+Dateless Task | dateless | `edit e1 dateless`
 Tagless item | tagless | `edit t1 tagless`
 No priority item | p/none | `edit t4 p/none`
 Deadline Task | ["NEW_TASK_DETAILS"] due NEW_DATETIME [t/NEW_TAG] [p/NEW_PRIORITY] | `edit e3 due tomorrow p/HIGH`
