@@ -72,7 +72,7 @@ Format: `help`
 
 Adds a task to GGist<br>
 
-General format: `add TASK, [DATE] [TIME], [PRIORITY]`
+General format: `add TASK, [DATE] [TIME] -[PRIORITY]`
 
 > * `[DATE]` and `[TIME]` has to separated by a space.
 > * If a time without a date is given, the current date will be used by default.
@@ -87,16 +87,16 @@ General format: `add TASK, [DATE] [TIME], [PRIORITY]`
 
 ##### Without any deadline
 
-Format: `add TASK, [PRIORITY]`
+Format: `add TASK -[PRIORITY]`
 
 Examples: 
-* `add buy milk, -low`
+* `add buy milk -low`
 * `add buy brother's present`
 
 
 ##### With deadline
 
-Format: `add TASK, DATE TIME [PRIORITY]`
+Format: `add TASK, DATE TIME -[PRIORITY]`
 
 Examples: 
 * `add write diary, tomorrow 1300`
@@ -109,7 +109,7 @@ Examples:
 
 ##### With start and end time within the same day
 
-Format: `add TASK, DATE, STARTTIME, ENDTIME [PRIORITY]`
+Format: `add TASK, DATE, STARTTIME, ENDTIME -[PRIORITY]`
 
 Examples: 
 * `add tennis practice, 21 nov, 1pm, 3pm`
@@ -123,7 +123,7 @@ Examples:
 
 ##### With start and end time on different days
 
-Format: `add TASK, STARTDATE TIME, ENDDATE TIME [PRIORITY]`
+Format: `add TASK, STARTDATE TIME, ENDDATE TIME -[PRIORITY]`
 
 Examples: 
 * `add neurology conference, next thurs 10am, next sunday 7pm -high`
