@@ -120,7 +120,7 @@ public class ParserTest {
 	
 	@Test
 	public void parseCommand_addEventValidOrder_addCommandReturned() {
-		String userInput = "add 'party' from 5:00 to 5:00 on 12-12-12";
+		String userInput = "add 'party' from 5:00 to 10:00 on 12-12-12";
 		Command command = parser.parseCommand(userInput);
 		
 		assertEquals(addCommand.getClass(), command.getClass());
@@ -166,6 +166,23 @@ public class ParserTest {
 		assertEquals(addCommand.getClass(), command.getClass());
 	}
 	
+	//@@author A0143756Y
+	@Test
+	public void parseCommand_addEventEndDateTimeEqualsStartDateTime_incorrectCommandReturned() {
+		String userInput = "add 'party' from 8:00 to 8:00 on 12-12-12";
+		Command command = parser.parseCommand(userInput);
+		
+		assertEquals(incorrectCommand.getClass(), command.getClass());
+	}
+	
+	@Test
+	public void parseCommand_addEventEndDateTimeBeforeStartDateTime_incorrectCommandReturned() {
+		String userInput = "add 'party' from 8:00 to 6:00 on 12-12-12";
+		Command command = parser.parseCommand(userInput);
+		
+		assertEquals(incorrectCommand.getClass(), command.getClass());
+	}
+	//@@author
 	
 	/*
 	 * Tests for the `add deadline` command

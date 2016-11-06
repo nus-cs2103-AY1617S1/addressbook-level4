@@ -16,8 +16,19 @@ public class Task implements ReadOnlyTask, Comparable<ReadOnlyTask> {
 	private Status status;
 	private Optional<LocalDateTime> startDate;
 	private Optional<LocalDateTime> endDate;
-	private UniqueTagList tags;
+	private UniqueTagList tags;	
 	
+	//@@author A0143756Y
+	public static final String MESSAGE_END_DATE_TIME_NOT_AFTER_START_DATE_TIME = "End date/ time cannot be after or equal to start date/ time.\n"
+    				+ "Please re-enter command with valid start and end dates/ times.\n";
+	
+	public static final String MESSAGE_START_DATE_TIME_CANNOT_BE_SET_WITH_END_DATE_TIME_REMOVED = 
+			"Start date/ time cannot be set with end date/ time removed.\n";
+	
+	public static final String MESSAGE_START_DATE_TIME_CANNOT_BE_SET_WITH_END_DATE_TIME_MISSING = 
+			"End date/ time is missing, start date/ time cannot be set.\n";
+
+	//@@author
 	
 	/**
      * Constructor for events, deadlines and somedays.
@@ -29,11 +40,13 @@ public class Task implements ReadOnlyTask, Comparable<ReadOnlyTask> {
     	
     	assert !CollectionUtil.isAnyNull(name, taskType, status, startDate, endDate, tags);
     	
-    	if (startDate.isPresent() && taskType.value != TaskType.Type.EVENT) {
-    		throw new IllegalArgumentException("Only events can have start dates");
-    	}
-    	if (endDate.isPresent() && taskType.value == TaskType.Type.SOMEDAY) {
-    		throw new IllegalArgumentException("Only events and deadlines can have end dates");
+    	validateDateTimeArgumentsWithTaskType(startDate, endDate, taskType);
+    	
+    	if(startDate.isPresent() && endDate.isPresent()){
+    		LocalDateTime startDateTime = startDate.get();
+    		LocalDateTime endDateTime = endDate.get();
+    		
+    		validateEndDateTimeAfterStartDateTime(startDateTime, endDateTime);
     	}
     	
     	this.taskType = taskType;
@@ -96,13 +109,14 @@ public class Task implements ReadOnlyTask, Comparable<ReadOnlyTask> {
     
     public void setStartDate(LocalDateTime date) throws UnsupportedOperationException {
         if (!endDate.isPresent()) {
-            throw new UnsupportedOperationException("End date missing, start date cannot be set");
+            throw new IllegalArgumentException(MESSAGE_START_DATE_TIME_CANNOT_BE_SET_WITH_END_DATE_TIME_MISSING);
         }
-        else {
-            this.setTaskType(new TaskType("event"));
-        	startDate = Optional.of(date);
-        }
+        	
+        this.setTaskType(new TaskType("event"));
+        startDate = Optional.of(date);
+
     }
+    
     //@@author A0139339W
     public void removeStartDate() {
     	this.startDate = Optional.empty();
@@ -119,6 +133,23 @@ public class Task implements ReadOnlyTask, Comparable<ReadOnlyTask> {
         	this.taskType = new TaskType(Type.SOMEDAY);
     	}
     	
+    }
+    
+    //@@author A0143756Y
+    public static void validateEndDateTimeAfterStartDateTime(LocalDateTime startDateTime, LocalDateTime endDateTime){
+    	if(!endDateTime.isAfter(startDateTime)){
+    		throw new IllegalArgumentException(MESSAGE_END_DATE_TIME_NOT_AFTER_START_DATE_TIME);
+    	}
+    }
+    
+    private void validateDateTimeArgumentsWithTaskType(Optional<LocalDateTime> startDate, Optional<LocalDateTime> endDate, TaskType taskType){
+    	if (startDate.isPresent() && taskType.value != TaskType.Type.EVENT) {
+    		throw new IllegalArgumentException("Only events should have start dates");
+    	}
+    	
+    	if (endDate.isPresent() && taskType.value == TaskType.Type.SOMEDAY) {
+    		throw new IllegalArgumentException("Only events and deadlines should have end dates");
+    	}
     }
     //@@author
 
