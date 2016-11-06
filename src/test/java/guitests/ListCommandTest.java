@@ -28,7 +28,7 @@ public class ListCommandTest extends ToDoListGuiTest {
 	
 	@Test
 	public void listWeek() {
-		TestTaskList currentList = new TestTaskList();
+		TestTaskList currentList = new TestTaskList(new TestTask[] {td.eventWithoutParameter, td.eventWithLocation});
 		assertFindCommandSuccess("list week", currentList);
 	}
 	
@@ -66,6 +66,7 @@ public class ListCommandTest extends ToDoListGuiTest {
 		commandBox.runCommand(command);
         assertTrue(taskListPanel.isListMatching(Status.Type.Incomplete, expectedList.getIncompleteList()));
         assertTrue(taskListPanel.isListMatching(Status.Type.Complete, expectedList.getCompleteList()));
+        assertTrue(taskListPanel.isListMatching(Status.Type.Overdue, expectedList.getOverdueList()));
         if ("list".equals(command)) {
         	assertResultMessage(ListCommand.MESSAGE_ALLTASKS_SUCCESS);
         }
