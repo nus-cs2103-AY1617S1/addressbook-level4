@@ -178,10 +178,15 @@ public class ModelManager extends ComponentManager implements Model {
 	}
 	
 	@Override
-	public synchronized void addAlias(Alias toAdd) throws UniqueItemCollection.DuplicateItemException{
+	public synchronized void addAlias(Alias toAdd) throws UniqueItemCollection.DuplicateItemException {
 		// Create a temporary storage of tasks and update the global copy only when add alias is successful
 		UniqueItemCollection<Alias> tempAliases = aliases.copyCollection();
 		 
+		// Ensure that we don't match any other aliases in the task list
+		if (tempAliases.getInternalList().stream().anyMatch(alias -> alias.equals(toAdd))) {
+		    throw new UniqueItemCollection.DuplicateItemException();
+		}
+		
 		aliases.add(toAdd);
 		
 		// Update stored values of aliases

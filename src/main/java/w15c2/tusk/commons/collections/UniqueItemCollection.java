@@ -14,7 +14,7 @@ public class UniqueItemCollection<T> implements Iterable<T>{
      * Signals that an operation would have violated the 'no duplicates' property of the list.
      */
     public static class DuplicateItemException extends DuplicateDataException {
-        protected DuplicateItemException() {
+        public DuplicateItemException() {
             super("Operation would result in duplicate items");
         }
     }
@@ -65,7 +65,7 @@ public class UniqueItemCollection<T> implements Iterable<T>{
         }
         
         // Force no reference equality in the internal list
-        return internalList.stream().anyMatch(obj -> obj.equals(toCheck));
+        return internalList.stream().anyMatch(obj -> obj == toCheck);
     }
 
     /**
