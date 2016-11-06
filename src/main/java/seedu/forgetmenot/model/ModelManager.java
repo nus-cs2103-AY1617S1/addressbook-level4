@@ -209,11 +209,11 @@ public class ModelManager extends ComponentManager implements Model {
         indicateTaskManagerChanged();
     }
     
-    
     public void addRecurringEvent(ReadOnlyTask task, String freq, int occur) throws IllegalValueException {
         StringBuilder recurStartTime = new StringBuilder(task.getStartTime().appearOnUIFormat());
         StringBuilder recurEndTime = new StringBuilder(task.getEndTime().appearOnUIFormat());
         
+        // Makes use of natty parser to add task again
         for (int i = 0; i < occur - 1; i++) {
             recurStartTime.insert(0, freq + " after ");
             recurEndTime.insert(0, freq + " after ");
@@ -222,10 +222,11 @@ public class ModelManager extends ComponentManager implements Model {
                     new Time(recurEndTime.toString()), new Recurrence(task.getRecurrence().getRecurFreq())));
         }
     }
-
+    
     public void addRecurringDeadline(ReadOnlyTask task, String freq, int occur) throws IllegalValueException {
         StringBuilder recurEndTime = new StringBuilder(task.getEndTime().appearOnUIFormat());
         
+        // Makes use of natty parser to add task again
         for (int i = 0; i < occur - 1; i++) {
             recurEndTime.insert(0, freq + " after ");
             
@@ -233,10 +234,11 @@ public class ModelManager extends ComponentManager implements Model {
                     new Recurrence(task.getRecurrence().getRecurFreq())));
         }
     }
-
+    
     public void addRecurringStartOnly(ReadOnlyTask task, String freq, int occur) throws IllegalValueException {
         StringBuilder recurStartTime = new StringBuilder(task.getStartTime().appearOnUIFormat());
         
+        // Makes use of natty parser to add task again
         for (int i = 0; i < occur - 1; i++) {
             recurStartTime.insert(0, freq + " after ");
           
