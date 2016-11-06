@@ -46,28 +46,7 @@ public class XmlTaskListStorageTest {
     public void read_missingFile_emptyResult() throws Exception {
         assertFalse(readTaskList("NonExistentFile.xml").isPresent());
     }
-/*
-    @Test
-    public void readAndSaveTaskList_allInOrder_success() throws Exception {
-        String filePath = testFolder.getRoot().getPath() + "TempTaskList.xml";
-        TypicalTestTasks td = new TypicalTestTasks();
-        TaskList original = td.getTypicalTaskList();
-        XmlTaskListStorage xmlTaskListStorage = new XmlTaskListStorage(filePath);
 
-        //Save in new file and read back
-        xmlTaskListStorage.saveTaskList(original, filePath);
-        ReadOnlyTaskList readBack = xmlTaskListStorage.readTaskList(filePath).get();
-        assertEquals(original, new TaskList(readBack));
-
-        //Modify data, overwrite exiting file, and read back
-        original.addTask(new Task(TypicalTestTasks.task8));
-        original.removeTask(new Task(TypicalTestTasks.task1));
-        xmlTaskListStorage.saveTaskList(original, filePath);
-        readBack = xmlTaskListStorage.readTaskList(filePath).get();
-        assertEquals(original, new TaskList(readBack));
-
-    }
-*/
     @Test
     public void saveTaskList_nullTaskList_assertionFailure() throws IOException {
         thrown.expect(AssertionError.class);
