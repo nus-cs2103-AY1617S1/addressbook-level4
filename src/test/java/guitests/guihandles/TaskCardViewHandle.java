@@ -124,6 +124,10 @@ public class TaskCardViewHandle extends GuiHandle {
         return UiTestUtil.containsStyleClass(rootNode, "overdue");
     }
 
+    public boolean isOngoingStyleApplied() {
+        return UiTestUtil.containsStyleClass(rootNode, "ongoing");
+    }
+
     public boolean isTaskCardCollapsed() {
         return UiTestUtil.containsStyleClass(rootNode, "collapsed");
     }
@@ -159,6 +163,7 @@ public class TaskCardViewHandle extends GuiHandle {
         assertTrue(isTypeDisplayCorrect(task));
         assertTrue(isPinDisplayCorrect(task));
         assertTrue(isOverdueDisplayCorrect(task));
+        assertTrue(isOngoingDisplayCorrect(task));
         return true;
     }
 
@@ -244,6 +249,20 @@ public class TaskCardViewHandle extends GuiHandle {
 
         if (endTime.isPresent()) {
             expected = seedu.todo.testutil.TimeUtil.isOverdue(endTime.get());
+        } else {
+            expected = false;
+        }
+        return expected == actual;
+    }
+
+    private boolean isOngoingDisplayCorrect(ImmutableTask task) {
+        java.util.Optional<LocalDateTime> startTime = task.getStartTime();
+        java.util.Optional<LocalDateTime> endTime = task.getEndTime();
+        boolean actual = isOngoingStyleApplied();
+        boolean expected;
+
+        if (startTime.isPresent() && endTime.isPresent()) {
+            expected = seedu.todo.testutil.TimeUtil.isOngoing(startTime.get(), endTime.get());
         } else {
             expected = false;
         }
