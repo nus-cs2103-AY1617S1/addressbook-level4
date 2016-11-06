@@ -196,7 +196,6 @@ public class TagCommandTest extends CommandTest {
     public void testDeleteTagFromTask_deleteOneTag() throws Exception {
         //Deletes one tag from task 5 with 5 tags. Expects 4 tags left.
         Set<Tag> expectedTags = convertToTags(TAG_NAMES_0_TO_3);
-        System.out.println(expectedTags);
 
         setParameter("5");
         setParameter("d", TAG_NAMES[4]);
