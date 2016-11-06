@@ -27,8 +27,9 @@ public class CompleteUncompleteTaskTest extends GuiTest {
     Task task1 = new Task();
     String commandAdd2 = String.format("add task Buy Milk by \"%s 9pm\"", oneDayFromNowString);
     Task task2 = new Task();
-    String commandAdd3 = String.format("add task Buy Coffee by \"%s 9pm\"", twoDaysFromNowString);
-    Task task3 = new Task();
+    String commandAdd3 = String.format("add event Some Event from \"%s 4pm\" to \"%s 5pm\"",
+            twoDaysFromNowString, twoDaysFromNowString);
+    Event event3 = new Event();
     
     public CompleteUncompleteTaskTest() {
         task1.setName("Buy KOI");
@@ -37,8 +38,11 @@ public class CompleteUncompleteTaskTest extends GuiTest {
         task2.setName("Buy Milk");
         task2.setDueDate(DateUtil.parseDateTime(
                 String.format("%s 21:00:00", oneDayFromNowIsoString)));
-        task3.setDueDate(DateUtil.parseDateTime(
-                String.format("%s 21:00:00", twoDaysFromNowIsoString)));
+        event3.setName("Some Event");
+        event3.setStartDate(DateUtil.parseDateTime(
+                String.format("%s 16:00:00", twoDaysFromNowIsoString)));
+        event3.setEndDate(DateUtil.parseDateTime(
+                String.format("%s 17:00:00", twoDaysFromNowIsoString)));
     }
     
     @Before
