@@ -15,16 +15,17 @@
         <URL value="@Extensions.css" />
     </stylesheets>
     <children>
-      <TableView fx:id="taskTable" minWidth="840.0" prefHeight="540.0" prefWidth="840.0">
+      <TableView fx:id="taskTable" minWidth="840.0" prefHeight="450.0" prefWidth="1000.0">
         <columns>
+         <TableColumn fx:id="statusColumn" editable="false" minWidth="14.0" prefWidth="14.0" resizable="false" text="STATUS" />
+        
           <TableColumn fx:id="idColumn" minWidth="50.0" prefWidth="52.0" resizable="false" text="ID" />
-            <TableColumn fx:id="taskNameColumn" minWidth="275.0" prefWidth="325.0" resizable="false" text="TASK" />
-                        <TableColumn fx:id="statusColumn" editable="false" minWidth="14.0" prefWidth="14.0" resizable="false" text="STATUS" />
+            <TableColumn fx:id="taskNameColumn" minWidth="275.0" prefWidth="300.0" resizable="false" text="TASK" />
             
-            <TableColumn fx:id="startTimeColumn" minWidth="78.0" prefWidth="159.0" resizable="false" text="START" />
-            <TableColumn fx:id="endTimeColumn" minWidth="82.0" prefWidth="149.0" resizable="false" text="END" />
-            <TableColumn fx:id="dueTimeColumn" minWidth="77.0" prefWidth="147.0" resizable="false" text="DUE" />
-          <TableColumn fx:id="tagColumn" minWidth="35.0" prefWidth="146.0" resizable="false" text="TAG" />
+            <TableColumn fx:id="startTimeColumn" minWidth="100.0" prefWidth="210.0" resizable="false" text="START" />
+            <TableColumn fx:id="endTimeColumn" minWidth="82.0" prefWidth="210.0" resizable="false" text="END" />
+            <TableColumn fx:id="dueTimeColumn" minWidth="77.0" prefWidth="210.0" resizable="false" text="DUE" />
+          <TableColumn fx:id="tagColumn" minWidth="35.0" prefWidth="200.0" resizable="false" text="TAG" />
         </columns>
       </TableView>
         

@@ -1,5 +1,10 @@
 package seedu.task.ui;
 
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.Date;
+
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -52,6 +57,11 @@ public class TaskListPanel extends UiPart {
     @FXML
     private TableColumn<ReadOnlyTask, Status> statusColumn;
 
+    private static final String YESTERDAY = "YESTERDAY AT ";
+    private static final String TODAY = "TODAY AT ";
+    private static final String TOMORROW = "TOMORROW AT ";
+    
+    
     @Override
     public void setNode(Node node) {
         panel = (VBox) node;
@@ -93,7 +103,7 @@ public class TaskListPanel extends UiPart {
                         setStyle("-fx-background-color: yellow");
 
                     } else {
-                        setText(item.toString());
+                        
                         setStyle("");
 
                     }
@@ -121,26 +131,39 @@ public class TaskListPanel extends UiPart {
 
                     if (item == null || empty) {
                         setText(null);
-                        setStyle("-fx-background-color");
+                        setStyle("-fx-alignment: center;");
                     } else if (item.toString().equals("")) {
                         setText("-");
-                        // setStyle("-fx-background-color: red");
-                    } else {
-                        setText(item.toString());
-                        setStyle("");
+                        setStyle("-fx-alignment: center;");
+                        
+                    } 
+                    
+                    else {
+                        
+                        setStyle("-fx-alignment: center;");
+                        setText(compareWithCurrentTime(item.toString()));
+                        if(compareWithCurrentTime(item.toString()).startsWith(TODAY)){
+                            setStyle("-fx-font-weight: bold; -fx-text-fill: #8B0000; -fx-font-size: 12pt; -fx-alignment: center;" );
+                        }
+                        if(compareWithCurrentTime(item.toString()).startsWith(TOMORROW)){
+                            setStyle("-fx-font-weight: bold; -fx-text-fill: #8B0000; -fx-font-size: 12pt; -fx-alignment: center;");
+                            }
+                        if(compareWithCurrentTime(item.toString()).startsWith(YESTERDAY)){
+                            setStyle("-fx-font-weight: bold; -fx-text-fill: #8B0000; -fx-font-size: 12pt; -fx-alignment: center;");
+                            }
 
                     }
                 }
             };
         });
-
+        
         endTimeColumn.setCellValueFactory(cellData -> new SimpleObjectProperty(cellData.getValue().getEndTime()));
         endTimeColumn.setCellFactory(column -> {
             return new TableCell<ReadOnlyTask, EndTime>() {
                 @Override
                 protected void updateItem(EndTime item, boolean empty) {
                     super.updateItem(item, empty);
-
+                    setStyle("-fx-alignment: center;");
                     if (item == null || empty) {
                         setText(null);
                         setStyle("");
@@ -148,22 +171,31 @@ public class TaskListPanel extends UiPart {
                         setText("-");
 
                     } else {
-                        // Format date.
-                        setText(item.toString());
-                        setStyle("");
+                        
+                        
+                        setText(compareWithCurrentTime(item.toString()));
+                        if(compareWithCurrentTime(item.toString()).startsWith(TODAY)){
+                            setStyle("-fx-font-weight: bold; -fx-text-fill: #8B0000; -fx-font-size: 12pt; -fx-alignment: center;" );
+                        }
+                        if(compareWithCurrentTime(item.toString()).startsWith(TOMORROW)){
+                            setStyle("-fx-font-weight: bold; -fx-text-fill: #8B0000; -fx-font-size: 12pt; -fx-alignment: center;");
+                            }
+                        if(compareWithCurrentTime(item.toString()).startsWith(YESTERDAY)){
+                            setStyle("-fx-font-weight: bold; -fx-text-fill: #8B0000; -fx-font-size: 12pt; -fx-alignment: center;");
+                            }
 
                     }
                 }
             };
         });
-
+        
         dueTimeColumn.setCellValueFactory(cellData -> new SimpleObjectProperty(cellData.getValue().getDeadline()));
         dueTimeColumn.setCellFactory(column -> {
             return new TableCell<ReadOnlyTask, Deadline>() {
                 @Override
                 protected void updateItem(Deadline item, boolean empty) {
                     super.updateItem(item, empty);
-
+                    setStyle("-fx-alignment: center;");
                     if (item == null || empty) {
                         setText(null);
                         setStyle("");
@@ -171,22 +203,31 @@ public class TaskListPanel extends UiPart {
                         setText("-");
 
                     } else {
-                        // Format date.
-                        setText(item.toString());
-                        setStyle("");
+                        
+                        
+                        setText(compareWithCurrentTime(item.toString()));
+                        if(compareWithCurrentTime(item.toString()).startsWith(TODAY)){
+                            setStyle("-fx-font-weight: bold; -fx-text-fill: #8B0000; -fx-font-size: 12pt; -fx-alignment: center;" );
+                        }
+                        if(compareWithCurrentTime(item.toString()).startsWith(TOMORROW)){
+                            setStyle("-fx-font-weight: bold; -fx-text-fill: #8B0000; -fx-font-size: 12pt; -fx-alignment: center;");
+                            }
+                        if(compareWithCurrentTime(item.toString()).startsWith(YESTERDAY)){
+                            setStyle("-fx-font-weight: bold; -fx-text-fill: #8B0000; -fx-font-size: 12pt; -fx-alignment: center;");
+                            }
 
                     }
                 }
             };
         });
-
+        
         tagColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().tagsString()));
         tagColumn.setCellFactory(column -> {
             return new TableCell<ReadOnlyTask, String>() {
                 @Override
                 protected void updateItem(String item, boolean empty) {
                     super.updateItem(item, empty);
-
+                    setStyle("-fx-alignment: center;");
                     if (item == null || empty) {
                         setText(null);
                         setStyle("-");
@@ -199,7 +240,7 @@ public class TaskListPanel extends UiPart {
                 }
             };
         });
-
+        tagColumn.setStyle("-fx-alignment: center;");
         taskTable.setRowFactory(tv -> new TableRow<ReadOnlyTask>() {
             @Override
             public void updateItem(ReadOnlyTask item, boolean empty) {
@@ -212,9 +253,11 @@ public class TaskListPanel extends UiPart {
                 }
                 
                 else if (item.getStatus().getOverdueStatus()) {
-                    setStyle("-fx-background-color: #FF0000");
+                    setStyle("-fx-background-color: #FFCCCB");
                 }
-                
+                else { 
+                    setStyle("");
+                }
             }
         });
 
@@ -270,7 +313,7 @@ public class TaskListPanel extends UiPart {
 
     private void setConnections(ObservableList<ReadOnlyTask> taskList) {
         taskTable.setPlaceholder(new Label("Come on and add something!"));
-
+        
         taskTable.setItems(taskList);
 
         initialize();
@@ -287,5 +330,35 @@ public class TaskListPanel extends UiPart {
         placeHolderPane.getChildren().add(panel);
 
     }
+    
+    public String compareWithCurrentTime(String time) {
+        String strDatewithTime = time.replace(" ", "T");
+        LocalDateTime newTaskDateTime = LocalDateTime.parse(strDatewithTime);
+
+        Date currentDate = new Date();
+        LocalDateTime localDateTime = LocalDateTime.ofInstant(currentDate.toInstant(), ZoneId.systemDefault());
+        SimpleDateFormat timeOnly = new SimpleDateFormat("h.mm a");
+        Date getTime = Date.from(newTaskDateTime.atZone(ZoneId.systemDefault()).toInstant());
+        String strTime = timeOnly.format(getTime);
+        
+        if (newTaskDateTime.toLocalDate().isEqual(localDateTime.toLocalDate().minusDays(1))) {
+            return YESTERDAY + strTime;
+        }
+        else if (newTaskDateTime.toLocalDate().isEqual(localDateTime.toLocalDate())) {
+            return TODAY + strTime;
+        }
+        else if (newTaskDateTime.toLocalDate().isEqual(localDateTime.toLocalDate().plusDays(1))) {
+            return TOMORROW + strTime;
+        }
+        else {
+            SimpleDateFormat dateTime = new SimpleDateFormat("[E] d-M-yyyy h.mm a");
+            Date out = Date.from(newTaskDateTime.atZone(ZoneId.systemDefault()).toInstant());
+            String strDate = dateTime.format(out);
+            
+            return strDate;
+        }
+        
+    }
+
 
 }
