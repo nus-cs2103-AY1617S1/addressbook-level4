@@ -65,7 +65,7 @@ public interface Model {
 
     void updateFilteredDoneListToShowAll();
 
-
+    void updateAllListToShowAll();
 
     
 }
