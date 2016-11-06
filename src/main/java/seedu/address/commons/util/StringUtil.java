@@ -2,6 +2,11 @@ package seedu.address.commons.util;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.util.List;
+import java.util.Optional;
+
+import seedu.address.logic.parser.ArgumentTokenizer;
+import seedu.address.logic.parser.ArgumentTokenizer.Prefix;
 
 
 /**
@@ -52,4 +57,52 @@ public class StringUtil {
     	
     	return numOccurrences;
     }
+    
+    /**
+	 * @param arguments
+	 *            an input command string that may contain 0 or 2 single quotes
+	 *            that surround a task name
+	 * @return the name of the task enclosed by single quotes if it exists, an
+	 *         empty string otherwise
+	 */
+	public static String getQuotedText(String s) {
+		Prefix quotePrefix = new Prefix("'");
+		
+		ArgumentTokenizer argsTokenizer = new ArgumentTokenizer(quotePrefix);
+		argsTokenizer.tokenize(s);
+		
+		Optional<List<String>> maybeName = argsTokenizer.getAllValues(quotePrefix);
+		
+		if (maybeName.isPresent()) {
+			return "'" + maybeName.get().get(0) + "'";
+		}
+		else {
+			return "";
+		}
+	}
+
+	
+	/**
+	 * @param arguments
+	 *            an input command string that may contain 0 or 2 single quotes
+	 *            that surround a task name
+	 * @return the arguments before the quoted text concatenated with the
+	 *         arguments after the quotes text
+	 */
+	public static String getNonQuotedText(String s) {
+		Prefix quotePrefix = new Prefix("'");
+		
+		ArgumentTokenizer argsTokenizer = new ArgumentTokenizer(quotePrefix);
+		argsTokenizer.tokenize(s);
+		
+		String argsBeforeQuotes = argsTokenizer.getPreamble().orElse("");
+		String argsAfterQuotes = argsTokenizer.getValue(quotePrefix).orElse("");
+		
+		return argsBeforeQuotes + " " + argsAfterQuotes;
+	}
+	
+	
+	public static String removeFirstAndLastChars(String s) {
+		return s.substring(1, s.length()-1);
+	}
 }

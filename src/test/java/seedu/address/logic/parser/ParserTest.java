@@ -9,12 +9,14 @@ import java.util.Optional;
 import org.junit.Test;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.logic.commands.AddAliasCommand;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.ChangeStatusCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.IncorrectCommand;
+import seedu.address.logic.commands.ListAliasCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.TabCommand;
@@ -33,6 +35,8 @@ public class ParserTest {
 	private final EditCommand editCommand;
 	private final UndoCommand undoCommand;
 	private final RedoCommand redoCommand;
+	private final AddAliasCommand addAliasCommand;
+	private final ListAliasCommand listAliasCommand;
 	private final TabCommand tabCommand;
 	
 	public ParserTest() throws IllegalValueException {
@@ -47,6 +51,8 @@ public class ParserTest {
 				false, false);
 		undoCommand = new UndoCommand();
 		redoCommand = new RedoCommand();
+		addAliasCommand = new AddAliasCommand("ld", "list done");
+		listAliasCommand = new ListAliasCommand();
 		tabCommand = new TabCommand(TabCommand.TabName.WEEK);
 	}
 	
@@ -211,14 +217,14 @@ public class ParserTest {
 
 		assertEquals(addCommand.getClass(), command.getClass());
 	}
-//	
-//	@Test
-//	public void parseCommand_addDeadlineValidOrder3_addCommandReturned() {
-//		String userInput = "add by 25-12-16 04:00 'submission' ";
-//		Command command = parser.parseCommand(userInput);
-//
-//		assertEquals(addCommand.getClass(), command.getClass());
-//	}
+	
+	@Test
+	public void parseCommand_addDeadlineValidOrder3_addCommandReturned() {
+		String userInput = "add by 25-12-16 04:00 'submission' ";
+		Command command = parser.parseCommand(userInput);
+
+		assertEquals(addCommand.getClass(), command.getClass());
+	}
 	
 	
 	/*
@@ -247,14 +253,6 @@ public class ParserTest {
 
 		assertEquals(addCommand.getClass(), command.getClass());
 	}
-	
-//	@Test
-//	public void parseCommand_addSomedayValidOrder2_addCommandReturned() {
-//		String userInput = "add 'dance again' someday";
-//		Command command = parser.parseCommand(userInput);
-//
-//		assertEquals(addCommand.getClass(), command.getClass());
-//	}
 	
 	
 	/*
@@ -409,9 +407,11 @@ public class ParserTest {
 		assertEquals(changeStatusCommand.getClass(), command.getClass());
 	}
 	
+	
 	/*
 	 * Tests for the `edit` command
 	 */
+	// TODO test more edit command options
 	@Test
 	public void parseCommand_editNoArgs_incorrectCommandReturned() {
 		String userInput = "edit";
@@ -444,10 +444,12 @@ public class ParserTest {
 		assertEquals(editCommand.getClass(), command.getClass());
 	}
 	
+	
 	/*
 	 * Tests for the `undo` and `redo` commands
 	 */
-	
+	// Any extra arguments to undo are ignored
+	// TODO note this in user guide
 	@Test
 	public void parseCommand_undoExtraArgs_undoCommandReturned() {
 		String userInput = "undo blah";
@@ -464,6 +466,8 @@ public class ParserTest {
 		assertEquals(undoCommand.getClass(), command.getClass());
 	}
 	
+	// Any extra arguments to redo are ignored
+	// TODO note this in user guide
 	@Test
 	public void parseCommand_redoExtraArgs_redoCommandReturned() {
 		String userInput = "redo blah";
@@ -478,6 +482,34 @@ public class ParserTest {
 		Command command = parser.parseCommand(userInput);
 
 		assertEquals(redoCommand.getClass(), command.getClass());
+	}
+	
+	
+	/*
+	 * Tests for the `add-alias` command
+	 */
+	@Test
+	public void parseCommand_addAliasNoArgs_incorrectCommandReturned() {
+		String userInput = "add-alias";
+		Command command = parser.parseCommand(userInput);
+
+		assertEquals(incorrectCommand.getClass(), command.getClass());
+	}
+	
+	@Test
+	public void parseCommand_addAliasQuotes_incorrectCommandReturned() {
+		String userInput = "add-alias 'ld'='list done'";
+		Command command = parser.parseCommand(userInput);
+
+		assertEquals(incorrectCommand.getClass(), command.getClass());
+	}
+	
+	@Test
+	public void parseCommand_addAliasValid_addAliasCommandReturned() {
+		String userInput = "add-alias ld=list done";
+		Command command = parser.parseCommand(userInput);
+
+		assertEquals(addAliasCommand.getClass(), command.getClass());
 	}
 	
 	/*

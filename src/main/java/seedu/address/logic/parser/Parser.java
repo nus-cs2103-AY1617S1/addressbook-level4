@@ -6,18 +6,18 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_TASK_DISPLAYED
 
 import java.text.ParseException;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import javafx.util.Pair;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.StringUtil;
@@ -54,7 +54,7 @@ public class Parser {
 	private static final Pattern EDIT_ARGS_FORMAT = Pattern.compile(
 			"(?<index>\\d+)\\s+(?<editTaskArgs>.+)"); 
 	private static final Pattern ADD_ALIAS_COMMAND_FORMAT = Pattern
-			.compile("\\s*'(?<alias>(\\s*\\S+)+)\\s*'\\s*=\\s*'(?<originalPhrase>(\\s*\\S+)+)\\s*'\\s*");
+			.compile("\\s*(?<alias>(\\s*\\S+)+)\\s*=\\s*(?<originalPhrase>(\\s*\\S+)+)\\s*");
 	//@@author A0143756Y
 	private static final Pattern SET_STORAGE_ARGS_FORMAT = Pattern.compile
 			("(?<folderFilePath>(\\s*[^\\s+])+)\\s+save-as\\s+(?<fileName>(\\s*[^\\s+])+)");
@@ -74,6 +74,9 @@ public class Parser {
 	//@@author A0141019U-reused
 	public Command parseCommand(String userInput) {
 		String replacedInput = replaceAliases(userInput);
+		
+		System.out.println("original: " + userInput);
+		System.out.println("replaced: " + replacedInput);
 		
 		final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(replacedInput.trim());
 		if (!matcher.matches()) {
@@ -136,69 +139,76 @@ public class Parser {
 			return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
 		}
 	}
-
+	
+	
 	//@@author A0141019U	
-	private String replaceAliases(String userInput) {
-		List<ReadOnlyAlias> aliasList = this.model.getFilteredAliasList();
-		List<String> aliases = new ArrayList<>(); 
-		List<String> originals = new ArrayList<>(); 
+	private String replaceAliases(String userInput) {	
+		String quotedText = StringUtil.getQuotedText(userInput);
+		String inputWithNameRemoved = StringUtil.getNonQuotedText(userInput);
 		
-		for (ReadOnlyAlias aliasObj : aliasList) {
-			aliases.add(aliasObj.getAlias());
-			originals.add(aliasObj.getOriginalPhrase());
-		}
+		Map<String, String> aliasMap = getAliasMap();
 		
-		for (int i=0; i<aliases.size(); i++) {
-			String alias = aliases.get(i);
-			String original = originals.get(i);
-			
-			// Does not replace arguments in find command or within quotes			
-			if (userInput.contains(alias) 
-					&& !userInput.matches(".*'.*(" + alias + ").*'.*") 
-					&& !userInput.contains("find")) {
+		for (String alias : aliasMap.keySet()) {			
+			// Does not replace arguments in find command, any alias commands or within quotes			
+			if (inputWithNameRemoved.contains(alias) 
+					&& !(inputWithNameRemoved.contains("find") || inputWithNameRemoved.contains("-alias"))) {
 				
-				logger.finer("Found alias " + alias + " in input string userInput");
-				userInput = userInput.replace(alias, original);
+				String original = aliasMap.get(alias);
+				inputWithNameRemoved = inputWithNameRemoved.replace(alias, original);
 			}
+		}		
+		
+		return inputWithNameRemoved + " " + quotedText;
+	}
+	
+	//@@author A0141019U	
+	private Map<String, String> getAliasMap() {
+		List<ReadOnlyAlias> aliasList = this.model.getFilteredAliasList();
+		Map<String, String> aliases = new HashMap<>();
+
+		for (ReadOnlyAlias aliasObj : aliasList) {
+			aliases.put(aliasObj.getAlias(), aliasObj.getOriginalPhrase());
 		}
-		
-		System.out.println("userInput: " + userInput);
-		
-		return userInput;
+
+		return aliases;
 	}
 	
 	
+
 	private Command prepareAdd(String arguments) {
 		if (StringUtil.countOccurrences('\'', arguments) != 2) {
 			// TODO better error msg?
 			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 		}
 		
-		Pair<String, String> nameAndArgs = separateNameAndArgs(arguments);
-		String taskName = nameAndArgs.getKey();
-		String args = nameAndArgs.getValue();
+		String taskNameWithQuotes = StringUtil.getQuotedText(arguments);
+		String taskNameWithoutQuotes = StringUtil.removeFirstAndLastChars(taskNameWithQuotes);
+		String args = StringUtil.getNonQuotedText(arguments);
+
+		System.out.println("name: " + taskNameWithoutQuotes);
+		System.out.println("args: " + args);
 		
 		String argsLowerCase = args.toLowerCase();	
 		
-		if (argsLowerCase.contains(" on ")
-				&& argsLowerCase.contains(" from ") 
-				&& argsLowerCase.contains(" to ")) {
+		if (argsLowerCase.contains("on")
+				&& argsLowerCase.contains("from") 
+				&& argsLowerCase.contains("to")) {
 			logger.finest("Calling prepareAddEventSameDay");
-			return prepareAddEventSameDay(taskName, "event", args);
+			return prepareAddEventSameDay(taskNameWithoutQuotes, "event", args);
 		}
-		else if (argsLowerCase.contains(" from ")
-				&& argsLowerCase.contains(" to ")) {
+		else if (argsLowerCase.contains("from")
+				&& argsLowerCase.contains("to")) {
 			logger.finest("Calling prepareAddEventDifferentDays");
-			return prepareAddEventDifferentDays(taskName, "event", args);
+			return prepareAddEventDifferentDays(taskNameWithoutQuotes, "event", args);
 		}
-		else if (argsLowerCase.contains(" by ")) {
+		else if (argsLowerCase.contains("by")) {
 			logger.finest("Calling prepareAddDeadline");
-			return prepareAddDeadline(taskName, "deadline", args);
+			return prepareAddDeadline(taskNameWithoutQuotes, "deadline", args);
 		}
 		// if args is either empty or contains only #tags
 		else if (args.matches("\\s*(#.+)*\\s*")) {
 			logger.finest("Calling prepareAddSomeday");
-			return prepareAddSomeday(taskName, "someday", args);
+			return prepareAddSomeday(taskNameWithoutQuotes, "someday", args);
 		}
 		else {
 			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
@@ -206,19 +216,6 @@ public class Parser {
 	}
 	
 
-	private Pair<String, String> separateNameAndArgs(String arguments) {
-		ArgumentTokenizer argsTokenizer = new ArgumentTokenizer(namePrefix);
-		argsTokenizer.tokenize(arguments);
-		
-		String preamble = argsTokenizer.getPreamble().orElse("");
-		
-		List<String> stringsAfterQuotes = argsTokenizer.getAllValues(namePrefix).get();
-		String taskName = stringsAfterQuotes.get(0);
-		String argsAfterName = stringsAfterQuotes.get(1);
-		
-		return new Pair<>(taskName, " " + preamble + " " + argsAfterName + " ");	
-	}
-	
 	/**
 	 * 
 	 * @param taskName
@@ -453,11 +450,11 @@ public class Parser {
 		
 		Optional<String> taskName;
 		String args;
-		if(editTaskArgs.contains("\'")) {
-			Pair<String,String> nameAndArgs = separateNameAndArgs(editTaskArgs);
-			taskName = Optional.of(nameAndArgs.getKey());
-			args = nameAndArgs.getValue();
-		} else {
+		if (editTaskArgs.contains("\'")) {
+			taskName = Optional.of(StringUtil.removeFirstAndLastChars(StringUtil.getQuotedText(editTaskArgs)));
+			args = StringUtil.getNonQuotedText(editTaskArgs);
+		} 
+		else {
 			taskName = Optional.empty();
 			args = editTaskArgs;
 		}
@@ -629,6 +626,6 @@ public class Parser {
 	public static void main(String[] args) {
 		Parser p = new Parser(new ModelManager());
 //		p.parseCommand("add 'dd' by 5pm today");
-		p.replaceAliases("find k");
+//		System.out.println(p.getQuotedText("ad 'a' ddk d"));
 	}
 }

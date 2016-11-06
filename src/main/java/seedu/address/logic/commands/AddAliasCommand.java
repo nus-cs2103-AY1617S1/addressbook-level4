@@ -2,7 +2,6 @@ package seedu.address.logic.commands;
 
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.events.ui.DisplayAliasListEvent;
-import seedu.address.commons.events.ui.DisplayTaskListEvent;
 import seedu.address.model.alias.Alias;
 import seedu.address.model.alias.UniqueAliasList.DuplicateAliasException;
 
