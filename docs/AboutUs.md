@@ -40,15 +40,16 @@ We are a team based in the [School of Computing, National University of Singapor
 
 #### [Matthew Chan](https://github.com/MCHowl) 
 <img src="images/Matthew.jpg" width="150"><br>
-* Components in charge of:
-* Aspects/tools in charge of:
+* Components in charge of: [UI](https://github.com/CS2103AUG2016-W10-C3/main/blob/master/docs/DeveloperGuide.md#32-ui-component)
+* Aspects/tools in charge of: UI, UX, Documentation
 * Features implemented:
-   * [List persons](https://github.com/se-edu/addressbook-level4/blob/master/docs/UserGuide.md#listing-all-persons--list)
-   * [Delete person](https://github.com/se-edu/addressbook-level4/blob/master/docs/UserGuide.md#deleting-a-person--delete)
-* Code written: [functional code][test code][docs]
+   * [Find By Tag](https://github.com/CS2103AUG2016-W10-C3/main/blob/master/docs/UserGuide.md#310-finding-specific-tasks)
+   * [View Command](https://github.com/CS2103AUG2016-W10-C3/main/blob/master/docs/UserGuide.md#311-filtering-the-task-list)
+   * [Locate Command](https://github.com/CS2103AUG2016-W10-C3/main/blob/master/docs/UserGuide.md#312-locating-a-destination)
+* Code written: [[functional code](../collated/main/A0135767U.md)][[test code](../collated/test/A0135767U.md)][[docs](collated/docs/A0135767U.md)]
 * Other major contributions:
-  * Did blah blah
-  * Did smth
+  * Overhauled UI [[#56](https://github.com/CS2103AUG2016-W10-C3/main/pull/56)][[#84](https://github.com/CS2103AUG2016-W10-C3/main/pull/84)]
+  * Revise Documentation for Consistency [[#65](https://github.com/CS2103AUG2016-W10-C3/main/pull/65)]
 
 -----
 
