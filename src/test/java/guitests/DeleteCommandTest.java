@@ -35,7 +35,7 @@ public class DeleteCommandTest extends TaskManagerGuiTest {
 
         //invalid index
         commandBox.runCommand("del " + currentList.length + 1);
-        assertResultMessage(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
+        assertResultMessage(Messages.MESSAGE_INVALID_DISPLAYED_INDEX);
     }
     
     //@@author A0141019U-reused
