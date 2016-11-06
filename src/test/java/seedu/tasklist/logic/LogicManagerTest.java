@@ -169,24 +169,6 @@ public class LogicManagerTest {
                 "add buy eggs at 3pm by supermarket", EndTime.MESSAGE_END_TIME_CONSTRAINTS);
     }
     //@@author
-/*
-    @Test
-    public void execute_add_successful() throws Exception {
-        // setup expectations
-        TestDataHelper helper = new TestDataHelper();
-        Task toBeAdded = helper.take_a_nap();
-        TaskList expectedAB = new TaskList();
-        expectedAB.addTask(toBeAdded);
-
-        // execute command and verify result
-        assertCommandBehavior(helper.generateAddCommand(toBeAdded),
-                String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded.getTaskDetails()),
-                expectedAB,
-                expectedAB.getTaskList());
-
-    }
-*/
-    //@@author
     /**
      * Confirms the 'invalid argument index number behaviour' for the given command
      * targeting a single person in the shown list, using visible index.
@@ -218,37 +200,11 @@ public class LogicManagerTest {
 
         assertCommandBehavior(commandWord + " 3", expectedMessage, model.getTaskList(), personList);
     }
-/*
-    @Test
-    public void execute_deleteIndexNotFound_errorMessageShown() throws Exception {
-        assertIndexNotFoundBehaviorForCommand("delete");
-    }
-*/
     @Test
     public void execute_find_invalidArgsFormat() throws Exception {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE);
         assertCommandBehavior("find ", expectedMessage);
     }
-/*
-    @Test
-    public void execute_find_isNotCaseSensitive() throws Exception {
-        TestDataHelper helper = new TestDataHelper();
-        Task p1 = helper.generateTaskWithName("bla bla KEY bla");
-        Task p2 = helper.generateTaskWithName("bla KEY bla bceofeia");
-        Task p3 = helper.generateTaskWithName("key key");
-        Task p4 = helper.generateTaskWithName("KEy sduauo");
-
-        List<Task> fourPersons = helper.generateTaskList(p3, p1, p4, p2);
-        TaskList expectedAB = helper.generateTaskList(fourPersons);
-        List<Task> expectedList = fourPersons;
-        helper.addToModel(model, fourPersons);
-
-        assertCommandBehavior("find KEY",
-                Command.getMessageForTaskListShownSummary(expectedList.size()),
-                expectedAB,
-                expectedList);
-    }
-*/   
     @Test
     public void execute_show_InvalidArgsFormat() throws Exception {
     	assertCommandBehavior("showall", Messages.MESSAGE_UNKNOWN_COMMAND);
