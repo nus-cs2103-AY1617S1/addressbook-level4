@@ -272,6 +272,7 @@ Format: `completed INDEX`
 
 <br>
 [](@@author A0142290N)
+
 #### Clearing all entries: `clear`
 Clears all entries from the Emeraldo in the save data.<br>
 Format: `clear`  
@@ -283,6 +284,7 @@ Format: `motivateme`
 
 <br>
 [](@@author A0139342H)
+
 #### Change save location command: `saveto`
 Changes the save location of the emeraldo.xml file. <br>
 Format: `saveto FILEPATH`
@@ -303,6 +305,7 @@ Examples:
 
 <br>
 [](@@author A0139196U)
+
 #### MotivateMe command: `motivateme`
 Generates and display a motivational quote for the user. <br>
 Format: `motivateme`
@@ -316,6 +319,7 @@ Examples:
 
 <br>
 [](@@author A0139342H)
+
 #### Exiting the program: `exit`
 Exits the program.<br>
 Format: `exit`
@@ -355,7 +359,8 @@ There is no need to save manually.
 
 
 <br>
-[](@@author A0139196U)      
+[](@@author A0139196U) 
+     
 ## Command Summary (listed in alphabetical order)
 
 
