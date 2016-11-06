@@ -53,8 +53,8 @@ public class FindCommand extends Command {
             sb.append("\n");
         }
         
-        return new CommandResult(COMMAND_WORD, String.format(FIND_SUCCESS, sb));
-//        return new CommandResult(COMMAND_WORD, getMessageForTaskListShownSummary(model.getFilteredTaskList().size()));
+//        return new CommandResult(COMMAND_WORD, String.format(FIND_SUCCESS, sb));
+        return new CommandResult(COMMAND_WORD, getMessageForTaskListShownSummary(model.getFilteredTaskList().size()));
     }
     
     //@@author A0143378Y
