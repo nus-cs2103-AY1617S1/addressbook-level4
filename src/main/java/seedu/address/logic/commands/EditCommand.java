@@ -90,6 +90,7 @@ public class EditCommand extends Command implements Undoable {
             e.printStackTrace();
             assert false : "Checking of inputs'validity should be done in parser.";
         } catch (DuplicateTaskException e){
+            indicateAttemptToExecuteIncorrectCommand();
             return new CommandResult(MESSAGE_DUPLICATE_TASK);
         } catch (Exception e) {
             e.printStackTrace();

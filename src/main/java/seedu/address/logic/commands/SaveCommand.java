@@ -25,6 +25,7 @@ public class SaveCommand extends Command {
             model.saveToDo(filePath);
             return new CommandResult(String.format(MESSAGE_SUCCESS, filePath));
         }catch (IOException e){
+            indicateAttemptToExecuteIncorrectCommand();
             return new CommandResult(String.format(MESSAGE_INVALID_PATH, filePath));
         }
         

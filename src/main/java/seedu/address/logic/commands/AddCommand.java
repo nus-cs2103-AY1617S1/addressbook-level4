@@ -133,6 +133,7 @@ public class AddCommand extends Command implements Undoable {
             isExecutedBefore = pushCmdToUndo(isExecutedBefore);
             return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
         } catch (UniqueTaskList.DuplicateTaskException e) {
+            indicateAttemptToExecuteIncorrectCommand();
             return new CommandResult(MESSAGE_DUPLICATE_TASK);
         }
 
