@@ -67,7 +67,7 @@ public class Parser {
     private static final Pattern DATE_WITH_SLASH_FORMAT = Pattern
             .compile("^(([3][0-1])|([1-2][0-9])|([0]??[1-9]))[/](([1][0-2])|([0]??[1-9]))[/]([0-9]{4})$");
     private static final Pattern TIME_FORMAT = Pattern
-            .compile("^(([1][0-2])|([0-9]))((:|\\.)([0-5][0-9]))??((am)|(pm))$");
+            .compile("^(([1][0-2])|([0-9])|([0][1-9]))((:|\\.)([0-5][0-9]))??((am)|(pm))$");
     private static final Pattern TAG_FORMAT = Pattern.compile("^(t/)");
 
     private static final Pattern TODAY_OR_TOMORROW = Pattern.compile("^(today|tomorrow)$");
@@ -292,8 +292,8 @@ public class Parser {
         if (splitTimePeriod[TIME_WITHOUT_PERIOD].contains(TIME_DOT)) {
             splitTime = splitTimePeriod[TIME_WITHOUT_PERIOD].split(BACK_SLASH + TIME_DOT);
         }
-
-        time = (splitTime != null) ? splitTime[TIME_HOUR] : splitTimePeriod[TIME_WITHOUT_PERIOD];
+                
+        time = (splitTime != null) ? splitTime[TIME_HOUR].replaceAll(SINGLE_DIGIT, ZERO + splitTime[TIME_HOUR]) : splitTimePeriod[TIME_WITHOUT_PERIOD];
         time += TIME_COLON;
         time += (splitTime != null) ? splitTime[TIME_MINUTES] : TIME_DEFAULT_MINUTES;
         time += period;
