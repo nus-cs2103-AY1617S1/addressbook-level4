@@ -69,18 +69,15 @@ public class UpdateCommandTest extends GuiTest {
         assertTaskVisible(testTask);
     }
 
-    @Ignore
     @Test
     public void updateCommand_updateTaskWithDeadlineToFloatingTask() {
-        // TODO: Make this pass
-        
         // Add a task
         console.runCommand("add Buy milk by today");
         
         // Update the task
-        String command = "update 1 nodeadline";
+        String command = "update 1 by null";
         testTask.setName("Buy milk");
-        testTask.setDueDate(DateUtil.NO_DATETIME_VALUE);
+        testTask.setDueDate(null);
         console.runCommand(command);
         assertTaskVisible(testTask);
     }
@@ -132,7 +129,9 @@ public class UpdateCommandTest extends GuiTest {
     public void updateTask_missingIndex_disambiguate() {
         console.runCommand("add Buy milk");
         console.runCommand("update");
-        assertEquals("update <index> [name \"<name>\"] [by \"<deadline>\"]", console.getConsoleInputText());
+        String consoleMessage = String.format(UpdateController.UPDATE_TASK_TEMPLATE,
+                UpdateController.INDEX_FIELD, UpdateController.NAME_FIELD, UpdateController.DEADLINE_FIELD);
+        assertEquals(consoleMessage, console.getConsoleInputText());
         assertSameDisambiguationMessage(UpdateController.MESSAGE_INVALID_ITEM_OR_PARAM, console);
     }
     
@@ -140,7 +139,9 @@ public class UpdateCommandTest extends GuiTest {
     public void updateTask_missingUpdateParams_disambiguate() {
         console.runCommand("add Buy milk");
         console.runCommand("update 1");
-        assertEquals("update 1 [name \"<name>\"] [by \"<deadline>\"]", console.getConsoleInputText());
+        String consoleMessage = String.format(UpdateController.UPDATE_TASK_TEMPLATE,
+                "1", UpdateController.NAME_FIELD, UpdateController.DEADLINE_FIELD);
+        assertEquals(consoleMessage, console.getConsoleInputText());
         assertSameDisambiguationMessage(null, console);
     }
     
@@ -148,7 +149,9 @@ public class UpdateCommandTest extends GuiTest {
     public void updateTask_missingParamType_disambiguate() {
         console.runCommand("add Buy milk");
         console.runCommand("update 1 Buy bread");
-        assertEquals("update <index> [name \"<name>\"] [by \"<deadline>\"]", console.getConsoleInputText());
+        String consoleMessage = String.format(UpdateController.UPDATE_TASK_TEMPLATE,
+                UpdateController.INDEX_FIELD, UpdateController.NAME_FIELD, UpdateController.DEADLINE_FIELD);
+        assertEquals(consoleMessage, console.getConsoleInputText());
         assertSameDisambiguationMessage(UpdateController.MESSAGE_INVALID_ITEM_OR_PARAM, console);
     }
     
@@ -156,7 +159,9 @@ public class UpdateCommandTest extends GuiTest {
     public void updateTask_missingParamValue_disambiguate() {
         console.runCommand("add Buy milk");
         console.runCommand("update 1 name");
-        assertEquals("update 1 [name \"<name>\"] [by \"<deadline>\"]", console.getConsoleInputText());
+        String consoleMessage = String.format(UpdateController.UPDATE_TASK_TEMPLATE,
+                "1", UpdateController.NAME_FIELD, UpdateController.DEADLINE_FIELD);
+        assertEquals(consoleMessage, console.getConsoleInputText());
         assertSameDisambiguationMessage(null, console);
     }
     
@@ -164,7 +169,9 @@ public class UpdateCommandTest extends GuiTest {
     public void updateTask_invalidIndex_disambiguate() {
         console.runCommand("add Buy milk");
         console.runCommand("update 2 name Buy bread");
-        assertEquals("update 2 [name \"Buy bread\"] [by \"<deadline>\"]", console.getConsoleInputText());
+        String consoleMessage = String.format(UpdateController.UPDATE_TASK_TEMPLATE,
+                "2", "Buy bread", UpdateController.DEADLINE_FIELD);
+        assertEquals(consoleMessage, console.getConsoleInputText());
         assertSameDisambiguationMessage(UpdateController.MESSAGE_INVALID_ITEM_OR_PARAM, console);
     }
     
@@ -172,7 +179,9 @@ public class UpdateCommandTest extends GuiTest {
     public void updateTask_invalidDate_disambiguate() {
         console.runCommand(String.format("add Buy milk by %s", twoDaysFromNowIsoString));
         console.runCommand("update 1 by invaliddate");
-        assertEquals("update 1 [name \"<name>\"] [by \"invaliddate\"]", console.getConsoleInputText());
+        String consoleMessage = String.format(UpdateController.UPDATE_TASK_TEMPLATE,
+                "1", UpdateController.NAME_FIELD, "invaliddate");
+        assertEquals(consoleMessage, console.getConsoleInputText());
         assertSameDisambiguationMessage(UpdateController.MESSAGE_CANNOT_PARSE_DATE, console);
     }
     
@@ -180,7 +189,9 @@ public class UpdateCommandTest extends GuiTest {
     public void updateEvent_missingParamValue_disambiguate() {
         console.runCommand(String.format("add event Presentation from %s 2pm to %s 9pm", twoDaysFromNowIsoString, twoDaysFromNowIsoString));
         console.runCommand("update 1 name");
-        assertEquals("update 1 [name \"<name>\"] [from \"<start time>\" to \"<end time>\"]", console.getConsoleInputText());
+        String consoleMessage = String.format(UpdateController.UPDATE_EVENT_TEMPLATE,
+                "1", UpdateController.NAME_FIELD, UpdateController.START_TIME_FIELD, UpdateController.END_TIME_FIELD);
+        assertEquals(consoleMessage, console.getConsoleInputText());
         assertSameDisambiguationMessage(null, console);
     }
     
@@ -188,7 +199,9 @@ public class UpdateCommandTest extends GuiTest {
     public void updateEvent_missingParamValueDate_disambiguate() {
         console.runCommand(String.format("add event Presentation from %s 2pm to %s 9pm", twoDaysFromNowIsoString, twoDaysFromNowIsoString));
         console.runCommand("update 1 name");
-        assertEquals("update 1 [name \"<name>\"] [from \"<start time>\" to \"<end time>\"]", console.getConsoleInputText());
+        String consoleMessage = String.format(UpdateController.UPDATE_EVENT_TEMPLATE,
+                "1", UpdateController.NAME_FIELD, UpdateController.START_TIME_FIELD, UpdateController.END_TIME_FIELD);
+        assertEquals(consoleMessage, console.getConsoleInputText());
         assertSameDisambiguationMessage(null, console);
     }
     
@@ -196,7 +209,9 @@ public class UpdateCommandTest extends GuiTest {
     public void updateEvent_invalidStartDate_disambiguate() {
         console.runCommand(String.format("add event Presentation from %s 2pm to %s 9pm", twoDaysFromNowIsoString, twoDaysFromNowIsoString));
         console.runCommand("update 1 from invaliddate to today 2pm");
-        assertEquals("update 1 [name \"<name>\"] [from \"invaliddate\" to \"today 2pm\"]", console.getConsoleInputText());
+        String consoleMessage = String.format(UpdateController.UPDATE_EVENT_TEMPLATE,
+                "1", UpdateController.NAME_FIELD, "invaliddate", "today 2pm");
+        assertEquals(consoleMessage, console.getConsoleInputText());
         assertSameDisambiguationMessage(UpdateController.MESSAGE_CANNOT_PARSE_DATE, console);
     }
     
@@ -204,14 +219,19 @@ public class UpdateCommandTest extends GuiTest {
     public void updateEvent_invalidEndDate_disambiguate() {
         console.runCommand(String.format("add event Presentation from %s 2pm to %s 9pm", twoDaysFromNowIsoString, twoDaysFromNowIsoString));
         console.runCommand("update 1 from today 2pm to invaliddate");
-        assertEquals("update 1 [name \"<name>\"] [from \"today 2pm\" to \"invaliddate\"]", console.getConsoleInputText());
+        String consoleMessage = String.format(UpdateController.UPDATE_EVENT_TEMPLATE,
+                "1", UpdateController.NAME_FIELD, "today 2pm", "invaliddate");
+        assertEquals(consoleMessage, console.getConsoleInputText());
         assertSameDisambiguationMessage(UpdateController.MESSAGE_CANNOT_PARSE_DATE, console);
     }
     
+    @Test
     public void updateTask_withStartEndDate_disambiguate() {
         console.runCommand(String.format("add Buy milk", twoDaysFromNowIsoString, twoDaysFromNowIsoString));
         console.runCommand("update 1 from 2pm to today 9pm");
-        assertEquals("update 1 [name \"<name>\"] [by \"2pm\"]", console.getConsoleInputText());
+        String consoleMessage = String.format(UpdateController.UPDATE_TASK_TEMPLATE,
+                "1", UpdateController.NAME_FIELD, "2pm");
+        assertEquals(consoleMessage, console.getConsoleInputText());
         assertSameDisambiguationMessage(null, console);
     }
 
