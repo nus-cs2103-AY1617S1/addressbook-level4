@@ -171,12 +171,10 @@ Searches and shows all tasks with details that contain the specified keyword. `D
 Format: `search KEYWORD`<br>
 
 > * The search is not case sensitive.
-> * The order of the keywords does not matter. e.g. `buy milk oct 21` will match `oct 21 buy milk`
-> * Partial words can be matched e.g. `parallel` will match `parallelogram`
+> * The order of the keywords does not matter. e.g. `buy milk in ntuc` will match `ntuc buy milk`
+> * Partial words can be matched e.g. `parallel` will match `parallelogram` but not the other way round.
 
 Examples: 
-* `search oct 1`<br>
-  Lists all tasks with the date `oct 1`.
 * `search milk`<br>
   Lists the all the tasks with names containing the word `milk` if any can be found. 
  <!-- @@author --> 
@@ -281,7 +279,7 @@ Example:<br>
 
 > * The new folder has to be a valid, existing folder <br>
 > * To switch back to the default save folder, type `save data` <br>
-> * By default, the filename will be ggist.xml
+> * By default, the filename will be `ggist.xml`
 
 You can change the file name to your preference too.<br>
 
