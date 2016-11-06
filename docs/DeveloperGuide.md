@@ -10,7 +10,7 @@
 * [Appendix B: Use Cases](#appendix-b--use-cases)
 * [Appendix C: Non Functional Requirements](#appendix-c--non-functional-requirements)
 * [Appendix D: Glossary](#appendix-d--glossary)
-* [Appendix E: Product Survey's](#appendix-e--product-surveys)
+* [Appendix E: Product Surveys](#appendix-e--product-surveys)
 
 
 ## Introduction
