@@ -6,6 +6,8 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 import seedu.task.commons.core.Messages;
+import seedu.task.model.tag.Tag;
+import seedu.task.model.task.Name;
 import seedu.task.testutil.TestTask;
 import seedu.task.testutil.TypicalTestTasks;
 
@@ -41,6 +43,12 @@ public class EditCommandTest extends TaskManagerGuiTest {
         
         commandBox.runCommand("edit 1 end, yesterday");
         assertResultMessage(Messages.MESSAGE_INVALID_TIME_INTERVAL);
+        
+        commandBox.runCommand("edit 1 name, //");
+        assertResultMessage(Name.MESSAGE_NAME_CONSTRAINTS);
+        
+        commandBox.runCommand("edit 1 tag, //");
+        assertResultMessage(Tag.MESSAGE_TAG_CONSTRAINTS);
         
         
     }

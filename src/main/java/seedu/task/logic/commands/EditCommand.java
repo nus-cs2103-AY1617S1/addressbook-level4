@@ -83,18 +83,17 @@ public class EditCommand extends Command {
         final Set<Tag> tagSet = new HashSet<>();
         switch(this.toEditItem){
             case EDIT_NAME:
-            	
-                try{
+            	try{
                     toAdd = new Task(new Name(this.toEdit), currentTask.getStartTime(), currentTask.getEndTime(), currentTask.getDeadline(), currentTask.getTags(), currentTask.getStatus(), currentTask.getRecurring());
                 }catch(IllegalValueException e){
-                    return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
+                    return new CommandResult(Name.MESSAGE_NAME_CONSTRAINTS);
                 }
                 break;
             case EDIT_START_TIME:
                 try{
                     toAdd = new Task(currentTask.getName(), new StartTime(this.toEdit), currentTask.getEndTime(), currentTask.getDeadline(), currentTask.getTags(), currentTask.getStatus(), currentTask.getRecurring());
                 }catch(IllegalValueException e){
-                    return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
+                    return new CommandResult(StartTime.MESSAGE_STARTTIME_CONSTRAINTS);
                 }
                 break;
             case EDIT_END_TIME:
@@ -108,7 +107,7 @@ public class EditCommand extends Command {
             		try{
                         toAdd = new Task(currentTask.getName(), currentTask.getStartTime(), new EndTime(this.toEdit), currentTask.getDeadline(), currentTask.getTags(), currentTask.getStatus(), currentTask.getRecurring());
                     }catch(IllegalValueException e){
-                        return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
+                        return new CommandResult(EndTime.MESSAGE_ENDTIME_CONSTRAINTS);
                     }
             	}
                 break;
@@ -116,7 +115,7 @@ public class EditCommand extends Command {
                 try{
                     toAdd = new Task(currentTask.getName(), currentTask.getStartTime(), currentTask.getEndTime(), new Deadline(this.toEdit), currentTask.getTags(), currentTask.getStatus(), currentTask.getRecurring());
                 }catch(IllegalValueException e){
-                    return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
+                    return new CommandResult(Deadline.MESSAGE_DEADLINE_CONSTRAINTS);
                 }
                 break;
             case EDIT_TAG:
@@ -126,18 +125,11 @@ public class EditCommand extends Command {
                     }
                     toAdd = new Task(currentTask.getName(), currentTask.getStartTime(), currentTask.getEndTime(), currentTask.getDeadline(), new UniqueTagList(tagSet), currentTask.getStatus(), currentTask.getRecurring());
                 }catch(IllegalValueException e){
-                    return new CommandResult("Invalid tag format");
+                    return new CommandResult(Tag.MESSAGE_TAG_CONSTRAINTS);
                 }
                 break;
             default:
-                try{
-                    for (String tagName : this.toEditTags) {
-                        tagSet.add(new Tag(tagName));
-                    }
-                    toAdd = new Task(currentTask.getName(), currentTask.getStartTime(), currentTask.getEndTime(), currentTask.getDeadline(), new UniqueTagList(tagSet), currentTask.getStatus(), currentTask.getRecurring());
-                }catch(IllegalValueException e){
-                    return new CommandResult(MESSAGE_DUPLICATE_TASK);
-                }
+                break;
         }
         
         try {

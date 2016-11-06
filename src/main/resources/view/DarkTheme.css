@@ -52,10 +52,12 @@
     -fx-table-cell-border-color: transparent;
     -fx-table-header-border-color: transparent;
     -fx-padding: 5;
+    
 }
 
 .table-view .column-header-background {
     -fx-background-color: transparent;
+    
 }
 
 .table-view .column-header, .table-view .filler {
