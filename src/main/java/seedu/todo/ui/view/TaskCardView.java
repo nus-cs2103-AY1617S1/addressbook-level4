@@ -18,13 +18,10 @@ import seedu.todo.ui.util.ViewGeneratorUtil;
 import seedu.todo.ui.util.ViewStyleUtil;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 //@@author A0135805H
 /**
@@ -197,6 +194,14 @@ public class TaskCardView extends UiPart {
             FxViewUtil.setCollapsed(moreInfoLabel, !isCollapsing);
         }
     }
+    
+    public void setCardCollapsing(boolean isCollapsing) {
+        if (isTaskCollapsible()) {
+            ViewStyleUtil.addRemoveClassStyles(isCollapsing, taskCard, ViewStyleUtil.STYLE_COLLAPSED);
+            FxViewUtil.setCollapsed(moreInfoLabel, !isCollapsing);
+        }
+    }
+    
 
     /**
      * Displays in the Ui whether this card is selected

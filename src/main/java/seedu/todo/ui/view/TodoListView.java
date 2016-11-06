@@ -84,10 +84,15 @@ public class TodoListView extends UiPart {
      *
      * @param task The specific to be expanded or collapsed from view.
      */
-    public void toggleExpandCollapsed(ImmutableTask task) {
+    public void toggleExpandCollapsed(ImmutableTask task, Boolean toCollapse) {
         TaskCardView taskCardView = TaskCardView.getTaskCard(task);
-        if (taskCardView != null) {
+        if (taskCardView != null && toCollapse == null) {
             taskCardView.toggleCardCollapsing();
+        }
+        else if (taskCardView != null && toCollapse != null) {
+            //unbox boolean
+            boolean isCollapsing = toCollapse;
+            taskCardView.setCardCollapsing(isCollapsing);
         }
     }
 
@@ -97,7 +102,10 @@ public class TodoListView extends UiPart {
     public void scrollAndSelect(int listIndex) {
         Platform.runLater(() -> {
             todoListView.scrollTo(listIndex);
+            System.out.println("Scrolled to selected Index");
             todoListView.getSelectionModel().clearAndSelect(listIndex);
+            System.out.println("We have selected the current Index provided");
+            
         });
     }
 
@@ -120,7 +128,7 @@ public class TodoListView extends UiPart {
             TaskCardView taskCardView = TaskCardView.getTaskCard(task);
             if (taskCardView != null) {
                 int listIndex = FxViewUtil.convertToListIndex(taskCardView.getDisplayedIndex());
-                scrollAndSelect(listIndex);
+                scrollAndSelect(listIndex); 
             } else if (attempts > 0) {
                 scrollAndSelectHelper(task, attempts - 1);
             } else {
