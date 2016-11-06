@@ -637,8 +637,10 @@ public class CommandParser {
         logger.info(Arrays.asList(resetSplit).toString());
  
         
-        boolean isResettingStartDate = false, isResettingEndDate = false, isResettingRecurrence = false, 
-                isResettingPriority = false;
+        boolean isResettingStartDate = false;
+        boolean isResettingEndDate = false;
+        boolean isResettingRecurrence = false;
+        boolean isResettingPriority = false;
                     
         
         String beforeResetSplit = "";
@@ -676,32 +678,35 @@ public class CommandParser {
         }
 
                     
-        StringBuilder sb = new StringBuilder();
-        sb.append(EditCommand.TOOL_TIP);
-        sb.append("\n\tEditing task at INDEX " + indexToEdit + ": ");
+        StringBuilder sb = generateEditDetailedTooltipHeader(indexToEdit);
 
-        if (name.isPresent() && trimmedArgs.length()>1 && !name.get().isEmpty()) {
-            sb.append(DETAILED_TOOLTIP_NAME_PREFIX + name.get());
-        } else {
-            sb.append(DETAILED_TOOLTIP_NAME_PREFIX +  DETAILED_TOOLTIP_NO_CHANGE);
-        }
+        genearteEditDetailedTooltipName(trimmedArgs, name, sb);
         
-        if (isResettingStartDate) {
-            sb.append(DETAILED_TOOLTIP_START_DATE_PREFIX + DETAILED_TOOLTIP_RESET);
-        } else if (startDate.isPresent()) {
-            sb.append(DETAILED_TOOLTIP_START_DATE_PREFIX + startDate.get());
-        } else {
-            sb.append(DETAILED_TOOLTIP_START_DATE_PREFIX + DETAILED_TOOLTIP_NO_CHANGE);
-        }
+        generateEditDetailedTooltipStartDate(isResettingStartDate, startDate, sb);
         
-        if (isResettingEndDate) {
-            sb.append(DETAILED_TOOLTIP_END_DATE_PREFIX + DETAILED_TOOLTIP_RESET);
-        } else if (endDate.isPresent()) {
-            sb.append(DETAILED_TOOLTIP_END_DATE_PREFIX + endDate.get());
-        } else {
-            sb.append(DETAILED_TOOLTIP_END_DATE_PREFIX + DETAILED_TOOLTIP_NO_CHANGE);
-        }
+        generateEditDetailedTooltipEndDate(isResettingEndDate, endDate, sb);
         
+        generateEditDetailedTooltipRecurrence(isResettingRecurrence, rate, timePeriod, sb);
+        
+        generateEditDetailedTooltipPriority(isResettingPriority, priority, sb);
+        
+        return sb.toString();
+        
+    }
+
+    private void generateEditDetailedTooltipPriority(boolean isResettingPriority, Optional<String> priority,
+            StringBuilder sb) {
+        if (isResettingPriority) {
+            sb.append(DETAILED_TOOLTIP_PRIORITY_PREFIX + DETAILED_TOOLTIP_RESET);
+        } else if (!priority.get().equals("null")) {
+            sb.append(DETAILED_TOOLTIP_PRIORITY_PREFIX + priority.get());
+        } else {
+            sb.append(DETAILED_TOOLTIP_PRIORITY_PREFIX + DETAILED_TOOLTIP_NO_CHANGE);
+        }
+    }
+
+    private void generateEditDetailedTooltipRecurrence(boolean isResettingRecurrence, Optional<String> rate,
+            Optional<String> timePeriod, StringBuilder sb) {
         if (isResettingRecurrence) {
             sb.append(DETAILED_TOOLTIP_RECURRENCE_SPECIAL_PREFIX + DETAILED_TOOLTIP_RESET);
         } else if (timePeriod.isPresent()) {
@@ -714,17 +719,43 @@ public class CommandParser {
         } else {
             sb.append(DETAILED_TOOLTIP_RECURRENCE_SPECIAL_PREFIX + DETAILED_TOOLTIP_NO_CHANGE);
         }
-        
-        if (isResettingPriority) {
-            sb.append(DETAILED_TOOLTIP_PRIORITY_PREFIX + DETAILED_TOOLTIP_RESET);
-        } else if (!priority.get().equals("null")) {
-            sb.append(DETAILED_TOOLTIP_PRIORITY_PREFIX + priority.get());
+    }
+
+    private void generateEditDetailedTooltipEndDate(boolean isResettingEndDate, Optional<String> endDate,
+            StringBuilder sb) {
+        if (isResettingEndDate) {
+            sb.append(DETAILED_TOOLTIP_END_DATE_PREFIX + DETAILED_TOOLTIP_RESET);
+        } else if (endDate.isPresent()) {
+            sb.append(DETAILED_TOOLTIP_END_DATE_PREFIX + endDate.get());
         } else {
-            sb.append(DETAILED_TOOLTIP_PRIORITY_PREFIX + DETAILED_TOOLTIP_NO_CHANGE);
+            sb.append(DETAILED_TOOLTIP_END_DATE_PREFIX + DETAILED_TOOLTIP_NO_CHANGE);
         }
-        
-        return sb.toString();
-        
+    }
+
+    private void generateEditDetailedTooltipStartDate(boolean isResettingStartDate, Optional<String> startDate,
+            StringBuilder sb) {
+        if (isResettingStartDate) {
+            sb.append(DETAILED_TOOLTIP_START_DATE_PREFIX + DETAILED_TOOLTIP_RESET);
+        } else if (startDate.isPresent()) {
+            sb.append(DETAILED_TOOLTIP_START_DATE_PREFIX + startDate.get());
+        } else {
+            sb.append(DETAILED_TOOLTIP_START_DATE_PREFIX + DETAILED_TOOLTIP_NO_CHANGE);
+        }
+    }
+
+    private void genearteEditDetailedTooltipName(String trimmedArgs, Optional<String> name, StringBuilder sb) {
+        if (name.isPresent() && trimmedArgs.length()>1 && !name.get().isEmpty()) {
+            sb.append(DETAILED_TOOLTIP_NAME_PREFIX + name.get());
+        } else {
+            sb.append(DETAILED_TOOLTIP_NAME_PREFIX +  DETAILED_TOOLTIP_NO_CHANGE);
+        }
+    }
+
+    private StringBuilder generateEditDetailedTooltipHeader(String indexToEdit) {
+        StringBuilder sb = new StringBuilder();
+        sb.append(EditCommand.TOOL_TIP);
+        sb.append("\n\tEditing task at INDEX " + indexToEdit + ": ");
+        return sb;
     }
 
     /**
@@ -746,8 +777,8 @@ public class CommandParser {
             String trimmedArgs = arguments.trim();
             return generateAddDetailedTooltip(trimmedArgs);
         } catch (IllegalValueException e) {
-            logger.info("Illegal add arguments passed for detailed tooltip, showing regular add tooltip instead");
-            return AddCommand.TOOL_TIP;
+            logger.info("Illegal add arguments passed for detailed tooltip, showing regular add tooltip with warning instead");
+            return String.join(NEWLINE_STRING, AddCommand.TOOL_TIP, "Instant parser is unable to determine your current input as it does not match a valid command input.");
         }
 
     }
@@ -763,8 +794,8 @@ public class CommandParser {
             String trimmedArgs = arguments.trim();
             return generateEditDetailedTooltip(trimmedArgs);       
         } catch (IllegalValueException e) {
-            logger.info("Illegal edit arguments passed for detailed tooltip, showing regular edit tooltip instead");
-            return EditCommand.TOOL_TIP;
+            logger.info("Illegal edit arguments passed for detailed tooltip, showing regular edit tooltip with warning instead");
+            return String.join(NEWLINE_STRING, EditCommand.TOOL_TIP, "Instant parser is unable to determine your current input as it does not match a valid command input.");
         }
     }
 

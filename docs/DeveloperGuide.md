@@ -117,16 +117,15 @@ being saved to the hard disk and the status bar of the UI being updated to refle
   coupling between components.
 
 The sections below give more details of each component.
-
+<!-- @@author A0093960X -->
 ### UI component
 
-<img src="images/UiClassDiagram.png" width="800"><br>
+<img src="images/UiClassDiagramFinal.png" width="800"><br>
 > _The class diagram for the UI component of DearJim_
 
 **API** : [`Ui.java`](../src/main/java/seedu/address/ui/Ui.java)
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultsDisplay`, `TaskListPanel`,
-`StatusBarFooter`, `BrowserPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `TaskListPanel`, `TaskCard`, `SwitchViewButtons`, `StatusBarFooter`, etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class
 and they can be loaded using the `UiPartLoader`.
 
 The `UI` component uses JavaFx UI framework. The layouts of these UI parts are defined in matching `.fxml` files
@@ -137,8 +136,9 @@ The `UI` component uses JavaFx UI framework. The layouts of these UI parts are d
 The `UI` component,
 * Executes user commands using the `Logic` component.
 * Binds itself to some data in the `Model` so that the UI can auto-update when data in the `Model` change.
-* Responds to events raised from various parts of the App and updates the UI accordingly.
-
+* Binds itself to some data in the `InputHistory` so that it can fetch the user input history, to  allow the user to navigate his previous or next inputs using the <kbd>Up</kbd> and <kbd>Down</kbd> Arrow keys, updating the `UI` in doing so.
+* Responds to events raised from various parts of the App and updates the `UI` accordingly.
+<!-- @@author -->
 <!-- @@author A0139655U -->
 ### Logic component
 

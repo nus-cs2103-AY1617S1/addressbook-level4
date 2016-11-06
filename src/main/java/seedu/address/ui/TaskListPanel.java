@@ -22,7 +22,7 @@ import java.util.logging.Logger;
  */
 public class TaskListPanel extends UiPart {
     private final Logger logger = LogsCenter.getLogger(TaskListPanel.class);
-    private static final String FXML = "PersonListPanel.fxml";
+    private static final String FXML = "TaskListPanel.fxml";
     private VBox panel;
     private AnchorPane placeHolderPane;
     
@@ -75,7 +75,7 @@ public class TaskListPanel extends UiPart {
     // can use this for init and when switching between undone and done task view.
     private void setConnections(ObservableList<ReadOnlyTask> personList) {
         taskListView.setItems(personList);
-        taskListView.setCellFactory(listView -> new PersonListViewCell());
+        taskListView.setCellFactory(listView -> new TaskListViewCell());
         setEventHandlerForSelectionChangeEvent();
     }
 
@@ -112,22 +112,22 @@ public class TaskListPanel extends UiPart {
         });
     }
 
-    class PersonListViewCell extends ListCell<ReadOnlyTask> {
+    class TaskListViewCell extends ListCell<ReadOnlyTask> {
 
-        public PersonListViewCell() {
+        public TaskListViewCell() {
         }
 
         @Override
-        protected void updateItem(ReadOnlyTask person, boolean empty) {
-            super.updateItem(person, empty);
+        protected void updateItem(ReadOnlyTask task, boolean empty) {
+            super.updateItem(task, empty);
 
-            if (empty || person == null) {
+            if (empty || task == null) {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(TaskCard.load(person, getIndex() + 1).getLayout());
+                setGraphic(TaskCard.load(task, getIndex() + 1).getLayout());
             }
-        }
+        }      
     }
 
     public void reloadLists(ObservableList<ReadOnlyTask> undoneTaskList, ObservableList<ReadOnlyTask>doneTaskList, boolean isDoneList) {

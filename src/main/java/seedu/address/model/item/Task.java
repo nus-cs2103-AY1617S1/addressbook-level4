@@ -46,7 +46,8 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
      * @throws IllegalValueException
      */
     public Task(ReadOnlyTask source) {
-        Date tempStartDate = null, tempEndDate = null;
+        Date tempStartDate = null;
+        Date tempEndDate = null;
         if (source.getStartDate().isPresent()) {
             tempStartDate = source.getStartDate().get();
         }

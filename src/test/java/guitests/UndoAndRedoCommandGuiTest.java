@@ -19,7 +19,7 @@ import static seedu.address.logic.commands.DeleteCommand.MESSAGE_DELETE_TASK_SUC
 import java.util.Arrays;
 
 //@@author A0093960X
-public class UndoAndRedoCommandTest extends DearJimGuiTest {
+public class UndoAndRedoCommandGuiTest extends DearJimGuiTest {
     
     private TestTask[] originalUndoneList = td.getTypicalUndoneTasks();
     private TestTask[] originalDoneList = td.getTypicalDoneTasks();

@@ -154,7 +154,7 @@ public class TaskListPanelHandle extends GuiHandle {
     public TaskCardHandle getTaskCardHandle(ReadOnlyTask person) {
         Set<Node> nodes = getAllCardNodes();
         Optional<Node> personCardNode = nodes.stream()
-                .filter(n -> new TaskCardHandle(guiRobot, primaryStage, n).isSameFloatingTask(person))
+                .filter(n -> new TaskCardHandle(guiRobot, primaryStage, n).isSameTask(person))
                 .findFirst();
         if (personCardNode.isPresent()) {
             return new TaskCardHandle(guiRobot, primaryStage, personCardNode.get());

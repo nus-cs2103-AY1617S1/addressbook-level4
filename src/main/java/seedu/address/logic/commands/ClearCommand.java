@@ -16,7 +16,8 @@ public class ClearCommand extends UndoableCommand {
     public static final String TOOL_TIP = "clear";
     public static final String MESSAGE_SUCCESS_UNDONE_LIST = "Task Manager undone list has been cleared!";
     public static final String MESSAGE_SUCCESS_DONE_LIST = "Task Manager done list has been cleared!";
-    public static final String MESSAGE_UNDO_SUCCESS = "Undid the clear command! Cleared tasks from the %1$s list have been restored!";
+    public static final String MESSAGE_UNDO_SUCCESS_UNDONE_LIST = "Undid the clear command! Cleared tasks from the undone list have been restored!";
+    public static final String MESSAGE_UNDO_SUCCESS_DONE_LIST = "Undid the clear command! Cleared tasks from the undone list have been restored!";
 
     private ObservableList<Task> clearedTasks;
     private boolean isTargetDoneList;
@@ -63,10 +64,10 @@ public class ClearCommand extends UndoableCommand {
 
         if (isTargetDoneList) {
             model.setTaskManagerDoneList(clearedTasks);
-            return new CommandResult(MESSAGE_SUCCESS_DONE_LIST);
+            return new CommandResult(MESSAGE_UNDO_SUCCESS_DONE_LIST);
         } else {
             model.setTaskManagerUndoneList(clearedTasks);
-            return new CommandResult(MESSAGE_SUCCESS_UNDONE_LIST);
+            return new CommandResult(MESSAGE_UNDO_SUCCESS_UNDONE_LIST);
         }
 
     }
