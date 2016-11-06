@@ -27,7 +27,7 @@ Get started with <i>Tusk</i> now!
    This app will not work with earlier versions of Java 8.
 
 1. Download the latest `taskmanager.jar` from the [releases](../../../releases) tab.
-2. Copy the file to the folder you want to use as the home folder for your Task Manager.
+2. Copy the file to the folder you want to use as the home folder for Tusk.
 3. Double-click the file to start the app. The GUI should appear in a few seconds.
 
  > <img src="images/UiMockup.png" width="600"><br>
@@ -37,8 +37,8 @@ Get started with <i>Tusk</i> now!
 5. Some example commands you can try:
    * **`help`** : lists all commands
    * **`add`**` Meeting, July 10, 5pm-6pm` :
-     adds a `Meeting` task on `July 10, 5pm-6pm` to the Task Manager
-   * **`alias`**` am add Meeting` : `am` is now a shortcut for `add Meeting`
+     adds a `Meeting` task on `July 10, 5pm-6pm` to Tusk
+   * **`alias`**` am add Meeting` : binds `am` as a shortcut for `add Meeting`
    * **`exit`** : exits the app
 6. Refer to the [Features](#features) section below for details of each command.<br>
 
@@ -48,8 +48,8 @@ Get started with <i>Tusk</i> now!
 > **Command Format**
 > * Words in `UPPER_CASE` are the parameters.
 > * Items with `/` imply that only one of them is chosen.
-> * Items surrounded by open(`[`) and closed(`]`) square brackets are optional.
-> * Items surrounded by open(`(`) and closed(`)`) brackets are grouped together.
+> * Items enclosed in open(`[`) and closed(`]`) square brackets are optional.
+> * Items enclosed in open(`(`) and closed(`)`) brackets are grouped together.
 > * The order of parameters is fixed.
 
 #### Viewing help : `help`
@@ -59,12 +59,12 @@ Format: `help`
 
 <br>
 #### Adding a task: `add`
-Adds a task to the task manager. <i>Tusk</i> supports three kinds of task: <i>Floating, Deadline</i> and <i>Event</i>, and a flexible date format. <br>
+Adds a task to Tusk. <i>Tusk</i> supports three kinds of task: <i>Floating, Deadline</i> and <i>Event</i>, and a flexible date format. <br>
 
 > **Date Format**
-> * Note that `DATE` and all other dates follow the following format:
-> * 1) `DAY MONTH` or `MONTH DAY`
-> * 2) `DAY MONTH YEAR` or `MONTH DAY YEAR`
+> * Note that `DATE` and all other dates follow the following format: <br>
+>   1) `DAY MONTH` or `MONTH DAY`
+>   2) `DAY MONTH YEAR` or `MONTH DAY YEAR`
 > * `MONTH` should be in alphabets instead of numbers.
 > * `MONTH` can either be in the long-form ('October') or the short-form ('Oct'), and it is case-insensitive.
 > * Any deviations from the above format may not be interpreted correctly.
@@ -78,7 +78,7 @@ Example:
 * `add Project meeting`
 
 ##### Deadline Tasks
-These tasks havea description and a deadline (due date) <br>
+These tasks have a description and a deadline (due date) <br>
 Format: `add TASK by DATE` <br>
 
 Examples:
@@ -105,21 +105,21 @@ Format: `list`
 
 <br>
 #### Searching for tasks using keywords: `find`
-Finds tasks that contain any of the given keywords.<br>
+Finds tasks that contain any of the keywords entered.<br>
 Format: `find KEYWORD [MORE_KEYWORDS]`
 
-> Only full words will be matched e.g. meeting will not match meetings
-> Tasks matching at least one keyword will be returned (i.e. OR search).
+> Descriptions that contain a substring of any of the keywords entered will be returned as well (e.g. 'meeting' will match 'meetings'). <br>
+> Tasks matching _at least_ one keyword will be returned
 
 Examples:
 * `find meeting` <br>
-  Returns all tasks with the keyword meeting.
+  Returns all tasks with the substring "meeting" in the description.
 * `find lunch dinner` <br>
-  Returns any task with lunch or dinner.
+  Returns any task with "lunch" or "dinner" as substrings in the description.
 
 <br>
 #### Updating a task: `update`
-Updates the <i>entire task</i>, the <i>description</i> of the task or the <i>date</i> of the task.<br>
+Updates the <i>entire task</i>, only the <i>description</i> of the task or the <i>date</i> of the task.<br>
 Format (task): `update INDEX task UPDATED_VALUE` <br>
 Format (description): `update INDEX description UPDATED_VALUE` <br>
 Format (date): `update INDEX date UPDATED_VALUE`
@@ -179,7 +179,7 @@ Format: `uncomplete INDEX`
 
 <br>
 #### Pinning a task: `pin`
-Pins the specified task. <br>
+Pins the specified task at the top of all lists. <br>
 Format: `pin INDEX`
 
 > `INDEX` refers to the index shown in the most recent listing. The index must be a positive integer 1, 2, 3… <br>
@@ -196,7 +196,7 @@ Examples:
 
 <br>
 #### Unpinning a task: `unpin`
-Unpins the specified task (the default). <br>
+Unpins the specified task (the default state). <br>
 Format: `unpin INDEX`
 
 > `INDEX` refers to the index shown in the most recent listing. The index must be a positive integer 1, 2, 3… <br>
@@ -208,7 +208,7 @@ Examples:
 
 <br>
 #### Listing pins: `list pin[s]`
-List all the pinned tasks. <br>
+Lists all the pinned tasks. <br>
 Format: `list pin[s]`
 
 > You can type either `pin` or its plural form, `pins`
@@ -219,7 +219,7 @@ Examples:
 
 <br>
 #### Listing Completed Tasks: `list complete[d]`
-List all the tasks that you have completed. <br>
+Lists all the tasks that you have completed. <br>
 Format: `list complete[d]`
 
 > You can type either `complete` or its past tense form, `completed`
@@ -241,9 +241,9 @@ Examples:
 * `am` <br>
   Typing `am, July 10, 5-6` is the same as `add Meeting, July 10, 5-6`
 <br><br>
-* `alias s search Dinner`
+* `alias s find Dinner`
 * `s` <br>
-  Typing `s` is the same as `search Dinner`
+  Typing `s` is the same as `find Dinner`
 
 <br>
 #### Deleting an alias: `unalias`
@@ -261,7 +261,7 @@ Examples:
   Typing `am` no longer translates into `add Meeting`
 
 #### Listing aliases: `list alias[es]`
-List all the aliases that you have created. <br>
+Lists all the aliases that you have created. <br>
 Format: `list alias[es]`
 
 > You can type either `alias` or its plural form, `aliases`
@@ -285,7 +285,7 @@ Examples:
 
 <br>
 #### Clearing all entries : `clear`
-Clears all entries from the Task Manager.<br>
+Clears all entries from the currently displayed list in Tusk.<br>
 Format: `clear`
 
 <br>
@@ -308,7 +308,7 @@ Task data are saved in the hard disk automatically after any command that change
 There is no need to save manually.
 
 <br>
-## Commands Autocomplete
+## Command Autocomplete
 Pressing <kbd>TAB</kbd> will autocomplete the first word by looking up all possible commands. <br>
 If there is only one possible command, the command will be autocompleted. <br>
 However, if there are multiple commands, they will be displayed. <br>
@@ -323,13 +323,19 @@ Examples:
 * `unf`<kbd>TAB</kbd><br>
   `unpin` completed for you.
 
+<br>
+## Command History
+Pressing the <kbd>UP</kbd> or <kbd>DOWN</kbd> arrow keys will cycle through all the commands that you have entered since Tusk was started. This also allows you to fix any incorrectly entered commands, make minor adjustments to commands previously entered, or simply enter the same command many times consecutively.
+
+<br>
+## Scrolling
+Pressing <kbd>Control</kbd>+<kbd>UP</kbd> or<kbd>Control</kbd>+<kbd>DOWN</kbd> scrolls through the list of tasks.
 
 <br>
 ## FAQ
 
 **Q**: How do I transfer my data to another Computer?<br>
-**A**: Install the app in the other computer and overwrite the empty data file it creates with
-       the file that contains the data of your previous Task Manager folder.
+**A**: Install the app in the other computer and overwrite the data folder it creates with the data folder from your original Tusk installation.
 
 <br>
 ## Command Summary
