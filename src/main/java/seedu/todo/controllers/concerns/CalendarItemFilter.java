@@ -63,8 +63,8 @@ public class CalendarItemFilter {
         if (parsedResult.get("eventType") != null) {
             eventType = parsedResult.get("eventType")[0];
             // Singularize
-            eventType = eventType.equals("events") ? "event" : eventType;
-            eventType = eventType.equals("tasks") ? "task" : eventType;
+            eventType = "events".equals(eventType) ? "event" : eventType;
+            eventType = "tasks".equals(eventType) ? "task" : eventType;
         }
         boolean taskStatusPresent = parsedResult.get("taskStatus") != null;
         boolean eventStatusPresent = parsedResult.get("eventStatus") != null;
@@ -146,7 +146,7 @@ public class CalendarItemFilter {
         if (parsedResult.get("eventStatus") != null && parsedResult.get("eventStatus")[0] != null) {
             String eventStatus = parsedResult.get("eventStatus")[0];
             LocalDateTime now = LocalDateTime.now();
-            if (eventStatus.equals("over") || eventStatus.equals("past")) {
+            if ("over".equals(eventStatus) || "past".equals(eventStatus)) {
                 eventPredicates.add(Event.predEndBefore(now));
             } else if (eventStatus.equals("future")) {
                 eventPredicates.add(Event.predStartAfter(now));
