@@ -10,7 +10,7 @@ public class ConsoleHandle extends GuiHandle {
 
     private static final String CONSOLE_INPUT_ID = "#consoleInputTextField";
     private static final String CONSOLE_TEXT_ID = "#consoleTextArea";
-    private static final int COMMAND_WAIT_TIME = 100;
+    private static final int COMMAND_WAIT_TIME = 10;
 
     public ConsoleHandle(GuiRobot guiRobot, Stage primaryStage, String stageTitle) {
         super(guiRobot, primaryStage, stageTitle);

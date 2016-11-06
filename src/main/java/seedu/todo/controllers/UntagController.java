@@ -18,12 +18,12 @@ public class UntagController extends Controller {
     private static final String COMMAND_SYNTAX = "untag <index> <tag name>";
     private static final String COMMAND_KEYWORD = "untag";
     
-    private static final String MESSAGE_UNTAG_SUCCESS = "Item has been untagged successfully.";
-    private static final String MESSAGE_INDEX_OUT_OF_RANGE = "Could not untag task/event: Invalid index provided!";
-    private static final String MESSAGE_MISSING_INDEX_AND_TAG_NAME = "Please specify the index of the item and the tag name to untag.";
-    private static final String MESSAGE_INDEX_NOT_NUMBER = "Index has to be a number!";
-    private static final String MESSAGE_TAG_NAME_NOT_FOUND = "Could not untag task/event: Tag name not found!";
-    private static final String MESSAGE_TAG_NAME_DOES_NOT_EXIST = "Could not untag task/event: Tag name does not exist!";
+    public static final String MESSAGE_UNTAG_SUCCESS = "Item has been untagged successfully.";
+    public static final String MESSAGE_INDEX_OUT_OF_RANGE = "Could not untag task/event: Invalid index provided!";
+    public static final String MESSAGE_MISSING_INDEX_AND_TAG_NAME = "Please specify the index of the item and the tag name to untag.";
+    public static final String MESSAGE_INDEX_NOT_NUMBER = "Index has to be a number!";
+    public static final String MESSAGE_TAG_NAME_NOT_FOUND = "Could not untag task/event: Tag name not found!";
+    public static final String MESSAGE_TAG_NAME_DOES_NOT_EXIST = "Could not untag task/event: Tag name does not exist!";
     
     private static final int ITEM_INDEX = 0;
     
