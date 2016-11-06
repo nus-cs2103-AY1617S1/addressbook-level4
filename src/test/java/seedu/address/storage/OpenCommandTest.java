@@ -2,13 +2,12 @@ package seedu.address.storage;
 
 import static org.junit.Assert.assertTrue;
 
-import java.io.File;
-
 import org.junit.Test;
 
 import guitests.AddressBookGuiTest;
 import seedu.address.testutil.TestActivity;
 
+//@@author A0125680H
 public class OpenCommandTest extends AddressBookGuiTest {
     private static final String TEST_OPEN_DIRECTORY = "src/test/data/testopen.xml";
     private static final String TEST_OPEN_DIRECTORY_NO_EXTENSION = "src/test/data/testopen";
