@@ -35,6 +35,18 @@
 
 ## Features
 
+[comment]: # (@@author A0140060A)
+
+> **Colour Code**
+> * Item List
+> 	* `green` : Completed Item
+> 	* `orange` : Approaching Deadline
+> 	* `red` : Overdue Deadline
+> 	* `blue` : In Progress Event
+>	* `grey` : Past Event
+
+[comment]: # (@@author A0135792X)
+
 > **Command Format**
 > * Words in `UPPER_CASE` are the parameters.
 > * Items in `SQUARE_BRACKETS` are optional.
