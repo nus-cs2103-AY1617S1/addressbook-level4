@@ -217,12 +217,15 @@ Format: `delete INDEX`
 
 > * Jimi will delete the task specified by `INDEX`. 
 > * If you need to recover your deleted task/event, use the [`undo`](#undo) command.
+> * You can also delete a range of tasks/events by specifying the `to` keyword as well.
 
 Examples: 
 * `delete e2`
   Deletes the 2nd event in Jimi.
 * `delete t1`
   Deletes the 1st task in the Jimi.
+* `delete t1 to t5`
+  Deletes the 1st task to 5th task in Jimi.
 
 > <img src="images/Delete.png" width="800">
 
@@ -301,18 +304,20 @@ Format: `redo`
 Finds and lists all tasks in Jimi whose name contains any of the argument keywords.<br>
 Format: `find KEYWORD [MORE_KEYWORDS]`
 
+> * The keywords must be specified in quotes.
 > * The order of the keywords you type in does not matter. e.g. `Essay writing` will match `Writing essay`
 > * Only the task details are searched.
-> * Only full words will be matched e.g. `Essay` will not match `Essays`
+> * All tasks/events whose name matches the keyword will be included in the search list. eg. `find "ess"` will match `Essay`
 > * Tasks with details matching at least one keyword will be returned (i.e. `OR` search).
     e.g. `Writing` will match `Writing essay`
 
 Examples: 
-* `find Jimmy`
-* `find Haircut`
+* `find "Jimmy"`
+* `find "buy attend do get"`
 
 > <img src="images/Find.png" width="800">
 
+<!-- @@author A0138915X -->
 #### <a id="find"></a>Finding all tasks according to the dates you specify: `find`
 Finds and lists all tasks and events in Jimi whose dates matches the requirements specified.<br>
 Format: `find from DATE to DATE`
@@ -322,11 +327,14 @@ Format: `find from DATE to DATE`
 > * Simply append the dates to the keywords.
 
 Examples:
-* `find "jimmy" from tuesday to wednesday`
+* `find from tuesday to wednesday`
+* `find "attend" from tomorrow to next month`
 
 > <img src="images/FindDate.PNG" width="800">
 <br><br>
+<!-- @@author A0138915X -->
 
+<!--- @@author A0143471L -->
 #### <a id="saveas"></a>Setting save directory : `saveas`
 Sets new save directory for the tasks and events in Jimi.
 Format: `saveas NEW_DIRECTORY`
@@ -342,12 +350,12 @@ Example:
 <br><br>
 
 #### <a id="clear"></a>Clearing all entries : `clear`
-Clears all entries from Jimi.<br>
+Clears all entries of tasks and events from Jimi.<br>
 Format: `clear`  
 
 > <img src="images/Clear.png" width="800">
 
-> If you want to undo your clear, use the [`undo`](#undo) command.
+> If you want to undo your clear, please use the [`undo`](#undo) command.
 
 <br><br>
 
@@ -360,24 +368,34 @@ Format: `exit`
 <br><br>
 
 #### <a id="save"></a>Saving the data 
-Address book data are saved in the hard disk automatically after any command that changes the data.<br>
-There is no need to save manually.
+The tasks and events in Jimi are saved in your hard disk automatically if you made any changes or added any new items.<br>
+You do not need to worry about saving the data manually.
 
 <br><br>
 
+<!-- @@author A0138915X -->
 ## FAQ
 
 **Q**: How do I transfer my data to another Computer?<br>
-**A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
+**A**: Simply copy the data file specified by the save location to the other computer. Install the app in the other computer and then specify the location of the data file you want to load using the `saveas` command, or just overwrite the default data file with the old file.
 <br><br>
 **Q**: Is there a way to be notified of upcoming tasks or events that are due soon?<br>
-**A**: Jimi will display all overdue tasks, upcoming tasks and events at the top Agenda box, so you will always be notified of the most important details first.
+**A**: Jimi will display all overdue tasks at the top Agenda box, so you will always be notified of the most important details first. To display upcoming tasks or events, do use the find command to list them.
 <br><br>
 **Q**: What happens if I typed in a wrong command?<br>
-**A**: An unknown command message will be shown to you.
+**A**: Jimi will display an error message that tells you that the command you entered is incorrect.
 <br><br>
 **Q**: What happens if I typed in the format wrongly?<br>
-**A**: An invalid command format message will be shown to you, along with the correct format you should use instead.
-
-
-
+**A**: Jimi will display an error message that tells you that the format for the command you entered is incorrect and will also display the correct command format required for that command.
+<br><br>
+**Q**: Can I still use the mouse to use Jimi's functionalities?<br>
+**A**: As Jimi is specifically catered to use the command-line interface, support for mouse-input is limited. You can display certain sections of the summary panel by clicking on the headers with the mouse although that is pretty much what Jimi can allow you to do with the mouse.
+<br><br>
+**Q**: How do I see all of my completed tasks?<br>
+**A**: You can do so by using the `show completed` command which will display all of the completed tasks in the main window.
+<br><br>
+**Q**: Can I use this with Google Cloud or my favourite cloud service?<br>
+**A**: As of now, Jimi does not support any online functionality. However, there are plans for the development of online cloud services integration so users can easilly access their data from multiple devices with ease.
+<br><br>
+**Q**: How can I delete multiple tasks/events at once?
+**A**: You can do so by using the `delete` command follow by the range of indices of tasks or events you want to remove.
