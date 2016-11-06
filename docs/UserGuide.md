@@ -88,9 +88,9 @@ Examples:
 
 Demo:<br>
 Type the `add` command: <br>
-<img src="images/ADD.png" width="450"><br><br>
+<img src="images/ADD.png" width="600"><br><br>
 Result: <br>
-<img src="images/ADD_Result.png" width="450"><br>
+<img src="images/ADD_Result.png" width="600"><br>
 
 ## Searching tasks: `search`
 Search tasks whose names or details contain any of the given keywords. <br>
@@ -132,9 +132,9 @@ Examples:
 
 Demo: <br>
 Type the `search` command: <br>
-<img src="images/SEARCH.png" width="450"><br><br>
+<img src="images/SEARCH.png" width="600"><br><br>
 Result: <br>
-<img src="images/SEARCH_Result.png" width="450"><br>
+<img src="images/SEARCH_Result.png" width="600"><br>
 
 <!-- @@author A0121643R -->
 ## Marking tasks as done : `mark`
@@ -151,9 +151,9 @@ Mark the task with `ID #2` in the Do-Do Bird as completed.
 
 Demo:<br>
 Type the `mark` command: <br>
-<img src="images/MARK.png" width="450"><br><br>
+<img src="images/MARK.png" width="600"><br><br>
 Result: <br>
-<img src="images/MARK_Result.png" width="450"><br>
+<img src="images/MARK_Result.png" width="600"><br>
 
 ## Unmarking tasks : `unmark`
 Unmark a task in Do-Do Bird to be uncompleted.<br>
@@ -195,9 +195,9 @@ Examples:
 
 Demo: <br>
 Type the `update` command: <br>
-<img src="images/UPDATE.png" width="450"><br><br>
+<img src="images/UPDATE.png" width="600"><br><br>
 Result: <br>
-<img src="images/UPDATE_Result.png" width="450"><br>
+<img src="images/UPDATE_Result.png" width="600"><br>
 
 
 ## Deleting a task : `delete`
@@ -214,9 +214,9 @@ Deletes the task with `ID #1` in the Do-Do Bird.
 
 Demo: <br>
 Type the `delete` command: <br>
-<img src="images/DELETE.png" width="450"><br><br>
+<img src="images/DELETE.png" width="600"><br><br>
 Result: <br>
-<img src="images/DELETE_Result.png" width="450"><br>
+<img src="images/DELETE_Result.png" width="600"><br>
 
 
 <!-- @@author A0142421X -->
@@ -235,9 +235,9 @@ Tags the task with `ID #2` with `Homework` tag
 
 Demo: <br>
 Type the `tag` command: <br>
-<img src="images/TAG.png" width="450"><br><br>
+<img src="images/TAG.png" width="600"><br><br>
 Result: <br>
-<img src="images/TAG_Result.png" width="450"><br>
+<img src="images/TAG_Result.png" width="600"><br>
 
 
 ## Untagging a task : `untag`
