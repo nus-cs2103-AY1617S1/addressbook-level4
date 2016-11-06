@@ -43,7 +43,7 @@ Responsibilities: Team Lead, Logic
 * Code written: <kbd>[Functional code](../collated/main/A0152958R.md)</kbd> <kbd>[Test code](../collated/test/A0152958R.md)</kbd> <kbd>[Docs]</kbd>
 
 **Role**: Developer <br>
-Responsibilities: Parser
+Responsibilities: Natural time input parsing, Add & edit command parsing
 
 -----
 
@@ -64,7 +64,7 @@ Responsibilities: Testing, GUI
 #### [Lim Jun Hao](http://github.com/evilmtv)
 <img src="images/junhao.jpg" width="150"><br>
 
-* Components in charge of: [Storage]
+* Components in charge of: [Storage] [CommandParser]
 * Features implemented:
    * RecurringTask functionality
    * <kbd>[Repeat](UserGuide.md#repeat-a-specific-task-at-a-given-interval--repeat)</kbd> Command
@@ -72,11 +72,13 @@ Responsibilities: Testing, GUI
    * <kbd>[Sort](UserGuide.md#sorting-tasks--sort-s)</kbd> Command
    * <kbd>[Backup](UserGuide.md#backup--backup-b)</kbd> Command
    * <kbd>[Directory](UserGuide.md#change-working-directory--directory-dir)</kbd> Command
+   * Shorter command inputs (i.e. allow `e 2 n, New task name` on top of the standard `edit 2 name, New task name`)
 * Code written: <kbd>[Functional code](../collated/main/A0147944U.md)</kbd> <kbd>[Test code](../collated/test/A0147944U.md)</kbd> <kbd>[Docs](../collated/docs/A0147944U.md)</kbd>
 * Other major contributions:
   * Organize and manage [GitHub repository](https://github.com/CS2103AUG2016-T17-C3/main)
   * Ensure and improve code quality of code throughout the project
-  * Improve Regex for CommandParser
+  * Refactored CommandParser into individual Parsers for each command
+  * Improve Regex for Parsers
   * Edit and ensure formatting of documentations
 
   

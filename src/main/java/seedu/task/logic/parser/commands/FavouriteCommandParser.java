@@ -10,6 +10,7 @@ import seedu.task.logic.commands.IncorrectCommand;
 import seedu.task.logic.commands.UnfavoriteCommand;
 import seedu.task.logic.parser.CommandParser;
 
+// @@author A0147335E
 public class FavouriteCommandParser {
     
     public static Command prepareFavorite(String args) {
