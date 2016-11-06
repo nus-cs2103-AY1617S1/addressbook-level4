@@ -4,7 +4,7 @@ package seedu.oneline.logic.commands;
 import seedu.oneline.commons.core.EventsCenter;
 import seedu.oneline.commons.core.Messages;
 import seedu.oneline.commons.core.UnmodifiableObservableList;
-import seedu.oneline.commons.events.ui.ShowAllViewEvent;
+import seedu.oneline.commons.events.ui.ChangeViewEvent;
 import seedu.oneline.commons.exceptions.IllegalCmdArgsException;
 import seedu.oneline.commons.exceptions.IllegalValueException;
 import seedu.oneline.logic.parser.Parser;
@@ -64,7 +64,7 @@ public class DoneCommand extends Command {
         ReadOnlyTask taskToDone = lastShownList.get(targetIndex - 1);
         Task doneTask = null;
         doneTask = taskToDone.markDone();
-        EventsCenter.getInstance().post(new ShowAllViewEvent());
+        EventsCenter.getInstance().post(new ChangeViewEvent(" "));
         
         if(taskToDone.isCompleted()) {
             return new CommandResult(String.format(MESSAGE_TASK_ALR_DONE, taskToDone));
