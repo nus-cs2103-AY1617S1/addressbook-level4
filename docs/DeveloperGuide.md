@@ -407,97 +407,95 @@ http://www.comp.nus.edu.sg/~cs2103/AY1617S1/
 ###Pros
 
 1. Contains a quick add function which is similar to what we are trying to achieve, you can type the entire add command in one line with event description, time, location and it will interpret it for you and add as an event. 
-2. Ties with Google Maps for event locations. So if it is recognised in Google Maps, you can choose an exact meeting place.
-3. Supports addition of recurring events.
-4. Supports social interations - shareable calender.
-5. Supports shared events.
+2. Contains multiple calendars for different aspects of life. Eg. one for work, one for family, one for play.
+3. Supports automatic addition of recurring events.
+4. Supports sharing of calender.
+5. Supports sharing of events.
 6. Supports real time video calls to all attendees of a shared event.
-7. Consists of multiple calendars for different aspects of life. Eg. one for work, one for family, one for play.
-8. Automatically synchronises with google account which is heavily integrated into android. 
-9. Supports colour coding for events so that you can self-categorize according to colour.
-9. Supports switching of time frames. eg.view by week, month.
-10. Allows user to find a common time for everyone to attend a shared event created by you based on their Google Calendars.
-11. Allows setting of time zones for each event, mainly used by frequent travellers.
-12. Allows addition of documents, spreadsheets, and other files directly to an event so as to notify all guest of the details in a single platform.
-
-
+7. Supports colour coding for events so that you can self-categorize according to colour.
+8. Supports switching of time frames. eg.view by week, month. 
+9. Allows user to find a common time for everyone to attend a shared event created by you based on their Google Calendars.
+10. Allows setting of time zones for each event, mainly used by frequent travellers.
+11. Allows addition of documents, spreadsheets, and other files directly to an event so as to notify all guest of the details in a single platform.
+12. Automatically synchronises with google account which is heavily integrated into android.
+13. Ties with Google Maps for event locations. So if it is recognised in Google Maps, you can choose an exact meeting place.
 
 ###Cons
 
 1. Severe mouse clicks required to fill up the numerous columns.
-2. Security isses. It is connected to the web so the is the possibility of hacking which can reveal your life schedule.
+2. Security issues. It is connected to the web so there is the possibility of hacking which can reveal your life schedule.
+
 
 ##Todoist
 
 ###Pros
 
-1. Colour code for priority, not time.
-2. Command allows for recurring days eg every day/every Tuesday/ holidays etc.
-3. User should be able to choose sub-categories like today's  or tomorrow's task but requires clicking (involves 1 click).
-4. Tasks can be divided further to categories called projects such as shopping , work, personal, errands, or create your own <br> 
->for bigger projects sub-categories can be created. Projects are shareable with others.
-5. Filters > priority setting priority 1, priority 2, assign to me or assign to others.
-6. Able to set priority:  one for flag menu, two for flag colour 4 priority choices or add.
-7. Able to use templates from other projects.
-8. Lots of filters to choose from. 
-9. Able to add labels/ tags.
-10. Premium account allows you to add files to task. Supports third party integration eg link to dropbox/ integration with other services like Zapier, Google Drive, Cloud Magic, Sunrise Calendar, and others.
-11. Uses drag and drop to shift tasks.
-12. No limit to stored history of data.
-13. Shortcuts are available. E.g. To bold : control b, for italics : control i.
+1. Contains a very high limit to storing of data.
+2. Contains shortcut keys. Eg. To bold : control b; For italics : control i.
+3. Contains tabs like today's or tomorrow's task for ease of access.
+4. Contains multiple priority choices to user.
+5. Contains duplication of templates from other projects.
+6. Allows addition of labels/ tags.
+7. Allows premium users to add links and files to a specific task - Eg. Links to work, files and documents. 
+8. Supports third party integration. Eg. Links to dropbox and other services like Zapier, Google Drive, Cloud Magic, Sunrise Calendar, etc...
+9. Supports shifting of tasks.
+10. Supports colour code for priority.
+11. Supports automatic addition of recurring events. Eg. every day/every Tuesday/ holidays etc...
+12. Supports multiple categories called projects for sorting of task such as shopping , work, personal, errands, or create your own <br> 
+13. Supports sharing of projects and assigning of task to others.
+14. Supports mutiple filters like priority settings, tags/labels, tasks assigned to me or others, etc...
 
 ###Cons
 
-1. not jim friendly, involves clicking form filling style eg. Click add> type task>click schedule>click to choose date or for recurring dates > type every day or every week. Edit>click and change.
-2. Able to link schedules with other people. Eg assign task to others(jim do not need it?).
-3. Most of Jims todo items arrive as emails. 
-4. Divides into too many catagories too messy for jim.
+1. Security issues. It is connected to the web so there is the possibility of hacking which can reveal your life schedule.
+3. Multiple categories may confuse users.
+4. Severe mouse clicks required for adding of tasks and to navigate between categories, checking purposes and boxes for filling of details.
+5. Monetary means required for premium access.
+6. Usage of a mouse required for shifting of tasks. Eg. drag and drop.
 
 
 ##Wunderlist
 
 ###Pros
 
-1. It is available across windows, mac, android and ios.
-2. Easy search function.
-3. Free for non-premium users.
-4. Nice interface.
-5. Intuitive options and menu selections that is not complicated.
-6. Customizable backgrounds to your own liking.
-7. Able to accept recurring events.
-8. Can set reminders and notifications.
-9. Can share between people.
-10. Multiple task lists.
-11. Short cuts to starred task, overdues and today task.
-12. Cloud syncing.
-
+1. Contains a easy to use search function.
+2. Contains a visually pleasing interface.
+3. Contains intuitive options and menu selections that is user friendly.
+4. Contains customizable backgrounds.
+5. Contains multiple task lists.
+6. Contains shortcuts to starred task, overdues and today's tasks.
+7. Contains cloud syncing funtionality.
+8. Supports multiple platforms such as windows, mac, android and ios.
+9. Supports automatic addition of recurring events.
+10. Supports setting of reminders and notifications.
+11. Supports sharing of events.
 
 ###Cons
 
-1. There is no options for subtasks.
-2. No start dates for events.
-3. Need to pay for premium.
-4. Excel files cannot be uploaded.
-5. Have to do organization of tasks, events or other stuff by ourselves, they do not group them up for us.
-6. Does not sync with google.
+1. No avaliable option for addition of subtasks.
+2. No avaliable option for addition of start date for events.
+3. Monetary means required for premium access.
+4. Uploading of files not supported.
+5. Organisation of tasks not supported.
+6. Function to sync with third party services like dropbox and google drive is not avaliable.
+
 
 ##Trello
 
 ###Pros
 
-1. Works both on web and mobile devices.
-2. Free subscription, but also offers a professional package, with the privacy and administrative settings required by large enterprises.
-3. Good visual.
-4. Track task easily.
-5. Able to collaborate with multiple people on a single task.
-6. Receive email update when other teammates make changes.
-7. Always in sync. 
+1. Supports multiple platforms such as windows, mac, android and ios.
+2. Supports sharing of tasks with other users.
+3. Supports updates by email when other teammates make changes.
+4. Supports syncing of tasks with web and other users in real time. 
+5. Allows for free subscription, and also offers a professional package, with the privacy and administrative settings required by large enterprises.
+6. Contains a visually pleasing interface.
+7. Allows tasks to be tracked easily.
 
 ###Cons
 
-1. Does not provide a lot of tools to sort cards or reports.
-2. Inability to put due dates.
-3. Inability to put tag on members in checklist.
-4. Does not have calendar.
-
+1. No functionality to sort cards and reports in the order of users preference.
+2. No functionalities to assign a task to members in a checklist.
+3. No functionality for calender view for user preference.
+4. Due dates are not allowed for input.
 
