@@ -27,8 +27,8 @@ public class EditCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
 	    + ": Edits the task identified by the index number used in the last task listing.\n"
-	    + "Parameters: INDEX (must be a positive integer) NAME d/DATE s/STARTTIME e/ENDTIME\n" + "Example: "
-	    + COMMAND_WORD + " 2";
+	    + "Format: edit [INDEX] (must be a positive integer) s/[STARTDATE] [STARTTIME] e/[ENDDATE] [ENDTIME]\n" + "Example: "
+	    + COMMAND_WORD + " 2 s/3pm";
 
     public static final String MESSAGE_DUPLICATE_PERSON = "This task already exists in the daily planner";
     public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Task: %1$s";

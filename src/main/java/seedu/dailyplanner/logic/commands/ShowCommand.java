@@ -2,6 +2,8 @@ package seedu.dailyplanner.logic.commands;
 
 import java.util.Set;
 
+import seedu.dailyplanner.commons.util.StringUtil;
+
 /**
  * Lists all persons in the address book to the user.
  */
@@ -11,8 +13,6 @@ public class ShowCommand extends Command {
 	public static final String COMMAND_WORD = "show";
 
 	public static final String MESSAGE_SUCCESS = "Showing %1$s tasks";
-
-    private static final String EMPTY_STRING = "";
 
 	private final Set<String> keywords;
 
@@ -28,7 +28,7 @@ public class ShowCommand extends Command {
 	public CommandResult execute() {
 		if (keywords == null) {
 			model.updateFilteredListToShowAll();
-			model.setLastShowDate(EMPTY_STRING);
+			model.setLastShowDate(StringUtil.EMPTY_STRING);
 			return new CommandResult(String.format(MESSAGE_SUCCESS, "all"));
 		} else {
 			if (keywords.contains("complete")) {
