@@ -255,6 +255,7 @@ public class MainWindow extends UiPart {
     
     public void openFile(File selectedFile) {
         if (!selectedFile.exists()) {
+            System.out.println("Why am i here?");
             resultDisplay.postMessage("The specified file doesn't exist");
         } else {
             EventsCenter.getInstance().post(new LoadLifekeeperEvent(selectedFile, logic));

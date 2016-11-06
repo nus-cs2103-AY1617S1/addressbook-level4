@@ -27,6 +27,7 @@ public class OpenCommand extends Command {
 
     @Override
     public CommandResult execute() {
+        String oldPath = XmlAddressBookStorage.getFilePathForSaveCommand();
         File openFile = new File(openPath);
         String filePath = openFile.getAbsolutePath();
         if (FileUtil.isValidFilePath(openPath) && openFile.exists()) {
@@ -39,10 +40,10 @@ public class OpenCommand extends Command {
             EventsCenter.getInstance().post(new OpenFileChooserEvent(""));
         }
         
-        if (filePath.equals(XmlAddressBookStorage.getFilePathForSaveCommand())) {
-            return new CommandResult(String.format(OPEN_MESSAGE, XmlAddressBookStorage.getFilePathForSaveCommand()));
-        } else {
+        if (oldPath.equals(XmlAddressBookStorage.getFilePathForSaveCommand())) {
             return new CommandResult(NO_SUCH_FILE_MESSAGE);
+        } else {
+            return new CommandResult(String.format(OPEN_MESSAGE, XmlAddressBookStorage.getFilePathForSaveCommand()));
         }
     }
 
