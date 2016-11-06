@@ -59,9 +59,9 @@ public enum TimePeriod {
     /**
      * Converts user input into TimePeriod if valid.
      *
-     * @param timePeriodString  user input of time period
-     * @return  Optional.empty() if user input does not match any time period.
-     * Else, returns the corresponding TimePeriod value.
+     * @param timePeriodString  User input of time period.
+     * @return                  Optional.empty() if user input does not match any time period.
+     *                          Else, returns the corresponding TimePeriod value.
      */
     public static Optional<TimePeriod> convertStringToTimePeriod(String timePeriodString) {
         assert timePeriodString != null;
@@ -77,7 +77,7 @@ public enum TimePeriod {
     }
     
     /** 
-     * @return the key in map that maps to the time period of recurrence rate
+     * @return The key in map that maps to the time period of recurrence rate.
      */
     public static String getTimePeriodKey() {
         return MAP_TIME_PERIOD_KEY;

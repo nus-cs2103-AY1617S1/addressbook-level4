@@ -9,6 +9,7 @@ import java.util.HashMap;
 import org.junit.Test;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.item.DateTime;
 import seedu.address.model.item.Name;
 import seedu.address.model.item.Priority;
 import seedu.address.model.item.RecurrenceRate;
@@ -18,36 +19,32 @@ import seedu.address.testutil.TestOptionalHashMap;
 public class AddCommandHelperTest {
 
     private static final int NUMBER_OF_DAYS_IN_A_WEEK = 7;
-    private static final int ONE = 1;
     TestOptionalHashMap testOptionalHashMap;
     AddCommand command;
     
     @Test
-    public void addCommand_endDateEarlierThanStartDate() {
+    public void convertStringToObjects_invalidInput_throwsException() {
+        // EP: invalid: end date earlier than start date
         testOptionalHashMap = new TestOptionalHashMap("eat bingsu from the beach", "10th Dec 11pm", 
                 "9th Dec 1am", "3", "days", "medium");
         try {
             AddCommandHelper.convertStringToObjects(testOptionalHashMap.map);
             assert false;
         } catch (IllegalValueException ive) {
-            assertEquals(ive.getMessage(), "End date should be later than start date.");
+            assertEquals(ive.getMessage(), AddCommandHelper.getMessageEndDateConstraints());
         }
-    }
-    
-    @Test
-    public void addCommand_invalidDate() {
+        
+        // EP: invalid date
         testOptionalHashMap = new TestOptionalHashMap("eat bingsu from the beach", "40 Dec 11pm", 
                 "1st Jan 2016 1am", "3", "days", "medium");
         try {
             AddCommandHelper.convertStringToObjects(testOptionalHashMap.map);
             assert false;
         } catch (IllegalValueException ive) {
-            assertEquals(ive.getMessage(), "Invalid date!");
+            assertEquals(ive.getMessage(), AddCommandHelper.getMessageDateConstraints());
         }
-    }
-    
-    @Test
-    public void addCommand_invalidRate() {
+        
+        // EP: invalid rate
         testOptionalHashMap = new TestOptionalHashMap("eat bingsu from the beach", "11pm", "1am", "0", "days", "medium");
         try {
             AddCommandHelper.convertStringToObjects(testOptionalHashMap.map);
@@ -55,10 +52,8 @@ public class AddCommandHelperTest {
         } catch (IllegalValueException ive) {
             assertEquals(ive.getMessage(), RecurrenceRate.getMessageValueConstraints());
         }
-    }
-    
-    @Test
-    public void addCommand_invalidTimePeriod() {
+        
+        // EP: invalid time period
         testOptionalHashMap = new TestOptionalHashMap("eat bingsu from the beach", "11pm", "1am", "5", "bobs", "medium");
         try {
             AddCommandHelper.convertStringToObjects(testOptionalHashMap.map);
@@ -66,21 +61,17 @@ public class AddCommandHelperTest {
         } catch (IllegalValueException ive) {
             assertEquals(ive.getMessage(), RecurrenceRate.getMessageValueConstraints());
         }
-    }
-    
-    @Test
-    public void addCommand_invalidRecurrenceAndDate() {
+        
+        // EP: invalid recurrence and date
         testOptionalHashMap = new TestOptionalHashMap("eat bingsu from the beach", null, null, "5", "days", "medium");
         try {
             AddCommandHelper.convertStringToObjects(testOptionalHashMap.map);
             assert false;
         } catch (IllegalValueException ive) {
-            assertEquals(ive.getMessage(), AddCommandHelper.MESSAGE_RECUR_DATE_TIME_CONSTRAINTS);
+            assertEquals(ive.getMessage(), AddCommandHelper.getMessageRecurDateTimeConstraints());
         }
-    }
-    
-    @Test
-    public void addCommand_invalidRecurrenceRate() {
+        
+        // EP: invalid recurrence rate
         testOptionalHashMap = new TestOptionalHashMap("eat bingsu from the beach", "12th Sep", "13th Sep", "2", null, "low");
         try {
             AddCommandHelper.convertStringToObjects(testOptionalHashMap.map);
@@ -91,15 +82,17 @@ public class AddCommandHelperTest {
     }
     
     @Test
-    public void addCommand_recurWeekdaysDatesNotGiven() {
+    public void convertStringToObjects_validInput() {
+        
+        // EP: recurring weekdays, no input start date and end date
         testOptionalHashMap = new TestOptionalHashMap("lower word count from 1000 to 500", null, null, "1", "Wednesday", "high");
         try {
             HashMap<String, Object> mapOfObjects = AddCommandHelper.convertStringToObjects(testOptionalHashMap.map);
-            Name taskName = (Name) mapOfObjects.get("taskName");
-            Date startDate = (Date) mapOfObjects.get("startDate");
-            Date endDate = (Date) mapOfObjects.get("endDate");
-            RecurrenceRate recurrenceRate = (RecurrenceRate) mapOfObjects.get("recurrenceRate");
-            Priority priority = (Priority) mapOfObjects.get("priority");
+            Name taskName = (Name) mapOfObjects.get(Name.getMapNameKey());
+            Date startDate = (Date) mapOfObjects.get(DateTime.getMapStartDateKey());
+            Date endDate = (Date) mapOfObjects.get(DateTime.getMapEndDateKey());
+            RecurrenceRate recurrenceRate = (RecurrenceRate) mapOfObjects.get(RecurrenceRate.getMapRecurrenceRateKey());
+            Priority priority = (Priority) mapOfObjects.get(Priority.getMapPriorityKey());
             Calendar calendar = Calendar.getInstance();
             
             addNumberOfDaysTillNextWed(calendar);
@@ -113,21 +106,8 @@ public class AddCommandHelperTest {
         } catch (IllegalValueException ive) {
             assert false;
         }
-    }
-
-    private void addNumberOfDaysTillNextWed(Calendar calendar) {
-        int date = calendar.get(Calendar.DAY_OF_WEEK);
-        int numberOfDaysToAdd = 0;
         
-        while (date % NUMBER_OF_DAYS_IN_A_WEEK != Calendar.WEDNESDAY) {
-            date++;
-            numberOfDaysToAdd++;
-        }
-        calendar.add(Calendar.DATE, numberOfDaysToAdd);
-    }
-    
-    @Test
-    public void addCommand_validInput_timePeriodPresentRateNotPresent() {
+        // EP: time period present, rate not present
         testOptionalHashMap = new TestOptionalHashMap("eat food", "24th Oct", "25th Oct", null, "week", "l");
         try {
             HashMap<String, Object> mapOfObjects = AddCommandHelper.convertStringToObjects(testOptionalHashMap.map);
@@ -148,68 +128,14 @@ public class AddCommandHelperTest {
         } catch (IllegalValueException ive) {
             assert false;
         }
-    }
-    
-    @Test
-    public void addCommand_validRelativeDatesInputOne() {
-        testOptionalHashMap = new TestOptionalHashMap("eat food", "this Wednesday", "next Thursday", null, "week", "h");
-        try {
-            AddCommandHelper.convertStringToObjects(testOptionalHashMap.map);
-            assert true;
-            /*HashMap<String, Object> mapOfObjects = AddCommandHelper.convertStringToObjects(testOptionalHashMap.map);
-            Date startDate = (Date) mapOfObjects.get("startDate");
-            Date endDate = (Date) mapOfObjects.get("endDate");
-            
-            Calendar calendarStartDate = Calendar.getInstance();
-            while (calendarStartDate.get(Calendar.DAY_OF_WEEK) != Calendar.WEDNESDAY) {
-                calendarStartDate.add(Calendar.DATE, ONE);
-            }
-            
-            Calendar calendarEndDate = Calendar.getInstance();
-            if (calendarEndDate.get(Calendar.DAY_OF_WEEK) <= Calendar.THURSDAY) {
-                calendarEndDate.add(Calendar.DATE, NUMBER_OF_DAYS_IN_A_WEEK);
-            }
-            while (calendarEndDate.get(Calendar.DAY_OF_WEEK) != Calendar.THURSDAY) {
-                calendarEndDate.add(Calendar.DATE, ONE);
-            }
-            */
-            
-        } catch (IllegalValueException ive) {
-            assert false;
-        }
-    }
-    
-    @Test
-    public void addCommand_validRelativeDatesInputTwo() {
-        testOptionalHashMap = new TestOptionalHashMap("eat food", "tmr", "next week", null, "week", "h");
-        try {
-            AddCommandHelper.convertStringToObjects(testOptionalHashMap.map);
-            assert true;
-        } catch (IllegalValueException ive) {
-            assert false;
-        }
-    }
-    
-    @Test
-    public void addCommand_validRelativeDatesInputThree() {
-        testOptionalHashMap = new TestOptionalHashMap("eat food", "40 days later", "50 days later", null, "week", "h");
-        try {
-            AddCommandHelper.convertStringToObjects(testOptionalHashMap.map);
-            assert true;
-        } catch (IllegalValueException ive) {
-            assert false;
-        }
-    }
-
-    @Test
-    public void addCommand_validInput_endTimeEarlierThanStartTime() {
-        testOptionalHashMap = new TestOptionalHashMap("lower word count from 1000 to 500", "11pm", "1am", "1", "Monday", "k");
+        
+        // EP: end time earlier than start time
+        testOptionalHashMap = new TestOptionalHashMap("lower word count from 1000 to 500", "11pm", "1am", null, null, "k");
         try {
             HashMap<String, Object> mapOfObjects = AddCommandHelper.convertStringToObjects(testOptionalHashMap.map);
             Name taskName = (Name) mapOfObjects.get("taskName");
             Date startDate = (Date) mapOfObjects.get("startDate");
             Date endDate = (Date) mapOfObjects.get("endDate");
-            RecurrenceRate recurrenceRate = (RecurrenceRate) mapOfObjects.get("recurrenceRate");
             Priority priority = (Priority) mapOfObjects.get("priority");
             Calendar calendar = Calendar.getInstance();
             
@@ -219,8 +145,48 @@ public class AddCommandHelperTest {
             calendar.add(Calendar.DATE, 1);
             generateAndAssertEqualsDates(endDate, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), 
                     calendar.get(Calendar.DATE), 1, 0);
-            assertEquals(recurrenceRate, new RecurrenceRate("1", "Monday"));
             assertEquals(priority, Priority.MEDIUM);
+        } catch (IllegalValueException ive) {
+            assert false;
+        }
+    }
+
+    private void addNumberOfDaysTillNextWed(Calendar calendar) {
+        int date = calendar.get(Calendar.DAY_OF_WEEK);
+        int numberOfDaysToAdd = 0;
+        
+        while (date % NUMBER_OF_DAYS_IN_A_WEEK != Calendar.WEDNESDAY) {
+            date++;
+            numberOfDaysToAdd++;
+        }
+        calendar.add(Calendar.DATE, numberOfDaysToAdd);
+    }
+    
+    @Test
+    public void convertStringToObjects_recogniseAsValidDates() {
+        // EP: relative weekdays
+        testOptionalHashMap = new TestOptionalHashMap("eat food", "this Wednesday", "next Thursday", null, "week", "h");
+        try {
+            AddCommandHelper.convertStringToObjects(testOptionalHashMap.map);
+            assert true;
+        } catch (IllegalValueException ive) {
+            assert false;
+        }
+        
+        // EP: relative time periods
+        testOptionalHashMap = new TestOptionalHashMap("eat food", "tmr", "next week", null, "week", "h");
+        try {
+            AddCommandHelper.convertStringToObjects(testOptionalHashMap.map);
+            assert true;
+        } catch (IllegalValueException ive) {
+            assert false;
+        }
+        
+        // EP: relative days
+        testOptionalHashMap = new TestOptionalHashMap("eat food", "40 days later", "50 days later", null, "week", "h");
+        try {
+            AddCommandHelper.convertStringToObjects(testOptionalHashMap.map);
+            assert true;
         } catch (IllegalValueException ive) {
             assert false;
         }

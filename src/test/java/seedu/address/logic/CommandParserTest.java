@@ -9,13 +9,14 @@ import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.IncorrectCommand;
 import seedu.address.logic.parser.CommandParser;
+import seedu.address.logic.parser.CommandParserHelper;
 
 public class CommandParserTest {
 
     CommandParser parser;
     
     @Test
-    public void prepareAdd_emptyArgument() {
+    public void prepareAdd_emptyArgument_returnIncorrectCommand() {
         parser = new CommandParser();
         Command command = parser.parseCommand("add     ");
         IncorrectCommand expectedFeedback = new IncorrectCommand(String.format(
@@ -28,7 +29,7 @@ public class CommandParserTest {
     }
     
     @Test
-    public void prepareAdd_validArgument() {
+    public void prepareAdd_validArgument_returnAddCommand() {
         parser = new CommandParser();
         Command command = parser.parseCommand("add eat bingsu");
         if (command instanceof AddCommand) {
@@ -39,11 +40,12 @@ public class CommandParserTest {
     }
     
     @Test
-    public void prepareAdd_invalidArgument() {
+    public void prepareAdd_invalidArgument_returnIncorrectCommand() {
         parser = new CommandParser();
         Command command = parser.parseCommand("add eat bingsu from 10:30am from 10:40am");
         IncorrectCommand expectedFeedback = new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                "Repeated start times are not allowed." + "\n" + AddCommand.getMessageUsage()));
+                CommandParserHelper.getMessageRepeatedStartTime() + CommandParser.getNewLineString() 
+                + AddCommand.getMessageUsage()));
         if (command instanceof IncorrectCommand) {
             assertEquals(((IncorrectCommand) command).feedbackToUser, expectedFeedback.feedbackToUser);
         } else {

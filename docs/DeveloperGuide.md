@@ -173,7 +173,7 @@ The `Model`,
   so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
-<!-- @@author -->
+<!-- @@author A0139552B -->
 
 ### Storage component
 
@@ -185,6 +185,7 @@ The `Model`,
 The `Storage` component,
 * can save `UserPref` objects in json format and read it back.
 * can save the Task Manager data in xml format and read it back.
+<!-- @@author -->
 
 ### Common classes
 
@@ -554,4 +555,4 @@ Google Calendar | <ol> <li> Can be synced to mobile devices </li> <li> Alerts vi
 Remember the milk | <ol> <li> Able to support email, text, IM, Twitter, and mobile notifications </li> <li> Able to share lists and tasks with others</li> <li> Synchronises across on all devices </li> <li> Organize with priorities, due dates, repeats, lists, tags </li> <li> Search tasks and notes, and save favorite searches </li> <li> Integrates with Gmail, Google Calendar, Twitter, Evernote, and more </li>  </ol> | <ol> <li> Free version lacks features: E.g. splitting into subtasks </li> <li> Lack keyboard shortcuts</li> </ol>
 
 <!-- @@author A0139552B -->
-<strong>Summary:</strong> We observed that these products have very good features, but we realise that none of these products have the specific combination of features that caters to our target audience. Therefore, we are incorporating some of the good features such as minimalistic interface and ability to sync with multiple computers while designing DearJim carefully to avoid the pitfalls found in these products, to make a targeted product for our intended audience.
+<strong>Summary:</strong> We observed that these products have very good features, but we realised that none of these products have the specific combination of features that caters to our target audience. Therefore, we are incorporating some of the good features such as minimalistic interface and ability to sync with multiple computers while designing DearJim carefully to avoid the pitfalls found in these products, to make a targeted product for our intended audience.

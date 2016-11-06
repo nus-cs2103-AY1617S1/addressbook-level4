@@ -45,7 +45,7 @@ public class AddCommand extends UndoableCommand {
     /**
      * Convenience constructor using raw values.
      *
-     * @throws IllegalValueException if any of the raw values are invalid
+     * @throws IllegalValueException    If any of the raw values are invalid.
      */
     public AddCommand(HashMap<String, Optional<String>> mapOfStrings) 
                     throws IllegalValueException {
@@ -62,6 +62,7 @@ public class AddCommand extends UndoableCommand {
                 + "\n recurrenceRate is " + recurrenceRate + "\npriority is " + priority);
         this.toAdd = new Task(taskName, startDate, endDate, recurrenceRate, priority);
     }
+    // @@author
 
     public AddCommand(String taskName) {
         this.toAdd = new Task(new Name(taskName));
