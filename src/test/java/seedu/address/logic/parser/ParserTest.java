@@ -333,22 +333,6 @@ public class ParserTest {
 	 */
 	@Test
 	public void parseCommand_listAliasInvalidArgs_incorrectCommandReturned() {
-		String userInput = "list-alias hello";
-		Command command = parser.parseCommand(userInput);
-
-		assertEquals(incorrectCommand.getClass(), command.getClass());
-	}
-	
-	@Test
-	public void parseCommand_listAliasInvalidArgs2_incorrectCommandReturned() {
-		String userInput = "list-alias 1";
-		Command command = parser.parseCommand(userInput);
-
-		assertEquals(incorrectCommand.getClass(), command.getClass());
-	}
-	
-	@Test
-	public void parseCommand_listAliasInvalidArgs3_incorrectCommandReturned() {
 		String userInput = "list alias";
 		Command command = parser.parseCommand(userInput);
 
