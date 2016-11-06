@@ -136,19 +136,25 @@ Examples:
 
 #### Listing tasks : `list` Shows a list of task of your preferred choice.<br>
 
+Note that overdue tasks will be listed at the top in all kinds of listings.
+
 Format: `list [TYPE]`
 
->**Available Listing**
-> * `list` shows all undone tasks
+Examples:
+* `list` shows all undone tasks
 > <img src="images/ListUI.png" width="800">
-> * `list today ` shows today's undone tasks
+* `list today ` shows today's undone tasks
 > <img src="images/ListTodayUI.png" width="800">
-> * `list all` shows all tasks
+* `list all` shows all tasks
 > <img src="images/ListAllUI.png" width="800">
-> * `list done` shows all completed tasks
+* `list done` shows all completed tasks
 > <img src="images/ListDoneUI.png" width="800">
-> * `list [PRIORITY]` shows all tasks with the specified priority level  (low, med, high)
-> * `list [DATE]` shows all undone tasks with start date or end date as the specified date
+* `list [PRIORITY]` shows all tasks with the specified priority level  (low, med, high)
+> <img src="images/ListHighUI.png" width="800">
+* `list [DATE]` shows all undone tasks with start date or end date as the specified date
+> <img src="images/ListDateUI.png" width="800">
+
+
 <!--- @@author --->
 <!-- @@author A0138420N --> 
 
