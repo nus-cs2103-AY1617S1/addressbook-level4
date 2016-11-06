@@ -23,6 +23,8 @@ import java.util.List;
 import java.util.concurrent.TimeoutException;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 //@@author reused
 /**
@@ -149,5 +151,16 @@ public abstract class TodoListGuiTest {
      */
     protected void updatePreviousTaskListFromView() {
         previousTasksFromView = new ArrayList<>(todoListView.getImmutableTaskList());
+    }
+
+    //@@author A0135805H
+    /**
+     * Executes the incorrect command, and asserts that error view is shown to the user.
+     */
+    protected void assertErrorViewDisplayed(String commandInput) {
+        runCommand(commandInput);
+        assertTrue(mainGui.getCommandErrorView().isErrorMessagesDisplayed());
+        enterCommand(" ");
+        assertFalse(mainGui.getCommandErrorView().isVisible());
     }
 }

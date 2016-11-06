@@ -49,4 +49,11 @@ public class CommandErrorViewHandle extends GuiHandle {
 
         return numOfErrorMessages > 0;
     }
+
+    /**
+     * Returns true if there are error messages displayed on the user's screen.
+     */
+    public boolean isErrorMessagesDisplayed() {
+        return isVisible() && hasErrorMessages();
+    }
 }

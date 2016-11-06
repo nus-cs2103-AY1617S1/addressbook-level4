@@ -62,6 +62,18 @@ public class AddCommandTest extends TodoListGuiTest {
         randomTaskList.forEach(this::executeAddTestHelper);
     }
 
+    @Test
+    public void add_invalidParameters() {
+        //No title
+        assertErrorViewDisplayed("add /d tomorrow");
+
+        //Wrong date
+        assertErrorViewDisplayed("add some task /d hehe");
+
+        //Invalid tag
+        assertErrorViewDisplayed("add invalid tag /t oops!");
+    }
+
     /* Helper Methods */
     /**
      * Gets the index of the newly added task.
@@ -87,6 +99,9 @@ public class AddCommandTest extends TodoListGuiTest {
         runCommand(commandText);
     }
 
+    /**
+     * Asserts that specific view scenarios are displayed correctly.
+     */
     private void assertCorrectnessHelper(ImmutableTask newTask) {
         int addedIndex = getNewlyAddedTaskIndex();
         TaskCardViewHandle taskCardHandle = todoListView.getTaskCardViewHandle(addedIndex);
