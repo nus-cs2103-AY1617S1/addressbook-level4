@@ -78,8 +78,8 @@ public class AddCommand extends Command {
 			if (DateUtil.hasStartandEndTime(storedTask)) {
 				if (!(toCheck == storedTask)) {
 					if (toCheck.getStart().getDate().compareTo(storedTask.getStart().getDate()) == 0) {
-						Time tasksEndTiming = storedTask.getStart().getTime();
-						Time tasksStartTiming = storedTask.getEnd().getTime();
+						Time tasksStartTiming = storedTask.getStart().getTime();
+						Time tasksEndTiming = storedTask.getEnd().getTime();
 
 						if ((toAddStartTiming.compareTo(tasksEndTiming) < 0)
 								&& (toAddStartTiming.compareTo(tasksStartTiming) > 0)) {

@@ -20,12 +20,8 @@ public class HistoryManager {
 	private Stack<Instruction> recordCommand = new Stack<Instruction>();
 
 	public Instruction getLastInstruction() {
-
 		return recordCommand.pop();
-		
 	}
-
-
 
 	public void stackAddInstruction(ReadOnlyTask toPush) {
 
