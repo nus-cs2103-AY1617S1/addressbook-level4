@@ -599,7 +599,7 @@ public class LogicManagerTest {
 
     @Test
     public void executeFreetime_noDatePresent_incorrectCommandFeedback() throws Exception {
-        assertCommandBehavior("freetime", MESSAGE_INVALID_COMMAND_FORMAT + FreeTimeCommand.MESSAGE_USAGE);
+        assertCommandBehavior("freetime", String.format(MESSAGE_INVALID_COMMAND_FORMAT, FreeTimeCommand.MESSAGE_USAGE));
     }
 
     /**

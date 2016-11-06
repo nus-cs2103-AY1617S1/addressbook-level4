@@ -291,7 +291,7 @@ public class TaskDate {
             throw new IllegalValueException(EXPIRED_TASK_DATE);
         } 
 
-        fullDate = formatDatetoStandardDate(incDate);
+        fullDate = formatDateToStandardDate(incDate);
         return true;
     }
 
@@ -353,7 +353,7 @@ public class TaskDate {
     }
 
     //@@author A0139772U
-    public static String formatDatetoStandardDate(String date) throws IllegalValueException, ParseException {
+    public static String formatDateToStandardDate(String date) throws IllegalValueException, ParseException {
         Calendar today = Calendar.getInstance();
         DateFormat yearFormat = new SimpleDateFormat("yyyy");
         String year = yearFormat.format(today.getTime());
