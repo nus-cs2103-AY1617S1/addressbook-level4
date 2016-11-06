@@ -104,12 +104,8 @@ public class MainWindow extends UiPart {
     @FXML
     private VBox listPanel;
 
-
 	@FXML 
 	private AnchorPane floatingPanelPlaceholder;
-
-	@FXML 
-	private AnchorPane overduePanelPlaceholder;
 
 	@FXML 
 	private AnchorPane day1PanelPlaceholder;
@@ -123,8 +119,7 @@ public class MainWindow extends UiPart {
 	private AnchorPane day5PanelPlaceholder;
 	@FXML 
 	private AnchorPane day6PanelPlaceholder;
-	@FXML 
-	private AnchorPane day7PanelPlaceholder;
+
 
 	@FXML 
 	private AnchorPane upcomingPanelPlaceholder;
@@ -181,7 +176,6 @@ public class MainWindow extends UiPart {
 		commandBox = CommandBox.load(primaryStage, getCommandBoxPlaceholder(), resultDisplay, logic);
 		commandBox.getCommandTextField().requestFocus();
 		floatingPanel = FloatingPanel.load(primaryStage, getFloatingPanelPlaceholder(), logic.getFilteredFloatingTasks());
-		overduePanel = OverduePanel.load(primaryStage, getOverduePanelPlaceholder(), logic.getFilteredOverdueTasks());
 		loadDailyPanel();
 		upcomingPanel = UpcomingPanel.load(primaryStage, getUpcomingPanelPlaceholder(), logic.getFilteredUpcomingTasks(firstDayOfSelectedWeek));
 	}
@@ -248,10 +242,6 @@ public class MainWindow extends UiPart {
 		return floatingPanelPlaceholder;
 	}
 
-	private AnchorPane getOverduePanelPlaceholder() {
-		return overduePanelPlaceholder;
-	}
-
 	private AnchorPane getDailyPanelPlaceholder(int index) {
 
 		switch(index) {
@@ -277,16 +267,10 @@ public class MainWindow extends UiPart {
 			return day5PanelPlaceholder;
 
 		case 5: 
+		default:
 
 			return day6PanelPlaceholder;
 
-		case 6: 
-
-			return day7PanelPlaceholder;
-
-		default:
-
-			return day1PanelPlaceholder;
 		}
 
     }
@@ -373,13 +357,14 @@ public class MainWindow extends UiPart {
         return this.taskListPanel;
     }
 
-
 	public void loadPersonPage(ReadOnlyTask task) {
+        //feature removed
 		//browserPanel.loadPersonPage(task);
 	}
 
 	public void releaseResources() {
-        //browserPanel.freeResources();
+        //feature removed
+		//browserPanel.freeResources();
     }
 
     @Subscribe
