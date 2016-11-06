@@ -1,7 +1,6 @@
 package seedu.todo.controllers;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
@@ -11,6 +10,7 @@ import seedu.todo.commons.exceptions.ParseException;
 import seedu.todo.commons.util.StringUtil;
 import seedu.todo.controllers.concerns.Tokenizer;
 import seedu.todo.controllers.concerns.CalendarItemFilter;
+import seedu.todo.controllers.concerns.Disambiguator;
 import seedu.todo.controllers.concerns.Renderer;
 import seedu.todo.models.Event;
 import seedu.todo.models.Task;
@@ -31,6 +31,15 @@ public class ListController extends Controller {
                                                     + "You have a total of %d incomplete tasks, %d overdue tasks, "
                                                     + "and %d upcoming events.";
     private static final String MESSAGE_LISTING_FILTERED = "Showing %s.\n\nYour query: %s";
+    private static final String MESSAGE_UNKNOWN_TOKENS = "Could not parse your query as it contained unknown tokens: %s";
+    private static final String MESSAGE_AMBIGUOUS_TYPE = "We could not tell if you wanted to clear events or tasks. \n"
+            + "Note that only tasks can be \"complete\"/\"incomplete\", "
+            + "while only events can be \"past\", \"over\" or \"future\".";
+    private static final String MESSAGE_INVALID_DATE = "We could not parse the date in your query, please try again.";
+    
+    private static final String TEMPLATE_LIST = "list [from \"%s\"] [to \"%s\"] [tag \"%s\"]";
+    private static final String TEMPLATE_LIST_TASKS = "list tasks [\"%s\"] [from \"%s\"] [to \"%s\"] [tag \"%s\"]";
+    private static final String TEMPLATE_LIST_EVENTS = "list events [\"%s\"] [from \"%s\"] [to \"%s\"] [tag \"%s\"]";
     
     private static CommandDefinition commandDefinition =
             new CommandDefinition(NAME, DESCRIPTION, COMMAND_SYNTAX, COMMAND_KEYWORD); 
@@ -59,9 +68,10 @@ public class ListController extends Controller {
         // Parse the input with Tokenizer.
         Map<String, String[]> parsedResult = Tokenizer.tokenize(CalendarItemFilter.getFilterTokenDefinitions(), input);
         
-        // Check if we managed to parse any tokens; if not, we ask for disambiguation.
-        if (!containsTokens(parsedResult.values())) {
-            System.out.println("Disambiguate: Invalid arguments");
+        // Check if there are any unknown tokens.
+        if (Disambiguator.getUnknownTokenString(parsedResult) != null) {
+            String errorMessage = String.format(MESSAGE_UNKNOWN_TOKENS, Disambiguator.getUnknownTokenString(parsedResult));
+            renderDisambiguation(parsedResult, true, true, errorMessage);
             return;
         }
 
@@ -70,13 +80,14 @@ public class ListController extends Controller {
         try {
             tasksOrEventsBools = CalendarItemFilter.parseIsTaskEvent(parsedResult);
         } catch (AmbiguousEventTypeException e) {
-            System.out.println("Disambiguate: Invalid combination of arguments");
+            renderDisambiguation(parsedResult, true, true, MESSAGE_AMBIGUOUS_TYPE);
             return;
         }
         
         boolean isTask = tasksOrEventsBools[0];
         boolean isEvent = tasksOrEventsBools[1];
 
+        // Filter tasks and events.
         try {
             if (isTask) {
                 filteredTasks = CalendarItemFilter.filterTasks(parsedResult);
@@ -85,7 +96,7 @@ public class ListController extends Controller {
                 filteredEvents = CalendarItemFilter.filterEvents(parsedResult);
             }
         } catch (InvalidNaturalDateException e) {
-            System.out.println("Disambiguate: Invalid date format");
+            renderDisambiguation(parsedResult, isTask, isEvent, MESSAGE_INVALID_DATE);
             return;
         }
         
@@ -95,13 +106,26 @@ public class ListController extends Controller {
         Renderer.renderSelected(TodoListDB.getInstance(), consoleMessage, filteredTasks, filteredEvents);
     }
     
-    private boolean containsTokens(Collection<String[]> tokensCollection) {
-        for (String[] tokens : tokensCollection) {
-            if (tokens.length > 0) {
-                return true;
-            }
+    /**
+     * Controller-specific utility method to render disambiguation based on what was parsed.
+     * 
+     * @param parsedResult    Result of the tokens being parsed.
+     */
+    private void renderDisambiguation(Map<String, String[]> parsedResult, boolean isTask, boolean isEvent, String errorMessage) {
+        Map<String, String> extractedTokens = Disambiguator.extractParsedTokens(parsedResult);
+        String consoleCommand;
+        
+        if ((isTask && isEvent) || (!isTask && !isEvent)) {
+            consoleCommand = String.format(TEMPLATE_LIST, extractedTokens.get("startTime"), 
+                    extractedTokens.get("endTime"), extractedTokens.get("tag"));
+        } else if (isTask) {
+            consoleCommand = String.format(TEMPLATE_LIST_TASKS, extractedTokens.get("taskStatus"), 
+                    extractedTokens.get("startTime"), extractedTokens.get("endTime"), extractedTokens.get("tag"));
+        } else {
+            consoleCommand = String.format(TEMPLATE_LIST_EVENTS, extractedTokens.get("eventStatus"), 
+                    extractedTokens.get("startTime"), extractedTokens.get("endTime"), extractedTokens.get("tag"));
         }
         
-        return false;
+        Renderer.renderDisambiguation(consoleCommand, errorMessage);
     }
 }
