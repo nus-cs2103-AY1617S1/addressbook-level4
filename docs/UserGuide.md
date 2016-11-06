@@ -6,7 +6,7 @@
 * [FAQ](#faq)
 * [Command Summary](#command-summary)
 
-# Introduction
+## Introduction
 
 Frustrated with the repetitive number of mouse clicks when using task managers? Tired of cluttered windows? Need the ability to 
 easily categorise tasks? 
@@ -31,7 +31,7 @@ Gone are the repetitive mouse clicks other task managers require of you. With a 
    e.g. typing **`help`** and pressing <kbd>Enter</kbd> will open the help window. 
 
 6. Refer to the [Features](#features) section below for details of each command.<br>
-
+<br><br>
 
 ## Features
 
