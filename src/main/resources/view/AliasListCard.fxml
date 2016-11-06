@@ -8,18 +8,17 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.shape.Rectangle?>
 
-<HBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
+<HBox id="cardPane" fx:id="cardPane" prefWidth="258.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
     <children>
-        <GridPane HBox.hgrow="ALWAYS">
+        <GridPane HBox.hgrow="NEVER">
             <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="146.0" minWidth="9.0" prefWidth="15.0" />
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="291.0" minWidth="10.0" prefWidth="285.0" />
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="100.0" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="NEVER" minWidth="10.0" maxWidth="10.0" prefWidth= "10.0"/>
+                <ColumnConstraints hgrow="NEVER" minWidth="10.0" />
+                <ColumnConstraints hgrow="NEVER" minWidth="0.0" />
             </columnConstraints>
             <children>
-                <VBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="141.0" GridPane.columnIndex="1">
+                <VBox alignment="CENTER_LEFT" GridPane.columnIndex="1">
                     <stylesheets>
                         <URL value="@DarkTheme.css" />
                         <URL value="@Extensions.css" />
@@ -40,7 +39,7 @@
                         <Label fx:id="command" styleClass="cell_small_label" text="\$command" />
                     </children>
                 </VBox>
-            <Rectangle fx:id="colorTag" arcHeight="5.0" arcWidth="5.0" height="50.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="15.0" />
+            <VBox fx:id="colorTag" prefWidth="15.0" maxWidth="15.0" GridPane.hgrow="NEVER" />
             </children>
          <rowConstraints>
             <RowConstraints />

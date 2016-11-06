@@ -14,8 +14,8 @@
 		<GridPane HBox.hgrow="NEVER">
 
 			<columnConstraints>
-        <ColumnConstraints hgrow="NEVER" maxWidth="80.0" minWidth="12.0" prefWidth="16.0" />
-				<ColumnConstraints hgrow="NEVER" maxWidth="148.0" minWidth="30.0" prefWidth="70.0" />
+        <ColumnConstraints hgrow="NEVER" maxWidth="12.0" minWidth="12.0" prefWidth="12.0" />
+				<ColumnConstraints hgrow="NEVER" maxWidth="50.0" minWidth="30.0" prefWidth="50.0" />
 				<ColumnConstraints hgrow="NEVER" maxWidth="750.0" minWidth="441.0" prefWidth="687.0" />
         <ColumnConstraints maxWidth="495.0" minWidth="138.0" prefWidth="201.0" />
       <ColumnConstraints />
