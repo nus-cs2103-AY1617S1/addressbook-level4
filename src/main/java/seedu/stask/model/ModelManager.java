@@ -275,14 +275,16 @@ public class ModelManager extends ComponentManager implements Model {
 
     //@@author A0139145E
     @Override
-    public synchronized void completeTask(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException {
+    public synchronized void completeTask (ReadOnlyTask target) 
+                                throws UniqueTaskList.TaskNotFoundException {
         taskBook.completeTask(target);
         updateFilteredListToShowAll();
         indicateTaskBookChanged();
     }
 
     @Override
-    public synchronized void uncompleteTask(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException {
+    public synchronized void uncompleteTask(ReadOnlyTask target) 
+                                throws UniqueTaskList.TaskNotFoundException {
         taskBook.uncompleteTask(target);
         updateFilteredListToShowAll();
         indicateTaskBookChanged();
@@ -299,12 +301,12 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public synchronized void clearRedo(){
+    public synchronized void clearRedo() {
         redoableTasks = new UndoList();
     }
 
     @Override
-    public synchronized void overdueTask(Task target) throws TaskNotFoundException {
+    public synchronized void overdueTask (Task target) throws TaskNotFoundException {
         taskBook.setTaskOverdue(target);
         updateFilteredListToShowAll();
         indicateTaskBookChanged();
@@ -451,15 +453,15 @@ public class ModelManager extends ComponentManager implements Model {
     private class StatusQualifier implements Qualifier {
         private ArrayList<Status> statusList;
 
-        StatusQualifier(ArrayList<String> stateKeyWords) {
+        StatusQualifier (ArrayList<String> stateKeyWords) {
             this.statusList = new ArrayList<Status>();
             for (String word : stateKeyWords){
                 statusList.add(new Status(word));
             }
         }
-
+        
         @Override
-        public boolean run(ReadOnlyTask task) {
+        public boolean run (ReadOnlyTask task) {
             for (Status key : statusList) {
                 if (task.getStatus().equals(key)) {
                     return true;
