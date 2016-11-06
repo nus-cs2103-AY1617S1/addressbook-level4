@@ -348,69 +348,110 @@ public class CommandParser {
         return new FindCommand(keywordSet);
     }
     
-    //@@author A0093960X
+    // @@author A0093960X
     /**
-     * Parses an incomplete user input to determine the most appropriate tooltip for the user to see.
-     * The tooltip depends on the command that the user is trying to execute (which this parser tries to 
-     * determine).
+     * Parses a user input to determine the appropriate tooltip to display to
+     * the user.<br>
+     * Asserts that the specified userInput is not null.
      * 
-     * @param userInput user input string
-     * @param isViewingDoneList boolean representing if the user's current view is the done task list
-     * @return a list of Strings for tooltips
+     * @param userInput The user input String
+     * @param isViewingDoneList The boolean representing if the user's current
+     *            view is the done task list
+     * @return The tooltip String
      */
     public String parseForTooltip(String userInput, boolean isViewingDoneList) {
         assert userInput != null;
 
         String trimmedUserInput = userInput.trim();
-        final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(trimmedUserInput);       
+        final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(trimmedUserInput);
         boolean invalidCommandFormat = !matcher.matches();
-        
+
         if (invalidCommandFormat) {
             return MESSAGE_TOOLTIP_INVALID_COMMAND_FORMAT;
-        }    
-        
+        }
+
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
         boolean shouldInterpretAsNoArgs = commandWord.equals(userInput);
-         
+
         return getTooltip(arguments, commandWord, shouldInterpretAsNoArgs, isViewingDoneList);
+    }
+   
+    /**
+     * Returns the tooltip taking into consideration the arguments String,
+     * commandWord String, if the input should be interpreted as no arguments
+     * and if the current view is the done list view.
+     * 
+     * @param arguments The parsed arguments String of the user input
+     * @param commandWord The parsed command word String of the user input
+     * @param shouldInterpretAsNoArgs A boolean representing if the current
+     *            input should be interpreted as not having any arguments
+     * @param isViewingDoneList A boolean representing if the current view is
+     *            the done list view.
+     * @return The tooltip String that is appropriate for the specified
+     *         parameters
+     */
+    private String getTooltip(final String arguments, final String commandWord,
+            boolean shouldInterpretAsNoArgs, boolean isViewingDoneList) {
+
+        if (isViewingDoneList) {
+            return getTooltipForDoneList(commandWord, shouldInterpretAsNoArgs);
+        } else {
+            return getTooltipForUndoneList(arguments, commandWord, shouldInterpretAsNoArgs);
+        }
+
     }
 
     /**
-     * Returns the list of tooltips that matches the current user's input.
+     * Returns the tooltip for the undone list view, taking into consideration
+     * the arguments String, commandWord String, if the input should be
+     * interpreted as no arguments.
      * 
-     * @param toolTips list of tooltips
-     * @param commandWord the user input command word
-     * @param shouldInterpretAsNoArgs boolean representing whether user input has no arguments
+     * @param arguments The parsed arguments String of the user input
+     * @param commandWord The parsed command word String of the user input
+     * @param shouldInterpretAsNoArgs A boolean representing if the current
+     *            input should be interpreted as not having any arguments
+     * @return The tooltip String that is appropriate for the specified
+     *         parameters
      */
-    private String getTooltip(final String arguments, final String commandWord, boolean shouldInterpretAsNoArgs, boolean isViewingDoneList) { 
-        if (isViewingDoneList) {
-            return getTooltipForDoneList(commandWord, shouldInterpretAsNoArgs);          
-        }
-        else {
-            return getTooltipForUndoneList(arguments, commandWord, shouldInterpretAsNoArgs);
-        }
-    }
-    
-    private String getTooltipForUndoneList(final String arguments, final String commandWord, boolean inputHasNoArgs) {
-        // tooltip depends on whether the input command has arguments
-        if (inputHasNoArgs) {
+    private String getTooltipForUndoneList(final String arguments, final String commandWord,
+            boolean shouldInterpretAsNoArgs) {
+
+        if (shouldInterpretAsNoArgs) {
             return getTooltipForCmdWithNoArgsUndoneList(arguments, commandWord);
         } else {
             return getTooltipForCmdWithArgsUndoneList(arguments, commandWord);
         }
     }
 
+    /**
+     * Returns the tooltip for the done list view, taking into consideration the
+     * arguments String, commandWord String, if the input should be interpreted
+     * as no arguments.
+     * 
+     * @param commandWord The parsed command word String of the user input
+     * @param shouldInterpretAsNoArgs A boolean representing if the current
+     *            input should be interpreted as not having any arguments
+     * @return The tooltip String that is appropriate for the specified
+     *         parameters
+     */
+    private String getTooltipForDoneList(final String commandWord, boolean shouldInterpretAsNoArgs) {
 
-    private String getTooltipForDoneList(final String commandWord, boolean inputHasNoArgs) {
-     // tooltip depends on whether the input command has arguments
-        if (inputHasNoArgs) {
+        if (shouldInterpretAsNoArgs) {
             return getTooltipForCmdWithNoArgsDoneList(commandWord);
         } else {
             return getTooltipForCmdWithArgsDoneList(commandWord);
         }
     }
 
+    /**
+     * Returns the tooltip for the done list view and assuming command has no
+     * arguments, appropriate for the specified commandWord.
+     * 
+     * @param commandWord The parsed command word String of the user input
+     * @return The tooltip String that is appropriate for the specified
+     *         parameters
+     */
     private String getTooltipForCmdWithNoArgsDoneList(String commandWord) {
         List<String> tooltips = new ArrayList<String>();
 
@@ -419,7 +460,7 @@ public class CommandParser {
         }
         if (StringUtils.startsWith(DeleteCommand.COMMAND_WORD, commandWord)) {
             tooltips.add(DeleteCommand.TOOL_TIP);
-        }   
+        }
         if (StringUtils.startsWith(ExitCommand.COMMAND_WORD, commandWord)) {
             tooltips.add(ExitCommand.TOOL_TIP);
         }
@@ -444,7 +485,6 @@ public class CommandParser {
         if (StringUtils.startsWith(UndoCommand.COMMAND_WORD, commandWord)) {
             tooltips.add(UndoCommand.TOOL_TIP);
         }
-        
 
         boolean hasNoTooltipMatches = tooltips.isEmpty();
         if (hasNoTooltipMatches) {
@@ -455,53 +495,64 @@ public class CommandParser {
         return combinedTooltip;
     }
     
+    /**
+     * Returns the tooltip for the done list view and assuming command has
+     * arguments, appropriate for the specified commandWord.
+     * 
+     * @param commandWord The parsed command word String of the user input
+     * @return The tooltip String that is appropriate for the specified
+     *         parameters
+     */
     private String getTooltipForCmdWithArgsDoneList(String commandWord) {
-        
+
         if (commandWord.equals(ClearCommand.COMMAND_WORD)) {
             return ClearCommand.TOOL_TIP;
-            
+
         } else if (commandWord.equals(DeleteCommand.COMMAND_WORD)) {
             return DeleteCommand.TOOL_TIP;
-            
+
         } else if (commandWord.equals(ExitCommand.COMMAND_WORD)) {
             return ExitCommand.TOOL_TIP;
-            
+
         } else if (commandWord.equals(FindCommand.COMMAND_WORD)) {
             return FindCommand.TOOL_TIP;
-            
+
         } else if (commandWord.equals(HelpCommand.COMMAND_WORD)) {
             return HelpCommand.TOOL_TIP;
-            
+
         } else if (commandWord.equals(ListCommand.COMMAND_WORD)) {
             return ListCommand.TOOL_TIP;
-            
+
         } else if (commandWord.equals(RedoCommand.COMMAND_WORD)) {
             return RedoCommand.TOOL_TIP;
-            
+
         } else if (commandWord.equals(SelectCommand.COMMAND_WORD)) {
             return SelectCommand.TOOL_TIP;
-            
+
         } else if (commandWord.equals(StoreCommand.COMMAND_WORD)) {
             return StoreCommand.TOOL_TIP;
-            
+
         } else if (commandWord.equals(UndoCommand.COMMAND_WORD)) {
             return UndoCommand.TOOL_TIP;
-            
+
         } else {
-            return Messages.MESSAGE_DONE_LIST_RESTRICTED_COMMANDS;    
+            return Messages.MESSAGE_DONE_LIST_RESTRICTED_COMMANDS;
         }
     }
 
     
     /**
-     * Get the tooltip string appropriate for the current user input that has no arguments.
+     * Returns the tooltip for the undone list view and assuming command has no
+     * arguments, appropriate for the specified commandWord and arguments.
      * 
-     * @param commandWord the command part of the user input
-     * @return the tooltip
+     * @param arguments The parsed arguments String of the user input
+     * @param commandWord The parsed command word String of the user input
+     * @return The tooltip String that is appropriate for the specified
+     *         parameters
      */
     private String getTooltipForCmdWithNoArgsUndoneList(final String arguments, final String commandWord) {
         List<String> tooltips = new ArrayList<String>();
-        
+
         if (StringUtils.startsWith(AddCommand.COMMAND_WORD, commandWord)) {
             tooltips.add(AddCommand.TOOL_TIP);
         }
@@ -541,77 +592,83 @@ public class CommandParser {
         if (StringUtils.startsWith(UndoCommand.COMMAND_WORD, commandWord)) {
             tooltips.add(UndoCommand.TOOL_TIP);
         }
-          
+
         if (tooltips.isEmpty()) {
-            return prepareAddDetailedTooltip(commandWord + arguments);      
-        } 
-        
+            return prepareAddDetailedTooltip(commandWord + arguments);
+        }
+
         return String.join(NEWLINE_STRING, tooltips);
     }
     
     /**
-     * Get the tooltip string appropriate for the current user input that has arguments.
+     * Returns the tooltip for the undone list view and assuming command has
+     * arguments, appropriate for the specified commandWord and arguments.
      * 
-     * @param commandWord the command part of the user input
-     * @return the tooltip
+     * @param arguments The parsed arguments String of the user input
+     * @param commandWord The parsed command word String of the user input
+     * @return The tooltip String that is appropriate for the specified
+     *         parameters
      */
-    private String getTooltipForCmdWithArgsUndoneList(final String arguments, final String commandWord) {        
+    private String getTooltipForCmdWithArgsUndoneList(final String arguments, final String commandWord) {
         if (commandWord.equals(AddCommand.COMMAND_WORD)) {
             return prepareAddDetailedTooltip(arguments);
-            
+
         } else if (commandWord.equals(ClearCommand.COMMAND_WORD)) {
             return ClearCommand.TOOL_TIP;
-            
+
         } else if (commandWord.equals(DeleteCommand.COMMAND_WORD)) {
             return DeleteCommand.TOOL_TIP;
-            
+
         } else if (commandWord.equals(DoneCommand.COMMAND_WORD)) {
             return DoneCommand.TOOL_TIP;
-            
+
         } else if (commandWord.equals(EditCommand.COMMAND_WORD)) {
             return prepareEditDetailedTooltip(arguments);
-            
+
         } else if (commandWord.equals(ExitCommand.COMMAND_WORD)) {
             return ExitCommand.TOOL_TIP;
-            
+
         } else if (commandWord.equals(FindCommand.COMMAND_WORD)) {
             return FindCommand.TOOL_TIP;
-            
+
         } else if (commandWord.equals(HelpCommand.COMMAND_WORD)) {
             return HelpCommand.TOOL_TIP;
-            
+
         } else if (commandWord.equals(ListCommand.COMMAND_WORD)) {
             return ListCommand.TOOL_TIP;
-            
+
         } else if (commandWord.equals(RedoCommand.COMMAND_WORD)) {
             return RedoCommand.TOOL_TIP;
-            
+
         } else if (commandWord.equals(SelectCommand.COMMAND_WORD)) {
             return SelectCommand.TOOL_TIP;
-            
+
         } else if (commandWord.equals(StoreCommand.COMMAND_WORD)) {
             return StoreCommand.TOOL_TIP;
-            
+
         } else if (commandWord.equals(UndoCommand.COMMAND_WORD)) {
             return UndoCommand.TOOL_TIP;
-            
+
         } else {
             // default command is an add command
             return prepareAddDetailedTooltip(commandWord + arguments);
-            
+
         }
 
     }
 
     /**
-     * @param trimmedArgs
-     * @return
-     * @throws IllegalValueException
+     * Generate the detailed tooltip for the edit command using the specified userInput String.
+     * 
+     * @param userInput The user input String to generate the detailed edit command tooltip with
+     * @return The detailed edit tooltip for the given userInput String
+     * @throws IllegalValueException If the specified userInput cannot generate a valid detailed edit tooltip
      */
-    private String generateEditDetailedTooltip(String trimmedArgs) throws IllegalValueException {
-        assert trimmedArgs != null;
+    private String generateEditDetailedTooltip(String userInput) throws IllegalValueException {
+        assert userInput != null;
         
-        String[] splitIndexFromOtherArgs = trimmedArgs.split(STRING_REGEX_ONE_OR_MORE_WHITESPACE, 2);
+        userInput = userInput.trim();
+        String[] splitIndexFromOtherArgs = userInput.split(STRING_REGEX_ONE_OR_MORE_WHITESPACE, 2);
         String indexToEdit = splitIndexFromOtherArgs[ZERO];
         
         try {
@@ -680,7 +737,7 @@ public class CommandParser {
                     
         StringBuilder sb = generateEditDetailedTooltipHeader(indexToEdit);
 
-        genearteEditDetailedTooltipName(trimmedArgs, name, sb);
+        genearteEditDetailedTooltipName(userInput, name, sb);
         
         generateEditDetailedTooltipStartDate(isResettingStartDate, startDate, sb);
         
@@ -694,6 +751,13 @@ public class CommandParser {
         
     }
 
+    /**
+     * Generate the priority field in the edit detailed tooltip.
+     * 
+     * @param isResettingPriority A boolean representing if the current edit input wants to reset the priority field
+     * @param priority The parsed priority String from the user input
+     * @param sb The StringBuilder to build on
+     */
     private void generateEditDetailedTooltipPriority(boolean isResettingPriority, Optional<String> priority,
             StringBuilder sb) {
         if (isResettingPriority) {
@@ -705,6 +769,14 @@ public class CommandParser {
         }
     }
 
+    /**
+     * Generate the recurrence field in the edit detailed tooltip.
+     * 
+     * @param isResettingRecurrence A boolean representing if the current edit input wants to reset the recurrence field
+     * @param rate The parsed rate String from the user input
+     * @param timePeriod The parsed timePeriod String from the user input
+     * @param sb The StringBuilder to build on
+     */
     private void generateEditDetailedTooltipRecurrence(boolean isResettingRecurrence, Optional<String> rate,
             Optional<String> timePeriod, StringBuilder sb) {
         if (isResettingRecurrence) {
@@ -721,6 +793,13 @@ public class CommandParser {
         }
     }
 
+    /**
+     * Generate the end date field in the edit detailed tooltip.
+     * 
+     * @param isResettingEndDate A boolean representing if the current edit input wants to reset the end date field
+     * @param endDate The parsed end date String from the user input
+     * @param sb The StringBuilder to build on
+     */
     private void generateEditDetailedTooltipEndDate(boolean isResettingEndDate, Optional<String> endDate,
             StringBuilder sb) {
         if (isResettingEndDate) {
@@ -732,6 +811,13 @@ public class CommandParser {
         }
     }
 
+    /**
+     * Generate the start date field in the edit detailed tooltip.
+     * 
+     * @param isResettingStartDate A boolean representing if the current edit input wants to reset the start date field
+     * @param startDate The parsed start date String from the user input
+     * @param sb The StringBuilder to build on
+     */
     private void generateEditDetailedTooltipStartDate(boolean isResettingStartDate, Optional<String> startDate,
             StringBuilder sb) {
         if (isResettingStartDate) {
@@ -743,6 +829,13 @@ public class CommandParser {
         }
     }
 
+    /**
+     * Generate the name field in the edit detailed tooltip.
+     * 
+     * @param trimmedArgs The trimmed user input arguments
+     * @param name The parsed name String from the user input
+     * @param sb The StringBuilder to build on
+     */
     private void genearteEditDetailedTooltipName(String trimmedArgs, Optional<String> name, StringBuilder sb) {
         if (name.isPresent() && trimmedArgs.length()>1 && !name.get().isEmpty()) {
             sb.append(DETAILED_TOOLTIP_NAME_PREFIX + name.get());
@@ -751,6 +844,12 @@ public class CommandParser {
         }
     }
 
+    /**
+     * Generate the header of the edit detailed tooltip, with the specified indexToEdit.
+     * 
+     * @param indexToEdit The parsed index the input is trying to edit
+     * @return The StringBuilder to build on for the rest of the edit detailed tooltip
+     */
     private StringBuilder generateEditDetailedTooltipHeader(String indexToEdit) {
         StringBuilder sb = new StringBuilder();
         sb.append(EditCommand.TOOL_TIP);
@@ -759,9 +858,11 @@ public class CommandParser {
     }
 
     /**
-     * @param resetSplit
-     * @return
-     * @throws IllegalValueException
+     * Retrieve the edit fields from the user input.
+     * 
+     * @param beforeResetSplit the user input String arguments before the reset keyword
+     * @return the HashMap the maps the edit field to the parsed String matching that field, retrieved from the input
+     * @throws IllegalValueException If the specified userInput cannot generate a valid detailed edit tooltip
      */
     private HashMap<String, Optional<String>> retrieveEditFieldsFromArgs(String beforeResetSplit)
             throws IllegalValueException {
@@ -791,8 +892,7 @@ public class CommandParser {
                 return EditCommand.TOOL_TIP;
             }
             
-            String trimmedArgs = arguments.trim();
-            return generateEditDetailedTooltip(trimmedArgs);       
+            return generateEditDetailedTooltip(arguments);       
         } catch (IllegalValueException e) {
             logger.info("Illegal edit arguments passed for detailed tooltip, showing regular edit tooltip with warning instead");
             return String.join(NEWLINE_STRING, EditCommand.TOOL_TIP, "Instant parser is unable to determine your current input as it does not match a valid command input.");

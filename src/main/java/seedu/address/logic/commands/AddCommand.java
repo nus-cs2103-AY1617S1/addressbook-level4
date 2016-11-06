@@ -27,9 +27,9 @@ public class AddCommand extends UndoableCommand {
     public static final String COMMAND_WORD = "add";
     private static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds an item to To-Do List.\n"
             + "Parameters: [add] NAME [from/at/start DATE_TIME] [to/by/end DATE_TIME] [repeat every RECURRING_INTERVAL] [-PRIORITY]\n"
-            
+
             + "Example: " + COMMAND_WORD + " feed cat by today 11:30am repeat every day -high";
-    
+
     // @@author A0093960X
     public static final String MESSAGE_SUCCESS = "New item added: %1$s";
     public static final String MESSAGE_UNDO_SUCCESS = "Undid add item: %1$s";
@@ -37,29 +37,28 @@ public class AddCommand extends UndoableCommand {
 
     public static final String TOOL_TIP = "[add] NAME [start DATE_TIME] [end DATE_TIME] [repeat every RECURRING_INTERVAL] [-PRIORITY]";
 
-    //@@author
+    // @@author
     private Task toAdd;
 
-    
-    //@@author A0139655U
+    // @@author A0139655U
     /**
      * Convenience constructor using raw values.
      *
-     * @throws IllegalValueException    If any of the raw values are invalid.
+     * @throws IllegalValueException If any of the raw values are invalid.
      */
-    public AddCommand(HashMap<String, Optional<String>> mapOfStrings) 
-                    throws IllegalValueException {
+    public AddCommand(HashMap<String, Optional<String>> mapOfStrings) throws IllegalValueException {
         HashMap<String, Object> mapOfTaskParameters = AddCommandHelper.convertStringToObjects(mapOfStrings);
         assert mapOfTaskParameters.get(Name.getMapNameKey()) != null;
-        
+
         Name taskName = (Name) mapOfTaskParameters.get(Name.getMapNameKey());
         Date startDate = (Date) mapOfTaskParameters.get(DateTime.getMapStartDateKey());
         Date endDate = (Date) mapOfTaskParameters.get(DateTime.getMapEndDateKey());
-        RecurrenceRate recurrenceRate = (RecurrenceRate) mapOfTaskParameters.get(RecurrenceRate.getMapRecurrenceRateKey());
+        RecurrenceRate recurrenceRate = (RecurrenceRate) mapOfTaskParameters
+                .get(RecurrenceRate.getMapRecurrenceRateKey());
         Priority priority = (Priority) mapOfTaskParameters.get(Priority.getMapPriorityKey());
-        
-        logger.log(Level.FINEST, "taskName is " + taskName + "\nstartDate is " + startDate + "\nendDate is " + endDate
-                + "\n recurrenceRate is " + recurrenceRate + "\npriority is " + priority);
+
+        logger.log(Level.FINEST, "taskName is " + taskName + "\nstartDate is " + startDate + "\nendDate is "
+                + endDate + "\n recurrenceRate is " + recurrenceRate + "\npriority is " + priority);
         this.toAdd = new Task(taskName, startDate, endDate, recurrenceRate, priority);
     }
     // @@author
@@ -80,28 +79,34 @@ public class AddCommand extends UndoableCommand {
 
         model.addTask(toAdd);
         updateHistory();
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+
+        String formattedResult = String.format(MESSAGE_SUCCESS, toAdd);
+        return new CommandResult(formattedResult);
     }
 
     private boolean attemptToExecuteAddOnDoneList() {
-        return model.isCurrentListDoneList() && !isRedoAction;
+        return model.isCurrentListDoneList() && (!isRedoAction);
     }
 
     @Override
     public CommandResult undo() {
         assert model != null && toAdd != null;
 
+        String formattedResult;
         try {
             model.deleteUndoneTask(toAdd);
+            formattedResult = String.format(MESSAGE_UNDO_FAILURE, toAdd);
+            return new CommandResult(formattedResult);
+
         } catch (TaskNotFoundException e) {
-            return new CommandResult(String.format(MESSAGE_UNDO_FAILURE, toAdd));
+
+            formattedResult = String.format(MESSAGE_UNDO_FAILURE, toAdd);
+            return new CommandResult(formattedResult);
         }
 
-        return new CommandResult(String.format(MESSAGE_UNDO_SUCCESS, toAdd));
-
     }
-    
-    //@@author A0139655U
+
+    // @@author A0139655U
     public static String getMessageUsage() {
         return MESSAGE_USAGE;
     }

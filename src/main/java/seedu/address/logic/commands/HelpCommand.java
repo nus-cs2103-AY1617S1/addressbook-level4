@@ -20,7 +20,16 @@ public class HelpCommand extends Command {
 
     @Override
     public CommandResult execute() {
-        EventsCenter.getInstance().post(new ShowHelpRequestEvent());
+        postNewHelpEvent();
         return new CommandResult(SHOWING_HELP_MESSAGE);
+    }
+    
+    /**
+     * Posts a new help request event
+     */
+    private void postNewHelpEvent() {
+        EventsCenter theEventsCenter = EventsCenter.getInstance();
+        ShowHelpRequestEvent newHelpRequest = new ShowHelpRequestEvent();
+        theEventsCenter.post(newHelpRequest);
     }
 }

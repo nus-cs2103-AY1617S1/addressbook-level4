@@ -2,6 +2,8 @@ package seedu.address.history;
 
 import java.util.Stack;
 
+import org.apache.commons.lang.StringUtils;
+
 //@@author A0093960X
 /**
  * Stores the history of user inputs for navigating previous and next user
@@ -15,9 +17,6 @@ public class InputHistoryManager implements InputHistory {
     private Stack<String> prevInputs;
     private Stack<String> nextInputs;
     private String currentStoredInputShown;
-    
-    private static final String STRING_EMPTY = "";
-
 
     // Private constructor for Singleton Pattern
     private InputHistoryManager() {
@@ -45,10 +44,6 @@ public class InputHistoryManager implements InputHistory {
         resetInputHistoryToLatestState();
         pushToPrevInput(userInput);
         resetCurrentStoredInputShown();
-    }
-
-    private void resetCurrentStoredInputShown() {
-        currentStoredInputShown = STRING_EMPTY;
     }
 
     @Override
@@ -86,6 +81,13 @@ public class InputHistoryManager implements InputHistory {
     // private helper methods below
 
     /**
+     * Resets the current stored input shown to an empty string.
+     */
+    private void resetCurrentStoredInputShown() {
+        currentStoredInputShown = StringUtils.EMPTY;
+    }
+
+    /**
      * Resets the previous and next input history to the latest state,
      * transferring all the valid next input into the previous input history.
      */
@@ -106,10 +108,10 @@ public class InputHistoryManager implements InputHistory {
 
     /**
      * Pops and returns the last stored previous input from the previous input
-     * history. The caller should ensure that the previous input history is not
-     * empty.
+     * history, updating the current stored input shown to that input. <br>
+     * Asserts that the previous input history is non-empty.
      * 
-     * @return the last stored previous input String
+     * @return The last stored previous input String
      */
     private String popFromPrevInput() {
         assert prevInputs != null && prevInputs.size() > 0;
@@ -118,10 +120,11 @@ public class InputHistoryManager implements InputHistory {
     }
 
     /**
-     * Pops and returns the last stored next input from the next input history.
-     * The caller should ensure that the next input history is not empty.
+     * Pops and returns the last stored next input from the next input history,
+     * updating the current stored input shown to that input. <br>
+     * Asserts that the next input history is non-empty.
      * 
-     * @return the last stored next input String
+     * @return The last stored next input String
      */
     private String popFromNextInput() {
         assert nextInputs != null && nextInputs.size() > 0;

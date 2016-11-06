@@ -206,7 +206,7 @@ public class EditCommand extends UndoableCommand {
         
         // check if viewing done list
         // cannot edit in done list, return an incorrect command message
-        if (attemptToEditDoneList()) {
+        if (attemptToExecuteEditDoneList()) {
             indicateAttemptToExecuteIncorrectCommand();
             return new CommandResult(String.format(Messages.MESSAGE_DONE_LIST_RESTRICTION));
         }
@@ -302,8 +302,11 @@ public class EditCommand extends UndoableCommand {
     }
 
     // @@author A0093960X
-    private boolean attemptToEditDoneList() {
-        return model.isCurrentListDoneList() && !isRedoAction;
+    /**
+     * Returns true if the edit command is being executed on the done list.
+     */
+    private boolean attemptToExecuteEditDoneList() {
+        return model.isCurrentListDoneList() && (!isRedoAction);
     }
     
     //@@author A0093960X
@@ -313,29 +316,53 @@ public class EditCommand extends UndoableCommand {
         String taskBeforeUndoString = toEdit.toString();
 
         Name previousTaskName = beforeEdit.getName();
-        Optional<Date> previousStartDate = beforeEdit.getStartDate();
-        Optional<Date> previousEndDate = beforeEdit.getEndDate();
         Priority previousPriority = beforeEdit.getPriorityValue();
-        Optional<RecurrenceRate> previousReccurence = beforeEdit.getRecurrenceRate();
+        Date previousStartDate = getPreviousStartDateIfPresent();
+        Date previousEndDate = getPreviousEndDateIfPresent();
+        RecurrenceRate previousRecurrenceRate = getPreviousRecurrenceIfPresent();
 
-        Date undoStartDate = null;
-        Date undoEndDate = null;
-        RecurrenceRate undoRecurrenceRate = null;
+        model.editTask(toEdit, previousTaskName, previousStartDate, previousEndDate, previousPriority, previousRecurrenceRate);
+        
+        String formattedResult = String.format(MESSAGE_UNDO_SUCCESS, taskBeforeUndoString, toEdit);
+        return new CommandResult(formattedResult);
+    }
 
+
+    /**
+     * Get the previous start date before edit, if present.
+     * @return The previous start date if present, otherwise returns null
+     */
+    private Date getPreviousStartDateIfPresent() {
+        Optional<Date> previousStartDate = beforeEdit.getStartDate();
         if (previousStartDate.isPresent()) {
-            undoStartDate = previousStartDate.get();
+            return previousStartDate.get();
         }
-
+        return null;
+    }
+    
+    /**
+     * Gets the previous end date before edit, if present.
+     * @return The previous end date if present, otherwise returns null
+     */
+    private Date getPreviousEndDateIfPresent() {
+        Optional<Date> previousEndDate = beforeEdit.getEndDate();
         if (previousEndDate.isPresent()) {
-            undoEndDate = previousEndDate.get();
+            return previousEndDate.get();
         }
+        return null;
+    }
 
+    /**
+     * Gets the previous recurrence rate before edit, if present.
+     * @return The previous recurrence rate if present, otherwise returns null
+     */
+    private RecurrenceRate getPreviousRecurrenceIfPresent() {
+        Optional<RecurrenceRate> previousReccurence = beforeEdit.getRecurrenceRate();
+        
         if (previousReccurence.isPresent()) {
-            undoRecurrenceRate = previousReccurence.get();
+            return previousReccurence.get();
         }
-
-        model.editTask(toEdit, previousTaskName, undoStartDate, undoEndDate, previousPriority, undoRecurrenceRate);
-        return new CommandResult(String.format(MESSAGE_UNDO_SUCCESS, taskBeforeUndoString, toEdit));
+        return null;
     }
 
 }

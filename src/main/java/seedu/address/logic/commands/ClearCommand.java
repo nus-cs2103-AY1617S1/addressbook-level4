@@ -43,21 +43,7 @@ public class ClearCommand extends UndoableCommand {
         }
 
     }
-
-    private void updateTargetList() {
-        isTargetDoneList = model.isCurrentListDoneList();
-    }
-
-    private void saveAndClearUndoneList() {
-        clearedTasks = model.getTaskManagerUndoneList();
-        model.clearTaskManagerUndoneList();
-    }
-
-    private void saveAndClearDoneList() {
-        clearedTasks = model.getTaskManagerDoneList();
-        model.clearTaskManagerDoneList();
-    }
-
+    
     @Override
     public CommandResult undo() {
         assert model != null && clearedTasks != null;
@@ -70,6 +56,29 @@ public class ClearCommand extends UndoableCommand {
             return new CommandResult(MESSAGE_UNDO_SUCCESS_UNDONE_LIST);
         }
 
+    }
+
+    /**
+     * Updates the target list of this clear command to the appropriate list.
+     */
+    private void updateTargetList() {
+        isTargetDoneList = model.isCurrentListDoneList();
+    }
+
+    /**
+     * Saves the current undone list, and then clears the undone list to an empty list.
+     */
+    private void saveAndClearUndoneList() {
+        clearedTasks = model.getTaskManagerUndoneList();
+        model.clearTaskManagerUndoneList();
+    }
+    
+    /**
+     * Saves the current done list, and then clears the done list to an empty list.
+     */
+    private void saveAndClearDoneList() {
+        clearedTasks = model.getTaskManagerDoneList();
+        model.clearTaskManagerDoneList();
     }
 
 }

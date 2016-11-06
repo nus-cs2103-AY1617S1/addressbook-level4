@@ -11,7 +11,7 @@ public interface UndoableCommandHistory {
     /**
      * Updates the UndoableCommand history with the given UndoableCommand
      * 
-     * @param undoableCommand the UndoableCommand to update the history with
+     * @param undoableCommand The UndoableCommand to update the history with
      */
     public void updateCommandHistory(UndoableCommand undoableCommand);
 
@@ -19,7 +19,7 @@ public interface UndoableCommandHistory {
      * Returns whether we are already at the earliest command state (there is
      * nothing to undo anymore)
      * 
-     * @return boolean representing whether we are already at the earliest
+     * @return A boolean representing whether we are already at the earliest
      *         command of the undoable command history
      */
     public boolean isEarliestCommand();
@@ -28,8 +28,8 @@ public interface UndoableCommandHistory {
      * Returns whether we are already at the latest command state (there is
      * nothing to redo anymore)
      * 
-     * @return boolean representing whether we are already at the latest command
-     *         of the redoable command history
+     * @return A boolean representing whether we are already at the latest
+     *         command of the redoable command history
      */
     public boolean isLatestCommand();
 
@@ -37,7 +37,7 @@ public interface UndoableCommandHistory {
      * Executes an undo step on the command history, returning the
      * UndoableCommand that was undone
      * 
-     * @return the UndoableCommand that was undone
+     * @return The UndoableCommand that was undone
      */
     public UndoableCommand undoStep();
 
@@ -45,7 +45,7 @@ public interface UndoableCommandHistory {
      * Executes a redo step on the command history, returning the
      * UndoableCommand that was redone
      * 
-     * @return the UndoableCommand that was redone
+     * @return The UndoableCommand that was redone
      */
     public UndoableCommand redoStep();
 

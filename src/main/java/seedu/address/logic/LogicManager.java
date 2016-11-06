@@ -11,7 +11,6 @@ import seedu.address.model.Model;
 import seedu.address.model.item.ReadOnlyTask;
 import seedu.address.storage.Storage;
 
-
 import java.util.logging.Logger;
 
 /**
@@ -33,8 +32,8 @@ public class LogicManager extends ComponentManager implements Logic {
     @Override
     public CommandResult execute(String commandText) {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
-        Command command = parser.parseCommand(commandText);    
-        command.setData(model, history); 
+        Command command = parser.parseCommand(commandText);
+        command.setData(model, history);
         return command.execute();
     }
 
@@ -42,23 +41,26 @@ public class LogicManager extends ComponentManager implements Logic {
     public ObservableList<ReadOnlyTask> getFilteredUndoneTaskList() {
         return model.getFilteredUndoneTaskList();
     }
-    
+
     @Override
     public ObservableList<ReadOnlyTask> getFilteredDoneTaskList() {
         return model.getFilteredDoneTaskList();
     }
-    
+
+    // @@author A0093960X
     /**
-     * Generates the tool tip for the current user input.
+     * Generates the tool tip for the given user input.<br>
+     * Asserts that the userInput is not null.
      * 
-     * @param commandText the user input string
-     * @return the tooltip that fits the user input string
+     * @param userInput The user input String
+     * @return The tooltip appropriate for the given user input String
      */
     @Override
-    public String generateToolTip(String commandText){
-        assert commandText != null; 
-        
+    public String generateToolTip(String userInput) {
+        assert userInput != null;
+
         boolean viewingDoneList = model.isCurrentListDoneList();
-        return parser.parseForTooltip(commandText, viewingDoneList);    
+        return parser.parseForTooltip(userInput, viewingDoneList);
     }
+    // @@author
 }

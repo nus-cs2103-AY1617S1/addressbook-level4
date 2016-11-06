@@ -13,8 +13,11 @@ public abstract class UndoableCommand extends Command {
     public abstract CommandResult undo();
 
     /**
-     * Updates the history of undoable commands with this undoable command, if this
-     * command is not a command that was executed as part of a redo command.
+     * Updates the history of undoable commands with this undoable command, if
+     * this command is not a command that was executed as part of a redo
+     * command. <br>
+     * If this command was not a redo action, also sets the isRedoAction
+     * flag to be true as future executes of this same Command must be a redo action.
      */
     public void updateHistory() {
 
