@@ -58,8 +58,7 @@ public class CommandPreviewView extends UiPart {
      * Configure the UI layout of {@link CommandErrorView}
      */
     private void configureLayout() {
-        FxViewUtil.applyAnchorBoundaryParameters(previewPanelView, 0.0, 0.0, 0.0, 0.0);
-        FxViewUtil.applyAnchorBoundaryParameters(previewGrid, 0.0, 0.0, 0.0, 0.0);
+        FxViewUtil.applyAnchorBoundaryParameters(previewPanelView, 0.0, 0.0, 0.0);
     }
 
     /* Interfacing Methods */

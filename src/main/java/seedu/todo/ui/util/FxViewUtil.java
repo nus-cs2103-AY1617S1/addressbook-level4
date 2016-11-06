@@ -25,6 +25,17 @@ public class FxViewUtil {
         AnchorPane.setTopAnchor(node, top);
     }
 
+    public static void applyAnchorBoundaryParameters(Node node, double left, double right, double bottom) {
+        AnchorPane.setLeftAnchor(node, left);
+        AnchorPane.setRightAnchor(node, right);
+        AnchorPane.setBottomAnchor(node, bottom);
+    }
+
+    public static void applyAnchorBoundaryParameters(Node node, double left, double right) {
+        AnchorPane.setLeftAnchor(node, left);
+        AnchorPane.setRightAnchor(node, right);
+    }
+
     //@@author A0135805H
     /**
      * Hides a specified UI element, and ensures that it does not occupy any space.
