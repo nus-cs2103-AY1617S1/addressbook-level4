@@ -203,7 +203,7 @@ public class MainApp extends Application {
     }
     
     //@@author A0138978E
-    /*
+    /**
      * Handles the event when a command indicates that the storage location should
      * be changed
      */

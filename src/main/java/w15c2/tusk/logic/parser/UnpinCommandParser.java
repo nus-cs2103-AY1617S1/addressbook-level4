@@ -36,9 +36,11 @@ public class UnpinCommandParser extends CommandParser{
 
 	        return new UnpinTaskCommand(index.get());
 	}
+	
 	/**
      * Returns the specified index in the {@code command} IF a positive unsigned integer is given as the index.
-     *   Returns an {@code Optional.empty()} otherwise.
+     * Returns an {@code Optional.empty()} otherwise.
+     * @param commmand arguments to parse
      */
     private Optional<Integer> parseIndex(String command) {
         final Matcher matcher = TASK_INDEX_ARGS_FORMAT.matcher(command.trim());

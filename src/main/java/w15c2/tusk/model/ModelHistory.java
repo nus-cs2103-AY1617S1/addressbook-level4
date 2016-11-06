@@ -3,6 +3,7 @@ package w15c2.tusk.model;
 import w15c2.tusk.commons.collections.UniqueItemCollection;
 import w15c2.tusk.model.task.Task;
 
+//@@author A0139817U
 /**
  * Manages the tasks and aliases stored in order to support the undo & redo command.
  * 
@@ -13,7 +14,6 @@ import w15c2.tusk.model.task.Task;
  * 2) However, undo & redo commands can be interleaved. 
  * Eg. calling 'undo' then 'redo' does not change anything.
  */
-//@@author A0139817U
 public class ModelHistory {
 	// Collection to store the tasks / aliases after each command that changes tasks or aliases. Allows user to undo.
 	private UniqueItemCollection<Task> oldTasks;

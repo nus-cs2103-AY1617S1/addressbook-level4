@@ -7,10 +7,10 @@ import w15c2.tusk.logic.commands.taskcommands.IncorrectTaskCommand;
 import w15c2.tusk.logic.commands.taskcommands.ListTaskCommand;
 import w15c2.tusk.logic.commands.taskcommands.TaskCommand;
 
+//@@author A0139708W
 /*
  * Parses the list command
  */
-//@@author A0139708W
 public class ListCommandParser extends CommandParser{
     public static final String COMMAND_WORD = ListTaskCommand.COMMAND_WORD;
     public static final String ALTERNATE_COMMAND_WORD = ListTaskCommand.ALTERNATE_COMMAND_WORD;

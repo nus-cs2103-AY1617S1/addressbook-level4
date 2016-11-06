@@ -3,6 +3,7 @@ package guitests.guihandles;
 import guitests.GuiRobot;
 import javafx.stage.Stage;
 
+//@@author A0138978E
 /**
  * A handle to the Command Box in the GUI.
  */

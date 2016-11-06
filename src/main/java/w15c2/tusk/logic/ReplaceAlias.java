@@ -4,10 +4,10 @@ import javafx.collections.ObservableList;
 import w15c2.tusk.model.Alias;
 import w15c2.tusk.model.Model;
 
+//@@author A0143107U
 /**
  * Replaces the shortcut of an alias with its sentence.
  */
-//@@author A0143107U
 public class ReplaceAlias {
     private Model model;
     

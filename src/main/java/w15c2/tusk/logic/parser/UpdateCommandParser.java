@@ -18,10 +18,10 @@ import w15c2.tusk.logic.commands.taskcommands.UpdateTaskCommand;
 import w15c2.tusk.model.task.Description;
 import w15c2.tusk.model.task.Task;
 
+//@@author A0139817U
 /**
  * Parses update commands
  */
-//@@author A0139817U
 public class UpdateCommandParser extends CommandParser {
 	public static final String COMMAND_WORD = UpdateTaskCommand.COMMAND_WORD;
     public static final String ALTERNATE_COMMAND_WORD = UpdateTaskCommand.ALTERNATE_COMMAND_WORD;

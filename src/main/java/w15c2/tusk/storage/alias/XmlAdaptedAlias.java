@@ -5,10 +5,10 @@ import javax.xml.bind.annotation.XmlElement;
 import w15c2.tusk.commons.exceptions.IllegalValueException;
 import w15c2.tusk.model.Alias;
 
+//@@author A0143107U
 /**
  * JAXB-friendly version of the Alias.
  */
-//@@author A0143107U
 public class XmlAdaptedAlias {
 
     @XmlElement(required = true)

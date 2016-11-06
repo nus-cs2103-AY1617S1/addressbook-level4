@@ -15,10 +15,10 @@ import w15c2.tusk.storage.*;
 import w15c2.tusk.storage.alias.AliasStorage;
 import w15c2.tusk.storage.task.TaskStorage;
 
+//@@author A0143107U
 /**
  * API of the TaskStorage component
  */
-//@@author A0143107U
 public interface Storage extends TaskStorage, UserPrefsStorage, AliasStorage {
 
     @Override

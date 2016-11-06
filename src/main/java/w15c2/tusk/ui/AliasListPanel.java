@@ -75,7 +75,7 @@ public class AliasListPanel extends UiPart {
         aliasListView.setCellFactory(listView -> new AliasListViewCell());
     }
     
-    /*
+    /**
      * Consume all events except for scrolling and scrollevents from control up/down
      */
     private void setSelectableCharacteristics() {

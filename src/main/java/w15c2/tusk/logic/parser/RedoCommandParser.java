@@ -6,10 +6,10 @@ import w15c2.tusk.logic.commands.taskcommands.IncorrectTaskCommand;
 import w15c2.tusk.logic.commands.taskcommands.RedoTaskCommand;
 import w15c2.tusk.logic.commands.taskcommands.TaskCommand;
 
+//@@author A0139817U
 /**
  * Redoes the last command
  */
-//@@author A0139817U
 public class RedoCommandParser extends CommandParser{
     public static final String COMMAND_WORD = RedoTaskCommand.COMMAND_WORD;
     public static final String ALTERNATE_COMMAND_WORD = RedoTaskCommand.ALTERNATE_COMMAND_WORD;

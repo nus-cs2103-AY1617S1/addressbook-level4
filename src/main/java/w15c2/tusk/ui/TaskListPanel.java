@@ -85,7 +85,8 @@ public class TaskListPanel extends UiPart {
         placeHolderPane.getChildren().add(panel);
     }
     
-    /*
+    //@@author A0138978E
+    /**
      * Consume all events except for scrolling and scrollevents from control up/down
      */
     private void setSelectableCharacteristics() {
@@ -106,7 +107,9 @@ public class TaskListPanel extends UiPart {
         });
     }
     
-    //@@author A0138978E
+    /**
+     * Scrolls halfway down the current task list view
+     */
     public void scrollDown() {
     	Pair<Integer, Integer> firstAndLast = getFirstAndLastVisibleIndices(taskListView);
     	int firstIdx = firstAndLast.getKey();
@@ -120,6 +123,9 @@ public class TaskListPanel extends UiPart {
     	scrollTo(middleIdx);
     }
     
+    /**
+     * Scrolls to the top of the current task list view plus some buffer
+     */
     public void scrollUp() {
     	Pair<Integer, Integer> firstAndLast = getFirstAndLastVisibleIndices(taskListView);
     	int firstIdx = firstAndLast.getKey();
@@ -134,8 +140,11 @@ public class TaskListPanel extends UiPart {
     	scrollTo(targetIdx);
     }
     
+    //@@author A0138978E-reused
     // From http://stackoverflow.com/questions/30457708/visible-items-of-listview
-    // Gets approximately the first and last viewable items in the scrollable listview
+    /**
+     * Gets approximately the first and last viewable items in the scrollable listview
+     */
     private Pair<Integer, Integer> getFirstAndLastVisibleIndices(ListView<?> t) {
         try {
             @SuppressWarnings("restriction")

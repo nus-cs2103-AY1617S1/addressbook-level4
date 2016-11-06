@@ -8,6 +8,9 @@ import w15c2.tusk.commons.exceptions.DuplicateDataException;
 import w15c2.tusk.model.Copiable;
 
 //@@author A0138978E
+/*
+ * Defines a list where every item must be referentially different from every other item (no duplicate objects)
+ */
 public class UniqueItemCollection<T> implements Iterable<T>{
 	
 	/**
@@ -64,7 +67,7 @@ public class UniqueItemCollection<T> implements Iterable<T>{
             return false;
         }
         
-        // Force no reference equality in the internal list
+        // Force reference equality in the internal list
         return internalList.stream().anyMatch(obj -> obj == toCheck);
     }
 

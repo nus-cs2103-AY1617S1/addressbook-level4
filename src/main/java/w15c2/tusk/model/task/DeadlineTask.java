@@ -5,10 +5,10 @@ import java.util.Date;
 import w15c2.tusk.commons.util.DateUtil;
 import w15c2.tusk.model.Copiable;
 
+//@@author A0139817U
 /**
  * A DeadlineTask is a task that holds a date as the deadline
  */
-//@@author A0139817U
 public class DeadlineTask extends Task {
 
 	private Date deadline;

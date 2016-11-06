@@ -15,6 +15,10 @@ public class CommandHistory {
 	// Index into the list to return previous/next commands
 	private int listPointer = -1;
 	
+	/**
+	 * Adds a new command to the historical list of commands
+	 * @param commandText the text of the command to be added
+	 */
 	public void addCommandTextToHistory(String commandText) {
 		assert commandHistoryList != null;
 		assert commandText != null;
@@ -39,6 +43,10 @@ public class CommandHistory {
 		return getCommandByListPointer();
 	}
 	
+	/**
+	 * Gets a command from the command history based on the current list pointer
+	 * @return a command from the command history
+	 */
 	private String getCommandByListPointer() {
 		assert commandHistoryList != null;
 		// Ensure that the list pointer isn't outside the bounds of the list 
@@ -53,8 +61,10 @@ public class CommandHistory {
 		}
 	}
 
+	/**
+	 * Forces the list pointer to stay within the bounds of the list
+	 */
 	private void boundListPointer() {
-		// Keep listPointer within the list bounds
 		if (listPointer < 0) {
 			listPointer = 0;
 		} else if (listPointer >= commandHistoryList.size()) {

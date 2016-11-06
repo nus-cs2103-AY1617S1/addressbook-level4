@@ -22,10 +22,10 @@ import java.io.IOException;
 import java.util.Optional;
 import java.util.logging.Logger;
 
+//@@author A0143107U
 /**
  * Manages storage of TaskManager data in local storage.
  */
-//@@author A0143107U
 public class StorageManager extends ComponentManager implements Storage {
 
     private static final Logger logger = LogsCenter.getLogger(StorageManager.class);

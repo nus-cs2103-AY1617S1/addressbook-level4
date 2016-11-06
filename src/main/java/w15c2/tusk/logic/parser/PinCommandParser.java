@@ -23,10 +23,9 @@ public class PinCommandParser extends CommandParser{
 
 	/**
      * Parses arguments in the context of the Pin task command.
-     *
      * @param args full command args string
      * @return the prepared command
-     */
+     */ 
 	public TaskCommand prepareCommand(String arguments) {
 		 Optional<Integer> index = parseIndex(arguments);
 	        if(!index.isPresent()){
@@ -38,7 +37,8 @@ public class PinCommandParser extends CommandParser{
 	}
 	/**
      * Returns the specified index in the {@code command} IF a positive unsigned integer is given as the index.
-     *   Returns an {@code Optional.empty()} otherwise.
+     * Returns an {@code Optional.empty()} otherwise.
+     * @param command command arguments to parse
      */
     private Optional<Integer> parseIndex(String command) {
         final Matcher matcher = TASK_INDEX_ARGS_FORMAT.matcher(command.trim());

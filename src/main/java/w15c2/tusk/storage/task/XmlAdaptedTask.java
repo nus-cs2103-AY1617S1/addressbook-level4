@@ -10,6 +10,7 @@ import w15c2.tusk.model.task.EventTask;
 import w15c2.tusk.model.task.FloatingTask;
 import w15c2.tusk.model.task.Task;
 
+//@@author A0138978E
 /**
  * JAXB-friendly version of the Task.
  */
@@ -38,8 +39,6 @@ public class XmlAdaptedTask {
      */
     public XmlAdaptedTask() {}
 
-
-    //@@author A0138978E
     /**
      * Converts a given Task into this class for JAXB use.
      *
@@ -106,7 +105,7 @@ public class XmlAdaptedTask {
         
     }
     
-  //@@author
+    //@@author
     public boolean equals(XmlAdaptedTask o) {
         if((this.complete==o.complete) && this.description.equals(o.description) &&
                 this.endDate.equals(o.endDate) && this.startDate.equals(o.endDate) &&

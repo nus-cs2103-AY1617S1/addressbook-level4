@@ -14,6 +14,7 @@ import w15c2.tusk.TestApp;
 import w15c2.tusk.model.task.Task;
 import w15c2.tusk.testutil.TestUtil;
 
+//@@author A0138978E-reused
 /**
  * Provides a handle for the panel containing the person list.
  */

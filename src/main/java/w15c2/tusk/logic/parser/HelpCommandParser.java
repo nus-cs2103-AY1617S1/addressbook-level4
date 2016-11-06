@@ -7,11 +7,10 @@ import w15c2.tusk.logic.commands.taskcommands.HelpTaskCommand;
 import w15c2.tusk.logic.commands.taskcommands.IncorrectTaskCommand;
 import w15c2.tusk.logic.commands.taskcommands.TaskCommand;
 
-
+//@@author A0139708W
 /**
  * Parses Help commands
  */
-//@@author A0139708W
 public class HelpCommandParser extends CommandParser {
     public static final String COMMAND_WORD = HelpTaskCommand.COMMAND_WORD;
     public static final String ALTERNATE_COMMAND_WORD = HelpTaskCommand.ALTERNATE_COMMAND_WORD;

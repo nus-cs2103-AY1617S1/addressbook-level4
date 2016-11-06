@@ -6,7 +6,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 //@@author A0138978E
-/*
+/**
  * Contains a set of words to match autocomplete 
  * When a new query is received, returns an AutocompleteResult object that the consumer
  * can iterate through.
@@ -24,10 +24,12 @@ public class AutocompleteEngine {
 		this.wordsToMatch = wordsToMatch;
 	}
 
-	/*
+	/**
 	 * Filters the list of autocompletable words and dispatches it to 
-	 * an AutocompleteResult object, which is responsible for continually passing a
-	 * string to autocomplete
+     * an AutocompleteResult object, which is responsible for continually passing a
+     * string to fulfil autocomplete requests
+	 * @param toMatch the string to autocomplete
+	 * @return a cyclically iterable list of autocomplete results
 	 */
 	public AutocompleteResult getQueryResult(String toMatch) {
 		assert wordsToMatch != null;

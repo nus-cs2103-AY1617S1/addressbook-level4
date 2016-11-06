@@ -4,6 +4,7 @@ import guitests.GuiRobot;
 import javafx.stage.Stage;
 import w15c2.tusk.TestApp;
 
+//@@author A0138978E-reused
 /**
  * Provides a handle for the main GUI.
  */
