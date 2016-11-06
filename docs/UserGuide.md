@@ -167,7 +167,7 @@ Examples:
 
 #### Searching tasks by keywords: `search` 
 
-Searches and shows all tasks with details that contain the specified keyword. `DAY`, `DATE`, `TIME`, `PRIORITY` and `FREQUENCY` details are considered.<br>
+Searches and shows all tasks with details that contain the specified keyword.<br>
 
 Format: `search KEYWORD`<br>
 
