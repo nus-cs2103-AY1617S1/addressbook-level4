@@ -5,17 +5,12 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.junit.rules.TemporaryFolder;
-
-import seedu.whatnow.testutil.TypicalTestTasks;
 import seedu.whatnow.commons.exceptions.DataConversionException;
 import seedu.whatnow.commons.util.FileUtil;
 import seedu.whatnow.model.ReadOnlyWhatNow;
 import seedu.whatnow.model.WhatNow;
-import seedu.whatnow.model.task.Task;
 import seedu.whatnow.storage.XmlWhatNowStorage;
-
 import java.io.IOException;
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 
 public class XmlWhatNowStorageTest {

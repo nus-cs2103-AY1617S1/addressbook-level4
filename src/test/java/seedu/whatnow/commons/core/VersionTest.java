@@ -53,7 +53,8 @@ public class VersionTest {
 
     @Test
     public void versionComparable_validVersion_compareToIsCorrect() {
-        Version one, another;
+        Version one;
+        Version another;
 
         // Tests equality
         one = new Version(0, 0, 0, true);
@@ -123,7 +124,8 @@ public class VersionTest {
 
     @Test
     public void versionComparable_validVersion_equalIsCorrect() {
-        Version one, another;
+        Version one;
+        Version another;
 
         one = new Version(0, 0, 0, false);
         another = new Version(0, 0, 0, false);

@@ -7,9 +7,7 @@ import java.text.SimpleDateFormat;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.logging.Logger;
-
 import seedu.whatnow.commons.core.LogsCenter;
-import seedu.whatnow.model.task.Task;
 
 /**
  * A time period with start and end time

@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
-
 import seedu.whatnow.commons.exceptions.IllegalValueException;
 
 /**
@@ -137,7 +136,7 @@ public class TaskTime {
         if (startDate == null && endDate == null && date == null) {
             return appendTodayOrTmr(currEarlierThanInput, reqTime);
         } else if (date != null) { /** Implies that only 1 date exists */
-            if (date.toLowerCase().equals(TODAY)) {
+            if (date.equalsIgnoreCase(TODAY)) {
                 if (currEarlierThanInput) {
                     DateFormat dateFormat = new SimpleDateFormat(DATE_NUM_SLASH_WITH_YEAR_FORMAT);
                     Calendar cal = Calendar.getInstance();
@@ -147,7 +146,7 @@ public class TaskTime {
                     return true;
                 } else
                     return false;
-            } else if (date.toLowerCase().equals(TMR)) {
+            } else if (date.equalsIgnoreCase(TMR)) {
                 DateFormat dateFormat = new SimpleDateFormat(DATE_NUM_SLASH_WITH_YEAR_FORMAT);
                 Calendar cal = Calendar.getInstance();
                 cal.add(Calendar.DATE, 1);
@@ -329,10 +328,10 @@ public class TaskTime {
         if (reqDate == null) {
             date = null;
             return true;
-        } else if (reqDate.toLowerCase().equals(TODAY)) {
+        } else if (reqDate.equalsIgnoreCase(TODAY)) {
             date = TODAY;
             return true;
-        } else if (reqDate.toLowerCase().equals(TMR)) {
+        } else if (reqDate.equalsIgnoreCase(TMR)) {
             date = TMR;
             return true;
         } else {

@@ -1,13 +1,7 @@
 //@@author A0139772U
 package seedu.whatnow.logic.commands;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
-
-import seedu.whatnow.model.freetime.FreePeriod;
 import seedu.whatnow.model.freetime.Period;
 
 /**
