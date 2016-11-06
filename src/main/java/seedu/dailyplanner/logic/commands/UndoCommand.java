@@ -71,6 +71,15 @@ public class UndoCommand extends Command {
 				e.printStackTrace();
 			}
 		}
+		
+		if (undoInstruction.getReverse().equals("P")) {
+			int indexInPinBoard = model.getFilteredPersonList().indexOf(taskToUndo);
+			try {
+				model.pinTask(indexInPinBoard);
+			} catch (PersonNotFoundException e) {
+				e.printStackTrace();
+			}
+		}
 
 		return new CommandResult(String.format(MESSAGE_SUCCESS));
 
