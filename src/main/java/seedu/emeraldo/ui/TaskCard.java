@@ -42,6 +42,7 @@ public class TaskCard extends UiPart{
     }
 
     @FXML
+    //@@author A0142290N
     public void initialize() {
         description.setText(task.getDescription().fullDescription);
         id.setText(displayedIndex + ". ");
@@ -56,6 +57,7 @@ public class TaskCard extends UiPart{
         
         tags.setText(task.tagsString());
     }
+    //@@author
 
     public HBox getLayout() {
         return cardPane;

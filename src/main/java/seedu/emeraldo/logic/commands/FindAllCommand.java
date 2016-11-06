@@ -6,6 +6,7 @@ import java.util.Set;
  * Finds and lists all tasks in the task manager whose description contains any of the argument keywords.
  * Keyword matching is case sensitive.
  */
+//@@author A0142290N
 public class FindAllCommand extends Command {
 
     public static final String COMMAND_WORD = "findall";
