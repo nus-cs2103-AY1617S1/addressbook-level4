@@ -36,23 +36,25 @@ Gone are the repetitive mouse clicks other task managers require of you. With a 
 ## Features
 
 ###1 Add Command
-There are three variations to the add command. You are able to choose a task to be categorized under events, deadlines or to-dos. To differentiate the formatting for these commands, refer to the section below.
+There are three variations to the add command. You are able to choose a task to be categorized under events, deadlines or to-dos. To differentiate the formatting for these commands, refer to the secStion below.
 
 ####1.1 Add a to-do
 
+To start things off, let us add a simple task with no date or time, just a simple task to be done sometime and someday.
+
 >Format: **Add** &lt;to-do description&gt; &lt;#tag&gt;
 
-Example: Add go swimming #YOLO !
-
->Note: To do tasks do not have a date or time.
+Example: Add go swimming #YOLO
 
 >***Note: To add a tag, simply add a # followed by the tag name at the back of the command ***
 
 ####1.2 Add a deadline
 
+Perhaps after adding a todo, now you want to add a task with a deadline.
+
 >Format: **Add** &lt;deadline description&gt;; &lt;date(DDMMYY)&gt;; &lt;end time&gt; &lt;#tag&gt;
 
-Example: Add complete report; 120916; 1900 #YOLO ! 
+Example: Add complete report; 120916; 1900 #YOLO 
 
 >Important: The date and end time are compulsory when adding an deadline
 
@@ -278,7 +280,7 @@ Example: Delete E1 #win #victor #finally
 
 ###9 Exiting the program
 
-This command enables you to close the program.
+When you are done and wish to exit the program, simply type exit and press enter. This exits the program and all your data is saved.
 
 > Format: **Exit**
 
@@ -286,6 +288,9 @@ Example: Exit
 
 
 ###10 Help
+
+Should you forget how to do any of the commands, you can simply type help in the command box and press enter.
+This opens a window to the user guide where you can read more in depth into each command or just refer to the command summary for quick use.
 
 > Format: **Help**
 
