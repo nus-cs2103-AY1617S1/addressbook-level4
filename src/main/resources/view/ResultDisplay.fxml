@@ -16,7 +16,7 @@
         <URL value="@Extensions.css" />
     </stylesheets>
     <children>
-        <Polygon fill="WHITE" layoutX="35.0" layoutY="55.0" rotate="53" scaleX="0.5" scaleY="0.5" stroke="WHITE" strokeType="INSIDE" styleClass="anchor-pane">
+        <Polygon fill="WHITE" layoutX="35.0" layoutY="55.0" rotate="120.0" scaleX="0.5" scaleY="0.5" stroke="WHITE" strokeType="INSIDE" styleClass="anchor-pane">
             <points>
                 <Double fx:value="-50.0" />
                 <Double fx:value="40.0" />
