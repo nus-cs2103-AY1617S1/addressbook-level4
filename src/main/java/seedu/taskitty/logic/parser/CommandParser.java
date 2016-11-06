@@ -2,6 +2,7 @@ package seedu.taskitty.logic.parser;
 
 import seedu.taskitty.commons.core.LogsCenter;
 import seedu.taskitty.commons.exceptions.IllegalValueException;
+import seedu.taskitty.commons.util.DateTimeUtil;
 import seedu.taskitty.commons.util.StringUtil;
 import seedu.taskitty.commons.util.TaskUtil;
 import seedu.taskitty.logic.commands.*;
@@ -54,6 +55,16 @@ public class CommandParser {
     private static final Pattern TASK_DATA_ARGS_FORMAT = // Tags must be at the end
             Pattern.compile("(?<arguments>[\\p{Graph} ]+)"); // \p{Graph} is \p{Alnum} or \p{Punct}
 
+    // Parser to use Natty to parse dates and times
+    private static final Parser nattyParser = new Parser();
+    
+    public CommandParser() {
+        // Natty takes while to parse the first date.
+        // We parse today's date when CommandParser is initialized to allow Natty to "warm up"
+        logger.info("Starting Natty");
+        nattyParser.parse(DateTimeUtil.createCurrentTime().toString());
+    }
+    
     /**
      * Parses user input into command for execution.
      *
@@ -313,8 +324,7 @@ public class CommandParser {
      * Returns the index where the task name should end.
      */
     private int extractDateTimeUsingNatty(String dataArguments, ArrayList<String> details) {
-        Parser dateTimeParser = new Parser();
-        List<DateGroup> dateGroups = dateTimeParser.parse(dataArguments);
+        List<DateGroup> dateGroups = nattyParser.parse(dataArguments);
         int nameEndIndex = dataArguments.length();
 
         for (DateGroup group : dateGroups) {
