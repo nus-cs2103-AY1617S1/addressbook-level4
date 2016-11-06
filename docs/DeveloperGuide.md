@@ -148,10 +148,10 @@ The `UI` component,
 
 The `Logic` component uses the `Parser` class to parse the user command. This results in a `Command` object being executed by the `LogicManager`. The command execution can affect the `Model` (e.g. adding a task) and/or raise events. The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 
-Figure 6 displays the interactions within the `Logic` component for the `execute("delete 1")` API call.<br>
+Figure 6 displays the interactions within the `Logic` component for the `execute("edit 1 start date today")` API call.<br>
  
-<img src="images/DeleteTaskSdForLogic.png" width="800"><br>
->**_Figure 6_**: Sequence Diagram - shows interactions within the `Logic` component for the `execute("delete 1")` API call
+<img src="images/EditTaskSdForLogic.png" width="800"><br>
+>**_Figure 6_**: Sequence Diagram - shows interactions within the `Logic` component for the `execute("edit 1 start date today")` API call
 
 ### Model component
 
