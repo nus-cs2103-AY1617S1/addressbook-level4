@@ -4,7 +4,6 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 import java.util.Set;
 import java.util.logging.Logger;
 
@@ -212,7 +211,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
     
     //@@author A0139024M
-    private void checkClashingEvents(Task target) {
+    private void filterClashingEvents(Task target) {
         filteredDatedTasks.setPredicate((new PredicateExpression(new ClashingQualifier(target)))::satisfies);
     }
     //@@author
@@ -222,20 +221,31 @@ public class ModelManager extends ComponentManager implements Model {
     public synchronized int addTask(Task target) {
         int checkForDuplicateOrClash = taskBook.addTask(target);
         indicateTaskBookChanged();
-        checkClashingEvents(target);
-        if (filteredDatedTasks.size() <= 1) {
-            updateFilteredListToShowAll();
-        }
-        else if (filteredDatedTasks.size() > 1){
-            checkForDuplicateOrClash = AddCommand.CLASH;
-        }
+        filterClashingEvents(target);
+        checkForDuplicateOrClash = checkForClash(checkForDuplicateOrClash);
         scrollToAddedTask(target);
         return checkForDuplicateOrClash;
     }
 
     /**
-     * after task is added, scroll to it in the UndatedListPanel || DatedListPanel
-     * @param target
+     * List all Dated Tasks if no clashing events, else update int checkForDuplicateOrClash
+     * 
+     * @param checkForDuplicate int that checks for duplicates 
+     * @return int that has been updated to check for clashing events 
+     */
+	private int checkForClash(int checkForDuplicate) {
+		if (filteredDatedTasks.size() <= 1) {
+            updateFilteredListToShowAll();
+        }
+        else if (filteredDatedTasks.size() > 1){
+            checkForDuplicate = AddCommand.CLASH;
+        }
+		return checkForDuplicate;
+	}
+
+    /**
+     * After task is added, scroll to it in the UndatedListPanel || DatedListPanel
+     * @param target Task object that is being added
      */ 
     private void scrollToAddedTask(Task target) {
         int [] result = indexOfAddedTask(target);       
@@ -243,9 +253,9 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     /**
-     * find the task's list and index
-     * @param target
-     * @return
+     * Find the task's index and the list it belongs to 
+     * @param target Task object that is being added 
+     * @return int [] containing the task's index and the list it belongs to 
      */
     private int[] indexOfAddedTask(Task target) {
         int datedTaskIndex = filteredDatedTasks.indexOf(target);
@@ -499,7 +509,11 @@ public class ModelManager extends ComponentManager implements Model {
             return "date=" + inputDate.toString();
         }
 
-        // excludes time when checking for equality
+        /**
+         * Checks if the Date other is the same as inputDate
+         * @param other Date object that is being compared to
+         * @return true if Date objects are the same, excluding time
+         */
         private boolean sameDate(Date other){
             return inputDate.getDate() == other.getDate() && inputDate.getMonth() == other.getMonth() 
                     && inputDate.getYear() == other.getYear();

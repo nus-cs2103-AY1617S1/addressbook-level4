@@ -5,7 +5,7 @@ import seedu.stask.model.task.Datetime;
 
 //@@author A0143884W
 /**
- * Populate the list of tasks happening on the selected DATE 
+ * View the list of tasks happening on the selected DATE 
  */
 public class ViewCommand extends Command {
 
@@ -17,6 +17,11 @@ public class ViewCommand extends Command {
 
     private final Datetime datetime;
 
+    /**
+     * Convenience constructor using raw value of date.
+     *
+     * @throws IllegalValueException if date is invalid
+     */
     public ViewCommand(String date) throws IllegalValueException {
 		this.datetime = new Datetime(date);
     }

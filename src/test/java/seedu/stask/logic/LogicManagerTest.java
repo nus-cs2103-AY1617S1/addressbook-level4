@@ -24,8 +24,6 @@ import seedu.stask.commons.events.model.TaskBookChangedEvent;
 import seedu.stask.commons.events.ui.JumpToListRequestEvent;
 import seedu.stask.commons.events.ui.ShowHelpRequestEvent;
 import seedu.stask.commons.exceptions.IllegalValueException;
-import seedu.stask.logic.Logic;
-import seedu.stask.logic.LogicManager;
 import seedu.stask.logic.commands.AddCommand;
 import seedu.stask.logic.commands.ClearCommand;
 import seedu.stask.logic.commands.Command;
@@ -52,8 +50,8 @@ import seedu.stask.model.task.Description;
 import seedu.stask.model.task.Name;
 import seedu.stask.model.task.ReadOnlyTask;
 import seedu.stask.model.task.Status;
-import seedu.stask.model.task.Task;
 import seedu.stask.model.task.Status.State;
+import seedu.stask.model.task.Task;
 import seedu.stask.model.task.UniqueTaskList.DuplicateTaskException;
 import seedu.stask.storage.StorageManager;
 
@@ -183,11 +181,11 @@ public class LogicManagerTest {
                 Collections.emptyList(), Collections.emptyList());
     }
 
+    //@@author A0143884W
     @Test
     public void execute_add_invalidArgsFormat() throws Exception {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE);
-        assertCommandBehavior(
-                "add Valid Task Name 12345 d/Valid description date/11.11.11", Datetime.MESSAGE_DATETIME_CONTAINS_DOTS);
+       
         assertCommandBehavior(
                 "add Valid Task Name e/Wrong parameter for description date/tmr", expectedMessage);
         assertCommandBehavior(
@@ -201,9 +199,13 @@ public class LogicManagerTest {
         assertCommandBehavior(
                 "add Valid Name d/can_be_anything date/ab-cd-ef", Datetime.MESSAGE_DATETIME_CONSTRAINTS);
         assertCommandBehavior(
+                "add Valid Task Name 12345 d/Valid description date/11.11.11", Datetime.MESSAGE_DATETIME_CONTAINS_DOTS);
+        assertCommandBehavior(
+                "add Valid Name d/Valid description date/11-11-2018 to 11-11-2017", Datetime.MESSAGE_DATE_END_BEFORE_START); 
+        assertCommandBehavior(
                 "add Valid Name d/can_be_anything date/11-11-2018 1111 t/invalid_-[.tag", Tag.MESSAGE_TAG_CONSTRAINTS);
         assertCommandBehavior(
-                "add Valid Name d/can_be_anything date/11-11-2018 1111 t/invalid tag", Tag.MESSAGE_TAG_CONSTRAINTS);
+                "add Valid Name d/can_be_anything date/11-11-2018 1111 t/invalid tag", Tag.MESSAGE_TAG_CONSTRAINTS);        
     }
 
     @Test
@@ -222,7 +224,6 @@ public class LogicManagerTest {
                     expectedAB, expectedAB.getDatedTaskList(),
                     expectedAB.getUndatedTaskList());
         }
-
     }
 
     @Test
@@ -245,6 +246,7 @@ public class LogicManagerTest {
                 expectedAB.getUndatedTaskList());
 
     }
+    //@@author
 
     /**
      * Confirms the 'invalid argument index number behaviour' for the given command
@@ -292,14 +294,12 @@ public class LogicManagerTest {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, SelectCommand.MESSAGE_USAGE);
         assertIncorrectIndexFormatBehaviorForCommand("select", expectedMessage);
     }
-    //@@author 
-    //@@author A0139024M
+    
     @Test
     public void execute_selectIndexNotFound_errorMessageShown() throws Exception {
         assertIndexNotFoundBehaviorForCommand("select");
     }
-    //@@author 
-    //@@author A0143884W
+    
     @Test
     public void execute_select_jumpsToCorrectPerson() throws Exception {
         TestDataHelper helper = new TestDataHelper();
@@ -529,47 +529,39 @@ public class LogicManagerTest {
     //@@author A0143884W
     @Test
     public void execute_editName_successful() throws Exception {
-        genericEdit("A1", 1, "new name");
+    	// actual to be edited
+        Task toBeEdited = helper.floatTaskA();
+        model.addTask(toBeEdited);
+        toBeEdited = genericEdit("A1", 1, "new name", toBeEdited);
+        toBeEdited = genericEdit("A1", 1, "!&#($&%", toBeEdited);
+        toBeEdited = genericEdit("A1", 1, "aaabbbccc", toBeEdited);
     }
 
     @Test
     public void execute_editDescription_sucessful() throws Exception {
-        genericEdit("A1", 2, "new description");
+    	// actual to be edited
+        Task toBeEdited = helper.floatTaskA();
+        model.addTask(toBeEdited);
+        toBeEdited = genericEdit("A1", 2, "new description", toBeEdited);
+        toBeEdited = genericEdit("A1", 2, "uncanny description", toBeEdited);
     }
 
     @Test
     public void execute_editDate_sucessful() throws Exception {
-        genericEdit("A1", 3, "today");
-    }
-    
-    @Test
-    public void execute_view_successful() throws Exception {
-    	List<Task> taskList = helper.generateDatedTaskList(9);
-    	taskList.forEach(temp -> {
-    		model.addTask(temp);
-    	});
-    	
-    	assertViewCommand("tmr", 0);
-    	assertViewCommand("12-Nov-2018", 1);
-    	assertViewCommand("14 Nov 2018", 2);
-    	assertViewCommand("16-11-2018", 3);
-    }
-    
-    private void assertViewCommand(String date, int listSize) {
-    	CommandResult result = logic.execute("view " + date);
-    	assertEquals(logic.getFilteredDatedTaskList().size(), listSize);   
+    	// actual to be edited
+        Task toBeEdited = helper.floatTaskA();
+        model.addTask(toBeEdited);
+        toBeEdited = genericEdit("A1", 3, "today", toBeEdited);
+        toBeEdited = genericEdit("B1", 3, "", toBeEdited);
+        toBeEdited = genericEdit("A1", 3, "6-Nov-2016", toBeEdited);
     }
 
-    private void genericEdit(String index, int type, String field) throws Exception, DuplicateTaskException, IllegalValueException {
-        // actual to be edited
-        Task toBeEdited = helper.floatTaskA();
-        toBeEdited.setTags(new UniqueTagList());
-        model.addTask(toBeEdited);
+    private Task genericEdit(String index, int type, String field, Task toBeEdited) throws Exception, DuplicateTaskException, IllegalValueException {
 
         // expected result after edit
         // NOTE: can't simply set description of toBeEdited; need to create new copy,
         // since it will edit the task in model (model's task is simply a reference)
-        Task edited = copyTask(toBeEdited);
+        Task edited = toBeEdited;
 
         switch (type){
         case 1:
@@ -590,7 +582,11 @@ public class LogicManagerTest {
             edited.setTags(new UniqueTagList(tagsArray));
             break;	
         }
-
+        
+        if (expectedTB.getUndatedTaskList().contains(toBeEdited) || 
+        		expectedTB.getDatedTaskList().contains(toBeEdited)){
+        	expectedTB.removeTask(toBeEdited);
+        } 
         expectedTB.addTask(edited);
 
         // execute command and verify result
@@ -598,16 +594,10 @@ public class LogicManagerTest {
                 String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, edited),
                 expectedTB, expectedTB.getDatedTaskList(),
                 expectedTB.getUndatedTaskList());
-    }
-
-    private Task copyTask(Task toBeEdited){
-        Task edited = new Task(toBeEdited.getName(), toBeEdited.getDescription(), toBeEdited.getDatetime(),
-                toBeEdited.getStatus(), toBeEdited.getTags());
+        
         return edited;
     }
 
-    // TODO: currently, edits that don't include old tags removes all tags 
-    // masterlist of tags in TaskBook also need to be changed
     @Test
     public void execute_editDated_successful() throws Exception {
 
@@ -657,6 +647,24 @@ public class LogicManagerTest {
                 String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, editedTask),
                 expectedTB, expectedTB.getDatedTasks(),
                 expectedTB.getUndatedTaskList());
+    }
+    
+    @Test
+    public void execute_view_successful() throws Exception {
+    	List<Task> taskList = helper.generateDatedTaskList(9);
+    	taskList.forEach(temp -> {
+    		model.addTask(temp);
+    	});
+    	
+    	assertViewCommand("tmr", 0);
+    	assertViewCommand("12-Nov-2018", 1);
+    	assertViewCommand("14 Nov 2018", 2);
+    	assertViewCommand("16-11-2018", 3);
+    }
+    
+    private void assertViewCommand(String date, int listSize) {
+    	logic.execute("view " + date);
+    	assertEquals(logic.getFilteredDatedTaskList().size(), listSize);   
     }
     
     //@@author

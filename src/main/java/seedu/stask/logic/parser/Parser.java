@@ -5,7 +5,6 @@ import static seedu.stask.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
@@ -131,7 +130,7 @@ public class Parser {
     /**
      * Parses arguments in the context of the view task command.
      *
-     * @param args full command args string
+     * @param arguments full command arguments string
      * @return the prepared command
      */
     private Command prepareView(String arguments) {
@@ -145,13 +144,13 @@ public class Parser {
     /**
      * Parses arguments in the context of the add task command.
      *
-     * @param args full command args string
+     * @param arguments full command arguments string
      * @return the prepared command
      */
-    private Command prepareAdd(String args){
-        final Matcher matcher = PERSON_DATA_ARGS_FORMAT.matcher(args.trim());
+    private Command prepareAdd(String arguments){
+        final Matcher matcher = PERSON_DATA_ARGS_FORMAT.matcher(arguments.trim());
 
-        // Validate arg string format
+        // Validate arguments string format
         if (!matcher.matches()) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }	
@@ -224,13 +223,13 @@ public class Parser {
     /**
      * Parses arguments in the context of the edit person command.
      *
-     * @param args full command args string
+     * @param arguments full command arguments string
      * @return the prepared command
      */
-    private Command prepareEdit(String args) {
-
-        final Matcher matcher = EDIT_DATA_ARGS_FORMAT.matcher(args.trim());
-        // Validate arg string format
+    private Command prepareEdit(String arguments) {
+        final Matcher matcher = EDIT_DATA_ARGS_FORMAT.matcher(arguments.trim());
+        
+        // Validate arguments string format
         if (!matcher.matches()) {
             return new IncorrectCommand(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
@@ -354,6 +353,4 @@ public class Parser {
         return new SaveCommand(args);
     }
     //@@author
-
-
 }

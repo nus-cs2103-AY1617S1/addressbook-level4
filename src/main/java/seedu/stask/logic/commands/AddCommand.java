@@ -11,8 +11,8 @@ import seedu.stask.model.task.Datetime;
 import seedu.stask.model.task.Description;
 import seedu.stask.model.task.Name;
 import seedu.stask.model.task.Status;
-import seedu.stask.model.task.Task;
 import seedu.stask.model.task.Status.State;
+import seedu.stask.model.task.Task;
 
 //@@author A0143884W
 /**
@@ -24,12 +24,12 @@ public class AddCommand extends Command implements Undoable {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task to the task book.\n"
             + "Parameters: TASKNAME d/TASK_DESCRIPTION date/DD-MM-YYYY [24HR] [to 24HR] [t/TAG]...\n" + "Example: "
-            + COMMAND_WORD + " Wash Clothes d/Wash with detergent date/27-9-2016 2359 t/!!!";
+            + COMMAND_WORD + " Wash Clothes d/Wash with detergent date/27-9-2016 2359 t/important";
 
     public static final String MESSAGE_SUCCESS = "New task added: %1$s";
     public static final String MESSAGE_DUPLICATE_TASK = "THERE IS A DUPLICATE TASK IN THE TASK BOOK!";
     public static final String MESSAGE_CLASHING_EVENTS = "THIS EVENT CLASHES WITH OTHER EVENT(S) IN THE TASK BOOK!";
-    public static final int NO_DUPLICATE_OR_CLASH = 0;
+    public static final int NO_DUPLICATE_NOR_CLASH = 0;
     public static final int DUPLICATE = 1;
     public static final int CLASH = 2;
 
@@ -38,10 +38,10 @@ public class AddCommand extends Command implements Undoable {
     /**
      * Convenience constructor using raw values.
      *
-     * @throws IllegalValueException
-     *             if any of the raw values are invalid
+     * @throws IllegalValueException if any of the raw values are invalid
      */
-    public AddCommand(String name, String description, String datetime, Set<String> tags) throws IllegalValueException {
+    public AddCommand(String name, String description, String datetime, Set<String> tags) 
+    		throws IllegalValueException {
         final Set<Tag> tagSet = new HashSet<>();
         if (tags != null){
             for (String tagName : tags) {
@@ -62,10 +62,8 @@ public class AddCommand extends Command implements Undoable {
         
         int checkForDuplicateOrClash = model.addTask(toAdd);
         populateUndo();
-
-        return CommandUtil.generateCommandResult(new CommandResult(String.format(MESSAGE_SUCCESS, toAdd)), checkForDuplicateOrClash);
-
-
+        return CommandUtil.generateCommandResult(new CommandResult(String.format(MESSAGE_SUCCESS, toAdd)), 
+        										checkForDuplicateOrClash);
     }
     
     @Override
