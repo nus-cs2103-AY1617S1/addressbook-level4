@@ -424,7 +424,7 @@ http://www.comp.nus.edu.sg/~cs2103/AY1617S1/
 
 1. Severe mouse clicks required to fill up the numerous columns.
 2. Security issues. It is connected to the web so there is the possibility of hacking which can reveal your life schedule.
-
+<br>
 
 ##Todoist
 
@@ -452,7 +452,7 @@ http://www.comp.nus.edu.sg/~cs2103/AY1617S1/
 4. Severe mouse clicks required for adding of tasks and to navigate between categories, checking purposes and boxes for filling of details.
 5. Monetary means required for premium access.
 6. Usage of a mouse required for shifting of tasks. Eg. drag and drop.
-
+<br>
 
 ##Wunderlist
 
@@ -478,7 +478,7 @@ http://www.comp.nus.edu.sg/~cs2103/AY1617S1/
 4. Uploading of files not supported.
 5. Organisation of tasks not supported.
 6. Function to sync with third party services like dropbox and google drive is not avaliable.
-
+<br>
 
 ##Trello
 
@@ -498,4 +498,4 @@ http://www.comp.nus.edu.sg/~cs2103/AY1617S1/
 2. No functionalities to assign a task to members in a checklist.
 3. No functionality for calender view for user preference.
 4. Due dates are not allowed for input.
-
+<br>
