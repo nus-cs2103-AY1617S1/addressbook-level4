@@ -9,13 +9,16 @@ import w15c2.tusk.logic.commands.taskcommands.HelpTaskCommand;
 import w15c2.tusk.logic.commands.taskcommands.IncorrectTaskCommand;
 import w15c2.tusk.logic.parser.HelpCommandParser;
 
+/**
+ * Tests Help Command Parser
+ */
 //@@author A0143107U
 public class HelpCommandParserTest {
 	// Initialized to support the tests
 	HelpCommandParser parser = new HelpCommandParser();
 	
 	/**
-	 * Testing correct handling of invalid formats, list types
+	 * Testing correct handling of invalid formats
 	 * 
 	 */
 	@Test

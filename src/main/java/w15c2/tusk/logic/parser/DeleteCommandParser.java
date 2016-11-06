@@ -11,7 +11,7 @@ import w15c2.tusk.logic.commands.taskcommands.DeleteTaskCommand;
 import w15c2.tusk.logic.commands.taskcommands.IncorrectTaskCommand;
 import w15c2.tusk.logic.commands.taskcommands.TaskCommand;
 
-/*
+/**
  * Parses delete commands
  */
 //@@author A0143107U

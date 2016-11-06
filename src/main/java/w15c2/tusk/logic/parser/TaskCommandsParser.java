@@ -8,7 +8,7 @@ import java.util.regex.Pattern;
 import w15c2.tusk.logic.commands.taskcommands.IncorrectTaskCommand;
 import w15c2.tusk.logic.commands.taskcommands.TaskCommand;
 
-/*
+/**
  * Serves as entry point for user input to be parsed into a TaskCommand
  */
 //@@author A0143107U

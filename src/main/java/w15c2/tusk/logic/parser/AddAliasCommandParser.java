@@ -5,7 +5,7 @@ import w15c2.tusk.logic.commands.taskcommands.AddAliasCommand;
 import w15c2.tusk.logic.commands.taskcommands.IncorrectTaskCommand;
 import w15c2.tusk.logic.commands.taskcommands.TaskCommand;
 
-/*
+/**
  * Parses Alias commands
  */
 //@@author A0143107U

@@ -10,6 +10,9 @@ import w15c2.tusk.logic.commands.taskcommands.IncorrectTaskCommand;
 import w15c2.tusk.logic.commands.taskcommands.PinTaskCommand;
 import w15c2.tusk.logic.parser.PinCommandParser;
 
+/**
+ * Tests Pin Command Parser
+ */
 //@@author A0143107U
 public class PinCommandParserTest {
 	// Initialized to support the tests

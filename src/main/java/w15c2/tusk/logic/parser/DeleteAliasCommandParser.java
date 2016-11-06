@@ -5,7 +5,7 @@ import w15c2.tusk.logic.commands.taskcommands.DeleteAliasCommand;
 import w15c2.tusk.logic.commands.taskcommands.IncorrectTaskCommand;
 import w15c2.tusk.logic.commands.taskcommands.TaskCommand;
 
-/*
+/**
  * Parses delete alias commands
  */
 //@@author A0143107U
@@ -30,8 +30,7 @@ public class DeleteAliasCommandParser extends CommandParser{
 		
 		try{
 	        return new DeleteAliasCommand(arguments.trim());
-		}
-		catch (IllegalValueException ive) {
+		}catch (IllegalValueException ive) {
             return new IncorrectTaskCommand(ive.getMessage());
         }
 	}
