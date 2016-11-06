@@ -7,6 +7,7 @@ import java.util.Set;
 /**
  * Finds and lists all persons in task manager whose name contains all of the argument keywords 
  * Keyword matching is not case sensitive.
+ * Search results take into account typos from the user (fuzzy search) where search query can be 2 characters away from actual item name
  */
 public class FindCommand extends Command {
 
