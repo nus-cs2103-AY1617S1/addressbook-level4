@@ -3,6 +3,7 @@ package guitests.guihandles;
 import guitests.GuiRobot;
 import javafx.scene.Node;
 import javafx.stage.Stage;
+import seedu.taskitty.commons.util.DateTimeUtil;
 import seedu.taskitty.model.task.ReadOnlyTask;
 
 /**
@@ -10,6 +11,11 @@ import seedu.taskitty.model.task.ReadOnlyTask;
  */
 public class TaskCardHandle extends GuiHandle {
     private static final String NAME_FIELD_ID = "#name";
+    private static final String START_DATE_FIELD_ID = "#startDate";
+    private static final String START_TIME_FIELD_ID = "#startTime";
+    private static final String END_DATE_FIELD_ID = "#endDate";
+    private static final String END_TIME_FIELD_ID = "#endTime";
+    private static final String TAG_FIELD_ID = "#tags";
 
     private Node node;
 
@@ -36,15 +42,55 @@ public class TaskCardHandle extends GuiHandle {
         return getTextFromLabel(NAME_FIELD_ID);
     }
 
+    public String getStartDate() {
+        return getTextFromLabel(START_DATE_FIELD_ID);
+    }
+    
+    public String getStartTime() {
+        return getTextFromLabel(START_TIME_FIELD_ID);
+    }
+     
+    public String getEndDate() {
+        return getTextFromLabel(END_DATE_FIELD_ID);
+    }
+    
+    public String getEndTime() {
+        return getTextFromLabel(END_TIME_FIELD_ID);
+    }    
+    
+    public String getTags() {
+        return getTextFromLabel(TAG_FIELD_ID);
+    }
+    
     public boolean isSameTask(ReadOnlyTask task){
-        return getFullName().equals(task.getName().fullName);
+        if (task.isTodo()) {
+            return getFullName().equals(task.getName().fullName)
+                    && getTags().equals(task.tagsString());
+        } else if (task.isDeadline()) {
+            return getFullName().equals(task.getName().fullName)
+                    && getTags().equals(task.tagsString())
+                    && getEndTime().equals(DateTimeUtil.formatTimeForUI(task.getPeriod().getEndTime()))
+                    && getEndDate().equals(DateTimeUtil.formatDateForUI(task.getPeriod().getEndDate()));
+        } else {
+            return getFullName().equals(task.getName().fullName)
+                    && getTags().equals(task.tagsString())
+                    && getStartTime().equals(DateTimeUtil.formatTimeForUI(task.getPeriod().getStartTime()))
+                    && getStartDate().equals(DateTimeUtil.formatDateForUI(task.getPeriod().getStartDate()))
+                    && getEndTime().equals(DateTimeUtil.formatTimeForUI(task.getPeriod().getEndTime()))
+                    && getEndDate().equals(DateTimeUtil.formatDateForUI(task.getPeriod().getEndDate()));
+        }
     }
 
     @Override
     public boolean equals(Object obj) {
         if(obj instanceof TaskCardHandle) {
             TaskCardHandle handle = (TaskCardHandle) obj;
-            return getFullName().equals(handle.getFullName()); //TODO: compare the rest
+            return getFullName().equals(handle.getFullName())
+                    && getTags().equals(handle.getTags())
+                    && getStartDate().equals(handle.getStartDate())
+                    && getStartTime().equals(handle.getStartTime())
+                    && getEndDate().equals(handle.getEndDate())
+                    && getEndTime().equals(handle.getEndTime());//TODO: compare the rest
         }
         return super.equals(obj);
     }
