@@ -18,7 +18,7 @@ public class UpcomingCommand extends Command {
                                                + COMMAND_WORD + " events\n"
                                                + COMMAND_WORD + " deadlines";
     
-    public static final String COMMAND_FORMAT = COMMAND_WORD + "[TAB_NAME]";
+    public static final String COMMAND_FORMAT = COMMAND_WORD + "[tab_name]";
     public static final String COMMAND_DESCRIPTION = "List tasks due in the week";
 
             
