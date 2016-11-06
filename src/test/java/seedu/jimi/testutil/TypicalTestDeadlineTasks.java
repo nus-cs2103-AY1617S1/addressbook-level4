@@ -15,7 +15,7 @@ import seedu.jimi.model.task.UniqueTaskList;
 
 public class TypicalTestDeadlineTasks {
     
-    public static TestDeadlineTask groceries, ideas, homework;
+    public static TestDeadlineTask groceries, ideas, homework, submission;
     
     public TypicalTestDeadlineTasks() {
         try {
@@ -24,6 +24,7 @@ public class TypicalTestDeadlineTasks {
             
             //Manually added
             homework = new DeadlineTaskBuilder().withName("finish homework").withPriority("HIGH").withDeadlineTmr().build();
+            submission = new DeadlineTaskBuilder().withName("submit submission").withPriority("med").withDeadline().build(); //instantiate time to current time
         } catch (IllegalValueException e) {
             e.printStackTrace();
             assert false : "not possible";
@@ -41,6 +42,10 @@ public class TypicalTestDeadlineTasks {
     }
     
     public ReadOnlyTask[] getTypicalTasks() {
+        return new ReadOnlyTask[]{groceries, ideas};
+    }
+    
+    public ReadOnlyTask[] getTodayTasks() {
         return new ReadOnlyTask[]{groceries};
     }
     

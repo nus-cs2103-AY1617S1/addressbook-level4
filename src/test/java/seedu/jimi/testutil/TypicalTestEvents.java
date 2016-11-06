@@ -45,6 +45,10 @@ public class TypicalTestEvents {
         return new ReadOnlyTask[]{wedding};
     }
     
+    public ReadOnlyTask[] getTodayTasks() {
+        return new ReadOnlyTask[]{tuition};
+    }
+    
     public TaskBook getTypicalTaskBook(){
         TaskBook ab = new TaskBook();
         loadTaskBookWithSampleData(ab);

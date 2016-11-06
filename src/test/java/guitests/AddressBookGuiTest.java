@@ -45,6 +45,7 @@ public abstract class AddressBookGuiTest {
     protected MainGuiHandle mainGui;
     protected MainMenuHandle mainMenu;
     protected FloatingTaskListPanelHandle taskListPanel;
+    protected TodayTaskListPanelHandle todayTaskListPanel;
     protected ResultDisplayHandle resultDisplay;
     protected CommandBoxHandle commandBox;
     private Stage stage;
@@ -65,6 +66,7 @@ public abstract class AddressBookGuiTest {
             mainGui = new MainGuiHandle(new GuiRobot(), stage);
             mainMenu = mainGui.getMainMenu();
             taskListPanel = mainGui.getFloatingTaskListPanel();
+            todayTaskListPanel = mainGui.getTodayTaskListPanel();
             resultDisplay = mainGui.getResultDisplay();
             commandBox = mainGui.getCommandBox();
             this.stage = stage;
