@@ -12,7 +12,9 @@ public class ListCommand extends Command {
     
     private final String typeOfList;
 
-    public static final String MESSAGE_SUCCESS = "Listed all";
+    public static final String MESSAGE_SUCCESS = "Listed all undone";
+    
+    public static final String MESSAGE_SUCCESS_ALL = "Listed all";
     
     public static final String MESSAGE_SUCCESS_TASK = "Listed tasks only";
 
@@ -22,7 +24,7 @@ public class ListCommand extends Command {
     
     public static final String MESSAGE_SUCCESS_DONE = "Listed completed events and tasks only";
     
-    public static final String MESSAGE_INVALID_LIST_TYPE = "List Command should be followed by (optional) either 'activity', 'event' or 'task' only ";   
+    public static final String MESSAGE_INVALID_LIST_TYPE = "List Command should be followed by (optional) 'all', 'done', 'activity', 'event' or 'task' only ";   
     
     public ListCommand(String typeOfList) {
         this.typeOfList= typeOfList;
@@ -40,8 +42,6 @@ public class ListCommand extends Command {
       case "task":
     	  model.updateFilteredTaskListToShowAll();
           return new CommandResult(MESSAGE_SUCCESS_TASK);
-       
-
       
       case "event":
           model.updateFilteredEventListToShowAll();
@@ -50,6 +50,10 @@ public class ListCommand extends Command {
       case "done":
           model.updateFilteredDoneListToShowAll();
           return new CommandResult(MESSAGE_SUCCESS_DONE);
+          
+      case "all":
+          model.updateAllListToShowAll();
+          return new CommandResult(MESSAGE_SUCCESS_ALL);
           
           default: //typeOfList equals ""
 			model.updateFilteredListToShowAll();
