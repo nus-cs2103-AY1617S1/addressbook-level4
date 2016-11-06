@@ -300,9 +300,9 @@ Command | Format  | Example
 Add     | `add TASK`  | add buy fruits from ntuc
         | `add TASK, [DATE] [TIME] -[PRORITY]` |  add buy milk by tomorrow morning -low
         | `add TASK, [DATE] [TIME], [DATE] [TIME] -[PRIORITY]` | add go overseas from 20 Dec 10pm to 2 Jan 2017 3pm -high
-List    | `list` | list all incomplete tasks
-        | `list all`| list all tasks in GGist
-        | `list done`| list all completed tasks
+List    | to see all incompleted tasks | list
+        | to see all tasks| list all
+        | to see all completed tasks | list done
         | `list DATE`| list 22 Nov
         | `list PRIORITY`| list high
 Search  | `search KEYWORD`| search buy
