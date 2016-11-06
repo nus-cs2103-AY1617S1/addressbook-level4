@@ -1,11 +1,7 @@
 package guitests.guihandles;
 
 import guitests.GuiRobot;
-import javafx.fxml.FXML;
 import javafx.scene.Node;
-import javafx.scene.control.Label;
-import javafx.scene.layout.HBox;
-import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import seedu.address.model.item.ReadOnlyTask;
 
@@ -67,7 +63,7 @@ public class TaskCardHandle extends GuiHandle {
     
 
     //@@author
-    public boolean isSameFloatingTask(ReadOnlyTask task){
+    public boolean isSameTask(ReadOnlyTask task){
         return getName().equals(task.getName().getTaskName()) && getPriority().equals(task.getPriorityValue().toString());
     }
 

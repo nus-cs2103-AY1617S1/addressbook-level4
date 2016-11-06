@@ -11,7 +11,6 @@ import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 import seedu.address.model.item.Priority;
 import seedu.address.model.item.ReadOnlyTask;
-import seedu.address.model.item.TimePeriod;
 
 //@@author A0093960X
 public class TaskCard extends UiPart {
@@ -20,15 +19,10 @@ public class TaskCard extends UiPart {
     private static final Paint PAINT_GREEN = Paint.valueOf("green");
     private static final Paint PAINT_YELLOW = Paint.valueOf("yellow");
 
-    private static final String RECURRENCE_RATE_DISPLAY_PREFIX = "Every ";
     private static final String END_DATE_DISPLAY_PREFIX = "End: ";
     private static final String START_DATE_DISPLAY_PREFIX = "Start: ";
-    private static final String STRING_PLURAL_POSTFIX = "s";
-    private static final String STRING_ONE_SPACE = " ";
     private static final String STRING_EMPTY = "";
 
-    private static final int ONE = 1;
-    private static final int ZERO = 0;
     private static final String FXML = "TaskListCard.fxml";
     private static final SimpleDateFormat dateFormatter = new SimpleDateFormat("EEE, d MMM yyyy, h:mm a");
 

@@ -1,48 +1,147 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <taskmanager>
     <undoneTasks>
-        <name>Meet Hans Muster</name>
-        <priority>high</priority>
-		<recurrenceRate>0</recurrenceRate>
-    </undoneTasks>
-    <undoneTasks>
-        <name>Meet Ruth Mueller</name>
-        <priority>high</priority>
-		<recurrenceRate>0</recurrenceRate>
-    </undoneTasks>
-    <undoneTasks>
-        <name>Meet Heinz Kurz</name>
-        <priority>high</priority>
-		<recurrenceRate>0</recurrenceRate>
-    </undoneTasks>
-    <undoneTasks>
-        <name>Meet Cornelia Meier</name>
+        <name>lol</name>
         <priority>medium</priority>
-		<recurrenceRate>0</recurrenceRate>
+        <startDate>Sun Nov 06 15:00:00 SGT 2016</startDate>
     </undoneTasks>
     <undoneTasks>
-        <name>Meet Werner Meyer</name>
+        <name>from 3pm</name>
         <priority>medium</priority>
-		<recurrenceRate>0</recurrenceRate>
+        <startDate>Sun Nov 06 15:00:00 SGT 2016</startDate>
+        <endDate>Sun Nov 06 16:00:00 SGT 2016</endDate>
+        <recurrenceRate>
+            <rate>2</rate>
+            <timePeriod>DAY</timePeriod>
+        </recurrenceRate>
     </undoneTasks>
     <undoneTasks>
-        <name>Meet Lydia Kunz</name>
+        <name>asdf</name>
         <priority>medium</priority>
-		<recurrenceRate>0</recurrenceRate>
+        <startDate>Sun Nov 06 15:00:00 SGT 2016</startDate>
+        <endDate>Sun Nov 06 22:00:00 SGT 2016</endDate>
     </undoneTasks>
     <undoneTasks>
-        <name>Meet Anna Best</name>
-        <priority>low</priority>
-		<recurrenceRate>0</recurrenceRate>
+        <name>Meet Alice at jUnit mall</name>
+        <priority>high</priority>
+        <startDate>Tue Nov 08 14:00:00 SGT 2016</startDate>
+        <endDate>Wed Nov 09 15:00:00 SGT 2016</endDate>
+        <recurrenceRate>
+            <rate>3</rate>
+            <timePeriod>DAY</timePeriod>
+        </recurrenceRate>
     </undoneTasks>
     <undoneTasks>
-        <name>Meet Stefan Meier</name>
-        <priority>low</priority>
-		<recurrenceRate>0</recurrenceRate>
+        <name>do my homework</name>
+        <priority>medium</priority>
+        <endDate>Tue Nov 08 16:00:00 SGT 2016</endDate>
     </undoneTasks>
     <undoneTasks>
-        <name>Meet Martin Mueller</name>
-        <priority>low</priority>
-		<recurrenceRate>0</recurrenceRate>
+        <name>do my homework</name>
+        <priority>medium</priority>
+        <endDate>Tue Nov 08 23:59:59 SGT 2016</endDate>
     </undoneTasks>
+    <undoneTasks>
+        <name>do my homework</name>
+        <priority>medium</priority>
+        <endDate>Tue Nov 08 23:59:59 SGT 2016</endDate>
+    </undoneTasks>
+    <undoneTasks>
+        <name>asdfasdf</name>
+        <priority>medium</priority>
+    </undoneTasks>
+    <undoneTasks>
+        <name>asdfsd</name>
+        <priority>medium</priority>
+    </undoneTasks>
+    <undoneTasks>
+        <name>asdfsd</name>
+        <priority>medium</priority>
+    </undoneTasks>
+    <undoneTasks>
+        <name>asdfsd</name>
+        <priority>medium</priority>
+    </undoneTasks>
+    <undoneTasks>
+        <name>asdfsdf</name>
+        <priority>medium</priority>
+    </undoneTasks>
+    <undoneTasks>
+        <name>asdfsdfsf</name>
+        <priority>medium</priority>
+    </undoneTasks>
+    <undoneTasks>
+        <name>asdfsfasd</name>
+        <priority>medium</priority>
+    </undoneTasks>
+    <undoneTasks>
+        <name>asfdsdf</name>
+        <priority>medium</priority>
+    </undoneTasks>
+    <undoneTasks>
+        <name>asfs</name>
+        <priority>medium</priority>
+    </undoneTasks>
+    <undoneTasks>
+        <name>asfsafd</name>
+        <priority>medium</priority>
+    </undoneTasks>
+    <undoneTasks>
+        <name>asfsdf</name>
+        <priority>medium</priority>
+    </undoneTasks>
+    <undoneTasks>
+        <name>fasafds</name>
+        <priority>medium</priority>
+    </undoneTasks>
+    <undoneTasks>
+        <name>fsdf</name>
+        <priority>medium</priority>
+    </undoneTasks>
+    <undoneTasks>
+        <name>hahaf</name>
+        <priority>medium</priority>
+    </undoneTasks>
+    <undoneTasks>
+        <name>lol</name>
+        <priority>medium</priority>
+    </undoneTasks>
+    <undoneTasks>
+        <name>lol</name>
+        <priority>medium</priority>
+    </undoneTasks>
+    <undoneTasks>
+        <name>lol</name>
+        <priority>medium</priority>
+    </undoneTasks>
+    <undoneTasks>
+        <name>sadf</name>
+        <priority>medium</priority>
+    </undoneTasks>
+    <undoneTasks>
+        <name>sadfsd</name>
+        <priority>medium</priority>
+    </undoneTasks>
+    <undoneTasks>
+        <name>safds</name>
+        <priority>medium</priority>
+    </undoneTasks>
+    <undoneTasks>
+        <name>safs</name>
+        <priority>medium</priority>
+    </undoneTasks>
+    <doneTasks>
+        <name>Meet Alice at jUnit mall</name>
+        <priority>high</priority>
+        <startDate>Sat Nov 05 14:00:00 SGT 2016</startDate>
+        <endDate>Sun Nov 06 15:00:00 SGT 2016</endDate>
+        <recurrenceRate>
+            <rate>3</rate>
+            <timePeriod>DAY</timePeriod>
+        </recurrenceRate>
+    </doneTasks>
+    <doneTasks>
+        <name>asdf</name>
+        <priority>high</priority>
+    </doneTasks>
 </taskmanager>
