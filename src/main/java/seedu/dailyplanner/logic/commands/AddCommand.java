@@ -45,13 +45,14 @@ public class AddCommand extends Command {
 	    tagSet.add(new Tag(tagName));
 	}
 	this.toAdd = new Task(taskName, start, end, false, false, new UniqueTagList(tagSet));
-	personList =  model.getAddressBook().getPersonList();
+	
     }
 
     @Override
     public CommandResult execute() {
         assert model != null;
         try {
+        	personList =  model.getAddressBook().getPersonList();
         	model.getHistory().stackDeleteInstruction(toAdd);
             model.addPerson(toAdd);
             
@@ -79,14 +80,17 @@ public class AddCommand extends Command {
 		if(DateUtil.hasStartandEndTime(storedTask) ){
 			if (!(toCheck == storedTask)) {
 				if (toCheck.getStart().getDate().compareTo(storedTask.getStart().getDate()) == 0) {
-					Time tasksEndTiming = storedTask.getStart().getTime();
-					Time tasksStartTiming = storedTask.getEnd().getTime();
+					Time tasksEndTiming = storedTask.getEnd().getTime();
+					Time tasksStartTiming = storedTask.getStart().getTime();  
 		    
 					if ((toAddStartTiming.compareTo(tasksEndTiming) < 0)  && (toAddStartTiming.compareTo(tasksStartTiming) >0)) {
 						return i;
 					}
 					if((toAddEndTiming.compareTo(tasksStartTiming) > 0) && (toAddEndTiming.compareTo(tasksEndTiming) <0)){
 						return i;	
+					}
+					if(((toAddEndTiming.compareTo(tasksEndTiming) > 0) || (toAddEndTiming.compareTo(tasksEndTiming) ==0)) && ((toAddStartTiming.compareTo(tasksStartTiming) < 0) || (toAddStartTiming.compareTo(tasksStartTiming) == 0))){
+						return i;
 					}
 				}	
 			}
