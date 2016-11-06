@@ -669,18 +669,26 @@ Day:
 8. Frequently malfunctions and requres a restart.<br>
 <!-- @@author -->
 
-### Reminders
+### Wunderlist
 ##### Strengths
 
-1. It has CRUD features. <br>
-2. It has a search function. <br>
-3. It has different tabs for today, tomorrow and date-wise events. <br>
-4. It allows to set priorities for different tasks. <br>
+1. It has CRUD features for floating tasks. <br>
+2. It has CRUD features for deadlines. <br>
+3. It has a search function. <br>
+4. It has different tabs for today, tomorrow and date-wise events. <br>
 5. It allows to repeat reminders on a periodic basis. <br>
-6. It can show all previous events which are marked ‘done’. <br>
-7. It has great syncing facilities. <br>
+6. It has great syncing facilities. <br>
+7. It allows users to group all related lists in one easily accessible folder. <br>
+8. It has a comments section which hosts all our communication in one place, accessible for all. <br>
+9. It is free to use on all devices. <br>
+10. It has support for updates via push, email and in-app notifications. <br>
+11. It allow sthe user to print his to-dos and lists with just one click. <br>
 
 ##### Weaknesses
 
-1. It is not cross-platform.<br>
+1. It is not fully keyboard operated. Requires some amount of mouse usage. <br>
 2. No auto clear of done tasks or the option to auto clear done tasks after a certain period.<br>
+3. It does not support CRUD for events. <br>
+4. Does not provide flexibility in command line format. <br>
+5. It has limited undo options. <br>
+6. It does not have the ability to block multiple slots. <br>
