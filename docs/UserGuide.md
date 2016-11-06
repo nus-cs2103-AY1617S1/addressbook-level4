@@ -2,6 +2,21 @@
 
 * [Quick Start](#quick-start)
 * [Features](#features)
+  * [Add](#adding-a-task-or-event--add)
+  * [Alias](#aliasing-a-command--alias)
+  * [Delete](#deleting-a-task--delete)
+  * [Update](#update-entries--update)
+  * [Complete](#marking-a-task-as-completed--complete)
+  * [Uncomplete](#unmarking-a-completed-task-as-not-completed--uncomplete)
+  * [Pin](#pin-a-task-as-important--pin)
+  * [Unpin](#unpin-a-pinned-task--unpin)
+  * [List](#listing-all-tasks--list)
+  * [Find](#finding-all-tasks-and-events-containing-keyword-in-their-name--find)
+  * [Search Box](#activate-real-time-search--searchbox)
+  * [Undo](#undo-action--undo)
+  * [Help](#viewing-help--help)
+  * [Chnage-to](#change-storage-location--change-to)
+  * [Exit](#exiting-the-program--exit)
 * [FAQ](#FAQ)
 * [Command Summary](#command-summary)
 
@@ -39,7 +54,8 @@ Want to know how to use MESS? Let's get started!
    * **`unpin`**`1` : unpin the pinned first task in the list
    * **`exit`** :exit the program
 6. Refer to the [Features](#features) section below for details of each command.<br>
-
+7. Our UI contains different parts. The following picture introduce the UI:
+<img src="images/GuidedPictureForUser.png" width="600"><br>
 
 ## Features
 
@@ -98,6 +114,32 @@ Format: `delete INDEX`
 Examples:
 * `delete 1`<br>
   Deletes the first task in the to-do list.
+  
+<!-- @@author A0144939R-->
+#### Update entries : `update`
+Update a specific task.<br>
+Format: `update INDEX [name TASKNAME starts STARTDATETIME ends ENDDATETIME tag TAG remove-tag TO_REMOVE_TAG]`
+
+> * INDEX refers to the number appears on the list in front the task name.
+> * THE task name is optional, but needs to be preceeded by name
+> * The TAG here will be added to the referred task and the orginial tag remains. If you want to delete a tag, use `remove-tag TO_REMOVE_TAG` to delete tag by name.
+> * TO_REMOVE_TAG refers to the tag (or tags) that you want to be removed by typing the tags' name that you want to delete.
+> * You can choose what to update. It depends on you whether you want to update only one information or update multiple information. 
+
+Examples:
+* `update 2 name shopping ends 9pm`<br>
+   update the task name of the second task on the list to shopping and the start time to 3/10/2016 9 p.m.
+
+* `update 1 tag cs2103`<br>
+  add the tag of the first task on to-do list to cs2103
+
+* `update 3 ends three hours later` <br>
+  update the task name of the third task on the list to a deadline three hours after you type this command
+  
+* `update 2 tag family remove-tag friends` <br>  
+   add a tag family to the second task and remove the tag named friends
+   
+<!-- @@author -->
 
 <!-- @@author A0153467Y-->
 #### Marking a task as completed: `complete`
@@ -145,7 +187,7 @@ Example:
 unpin the pinned and first task on the list. 
 <!-- @@author -->
 
-#### Listing all persons : `list`
+#### Listing all tasks : `list`
 Shows a list of tasks and events in the todo list.<br>
 Format: `list`
 
@@ -175,33 +217,6 @@ Format: `searchbox`
 
 <!-- @@author -->
 
-
-<!-- @@author A0144939R-->
-#### Update entries : `update`
-Update a specific task.<br>
-Format: `update INDEX [name TASKNAME starts STARTDATETIME ends ENDDATETIME tag TAG remove-tag TO_REMOVE_TAG]`
-
-> * INDEX refers to the number appears on the list in front the task name.
-> * THE task name is optional, but needs to be preceeded by name
-> * The TAG here will be added to the referred task and the orginial tag remains. If you want to delete a tag, use `remove-tag TO_REMOVE_TAG` to delete tag by name.
-> * TO_REMOVE_TAG refers to the tag (or tags) that you want to be removed by typing the tags' name that you want to delete.
-> * You can choose what to update. It depends on you whether you want to update only one information or update multiple information. 
-
-Examples:
-* `update 2 name shopping ends 9pm`<br>
-   update the task name of the second task on the list to shopping and the start time to 3/10/2016 9 p.m.
-
-* `update 1 tag cs2103`<br>
-  add the tag of the first task on to-do list to cs2103
-
-* `update 3 ends three hours later` <br>
-  update the task name of the third task on the list to a deadline three hours after you type this command
-  
-* `update 2 tag family remove-tag friends` <br>  
-   add a tag family to the second task and remove the tag named friends
-   
-<!-- @@author -->
-
 <!-- @@author A0153467Y-->
 #### Undo action : `undo`
 Undo the previous action.<br>
@@ -213,10 +228,6 @@ Format: `undo`
 #### Viewing help : `help`
 Show the help menu. Format: `help`
 > Help is also shown if you enter an incorrect command e.g. `123abc`
-
-#### Exiting the program : `exit`
-Exits the program.<br>
-Format: `exit`  
 
 #### Saving the data
 To-do list data are saved in the hard disk automatically after any command that changes the data.<br>
@@ -230,6 +241,9 @@ Format: `change-to NEWFILEPATH`
 Example: 'change-to data/taskmanager.xml'
 
 <!-- @@author -->
+#### Exiting the program : `exit`
+Exits the program.<br>
+Format: `exit` 
 
 <!-- @@author A0153467Y -->
 ## FAQ
@@ -244,6 +258,11 @@ Example: 'change-to data/taskmanager.xml'
 <img src="images/MESS_004.png" width="600"><br>
 
 In this example, you can see shopping is a floating task without a start time and end time. 
+
+**Q**: What can I do if I forget those commands?<br>
+
+**A**: You can use the help command or click help tab on the top which will give you a list of command summary. Even if you type the wrong command format, MESS will show you the correct command hints.
+
 <!-- @@author -->  	
 
 ## Command Summary
