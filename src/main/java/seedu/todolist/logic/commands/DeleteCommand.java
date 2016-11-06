@@ -52,8 +52,13 @@ public class DeleteCommand extends Command {
     private UnmodifiableObservableList<ReadOnlyTask> getLastShownList() {
         if (model.getCurrentTab().equals(MainWindow.TAB_TASK_COMPLETE)) {
             return model.getFilteredCompleteTaskList();
-        } else {
+        } else if (model.getCurrentTab().equals(MainWindow.TAB_TASK_INCOMPLETE)) {
             return model.getFilteredIncompleteTaskList();
+        } else if (model.getCurrentTab().equals(MainWindow.TAB_TASK_OVERDUE)) {
+            return model.getFilteredOverdueTaskList();
+        } else {
+            assert false : "Last showb list must come from either completed, incomplete or overdue pane";
+            return null;
         }
     }
     

@@ -21,9 +21,9 @@ public class UndoCommandTest extends ToDoListGuiTest {
         assertResultMessage(UndoCommand.MESSAGE_WITHOUT_PREVIOUS_OPERATION);
     	
         //run add and edit operations
-        TestTask taskToAdd = td.deadline;   
+        TestTask taskToAdd = td.overdueDeadline;   
         commandBox.runCommand(taskToAdd.getAddCommand());
-        TestTask taskAfterEdit = td.event;
+        TestTask taskAfterEdit = td.upcomingEvent;
         commandBox.runCommand(taskAfterEdit.getEditCommand(1));
         
         //undo an edit operation
@@ -42,13 +42,13 @@ public class UndoCommandTest extends ToDoListGuiTest {
         commandBox.runCommand("clear");	
               
         //undo a clear operation
-        currentList.markTasksFromList(new TestTask[] {td.eventWithoutParameter});
-        currentList.removeTasksFromList(new TestTask[] {td.eventWithLocation}, true);
+        currentList.markTasksFromList(new int[]{1}, Status.Type.Incomplete);
+        currentList.removeTasksFromList(new int[]{1}, Status.Type.Incomplete);
         assertUndoCommandSuccess(currentList);
         
         //undo a delete operation
         currentList = new TestTaskList(td.getTypicalTasks());
-        currentList.markTasksFromList(new TestTask[] {td.eventWithoutParameter});
+        currentList.markTasksFromList(new int[]{1}, Status.Type.Incomplete);
         assertUndoCommandSuccess(currentList);
         
         //undo a done operation

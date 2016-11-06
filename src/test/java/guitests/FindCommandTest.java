@@ -19,23 +19,21 @@ public class FindCommandTest extends ToDoListGuiTest {
     	assertFindCommandSuccess("find NonExistentTask", currentList);
     	
     	//find multiple tasks that contain the keyword entered
-    	currentList = new TestTaskList (new TestTask[] {td.eventWithoutParameter, td.eventWithLocation, 
-    			td.eventWithLocationAndRemarks});
+    	currentList = new TestTaskList (new TestTask[] {td.eventWithoutParameter, td.eventWithLocation, td.eventWithParameters});
     	assertFindCommandSuccess("find event", currentList);
     	
     	//find tasks that contain one or more keywords entered
-    	currentList = new TestTaskList(new TestTask[] {td.deadlineWithoutTime, td.floatWithoutParameter, td.floatWithLocationAndRemarks});
+    	currentList = new TestTaskList(new TestTask[] {td.deadlineWithoutTime, td.floatWithoutParameter, td.floatWithParameters});
     	assertFindCommandSuccess("find time float", currentList);
 
         //find after deleting one result
         commandBox.runCommand("delete 1");
-    	currentList = new TestTaskList (new TestTask[] {td.eventWithoutParameter, td.eventWithLocation, 
-    			td.eventWithLocationAndRemarks});
+    	currentList = new TestTaskList (new TestTask[] {td.eventWithoutParameter, td.eventWithLocation, td.eventWithParameters});
         assertFindCommandSuccess("find Event", currentList);
         
         //find tasks from both incomplete and complete list
         commandBox.runCommand("done 1");
-        currentList.markTasksFromList(new TestTask[] {td.eventWithoutParameter});
+        currentList.markTasksFromList(new int[]{1}, Status.Type.Incomplete);
         assertFindCommandSuccess("find Event", currentList);        
     }
 
@@ -68,7 +66,7 @@ public class FindCommandTest extends ToDoListGuiTest {
         
         //find tasks from both incomplete and complete list
         commandBox.runCommand("done 1");
-        currentList.markTasksFromList(new TestTask[] {td.taskTwoToTestFind});
+        currentList.markTasksFromList(new int[]{1}, Status.Type.Incomplete);
         assertFindCommandSuccess("find all Two Three", currentList);        
     }
     
@@ -100,7 +98,7 @@ public class FindCommandTest extends ToDoListGuiTest {
         
         //find tasks from both incomplete and complete list
         commandBox.runCommand("done 1");
-        currentList.markTasksFromList(new TestTask[] {td.taskTwoToTestFind});
+        currentList.markTasksFromList(new int[]{1}, Status.Type.Incomplete);
         assertFindCommandSuccess("find exactly one three", currentList);  
     }
     

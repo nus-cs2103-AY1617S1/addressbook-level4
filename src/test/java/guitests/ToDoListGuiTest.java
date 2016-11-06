@@ -10,6 +10,7 @@ import org.junit.rules.TestName;
 import org.testfx.api.FxToolkit;
 
 import seedu.task.TestApp;
+import seedu.task.testutil.TestTaskList;
 import seedu.task.testutil.TestUtil;
 import seedu.task.testutil.TypicalTestTasks;
 import seedu.todolist.commons.core.EventsCenter;
@@ -101,6 +102,12 @@ public abstract class ToDoListGuiTest {
      */
     protected void assertMatching(ReadOnlyTask task, TaskCardHandle card) {
         assertTrue(TestUtil.compareCardAndTask(card, task));
+    }
+    
+    protected void assertAllListMatching(TestTaskList currentList) {
+        assertTrue(taskListPanel.isListMatching(Status.Type.Incomplete, currentList.getIncompleteList()));
+        assertTrue(taskListPanel.isListMatching(Status.Type.Complete, currentList.getCompleteList()));
+        assertTrue(taskListPanel.isListMatching(Status.Type.Overdue, currentList.getOverdueList()));
     }
 
     /**

@@ -40,7 +40,7 @@ public class ListCommandTest extends ToDoListGuiTest {
 	
 	@Test
 	public void listValidDate() {
-		TestTaskList currentList = new TestTaskList(new TestTask[] {td.deadlineWithoutParameter, td.deadlineWithLocation});
+		TestTaskList currentList = new TestTaskList(new TestTask[] {td.deadlineWithLocation});
 		assertFindCommandSuccess("list 28 jan 2017", currentList);
 	}
 	

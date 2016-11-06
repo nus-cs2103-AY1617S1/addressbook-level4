@@ -177,7 +177,6 @@ public class CommandParser {
 	 * @return a string array that contains start date, start time, end date and end time.
 	 */
 	private String[] parseTimedInterval(String interval) {
-	    System.out.println(interval);
         if (interval.contains(INTERVAL_SEPARATOR)) {
             return parseEventInterval(interval);
         } else {

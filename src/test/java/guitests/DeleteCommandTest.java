@@ -9,6 +9,8 @@ import seedu.todolist.model.task.Status;
 import static org.junit.Assert.assertTrue;
 import static seedu.todolist.logic.commands.DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS;
 
+import java.util.Collections;
+
 //@@author A0138601M
 public class DeleteCommandTest extends ToDoListGuiTest {
 
@@ -19,19 +21,27 @@ public class DeleteCommandTest extends ToDoListGuiTest {
         
         //delete the first in the list of incomplete tasks
         int[] targetIndexes = new int[]{1};
-        assertDeleteSuccess(targetIndexes, currentList, true);
+        assertDeleteSuccess(targetIndexes, currentList, Status.Type.Incomplete);
 
         //delete the last in the list of incomplete tasks
         targetIndexes = new int[]{currentList.getIncompleteList().length};
-        assertDeleteSuccess(targetIndexes, currentList, true);
+        assertDeleteSuccess(targetIndexes, currentList, Status.Type.Incomplete);
 
         //delete from the middle of the list of incomplete tasks
         targetIndexes = new int[]{currentList.getIncompleteList().length/2};
-        assertDeleteSuccess(targetIndexes, currentList, true);
+        assertDeleteSuccess(targetIndexes, currentList, Status.Type.Incomplete);
         
         //delete multiple of incomplete tasks
-        targetIndexes = new int[]{3,2};
-        assertDeleteSuccess(targetIndexes, currentList, true);
+        targetIndexes = new int[]{2,1};
+        assertDeleteSuccess(targetIndexes, currentList, Status.Type.Incomplete);
+        
+        //delete completed task
+        targetIndexes = new int[]{1};
+        assertDeleteSuccess(targetIndexes, currentList, Status.Type.Complete);
+        
+        //delete overdue task
+        targetIndexes = new int[]{1};
+        assertDeleteSuccess(targetIndexes, currentList, Status.Type.Overdue);
 
         //invalid index
         commandBox.runCommand("delete " + currentList.getIncompleteList().length + 1);
@@ -44,16 +54,13 @@ public class DeleteCommandTest extends ToDoListGuiTest {
      * @param targetIndexes a list of indexes to be deleted
      * @param currentList A copy of the current list of tasks (before deletion).
      */
-    private void assertDeleteSuccess(int[] targetIndexes, final TestTaskList currentList, boolean isFromIncompleteList) {
-        currentList.removeTasksFromList(getTasks(targetIndexes, currentList, isFromIncompleteList), isFromIncompleteList);
-
+    private void assertDeleteSuccess(int[] targetIndexes, TestTaskList currentList, Status.Type type) {
+        currentList.removeTasksFromList(targetIndexes, type);
+        taskListPanel.clickOnListTab(type);
         commandBox.runCommand(getCommand(targetIndexes));
         
-        //confirm the incomplete list now contains all previous tasks except the deleted task
-        assertTrue(taskListPanel.isListMatching(Status.Type.Incomplete, currentList.getIncompleteList()));
-        
-        //confirm the complete list remains unchanged
-        assertTrue(taskListPanel.isListMatching(Status.Type.Complete, currentList.getCompleteList()));
+        //confirm the delete task are no longer in the list
+        assertAllListMatching(currentList);
 
         //confirm the result message is correct
         assertResultMessage(MESSAGE_DELETE_TASK_SUCCESS);
@@ -74,20 +81,4 @@ public class DeleteCommandTest extends ToDoListGuiTest {
         }
         return builder.toString();
     }
-    
-    /**
-     * Returns an array of tasks to be deleted
-     */
-    private TestTask[] getTasks(int[] targetIndexes, TestTaskList currentList, boolean isFromIncompleteList) {
-        TestTask[] tasksToDelete = new TestTask[targetIndexes.length];
-        for (int i = 0; i < targetIndexes.length; i++) {
-            if (isFromIncompleteList) {
-                tasksToDelete[i] = currentList.getIncompleteList()[targetIndexes[i] - 1]; //-1 because array uses zero indexing
-            } else {
-                tasksToDelete[i] = currentList.getCompleteList()[targetIndexes[i] - 1];
-            }
-        }
-        return tasksToDelete;
-    }
-
 }

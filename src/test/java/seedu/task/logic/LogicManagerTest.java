@@ -337,10 +337,9 @@ public class LogicManagerTest {
         Task generateTask(int seed) throws Exception {
             return new Task(
                     new Name("Task " + seed),
-                    new Interval(seed + " oct 2016", seed + "pm", seed + " oct 2016", (seed + 1) + "pm"),
+                    new Interval(seed + " oct 2017", seed + "pm", seed + " oct 2017", (seed + 1) + "pm"),
                     new Location("at" + seed),
-                    new Remarks("remarks" + seed),
-                    new Status()
+                    new Remarks("remarks" + seed)
             );
         }
 

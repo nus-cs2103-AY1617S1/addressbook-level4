@@ -21,7 +21,7 @@ public class RedoCommandTest extends ToDoListGuiTest {
         assertResultMessage(RedoCommand.MESSAGE_WITHOUT_PREVIOUS_OPERATION);
     	
         //redo an undo operation
-        TestTask taskToAdd = td.deadline;   
+        TestTask taskToAdd = td.overdueDeadline;   
         TestTaskList currentList = new TestTaskList(td.getTypicalTasks());
         commandBox.runCommand(taskToAdd.getAddCommand());
         commandBox.runCommand("undo");
@@ -29,7 +29,7 @@ public class RedoCommandTest extends ToDoListGuiTest {
         assertRedoCommandSuccess(currentList);
         
         //redo two undo operations consecutively
-        TestTask taskAfterEdit = td.event;
+        TestTask taskAfterEdit = td.upcomingEvent;
         commandBox.runCommand(taskAfterEdit.getEditCommand(1));
         commandBox.runCommand("undo");
         commandBox.runCommand("undo");
