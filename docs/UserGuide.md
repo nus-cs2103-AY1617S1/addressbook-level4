@@ -297,8 +297,20 @@ Examples:
 * `saveto default`<br>
   Changes the save location to the default location which is ./data/.
 
+[](@@author A0139196U)
+#### MotivateMe command: `motivateme`
+Generates and display a motivational quote for the user. <br>
+Format: `motivateme`
+
+
+> * Emeraldo will display a random motivational quote to cheer on the user.
+
+
+Examples:
+* `motivateme`<br> 
 
 <br>
+[](@@author A0139342H)
 #### Exiting the program: `exit`
 Exits the program.<br>
 Format: `exit`
