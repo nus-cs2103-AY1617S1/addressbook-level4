@@ -2,9 +2,12 @@ package harmony.mastermind.model;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.EmptyStackException;
 import java.util.Set;
+
+import org.apache.commons.csv.CSVParser;
 
 import javafx.collections.ObservableList;
 
@@ -135,8 +138,9 @@ public interface Model {
     void searchTask(String input);
 
     //@@author A0124797R
-    /** reads the file indicated */
-    BufferedReader importFile(String fileToImport) throws FileNotFoundException;
+    /** reads the csv file indicated 
+     * @throws IOException */
+    CSVParser importCsvFile(String fileToImport) throws IOException;
 
 
 }

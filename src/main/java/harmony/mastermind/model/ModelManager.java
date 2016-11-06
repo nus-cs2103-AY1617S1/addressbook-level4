@@ -1,8 +1,10 @@
 package harmony.mastermind.model;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
@@ -10,6 +12,9 @@ import java.util.EmptyStackException;
 import java.util.Set;
 import java.util.Stack;
 import java.util.logging.Logger;
+
+import org.apache.commons.csv.CSVFormat;
+import org.apache.commons.csv.CSVParser;
 
 import com.google.common.eventbus.Subscribe;
 
@@ -272,10 +277,10 @@ public class ModelManager extends ComponentManager implements Model {
 
     // @@author A0124797R
     @Override
-    public synchronized BufferedReader importFile(String fileToImport) throws FileNotFoundException {
-        BufferedReader br = new BufferedReader(new FileReader(fileToImport));
+    public synchronized CSVParser importCsvFile(String fileToImport) throws IOException {
+        CSVParser csvParser = CSVParser.parse(fileToImport, CSVFormat.EXCEL);
         
-        return br;
+        return csvParser;
     }
     
     // @@author: A0139194X

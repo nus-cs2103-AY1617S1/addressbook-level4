@@ -79,9 +79,11 @@ public class AddCommand extends Command implements Undoable, Redoable {
     static GenericMemory deadline; 
     static GenericMemory event;
 
-    // @@author A0124797R
+    //@@author A0124797R-unused
+    //use AddCommandBuilder instead
     /** adds an event */
     /**
+     * @see AddCommand(AddCommandBuilder)
      * @deprecated
      */
     /*
