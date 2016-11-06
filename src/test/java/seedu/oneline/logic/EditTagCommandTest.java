@@ -1,5 +1,3 @@
-// @@author A0140156R
-
 package seedu.oneline.logic;
 
 import org.junit.Test;
@@ -12,9 +10,9 @@ import seedu.oneline.model.tag.Tag;
 import seedu.oneline.model.tag.TagColor;
 import seedu.oneline.model.task.Task;
 import seedu.oneline.model.task.TaskName;
-import seedu.oneline.model.task.TaskRecurrence;
 import seedu.oneline.model.task.TaskTime;
 
+//@@author A0140156R
 public class EditTagCommandTest extends LogicTestManager {
     
     Tag tag;
@@ -35,12 +33,10 @@ public class EditTagCommandTest extends LogicTestManager {
             newTag = Tag.getTag("NewTag");
             color = new TagColor("red");
             newColor = new TagColor("blue");
-            task = new Task(new TaskName("Task"),
-                    TaskTime.getDefault(), TaskTime.getDefault(), TaskTime.getDefault(), 
-                    TaskRecurrence.getDefault(), tag);
-            taskNewTag = new Task(new TaskName("Task"),
-                    TaskTime.getDefault(), TaskTime.getDefault(), TaskTime.getDefault(), 
-                    TaskRecurrence.getDefault(), newTag);
+            task = new Task(new TaskName("Task"), TaskTime.getDefault(),
+                    TaskTime.getDefault(), TaskTime.getDefault(), tag);
+            taskNewTag = new Task(new TaskName("Task"), TaskTime.getDefault(),
+                    TaskTime.getDefault(), TaskTime.getDefault(), newTag);
             taskBookEmpty = new TaskBook();
             taskBookWithTag = new TaskBook(taskBookEmpty);
             taskBookWithTag.addTask(task);

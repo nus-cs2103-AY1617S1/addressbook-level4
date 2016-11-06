@@ -44,14 +44,13 @@ public class AddCommand extends Command {
      *
      * @throws IllegalValueException if any of the raw values are invalid
      */
-    public AddCommand(String name, String startTime, String endTime, String deadline, String recurrence, String tag)
+    public AddCommand(String name, String startTime, String endTime, String deadline, String tag)
             throws IllegalValueException {
         this.toAdd = new Task(
                 new TaskName(name),
                 new TaskTime(startTime),
                 new TaskTime(endTime),
                 new TaskTime(deadline),
-                new TaskRecurrence(recurrence),
                 Tag.getTag(tag)
         );
     }
@@ -69,7 +68,6 @@ public class AddCommand extends Command {
                 TaskTime.getDefault(),
                 TaskTime.getDefault(),
                 TaskTime.getDefault(),
-                TaskRecurrence.getDefault(),
                 Tag.EMPTY_TAG);
         return new AddCommand(blankTask.update(fields));
     }

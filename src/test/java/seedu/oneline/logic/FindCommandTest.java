@@ -1,3 +1,6 @@
+// @@author A0140156R
+// Refactored individual command tests from LogicManagerTest into individual classes
+
 package seedu.oneline.logic;
 
 import java.util.Collections;

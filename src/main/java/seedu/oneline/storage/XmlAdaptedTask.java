@@ -24,8 +24,6 @@ public class XmlAdaptedTask {
     @XmlElement(required = true)
     private String deadline;
     @XmlElement(required = true)
-    private String recurrence;
-    @XmlElement(required = true)
     private boolean isCompleted; 
     @XmlElement(required = true)
     private String tag = "#";
@@ -46,7 +44,6 @@ public class XmlAdaptedTask {
         starttime = source.getStartTime().serialize();
         endtime = source.getEndTime().serialize();
         deadline = source.getDeadline().serialize();
-        recurrence = source.getRecurrence().serialize();
         isCompleted = source.isCompleted();
         tag = source.getTag().serialize();
     }
@@ -61,8 +58,7 @@ public class XmlAdaptedTask {
         final TaskTime startTime = TaskTime.deserialize(this.starttime);
         final TaskTime endTime = TaskTime.deserialize(this.endtime);
         final TaskTime deadline = TaskTime.deserialize(this.deadline);
-        final TaskRecurrence recurrence = TaskRecurrence.deserialize(this.recurrence);
         final Tag tag = this.tag.equals("#") ? Tag.getDefault() : Tag.getTag(this.tag);
-        return  new Task(name, startTime, endTime, deadline, recurrence, tag, isCompleted);
+        return  new Task(name, startTime, endTime, deadline, tag, isCompleted);
     }
 }

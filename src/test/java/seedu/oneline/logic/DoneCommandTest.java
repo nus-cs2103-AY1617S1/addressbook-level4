@@ -1,3 +1,5 @@
+// @@author A0140156R
+// Refactored individual command tests from LogicManagerTest into individual classes
 // @@author A0121657H
 
 package seedu.oneline.logic;
@@ -48,7 +50,9 @@ public class DoneCommandTest extends LogicTestManager {
 
         List<Task> originalTasks = helper.generateTaskList(p3, p1, p4, p2);
         Collections.sort(originalTasks); 
-        TaskBook expectedAB = helper.generateTaskBook(originalTasks);
+        List<Task> newTasks = helper.generateTaskList(p3, p1, p4.markDone(), p2);
+        Collections.sort(newTasks); 
+        TaskBook expectedAB = helper.generateTaskBook(newTasks);
         List<Task> expectedList = helper.generateTaskList(p2, p1, p3);
         helper.addToModel(model, originalTasks);
         model.updateFilteredListToShowAllNotDone();

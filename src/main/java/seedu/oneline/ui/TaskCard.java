@@ -5,9 +5,10 @@ import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import seedu.oneline.model.task.ReadOnlyTask;
+import seedu.oneline.model.tag.Tag;
 import seedu.oneline.model.tag.TagColor; 
 
-public class TaskCard extends UiPart{
+public class TaskCard extends UiPart {
 
     private static final String FXML = "TaskListCard.fxml";
 
@@ -18,9 +19,9 @@ public class TaskCard extends UiPart{
     @FXML
     private Label id;
     @FXML
-    private Label line1;
+    private Label time;
     @FXML
-    private Label recurrence;
+    private Label tag;
     @FXML
     private Label color; 
 
@@ -45,8 +46,9 @@ public class TaskCard extends UiPart{
         TaskCardParser parser = new TaskCardParser(task);
         name.setText(parser.getName());
         id.setText(displayedIndex + ". ");
-        line1.setText(parser.getTime());
-        recurrence.setText(parser.getRecurrence());
+        time.setText(parser.getTime());
+        tag.setText(task.getTag().equals(Tag.EMPTY_TAG) ?
+                    "" : task.getTag().toString());
         color.setStyle("-fx-text-fill: " + tagColor.toHTMLColor());
     }
 

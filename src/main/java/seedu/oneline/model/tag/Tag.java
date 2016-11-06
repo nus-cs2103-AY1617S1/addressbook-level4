@@ -1,4 +1,3 @@
-//@@author A0140156R
 package seedu.oneline.model.tag;
 
 
@@ -7,8 +6,8 @@ import java.util.Map;
 
 import seedu.oneline.commons.exceptions.IllegalCmdArgsException;
 import seedu.oneline.commons.exceptions.IllegalValueException;
-import seedu.oneline.model.task.TaskRecurrence;
 
+//@@author A0140156R
 /**
  * Represents a Tag in the Task book.
  * Guarantees: immutable; name is valid as declared in {@link #isValidTagName(String)}
@@ -53,7 +52,9 @@ public class Tag {
     }
 
     public static Tag getTag(String name) throws IllegalValueException {
-        assert name != null;
+        if (name == null || name.isEmpty()) {
+            return EMPTY_TAG;
+        }
         if (allTags.containsKey(name)) {
             return allTags.get(name);
         }
@@ -97,7 +98,7 @@ public class Tag {
      */
     public String toString() {
         if (this.equals(EMPTY_TAG)) {
-            return "#uncategorised";
+            return "[uncategorised]";
         }
         return '#' + tagName;
     }

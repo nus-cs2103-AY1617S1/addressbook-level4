@@ -71,7 +71,7 @@ public class TaskPaneHandle extends GuiHandle {
 
         // Return false if any of the tasks doesn't match
         for (int i = 0; i < tasks.length; i++) {
-            if (!tasksInList.get(startPosition + i).getName().toString().equals(tasks[i].getName().toString())){
+            if (!tasksInList.get(startPosition + i).getName().toString().equals(tasks[i].getName().toString())) {
                 return false;
             }
         }
@@ -126,6 +126,7 @@ public class TaskPaneHandle extends GuiHandle {
         }
         return found;
     }
+    // @@author
 
     /**
      * Returns true if the list is showing the task details correctly and in correct order.
@@ -163,6 +164,7 @@ public class TaskPaneHandle extends GuiHandle {
                 guiRobot.interact(() -> getListView().scrollTo(scrollTo));
                 guiRobot.sleep(200);
                 if (!TestUtil.compareCardAndTask(getTaskCardHandle(startPosition + i), tasks[i])) {
+                    assert false : getTaskCardHandle(startPosition + i).toString() + "\n" + tasks[i].toString();
                     return false;
                 }
             }
@@ -185,6 +187,7 @@ public class TaskPaneHandle extends GuiHandle {
         }
         return -1;
     }
+    // @@author
 
     public TaskCardHandle navigateToTask(String name) {
         guiRobot.sleep(500); //Allow a bit of time for the list to be updated

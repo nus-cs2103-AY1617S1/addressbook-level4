@@ -32,8 +32,8 @@ public class TypicalTestTasks {
             
             // Extra for manual addition
             eventExtra = new TaskBuilder().withName("Shopping trip").withStartTime("Sun Oct 16 21:35:45").withEndTime("Mon Oct 17 21:35:45").withTag("Tag3").build();
-            todoExtra = new TaskBuilder().withName("Name TE").withDeadline("Sun Oct 23 21:35:45").withTag("Tag5").build();
-            floatExtra = new TaskBuilder().withName("Name FE").withTag("Tag6").build();
+            todoExtra = new TaskBuilder().withName("Read Gray Shades of 50").withDeadline("Sun Oct 23 21:35:45").withTag("Tag5").build();
+            floatExtra = new TaskBuilder().withName("Plan Picnic").withTag("Tag6").build();
         } catch (IllegalValueException e) {
             e.printStackTrace();
             assert false : "not possible";

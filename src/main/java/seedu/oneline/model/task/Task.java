@@ -22,7 +22,6 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
     private final TaskTime startTime;
     private final TaskTime endTime;
     private final TaskTime deadline;
-    private final TaskRecurrence recurrence;
     private final Tag tag;
     private final boolean isCompleted;
 
@@ -42,17 +41,16 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
      * 
      */    
 
-    public Task(TaskName name, TaskTime startTime, TaskTime endTime, TaskTime deadline, TaskRecurrence recurrence, Tag tag) throws IllegalValueException {
-        this(name, startTime, endTime, deadline, recurrence, tag, false);
+    public Task(TaskName name, TaskTime startTime, TaskTime endTime, TaskTime deadline, Tag tag) throws IllegalValueException {
+        this(name, startTime, endTime, deadline, tag, false);
     }
 
-    public Task(TaskName name, TaskTime startTime, TaskTime endTime, TaskTime deadline, TaskRecurrence recurrence, Tag tag, boolean isCompleted) throws IllegalValueException {
-        assert !CollectionUtil.isAnyNull(name, startTime, endTime, deadline, recurrence, tag);
+    public Task(TaskName name, TaskTime startTime, TaskTime endTime, TaskTime deadline, Tag tag, boolean isCompleted) throws IllegalValueException {
+        assert !CollectionUtil.isAnyNull(name, startTime, endTime, deadline, tag);
         this.name = name;
         this.startTime = startTime;
         this.endTime = endTime;
         this.deadline = deadline;
-        this.recurrence = recurrence;
         this.tag = tag;
         this.isCompleted = isCompleted;
         checkValidTaskTime(this);
@@ -63,7 +61,7 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
      * @throws IllegalValueException 
      */
     public Task(ReadOnlyTask source) throws IllegalValueException {
-        this(source.getName(), source.getStartTime(), source.getEndTime(), source.getDeadline(), source.getRecurrence(), source.getTag(), source.isCompleted());
+        this(source.getName(), source.getStartTime(), source.getEndTime(), source.getDeadline(), source.getTag(), source.isCompleted());
     }
 
     @Override
@@ -85,11 +83,6 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
     public TaskTime getDeadline() {
         return deadline;
     }
-
-    @Override
-    public TaskRecurrence getRecurrence() {
-        return recurrence;
-    }
     
     @Override
     public Tag getTag() {
@@ -106,7 +99,7 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, startTime, endTime, deadline, recurrence, tag);
+        return Objects.hash(name, startTime, endTime, deadline, tag);
     }
 
     @Override
@@ -122,7 +115,6 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
         TaskTime newStartTime = oldTask.getStartTime();
         TaskTime newEndTime = oldTask.getEndTime();
         TaskTime newDeadline = oldTask.getDeadline();
-        TaskRecurrence newRecurrence = oldTask.getRecurrence();
         Tag newTag = oldTask.getTag();
         boolean newCompleted = oldTask.isCompleted();
 
@@ -140,9 +132,6 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
             case DEADLINE:
                 newDeadline = new TaskTime(entry.getValue());
                 break;
-            case RECURRENCE:
-                newRecurrence = new TaskRecurrence(entry.getValue());
-                break;
             case TAG:
                 newTag = Tag.getTag(entry.getValue());
                 break;
@@ -151,7 +140,7 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
                 break;
             }
         }
-        Task newTask = new Task(newName, newStartTime, newEndTime, newDeadline, newRecurrence, newTag, newCompleted);
+        Task newTask = new Task(newName, newStartTime, newEndTime, newDeadline, newTag, newCompleted);
         return newTask;
     }
     
@@ -226,23 +215,15 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
      */
     @Override
     public Task updateTag(Tag newTag) {
-        assert newTag != null;
-        
-        ReadOnlyTask oldTask = this;
-        
-        TaskName newName = oldTask.getName();
-        TaskTime newStartTime = oldTask.getStartTime();
-        TaskTime newEndTime = oldTask.getEndTime();
-        TaskTime newDeadline = oldTask.getDeadline();
-        TaskRecurrence newRecurrence = oldTask.getRecurrence();
-
-        Task newTask = null;
+        Map<TaskField, String> fields = new HashMap<TaskField, String>();
+        fields.put(TaskField.TAG,
+                newTag.equals(Tag.EMPTY_TAG) ? "" : newTag.getTagName());
         try {
-            newTask = new Task(newName, newStartTime, newEndTime, newDeadline, newRecurrence, newTag, false);
+            return this.update(fields);
         } catch (IllegalValueException e) {
             assert false;
+            return null;
         }
-        return newTask;
     }
     /**
      * floating task is defined as a task without a start/end time or a deadline
