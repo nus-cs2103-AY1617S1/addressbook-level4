@@ -253,7 +253,7 @@ public class ModelManager extends ComponentManager implements Model {
         //@@author A0153736B
         @Override
         public boolean run(ReadOnlyTask task) {
-            if (findType.equals("all")) {
+            if ("all".equals(findType)) {
             	for (String keyword : nameKeyWords) {
             		if (!StringUtil.containsIgnoreCase(task.getName().fullName, keyword)) {
             			return false;
@@ -261,7 +261,7 @@ public class ModelManager extends ComponentManager implements Model {
             	}
             	return true;
             }
-            else if (findType.equals("exactly")) {
+            else if ("phrase".equals(findType)) {
             	String keyword = String.join(" ", nameKeyWords).trim().toLowerCase();
             	return task.getName().fullName.toLowerCase().contains(keyword);
             }
