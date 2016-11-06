@@ -576,8 +576,7 @@ public class CommandParser {
         }
 
         try {
-            String arguments = EMPTY_STRING;
-            arguments = formatArguments(splitArgs, arguments);
+            String arguments = formatArguments(splitArgs);
             String taskDetailArguments = getTaskDetailArguments(arguments);
             String tagArguments = getTagArguments(arguments);
 
@@ -593,11 +592,12 @@ public class CommandParser {
      * @param arguments
      * @return formatted argument
      */
-    private String formatArguments(String[] splitArgs, String arguments) {
+    private String formatArguments(String[] splitArgs) {
+        String formattedArgument = EMPTY_STRING;
         for (int i = 1; i < splitArgs.length; i++) {
-            arguments = arguments + splitArgs[i] + " ";
+            formattedArgument = formattedArgument + splitArgs[i] + " ";
         }
-        return arguments;
+        return formattedArgument;
     }
 
     /**
