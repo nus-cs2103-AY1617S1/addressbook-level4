@@ -90,20 +90,12 @@ Example: Add D1 #VeryImportant #omg
 ###2 Edit a task
 
 When you accidentally enter the wrong details on any of your tasks, worry not. The multiple edit task methods listed below allow you to update specific task details.
-
->Note: Adding a start time and end time to a to-do will automatically convert your to-do into and event.
-
+<br><br>
 >Note: Adding a end time to a to-do will automatically convert your to-do into a deadline.
 
 >Note: Adding a start time to a deadline will automatically convert a deadline to an event.
 
 >Note: Add a date to a to-do will automatically convert your to-do into a deadline with a default end time of 2359 on that date.
-
->Note: Removing date from events and deadlines will automatically convert them into a to-do with no date or time.
-
->Note: Removing start time from events will automatically convert them into deadlines.
-
->Note: Removing end time from deadlines will automatically set the end time of the deadline to 2359. 
 
 <br>
 ####2.1 Edit task description
