@@ -71,10 +71,10 @@ We are a team based in the [School of Computing, National University of Singapor
 * Components in charge of: [Testing] (https://github.com/CS2103AUG2016-W13-C2/main/blob/master/docs/DeveloperGuide.md#testing)
 * Aspects/tools in charge of: Program Testing, Command Developer
 * Features implemented:
-   * [EditCommandTest](https://github.com/CS2103AUG2016-W13-C2/main/blob/master/docs/UserGuide.md#editing-a-task--edit)
+   * [ContinueCommand](https://github.com/CS2103AUG2016-W13-C2/main/blob/master/docs/UserGuide.md#marking-a-completed-task-as-undone--continue)
    * [EditCommand](https://github.com/CS2103AUG2016-W13-C2/main/blob/master/docs/UserGuide.md#editing-a-task--edit) 
    * [TypicalTaskTesting](https://github.com/CS2103AUG2016-W13-C2/main/blob/master/docs/DeveloperGuide.md#troubleshooting-tests)
-   * Code written: [[functional code](https://github.com/CS2103AUG2016-W13-C2/main/blob/master/collated/main/A0147994J.md)][[test code](https://github.com/CS2103AUG2016-W13-C2/main/blob/master/collated/test/A0147994J.md)][[docs](https://github.com/CS2103AUG2016-W13-C2/main/blob/master/collated/docs/A0147994J.md)] 
+* Code written: [[functional code](https://github.com/CS2103AUG2016-W13-C2/main/blob/master/collated/main/A0147994J.md)][[test code](https://github.com/CS2103AUG2016-W13-C2/main/blob/master/collated/test/A0147994J.md)][[docs](https://github.com/CS2103AUG2016-W13-C2/main/blob/master/collated/docs/A0147994J.md)] 
 * Other major contributions:
   * Aid in the initial refactoring from AddressBook test cases to GGist test cases
   * Add specific classes inside [[#9]https://github.com/CS2103AUG2016-W13-C2/main/pull/9]
