@@ -6,7 +6,6 @@ import java.util.logging.Logger;
 import javafx.collections.ObservableList;
 import tars.commons.core.ComponentManager;
 import tars.commons.core.LogsCenter;
-import tars.commons.util.StringUtil;
 import tars.logic.commands.Command;
 import tars.logic.commands.CommandResult;
 import tars.logic.commands.RedoCommand;
@@ -23,6 +22,8 @@ import tars.storage.Storage;
 public class LogicManager extends ComponentManager implements Logic {
 
     private final Logger logger = LogsCenter.getLogger(LogicManager.class);
+    private static final String LOG_USER_COMMAND =
+            "----------------[USER COMMAND][%1$s]";
 
     private final Model model;
     private final Parser parser;
@@ -34,9 +35,7 @@ public class LogicManager extends ComponentManager implements Logic {
 
     @Override
     public CommandResult execute(String commandText) {
-        logger.info("----------------[USER COMMAND]"
-                + StringUtil.STRING_SQUARE_BRACKET_OPEN + commandText
-                + StringUtil.STRING_SQUARE_BRACKET_CLOSE);
+        logger.info(String.format(LOG_USER_COMMAND, commandText));
         Command command = parser.parseCommand(commandText);
         command.setData(model);
 
