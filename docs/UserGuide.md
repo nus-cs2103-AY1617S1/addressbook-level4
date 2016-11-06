@@ -47,7 +47,7 @@ To start things off, let us add a simple task with no date or time, just a simpl
 >Format: **add** &lt;to-do description&gt; &lt;#tag&gt;
 
 Example: add go swimming #fitness
-<br>
+<br><br>
 >Note: tags are optional and multiple tags can be added to all tasks.
 
 <br>
