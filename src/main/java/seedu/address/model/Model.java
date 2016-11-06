@@ -39,6 +39,9 @@ public interface Model {
     void updateFilteredListToShowClashing() throws DuplicateTaskException;
 
 	void updateFilteredListToShowIncompleteTask() throws DuplicateTaskException;
+	
+	/** Updates the filter of the filtered task list to show tasks relevant to the specific keyword.*/
+	void updateFilteredListToShowUncompleteAndKeywordTasks(String keyword) throws DuplicateTaskException;
 
 	void updateFilteredPersonGroup(String keywords);
 	
