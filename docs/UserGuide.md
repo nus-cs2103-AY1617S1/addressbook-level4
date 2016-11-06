@@ -199,12 +199,13 @@ Examples:
 
 <br>
 [](@@author A0139196U)
-#### Editing a task’s tag: ‘tag add/delete/clear`
+#### Editing a task’s tag: `tag add/delete/clear`
 Edits the specified task’s tag in Emeraldo.<br>
 Format: `tag add/delete/clear INDEX [#TAGS]`
 
 
 > Task’s tags will be edited given the new parameter, and updated instantly.<br>
+> Parameters cannot be one of the following reserved words: today, tomorrow, completed, thisweek, nextweek, thismonth, nextmonth.
 > For add/delete, requires one parameter to be passed in as tag.<br>
 > For clear, parameter to be passed in is not required.
 
