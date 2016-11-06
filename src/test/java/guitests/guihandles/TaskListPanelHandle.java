@@ -1,15 +1,19 @@
 package guitests.guihandles;
 
 import guitests.GuiRobot;
+import javafx.collections.FXCollections;
 import javafx.geometry.Point2D;
 import javafx.scene.Node;
 import javafx.scene.control.ListView;
 import javafx.stage.Stage;
 import seedu.whatnow.TestApp;
+import seedu.whatnow.testutil.TestTask;
 import seedu.whatnow.testutil.TestUtil;
 import seedu.whatnow.model.task.ReadOnlyTask;
 import seedu.whatnow.model.task.Task;
 
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -49,6 +53,7 @@ public class TaskListPanelHandle extends GuiHandle {
      *            A list of task in the correct order.
      */
     public boolean isListMatching(ReadOnlyTask... tasks) {
+        Arrays.sort(tasks);
         return this.isListMatching(0, tasks);
     }
 
@@ -67,14 +72,15 @@ public class TaskListPanelHandle extends GuiHandle {
     public boolean containsInOrder(int startPosition, ReadOnlyTask... tasks) {
         List<ReadOnlyTask> tasksInList = getListView().getItems();
 
-        // Return false if the list in panel is too short to contain the given
-        // list
+        // Return false if the list in panel is too short to contain the given list
         if (startPosition + tasks.length > tasksInList.size()) {
             return false;
         }
-
+        
         // Return false if any of the tasks doesn't match
         for (int i = 0; i < tasks.length; i++) {
+            System.out.println(tasksInList.get(startPosition + i).getName());
+            System.out.println(tasks[i].getName());
             if (!tasksInList.get(startPosition + i).getName().fullName.equals(tasks[i].getName().fullName)) {
                 return false;
             }
@@ -97,6 +103,11 @@ public class TaskListPanelHandle extends GuiHandle {
             throw new IllegalArgumentException(
                     "List size mismatched\n" + "Expected " + (getListView().getItems().size() - 1) + " tasks");
         }
+        
+        for (int i = 0; i < tasks.length; i++) {
+            System.out.println("TASK " + i + ": " + tasks[i]);
+        }
+        
         assertTrue(this.containsInOrder(startPosition, tasks));
         for (int i = 0; i < tasks.length; i++) {
             final int scrollTo = i + startPosition;

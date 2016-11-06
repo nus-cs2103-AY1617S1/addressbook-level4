@@ -46,6 +46,10 @@ public class Parser {
 
     private static final Pattern DATE_WITH_SLASH_FORMAT = Pattern
             .compile("^(([3][0-1])|([1-2][0-9])|([0]??[1-9]))[/](([1][0-2])|([0]??[1-9]))[/]([0-9]{4})$");
+    private static final Pattern DATE_WITH_HYPHEN_FORMAT = Pattern
+            .compile("^(([3][0-1])|([1-2][0-9])|([0]??[1-9]))[-](([1][0-2])|([0]??[1-9]))[-]([0-9]{4})$");
+    private static final Pattern DATE_WITH_DOT_FORMAT = Pattern
+            .compile("^(([3][0-1])|([1-2][0-9])|([0]??[1-9]))[.](([1][0-2])|([0]??[1-9]))[.]([0-9]{4})$");
     private static final Pattern TIME_FORMAT = Pattern
             .compile("^(([1][0-2])|([0-9])|([0][1-9]))((:|\\.)([0-5][0-9]))??((am)|(pm))$");
     private static final Pattern TAG_FORMAT = Pattern.compile("^(t/)");
@@ -98,9 +102,13 @@ public class Parser {
     private static final String DELIMITER_BLANK_SPACE = " ";
     private static final String DELIMITER_DOUBLE_QUOTATION_MARK = "\"";
     private static final String DELIMITER_FORWARD_SLASH = "/";
+    private static final String DELIMITER_HYPHEN = "-";
+    private static final String DELIMITER_DOT = "\\.";
 
     private static final String BACK_SLASH = "\\";
     private static final String FORWARD_SLASH = "/";
+    private static final String HYPHEN = "-";
+    private static final String DOT = ".";
     private static final String EMPTY_STRING = "";
 
     private static final String DATE_SUFFIX_REGEX = "(st|nd|rd|th)$";
@@ -155,9 +163,6 @@ public class Parser {
         case AddCommand.COMMAND_WORD:
             return prepareAdd(arguments);
 
-        case SelectCommand.COMMAND_WORD:
-            return prepareSelect(arguments);
-
         case DeleteCommand.COMMAND_WORD:
             return prepareDelete(arguments);
 
@@ -195,10 +200,10 @@ public class Parser {
             return new RedoCommand();
 
         case FreeTimeCommand.COMMAND_WORD:
-            return prepareFreeTimeCommand(arguments);
+            return prepareFreeTime(arguments);
 
         case PinCommand.COMMAND_WORD:
-            return preparePinCommand(arguments);
+            return preparePin(arguments);
 
         default:
             return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
@@ -237,8 +242,17 @@ public class Parser {
      * @return the formatted date with a zero padded in front of single digits in DD and MM
      */
     private static String formatDate(String date) {
-        String[] splitDate = date.split(FORWARD_SLASH);
+        String[] splitDate = null;
         String formattedDate = EMPTY_STRING;
+        if (date.contains(FORWARD_SLASH)) {
+            splitDate = date.split(DELIMITER_FORWARD_SLASH);
+        } else if (date.contains(HYPHEN)) {
+            splitDate = date.split(DELIMITER_HYPHEN);
+        } else if (date.contains(DOT)) {
+            splitDate = date.split(DELIMITER_DOT);
+        } else {
+            return date;
+        }
 
         for (int i = 0; i < splitDate.length; i++) {
             formattedDate += splitDate[i].replaceAll(SINGLE_DIGIT, ZERO + splitDate[i]);
@@ -246,8 +260,8 @@ public class Parser {
                 formattedDate += FORWARD_SLASH;
             }
         }
-
-        return date;
+        
+        return formattedDate;
     }
 
     /**
@@ -337,6 +351,10 @@ public class Parser {
         } else if (DAYS_IN_SHORT.matcher(argument).find()) {
             return argument;
         } else if (DATE_WITH_SLASH_FORMAT.matcher(argument).find()) {
+            return argument;
+        } else if (DATE_WITH_HYPHEN_FORMAT.matcher(argument).find()) {
+            return argument;
+        } else if (DATE_WITH_DOT_FORMAT.matcher(argument).find()) {
             return argument;
         } else {
             return null;
@@ -917,23 +935,6 @@ public class Parser {
         return true;
     }
 
-    //@@author A0139772U-reused
-    /**
-     * Parses arguments in the context of the select task command.
-     *
-     * @param args
-     *            full command args string
-     * @return the prepared command
-     */
-    private Command prepareSelect(String args) {
-        Optional<Integer> index = parseIndex(args);
-        if (!index.isPresent()) {
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SelectCommand.MESSAGE_USAGE));
-        }
-
-        return new SelectCommand(index.get());
-    }
-
     //@@author A0139772U
     /**
      * Returns the specified index in the {@code command} IF a positive unsigned
@@ -980,15 +981,21 @@ public class Parser {
      * @param args full command args string
      * @return the prepared command
      */
-    private Command prepareFreeTimeCommand(String args) {
+    private Command prepareFreeTime(String args) {
+        if (args == null) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FreeTimeCommand.MESSAGE_USAGE));
+        }
+        
         String date = args.trim();
         try {
-        if (TODAY_OR_TOMORROW.matcher(date).find() || DAYS_IN_FULL.matcher(date).find() || DAYS_IN_SHORT.matcher(date).find()) {
-            date = TaskDate.formatDayToDate(date);
-        } else {
-            date = TaskDate.formatDatetoStandardDate(date);
-        }
-        return new FreeTimeCommand(date);
+            if (TODAY_OR_TOMORROW.matcher(date).find() || DAYS_IN_FULL.matcher(date).find() || DAYS_IN_SHORT.matcher(date).find()) {
+                date = TaskDate.formatDayToDate(date);
+            } else if (!date.equals(EMPTY_STRING)){
+                date = TaskDate.formatDateToStandardDate(date);
+            } else {
+                return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FreeTimeCommand.MESSAGE_USAGE));
+            }
+            return new FreeTimeCommand(date);
         } catch (ParseException e) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FreeTimeCommand.MESSAGE_USAGE));
         } catch (IllegalValueException ie) {
@@ -996,7 +1003,11 @@ public class Parser {
         }
     }
 
-    private Command preparePinCommand(String args) {
+    private Command preparePin(String args) {
+        if (args == null) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, PinCommand.MESSAGE_MISSING_DATE));
+        }
+        
         String[] argComponents = args.trim().split(DELIMITER_BLANK_SPACE);
         if(argComponents.length == 1) {
             if(argComponents[ZERO].equals(TASK_ARG_DATE)) {
