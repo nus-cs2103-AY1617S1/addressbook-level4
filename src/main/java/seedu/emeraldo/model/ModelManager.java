@@ -280,7 +280,7 @@ public class ModelManager extends ComponentManager implements Model {
         updateFilteredTaskList(new PredicateExpression(new DateTimeQualifier(keyword)));
     }
     
-    //=========== Filtered Task List Accessors (With completed tag) ========================================
+    //=========== Filtered Task List Accessors (With completed tag in past 10 sec) ========================
     
     public void updateFilteredTaskListWithCompletedInPast10Seconds(Set<String> keywords){
         PredicateExpression predicateExpression
@@ -571,10 +571,11 @@ public class ModelManager extends ComponentManager implements Model {
         public boolean run(ReadOnlyTask task) {
         	this.completedValueDate = task.getDateTime().completedValueDate;
         	this.completedValueTime = task.getDateTime().completedValueTime;
-        	if(this.completedValueDate != null && this.completedValueTime != null && isCompletedInLast10Seconds())
+        	if(this.completedValueDate != null && this.completedValueTime != null && isCompletedInLast10Seconds()){
         		return true;
-        	else
+        	}else{
         		return false;
+        	}
         }
         
         //Returns true if task is completed within the last 10 seconds
@@ -602,10 +603,11 @@ public class ModelManager extends ComponentManager implements Model {
         @Override
         public boolean run(ReadOnlyTask task) {
         	DateTime dateTime = task.getDateTime();
-        	if(dateTime.valueFormatted.startsWith("Completed")) 
+        	if(dateTime.valueFormatted.startsWith("Completed")){
         		return false;
-        	else
+        	}else{
         		return true;
+        	}
         }
 
         @Override
@@ -628,10 +630,11 @@ public class ModelManager extends ComponentManager implements Model {
         @Override
         public boolean run(ReadOnlyTask task) {
         	DateTime dateTime = task.getDateTime();
-        	if(dateTime.valueFormatted.startsWith("Completed")) 
+        	if(dateTime.valueFormatted.startsWith("Completed")){
         		return true;
-        	else
+        	}else{
         		return false;
+        	}
         }
 
         @Override
