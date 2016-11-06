@@ -214,12 +214,12 @@ public class Parser {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
         }
         
-        Optional<Integer> index = Optional.of(Integer.parseInt(matcher.group("targetIndex")));
+        Optional<Integer> index = parseIndex(args, EDIT_DATA_ARGS_FORMAT);
+      
         final String[] splitNewDetails = matcher.group("newDetails").split("\\s+");
         ArrayList<String> combinedDetails = combineSameDetails(splitNewDetails);
         
         Hashtable<String, String> newDetailsSet = new Hashtable<String, String>();
-        
         for (String detail : combinedDetails) {
         	String detailType = extractDetailType(detail);
         	String preparedNewDetail = prepareNewDetail(detailType, detail);
@@ -228,7 +228,7 @@ public class Parser {
 		}
         
         return new EditCommand(
-           index.get()-1,
+           index.get() - 1,
            newDetailsSet
         );
     }
@@ -333,7 +333,7 @@ public class Parser {
      */
     private Command prepareDelete(String args) {
 
-        Optional<Integer> index = parseIndex(args);
+        Optional<Integer> index = parseIndex(args, TASK_INDEX_ARGS_FORMAT);
         if(!index.isPresent()){
             return new IncorrectCommand(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
@@ -344,7 +344,7 @@ public class Parser {
     
     private Command prepareDone(String args) {
 
-        Optional<Integer> index = parseIndex(args);
+        Optional<Integer> index = parseIndex(args, TASK_INDEX_ARGS_FORMAT);
         System.out.println("index at preparedone:" + index.get());
         if(!index.isPresent()){
             return new IncorrectCommand(
@@ -361,7 +361,7 @@ public class Parser {
      * @return the prepared command
      */
     private Command prepareSelect(String args) {
-        Optional<Integer> index = parseIndex(args);
+        Optional<Integer> index = parseIndex(args, TASK_INDEX_ARGS_FORMAT);
         if(!index.isPresent()){
             return new IncorrectCommand(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, SelectCommand.MESSAGE_USAGE));
@@ -374,8 +374,8 @@ public class Parser {
      * Returns the specified index in the {@code command} IF a positive unsigned integer is given as the index.
      *   Returns an {@code Optional.empty()} otherwise.
      */
-    private Optional<Integer> parseIndex(String command) {
-        final Matcher matcher = TASK_INDEX_ARGS_FORMAT.matcher(command.trim());
+    private Optional<Integer> parseIndex(String command, final Pattern matcherFormat) {
+        final Matcher matcher = matcherFormat.matcher(command.trim());
         if (!matcher.matches()) {
             return Optional.empty();
         }
