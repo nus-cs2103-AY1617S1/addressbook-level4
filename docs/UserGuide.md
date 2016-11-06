@@ -83,7 +83,7 @@
   >  Example Command: `add task Finish Notes` <br>
 
   > <div style="text-align:center"><img src="images/appResponses/add_command_response.png" width="300"><br>
-> App Response for `add task Finish Notes`
+  > App Response for `add task Finish Notes`
 
 #### Add an event
 
@@ -137,10 +137,10 @@ For tasks, you can only edit the name, its tags and the end date and time. Note:
 
 2. App will display edited item's details in the results panel.
 
-> Example Command:
-> 1. `edit 1 #wife`
-> <div style="text-align:center"><img src="images/appResponses/edit_command_response.png" width="300"><br>
-> App Response for `edit 1 #wife`
+  > Example Command:
+  > 1. `edit 1 #wife`
+  > <div style="text-align:center"><img src="images/appResponses/edit_command_response.png" width="300"><br>
+  > App Response for `edit 1 #wife`
 
 
 #### Edit a deadline's name, end date and end time
@@ -211,9 +211,9 @@ For events, you can edit all optional parameters.
 
 2. Console refreshes with all deadlines, tasks, and events displayed.
 
-> Example Command: `list`
-> <div style="text-align:center"><img src="images/appResponses/list_command_response.png" width="300"><br>
-> App Response for `list`
+  > Example Command: `list`
+  > <div style="text-align:center"><img src="images/appResponses/list_command_response.png" width="300"><br>
+  > App Response for `list`
 
 [comment]: # (@@author A0140060A)
 
@@ -248,20 +248,26 @@ For events, you can edit all optional parameters.
 [comment]: # (@@author A0143641M)
 
 ### When you want to delete a deadline, task or event
-* The index(es) specified refer(s) to the index number(s) shown in the most recent listing.
+* The index(es) specified refers to the index number(s) shown in the most recent listing.
 * The index(es) must be positive integers 1, 2, 3...
+* This action is irreversible.
 
 #### Delete one deadline, task or event
 
 1. Type `del[ete] INDEX`. Press `Enter`.
 
-2. Console displays deleted item in results panel and refreshes list of items.
+2. Console displays deleted item in second box and refreshes list of items.
+
+  >  Example Command: `delete 1` <br>
+
+  > <div style="text-align:center"><img src="images/appResponses/delete_command_response.png" width="300"><br>
+  > App Response for `delete 1`
 
 #### Delete multiple deadlines, tasks or events
 
 1. Type `del[ete] INDEX ...`. Press `Enter`.
 
-2. Console displays in the results panel the list of deleted items in ascending index order from the last listing and refreshes list of items.
+2. Console displays deleted item in second box and refreshes list of items.
 
 [comment]: # (@@author A0065571A)
 
@@ -314,13 +320,10 @@ For events, you can edit all optional parameters.
 
 ### When you want to specify a custom save location for your data
 
-> * You must specify the name of the file to save in .xml format.
-> * You can only save within the home folder that your task manager is in.
-> * Use only forward slashes '/' to specify the directory to save the data file in.
-> * Note: This command cannot be undone.
-< * Note: Current data will overwrite the specified file to save to if the specified file already exists.
+> * File to save in is limited to .xml format.
 
-1. Type `save VALID_FILE_PATH_NAME`. Press `Enter`.
+1. Type `save VALID_FILE_PATH`.
+2. Press `Enter`.
 
 [comment]: # (@@author A0140060A)
 
@@ -355,7 +358,7 @@ List Events | `l[ist]e[vent]` | `le`
 List all uncompleted items | `l[ist]n[ot]d[one]` | `lnd`
 Notdone | `n[ot]d[one] INDEX` | `nd 1`
 Redo | `r[edo]` | `redo`
-Specify custom save location | `save VALID_FILE_PATH_NAME` | `save Users/Jim/data.xml`
+Specify custom save location | `save VALID_FILE_PATH` | `save C:\Users\Jim\data.xml`
 Select | `s[elect] INDEX` | `select 1`
 Undo | `u[ndo]` | `undo`
 
