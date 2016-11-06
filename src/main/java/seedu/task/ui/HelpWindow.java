@@ -19,8 +19,7 @@ public class HelpWindow extends UiPart {
     private static final String ICON = "/images/help_icon.png";
     private static final String FXML = "HelpWindow.fxml";
     private static final String TITLE = "Help";
-    private static final String USERGUIDE_URL =
-            "https://github.com/CS2103AUG2016-T14-C4/main/blob/master/docs/UserGuide.md";
+    private static final String USERGUIDE_URL = HelpWindow.class.getResource("/command-summary/CommandSummary.html").toExternalForm();
 
     private AnchorPane mainPane;
 
