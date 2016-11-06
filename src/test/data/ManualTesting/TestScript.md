@@ -268,7 +268,7 @@ Type `undo` into the command box
 ## List Command
 
 
-Task to be added with a date to be defined by the tester.
+Task to be added with a date to be defined by the tester
 1. Type `add "today's task" on (Today's date)`
 2. Type `add "tomorrow's task" on (Tomorrow's date) #friends`
 3. Type `add "nextweek's task" on (Any date next week)`
