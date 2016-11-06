@@ -31,7 +31,7 @@ public class CompleteCommand extends Command implements TaskBookEditor{
     }
     
     public CompleteCommand(String targetIndex) {
-        this.targetIndex = targetIndex;
+        this.targetIndex = targetIndex.toLowerCase().trim();
     }
     
     @Override

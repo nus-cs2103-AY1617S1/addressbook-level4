@@ -39,9 +39,9 @@ public class DeleteCommand extends Command implements TaskBookEditor {
     
     
     public DeleteCommand(String startIdx, String endIdx) throws IllegalValueException {
-        this.startIdx = startIdx.trim();
+        this.startIdx = startIdx.trim().toLowerCase();
         // If end index is not specified, default it to startIdx.
-        this.endIdx = endIdx == null ? startIdx : endIdx.trim(); 
+        this.endIdx = endIdx == null ? startIdx : endIdx.trim().toLowerCase(); 
     }
     
     @Override
@@ -108,7 +108,7 @@ public class DeleteCommand extends Command implements TaskBookEditor {
     
     /** Returns true if prefixes of both indices are the same. */
     private boolean isIndicesReferringToSameLists() {
-        return startIdx.charAt(0) == endIdx.charAt(0);
+        return startIdx.toLowerCase().charAt(0) == endIdx.toLowerCase().charAt(0);
     }
     
     /** Converts {@code list} to a string with each task on an indexed newline. */
