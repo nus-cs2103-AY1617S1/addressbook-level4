@@ -373,7 +373,7 @@ Examples:
 Saves a copy of the existing storage file to a new directiory, also all future saves save to this new directory.
 Format: `saveas NEW_DIRECTORY`
 
-> * `NEW_DIRECTORY` should be in the format: `[desired_path]/[file_name].xml`
+> * `NEW_DIRECTORY` should be in the format: `FILE_PATH/FILE_NAME.xml`
 > * If you want to reset the save directory back to default of `<home_folder_of_installation>/data/jimi.xml`, type `saveas reset`
 
 Example:
