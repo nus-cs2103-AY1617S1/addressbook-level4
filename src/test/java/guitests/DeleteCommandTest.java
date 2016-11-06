@@ -7,6 +7,8 @@ import seedu.whatnow.testutil.TestUtil;
 import static org.junit.Assert.assertTrue;
 import static seedu.whatnow.logic.commands.DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS;
 
+import java.util.Arrays;
+
 public class DeleteCommandTest extends WhatNowGuiTest {
 
     @Test
@@ -15,6 +17,7 @@ public class DeleteCommandTest extends WhatNowGuiTest {
         //delete the first in the list
         TestTask[] currentList = td.getTypicalTasks();
         int targetIndex = 1;
+        Arrays.sort(currentList);
         assertDeleteSuccess(targetIndex, currentList);
 
         //delete the last in the list
