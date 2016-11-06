@@ -56,7 +56,6 @@ public class MainApp extends Application {
 
         config = initConfig(getApplicationParameter("config"));
         storage = new StorageManager(config.getActivityManagerFilePath(), config.getUserPrefsFilePath());
-
         userPrefs = initPrefs(config);
 
         initLogging(config);
@@ -103,7 +102,6 @@ public class MainApp extends Application {
             logger.warning("Problem while reading from the file. . Will be starting with an empty Activity Manager");
             initialData = new ActivityManager();
         }
-
         return new ModelManager(initialData, userPrefs);
     }
 

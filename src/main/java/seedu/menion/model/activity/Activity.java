@@ -1,5 +1,6 @@
 package seedu.menion.model.activity;
 
+import seedu.menion.commons.core.Messages;
 import seedu.menion.commons.exceptions.IllegalValueException;
 import seedu.menion.commons.util.CollectionUtil;
 import seedu.menion.commons.util.DateChecker;
@@ -11,7 +12,7 @@ import java.util.Objects;
  * Represents a Person in the address book. Guarantees: details are present and
  * not null, field values are validated.
  */
-//@@author A0139164A
+// @@author A0139164A
 public class Activity implements ReadOnlyActivity {
 
     // Types of Activity
@@ -48,14 +49,13 @@ public class Activity implements ReadOnlyActivity {
     private Boolean emailSent;
     private Boolean activityTimePassed;
     private Boolean eventOngoing;
-    
+
     // Every Activity Object will have an array list of it's details for ease of
     // accessibility
     private ArrayList<String> activityDetails;
 
     /**
-     * For floatingTask
-     * Every field must be present and not null.
+     * For floatingTask Every field must be present and not null.
      */
     public Activity(String type, ActivityName name, Note note, Completed status) {
         this.activityType = type;
@@ -64,45 +64,49 @@ public class Activity implements ReadOnlyActivity {
         this.status = status;
         setActivityDetails();
     }
-    
+
     /**
-     * For Task
-     * Every field must be present and not null.
-     * @param activityTimePassed TODO
-     * @param emailSent TODO
+     * For Task Every field must be present and not null.
+     * 
+     * @param activityTimePassed
+     *            TODO
+     * @param emailSent
+     *            TODO
      */
-    public Activity(String type, ActivityName name, Note note, ActivityDate startDate, ActivityTime startTime, Completed status, Boolean activityTimePassed, Boolean emailSent) {
+    public Activity(String type, ActivityName name, Note note, ActivityDate startDate, ActivityTime startTime,
+            Completed status, Boolean activityTimePassed, Boolean emailSent) {
         this.activityType = type;
         this.name = name;
         this.note = note;
         this.startDate = startDate;
         this.startTime = startTime;
         this.status = status;
-        if (activityTimePassed == null){
-        	this.activityTimePassed = false;
+        if (activityTimePassed == null) {
+            this.activityTimePassed = false;
+        } else {
+            this.activityTimePassed = activityTimePassed;
         }
-        else {
-        	this.activityTimePassed = activityTimePassed;
+        if (emailSent == null) {
+            this.emailSent = false;
+        } else {
+            this.emailSent = emailSent;
         }
-        if (emailSent == null){
-        	this.emailSent = false;
-        }
-        else {
-        	this.emailSent = emailSent;
-        }
-        
+
         setActivityDetails();
     }
-    
+
     /**
-     * For Event
-     * Every field must be present and not null.
-     * @param activityTimePassed TODO
-     * @param eventOngoing TODO
+     * For Event Every field must be present and not null.
+     * 
+     * @param activityTimePassed
+     *            TODO
+     * @param eventOngoing
+     *            TODO
      */
-    public Activity(String type, ActivityName name, Note note, ActivityDate startDate, 
-            ActivityTime startTime, ActivityDate endDate, ActivityTime endTime, Completed status, Boolean activityTimePassed, Boolean eventOngoing) {
-        
+    public Activity(String type, ActivityName name, Note note, ActivityDate startDate, ActivityTime startTime,
+            ActivityDate endDate, ActivityTime endTime, Completed status, Boolean activityTimePassed,
+            Boolean eventOngoing) {
+
         this.activityType = type;
         this.name = name;
         this.note = note;
@@ -111,37 +115,34 @@ public class Activity implements ReadOnlyActivity {
         this.endDate = endDate;
         this.endTime = endTime;
         this.status = status;
-        if (activityTimePassed == null){
-        	this.activityTimePassed = false;
+        if (activityTimePassed == null) {
+            this.activityTimePassed = false;
+        } else {
+            this.activityTimePassed = activityTimePassed;
         }
-        else {
-        	this.activityTimePassed = activityTimePassed;
+        if (eventOngoing == null) {
+            this.eventOngoing = false;
+        } else {
+            this.eventOngoing = eventOngoing;
         }
-        if (eventOngoing == null){
-        	this.eventOngoing = false;
-        }
-        else {
-        	this.eventOngoing = eventOngoing;
-        }
-        
+
         setActivityDetails();
     }
-    
 
     /**
      * Copy constructor.
      * 
      */
     public Activity(ReadOnlyActivity source) {
-        
+
         if (source.getActivityType().equals(FLOATING_TASK_TYPE)) {
             activityType = source.getActivityType();
             name = source.getActivityName();
             note = source.getNote();
             status = source.getActivityStatus();
-            
         } else if (source.getActivityType().equals(TASK_TYPE)) {
-            activityType = source.getActivityType();;
+            activityType = source.getActivityType();
+            ;
             name = source.getActivityName();
             note = source.getNote();
             startDate = source.getActivityStartDate();
@@ -150,7 +151,8 @@ public class Activity implements ReadOnlyActivity {
             emailSent = source.isEmailSent();
             activityTimePassed = source.isTimePassed();
         } else if (source.getActivityType().equals(EVENT_TYPE)) {
-            activityType = source.getActivityType();;
+            activityType = source.getActivityType();
+            ;
             name = source.getActivityName();
             note = source.getNote();
             startDate = source.getActivityStartDate();
@@ -164,37 +166,58 @@ public class Activity implements ReadOnlyActivity {
         }
         this.status = source.getActivityStatus();
         this.activityDetails = source.getActivityDetails();
-
     }
 
+    // Creates a unique ArrayList of details for each activity.
     @Override
-    public void setCompleted() {
-        this.status = new Completed(true);
+    public void setActivityDetails() {
+        if (activityType.equals(FLOATING_TASK_TYPE)) {
+            activityDetails = new ArrayList<String>(FLOATING_TASK_LENGTH);
+            activityDetails.add(activityType);
+            activityDetails.add(name.toString());
+            activityDetails.add(note.toString());
+            activityDetails.add(status.toString());
+        } else if (activityType.equals(TASK_TYPE)) {
+            activityDetails = new ArrayList<String>(TASK_LENGTH);
+            activityDetails.add(activityType);
+            activityDetails.add(name.toString());
+            activityDetails.add(note.toString());
+            activityDetails.add(startDate.toString());
+            activityDetails.add(startTime.toString());
+            activityDetails.add(status.toString());
+        } else if (activityType.equals(EVENT_TYPE)) {
+            activityDetails = new ArrayList<String>(EVENT_LENGTH);
+            activityDetails.add(activityType);
+            activityDetails.add(name.toString());
+            activityDetails.add(note.toString());
+            activityDetails.add(startDate.toString());
+            activityDetails.add(startTime.toString());
+            activityDetails.add(endDate.toString());
+            activityDetails.add(endTime.toString());
+            activityDetails.add(status.toString());
+        }
     }
 
-    @Override
-    public void setUncompleted() {
-        this.status = new Completed(false);
-    }
-    
-    @Override
-    public Completed getActivityStatus() {
-        return this.status;
-    }
-    @Override
-    public ActivityName getActivityName() {
-        return this.name;
-    }
-    
     /**
-     * @throws IllegalValueException 
-     * List of methods to set Activity's param : Name, Note, startDate, startTime
-     * Exception handling to be editted ----------> ALERT! (Assumes User to pass in correct parameters)
+     * @throws IllegalValueException
+     *             List of methods to set Activity's param : Type, Name, Note,
+     *             startDate, startTime, completion status, emailSent status,
+     *             timePassed status.
      */
+
+    @Override
+    public void setActivityType(String newType) throws IllegalValueException {
+        if (!newType.equals(FLOATING_TASK_TYPE) && !newType.equals(TASK_TYPE) && !newType.equals(EVENT_TYPE)) {
+            throw new IllegalValueException(Messages.MESSAGE_INVALID_TYPE);
+        } else {
+            this.activityType = newType;
+        }
+    }
+
     @Override
     public void setActivityName(String newName) throws IllegalValueException {
         assert (newName != null);
-            this.name = new ActivityName(newName);
+        this.name = new ActivityName(newName);
     }
 
     @Override
@@ -203,15 +226,13 @@ public class Activity implements ReadOnlyActivity {
         this.note = new Note(newNote);
 
     }
-    
+
     // Only can be called by Task & Events
     @Override
     public void setActivityStartDateTime(String newDate, String newTime) throws IllegalValueException {
 
-        boolean isTask = this.activityType.equals(Activity.TASK_TYPE);
         boolean isEvent = this.activityType.equals(Activity.EVENT_TYPE);
-        assert (isTask || isEvent);
-        
+
         ActivityDate newDateObject = new ActivityDate(newDate);
         ActivityTime newTimeObject = new ActivityTime(newTime);
         if (isEvent) {
@@ -222,7 +243,7 @@ public class Activity implements ReadOnlyActivity {
         this.startTime = newTimeObject;
 
     }
-    
+
     @Override
     public void setActivityEndDateTime(String newDate, String newTime) throws IllegalValueException {
         boolean isEvent = this.activityType.equals(Activity.EVENT_TYPE);
@@ -234,7 +255,42 @@ public class Activity implements ReadOnlyActivity {
         this.endDate = newDateObject;
         this.endTime = newTimeObject;
     }
-    
+
+    @Override
+    public void setCompleted() {
+        this.status = new Completed(true);
+    }
+
+    @Override
+    public void setUncompleted() {
+        this.status = new Completed(false);
+    }
+
+    public void setTimePassed(Boolean timePassed) {
+        this.activityTimePassed = timePassed;
+    }
+
+    public void setEventOngoing(Boolean eventOngoing) {
+        this.eventOngoing = eventOngoing;
+    }
+
+    public void setEmailSent(Boolean sentStatus) {
+        this.emailSent = sentStatus;
+    }
+
+    /**
+     * Getter methods for Activity, returns all possible params of activity.
+     */
+    @Override
+    public Completed getActivityStatus() {
+        return this.status;
+    }
+
+    @Override
+    public ActivityName getActivityName() {
+        return this.name;
+    }
+
     @Override
     public Note getNote() {
         return this.note;
@@ -273,67 +329,26 @@ public class Activity implements ReadOnlyActivity {
         return activityDetails;
     }
 
-    public Boolean isEmailSent(){
-    	return this.emailSent;
+    public Boolean isEmailSent() {
+        return this.emailSent;
     }
-    
-    public Boolean isTimePassed(){
-    	return this.activityTimePassed;
+
+    public Boolean isTimePassed() {
+        return this.activityTimePassed;
     }
-    
-    public Boolean isEventOngoing(){
-    	return this.eventOngoing;
+
+    public Boolean isEventOngoing() {
+        return this.eventOngoing;
     }
-    
-    public void setEmailSent(Boolean sentStatus){
-    	this.emailSent = sentStatus;
-    }
-    
-    public void setTimePassed(Boolean timePassed){
-    	this.activityTimePassed = timePassed;
-    }
-    
-    public void setEventOngoing(Boolean eventOngoing){
-    	this.eventOngoing = eventOngoing;
-    }
-    
+
     @Override
     public Activity get() {
         return this;
     }
 
     @Override
-    public void setActivityDetails() {
-        if (activityType.equals(FLOATING_TASK_TYPE)) {
-            activityDetails = new ArrayList<String>(FLOATING_TASK_LENGTH);
-            activityDetails.add(activityType);
-            activityDetails.add(name.toString());
-            activityDetails.add(note.toString());
-            activityDetails.add(status.toString());
-        } else if (activityType.equals(TASK_TYPE)) {
-            activityDetails = new ArrayList<String>(TASK_LENGTH);
-            activityDetails.add(activityType);
-            activityDetails.add(name.toString());
-            activityDetails.add(note.toString());
-            activityDetails.add(startDate.toString());
-            activityDetails.add(startTime.toString());
-            activityDetails.add(status.toString());
-        } else if (activityType.equals(EVENT_TYPE)) {
-            activityDetails = new ArrayList<String>(EVENT_LENGTH);
-            activityDetails.add(activityType);
-            activityDetails.add(name.toString());
-            activityDetails.add(note.toString());
-            activityDetails.add(startDate.toString());
-            activityDetails.add(startTime.toString());
-            activityDetails.add(endDate.toString());
-            activityDetails.add(endTime.toString());
-            activityDetails.add(status.toString());
-        }
-    }
-
-    @Override
     public String toString() {
-        switch(this.activityType){
+        switch (this.activityType) {
         case FLOATING_TASK_TYPE:
             return getFloatingTaskAsText();
         case TASK_TYPE:
@@ -343,47 +358,41 @@ public class Activity implements ReadOnlyActivity {
         }
         return null;
     }
-    
-   //@@author A0139277U
+
+    // @@author A0139277U
     @Override
-    public boolean equals(Object o){
-    	
-    	if (this.getActivityType().equals(Activity.EVENT_TYPE) && o!= null &&
-    			checkActivityType((ReadOnlyActivity) o).equals(this.getActivityType())){
-    		
-    		return o == this ||
-    				(o instanceof ReadOnlyActivity &&
-    						this.isEventSameStateAs((ReadOnlyActivity)o));
-    		
-    	}
-    	
-    	else if (this.getActivityType().equals(Activity.FLOATING_TASK_TYPE) && o!= null &&
-    			checkActivityType((ReadOnlyActivity) o ).equals(this.getActivityType())){
-    		
-    		return o == this ||
-    				(o instanceof ReadOnlyActivity && 
-    						this.isFloatingTaskSameStateAs((ReadOnlyActivity)o));
-    				
-    	}
-    	
-    	else if (this.getActivityType().equals(Activity.TASK_TYPE) && o!= null &&
-    			checkActivityType((ReadOnlyActivity) o ).equals(this.getActivityType())){
-    		
-    		return o == this ||
-    				(o instanceof ReadOnlyActivity &&
-    						this.isTaskSameStateAs((ReadOnlyActivity)o));
-    	}
-    	
-    	else {
-    		return false;
-    	}
-    	
+    public boolean equals(Object o) {
+
+        if (this.getActivityType().equals(Activity.EVENT_TYPE) && o != null
+                && checkActivityType((ReadOnlyActivity) o).equals(this.getActivityType())) {
+
+            return o == this || (o instanceof ReadOnlyActivity && this.isEventSameStateAs((ReadOnlyActivity) o));
+
+        }
+
+        else if (this.getActivityType().equals(Activity.FLOATING_TASK_TYPE) && o != null
+                && checkActivityType((ReadOnlyActivity) o).equals(this.getActivityType())) {
+
+            return o == this || (o instanceof ReadOnlyActivity && this.isFloatingTaskSameStateAs((ReadOnlyActivity) o));
+
+        }
+
+        else if (this.getActivityType().equals(Activity.TASK_TYPE) && o != null
+                && checkActivityType((ReadOnlyActivity) o).equals(this.getActivityType())) {
+
+            return o == this || (o instanceof ReadOnlyActivity && this.isTaskSameStateAs((ReadOnlyActivity) o));
+        }
+
+        else {
+            return false;
+        }
+
     }
-    
-    private String checkActivityType(ReadOnlyActivity activityToCheck){
-    	
-    	return activityToCheck.getActivityType();
-    	
+
+    private String checkActivityType(ReadOnlyActivity activityToCheck) {
+
+        return activityToCheck.getActivityType();
+
     }
-    
+
 }

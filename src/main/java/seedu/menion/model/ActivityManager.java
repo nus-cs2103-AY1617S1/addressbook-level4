@@ -6,6 +6,9 @@ import seedu.menion.background.BackgroundDateCheck;
 import seedu.menion.commons.exceptions.IllegalValueException;
 import seedu.menion.logic.commands.EditCommand;
 import seedu.menion.model.activity.Activity;
+import seedu.menion.model.activity.ActivityName;
+import seedu.menion.model.activity.Completed;
+import seedu.menion.model.activity.Note;
 import seedu.menion.model.activity.UniqueActivityList;
 import seedu.menion.model.activity.UniqueActivityList.ActivityNotFoundException;
 
@@ -236,11 +239,21 @@ public class ActivityManager implements ReadOnlyActivityManager {
     }
     
     /**
-     * Methods, edits a Task/Event's starting Date & Time in the activity manager.
+     * Methods, edits a Activity's starting Date & Time in the activity manager.
      * Passes in the index of the list to complete, and changes to make
      * @param taskToEdit
      * @throws IllegalValueException 
+     * @throws ActivityNotFoundException 
      */
+    public void editTaskToFloating(ReadOnlyActivity taskToEdit) throws IllegalValueException, ActivityNotFoundException {
+        ActivityName name = taskToEdit.getActivityName();
+        Note note = taskToEdit.getNote();
+        Completed status = taskToEdit.getActivityStatus();
+        Activity dub = new Activity(Activity.FLOATING_TASK_TYPE, name, note, status);
+        removeTask(taskToEdit);
+        addFloatingTask(dub);
+    }
+    
     public void editTaskDateTime(ReadOnlyActivity taskToEdit, String newDate, String newTime) throws IllegalValueException, ActivityNotFoundException {
         Activity dub = (Activity)taskToEdit;
         dub.setActivityStartDateTime(newDate, newTime);
@@ -255,7 +268,15 @@ public class ActivityManager implements ReadOnlyActivityManager {
             dub.setTimePassed(false);
             dub.setEmailSent(false);
         }
-        
+        // It is a FloatingTask changing to a Task
+        // Removes the floatingTask from it's panel and adds it to Task panel
+        if (taskToEdit.getActivityType().equals(Activity.FLOATING_TASK_TYPE)) {
+            removeFloatingTask(taskToEdit);
+            dub.setActivityType(Activity.TASK_TYPE);
+            addTask(dub);
+            return;
+        }
+
         tasks.getInternalList().set(tasks.getIndexOf(taskToEdit), dub); 
         Collections.sort(tasks.getInternalList(), new TaskComparator());
     }

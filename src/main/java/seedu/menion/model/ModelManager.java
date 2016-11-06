@@ -247,9 +247,17 @@ public class ModelManager extends ComponentManager implements Model {
     }
     
     /**
-     * Methods for editting Event/Task Starting Date & Time
+     * Methods for editting Activities Starting Date & Time
      * @throws IllegalValueException 
      */
+    
+    @Override
+    public void editTaskToFloating(ReadOnlyActivity taskToEdit)
+            throws IllegalValueException, ActivityNotFoundException {
+        activityManager.editTaskToFloating(taskToEdit);
+        indicateActivityManagerChanged();
+        
+    }
     @Override
     public void editTaskDateTime(ReadOnlyActivity taskToEdit, String newDate, String newTime) throws IllegalValueException, ActivityNotFoundException {
         activityManager.editTaskDateTime(taskToEdit, newDate, newTime);
@@ -427,4 +435,5 @@ public class ModelManager extends ComponentManager implements Model {
             return "name=" + String.join(", ", nameKeyWords);
         }
     }
+
 }

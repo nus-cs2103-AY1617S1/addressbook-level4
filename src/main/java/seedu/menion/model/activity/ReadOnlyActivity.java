@@ -50,6 +50,7 @@ public interface ReadOnlyActivity {
      */
     void setCompleted();
     void setUncompleted();
+    void setActivityType(String newType) throws IllegalValueException;
     void setActivityName(String newName) throws IllegalValueException;
     void setActivityNote(String newNote) throws IllegalValueException;
     void setActivityStartDateTime(String newDate, String newTime) throws IllegalValueException;
