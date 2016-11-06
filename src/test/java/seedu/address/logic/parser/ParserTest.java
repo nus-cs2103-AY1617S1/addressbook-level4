@@ -362,7 +362,15 @@ public class ParserTest {
 
 		assertEquals(listAliasCommand.getClass(), command.getClass());
 	}
-		
+	
+	@Test
+	public void parseCommand_listAliasValid2_listAliasCommandReturned() {
+		String userInput = " list-alias ";
+		Command command = parser.parseCommand(userInput);
+
+		assertEquals(listAliasCommand.getClass(), command.getClass());
+	}
+			
 	//@@author A0141019U
 	
 	/*
