@@ -327,14 +327,15 @@ public class ToDoListParser {
      * @return the prepared command
      */
     private Command prepareSearch(String args) {
-        Pattern[] dataPatterns = { ParserFormats.SEARCH_TASK_ARGS_FORMAT_ON,
-                ParserFormats.SEARCH_TASK_ARGS_FORMAT_BEFORE, 
-                ParserFormats.SEARCH_TASK_ARGS_FORMAT_AFTER,
-                ParserFormats.SEARCH_TASK_ARGS_FORMAT_FT, 
-                ParserFormats.SEARCH_KEYWORDS_ARGS_FORMAT,
-                ParserFormats.SEARCH_TASK_ARGS_FORMAT_TAG,
-                ParserFormats.SEARCH_PRIORITY,
-                ParserFormats.SEARCH_TASK_ARGS_FORMAT_FLOATING};
+        Pattern[] dataPatterns = { 
+            ParserFormats.SEARCH_TASK_ARGS_FORMAT_ON,
+            ParserFormats.SEARCH_TASK_ARGS_FORMAT_BEFORE, 
+            ParserFormats.SEARCH_TASK_ARGS_FORMAT_AFTER,
+            ParserFormats.SEARCH_TASK_ARGS_FORMAT_FT, 
+            ParserFormats.SEARCH_KEYWORDS_ARGS_FORMAT,
+            ParserFormats.SEARCH_TASK_ARGS_FORMAT_TAG,
+            ParserFormats.SEARCH_PRIORITY,
+            ParserFormats.SEARCH_TASK_ARGS_FORMAT_FLOATING };
         
         String tempArgs = args.trim(); 
        
@@ -382,14 +383,17 @@ public class ToDoListParser {
                     return new SearchCommand(matcher.group("keywords"), 
                                              option,
                                              SearchCommand.SearchIndex.KEYWORD);
+                    
                 } else if (p.equals(ParserFormats.SEARCH_PRIORITY)) {
                     return new SearchCommand(matchPriorityResult(matcher), 
                                              option,
                                              SearchCommand.SearchIndex.PRIORITY);
+                    
                 } else if (p.equals(ParserFormats.SEARCH_TASK_ARGS_FORMAT_TAG)) {
                     return new SearchCommand(matchTagsResult(matcher), 
                                              option,
                                              SearchCommand.SearchIndex.TAG);
+                    
                 } else if (p.equals(ParserFormats.SEARCH_TASK_ARGS_FORMAT_FLOATING)) {
                     return new SearchCommand("", 
                             option,
@@ -398,7 +402,6 @@ public class ToDoListParser {
             }
         }
         
-
         if (tempArgs.indexOf("done") == ParserFormats.FIRST_INDEX) {
             return new SearchCommand("", SearchCompletedOption.ALL, SearchCommand.SearchIndex.DONE);
         }

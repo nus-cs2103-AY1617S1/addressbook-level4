@@ -1,4 +1,3 @@
-//@@author A0142421X
 package seedu.todo.ui;
 
 import java.util.Random;
@@ -15,13 +14,19 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import seedu.todo.model.tag.Tag;
 
-public class TagCard extends UiPart{
-	private static final String FXML = "TagCard.fxml";
-	
-	private final Color[] colors = {Color.web("#ef9a9a"), Color.web("#ffe082"), 
-	        Color.web("#fff59d"), Color.web("#c5e1a5"), Color.web("#81d4fa"), 
-	        Color.web("#b39ddb"), Color.web("#b39ddb")};
-	
+//@@author A0142421X
+
+/**
+ * Tag Card controller for Tag Panel in GUI
+ */
+public class TagCard extends UiPart {
+    
+    private static final String FXML = "TagCard.fxml";
+
+    private final Color[] colors = {Color.web("#ef9a9a"), Color.web("#ffe082"), 
+            Color.web("#fff59d"), Color.web("#c5e1a5"), Color.web("#81d4fa"), 
+            Color.web("#b39ddb"), Color.web("#b39ddb")};
+    
     @FXML
     private HBox cardPane;
     
@@ -35,7 +40,7 @@ public class TagCard extends UiPart{
     private static int displayedIndex;
     
     public static TagCard load(Tag tag, int displayedIndex){
-    	TagCard card = new TagCard();
+        TagCard card = new TagCard();
         card.tag = tag;
         card.displayedIndex = displayedIndex;
         return UiPartLoader.loadUiPart(card);
