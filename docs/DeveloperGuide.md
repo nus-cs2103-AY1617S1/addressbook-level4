@@ -25,7 +25,7 @@
 
 ###**Overview**
 
-_Unburden_ is an application which will help you to manage your tasks better. _Unburden_ provides a simple command line interface which does not require any form of clicking. _Unburden_ is written in Java.
+_Unburden_ is an application which will help users to manage their daily tasks better. _Unburden_ utilises a simple command line interface which allows users to keep track of their tasks without any form of clicking. _Unburden_ is written in Java.
 
 ###**Purpose**
 
@@ -107,10 +107,11 @@ The architectural design shows how the various components work in tandem with ea
 
 The rest of the app consists of 4 main components other than `Main`. They are :
 
- 1. `Logic` : Decides what to output with the inputs and executes commands
- 2. `Model` : Holds the data during runtime
- 3. `UI`: Controls the UI of the app
- 4. `Storage`: Reads and writes data to the hard disk
+ 1. Controls the UI of the app. This is the component that the user interacts with and is responsible for how the application looks to the user. 
+ 2. Logic` : Parses the input and executes the command. Logic updates the Model and Storage according to the commands given by the user.
+ 3. `Model` : Holds the data during runtime. Works with UI to display the results of the commands to the user.
+ 4. `Storage`: Reads and writes data to the hard disk. Ensures that the data is stored properly even after Unburden has been closed.
+
 
 Each component has a interface which all its classes implements and is named after the component itself.
 
