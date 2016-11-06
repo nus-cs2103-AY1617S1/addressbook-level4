@@ -6,15 +6,15 @@ import org.junit.Test;
 import static org.junit.Assert.assertTrue;
 
 public class HelpWindowTest extends SimplyGuiTest {
-
-    //@Test
+   
+    @Test
     public void openHelpWindow() {
 
         personListPanel.clickOnListView();
 
-      //  assertHelpWindowOpen(mainMenu.openHelpWindowUsingAccelerator());
+        assertHelpWindowOpen(mainMenu.openHelpWindowUsingAccelerator());
 
-     //   assertHelpWindowOpen(mainMenu.openHelpWindowUsingMenu());
+        assertHelpWindowOpen(mainMenu.openHelpWindowUsingMenu());
 
         assertHelpWindowOpen(commandBox.runHelpCommand());
 
