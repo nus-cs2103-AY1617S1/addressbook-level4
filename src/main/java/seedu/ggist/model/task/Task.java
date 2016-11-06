@@ -26,6 +26,8 @@ public class Task implements ReadOnlyTask{
     protected boolean isOverdue;
     protected Date start;
     protected Date end;
+    protected boolean hasNoStartDate;
+    protected boolean hasNoEndDate;
     
     public static enum TaskType {
         FLOATING("task"), DEADLINE("deadline"), EVENT("event"); 
@@ -54,9 +56,15 @@ public class Task implements ReadOnlyTask{
         this.endDate = endDate;
         this.endTime = endTime;
         this.priority = priority;
-
+        
+        if (startDate.value.equals(Messages.MESSAGE_NO_START_DATE_SPECIFIED) && startTime.value.equals(Messages.MESSAGE_NO_START_TIME_SET)) {
+            constructStartDateTime(endDate, endTime);
+        } else {
+            constructStartDateTime(startDate, startTime);
+        }
         constructEndDateTime(endDate, endTime);
-        checkTimeClash();
+        checkTimeOverdue();
+        checkTimeClash(start,end);
     }
     
 
@@ -91,12 +99,14 @@ public class Task implements ReadOnlyTask{
      * @return Date
      * @throws IllegalValueException 
      */
-    private Date formatMissingDateTime(TaskDate date, TaskTime time) throws IllegalValueException {
+    public static Date formatMissingDateTime(TaskDate date, TaskTime time) throws IllegalValueException {
         if ((date.value.equals(Messages.MESSAGE_NO_START_DATE_SPECIFIED) || date.value.equals(Messages.MESSAGE_NO_END_DATE_SPECIFIED)) 
              &&(time.value.equals(Messages.MESSAGE_NO_START_TIME_SET) || time.value.equals(Messages.MESSAGE_NO_END_TIME_SET))) {
             return new DateTimeParser("1st January 2050 11:59pm").getDateTime();
-        } else if ((date.value.equals(Messages.MESSAGE_NO_START_DATE_SPECIFIED) || date.value.equals(Messages.MESSAGE_NO_END_DATE_SPECIFIED))){
+        } else if (date.value.equals(Messages.MESSAGE_NO_END_DATE_SPECIFIED)){
             return new DateTimeParser("1st January 2050 " + time.value).getDateTime();
+        } else if (date.value.equals(Messages.MESSAGE_NO_START_DATE_SPECIFIED)) {
+            return new DateTimeParser("1st January 1990 " + time.value).getDateTime();
         } else if ((time.value.equals(Messages.MESSAGE_NO_START_TIME_SET) || time.value.equals(Messages.MESSAGE_NO_END_TIME_SET))) {
             return new DateTimeParser("11:59 pm " + date.value).getDateTime();
         } else {
@@ -108,18 +118,17 @@ public class Task implements ReadOnlyTask{
      * checks if the end is before the start
      * @throws IllegalValueException
      */
-    public void checkTimeClash() throws IllegalValueException {
-        if (startDate.value.equals(Messages.MESSAGE_NO_START_DATE_SPECIFIED) && startTime.value.equals(Messages.MESSAGE_NO_START_TIME_SET)) {
-            constructStartDateTime(endDate, endTime);
-        } else {
-            constructStartDateTime(startDate, startTime);
-        }
+    public void checkTimeOverdue() throws IllegalValueException {
+
         Date currentDate  = new Date();
         if (end.before(currentDate) && isDone == false) {
             isOverdue = true;
         } else if (!end.before(currentDate)) {
             setNotOverdue();
         }
+    }
+    
+    public static void checkTimeClash(Date start, Date end) throws IllegalValueException {
         if(end.before(start)) {
             throw new IllegalValueException("End cannot be earlier than start!");
         }
@@ -185,7 +194,14 @@ public class Task implements ReadOnlyTask{
     public void setNotOverdue() {
         isOverdue = false;
     }
-
+    
+    public void setHasNoStartDate(boolean hasNoStartDate) {
+        this.hasNoStartDate  = hasNoStartDate;
+    }
+    
+    public void setHasNoEndDate(boolean hasNoEndDate) {
+        this.hasNoEndDate = hasNoEndDate;
+    }
     
     @Override
     public boolean isDone() {
@@ -242,6 +258,16 @@ public class Task implements ReadOnlyTask{
     }
     
     @Override
+    public boolean hasNoStartDate() {
+        return hasNoStartDate;
+    }
+    
+    @Override
+    public boolean hasNoEndDate() {
+        return hasNoEndDate;
+    }
+    
+    @Override
     public String toString() {
         return getAsText();
     }
@@ -257,7 +283,5 @@ public class Task implements ReadOnlyTask{
     public boolean isOverdue() {
         return isOverdue;
     }
-
-
 
 }
