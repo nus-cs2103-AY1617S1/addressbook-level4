@@ -19,10 +19,11 @@ public class CalendarCommand extends Command {
 	
 	private final Logger logger = LogsCenter.getLogger(CalendarCommand.class);
 	public static final String COMMAND_WORD = "show";
-	public static final String MESSAGE_USAGE = COMMAND_WORD + " TIME [/day | /wk]\n" 
+	public static final String MESSAGE_USAGE = COMMAND_WORD + "\n"
+			+ "TIME [/day | /wk]\n" 
 			+ "Shows the calendar in the specifized mode at certain time\n"
 			+ "Optional flag: [/wk] to request show week view. It is the default \n"
-			+ "	     [/day] to request show dayily view. "
+			+ "[/day] to request show dayily view.\n"
 			+ "Parameters: TIME + [OPTIONAL FLAG]\n" 
 			+ "Example: "+ COMMAND_WORD + " today /day\n\n";
 	

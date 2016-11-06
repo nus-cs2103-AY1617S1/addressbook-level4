@@ -6,6 +6,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.task.logic.commands.AddCommand;
+import seedu.task.logic.commands.CalendarCommand;
 import seedu.task.logic.commands.ClearCommand;
 import seedu.task.logic.commands.Command;
 import seedu.task.logic.commands.DeleteCommand;
@@ -66,6 +67,8 @@ public class HelpParser implements Parser {
 			return new HelpCommand(MarkCommand.MESSAGE_USAGE, false);
 		case UndoCommand.COMMAND_WORD:
 			return new HelpCommand(UndoCommand.MESSAGE_USAGE, false);
+		case CalendarCommand.COMMAND_WORD:
+			return new HelpCommand(CalendarCommand.MESSAGE_USAGE, false);
 		case SaveCommand.COMMAND_WORD:
 			return new HelpCommand(SaveCommand.MESSAGE_USAGE, false);
 		case ClearCommand.COMMAND_WORD:

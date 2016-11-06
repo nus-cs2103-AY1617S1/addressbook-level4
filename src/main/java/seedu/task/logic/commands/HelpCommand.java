@@ -19,7 +19,7 @@ public class HelpCommand extends Command {
 			+ "Example: " + COMMAND_WORD + "\n\n"  
 			+ "List of available commands for help\n" + COMMAND_WORD + " add\n" + COMMAND_WORD + " delete\n"
 			+ COMMAND_WORD + " find\n" + COMMAND_WORD + " list\n" + COMMAND_WORD + " select\n" + COMMAND_WORD
-			+ " mark\n" + COMMAND_WORD + " undo\n" + COMMAND_WORD + " save\n" + COMMAND_WORD + " clear\n" + COMMAND_WORD + " exit\n"
+			+ " mark\n" + COMMAND_WORD + " undo\n" + COMMAND_WORD + " show\n" + COMMAND_WORD + " save\n" + COMMAND_WORD + " clear\n" + COMMAND_WORD + " exit\n"
 			+ "Parameters: help [KEY_WORD]\n"
 			+ "Example: "+ COMMAND_WORD + " add\n\n";
 	
