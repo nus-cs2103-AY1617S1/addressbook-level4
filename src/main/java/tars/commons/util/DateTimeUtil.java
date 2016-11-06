@@ -87,7 +87,9 @@ public class DateTimeUtil {
     }
 
     /**
-     * @@author A0124333U Checks whether the dateTimeQuery falls within the range of the
+     * @@author A0124333U 
+     * 
+     * Checks whether the dateTimeQuery falls within the range of the
      *          dateTimeSource i.e. dateTimeQuery startDateTime is equals to or before the
      *          dateTimeSource endDateTime && dateTimeQuery endDateTime is equals to or after the
      *          dateTimeSource startDateTime

@@ -30,12 +30,14 @@ public interface Model {
     void resetData(ReadOnlyTars newData);
 
     /**
-     * @@author A0124333U Overwrites current data with data from a new file path.
+     * @@author A0124333U 
+     * 
+     * Overwrites current data with data from a new file path.
      */
     public void overwriteDataFromNewFilePath(ReadOnlyTars newData);
 
     /**
-     * @@author A0124333U Returns the Tars
+     * Returns the Tars
      */
     ReadOnlyTars getTars();
 
