@@ -318,7 +318,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (un
 | --- | --- | --- | --- | --- |
 | `* * *` | new user | list all the commands | know how to use the program |
 |`* * *` | new user | view a command | know how to use that particular command |
-|`* * *` | user | add a task | keep track of all my tasks/to-dos |
+|`* * *` | user | add a event task | keep track of all important events which I have to attend |
 |`* * *` | user | add a deadline task | keep track of deadlines |
 |`* * *` | user | add a floating task | remind myself on less important tasks |
 |`* * *` | user | add a deadline task without the time | so that I can keep track of my less urgent deadlines|
@@ -327,25 +327,34 @@ Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (un
 |`* * *` | user | delete all tasks | declutter my task manager |
 |`* * *` | user | delete all tasks with a certain name or tag | declutter my task manager |
 |`* * *` | user | delete all tasks within a certain date | declutter my task manager |
-|`* * *` | user | find a task by name/description | see what needs to be done |
-|`* * *` | user | find a task by tags | find a task that may be related to another task |
+|`* * *` | user | find a task by name/description/tags | find tasks that are related to one another |
+|`* * *` | user | find a task by date | see what tasks I have to complete on the specified date |
 |`* * *` | user | list all tasks | know what are the tasks I have entered |
 |`* * *` | user | list all tasks due by today | know what are the tasks I need to complete by today |
+|`* * *` | user | list all tasks due by next week | I can plan ahead of time |
 |`* * *` | user | list all tasks that are undone | know which task to attend to first |
-|`* * *` | user | list all tasks that are overdue | can attend to tasks that have  |
+|`* * *` | user | list all tasks that are overdue | can attend to tasks that have |
 |`* * *` | user | list all tasks that are done | so that I can revert back to undone if I ever need to |
+|`* * *` | user | list all tasks that are within a stipulated time frame | plan my holidays |
 |`* * *` | user | edit any information of the task | make changes to the tasks that I have created |
 |`* *` | user | undo previous command | remove any task that is entered wrongly |
 |`* *` | user | keep my information safe | protect information that is private to me |
 |`* *` | user | be reminded of my deadlines | meet my deadlines |
+|`* *` | user | be reminded of my overdue tasks | I remember to finish it now |
 |`* *` | user | prioritize my tasks | know which tasks are more important |
 |`* *` | user | keep my deleted tasks temporarily | restore them should I need to |
 |`* *` | user | auto correct my typos when typing a command | not retype/edit the command every time I make a typo |
 |`* *` | user | asked every time I add a task | ensure that all fields have been entered correctly |
 |`* *` | user | asked every time I delete a task | not accidentally lose information |
 |`* *` | user | asked every time I edit a task | not accidentally change the wrong information |
+|`* *` | user | see how many tasks I have to do for today at a glance | I can gauge how much time to spend on each task |
+|`* *` | user | see how many tasks are undone at a glance | I get reminded of the tasks which I have yet to complete |
+|`* *` | user | see how many tasks are overdue at a glance | I know that I missed something important |
+|`* *` | user | see how many tasks are done at a glance| I know when to clear the application |
+|`*` | user | automatically delete old tasks periodically | so I do not have to do it myself |
 |`*` | user | find history of tasks of certain past periods of time | recall what I've done |
 |`*` | user | predict and auto correct my typos | be lazy and not retype everything again |
+|`*` | user | see what today's date is | I can properly allocate tasks with the correct date in mind |
 
 
 
@@ -365,6 +374,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (un
 ##### Extensions
 
 1.1  User requests to add a task with a wrong format <br>
+
 1.2  _Unburden_ will give display a error message <br>  
   
      Use case ends
@@ -383,9 +393,22 @@ Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (un
 ##### Extensions
   
 1.1  User requests to delete a specific task by giving an invalid index <br>
-1.2  Unburden will show an error message <br>
+
+1.2  _Unburden_ will show an error message <br>
   
      Use case ends
+
+2.1 User requests to list all tasks in _Unburden_ <br>
+
+2.2 _Unburden_ will show the user the entire list of tasks <br>
+
+3.2 User requests to delete all tasks in _Unburden> <br>
+
+3.4 _Unburden_ deletes all tasks <br>
+
+	Use case ends
+
+
 
 
 
@@ -401,16 +424,19 @@ Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (un
 ##### Extension
   
 1.1  User requests to find tasks based on a name <br>
+
 1.2  _Unburden_ will search through the existing tasks with the specified task names and shows a list to the user <br>
   
      Use case ends
   
 2.1  User requests to find tasks due today <br>
+
 2.2  _Unburden_ will search through the existing tasks and shows a list of tasks due today <br>
   
      Use case ends
   
 3.1  User requests to find tasks that are due tomorrow <br>
+
 3.2  _Unburden_ will search through the existing tasks and shows a list of tasks due tomorrow to the user <br>
   
      Use case ends
@@ -431,9 +457,12 @@ Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (un
 ##### Extension
   
 1.1  User requests to edit a task based on an invalid index of tasks and the new updated fields <br>
+
 1.2  _Unburden_ shows an error message <br>
   
      Use case ends 
+
+
 
 
 
@@ -449,30 +478,37 @@ Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (un
 ###### Extension
 
 1.1 User requests to list of all tasks by a certain date <br>
+
 2.2 _Unburden_ will show a list of all undone tasks that have deadlines before the specified date <br>
 
       Use case ends
       
 
 2.1 User requests to list all tasks that are due within within a period of time specified by a start time and an end time <br>
+
 2.2 _Unburden_ will show the user a list of undone tasks that have deadline that fall within the specified time period <br>
 
       Use case ends
 
 3.1 User requests to list all tasks that are done <br>
+
 3.2 _Unburden_ will show the user a list of tasks that have been marked "done" by the user <br>
 
       Use case ends
       
 4.1 User requests to list all tasks that are overdue <br>
+
 4.2 _Unburden_ will show the user a list of tasks that are overdue <br>
 
      Use case ends
      
 5.1 User requests to list all tasks that are undone <br>
+
 5.2 _Unburden_ will show the user a list of tasks that are undone <br>
 
      Use case ends
+
+
 
 
 
@@ -488,9 +524,13 @@ Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (un
 ##### Extension 
 
 1.1 User attempts to mark a task as done but enters the an index that does not exist <br>
+
 1.2 _Unburden_ will show an error message saying that the input index is unspecified <br>
 
      Use case ends
+
+
+
 
 
 ## **Appendix C : Non Functional Requirements**
