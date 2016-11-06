@@ -22,6 +22,20 @@ public class TaskDate {
     public static final String EXPIRED_TASK_DATE = "Task Date cannot be in the past!";
     public static final String INVALID_TASK_DATE_RANGE_FORMAT = "The task date range is invalid!";
 
+    public static final String DATE_ALPHA_WITH_YEAR_VALIDATION_REGEX = "([0-9]{2}+[\\w\\.])+([0-9]{4})"; // To
+    // be
+    // updated
+    public static final String DATE_ALPHA_WITHOUT_YEAR_VALIDATION_REGEX = "([0-9]{2}+[\\w\\.])";
+
+    public static final String DATE_NUM_SLASH_WITH_YEAR_VALIDATION_REGEX = "([0-9]{2}+)/([0-9]{2}+)/([0-9]{4})"; // "\\d{2}/\\d{2}/\\d{4}";
+    // //To
+    // be
+    // updated
+    public static final String DATE_NUM_SLASH_WITHOUT_YEAR_VALIDATION_REGEX = "([0-9]{2})/([0-9]{2})";// "\\d{2}/\\d{2}";
+    public static final String DATE_NUM_SLASH_WITH_YEAR_VALIDATION_SHORTENED_DAY_REGEX = "([0-9]{1}+)/([0-9]{2}+)/([0-9]{4})";
+    public static final String DATE_NUM_SLASH_WITH_YEAR_VALIDATION_SHORTENED_MONTH_REGEX = "([0-9]{2}+)/([1-9]{1}+)/([0-9]{4})";
+    public static final String DATE_NUM_SLASH_WITH_YEAR_VALIDATION_SHORTENED_DAY_AND_MONTH_REGEX = "([0-9]{1}+)/([0-9]{1}+)/([0-9]{4})";
+
     public static final String DATE_NUM_SLASH_WITH_YEAR_FORMAT = "dd/MM/yyyy";
 
     private static final Pattern DAYS_MONDAY = Pattern.compile("((?:monday|mon))", Pattern.CASE_INSENSITIVE);
@@ -30,7 +44,7 @@ public class TaskDate {
     private static final Pattern DAYS_THURSDAY = Pattern.compile("((?:thursday|thur|thu))", Pattern.CASE_INSENSITIVE);
     private static final Pattern DAYS_FRIDAY = Pattern.compile("((?:friday|fri))", Pattern.CASE_INSENSITIVE);
     private static final Pattern DAYS_SATURDAY = Pattern.compile("((?:saturday|sat))", Pattern.CASE_INSENSITIVE);
-    private static final Pattern TODAY = Pattern.compile("((?:today|2day))", Pattern.CASE_INSENSITIVE);
+    private static final Pattern TODAY = Pattern.compile("((?:today|tdy))", Pattern.CASE_INSENSITIVE);
     private static final Pattern TOMORROW = Pattern.compile("((?:tomorrow|tmr))", Pattern.CASE_INSENSITIVE);
 
     private static final Pattern DAYS_IN_FULL = Pattern
@@ -66,12 +80,12 @@ public class TaskDate {
     private static final String NOVEMBER_SHORT = "nov";
     private static final String DECEMBER_SHORT = "dec";
 
+    private static final String forwardSlash = "/";
     private static final int DATE_COMPONENT_DAY = 0;
     private static final int DATE_COMPONENT_MONTH = 1;
     private static final int DATE_COMPONENT_YEAR = 2;
     private static final int INCREASE_DATE_BY_ONE_DAY = 1;
     private static final int INCREASE_DATE_BY_SEVEN_DAYS = 7;
-
 
     // @@author A0139128A
     /**
@@ -127,7 +141,6 @@ public class TaskDate {
      * @throws ParseException
      * @throws IllegalValueException
      */
-
     private static boolean isValidDate(String reqDate) throws ParseException, IllegalValueException {
 
         if (TODAY.matcher(reqDate).find() || TOMORROW.matcher(reqDate).find()) {
@@ -241,9 +254,10 @@ public class TaskDate {
         current = setGregorianCurrent(current);
         Date currDate = current.getTime();
 
-        if (currDate.compareTo(inputDate) > 0) {
+        if(currDate.compareTo(inputDate) > 0){
             throw new IllegalValueException(EXPIRED_TASK_DATE);
-        }
+        } 
+
         fullDate = formatDatetoStandardDate(incDate);
         return true;
     }
