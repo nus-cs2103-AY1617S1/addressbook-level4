@@ -22,6 +22,7 @@ public class CommandBoxTest extends TarsGuiTest {
         assertEquals(commandBox.getCommandInput(), "invalid command");
     }
 
+    // @@author A0124333U
     @Test
     public void commandBox_cycleThroughCommandTextHist() {
         commandBox.runCommand("User Input Command");

@@ -9,6 +9,12 @@ import tars.commons.core.Messages;
 import tars.testutil.TestRsvTask;
 import tars.testutil.TestUtil;
 
+
+/**
+ * GUI test for rsv command
+ *
+ * @@author A0124333U
+ */
 public class RsvCommandTest extends TarsGuiTest {
 
     @Test

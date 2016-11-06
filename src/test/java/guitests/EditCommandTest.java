@@ -13,6 +13,8 @@ import static org.junit.Assert.*;
 import static tars.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 /**
+ * GUI test for edit command
+ * 
  * @@author A0124333U
  */
 public class EditCommandTest extends TarsGuiTest {
@@ -29,15 +31,18 @@ public class EditCommandTest extends TarsGuiTest {
         int indexToEdit = 1;
 
         // confirm the list now contains the edited task
-        TestTask[] expectedList = TestUtil.editTask(currentList, indexToEdit-1, nameToEdit, priorityToEdit);
+        TestTask[] expectedList = TestUtil.editTask(currentList,
+                indexToEdit - 1, nameToEdit, priorityToEdit);
         assertTrue(taskListPanel.isListMatching(expectedList));
 
         // invalid command
         commandBox.runCommand("edit 1 Johnny");
-        assertResultMessage(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+        assertResultMessage(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                EditCommand.MESSAGE_USAGE));
 
         // invalid index
-        commandBox.runCommand("edit " + (currentList.length + 1) + " /n invalidIndex");
+        commandBox.runCommand(
+                "edit " + (currentList.length + 1) + " /n invalidIndex");
         assertResultMessage("The task index provided is invalid");
     }
 

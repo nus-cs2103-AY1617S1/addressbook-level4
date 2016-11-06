@@ -13,7 +13,7 @@ import tars.model.task.DateTime;
  * @@author A0139924W
  */
 public class DateFormatter {
-    private static final String DATE_STRING_DASH = " - ";
+    private static final String DATE_FORMAT_DASH = " - ";
     private static final DateTimeFormatter DATE_FORMAT =
             DateTimeFormatter.ofPattern("E, MMM dd yyyy");
     private static final DateTimeFormatter TIME_FORMAT =
@@ -56,11 +56,10 @@ public class DateFormatter {
             LocalDateTime secondDate) {
         if (isSameDay(firstDate, secondDate)) {
             return DATE_FORMAT.format(firstDate) + StringUtil.STRING_WHITESPACE
-                    + TIME_FORMAT.format(firstDate) + DATE_STRING_DASH
+                    + TIME_FORMAT.format(firstDate) + DATE_FORMAT_DASH
                     + TIME_FORMAT.format(secondDate);
         } else {
-            return NORMAL_DATETIME_FORMAT.format(firstDate)
-                    + StringUtil.STRING_WHITESPACE
+            return NORMAL_DATETIME_FORMAT.format(firstDate) + DATE_FORMAT_DASH
                     + NORMAL_DATETIME_FORMAT.format(secondDate);
         }
     }
