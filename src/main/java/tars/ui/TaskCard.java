@@ -157,7 +157,7 @@ public class TaskCard extends UiPart {
         String color = StringUtil.EMPTY_STRING;
         switch (taskStatus) {
             case STATUS_UNDONE:
-                color = UiColor.STATUS_UNDONE_TEXT_FILL;
+                color = UiColor.STATUS_UNDONE_TEXT_FILL_DARK;
                 break;
             case STATUS_DONE:
                 color = UiColor.STATUS_DONE_TEXT_FILL;
@@ -167,6 +167,11 @@ public class TaskCard extends UiPart {
         name.setStyle(color);
         date.setStyle(color);
         tags.setStyle(color);
+       
+        if (taskStatus.equals(STATUS_UNDONE)) {
+            date.setStyle(UiColor.STATUS_UNDONE_TEXT_FILL_LIGHT);
+            tags.setStyle(UiColor.STATUS_UNDONE_TEXT_FILL_LIGHT);
+        }
     }
 
     @Subscribe
