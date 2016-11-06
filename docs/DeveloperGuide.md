@@ -316,6 +316,10 @@ We have two types of tests:
    _TaskTesterHelper.java_<br>
    <img src="images/unit_test_TaskTester_B.png" width="600"><br>
    
+   > Note that dependency injection is used to ensure that only Task class is being tested.<br>
+   > The rest of the stubs are injected into the dependencies for Task.<br>
+   > This isolates Task from its dependencies and allows us to test only Task.
+   
    _Integration tests_ that are checking the integration of multiple code units 
      (those code units are assumed to be working). Below are some snippets, <br>
 
@@ -324,6 +328,11 @@ We have two types of tests:
    
    _UniqueTaskListTest.java_<br>
    <img src="images/integration_test_UniqueTaskList.png" width="600"><br>
+   
+   > Note that dependency injection is used to isolate Task. 
+   > Dependencies of Task is replaced with stubs that does nothing.
+   > This allows us to test if UniqueTaskList works together with Task.
+   
    <!-- @@author A0147967J-->
       Hybrids of unit and integration tests. These test are checking multiple code units as well as 
       how the are connected together. Below are some snippets,<br>
