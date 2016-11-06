@@ -6,8 +6,6 @@ import org.junit.Test;
 import seedu.ggist.commons.core.Messages;
 import seedu.ggist.commons.exceptions.IllegalValueException;
 import seedu.ggist.model.task.ReadOnlyTask;
-import seedu.ggist.testutil.TestTask;
-import guitests.DoneCommandTest;
 import static org.junit.Assert.assertEquals;
 
 import static org.junit.Assert.assertTrue;
@@ -25,19 +23,19 @@ public class ContinueCommandTest extends TaskManagerGuiTest {
         int targetIndex = 1;
         assertDoneSuccess(targetIndex);
         commandBox.runCommand("list done");
-        assertContinueSuccess(1);
+        assertContinueSuccess(targetIndex);
 
         //marks the last task in the list as done
         targetIndex = taskListPanel.getNumberOfTasks();
         assertDoneSuccess(targetIndex);
         commandBox.runCommand("list done");
-        assertContinueSuccess(1);
+        assertContinueSuccess(targetIndex);
 
         //marks a task from the middle of the list as done
         targetIndex = taskListPanel.getNumberOfTasks()/2 == 0? 1 : taskListPanel.getNumberOfTasks()/2;
         assertDoneSuccess(targetIndex);
         commandBox.runCommand("list done");
-        assertContinueSuccess(1);
+        assertContinueSuccess(targetIndex);
         
         //marks multiple task as done
         commandBox.runCommand("add test 1");
@@ -61,24 +59,24 @@ public class ContinueCommandTest extends TaskManagerGuiTest {
      * @throws IllegalValueException 
      * @throws IllegalArgumentException 
      */
-    private void assertDoneSuccess(int targetIndexOneIndexed) throws IllegalArgumentException, IllegalValueException {
+    private void assertContinueSuccess(int targetIndexOneIndexed) throws IllegalArgumentException, IllegalValueException {
 
-        ReadOnlyTask taskToDone = taskListPanel.getTask(targetIndexOneIndexed-1); //-1 because array uses zero indexing
+        ReadOnlyTask taskToContinue = taskListPanel.getTask(targetIndexOneIndexed-1); //-1 because array uses zero indexing
 
         int number = taskListPanel.getNumberOfTasks();
 
-        commandBox.runCommand("done " + targetIndexOneIndexed);
+        commandBox.runCommand("continue " + 1);
         
         //confirm the list now contains one lesser task
-        assertListSize(number - 1);
+        assertListSize(number + 1);
         //confirms the task mark done is no longer on the listing view
-        assertEquals(taskListPanel.getTaskIndex(taskToDone), -1);
+        assertEquals(taskListPanel.getTaskIndex(taskToContinue), targetIndexOneIndexed);
         //confirm the task is marked done
-        assertTrue(taskToDone.isDone());
+        assertFalse(taskToContinue.isDone());
 
         //confirm the result message is correct
 
-        assertResultMessage(String.format(MESSAGE_DONE_TASK_SUCCESS, targetIndexOneIndexed));
+        assertResultMessage(String.format(MESSAGE_CONTINUE_TASK_SUCCESS, 1));
     }
     
     /**
@@ -87,7 +85,7 @@ public class ContinueCommandTest extends TaskManagerGuiTest {
      * @throws IllegalValueException 
      * @throws IllegalArgumentException 
      */
-    private void assertContinueSuccess(int targetIndexOneIndexed) throws IllegalArgumentException, IllegalValueException {
+    private void assertDoneSuccess(int targetIndexOneIndexed) throws IllegalArgumentException, IllegalValueException {
 
         ReadOnlyTask taskToDone = taskListPanel.getTask(targetIndexOneIndexed-1); //-1 because array uses zero indexing
 
