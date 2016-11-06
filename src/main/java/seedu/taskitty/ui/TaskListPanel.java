@@ -102,7 +102,7 @@ public class TaskListPanel extends UiPart {
      * Sets the relevant UI components of the TaskListPanel based on input Strings
      * @param header title of the TaskListPanel
      * @param icon filepath to the image for the TaskListPanel's icon
-     * @param id of the TaskListPanel
+     * @param id of the TaskListPanel. id must be set to use GuiRobot for testing
      */
     private void setListUIComponents(String header, String icon, String id) {
         this.header.setText(header);
