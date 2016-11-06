@@ -32,6 +32,7 @@ public class ModelManager extends ComponentManager implements Model {
     private final FilteredList<Task> filteredAllTasks;
     private final FilteredList<Task> filteredCompleteTasks;
     private final FilteredList<Task> filteredIncompleteTasks;
+    private final FilteredList<Task> filteredOverdueTasks;
     
     private final Stack<ReadOnlyToDoList> ToDoListHistory;
     private final Stack<ReadOnlyToDoList> ToDoListUndoHistory;
@@ -53,6 +54,7 @@ public class ModelManager extends ComponentManager implements Model {
         filteredAllTasks = new FilteredList<>(ToDoList.getAllTasks());
         filteredCompleteTasks = new FilteredList<>(ToDoList.getCompletedTasks());
         filteredIncompleteTasks = new FilteredList<>(ToDoList.getIncompleteTasks());
+        filteredOverdueTasks = new FilteredList<>(ToDoList.getOverdueTasks());
         ToDoListHistory = new Stack<ReadOnlyToDoList>();
         ToDoListUndoHistory = new Stack<ReadOnlyToDoList>();
         currentTab = MainWindow.TAB_TASK_INCOMPLETE;
@@ -67,6 +69,7 @@ public class ModelManager extends ComponentManager implements Model {
         filteredAllTasks = new FilteredList<>(ToDoList.getAllTasks());
         filteredCompleteTasks = new FilteredList<>(ToDoList.getCompletedTasks());
         filteredIncompleteTasks = new FilteredList<>(ToDoList.getIncompleteTasks());
+        filteredOverdueTasks = new FilteredList<>(ToDoList.getOverdueTasks());
         ToDoListHistory = new Stack<ReadOnlyToDoList>();
         ToDoListUndoHistory = new Stack<ReadOnlyToDoList>();
         currentTab = MainWindow.TAB_TASK_INCOMPLETE;
@@ -176,12 +179,18 @@ public class ModelManager extends ComponentManager implements Model {
     public UnmodifiableObservableList<ReadOnlyTask> getFilteredIncompleteTaskList() {
         return new UnmodifiableObservableList<>(filteredIncompleteTasks);
     }
+    
+    @Override
+    public UnmodifiableObservableList<ReadOnlyTask> getFilteredOverdueTaskList() {
+        return new UnmodifiableObservableList<>(filteredOverdueTasks);
+    }
 
     @Override
     public void updateFilteredListToShowAll() {
         filteredAllTasks.setPredicate(null);
         filteredCompleteTasks.setPredicate(null);
         filteredIncompleteTasks.setPredicate(null);
+        filteredOverdueTasks.setPredicate(null);
     }
 
     @Override
@@ -193,6 +202,7 @@ public class ModelManager extends ComponentManager implements Model {
         filteredAllTasks.setPredicate(expression::satisfies);
         filteredCompleteTasks.setPredicate(expression::satisfies);
         filteredIncompleteTasks.setPredicate(expression::satisfies);
+        filteredOverdueTasks.setPredicate(expression::satisfies);
     }
     
     @Override

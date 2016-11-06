@@ -1,6 +1,7 @@
 package seedu.todolist.model.task;
 
 import java.time.DateTimeException;
+import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
@@ -25,7 +26,11 @@ public class TaskTime implements Comparable<TaskTime> {
 
     public static final String TIME_DISPLAY_FORMAT = "h:mma";
 
-    public final LocalTime time;
+    private LocalTime time;
+    
+    public TaskTime() {
+        
+    }
     
     /**
      * Validates given time.
@@ -62,6 +67,15 @@ public class TaskTime implements Comparable<TaskTime> {
 
     public LocalTime getTime() {
         return this.time;
+    }
+    
+    /**
+     * Return the current time
+     */
+    public static TaskTime now() {
+        TaskTime now = new TaskTime();
+        now.time = LocalTime.now();
+        return now;
     }
     
     @Override

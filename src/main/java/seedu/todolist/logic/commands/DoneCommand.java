@@ -32,15 +32,16 @@ public class DoneCommand extends Command {
 
     @Override
     public CommandResult execute() {
-
+        if (model.getCurrentTab().equals(MainWindow.TAB_TASK_COMPLETE)) {
+            return new CommandResult(MESSAGE_MARK_COMPLETED_TASK);
+        }
+        
         UnmodifiableObservableList<ReadOnlyTask> lastShownList = getLastShownList();
-
         if (!isValidIndexes(lastShownList, targetIndexes)) {
             return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
         
-        ReadOnlyTask[] tasksToMark = getAllTaskToMark(lastShownList);        
-        
+        ReadOnlyTask[] tasksToMark = getAllTaskToMark(lastShownList);              
         try {
             model.markTask(tasksToMark);
         } catch (TaskNotFoundException pnfe) {
@@ -54,10 +55,13 @@ public class DoneCommand extends Command {
      * Get the last shown listing from the selected tab
      */
     private UnmodifiableObservableList<ReadOnlyTask> getLastShownList() {
-        if (model.getCurrentTab().equals(MainWindow.TAB_TASK_COMPLETE)) {
-            return model.getFilteredCompleteTaskList();
-        } else {
+        if (model.getCurrentTab().equals(MainWindow.TAB_TASK_INCOMPLETE)) {
             return model.getFilteredIncompleteTaskList();
+        } else if (model.getCurrentTab().equals(MainWindow.TAB_TASK_OVERDUE)) {
+            return model.getFilteredOverdueTaskList();
+        } else {
+            assert false : "Last shown list must come from either incomplete or overdue pane";
+            return null;
         }
     }
     

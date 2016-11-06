@@ -29,8 +29,7 @@ public class DateParser {
         LocalDate parsedDate;
         if (date.contains("/")) {
             parsedDate = parseDateWithSlash(date);
-        }
-        else {
+        } else {
             parsedDate = parseDateWithMonthName(date);
         }
         return parsedDate;
@@ -98,8 +97,7 @@ public class DateParser {
     private static int getYearValue(String[] dateComponents) {
         if (isYearMissing(dateComponents)) {
             return getCurrentYear();
-        }
-        else {
+        } else {
             return Integer.parseInt(dateComponents[DATE_COMPONENT_INDEX_YEAR]);
         }
     }

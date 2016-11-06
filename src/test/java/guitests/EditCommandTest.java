@@ -11,6 +11,7 @@ import seedu.task.testutil.TestTask;
 import seedu.task.testutil.TestTaskList;
 import seedu.todolist.commons.exceptions.IllegalValueException;
 import seedu.todolist.model.task.Name;
+import seedu.todolist.model.task.Status;
 
 //@@author A0146682X
 public class EditCommandTest extends ToDoListGuiTest {
@@ -56,8 +57,8 @@ public class EditCommandTest extends ToDoListGuiTest {
 				System.out.println(MESSAGE_USAGE);
 			}
 
-			assertTrue(taskListPanel.isListMatching(currentList.getIncompleteList()));
-			assertTrue(completeTaskListPanel.isListMatching(currentList.getCompleteList()));
+			assertTrue(taskListPanel.isListMatching(Status.Type.Incomplete, currentList.getIncompleteList()));
+			assertTrue(taskListPanel.isListMatching(Status.Type.Complete, currentList.getCompleteList()));
 			assertResultMessage(String.format(MESSAGE_SUCCESS, newTask));
 		}
 	}

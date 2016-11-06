@@ -24,6 +24,9 @@ public interface Logic {
     /** Returns the filtered incomplete list of tasks */
     ObservableList<ReadOnlyTask> getFilteredIncompleteTaskList();
     
+    /** Returns the filtered overdue list of tasks */
+    ObservableList<ReadOnlyTask> getFilteredOverdueTaskList();
+    
     void setCurrentTab(String tab);
 
 }

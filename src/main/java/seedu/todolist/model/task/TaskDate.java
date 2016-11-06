@@ -26,8 +26,12 @@ public class TaskDate implements Comparable<TaskDate> {
     
     public static final String DATE_DISPLAY_FORMAT = "d MMM yyyy";
     
-    public final LocalDate date;
+    private LocalDate date;
 
+    public TaskDate() {
+        
+    }
+    
     /**
      * Validates given date.
      *
@@ -54,6 +58,10 @@ public class TaskDate implements Comparable<TaskDate> {
         return test.matches(DATE_VALIDATION_REGEX_FORMAT);
     }
     
+    public LocalDate getDate() {
+        return this.date;
+    }
+    
     /**
      * Returns true if this date is earlier than given date.
      */
@@ -61,10 +69,15 @@ public class TaskDate implements Comparable<TaskDate> {
         return this.date.isBefore(other.getDate());
     }
 
-    public LocalDate getDate() {
-        return this.date;
+    /**
+     * Return the current date
+     */
+    public static TaskDate now() {
+        TaskDate now = new TaskDate();
+        now.date = LocalDate.now();
+        return now;
     }
-
+    
     @Override
     public String toString() {
         if (this.date != null) {

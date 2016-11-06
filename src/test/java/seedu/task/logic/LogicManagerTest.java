@@ -323,7 +323,7 @@ public class LogicManagerTest {
             Interval interval = new Interval("12 oct 2016", "7pm", "12 oct 2016", "8pm");
             Location location = new Location("home");
             Remarks remarks = new Remarks("buy flowers");
-            Status status = new Status(false);
+            Status status = new Status();
             return new Task(name, interval, location, remarks, status);
         }
 
@@ -337,10 +337,9 @@ public class LogicManagerTest {
         Task generateTask(int seed) throws Exception {
             return new Task(
                     new Name("Task " + seed),
-                    new Interval(seed + " oct 2016", seed + "pm", seed + " oct 2016", (seed + 1) + "pm"),
+                    new Interval(seed + " oct 2017", seed + "pm", seed + " oct 2017", (seed + 1) + "pm"),
                     new Location("at" + seed),
-                    new Remarks("remarks" + seed),
-                    new Status(false)
+                    new Remarks("remarks" + seed)
             );
         }
 
@@ -438,7 +437,7 @@ public class LogicManagerTest {
                     new Interval("21 oct 2016", "3pm", "21 oct 2016", "4pm"),
                     new Location("location"),
                     new Remarks("remarks"),
-                    new Status(false)
+                    new Status()
             );
         }
     }

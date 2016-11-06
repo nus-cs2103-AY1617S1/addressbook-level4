@@ -47,15 +47,17 @@ public class ToDoList implements ReadOnlyToDoList {
         return tasks.getInternalList();
     }
     
-    //@@author A0138601M
-    public ObservableList<Task> getCompletedTasks() {
-        return tasks.getFilteredTaskList(Status.STATUS_COMPLETE);
+    public ObservableList<Task> getIncompleteTasks() {
+        return tasks.getFilteredTaskList(Status.Type.Incomplete.toString());
     }
     
-    public ObservableList<Task> getIncompleteTasks() {
-        return tasks.getFilteredTaskList(Status.STATUS_INCOMPLETE);
+    public ObservableList<Task> getCompletedTasks() {
+        return tasks.getFilteredTaskList(Status.Type.Complete.toString());
     }
-    //@@author
+    
+    public ObservableList<Task> getOverdueTasks() {
+        return tasks.getFilteredTaskList(Status.Type.Overdue.toString());
+    }
 
     public void setTasks(List<Task> tasks) {
         this.tasks.getInternalList().setAll(tasks);

@@ -15,6 +15,7 @@ import seedu.todolist.commons.events.ui.ExitAppRequestEvent;
 import seedu.todolist.logic.Logic;
 import seedu.todolist.model.UserPrefs;
 import seedu.todolist.model.task.ReadOnlyTask;
+import seedu.todolist.model.task.Status;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -28,12 +29,14 @@ public class MainWindow extends UiPart {
     public static final int MIN_WIDTH = 450;
     public static final String TAB_TASK_COMPLETE = "Completed";
     public static final String TAB_TASK_INCOMPLETE = "Incomplete";
+    public static final String TAB_TASK_OVERDUE = "Overdue";
 
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
     private TaskListPanel taskListPanel;
-    private CompleteTaskListPanel completeTaskListPanel;
+    private TaskListPanel completeTaskListPanel;
+    private TaskListPanel overdueTaskListPanel;
     private ResultDisplay resultDisplay;
     private StatusBarFooter statusBarFooter;
     private CommandBox commandBox;
@@ -60,6 +63,9 @@ public class MainWindow extends UiPart {
     
     @FXML
     private AnchorPane completeTaskListPanelPlaceholder;
+    
+    @FXML
+    private AnchorPane overdueTaskListPanelPlaceholder;
 
     @FXML
     private AnchorPane resultDisplayPlaceholder;
@@ -117,8 +123,12 @@ public class MainWindow extends UiPart {
     }
 
     void fillInnerParts() {
-        taskListPanel = TaskListPanel.load(primaryStage, getTaskListPlaceholder(), logic.getFilteredIncompleteTaskList());
-        completeTaskListPanel = CompleteTaskListPanel.load(primaryStage, getCompleteTaskListPlaceholder(), logic.getFilteredCompleteTaskList());
+        taskListPanel = TaskListPanel.load(primaryStage, getTaskListPlaceholder(),
+                logic.getFilteredIncompleteTaskList(), Status.Type.Incomplete);
+        completeTaskListPanel = TaskListPanel.load(primaryStage, getCompleteTaskListPlaceholder(),
+                logic.getFilteredCompleteTaskList(), Status.Type.Complete);
+        overdueTaskListPanel = TaskListPanel.load(primaryStage, getOverdueTaskListPlaceholder(),
+                logic.getFilteredOverdueTaskList(), Status.Type.Overdue);
         resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
         statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getToDoListFilePath());
         commandBox = CommandBox.load(primaryStage, getCommandBoxPlaceholder(), resultDisplay, logic);
@@ -142,6 +152,10 @@ public class MainWindow extends UiPart {
     
     public AnchorPane getCompleteTaskListPlaceholder() {
         return completeTaskListPanelPlaceholder;
+    }
+    
+    public AnchorPane getOverdueTaskListPlaceholder() {
+        return overdueTaskListPanelPlaceholder;
     }
 
     public void hide() {
@@ -209,8 +223,12 @@ public class MainWindow extends UiPart {
         return this.taskListPanel;
     }
     
-    public CompleteTaskListPanel getCompleteTaskListPanel() {
+    public TaskListPanel getCompleteTaskListPanel() {
         return this.completeTaskListPanel;
+    }
+    
+    public TaskListPanel getOverdueTaskListPanel() {
+        return this.overdueTaskListPanel;
     }
 
     public void loadTaskPage(ReadOnlyTask task) {

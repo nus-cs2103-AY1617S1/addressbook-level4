@@ -17,18 +17,18 @@ public class AddCommandTest extends ToDoListGuiTest {
         
         TestTaskList currentList = new TestTaskList(td.getTypicalTasks());
         
-        //add one task
-        TestTask taskToAdd = td.event;
+        //add one upcoming task
+        TestTask taskToAdd = td.upcomingEvent;
         assertAddSuccess(taskToAdd, currentList);
 
-        //add another task
-        taskToAdd = td.deadline;
+        //add one overdue task
+        taskToAdd = td.overdueDeadline;
         assertAddSuccess(taskToAdd, currentList);
 
         //add to empty list
         commandBox.runCommand("clear");
         currentList.clear();
-        taskToAdd = td.eventWithLocationAndRemarks;
+        taskToAdd = td.eventWithLocation;
         assertAddSuccess(taskToAdd, currentList);
 
         //invalid command
@@ -45,15 +45,12 @@ public class AddCommandTest extends ToDoListGuiTest {
         commandBox.runCommand(taskToAdd.getAddCommand());
 
         //confirm the new card contains the right data
-        TaskCardHandle addedCard = taskListPanel.navigateToTask(taskToAdd.getName().fullName);
+        TaskCardHandle addedCard = taskListPanel.navigateToTask(taskToAdd.getName().fullName, taskToAdd.getStatus().getType());
         assertMatching(taskToAdd, addedCard);
 
         //confirm the list now contains all previous tasks plus the new task
         currentList.addTasksToList(taskToAdd);
-        assertTrue(taskListPanel.isListMatching(currentList.getIncompleteList()));
-        
-        //confirm no new task is added to completed pane
-        assertCompleteListSize(0);
+        assertAllListMatching(currentList);
     }
 
 }

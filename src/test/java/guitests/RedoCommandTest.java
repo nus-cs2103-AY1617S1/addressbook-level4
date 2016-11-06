@@ -9,6 +9,7 @@ import seedu.task.testutil.TestTask;
 import seedu.task.testutil.TestTaskList;
 import seedu.todolist.commons.core.Messages;
 import seedu.todolist.logic.commands.RedoCommand;
+import seedu.todolist.model.task.Status;
 
 //@@author A0153736B
 public class RedoCommandTest extends ToDoListGuiTest {
@@ -20,7 +21,7 @@ public class RedoCommandTest extends ToDoListGuiTest {
         assertResultMessage(RedoCommand.MESSAGE_WITHOUT_PREVIOUS_OPERATION);
     	
         //redo an undo operation
-        TestTask taskToAdd = td.deadline;   
+        TestTask taskToAdd = td.overdueDeadline;   
         TestTaskList currentList = new TestTaskList(td.getTypicalTasks());
         commandBox.runCommand(taskToAdd.getAddCommand());
         commandBox.runCommand("undo");
@@ -28,7 +29,7 @@ public class RedoCommandTest extends ToDoListGuiTest {
         assertRedoCommandSuccess(currentList);
         
         //redo two undo operations consecutively
-        TestTask taskAfterEdit = td.event;
+        TestTask taskAfterEdit = td.upcomingEvent;
         commandBox.runCommand(taskAfterEdit.getEditCommand(1));
         commandBox.runCommand("undo");
         commandBox.runCommand("undo");
@@ -53,8 +54,8 @@ public class RedoCommandTest extends ToDoListGuiTest {
     
     private void assertRedoCommandSuccess(TestTaskList expectedList) {
         commandBox.runCommand("redo");
-        assertTrue(taskListPanel.isListMatching(expectedList.getIncompleteList()));
-        assertTrue(completeTaskListPanel.isListMatching(expectedList.getCompleteList()));
+        assertTrue(taskListPanel.isListMatching(Status.Type.Incomplete, expectedList.getIncompleteList()));
+        assertTrue(taskListPanel.isListMatching(Status.Type.Complete, expectedList.getCompleteList()));
         assertResultMessage(RedoCommand.MESSAGE_SUCCESS);
     }
 }
