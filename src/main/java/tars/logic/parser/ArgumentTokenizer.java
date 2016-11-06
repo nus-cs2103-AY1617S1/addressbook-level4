@@ -14,11 +14,15 @@ import tars.commons.util.StringUtil;
 
 /**
  * Tokenizes arguments string of the form: {@code preamble <prefix>value <prefix>value ...}<br>
- *     e.g. {@code some preamble text /dt today at 3pm /t tag1 /t tag2 /ls}  where prefixes are {@code /dt /t}.<br>
- * 1. An argument's value can be an empty string e.g. the value of {@code /ls} in the above example.<br>
+ * e.g. {@code some preamble text /dt today at 3pm /t tag1 /t tag2 /ls} where prefixes are
+ * {@code /dt /t}.<br>
+ * 1. An argument's value can be an empty string e.g. the value of {@code /ls} in the above
+ * example.<br>
  * 2. Leading and trailing whitespaces of an argument value will be discarded.<br>
- * 3. A prefix need to have leading and trailing spaces e.g. the {@code /d today at 3pm /t tag1} in the above example<br>
- * 4. An argument may be repeated and all its values will be accumulated e.g. the value of {@code /t} in the above example.<br>
+ * 3. A prefix need to have leading and trailing spaces e.g. the {@code /d today at 3pm /t tag1} in
+ * the above example<br>
+ * 4. An argument may be repeated and all its values will be accumulated e.g. the value of
+ * {@code /t} in the above example.<br>
  * 
  * @@author A0139924W
  */
@@ -64,8 +68,10 @@ public class ArgumentTokenizer {
             int curIndexPos = START_INDEX_POS;
 
             do {
-                curIndexPos = args.indexOf(StringUtil.STRING_WHITESPACE + prefixes[i].value, curIndexPos + StringUtil.LAST_INDEX);
-                
+                curIndexPos = args.indexOf(
+                        StringUtil.STRING_WHITESPACE + prefixes[i].value,
+                        curIndexPos + StringUtil.LAST_INDEX);
+
                 if (curIndexPos >= StringUtil.START_INDEX) {
                     prefixPosMap.put(curIndexPos, prefixes[i]);
                 }
@@ -83,7 +89,8 @@ public class ArgumentTokenizer {
 
         int endPos = args.length();
 
-        for (Map.Entry<Integer, Prefix> entry : prefixPosMap.descendingMap().entrySet()) {
+        for (Map.Entry<Integer, Prefix> entry : prefixPosMap.descendingMap()
+                .entrySet()) {
             Prefix prefix = entry.getValue();
             Integer pos = entry.getKey();
 
@@ -95,8 +102,8 @@ public class ArgumentTokenizer {
             endPos = pos;
 
             if (prefixValueMap.containsKey(prefix)) {
-                prefixValueMap.put(prefix,
-                        prefixValueMap.get(prefix).concat(StringUtil.STRING_WHITESPACE).concat(arg));
+                prefixValueMap.put(prefix, prefixValueMap.get(prefix)
+                        .concat(StringUtil.STRING_WHITESPACE).concat(arg));
             } else {
                 prefixValueMap.put(prefix, arg);
             }
@@ -110,23 +117,27 @@ public class ArgumentTokenizer {
         if (!prefixValueMap.containsKey(prefix)) {
             return Optional.empty();
         }
-        
-        return Optional.of(getMultipleValues(prefix).get().iterator().next().trim());
+
+        return Optional
+                .of(getMultipleValues(prefix).get().iterator().next().trim());
     }
 
     public Optional<Set<String>> getMultipleValues(Prefix prefix) {
         if (!prefixValueMap.containsKey(prefix)) {
             return Optional.empty();
         }
-        return Optional.of(getMultipleFromArgs(prefixValueMap.get(prefix), prefix));
+        return Optional
+                .of(getMultipleFromArgs(prefixValueMap.get(prefix), prefix));
     }
-    
+
     public Optional<String> getMultipleRawValues(Prefix prefix) {
         if (!prefixValueMap.containsKey(prefix)) {
             return Optional.empty();
         }
-        
-        return Optional.of(prefixValueMap.get(prefix).replaceAll(prefix.value + StringUtil.STRING_WHITESPACE, StringUtil.EMPTY_STRING));
+
+        return Optional.of(prefixValueMap.get(prefix).replaceAll(
+                prefix.value + StringUtil.STRING_WHITESPACE,
+                StringUtil.EMPTY_STRING));
     }
 
     public int numPrefixFound() {
@@ -144,10 +155,13 @@ public class ArgumentTokenizer {
             return Optional.empty();
         }
 
-        return Optional.of(args.substring(StringUtil.START_INDEX, prefixPosMap.firstKey()).trim());
+        return Optional.of(
+                args.substring(StringUtil.START_INDEX, prefixPosMap.firstKey())
+                        .trim());
     }
 
-    private Set<String> getMultipleFromArgs(String multipleArguments, Prefix prefix) {
+    private Set<String> getMultipleFromArgs(String multipleArguments,
+            Prefix prefix) {
         if (multipleArguments.isEmpty()) {
             return Collections.emptySet();
         }
@@ -155,9 +169,11 @@ public class ArgumentTokenizer {
         multipleArguments = multipleArguments.trim();
 
         // replace first delimiter prefix, then split
-        List<String> multipleArgList = Arrays
-                .asList(multipleArguments.replaceFirst(prefix.value + StringUtil.STRING_WHITESPACE, StringUtil.EMPTY_STRING)
-                        .split(StringUtil.STRING_WHITESPACE + prefix.value + StringUtil.STRING_WHITESPACE));
+        List<String> multipleArgList = Arrays.asList(multipleArguments
+                .replaceFirst(prefix.value + StringUtil.STRING_WHITESPACE,
+                        StringUtil.EMPTY_STRING)
+                .split(StringUtil.STRING_WHITESPACE + prefix.value
+                        + StringUtil.STRING_WHITESPACE));
 
         for (int i = StringUtil.START_INDEX; i < multipleArgList.size(); i++) {
             multipleArgList.set(i, multipleArgList.get(i).trim());
@@ -165,5 +181,5 @@ public class ArgumentTokenizer {
 
         return new HashSet<>(multipleArgList);
     }
-    
+
 }

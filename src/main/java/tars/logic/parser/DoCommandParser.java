@@ -14,7 +14,8 @@ import tars.logic.commands.IncorrectCommand;
  */
 public class DoCommandParser extends CommandParser {
 
-    private static final String INVALID_RANGE = "Start index should be before end index.";
+    private static final String INVALID_RANGE =
+            "Start index should be before end index.";
 
     /**
      * Parses arguments in the context of the delete task command.
@@ -35,8 +36,8 @@ public class DoCommandParser extends CommandParser {
             String rangeIndex = StringUtil.indexString(args);
             args = rangeIndex;
         } catch (InvalidRangeException ire) {
-            return new IncorrectCommand(String
-                    .format(INVALID_RANGE + StringUtil.STRING_NEWLINE + DoCommand.MESSAGE_USAGE));
+            return new IncorrectCommand(String.format(INVALID_RANGE
+                    + StringUtil.STRING_NEWLINE + DoCommand.MESSAGE_USAGE));
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(String.format(
                     MESSAGE_INVALID_COMMAND_FORMAT, DoCommand.MESSAGE_USAGE));

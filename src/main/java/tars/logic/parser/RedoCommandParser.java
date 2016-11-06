@@ -16,8 +16,8 @@ public class RedoCommandParser extends CommandParser {
     @Override
     public Command prepareCommand(String args) {
         if (!args.isEmpty()) {
-            return new IncorrectCommand(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, RedoCommand.MESSAGE_USAGE));
+            return new IncorrectCommand(String.format(
+                    MESSAGE_INVALID_COMMAND_FORMAT, RedoCommand.MESSAGE_USAGE));
         }
         return new RedoCommand();
     }

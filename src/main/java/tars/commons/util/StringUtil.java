@@ -13,7 +13,7 @@ import tars.commons.exceptions.InvalidRangeException;
  */
 public class StringUtil {
 
-    private static final String REGEX_WHITESPACE = "\\s+";
+    public static final String REGEX_WHITESPACE = "\\s+";
     private static final String REGEX_UNSIGNED_INTEGER = "^0*[1-9]\\d*$";
     private static final String INVALID_INDEX_ENTERED = "Invalid index entered";
     private static final String UNEXPECTED_ERROR_IN_GETING_INDEX_FROM_STRING =

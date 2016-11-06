@@ -14,8 +14,9 @@ import tars.logic.commands.UdCommand;
  */
 public class UdCommandParser extends CommandParser {
 
-    private static final String INVALID_RANGE = "Start index should be before end index.";
-    
+    private static final String INVALID_RANGE =
+            "Start index should be before end index.";
+
     /**
      * Parses arguments in the context of the ud command.
      *
@@ -27,19 +28,19 @@ public class UdCommandParser extends CommandParser {
         args = args.trim();
 
         if (StringUtil.EMPTY_STRING.equals(args)) {
-            return new IncorrectCommand(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, UdCommand.MESSAGE_USAGE));
+            return new IncorrectCommand(String.format(
+                    MESSAGE_INVALID_COMMAND_FORMAT, UdCommand.MESSAGE_USAGE));
         }
 
         try {
             String rangeIndex = StringUtil.indexString(args);
             args = rangeIndex;
         } catch (InvalidRangeException ire) {
-            return new IncorrectCommand(
-                    String.format(INVALID_RANGE + StringUtil.STRING_NEWLINE + UdCommand.MESSAGE_USAGE));
+            return new IncorrectCommand(String.format(INVALID_RANGE
+                    + StringUtil.STRING_NEWLINE + UdCommand.MESSAGE_USAGE));
         } catch (IllegalValueException ive) {
-            return new IncorrectCommand(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, UdCommand.MESSAGE_USAGE));
+            return new IncorrectCommand(String.format(
+                    MESSAGE_INVALID_COMMAND_FORMAT, UdCommand.MESSAGE_USAGE));
         }
 
         return new UdCommand(args);
