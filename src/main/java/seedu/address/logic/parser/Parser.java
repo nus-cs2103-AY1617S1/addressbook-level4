@@ -358,11 +358,10 @@ public class Parser {
         try {
 
             String startInput = matcher.group("startTime");
-            String endInput = matcher.group("endTime");
-
+            List<Date> datesToAdd = DateParser.getInstance().getFromToDatesFromString(startInput);
             return new BlockCommand(getTagsFromArgs(matcher.group("tagArguments")),
-                    new TaskDate(DateParser.getInstance().getDateFromString(startInput).getTime()),
-                    new TaskDate(DateParser.getInstance().getDateFromString(endInput).getTime()));
+                    new TaskDate(datesToAdd.get(0)),
+                    new TaskDate(datesToAdd.get(1)));
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
         }
@@ -754,14 +753,10 @@ public class Parser {
     public static ArrayList<Date> extractDateInfo(Matcher m) throws IllegalValueException{
         ArrayList<Date> resultSet = new ArrayList<Date>();
         try {
-            String[] time = m.group("startTime").replace(" from ", "").split(" to ");
+            List<Date> datesToAdd = DateParser.getInstance().getFromToDatesFromString(m.group("startTime"));
             resultSet.clear();
-            try {
-                resultSet.add(DateParser.getInstance().getDateFromString(time[START_TIME_INDEX]));
-                resultSet.add(DateParser.getInstance().getDateFromString(time[END_TIME_INDEX]));
-            } catch (IllegalValueException e) {              
-                throw new IllegalValueException(MESSAGE_ILLEGAL_DATE_INPUT);
-            }
+            resultSet.add(datesToAdd.get(0));
+            resultSet.add(datesToAdd.get(1));
         } catch (Exception ise) {
             resultSet.clear();
             try {

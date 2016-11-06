@@ -68,7 +68,7 @@ public class TaskCard extends UiPart {
     
     //@@author A0147967J
     private void initializaRecurringPeriod() {
-        if(task.getRecurringPeriod() == Task.NO_RECURRING_PERIOD){
+        if(task.getRecurringPeriod() == Task.NO_RECURRING_PERIOD && !task.getRecurringType().equals(RecurringType.NONE)){
             period.setText("Always");
         } else {
             period.setText("");
