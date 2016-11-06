@@ -3,6 +3,7 @@
 	main-bg-color: white;
 	main-bg-color: #F5F5F5;
 	main-border-color: derive(#1d1d1d, 90%);
+	card-bg-color: #FFF5EE;
 }
 /*@@author */
 
@@ -103,21 +104,16 @@
     -fx-padding: 0 0 0 0;
 }
 
-.list-cell:focused:selected {
-	-fx-background-color: derive(#F0E68E, 100%);
-}
-
 /*@@author A0143641M */
+.list-cell:focused:selected {
+	-fx-background-color: derive(#00BFFF, 80%);
+}
 
 .list-cell .label {
 	-fx-font-family: Palatino;
 	-fx-font-size: 16px;
     -fx-text-fill: derive(black, 35%);
     -fx-text-overrun: word-ellipsis ;
-}
-
-.list-cell:focused:selected .label {
-	-fx-text-fill: #00BFFF;
 }
 
 #itemsPane {
@@ -325,12 +321,21 @@
     -fx-padding: 8 1 8 1;
 }
 
-.cardPane {
-    -fx-background-color: #FFF5EE;
+/*@@author A0143641M */
+#leftCardPane {
+    -fx-background-color: transparent;
     -fx-border-color: #d6d6d6;
     -fx-border-width: 1 1 1 1;
     -fx-border-radius: 5px;
 }
+
+#rightCardPane {
+	-fx-background-color: card-bg-color;
+    -fx-border-color: #d6d6d6;
+    -fx-border-width: 1 1 1 1;
+    -fx-border-radius: 5px;
+}
+/*@@author */
 
 #commandTypeLabel {
     -fx-font-size: 11px;

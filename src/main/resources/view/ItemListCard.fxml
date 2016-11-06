@@ -1,13 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
 
 <?import java.net.URL?>
-<HBox VBox.vgrow="ALWAYS" id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.text.TextFlow?>
+
+<HBox id="rightCardPane" fx:id="cardPane" VBox.vgrow="ALWAYS" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1">
     <children>
-        <GridPane HBox.hgrow="ALWAYS" >
+        <GridPane HBox.hgrow="ALWAYS">
             <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="150.0" />
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="100.0" minWidth="10.0" prefWidth="100.0" />
@@ -23,7 +30,7 @@
                     </padding>
 
                     <children>
-                        <HBox spacing="5" alignment="CENTER_LEFT">
+                        <HBox alignment="CENTER_LEFT" spacing="5">
                             <children>
                                 <HBox>
                                 	<!-- @@author A0140060A -->
@@ -38,9 +45,9 @@
                                 </HBox>
                             </children>
                         </HBox>
-                        <HBox spacing="5" alignment="CENTER_LEFT">
-                        	<Label fx:id="itemType" text="\$itemType"/>
-                        	<Label fx:id="tags" text="\$tags" />
+                        <HBox alignment="CENTER_LEFT" spacing="5">
+                        	<Label fx:id="itemType" styleClass="cell_small_label_itemType" text="\$itemType" />
+                        	<Label fx:id="tags" styleClass="cell_small_label" text="\$tags" />
                         </HBox>
                         <HBox>
                             <Label fx:id="startDate" text="\$startDate" />
@@ -56,12 +63,15 @@
                             <Label fx:id="endFromNow" text="\$endFromNow" />
                         </HBox>
                         <HBox>
-                            <Button fx:id="doneButton" text="Not Done" onAction="#doneButtonAction"/>
-                            <Button fx:id="deleteButton" text="Delete" onAction="#deleteButtonAction"/>
+                            <Button fx:id="doneButton" onAction="#doneButtonAction" text="Not Done" />
+                            <Button fx:id="deleteButton" onAction="#deleteButtonAction" text="Delete" />
                         </HBox>
                     </children>
                 </VBox>
             </children>
+         <rowConstraints>
+            <RowConstraints />
+         </rowConstraints>
         </GridPane>
     </children>
 </HBox>
