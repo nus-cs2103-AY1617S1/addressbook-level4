@@ -376,26 +376,26 @@ You do not need to worry about saving the data manually.
 <!-- @@author A0138915X -->
 ## FAQ
 
-**Q**: How do I transfer my data to another Computer?<br>
-**A**: Simply copy the data file specified by the save location to the other computer. Install the app in the other computer and then specify the location of the data file you want to load using the `saveas` command, or just overwrite the default data file with the old file.
+###How do I transfer my data to another Computer?<br>
+Simply copy the data file specified by the save location to the other computer. Install the app in the other computer and then specify the location of the data file you want to load using the `saveas` command, or just overwrite the default data file with the old file.
 <br><br>
-**Q**: Is there a way to be notified of upcoming tasks or events that are due soon?<br>
-**A**: Jimi will display all overdue tasks at the top Agenda box, so you will always be notified of the most important details first. To display upcoming tasks or events, do use the find command to list them.
+###Is there a way to be notified of upcoming tasks or events that are due soon?<br>
+Jimi will display all overdue tasks at the top Agenda box, so you will always be notified of the most important details first. To display upcoming tasks or events, do use the find command to list them.
 <br><br>
-**Q**: What happens if I typed in a wrong command?<br>
-**A**: Jimi will display an error message that tells you that the command you entered is incorrect.
+###What happens if I typed in a wrong command?<br>
+Jimi will display an error message that tells you that the command you entered is incorrect.
 <br><br>
-**Q**: What happens if I typed in the format wrongly?<br>
-**A**: Jimi will display an error message that tells you that the format for the command you entered is incorrect and will also display the correct command format required for that command.
+###What happens if I typed in the format wrongly?<br>
+Jimi will display an error message that tells you that the format for the command you entered is incorrect and will also display the correct command format required for that command.
 <br><br>
-**Q**: Can I still use the mouse to use Jimi's functionalities?<br>
-**A**: As Jimi is specifically catered to use the command-line interface, support for mouse-input is limited. You can display certain sections of the summary panel by clicking on the headers with the mouse although that is pretty much what Jimi can allow you to do with the mouse.
+###Can I still use the mouse to use Jimi's functionalities?<br>
+As Jimi is specifically catered to use the command-line interface, support for mouse-input is limited. You can display certain sections of the summary panel by clicking on the headers with the mouse although that is pretty much what Jimi can allow you to do with the mouse.
 <br><br>
-**Q**: How do I see all of my completed tasks?<br>
-**A**: You can do so by using the `show completed` command which will display all of the completed tasks in the main window.
+###How do I see all of my completed tasks?<br>
+You can do so by using the `show completed` command which will display all of the completed tasks in the main window.
 <br><br>
-**Q**: Can I use this with Google Cloud or my favourite cloud service?<br>
-**A**: As of now, Jimi does not support any online functionality. However, there are plans for the development of online cloud services integration so users can easilly access their data from multiple devices with ease.
+###Can I use this with Google Cloud or my favourite cloud service?<br>
+As of now, Jimi does not support any online functionality. However, there are plans for the development of online cloud services integration so users can easilly access their data from multiple devices with ease.
 <br><br>
-**Q**: How can I delete multiple tasks/events at once?
-**A**: You can do so by using the `delete` command follow by the range of indices of tasks or events you want to remove.
+###How can I delete multiple tasks/events at once?<br>
+You can do so by using the `delete` command follow by the range of indices of tasks or events you want to remove.
