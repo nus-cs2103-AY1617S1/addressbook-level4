@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import w15c2.tusk.model.task.DeadlineTask;
@@ -25,7 +26,7 @@ public class TaskCard extends UiPart{
     @FXML
     private Label secondDate;
     @FXML
-    private Rectangle colorTag;
+    private VBox colorTag;
 
     private Task task;
     private int displayedIndex;
@@ -35,28 +36,28 @@ public class TaskCard extends UiPart{
     private static final String OVERDUE_FIRSTDATE_CSS = OVERDUE_SECONDDATE_CSS;
     private static final String OVERDUE_ID_CSS = "-fx-text-fill: rgba(244, 244, 244, 1.0);";
     private static final String OVERDUE_DESCRIPTION_CSS = OVERDUE_ID_CSS;
-    private static final Color  OVERDUE_COLORTAG_CSS = Color.CRIMSON;
+    private static final String  OVERDUE_COLORTAG_CSS = "-fx-background-color: #DC143C";
     
     private static final String FAVORITE_CARDPANE_CSS = "-fx-background-color: rgba(255, 255, 9, 0.75);";
     private static final String FAVORITE_SECONDDATE_CSS = "-fx-text-fill: rgba(0, 0, 0, 0.7);";
     private static final String FAVORITE_FIRSTDATE_CSS = FAVORITE_SECONDDATE_CSS;
     private static final String FAVORITE_ID_CSS = "-fx-text-fill: rgba(0, 102, 0, 1.0);";
     private static final String FAVORITE_DESCRIPTION_CSS = FAVORITE_ID_CSS;
-    private static final Color  FAVORITE_COLORTAG_CSS = Color.rgb(242, 232, 121);
+    private static final String  FAVORITE_COLORTAG_CSS = "-fx-background-color: rgb(242, 232, 121)";
     
     private static final String COMPLETED_CARDPANE_CSS = "-fx-background-color: rgba(129, 224, 74, 1.0);";
     private static final String COMPLETED_SECONDDATE_CSS = "-fx-text-fill: white;";
     private static final String COMPLETED_FIRSTDATE_CSS = COMPLETED_SECONDDATE_CSS;
     private static final String COMPLETED_ID_CSS = "-fx-text-fill: white;";
     private static final String COMPLETED_DESCRIPTION_CSS = COMPLETED_ID_CSS;
-    private static final Color  COMPLETED_COLORTAG_CSS = Color.rgb(153, 247, 98);
+    private static final String  COMPLETED_COLORTAG_CSS = "-fx-background-color: rgb(153, 247, 98)";
     
     private static final String NORMAL_CARDPANE_CSS = "-fx-background-color: rgba(211, 174, 141, 0.5);";
     private static final String NORMAL_SECONDDATE_CSS = "-fx-text-fill: rgba(247, 246, 239, 0.7);";
     private static final String NORMAL_FIRSTDATE_CSS = NORMAL_SECONDDATE_CSS;
     private static final String NORMAL_ID_CSS = "-fx-text-fill: rgba(244, 244, 244, 1.0);";
     private static final String NORMAL_DESCRIPTION_CSS = NORMAL_ID_CSS;
-    private static final Color  NORMAL_COLORTAG_CSS = Color.rgb(186, 143, 106);
+    private static final String  NORMAL_COLORTAG_CSS = "-fx-background-color: rgb(186, 143, 106)";
     
     private static final String FXML = "TaskListCard.fxml";
     
@@ -100,7 +101,7 @@ public class TaskCard extends UiPart{
     	id.setStyle(COMPLETED_ID_CSS);
     	firstDate.setStyle(COMPLETED_FIRSTDATE_CSS);
     	secondDate.setStyle(COMPLETED_SECONDDATE_CSS);
-    	colorTag.setFill(COMPLETED_COLORTAG_CSS);
+    	colorTag.setStyle(COMPLETED_COLORTAG_CSS);
     }
     
     // Set the colors for overdue tasks
@@ -110,7 +111,7 @@ public class TaskCard extends UiPart{
     	id.setStyle(OVERDUE_ID_CSS);
     	firstDate.setStyle(OVERDUE_FIRSTDATE_CSS);
     	secondDate.setStyle(OVERDUE_SECONDDATE_CSS);
-    	colorTag.setFill(OVERDUE_COLORTAG_CSS);
+    	colorTag.setStyle(OVERDUE_COLORTAG_CSS);
     }
     
     // Set the colors for pinned tasks
@@ -120,7 +121,7 @@ public class TaskCard extends UiPart{
     	id.setStyle(FAVORITE_ID_CSS);
     	firstDate.setStyle(FAVORITE_FIRSTDATE_CSS);
     	secondDate.setStyle(FAVORITE_SECONDDATE_CSS);
-    	colorTag.setFill(FAVORITE_COLORTAG_CSS);
+    	colorTag.setStyle(FAVORITE_COLORTAG_CSS);
     }
     
     // Set the colors for normal tasks
@@ -130,7 +131,7 @@ public class TaskCard extends UiPart{
     	id.setStyle(NORMAL_ID_CSS);
     	firstDate.setStyle(NORMAL_FIRSTDATE_CSS);
     	secondDate.setStyle(NORMAL_SECONDDATE_CSS);
-    	colorTag.setFill(NORMAL_COLORTAG_CSS);
+    	colorTag.setStyle(NORMAL_COLORTAG_CSS);
     }
 
     public HBox getLayout() {
