@@ -76,9 +76,25 @@ are the formats. <br>
 
  Examples : <br>
    help <br>
-   Help <br>
+   Help <br>   
+    > <img src="UserGuideImages/Help_0.JPG" width="400">
+
+<br>
+
+### 1.1  help "Command" <br>
+
+If you wish to know the specific formats of each individual command or require assistance for a specific command, you may enter the command format as shown below. . <br>
+#### Format: `help "COMMAND" `
    
+> Help is also shown if you enter an incorrect command e.g. `abcd`
+
+ Examples : <br>
+   help add <br>
+   Help  list <br> 
+   Help  find <br>   
     > <img src="UserGuideImages/Help_1.JPG" width="400">
+    
+    This command will show you the command format of the specific command you have entered in the result display panel. For example, if     i type “help add,” the result display panel will show the specific format of the add command. 
 
 <br>
 <br>
