@@ -43,7 +43,7 @@ Command | Format
 [Help](#help) | `help`
 [Add](#add) | `add "TASK_DETAILS" [t/TAG] [p/PRIORITY]`
 &nbsp;| `add "TASK_DETAILS" due DATE_TIME [t/TAG] [p/PRIORITY]`
-&nbsp;| `add "EVENT_DETAILS" on START_DATE_TIME [to END_DATE_TIME] [t/TAG] [p/PRIORITY]`
+&nbsp;| `add "EVENT_DETAILS" on|from START_DATE_TIME [to END_DATE_TIME] [t/TAG] [p/PRIORITY]`
 [Complete](#com)| `complete INDEX`
 [Delete](#del) | `delete INDEX`
 [Edit](#edit) | `edit INDEX NEW_DETAILS`
@@ -63,10 +63,11 @@ Command | Format
 * Commands have to follow a certain format as shown in the table above.
 * Replace words in `UPPER_CASE` with your input.
 * Items in `[]` are optional.
-* The order of your input text is fixed. For instance, `add [DATE_TIME] due [TASK_DETAILS]` is invalid. 
+* Items seperated by `|` simply means any of the items will work. E.g. `on|from`, typing `on` instead of `from` and vice versa are fine.
+* The order of your input text is fixed. For instance, `add DATE_TIME due "TASK_DETAILS"` is invalid. 
 * Some commands allow shorter command words for advanced users. Some commands, due to their critical nature e.g. `exit` or `clear`, you are required to type the full command word.
 * Command words are also all case-insensitive i.e. `add` works as well as `ADD`.
-* Below is a table of accepted command words of all commands.
+* Below are accepted shortcuts of all commands.
 
 Command | Default Command Word | Shortcuts  
 -------- | :-------- | :--------
@@ -76,8 +77,8 @@ Compete | `complete` | `c`, `co`, `com`, ... , `complet`
 Delete | `delete` | `d`, `de`, `del`, ... , `delet`
 Edit | `edit` | `e`, `ed`, `edi`
 Show | `show` | `s`, `sh`, `sho`
-Undo | `undo` | `u`
-Redo | `redo` | `r`
+Undo | `undo` | `u`, `un`, `und`
+Redo | `redo` | `r`, `re`, `red`
 Find | `find` | `f`, `fi`, `fin`
 SaveAs | `saveas` | None
 Clear | `clear` | None
@@ -105,6 +106,9 @@ Exit | `exit` | None
 * However, you cannot input none of them.
 * The start-date & time of the events cannot be earlier prior to the end-date & time.
 
+> * Given the nature of natural language processing, Jimi can't gurantee that it will interpret your specified date/time with 100% certainty. If it ever happens that Jimi misinterprets your dates/times, you can either [`undo`](#undo) or [`edit`](#edit) to make changes. 
+> * A failsafe option, however, is to simply type proper calender dates i.e. `27 oct` or `1 feb 2pm`.
+
 <br>
 
 **Input of Index**
@@ -114,6 +118,7 @@ Exit | `exit` | None
     * Eg:
         * complete **t1**
         * delete **e3**
+    * You will not go wrong if you follow the index that's written under the `No.` column of the tables.
 
 <br>
 <br>
