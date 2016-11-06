@@ -478,8 +478,12 @@ public class Parser {
 
 		String[] keywords = new String[1];
 
-		if (keyword.equals("complete") || keyword.equals("not complete")) {
-			keywords[0] = keyword;
+		if (keyword.contains("complete")) {
+			if (keyword.contains("not")) {
+				keywords[0] = "not complete";
+			} else {
+				keywords[0] = "complete";
+			}
 		} else {
 			nattyParser natty = new nattyParser();
 			keywords[0] = natty.parseDate(keyword);

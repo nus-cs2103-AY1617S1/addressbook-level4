@@ -32,7 +32,7 @@ public interface Model {
     void addPerson(Task person) throws UniqueTaskList.DuplicatePersonException;
 
     /** Marks the given task as complete  */
-    void markTaskAsComplete(int targetIndex) throws PersonNotFoundException;
+    void markTaskAsComplete(ReadOnlyTask taskToComplete) throws PersonNotFoundException;
     
     /** Pins the given task. */
     void pinTask(int targetIndex) throws PersonNotFoundException;
