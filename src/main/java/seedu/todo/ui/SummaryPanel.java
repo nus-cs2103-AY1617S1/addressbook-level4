@@ -10,7 +10,9 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.SplitPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import seedu.todo.commons.events.ui.SummaryPanelSelectionEvent;
 import seedu.todo.model.task.ReadOnlyTask;
 
 import java.time.LocalDate;
@@ -25,7 +27,7 @@ public class SummaryPanel extends UiPart {
 
     @FXML
     private ListView<ReadOnlyTask> summaryListView;
-
+    
     public SummaryPanel() {
         super();
     }
@@ -76,6 +78,11 @@ public class SummaryPanel extends UiPart {
         });
     }
 
+    @FXML
+    private void todayTextOnMouseClicked() {
+        raise (new SummaryPanelSelectionEvent());
+    }
+    
     class TaskListViewCell extends ListCell<ReadOnlyTask> {
 
         public TaskListViewCell() {

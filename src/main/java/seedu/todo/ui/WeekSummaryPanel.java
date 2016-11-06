@@ -12,6 +12,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import seedu.todo.commons.core.LogsCenter;
+import seedu.todo.commons.events.ui.WeekSummaryPanelSelectionEvent;
 import seedu.todo.model.task.ReadOnlyTask;
 
 import java.time.LocalDate;
@@ -78,6 +79,11 @@ public class WeekSummaryPanel extends UiPart {
         });
     }
 
+    @FXML
+    private void weekTextOnMouseClick() {
+        raise (new WeekSummaryPanelSelectionEvent());
+    }
+    
     class TaskListViewCell extends ListCell<ReadOnlyTask> {
 
         public TaskListViewCell() {

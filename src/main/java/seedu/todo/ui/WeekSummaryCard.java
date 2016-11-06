@@ -37,23 +37,15 @@ public class WeekSummaryCard extends UiPart{
     @FXML
     public void initialize() {
         name.setText(task.getName().fullName);
-        if (task.getCompletion().isCompleted()) {
-        	name.setStyle("-fx-strikethrough: true");
-        	name.setFill(Color.LIGHTGREY);
-        	name.setOpacity(50);
-        }
         details.setText(task.getDetail().value);
+      
+        initPriority();
         tags.setText(task.tagsString());
-        if (task.getCompletion().isCompleted()) {
-        	priorityLevel.setFill(Color.WHITE);
-        	priorityLevel.setStroke(Color.WHITE);
-        } else if (task.getPriority().toString().equals(Priority.LOW)) {
-        	priorityLevel.setFill(Color.LIMEGREEN);
-        } else if (task.getPriority().toString().equals(Priority.MID)) {
-            priorityLevel.setFill(Color.YELLOW);
-        } else {
-            priorityLevel.setFill(Color.RED);
+        
+        if(task.getCompletion().isCompleted()) {
+            markComplete();
         }
+        
     }
 
     public HBox getLayout() {
@@ -68,5 +60,33 @@ public class WeekSummaryCard extends UiPart{
     @Override
     public String getFxmlPath() {
         return FXML;
+    }
+    
+    
+    private void initPriority() {
+        if (task.getPriority().toString().equals(Priority.LOW)) {
+            priorityLevel.setFill(Color.web("#b2ff59"));
+            priorityLevel.setStroke(Color.LIMEGREEN);
+        } else if (task.getPriority().toString().equals(Priority.MID)) {
+            priorityLevel.setFill(Color.web("#fff59d"));
+            priorityLevel.setStroke(Color.web("#ffff00"));
+        } else {
+            priorityLevel.setFill(Color.RED);
+            priorityLevel.setStroke(Color.web("#c62828"));
+        }
+    }
+    
+    
+    private void markComplete() {
+        name.setFill(Color.LIGHTGREY);
+        name.setStyle("-fx-strikethrough: true");
+        name.setOpacity(50);
+        
+        details.setTextFill(Color.LIGHTGREY);
+        tags.setTextFill(Color.LIGHTGREY);
+
+        priorityLevel.setFill(Color.WHITE);
+        priorityLevel.setStroke(Color.WHITE);
+
     }
 }
