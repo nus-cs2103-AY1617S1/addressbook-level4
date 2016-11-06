@@ -112,12 +112,15 @@ public class FilterPanelTest extends TaskManagerGuiTest {
         filterPanel.runCommandForDeadline("hi");
         assertFilterFail(Deadline.MESSAGE_DEADLINE_CONSTRAINTS, tasks);
 
+        filterPanel.runCommandForDeadline("");
         filterPanel.runCommandForStartDate("hi");
         assertFilterFail(EventDate.MESSAGE_EVENT_DATE_CONSTRAINTS, tasks);
 
+        filterPanel.runCommandForStartDate("");
         filterPanel.runCommandForEndDate("hi");
         assertFilterFail(EventDate.MESSAGE_EVENT_DATE_CONSTRAINTS, tasks);
 
+        filterPanel.runCommandForEndDate("");
         filterPanel.runCommandForRecurring("hi");
         assertFilterFail(Recurring.MESSAGE_RECURRING_CONSTRAINTS, tasks);
     }
