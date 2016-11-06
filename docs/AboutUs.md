@@ -70,7 +70,7 @@ We are a team of four 2nd Year Computer Engineering students based in the [Schoo
    * [done](https://github.com/CS2103AUG2016-T11-C2/main/blob/master/docs/UserGuide.md#mark-as-done-done)
    * [undone](https://github.com/CS2103AUG2016-T11-C2/main/blob/master/docs/UserGuide.md#mark-as-undone-undone)
    * [clear done](https://github.com/CS2103AUG2016-T11-C2/main/blob/master/docs/UserGuide.md#clearing-only-the-done-tasks-clear-done)
-* Code written: [[functional code](A123456.md)][[test code](A123456.md)][[docs](A123456.md)]
+* Code written: [[functional code](https://github.com/CS2103AUG2016-T11-C2/main/blob/master/collated/main/A0139198N.md#a0139198n)][[test code](https://github.com/CS2103AUG2016-T11-C2/main/blob/master/collated/test/A0139198N.md#a0139198n)][[docs](https://github.com/CS2103AUG2016-T11-C2/main/blob/master/collated/docs/A0139198N.md#a0139198n)]
 * Other major contributions:
   * Did the initial refactoring from AddressBook to ToDoList [[#133](https://github.com/se-edu/addressbook-level4/pull/152) ] 
 
