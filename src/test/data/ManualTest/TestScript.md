@@ -102,6 +102,7 @@
 ### 3.1 Delete task
 > **Command:** `delete (index)`<br>
  - index: the second last index in the list, which is an instance of `tennis training`.<br>
+ 
 > **Result:**<br>
  - Result display panel posts message:<br>
     `Deleted Task: tennis training Tags: 
