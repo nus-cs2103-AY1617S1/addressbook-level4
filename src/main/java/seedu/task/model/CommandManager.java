@@ -12,7 +12,7 @@ import seedu.task.logic.commands.Command;
 public class CommandManager {
 
 	private static final String NO_HISTORY_RESULT = "No commands executed."; 
-	private static final int HISTORY_MAX_SIZE = 6; 
+	private static final int HISTORY_MAX_SIZE = 10; 
 	
 	private final Stack<Command> reversibleCommands;
 	private final Stack<Command> redoCommands;

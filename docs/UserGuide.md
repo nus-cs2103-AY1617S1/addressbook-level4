@@ -77,19 +77,41 @@ User has to specify TITLE, DESCRIPTION.
 #### Adding duplicated tasks
 Adds a task with specific interval. START_DATE and DUE_DATE(if specified) will by adjusted accordingly to interval. 
 User has to specify INTERVAL or TIME_INTERVAL.
+Examples: 
 * `add Homework d/ProgrammingEx1 i/2 dd/10-01-2012`
 * `add Homework d/ProgrammingEx1 i/2 ti/10 dd/10-01-2012`
 
-<!-- @@author -->
 
-<!-- @@author A0153411W -->
 <a id="customized-command" class="anchor" href="#customized-command" aria-hidden="true">
 ### Customize commands : `customize`
 Customize command with specific format. 
-Format: `customize COMMAND f/NEW_FORMAT`.
-User has to specify NEW_FORMAT.
+Format: `customize [COMMAND f/NEW_FORMAT]`.
+User can use customize to see help and current custom commands(if any). If user specify COMMAND, NEW_FORMAT is required.
+Examples: 
+* `customize`
 * `customize add f/a`
 * `customize list f/ls`
+
+<a id="undo-command" class="anchor" href="#undo-command" aria-hidden="true">
+#### Undo the last executed command: `undo`
+Restore the task manager to the state before command was executed. Can be executed if there was any command executed before.
+Format: `undo`
+Example:
+* `undo`
+
+<a id="redo-command" class="anchor" href="#redo-command" aria-hidden="true">
+#### Redo the last executed undone command: `redo`
+Restore the task manager to the state before undo command was executed. Can be executed if there was undo command executed before.
+Format: `redo`
+Example:
+* `redo`
+
+<a id="history-command" class="anchor" href="#history-command" aria-hidden="true">
+### Customize commands : `history`
+Shows last executed commands. Maximum number of executed commands to show is 10.
+Format: `history`.
+Example: 
+* `history`
 
 <!-- @@author -->
 
@@ -130,16 +152,6 @@ Example:
 * `find work`.
 RETURNS any Title that contains 'work'
 
-<!-- @@author -->
-
-<!-- @@author A0153411W -->
-<a id="undo-method--undo" class="anchor" href="#listing-all-persons--list" aria-hidden="true">
-#### Undo the last executed command: `undo`
-Restore the task manager to the state before command was executed 
-Format: `undo`
-
-Example:
-* `undo`.
 <!-- @@author -->
 
 <!-- @@author A0148083A -->
