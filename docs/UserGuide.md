@@ -163,26 +163,22 @@ The find by keyword command enables you to search for any events, deadlines, to-
 > Format: **Find** &lt;keyword&gt;
 
 
-Example: 
-
-Find report
+Example: Find report
 
 Only the tasks with the keyword are displayed. Keywords are NOT case sensitive.
 
-
+<br>
 ###4 Marking tasks as done 
 
 Remember that report that we added at the start? Once you have done it, simply type the command following the format below and you will never have to see it again. Unless of course you want to, then we will show you how in the later part of this user guide. 
 
 > Format: Done &lt;index&gt;
 
-Example: 
-
-Done D1
+Example: Done D1
 
 This will hide that report that you have completed from the main screen.
 
-You can also complete multiple tasks as once by following the format below.
+You can also complete multiple tasks at once by following the format below.
 
 > Format: Done &lt;index&gt;-&lt;index&gt;
 
@@ -201,55 +197,22 @@ marks the specified indexes as done.
 
 ####5.1 Display completed tasks
 
-The display command will display the completed tasks in their respective categories.
+Remember how we have hidden away your completed report? If you want to see it again, the following display command will display all completed tasks in their respective categories.
 
 > Format: list done
 
+From here, you can choose to delete these tasks. Deleting will be covered in the section after this. 
+
 ####5.2 Display all tasks
 
-This is mainly used to return to the default screen showing all tasks.
+Now that you have seen, all the tasks that you have done, to return to the main default screen, simply type the following command.
 
 > Format: list
 
+<br>
+###6 Delete task
 
-###6 Undo the Most Recent Commands
-
-The undo command enables you to undo the most recent executed command.
-
-> Format: Undo &lt;number of operations&gt;
-
-Example: 
-
-Undo
-
-Undo 2
-
-
->Note: The undo command can only undo a maximum of 5 executed commands
-
->Note: If no number is entered, the default number of times the command will undo is 1.
-
-
-###7 Redo the Most Recent Commands
-
-The redo command enables you to redo the most recent undone command.
-
-> Format: Redo &lt;number of operations&gt;
-
-Example: 
-
-Redo
-
-Redo 2
-
->Note: The Redo command can only undo a maximum of 5 undone commands
-
->Note: If no number is entered, the default number of times the command will redo is 1.
-
-
-###8 Delete task
-
-####8.1 Deleting a task
+####6.1 Deleting a task
 
 The delete command enables you to delete the tasks that you no longer need.
 
@@ -271,22 +234,51 @@ Delete T1, T3
 
 >Note: The delete command is flexible and allows you to delete more than 1 task at a time. If the indexes entered are separated by a hyphen (-), Simply will delete all tasks between the numbers including the numbers enter. If the indexes are separated by a comma (,) Simply will delete the tasks entered individually. 
 
-####8.2 Deleting a tag / multiple tags
+####6.2 Deleting a tag / multiple tags
 
 >Format: **Delete** &lt;index&gt; #tag1 #tag2
 
-Example: Delete E1 #win #victor #finally  
+Example: Delete E1 #win #victor #finally
 
+<br>
+###7 Undo the Most Recent Commands
+
+The undo command enables you to undo the most recent executed command.
+
+> Format: Undo &lt;number of operations&gt;
+
+Example: 
+
+Undo
+
+Undo 2
+
+>Note: If no number is entered, the default number of times the command will undo is 1.
+
+
+###8 Redo the Most Recent Commands
+
+The redo command enables you to redo the most recent undone command.
+
+> Format: Redo &lt;number of operations&gt;
+
+Example: 
+
+Redo
+
+Redo 2
+
+>Note: If no number is entered, the default number of times the command will redo is 1.
 
 ###9 Exiting the program
 
-When you are done and wish to exit the program, simply type exit and press enter. This exits the program and all your data is saved.
+When you are done and wish to exit the program, simply type exit and press enter. This saves all your data and exits the program.
 
 > Format: **Exit**
 
 Example: Exit
 
-
+<br>
 ###10 Help
 
 Should you forget how to do any of the commands, you can simply type help in the command box and press enter.
@@ -294,11 +286,12 @@ This opens a window to the user guide where you can read more in depth into each
 
 > Format: **Help**
 
-
 Example : Help
 
-
+<br>
 ###11 Setting Storage Folder
+
+If for any reason, you wish to change where your data file is being stored. Maybe so that you can synchronise that folder with online cloud storage services, you can change the folder by typing the following command.
 
 >Format: **storage** &lt;valid file path&gt;
 
@@ -306,14 +299,14 @@ Example: storage C:\Users\Ronald\Documents\DummyFolder
 
 The task manager shifts your file from the current storage folder to the newly specified one on exit.
 
-
+<br>
 ## FAQ
 
 **Q**: How do I transfer my data to another Computer?<br>
 **A**: Install the app in the other computer and overwrite the empty data file it creates with 
        the file that contains the data of your previous Address Book folder.
 
-
+<br>
 ###Command Summary
 
  No. | Command | Format 
