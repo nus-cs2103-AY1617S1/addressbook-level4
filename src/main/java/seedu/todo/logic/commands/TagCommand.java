@@ -46,6 +46,8 @@ public class TagCommand extends BaseCommand {
     private static final String SUCCESS_DELETE_TAGS = " - removed successfully";
     private static final String SUCCESS_RENAME_TAGS = " renamed to ";
 
+    private static final String MESSAGE_ENTER_TO_DISMISS = "Press [Enter] to dismiss.";
+
     private static final String DESCRIPTION_SHOW_TAGS = "Shows all tags";
     private static final String DESCRIPTION_ADD_TAGS = "Add tags to a task";
     private static final String DESCRIPTION_DELETE_TAGS_TASK = "Remove tags from a task";
@@ -191,7 +193,7 @@ public class TagCommand extends BaseCommand {
         if (isShowTags()){
             ShowTagsEvent tagsEvent = new ShowTagsEvent(model.getGlobalTagsList());
             EventsCenter.getInstance().post(tagsEvent);
-            return new CommandResult("Type [Enter] to dismiss.");
+            return new CommandResult(MESSAGE_ENTER_TO_DISMISS);
         }
         return null;
     }
