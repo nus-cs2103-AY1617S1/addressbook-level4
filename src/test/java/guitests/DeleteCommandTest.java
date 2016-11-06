@@ -1,6 +1,7 @@
 //@@author A0146107M
 package guitests;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import seedu.tasklist.testutil.TestTask;
@@ -10,35 +11,68 @@ import static org.junit.Assert.assertTrue;
 import static seedu.tasklist.logic.commands.DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS;
 
 public class DeleteCommandTest extends TaskListGuiTest {
+	TestTask[] currentList;
+	int targetIndex;
+	
+	@Before
+	public void initialize(){
+		currentList = td.getTypicalTasks();
+	}
 
     @Test
-    public void delete() {
-
-        TestTask[] currentList = td.getTypicalTasks();
-
+    public void deleteTestByIndex_deleteFirst_success() {
         //delete the first in the list
         int targetIndex = 1;
         assertDeleteSuccess(targetIndex, currentList);
-
+    }
+    
+    @Test
+    public void deleteTestByIndex_deleteLast_success() {
         //delete the last in the list
-        currentList = TestUtil.removeTaskFromList(currentList, targetIndex);
         targetIndex = currentList.length;
         assertDeleteSuccess(targetIndex, currentList);
-
+    }
+    
+    @Test
+    public void deleteTestByIndex_deleteFromMiddle_success() {
         //delete from the middle of the list
-        currentList = TestUtil.removeTaskFromList(currentList, targetIndex);
         targetIndex = currentList.length/2;
         assertDeleteSuccess(targetIndex, currentList);
-        
+    }
+    
+    @Test
+    public void deleteTestByIndex_deleteRandom() {
         //delete any random task from the list
-        currentList = TestUtil.removeTaskFromList(currentList, targetIndex);
         targetIndex = (int)(Math.random()*currentList.length + 1);
         assertDeleteSuccess(targetIndex, currentList);
-
+    }
+    
+    @Test
+    public void deleteTestByIndex_indexOutOfBounds_deleteFail() {
         //invalid index
         commandBox.runCommand("delete " + currentList.length + 1);
         assertResultMessage("The task index provided is invalid");
-
+    }
+    
+    @Test
+    public void deleteTestByString_oneMatch_success() {
+    	//only 1 match
+    	commandBox.runCommand("delete buy eggs");
+    	assertResultMessage("Deleted Task: Buy Eggs");
+    }
+    
+    @Test
+    public void deleteTestByString_multipleMatches_selectionQuery() {
+    	//2 matches
+        commandBox.runCommand("delete complete");
+        assertResultMessage("Multiple tasks were found containing the entered keywords. Please check below and delete by index.");
+    }
+    
+    @Test
+    public void deleteTestByString_noMatches_selectionQuery() {
+    	//no matches
+        commandBox.runCommand("delete asfsvsytrshr");
+        assertResultMessage("No such task was found.");
     }
 
     /**
@@ -55,5 +89,6 @@ public class DeleteCommandTest extends TaskListGuiTest {
         //confirm the result message is correct
         assertResultMessage(String.format(MESSAGE_DELETE_TASK_SUCCESS, taskToDelete.getTaskDetails()));
     }
+
 
 }
