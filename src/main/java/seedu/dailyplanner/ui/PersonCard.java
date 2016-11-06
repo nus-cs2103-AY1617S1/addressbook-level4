@@ -9,12 +9,8 @@ import seedu.dailyplanner.model.task.ReadOnlyTask;
 
 public class PersonCard extends UiPart {
 
-<<<<<<< HEAD
 	private static final String FXML = "PersonListCard.fxml";
 	private static final String DUE_SOON_LABEL_STYLE = "-fx-background-color: rgba(247, 170, 69, 1);";
-=======
-    private static final String FXML = "PersonListCard.fxml";
->>>>>>> e29def2560a85d7954139f6df7c720be67246d7b
 
     @FXML
     private HBox cardPane;
@@ -65,50 +61,14 @@ public class PersonCard extends UiPart {
 	    isComplete.setText(task.getCompletion());
 	    isComplete.setVisible(true);
 	} else {
-	    isComplete.setText("");
-	    isComplete.setVisible(false);
+	    isComplete.setText("DUE SOON");
+        isComplete.setStyle(DUE_SOON_LABEL_STYLE);
 	}
-<<<<<<< HEAD
 
-	@FXML
-	public void initialize() {
-		name.setText(person.getName().fullName);
-		id.setText(displayedIndex + ". ");
-		phone.setText(person.getPhone().value);
-		endDate.setText(person.getPhone().getEndDate());
-		address.setText(person.getAddress().value);
-		email.setText(person.getEmail().value);
-		tags.setText(person.tagsString());
-		if (person.getCompletion().equals("COMPLETE")) {
-			isComplete.setText(person.getCompletion());
-			isComplete.setVisible(true);
-		} else {
-			isComplete.setText("DUE SOON");
-			isComplete.setStyle(DUE_SOON_LABEL_STYLE);
-		}
-		
-		if (person.getPhone().value.equals("") && person.getEmail().value.equals("")) {
-		    startAtLabel.setVisible(false);
-		} else {
-		    startAtLabel.setText("Starts at: ");
-		}
-		
-		if (person.getPhone().getEndDate().equals("") && person.getAddress().value.equals("")) {
-            endAtLabel.setVisible(false);
-        } else {
-            endAtLabel.setText("Ends at: ");
-        }
-		
-		
-		
-		
-		
-=======
 	if (task.getStart().getDate().toString().equals("")) {
 	    startAtLabel.setVisible(false);
 	} else {
 	    startAtLabel.setText("Starts at: ");
->>>>>>> e29def2560a85d7954139f6df7c720be67246d7b
 	}
 
 	if (task.getEnd().getDate().toString().equals("")) {
