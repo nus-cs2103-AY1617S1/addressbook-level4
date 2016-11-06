@@ -28,4 +28,4 @@
   [Website](https://github.com/se-edu/)
 
 
-#### Licence : [MIT](LICENSE)
+#### License : [MIT](LICENSE)
