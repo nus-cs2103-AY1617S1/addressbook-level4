@@ -1,7 +1,7 @@
 {
-  "appTitle" : "Ivory Tasks",
+  "appTitle" : "IvoryTasks",
   "logLevel" : "FINE",
   "userPrefsFilePath" : "preferences.json",
-  "taskManagerFilePath" : "Sample.xml",
+  "taskManagerFilePath" : "src/test/data/ManualTesting/SampleData.xml",
   "taskManagerName" : "MyTaskManager"
 }
