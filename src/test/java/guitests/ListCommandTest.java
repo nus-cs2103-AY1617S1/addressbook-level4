@@ -27,7 +27,7 @@ public class ListCommandTest extends ToDoListGuiTest {
 	
 	@Test
 	public void listWeek() {
-		TestTaskList currentList = new TestTaskList(new TestTask[] {td.eventWithoutParameter, td.eventWithLocation});
+		TestTaskList currentList = new TestTaskList();
 		assertFindCommandSuccess("list week", currentList);
 	}
 	
