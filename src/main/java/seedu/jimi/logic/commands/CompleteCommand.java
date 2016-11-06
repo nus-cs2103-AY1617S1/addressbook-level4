@@ -27,7 +27,7 @@ public class CompleteCommand extends Command implements TaskBookEditor{
     public final String targetIndex;
     
     public CompleteCommand() {
-        this(null);
+        this.targetIndex = null;
     }
     
     public CompleteCommand(String targetIndex) {
