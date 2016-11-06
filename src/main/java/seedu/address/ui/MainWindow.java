@@ -14,10 +14,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import seedu.address.commons.core.Config;
-import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.commons.events.model.LoadLifekeeperEvent;
-import seedu.address.commons.events.model.SaveEvent;
 import seedu.address.commons.events.ui.ExitAppRequestEvent;
 import seedu.address.logic.Logic;
 import seedu.address.model.UserPrefs;
@@ -39,7 +36,7 @@ public class MainWindow extends UiPart {
 
     // Independent Ui parts residing in this Ui container
     private ActivityListPanel activityListPanel;
-    private OverdueListPanel overdueListPanel;
+    private OverdueTaskListPanel overdueListPanel;
     private ResultDisplay resultDisplay;
     private StatusBarFooter statusBarFooter;
     private CommandBox commandBox;
@@ -70,11 +67,11 @@ public class MainWindow extends UiPart {
     @FXML
     private AnchorPane statusbarPlaceholder;
     
-//    @FXML
-//    private AnchorPane upcomingListPanelPlaceholder;
+    @FXML
+    private AnchorPane upcomingListPanelPlaceholder;
     
-//    @FXML
-//    private AnchorPane overdueListPanelPlaceholder;
+    @FXML
+    private AnchorPane overdueListDisplayPlaceHolder;
 
     public MainWindow() {
         super();
@@ -124,9 +121,9 @@ public class MainWindow extends UiPart {
     void fillInnerParts() {
     	//fill main activities display panel
         activityListPanel = ActivityListPanel.load(primaryStage, getPersonListPlaceholder(), logic.getFilteredPersonList());
+
         //fill dash board
-//        overdueListPanel = OverdueListPanel.load(primaryStage, getOverdueListPlaceholder(), logic.getFilteredPersonList());
-        
+        overdueListPanel = OverdueTaskListPanel.load(primaryStage, getOverdueListPlaceholder(), logic.getFilteredOverdueTaskList());    
         		
         resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
         statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), userPrefs.getDataFilePath());
@@ -148,15 +145,15 @@ public class MainWindow extends UiPart {
     public AnchorPane getPersonListPlaceholder() {
         return activityListPanelPlaceholder;
     }
-/*    
+    
     public AnchorPane getOverdueListPlaceholder() {
-    	return overdueListPanelPlaceholder;
+    	return overdueListDisplayPlaceHolder;
     }
     
     public AnchorPane getUpcomingListPlaceholder() {
     	return upcomingListPanelPlaceholder;
     }
-*/
+
     public void hide() {
         primaryStage.hide();
     }
@@ -210,9 +207,9 @@ public class MainWindow extends UiPart {
     
     //@@author A0125680H
     @FXML
-    public void handleSaveLoc() {
+    private void handleSaveLoc() {
         JFileChooser fileChooser = new JFileChooser();
-        fileChooser.setCurrentDirectory(new File(userPrefs.getDataFilePath()));
+        fileChooser.setCurrentDirectory(new File("data/addressbook.xml"));
         fileChooser.setFileFilter(new FileNameExtensionFilter("XML File", "xml"));
         fileChooser.setAcceptAllFileFilterUsed(false);
         int result = fileChooser.showSaveDialog(null);
@@ -224,49 +221,12 @@ public class MainWindow extends UiPart {
                 selectedFile = new File(selectedFile.getAbsolutePath() + ".xml");
             }
             
-            setSaveLoc(selectedFile.getAbsolutePath());
-        }
-    }
-    
-    public void handleOpen() {
-        JFileChooser fileChooser = new JFileChooser();
-        fileChooser.setCurrentDirectory(new File(userPrefs.getDataFilePath()));
-        fileChooser.setFileFilter(new FileNameExtensionFilter("XML File", "xml"));
-        fileChooser.setAcceptAllFileFilterUsed(false);
-        int result = fileChooser.showOpenDialog(null);
-        
-        if (result == JFileChooser.APPROVE_OPTION) {
-            File selectedFile = fileChooser.getSelectedFile();
+            XmlAddressBookStorage.setAddressBookFilePath(selectedFile.getAbsolutePath());
+            resultDisplay.postMessage("New save location: " + selectedFile.getAbsolutePath());
             
-            if (!selectedFile.getAbsolutePath().endsWith(".xml")) {
-                selectedFile = new File(selectedFile.getAbsolutePath() + ".xml");
-            }
-            
-            openFile(selectedFile);
+            userPrefs.setDataFilePath(selectedFile.getAbsolutePath());
+            statusBarFooter.setSaveLocation(selectedFile.getAbsolutePath());
         }
-    }
-    
-    public void setSaveLoc(String filePath) {
-        resultDisplay.postMessage("New save location: " + filePath);
-        changeFileLoc(filePath);
-        
-        EventsCenter.getInstance().post(new SaveEvent());
-    }
-    
-    public void openFile(File selectedFile) {
-        System.out.println(selectedFile.getAbsolutePath());
-        if (!selectedFile.exists()) {
-            resultDisplay.postMessage("The specified file doesn't exist");
-        } else {
-            EventsCenter.getInstance().post(new LoadLifekeeperEvent(selectedFile, logic));
-            resultDisplay.postMessage("Loaded data from file: " + selectedFile.getAbsolutePath());
-        }
-    }
-    
-    public void changeFileLoc(String filePath) {
-        XmlAddressBookStorage.setAddressBookFilePath(filePath);
-        userPrefs.setDataFilePath(filePath);
-        statusBarFooter.setSaveLocation(filePath);
     }
 
     public ActivityListPanel getActivityListPanel() {
