@@ -1,5 +1,7 @@
 package guitests;
 
+import java.io.File;
+
 import org.junit.Test;
 
 import seedu.taskitty.logic.commands.PathCommand;
@@ -8,9 +10,13 @@ import seedu.taskitty.logic.commands.PathCommand;
 public class PathCommandTest extends TaskManagerGuiTest {
 
     @Test
-    public void save() {
+    public void path() {
         commandBox.runCommand("path temp.xml");
         assertResultMessage(String.format(PathCommand.MESSAGE_SUCCESS, "temp.xml"));
+        
+        // delete temp file after testing is complete
+        File tempFile = new File("temp.xml");
+        tempFile.delete();
         
         //no filepath
         commandBox.runCommand("path");
