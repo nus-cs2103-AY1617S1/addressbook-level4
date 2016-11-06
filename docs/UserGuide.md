@@ -188,7 +188,8 @@ Remember that report that we added at the start? Once you have done it, simply t
 Example: Done D1
 
 This will hide that report that you have completed from the main screen.
-<br><br>
+
+<br>
 You can also complete multiple tasks at once by following the formats below.
 
 > Format: Done &lt;index&gt;-&lt;index&gt;
@@ -282,8 +283,8 @@ When you are done and wish to exit the program, simply type exit and <kbd>Enter<
 <br>
 ###11 Help
 
-Should you forget how to do any of the commands, you can simply type help in the command box and <kbd>Enter</kbd>.
-This opens a window showing the command summary for your quick reference. If you need more in-depth details like advanced features of each command, please refer back to this user guide. 
+Should you forget how to use any of the commands, you can simply type help in the command box and <kbd>Enter</kbd>.
+This opens a window showing the command summary for your quick reference. If you need more in-depth details like the advanced features of each command, please refer back to this user guide. 
 
 > Format: **help**
 
