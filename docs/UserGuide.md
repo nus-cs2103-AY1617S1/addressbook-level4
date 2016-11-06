@@ -84,9 +84,7 @@ Let's say you have to attend a friend's birthday party on the weekend. You know 
 
 Example: add [Sam's birthday party; 20/12/16 ; 9pm] #birthday #rememberToBuyPresent
 
->Note: The start time and end time is optional when adding an event.
->Note: Time format accepted: 9pm, 9.45pm, 13:59
->Note: Date format accepted: 20/12/2016, 20/12/16, 201216
+>Note: The start time and end time is optional when adding an event. If neither is specified, the default date will be the current date, the default start time will be the current time and the default end time will be 2359.
 
 >Important: The square brackets are compulsory when adding an event.
 
