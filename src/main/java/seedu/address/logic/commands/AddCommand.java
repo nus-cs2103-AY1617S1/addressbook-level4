@@ -38,7 +38,8 @@ public class AddCommand extends Command {
     private final Task toAdd;
     
     //@@author A0141019U    
-    public AddCommand(String name, String taskType, Optional<LocalDateTime> startDate, Optional<LocalDateTime> endDate, Set<String> tags) throws IllegalValueException {
+    public AddCommand(String name, String taskType, Optional<LocalDateTime> startDate, Optional<LocalDateTime> endDate, Set<String> tags) 
+    		throws IllegalValueException, UnsupportedOperationException {
     	final Set<Tag> tagSet = new HashSet<>();
         for (String tagName : tags) {
             tagSet.add(new Tag(tagName));
@@ -60,7 +61,8 @@ public class AddCommand extends Command {
      * @throws IllegalValueException if any of the raw values are invalid
      */
     // TODO allow tag list as params
-    public AddCommand(String name, LocalDateTime startDate, LocalDateTime endDate) throws IllegalValueException  {
+    public AddCommand(String name, LocalDateTime startDate, LocalDateTime endDate) 
+    		throws IllegalValueException, UnsupportedOperationException {
        	this.toAdd = new Task(
         		new Name(name),
         		new TaskType("event"),
