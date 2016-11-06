@@ -303,7 +303,7 @@ public class TestUtil {
      * @param index The index of the task to be replaced.
      * @return
      */
-    public static TestFloatingTask[] replaceTaskFromList(TestFloatingTask[] tasks, TestFloatingTask task, int index) {
+    public static ReadOnlyTask[] replaceTaskFromList(ReadOnlyTask[] tasks, ReadOnlyTask task, int index) {
         tasks[index] = task;
         return tasks;
     }

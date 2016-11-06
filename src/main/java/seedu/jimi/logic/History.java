@@ -21,14 +21,14 @@ public final class History {
     private final Stack<Context> undoStack = new Stack<>();
     private final Stack<Command> redoStack = new Stack<>();
     
-    private static final String MESSAGE_REACHED_UNDO_LIMIT = "No more commands to undo!";
-    private static final String MESSAGE_REACHED_REDO_LIMIT = "No more commands to redo!";
+    public static final String MESSAGE_REACHED_UNDO_LIMIT = "No more commands to undo!";
+    public static final String MESSAGE_REACHED_REDO_LIMIT = "No more commands to redo!";
     
     private History() {}
     
     public CommandResult undo() {
-        assert undoStack.peek().cmd instanceof TaskBookEditor;
         if (!undoStack.isEmpty()) {
+            assert undoStack.peek().cmd instanceof TaskBookEditor;
             Context previous = undoStack.pop();
             previous.cmd.undo();
             redoStack.push(previous.cmd);   
@@ -38,8 +38,8 @@ public final class History {
     }
     
     public CommandResult redo() {
-        assert redoStack.peek() instanceof TaskBookEditor;
         if (!redoStack.isEmpty()) {
+            assert redoStack.peek() instanceof TaskBookEditor;
             Command cmd = redoStack.pop();
             CommandResult result = cmd.execute();
             undoStack.push(new Context(cmd, result));
