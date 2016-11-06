@@ -126,7 +126,6 @@ Figure 3 shows how the `EventsCenter` reacts to the event (`delete 3`). This pro
 
 **API** : [`Ui.java`](../src/main/java/seedu/ggist/ui/Ui.java)
 
-
 The `UI` consists of a `MainWindow` that is made up of parts such as `CommandBox`, `ResultDisplay`,`TaskListPanel`,
 `StatusBarFooter` and `BrowserPanel`.These UI parts inherit from the abstract `UiPart` class ,and they can be loaded using the `UiPartLoader`.
 
@@ -191,7 +190,7 @@ Classes used by multiple components are in the `seedu.ggist.commons` package.
 **Logging Levels**
 
 * `SEVERE` : Critical problem detected which may possibly cause the termination of the application
-* `WARNING` : Can continue, but with caution
+* `WARNING` : Prompt message to advise developers to continue with caution
 * `INFO` : Information showing the noteworthy actions by the application
 * `FINE` : Details that is not usually noteworthy but may be useful in debugging
   e.g. print the actual list instead of just its size
@@ -200,7 +199,6 @@ Classes used by multiple components are in the `seedu.ggist.commons` package.
 
 Certain properties of the application can be controlled (e.g application name, logging level) through the configuration file 
 (default: `config.json`):
-
 
 ## Testing
 
@@ -212,7 +210,7 @@ Tests can be found in the `./src/test/java` folder.
 * To run a subset of tests, right-click on a test package, test class, or a test and choose to run as a JUnit test.
 
 **Using Gradle**:
-* See [UsingGradle.md](UsingGradle.md) for how to run tests using Gradle.
+* To run tests using Gradle, see [UsingGradle.md](UsingGradle.md) for detailed instructions.
 
 There are two types of tests:
 
@@ -220,14 +218,14 @@ There are two types of tests:
    These are in the `guitests` package.
   
 2. **Non-GUI Tests** - These are tests not involving the GUI. They include: 
-   1. _Unit tests_ targeting the lowest level methods/classes. <br>
+   * _Unit tests_ targeting the lowest level methods/classes. <br>
       e.g. `seedu.ggist.commons.UrlUtilTest`
-   2. _Integration tests_ that are checking the integration of multiple code units 
+   * _Integration tests_ that are checking the integration of multiple code units 
      (those code units are assumed to be working).<br>
       e.g. `seedu.ggist.storage.StorageManagerTest`
-   3. Hybrids of unit and integration tests. These test are checking multiple code units as well as 
-      how they are connected together.<br>
-      e.g. `seedu.ggist.logic.LogicManagerTest`
+   * Hybrids of unit and integration tests. These test are checking multiple code units as well as 
+     how they are connected together.<br>
+     e.g. `seedu.ggist.logic.LogicManagerTest`
   
 **Headless GUI Testing** :
 The [TestFX](https://github.com/TestFX/TestFX) library allows
