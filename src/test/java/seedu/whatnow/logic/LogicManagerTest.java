@@ -5,9 +5,8 @@ import com.google.common.eventbus.Subscribe;
 
 import seedu.whatnow.commons.core.EventsCenter;
 import seedu.whatnow.commons.core.Messages;
-import seedu.whatnow.commons.events.model.WhatNowChangedEvent;
-import seedu.whatnow.commons.events.ui.JumpToListRequestEvent;
 import seedu.whatnow.commons.events.ui.ShowHelpRequestEvent;
+import seedu.whatnow.commons.exceptions.IllegalValueException;
 import seedu.whatnow.logic.Logic;
 import seedu.whatnow.logic.LogicManager;
 import seedu.whatnow.logic.commands.*;
@@ -18,19 +17,17 @@ import seedu.whatnow.model.WhatNow;
 import seedu.whatnow.model.tag.Tag;
 import seedu.whatnow.model.tag.UniqueTagList;
 import seedu.whatnow.model.task.*;
+import seedu.whatnow.model.task.UniqueTaskList.DuplicateTaskException;
 import seedu.whatnow.storage.StorageManager;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.whatnow.commons.core.Messages.*;
@@ -52,18 +49,8 @@ public class LogicManagerTest {
     private int targetedJumpIndex;
 
     @Subscribe
-    private void handleLocalModelChangedEvent(WhatNowChangedEvent abce) {
-        latestSavedWhatNow = new WhatNow(abce.data);
-    }
-
-    @Subscribe
     private void handleShowHelpRequestEvent(ShowHelpRequestEvent she) {
         helpShown = true;
-    }
-
-    @Subscribe
-    private void handleJumpToListRequestEvent(JumpToListRequestEvent je) {
-        targetedJumpIndex = je.targetIndex;
     }
 
     @Before
@@ -350,39 +337,19 @@ public class LogicManagerTest {
      */
     private void assertIncorrectIndexFormatBehaviorForCommand(String commandWord, String taskType,
             String expectedMessage) throws Exception {
-        if (!taskType.equals("")) {
-            assertCommandBehavior(commandWord + " " + taskType, expectedMessage); // index
-            // missing
-            assertCommandBehavior(commandWord + " " + taskType + " +1", expectedMessage); // index
-            // should
-            // be
-            // unsigned
-            assertCommandBehavior(commandWord + " " + taskType + " -1", expectedMessage); // index
-            // should
-            // be
-            // unsigned
-            assertCommandBehavior(commandWord + " " + taskType + " 0", expectedMessage); // index
-            // cannot
-            // be
-            // 0
+        if (!("").equals(taskType)) {
+            assertCommandBehavior(commandWord + " " + taskType, expectedMessage);
+            assertCommandBehavior(commandWord + " " + taskType + " +1", expectedMessage);
+            assertCommandBehavior(commandWord + " " + taskType + " -1", expectedMessage);
+            assertCommandBehavior(commandWord + " " + taskType + " 0", expectedMessage);
             assertCommandBehavior(commandWord + " " + taskType + " not_a_number", expectedMessage);
         } else {
-            assertCommandBehavior(commandWord, expectedMessage); // index
-            // missing
-            assertCommandBehavior(commandWord + " +1", expectedMessage); // index
-            // should
-            // be
-            // unsigned
-            assertCommandBehavior(commandWord + " -1", expectedMessage); // index
-            // should
-            // be
-            // unsigned
-            assertCommandBehavior(commandWord + " 0", expectedMessage); // index
-            // cannot
-            // be 0
+            assertCommandBehavior(commandWord, expectedMessage);
+            assertCommandBehavior(commandWord + " +1", expectedMessage);
+            assertCommandBehavior(commandWord + " -1", expectedMessage);
+            assertCommandBehavior(commandWord + " 0", expectedMessage);
             assertCommandBehavior(commandWord + " not_a_number", expectedMessage);
         }
-
     }
 
     /**
@@ -404,7 +371,7 @@ public class LogicManagerTest {
             model.addTask(p);
         }
 
-        if (!taskType.equals(""))
+        if (!("").equals(taskType))
             assertCommandBehavior(commandWord + " " + taskType + " 3", expectedMessage, model.getWhatNow(), taskList);
         else
             assertCommandBehavior(commandWord + " 3", expectedMessage, model.getWhatNow(), taskList);
@@ -640,7 +607,7 @@ public class LogicManagerTest {
      */
     class TestDataHelper {
 
-        Task grapes() throws Exception {
+        Task grapes() throws IllegalValueException {
             Name name = new Name("Grapes Brown");
             String date = "12/12/2017";
             Tag tag1 = new Tag("tag1");
@@ -713,13 +680,13 @@ public class LogicManagerTest {
 
             cmd.append("update schedule 1 ");
 
-            if (type.equals("description")) {
+            if (("description").equals(type)) {
                 cmd.append(type + " ");
                 cmd.append(value);
-            } else if (type.equals("date")) {
+            } else if (("date".equals(type))) {
                 cmd.append(type + " ");
                 cmd.append(value);
-            } else if (type.equals("tag")) {
+            } else if (("tag").equals(type)) {
                 cmd.append(type + " ");
                 cmd.append(value);
             }
@@ -767,7 +734,7 @@ public class LogicManagerTest {
         /**
          * Adds the given list of Tasks to the given WhatNow
          */
-        void addToWhatNow(WhatNow whatNow, List<Task> tasksToAdd) throws Exception {
+        void addToWhatNow(WhatNow whatNow, List<Task> tasksToAdd) throws DuplicateTaskException {
             for (Task p : tasksToAdd) {
                 whatNow.addTask(p);
             }
@@ -776,8 +743,7 @@ public class LogicManagerTest {
         /**
          * Adds auto-generated Task objects to the given model
          * 
-         * @param model
-         *            The model to which the Tasks will be added
+         * @param model The model to which the Tasks will be added
          */
         void addToModel(Model model, int numGenerated) throws Exception {
             addToModel(model, generateTaskList(numGenerated));

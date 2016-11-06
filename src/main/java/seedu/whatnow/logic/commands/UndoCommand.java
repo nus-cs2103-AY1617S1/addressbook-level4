@@ -203,10 +203,10 @@ public class UndoCommand extends Command {
         } else {
             ReadOnlyTask taskToReAdd = model.getStackOfMarkUndoneTask().pop();
             try {
-                model.markTask(taskToReAdd);
-                model.getStackOfMarkUndoneTaskRedo().pop();
-            } catch (TaskNotFoundException tnfe) {
                 model.getStackOfMarkUndoneTaskRedo().push(taskToReAdd);
+                model.markTask(taskToReAdd);
+            } catch (TaskNotFoundException tnfe) {
+                model.getStackOfMarkUndoneTaskRedo().pop();
                 return new CommandResult(UndoCommand.MESSAGE_FAIL);
             }
             return new CommandResult(String.format(UndoCommand.MESSAGE_SUCCESS));
@@ -221,7 +221,6 @@ public class UndoCommand extends Command {
             try {
                 Task toChangeInto = (Task) model.getOldTask().pop();
                 Task theOriginal = (Task) model.getCurrentTask().pop();
-                System.out.println("Undo update, oldTask : " + toChangeInto + "currentTask : " + theOriginal);
                 model.updateTask((Task)theOriginal, toChangeInto);
                 model.getOldNextTask().push(theOriginal);
                 model.getNewNextTask().push(toChangeInto);

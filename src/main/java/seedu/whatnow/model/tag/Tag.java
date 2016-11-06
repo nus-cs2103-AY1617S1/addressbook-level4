@@ -25,11 +25,12 @@ public class Tag {
      */
     public Tag(String name) throws IllegalValueException {
         assert name != null;
-        name = name.trim();
+        String nameWithoutTrailingBlank;
+        nameWithoutTrailingBlank = name.trim();
         if (!isValidTagName(name)) {
             throw new IllegalValueException(MESSAGE_TAG_CONSTRAINTS);
         }
-        this.tagName = name;
+        this.tagName = nameWithoutTrailingBlank;
     }
 
     /**

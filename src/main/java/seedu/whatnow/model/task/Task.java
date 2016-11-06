@@ -4,7 +4,6 @@ package seedu.whatnow.model.task;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Comparator;
 import java.util.Date;
 import java.util.Objects;
 import java.util.logging.Logger;
@@ -36,7 +35,6 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
     private static final String FLOATING = "floating";
     private static final String NOT_FLOATING = "not_floating";
     private static final int COMPARE_TO_IS_EQUAL = 0;
-    private static final int COMPARE_TO_IS_NOT_EQUAL = 0;
     private static final int COMPARE_TO_SMALLER = -1;
     private static final int COMPARE_TO_BIGGER = 1;
     private static final String DEFAULT_DATE = "01/01/2001";

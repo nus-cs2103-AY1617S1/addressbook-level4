@@ -3,18 +3,15 @@ package seedu.whatnow.commons.util;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
-
 import seedu.whatnow.testutil.WhatNowBuilder;
 import seedu.whatnow.commons.util.FileUtil;
 import seedu.whatnow.commons.util.XmlUtil;
 import seedu.whatnow.model.WhatNow;
 import seedu.whatnow.storage.XmlSerializableWhatNow;
 import seedu.whatnow.testutil.TestUtil;
-
 import javax.xml.bind.JAXBException;
 import java.io.File;
 import java.io.FileNotFoundException;
-
 import static org.junit.Assert.assertEquals;
 
 public class XmlUtilTest {

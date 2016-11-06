@@ -5,15 +5,10 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.Date;
 import java.util.Objects;
-
 import java.util.logging.Logger;
-
 import seedu.whatnow.commons.core.LogsCenter;
-import seedu.whatnow.model.task.Task;
 
 /**
  * Stores the freeslots(time period with no time-based tasks) of a given date.
@@ -64,6 +59,8 @@ public class FreePeriod {
                 } else if (isBiggerThanThisPeriod(reqStartTime, reqEndTime, freeSlotStartTime, freeSlotEndTime)) {
                     freePeriod.remove(i);
                 } else {
+                    logger.warning("FreePeriod.java: block method, entered else statement!\n" 
+                + "Input Arg(start): " + start + "\n" + "Input Arg(end): " + end + "\n");
                 }
             }
         } catch (ParseException e) {

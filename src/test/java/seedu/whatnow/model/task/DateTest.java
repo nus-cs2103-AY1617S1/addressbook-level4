@@ -60,23 +60,25 @@ public class DateTest {
     @Test
     public void isValidDate_today_returnTrue() throws ParseException, IllegalValueException{
         assertTrue(TaskDate.getIsValidDate("today"));
+        assertTrue(TaskDate.getIsValidDate("tdy"));
+        assertTrue(TaskDate.getIsValidDate("TDY"));
     }
 
     @Test
     public void isValidDate_today_returnFalse() throws ParseException, IllegalValueException{
-        assertFalse(TaskDate.getIsValidDate("tdy"));
-        assertFalse(TaskDate.getIsValidDate("TDY"));
+        assertFalse(TaskDate.getIsValidDate("2day"));
     }
 
     @Test
     public void isValidDate_tmr_returnTrue() throws ParseException, IllegalValueException{
         assertTrue(TaskDate.getIsValidDate("tomorrow"));
+        assertTrue(TaskDate.getIsValidDate("tmr"));
+        assertTrue(TaskDate.getIsValidDate("TMR"));
     }
 
     @Test
     public void isValidDate_tmr_returnFalse() throws ParseException, IllegalValueException{
-        assertFalse(TaskDate.getIsValidDate("tmr"));
-        assertFalse(TaskDate.getIsValidDate("TMR"));
+        assertFalse(TaskDate.getIsValidDate("tmmr"));
     }
 
     @Test
@@ -85,7 +87,6 @@ public class DateTest {
         assertTrue(TaskDate.getIsValidDate("5/11/2017"));
         assertTrue(TaskDate.getIsValidDate("7/8/2017"));
         assertTrue(TaskDate.getIsValidDate("8/5/2017"));
-        assertTrue(TaskDate.getIsValidDate("30/12"));
     }
 
     @Test

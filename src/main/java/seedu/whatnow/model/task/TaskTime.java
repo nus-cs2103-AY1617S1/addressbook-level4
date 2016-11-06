@@ -1,4 +1,3 @@
-//@@author A0139128A
 package seedu.whatnow.model.task;
 
 import java.text.DateFormat;
@@ -7,8 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
-
+import java.util.GregorianCalendar; 
 import seedu.whatnow.commons.exceptions.IllegalValueException;
 
 /**
@@ -17,44 +15,12 @@ import seedu.whatnow.commons.exceptions.IllegalValueException;
  * the input is invalid
  */
 public class TaskTime {
-
+    //@@author A0139128A
     public static final String TWELVE_HOUR_WITH_MINUTES_COLON_REGEX = "(((\\d|\\d\\d):\\d\\d)(am|pm))";
     public static final String TWELVE_HOUR_WITH_MINUTES_COLON_FORMAT = "h:mma"; //E.g. 1:50pm
-    public static final String TWELVE_HOUR_WITH_MINUTES_DOT_REGEX = "(((\\d|\\d\\d)\\.\\d\\d)(am|pm))";
-    public static final String TWELVE_HOUR_WITH_MINUTES_DOT_FORMAT = "h.mma"; //E.g.1.45pm
-    public static final String TWELVE_HOUR_WITHOUT_MINUTES_REGEX = "([1]*[0-9]{1}+)(am|pm)";
-    public static final String TWELVE_HOUR_WITHOUT_MINUTES_EXTEND_FORMAT = "hha";
 
     public static final String DATE_NUM_SLASH_WITH_YEAR_FORMAT = "dd/MM/yyyy";
-    public static final String DATE_NUM_SLASH_WITH_YEAR_VALIDATION_REGEX = "([0-9]{2}+)/([0-9]{2}+)/([0-9]{4})";
 
-    public static final String DATE_NUM_SLASH_WITH_YEAR_SHORTENED_DAY_FORMAT = "d/MM/yyyy";
-    public static final String DATE_NUM_SLASH_WITH_YEAR_SHORTENED_DAY_VALIDATION_REGEX = "([1-9]{1}+)/([0-9]{2}+)/([0-9]{4})";
-
-    public static final String DATE_NUM_SLASH_WITH_YEAR_SHORTENED_MONTH_FORMAT = "dd/M/yyyy";
-    public static final String DATE_NUM_SLASH_WITH_YEAR_SHORTENED_MONTH_VALIDATION_REGEX = "([1-9]{2}+)/([1-9]{1}+)/([0-9]{4})";
-
-    public static final String DATE_NUM_SLASH_WITH_YEAR_SHORTENED_DAY_AND_MONTH_FORMAT = "d/M/yyyy";
-    public static final String DATE_NUM_SLASH_WITH_YEAR_SHORTENED_DAY_AND_MONTH_VALIDATION_REGEX = "([1-9]{1}+)/([1-9]{1}+)/([0-9]{4})";
-
-    public static final String DATE_NUM_SLASH_WITHOUT_YEAR_FORMAT = "dd/MM";
-    public static final String DATE_NUM_SLASH_WITHOUT_YEAR_VALIDATION_REGEX = "([1-9]{2}+)/([0-9]{2}+)";
-
-    public static final String DATE_NUM_SLASH_WITHOUT_YEAR_SHORTENED_DAY_FORMAT = "d/MM";
-    public static final String DATE_NUM_SLASH_WITHOUT_YEAR_SHORTENED_DAY_VALIDATION_REGEX = "([1-9]{1}+)/([0-9]{2}+)";
-
-    public static final String DATE_NUM_SLASH_WITHOUT_YEAR_SHORTENND_DAY_MONTH_FORMAT = "d/M";
-    public static final String DATE_NUM_SLASH_WITHOUT_YEAR_SHORTENED_DAY_MONTH_REGEX = "([1-9]{1}+)/([1-9]{1}+)";
-
-    public static final String DATE_AlPHA_WHITESPACE_WITH_YEAR_FORMAT = "dd MMMM yyyy ";
-    public static final String DATE_ALPHA_WHITESPACE_WITHOUT_YEAR_FORMAT = "dd MMMM";
-
-    public static final String DATE_NUM_REGEX_WITH_YEAR = "(0?[1-9]|[12][0-9]|3[01])/(0?[1-9]|1[012])/((19|20)\\d\\d)";
-
-    public static ArrayList<String> ListOfDateRegex;
-    public static ArrayList<String> ListOfDateFormat;
-    public static ArrayList<String> ListOfTimeRegex;
-    public static ArrayList<String> ListOfTimeFormat;
     public final String INVALID_TIME_MESSAGE = "Entered an invalid time format";
     public final String INVALID_TIME_RANGE_MESSAGE = "Entered an invalid time range format";
     public final String INVALID_DATE_MESSAGE = "Entered an invalid date format";
@@ -72,7 +38,6 @@ public class TaskTime {
 
     public TaskTime(String time, String startTime, String endTime, String date, String startDate, String endDate)
             throws IllegalValueException {
-        prepareListOfDateAndTimeFormatRegex();
         if (!isValidDate(date)) {
             throw new IllegalValueException(INVALID_DATE_MESSAGE);
         }
@@ -85,42 +50,6 @@ public class TaskTime {
         if (!isValidTimeRange(startTime, endTime)) {
             throw new IllegalValueException(INVALID_TIME_RANGE_MESSAGE);
         }
-    }
-
-    /**
-     * Prepares the list of format and regex that will be used to find the
-     * corresponding format
-     */
-    private void prepareListOfDateAndTimeFormatRegex() {
-
-        ListOfDateRegex = new ArrayList<String>();
-        ListOfDateRegex.add(DATE_NUM_SLASH_WITH_YEAR_VALIDATION_REGEX);
-        ListOfDateRegex.add(DATE_NUM_SLASH_WITH_YEAR_SHORTENED_DAY_VALIDATION_REGEX);
-        ListOfDateRegex.add(DATE_NUM_SLASH_WITH_YEAR_SHORTENED_MONTH_VALIDATION_REGEX);
-        ListOfDateRegex.add(DATE_NUM_SLASH_WITH_YEAR_SHORTENED_DAY_AND_MONTH_VALIDATION_REGEX);
-        ListOfDateRegex.add(DATE_NUM_SLASH_WITHOUT_YEAR_VALIDATION_REGEX);
-        ListOfDateRegex.add(DATE_NUM_SLASH_WITHOUT_YEAR_SHORTENED_DAY_VALIDATION_REGEX);
-        ListOfDateRegex.add(DATE_NUM_SLASH_WITHOUT_YEAR_SHORTENED_DAY_MONTH_REGEX);
-
-        ListOfDateFormat = new ArrayList<String>();
-        ListOfDateFormat.add(DATE_NUM_SLASH_WITH_YEAR_FORMAT);
-        ListOfDateFormat.add(DATE_NUM_SLASH_WITH_YEAR_SHORTENED_DAY_FORMAT);
-        ListOfDateFormat.add(DATE_NUM_SLASH_WITH_YEAR_SHORTENED_MONTH_FORMAT);
-        ListOfDateFormat.add(DATE_NUM_SLASH_WITH_YEAR_SHORTENED_DAY_AND_MONTH_FORMAT);
-        ListOfDateFormat.add(DATE_NUM_SLASH_WITHOUT_YEAR_FORMAT);
-        ListOfDateFormat.add(DATE_NUM_SLASH_WITHOUT_YEAR_SHORTENED_DAY_FORMAT);
-        ListOfDateFormat.add(DATE_NUM_SLASH_WITHOUT_YEAR_SHORTENND_DAY_MONTH_FORMAT);
-
-        ListOfTimeRegex = new ArrayList<String>();
-        ListOfTimeRegex.add(TWELVE_HOUR_WITH_MINUTES_COLON_REGEX);
-        ListOfTimeRegex.add(TWELVE_HOUR_WITH_MINUTES_DOT_REGEX);
-        ListOfTimeRegex.add(TWELVE_HOUR_WITHOUT_MINUTES_REGEX); // ListOfTimeRegex.add(TWELVE_HOUR_WITHOUT_MINUTES_EXTEND_REGEX);
-
-        ListOfTimeFormat = new ArrayList<String>();
-        ListOfTimeFormat.add(TWELVE_HOUR_WITH_MINUTES_COLON_FORMAT);
-        ListOfTimeFormat.add(TWELVE_HOUR_WITH_MINUTES_DOT_FORMAT);
-        // ListOfTimeFormat.add(TWELVE_HOUR_WITHOUT_MINUTES_FORMAT);
-        ListOfTimeFormat.add(TWELVE_HOUR_WITHOUT_MINUTES_EXTEND_FORMAT);
     }
 
     public String getFullString() {
@@ -162,41 +91,32 @@ public class TaskTime {
      * corresponding format and passes to the method isValidTimeSeq upon finding
      * a match
      * 
-     * @param reqTime
-     *            is the user inputTime
+     * @param reqTime is the user inputTime
      * @return true if the userInput time is valid, else false
      */
     public boolean isValidTime(String reqTime) {
-
         if (reqTime == null) {
             return true;
         } else {
-            for (int j = 0; j < ListOfTimeRegex.size(); j++) {
-                if (reqTime.matches(ListOfTimeRegex.get(j))) {
-                    return isValidTimeSeq(reqTime, ListOfTimeFormat.get(j));
-                }
-            }
-            return false;
+            return isValidTimeSeq(reqTime);
         }
     }
 
     /**
      * Checks if given time given by the user is valid
      * 
-     * @param reqTime
-     *            is the time input by the user
-     * @param format
-     *            is the format that matches the reqTime's format
+     * @param reqTime is the time input by the user
+     * @param format    is the format that matches the reqTime's format
      * @return true if the format is valid, else false
      */
-    public boolean isValidTimeSeq(String reqTime, String format) {
+    public boolean isValidTimeSeq(String reqTime) {
         /** First checks if it is indeed valid */
         boolean currEarlierThanInput = false;
         Date inputTime = null;
         Date todayTime = null;
         try {
-            String currentTime = new SimpleDateFormat(format).format(new Date());
-            DateFormat tf = new SimpleDateFormat(format);
+            String currentTime = new SimpleDateFormat(TWELVE_HOUR_WITH_MINUTES_COLON_FORMAT).format(new Date());
+            DateFormat tf = new SimpleDateFormat(TWELVE_HOUR_WITH_MINUTES_COLON_FORMAT);
             tf.setLenient(false);
 
             inputTime = tf.parse(reqTime);
@@ -215,7 +135,7 @@ public class TaskTime {
         if (startDate == null && endDate == null && date == null) {
             return appendTodayOrTmr(currEarlierThanInput, reqTime);
         } else if (date != null) { /** Implies that only 1 date exists */
-            if (date.toLowerCase().equals(TODAY)) {
+            if (date.equalsIgnoreCase(TODAY)) {
                 if (currEarlierThanInput) {
                     DateFormat dateFormat = new SimpleDateFormat(DATE_NUM_SLASH_WITH_YEAR_FORMAT);
                     Calendar cal = Calendar.getInstance();
@@ -225,7 +145,7 @@ public class TaskTime {
                     return true;
                 } else
                     return false;
-            } else if (date.toLowerCase().equals(TMR)) {
+            } else if (date.equalsIgnoreCase(TMR)) {
                 DateFormat dateFormat = new SimpleDateFormat(DATE_NUM_SLASH_WITH_YEAR_FORMAT);
                 Calendar cal = Calendar.getInstance();
                 cal.add(Calendar.DATE, 1);
@@ -239,7 +159,6 @@ public class TaskTime {
         }
         return false;
     }
-
     /**
      * Appends today or tomorrow's date depending on currentTime if a date was
      * not input by the user
@@ -267,6 +186,7 @@ public class TaskTime {
             time = reqTime;
             return true;
         }
+        
     }
 
     /**
@@ -284,13 +204,8 @@ public class TaskTime {
         if (beforeTime == null && afterTime == null && time != null) {
             return true;
         } else {
-            for (int i = 0; i < ListOfTimeRegex.size() && i < ListOfTimeFormat.size(); i++) {
-                if (beforeTime.matches(ListOfTimeRegex.get(i)) && afterTime.matches(ListOfTimeRegex.get(i))) {
-                    return isValidNumTime(beforeTime, afterTime, ListOfTimeFormat.get(i));
-                }
-            }
+            return isValidNumTime(beforeTime, afterTime);
         }
-        return false;
     }
 
     /**
@@ -300,19 +215,17 @@ public class TaskTime {
      *            is the user input starting time
      * @param afterTime
      *            is the user input ending time
-     * @param format
-     *            is the format that matches the format of the startTime
      * @return true if valid timeFormat range, else return false
      */
-    public boolean isValidNumTime(String beforeTime, String afterTime, String format) {
+    public boolean isValidNumTime(String beforeTime, String afterTime) {
         boolean currEarlierThanInput = false;
         boolean beforeEarlierThanAfter = false;
         Date inputBeforeTime = null;
         Date inputAfterTime = null;
         Date todayTime = null;
         try {
-            String currentTime = new SimpleDateFormat(format).format(new Date());
-            DateFormat tf = new SimpleDateFormat(format);
+            String currentTime = new SimpleDateFormat(TWELVE_HOUR_WITH_MINUTES_COLON_FORMAT).format(new Date());
+            DateFormat tf = new SimpleDateFormat(TWELVE_HOUR_WITH_MINUTES_COLON_FORMAT);
             tf.setLenient(false);
 
             inputBeforeTime = tf.parse(beforeTime);
@@ -415,19 +328,14 @@ public class TaskTime {
         if (reqDate == null) {
             date = null;
             return true;
-        } else if (reqDate.toLowerCase().equals(TODAY)) {
+        } else if (reqDate.equalsIgnoreCase(TODAY)) {
             date = TODAY;
             return true;
-        } else if (reqDate.toLowerCase().equals(TMR)) {
+        } else if (reqDate.equalsIgnoreCase(TMR)) {
             date = TMR;
             return true;
         } else {
-            for (int i = 0; i < ListOfDateFormat.size() && i < ListOfDateRegex.size(); i++) {
-                if (reqDate.matches(ListOfDateRegex.get(i))) {
-                    return isValidNumDate(reqDate, ListOfDateFormat.get(i));
-                }
-            }
-            return false;
+            return isValidNumDate(reqDate);
         }
     }
 
@@ -442,11 +350,11 @@ public class TaskTime {
      * @return true if the time is valid, else false
      */
     // @@author A0139128A-reused
-    public boolean isValidNumDate(String reqDate, String format) {
+    public boolean isValidNumDate(String reqDate) {
         /** First check: whether if this date is of a valid format */
         Date inputDate = null;
         try {
-            DateFormat df = new SimpleDateFormat(format);
+            DateFormat df = new SimpleDateFormat(DATE_NUM_SLASH_WITH_YEAR_FORMAT);
             df.setLenient(false);
 
             inputDate = df.parse(reqDate);
@@ -485,7 +393,7 @@ public class TaskTime {
         }
         boolean validDateRange = false;
         boolean sameDate = false;
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat sdf = new SimpleDateFormat(DATE_NUM_SLASH_WITH_YEAR_FORMAT);
         Date beginDate = null;
         Date finishDate = null;
         try {

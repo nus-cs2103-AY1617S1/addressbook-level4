@@ -3,14 +3,12 @@ package seedu.whatnow.storage;
 //@@author A0126240W-reused
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
-
 import seedu.whatnow.commons.exceptions.IllegalValueException;
 import seedu.whatnow.model.ReadOnlyWhatNow;
 import seedu.whatnow.model.tag.Tag;
 import seedu.whatnow.model.tag.UniqueTagList;
 import seedu.whatnow.model.task.ReadOnlyTask;
 import seedu.whatnow.model.task.UniqueTaskList;
-
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -24,14 +22,9 @@ import java.util.stream.Collectors;
 public class XmlSerializableWhatNow implements ReadOnlyWhatNow {
 
     @XmlElement
-    private List<XmlAdaptedTask> tasks;
+    private List<XmlAdaptedTask> tasks = new ArrayList<>();
     @XmlElement
-    private List<Tag> tags;
-
-    {
-        tasks = new ArrayList<>();
-        tags = new ArrayList<>();
-    }
+    private List<Tag> tags = new ArrayList<>();
 
     /**
      * Empty constructor required for marshalling

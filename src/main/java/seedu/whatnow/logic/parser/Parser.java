@@ -3,19 +3,14 @@ package seedu.whatnow.logic.parser;
 
 import static seedu.whatnow.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.whatnow.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-
-import java.text.DateFormat;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import seedu.whatnow.commons.core.Messages;
 import seedu.whatnow.commons.exceptions.IllegalValueException;
 import seedu.whatnow.commons.util.StringUtil;
 import seedu.whatnow.logic.commands.*;
-import seedu.whatnow.model.tag.Tag;
+import seedu.whatnow.model.task.TaskDate;
 
 /**
  * Parses user input.
@@ -32,21 +27,6 @@ public class Parser {
      * One or more keywords separated by whitespace
      */
     private static final Pattern KEYWORDS_ARGS_FORMAT = Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)");
-
-    //@@author A0139128A-unused
-    /**
-     * Forward slashes are reserved for delimiter prefixes variable number of
-     * tags
-     */
-    private static final Pattern TASK_DATA_ARGS_FORMAT = Pattern
-            .compile("(?<name>[^/]+)" + "(?<tagArguments>(?: t/[^/]+)*)");
-
-    /**
-     * This arguments is for e.g. add task on today, add task on 18/10/2016
-     */
-    private static final Pattern TASK_MODIFIED_WITH_DATE_ARGS_FORMAT = Pattern.compile("(?<name>[^/]+)\\s"
-            + "(.*?\\bon|by\\b.*?\\s)??" + "(?<dateArguments>([0-3]??[0-9][//][0-1]??[0-9][//][0-9]{4})??)"
-            + "(?<tagArguments>(?: t/[^/]+)*)");
 
     //@@author A0126240W
     /**
@@ -70,7 +50,7 @@ public class Parser {
             .compile("^(([1][0-2])|([0-9]))((:|\\.)([0-5][0-9]))??((am)|(pm))$");
     private static final Pattern TAG_FORMAT = Pattern.compile("^(t/)");
 
-    private static final Pattern TODAY_OR_TOMORROW = Pattern.compile("^(today|tomorrow)$");
+    private static final Pattern TODAY_OR_TOMORROW = Pattern.compile("^(today|tomorrow|tdy|tmr)$");
     private static final Pattern DAYS_IN_FULL = Pattern
             .compile("^(monday|tuesday|wednesday|thursday|friday|saturday|sunday)$");
     private static final Pattern DAYS_IN_SHORT = Pattern.compile("^(mon|tue|tues|wed|thu|thur|fri|sat|sun)$");
@@ -110,9 +90,6 @@ public class Parser {
     private static final int CHANGE_LOCATION_TO = 1;
     private static final int CHANGE_LOCATION_TO_PATH = 2;
 
-    private static final int INCREASE_DATE_BY_ONE_DAY = 1;
-    private static final int INCREASE_DATE_BY_SEVEN_DAYS = 7;
-
     /**
      * String Constants
      */
@@ -149,13 +126,15 @@ public class Parser {
     private static final String TASK_ARG_DATE = "date";
     private static final String TASK_ARG_TIME = "time";
 
-    HashMap<String, Integer> MONTHS_IN_FULL = new HashMap<String, Integer>();
-    HashMap<String, Integer> MONTHS_IN_SHORT = new HashMap<String, Integer>();
-
-    //@@author A0139772U
+    private static HashMap<String, Integer> MONTHS_IN_FULL = new HashMap<String, Integer>();
+    private static HashMap<String, Integer> MONTHS_IN_SHORT = new HashMap<String, Integer>();
+    
     public Parser() {
+        mapFullMonthsToMonthsInNumFormat();
+        mapShortMonthsToMonthsInNumFormat();
     }
 
+    //@@author A0139772U
     /**
      * Parses user input into command for execution.
      *
@@ -217,7 +196,7 @@ public class Parser {
 
         case FreeTimeCommand.COMMAND_WORD:
             return prepareFreeTimeCommand(arguments);
-            
+
         case PinCommand.COMMAND_WORD:
             return preparePinCommand(arguments);
 
@@ -259,12 +238,12 @@ public class Parser {
      */
     private static String formatDate(String date) {
         String[] splitDate = date.split(FORWARD_SLASH);
-        date = EMPTY_STRING;
+        String formattedDate = EMPTY_STRING;
 
         for (int i = 0; i < splitDate.length; i++) {
-            date += splitDate[i].replaceAll(SINGLE_DIGIT, ZERO + splitDate[i]);
+            formattedDate += splitDate[i].replaceAll(SINGLE_DIGIT, ZERO + splitDate[i]);
             if (i < splitDate.length - ONE) {
-                date += FORWARD_SLASH;
+                formattedDate += FORWARD_SLASH;
             }
         }
 
@@ -283,6 +262,7 @@ public class Parser {
     private static String formatTime(String time, String period) {
         String[] splitTimePeriod = null;
         String[] splitTime = null;
+        String formattedTime;
 
         splitTimePeriod = time.toLowerCase().split(period);
         if (splitTimePeriod[TIME_WITHOUT_PERIOD].contains(TIME_COLON)) {
@@ -293,12 +273,12 @@ public class Parser {
             splitTime = splitTimePeriod[TIME_WITHOUT_PERIOD].split(BACK_SLASH + TIME_DOT);
         }
 
-        time = (splitTime != null) ? splitTime[TIME_HOUR] : splitTimePeriod[TIME_WITHOUT_PERIOD];
-        time += TIME_COLON;
-        time += (splitTime != null) ? splitTime[TIME_MINUTES] : TIME_DEFAULT_MINUTES;
-        time += period;
+        formattedTime = (splitTime != null) ? splitTime[TIME_HOUR] : splitTimePeriod[TIME_WITHOUT_PERIOD];
+        formattedTime += TIME_COLON;
+        formattedTime += (splitTime != null) ? splitTime[TIME_MINUTES] : TIME_DEFAULT_MINUTES;
+        formattedTime += period;
 
-        return time;
+        return formattedTime;
     }
 
     /**
@@ -309,45 +289,44 @@ public class Parser {
      * @return the formatted time
      */
     private static String formatTime(String time) {
+        String formattedTime;
         if (time.contains(TIME_AM)) {
-            time = formatTime(time, TIME_AM);
+            formattedTime = formatTime(time, TIME_AM);
         } else {
-            time = formatTime(time, TIME_PM);
+            formattedTime = formatTime(time, TIME_PM);
         }
 
-        return time;
+        return formattedTime;
     }
 
-    private static HashMap<String, Integer> storeFullMonths(HashMap<String, Integer> months) {
-        months.put("january", 1);
-        months.put("february", 2);
-        months.put("march", 3);
-        months.put("april", 4);
-        months.put("may", 5);
-        months.put("june", 6);
-        months.put("july", 7);
-        months.put("august", 8);
-        months.put("september", 9);
-        months.put("october", 10);
-        months.put("november", 11);
-        months.put("december", 12);
-        return months;
+    private static void mapFullMonthsToMonthsInNumFormat() {
+        MONTHS_IN_FULL.put("january", 1);
+        MONTHS_IN_FULL.put("february", 2);
+        MONTHS_IN_FULL.put("march", 3);
+        MONTHS_IN_FULL.put("april", 4);
+        MONTHS_IN_FULL.put("may", 5);
+        MONTHS_IN_FULL.put("june", 6);
+        MONTHS_IN_FULL.put("july", 7);
+        MONTHS_IN_FULL.put("august", 8);
+        MONTHS_IN_FULL.put("september", 9);
+        MONTHS_IN_FULL.put("october", 10);
+        MONTHS_IN_FULL.put("november", 11);
+        MONTHS_IN_FULL.put("december", 12);
     }
 
-    private static HashMap<String, Integer> storeShortMonths(HashMap<String, Integer> months) {
-        months.put("jan", 1);
-        months.put("feb", 2);
-        months.put("mar", 3);
-        months.put("apr", 4);
-        months.put("may", 5);
-        months.put("jun", 6);
-        months.put("jul", 7);
-        months.put("aug", 8);
-        months.put("sep", 9);
-        months.put("oct", 10);
-        months.put("nov", 11);
-        months.put("dec", 12);
-        return months;
+    private static void mapShortMonthsToMonthsInNumFormat() {
+        MONTHS_IN_SHORT.put("jan", 1);
+        MONTHS_IN_SHORT.put("feb", 2);
+        MONTHS_IN_SHORT.put("mar", 3);
+        MONTHS_IN_SHORT.put("apr", 4);
+        MONTHS_IN_SHORT.put("may", 5);
+        MONTHS_IN_SHORT.put("jun", 6);
+        MONTHS_IN_SHORT.put("jul", 7);
+        MONTHS_IN_SHORT.put("aug", 8);
+        MONTHS_IN_SHORT.put("sep", 9);
+        MONTHS_IN_SHORT.put("oct", 10);
+        MONTHS_IN_SHORT.put("nov", 11);
+        MONTHS_IN_SHORT.put("dec", 12);
     }
 
     public String getDate(String argument) {
@@ -414,9 +393,6 @@ public class Parser {
 
         //Temporary variables
         String tempDate;
-
-        MONTHS_IN_FULL = storeFullMonths(MONTHS_IN_FULL);
-        MONTHS_IN_SHORT = storeShortMonths(MONTHS_IN_SHORT);    
 
         args = args.trim();
 
@@ -676,21 +652,6 @@ public class Parser {
         }
     }
 
-    //@@author A0139772U-reused
-    /**
-     * Extracts the new task's tags from the add command's tag arguments string.
-     * Merges duplicate tag strings.
-     */
-    private static Set<String> getTagsFromArgs(String tagArguments) throws IllegalValueException {
-        // no tags
-        if (tagArguments.isEmpty()) {
-            return Collections.emptySet();
-        }
-        // replace first delimiter prefix, then split
-        final Collection<String> tagStrings = Arrays.asList(tagArguments.replaceFirst(" t/", "").split(" t/"));
-        return new HashSet<>(tagStrings);
-    }
-
     //@@author A0141021H
     /**
      * Parses arguments in the context of the change data file location command.
@@ -754,7 +715,7 @@ public class Parser {
      * @throws ParseException
      */
     private Command prepareUpdate(String args) {
-        if (args.equals(null))
+        if (args == null)
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, UpdateCommand.MESSAGE_USAGE));
 
         if (!UPDATE_FORMAT.matcher(args.trim().toLowerCase()).find()) {
@@ -770,12 +731,6 @@ public class Parser {
         Optional<Integer> index = parseIndex(argComponents[INDEX]);
         String argType = argComponents[ARG_TYPE];
         String arg = "";
-
-        HashMap<String, Integer> fullMonths = new HashMap<String, Integer>();
-        HashMap<String, Integer> shortMonths = new HashMap<String, Integer>();
-
-        fullMonths = storeFullMonths(fullMonths);
-        shortMonths = storeShortMonths(shortMonths);
 
         int numOfDate = 0;
         int numOfTime = 0;
@@ -820,15 +775,15 @@ public class Parser {
                         }
                     } else if (MONTH_IN_FULL.matcher(argComponents[i].toLowerCase()).find()) {
                         if (numOfDate == ONE) {
-                            arg += fullMonths.get(argComponents[i].toLowerCase());
+                            arg += MONTHS_IN_FULL.get(argComponents[i].toLowerCase());
                         } else if (numOfDate == TWO) {
-                            arg += fullMonths.get(argComponents[i].toLowerCase());
+                            arg += MONTHS_IN_FULL.get(argComponents[i].toLowerCase());
                         }
                     } else if (MONTH_IN_SHORT.matcher(argComponents[i].toLowerCase()).find()) {
                         if (numOfDate == ONE) {
-                            arg += shortMonths.get(argComponents[i].toLowerCase());
+                            arg += MONTHS_IN_SHORT.get(argComponents[i].toLowerCase());
                         } else if (numOfDate == TWO) {
-                            arg += shortMonths.get(argComponents[i].toLowerCase());
+                            arg += MONTHS_IN_FULL.get(argComponents[i].toLowerCase());
                         }
                     } else if (YEAR.matcher(argComponents[i].toLowerCase()).find()) {
                         if (numOfDate == ONE) {
@@ -915,8 +870,7 @@ public class Parser {
     /**
      * Parses arguments in the context of the markUndone task command.
      *
-     * @param args
-     *            full command args string
+     * @param args full command args string
      * @return the prepared command
      */
     private Command prepareMarkUndone(String args) {
@@ -941,9 +895,8 @@ public class Parser {
     /**
      * Checks that the command format is valid
      * 
-     * @param type
-     *            is todo/schedule, index is the index of item on the list,
-     *            argType is description/tag/date/time
+     * @param type is todo/schedule, index is the index of item on the list,
+     * argType is description/tag/date/time
      */
     private boolean isValidUpdateCommandFormat(String type, int index, String argType) {
         if (!(type.compareToIgnoreCase(TASK_TYPE_FLOATING) == 0
@@ -1021,79 +974,41 @@ public class Parser {
     /**
      * Parses arguments in the context of the free time command.
      * 
-     * @param args
-     *            full command args string
+     * @param args full command args string
      * @return the prepared command
      */
     private Command prepareFreeTimeCommand(String args) {
         String date = args.trim();
-        DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
-        Calendar cal = Calendar.getInstance();
-        Calendar today = Calendar.getInstance();
-        if (!(DATE_WITH_SLASH_FORMAT.matcher(date).find() || TODAY_OR_TOMORROW.matcher(date).find()
-                || DAYS_IN_FULL.matcher(date).find() || DAYS_IN_SHORT.matcher(date).find())) {
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FreeTimeCommand.MESSAGE_USAGE));
-        } else if (TODAY_OR_TOMORROW.matcher(date).find()) {
-            if (date.equalsIgnoreCase("today")) {
-                date = df.format(cal.getTime());
-            } else {
-                cal.add(Calendar.DATE, INCREASE_DATE_BY_ONE_DAY);
-                date = df.format(cal.getTime());
-            }
-        } else if (DAYS_IN_FULL.matcher(date).find() || DAYS_IN_SHORT.matcher(date).find()) {
-            switch (date) {
-            case "mon":
-                // fallthrough
-            case "monday":
-                cal.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
-                break;
-            case "tue":
-                // fallthrough
-            case "tuesday":
-                cal.set(Calendar.DAY_OF_WEEK, Calendar.TUESDAY);
-                break;
-            case "wed":
-                // fallthrough
-            case "wednesday":
-                cal.set(Calendar.DAY_OF_WEEK, Calendar.WEDNESDAY);
-                break;
-            case "thur":
-                // fallthrough
-            case "thursday":
-                cal.set(Calendar.DAY_OF_WEEK, Calendar.THURSDAY);
-                break;
-            case "fri":
-                // fallthrough
-            case "friday":
-                cal.set(Calendar.DAY_OF_WEEK, Calendar.FRIDAY);
-                break;
-            case "sat":
-                // fallthrough
-            case "saturday":
-                cal.set(Calendar.DAY_OF_WEEK, Calendar.SATURDAY);
-                break;
-            case "sun":
-                // fallthrough
-            case "sunday":
-                cal.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
-                break;
-            }
-            if (cal.getTime().before(today.getTime())) {
-                cal.add(Calendar.DATE, INCREASE_DATE_BY_SEVEN_DAYS);
-            }
-            date = df.format(cal.getTime());
+        try {
+        if (TODAY_OR_TOMORROW.matcher(date).find() || DAYS_IN_FULL.matcher(date).find() || DAYS_IN_SHORT.matcher(date).find()) {
+            date = TaskDate.formatDayToDate(date);
+        } else {
+            date = TaskDate.formatDatetoStandardDate(date);
         }
         return new FreeTimeCommand(date);
-    }
-    
-    private Command preparePinCommand(String args) {
-        String[] argComponents = args.trim().split(DELIMITER_BLANK_SPACE);
-        if (argComponents.length != 2) {
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, PinCommand.MESSAGE_USAGE));
+        } catch (ParseException e) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FreeTimeCommand.MESSAGE_USAGE));
+        } catch (IllegalValueException ie) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FreeTimeCommand.MESSAGE_USAGE));
         }
-        String type = argComponents[ZERO];
-        String keyword = argComponents[ONE];
-        return new PinCommand(type, keyword);
     }
 
+    private Command preparePinCommand(String args) {
+        String[] argComponents = args.trim().split(DELIMITER_BLANK_SPACE);
+        if(argComponents.length == 1) {
+            if(argComponents[ZERO].equals(TASK_ARG_DATE)) {
+                return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, PinCommand.MESSAGE_MISSING_DATE));
+            } else if(argComponents[ZERO].equals(TASK_ARG_TAG)) {
+                return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, PinCommand.MESSAGE_MISSING_TAG));
+            } else {
+                return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, PinCommand.MESSAGE_USAGE));
+            }
+        } else if(argComponents.length <= 0) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, PinCommand.MESSAGE_USAGE));
+        } else {
+            String type = argComponents[ZERO];
+            String keyword = argComponents[ONE];
+            return new PinCommand(type, keyword);
+        }
+    }
 }

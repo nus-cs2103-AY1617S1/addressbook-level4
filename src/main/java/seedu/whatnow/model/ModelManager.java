@@ -3,7 +3,6 @@ package seedu.whatnow.model;
 
 import javafx.collections.FXCollections;
 import javafx.collections.transformation.FilteredList;
-import javafx.collections.transformation.SortedList;
 import seedu.whatnow.commons.core.ComponentManager;
 import seedu.whatnow.commons.core.Config;
 import seedu.whatnow.commons.core.LogsCenter;
@@ -17,7 +16,6 @@ import seedu.whatnow.commons.exceptions.DataConversionException;
 import seedu.whatnow.commons.exceptions.IllegalValueException;
 import seedu.whatnow.commons.util.ConfigUtil;
 import seedu.whatnow.commons.util.StringUtil;
-import seedu.whatnow.logic.commands.Command;
 import seedu.whatnow.model.freetime.FreePeriod;
 import seedu.whatnow.model.freetime.Period;
 import seedu.whatnow.model.tag.Tag;
@@ -26,14 +24,10 @@ import seedu.whatnow.model.task.Task;
 import seedu.whatnow.model.task.UniqueTaskList;
 import seedu.whatnow.model.task.UniqueTaskList.DuplicateTaskException;
 import seedu.whatnow.model.task.UniqueTaskList.TaskNotFoundException;
-
-import java.io.IOException;
-import java.nio.file.FileSystems;
 import java.nio.file.Path;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
@@ -61,7 +55,6 @@ public class ModelManager extends ComponentManager implements Model {
     private static final String DATE_NUM_SLASH_WITH_YEAR_FORMAT = "dd/MM/yyyy";
     private static final String DEFAULT_DATE = "01/01/2001";
     private static final String DEFAULT_TIME = "12:00am";
-    
     
     private final WhatNow whatNow;
     private final FilteredList<Task> filteredTasks;
@@ -138,7 +131,6 @@ public class ModelManager extends ComponentManager implements Model {
     public ModelManager() {
         this(new WhatNow(), new UserPrefs());
     }
-
    
     public ModelManager(ReadOnlyWhatNow initialData, UserPrefs userPrefs) {
         whatNow = new WhatNow(initialData);
@@ -204,6 +196,7 @@ public class ModelManager extends ComponentManager implements Model {
     //@@author A0139772U-reused
     /** Raises an event to indicate the model has changed */
     private void indicateWhatNowChanged() {
+        updateFilteredScheduleListToShowAllOverdue();
         raise(new WhatNowChangedEvent(whatNow));
     }
 
@@ -444,9 +437,6 @@ public class ModelManager extends ComponentManager implements Model {
         }
         while(!getNewNextTask().isEmpty()) {
             getNewNextTask().pop();
-        }
-        while(!stackOfWhatNow.isEmpty()) {
-            stackOfWhatNow.pop();
         }
         while(!getDeletedStackOfTasksRedo().isEmpty()) {
             getDeletedStackOfTasksRedo().pop();
@@ -726,10 +716,10 @@ public class ModelManager extends ComponentManager implements Model {
                 String dateString = getDate(p);
                 String timeString = getTime(p);
                 Date date = df.parse(dateString);
-                Date time = df.parse(timeString);
+                Date time = tf.parse(timeString);
                 if ((p.getTaskType().equals((TASK_TYPE_NOT_FLOATING)) && (p.getStatus().equals(TASK_STATUS_INCOMPLETE)
                         && date.before(today)
-                        && time.before(currentTime)))) {
+                        ||(date.equals(today) && time.before(currentTime))))) {
                     return true;
                 } else {
                     return false;
@@ -786,11 +776,11 @@ public class ModelManager extends ComponentManager implements Model {
         pinnedItems.setPredicate(p -> {
             try {
                 String newKeyword = keyword;
-                if (newKeyword.equals("today")) {
+                if (("today").equals(newKeyword)) {
                     newKeyword = df.format(cal.getTime());
                 }
-                if ((type.equals("tag") && p.getTags().contains(new Tag(newKeyword))) 
-                        || (type.equals("date") && (newKeyword.equals(p.getTaskDate()) 
+                if ((("tag").equals(type) && p.getTags().contains(new Tag(newKeyword))) 
+                        || (("date").equals(type) && (newKeyword.equals(p.getTaskDate()) 
                                 || (newKeyword.equals(p.getStartDate()))))) {
                     return true;
                 } else {
