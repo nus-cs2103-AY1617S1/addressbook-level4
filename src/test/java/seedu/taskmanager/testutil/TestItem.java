@@ -3,6 +3,7 @@ package seedu.taskmanager.testutil;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 import seedu.taskmanager.logic.commands.AddCommand;
@@ -158,6 +159,7 @@ public class TestItem implements ReadOnlyItem {
         return sb.toString();
     }
 
+    //@@author A0143641M
 	@Override
 	public boolean isPastDeadline() {
         assert !this.getItemType().equals(ItemType.TASK_WORD);
@@ -183,4 +185,16 @@ public class TestItem implements ReadOnlyItem {
         }
         return endDateTime;
 	}
+
+    @Override
+    public boolean isNearDeadline() {
+        Date thisEndDate = getEndDateTime();
+        Date todayDate = new Date();
+        
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.DATE, +1);
+        Date tomorrowDate = cal.getTime();
+
+        return thisEndDate.after(todayDate) && thisEndDate.before(tomorrowDate);
+    }
 }
