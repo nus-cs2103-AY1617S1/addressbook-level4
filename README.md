@@ -1,5 +1,5 @@
 [![Build Status](https://travis-ci.org/CS2103AUG2016-T09-C2/main.svg?branch=master)](https://travis-ci.org/CS2103AUG2016-T09-C2/main)
-[![Coverage Status](https://coveralls.io/repos/github/CS2103AUG2016-T09-C2/main/badge.png?branch=master)](https://coveralls.io/github/CS2103AUG2016-T09-C2/main?branch=master)
+[![Coverage Status](https://coveralls.io/repos/github/CS2103AUG2016-T09-C2/main/badge.svg?branch=master)](https://coveralls.io/github/CS2103AUG2016-T09-C2/main?branch=master)
 
 <center><img src="https://github.com/CS2103AUG2016-T09-C2/main/blob/documentation/docs/images/JimiLogo.png" width="800">
 </center>
