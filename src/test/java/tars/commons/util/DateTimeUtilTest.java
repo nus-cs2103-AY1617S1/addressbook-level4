@@ -108,12 +108,6 @@ public class DateTimeUtilTest {
     }
 
     @Test
-    public void isWithinWeek_dateTimeWithinWeek_returnTrue() {
-        LocalDateTime today = LocalDateTime.now();
-        assertTrue(DateTimeUtil.isWithinWeek(today));
-    }
-
-    @Test
     public void isWithinWeek_dateTimeNotWithinWeek_returnFalse() {
         LocalDateTime nextMonth =
                 LocalDateTime.now().plus(1, ChronoUnit.MONTHS);
@@ -277,8 +271,9 @@ public class DateTimeUtilTest {
         LocalDateTime ldt1 = LocalDateTime.of(2016, 10, 29, 9, 36);
         LocalDateTime ldt2 = LocalDateTime.of(2016, 10, 29, 14, 28);
 
-        assertEquals(DateTimeUtil.getDurationBetweenTwoLocalDateTime(
-                ldt1, ldt2), "4 hr 52 min");
+        assertEquals(
+                DateTimeUtil.getDurationBetweenTwoLocalDateTime(ldt1, ldt2),
+                "4 hr 52 min");
     }
 
 }

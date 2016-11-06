@@ -13,6 +13,12 @@ import tars.commons.exceptions.IllegalValueException;
  */
 public class DateTime implements Comparable<DateTime> {
 
+    private static final int COMPARE_TO_EQUALS = 0;
+
+    private static final int COMPARE_TO_SMALLER = -1;
+
+    private static final int COMPARE_TO_GREATER = 1;
+
     public static final String MESSAGE_DATETIME_CONSTRAINTS =
             "Task datetime should be spaces or alphanumeric characters";
 
@@ -25,8 +31,6 @@ public class DateTime implements Comparable<DateTime> {
     private static final String DATETIME_STRING_EMPTY = "";
 
     private static final int DATETIME_SIZE_EMPTY = 0;
-
-    private static final int DATETIME_COMPARE_NULL = 1;
 
     private LocalDateTime startDate;
     private LocalDateTime endDate;
@@ -113,9 +117,9 @@ public class DateTime implements Comparable<DateTime> {
     public int compareTo(DateTime o) {
         if (this.startDate == null && this.endDate == null) {
             if (o.startDate == null && o.endDate == null) {
-                return 0;
+                return COMPARE_TO_EQUALS;
             } else {
-                return -1;
+                return COMPARE_TO_SMALLER;
             }
         }
 
@@ -125,14 +129,14 @@ public class DateTime implements Comparable<DateTime> {
             } else if (o.endDate != null) {
                 return this.endDate.compareTo(o.endDate);
             } else {
-                return 1;
+                return COMPARE_TO_GREATER;
             }
         }
 
         if (this.startDate != null && this.endDate != null) {
             if (o.startDate != null && o.endDate != null) {
                 int result = this.startDate.compareTo(o.startDate);
-                if (result == 0) {
+                if (result == COMPARE_TO_EQUALS) {
                     return this.endDate.compareTo(o.endDate);
                 } else {
                     return result;
@@ -140,11 +144,11 @@ public class DateTime implements Comparable<DateTime> {
             } else if (o.startDate == null && o.endDate != null) {
                 return this.startDate.compareTo(o.endDate);
             } else {
-                return 1;
+                return COMPARE_TO_GREATER;
             }
         }
 
-        return 0;
+        return COMPARE_TO_EQUALS;
     }
 
     public void setStartDateTime(LocalDateTime startDate) {
