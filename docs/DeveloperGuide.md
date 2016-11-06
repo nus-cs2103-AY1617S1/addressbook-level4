@@ -73,7 +73,7 @@ Each of the four components
 
 For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java`
 interface and exposes its functionality using the `LogicManager.java` class.<br>
-<img src="images/LogicClassDiagram_v0.2.png" width="800"><br>   
+<img src="images/LogicClassDiagram_f.png" width="800"><br>   
 
 The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the
 command `delete E1`.
@@ -85,7 +85,7 @@ command `delete E1`.
 
 The diagram below shows how the `EventsCenter` reacts to that event, which eventually results in the updates
 being saved to the hard disk. <br>
-<img src="images\SDForDeleteTaskEventHandling.png" width="800">
+<img src="images\SDForDeleteTaskEventHandling_f.png" width="800">
 
 > Note how the event is propagated through the `EventsCenter` to the `Storage` and `UI` without `Model` having
   to be coupled to either of them. This is an example of how this Event Driven approach helps us in reducing direct 
@@ -126,7 +126,7 @@ The `UI` component:
 
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete E1")`
  API call.<br>
-<img src="images/DeleteTaskSdForLogic.png" width="800"><br>
+<img src="images/DeleteTaskSdForLogic_f.png" width="800"><br>
 
 ### Model component
 
