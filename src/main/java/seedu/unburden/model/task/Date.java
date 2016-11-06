@@ -13,7 +13,6 @@ import seedu.unburden.commons.exceptions.IllegalValueException;
  * Represents a Task's date in the task manager Guarantees: immutable; is valid
  * as declared in {@link #isValidDate(String)}
  * 
- * @@author A0143095H
  */
 
 // @@author A0143095H
@@ -65,6 +64,7 @@ public class Date implements Comparable<Date> {
 		}
 	}
 	
+	//@@author A0139714B
 	private int[] splitDate(String date) {
 		int[] newArgs = {0, 0, 0};
 	
@@ -79,6 +79,7 @@ public class Date implements Comparable<Date> {
 	/**
 	 * Returns true if a given string is a valid date.
 	 */
+	//@@author A0139714B
 	public static boolean isValidDate(int day, int month, int year) {
 		return isValidYear(year) && isValidMonth(month) && isValidDay(day, month, year);
 	}
@@ -92,6 +93,7 @@ public class Date implements Comparable<Date> {
 	/*
 	 * return true if the year is a leap year
 	 */
+	//@@author A0139714B
 	private static boolean isLeapYear(int year) {
 		if ((year % 4 == 0) && (year % 100 == 0) & (year % 400 == 0)) {
 			return true;	
@@ -102,6 +104,7 @@ public class Date implements Comparable<Date> {
 	/*
 	 * returns true if the day is a valid date, taking into consideration the respective month and year
 	 */
+	//@@author A0139714B
 	private static boolean isValidDay(int day, int month, int year) {
 		if (isLeapYear(year) && month == 2) {
 			if (day > numDays[month] + 1) {
@@ -121,6 +124,7 @@ public class Date implements Comparable<Date> {
 	/*
 	 * returns true if the month is a valid month (between 1 to 12 inclusive)
 	 */
+	//@@author A0139714B
 	private static boolean isValidMonth(int month) {
 		if (month > 12 || month == 0) {
 			return false;
@@ -128,6 +132,10 @@ public class Date implements Comparable<Date> {
 		return true;
 	}
 	
+	/*
+	 * Returns true if the year is a valid year (from 2016 onwards)
+	 */
+	//@@author A0139714B
 	private static boolean isValidYear(int year) {
 		Calendar calendar = Calendar.getInstance();
 		int currentYear;
@@ -145,14 +153,17 @@ public class Date implements Comparable<Date> {
 		return df.parse(fullDate);
 	}
 	
+	//@@author A0139714B
 	public int getDay() {
 		return this.day;
 	}
 	
+	//@@author A0139714B
 	public int getMonth() {
 		return this.month;
 	}
 	
+	//@@author A0139714B
 	public int getYear() {
 		return this.year;
 	}
@@ -173,6 +184,8 @@ public class Date implements Comparable<Date> {
 						&& this.fullDate.equals(((Date) other).fullDate)); // state
 																			// check
 	}
+	
+	//@@author A0139714B
 	@Override
 	public int compareTo(Date date) {
 		

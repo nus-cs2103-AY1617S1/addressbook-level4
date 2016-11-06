@@ -2,10 +2,12 @@ package seedu.unburden.logic.commands;
 import java.util.NoSuchElementException;
 
 /**
- * Undo an undo action.
- * 
- * @@author A0139714B
+ * Undo the most recently executed command.
+ * Only certain commands can be undo-ed.
+ * E.g: add, delete, edit, clear, done, undone
  */
+
+//@@author A0139714B
 public class UndoCommand extends Command {
 
 	public static final String COMMAND_WORD = "undo";

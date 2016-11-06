@@ -8,11 +8,9 @@ import seedu.unburden.commons.exceptions.IllegalValueException;
 /**
  * Represents a Task's description in the task manager. Guarantees: immutable;
  * is valid as declared in {@link #isValidDescription(String)}
- * 
- * @@author A0143095H
  */
 
-// @@Gauri Joshi A0143095H
+// @@author A0143095H
 public class TaskDescription {
 	public static final String MESSAGE_TASK_CONSTRAINTS = "Task descriptions should be spaces or alphanumeric characters.";
 	public static final String TASK_VALIDATION_REGEX = "[A-Za-z0-9 ,.?!\'\"]+";

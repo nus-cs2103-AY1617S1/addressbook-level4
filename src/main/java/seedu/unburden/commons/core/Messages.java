@@ -3,6 +3,7 @@ package seedu.unburden.commons.core;
 /**
  * Container for user visible messages.
  */
+//@@author A0139714B
 public class Messages {
 
     public static final String MESSAGE_UNKNOWN_COMMAND = "Unknown command";

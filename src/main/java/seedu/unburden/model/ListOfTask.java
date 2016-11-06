@@ -137,7 +137,7 @@ public class ListOfTask implements ReadOnlyListOfTask {
         }
     }
     
-  //@@author A0139714B
+    //@@author A0139714B
     public boolean editTask(ReadOnlyTask key, Task toEdit) 
     		throws UniqueTaskList.TaskNotFoundException, IllegalValueException{
         if (tasks.edit(key, toEdit)){
@@ -154,9 +154,8 @@ public class ListOfTask implements ReadOnlyListOfTask {
     	tasks.done(key,isDone);
     	Counter();
     }
-    //@@Gauri Joshi
     
-  //@@author A0143095H
+    //@@author A0143095H
     public void undoneTask(ReadOnlyTask key, boolean isDone){
     	tasks.done(key,isDone);
     	Counter();

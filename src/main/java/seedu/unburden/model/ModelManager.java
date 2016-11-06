@@ -41,7 +41,7 @@ public class ModelManager extends ComponentManager implements Model {
 			return !t.getDone();
 		};
 	}
-    
+   
     /**
      * Initializes a ModelManager with the given ListOfTask
      * ListOfTask and its variables should not be null

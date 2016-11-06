@@ -196,7 +196,7 @@ public class LogicManagerTest {
 		assertCommandBehavior("add Valid Name i/Valid Task Description d/12-12-2010 s/2300 e/2359 t/invalid_-[.tag",
 				Tag.MESSAGE_TAG_CONSTRAINTS);
 	}
-
+	
 	// @@author A0139678J
 	@Test
 	public void execute_add_deadline() throws Exception {

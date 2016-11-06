@@ -8,11 +8,9 @@ import seedu.unburden.commons.exceptions.IllegalValueException;
 /**
  * Represents a Task's time in the Task Manager. Guarantees: immutable; is valid
  * as declared in {@link #isValidTime(String)}
- * 
- * @@author A0143095H
  */
 
-// @@ Gauri Joshi A0143095H
+//@@author A0143095H
 public class Time implements Comparable<Time> {
 
 	public static final String MESSAGE_TIME_CONSTRAINTS = "Task time should be in the format XXYY where X represents the number of hours and Y represents the number of minutes";
@@ -86,6 +84,7 @@ public class Time implements Comparable<Time> {
 	 * 
 	 * @return the difference of the two time values
 	 */
+	//@@author A0139714B
 	@Override
 	public int compareTo(Time time) {
 
@@ -110,7 +109,8 @@ public class Time implements Comparable<Time> {
 			return this.getHours() - time.getHours();
 		}
 	}
-
+	//@@author
+	
 	@Override
 	public int hashCode() {
 		return fullTime.hashCode();

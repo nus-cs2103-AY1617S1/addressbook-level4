@@ -2,7 +2,7 @@ package seedu.unburden.commons.events.storage;
 
 import seedu.unburden.commons.events.BaseEvent;
 
-//@@ Gary Goh A0139714B
+//@@author A0139714B
 public class StoragePathChangedEvent extends BaseEvent {
 	
 	public String oldStoragePath;
@@ -15,7 +15,7 @@ public class StoragePathChangedEvent extends BaseEvent {
 	
 	@Override
 	public String toString() {
-		return "Storage Path has changed.\n"
+		return "Storage Path has changed."
 				+ "Old Path: " + oldStoragePath 
 				+ "New Path: " + newStoragePath;
 	}

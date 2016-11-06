@@ -15,9 +15,8 @@ import seedu.unburden.model.tag.UniqueTagList.DuplicateTagException;
 /**
  * Represents a Task in the address book. Guarantees: details are present and
  * not null, field values are validated.
- * 
- * @@author A0143095H
  */
+//@@author A0143095H
 public class Task implements ReadOnlyTask, Comparable<Task> {
 
 	private Name name;
@@ -186,7 +185,7 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
 		this.endTime = new Time("");
 		this.tags = tags;
 	}
-	// @@Nathanael Chan
+	//@@author
 
 	/**
 	 * Copy constructor.
@@ -228,7 +227,7 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
 		return new UniqueTagList(tags);
 	}
 
-	// @@Gauri Joshi A0143095H
+	//@@author A0143095H
 	@Override
 	public boolean getDone() {
 		return done;
@@ -250,8 +249,8 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
 		}
 		return getDoneString;
 	}
-
-	// @@Gauri Joshi A0143095H
+	//@@author
+	
 	/**
 	 * Replaces this person's tags with the tags in the argument tag list.
 	 */
@@ -320,6 +319,7 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
 						&& this.isSameStateAs((ReadOnlyTask) other));
 	}
 
+	//@@author A0139714B
 	@Override
 	public int compareTo(Task task) {
 		if (this.getDate().compareTo(task.getDate()) == 0) { // two objects have
@@ -335,6 +335,7 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
 			return this.getDate().compareTo(task.getDate());
 		}
 	}
+	//@@author
 
 	@Override
 	public int hashCode() {

@@ -4,10 +4,9 @@ import seedu.unburden.commons.events.ui.ShowHelpRequestEvent;
 
 /**
  * Format full help instructions for every command for display.
- * 
- * @@author A0139678J
  */
-// @@Nathanael Chan A0139678J
+
+//@@author A0139678J
 public class HelpCommand extends Command {
 
 	public static final String COMMAND_WORD = "help";

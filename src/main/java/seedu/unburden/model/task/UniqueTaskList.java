@@ -78,7 +78,7 @@ public class UniqueTaskList implements Iterable<Task> {
         return taskFoundAndDeleted;
     }
     
-    //@@Gary Goh A0139714B
+    //@@author A0139714B
     public boolean edit(ReadOnlyTask key, Task toEdit) 
     		throws TaskNotFoundException, IllegalValueException {
     	
@@ -115,6 +115,7 @@ public class UniqueTaskList implements Iterable<Task> {
     	return true;
      
     }
+    //@@author
     
 
     public ObservableList<Task> getInternalList() {
@@ -140,7 +141,7 @@ public class UniqueTaskList implements Iterable<Task> {
     }
     
     
-    //@@ Gauri Joshi A0139714B
+    //@@author A0139714B
 	public void done(ReadOnlyTask key, boolean isDone) {
 		assert key != null;
 		int taskIndex = internalList.indexOf(key);
