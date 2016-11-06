@@ -63,7 +63,8 @@ public class ResultDisplay extends UiPart {
     }
 
     /**
-     * @param newHeight
+     * Sets the height of the result display to the specified newHeight
+     * @param newHeight The new height to set the result display area to
      */
     private void setNewHeight(int newHeight) {
         resultDisplayArea.setMinHeight(newHeight);
@@ -76,15 +77,15 @@ public class ResultDisplay extends UiPart {
      * number of newline characters present in the text of the result display
      * area.
      * 
-     * @return
+     * @return The size of the new height
      */
     private int computeNewHeight() {
         return PREF_HEIGHT + getNumberOfNewLines() * HEIGHT_PER_EXTRA_NEWLINE;
     }
 
     /**
-     * Returns 
-     * @return
+     * Returns the number of newlines characters in the result display text.
+     * @return The number of newline characters
      */
     private int getNumberOfNewLines() {
         String displayedText = resultDisplayArea.getText();

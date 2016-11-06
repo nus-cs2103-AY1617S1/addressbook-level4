@@ -39,10 +39,10 @@ public class XmlAdaptedTask {
     }
 
     /**
-     * Converts a given Task into this class for JAXB use. Future changes to
-     * this will not affect the created XmlAdaptedTask.
+     * Converts a given Task into this class for JAXB use. <br>
+     * Future changes to this will not affect the created XmlAdaptedTask.
      *
-     * @param source the task to convert
+     * @param source The task to convert
      */
     public XmlAdaptedTask(ReadOnlyTask source) {
         saveName(source);
@@ -56,9 +56,9 @@ public class XmlAdaptedTask {
      * Converts this jaxb-friendly adapted task object into the model's Task
      * object.
      *
-     * @throws IllegalValueException if there were any data constraints violated
+     * @throws IllegalValueException If there were any data constraints violated
      *             in the adapted task
-     * @throws ParseException
+     * @throws ParseException If there was a parsing problem for the start and end dates of the stored Task
      */
     public Task toModelType() throws IllegalValueException, ParseException {
         Name nameForModel = getNameFromStoredTask();
@@ -75,7 +75,7 @@ public class XmlAdaptedTask {
     /**
      * Saves the name of the source ReadOnlyTask into the XmlAdaptedTask.
      * 
-     * @param source the Task to convert into the XmlAdaptedTask
+     * @param source The Task to convert into the XmlAdaptedTask
      */
     private void saveName(ReadOnlyTask source) {
         name = source.getName().toString();
@@ -84,7 +84,7 @@ public class XmlAdaptedTask {
     /**
      * Saves the priority of the source ReadOnlyTask into the XmlAdaptedTask.
      * 
-     * @param source the Task to convert into the XmlAdaptedTask
+     * @param source The Task to convert into the XmlAdaptedTask
      */
     private void savePriority(ReadOnlyTask source) {
         String priorityString = source.getPriorityValue().toString();
@@ -94,7 +94,7 @@ public class XmlAdaptedTask {
     /**
      * Saves the start date of the source ReadOnlyTask into the XmlAdaptedTask.
      * 
-     * @param source the Task to convert into the XmlAdaptedTask
+     * @param source The Task to convert into the XmlAdaptedTask
      */
     private void saveStartDateIfPresent(ReadOnlyTask source) {
         boolean hasStartDate = source.getStartDate().isPresent();
@@ -107,7 +107,7 @@ public class XmlAdaptedTask {
     /**
      * Saves the end date of the source ReadOnlyTask into the XmlAdaptedTask.
      * 
-     * @param source the Task to convert into the XmlAdaptedTask
+     * @param source The Task to convert into the XmlAdaptedTask
      */
     private void saveEndDateIfPresent(ReadOnlyTask source) {
         boolean hasEndDate = source.getEndDate().isPresent();
@@ -134,7 +134,7 @@ public class XmlAdaptedTask {
     /**
      * Retrieves the Name associated with the stored task.
      * 
-     * @return the Name associated with the stored task
+     * @return The Name associated with the stored task
      */
     private Name getNameFromStoredTask() {
         assert name != null;
@@ -147,11 +147,11 @@ public class XmlAdaptedTask {
      * string in the stored task does not match any valid priority strings, the
      * task will be given a default medium priority.
      * 
-     * @return the Priority associated with the stored task
+     * @return The Priority associated with the stored task
      */
     private Priority getPriorityFromStoredTask() {
-        //assert priority != null;
-        
+        // assert priority != null;
+
         return Priority.convertStringToPriority(priority);
     }
 
@@ -159,9 +159,9 @@ public class XmlAdaptedTask {
      * Retrieves the start date Date associated with the stored task. Returns
      * null if there is no start date associated with the stored task.
      * 
-     * @return the start date Date associated with the task, or null if no start
+     * @return The start date Date associated with the task, or null if no start
      *         date is associated with the current stored task.
-     * @throws ParseException if the format of the start date does not conform
+     * @throws ParseException If the format of the start date does not conform
      *             to the expected format
      */
     private Date getStartDateFromStoredTask() throws ParseException {
@@ -175,9 +175,9 @@ public class XmlAdaptedTask {
      * Retrieves the end date Date associated with the stored task. Returns null
      * if there is no end date associated with the stored task.
      * 
-     * @return the end date Date associated with the task, or null if no end
+     * @return The end date Date associated with the task, or null if no end
      *         date is associated with the current stored task.
-     * @throws ParseException if the format of the end date does not conform to
+     * @throws ParseException If the format of the end date does not conform to
      *             the expected format
      */
     private Date getEndDateFromStoredTask() throws ParseException {
@@ -192,11 +192,11 @@ public class XmlAdaptedTask {
      * Retrieves the ReccurenceRate associated with the stored task. Returns
      * null if there is no recurrence rate associated with the stored task.
      * 
-     * @return the RecurrenceRate associated with the task, or null if no
+     * @return The RecurrenceRate associated with the task, or null if no
      *         recurrence rate is associated with the current stored task.
      * 
-     * @throws IllegalValueException
-     * @throws ParseException
+     * @throws IllegalValueException If there were any data constraints violated
+     *             in the adapted recurrence rate
      */
     private RecurrenceRate getRecurrenceRateFromStoredTask() throws IllegalValueException {
         if (recurrenceRate == null) {

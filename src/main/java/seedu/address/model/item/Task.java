@@ -153,7 +153,7 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
     public int compareTo(Task other) {
 
         int compareByDateValue = compareByDate(other);
-        if (compareByDateValue != 0) {
+        if (shouldCompareByJustDate(compareByDateValue)) {
             return compareByDateValue;
         }
 
@@ -163,6 +163,17 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
             return compareByTaskName(other);
         }
 
+    }
+
+    /**
+     * Returns whether the tasks should be compared by just their dates.
+     * 
+     * @param compareByDateValue The return value when compareByDate is called
+     *            with the other Task passed as arguments
+     * @return A boolean representing if we should just compare the tasks by their dates
+     */
+    private boolean shouldCompareByJustDate(int compareByDateValue) {
+        return compareByDateValue != 0;
     }
 
     //@@author

@@ -21,10 +21,11 @@ public class XmlAdaptedRecurrenceRate {
     }
 
     /**
-     * Converts a given RecurrenceRate into this class for JAXB use.
+     * Converts a given RecurrenceRate into this class for JAXB use.<br>
+     * Future changes to this will not affect the created
+     * XmlAdaptedRecurrenceRate.
      *
-     * @param source future changes to this will not affect the created
-     *            XmlAdaptedRecurrenceRate
+     * @param source The RecurrenceRate to convert
      */
     public XmlAdaptedRecurrenceRate(RecurrenceRate source) {
         assert source.getRate() != null && source.getTimePeriod() != null;
@@ -38,7 +39,7 @@ public class XmlAdaptedRecurrenceRate {
      * Converts this jaxb-friendly adapted RecurrenceRate object into the
      * model's RecurrenceRate object.
      *
-     * @throws IllegalValueException if there were any data constraints violated
+     * @throws IllegalValueException If there were any data constraints violated
      *             in the adapted recurrence rate
      */
     public RecurrenceRate toModelType() throws IllegalValueException {
