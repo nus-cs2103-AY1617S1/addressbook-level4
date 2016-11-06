@@ -6,12 +6,13 @@ import javafx.scene.control.SplitPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import seedu.agendum.model.task.ReadOnlyTask;
+import seedu.agendum.model.task.Task;
 
 //@@author A0148031R
 /**
  * Panel contains the list of tasks
  */
-public class TasksPanel extends UiPart{
+public abstract class TasksPanel extends UiPart{
     private AnchorPane panel;
     private AnchorPane placeHolderPane;
     
@@ -22,11 +23,6 @@ public class TasksPanel extends UiPart{
     @Override
     public void setNode(Node node) {
         panel = (AnchorPane) node;
-    }
-
-    @Override
-    public String getFxmlPath() {
-        return null;
     }
 
     @Override
@@ -51,6 +47,8 @@ public class TasksPanel extends UiPart{
         placeHolderPane.getChildren().add(panel);
     }
     
-    protected void setConnections(ObservableList<ReadOnlyTask> allTasks) {};
+    protected abstract void setConnections(ObservableList<ReadOnlyTask> allTasks);
+    
+    public abstract void scrollTo(Task task, boolean hasMultipleTasks);
     
 }

@@ -13,5 +13,7 @@ public class Messages {
     public static final String MESSAGE_TASKS_LISTED_OVERVIEW = "%1$d tasks listed/found!";
     public static final String MESSAGE_ESCAPE_HELP_WINDOW = "Showing search results now, press ESC to go back and"
             + " view all tasks";
-
+    public static final String MESSAGE_MARK_TASK_SUCCESS = "Marked Task(s)!";
+    public static final String MESSAGE_UNMARK_TASK_SUCCESS = "Unmarked Task(s)!";
+    public static final String MESSAGE_DUPLICATE = "Hey, the task already exists";
 }

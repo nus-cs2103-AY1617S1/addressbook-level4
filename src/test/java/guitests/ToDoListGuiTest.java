@@ -117,6 +117,7 @@ public abstract class ToDoListGuiTest {
         assertEquals(size, numberOfTasks);
     }
 
+    //@@author A0148031R
     /**
      * Asserts the message shown in the Result Display area is same as the given string.
      */

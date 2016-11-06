@@ -26,6 +26,7 @@ public class HelpWindowTest extends ToDoListGuiTest {
         assertHelpWindowClose(mainMenu.closeHelpWindowUsingAccelerator());
     }
     
+    // Tests Ctrl-H to switch between mainwindow and helpwindow
     @Test
     public void toggleHelpWindow() {
         assertHelpWindowClose(mainMenu.toggleHelpWindow());
