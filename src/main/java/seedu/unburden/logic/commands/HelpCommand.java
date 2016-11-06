@@ -19,17 +19,17 @@ public class HelpCommand extends Command {
 			+ "d/ \"your deadline (optional)\" \n" + "s/ \"your start time (optional)\" \n"
 			+ "e/ \"your end time (optional)\" \n" + "t/ \"your tags (optional)\" \n";
 
-	public static final String HELP_MESSAGE_DELETE = "To delete a task, type: \n" + "\"list\" to list out all tasks \n"
+	public static final String HELP_MESSAGE_DELETE = "To delete a task, type: \n" + "\"list all\" to list out all tasks \n"
 			+ "\"delete\" \'index of the task to be delete\' \" \n";
 
 	public static final String HELP_MESSAGE_FIND = "To find a task, type: \"find \'name of task\' \" \n"
 			+ "OR type: \"find \'deadline of task\' \" \n" + "OR type: \"find today\" to find tasks due today \n"
 			+ "OR type: \"find tomorrow\" to find tasks due tomorrow\n";
 
-	public static final String HELP_MESSAGE_EDIT = "To find a task, type: \n" + "\"edit \'index of task\' \" \n"
+	public static final String HELP_MESSAGE_EDIT = "To edit a task, type: \n" + "\"edit \'index of task\' \" \n"
 			+ "d/ \"your new deadline(optional)\" \n" + "s/ \"your new start time\" \n" + "e/ \"your new end time\" \n";
 
-	public static final String HELP_MESSAGE_CLEAR = "To delete all tasks from Unburden, type \"clear\" ";
+	public static final String HELP_MESSAGE_CLEAR = "To delete all tasks in the last shown list from Unburden, type \"clear\" ";
 
 	public static final String HELP_MESSAGE_EXIT = "To exit Unburden, type \"exit\" ";
 
@@ -45,13 +45,14 @@ public class HelpCommand extends Command {
 			+ "10) Help : To get some information on \n" + " how to use the application \n"
 			+ "11) Exit : To exit and close the application \n";
 
-	private static final String HELP_MESSAGE_UNDO = null;
+	public static final String HELP_MESSAGE_UNDO = "To undo a previous executed command, type \"undo\"";
 
-	private static final String HELP_MESSAGE_REDO = null;
+	public static final String HELP_MESSAGE_REDO = "To redo a previous executed undo command, type \"redo\"";
 
-	private static final String HELP_MESSAGE_DONE = null;
+	public static final String HELP_MESSAGE_DONE = "To mark a task as done, type: \n" + "done \'index to be deleted\'";
 
-	private static final String HELP_MESSAGE_UNDONE = null;
+	public static final String HELP_MESSAGE_UNDONE = "To mark a task as undone, type: \n" + "\"list all\" to list out all tasks \n"
+			+ "undone \'index to be deleted\'";
 
 	private final String whichCommand;
 
