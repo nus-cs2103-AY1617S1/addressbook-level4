@@ -134,9 +134,6 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
 	@Override
 	public int compareTo(Task o) {
 		if (!start.equals(o.start)) {
-			System.out.println("THIS: " + start.m_time.m_hour + "." + start.m_time.m_minute + start.m_time.m_meridiem);
-			System.out.println("OTHER: " + o.start.m_time.m_hour + "." + o.start.m_time.m_minute + o.start.m_time.m_meridiem);
-			System.out.println("COMPARED: " + start.compareTo(o.start));
 			return start.compareTo(o.start);
 		} else if (!end.equals(o.end)) {
 			return end.compareTo(o.end);

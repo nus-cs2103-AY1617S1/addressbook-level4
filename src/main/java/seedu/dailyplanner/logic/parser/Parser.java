@@ -294,7 +294,7 @@ public class Parser {
 				} else {
 					Date endDate;
 					if (!mapArgs.containsKey("start")) {
-						endDate = new Date(natty.parse("today"));
+						endDate = new Date(natty.parseDate("today"));
 					} else {
 						endDate = new Date(start.split(" ")[0]);
 					}
