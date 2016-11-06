@@ -15,9 +15,6 @@ public class Tag {
     private String tagName;
     private int tasksCount;
     
-    public Tag() {
-    }
-
     /**
      * Validates given tag name.
      *
@@ -72,11 +69,6 @@ public class Tag {
         this.tasksCount = count;
     }
     
-    public void decreaseCount() {
-        if (tasksCount > 0) {
-            this.tasksCount--;
-        }
-    }
     
     @Override
     public boolean equals(Object other) {

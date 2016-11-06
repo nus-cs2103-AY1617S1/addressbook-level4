@@ -305,10 +305,11 @@ Clear | `clear` |
 Delete | `delete ID` | delete 12
 Help | `help` |
 Mark | `mark ID`| mark 12
-Unmark | `unmark ID`| mark 12
+Unmark | `unmark ID`| unmark 12
 Quitting | `exit` |
 Search | `search KEYWORDS`| search hello PrOjecT MeeTinG
 	   | `search before DATE` | search before today 19:00
+       | `search on DATE` | search on today 19:00
 	   | `search after DATE`| search before today 19:00
 	   | `search priority PRIORITY`| search priority high
 	   | `search tag TAG` | search tag study   

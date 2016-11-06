@@ -22,7 +22,6 @@ public class TagCard extends UiPart{
 	        Color.web("#fff59d"), Color.web("#c5e1a5"), Color.web("#81d4fa"), 
 	        Color.web("#b39ddb"), Color.web("#b39ddb")};
 	
-	
     @FXML
     private HBox cardPane;
     
@@ -34,8 +33,6 @@ public class TagCard extends UiPart{
     
     private Tag tag;
     private static int displayedIndex;
-    
-    public TagCard() {}
     
     public static TagCard load(Tag tag, int displayedIndex){
     	TagCard card = new TagCard();

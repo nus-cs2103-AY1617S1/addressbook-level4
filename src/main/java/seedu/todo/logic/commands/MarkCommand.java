@@ -47,16 +47,17 @@ public class MarkCommand extends Command {
         ReadOnlyTask taskToMark = lastShownList.get(targetIndex - 1);
         
         try {
-            Task toMark = model.getTask(taskToMark);
-            toMark.setCompletion(new Completion(true));           
-            model.updateTask(taskToMark, toMark);
-            
-            if (!toMark.isRecurring()) {
-                model.updateFilteredListToShowAllCompleted();
-            } else {
-                toMark.getRecurrence().updateTaskDate(toMark);
-                model.updateFilteredListToShowAllNotCompleted();
+            Task newTask = new Task(taskToMark);
+            if (newTask.isRecurring()) {
+                newTask.getRecurrence().updateTaskDate(newTask);
             }
+            else {
+                newTask.setCompletion(new Completion(true));
+            }
+            
+            model.updateTask(taskToMark, newTask);
+            
+            model.updateFilteredListToShowAllNotCompleted();
             model.updateTodayListToShowAll();
             model.updateWeekListToShowAll();
             

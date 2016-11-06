@@ -49,8 +49,6 @@ public class MainWindow extends UiPart {
 
     private String ToDoListName;
 
-    @FXML
-    private AnchorPane browserPlaceholder;
     
     //@@author A0142421X
     @FXML

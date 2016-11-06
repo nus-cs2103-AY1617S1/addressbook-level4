@@ -19,7 +19,7 @@ import java.util.logging.Logger;
  * Panel containing the list of tasks.
  */
 public class TaskListPanel extends UiPart {
-    private final Logger logger = LogsCenter.getLogger(TaskListPanel.class);
+
     private static final String FXML = "TaskListPanel.fxml";
     private VBox panel;
     private AnchorPane placeHolderPane;
@@ -81,9 +81,6 @@ public class TaskListPanel extends UiPart {
      * Sets ListCells for ListView in TaskListPanel
      */
     class TaskListViewCell extends ListCell<ReadOnlyTask> {
-
-        public TaskListViewCell() {
-        }
 
         @Override
         protected void updateItem(ReadOnlyTask task, boolean empty) {

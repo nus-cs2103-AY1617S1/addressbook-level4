@@ -186,6 +186,7 @@ public class DoDoBird implements ReadOnlyToDoList {
         this.getTasks().get(index).setDetail(newTask.getDetail());
         this.getTasks().get(index).setOnDate(newTask.getOnDate());
         this.getTasks().get(index).setByDate(newTask.getByDate());
+        this.getTasks().get(index).setCompletion(newTask.getCompletion());
         this.getTasks().get(index).setPriority(newTask.getPriority());
         this.getTasks().get(index).setRecurrence(newTask.getRecurrence());
         

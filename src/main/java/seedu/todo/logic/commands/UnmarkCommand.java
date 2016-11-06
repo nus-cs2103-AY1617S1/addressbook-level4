@@ -21,6 +21,7 @@ public class UnmarkCommand extends Command {
             + "Example: " + COMMAND_WORD + " 1";
 
     public static final String MESSAGE_SUCCESS = "Unmark Task at Index: %1$d\n%2$s";
+    public static final String MESSAGE_RECURRING = "You cannot unmark a recurring task!";
 
     public final int targetIndex;
 
@@ -45,19 +46,20 @@ public class UnmarkCommand extends Command {
         }
 
         ReadOnlyTask taskToMark = lastShownList.get(targetIndex - 1);
-        
+        if (taskToMark.isRecurring()) {
+            return new CommandResult(MESSAGE_RECURRING);
+        }
         try {
-            Task toMark = model.getTask(taskToMark);
+            Task newTask = new Task(taskToMark);
+            newTask.setCompletion(new Completion(false));
+            model.updateTask(taskToMark, newTask);
             
-            toMark.setCompletion(new Completion(false));
-            
-            model.updateTask(taskToMark, toMark);
             model.updateFilteredListToShowAllNotCompleted();
             model.updateTodayListToShowAll();
             model.updateWeekListToShowAll();
             
         } catch (TaskNotFoundException pnfe) {
-            assert false : "The target task cannot be found";
+            return new CommandResult(Messages.MESSAGE_TASK_NOT_FOUND);
         } 
         
         return new CommandResult(String.format(MESSAGE_SUCCESS, targetIndex, taskToMark));

@@ -22,11 +22,8 @@ public class Config {
     private String userPrefsFilePath = "preferences.json";
     private String toDoListFilePath = "data/dodobird.xml";
     private String toDoListName = "dodobird";
-
-
-    public Config() {
-    }
     
+    //@@author A0093896H
     public void resetConfig(Config initializedConfig) throws IOException {
         ConfigUtil.saveConfig(initializedConfig, USER_CONFIG_FILE);
         
@@ -36,7 +33,8 @@ public class Config {
         this.setToDoListName(initializedConfig.getToDoListName());
         this.setUserPrefsFilePath(initializedConfig.getUserPrefsFilePath());
     }
-
+    //@@author
+    
     public String getAppTitle() {
         return appTitle;
     }

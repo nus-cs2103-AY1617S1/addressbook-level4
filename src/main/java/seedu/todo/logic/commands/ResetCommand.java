@@ -23,9 +23,6 @@ public class ResetCommand extends Command {
     
     public static final String MESSAGE_SAVE_ERROR = "Unable to save config to new location.";
     
-    public ResetCommand() {}
-    
-    
     /**
      * Executes the Reset Command.
      * 

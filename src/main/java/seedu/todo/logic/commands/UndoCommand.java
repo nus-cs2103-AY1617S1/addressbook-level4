@@ -11,8 +11,6 @@ public class UndoCommand extends Command {
     public static final String MESSAGE_SUCCESS = "Undoes the previous command.";
     public static final String MESSAGE_NO_PREVIOUS_STATE = "There is no previous state to return to.";
 
-    public UndoCommand() {}
-
     @Override
     public CommandResult execute() {
         if (model.undo()) {

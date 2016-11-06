@@ -39,12 +39,12 @@ public class FromTillDateQualifier implements Qualifier{
         
         if (fromDate != null) {
             LocalDateTime onDateTime = DateTimeUtil.combineLocalDateAndTime(fromDate, fromTime);
-            onFrom = onDateTime.isAfter(fromDateTime);
+            onFrom = onDateTime.isAfter(fromDateTime.minusDays(1));
         }
         
         if (tillDate != null) {
             LocalDateTime onDateTime = DateTimeUtil.combineLocalDateAndTime(tillDate, tillTime);
-            byTill = onDateTime.isBefore(tillDateTime);
+            byTill = onDateTime.isBefore(tillDateTime.plusDays(1));
         }
         
        
