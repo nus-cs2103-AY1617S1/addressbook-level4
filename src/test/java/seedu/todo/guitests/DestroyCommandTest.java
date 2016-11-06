@@ -1,11 +1,15 @@
 package seedu.todo.guitests;
 
+import static org.junit.Assert.assertEquals;
+
 import java.time.LocalDateTime;
 
 import org.junit.Before;
 import org.junit.Test;
 
 import seedu.todo.commons.util.DateUtil;
+import seedu.todo.controllers.DestroyController;
+import seedu.todo.controllers.concerns.Renderer;
 import seedu.todo.models.Event;
 import seedu.todo.models.Task;
 
@@ -64,5 +68,20 @@ public class DestroyCommandTest extends GuiTest {
         assertTaskNotVisibleAfterCmd("destroy 3", task1);
     }
     
+    @Test
+    public void destroy_wrongIndex_error() {
+        console.runCommand("destroy 10");
+        String consoleMessage = Renderer.MESSAGE_DISAMBIGUATE + "\n\n"
+                + DestroyController.MESSAGE_INDEX_OUT_OF_RANGE;
+        assertEquals(consoleMessage, console.getConsoleTextArea());
+    }
+    
+    @Test
+    public void destroy_invalidIndex_error() {
+        console.runCommand("destroy alamak");
+        String consoleMessage = Renderer.MESSAGE_DISAMBIGUATE + "\n\n"
+                + DestroyController.MESSAGE_INDEX_NOT_NUMBER;
+        assertEquals(consoleMessage, console.getConsoleTextArea());
+    }
 
 }
