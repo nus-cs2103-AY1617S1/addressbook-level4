@@ -32,11 +32,12 @@ public class UpdateController extends Controller {
     public static final String MESSAGE_INVALID_ITEM_OR_PARAM = "Please specify a valid index and parameter to update!";
     public static final String MESSAGE_CANNOT_PARSE_DATE = "We could not parse the date in your previous command, please correct it.";
     
+    private static final String STRING_NULL = "null";
     private static final String UPDATE_EVENT_TEMPLATE = "update %s [name \"%s\"] [from \"%s\" to \"%s\"]";
     private static final String UPDATE_TASK_TEMPLATE = "update %s [name \"%s\"] [by \"%s\"]";
     private static final String START_TIME_FIELD = "<start time>";
     private static final String END_TIME_FIELD = "<end time>";
-    private static final String DEADLINE_FIELD = "<deadline>";
+    private static final String DEADLINE_FIELD = "<deadline / null>";
     private static final String NAME_FIELD = "<name>";
     private static final String INDEX_FIELD = "<index>";
 
@@ -101,25 +102,28 @@ public class UpdateController extends Controller {
         }
 
         // Parse natural date using Natty.
-        LocalDateTime dateFrom;
-        LocalDateTime dateTo;
+        LocalDateTime dateFrom = null;
+        LocalDateTime dateTo = null;
         try {
             dateFrom = naturalFrom == null ? null : DateParser.parseNatural(naturalFrom);
             dateTo = naturalTo == null ? null : DateParser.parseNatural(naturalTo);
         } catch (InvalidNaturalDateException e) {
-            renderDisambiguation(isTask, recordIndex, name, naturalFrom, naturalTo, MESSAGE_CANNOT_PARSE_DATE);
-            return;
+            // Allow exception for "null"
+            if (!naturalFrom.trim().equals(STRING_NULL)) {
+                renderDisambiguation(isTask, recordIndex, name, naturalFrom, naturalTo, MESSAGE_CANNOT_PARSE_DATE);
+                return;
+            }
         }
 
         // Validate isTask, name and times.
-        if (!validateParams(isTask, calendarItem, name, dateFrom, dateTo)) {
+        if (!validateParams(isTask, calendarItem, name, dateFrom, dateTo, naturalFrom)) {
             renderDisambiguation(isTask, (int) recordIndex, name, naturalFrom, naturalTo, null);
             return;
         }
 
         // Update and persist task / event.
         TodoListDB db = TodoListDB.getInstance();
-        updateCalendarItem(db, calendarItem, isTask, name, dateFrom, dateTo);
+        updateCalendarItem(db, calendarItem, isTask, name, dateFrom, dateTo, naturalFrom);
 
         // Re-render
         Renderer.renderIndex(db, MESSAGE_UPDATE_SUCCESS);
@@ -171,7 +175,7 @@ public class UpdateController extends Controller {
      *            End date for Event
      */
     private void updateCalendarItem(TodoListDB db, CalendarItem record, boolean isTask, String name,
-            LocalDateTime dateFrom, LocalDateTime dateTo) {
+            LocalDateTime dateFrom, LocalDateTime dateTo, String naturalFrom) {
         // Update name if not null
         if (name != null) {
             record.setName(name);
@@ -182,6 +186,8 @@ public class UpdateController extends Controller {
             Task task = (Task) record;
             if (dateFrom != null) {
                 task.setDueDate(dateFrom);
+            } else if (naturalFrom.trim().equals(STRING_NULL)) {
+                task.setDueDate(null);
             }
         } else {
             Event event = (Event) record;
@@ -224,11 +230,11 @@ public class UpdateController extends Controller {
      * @return
      */
     private boolean validateParams(boolean isTask, CalendarItem record, String name, LocalDateTime dateFrom,
-            LocalDateTime dateTo) {
+            LocalDateTime dateTo, String naturalFrom) {
         // TODO: Not enough sleep
         // We really need proper ActiveRecord validation and rollback, sigh...
 
-        if (name == null && dateFrom == null && dateTo == null) {
+        if (name == null && dateFrom == null && dateTo == null && !naturalFrom.equals(STRING_NULL)) {
             return false;
         }
 
