@@ -77,7 +77,7 @@ public class ClearCommandTest extends GuiTest {
     }
     
     @Test
-    public void clear_all_tasks() {
+    public void clear_allTasks_success() {
         console.runCommand("clear tasks");
         assertTaskNotVisibleAfterCmd("list", task1);
         assertTaskNotVisibleAfterCmd("list", task2);
@@ -86,7 +86,7 @@ public class ClearCommandTest extends GuiTest {
     }
     
     @Test
-    public void clear_all_events() {
+    public void clear_allEvents_success() {
         console.runCommand("clear events");
         assertTaskVisibleAfterCmd("list", task1);
         assertTaskVisibleAfterCmd("list", task2);
