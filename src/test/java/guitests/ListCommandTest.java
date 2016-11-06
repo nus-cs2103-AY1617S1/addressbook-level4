@@ -7,7 +7,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import seedu.task.logic.commands.ListCommand;
-import seedu.task.logic.parser.ListParser.ListMode;
+import seedu.task.logic.parser.ListParser.ListTarget;
 import seedu.task.testutil.TestEvent;
 import seedu.task.testutil.TestTask;
 import seedu.taskcommons.core.Status;
@@ -83,10 +83,10 @@ public class ListCommandTest extends TaskBookGuiTest {
 	private void assertListEventSuccess(boolean showAll, final TestEvent[] currentList) {
 		if (!showAll) {
 			// confirm result message is correct.
-			assertResultMessage(String.format(ListCommand.MESSAGE_SUCCESS_FORMAT, Status.INCOMPLETED, ListMode.EVENT.toString()));
+			assertResultMessage(String.format(ListCommand.MESSAGE_SUCCESS_FORMAT, Status.INCOMPLETED, ListTarget.EVENT.toString()));
 		} else {
 			// confirm result message is correct.
-			assertResultMessage(String.format(ListCommand.MESSAGE_SUCCESS_FORMAT, Status.NONE, ListMode.EVENT.toString()));
+			assertResultMessage(String.format(ListCommand.MESSAGE_SUCCESS_FORMAT, Status.BOTH, ListTarget.EVENT.toString()));
 		}
 		// confirm the list shows all events not completed.
 		assertTrue(eventListPanel.isListMatching(currentList));
@@ -95,10 +95,10 @@ public class ListCommandTest extends TaskBookGuiTest {
 	private void assertListTaskSuccess(boolean showAll, final TestTask[] currentList) {
 		if (!showAll) {
 			// confirm result message is correct.
-			assertResultMessage(String.format(ListCommand.MESSAGE_SUCCESS_FORMAT, Status.INCOMPLETED, ListMode.TASK.toString()));
+			assertResultMessage(String.format(ListCommand.MESSAGE_SUCCESS_FORMAT, Status.INCOMPLETED, ListTarget.TASK.toString()));
 		} else {
 			// confirm result message is correct.
-			assertResultMessage(String.format(ListCommand.MESSAGE_SUCCESS_FORMAT, Status.NONE, ListMode.TASK.toString()));
+			assertResultMessage(String.format(ListCommand.MESSAGE_SUCCESS_FORMAT, Status.BOTH, ListTarget.TASK.toString()));
 		}
 
 		// confirm the list shows all tasks not completed.
@@ -107,12 +107,12 @@ public class ListCommandTest extends TaskBookGuiTest {
 	
 	private void assertBothListSuccess(boolean showAll, final TestTask[] currentTasks, final TestEvent[] currentEvents) {
 		if (!showAll) {
-			assertResultMessage(String.format(ListCommand.MESSAGE_SUCCESS_FORMAT, Status.INCOMPLETED, ListMode.ALL.toString()));
+			assertResultMessage(String.format(ListCommand.MESSAGE_SUCCESS_FORMAT, Status.INCOMPLETED, ListTarget.BOTH.toString()));
 			assertTrue(eventListPanel.isListMatching(currentEvents));
 			assertTrue(taskListPanel.isListMatching(currentTasks));
 			
 		} else {
-			assertResultMessage(String.format(ListCommand.MESSAGE_SUCCESS_FORMAT, Status.NONE, ListMode.ALL.toString()));
+			assertResultMessage(String.format(ListCommand.MESSAGE_SUCCESS_FORMAT, Status.BOTH, ListTarget.BOTH.toString()));
 			assertTrue(eventListPanel.isListMatching(currentEvents));
 			assertTrue(taskListPanel.isListMatching(currentTasks));
 		}

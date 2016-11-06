@@ -21,13 +21,14 @@ public class ListParser implements Parser {
 		boolean showEvent = argsTokenizer.hasPrefix(eventPresencePrefix);
 		boolean showTask = argsTokenizer.hasPrefix(taskPresencePrefix);
 		boolean showAll = argsTokenizer.hasPrefix(allPrefix);
-		Status filter = (showAll) ? Status.NONE : Status.INCOMPLETED;
+		Status filter = (showAll) ? Status.BOTH : Status.INCOMPLETED;
+		
 		if(showEvent && !showTask) {
-			return new ListCommand(ListMode.EVENT, filter);
+			return new ListCommand(ListTarget.EVENT, filter);
 		} else if (showTask && !showEvent) {
-			return new ListCommand(ListMode.TASK, filter);
+			return new ListCommand(ListTarget.TASK, filter);
 		} else {
-			return new ListCommand(ListMode.ALL, filter);
+			return new ListCommand(ListTarget.BOTH, filter);
 		}
 	}
 	
@@ -35,15 +36,15 @@ public class ListParser implements Parser {
 	 * Represents which list to be listed
 	 * @author xuchen
 	 */
-	public enum ListMode {
-		TASK("tasks"), EVENT("events"), ALL("tasks and events");
+	public enum ListTarget {
+		TASK("tasks"), EVENT("events"), BOTH("tasks and events");
 		
 		private final String value;
-		private ListMode(String value) {
+		private ListTarget(String value) {
 			this.value = value;
 		}
-		@Override
 		
+		@Override
 		public String toString() {
 			return this.value;
 		}

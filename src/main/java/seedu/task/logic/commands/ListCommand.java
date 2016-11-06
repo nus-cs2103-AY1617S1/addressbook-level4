@@ -2,7 +2,7 @@ package seedu.task.logic.commands;
 
 import java.util.logging.Logger;
 
-import seedu.task.logic.parser.ListParser.ListMode;
+import seedu.task.logic.parser.ListParser.ListTarget;
 import seedu.taskcommons.core.Status;
 import seedu.taskcommons.core.LogsCenter;
 
@@ -33,12 +33,12 @@ public class ListCommand extends Command {
 	public static final String MESSAGE_SUCCESS_FORMAT = "dowat is showing %1$s %2$s";
 	
 	/** which panel to list **/
-	private ListMode listMode;
+	private ListTarget listTarget;
 	/** fields to indicate items of which state should be displayed **/
 	private Status status;
 	
-	public ListCommand(ListMode targetPanel, Status filter) {
-		this.listMode = targetPanel;
+	public ListCommand(ListTarget targetPanel, Status filter) {
+		this.listTarget = targetPanel;
 		this.status = filter;
 	}
 	
@@ -49,16 +49,19 @@ public class ListCommand extends Command {
 	public CommandResult execute() {
 		logger.info("-------[Executing ListCommands]"+ this.toString() );
 		
-		switch (listMode) {
+		switch (listTarget) {
 		case EVENT:
 			model.updateFilteredEventListToShowWithStatus(status);
 			break;
 		case TASK:
 			model.updateFilteredTaskListToShowWithStatus(status);
 			break;
-		case ALL:
+		case BOTH:
 			model.updateFilteredTaskListToShowWithStatus(status);
 			model.updateFilteredEventListToShowWithStatus(status);
+			break;
+		default:
+			return new CommandResult(MESSAGE_USAGE);
 		}
 		
 		return new CommandResult(this.toString());
@@ -68,6 +71,6 @@ public class ListCommand extends Command {
 	public String toString() {
 		return String.format(MESSAGE_SUCCESS_FORMAT,
 						this.status, 
-						listMode.toString());
+						listTarget.toString());
 	}
 }

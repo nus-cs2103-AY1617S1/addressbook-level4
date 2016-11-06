@@ -207,7 +207,7 @@ public class ModelManager extends ComponentManager implements Model {
     
     @Override
 	public void updateFilteredTaskListToShowWithStatus(Status status) {
-    	if(status == Status.NONE) {
+    	if(status == Status.BOTH) {
     		updateFilteredTaskListToShowAll();
     	} else {
     		updateFilteredTaskList(new PredicateExpression(new StatusQualifier(status)));
@@ -216,7 +216,7 @@ public class ModelManager extends ComponentManager implements Model {
     
     @Override
 	public void updateFilteredEventListToShowWithStatus(Status status) {
-    	if(status == Status.NONE) {
+    	if(status == Status.BOTH) {
     		updateFilteredEventListToShowAll();
     	} else {
     		updateFilteredEventList(new PredicateExpression(new StatusQualifier(status)));
@@ -228,7 +228,6 @@ public class ModelManager extends ComponentManager implements Model {
     	filteredEvents.setPredicate(null);
 	}
     
-    //@@author
     private void updateFilteredTaskList(Expression expression) {
         filteredTasks.setPredicate(expression::satisfies);
     }
@@ -255,22 +254,25 @@ public class ModelManager extends ComponentManager implements Model {
 
         @Override
         public boolean satisfies(ReadOnlyTask task) {
-            return qualifier.run(task);
+        	qualifier.prepare(task);
+            return qualifier.run();
         }
 
         @Override
 		public boolean satisfies(ReadOnlyEvent event) {
-			return qualifier.run(event);
+        	qualifier.prepare(event);
+        	return qualifier.run();
 		}
         @Override
         public String toString() {
             return qualifier.toString();
         }
     }
-    //@@author A0144702N
+
     interface Qualifier {
-        boolean run(ReadOnlyTask task);
-        boolean run(ReadOnlyEvent event);
+		boolean run();
+		void prepare(ReadOnlyTask task);
+		void prepare(ReadOnlyEvent event);
         String toString();
     }
 
@@ -278,64 +280,31 @@ public class ModelManager extends ComponentManager implements Model {
     	private boolean isPowerSearch;
     	private Set<String> keyWords;
     	
-        private String taskName;
-        private String taskDesc; 
-        private String eventName;
-        private String eventDesc; 
+        private String targetName;
+        private String targetDesc; 
+        
+        
         NameQualifier(Set<String> keyWords, boolean isPowerSearch) {
             this.keyWords = keyWords;
             this.isPowerSearch = isPowerSearch;
         }
 
-		@Override
-        public boolean run(ReadOnlyTask task) {
-        	taskName = task.getTask().fullName;
-    		taskDesc = task.getDescriptionValue();
-    		List<String> sourceSet = new ArrayList<>();
-    		
-        	if(isPowerSearch) {
-        		//break the name and desc to allow power search
-        		sourceSet = new ArrayList<>(Arrays.asList(taskName.split("\\s")));
-        		sourceSet.addAll(Arrays.asList(taskDesc.split("\\s")));
-        		
-        		//break the keyword to allow power search
-        		List<String> tempSet = new ArrayList<>(keyWords);
-        		keyWords = new HashSet<>();
-        		tempSet.stream().forEach(keyword -> keyWords.addAll(Arrays.asList(keyword.split("\\s"))));
-        		
-        	} else {
-        		sourceSet.add(taskName);
-        		sourceSet.add(taskDesc);
-        	}
-        	
-        	for(String source: sourceSet) {
-    			boolean found = keyWords.stream()
-                .filter(keyword -> StringUtil.isSimilar(source.trim(), keyword.trim()))
-                .findAny()
-                .isPresent();
-    			
-    			if (found) {
-    				return true;
-    			}
-    		}
-    		return false;
-        }
-
         @Override
         public String toString() {
-            return "task=" + String.join(", ", keyWords);
+            return String.join(", ", keyWords);
         }
 
 		@Override
-		public boolean run(ReadOnlyEvent event) {
-			eventName = event.getEvent().fullName;
-    		eventDesc = event.getDescriptionValue();
+		/**
+		 * Filter out those having names and description not matched with the keywords.
+		 */
+		public boolean run() {
     		List<String> sourceSet = new ArrayList<>();
     		
         	if(isPowerSearch) {
         		//break the name and desc to allow power search
-        		sourceSet = new ArrayList<>(Arrays.asList(eventName.split("\\s")));
-        		sourceSet.addAll(Arrays.asList(eventDesc.split("\\s")));
+        		sourceSet = new ArrayList<>(Arrays.asList(targetName.split("\\s")));
+        		sourceSet.addAll(Arrays.asList(targetDesc.split("\\s")));
         		
         		//break the keyword to allow power search
         		List<String> tempSet = new ArrayList<>(keyWords);
@@ -343,8 +312,8 @@ public class ModelManager extends ComponentManager implements Model {
         		tempSet.stream().forEach(keyword -> keyWords.addAll(Arrays.asList(keyword.split("\\s"))));
         		
         	} else {
-        		sourceSet.add(eventName);
-        		sourceSet.add(eventDesc);
+        		sourceSet.add(targetName);
+        		sourceSet.add(targetDesc);
         	}
         	
         	for(String source: sourceSet) {
@@ -359,10 +328,23 @@ public class ModelManager extends ComponentManager implements Model {
     		}
     		return false;
 		}
+
+		@Override
+		public void prepare(ReadOnlyTask task) {
+			targetName = task.getTask().fullName;
+    		targetDesc = task.getDescriptionValue();
+		}
+
+		@Override
+		public void prepare(ReadOnlyEvent event) {
+			targetName = event.getEvent().fullName;
+    		targetDesc = event.getDescriptionValue();
+		}
     }
     
     private class StatusQualifier implements Qualifier {
     	private Boolean status;
+    	private Boolean targetStatus;
     	
     	StatusQualifier(Status status){
     		switch(status) {
@@ -378,8 +360,8 @@ public class ModelManager extends ComponentManager implements Model {
     	}
     	
 		@Override
-		public boolean run(ReadOnlyTask task) {
-			return task.getTaskStatus().equals(status);
+		public boolean run() {
+			return targetStatus.equals(status);
 		}
 		
 		@Override 
@@ -388,8 +370,13 @@ public class ModelManager extends ComponentManager implements Model {
 		}
 
 		@Override
-		public boolean run(ReadOnlyEvent event) {
-			return event.isEventCompleted() == status;
+		public void prepare(ReadOnlyTask task) {
+			targetStatus = task.getTaskStatus();
+		}
+
+		@Override
+		public void prepare(ReadOnlyEvent event) {
+			targetStatus = event.isEventCompleted();
 		}
     	
     }
