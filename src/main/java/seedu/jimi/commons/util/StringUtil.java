@@ -46,6 +46,11 @@ public class StringUtil {
     /**
      * Returns true if {@code query} is a near match of {@code source} <br>
      * <br>
+     * Edit distance is a way of quantifying string similarity. It is simply the minimum number of operations <br>
+     * to transform a string to another. These operations include: deleting a character, inserting a character, <br>
+     * replacing a character and transposing two characters. This method approximates string similarity to an <br>
+     * edit distance of 2. <br>
+     * <br>
      * For an edit distance of 1:
      * <ul>
      * <li> {@code query} is the same as {@code source} but missing a character.
