@@ -143,6 +143,7 @@ Format: `list [TYPE]`
 > * `list today ` shows today's undone tasks
 > * `list all` shows all tasks
 > * `list done` shows all completed tasks
+> <img src="images/ListDoneUI.png" width="800">
 > * `list [PRIORITY]` shows all tasks with the specified priority level  (low, med, high)
 > * `list [DATE]` shows all undone tasks with start date or end date as the specified date
 <!--- @@author --->
