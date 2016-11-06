@@ -21,6 +21,8 @@ public class TaskDate {
             + "dd/mm/yyyy\n" + "day month year\n" + "today\n" + "tomorrow\n";
     public static final String EXPIRED_TASK_DATE = "Task Date cannot be in the past!";
     public static final String INVALID_TASK_DATE_RANGE_FORMAT = "The task date range is invalid!";
+    public static final String INVALID_TASK_DATE_NO_DATE = "Please input a date.";
+    public static final String INVALID_TASK_DATE = "The task date is invalid.";
 
     public static final String DATE_ALPHA_WITH_YEAR_VALIDATION_REGEX = "([0-9]{2}+[\\w\\.])+([0-9]{4})";
     public static final String DATE_ALPHA_WITHOUT_YEAR_VALIDATION_REGEX = "([0-9]{2}+[\\w\\.])";
@@ -397,7 +399,11 @@ public class TaskDate {
         DateFormat yearFormat = new SimpleDateFormat("yyyy");
         String year = yearFormat.format(today.getTime());
         String[] dateComponent = new String[3];
-        if (date.contains("/")) {
+        if (date.length() == 0) {
+            throw new IllegalValueException(INVALID_TASK_DATE_NO_DATE);
+        } else if (date.length() < 4) {
+            throw new IllegalValueException(INVALID_TASK_DATE);
+        } else if (date.contains("/")) {
             dateComponent = date.split("/");
         } else if (date.contains("-")) {
             dateComponent = date.split("-");
