@@ -86,8 +86,7 @@ public class UniqueTaskList implements Iterable<Task> {
      * @throws DuplicateTaskException 
      */
     public Task edit(ReadOnlyTask toEdit, HashMap<Field, Object> changes) 
-            throws TaskNotFoundException, IllegalArgumentException, IllegalAccessException, 
-            NoSuchFieldException, SecurityException, DuplicateTaskException {
+            throws TaskNotFoundException, DuplicateTaskException{
         assert toEdit != null;
         final boolean taskFound = internalList.contains(toEdit);
         if (!taskFound) {

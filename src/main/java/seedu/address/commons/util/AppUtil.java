@@ -25,7 +25,6 @@ public class AppUtil {
         InputStream input = MainApp.class.getResourceAsStream(htmlPath);
         assert input != null;
         String stringFromStream = CharStreams.toString(new InputStreamReader(input, "UTF-8"));
-        System.out.println(stringFromStream);
         return stringFromStream;
     }
 

@@ -7,6 +7,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 import seedu.address.commons.core.EventsCenter;
+import seedu.address.commons.core.Messages;
 import seedu.address.logic.commands.*;
 import seedu.address.logic.parser.Parser;
 import seedu.address.commons.events.ui.JumpToListRequestEvent;
@@ -650,6 +651,33 @@ public class LogicManagerTest {
                 String.format(EditCommand.MESSAGE_SUCCESS, editedAdam, adam),
                 expectedAB,
                 expectedList);
+    }
+    
+    @Test
+    public void execute_editCausingDuplicate() throws Exception{
+        TestDataHelper helper = new TestDataHelper();
+        Task adam = helper.adam();
+
+        Task editedAdam = helper.generateTaskWithName("Adam Brown");
+
+        List<Task> expectedList = helper.generateTaskList(adam, editedAdam);
+        ToDo expectedAB = helper.generateToDo(0);
+        expectedAB.addTask(adam);
+        expectedAB.addTask(editedAdam);
+        expectedList.sort(null);
+        model.addTask(adam);
+        model.addTask(editedAdam);
+
+        assertCommandBehavior(helper.generateEditCommand(1,editedAdam),
+                EditCommand.MESSAGE_DUPLICATE_TASK,
+                expectedAB,
+                expectedList);
+    }
+    
+    @Test
+    public void execute_editInvalidIndex_errorMessageShown() throws Exception{
+        assertCommandBehavior("edit 1 something", Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
+
     }
     //@@author
 
