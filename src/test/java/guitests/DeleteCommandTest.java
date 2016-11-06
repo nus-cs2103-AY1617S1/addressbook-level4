@@ -58,7 +58,7 @@ public class DeleteCommandTest extends TaskMasterGuiTest {
         assertTrue(taskListPanel.isListMatching(TestUtil.convertTasksToDateComponents(expectedRemainder)));
 
         //confirm the result message is correct
-        assertResultMessage(String.format(MESSAGE_DELETE_TASK_SUCCESS, floatingTaskToDelete));
+        assertResultMessage(String.format(MESSAGE_DELETE_TASK_SUCCESS, floatingTaskToDelete.getLastAppendedComponent()));
     }
 
 }

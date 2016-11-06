@@ -81,7 +81,7 @@ public class TaskDate {
 		         && this.getDate().equals(((TaskDate) other).getDate()));
     }
 
-    public boolean isValid() {
+    public boolean isPresent() {
         return date != DATE_NOT_PRESENT;
     }
     

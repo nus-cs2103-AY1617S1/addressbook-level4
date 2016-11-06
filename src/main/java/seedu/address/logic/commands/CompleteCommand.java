@@ -37,14 +37,14 @@ public class CompleteCommand extends Command {
             return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
 
-        TaskOccurrence taskToDelete = lastShownList.get(targetIndex - 1);
+        TaskOccurrence taskToArchive = lastShownList.get(targetIndex - 1);
 
         try {
-            model.archiveTask(taskToDelete);
+            model.archiveTask(taskToArchive);
         } catch (TaskNotFoundException pnfe) {
             assert false : "The target task cannot be missing";
         }
 
-        return new CommandResult(String.format(MESSAGE_COMPLETE_TASK_SUCCESS, taskToDelete.getTaskReference()));
+        return new CommandResult(String.format(MESSAGE_COMPLETE_TASK_SUCCESS, taskToArchive));
     }
 }

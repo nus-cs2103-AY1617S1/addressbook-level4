@@ -49,37 +49,66 @@ public class TaskOccurrence {
         return endDate;
     }
     
+    //@@author A0147967J
     /**
-     * Checks if TaskDateOccurrence is in a valid time slot
+     * Checks if TaskDateOccurrence is in a valid non-floating time.
      * 
      * @return True if it is in a valid time slot
      */
-    public boolean isValidTimeSlot(){
-        if(startDate!=null && endDate!=null){
+    public boolean isValidNonFloatingTime(){
+        if(isSlot()){
             return (endDate.getDate()).after(startDate.getDate());
-        }else{
-            return true;
         }
+        return true;
+    }
+    
+    /**
+     * Returns true if it is a blocked time slot
+     */
+    public boolean isBlockedSlot(){
+        return taskReference.getName().fullName.equals(Name.DUMMY_NAME);
     }
     
     /**
      * Returns true if it is a valid time slot
      */
     public boolean isSlot(){
-        return startDate.getDateInLong() != TaskDate.DATE_NOT_PRESENT 
-                && endDate.getDateInLong() != TaskDate.DATE_NOT_PRESENT;
+        return startDate.isPresent() && endDate.isPresent();
     }
     
     /**
-     * Returns true if it has only end date.
+     * Returns true if it is a deadline
      */
-    public boolean hasOnlyEndDate() {
-        if (startDate.getDateInLong() != TaskDate.DATE_NOT_PRESENT){
-            return false;
-        }
-        return true;
+    public boolean isDeadline(){
+        return !startDate.isPresent() && endDate.isPresent();
     }
     
+    /** Returns true if this slot overlaps with the given one. */
+    public boolean isOverlappedWith(TaskOccurrence given) {
+        if(!isSlot()){
+            return false;
+        }
+        return !(!given.getEndDate().getDate().after(startDate.getDate())
+                || !given.getStartDate().getDate().before(endDate.getDate()));
+    }
+    
+    @Override
+    public String toString(){
+        final StringBuilder builder = new StringBuilder();
+        builder.append(taskReference.getAsText());
+        if(isSlot()){
+            builder.append("\nFrom: "+startDate.getFormattedDate());
+            builder.append(" To: "+endDate.getFormattedDate());
+        }else if(isDeadline()){
+            builder.append("\nBy: "+endDate.getFormattedDate());
+        }else{
+            
+        }
+        return builder.toString();
+    }
+    //@@author
+    
+
     public ReadOnlyTask getTaskReference() {
         return taskReference;
     }

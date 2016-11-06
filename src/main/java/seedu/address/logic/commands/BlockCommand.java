@@ -30,7 +30,6 @@ public class BlockCommand extends Command {
     public static final String MESSAGE_SUCCESS = "Timeslot blocked: %1$s";
     public static final String MESSAGE_TIMESLOT_OCCUPIED = "This timeslot is already blocked or overlapped with existing tasks.";
     public static final String MESSAGE_ILLEGAL_TIME_SLOT = "End time must be later than Start time.";
-    public static final String DUMMY_NAME = "BLOCKED SLOT";
 
     private final Task toBlock;
 
@@ -45,9 +44,9 @@ public class BlockCommand extends Command {
         for (String tagName : tags) {
             tagSet.add(new Tag(tagName));
         }
-        this.toBlock = new Task(new Name(DUMMY_NAME), new UniqueTagList(tagSet), new TaskDate(startDate),
+        this.toBlock = new Task(new Name(Name.DUMMY_NAME), new UniqueTagList(tagSet), new TaskDate(startDate),
                 new TaskDate(endDate), RecurringType.NONE, Task.NO_RECURRING_PERIOD);
-        if (!this.toBlock.getLastAppendedComponent().isValidTimeSlot()) {
+        if (!this.toBlock.getLastAppendedComponent().isValidNonFloatingTime()) {
             indicateAttemptToExecuteIncorrectCommand();
             throw new IllegalValueException(MESSAGE_ILLEGAL_TIME_SLOT);
         }

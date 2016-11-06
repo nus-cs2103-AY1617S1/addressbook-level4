@@ -42,7 +42,7 @@ public class SelectCommandTest extends TaskMasterGuiTest {
 
     private void assertSelectionSuccess(int index) {
         commandBox.runCommand("select " + index);
-        assertResultMessage("Selected Task: "+index);
+        assertResultMessage("Selected Task: "+taskListPanel.getSelectedTasks().get(0));
         assertTaskSelected(index);
     }
 

@@ -11,6 +11,7 @@ import javafx.util.Callback;
 import jfxtras.scene.control.agenda.Agenda;
 import seedu.address.logic.commands.BlockCommand;
 import seedu.address.model.task.TaskOccurrence;
+import seedu.address.ui.util.MyAgendaUtil;
 import seedu.address.model.task.TaskDate;
 
 //@@author A0147967J
@@ -60,7 +61,7 @@ public class MyAgenda extends Agenda {
 
     /** Sets the displayed date time of the agenda to specified one. */
     public void setDisplayedDateTime(TaskDate inputDate) {
-        displayedLocalDateTime().set(getConvertedTime(inputDate).truncatedTo(ChronoUnit.DAYS));
+        displayedLocalDateTime().set(MyAgendaUtil.getConvertedTime(inputDate).truncatedTo(ChronoUnit.DAYS));
         agendaStartTime = getAgendaStartDateTime();
         agendaEndTime = getAgendaEndDateTime();
     }
@@ -86,11 +87,11 @@ public class MyAgenda extends Agenda {
         }
 
         if (!isOutsideAgenda(taskOccurrence)) {
-            AppointmentImplLocal appointment = getAppointment(taskOccurrence);
+            AppointmentImplLocal appointment = MyAgendaUtil.getAppointment(taskOccurrence);
             appointments().add(appointment);
         }
         if (taskOccurrence.equals(taskOccurrence.getTaskReference().getLastAppendedComponent())) {
-            AppointmentImplLocal appointment = getAppointment(taskOccurrence);
+            AppointmentImplLocal appointment = MyAgendaUtil.getAppointment(taskOccurrence);
             addCopiesToAgenda(taskOccurrence, appointment);
         }
 
@@ -150,25 +151,6 @@ public class MyAgenda extends Agenda {
         return endBoundary;
     }
 
-    /** Returns an AppointmentImplLocal object from a task component */
-    private AppointmentImplLocal getAppointment(TaskOccurrence taskOccurrence) {
-
-        AppointmentImplLocal appointment = new AppointmentImplLocal();
-        appointment.setSummary(taskOccurrence.getTaskReference().getName().fullName);
-        appointment.setDescription(taskOccurrence.getTaskReference().tagsString());
-        appointment.setStartLocalDateTime(getConvertedTime(taskOccurrence.getStartDate()));
-        appointment.setEndLocalDateTime(getConvertedTime(taskOccurrence.getEndDate()));
-        if (taskOccurrence.isArchived()) {
-            appointment.setAppointmentGroup(new Agenda.AppointmentGroupImpl().withStyleClass("archive"));
-        } else if (taskOccurrence.getTaskReference().getName().fullName.equals(BlockCommand.DUMMY_NAME)) {
-            appointment.setAppointmentGroup(new Agenda.AppointmentGroupImpl().withStyleClass("block"));
-        } else {
-            appointment.setAppointmentGroup(new Agenda.AppointmentGroupImpl().withStyleClass("normal"));
-        }
-        return appointment;
-
-    }
-
     /** Computes and adds all occurrences of this daily task to agenda. */
     private void addDailyOccurrences(AppointmentImplLocal appointment, LocalDateTime endBoundary) {
         int dayOfWeek = appointment.getStartLocalDateTime().getDayOfWeek().getValue() % 7;
@@ -176,18 +158,14 @@ public class MyAgenda extends Agenda {
             dayOfWeek = 0;
         }
         for (int i = dayOfWeek; i <= 6; i++) {
-            LocalDateTime start = getAppointmentStartTime(agendaStartTime.truncatedTo(ChronoUnit.DAYS), i, appointment);
-            LocalDateTime end = getAppointmentEndTime(agendaStartTime.truncatedTo(ChronoUnit.DAYS), i, appointment);
-            addToAgenda(appointment, start, end, endBoundary);
+            addToAgenda(appointment, agendaStartTime.truncatedTo(ChronoUnit.DAYS), i, endBoundary);
         }
     }
 
     /** Computes and adds all occurrences of this weekly task to agenda. */
     private void addWeeklyOccurrences(AppointmentImplLocal appointment ,LocalDateTime endBoundary) {
         int dayOfWeek = appointment.getStartLocalDateTime().getDayOfWeek().getValue() % 7;
-        LocalDateTime start = getAppointmentStartTime(agendaStartTime, dayOfWeek, appointment);
-        LocalDateTime end = getAppointmentEndTime(agendaStartTime, dayOfWeek, appointment);
-        addToAgenda(appointment, start, end, endBoundary);
+        addToAgenda(appointment, agendaStartTime, dayOfWeek, endBoundary);
     }
 
     /** Computes and adds all occurrences of this monthly task to agenda. */
@@ -196,10 +174,7 @@ public class MyAgenda extends Agenda {
         if (dayOffset < 0) {
             dayOffset = 6 - (agendaEndTime.getDayOfMonth() - appointment.getStartLocalDateTime().getDayOfMonth());
         }
-        LocalDateTime start = getAppointmentStartTime(agendaStartTime.truncatedTo(ChronoUnit.DAYS), dayOffset,
-                appointment);
-        LocalDateTime end = getAppointmentEndTime(agendaStartTime.truncatedTo(ChronoUnit.DAYS), dayOffset, appointment);
-        addToAgenda(appointment, start, end, endBoundary);
+        addToAgenda(appointment, agendaStartTime.truncatedTo(ChronoUnit.DAYS), dayOffset, endBoundary);
     }
 
     /** Computes and adds all occurrences of this yearly task to agenda. */
@@ -209,18 +184,10 @@ public class MyAgenda extends Agenda {
             return;
         }
         int dayOffset = appointment.getStartLocalDateTime().getDayOfYear() - agendaStartTime.getDayOfYear();
-        LocalDateTime start = getAppointmentStartTime(agendaStartTime, dayOffset, appointment);
-        LocalDateTime end = getAppointmentEndTime(agendaStartTime, dayOffset, appointment);
-        addToAgenda(appointment, start, end, endBoundary);
+        addToAgenda(appointment, agendaStartTime, dayOffset, endBoundary);
     }
 
-    // ================Utility
-    // methods================================================
-
-    /** Returns a LocalDateTime object converted from TaskDate. */
-    private LocalDateTime getConvertedTime(TaskDate t) {
-        return LocalDateTime.ofInstant(new Date(t.getDateInLong()).toInstant(), ZoneId.systemDefault());
-    }
+    // ================Utility methods===========================================
 
     /** Returns the startTime of the agenda. */
     private LocalDateTime getAgendaStartDateTime() {
@@ -236,38 +203,12 @@ public class MyAgenda extends Agenda {
         return displayedDateTime.plusDays(6 - dayOfWeek);
     }
 
-    /** Returns the startTime of the appointment. */
-    private LocalDateTime getAppointmentStartTime(LocalDateTime startPoint, int dayOffset,
-            AppointmentImplLocal source) {
-        return startPoint.plusDays(dayOffset).plusHours(source.getStartLocalDateTime().getHour())
-                .plusMinutes(source.getStartLocalDateTime().getMinute());
-    }
-
-    /** Returns the endTime of the appointment. */
-    private LocalDateTime getAppointmentEndTime(LocalDateTime startPoint, int dayOffset, AppointmentImplLocal source) {
-        return startPoint.plusDays(dayOffset).plusHours(source.getEndLocalDateTime().getHour())
-                .plusMinutes(source.getEndLocalDateTime().getMinute());
-    }
-
-    /**
-     * Returns a new appointment with start and end time specified and contains
-     * same data with source.
-     */
-    private AppointmentImplLocal copyAppointment(AppointmentImplLocal src, LocalDateTime start, LocalDateTime end) {
-        AppointmentImplLocal newOne = new AppointmentImplLocal().withAppointmentGroup(src.getAppointmentGroup())
-                .withDescription(src.getDescription()).withSummary(src.getSummary());
-
-        newOne.setStartLocalDateTime(start);
-        newOne.setEndLocalDateTime(end);
-        if (start.isAfter(src.getStartLocalDateTime()))
-            newOne.setAppointmentGroup(new Agenda.AppointmentGroupImpl().withStyleClass("normal"));
-        return newOne;
-    }
-
     /** Adds a new appointment to agenda. */
-    private void addToAgenda(AppointmentImplLocal appointment, LocalDateTime start, LocalDateTime end, LocalDateTime endBoundary) {
-        AppointmentImplLocal newAppointment = copyAppointment(appointment, start, end);
-        if (!appointments().contains(newAppointment) && !onSameDay(newAppointment, appointment) 
+    private void addToAgenda(AppointmentImplLocal appointment, LocalDateTime startPoint, int dayOffset, LocalDateTime endBoundary) {
+        LocalDateTime start = MyAgendaUtil.getAppointmentStartTime(startPoint, dayOffset, appointment);
+        LocalDateTime end = MyAgendaUtil.getAppointmentEndTime(startPoint, dayOffset, appointment);
+        AppointmentImplLocal newAppointment = MyAgendaUtil.copyAppointment(appointment, start, end);
+        if (!MyAgendaUtil.isSameAppointment(newAppointment, appointment) 
                 && (endBoundary == null || !endBoundary.isBefore(newAppointment.getStartLocalDateTime())))
             appointments().add(newAppointment);
     }
@@ -283,14 +224,8 @@ public class MyAgenda extends Agenda {
      * Returns true if it is a future task that is not needed to add to agenda.
      */
     private boolean isOutsideAgenda(TaskOccurrence taskOccurrence) {
-        return getConvertedTime(taskOccurrence.getStartDate()).truncatedTo(ChronoUnit.DAYS).isAfter(agendaEndTime)
-                || getConvertedTime(taskOccurrence.getEndDate()).truncatedTo(ChronoUnit.DAYS).isBefore(agendaStartTime);
-    }
-
-    /** Returns true if the appointments are on the same day. */
-    private boolean onSameDay(AppointmentImplLocal src, AppointmentImplLocal toCheck) {
-        return src.getStartLocalDateTime().truncatedTo(ChronoUnit.DAYS)
-                .equals(toCheck.getStartLocalDateTime().truncatedTo(ChronoUnit.DAYS));
+        return MyAgendaUtil.getConvertedTime(taskOccurrence.getStartDate()).truncatedTo(ChronoUnit.DAYS).isAfter(agendaEndTime)
+                || MyAgendaUtil.getConvertedTime(taskOccurrence.getEndDate()).truncatedTo(ChronoUnit.DAYS).isBefore(agendaStartTime);
     }
 
 }
