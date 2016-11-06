@@ -36,6 +36,7 @@ public class UndoCommand extends Command {
 
 		if (undoInstruction.getReverse().equals("D")) {
 			try {
+				System.out.println("TEST");
 				model.deletePerson(taskToUndo);
 			} catch (PersonNotFoundException e) {
 				e.printStackTrace();

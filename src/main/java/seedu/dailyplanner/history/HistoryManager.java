@@ -44,7 +44,7 @@ public class HistoryManager {
 		boolean isPinned = toPush.isPinned();
 		UniqueTagList pushTag = toPush.getTags();
 		
-		recordCommand.push(new Instruction("A", pushName, pushStart, pushEnd, isComplete, isPinned, pushTag));
+		recordCommand.push(new Instruction("D", pushName, pushStart, pushEnd, isComplete, isPinned, pushTag));
 	}
 	
 	public void stackEditInstruction(ReadOnlyTask originalTask, ReadOnlyTask editedTask) {
