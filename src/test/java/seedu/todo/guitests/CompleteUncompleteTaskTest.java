@@ -94,5 +94,20 @@ public class CompleteUncompleteTaskTest extends GuiTest {
         String consoleMessage = UncompleteTaskController.MESSAGE_CANNOT_UNCOMPLETE_EVENT;
         assertEquals(consoleMessage, console.getConsoleTextArea());
     }
+    
+    @Test
+    public void complete_completedTask_error() {
+        console.runCommand("complete 2");
+        console.runCommand("complete 2");
+        String consoleMessage = CompleteTaskController.MESSAGE_ALREADY_COMPLETED;
+        assertEquals(consoleMessage, console.getConsoleTextArea());
+    }
+    
+    @Test
+    public void uncomplete_uncompleteTask_error() {
+        console.runCommand("uncomplete 1");
+        String consoleMessage = UncompleteTaskController.MESSAGE_ALREADY_INCOMPLETE;
+        assertEquals(consoleMessage, console.getConsoleTextArea());
+    }
 
 }
