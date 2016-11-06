@@ -51,14 +51,23 @@ public class TaskManager implements ReadOnlyTaskManager {
     }
     
     //@@author A0139930B
+    /**
+     * Returns a task list filtered to only contain Todos
+     */
     public ObservableList<Task> getFilteredTodos() {
         return tasks.getFilteredTaskList(Task.TASK_COMPONENT_COUNT);
     }
     
+    /**
+     * Returns a task list filtered to only contain Deadlines
+     */
     public ObservableList<Task> getFilteredDeadlines() {
         return tasks.getFilteredTaskList(Task.DEADLINE_COMPONENT_COUNT);
     }
     
+    /**
+     * Returns a task list filtered to only contain Events
+     */
     public ObservableList<Task> getFilteredEvents() {
         return tasks.getFilteredTaskList(Task.EVENT_COMPONENT_COUNT);
     }
