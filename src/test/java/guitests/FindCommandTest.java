@@ -21,7 +21,7 @@ public class FindCommandTest extends WhatNowGuiTest {
 
     @Test
     public void find_emptyList() {
-       commandBox.runCommand("clear");
+        commandBox.runCommand("clear");
         assertFindResult("find Apricot"); // no results
     }
 
