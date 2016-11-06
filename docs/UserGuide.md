@@ -47,7 +47,7 @@ To start things off, let us add a simple task with no date or time, just a simpl
 >Format: **add** &lt;to-do description&gt; &lt;#tag&gt;
 
 Example: add go swimming #fitness
-
+<br>
 >Note: tags are optional and multiple tags can be added to all tasks.
 
 <br>
@@ -58,7 +58,7 @@ Perhaps after adding a todo, now you want to add a task with a deadline. Let's s
 >Format: **add** &lt;deadline description&gt;; &lt;date(DDMMYY)&gt;; &lt;end time&gt; &lt;#tag&gt;
 
 Example: add complete report; 120916; 1900 #YOLO 
-
+<br>
 >Important: The date is compulsory when adding an deadline. If end time is not specified, a default of 11.59pm on the entered date is set.
 
 <br>
@@ -122,7 +122,7 @@ Now, maybe the date of the birthday party you previously entered is also wrong a
 >Format: **edit** &lt;index&gt; **date** &lt;date&gt;
 
 Example: Edit E1 date 21/12/16
-
+<br>
 >Note: If you add a date to a to-do, this will automatically convert your to-do into a deadline with a default end time of 2359 on that date.
 
 <br>
@@ -133,7 +133,7 @@ Samantha's birthday party is tomorrow and she has called to inform you that her 
 >Format: **edit** &lt;index&gt; **start** &lt;start time&gt;
 
 Example: edit E1 start 5pm
-
+<br>
 >Note: Adding a start time to a to-do will automatically convert your to-do into an event with a default day of today and start time as entered. 
 
 <br>
@@ -144,7 +144,7 @@ Samantha has also informed her friends that the party is scheduled to end at 11p
 >Format: **edit** &lt;index&gt; **end** &lt;end time&gt;
 
 Example: edit E1 end 2300
-
+<br>
 >Note: Adding a end time to a to-do will automatically convert your to-do into a deadline with a default date of today and end time as entered. 
 
 <br>
@@ -206,6 +206,7 @@ Remember how we have hidden away your completed report? If you want to see it ag
 
 From here, you can choose to delete these tasks. Deleting will be covered in the section after this. 
 
+<br>
 ####5.2 Display all tasks
 
 Now that you have seen, all the tasks that you have done, to return to the main default screen, simply type the following command.
@@ -310,7 +311,7 @@ The task manager shifts your file from the current storage folder to the newly s
 ## How do I transfer my data to another Computer?
 
 **A**: Install the app in the other computer and overwrite the empty data file it creates with 
-       the file that contains the data of your previous Address Book folder.
+       the file that contains the data of your previous Task Book folder.
        
        >Note: Search for the default taskbook.xml file that is stored in the data folder and overwrite it.
 
