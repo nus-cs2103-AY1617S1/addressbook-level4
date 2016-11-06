@@ -254,14 +254,10 @@ Oh no! What happens if you accidentally deleted something by mistake? In life, t
 
 > Format: Undo &lt;number of operations&gt;
 
-Example: 
-
-Undo
-
-Undo 2
+Example: Undo 2
 <br><br>
 >Note: If no number is entered, the default number of times the command will undo is 1.
-<br>
+<br><br>
 >Note: If you perform a add command to add a task after undoing another command, you will no longer be able to redo your undone command.
 
 <br>
@@ -271,11 +267,7 @@ If after undoing and after more thought, you find that the command that you had 
 
 > Format: Redo &lt;number of operations&gt;
 
-Example: 
-
-Redo
-
-Redo 2
+Example: Redo 2
 <br><br>
 >Note: If no number is entered, the default number of times the command will redo is 1.
 
