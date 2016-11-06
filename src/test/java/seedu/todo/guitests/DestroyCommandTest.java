@@ -65,7 +65,7 @@ public class DestroyCommandTest extends GuiTest {
     
     @Test
     public void destroy_event_hide() {
-        assertTaskNotVisibleAfterCmd("destroy 3", task1);
+        assertEventNotVisibleAfterCmd("destroy 3", event3);
     }
     
     @Test
@@ -81,6 +81,14 @@ public class DestroyCommandTest extends GuiTest {
         console.runCommand("destroy alamak");
         String consoleMessage = Renderer.MESSAGE_DISAMBIGUATE + "\n\n"
                 + DestroyController.MESSAGE_INDEX_NOT_NUMBER;
+        assertEquals(consoleMessage, console.getConsoleTextArea());
+    }
+    
+    @Test
+    public void destroy_missingIndex_error() {
+        console.runCommand("destroy");
+        String consoleMessage = Renderer.MESSAGE_DISAMBIGUATE + "\n\n"
+                + DestroyController.MESSAGE_MISSING_INDEX;
         assertEquals(consoleMessage, console.getConsoleTextArea());
     }
 
