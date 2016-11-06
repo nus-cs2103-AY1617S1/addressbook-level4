@@ -45,11 +45,10 @@ Need to unburden? Let's get started!
 2. Download the latest `unburden.jar` from the [releases](../../../releases) tab.
 3. Copy the file to the folder you want to use as the home folder for `Unburden`.
 4. Click on the application icon to launch it and wait for the application to pop up.
-   > <img src="UserGuideImages/UG_0.JPG" width="400">
 
 5. Type the command in the command box and press <kbd>Enter</kbd> to execute it. <br>
    e.g. typing **`help`** and pressing <kbd>Enter</kbd> will display the list of commands that can be used in the application.
-   > <img src="UserGuideImages/UG_1.JPG" width="500">
+   > <img src="UserGuideImages/Main.JPG" width="500">
    
 6. Refer to the [Features](#features) section below for details of each command.<br>
 
@@ -65,7 +64,7 @@ Need to unburden? Let's get started!
 
 ### Layout of Unburden 
 
-   > <img src="UserGuideImages/Layout.JPG" width="400">
+   > <img src="UserGuideImages/Layout.JPG" width="600">
 
 <br>
 <br>
