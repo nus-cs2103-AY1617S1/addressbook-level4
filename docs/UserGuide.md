@@ -321,7 +321,7 @@ Examples:
 #### <a id="undo"></a>Undoing previous action: `undo`
 Undoes the previous action done in Jimi. <br>
 Format: `undo` <br>
-Only actions that make changes to the data of Jimi are undo-able. i.e. `add`, `delete`, `edit`, `clear`
+Only actions that make changes to the data of Jimi are undo-able. i.e. [`add`](#add), [`delete`](#del), [`edit`](#edit), [`clear`](#clear), [`complete`](#com)
 
 <br><br>
 
@@ -329,7 +329,7 @@ Only actions that make changes to the data of Jimi are undo-able. i.e. `add`, `d
 #### <a id="redo"></a>Redoing previously undone action: `redo`
 Redoes the previously undone action done in the task manager. <br>
 Format: `redo` <br>
-Only actions that make changes to the data of Jimi are redo-able. i.e. `add`, `delete`, `edit`, `clear`
+Only actions that make changes to the data of Jimi are redo-able. i.e. [`add`](#add), [`delete`](#del), [`edit`](#edit), [`clear`](#clear), [`complete`](#com)
 
 <br><br>
 
@@ -389,7 +389,7 @@ Format: `clear`
 
 > <img src="images/Clear.png" width="800">
 
-> If you want to undo your clear, please use the [`undo`](#undo) command.
+> If you want to undo your clear, use the [`undo`](#undo) command.
 
 <br><br>
 
