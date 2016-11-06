@@ -8,6 +8,7 @@ import seedu.task.commons.core.Messages;
 import seedu.task.commons.core.UnmodifiableObservableList;
 import seedu.task.commons.exceptions.IllegalValueException;
 import seedu.task.logic.RollBackCommand;
+import seedu.task.logic.parser.*;
 import seedu.task.model.tag.Tag;
 import seedu.task.model.tag.UniqueTagList;
 import seedu.task.model.task.EndTime;
@@ -82,6 +83,7 @@ public class EditCommand extends Command {
         final Set<Tag> tagSet = new HashSet<>();
         switch(this.toEditItem){
             case EDIT_NAME:
+            	
                 try{
                     toAdd = new Task(new Name(this.toEdit), currentTask.getStartTime(), currentTask.getEndTime(), currentTask.getDeadline(), currentTask.getTags(), currentTask.getStatus(), currentTask.getRecurring());
                 }catch(IllegalValueException e){
@@ -96,11 +98,19 @@ public class EditCommand extends Command {
                 }
                 break;
             case EDIT_END_TIME:
-                try{
-                    toAdd = new Task(currentTask.getName(), currentTask.getStartTime(), new EndTime(this.toEdit), currentTask.getDeadline(), currentTask.getTags(), currentTask.getStatus(), currentTask.getRecurring());
-                }catch(IllegalValueException e){
-                    return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
-                }
+            	TimeParser endTime = new TimeParser();
+            	String parserString = "from " + currentTask.getStartTime().toString() + " to " + this.toEdit;
+            	TimeParserResult end = endTime.parseTime(parserString);
+            	if(end == null){
+            		return new CommandResult(Messages.MESSAGE_INVALID_TIME_INTERVAL);
+            	}
+            	else if(end != null) {
+            		try{
+                        toAdd = new Task(currentTask.getName(), currentTask.getStartTime(), new EndTime(this.toEdit), currentTask.getDeadline(), currentTask.getTags(), currentTask.getStatus(), currentTask.getRecurring());
+                    }catch(IllegalValueException e){
+                        return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
+                    }
+            	}
                 break;
             case EDIT_DEADLINE:
                 try{

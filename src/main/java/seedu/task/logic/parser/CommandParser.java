@@ -45,6 +45,9 @@ public class CommandParser {
 
     private static final Pattern NATURAL_ARGS_FORMAT_WITH_START_AND_END_TIME =
             Pattern.compile("(?<name>[^,#]+)" + ", from (?<startTime>[^@#]+)" + " to (?<endTime>[^@#]+)" + "(?<tagArguments>(?: #[^/]+)*)");
+    
+    private static final Pattern NATURAL_ARGS_FORMAT_WITH_END_AND_START_TIME =
+            Pattern.compile("(?<name>[^,#]+)" + ", to (?<endTime>[^@#]+)" + " from (?<startTime>[^@#]+)" + "(?<tagArguments>(?: #[^/]+)*)");
 
     private static final Pattern NATURAL_ARGS_FORMAT_WITH_START_AND_DEADLINE =
             Pattern.compile("(?<name>[^,#]+)" + ", (at|on) (?<startTime>[^@#]+)" + " (by|to) (?<deadline>[^@#]+)" + "(?<tagArguments>(?: #[^/]+)*)");
@@ -168,14 +171,14 @@ public class CommandParser {
         final Matcher matcherStart = NATURAL_ARGS_FORMAT_WITH_START_TIME.matcher(args.trim());
         final Matcher matcherDeadline = NATURAL_ARGS_FORMAT_WITH_DEADLINE.matcher(args.trim());
         final Matcher matcherStartEnd = NATURAL_ARGS_FORMAT_WITH_START_AND_END_TIME.matcher(args.trim());
+        final Matcher matcherEndStart = NATURAL_ARGS_FORMAT_WITH_END_AND_START_TIME.matcher(args.trim());
         final Matcher matcherStartDeadline = NATURAL_ARGS_FORMAT_WITH_START_AND_DEADLINE.matcher(args.trim());
         final Matcher matcherStartEndDeadline = NATURAL_ARGS_FORMAT_WITH_START_AND_END_TIME_AND_DEADLINE
                 .matcher(args.trim());
 
         // Validate arg string format
-        if (!matcherNatural.matches() && !matcherStart.matches() && !matcherDeadline.matches()
-                && !matcherStartEnd.matches() && !matcherStartDeadline.matches()
-                && !matcherStartEndDeadline.matches()) {
+        if (isNotMatch(matcherNatural, matcherStart, matcherDeadline, matcherStartEnd, matcherStartDeadline,
+				matcherStartEndDeadline, matcherEndStart)) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
 
@@ -205,6 +208,16 @@ public class CommandParser {
             }
         }
         // add do hw from 3:00pm to 4:00pm by 5:00pm
+        else if (matcherEndStart.matches() &&(Pattern.compile("to.*from").matcher(args).find())) {
+            try {
+                return createCommandStartEnd(matcherEndStart.group("name"), matcherEndStart.group("startTime"),
+                		matcherEndStart.group("endTime"), EMPTY_STRING,
+                        getTagsFromArgs(matcherEndStart.group("tagArguments")));
+
+            } catch (IllegalValueException i) {
+                return new IncorrectCommand(i.getMessage());
+            }
+        }
         else if (matcherStartEnd.matches() && !(Pattern.compile("from.*to.*by").matcher(args).find())) {
             try {
                 return createCommandStartEnd(matcherStartEnd.group("name"), matcherStartEnd.group("startTime"),
@@ -238,6 +251,14 @@ public class CommandParser {
         }
 
     }
+
+	private boolean isNotMatch(final Matcher matcherNatural, final Matcher matcherStart, final Matcher matcherDeadline,
+			final Matcher matcherStartEnd, final Matcher matcherStartDeadline, final Matcher matcherStartEndDeadline,
+			final Matcher matcherEndStart) {
+		return !matcherNatural.matches() && !matcherStart.matches() && !matcherDeadline.matches()
+                && !matcherStartEnd.matches() && !matcherStartDeadline.matches()
+                && !matcherStartEndDeadline.matches()&& !matcherEndStart.matches();
+	}
 
     // @@ author A0152958R
     private Command createCommandStart(String name, String startTime, String endTime, String deadline,
@@ -318,11 +339,14 @@ public class CommandParser {
     private Command createCommandStartEndDeadline(String name, String startTime, String endTime, String deadline,
             Set<String> tags) {
         TimeParser parserTime = new TimeParser();
+        TimeParser parserTimeDead = new TimeParser();
         TimeParser parserDeadline = new TimeParser();
         String timeString = "from " + startTime + " to " + endTime;
+        String anotherTimeString = "from " + endTime + " to " + deadline;
         TimeParserResult time = parserTime.parseTime(timeString);
+        TimeParserResult anotherTime = parserTimeDead.parseTime(anotherTimeString);
         TimeParserResult deadlineTime = parserDeadline.parseTime(deadline);
-        if (time == null) {
+        if (time == null || anotherTime == null) {
             return new IncorrectCommand(Messages.MESSAGE_INVALID_TIME_INTERVAL);
         }
         StringBuilder start = new StringBuilder();

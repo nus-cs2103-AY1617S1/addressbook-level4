@@ -31,13 +31,16 @@ public class EditCommandTest extends TaskManagerGuiTest {
         
         //@@author A0152958R
         commandBox.runCommand("clear");
-        commandBox.runCommand("add task");
+        commandBox.runCommand("add task, at today");
         
         commandBox.runCommand("edit 2 name, new task");
         assertResultMessage(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         
         commandBox.runCommand("edit 1 start, i don't know what it is");
         assertResultMessage(Messages.MESSAGE_INVALID_TIME_FORMAT);
+        
+        commandBox.runCommand("edit 1 end, yesterday");
+        assertResultMessage(Messages.MESSAGE_INVALID_TIME_INTERVAL);
         
         
     }

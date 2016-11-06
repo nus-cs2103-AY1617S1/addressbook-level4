@@ -9,7 +9,7 @@ import seedu.task.model.task.*;
  */
 public class TypicalTestTasks {
 
-    public static TestTask taskA, taskB, taskC, taskD, taskE, taskF, taskG, taskH, taskI, taskJ, taskK, taskL;
+    public static TestTask taskA, taskB, taskC, taskD, taskE, taskF, taskG, taskH, taskI, taskJ, taskK, taskL, taskM, taskN;
 
     public TypicalTestTasks() {
       // @@author A0147944U
@@ -34,6 +34,10 @@ public class TypicalTestTasks {
                     .withEndTime("").withDeadline("").withStatus(false, false, false).withRecurring("false").build();
             taskL = new TaskBuilder().withName("Christmas party").withStartTime("2016-12-25 14:00")
                     .withEndTime("").withDeadline("").withStatus(false, false, false).withRecurring("false").build();
+            taskM = new TaskBuilder().withName("Christmas party").withStartTime("2016-12-25 14:00")
+                    .withEndTime("").withDeadline("2016-12-25 23:00").withStatus(false, false, false).withRecurring("false").build();
+            taskN = new TaskBuilder().withName("Christmas party").withStartTime("2016-12-25 14:00")
+                    .withEndTime("2016-12-25 20:00").withDeadline("").withStatus(false, false, false).withRecurring("false").build();
         } catch (IllegalValueException e) {
             e.printStackTrace();
             assert false : "not possible";

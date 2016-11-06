@@ -43,6 +43,15 @@ public class AddCommandTest extends TaskManagerGuiTest {
         commandBox.runCommand("clear");
         commandBox.runCommand("add Christmas party, at christmas 2pm");
         assertAddSuccess(TypicalTestTasks.taskL);
+        
+        commandBox.runCommand("clear");
+        commandBox.runCommand("add Christmas party, at christmas 2pm by 11pm");
+        assertAddSuccess(TypicalTestTasks.taskM);
+        
+        commandBox.runCommand("clear");
+        commandBox.runCommand("add Christmas party, to christmas 8pm from 2pm");
+        assertAddSuccess(TypicalTestTasks.taskN);
+
 
         //invalid command
         commandBox.runCommand("adds Meet Jim");
@@ -56,6 +65,12 @@ public class AddCommandTest extends TaskManagerGuiTest {
         assertResultMessage(Messages.MESSAGE_INVALID_TIME_FORMAT);
         
         commandBox.runCommand("add Meet Jim, from tomorrow to today");
+        assertResultMessage(Messages.MESSAGE_INVALID_TIME_INTERVAL);   
+        
+        commandBox.runCommand("add Meet Jim, at tomorrow by today");
+        assertResultMessage(Messages.MESSAGE_INVALID_TIME_INTERVAL);   
+        
+        commandBox.runCommand("add Meet Jim, from today to tomorrow by yesterday");
         assertResultMessage(Messages.MESSAGE_INVALID_TIME_INTERVAL);      
     }
 
