@@ -89,7 +89,7 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
          int overDueHours = end.getTime().m_hour - nowAsDateTime.getTime().m_hour;
          if (overDueHours<0) {
              return "OVERDUE";
-         } else if (overDueHours ==0) {
+         } else if (overDueHours == 0) {
              if(DateUtil.checkTimePrecendence(end, nowAsDateTime)) {
                  return "OVERDUE";
              } else {
