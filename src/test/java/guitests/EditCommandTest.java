@@ -8,15 +8,15 @@ import java.util.HashSet;
 
 import org.junit.Test;
 
-import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.activity.Activity;
-import seedu.address.model.activity.Reminder;
-import seedu.address.model.activity.event.Event;
-import seedu.address.model.activity.event.ReadOnlyEvent;
-import seedu.address.model.activity.task.ReadOnlyTask;
-import seedu.address.model.activity.task.Task;
-import seedu.address.model.tag.Tag;
-import seedu.address.testutil.*;
+import seedu.lifekeeper.commons.exceptions.IllegalValueException;
+import seedu.lifekeeper.model.activity.Activity;
+import seedu.lifekeeper.model.activity.Reminder;
+import seedu.lifekeeper.model.activity.event.Event;
+import seedu.lifekeeper.model.activity.event.ReadOnlyEvent;
+import seedu.lifekeeper.model.activity.task.ReadOnlyTask;
+import seedu.lifekeeper.model.activity.task.Task;
+import seedu.lifekeeper.model.tag.Tag;
+import seedu.lifekeeper.testutil.*;
 
 //@@author A0125097A
 public class EditCommandTest extends AddressBookGuiTest {

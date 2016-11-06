@@ -8,13 +8,14 @@ import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.rules.TestName;
 import org.testfx.api.FxToolkit;
-import seedu.address.TestApp;
-import seedu.address.commons.core.EventsCenter;
-import seedu.address.model.AddressBook;
-import seedu.address.model.activity.ReadOnlyActivity;
-import seedu.address.testutil.TestUtil;
-import seedu.address.testutil.OpenCommandTestActivities;
-import seedu.address.testutil.TypicalTestActivities;
+
+import seedu.lifekeeper.TestApp;
+import seedu.lifekeeper.commons.core.EventsCenter;
+import seedu.lifekeeper.model.LifeKeeper;
+import seedu.lifekeeper.model.activity.ReadOnlyActivity;
+import seedu.lifekeeper.testutil.OpenCommandTestActivities;
+import seedu.lifekeeper.testutil.TestUtil;
+import seedu.lifekeeper.testutil.TypicalTestActivities;
 
 import java.util.concurrent.TimeoutException;
 
@@ -77,8 +78,8 @@ public abstract class AddressBookGuiTest {
      * Override this in child classes to set the initial local data.
      * Return null to use the data in the file specified in {@link #getDataFileLocation()}
      */
-    protected AddressBook getInitialData() {
-        AddressBook ab = TestUtil.generateEmptyAddressBook();
+    protected LifeKeeper getInitialData() {
+        LifeKeeper ab = TestUtil.generateEmptyAddressBook();
         TypicalTestActivities.loadAddressBookWithSampleData(ab);
         return ab;
     }
@@ -96,14 +97,14 @@ public abstract class AddressBookGuiTest {
     }
 
     /**
-     * Asserts the person shown in the card is same as the given person
+     * Asserts the activity shown in the card is same as the given activity
      */
-    public void assertMatching(ReadOnlyActivity person, ActivityCardHandle card) {
-        assertTrue(TestUtil.compareCardAndPerson(card, person));
+    public void assertMatching(ReadOnlyActivity activity, ActivityCardHandle card) {
+        assertTrue(TestUtil.compareCardAndPerson(card, activity));
     }
 
     /**
-     * Asserts the size of the person list is equal to the given number.
+     * Asserts the size of the activity list is equal to the given number.
      */
     protected void assertListSize(int size) {
         int numberOfPeople = activityListPanel.getNumberOfPeople();

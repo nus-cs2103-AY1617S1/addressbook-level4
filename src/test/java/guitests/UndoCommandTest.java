@@ -1,8 +1,10 @@
 package guitests;
 
 import org.junit.Test;
-import seedu.address.commons.core.Messages;
-import seedu.address.testutil.*;
+
+import seedu.lifekeeper.commons.core.Messages;
+import seedu.lifekeeper.testutil.*;
+
 import static org.junit.Assert.assertTrue;
 
 //@@author A0125097A
