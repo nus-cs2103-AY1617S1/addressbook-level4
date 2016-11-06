@@ -18,13 +18,13 @@ public class TagController extends Controller {
     private static final String COMMAND_SYNTAX = "tag <index> <tag name>";
     private static final String COMMAND_KEYWORD = "tag";
     
-    private static final String MESSAGE_TAG_SUCCESS = "Item has been tagged successfully.";
-    private static final String MESSAGE_INDEX_OUT_OF_RANGE = "Could not tag task/event: Invalid index provided!";
-    private static final String MESSAGE_MISSING_INDEX_AND_TAG_NAME = "Please specify the index of the item and the tag name to tag.";
-    private static final String MESSAGE_INDEX_NOT_NUMBER = "Index has to be a number!";
-    private static final String MESSAGE_TAG_NAME_NOT_FOUND = "Could not tag task/event: Tag name not provided!";
-    private static final String MESSAGE_EXCEED_TAG_SIZE = "Could not tag task/event : Tag size exceed";
-    private static final String MESSAGE_TAG_NAME_EXIST = "Could not tag task/event: Tag name already exist!";
+    public static final String MESSAGE_TAG_SUCCESS = "Item has been tagged successfully.";
+    public static final String MESSAGE_INDEX_OUT_OF_RANGE = "Could not tag task/event: Invalid index provided!";
+    public static final String MESSAGE_MISSING_INDEX_AND_TAG_NAME = "Please specify the index of the item and the tag name to tag.";
+    public static final String MESSAGE_INDEX_NOT_NUMBER = "Index has to be a number!";
+    public static final String MESSAGE_TAG_NAME_NOT_FOUND = "Could not tag task/event: Tag name not provided!";
+    public static final String MESSAGE_EXCEED_TAG_SIZE = "Could not tag task/event : Tag size exceed";
+    public static final String MESSAGE_TAG_NAME_EXIST = "Could not tag task/event: Tag name already exist!";
     
     private static final int ITEM_INDEX = 0;
     

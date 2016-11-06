@@ -18,7 +18,7 @@ public class Task implements CalendarItem {
     private boolean isCompleted = false;
     private ArrayList<String> tagList = new ArrayList<String>();
     
-    private static final int MAX_TAG_LIST_SIZE = 20;
+    public static final int MAX_TAG_LIST_SIZE = 20;
 
     @Override
     public String getName() {

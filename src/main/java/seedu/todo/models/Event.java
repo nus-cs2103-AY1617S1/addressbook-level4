@@ -18,7 +18,7 @@ public class Event implements CalendarItem {
     private LocalDateTime endDate;
     private ArrayList<String> tagList = new ArrayList<String>();
     
-    private static final int MAX_TAG_LIST_SIZE = 20;
+    public static final int MAX_TAG_LIST_SIZE = 20;
     
     /**
      * Get the start date of an Event.
