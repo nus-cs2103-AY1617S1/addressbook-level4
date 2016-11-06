@@ -27,6 +27,7 @@
 
 <!-- /MarkdownTOC -->
 
+<!-- @@author A0135812L -->
 ## 1. Introduction
 SmartyDo is a **to-do-list** application. With SmartyDo, forgetting upcoming deadlines and sleepless nights over incomplete tasks are a thing of the past. SmartyDo **increases your efficiency** by showing the lists of tasks that can be completed simultaneously. Treat SmartyDo like your personal assistant and just focus on **completing your tasks**!
 
@@ -38,6 +39,7 @@ SmartyDo is a **to-do-list** application. With SmartyDo, forgetting upcoming dea
 **Command Bar** is where you enter short commands to tell SmartyDo what to do.<br>
 **Visual Panel** is where you can see a comprehensive list of your tasks.<br>
 **Message Box** shows the result of your command.<br>
+<!-- @@author -->
 
 <!-- @@author A0126649W -->
 ## 3. Getting Started
@@ -63,6 +65,7 @@ If you wish to get help on using SmartyDo, you may enter `help` into the Command
 After entering the command, a new window will appear showing you a summary of all commands and keyboard shortcuts.
 <!-- @@author  -->
 
+<!-- @@author A0135767U -->
 ### 3.2. **Choosing Your Save Location**
 
 You can choose where to save your data on your computer by using the `save` command. The save location will be referenced from the directory in which SmartyDo is stored. From this point, all data will be saved to the file you specified.
@@ -87,7 +90,9 @@ If you wish to load a previously saved file stored in data/my_todo_list.xml, you
 <img src="images/loadCommand.png" width="250" align="middle"><br>Figure 4. SmartyDo's Load Command<br>
 
 After entering the command, MessageBox will show you if the save file has been successfully loaded to SmartyDo.
+<!-- @@author -->
 
+<!-- @@author A0135812L -->
 ### 3.4. **Adding Tasks Into SmartyDo**
 
 You can add a task into SmartyDo by using the add command. There are number of parameters that you can use to add more details to the task. Below is a summary of the various parameters and their usage:<br>
@@ -121,6 +126,7 @@ Let's say you want to add task named "Presentation" which is scheduled for 18 Ju
 <img src="images/addCommand.png" width="250" align="middle"><br>Figure 5. Example of add command<br>
 
 After entering the command, MessageBox will show you task is successfully added into SmartyDo and you will see the updated list of task in the VisualBox.
+<!-- @@author -->
 
 <!-- @@author A0126649W -->
 ### 3.5. **Editing Task Details**
@@ -169,6 +175,7 @@ You have now completed the task named "Presentation" and now you want to mark th
 After entering the `done` command, you are now able to identify the completed task easily from the list.
 <!-- @@author  -->
 
+<!-- @@author A0121261Y -->
 ### 3.8. **Undoing and Redoing**
 
 With `undo`, you are allowed to reverse your previous changes sequentially while `redo` allows you to reverse the change done by `undo`.<br>
@@ -196,7 +203,9 @@ However, you realized that your friend was wrong and you want to change the date
 <img src="images/undoRedoCommand.png" width="500" align="middle"><br>Figure 9.2. Before(left) and after(right) of an undo command<br>
 
 By using `redo` command, SmartyDo updates your list of tasks to how it was before you executed `undo` command. From the screenshot above, you can see that the "Presentation" task has been restored to its previous state.
+<!-- @@author -->
 
+<!-- @@author A0135767U -->
 ### 3.9. **Selecting Specific Tasks**
 
 Select the task identified by the parameter. A full detailed description will appear in a pop up window.
@@ -241,7 +250,9 @@ If you wish to search for the location of the task named Presentation which has 
 <img src="images/locateCommand.png" width="250" align="middle"><br>Figure 13. Example of locate command<br>
 
 After entering the command, a new window will appear showing you the details of the task you requested.
+<!-- @@author -->
 
+<!-- @@author A0135812L -->
 ### 3.13. **Clearing Saved Data**
 You may clear all data stored in SmartyDo by using the `clear` command. SmartyDo will prompt you to confirm this action. Enter `yes` to complete the command. Entering a different command will cancel the `clear` command.
 
@@ -270,6 +281,8 @@ It is okay if you cannot remember the syntax entirely! As long as you remember t
 ### 4.2. **Saving the Data**
 SmartyDo will automatically save your data in the hard disk after any command that changes the data. There is no need to save manually.
 
+<!-- @@author -->
+
 ## 5. Summary
 
 <!-- @@author A0126649W -->
@@ -294,6 +307,7 @@ SmartyDo will automatically save your data in the hard disk after any command th
 Table 5. Command Summary
 <!-- @@author  -->
 
+<!-- @@author A0135767U -->
 ### 5.2. **Keyboard Shortcuts**
 |**Command**|**Shortcut**|
 |:---:|:---:|
