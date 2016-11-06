@@ -55,6 +55,7 @@ We are a team based in the [School of Computing, National University of Singapor
 
 * Other major contributions
     * Did the initial refactoring from AddressBook to ToDoList
+    * Helped to change UI for priority and overdue tasks
 
 -----
 <!-- @@author A0138967J -->

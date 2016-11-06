@@ -99,6 +99,7 @@ public class UpdateCommand extends Command {
             
             model.updateTask(taskToUpdate, newTask);
             model.updateFilteredListToShowAllNotCompleted();
+          //@@author A0121643R
             model.updateTodayListToShowAll(); 
             model.updateWeekListToShowAll();
             return new CommandResult(String.format(MESSAGE_UPDATE_TASK_SUCCESS, targetIndex, newTask));

@@ -58,6 +58,7 @@ public class MarkCommand extends Command {
             model.updateTask(taskToMark, newTask);
             
             model.updateFilteredListToShowAllNotCompleted();
+            //@@author A0121643R
             model.updateTodayListToShowAll();
             model.updateWeekListToShowAll();
             
