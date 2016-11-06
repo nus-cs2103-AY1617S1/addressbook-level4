@@ -285,7 +285,7 @@ Priority | As a ... | I want to ... | So that I can...
 **MSS**
 
 1. User requests to view help
-2. TARS shows a list of usage intructions<br>
+2. TARS shows a list of usage instructions<br>
 Use case ends.
 
 #### Use case: UC02- Add task
@@ -319,7 +319,7 @@ Use case ends.
 
 1. User requests to list tasks
 2. TARS shows a list of tasks
-3. User requets to delete a specific task in the list
+3. User requests to delete a specific task in the list
 4. TARS deletes the task<br>
 Use case ends.
 
