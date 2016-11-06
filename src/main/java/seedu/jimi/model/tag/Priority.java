@@ -46,7 +46,9 @@ public class Priority extends Tag {
      * Returns true if a given string is a valid priority name.
      */
     public static boolean isValidPriorityName(String test) {
-        return test.toLowerCase().equals(PRIO_LOW) || test.toLowerCase().equals(PRIO_MED)
-                || test.toLowerCase().equals(PRIO_HIGH) || test.toLowerCase().equals(PRIO_NONE);
+        return test.equalsIgnoreCase(PRIO_LOW) 
+                || test.equalsIgnoreCase(PRIO_MED) 
+                || test.equalsIgnoreCase(PRIO_HIGH)
+                || test.equalsIgnoreCase(PRIO_NONE);
     }
 }
