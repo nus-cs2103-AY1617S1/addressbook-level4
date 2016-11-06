@@ -363,6 +363,6 @@ Following is the list of keyboard shortcuts that ForgetMeNot has to offer:
 
 | Key  			  | Function                             |
 |-----------------|--------------------------------------|
-| <kbd>TAB</kbd>  | Autocompletes any unfinished command |
+| <kbd>TAB</kbd> or <kbd>SPACEBAR</kbd> | Autocompletes any unfinished command |
 | <kbd>UP</kbd>   | Displays the last older command      |
 | <kbd>DOWN</kbd> | Display the last newer command       |
