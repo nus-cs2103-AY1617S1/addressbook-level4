@@ -698,23 +698,17 @@ public class LogicManagerTest {
             StringBuffer cmd = new StringBuffer();
 
             cmd.append("edit 1 ");
-            
             cmd.append("Do stuff later ");            
             cmd.append("from 10am ");
             cmd.append("to 12pm ");
             cmd.append("repeat every day ");
             cmd.append(" -").append("high");
-            
             return cmd.toString();
-        } 
-        //TODO fix the add test to include additional parameters first
+        }
+        
         Task read() throws Exception {
             Name name = new Name("Read a lot of books");
-//            Date startDate = DateTime.convertStringToDate("11am");
-//            Date endDate = DateTime.convertStringToDate("3pm");
             Priority priority = Priority.HIGH;
-//            RecurrenceRate recurrenceRate = new RecurrenceRate("2","days");
-//            return new Task(name, startDate, endDate, recurrenceRate, priority);
             return new Task(name, priority);
         }
         
@@ -723,7 +717,6 @@ public class LogicManagerTest {
             StringBuffer cmd = new StringBuffer();
 
             cmd.append("edit 1 ");
-            
             cmd.append("Read a book ");     
             cmd.append("from 11am ");
             cmd.append("to 12pm ");
@@ -731,7 +724,6 @@ public class LogicManagerTest {
             cmd.append("-reset ");
             cmd.append("start ");
             cmd.append("end");
-            
             return cmd.toString();
         }       
         //@@author
