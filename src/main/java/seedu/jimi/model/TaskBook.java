@@ -139,11 +139,12 @@ public class TaskBook implements ReadOnlyTaskBook {
     public void replaceTask(ReadOnlyTask oldTask, ReadOnlyTask newTask) throws DuplicateTaskException {
         tasks.replace(oldTask, newTask);
     }
-
-    public void completeTask(ReadOnlyTask taskToComplete, boolean isComplete) throws TaskNotFoundException {
+    
+    public void completeTask(ReadOnlyTask taskToComplete, boolean isComplete)
+            throws TaskNotFoundException, DuplicateTaskException {
         tasks.complete(taskToComplete, isComplete);
     }
-//// tag-level operations
+    //// tag-level operations
 
     public void addTag(Tag t) throws UniqueTagList.DuplicateTagException {
         tags.add(t);

@@ -33,8 +33,14 @@ public class EditCommand extends Command implements TaskBookEditor {
     public static final String INDEX_TASK_PREFIX = "t";
     public static final String INDEX_EVENT_PREFIX = "e";
     
+    public static final String MESSAGE_EDIT_EVENT_CONSTRAINTS = 
+            "You tried to convert a task to an event but failed to specify an event start date.\n"
+            + "Remember, edits must follow adding contraints! \n"
+            + "\n"
+            + AddCommand.MESSAGE_USAGE;
+    
     public static final String MESSAGE_USAGE = 
-            COMMAND_WORD + ": Edits an existing task/event in Jimi. \n"
+            COMMAND_WORD + ": Edits an existing task/event in Jimi following add constraints. \n"
             + "Parameters: INDEX(must be t<positive integer> or e<positive integer>) EDITS_TO_MAKE\n" 
             + "You can edit everything from the task name to its tags. \n"
             + "You can leave out fields that you do not wish to edit too. \n"
@@ -202,72 +208,99 @@ public class EditCommand extends Command implements TaskBookEditor {
             return Optional.of(toEventTypeWithChanges(oldTask));
         case TO_DEADLINE :
             return Optional.of(toDeadlineTaskTypeWithChanges(oldTask));
-        
         default :
             return Optional.empty();
         }
     }
 
-    /** Generates a floating task with changes */
+    /** Converts ReadOnlyTask {@code t} to a floating task with changes */
     private ReadOnlyTask toFloatingTypeWithChanges(ReadOnlyTask t) {
-        return new FloatingTask(
-                newName == null ? t.getName() : newName, 
-                newTagList == null ? t.getTags() : newTagList, 
-                t.isCompleted(),
-                newPriority == null ? t.getPriority() : newPriority);
+        return generateFloatingTaskWithChanges(t);
     }
 
-    /** Generates a deadline task with changes. */
+    /** Converts ReadOnlyTask {@code t} to a deadline task with changes. */
     private ReadOnlyTask toDeadlineTaskTypeWithChanges(ReadOnlyTask t) {
+        return generateDeadlineTaskWithChanges(t);
+    }
+
+    /** Converts ReadOnlyTask {@code t} to an Event with changes. 
+     * @throws IllegalValueException */
+    private ReadOnlyTask toEventTypeWithChanges(ReadOnlyTask t) throws IllegalValueException {
+        DateTime newStart = null;
+        DateTime newEnd = null;
+        
+        if (!(t instanceof Event)) {
+            if (eventStart == null) {
+                throw new IllegalValueException(MESSAGE_EDIT_EVENT_CONSTRAINTS);
+            }
+            newStart = eventStart;
+            newEnd = eventEnd == null ? new DateTime(eventStart.getDate().concat(" 23:59")) : eventEnd;
+        } else { 
+            newStart = determineNewEventStartForExistingEvent(t);
+            newEnd = determineNewEventEndForExistingEvent(t);
+        }
+        
+        if (newStart.compareTo(newEnd) <= 0) {
+            return generateEventWithChanges(t, newStart, newEnd);
+        } else {
+            throw new IllegalValueException(Messages.MESSAGE_START_END_CONSTRAINT);
+        }
+    }
+
+    /** Converts ReadOnlyTask {@code t} to its same task type, but with changes. 
+     * @throws IllegalValueException */
+    private ReadOnlyTask toSameTaskTypeWithChanges(ReadOnlyTask t) throws IllegalValueException {
+        if (t instanceof Event) {
+            DateTime newStart = determineNewEventStartForExistingEvent(t);
+            DateTime newEnd = determineNewEventEndForExistingEvent(t);
+            if (newStart.compareTo(newEnd) <= 0) {
+                return generateEventWithChanges(t, newStart, newEnd);
+            } else {
+                throw new IllegalValueException(Messages.MESSAGE_START_END_CONSTRAINT);
+            }
+        } else if (t instanceof DeadlineTask) {
+            return generateDeadlineTaskWithChanges(t);
+        } else { // floating task
+            return generateFloatingTaskWithChanges(t);
+        }
+    }
+
+    /*
+     * ==================================================================
+     *                  Instantiation/Generation Methods
+     * ==================================================================
+     */
+    
+    /** Generates an event with changes */
+    private Event generateEventWithChanges(ReadOnlyTask t, DateTime newStart, DateTime newEnd) {
+        return new Event(newName == null ? t.getName() : newName, newStart, newEnd,
+                newTagList == null ? t.getTags() : newTagList, t.isCompleted(), 
+        		newPriority == null ? t.getPriority() : newPriority);
+    }
+    
+    /** Generates a deadline task with changes */
+    private DeadlineTask generateDeadlineTaskWithChanges(ReadOnlyTask t) {
         return new DeadlineTask(
                 newName == null ? t.getName() : newName, 
                 t instanceof DeadlineTask && deadline == null ? ((DeadlineTask) t).getDeadline() : deadline, 
                 newTagList == null ? t.getTags() : newTagList, 
                 newPriority == null ? t.getPriority() : newPriority);
     }
-
-    /** Generates an Event with changes. 
-     * @throws IllegalValueException */
-    private ReadOnlyTask toEventTypeWithChanges(ReadOnlyTask t) throws IllegalValueException {
-        DateTime newStart = t instanceof Event && eventStart == null ? 
-                ((Event) t).getStart() : eventStart;
-        DateTime newEnd =  t instanceof Event && eventEnd == null ? 
-                ((Event) t).getEnd() : eventEnd;
-        if (newStart.compareTo(newEnd) <= 0) {
-            return new Event(newName == null ? t.getName() : newName, newStart, newEnd,
-                    newTagList == null ? t.getTags() : newTagList, t.isCompleted(),
-					newPriority == null ? t.getPriority() : newPriority);
-        } else {
-            throw new IllegalValueException(Messages.MESSAGE_START_END_CONSTRAINT);
-        }
+    
+    /** Generates a floating task with changes */
+    private FloatingTask generateFloatingTaskWithChanges(ReadOnlyTask t) {
+        return new FloatingTask(
+                newName == null ? t.getName() : newName, 
+                newTagList == null ? t.getTags() : newTagList, 
+                t.isCompleted(),
+                newPriority == null ? t.getPriority() : newPriority);
+    }
+    
+    private DateTime determineNewEventEndForExistingEvent(ReadOnlyTask t) {
+        return eventEnd == null ? ((Event) t).getEnd() : eventEnd; // Checking for changes to be made
     }
 
-    /** Generates a task with changes while maintaining it's task type. 
-     * @throws IllegalValueException */
-    private ReadOnlyTask toSameTaskTypeWithChanges(ReadOnlyTask t) throws IllegalValueException {
-        if (t instanceof Event) {
-            DateTime newStart = eventStart == null ? ((Event) t).getStart() : eventStart;
-            DateTime newEnd = eventEnd == null ? ((Event) t).getEnd() : eventEnd;
-            if (newStart.compareTo(newEnd) <= 0) {
-                return new Event(newName == null ? t.getName() : newName, newStart, newEnd,
-                        newTagList == null ? t.getTags() : newTagList, t.isCompleted(), 
-						newPriority == null ? t.getPriority() : newPriority);
-            } else {
-                throw new IllegalValueException(Messages.MESSAGE_START_END_CONSTRAINT);
-            }
-        } else if (t instanceof DeadlineTask) {
-            return new DeadlineTask(
-                    newName == null ? t.getName() : newName, 
-                    deadline == null ? ((DeadlineTask) t).getDeadline() : deadline, 
-                    newTagList == null ? t.getTags() : newTagList, 
-                    t.isCompleted(),
-                    newPriority == null ? t.getPriority() : newPriority);
-        } else { // floating task
-            return new FloatingTask( 
-                    newName == null ? t.getName() : newName, 
-                    newTagList == null ? t.getTags() : newTagList, 
-                    t.isCompleted(),
-                    newPriority == null ? t.getPriority() : newPriority);
-        }
+    private DateTime determineNewEventStartForExistingEvent(ReadOnlyTask t) {
+        return eventStart == null ? ((Event) t).getStart() : eventStart; // Checking for changes to be made
     }
 }

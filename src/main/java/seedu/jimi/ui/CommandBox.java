@@ -82,6 +82,24 @@ public class CommandBox extends UiPart {
     
     // @@author A0140133B
     @FXML
+    private void handleTextFieldKeyReleased(KeyEvent event) {
+        switch (event.getCode()) {
+        case UP :
+            cyclePreviousInput();
+            return;
+        case DOWN :
+            cycleAheadInput();
+            return;
+        case ENTER :
+            return; // Do nothing since handleCommandInputChanged already handles this.
+        default :
+            handleTextFieldKeyTyped();
+            return;
+        }
+    }
+    
+    /** Handles event when command input has changed */
+    @FXML
     private void handleCommandInputChanged() {
         if (commandTextField.getText().trim().isEmpty()) {
             return; // Do nothing for empty input.
@@ -104,23 +122,6 @@ public class CommandBox extends UiPart {
         logger.info("Result: " + mostRecentResult.feedbackToUser);
     }
     
-    @FXML
-    private void handleTextFieldKeyReleased(KeyEvent event) {
-        switch (event.getCode()) {
-        case UP :
-            cyclePreviousInput();
-            return;
-        case DOWN :
-            cycleAheadInput();
-            return;
-        case ENTER :
-            return; // Do nothing since handleCommandInputChanged already handles this. 
-        default :
-            handleTextFieldKeyTyped();
-            return;
-        }
-    }
-    
     /** Handles the event when a key is typed in {@code commandTextField}. */
     private void handleTextFieldKeyTyped() {
         String currentText = commandTextField.getText().trim();
@@ -136,16 +137,21 @@ public class CommandBox extends UiPart {
     
     /** Posts suggestions for commands according to the first word of {@code currentText} */
     private void postCommandSuggestions(String currentText) {
-        String firstWordOfInput = StringUtil.getFirstWord(currentText);
-        List<String> commandWordMatches = CommandUtil.getInstance().getCommandWordMatches(firstWordOfInput);
-        
-        logger.info("Suggestions: " + commandWordMatches);
-        
         /* 
          * Only providing suggestions for first word, so once the full input text length 
          * exceeds the length of the first word, stop providing suggestions. 
          */
-        if (currentText.length() > firstWordOfInput.length() || commandWordMatches.isEmpty()) {
+        String firstWordOfInput = StringUtil.getFirstWord(currentText);
+        if (currentText.length() > firstWordOfInput.length()) { // Short-circuit here to improve performance.
+            setResultDisplayToDefault();
+            return; 
+        }
+        
+        List<String> commandWordMatches = CommandUtil.getInstance().getCommandWordMatches(firstWordOfInput);
+        
+        logger.info("Suggestions: " + commandWordMatches);
+        
+        if (commandWordMatches.isEmpty()) {
             setResultDisplayToDefault();
         } else {
             resultDisplay.postMessage(

@@ -48,8 +48,8 @@ public class FindCommand extends Command {
 
     @Override
     public CommandResult execute() {
-        if(keywords != null && keywords.size() > 0) {
-            if(fromDate != null) {
+        if (keywords != null && keywords.size() > 0) {
+            if (fromDate != null) {
                 model.updateFilteredAgendaTaskList(keywords, fromDate, toDate);
                 model.updateFilteredAgendaEventList(keywords, fromDate, toDate);
             } else {
@@ -62,8 +62,7 @@ public class FindCommand extends Command {
         }
         
         
-        return new CommandResult(getMessageForTaskListShownSummary(model.getFilteredAgendaTaskList().size()
-                + model.getFilteredAgendaEventList().size()));
+        return new CommandResult(getMessageForTaskListShownSummary(model.getShownSize()));
     }
     
     @Override

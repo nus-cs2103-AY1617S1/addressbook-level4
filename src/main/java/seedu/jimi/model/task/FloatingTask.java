@@ -95,7 +95,7 @@ public class FloatingTask implements ReadOnlyTask {
                 && (other).getName().equals(this.getName()) // state checks here onwards
                 && (other).isCompleted() == this.isCompleted()
                 && (other).getPriority().equals(this.getPriority())
-                );
+                && (other).getTags().equals(this.getTags()));
     }
 
     @Override

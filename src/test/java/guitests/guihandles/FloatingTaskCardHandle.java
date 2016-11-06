@@ -10,6 +10,7 @@ import seedu.jimi.model.task.ReadOnlyTask;
  */
 public class FloatingTaskCardHandle extends GuiHandle {
     private static final String NAME_FIELD_ID = "#name";
+    private static final String TAG_FIELD_ID = "#tags";
 
     private Node node;
 
@@ -24,6 +25,10 @@ public class FloatingTaskCardHandle extends GuiHandle {
 
     public String getFullName() {
         return getTextFromLabel(NAME_FIELD_ID);
+    }
+    
+    public String getTag() {
+        return getTextFromLabel(TAG_FIELD_ID);
     }
 
     public boolean isSameTask(ReadOnlyTask task){
