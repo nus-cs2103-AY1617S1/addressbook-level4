@@ -59,6 +59,7 @@ public class SortCommand extends Command {
         case "f":
         case "favorite":
         case "favourite": // Because British
+        case "fav":
             this.keyword = "Favorite";
             break;
         case "o":
@@ -80,6 +81,7 @@ public class SortCommand extends Command {
         default:
             this.keyword = keyword;
             invalidKeyword = true;
+            break;
         }
     }
 

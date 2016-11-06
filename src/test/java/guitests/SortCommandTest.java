@@ -20,30 +20,47 @@ public class SortCommandTest extends TaskManagerGuiTest {
     public void sort() {
 
         // Verify if tasks are sorted correctly
+        commandBox.runCommand("add overduetask, by 3pm yesterday");
+        commandBox.runCommand("add notoverduetask, by 3pm tomorrow");
+        commandBox.runCommand("done 1");
+        commandBox.runCommand("done 3");
+        commandBox.runCommand("fav 2 ");
+        commandBox.runCommand("fav 4 ");
+        
+        assertSortOrderCorrect("original");
+        assertSortOrderCorrect("fav");
+        
         assertSortOrderCorrect("deadline");
         assertSortOrderCorrect("startTime");
         assertSortOrderCorrect("eNdtime");
         assertSortOrderCorrect("cOMPLETED");
-        assertSortOrderCorrect("DEFAULT");
-
-        assertSortOrderCorrect("dead");
-        assertSortOrderCorrect("start");
-        assertSortOrderCorrect("end");
-        assertSortOrderCorrect("done");
+        assertSortOrderCorrect("favoUrite");
+        assertSortOrderCorrect("OveRduE");
         assertSortOrderCorrect("name");
-
-        assertSortOrderCorrect("");
+        assertSortOrderCorrect("DEFAULT");
+        
         assertSortOrderCorrect("d");
         assertSortOrderCorrect("s");
         assertSortOrderCorrect("e");
         assertSortOrderCorrect("c");
+        assertSortOrderCorrect("f");
+        assertSortOrderCorrect("o");
         assertSortOrderCorrect("n");
+        assertSortOrderCorrect("");
+        
+        assertSortOrderCorrect("dead");
+        assertSortOrderCorrect("start");
+        assertSortOrderCorrect("end");
+        assertSortOrderCorrect("done");
+        assertSortOrderCorrect("favourite");
+        assertSortOrderCorrect("over");
+        assertSortOrderCorrect("title");
+        assertSortOrderCorrect("original");
 
         // Verify if taskmanager rejects invalid sortParameters
         assertInvalidParameterRejected("invalidParameter");
         assertInvalidParameterRejected("1");
-        assertInvalidParameterRejected("X");
-        assertInvalidParameterRejected("yz");
+        assertInvalidParameterRejected("Xyz");
     }
 
     private void assertSortOrderCorrect(String sortParameter) {
@@ -56,8 +73,11 @@ public class SortCommandTest extends TaskManagerGuiTest {
         }
 
         String sortParameterLowerCased = sortParameter.toLowerCase();
-        
-        if ("d".equals(sortParameterLowerCased) || "deadline".equals(sortParameterLowerCased) || "dead".equals(sortParameterLowerCased)) {
+
+        switch (sortParameterLowerCased) {
+        case "d":
+        case "deadline":
+        case "dead":
             // deadline
             assertResultMessage(String.format(SortCommand.MESSAGE_SUCCESS, "Deadline"));
             for (int i = 0; i < size - 1; i++) {
@@ -66,7 +86,10 @@ public class SortCommandTest extends TaskManagerGuiTest {
                 logger.info("Comparing '" + taskListPanel.getTask(i).getName().toString() + "' to '"
                         + taskListPanel.getTask(i + 1).getName().toString() + "'");
             }
-        } else if ("s".equals(sortParameterLowerCased) || "starttime".equals(sortParameterLowerCased) || "start".equals(sortParameterLowerCased)) {
+            break;
+        case "s":
+        case "starttime":
+        case "start":
             // start time
             assertResultMessage(String.format(SortCommand.MESSAGE_SUCCESS, "Start Time"));
             for (int i = 0; i < size - 1; i++) {
@@ -75,7 +98,10 @@ public class SortCommandTest extends TaskManagerGuiTest {
                 logger.info("Comparing '" + taskListPanel.getTask(i).getName().toString() + "' to '"
                         + taskListPanel.getTask(i + 1).getName().toString() + "'");
             }
-        } else if ("e".equals(sortParameterLowerCased) || "endtime".equals(sortParameterLowerCased) || "end".equals(sortParameterLowerCased)) {
+            break;
+        case "e":
+        case "endtime":
+        case "end":
             // end time
             assertResultMessage(String.format(SortCommand.MESSAGE_SUCCESS, "End Time"));
             for (int i = 0; i < size - 1; i++) {
@@ -84,7 +110,10 @@ public class SortCommandTest extends TaskManagerGuiTest {
                 logger.info("Comparing '" + taskListPanel.getTask(i).getName().toString() + "' to '"
                         + taskListPanel.getTask(i + 1).getName().toString() + "'");
             }
-        } else if ("c".equals(sortParameterLowerCased) || "completed".equals(sortParameterLowerCased) || "done".equals(sortParameterLowerCased)) {
+            break;
+        case "c":
+        case "completed":
+        case "done":
             // done status
             assertResultMessage(String.format(SortCommand.MESSAGE_SUCCESS, "Completed"));
             for (int i = 0; i < size - 1; i++) {
@@ -95,7 +124,39 @@ public class SortCommandTest extends TaskManagerGuiTest {
                 logger.info("Comparing '" + taskListPanel.getTask(i).getName().toString() + "' to '"
                         + taskListPanel.getTask(i + 1).getName().toString() + "'");
             }
-        } else if ("n".equals(sortParameterLowerCased) || "name".equals(sortParameterLowerCased)) {
+            break;
+        case "f":
+        case "favorite":
+        case "favourite": // Because British
+        case "fav":
+            // favorite status
+            assertResultMessage(String.format(SortCommand.MESSAGE_SUCCESS, "Favorite"));
+            for (int i = 0; i < size - 1; i++) {
+                assertTrue(taskListPanel.getTask(i).getStatus()
+                        .getFavoriteStatus() == (taskListPanel.getTask(i + 1).getStatus().getFavoriteStatus())
+                        || (taskListPanel.getTask(i).getStatus().getFavoriteStatus()
+                                && !taskListPanel.getTask(i + 1).getStatus().getFavoriteStatus()));
+                logger.info("Comparing '" + taskListPanel.getTask(i).getName().toString() + "' to '"
+                        + taskListPanel.getTask(i + 1).getName().toString() + "'");
+            }
+            break;
+        case "o":
+        case "overdue":
+        case "over":
+            // overdue status
+            assertResultMessage(String.format(SortCommand.MESSAGE_SUCCESS, "Overdue"));
+            for (int i = 0; i < size - 1; i++) {
+                assertTrue(taskListPanel.getTask(i).getStatus()
+                        .getOverdueStatus() == (taskListPanel.getTask(i + 1).getStatus().getOverdueStatus())
+                        || (taskListPanel.getTask(i).getStatus().getOverdueStatus()
+                                && !taskListPanel.getTask(i + 1).getStatus().getOverdueStatus()));
+                logger.info("Comparing '" + taskListPanel.getTask(i).getName().toString() + "' to '"
+                        + taskListPanel.getTask(i + 1).getName().toString() + "'");
+            }
+            break;
+        case "n":
+        case "name":
+        case "title":
             // name
             assertResultMessage(String.format(SortCommand.MESSAGE_SUCCESS, "Name"));
             for (int i = 0; i < size - 1; i++) {
@@ -103,10 +164,16 @@ public class SortCommandTest extends TaskManagerGuiTest {
                 logger.info("Comparing '" + taskListPanel.getTask(i).getName().toString() + "' to '"
                         + taskListPanel.getTask(i + 1).getName().toString() + "'");
             }
-        } else if ("default".equals(sortParameterLowerCased) || "".equals(sortParameterLowerCased)) {
+            break;
+        case "default":
+        case "":
+        case "standard":
+        case "original":
             // default sorting
             assertResultMessage(String.format(SortCommand.MESSAGE_SUCCESS_DEFAULT));
             return;
+        default:
+            break;
         }
 
     }
