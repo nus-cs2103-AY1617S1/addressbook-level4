@@ -242,7 +242,7 @@ public class TaskCardViewHandle extends GuiHandle {
         boolean actual = isOverdueStyleApplied();
         boolean expected;
 
-        if (endTime.isPresent() && !task.isEvent()) {
+        if (endTime.isPresent()) {
             expected = seedu.todo.testutil.TimeUtil.isOverdue(endTime.get());
         } else {
             expected = false;
