@@ -24,7 +24,8 @@ public class SaveCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Saves task manager information to the specified storage file path.\n"
             + "Parameters: " + COMMAND_WORD + " FILEPATH.xml \n"
             + "Example: " + COMMAND_WORD +  " " + " data/newtaskbook.xml" + "\n"
-            + "Note: file path is limited to .xml format";
+            + "Note: file path is limited to .xml format" + "\n"
+            + "Note: this command cannot be undone";
     
     private static final Logger logger = LogsCenter.getLogger(SaveCommand.class);
 

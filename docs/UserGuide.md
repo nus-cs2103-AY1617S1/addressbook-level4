@@ -304,9 +304,12 @@ For events, you can edit all optional parameters.
 
 ### When you want to specify a custom save location for your data
 
-> * File to save in is limited to .xml format.
+> * You must specify the name of the file to save in .xml format.
+> * You can only save within the home folder that your task manager is in.
+> * Use only forward slashes '/' to specify the directory to save the data file in.
+> * Note: this command cannot be undone.
 
-1. Type `save VALID_FILE_PATH`.
+1. Type `save VALID_FILE_PATH_NAME`.
 2. Press `Enter`.
 
 [comment]: # (@@author A0140060A)
@@ -342,7 +345,7 @@ List Events | `l[ist]e[vent]` | `le`
 List all uncompleted items | `l[ist]n[ot]d[one]` | `lnd`
 Notdone | `n[ot]d[one] INDEX` | `nd 1`
 Redo | `r[edo]` | `redo`
-Specify custom save location | `save VALID_FILE_PATH` | `save C:\Users\Jim\data.xml`
+Specify custom save location | `save VALID_FILE_PATH_NAME` | `save Users/Jim/data.xml`
 Select | `s[elect] INDEX` | `select 1`
 Undo | `u[ndo]` | `undo`
 
