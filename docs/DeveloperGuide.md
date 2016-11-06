@@ -505,9 +505,7 @@ _Use case ends._
 > 1a1. TaskManager parses the `redo` command, ignoring the arguments that follow <br>
 _Use case resumes at step 3_
 
-3a. There is no previous command to `redo`
-> 3a1. TaskManager indicates that there is nothing to undo.<br>
-_Use case ends._
+
 
 <!-- @@author A0139498J -->
 
