@@ -54,5 +54,32 @@ public class TagUntagCommandTest extends GuiTest {
         console.runCommand(commandAdd2);
         console.runCommand(commandAdd3);
     }
-
+    
+    @Test
+    public void tag_task_success() {
+        console.runCommand("tag 1 argh");
+        task1.addTag("argh");
+        assertTaskVisible(task1);
+    }
+    
+    @Test
+    public void tag_event_success() {
+        console.runCommand("tag 3 zzz");
+        event3.addTag("zzz");
+        assertEventVisible(event3);
+    }
+    
+    @Test
+    public void untag_task_success() {
+        console.runCommand("tag 1 bugs");
+        console.runCommand("untag 1 bugs");
+        assertTaskVisible(task1);
+    }
+    
+    @Test
+    public void untag_event_success() {
+        console.runCommand("tag 3 errors");
+        console.runCommand("untag 3 errors");
+        assertEventVisible(event3);
+    }
 }
