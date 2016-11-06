@@ -89,20 +89,20 @@ Format: `listall`
 
 #### Listing all tasks (both uncompleted and completed) by categories or tags: `listall`
 Shows a list of all tasks in the Emeraldo according to a stated category or by tag. <br>
-Format: `listall CATEGORIES` or `listall TAG`
+Format: `listall CATEGORY` or `listall TAG`
 
 
 > * Categories include: today, tomorrow, completed, thisweek, nextweek, thismonth, nextmonth. <br>
 > * Tags can be anything the user has input when adding a task.
 
 
-Examples (categories):
+Examples (category):
 * `listall today`
 * `listall tomorrow`
 * `listall completed`
 
 
-Examples (tags):
+Examples (tag):
 * `listall family`
 * `listall work`
 * `listall school`
@@ -119,20 +119,20 @@ Format: `list`
 <br>
 #### Listing all uncompleted tasks by categories or tags: `list`
 Shows a list of all uncompleted tasks in the Emeraldo according to a stated category or by tag. <br>
-Format: `list CATEGORIES` or `list TAG`
+Format: `list CATEGORY` or `list TAG`
 
 
 > * Categories include: today, tomorrow, completed, thisweek, nextweek, thismonth, nextmonth. <br>
 > * Tags can be anything the user has input when adding a task.
 
 
-Examples (categories):
+Examples (category):
 * `list today`
 * `list tomorrow`
 * `list completed`
 
 
-Examples (tags):
+Examples (tag):
 * `list family`
 * `list work`
 * `list school`
