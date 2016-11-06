@@ -71,18 +71,18 @@ Command | Format
 
 Command | Default Command Word | Shortcuts  
 -------- | :-------- | :--------
-Help | `help` | `h`, `he`, `hel`
-Add | `add` | `a`, `ad`
-Compete | `complete` | `c`, `co`, `com`, ... , `complet`
-Delete | `delete` | `d`, `de`, `del`, ... , `delet`
-Edit | `edit` | `e`, `ed`, `edi`
-Show | `show` | `s`, `sh`, `sho`
-Undo | `undo` | `u`, `un`, `und`
-Redo | `redo` | `r`, `re`, `red`
-Find | `find` | `f`, `fi`, `fin`
-SaveAs | `saveas` | None
-Clear | `clear` | None
-Exit | `exit` | None
+[Help](#help) | `help` | `h`, `he`, `hel`
+[Add](#add) | `add` | `a`, `ad`
+[Complete](#com) | `complete` | `c`, `co`, `com`, ... , `complet`
+[Delete](#del) | `delete` | `d`, `de`, `del`, ... , `delet`
+[Edit](#edit) | `edit` | `e`, `ed`, `edi`
+[Show](#show) | `show` | `s`, `sh`, `sho`
+[Undo](#undo)  | `undo` | `u`, `un`, `und`
+[Redo](#redo) | `redo` | `r`, `re`, `red`
+[Find](#find) | `find` | `f`, `fi`, `fin`
+[SaveAs](#saveas) | `saveas` | None
+[Clear](#clear) | `clear` | None
+[Exit](#exit) | `exit` | None
 
 <br>
 
