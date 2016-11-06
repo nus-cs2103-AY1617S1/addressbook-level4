@@ -3,16 +3,17 @@ package harmony.mastermind.ui;
 import java.util.ArrayList;
 
 import harmony.mastermind.logic.HelpPopupEntry;
+import javafx.scene.Node;
+import javafx.scene.control.TextArea;
+import javafx.scene.input.KeyEvent;
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
+import javafx.stage.Popup;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.input.KeyEvent;
-import javafx.stage.Popup;
 
 //@@author A0139194X
 public class HelpPopup extends UiPart {

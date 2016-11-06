@@ -15,6 +15,7 @@ import harmony.mastermind.commons.util.FxViewUtil;
 import harmony.mastermind.logic.Logic;
 import harmony.mastermind.logic.commands.CommandResult;
 import harmony.mastermind.logic.commands.ListCommand;
+import harmony.mastermind.logic.commands.UpcomingCommand;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.Node;

@@ -1,18 +1,24 @@
 package guitests.guihandles;
 
 
-import static org.junit.Assert.assertTrue;
-
-import java.util.List;
-import java.util.Optional;
-
 import guitests.GuiRobot;
 import harmony.mastermind.TestApp;
 import harmony.mastermind.model.task.ReadOnlyTask;
+import harmony.mastermind.model.task.Task;
 import harmony.mastermind.testutil.TestUtil;
 import javafx.geometry.Point2D;
+import javafx.scene.Node;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TableView;
 import javafx.stage.Stage;
+
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
+
+import org.ocpsoft.prettytime.shade.edu.emory.mathcs.backport.java.util.Arrays;
+
+import static org.junit.Assert.assertTrue;
 
 /**
  * Provides a handle for the panel containing the task list.

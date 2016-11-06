@@ -1,38 +1,15 @@
 package harmony.mastermind.logic;
 
-import static harmony.mastermind.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static harmony.mastermind.commons.core.Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX;
-import static harmony.mastermind.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Date;
-import java.util.List;
-
+import com.google.common.eventbus.Subscribe;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
-
-import com.google.common.eventbus.Subscribe;
+import org.ocpsoft.prettytime.PrettyTime;
 
 import harmony.mastermind.commons.core.EventsCenter;
-import harmony.mastermind.commons.events.model.TaskManagerChangedEvent;
-import harmony.mastermind.commons.events.ui.JumpToListRequestEvent;
-import harmony.mastermind.commons.events.ui.ShowHelpRequestEvent;
-import harmony.mastermind.logic.commands.AddCommand;
-import harmony.mastermind.logic.commands.ClearCommand;
-import harmony.mastermind.logic.commands.Command;
-import harmony.mastermind.logic.commands.CommandResult;
-import harmony.mastermind.logic.commands.DeleteCommand;
-import harmony.mastermind.logic.commands.ExitCommand;
-import harmony.mastermind.logic.commands.FindCommand;
-import harmony.mastermind.logic.commands.HelpCommand;
-import harmony.mastermind.logic.commands.ListCommand;
+import harmony.mastermind.logic.commands.*;
 import harmony.mastermind.model.Model;
 import harmony.mastermind.model.ModelManager;
 import harmony.mastermind.model.ReadOnlyTaskManager;
@@ -42,6 +19,20 @@ import harmony.mastermind.model.tag.UniqueTagList;
 import harmony.mastermind.model.task.ReadOnlyTask;
 import harmony.mastermind.model.task.Task;
 import harmony.mastermind.storage.StorageManager;
+import harmony.mastermind.commons.events.model.TaskManagerChangedEvent;
+import harmony.mastermind.commons.events.ui.JumpToListRequestEvent;
+import harmony.mastermind.commons.events.ui.ShowHelpRequestEvent;
+
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Date;
+import java.util.List;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import static harmony.mastermind.commons.core.Messages.*;
 
 public class LogicManagerTest {
 
