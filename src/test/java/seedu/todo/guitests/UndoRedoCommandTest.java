@@ -22,10 +22,10 @@ public class UndoRedoCommandTest extends GuiTest {
     private final String twoDaysFromNowString = DateUtil.formatDate(twoDaysFromNow);
     private final String twoDaysFromNowIsoString = DateUtil.formatIsoDate(twoDaysFromNow);
     
-    String commandAdd1 = String.format("add task Buy KOI by \"%s 8pm\"", oneDayFromNowString);
-    Task task1 = new Task();
-    String commandAdd2 = String.format("add task Buy Milk by \"%s 9pm\"", twoDaysFromNowString);
-    Task task2 = new Task();
+    private String commandAdd1 = String.format("add task Buy KOI by \"%s 8pm\"", oneDayFromNowString);
+    private Task task1 = new Task();
+    private String commandAdd2 = String.format("add task Buy Milk by \"%s 9pm\"", twoDaysFromNowString);
+    private Task task2 = new Task();
     
     public UndoRedoCommandTest() {
         task1.setName("Buy KOI");

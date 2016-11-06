@@ -27,13 +27,13 @@ public class FindCommandTest extends GuiTest {
     private final String oneDayToNowString = DateUtil.formatDate(oneDayToNow);
     private final String oneDayToNowIsoString = DateUtil.formatIsoDate(oneDayToNow);
     
-    String commandAdd1 = String.format("add task Buy KOI by \"%s 8pm\"", oneDayToNowString);
-    Task task1 = new Task();
-    String commandAdd2 = String.format("add task Buy Milk by \"%s 9pm\"", oneDayFromNowString);
-    Task task2 = new Task();
-    String commandAdd3 = String.format("add event Some Milk from \"%s 4pm\" to \"%s 5pm\"",
+    private String commandAdd1 = String.format("add task Buy KOI by \"%s 8pm\"", oneDayToNowString);
+    private Task task1 = new Task();
+    private String commandAdd2 = String.format("add task Buy Milk by \"%s 9pm\"", oneDayFromNowString);
+    private Task task2 = new Task();
+    private String commandAdd3 = String.format("add event Some Milk from \"%s 4pm\" to \"%s 5pm\"",
             twoDaysFromNowString, twoDaysFromNowString);
-    Event event3 = new Event();
+    private Event event3 = new Event();
     
     public FindCommandTest() {
         task1.setName("Buy KOI");
