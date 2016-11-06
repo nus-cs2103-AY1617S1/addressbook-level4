@@ -51,6 +51,7 @@ public class MarkUndoneCommand extends Command {
         } else {
             return new CommandResult(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MarkUndoneCommand.MESSAGE_USAGE));
         }
+
         if (lastShownList.size() < targetIndex || targetIndex <0) {
             indicateAttemptToExecuteIncorrectCommand();
             return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);

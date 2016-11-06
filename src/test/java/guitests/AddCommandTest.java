@@ -17,7 +17,6 @@ public class AddCommandTest extends WhatNowGuiTest {
         //add one task: add task without date & time
         TestTask[] currentList = td.getTypicalTasks();
         TestTask taskToAdd = td.h;
-        System.out.println("TASK TO ADD: " + taskToAdd.toString());
         assertAddSuccess(taskToAdd, currentList);
         currentList = TestUtil.addTasksToList(currentList, taskToAdd);
         
