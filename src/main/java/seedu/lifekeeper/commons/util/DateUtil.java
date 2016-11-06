@@ -264,8 +264,6 @@ public class DateUtil {
      */
 
     public String outputDateTimeAsString(Calendar dateTime, String format) {
-        assert (isValidFormat(format));
-
         SimpleDateFormat formatter = new SimpleDateFormat(format);
         return formatter.format(dateTime.getTime());
     }
