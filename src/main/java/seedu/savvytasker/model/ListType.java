@@ -32,8 +32,9 @@ public enum ListType {
      */
     public static ListType valueOfIgnoreCase(String name) {
         for (ListType type : ListType.values()) {
-            if (type.toString().equalsIgnoreCase(name))
+            if (type.toString().equalsIgnoreCase(name)) {
                 return type;
+            }
         }
         
         throw new IllegalArgumentException("Unknown list type: " + name);

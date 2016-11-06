@@ -42,8 +42,9 @@ public class ListCommandParser implements CommandParser<ListCommand> {
     }
 
     private ListType parseListType(String listTypeText) throws ParseException {
-        if (listTypeText == null)
+        if (listTypeText == null) {
             return null;
+        }
         
         try {
             listTypeText = listTypeText.trim();

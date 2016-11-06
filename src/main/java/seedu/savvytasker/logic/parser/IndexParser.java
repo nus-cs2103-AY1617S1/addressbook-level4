@@ -26,15 +26,17 @@ public class IndexParser {
         try {
             index = Integer.parseInt(trimmedIndexText);
             
-            if (index <= 0)
+            if (index <= 0) {
                 parseError = true;
+            }
         } catch (NumberFormatException ex) {
             parseError = true;
         }
         
-        if (parseError)
+        if (parseError) {
             throw new ParseException(trimmedIndexText, "Must be a positive whole number.");
-            
+        }
+        
         return index;
     }
     
@@ -66,9 +68,10 @@ public class IndexParser {
             parseError = true;
         }
         
-        if (parseError)
+        if (parseError) {
             throw new ParseException(trimmedIndicesText, INDEX_MUST_BE_POSITIVE);
-            
+        }
+        
         return indices;
     }
 }

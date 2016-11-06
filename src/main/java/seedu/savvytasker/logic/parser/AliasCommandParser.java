@@ -53,9 +53,10 @@ public class AliasCommandParser implements CommandParser<AliasCommand> {
     private String parseRepresentation(String originalText) throws ParseException {
         String trimmedText = originalText.trim();
         
-        if (trimmedText.isEmpty())
+        if (trimmedText.isEmpty()) {
             throw new ParseException(trimmedText, "REPRESENTATION: Needs to be at least one character!");
-        
+        }
+            
         return trimmedText;
     }
 

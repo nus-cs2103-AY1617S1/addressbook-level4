@@ -50,8 +50,9 @@ public class FindCommandParser implements CommandParser<FindCommand> {
     //@@author
     
     private FindType parseFindType(String findTypeText) throws ParseException {
-        if (findTypeText == null)
+        if (findTypeText == null) {
             return null;
+        }
         
         String trimmedFindTypeText = findTypeText.trim();
         try {
@@ -67,12 +68,17 @@ public class FindCommandParser implements CommandParser<FindCommand> {
         
         String[] keywordsArr1 = new String[0];
         String[] keywordsArr2 = new String[0];
-        if (!trimmedKeywordsBefore.isEmpty()) keywordsArr1 = trimmedKeywordsBefore.split("\\s+");
-        if (!trimmedKeywordsAfter.isEmpty()) keywordsArr2 = trimmedKeywordsAfter.split("\\s+");
+        if (!trimmedKeywordsBefore.isEmpty()) {
+            keywordsArr1 = trimmedKeywordsBefore.split("\\s+");
+        }
+        if (!trimmedKeywordsAfter.isEmpty()) {
+            keywordsArr2 = trimmedKeywordsAfter.split("\\s+");
+        }
         
-        if (keywordsArr1.length == 0 && keywordsArr2.length == 0)
+        if (keywordsArr1.length == 0 && keywordsArr2.length == 0) {
             throw new ParseException(trimmedKeywordsBefore + " ... " + trimmedKeywordsAfter,
                     "KEYWORD: Need to specify at least one keyword!");
+        }
         
         return concatArray(keywordsArr1, keywordsArr2);
     }

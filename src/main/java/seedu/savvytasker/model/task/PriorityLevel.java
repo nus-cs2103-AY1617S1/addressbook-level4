@@ -16,8 +16,9 @@ public enum PriorityLevel {
      */
     public static PriorityLevel valueOfIgnoreCase(String name) {
         for (PriorityLevel type : PriorityLevel.values()) {
-            if (type.toString().equalsIgnoreCase(name))
+            if (type.toString().equalsIgnoreCase(name)) {
                 return type;
+            }
         }
         
         throw new IllegalArgumentException("Unknown priority level: " + name);

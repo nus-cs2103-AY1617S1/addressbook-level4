@@ -33,8 +33,9 @@ public enum RecurrenceType {
      */
     public static RecurrenceType valueOfIgnoreCase(String name) {
         for (RecurrenceType type : RecurrenceType.values()) {
-            if (type.toString().equalsIgnoreCase(name))
+            if (type.toString().equalsIgnoreCase(name)) {
                 return type;
+            }
         }
         
         throw new IllegalArgumentException("Unknown recurrence type: " + name);
