@@ -37,13 +37,16 @@
 
 [comment]: # (@@author A0140060A)
 
-> **Colour Code**
-> * Item List
+> **Colour Legend**
+> * Item List (Left Pane)
 > 	* `green` : Completed Item
 > 	* `orange` : Approaching Deadline
 > 	* `red` : Overdue Deadline
 > 	* `blue` : In Progress Event
 >	* `grey` : Past Event
+> * Item Details (Right Pane)
+> 	* `dark green` : Event Start Datetime
+> 	* `dark red` : Event / Deadline End Datetime
 
 [comment]: # (@@author A0135792X)
 
