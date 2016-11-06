@@ -584,6 +584,7 @@ public class LogicManagerTest {
 
     */
     
+    // @@author A0140133B
     @Test 
     public void execute_completeInvalidArgsFormat_errorMessageShown() throws Exception {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, CompleteCommand.MESSAGE_USAGE);
@@ -599,7 +600,7 @@ public class LogicManagerTest {
         }
     }
     
-    // @@author A0140133B
+    
     @Test
     public void execute_completeCorrectly() throws Exception {
         TestDataHelper helper = new TestDataHelper();
@@ -632,7 +633,7 @@ public class LogicManagerTest {
                 Collections.emptyList());
         assertTrue(threeFloatingTasks.get(1).isCompleted());
     }
-    // @@author
+    
     
     @Test
     public void execute_deleteInvalidArgsFormat_errorMessageShown() throws Exception {
@@ -643,6 +644,10 @@ public class LogicManagerTest {
         assertIncorrectIndexFormatBehaviorForCommand("del", expectedMessage);
         assertIncorrectIndexFormatBehaviorForCommand("dele", expectedMessage);
         assertIncorrectIndexFormatBehaviorForCommand("delet", expectedMessage);
+        
+        expectedMessage = MESSAGE_INVALID_TASK_DISPLAYED_INDEX;
+        assertCommandBehavior("delete t3 to t1", MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
+        assertCommandBehavior("delete e1 to t1", MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
     }
 
     @Test
@@ -677,7 +682,7 @@ public class LogicManagerTest {
                 Collections.emptyList());
     }
     
-    // @@author A0140133B
+    
     @Test
     public void execute_delete_removesCorrectRange() throws Exception {
         // setup expectations
