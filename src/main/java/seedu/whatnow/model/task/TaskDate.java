@@ -81,6 +81,7 @@ public class TaskDate {
     private static final String DECEMBER_SHORT = "dec";
 
     private static final String forwardSlash = "/";
+    
     private static final int DATE_COMPONENT_DAY = 0;
     private static final int DATE_COMPONENT_MONTH = 1;
     private static final int DATE_COMPONENT_YEAR = 2;
@@ -162,12 +163,12 @@ public class TaskDate {
      * @throws ParseException
      */
     // @@author A0139128A
-    private boolean isValidDateRange(String startDate, String endDate) throws ParseException {
+    private static boolean isValidDateRange(String startDate, String endDate) throws ParseException {
         return isValidDateRangeValidator(startDate, endDate);
     }
 
     // @@author A0139128A
-    private boolean isValidDateRangeValidator(String beforeDate, String afterDate) {
+    private static boolean isValidDateRangeValidator(String beforeDate, String afterDate) {
         if (beforeDate == null && afterDate == null) {
             return true;
         }
@@ -419,5 +420,9 @@ public class TaskDate {
 
     public static boolean getIsValidDate(String date) throws ParseException, IllegalValueException{
         return isValidDate(date);
+    }
+    
+    public static boolean getIsValidDateRange(String start, String end) throws ParseException {
+        return isValidDateRange(start, end);
     }
 }
