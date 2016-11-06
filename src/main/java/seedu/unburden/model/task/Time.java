@@ -95,9 +95,9 @@ public class Time implements Comparable<Time> {
 		} else if (this.getFullTime() == "" && time.getFullTime() == "") { // check if this Time object contains the dummy value
 			return 0;
 		} else if (this.getFullTime() == "" && time.getFullTime() != "") { // check if the Time object compared to contains the dummy value
-			return -1;
-		} else if (this.getFullTime() != "" && time.getFullTime() == "") {
 			return 1;
+		} else if (this.getFullTime() != "" && time.getFullTime() == "") {
+			return -1;
 		}
 		
 
