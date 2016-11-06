@@ -17,10 +17,21 @@ import static org.junit.Assert.assertTrue;
  */
 public class RefreshCommandTest extends TaskManagerGuiTest {
 
-    // -------------------------------------valid
-    // cases----------------------------------------
+    // -------------------------------------valid cases----------------------------------------
 
     // test for valid cases
+    
+    /*
+     * Equivalence partitions for itemType:
+     *  - refresh out-dated recurring deadlineTask
+     *  - refresh out-dated recurring event
+     *  
+     *  Equivalence partitions for recurring frequency:
+     *  - monthly
+     *  - weekly
+     *  - daily
+     */
+    
     @Test
     public void refreshAllTasksAndEvents_successful() {
 
