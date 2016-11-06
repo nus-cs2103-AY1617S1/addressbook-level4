@@ -5,7 +5,9 @@ import seedu.todo.commons.core.ComponentManager;
 import seedu.todo.commons.core.LogsCenter;
 import seedu.todo.commons.core.UnmodifiableObservableList;
 import seedu.todo.commons.events.model.ToDoListChangedEvent;
+import seedu.todo.commons.events.ui.SummaryPanelSelectionEvent;
 import seedu.todo.commons.events.ui.TagPanelSelectionEvent;
+import seedu.todo.commons.events.ui.WeekSummaryPanelSelectionEvent;
 import seedu.todo.logic.commands.SearchCommand.SearchCompletedOption;
 import seedu.todo.model.expressions.Expression;
 import seedu.todo.model.expressions.PredicateExpression;
@@ -238,5 +240,13 @@ public class ModelManager extends ComponentManager implements Model {
         this.updateFilteredTaskListByTag(tpse.tag.getName(), SearchCompletedOption.UNDONE);
     }
     
+    @Subscribe
+    private void handleSummaryPanelSelectionEvent(SummaryPanelSelectionEvent spse) {
+        this.updateFilteredTaskListOnDate(LocalDateTime.now(), false, SearchCompletedOption.ALL);
+    }
     
+    @Subscribe
+    private void handleWeekSummaryPanelSelectionEvent(WeekSummaryPanelSelectionEvent wspse) {
+        filteredTasks.setPredicate((new PredicateExpression(new WeekDateQualifier(LocalDateTime.now())))::satisfies);
+    }
 }

@@ -278,10 +278,8 @@ public class ToDoListParser {
 
     }
     
-    //@@author A0121643R
-
     /**
-     * Parses arguments in the context of the add task command.
+     * Parses arguments in the context of the update task command.
      *
      * @param args full command args string
      * @return the prepared command

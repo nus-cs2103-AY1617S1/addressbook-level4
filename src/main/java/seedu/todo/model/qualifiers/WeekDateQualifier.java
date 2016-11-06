@@ -24,20 +24,30 @@ public class WeekDateQualifier implements Qualifier{
                         task.getByDate().getTime());
             boolean byWeekCheck = true;
             boolean onWeekCheck = true;
-            boolean intermediateCheck = onDateTime.toLocalDate().isBefore(endDatetime.toLocalDate()) && onDateTime.toLocalDate().isAfter(startDatetime.toLocalDate());
-            onWeekCheck = onDateTime.toLocalDate().equals(endDatetime.toLocalDate()) || intermediateCheck;          
-            byWeekCheck = byDateTime.toLocalDate().equals(startDatetime.toLocalDate()) || byDateTime.toLocalDate().isAfter(startDatetime.toLocalDate());
+            boolean intermediateCheck = 
+                    onDateTime.toLocalDate().isBefore(endDatetime.toLocalDate()) 
+                    && onDateTime.toLocalDate().isAfter(startDatetime.toLocalDate());
+            onWeekCheck = 
+                    onDateTime.toLocalDate().equals(endDatetime.toLocalDate()) 
+                    || intermediateCheck;          
+            byWeekCheck = byDateTime.toLocalDate().equals(startDatetime.toLocalDate()) 
+                    || byDateTime.toLocalDate().isAfter(startDatetime.toLocalDate());
             
             return byWeekCheck || onWeekCheck;
         } else if (task.getByDate().getDate() != null) {
             LocalDateTime byDateTime = DateTimeUtil.combineLocalDateAndTime(task.getByDate().getDate(),
                     task.getByDate().getTime());
-            return byDateTime.toLocalDate().equals(startDatetime.toLocalDate()) || byDateTime.toLocalDate().isAfter(startDatetime.toLocalDate());
+            return byDateTime.toLocalDate().equals(startDatetime.toLocalDate()) 
+                    || byDateTime.toLocalDate().isAfter(startDatetime.toLocalDate());
         } else if (task.getOnDate().getDate() != null) {
             LocalDateTime onDateTime = DateTimeUtil.combineLocalDateAndTime(task.getOnDate().getDate(),
                     task.getOnDate().getTime());
-            boolean intermediateCheck = onDateTime.toLocalDate().isBefore(endDatetime.toLocalDate()) && onDateTime.toLocalDate().isAfter(startDatetime.toLocalDate());
-            return onDateTime.toLocalDate().equals(endDatetime.toLocalDate()) || intermediateCheck;
+            boolean intermediateCheck = 
+                    onDateTime.toLocalDate().isBefore(endDatetime.toLocalDate()) 
+                    && onDateTime.toLocalDate().isAfter(startDatetime.toLocalDate());
+            return onDateTime.toLocalDate().equals(endDatetime.toLocalDate()) 
+                    || intermediateCheck 
+                    || onDateTime.toLocalDate().equals(startDatetime.toLocalDate());
         } else {
             return false;
         }

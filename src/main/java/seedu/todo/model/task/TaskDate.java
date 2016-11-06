@@ -66,13 +66,10 @@ public class TaskDate {
         return this.time = time;
     }
     
-  //@@author A0121643R-unused
-    
+    //@@author A0121643R-unused    
     /**
      * earlier date is smaller so that it can be shown before task with later date
      */
-    
-
 	public int compareTo(TaskDate other) {
 		if (this.getDate() == null && other.getDate() == null) {
 			return 0;
@@ -86,6 +83,7 @@ public class TaskDate {
 			return this.getDate().compareTo(other.getDate());
 		}
 	}
+	//@@author
 
     @Override
     public String toString() {

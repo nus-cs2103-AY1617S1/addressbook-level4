@@ -64,7 +64,6 @@ public class UntagCommand extends Command{
         try {
             model.deleteTaskTags(taskToUntag, tags);
             model.updateFilteredListToShowAll();
-          //@@author A0121643R
             model.updateTodayListToShowAll();
             model.updateWeekListToShowAll();
         } catch (TaskNotFoundException pnfe) {

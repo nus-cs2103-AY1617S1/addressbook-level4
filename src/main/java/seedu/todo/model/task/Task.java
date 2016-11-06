@@ -158,8 +158,8 @@ public class Task implements ReadOnlyTask {
     public void setTags(UniqueTagList replacement) {
         tags.setTags(replacement);
     }
-    //@@author A0121643R-unused
     
+    //@@author A0121643R-unused
     /**
      * compares first based on bydate, then on priority, then on name
      * @return dateTimeComparator
@@ -179,6 +179,7 @@ public class Task implements ReadOnlyTask {
             }
         };
     }
+    //@@author A0121643R
     
     @Override
     public boolean equals(Object other) {
