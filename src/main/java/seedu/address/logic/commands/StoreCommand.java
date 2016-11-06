@@ -34,62 +34,83 @@ public class StoreCommand extends Command {
     public String storageFilePath;
 
     public StoreCommand(String storageFilePath) {
-        this.storageFilePath = storageFilePath;
+        this.storageFilePath = storageFilePath + XML_FILE_EXTENSION;
     }
     
     @Override
     public CommandResult execute() {        
         assert model != null;
-        storageFilePath = storageFilePath + XML_FILE_EXTENSION;
-        XmlTaskManagerStorage xmlTaskManagerStorage = new XmlTaskManagerStorage(storageFilePath);
-        File storageFile = new File(storageFilePath);
-
         try {
-            if (storageFile.exists()) {
-                importDataFromExistingStorageFile(xmlTaskManagerStorage);
-            } else {
-                createNewFileWithExistingData(xmlTaskManagerStorage);
-            }
+            handleTaskManagerData();
             updateStorageFilePathOfConfigFile();
             return new CommandResult(String.format(MESSAGE_SUCCESS, storageFilePath));
+        } catch (FileNotFoundException fnfe) {
+            assert false : "File cannot be missing.";
+            return new CommandResult(MESSAGE_FAILURE);
         } catch (IOException ioe) {
             return new CommandResult(MESSAGE_FAILURE);
         } catch (DataConversionException dce) {
+            assert false : "Data file cannot be in the wrong format.";
             return new CommandResult(MESSAGE_FAILURE);
         }
     }
 
     /**
-     * Updates the storage file path of config file with the new storage file path
-     * provided by user as part of the store command
+     * Handles task manager data.
+     * If target storage file is present, imports data from this file into task manager.
+     * Else creates a new xml file with existing task manager data.
      * 
-     * @throws IOException if there was an error writing to the config file
+     * @throws DataConversionException If target file is not in the correct format.
+     * @throws FileNotFoundException   If target file does not exist.
+     * @throws IOException             If there was an error writing to the new file.
+     */
+    private void handleTaskManagerData() 
+            throws DataConversionException, FileNotFoundException, IOException {
+        XmlTaskManagerStorage xmlTaskManagerStorage = new XmlTaskManagerStorage(storageFilePath);
+        File storageFile = new File(storageFilePath);
+        if (storageFile.exists()) {
+            importDataFromExistingStorageFile(xmlTaskManagerStorage);
+        } else {
+            createNewFileWithExistingData(xmlTaskManagerStorage);
+        }
+    }
+
+    /**
+     * Updates the storage file path of config file with the new storage file path
+     * provided by user as part of the store command.
+     * 
+     * @throws IOException  If there was an error writing to the config file.
      */
     private void updateStorageFilePathOfConfigFile() throws IOException {
+        assert storageFilePath != null;
         Config config = new Config();
         config.setTaskManagerFilePath(storageFilePath);
         ConfigUtil.saveConfig(config, Config.DEFAULT_CONFIG_FILE);
     }
 
     /**
-     * Creates a new file, and copies all existing data in task manager over into it
+     * Creates a new file, and copies all existing data in task manager over into it.
      * 
-     * @throws IOException if there was an error writing to the new file
+     * @throws IOException  If there was an error writing to the new file.
      */
     private void createNewFileWithExistingData(XmlTaskManagerStorage xmlTaskManagerStorage) throws IOException {
+        assert xmlTaskManagerStorage != null;
+        assert storageFilePath != null;
         xmlTaskManagerStorage.saveTaskManager(model.getTaskManager(), storageFilePath);
         EventsCenter.getInstance().post(new ChangeStorageFilePathEvent(storageFilePath));
     }
 
     /**
-     * Imports data from the existing storage file
-     * Updates the model component of task manager with the imported data
+     * Imports data from the existing storage file.
+     * Updates the model component of task manager with the imported data.
      * 
-     * @throws DataConversionException if target file is not in the correct format
-     * @throws FileNotFoundException if target file does not exist
+     * @throws DataConversionException If target file is not in the correct format.
+     * @throws FileNotFoundException   If target file does not exist.
      */
     private void importDataFromExistingStorageFile(XmlTaskManagerStorage xmlTaskManagerStorage)
             throws DataConversionException, FileNotFoundException {
+        assert xmlTaskManagerStorage != null;
+        assert storageFilePath != null;
         Optional <ReadOnlyTaskManager> readTaskManager = xmlTaskManagerStorage.readTaskManager(storageFilePath);
         assert readTaskManager.isPresent();
         ReadOnlyTaskManager readOnlyTaskManagerWithNewData = readTaskManager.get();

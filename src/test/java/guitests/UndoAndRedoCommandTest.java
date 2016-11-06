@@ -14,7 +14,7 @@ import seedu.address.testutil.TestUtil;
 import seedu.address.testutil.TypicalTestTasks;
 
 import static org.junit.Assert.assertTrue;
-import static seedu.address.logic.commands.DeleteCommand.MESSAGE_DELETE_ITEM_SUCCESS;
+import static seedu.address.logic.commands.DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS;
 
 import java.util.Arrays;
 
@@ -334,7 +334,7 @@ public class UndoAndRedoCommandTest extends DearJimGuiTest {
         assertTrue(personListPanel.isListMatching(expectedRemainder));
 
         //confirm the result message is correct
-        assertResultMessage(String.format(MESSAGE_DELETE_ITEM_SUCCESS, TestUtil.generateDisplayString(personToDelete)));
+        assertResultMessage(String.format(MESSAGE_DELETE_TASK_SUCCESS, TestUtil.generateDisplayString(personToDelete)));
     }
         
     /**
