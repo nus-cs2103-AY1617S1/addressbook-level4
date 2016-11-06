@@ -93,14 +93,18 @@ public class UniqueTagCollection implements Iterable<Tag>, UniqueTagCollectionMo
     }
 
     /**
-     * Removes the association between the {@code task} from the {@code tag} in
-     * the {@link #uniqueTagsToTasksMap}.
+     * Removes the association between the {@code task} from the {@code tag} in {@link #uniqueTagsToTasksMap}.
+     * If the tag do not have any associated task, the tag will be removed from the map.
      * @return an instance of the {@code tag}
      */
     private Tag dissociateTaskFromTag(ImmutableTask task, Tag tag) {
         Set<ImmutableTask> setOfTasks = uniqueTagsToTasksMap.get(tag);
         if (setOfTasks != null) {
             setOfTasks.remove(task);
+
+            if (setOfTasks.isEmpty()) {
+                uniqueTagsToTasksMap.remove(tag);
+            }
         }
         return tag;
     }
