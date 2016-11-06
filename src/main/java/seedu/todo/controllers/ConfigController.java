@@ -24,14 +24,14 @@ public class ConfigController extends Controller {
 
     private static final String MESSAGE_SHOWING = "Showing all settings.";
     private static final String MESSAGE_SUCCESS = "Successfully updated %s.";
-    private static final String MESSAGE_FAILURE = "Could not update settings: %s";
+    public static final String MESSAGE_FAILURE = "Could not update settings: %s";
     private static final String MESSAGE_INVALID_INPUT = "Invalid config setting provided!";
-    private static final String MESSAGE_WRONG_EXTENSION = "Could not change storage path: File must end with %s";
+    public static final String MESSAGE_WRONG_EXTENSION = "Could not change storage path: File must end with %s";
     public static final String TEMPLATE_SET_CONFIG = "config <setting> <value>";
     
     private static final String STRING_SPACE = " ";
     private static final int ARGS_LENGTH = 2;
-    private static final String DB_FILE_EXTENSION = ".json";
+    public static final String DB_FILE_EXTENSION = ".json";
 
     private static CommandDefinition commandDefinition =
             new CommandDefinition(NAME, DESCRIPTION, COMMAND_SYNTAX, COMMAND_KEYWORD); 
