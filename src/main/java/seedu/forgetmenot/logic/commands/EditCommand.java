@@ -1,7 +1,9 @@
 package seedu.forgetmenot.logic.commands;
 
+import seedu.forgetmenot.commons.core.EventsCenter;
 import seedu.forgetmenot.commons.core.Messages;
 import seedu.forgetmenot.commons.core.UnmodifiableObservableList;
+import seedu.forgetmenot.commons.events.ui.JumpToListRequestEvent;
 import seedu.forgetmenot.commons.exceptions.IllegalValueException;
 import seedu.forgetmenot.model.task.ReadOnlyTask;
 import seedu.forgetmenot.model.task.Time;
@@ -17,8 +19,8 @@ public class EditCommand extends Command {
     public static final String COMMAND_WORD = "edit";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Edits the task identified using it's last displayed index. " + "Parameters: INDEX NEW_DETAILS\n"
-            + "Example: " + COMMAND_WORD + " 1 oranges";
+            + ": Edits the task identified using it's last displayed index. " + "\tParameters: INDEX NEW_DETAILS\n"
+            + "\tExample: " + COMMAND_WORD + " 1 oranges";
     public static final String MESSAGE_EDIT_TASK_SUCCESS = "You've successfully edited the task!\n"
             + "Edited Task: %1$s";
     public static final String MESSAGE_EDIT_TASK_NOT_SUCCESSFUL = "Sorry! The edit details are invalid."
@@ -56,6 +58,8 @@ public class EditCommand extends Command {
             model.saveToHistory();
             model.editTask(taskToEdit, newName, newStart, newEnd);
             model.updateFilteredTaskListToShowNotDone();
+            EventsCenter.getInstance().post(new JumpToListRequestEvent(targetIndex - 1));
+            
         } catch (TaskNotFoundException pnfe) {
             assert false : "The target task cannot be missing";
         } catch (IllegalValueException e) {

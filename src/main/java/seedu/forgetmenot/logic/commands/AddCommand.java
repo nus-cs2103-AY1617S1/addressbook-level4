@@ -17,8 +17,8 @@ public class AddCommand extends Command {
     public static final String COMMAND_WORD = "add";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task to ForgetMeNot. "
-            + "Parameters: TASKNAME DATE"
-            + "Example: " + COMMAND_WORD
+            + "\tParameters: TASKNAME DATE"
+            + "\tExample: " + COMMAND_WORD
             + " Homework by tomorrow 6pm";
 
     public static final String MESSAGE_SUCCESS = "New task added: %1$s";
