@@ -58,6 +58,18 @@ public class CompleteUncompleteTaskTest extends GuiTest {
     public void complete_overdueTask_hide() {
         assertTaskNotVisibleAfterCmd("complete 1", task1);
     }
+    
+    @Test
+    public void uncomplete_futureTask_show() {
+        console.runCommand("complete 2");
+        assertTaskVisibleAfterCmd("uncomplete 2", task2);
+    }
+    
+    @Test
+    public void uncomplete_overdueTask_show() {
+        console.runCommand("complete 1");
+        console.runCommand("list completed");
+        assertTaskVisibleAfterCmd("uncomplete 1", task1);
     }
 
 }
