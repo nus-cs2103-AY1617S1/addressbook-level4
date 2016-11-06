@@ -10,7 +10,7 @@ We are a team based in the [School of Computing, National University of Singapor
 <img src="images/JingHe.jpg" width="150"><br>
 
 
-* Components in charge of: [Model] (https://github.com/CS2103AUG2016-T10-C3/main/blob/master/docs/DeveloperGuide.md#model-component)
+* Components in charge of: [Model] (https://github.com/CS2103AUG2016-T10-C3/main/blob/master/docs/DeveloperGuide.md#section-b---understanding-the-component)
 * Aspects/tools in charge of:
 * Features implemented:
 	* List categories or tags
