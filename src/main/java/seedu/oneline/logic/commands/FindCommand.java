@@ -4,7 +4,7 @@ import java.util.Set;
 
 import seedu.oneline.commons.core.EventsCenter;
 import seedu.oneline.commons.core.Messages;
-import seedu.oneline.commons.events.ui.ShowAllViewEvent;
+import seedu.oneline.commons.events.ui.ChangeViewEvent;
 import seedu.oneline.commons.exceptions.IllegalCmdArgsException;
 import seedu.oneline.commons.exceptions.IllegalValueException;
 import seedu.oneline.logic.parser.Parser;
@@ -39,7 +39,7 @@ public class FindCommand extends Command {
     @Override
     public CommandResult execute() {
         model.updateFilteredTaskList(keywords);
-        EventsCenter.getInstance().post(new ShowAllViewEvent());
+        EventsCenter.getInstance().post(new ChangeViewEvent(" "));
         return new CommandResult(getMessageForTaskListShownSummary(model.getFilteredTaskList().size()));
     }
     

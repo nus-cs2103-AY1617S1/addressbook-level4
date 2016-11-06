@@ -7,10 +7,7 @@ import java.util.Set;
 import seedu.oneline.commons.core.EventsCenter;
 import seedu.oneline.commons.core.Messages;
 import seedu.oneline.commons.events.ui.ShowHelpRequestEvent;
-import seedu.oneline.commons.events.ui.ShowAllViewEvent; 
-import seedu.oneline.commons.events.ui.ShowDayViewEvent; 
-import seedu.oneline.commons.events.ui.ShowWeekViewEvent; 
-import seedu.oneline.commons.events.ui.ShowFloatViewEvent; 
+import seedu.oneline.commons.events.ui.ChangeViewEvent; 
 import seedu.oneline.commons.exceptions.IllegalCmdArgsException;
 import seedu.oneline.commons.exceptions.IllegalValueException;
 import seedu.oneline.logic.parser.Parser;
@@ -65,31 +62,27 @@ public class ListCommand extends Command {
         model.updateFilteredListToShowAllNotDone();
         switch (listBy) {
         case " ":
-            EventsCenter.getInstance().post(new ShowAllViewEvent());
             model.updateFilteredListToShowAllNotDone();
             break;
         case "done":
-            EventsCenter.getInstance().post(new ShowAllViewEvent());
             model.updateFilteredListToShowAllDone();
             break;
         case "undone":
             model.updateFilteredListToShowAllNotDone();
             break;
         case "today":
-            EventsCenter.getInstance().post(new ShowDayViewEvent());
             model.updateFilteredListToShowToday();
             break;
         case "week":
-            EventsCenter.getInstance().post(new ShowWeekViewEvent());
             model.updateFilteredListToShowWeek();
             break;
         case "float":
-            EventsCenter.getInstance().post(new ShowFloatViewEvent());
             model.updateFilteredListToShowFloat();
             break;
         default:
             return new CommandResult(MESSAGE_INVALID);
         }
+        EventsCenter.getInstance().post(new ChangeViewEvent(listBy));
         return new CommandResult(String.format(MESSAGE_SUCCESS, listBy.equals(" ") ? "all" : listBy));
     }
 
