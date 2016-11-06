@@ -1,6 +1,8 @@
 package seedu.dailyplanner.ui;
 
 import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -13,9 +15,12 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import seedu.dailyplanner.commons.core.LogsCenter;
 import seedu.dailyplanner.commons.events.ui.PersonPanelSelectionChangedEvent;
+import seedu.dailyplanner.logic.Logic;
 import seedu.dailyplanner.model.task.ReadOnlyTask;
 
 import java.util.logging.Logger;
+
+import com.sun.javafx.tk.Toolkit.Task;
 
 /**
  * Panel containing the list of persons.
@@ -25,6 +30,7 @@ public class PersonListPanel extends UiPart {
     private static final String FXML = "PersonListPanel.fxml";
     private VBox panel;
     private AnchorPane placeHolderPane;
+    private Logic logic;
 
     @FXML
     private ListView<ReadOnlyTask> personListView;
@@ -49,14 +55,16 @@ public class PersonListPanel extends UiPart {
     }
 
     public static PersonListPanel load(Stage primaryStage, AnchorPane personListPlaceholder,
-                                       ObservableList<ReadOnlyTask> personList) {
+                                       ObservableList<ReadOnlyTask> personList, Logic logic) {
+        
         PersonListPanel personListPanel =
                 UiPartLoader.loadUiPart(primaryStage, personListPlaceholder, new PersonListPanel());
-        personListPanel.configure(personList);
+        personListPanel.configure(personList, logic);
         return personListPanel;
     }
 
-    private void configure(ObservableList<ReadOnlyTask> personList) {
+    private void configure(ObservableList<ReadOnlyTask> personList, Logic logic) {
+        this.logic = logic;
         setConnections(personList);
         addToPlaceholder();
     }
@@ -83,12 +91,13 @@ public class PersonListPanel extends UiPart {
     }
     
     private void setEventHandlerForAdditionToListEvent(ObservableList<ReadOnlyTask> personList) {
-        personListView.getItems().addListener(new ListChangeListener() {
-            @Override
-            public void onChanged(ListChangeListener.Change change) {
-                scrollTo(personList.size()-1);
-            }
-        });
+       logic.getLastTaskAddedIndexProperty().addListener(new ChangeListener<Object>() {
+      @Override
+      public void changed(ObservableValue observableValue, Object oldValue,
+          Object newValue) {
+        scrollTo((int) newValue);
+      }
+    });
     }
 
     public void scrollTo(int index) {

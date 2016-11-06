@@ -1,8 +1,11 @@
 package seedu.dailyplanner.ui;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.AnchorPane;
@@ -64,6 +67,9 @@ public class MainWindow extends UiPart {
 
     @FXML
     private AnchorPane statusbarPlaceholder;
+    
+    @FXML
+    private Label forDate;
 
 
     public MainWindow() {
@@ -121,10 +127,33 @@ public class MainWindow extends UiPart {
     void fillInnerParts() {
         //browserPanel = BrowserPanel.load(browserPlaceholder);
         pinnedTaskPanel = PinnedTaskPanel.load(primaryStage, getPinnedTaskPlaceholder(), logic.getPinnedTaskList());
-        personListPanel = PersonListPanel.load(primaryStage, getPersonListPlaceholder(), logic.getFilteredPersonList());
+        personListPanel = PersonListPanel.load(primaryStage, getPersonListPlaceholder(), logic.getFilteredPersonList(), logic);
         resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
         statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getAddressBookFilePath());
         commandBox = CommandBox.load(primaryStage, getCommandBoxPlaceholder(), resultDisplay, logic);
+        forDate.setText("");
+        setForDateEventHandler();
+    }
+
+    private void setForDateEventHandler() {
+        logic.getLastShowDateProperty().addListener(new ChangeListener<Object>() {
+            @Override
+            public void changed(ObservableValue observableValue, Object oldValue,
+                Object newValue) {
+                String newString = (String) newValue;
+                if (newString.equals("")) {
+                    forDate.setText("");
+                } else if (newString.equals("complete") || newString.equals("completed")){
+                    forDate.setText(" - " + newString);
+                } else if (newString.equals("not complete") || newString.equals("not completed")) {
+                    forDate.setText(" - " + newString);
+                }
+                else {
+                    forDate.setText("for " + (String) newValue);
+                }
+            }
+          });
+        
     }
 
     private AnchorPane getCommandBoxPlaceholder() {

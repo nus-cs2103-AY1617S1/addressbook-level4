@@ -1,5 +1,9 @@
 package seedu.dailyplanner.model;
 
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.collections.transformation.FilteredList;
 import seedu.dailyplanner.commons.core.ComponentManager;
 import seedu.dailyplanner.commons.core.LogsCenter;
@@ -21,147 +25,184 @@ import java.util.logging.Logger;
  * model should be synchronized.
  */
 public class ModelManager extends ComponentManager implements Model {
-	private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
+    private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-	private final AddressBook addressBook;
-	private final FilteredList<Task> filteredPersons;
-	private final FilteredList<Task> pinnedTasks;
-	private final HistoryManager history;
+    private final AddressBook addressBook;
+    private final FilteredList<Task> filteredPersons;
+    private final FilteredList<Task> pinnedTasks;
+    private final HistoryManager history;
+    private IntegerProperty lastTaskAddedIndex;
+    private StringProperty lastShowDate;
 
-	/**
-	 * Initializes a ModelManager with the given AddressBook AddressBook and its
-	 * variables should not be null
-	 */
-	public ModelManager(AddressBook src, UserPrefs userPrefs) {
-		super();
-		assert src != null;
-		assert userPrefs != null;
+    /**
+     * Initializes a ModelManager with the given AddressBook AddressBook and its
+     * variables should not be null
+     */
+    public ModelManager(AddressBook src, UserPrefs userPrefs) {
+	super();
+	assert src != null;
+	assert userPrefs != null;
 
-		logger.fine("Initializing with address book: " + src + " and user prefs " + userPrefs);
+	logger.fine("Initializing with address book: " + src + " and user prefs " + userPrefs);
 
-		addressBook = new AddressBook(src);
-		filteredPersons = new FilteredList<>(addressBook.getPersons());
-		pinnedTasks = new FilteredList<>(addressBook.getPinnedTasks());
-		history = new HistoryManager();
-	}
+	addressBook = new AddressBook(src);
+	filteredPersons = new FilteredList<>(addressBook.getPersons());
+	pinnedTasks = new FilteredList<>(addressBook.getPinnedTasks());
+	history = new HistoryManager();
+	lastTaskAddedIndex = new SimpleIntegerProperty(0);
+	lastShowDate = new SimpleStringProperty();
+    }
 
-	public ModelManager() {
-		this(new AddressBook(), new UserPrefs());
-	}
+    public ModelManager() {
+	this(new AddressBook(), new UserPrefs());
+    }
 
-	public ModelManager(ReadOnlyAddressBook initialData, UserPrefs userPrefs) {
-		addressBook = new AddressBook(initialData);
-		filteredPersons = new FilteredList<>(addressBook.getPersons());
-		pinnedTasks = new FilteredList<>(addressBook.getPinnedTasks());
-		history = new HistoryManager();
-	}
+    public ModelManager(ReadOnlyAddressBook initialData, UserPrefs userPrefs) {
+	addressBook = new AddressBook(initialData);
+	filteredPersons = new FilteredList<>(addressBook.getPersons());
+	pinnedTasks = new FilteredList<>(addressBook.getPinnedTasks());
+	history = new HistoryManager();
+    lastTaskAddedIndex =  new SimpleIntegerProperty(0);
+    lastShowDate = new SimpleStringProperty();
+    }
 
-	@Override
-	public void resetData(ReadOnlyAddressBook newData) {
-		addressBook.resetData(newData);
-		indicateAddressBookChanged();
-	}
+    @Override
+    public void resetData(ReadOnlyAddressBook newData) {
+	addressBook.resetData(newData);
+	indicateAddressBookChanged();
+    }
 
-	@Override
-	public ReadOnlyAddressBook getAddressBook() {
-		return addressBook;
-	}
+    @Override
+    public ReadOnlyAddressBook getAddressBook() {
+	return addressBook;
+    }
 
-	/** Raises an event to indicate the model has changed */
-	private void indicateAddressBookChanged() {
-		raise(new AddressBookChangedEvent(addressBook));
-	}
+    /** Raises an event to indicate the model has changed */
+    private void indicateAddressBookChanged() {
+	raise(new AddressBookChangedEvent(addressBook));
+    }
 
-	@Override
-	public synchronized void deletePerson(ReadOnlyTask target) throws PersonNotFoundException {
-		addressBook.removePerson(target);
-		indicateAddressBookChanged();
-	}
+    @Override
+    public synchronized void deletePerson(ReadOnlyTask target) throws PersonNotFoundException {
+	addressBook.removePerson(target);
+	indicateAddressBookChanged();
+    }
 
-	@Override
-	public synchronized void addPerson(Task person) throws UniqueTaskList.DuplicatePersonException {
-		addressBook.addPerson(person);
-		updateFilteredListToShowAll();
-		indicateAddressBookChanged();
-	}
+    @Override
+    public synchronized void addPerson(Task person) throws UniqueTaskList.DuplicatePersonException {
+	addressBook.addPerson(person);
+	setLastTaskAddedIndex(addressBook.indexOf(person));
+	updateFilteredListToShowAll();
+	indicateAddressBookChanged();
+	setLastShowDate(person.getStart().getDate().toString());
+    }
 
-	public synchronized void markTaskAsComplete(ReadOnlyTask taskToComplete) throws PersonNotFoundException {
-		addressBook.markTaskAsComplete(taskToComplete);
-		indicateAddressBookChanged();
-	}
+    public synchronized void markTaskAsComplete(ReadOnlyTask taskToComplete) throws PersonNotFoundException {
+        addressBook.markTaskAsComplete(taskToComplete);
+        indicateAddressBookChanged();
+    }
+    
+    @Override
+    public void pinTask(int targetIndex) throws PersonNotFoundException {
+	addressBook.pinTask(targetIndex);
+	indicateAddressBookChanged();
+    }
+    
+    @Override
+    public void unpinTask(int targetIndex) throws PersonNotFoundException {
+    	addressBook.unpinTask(targetIndex);
+    	indicateAddressBookChanged();
+    }
 
-	@Override
-	public void pinTask(int targetIndex) throws PersonNotFoundException {
-		addressBook.pinTask(targetIndex);
-		indicateAddressBookChanged();
-	}
+    // =========== Filtered Person List Accessors
+    // ===============================================================
 
-	@Override
-	public void unpinTask(int targetIndex) throws PersonNotFoundException {
-		addressBook.unpinTask(targetIndex);
-		indicateAddressBookChanged();
-	}
+    @Override
+    public UnmodifiableObservableList<ReadOnlyTask> getFilteredPersonList() {
+	return new UnmodifiableObservableList<>(filteredPersons);
+    }
 
-	// =========== Filtered Person List Accessors
-	// ===============================================================
+    @Override
+    public UnmodifiableObservableList<ReadOnlyTask> getPinnedTaskList() {
+	return new UnmodifiableObservableList<>(pinnedTasks);
+    }
 
-	@Override
-	public UnmodifiableObservableList<ReadOnlyTask> getFilteredPersonList() {
-		return new UnmodifiableObservableList<>(filteredPersons);
-	}
+    @Override
+    public void updateFilteredListToShowAll() {
+	filteredPersons.setPredicate(null);
+    }
 
-	@Override
-	public UnmodifiableObservableList<ReadOnlyTask> getPinnedTaskList() {
-		return new UnmodifiableObservableList<>(pinnedTasks);
-	}
+    @Override
+    public void updateFilteredPersonList(Set<String> keywords) {
+	updateFilteredPersonList(new PredicateExpression(new NameQualifier(keywords)));
+    }
 
-	@Override
-	public void updateFilteredListToShowAll() {
-		filteredPersons.setPredicate(null);
-	}
+    private void updateFilteredPersonList(Expression expression) {
+	filteredPersons.setPredicate(expression::satisfies);
+    }
 
-	@Override
-	public void updateFilteredPersonList(Set<String> keywords) {
-		updateFilteredPersonList(new PredicateExpression(new NameQualifier(keywords)));
-	}
+    @Override
+    public void updateFilteredPersonListByDate(Set<String> keywords) {
+	updateFilteredPersonList(new PredicateExpression(new DateQualifier(keywords)));
+    }
 
-	private void updateFilteredPersonList(Expression expression) {
-		filteredPersons.setPredicate(expression::satisfies);
-	}
+    private void updateFilteredPersonListByDate(Expression expression) {
+	filteredPersons.setPredicate(expression::satisfies);
+    }
 
-	@Override
-	public void updateFilteredPersonListByDate(Set<String> keywords) {
-		updateFilteredPersonList(new PredicateExpression(new DateQualifier(keywords)));
-	}
+    @Override
+    public void updateFilteredPersonListByCompletion(Set<String> keywords) {
+	updateFilteredPersonList(new PredicateExpression(new CompletionQualifier(keywords)));
+    }
 
-	private void updateFilteredPersonListByDate(Expression expression) {
-		filteredPersons.setPredicate(expression::satisfies);
-	}
+    private void updateFilteredPersonListByCompletion(Expression expression) {
+	filteredPersons.setPredicate(expression::satisfies);
+    }
+    
+    @Override
+    public int getLastTaskAddedIndex() {
+        return lastTaskAddedIndex.get();
+    }
+    @Override
+    public void setLastTaskAddedIndex(int index) {
+        lastTaskAddedIndex.set(index);
+    }
+    
+    @Override 
+    public IntegerProperty getLastTaskAddedIndexProperty() {
+        return lastTaskAddedIndex;
+    }
+    
+    @Override
+    public String getLastShowDate() {
+        return lastShowDate.get();
+    }
 
-	@Override
-	public void updateFilteredPersonListByCompletion(Set<String> keywords) {
-		updateFilteredPersonList(new PredicateExpression(new CompletionQualifier(keywords)));
-	}
+    @Override
+    public void setLastShowDate(String showInput) {
+        lastShowDate.set(showInput);
+    }
 
-	private void updateFilteredPersonListByCompletion(Expression expression) {
-		filteredPersons.setPredicate(expression::satisfies);
-	}
+    @Override
+    public StringProperty getLastShowDateProperty() {
+        return lastShowDate;
+    }
 
-	// ========== Inner classes/interfaces used for filtering
-	// ==================================================
+    // ========== Inner classes/interfaces used for filtering
+    // ==================================================
 
-	interface Expression {
-		boolean satisfies(ReadOnlyTask person);
+    interface Expression {
+	boolean satisfies(ReadOnlyTask person);
 
-		String toString();
-	}
+	String toString();
+    }
 
-	private class PredicateExpression implements Expression {
+    private class PredicateExpression implements Expression {
 
-		private final Qualifier qualifier;
+	private final Qualifier qualifier;
 
-		PredicateExpression(Qualifier qualifier) {
-			this.qualifier = qualifier;
+	PredicateExpression(Qualifier qualifier) {
+	    this.qualifier = qualifier;
 		}
 
 		@Override
@@ -242,5 +283,7 @@ public class ModelManager extends ComponentManager implements Model {
 
 		return history;
 	}
+
+   
 
 }

@@ -46,20 +46,19 @@ public class AddCommand extends Command {
 
     @Override
     public CommandResult execute() {
-	assert model != null;
-	try {
-	    model.getHistory().stackDeleteInstruction(toAdd);
-	    model.addPerson(toAdd);
-
-	    /*
-	    if (checkClash(toAdd) > -1)
-		return new CommandResult(String.format(MESSAGE_WARNING_CLASH,
-			model.getAddressBook().getPersonList().get(checkClash(toAdd))));*/
-
-	    return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
-	} catch (UniqueTaskList.DuplicatePersonException e) {
-	    return new CommandResult(MESSAGE_DUPLICATE_PERSON);
-	}
+        assert model != null;
+        try {
+        	model.getHistory().stackDeleteInstruction(toAdd);
+            model.addPerson(toAdd);
+            
+            
+        	//if (checkClash(toAdd) > -1)
+				//return new CommandResult(String.format(MESSAGE_WARNING_CLASH, model.getAddressBook().getPersonList().get(checkClash(toAdd))));
+        	
+            return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+        } catch (UniqueTaskList.DuplicatePersonException e) {
+            return new CommandResult(MESSAGE_DUPLICATE_PERSON);
+        }
 
     }
 

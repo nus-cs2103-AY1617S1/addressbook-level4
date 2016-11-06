@@ -1,5 +1,6 @@
 package seedu.dailyplanner.ui;
 
+
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
@@ -8,7 +9,8 @@ import seedu.dailyplanner.model.task.ReadOnlyTask;
 
 public class PersonCard extends UiPart {
 
-    private static final String FXML = "PersonListCard.fxml";
+	private static final String FXML = "PersonListCard.fxml";
+	private static final String DUE_SOON_LABEL_STYLE = "-fx-background-color: rgba(247, 170, 69, 1);";
 
     @FXML
     private HBox cardPane;
@@ -59,9 +61,10 @@ public class PersonCard extends UiPart {
 	    isComplete.setText(task.getCompletion());
 	    isComplete.setVisible(true);
 	} else {
-	    isComplete.setText("");
-	    isComplete.setVisible(false);
+	    isComplete.setText("DUE SOON");
+        isComplete.setStyle(DUE_SOON_LABEL_STYLE);
 	}
+
 	if (task.getStart().getDate().toString().equals("")) {
 	    startAtLabel.setVisible(false);
 	} else {

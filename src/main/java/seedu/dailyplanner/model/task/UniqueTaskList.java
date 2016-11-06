@@ -52,6 +52,11 @@ public class UniqueTaskList implements Iterable<Task> {
 		assert toCheck != null;
 		return internalList.contains(toCheck);
 	}
+	
+	/** Returns index of task given in argument */
+	public int getIndexOf(Task task) {
+	    return internalList.indexOf(task);
+	}
 
 	/**
 	 * Adds a person to the list.

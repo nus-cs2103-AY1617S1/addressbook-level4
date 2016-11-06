@@ -22,9 +22,22 @@
     -fx-opacity: 1.0;
 }
 
+.fordate-label {
+	-fx-font-family: Verdana;
+  -fx-font-size: 15px;
+  -fx-highlight-fill: #00ff00;
+  -fx-highlight-text-fill: #000000;
+  -fx-text-fill: #00ff00;
+	
+}
+
 .text-field {
-    -fx-font-size: 12.0pt;
-    -fx-font-family: "Segoe UI Semibold";
+    -fx-font-family: Consolas;
+  -fx-font-size: 15px;
+  -fx-highlight-fill: #00ff00;
+  -fx-highlight-text-fill: #000000;
+  -fx-text-fill: #00ff00;
+    -fx-background-color: black;
 }
 
 .text-pane {
@@ -121,6 +134,15 @@
     -fx-padding: 5.0 5.0 5.0 5.0;
 }
 
+.duenotif-label {
+	-fx-font-size: 14.0px;
+    -fx-text-fill: #ffffff;
+    -fx-alignment: CENTER;
+    -fx-background-color: rgba(247, 170, 69, 1);
+    -fx-background-radius: 5.0;
+    -fx-padding: 5.0 5.0 5.0 5.0;
+}
+
 .anchor-pane {
      -fx-background-color: derive(#1d1d1d, 20.0%);
 }
@@ -136,12 +158,20 @@
     -fx-text-fill: black;
 }
 
-.result-display {
-    -fx-background-color: #ffffff;
+.result-display .content{
+    -fx-background-color: #000000;
 }
 
 .result-display .label {
     -fx-text-fill: black !important;
+}
+
+.result-display {
+  -fx-font-family: Consolas;
+  -fx-font-size: 15px;
+  -fx-highlight-fill: #00ff00;
+  -fx-highlight-text-fill: #000000;
+  -fx-text-fill: #00ff00;
 }
 
 .status-bar .label {

@@ -73,15 +73,18 @@
                            <font>
                               <Font size="10.0" />
                            </font>
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
                         </Label>
                      </children>
                      <VBox.margin>
-                        <Insets top="30.0" />
+                        <Insets top="25.0" />
                      </VBox.margin>
                   </HBox>
                </children>
                <padding>
-                  <Insets left="25.0" />
+                  <Insets left="55.0" />
                </padding>
             </VBox>
             </children>
