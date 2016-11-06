@@ -28,7 +28,7 @@ public class AddCommand extends Command {
     public static final String MESSAGE_SUCCESS = "New task added: %1$s";
     public static final String MESSAGE_DUPLICATE_PERSON = "This task already exists in the daily planner";
     public static final String MESSAGE_WARNING_CLASH = "Warning! Current timeslot clashes with one the tasks: %1$s";
-    private List<ReadOnlyTask> personList = model.getAddressBook().getPersonList();
+    private List<ReadOnlyTask> personList;
     private final Task toAdd;
     /**
      * Convenience constructor using raw values.
@@ -45,6 +45,7 @@ public class AddCommand extends Command {
 	    tagSet.add(new Tag(tagName));
 	}
 	this.toAdd = new Task(taskName, start, end, false, false, new UniqueTagList(tagSet));
+	personList =  model.getAddressBook().getPersonList();
     }
 
     @Override
