@@ -250,26 +250,29 @@ Example: Redo 2
 >Note: If no number is entered, the default number of times the command will redo is 1.
 
 <br>
-###9 Exiting the program
+###9 Clearing the program
+
+If you wish to start off on a clean slate and remove all tasks in Simply, simply use the following command.
+
+>Format: clear
+
+<br>
+###10 Exiting the program
 
 When you are done and wish to exit the program, simply type exit and <kbd>Enter</kbd>. This saves all your data and exits the program.
 
-> Format: **Exit**
-
-Example: Exit
+> Format: **exit**
 
 <br>
-###10 Help
+###11 Help
 
 Should you forget how to do any of the commands, you can simply type help in the command box and <kbd>Enter</kbd>.
-This opens a window to the user guide where you can read more in depth into each command or just refer to the command summary for quick use.
+This opens a window showing the command summary for your quick reference. If you need more in-depth details like advanced features of each command, please refer back to this user guide. 
 
-> Format: **Help**
-
-Example : Help
+> Format: **help**
 
 <br>
-###11 Setting Storage Folder
+###12 Setting Storage Folder
 
 If for any reason, you wish to change where your data file is being stored. Maybe so that you can synchronise that folder with online cloud storage services, you can change the folder by using the following command.
 
