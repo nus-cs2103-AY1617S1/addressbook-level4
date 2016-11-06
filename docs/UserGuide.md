@@ -111,7 +111,9 @@ When you accidentally enter the wrong details for any of your tasks, worry not. 
 
 >Note: Adding a date to a to-do will automatically convert your to-do into a deadline with a default end time of 2359 on that date.
 
->Note: Removing
+>Note: Removing the end time from a deadline will automatically convert your deadline to a to-do.
+
+>Noted: Removing the start time from a event will automatically convert your event to a deadline.
 
 <br>
 ####2.1 Edit task description
@@ -329,7 +331,7 @@ The task manager shifts your data file from the current storage folder to the ne
   |     | edit &lt;index&gt; **date** &lt;new_task_date&gt;
   |     | edit &lt;index&gt; **start** &lt;new_task_startTime&gt;
   |     | edit &lt;index&gt; **end** &lt;new_task_endTime&gt;
-  |     | edit &lt;index&gt; **tag** &lt;new_task_endTime&gt;
+  |     | edit &lt;index&gt; **tag** &lt;new_tag&gt;
   |     | edit &lt;index&gt; **tag** oldTag**>**newTag
 6| Find | find &lt;keywords&gt; 
 7| Done | done &lt;index&gt;, &lt;index&gt;
