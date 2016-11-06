@@ -138,7 +138,8 @@ For tasks, you can only edit the name, its tags and the end date and time. Note:
 2. App will display edited item's details in the results panel.
 
   > Example Command:
-  > 1. `edit 1 #wife`
+
+  > 1. `edit 1 #wife` <br>
   > <div style="text-align:center"><img src="images/appResponses/edit_command_response.png" width="300"><br>
   > App Response for `edit 1 #wife`
 
@@ -188,7 +189,6 @@ For events, you can edit all optional parameters.
 1. Type `e[dit] INDEX [n/NEW_NAME] [sdt/NEW_START_DATE_TIME] [sd/NEW_START_DATE] [st/NEW_START_TIME] [edt/NEW_END_DATE_TIME] [ed/NEW_END_DATE] [et/NEW_END_TIME] [#TAG_TO_ADD] [#-TAG_TO_DELETE]`. Press `Enter`.
 
 2. App will display edited item's details in the results panel.
-
 	> Example Command: `edit 1 n/CS2103 sdt/next friday 2 pm edt/next friday 4 pm #work #-play`
 
 ### When you need to view the details of your deadlines, tasks and events
@@ -278,7 +278,7 @@ For events, you can edit all optional parameters.
 2. Console refreshes list of items, with updated status for the updated item.
 
 	> Example Command:
-	> 1. `done 1`
+	> 1. `done 1` <br>
 	> <div style="text-align:center"><img src="images/appResponses/done_command_response.png" width="300"><br>
 	> App Response for `done 1`
 
@@ -289,13 +289,13 @@ For events, you can edit all optional parameters.
 2. Console refreshes list of items, with updated status for the updated item.
 
 	> Example Command:
-	> 1. `notdone 1`
+	> 1. `notdone 1` <br>
 	> <div style="text-align:center"><img src="images/appResponses/notdone_command_response.png" width="300"><br>
 	> App Response for `notdone 1`
 
 ### When you want to undo your last action that caused a changed in your todo list
 
-1. Type `u[ndo]`. Press `Enter`.
+1. Type `u[ndo]`. Press `Enter`. <br>
 
 2. Bottom left panel displays items as per previous state.
 
@@ -306,7 +306,7 @@ For events, you can edit all optional parameters.
 
 ### When you want to redo your last undone action
 
-1. Type `r[edo]`. Press `Enter`.
+1. Type `r[edo]`. Press `Enter`. <br>
 
 2. App's bottom left panel reverts items to before the latest undo action.
 
@@ -326,7 +326,7 @@ For events, you can edit all optional parameters.
 2. Press `Enter`.
 
   > Example Command:
-  > 1. `save Sample.xml`
+  > 1. `save Sample.xml` <br>
   > <div style="text-align:center"><img src="images/appResponses/save_command_response.png" width="300"><br>
   > App Response for `Save Sample.xml`
 
