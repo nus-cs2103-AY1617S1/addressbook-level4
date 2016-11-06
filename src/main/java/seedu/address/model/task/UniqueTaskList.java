@@ -33,17 +33,7 @@ public class UniqueTaskList implements Iterable<Task> {
     public UniqueTaskList() {}
 
     /**
-     * Returns true if the list contains an equivalent person as the given argument.
-     */
-    public boolean contains(ReadOnlyTask toCheck) {
-        assert toCheck != null;
-        return internalList.contains(toCheck);
-    }
-
-    /**
      * Adds a task to the list.
-     *
-     * 
      */
     public void add(Task toAdd)  {
         assert toAdd != null;
