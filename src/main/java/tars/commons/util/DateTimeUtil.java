@@ -40,6 +40,7 @@ public class DateTimeUtil {
             DateTimeFormatter.ofPattern("HHmm");
     public static String MESSAGE_FREE_TIME_SLOT =
             StringUtil.STRING_NEWLINE + "%1$s. %2$shrs to %3$shrs (%4$s)";
+    private static String MESSAGE_DURATION = "%1$s hr %2$s min";
 
     /**
      * @@author A0139924W
@@ -211,8 +212,8 @@ public class DateTimeUtil {
             sb.append(String.format(MESSAGE_FREE_TIME_SLOT, counter,
                     dt.getStartDate().format(stringFormatterWithoutDate),
                     dt.getEndDate().format(stringFormatterWithoutDate),
-                    getDurationInMinutesBetweenTwoLocalDateTime(
-                            dt.getStartDate(), dt.getEndDate())));
+                    getDurationBetweenTwoLocalDateTime(dt.getStartDate(),
+                            dt.getEndDate())));
             counter++;
         }
 
@@ -221,13 +222,13 @@ public class DateTimeUtil {
         return sb.toString();
     }
 
-    public static String getDurationInMinutesBetweenTwoLocalDateTime(
+    public static String getDurationBetweenTwoLocalDateTime(
             LocalDateTime startDateTime, LocalDateTime endDateTime) {
         Duration duration = Duration.between(startDateTime, endDateTime);
         long hours = duration.toHours();
         long minutes = duration.toMinutes() % 60;
 
-        return hours + " hr " + minutes + " min";
+        return String.format(MESSAGE_DURATION, hours, minutes);
     }
 
     /**
@@ -272,8 +273,7 @@ public class DateTimeUtil {
         dateToModify = date.format(stringFormatter);
         return dateToModify;
     }
-    // @@author
-
+    
     public static LocalDateTime setLocalTime(LocalDateTime dateTime, int hour,
             int min, int sec) {
         return LocalDateTime.of(dateTime.getYear(), dateTime.getMonth(),

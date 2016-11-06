@@ -109,7 +109,7 @@ public class MarkTaskUtil {
      * 
      */
     private String getResultFromString(String tasksString, String format) {
-        String result = "";
+        String result = StringUtil.EMPTY_STRING;
         if (!tasksString.isEmpty()) {
             result = String.format(format, tasksString);
         }
@@ -121,9 +121,10 @@ public class MarkTaskUtil {
      */
     private String getIndexesString(ArrayList<Integer> list) {
         String toReturn = StringUtil.EMPTY_STRING;
-        if (list.size() != 0) {
-            for (int i = 0; i < list.size() - 1; i++) {
-                toReturn += Integer.toString(list.get(i)) + StringUtil.STRING_COMMA;
+        if (!list.isEmpty()) {
+            for (int i = StringUtil.START_INDEX; i < list.size() - 1; i++) {
+                toReturn +=
+                        Integer.toString(list.get(i)) + StringUtil.STRING_COMMA;
             }
             // Add last index
             toReturn += Integer.toString(list.get(list.size() - 1));

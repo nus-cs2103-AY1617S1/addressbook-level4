@@ -16,6 +16,10 @@ public class ConfigUtil {
 
     private static final Logger logger = LogsCenter.getLogger(ConfigUtil.class);
     private static final String configFilePath = "config.json";
+    private static String LOG_MESSAGE_CONFIG_FILE_NOT_FOUND =
+            "Config file %s not found";
+    private static String LOG_MESSAGE_CONFIG_FILE_READING_ERROR =
+            "Error reading from config file %1$s: %2$s";
 
     /**
      * Returns the Config object from the given file or {@code Optional.empty()} object if the file
@@ -33,7 +37,8 @@ public class ConfigUtil {
         File configFile = new File(configFilePath);
 
         if (!configFile.exists()) {
-            logger.info("Config file " + configFile + " not found");
+            logger.info(String.format(LOG_MESSAGE_CONFIG_FILE_NOT_FOUND,
+                    configFile));
             return Optional.empty();
         }
 
@@ -43,8 +48,8 @@ public class ConfigUtil {
             config = FileUtil.deserializeObjectFromJsonFile(configFile,
                     Config.class);
         } catch (IOException e) {
-            logger.warning(
-                    "Error reading from config file " + configFile + StringUtil.STRING_COLON + e);
+            logger.warning(String.format(LOG_MESSAGE_CONFIG_FILE_READING_ERROR,
+                    configFile, e));
             throw new DataConversionException(e);
         }
 
