@@ -379,8 +379,8 @@ public class Parser {
 	 * Parses arguments in the context of the edit task command.
 	 * Supports editing of task name, start date and time, end date and time.
 	 *
-	 * @param args
-	 *            full command args string
+	 * @param arguments
+	 *            full command arguments string
 	 *            at least one of the three values are to be edited
 	 * @return the prepared EditCommand
 	 */
