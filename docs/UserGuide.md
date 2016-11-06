@@ -29,9 +29,9 @@ To get started, proceed to the Quick Start section below.
 
 1. This is the `Command Box` for you to type your commands.
 2. TasKitty provdes `Feedback` for your actions here.
-3. `Events Panel`, where you can view all your events
-4. `Deadlines Panel`, where you can view all your deadlines.
-5. `Todos Panel`, where you can view all your todos
+3. `Events Panel`, where you can view all tasks that have a start and end date.
+4. `Deadlines Panel`, where you can view tasks you need to complete before a certain date.
+5. `Todos Panel`, where you can view all your tasks that you wish to do someday.
 6. This shows the `Current View` of the application. Here, it is showing the Upcoming Tasks.
 7. This shows the `Current Path` to the file where the data of TasKitty is stored. There are two types of file paths:
   * Absolute: The filepath from the root folder. eg. `C:/TasKitty/data/taskmanager.xml`<br>
