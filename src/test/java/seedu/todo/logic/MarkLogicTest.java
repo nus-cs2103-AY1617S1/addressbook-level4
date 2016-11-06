@@ -15,17 +15,31 @@ import seedu.todo.model.task.Task;
  * Test class for the mark command's logic
  */
 public class MarkLogicTest extends CommandLogicTest {
-    
+
     @Test
-    public void execute_mark_successful() throws IllegalValueException {
-        Task toBeMarked = helper.generateFullTask(0);
+    public void execute_mark_successful_tmr() throws IllegalValueException {
+        Task toBeMarked = helper.generateFullTaskTmr(0);
         expectedTDL.addTask(toBeMarked);
         
         toBeMarked.setCompletion(new Completion(true));
-        model.addTask(helper.generateFullTask(0));
+        model.addTask(helper.generateFullTaskTmr(0));
         
         assertCommandBehavior("mark 1",
                 String.format(MarkCommand.MESSAGE_SUCCESS, 1, toBeMarked),
+                expectedTDL,
+                (new DoDoBird()).getTaskList());
+
+    }
+    @Test
+    public void execute_mark_successful_today() throws IllegalValueException {
+        Task toBeMarkedToday = helper.generateFullTaskToday(0);
+        expectedTDL.addTask(toBeMarkedToday);
+        
+        toBeMarkedToday.setCompletion(new Completion(true));
+        model.addTask(helper.generateFullTask(0));
+        
+        assertCommandBehavior("mark 1",
+                String.format(MarkCommand.MESSAGE_SUCCESS, 1, toBeMarkedToday),
                 expectedTDL,
                 (new DoDoBird()).getTaskList());
 
