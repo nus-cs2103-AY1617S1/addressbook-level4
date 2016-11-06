@@ -33,6 +33,8 @@ public class NavbarPanel extends UiPart {
     private final String NAVBAR_INCOMING_DEADLINES = " Incoming Deadlines";
     private final String NAVBAR_FLOATING_TASKS = " Floating Tasks";
     private final String NAVBAR_COMPLETED = " Completed";
+    
+    private final String TODAY_PERIOD = " from today 12am to tomorrow 12am";
 
     private final ObservableList<String> navbarElement = FXCollections.observableArrayList(NAVBAR_TODAY, NAVBAR_TASKS,
             NAVBAR_DEADLINES, NAVBAR_FLOATING_TASKS, NAVBAR_INCOMING_DEADLINES, NAVBAR_COMPLETED);
@@ -98,7 +100,7 @@ public class NavbarPanel extends UiPart {
         switch (navigation) {
 
         case NAVBAR_TODAY:
-            command = FindCommand.COMMAND_WORD + " from 12am to tomorrow 12am";
+            command = FindCommand.COMMAND_WORD + TODAY_PERIOD;
             return command;
         case NAVBAR_DEADLINES:
             day = new Date(System.currentTimeMillis() + 24 * 60 * 60 * 1000);
