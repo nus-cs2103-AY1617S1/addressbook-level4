@@ -120,13 +120,13 @@ The _Object Oriented Model_ below shows how the problem of adding recurring task
 <!--@@author A0147967J-->
 The _Sequence Diagram_ below shows how Happy Jim Task Master handles undo request from user.
 
-<img src="images/UndoSequenceDiagram.jpg" width="800"><br>
+<img src="images/UndoSequenceDiagram.jpg" width="600"><br>
 
 > Note that the context is a class that stores previous task master in the previous model before the target command executes.
 
 The _Class Diagram_ below shows the structure of how Happy Jim Task Master implements undo and redo operations.
 
-<img src="images/URManager.jpg" width="800"><br>
+<img src="images/URManager.jpg" width="600"><br>
 
 > Note that LogicManager maintains an URManager. UR manager contains two ArrayDeque, one for undo and the other for redo,  
 > to store the command and its context, specifically, the model before the command executes. 
@@ -142,7 +142,7 @@ The sections below give more details of each component.
 ### UI component
 
 <!-- @@author A0135782Y-->
-<img src="images/UI Component.png" width="800"><br>
+<img src="images/UI Component.png" width="600"><br>
 <!-- @@author-->
 
 **API** : [`Ui.java`](../src/main/java/seedu/address/ui/Ui.java)
@@ -163,7 +163,7 @@ The `UI` component,
 
 ### Logic component
 
-<img src="images/Logic.png" width="800"><br>
+<img src="images/Logic.png" width="600"><br>
 
 **API** : [`Logic.java`](../src/main/java/seedu/address/logic/Logic.java)
 
@@ -174,11 +174,11 @@ The `UI` component,
 
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")`
  API call.<br>
-<img src="images/SD_Delete_Floating_Interaction.png" width="800"><br>
+<img src="images/SD_Delete_Floating_Interaction.png" width="600"><br>
 
 ### Model component
 
-<img src="images/Model.png" width="800"><br>
+<img src="images/Model.png" width="600"><br>
 
 **API** : [`Model.java`](../src/main/java/seedu/address/model/Model.java)
 
@@ -191,7 +191,7 @@ The `Model`,
 
 ### Storage component
 
-<img src="images/Storage.png" width="800"><br>
+<img src="images/Storage.png" width="600"><br>
 
 **API** : [`Storage.java`](../src/main/java/seedu/address/storage/Storage.java)
 
@@ -314,17 +314,20 @@ We have two types of tests:
    <!-- @@author A0135782Y-->
    _Unit tests_ targeting the lowest level methods/classes. Below are some snippets, <br>
    
-   _Task.java_<br>
-   <img src="images/test_snippet_Task.PNG" width="800"><br>
+   _TaskTester.java_<br>
+   <img src="images/unit_test_TaskTester_A.png" width="600"><br>
    
-   _RecurringTaskManager.java_<br>
-   <img src="images/test_snippet_RecurringTaskManager.PNG" width="800"><br>
+   _TaskTesterHelper.java_<br>
+   <img src="images/unit_test_TaskTester_B.png" width="600"><br>
    
    _Integration tests_ that are checking the integration of multiple code units 
      (those code units are assumed to be working). Below are some snippets, <br>
 
-   _XmlTaskListStorage.java_<br>
-   <img src="images/test_snipper_XmlTaskListStorage.PNG" width="800"><br>
+   _XmlTaskListStorageTest.java_<br>
+   <img src="images/test_snipper_XmlTaskListStorage.PNG" width="600"><br>
+   
+   _UniqueTaskListTest.java_<br>
+   <img src="images/integration_test_UniqueTaskList.png" width="600"><br>
    <!-- @@author A0147967J-->
       Hybrids of unit and integration tests. These test are checking multiple code units as well as 
       how the are connected together. Below are some snippets,<br>
@@ -337,7 +340,7 @@ We have two types of tests:
       *`find by 20 oct 10.59am` --> smaller boundary, lists nothing;<br>
       *`find by 20 oct 11.01am` --> lax boundary, task found.<br>
       > Note that this is a test not merely for `logic`, but also `parser` and `model`.<br>
-    <!-- @@author A0135782Y-->
+	_
 	_LogicManagerTest.java_
 	<img src="images/test_snippet_LogicManagerTest.PNG" width="800"><br>
     <!-- @@author-->  
