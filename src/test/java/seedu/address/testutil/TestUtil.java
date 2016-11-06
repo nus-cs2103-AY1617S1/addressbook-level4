@@ -282,8 +282,9 @@ public class TestUtil {
      * @return The modified tasks after removal of the subset from tasks.
      */
     public static TestTask[] removeTasksFromList(final TestTask[] tasks, TestTask... tasksToRemove) {
-        List<TestTask> listOfTasks = asList(tasks);
+    	List<TestTask> listOfTasks = asList(tasks);
         listOfTasks.removeAll(asList(tasksToRemove));
+        
         return listOfTasks.toArray(new TestTask[listOfTasks.size()]);
     }
 
@@ -295,6 +296,21 @@ public class TestUtil {
      */
     public static TestTask[] removeTaskFromList(final TestTask[] list, int targetIndexInOneIndexedFormat) {
         return removeTasksFromList(list, list[targetIndexInOneIndexedFormat-1]);
+    }
+    
+    /**
+     * Returns a copy of the list with the tasks at specified indices removed.
+     * @param list original list to copy from
+     * @param targetIndicesInOneIndexedFormat e.g. if the first and third elements are 
+     * to be removed, {1, 3} should be supplied as an argument.
+     */
+    public static TestTask[] removeTasksFromListByIndex(final TestTask[] list, int[] targetIndicesInOneIndexedFormat) {
+        TestTask[] tasksToRemove = new TestTask[targetIndicesInOneIndexedFormat.length];
+        for (int i=0; i<targetIndicesInOneIndexedFormat.length; i++) {
+        	tasksToRemove[i] = list[targetIndicesInOneIndexedFormat[i] - 1];
+        }
+    	
+    	return removeTasksFromList(list, tasksToRemove);
     }
 
     /**

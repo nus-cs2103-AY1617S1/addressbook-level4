@@ -13,6 +13,7 @@ import seedu.address.logic.commands.ListCommand;
 import seedu.address.testutil.TestTask;
 import seedu.address.testutil.TestUtil;
 import seedu.address.testutil.TypicalTestTasks;
+
 //@@author A0139339W
 public class ListCommandTest extends TaskManagerGuiTest {
 
@@ -84,6 +85,4 @@ public class ListCommandTest extends TaskManagerGuiTest {
 		commandBox.runCommand(command);
 		assertTrue(listPanel.isListMatching(expectedList));
 	}
-
 }
-//@@author

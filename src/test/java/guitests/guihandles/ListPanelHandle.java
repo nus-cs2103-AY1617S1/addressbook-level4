@@ -42,7 +42,7 @@ public class ListPanelHandle extends GuiHandle {
 
     /**
      * Returns true if the list is showing the task details correctly and in correct order.
-     * @param tasks A list of task in the correct order.
+     * @param tasks A list of tasks in the correct order.
      */
     public boolean isListMatching(ReadOnlyTask... tasks) {
         return this.isListMatching(0, tasks);
@@ -89,7 +89,7 @@ public class ListPanelHandle extends GuiHandle {
         if (tasks.length + startPosition != getListView().getItems().size()) {
             System.out.println("TASK LENGTH: " + tasks.length);
         	throw new IllegalArgumentException("List size mismatched\n" +
-                    "Expected " + (getListView().getItems().size() - 1) + " tasks");
+                    "Expected " + (getListView().getItems().size()) + " tasks");
         }
         assertTrue(this.containsInOrder(startPosition, tasks));
         

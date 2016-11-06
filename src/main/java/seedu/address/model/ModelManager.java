@@ -17,6 +17,7 @@ import seedu.address.model.task.TaskFilter;
 import seedu.address.model.alias.Alias;
 import seedu.address.model.alias.ReadOnlyAlias;
 import seedu.address.model.alias.UniqueAliasList;
+import seedu.address.model.alias.UniqueAliasList.AliasNotFoundException;
 import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.ReadOnlyTaskFilter;
 import seedu.address.model.task.Status;
@@ -174,7 +175,7 @@ public class ModelManager extends ComponentManager implements Model {
         indicateTaskManagerChanged();
     }
     
-    //@@author A0143756Y
+    //@@author A0143756Y-reused
     @Override
     public synchronized void addAlias(Alias aliasToAdd) throws UniqueAliasList.DuplicateAliasException {
     	assert aliasToAdd != null;
@@ -183,6 +184,15 @@ public class ModelManager extends ComponentManager implements Model {
     	indicateAliasManagerChanged();
     }
     
+    @Override
+    public synchronized void deleteAliases(ArrayList<ReadOnlyAlias> targets) throws AliasNotFoundException {
+        for(ReadOnlyAlias target : targets) {
+        	aliasManager.removeAlias(target);
+        	indicateAliasManagerChanged();
+        }
+    }
+    
+    //@@author A0143756Y
     @Override
     public synchronized boolean validateAliasforAddAliasCommand(String alias) {
     	assert alias != null;
@@ -197,7 +207,7 @@ public class ModelManager extends ComponentManager implements Model {
     	
     	return true;
     }
-    
+
     //@@author A0141019U
     @Override
     public synchronized void checkForOverdueTasks() {
