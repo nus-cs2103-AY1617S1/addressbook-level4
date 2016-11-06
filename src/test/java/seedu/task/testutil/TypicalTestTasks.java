@@ -16,7 +16,7 @@ public class TypicalTestTasks {
         try {
             cs2103 =  new TaskBuilder().withName("Do CS 2103").withOpenTime("9 hours from now")
                     .withCloseTime("17 hours from now").withTags("friends").withImportance(false).build();
-            laundry = new TaskBuilder().withName("Meier").withOpenTime("tomorrow")
+            laundry = new TaskBuilder().withName("Do Meier laundry").withOpenTime("tomorrow")
                     .withCloseTime("day after tomorrow").withImportance(false).withTags("urgent", "important").build();
             carl = new TaskBuilder().withName("Meet Carl").withOpenTime("5 days from now")
                     .withCloseTime("14 days from now").build();
@@ -64,7 +64,7 @@ public class TypicalTestTasks {
     }
 
     public TestTask[] getTypicalTasks() {
-        return new TestTask[]{cs2103, laundry, carl, daniel, elle, fiona, george};
+        return new TestTask[]{daniel, cs2103, elle, laundry, carl, fiona, george};
     }
 
     public TaskManager getTypicalTaskManager(){
