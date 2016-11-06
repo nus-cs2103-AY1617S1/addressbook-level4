@@ -208,8 +208,6 @@ Now that you have seen all the tasks that you have done, to return to the main d
 <br>
 ###6 Delete task
 
-####6.1 Deleting a task
-
 If you no longer need any tasks, simply delete them by using the delete command availabe in the following formats. 
 
 > Format: Delete &lt;index&gt;
@@ -226,15 +224,6 @@ Example: Delete T1-T3
 Example: Delete T1, T3
 
 The delete command is flexible and allows you to delete more than 1 task at a time. If the indexes entered are separated by a hyphen (-), Simply will delete all tasks between the numbers including the numbers enter. If the indexes are separated by a comma (,) Simply will delete the tasks entered individually. 
-
-<br>
-####6.2 Deleting a tag / multiple tags
-
-If you find that any of the tags that you added to previously created tasks are no longer useful, you can delete them by using following command.
-
->Format: **Delete** &lt;index&gt; #tag1 #tag2
-
-Example: Delete E1 #win #victor #finally
 
 <br>
 ###7 Undo the Most Recent Commands
@@ -319,11 +308,12 @@ The task manager shifts your data file from the current storage folder to the ne
 5| Edit | edit &lt;index&gt; &lt;new_event_description&gt; 
 6| Find | find &lt;keywords&gt; 
 7| Done | done &lt;index&gt;, &lt;index&gt;
-8| list done| list done
-9| list | list
+8| List done| list done
+9| List | list
 10| Delete | delete &lt;index&gt;, &lt;index&gt; 
 11| Undo | undo &lt;number of times to undo&gt;
 12| Redo | redo &lt;number of times to redo&gt;
-13| Exit | exit 
-14| help | help 
-15| storage| storage &lt;valid file path&gt; 
+13| Clear | clear
+14| Exit | exit 
+15| Help | help 
+16| Storage| storage &lt;valid file path&gt; 
