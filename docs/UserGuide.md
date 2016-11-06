@@ -16,7 +16,7 @@
    * [Help](#11-help)
    * [Setting Storage Folder](#12-setting-storage-folder)
 * [How do I transfer my data to another computer?](#how-do-i-transfer-my-data-to-another-computer)
-* [Date & Time Formats Accepted](#date-time-formats-accepted)
+* [Date and Time Formats Accepted](#date-and-time-formats-accepted)
 * [Command Summary](#command-summary)
 
 <br>
@@ -305,7 +305,7 @@ The task manager shifts your data file from the current storage folder to the ne
 >Note: Search for the default taskbook.xml file that is stored in the data folder and overwrite it.
 
 <br>
-###Date & Time Formats Accepted 
+###Date and Time Formats Accepted 
  Date | Time |  
  -------- | :-------- | 
 120916| 1300| 
