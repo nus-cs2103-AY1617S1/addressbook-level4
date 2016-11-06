@@ -10,6 +10,8 @@ import seedu.whatnow.testutil.TestUtil;
 
 import static org.junit.Assert.assertTrue;
 
+import java.util.Arrays;
+
 public class AddCommandTest extends WhatNowGuiTest {
 
     @Test
@@ -71,6 +73,7 @@ public class AddCommandTest extends WhatNowGuiTest {
 
     private void assertAddSuccess(TestTask taskToAdd, TestTask... currentList) {
         commandBox.runCommand(taskToAdd.getAddCommand());
+        Arrays.sort(currentList);
 
         //confirm the new card contains the right data
         TaskCardHandle addedCard = scheduleListPanel.navigateToTask(taskToAdd.getName().fullName);

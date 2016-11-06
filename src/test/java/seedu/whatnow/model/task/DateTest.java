@@ -88,6 +88,18 @@ public class DateTest {
         assertTrue(TaskDate.getIsValidDate("7/8/2018"));
         assertTrue(TaskDate.getIsValidDate("8/5/2017"));
         assertTrue(TaskDate.getIsValidDate("30/12/2018"));
+        assertTrue(TaskDate.getIsValidDate(TaskDate.formatDateToStandardDate("01.12.2020")));
+        assertTrue(TaskDate.getIsValidDate(TaskDate.formatDateToStandardDate("13/06/2019")));
+        assertTrue(TaskDate.getIsValidDate(TaskDate.formatDateToStandardDate("7-10-2023")));
+        assertTrue(TaskDate.getIsValidDate(TaskDate.formatDateToStandardDate("19 12 2019")));
+        assertTrue(TaskDate.getIsValidDate(TaskDate.formatDateToStandardDate("05072018")));
+    }
+
+    @Test
+    public void isValidDate_wrongDate_returnFalse() throws ParseException, IllegalValueException { 
+        assertFalse(TaskDate.getIsValidDate("34/12/2018"));
+        assertFalse(TaskDate.getIsValidDate("11/18/2016"));
+        assertFalse(TaskDate.getIsValidDate("44/20/2018"));
     }
 
     @Test
@@ -101,9 +113,23 @@ public class DateTest {
         }
         assertTrue(checkPastDate);
     }
-    
+
     @Test
-    public void isValidDate_dateRange_returnTrue() throws ParseException{
+    public void isValidDate_checkDateValidity_returnFalse() throws ParseException, IllegalValueException{
+        assertFalse(TaskDate.getIsValidDate("32/09/2018"));
+        assertFalse(TaskDate.getIsValidDate("31/02/2020"));
+        assertFalse(TaskDate.getIsValidDate("10/16/2020"));
+    }
+    @Test
+    public void isValidDate_dateRange_returnTrue() throws ParseException {
         assertTrue(TaskDate.getIsValidDateRange(null, null));
+        assertTrue(TaskDate.getIsValidDateRange("12/12/2017", "23/11/2018"));
+        assertTrue(TaskDate.getIsValidDateRange("12/12/2016", "12/12/2016"));
+    }
+
+    @Test
+    public void isValidDate_invalidDateRange_returnFalse() throws ParseException {
+        assertFalse(TaskDate.getIsValidDateRange("12/12/2016", "23/11/2015"));
+        assertFalse(TaskDate.getIsValidDateRange("12/11/2019", "23/09/2017"));
     }
 }
