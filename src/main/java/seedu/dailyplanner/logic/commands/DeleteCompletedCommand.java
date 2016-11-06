@@ -19,7 +19,7 @@ public class DeleteCompletedCommand extends Command {
 
 	public static final String MESSAGE_USAGE = DeleteCommand.COMMAND_WORD
 			+ ": Deletes the task identified by the index number used in the last person listing.\n"
-			+ "Parameters: INDEX (must be a positive integer)\n" + "Example: " + DeleteCommand.COMMAND_WORD + " 1";
+			+ "Format: [INDEX] (must be a positive integer)\n" + "Example: " + DeleteCommand.COMMAND_WORD + " 1";
 
 	public static final String MESSAGE_DELETE_PERSON_SUCCESS = "Deleted Task: %1$s";
 
