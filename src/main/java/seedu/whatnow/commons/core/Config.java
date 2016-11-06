@@ -89,7 +89,8 @@ public class Config {
 
         return Objects.equals(appTitle, o.appTitle) && Objects.equals(logLevel, o.logLevel)
                 && Objects.equals(userPrefsFilePath, o.userPrefsFilePath)
-                && Objects.equals(whatNowFilePath, o.whatNowFilePath) && Objects.equals(whatNowName, o.whatNowName);
+                && Objects.equals(whatNowFilePath, o.whatNowFilePath) && Objects.equals(whatNowName, o.whatNowName)
+                && Objects.equals(pinnedItemType, o.pinnedItemType) && Objects.equals(pinnedItemKeyword, o.pinnedItemKeyword);
     }
 
     @Override
@@ -105,8 +106,8 @@ public class Config {
         sb.append("\nPreference file Location : " + userPrefsFilePath);
         sb.append("\nLocal data file location : " + whatNowFilePath);
         sb.append("\nWhatNow name : " + whatNowName);
-        sb.append("\nPinnedItemType: " + pinnedItemType);
-        sb.append("\nPinnedItemKeyword: " + pinnedItemKeyword);
+        sb.append("\nPinnedItemType : " + pinnedItemType);
+        sb.append("\nPinnedItemKeyword : " + pinnedItemKeyword);
         return sb.toString();
     }
 

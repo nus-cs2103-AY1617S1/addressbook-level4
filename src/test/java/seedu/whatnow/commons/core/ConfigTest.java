@@ -18,7 +18,7 @@ public class ConfigTest {
     public void toString_defaultObject_stringReturned() {
         String defaultConfigAsString = "App title : WhatNow App\n" + "Current log level : INFO\n"
                 + "Preference file Location : preferences.json\n" + "Local data file location : data/whatnow.xml\n"
-                + "WhatNow name : MyWhatNow";
+                + "WhatNow name : MyWhatNow\n" + "PinnedItemType : tag\n" + "PinnedItemKeyword : highPriority";
 
         assertEquals(defaultConfigAsString, new Config().toString());
     }

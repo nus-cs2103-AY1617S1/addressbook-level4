@@ -47,7 +47,7 @@ public class Parser {
     private static final Pattern DATE_WITH_SLASH_FORMAT = Pattern
             .compile("^(([3][0-1])|([1-2][0-9])|([0]??[1-9]))[/](([1][0-2])|([0]??[1-9]))[/]([0-9]{4})$");
     private static final Pattern TIME_FORMAT = Pattern
-            .compile("^(([1][0-2])|([0-9]))((:|\\.)([0-5][0-9]))??((am)|(pm))$");
+            .compile("^(([1][0-2])|([0-9])|([0][1-9]))((:|\\.)([0-5][0-9]))??((am)|(pm))$");
     private static final Pattern TAG_FORMAT = Pattern.compile("^(t/)");
 
     private static final Pattern TODAY_OR_TOMORROW = Pattern.compile("^(today|tomorrow|tdy|tmr)$");
@@ -272,8 +272,8 @@ public class Parser {
         if (splitTimePeriod[TIME_WITHOUT_PERIOD].contains(TIME_DOT)) {
             splitTime = splitTimePeriod[TIME_WITHOUT_PERIOD].split(BACK_SLASH + TIME_DOT);
         }
-
-        formattedTime = (splitTime != null) ? splitTime[TIME_HOUR] : splitTimePeriod[TIME_WITHOUT_PERIOD];
+                
+        formattedTime = (splitTime != null) ? splitTime[TIME_HOUR].replaceAll(SINGLE_DIGIT, ZERO + splitTime[TIME_HOUR]) : splitTimePeriod[TIME_WITHOUT_PERIOD];
         formattedTime += TIME_COLON;
         formattedTime += (splitTime != null) ? splitTime[TIME_MINUTES] : TIME_DEFAULT_MINUTES;
         formattedTime += period;
@@ -877,7 +877,6 @@ public class Parser {
         String[] argComponents = args.trim().split(DELIMITER_BLANK_SPACE);
         if(argComponents.length > 1) {
             Optional<Integer> index = parseIndex(argComponents[INDEX]);
-            System.out.println(argComponents[INDEX]);
             if (!index.isPresent()) {
                 return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MarkUndoneCommand.MESSAGE_MISSING_INDEX));
             }
