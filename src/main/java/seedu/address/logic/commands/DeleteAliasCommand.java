@@ -11,23 +11,23 @@ import seedu.address.model.task.Task;
 import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
 
 /**
- * Deletes a task identified using its displayed index in the last task listing .
+ * Deletes an alias identified using its displayed index from the last alias listing .
  */
-public class DeleteCommand extends Command {
+public class DeleteAliasCommand extends Command {
 
-    public static final String COMMAND_WORD = "del";
+    public static final String COMMAND_WORD = "del-alias";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Deletes the task identified by the index number used in the last task listing.\n"
+            + ": Deletes the alias identified by the index number used in the last alias listing.\n"
             + "Parameters: INDEX (positive integer) [MORE_INDICES] ... \n"
             + "Example: " + COMMAND_WORD + " 1 3";
  
-    public static final String MESSAGE_DELETE_TASK_SUCCESS = "Deleted tasks: %1$s";
+    public static final String MESSAGE_DELETE_ALIAS_SUCCESS = "Deleted aliases: %1$s";
 
     private final int[] targetIndices;
     private ArrayList<Task> recentDeletedTasks;
 
-    public DeleteCommand(int[] targetIndices) {
+    public DeleteAliasCommand(int[] targetIndices) {
         this.targetIndices = targetIndices;
     }
 
@@ -65,7 +65,7 @@ public class DeleteCommand extends Command {
         	recentDeletedTasks.add(new Task(task));
         }
         
-        return new CommandResult(String.format(MESSAGE_DELETE_TASK_SUCCESS, tasksToDelete));
+        return new CommandResult(String.format(MESSAGE_DELETE_ALIAS_SUCCESS, tasksToDelete));
     }
 
 }
