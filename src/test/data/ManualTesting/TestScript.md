@@ -26,13 +26,17 @@
 
 
 ## Help Command
+`help`
+> A help window will appear which directs the user to our UserGuide.md in github
 
 
 ## SaveTo Command
-‘saveto ./newFolder’
-> Save Location UI will show the new path ./newFolder/emeraldo.xml
-> New emeraldo.xml will be created at ./newFolder/ when changes is made
+`saveto ./newFolder`
+> Save Location UI will show the new path ./newFolder/emeraldo.xml <br>
+> New emeraldo.xml will be created at ./newFolder/ when changes is made <br>
 > i.e adding new task to emeraldo
 
 
 ## MotivateMe Command
+`motivateme`
+> A motivational quote will be generated randomly
