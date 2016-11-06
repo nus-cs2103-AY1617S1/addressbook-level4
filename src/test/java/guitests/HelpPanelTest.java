@@ -5,11 +5,9 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertTrue;
 
-
+// @@author A0124333U
 /**
  * GUI test for help command
- *
- * @@author A0124333U
  */
 public class HelpPanelTest extends TarsGuiTest {
 

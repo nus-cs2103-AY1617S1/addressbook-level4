@@ -29,12 +29,13 @@ public interface Model {
     /** Clears existing backing model and replaces with the provided new data. */
     void resetData(ReadOnlyTars newData);
 
+    // @@author A0124333U 
     /**
-     * @@author A0124333U 
-     * 
      * Overwrites current data with data from a new file path.
      */
     public void overwriteDataFromNewFilePath(ReadOnlyTars newData);
+    
+    // @@author
 
     /**
      * Returns the Tars
@@ -52,10 +53,9 @@ public interface Model {
     /** Adds the given task */
     void addTask(Task task) throws DuplicateTaskException;
 
+    // @@author A0124333U
     /**
      * Deletes the reserved task.
-     * 
-     * @@author A0124333U
      */
     void deleteRsvTask(RsvTask target) throws RsvTaskNotFoundException;
 
@@ -65,8 +65,8 @@ public interface Model {
     /** Checks for tasks with conflicting datetime and returns a string of all conflicting tasks */
     String getTaskConflictingDateTimeWarningMessage(DateTime dateTimeToCheck);
 
+    // @@author A0139924W
     /** 
-     * @@author A0139924W
      * Rename all task with the old tag with new tag name 
      */
     void renameTasksWithNewTag(ReadOnlyTag toBeRenamed, Tag newTag)
@@ -83,9 +83,10 @@ public interface Model {
             ArrayList<ReadOnlyTask> toBeEdited) throws DuplicateTagException,
             IllegalValueException, TagNotFoundException;
 
-    /** 
-     * @@author A0121533W
-     * Marks tasks as done or undone. */
+    // @@author A0121533W
+    /**
+     * Marks tasks as done or undone.
+     */
     void mark(ArrayList<ReadOnlyTask> toMarkList, Status status)
             throws DuplicateTaskException;
 
@@ -98,11 +99,10 @@ public interface Model {
     /** Updates the filter of the filtered task list to show all tasks */
     void updateFilteredListToShowAll();
 
+    // @@author A0124333U
     /**
      * Updates the filter of the filtered task list to filter by the given keywords of each given
      * task attribute
-     * 
-     * @@author A0124333U
      */
     void updateFilteredTaskListUsingFlags(TaskQuery taskQuery);
 
@@ -113,31 +113,30 @@ public interface Model {
     void updateFilteredTaskListUsingQuickSearch(
             ArrayList<String> lazySearchKeywords);
 
+    // @@author A0139924W
     /**
-     * @@author A0139924W
-     * 
      * Returns the undoable command history stack
      */
     Stack<Command> getUndoableCmdHist();
 
     /** Returns the redoable command history stack */
     Stack<Command> getRedoableCmdHist();
+    
+    // @@author
 
     /** Returns the unique tag list as an {@code ObservableList<? extends ReadOnlyTag>} */
     ObservableList<? extends ReadOnlyTag> getUniqueTagList();
 
+    // @@author A0124333U
     /**
      * Returns an ArrayList of DateTime in a specified date
-     * 
-     * @@author A0124333U
      */
     public ArrayList<DateTime> getListOfFilledTimeSlotsInDate(
             DateTime dateToCheck);
 
+    // @@author A0140022H
     /**
-     * @@author A0140022H
-     * 
-     *          Sorts the filtered task list by the given keywords
+     * Sorts the filtered task list by the given keywords
      */
     void sortFilteredTaskList(Set<String> keywords);
 

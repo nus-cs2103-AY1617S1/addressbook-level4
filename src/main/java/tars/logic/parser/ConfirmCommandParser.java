@@ -12,11 +12,9 @@ import tars.logic.commands.Command;
 import tars.logic.commands.ConfirmCommand;
 import tars.logic.commands.IncorrectCommand;
 
+// @@author A0124333U
 /**
  * Confirm command parser
- * 
- * @@author A0124333U
- *
  */
 public class ConfirmCommandParser extends CommandParser {
 

@@ -21,10 +21,9 @@ import tars.model.task.Priority;
 import tars.model.task.Status;
 import tars.model.task.Task;
 
+// @@author A0124333U
 /**
  * Logic command test for edit
- * 
- * @@author A0124333U
  */
 public class EditLogicCommandTest extends LogicCommandTest {
 

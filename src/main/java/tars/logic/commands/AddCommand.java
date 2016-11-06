@@ -20,10 +20,9 @@ import tars.model.task.Status;
 import tars.model.task.Task;
 import tars.model.task.UniqueTaskList.TaskNotFoundException;
 
+// @@author A0140022H
 /**
  * Adds a task to tars.
- * 
- * @@author A0140022H
  */
 public class AddCommand extends UndoableCommand {
 

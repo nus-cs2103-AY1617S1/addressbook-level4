@@ -1,9 +1,8 @@
 package tars.logic.commands;
 
+// @@author A0139924W
 /**
  * Redo an undoable command.
- * 
- * @@author A0139924W
  */
 public class RedoCommand extends Command {
 

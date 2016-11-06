@@ -6,10 +6,9 @@ import javafx.stage.Stage;
 import tars.TestApp;
 import tars.ui.MainWindow;
 
+// @@author A0124333U
 /**
  * GUI test for this week panel
- *
- * @@author A0124333U
  */
 public class ThisWeekPanelHandle extends GuiHandle {
 

@@ -11,10 +11,9 @@ import tars.testutil.TestUtil;
 import static org.junit.Assert.*;
 import static tars.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
+// @@author A0121533W
 /**
  * GUI test for done and undone command
- * 
- * @@author A0121533W
  */
 public class DoUdCommandTest extends TarsGuiTest {
 

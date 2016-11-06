@@ -10,10 +10,9 @@ import static org.junit.Assert.assertTrue;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+// @@author A0124333U
 /**
  * GUI test for find command
- * 
- * @@author A0124333U
  */
 public class FindCommandTest extends TarsGuiTest {
 

@@ -13,9 +13,8 @@ import tars.model.task.Priority;
 import tars.model.task.ReadOnlyTask;
 import tars.model.task.Task;
 
+// @@author A0140022H
 /**
- * @@author A0140022H
- * 
  * Logic command test for list
  */
 public class ListLogicCommandTest extends LogicCommandTest {

@@ -12,6 +12,7 @@ import java.util.TreeMap;
 
 import tars.commons.util.StringUtil;
 
+// @@author A0139924W
 /**
  * Tokenizes arguments string of the form: {@code preamble <prefix>value <prefix>value ...}<br>
  * e.g. {@code some preamble text /dt today at 3pm /t tag1 /t tag2 /ls} where prefixes are
@@ -23,8 +24,6 @@ import tars.commons.util.StringUtil;
  * the above example<br>
  * 4. An argument may be repeated and all its values will be accumulated e.g. the value of
  * {@code /t} in the above example.<br>
- * 
- * @@author A0139924W
  */
 public class ArgumentTokenizer {
     private static final int EMPTY_SIZE = 0;

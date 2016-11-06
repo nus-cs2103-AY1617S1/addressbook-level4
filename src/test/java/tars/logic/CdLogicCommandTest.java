@@ -10,9 +10,8 @@ import tars.model.Tars;
 import tars.storage.TarsStorage;
 import tars.storage.XmlTarsStorage;
 
+// @@author A0124333U
 /**
- * @@author A0124333U
- * 
  * Logic command test for cd
  */
 public class CdLogicCommandTest extends LogicCommandTest {

@@ -29,9 +29,7 @@ public class XmlAdaptedRsvTask {
     /**
      * Converts a given Reserved Task into this class for JAXB use.
      *
-     * @param source
-     *            future changes to this will not affect the created
-     *            XmlAdaptedRsvTask
+     * @param source future changes to this will not affect the created XmlAdaptedRsvTask
      */
     public XmlAdaptedRsvTask(RsvTask source) {
         name = source.getName().taskName;
@@ -42,12 +40,10 @@ public class XmlAdaptedRsvTask {
     }
 
     /**
-     * Converts this jaxb-friendly adapted task object into the model's RsvTask
-     * object.
+     * Converts this jaxb-friendly adapted task object into the model's RsvTask object.
      *
-     * @throws IllegalValueException
-     *             if there were any data constraints violated in the adapted
-     *             rsvTask
+     * @throws IllegalValueException if there were any data constraints violated in the adapted
+     *         rsvTask
      */
     public RsvTask toModelType() throws IllegalValueException {
 

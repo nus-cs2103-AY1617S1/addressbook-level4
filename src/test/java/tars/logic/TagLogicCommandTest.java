@@ -18,10 +18,9 @@ import tars.model.task.ReadOnlyTask;
 import tars.model.task.Task;
 import tars.ui.formatter.Formatter;
 
+// @@author A0139924W
 /**
  * Logic command test for tag
- * 
- * @@author A0139924W
  */
 public class TagLogicCommandTest extends LogicCommandTest {
 

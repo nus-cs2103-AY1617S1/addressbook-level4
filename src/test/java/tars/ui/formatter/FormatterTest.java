@@ -6,10 +6,9 @@ import org.junit.Test;
 import tars.model.task.ReadOnlyTask;
 import tars.model.task.rsv.RsvTask;
 
+// @@author A0139924W
 /**
  * Formatter test
- * 
- * @@author A0139924W
  */
 public class FormatterTest {
     

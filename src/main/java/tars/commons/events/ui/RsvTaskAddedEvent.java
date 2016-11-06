@@ -3,10 +3,9 @@ package tars.commons.events.ui;
 import tars.commons.events.BaseEvent;
 import tars.model.task.rsv.RsvTask;
 
+// @@author A0121533W
 /**
  * Indicates a task has been added
- * 
- * @@author A0121533W
  */
 public class RsvTaskAddedEvent extends BaseEvent {
 

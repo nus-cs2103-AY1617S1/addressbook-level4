@@ -1,4 +1,3 @@
-
 package tars.ui.formatter;
 
 import java.time.LocalDateTime;
@@ -7,10 +6,9 @@ import java.time.format.DateTimeFormatter;
 import tars.commons.util.StringUtil;
 import tars.model.task.DateTime;
 
+// @@author A0139924W
 /**
  * Container for formatting dates
- * 
- * @@author A0139924W
  */
 public class DateFormatter {
     private static final String DATE_FORMAT_DASH = " - ";

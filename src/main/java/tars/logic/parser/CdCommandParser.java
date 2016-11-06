@@ -5,10 +5,9 @@ import tars.logic.commands.CdCommand;
 import tars.logic.commands.Command;
 import tars.logic.commands.IncorrectCommand;
 
+// @author A0124333U
 /**
  * Change directory command parser
- * 
- * @author A0124333U
  */
 public class CdCommandParser extends CommandParser {
 

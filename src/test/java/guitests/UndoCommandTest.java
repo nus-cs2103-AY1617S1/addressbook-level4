@@ -9,10 +9,9 @@ import tars.logic.commands.DeleteCommand;
 import tars.logic.commands.UndoCommand;
 import tars.testutil.TestTask;
 
+// @@author A0139924W
 /**
  * GUI test for undo command
- * 
- * @@author A0139924W
  */
 public class UndoCommandTest extends TarsGuiTest {
 

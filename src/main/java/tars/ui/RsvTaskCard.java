@@ -16,10 +16,9 @@ import tars.model.task.DateTime;
 import tars.model.task.rsv.RsvTask;
 import tars.ui.formatter.Formatter;
 
+// @@author A0121533W
 /**
  * UI Controller for Reserve Task Card
- * 
- * @@author A0121533W
  */
 public class RsvTaskCard extends UiPart {
 

@@ -26,10 +26,9 @@ import tars.logic.commands.TagCommand;
 import tars.logic.commands.UdCommand;
 import tars.logic.commands.UndoCommand;
 
+// @@author A0139924W
 /**
  * Parses user input.
- * 
- * @@author A0139924W
  */
 public class Parser {
 

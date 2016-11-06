@@ -15,10 +15,9 @@ import tars.logic.commands.AddCommand;
 import tars.logic.commands.Command;
 import tars.logic.commands.IncorrectCommand;
 
+// @@author A0139924W
 /**
  * Add command parser
- * 
- * @@author A0139924W
  */
 public class AddCommandParser extends CommandParser {
 

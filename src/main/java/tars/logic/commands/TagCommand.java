@@ -14,10 +14,9 @@ import tars.model.tag.UniqueTagList.TagNotFoundException;
 import tars.model.task.ReadOnlyTask;
 import tars.ui.formatter.Formatter;
 
+// @@author A0139924W
 /**
  * Rename and delete tag from a list of tags in TARS
- * 
- * @@author A0139924W
  */
 public class TagCommand extends UndoableCommand {
 

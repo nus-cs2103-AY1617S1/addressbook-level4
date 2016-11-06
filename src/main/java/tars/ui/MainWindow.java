@@ -96,7 +96,6 @@ public class MainWindow extends UiPart {
     private void configure(String appTitle, Config config, UserPrefs prefs,
             Logic logic) {
 
-
         // Set dependencies
         this.logic = logic;
         this.config = config;
@@ -115,7 +114,6 @@ public class MainWindow extends UiPart {
         scene = new Scene(rootLayout);
         primaryStage.setScene(scene);
 
-
     }
 
     protected void fillInnerParts() {
@@ -133,8 +131,6 @@ public class MainWindow extends UiPart {
         thisWeekPanel = ThisWeekPanel.load(primaryStage,
                 getThisWeekPanelPlaceholder(), logic.getTaskList());
     }
-
-    // @@author
 
     private AnchorPane getCommandBoxPlaceholder() {
         return commandBoxPlaceholder;

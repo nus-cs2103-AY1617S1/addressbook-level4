@@ -20,11 +20,9 @@ import tars.commons.events.ui.KeyCombinationPressedEvent;
 import tars.logic.commands.ConfirmCommand;
 import tars.logic.commands.RsvCommand;
 
-
+// @@author A0121533W
 /**
  * Handles all events that require main window.
- * 
- * @@author A0121533W
  */
 public class MainWindowEventsHandler {
 
@@ -122,9 +120,7 @@ public class MainWindowEventsHandler {
         }
     }
 
-    /**
-     * @@author A0140022H
-     */
+    // @@author A0140022H
     public void handleHelp(HelpPanel helpPanel, String args) {
         helpPanel.loadUserGuide(args);
         tabPane.getSelectionModel()

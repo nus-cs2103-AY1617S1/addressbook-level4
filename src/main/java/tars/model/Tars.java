@@ -88,10 +88,10 @@ public class Tars implements ReadOnlyTars {
         this.rsvTasks.getInternalList().setAll(rsvTasks);
     }
 
+    // @@author A0121533W
     /**
      * Replaces task in tars internal list
      *
-     * @@author A0121533W
      * @throws DuplicateTaskException if replacement task is the same as the task to replace
      */
     public void replaceTask(ReadOnlyTask toReplace, Task replacement)
@@ -139,20 +139,20 @@ public class Tars implements ReadOnlyTars {
         tasks.add(p);
     }
 
+    // @@author A0124333U
     /**
      * Adds a reserved task to tars.
-     *
-     * @@author A0124333U
+     * 
      * @throws UniqueTaskList.DuplicateTaskException if an equivalent reserved task already exists.
      */
     public void addRsvTask(RsvTask rt) throws DuplicateTaskException {
         rsvTasks.add(rt);
     }
 
+    // @@author A0121533W
     /**
      * Marks every task in respective lists as done or undone
      * 
-     * @@author A0121533W
      * @throws DuplicateTaskException
      */
     public void mark(ArrayList<ReadOnlyTask> toMarkList, Status status)
@@ -206,10 +206,9 @@ public class Tars implements ReadOnlyTars {
         }
     }
 
+    // @@author A0140022H
     /**
-     * @@author A0140022H
-     * 
-     *          Sorts internal list by priority from low to high
+     * Sorts internal list by priority from low to high
      */
     public void sortByPriority() {
         this.tasks.getInternalList().sort(new Comparator<Task>() {
@@ -219,12 +218,9 @@ public class Tars implements ReadOnlyTars {
             }
         });
     }
-    // @@author A0140022H
 
     /**
-     * @@author A0140022H
-     * 
-     *          Sorts internal list by priority from high to low
+     * Sorts internal list by priority from high to low
      */
     public void sortByPriorityDescending() {
         this.tasks.getInternalList().sort(new Comparator<Task>() {
@@ -234,12 +230,9 @@ public class Tars implements ReadOnlyTars {
             }
         });
     }
-    // @@author
 
     /**
-     * @@author A0140022H
-     * 
-     *          Sorts internal list by earliest end dateTime first
+     * Sorts internal list by earliest end dateTime first
      */
     public void sortByDatetime() {
         this.tasks.getInternalList().sort(new Comparator<Task>() {
@@ -249,12 +242,9 @@ public class Tars implements ReadOnlyTars {
             }
         });
     }
-    // @@author
 
     /**
-     * @@author A0140022H
-     * 
-     *          Sorts internal list by latest end dateTime first
+     * Sorts internal list by latest end dateTime first
      */
     public void sortByDatetimeDescending() {
         this.tasks.getInternalList().sort(new Comparator<Task>() {
@@ -278,10 +268,10 @@ public class Tars implements ReadOnlyTars {
         tags.remove(t);
     }
 
+    // @@author A0139924W
     /**
      * Rename all task with the new tag
      * 
-     * @@author A0139924W
      * @param toBeRenamed tag to be replaced with new the new tag
      * @param newTag new tag
      * @throws IllegalValueException if the given tag name string is invalid.
@@ -305,7 +295,6 @@ public class Tars implements ReadOnlyTars {
     /**
      * Remove the tag from all tasks
      * 
-     * @@author A0139924W
      * @param toBeDeleted
      * @throws IllegalValueException if the given tag name string is invalid.
      * @throws TagNotFoundException if there is no matching tags.
@@ -333,7 +322,6 @@ public class Tars implements ReadOnlyTars {
     /**
      * Remove the tag from all tasks
      * 
-     * @@author A0139924W
      * @param toBeDeleted
      * @throws IllegalValueException if the given tag name string is invalid.
      * @throws TagNotFoundException if there is no matching tags.

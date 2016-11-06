@@ -25,9 +25,7 @@ import java.util.logging.Logger;
  * The manager of the UI component.
  */
 public class UiManager extends ComponentManager implements Ui {
-
-
-
+    
     private static final String LOG_MESSAGE_STARTING_UI = "Starting UI...";
     private static final String LOG_MESSAGE_INITIALIZING_FATAL_ERROR =
             "Fatal error during initializing";
@@ -136,9 +134,7 @@ public class UiManager extends ComponentManager implements Ui {
                 ALERT_SAVE_DATA_TO_FILE_FAILURE, event.exception);
     }
 
-    /**
-     * @@author A0140022H
-     */
+    // @@author A0140022H
     @Subscribe
     private void handleShowHelpEvent(ShowHelpRequestEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));

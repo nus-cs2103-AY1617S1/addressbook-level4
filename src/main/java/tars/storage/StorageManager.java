@@ -113,6 +113,7 @@ public class StorageManager extends ComponentManager implements Storage {
     }
 
     // @@author
+    
     @Override
     @Subscribe
     public void handleTarsChangedEvent(TarsChangedEvent event) {

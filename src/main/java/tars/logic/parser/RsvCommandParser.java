@@ -16,11 +16,9 @@ import tars.logic.commands.Command;
 import tars.logic.commands.IncorrectCommand;
 import tars.logic.commands.RsvCommand;
 
+// @@author A0124333U
 /**
  * Reserve command parser
- * 
- * @@author A0124333U
- *
  */
 public class RsvCommandParser extends CommandParser {
 

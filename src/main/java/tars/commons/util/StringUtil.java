@@ -65,10 +65,9 @@ public class StringUtil {
         return s != null && s.matches(REGEX_UNSIGNED_INTEGER);
     }
 
+    // @@author A0121533W
     /**
      * Handles three different cases of strings and return them in the appropriate format
-     * 
-     * @@author A0121533W
      */
     public static String indexString(String s)
             throws InvalidRangeException, IllegalValueException {
@@ -108,10 +107,9 @@ public class StringUtil {
                 && !s.contains(RANGE_SEPARATOR));
     }
 
+    // @@author A0121533W
     /**
      * Returns a valid list of indexes
-     * 
-     * @@author A0121533W
      */
     private static String getIndexesForList(String s)
             throws IllegalValueException {
@@ -128,10 +126,9 @@ public class StringUtil {
         return s.contains(RANGE_SEPARATOR);
     }
 
+    // @@author A0121533W
     /**
      * Returns a list of indexes separated by white space from a range of indexes
-     * 
-     * @@author A0121533W
      */
     private static String getIndexesForRange(String s)
             throws IllegalValueException, InvalidRangeException {

@@ -4,10 +4,9 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
 
+// @@author A0124333U
 /**
  * Container for all key combinations used by program
- * 
- * @@author A0124333U
  */
 public class KeyCombinations {
 

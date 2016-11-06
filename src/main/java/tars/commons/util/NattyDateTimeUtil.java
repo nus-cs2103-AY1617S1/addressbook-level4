@@ -11,10 +11,9 @@ import com.joestelmach.natty.Parser;
 
 import tars.commons.core.Messages;
 
+// @@author A0139924W
 /**
  * Natty date time utility
- * 
- * @@author A0139924W
  */
 public class NattyDateTimeUtil {
     private static final SimpleDateFormat CONVERT_NATTY_TIME_FORMAT =
@@ -68,7 +67,6 @@ public class NattyDateTimeUtil {
     /**
      * Change the date format to US date format.
      * 
-     * @@author A0139924W
      * @return formatted datetime in US format
      */
     private static String convertToUsDateFormat(String rawDateTime) {
@@ -81,7 +79,6 @@ public class NattyDateTimeUtil {
     /**
      * Change the date format to Asia date format.
      * 
-     * @@author A0139924W
      * @return formatted datetime in Asia format
      */
     private static String convertToAsiaDateFormat(Date toBeFormattedDateTime) {
@@ -91,7 +88,6 @@ public class NattyDateTimeUtil {
     /**
      * Checks if the datetime is a invalid format.
      * 
-     * @@author A0139924W
      * @return true if the given datetime is invalid
      */
     private static boolean isInvalidDateTimeArg(String dateTimeArg,
@@ -102,8 +98,6 @@ public class NattyDateTimeUtil {
 
     /**
      * Extracts start date time from natty group
-     * 
-     * @@author A0139924W
      */
     private static String[] extractStartDate(DateGroup group) {
         String treeString = StringUtil.EMPTY_STRING;
@@ -126,8 +120,6 @@ public class NattyDateTimeUtil {
 
     /**
      * Extracts start and end date time from natty group
-     * 
-     * @@author A0139924W
      */
     private static String[] extractStartAndEndDate(DateGroup group) {
         String firstTreeString = StringUtil.EMPTY_STRING;
@@ -166,8 +158,6 @@ public class NattyDateTimeUtil {
 
     /**
      * Checks if time is present
-     * 
-     * @@author A0139924W
      */
     private static boolean isTimePresent(String treeString) {
         return treeString.contains(NATTY_TIME_PREFIX);

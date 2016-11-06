@@ -13,10 +13,9 @@ import static tars.logic.commands.ListCommand.MESSAGE_SUCCESS_PRIORITY;
 import static tars.logic.commands.ListCommand.MESSAGE_SUCCESS_PRIORITY_DESCENDING;
 import static tars.logic.commands.ListCommand.MESSAGE_USAGE;
 
+// @@author A0140022H
 /**
  * GUI test for list commands
- * 
- * @@author A0140022H
  */
 public class ListCommandTest extends TarsGuiTest {
 

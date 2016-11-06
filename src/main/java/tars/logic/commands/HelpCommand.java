@@ -3,9 +3,8 @@ package tars.logic.commands;
 import tars.commons.core.EventsCenter;
 import tars.commons.events.ui.ShowHelpRequestEvent;
 
+// @@author A0140022H
 /**
- * @@author A0140022H
- * 
  * Format full help instructions for every command for display.
  */
 public class HelpCommand extends Command {

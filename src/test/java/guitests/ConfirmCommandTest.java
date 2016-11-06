@@ -9,10 +9,9 @@ import tars.testutil.TestRsvTask;
 import tars.testutil.TestTask;
 import tars.testutil.TestUtil;
 
+// @@author A0124333U
 /**
  * GUI test for confirm command
- * 
- * @@author A0124333U
  */
 public class ConfirmCommandTest extends TarsGuiTest {
 

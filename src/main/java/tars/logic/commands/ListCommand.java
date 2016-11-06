@@ -7,10 +7,9 @@ import tars.commons.events.ui.ScrollToTopEvent;
 
 import static tars.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
+// @@author A0140022H
 /**
- * @@author A0140022H
- * 
- *          Lists all tasks in tars to the user.
+ * Lists all tasks in tars to the user.
  */
 public class ListCommand extends Command {
 

@@ -166,10 +166,9 @@ public class CommandBox extends UiPart {
                 mostRecentResult.feedbackToUser));
     }
 
+    // @@A0124333U
     /**
      * Adds the user input command text into the "prev" stack
-     * 
-     * @@A0124333U
      */
     private void addCmdTextToPrevStack(String cmdText) {
         if (!prevCmdTextHistStack.contains(cmdText)) {

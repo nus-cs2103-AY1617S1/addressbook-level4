@@ -13,11 +13,9 @@ import tars.commons.util.StringUtil;
 import tars.model.task.ReadOnlyTask;
 import tars.ui.formatter.DateFormatter;
 
+// @@author A0121533W
 /**
  * UI Controller for Task Card
- * 
- * @@author A0121533W
- *
  */
 public class TaskCard extends UiPart {
 
@@ -103,10 +101,9 @@ public class TaskCard extends UiPart {
         circleLabel.setStyle(UiColor.CIRCLE_LABEL_COLOR);
     }
 
+    // @@author A0121533W
     /**
      * Gets color for circle based on task's priority and status
-     * 
-     * @@author A0121533W
      */
     private Color getColorBasedOnPriorityAndStatus(String priority,
             String status) {
@@ -126,10 +123,9 @@ public class TaskCard extends UiPart {
         }
     }
 
+    // @@author A0121533W
     /**
      * Gets label for circle based on task's priority and status
-     * 
-     * @@author A0121533W
      */
     private String getLabelBasedOnPriorityAndStatus(String priority,
             String status) {

@@ -2,10 +2,9 @@ package tars.logic.parser;
 
 import tars.logic.commands.Command;
 
+// @@author A0139924W
 /**
  * Represents a parser command with hidden internal logic and the ability to be executed.
- * 
- * @@author A0139924W
  */
 public abstract class CommandParser {
     protected static final Prefix namePrefix = new Prefix("/n");

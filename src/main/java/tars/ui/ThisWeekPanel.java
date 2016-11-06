@@ -24,10 +24,9 @@ import tars.commons.util.StringUtil;
 import tars.model.task.ReadOnlyTask;
 import tars.ui.formatter.Formatter;
 
+// @@author A0121533W
 /**
  * UI Controller for this week panel
- * 
- * @@author A0121533W
  */
 public class ThisWeekPanel extends UiPart {
     private static final String LOG_MESSAGE_UPDATE_THIS_WEEK_PANEL =
