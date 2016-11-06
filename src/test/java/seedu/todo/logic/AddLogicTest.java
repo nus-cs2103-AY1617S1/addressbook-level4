@@ -30,7 +30,7 @@ public class AddLogicTest extends CommandLogicTest {
     @Test
     public void execute_add_fullTask_successful() throws IllegalValueException {
         Task toBeAdded = helper.generateFullTask(0);
-        Task toBeAddedRecur = helper.generateFullTask(1);
+        Task toBeAddedRecur = helper.generateTaskWithDates("today 1400", "1600");
         
         expectedTDL.addTask(toBeAdded);
         assertCommandBehavior(helper.generateAddCommand(toBeAdded),
