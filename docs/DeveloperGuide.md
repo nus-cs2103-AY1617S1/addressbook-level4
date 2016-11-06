@@ -321,7 +321,8 @@ Use case resumes at step 1
 
 Use case ends.
 
-**Extensions**
+**Extensions** <br>
+
 2a. The list is empty
 
 > Use case ends
@@ -352,7 +353,8 @@ Use case ends.
 
 Use case ends.
 
-**Extensions**
+**Extensions** <br>
+
 2a. The list is empty
 
 > Use case ends
