@@ -13,7 +13,7 @@ import java.util.*;
 import java.util.function.Predicate;
 
 public class FindCommand extends BaseCommand {
-    private static final String FEEDBACK = "Type 'find' or switch to another view to close find";
+    private static final String FEEDBACK = "Type 'find' or switch to another view to dismiss find results";
     
     private Argument<String> keywords = new StringArgument("keywords");
 
