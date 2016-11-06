@@ -30,13 +30,25 @@ public class EditCommandTest extends AddressBookGuiTest {
         //edit the name task from the middle of the list
         currentList = TestUtil.editTaskInList(currentList, targetIndex, change, currentList[targetIndex-1]);
         targetIndex = currentList.length/2;
-        change = "Tutorial 4";
+        change = "Cook lunch for friends";
         assertEditSuccess(targetIndex, change, currentList);
         
         //edit the address task from the middle of the list
         currentList = TestUtil.editTaskInList(currentList, targetIndex, change, currentList[targetIndex-1]);
-        change = "a/NTU";
+        change = "a/Little India";
         assertEditSuccess(targetIndex, change, currentList);
+        
+        /*
+        //edit everything at once
+        currentList = TestUtil.editTaskInList(currentList, targetIndex, change, currentList[targetIndex-1]);
+        change = "Cook friends for lunch d/midnight a/SMU p/5";
+        String change1 = "Cook friends for lunch";
+        String change2 = "d/midnight";
+        String change3 = "a/SMU";
+        String change4 = "p/5";
+        String[] changes = {change1, change2, change3, change4};
+        assertMultipleEditSuccess(targetIndex, change, currentList, changes);
+        */
 
         //invalid index
         commandBox.runCommand("edit " + currentList.length + 1 + " Invalid");
@@ -47,18 +59,36 @@ public class EditCommandTest extends AddressBookGuiTest {
     /**
      * Runs the edit command to edit the task at specified index and confirms the result is correct.
      * @param targetIndexOneIndexed e.g. to edit the first task in the list, 1 should be given as the target index.
-     * @param currentList A copy of the current list of tasks (before editing).
+     * @param currentList A copy of the current list of tasks (before editing)
+     * @param change: contains detail with appropriate prefix that the user wants to edit into a task with index targetIndexOneIndexed.
+     * 
      */
     private void assertEditSuccess(int targetIndexOneIndexed, String change, final TestTask[] currentList) {
         TestTask taskToEdit = currentList[targetIndexOneIndexed-1]; //-1 because array uses zero indexing
         TestTask[] expectedRemainder = TestUtil.editTaskInList(currentList, targetIndexOneIndexed, change, taskToEdit);
         commandBox.runCommand("edit " + targetIndexOneIndexed + " " + change);
 
-        //confirm the list now contains all previous tasks except the deleted task
         assertTrue(taskListPanel.isListMatching(expectedRemainder));
 
         //confirm the result message is correct
         assertResultMessage(String.format(MESSAGE_EDIT_TASK_SUCCESS, expectedRemainder[targetIndexOneIndexed-1]));
     }
+    
+    /*
+    private void assertMultipleEditSuccess(int targetIndexOneIndexed, String change, TestTask[] currentList, String[] changeArr) {
+        TestTask taskToEdit = currentList[targetIndexOneIndexed-1]; //-1 because array uses zero indexing
+      
+        for(String c: changeArr) {
+          currentList = TestUtil.editTaskInList(currentList, targetIndexOneIndexed, c, taskToEdit);
+        }
+        TestTask[] expectedRemainder = currentList;
+        
+        commandBox.runCommand("edit " + targetIndexOneIndexed + " " + change);
 
+        assertTrue(taskListPanel.isListMatching(expectedRemainder));
+
+        //confirm the result message is correct
+        assertResultMessage(String.format(MESSAGE_EDIT_TASK_SUCCESS, expectedRemainder[targetIndexOneIndexed-1]));
+    }
+    */
 }

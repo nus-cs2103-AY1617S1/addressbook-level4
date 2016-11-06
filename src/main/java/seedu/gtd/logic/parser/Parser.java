@@ -59,7 +59,7 @@ public class Parser {
     
     private static final Pattern EDIT_DATA_ARGS_FORMAT =
     		Pattern.compile("(?<targetIndex>\\S+)" 
-                    + " (?<newDetail>.*)");
+                    + " (?<newDetails>\\S+(?:\\s+\\S+)*)");
 
     public Parser() {}
 
@@ -233,38 +233,113 @@ public class Parser {
         }
         
         Optional<Integer> index = Optional.of(Integer.parseInt(matcher.group("targetIndex")));
-        String newDetail = matcher.group("newDetail");
+        final String[] splitNewDetails = matcher.group("newDetails").split("\\s+");
+        ArrayList<String> combinedDetails = combineSameDetails(splitNewDetails);
         
-        String detailType = extractDetailType(newDetail); 
-        newDetail = prepareNewDetail(detailType, newDetail);
+        Hashtable<String, String> newDetailsSet = new Hashtable<String, String>();
+        
+        for (String detail : combinedDetails) {
+        	String detailType = extractDetailType(detail);
+        	String preparedNewDetail = prepareNewDetail(detailType, detail);
+        	System.out.println("before adding to hashtable: " + detailType + " " + preparedNewDetail);
+			newDetailsSet.put(detailType, preparedNewDetail);
+		}
         
         return new EditCommand(
-           (index.get() - 1),
-           detailType,
-           newDetail
+           index.get()-1,
+           newDetailsSet
         );
     }
     
-    private String extractDetailType(String detailType) {
-    	switch(detailType.substring(0, 2)) {
-    	case "d/": return "dueDate";
-    	case "a/": return "address";
-    	case "p/": return "priority";
-    	default: return "name";
+    private ArrayList<String> combineSameDetails(String[] details) {
+    	ArrayList<String> alDetails = new ArrayList<String>(Arrays.asList(details));
+    	System.out.println(alDetails.toString());
+    	
+    	String name = new String();
+    	String address = new String();
+    	String dueDate = new String();
+    	String priority = new String();
+    	
+    	int currentDetailType = 0;
+    	
+    	if(alDetails.size() == 1) {
+    		return alDetails;
     	}
+    	
+    	for (String detail: alDetails) {
+    		System.out.println("detail: " + detail);
+    		
+    		if(extractDetailType(detail).equals("name")) {
+    			System.out.println("current detail type: " + currentDetailType);
+    			switch(currentDetailType) {
+    			case 1: address = address + " " + detail; break;
+    			case 2: dueDate = dueDate + " " + detail; break;
+    			case 3: priority = priority + " " + detail; break;
+    			default: { 
+    			         if(name.isEmpty()) name = detail;
+		                 else name = name + " " + detail;
+		                 break;
+		                 }
+    			}
+    		}
+    		else if(extractDetailType(detail).equals("address")) {
+    			System.out.println("detected address " + detail);
+    			address = detail;
+    			currentDetailType = 1;
+    		}
+    		else if(extractDetailType(detail).equals("dueDate")) {
+    			System.out.println("detected dueDate " + detail);
+    			dueDate = detail;
+    			currentDetailType = 2;
+    		}
+    		else if(extractDetailType(detail).equals("priority")) {
+    			System.out.println("detected priority " + detail);
+    			address = detail;
+    			currentDetailType = 3;
+    		}
+    	}
+    	
+    	ArrayList<String> finalCombined = new ArrayList<String>();
+    	//does not remove the separate words from the list, they will be overwritten by the final combined string
+    	if(!name.isEmpty()) finalCombined.add(name);
+    	System.out.println("from combining name: " + name);
+    	if(!address.isEmpty()) finalCombined.add(address);
+    	System.out.println("from combining address: " + address);
+    	if(!dueDate.isEmpty()) finalCombined.add(dueDate);
+    	if(!priority.isEmpty()) finalCombined.add(priority);
+    	
+    	System.out.println("from combining: " + finalCombined.toString());
+    	return finalCombined;
     }
     
-    private String prepareNewDetail(String detailType, String newDetail) {
-  
-    	if(detailType == "name") {
-        	return newDetail;
-        }
+    private String removeDetailPrefix(String detailWithPrefix) {
+    	return detailWithPrefix.substring(detailWithPrefix.indexOf('/') + 1);
+    }
+    
+    private String prepareNewDetail(String detailType, String detailWithPrefix) {
+    	String detail = removeDetailPrefix(detailWithPrefix);
+    	if(detailType.equals("dueDate")) detail = parseDueDate(detail);
+    	return detail;
+    }
+    
+    //@@author A0146130W-reused
+    private String extractDetailType(String args) {
+    	String preprocessedArgs = " " + appendEnd(args.trim());
+        final Matcher dueDateMatcher = DUEDATE_TASK_DATA_ARGS_FORMAT.matcher(preprocessedArgs);
+        final Matcher addressMatcher = ADDRESS_TASK_DATA_ARGS_FORMAT.matcher(preprocessedArgs);
+        final Matcher priorityMatcher = PRIORITY_TASK_DATA_ARGS_FORMAT.matcher(preprocessedArgs);
     	
-    	newDetail = newDetail.substring(2);
-    	if(detailType == "dueDate") {
-    		newDetail = parseDueDate(newDetail);
+    	if(addressMatcher.matches()) {
+    		return "address";
     	}
-    	return newDetail;
+    	else if(dueDateMatcher.matches()) {
+    		return "dueDate";
+    	}
+    	else if(priorityMatcher.matches()) {
+    		return "priority";
+    	}
+    	
+    	return "name";
     }
     
     //@@author addressbook-level4

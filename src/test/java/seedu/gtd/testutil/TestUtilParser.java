@@ -18,7 +18,7 @@ public class TestUtilParser {
 	public static TestTask editTask(TestTask task, String change) throws IllegalValueException {
 		
 		TestTask newTask = task;
-		String changeWithoutPrefix = change.substring(2);
+		String changeWithoutPrefix = removeDetailPrefix(change);
 		String changePrefix = change.substring(0, 2);
 		System.out.println("From TestUtil Parser: " + changePrefix + " " + changeWithoutPrefix);
 		
@@ -31,8 +31,13 @@ public class TestUtilParser {
 		return newTask;
 	}
 	
-	 public static String parseDueDate(String dueDateRaw) {
+	//@@author A0146130W-reused
+	public static String parseDueDate(String dueDateRaw) {
     	NaturalLanguageProcessor nlp = new DateNaturalLanguageProcessor();
     	return nlp.formatString(dueDateRaw);
     }
+	 
+	 private static String removeDetailPrefix(String detailWithPrefix) {
+	    	return detailWithPrefix.substring(detailWithPrefix.indexOf('/') + 1);
+	 }
 }
