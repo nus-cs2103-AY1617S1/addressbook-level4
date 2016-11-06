@@ -1,0 +1,300 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<emeraldo>
+    <tasks>
+        <description>Acupuncture Session</description>
+        <dateTime>from 3 nov, 9am to 3 nov, 10am</dateTime>
+        <completedDateTime></completedDateTime>
+    </tasks>
+    <tasks>
+        <description>Anniversary date with darling</description>
+        <dateTime>on 15 nov</dateTime>
+        <completedDateTime></completedDateTime>
+        <tagged>impt</tagged>
+        <tagged>dinner</tagged>
+    </tasks>
+    <tasks>
+        <description>Apple internship interview</description>
+        <dateTime>from 11 nov, 11am to 11 nov, 12pm</dateTime>
+        <completedDateTime></completedDateTime>
+    </tasks>
+    <tasks>
+        <description>Buy gift for Mum</description>
+        <dateTime>by 13 nov, 5pm</dateTime>
+        <completedDateTime></completedDateTime>
+    </tasks>
+    <tasks>
+        <description>Buy MRT concession pass</description>
+        <dateTime>on 8 nov</dateTime>
+        <completedDateTime></completedDateTime>
+    </tasks>
+    <tasks>
+        <description>Buy new kicks</description>
+        <dateTime></dateTime>
+        <completedDateTime></completedDateTime>
+    </tasks>
+    <tasks>
+        <description>Buy Samsung Galaxy Note 7</description>
+        <dateTime>on 30 oct</dateTime>
+        <completedDateTime></completedDateTime>
+    </tasks>
+    <tasks>
+        <description>Canon Photography Workshop</description>
+        <dateTime>on 5 dec</dateTime>
+        <completedDateTime></completedDateTime>
+    </tasks>
+    <tasks>
+        <description>Complete CS2103 V0.2</description>
+        <dateTime>by 13/10/2016, 10:00</dateTime>
+        <completedDateTime></completedDateTime>
+    </tasks>
+    <tasks>
+        <description>Complete CS2103 V0.3</description>
+        <dateTime>by 20/10/2016, 10:00</dateTime>
+        <completedDateTime></completedDateTime>
+    </tasks>
+    <tasks>
+        <description>Complete EE2021 homework 5</description>
+        <dateTime>by 2 nov, 12pm</dateTime>
+        <completedDateTime></completedDateTime>
+    </tasks>
+    <tasks>
+        <description>DCP presentation</description>
+        <dateTime>on 14/11/2016</dateTime>
+        <completedDateTime></completedDateTime>
+    </tasks>
+    <tasks>
+        <description>Demo rehearsal</description>
+        <dateTime>on 9 nov</dateTime>
+        <completedDateTime></completedDateTime>
+    </tasks>
+    <tasks>
+        <description>Edit presentation video</description>
+        <dateTime>from 30/10/2016, 15:30 to 30/10/2016, 20:30</dateTime>
+        <completedDateTime></completedDateTime>
+    </tasks>
+    <tasks>
+        <description>EE2020 final tutorial</description>
+        <dateTime>from 28/10/2016, 17:00 to 28/10/2016, 18:00</dateTime>
+        <completedDateTime></completedDateTime>
+    </tasks>
+    <tasks>
+        <description>EE2020 Finals</description>
+        <dateTime>from 14 nov, 10am to 14 nov, 12pm</dateTime>
+        <completedDateTime></completedDateTime>
+    </tasks>
+    <tasks>
+        <description>Finish HL Milk</description>
+        <dateTime>by 2 nov, 2359</dateTime>
+        <completedDateTime></completedDateTime>
+        <tagged>food</tagged>
+    </tasks>
+    <tasks>
+        <description>Gift return duty at Clubroom</description>
+        <dateTime>from 27/10/2016, 12:00 to 27/10/2016, 14:00</dateTime>
+        <completedDateTime></completedDateTime>
+        <tagged>gaw</tagged>
+    </tasks>
+    <tasks>
+        <description>Go Halloween Horror Nights</description>
+        <dateTime>on 27/10/2016</dateTime>
+        <completedDateTime></completedDateTime>
+    </tasks>
+    <tasks>
+        <description>Google internship interview</description>
+        <dateTime>from 01/11/2016, 10:00 to 01/11/2016, 11:00</dateTime>
+        <completedDateTime></completedDateTime>
+    </tasks>
+    <tasks>
+        <description>GovTech internship interview</description>
+        <dateTime>from 01/11/2016, 14:00 to 01/11/2016, 15:00</dateTime>
+        <completedDateTime></completedDateTime>
+    </tasks>
+    <tasks>
+        <description>GushCloud internship interview</description>
+        <dateTime>from 5 nov, 12pm to 5 nov, 1pm</dateTime>
+        <completedDateTime></completedDateTime>
+    </tasks>
+    <tasks>
+        <description>Hike Bt Timah Nature Reserve</description>
+        <dateTime>on 1 dec</dateTime>
+        <completedDateTime></completedDateTime>
+        <tagged>healthy</tagged>
+    </tasks>
+    <tasks>
+        <description>Jeramyn’s Birthday</description>
+        <dateTime>on 28/10/2016</dateTime>
+        <completedDateTime></completedDateTime>
+        <tagged>friends</tagged>
+    </tasks>
+    <tasks>
+        <description>Khong’s wedding</description>
+        <dateTime>on 10 nov</dateTime>
+        <completedDateTime></completedDateTime>
+        <tagged>special</tagged>
+        <tagged>friends</tagged>
+    </tasks>
+    <tasks>
+        <description>Korean BBQ with buddies</description>
+        <dateTime>on 14 nov</dateTime>
+        <completedDateTime></completedDateTime>
+        <tagged>food</tagged>
+        <tagged>celebration</tagged>
+    </tasks>
+    <tasks>
+        <description>Leaders’ Camp</description>
+        <dateTime>from 6 nov, 9am to 7 nov, 4pm</dateTime>
+        <completedDateTime></completedDateTime>
+    </tasks>
+    <tasks>
+        <description>Piano lessons</description>
+        <dateTime>from 06/11/2016, 14:00 to 06/11/2016, 14:45</dateTime>
+        <completedDateTime></completedDateTime>
+        <tagged>music</tagged>
+    </tasks>
+    <tasks>
+        <description>Piano performance at Esplanade</description>
+        <dateTime>on 3 dec</dateTime>
+        <completedDateTime></completedDateTime>
+        <tagged>music</tagged>
+    </tasks>
+    <tasks>
+        <description>Prepare agenda for meeting</description>
+        <dateTime>by 26/10/2016, 18:00</dateTime>
+        <completedDateTime></completedDateTime>
+        <tagged>work</tagged>
+    </tasks>
+    <tasks>
+        <description>Prepare CS2101 Oral Presentation 2</description>
+        <dateTime>by 31 oct, 23:59</dateTime>
+        <completedDateTime></completedDateTime>
+    </tasks>
+    <tasks>
+        <description>Prepare for CS2103 v0.4 demo</description>
+        <dateTime>by 27/10/2016, 10:00</dateTime>
+        <completedDateTime></completedDateTime>
+    </tasks>
+    <tasks>
+        <description>Prepare for CS2103 V0.5rc demo</description>
+        <dateTime>by 03/11/2016, 10:00</dateTime>
+        <completedDateTime></completedDateTime>
+    </tasks>
+    <tasks>
+        <description>Proposal for Leaders’ Camp</description>
+        <dateTime>by 25 oct, 11.59pm</dateTime>
+        <completedDateTime></completedDateTime>
+    </tasks>
+    <tasks>
+        <description>Oral Discussion for CS2101</description>
+        <dateTime>from 10/11/2016, 12:00 to 10/11/2016, 14:00</dateTime>
+        <completedDateTime></completedDateTime>
+    </tasks>
+    <tasks>
+        <description>Read 7 habits of highly effective people</description>
+        <dateTime></dateTime>
+        <completedDateTime></completedDateTime>
+        <tagged>book</tagged>
+    </tasks>
+    <tasks>
+        <description>Research on Swedish culture</description>
+        <dateTime></dateTime>
+        <completedDateTime></completedDateTime>
+    </tasks>
+    <tasks>
+        <description>Return library books</description>
+        <dateTime>by 11 nov, 9pm</dateTime>
+        <completedDateTime></completedDateTime>
+        <tagged>book</tagged>
+    </tasks>
+    <tasks>
+        <description>Samsung internship interview</description>
+        <dateTime>from 18 nov, 3pm to 18 nov, 4pm</dateTime>
+        <completedDateTime></completedDateTime>
+    </tasks>
+    <tasks>
+        <description>Send laptop for repairs</description>
+        <dateTime>by 29/10/2016, 17:00</dateTime>
+        <completedDateTime></completedDateTime>
+    </tasks>
+    <tasks>
+        <description>Sort out returned gifts</description>
+        <dateTime>by 02/11/2016, 23:59</dateTime>
+        <completedDateTime></completedDateTime>
+        <tagged>gaw</tagged>
+    </tasks>
+    <tasks>
+        <description>Spring cleaning</description>
+        <dateTime>by 2 dec, 12pm</dateTime>
+        <completedDateTime></completedDateTime>
+        <tagged>home</tagged>
+    </tasks>
+    <tasks>
+        <description>Steamboat dinner at Mel’s house</description>
+        <dateTime>from 29/10/2016, 19:00 to 29/10/2016, 22:00</dateTime>
+        <completedDateTime></completedDateTime>
+        <tagged>friends</tagged>
+    </tasks>
+    <tasks>
+        <description>Steamboat dinner at Vincent’s</description>
+        <dateTime>on 6 dec</dateTime>
+        <completedDateTime></completedDateTime>
+        <tagged>friends</tagged>
+    </tasks>
+    <tasks>
+        <description>Study EE2020 Lecture 4 and 5</description>
+        <dateTime>by 19 oct, 2am</dateTime>
+        <completedDateTime></completedDateTime>
+    </tasks>
+    <tasks>
+        <description>Try salted egg yolk croissant</description>
+        <dateTime></dateTime>
+        <completedDateTime></completedDateTime>
+        <tagged>food</tagged>
+    </tasks>
+    <tasks>
+        <description>Watch Doctor Strange</description>
+        <dateTime>on 27/10/2016</dateTime>
+        <completedDateTime></completedDateTime>
+        <tagged>friends</tagged>
+    </tasks>
+    <tasks>
+        <description>Watch Inception movie</description>
+        <dateTime></dateTime>
+        <completedDateTime></completedDateTime>
+    </tasks>
+    <tasks>
+        <description>YOLO Run</description>
+        <dateTime>from 22/10/2016, 07:00 to 22/10/2016, 12:00</dateTime>
+        <completedDateTime></completedDateTime>
+        <tagged>friends</tagged>
+    </tasks>
+    <tasks>
+        <description>Zhiming’s concert</description>
+        <dateTime>on 9/11/2016</dateTime>
+        <completedDateTime></completedDateTime>
+        <tagged>friends</tagged>
+    </tasks>
+    <tags>
+        <tagName>special</tagName>
+    </tags>
+    <tags>
+        <tagName>food</tagName>
+    </tags>
+    <tags>
+        <tagName>gaw</tagName>
+    </tags>
+    <tags>
+        <tagName>healthy</tagName>
+    </tags>
+    <tags>
+        <tagName>friends</tagName>
+    </tags>
+    <tags>
+        <tagName>work</tagName>
+    </tags>
+    <tags>
+        <tagName>book</tagName>
+    </tags>
+    <tags>
+        <tagName>home</tagName>
+    </tags>
+</emeraldo>
