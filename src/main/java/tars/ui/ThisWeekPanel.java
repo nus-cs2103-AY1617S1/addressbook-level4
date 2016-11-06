@@ -36,7 +36,7 @@ public class ThisWeekPanel extends UiPart {
     private static final String FXML = "ThisWeekPanel.fxml";
     private static final String THISWEEK_PANEL_STYLE_SHEET = "thisWeek-panel";
     private static final String STATUS_UNDONE = "Undone";
-    private static final DateFormat df = new SimpleDateFormat("E d, MMM");
+    private static final DateFormat df = new SimpleDateFormat("E, MMM dd");
 
     private static List<ReadOnlyTask> list;
     private static List<ReadOnlyTask> upcomingTasks =
@@ -57,6 +57,8 @@ public class ThisWeekPanel extends UiPart {
     private Label overduedTasksList;
     @FXML
     private Label upcomingTasksList;
+    
+    private static final int MIN_SIZE = 5;
 
     public static ThisWeekPanel load(Stage primaryStage,
             AnchorPane thisWeekPanelPlaceHolder, List<ReadOnlyTask> taskList) {
@@ -141,10 +143,10 @@ public class ThisWeekPanel extends UiPart {
      */
     private void setThisWeekPanelTaskList(int count, List<ReadOnlyTask> tasksList, Label taskListLabel) {
             List<ReadOnlyTask> topFiveTasks = tasksList.subList(
-                    StringUtil.START_INDEX, Math.min(tasksList.size(), 3));
+                    StringUtil.START_INDEX, Math.min(tasksList.size(), MIN_SIZE));
             String list = Formatter
                     .formatThisWeekPanelTasksList(topFiveTasks);
-            if (tasksList.size() > 3) {
+            if (tasksList.size() > MIN_SIZE) {
                 list = list + TasksListEllipsis;
             }
             taskListLabel.setText(list);

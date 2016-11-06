@@ -4,9 +4,9 @@ import tars.commons.core.EventsCenter;
 import tars.commons.events.ui.ShowHelpRequestEvent;
 
 /**
- * Format full help instructions for every command for display.
- * 
  * @@author A0140022H
+ * 
+ * Format full help instructions for every command for display.
  */
 public class HelpCommand extends Command {
 
@@ -14,7 +14,7 @@ public class HelpCommand extends Command {
 
     public static final String MESSAGE_USAGE =
             COMMAND_WORD + ": Shows program usage instructions in help panel.\n"
-                    + "Example: " + COMMAND_WORD;
+                    + "Example: " + COMMAND_WORD + "add";
 
     public static final String SHOWING_HELP_MESSAGE = "Switched to Help tab pane.";
 

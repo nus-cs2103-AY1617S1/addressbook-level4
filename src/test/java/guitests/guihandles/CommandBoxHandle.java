@@ -45,8 +45,8 @@ public class CommandBoxHandle extends GuiHandle {
         return new HelpPanelHandle(guiRobot, primaryStage);
     }
 
-    public OverviewPanelHandle getOverviewPanelHandle() {
-        return new OverviewPanelHandle(guiRobot, primaryStage);
+    public ThisWeekPanelHandle getOverviewPanelHandle() {
+        return new ThisWeekPanelHandle(guiRobot, primaryStage);
     }
 
     public RsvTaskListPanelHandle getRsvTaskListPanelHandle() {

@@ -276,8 +276,6 @@ Priority | As a ... | I want to ... | So that I can...
 `*` | user | use a keyboard shortcut to launch the program | launch the program quickly
 `*` | user | have suggestions on free slots | decide when to add a new task or shift current tasks
 
-{More to be added}
-
 [comment]: # (@@author A0139924W)
 ## Appendix B : Use Cases
 
@@ -306,7 +304,7 @@ Use case ends.
 > 2a1. TARS shows an error message<br>
   Use case resumes at step 1
 
-2b. The end datetime is smaller than start datetime
+2b. The end datetime is earlier than start datetime
 
 > 2b1. TARS shows an error message<br>
   Use case resumes at step 1
@@ -457,8 +455,6 @@ Use case ends.
 > 2a1. TARS shows an empty list message<br>
   Use case ends
 
-{More to be added}
-
 ## Appendix C : Non Functional Requirements
 
 1. Should work on any [mainstream OS](#mainstream-os) as long as it has Java `1.8.0_60` or higher installed.
@@ -480,8 +476,6 @@ Use case ends.
   * are not free
   * require installation
   * violate other constraint
-
-{More to be added}
 
 ## Appendix D : Glossary
 

@@ -14,9 +14,9 @@ import static tars.logic.commands.ListCommand.MESSAGE_SUCCESS_PRIORITY_DESCENDIN
 import static tars.logic.commands.ListCommand.MESSAGE_USAGE;
 
 /**
- * GUI test for list commands
- * 
  * @@author A0140022H
+ * 
+ * GUI test for list commands
  */
 public class ListCommandTest extends TarsGuiTest{
 	
@@ -64,7 +64,6 @@ public class ListCommandTest extends TarsGuiTest{
 	
 	@Test
 	public void listInvalidCommand() {
-		//TestTask[] expectedList = {td.taskA, td.taskB, td.taskC, td.taskD, td.taskE, td.taskF};
 		TestTask[] expectedList = currentList;
 		commandBox.runCommand("ls /r");
 		assertTrue(taskListPanel.isListMatching(expectedList));

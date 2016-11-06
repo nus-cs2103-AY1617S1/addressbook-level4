@@ -10,9 +10,9 @@ import tars.logic.commands.IncorrectCommand;
 import tars.ui.UserGuide;
 
 /**
- * Help command parser
- * 
  * @@author A0140022H
+ * 
+ * Help command parser
  */
 public class HelpCommandParser extends CommandParser {
 

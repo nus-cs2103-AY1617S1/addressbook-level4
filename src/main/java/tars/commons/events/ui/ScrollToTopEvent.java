@@ -3,7 +3,7 @@ package tars.commons.events.ui;
 import tars.commons.events.BaseEvent;
 
 /**
- * Indicate UI to scroll to top
+ * Indicate that the task list should scroll to the top
  */
 public class ScrollToTopEvent extends BaseEvent {
 

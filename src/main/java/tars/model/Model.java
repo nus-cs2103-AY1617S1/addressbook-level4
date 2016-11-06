@@ -112,13 +112,19 @@ public interface Model {
     public ArrayList<DateTime> getListOfFilledTimeSlotsInDate(DateTime dateToCheck);
 
     /**
-     * Sorts the filtered task list by the given keywords
-     * 
      * @@author A0140022H
+     * 
+     * Sorts the filtered task list by the given keywords
      */
 	void sortFilteredTaskList(Set<String> keywords);
+	// @@author A0140022H
 
-	//@@author A0140022H
+	/**
+	 * @@author A0140022H
+	 * 
+	 * Updates the filtered task list by the given dateTime
+	 */
 	void updateFilteredTaskListUsingDate(DateTime dateTime);
-
+	// @@author
+	
 }

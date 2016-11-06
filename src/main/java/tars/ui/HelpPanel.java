@@ -132,6 +132,7 @@ public class HelpPanel extends UiPart {
 
         return url;
     }
+    // @@author
 
     /**
      * @@author A0140022H
@@ -139,4 +140,5 @@ public class HelpPanel extends UiPart {
     public void loadUserGuide(String args) {
         browser.getEngine().load(configureURL(args));
     }
+    // @@author
 }

@@ -1,3 +1,23 @@
+@font-face {
+  font-family: Roboto;
+  src: url("../fonts/roboto/Roboto-Regular.ttf");
+}
+
+@font-face {
+  font-family: "Roboto Medium";
+  src: url("../fonts/roboto/Roboto-Medium.ttf");
+}
+
+@font-face {
+  font-family: "Roboto Light";
+  src: url("../fonts/roboto/Roboto-Light.ttf");
+}
+
+@font-face {
+  font-family: "Roboto Bold";
+  src: url("../fonts/roboto/Roboto-Bold.ttf");
+}
+
 .root {
 	-fx-focus-color: transparent;
 }
@@ -8,15 +28,15 @@
 
 .label {
     -fx-font-size: 11pt;
-    -fx-font-family: "Roboto";
+    -fx-font-family: "Roboto Thin";
     -fx-text-fill: #212121;
     -fx-opacity: 0.9;
 }
 
 .text-field {
     -fx-font-size: 12pt;
-    -fx-font-family: "Roboto";
     -fx-border-color: transparent;
+    -fx-font-family: "Roboto Thin";
     -fx-background-insets: 0;       
 }
 
@@ -27,7 +47,6 @@
 .text-area {
 	-fx-background-insets: 0;
 	-fx-background-color: transparent;
-	-fx-font-family: "Roboto";
 }
 
 .text-area .content {
@@ -46,9 +65,9 @@
 }
 
 .tab .tab-label {
-	-fx-font-size: 10pt;
-	-fx-font-family: "Roboto Bold";
+	-fx-font-size: 14px;
 	-fx-text-fill: #616161;
+	-fx-font-family: "Roboto Thin";
 }
 
 .tab-pane .tab-header-area {
@@ -108,22 +127,25 @@
 
 .cell_index_label {
 	-fx-font-size: 16px;
-	-fx-font-weight: bold;
+	-fx-font-family: "Roboto Medium";
 }
 
 .cell_big_label {
     -fx-font-size: 16px;
+    -fx-font-family: "Roboto Medium";
     -fx-text-fill: #212121;
 }
 
 .cell_medium_label {
     -fx-font-size: 14px;
-    -fx-text-fill: #757575;
+    -fx-font-family: "Roboto Thin";
+    -fx-text-fill: #616161;
 }
 
 .cell_small_label {
     -fx-font-size: 12px;
     -fx-text-fill: #212121;
+    -fx-font-family: "Roboto Thin";
 }
 
 .anchor-pane {
@@ -177,19 +199,17 @@
 
 .thisWeek-panel-label {
 	-fx-font-size: 24pt;
-	-fx-font-family: "Roboto Bold";
 	-fx-text-fill: #607D8B;
 }
 
 .date-label {
 	-fx-font-size: 32pt;
-	-fx-font-family: "Roboto Bold";
 	-fx-text-fill: #607D8B;
+	-fx-font-family: "Roboto Thin";
 }
 
 .list-label {
 	-fx-font-size: 10pt;
-	-fx-font-family: "Roboto Bold";
 	-fx-text-fill: #616161;
 	-fx-background-color: #BDBDBD;
 }

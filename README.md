@@ -23,6 +23,7 @@
 
 * This application was adapted from a CS2103 sample application, [AddressBook-Level 4](https://github.com/nus-cs2103-AY1617S1/addressbook-level4) designed and built by *Assoc. Prof Damith C. Rajapakse* and his teaching team. 
 * This application was designed and built under the guidance and advice of our module tutor, *[Candiie](https://github.com/Candiie)*.
+* This application used [Natty](http://natty.joestelmach.com/) by Joestelmach for natural date parsing.
 * Some parts of this application were inspired by the excellent 
   [Java FX tutorial](http://code.makery.ch/library/javafx-8-tutorial/) by *Marco Jakob*. 
 
