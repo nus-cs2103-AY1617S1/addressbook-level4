@@ -121,7 +121,6 @@ public class MainWindow extends UiPart {
     }
 
     protected void fillInnerParts() {
-        header = Header.load(primaryStage, headerPlaceholder);
         taskListPanel = TaskListPanel.load(primaryStage,
                 getTaskListPlaceholder(), logic.getFilteredTaskList());
         rsvTaskListPanel = RsvTaskListPanel.load(primaryStage,
