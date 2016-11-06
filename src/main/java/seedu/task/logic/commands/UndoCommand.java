@@ -72,15 +72,16 @@ public class UndoCommand extends Command {
         if (isUndoListEmpty()) {
             return new CommandResult(MESSAGE_FAIL);
         }
-        String outputUndoList = EMPTY_STRING;
-        outputUndoList = executeUndoCommand(outputUndoList);
-        return new CommandResult(outputUndoList);
+        String displayResult = EMPTY_STRING;
+        displayResult = executeUndoCommand(displayResult);
+        return new CommandResult(displayResult);
     }
 
-    private String executeUndoCommand(String outputUndoList) {
+    private String executeUndoCommand(String displayResult) {
+        String result = displayResult;
         for (int i = 0; i < numOfTimes; i++) {
             if (!isUndoListEmpty()) {
-                outputUndoList += DELIMITER + MESSAGE_SUCCESS + getPreviousCommandText() + NEW_LINE;
+                result += DELIMITER + MESSAGE_SUCCESS + getPreviousCommandText() + NEW_LINE;
                 String[] commandParts = splitPreviousCommandTextIntoFourParts();
                 String previousCommand = getPreviousCommandName(commandParts);
                 
@@ -132,11 +133,11 @@ public class UndoCommand extends Command {
                 
             } else {
                 if (!isMultiUndo) {
-                    outputUndoList = MESSAGE_FAIL;
+                    result = MESSAGE_FAIL;
                 }
             }
         }
-        return outputUndoList;
+        return result;
     }
 
     private void removePreviousCommandText() {
@@ -221,7 +222,7 @@ public class UndoCommand extends Command {
             } catch (IllegalValueException e) {
             }
             removePreviousCommand(undoIndex);
-            undoIndex = decrement(undoIndex);
+            undoIndex--;
             if (undoIndex < 0) {
                 break;
             }
@@ -264,6 +265,9 @@ public class UndoCommand extends Command {
         case UNDO_EDIT_TAG:
             HashSet<Tag> tagSet = new HashSet<>(getUndoList().get(undoIndex).getNewTask().getTags().toSet());
             tagStringSet = new HashSet<>(tagSet.size());
+            break;
+            
+        default:
             break;
         }
         try {
@@ -313,11 +317,7 @@ public class UndoCommand extends Command {
         getUndoList().remove(getUndoList().size() - 1);
     }
 
-    private int decrement(int index) {
-        index--;
-        return index;
-    }
-
+    
     private void removePreviousCommand(int index) {
         getUndoList().remove(index);
     }
