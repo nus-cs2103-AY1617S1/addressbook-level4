@@ -568,6 +568,15 @@ Use case ends
 Use case ends
 
 
+### Use case: Refresh tasks
+
+**MSS**
+
+1. User requests to refresh tasks
+2. Task Manager successfully refreshes tasks, showing success message in the message panel and the updated task list in the task list panel <br>
+Use case ends
+
+
 ### Use case: Exit TaskManager
 
 **MSS**
