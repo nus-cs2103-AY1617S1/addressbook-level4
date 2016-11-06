@@ -222,7 +222,6 @@ public class Parser {
 			return new DeleteCommand(index);
 		}
 		else if(!args.isEmpty()){
-			System.out.println("*"+args+"*");
 			return new DeleteCommand("*"+args+"*");
 		}
 		else{
