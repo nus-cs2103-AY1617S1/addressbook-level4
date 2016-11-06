@@ -21,7 +21,7 @@ public class ContinueCommand extends Command {
             + ": Marks the done task identified by the index number used in the current listing as undone.\n"
             + "Parameters: INDEX (must be a positive integer)\n" + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_DONE_TASK_SUCCESS = "Task Continue: %1$s";
+    public static final String MESSAGE_CONTINUE_TASK_SUCCESS = "Task Continue: %1$s";
 
     public final ArrayList<Integer> targetIndexes;
 
@@ -61,7 +61,7 @@ public class ContinueCommand extends Command {
             }
         }
         indicateCorrectCommandExecuted();
-        return new CommandResult(String.format(MESSAGE_DONE_TASK_SUCCESS, sb.toString()));
+        return new CommandResult(String.format(MESSAGE_CONTINUE_TASK_SUCCESS, sb.toString()));
     }
 
 }

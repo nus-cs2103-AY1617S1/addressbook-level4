@@ -99,26 +99,27 @@ Each of the four components
 For example, the `Logic` component  defines its API in the `Logic.java`
 interface, and it exposes its functionality using the `LogicManager.java` class (refer to Figure 2).<br>
 
-###An overview of interactions between components
+<!-- @@author A0138411N --> 
+###An overview of interactions between components when a command is entered
 
-Figure 2 shows how components interact with each other when the user issues the
-command `delete 3`.
+Figure 2 shows how components interact with each other when the user enters the
+command `add floating task`.
 
-<img src="images\SDforDeleteTask.png" width="800">
->**_Figure 2_**: Sequence Diagram - shows the interaction between components when issued the command `delete 3`
+<img src="images\SDforAddTask.png" width="800">
+>**_Figure 2_**: Sequence Diagram - shows the interaction between components when issued the command `add floating task`
 
->Note how the `Model` simply raises a `TaskMangerChangedEvent` when the GGist data are changed,
+>Note how the `Model` simply raises a `TaskMangerChangedEvent` when GGist data is changed,
  instead of asking the `Storage` to save the updates to the hard disk.
 
-Figure 3 shows how the `EventsCenter` reacts to the event (`delete 3`). This process eventually results in saving the updates to the hard disk, and updating the status bar of the UI to reflect the 'Last Updated' time.<br>
+Figure 3 shows how the `EventsCenter` reacts to the event (`add floating task`). This process eventually results in saving the updates to the hard disk, and updating the status bar of the UI to reflect the 'Last Updated' time.<br>
 
-<img src="images\SDforDeleteTaskEventHandling.png" width="800">
->**_Figure 3_**: EventsCentre Diagram - shows how EventsCentre reacts to the event (`delete 3`)
+<img src="images\SDforAddTaskEventHandling.png" width="800">
+>**_Figure 3_**: EventsCentre Diagram - shows how EventsCentre reacts to the event (`add floating task`)
 
 > Note how the event passes through the `EventsCenter` to the `Storage` and `UI`. This process is done without `Model` being coupled to other components. Thus, this Event-Driven approach helps us to reduce direct coupling between components.
 
 ###Additional details of each component.
-
+<!-- @@author--> 
 ### UI component
 
 <img src="images/UiClassDiagram.png" width="800"><br>
@@ -147,10 +148,10 @@ The `UI` component,
 
 The `Logic` component uses the `Parser` class to parse the user command. This results in a `Command` object being executed by the `LogicManager`. The command execution can affect the `Model` (e.g. adding a task) and/or raise events. The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 
-Figure 6 displays the interactions within the `Logic` component for the `execute("delete 1")` API call.<br>
+Figure 6 displays the interactions within the `Logic` component for the `execute("edit 1 start date today")` API call.<br>
  
-<img src="images/DeleteTaskSdForLogic.png" width="800"><br>
->**_Figure 6_**: Sequence Diagram - shows interactions within the `Logic` component for the `execute("delete 1")` API call
+<img src="images/EditTaskSdForLogic.png" width="800"><br>
+>**_Figure 6_**: Sequence Diagram - shows interactions within the `Logic` component for the `execute("edit 1 start date today")` API call
 
 ### Model component
 
@@ -219,7 +220,7 @@ There are two types of tests:
   
 2. **Non-GUI Tests** - These are tests not involving the GUI. They include: 
    * _Unit tests_ targeting the lowest level methods/classes. <br>
-      e.g. `seedu.ggist.commons.UrlUtilTest`
+      e.g. `seedu.ggist.commons.AppUtilTest`
    * _Integration tests_ that are checking the integration of multiple code units 
      (those code units are assumed to be working).<br>
       e.g. `seedu.ggist.storage.StorageManagerTest`
