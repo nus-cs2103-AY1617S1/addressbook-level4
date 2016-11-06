@@ -1,17 +1,12 @@
 package guitests;
 
-//@@author A0135805H
-
 import guitests.guihandles.HelpViewHandle;
 import org.junit.Test;
 import seedu.todo.logic.commands.CommandMap;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+//@@author A0135805H
 /**
  * Tests the display of help command.
  */
