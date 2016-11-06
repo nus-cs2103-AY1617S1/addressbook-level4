@@ -19,8 +19,8 @@ public class TypicalTestDeadlineTasks {
     
     public TypicalTestDeadlineTasks() {
         try {
-            groceries =  new DeadlineTaskBuilder().withName("buy groceries").withTags("NTUC").withPriority("LOW").withDeadline("2016-11-02 21:00").build();
-            ideas = new DeadlineTaskBuilder().withName("brainstorm ideas").withTags("project").withPriority("LOW").withDeadline("2016-10-31 19:00").build();
+            groceries =  new DeadlineTaskBuilder().withName("buy groceries").withTags("NTUC").withPriority("LOW").withDeadline().build(); //instantiate time to current time
+            ideas = new DeadlineTaskBuilder().withName("brainstorm ideas").withTags("project").withPriority("LOW").withDeadlineTmr().build();
             
             //Manually added
             homework = new DeadlineTaskBuilder().withName("finish homework").withPriority("HIGH").withDeadline("2016-10-31 19:00").build();

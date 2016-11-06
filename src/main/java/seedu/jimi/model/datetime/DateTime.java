@@ -41,7 +41,12 @@ public class DateTime implements Comparable<DateTime> {
         dtInstance = LocalDateTime.ofInstant(date.toInstant(), ZoneId.systemDefault())
                 .withSecond(0).withNano(0);
     }
-
+    
+    public static DateTime getTomorrow() throws IllegalValueException {
+        DateTime tomorrow = new DateTime(LocalDateTime.now().withSecond(0).withNano(0).plus(1, ChronoUnit.DAYS).toString().replace("T", " "));
+        return tomorrow;
+    }
+    
     public String getDate() {
         DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(DATE_FORMAT);
         return dtInstance.format(dateFormatter).toString();

@@ -38,8 +38,18 @@ public class DeadlineTaskBuilder{
         return this;
     }
     
+    public DeadlineTaskBuilder withDeadline() throws IllegalValueException {
+        this.task.setDeadline(new DateTime());
+        return this;
+    }
+    
     public DeadlineTaskBuilder withDeadline(String deadline) throws IllegalValueException {
         this.task.setDeadline(new DateTime(deadline));
+        return this;
+    }
+    
+    public DeadlineTaskBuilder withDeadlineTmr() throws IllegalValueException {
+        this.task.setDeadline(DateTime.getTomorrow());
         return this;
     }
 
