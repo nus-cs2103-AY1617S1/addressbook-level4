@@ -10,6 +10,7 @@ import com.google.common.eventbus.Subscribe;
 import harmony.mastermind.commons.core.Config;
 import harmony.mastermind.commons.core.GuiSettings;
 import harmony.mastermind.commons.core.LogsCenter;
+import harmony.mastermind.commons.events.model.TaskManagerChangedEvent;
 import harmony.mastermind.commons.events.ui.NewResultAvailableEvent;
 import harmony.mastermind.commons.events.ui.TabChangedEvent;
 import harmony.mastermind.logic.Logic;
@@ -349,9 +350,14 @@ public class MainWindow extends UiPart {
     private void handleNewResultAvailableEvent(NewResultAvailableEvent event){
         // updates the tab when a list command is called
         this.updateTab(event.message);
-        
     }
     //@@author
+    
+    // @@author A0124797R
+    @Subscribe
+    private void handleTaskManagerChanged(TaskManagerChangedEvent event) {
+        updateTabTitle();
+    }
     
     // @@author A0138862W
     public void highlightLastActionedRow(Task task){

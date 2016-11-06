@@ -320,6 +320,7 @@ public class TaskManager implements ReadOnlyTaskManager {
     public boolean markTask(Task key) throws UniqueTaskList.TaskNotFoundException {
         if (tasks.remove(key)) {
             archives.add(key.mark());
+            this.getUniqueTaskList().getInternalList().sort(comparator);
             syncRemoveTask(key);
             return true;
         } else {
@@ -335,6 +336,7 @@ public class TaskManager implements ReadOnlyTaskManager {
     public boolean unmarkTask(Task key) throws DuplicateTaskException, ArchiveTaskList.TaskNotFoundException {
         if (archives.remove(key)) {
             tasks.add(key.unmark());
+            this.getUniqueTaskList().getInternalList().sort(comparator);
             syncAddTask(key.unmark());
             return true;
         } else {

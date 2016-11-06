@@ -13,10 +13,12 @@ import harmony.mastermind.commons.core.Messages;
 import harmony.mastermind.commons.core.UnmodifiableObservableList;
 import harmony.mastermind.commons.events.ui.HighlightLastActionedRowRequestEvent;
 import harmony.mastermind.commons.exceptions.IllegalValueException;
+import harmony.mastermind.commons.exceptions.InvalidEventDateException;
 import harmony.mastermind.model.tag.Tag;
 import harmony.mastermind.model.tag.UniqueTagList;
 import harmony.mastermind.model.task.ReadOnlyTask;
 import harmony.mastermind.model.task.Task;
+import harmony.mastermind.model.task.TaskBuilder;
 import harmony.mastermind.model.task.UniqueTaskList;
 import harmony.mastermind.model.task.UniqueTaskList.DuplicateTaskException;
 import harmony.mastermind.model.task.UniqueTaskList.TaskNotFoundException;
@@ -33,23 +35,23 @@ public class EditCommand extends Command implements Undoable, Redoable {
     
     //@@author A0138862W
     public static final String COMMAND_ARGUMENTS_REGEX = "(?=(?<index>\\d+))"
-                                                        + "(?:(?=.*name to (?:(?<name>.+?)(?:;|$))?))?"
-                                                        + "(?:(?=.*start date to (?:(?<startDate>.+?)(?:;|$))?))?"
-                                                        + "(?:(?=.*end date to (?:(?<endDate>.+?)(?:;|$))?))?"
-                                                        + "(?:(?=.*tags to #(?:(?<tags>.+?)(?:;|$))?))?"
-                                                        + "(?:(?=.*recur (?<recur>daily|weekly|monthly|yearly)(?:;|$)))?"
+                                                        + "(?:(?=.*name to (?:(?<name>.+?)(?:,|$|\\R))?))?"
+                                                        + "(?:(?=.*start date to (?:(?<startDate>.+?)(?:,|$|\\R))?))?"
+                                                        + "(?:(?=.*end date to (?:(?<endDate>.+?)(?:,|$|\\R))?))?"
+                                                        + "(?:(?=.*tags to #(?:(?<tags>.+?)(?:\\s|,\\s|$|,$|\\R))?))?"
+                                                        + "(?:(?=.*recur (?<recur>daily|weekly|monthly|yearly)(?:,|$|\\R)))?"
                                                         + ".+";
 
 
     public static final Pattern COMMAND_ARGUMENTS_PATTERN = Pattern.compile(COMMAND_ARGUMENTS_REGEX);
 
-    public static final String COMMAND_FORMAT = "(edit|update|change) <index> [name to <name>;] [start date to <start_date>;] [end date to <end_date>;] [recur (daily|weekly|monthly|yearly);] [tags to #<comma_separated_tags>;]";
+    public static final String COMMAND_FORMAT = "(edit|update|change) <index> [name to <name>,] [start date to <start_date>,] [end date to <end_date>,] [recur (daily|weekly|monthly|yearly),] [tags to #<comma_separated_tags>,]";
 
     public static final String MESSAGE_USAGE = COMMAND_FORMAT
                                                + "\n"
                                                + "Edits the task identified by the index number used in the last task listing.\n"
                                                + "Example: \n"
-                                               + "edit 2 name to parents with dinner; end date to tomorrow 7pm; recur daily; tags to #meal,family";
+                                               + "edit 2 name to parents with dinner, end date to tomorrow 7pm, recur daily, tags to #meal,family";
 
     public static final String MESSAGE_EDIT_TASK_PROMPT = "Edit the following task: %1$s";
     public static final String MESSAGE_EDIT_TASK_SUCCESS = "Task successfully edited: %1$s";
@@ -96,8 +98,12 @@ public class EditCommand extends Command implements Undoable, Redoable {
 
             return new CommandResult(COMMAND_KEYWORD_EDIT, String.format(MESSAGE_EDIT_TASK_PROMPT, originalTask));
 
-        } catch (TaskNotFoundException | DuplicateTaskException | IndexOutOfBoundsException ie) {
+        } catch (TaskNotFoundException | IndexOutOfBoundsException ie) {
             return new CommandResult(COMMAND_KEYWORD_EDIT, Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
+        } catch (IllegalValueException e){
+            return new CommandResult(COMMAND_KEYWORD_EDIT, Messages.MESSAGE_INVALID_COMMAND_FORMAT);
+        } catch (InvalidEventDateException e){
+            return new CommandResult(COMMAND_KEYWORD_EDIT, Messages.MESSAGE_INVALID_DATE);
         }
 
     }
@@ -145,13 +151,17 @@ public class EditCommand extends Command implements Undoable, Redoable {
             requestHighlightLastActionedRow(editedTask);
 
             return new CommandResult(COMMAND_KEYWORD_EDIT, String.format(MESSAGE_REDO_SUCCESS, originalTask));
-        } catch (TaskNotFoundException | DuplicateTaskException | IndexOutOfBoundsException ie) {
+        } catch (TaskNotFoundException | IndexOutOfBoundsException ie) {
             return new CommandResult(COMMAND_KEYWORD_EDIT, Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
+        } catch (IllegalValueException e){
+            return new CommandResult(COMMAND_KEYWORD_EDIT, Messages.MESSAGE_INVALID_COMMAND_FORMAT);
+        } catch (InvalidEventDateException e){
+            return new CommandResult(COMMAND_KEYWORD_EDIT, Messages.MESSAGE_INVALID_DATE);
         }
     }
 
     // @@author A0138862W
-    private void executeEdit() throws TaskNotFoundException, DuplicateTaskException, IndexOutOfBoundsException {
+    private void executeEdit() throws TaskNotFoundException, IndexOutOfBoundsException, InvalidEventDateException, IllegalValueException {
         UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
 
         if (lastShownList.size() < targetIndex) {
@@ -163,9 +173,9 @@ public class EditCommand extends Command implements Undoable, Redoable {
             originalTask = lastShownList.get(targetIndex - 1);
         }
 
+        // parsing inputs
         // if user provides explicit field and value, we change them
-        // otherwise, all user omitted field are preserve from the original
-        // before edit
+        // otherwise, all omitted field are taken from the original
         String toEditName = name.map(val -> val).orElse(originalTask.getName());
         Date toEditStartDate = startDate.map(val -> prettyTimeParser.parse(val).get(0)).orElse(originalTask.getStartDate());
         Date toEditEndDate = endDate.map(val -> prettyTimeParser.parse(val).get(0)).orElse(originalTask.getEndDate());
@@ -185,12 +195,58 @@ public class EditCommand extends Command implements Undoable, Redoable {
         
 
         // initialize the new task with edited values
-        if (editedTask == null) {
-            editedTask = new Task(toEditName, toEditStartDate, toEditEndDate, toEditTags, toEditRecur, toEditCreatedDate);
-        }
+        editedTask = buildEditedTask(toEditName, toEditStartDate, toEditEndDate, toEditRecur, toEditTags, toEditCreatedDate);
 
         model.deleteTask(originalTask);
         model.addTask(editedTask);
+    }
+
+    //@@author A0138862W
+    /**
+     * Attempt to build a task based on edited value. 
+     * If this command has build it before, it'll simply return the previous instance.
+     * 
+     * @param toEditName The edited name
+     * @param toEditStartDate the edited start date
+     * @param toEditEndDate edited end date
+     * @param toEditRecur recurring keyword
+     * @param toEditTags tags
+     * @param toEditCreatedDate custom creation date
+     * @return
+     * @throws IllegalValueException if tags are not alphanumeric
+     * @throws InvalidEventDateException if start date is after end date
+     */
+    private Task buildEditedTask(String toEditName, Date toEditStartDate, Date toEditEndDate, String toEditRecur, UniqueTagList toEditTags, Date toEditCreatedDate) throws IllegalValueException, InvalidEventDateException {
+        if (editedTask == null) {                    
+            TaskBuilder taskBuilder = new TaskBuilder(toEditName);
+            taskBuilder.withCreationDate(toEditCreatedDate);
+            taskBuilder.withTags(toEditTags);
+            taskBuilder.asRecurring(toEditRecur);
+            
+            if (isEvent(toEditStartDate, toEditEndDate)){
+                taskBuilder.asEvent(toEditStartDate,toEditEndDate);
+            } else if (isDeadline(toEditStartDate, toEditEndDate)){
+                taskBuilder.asDeadline(toEditEndDate);
+            } else if (isFloating(toEditStartDate, toEditEndDate)){
+                taskBuilder.asFloating();
+            }
+            editedTask = taskBuilder.build();
+        }
+        
+        return editedTask;
+    }
+    //@@author
+    
+    private boolean isFloating(Date toEditStartDate, Date toEditEndDate) {
+        return toEditStartDate == null && toEditEndDate == null;
+    }
+
+    private boolean isDeadline(Date toEditStartDate, Date toEditEndDate) {
+        return toEditStartDate == null && toEditEndDate != null;
+    }
+
+    private boolean isEvent(Date toEditStartDate, Date toEditEndDate) {
+        return toEditStartDate != null && toEditEndDate != null;
     }
     
 }

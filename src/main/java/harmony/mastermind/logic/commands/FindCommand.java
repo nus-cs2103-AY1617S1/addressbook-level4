@@ -28,19 +28,32 @@ public class FindCommand extends Command {
     
     public static final String COMMAND_FORMAT = COMMAND_WORD + " KEYWORD [MORE_KEYWORDS]...";
     public static final String COMMAND_DESCRIPTION = "Finds task based on keywords input entered";
+    public static final String FIND_SUCCESS = "Found with keyword(s): %1$s";
+
     
     private final Set<String> keywords;
     public static ArrayList<GenericMemory> findResult;
     Memory memory;
 
-    public FindCommand(Set<String> keywords) {
+    public FindCommand(Set<String> keywords, Memory mem) {
         this.keywords = keywords;
+        this.memory = mem;
     }
 
     @Override
     public CommandResult execute() {
         model.updateFilteredTaskList(keywords);
-//        model.searchTask(keywords.toString());
+        String[] list = keywords.toArray(new String[keywords.size()]);
+        ArrayList<GenericMemory> results = searchTerms(list, memory);
+        
+        StringBuilder sb = new StringBuilder();
+        for (GenericMemory s : results)
+        {
+            sb.append(s.getName());
+            sb.append("\n");
+        }
+        
+//        return new CommandResult(COMMAND_WORD, String.format(FIND_SUCCESS, sb));
         return new CommandResult(COMMAND_WORD, getMessageForTaskListShownSummary(model.getFilteredTaskList().size()));
     }
     
@@ -53,6 +66,18 @@ public class FindCommand extends Command {
         }
     }
 
+    //@@author A0143378Y
+    // Only for delete and update direct commands to search for exact matching names
+    // Should only return list of 1 item ideally
+    public static ArrayList<GenericMemory> searchExact(String keyword, Memory memory) {
+        assert keyword.length() != 0;
+        ArrayList<GenericMemory> exactResult = new ArrayList<GenericMemory>();
+        for (int i=0; i<memory.getSize(); i++) {
+            containsKeyword(keyword, memory, exactResult, i);
+        }
+        return exactResult;
+    }
+    
     //@@author A0143378Y
     // Driver for recursive searching of array of keywords
     // Returns ArrayList of GenericEvents found containing keywords in their name or description

@@ -1,4 +1,4 @@
-package harmony.mastermind.logic;
+package guitests;
 
 import org.junit.Test;
 

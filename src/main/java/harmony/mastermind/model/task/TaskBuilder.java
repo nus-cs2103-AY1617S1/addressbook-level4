@@ -91,6 +91,11 @@ public class TaskBuilder {
         return this;
     }
     
+    public TaskBuilder withTags(UniqueTagList tags) throws IllegalValueException {
+        this.tags = tags; 
+        return this;
+    }
+    
     /**
      * build a recurring task. 
      * 
