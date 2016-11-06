@@ -54,10 +54,8 @@ public class XmlAdaptedTaskOccurrence {
         for (Tag tag : source.getTaskReference().getTags()) {
             tagged.add(new XmlAdaptedTag(tag));
         }
-
         handleDatesByTaskType(source);
         handleDatesByRecurringType(source);
-        
         recurringType = source.getTaskReference().getRecurringType().name();
         recurringPeriod = source.getTaskReference().getRecurringPeriod();
         isArchived = source.isArchived();
@@ -120,7 +118,6 @@ public class XmlAdaptedTaskOccurrence {
         		t.archive();
         	}
         }
-    	
         return task;
     }
 
@@ -134,7 +131,6 @@ public class XmlAdaptedTaskOccurrence {
         if (recurringType != null ) {
             toBeAdded = RecurringType.valueOf(recurringType);
         }
-        
         Task task = new Task(name, tags, taskStartDate, taskEndDate, toBeAdded, recurringPeriod);
         if(isArchived){
         	task.setTaskType(TaskType.COMPLETED);
