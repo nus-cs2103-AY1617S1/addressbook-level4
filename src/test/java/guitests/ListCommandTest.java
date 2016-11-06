@@ -4,7 +4,7 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import seedu.address.testutil.TestActivity;
+import seedu.lifekeeper.testutil.TestActivity;
 
 //@@author A0125097A
 public class ListCommandTest extends AddressBookGuiTest  {

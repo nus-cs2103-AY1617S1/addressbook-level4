@@ -6,10 +6,10 @@ import javafx.geometry.Point2D;
 import javafx.scene.Node;
 import javafx.scene.control.ListView;
 import javafx.stage.Stage;
-import seedu.address.TestApp;
-import seedu.address.model.activity.Activity;
-import seedu.address.model.activity.ReadOnlyActivity;
-import seedu.address.testutil.TestUtil;
+import seedu.lifekeeper.TestApp;
+import seedu.lifekeeper.model.activity.Activity;
+import seedu.lifekeeper.model.activity.ReadOnlyActivity;
+import seedu.lifekeeper.testutil.TestUtil;
 
 import java.util.List;
 import java.util.Optional;

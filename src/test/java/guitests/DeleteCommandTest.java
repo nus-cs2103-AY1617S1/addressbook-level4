@@ -1,11 +1,12 @@
 package guitests;
 
 import org.junit.Test;
-import seedu.address.testutil.TestActivity;
-import seedu.address.testutil.TestUtil;
+
+import seedu.lifekeeper.testutil.TestActivity;
+import seedu.lifekeeper.testutil.TestUtil;
 
 import static org.junit.Assert.assertTrue;
-import static seedu.address.logic.commands.DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS;
+import static seedu.lifekeeper.logic.commands.DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS;
 //@@author A0125097A
 public class DeleteCommandTest extends AddressBookGuiTest {
 

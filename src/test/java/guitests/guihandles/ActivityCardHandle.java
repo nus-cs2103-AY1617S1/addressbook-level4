@@ -4,10 +4,10 @@ import guitests.GuiRobot;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
-import seedu.address.model.activity.ReadOnlyActivity;
-import seedu.address.model.activity.event.ReadOnlyEvent;
-import seedu.address.model.activity.task.ReadOnlyTask;
-import seedu.address.testutil.ImageUtil;
+import seedu.lifekeeper.model.activity.ReadOnlyActivity;
+import seedu.lifekeeper.model.activity.event.ReadOnlyEvent;
+import seedu.lifekeeper.model.activity.task.ReadOnlyTask;
+import seedu.lifekeeper.testutil.ImageUtil;
 
 /**
  * Provides a handle to a person card in the person list panel.
