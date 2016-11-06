@@ -28,38 +28,38 @@ public class ListCommandTest extends GuiTest {
     private final String fiveDaysFromNowString = DateUtil.formatDate(fiveDaysFromNow);
     private final String fiveDaysFromNowIsoString = DateUtil.formatIsoDate(fiveDaysFromNow);
     
-    String commandAddPastEvent = String.format("add event Your 5th birthday from \"%s 00:00\" to \"%s 23:59\"", 
+    private String commandAddPastEvent = String.format("add event Your 5th birthday from \"%s 00:00\" to \"%s 23:59\"", 
             oneDayBeforeNowString, oneDayBeforeNowString);
-    Event pastEvent = new Event();
+    private Event pastEvent = new Event();
     
-    String commandAddFloatingTask1 = "add task Buy a floatation device";
-    Task floatingTask1 = new Task();
+    private String commandAddFloatingTask1 = "add task Buy a floatation device";
+    private Task floatingTask1 = new Task();
     
-    String commandAddCompleteFloatingTask2 = "add task Buy a helicopter";
-    String commandCompleteFloatingTask2 = "complete 2";
-    Task completeFloatingTask2 = new Task();
+    private String commandAddCompleteFloatingTask2 = "add task Buy a helicopter";
+    private String commandCompleteFloatingTask2 = "complete 2";
+    private Task completeFloatingTask2 = new Task();
     
-    String commandAddOverdueTask2 = String.format("add task Do laundry by \"%s 5pm\"",
+    private String commandAddOverdueTask2 = String.format("add task Do laundry by \"%s 5pm\"",
             oneDayBeforeNowString);
-    String commandCompleteOverdueTask2 = "complete 2";
-    Task completeOverdueTask2 = new Task();
+    private String commandCompleteOverdueTask2 = "complete 2";
+    private Task completeOverdueTask2 = new Task();
     
-    String commandAdd2 = String.format("add task Buy Milk by \"%s 9pm\"", twoDaysFromNowString);
-    Task task2 = new Task();
+    private String commandAdd2 = String.format("add task Buy Milk by \"%s 9pm\"", twoDaysFromNowString);
+    private Task task2 = new Task();
     
-    String commandAdd3 = String.format("add event Some Event from \"%s 4pm\" to \"%s 5pm\"",
+    private String commandAdd3 = String.format("add event Some Event from \"%s 4pm\" to \"%s 5pm\"",
             oneDayFromNowString, oneDayFromNowString);
-    Event event3 = new Event();
+    private Event event3 = new Event();
     
-    String commandAdd4 = String.format("add event Another Event from \"%s 8pm\" to \"%s 9pm\"",
+    private String commandAdd4 = String.format("add event Another Event from \"%s 8pm\" to \"%s 9pm\"",
             twoDaysFromNowString, twoDaysFromNowString);
-    String commandTag4 = "tag 3 someTag";
-    Event event4 = new Event();
+    private String commandTag4 = "tag 3 someTag";
+    private Event event4 = new Event();
     
-    String commandAddCompleteFutureTask5 = String.format("add Play Xbox by \"%s 5pm\"",
+    private String commandAddCompleteFutureTask5 = String.format("add Play Xbox by \"%s 5pm\"",
             fiveDaysFromNowString, fiveDaysFromNowString);
-    String commandCompleteFutureTask5 = "complete 5";
-    Task completeFutureTask5 = new Task();
+    private String commandCompleteFutureTask5 = "complete 5";
+    private Task completeFutureTask5 = new Task();
     
     // Flag to initialize items once per test run.
     private static boolean hasInitialized = false;
