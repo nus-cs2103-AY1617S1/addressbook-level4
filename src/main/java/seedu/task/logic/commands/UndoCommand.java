@@ -246,7 +246,7 @@ public class UndoCommand extends Command {
         String toEdit = EMPTY_STRING;
         HashSet<String> tagStringSet = null;
         int undoIndex = lastIndexOfUndoList();
-
+        // @@author A0147944U
         switch (toEditItem) {
 
         case "name":
@@ -282,6 +282,7 @@ public class UndoCommand extends Command {
         default:
             break;
         }
+        //@@author A0147335E
         try {
             Command command = new EditCommand(index, toEditItemParsed, toEdit, tagStringSet);
             setData(command);

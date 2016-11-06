@@ -83,11 +83,13 @@ public class CommandParser {
         case AddCommand.COMMAND_WORD:
             return prepareAdd(arguments);
 
+        // @@author A0147944U
         case EditCommand.COMMAND_WORD:
             return prepareEdit(arguments);
             
         case EditCommand.COMMAND_WORD_ALT:
             return prepareEdit(arguments);
+        // @@author
 
         case SelectCommand.COMMAND_WORD:
             return prepareSelect(arguments);
@@ -113,7 +115,7 @@ public class CommandParser {
         case UndoCommand.COMMAND_WORD:
             return prepareUndo(arguments);
 
-            // @@author A0147944U
+        // @@author A0147944U
         case DirectoryCommand.COMMAND_WORD:
             return prepareDirectory(arguments);
 
@@ -134,7 +136,7 @@ public class CommandParser {
 
         case RepeatCommand.COMMAND_WORD:
             return prepareRepeat(arguments);
-            // @@author
+        // @@author
 
         case DoneCommand.COMMAND_WORD:
             return prepareDone(arguments);
@@ -425,6 +427,7 @@ public class CommandParser {
         TimeParser parserTime = new TimeParser();
         TimeParserResult time = parserTime.parseTime(content);
         StringBuilder start = new StringBuilder();
+        // @@author A0147944U
         switch (item) {
         case "name":
         case "n":
@@ -486,7 +489,7 @@ public class CommandParser {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 
         }
-
+        // @@author
     }
 
     /**
