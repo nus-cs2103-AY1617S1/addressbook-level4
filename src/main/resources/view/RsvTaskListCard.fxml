@@ -48,7 +48,7 @@
 					</children>
 				</VBox>
 				<AnchorPane fx:id="dateTimeListPane"
-					GridPane.columnIndex="1" GridPane.vgrow="NEVER" />
+					GridPane.columnIndex="1" GridPane.vgrow="NEVER" styleClass="dateTimeListArea"/>
 			</children>
 		</GridPane>
 	</children>
