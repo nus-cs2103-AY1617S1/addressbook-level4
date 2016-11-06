@@ -52,6 +52,7 @@ Code written: [[functional code](A0138993L.md)][[test](A0138993L.md)][[docs](A01
 -----
 
 #### Hu JingRui
+<img src = "images/jingrui.JPG" width="100"><br>
 Role: Developer <br>  
 Responsibilities: Testing
 
