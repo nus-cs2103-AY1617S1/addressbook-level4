@@ -16,7 +16,8 @@
    * [Set storage: `setstorage`](#set-storage-setstorage)
    * [Finding more information about various commands: `help`](#finding-more-information-about-various-commands-help)
    * [Command History: `UP` and `DOWN` arrow keys](#command-history-up-and-down-arrow-keys)
-* [Saving the data](#saving-the-data)    
+* [Saving the data](#saving-the-data)
+* [Frequently asked questions](#frequently-asked-questions)
 * [Command Summary](#command-summary)
 
 <!-- @@author A0139671X -->
@@ -307,6 +308,20 @@ Format: `exit`
 ForgetMeNot data are saved in the hard disk automatically after any command that changes the data.<br>
 There is no need to save manually.
 
+## Frequently asked questions 
+Q: How many times am I able to undo a previous command? <br>
+A: You are able to undo any number of times up till the state where you first opened ForgetMeNot!
+
+Q: I can't undo my previous commands after reopening ForgetMeNot <br>
+A: Like most task managers out there, ForgetMeNot does not support data backup while the program is not active
+
+Q: Is it possible to set my storage path to a portable drive as I want to use them on different computers? <br>
+A: Yes! Just use the setstorage command and choose the specified path of the portable drive
+
+Q: How do I edit recurring tasks? Do all of them change if I edit one single instance? <br>
+A: No, only the selected instance gets edited. Our design philosophy is that recurring tasks should be treated as 
+   separate instances so that the other recurring tasks would not be affected if you were to make changes to one of 
+   them due to some circumstances.
 
 ## Command Summary
 
