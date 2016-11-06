@@ -83,11 +83,11 @@ Example:
  
 <br>
 #### View all tasks for a specified date: `view <date>`
-Lists all events for the specified date, deadlines up to the specified date, and all todo tasks.<br>
+Lists all events for the specified date, uncompleted deadlines up to the specified date, and all todo tasks.<br>
 Format: `view <date>`
 
 All todo tasks, events for the specified date and deadlines up to the specified date will be displayed.<br>
-If `view today` is entered, today's tasks, events and deadlines up to today will be displayed.
+If `view today` is entered, today's tasks, events and uncompleted deadlines up to today will be displayed.
 
 Example:
 
@@ -141,7 +141,7 @@ Adds a new task to the todo or deadlines list, or a new event to the event calen
 <!-- @@author A0130853L -->
 Examples:
 
-* `add buy new tie`<br>
+* `add buy new tie #work`<br>
   Adds a `todo` task with `<name>` as `buy new tie`, `<#tag>` as `work`.<br>
   <img src="images/UItodo.png" width="900">
 
@@ -149,7 +149,7 @@ Examples:
   Adds a `deadline` task with `<name>` as `submit proposal`, `<end datetime>` as `02:00pm, 17 Nov 2016`, `<#tag>` as `work`.<br>
   <img src="images/UIdeadline.png" width="900">
 
-* `add walk dog 5 Nov 2016 17:00 to 18:00`<br>
+* `add walk dog 7 Nov 2016 17:00 to 18:00`<br>
   Adds an `event` task with `<name>` as `walk dog`, `<start datetime>` as `05:00pm, 7 Nov 2016`, `<end datetime>` as `06:00pm, 7 Nov 2016`.<br>
   <img src="images/UIevent.png" width="900">
   
@@ -188,7 +188,7 @@ Example:
 
 * `view`<br>
   `edit d2 15 Nov`<br>
-  Edits the 2nd task under the deadline tasks section. Changes the `<date>` to `15 Nov 2016`.<br>
+  Edits the 2nd task under the deadline tasks section. Changes the `<date>` to `15 Nov`.<br>
   <img src="images/UIedit.png" width="900">
 
 * `view`<br>
