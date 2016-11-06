@@ -105,7 +105,7 @@
 
 /*@@author A0143641M */
 .list-cell:focused:selected {
-	-fx-background-color: derive(#0066CC , 90%);
+	-fx-background-color: derive(#FFBF00 , 70%);
 }
 .list-cell:focused:selected .label {
 	-fx-font-size: 21px;
