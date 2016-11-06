@@ -58,12 +58,12 @@ public class HistoryManager {
 		
 		recordCommand.push(new Instruction("EA", pushAddName, pushAddStart, pushAddEnd, pushAddComplete, pushAddPinned, pushAddTag));
         
-		String pushDeleteName = originalTask.getName();
-		DateTime pushDeleteStart = originalTask.getStart();
-		DateTime pushDeleteEnd = originalTask.getEnd();
-		boolean pushDeleteComplete = originalTask.isComplete();
-		boolean pushDeletePinned = originalTask.isPinned();
-		UniqueTagList pushDeleteTag = originalTask.getTags();
+		String pushDeleteName = editedTask.getName();
+		DateTime pushDeleteStart = editedTask.getStart();
+		DateTime pushDeleteEnd = editedTask.getEnd();
+		boolean pushDeleteComplete = editedTask.isComplete();
+		boolean pushDeletePinned = editedTask.isPinned();
+		UniqueTagList pushDeleteTag = editedTask.getTags();
 		
 		recordCommand.push(new Instruction("ED", pushDeleteName, pushDeleteStart, pushDeleteEnd, pushDeleteComplete, pushDeletePinned, pushDeleteTag));
     }
