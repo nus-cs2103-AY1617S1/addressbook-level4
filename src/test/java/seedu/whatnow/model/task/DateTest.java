@@ -83,9 +83,9 @@ public class DateTest {
 
     @Test
     public void isValidDate_variousDateFormat_returnTrue() throws ParseException, IllegalValueException{
-        assertTrue(TaskDate.getIsValidDate("03/12/2017"));
+        assertTrue(TaskDate.getIsValidDate("03/12/2019"));
         assertTrue(TaskDate.getIsValidDate("5/11/2017"));
-        assertTrue(TaskDate.getIsValidDate("7/8/2017"));
+        assertTrue(TaskDate.getIsValidDate("7/8/2018"));
         assertTrue(TaskDate.getIsValidDate("8/5/2017"));
         assertTrue(TaskDate.getIsValidDate("30/12/2018"));
     }
@@ -100,5 +100,10 @@ public class DateTest {
             checkPastDate = true;
         }
         assertTrue(checkPastDate);
+    }
+    
+    @Test
+    public void isValidDate_dateRange_returnTrue() throws ParseException{
+        assertTrue(TaskDate.getIsValidDateRange(null, null));
     }
 }
