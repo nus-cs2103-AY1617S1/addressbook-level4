@@ -15,6 +15,7 @@ public class OpenCommand extends Command {
             + "Example: " + COMMAND_WORD + " folder" + System.getProperty("file.separator") + "file.xml";
 
     public static final String OPEN_MESSAGE = "Loaded data from file: %1$s";
+    public static final String NO_SUCH_FILE_MESSAGE = "The specified file doesn't exist";
     
     private final String openPath;
 
@@ -27,18 +28,21 @@ public class OpenCommand extends Command {
     @Override
     public CommandResult execute() {
         File openFile = new File(openPath);
-        if (FileUtil.isValidFilePath(openPath)) {
-            String filePath = openFile.getAbsolutePath();
-            
+        String filePath = openFile.getAbsolutePath();
+        if (FileUtil.isValidFilePath(openPath) && openFile.exists()) {
             if (!filePath.endsWith(".xml")) {
                 filePath += ".xml";
             }
             
             EventsCenter.getInstance().post(new OpenFileChooserEvent(filePath));
-            return new CommandResult(String.format(OPEN_MESSAGE, XmlAddressBookStorage.getFilePathForSaveCommand()));
         } else {
             EventsCenter.getInstance().post(new OpenFileChooserEvent(""));
+        }
+        
+        if (filePath.equals(XmlAddressBookStorage.getFilePathForSaveCommand())) {
             return new CommandResult(String.format(OPEN_MESSAGE, XmlAddressBookStorage.getFilePathForSaveCommand()));
+        } else {
+            return new CommandResult(NO_SUCH_FILE_MESSAGE);
         }
     }
 
