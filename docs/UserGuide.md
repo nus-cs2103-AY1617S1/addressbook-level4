@@ -162,9 +162,9 @@ You have been very busy and forgot to buy Samantha's present so you want to remi
 
 You can do so by changing the existing rememberToBuyPresent tag to AbsolutelyRememberToBuyPresent tag with the following command.
 
->Format: **Edit** &lt;index&gt; **tag** &lt;old_tag&gt;<b>></b>&lt;new_tag&gt;
+>Format: **Edit** &lt;index&gt; **tag** &lt;old_tag&gt;`>`&lt;new_tag&gt;
 
-Example: edit E1 #rememberToBuyPresent<b>></b>#AbsolutelyRememberToBuyPresent
+Example: edit E1 #rememberToBuyPresent`>`#AbsolutelyRememberToBuyPresent
 <br><br>
  
 ###3 Find Task by Keyword
@@ -181,7 +181,7 @@ Only tasks with the keyword are displayed. Keywords are NOT case sensitive.
 <br>
 ###4 Marking tasks as done 
 
-Remember that report that we added at the start? Once you have done it, simply type the following command below and <kbd>Enter</kbd> and you will never have to see it again. Unless of course you want to, then we will show you how in the later part of this user guide. 
+Remember that report that we added at the start? Once you have done it, simply type the following command below and <kbd>Enter</kbd> and you will never have to see it again. Unless of course, if you want to, then we will show you how in the later part of this user guide. 
 
 > Format: Done &lt;index&gt;
 
