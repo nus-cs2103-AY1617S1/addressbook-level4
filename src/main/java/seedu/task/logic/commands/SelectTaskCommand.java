@@ -12,7 +12,6 @@ import seedu.taskcommons.core.UnmodifiableObservableList;
  * @@author A0125534L
  */
 
-//@@author A0125534L
 public class SelectTaskCommand extends SelectCommand {
 
 	public static final String MESSAGE_SELECT_TASK_SUCCESS = "Selected Task: %1$s";
@@ -25,8 +24,9 @@ public class SelectTaskCommand extends SelectCommand {
 	public CommandResult execute() {
 
 		UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
-
-		if (lastShownList.size() < targetIndex) { //check the input index with list size
+		
+		//validation for input index greater than list size
+		if (lastShownList.size() < targetIndex) { 
 			indicateAttemptToExecuteIncorrectCommand();
 			return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
 		}
