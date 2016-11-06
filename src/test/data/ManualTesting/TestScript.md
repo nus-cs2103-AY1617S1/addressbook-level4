@@ -3,9 +3,9 @@
 ## How to load sample data
 
 1. Download [F10-C1][TARS].jar
-2. Download SampleData.xml
+2. Download [SampleData.xml](https://github.com/CS2103AUG2016-F10-C1/main/blob/develop/src/test/data/ManualTesting/SampleData.xml)
 3. Launch the app
-4. Enter `cd SampleData.xml`
+4. Enter `cd SampleData.xml` in the command box
 
 ## Script
 
