@@ -11,7 +11,6 @@ import javafx.scene.layout.VBox;
 import seedu.todo.MainApp;
 import seedu.todo.commons.core.Config;
 import seedu.todo.commons.core.ConfigCenter;
-import seedu.todo.commons.core.GuiSettings;
 import seedu.todo.commons.events.ui.ExitAppRequestEvent;
 import seedu.todo.commons.exceptions.ParseException;
 import seedu.todo.controllers.AliasController;
@@ -119,14 +118,6 @@ public class MainWindow extends Component {
     public void setWindowMinSize() {
         primaryStage.setMinHeight(MIN_HEIGHT);
         primaryStage.setMinWidth(MIN_WIDTH);
-    }
-
-    /**
-     * Returns the current size and the position of the main Window.
-     */
-    public GuiSettings getCurrentGuiSetting() {
-        return new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
-                               (int) primaryStage.getX(), (int) primaryStage.getY());
     }
 
     protected <T extends View> T loadView(Class<T> viewClass) {
