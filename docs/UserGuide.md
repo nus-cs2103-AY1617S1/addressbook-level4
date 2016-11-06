@@ -37,7 +37,7 @@ Format: `help`
 
 #### Adding a task: `add`
 Adds a task to the TaskManager.<br>
-Format: `add TASKNAME[, from START_TIME [to END_TIME]] [#TAG...]` 
+Format: `add TASKNAME[, at START_TIME]] [#TAG...]` `add TASKNAME[, from START_TIME to END_TIME]] [#TAG...]` 
 `add TASKNAME[, by DEADLINE] [#TAG...]` 
 
 > All additional information after `TASK_NAME` are optional
@@ -188,7 +188,8 @@ Default: data/taskmanager.xml
 Command | Format  
 -------- | :-------- 
 Help | `help`
-Add | `add TASKNAME[, from START_TIME [to END_TIME]] [#TAG...]`  `add TASKNAME[, by DEADLINE] [#TAG...]` 
+Add | `add TASKNAME[, at START_TIME]] [#TAG...]` `add TASKNAME[, from START_TIME to END_TIME]] [#TAG...]` 
+`add TASKNAME[, by DEADLINE] [#TAG...]` 
 Edit | `edit INDEX TASK_PROPERTY, NEW_VALUE`
 Delete | `delete INDEX`
 Find | `find KEYWORD`
