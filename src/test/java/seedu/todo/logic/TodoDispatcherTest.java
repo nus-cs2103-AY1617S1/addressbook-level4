@@ -43,7 +43,9 @@ public class TodoDispatcherTest {
         assertThat(d.dispatch("co"), instanceOf(CompleteCommand.class));
         assertThat(d.dispatch("dit"), instanceOf(EditCommand.class));
         assertThat(d.dispatch("ed"), instanceOf(EditCommand.class));
+        assertThat(d.dispatch("un"), instanceOf(UndoCommand.class));
         assertThat(d.dispatch("udo"), instanceOf(UndoCommand.class));
+        assertThat(d.dispatch("re"), instanceOf(RedoCommand.class));
         assertThat(d.dispatch("rdo"), instanceOf(RedoCommand.class));
         assertThat(d.dispatch("vi"), instanceOf(ViewCommand.class));
         assertThat(d.dispatch("sh"), instanceOf(ShowCommand.class));
@@ -64,9 +66,19 @@ public class TodoDispatcherTest {
     public void ambiguousCommand_wordDo() throws Exception {
         d.dispatch("do");
     }
-    
+
+    @Test(expected = IllegalValueException.class)
+    public void ambiguousCommand_wordEit() throws Exception {
+        d.dispatch("eit");
+    }
+
     @Test(expected = IllegalValueException.class)
     public void testNonExistentCommand() throws Exception {
+        d.dispatch("applejack");
+    }
+    
+    @Test(expected = IllegalValueException.class)
+    public void nonExistentCommand() throws Exception {
         d.dispatch("applejack");
     }
 }
