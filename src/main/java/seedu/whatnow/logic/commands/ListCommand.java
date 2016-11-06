@@ -47,6 +47,7 @@ public class ListCommand extends Command {
     @Override
     public CommandResult execute() {
         mapInputToCorrectArgumentForExecution();
+        model.updateFilteredScheduleListToShowAllOverdue();
         if (type.equals(TASK_STATUS_ALL)) {
             model.updateFilteredListToShowAll();
             model.updateFilteredScheduleListToShowAll();

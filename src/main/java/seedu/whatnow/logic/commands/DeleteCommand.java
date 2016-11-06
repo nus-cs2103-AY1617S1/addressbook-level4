@@ -2,17 +2,11 @@
 package seedu.whatnow.logic.commands;
 
 import java.util.logging.Logger;
-
-import javafx.collections.ObservableList;
 import seedu.whatnow.commons.core.LogsCenter;
 import seedu.whatnow.commons.core.Messages;
 import seedu.whatnow.commons.core.UnmodifiableObservableList;
 import seedu.whatnow.model.task.ReadOnlyTask;
-import seedu.whatnow.model.task.Task;
-import seedu.whatnow.model.task.UniqueTaskList;
-import seedu.whatnow.model.task.UniqueTaskList.DuplicateTaskException;
 import seedu.whatnow.model.task.UniqueTaskList.TaskNotFoundException;
-import seedu.whatnow.storage.StorageManager;
 
 /**
  * Deletes a task identified using it's last displayed index from WhatNow.

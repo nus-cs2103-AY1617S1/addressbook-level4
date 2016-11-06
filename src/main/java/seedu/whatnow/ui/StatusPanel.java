@@ -1,35 +1,27 @@
 //@@author A0139772U
 package seedu.whatnow.ui;
 
-import java.awt.Color;
-
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.Node;
-import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.Border;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.VBox;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import seedu.whatnow.commons.util.FxViewUtil;
 
 /**
  * A ui for the status bar that is displayed at the header of the application.
  */
 public class StatusPanel extends UiPart {
     public static final String STATUS_DISPLAY_ID = "statusPanel";
-    private static final String STATUS_BAR_STYLE_SHEET = "status-panel";
     private TextArea statusDisplayArea;
     private final StringProperty displayed = new SimpleStringProperty("");
 
@@ -55,7 +47,7 @@ public class StatusPanel extends UiPart {
         iv1.setFitWidth(350);
         iv1.setFitHeight(178);
         
-        statusDisplayArea = new TextArea();
+        TextArea statusDisplayArea = new TextArea();
         statusDisplayArea.setEditable(false);
         statusDisplayArea.setId(STATUS_DISPLAY_ID);
         statusDisplayArea.textProperty().bind(displayed);

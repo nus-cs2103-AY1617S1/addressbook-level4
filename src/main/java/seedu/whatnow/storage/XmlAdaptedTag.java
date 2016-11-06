@@ -2,9 +2,7 @@ package seedu.whatnow.storage;
 
 //@@author A0139772U-reused
 import javax.xml.bind.annotation.XmlValue;
-
 import seedu.whatnow.commons.exceptions.IllegalValueException;
-import seedu.whatnow.commons.util.CollectionUtil;
 import seedu.whatnow.model.tag.Tag;
 
 /**

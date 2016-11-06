@@ -29,10 +29,6 @@ public class ScheduleListPanel extends UiPart {
     @FXML
     private ListView<ReadOnlyTask> scheduleListView;
 
-    public ScheduleListPanel() {
-        super();
-    }
-
     @Override
     public void setNode(Node node) {
         panel = (VBox) node;
@@ -94,9 +90,6 @@ public class ScheduleListPanel extends UiPart {
     }
 
     class ScheduleListViewCell extends ListCell<ReadOnlyTask> {
-
-        public ScheduleListViewCell() {
-        }
 
         @Override
         protected void updateItem(ReadOnlyTask task, boolean empty) {

@@ -51,7 +51,7 @@ public class MarkUndoneCommand extends Command {
         } else {
             return new CommandResult(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MarkUndoneCommand.MESSAGE_USAGE));
         }
-        
+
         if (lastShownList.size() < targetIndex || targetIndex <0) {
             indicateAttemptToExecuteIncorrectCommand();
             return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
@@ -63,7 +63,7 @@ public class MarkUndoneCommand extends Command {
             model.unMarkTask(taskToMark);
             model.getUndoStack().push(COMMAND_WORD);
             model.getStackOfMarkUndoneTask().push(taskToMark);
-            model.clearRedoAll();
+            model.clearRedoAll();   
         } catch (TaskNotFoundException tnfe) {
             return new CommandResult(String.format(MESSAGE_MARK_TASK_FAIL));
         }
