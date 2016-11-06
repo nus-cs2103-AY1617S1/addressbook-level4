@@ -15,28 +15,14 @@ import java.util.Calendar;
  * currentDate, and checking if the date range is valid Throws its respective
  * message if the input is invalid
  */
-//@@author A0139128A
 public class TaskDate {
+    //@@author A0139128A
     public static final String MESSAGE_NAME_CONSTRAINTS = "Task Date should be represented as one of the followings:\n"
             + "dd/mm/yyyy\n" + "day month year\n" + "today\n" + "tomorrow\n";
     public static final String EXPIRED_TASK_DATE = "Task Date cannot be in the past!";
     public static final String INVALID_TASK_DATE_RANGE_FORMAT = "The task date range is invalid!";
 
-    public static final String DATE_ALPHA_WITH_YEAR_VALIDATION_REGEX = "([0-9]{2}+[\\w\\.])+([0-9]{4})";
-    public static final String DATE_ALPHA_WITHOUT_YEAR_VALIDATION_REGEX = "([0-9]{2}+[\\w\\.])";
-    public static final String DATE_NUM_SLASH_WITH_YEAR_VALIDATION_REGEX = "([0-9]{2}+)/([0-9]{2}+)/([0-9]{4})";
-    public static final String DATE_NUM_SLASH_WITHOUT_YEAR_VALIDATION_REGEX = "([0-9]{2})/([0-9]{2})";
-    public static final String DATE_NUM_SLASH_WITH_YEAR_VALIDATION_SHORTENED_DAY_REGEX = "([0-9]{1}+)/([0-9]{2}+)/([0-9]{4})";
-    public static final String DATE_NUM_SLASH_WITH_YEAR_VALIDATION_SHORTENED_MONTH_REGEX = "([0-9]{2}+)/([1-9]{1}+)/([0-9]{4})";
-    public static final String DATE_NUM_SLASH_WITH_YEAR_VALIDATION_SHORTENED_DAY_AND_MONTH_REGEX = "([0-9]{1}+)/([0-9]{1}+)/([0-9]{4})";
     public static final String DATE_NUM_SLASH_WITH_YEAR_FORMAT = "dd/MM/yyyy";
-    public static final String DATE_NUM_SLASH_WITHOUT_YEAR_FORMAT = "dd/MM";
-    public static final String DATE_NUM_SLASH_WITH_YEAR_SHORTENED_DAY_FORMAT = "d/MM/yyyy";
-    public static final String DATE_NUM_SLASH_WITH_YEAR_SHORTENED_MONTH_FORMAT = "dd/M/yyyy";
-    public static final String DATE_NUM_SLASH_WITH_YEAR_SHORTENED_DAY_AND_MONTH_FORMAT = "d/M/yyyy";
-    public static final String DATE_AlPHA_WHITESPACE_WITH_YEAR_FORMAT = "dd MMMM yyyy ";
-    public static final String DATE_ALPHA_WHITESPACE_WITHOUT_YEAR_FORMAT = "dd MMMM";
-    public static final String DATE_NUM_SLASH_WITH_YEAR_VALIDATION_MODIFIED_REGEX = "^\\d{1,2}\\/\\d{1,2}\\/\\d{4}$";
 
     private static final Pattern DAYS_MONDAY = Pattern.compile("((?:monday|mon))", Pattern.CASE_INSENSITIVE);
     private static final Pattern DAYS_TUESDAY = Pattern.compile("((?:tuesday|tue|tues))", Pattern.CASE_INSENSITIVE);
@@ -51,19 +37,10 @@ public class TaskDate {
             .compile("^(monday|tuesday|wednesday|thursday|friday|saturday|sunday)$", Pattern.CASE_INSENSITIVE);
     private static final Pattern DAYS_IN_SHORT = Pattern.compile("^(mon|tue|tues|wed|thu|thur|fri|sat|sun)$", Pattern.CASE_INSENSITIVE);
 
-    public static String[] listOfDateRegex = {DATE_ALPHA_WITH_YEAR_VALIDATION_REGEX, DATE_ALPHA_WITHOUT_YEAR_VALIDATION_REGEX,
-            DATE_NUM_SLASH_WITH_YEAR_VALIDATION_REGEX, DATE_NUM_SLASH_WITHOUT_YEAR_VALIDATION_REGEX, 
-            DATE_NUM_SLASH_WITH_YEAR_VALIDATION_SHORTENED_DAY_REGEX, DATE_NUM_SLASH_WITH_YEAR_VALIDATION_SHORTENED_MONTH_REGEX,
-            DATE_NUM_SLASH_WITH_YEAR_VALIDATION_SHORTENED_DAY_AND_MONTH_REGEX};
-    public static String[] listOfDateFormat = {DATE_NUM_SLASH_WITH_YEAR_FORMAT, DATE_NUM_SLASH_WITHOUT_YEAR_FORMAT,
-            DATE_NUM_SLASH_WITH_YEAR_SHORTENED_DAY_FORMAT, DATE_NUM_SLASH_WITH_YEAR_SHORTENED_MONTH_FORMAT,
-            DATE_NUM_SLASH_WITH_YEAR_SHORTENED_DAY_AND_MONTH_FORMAT, DATE_AlPHA_WHITESPACE_WITH_YEAR_FORMAT,
-            DATE_ALPHA_WHITESPACE_WITHOUT_YEAR_FORMAT};
-    
     private static String fullDate;
     private static String startDate;
     private static String endDate;
-    
+
     private static final String JANUARY_FULL = "january";
     private static final String FEBRUARY_FULL = "february";
     private static final String MARCH_FULL = "march";
@@ -76,7 +53,7 @@ public class TaskDate {
     private static final String OCTOBER_FULL = "october";
     private static final String NOVEMBER_FULL = "november";
     private static final String DECEMBER_FULL = "december";
-    
+
     private static final String JANUARY_SHORT = "jan";
     private static final String FEBRUARY_SHORT = "feb";
     private static final String MARCH_SHORT = "mar";
@@ -88,13 +65,13 @@ public class TaskDate {
     private static final String OCTOBER_SHORT = "oct";
     private static final String NOVEMBER_SHORT = "nov";
     private static final String DECEMBER_SHORT = "dec";
-    
+
     private static final int DATE_COMPONENT_DAY = 0;
     private static final int DATE_COMPONENT_MONTH = 1;
     private static final int DATE_COMPONENT_YEAR = 2;
     private static final int INCREASE_DATE_BY_ONE_DAY = 1;
     private static final int INCREASE_DATE_BY_SEVEN_DAYS = 7;
-    
+
 
     // @@author A0139128A
     /**
@@ -122,17 +99,11 @@ public class TaskDate {
     }
 
     // @@author A0139128A
-    /**
-     * Adds all the relevant Date format and regex that is neeeded to find the
-     * corresponding user input
-     */
-
-    // @@author A0139128A
     /** Assigns today's date to fullDate */
     private void assignTodayDate() {
         DateFormat dateFormat = new SimpleDateFormat(DATE_NUM_SLASH_WITH_YEAR_FORMAT);
         Calendar cal = Calendar.getInstance();
-        
+
         fullDate = dateFormat.format(cal.getTime());
     }
 
@@ -141,15 +112,14 @@ public class TaskDate {
     private void assignTmrDate() {
         DateFormat dateFormat2 = new SimpleDateFormat(DATE_NUM_SLASH_WITH_YEAR_FORMAT);
         Calendar cal2 = Calendar.getInstance();
-        
+
         cal2.add(Calendar.DATE, 1);
-        
+
         fullDate = dateFormat2.format(cal2.getTime());
     }
 
     // @@author A0139128A
     /**
-     * 
      * @param test
      *            is a given user date input
      * @return the validity of the user date input by passing it to methods of
@@ -157,17 +127,13 @@ public class TaskDate {
      * @throws ParseException
      * @throws IllegalValueException
      */
+
     private static boolean isValidDate(String reqDate) throws ParseException, IllegalValueException {
-        
+
         if (TODAY.matcher(reqDate).find() || TOMORROW.matcher(reqDate).find()) {
             return true;
         } else {
-            for (int i = 0; i < listOfDateFormat.length && i < listOfDateRegex.length; i++) {
-                if (reqDate.matches(listOfDateRegex[i])) {  
-                    return isValidNumDate(reqDate, listOfDateFormat[i]);
-                }
-            }
-            return false;
+            return isValidNumDate(reqDate);
         }
     }
 
@@ -175,7 +141,6 @@ public class TaskDate {
      * This function finds the respective regex that matches the user input and
      * sends to isValidDateRangeValidator to check if the two dates are really
      * valid
-     * 
      * @param startDate
      *            is the user input startingDate
      * @param endDate
@@ -185,22 +150,17 @@ public class TaskDate {
      */
     // @@author A0139128A
     private boolean isValidDateRange(String startDate, String endDate) throws ParseException {
-        for (int i = 0; i < listOfDateFormat.length && i < listOfDateRegex.length; i++) {
-            if ((startDate.matches(listOfDateRegex[i]) && (endDate.matches(listOfDateRegex[i])))) {
-                return isValidDateRangeValidator(startDate, endDate, listOfDateFormat[i]);
-            }
-        }
-        return false;
+        return isValidDateRangeValidator(startDate, endDate);
     }
 
     // @@author A0139128A
-    private boolean isValidDateRangeValidator(String beforeDate, String afterDate, String format) {
+    private boolean isValidDateRangeValidator(String beforeDate, String afterDate) {
         if (beforeDate == null && afterDate == null) {
             return true;
         }
         boolean validDateRange = false;
         boolean sameDate = false;
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat sdf = new SimpleDateFormat(DATE_NUM_SLASH_WITH_YEAR_FORMAT);
         Date beginDate = null;
         Date finishDate = null;
         try {
@@ -256,11 +216,11 @@ public class TaskDate {
      * @throws ParseException
      * @throws IllegalValueException
      */
-    private static boolean isValidNumDate(String incDate, String format)
+    private static boolean isValidNumDate(String incDate)
             throws ParseException, IllegalValueException {
         Date inputDate = null;
         try {
-            DateFormat df = new SimpleDateFormat(format);
+            DateFormat df = new SimpleDateFormat(DATE_NUM_SLASH_WITH_YEAR_FORMAT);
             df.setLenient(false);
 
             inputDate = df.parse(incDate);
@@ -287,7 +247,7 @@ public class TaskDate {
         fullDate = formatDatetoStandardDate(incDate);
         return true;
     }
-    
+
     /**
      * This method checks the validity of the month entered by the user.
      */
@@ -327,6 +287,7 @@ public class TaskDate {
      * attached with a default time and there is a need to overwrite this timing
      * to the latest so that it can be compared with the current date
      */
+    //@@author A0139128A
     private static Calendar setGregorian(Calendar cal, Date reqDate) {
         cal.setTime(reqDate);
         cal.set(Calendar.HOUR_OF_DAY, 23);
@@ -336,13 +297,14 @@ public class TaskDate {
     }
 
     /** Gets the current Date and set it to earliest */
+    //@@author A0139128A
     private static Calendar setGregorianCurrent(Calendar cal) {
         cal.set(Calendar.HOUR_OF_DAY, 00);
         cal.set(Calendar.MINUTE, 00);
         cal.set(Calendar.SECOND, 00);
         return cal;
     }
-    
+
     //@@author A0139772U
     public static String formatDatetoStandardDate(String date) throws IllegalValueException, ParseException {
         Calendar today = Calendar.getInstance();
@@ -374,10 +336,10 @@ public class TaskDate {
         String formattedDate = dateComponent[DATE_COMPONENT_DAY] + "/" 
                 + dateComponent[DATE_COMPONENT_MONTH] + "/"
                 + dateComponent[DATE_COMPONENT_YEAR];
-        
+
         return formattedDate;
     }
-    
+
     public static String formatDayToDate(String date) {
         assert (DAYS_IN_FULL.matcher(date).find() || DAYS_IN_SHORT.matcher(date).find());
         DateFormat df = new SimpleDateFormat(DATE_NUM_SLASH_WITH_YEAR_FORMAT);
@@ -408,7 +370,7 @@ public class TaskDate {
         return df.format(cal.getTime());
     }
 
-  //@@author A0139128A
+    //@@author A0139128A
     @Override
     public String toString() {
         if (fullDate == null) {
@@ -423,7 +385,7 @@ public class TaskDate {
         return other == this // short circuit if same object
                 || (other instanceof TaskDate // instanceof handles nulls
                         && this.fullDate.equals(((TaskDate) other).fullDate)); // state
-                                                                               // check
+        // check
     }
 
     /** Returns the fullDate */
@@ -440,7 +402,7 @@ public class TaskDate {
     public String getEndDate() {
         return this.endDate;
     }
-    
+
     public static boolean getIsValidDate(String date) throws ParseException, IllegalValueException{
         return isValidDate(date);
     }
