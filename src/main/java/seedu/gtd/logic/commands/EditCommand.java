@@ -1,7 +1,6 @@
 package seedu.gtd.logic.commands;
 
 import java.util.Hashtable;
-import java.util.Iterator;
 import java.util.Set;
 
 import seedu.gtd.commons.core.Messages;
