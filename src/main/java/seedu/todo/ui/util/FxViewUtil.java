@@ -18,6 +18,9 @@ import java.util.Optional;
 public class FxViewUtil {
 
     //@@author reused
+    /**
+     * Applies an anchor to the left, right, top and bottom boundary of {@code node}.
+     */
     public static void applyAnchorBoundaryParameters(Node node, double left, double right, double top, double bottom) {
         AnchorPane.setBottomAnchor(node, bottom);
         AnchorPane.setLeftAnchor(node, left);
@@ -25,18 +28,16 @@ public class FxViewUtil {
         AnchorPane.setTopAnchor(node, top);
     }
 
+    //@@author A0135805H
+    /**
+     * Applies an anchor to the left, right and bottom boundary of {@code node}.
+     */
     public static void applyAnchorBoundaryParameters(Node node, double left, double right, double bottom) {
         AnchorPane.setLeftAnchor(node, left);
         AnchorPane.setRightAnchor(node, right);
         AnchorPane.setBottomAnchor(node, bottom);
     }
 
-    public static void applyAnchorBoundaryParameters(Node node, double left, double right) {
-        AnchorPane.setLeftAnchor(node, left);
-        AnchorPane.setRightAnchor(node, right);
-    }
-
-    //@@author A0135805H
     /**
      * Hides a specified UI element, and ensures that it does not occupy any space.
      */
