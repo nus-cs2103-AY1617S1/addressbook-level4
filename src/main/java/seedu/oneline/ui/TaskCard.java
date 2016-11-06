@@ -47,7 +47,7 @@ public class TaskCard extends UiPart {
         name.setText(parser.getName());
         id.setText(displayedIndex + ". ");
         time.setText(parser.getTime());
-        tag.setText(" " + parser.getTag());
+        tag.setText(parser.getTag());
         color.setStyle("-fx-text-fill: " + tagColor.toHTMLColor());
     }
 
