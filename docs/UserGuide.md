@@ -258,23 +258,30 @@ Format: `edit INDEX NEW_DETAILS`
 * Jimi edits the task/event specified by `INDEX`, `NEW_DETAILS` are simply the edits you want to make. <br>
 * You can edit everything from the items name to its priority. You can leave out fields that you do not wish to edit too. <br>
 * Although all fields are optional, they can't all be empty!
-* Below is the format of `NEW_DETAILS` that Jimi recognizes when editting: <br>
+* The format of `NEW_DETAILS` that Jimi recognizes when editting:  <br>
+    * ["NEW_TASK_DETAILS"] [due NEW_DATETIME] \| [[on NEW_START_DATETIME][to NEW_END_DATETIME]] [t/NEW_TAG] [p/NEW_PRIORITY] <br>
+* Here are some examples:
 
-`NEW_DETAILS` | Examples | What Jimi Will Do
--------- | :-------- | :--------
-["NEW_TASK_DETAILS"] [due NEW_DATETIME] \| [[on NEW_START_DATETIME][to NEW_END_DATETIME]] [t/NEW_TAG] [p/NEW_PRIORITY] | edit t1 "finish this user guide" | Edit just the name of task t1.
-&nbsp; | edit t4 t/bobz | Edit just the tag of task t4.
-&nbsp; | edit e2 "go to concert" to monday p/LOW | Edit name, end date and priority of event e2.
+If you type | Jimi will 
+:-------- | :--------
+edit t1 "finish this user guide" | edit just the name of task t1.
+edit t4 t/bobz | edit just the tag of task t4.
+edit e2 "go to concert" to monday p/LOW | edit name, end date and priority of event e2.
+edit e1 on sunday | edit the start date of event e1.
+edit e6 to tmr | edit the end date of event e6.
+edit t2 due 8pm | edit the deadline of task t2.
+edit e9 on tmr to next monday | edit the start date and end date of event e9.
+
+> When editting an event, you can either edit just the start date alone or the end date alone or both.
+> But if you wish to convert to an event from a task, `on NEW_START_DATETIME` is no longer optional, as will be shown below. 
 
 <br>
-> When editting an event, you can either edit just the start date alone or the end date alone or both.
-> But if you wish to convert to an event from a task, `on NEW_START_DATETIME` is no longer optional, as will be shown below.
 
 * Using edit, you may also convert between item types. That is, you may freely convert between floating tasks (dateless tasks), events, and deadline tasks. <br>
 * Below is the format of `NEW_DETAILS` that Jimi recognizes when converting: <br>
 
-Converting to | What to Type for `NEW_DETAILS`| Examples
--------- | :-------- | :--------
+Converting to | What to type for `NEW_DETAILS`| Examples
+:-------- | :-------- | :--------
 Dateless Task | dateless | `edit e1 dateless`
 Tagless item | tagless | `edit t1 tagless`
 No priority item | p/none | `edit t4 p/none`
@@ -283,7 +290,7 @@ Event | ["NEW_TASK_DETAILS"] on NEW_START_DATETIME [to NEW_END_DATETIME] [t/NEW_
 
 > <img src="images/Edit.png" width="800">
 
-> * If you want to undo your edit, use the [`undo`](#undo) command.
+> * If you ever make a mistake, don't be afraid to use the [`undo`](#undo) command.
 
 <!--- @@author -->
 <br><br>
