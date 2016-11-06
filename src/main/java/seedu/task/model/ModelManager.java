@@ -98,18 +98,19 @@ public class ModelManager extends ComponentManager implements Model {
             LocalDateTime localDateTime = LocalDateTime.ofInstant(currentDate.toInstant(), ZoneId.systemDefault());
 
             if (taskDateTime.isBefore(localDateTime)) {
-                newTask = new Task(newTask.getName(), newTask.getStartTime(), newTask.getEndTime(), newTask.getDeadline(),
-                        newTask.getTags(),
+                newTask = new Task(newTask.getName(), newTask.getStartTime(), newTask.getEndTime(),
+                        newTask.getDeadline(), newTask.getTags(),
                         new Status(newTask.getStatus().getDoneStatus(), true, newTask.getStatus().getFavoriteStatus()),
                         newTask.getRecurring());
             } else {
-                newTask = new Task(newTask.getName(), newTask.getStartTime(), newTask.getEndTime(), newTask.getDeadline(),
-                        newTask.getTags(),
+                newTask = new Task(newTask.getName(), newTask.getStartTime(), newTask.getEndTime(),
+                        newTask.getDeadline(), newTask.getTags(),
                         new Status(newTask.getStatus().getDoneStatus(), false, newTask.getStatus().getFavoriteStatus()),
                         newTask.getRecurring());
             }
         } else {
-            newTask = new Task(newTask.getName(), newTask.getStartTime(), newTask.getEndTime(), newTask.getDeadline(), newTask.getTags(),
+            newTask = new Task(newTask.getName(), newTask.getStartTime(), newTask.getEndTime(), newTask.getDeadline(),
+                    newTask.getTags(),
                     new Status(newTask.getStatus().getDoneStatus(), false, newTask.getStatus().getFavoriteStatus()),
                     newTask.getRecurring());
         }
@@ -129,19 +130,20 @@ public class ModelManager extends ComponentManager implements Model {
             LocalDateTime localDateTime = LocalDateTime.ofInstant(currentDate.toInstant(), ZoneId.systemDefault());
 
             if (newTaskDateTime.isBefore(localDateTime)) {
-                newTask = new Task(newTask.getName(), newTask.getStartTime(), newTask.getEndTime(), newTask.getDeadline(),
-                        newTask.getTags(),
+                newTask = new Task(newTask.getName(), newTask.getStartTime(), newTask.getEndTime(),
+                        newTask.getDeadline(), newTask.getTags(),
                         new Status(newTask.getStatus().getDoneStatus(), true, newTask.getStatus().getFavoriteStatus()),
                         newTask.getRecurring());
             } else {
-                newTask = new Task(newTask.getName(), newTask.getStartTime(), newTask.getEndTime(), newTask.getDeadline(),
-                        newTask.getTags(),
+                newTask = new Task(newTask.getName(), newTask.getStartTime(), newTask.getEndTime(),
+                        newTask.getDeadline(), newTask.getTags(),
                         new Status(newTask.getStatus().getDoneStatus(), false, newTask.getStatus().getFavoriteStatus()),
                         newTask.getRecurring());
             }
 
         } else {
-            newTask = new Task(newTask.getName(), newTask.getStartTime(), newTask.getEndTime(), newTask.getDeadline(), newTask.getTags(),
+            newTask = new Task(newTask.getName(), newTask.getStartTime(), newTask.getEndTime(), newTask.getDeadline(),
+                    newTask.getTags(),
                     new Status(newTask.getStatus().getDoneStatus(), false, newTask.getStatus().getFavoriteStatus()),
                     newTask.getRecurring());
         }
@@ -199,8 +201,10 @@ public class ModelManager extends ComponentManager implements Model {
     /**
      * Adds time to the original time based on the interval
      * 
-     * @param originalTime original time
-     * @param interval duration to add
+     * @param originalTime
+     *            original time
+     * @param interval
+     *            duration to add
      * @return date and time with interval added
      */
     private String addPeriodicTimeToTask(String originalTime, String interval) {

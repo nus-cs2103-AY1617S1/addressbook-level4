@@ -238,7 +238,7 @@ public class TaskManager implements ReadOnlyTaskManager {
             }
         });
     }
-    
+
     /**
      * Tasks are sorted according to Name in ascending order
      */
