@@ -138,7 +138,9 @@ public class CommandBox extends UiPart {
      * Sets the command box style to indicate an error
      */
     private void setStyleToIndicateIncorrectCommand() {
-        commandTextField.getStyleClass().add("error");
+        if (!commandTextField.getStyleClass().contains("error")) {
+            commandTextField.getStyleClass().add("error");   
+        }
     }
 
 }
