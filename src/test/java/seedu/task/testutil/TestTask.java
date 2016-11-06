@@ -84,21 +84,28 @@ public class TestTask implements ReadOnlyTask {
         return getAsText();
     }
 
+    // @@author A0147944U
     public String getAddCommand() {
         StringBuilder sb = new StringBuilder();
         sb.append("add " + this.getName().fullName + "");
-        if(!this.getStartTime().value.isEmpty()) {
-        	sb.append(", from " + this.getStartTime().value);
+        if (!this.getStartTime().value.isEmpty()) {
+            sb.append(", from " + this.getStartTime().value);
         }
-        if(!this.getEndTime().value.isEmpty()) {
-        sb.append(" to " + this.getEndTime().value + "");
+        if (!this.getEndTime().value.isEmpty()) {
+            sb.append(" to " + this.getEndTime().value + "");
         }
-        if(!this.getDeadline().value.isEmpty()) {
-        sb.append(" by " + this.getDeadline().value + " ");
+        if (!getDeadline().toString().isEmpty()) {       
+            sb.append(" \nDeadline: ").append(getDeadline());
+        }
+        if (!this.getDeadline().value.isEmpty()) {
+            sb.append(" by " + this.getDeadline().value + " ");
+        }
+        if (!getRecurring().toString().equals("false")) {
+            sb.append(" \nRecurring: ").append(getDeadline());
         }
         this.getTags().getInternalList().stream().forEach(s -> sb.append("#" + s.tagName + " "));
         return sb.toString();
     }
-
+    // @@author
    
 }

@@ -35,6 +35,7 @@ public interface ReadOnlyTask {
                 && other.getTags().equals(this.getTags()));
     }
 
+    // @@author A0147944U
     /**
      * Formats the task as text, showing all task details.
      */
@@ -61,6 +62,7 @@ public interface ReadOnlyTask {
         
         return builder.toString();
     }
+    // @@author
 
     /**
      * Returns a string representation of this Task tags
