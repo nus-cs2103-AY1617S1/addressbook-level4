@@ -71,7 +71,7 @@ Perhaps after adding a todo, now you want to add a task with a deadline. Let's s
 
 >Format: **add** &lt;deadline description&gt;; &lt;date(DDMMYY)&gt;; &lt;end time&gt; &lt;#tag&gt;
 
-Example: add complete report; 120916; 1900 #anyhowLah 
+Example: add complete report; 120916; 1900 #fml 
 <br><br>
 >Important: The date is compulsory when adding an deadline. If end time is not specified, a default of 11.59pm on the entered date is set.
 
