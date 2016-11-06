@@ -157,18 +157,26 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
      * - Starred tasks have higher priority<br/>
      * - Completed tasks have lower priority<br/>
      * - For tasks with same completion/starred status,
-     *   base comparison on endDate only
+     *   base comparison on endDate and the task name
      */
     @Override
     public int compareTo(Task o) {
-        if ((this.isCompleted || o.getComplete()) && !(this.isCompleted && o.getComplete())) {
+        /*
+         * The (^) operator is also a logical XOR, according to Java Language Standards 15.22.2.
+         * See: https://docs.oracle.com/javase/specs/jls/se8/html/jls-15.html#jls-15.22.2
+         */
+        if (this.isCompleted ^ o.getComplete()) {
             return (this.isCompleted) ? 1 : -1;
-        } else if ((this.isImportant || o.getImportance()) && !(this.isImportant && o.getImportance())) {
+        } else if (this.isImportant ^ o.getImportance()) {
             return (this.isImportant) ? -1 : 1;
-        } else if (!this.closeTime.isEmpty() && !o.getCloseTime().isEmpty()) {
-            return this.closeTime.compareTo(o.getCloseTime());
+        }
+        
+        int timeComparison = this.closeTime.compareTo(o.getCloseTime());
+        
+        if (timeComparison == 0) {
+            return this.name.compareTo(o.getName());
         } else {
-            return 0;
+            return timeComparison;
         }
     }
 }
