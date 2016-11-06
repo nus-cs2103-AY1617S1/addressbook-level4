@@ -33,6 +33,20 @@ At this point, we know you are just as excited as we are [about Jimi](https://gi
    * **`exit`** : exits the app
 6. Refer to the [Features](#features) section below for details of each command.<br>
 
+<!--- @@author A0140133B -->
+###Explaining the UI
+
+> <img src="images/UI_Explanation.png" width="800">
+
+Jimi's UI is simple to use and compact, everything you need is right at your fingertips, literally. <br>
+The UI comprises four main parts: <br>
+
+0. A summary panel, containing important information at a glance. To expand the drop down lists, you can either click them, or use the [`show`](#show) command. <br>
+1. Task/event tables, here is where you would find all your tasks/events. The top table is for tasks, and the bottom for events. Changes in the tasks/events will be updated in real time here too. <br>
+2. A console box, essentially the voice of Jimi. It displays error messages, feedback from commands, tips and so on. This is basically your babysitter through your first usage, so pay attention to what it has to offer.
+3. The command line, is where you would tell Jimi what to do. Enter your single line commands with the appropriate format and let Jimi do the dirty work.
+
+<!--- @@author -->
 <br>
 <br>
 
