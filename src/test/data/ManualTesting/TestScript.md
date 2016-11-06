@@ -25,195 +25,200 @@
 ## Tests for Add command
 
 #### Adding a floating task
-Command: ` ` <br>
-Expected Output: ` `
+Command: `add Buy dinner for family` <br>
+Expected Output: `New task added: Buy dinner for family`
 
 #### Adding an event
-Command: ` ` <br>
-Expected Output: ` `
+Command: `add Practice for presentation from 25 dec 10am to 25 dec 12pm` <br>
+Expected Output: `New task added: Practice for presentation`
 
 #### Adding a deadline
-Command: ` ` <br>
-Expected Output: ` `
+Command: `add Ask for money by 26 dec 10pm` <br>
+Expected Output: `New task added: Ask for money`
 
 #### Adding a task with start time only
-Command: ` ` <br>
-Expected Output: ` `
+Command: `add Study for CS9999 at 19 Jan 2017` <br>
+Expected Output: `New task added: Study for CS9999`
 
 #### Adding an overlapping task
-Command: ` ` <br>
-Expected Output: ` `
+Command: `add Attend brunch from 25 dec 8am to 25 dec 11am` <br>
+Expected Output: `New task added: Attend brunch. There is an overlap with other existing task(s).`
 
 #### Adding a duplicate task
-Command: ` ` <br>
-Expected Output: ` `
+Command: `add Ask for money by 26 dec 10pm` <br>
+Expected Output: `This task already exists in the to-do list.`
 
 #### Adding in an invalid manner (Example 1)
-Command: ` ` <br>
-Expected Output: ` `
+Command: `add` <br>
+Expected Output: `Task details should include only alphanumeric/whitespace characters and must not be empty.`
 
 #### Adding in an invalid manner (Example 2)
-Command: ` ` <br>
-Expected Output: ` `
+Command: `add123` <br>
+Expected Output: `Unknown command`
 
 ## Tests for Show command
 
 #### Show all
 Command: `show all` <br>
-Expected Output: ` `
+Expected Output: `57 task(s) listed!`
 
 #### Show overdue
 Command: `show overdue` or `overdue` <br>
-Expected Output: ` `
+Expected Output: `9 task(s) listed!`
 
 #### Show done/complete
 Command: `show done` or `show complete` <br>
-Expected Output: ` `
+Expected Output: `0 task(s) listed!`
 
 #### Show today
 Command: `show today` or `today` <br>
-Expected Output: ` `
+Expected Output: `4 task(s) listed!`
 
 #### Show tomorrow
 Command: `show tomorrow` or `tomorrow` <br>
-Expected Output: ` `
+Expected Output: `4 task(s) listed!`
 
 #### Show floating
 Command: `show floating` or `floating` <br>
-Expected Output: ` `
+Expected Output: `9 task(s) listed!`
 
 #### Show for any random date
 Command: `show 25/12/2016` or `show xmas` <br>
-Expected Output: ` `
+Expected Output: `5 task(s) listed!`
 
 #### Show high priority tasks
 Command: `show p/high` <br>
-Expected Output: ` `
+Expected Output: `6 task(s) listed!`
 
 #### Show medium priority tasks
 Command: `show p/med` <br>
-Expected Output: ` `
+Expected Output: `3 task(s) listed!`
 
 #### Show low priority tasks
 Command: `show p/low` <br>
-Expected Output: ` `
+Expected Output: `50 task(s) listed!`
 
 #### Show upcoming/incomplete tasks
 Command: `show upcoming` or `show incomplete` or `show` <br>
-Expected Output: ` `
+Expected Output: `57 task(s) listed!`
 
 ## Tests for Find command
 
 #### Find non-existing task
-Command: `find ` <br>
-Expected Output: ` `
+Command: `find lunch` <br>
+Expected Output: `No such task was found.`
 
 #### Find task with one matching result
-Command: `find ` <br>
-Expected Output: ` `
+Command: `find judo` <br>
+Expected Output: `1 task(s) listed!`
 
 #### Find task with more than one matching result
-Command: `find ` <br>
-Expected Output: ` `
+Command: `find study` <br>
+Expected Output: `5 task(s) listed!`
 
 #### Find all tasks
 Command: `find *` <br>
-Expected Output: ` `
+Expected Output: `59 task(s) listed!`
 
 #### Find task with wildcard character *
 Command: `find B*y*` <br>
-Expected Output: ` `
+Expected Output: `9 task(s) listed!`
 
 ## Tests for Delete command
 
 #### Delete task by index 
-Command: `delete ` <br>
-Expected Output: ` `
+Command: `delete 7` <br>
+Expected Output: `Deleted Task: Buy cups`
 
 #### Delete task by name with only one matching result
-Command: `delete ` <br>
-Expected Output: ` `
+Command: `delete judo` <br>
+Expected Output: `Deleted Task: Attend judo practice`
 
 #### Delete task by name with multiple matching results
-Command: `delete ` <br>
-Expected Output: ` `
+Command: `delete study` <br>
+Expected Output: `Multiple tasks were found containing the entered keywords. Please check below and delete by index.`
 
 #### Delete task by name with zero matching results
-Command: `delete ` <br>
-Expected Output: ` `
+Command: `delete lunch`<br>
+Expected Output: `No such task was found.`
 
 ## Tests for Update command
 
 #### Update start time for a task
-Command: `update ` <br>
-Expected Output: ` `
+Command: `update 5 at 4 oct 1pm` <br>
+Expected Output: `Task successfully updated: Go for checkup`
 
 #### Update end time for a task
-Command: `update ` <br>
-Expected Output: ` `
+Command: `update 1 by 2 jan 2016` <br>
+Expected Output: `Task successfully updated: Find my social life back`
 
 #### Update priority for a task
-Command: `update ` <br>
-Expected Output: ` `
+Command: `update 2 p/med` <br>
+Expected Output: `Task successfully updated: Clean toilet`
 
 #### Update recurring frequency for a task
-Command: `update ` <br>
-Expected Output: ` `
+Command: `update 8 r/monthly` <br>
+Expected Output: `Task successfully updated: Go for dance practice`
 
 #### Update task details for a task
-Command: `update ` <br>
-Expected Output: ` `
+Command: `update 1 Must find my social life back` <br>
+Expected Output: `Task successfully updated: Must find my social life back`
 
 #### Update floating task to a task with start time and end time
-Command: `update ` <br>
-Expected Output: ` `
+Command: `update 12 from 8 nov 10pm to 8 nov 11pm` <br>
+Expected Output: `Task successfully updated: Clean room`
 
 #### Invalid attempt at update (Example 1)
-Command: `update ` <br>
-Expected Output: ` `
+Command: `update 99` <br>
+Expected Output: `The task index provided is invalid`
 
 #### Invalid attempt at update (Example 2)
-Command: `update ` <br>
-Expected Output: ` `
+Command: `update my task` <br>
+Expected Output: `The task index provided is invalid`
 
 ## Tests for Done command
 
 #### Complete task by index
-Command: `done ` <br>
-Expected Output: ` `
+Command: `done 2` <br>
+Expected Output: `Completed Task: Clean toilet. Showing all completed tasks now.`
 
 #### Complete task by name with only one matching result
-Command: `done ` <br>
-Expected Output: ` `
+Command 1: `show` <br>
+Command 2: `done nap` <br>
+Expected Output: `Completed Task: Nap. Showing all completed tasks now.`
 
 #### Complete task by name with multiple matching results
-Command: `done ` <br>
-Expected Output: ` `
+Command: `done study` <br>
+Expected Output: `Multiple tasks were found containing the entered keywords. Please check below and mark as complete by index.`
 
 #### Complete task by name with zero matching results
-Command: `done ` <br>
-Expected Output: ` `
+Command: `done lunch` <br>
+Expected Output: `No such task was found.`
 
 ## Tests for Setstorage command
 
 #### Set storage file path to random file location
-Command: `setstorage ` <br>
-Expected Output: ` `
+Command: `setstorage /Desktop` <br>
+Expected Output: `Changed file path to: /Desktop`
 
 #### Set storage file path to default file location
 Command: `setstorage default` <br>
-Expected Output: ` `
+Expected Output: `Changed file path to: default`
+
+#### Set storage file path to invalid file location
+Command: `setstorage njdfhewjfhe` <br>
+Expected Output: `File path not found. Please enter a valid file path.`
 
 ## Tests for Undo command
 
 #### Undo one change
-Command 1: ` ` <br>
+Command 1: `Add sleep` <br>
 Command 2: `undo` <br>
 Expected Output: `Your previous action has been undone.`
 
 #### Undo two changes
-Command 1: ` ` <br>
-Command 2: ` ` <br>
+Command 1: `Add sleep` <br>
+Command 2: `update 15 p/med` <br>
 Command 3: `undo` <br>
 Expected Output: `Your previous action has been undone.` <br>
 Command 4: `undo` <br>
@@ -221,9 +226,9 @@ Expected Output: `Your previous action has been undone.`
 
 #### Undo three changes
 
-Command 1: ` ` <br>
-Command 2: ` ` <br>
-Command 3: ` ` <br>
+Command 1: `Add sleep` <br>
+Command 2: `update 15 p/med` <br>
+Command 3: `done 8` <br>
 Command 4: `undo` <br>
 Expected Output: `Your previous action has been undone.` <br>
 Command 5: `undo` <br>
@@ -234,14 +239,14 @@ Expected Output: `Your previous action has been undone.`
 ## Tests for Redo command
 
 #### Redo one change
-Command 1: ` ` <br>
+Command 1: `add Sleep` <br>
 Command 2: `undo` <br>
 Command 3: `redo` <br>
 Expected Output: `Your previous undo action has been redone.`
 
 #### Redo two changes
-Command 1: ` ` <br>
-Command 2: ` ` <br>
+Command 1: `Update 8 p/med` <br>
+Command 2: `done 8` <br>
 Command 3: `undo` <br>
 Command 4: `undo` <br>
 Command 5: `redo` <br>
@@ -251,9 +256,9 @@ Expected Output: `Your previous undo action has been redone.`
 
 #### Redo three changes
 
-Command 1: ` ` <br>
-Command 2: ` ` <br>
-Command 3: ` ` <br>
+Command 1: `add Lunch` <br>
+Command 2: `update 15 p/high` <br>
+Command 3: `delete 8` <br>
 Command 4: `undo` <br>
 Command 5: `undo` <br>
 Command 6: `undo` <br>
@@ -282,9 +287,30 @@ Command: `undo` <br>
 Expected Output: `Your previous action has been undone.`
 
 ## Tests for Autocomplete feature
+#### Autocomplete with `TAB` button
+Command: `f` followed by the `TAB` button <br>
+Expected Output in Command Bar: `find`
 
+#### Autocomplete with `SPACEBAR`
+Command: `a` followed by the `SPACEBAR` <br>
+Expected Output in Command Bar: `add`
 
+#### Autocomplete for commands with same first character
+Command 1: `s` followed by the `TAB` button <br>
+Expected Output in Command Bar: `s`
+Command 2: `h` followed by the `TAB` button <br>
+Expected Output in Command Bar: `show`
 
 ## Tests for Command History feature
 
+#### Find first previous entered command
+Command: press `UP` arrow key
+Expected Output in Command Bar: `undo`
 
+#### Find next entered command
+Command: press `DOWN` arrow key
+Expected Output in Command Bar: `show`
+
+#### Find second previous entered command
+Command: press `UP` arrow key twice
+Expected Output in Command Bar: `clear`
