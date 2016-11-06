@@ -10,6 +10,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import seedu.todo.MainApp;
 import seedu.todo.commons.core.Config;
+import seedu.todo.commons.core.ConfigCenter;
 import seedu.todo.commons.core.GuiSettings;
 import seedu.todo.commons.events.ui.ExitAppRequestEvent;
 import seedu.todo.commons.exceptions.ParseException;
@@ -82,7 +83,7 @@ public class MainWindow extends Component {
     protected void loadComponents() {
         // Load Header
         Header header = UiPartLoader.loadUiPart(primaryStage, getHeaderPlaceholder(), Header.class);
-        header.appTitle = MainApp.getConfig().getAppTitle();
+        header.appTitle = ConfigCenter.getInstance().getConfig().getAppTitle();
         header.versionString = MainApp.VERSION.toString();
         header.render();
 

@@ -12,8 +12,8 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
-import seedu.todo.MainApp;
 import seedu.todo.commons.core.AliasDefinition;
+import seedu.todo.commons.core.ConfigCenter;
 import seedu.todo.commons.util.FxViewUtil;
 import seedu.todo.ui.components.AliasItem;
 
@@ -53,7 +53,7 @@ public class AliasView extends View {
         aliasImageView.setImage(new Image(ICON_PATH));
         
         // Get definitions
-        Map<String, String> aliasMap = MainApp.getConfig().getAliases();
+        Map<String, String> aliasMap = ConfigCenter.getInstance().getConfig().getAliases();
         List<Map.Entry<String, String>> aliasDefinitions =
                 new ArrayList<Map.Entry<String, String>>(aliasMap.entrySet());
         

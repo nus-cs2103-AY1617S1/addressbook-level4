@@ -3,10 +3,9 @@ package seedu.todo.controllers;
 import java.io.IOException;
 import java.util.Map;
 
-import seedu.todo.MainApp;
 import seedu.todo.commons.core.Config;
+import seedu.todo.commons.core.ConfigCenter;
 import seedu.todo.commons.exceptions.ParseException;
-import seedu.todo.commons.util.ConfigUtil;
 import seedu.todo.commons.util.StringUtil;
 import seedu.todo.controllers.concerns.Renderer;
 
@@ -61,12 +60,12 @@ public class UnaliasController extends Controller {
     }
     
     private static boolean destroyAlias(String aliasKey) throws IOException {
-        Config config = MainApp.getConfig();
+        Config config = ConfigCenter.getInstance().getConfig();
         Map<String, String> aliases = config.getAliases();
         if (aliases.remove(aliasKey) == null) {
             return false;
         }
-        ConfigUtil.saveConfig(config, MainApp.getConfigFilePath());
+        ConfigCenter.getInstance().saveConfig(config);
         return true;
     }
     

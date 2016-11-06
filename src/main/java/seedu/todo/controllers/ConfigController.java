@@ -3,10 +3,9 @@ package seedu.todo.controllers;
 import java.io.IOException;
 import java.util.List;
 
-import seedu.todo.MainApp;
 import seedu.todo.commons.core.Config;
+import seedu.todo.commons.core.ConfigCenter;
 import seedu.todo.commons.exceptions.CannotConfigureException;
-import seedu.todo.commons.util.ConfigUtil;
 import seedu.todo.controllers.concerns.Renderer;
 import seedu.todo.models.TodoListDB;
 import seedu.todo.ui.UiManager;
@@ -68,7 +67,7 @@ public class ConfigController extends Controller {
             String configValue = args[1];
 
             // Get current config
-            Config config = MainApp.getConfig();
+            Config config = ConfigCenter.getInstance().getConfig();
 
             // Check name
             List<String> validConfigDefinitions = config.getDefinitionsNames();
@@ -89,7 +88,7 @@ public class ConfigController extends Controller {
 
             // Save config to file
             try {
-                ConfigUtil.saveConfig(config, MainApp.getConfigFilePath());
+                ConfigCenter.getInstance().saveConfig(config);
             } catch (IOException e) {
                 Renderer.renderConfig(String.format(MESSAGE_FAILURE, e.getMessage()));
                 return;
