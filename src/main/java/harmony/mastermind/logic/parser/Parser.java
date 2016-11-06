@@ -393,7 +393,7 @@ public class Parser {
         if (!index.isPresent()) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
         }
-        Command result = new DeleteCommand(index.get());
+        Command result = new DeleteCommand(index.get(), mem);
 
         return result;
     }
@@ -512,7 +512,7 @@ public class Parser {
         // keywords delimited by whitespace
         final String[] keywords = matcher.group("keywords").split("\\s+");
         final Set<String> keywordSet = new HashSet<>(Arrays.asList(keywords));
-        return new FindCommand(keywordSet);
+        return new FindCommand(keywordSet, mem);
     }
     
 

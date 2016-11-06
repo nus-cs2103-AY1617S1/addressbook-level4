@@ -45,9 +45,11 @@ public class DeleteCommand extends Command implements Undoable, Redoable {
     public static GenericMemory detailedView = null;
     public static ArrayList<GenericMemory> listView = null;
     public static String listName = null;
+    Memory memory;
 
-    public DeleteCommand(int targetIndex) {
+    public DeleteCommand(int targetIndex, Memory mem) {
         this.targetIndex = targetIndex;
+        this.memory = mem;
     }
 
     @Override
@@ -92,7 +94,7 @@ public class DeleteCommand extends Command implements Undoable, Redoable {
     public CommandResult redo() {
         try {
             executeDelete();
-
+            
             model.pushToUndoHistory(this);
 
         } catch (TaskNotFoundException | IndexOutOfBoundsException | ArchiveTaskList.TaskNotFoundException tnfe) {
@@ -112,6 +114,7 @@ public class DeleteCommand extends Command implements Undoable, Redoable {
 
         if (toDelete == null) {
             toDelete = lastShownList.get(targetIndex - 1);
+            deleteDirectly(toDelete.toString(), memory);
         }
 
         if (toDelete.isMarked()) {
@@ -119,26 +122,6 @@ public class DeleteCommand extends Command implements Undoable, Redoable {
         }else {
             model.deleteTask(toDelete);
         }
-    }
-
-    //@@author A0143378Y
-    // Takes in ArrayList of sorted index to delete from memory
-    public static void deleteAfterSearch(Stack<Integer> descendingList, Memory memory) {
-        while(!descendingList.isEmpty()){
-            GenericMemory item = listView.get(descendingList.pop()-1);
-            deleteItem(item, memory);
-        }
-        History.advance(memory);
-
-    }
-    
-    //@@author A0143378Y
-    // Delete item currently shown in detailed view from memory
-    public static void deleteDetailed(Memory memory) {
-        assert memory != null;
-
-        deleteItem(detailedView, memory);
-        History.advance(memory);
     }
     
     //@@author A0143378Y
@@ -152,27 +135,9 @@ public class DeleteCommand extends Command implements Undoable, Redoable {
     }
     
     //@@author A0143378Y
-    // Delete given GenericEvents item from memory
+    // Delete given GenericMemory item from memory
     private static void deleteItem(GenericMemory item, Memory memory) {
         assert item != null;
         memory.remove(item);
-    }
-    
-    //@@author A0143378Y
-    // Clears all main window text
-    public static void displayClear() {
-        detailedView = null;
-        listView = null;
-    }
-    
-    //@@author A0143378Y
-    // Takes an ArrayList of GeneticEvents items, and display them in a list form, with name as the heading
-    public static void displayList(ArrayList<GenericMemory> list, String name) {
-        displayClear();
-        detailedView = null;
-        listView = list;
-        listName = name;
-
-        assert listName != null;
     }
 }
