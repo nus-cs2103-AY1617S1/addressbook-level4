@@ -4,6 +4,7 @@ import guitests.GuiRobot;
 import javafx.application.Platform;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
+import javafx.scene.layout.HBox;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
@@ -74,6 +75,10 @@ public class GuiHandle {
     // get the CSS style go the specified label
     protected String getStyleFromLabel(String fieldId, Node parentNode) {
     	return ((Label) guiRobot.from(parentNode).lookup(fieldId).tryQuery().get()).getStyle();
+    }
+    
+    protected String getStyleFromHbox(String fieldId, Node parentNode) {
+        return ((HBox) guiRobot.from(parentNode).lookup(fieldId).tryQuery().get()).getStyle();
     }
     //@@author
     public void focusOnSelf() {
