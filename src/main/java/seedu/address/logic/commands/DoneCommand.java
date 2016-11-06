@@ -171,7 +171,7 @@ public class DoneCommand extends UndoableCommand {
      */
     private void archiveTask(Task taskToArchive) throws TaskNotFoundException, TaskNotRecurringException {
         assert taskToArchive != null;
-        model.deleteTask(taskToArchive);
+        model.deleteUndoneTask(taskToArchive);
         boolean taskToArchiveIsRecurring = (taskToArchive.getRecurrenceRate().isPresent());
         if (taskToArchiveIsRecurring) {
             updateRecurrenceAndReAddTask(taskToArchive);
@@ -223,7 +223,7 @@ public class DoneCommand extends UndoableCommand {
         
         for (Task readdedRecurTask : readdedRecurringTasks) { 
             try {
-                model.deleteTask(readdedRecurTask);
+                model.deleteUndoneTask(readdedRecurTask);
             } catch (TaskNotFoundException e) {
                 doneTasksUndoFail.add(readdedRecurTask);
             }

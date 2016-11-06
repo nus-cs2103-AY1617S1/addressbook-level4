@@ -15,8 +15,8 @@ import seedu.address.testutil.TestUtil;
 import seedu.address.testutil.TypicalTestTasks;
 
 import static org.junit.Assert.assertTrue;
-import static seedu.address.logic.commands.DeleteCommand.MESSAGE_DELETE_ITEM_SUCCESS;
-import static seedu.address.logic.commands.DoneCommand.MESSAGE_DONE_ITEM_SUCCESS;
+import static seedu.address.logic.commands.DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS;
+import static seedu.address.logic.commands.DoneCommand.MESSAGE_DONE_TASK_SUCCESS;
 
 //@@author A0093960X
 public class UndoAndRedoCommandTest extends DearJimGuiTest {
@@ -249,7 +249,7 @@ public class UndoAndRedoCommandTest extends DearJimGuiTest {
         assertTrue(personListPanel.isListMatching(expectedRemainder));
 
         //confirm the result message is correct
-        assertResultMessage(String.format(MESSAGE_DELETE_ITEM_SUCCESS, TestUtil.generateDisplayString(personToDelete)));
+        assertResultMessage(String.format(MESSAGE_DELETE_TASK_SUCCESS, TestUtil.generateDisplayString(personToDelete)));
     }
         
     /**
@@ -286,7 +286,7 @@ public class UndoAndRedoCommandTest extends DearJimGuiTest {
         assertTrue(personListPanel.isListMatching(expectedRemainder));
         
         //confirm the result message is correct
-        assertResultMessage(String.format(MESSAGE_DONE_ITEM_SUCCESS, taskToDone));
+        assertResultMessage(String.format(MESSAGE_DONE_TASK_SUCCESS, taskToDone));
 
         //confirm the done list now contains all previous done tasks plus the new done task
         commandBox.runCommand("list done");

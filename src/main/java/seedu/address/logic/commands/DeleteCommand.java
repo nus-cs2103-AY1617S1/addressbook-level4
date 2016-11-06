@@ -23,8 +23,8 @@ public class DeleteCommand extends UndoableCommand {
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
     
-    public static final String MESSAGE_DELETE_ITEM_SUCCESS = "Deleted Task: %1$s";
-    public static final String MESSAGE_DELETE_ITEMS_SUCCESS = "Deleted Tasks: %1$s";
+    public static final String MESSAGE_DELETE_TASK_SUCCESS = "Deleted Task: %1$s";
+    public static final String MESSAGE_DELETE_TASKS_SUCCESS = "Deleted Tasks: %1$s";
     public static final String MESSAGE_FAILURE = "Failed to delete Task.";
 
     //@@author
@@ -80,7 +80,7 @@ public class DeleteCommand extends UndoableCommand {
         if (isViewingDoneList) {
             model.deleteDoneTask(taskToDelete);
         } else {
-            model.deleteTask(taskToDelete);
+            model.deleteUndoneTask(taskToDelete);
         }     
     }
 
@@ -148,8 +148,8 @@ public class DeleteCommand extends UndoableCommand {
         }
         String toDisplay = ListUtil.generateDisplayString(targetTasks);
         return (targetTasks.size() == 1)
-                ? new CommandResult(String.format(MESSAGE_DELETE_ITEM_SUCCESS, toDisplay))
-                : new CommandResult(String.format(MESSAGE_DELETE_ITEMS_SUCCESS, toDisplay));
+                ? new CommandResult(String.format(MESSAGE_DELETE_TASK_SUCCESS, toDisplay))
+                : new CommandResult(String.format(MESSAGE_DELETE_TASKS_SUCCESS, toDisplay));
     }
     
     //@@author A0093960X

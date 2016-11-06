@@ -410,7 +410,7 @@ public class LogicManagerTest {
         helper.addToModel(model, threePersons);
 
         assertCommandBehavior("delete 2",
-                String.format(DeleteCommand.MESSAGE_DELETE_ITEM_SUCCESS, TestUtil.generateDisplayString(threePersons.get(1))),
+                String.format(DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS, TestUtil.generateDisplayString(threePersons.get(1))),
                 expectedAB,
                 expectedAB.getUndoneTaskList());
     }
