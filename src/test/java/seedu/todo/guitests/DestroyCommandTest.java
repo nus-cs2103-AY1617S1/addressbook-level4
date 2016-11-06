@@ -3,6 +3,7 @@ package seedu.todo.guitests;
 import java.time.LocalDateTime;
 
 import org.junit.Before;
+import org.junit.Test;
 
 import seedu.todo.commons.util.DateUtil;
 import seedu.todo.models.Event;
@@ -52,5 +53,16 @@ public class DestroyCommandTest extends GuiTest {
         console.runCommand(commandAdd2);
         console.runCommand(commandAdd3);
     }
+    
+    @Test
+    public void destroy_task_hide() {
+        assertTaskNotVisibleAfterCmd("destroy 1", task1);
+    }
+    
+    @Test
+    public void destroy_event_hide() {
+        assertTaskNotVisibleAfterCmd("destroy 3", task1);
+    }
+    
 
 }
