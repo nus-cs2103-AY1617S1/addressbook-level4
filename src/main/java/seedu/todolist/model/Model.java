@@ -63,5 +63,11 @@ public interface Model {
     
     /** Get the current tab the user is looking at */
     String getCurrentTab();
+    
+    /** Gets the index of the task from the incomplete list */
+    int getIndexFromIncompleteList(Task task);
+    
+    /** Gets the index of the task from the overdue list */
+    int getIndexFromOverdueList(Task task);
 
 }

@@ -35,7 +35,7 @@ public class MainWindow extends UiPart {
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
-    private TaskListPanel taskListPanel;
+    private TaskListPanel incompleteListPanel;
     private TaskListPanel completeTaskListPanel;
     private TaskListPanel overdueTaskListPanel;
     private ResultDisplay resultDisplay;
@@ -126,7 +126,7 @@ public class MainWindow extends UiPart {
     }
 
     void fillInnerParts() {
-        taskListPanel = TaskListPanel.load(primaryStage, getTaskListPlaceholder(),
+        incompleteListPanel = TaskListPanel.load(primaryStage, getTaskListPlaceholder(),
                 logic.getFilteredIncompleteTaskList(), Status.Type.Incomplete);
         completeTaskListPanel = TaskListPanel.load(primaryStage, getCompleteTaskListPlaceholder(),
                 logic.getFilteredCompleteTaskList(), Status.Type.Complete);
@@ -218,20 +218,27 @@ public class MainWindow extends UiPart {
             logic.setCurrentTab(allTasksTabPane.getSelectionModel().getSelectedItem().getText());
         } catch (NullPointerException ex) {
             //Default tab is incomplete tab
-            
         }
     }
 
-    public TaskListPanel getTaskListPanel() {
-        return this.taskListPanel;
-    }
-    
-    public TaskListPanel getCompleteTaskListPanel() {
-        return this.completeTaskListPanel;
-    }
-    
-    public TaskListPanel getOverdueTaskListPanel() {
-        return this.overdueTaskListPanel;
+    public TaskListPanel getTaskListPanel(String currentTab) {
+        
+        switch (currentTab) {
+        
+        case TAB_TASK_COMPLETE :
+            return this.completeTaskListPanel;
+        
+        case TAB_TASK_INCOMPLETE :
+            return this.incompleteListPanel;
+            
+        case TAB_TASK_OVERDUE :
+            return this.overdueTaskListPanel;
+            
+        default :
+            assert false : "Tab panel " + currentTab + " does not exist";
+            return null;
+            
+        }
     }
 
     public void loadTaskPage(ReadOnlyTask task) {

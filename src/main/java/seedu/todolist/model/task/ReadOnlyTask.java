@@ -30,7 +30,8 @@ public interface ReadOnlyTask extends Comparable<ReadOnlyTask> {
         builder.append(getNameAsText() + " ")
                 .append(getIntervalAsText() + " ")
                 .append(getLocationAsText() + " ")
-                .append(getRemarksAsText() + " ");
+                .append(getRemarksAsText())
+                .append(getStatusAsText());
         return builder.toString();
     }
     
@@ -47,7 +48,7 @@ public interface ReadOnlyTask extends Comparable<ReadOnlyTask> {
     default String getIntervalAsText() {
         Interval interval = getInterval();
         if (!interval.isFloat()) {
-            return "from" + getInterval().toString();
+            return "from " + getInterval().toString();
         }
         return "";
     }
@@ -58,7 +59,7 @@ public interface ReadOnlyTask extends Comparable<ReadOnlyTask> {
     default String getLocationAsText() {
         Location location = getLocation();
         if (location.location != null) {
-            return "at" + getLocation().toString();
+            return "at " + getLocation().toString();
         }
         return "";
     }
@@ -69,8 +70,13 @@ public interface ReadOnlyTask extends Comparable<ReadOnlyTask> {
     default String getRemarksAsText() {
         Remarks remarks = getRemarks();
         if (remarks.remarks != null) {
-            return "remarks" + getRemarks().toString();
+            return "remarks " + getRemarks().toString();
         }
         return "";
     } 
+    
+    default String getStatusAsText() {
+        Status status = getStatus();
+        return "to " + status.getType().toString() + " tab";
+    }
 }
