@@ -11,7 +11,7 @@
 
 <HBox id="leftCardPane" fx:id="cardPane" styleClass="cardPane" stylesheets="@DarkTheme.css" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1">
     <children>
-        <GridPane prefHeight="30.0" prefWidth="230.0" HBox.hgrow="ALWAYS">
+        <GridPane prefHeight="30.0" prefWidth="130.0" HBox.hgrow="ALWAYS">
             <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="250.0" />
             </columnConstraints>
@@ -29,8 +29,8 @@
                         <HBox alignment="CENTER_LEFT" spacing="5" VBox.vgrow="ALWAYS">
                             <children>
                                 <HBox HBox.hgrow="NEVER">
-                                    <Label fx:id="id" maxWidth="100.0" />
-                                    <Label fx:id="name" maxWidth="400.0" text="\$first" />
+                                    <Label fx:id="id" minWidth="30" maxWidth="100.0" />
+                                    <Label fx:id="name" maxWidth="500.0" text="\$first" />
                                 </HBox>
                                 <Label fx:id="tags" maxWidth="200.0" text="\$tags" />
                             </children>
