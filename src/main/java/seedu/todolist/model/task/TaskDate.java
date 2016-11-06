@@ -19,10 +19,10 @@ public class TaskDate implements Comparable<TaskDate> {
     public static final String MESSAGE_DATE_INVALID = "Task date provided is invalid!";
     
     //format: 'dd/mm/yyyy'
-    public static final String DATE_VALIDATION_REGEX_1 = "((\\p{Digit}){1,2}/(\\p{Digit}){1,2}(/(\\p{Digit}){4})?)";
+    public static final String DATE_VALIDATION_SLASH_REGEX = "((\\p{Digit}){1,2}/(\\p{Digit}){1,2}(/(\\p{Digit}){2,4})?)";
     //format: 'dd monthname yyyy'
-    public static final String DATE_VALIDATION_REGEX_2 = "((\\p{Digit}){1,2}\\s?(\\p{Alpha}){3,9}\\s?((\\p{Digit}){4})?)";
-    public static final String DATE_VALIDATION_REGEX_FORMAT = DATE_VALIDATION_REGEX_1 + "|" + DATE_VALIDATION_REGEX_2;
+    public static final String DATE_VALIDATION_NAME_REGEX = "((\\p{Digit}){1,2}\\s?(\\p{Alpha}){3,9}\\s?((\\p{Digit}){4})?)";
+    public static final String DATE_VALIDATION_REGEX_FORMAT = DATE_VALIDATION_SLASH_REGEX + "|" + DATE_VALIDATION_NAME_REGEX;
     
     public static final String DATE_DISPLAY_FORMAT = "d MMM yyyy";
     
