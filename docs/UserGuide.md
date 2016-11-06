@@ -120,6 +120,8 @@
 
 2. App will display a list of items with names containing the keyword in the bottom left panel.
 
+3. App takes into account possible user typos and search results are up to 2 characters away from query.
+
 	>  Example Command: `find tutorial` <br>
 
 	> <div style="text-align:center"><img src="images/appResponses/find_command_response.png" width="300"><br>

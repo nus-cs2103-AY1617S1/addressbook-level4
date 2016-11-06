@@ -44,17 +44,18 @@ Role: Team Lead / Scheduling & Tracking / Deliverables & Deadlines / SourceTree 
 [comment]: # (@@author A0135792X)
 
 #### [Harsh Gadodia @harshgadodia](http://github.com/harshgadodia)
-<img src="https://scontent-sin6-1.xx.fbcdn.net/v/t1.0-9/13494763_10154200932218467_8223215693952856578_n.jpg?oh=19d8a20f1163b35c2b8f59908dc96588&oe=58AD397A" width="150"><br>
+<img src="images/Harsh_Pic.jpg" width="150" height="150"><br>
 Role: Testing / Documentation <br>
 Responsibilities: UI
 * Features implemented:
-	* Find task/deadline/event
+	* Find task/deadline/event (Find commands) - updated functionality to narrow scope of find if more than one keyword is used and find now lists results up two characters away in case of user typos.
 	* List data by task/deadline/event (List commands)
 * Code written: [[functional code](https://github.com/CS2103AUG2016-T14-C3/main/blob/develop/collated/main/A0135792X.md)][[test code](https://github.com/CS2103AUG2016-T14-C3/main/blob/develop/collated/test/A0135792X.md)][[docs](https://github.com/CS2103AUG2016-T14-C3/main/blob/develop/collated/docs/A0135792X.md)]
 * Other major contributions
 	* Maintaining and updating documentation
 	* Generating sample data
-	* Leading presentation preperation and execution
+	* Leading presentation preparation and execution
+	* Uploading testing instructions and data
 
 [comment]: # (@@author A0065571A)
 -----
