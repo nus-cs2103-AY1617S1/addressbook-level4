@@ -99,7 +99,7 @@ public class ModelManager extends ComponentManager implements Model {
 		setLastTaskAddedIndex(addressBook.indexOf(person));
 		updateFilteredListToShowAll();
 		indicateAddressBookChanged();
-		setLastShowDate(person.getStart().getDate().toString());
+		setLastShowDate(StringUtil.EMPTY_STRING);
 	}
 
 	public synchronized void markTaskAsComplete(ReadOnlyTask taskToComplete) throws PersonNotFoundException {

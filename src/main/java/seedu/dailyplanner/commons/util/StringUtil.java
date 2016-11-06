@@ -16,6 +16,9 @@ import seedu.dailyplanner.model.task.Time;
  * Helper functions for handling strings.
  */
 public class StringUtil {
+    
+    public static final String EMPTY_STRING = "";
+    
 	public static boolean containsIgnoreCase(String source, String query) {
 		String[] split = source.toLowerCase().split("\\s+");
 		List<String> strings = Arrays.asList(split);
