@@ -1,6 +1,5 @@
 package seedu.stask.model.task;
 
-
 //@@author A0139145E
 /**
  * Represents a task's status in the to-do-list.
@@ -14,14 +13,13 @@ public class Status {
 
     public State status;
 
-    public Status(State status) {
+    public Status (State status) {
         assert status != null;
         this.status = status;
     }
     
-    public Status(String statusStr) {
+    public Status (String statusStr) {
         assert statusStr != null;
-        
         this.status = getStatusFromString(statusStr);
     }
 
@@ -30,23 +28,20 @@ public class Status {
      * @param statusStr
      * @return respective enum State
      */
-    private State getStatusFromString(String statusStr) {
+    private State getStatusFromString (String statusStr) {
         
         switch (statusStr) {
-        case "DONE":
+        case "DONE" :
             return State.DONE;
-            
-        case "NONE":
+        case "NONE" :
             return State.NONE;
-            
-        case "OVERDUE":
+        case "OVERDUE" :
             return State.OVERDUE;
-        
-        case "EXPIRE":
+        case "EXPIRE" :
             return State.EXPIRE;
-         
         default:
-            return null; //not possible
+            assert false : "State not possible";
+            return null;
         }
     }
 
@@ -55,27 +50,23 @@ public class Status {
         String toReturn;
         
         switch (status) {
-        case DONE:
+        case DONE :
             toReturn = "DONE";
             break;
-            
-        case NONE:
+        case NONE :
             toReturn = "NONE";
             break;
-            
-        case OVERDUE:
+        case OVERDUE :
             toReturn = "OVERDUE";
             break;
-            
-        case EXPIRE:
+        case EXPIRE :
             toReturn = "EXPIRE";
             break;
-        
-        default:
-            toReturn = ""; //Not possible
+        default :
+            assert false : "Status not possible";
+            toReturn = "";
             break;
         }
-        
         return toReturn;
     }
 
@@ -90,6 +81,5 @@ public class Status {
     public int hashCode() {
         return status.hashCode();
     }
-
 }
 //@@author
