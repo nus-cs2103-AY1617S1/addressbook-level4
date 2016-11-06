@@ -72,7 +72,7 @@ public class ActivityCardHandle extends GuiHandle {
     	boolean isSameDueDate = getDueDate().toString().equals(person.getDueDate().forDisplay());
     	boolean isSamePriority = ImageUtil.compareImages(getPriority() ,person.getPriority().getPriorityIcon());
     	
-    	return (isSameName && isSameReminder && isSameDueDate /*&& isSamePriority*/);
+    	return (isSameName && isSameReminder && isSameDueDate && isSamePriority);
     }
     
 	public boolean isSameEvent(ReadOnlyEvent person){

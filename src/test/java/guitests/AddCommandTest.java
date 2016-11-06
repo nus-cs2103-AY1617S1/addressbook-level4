@@ -43,6 +43,11 @@ public class AddCommandTest extends AddressBookGuiTest {
         //add a recurring event
         activityToAdd = td.findMoney;
         assertAddSuccess(activityToAdd.getAddCommand(),activityToAdd, currentList);
+        commandBox.runCommand("delete 1");
+
+      //add a recurring event without specifying end time
+        activityToAdd = td.findMoney;
+        assertAddSuccess(((TestEvent) activityToAdd).getAddCommandWithNoEndTime(),activityToAdd, currentList);
         currentList = TestUtil.addPersonsToList(currentList, activityToAdd);
 
         
