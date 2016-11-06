@@ -119,10 +119,10 @@ The `UI` component:
 
 **API** : [`Logic.java`](../src/main/java/seedu/simply/logic/Logic.java)
 
-1. `Logic` uses the `Parser` class to parse the user command.
-2. This results in a `Command` object which is executed by the `LogicManager`.
-3. The command execution can affect the `Model` (e.g. adding a task) and/or raise events.
-4. The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
+* `Logic` uses the `Parser` class to parse the user command.
+* This results in a `Command` object which is executed by the `LogicManager`.
+* The command execution can affect the `Model` (e.g. adding a task) and/or raise events.
+* The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete E1")`
  API call.<br>
@@ -135,9 +135,9 @@ Given below is the Sequence Diagram for interactions within the `Logic` componen
 **API** : [`Model.java`](../src/main/java/seedu/simply/model/Model.java)
 
 The `Model`:
-* stores a `UserPref` object that represents the user's preference.
-* stores the Task Book data.
-* exposes a `UnmodifiableObservableList<ReadOnlyTask>` that can be 'observed' e.g. the UI can be bound to this list
+* Stores a `UserPref` object that represents the user's preference.
+* Stores the Task Book data.
+* Exposes a `UnmodifiableObservableList<ReadOnlyTask>` that can be 'observed' e.g. the UI can be bound to this list
   so that the UI automatically updates when the data in the list changes.
 
 > Note that `Model` does not depend on any of the other three components.
@@ -149,8 +149,8 @@ The `Model`:
 **API** : [`Storage.java`](../src/main/java/seedu/simply/storage/Storage.java)
 
 The `Storage` component:
-* saves `UserPref` objects in json format and reads it back.
-* saves the Task Book data in xml format and reads it back.
+* Saves `UserPref` objects in json format and reads it back.
+* Saves the Task Book data in xml format and reads it back.
 
 ### Common classes
 
@@ -209,7 +209,7 @@ We have two types of tests:
    2. _Integration tests_ checks the integration of multiple code units 
      (these code units are assumed to be working).<br>
       e.g. `seedu.simply.storage.StorageManagerTest`
-   3. Hybrids of unit and integration tests. These test checks multiple code units as well as 
+   3. Hybrids of unit and integration tests. These tests checks multiple code units as well as 
       how they are connected together.<br>
       e.g. `seedu.simply.logic.LogicManagerTest`
   
@@ -233,7 +233,7 @@ You can see [UsingTravis.md](UsingTravis.md) for more details.
 
 ### Making a Release
 
-To make a new release, you can follow the steps below.
+To make a new release, you can follow the steps below:
  
  1. Generate a JAR file [using Gradle](UsingGradle.md#creating-the-jar-file).
  2. Tag the repo with the version number. e.g. `v0.1`
@@ -265,7 +265,7 @@ Priority | As a ... | I want to ... | So that I can...
 ***  |  user  |  search by partial keyword  |  find related tasks containing the keyword
 ***  |  user  | specify my storage folder | use cloud syncing services on it
 **  |  user  |  add recurring tasks  |  
-**  |  user  |  some variations in command keywords
+**  |  user  |  have some variations in command keywords
 **  |  user  |  set priorities  |  indicate tasks that are important
 **  | user   | display completed tasks | know what I have done
 **  |  user  |  hide completed tasks |  conceal tasks that are completed
@@ -362,7 +362,7 @@ Use case ends. <br>
 
 **MSS**
 
-1. User requests to search for an task by keyword. <br>
+1. User requests to search for a task by keyword. <br>
 2. Task Manager shows a list of tasks containing the keyword. <br>
 Use case ends. <br>
 
@@ -409,11 +409,11 @@ http://www.comp.nus.edu.sg/~cs2103/AY1617S1/
 1. Contains a quick add function which is similar to what we are trying to achieve, you can type the entire add command in one line with event description, time, location and it will interpret it for you and add as an event. 
 2. Contains multiple calendars for different aspects of life. Eg. one for work, one for family, one for play.
 3. Supports automatic addition of recurring events.
-4. Supports sharing of calender.
+4. Supports sharing of calendar.
 5. Supports sharing of events.
 6. Supports real time video calls to all attendees of a shared event.
 7. Supports colour coding for events so that you can self-categorize according to colour.
-8. Supports switching of time frames. eg.view by week, month. 
+8. Supports switching of time frames. eg. view by week, month. 
 9. Allows user to find a common time for everyone to attend a shared event created by you based on their Google Calendars.
 10. Allows setting of time zones for each event, mainly used by frequent travellers.
 11. Allows addition of documents, spreadsheets, and other files directly to an event so as to notify all guest of the details in a single platform.
@@ -435,14 +435,14 @@ http://www.comp.nus.edu.sg/~cs2103/AY1617S1/
 4. Contains multiple priority choices to user.
 5. Contains duplication of templates from other projects.
 6. Allows addition of labels/ tags.
-7. Allows premium users to add links and files to a specific task - Eg. Links to work, files and documents. 
+7. Allows premium users to add links and files to a specific task - Eg. Links to work, files and documents. 
 8. Supports third party integration. Eg. Links to dropbox and other services like Zapier, Google Drive, Cloud Magic, Sunrise Calendar, etc...
 9. Supports shifting of tasks.
 10. Supports colour code for priority.
 11. Supports automatic addition of recurring events. Eg. every day/every Tuesday/ holidays etc...
 12. Supports multiple categories called projects for sorting of task such as shopping , work, personal, errands, or create your own <br> 
 13. Supports sharing of projects and assigning of task to others.
-14. Supports mutiple filters like priority settings, tags/labels, tasks assigned to me or others, etc...
+14. Supports multiple filters like priority settings, tags/labels, tasks assigned to me or others, etc...
 
 ###Cons
 
@@ -461,8 +461,8 @@ http://www.comp.nus.edu.sg/~cs2103/AY1617S1/
 3. Contains intuitive options and menu selections that is user friendly.
 4. Contains customizable backgrounds.
 5. Contains multiple task lists.
-6. Contains shortcuts to starred task, overdues and today's tasks.
-7. Contains cloud syncing funtionality.
+6. Contains shortcuts to starred tasks, overdues and today's tasks.
+7. Contains cloud syncing functionality.
 8. Supports multiple platforms such as windows, mac, android and ios.
 9. Supports automatic addition of recurring events.
 10. Supports setting of reminders and notifications.
@@ -470,12 +470,12 @@ http://www.comp.nus.edu.sg/~cs2103/AY1617S1/
 
 ###Cons
 
-1. No avaliable option for addition of subtasks.
-2. No avaliable option for addition of start date for events.
+1. No available option for addition of subtasks.
+2. No available option for addition of start date for events.
 3. Monetary means required for premium access.
 4. Uploading of files not supported.
 5. Organisation of tasks not supported.
-6. Function to sync with third party services like dropbox and google drive is not avaliable.
+6. Function to sync with third party services like dropbox and google drive is not available.
 
 ##Trello
 
@@ -491,7 +491,7 @@ http://www.comp.nus.edu.sg/~cs2103/AY1617S1/
 
 ###Cons
 
-1. No functionality to sort cards and reports in the order of users preference.
+1. No functionality to sort cards and reports in the order of user's preference.
 2. No functionalities to assign a task to members in a checklist.
-3. No functionality for calender view for user preference.
+3. No functionality for calendar view for user preference.
 4. Due dates are not allowed for input.
