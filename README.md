@@ -2,12 +2,12 @@
 [![Coverage Status](https://coveralls.io/repos/github/CS2103AUG2016-F09-C4/main/badge.svg?branch=master)](https://coveralls.io/github/CS2103AUG2016-F09-C4/main?branch=master)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/75555abe52d247ab9976f50920015710)](https://www.codacy.com/app/xuchen727/main?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=CS2103AUG2016-F09-C4/main&amp;utm_campaign=Badge_Grade)
 
-# dowat (TaskBook)
+# Dowat (A Task Manager App)
 
 <img src="docs/images/MockUI.PNG" width="600"><br>
 
 
-- We are a group of NUS undergraduate students from various schools and faculties working on a text-based task manager app. We hope the task manager app will be useful for students and working adults alike to keep track of their tasks, be it for school, work or household chores, amid their busy schedules.
+- Dowat is a text-based task manager app developed by us. We are a group of NUS undergraduate students from various schools and faculties. We hope the task manager app will be useful for students and working adults alike to keep track of their tasks, be it for school, work or household chores, amid their busy schedules.
 - This is a desktop TaskBook application. It has a GUI but most of the user interactions happen using 
   a CLI (Command Line Interface).
 
