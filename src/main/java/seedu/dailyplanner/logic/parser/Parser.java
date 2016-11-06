@@ -150,10 +150,9 @@ public class Parser {
 	private Command prepareEdit(String arguments) {
 
 		int index = 0;
-		String taskName = "";
-		String start = "", end = "";
-		DateTime formattedStart = new DateTime(new Date(""), new Time(""));
-		DateTime formattedEnd = new DateTime(new Date(""), new Time(""));
+		String taskName = null;
+		String start = null, end = null;
+		DateTime formattedStart = null, formattedEnd = null;
 		Set<String> tags = new HashSet<String>();
 
 		HashMap<String, String> mapArgs = parseEdit(arguments.trim());
@@ -163,7 +162,6 @@ public class Parser {
 		// Change date to "dd/mm/yy/", time to "hh:mm"
 
 		nattyParser natty = new nattyParser();
-		DateTimeParser dt = new DateTimeParser();
 
 		if (mapArgs.containsKey("index")) {
 			index = Integer.parseInt(mapArgs.get("index"));
@@ -189,7 +187,7 @@ public class Parser {
 			String endString = mapArgs.get("end");
 			// if end time is given
 			if (endString.contains("am") || endString.contains("pm")) {
-				if (dt.containsDate(endString)) {
+				if (endString.length() >= 7 && !Character.isDigit(endString.charAt(0))) {
 					end = natty.parse(endString);
 					Date endDate = new Date(end.split(" ")[0]);
 					Time endTime = new Time(end.split(" ")[1]);
@@ -359,14 +357,13 @@ public class Parser {
 		mapArgs.put("index", index);
 
 		arguments = arguments.substring(indexStringLength + 1);
-		String taskName = "";
 		if (hasTaskName(arguments)) {
-			taskName = getTaskNameFromArguments(arguments);
-		}
-		mapArgs.put("taskName", taskName);
-		if (hasTaskName(arguments) && arguments.contains("/")) {
-			String[] splitArgs = arguments.substring(taskName.length() + 1).split(" ");
-			argumentArrayToHashMap(mapArgs, splitArgs);
+			String taskName = getTaskNameFromArguments(arguments);
+			mapArgs.put("taskName", taskName);
+			if (arguments.contains("/")) {
+				String[] splitArgs = arguments.substring(taskName.length() + 1).split(" ");
+				argumentArrayToHashMap(mapArgs, splitArgs);
+			}
 		} else if (arguments.contains("/")) {
 			String[] splitArgs = arguments.split(" ");
 			argumentArrayToHashMap(mapArgs, splitArgs);
@@ -418,6 +415,7 @@ public class Parser {
 	// @@author A0146749N
 	private boolean hasTaskName(String arguments) {
 		if (arguments.substring(0, 3).contains("/")) {
+			System.out.println("HAS NO TASK NAME");
 			return false;
 		} else {
 			return true;
