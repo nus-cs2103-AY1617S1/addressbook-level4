@@ -124,9 +124,7 @@ public class MainWindow extends UiPart {
         activityListPanel = ActivityListPanel.load(primaryStage, getPersonListPlaceholder(), logic.getFilteredPersonList());
 
         //fill dash board
-        overdueListPanel = OverdueTaskListPanel.load(primaryStage, getOverdueListPlaceholder(), logic.getFilteredOverdueTaskList());
-        upcomingListPanel = UpcomingListPanel.load(primaryStage, getUpcomingListPlaceholder(), logic.getFilteredUpcomingList());
-    
+        overdueListPanel = OverdueTaskListPanel.load(primaryStage, getOverdueListPlaceholder(), logic.getFilteredOverdueTaskList());    
         		
         resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
         statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), userPrefs.getDataFilePath());
