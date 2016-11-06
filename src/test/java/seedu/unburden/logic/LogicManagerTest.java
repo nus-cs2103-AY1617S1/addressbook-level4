@@ -154,6 +154,30 @@ public class LogicManagerTest {
 		assertEquals(expectedAddressBook, model.getListOfTask());
 		assertEquals(expectedAddressBook, latestSavedAddressBook);
 	}
+	
+	/**
+	 * Similar to the above
+	 * created to facilitate checking for commands that require "List all" and previous command
+	 * E.g. undo redo
+	 */
+	private void assertThreePartCommandBehavior(String firstInputCommand, String secondInputCommand, String thirdInputCommand, 
+			String expectedMessage, ReadOnlyListOfTask expectedAddressBook, List<? extends ReadOnlyTask> expectedShownList) throws Exception {
+
+		// Execute the command
+		CommandResult firstResult = logic.execute(firstInputCommand);
+		CommandResult secondResult = logic.execute(secondInputCommand);
+		CommandResult thirdResult = logic.execute(thirdInputCommand);
+		
+		
+
+		// Confirm the ui display elements should contain the right data
+		assertEquals(expectedMessage, thirdResult.feedbackToUser);
+		assertEquals(expectedShownList, model.getFilteredTaskList());
+
+		// Confirm the state of data (saved and in-memory) is as expected
+		assertEquals(expectedAddressBook, model.getListOfTask());
+		assertEquals(expectedAddressBook, latestSavedAddressBook);
+	}
 
 	@Test
 	public void execute_unknownCommandWord() throws Exception {
@@ -1252,7 +1276,6 @@ public class LogicManagerTest {
 		
 		
 		List<Task> fiveTasks = helper.generateTaskList(p1, p2, p3, p4, p5);
-		List<Task> fourTasks = helper.generateTaskList(p1, p2, p3, p4);
 		ListOfTask expectedAB = helper.generateListOfTask(fiveTasks);
 		List<Task> expectedList = helper.generateTaskList(p1, p2, p3, p4, p5);
 		
@@ -1267,9 +1290,59 @@ public class LogicManagerTest {
 							  expectedList);
 	}
 	
-	
-	
+	//@@author A0139714B
+	@Test
+	public void execute_undo_done() throws Exception {
+		TestDataHelper helper = new TestDataHelper();
+		Task p1 = helper.generateEventTaskWithoutTaskDescriptionWithoutTag("bla bla KEY bla", "11-10-2016", "1500", "1800");
+		Task p2 = helper.generateDeadlineTaskWithEndTimeWithoutTag("bla KEY bla bceofeia", "hello world", "12-10-2016", "1800");
+		Task p3 = helper.generateDeadlineTaskWithEndTimeWithoutTaskDescription("KE Y", "13-10-2016", "1800", "hi");
+		Task p4 = helper.generateDeadlineTaskWithoutTaskDescriptionWithoutTag("keyKEY sduauo", "14-10-2016");
+		Task p5 = helper.generateFloatingTaskWithoutTaskDescriptionWithoutTag("KEY sduauo");
+		
+		List<Task> fiveTasks = helper.generateTaskList(p1, p2, p3, p4, p5);
+		ListOfTask expectedAB = helper.generateListOfTask(fiveTasks);
+		List<Task> expectedList = helper.generateTaskList(p1, p2, p3, p4, p5);
+		
+		model.resetData(new ListOfTask());
+		for (Task t : fiveTasks) {
+			model.addTask(t);
+		}
+		
+		assertTwoPartCommandBehavior("done 5", "undo", 
+							  String.format(UndoCommand.MESSAGE_SUCCESS), 
+							  expectedAB, 
+							  expectedList);
+	}
 
+	//@@author A0139714B
+	@Test
+	public void execute_undo_undone() throws Exception {
+		TestDataHelper helper = new TestDataHelper();
+		Task p1 = helper.generateEventTaskWithoutTaskDescriptionWithoutTag("bla bla KEY bla", "11-10-2016", "1500", "1800");
+		Task p2 = helper.generateDeadlineTaskWithEndTimeWithoutTag("bla KEY bla bceofeia", "hello world", "12-10-2016", "1800");
+		Task p3 = helper.generateDeadlineTaskWithEndTimeWithoutTaskDescription("KE Y", "13-10-2016", "1800", "hi");
+		Task p4 = helper.generateDeadlineTaskWithoutTaskDescriptionWithoutTag("keyKEY sduauo", "14-10-2016");
+		Task p5 = helper.generateFloatingTaskWithoutTaskDescriptionWithoutTag("KEY sduauo");
+		
+		List<Task> fiveTasks = helper.generateTaskList(p1, p2, p3, p4, p5);
+		List<Task> fourTasks = helper.generateTaskList(p1, p2, p3, p4);
+		ListOfTask expectedAB = helper.generateListOfTask(fiveTasks);
+		List<Task> expectedList = helper.generateTaskList(p1, p2, p3, p4);
+		
+		model.resetData(new ListOfTask());
+		for (Task t : fiveTasks) {
+			model.addTask(t);
+		}
+		
+		model.doneTask(p5, true);
+		
+		assertThreePartCommandBehavior("list all", "undone 5", "undo", 
+							  String.format(UndoCommand.MESSAGE_SUCCESS), 
+							  expectedAB, 
+							  expectedList);
+	}
+	
 	@Test
 	public void execute_find_invalidArgsFormat() throws Exception {
 		String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE);
