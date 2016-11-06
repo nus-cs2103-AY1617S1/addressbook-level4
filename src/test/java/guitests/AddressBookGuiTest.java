@@ -13,6 +13,7 @@ import seedu.address.commons.core.EventsCenter;
 import seedu.address.model.AddressBook;
 import seedu.address.model.activity.ReadOnlyActivity;
 import seedu.address.testutil.TestUtil;
+import seedu.address.testutil.TypicalOtherTestActivities;
 import seedu.address.testutil.TypicalTestActivities;
 
 import java.util.concurrent.TimeoutException;
@@ -32,6 +33,7 @@ public abstract class AddressBookGuiTest {
     TestApp testApp;
 
     protected TypicalTestActivities td = new TypicalTestActivities();
+    protected TypicalOtherTestActivities tdOther = new TypicalOtherTestActivities();
 
     /*
      *   Handles to GUI elements present at the start up are created in advance
