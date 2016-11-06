@@ -141,7 +141,7 @@ Command | Default Command Word | Shortcuts
 Teaches you how to use Jimi. <br>
 Format: `help [COMMAND_WORD]`
 
-Typing `help` will open this user guide in another window
+Typing `help` will open this user guide in an offline version.
 
 > <img src="images/Help.png" width="800">
 
