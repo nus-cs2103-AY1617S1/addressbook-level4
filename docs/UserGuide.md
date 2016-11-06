@@ -154,7 +154,7 @@ Command | Default Command Word | Shortcuts
 <br>
 <br>
 
-<!---  @@author A0143471L -->
+
 ## Features
 
 
@@ -170,10 +170,10 @@ Typing `help COMMAND_WORD` e.g. `help add`, will show help for that specific com
 
 > You can also type `help a`, equivalent of `help add` as all shortcuts mentioned above applies too.
 
-
+<!--- @@author -->
 
 <br><br>
-
+<!---  @@author A0143471L -->
 #### <a id="add"></a> Adding a task: `add`
 
 Adding a floating task to Jimi.<br>
