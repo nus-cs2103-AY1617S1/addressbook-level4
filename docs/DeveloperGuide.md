@@ -79,7 +79,7 @@ interface and exposes its functionality using the `LogicManager.java` class.<br>
 
 The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the
 command `delete 3`.
-
+[//]: # "@@author A0152958R"
 <img src="images\build.png" width="800">
 
 >Note how the `Model` simply raises a `TaskManagerChangedEvent` when the TaskManager data are changed,
@@ -96,7 +96,7 @@ being saved to the hard disk and the status bar of the UI being updated to refle
 The sections below give more details of each component.
 
 ### UI component
-
+[//]: # "@@author A0152958R"
 <img src="images/UI.png" width="800"><br>
 
 **API** : [`Ui.java`](../src/main/java/seedu/task/ui/Ui.java)
@@ -128,6 +128,7 @@ The `UI` component,
 
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")`
  API call.<br>
+ [//]: # "@@author A0152958R"
 <img src="images/logic.png" width="800"><br>
 
 **Undo Command** : [`UndoCommand.java`](../src/main/java/seedu/task/logic/commands/UndoCommand.java)
@@ -139,7 +140,7 @@ Given below is the Sequence Diagram for interactions within the `Logic` componen
 5. User can also undo multiple times and it is done by calling undo command with the number of times that the user set
 
 ### Model component
-
+[//]: # "@@author A0152958R"
 <img src="images/model.png" width="800"><br>
 
 **API** : [`Model.java`](../src/main/java/seedu/task/model/Model.java)
@@ -152,7 +153,7 @@ The `Model`,
 * does not depend on any of the other three components.
 
 ### Storage component
-
+[//]: # "@@author A0152958R"
 <img src="images/storageClass.png" width="800"><br>
 
 **API** : [`Storage.java`](../src/main/java/seedu/task/storage/Storage.java)
