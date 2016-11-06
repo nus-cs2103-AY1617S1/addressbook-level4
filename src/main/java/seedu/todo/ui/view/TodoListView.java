@@ -102,14 +102,20 @@ public class TodoListView extends UiPart {
     }
 
     /**
-     * Scrolls the {@link #todoListView} to the particular task card.
+     * Scrolls the {@link #todoListView} to the particular task card, if the task card is available.
      *
      * @param task for the list to scroll to.
      */
     public void scrollAndSelect(ImmutableTask task) {
-        TaskCardView taskCardView = TaskCardView.getTaskCard(task);
-        int listIndex = FxViewUtil.convertToListIndex(taskCardView.getDisplayedIndex());
-        scrollAndSelect(listIndex);
+        Platform.runLater(() -> {
+            TaskCardView taskCardView = TaskCardView.getTaskCard(task);
+            if (taskCardView != null) {
+                int listIndex = FxViewUtil.convertToListIndex(taskCardView.getDisplayedIndex());
+                scrollAndSelect(listIndex);
+            } else {
+                logger.warning("Task Card View is null for task: " + task.getTitle());
+            }
+        });
     }
 
     /* Override Methods */
