@@ -343,6 +343,9 @@ public class Parser {
 	      if (args.contains("done")) {
 	            return new ListCommand("done");
 	        }
+          if (args.contains("all")) {
+              return new ListCommand("all");
+          }
 
 		
 		if (args.equals("")) {

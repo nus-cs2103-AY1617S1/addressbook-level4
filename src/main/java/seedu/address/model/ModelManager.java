@@ -170,6 +170,11 @@ public class ModelManager extends ComponentManager implements Model {
     }
     
     @Override
+    public void updateAllListToShowAll() {
+        filteredPersons.setPredicate(null);
+    }
+    
+    @Override
     public void updateFilteredEventListToShowAll() {
         filteredPersons.setPredicate(p->
         p.getClass().getSimpleName().equalsIgnoreCase("Event"));
