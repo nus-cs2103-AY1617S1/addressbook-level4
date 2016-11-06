@@ -44,11 +44,11 @@ public class DoneCommand extends Command {
 			}
 			return new CommandResult(MESSAGE_DONE_TASK_SUCCESS);
 		} else {
-			ReadOnlyTask taskToDone = lastShownList.get(targetIndex - 1);
-			if (lastShownList.size() < targetIndex) {
+			if (lastShownList.size() < targetIndex) { //Check for out of bounds
 				indicateAttemptToExecuteIncorrectCommand();
 				return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
 			}
+			ReadOnlyTask taskToDone = lastShownList.get(targetIndex - 1);
 			if(taskToDone.getDone()){
 				return new CommandResult(Messages.MESSAGE_TASK_IS_ALREADY_DONE);
 			}
