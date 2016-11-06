@@ -2,14 +2,12 @@ package seedu.jimi.logic.commands;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import seedu.jimi.commons.core.EventsCenter;
 import seedu.jimi.commons.core.Messages;
 import seedu.jimi.commons.events.ui.ShowHelpRequestEvent;
 import seedu.jimi.commons.exceptions.IllegalValueException;
 import seedu.jimi.commons.util.CommandUtil;
-import seedu.jimi.logic.parser.JimiParser;
 
 // @@author A0140133B
 /**
@@ -62,7 +60,7 @@ public class HelpCommand extends Command {
     @Override
     public boolean isValidCommandWord(String commandWord) {
         for (int i = 1; i <= COMMAND_WORD.length(); i++) {
-            if (commandWord.toLowerCase().equals(COMMAND_WORD.substring(0, i))) {
+            if (commandWord.equalsIgnoreCase(COMMAND_WORD.substring(0, i))) {
                 return true;
             }
         }

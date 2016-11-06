@@ -77,7 +77,7 @@ public class DeleteCommand extends Command implements TaskBookEditor {
     @Override
     public boolean isValidCommandWord(String commandWord) {
         for (int i = 1; i <= COMMAND_WORD.length(); i++) {
-            if (commandWord.toLowerCase().equals(COMMAND_WORD.substring(0, i))) {
+            if (commandWord.equalsIgnoreCase(COMMAND_WORD.substring(0, i))) {
                 return true;
             }
         }
