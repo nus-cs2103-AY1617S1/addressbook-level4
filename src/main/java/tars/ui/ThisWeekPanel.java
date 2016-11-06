@@ -30,12 +30,12 @@ import tars.ui.formatter.Formatter;
  * @@author A0121533W
  */
 public class ThisWeekPanel extends UiPart {
-    private static final String TasksListEllipsis = "\n...\n";
     private static final Logger logger =
             LogsCenter.getLogger(ThisWeekPanel.class);
     private static final String FXML = "ThisWeekPanel.fxml";
     private static final String THISWEEK_PANEL_STYLE_SHEET = "thisWeek-panel";
     private static final String STATUS_UNDONE = "Undone";
+    private static final String TASK_LIST_ELLIPSIS = "\n...\n";
     private static final DateFormat df = new SimpleDateFormat("E, MMM dd");
 
     private static List<ReadOnlyTask> list;
@@ -138,7 +138,7 @@ public class ThisWeekPanel extends UiPart {
     }
 
     /**
-     * Set text for tasksLists to display top three tasks
+     * Set text for tasksLists to display top five tasks
      * 
      */
     private void setThisWeekPanelTaskList(int count,
@@ -147,7 +147,7 @@ public class ThisWeekPanel extends UiPart {
                 StringUtil.START_INDEX, Math.min(tasksList.size(), MIN_SIZE));
         String list = Formatter.formatThisWeekPanelTasksList(topFiveTasks);
         if (tasksList.size() > MIN_SIZE) {
-            list = list + TasksListEllipsis;
+            list = list + TASK_LIST_ELLIPSIS;
         }
         taskListLabel.setText(list);
     }
