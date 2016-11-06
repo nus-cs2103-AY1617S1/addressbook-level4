@@ -28,7 +28,6 @@ import seedu.oneline.model.tag.Tag;
 import seedu.oneline.model.task.ReadOnlyTask;
 import seedu.oneline.model.task.Task;
 import seedu.oneline.model.task.TaskName;
-import seedu.oneline.model.task.TaskRecurrence;
 import seedu.oneline.model.task.TaskTime;
 import seedu.oneline.storage.StorageManager;
 
@@ -160,9 +159,8 @@ public class LogicTestManager {
             TaskTime startTime = TaskTime.getDefault();
             TaskTime endTime = TaskTime.getDefault();
             TaskTime deadline = new TaskTime("Sun Oct 16 21:35:45");
-            TaskRecurrence recurrence = new TaskRecurrence("X");
             Tag tag = Tag.getTag("tag1");
-            return new Task(name, startTime, endTime, deadline, recurrence, tag);
+            return new Task(name, startTime, endTime, deadline, tag);
         }
 
         /**
@@ -178,7 +176,6 @@ public class LogicTestManager {
                     new TaskTime(""),
                     new TaskTime(""),
                     new TaskTime(""),
-                    new TaskRecurrence(""),
                     Tag.getTag("tag" + Math.abs(seed))
             );
         }
@@ -190,10 +187,9 @@ public class LogicTestManager {
             cmd.append("add ");
 
             cmd.append(p.getName().toString());
-            cmd.append(" .from ").append(p.getStartTime());
-            cmd.append(" .to ").append(p.getEndTime());
-            cmd.append(" .due ").append(p.getDeadline());
-            cmd.append(" .every ").append(p.getRecurrence());
+            cmd.append(" .from ").append(p.getStartTime().toRawString());
+            cmd.append(" .to ").append(p.getEndTime().toRawString());
+            cmd.append(" .due ").append(p.getDeadline().toRawString());
             cmd.append(" #").append(p.getTag().getTagName());
 
             return cmd.toString();
@@ -275,7 +271,6 @@ public class LogicTestManager {
                     new TaskTime(""),
                     new TaskTime(""),
                     new TaskTime(""),
-                    new TaskRecurrence(""),
                     Tag.getTag("tag")
             );
         }

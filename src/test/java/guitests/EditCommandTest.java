@@ -12,7 +12,6 @@ import seedu.oneline.logic.commands.EditTaskCommand;
 import seedu.oneline.model.tag.Tag;
 import seedu.oneline.model.task.TaskField;
 import seedu.oneline.model.task.TaskName;
-import seedu.oneline.model.task.TaskRecurrence;
 import seedu.oneline.model.task.TaskTime;
 import seedu.oneline.testutil.TestTask;
 import seedu.oneline.testutil.TypicalTestTasks;
@@ -33,7 +32,6 @@ public class EditCommandTest extends TaskBookGuiTest {
         fields.put(TaskField.START_TIME, newTask.getStartTime().toString());
         fields.put(TaskField.END_TIME, newTask.getEndTime().toString());
         fields.put(TaskField.DEADLINE, newTask.getDeadline().toString());
-        fields.put(TaskField.RECURRENCE, newTask.getRecurrence().toString());
         fields.put(TaskField.TAG, newTask.getTag().getTagName());
         assertEditSuccess(2, fields, currentList);
     }
@@ -93,15 +91,6 @@ public class EditCommandTest extends TaskBookGuiTest {
                     .append(newDeadline);
                 newTask.setDeadline(new TaskTime(newDeadline));
             }
-            if (fields.containsKey(TaskField.RECURRENCE)) {
-                String newRecurrence = fields.get(TaskField.RECURRENCE);
-                cmd.append(" ")
-                    .append(CommandConstants.KEYWORD_PREFIX)
-                    .append(CommandConstants.KEYWORD_RECURRENCE)
-                    .append(" ")
-                    .append(newRecurrence);
-                newTask.setRecurrence(new TaskRecurrence(newRecurrence));
-            }
             if (fields.containsKey(TaskField.TAG)) {
                 String newTag = fields.get(TaskField.TAG);
                 cmd.append(" ")
@@ -154,14 +143,6 @@ public class EditCommandTest extends TaskBookGuiTest {
                 .append(CommandConstants.KEYWORD_DEADLINE)
                 .append(" ")
                 .append(newDeadline);
-        }
-        if (fields.containsKey(TaskField.RECURRENCE)) {
-            String newRecurrence = fields.get(TaskField.RECURRENCE);
-            cmd.append(" ")
-                .append(CommandConstants.KEYWORD_PREFIX)
-                .append(CommandConstants.KEYWORD_RECURRENCE)
-                .append(" ")
-                .append(newRecurrence);
         }
         if (fields.containsKey(TaskField.TAG)) {
             String newTag = fields.get(TaskField.TAG);

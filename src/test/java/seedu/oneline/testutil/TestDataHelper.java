@@ -10,7 +10,6 @@ import seedu.oneline.model.tag.Tag;
 import seedu.oneline.model.tag.UniqueTagList;
 import seedu.oneline.model.task.Task;
 import seedu.oneline.model.task.TaskName;
-import seedu.oneline.model.task.TaskRecurrence;
 import seedu.oneline.model.task.TaskTime;
 
 /**
@@ -23,9 +22,8 @@ public class TestDataHelper{
 //        TaskTime startTime = new TaskTime("Sun Oct 16 21:35:45");
 //        TaskTime endTime = new TaskTime("Mon Oct 17 21:35:45");
 //        TaskTime deadline = new TaskTime("Sun Oct 23 21:35:45");
-//        TaskRecurrence recurrence = new TaskRecurrence("X");
 //        Tag tag = Tag.getTag("tag1");
-//        return new Task(name, startTime, endTime, deadline, recurrence, tag, false);
+//        return new Task(name, startTime, endTime, deadline, tag, false);
 //    }
 //
 //    /**
@@ -41,7 +39,6 @@ public class TestDataHelper{
 //                new TaskTime("" + Math.abs(seed)),
 //                new TaskTime("" + seed),
 //                new TaskTime("" + seed),
-//                new TaskRecurrence("" + seed),
 //                Tag.getTag("tag" + Math.abs(seed)),
 //                false
 //        );
@@ -57,7 +54,6 @@ public class TestDataHelper{
 //        cmd.append(" .from ").append(p.getStartTime());
 //        cmd.append(" .to ").append(p.getEndTime());
 //        cmd.append(" .due ").append(p.getDeadline());
-//        cmd.append(" .every ").append(p.getRecurrence());
 //        cmd.append(" #").append(p.getTag().getTagName());
 //
 //        return cmd.toString();
@@ -139,7 +135,6 @@ public class TestDataHelper{
                 new TaskTime(""),
                 new TaskTime(""),
                 new TaskTime(""),
-                new TaskRecurrence(""),
                 Tag.getTag("tag"),
                 false
         );
