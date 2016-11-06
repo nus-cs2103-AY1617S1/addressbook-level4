@@ -255,7 +255,8 @@ public class UniqueTaskList implements Iterable<Task> {
                         recurringType, target.getTaskReference().getRecurringPeriod());
                 if (overlapsForEdit(t, checkTask.getLastAppendedComponent()))
                     throw new TimeslotOverlapException();
-                t.getTaskReference().updateTask(name, tags, startDate, endDate, recurringType);
+                int index = t.getTaskReference().getTaskDateComponent().indexOf(t);
+                t.getTaskReference().updateTask(name, tags, startDate, endDate, recurringType, index);
                 internalOccurrenceList.clear();
                 for (Task h : internalList) {
                     internalOccurrenceList.addAll(h.getTaskDateComponent());

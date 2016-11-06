@@ -170,7 +170,7 @@ public class Task implements ReadOnlyTask {
     // @@author A0147995H
     @Override
     public void updateTask(Name name, UniqueTagList tags, TaskDate startDate, TaskDate endDate,
-            RecurringType recurringType) {
+            RecurringType recurringType, int index) {
         if (name != null)
             this.name = name;
 
@@ -184,12 +184,12 @@ public class Task implements ReadOnlyTask {
         }
 
         if (endDate != null)
-            this.getLastAppendedComponent().update(startDate, endDate);
+            this.recurringDates.get(index).update(startDate, endDate);
 
         if (recurringType != RecurringType.IGNORED)
             this.recurringType = recurringType;
 
-        getLastAppendedComponent().setTaskReferrence(this);
+        this.recurringDates.get(index).setTaskReferrence(this);
     }
     // @@author
 
