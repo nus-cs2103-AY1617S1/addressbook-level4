@@ -23,25 +23,16 @@ import static seedu.address.commons.core.Messages.MESSAGE_TOOLTIP_INVALID_COMMAN
 public class CommandParser {
     
     private static final String STRING_REGEX_ONE_OR_MORE_WHITESPACE = "\\s+";
-
-    private static final String DETAILED_TOOLTIP_RECURRENCE_SPECIAL_PREFIX = "\n\tRecurrence Rate:\t";
-
-    private static final String DETAILED_TOOLTIP_RESET = "RESET";
-
-    private static final String DETAILED_TOOLTIP_NO_CHANGE = "No Change";
-
-    private static final String DETAILED_TOOLTIP_PRIORITY_PREFIX = "\n\tPriority:\t";
-
-    private static final String DETAILED_TOOLTIP_RECURRENCE_PREFIX = "\n\tRecurrence Rate:\tevery ";
-
     private static final String STRING_ONE_SPACE = " ";
-
+    
+    private static final String DETAILED_TOOLTIP_RECURRENCE_SPECIAL_PREFIX = "\n\tRecurrence Rate:\t";
+    private static final String DETAILED_TOOLTIP_RESET = "RESET";
+    private static final String DETAILED_TOOLTIP_NO_CHANGE = "No Change";
+    private static final String DETAILED_TOOLTIP_PRIORITY_PREFIX = "\n\tPriority:\t";
+    private static final String DETAILED_TOOLTIP_RECURRENCE_PREFIX = "\n\tRecurrence Rate:\tevery ";
     private static final String DETAILED_TOOLTIP_END_DATE_PREFIX = "\n\tEnd Date:\t\t";
-
     private static final String DETAILED_TOOLTIP_START_DATE_PREFIX = "\n\tStart Date:\t";
-
     private static final String DETAILED_TOOLTIP_NAME_PREFIX = "\n\tName:\t";
-
     private static final String ADD_DETAILED_TOOLTIP_HEADER = "\n\tAdding task: ";
 
     private final Logger logger = LogsCenter.getLogger(CommandParser.class);

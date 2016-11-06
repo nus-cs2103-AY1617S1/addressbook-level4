@@ -1,4 +1,4 @@
-# Developer Guide 
+# Developer Guide
 
 * [Introduction](#introduction)
 * [Setting Up](#setting-up)
@@ -24,7 +24,7 @@
 * [Appendix E : Product Survey](#appendix-e-product-survey)
 
 ## Introduction
-*DearJim* is a revolutionary task manager designed to help you organise your tasks that is simple and easy to use. *DearJim* is a Java desktop application that has a GUI, and the main mode of input in *DearJim* is through keyboard commands. 
+*DearJim* is a revolutionary task manager designed to help you organise your tasks that is simple and easy to use. *DearJim* is a Java desktop application that has a GUI, and the main mode of input in *DearJim* is through keyboard commands.
 
 This guide describes the design and implementation of *DearJim*. It will help you understand how *DearJim* works and how you can further contribute to its development. We have organised this guide in a top-down manner so that you can understand the big picture before moving on to the more detailed sections.
 
@@ -37,7 +37,7 @@ This guide describes the design and implementation of *DearJim*. It will help yo
 
     > Having any Java 8 version is not enough. <br>
     This app will not work with earlier versions of Java 8.
-    
+
 2. **Eclipse** IDE
 3. **e(fx)clipse** plugin for Eclipse (Do the steps 2 onwards given in
    [this page](http://www.eclipse.org/efxclipse/install.html#for-the-ambitious))
@@ -47,7 +47,7 @@ This guide describes the design and implementation of *DearJim*. It will help yo
 #### Importing the project into Eclipse
 
 0. Fork this repo, and clone the fork to your computer
-1. Open Eclipse (Note: Ensure you have installed the **e(fx)clipse** and **buildship** plugins as given 
+1. Open Eclipse (Note: Ensure you have installed the **e(fx)clipse** and **buildship** plugins as given
    in the prerequisites above)
 2. Click `File` > `Import`
 3. Click `Gradle` > `Gradle Project` > `Next` > `Next`
@@ -113,7 +113,7 @@ being saved to the hard disk and the status bar of the UI being updated to refle
 > _The sequence diagram showing the `TaskManagerChangedEvent` and effects on `Storage` and `UI`_
 
 > Note how the event is propagated through the `EventsCenter` to the `Storage` and `UI` without `Model` having
-  to be coupled to either of them. This is an example of how this Event Driven approach helps us reduce direct 
+  to be coupled to either of them. This is an example of how this Event Driven approach helps us reduce direct
   coupling between components.
 
 The sections below give more details of each component.
@@ -154,7 +154,7 @@ The `UI` component,
 
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")`
  API call.<br>
- 
+
 <img src="images/DeleteTaskSdForLogic.png" width="800"><br>
 > _The sequence diagram for the interactions within the `Logic` component for `execute("delete 1")`_
 <!-- @@author -->
@@ -211,7 +211,7 @@ and logging destinations.
 
 ### Configuration
 
-Certain properties of the application can be controlled (e.g App name, logging level) through the configuration file 
+Certain properties of the application can be controlled (e.g App name, logging level) through the configuration file
 (default: `config.json`):
 
 
@@ -233,26 +233,26 @@ Tests can be found in the `./src/test/java` folder.
 
 We have two types of tests:
 
-1. **GUI Tests** - These are _System Tests_ that test the entire App by simulating user actions on the GUI. 
+1. **GUI Tests** - These are _System Tests_ that test the entire App by simulating user actions on the GUI.
    These are in the `guitests` package.
-  
+
 2. **Non-GUI Tests** - These are tests not involving the GUI. They include,
    1. _Unit tests_ targeting the lowest level methods/classes. <br>
       e.g. `seedu.taskmanager.commons.UrlUtilTest`
-   2. _Integration tests_ that are checking the integration of multiple code units 
+   2. _Integration tests_ that are checking the integration of multiple code units
      (those code units are assumed to be working).<br>
       e.g. `seedu.taskmanager.storage.StorageManagerTest`
-   3. Hybrids of unit and integration tests. These tests are checking multiple code units as well as 
+   3. Hybrids of unit and integration tests. These tests are checking multiple code units as well as
       how the are connected together.<br>
       e.g. `seedu.taskmanager.logic.LogicManagerTest`
-  
+
 **Headless GUI Testing** :
 Thanks to the [TestFX](https://github.com/TestFX/TestFX) library we use,
- our GUI tests can be run in the _headless_ mode. 
+ our GUI tests can be run in the _headless_ mode.
  In the headless mode, GUI tests do not show up on the screen.
  That means the developer can do other things on the Computer while the tests are running.<br>
  See [UsingGradle.md](UsingGradle.md#running-tests) to learn how to run tests in headless mode.
-  
+
 ## Dev Ops
 
 ### Build Automation
@@ -267,12 +267,12 @@ See [UsingTravis.md](UsingTravis.md) for more details.
 ### Making a Release
 
 Here are the steps to create a new release.
- 
+
  1. Generate a JAR file [using Gradle](UsingGradle.md#creating-the-jar-file).
  2. Tag the repo with the version number. e.g. `v0.1`
- 2. [Crete a new release using GitHub](https://help.github.com/articles/creating-releases/) 
+ 2. [Crete a new release using GitHub](https://help.github.com/articles/creating-releases/)
     and upload the JAR file your created.
-   
+
 ### Managing Dependencies
 
 A project often depends on third-party libraries. For example, DearJim depends on the
@@ -295,13 +295,13 @@ Priority | As a ... | I want to ... | So that I can...
 `* * *` | user | add tasks with timeframe | know what I have to attend an event
 `* * *` | user | view upcoming tasks in chronological order| check what I need to do / have to do soon
 `* * *` | user | search for details on a task or event | view what needs to be done
-`* * *` | user | delete a task that has been completed | completely remove it from my task manager	
+`* * *` | user | delete a task that has been completed | completely remove it from my task manager
 `* * *` | user | mark a task as completed upon completion | keep an archive of tasks that I have completed
 `* * *` | user | view tasks that I have completed | recall what I have completed
 `* * *` | user | undo my actions | reverse any mistake that I have made
 `* * *` | user | redo my undo | correct any accidental undo
 `* * *` | user | edit tasks | keep them up to date
-`* * *` | user | store my tasks in different locations | share the tasks with multiple devices 
+`* * *` | user | store my tasks in different locations | share the tasks with multiple devices
 `* *` | user | sync my task with other computers | keep track of what to do anywhere
 `* *` | user | enter synonyms for the commands | use natural language to accomplish what I want
 `*` | user | tag tasks | classify them and search for them according to these tags
@@ -324,9 +324,9 @@ Use case ends
 
 **Extensions**
 
-1a. User enters a task name that needs to be escaped as it contains values that CommandParser is unable to parse rightly. 
+1a. User enters a task name that needs to be escaped as it contains values that CommandParser is unable to parse correctly.
 
-> 1a1. TaskManager's instant parsing feature reflects to the user that his / her input is being parsed into the wrong field 
+> 1a1. TaskManager's instant parsing feature reflects to the user that his / her input is being parsed into the wrong field
 > 1a2. User uses the double inverted commas to escape the task name <br>
 Use case resumes at step 2
 
@@ -334,12 +334,12 @@ Use case resumes at step 2
 
 > 2a1. TaskManager displays an error message on the GUI, informing the user of the correct format for the `add` command and an example `add` command <br>
   Use case resumes at step 1
-  
+
 2b. User is currently at done list view
 
 > 2b1. TaskManger displays an error message on the GUI, informing the user that he / she is unable to perform the add command in done list view, and prompts the user to switch to undone list view instead to perform the add command <br>
   Use case resumes at step 1
-  
+
 3a. User identifies a mistake in the details of the task added
 > 3a1. User edits the task details (UC03)<br>
 
@@ -365,7 +365,7 @@ Use case ends
 
 >2a1. TaskManager displays an error message on the GUI, informing the user of the correct format for the `list` command and an example `list` command <br>
  Use case resumes at step 1
-  
+
 2b. The list is empty
 
 > Use case ends
@@ -394,12 +394,12 @@ Use case ends
 
 > 3a1. TaskManager displays an error message on the GUI, informing the user of the correct format for the `edit` command and an example `edit` command <br>
  Use case resumes at step 3
-  
+
 4a. The given index is invalid
 
 > 4a1. TaskManager displays an error message on the GUI, informing the user that the given index is invalid and thus cannot edit any task <br>
   Use case resumes at step 3
-  
+
 4b. User enters an input that does not follow the `edit` command format
 
 >4b1. TaskManager displays an error message on the GUI, informing the user of the correct format for the `edit` command and an example `edit` command <br>
@@ -430,13 +430,72 @@ Use case ends
 
 > 4a1. TaskManager displays an error message on the GUI, informing the user that the given index is invalid and thus cannot delete any task <br>
   Use case resumes at step 3
-  
+
 4b. User enters an input that does not follow the `delete` command format
 
 >4b1. TaskManager displays an error message on the GUI, informing the user of the correct format for the `delete` command and an example `delete` command <br>
  Use case resumes at step 3
 
-  
+
+<!-- @@author A0093960X-->
+#### Use case: UC05 - Undo a previous command
+
+**MSS**
+
+1. User enters an `undo` command
+2. TaskManager parses the `undo` command
+3. TaskManager attempts to identify the latest stored undoable command, reversing the action of that command
+4. TaskManager saves the modified task list to storage and updates the GUI to inform the user of the changes <br>
+_Use case ends._
+
+**Extensions**
+
+1a. User enters an `undo` command, followed by some arguments
+> 1a1. TaskManager parses the `undo` command, ignoring the arguments that follow <br>
+_Use case resumes at step 3_
+
+3a. There is no previous undoable command
+> 3a1. TaskManager indicates that there is nothing to undo.<br>
+_Use case ends._
+
+4a. User wants to reverse the `undo` command
+> 4a1. User enters the `redo` command (UC06) <br>
+_Use case ends._
+
+
+#### Use case: UC06 - Redo a command that was undone
+
+**MSS**
+
+1. User enters a `undo` command successfully (UC05)
+2. User enters a `redo` command
+3. TaskManager parses the `redo` command
+4. TaskManager attempts to identify the latest stored command that was undone by an `undo`, redoing the effects of that command
+5. TaskManager saves the modified task list to storage and updates the GUI to inform the user of the changes <br>
+_Use case ends._
+
+
+**Extensions**
+
+1a. User enters a non-undoable command
+> 1a1. TaskManager handles the command<br>
+_Use case resumes at step 2_
+
+1b. User enters an undoable command
+> 1b1. TaskManager handles the command and clears the history of commands to `redo`<br>
+1b2. User enters a `redo` command<br>
+1b3. TaskManager parses the `redo` command and indicates that there is nothing to `redo`<br>
+_Use case ends._
+
+2a. User enters a `redo` command, followed by some arguments
+> 1a1. TaskManager parses the `redo` command, ignoring the arguments that follow <br>
+_Use case resumes at step 3_
+
+3a. There is no previous command to `redo`
+> 3a1. TaskManager indicates that there is nothing to undo.<br>
+_Use case ends._
+
+<!-- @@author -->
 
 ## Appendix C : Non Functional Requirements
 
@@ -471,10 +530,10 @@ Use case ends
 ## Appendix E : Product Survey
 
 Product | Strength | Weaknesses |
--------- | :-------- | :--------- 
-Wunderlist | <ol> <li> Beautiful background </li> <li> Cloud sync </li> <li> Able to create folders to group similar tasks </li> <li> Able to add tags to tasks to filter them </li> </ol>  | <ol> <li> No start date or repeat options for tasks </li> <li> No options for subtasks </li> </ol> 
-Todo.txt | <ol> <li> Works on many platforms, can be accessed on devices that support Dropbox </li> <li> Easily editable format, can be edited in plain text and then displayed with neat styles </li> <li> Can edit with any text editor </li> <li> Easy syncing - can sync through Dropbox </li> <li> Command line support - can edit using command line by a supplied bash script </li> </ol> | <ol> <li> No support for recurring tasks </li> <li> No options for subtasks </li> <li> Only supports Dropbox, not flexible </li> </ol> 
-Google Calendar | <ol> <li> Can be synced to mobile devices </li> <li> Alerts via notifications on phones </li> <li> Switches between views easily </li> <li> Minimalistic interface </li>  </ol>  | <ol> <li> Requires an Internet connection to be used </li> <li> Cannot be brought up with a keyboard shortcut </li> </ol> 
+-------- | :-------- | :---------
+Wunderlist | <ol> <li> Beautiful background </li> <li> Cloud sync </li> <li> Able to create folders to group similar tasks </li> <li> Able to add tags to tasks to filter them </li> </ol>  | <ol> <li> No start date or repeat options for tasks </li> <li> No options for subtasks </li> </ol>
+Todo.txt | <ol> <li> Works on many platforms, can be accessed on devices that support Dropbox </li> <li> Easily editable format, can be edited in plain text and then displayed with neat styles </li> <li> Can edit with any text editor </li> <li> Easy syncing - can sync through Dropbox </li> <li> Command line support - can edit using command line by a supplied bash script </li> </ol> | <ol> <li> No support for recurring tasks </li> <li> No options for subtasks </li> <li> Only supports Dropbox, not flexible </li> </ol>
+Google Calendar | <ol> <li> Can be synced to mobile devices </li> <li> Alerts via notifications on phones </li> <li> Switches between views easily </li> <li> Minimalistic interface </li>  </ol>  | <ol> <li> Requires an Internet connection to be used </li> <li> Cannot be brought up with a keyboard shortcut </li> </ol>
 Remember the milk | <ol> <li> Able to support email, text, IM, Twitter, and mobile notifications </li> <li> Able to share lists and tasks with others</li> <li> Synchronises across on all devices </li> <li> Organize with priorities, due dates, repeats, lists, tags </li> <li> Search tasks and notes, and save favorite searches </li> <li> Integrates with Gmail, Google Calendar, Twitter, Evernote, and more </li>  </ol> | <ol> <li> Free version lacks features: E.g. splitting into subtasks </li> <li> Lack keyboard shortcuts</li> </ol>
 
 <!-- @@author A0139552B -->
