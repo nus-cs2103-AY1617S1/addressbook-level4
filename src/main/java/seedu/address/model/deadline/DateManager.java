@@ -30,7 +30,7 @@ public class DateManager {
 			int diff = (int) (Math.round(((deadline.getTimeInMillis() - cal.getTimeInMillis())) / (double) 86400000));
 			return diff;
 		}
-		return 0;
+		return -1;
 	}
 	
 	/**

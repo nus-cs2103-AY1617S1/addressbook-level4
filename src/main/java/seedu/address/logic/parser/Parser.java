@@ -108,7 +108,7 @@ public class Parser {
             return prepareFind(arguments);
 			
         case ListCommand.COMMAND_WORD:
-            return new ListCommand();
+            return prepareList(arguments);
 
         case ListAllCommand.COMMAND_WORD:
             return new ListAllCommand();
@@ -388,7 +388,21 @@ public class Parser {
         
         
         return new LoadCommand(args.trim());
-}
+    }
+    
+    /**
+     * Parses the arguments in the context of the list keyword command.
+     * @param args
+     * @return the list command.
+     */
+    private Command prepareList(String args) {
+    	if(!args.isEmpty()) {
+	    	final String keyword = args.trim();
+	    	return new ListCommand(keyword);
+    	} else {
+    		return new ListCommand("");
+    	}
+    }
 
 
 }

@@ -44,8 +44,6 @@ public class UpdateCommand extends Command {
 		Iterator<Task> it = taskmanager.getUniqueTaskList().iterator(); 
 		while(it.hasNext()){
 			Task task = it.next();
-			//System.out.println(task.toString());
-			//System.out.println(task.getDeadline().date.toString());
 			Calendar startlineCal = task.getStartline().calendar;
 			Calendar deadlineCal = task.getDeadline().calendar;
 			startline = task.getStartline().value;
@@ -62,17 +60,15 @@ public class UpdateCommand extends Command {
 					if(deadlineCal != null){
 						deadlineCal = repeatDate(deadlineCal, task);
 						deadline = mutateToDate(deadlineCal);
+						overdue = false;
 					}
 					else{
 						deadline = null;
 					}
 				} else if((deadlineCal != null) && (!task.getName().toString().contains(" is completed"))) {
-					//System.out.println(task.getName().toString());
-					//System.out.println(task.getName().toString().contains(" is completed"));
 					overdue = true;
 				} else {
 					overdue = false;
-					//System.out.println(task.getName().toString());
 				}
 				
 			} else {
@@ -81,7 +77,6 @@ public class UpdateCommand extends Command {
 			Name name = task.getName();								
 			Priority priority = task.getPriority();
 			UniqueTagList tagSet = task.getTags();
-		
 			try{
 				toAdd = new Task(name, new Startline(startline), new Deadline(deadline), priority, tagSet);
 				toAdd.setRepeating(new Repeating(task.getRepeating().getRepeating(), task.getRepeating().getTimeInterval()));
@@ -89,7 +84,6 @@ public class UpdateCommand extends Command {
 				return new CommandResult("FAILED " + ive.getMessage());
 			}
 			if(overdue) {
-				System.out.println(toAdd.toString());
 				toAdd.setOverdue(true);
 			}
 			addList.add(toAdd);
@@ -115,7 +109,7 @@ public class UpdateCommand extends Command {
 	}
 	
 	private String mutateToDate(Calendar cal){
-		SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yy HH:MM");
+		SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yy HH:mm");
 		return sdf.format(cal.getTime());
 	}
 	

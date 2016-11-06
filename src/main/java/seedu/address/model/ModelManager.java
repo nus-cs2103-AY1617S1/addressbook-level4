@@ -9,6 +9,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.exceptions.FinishStateException;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.model.ModelManager.Qualifier;
+import seedu.address.model.deadline.DateManager;
 import seedu.address.model.deadline.Deadline;
 import seedu.address.model.state.StateManager;
 import seedu.address.model.state.TaskCommandState;
@@ -183,6 +184,75 @@ public class ModelManager extends ComponentManager implements Model {
 		
 		FilteredList<Task> incompleteTasks = new FilteredList<Task>(taskmanager.getTasks());
 		updateFilteredPersonList(new PredicateExpression(new ClashQualifier(incompleteTasks)));
+	}
+	
+	/**
+	 * Filters the list in the context of the List "keyword" commmand.
+	 * @param keyword
+	 * @throws DuplicateTaskException
+	 */
+	public void updateFilteredListToShowUncompleteAndKeywordTasks(String keyword) throws DuplicateTaskException {
+		TaskManager uncompletedTaskManager = getUncompletedTaskManager();
+		TaskManager uncompletedAndKeywordTaskManager = getUncompletedAndKeywordTaskManager(keyword, uncompletedTaskManager);
+		FilteredList<Task> uncompletedandKeywordTasks = new FilteredList<Task>(uncompletedAndKeywordTaskManager.getTasks());
+		updateFilteredPersonList(new PredicateExpression(new ClashQualifier(uncompletedandKeywordTasks)));
+	}
+	
+	/**
+	 * Gets a TaskManager from the current FilteredList which shows uncompleted tasks.
+	 * @return a TaskManager with only uncompleted tasks.
+	 * @throws DuplicateTaskException
+	 */
+	private TaskManager getUncompletedTaskManager() throws DuplicateTaskException {
+		TaskManager taskmanager = new TaskManager();
+		for(Task t: filteredPersons) {
+			boolean isIncompleted = false;
+			if (!t.getName().toString().contains(" is completed")) isIncompleted = true;
+			if (isIncompleted) {
+				if (!taskmanager.contains(t))
+					taskmanager.addTask(t);
+			}
+		}
+		return taskmanager;
+	}
+	
+	/**
+	 * Gets a TaskManager with uncompleted tasks relevant to keyword
+	 * @param keyword
+	 * @param uncompletedTaskManager
+	 * @return
+	 * @throws DuplicateTaskException
+	 */
+	private TaskManager getUncompletedAndKeywordTaskManager(String keyword, TaskManager uncompletedTaskManager) throws DuplicateTaskException {
+		TaskManager taskmanager = new TaskManager();
+		for(Task t: uncompletedTaskManager.getTasks()){
+			if(getKeywordQualifier(keyword, t)){
+				taskmanager.addTask(t);
+			}
+		}
+		return taskmanager;
+	}
+	
+	/**
+	 * Calculates the number of days to task deadline and returns true if relevant to keyword.
+	 * @param keyword
+	 * @param Task
+	 * @return true if relevant to the keyword.
+	 */
+	private boolean getKeywordQualifier(String keyword, Task t) {
+		int i;
+		switch(keyword.toUpperCase()) {
+			case "TODAY": i = 0; break;
+			case "TOMORROW": i = 1; break;
+			default: i = 0;
+		}
+		if(t.getDeadline().calendar != null) {
+			DateManager datemanager = new DateManager(t.getDeadline().calendar);
+			if(datemanager.calculateDaysRemaining() == i){
+				return true;
+			}
+		}
+		return false;
 	}
 
 	// ========== Inner classes/interfaces used for filtering
