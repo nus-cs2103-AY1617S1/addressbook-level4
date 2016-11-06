@@ -5,11 +5,13 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Optional;
+import java.util.logging.Logger;
 
 import seedu.address.commons.util.ConfigUtil;
 import seedu.address.model.ReadOnlyTaskManager;
 import seedu.address.commons.core.Config;
 import seedu.address.commons.core.EventsCenter;
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.storage.ChangeStorageFilePathEvent;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.storage.XmlTaskManagerStorage;
@@ -20,6 +22,8 @@ import seedu.address.storage.XmlTaskManagerStorage;
 */
 public class StoreCommand extends Command {
 
+    private static final Logger logger = LogsCenter.getLogger(StoreCommand.class);
+    
     public static final String XML_FILE_EXTENSION = ".xml";
     public static final String COMMAND_WORD = "store";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Changes the storage location. "
@@ -66,6 +70,7 @@ public class StoreCommand extends Command {
      */
     private void handleTaskManagerData() 
             throws DataConversionException, FileNotFoundException, IOException {
+        assert storageFilePath != null;
         XmlTaskManagerStorage xmlTaskManagerStorage = new XmlTaskManagerStorage(storageFilePath);
         File storageFile = new File(storageFilePath);
         if (storageFile.exists()) {
@@ -83,6 +88,7 @@ public class StoreCommand extends Command {
      */
     private void updateStorageFilePathOfConfigFile() throws IOException {
         assert storageFilePath != null;
+        logger.info("Updating storage file path in config file to " + storageFilePath);
         Config config = new Config();
         config.setTaskManagerFilePath(storageFilePath);
         ConfigUtil.saveConfig(config, Config.DEFAULT_CONFIG_FILE);
@@ -96,6 +102,7 @@ public class StoreCommand extends Command {
     private void createNewFileWithExistingData(XmlTaskManagerStorage xmlTaskManagerStorage) throws IOException {
         assert xmlTaskManagerStorage != null;
         assert storageFilePath != null;
+        logger.info("Storage file does not exist, exporting data to " + storageFilePath);
         xmlTaskManagerStorage.saveTaskManager(model.getTaskManager(), storageFilePath);
         EventsCenter.getInstance().post(new ChangeStorageFilePathEvent(storageFilePath));
     }
@@ -113,6 +120,7 @@ public class StoreCommand extends Command {
         assert storageFilePath != null;
         Optional <ReadOnlyTaskManager> readTaskManager = xmlTaskManagerStorage.readTaskManager(storageFilePath);
         assert readTaskManager.isPresent();
+        logger.info("Storage file exists, importing data from " + storageFilePath);
         ReadOnlyTaskManager readOnlyTaskManagerWithNewData = readTaskManager.get();
         EventsCenter.getInstance().post(new ChangeStorageFilePathEvent(storageFilePath));
         model.resetData(readOnlyTaskManagerWithNewData);

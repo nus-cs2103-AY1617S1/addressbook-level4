@@ -5,7 +5,7 @@ public enum Priority {
     HIGH,
     MEDIUM,
     LOW;
-    
+    //@@author
     /** Name of key in map that maps to the priority of task */
     private static final String MAP_PRIORITY_KEY = "priority";
     

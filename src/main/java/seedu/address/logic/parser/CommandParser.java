@@ -52,6 +52,7 @@ public class CommandParser {
     private static final int ONE = 1;
     private static final int TWO = 2;
     private static final String RESET_KEYWORD = "-reset";
+    private static final String TARGET_INDEX_KEYWORD = "targetIndex";
     
     private static final String MAP_NAME = "taskName";
     private static final String MAP_START_DATE = "startDate";
@@ -239,7 +240,7 @@ public class CommandParser {
 
         return new DoneCommand(indexes.get());
     }
-
+    //@@author
     /**
      * Parses arguments in the context of the select task command.
      *
@@ -266,12 +267,9 @@ public class CommandParser {
     private Command prepareList(String args) {
         final Matcher matcher = KEYWORDS_ARGS_FORMAT.matcher(args.trim());
         if (!matcher.matches()) {
-            // no arguments
-            
-            return new ListCommand("");
+            return new ListCommand(new String());
         }
 
-        // keywords delimited by whitespace
         final String keyword = matcher.group("keywords");
         return new ListCommand(keyword);
     }
@@ -286,8 +284,8 @@ public class CommandParser {
             return Optional.empty();
         }
 
-        String index = matcher.group("targetIndex");
-        if(!StringUtil.isUnsignedInteger(index)){
+        String index = matcher.group(TARGET_INDEX_KEYWORD);
+        if (!StringUtil.isUnsignedInteger(index)) {
             return Optional.empty();
         }
         return Optional.of(Integer.parseInt(index));
@@ -307,16 +305,16 @@ public class CommandParser {
             return Optional.empty();
         }
 
-        String indexes = matcher.group("targetIndex");
+        String indexes = matcher.group(TARGET_INDEX_KEYWORD);
         String[] indexesArray = indexes.split(STRING_ONE_SPACE);
         List<Integer> indexesToHandle = new ArrayList<Integer>();
-        for (String index: indexesArray) {
+        for (String index : indexesArray) {
             if (StringUtil.isUnsignedInteger(index)) {
                 indexesToHandle.add(Integer.parseInt(index));
             }
         }
         
-        return (indexesToHandle.isEmpty())? Optional.empty(): Optional.of(indexesToHandle);
+        return (indexesToHandle.isEmpty()) ? Optional.empty() : Optional.of(indexesToHandle);
 
     }
 

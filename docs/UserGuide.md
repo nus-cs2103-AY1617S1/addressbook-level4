@@ -349,11 +349,16 @@ Examples:
 
 ### Changing storage location: `store`
 Need to look at your task on the move? Simply store the data at another location and bring it along with you.<br>
+In addition to changing the storage file location, `store` handles your existing data in two different ways, depending if the filepath you specify is an existing storage file.<br> 
+If the storage file specified is not present, DearJim will create this new file and store your current data in it.<br>
+If the storage file specified is present, data will be loaded from this storage file into DearJim.<br>
 Format: `store FILEPATH`
-> Your data will be saved inside the folder you choose as an XML file
+> DearJim data is stored in XML file format. There is no need to specify the file extension `.xml`, it will be appended to your target file name automatically. `store` supports both relative and absolute file paths.
+
 
 Examples:
-* `store data/onthemove.xml`
+* `store data/onthemove`
+* `store /Users/jim/Dropbox/filename`
 
 <br/>
 

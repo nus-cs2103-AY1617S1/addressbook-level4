@@ -2,7 +2,9 @@ package seedu.address.logic.commands;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.commons.util.ListUtil;
@@ -16,6 +18,8 @@ import seedu.address.model.item.UniqueTaskList.TaskNotFoundException;
  */
 public class DeleteCommand extends UndoableCommand {
 
+    private static final Logger logger = LogsCenter.getLogger(DeleteCommand.class);
+    
     public static final String COMMAND_WORD = "delete";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
@@ -64,6 +68,7 @@ public class DeleteCommand extends UndoableCommand {
      */
     private void deleteTargetTasks() throws TaskNotFoundException { 
         assert targetTasks != null;
+        logger.fine("In deleteTargetTasks(), deleting Tasks");
         for (Task taskToDelete : targetTasks) {         
             deleteTask(taskToDelete);
         }
@@ -79,8 +84,10 @@ public class DeleteCommand extends UndoableCommand {
         assert taskToDelete != null;
         if (isViewingDoneList) {
             model.deleteDoneTask(taskToDelete);
+            logger.fine("Deleted Task " + taskToDelete + " from Done List");
         } else {
             model.deleteUndoneTask(taskToDelete);
+            logger.fine("Deleted Task " + taskToDelete + " from Undone List");
         }     
     }
 
@@ -112,6 +119,7 @@ public class DeleteCommand extends UndoableCommand {
      * Initialises the attributes of this delete command class.
      */
     private void prepareToDeleteTasks() {
+        logger.fine("In prepareToDeleteTasks(). Setting up.");
         if (!isRedoAction) {
             setCurrentViewingList();
         }
@@ -124,6 +132,7 @@ public class DeleteCommand extends UndoableCommand {
      * if the current list view is done.
      */
     private void setCurrentViewingList() {
+        logger.fine("In setCurrentViewingList(), updating boolean isViewingDoneList.");
         isViewingDoneList = model.isCurrentListDoneList();
     }
     
@@ -145,6 +154,7 @@ public class DeleteCommand extends UndoableCommand {
     private CommandResult generateCommandResultForEndOfExecution() {
         assert targetTasks != null;
         if (targetTasks.isEmpty()) {
+            logger.warning("No tasks deleted. None of the given task indexes are valid.");
             indicateAttemptToExecuteIncorrectCommand();
             return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }

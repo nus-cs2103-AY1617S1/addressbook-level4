@@ -30,7 +30,7 @@ public interface ReadOnlyTask {
        
     //@@author A0139498J
     /**
-     * Formats the floating task as text, showing all details.
+     * Formats the task as text, showing all present details.
      */
     default String getAsText() {
         final StringBuilder builder = new StringBuilder();
@@ -42,6 +42,9 @@ public interface ReadOnlyTask {
         }
         if (getEndDate().isPresent()) {
             builder.append(", EndDate: ").append(getEndDate().get());
+        }
+        if (getRecurrenceRate().isPresent()) {
+            builder.append(", Repeats: ").append(getRecurrenceRate().get());
         }
         return builder.toString();
     }
