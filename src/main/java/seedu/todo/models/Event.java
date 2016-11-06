@@ -123,6 +123,17 @@ public class Event implements CalendarItem {
                 .matcher(event.getName()).find();
     }
     
+    public static Predicate<Event> predByNameAny(List<String> names) {
+        return (Event event) -> {
+            for (String name : names) {
+                if (predByName(name).test(event)) {
+                    return true;
+                }
+            }
+            return false;
+        };
+    }
+    
     public static Predicate<Event> predStartBefore(LocalDateTime date) {
         return (Event event) -> event.getStartDate().isBefore(date);
     }
