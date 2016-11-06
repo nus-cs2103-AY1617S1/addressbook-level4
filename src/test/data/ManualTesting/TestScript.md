@@ -215,7 +215,7 @@ Expected Output: `Your previous action has been undone.`
 Command 1: ` ` <br>
 Command 2: ` ` <br>
 Command 3: `undo` <br>
-Expected Output: `Your previous action has been undone.`
+Expected Output: `Your previous action has been undone.` <br>
 Command 4: `undo` <br>
 Expected Output: `Your previous action has been undone.`
 
@@ -225,9 +225,9 @@ Command 1: ` ` <br>
 Command 2: ` ` <br>
 Command 3: ` ` <br>
 Command 4: `undo` <br>
-Expected Output: `Your previous action has been undone.`
+Expected Output: `Your previous action has been undone.` <br>
 Command 5: `undo` <br>
-Expected Output: `Your previous action has been undone.`
+Expected Output: `Your previous action has been undone.` <br>
 Command 6: `undo` <br>
 Expected Output: `Your previous action has been undone.`
 
@@ -245,7 +245,7 @@ Command 2: ` ` <br>
 Command 3: `undo` <br>
 Command 4: `undo` <br>
 Command 5: `redo` <br>
-Expected Output: `Your previous undo action has been redone.`
+Expected Output: `Your previous undo action has been redone.` <br>
 Command 6: `redo` <br>
 Expected Output: `Your previous undo action has been redone.`
 
@@ -258,9 +258,9 @@ Command 4: `undo` <br>
 Command 5: `undo` <br>
 Command 6: `undo` <br>
 Command 7: `redo` <br>
-Expected Output: `Your previous undo action has been redone.`
+Expected Output: `Your previous undo action has been redone.` <br>
 Command 8: `redo` <br>
-Expected Output: `Your previous undo action has been redone.`
+Expected Output: `Your previous undo action has been redone.` <br>
 Command 9: `redo` <br>
 Expected Output: `Your previous undo action has been redone.`
 
