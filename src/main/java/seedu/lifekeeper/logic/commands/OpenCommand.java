@@ -22,6 +22,11 @@ public class OpenCommand extends Command {
     public OpenCommand(String filePath) {
         filePath.replace("/", System.getProperty("file.separator"));
         filePath.replace("\\", System.getProperty("file.separator"));
+        
+        if (!filePath.endsWith(".xml")) {
+            filePath += ".xml";
+        }
+        
         this.openPath = filePath;
     }
 
@@ -30,11 +35,8 @@ public class OpenCommand extends Command {
         String oldPath = XmlAddressBookStorage.getFilePathForSaveCommand();
         File openFile = new File(openPath);
         String filePath = openFile.getAbsolutePath();
+        
         if (FileUtil.isValidFilePath(openPath) && openFile.exists()) {
-            if (!filePath.endsWith(".xml")) {
-                filePath += ".xml";
-            }
-            
             EventsCenter.getInstance().post(new OpenFileChooserEvent(filePath));
         } else {
             EventsCenter.getInstance().post(new OpenFileChooserEvent(""));
