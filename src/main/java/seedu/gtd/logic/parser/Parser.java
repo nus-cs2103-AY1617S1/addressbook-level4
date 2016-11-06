@@ -216,13 +216,14 @@ public class Parser {
         
         Optional<Integer> index = Optional.of(Integer.parseInt(matcher.group("targetIndex")));
         final String[] splitNewDetails = matcher.group("newDetails").split("\\s+");
-        ArrayList<String> preparedNewDetails = combineNameWords(splitNewDetails);
+        ArrayList<String> combinedDetails = combineSameDetails(splitNewDetails);
         
         Hashtable<String, String> newDetailsSet = new Hashtable<String, String>();
         
-        for (String newDetail : preparedNewDetails) {
-        	String detailType = extractDetailType(newDetail);
-        	String preparedNewDetail = prepareNewDetail(detailType, newDetail);
+        for (String detail : combinedDetails) {
+        	String detailType = extractDetailType(detail);
+        	String preparedNewDetail = prepareNewDetail(detailType, detail);
+        	System.out.println("before adding to hashtable: " + detailType + " " + preparedNewDetail);
 			newDetailsSet.put(detailType, preparedNewDetail);
 		}
         
@@ -232,10 +233,16 @@ public class Parser {
         );
     }
     
-    private ArrayList<String> combineNameWords(String[] details) {
+    private ArrayList<String> combineSameDetails(String[] details) {
     	ArrayList<String> alDetails = new ArrayList<String>(Arrays.asList(details));
     	System.out.println(alDetails.toString());
+    	
     	String name = new String();
+    	String address = new String();
+    	String dueDate = new String();
+    	String priority = new String();
+    	
+    	int currentDetailType = 0;
     	
     	if(alDetails.size() == 1) {
     		return alDetails;
@@ -243,16 +250,48 @@ public class Parser {
     	
     	for (String detail: alDetails) {
     		System.out.println("detail: " + detail);
+    		
     		if(extractDetailType(detail).equals("name")) {
-    			System.out.println("detected name " + detail);
-    			if(name.isEmpty()) name = detail;
-    			else name = name + " " + detail;
+    			System.out.println("current detail type: " + currentDetailType);
+    			switch(currentDetailType) {
+    			case 1: address = address + " " + detail; break;
+    			case 2: dueDate = dueDate + " " + detail; break;
+    			case 3: priority = priority + " " + detail; break;
+    			default: { 
+    			         if(name.isEmpty()) name = detail;
+		                 else name = name + " " + detail;
+		                 break;
+		                 }
+    			}
+    		}
+    		else if(extractDetailType(detail).equals("address")) {
+    			System.out.println("detected address " + detail);
+    			address = detail;
+    			currentDetailType = 1;
+    		}
+    		else if(extractDetailType(detail).equals("dueDate")) {
+    			System.out.println("detected dueDate " + detail);
+    			dueDate = detail;
+    			currentDetailType = 2;
+    		}
+    		else if(extractDetailType(detail).equals("priority")) {
+    			System.out.println("detected priority " + detail);
+    			address = detail;
+    			currentDetailType = 3;
     		}
     	}
     	
-    	//does not remove the separate name-words from the list, they will be overwritten by the final combined string
-    	if(!name.isEmpty()) alDetails.add(name);
-    	return alDetails;
+    	ArrayList<String> finalCombined = new ArrayList<String>();
+    	//does not remove the separate words from the list, they will be overwritten by the final combined string
+    	if(!name.isEmpty()) finalCombined.add(name);
+    	System.out.println("from combining name: " + name);
+    	if(!address.isEmpty()) finalCombined.add(address);
+    	System.out.println("from combining address: " + address);
+    	if(!dueDate.isEmpty()) finalCombined.add(dueDate);
+    	if(!priority.isEmpty()) finalCombined.add(priority);
+    	
+    	System.out.println("from combining: " + finalCombined.toString());
+    	return finalCombined;
     }
     
     private String removeDetailPrefix(String detailWithPrefix) {

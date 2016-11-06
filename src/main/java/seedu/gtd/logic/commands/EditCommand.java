@@ -53,7 +53,7 @@ import seedu.gtd.model.task.UniqueTaskList.TaskNotFoundException;
 		try {
 			Set<String> detailTypes = newDetails.keySet();
 			for(String detailType : detailTypes) {
-				System.out.println(detailType + " " + newDetails.get(detailType));
+				System.out.println("from edit command: " + detailType + " " + newDetails.get(detailType));
 			    taskToUpdate = updateTask(taskToUpdate, detailType, newDetails.get(detailType));
 			    model.editTask(targetIndex, taskToUpdate);
 			}
