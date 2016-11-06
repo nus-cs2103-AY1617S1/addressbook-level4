@@ -200,7 +200,7 @@ public class ModelManager extends ComponentManager implements Model {
     for (ReadOnlyTask t : tars.getTaskList()) {
 
       if (t.getStatus().status == Status.UNDONE
-          && DateTimeUtil.isDateTimeWithinRange(t.getDateTime(), dateTimeToCheck)) {
+          && DateTimeUtil.isDateTimeConflicting(t.getDateTime(), dateTimeToCheck)) {
         conflictingTasksStringBuilder.append("\nTask ").append(taskCount).append(": ")
             .append(t.getAsText());
         taskCount++;
@@ -210,7 +210,7 @@ public class ModelManager extends ComponentManager implements Model {
     for (RsvTask rt : tars.getRsvTaskList()) {
       if (rt.getDateTimeList().stream()
           .filter(
-              dateTimeSource -> DateTimeUtil.isDateTimeWithinRange(dateTimeSource, dateTimeToCheck))
+              dateTimeSource -> DateTimeUtil.isDateTimeConflicting(dateTimeSource, dateTimeToCheck))
           .count() > 0) {
         conflictingTasksStringBuilder.append("\nRsvTask ").append(rsvCount).append(": ")
             .append(rt.toString());
@@ -449,31 +449,6 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
   }
-
-  private class NameQualifier implements Qualifier {
-    private Set<String> nameKeyWords;
-
-    NameQualifier(Set<String> nameKeyWords) {
-      this.nameKeyWords = nameKeyWords;
-    }
-
-    /**
-     * @param task
-     * @return true if ALL keywords are found in the task name
-     */
-    @Override
-    public boolean run(ReadOnlyTask task) {
-      return nameKeyWords.stream()
-          .filter(keyword -> StringUtil.containsIgnoreCase(task.getName().taskName, keyword))
-          .count() == nameKeyWords.size();
-    }
-
-    @Override
-    public String toString() {
-      return "name=" + String.join(StringUtil.STRING_COMMA, nameKeyWords);
-    }
-  }
-
 
   // @@author A0140022H
   private class DateQualifier implements Qualifier {
