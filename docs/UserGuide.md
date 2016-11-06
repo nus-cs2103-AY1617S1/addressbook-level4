@@ -187,8 +187,8 @@ Format depends on the type of task being edited. When only 1 `<time>` is provide
 Example:
 
 * `view`<br>
-  `edit d2 15 Nov`<br>
-  Edits the 2nd task under the deadline tasks section. Changes the `<date>` to `15 Nov`.<br>
+  `edit d2 16 Nov`<br>
+  Edits the 2nd task under the deadline tasks section. Changes the `<date>` to `16 Nov`.<br>
   <img src="images/UIedit.png" width="900">
 
 * `view`<br>
